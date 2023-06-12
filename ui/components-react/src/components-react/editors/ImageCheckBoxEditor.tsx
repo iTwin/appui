@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyEditors
  */
@@ -10,11 +10,21 @@ import "./ImageCheckBoxEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type {
-  ImageCheckBoxParams, PropertyEditorParams, PropertyValue} from "@itwin/appui-abstract";
-import { PropertyEditorParamTypes, PropertyValueFormat, StandardEditorNames, StandardTypeNames,
+  ImageCheckBoxParams,
+  PropertyEditorParams,
+  PropertyValue,
+} from "@itwin/appui-abstract";
+import {
+  PropertyEditorParamTypes,
+  PropertyValueFormat,
+  StandardEditorNames,
+  StandardTypeNames,
 } from "@itwin/appui-abstract";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
-import { PropertyEditorBase, PropertyEditorManager } from "./PropertyEditorManager";
+import {
+  PropertyEditorBase,
+  PropertyEditorManager,
+} from "./PropertyEditorManager";
 import { ImageCheckBox } from "@itwin/core-react";
 
 // cSpell:ignore imagecheckbox
@@ -32,7 +42,10 @@ interface ImageCheckBoxEditorState {
  * Boolean editor that renders with an image instead of checkbox
  * @public
  */
-export class ImageCheckBoxEditor extends React.PureComponent<PropertyEditorProps, ImageCheckBoxEditorState> implements TypeEditor {
+export class ImageCheckBoxEditor
+  extends React.PureComponent<PropertyEditorProps, ImageCheckBoxEditorState>
+  implements TypeEditor
+{
   private _isMounted = false;
   private _inputElement: React.RefObject<HTMLInputElement> = React.createRef();
 
@@ -94,7 +107,10 @@ export class ImageCheckBoxEditor extends React.PureComponent<PropertyEditorProps
     let isDisabled = false;
 
     // istanbul ignore else
-    if (propertyRecord && propertyRecord.value.valueFormat === PropertyValueFormat.Primitive) {
+    if (
+      propertyRecord &&
+      propertyRecord.value.valueFormat === PropertyValueFormat.Primitive
+    ) {
       const primitiveValue = propertyRecord.value.value;
       checkboxValue = primitiveValue as boolean;
     }
@@ -103,8 +119,16 @@ export class ImageCheckBoxEditor extends React.PureComponent<PropertyEditorProps
     if (propertyRecord && propertyRecord.isDisabled)
       isDisabled = propertyRecord.isDisabled;
 
-    if (propertyRecord && propertyRecord.property && propertyRecord.property.editor && propertyRecord.property.editor.params) {
-      const imageCheckBoxParams = propertyRecord.property.editor.params.find((param: PropertyEditorParams) => param.type === PropertyEditorParamTypes.CheckBoxImages) as ImageCheckBoxParams;
+    if (
+      propertyRecord &&
+      propertyRecord.property &&
+      propertyRecord.property.editor &&
+      propertyRecord.property.editor.params
+    ) {
+      const imageCheckBoxParams = propertyRecord.property.editor.params.find(
+        (param: PropertyEditorParams) =>
+          param.type === PropertyEditorParamTypes.CheckBoxImages
+      ) as ImageCheckBoxParams;
       // istanbul ignore else
       if (imageCheckBoxParams) {
         imageOn = imageCheckBoxParams.imageOn;
@@ -115,22 +139,32 @@ export class ImageCheckBoxEditor extends React.PureComponent<PropertyEditorProps
   }
 
   private _handleClick = (checked: boolean) => {
-    this.setState({
-      checkboxValue: checked,
-    }, async () => {
-      // istanbul ignore else
-      if (this.props.propertyRecord && this.props.onCommit) {
-        const propertyValue = await this.getPropertyValue();
+    this.setState(
+      {
+        checkboxValue: checked,
+      },
+      async () => {
         // istanbul ignore else
-        if (this._isMounted && propertyValue !== undefined) {
-          this.props.onCommit({ propertyRecord: this.props.propertyRecord, newValue: propertyValue });
+        if (this.props.propertyRecord && this.props.onCommit) {
+          const propertyValue = await this.getPropertyValue();
+          // istanbul ignore else
+          if (this._isMounted && propertyValue !== undefined) {
+            this.props.onCommit({
+              propertyRecord: this.props.propertyRecord,
+              newValue: propertyValue,
+            });
+          }
         }
       }
-    });
+    );
   };
 
   public override render() {
-    const className = classnames("components-cell-editor", "components-imagecheckbox-editor", this.props.className);
+    const className = classnames(
+      "components-cell-editor",
+      "components-imagecheckbox-editor",
+      this.props.className
+    );
     const checked = this.state.checkboxValue;
     const isDisabled = !!this.state.isDisabled;
 
@@ -145,7 +179,8 @@ export class ImageCheckBoxEditor extends React.PureComponent<PropertyEditorProps
         checked={checked}
         disabled={isDisabled}
         onClick={this._handleClick}
-        data-testid="components-imagecheckbox-editor"/>
+        data-testid="components-imagecheckbox-editor"
+      />
     );
   }
 }
@@ -160,5 +195,13 @@ export class ImageCheckBoxPropertyEditor extends PropertyEditorBase {
   }
 }
 
-PropertyEditorManager.registerEditor(StandardTypeNames.Boolean, ImageCheckBoxPropertyEditor, StandardEditorNames.ImageCheckBox);
-PropertyEditorManager.registerEditor(StandardTypeNames.Bool, ImageCheckBoxPropertyEditor, StandardEditorNames.ImageCheckBox);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Boolean,
+  ImageCheckBoxPropertyEditor,
+  StandardEditorNames.ImageCheckBox
+);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Bool,
+  ImageCheckBoxPropertyEditor,
+  StandardEditorNames.ImageCheckBox
+);

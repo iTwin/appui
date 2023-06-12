@@ -410,7 +410,7 @@ export abstract class DataControllerBase implements DataController {
 }
 
 // @internal
-export function DateField({ initialDate, onDateChange, readOnly, dateFormatter, timeDisplay, style, className }: DateFieldProps): JSX.Element;
+export function DateField({ initialDate, onDateChange, readOnly, dateFormatter, timeDisplay, style, className, }: DateFieldProps): JSX.Element;
 
 // @internal
 export interface DateFieldProps extends CommonProps {
@@ -433,7 +433,7 @@ export interface DateFormatOptions {
 export function DatePicker(props: DatePickerProps): JSX.Element;
 
 // @alpha
-export function DatePickerPopupButton({ displayEditField, timeDisplay, selected, onDateChange, dateFormatter, buttonToolTip, fieldStyle, fieldClassName, style }: DatePickerPopupButtonProps): JSX.Element;
+export function DatePickerPopupButton({ displayEditField, timeDisplay, selected, onDateChange, dateFormatter, buttonToolTip, fieldStyle, fieldClassName, style, }: DatePickerPopupButtonProps): JSX.Element;
 
 // @alpha
 export interface DatePickerPopupButtonProps extends CommonProps {
@@ -1144,7 +1144,7 @@ export interface IPropertyDataFilterer {
 
 // @public
 export interface IPropertyDataProvider {
-    getData: (() => Promise<PropertyData>);
+    getData: () => Promise<PropertyData>;
     onDataChanged: PropertyDataChangeEvent;
 }
 
@@ -1343,7 +1343,7 @@ export class MultilineTextPropertyValueRenderer implements IPropertyValueRendere
 }
 
 // @internal (undocumented)
-export const MultilineTextRenderer: React_2.FC<MultilineTextRenderer_2>;
+export const MultilineTextRenderer: React_2.FC<MultilineTextRendererProps>;
 
 // @internal
 export interface MultiSelectionHandler<TItem> {
@@ -2671,7 +2671,7 @@ export interface TableNonPrimitiveValueRendererProps extends SharedTableNonPrimi
 
 // @public
 export const TableRowStyleProvider: {
-    createStyle: ({ color, backgroundColor }: ItemColorOverrides) => CSSProperties;
+    createStyle: ({ color, backgroundColor, }: ItemColorOverrides) => CSSProperties;
 };
 
 // @public
@@ -2739,7 +2739,7 @@ export class TextEditor extends React_2.PureComponent<PropertyEditorProps, TextE
 }
 
 // @internal
-export function TimeField({ time, timeDisplay, readOnly, onTimeChange }: TimeFieldProps): JSX.Element;
+export function TimeField({ time, timeDisplay, readOnly, onTimeChange, }: TimeFieldProps): JSX.Element;
 
 // @internal
 export interface TimeFieldProps {
@@ -2827,7 +2827,7 @@ export interface ToolbarButtonItemProps extends CommonProps {
 export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem;
 
 // @internal (undocumented)
-export function ToolbarItemComponent({ item, addGroupSeparator }: {
+export function ToolbarItemComponent({ item, addGroupSeparator, }: {
     item: ToolbarItem;
     addGroupSeparator: boolean;
 }): JSX.Element | null;
@@ -3030,13 +3030,13 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
     dispose(): void;
     // (undocumented)
     get modelSource(): TreeModelSource;
-    onCheckboxStateChanged({ stateChanges }: TreeCheckboxStateChangeEventArgs): Subscription | undefined;
+    onCheckboxStateChanged({ stateChanges, }: TreeCheckboxStateChangeEventArgs): Subscription | undefined;
     onDelayedNodeClick({ nodeId }: TreeNodeEventArgs): void;
     onNodeCollapsed({ nodeId }: TreeNodeEventArgs): void;
     onNodeEditorActivated({ nodeId }: TreeNodeEventArgs): void;
     onNodeExpanded({ nodeId }: TreeNodeEventArgs): void;
-    onSelectionModified({ modifications }: TreeSelectionModificationEventArgs): Subscription | undefined;
-    onSelectionReplaced({ replacements }: TreeSelectionReplacementEventArgs): Subscription | undefined;
+    onSelectionModified({ modifications, }: TreeSelectionModificationEventArgs): Subscription | undefined;
+    onSelectionReplaced({ replacements, }: TreeSelectionReplacementEventArgs): Subscription | undefined;
 }
 
 // @public

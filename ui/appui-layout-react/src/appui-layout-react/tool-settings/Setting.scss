@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 .nz-toolSettings-setting {
   height: 100%;
   white-space: nowrap;
@@ -10,12 +10,12 @@
 
   &:not(.nz-overflown) {
     &:before {
-      content: '';
+      content: "";
       padding-left: 1em;
     }
 
     &:after {
-      content: '';
+      content: "";
       padding-right: 1em;
     }
   }

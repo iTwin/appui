@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import { storageMock, TestUtils } from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
@@ -10,7 +10,10 @@ import { AppUiSettings } from "../../appui-react/uistate/AppUiSettings";
 import { SYSTEM_PREFERRED_COLOR_THEME } from "../../appui-react/theme/ThemeManager";
 
 describe("AppUiSettings", () => {
-  const localStorageToRestore = Object.getOwnPropertyDescriptor(window, "localStorage")!;
+  const localStorageToRestore = Object.getOwnPropertyDescriptor(
+    window,
+    "localStorage"
+  )!;
   let localStorageMock = storageMock();
 
   beforeEach(async () => {
@@ -55,9 +58,13 @@ describe("AppUiSettings", () => {
     expect(UiFramework.getColorTheme()).to.eql(colorTheme);
     expect(UiFramework.useDragInteraction).to.eql(useDragInteraction);
     expect(UiFramework.showWidgetIcon).to.eql(showWidgetIcon);
-    expect(UiFramework.autoCollapseUnpinnedPanels).to.eql(autoCollapseUnpinnedPanels);
+    expect(UiFramework.autoCollapseUnpinnedPanels).to.eql(
+      autoCollapseUnpinnedPanels
+    );
     expect(UiFramework.animateToolSettings).to.eql(animateToolSettings);
-    expect(UiFramework.useToolAsToolSettingsLabel).to.eql(useToolAsToolSettingsLabel);
+    expect(UiFramework.useToolAsToolSettingsLabel).to.eql(
+      useToolAsToolSettingsLabel
+    );
   });
 
   it("should used default settings", async () => {
@@ -79,9 +86,14 @@ describe("AppUiSettings", () => {
     expect(UiFramework.getColorTheme()).to.eql(defaults.colorTheme);
     expect(UiFramework.useDragInteraction).to.eql(defaults.dragInteraction);
     expect(UiFramework.showWidgetIcon).to.eql(defaults.showWidgetIcon);
-    expect(UiFramework.autoCollapseUnpinnedPanels).to.eql(defaults.autoCollapseUnpinnedPanels);
-    expect(UiFramework.animateToolSettings).to.eql(defaults.animateToolSettings);
-    expect(UiFramework.useToolAsToolSettingsLabel).to.eql(defaults.useToolAsToolSettingsLabel);
+    expect(UiFramework.autoCollapseUnpinnedPanels).to.eql(
+      defaults.autoCollapseUnpinnedPanels
+    );
+    expect(UiFramework.animateToolSettings).to.eql(
+      defaults.animateToolSettings
+    );
+    expect(UiFramework.useToolAsToolSettingsLabel).to.eql(
+      defaults.useToolAsToolSettingsLabel
+    );
   });
-
 });

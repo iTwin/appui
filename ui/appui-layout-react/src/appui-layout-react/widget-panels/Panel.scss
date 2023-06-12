@@ -1,34 +1,34 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "variables";
 
 .nz-widgetPanels-panel {
   position: relative;
 
-  >.nz-grip-container {
+  > .nz-grip-container {
     width: 100%;
     height: 100%;
     position: absolute;
     pointer-events: none;
 
-    >.nz-grip {
+    > .nz-grip {
       pointer-events: all;
       position: absolute;
       z-index: 1;
     }
   }
 
-  >.nz-content {
+  > .nz-content {
     display: flex;
     position: relative;
     background: $buic-background-2;
   }
 
   &.nz-transition {
-    transition-duration: 0.3s;
+    transition-duration: var(--iui-duration-2);
     transition-timing-function: ease-in;
   }
 
@@ -37,17 +37,17 @@
     max-width: 100%;
     min-height: 0;
 
-    >.nz-content {
+    > .nz-content {
       flex-direction: column;
       height: 100%;
       width: 100%;
     }
 
-    >.nz-grip-container {
+    > .nz-grip-container {
       top: 0;
       min-width: $nz-grip-width * 0.5;
 
-      >.nz-grip {
+      > .nz-grip {
         top: 50%;
       }
     }
@@ -76,17 +76,17 @@
   &.nz-left {
     grid-column: 1/2;
 
-    >.nz-grip-container {
+    > .nz-grip-container {
       left: 0;
 
-      >.nz-grip.nz-grip {
-        right: calc(#{$nz-grip-width} * -0.5);;
+      > .nz-grip.nz-grip {
+        right: calc(#{$nz-grip-width} * -0.5);
         transform: translate(0, -50%);
       }
     }
 
     &.nz-transition {
-      >.nz-content {
+      > .nz-content {
         position: absolute;
         right: 0;
       }
@@ -95,15 +95,16 @@
     &.nz-collapsed {
       &.nz-captured {
         &:not(.nz-transition) {
-          >.nz-content {
+          > .nz-content {
             position: absolute;
             width: unset;
             right: -$nz-grip-width * 0.5;
           }
         }
       }
+
       > .nz-grip-container > .nz-grip {
-        right: 0
+        right: 0;
       }
     }
   }
@@ -111,23 +112,23 @@
   &.nz-right {
     grid-column: 3/4;
 
-    >.nz-grip-container {
+    > .nz-grip-container {
       right: 0;
 
-      >.nz-grip.nz-grip {
+      > .nz-grip.nz-grip {
         left: calc(#{$nz-grip-width} * -0.5);
         transform: translate(0, -50%);
       }
     }
 
-    >.nz-content {
+    > .nz-content {
       left: 0;
     }
 
     &.nz-collapsed {
       &.nz-captured {
         &:not(.nz-transition) {
-          >.nz-content {
+          > .nz-content {
             position: absolute;
             width: unset;
             left: -$nz-grip-width * 0.5;
@@ -150,16 +151,16 @@
       transition-property: height;
     }
 
-    >.nz-grip-container {
+    > .nz-grip-container {
       left: 0;
       min-height: $nz-grip-width * 0.5;
 
-      >.nz-grip {
+      > .nz-grip {
         left: 50%;
       }
     }
 
-    >.nz-content {
+    > .nz-content {
       flex-direction: row;
       width: 100%;
       height: 100%;
@@ -169,17 +170,17 @@
   &.nz-top {
     grid-row: 1;
 
-    >.nz-grip-container {
+    > .nz-grip-container {
       top: 0;
 
-      >.nz-grip.nz-grip {
+      > .nz-grip.nz-grip {
         bottom: calc(#{$nz-grip-width} * -0.5);
         transform: translate(-50%, 0);
       }
     }
 
     &.nz-transition {
-      >.nz-content {
+      > .nz-content {
         position: absolute;
         bottom: 0;
       }
@@ -196,13 +197,14 @@
     &.nz-collapsed {
       &.nz-captured {
         &:not(.nz-transition) {
-          >.nz-content {
+          > .nz-content {
             position: absolute;
             height: unset;
             bottom: -$nz-grip-width * 0.5;
           }
         }
       }
+
       > .nz-grip-container > .nz-grip {
         bottom: 0;
       }
@@ -212,10 +214,10 @@
   &.nz-bottom {
     grid-row: 3;
 
-    >.nz-grip-container {
+    > .nz-grip-container {
       bottom: 0;
 
-      >.nz-grip {
+      > .nz-grip {
         top: 0;
         transform: translate(-50%, 0);
       }
@@ -232,7 +234,7 @@
     &.nz-collapsed {
       &.nz-captured {
         &:not(.nz-transition) {
-          >.nz-content {
+          > .nz-content {
             position: absolute;
             height: unset;
             top: -$nz-grip-width * 0.5;
@@ -243,13 +245,13 @@
   }
 
   &.nz-collapsed {
-    >.nz-content {
+    > .nz-content {
       overflow: hidden;
     }
   }
 
   &:not(.nz-collapsed) {
-    >.nz-content {
+    > .nz-content {
       height: 100%;
       width: 100%;
     }

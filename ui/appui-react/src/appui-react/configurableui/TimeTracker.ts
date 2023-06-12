@@ -1,12 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ConfigurableUi
  */
 
-import type { UiActivityEventArgs, UiIntervalEventArgs } from "./InternalConfigurableUiManager";
+import type {
+  UiActivityEventArgs,
+  UiIntervalEventArgs,
+} from "./InternalConfigurableUiManager";
 import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager";
 
 /** Time Tracker utility class
@@ -34,15 +37,23 @@ export class TimeTracker {
     this._firstActiveTimestamp = Date.now();
     this._lastActiveTimestamp = this._firstActiveTimestamp;
 
-    InternalConfigurableUiManager.onUiIntervalEvent.addListener(this._idleTimeCounter);
-    InternalConfigurableUiManager.onUiActivityEvent.addListener(this._trackActivity);
+    InternalConfigurableUiManager.onUiIntervalEvent.addListener(
+      this._idleTimeCounter
+    );
+    InternalConfigurableUiManager.onUiActivityEvent.addListener(
+      this._trackActivity
+    );
   }
 
   /** Stops time tracking
    */
   public stopTiming(): void {
-    InternalConfigurableUiManager.onUiIntervalEvent.removeListener(this._idleTimeCounter);
-    InternalConfigurableUiManager.onUiActivityEvent.removeListener(this._trackActivity);
+    InternalConfigurableUiManager.onUiIntervalEvent.removeListener(
+      this._idleTimeCounter
+    );
+    InternalConfigurableUiManager.onUiActivityEvent.removeListener(
+      this._trackActivity
+    );
 
     this._totalTime = Date.now() - this._firstActiveTimestamp;
     this._idleTime = this._totalIdleTime + this._idleCount * this._idleTimeout;
@@ -70,7 +81,11 @@ export class TimeTracker {
     // istanbul ignore next
     const idleTimeout = args.idleTimeout ?? this._idleTimeout;
     // istanbul ignore else
-    if (this._lastActiveTimestamp > 0 && this._idleStartTimestamp === 0 && Date.now() - this._lastActiveTimestamp >= idleTimeout) {
+    if (
+      this._lastActiveTimestamp > 0 &&
+      this._idleStartTimestamp === 0 &&
+      Date.now() - this._lastActiveTimestamp >= idleTimeout
+    ) {
       this._idleStartTimestamp = Date.now();
       this._idleCount++;
     }

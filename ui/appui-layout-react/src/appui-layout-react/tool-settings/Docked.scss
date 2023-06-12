@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 .nz-toolSettings-docked {
   height: 2.5em;
@@ -12,7 +12,7 @@
   background: var(--iui-color-background);
   border: 1px solid var(--iui-color-border);
 
-  >.nz-container {
+  > .nz-container {
     display: flex;
   }
 }

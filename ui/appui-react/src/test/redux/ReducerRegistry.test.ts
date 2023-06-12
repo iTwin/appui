@@ -1,11 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import { UiError } from "@itwin/appui-abstract";
-import type { ActionCreatorsObject, ActionsUnion, NameToReducerMap} from "../../appui-react";
+import type {
+  ActionCreatorsObject,
+  ActionsUnion,
+  NameToReducerMap,
+} from "../../appui-react";
 import { createAction, ReducerRegistryInstance } from "../../appui-react";
 
 // Manages the state for extension
@@ -21,14 +25,22 @@ class ExtensionStateManager {
 
   private static _reducerName = "extension_state";
 
-  public static SET_EXTENSION_DIALOG_VISIBLE = ExtensionStateManager.createActionName("SET_EXTENSION_DIALOG_VISIBLE");
-  public static SET_EXTENSION_SELECTED_ITEM = ExtensionStateManager.createActionName("SET_EXTENSION_SELECTED");
+  public static SET_EXTENSION_DIALOG_VISIBLE =
+    ExtensionStateManager.createActionName("SET_EXTENSION_DIALOG_VISIBLE");
+  public static SET_EXTENSION_SELECTED_ITEM =
+    ExtensionStateManager.createActionName("SET_EXTENSION_SELECTED");
 
   private static _extensionActions: ActionCreatorsObject = {
     setDialogVisible: (dialogVisible: boolean) =>
-      createAction(ExtensionStateManager.SET_EXTENSION_DIALOG_VISIBLE, dialogVisible),
+      createAction(
+        ExtensionStateManager.SET_EXTENSION_DIALOG_VISIBLE,
+        dialogVisible
+      ),
     setSelectedItem: (selectedItem: string) =>
-      createAction(ExtensionStateManager.SET_EXTENSION_SELECTED_ITEM, selectedItem),
+      createAction(
+        ExtensionStateManager.SET_EXTENSION_SELECTED_ITEM,
+        selectedItem
+      ),
   };
 
   private static createActionName(name: string) {
@@ -39,9 +51,11 @@ class ExtensionStateManager {
   // reducer
   public static extensionReducer(
     state: ExtensionState = ExtensionStateManager._initialState,
-    action: any,
+    action: any
   ): ExtensionState {
-    type ExtensionActionsUnion = ActionsUnion<typeof ExtensionStateManager._extensionActions>;
+    type ExtensionActionsUnion = ActionsUnion<
+      typeof ExtensionStateManager._extensionActions
+    >;
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const extensionActionsParam = action as ExtensionActionsUnion;
@@ -59,7 +73,7 @@ class ExtensionStateManager {
   public static initialize() {
     ReducerRegistryInstance.registerReducer(
       ExtensionStateManager._reducerName,
-      ExtensionStateManager.extensionReducer,
+      ExtensionStateManager.extensionReducer
     );
   }
 }
@@ -70,14 +84,16 @@ describe("ReducerRegistry", () => {
   it("should be able to register and get reducer ", () => {
     let reducerRegistryHasEntries = false;
 
-    ReducerRegistryInstance.setChangeListener((newDynamicReducers: NameToReducerMap) => {
-      const keys = (Object.keys(newDynamicReducers));
-      if (keys.length) {
-        reducerRegistryHasEntries = true;
-      } else {
-        reducerRegistryHasEntries = false;
+    ReducerRegistryInstance.setChangeListener(
+      (newDynamicReducers: NameToReducerMap) => {
+        const keys = Object.keys(newDynamicReducers);
+        if (keys.length) {
+          reducerRegistryHasEntries = true;
+        } else {
+          reducerRegistryHasEntries = false;
+        }
       }
-    });
+    );
 
     expect(reducerRegistryHasEntries).to.be.false;
 
@@ -88,11 +104,23 @@ describe("ReducerRegistry", () => {
     expect(reducerRegistryHasEntries).to.be.true;
     expect(ReducerRegistryInstance.getReducers().extension_state).to.exist;
 
-    const myCurrentState: ExtensionState = { selectedItem: "selected", dialogVisible: false };
-    let outState = ReducerRegistryInstance.getReducers().extension_state(myCurrentState, { type: ExtensionStateManager.SET_EXTENSION_DIALOG_VISIBLE, payload: true });
+    const myCurrentState: ExtensionState = {
+      selectedItem: "selected",
+      dialogVisible: false,
+    };
+    let outState = ReducerRegistryInstance.getReducers().extension_state(
+      myCurrentState,
+      {
+        type: ExtensionStateManager.SET_EXTENSION_DIALOG_VISIBLE,
+        payload: true,
+      }
+    );
     expect(outState.dialogVisible).to.be.true;
     expect(outState.selectedItem).to.be.equal("selected");
-    outState = ReducerRegistryInstance.getReducers().extension_state(outState, { type: ExtensionStateManager.SET_EXTENSION_SELECTED_ITEM, payload: "new-selection" });
+    outState = ReducerRegistryInstance.getReducers().extension_state(outState, {
+      type: ExtensionStateManager.SET_EXTENSION_SELECTED_ITEM,
+      payload: "new-selection",
+    });
     expect(outState.selectedItem).to.be.equal("new-selection");
 
     ReducerRegistryInstance.clearReducers();
@@ -101,11 +129,10 @@ describe("ReducerRegistry", () => {
 
   it("should not be able to register duplicate reducer name ", () => {
     ExtensionStateManager.initialize();
-    let keys = (Object.keys(ReducerRegistryInstance.getReducers()));
+    let keys = Object.keys(ReducerRegistryInstance.getReducers());
     expect(keys.length).to.be.equal(1);
     expect(() => ExtensionStateManager.initialize()).to.throw(UiError);
-    keys = (Object.keys(ReducerRegistryInstance.getReducers()));
+    keys = Object.keys(ReducerRegistryInstance.getReducers());
     expect(keys.length).to.be.equal(1);
   });
-
 });

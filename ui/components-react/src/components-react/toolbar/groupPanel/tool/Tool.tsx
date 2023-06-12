@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -10,7 +10,7 @@ import "./Tool.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { ActionButton, GroupButton } from "@itwin/appui-abstract";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { useTargeted } from "@itwin/core-react";
 
 /** Properties of [[GroupTool]] component.
@@ -54,20 +54,22 @@ export function GroupTool(props: GroupToolProps) {
     props.isDisabled && "components-disabled",
     props.onPointerUp && "components-pointer-up",
     targeted && "components-targeted",
-    props.className);
+    props.className
+  );
 
   const handleClick = React.useCallback(() => {
     // istanbul ignore else
-    if (!props.isDisabled && props.onClick)
-      props.onClick(props.item);
+    if (!props.isDisabled && props.onClick) props.onClick(props.item);
   }, [props]);
 
   const handlePointerUp = React.useCallback(() => {
     // istanbul ignore else
-    if (!props.isDisabled && props.onPointerUp)
-      props.onPointerUp(props.item);
+    if (!props.isDisabled && props.onPointerUp) props.onPointerUp(props.item);
   }, [props]);
 
+  // istanbul ignore next
+  const providerId =
+    "providerId" in props.item ? props.item.providerId : undefined;
   return (
     <div
       className={itemClassName}
@@ -77,7 +79,7 @@ export function GroupTool(props: GroupToolProps) {
       data-item-id={props.item.id}
       data-item-type="popup-tool-panel-item"
       data-item-priority={props.item.itemPriority}
-      data-item-provider-id={props.item.providerId}
+      data-item-provider-id={providerId}
       ref={ref}
       style={props.style}
       role="button"
@@ -85,15 +87,9 @@ export function GroupTool(props: GroupToolProps) {
     >
       <div className="components-icon">
         {props.icon}
-        {props.badge &&
-          <div className="components-badge">
-            {props.badge}
-          </div>
-        }
+        {props.badge && <div className="components-badge">{props.badge}</div>}
       </div>
-      <div className="components-label">
-        {props.label}
-      </div>
+      <div className="components-label">{props.label}</div>
       {props.children}
     </div>
   );

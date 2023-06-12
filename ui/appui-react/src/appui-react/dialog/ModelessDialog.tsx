@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Dialog
  */
@@ -29,18 +29,34 @@ export class ModelessDialog extends React.Component<ModelessDialogProps> {
   }
 
   public override render(): JSX.Element {
-    const { dialogId, style, modal, modelessId, onModelessPointerDown, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const {
+      dialogId,
+      style,
+      modal,
+      modelessId,
+      onModelessPointerDown,
+      ...props
+    } = this.props;
 
     return (
       <Dialog
         {...props}
         modal={false}
         modelessId={dialogId}
-        onModelessPointerDown={(event) => UiFramework.dialogs.modeless.handlePointerDownEvent(event, dialogId, this._updateDialog)}
-        style={{ zIndex: UiFramework.dialogs.modeless.getZIndex(dialogId), ...style }}
+        onModelessPointerDown={(event) =>
+          UiFramework.dialogs.modeless.handlePointerDownEvent(
+            event,
+            dialogId,
+            this._updateDialog
+          )
+        }
+        style={{
+          zIndex: UiFramework.dialogs.modeless.getZIndex(dialogId),
+          ...style,
+        }}
       >
         {this.props.children}
-      </Dialog >
+      </Dialog>
     );
   }
 

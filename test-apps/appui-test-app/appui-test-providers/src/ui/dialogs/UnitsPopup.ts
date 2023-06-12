@@ -1,12 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { IModelApp } from "@itwin/core-frontend";
 import { UnitSystemKey } from "@itwin/core-quantity";
 import {
-  DialogButtonDef, DialogButtonType, DialogItem, DialogItemValue, DialogLayoutDataProvider, DialogPropertySyncItem, PropertyDescription,
+  DialogButtonDef,
+  DialogButtonType,
+  DialogItem,
+  DialogItemValue,
+  DialogLayoutDataProvider,
+  DialogPropertySyncItem,
+  PropertyDescription,
 } from "@itwin/appui-abstract";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 
@@ -25,7 +31,7 @@ export class UnitsPopupUiDataProvider extends DialogLayoutDataProvider {
   public override supplyButtonData(): DialogButtonDef[] | undefined {
     const buttons: DialogButtonDef[] = [];
     buttons.push({ type: DialogButtonType.OK, onClick: this._handleOK });
-    buttons.push({ type: DialogButtonType.Cancel, onClick: () => { } });
+    buttons.push({ type: DialogButtonType.Cancel, onClick: () => {} });
     return buttons;
   }
 
@@ -39,16 +45,30 @@ export class UnitsPopupUiDataProvider extends DialogLayoutDataProvider {
       typename: "enum",
       enum: {
         choices: [
-          { label: AppUiTestProviders.translate("StatusBar.Metric"), value: "metric" },
-          { label: AppUiTestProviders.translate("StatusBar.Imperial"), value: "imperial" },
-          { label: AppUiTestProviders.translate("StatusBar.UsSurvey"), value: "usSurvey" },
-          { label: AppUiTestProviders.translate("StatusBar.UsCustomary"), value: "usCustomary" },
+          {
+            label: AppUiTestProviders.translate("StatusBar.Metric"),
+            value: "metric",
+          },
+          {
+            label: AppUiTestProviders.translate("StatusBar.Imperial"),
+            value: "imperial",
+          },
+          {
+            label: AppUiTestProviders.translate("StatusBar.UsSurvey"),
+            value: "usSurvey",
+          },
+          {
+            label: AppUiTestProviders.translate("StatusBar.UsCustomary"),
+            value: "usCustomary",
+          },
         ],
       },
     };
   };
 
-  private _optionsValue: DialogItemValue = { value: IModelApp.quantityFormatter.activeUnitSystem };
+  private _optionsValue: DialogItemValue = {
+    value: IModelApp.quantityFormatter.activeUnitSystem,
+  };
 
   public get option(): UnitSystemKey {
     return this._optionsValue.value as UnitSystemKey;
@@ -58,12 +78,20 @@ export class UnitsPopupUiDataProvider extends DialogLayoutDataProvider {
     this._optionsValue = { value: option };
   }
 
-  public override applyUiPropertyChange = (updatedValue: DialogPropertySyncItem): void => {
+  public override applyUiPropertyChange = (
+    updatedValue: DialogPropertySyncItem
+  ): void => {
     this.option = updatedValue.value.value as UnitSystemKey;
   };
 
   public override supplyDialogItems(): DialogItem[] | undefined {
-    const items = [{ value: this._optionsValue, property: UnitsPopupUiDataProvider._getEnumAsPicklistDescription(), editorPosition: { rowPriority: 0, columnIndex: 2 } }];
+    const items = [
+      {
+        value: this._optionsValue,
+        property: UnitsPopupUiDataProvider._getEnumAsPicklistDescription(),
+        editorPosition: { rowPriority: 0, columnIndex: 2 },
+      },
+    ];
     return items;
   }
 }

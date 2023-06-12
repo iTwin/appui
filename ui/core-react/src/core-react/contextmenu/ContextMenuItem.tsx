@@ -1,14 +1,14 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContextMenu
  */
 
 import * as React from "react";
 import classnames from "classnames";
-import type { BadgeType} from "@itwin/appui-abstract";
+import type { BadgeType } from "@itwin/appui-abstract";
 import { ConditionalBooleanValue, SpecialKey } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props";
 import type { ContextMenu } from "./ContextMenu";
@@ -20,7 +20,9 @@ import { Icon } from "../icons/IconComponent";
 /** Properties for the [[ContextMenuItem]] component
  * @public
  */
-export interface ContextMenuItemProps extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "disabled" | "hidden">, CommonProps {
+export interface ContextMenuItemProps
+  extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "disabled" | "hidden">,
+    CommonProps {
   onSelect?: (event: any) => any;
   /** @internal */
   onHotKeyParsed?: (hotKey: string) => void;
@@ -53,7 +55,10 @@ interface ContextMenuItemState {
  * Menu Item class for use within a [[ContextMenu]] component.
  * @public
  */
-export class ContextMenuItem extends React.PureComponent<ContextMenuItemProps, ContextMenuItemState> {
+export class ContextMenuItem extends React.PureComponent<
+  ContextMenuItemProps,
+  ContextMenuItemState
+> {
   private _root: HTMLElement | null = null;
   private _lastChildren: React.ReactNode;
   private _parsedChildren: React.ReactNode;
@@ -69,54 +74,77 @@ export class ContextMenuItem extends React.PureComponent<ContextMenuItemProps, C
   /** @internal */
   public override readonly state: Readonly<ContextMenuItemState> = {};
   public override render(): JSX.Element {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { onClick, className, style, onSelect, icon, disabled, hidden, onHover, isSelected, parentMenu, onHotKeyParsed, badgeType, iconRight,
-      hideIconContainer, ...props } = this.props;
+    const {
+      onClick,
+      className,
+      style,
+      onSelect,
+      icon,
+      disabled,
+      hidden,
+      onHover,
+      isSelected,
+      parentMenu,
+      onHotKeyParsed,
+      badgeType,
+      iconRight,
+      hideIconContainer,
+      ...props
+    } = this.props;
     const badge = BadgeUtilities.getComponentForBadgeType(badgeType);
     const isDisabled = ConditionalBooleanValue.getValue(disabled);
     const isHidden = ConditionalBooleanValue.getValue(hidden);
 
     if (this._lastChildren !== this.props.children) {
-      this._parsedChildren = TildeFinder.findAfterTilde(this.props.children).node;
+      this._parsedChildren = TildeFinder.findAfterTilde(
+        this.props.children
+      ).node;
       this._lastChildren = this.props.children;
     }
 
     return (
       <div
         {...props}
-        ref={(el) => { this._root = el; }}
+        ref={(el) => {
+          this._root = el;
+        }}
         onClick={this._handleClick}
         style={style}
         onFocus={this._handleFocus}
         onKeyUp={this._handleKeyUp}
         onMouseOver={this._handleMouseOver}
         data-testid={"core-context-menu-item"}
-        className={classnames("core-context-menu-item", className,
+        className={classnames(
+          "core-context-menu-item",
+          className,
           isDisabled && "core-context-menu-disabled",
           isHidden && "core-context-menu-hidden",
-          isSelected && "core-context-menu-is-selected")
-        }
+          isSelected && "core-context-menu-is-selected"
+        )}
         role="menuitem"
         tabIndex={isSelected ? 0 : -1}
         aria-disabled={isDisabled}
         aria-hidden={isHidden}
       >
-        {!hideIconContainer && <div className="core-context-menu-icon">
-          {icon !== undefined && <Icon iconSpec={icon} />}
-        </div>}
+        {!hideIconContainer && (
+          <div className="core-context-menu-icon">
+            {icon !== undefined && <Icon iconSpec={icon} />}
+          </div>
+        )}
         <div className={"core-context-menu-content"}>
           {this._parsedChildren}
         </div>
-        {iconRight &&
-          <div className={classnames("core-context-menu-icon", "core-context-menu-icon-right")}>
+        {iconRight && (
+          <div
+            className={classnames(
+              "core-context-menu-icon",
+              "core-context-menu-icon-right"
+            )}
+          >
             <Icon iconSpec={iconRight} />
           </div>
-        }
-        {badge &&
-          <div className="core-context-menu-badge">
-            {badge}
-          </div>
-        }
+        )}
+        {badge && <div className="core-context-menu-badge">{badge}</div>}
       </div>
     );
   }
@@ -137,12 +165,10 @@ export class ContextMenuItem extends React.PureComponent<ContextMenuItemProps, C
     const isHidden = ConditionalBooleanValue.getValue(this.props.hidden);
     if (!isDisabled && !isHidden)
       hotKey = TildeFinder.findAfterTilde(node).character;
-    else
-      hotKey = undefined;
+    else hotKey = undefined;
     if (hotKey && hotKey !== this.state.hotKey) {
       this.setState({ hotKey });
-      if (this.props.onHotKeyParsed)
-        this.props.onHotKeyParsed(hotKey);
+      if (this.props.onHotKeyParsed) this.props.onHotKeyParsed(hotKey);
     }
   };
 
@@ -152,7 +178,11 @@ export class ContextMenuItem extends React.PureComponent<ContextMenuItemProps, C
 
   private _handleMouseOver = (_event: React.MouseEvent<HTMLDivElement>) => {
     // istanbul ignore else
-    if (this._root && this._root.style.visibility !== "hidden" && this.props.onHover) {
+    if (
+      this._root &&
+      this._root.style.visibility !== "hidden" &&
+      this.props.onHover
+    ) {
       this.props.onHover();
     }
   };
@@ -168,18 +198,19 @@ export class ContextMenuItem extends React.PureComponent<ContextMenuItemProps, C
 
   private _handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const isDisabled = ConditionalBooleanValue.getValue(this.props.disabled);
-    if (isDisabled)
-      return;
+    if (isDisabled) return;
 
-    if (this.props.onClick)
-      this.props.onClick(event);
-    if (this.props.onSelect)
-      this.props.onSelect(event);
+    if (this.props.onClick) this.props.onClick(event);
+    if (this.props.onSelect) this.props.onSelect(event);
   };
 
   private _handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
     const isDisabled = ConditionalBooleanValue.getValue(this.props.disabled);
-    if (event.key === SpecialKey.Enter && this.props.onSelect !== undefined && !isDisabled) {
+    if (
+      event.key === SpecialKey.Enter &&
+      this.props.onSelect !== undefined &&
+      !isDisabled
+    ) {
       this.props.onSelect(event);
     }
   };

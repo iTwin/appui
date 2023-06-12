@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -21,16 +21,20 @@ interface UseDragArgs {
 
 function useDrag(args: UseDragArgs) {
   const { initialPosition, onDrag } = args;
-  const handlePointerMove = React.useCallback((e: PointerEvent) => {
-    // istanbul ignore if
-    if (!initialPosition.current)
-      return;
-    const newPosition = new Point(e.clientX, e.clientY);
-    const dragDistance = getDragDistance(initialPosition.current, newPosition);
-    if (dragDistance < 20)
-      return;
-    onDrag();
-  }, [initialPosition, onDrag]);
+  const handlePointerMove = React.useCallback(
+    (e: PointerEvent) => {
+      // istanbul ignore if
+      if (!initialPosition.current) return;
+      const newPosition = new Point(e.clientX, e.clientY);
+      const dragDistance = getDragDistance(
+        initialPosition.current,
+        newPosition
+      );
+      if (dragDistance < 20) return;
+      onDrag();
+    },
+    [initialPosition, onDrag]
+  );
   return { handlePointerMove };
 }
 
@@ -48,13 +52,15 @@ function useLongPress(args: UseLongPressArgs) {
     longPressTimer.current.stop();
   }, []);
 
-  const handlePointerMove = React.useCallback((e: PointerEvent) => {
-    if (!args.initialPosition.current)
-      return;
-    const newPosition = new Point(e.clientX, e.clientY);
-    const distance = args.initialPosition.current.getDistanceTo(newPosition);
-    distance >= 10 && longPressTimer.current.stop();
-  }, [args.initialPosition]);
+  const handlePointerMove = React.useCallback(
+    (e: PointerEvent) => {
+      if (!args.initialPosition.current) return;
+      const newPosition = new Point(e.clientX, e.clientY);
+      const distance = args.initialPosition.current.getDistanceTo(newPosition);
+      distance >= 10 && longPressTimer.current.stop();
+    },
+    [args.initialPosition]
+  );
   React.useEffect(() => {
     longPressTimer.current.setOnExecute(args.onLongPress);
     return () => {
@@ -70,7 +76,10 @@ function useLongPress(args: UseLongPressArgs) {
  * @param onOpenPanel Function called when item is dragged or long pressed to open panel.
  * @public
  */
-export function useDragInteraction(onClick?: () => void, onOpenPanel?: () => void) {
+export function useDragInteraction(
+  onClick?: () => void,
+  onOpenPanel?: () => void
+) {
   const initialPosition = React.useRef<Point | undefined>(undefined);
   const skipClick = React.useRef<boolean>(false);
   const handleOpenPanel = React.useCallback(() => {
@@ -78,9 +87,7 @@ export function useDragInteraction(onClick?: () => void, onOpenPanel?: () => voi
     skipClick.current = true;
     onOpenPanel && onOpenPanel();
   }, [onOpenPanel]);
-  const {
-    handlePointerMove: dragPointerMove,
-  } = useDrag({
+  const { handlePointerMove: dragPointerMove } = useDrag({
     initialPosition,
     onDrag: handleOpenPanel,
   });
@@ -94,20 +101,26 @@ export function useDragInteraction(onClick?: () => void, onOpenPanel?: () => voi
   });
   const handleButtonClick = React.useCallback(() => {
     // istanbul ignore if
-    if (skipClick.current)
-      return;
+    if (skipClick.current) return;
     onClick && onClick();
   }, [onClick]);
-  const handlePointerDown = React.useCallback((e: React.PointerEvent) => {
-    (e.target instanceof Element) && e.target.releasePointerCapture(e.pointerId);
-    initialPosition.current = new Point(e.clientX, e.clientY);
-    skipClick.current = false;
-    longPressPointerDown();
-  }, [longPressPointerDown]);
-  const handlePointerMove = React.useCallback((e: PointerEvent) => {
-    dragPointerMove(e);
-    longPressPointerMove(e);
-  }, [dragPointerMove, longPressPointerMove]);
+  const handlePointerDown = React.useCallback(
+    (e: React.PointerEvent) => {
+      e.target instanceof Element &&
+        e.target.releasePointerCapture(e.pointerId);
+      initialPosition.current = new Point(e.clientX, e.clientY);
+      skipClick.current = false;
+      longPressPointerDown();
+    },
+    [longPressPointerDown]
+  );
+  const handlePointerMove = React.useCallback(
+    (e: PointerEvent) => {
+      dragPointerMove(e);
+      longPressPointerMove(e);
+    },
+    [dragPointerMove, longPressPointerMove]
+  );
   const handlePointerUp = React.useCallback(() => {
     initialPosition.current = undefined;
     longPressPointerUp();

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -62,45 +62,64 @@ export type TreeDataProviderPromise = Promise<TreeDataProviderRaw>;
 /** Signature for a method that returns TreeDataProviderPromise for supplied parent node
  * @public
  */
-export type TreeDataProviderMethod = (node?: TreeNodeItem) => Promise<DelayLoadedTreeNodeItem[]>;
+export type TreeDataProviderMethod = (
+  node?: TreeNodeItem
+) => Promise<DelayLoadedTreeNodeItem[]>;
 
 /** Interface for a tree data provider class
  * @public
  */
 export interface ITreeDataProvider {
   getNodesCount(parent?: TreeNodeItem): Promise<number>;
-  getNodes(parent?: TreeNodeItem, page?: PageOptions): Promise<DelayLoadedTreeNodeItem[]>;
+  getNodes(
+    parent?: TreeNodeItem,
+    page?: PageOptions
+  ): Promise<DelayLoadedTreeNodeItem[]>;
 }
 
 /** Type definition for all Tree data providers
  * @public
  */
-export type TreeDataProvider = TreeDataProviderRaw | TreeDataProviderPromise | TreeDataProviderMethod | ITreeDataProvider;
+export type TreeDataProvider =
+  | TreeDataProviderRaw
+  | TreeDataProviderPromise
+  | TreeDataProviderMethod
+  | ITreeDataProvider;
 
 /** Checks if [[TreeDataProvider]] is a [[TreeDataProviderRaw]]
  * @public
  */
-export const isTreeDataProviderRaw = (provider: TreeDataProvider): provider is TreeDataProviderRaw => {
+export const isTreeDataProviderRaw = (
+  provider: TreeDataProvider
+): provider is TreeDataProviderRaw => {
   return Array.isArray(provider);
 };
 /** Checks if [[TreeDataProvider]] is a [[TreeDataProviderPromise]]
  * @public
  */
-export const isTreeDataProviderPromise = (provider: TreeDataProvider): provider is TreeDataProviderPromise => {
-  return (undefined !== (provider as TreeDataProviderPromise).then);
+export const isTreeDataProviderPromise = (
+  provider: TreeDataProvider
+): provider is TreeDataProviderPromise => {
+  return undefined !== (provider as TreeDataProviderPromise).then;
 };
 /** Checks if [[TreeDataProvider]] is a [[TreeDataProviderMethod]]
  * @public
  */
-export const isTreeDataProviderMethod = (provider: TreeDataProvider): provider is TreeDataProviderMethod => {
-  return (typeof provider === "function");
+export const isTreeDataProviderMethod = (
+  provider: TreeDataProvider
+): provider is TreeDataProviderMethod => {
+  return typeof provider === "function";
 };
 /** Checks if [[TreeDataProvider]] is an [[ITreeDataProvider]]
  * @public
  */
-export const isTreeDataProviderInterface = (provider: TreeDataProvider): provider is ITreeDataProvider => {
+export const isTreeDataProviderInterface = (
+  provider: TreeDataProvider
+): provider is ITreeDataProvider => {
   const candidate = provider as ITreeDataProvider;
-  return undefined !== candidate.getNodes && undefined !== candidate.getNodesCount;
+  return (
+    undefined !== candidate.getNodes && undefined !== candidate.getNodesCount
+  );
 };
 /**
  * Determines whether node has children
@@ -111,11 +130,14 @@ export const isTreeDataProviderInterface = (provider: TreeDataProvider): provide
 // istanbul ignore next
 export const hasChildren = (node: TreeNodeItem) => {
   const nodeAsImmediate = node as ImmediatelyLoadedTreeNodeItem;
-  if ("children" in nodeAsImmediate && nodeAsImmediate.children && nodeAsImmediate.children.length > 0)
+  if (
+    "children" in nodeAsImmediate &&
+    nodeAsImmediate.children &&
+    nodeAsImmediate.children.length > 0
+  )
     return true;
   const nodeAsDelayed = node as DelayLoadedTreeNodeItem;
-  if ("hasChildren" in nodeAsDelayed && nodeAsDelayed.hasChildren)
-    return true;
+  if ("hasChildren" in nodeAsDelayed && nodeAsDelayed.hasChildren) return true;
   return false;
 };
 

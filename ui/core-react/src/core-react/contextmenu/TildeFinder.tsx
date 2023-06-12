@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContextMenu
  */
@@ -17,7 +17,9 @@ export class TildeFinder {
    * @param node react node to search within for a tilde.
    * @returns character that was found, and the same node with tilde removed, and following character with an underline.
    */
-  public static findAfterTilde = (node: React.ReactNode): { character: string | undefined, node: React.ReactNode } => {
+  public static findAfterTilde = (
+    node: React.ReactNode
+  ): { character: string | undefined; node: React.ReactNode } => {
     if (typeof node === "string") {
       // String
       const tildeIndex = node.indexOf("~");
@@ -31,10 +33,14 @@ export class TildeFinder {
     } else if (node && typeof node === "object") {
       if (Array.isArray(node)) {
         // Array
-        let ret: { character: string | undefined, node: React.ReactNode } = { character: undefined, node };
+        let ret: { character: string | undefined; node: React.ReactNode } = {
+          character: undefined,
+          node,
+        };
         node = node.map((child) => {
           const r = TildeFinder.findAfterTilde(child);
-          if (r.character) { // if character is found, modify node instead of returning unmodified child.
+          if (r.character) {
+            // if character is found, modify node instead of returning unmodified child.
             ret = r;
             return r.node;
           }
@@ -45,16 +51,23 @@ export class TildeFinder {
         }
       } else if ("props" in node) {
         // React Node
-        const ret: { character: string | undefined, node: React.ReactNode } = { character: undefined, node };
+        const ret: { character: string | undefined; node: React.ReactNode } = {
+          character: undefined,
+          node,
+        };
         ret.node = React.cloneElement(node, {
-          children: React.Children.map(node.props.children as React.ReactNode, (child: React.ReactNode) => {
-            const r = TildeFinder.findAfterTilde(child);
-            if (r.character) { // if character is found, modify node instead of returning unmodified child.
-              ret.character = r.character;
-              return r.node;
+          children: React.Children.map(
+            node.props.children as React.ReactNode,
+            (child: React.ReactNode) => {
+              const r = TildeFinder.findAfterTilde(child);
+              if (r.character) {
+                // if character is found, modify node instead of returning unmodified child.
+                ret.character = r.character;
+                return r.node;
+              }
+              return child;
             }
-            return child;
-          }),
+          ),
         });
         if (ret.character) {
           return ret;

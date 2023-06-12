@@ -1,37 +1,97 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import "./index.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
 import reactAxe from "@axe-core/react";
-import { BrowserAuthorizationCallbackHandler, BrowserAuthorizationClient } from "@itwin/browser-authorization";
-import { Project as ITwin, ProjectsAccessClient, ProjectsSearchableProperty } from "@itwin/projects-client";
-import { RealityDataAccessClient, RealityDataClientOptions } from "@itwin/reality-data-client";
+import {
+  BrowserAuthorizationCallbackHandler,
+  BrowserAuthorizationClient,
+} from "@itwin/browser-authorization";
+import {
+  Project as ITwin,
+  ProjectsAccessClient,
+  ProjectsSearchableProperty,
+} from "@itwin/projects-client";
+import {
+  RealityDataAccessClient,
+  RealityDataClientOptions,
+} from "@itwin/reality-data-client";
 import { getClassName } from "@itwin/appui-abstract";
 import {
-  ActionsUnion, AppNotificationManager, AppUiSettings, BackstageComposer, ConfigurableUiContent, createAction, DeepReadonly, FrameworkAccuDraw, FrameworkReducer,
-  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, FrontstageDef, IModelViewportControl,
-  InitialAppUiSettings, ModalFrontstageClosedEventArgs, SafeAreaContext, SafeAreaInsets, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME,
-  ThemeManager, ToolbarDragInteractionContext, UiFramework, UiItemsManager, UiStateStorageHandler,
+  ActionsUnion,
+  AppNotificationManager,
+  AppUiSettings,
+  BackstageComposer,
+  ConfigurableUiContent,
+  createAction,
+  DeepReadonly,
+  FrameworkAccuDraw,
+  FrameworkReducer,
+  FrameworkRootState,
+  FrameworkToolAdmin,
+  FrameworkUiAdmin,
+  FrontstageDeactivatedEventArgs,
+  FrontstageDef,
+  IModelViewportControl,
+  InitialAppUiSettings,
+  ModalFrontstageClosedEventArgs,
+  SafeAreaContext,
+  SafeAreaInsets,
+  StateManager,
+  SyncUiEventDispatcher,
+  SYSTEM_PREFERRED_COLOR_THEME,
+  ThemeManager,
+  ToolbarDragInteractionContext,
+  UiFramework,
+  UiItemsManager,
+  UiStateStorageHandler,
 } from "@itwin/appui-react";
-import { Id64String, Logger, LogLevel, ProcessDetector, UnexpectedErrors } from "@itwin/core-bentley";
-import { BentleyCloudRpcManager, BentleyCloudRpcParams, RpcConfiguration } from "@itwin/core-common";
+import {
+  Id64String,
+  Logger,
+  LogLevel,
+  ProcessDetector,
+  UnexpectedErrors,
+} from "@itwin/core-bentley";
+import {
+  BentleyCloudRpcManager,
+  BentleyCloudRpcParams,
+  RpcConfiguration,
+} from "@itwin/core-common";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import { ElectronRendererAuthorization } from "@itwin/electron-authorization/lib/cjs/ElectronRenderer";
 import {
-  AccuSnap, IModelApp, IModelConnection, LocalUnitFormatProvider, NativeAppLogger,
-  NativeAppOpts, SelectionTool, SnapMode, ToolAdmin, ViewClipByPlaneTool,
+  AccuSnap,
+  IModelApp,
+  IModelConnection,
+  LocalUnitFormatProvider,
+  NativeAppLogger,
+  NativeAppOpts,
+  SelectionTool,
+  SnapMode,
+  ToolAdmin,
+  ViewClipByPlaneTool,
 } from "@itwin/core-frontend";
-import { MobileApp, MobileAppOpts } from "@itwin/core-mobile/lib/cjs/MobileFrontend";
+import {
+  MobileApp,
+  MobileAppOpts,
+} from "@itwin/core-mobile/lib/cjs/MobileFrontend";
 // import { SchemaUnitProvider } from "@itwin/ecschema-metadata";
 import { IModelsClient } from "@itwin/imodels-client-management";
-import { AccessTokenAdapter, FrontendIModelsAccess } from "@itwin/imodels-access-frontend";
+import {
+  AccessTokenAdapter,
+  FrontendIModelsAccess,
+} from "@itwin/imodels-access-frontend";
 import { getSupportedRpcs } from "../common/rpcs";
-import { loggerCategory, TestAppConfiguration } from "../common/TestAppConfiguration";
+import {
+  loggerCategory,
+  TestAppConfiguration,
+} from "../common/TestAppConfiguration";
 import { AppUi } from "./appui/AppUi";
 import { ExternalIModel } from "./appui/ExternalIModel";
 import { MainFrontstage } from "./appui/frontstages/MainFrontstage";
@@ -40,8 +100,15 @@ import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTa
 import { IModelOpenFrontstage } from "./appui/frontstages/IModelOpenFrontstage";
 import { SignInFrontstage } from "./appui/frontstages/SignInFrontstage";
 import {
-  AbstractUiItemsProvider, AppUiTestProviders, ContentLayoutStage, CustomContentFrontstage,
-  FloatingWidgetsUiItemsProvider, InspectUiItemInfoToolProvider, SynchronizedFloatingViewportStage, WidgetApiStage,
+  AbstractUiItemsProvider,
+  AppUiTestProviders,
+  ContentLayoutStage,
+  CustomContentFrontstage,
+  FloatingWidgetsUiItemsProvider,
+  InspectUiItemInfoToolProvider,
+  PopoutWindowsFrontstage,
+  SynchronizedFloatingViewportStage,
+  WidgetApiStage,
 } from "@itwin/appui-test-providers";
 
 // Initialize my application gateway configuration for the frontend
@@ -80,23 +147,41 @@ const initialState: SampleAppState = {
 
 // An object with a function that creates each OpenIModelAction that can be handled by our reducer.
 export const SampleAppActions = {
-  setTestProperty: (testProperty: string) => createAction(SampleAppUiActionId.setTestProperty, testProperty),
-  setAnimationViewId: (viewId: string) => createAction(SampleAppUiActionId.setAnimationViewId, viewId),
-  setInitialViewIds: (viewIds: string[]) => createAction(SampleAppUiActionId.setInitialViewIds, viewIds),
+  setTestProperty: (testProperty: string) =>
+    createAction(SampleAppUiActionId.setTestProperty, testProperty),
+  setAnimationViewId: (viewId: string) =>
+    createAction(SampleAppUiActionId.setAnimationViewId, viewId),
+  setInitialViewIds: (viewIds: string[]) =>
+    createAction(SampleAppUiActionId.setInitialViewIds, viewIds),
 };
 
 class SampleAppAccuSnap extends AccuSnap {
   public override getActiveSnapModes(): SnapMode[] {
     const snaps: SnapMode[] = [];
     if (SampleAppIModelApp.store.getState().frameworkState) {
-      const snapMode = SampleAppIModelApp.store.getState().frameworkState.configurableUiState.snapMode;
-      if ((snapMode & SnapMode.Bisector) === SnapMode.Bisector as number) snaps.push(SnapMode.Bisector);
-      if ((snapMode & SnapMode.Center) === SnapMode.Center as number) snaps.push(SnapMode.Center);
-      if ((snapMode & SnapMode.Intersection) === SnapMode.Intersection as number) snaps.push(SnapMode.Intersection);
-      if ((snapMode & SnapMode.MidPoint) === SnapMode.MidPoint as number) snaps.push(SnapMode.MidPoint);
-      if ((snapMode & SnapMode.Nearest) === SnapMode.Nearest as number) snaps.push(SnapMode.Nearest);
-      if ((snapMode & SnapMode.NearestKeypoint) === SnapMode.NearestKeypoint as number) snaps.push(SnapMode.NearestKeypoint);
-      if ((snapMode & SnapMode.Origin) === SnapMode.Origin as number) snaps.push(SnapMode.Origin);
+      const snapMode =
+        SampleAppIModelApp.store.getState().frameworkState.configurableUiState
+          .snapMode;
+      if ((snapMode & SnapMode.Bisector) === (SnapMode.Bisector as number))
+        snaps.push(SnapMode.Bisector);
+      if ((snapMode & SnapMode.Center) === (SnapMode.Center as number))
+        snaps.push(SnapMode.Center);
+      if (
+        (snapMode & SnapMode.Intersection) ===
+        (SnapMode.Intersection as number)
+      )
+        snaps.push(SnapMode.Intersection);
+      if ((snapMode & SnapMode.MidPoint) === (SnapMode.MidPoint as number))
+        snaps.push(SnapMode.MidPoint);
+      if ((snapMode & SnapMode.Nearest) === (SnapMode.Nearest as number))
+        snaps.push(SnapMode.Nearest);
+      if (
+        (snapMode & SnapMode.NearestKeypoint) ===
+        (SnapMode.NearestKeypoint as number)
+      )
+        snaps.push(SnapMode.NearestKeypoint);
+      if ((snapMode & SnapMode.Origin) === (SnapMode.Origin as number))
+        snaps.push(SnapMode.Origin);
     } else {
       snaps.push(SnapMode.NearestKeypoint);
     }
@@ -106,7 +191,10 @@ class SampleAppAccuSnap extends AccuSnap {
 
 export type SampleAppActionsUnion = ActionsUnion<typeof SampleAppActions>;
 
-function SampleAppReducer(state: SampleAppState = initialState, action: SampleAppActionsUnion): DeepReadonly<SampleAppState> {
+function SampleAppReducer(
+  state: SampleAppState = initialState,
+  action: SampleAppActionsUnion
+): DeepReadonly<SampleAppState> {
   switch (action.type) {
     case SampleAppUiActionId.setTestProperty: {
       return { ...state, testProperty: action.payload };
@@ -144,8 +232,10 @@ export class SampleAppIModelApp {
     return StateManager.store as Store<RootState>;
   }
 
-  public static async startup(opts: NativeAppOpts, hubClient?: IModelsClient): Promise<void> {
-
+  public static async startup(
+    opts: NativeAppOpts,
+    hubClient?: IModelsClient
+  ): Promise<void> {
     this.hubClient = hubClient;
 
     const iModelAppOpts = {
@@ -153,7 +243,8 @@ export class SampleAppIModelApp {
     };
 
     if (ProcessDetector.isElectronAppFrontend) {
-      const authClient: ElectronRendererAuthorization = new ElectronRendererAuthorization();
+      const authClient: ElectronRendererAuthorization =
+        new ElectronRendererAuthorization();
       iModelAppOpts.authorizationClient = authClient;
       await ElectronApp.startup({ ...opts, iModelApp: iModelAppOpts });
       NativeAppLogger.initialize();
@@ -171,8 +262,14 @@ export class SampleAppIModelApp {
         return;
       }
 
-      if (undefined === process.env.IMJS_OIDC_BROWSER_TEST_CLIENT_ID && undefined === process.env.IMJS_OIDC_BROWSER_TEST_SCOPES) {
-        Logger.logWarning(loggerCategory, "Missing IMJS_OIDC_BROWSER_TEST_CLIENT_ID and IMJS_OIDC_BROWSER_TEST_SCOPES environment variables. Authentication will not be possible if not properly set.");
+      if (
+        undefined === process.env.IMJS_OIDC_BROWSER_TEST_CLIENT_ID &&
+        undefined === process.env.IMJS_OIDC_BROWSER_TEST_SCOPES
+      ) {
+        Logger.logWarning(
+          loggerCategory,
+          "Missing IMJS_OIDC_BROWSER_TEST_CLIENT_ID and IMJS_OIDC_BROWSER_TEST_SCOPES environment variables. Authentication will not be possible if not properly set."
+        );
         await IModelApp.startup(iModelAppOpts);
         return;
       }
@@ -185,13 +282,24 @@ export class SampleAppIModelApp {
       });
       try {
         await auth.signInSilent();
-      } catch (err) { }
+      } catch (err) {}
 
       const rpcParams: BentleyCloudRpcParams =
-        undefined !== process.env.IMJS_UITESTAPP_GP_BACKEND ?
-          { info: { title: "imodel/rpc", version: "" }, uriPrefix: `https://${process.env.IMJS_URL_PREFIX ?? ""}api.bentley.com` }
-          : { info: { title: "ui-test-app", version: "v1.0" }, uriPrefix: "http://localhost:3001" };
-      BentleyCloudRpcManager.initializeClient(rpcParams, opts.iModelApp!.rpcInterfaces!); // eslint-disable-line deprecation/deprecation
+        undefined !== process.env.IMJS_UITESTAPP_GP_BACKEND
+          ? {
+              info: { title: "imodel/rpc", version: "" },
+              uriPrefix: `https://${
+                process.env.IMJS_URL_PREFIX ?? ""
+              }api.bentley.com`,
+            }
+          : {
+              info: { title: "ui-test-app", version: "v1.0" },
+              uriPrefix: "http://localhost:3001",
+            };
+      BentleyCloudRpcManager.initializeClient(
+        rpcParams,
+        opts.iModelApp!.rpcInterfaces! // eslint-disable-line deprecation/deprecation
+      );
 
       await IModelApp.startup({
         ...iModelAppOpts,
@@ -237,12 +345,17 @@ export class SampleAppIModelApp {
 
     // default to showing imperial formatted units
     await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
-    await IModelApp.quantityFormatter.setUnitFormattingSettingsProvider(new LocalUnitFormatProvider(IModelApp.quantityFormatter, true)); // pass true to save per imodel
+    await IModelApp.quantityFormatter.setUnitFormattingSettingsProvider(
+      new LocalUnitFormatProvider(IModelApp.quantityFormatter, true)
+    ); // pass true to save per imodel
 
     AppSettingsTabsProvider.initializeAppSettingProvider();
 
     // Create and register the AppUiSettings instance to provide default for ui settings in Redux store
-    const lastTheme = (window.localStorage && window.localStorage.getItem("uifw:defaultTheme")) ?? SYSTEM_PREFERRED_COLOR_THEME;
+    const lastTheme =
+      (window.localStorage &&
+        window.localStorage.getItem("uifw:defaultTheme")) ??
+      SYSTEM_PREFERRED_COLOR_THEME;
     const defaults: InitialAppUiSettings = {
       colorTheme: lastTheme ?? SYSTEM_PREFERRED_COLOR_THEME,
       dragInteraction: false,
@@ -264,13 +377,25 @@ export class SampleAppIModelApp {
     await AppUiTestProviders.initializeLocalizationAndState();
 
     // initialize UI Item providers
-    UiItemsManager.register(new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace));
-    UiItemsManager.register(new FloatingWidgetsUiItemsProvider(), { providerId: "widget-api-stage-floating-widget", stageIds: [WidgetApiStage.stageId] });
-    UiItemsManager.register(new InspectUiItemInfoToolProvider(AppUiTestProviders.localizationNamespace));
+    UiItemsManager.register(
+      new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace)
+    );
+    UiItemsManager.register(new FloatingWidgetsUiItemsProvider(), {
+      providerId: "widget-api-stage-floating-widget",
+      stageIds: [WidgetApiStage.stageId],
+    });
+    UiItemsManager.register(
+      new InspectUiItemInfoToolProvider(
+        AppUiTestProviders.localizationNamespace
+      )
+    );
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
-    SynchronizedFloatingViewportStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
+    SynchronizedFloatingViewportStage.register(
+      AppUiTestProviders.localizationNamespace
+    ); // Frontstage and item providers
+    PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
 
     // try starting up event loop if not yet started so key-in palette can be opened
     IModelApp.startEventLoop();
@@ -282,12 +407,20 @@ export class SampleAppIModelApp {
     return category;
   }
 
-  public static async openIModelAndViews(iTwinId: string, iModelId: string, viewIdsSelected?: Id64String[]) {
+  public static async openIModelAndViews(
+    iTwinId: string,
+    iModelId: string,
+    viewIdsSelected?: Id64String[]
+  ) {
     // Close the current iModelConnection
     await SampleAppIModelApp.closeCurrentIModel();
 
-    Logger.logInfo(SampleAppIModelApp.loggerCategory(this),
-      `openIModelAndViews: iTwinId=${iTwinId}&iModelId=${iModelId} mode=${this.allowWrite ? "ReadWrite" : "Readonly"}`);
+    Logger.logInfo(
+      SampleAppIModelApp.loggerCategory(this),
+      `openIModelAndViews: iTwinId=${iTwinId}&iModelId=${iModelId} mode=${
+        this.allowWrite ? "ReadWrite" : "Readonly"
+      }`
+    );
 
     let iModelConnection: IModelConnection | undefined;
     try {
@@ -299,7 +432,10 @@ export class SampleAppIModelApp {
         return;
       }
       iModelConnection = iModel.iModelConnection!;
-      if ((undefined === viewIdsSelected || 0 === viewIdsSelected.length) && iModel.viewId) {
+      if (
+        (undefined === viewIdsSelected || 0 === viewIdsSelected.length) &&
+        iModel.viewId
+      ) {
         viewIdsSelected = [iModel.viewId];
       }
       if (viewIdsSelected) {
@@ -326,7 +462,10 @@ export class SampleAppIModelApp {
     }
   }
 
-  public static async openViews(iModelConnection: IModelConnection, viewIdsSelected: Id64String[]) {
+  public static async openViews(
+    iModelConnection: IModelConnection,
+    viewIdsSelected: Id64String[]
+  ) {
     // we create a Frontstage that contains the views that we want.
     let stageId: string;
     const defaultFrontstage = MainFrontstage.stageId;
@@ -341,14 +480,17 @@ export class SampleAppIModelApp {
 
     if (viewIdsSelected.length) {
       SampleAppIModelApp.setInitialViewIds(viewIdsSelected);
-      Logger.logInfo(SampleAppIModelApp.loggerCategory(this),
-        `openViews: iTwinId=${iModelConnection.iTwinId} iModelId=${iModelConnection.iModelId} viewIdsSelected=${JSON.stringify(viewIdsSelected)}`);
+      Logger.logInfo(
+        SampleAppIModelApp.loggerCategory(this),
+        `openViews: iTwinId=${iModelConnection.iTwinId} iModelId=${
+          iModelConnection.iModelId
+        } viewIdsSelected=${JSON.stringify(viewIdsSelected)}`
+      );
     }
 
     if (this.iModelParams && this.iModelParams.stageId)
       stageId = this.iModelParams.stageId;
-    else
-      stageId = defaultFrontstage;
+    else stageId = defaultFrontstage;
 
     let frontstageDef: FrontstageDef | undefined;
     if (stageId === defaultFrontstage) {
@@ -361,10 +503,15 @@ export class SampleAppIModelApp {
     }
 
     if (frontstageDef) {
-      UiFramework.frontstages.setActiveFrontstageDef(frontstageDef).then(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
-        // Frontstage & ScreenViewports are ready
-        Logger.logInfo(SampleAppIModelApp.loggerCategory(this), `Frontstage & ScreenViewports are ready`);
-      });
+      void UiFramework.frontstages
+        .setActiveFrontstageDef(frontstageDef)
+        .then(() => {
+          // Frontstage & ScreenViewports are ready
+          Logger.logInfo(
+            SampleAppIModelApp.loggerCategory(this),
+            `Frontstage & ScreenViewports are ready`
+          );
+        });
     } else {
       throw new Error(`Frontstage with id "${stageId}" does not exist`);
     }
@@ -374,13 +521,17 @@ export class SampleAppIModelApp {
     const currentConnection = UiFramework.getIModelConnection();
     let iModelConnection: IModelConnection | undefined;
 
-    if (!currentConnection || (currentConnection.iModelId !== iModelId)) {
+    if (!currentConnection || currentConnection.iModelId !== iModelId) {
       // Close the current iModelConnection
       await SampleAppIModelApp.closeCurrentIModel();
 
       // open the imodel
-      Logger.logInfo(SampleAppIModelApp.loggerCategory(this),
-        `showIModel: iTwinId = ${iTwinId}& iModelId=${iModelId} mode = ${this.allowWrite ? "ReadWrite" : "Readonly"} `);
+      Logger.logInfo(
+        SampleAppIModelApp.loggerCategory(this),
+        `showIModel: iTwinId = ${iTwinId}& iModelId=${iModelId} mode = ${
+          this.allowWrite ? "ReadWrite" : "Readonly"
+        } `
+      );
 
       try {
         const iModel = await ExternalIModel.create({ iTwinId, iModelId });
@@ -416,54 +567,71 @@ export class SampleAppIModelApp {
   public static async showSignedIn() {
     SampleAppIModelApp.iModelParams = SampleAppIModelApp._usingParams();
 
-    if (undefined === SampleAppIModelApp.iModelParams && process.env.IMJS_UITESTAPP_IMODEL_NAME && process.env.IMJS_UITESTAPP_ITWIN_NAME) {
-      const viewId: string | undefined = process.env.IMJS_UITESTAPP_IMODEL_VIEWID;
+    if (
+      undefined === SampleAppIModelApp.iModelParams &&
+      process.env.IMJS_UITESTAPP_IMODEL_NAME &&
+      process.env.IMJS_UITESTAPP_ITWIN_NAME
+    ) {
+      const viewId: string | undefined =
+        process.env.IMJS_UITESTAPP_IMODEL_VIEWID;
       const iTwinName = process.env.IMJS_UITESTAPP_ITWIN_NAME ?? "";
       const iModelName = process.env.IMJS_UITESTAPP_IMODEL_NAME ?? "";
 
       const accessToken = await IModelApp.getAccessToken();
-      const iTwinList: ITwin[] = await (new ProjectsAccessClient()).getAll(accessToken, {
-        search: {
-          searchString: iTwinName,
-          propertyName: ProjectsSearchableProperty.Name,
-          exactMatch: true,
-        },
-      });
+      const iTwinList: ITwin[] = await new ProjectsAccessClient().getAll(
+        accessToken,
+        {
+          search: {
+            searchString: iTwinName,
+            propertyName: ProjectsSearchableProperty.Name,
+            exactMatch: true,
+          },
+        }
+      );
 
       if (iTwinList.length === 0)
         throw new Error(`ITwin ${iTwinName} was not found for the user.`);
       else if (iTwinList.length > 1)
-        throw new Error(`Multiple iTwins named ${iTwinName} were found for the user.`);
+        throw new Error(
+          `Multiple iTwins named ${iTwinName} were found for the user.`
+        );
 
       const iTwin: ITwin = iTwinList[0];
 
-      if (!SampleAppIModelApp.hubClient)
-        return;
+      if (!SampleAppIModelApp.hubClient) return;
 
       let iModel;
-      for await (const imodel of SampleAppIModelApp.hubClient.iModels.getRepresentationList({
-        urlParams: {
-          name: iModelName,
-          $top: 1,
-          iTwinId: iTwin.id,
-        },
-        authorization: AccessTokenAdapter.toAuthorizationCallback(accessToken),
-      }))
+      for await (const imodel of SampleAppIModelApp.hubClient.iModels.getRepresentationList(
+        {
+          urlParams: {
+            name: iModelName,
+            $top: 1,
+            iTwinId: iTwin.id,
+          },
+          authorization:
+            AccessTokenAdapter.toAuthorizationCallback(accessToken),
+        }
+      ))
         iModel = imodel;
 
-      if (!iModel)
-        throw new Error(`No iModel with the name ${iModelName} `);
+      if (!iModel) throw new Error(`No iModel with the name ${iModelName} `);
 
       if (viewId) {
         // open directly into the iModel (view)
-        await SampleAppIModelApp.openIModelAndViews(iTwin.id, iModel?.id, [viewId]);
+        await SampleAppIModelApp.openIModelAndViews(iTwin.id, iModel?.id, [
+          viewId,
+        ]);
       } else {
         // open directly into the iModel with default viewId
         await SampleAppIModelApp.showIModel(iTwin.id, iModel.id);
       }
     } else if (SampleAppIModelApp.iModelParams) {
       // open directly into the iModel (view)
-      await SampleAppIModelApp.openIModelAndViews(SampleAppIModelApp.iModelParams.iTwinId, SampleAppIModelApp.iModelParams.iModelId, SampleAppIModelApp.iModelParams.viewIds);
+      await SampleAppIModelApp.openIModelAndViews(
+        SampleAppIModelApp.iModelParams.iTwinId,
+        SampleAppIModelApp.iModelParams.iModelId,
+        SampleAppIModelApp.iModelParams.viewIds
+      );
     } else {
       // open to the IModelOpen frontstage
       await SampleAppIModelApp.showIModelOpen();
@@ -482,10 +650,22 @@ export class SampleAppIModelApp {
       return { iTwinId, iModelId, viewIds, stageId };
     }
 
-    if (process.env.IMJS_UITESTAPP_IMODEL_ID && process.env.IMJS_UITESTAPP_ITWIN_ID) {
+    if (process.env.IMJS_IMODEL_ID && process.env.IMJS_ITWIN_ID) {
+      const envITwinId = process.env.IMJS_ITWIN_ID;
+      const envIModelId = process.env.IMJS_IMODEL_ID;
+      const viewIds = process.env.IMJS_UITESTAPP_IMODEL_VIEWID
+        ? [process.env.IMJS_UITESTAPP_IMODEL_VIEWID]
+        : undefined;
+      return { iTwinId: envITwinId, iModelId: envIModelId, viewIds };
+    } else if (
+      process.env.IMJS_UITESTAPP_IMODEL_ID &&
+      process.env.IMJS_UITESTAPP_ITWIN_ID
+    ) {
       const envITwinId = process.env.IMJS_UITESTAPP_ITWIN_ID;
       const envIModelId = process.env.IMJS_UITESTAPP_IMODEL_ID;
-      const viewIds = process.env.IMJS_UITESTAPP_IMODEL_VIEWID ? [process.env.IMJS_UITESTAPP_IMODEL_VIEWID] : undefined;
+      const viewIds = process.env.IMJS_UITESTAPP_IMODEL_VIEWID
+        ? [process.env.IMJS_UITESTAPP_IMODEL_VIEWID]
+        : undefined;
       return { iTwinId: envITwinId, iModelId: envIModelId, viewIds };
     }
 
@@ -502,7 +682,11 @@ export class SampleAppIModelApp {
 
   public static setTestProperty(value: string, immediateSync = false) {
     if (value !== SampleAppIModelApp.getTestProperty()) {
-      UiFramework.dispatchActionToStore(SampleAppUiActionId.setTestProperty, value, immediateSync);
+      UiFramework.dispatchActionToStore(
+        SampleAppUiActionId.setTestProperty,
+        value,
+        immediateSync
+      );
     }
   }
 
@@ -516,7 +700,11 @@ export class SampleAppIModelApp {
 
   public static saveAnimationViewId(value: string, immediateSync = false) {
     if (value !== SampleAppIModelApp.getTestProperty()) {
-      UiFramework.dispatchActionToStore(SampleAppUiActionId.setAnimationViewId, value, immediateSync);
+      UiFramework.dispatchActionToStore(
+        SampleAppUiActionId.setAnimationViewId,
+        value,
+        immediateSync
+      );
     }
   }
 
@@ -525,7 +713,11 @@ export class SampleAppIModelApp {
   }
 
   public static setInitialViewIds(viewIds: string[], immediateSync = false) {
-    UiFramework.dispatchActionToStore(SampleAppUiActionId.setInitialViewIds, viewIds, immediateSync);
+    UiFramework.dispatchActionToStore(
+      SampleAppUiActionId.setInitialViewIds,
+      viewIds,
+      immediateSync
+    );
   }
 
   public static get isIModelLocal(): boolean {
@@ -533,13 +725,18 @@ export class SampleAppIModelApp {
   }
 
   public static async showFrontstage(frontstageId: string) {
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageId);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      frontstageId
+    );
     if (frontstageDef !== UiFramework.frontstages.activeFrontstageDef)
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   }
 }
 
-function AppDragInteractionComponent(props: { dragInteraction: boolean, children: React.ReactNode }) {
+function AppDragInteractionComponent(props: {
+  dragInteraction: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <ToolbarDragInteractionContext.Provider value={props.dragInteraction}>
       {props.children}
@@ -548,10 +745,15 @@ function AppDragInteractionComponent(props: { dragInteraction: boolean, children
 }
 
 function mapDragInteractionStateToProps(state: RootState) {
-  return { dragInteraction: state.frameworkState.configurableUiState.useDragInteraction };
+  return {
+    dragInteraction:
+      state.frameworkState.configurableUiState.useDragInteraction,
+  };
 }
 
-const AppDragInteraction = connect(mapDragInteractionStateToProps)(AppDragInteractionComponent);
+const AppDragInteraction = connect(mapDragInteractionStateToProps)(
+  AppDragInteractionComponent
+);
 
 const SampleAppViewer2 = () => {
   const [isAuthorized, setIsAuthorized] = React.useState<boolean>(false);
@@ -559,62 +761,96 @@ const SampleAppViewer2 = () => {
   React.useEffect(() => {
     AppUi.initialize();
 
-    if (IModelApp.authorizationClient instanceof BrowserAuthorizationClient || IModelApp.authorizationClient instanceof ElectronRendererAuthorization) {
+    if (
+      IModelApp.authorizationClient instanceof BrowserAuthorizationClient ||
+      IModelApp.authorizationClient instanceof ElectronRendererAuthorization
+    ) {
       setIsAuthorized(IModelApp.authorizationClient.isAuthorized);
     }
   }, []);
 
   React.useEffect(() => {
     // Load the correct Frontstage based on whether or not you're authorized.
-    isAuthorized ? SampleAppIModelApp.showSignedIn() : SampleAppIModelApp.showSignInPage(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    isAuthorized
+      ? void SampleAppIModelApp.showSignedIn()
+      : void SampleAppIModelApp.showSignInPage();
   }, [isAuthorized]);
 
   const _onAccessTokenChanged = () => {
-    if (IModelApp.authorizationClient instanceof BrowserAuthorizationClient || IModelApp.authorizationClient instanceof ElectronRendererAuthorization) {
+    if (
+      IModelApp.authorizationClient instanceof BrowserAuthorizationClient ||
+      IModelApp.authorizationClient instanceof ElectronRendererAuthorization
+    ) {
       setIsAuthorized(IModelApp.authorizationClient.isAuthorized); // forces the effect above to re-run and check the actual client...
     }
   };
 
-  const _handleFrontstageDeactivatedEvent = (args: FrontstageDeactivatedEventArgs): void => {
-    Logger.logInfo(SampleAppIModelApp.loggerCategory(this), `Frontstage exit: id = ${args.deactivatedFrontstageDef.id} totalTime = ${args.totalTime} engagementTime = ${args.engagementTime} idleTime = ${args.idleTime} `);
+  const _handleFrontstageDeactivatedEvent = (
+    args: FrontstageDeactivatedEventArgs
+  ): void => {
+    Logger.logInfo(
+      SampleAppIModelApp.loggerCategory(this),
+      `Frontstage exit: id = ${args.deactivatedFrontstageDef.id} totalTime = ${args.totalTime} engagementTime = ${args.engagementTime} idleTime = ${args.idleTime} `
+    );
   };
 
-  const _handleModalFrontstageClosedEvent = (args: ModalFrontstageClosedEventArgs): void => {
-    Logger.logInfo(SampleAppIModelApp.loggerCategory(this), `Modal Frontstage close: title = ${args.modalFrontstage.title} totalTime = ${args.totalTime} engagementTime = ${args.engagementTime} idleTime = ${args.idleTime} `);
+  const _handleModalFrontstageClosedEvent = (
+    args: ModalFrontstageClosedEventArgs
+  ): void => {
+    Logger.logInfo(
+      SampleAppIModelApp.loggerCategory(this),
+      `Modal Frontstage close: title = ${args.modalFrontstage.title} totalTime = ${args.totalTime} engagementTime = ${args.engagementTime} idleTime = ${args.idleTime} `
+    );
   };
 
   React.useEffect(() => {
-    if (IModelApp.authorizationClient instanceof BrowserAuthorizationClient || IModelApp.authorizationClient instanceof ElectronRendererAuthorization)
-      IModelApp.authorizationClient.onAccessTokenChanged.addListener(_onAccessTokenChanged);
-    UiFramework.frontstages.onFrontstageDeactivatedEvent.addListener(_handleFrontstageDeactivatedEvent);
-    UiFramework.frontstages.onModalFrontstageClosedEvent.addListener(_handleModalFrontstageClosedEvent);
+    if (
+      IModelApp.authorizationClient instanceof BrowserAuthorizationClient ||
+      IModelApp.authorizationClient instanceof ElectronRendererAuthorization
+    )
+      IModelApp.authorizationClient.onAccessTokenChanged.addListener(
+        _onAccessTokenChanged
+      );
+    UiFramework.frontstages.onFrontstageDeactivatedEvent.addListener(
+      _handleFrontstageDeactivatedEvent
+    );
+    UiFramework.frontstages.onModalFrontstageClosedEvent.addListener(
+      _handleModalFrontstageClosedEvent
+    );
     return () => {
-      if (IModelApp.authorizationClient instanceof BrowserAuthorizationClient || IModelApp.authorizationClient instanceof ElectronRendererAuthorization)
-        IModelApp.authorizationClient.onAccessTokenChanged.removeListener(_onAccessTokenChanged);
-      UiFramework.frontstages.onFrontstageDeactivatedEvent.removeListener(_handleFrontstageDeactivatedEvent);
-      UiFramework.frontstages.onModalFrontstageClosedEvent.removeListener(_handleModalFrontstageClosedEvent);
+      if (
+        IModelApp.authorizationClient instanceof BrowserAuthorizationClient ||
+        IModelApp.authorizationClient instanceof ElectronRendererAuthorization
+      )
+        IModelApp.authorizationClient.onAccessTokenChanged.removeListener(
+          _onAccessTokenChanged
+        );
+      UiFramework.frontstages.onFrontstageDeactivatedEvent.removeListener(
+        _handleFrontstageDeactivatedEvent
+      );
+      UiFramework.frontstages.onModalFrontstageClosedEvent.removeListener(
+        _handleModalFrontstageClosedEvent
+      );
     };
   }, []);
 
   return (
-    <Provider store={SampleAppIModelApp.store} >
+    <Provider store={SampleAppIModelApp.store}>
       <ThemeManager>
         <SafeAreaContext.Provider value={SafeAreaInsets.All}>
           <AppDragInteraction>
             <UiStateStorageHandler>
-              <ConfigurableUiContent
-                appBackstage={<BackstageComposer />}
-              />
+              <ConfigurableUiContent appBackstage={<BackstageComposer />} />
             </UiStateStorageHandler>
           </AppDragInteraction>
         </SafeAreaContext.Provider>
       </ThemeManager>
-    </Provider >
+    </Provider>
   );
 };
 
 // If we are using a browser, close the current iModel before leaving
-window.addEventListener("beforeunload", async () => { // eslint-disable-line @typescript-eslint/no-misused-promises
+window.addEventListener("beforeunload", async () => {
   await SampleAppIModelApp.closeCurrentIModel();
 });
 
@@ -627,24 +863,50 @@ async function main() {
   Logger.setLevel("ui-framework.UiFramework", LogLevel.Info);
   Logger.setLevel("ViewportComponent", LogLevel.Info);
 
-  ToolAdmin.exceptionHandler = async (err: any) => Promise.resolve(UnexpectedErrors.handle(err));
+  ToolAdmin.exceptionHandler = async (err: any) =>
+    Promise.resolve(UnexpectedErrors.handle(err));
 
   // retrieve, set, and output the global configuration variable
   SampleAppIModelApp.testAppConfiguration = {};
-  SampleAppIModelApp.testAppConfiguration.snapshotPath = process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
-  SampleAppIModelApp.testAppConfiguration.bingMapsKey = process.env.IMJS_BING_MAPS_KEY;
-  SampleAppIModelApp.testAppConfiguration.mapBoxKey = process.env.IMJS_MAPBOX_KEY;
-  SampleAppIModelApp.testAppConfiguration.cesiumIonKey = process.env.IMJS_CESIUM_ION_KEY;
-  SampleAppIModelApp.testAppConfiguration.reactAxeConsole = SampleAppIModelApp.isEnvVarOn("IMJS_TESTAPP_REACT_AXE_CONSOLE");
-  SampleAppIModelApp.testAppConfiguration.useLocalSettings = SampleAppIModelApp.isEnvVarOn("IMJS_UITESTAPP_USE_LOCAL_SETTINGS");
-  Logger.logInfo("Configuration", JSON.stringify(SampleAppIModelApp.testAppConfiguration)); // eslint-disable-line no-console
+  SampleAppIModelApp.testAppConfiguration.snapshotPath =
+    process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
+  SampleAppIModelApp.testAppConfiguration.bingMapsKey =
+    process.env.IMJS_BING_MAPS_KEY;
+  SampleAppIModelApp.testAppConfiguration.mapBoxKey =
+    process.env.IMJS_MAPBOX_KEY;
+  SampleAppIModelApp.testAppConfiguration.cesiumIonKey =
+    process.env.IMJS_CESIUM_ION_KEY;
+  SampleAppIModelApp.testAppConfiguration.reactAxeConsole =
+    SampleAppIModelApp.isEnvVarOn("IMJS_TESTAPP_REACT_AXE_CONSOLE");
+  SampleAppIModelApp.testAppConfiguration.useLocalSettings =
+    SampleAppIModelApp.isEnvVarOn("IMJS_UITESTAPP_USE_LOCAL_SETTINGS");
+  Logger.logInfo(
+    "Configuration",
+    JSON.stringify(SampleAppIModelApp.testAppConfiguration)
+  );
 
   const mapLayerOpts = {
-    BingMaps: SampleAppIModelApp.testAppConfiguration.bingMapsKey ? { key: "key", value: SampleAppIModelApp.testAppConfiguration.bingMapsKey } : undefined,
-    MapboxImagery: SampleAppIModelApp.testAppConfiguration.mapBoxKey ? { key: "access_token", value: SampleAppIModelApp.testAppConfiguration.mapBoxKey } : undefined,
+    BingMaps: SampleAppIModelApp.testAppConfiguration.bingMapsKey
+      ? {
+          key: "key",
+          value: SampleAppIModelApp.testAppConfiguration.bingMapsKey,
+        }
+      : undefined,
+    MapboxImagery: SampleAppIModelApp.testAppConfiguration.mapBoxKey
+      ? {
+          key: "access_token",
+          value: SampleAppIModelApp.testAppConfiguration.mapBoxKey,
+        }
+      : undefined,
   };
 
-  const iModelClient = new IModelsClient({ api: { baseUrl: `https://${process.env.IMJS_URL_PREFIX ?? ""}api.bentley.com/imodels` } });
+  const iModelClient = new IModelsClient({
+    api: {
+      baseUrl: `https://${
+        process.env.IMJS_URL_PREFIX ?? ""
+      }api.bentley.com/imodels`,
+    },
+  });
 
   const realityDataClientOptions: RealityDataClientOptions = {
     /** API Version. v1 by default */
@@ -664,7 +926,9 @@ async function main() {
       rpcInterfaces: getSupportedRpcs(),
       hubAccess: new FrontendIModelsAccess(iModelClient),
       mapLayerOptions: mapLayerOpts,
-      tileAdmin: { cesiumIonKey: SampleAppIModelApp.testAppConfiguration.cesiumIonKey },
+      tileAdmin: {
+        cesiumIonKey: SampleAppIModelApp.testAppConfiguration.cesiumIonKey,
+      },
     },
   };
 
@@ -673,8 +937,13 @@ async function main() {
 
   await SampleAppIModelApp.initialize();
 
-  ReactDOM.render(<SampleAppViewer2 />, document.getElementById("root") as HTMLElement);
+  ReactDOM.render(
+    <React.StrictMode>
+      <SampleAppViewer2 />
+    </React.StrictMode>,
+    document.getElementById("root") as HTMLElement
+  );
 }
 
 // Entry point - run the main function
-main(); // eslint-disable-line @typescript-eslint/no-floating-promises
+void main();

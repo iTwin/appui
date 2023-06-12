@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Dialog
  */
@@ -17,15 +17,16 @@ import { InternalModelessDialogManager as internal } from "./InternalModelessDia
  * @public
  */
 export class ModelessDialogRenderer extends React.PureComponent<CommonProps> {
-
   constructor(props: CommonProps) {
     super(props);
   }
 
   public override render(): React.ReactNode {
     return (
-      <DialogRendererBase {...this.props} dialogManager={internal.dialogManager} />
+      <DialogRendererBase
+        {...this.props}
+        dialogManager={internal.dialogManager}
+      />
     );
   }
 }
-

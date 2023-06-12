@@ -1,28 +1,46 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 // cSpell:ignore picklist
 
 import {
-  AngleDescription, BeButtonEvent,
-  EventHandled, IModelApp,
-  LengthDescription, NotifyMessageDetails, OutputMessagePriority,
-  PrimitiveTool, QuantityType,
-  SurveyLengthDescription, ToolAssistance, ToolAssistanceImage,
+  AngleDescription,
+  BeButtonEvent,
+  EventHandled,
+  IModelApp,
+  LengthDescription,
+  NotifyMessageDetails,
+  OutputMessagePriority,
+  PrimitiveTool,
+  QuantityType,
+  SurveyLengthDescription,
+  ToolAssistance,
+  ToolAssistanceImage,
 } from "@itwin/core-frontend";
 import {
-  ColorEditorParams, DialogItem, DialogItemValue, DialogPropertySyncItem,
+  ColorEditorParams,
+  DialogItem,
+  DialogItemValue,
+  DialogPropertySyncItem,
   IconSpecUtilities,
   InputEditorSizeParams,
-  PropertyDescription, PropertyEditorParamTypes, StandardEditorNames, SuppressLabelEditorParams, ToolbarItemUtilities,
+  PropertyDescription,
+  PropertyEditorParamTypes,
+  StandardEditorNames,
+  SuppressLabelEditorParams,
+  ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 
 import { Logger } from "@itwin/core-bentley";
 import { Point3d } from "@itwin/core-geometry";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { FormatterSpec } from "@itwin/core-quantity";
-import { CursorInformation, MenuItemProps, UiFramework } from "@itwin/appui-react";
+import {
+  CursorInformation,
+  MenuItemProps,
+  UiFramework,
+} from "@itwin/appui-react";
 import { AppUiTestProviders } from "../AppUiTestProviders";
 import sampleToolSvg from "./SampleTool.svg";
 
@@ -43,7 +61,10 @@ export class SampleTool extends PrimitiveTool {
   private _showCoordinatesOnPointerMove = false;
   private _stationFormatterSpec?: FormatterSpec;
   private _lengthDescription = new LengthDescription();
-  private _surveyLengthDescription = new SurveyLengthDescription(SampleTool._surveyLengthName, "Survey");
+  private _surveyLengthDescription = new SurveyLengthDescription(
+    SampleTool._surveyLengthName,
+    "Survey"
+  );
 
   private toggleCoordinateUpdate() {
     this._showCoordinatesOnPointerMove = !this._showCoordinatesOnPointerMove;
@@ -67,7 +88,10 @@ export class SampleTool extends PrimitiveTool {
       { label: SampleTool.getOptionString("Red"), value: ToolOptions.Red },
       { label: SampleTool.getOptionString("White"), value: ToolOptions.White },
       { label: SampleTool.getOptionString("Blue"), value: ToolOptions.Blue },
-      { label: SampleTool.getOptionString("Yellow"), value: ToolOptions.Yellow },
+      {
+        label: SampleTool.getOptionString("Yellow"),
+        value: ToolOptions.Yellow,
+      },
       { label: SampleTool.getOptionString("Green"), value: ToolOptions.Green },
       { label: SampleTool.getOptionString("Pink"), value: ToolOptions.Pink },
     ];
@@ -104,20 +128,21 @@ export class SampleTool extends PrimitiveTool {
       typename: "number",
       editor: {
         name: "color-picker",
-        params: [{
-          type: PropertyEditorParamTypes.ColorData,
-          colorValues: [
-            ColorByName.blue,
-            ColorByName.red,
-            ColorByName.green,
-            ColorByName.yellow,
-            ColorByName.black,
-            ColorByName.gray,
-            ColorByName.purple,
-            ColorByName.pink,
-          ],
-          numColumns: 2,
-        } as ColorEditorParams,
+        params: [
+          {
+            type: PropertyEditorParamTypes.ColorData,
+            colorValues: [
+              ColorByName.blue,
+              ColorByName.red,
+              ColorByName.green,
+              ColorByName.yellow,
+              ColorByName.black,
+              ColorByName.gray,
+              ColorByName.purple,
+              ColorByName.pink,
+            ],
+            numColumns: 2,
+          } as ColorEditorParams,
         ],
       },
     };
@@ -213,11 +238,12 @@ export class SampleTool extends PrimitiveTool {
       displayLabel: SampleTool.getPrompt("State"),
       typename: "string",
       editor: {
-        params: [{
-          type: PropertyEditorParamTypes.InputEditorSize,
-          size: 4,
-          /* maxLength: 60,*/
-        } as InputEditorSizeParams,
+        params: [
+          {
+            type: PropertyEditorParamTypes.InputEditorSize,
+            size: 4,
+            /* maxLength: 60,*/
+          } as InputEditorSizeParams,
         ],
       },
     };
@@ -255,16 +281,21 @@ export class SampleTool extends PrimitiveTool {
 
   // ------------- display station value as text  ---------------
   public get stationFormatterSpec(): FormatterSpec | undefined {
-    if (this._stationFormatterSpec)
-      return this._stationFormatterSpec;
+    if (this._stationFormatterSpec) return this._stationFormatterSpec;
 
-    const formatterSpec = IModelApp.quantityFormatter.findFormatterSpecByQuantityType(QuantityType.Stationing);
+    const formatterSpec =
+      IModelApp.quantityFormatter.findFormatterSpecByQuantityType(
+        QuantityType.Stationing
+      );
     if (formatterSpec) {
       this._stationFormatterSpec = formatterSpec;
       return formatterSpec;
     }
 
-    Logger.logError("UITestApp.SampleTool", "Station formatterSpec was expected to be set before tool started.");
+    Logger.logError(
+      "UITestApp.SampleTool",
+      "Station formatterSpec was expected to be set before tool started."
+    );
     return undefined;
   }
 
@@ -279,7 +310,10 @@ export class SampleTool extends PrimitiveTool {
 
   private formatStation(numberValue: number): string {
     if (this.stationFormatterSpec) {
-      return IModelApp.quantityFormatter.formatQuantity(numberValue, this.stationFormatterSpec);
+      return IModelApp.quantityFormatter.formatQuantity(
+        numberValue,
+        this.stationFormatterSpec
+      );
     }
     return numberValue.toFixed(2);
   }
@@ -302,10 +336,11 @@ export class SampleTool extends PrimitiveTool {
       displayLabel: "",
       typename: "boolean",
       editor: {
-        params: [{
-          type: PropertyEditorParamTypes.SuppressEditorLabel,
-          suppressLabelPlaceholder: true,
-        } as SuppressLabelEditorParams,
+        params: [
+          {
+            type: PropertyEditorParamTypes.SuppressEditorLabel,
+            suppressLabelPlaceholder: true,
+          } as SuppressLabelEditorParams,
         ],
       },
     };
@@ -325,7 +360,7 @@ export class SampleTool extends PrimitiveTool {
   private static _lengthName = "length";
 
   // if _lengthValue also sets up display value then the "number-custom" type editor would not need to format the value before initially displaying it.
-  private _lengthValue: DialogItemValue = { value: 1.5 };  // value in meters
+  private _lengthValue: DialogItemValue = { value: 1.5 }; // value in meters
 
   public get length(): number {
     return this._lengthValue.value as number;
@@ -339,7 +374,7 @@ export class SampleTool extends PrimitiveTool {
   private static _surveyLengthName = "surveyLength";
 
   // if _surveyLengthValue also sets up display value then the "number-custom" type editor would not need to format the value before initially displaying it.
-  private _surveyLengthValue: DialogItemValue = { value: 51.25 };  // value in meters
+  private _surveyLengthValue: DialogItemValue = { value: 51.25 }; // value in meters
 
   public get surveyLength(): number {
     return this._surveyLengthValue.value as number;
@@ -364,9 +399,16 @@ export class SampleTool extends PrimitiveTool {
 
   // -------- end of ToolSettings ----------
 
-  public override requireWriteableTarget(): boolean { return false; }
-  public override async onPostInstall() { await super.onPostInstall(); this.setupAndPromptForNextAction(); }
-  public override async onUnsuspend() { this.provideToolAssistance(); }
+  public override requireWriteableTarget(): boolean {
+    return false;
+  }
+  public override async onPostInstall() {
+    await super.onPostInstall();
+    this.setupAndPromptForNextAction();
+  }
+  public override async onUnsuspend() {
+    this.provideToolAssistance();
+  }
 
   /** Establish current tool state and initialize drawing aides following onPostInstall, onDataButtonDown, onUndoPreviousStep, or other events that advance or back up the current tool state.
    * Enable snapping or auto-locate for AccuSnap.
@@ -385,7 +427,10 @@ export class SampleTool extends PrimitiveTool {
    * After onUndoPreviousStep or onRedoPreviousStep modifies the current tool state.
    */
   protected provideToolAssistance(): void {
-    const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.CursorClick, SampleTool.getPrompt("GetPoint"));
+    const mainInstruction = ToolAssistance.createInstruction(
+      ToolAssistanceImage.CursorClick,
+      SampleTool.getPrompt("GetPoint")
+    );
     const instructions = ToolAssistance.createInstructions(mainInstruction);
 
     IModelApp.notifications.setToolAssistance(instructions);
@@ -393,105 +438,235 @@ export class SampleTool extends PrimitiveTool {
 
   private showInfoFromCursorMenu(label: string) {
     const msg = `Context Menu selection - ${label}`;
-    IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, msg));
+    IModelApp.notifications.outputMessage(
+      new NotifyMessageDetails(OutputMessagePriority.Info, msg)
+    );
   }
 
-  public override async onDataButtonDown(ev: BeButtonEvent): Promise<EventHandled> {
+  public override async onDataButtonDown(
+    ev: BeButtonEvent
+  ): Promise<EventHandled> {
     // Used to test Cursor Menu
     if (ev.isAltKey) {
       const menuItems: MenuItemProps[] = [];
-      menuItems.push({ id: "entry1", item: { label: "Label1", icon: "icon-placeholder", execute: () => { this.showInfoFromCursorMenu("hello from entry1"); } } });
-      menuItems.push({ id: "entry2", item: { label: "Label2", execute: () => { this.showInfoFromCursorMenu("hello from entry2"); } } });
-      menuItems.push({ id: "entry3", item: { label: "Label3", icon: "icon-placeholder", execute: () => { this.showInfoFromCursorMenu("hello from entry3"); } } });
+      menuItems.push({
+        id: "entry1",
+        item: {
+          label: "Label1",
+          icon: "icon-placeholder",
+          execute: () => {
+            this.showInfoFromCursorMenu("hello from entry1");
+          },
+        },
+      });
+      menuItems.push({
+        id: "entry2",
+        item: {
+          label: "Label2",
+          execute: () => {
+            this.showInfoFromCursorMenu("hello from entry2");
+          },
+        },
+      });
+      menuItems.push({
+        id: "entry3",
+        item: {
+          label: "Label3",
+          icon: "icon-placeholder",
+          execute: () => {
+            this.showInfoFromCursorMenu("hello from entry3");
+          },
+        },
+      });
 
-      UiFramework.openCursorMenu({ items: menuItems, position: { x: CursorInformation.cursorX, y: CursorInformation.cursorY } });
+      UiFramework.openCursorMenu({
+        items: menuItems,
+        position: {
+          x: CursorInformation.cursorX,
+          y: CursorInformation.cursorY,
+        },
+      });
       return EventHandled.No;
     }
 
-    if (this.points.length < 2)
-      this.points.push(ev.point.clone());
-    else
-      this.points[1] = ev.point.clone();
+    if (this.points.length < 2) this.points.push(ev.point.clone());
+    else this.points[1] = ev.point.clone();
     this.toggleCoordinateUpdate();
     this.setupAndPromptForNextAction();
 
     return EventHandled.No;
   }
 
-  public override async onResetButtonUp(_ev: BeButtonEvent): Promise<EventHandled> {
+  public override async onResetButtonUp(
+    _ev: BeButtonEvent
+  ): Promise<EventHandled> {
     /* Common reset behavior for primitive tools is calling onReinitialize to restart or exitTool to terminate. */
     await this.onReinitialize();
     return EventHandled.No;
   }
 
-  private syncCoordinateValue(coordinate: string, station: string, distance: number): void {
+  private syncCoordinateValue(
+    coordinate: string,
+    station: string,
+    distance: number
+  ): void {
     const coordinateValue: DialogItemValue = { value: coordinate };
     // clone coordinateValue if storing value within tool - in this case we are not
-    const syncItem: DialogPropertySyncItem = { value: coordinateValue, propertyName: SampleTool._coordinateName, isDisabled: true };
+    const syncItem: DialogPropertySyncItem = {
+      value: coordinateValue,
+      propertyName: SampleTool._coordinateName,
+      isDisabled: true,
+    };
     const stationValue: DialogItemValue = { value: station };
-    const stationSyncItem: DialogPropertySyncItem = { value: stationValue, propertyName: SampleTool._stationName, isDisabled: true };
+    const stationSyncItem: DialogPropertySyncItem = {
+      value: stationValue,
+      propertyName: SampleTool._stationName,
+      isDisabled: true,
+    };
 
-    const surveyLengthValue: DialogItemValue = { value: distance, displayValue: this._surveyLengthDescription.format(distance) };
-    const surveySyncItem: DialogPropertySyncItem = { value: surveyLengthValue, propertyName: SampleTool._surveyLengthName, isDisabled: true };
-    this.syncToolSettingsProperties([syncItem, stationSyncItem, surveySyncItem]);
+    const surveyLengthValue: DialogItemValue = {
+      value: distance,
+      displayValue: this._surveyLengthDescription.format(distance),
+    };
+    const surveySyncItem: DialogPropertySyncItem = {
+      value: surveyLengthValue,
+      propertyName: SampleTool._surveyLengthName,
+      isDisabled: true,
+    };
+    this.syncToolSettingsProperties([
+      syncItem,
+      stationSyncItem,
+      surveySyncItem,
+    ]);
   }
 
   public override async onMouseMotion(ev: BeButtonEvent): Promise<void> {
-    if (!this._showCoordinatesOnPointerMove)
-      return;
+    if (!this._showCoordinatesOnPointerMove) return;
 
     const point = ev.point.clone();
-    const formattedString: string = `${point.x.toFixed(2)}, ${point.y.toFixed(2)}, ${point.z.toFixed(2)}`;
+    const formattedString: string = `${point.x.toFixed(2)}, ${point.y.toFixed(
+      2
+    )}, ${point.z.toFixed(2)}`;
     let distance = 0;
-    if (this.points.length > 0)
-      distance = point.distance(this.points[0]);
+    if (this.points.length > 0) distance = point.distance(this.points[0]);
 
-    this.syncCoordinateValue(formattedString, this.formatStation(distance), distance);
+    this.syncCoordinateValue(
+      formattedString,
+      this.formatStation(distance),
+      distance
+    );
   }
 
   public async onRestartTool() {
     const tool = new SampleTool();
-    if (!await tool.run())
-      return this.exitTool();
+    if (!(await tool.run())) return this.exitTool();
   }
 
   /** Used to supply DefaultToolSettingProvider with a list of properties to use to generate ToolSettings.  If undefined then no ToolSettings will be displayed */
   public override supplyToolSettingsProperties(): DialogItem[] | undefined {
     const readonly = true;
     const toolSettings = new Array<DialogItem>();
-    toolSettings.push({ value: this._optionsValue, property: this._getEnumAsPicklistDescription(), editorPosition: { rowPriority: 0, columnIndex: 2 } });
-    toolSettings.push({ value: this._colorValue, property: SampleTool._getColorDescription(), editorPosition: { rowPriority: 2, columnIndex: 2 } });
-    toolSettings.push({ value: this._weightValue, property: SampleTool._getWeightDescription(), editorPosition: { rowPriority: 3, columnIndex: 2 } });
-    toolSettings.push({ value: this._lockValue, property: SampleTool._getLockToggleDescription(), editorPosition: { rowPriority: 5, columnIndex: 2 } });
-    toolSettings.push({ value: this._cityValue, property: SampleTool._getCityDescription(), editorPosition: { rowPriority: 10, columnIndex: 2 } });
-    toolSettings.push({ value: this._stateValue, property: SampleTool._getStateDescription(), editorPosition: { rowPriority: 10, columnIndex: 4 } });
-    toolSettings.push({ value: this._coordinateValue, property: SampleTool._getCoordinateDescription(), editorPosition: { rowPriority: 15, columnIndex: 2 }, isDisabled: readonly });
-    toolSettings.push({ value: this._stationValue, property: SampleTool._getStationDescription(), editorPosition: { rowPriority: 16, columnIndex: 2 }, isDisabled: readonly });
-    const lengthLock = { value: this._useLengthValue, property: SampleTool._getUseLengthDescription(), editorPosition: { rowPriority: 20, columnIndex: 0 } };
-    toolSettings.push({ value: this._lengthValue, property: this._lengthDescription, editorPosition: { rowPriority: 20, columnIndex: 2 }, isDisabled: false, lockProperty: lengthLock });
-    toolSettings.push({ value: this._surveyLengthValue, property: this._surveyLengthDescription, editorPosition: { rowPriority: 21, columnIndex: 2 }, isDisabled: readonly });
-    toolSettings.push({ value: this._angleValue, property: new AngleDescription(), editorPosition: { rowPriority: 25, columnIndex: 2 } });
+    toolSettings.push({
+      value: this._optionsValue,
+      property: this._getEnumAsPicklistDescription(),
+      editorPosition: { rowPriority: 0, columnIndex: 2 },
+    });
+    toolSettings.push({
+      value: this._colorValue,
+      property: SampleTool._getColorDescription(),
+      editorPosition: { rowPriority: 2, columnIndex: 2 },
+    });
+    toolSettings.push({
+      value: this._weightValue,
+      property: SampleTool._getWeightDescription(),
+      editorPosition: { rowPriority: 3, columnIndex: 2 },
+    });
+    toolSettings.push({
+      value: this._lockValue,
+      property: SampleTool._getLockToggleDescription(),
+      editorPosition: { rowPriority: 5, columnIndex: 2 },
+    });
+    toolSettings.push({
+      value: this._cityValue,
+      property: SampleTool._getCityDescription(),
+      editorPosition: { rowPriority: 10, columnIndex: 2 },
+    });
+    toolSettings.push({
+      value: this._stateValue,
+      property: SampleTool._getStateDescription(),
+      editorPosition: { rowPriority: 10, columnIndex: 4 },
+    });
+    toolSettings.push({
+      value: this._coordinateValue,
+      property: SampleTool._getCoordinateDescription(),
+      editorPosition: { rowPriority: 15, columnIndex: 2 },
+      isDisabled: readonly,
+    });
+    toolSettings.push({
+      value: this._stationValue,
+      property: SampleTool._getStationDescription(),
+      editorPosition: { rowPriority: 16, columnIndex: 2 },
+      isDisabled: readonly,
+    });
+    const lengthLock = {
+      value: this._useLengthValue,
+      property: SampleTool._getUseLengthDescription(),
+      editorPosition: { rowPriority: 20, columnIndex: 0 },
+    };
+    toolSettings.push({
+      value: this._lengthValue,
+      property: this._lengthDescription,
+      editorPosition: { rowPriority: 20, columnIndex: 2 },
+      isDisabled: false,
+      lockProperty: lengthLock,
+    });
+    toolSettings.push({
+      value: this._surveyLengthValue,
+      property: this._surveyLengthDescription,
+      editorPosition: { rowPriority: 21, columnIndex: 2 },
+      isDisabled: readonly,
+    });
+    toolSettings.push({
+      value: this._angleValue,
+      property: new AngleDescription(),
+      editorPosition: { rowPriority: 25, columnIndex: 2 },
+    });
     return toolSettings;
   }
 
   private showColorInfoFromUi(updatedValue: DialogPropertySyncItem) {
-    const msg = `Property '${updatedValue.propertyName}' updated to value ${this.colorDef.toRgbString()}`;
-    IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, msg));
+    const msg = `Property '${
+      updatedValue.propertyName
+    }' updated to value ${this.colorDef.toRgbString()}`;
+    IModelApp.notifications.outputMessage(
+      new NotifyMessageDetails(OutputMessagePriority.Info, msg)
+    );
   }
 
   private showInfoFromUi(updatedValue: DialogPropertySyncItem) {
     const msg = `Property '${updatedValue.propertyName}' updated to value ${updatedValue.value.value}`;
-    IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, msg));
+    IModelApp.notifications.outputMessage(
+      new NotifyMessageDetails(OutputMessagePriority.Info, msg)
+    );
   }
 
   private syncLengthState(): void {
-    const lengthValue: DialogItemValue = { value: this.length, displayValue: this._lengthDescription.format(this.length) };
-    const syncItem: DialogPropertySyncItem = { value: lengthValue, propertyName: SampleTool._lengthName, isDisabled: !this.useLength };
+    const lengthValue: DialogItemValue = {
+      value: this.length,
+      displayValue: this._lengthDescription.format(this.length),
+    };
+    const syncItem: DialogPropertySyncItem = {
+      value: lengthValue,
+      propertyName: SampleTool._lengthName,
+      isDisabled: !this.useLength,
+    };
     this.syncToolSettingsProperties([syncItem]);
   }
 
   /** Used to send changes from UI back to Tool */
-  public override async applyToolSettingPropertyChange(updatedValue: DialogPropertySyncItem): Promise<boolean> {
+  public override async applyToolSettingPropertyChange(
+    updatedValue: DialogPropertySyncItem
+  ): Promise<boolean> {
     if (updatedValue.propertyName === SampleTool._optionsName) {
       if (this._optionsValue.value !== updatedValue.value.value) {
         this.option = updatedValue.value.value as ToolOptions;
@@ -528,12 +703,24 @@ export class SampleTool extends PrimitiveTool {
     return true;
   }
 
-  public static getActionButtonDef(itemPriority: number, groupPriority?: number) {
+  public static getActionButtonDef(
+    itemPriority: number,
+    groupPriority?: number
+  ) {
     const overrides = undefined !== groupPriority ? { groupPriority } : {};
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(this.iconSpec);
+    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
+      this.iconSpec
+    );
 
-    return ToolbarItemUtilities.createActionButton(SampleTool.toolId, itemPriority, iconSpec, SampleTool.flyover,
-      async () => { await IModelApp.tools.run(SampleTool.toolId); },
-      overrides);
+    return ToolbarItemUtilities.createActionButton(
+      SampleTool.toolId,
+      itemPriority,
+      iconSpec,
+      SampleTool.flyover,
+      async () => {
+        await IModelApp.tools.run(SampleTool.toolId);
+      },
+      overrides
+    );
   }
 }

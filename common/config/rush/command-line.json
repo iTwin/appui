@@ -119,6 +119,22 @@
       "summary": "Run copyright linter using lintstaged",
       "autoinstallerName": "rush-lintstaged",
       "shellCommand": "lint-staged --quiet --config common/scripts/.lintstagedrc.json"
+    },
+    {
+      "name": "prettier",
+      "commandKind": "global",
+      "summary": "Run prettier to check for formatting inconsistencies.",
+      "safeForSimultaneousRushProcesses": true,
+      "autoinstallerName": "rush-prettier",
+      "shellCommand": "prettier --check ."
+    },
+    {
+      "name": "prettier:fix",
+      "commandKind": "global",
+      "summary": "Run prettier to format all files.",
+      "safeForSimultaneousRushProcesses": true,
+      "autoinstallerName": "rush-prettier",
+      "shellCommand": "prettier --write ."
     }
   ]
 }

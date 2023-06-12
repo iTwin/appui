@@ -1,10 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { addPanelWidget, addTab, createNineZoneState, PanelSideContext } from "../../appui-layout-react";
+import {
+  addPanelWidget,
+  addTab,
+  createNineZoneState,
+  PanelSideContext,
+} from "../../appui-layout-react";
 import { PanelTargets } from "../../appui-layout-react/target/PanelTargets";
 import type { TestNineZoneProviderProps } from "../Providers";
 import { TestNineZoneProvider } from "../Providers";
@@ -24,14 +29,15 @@ function Wrapper(props: React.PropsWithChildren<TestNineZoneProviderProps>) {
 
 describe("PanelTargets", () => {
   it("should render a panel target", () => {
-    const { container } = render(
-      <PanelTargets />,
-      {
-        wrapper: Wrapper,
-      }
-    );
-    container.getElementsByClassName("nz-target-panelTarget").length.should.eq(1);
-    container.getElementsByClassName("nz-target-sectionTarget").length.should.eq(0);
+    const { container } = render(<PanelTargets />, {
+      wrapper: Wrapper,
+    });
+    container
+      .getElementsByClassName("nz-target-panelTarget")
+      .length.should.eq(1);
+    container
+      .getElementsByClassName("nz-target-sectionTarget")
+      .length.should.eq(0);
   });
 
   it("should render 3 targets in a single section", () => {
@@ -42,10 +48,14 @@ describe("PanelTargets", () => {
     const { container } = render(
       <Wrapper defaultState={state}>
         <PanelTargets />
-      </Wrapper>,
+      </Wrapper>
     );
-    container.getElementsByClassName("nz-target-mergeTarget").length.should.eq(1);
-    container.getElementsByClassName("nz-target-sectionTarget").length.should.eq(2);
+    container
+      .getElementsByClassName("nz-target-mergeTarget")
+      .length.should.eq(1);
+    container
+      .getElementsByClassName("nz-target-sectionTarget")
+      .length.should.eq(2);
   });
 
   it("should render one target in each section (2 sections)", () => {
@@ -57,10 +67,14 @@ describe("PanelTargets", () => {
     const { container } = render(
       <Wrapper defaultState={state}>
         <PanelTargets />
-      </Wrapper>,
+      </Wrapper>
     );
-    container.getElementsByClassName("nz-target-mergeTarget").length.should.eq(2);
-    container.getElementsByClassName("nz-target-sectionTarget").length.should.eq(0);
+    container
+      .getElementsByClassName("nz-target-mergeTarget")
+      .length.should.eq(2);
+    container
+      .getElementsByClassName("nz-target-sectionTarget")
+      .length.should.eq(0);
   });
 
   it("should render no targets if panel is expanded", () => {
@@ -70,9 +84,13 @@ describe("PanelTargets", () => {
     const { container } = render(
       <Wrapper defaultState={state}>
         <PanelTargets />
-      </Wrapper>,
+      </Wrapper>
     );
-    container.getElementsByClassName("nz-target-panelTarget").length.should.eq(0);
-    container.getElementsByClassName("nz-target-sectionTarget").length.should.eq(0);
+    container
+      .getElementsByClassName("nz-target-panelTarget")
+      .length.should.eq(0);
+    container
+      .getElementsByClassName("nz-target-sectionTarget")
+      .length.should.eq(0);
   });
 });

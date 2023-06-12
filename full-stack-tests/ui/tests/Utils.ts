@@ -1,8 +1,8 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-import { BrowserContext, expect, Locator, Page } from '@playwright/test';
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import { BrowserContext, expect, Locator, Page } from "@playwright/test";
 
 export async function runKeyin(page: Page, keyin: string) {
   const ui = page.locator("#uifw-configurableui-wrapper");
@@ -15,11 +15,13 @@ export async function runKeyin(page: Page, keyin: string) {
 
 type PanelSide = "left" | "right" | "top" | "bottom";
 
-type FloatingWidgetLocatorArgs = { page: Page, id: string } | { tab: Locator };
+type FloatingWidgetLocatorArgs = { page: Page; id: string } | { tab: Locator };
 
 export function floatingWidgetLocator(args: FloatingWidgetLocatorArgs) {
   if ("tab" in args) {
-    return args.tab.page().locator(".nz-widget-floatingWidget", { has: args.tab });
+    return args.tab
+      .page()
+      .locator(".nz-widget-floatingWidget", { has: args.tab });
   }
   return args.page.locator(`[data-widget-id="${args.id}"]`);
 }
@@ -40,7 +42,7 @@ export function activeTabLocator(widget: Locator) {
   return widget.locator(".nz-active");
 }
 
-type PanelLocatorArgs = { page: Page, side: PanelSide } | { tab: Locator };
+type PanelLocatorArgs = { page: Page; side: PanelSide } | { tab: Locator };
 
 export function panelLocator(args: PanelLocatorArgs) {
   if ("tab" in args) {
@@ -57,7 +59,9 @@ export function frontstageLocator(page: Page) {
   return page.locator(".uifw-widgetPanels-frontstage");
 }
 
-type OutlineLocatorArgs = { page: Page, side: PanelSide } | { panel: Locator, sectionIndex: 0 | 1 };
+type OutlineLocatorArgs =
+  | { page: Page; side: PanelSide }
+  | { panel: Locator; sectionIndex: 0 | 1 };
 
 export function outlineLocator(args: OutlineLocatorArgs): Locator;
 export function outlineLocator(args: WidgetLocatorArgs): Locator[];
@@ -68,11 +72,16 @@ export function outlineLocator(args: OutlineLocatorArgs | WidgetLocatorArgs) {
   }
 
   if ("sectionIndex" in args) {
-    return args.panel.locator(`.nz-outline-sectionOutline.nz-${args.sectionIndex}`);
+    return args.panel.locator(
+      `.nz-outline-sectionOutline.nz-${args.sectionIndex}`
+    );
   }
 
   const widget = widgetLocator(args);
-  return [widget.locator(".nz-outline-widgetOutline"), widget.locator(".nz-outline-tabOutline")];
+  return [
+    widget.locator(".nz-outline-widgetOutline"),
+    widget.locator(".nz-outline-tabOutline"),
+  ];
 }
 
 export interface SavedFrontstageState {
@@ -89,41 +98,53 @@ export interface SavedFrontstageState {
         activeTabId: string;
         tabs: string[];
       };
-    }
+    };
   };
   widgets: { id: string }[];
 }
 
 /** Assertion helper that polls saved frontstage state from local storage until `conditionFn` is satisfied. */
-export async function expectSavedFrontstageState<T extends SavedFrontstageState>(context: BrowserContext, conditionFn: (state: T) => boolean) {
-  await expect.poll(async () => {
-    const storage = await context.storageState();
-    const origin = storage.origins[0];
-    const localStorage = origin.localStorage;
-    const setting = localStorage.find(({ name }) => {
-      return name.startsWith("uifw-frontstageSettings.frontstageState[");
-    });
-    if (!setting)
-      return undefined;
-    const state = JSON.parse(setting.value);
-    return conditionFn(state);
-  }, {}).toBeTruthy();
+export async function expectSavedFrontstageState<
+  T extends SavedFrontstageState
+>(context: BrowserContext, conditionFn: (state: T) => boolean) {
+  await expect
+    .poll(async () => {
+      const storage = await context.storageState();
+      const origin = storage.origins[0];
+      const localStorage = origin.localStorage;
+      const setting = localStorage.find(({ name }) => {
+        return name.startsWith("uifw-frontstageSettings.frontstageState[");
+      });
+      if (!setting) return undefined;
+      const state = JSON.parse(setting.value);
+      return conditionFn(state);
+    }, {})
+    .toBeTruthy();
 }
 
 /** Asserts that a tab is in a specified panel section. */
-export async function expectTabInPanelSection(tab: Locator, side: PanelSide, sectionId: 0 | 1) {
+export async function expectTabInPanelSection(
+  tab: Locator,
+  side: PanelSide,
+  sectionId: 0 | 1
+) {
   const page = tab.page();
   const panel = panelLocator({ tab });
   const section = page.locator(`.nz-panel-section-${sectionId}`, { has: tab });
   await expect(panel).toHaveClass(new RegExp(`nz-${side}`));
-  await expect(section, `expected tab to be in section '${sectionId}'`).toBeVisible();
+  await expect(
+    section,
+    `expected tab to be in section '${sectionId}'`
+  ).toBeVisible();
 }
 
 export async function openFrontstage(page: Page, frontstageId: string) {
   const toggleBackstage = page.locator(`.nz-app-button button`);
   await toggleBackstage.click();
 
-  const backstageItem = page.locator(`[data-item-type="backstage-item"][data-item-id="${frontstageId}"]`);
+  const backstageItem = page.locator(
+    `[data-item-type="backstage-item"][data-item-id="${frontstageId}"]`
+  );
   await backstageItem.click();
 }
 
@@ -134,6 +155,10 @@ export enum WidgetState {
   Floating = 3,
 }
 
-export async function setWidgetState(page: Page, widgetId: string, widgetState: WidgetState) {
+export async function setWidgetState(
+  page: Page,
+  widgetId: string,
+  widgetState: WidgetState
+) {
   await runKeyin(page, `widget setstate ${widgetId} ${widgetState}`);
 }

@@ -1,12 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyFilterBuilder
  */
 
-import type { PropertyDescription} from "@itwin/appui-abstract";
+import type { PropertyDescription } from "@itwin/appui-abstract";
 import { StandardTypeNames } from "@itwin/appui-abstract";
 import { UiComponents } from "../UiComponents";
 
@@ -48,7 +48,10 @@ export enum PropertyFilterRuleOperator {
 export function getPropertyFilterOperators(property: PropertyDescription) {
   const typename = property.typename;
 
-  if (typename === StandardTypeNames.Bool || typename === StandardTypeNames.Boolean) {
+  if (
+    typename === StandardTypeNames.Bool ||
+    typename === StandardTypeNames.Boolean
+  ) {
     return [
       PropertyFilterRuleOperator.IsTrue,
       PropertyFilterRuleOperator.IsFalse,
@@ -62,15 +65,17 @@ export function getPropertyFilterOperators(property: PropertyDescription) {
     PropertyFilterRuleOperator.IsNotNull,
   ];
 
-  if (typename === StandardTypeNames.Number
-    || typename === StandardTypeNames.Int
-    || typename === StandardTypeNames.Integer
-    || typename === StandardTypeNames.Double
-    || typename === StandardTypeNames.Float
-    || typename === StandardTypeNames.Hex
-    || typename === StandardTypeNames.Hexadecimal
-    || typename === StandardTypeNames.ShortDate
-    || typename === StandardTypeNames.DateTime) {
+  if (
+    typename === StandardTypeNames.Number ||
+    typename === StandardTypeNames.Int ||
+    typename === StandardTypeNames.Integer ||
+    typename === StandardTypeNames.Double ||
+    typename === StandardTypeNames.Float ||
+    typename === StandardTypeNames.Hex ||
+    typename === StandardTypeNames.Hexadecimal ||
+    typename === StandardTypeNames.ShortDate ||
+    typename === StandardTypeNames.DateTime
+  ) {
     return [
       ...operators,
       PropertyFilterRuleOperator.Greater,
@@ -80,11 +85,11 @@ export function getPropertyFilterOperators(property: PropertyDescription) {
     ];
   }
 
-  if (typename === StandardTypeNames.String || typename === StandardTypeNames.Text) {
-    return [
-      ...operators,
-      PropertyFilterRuleOperator.Like,
-    ];
+  if (
+    typename === StandardTypeNames.String ||
+    typename === StandardTypeNames.Text
+  ) {
+    return [PropertyFilterRuleOperator.Like, ...operators];
   }
 
   return operators;
@@ -95,7 +100,9 @@ export function getPropertyFilterOperators(property: PropertyDescription) {
  * Function that returns display label for rule operator.
  * @beta
  */
-export function getPropertyFilterOperatorLabel(operator: PropertyFilterRuleOperator) {
+export function getPropertyFilterOperatorLabel(
+  operator: PropertyFilterRuleOperator
+) {
   switch (operator) {
     case PropertyFilterRuleOperator.IsTrue:
       return UiComponents.translate("filterBuilder.operators.isTrue");
@@ -126,7 +133,9 @@ export function getPropertyFilterOperatorLabel(operator: PropertyFilterRuleOpera
  * Function that checks if supplied operator is unary.
  * @beta
  */
-export function isUnaryPropertyFilterOperator(operator: PropertyFilterRuleOperator) {
+export function isUnaryPropertyFilterOperator(
+  operator: PropertyFilterRuleOperator
+) {
   switch (operator) {
     case PropertyFilterRuleOperator.IsTrue:
     case PropertyFilterRuleOperator.IsFalse:

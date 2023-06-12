@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -24,7 +24,8 @@ const COLORS = [
  * @internal
  */
 export function getUserColor(email: string): string {
-  if (typeof email !== "string")  // Test for invalid data
+  if (typeof email !== "string")
+    // Test for invalid data
     return COLORS[0];
 
   const cleanString = email.trim().toLowerCase();

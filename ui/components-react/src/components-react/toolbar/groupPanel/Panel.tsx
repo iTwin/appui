@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -26,7 +26,8 @@ export interface PanelProps extends CommonProps {
 export function Panel(props: PanelProps) {
   const className = classnames(
     "components-toolbar-item-expandable-group-panel",
-    props.className);
+    props.className
+  );
 
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions

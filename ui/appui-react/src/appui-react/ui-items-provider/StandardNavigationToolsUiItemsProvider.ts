@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StandardUiItemsProvider
  */
 
 import { ToolbarHelper } from "../toolbar/ToolbarHelper";
-import type { ToolbarItem} from "../toolbar/ToolbarItem";
+import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { CoreTools } from "../tools/CoreToolDefinitions";
 import type { UiItemsProvider } from "./UiItemsProvider";
@@ -37,43 +37,131 @@ export interface DefaultNavigationTools {
  * @beta
  */
 export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
-  public get id(): string { return "appui-react:StandardNavigationToolsUiItemsProvider"; }
+  public get id(): string {
+    return "appui-react:StandardNavigationToolsUiItemsProvider";
+  }
 
-  constructor(private defaultNavigationTools?: DefaultNavigationTools) { }
+  constructor(private defaultNavigationTools?: DefaultNavigationTools) {}
 
-  public provideToolbarItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[] {
+  public provideToolbarItems(
+    _stageId: string,
+    _stageUsage: string,
+    toolbarUsage: ToolbarUsage,
+    toolbarOrientation: ToolbarOrientation,
+    _stageAppData?: any
+  ): ToolbarItem[] {
     const items: ToolbarItem[] = [];
-    if (toolbarUsage === ToolbarUsage.ViewNavigation && toolbarOrientation === ToolbarOrientation.Horizontal) {
+    if (
+      toolbarUsage === ToolbarUsage.ViewNavigation &&
+      toolbarOrientation === ToolbarOrientation.Horizontal
+    ) {
+      if (
+        !this.defaultNavigationTools ||
+        !this.defaultNavigationTools.horizontal ||
+        this.defaultNavigationTools.horizontal.rotateView
+      )
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            10,
+            CoreTools.rotateViewCommand
+          )
+        );
 
-      if (!this.defaultNavigationTools || !this.defaultNavigationTools.horizontal || this.defaultNavigationTools.horizontal.rotateView)
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.rotateViewCommand));
+      if (
+        !this.defaultNavigationTools ||
+        !this.defaultNavigationTools.horizontal ||
+        this.defaultNavigationTools.horizontal.panView
+      )
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            20,
+            CoreTools.panViewCommand
+          )
+        );
 
-      if (!this.defaultNavigationTools || !this.defaultNavigationTools.horizontal || this.defaultNavigationTools.horizontal.panView)
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(20, CoreTools.panViewCommand));
-
-      if (!this.defaultNavigationTools || !this.defaultNavigationTools.horizontal || this.defaultNavigationTools.horizontal.fitView) {
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(30, CoreTools.fitViewCommand));
+      if (
+        !this.defaultNavigationTools ||
+        !this.defaultNavigationTools.horizontal ||
+        this.defaultNavigationTools.horizontal.fitView
+      ) {
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            30,
+            CoreTools.fitViewCommand
+          )
+        );
       }
 
-      if (!this.defaultNavigationTools || !this.defaultNavigationTools.horizontal || this.defaultNavigationTools.horizontal.windowArea) {
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(40, CoreTools.windowAreaCommand));
+      if (
+        !this.defaultNavigationTools ||
+        !this.defaultNavigationTools.horizontal ||
+        this.defaultNavigationTools.horizontal.windowArea
+      ) {
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            40,
+            CoreTools.windowAreaCommand
+          )
+        );
       }
 
-      if (!this.defaultNavigationTools || !this.defaultNavigationTools.horizontal || this.defaultNavigationTools.horizontal.viewUndoRedo) {
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(50, CoreTools.viewUndoCommand));
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(60, CoreTools.viewRedoCommand));
+      if (
+        !this.defaultNavigationTools ||
+        !this.defaultNavigationTools.horizontal ||
+        this.defaultNavigationTools.horizontal.viewUndoRedo
+      ) {
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            50,
+            CoreTools.viewUndoCommand
+          )
+        );
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            60,
+            CoreTools.viewRedoCommand
+          )
+        );
       }
+    } /* istanbul ignore else */ else if (
+      toolbarUsage === ToolbarUsage.ViewNavigation &&
+      toolbarOrientation === ToolbarOrientation.Vertical
+    ) {
+      if (
+        !this.defaultNavigationTools ||
+        !this.defaultNavigationTools.vertical ||
+        this.defaultNavigationTools.vertical.setupWalkCamera
+      )
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            5,
+            CoreTools.setupCameraWalkTool
+          )
+        );
 
-    } else /* istanbul ignore else */if (toolbarUsage === ToolbarUsage.ViewNavigation && toolbarOrientation === ToolbarOrientation.Vertical) {
+      if (
+        !this.defaultNavigationTools ||
+        !this.defaultNavigationTools.vertical ||
+        this.defaultNavigationTools.vertical.walk
+      )
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            10,
+            CoreTools.walkViewCommand
+          )
+        );
 
-      if (!this.defaultNavigationTools || !this.defaultNavigationTools.vertical || this.defaultNavigationTools.vertical.setupWalkCamera)
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(5, CoreTools.setupCameraWalkTool));
-
-      if (!this.defaultNavigationTools || !this.defaultNavigationTools.vertical || this.defaultNavigationTools.vertical.walk)
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.walkViewCommand));
-
-      if (!this.defaultNavigationTools || !this.defaultNavigationTools.vertical || this.defaultNavigationTools.vertical.toggleCamera)
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(20, CoreTools.toggleCameraViewCommand));
+      if (
+        !this.defaultNavigationTools ||
+        !this.defaultNavigationTools.vertical ||
+        this.defaultNavigationTools.vertical.toggleCamera
+      )
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            20,
+            CoreTools.toggleCameraViewCommand
+          )
+        );
     }
     return items;
   }

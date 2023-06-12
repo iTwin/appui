@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -36,8 +36,14 @@ export function useTreeModel(modelSource: TreeModelSource): TreeModel {
  *
  * @public
  */
-export function useTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataProvider: TDataProvider, modelSource: TreeModelSource) {
-  return useMemo(() => new TreeNodeLoader(dataProvider, modelSource), [dataProvider, modelSource]);
+export function useTreeNodeLoader<TDataProvider extends TreeDataProvider>(
+  dataProvider: TDataProvider,
+  modelSource: TreeModelSource
+) {
+  return useMemo(
+    () => new TreeNodeLoader(dataProvider, modelSource),
+    [dataProvider, modelSource]
+  );
 }
 
 /**
@@ -45,8 +51,15 @@ export function useTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataPr
  * nodes from the data provider and puts them into the model source.
  * @public
  */
-export function usePagedTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataProvider: TDataProvider, pageSize: number, modelSource: TreeModelSource) {
-  return useMemo(() => new PagedTreeNodeLoader(dataProvider, modelSource, pageSize), [dataProvider, modelSource, pageSize]);
+export function usePagedTreeNodeLoader<TDataProvider extends TreeDataProvider>(
+  dataProvider: TDataProvider,
+  pageSize: number,
+  modelSource: TreeModelSource
+) {
+  return useMemo(
+    () => new PagedTreeNodeLoader(dataProvider, modelSource, pageSize),
+    [dataProvider, modelSource, pageSize]
+  );
 }
 
 /**
@@ -71,10 +84,11 @@ export function useTreeModelSource(dataProvider: TreeDataProvider) {
  *
  * @public
  */
-export function useTreeEventsHandler<TEventsHandler extends TreeEventHandler>(factoryOrParams: (() => TEventsHandler) | TreeEventHandlerParams) {
+export function useTreeEventsHandler<TEventsHandler extends TreeEventHandler>(
+  factoryOrParams: (() => TEventsHandler) | TreeEventHandlerParams
+) {
   const factory = useCallback((): TreeEventHandler => {
-    if (typeof factoryOrParams === "function")
-      return factoryOrParams();
+    if (typeof factoryOrParams === "function") return factoryOrParams();
     return new TreeEventHandler(factoryOrParams);
   }, [factoryOrParams]);
   return useDisposable(factory);

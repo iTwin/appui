@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { useLayoutEffect } from "react";
 import { useRerender } from "../../components-react/common/UseRerender";
 import { act } from "@testing-library/react";
@@ -47,7 +47,9 @@ describe("useRerender", () => {
   });
 
   it("resets rerender context on next render if rerender was not requested", () => {
-    const { result, rerender } = renderHook(() => useRerender("initial context"));
+    const { result, rerender } = renderHook(() =>
+      useRerender("initial context")
+    );
     act(() => result.current.rerender("altered context"));
     rerender();
     expect(result.current.rerenderContext).to.equal("initial context");

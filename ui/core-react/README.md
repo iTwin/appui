@@ -4,7 +4,7 @@ Copyright © Bentley Systems, Incorporated. All rights reserved. See LICENSE.md 
 
 ## Description
 
-The __@itwin/core-react__ package contains general purpose React components, such as Dialog, MessageBox, SearchBox, RadialMenu.
+The **@itwin/core-react** package contains general purpose React components, such as Dialog, MessageBox, SearchBox, RadialMenu.
 
 ## Documentation
 

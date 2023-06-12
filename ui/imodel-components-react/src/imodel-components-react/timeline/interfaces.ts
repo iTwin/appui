@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Timeline
  */
@@ -61,14 +61,18 @@ export interface PlaybackSettings {
  * An interface used to notify Handlers of the current pointer position in the timeline playback. Valid range is 0 to 1 and it determines percentage complete.
  * @public
  */
-export type AnimationFractionChangeHandler = (animationFraction: number) => void;
+export type AnimationFractionChangeHandler = (
+  animationFraction: number
+) => void;
 
 /**
  * An interface used to notify Handlers of Playback Settings changes.
  * Contains the settings to be used.
  * @public
  */
-export type PlaybackSettingsChangeHandler = (settingsChange: PlaybackSettings) => void;
+export type PlaybackSettingsChangeHandler = (
+  settingsChange: PlaybackSettings
+) => void;
 
 /** Actions for Pause/Play event
  * @public

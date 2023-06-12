@@ -1,9 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { BackstageAppButton, ContentGroup, ContentGroupProvider, IModelViewportControl, StandardFrontstageProps, StandardFrontstageProvider, UiFramework } from "@itwin/appui-react";
+import {
+  BackstageAppButton,
+  ContentGroup,
+  ContentGroupProvider,
+  IModelViewportControl,
+  StandardFrontstageProps,
+  StandardFrontstageProvider,
+  UiFramework,
+} from "@itwin/appui-react";
 import React from "react";
 
 // __PUBLISH_EXTRACT_START__ Example_Viewport_Frontstage_Group_Provider_1
@@ -37,6 +45,8 @@ export function registerViewportFrontstage(): void {
     cornerButton: <BackstageAppButton />,
     usage: "General",
   };
-  UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(stageProps));
+  UiFramework.frontstages.addFrontstageProvider(
+    new StandardFrontstageProvider(stageProps)
+  );
 }
 // __PUBLISH_EXTRACT_END__

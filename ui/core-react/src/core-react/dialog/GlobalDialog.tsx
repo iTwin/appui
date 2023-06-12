@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Dialog
  */
@@ -28,7 +28,10 @@ export interface GlobalDialogState {
 /** GlobalDialog React component used to display a [[Dialog]] on the top of screen
  * @public
  */
-export class GlobalDialog extends React.Component<GlobalDialogProps, GlobalDialogState> {
+export class GlobalDialog extends React.Component<
+  GlobalDialogProps,
+  GlobalDialogState
+> {
   private _container?: HTMLDivElement;
 
   public override readonly state: GlobalDialogState = {
@@ -43,8 +46,13 @@ export class GlobalDialog extends React.Component<GlobalDialogProps, GlobalDialo
     const parentDocument = popupDiv?.ownerDocument ?? null;
     if (parentDocument) {
       this._container = parentDocument.createElement("div");
-      this._container.id = this.props.identifier !== undefined ? `dialog-${this.props.identifier}` : "core-dialog";
-      let rt = parentDocument.getElementById("core-dialog-root") as HTMLDivElement;
+      this._container.id =
+        this.props.identifier !== undefined
+          ? `dialog-${this.props.identifier}`
+          : "core-dialog";
+      let rt = parentDocument.getElementById(
+        "core-dialog-root"
+      ) as HTMLDivElement;
       if (!rt) {
         rt = parentDocument.createElement("div");
         rt.id = "core-dialog-root";
@@ -59,17 +67,21 @@ export class GlobalDialog extends React.Component<GlobalDialogProps, GlobalDialo
 
   public override componentWillUnmount() {
     // istanbul ignore else
-    if (this._container && this._container.parentElement) { // cleanup
+    if (this._container && this._container.parentElement) {
+      // cleanup
       this._container.parentElement.removeChild(this._container);
     }
   }
 
   public override render(): React.ReactNode {
-    const { identifier, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { identifier, ...props } = this.props;
     return (
       <div ref={this._handleRefSet}>
         {this.state.parentDocument &&
-          ReactDOM.createPortal(<Dialog {...props} />, this.state.parentDocument.body)}
+          ReactDOM.createPortal(
+            <Dialog {...props} />,
+            this.state.parentDocument.body
+          )}
       </div>
     );
   }

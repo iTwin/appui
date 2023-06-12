@@ -1,11 +1,11 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ToolSettings
  */
-import type { DialogItem, DialogPropertySyncItem} from "@itwin/appui-abstract";
+import type { DialogItem, DialogPropertySyncItem } from "@itwin/appui-abstract";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { InteractiveTool } from "@itwin/core-frontend";
 
@@ -20,7 +20,7 @@ export interface SyncToolSettingsPropertiesEventArgs {
 /** Sync Tool Settings Properties Event class.
  * @public
  */
-export class SyncToolSettingsPropertiesEvent extends UiEvent<SyncToolSettingsPropertiesEventArgs> { }
+export class SyncToolSettingsPropertiesEvent extends UiEvent<SyncToolSettingsPropertiesEventArgs> {}
 
 /**
  * [[UiFramework.toolSettings]] interface
@@ -31,7 +31,12 @@ export interface FrameworkToolSettings {
   clearToolSettingsData(): void;
 
   /** Cache Tool Settings properties */
-  initializeToolSettingsData(toolSettingsProperties: DialogItem[] | undefined, toolId?: string, toolLabel?: string, toolDescription?: string): boolean;
+  initializeToolSettingsData(
+    toolSettingsProperties: DialogItem[] | undefined,
+    toolId?: string,
+    toolLabel?: string,
+    toolDescription?: string
+  ): boolean;
 
   /** Set of data used in Tool Settings for the specified tool. The tool specified should be the "active" tool.
    */

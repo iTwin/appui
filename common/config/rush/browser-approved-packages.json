@@ -395,6 +395,10 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "@rushstack/eslint-patch",
+      "allowedCategories": [ "frontend", "internal" ]
+    },
+    {
       "name": "@svgdotjs/svg.js",
       "allowedCategories": [ "frontend" ]
     },
@@ -589,6 +593,10 @@
     {
       "name": "eslint",
       "allowedCategories": [ "backend", "common", "edit", "extensions", "frontend", "integration-testing", "internal", "tools" ]
+    },
+    {
+      "name": "eslint-config-prettier",
+      "allowedCategories": [ "frontend", "internal" ]
     },
     {
       "name": "eslint-import-resolver-node",
@@ -847,12 +855,24 @@
       "allowedCategories": [ "integration-testing", "internal" ]
     },
     {
+      "name": "postcss",
+      "allowedCategories": [ "tools" ]
+    },
+    {
       "name": "postcss-flexbugs-fixes",
       "allowedCategories": [ "internal" ]
     },
     {
       "name": "postcss-loader",
       "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "postcss-scss",
+      "allowedCategories": [ "tools" ]
+    },
+    {
+      "name": "postcss-value-parser",
+      "allowedCategories": [ "tools" ]
     },
     {
       "name": "puppeteer",
@@ -1048,7 +1068,7 @@
     },
     {
       "name": "ts-node",
-      "allowedCategories": [ "frontend", "internal" ]
+      "allowedCategories": [ "frontend", "internal", "tools" ]
     },
     {
       "name": "typedoc",

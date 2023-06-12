@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -16,14 +16,13 @@ import type { WidgetDef } from "./WidgetDef";
  * @public
  */
 export class WidgetHost {
-
   private _widgetDefs: WidgetDef[] = new Array<WidgetDef>();
   private _dynamicWidgetDefs: ReadonlyArray<WidgetDef> | undefined;
   private _sortedWidgetDefs: ReadonlyArray<WidgetDef> = [];
 
   /** Constructor for WidgetHost.
    */
-  constructor() { }
+  constructor() {}
 
   /** Adds a WidgetDef to the list of Widgets.
    * @param widgetDef  Definition of the Widget to add
@@ -64,8 +63,13 @@ export class WidgetHost {
   /** Updates the WidgetHost with dynamic widgets
    * @internal
    */
-  public updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, section: StagePanelSection | undefined,
-    allStageWidgetDefs: WidgetDef[]): void {
+  public updateDynamicWidgetDefs(
+    stageId: string,
+    stageUsage: string,
+    location: StagePanelLocation,
+    section: StagePanelSection | undefined,
+    allStageWidgetDefs: WidgetDef[]
+  ): void {
     // get widgetDefs not already in allStageWidgetDefs and add them
     const uniqueWidgets = this._widgetDefs.filter((widgetDef) => {
       return !allStageWidgetDefs.find((wDef) => wDef.id === widgetDef.id);
@@ -75,11 +79,17 @@ export class WidgetHost {
 
     let dynamicWidgetDefs: readonly WidgetDef[] | undefined;
     if (section !== undefined) {
-      dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, section) ?? [];
+      dynamicWidgetDefs =
+        UiFramework.widgetManager.getWidgetDefs(
+          stageId,
+          stageUsage,
+          location,
+          section
+        ) ?? [];
     }
 
     const uniqueDynamicWidgetDefs = dynamicWidgetDefs?.filter((widgetDef) => {
-      return ((!allStageWidgetDefs.find((wDef) => wDef.id === widgetDef.id)));
+      return !allStageWidgetDefs.find((wDef) => wDef.id === widgetDef.id);
     });
 
     // Now that we no longer support a middle panel section, yet we have existing API that allows a middle section to be
@@ -96,8 +106,7 @@ export class WidgetHost {
     let sortedWidgetDefs = [];
     if (this._dynamicWidgetDefs)
       sortedWidgetDefs = this._widgetDefs.concat(this._dynamicWidgetDefs);
-    else
-      sortedWidgetDefs = this._widgetDefs.slice();
+    else sortedWidgetDefs = this._widgetDefs.slice();
 
     sortedWidgetDefs.sort((a, b) => a.priority - b.priority);
 

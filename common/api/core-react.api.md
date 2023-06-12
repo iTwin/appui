@@ -559,7 +559,7 @@ export const DivWithOutsideClick: {
 };
 
 // @public
-export function ElementResizeObserver({ watchedElement, render }: {
+export function ElementResizeObserver({ watchedElement, render, }: {
     watchedElement: HTMLElement | null;
     render: (props: RenderPropsArgs) => JSX.Element;
 }): JSX.Element;
@@ -886,7 +886,7 @@ export interface ListboxContextProps {
     // (undocumented)
     listboxValue?: ListboxValue;
     // (undocumented)
-    onListboxValueChange: ((newValue: ListboxValue, isControlOrCommandPressed?: boolean) => void);
+    onListboxValueChange: (newValue: ListboxValue, isControlOrCommandPressed?: boolean) => void;
 }
 
 // @alpha
@@ -907,7 +907,7 @@ export interface ListboxProps extends React_2.DetailedHTMLProps<React_2.HTMLAttr
     // (undocumented)
     id?: string;
     // (undocumented)
-    onListboxValueChange?: ((newValue: ListboxValue, isControlOrCommandPressed?: boolean) => void);
+    onListboxValueChange?: (newValue: ListboxValue, isControlOrCommandPressed?: boolean) => void;
     // (undocumented)
     selectedValue?: ListboxValue;
 }
@@ -1108,7 +1108,7 @@ export interface NumberInputProps extends Omit<InputProps_2, "min" | "max" | "st
     max?: number;
     min?: number;
     onChange?: (value: number | undefined, stringValue: string) => void;
-    parse?: ((value: string) => number | null | undefined);
+    parse?: (value: string) => number | null | undefined;
     precision?: number;
     ref?: React_2.Ref<HTMLInputElement>;
     showTouchButtons?: boolean;
@@ -1413,7 +1413,7 @@ export interface RenderPropsArgs {
 }
 
 // @public
-export function ResizableContainerObserver({ onResize, children }: {
+export function ResizableContainerObserver({ onResize, children, }: {
     onResize: (width: number, height: number) => void;
     children?: React_2.ReactNode;
 }): JSX.Element;
@@ -1460,7 +1460,7 @@ export interface SearchBoxProps extends CommonProps {
 }
 
 // @public
-export const SettingsContainer: ({ tabs, onSettingsTabSelected, currentSettingsTab, settingsManager, showHeader }: SettingsContainerProps) => JSX.Element;
+export const SettingsContainer: ({ tabs, onSettingsTabSelected, currentSettingsTab, settingsManager, showHeader, }: SettingsContainerProps) => JSX.Element;
 
 // @public (undocumented)
 export interface SettingsContainerProps {
@@ -1872,7 +1872,7 @@ export function useOptionalDisposable<TDisposable extends IDisposable>(createDis
 export const useProximityToMouse: (elementSet: WidgetElementSet, snap?: boolean, threshold?: number) => number;
 
 // @internal
-export function useRefEffect<T>(callback: (instance: T | null) => (void | (() => void)), deps: ReadonlyArray<any>): (instance: T | null) => void;
+export function useRefEffect<T>(callback: (instance: T | null) => void | (() => void), deps: ReadonlyArray<any>): (instance: T | null) => void;
 
 // @internal
 export function useRefs<T>(...refs: ReadonlyArray<React_2.Ref<T> | undefined>): (instance: T | null) => void;

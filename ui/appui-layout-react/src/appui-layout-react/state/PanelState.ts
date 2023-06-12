@@ -1,14 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
 
 import { UiError } from "@itwin/appui-abstract";
 import produce from "immer";
-import type { HorizontalPanelSide, PanelSide, VerticalPanelSide } from "../widget-panels/Panel";
+import type {
+  HorizontalPanelSide,
+  PanelSide,
+  VerticalPanelSide,
+} from "../widget-panels/Panel";
 import { isHorizontalPanelSide } from "../widget-panels/Panel";
 import { category } from "./internal/NineZoneStateHelpers";
 import { addWidgetState } from "./internal/WidgetStateHelpers";
@@ -27,7 +31,7 @@ export interface PanelState {
   readonly size: number | undefined;
   readonly widgets: ReadonlyArray<WidgetState["id"]>;
   readonly maxWidgetCount: number;
-  readonly splitterPercent: number | undefined;  // Defaults to 50.
+  readonly splitterPercent: number | undefined; // Defaults to 50.
 }
 
 /** @internal */
@@ -50,26 +54,46 @@ export interface PanelsState {
 }
 
 /** @internal */
-export function isHorizontalPanelState(state: PanelState): state is HorizontalPanelState {
+export function isHorizontalPanelState(
+  state: PanelState
+): state is HorizontalPanelState {
   return isHorizontalPanelSide(state.side);
 }
 
 /** @internal */
-export function getWidgetPanelSectionId(side: PanelSide, panelSectionIndex: number) {
+export function getWidgetPanelSectionId(
+  side: PanelSide,
+  panelSectionIndex: number
+) {
   return 0 === panelSectionIndex ? `${side}Start` : `${side}End`;
 }
 
 /** @internal */
-export function addPanelWidget(state: NineZoneState, side: PanelSide, id: WidgetState["id"], tabs: WidgetState["tabs"], widgetArgs?: Partial<WidgetState>): NineZoneState {
+export function addPanelWidget(
+  state: NineZoneState,
+  side: PanelSide,
+  id: WidgetState["id"],
+  tabs: WidgetState["tabs"],
+  widgetArgs?: Partial<WidgetState>
+): NineZoneState {
   return insertPanelWidget(state, side, id, tabs, Infinity, widgetArgs);
 }
 
 /** @internal */
-export function insertPanelWidget(state: NineZoneState, side: PanelSide, id: WidgetState["id"], tabs: WidgetState["tabs"], sectionIndex: number, widgetArgs?: Partial<WidgetState>): NineZoneState {
+export function insertPanelWidget(
+  state: NineZoneState,
+  side: PanelSide,
+  id: WidgetState["id"],
+  tabs: WidgetState["tabs"],
+  sectionIndex: number,
+  widgetArgs?: Partial<WidgetState>
+): NineZoneState {
   const panel = state.panels[side];
   const maxWidgetCount = panel.maxWidgetCount;
   if (panel.widgets.length >= maxWidgetCount)
-    throw new UiError(category, "Max widget count exceeded", undefined, () => ({ maxWidgetCount }));
+    throw new UiError(category, "Max widget count exceeded", undefined, () => ({
+      maxWidgetCount,
+    }));
 
   state = addWidgetState(state, id, tabs, widgetArgs);
   return produce(state, (draft) => {

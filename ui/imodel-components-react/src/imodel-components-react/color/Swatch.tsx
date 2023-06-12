@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Color
  */
@@ -16,7 +16,9 @@ import { getCSSColorFromDef } from "./getCSSColorFromDef";
 /** Properties for the [[ColorSwatch]] React component
  * @beta
  */
-export interface ColorSwatchProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, CommonProps {
+export interface ColorSwatchProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    CommonProps {
   /** color specification */
   colorDef: ColorDef;
   /** function to run when user selects color swatch */
@@ -37,22 +39,28 @@ export function ColorSwatch(props: ColorSwatchProps) {
 
   const handleClick = (e: React.MouseEvent) => {
     // istanbul ignore else
-    if (props && props.onColorPick)
-      props.onColorPick(props.colorDef, e);
+    if (props && props.onColorPick) props.onColorPick(props.colorDef, e);
   };
 
   const classes = classnames(
     "components-color-swatch",
     props.round && "round",
-    props.className,
+    props.className
   );
 
   const {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    onColorPick, colorDef, round, // do not pass on color swatch specific props
-    // eslint-disable-next-line comma-dangle
+    onColorPick,
+    colorDef,
+    round, // do not pass on color swatch specific props
     ...otherProps // pass-through props
   } = props;
 
-  return <button {...otherProps} style={colorStyle} className={classes} onClick={handleClick} />;
+  return (
+    <button
+      {...otherProps}
+      style={colorStyle}
+      className={classes}
+      onClick={handleClick}
+    />
+  );
 }

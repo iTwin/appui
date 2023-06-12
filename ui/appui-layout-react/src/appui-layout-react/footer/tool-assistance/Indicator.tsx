@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ToolAssistance
  */
@@ -32,7 +32,15 @@ export interface ToolAssistanceProps extends FooterIndicatorProps {
  */
 export class ToolAssistance extends React.PureComponent<ToolAssistanceProps> {
   public override render() {
-    const { children, className, icons, indicatorRef, onClick, title, ...props } = this.props;
+    const {
+      children,
+      className,
+      icons,
+      indicatorRef,
+      onClick,
+      title,
+      ...props
+    } = this.props;
     return (
       <FooterIndicator
         className={classnames("nz-footer-toolAssistance-indicator", className)}
@@ -46,12 +54,10 @@ export class ToolAssistance extends React.PureComponent<ToolAssistanceProps> {
           tabIndex={-1}
           title={title}
         >
-          <div className="nz-icons">
-            {icons}
-          </div>
-          {children !== undefined &&
+          <div className="nz-icons">{icons}</div>
+          {children !== undefined && (
             <span className="nz-content">{children}</span>
-          }
+          )}
           <div className="nz-triangle" />
         </div>
       </FooterIndicator>

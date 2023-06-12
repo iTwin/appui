@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "variables";
 
 .nz-toolbar-button-icon {
@@ -21,7 +21,7 @@
       filter: $icon-shadow;
       display: inline-block;
     }
-    > .icon.core-svg-icon{
+    > .icon.core-svg-icon {
       & svg {
         width: $mls-icon-size;
         height: $mls-icon-size;
@@ -32,7 +32,7 @@
   &.nz-toolbar-button-icon-small {
     font-size: $mls-small-button-icon-size;
     > .nz-icon {
-       > * {
+      > * {
         width: $mls-small-button-icon-size;
         height: $mls-small-button-icon-size;
       }

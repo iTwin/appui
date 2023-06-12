@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ToolSettings
  */
@@ -9,7 +9,12 @@
 import "./ToolSettings.scss";
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
-import { DockedToolSetting, DockedToolSettings, ScrollableWidgetContent, useLayout } from "@itwin/appui-layout-react";
+import {
+  DockedToolSetting,
+  DockedToolSettings,
+  ScrollableWidgetContent,
+  useLayout,
+} from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
@@ -25,8 +30,14 @@ export interface ToolSettingsEntry {
 }
 
 function EmptyToolSettingsEntry(): ToolSettingsEntry {
-  const labelString = IModelApp.localization.getLocalizedString("UiFramework:tools.noToolSettings");
-  const labelNode = <div className="uif-toolsetting-label-docked-horizontal-empty">{labelString}</div>;
+  const labelString = IModelApp.localization.getLocalizedString(
+    "UiFramework:tools.noToolSettings"
+  );
+  const labelNode = (
+    <div className="uif-toolsetting-label-docked-horizontal-empty">
+      {labelString}
+    </div>
+  );
   const editorNode = <div />;
   return { labelNode, editorNode };
 }
@@ -34,7 +45,9 @@ function EmptyToolSettingsEntry(): ToolSettingsEntry {
 /** @internal */
 // istanbul ignore next - need to work on overflow unit testing
 function TsLabel({ children }: { children: React.ReactNode }) {
-  return <div className="uif-toolsetting-label-docked-horizontal">{children}</div>;
+  return (
+    <div className="uif-toolsetting-label-docked-horizontal">{children}</div>
+  );
 }
 
 /** @internal */
@@ -42,11 +55,8 @@ export function WidgetPanelsToolSettings() {
   const frontstageDef = useActiveFrontstageDef();
   const toolSettingsType = useLayout((state) => state.toolSettings.type);
   const toolSettings = frontstageDef?.toolSettings;
-  if (!toolSettings || toolSettingsType === "widget")
-    return null;
-  return (
-    <ToolSettingsDockedContent />
-  );
+  if (!toolSettings || toolSettingsType === "widget") return null;
+  return <ToolSettingsDockedContent />;
 }
 
 /** @internal */
@@ -54,40 +64,62 @@ export function ToolSettingsDockedContent() {
   const settings = useHorizontalToolSettingNodes();
   // for the overflow to work properly each setting in the DockedToolSettings should be wrapped by a DockedToolSetting component
   return (
-    <DockedToolSettings itemId={InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ?? "none"} key={Date.now()}>
-      {settings && settings.map((entry, index) => <DockedToolSetting key={index}><TsLabel>{entry.labelNode}</TsLabel>{entry.editorNode}</DockedToolSetting>)}
+    <DockedToolSettings
+      itemId={
+        InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ?? "none"
+      }
+      key={Date.now()}
+    >
+      {settings &&
+        settings.map((entry, index) => (
+          <DockedToolSetting key={index}>
+            <TsLabel>{entry.labelNode}</TsLabel>
+            {entry.editorNode}
+          </DockedToolSetting>
+        ))}
     </DockedToolSettings>
   );
 }
 
 /** @internal */
 export function useHorizontalToolSettingNodes() {
-  const [settings, setSettings] = React.useState(InternalFrontstageManager.activeToolSettingsProvider?.horizontalToolSettingNodes);
+  const [settings, setSettings] = React.useState(
+    InternalFrontstageManager.activeToolSettingsProvider
+      ?.horizontalToolSettingNodes
+  );
   React.useEffect(() => {
     const handleToolActivatedEvent = () => {
-      const nodes = InternalFrontstageManager.activeToolSettingsProvider?.horizontalToolSettingNodes;
-      if (!nodes || nodes.length === 0)
-        setSettings([EmptyToolSettingsEntry()]);
-      else
-        setSettings(nodes);
+      const nodes =
+        InternalFrontstageManager.activeToolSettingsProvider
+          ?.horizontalToolSettingNodes;
+      if (!nodes || nodes.length === 0) setSettings([EmptyToolSettingsEntry()]);
+      else setSettings(nodes);
     };
-    UiFramework.frontstages.onToolActivatedEvent.addListener(handleToolActivatedEvent);
+    UiFramework.frontstages.onToolActivatedEvent.addListener(
+      handleToolActivatedEvent
+    );
     return () => {
-      UiFramework.frontstages.onToolActivatedEvent.removeListener(handleToolActivatedEvent);
+      UiFramework.frontstages.onToolActivatedEvent.removeListener(
+        handleToolActivatedEvent
+      );
     };
   }, [setSettings]);
 
   React.useEffect(() => {
     const handleToolSettingsReloadEvent = () => {
-      const nodes = InternalFrontstageManager.activeToolSettingsProvider?.horizontalToolSettingNodes;
-      if (!nodes || nodes.length === 0)
-        setSettings([EmptyToolSettingsEntry()]);
-      else
-        setSettings(nodes);
+      const nodes =
+        InternalFrontstageManager.activeToolSettingsProvider
+          ?.horizontalToolSettingNodes;
+      if (!nodes || nodes.length === 0) setSettings([EmptyToolSettingsEntry()]);
+      else setSettings(nodes);
     };
-    UiFramework.frontstages.onToolSettingsReloadEvent.addListener(handleToolSettingsReloadEvent);
+    UiFramework.frontstages.onToolSettingsReloadEvent.addListener(
+      handleToolSettingsReloadEvent
+    );
     return () => {
-      UiFramework.frontstages.onToolSettingsReloadEvent.removeListener(handleToolSettingsReloadEvent);
+      UiFramework.frontstages.onToolSettingsReloadEvent.removeListener(
+        handleToolSettingsReloadEvent
+      );
     };
   }, [setSettings]);
 
@@ -111,40 +143,55 @@ export interface ToolSettingsGridProps {
 export function ToolSettingsGrid({ settings }: ToolSettingsGridProps) {
   return (
     <div className="uifw-standard-toolsettings-two-column-grid">
-      {settings && settings.map((setting: ToolSettingsEntry, index: number) => {
-        return (
-          <React.Fragment key={index}>
-            <span className="uifw-standard-toolsettings-label-entry">{setting.labelNode}</span>
-            {setting.editorNode}
-          </React.Fragment>
-        );
-      })}
+      {settings &&
+        settings.map((setting: ToolSettingsEntry, index: number) => {
+          return (
+            <React.Fragment key={index}>
+              <span className="uifw-standard-toolsettings-label-entry">
+                {setting.labelNode}
+              </span>
+              {setting.editorNode}
+            </React.Fragment>
+          );
+        })}
     </div>
   );
 }
 
 /** @internal */
 export function useToolSettingsNode() {
-  const [settings, setSettings] = React.useState(InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode);
+  const [settings, setSettings] = React.useState(
+    InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode
+  );
   React.useEffect(() => {
     const handleToolActivatedEvent = () => {
-      const nodes = InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
+      const nodes =
+        InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
       setSettings(nodes);
     };
-    UiFramework.frontstages.onToolActivatedEvent.addListener(handleToolActivatedEvent);
+    UiFramework.frontstages.onToolActivatedEvent.addListener(
+      handleToolActivatedEvent
+    );
     return () => {
-      UiFramework.frontstages.onToolActivatedEvent.removeListener(handleToolActivatedEvent);
+      UiFramework.frontstages.onToolActivatedEvent.removeListener(
+        handleToolActivatedEvent
+      );
     };
   }, [setSettings]);
 
   React.useEffect(() => {
     const handleToolSettingsReloadEvent = () => {
-      const nodes = InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
+      const nodes =
+        InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
       setSettings(nodes);
     };
-    UiFramework.frontstages.onToolSettingsReloadEvent.addListener(handleToolSettingsReloadEvent);
+    UiFramework.frontstages.onToolSettingsReloadEvent.addListener(
+      handleToolSettingsReloadEvent
+    );
     return () => {
-      UiFramework.frontstages.onToolSettingsReloadEvent.removeListener(handleToolSettingsReloadEvent);
+      UiFramework.frontstages.onToolSettingsReloadEvent.removeListener(
+        handleToolSettingsReloadEvent
+      );
     };
   }, [setSettings]);
 
@@ -155,8 +202,7 @@ export function useToolSettingsNode() {
 export function ToolSettingsContent() {
   const toolSettingsType = useLayout((state) => state.toolSettings.type);
   // This is needed to remount underlying components tree when going into widget state.
-  if (toolSettingsType === "docked")
-    return null;
+  if (toolSettingsType === "docked") return null;
   return <ToolSettingsWidgetContent />;
 }
 
@@ -168,22 +214,30 @@ export function ToolSettingsWidgetContent() {
   React.useEffect(() => {
     // istanbul ignore else
     if (floatingToolSettingsContainerRef.current) {
-      const floatingWidgetTab = floatingToolSettingsContainerRef.current.closest(".nz-floating-toolsettings");
+      const floatingWidgetTab =
+        floatingToolSettingsContainerRef.current.closest(
+          ".nz-floating-toolsettings"
+        );
       // istanbul ignore else
       if (floatingWidgetTab) {
-        (floatingWidgetTab as HTMLDivElement).style.visibility = !!node ? "visible" : /* istanbul ignore next */ "hidden";
+        (floatingWidgetTab as HTMLDivElement).style.visibility = !!node
+          ? "visible"
+          : /* istanbul ignore next */ "hidden";
       }
     }
   }, [node]);
 
   // istanbul ignore next
-  const providerId = InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ?? "none";
+  const providerId =
+    InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ?? "none";
 
   return (
-    <div data-toolsettings-provider={providerId} className="uifw-floating-toolsettings-container" ref={floatingToolSettingsContainerRef} >
-      <ScrollableWidgetContent>
-        {node}
-      </ScrollableWidgetContent>
+    <div
+      data-toolsettings-provider={providerId}
+      className="uifw-floating-toolsettings-container"
+      ref={floatingToolSettingsContainerRef}
+    >
+      <ScrollableWidgetContent>{node}</ScrollableWidgetContent>
     </div>
   );
 }

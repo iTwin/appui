@@ -1,6 +1,19 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Mon, 01 May 2023 13:32:16 GMT and should not be manually modified.
+This log was last generated on Mon, 29 May 2023 14:05:04 GMT and should not be manually modified.
+
+## 4.1.0
+Mon, 29 May 2023 14:05:04 GMT
+
+### Updates
+
+- Fix a bug where `MultilineTextPropertyValueRenderer` doesn't show "See less" and "See more" buttons
+- Fix tree flickering without keeping the horizontal scrollbar
+
+## 4.0.1
+Fri, 19 May 2023 12:24:31 GMT
+
+_Version update only_
 
 ## 4.0.0
 Mon, 01 May 2023 13:32:16 GMT

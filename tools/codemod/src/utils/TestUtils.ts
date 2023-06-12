@@ -1,9 +1,11 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import type { Collection, JSCodeshift, Transform } from "jscodeshift";
 import { applyTransform, defineInlineTest } from "jscodeshift/src/testUtils";
+import postcss from "postcss";
+import { parse, stringify } from "postcss-scss";
 
 export const defaultOptions = {
   printOptions: {
@@ -12,7 +14,11 @@ export const defaultOptions = {
 };
 
 export function createDefineInlineTest(transform: Transform) {
-  return (inputSource: string, expectedOutputSource: string, testName?: string) => {
+  return (
+    inputSource: string,
+    expectedOutputSource: string,
+    testName?: string
+  ) => {
     defineInlineTest(
       {
         default: transform,
@@ -26,35 +32,59 @@ export function createDefineInlineTest(transform: Transform) {
       },
       inputSource,
       expectedOutputSource,
-      testName,
+      testName
     );
   };
-};
+}
+
+export function createDefineInlineCssTest(plugins: postcss.AcceptedPlugin[]) {
+  return (inputCss: string, expectedOutputCss: string, testName: string) => {
+    it(testName, () => {
+      const processor = postcss(plugins);
+      const result = processor.process(inputCss, {
+        parser: parse,
+        stringifier: stringify,
+      });
+      expect(result.css).toEqual(expectedOutputCss);
+    });
+  };
+}
 
 export type CollectionTransformer = (j: JSCodeshift, root: Collection) => void;
 
 export function createApplyCollectionTransform(init: CollectionTransformer) {
   return (source: string, transform: CollectionTransformer) => {
-    return applyTransform(createCollectionTransform((j, root) => {
-      init(j, root);
-      transform(j, root);
-    }), {}, { source });
-  };
-}
-
-export function createDefineInlineCollectionTest(init: CollectionTransformer) {
-  return (transform: CollectionTransformer, inputSource: string, expectedOutputSource: string, testName?: string) => {
-    const defineTest = createDefineInlineTest(
+    return applyTransform(
       createCollectionTransform((j, root) => {
         init(j, root);
         transform(j, root);
       }),
+      {},
+      { source }
+    );
+  };
+}
+
+export function createDefineInlineCollectionTest(init: CollectionTransformer) {
+  return (
+    transform: CollectionTransformer,
+    inputSource: string,
+    expectedOutputSource: string,
+    testName?: string
+  ) => {
+    const defineTest = createDefineInlineTest(
+      createCollectionTransform((j, root) => {
+        init(j, root);
+        transform(j, root);
+      })
     );
     defineTest(inputSource, expectedOutputSource, testName);
   };
 }
 
-function createCollectionTransform(transformer: CollectionTransformer): Transform {
+function createCollectionTransform(
+  transformer: CollectionTransformer
+): Transform {
   return (file, api, options) => {
     const j = api.jscodeshift;
     const root = j(file.source);

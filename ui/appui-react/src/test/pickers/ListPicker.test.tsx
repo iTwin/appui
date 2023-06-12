@@ -1,18 +1,25 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { ToolbarItemContext } from "@itwin/components-react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 
-import type { ListItem} from "../../appui-react";
+import type { ListItem } from "../../appui-react";
 import {
-  ExpandableSection, ListItemType, ListPicker, ListPickerItem,
+  ExpandableSection,
+  ListItemType,
+  ListPicker,
+  ListPickerItem,
 } from "../../appui-react";
-import TestUtils, { childStructure, selectorMatches, userEvent } from "../TestUtils";
+import TestUtils, {
+  childStructure,
+  selectorMatches,
+  userEvent,
+} from "../TestUtils";
 import { Provider } from "react-redux";
 import { render, screen } from "@testing-library/react";
 const title = "Test";
@@ -21,7 +28,7 @@ const setEnabled = sinon.spy();
 
 describe("ListPicker", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
   before(async () => {
@@ -44,11 +51,13 @@ describe("ListPicker", () => {
     const containerItem: ListItem = {
       enabled: true,
       type: ListItemType.Container,
-      children: [{
-        enabled: false,
-        type: ListItemType.Item,
-        name: "XXXXXXXXXXXXXXXXXXXXXXXXXXX",
-      }],
+      children: [
+        {
+          enabled: false,
+          type: ListItemType.Item,
+          name: "XXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        },
+      ],
     };
     listItems.push(containerItem);
 
@@ -76,7 +85,7 @@ describe("ListPicker", () => {
           value={{
             hasOverflow: false,
             useHeight: false,
-            onResize: () => { },
+            onResize: () => {},
           }}
         >
           <ListPicker
@@ -88,7 +97,9 @@ describe("ListPicker", () => {
         </ToolbarItemContext.Provider>
       </Provider>
     );
-    expect(screen.getByRole("button", {name: "Test"})).to.satisfy(childStructure(".components-icon .icon.core-svg-icon"));
+    expect(screen.getByRole("button", { name: "Test" })).to.satisfy(
+      childStructure(".components-icon .icon.core-svg-icon")
+    );
   });
 
   it("should support items and functions", async () => {
@@ -102,7 +113,7 @@ describe("ListPicker", () => {
           value={{
             hasOverflow: false,
             useHeight: false,
-            onResize: () => { },
+            onResize: () => {},
           }}
         >
           <ListPicker
@@ -135,7 +146,11 @@ describe("ListPicker", () => {
     let listPickerInstance: ListPicker;
 
     beforeEach(() => {
-      listPickerInstance = new ListPicker({items: listItems, setEnabled, title});
+      listPickerInstance = new ListPicker({
+        items: listItems,
+        setEnabled,
+        title,
+      });
     });
 
     it("should return true if item key is special", () => {
@@ -143,28 +158,28 @@ describe("ListPicker", () => {
         listPickerInstance.isSpecialItem({
           key: ListPicker.Key_All,
           enabled: true,
-        } as ListItem),
+        } as ListItem)
       ).to.be.true;
 
       expect(
         listPickerInstance.isSpecialItem({
           key: ListPicker.Key_Invert,
           enabled: true,
-        } as ListItem),
+        } as ListItem)
       ).to.be.true;
 
       expect(
         listPickerInstance.isSpecialItem({
           key: ListPicker.Key_None,
           enabled: true,
-        } as ListItem),
+        } as ListItem)
       ).to.be.true;
 
       expect(
         listPickerInstance.isSpecialItem({
           key: ListPicker.Key_Separator,
           enabled: true,
-        } as ListItem),
+        } as ListItem)
       ).to.be.true;
     });
 
@@ -174,7 +189,7 @@ describe("ListPicker", () => {
           key: "",
           type: ListItemType.Container,
           enabled: true,
-        } as ListItem),
+        } as ListItem)
       ).to.be.true;
     });
 
@@ -184,47 +199,43 @@ describe("ListPicker", () => {
           key: "",
           type: ListItemType.Item,
           enabled: true,
-        } as ListItem),
+        } as ListItem)
       ).to.be.false;
     });
   });
 
   describe("ListPickerItem", () => {
     it("should render correctly", () => {
-      render(
-        <ListPickerItem
-          key="key"
-        />,
+      render(<ListPickerItem key="key" />);
+      expect(screen.getByRole("button")).to.satisfy(
+        selectorMatches(".ListPicker-item")
       );
-      expect(screen.getByRole("button")).to.satisfy(selectorMatches(".ListPicker-item"));
     });
 
     it("renders class props correctly", () => {
-      render(
-        <ListPickerItem
-          key="key"
-          isActive={true}
-          isFocused={true}
-        />,
+      render(<ListPickerItem key="key" isActive={true} isFocused={true} />);
+      expect(screen.getByRole("button")).to.satisfy(
+        selectorMatches(".is-active.is-focused")
       );
-      expect(screen.getByRole("button")).to.satisfy(selectorMatches(".is-active.is-focused"));
     });
   });
 
   describe("ExpandableSection", () => {
     it("should render correctly", () => {
       render(<ExpandableSection />);
-      expect(screen.getByRole("region")).to.satisfy(childStructure(
-        ".nz-toolbar-item-expandable-group-group > .ListPickerInnerContainer-header"
-      ));
+      expect(screen.getByRole("region")).to.satisfy(
+        childStructure(
+          ".nz-toolbar-item-expandable-group-group > .ListPickerInnerContainer-header"
+        )
+      );
     });
 
     it("should handle onClick", async () => {
-      render(
-        <ExpandableSection />,
-      );
+      render(<ExpandableSection />);
       await theUserTo.click(screen.getByRole("button"));
-      expect(screen.getByRole("button")).to.satisfy(selectorMatches(".ListPickerInnerContainer-header-expanded"));
+      expect(screen.getByRole("button")).to.satisfy(
+        selectorMatches(".ListPickerInnerContainer-header-expanded")
+      );
     });
   });
 });

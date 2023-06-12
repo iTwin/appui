@@ -2,6 +2,29 @@
   "name": "@itwin/appui-codemod",
   "entries": [
     {
+      "version": "0.1.0",
+      "tag": "@itwin/appui-codemod_v0.1.0",
+      "date": "Mon, 29 May 2023 09:30:28 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "No longer remove `control` attribute from `Widget` element."
+          },
+          {
+            "comment": "Now only transform local names of imported `Frontstage`, `StagePanel`, `Zone` and `Widget` elements."
+          },
+          {
+            "comment": "Remove import specifiers  of imported `Frontstage`, `StagePanel`, `Zone` and `Widget` elements."
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Add codemods for CSS files."
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.3",
       "tag": "@itwin/appui-codemod_v0.0.3",
       "date": "Thu, 13 Apr 2023 07:45:17 GMT",

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Button
  */
@@ -31,25 +31,31 @@ export interface UnderlinedButtonProps {
  * @public
  */
 export function UnderlinedButton(props: UnderlinedButtonProps) {
-  const handleKeyUp = React.useCallback((event: React.KeyboardEvent) => {
-    const key = event.key;
+  const handleKeyUp = React.useCallback(
+    (event: React.KeyboardEvent) => {
+      const key = event.key;
 
-    switch (key) {
-      case SpecialKey.Enter:
-      case SpecialKey.Space:
-        props.onActivate && props.onActivate();
-        break;
-    }
-  }, [props]);
+      switch (key) {
+        case SpecialKey.Enter:
+        case SpecialKey.Space:
+          props.onActivate && props.onActivate();
+          break;
+      }
+    },
+    [props]
+  );
 
-  const handleClick = React.useCallback((e: React.MouseEvent) => {
-    props.onClick && props.onClick(e);
-    props.onActivate && props.onActivate();
-  }, [props]);
+  const handleClick = React.useCallback(
+    (e: React.MouseEvent) => {
+      props.onClick && props.onClick(e);
+      props.onActivate && props.onActivate();
+    },
+    [props]
+  );
 
   const className = classnames(
     "core-underlined-button",
-    props.className ? props.className : undefined,
+    props.className ? props.className : undefined
   );
 
   return (

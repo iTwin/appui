@@ -1,13 +1,19 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
-import { StageUsage, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsProvider } from "@itwin/appui-react";
+import {
+  StageUsage,
+  ToolbarItem,
+  ToolbarOrientation,
+  ToolbarUsage,
+  UiItemsProvider,
+} from "@itwin/appui-react";
 import { InspectUiItemInfoTool } from "../../tools/InspectUiItemInfoTool";
 
 export interface InspectUiItemInfoToolProviderProps {
-  inspectTool?: { itemPriority?: number, groupPriority?: number };
+  inspectTool?: { itemPriority?: number; groupPriority?: number };
 }
 
 /**
@@ -18,18 +24,34 @@ export interface InspectUiItemInfoToolProviderProps {
 export class InspectUiItemInfoToolProvider implements UiItemsProvider {
   public readonly id = "appui-test-providers:InspectUiItemInfoToolProvider";
 
-  constructor(localizationNamespace: string, public props?: InspectUiItemInfoToolProviderProps) {
+  constructor(
+    localizationNamespace: string,
+    public props?: InspectUiItemInfoToolProviderProps
+  ) {
     // register tools that will be returned via this provider
     InspectUiItemInfoTool.register(localizationNamespace);
   }
 
-  public provideToolbarItems(_stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
+  public provideToolbarItems(
+    _stageId: string,
+    stageUsage: string,
+    toolbarUsage: ToolbarUsage,
+    toolbarOrientation: ToolbarOrientation
+  ): ToolbarItem[] {
     /** Add a tool that starts inspect tool  */
-    if (stageUsage === StageUsage.General && toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {
-      return [InspectUiItemInfoTool.getActionButtonDef(this.props?.inspectTool?.itemPriority ?? 2000, this.props?.inspectTool?.groupPriority)];
+    if (
+      stageUsage === StageUsage.General &&
+      toolbarUsage === ToolbarUsage.ContentManipulation &&
+      toolbarOrientation === ToolbarOrientation.Horizontal
+    ) {
+      return [
+        InspectUiItemInfoTool.getActionButtonDef(
+          this.props?.inspectTool?.itemPriority ?? 2000,
+          this.props?.inspectTool?.groupPriority
+        ),
+      ];
     }
 
     return [];
   }
-
 }

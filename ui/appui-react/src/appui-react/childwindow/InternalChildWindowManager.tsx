@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 /** @packageDocumentation
  * @module ChildWindowManager
@@ -20,7 +20,11 @@ import { ModalDialogRenderer } from "../dialog/ModalDialogManager";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu";
 import { ThemeManager } from "../theme/ThemeManager";
 import { UiFramework } from "../UiFramework";
-import type { ChildWindowLocationProps, FrameworkChildWindows, OpenChildWindowInfo } from "../framework/FrameworkChildWindows";
+import type {
+  ChildWindowLocationProps,
+  FrameworkChildWindows,
+  OpenChildWindowInfo,
+} from "../framework/FrameworkChildWindows";
 
 const childHtml = `<!DOCTYPE html>
 <html>
@@ -39,7 +43,7 @@ const childHtml = `<!DOCTYPE html>
     }
   </style>
 </head>
-<body>
+<body class="iui-root">
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
 </body>
@@ -85,8 +89,11 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
    * @param container Container to render to.
    */
   // istanbul ignore next: Used in `open` which is not tested.
-  private render(element: React.FunctionComponentElement<any>, container: Element | DocumentFragment) {
-    if(this._createRoot) {
+  private render(
+    element: React.FunctionComponentElement<any>,
+    container: Element | DocumentFragment
+  ) {
+    if (this._createRoot) {
       this._createRoot(container).render(element);
     } else {
       ReactDOM.render(element, container);
@@ -98,11 +105,14 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
    * @param childWindowId Id of the window to retrieve.
    * @returns undefined if not found.
    */
-  public find(childWindowId: string | undefined): OpenChildWindowInfo | undefined {
-    if (undefined === childWindowId)
-      return undefined;
+  public find(
+    childWindowId: string | undefined
+  ): OpenChildWindowInfo | undefined {
+    if (undefined === childWindowId) return undefined;
 
-    return this.openChildWindows.find((openWindow) => openWindow.childWindowId === childWindowId);
+    return this.openChildWindows.find(
+      (openWindow) => openWindow.childWindowId === childWindowId
+    );
   }
 
   /**
@@ -111,15 +121,21 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
    * @returns undefined if not found
    */
   public findId(contentWindow: Window | undefined | null): string | undefined {
-    if (!contentWindow)
-      return undefined;
+    if (!contentWindow) return undefined;
 
-    const childWindow = this.openChildWindows.find((openWindow) => openWindow.window === contentWindow);
+    const childWindow = this.openChildWindows.find(
+      (openWindow) => openWindow.window === contentWindow
+    );
     return childWindow?.childWindowId;
   }
 
   // istanbul ignore next: Used in `open` which is not tested.
-  private renderChildWindowContents(childWindow: Window, childWindowId: string, content: React.ReactNode, title: string) {
+  private renderChildWindowContents(
+    childWindow: Window,
+    childWindowId: string,
+    content: React.ReactNode,
+    title: string
+  ) {
     childWindow.document.title = title;
     const reactConnectionDiv = childWindow.document.getElementById("root");
     if (reactConnectionDiv) {
@@ -134,7 +150,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         copyStyles(childWindow.document);
         setTimeout(() => {
           this.render(
-            <Provider store={StateManager.store} >
+            <Provider store={StateManager.store}>
               <UiStateStorageHandler>
                 <ThemeManager>
                   <div className="uifw-child-window-container-host">
@@ -156,9 +172,11 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
 
       childWindow.onbeforeunload = () => {
         const frontStageDef = UiFramework.frontstages.activeFrontstageDef;
-        if (!frontStageDef)
-          return;
-        frontStageDef.saveChildWindowSizeAndPosition(childWindowId, childWindow);
+        if (!frontStageDef) return;
+        frontStageDef.saveChildWindowSizeAndPosition(
+          childWindowId,
+          childWindow
+        );
         this.close(childWindowId, false);
       };
     }
@@ -167,7 +185,9 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
   /** Close all child/pop-out windows. This typically is called when the frontstage is changed. */
   public closeAll() {
     // istanbul ignore next
-    this.openChildWindows.forEach((openChildWindow) => openChildWindow.window.close());
+    this.openChildWindows.forEach((openChildWindow) =>
+      openChildWindow.window.close()
+    );
     this._openChildWindows = [];
   }
 
@@ -178,9 +198,10 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
    * @returns false if the window could not be found.
    */
   public close = (childWindowId: string, processWindowClose = true) => {
-    const windowIndex = this.openChildWindows.findIndex((openWindow) => openWindow.childWindowId === childWindowId);
-    if (-1 === windowIndex)
-      return false;
+    const windowIndex = this.openChildWindows.findIndex(
+      (openWindow) => openWindow.childWindowId === childWindowId
+    );
+    if (-1 === windowIndex) return false;
     const childWindow = this.openChildWindows[windowIndex];
     this.openChildWindows.splice(windowIndex, 1);
     if (processWindowClose) {
@@ -194,7 +215,10 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
   };
 
   // istanbul ignore next: Used in `open` which is not tested.
-  private adjustWidowLocation(location: ChildWindowLocationProps, center?: boolean): ChildWindowLocationProps {
+  private adjustWidowLocation(
+    location: ChildWindowLocationProps,
+    center?: boolean
+  ): ChildWindowLocationProps {
     const outLocation = { ...location };
     if (0 === location.top && 0 === location.left) {
       center = center ?? true;
@@ -226,32 +250,63 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
    * @returns true if the window is opened successfully.
    */
   // istanbul ignore next: Would require mocking window.open to return a window object.
-  public open(childWindowId: string, title: string, content: React.ReactNode, location: ChildWindowLocationProps, useDefaultPopoutUrl?: boolean) {
+  public open(
+    childWindowId: string,
+    title: string,
+    content: React.ReactNode,
+    location: ChildWindowLocationProps,
+    useDefaultPopoutUrl?: boolean
+  ) {
     // first check to see if content is already open in child window
-    if (this.openChildWindows.findIndex((openWindow) => openWindow.childWindowId === childWindowId) >= 0) {
+    if (
+      this.openChildWindows.findIndex(
+        (openWindow) => openWindow.childWindowId === childWindowId
+      ) >= 0
+    ) {
       return false;
     }
 
     location = this.adjustWidowLocation(location);
     const url = useDefaultPopoutUrl ? "/iTwinPopup.html" : "";
-    const childWindow = window.open(url, "", `width=${location.width},height=${location.height},left=${location.left},top=${location.top},menubar=no,resizable=yes,scrollbars=no,status=no,location=no`);
-    if (!childWindow)
-      return false;
+    const childWindow = window.open(
+      url,
+      "",
+      `width=${location.width},height=${location.height},left=${location.left},top=${location.top},menubar=no,resizable=yes,scrollbars=no,status=no,location=no`
+    );
+    if (!childWindow) return false;
     if (0 === url.length) {
       childWindow.document.write(childHtml);
-      this.renderChildWindowContents(childWindow, childWindowId, content, title);
+      this.renderChildWindowContents(
+        childWindow,
+        childWindowId,
+        content,
+        title
+      );
     } else {
-      childWindow.addEventListener("load", () => {
-        this.renderChildWindowContents(childWindow, childWindowId, content, title);
-      }, false);
+      childWindow.addEventListener(
+        "load",
+        () => {
+          this.renderChildWindowContents(
+            childWindow,
+            childWindowId,
+            content,
+            title
+          );
+        },
+        false
+      );
     }
 
-    window.addEventListener("unload", () => {
-      const frontStageDef = UiFramework.frontstages.activeFrontstageDef;
-      if (frontStageDef) {
-        this.close(childWindowId, true);
-      }
-    }, false);
+    window.addEventListener(
+      "unload",
+      () => {
+        const frontStageDef = UiFramework.frontstages.activeFrontstageDef;
+        if (frontStageDef) {
+          this.close(childWindowId, true);
+        }
+      },
+      false
+    );
 
     return true;
   }

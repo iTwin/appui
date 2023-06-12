@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -18,7 +18,12 @@ describe("MenuItem", () => {
 
   it("should create a valid MenuItem", () => {
     const menuItem = new MenuItem({
-      id: "test", item: { label: "test label", icon: "icon-placeholder", execute: () => { } },
+      id: "test",
+      item: {
+        label: "test label",
+        icon: "icon-placeholder",
+        execute: () => {},
+      },
     });
 
     expect(menuItem.id).to.eq("test");
@@ -30,7 +35,11 @@ describe("MenuItem", () => {
 
   it("should handle label & icon correctly", () => {
     const menuItem = new MenuItem({
-      id: "test", label: "test label", icon: "icon-placeholder", iconRight: "icon-checkmark", item: { label: "wrong label", icon: "wrong icon", execute: () => { } },
+      id: "test",
+      label: "test label",
+      icon: "icon-placeholder",
+      iconRight: "icon-checkmark",
+      item: { label: "wrong label", icon: "wrong icon", execute: () => {} },
     });
 
     expect(menuItem.id).to.eq("test");
@@ -41,10 +50,26 @@ describe("MenuItem", () => {
 
   it("should create a valid submenu", () => {
     const menuItem = new MenuItem({
-      id: "test", label: "test label", icon: "icon-placeholder",
+      id: "test",
+      label: "test label",
+      icon: "icon-placeholder",
       submenu: [
-        { id: "0", item: { label: "Mode 1", icon: "icon-placeholder", execute: () => { } } },
-        { id: "1", item: { label: "Mode 2", icon: "icon-placeholder", execute: () => { } } },
+        {
+          id: "0",
+          item: {
+            label: "Mode 1",
+            icon: "icon-placeholder",
+            execute: () => {},
+          },
+        },
+        {
+          id: "1",
+          item: {
+            label: "Mode 2",
+            icon: "icon-placeholder",
+            execute: () => {},
+          },
+        },
       ],
     });
 
@@ -65,7 +90,12 @@ describe("MenuItem", () => {
   it("createMenuItems should create a valid MenuItem", () => {
     const menuItemProps: MenuItemProps[] = [
       {
-        id: "test", item: { label: "test label", icon: "icon-placeholder", execute: () => { } },
+        id: "test",
+        item: {
+          label: "test label",
+          icon: "icon-placeholder",
+          execute: () => {},
+        },
       },
     ];
 
@@ -84,10 +114,26 @@ describe("MenuItem", () => {
   it("createMenuItems should create a valid submenu", () => {
     const menuItemProps: MenuItemProps[] = [
       {
-        id: "test", label: "test label", icon: "icon-placeholder",
+        id: "test",
+        label: "test label",
+        icon: "icon-placeholder",
         submenu: [
-          { id: "0", item: { label: "Mode 1", icon: "icon-placeholder", execute: () => { } } },
-          { id: "1", item: { label: "Mode 2", icon: "icon-placeholder", execute: () => { } } },
+          {
+            id: "0",
+            item: {
+              label: "Mode 1",
+              icon: "icon-placeholder",
+              execute: () => {},
+            },
+          },
+          {
+            id: "1",
+            item: {
+              label: "Mode 2",
+              icon: "icon-placeholder",
+              execute: () => {},
+            },
+          },
         ],
       },
     ];
@@ -106,7 +152,15 @@ describe("MenuItem", () => {
   it("createMenuItemNodes should create a valid MenuItem", () => {
     const menuItemProps: MenuItemProps[] = [
       {
-        id: "test", badgeType: BadgeType.New, isDisabled: true, item: { label: "test label", icon: "icon-placeholder", execute: () => { } }, iconRight: "icon-checkmark",
+        id: "test",
+        badgeType: BadgeType.New,
+        isDisabled: true,
+        item: {
+          label: "test label",
+          icon: "icon-placeholder",
+          execute: () => {},
+        },
+        iconRight: "icon-checkmark",
       },
     ];
 
@@ -119,18 +173,30 @@ describe("MenuItem", () => {
     render(<div>{menuItemNodes}</div>);
 
     expect(screen.getByRole("menuitem"))
-      .satisfy(selectorMatches(".core-context-menu-item.core-context-menu-disabled"))
-      .satisfy(childStructure([
-        ".core-context-menu-icon-right > .icon.icon-checkmark",
-        ".core-context-menu-item > .core-context-menu-icon > .icon.icon-placeholder",
-        ".core-context-menu-badge .core-new-badge",
-      ]));
+      .satisfy(
+        selectorMatches(".core-context-menu-item.core-context-menu-disabled")
+      )
+      .satisfy(
+        childStructure([
+          ".core-context-menu-icon-right > .icon.icon-checkmark",
+          ".core-context-menu-item > .core-context-menu-icon > .icon.icon-placeholder",
+          ".core-context-menu-badge .core-new-badge",
+        ])
+      );
   });
 
   it("createMenuItemNodes abstract disabled item should create a disabled MenuItem", () => {
     const menuItemProps: MenuItemProps[] = [
       {
-        id: "test", badgeType: BadgeType.New, item: { label: "test label", isDisabled: true, icon: "icon-placeholder", execute: () => { } }, iconRight: "icon-checkmark",
+        id: "test",
+        badgeType: BadgeType.New,
+        item: {
+          label: "test label",
+          isDisabled: true,
+          icon: "icon-placeholder",
+          execute: () => {},
+        },
+        iconRight: "icon-checkmark",
       },
     ];
 
@@ -142,8 +208,9 @@ describe("MenuItem", () => {
 
     render(<div>{menuItemNodes}</div>);
 
-    expect(screen.getByRole("menuitem"))
-      .satisfy(selectorMatches(".core-context-menu-item.core-context-menu-disabled"));
+    expect(screen.getByRole("menuitem")).satisfy(
+      selectorMatches(".core-context-menu-item.core-context-menu-disabled")
+    );
   });
 
   it("onSelect handled correctly on click", async () => {
@@ -152,11 +219,20 @@ describe("MenuItem", () => {
 
     const menuItemProps: MenuItemProps[] = [
       {
-        id: "test", item: { label: "test label", icon: "icon-placeholder", badgeType: BadgeType.New, execute: handleSelect },
+        id: "test",
+        item: {
+          label: "test label",
+          icon: "icon-placeholder",
+          badgeType: BadgeType.New,
+          execute: handleSelect,
+        },
       },
     ];
 
-    const menuItems = MenuItemHelpers.createMenuItems(menuItemProps, handleSelect2);
+    const menuItems = MenuItemHelpers.createMenuItems(
+      menuItemProps,
+      handleSelect2
+    );
     expect(menuItems.length).to.eq(1);
 
     const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);
@@ -175,10 +251,26 @@ describe("MenuItem", () => {
   it("createMenuItemNodes should create a valid submenu", () => {
     const menuItemProps: MenuItemProps[] = [
       {
-        id: "test", label: "test label", icon: "icon-placeholder",
+        id: "test",
+        label: "test label",
+        icon: "icon-placeholder",
         submenu: [
-          { id: "0", item: { label: "Mode 1", icon: "icon-placeholder", execute: () => { } } },
-          { id: "1", item: { label: "Mode 2", icon: "icon-placeholder", execute: () => { } } },
+          {
+            id: "0",
+            item: {
+              label: "Mode 1",
+              icon: "icon-placeholder",
+              execute: () => {},
+            },
+          },
+          {
+            id: "1",
+            item: {
+              label: "Mode 2",
+              icon: "icon-placeholder",
+              execute: () => {},
+            },
+          },
         ],
       },
     ];
@@ -191,9 +283,10 @@ describe("MenuItem", () => {
 
     render(<div>{menuItemNodes}</div>);
 
-    expect(screen.getByText("Mode 2")).to.satisfy(selectorMatches(
-      ".core-context-submenu .core-context-submenu-popup .core-context-menu-container .core-context-menu-content"
-    ));
+    expect(screen.getByText("Mode 2")).to.satisfy(
+      selectorMatches(
+        ".core-context-submenu .core-context-submenu-popup .core-context-menu-container .core-context-menu-content"
+      )
+    );
   });
-
 });

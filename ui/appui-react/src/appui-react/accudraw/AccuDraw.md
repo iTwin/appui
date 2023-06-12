@@ -64,18 +64,18 @@ AccuDrawTool.ts contains:
 
 Source files that contain the AccuDraw UI implementation in the `ui/framework/src/ui-framework/accudraw` folder include:
 
-| Source File | Description
-| ----------- | ------------
-| AccuDrawCommandItems.ts | Contains ToolItemDef instances for AccuDraw tools, which are defined in AccuDrawTool.ts
-| AccuDrawDialog.tsx | Dialog that displays an AccuDrawFieldContainer component
-| AccuDrawFieldContainer.tsx | Displays an AccuDrawInputField component for each field
-| AccuDrawInputField.tsx | Displays an Input component and a Lock icon along with an optional field icon
-| AccuDrawKeyboardShortcuts.ts | Defines default AccuDraw Keyboard Shortcuts using ToolItemDefs from AccuDrawCommandItems
-| AccuDrawUiSettings.ts | User Interface Settings for each field, including CSS styles, colors, labels & icons
-| AccuDrawWidget.tsx | Widget that displays an AccuDrawFieldContainer component
-| FrameworkAccuDraw.ts | Subclass of the AccuDraw core class that overrides methods, emits events for value and status changes, and processes field input
+| Source File                  | Description                                                                                                                      |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| AccuDrawCommandItems.ts      | Contains ToolItemDef instances for AccuDraw tools, which are defined in AccuDrawTool.ts                                          |
+| AccuDrawDialog.tsx           | Dialog that displays an AccuDrawFieldContainer component                                                                         |
+| AccuDrawFieldContainer.tsx   | Displays an AccuDrawInputField component for each field                                                                          |
+| AccuDrawInputField.tsx       | Displays an Input component and a Lock icon along with an optional field icon                                                    |
+| AccuDrawKeyboardShortcuts.ts | Defines default AccuDraw Keyboard Shortcuts using ToolItemDefs from AccuDrawCommandItems                                         |
+| AccuDrawUiSettings.ts        | User Interface Settings for each field, including CSS styles, colors, labels & icons                                             |
+| AccuDrawWidget.tsx           | Widget that displays an AccuDrawFieldContainer component                                                                         |
+| FrameworkAccuDraw.ts         | Subclass of the AccuDraw core class that overrides methods, emits events for value and status changes, and processes field input |
 
-Other files in the `ui-framework/accudraw` folder, such as AccuDrawPopupManager.tsx, Calculator*, MenuButton.* and SquareButton.*, are from the AccuDraw 2.0 project. They may or may not be used in the future.
+Other files in the `ui-framework/accudraw` folder, such as AccuDrawPopupManager.tsx, Calculator*, MenuButton.* and SquareButton.\*, are from the AccuDraw 2.0 project. They may or may not be used in the future.
 
 ### FrameworkAccuDraw
 
@@ -86,9 +86,9 @@ Here are more details about these implementations:
 - The events in FrameworkAccuDraw have listeners in either AccuDrawFieldContainer or AccuDrawInputField that update the AccuDraw UI components.
 - The `hasInputFocus` implementation checks for focus inside the AccuDrawFieldContainer.
 - The `getFieldDisplayValue` method determines the display value for an AccuDraw field by calling
-`QuantityFormatter.findFormatterSpecByQuantityType` and `QuantityFormatter.formatQuantity`.
+  `QuantityFormatter.findFormatterSpecByQuantityType` and `QuantityFormatter.formatQuantity`.
 - The `setFieldValueFromUi` method, which is called when the user updates a value in an Input component,
-calls `processFieldInput` to notify the AccuDraw core of a value update.
+  calls `processFieldInput` to notify the AccuDraw core of a value update.
 
 ### FrameworkAccuDraw Setup in IModelApp
 

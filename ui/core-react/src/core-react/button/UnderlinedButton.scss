@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "../style/index.scss";
 @import "../inputs/index.scss";
 
@@ -29,5 +29,4 @@ $hoverColor: $buic-foreground-primary-tone;
     background-color: $buic-background-focus-overlay;
     outline: none;
   }
-
 }

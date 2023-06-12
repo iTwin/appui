@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
@@ -13,12 +13,13 @@ import type { StatusBarItemsManager } from "./StatusBarItemsManager";
 /** Hook that returns items from [[StatusBarItemsManager]].
  * @public
  */
-export const useDefaultStatusBarItems = (manager: StatusBarItemsManager): readonly StatusBarItem[] => {
+export const useDefaultStatusBarItems = (
+  manager: StatusBarItemsManager
+): readonly StatusBarItem[] => {
   const [items, setItems] = React.useState(manager.items);
   const isInitialMount = React.useRef(true);
   React.useEffect(() => {
-    if (isInitialMount.current)
-      isInitialMount.current = false;
+    if (isInitialMount.current) isInitialMount.current = false;
     else {
       setItems(manager.items);
     }

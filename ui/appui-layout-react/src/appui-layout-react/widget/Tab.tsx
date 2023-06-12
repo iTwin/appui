@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -10,16 +10,35 @@ import "./Tab.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import type { CommonProps} from "@itwin/core-react";
-import { Icon, Point, Rectangle, Timer, useRefs, useResizeObserver } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import {
+  Icon,
+  Point,
+  Rectangle,
+  Timer,
+  useRefs,
+  useResizeObserver,
+} from "@itwin/core-react";
 import { useDragTab } from "../base/DragManager";
-import { MeasureContext, NineZoneDispatchContext, ShowWidgetIconContext, TabNodeContext } from "../base/NineZone";
+import {
+  MeasureContext,
+  NineZoneDispatchContext,
+  ShowWidgetIconContext,
+  TabNodeContext,
+} from "../base/NineZone";
 import type { TabState } from "../state/TabState";
-import type { PointerCaptorArgs, PointerCaptorEvent} from "../base/usePointerCaptor";
+import type {
+  PointerCaptorArgs,
+  PointerCaptorEvent,
+} from "../base/usePointerCaptor";
 import { usePointerCaptor } from "../base/usePointerCaptor";
 import { PanelSideContext } from "../widget-panels/Panel";
 import { WidgetTabsEntryContext } from "./Tabs";
-import { restrainInitialWidgetSize, WidgetContext, WidgetIdContext } from "./Widget";
+import {
+  restrainInitialWidgetSize,
+  WidgetContext,
+  WidgetIdContext,
+} from "./Widget";
 import { TabIdContext } from "./ContentRenderer";
 import { TabTarget } from "../target/TabTarget";
 import { WidgetMenuTab } from "./MenuTab";
@@ -36,13 +55,22 @@ export interface WidgetTabProviderProps extends TabPositionContextArgs {
 }
 
 /** @internal */
-export function WidgetTabProvider({ id, first, firstInactive, last, showOnlyTabIcon }: WidgetTabProviderProps) {
+export function WidgetTabProvider({
+  id,
+  first,
+  firstInactive,
+  last,
+  showOnlyTabIcon,
+}: WidgetTabProviderProps) {
   const tabNode = React.useContext(TabNodeContext);
-  const position = React.useMemo<TabPositionContextArgs>(() => ({
-    first,
-    firstInactive,
-    last,
-  }), [first, firstInactive, last]);
+  const position = React.useMemo<TabPositionContextArgs>(
+    () => ({
+      first,
+      firstInactive,
+      last,
+    }),
+    [first, firstInactive, last]
+  );
   return (
     <TabIdContext.Provider value={id}>
       <TabPositionContext.Provider value={position}>
@@ -67,8 +95,7 @@ export interface WidgetTabProps extends CommonProps {
 export function WidgetTab(props: WidgetTabProps) {
   const widgetOverflow = React.useContext(WidgetOverflowContext);
   const overflown = !!widgetOverflow;
-  if (overflown)
-    return <WidgetMenuTab {...props} />;
+  if (overflown) return <WidgetMenuTab {...props} />;
   return <WidgetTabComponent {...props} />;
 }
 
@@ -85,10 +112,16 @@ function WidgetTabComponent(props: WidgetTabProps) {
 
   const iconSpec = useLayout((state) => state.tabs[id].iconSpec);
   const label = useLayout((state) => state.tabs[id].label);
-  const activeTabId = useLayout((state) => getWidgetState(state, widgetId).activeTabId);
-  const minimized = useLayout((state) => getWidgetState(state, widgetId).minimized);
+  const activeTabId = useLayout(
+    (state) => getWidgetState(state, widgetId).activeTabId
+  );
+  const minimized = useLayout(
+    (state) => getWidgetState(state, widgetId).minimized
+  );
 
-  const resizeObserverRef = useResizeObserver<HTMLDivElement>(widgetTabsEntryContext?.onResize);
+  const resizeObserverRef = useResizeObserver<HTMLDivElement>(
+    widgetTabsEntryContext?.onResize
+  );
   const pointerCaptorRef = useTabInteractions({});
   const refs = useRefs<HTMLDivElement>(resizeObserverRef, pointerCaptorRef);
 
@@ -100,10 +133,13 @@ function WidgetTabComponent(props: WidgetTabProps) {
     first && "nz-first",
     last && "nz-last",
     firstInactive && "nz-first-inactive",
-    props.className,
+    props.className
   );
 
-  const showLabel = (showIconOnly && !iconSpec) || (showWidgetIcon && !showIconOnly) || !showWidgetIcon;
+  const showLabel =
+    (showIconOnly && !iconSpec) ||
+    (showWidgetIcon && !showIconOnly) ||
+    !showWidgetIcon;
   return (
     <div
       data-item-id={id}
@@ -115,11 +151,11 @@ function WidgetTabComponent(props: WidgetTabProps) {
       title={label}
       tabIndex={0}
     >
-      {(showWidgetIcon || showIconOnly) && iconSpec && <Icon iconSpec={iconSpec} />}
+      {(showWidgetIcon || showIconOnly) && iconSpec && (
+        <Icon iconSpec={iconSpec} />
+      )}
       {showLabel && <span>{label}</span>}
-      {props.badge && <div className="nz-badge">
-        {props.badge}
-      </div>}
+      {props.badge && <div className="nz-badge">{props.badge}</div>}
       <TabTarget />
     </div>
   );
@@ -157,9 +193,13 @@ export function useTabInteractions<T extends HTMLElement>({
 
   const overflown = !widgetTabsEntryContext;
 
-  React.useEffect(() => layoutStore.subscribe((state) => {
-    tabRef.current = state.tabs[id];
-  }), [layoutStore, id]);
+  React.useEffect(
+    () =>
+      layoutStore.subscribe((state) => {
+        tabRef.current = state.tabs[id];
+      }),
+    [layoutStore, id]
+  );
 
   const handleClick = React.useCallback(() => {
     dispatch({
@@ -184,85 +224,115 @@ export function useTabInteractions<T extends HTMLElement>({
   const handleDragTabStart = useDragTab({
     tabId: id,
   });
-  const handleDragStart = React.useCallback((pointerPosition: Point) => {
-    assert(!!ref.current);
-    assert(!!initialPointerPosition.current);
-    const nzBounds = measure();
-    const nzOffset = new Point(-nzBounds.left, -nzBounds.top);
-    let bounds = Rectangle.create(ref.current.getBoundingClientRect());
-    bounds = bounds.offset(nzOffset);
+  const handleDragStart = React.useCallback(
+    (pointerPosition: Point) => {
+      assert(!!ref.current);
+      assert(!!initialPointerPosition.current);
+      const nzBounds = measure();
+      const nzOffset = new Point(-nzBounds.left, -nzBounds.top);
+      let bounds = Rectangle.create(ref.current.getBoundingClientRect());
+      bounds = bounds.offset(nzOffset);
 
-    const tab = tabRef.current;
-    const userSized = tab.userSized || (tab.isFloatingStateWindowResizable && /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
-    let position = bounds.topLeft();
-    const widgetBounds = widgetContext.measure();
-    const widgetSize = restrainInitialWidgetSize(widgetBounds.getSize(), nzBounds.getSize());
-    if (overflown) {
-      position = initialPointerPosition.current.offset(nzOffset);
-      position = position.offset({ x: -7, y: -7 });
-    }
+      const tab = tabRef.current;
+      const userSized =
+        tab.userSized ||
+        (tab.isFloatingStateWindowResizable &&
+          /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
+      let position = bounds.topLeft();
+      const widgetBounds = widgetContext.measure();
+      const widgetSize = restrainInitialWidgetSize(
+        widgetBounds.getSize(),
+        nzBounds.getSize()
+      );
+      if (overflown) {
+        position = initialPointerPosition.current.offset(nzOffset);
+        position = position.offset({ x: -7, y: -7 });
+      }
 
-    const dragOffset = initialPointerPosition.current.getOffsetTo(pointerPosition);
-    position = position.offset(dragOffset);
+      const dragOffset =
+        initialPointerPosition.current.getOffsetTo(pointerPosition);
+      position = position.offset(dragOffset);
 
-    handleDragTabStart({
-      initialPointerPosition: Point.create(initialPointerPosition.current),
-      pointerPosition,
-      widgetSize,
-    });
-    dispatch({
-      type: "WIDGET_TAB_DRAG_START",
+      handleDragTabStart({
+        initialPointerPosition: Point.create(initialPointerPosition.current),
+        pointerPosition,
+        widgetSize,
+      });
+      dispatch({
+        type: "WIDGET_TAB_DRAG_START",
+        floatingWidgetId,
+        side,
+        widgetId,
+        id,
+        position,
+        userSized,
+      });
+      onDragStart?.();
+
+      initialPointerPosition.current = undefined;
+    },
+    [
+      measure,
+      widgetContext,
+      handleDragTabStart,
+      dispatch,
       floatingWidgetId,
       side,
       widgetId,
       id,
-      position,
-      userSized,
-    });
-    onDragStart?.();
+      onDragStart,
+      overflown,
+    ]
+  );
+  const handlePointerDown = React.useCallback(
+    (args: PointerCaptorArgs, e: PointerCaptorEvent) => {
+      e.type === "touchstart" &&
+        floatingWidgetId &&
+        dispatch({
+          type: "FLOATING_WIDGET_BRING_TO_FRONT",
+          id: floatingWidgetId,
+        });
 
-    initialPointerPosition.current = undefined;
-  }, [measure, widgetContext, handleDragTabStart, dispatch, floatingWidgetId, side, widgetId, id, onDragStart, overflown]);
-  const handlePointerDown = React.useCallback((args: PointerCaptorArgs, e: PointerCaptorEvent) => {
-    e.type === "touchstart" && floatingWidgetId && dispatch({
-      type: "FLOATING_WIDGET_BRING_TO_FRONT",
-      id: floatingWidgetId,
-    });
+      initialPointerPosition.current = new Point(args.clientX, args.clientY);
+    },
+    [dispatch, floatingWidgetId]
+  );
+  const handlePointerMove = React.useCallback(
+    (args: PointerCaptorArgs) => {
+      // istanbul ignore next
+      if (!initialPointerPosition.current) return;
 
-    initialPointerPosition.current = new Point(args.clientX, args.clientY);
-  }, [dispatch, floatingWidgetId]);
-  const handlePointerMove = React.useCallback((args: PointerCaptorArgs) => {
-    // istanbul ignore next
-    if (!initialPointerPosition.current)
-      return;
-
-    const pointerPosition = new Point(args.clientX, args.clientY);
-    const distance = initialPointerPosition.current.getDistanceTo(pointerPosition);
-    if (distance < 10)
-      return;
-    handleDragStart(pointerPosition);
-  }, [handleDragStart]);
+      const pointerPosition = new Point(args.clientX, args.clientY);
+      const distance =
+        initialPointerPosition.current.getDistanceTo(pointerPosition);
+      if (distance < 10) return;
+      handleDragStart(pointerPosition);
+    },
+    [handleDragStart]
+  );
   const handlePointerUp = React.useCallback(() => {
     clickCount.current++;
     initialPointerPosition.current = undefined;
     doubleClickTimer.current.start();
   }, []);
 
-  const pointerCaptorRef = usePointerCaptor<T>(handlePointerDown, handlePointerMove, handlePointerUp);
+  const pointerCaptorRef = usePointerCaptor<T>(
+    handlePointerDown,
+    handlePointerMove,
+    handlePointerUp
+  );
   const ref = React.useRef<T>();
   const refs = useRefs(pointerCaptorRef, ref);
 
   React.useEffect(() => {
     const timer = doubleClickTimer.current;
     timer.setOnExecute(() => {
-      if (clickCount.current === 1)
-        handleClick();
-      else
-        handleDoubleClick();
+      if (clickCount.current === 1) handleClick();
+      else handleDoubleClick();
       clickCount.current = 0;
     });
     const keydown = (e: KeyboardEvent) => {
-      if(e.key === SpecialKey.Space || e.key === SpecialKey.Enter) {
+      if (e.key === SpecialKey.Space || e.key === SpecialKey.Enter) {
         handleClick();
       }
     };
@@ -284,7 +354,9 @@ export interface TabPositionContextArgs {
 }
 
 /** @internal */
-export const TabPositionContext = React.createContext<TabPositionContextArgs>(undefined!);
+export const TabPositionContext = React.createContext<TabPositionContextArgs>(
+  undefined!
+);
 TabPositionContext.displayName = "nz:TabPositionContext";
 
 /** @internal */

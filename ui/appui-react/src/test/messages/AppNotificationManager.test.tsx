@@ -1,16 +1,30 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  ActivityMessageDetails, ActivityMessageEndReason, MessageBoxIconType, MessageBoxType, MessageBoxValue, MockRender, NotifyMessageDetails, OutputMessageAlert,
-  OutputMessagePriority, OutputMessageType,
+  ActivityMessageDetails,
+  ActivityMessageEndReason,
+  MessageBoxIconType,
+  MessageBoxType,
+  MessageBoxValue,
+  MockRender,
+  NotifyMessageDetails,
+  OutputMessageAlert,
+  OutputMessagePriority,
+  OutputMessageType,
 } from "@itwin/core-frontend";
-import { AppNotificationManager, ElementTooltip, MessageManager, ModalDialogRenderer, UiFramework } from "../../appui-react";
+import {
+  AppNotificationManager,
+  ElementTooltip,
+  MessageManager,
+  ModalDialogRenderer,
+  UiFramework,
+} from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 
@@ -48,7 +62,10 @@ describe("AppNotificationManager", () => {
 
   it("outputMessage", () => {
     const spyMethod = sinon.spy(MessageManager, "addMessage");
-    const details = new NotifyMessageDetails(OutputMessagePriority.Debug, "A brief message.");
+    const details = new NotifyMessageDetails(
+      OutputMessagePriority.Debug,
+      "A brief message."
+    );
     notifications.outputMessage(details);
     expect(spyMethod.calledOnce).to.be.true;
   });
@@ -57,7 +74,12 @@ describe("AppNotificationManager", () => {
     const spyMethod = sinon.spy(MessageManager, "addMessage");
     const alertBoxMethod = sinon.spy(MessageManager, "showAlertMessageBox");
 
-    const details = new NotifyMessageDetails(OutputMessagePriority.Success, "A brief message.", "A detailed message.", OutputMessageType.Alert);
+    const details = new NotifyMessageDetails(
+      OutputMessagePriority.Success,
+      "A brief message.",
+      "A detailed message.",
+      OutputMessageType.Alert
+    );
     notifications.outputMessage(details);
     expect(spyMethod.calledOnce).to.be.true;
     expect(alertBoxMethod.calledOnce).to.be.true;
@@ -69,7 +91,13 @@ describe("AppNotificationManager", () => {
     const spyMethod = sinon.spy(MessageManager, "addMessage");
     const alertBoxMethod = sinon.spy(MessageManager, "showAlertMessageBox");
 
-    const details = new NotifyMessageDetails(OutputMessagePriority.Debug, "A brief message.", "A detailed message.", OutputMessageType.Alert, OutputMessageAlert.Balloon);
+    const details = new NotifyMessageDetails(
+      OutputMessagePriority.Debug,
+      "A brief message.",
+      "A detailed message.",
+      OutputMessageType.Alert,
+      OutputMessageAlert.Balloon
+    );
     notifications.outputMessage(details);
     expect(spyMethod.calledOnce).to.be.true;
     expect(alertBoxMethod.calledOnce).to.be.false;
@@ -79,9 +107,20 @@ describe("AppNotificationManager", () => {
     const spyMethod = sinon.spy(MessageManager, "addMessage");
     const spyMethod2 = sinon.spy(MessageManager, "displayInputFieldMessage");
     const spyMethod3 = sinon.spy(MessageManager, "hideInputFieldMessage");
-    const details = new NotifyMessageDetails(OutputMessagePriority.Debug, "A brief message.", "A detailed message.", OutputMessageType.InputField);
+    const details = new NotifyMessageDetails(
+      OutputMessagePriority.Debug,
+      "A brief message.",
+      "A detailed message.",
+      OutputMessageType.InputField
+    );
     let divElement: HTMLElement | null;
-    render(<div ref={(el) => { divElement = el; }} />);
+    render(
+      <div
+        ref={(el) => {
+          divElement = el;
+        }}
+      />
+    );
     details.setInputFieldTypeDetails(divElement!);
     notifications.outputMessage(details);
     expect(spyMethod.calledOnce).to.be.true;
@@ -93,7 +132,12 @@ describe("AppNotificationManager", () => {
   it("outputMessage with InputField but without setInputFieldTypeDetails", () => {
     const spyMethod = sinon.spy(MessageManager, "addMessage");
     const spyMethod2 = sinon.spy(MessageManager, "displayInputFieldMessage");
-    const details = new NotifyMessageDetails(OutputMessagePriority.Debug, "A brief message.", "A detailed message.", OutputMessageType.InputField);
+    const details = new NotifyMessageDetails(
+      OutputMessagePriority.Debug,
+      "A brief message.",
+      "A detailed message.",
+      OutputMessageType.InputField
+    );
     notifications.outputMessage(details);
     expect(spyMethod.calledOnce).to.be.true;
     expect(spyMethod2.called).to.be.false;
@@ -104,12 +148,18 @@ describe("AppNotificationManager", () => {
 
     const spyMethod = sinon.spy(MessageManager, "openMessageBox");
     expect(UiFramework.dialogs.modal.count).to.eq(0);
-    const boxResult = notifications.openMessageBox(MessageBoxType.OkCancel, "Message string", MessageBoxIconType.Information);
+    const boxResult = notifications.openMessageBox(
+      MessageBoxType.OkCancel,
+      "Message string",
+      MessageBoxIconType.Information
+    );
 
     expect(spyMethod.calledOnce).to.be.true;
     expect(UiFramework.dialogs.modal.count).to.eq(1);
 
-    await theUserTo.click(await screen.findByRole("button", {name: "dialog.ok"}));
+    await theUserTo.click(
+      await screen.findByRole("button", { name: "dialog.ok" })
+    );
     expect(UiFramework.dialogs.modal.count).to.eq(0);
 
     const boxValue = await boxResult;
@@ -140,7 +190,13 @@ describe("AppNotificationManager", () => {
     const showMethod = sinon.spy(ElementTooltip, "showTooltip");
     const hideMethod = sinon.spy(ElementTooltip, "hideTooltip");
     let divElement: HTMLElement | null;
-    render(<div ref={(el) => { divElement = el; }} />);
+    render(
+      <div
+        ref={(el) => {
+          divElement = el;
+        }}
+      />
+    );
     notifications.openToolTip(divElement!, "Tooltip message");
     notifications.clearToolTip();
     expect(showMethod.calledOnce).to.be.true;
@@ -152,7 +208,13 @@ describe("AppNotificationManager", () => {
     const showMethod = sinon.spy(ElementTooltip, "showTooltip");
     const hideMethod = sinon.spy(ElementTooltip, "hideTooltip");
     let divElement: HTMLElement | null;
-    render(<div ref={(el) => { divElement = el; }} />);
+    render(
+      <div
+        ref={(el) => {
+          divElement = el;
+        }}
+      />
+    );
     const reactNode = <span>Tooltip message</span>;
     MessageManager.openToolTip(divElement!, { reactNode });
     notifications.clearToolTip();
@@ -166,5 +228,4 @@ describe("AppNotificationManager", () => {
     MessageManager.outputActivityMessage({ reactNode }, 50);
     expect(spyMethod.calledOnce).to.be.true;
   });
-
 });

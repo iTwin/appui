@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -38,14 +38,26 @@ export interface ViewToolWidgetComposerProps {
 export function ViewToolWidgetComposer(props: ViewToolWidgetComposerProps) {
   const uiIsVisible = useUiVisibility();
   // istanbul ignore next
-  const className = classnames(
-    !uiIsVisible && "nz-hidden",
-  );
+  const className = classnames(!uiIsVisible && "nz-hidden");
 
   return (
-    <NavigationWidgetComposer className={className} hideNavigationAid={props.hideNavigationAid}
-      horizontalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Horizontal} />}
-      verticalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Vertical} />}
+    <NavigationWidgetComposer
+      className={className}
+      hideNavigationAid={props.hideNavigationAid}
+      horizontalToolbar={
+        <ToolbarComposer
+          items={[]}
+          usage={ToolbarUsage.ViewNavigation}
+          orientation={ToolbarOrientation.Horizontal}
+        />
+      }
+      verticalToolbar={
+        <ToolbarComposer
+          items={[]}
+          usage={ToolbarUsage.ViewNavigation}
+          orientation={ToolbarOrientation.Vertical}
+        />
+      }
     />
   );
 }

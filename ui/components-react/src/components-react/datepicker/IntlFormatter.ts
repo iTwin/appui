@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Date
  */
@@ -17,24 +17,22 @@ import type { DateFormatter } from "@itwin/appui-abstract";
  * @alpha
  */
 export class IntlFormatter implements DateFormatter {
-  constructor(private _intlFormatter?: Intl.DateTimeFormat) {
-  }
+  constructor(private _intlFormatter?: Intl.DateTimeFormat) {}
 
   public get formatter(): Intl.DateTimeFormat {
     if (!this._intlFormatter) {
       // https://tc39.es/ecma402/#sec-intl-datetimeformat-constructor
-      this._intlFormatter = new Intl.DateTimeFormat(undefined,
-        {
-          weekday: "short",    /* "narrow", "short", "long" */
-          year: "numeric",    /* "2-digit", "numeric" */
-          month: "2-digit",   /* "2-digit", "numeric", "narrow", "short", "long" */
-          day: "2-digit",     /* "2-digit", "numeric" */
-          hour: "numeric",    /* "2-digit", "numeric" */
-          hour12: true,
-          minute: "numeric",  /* "2-digit", "numeric" */
-          second: "numeric",  /* "2-digit", "numeric" */
-          /* timeZoneName:	"short", */ /* "short", "long" */
-        });
+      this._intlFormatter = new Intl.DateTimeFormat(undefined, {
+        weekday: "short" /* "narrow", "short", "long" */,
+        year: "numeric" /* "2-digit", "numeric" */,
+        month: "2-digit" /* "2-digit", "numeric", "narrow", "short", "long" */,
+        day: "2-digit" /* "2-digit", "numeric" */,
+        hour: "numeric" /* "2-digit", "numeric" */,
+        hour12: true,
+        minute: "numeric" /* "2-digit", "numeric" */,
+        second: "numeric" /* "2-digit", "numeric" */ /* "short", "long" */,
+        /* timeZoneName:	"short", */
+      });
     }
     return this._intlFormatter;
   }
@@ -47,4 +45,3 @@ export class IntlFormatter implements DateFormatter {
   // parseDate function must be implemented.
   // parseDate(dateString: string): Date|undefined {}
 }
-

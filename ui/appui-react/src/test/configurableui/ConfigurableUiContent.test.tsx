@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import * as React from "react";
@@ -17,7 +17,7 @@ import { CursorInformation, UiFramework } from "../../appui-react";
 
 describe("ConfigurableUiContent", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
@@ -26,9 +26,11 @@ describe("ConfigurableUiContent", () => {
   });
 
   it("key presses should be handled", async () => {
-    render(<Provider store={TestUtils.store} >
-      <ConfigurableUiContent />
-    </Provider>);
+    render(
+      <Provider store={TestUtils.store}>
+        <ConfigurableUiContent />
+      </Provider>
+    );
     expect(UiFramework.keyboardShortcuts.isFocusOnHome).to.be.true;
 
     const toolAdmin = new FrameworkToolAdmin();
@@ -42,15 +44,26 @@ describe("ConfigurableUiContent", () => {
 
   it("mouse moves should be handled", async () => {
     const spy = sinon.spy();
-    const removeListener = CursorInformation.onCursorUpdatedEvent.addListener(spy);
+    const removeListener =
+      CursorInformation.onCursorUpdatedEvent.addListener(spy);
     render(
-      <Provider store={TestUtils.store} >
+      <Provider store={TestUtils.store}>
         <ConfigurableUiContent />
-      </Provider>);
+      </Provider>
+    );
 
-    await theUserTo.pointer({target: screen.getByRole("main"), coords: {x: 10, y: 10}});
+    await theUserTo.pointer({
+      target: screen.getByRole("main"),
+      coords: { x: 10, y: 10 },
+    });
 
-    expect(spy).to.have.been.calledWith(sinon.match({oldPt: sinon.match.any, newPt: sinon.match.any, direction: sinon.match.any}));
+    expect(spy).to.have.been.calledWith(
+      sinon.match({
+        oldPt: sinon.match.any,
+        newPt: sinon.match.any,
+        direction: sinon.match.any,
+      })
+    );
 
     removeListener();
   });

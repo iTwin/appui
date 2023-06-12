@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -18,10 +18,7 @@ export function WidgetTarget() {
   const widgetId = React.useContext(WidgetIdContext);
   assert(!!widgetId);
   return (
-    <TargetContainer
-      className="nz-target-widgetTarget"
-      direction="horizontal"
-    >
+    <TargetContainer className="nz-target-widgetTarget" direction="horizontal">
       <MergeTarget widgetId={widgetId} />
     </TargetContainer>
   );

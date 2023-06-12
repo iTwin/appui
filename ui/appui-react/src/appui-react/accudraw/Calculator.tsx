@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module AccuDraw
  */
@@ -9,7 +9,7 @@
 import "./Calculator.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { OnCancelFunc, OnNumberCommitFunc} from "@itwin/appui-abstract";
+import type { OnCancelFunc, OnNumberCommitFunc } from "@itwin/appui-abstract";
 import { IconSpecUtilities, SpecialKey } from "@itwin/appui-abstract";
 import type { CommonProps, Omit } from "@itwin/core-react";
 import { Icon, IconInput } from "@itwin/core-react";
@@ -46,7 +46,10 @@ interface CalculatorState {
 export type CalculatorPropsProps = Pick<CalculatorProps, "engine">;
 
 /** @alpha */
-export class Calculator extends React.PureComponent<CalculatorProps, CalculatorState> {
+export class Calculator extends React.PureComponent<
+  CalculatorProps,
+  CalculatorState
+> {
   private _mainDiv = React.createRef<HTMLDivElement>();
   private _equalsClicked = false;
 
@@ -60,7 +63,9 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
 
     let displayValue = "0";
     if (this.props.initialValue)
-      displayValue = this.props.engine.processValue(this.props.initialValue.toString());
+      displayValue = this.props.engine.processValue(
+        this.props.initialValue.toString()
+      );
 
     this.state = {
       displayValue,
@@ -81,8 +86,7 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
     this._mainDivFocus();
     this.setState({ displayValue });
 
-    if (operator === CalculatorOperator.Equals)
-      this._equalsClicked = true;
+    if (operator === CalculatorOperator.Equals) this._equalsClicked = true;
     else if (operator === CalculatorOperator.ClearAll)
       this._equalsClicked = false;
   };
@@ -121,41 +125,57 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
   }
 
   private _mainDivFocus() {
-    if (this._mainDiv.current)
-      this._mainDiv.current.focus();
+    if (this._mainDiv.current) this._mainDiv.current.focus();
   }
 
   public override render() {
-    const { className, resultIcon, onOk, onCancel, initialValue, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { className, resultIcon, onOk, onCancel, initialValue, ...props } =
+      this.props;
 
-    const classNames = classnames(
-      "uifw-calculator",
-      className,
+    const classNames = classnames("uifw-calculator", className);
+
+    const topSection = resultIcon ? (
+      <IconInput
+        containerClassName="uifw-calculator-top-input"
+        value={this.state.displayValue}
+        readOnly={true}
+        icon={resultIcon}
+      />
+    ) : (
+      <Input value={this.state.displayValue} readOnly={true} size="small" />
     );
-
-    const topSection = this.props.resultIcon ?
-      <IconInput containerClassName="uifw-calculator-top-input"
-        value={this.state.displayValue} readOnly={true} icon={this.props.resultIcon} /> :
-      <Input value={this.state.displayValue} readOnly={true} size="small" />;
 
     return (
       // The event handler is only being used to capture bubbled events
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div {...props} ref={this._mainDiv} tabIndex={-1} className={classNames} onKeyDown={this._handleKeyDown}>
-        <div className="uifw-calculator-top">
-          {topSection}
-        </div>
-        <CalculatorKeyPad onValueClick={this._onValueButtonClick} onOperatorClick={this._onOperatorButtonClick} />
+      <div
+        {...props}
+        ref={this._mainDiv}
+        tabIndex={-1}
+        className={classNames}
+        onKeyDown={this._handleKeyDown}
+      >
+        <div className="uifw-calculator-top">{topSection}</div>
+        <CalculatorKeyPad
+          onValueClick={this._onValueButtonClick}
+          onOperatorClick={this._onOperatorButtonClick}
+        />
         <div className="uifw-calculator-bottom-buttons">
           <Button
-            className={classnames("uifw-calculator-large-button", "uifw-calculator-ok-button")}
+            className={classnames(
+              "uifw-calculator-large-button",
+              "uifw-calculator-ok-button"
+            )}
             styleType="cta"
             onClick={this._handleOk}
           >
             <Icon iconSpec={<SvgCheckmark />} />
           </Button>
           <Button
-            className={classnames("uifw-calculator-large-button", "uifw-calculator-cancel-button")}
+            className={classnames(
+              "uifw-calculator-large-button",
+              "uifw-calculator-cancel-button"
+            )}
             onClick={this._handleCancel}
           >
             <Icon iconSpec={<SvgRemove />} />
@@ -165,7 +185,9 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
     );
   }
 
-  private _handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
+  private _handleKeyDown = (
+    event: React.KeyboardEvent<HTMLDivElement>
+  ): void => {
     switch (event.key) {
       case "0":
       case "1":
@@ -224,7 +246,6 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
         break;
     }
   };
-
 }
 
 interface CalculatorKeyPadProps extends CommonProps {
@@ -236,45 +257,94 @@ interface CalculatorKeyPadProps extends CommonProps {
 
 class CalculatorKeyPad extends React.PureComponent<CalculatorKeyPadProps> {
   public override render() {
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(backspaceIcon);
+    const iconSpec =
+      IconSpecUtilities.createWebComponentIconSpec(backspaceIcon);
 
     return (
       <div className={classnames("uifw-calculator-button-grid")}>
-        <OperatorButton operator={CalculatorOperator.ClearAll} onClick={this.props.onOperatorClick}>AC</OperatorButton>
-        <OperatorButton operator={CalculatorOperator.Clear} onClick={this.props.onOperatorClick}>C</OperatorButton>
-        <OperatorButton operator={CalculatorOperator.Backspace} onClick={this.props.onOperatorClick}>
+        <OperatorButton
+          operator={CalculatorOperator.ClearAll}
+          onClick={this.props.onOperatorClick}
+        >
+          AC
+        </OperatorButton>
+        <OperatorButton
+          operator={CalculatorOperator.Clear}
+          onClick={this.props.onOperatorClick}
+        >
+          C
+        </OperatorButton>
+        <OperatorButton
+          operator={CalculatorOperator.Backspace}
+          onClick={this.props.onOperatorClick}
+        >
           <div className="uifw-calculator-button-svg">
             <Icon iconSpec={iconSpec} />
           </div>
         </OperatorButton>
-        <OperatorButton operator={CalculatorOperator.Divide} onClick={this.props.onOperatorClick}
-          className="uifw-calculator-large-font">&divide;</OperatorButton>
+        <OperatorButton
+          operator={CalculatorOperator.Divide}
+          onClick={this.props.onOperatorClick}
+          className="uifw-calculator-large-font"
+        >
+          &divide;
+        </OperatorButton>
 
         <ValueButton keyChar="7" onClick={this.props.onValueClick} />
         <ValueButton keyChar="8" onClick={this.props.onValueClick} />
         <ValueButton keyChar="9" onClick={this.props.onValueClick} />
-        <OperatorButton operator={CalculatorOperator.Multiply} onClick={this.props.onOperatorClick}
-          className="uifw-calculator-large-font">&times;</OperatorButton>
+        <OperatorButton
+          operator={CalculatorOperator.Multiply}
+          onClick={this.props.onOperatorClick}
+          className="uifw-calculator-large-font"
+        >
+          &times;
+        </OperatorButton>
 
         <ValueButton keyChar="4" onClick={this.props.onValueClick} />
         <ValueButton keyChar="5" onClick={this.props.onValueClick} />
         <ValueButton keyChar="6" onClick={this.props.onValueClick} />
-        <OperatorButton operator={CalculatorOperator.Subtract} onClick={this.props.onOperatorClick}
-          className="uifw-calculator-large-font">&minus;</OperatorButton>
+        <OperatorButton
+          operator={CalculatorOperator.Subtract}
+          onClick={this.props.onOperatorClick}
+          className="uifw-calculator-large-font"
+        >
+          &minus;
+        </OperatorButton>
 
         <ValueButton keyChar="1" onClick={this.props.onValueClick} />
         <ValueButton keyChar="2" onClick={this.props.onValueClick} />
         <ValueButton keyChar="3" onClick={this.props.onValueClick} />
-        <OperatorButton operator={CalculatorOperator.Add} onClick={this.props.onOperatorClick}
-          className="uifw-calculator-large-font">&#43;</OperatorButton>
+        <OperatorButton
+          operator={CalculatorOperator.Add}
+          onClick={this.props.onOperatorClick}
+          className="uifw-calculator-large-font"
+        >
+          &#43;
+        </OperatorButton>
 
         <ValueButton keyChar="0" onClick={this.props.onValueClick} />
-        <OperatorButton operator={CalculatorOperator.NegPos} onClick={this.props.onOperatorClick}
-          className="uifw-calculator-large-font">&plusmn;</OperatorButton>
-        <OperatorButton operator={CalculatorOperator.Decimal} onClick={this.props.onOperatorClick}
-          className="uifw-calculator-large-font">.</OperatorButton>
-        <OperatorButton operator={CalculatorOperator.Equals} onClick={this.props.onOperatorClick}
-          className="uifw-calculator-large-font">&#61;</OperatorButton>
+        <OperatorButton
+          operator={CalculatorOperator.NegPos}
+          onClick={this.props.onOperatorClick}
+          className="uifw-calculator-large-font"
+        >
+          &plusmn;
+        </OperatorButton>
+        <OperatorButton
+          operator={CalculatorOperator.Decimal}
+          onClick={this.props.onOperatorClick}
+          className="uifw-calculator-large-font"
+        >
+          .
+        </OperatorButton>
+        <OperatorButton
+          operator={CalculatorOperator.Equals}
+          onClick={this.props.onOperatorClick}
+          className="uifw-calculator-large-font"
+        >
+          &#61;
+        </OperatorButton>
         <span />
       </div>
     );
@@ -289,23 +359,25 @@ interface ValueButtonProps extends Omit<SquareButtonProps, "onClick"> {
 }
 
 class ValueButton extends React.PureComponent<ValueButtonProps> {
-
-  private _handleOnClick = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  private _handleOnClick = (
+    _event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     this.props.onClick(this.props.keyChar);
   };
 
   public override render() {
-    const { className, keyChar, onClick, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { className, keyChar, onClick, ...props } = this.props;
 
-    const itemClassNames = classnames(
-      "uifw-calculator-item",
-      className,
-    );
+    const itemClassNames = classnames("uifw-calculator-item", className);
 
     return (
-      <SquareButton {...props} className={itemClassNames} onClick={this._handleOnClick} >
+      <SquareButton
+        {...props}
+        className={itemClassNames}
+        onClick={this._handleOnClick}
+      >
         {keyChar}
-      </SquareButton >
+      </SquareButton>
     );
   }
 }
@@ -318,21 +390,23 @@ interface OperatorButtonProps extends Omit<SquareButtonProps, "onClick"> {
 }
 
 class OperatorButton extends React.PureComponent<OperatorButtonProps> {
-
-  private _handleOnClick = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  private _handleOnClick = (
+    _event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     this.props.onClick(this.props.operator);
   };
 
   public override render() {
-    const { className, children, operator, onClick, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { className, children, operator, onClick, ...props } = this.props;
 
-    const itemClassNames = classnames(
-      "uifw-calculator-item",
-      className,
-    );
+    const itemClassNames = classnames("uifw-calculator-item", className);
 
     return (
-      <SquareButton {...props} className={itemClassNames} onClick={this._handleOnClick}>
+      <SquareButton
+        {...props}
+        className={itemClassNames}
+        onClick={this._handleOnClick}
+      >
         {children}
       </SquareButton>
     );

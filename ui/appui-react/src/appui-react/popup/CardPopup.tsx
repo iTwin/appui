@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Popup
  */
@@ -9,7 +9,13 @@
 import "./CardPopup.scss";
 import * as React from "react";
 import classnames from "classnames";
-import type { CommonToolbarItem, OnCancelFunc, OnItemExecutedFunc, PropertyRecord, RelativePosition} from "@itwin/appui-abstract";
+import type {
+  CommonToolbarItem,
+  OnCancelFunc,
+  OnItemExecutedFunc,
+  PropertyRecord,
+  RelativePosition,
+} from "@itwin/appui-abstract";
 import { SpecialKey } from "@itwin/appui-abstract";
 import type { Orientation, SizeProps } from "@itwin/core-react";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
@@ -19,7 +25,13 @@ import type { PopupContentType, PopupPropsBase } from "./PopupManager";
 import { isReactContent, PopupManager } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
 import { MessageDiv } from "../messages/MessageSpan";
-import { Direction, PropertyValueRendererManager, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarWithOverflow } from "@itwin/components-react";
+import {
+  Direction,
+  PropertyValueRendererManager,
+  ToolbarOpacitySetting,
+  ToolbarPanelAlignment,
+  ToolbarWithOverflow,
+} from "@itwin/components-react";
 
 /** Props for defining a CardPopup editor
  * @beta */
@@ -41,7 +53,10 @@ interface CardPopupState {
 /** Popup component for Input Editor
  * @beta
  */
-export class CardPopup extends React.PureComponent<CardPopupProps, CardPopupState> {
+export class CardPopup extends React.PureComponent<
+  CardPopupProps,
+  CardPopupState
+> {
   /** @internal */
   public override readonly state = {
     size: new Size(-1, -1),
@@ -69,20 +84,38 @@ export class CardPopup extends React.PureComponent<CardPopupProps, CardPopupStat
   }
 
   public override render() {
-    let point = PopupManager.getPopupPosition(this.props.el, this.props.pt, new Point(), this.state.size);
-    const popupRect = CursorPopup.getPopupRect(point, this.props.offset, this.state.size, this.props.relativePosition);
+    let point = PopupManager.getPopupPosition(
+      this.props.el,
+      this.props.pt,
+      new Point(),
+      this.state.size
+    );
+    const popupRect = CursorPopup.getPopupRect(
+      point,
+      this.props.offset,
+      this.state.size,
+      this.props.relativePosition
+    );
     point = new Point(popupRect.left, popupRect.top);
 
     return (
-      <PositionPopup key={this.props.id}
+      <PositionPopup
+        key={this.props.id}
         className={classnames("uifw-no-border", "uifw-card")}
         point={point}
         onSizeKnown={this._onSizeKnown}
       >
-        <DivWithOutsideClick onOutsideClick={this.props.onCancel} onKeyDown={this._handleKeyDown}>
+        <DivWithOutsideClick
+          onOutsideClick={this.props.onCancel}
+          onKeyDown={this._handleKeyDown}
+        >
           <FocusTrap active={true} returnFocusOnDeactivate={true}>
-            <Card content={this.props.content} title={this.props.title} items={this.props.items}
-              onItemExecuted={this.props.onItemExecuted} />
+            <Card
+              content={this.props.content}
+              title={this.props.title}
+              items={this.props.items}
+              onItemExecuted={this.props.onItemExecuted}
+            />
           </FocusTrap>
         </DivWithOutsideClick>
       </PositionPopup>
@@ -108,26 +141,31 @@ export function Card(props: CardProps) {
     if (typeof props.title === "string")
       titleNode = <Text variant="leading">{props.title}</Text>;
     else {
-      const propertyValueRendererManager = PropertyValueRendererManager.defaultManager;
+      const propertyValueRendererManager =
+        PropertyValueRendererManager.defaultManager;
       const titleValue = propertyValueRendererManager.render(props.title);
       titleNode = <Text variant="leading">{titleValue}</Text>;
     }
   }
 
-  const content = isReactContent(props.content) ? props.content.reactNode : <MessageDiv message={props.content} />;
+  const content = isReactContent(props.content) ? (
+    props.content.reactNode
+  ) : (
+    <MessageDiv message={props.content} />
+  );
 
   return (
     <>
       <div className="uifw-card-content">
-        {props.title &&
+        {props.title && (
           <>
             {titleNode}
             <div className="uifw-card-gap" />
           </>
-        }
+        )}
         {content}
       </div>
-      {props.items &&
+      {props.items && (
         <>
           <div className="uifw-card-separator" />
           <ToolbarWithOverflow // eslint-disable-line deprecation/deprecation
@@ -139,7 +177,7 @@ export function Card(props: CardProps) {
             onItemExecuted={props.onItemExecuted}
           />
         </>
-      }
+      )}
     </>
   );
 }

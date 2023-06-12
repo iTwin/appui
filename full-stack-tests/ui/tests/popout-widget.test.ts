@@ -1,10 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-import { test, expect } from '@playwright/test';
-import assert from 'assert';
-import { expectSavedFrontstageState, floatingWidgetLocator, tabLocator, widgetLocator } from './Utils';
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import { test, expect } from "@playwright/test";
+import assert from "assert";
+import {
+  expectSavedFrontstageState,
+  floatingWidgetLocator,
+  tabLocator,
+  widgetLocator,
+} from "./Utils";
 
 test.describe("popout widget", () => {
   test.beforeEach(async ({ page, baseURL }) => {
@@ -13,9 +18,12 @@ test.describe("popout widget", () => {
   });
 
   test("should popout a widget", async ({ context, page }) => {
-    const widget = floatingWidgetLocator({ page, id: "appui-test-providers:ViewAttributesWidget" });
+    const widget = floatingWidgetLocator({
+      page,
+      id: "appui-test-providers:ViewAttributesWidget",
+    });
     const tab = tabLocator(page, "View Attributes");
-    const popoutButton = widget.locator('[title="Pop out active widget tab"]')
+    const popoutButton = widget.locator('[title="Pop out active widget tab"]');
     await expect(tab).toBeVisible();
 
     const [popoutPage] = await Promise.all([
@@ -42,7 +50,7 @@ test.describe("popout widget", () => {
 
     expect(popoutPage.viewportSize()).toEqual({
       height: 800,
-      width: 600
+      width: 600,
     });
 
     // Update widget size and close the popout.
@@ -67,7 +75,10 @@ test.describe("popout widget", () => {
     });
   });
 
-  test("should maintain popout widget bounds (after reload)", async ({ context, page }) => {
+  test("should maintain popout widget bounds (after reload)", async ({
+    context,
+    page,
+  }) => {
     const tab = tabLocator(page, "View Attributes");
     const widget = widgetLocator({ tab });
     const popoutButton = widget.locator('[title="Pop out active widget tab"]');
@@ -91,7 +102,10 @@ test.describe("popout widget", () => {
     await expect(tab).toHaveClass(/nz-active/);
 
     await expectSavedFrontstageState(context, (state) => {
-      return state.nineZone.widgets.leftStart.activeTabId === "appui-test-providers:ViewAttributesWidget";
+      return (
+        state.nineZone.widgets.leftStart.activeTabId ===
+        "appui-test-providers:ViewAttributesWidget"
+      );
     });
 
     await page.reload();

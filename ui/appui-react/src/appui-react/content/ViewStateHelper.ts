@@ -1,16 +1,22 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContentView
  */
 
-import type { EmphasizeElementsProps, ViewStateProps } from "@itwin/core-common";
-import type { EntityState, IModelConnection, ScreenViewport, ViewState} from "@itwin/core-frontend";
-import {
-  EmphasizeElements,
+import type {
+  EmphasizeElementsProps,
+  ViewStateProps,
+} from "@itwin/core-common";
+import type {
+  EntityState,
+  IModelConnection,
+  ScreenViewport,
+  ViewState,
 } from "@itwin/core-frontend";
+import { EmphasizeElements } from "@itwin/core-frontend";
 import { ViewUtilities } from "../utils/ViewUtilities";
 
 /** SavedViewProps interface for sharing ViewState and EmphasizeElements information.
@@ -26,9 +32,15 @@ export interface ViewStateHelperProps extends ViewStateProps {
  */
 export class ViewStateHelper {
   /** Create a ViewState from the SavedView */
-  public static async viewStateFromProps(iModelConnection: IModelConnection, savedViewProps: ViewStateHelperProps): Promise<ViewState | undefined> {
+  public static async viewStateFromProps(
+    iModelConnection: IModelConnection,
+    savedViewProps: ViewStateHelperProps
+  ): Promise<ViewState | undefined> {
     const className = savedViewProps.viewDefinitionProps.classFullName;
-    const ctor = await iModelConnection.findClassFor<typeof EntityState>(className, undefined) as typeof ViewState | undefined;
+    const ctor = (await iModelConnection.findClassFor<typeof EntityState>(
+      className,
+      undefined
+    )) as typeof ViewState | undefined;
 
     // istanbul ignore next
     if (undefined === ctor)
@@ -41,11 +53,17 @@ export class ViewStateHelper {
   }
 
   /** Apply EmphasizeElements from the SavedView */
-  public static emphasizeElementsFromProps(vp: ScreenViewport, savedViewProps: ViewStateHelperProps): boolean {
+  public static emphasizeElementsFromProps(
+    vp: ScreenViewport,
+    savedViewProps: ViewStateHelperProps
+  ): boolean {
     let changed = false;
     if (savedViewProps.emphasizeElementsProps) {
       const emphasizeElements = new EmphasizeElements();
-      changed = emphasizeElements.fromJSON(savedViewProps.emphasizeElementsProps, vp);
+      changed = emphasizeElements.fromJSON(
+        savedViewProps.emphasizeElementsProps,
+        vp
+      );
     }
     return changed;
   }
@@ -53,15 +71,19 @@ export class ViewStateHelper {
   /** Create props for a ViewState */
   public static viewStateToProps(viewState: ViewState): ViewStateHelperProps {
     const savedViewProps = viewState.toProps() as ViewStateHelperProps;
-    savedViewProps.bisBaseClass = ViewUtilities.getBisBaseClass(viewState.classFullName);
+    savedViewProps.bisBaseClass = ViewUtilities.getBisBaseClass(
+      viewState.classFullName
+    );
     return savedViewProps;
   }
 
   /** Create props for an EmphasizeElements and store in SavedViewProps */
-  public static emphasizeElementsToProps(vp: ScreenViewport, savedViewProps: ViewStateHelperProps): void {
+  public static emphasizeElementsToProps(
+    vp: ScreenViewport,
+    savedViewProps: ViewStateHelperProps
+  ): void {
     const ee = EmphasizeElements.get(vp);
     const emphasizeElementsProps = ee ? ee.toJSON(vp) : undefined;
     savedViewProps.emphasizeElementsProps = emphasizeElementsProps;
   }
-
 }

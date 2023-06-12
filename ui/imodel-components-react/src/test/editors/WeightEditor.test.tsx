@@ -1,15 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
-import type { PrimitiveValue} from "@itwin/appui-abstract";
+import type { PrimitiveValue } from "@itwin/appui-abstract";
 import { SpecialKey } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
-import { EditorContainer, PropertyEditorManager } from "@itwin/components-react";
+import {
+  EditorContainer,
+  PropertyEditorManager,
+} from "@itwin/components-react";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { WeightEditor } from "../../imodel-components-react/editors/WeightEditor";
 import { MineDataController, TestUtils } from "../TestUtils";
@@ -39,19 +42,24 @@ describe("<WeightEditor />", () => {
       spyOnCommit();
     }
 
-    renderedComponent.rerender(<WeightEditor propertyRecord={record2} onCommit={handleCommit} />);
-    const pickerButton = renderedComponent.getByTestId("components-weightpicker-button");
+    renderedComponent.rerender(
+      <WeightEditor propertyRecord={record2} onCommit={handleCommit} />
+    );
+    const pickerButton = renderedComponent.getByTestId(
+      "components-weightpicker-button"
+    );
     expect(pickerButton.tagName).to.be.equal("BUTTON");
     fireEvent.click(pickerButton);
 
     // ====== Example of how to see contents of portal <Popup> component ==========
     // const portalDiv = await waitForElement(() => renderedComponent.getByTestId("core-popup"));
     // expect(portalDiv).not.to.be.undefined;
-    // eslint-disable-next-line no-console
     // console.log(portalDiv.outerHTML);
     // =================================
 
-    const popupDiv = await waitFor(() => renderedComponent.getByTestId("components-weightpicker-popup-lines"));
+    const popupDiv = await waitFor(() =>
+      renderedComponent.getByTestId("components-weightpicker-popup-lines")
+    );
     // renderedComponent.debug();  // show content of portal
     expect(popupDiv).not.to.be.undefined;
     if (popupDiv) {
@@ -69,16 +77,27 @@ describe("<WeightEditor />", () => {
     const weight1 = 1;
     const propertyRecord = TestUtils.createWeightProperty("Test", weight1);
     propertyRecord.isDisabled = true;
-    const renderedComponent = render(<WeightEditor setFocus={true} propertyRecord={propertyRecord} />);
+    const renderedComponent = render(
+      <WeightEditor setFocus={true} propertyRecord={propertyRecord} />
+    );
     expect(renderedComponent).not.to.be.undefined;
-    expect(renderedComponent.container.querySelector("[disabled]")).to.not.be.null;
+    expect(renderedComponent.container.querySelector("[disabled]")).to.not.be
+      .null;
   });
 
   it("renders editor for 'number' type and 'weight-picker' editor using WeightEditor", () => {
     const weight1 = 1;
     const propertyRecord = TestUtils.createWeightProperty("Test", weight1);
-    const renderedComponent = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={() => { }} />);
-    expect(renderedComponent.getByTestId("components-weightpicker-button")).to.exist;
+    const renderedComponent = render(
+      <EditorContainer
+        propertyRecord={propertyRecord}
+        title="abc"
+        onCommit={() => {}}
+        onCancel={() => {}}
+      />
+    );
+    expect(renderedComponent.getByTestId("components-weightpicker-button")).to
+      .exist;
   });
 
   it("should not commit if DataController fails to validate", async () => {
@@ -88,9 +107,18 @@ describe("<WeightEditor />", () => {
     propertyRecord.property.dataController = "myData";
 
     const spyOnCommit = sinon.spy();
-    const renderedComponent = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
+    const renderedComponent = render(
+      <EditorContainer
+        propertyRecord={propertyRecord}
+        title="abc"
+        onCommit={spyOnCommit}
+        onCancel={() => {}}
+      />
+    );
     expect(renderedComponent).not.to.be.undefined;
-    const button = renderedComponent.getByTestId("components-weightpicker-button");
+    const button = renderedComponent.getByTestId(
+      "components-weightpicker-button"
+    );
     expect(button).to.exist;
 
     fireEvent.keyDown(button, { key: SpecialKey.Enter });
@@ -99,5 +127,4 @@ describe("<WeightEditor />", () => {
 
     PropertyEditorManager.deregisterDataController("myData");
   });
-
 });

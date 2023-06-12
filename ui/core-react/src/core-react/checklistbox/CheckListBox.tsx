@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module CheckListBox
  */
@@ -33,13 +33,22 @@ export interface CheckListBoxItemProps extends CommonProps {
  */
 export class CheckListBoxItem extends React.PureComponent<CheckListBoxItemProps> {
   public override render() {
-    const className = classnames("core-chk-listboxitem-checkbox", this.props.className);
+    const className = classnames(
+      "core-chk-listboxitem-checkbox",
+      this.props.className
+    );
     return (
       <li>
-        <Checkbox checked={this.props.checked} disabled={this.props.disabled}
-          className={className} style={this.props.style}
-          label={this.props.label} onClick={this.props.onClick} onChange={this.props.onChange}
-          data-testid="core-chk-listboxitem-checkbox" />
+        <Checkbox
+          checked={this.props.checked}
+          disabled={this.props.disabled}
+          className={className}
+          style={this.props.style}
+          label={this.props.label}
+          onClick={this.props.onClick}
+          onChange={this.props.onChange}
+          data-testid="core-chk-listboxitem-checkbox"
+        />
       </li>
     );
   }
@@ -49,18 +58,18 @@ export class CheckListBoxItem extends React.PureComponent<CheckListBoxItemProps>
  * @public
  */
 export function CheckListBoxSeparator() {
-  return (
-    <div className="core-chk-listbox-separator" />
-  );
+  return <div className="core-chk-listbox-separator" />;
 }
 
 /** React component showing a list of Checkbox items.
  * @public
  */
-export class CheckListBox extends React.PureComponent<CommonProps & {
-  /** Content */
-  children?: React.ReactNode;
-}> {
+export class CheckListBox extends React.PureComponent<
+  CommonProps & {
+    /** Content */
+    children?: React.ReactNode;
+  }
+> {
   public override render() {
     const className = classnames("core-chk-listbox", this.props.className);
     return (

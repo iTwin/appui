@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyFilterBuilder
  */
@@ -10,7 +10,10 @@ import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { Select } from "@itwin/itwinui-react";
 import type { PropertyFilterRuleOperator } from "./Operators";
-import { getPropertyFilterOperatorLabel, getPropertyFilterOperators } from "./Operators";
+import {
+  getPropertyFilterOperatorLabel,
+  getPropertyFilterOperators,
+} from "./Operators";
 
 /**
  * Props for [[PropertyFilterBuilderRuleOperator]] component.
@@ -29,22 +32,39 @@ export interface PropertyFilterBuilderRuleOperatorProps {
  * Component that renders [[PropertyFilterBuilderRuleRenderer]] operator selector.
  * @internal
  */
-export function PropertyFilterBuilderRuleOperator(props: PropertyFilterBuilderRuleOperatorProps) {
+export function PropertyFilterBuilderRuleOperator(
+  props: PropertyFilterBuilderRuleOperatorProps
+) {
   const { operator, property, onChange } = props;
 
-  const availableOperators = React.useMemo(() => getPropertyFilterOperators(property), [property]);
-  const selectedOperator = availableOperators.find((op) => op === operator) ?? availableOperators[0];
+  const availableOperators = React.useMemo(
+    () => getPropertyFilterOperators(property),
+    [property]
+  );
+  const selectedOperator =
+    availableOperators.find((op) => op === operator) ?? availableOperators[0];
 
   React.useEffect(() => {
     onChange(selectedOperator);
   }, [onChange, selectedOperator]);
 
-  const availableOptions = React.useMemo(() => availableOperators.map((op) => ({
-    value: op,
-    label: getPropertyFilterOperatorLabel(op),
-  })), [availableOperators]);
+  const availableOptions = React.useMemo(
+    () =>
+      availableOperators.map((op) => ({
+        value: op,
+        label: getPropertyFilterOperatorLabel(op),
+      })),
+    [availableOperators]
+  );
 
-  return <div className="rule-operator">
-    <Select options={availableOptions} value={selectedOperator} onChange={onChange} size="small" />
-  </div>;
+  return (
+    <div className="rule-operator">
+      <Select
+        options={availableOptions}
+        value={selectedOperator}
+        onChange={onChange}
+        size="small"
+      />
+    </div>
+  );
 }

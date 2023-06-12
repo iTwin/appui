@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module OIDC
  */
@@ -42,18 +42,29 @@ interface SignInState {
  * @public
  */
 export class SignIn extends React.PureComponent<SignInProps, SignInState> {
-
   constructor(props: SignInProps) {
     super(props);
 
     this.state = {
       isSigningIn: false,
 
-      prompt: IModelApp.localization.getLocalizedString("SampleApp:signIn.prompt"),
-      signInButton: IModelApp.localization.getLocalizedString("SampleApp:signIn.signInButton"),
-      profilePrompt: IModelApp.localization.getLocalizedString("SampleApp:signIn.profilePrompt"),
-      registerAnchor: IModelApp.localization.getLocalizedString("SampleApp:signIn.register"),
-      signingInMessage: (ProcessDetector.isElectronAppFrontend) ? IModelApp.localization.getLocalizedString("SampleApp:signIn.signingInMessage") : "",
+      prompt: IModelApp.localization.getLocalizedString(
+        "SampleApp:signIn.prompt"
+      ),
+      signInButton: IModelApp.localization.getLocalizedString(
+        "SampleApp:signIn.signInButton"
+      ),
+      profilePrompt: IModelApp.localization.getLocalizedString(
+        "SampleApp:signIn.profilePrompt"
+      ),
+      registerAnchor: IModelApp.localization.getLocalizedString(
+        "SampleApp:signIn.register"
+      ),
+      signingInMessage: ProcessDetector.isElectronAppFrontend
+        ? IModelApp.localization.getLocalizedString(
+            "SampleApp:signIn.signingInMessage"
+          )
+        : "",
     };
   }
 
@@ -67,7 +78,10 @@ export class SignIn extends React.PureComponent<SignInProps, SignInState> {
     this.props.onSignIn();
   };
 
-  private _handleKeyUp = (event: React.KeyboardEvent, onActivate?: () => void) => {
+  private _handleKeyUp = (
+    event: React.KeyboardEvent,
+    onActivate?: () => void
+  ) => {
     const key = event.key;
 
     switch (key) {
@@ -91,25 +105,45 @@ export class SignIn extends React.PureComponent<SignInProps, SignInState> {
     }
 
     return (
-      <div className={classnames("components-signin", this.props.className)} style={this.props.style}>
+      <div
+        className={classnames("components-signin", this.props.className)}
+        style={this.props.style}
+      >
         <div className="components-signin-content">
           <span className="icon icon-user" />
-          {this.state.isSigningIn ?
-            <span className="components-signin-prompt">{this.state.signingInMessage}</span> :
-            <span className="components-signin-prompt">{this.state.prompt}</span>
-          }
-          <Button className="components-signin-button" styleType="cta" disabled={this.state.isSigningIn && disableSignInOnClick}
-            onClick={this._onSignInClick} onKeyUp={(e: React.KeyboardEvent<HTMLButtonElement>) => this._handleKeyUp(e, this._onSigningIn)}>
+          {this.state.isSigningIn ? (
+            <span className="components-signin-prompt">
+              {this.state.signingInMessage}
+            </span>
+          ) : (
+            <span className="components-signin-prompt">
+              {this.state.prompt}
+            </span>
+          )}
+          <Button
+            className="components-signin-button"
+            styleType="cta"
+            disabled={this.state.isSigningIn && disableSignInOnClick}
+            onClick={this._onSignInClick}
+            onKeyUp={(e: React.KeyboardEvent<HTMLButtonElement>) =>
+              this._handleKeyUp(e, this._onSigningIn)
+            }
+          >
             {this.state.signInButton}
           </Button>
-          {this.props.onRegister !== undefined &&
+          {this.props.onRegister !== undefined && (
             <span className="components-signin-register">
               {this.state.profilePrompt}
-              <a onClick={this.props.onRegister} onKeyUp={(e) => this._handleKeyUp(e, this.props.onRegister)} role="link" tabIndex={0}>
+              <a
+                onClick={this.props.onRegister}
+                onKeyUp={(e) => this._handleKeyUp(e, this.props.onRegister)}
+                role="link"
+                tabIndex={0}
+              >
                 {this.state.registerAnchor}
               </a>
             </span>
-          }
+          )}
         </div>
       </div>
     );

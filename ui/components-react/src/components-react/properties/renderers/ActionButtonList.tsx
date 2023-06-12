@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Properties
  */
@@ -10,7 +10,10 @@ import "./ActionButtonList.scss";
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
-import type { ActionButtonRenderer, ActionButtonRendererProps } from "./ActionButtonRenderer";
+import type {
+  ActionButtonRenderer,
+  ActionButtonRendererProps,
+} from "./ActionButtonRenderer";
 
 /** Properties of [[ActionButtonList]] React component
  * @public
@@ -40,7 +43,7 @@ export class ActionButtonList extends React.PureComponent<ActionButtonListProps>
   public override render() {
     return (
       <div className={this.getClassName(this.props.orientation)}>
-        {this.props.actionButtonRenderers.map((renderer, index) =>
+        {this.props.actionButtonRenderers.map((renderer, index) => (
           <ActionButtonContainer
             key={index}
             renderer={renderer}
@@ -48,8 +51,8 @@ export class ActionButtonList extends React.PureComponent<ActionButtonListProps>
               property: this.props.property,
               isPropertyHovered: this.props.isPropertyHovered,
             }}
-          />,
-        )}
+          />
+        ))}
       </div>
     );
   }
@@ -62,12 +65,9 @@ interface ActionButtonContainerProps {
 
 function ActionButtonContainer(props: ActionButtonContainerProps) {
   const actionButton = props.renderer(props.rendererProps);
-  if (!actionButton)
-    return null;
+  if (!actionButton) return null;
 
   return (
-    <div className="components-action-button-container">
-      {actionButton}
-    </div>
+    <div className="components-action-button-container">{actionButton}</div>
   );
 }

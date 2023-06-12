@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import "./InlineEdit.scss";
 import classnames from "classnames";
 import * as React from "react";
@@ -22,17 +22,26 @@ interface InlineEditState {
 /** Duration Inline Editor
  * @internal
  */
-export class InlineEdit extends React.Component<InlineEditProps, InlineEditState> {
+export class InlineEdit extends React.Component<
+  InlineEditProps,
+  InlineEditState
+> {
   private _inputRef = React.createRef<HTMLInputElement>();
 
   constructor(props: InlineEditProps) {
     super(props);
 
-    this.state = { value: this.props.defaultValue, originalValue: this.props.defaultValue };
+    this.state = {
+      value: this.props.defaultValue,
+      originalValue: this.props.defaultValue,
+    };
   }
 
   /** @internal */
-  public override componentDidUpdate(prevProps: InlineEditProps, _prevState: InlineEditState) { // eslint-disable-line @typescript-eslint/naming-convention
+  public override componentDidUpdate(
+    prevProps: InlineEditProps,
+    _prevState: InlineEditState
+  ) {
     if (prevProps.defaultValue !== this.props.defaultValue) {
       this.setState((_, props) => {
         return { value: props.defaultValue, originalValue: props.defaultValue };
@@ -54,7 +63,8 @@ export class InlineEdit extends React.Component<InlineEditProps, InlineEditState
       case SpecialKey.Escape:
         this.setState(
           (prevState) => ({ value: prevState.originalValue }),
-          () => this._inputRef.current!.select());
+          () => this._inputRef.current!.select()
+        );
         break;
       case SpecialKey.Enter:
         this._sendChange(this.state.value);
@@ -68,8 +78,7 @@ export class InlineEdit extends React.Component<InlineEditProps, InlineEditState
 
   private _sendChange(value: string) {
     // istanbul ignore else
-    if (this.props.onChange)
-      this.props.onChange(value);
+    if (this.props.onChange) this.props.onChange(value);
   }
 
   public override render() {
@@ -85,7 +94,8 @@ export class InlineEdit extends React.Component<InlineEditProps, InlineEditState
         onFocus={this._onFocus}
         onBlur={this._onBlur}
         onKeyDown={this._onKeyDown}
-        onChange={this._onChange} />
+        onChange={this._onChange}
+      />
     );
   }
 }

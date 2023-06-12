@@ -1,13 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { MockRender } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import { ActivityCenterField, MessageManager, StatusBar } from "../../appui-react";
+import {
+  ActivityCenterField,
+  MessageManager,
+  StatusBar,
+} from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 describe("ActivityCenter", () => {
@@ -19,11 +23,14 @@ describe("ActivityCenter", () => {
   after(async () => {
     TestUtils.terminateUiFramework();
     await MockRender.App.shutdown();
-
   });
 
   it("should show ActivityCenterField", async () => {
-    const { findByText, findByTitle } = render(<StatusBar><ActivityCenterField /></StatusBar>);
+    const { findByText, findByTitle } = render(
+      <StatusBar>
+        <ActivityCenterField />
+      </StatusBar>
+    );
     const message = "Test";
     const percentage = 50;
     MessageManager.setupActivityMessageValues(message, percentage);
@@ -33,7 +40,11 @@ describe("ActivityCenter", () => {
   });
 
   it("should hide ActivityCenterField", async () => {
-    const { findByText, queryAllByText } = render(<StatusBar><ActivityCenterField /></StatusBar>);
+    const { findByText, queryAllByText } = render(
+      <StatusBar>
+        <ActivityCenterField />
+      </StatusBar>
+    );
 
     MessageManager.setupActivityMessageValues("Test", 50);
     await findByText(/activityCenter.percentComplete/);
@@ -45,7 +56,11 @@ describe("ActivityCenter", () => {
   });
 
   it("click should be handled", async () => {
-    const { findByTitle } = render(<StatusBar><ActivityCenterField /></StatusBar>);
+    const { findByTitle } = render(
+      <StatusBar>
+        <ActivityCenterField />
+      </StatusBar>
+    );
 
     MessageManager.setupActivityMessageValues("Test", 50);
     const field = await findByTitle(/activityCenter.moreDetails/);
@@ -54,5 +69,4 @@ describe("ActivityCenter", () => {
     fireEvent.click(field);
     sinon.assert.calledOnce(spy);
   });
-
 });

@@ -1,9 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { should } from "chai";
-import { addPanelWidget, addPopoutWidget, addTab, addTabToWidget, createNineZoneState, insertTabToWidget, removeTab, removeTabFromWidget } from "../../appui-layout-react";
+import {
+  addPanelWidget,
+  addPopoutWidget,
+  addTab,
+  addTabToWidget,
+  createNineZoneState,
+  insertTabToWidget,
+  removeTab,
+  removeTabFromWidget,
+} from "../../appui-layout-react";
 import { addTabs, handleMetaData } from "../Utils";
 
 describe("addTab", () => {
@@ -35,13 +44,17 @@ describe("insertTabToWidget", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1"]);
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    handleMetaData(() => insertTabToWidget(state, "t2", "w1", 1)).should.throw("Tab does not exist");
+    handleMetaData(() => insertTabToWidget(state, "t2", "w1", 1)).should.throw(
+      "Tab does not exist"
+    );
   });
 
   it("should throw if widget does not exist", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1"]);
-    handleMetaData(() => insertTabToWidget(state, "t1", "w1", 1)).should.throw("Widget does not exist");
+    handleMetaData(() => insertTabToWidget(state, "t1", "w1", 1)).should.throw(
+      "Widget does not exist"
+    );
   });
 
   it("should throw if tab is already in one of the widgets", () => {
@@ -49,7 +62,9 @@ describe("insertTabToWidget", () => {
     state = addTabs(state, ["t1", "t2"]);
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addPanelWidget(state, "left", "w2", ["t2"]);
-    handleMetaData(() => insertTabToWidget(state, "t1", "w2", 1)).should.throw("Tab is already in a widget");
+    handleMetaData(() => insertTabToWidget(state, "t1", "w2", 1)).should.throw(
+      "Tab is already in a widget"
+    );
   });
 });
 

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module WidgetPanels
  */
@@ -23,7 +23,9 @@ export function useAnimatePanel() {
   const captured = draggedPanelSide === side;
   const [contentSize, setContentSize] = React.useState<number | undefined>();
   const [prepareTransition, setPrepareTransition] = React.useState(false);
-  const [transition, setTransition] = React.useState<"init" | "transition" | undefined>();
+  const [transition, setTransition] = React.useState<
+    "init" | "transition" | undefined
+  >();
   const [panelSize, setPanelSize] = React.useState<number | undefined>();
   const [initializing, setInitializing] = React.useState(false);
   const horizontal = isHorizontalPanelSide(side);
@@ -80,7 +82,10 @@ export function useAnimatePanel() {
       // Panel is collapsing, ignore size changes.
     } else if (!captured && ref.current && prevSize !== undefined) {
       // Panel is expanding
-      animateFrom.current = getPanelSize(horizontal, ref.current.getBoundingClientRect());
+      animateFrom.current = getPanelSize(
+        horizontal,
+        ref.current.getBoundingClientRect()
+      );
       setPanelSize(undefined);
       setContentSize(undefined);
       setTransition(undefined);
@@ -96,8 +101,7 @@ export function useAnimatePanel() {
   }
 
   React.useLayoutEffect(() => {
-    if (panel.size !== undefined || panel.collapsed)
-      return;
+    if (panel.size !== undefined || panel.collapsed) return;
     assert(!!ref.current);
     const bounds = ref.current.getBoundingClientRect();
     const newSize = getPanelSize(horizontal, bounds);
@@ -111,12 +115,14 @@ export function useAnimatePanel() {
   }, [panel.size, panel.collapsed]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useLayoutEffect(() => {
-    if (!prepareTransition)
-      return;
+    if (!prepareTransition) return;
 
     setPrepareTransition(false);
     assert(!!ref.current);
-    animateTo.current = getPanelSize(horizontal, ref.current.getBoundingClientRect());
+    animateTo.current = getPanelSize(
+      horizontal,
+      ref.current.getBoundingClientRect()
+    );
     if (animateFrom.current === animateTo.current) {
       maxPanelSize.current = undefined;
       animateFrom.current = undefined;
@@ -126,7 +132,10 @@ export function useAnimatePanel() {
       setTransition(undefined);
       return;
     }
-    if (collapsing.current === "expanding" && maxPanelSize.current === undefined) {
+    if (
+      collapsing.current === "expanding" &&
+      maxPanelSize.current === undefined
+    ) {
       maxPanelSize.current = animateTo.current;
     }
 
@@ -135,8 +144,7 @@ export function useAnimatePanel() {
     setTransition("init");
   });
   React.useLayoutEffect(() => {
-    if (transition !== "init")
-      return;
+    if (transition !== "init") return;
 
     const handle = window.requestAnimationFrame(() => {
       animateFrom.current = undefined;
@@ -151,18 +159,23 @@ export function useAnimatePanel() {
     setInitializing(false);
   }, [initializing]);
 
-  const handleTransitionEnd = React.useCallback(() => {
-    maxPanelSize.current = undefined;
-    collapsing.current = undefined;
-    animateFrom.current = undefined;
-    setPanelSize(undefined);
-    setContentSize(undefined);
-    setTransition(undefined);
-  }, []);
+  const handleTransitionEnd = React.useCallback(
+    (e: React.TransitionEvent<HTMLDivElement>) => {
+      // istanbul ignore if
+      if (e.target !== ref.current) return;
+
+      maxPanelSize.current = undefined;
+      collapsing.current = undefined;
+      animateFrom.current = undefined;
+      setPanelSize(undefined);
+      setContentSize(undefined);
+      setTransition(undefined);
+    },
+    []
+  );
 
   const size = React.useMemo(() => {
-    if (panelSize !== undefined)
-      return panelSize;
+    if (panelSize !== undefined) return panelSize;
     return panel.collapsed ? 0 : panel.size ?? panel.minSize;
   }, [panel.size, panel.collapsed, panel.minSize, panelSize]);
   return { ref, size, handleTransitionEnd, contentSize, transition };

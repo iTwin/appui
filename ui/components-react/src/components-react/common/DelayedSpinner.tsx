@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Common
  */
@@ -32,20 +32,18 @@ export function DelayedSpinner(props: DelayedSpinnerProps) {
   const [loadStart] = React.useState(props.loadStart || new Date());
 
   const currTime = new Date();
-  const diff = (currTime.getTime() - loadStart.getTime());
+  const diff = currTime.getTime() - loadStart.getTime();
 
   const update = useForceUpdate();
   React.useEffect(() => {
-    if (diff >= delay)
-      return;
+    if (diff >= delay) return;
     const timer = setTimeout(update, delay - diff);
     return () => clearTimeout(timer);
   });
 
-  if (diff < delay)
-    return null;
+  if (diff < delay) return null;
 
-  return (<ProgressRadial indeterminate size={props.size ?? "large"} />);
+  return <ProgressRadial indeterminate size={props.size ?? "large"} />;
 }
 
 const useForceUpdate = () => {

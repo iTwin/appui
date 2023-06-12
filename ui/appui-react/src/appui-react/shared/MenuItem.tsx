@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Item
  */
 
 import * as React from "react";
-import type { AbstractMenuItemProps} from "@itwin/appui-abstract";
+import type { AbstractMenuItemProps } from "@itwin/appui-abstract";
 import { ConditionalBooleanValue, UiError } from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
 import { ContextMenuItem, ContextSubMenu } from "@itwin/core-react";
@@ -25,7 +25,6 @@ export type MenuItemProps = AbstractMenuItemProps;
  * @alpha
  */
 export class MenuItem extends ItemDefBase {
-
   private _id = "";
   private _actionItem?: ActionButtonItemDef;
   private _submenu: MenuItem[];
@@ -43,27 +42,28 @@ export class MenuItem extends ItemDefBase {
       this._actionItem = new CommandItemDef(props.item);
 
       // Copy over icon, label & badgeType from the item
-      if (!this.iconSpec)
-        this.iconSpec = this._actionItem.iconSpec;
-      if (!this.label)
-        this.setLabel(this._actionItem.label);
-      if (!this.badgeType)
-        this.badgeType = this._actionItem.badgeType;
-      if (!this.isDisabled)
-        this.isDisabled = this._actionItem.isDisabled;
+      if (!this.iconSpec) this.iconSpec = this._actionItem.iconSpec;
+      if (!this.label) this.setLabel(this._actionItem.label);
+      if (!this.badgeType) this.badgeType = this._actionItem.badgeType;
+      if (!this.isDisabled) this.isDisabled = this._actionItem.isDisabled;
     } else if (props.submenu) {
       props.submenu.forEach((childProps: MenuItemProps) => {
         const childItem = new MenuItem(childProps, onSelection);
         this._submenu.push(childItem);
       });
     } else {
-      throw new UiError(UiFramework.loggerCategory(this), `Either 'item' or 'submenu' must be specified for '${props.id}'.`);
+      throw new UiError(
+        UiFramework.loggerCategory(this),
+        `Either 'item' or 'submenu' must be specified for '${props.id}'.`
+      );
     }
 
     this.iconRightSpec = props.iconRight;
   }
 
-  public get id(): string { return this._id; }
+  public get id(): string {
+    return this._id;
+  }
 
   public get submenu(): MenuItem[] {
     return this._submenu;
@@ -78,23 +78,22 @@ export class MenuItem extends ItemDefBase {
   public itemPicked(): void {
     setTimeout(() => {
       // istanbul ignore else
-      if (this._actionItem)
-        this._actionItem.execute();
+      if (this._actionItem) this._actionItem.execute();
     });
 
     // istanbul ignore else
-    if (this._onSelection)
-      this._onSelection();
+    if (this._onSelection) this._onSelection();
   }
-
 }
 
 /** Menu Item helper methods
  * @alpha
  */
 export class MenuItemHelpers {
-
-  public static createMenuItems(itemPropsList: MenuItemProps[], onSelection?: () => void): MenuItem[] {
+  public static createMenuItems(
+    itemPropsList: MenuItemProps[],
+    onSelection?: () => void
+  ): MenuItem[] {
     const menuItems = new Array<MenuItem>();
     itemPropsList.forEach((itemProps: MenuItemProps) => {
       menuItems.push(new MenuItem(itemProps, onSelection));
@@ -108,25 +107,36 @@ export class MenuItemHelpers {
     itemList.forEach((item: MenuItem, index: number) => {
       const reactItem = this.createMenuItemNode(item, index);
       // istanbul ignore else
-      if (reactItem)
-        itemNodes.push(reactItem);
+      if (reactItem) itemNodes.push(reactItem);
     });
 
     return itemNodes;
   }
 
-  private static createMenuItemNode(item: MenuItem, index: number): React.ReactNode {
+  private static createMenuItemNode(
+    item: MenuItem,
+    index: number
+  ): React.ReactNode {
     let node: React.ReactNode = null;
     const label = item.label;
     const iconSpec = item.iconSpec;
     const iconRightSpec = item.iconRightSpec;
     const badgeType = item.badgeType;
-    const isDisabled: boolean = ConditionalBooleanValue.getValue(item.isDisabled);
+    const isDisabled: boolean = ConditionalBooleanValue.getValue(
+      item.isDisabled
+    );
 
     if (item.actionItem) {
       const sel = () => item.itemPicked();
       node = (
-        <ContextMenuItem key={index} onSelect={sel} icon={iconSpec} iconRight={iconRightSpec} badgeType={badgeType} disabled={isDisabled}>
+        <ContextMenuItem
+          key={index}
+          onSelect={sel}
+          icon={iconSpec}
+          iconRight={iconRightSpec}
+          badgeType={badgeType}
+          disabled={isDisabled}
+        >
           {label}
         </ContextMenuItem>
       );
@@ -136,7 +146,13 @@ export class MenuItemHelpers {
         const items = this.createMenuItemNodes(item.submenu);
 
         node = (
-          <ContextSubMenu key={index} icon={iconSpec} label={label} badgeType={badgeType} disabled={isDisabled}>
+          <ContextSubMenu
+            key={index}
+            icon={iconSpec}
+            label={label}
+            badgeType={badgeType}
+            disabled={isDisabled}
+          >
             {items}
           </ContextSubMenu>
         );

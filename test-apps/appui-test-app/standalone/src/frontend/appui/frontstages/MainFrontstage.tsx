@@ -1,14 +1,36 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { IModelApp, IModelConnection, ViewState } from "@itwin/core-frontend";
-import { ContentLayoutProps, IconSpecUtilities, StandardContentLayouts } from "@itwin/appui-abstract";
 import {
-  BackstageAppButton, BackstageItem, BackstageItemUtilities, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig, IModelViewportControl,
-  SettingsModalFrontstage, StageContentLayout, StageContentLayoutProps, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider, StandardNavigationToolsUiItemsProvider,
-  StandardStatusbarUiItemsProvider, UiFramework, UiItemsManager, UiItemsProvider,
+  ContentLayoutProps,
+  IconSpecUtilities,
+  StandardContentLayouts,
+} from "@itwin/appui-abstract";
+import {
+  BackstageAppButton,
+  BackstageItem,
+  BackstageItemUtilities,
+  ContentGroup,
+  ContentGroupProps,
+  ContentGroupProvider,
+  ContentProps,
+  FrontstageConfig,
+  IModelViewportControl,
+  SettingsModalFrontstage,
+  StageContentLayout,
+  StageContentLayoutProps,
+  StageUsage,
+  StandardContentToolsUiItemsProvider,
+  StandardFrontstageProps,
+  StandardFrontstageProvider,
+  StandardNavigationToolsUiItemsProvider,
+  StandardStatusbarUiItemsProvider,
+  UiFramework,
+  UiItemsManager,
+  UiItemsProvider,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../../index";
 import { AppUi } from "../AppUi";
@@ -17,28 +39,44 @@ import { LocalStateStorage } from "@itwin/core-react";
 import stageIconSvg from "./imodeljs.svg";
 import { ComponentExamplesModalFrontstage } from "@itwin/appui-test-providers";
 
-function getIModelSpecificKey(inKey: string, iModelConnection: IModelConnection | undefined) {
+function getIModelSpecificKey(
+  inKey: string,
+  iModelConnection: IModelConnection | undefined
+) {
   const imodelId = iModelConnection?.iModelId ?? "unknownImodel";
   return `[${imodelId}]${inKey}`;
 }
 
-export async function getSavedViewLayoutProps(activeFrontstageId: string, iModelConnection: IModelConnection | undefined) {
+export async function getSavedViewLayoutProps(
+  activeFrontstageId: string,
+  iModelConnection: IModelConnection | undefined
+) {
   const localSettings = new LocalStateStorage();
-  const result = await localSettings.getSetting("ContentGroupLayout", getIModelSpecificKey(activeFrontstageId, iModelConnection));
+  const result = await localSettings.getSetting(
+    "ContentGroupLayout",
+    getIModelSpecificKey(activeFrontstageId, iModelConnection)
+  );
 
   if (result.setting) {
     // Parse StageContentLayoutProps
     const savedViewLayoutProps: StageContentLayoutProps = result.setting;
     if (iModelConnection) {
       // Create ViewStates
-      const viewStates = await StageContentLayout.viewStatesFromProps(iModelConnection, savedViewLayoutProps);
-      if (0 === viewStates.length)
-        return undefined;
+      const viewStates = await StageContentLayout.viewStatesFromProps(
+        iModelConnection,
+        savedViewLayoutProps
+      );
+      if (0 === viewStates.length) return undefined;
 
       // Add applicationData to the ContentProps
-      savedViewLayoutProps.contentGroupProps.contents.forEach((contentProps: ContentProps, index: number) => {
-        contentProps.applicationData = { viewState: viewStates[index], iModelConnection };
-      });
+      savedViewLayoutProps.contentGroupProps.contents.forEach(
+        (contentProps: ContentProps, index: number) => {
+          contentProps.applicationData = {
+            viewState: viewStates[index],
+            iModelConnection,
+          };
+        }
+      );
     }
     return savedViewLayoutProps;
   }
@@ -51,48 +89,61 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
   }
 
   public override prepareToSaveProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map((content: ContentProps) => {
-      const newContent = { ...content };
-      if (newContent.applicationData)
-        delete newContent.applicationData;
-      return newContent;
-    });
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
-  public override applyUpdatesToSavedProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map((content: ContentProps) => {
-      const newContent = { ...content };
-
-      if (newContent.classId === IModelViewportControl.id) {
-        newContent.applicationData = {
-          ...newContent.applicationData,
-          featureOptions:
-          {
-            defaultViewOverlay: {
-              enableScheduleAnimationViewOverlay: true,
-              enableAnalysisTimelineViewOverlay: true,
-              enableSolarTimelineViewOverlay: true,
-            },
-          },
-        };
+    const newContentsArray = contentGroupProps.contents.map(
+      (content: ContentProps) => {
+        const newContent = { ...content };
+        if (newContent.applicationData) delete newContent.applicationData;
+        return newContent;
       }
-      return newContent;
-    });
+    );
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
-  public override async contentGroup(config: FrontstageConfig): Promise<ContentGroup> {
+  public override applyUpdatesToSavedProps(
+    contentGroupProps: ContentGroupProps
+  ) {
+    const newContentsArray = contentGroupProps.contents.map(
+      (content: ContentProps) => {
+        const newContent = { ...content };
+
+        if (newContent.classId === IModelViewportControl.id) {
+          newContent.applicationData = {
+            ...newContent.applicationData,
+            featureOptions: {
+              defaultViewOverlay: {
+                enableScheduleAnimationViewOverlay: true,
+                enableAnalysisTimelineViewOverlay: true,
+                enableSolarTimelineViewOverlay: true,
+              },
+            },
+          };
+        }
+        return newContent;
+      }
+    );
+    return { ...contentGroupProps, contents: newContentsArray };
+  }
+
+  public override async contentGroup(
+    config: FrontstageConfig
+  ): Promise<ContentGroup> {
     const viewIdsSelected = SampleAppIModelApp.getInitialViewIds();
     const iModelConnection = UiFramework.getIModelConnection();
 
     if (!iModelConnection)
-      throw new Error(`Unable to generate content group if not iModelConnection is available`);
+      throw new Error(
+        `Unable to generate content group if not iModelConnection is available`
+      );
 
     if (0 === viewIdsSelected.length) {
-      const savedViewLayoutProps = await getSavedViewLayoutProps(config.id, iModelConnection);
+      const savedViewLayoutProps = await getSavedViewLayoutProps(
+        config.id,
+        iModelConnection
+      );
       if (savedViewLayoutProps) {
-        const viewState = savedViewLayoutProps.contentGroupProps.contents[0].applicationData?.viewState;
+        const viewState =
+          savedViewLayoutProps.contentGroupProps.contents[0].applicationData
+            ?.viewState;
         if (viewState) {
           UiFramework.setDefaultViewState(viewState);
         }
@@ -106,17 +157,19 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
           {
             id: "viewport",
             classId: IModelViewportControl,
-            applicationData: {
-            },
+            applicationData: {},
           },
         ],
       });
     }
 
     // first find an appropriate layout
-    const contentLayoutProps: ContentLayoutProps | undefined = AppUi.findLayoutFromContentCount(viewIdsSelected.length);
+    const contentLayoutProps: ContentLayoutProps | undefined =
+      AppUi.findLayoutFromContentCount(viewIdsSelected.length);
     if (!contentLayoutProps) {
-      throw (Error(`Could not find layout ContentLayoutProps when number of viewStates=${viewIdsSelected.length}`));
+      throw Error(
+        `Could not find layout ContentLayoutProps when number of viewStates=${viewIdsSelected.length}`
+      );
     }
 
     let viewStates: ViewState[] = [];
@@ -127,7 +180,7 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
 
     try {
       viewStates = await Promise.all(promises);
-    } catch { }
+    } catch {}
 
     // create the content props that specifies an iModelConnection and a viewState entry in the application data.
     const contentProps: ContentProps[] = [];
@@ -138,11 +191,10 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
       const thisContentProps: ContentProps = {
         id: `imodel-view-${index}`,
         classId: IModelViewportControl,
-        applicationData:
-        {
-          viewState, iModelConnection,
-          featureOptions:
-          {
+        applicationData: {
+          viewState,
+          iModelConnection,
+          featureOptions: {
             defaultViewOverlay: {
               enableScheduleAnimationViewOverlay: true,
               enableAnalysisTimelineViewOverlay: true,
@@ -154,12 +206,11 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
       contentProps.push(thisContentProps);
     });
 
-    const myContentGroup: ContentGroup = new ContentGroup(
-      {
-        id: "views-frontstage-default-content-group",
-        layout: contentLayoutProps,
-        contents: contentProps,
-      });
+    const myContentGroup: ContentGroup = new ContentGroup({
+      id: "views-frontstage-default-content-group",
+      layout: contentLayoutProps,
+      contents: contentProps,
+    });
     return myContentGroup;
   }
 }
@@ -170,7 +221,18 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
 
   public provideBackstageItems(): BackstageItem[] {
     return [
-      BackstageItemUtilities.createStageLauncher(MainFrontstage.stageId, 100, 10, IModelApp.localization.getLocalizedString("SampleApp:backstage.viewIModel"), IModelApp.localization.getLocalizedString("SampleApp:backstage.iModelStage"), IconSpecUtilities.createWebComponentIconSpec(stageIconSvg)),
+      BackstageItemUtilities.createStageLauncher(
+        MainFrontstage.stageId,
+        100,
+        10,
+        IModelApp.localization.getLocalizedString(
+          "SampleApp:backstage.viewIModel"
+        ),
+        IModelApp.localization.getLocalizedString(
+          "SampleApp:backstage.iModelStage"
+        ),
+        IconSpecUtilities.createWebComponentIconSpec(stageIconSvg)
+      ),
       SettingsModalFrontstage.getBackstageActionItem(400, 10),
       ComponentExamplesModalFrontstage.getBackstageActionItem(400, 20),
     ];
@@ -179,7 +241,8 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
 
 export class MainFrontstage {
   public static stageId = "appui-test-app:main-stage";
-  private static _contentGroupProvider = new InitialIModelContentStageProvider();
+  private static _contentGroupProvider =
+    new InitialIModelContentStageProvider();
 
   public static supplyAppData(_id: string, _applicationData?: any) {
     return {
@@ -197,7 +260,9 @@ export class MainFrontstage {
       usage: StageUsage.General,
     };
 
-    UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(stageProps));
+    UiFramework.frontstages.addFrontstageProvider(
+      new StandardFrontstageProvider(stageProps)
+    );
     this.registerUiItemProviders();
   }
 
@@ -205,12 +270,21 @@ export class MainFrontstage {
     UiItemsManager.register(new MainStageBackstageItemsProvider());
 
     // Provides standard tools for ToolWidget - limit to showing only in this stage
-    UiItemsManager.register(new StandardContentToolsUiItemsProvider(), { providerId: "main-stage-standardContentTools", stageIds: [MainFrontstage.stageId] });
+    UiItemsManager.register(new StandardContentToolsUiItemsProvider(), {
+      providerId: "main-stage-standardContentTools",
+      stageIds: [MainFrontstage.stageId],
+    });
 
     // Provides standard tools for NavigationWidget - limit to showing only in this stage
-    UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), { providerId: "main-stage-standardNavigationTools", stageIds: [MainFrontstage.stageId] });
+    UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), {
+      providerId: "main-stage-standardNavigationTools",
+      stageIds: [MainFrontstage.stageId],
+    });
 
     // Provides standard status fields - limit to showing only in this stage
-    UiItemsManager.register(new StandardStatusbarUiItemsProvider(), { providerId: "main-stage-standardStatusItems", stageIds: [MainFrontstage.stageId] });
+    UiItemsManager.register(new StandardStatusbarUiItemsProvider(), {
+      providerId: "main-stage-standardStatusItems",
+      stageIds: [MainFrontstage.stageId],
+    });
   }
 }

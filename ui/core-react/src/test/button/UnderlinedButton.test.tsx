@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -12,7 +12,7 @@ import { classesFromElement } from "../TestUtils";
 
 describe("<UnderlinedButton />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
@@ -20,21 +20,25 @@ describe("<UnderlinedButton />", () => {
     const title = "underlined button";
 
     render(
-      <UnderlinedButton
-        title={title}
-        className={"test-class"}
-      >
+      <UnderlinedButton title={title} className={"test-class"}>
         Test text
-      </UnderlinedButton>);
+      </UnderlinedButton>
+    );
 
-    expect(classesFromElement(screen.getByTitle(title))).to.include("test-class");
+    expect(classesFromElement(screen.getByTitle(title))).to.include(
+      "test-class"
+    );
   });
 
   it("handles onClick", async () => {
     const spyClick = sinon.spy();
     const spyActivate = sinon.spy();
 
-    render(<UnderlinedButton onClick={spyClick} onActivate={spyActivate}>Test text</UnderlinedButton>);
+    render(
+      <UnderlinedButton onClick={spyClick} onActivate={spyActivate}>
+        Test text
+      </UnderlinedButton>
+    );
 
     await theUserTo.click(screen.getByRole("link"));
 
@@ -43,14 +47,19 @@ describe("<UnderlinedButton />", () => {
   });
 
   ["[Enter]", "[Space]"].map((pressedKey) => {
-
     it(`handles onActivate for ${pressedKey} key`, async () => {
       const spyClick = sinon.spy();
       const spyActivate = sinon.spy();
 
-      render(<UnderlinedButton onClick={spyClick} onActivate={spyActivate}>Test text</UnderlinedButton>);
+      render(
+        <UnderlinedButton onClick={spyClick} onActivate={spyActivate}>
+          Test text
+        </UnderlinedButton>
+      );
       await theUserTo.tab();
-      await theUserTo.type(screen.getByRole("link"), pressedKey, {skipClick: true});
+      await theUserTo.type(screen.getByRole("link"), pressedKey, {
+        skipClick: true,
+      });
 
       expect(spyClick).to.not.have.been.calledOnce;
       expect(spyActivate).to.have.been.calledOnce;

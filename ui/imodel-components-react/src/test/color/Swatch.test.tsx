@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import React from "react";
@@ -20,7 +20,9 @@ describe("<ColorSwatch />", () => {
   });
 
   it("should render rounded", () => {
-    const renderedComponent = render(<ColorSwatch colorDef={colorDef} round={true} />);
+    const renderedComponent = render(
+      <ColorSwatch colorDef={colorDef} round={true} />
+    );
     expect(renderedComponent).not.to.be.undefined;
   });
 
@@ -31,7 +33,9 @@ describe("<ColorSwatch />", () => {
       spyOnPick();
     }
 
-    const renderedComponent = render(<ColorSwatch colorDef={colorDef} onColorPick={handleColorPick} />);
+    const renderedComponent = render(
+      <ColorSwatch colorDef={colorDef} onColorPick={handleColorPick} />
+    );
     const colorSwatch = renderedComponent.container.firstChild as HTMLElement;
     expect(colorSwatch).not.to.be.null;
     expect(colorSwatch.tagName).to.be.equal("BUTTON");
@@ -39,5 +43,4 @@ describe("<ColorSwatch />", () => {
     await TestUtils.flushAsyncOperations();
     expect(spyOnPick.calledOnce).to.be.true;
   });
-
 });

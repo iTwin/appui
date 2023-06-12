@@ -1,11 +1,11 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 // cSpell:ignore safearea cursormenu clientservices oidc Textbox Modeless configurableui stagepanels dragdrop uiadmin itemsarbiter Popout
 
-export * from "./appui-react/UiFramework";  // Please ensure that this line comes before all other exports.
+export * from "./appui-react/UiFramework"; // Please ensure that this line comes before all other exports.
 
 export * from "./appui-react/accudraw/AccuDrawCommandItems";
 export * from "./appui-react/accudraw/AccuDrawDialog";
@@ -169,6 +169,7 @@ export * from "./appui-react/statusfields/tileloading/TileLoadingIndicator";
 export * from "./appui-react/statusfields/ActivityCenter";
 export * from "./appui-react/statusfields/MessageCenter";
 export * from "./appui-react/statusfields/SectionsField";
+export * from "./appui-react/statusfields/SelectionCount";
 export * from "./appui-react/statusfields/SelectionInfo";
 export * from "./appui-react/statusfields/SelectionScope";
 export * from "./appui-react/statusfields/SnapMode";
