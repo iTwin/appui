@@ -15,6 +15,7 @@ import { AppUi } from "../AppUi";
 // cSpell:Ignore contentviews statusbars
 import { LocalStateStorage } from "@itwin/core-react";
 import stageIconSvg from "./imodeljs.svg";
+import { ComponentExamplesModalFrontstage } from "@itwin/appui-test-providers";
 
 function getIModelSpecificKey(inKey: string, iModelConnection: IModelConnection | undefined) {
   const imodelId = iModelConnection?.iModelId ?? "unknownImodel";
@@ -171,6 +172,7 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
     return [
       BackstageItemUtilities.createStageLauncher(MainFrontstage.stageId, 100, 10, IModelApp.localization.getLocalizedString("SampleApp:backstage.viewIModel"), IModelApp.localization.getLocalizedString("SampleApp:backstage.iModelStage"), IconSpecUtilities.createWebComponentIconSpec(stageIconSvg)),
       SettingsModalFrontstage.getBackstageActionItem(400, 10),
+      ComponentExamplesModalFrontstage.getBackstageActionItem(400, 20),
     ];
   }
 }
