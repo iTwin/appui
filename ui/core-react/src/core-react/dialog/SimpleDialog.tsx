@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Dialog
  */
@@ -21,7 +21,9 @@ import { Button, Dialog } from "@itwin/itwinui-react";
 /** Properties of [[SimpleDialog]] component.
  * @internal
  */
-export interface SimpleDialogProps extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "title">, CommonProps {
+export interface SimpleDialogProps
+  extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "title">,
+    CommonProps {
   /** Indicates whether to show dialog or not */
   opened: boolean;
   /** Indicates whether the focus should be trapped within the dialog. Default: false */
@@ -79,26 +81,46 @@ export interface SimpleDialogProps extends Omit<React.AllHTMLAttributes<HTMLDivE
  * @internal
  */
 export class SimpleDialog extends CoreDialog {
-
   constructor(props: SimpleDialogProps) {
     super(props);
   }
 
   public override render(): JSX.Element {
     const {
-      opened, title, buttonCluster, onClose, onOutsideClick,
-      minWidth, minHeight, width, height, maxHeight, maxWidth,
-      backgroundStyle, titleStyle, footerStyle, style, contentStyle, contentClassName,
-      className, trapFocus, modal,
-      hideHeader, ...props } = this.props;
+      opened,
+      title,
+      buttonCluster,
+      onClose,
+      onOutsideClick,
+      minWidth,
+      minHeight,
+      width,
+      height,
+      maxHeight,
+      maxWidth,
+      backgroundStyle,
+      titleStyle,
+      footerStyle,
+      style,
+      contentStyle,
+      contentClassName,
+      className,
+      trapFocus,
+      modal,
+      hideHeader,
+      ...props
+    } = this.props;
 
     const containerStyle: React.CSSProperties = {
       margin: "",
-      width, height,
+      width,
+      height,
     };
     const minMaxStyle: React.CSSProperties = {
-      minWidth, minHeight,
-      maxWidth, maxHeight,
+      minWidth,
+      minHeight,
+      maxWidth,
+      maxHeight,
     };
     const dialogBaseContainerStyle: React.CSSProperties = {
       ...containerStyle,
@@ -129,8 +151,12 @@ export class SimpleDialog extends CoreDialog {
             style={dialogBaseContainerStyle}
             onPointerDown={this._handleContainerPointerDown}
           >
-            {!hideHeader && <Dialog.TitleBar titleText={title} style={titleStyle} />}
-            <Dialog.Content className={contentClassName} style={contentStyle}>{this.props.children}</Dialog.Content>
+            {!hideHeader && (
+              <Dialog.TitleBar titleText={title} style={titleStyle} />
+            )}
+            <Dialog.Content className={contentClassName} style={contentStyle}>
+              {this.props.children}
+            </Dialog.Content>
             <Dialog.ButtonBar style={footerStyle}>{buttons}</Dialog.ButtonBar>
           </Dialog.Main>
         </DivWithOutsideClick>
@@ -139,16 +165,22 @@ export class SimpleDialog extends CoreDialog {
   }
 
   // istanbul ignore next
-  private unwrapButtonCluster(buttonCluster: DialogButtonDef[] | undefined): React.ReactNode[] | undefined {
-    if (buttonCluster === undefined)
-      return undefined;
+  private unwrapButtonCluster(
+    buttonCluster: DialogButtonDef[] | undefined
+  ): React.ReactNode[] | undefined {
+    if (buttonCluster === undefined) return undefined;
 
     const buttons: React.ReactNode[] = [];
     if (buttonCluster) {
       buttonCluster.forEach((button: DialogButtonDef, index: number) => {
         let buttonText = "";
         let buttonClass = button.className;
-        let styleType: "default" | "cta" | "high-visibility" | "borderless" | undefined;
+        let styleType:
+          | "default"
+          | "cta"
+          | "high-visibility"
+          | "borderless"
+          | undefined;
 
         switch (button.type) {
           case DialogButtonType.OK:
@@ -190,8 +222,7 @@ export class SimpleDialog extends CoreDialog {
             break;
         }
 
-        if (button.label)
-          buttonText = button.label;
+        if (button.label) buttonText = button.label;
 
         buttons.push(
           <Button
