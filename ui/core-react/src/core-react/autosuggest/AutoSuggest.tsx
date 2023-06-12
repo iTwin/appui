@@ -267,22 +267,22 @@ export class AutoSuggest extends React.PureComponent<
   public override render(): JSX.Element {
     const { inputValue, suggestions } = this.state;
     const {
-      value, // eslint-disable-line @typescript-eslint/no-unused-vars
-      onChange, // eslint-disable-line @typescript-eslint/no-unused-vars
+      value,
+      onChange,
       placeholder,
-      options, // eslint-disable-line @typescript-eslint/no-unused-vars
-      onSuggestionSelected, // eslint-disable-line @typescript-eslint/no-unused-vars
+      options,
+      onSuggestionSelected,
       setFocus,
-      alwaysRenderSuggestions, // eslint-disable-line @typescript-eslint/no-unused-vars
-      onPressEnter, // eslint-disable-line @typescript-eslint/no-unused-vars
-      onPressEscape, // eslint-disable-line @typescript-eslint/no-unused-vars
-      onPressTab, // eslint-disable-line @typescript-eslint/no-unused-vars
-      onInputFocus, // eslint-disable-line @typescript-eslint/no-unused-vars
-      getLabel, // eslint-disable-line @typescript-eslint/no-unused-vars
-      getSuggestions, // eslint-disable-line deprecation/deprecation, @typescript-eslint/no-unused-vars
+      alwaysRenderSuggestions,
+      onPressEnter,
+      onPressEscape,
+      onPressTab,
+      onInputFocus,
+      getLabel,
+      getSuggestions,
       renderInputComponent,
       renderSuggestionsContainer,
-      onSuggestionsClearRequested, // eslint-disable-line @typescript-eslint/no-unused-vars
+      onSuggestionsClearRequested,
       ...props
     } = this.props;
     const inputPlaceholder = !inputValue ? placeholder : undefined;

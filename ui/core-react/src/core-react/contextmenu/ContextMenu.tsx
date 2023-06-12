@@ -178,19 +178,19 @@ export class ContextMenu extends React.PureComponent<
     const {
       opened,
       direction,
-      onOutsideClick, // eslint-disable-line @typescript-eslint/no-unused-vars
-      onSelect, // eslint-disable-line @typescript-eslint/no-unused-vars
-      onEsc, // eslint-disable-line @typescript-eslint/no-unused-vars
-      autoflip, // eslint-disable-line @typescript-eslint/no-unused-vars
-      edgeLimit, // eslint-disable-line @typescript-eslint/no-unused-vars
-      hotkeySelect, // eslint-disable-line @typescript-eslint/no-unused-vars
-      selectedIndex, // eslint-disable-line @typescript-eslint/no-unused-vars
+      onOutsideClick,
+      onSelect,
+      onEsc,
+      autoflip,
+      edgeLimit,
+      hotkeySelect,
+      selectedIndex,
       floating,
       parentMenu,
-      parentSubmenu, // eslint-disable-line @typescript-eslint/no-unused-vars
+      parentSubmenu,
       children,
       className,
-      ignoreNextKeyUp, // eslint-disable-line @typescript-eslint/no-unused-vars
+      ignoreNextKeyUp,
       ...props
     } = this.props;
     const renderDirection =

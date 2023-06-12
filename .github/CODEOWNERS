@@ -15,3 +15,17 @@
 # review when someone opens a pull request
 
 * @iTwin/itwinjs-core-ui
+
+/ui/components-react/src/components-react/filter-builder/               @iTwin/itwinjs-core-ui @iTwin/itwinjs-core-presentation
+/ui/components-react/src/components-react/properties/                   @iTwin/itwinjs-core-ui @iTwin/itwinjs-core-presentation
+/ui/components-react/src/components-react/propertygrid/                 @iTwin/itwinjs-core-ui @iTwin/itwinjs-core-presentation
+/ui/components-react/src/components-react/tree/                         @iTwin/itwinjs-core-ui @iTwin/itwinjs-core-presentation
+
+/ui/components-react/src/test/filter-builder/                           @iTwin/itwinjs-core-ui @iTwin/itwinjs-core-presentation
+/ui/components-react/src/test/properties/                               @iTwin/itwinjs-core-ui @iTwin/itwinjs-core-presentation
+/ui/components-react/src/test/propertygrid/                             @iTwin/itwinjs-core-ui @iTwin/itwinjs-core-presentation
+/ui/components-react/src/test/tree/                                     @iTwin/itwinjs-core-ui @iTwin/itwinjs-core-presentation
+
+/ui/core-react/src/core-react/tree/                                     @iTwin/itwinjs-core-ui @iTwin/itwinjs-core-presentation
+
+/ui/core-react/src/test/tree/                                           @iTwin/itwinjs-core-ui @iTwin/itwinjs-core-presentation

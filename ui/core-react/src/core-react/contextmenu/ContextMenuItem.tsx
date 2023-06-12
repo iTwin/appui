@@ -74,19 +74,18 @@ export class ContextMenuItem extends React.PureComponent<
   /** @internal */
   public override readonly state: Readonly<ContextMenuItemState> = {};
   public override render(): JSX.Element {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {
-      onClick, // eslint-disable-line @typescript-eslint/no-unused-vars
+      onClick,
       className,
       style,
-      onSelect, // eslint-disable-line @typescript-eslint/no-unused-vars
+      onSelect,
       icon,
       disabled,
       hidden,
-      onHover, // eslint-disable-line @typescript-eslint/no-unused-vars
+      onHover,
       isSelected,
-      parentMenu, // eslint-disable-line @typescript-eslint/no-unused-vars
-      onHotKeyParsed, // eslint-disable-line @typescript-eslint/no-unused-vars
+      parentMenu,
+      onHotKeyParsed,
       badgeType,
       iconRight,
       hideIconContainer,

@@ -915,8 +915,8 @@ export class FaceCell extends React.Component<FaceCellProps> {
     const {
       center,
       children,
-      onFaceCellClick, // eslint-disable-line @typescript-eslint/no-unused-vars
-      onFaceCellHoverChange, // eslint-disable-line @typescript-eslint/no-unused-vars
+      onFaceCellClick,
+      onFaceCellHoverChange,
       hoverMap,
       face,
       vector,
@@ -1040,7 +1040,7 @@ interface PointerProps extends React.AllHTMLAttributes<HTMLDivElement> {
 
 class PointerButton extends React.Component<PointerProps> {
   public override render(): React.ReactNode {
-    const { visible, pointerType, onArrowClick, title, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { visible, pointerType, onArrowClick, title, ...props } = this.props;
     const classes = classnames(
       "cube-pointer",
       "icon",

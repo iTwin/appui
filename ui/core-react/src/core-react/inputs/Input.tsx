@@ -34,7 +34,6 @@ const ForwardRefInput = React.forwardRef<HTMLInputElement, InputProps>(
       style,
       setFocus,
       nativeKeyHandler,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       size,
       ...otherProps
     } = props;

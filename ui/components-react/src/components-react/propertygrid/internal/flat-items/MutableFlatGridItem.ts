@@ -310,7 +310,6 @@ export abstract class MutableCategorizedProperty
     record: PropertyRecord,
     overridenPropertyDescription: PropertyDescription
   ) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { value, property, ...others } = record;
     const newRecord = new PropertyRecord(value, overridenPropertyDescription);
 
