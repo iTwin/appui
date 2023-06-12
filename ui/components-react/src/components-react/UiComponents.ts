@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Common
  */
@@ -26,13 +26,18 @@ export class UiComponents {
    */
   public static async initialize(localization: Localization): Promise<void> {
     if (UiComponents._initialized) {
-      Logger.logInfo(UiComponents.loggerCategory(UiComponents), `UiComponents.initialize already called`);
+      Logger.logInfo(
+        UiComponents.loggerCategory(UiComponents),
+        `UiComponents.initialize already called`
+      );
       return;
     }
 
     enablePatches();
     UiComponents._localization = localization;
-    await UiComponents._localization.registerNamespace(UiComponents.localizationNamespace);
+    await UiComponents._localization.registerNamespace(
+      UiComponents.localizationNamespace
+    );
 
     await UiCore.initialize(UiComponents._localization);
     UiComponents._initialized = true;
@@ -41,7 +46,9 @@ export class UiComponents {
   /** Unregisters the UiComponents localization namespace */
   public static terminate() {
     if (UiComponents._localization)
-      UiComponents._localization.unregisterNamespace(UiComponents.localizationNamespace);
+      UiComponents._localization.unregisterNamespace(
+        UiComponents.localizationNamespace
+      );
     UiComponents._localization = undefined;
 
     UiCore.terminate();
@@ -49,14 +56,19 @@ export class UiComponents {
   }
 
   /** Determines if UiComponents has been initialized */
-  public static get initialized(): boolean { return UiComponents._initialized; }
+  public static get initialized(): boolean {
+    return UiComponents._initialized;
+  }
 
   /** The internationalization service created by the host application.
    * @internal
    */
   public static get localization(): Localization {
     if (!UiComponents._localization)
-      throw new UiError(UiComponents.loggerCategory(this), "_localization: UiComponents.initialize has not been called. Unable to return Localization object.");
+      throw new UiError(
+        UiComponents.loggerCategory(this),
+        "_localization: UiComponents.initialize has not been called. Unable to return Localization object."
+      );
     return UiComponents._localization;
   }
 
@@ -75,17 +87,22 @@ export class UiComponents {
    */
   public static translate(key: string | string[]): string {
     if (!UiComponents.initialized) {
-      Logger.logError(UiComponents.loggerCategory(this), `translate: UiComponents.initialize has not been called. Returning blank string.`);
+      Logger.logError(
+        UiComponents.loggerCategory(this),
+        `translate: UiComponents.initialize has not been called. Returning blank string.`
+      );
       return "";
     }
-    return UiComponents.localization.getLocalizedString(key, { ns: UiComponents.localizationNamespace });
+    return UiComponents.localization.getLocalizedString(key, {
+      ns: UiComponents.localizationNamespace,
+    });
   }
 
   /** @internal */
   public static loggerCategory(obj: any): string {
     const className = getClassName(obj);
-    const category = UiComponents.packageName + (className ? `.${className}` : "");
+    const category =
+      UiComponents.packageName + (className ? `.${className}` : "");
     return category;
   }
-
 }

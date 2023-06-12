@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Checkbox
  */
@@ -43,11 +43,9 @@ export interface ImageCheckBoxProps extends CommonProps {
  * @public
  */
 export class ImageCheckBox extends React.PureComponent<ImageCheckBoxProps> {
-
   private _onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // istanbul ignore next
-    if (e && e.stopPropagation)
-      e.stopPropagation();
+    if (e && e.stopPropagation) e.stopPropagation();
 
     // istanbul ignore else
     if (this.props.onClick) {
@@ -57,30 +55,50 @@ export class ImageCheckBox extends React.PureComponent<ImageCheckBoxProps> {
 
   private _onInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     // istanbul ignore next
-    if (e && e.stopPropagation)
-      e.stopPropagation();
+    if (e && e.stopPropagation) e.stopPropagation();
   };
 
   private _onLabelClick = (e: React.MouseEvent<HTMLLabelElement>) => {
     // istanbul ignore next
-    if (e && e.stopPropagation)
-      e.stopPropagation();
+    if (e && e.stopPropagation) e.stopPropagation();
   };
 
   /** @internal */
   public override render() {
-    const checkBoxClass = classnames("core-image-checkbox", this.props.className);
-    const imageClass = classnames("image", this.props.border && "image-checkbox-border");
-    const iconSpec = this.props.checked ? this.props.imageOn : this.props.imageOff;
+    const checkBoxClass = classnames(
+      "core-image-checkbox",
+      this.props.className
+    );
+    const imageClass = classnames(
+      "image",
+      this.props.border && "image-checkbox-border"
+    );
+    const iconSpec = this.props.checked
+      ? this.props.imageOn
+      : this.props.imageOff;
 
     return (
       /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
       /* eslint-disable-next-line jsx-a11y/click-events-have-key-events */
-      <label className={checkBoxClass} style={this.props.style} onClick={this._onLabelClick} title={this.props.tooltip}>
-        <input type="checkbox" className={this.props.inputClassName} style={this.props.inputStyle}
-          checked={this.props.checked} disabled={this.props.disabled} onChange={this._onChange} onClick={this._onInputClick}
-          ref={this.props.inputRef} />
-        <span className={imageClass}><Icon iconSpec={iconSpec} /></span>
+      <label
+        className={checkBoxClass}
+        style={this.props.style}
+        onClick={this._onLabelClick}
+        title={this.props.tooltip}
+      >
+        <input
+          type="checkbox"
+          className={this.props.inputClassName}
+          style={this.props.inputStyle}
+          checked={this.props.checked}
+          disabled={this.props.disabled}
+          onChange={this._onChange}
+          onClick={this._onInputClick}
+          ref={this.props.inputRef}
+        />
+        <span className={imageClass}>
+          <Icon iconSpec={iconSpec} />
+        </span>
       </label>
     );
   }

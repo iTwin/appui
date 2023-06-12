@@ -1,51 +1,65 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import type { BackstageProps} from "../../appui-layout-react";
+import type { BackstageProps } from "../../appui-layout-react";
 import { Backstage, SafeAreaInsets } from "../../appui-layout-react";
 import { selectorMatches, userEvent } from "../Utils";
 
 describe("<Backstage />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
   it("renders correctly", () => {
     render(<Backstage />);
 
-    expect(screen.getByRole("menu").parentElement).to.satisfy(selectorMatches(".nz-backstage-backstage"));
-    expect(screen.getByRole("presentation")).to.satisfy(selectorMatches(".nz-backstage-backstage_overlay.nz-overlay"));
+    expect(screen.getByRole("menu").parentElement).to.satisfy(
+      selectorMatches(".nz-backstage-backstage")
+    );
+    expect(screen.getByRole("presentation")).to.satisfy(
+      selectorMatches(".nz-backstage-backstage_overlay.nz-overlay")
+    );
   });
 
   it("should set is-open class", () => {
     render(<Backstage isOpen />);
 
-    expect(screen.getByRole("menu").parentElement).to.satisfy(selectorMatches(".nz-open"));
-    expect(screen.getByRole("presentation")).to.satisfy(selectorMatches(".nz-open"));
+    expect(screen.getByRole("menu").parentElement).to.satisfy(
+      selectorMatches(".nz-open")
+    );
+    expect(screen.getByRole("presentation")).to.satisfy(
+      selectorMatches(".nz-open")
+    );
   });
 
   it("should render header", () => {
     render(<Backstage header="my header" />);
 
-    expect(screen.getByText("my header")).to.satisfy(selectorMatches(".nz-header"));
+    expect(screen.getByText("my header")).to.satisfy(
+      selectorMatches(".nz-header")
+    );
   });
 
   it("should render footer", () => {
     render(<Backstage footer="my footer" />);
 
-    expect(screen.getByText("my footer")).to.satisfy(selectorMatches(".nz-footer"));
+    expect(screen.getByText("my footer")).to.satisfy(
+      selectorMatches(".nz-footer")
+    );
   });
 
   it("renders safe area aware correctly", () => {
     render(<Backstage safeAreaInsets={SafeAreaInsets.Left} />);
 
-    expect(screen.getByRole("menu").parentElement).to.satisfy(selectorMatches(".nz-safe-area-left"));
+    expect(screen.getByRole("menu").parentElement).to.satisfy(
+      selectorMatches(".nz-safe-area-left")
+    );
   });
 
   it("should add event listener", () => {

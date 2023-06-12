@@ -1,18 +1,25 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Common
  */
 
 import { Rectangle } from "@itwin/core-react";
-import { hasSelectionModeFlag, SelectionMode, SelectionModeFlags } from "./SelectionModes";
+import {
+  hasSelectionModeFlag,
+  SelectionMode,
+  SelectionModeFlags,
+} from "./SelectionModes";
 
 /** Prototype for a Selection Changed handler
  * @public
  */
-export declare type OnSelectionChanged = (shiftDown?: boolean, ctrlDown?: boolean) => void;
+export declare type OnSelectionChanged = (
+  shiftDown?: boolean,
+  ctrlDown?: boolean
+) => void;
 
 /**
  * Contains single item specific methods required by selection handler.
@@ -80,14 +87,19 @@ export interface MultiSelectionHandler<TItem> {
  * @param replace Should replace current selection.
  * @public
  */
-export declare type OnItemsSelectedCallback<TItem> = (items: TItem[], replace: boolean) => void | boolean;
+export declare type OnItemsSelectedCallback<TItem> = (
+  items: TItem[],
+  replace: boolean
+) => void | boolean;
 
 /**
  * Called after items were deselected.
  * @param items Items that were deselected.
  * @public
  */
-export declare type OnItemsDeselectedCallback<Item> = (items: Item[]) => void | boolean;
+export declare type OnItemsDeselectedCallback<Item> = (
+  items: Item[]
+) => void | boolean;
 
 class BatchSelectionOperation<Item> {
   public readonly selections = new Array<Item>();
@@ -96,24 +108,37 @@ class BatchSelectionOperation<Item> {
 
   private _componentSelectionHandler: MultiSelectionHandler<Item>;
 
-  public constructor(componentSelectionHandler: MultiSelectionHandler<Item>, shouldReplace: boolean) {
+  public constructor(
+    componentSelectionHandler: MultiSelectionHandler<Item>,
+    shouldReplace: boolean
+  ) {
     this.shouldReplace = shouldReplace;
     this._componentSelectionHandler = componentSelectionHandler;
   }
 
   public select(node: Item | Item[]) {
-    this.addNodes(node, this.selections, this.shouldReplace ? undefined : this.deselections);
+    this.addNodes(
+      node,
+      this.selections,
+      this.shouldReplace ? undefined : this.deselections
+    );
   }
 
   public deselect(node: Item | Item[]) {
-    this.addNodes(node, this.deselections, this.shouldReplace ? undefined : this.selections);
+    this.addNodes(
+      node,
+      this.deselections,
+      this.shouldReplace ? undefined : this.selections
+    );
   }
 
   private addNodes(node: Item | Item[], addTo: Item[], removeFrom?: Item[]) {
     if (Array.isArray(node)) {
       for (const n of node) {
         if (removeFrom) {
-          const index = removeFrom.findIndex((x) => this._componentSelectionHandler.areEqual(x, n));
+          const index = removeFrom.findIndex((x) =>
+            this._componentSelectionHandler.areEqual(x, n)
+          );
           if (index > -1) {
             removeFrom.splice(index, 1);
             continue;
@@ -137,7 +162,11 @@ export class DragAction<Item> {
   private _firstItemColumn: number;
   private _firstItemSelected: boolean;
 
-  public constructor(componentSelectionHandler: MultiSelectionHandler<Item>, itemSelectionHandlers: Array<Array<SingleSelectionHandler<Item>>>, firstItem: Item) {
+  public constructor(
+    componentSelectionHandler: MultiSelectionHandler<Item>,
+    itemSelectionHandlers: Array<Array<SingleSelectionHandler<Item>>>,
+    firstItem: Item
+  ) {
     this._itemSelectionHandlers = itemSelectionHandlers;
     this._componentSelectionHandler = componentSelectionHandler;
     const itemPos = this.findItem(this._itemSelectionHandlers, firstItem);
@@ -148,29 +177,54 @@ export class DragAction<Item> {
     this._firstItemSelected = false;
   }
 
-  public updateDragAction(latestItem: Item): { selections: Item[], deselections: Item[] } {
+  public updateDragAction(latestItem: Item): {
+    selections: Item[];
+    deselections: Item[];
+  } {
     const currentPos = this.findItem(this._itemSelectionHandlers, latestItem);
-    if (currentPos.y === this._previousRow && currentPos.x === this._previousColumn || currentPos.x < 0 || currentPos.y < 0)
+    if (
+      (currentPos.y === this._previousRow &&
+        currentPos.x === this._previousColumn) ||
+      currentPos.x < 0 ||
+      currentPos.y < 0
+    )
       return { selections: [], deselections: [] };
 
-    const currentRange = Rectangle.createXYXY(this._firstItemColumn, this._firstItemRow, currentPos.x, currentPos.y);
-    const previousRange = Rectangle.createXYXY(this._firstItemColumn, this._firstItemRow, this._previousColumn, this._previousRow);
+    const currentRange = Rectangle.createXYXY(
+      this._firstItemColumn,
+      this._firstItemRow,
+      currentPos.x,
+      currentPos.y
+    );
+    const previousRange = Rectangle.createXYXY(
+      this._firstItemColumn,
+      this._firstItemRow,
+      this._previousColumn,
+      this._previousRow
+    );
     const wholeRange = Rectangle.createXYXY(
-      currentRange.right > previousRange.right ? currentRange.right : previousRange.right,
-      currentRange.bottom > previousRange.bottom ? currentRange.bottom : previousRange.bottom,
-      currentRange.left < previousRange.left ? currentRange.left : previousRange.left,
-      currentRange.top < previousRange.top ? currentRange.top : previousRange.top,
+      currentRange.right > previousRange.right
+        ? currentRange.right
+        : previousRange.right,
+      currentRange.bottom > previousRange.bottom
+        ? currentRange.bottom
+        : previousRange.bottom,
+      currentRange.left < previousRange.left
+        ? currentRange.left
+        : previousRange.left,
+      currentRange.top < previousRange.top
+        ? currentRange.top
+        : previousRange.top
     );
     const selections = [];
     const deselections = [];
 
     // have to select first item separately since it is will always be in both previous and current ranges.
     if (!this._firstItemSelected) {
-      const handler = this._itemSelectionHandlers[this._firstItemRow][this._firstItemColumn];
-      if (handler.isSelected())
-        deselections.push(handler.item());
-      else
-        selections.push(handler.item());
+      const handler =
+        this._itemSelectionHandlers[this._firstItemRow][this._firstItemColumn];
+      if (handler.isSelected()) deselections.push(handler.item());
+      else selections.push(handler.item());
       this._firstItemSelected = true;
     }
 
@@ -179,12 +233,13 @@ export class DragAction<Item> {
         const insidePrevious = previousRange.containsXY(c, r);
         const insideCurrent = currentRange.containsXY(c, r);
         // If item is in only one of the ranges that means it's selection needs to be toggled.
-        if ((insidePrevious || insideCurrent) && insideCurrent !== insidePrevious) {
+        if (
+          (insidePrevious || insideCurrent) &&
+          insideCurrent !== insidePrevious
+        ) {
           const itemHandler = this._itemSelectionHandlers[r][c];
-          if (itemHandler.isSelected())
-            deselections.push(itemHandler.item());
-          else
-            selections.push(itemHandler.item());
+          if (itemHandler.isSelected()) deselections.push(itemHandler.item());
+          else selections.push(itemHandler.item());
         }
       }
     }
@@ -194,25 +249,43 @@ export class DragAction<Item> {
     return { selections, deselections };
   }
 
-  private findItem(itemSelectionHandlers: Array<Array<SingleSelectionHandler<Item>>>, item: Item): { x: number, y: number } {
-    if (this._previousRow !== undefined && this._previousRow !== -1 && this._previousColumn !== undefined && this._previousColumn !== -1 &&
-      this._componentSelectionHandler.areEqual(itemSelectionHandlers[this._previousRow][this._previousColumn].item(), item)) {
+  private findItem(
+    itemSelectionHandlers: Array<Array<SingleSelectionHandler<Item>>>,
+    item: Item
+  ): { x: number; y: number } {
+    if (
+      this._previousRow !== undefined &&
+      this._previousRow !== -1 &&
+      this._previousColumn !== undefined &&
+      this._previousColumn !== -1 &&
+      this._componentSelectionHandler.areEqual(
+        itemSelectionHandlers[this._previousRow][this._previousColumn].item(),
+        item
+      )
+    ) {
       return { y: this._previousRow, x: this._previousColumn };
     }
     for (let row = 0; row < itemSelectionHandlers.length; row++) {
-      for (let column = 0; column < itemSelectionHandlers[row].length; column++) {
-        if (this._componentSelectionHandler.areEqual(itemSelectionHandlers[row][column].item(), item))
+      for (
+        let column = 0;
+        column < itemSelectionHandlers[row].length;
+        column++
+      ) {
+        if (
+          this._componentSelectionHandler.areEqual(
+            itemSelectionHandlers[row][column].item(),
+            item
+          )
+        )
           return { x: column, y: row };
       }
     }
     return { x: -1, y: -1 };
   }
-
 }
 
 /** @internal */
 export class SelectionHandler<Item> {
-
   /** Selection mode. */
   public selectionMode: SelectionMode;
   public onItemsSelectedCallback?: OnItemsSelectedCallback<Item>;
@@ -224,17 +297,26 @@ export class SelectionHandler<Item> {
   private _dragAction?: DragAction<Item>;
   private _componentSelectionHandler?: MultiSelectionHandler<Item>; // needed for drag selection
 
-  constructor(selectionMode: SelectionMode, onItemsSelectedCallback?: OnItemsSelectedCallback<Item>, onItemsDeselectedCallback?: OnItemsDeselectedCallback<Item>) {
+  constructor(
+    selectionMode: SelectionMode,
+    onItemsSelectedCallback?: OnItemsSelectedCallback<Item>,
+    onItemsDeselectedCallback?: OnItemsDeselectedCallback<Item>
+  ) {
     this.selectionMode = selectionMode;
     this.onItemsSelectedCallback = onItemsSelectedCallback;
     this.onItemsDeselectedCallback = onItemsDeselectedCallback;
   }
 
   /** Get the onSelectionChange processed item */
-  public get processedItem(): Item | undefined { return this._processedItem; }
+  public get processedItem(): Item | undefined {
+    return this._processedItem;
+  }
 
   /** Creates a function that should be called when selection changes. */
-  public createSelectionFunction(componentHandler: MultiSelectionHandler<Item>, itemHandler: SingleSelectionHandler<Item>): OnSelectionChanged {
+  public createSelectionFunction(
+    componentHandler: MultiSelectionHandler<Item>,
+    itemHandler: SingleSelectionHandler<Item>
+  ): OnSelectionChanged {
     const onSelectionChange: OnSelectionChanged = (shiftDown, ctrlDown) => {
       this._processedItem = itemHandler.item();
 
@@ -246,17 +328,32 @@ export class SelectionHandler<Item> {
       let shiftSelected = false;
       if (!this._currentOperation) {
         // will replace selection if it is limited to one or keys are enabled but ctrl is not down
-        const shouldReplace = (hasSelectionModeFlag(this.selectionMode, SelectionModeFlags.KeysEnabled) && !ctrlDown)
-          || hasSelectionModeFlag(this.selectionMode, SelectionModeFlags.SelectionLimitOne);
-        this._currentOperation = new BatchSelectionOperation<Item>(componentHandler, shouldReplace);
+        const shouldReplace =
+          (hasSelectionModeFlag(
+            this.selectionMode,
+            SelectionModeFlags.KeysEnabled
+          ) &&
+            !ctrlDown) ||
+          hasSelectionModeFlag(
+            this.selectionMode,
+            SelectionModeFlags.SelectionLimitOne
+          );
+        this._currentOperation = new BatchSelectionOperation<Item>(
+          componentHandler,
+          shouldReplace
+        );
         operationCreated = true;
       }
 
-      if (hasSelectionModeFlag(this.selectionMode, SelectionModeFlags.KeysEnabled)) {
-        if (!ctrlDown)
-          componentHandler.deselectAll();
+      if (
+        hasSelectionModeFlag(this.selectionMode, SelectionModeFlags.KeysEnabled)
+      ) {
+        if (!ctrlDown) componentHandler.deselectAll();
         if (shiftDown && this._lastItem !== undefined) {
-          const selected = componentHandler.selectBetween(this._lastItem, itemHandler.item());
+          const selected = componentHandler.selectBetween(
+            this._lastItem,
+            itemHandler.item()
+          );
           this._currentOperation.select(selected);
           shiftSelected = true;
         }
@@ -265,8 +362,18 @@ export class SelectionHandler<Item> {
       if (!shiftSelected) {
         itemHandler.preselect();
 
-        if (hasSelectionModeFlag(this.selectionMode, SelectionModeFlags.SelectionLimitOne)
-          && !(hasSelectionModeFlag(this.selectionMode, SelectionModeFlags.ToggleEnabled) && itemHandler.isSelected())) {
+        if (
+          hasSelectionModeFlag(
+            this.selectionMode,
+            SelectionModeFlags.SelectionLimitOne
+          ) &&
+          !(
+            hasSelectionModeFlag(
+              this.selectionMode,
+              SelectionModeFlags.ToggleEnabled
+            ) && itemHandler.isSelected()
+          )
+        ) {
           componentHandler.deselectAll();
         }
 
@@ -280,19 +387,20 @@ export class SelectionHandler<Item> {
         this._lastItem = itemHandler.item();
       }
 
-      if (operationCreated)
-        this.completeOperation();
+      if (operationCreated) this.completeOperation();
     };
     return onSelectionChange.bind(this);
   }
 
   private completeOperation(): void {
-    if (!this._currentOperation)
-      return;
+    if (!this._currentOperation) return;
 
     if (0 !== this._currentOperation.selections.length) {
       if (this.onItemsSelectedCallback) {
-        this.onItemsSelectedCallback(this._currentOperation.selections, this._currentOperation.shouldReplace);
+        this.onItemsSelectedCallback(
+          this._currentOperation.selections,
+          this._currentOperation.shouldReplace
+        );
         if (this._currentOperation.shouldReplace) {
           this._currentOperation = undefined;
           return;
@@ -312,11 +420,21 @@ export class SelectionHandler<Item> {
    * @param items Ordered item selection handlers separated into arrays by rows.
    * @param firstItem Item on which drag action was started.
    */
-  public createDragAction(componentSelectionHandler: MultiSelectionHandler<Item>, items: Array<Array<SingleSelectionHandler<Item>>>, firstItem: Item): void {
-    if (!hasSelectionModeFlag(this.selectionMode, SelectionModeFlags.DragEnabled))
+  public createDragAction(
+    componentSelectionHandler: MultiSelectionHandler<Item>,
+    items: Array<Array<SingleSelectionHandler<Item>>>,
+    firstItem: Item
+  ): void {
+    if (
+      !hasSelectionModeFlag(this.selectionMode, SelectionModeFlags.DragEnabled)
+    )
       return;
 
-    this._dragAction = new DragAction(componentSelectionHandler, items, firstItem);
+    this._dragAction = new DragAction(
+      componentSelectionHandler,
+      items,
+      firstItem
+    );
     this._componentSelectionHandler = componentSelectionHandler;
   }
 
@@ -325,21 +443,31 @@ export class SelectionHandler<Item> {
    * @param latestItem Latest item in drag action.
    */
   public updateDragAction(latestItem: Item): void {
-    if (!hasSelectionModeFlag(this.selectionMode, SelectionModeFlags.DragEnabled))
+    if (
+      !hasSelectionModeFlag(this.selectionMode, SelectionModeFlags.DragEnabled)
+    )
       return;
 
-    if (!this._dragAction || !this._componentSelectionHandler)
-      return;
+    if (!this._dragAction || !this._componentSelectionHandler) return;
 
     this._lastItem = latestItem;
     const selectionChanges = this._dragAction.updateDragAction(latestItem);
 
-    if (selectionChanges.deselections.length !== 0 || selectionChanges.selections.length !== 0) {
+    if (
+      selectionChanges.deselections.length !== 0 ||
+      selectionChanges.selections.length !== 0
+    ) {
       if (!this._currentOperation)
-        this._currentOperation = new BatchSelectionOperation(this._componentSelectionHandler, false);
+        this._currentOperation = new BatchSelectionOperation(
+          this._componentSelectionHandler,
+          false
+        );
       this._currentOperation.select(selectionChanges.selections);
       this._currentOperation.deselect(selectionChanges.deselections);
-      this._componentSelectionHandler.updateSelection(selectionChanges.selections, selectionChanges.deselections);
+      this._componentSelectionHandler.updateSelection(
+        selectionChanges.selections,
+        selectionChanges.deselections
+      );
     }
   }
 

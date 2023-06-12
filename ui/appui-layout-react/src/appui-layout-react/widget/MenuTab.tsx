@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -10,7 +10,7 @@ import "./MenuTab.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { useTabInteractions } from "./Tab";
 import { useActiveTabId } from "./Widget";
@@ -52,26 +52,24 @@ export function WidgetMenuTab(props: WidgetMenuTabProps) {
   const className = classnames(
     "nz-widget-menuTab",
     !showWidgetIcon && "nz-no-icon",
-    props.className,
+    props.className
   );
   return (
-    <div
-      className={className}
-      ref={ref}
-      title={label}
-    >
-      {props.badge && <div className="nz-badge">
-        {props.badge}
-      </div>}
-      {showWidgetIcon && <div className="nz-icon">
-        {iconSpec && <Icon iconSpec={iconSpec} />}
-      </div>}
+    <div className={className} ref={ref} title={label}>
+      {props.badge && <div className="nz-badge">{props.badge}</div>}
+      {showWidgetIcon && (
+        <div className="nz-icon">
+          {iconSpec && <Icon iconSpec={iconSpec} />}
+        </div>
+      )}
       <span>{label}</span>
-      <div className={classnames(
-        "nz-checkmark",
-        // istanbul ignore next
-        !active && "nz-hidden",
-      )} />
+      <div
+        className={classnames(
+          "nz-checkmark",
+          // istanbul ignore next
+          !active && "nz-hidden"
+        )}
+      />
     </div>
   );
 }

@@ -1,11 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import "@bentley/icons-generic-webfont/dist/bentley-icons-generic-webfont.css";
 /** Include application registered Controls in Webpack
  */
-import { ContentLayoutProps, FunctionKey, StandardContentLayouts } from "@itwin/appui-abstract";
+import {
+  ContentLayoutProps,
+  FunctionKey,
+  StandardContentLayouts,
+} from "@itwin/appui-abstract";
 import { IModelApp } from "@itwin/core-frontend";
 
 import {
@@ -21,15 +25,15 @@ import {
 /** Example Ui Configuration for an iTwin.js App
  */
 export class AppUi {
-
   public static initialize() {
     // initialize content groups and layouts before any frontstages.
     AppUi.defineKeyboardShortcuts();
   }
 
-  public static findLayoutFromContentCount(contentCount: number): ContentLayoutProps | undefined {
-    if (contentCount < 0)
-      return undefined;
+  public static findLayoutFromContentCount(
+    contentCount: number
+  ): ContentLayoutProps | undefined {
+    if (contentCount < 0) return undefined;
 
     switch (contentCount) {
       case 1:
@@ -68,14 +72,16 @@ export class AppUi {
     ];
 
     UiFramework.keyboardShortcuts.loadShortcuts(keyboardShortcutList);
-    UiFramework.keyboardShortcuts.loadShortcuts(AccuDrawKeyboardShortcuts.getDefaultShortcuts());
+    UiFramework.keyboardShortcuts.loadShortcuts(
+      AccuDrawKeyboardShortcuts.getDefaultShortcuts()
+    );
   }
 
   private static get _bumpToolSettingToggle() {
     return new CommandItemDef({
       commandId: "bumpToolSettingToggle",
       labelKey: "SampleApp:buttons.bumpToolSettingToggle",
-      execute: async () => IModelApp.toolAdmin.bumpToolSetting(2),  // Works with ToolWithSettings
+      execute: async () => IModelApp.toolAdmin.bumpToolSetting(2), // Works with ToolWithSettings
     });
   }
 

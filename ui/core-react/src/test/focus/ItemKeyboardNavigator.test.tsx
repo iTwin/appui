@@ -1,40 +1,56 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as moq from "typemoq";
 import * as sinon from "sinon";
-import { isNavigationKey, ItemKeyboardNavigator, Orientation } from "../../core-react";
+import {
+  isNavigationKey,
+  ItemKeyboardNavigator,
+  Orientation,
+} from "../../core-react";
 import { SpecialKey } from "@itwin/appui-abstract";
 
 describe("ItemKeyboardNavigator", () => {
   describe("properties", () => {
     it("itemCount property should be set properly", () => {
-      const nav = new ItemKeyboardNavigator(() => { }, () => { });
+      const nav = new ItemKeyboardNavigator(
+        () => {},
+        () => {}
+      );
       expect(nav.itemCount).to.eq(0);
       nav.itemCount = 100;
       expect(nav.itemCount).to.eq(100);
     });
 
     it("orientation property should be set properly", () => {
-      const nav = new ItemKeyboardNavigator(() => { }, () => { });
+      const nav = new ItemKeyboardNavigator(
+        () => {},
+        () => {}
+      );
       expect(nav.orientation).to.eq(Orientation.Horizontal);
       nav.orientation = Orientation.Vertical;
       expect(nav.orientation).to.eq(Orientation.Vertical);
     });
 
     it("allowWrap property should be set properly", () => {
-      const nav = new ItemKeyboardNavigator(() => { }, () => { });
+      const nav = new ItemKeyboardNavigator(
+        () => {},
+        () => {}
+      );
       expect(nav.allowWrap).to.eq(true);
       nav.allowWrap = false;
       expect(nav.allowWrap).to.eq(false);
     });
 
     it("crossAxisArrowKeyHandler property should be set properly", () => {
-      const nav = new ItemKeyboardNavigator(() => { }, () => { });
+      const nav = new ItemKeyboardNavigator(
+        () => {},
+        () => {}
+      );
       expect(nav.crossAxisArrowKeyHandler).to.be.undefined;
-      const callback = () => { };
+      const callback = () => {};
       nav.crossAxisArrowKeyHandler = callback;
       expect(nav.crossAxisArrowKeyHandler).to.eq(callback);
     });
@@ -51,7 +67,10 @@ describe("ItemKeyboardNavigator", () => {
     });
 
     it("should call crossAxisArrowKeyHandler with true for ArrowRight", () => {
-      const nav = new ItemKeyboardNavigator(() => { }, () => { });
+      const nav = new ItemKeyboardNavigator(
+        () => {},
+        () => {}
+      );
       nav.orientation = Orientation.Vertical;
       const spy = sinon.spy();
       nav.crossAxisArrowKeyHandler = spy;
@@ -62,7 +81,10 @@ describe("ItemKeyboardNavigator", () => {
     });
 
     it("should call crossAxisArrowKeyHandler with false for ArrowLeft", () => {
-      const nav = new ItemKeyboardNavigator(() => { }, () => { });
+      const nav = new ItemKeyboardNavigator(
+        () => {},
+        () => {}
+      );
       nav.orientation = Orientation.Vertical;
       const spy = sinon.spy();
       nav.crossAxisArrowKeyHandler = spy;
@@ -73,7 +95,10 @@ describe("ItemKeyboardNavigator", () => {
     });
 
     it("should call crossAxisArrowKeyHandler with true for ArrowDown", () => {
-      const nav = new ItemKeyboardNavigator(() => { }, () => { });
+      const nav = new ItemKeyboardNavigator(
+        () => {},
+        () => {}
+      );
       nav.orientation = Orientation.Horizontal;
       const spy = sinon.spy();
       nav.crossAxisArrowKeyHandler = spy;
@@ -84,7 +109,10 @@ describe("ItemKeyboardNavigator", () => {
     });
 
     it("should call crossAxisArrowKeyHandler with false for ArrowUp", () => {
-      const nav = new ItemKeyboardNavigator(() => { }, () => { });
+      const nav = new ItemKeyboardNavigator(
+        () => {},
+        () => {}
+      );
       nav.orientation = Orientation.Horizontal;
       const spy = sinon.spy();
       nav.crossAxisArrowKeyHandler = spy;
@@ -106,7 +134,7 @@ describe("ItemKeyboardNavigator", () => {
 
     it("should handle no crossAxisArrowKeyHandler (vertical)", () => {
       const spy = sinon.spy();
-      const nav = new ItemKeyboardNavigator(spy,spy);
+      const nav = new ItemKeyboardNavigator(spy, spy);
       nav.orientation = Orientation.Horizontal;
       keyEventMock.setup((x) => x.key).returns(() => SpecialKey.ArrowDown);
       nav.handleKeyDownEvent(keyEventMock.object, 0);
@@ -152,14 +180,38 @@ describe("ItemKeyboardNavigator", () => {
       expect(spyActivate).to.be.calledWith(0);
     });
 
-    ([
-      ["previous item for ArrowUp (horizontal)", SpecialKey.ArrowUp, Orientation.Vertical, 4, 0],
-      ["next item for ArrowDown (horizontal)", SpecialKey.ArrowDown, Orientation.Vertical, 6, 9],
-      ["previous item for ArrowLeft (vertical)", SpecialKey.ArrowLeft, Orientation.Horizontal, 4, 0],
-      ["next item for ArrowRight (vertical)", SpecialKey.ArrowRight, Orientation.Horizontal, 6, 9],
-    ] as [string, SpecialKey, Orientation, number, number][]).map(([
-      title, key, orientation, result, wrapStart,
-    ]) => {
+    (
+      [
+        [
+          "previous item for ArrowUp (horizontal)",
+          SpecialKey.ArrowUp,
+          Orientation.Vertical,
+          4,
+          0,
+        ],
+        [
+          "next item for ArrowDown (horizontal)",
+          SpecialKey.ArrowDown,
+          Orientation.Vertical,
+          6,
+          9,
+        ],
+        [
+          "previous item for ArrowLeft (vertical)",
+          SpecialKey.ArrowLeft,
+          Orientation.Horizontal,
+          4,
+          0,
+        ],
+        [
+          "next item for ArrowRight (vertical)",
+          SpecialKey.ArrowRight,
+          Orientation.Horizontal,
+          6,
+          9,
+        ],
+      ] as [string, SpecialKey, Orientation, number, number][]
+    ).map(([title, key, orientation, result, wrapStart]) => {
       it(`should focus on ${title}`, () => {
         const spyFocus = sinon.spy();
         const count = 10;
@@ -225,5 +277,4 @@ describe("ItemKeyboardNavigator", () => {
       isNavigationKey(SpecialKey.Delete).should.false;
     });
   });
-
 });

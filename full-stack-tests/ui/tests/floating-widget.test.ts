@@ -1,10 +1,22 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-import { expect, Page, test } from '@playwright/test';
-import assert from 'assert';
-import { expectSavedFrontstageState, floatingWidgetLocator, frontstageLocator, outlineLocator, panelLocator, runKeyin, setWidgetState, tabLocator, titleBarHandleLocator, widgetLocator, WidgetState } from './Utils';
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import { expect, Page, test } from "@playwright/test";
+import assert from "assert";
+import {
+  expectSavedFrontstageState,
+  floatingWidgetLocator,
+  frontstageLocator,
+  outlineLocator,
+  panelLocator,
+  runKeyin,
+  setWidgetState,
+  tabLocator,
+  titleBarHandleLocator,
+  widgetLocator,
+  WidgetState,
+} from "./Utils";
 
 test.describe("floating widget", () => {
   test.beforeEach(async ({ page, baseURL }) => {
@@ -48,7 +60,10 @@ test.describe("floating widget", () => {
     await expect(floatingWidget).toBeVisible();
   });
 
-  test("should maintain a floating widget (after reload)", async ({ context, page }) => {
+  test("should maintain a floating widget (after reload)", async ({
+    context,
+    page,
+  }) => {
     const tab = tabLocator(page, "WL-1");
     const widget = widgetLocator({ tab });
     const titleBarHandle = titleBarHandleLocator(widget);
@@ -67,9 +82,10 @@ test.describe("floating widget", () => {
     await expectSavedFrontstageState(context, (state) => {
       const widgets = Object.values(state.nineZone.widgets);
       const widget = widgets.find((w) => w.tabs.indexOf("WL-1") >= 0);
-      if (!widget)
-        return false;
-      const floatingWidgetIndex = state.nineZone.floatingWidgets.allIds.indexOf(widget.id);
+      if (!widget) return false;
+      const floatingWidgetIndex = state.nineZone.floatingWidgets.allIds.indexOf(
+        widget.id
+      );
       return floatingWidgetIndex >= 0;
     });
     await page.reload();
@@ -84,9 +100,18 @@ test.describe("floating widget", () => {
     const body = page.locator("body");
 
     const initialBounds = (await widget.boundingBox())!;
-    await titleBarHandle.dispatchEvent("mousedown", { clientX: initialBounds.x, clientY: initialBounds.y });
-    await body.dispatchEvent("mousemove", { clientX: initialBounds.x + 1, clientY: initialBounds.y + 1 });
-    await body.dispatchEvent("mousemove", { clientX: initialBounds.x + 21, clientY: initialBounds.y + 31 });
+    await titleBarHandle.dispatchEvent("mousedown", {
+      clientX: initialBounds.x,
+      clientY: initialBounds.y,
+    });
+    await body.dispatchEvent("mousemove", {
+      clientX: initialBounds.x + 1,
+      clientY: initialBounds.y + 1,
+    });
+    await body.dispatchEvent("mousemove", {
+      clientX: initialBounds.x + 21,
+      clientY: initialBounds.y + 31,
+    });
     await body.dispatchEvent("mouseup");
 
     const bounds = (await widget.boundingBox())!;
@@ -94,7 +119,9 @@ test.describe("floating widget", () => {
     expect(bounds.y).toEqual(initialBounds.y + 30);
   });
 
-  test("should drag a floating widget (in 'portal/header' mode)", async ({ page }) => {
+  test("should drag a floating widget (in 'portal/header' mode)", async ({
+    page,
+  }) => {
     const tab = tabLocator(page, "FW-1");
     const widget = widgetLocator({ tab });
     const titleBarHandle = titleBarHandleLocator(widget);
@@ -104,9 +131,18 @@ test.describe("floating widget", () => {
     await setPortalMode.click();
 
     const initialBounds = (await widget.boundingBox())!;
-    await titleBarHandle.dispatchEvent("mousedown", { clientX: initialBounds.x, clientY: initialBounds.y });
-    await body.dispatchEvent("mousemove", { clientX: initialBounds.x + 1, clientY: initialBounds.y + 1 });
-    await body.dispatchEvent("mousemove", { clientX: initialBounds.x + 21, clientY: initialBounds.y + 31 });
+    await titleBarHandle.dispatchEvent("mousedown", {
+      clientX: initialBounds.x,
+      clientY: initialBounds.y,
+    });
+    await body.dispatchEvent("mousemove", {
+      clientX: initialBounds.x + 1,
+      clientY: initialBounds.y + 1,
+    });
+    await body.dispatchEvent("mousemove", {
+      clientX: initialBounds.x + 21,
+      clientY: initialBounds.y + 31,
+    });
     await body.dispatchEvent("mouseup");
 
     const bounds = (await widget.boundingBox())!;
@@ -114,7 +150,9 @@ test.describe("floating widget", () => {
     expect(bounds.y).toEqual(initialBounds.y + 30);
   });
 
-  test.skip("FLAKY:should contain floating widget (user sized)", async ({ page }) => {
+  test.skip("FLAKY:should contain floating widget (user sized)", async ({
+    page,
+  }) => {
     const tab = tabLocator(page, "FW-1");
     const widget = widgetLocator({ tab });
     const titleBarHandle = titleBarHandleLocator(widget);
@@ -123,9 +161,18 @@ test.describe("floating widget", () => {
     const frontstageBounds = (await frontstage.boundingBox())!;
 
     const initialBounds = (await widget.boundingBox())!;
-    await titleBarHandle.dispatchEvent("mousedown", { clientX: initialBounds.x, clientY: initialBounds.y });
-    await titleBarHandle.dispatchEvent("mousemove", { clientX: initialBounds.x + 1, clientY: initialBounds.y + 1 });
-    await body.dispatchEvent("mousemove", { clientX: frontstageBounds.width - 30, clientY: frontstageBounds.height - 30 });
+    await titleBarHandle.dispatchEvent("mousedown", {
+      clientX: initialBounds.x,
+      clientY: initialBounds.y,
+    });
+    await titleBarHandle.dispatchEvent("mousemove", {
+      clientX: initialBounds.x + 1,
+      clientY: initialBounds.y + 1,
+    });
+    await body.dispatchEvent("mousemove", {
+      clientX: frontstageBounds.width - 30,
+      clientY: frontstageBounds.height - 30,
+    });
     await body.dispatchEvent("mouseup");
 
     const bounds = (await widget.boundingBox())!;
@@ -142,9 +189,18 @@ test.describe("floating widget", () => {
     const frontstageBounds = (await frontstage.boundingBox())!;
 
     const initialBounds = (await widget.boundingBox())!;
-    await titleBarHandle.dispatchEvent("mousedown", { clientX: initialBounds.x, clientY: initialBounds.y });
-    await titleBarHandle.dispatchEvent("mousemove", { clientX: initialBounds.x + 1, clientY: initialBounds.y + 1 });
-    await body.dispatchEvent("mousemove", { clientX: frontstageBounds.width - 30, clientY: frontstageBounds.height - 30 });
+    await titleBarHandle.dispatchEvent("mousedown", {
+      clientX: initialBounds.x,
+      clientY: initialBounds.y,
+    });
+    await titleBarHandle.dispatchEvent("mousemove", {
+      clientX: initialBounds.x + 1,
+      clientY: initialBounds.y + 1,
+    });
+    await body.dispatchEvent("mousemove", {
+      clientX: frontstageBounds.width - 30,
+      clientY: frontstageBounds.height - 30,
+    });
     await body.dispatchEvent("mouseup");
 
     const bounds = (await widget.boundingBox())!;
@@ -204,7 +260,7 @@ test.describe("floating widget send back outline", () => {
     const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
 
     const panel = panelLocator({ page, side: "left" });
-    const outline = outlineLocator({ panel, sectionIndex: 0 })
+    const outline = outlineLocator({ panel, sectionIndex: 0 });
 
     await expect(outline).not.toBeVisible();
     await sendBackButton.hover();
@@ -214,7 +270,6 @@ test.describe("floating widget send back outline", () => {
   });
 
   test("should show a bottom section outline", async ({ page }) => {
-
     const tab = tabLocator(page, "WL-1");
     const frontstage = frontstageLocator(page);
 

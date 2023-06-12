@@ -1,18 +1,25 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import type { PrimitiveValue, PropertyConverterInfo } from "@itwin/appui-abstract";
+import type {
+  PrimitiveValue,
+  PropertyConverterInfo,
+} from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
 import { DoublePropertyValueRenderer } from "../../../../components-react/properties/renderers/value/DoublePropertyValueRenderer";
 import type { PropertyValueRendererContext } from "../../../../components-react/properties/ValueRendererManager";
 import TestUtils from "../../../TestUtils";
 
 function createDoubleProperty(value: number, displayValue?: string) {
-  const property = TestUtils.createPrimitiveStringProperty("Length", "", displayValue);
+  const property = TestUtils.createPrimitiveStringProperty(
+    "Length",
+    "",
+    displayValue
+  );
   property.property.typename = "double";
   (property.value as PrimitiveValue).value = value;
   return property;
@@ -22,7 +29,10 @@ describe("DoublePropertyValueRenderer", () => {
   describe("render", () => {
     it("renders double property from display value", () => {
       const renderer = new DoublePropertyValueRenderer();
-      const property = createDoubleProperty(0.45, "zero point forty five meters");
+      const property = createDoubleProperty(
+        0.45,
+        "zero point forty five meters"
+      );
 
       const element = renderer.render(property);
       const elementRender = render(<>{element}</>);
@@ -54,7 +64,10 @@ describe("DoublePropertyValueRenderer", () => {
 
     it("renders double property wrapped in an anchored tag when property record has it", () => {
       const renderer = new DoublePropertyValueRenderer();
-      const property = createDoubleProperty(0.45, "zero point forty five meters");
+      const property = createDoubleProperty(
+        0.45,
+        "zero point forty five meters"
+      );
       property.links = {
         onClick: sinon.spy(),
       };
@@ -64,14 +77,23 @@ describe("DoublePropertyValueRenderer", () => {
 
       renderedElement.getByText("zero point forty five meters");
 
-      expect(renderedElement.container.getElementsByClassName("core-underlined-button")).to.not.be.empty;
+      expect(
+        renderedElement.container.getElementsByClassName(
+          "core-underlined-button"
+        )
+      ).to.not.be.empty;
     });
 
     it("renders double property with highlighting", () => {
       const renderer = new DoublePropertyValueRenderer();
-      const property = createDoubleProperty(0.45, "zero point forty five meters");
+      const property = createDoubleProperty(
+        0.45,
+        "zero point forty five meters"
+      );
 
-      const highlightNode = (text: string) => <span>{`${text} Highlighted`}</span>;
+      const highlightNode = (text: string) => (
+        <span>{`${text} Highlighted`}</span>
+      );
       const renderContext: PropertyValueRendererContext = {
         textHighlighter: highlightNode,
       };
@@ -100,7 +122,10 @@ describe("DoublePropertyValueRenderer", () => {
       const renderer = new DoublePropertyValueRenderer();
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
       const structProperty = TestUtils.createStructProperty("NameStruct");
-      const stringProperty = TestUtils.createPrimitiveStringProperty("Label", "Model");
+      const stringProperty = TestUtils.createPrimitiveStringProperty(
+        "Label",
+        "Model"
+      );
       expect(renderer.canRender(arrayProperty)).to.be.false;
       expect(renderer.canRender(structProperty)).to.be.false;
       expect(renderer.canRender(stringProperty)).to.be.false;

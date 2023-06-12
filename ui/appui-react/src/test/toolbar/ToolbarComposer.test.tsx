@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
@@ -9,10 +9,24 @@ import * as sinon from "sinon";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
-import type { FrontstageConfig,
-  ToolbarItem, UiItemsProvider} from "../../appui-react";
+import type {
+  FrontstageConfig,
+  ToolbarItem,
+  UiItemsProvider,
+} from "../../appui-react";
 import {
-  CommandItemDef, CustomItemDef, FrontstageProvider, GroupItemDef, StageUsage, ToolbarComposer, ToolbarHelper, ToolbarOrientation, ToolbarUsage, ToolItemDef, UiFramework, UiItemsManager,
+  CommandItemDef,
+  CustomItemDef,
+  FrontstageProvider,
+  GroupItemDef,
+  StageUsage,
+  ToolbarComposer,
+  ToolbarHelper,
+  ToolbarOrientation,
+  ToolbarUsage,
+  ToolItemDef,
+  UiFramework,
+  UiItemsManager,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
@@ -55,7 +69,9 @@ describe("<ToolbarComposer  />", async () => {
     iconSpec: "icon-placeholder",
   });
 
-  const isHiddenCondition = new ConditionalBooleanValue(testIsHiddenFunc, [testItemEventId]);
+  const isHiddenCondition = new ConditionalBooleanValue(testIsHiddenFunc, [
+    testItemEventId,
+  ]);
 
   const tool1c = new CommandItemDef({
     commandId: "test.tool1_c",
@@ -90,18 +106,33 @@ describe("<ToolbarComposer  />", async () => {
     customId: "test.custom",
     iconSpec: "icon-arrow-down",
     label: "Popup Test",
-    popupPanelNode:
+    popupPanelNode: (
       <div style={{ width: "200px", height: "100px" }}>
         <span>hello world!</span>
-      </div>,
+      </div>
+    ),
   });
 
   class DuplicatesUiProvider implements UiItemsProvider {
     public readonly id = "ToolbarComposer-DuplicatesUiProvider";
 
-    public provideToolbarItems(_stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
-      if (stageUsage === StageUsage.General && toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {
-        return ToolbarHelper.createToolbarItemsFromItemDefs([tool2, group1, custom1, tool1e]);
+    public provideToolbarItems(
+      _stageId: string,
+      stageUsage: string,
+      toolbarUsage: ToolbarUsage,
+      toolbarOrientation: ToolbarOrientation
+    ): ToolbarItem[] {
+      if (
+        stageUsage === StageUsage.General &&
+        toolbarUsage === ToolbarUsage.ContentManipulation &&
+        toolbarOrientation === ToolbarOrientation.Horizontal
+      ) {
+        return ToolbarHelper.createToolbarItemsFromItemDefs([
+          tool2,
+          group1,
+          custom1,
+          tool1e,
+        ]);
       }
       return [];
     }
@@ -126,7 +157,9 @@ describe("<ToolbarComposer  />", async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
     UiFramework.frontstages.addFrontstageProvider(new Frontstage1());
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef("Test1");
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      "Test1"
+    );
     expect(frontstageDef).to.not.be.undefined;
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   });
@@ -150,31 +183,54 @@ describe("<ToolbarComposer  />", async () => {
     it("should render with specified items", async () => {
       const renderedComponent = render(
         <Provider store={TestUtils.store}>
-          <ToolbarComposer usage={ToolbarUsage.ContentManipulation}
+          <ToolbarComposer
+            usage={ToolbarUsage.ContentManipulation}
             orientation={ToolbarOrientation.Horizontal}
-            items={ToolbarHelper.createToolbarItemsFromItemDefs([tool1, tool2, group1, custom1])} />
-        </Provider>);
+            items={ToolbarHelper.createToolbarItemsFromItemDefs([
+              tool1,
+              tool2,
+              group1,
+              custom1,
+            ])}
+          />
+        </Provider>
+      );
 
       expect(renderedComponent).not.to.be.undefined;
-      expect(renderedComponent.container.querySelector("div.components-toolbar-overflow-sizer.components-horizontal")).to.not.be.null;
+      expect(
+        renderedComponent.container.querySelector(
+          "div.components-toolbar-overflow-sizer.components-horizontal"
+        )
+      ).to.not.be.null;
     });
 
     it("should render with updated items", async () => {
-      sandbox.stub(Element.prototype, "getBoundingClientRect").callsFake(function (this: HTMLElement) {
-        if (this.classList.contains("components-toolbar-overflow-sizer")) {
-          return DOMRect.fromRect({ width: 1000 });
-        } else if (this.classList.contains("components-toolbar-item-container")) {
-          return DOMRect.fromRect({ width: 40 });
-        }
-        return new DOMRect();
-      });
+      sandbox
+        .stub(Element.prototype, "getBoundingClientRect")
+        .callsFake(function (this: HTMLElement) {
+          if (this.classList.contains("components-toolbar-overflow-sizer")) {
+            return DOMRect.fromRect({ width: 1000 });
+          } else if (
+            this.classList.contains("components-toolbar-item-container")
+          ) {
+            return DOMRect.fromRect({ width: 40 });
+          }
+          return new DOMRect();
+        });
 
       const renderedComponent = render(
         <Provider store={TestUtils.store}>
-          <ToolbarComposer usage={ToolbarUsage.ContentManipulation}
+          <ToolbarComposer
+            usage={ToolbarUsage.ContentManipulation}
             orientation={ToolbarOrientation.Horizontal}
-            items={ToolbarHelper.createToolbarItemsFromItemDefs([tool2, group1, custom1])} />
-        </Provider>);
+            items={ToolbarHelper.createToolbarItemsFromItemDefs([
+              tool2,
+              group1,
+              custom1,
+            ])}
+          />
+        </Provider>
+      );
       expect(renderedComponent).not.to.be.undefined;
       expect(renderedComponent.queryByTitle("Tool_2")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Tool_Group")).not.to.be.null;
@@ -182,24 +238,34 @@ describe("<ToolbarComposer  />", async () => {
 
       renderedComponent.rerender(
         <Provider store={TestUtils.store}>
-          <ToolbarComposer usage={ToolbarUsage.ContentManipulation}
+          <ToolbarComposer
+            usage={ToolbarUsage.ContentManipulation}
             orientation={ToolbarOrientation.Horizontal}
-            items={ToolbarHelper.createToolbarItemsFromItemDefs([tool2a, tool2b])} />
-        </Provider>);
+            items={ToolbarHelper.createToolbarItemsFromItemDefs([
+              tool2a,
+              tool2b,
+            ])}
+          />
+        </Provider>
+      );
       expect(renderedComponent.queryByTitle("Tool_2")).to.be.null;
       expect(renderedComponent.queryByTitle("Tool_2A")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Tool_2B")).not.to.be.null;
     });
 
     it("should not try to render duplicate items", async () => {
-      sandbox.stub(Element.prototype, "getBoundingClientRect").callsFake(function (this: HTMLElement) {
-        if (this.classList.contains("components-toolbar-overflow-sizer")) {
-          return DOMRect.fromRect({ width: 1600 });
-        } else if (this.classList.contains("components-toolbar-item-container")) {
-          return DOMRect.fromRect({ width: 40 });
-        }
-        return new DOMRect();
-      });
+      sandbox
+        .stub(Element.prototype, "getBoundingClientRect")
+        .callsFake(function (this: HTMLElement) {
+          if (this.classList.contains("components-toolbar-overflow-sizer")) {
+            return DOMRect.fromRect({ width: 1600 });
+          } else if (
+            this.classList.contains("components-toolbar-item-container")
+          ) {
+            return DOMRect.fromRect({ width: 40 });
+          }
+          return new DOMRect();
+        });
 
       const duplicateToolsUiProvider = new DuplicatesUiProvider();
       UiItemsManager.register(duplicateToolsUiProvider);
@@ -207,10 +273,20 @@ describe("<ToolbarComposer  />", async () => {
 
       const renderedComponent = render(
         <Provider store={TestUtils.store}>
-          <ToolbarComposer usage={ToolbarUsage.ContentManipulation}
+          <ToolbarComposer
+            usage={ToolbarUsage.ContentManipulation}
             orientation={ToolbarOrientation.Horizontal}
-            items={ToolbarHelper.createToolbarItemsFromItemDefs([tool2, group1, custom1, tool2, group1, custom1])} />
-        </Provider>);
+            items={ToolbarHelper.createToolbarItemsFromItemDefs([
+              tool2,
+              group1,
+              custom1,
+              tool2,
+              group1,
+              custom1,
+            ])}
+          />
+        </Provider>
+      );
       expect(renderedComponent).not.to.be.undefined;
       expect(renderedComponent.queryByTitle("Tool_2")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Tool_Group")).not.to.be.null;

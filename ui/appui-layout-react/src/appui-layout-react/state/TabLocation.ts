@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
@@ -9,8 +9,16 @@
 import type { PanelSide } from "../widget-panels/Panel";
 import type { TabState } from "./TabState";
 import type { NineZoneState } from "./NineZoneState";
-import type { FloatingWidgetState, PopoutWidgetState, WidgetState } from "./WidgetState";
-import { getWidgetLocation, isFloatingWidgetLocation, isPopoutWidgetLocation } from "./WidgetLocation";
+import type {
+  FloatingWidgetState,
+  PopoutWidgetState,
+  WidgetState,
+} from "./WidgetState";
+import {
+  getWidgetLocation,
+  isFloatingWidgetLocation,
+  isPopoutWidgetLocation,
+} from "./WidgetLocation";
 
 /** @internal */
 export interface PanelTabLocation {
@@ -31,27 +39,39 @@ export interface PopoutTabLocation {
 }
 
 /** @internal */
-export type TabLocation = PanelTabLocation | FloatingTabLocation | PopoutTabLocation;
+export type TabLocation =
+  | PanelTabLocation
+  | FloatingTabLocation
+  | PopoutTabLocation;
 
 /** @internal */
-export function isFloatingTabLocation(location: TabLocation): location is FloatingTabLocation {
+export function isFloatingTabLocation(
+  location: TabLocation
+): location is FloatingTabLocation {
   return "floatingWidgetId" in location;
 }
 
 /** @internal */
-export function isPopoutTabLocation(location: TabLocation): location is PopoutTabLocation {
+export function isPopoutTabLocation(
+  location: TabLocation
+): location is PopoutTabLocation {
   return "popoutWidgetId" in location;
 }
 
 /** @internal */
-export function isPanelTabLocation(location: TabLocation): location is PanelTabLocation {
+export function isPanelTabLocation(
+  location: TabLocation
+): location is PanelTabLocation {
   return "side" in location;
 }
 
 /** Returns a tab location or `undefined` if tab is not in a widget.
  * @internal
  */
-export function getTabLocation(state: NineZoneState, id: TabState["id"]): TabLocation | undefined {
+export function getTabLocation(
+  state: NineZoneState,
+  id: TabState["id"]
+): TabLocation | undefined {
   let widgetId;
   for (const [, widget] of Object.entries(state.widgets)) {
     const index = widget.tabs.indexOf(id);
@@ -60,11 +80,9 @@ export function getTabLocation(state: NineZoneState, id: TabState["id"]): TabLoc
       break;
     }
   }
-  if (!widgetId)
-    return undefined;
+  if (!widgetId) return undefined;
   const location = getWidgetLocation(state, widgetId);
-  if (!location)
-    return undefined;
+  if (!location) return undefined;
   if (isFloatingWidgetLocation(location))
     return {
       floatingWidgetId: widgetId,

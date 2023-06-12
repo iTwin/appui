@@ -1,9 +1,25 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-import { addFloatingWidget, addPanelWidget, createNineZoneState } from "../../../appui-layout-react";
-import { addWidgetState, createWidgetState, getNewFloatingWidgetBounds, removeFloatingWidget, removePanelWidget, removePopoutWidget, removeWidget, removeWidgetState, setWidgetActiveTabId, updateFloatingWidgetState, updateWidgetState } from "../../../appui-layout-react/state/internal/WidgetStateHelpers";
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import {
+  addFloatingWidget,
+  addPanelWidget,
+  createNineZoneState,
+} from "../../../appui-layout-react";
+import {
+  addWidgetState,
+  createWidgetState,
+  getNewFloatingWidgetBounds,
+  removeFloatingWidget,
+  removePanelWidget,
+  removePopoutWidget,
+  removeWidget,
+  removeWidgetState,
+  setWidgetActiveTabId,
+  updateFloatingWidgetState,
+  updateWidgetState,
+} from "../../../appui-layout-react/state/internal/WidgetStateHelpers";
 import { addTabs, handleMetaData } from "../../Utils";
 
 describe("createWidgetState", () => {
@@ -15,7 +31,8 @@ describe("createWidgetState", () => {
 describe("updateWidgetState", () => {
   it("should throw if widget is not found", () => {
     const state = createNineZoneState();
-    (() => updateWidgetState(state, "w1", { activeTabId: "t1" })).should.throw();
+    (() =>
+      updateWidgetState(state, "w1", { activeTabId: "t1" })).should.throw();
   });
 });
 
@@ -24,19 +41,25 @@ describe("addWidgetState", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1", "t2"]);
     state = addWidgetState(state, "w1", ["t1"]);
-    (() => addWidgetState(state, "w1", ["t2"])).should.throw("Widget already exists");
+    (() => addWidgetState(state, "w1", ["t2"])).should.throw(
+      "Widget already exists"
+    );
   });
 
   it("should throw if tab doesn't exist", () => {
     const state = createNineZoneState();
-    handleMetaData(() => addWidgetState(state, "w1", ["t1"])).should.throw("Tab does not exist");
+    handleMetaData(() => addWidgetState(state, "w1", ["t1"])).should.throw(
+      "Tab does not exist"
+    );
   });
 
   it("should throw if tab is already in another widget", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1"]);
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    handleMetaData(() => addWidgetState(state, "w2", ["t1"])).should.throw("Tab is already in a widget");
+    handleMetaData(() => addWidgetState(state, "w2", ["t1"])).should.throw(
+      "Tab is already in a widget"
+    );
   });
 });
 
@@ -52,35 +75,46 @@ describe("removeWidget", () => {
 describe("removeWidgetState", () => {
   it("should throw if widget does not exist", () => {
     const state = createNineZoneState();
-    (() => removeWidgetState(state, "w1")).should.throw("Widget does not exist");
+    (() => removeWidgetState(state, "w1")).should.throw(
+      "Widget does not exist"
+    );
   });
 });
 
 describe("updateFloatingWidgetState", () => {
   it("should throw if widget does not exist", () => {
     const state = createNineZoneState();
-    (() => updateFloatingWidgetState(state, "fw1", { userSized: true })).should.throw("Floating widget does not exist");
+    (() =>
+      updateFloatingWidgetState(state, "fw1", {
+        userSized: true,
+      })).should.throw("Floating widget does not exist");
   });
 });
 
 describe("removeFloatingWidget", () => {
   it("should throw if widget does not exist", () => {
     const state = createNineZoneState();
-    (() => removeFloatingWidget(state, "w1")).should.throw("Floating widget does not exist");
+    (() => removeFloatingWidget(state, "w1")).should.throw(
+      "Floating widget does not exist"
+    );
   });
 });
 
 describe("removePopoutWidget", () => {
   it("should throw if widget does not exist", () => {
     const state = createNineZoneState();
-    (() => removePopoutWidget(state, "w1")).should.throw("Popout widget does not exist");
+    (() => removePopoutWidget(state, "w1")).should.throw(
+      "Popout widget does not exist"
+    );
   });
 });
 
 describe("removePanelWidget", () => {
   it("should throw if widget is not found", () => {
     const state = createNineZoneState();
-    (() => removePanelWidget(state, "w1")).should.throw("Panel widget not found");
+    (() => removePanelWidget(state, "w1")).should.throw(
+      "Panel widget not found"
+    );
   });
 });
 
@@ -89,7 +123,9 @@ describe("setWidgetActiveTabId", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1", "t2"]);
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    (() => setWidgetActiveTabId(state, "w1", "t2")).should.throw("Tab is not in a widget");
+    (() => setWidgetActiveTabId(state, "w1", "t2")).should.throw(
+      "Tab is not in a widget"
+    );
   });
 });
 

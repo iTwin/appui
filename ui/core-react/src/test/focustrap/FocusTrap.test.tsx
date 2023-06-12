@@ -1,14 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import { fireEvent, render } from "@testing-library/react";
 import * as sinon from "sinon";
 import * as React from "react";
 
 import { Logger } from "@itwin/core-bentley";
-import { focusIntoContainer, FocusTrap } from "../../core-react/focustrap/FocusTrap";
+import {
+  focusIntoContainer,
+  FocusTrap,
+} from "../../core-react/focustrap/FocusTrap";
 
 // cspell:ignore focustrap
 
@@ -17,22 +20,25 @@ describe("<FocusTrap />", () => {
 
   afterEach(() => {
     sandbox.restore();
-
   });
 
   it("renders correctly", () => {
-    const component = render(<FocusTrap active={true} returnFocusOnDeactivate={false}>
-      <div />
-    </FocusTrap>);
+    const component = render(
+      <FocusTrap active={true} returnFocusOnDeactivate={false}>
+        <div />
+      </FocusTrap>
+    );
     expect(component.getByTestId("focus-trap-div")).to.exist;
   });
 
   it("sets focus to first element correctly", async () => {
     const clock = sandbox.useFakeTimers();
 
-    render(<FocusTrap active={true} returnFocusOnDeactivate={false}>
-      <div id="test" role="button" tabIndex={0} />
-    </FocusTrap>);
+    render(
+      <FocusTrap active={true} returnFocusOnDeactivate={false}>
+        <div id="test" role="button" tabIndex={0} />
+      </FocusTrap>
+    );
 
     clock.tick(1000);
     await Promise.resolve();
@@ -45,9 +51,15 @@ describe("<FocusTrap />", () => {
     const clock = sandbox.useFakeTimers();
     const spyLogger = sinon.spy(Logger, "logError");
 
-    render(<FocusTrap initialFocusElement=".test" active={true} returnFocusOnDeactivate={false}>
-      <div id="test" tabIndex={0} role="button" />
-    </FocusTrap>);
+    render(
+      <FocusTrap
+        initialFocusElement=".test"
+        active={true}
+        returnFocusOnDeactivate={false}
+      >
+        <div id="test" tabIndex={0} role="button" />
+      </FocusTrap>
+    );
 
     clock.tick(1000);
     await Promise.resolve();
@@ -59,11 +71,13 @@ describe("<FocusTrap />", () => {
   it("cycles to first item correctly", async () => {
     const clock = sandbox.useFakeTimers();
 
-    const component = render(<FocusTrap active={true} returnFocusOnDeactivate={false}>
-      <div id="test1" tabIndex={0} role="button" />
-      <div id="test2" tabIndex={0} role="button" />
-      <div id="test3" tabIndex={0} role="button" />
-    </FocusTrap>);
+    const component = render(
+      <FocusTrap active={true} returnFocusOnDeactivate={false}>
+        <div id="test1" tabIndex={0} role="button" />
+        <div id="test2" tabIndex={0} role="button" />
+        <div id="test3" tabIndex={0} role="button" />
+      </FocusTrap>
+    );
 
     clock.tick(1000);
     await Promise.resolve();
@@ -79,11 +93,13 @@ describe("<FocusTrap />", () => {
   it("cycles to last item correctly", async () => {
     const clock = sandbox.useFakeTimers();
 
-    const component = render(<FocusTrap active={true} returnFocusOnDeactivate={false}>
-      <div id="test1" tabIndex={0} role="button" />
-      <div id="test2" tabIndex={0} role="button" />
-      <div id="test3" tabIndex={0} role="button" />
-    </FocusTrap>);
+    const component = render(
+      <FocusTrap active={true} returnFocusOnDeactivate={false}>
+        <div id="test1" tabIndex={0} role="button" />
+        <div id="test2" tabIndex={0} role="button" />
+        <div id="test3" tabIndex={0} role="button" />
+      </FocusTrap>
+    );
 
     clock.tick(1000);
     await Promise.resolve();
@@ -98,7 +114,6 @@ describe("<FocusTrap />", () => {
     activeElement = document.activeElement as HTMLElement;
     expect(activeElement.id).to.eq("test3");
   });
-
 });
 
 describe("focusIntoContainer", () => {
@@ -143,7 +158,9 @@ describe("focusIntoContainer", () => {
     const component = render(
       <div data-testid="div1">
         <button className="core-focus-trap-ignore-initial">test</button>
-        <button disabled tabIndex={0}>test</button>
+        <button disabled tabIndex={0}>
+          test
+        </button>
         <button tabIndex={-1}>test</button>
       </div>
     );
@@ -151,5 +168,4 @@ describe("focusIntoContainer", () => {
     const div1 = component.getByTestId("div1");
     expect(focusIntoContainer(div1 as HTMLDivElement)).to.be.false;
   });
-
 });

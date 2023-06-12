@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import { BaseTimelineDataProvider } from "../../imodel-components-react/timeline/BaseTimelineDataProvider";
 import type { PlaybackSettings } from "../../imodel-components-react/timeline/interfaces";
@@ -22,7 +22,6 @@ class TestTimelineDataProvider extends BaseTimelineDataProvider {
 }
 
 describe("Timeline", () => {
-
   describe("Duration only timeline", () => {
     const duration = 20;
     const loop = true;
@@ -85,8 +84,9 @@ describe("Timeline", () => {
       // simulate UI updating pointer to current playback time
       timelineProvider.onAnimationFractionChanged(testanimationFraction);
       expect(timelineProvider.pointerCallbackCalled).to.be.true;
-      expect(timelineProvider.animationFraction).to.be.equal(testanimationFraction);
+      expect(timelineProvider.animationFraction).to.be.equal(
+        testanimationFraction
+      );
     });
   });
 });
-

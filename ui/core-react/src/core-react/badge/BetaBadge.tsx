@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -16,12 +16,6 @@ import betaBadgeIcon from "./technical-preview-badge.svg";
  * @internal
  */
 export function BetaBadge(props: CommonProps) {
-  const className = classnames("core-badge-betaBadge",
-    props.className,
-  );
-  return <Badge
-    {...props}
-    svg={betaBadgeIcon}
-    className={className}
-  />;
+  const className = classnames("core-badge-betaBadge", props.className);
+  return <Badge {...props} svg={betaBadgeIcon} className={className} />;
 }

@@ -1,10 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { should } from "chai";
 import {
-  addFloatingWidget, addPanelWidget, addPopoutWidget, createNineZoneState, getTabLocation, removeTabFromWidget,
+  addFloatingWidget,
+  addPanelWidget,
+  addPopoutWidget,
+  createNineZoneState,
+  getTabLocation,
+  removeTabFromWidget,
 } from "../../appui-layout-react";
 import { addWidgetState } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 import { addTabs } from "../Utils";

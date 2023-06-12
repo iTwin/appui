@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/components-react",
-      "comment": "Fix tree flickering without keeping the horizontal scrollbar",
+      "comment": "`PropertyFilterBuilder`: Allow filtering when there are empty filter rules.",
       "type": "none"
     }
   ],

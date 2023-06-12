@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import * as faker from "faker";
@@ -12,7 +12,6 @@ import { FavoritePropertiesRenderer } from "../../components-react/favorite/Favo
 import TestUtils from "../TestUtils";
 
 describe("FavoritePropertiesRenderer", () => {
-
   let dataProvider: FavoritePropertiesDataProvider;
   let renderer: FavoritePropertiesRenderer;
 
@@ -45,7 +44,6 @@ describe("FavoritePropertiesRenderer", () => {
   });
 
   describe("renderFavorites", () => {
-
     it("should render a tooltip for an element", async () => {
       const propertyData = await dataProvider.getData();
       const tooltip = renderer.renderFavorites(propertyData);
@@ -63,13 +61,10 @@ describe("FavoritePropertiesRenderer", () => {
   });
 
   describe("hasFavorites", () => {
-
     it("should correctly determine if has favorites", async () => {
       const propertyData = await dataProvider.getData();
       const hasFavorites = renderer.hasFavorites(propertyData);
       expect(hasFavorites).to.be.true;
     });
-
   });
-
 });

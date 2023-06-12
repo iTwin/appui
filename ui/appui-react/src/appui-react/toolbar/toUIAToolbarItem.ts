@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -14,7 +14,8 @@ import { isToolbarCustomItem } from "./ToolbarItem";
 /** @internal */
 export function toUIAToolbarItem(item: ToolbarItem): UIA_CommonToolbarItem {
   if (isToolbarCustomItem(item)) {
-    const customItem: CustomToolbarItem = { // eslint-disable-line deprecation/deprecation
+    // eslint-disable-next-line deprecation/deprecation
+    const customItem: CustomToolbarItem = {
       ...item,
       isCustom: true,
       icon: item.icon as string,

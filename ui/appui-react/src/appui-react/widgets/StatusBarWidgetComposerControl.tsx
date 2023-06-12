@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -34,7 +34,10 @@ export class StatusBarWidgetComposerControl extends StatusBarWidgetControl {
 
   public getReactNode(): React.ReactNode {
     return (
-      <StatusBarComposer key={UiFramework.frontstages.activeFrontstageId} items={[]} />
+      <StatusBarComposer
+        key={UiFramework.frontstages.activeFrontstageId}
+        items={[]}
+      />
     );
   }
 }

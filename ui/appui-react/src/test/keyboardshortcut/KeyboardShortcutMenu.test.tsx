@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -82,9 +82,7 @@ describe("KeyboardShortcutMenu", () => {
     UiFramework.keyboardShortcuts.loadShortcuts(keyboardShortcutList);
     expect(UiFramework.isContextMenuOpen).to.be.false;
 
-    render(
-      <KeyboardShortcutMenu />,
-    );
+    render(<KeyboardShortcutMenu />);
 
     UiFramework.keyboardShortcuts.displayMenu();
 
@@ -93,10 +91,17 @@ describe("KeyboardShortcutMenu", () => {
     });
     expect(UiFramework.isContextMenuOpen).to.be.true;
 
-    await theUserTo.type(screen.getAllByTestId("core-context-menu-root")[0], "[Escape]", {skipClick: true}); // Does nothing because of ignoreNextKeyUp=true
+    await theUserTo.type(
+      screen.getAllByTestId("core-context-menu-root")[0],
+      "[Escape]",
+      { skipClick: true }
+    ); // Does nothing because of ignoreNextKeyUp=true
     expect(screen.queryAllByRole("menuitem")).to.have.lengthOf(3);
 
-    await theUserTo.type(screen.getAllByTestId("core-context-menu-root")[0], "[Escape]");
+    await theUserTo.type(
+      screen.getAllByTestId("core-context-menu-root")[0],
+      "[Escape]"
+    );
     expect(screen.queryAllByRole("menuitem")).to.have.lengthOf(0);
     expect(UiFramework.isContextMenuOpen).to.be.false;
   });
@@ -104,9 +109,7 @@ describe("KeyboardShortcutMenu", () => {
   it("Should render shortcuts and execute item on click", async () => {
     UiFramework.keyboardShortcuts.loadShortcuts(keyboardShortcutList);
 
-    render(
-      <KeyboardShortcutMenu />,
-    );
+    render(<KeyboardShortcutMenu />);
 
     UiFramework.keyboardShortcuts.displayMenu();
 
@@ -114,7 +117,7 @@ describe("KeyboardShortcutMenu", () => {
       expect(screen.queryAllByRole("menuitem")).to.have.lengthOf(3);
     });
 
-    await theUserTo.click(screen.getByRole("menuitem", {name: "A Test"}));
+    await theUserTo.click(screen.getByRole("menuitem", { name: "A Test" }));
 
     expect(screen.queryAllByRole("menuitem")).to.have.lengthOf(0);
 

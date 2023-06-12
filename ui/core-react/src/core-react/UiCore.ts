@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -32,7 +32,10 @@ export class UiCore {
    */
   public static async initialize(localization: Localization): Promise<void> {
     if (UiCore._initialized) {
-      Logger.logInfo(UiCore.loggerCategory(UiCore), `UiCore.initialize already called`);
+      Logger.logInfo(
+        UiCore.loggerCategory(UiCore),
+        `UiCore.initialize already called`
+      );
       return;
     }
 
@@ -54,7 +57,9 @@ export class UiCore {
   }
 
   /** Determines if UiCore has been initialized */
-  public static get initialized(): boolean { return UiCore._initialized; }
+  public static get initialized(): boolean {
+    return UiCore._initialized;
+  }
 
   /** The internationalization service created by the host application.
    * @internal
@@ -62,7 +67,10 @@ export class UiCore {
   public static get localization(): Localization {
     // istanbul ignore else
     if (!UiCore._localization)
-      throw new UiError(UiCore.loggerCategory(this), "localization: UiCore.initialize has not been called. Unable to return Localization object.");
+      throw new UiError(
+        UiCore.loggerCategory(this),
+        "localization: UiCore.initialize has not been called. Unable to return Localization object."
+      );
     // istanbul ignore next
     return UiCore._localization;
   }
@@ -77,10 +85,15 @@ export class UiCore {
    */
   public static translate(key: string | string[]): string {
     if (!UiCore._localization) {
-      Logger.logError(UiCore.loggerCategory(this), `translate: UiCore must be initialize with a localization provider. Returning blank string.`);
+      Logger.logError(
+        UiCore.loggerCategory(this),
+        `translate: UiCore must be initialize with a localization provider. Returning blank string.`
+      );
       return "";
     }
-    return UiCore._localization.getLocalizedString(key, { ns: UiCore.localizationNamespace });
+    return UiCore._localization.getLocalizedString(key, {
+      ns: UiCore.localizationNamespace,
+    });
   }
 
   /** @internal */
@@ -94,5 +107,4 @@ export class UiCore {
     const category = UiCore.packageName + (className ? `.${className}` : "");
     return category;
   }
-
 }

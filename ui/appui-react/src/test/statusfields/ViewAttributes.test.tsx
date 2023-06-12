@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -28,13 +28,19 @@ describe(`ViewAttributes`, () => {
   });
 
   it("should open/close on click", async () => {
-    render(<Provider store={TestUtils.store}>
-      <StatusBar><ViewAttributesStatusField /></StatusBar>
-    </Provider>);
+    render(
+      <Provider store={TestUtils.store}>
+        <StatusBar>
+          <ViewAttributesStatusField />
+        </StatusBar>
+      </Provider>
+    );
 
     await theUserTo.click(screen.getByRole("button"));
 
-    expect(screen.getByText("listTools.viewAttributes", { selector: ".nz-title" })).to.exist;
+    expect(
+      screen.getByText("listTools.viewAttributes", { selector: ".nz-title" })
+    ).to.exist;
 
     await theUserTo.click(screen.getAllByRole("button")[0]);
 
@@ -42,19 +48,29 @@ describe(`ViewAttributes`, () => {
   });
 
   it("should process Checkbox clicks", async () => {
-    render(<Provider store={TestUtils.store}>
-      <StatusBar><ViewAttributesStatusField /></StatusBar>
-    </Provider>);
+    render(
+      <Provider store={TestUtils.store}>
+        <StatusBar>
+          <ViewAttributesStatusField />
+        </StatusBar>
+      </Provider>
+    );
 
     await theUserTo.click(screen.getByRole("button"));
-    expect(screen.getByText("listTools.acs").previousElementSibling).to.have.property("checked", false);
+    expect(
+      screen.getByText("listTools.acs").previousElementSibling
+    ).to.have.property("checked", false);
 
     await theUserTo.click(screen.getByText("listTools.acs"));
-    expect(screen.getByText("listTools.acs").previousElementSibling).to.have.property("checked", true);
+    expect(
+      screen.getByText("listTools.acs").previousElementSibling
+    ).to.have.property("checked", true);
 
     const spy = sinon.stub(IModelApp.tools, "run");
     await theUserTo.click(screen.getByText("listTools.camera"));
-    expect(screen.getByText("listTools.camera").previousElementSibling).to.have.property("checked", true);
+    expect(
+      screen.getByText("listTools.camera").previousElementSibling
+    ).to.have.property("checked", true);
     expect(spy).to.have.been.calledWith("View.ToggleCamera", sinon.match.any);
 
     await theUserTo.click(screen.getAllByRole("button")[0]);

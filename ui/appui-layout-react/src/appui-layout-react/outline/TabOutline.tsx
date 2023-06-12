@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -17,15 +17,8 @@ import { useSendBackHomeState } from "../widget/SendBack";
 /** @internal */
 export function TabOutline() {
   const hidden = useHidden();
-  const className = classnames(
-    "nz-outline-tabOutline",
-    hidden && "nz-hidden",
-  );
-  return (
-    <div
-      className={className}
-    />
-  );
+  const className = classnames("nz-outline-tabOutline", hidden && "nz-hidden");
+  return <div className={className} />;
 }
 
 // istanbul ignore next
@@ -35,17 +28,13 @@ function useHidden() {
   const activeHomeState = useSendBackHomeState();
 
   return React.useMemo(() => {
-    if (activeHomeState?.widgetId === widgetId)
-      return false;
+    if (activeHomeState?.widgetId === widgetId) return false;
 
-    if (!targeted)
-      return true;
+    if (!targeted) return true;
 
-    if (!isWidgetDropTargetState(targeted))
-      return true;
+    if (!isWidgetDropTargetState(targeted)) return true;
 
-    if (targeted.widgetId !== widgetId)
-      return true;
+    if (targeted.widgetId !== widgetId) return true;
 
     return false;
   }, [targeted, widgetId, activeHomeState]);

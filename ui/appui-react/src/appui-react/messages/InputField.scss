@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/text/mixins";
 
@@ -27,7 +27,7 @@
       display: flex;
       flex-direction: row;
 
-      >.uifw-popup-message-icon {
+      > .uifw-popup-message-icon {
         padding-left: 3px;
         padding-right: 3px;
 
@@ -79,5 +79,4 @@
       margin: 0 3px 0 10px;
     }
   }
-
 }

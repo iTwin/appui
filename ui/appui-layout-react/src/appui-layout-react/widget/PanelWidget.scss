@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 .nz-widget-panelWidget {
   $border-width: 1px;
@@ -54,7 +54,7 @@
   }
 
   &:not(.nz-minimized) {
-    >.nz-content {
+    > .nz-content {
       min-height: 0;
       min-width: 0;
     }

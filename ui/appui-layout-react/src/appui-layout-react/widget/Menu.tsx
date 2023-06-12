@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -9,7 +9,7 @@
 import "./Menu.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Popup } from "@itwin/core-react";
 import { RelativePosition } from "@itwin/appui-abstract";
 
@@ -23,10 +23,7 @@ export interface WidgetMenuProps extends CommonProps {
 
 /** @internal */
 export function WidgetMenu(props: WidgetMenuProps) {
-  const className = classnames(
-    "nz-widget-menu",
-    props.className,
-  );
+  const className = classnames("nz-widget-menu", props.className);
   return (
     <Popup
       className={className}
@@ -38,9 +35,7 @@ export function WidgetMenu(props: WidgetMenuProps) {
       showShadow={false}
       target={props.target}
     >
-      <div className="nz-widget-menu_tabs">
-        {props.children}
-      </div>
+      <div className="nz-widget-menu_tabs">{props.children}</div>
     </Popup>
   );
 }

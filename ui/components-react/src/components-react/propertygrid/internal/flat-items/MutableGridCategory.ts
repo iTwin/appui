@@ -1,15 +1,21 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 /** @packageDocumentation
  * @module PropertyGrid
  */
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import type { PropertyCategory } from "../../PropertyDataProvider";
-import type { IMutableFlatGridItem, IMutableGridCategoryItem} from "./MutableFlatGridItem";
-import { FlatGridItemType, MutableFlatPropertyGridItem } from "./MutableFlatGridItem";
+import type {
+  IMutableFlatGridItem,
+  IMutableGridCategoryItem,
+} from "./MutableFlatGridItem";
+import {
+  FlatGridItemType,
+  MutableFlatPropertyGridItem,
+} from "./MutableFlatGridItem";
 import type { IMutableGridItemFactory } from "./MutableGridItemFactory";
 
 /**
@@ -24,7 +30,10 @@ export interface CategoryRecordsDict {
  * Mutable wrapper object for PropertyCategory which provides methods for working with and managing category and record children hierarchies
  * @public
  */
-export class MutableGridCategory extends MutableFlatPropertyGridItem implements IMutableGridCategoryItem {
+export class MutableGridCategory
+  extends MutableFlatPropertyGridItem
+  implements IMutableGridCategoryItem
+{
   private _children: IMutableFlatGridItem[];
   private _selectionKey: string;
   private _category: PropertyCategory;
@@ -34,24 +43,41 @@ export class MutableGridCategory extends MutableFlatPropertyGridItem implements 
     recordsDict: CategoryRecordsDict,
     gridItemFactory: IMutableGridItemFactory,
     parentSelectionKey?: string,
-    depth: number = 0,
+    depth: number = 0
   ) {
     super(depth, parentSelectionKey, parentSelectionKey);
-    this._category = { name: category.name, label: category.label, expand: category.expand };
+    this._category = {
+      name: category.name,
+      label: category.label,
+      expand: category.expand,
+    };
 
     if (parentSelectionKey !== undefined)
       this._selectionKey = `${parentSelectionKey}_${category.name}`;
-    else
-      this._selectionKey = category.name;
+    else this._selectionKey = category.name;
 
     this._isExpanded = category.expand;
 
     // Even though categories are nested and have their own depth, categorized properties depth is counted starting with the parent category.
     const categoryRecords = recordsDict[category.name] ?? [];
-    this._children = categoryRecords.map((value) => gridItemFactory.createCategorizedProperty(value, this.selectionKey, this.selectionKey, 0));
+    this._children = categoryRecords.map((value) =>
+      gridItemFactory.createCategorizedProperty(
+        value,
+        this.selectionKey,
+        this.selectionKey,
+        0
+      )
+    );
 
     const childCategories = category.childCategories ?? [];
-    const child = childCategories.map((childCategory) => gridItemFactory.createGridCategory(childCategory, recordsDict, this.selectionKey, this.depth + 1));
+    const child = childCategories.map((childCategory) =>
+      gridItemFactory.createGridCategory(
+        childCategory,
+        recordsDict,
+        this.selectionKey,
+        this.depth + 1
+      )
+    );
 
     this._children.push(...child);
 
@@ -102,8 +128,7 @@ export class MutableGridCategory extends MutableFlatPropertyGridItem implements 
    * @internal
    */
   public override get lastInNumberOfCategories(): number {
-    if (this.isExpanded && this.getChildren().length > 0)
-      return 0;
+    if (this.isExpanded && this.getChildren().length > 0) return 0;
 
     return this._lastInNumberOfCategories - 1;
   }

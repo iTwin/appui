@@ -1,29 +1,62 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { Point } from "@itwin/core-react";
-import { CursorDirection, CursorInformation } from "../../appui-react/cursor/CursorInformation";
+import {
+  CursorDirection,
+  CursorInformation,
+} from "../../appui-react/cursor/CursorInformation";
 
 describe("CursorInformation", () => {
-
   describe("getRelativePositionFromCursorDirection", () => {
     it("should return correct RelativePosition", () => {
-      expect(CursorInformation.getRelativePositionFromCursorDirection(CursorDirection.Top)).to.eq(RelativePosition.Top);
-      expect(CursorInformation.getRelativePositionFromCursorDirection(CursorDirection.Left)).to.eq(RelativePosition.Left);
-      expect(CursorInformation.getRelativePositionFromCursorDirection(CursorDirection.Right)).to.eq(RelativePosition.Right);
-      expect(CursorInformation.getRelativePositionFromCursorDirection(CursorDirection.Bottom)).to.eq(RelativePosition.Bottom);
-      expect(CursorInformation.getRelativePositionFromCursorDirection(CursorDirection.TopLeft)).to.eq(RelativePosition.TopLeft);
-      expect(CursorInformation.getRelativePositionFromCursorDirection(CursorDirection.TopRight)).to.eq(RelativePosition.TopRight);
-      expect(CursorInformation.getRelativePositionFromCursorDirection(CursorDirection.BottomLeft)).to.eq(RelativePosition.BottomLeft);
-      expect(CursorInformation.getRelativePositionFromCursorDirection(CursorDirection.BottomRight)).to.eq(RelativePosition.BottomRight);
+      expect(
+        CursorInformation.getRelativePositionFromCursorDirection(
+          CursorDirection.Top
+        )
+      ).to.eq(RelativePosition.Top);
+      expect(
+        CursorInformation.getRelativePositionFromCursorDirection(
+          CursorDirection.Left
+        )
+      ).to.eq(RelativePosition.Left);
+      expect(
+        CursorInformation.getRelativePositionFromCursorDirection(
+          CursorDirection.Right
+        )
+      ).to.eq(RelativePosition.Right);
+      expect(
+        CursorInformation.getRelativePositionFromCursorDirection(
+          CursorDirection.Bottom
+        )
+      ).to.eq(RelativePosition.Bottom);
+      expect(
+        CursorInformation.getRelativePositionFromCursorDirection(
+          CursorDirection.TopLeft
+        )
+      ).to.eq(RelativePosition.TopLeft);
+      expect(
+        CursorInformation.getRelativePositionFromCursorDirection(
+          CursorDirection.TopRight
+        )
+      ).to.eq(RelativePosition.TopRight);
+      expect(
+        CursorInformation.getRelativePositionFromCursorDirection(
+          CursorDirection.BottomLeft
+        )
+      ).to.eq(RelativePosition.BottomLeft);
+      expect(
+        CursorInformation.getRelativePositionFromCursorDirection(
+          CursorDirection.BottomRight
+        )
+      ).to.eq(RelativePosition.BottomRight);
     });
   });
 
   describe("handleMouseMove", () => {
-
     beforeEach(() => {
       CursorInformation.clearCursorDirections();
     });
@@ -67,7 +100,9 @@ describe("CursorInformation", () => {
       CursorInformation.handleMouseMove(new Point(2, 2));
       CursorInformation.handleMouseMove(new Point(3, 3));
       CursorInformation.handleMouseMove(new Point(4, 4));
-      expect(CursorInformation.cursorDirection).to.eq(CursorDirection.BottomRight);
+      expect(CursorInformation.cursorDirection).to.eq(
+        CursorDirection.BottomRight
+      );
     });
 
     it("should detect Bottom CursorDirection", () => {
@@ -81,7 +116,9 @@ describe("CursorInformation", () => {
       CursorInformation.handleMouseMove(new Point(2, 2));
       CursorInformation.handleMouseMove(new Point(1, 3));
       CursorInformation.handleMouseMove(new Point(0, 4));
-      expect(CursorInformation.cursorDirection).to.eq(CursorDirection.BottomLeft);
+      expect(CursorInformation.cursorDirection).to.eq(
+        CursorDirection.BottomLeft
+      );
     });
 
     it("should detect correct CursorDirection with more than 10 events", () => {
@@ -96,9 +133,9 @@ describe("CursorInformation", () => {
       CursorInformation.handleMouseMove(new Point(4, 4));
       CursorInformation.handleMouseMove(new Point(5, 5));
       CursorInformation.handleMouseMove(new Point(6, 6));
-      expect(CursorInformation.cursorDirection).to.eq(CursorDirection.BottomRight);
+      expect(CursorInformation.cursorDirection).to.eq(
+        CursorDirection.BottomRight
+      );
     });
-
   });
-
 });

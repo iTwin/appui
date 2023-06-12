@@ -1,15 +1,23 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
 
 import produce from "immer";
-import type { HorizontalPanelSide, PanelSide, VerticalPanelSide } from "../../widget-panels/Panel";
+import type {
+  HorizontalPanelSide,
+  PanelSide,
+  VerticalPanelSide,
+} from "../../widget-panels/Panel";
 import type { NineZoneState } from "../NineZoneState";
-import type { HorizontalPanelState, PanelsState, VerticalPanelState } from "../PanelState";
+import type {
+  HorizontalPanelState,
+  PanelsState,
+  VerticalPanelState,
+} from "../PanelState";
 
 function createPanelState(side: PanelSide) {
   return {
@@ -28,7 +36,10 @@ function createPanelState(side: PanelSide) {
 }
 
 /** @internal */
-export function createVerticalPanelState(side: VerticalPanelSide, args?: Partial<VerticalPanelState>): VerticalPanelState {
+export function createVerticalPanelState(
+  side: VerticalPanelSide,
+  args?: Partial<VerticalPanelState>
+): VerticalPanelState {
   return {
     ...createPanelState(side),
     ...args,
@@ -37,7 +48,10 @@ export function createVerticalPanelState(side: VerticalPanelSide, args?: Partial
 }
 
 /** @internal */
-export function createHorizontalPanelState(side: HorizontalPanelSide, args?: Partial<HorizontalPanelState>): HorizontalPanelState {
+export function createHorizontalPanelState(
+  side: HorizontalPanelSide,
+  args?: Partial<HorizontalPanelState>
+): HorizontalPanelState {
   return {
     ...createPanelState(side),
     minSize: 100,
@@ -59,7 +73,11 @@ export function createPanelsState(args?: Partial<PanelsState>): PanelsState {
 }
 
 /** @internal */
-export function updatePanelState<K extends keyof PanelsState>(state: NineZoneState, side: K, args: Partial<PanelsState[K]>) {
+export function updatePanelState<K extends keyof PanelsState>(
+  state: NineZoneState,
+  side: K,
+  args: Partial<PanelsState[K]>
+) {
   return produce(state, (draft) => {
     const panel = draft.panels[side];
     draft.panels[side] = {

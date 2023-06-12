@@ -1,9 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { defineTest } from "jscodeshift/src/testUtils";
-import { createDefineInlineCssTest, defaultOptions } from "../../utils/TestUtils";
+import {
+  createDefineInlineCssTest,
+  defaultOptions,
+} from "../../utils/TestUtils";
 import { cssPlugin } from "../full";
 
 const defineInlineCssTest = createDefineInlineCssTest([cssPlugin]);

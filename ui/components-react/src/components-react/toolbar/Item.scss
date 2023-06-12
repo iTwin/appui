@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "variables";
 
 .components-toolbar-button-item {
@@ -84,7 +84,9 @@
   }
 }
 
-div.components-toolbar-items-container.components-toolbar-show-decorators .components-toolbar-button-item>.components-badge {
+div.components-toolbar-items-container.components-toolbar-show-decorators
+  .components-toolbar-button-item
+  > .components-badge {
   display: block;
   position: absolute;
   top: 0;

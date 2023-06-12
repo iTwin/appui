@@ -1,15 +1,19 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import produce from "immer";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Point } from "@itwin/core-react";
 import { act, fireEvent, render } from "@testing-library/react";
-import type { DragManager, NineZoneDispatch} from "../../appui-layout-react";
+import type { DragManager, NineZoneDispatch } from "../../appui-layout-react";
 import {
-  addPanelWidget, addTab, createNineZoneState, FloatingTab, ShowWidgetIconContext,
+  addPanelWidget,
+  addTab,
+  createNineZoneState,
+  FloatingTab,
+  ShowWidgetIconContext,
 } from "../../appui-layout-react";
 import { createDragInfo, TestNineZoneProvider } from "../Providers";
 import { createDraggedTabState } from "../../appui-layout-react/state/internal/TabStateHelpers";
@@ -25,11 +29,9 @@ describe("FloatingTab", () => {
       });
     });
     const { findByText } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <FloatingTab />
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     await findByText("tab 1");
   });
@@ -44,13 +46,11 @@ describe("FloatingTab", () => {
       });
     });
     const { findByText } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <ShowWidgetIconContext.Provider value={true}>
           <FloatingTab />
         </ShowWidgetIconContext.Provider>
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     await findByText("icon");
   });
@@ -73,7 +73,7 @@ describe("FloatingTab", () => {
         dragManagerRef={dragManager}
       >
         <FloatingTab />
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     act(() => {
       dragManager.current!.handleDragStart({
@@ -85,16 +85,21 @@ describe("FloatingTab", () => {
       });
       fireEvent.mouseMove(document);
     });
-    dispatch.calledOnceWithExactly(sinon.match({
-      type: "WIDGET_TAB_DRAG",
-    })).should.true;
+    dispatch.calledOnceWithExactly(
+      sinon.match({
+        type: "WIDGET_TAB_DRAG",
+      })
+    ).should.true;
   });
 
   it("should dispatch WIDGET_TAB_DRAG_END with tab start target", () => {
     const dragManager = React.createRef<DragManager>();
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
-    state = addTab(state, "t1", { label: "tab 1", preferredFloatingWidgetSize: { width: 33, height: 33 } });
+    state = addTab(state, "t1", {
+      label: "tab 1",
+      preferredFloatingWidgetSize: { width: 33, height: 33 },
+    });
     state = addPanelWidget(state, "left", "leftStart", ["t1"]);
     state = produce(state, (draft) => {
       draft.draggedTab = createDraggedTabState("t1", {
@@ -108,7 +113,7 @@ describe("FloatingTab", () => {
         dragManagerRef={dragManager}
       >
         <FloatingTab />
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     act(() => {
       dragManager.current!.handleDragStart({
@@ -120,20 +125,25 @@ describe("FloatingTab", () => {
       });
       fireEvent.mouseUp(document);
     });
-    dispatch.calledOnceWithExactly(sinon.match({
-      type: "WIDGET_TAB_DRAG_END",
-      id: "t1",
-      target: {
-        type: "floatingWidget",
-      },
-    })).should.true;
+    dispatch.calledOnceWithExactly(
+      sinon.match({
+        type: "WIDGET_TAB_DRAG_END",
+        id: "t1",
+        target: {
+          type: "floatingWidget",
+        },
+      })
+    ).should.true;
   });
 
   it("should dispatch WIDGET_TAB_DRAG_END with tab end target", () => {
     const dragManager = React.createRef<DragManager>();
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
-    state = addTab(state, "t1", { label: "tab 1", preferredFloatingWidgetSize: { width: 33, height: 33 } });
+    state = addTab(state, "t1", {
+      label: "tab 1",
+      preferredFloatingWidgetSize: { width: 33, height: 33 },
+    });
     state = addPanelWidget(state, "left", "leftEnd", ["t1"]);
     state = produce(state, (draft) => {
       draft.draggedTab = createDraggedTabState("t1", {
@@ -147,7 +157,7 @@ describe("FloatingTab", () => {
         dragManagerRef={dragManager}
       >
         <FloatingTab />
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     act(() => {
       dragManager.current!.handleDragStart({
@@ -159,20 +169,26 @@ describe("FloatingTab", () => {
       });
       fireEvent.mouseUp(document);
     });
-    dispatch.calledOnceWithExactly(sinon.match({
-      type: "WIDGET_TAB_DRAG_END",
-      id: "t1",
-      target: {
-        type: "floatingWidget",
-      },
-    })).should.true;
+    dispatch.calledOnceWithExactly(
+      sinon.match({
+        type: "WIDGET_TAB_DRAG_END",
+        id: "t1",
+        target: {
+          type: "floatingWidget",
+        },
+      })
+    ).should.true;
   });
 
   it("should dispatch WIDGET_TAB_DRAG_END with floatingWidget target", () => {
     const dragManager = React.createRef<DragManager>();
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
-    state = addTab(state, "t1", { label: "tab 1", isFloatingStateWindowResizable: true, preferredFloatingWidgetSize: { width: 50, height: 50 } });
+    state = addTab(state, "t1", {
+      label: "tab 1",
+      isFloatingStateWindowResizable: true,
+      preferredFloatingWidgetSize: { width: 50, height: 50 },
+    });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = produce(state, (draft) => {
       draft.draggedTab = createDraggedTabState("t1", {
@@ -186,7 +202,7 @@ describe("FloatingTab", () => {
         dragManagerRef={dragManager}
       >
         <FloatingTab />
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     act(() => {
       dragManager.current!.handleDragStart({
@@ -203,13 +219,15 @@ describe("FloatingTab", () => {
       });
       fireEvent.mouseUp(document);
     });
-    dispatch.calledOnceWithExactly(sinon.match({
-      type: "WIDGET_TAB_DRAG_END",
-      id: "t1",
-      target: {
-        type: "tab",
-      },
-    })).should.true;
+    dispatch.calledOnceWithExactly(
+      sinon.match({
+        type: "WIDGET_TAB_DRAG_END",
+        id: "t1",
+        target: {
+          type: "tab",
+        },
+      })
+    ).should.true;
   });
 
   it("should dispatch WIDGET_TAB_DRAG_END with panel target", () => {
@@ -230,7 +248,7 @@ describe("FloatingTab", () => {
         dragManagerRef={dragManager}
       >
         <FloatingTab />
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     act(() => {
       dragManager.current!.handleDragStart({
@@ -247,13 +265,15 @@ describe("FloatingTab", () => {
       });
       fireEvent.mouseUp(document);
     });
-    dispatch.calledOnceWithExactly(sinon.match({
-      type: "WIDGET_TAB_DRAG_END",
-      id: "t1",
-      target: {
-        type: "panel",
-      },
-    })).should.true;
+    dispatch.calledOnceWithExactly(
+      sinon.match({
+        type: "WIDGET_TAB_DRAG_END",
+        id: "t1",
+        target: {
+          type: "panel",
+        },
+      })
+    ).should.true;
   });
 
   it("should dispatch WIDGET_TAB_DRAG_END with widget target", () => {
@@ -274,7 +294,7 @@ describe("FloatingTab", () => {
         dragManagerRef={dragManager}
       >
         <FloatingTab />
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     act(() => {
       dragManager.current!.handleDragStart({
@@ -292,15 +312,17 @@ describe("FloatingTab", () => {
       });
       fireEvent.mouseUp(document);
     });
-    sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
-      type: "WIDGET_TAB_DRAG_END",
-      id: "t1",
-      target: {
-        type: "section",
-        side: "right",
-        sectionIndex: 0,
-      },
-    }));
+    sinon.assert.calledOnceWithExactly(
+      dispatch,
+      sinon.match({
+        type: "WIDGET_TAB_DRAG_END",
+        id: "t1",
+        target: {
+          type: "section",
+          side: "right",
+          sectionIndex: 0,
+        },
+      })
+    );
   });
-
 });

@@ -1,14 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import { renderHook } from "@testing-library/react-hooks";
 import * as sinon from "sinon";
 import { useEventListener } from "../../../core-react/utils/hooks/useEventListener";
 
 describe("useEventListener", () => {
-
   it("should handle event on Window", () => {
     const mouseClickEvent = new MouseEvent("click", { bubbles: true });
 
@@ -39,7 +38,7 @@ describe("useEventListener", () => {
     const handler2 = sinon.spy();
     const addEventListenerSpy = sinon.spy(element, "addEventListener");
     const { rerender } = renderHook(() =>
-      useEventListener("click", handler1, element),
+      useEventListener("click", handler1, element)
     );
     const numberOfCalls = addEventListenerSpy.callCount;
     rerender(() => {

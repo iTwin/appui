@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
@@ -10,18 +10,22 @@ import { classesFromElement } from "../TestUtils";
 
 describe("<LoadingBar />", () => {
   it("renders correctly", () => {
-    const {container} = render(
-      <LoadingBar />,
-    );
+    const { container } = render(<LoadingBar />);
 
-    expect(classesFromElement(container.firstElementChild)).to.include("core-lb");
-    expect(container.querySelector<HTMLDivElement>(".lb-container")?.style).to.include({height: "4px"});
+    expect(classesFromElement(container.firstElementChild)).to.include(
+      "core-lb"
+    );
+    expect(
+      container.querySelector<HTMLDivElement>(".lb-container")?.style
+    ).to.include({ height: "4px" });
   });
 
   it("renders with percent correctly", () => {
-    const {container} = render (<LoadingBar percent={50} />);
+    const { container } = render(<LoadingBar percent={50} />);
 
-    expect(container.querySelector<HTMLDivElement>(".fill")?.style).to.include({width: "50%"});
+    expect(container.querySelector<HTMLDivElement>(".fill")?.style).to.include({
+      width: "50%",
+    });
   });
 
   it("renders with percent and show correctly", () => {
@@ -31,9 +35,12 @@ describe("<LoadingBar />", () => {
   });
 
   it("renders with percent, show and bar height correctly", () => {
-    const {container} = render(<LoadingBar percent={50} showPercentage={true} barHeight={10} />);
+    const { container } = render(
+      <LoadingBar percent={50} showPercentage={true} barHeight={10} />
+    );
 
-    expect(container.querySelector<HTMLDivElement>(".lb-container")?.style).to.include({height: "10px"});
+    expect(
+      container.querySelector<HTMLDivElement>(".lb-container")?.style
+    ).to.include({ height: "10px" });
   });
-
 });

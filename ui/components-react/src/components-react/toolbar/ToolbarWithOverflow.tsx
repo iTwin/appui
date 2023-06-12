@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -10,11 +10,16 @@ import "./Toolbar.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type {
-  ActionButton, CommonToolbarItem, CustomButtonDefinition,
-  GroupButton, OnItemExecutedFunc,
+  ActionButton,
+  CommonToolbarItem,
+  CustomButtonDefinition,
+  GroupButton,
+  OnItemExecutedFunc,
 } from "@itwin/appui-abstract";
 import {
-  ConditionalBooleanValue, ConditionalStringValue, ToolbarItemUtilities,
+  ConditionalBooleanValue,
+  ConditionalStringValue,
+  ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
 import { BadgeUtilities, Icon, IconHelper, useRefs } from "@itwin/core-react";
@@ -26,7 +31,12 @@ import { ToolbarOverflowPanel } from "./OverflowPanel";
 import { PopupItem } from "./PopupItem";
 import { PopupItemsPanel } from "./PopupItemsPanel";
 import { PopupItemWithDrag } from "./PopupItemWithDrag";
-import { Direction, DirectionHelpers, OrthogonalDirection, OrthogonalDirectionHelpers } from "./utilities/Direction";
+import {
+  Direction,
+  DirectionHelpers,
+  OrthogonalDirection,
+  OrthogonalDirectionHelpers,
+} from "./utilities/Direction";
 import { UiComponents } from "../UiComponents";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
@@ -46,7 +56,6 @@ export interface CustomToolbarItem extends CustomButtonDefinition {
  * Context used by Toolbar items to know if popup panel should be hidden - via AutoHide.
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const ToolbarPopupAutoHideContext = React.createContext<boolean>(false);
 
 /**
@@ -66,13 +75,20 @@ export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem; // esl
 /** CustomToolbarItem type guard.
  * @internal
  */
-export function isCustomToolbarItem(item: ToolbarItem): item is CustomToolbarItem { // eslint-disable-line deprecation/deprecation
-  return !!(item as CustomToolbarItem).isCustom && ("panelContentNode" in item); // eslint-disable-line deprecation/deprecation
+export function isCustomToolbarItem(
+  // eslint-disable-next-line deprecation/deprecation
+  item: ToolbarItem
+  // eslint-disable-next-line deprecation/deprecation
+): item is CustomToolbarItem {
+  return !!(item as CustomToolbarItem).isCustom && "panelContentNode" in item; // eslint-disable-line deprecation/deprecation
 }
 
 /** @internal */
-export const getToolbarDirection = (expandsTo: Direction): OrthogonalDirection => {
-  const orthogonalDirection = DirectionHelpers.getOrthogonalDirection(expandsTo);
+export const getToolbarDirection = (
+  expandsTo: Direction
+): OrthogonalDirection => {
+  const orthogonalDirection =
+    DirectionHelpers.getOrthogonalDirection(expandsTo);
   return OrthogonalDirectionHelpers.inverse(orthogonalDirection);
 };
 
@@ -136,56 +152,111 @@ export interface ToolbarOverflowContextProps {
  * Context used by Toolbar component to provide Direction to child components.
  * @internal
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export const ToolbarWithOverflowDirectionContext = React.createContext<ToolbarOverflowContextProps>({
-  expandsTo: Direction.Bottom,
-  direction: OrthogonalDirection.Horizontal,
-  overflowExpandsTo: Direction.Right,
-  overflowDirection: OrthogonalDirection.Vertical,
-  panelAlignment: ToolbarPanelAlignment.Start,
-  useDragInteraction: false,
-  toolbarOpacitySetting: ToolbarOpacitySetting.Proximity,
-  openPopupCount: 0,
-  onPopupPanelOpenClose: /* istanbul ignore next */ (_isOpening: boolean) => { },
-  overflowDisplayActive: false,
-  onItemExecuted: /* istanbul ignore next */ (_item: any) => void {},
-  onKeyDown: /* istanbul ignore next */ (_e: React.KeyboardEvent) => void {},
-});
+export const ToolbarWithOverflowDirectionContext =
+  React.createContext<ToolbarOverflowContextProps>({
+    expandsTo: Direction.Bottom,
+    direction: OrthogonalDirection.Horizontal,
+    overflowExpandsTo: Direction.Right,
+    overflowDirection: OrthogonalDirection.Vertical,
+    panelAlignment: ToolbarPanelAlignment.Start,
+    useDragInteraction: false,
+    toolbarOpacitySetting: ToolbarOpacitySetting.Proximity,
+    openPopupCount: 0,
+    onPopupPanelOpenClose: /* istanbul ignore next */ (
+      _isOpening: boolean
+    ) => {},
+    overflowDisplayActive: false,
+    onItemExecuted: /* istanbul ignore next */ (_item: any) => void {},
+    onKeyDown: /* istanbul ignore next */ (_e: React.KeyboardEvent) => void {},
+  });
 
 /** @internal */
-function CustomItem({ item, addGroupSeparator }: { item: CustomToolbarItem, addGroupSeparator: boolean }) { // eslint-disable-line deprecation/deprecation
+function CustomItem({
+  item,
+  addGroupSeparator,
+}: {
+  // eslint-disable-next-line deprecation/deprecation
+  item: CustomToolbarItem;
+  addGroupSeparator: boolean;
+}) {
   const { useDragInteraction } = useToolbarWithOverflowDirectionContext();
-  const icon = React.useMemo(() => (item.icon &&
-    IconHelper.getIconReactNode(item.icon, item.internalData)) || /* istanbul ignore next */
-    <Icon className="icon" iconSpec={<SvgPlaceholder />} />, [item.icon, item.internalData]);
-  const isDisabled = React.useMemo(() => ConditionalBooleanValue.getValue(item.isDisabled), [item.isDisabled]);
-  const title = React.useMemo(() => /* istanbul ignore next */ ConditionalStringValue.getValue(item.label) ?? item.id, [item.id, item.label]);
-  const badge = React.useMemo(() => BadgeUtilities.getComponentForBadgeType(item.badgeType), [item.badgeType]);
+  const icon = React.useMemo(
+    () =>
+      (item.icon &&
+        IconHelper.getIconReactNode(item.icon, item.internalData)) || (
+        // istanbul ignore next
+        <Icon className="icon" iconSpec={<SvgPlaceholder />} />
+      ),
+    [item.icon, item.internalData]
+  );
+  const isDisabled = React.useMemo(
+    () => ConditionalBooleanValue.getValue(item.isDisabled),
+    [item.isDisabled]
+  );
+  const title = React.useMemo(
+    () =>
+      /* istanbul ignore next */ ConditionalStringValue.getValue(item.label) ??
+      item.id,
+    [item.id, item.label]
+  );
+  const badge = React.useMemo(
+    () => BadgeUtilities.getComponentForBadgeType(item.badgeType),
+    [item.badgeType]
+  );
 
-  return <PopupItem
-    key={item.id}
-    itemId={item.id}
-    icon={icon}
-    isDisabled={isDisabled}
-    title={title}
-    panel={item.panelContentNode}
-    hideIndicator={useDragInteraction}
-    badge={badge}
-    addGroupSeparator={addGroupSeparator}
-    keepContentsMounted={item.keepContentsLoaded}
-  />;
+  return (
+    <PopupItem
+      key={item.id}
+      itemId={item.id}
+      icon={icon}
+      isDisabled={isDisabled}
+      title={title}
+      panel={item.panelContentNode}
+      hideIndicator={useDragInteraction}
+      badge={badge}
+      addGroupSeparator={addGroupSeparator}
+      keepContentsMounted={item.keepContentsLoaded}
+    />
+  );
 }
 
 /** @internal */
-function GroupPopupItem({ item, addGroupSeparator }: { item: GroupButton, addGroupSeparator: boolean }) {
+function GroupPopupItem({
+  item,
+  addGroupSeparator,
+}: {
+  item: GroupButton;
+  addGroupSeparator: boolean;
+}) {
   const { useDragInteraction } = useToolbarWithOverflowDirectionContext();
   const title = ConditionalStringValue.getValue(item.label)!;
   const badge = BadgeUtilities.getComponentForBadgeType(item.badgeType);
-  const panel = React.useMemo(() => <PopupItemsPanel groupItem={item} activateOnPointerUp={false} />, [item]);
+  const panel = React.useMemo(
+    () => <PopupItemsPanel groupItem={item} activateOnPointerUp={false} />,
+    [item]
+  );
   // istanbul ignore next
-  const providerId = "providerId" in item ? item.providerId as string : undefined;
+  const providerId =
+    "providerId" in item ? (item.providerId as string) : undefined;
   if (useDragInteraction) {
-    return <PopupItemWithDrag
+    return (
+      <PopupItemWithDrag
+        key={item.id}
+        itemId={item.id}
+        providerId={providerId}
+        itemPriority={item.itemPriority}
+        groupPriority={item.groupPriority}
+        icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
+        isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
+        title={title}
+        groupItem={item}
+        badge={badge}
+        addGroupSeparator={addGroupSeparator}
+      />
+    );
+  }
+  return (
+    <PopupItem
       key={item.id}
       itemId={item.id}
       providerId={providerId}
@@ -194,29 +265,22 @@ function GroupPopupItem({ item, addGroupSeparator }: { item: GroupButton, addGro
       icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       title={title}
-      groupItem={item}
+      panel={panel}
       badge={badge}
+      hideIndicator={useDragInteraction}
       addGroupSeparator={addGroupSeparator}
-    />;
-  }
-  return <PopupItem
-    key={item.id}
-    itemId={item.id}
-    providerId={providerId}
-    itemPriority={item.itemPriority}
-    groupPriority={item.groupPriority}
-    icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
-    isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
-    title={title}
-    panel={panel}
-    badge={badge}
-    hideIndicator={useDragInteraction}
-    addGroupSeparator={addGroupSeparator}
-  />;
+    />
+  );
 }
 
 /** @internal */
-function ActionItem({ item, addGroupSeparator }: { item: ActionButton, addGroupSeparator: boolean }) {
+function ActionItem({
+  item,
+  addGroupSeparator,
+}: {
+  item: ActionButton;
+  addGroupSeparator: boolean;
+}) {
   const title = ConditionalStringValue.getValue(item.label)!;
   const badge = BadgeUtilities.getComponentForBadgeType(item.badgeType);
   const { onItemExecuted } = useToolbarWithOverflowDirectionContext();
@@ -226,25 +290,35 @@ function ActionItem({ item, addGroupSeparator }: { item: ActionButton, addGroupS
   }, [item, onItemExecuted]);
 
   // istanbul ignore next
-  const providerId = "providerId" in item ? item.providerId as string : undefined;
-  return <ToolbarButtonItem
-    itemId={item.id}
-    providerId={providerId}
-    itemPriority={item.itemPriority}
-    groupPriority={item.groupPriority}
-    key={item.id}
-    isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
-    title={title}
-    icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
-    isActive={item.isActive}
-    onClick={onExecute}
-    badge={badge}
-    addGroupSeparator={addGroupSeparator}
-  />;
+  const providerId =
+    "providerId" in item ? (item.providerId as string) : undefined;
+  return (
+    <ToolbarButtonItem
+      itemId={item.id}
+      providerId={providerId}
+      itemPriority={item.itemPriority}
+      groupPriority={item.groupPriority}
+      key={item.id}
+      isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
+      title={title}
+      icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
+      isActive={item.isActive}
+      onClick={onExecute}
+      badge={badge}
+      addGroupSeparator={addGroupSeparator}
+    />
+  );
 }
 
 /** @internal */
-export function ToolbarItemComponent({ item, addGroupSeparator }: { item: ToolbarItem, addGroupSeparator: boolean }) { // eslint-disable-line deprecation/deprecation
+export function ToolbarItemComponent({
+  item,
+  addGroupSeparator,
+}: {
+  // eslint-disable-next-line deprecation/deprecation
+  item: ToolbarItem;
+  addGroupSeparator: boolean;
+}) {
   if (ToolbarItemUtilities.isGroupButton(item)) {
     return <GroupPopupItem item={item} addGroupSeparator={addGroupSeparator} />;
   } else if (isCustomToolbarItem(item)) {
@@ -304,14 +378,20 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
  * @public
  * @deprecated in 4.0. Use [ToolbarWithOverflow]($appui-react) instead.
  */
-export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) { // eslint-disable-line deprecation/deprecation
+// eslint-disable-next-line deprecation/deprecation
+export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
   const expandsTo = props.expandsTo ? props.expandsTo : Direction.Bottom;
   const useDragInteraction = !!props.useDragInteraction;
-  const panelAlignment = props.panelAlignment ? props.panelAlignment : ToolbarPanelAlignment.Start;
-  const useHeight = (expandsTo === Direction.Right || expandsTo === Direction.Left);
+  const panelAlignment = props.panelAlignment
+    ? props.panelAlignment
+    : ToolbarPanelAlignment.Start;
+  const useHeight =
+    expandsTo === Direction.Right || expandsTo === Direction.Left;
   const [isOverflowPanelOpen, setIsOverflowPanelOpen] = React.useState(false);
   const [popupPanelCount, setPopupPanelCount] = React.useState(0);
-  const overflowTitle = React.useRef(UiComponents.translate("toolbar.overflow"));
+  const overflowTitle = React.useRef(
+    UiComponents.translate("toolbar.overflow")
+  );
   const isMounted = React.useRef(false);
   React.useEffect(() => {
     isMounted.current = true;
@@ -323,13 +403,10 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) { // eslint
     // use setTimeout to avoid warning about setting state in ToolbarWithOverflow from render method of PopupItem/PopupItemWithDrag
     setTimeout(() => {
       // istanbul ignore next
-      if (!isMounted.current)
-        return;
+      if (!isMounted.current) return;
       setPopupPanelCount((prev) => {
         /* istanbul ignore next */
-        const nextCount = isOpening ? (prev + 1) : (prev - 1);
-        // eslint-disable-next-line no-console
-        // console.log(`new popup count = ${nextCount}`);
+        const nextCount = isOpening ? prev + 1 : prev - 1;
         return nextCount < 0 ? /* istanbul ignore next */ 0 : nextCount;
       });
     });
@@ -341,7 +418,8 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) { // eslint
     return props.items.map((item, index) => {
       let addGroupSeparator = false;
       if (index > 0)
-        addGroupSeparator = item.groupPriority !== props.items[index - 1].groupPriority;
+        addGroupSeparator =
+          item.groupPriority !== props.items[index - 1].groupPriority;
       return (
         <ToolbarItemComponent
           key={item.id}
@@ -355,13 +433,24 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) { // eslint
    * handleContainerResize - handler called when container <div> is resized.
    * handleOverflowResize - handler called when determining size of overflow indicator/button.
    * handleEntryResize - handler called when determining size of each item/button.  */
-  const [overflowItemKeys, handleContainerResize, handleOverflowResize, handleEntryResize] = useOverflow(availableNodes, panelAlignment === ToolbarPanelAlignment.End);
+  const [
+    overflowItemKeys,
+    handleContainerResize,
+    handleOverflowResize,
+    handleEntryResize,
+  ] = useOverflow(availableNodes, panelAlignment === ToolbarPanelAlignment.End);
   // handler called by ResizeObserver
-  const handleResize = React.useCallback((w: number) => {
-    width.current = w;
-    width.current !== undefined && handleContainerResize(width.current);
-  }, [handleContainerResize]);
-  const resizeObserverRef = useResizeObserverSingleDimension(handleResize, useHeight);
+  const handleResize = React.useCallback(
+    (w: number) => {
+      width.current = w;
+      width.current !== undefined && handleContainerResize(width.current);
+    },
+    [handleContainerResize]
+  );
+  const resizeObserverRef = useResizeObserverSingleDimension(
+    handleResize,
+    useHeight
+  );
   const handleClick = React.useCallback(() => {
     setIsOverflowPanelOpen((prev) => !prev);
   }, []);
@@ -372,7 +461,9 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) { // eslint
 
   const refs = useRefs(ref, resizeObserverRef);
   const availableItems = React.Children.toArray(availableNodes);
-  const displayedItems = availableItems.reduce<Array<[string, React.ReactNode]>>((acc, child, index) => {
+  const displayedItems = availableItems.reduce<
+    Array<[string, React.ReactNode]>
+  >((acc, child, index) => {
     const key = getChildKey(child, index);
     if (!overflowItemKeys || overflowItemKeys.indexOf(key) < 0) {
       acc.push([key, child]);
@@ -380,77 +471,120 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) { // eslint
     return acc;
   }, []);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const overflowPanelItems = overflowItemKeys ? availableItems.reduce<Array<[string, React.ReactNode]>>((acc, child, index) => {
-    const key = getChildKey(child, index);
-    if (overflowItemKeys.indexOf(key) >= 0) {
-      acc.push([key, child]);
-    }
-    return acc;
-  }, []) : [];
+  const overflowPanelItems = overflowItemKeys
+    ? availableItems.reduce<Array<[string, React.ReactNode]>>(
+        (acc, child, index) => {
+          const key = getChildKey(child, index);
+          if (overflowItemKeys.indexOf(key) >= 0) {
+            acc.push([key, child]);
+          }
+          return acc;
+        },
+        []
+      )
+    : [];
 
   const direction = getToolbarDirection(expandsTo);
-  const overflowExpandsTo = undefined !== props.overflowExpandsTo ? props.overflowExpandsTo : Direction.Right;
-  const addOverflowButton = React.useCallback((atStart: boolean) => {
-    const overflowItems = !!atStart ? overflowPanelItems.reverse() : overflowPanelItems;
-    return (<ToolbarItemContext.Provider
-      value={{
-        hasOverflow: false,
-        useHeight,
-        onResize: handleOverflowResize,
-      }}
-    >
-      <ToolbarOverflowButton
-        expandsTo={expandsTo}
-        onClick={handleClick}
-        onClose={handleClose}
-        open={overflowItems.length > 0 && isOverflowPanelOpen}
-        panelNode={
-          <ToolbarOverflowPanel>
-            <OverflowItemsContainer>
-              {overflowItems.map(([key, child]) => {
-                return (
-                  <ToolbarItemContext.Provider
-                    key={key}
-                    value={{
-                      hasOverflow: true,
-                      useHeight,
-                      onResize: () => { },
-                    }}
-                  >
-                    {<ItemWrapper className={getItemWrapperClass(child)}>{child}</ItemWrapper>}
-                  </ToolbarItemContext.Provider>
-                );
-              })}
-            </OverflowItemsContainer>
-          </ToolbarOverflowPanel>
-        }
-        title={overflowTitle.current}
-      />
-    </ToolbarItemContext.Provider>);
-  }, [handleClick, handleClose, handleOverflowResize, isOverflowPanelOpen, expandsTo, overflowPanelItems, useHeight]);
+  const overflowExpandsTo =
+    undefined !== props.overflowExpandsTo
+      ? props.overflowExpandsTo
+      : Direction.Right;
+  const addOverflowButton = React.useCallback(
+    (atStart: boolean) => {
+      const overflowItems = !!atStart
+        ? overflowPanelItems.reverse()
+        : overflowPanelItems;
+      return (
+        <ToolbarItemContext.Provider
+          value={{
+            hasOverflow: false,
+            useHeight,
+            onResize: handleOverflowResize,
+          }}
+        >
+          <ToolbarOverflowButton
+            expandsTo={expandsTo}
+            onClick={handleClick}
+            onClose={handleClose}
+            open={overflowItems.length > 0 && isOverflowPanelOpen}
+            panelNode={
+              <ToolbarOverflowPanel>
+                <OverflowItemsContainer>
+                  {overflowItems.map(([key, child]) => {
+                    return (
+                      <ToolbarItemContext.Provider
+                        key={key}
+                        value={{
+                          hasOverflow: true,
+                          useHeight,
+                          onResize: () => {},
+                        }}
+                      >
+                        {
+                          <ItemWrapper className={getItemWrapperClass(child)}>
+                            {child}
+                          </ItemWrapper>
+                        }
+                      </ToolbarItemContext.Provider>
+                    );
+                  })}
+                </OverflowItemsContainer>
+              </ToolbarOverflowPanel>
+            }
+            title={overflowTitle.current}
+          />
+        </ToolbarItemContext.Provider>
+      );
+    },
+    [
+      handleClick,
+      handleClose,
+      handleOverflowResize,
+      isOverflowPanelOpen,
+      expandsTo,
+      overflowPanelItems,
+      useHeight,
+    ]
+  );
 
   const className = classnames(
     "components-toolbar-overflow-sizer",
     OrthogonalDirectionHelpers.getCssClassName(direction),
-    props.className);
+    props.className
+  );
 
-  const showOverflowAtStart = (direction === OrthogonalDirection.Horizontal) && (panelAlignment === ToolbarPanelAlignment.End);
+  const showOverflowAtStart =
+    direction === OrthogonalDirection.Horizontal &&
+    panelAlignment === ToolbarPanelAlignment.End;
   /* The ItemWrapper is used to wrap the <Item> <ExpandableItem> with a <div> that specifies a ref that the sizing logic uses to determine the
      size of the item. */
   return (
-    <ToolbarWithOverflowDirectionContext.Provider value={
-      {
-        expandsTo, direction, overflowExpandsTo, panelAlignment, useDragInteraction,
-        toolbarOpacitySetting: undefined !== props.toolbarOpacitySetting ? props.toolbarOpacitySetting : ToolbarOpacitySetting.Proximity,
-        overflowDirection: direction === OrthogonalDirection.Horizontal ? OrthogonalDirection.Vertical : OrthogonalDirection.Horizontal,
+    <ToolbarWithOverflowDirectionContext.Provider
+      value={{
+        expandsTo,
+        direction,
+        overflowExpandsTo,
+        panelAlignment,
+        useDragInteraction,
+        toolbarOpacitySetting:
+          undefined !== props.toolbarOpacitySetting
+            ? props.toolbarOpacitySetting
+            : ToolbarOpacitySetting.Proximity,
+        overflowDirection:
+          direction === OrthogonalDirection.Horizontal
+            ? OrthogonalDirection.Vertical
+            : OrthogonalDirection.Horizontal,
         openPopupCount: popupPanelCount,
         onPopupPanelOpenClose: handlePopupPanelOpenClose,
-        overflowDisplayActive: overflowPanelItems.length > 0 && isOverflowPanelOpen,
-        onItemExecuted: props.onItemExecuted ? props.onItemExecuted : () => { },
-        onKeyDown: props.onKeyDown ? props.onKeyDown : /* istanbul ignore next */ (_e: React.KeyboardEvent) => { },
-      }
-    }>
-      {(availableItems.length > 0) &&
+        overflowDisplayActive:
+          overflowPanelItems.length > 0 && isOverflowPanelOpen,
+        onItemExecuted: props.onItemExecuted ? props.onItemExecuted : () => {},
+        onKeyDown: props.onKeyDown
+          ? props.onKeyDown
+          : /* istanbul ignore next */ (_e: React.KeyboardEvent) => {},
+      }}
+    >
+      {availableItems.length > 0 && (
         <div
           className={className}
           ref={refs}
@@ -458,11 +592,10 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) { // eslint
           onKeyDown={props.onKeyDown}
           role="presentation"
         >
-          <ToolbarItems
-            className="components-items"
-            direction={direction}
-          >
-            {(!overflowItemKeys || overflowItemKeys.length > 0) && showOverflowAtStart && addOverflowButton(true)}
+          <ToolbarItems className="components-items" direction={direction}>
+            {(!overflowItemKeys || overflowItemKeys.length > 0) &&
+              showOverflowAtStart &&
+              addOverflowButton(true)}
             {displayedItems.map(([key, child]) => {
               const onEntryResize = handleEntryResize(key);
               return (
@@ -474,16 +607,21 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) { // eslint
                     onResize: onEntryResize,
                   }}
                 >
-                  {<ItemWrapper className={getItemWrapperClass(child)}>{child}</ItemWrapper>}
+                  {
+                    <ItemWrapper className={getItemWrapperClass(child)}>
+                      {child}
+                    </ItemWrapper>
+                  }
                 </ToolbarItemContext.Provider>
               );
             })}
-            {(!overflowItemKeys || overflowItemKeys.length > 0) && !showOverflowAtStart && addOverflowButton(false)}
-
+            {(!overflowItemKeys || overflowItemKeys.length > 0) &&
+              !showOverflowAtStart &&
+              addOverflowButton(false)}
           </ToolbarItems>
         </div>
-      }
-    </ToolbarWithOverflowDirectionContext.Provider >
+      )}
+    </ToolbarWithOverflowDirectionContext.Provider>
   );
 }
 
@@ -502,7 +640,12 @@ function getChildKey(child: React.ReactNode, index: number) {
 /** Returns a subset of toolbar item entry keys that exceed given width and should be overflowItemKeys.
  * @internal
  */
-function determineOverflowItems(size: number, entries: ReadonlyArray<readonly [string, number]>, overflowButtonSize: number, overflowButtonAtStart: boolean): string[] {
+function determineOverflowItems(
+  size: number,
+  entries: ReadonlyArray<readonly [string, number]>,
+  overflowButtonSize: number,
+  overflowButtonAtStart: boolean
+): string[] {
   let toolbarSize = 0;
   const buttonPadding = 2;
   if (overflowButtonAtStart && entries.length > 0) {
@@ -511,7 +654,7 @@ function determineOverflowItems(size: number, entries: ReadonlyArray<readonly [s
       const w = entries[i][1] + buttonPadding;
       const newSettingsWidth = toolbarSize + w;
       if (newSettingsWidth > size) {
-        toolbarSize += (overflowButtonSize + buttonPadding);
+        toolbarSize += overflowButtonSize + buttonPadding;
         break;
       }
       toolbarSize = newSettingsWidth;
@@ -519,8 +662,7 @@ function determineOverflowItems(size: number, entries: ReadonlyArray<readonly [s
     if (i >= 0) {
       let j = i + 1;
       for (; j < entries.length; j++) {
-        if (toolbarSize <= size)
-          break;
+        if (toolbarSize <= size) break;
         const w = entries[j][1] + buttonPadding;
         toolbarSize -= w;
       }
@@ -535,15 +677,14 @@ function determineOverflowItems(size: number, entries: ReadonlyArray<readonly [s
       const w = entries[i][1] + buttonPadding;
       const newSettingsWidth = toolbarSize + w;
       if (newSettingsWidth > size) {
-        toolbarSize += (overflowButtonSize + buttonPadding);
+        toolbarSize += overflowButtonSize + buttonPadding;
         break;
       }
       toolbarSize = newSettingsWidth;
     }
     let j = i;
     for (; j > 0; j--) {
-      if (toolbarSize <= size)
-        break;
+      if (toolbarSize <= size) break;
       const w = entries[j][1] + buttonPadding;
       toolbarSize -= w;
     }
@@ -555,28 +696,39 @@ function determineOverflowItems(size: number, entries: ReadonlyArray<readonly [s
 /** Hook that returns a list of overflowItemKeys availableItems.
  * @internal
  */
-function useOverflow(availableItems: React.ReactNode, overflowButtonAtStart: boolean): [
+function useOverflow(
+  availableItems: React.ReactNode,
+  overflowButtonAtStart: boolean
+): [
   ReadonlyArray<string> | undefined,
   (size: number) => void,
   (size: number) => void,
-  (key: string) => (size: number) => void,
+  (key: string) => (size: number) => void
 ] {
-  const [overflowItemKeys, setOverflown] = React.useState<ReadonlyArray<string>>();
+  const [overflowItemKeys, setOverflown] =
+    React.useState<ReadonlyArray<string>>();
   const itemSizes = React.useRef(new Map<string, number | undefined>());
   const size = React.useRef<number | undefined>(undefined);
   const overflowButtonSize = React.useRef<number | undefined>(undefined);
 
   const calculateOverflow = React.useCallback(() => {
     const sizes = verifiedMapEntries(itemSizes.current);
-    if (size.current === undefined ||
+    if (
+      size.current === undefined ||
       sizes === undefined ||
-      overflowButtonSize.current === undefined) {
+      overflowButtonSize.current === undefined
+    ) {
       setOverflown(undefined);
       return;
     }
 
     // Calculate overflow.
-    const newOverflown = determineOverflowItems(size.current, [...sizes.entries()], overflowButtonSize.current, overflowButtonAtStart);
+    const newOverflown = determineOverflowItems(
+      size.current,
+      [...sizes.entries()],
+      overflowButtonSize.current,
+      overflowButtonAtStart
+    );
     setOverflown((prevOverflown) => {
       return eql(prevOverflown, newOverflown) ? prevOverflown : newOverflown;
     });
@@ -595,27 +747,41 @@ function useOverflow(availableItems: React.ReactNode, overflowButtonAtStart: boo
     calculateOverflow();
   }, [availableItems, calculateOverflow]);
 
-  const handleContainerResize = React.useCallback((w: number) => {
-    const calculate = size.current !== w;
-    size.current = w;
-    calculate && calculateOverflow();
-  }, [calculateOverflow]);
+  const handleContainerResize = React.useCallback(
+    (w: number) => {
+      const calculate = size.current !== w;
+      size.current = w;
+      calculate && calculateOverflow();
+    },
+    [calculateOverflow]
+  );
 
-  const handleOverflowResize = React.useCallback((w: number) => {
-    const calculate = overflowButtonSize.current !== w;
-    overflowButtonSize.current = w;
-    calculate && calculateOverflow();
-  }, [calculateOverflow]);
+  const handleOverflowResize = React.useCallback(
+    (w: number) => {
+      const calculate = overflowButtonSize.current !== w;
+      overflowButtonSize.current = w;
+      calculate && calculateOverflow();
+    },
+    [calculateOverflow]
+  );
 
-  const handleEntryResize = React.useCallback((key: string) => (w: number) => {
-    const oldW = itemSizes.current.get(key);
-    if (oldW !== w) {
-      itemSizes.current.set(key, w);
-      calculateOverflow();
-    }
-  }, [calculateOverflow]);
+  const handleEntryResize = React.useCallback(
+    (key: string) => (w: number) => {
+      const oldW = itemSizes.current.get(key);
+      if (oldW !== w) {
+        itemSizes.current.set(key, w);
+        calculateOverflow();
+      }
+    },
+    [calculateOverflow]
+  );
 
-  return [overflowItemKeys, handleContainerResize, handleOverflowResize, handleEntryResize];
+  return [
+    overflowItemKeys,
+    handleContainerResize,
+    handleOverflowResize,
+    handleEntryResize,
+  ];
 }
 
 /** Interface toolbars use to define context for its items.
@@ -630,8 +796,9 @@ export interface ToolbarItemContextArgs {
 /** Interface toolbars use to define context for its items.
  * @internal
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export const ToolbarItemContext = React.createContext<ToolbarItemContextArgs>(null!);
+export const ToolbarItemContext = React.createContext<ToolbarItemContextArgs>(
+  null!
+);
 
 /** @internal */
 export function useToolItemEntryContext() {
@@ -641,24 +808,20 @@ export function useToolItemEntryContext() {
 function verifiedMapEntries<T>(map: Map<string, T | undefined>) {
   for (const [, val] of map) {
     // istanbul ignore next  during unit testing
-    if (val === undefined)
-      return undefined;
+    if (val === undefined) return undefined;
   }
   return map as Map<string, T>;
 }
 
 function eql(prev: readonly string[] | undefined, value: readonly string[]) {
-  if (!prev)
-    return false;
+  if (!prev) return false;
   // istanbul ignore next
-  if (prev.length !== value.length)
-    return false;
+  if (prev.length !== value.length) return false;
   for (let i = 0; i < prev.length; i++) {
     const p = prev[i];
     const v = value[i];
     // istanbul ignore next
-    if (p !== v)
-      return false;
+    if (p !== v) return false;
   }
   return true;
 }

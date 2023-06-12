@@ -1,20 +1,27 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-import type { ASTPath, CallExpression, Collection, Identifier, JSCodeshift, MemberExpression } from "jscodeshift";
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import type {
+  ASTPath,
+  CallExpression,
+  Collection,
+  Identifier,
+  JSCodeshift,
+  MemberExpression,
+} from "jscodeshift";
 import { usePlugin } from "./usePlugin";
 
 declare module "jscodeshift/src/collection" {
-  interface Collection<N> extends GlobalMethods {
-  }
+  interface Collection<N> extends GlobalMethods {}
 }
 
 interface GlobalMethods {
   findCallExpressions(name?: string): CallExpressionCollection;
 }
 
-type CallExpressionCollection = Collection<CallExpression> & CallExpressionMethods;
+type CallExpressionCollection = Collection<CallExpression> &
+  CallExpressionMethods;
 
 interface CallExpressionMethods {
   getArguments<N = any>(index: number, filter?: ArgumentsFilter): Collection<N>;
@@ -30,16 +37,14 @@ function callExpressionPlugin(j: JSCodeshift) {
         const expression = toExpressionName(expr);
         return expression === name;
       }) as CallExpressionCollection;
-    }
+    },
   };
   const methods: CallExpressionMethods = {
     getArguments(this: CallExpressionCollection, index, filter) {
       return this.map((path) => {
         const arg = path.value.arguments[index];
-        if (arg === undefined)
-          return undefined;
-        if (filter && !filter(arg))
-          return undefined;
+        if (arg === undefined) return undefined;
+        if (filter && !filter(arg)) return undefined;
         return j(arg).paths();
       });
     },
@@ -48,7 +53,7 @@ function callExpressionPlugin(j: JSCodeshift) {
       return this.forEach((path) => {
         path.value.callee = callee;
       });
-    }
+    },
   };
   j.registerMethods(globalMethods);
   j.registerMethods(methods, j.CallExpression);
@@ -58,7 +63,9 @@ export function useCallExpression(j: JSCodeshift) {
   usePlugin(j, callExpressionPlugin);
 }
 
-export function toExpressionName(expression: CallExpression | MemberExpression | Identifier) {
+export function toExpressionName(
+  expression: CallExpression | MemberExpression | Identifier
+) {
   let name = "";
   let kind: MemberExpression["object"] = expression;
   while (kind) {
@@ -70,8 +77,11 @@ export function toExpressionName(expression: CallExpression | MemberExpression |
       kind = kind.callee;
       continue;
     }
-    if (kind.type === "MemberExpression" && kind.property.type === "Identifier") {
-      name = `.${kind.property.name}${name}`
+    if (
+      kind.type === "MemberExpression" &&
+      kind.property.type === "Identifier"
+    ) {
+      name = `.${kind.property.name}${name}`;
       kind = kind.object;
       continue;
     }
@@ -80,7 +90,10 @@ export function toExpressionName(expression: CallExpression | MemberExpression |
   return name;
 }
 
-export function toExpression(j: JSCodeshift, name: string): MemberExpression | Identifier {
+export function toExpression(
+  j: JSCodeshift,
+  name: string
+): MemberExpression | Identifier {
   const parts = name.split(".");
   if (parts.length === 1) {
     return j.identifier(parts[0]);
@@ -99,8 +112,7 @@ export function isRootIdentifier(j: JSCodeshift, path: ASTPath<Identifier>) {
   while (currPath) {
     const currValue = currPath.value;
     if (currValue.type === "MemberExpression") {
-      if (currValue.object === prevPath.value)
-        return true;
+      if (currValue.object === prevPath.value) return true;
       return false;
     } else if (currValue.type === "CallExpression") {
       prevPath = currPath;

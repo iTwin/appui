@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 /** @packageDocumentation
  * @module PropertyGrid
@@ -9,16 +9,24 @@
 
 import React from "react";
 import { DelayedSpinner } from "../../common/DelayedSpinner";
-import { usePropertyGridEventHandler, usePropertyGridModel, usePropertyGridModelSource } from "../internal/PropertyGridHooks";
+import {
+  usePropertyGridEventHandler,
+  usePropertyGridModel,
+  usePropertyGridModelSource,
+} from "../internal/PropertyGridHooks";
 import type { PropertyCategoryRendererManager } from "../PropertyCategoryRendererManager";
 import type { IPropertyDataProvider } from "../PropertyDataProvider";
-import type { CommonPropertyGridProps, PropertyGridContentHighlightProps } from "./PropertyGridCommons";
+import type {
+  CommonPropertyGridProps,
+  PropertyGridContentHighlightProps,
+} from "./PropertyGridCommons";
 import { VirtualizedPropertyGrid } from "./VirtualizedPropertyGrid";
 
 /** Properties for [[VirtualizedPropertyGridWithDataProvider]] React component
  * @public
  */
-export interface VirtualizedPropertyGridWithDataProviderProps extends CommonPropertyGridProps {
+export interface VirtualizedPropertyGridWithDataProviderProps
+  extends CommonPropertyGridProps {
   /** Property data provider used by the property grid */
   dataProvider: IPropertyDataProvider;
   /** Properties for highlighting property data in the grid. */
@@ -36,8 +44,12 @@ export interface VirtualizedPropertyGridWithDataProviderProps extends CommonProp
  * sets up default implementations for [[IPropertyGridModelSource]] and [[IPropertyGridEventHandler]]
  * @public
  */
-export function VirtualizedPropertyGridWithDataProvider(props: VirtualizedPropertyGridWithDataProviderProps) {
-  const modelSource = usePropertyGridModelSource({ dataProvider: props.dataProvider });
+export function VirtualizedPropertyGridWithDataProvider(
+  props: VirtualizedPropertyGridWithDataProviderProps
+) {
+  const modelSource = usePropertyGridModelSource({
+    dataProvider: props.dataProvider,
+  });
   const model = usePropertyGridModel({ modelSource });
   const eventHandler = usePropertyGridEventHandler({ modelSource });
 
@@ -49,5 +61,11 @@ export function VirtualizedPropertyGridWithDataProvider(props: VirtualizedProper
     );
   }
 
-  return (<VirtualizedPropertyGrid {...props} model={model} eventHandler={eventHandler} />);
+  return (
+    <VirtualizedPropertyGrid
+      {...props}
+      model={model}
+      eventHandler={eventHandler}
+    />
+  );
 }

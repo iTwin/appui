@@ -1,17 +1,20 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { FilteringInput, FilteringInputStatus } from "../../components-react/filtering/FilteringInput";
+import {
+  FilteringInput,
+  FilteringInputStatus,
+} from "../../components-react/filtering/FilteringInput";
 import TestUtils, { selectorMatches, userEvent } from "../TestUtils";
 
 describe("FilteringInput", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
   before(async () => {
@@ -22,10 +25,12 @@ describe("FilteringInput", () => {
     render(
       <FilteringInput
         status={FilteringInputStatus.ReadyToFilter}
-        onFilterCancel={() => { }}
-        onFilterClear={() => { }}
-        onFilterStart={() => { }}
-        resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }} />);
+        onFilterCancel={() => {}}
+        onFilterClear={() => {}}
+        onFilterStart={() => {}}
+        resultSelectorProps={{ onSelectedChanged: () => {}, resultCount: 0 }}
+      />
+    );
 
     expect(screen.getByRole("textbox")).to.exist;
     expect(screen.getByTestId("filter-input-search")).to.exist;
@@ -35,10 +40,12 @@ describe("FilteringInput", () => {
     render(
       <FilteringInput
         status={FilteringInputStatus.FilteringInProgress}
-        onFilterCancel={() => { }}
-        onFilterClear={() => { }}
-        onFilterStart={() => { }}
-        resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }} />);
+        onFilterCancel={() => {}}
+        onFilterClear={() => {}}
+        onFilterStart={() => {}}
+        resultSelectorProps={{ onSelectedChanged: () => {}, resultCount: 0 }}
+      />
+    );
     expect(screen.getByTestId("filter-input-close")).to.exist;
   });
 
@@ -46,11 +53,15 @@ describe("FilteringInput", () => {
     render(
       <FilteringInput
         status={FilteringInputStatus.FilteringFinished}
-        onFilterCancel={() => { }}
-        onFilterClear={() => { }}
-        onFilterStart={() => { }}
-        resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }} />);
-    expect(screen.getAllByRole("presentation")[1]).to.satisfy(selectorMatches(".components-result-selector-current-result"));
+        onFilterCancel={() => {}}
+        onFilterClear={() => {}}
+        onFilterStart={() => {}}
+        resultSelectorProps={{ onSelectedChanged: () => {}, resultCount: 0 }}
+      />
+    );
+    expect(screen.getAllByRole("presentation")[1]).to.satisfy(
+      selectorMatches(".components-result-selector-current-result")
+    );
     expect(screen.getByTestId("filter-input-close")).to.exist;
   });
 
@@ -58,10 +69,14 @@ describe("FilteringInput", () => {
     render(
       <FilteringInput
         status={FilteringInputStatus.FilteringFinished}
-        onFilterCancel={() => { }}
-        onFilterClear={() => { }}
-        onFilterStart={() => { }} />);
-    expect(screen.queryByRole("presentation")).to.not.satisfy(selectorMatches(".components-result-selector-current-result"));
+        onFilterCancel={() => {}}
+        onFilterClear={() => {}}
+        onFilterStart={() => {}}
+      />
+    );
+    expect(screen.queryByRole("presentation")).to.not.satisfy(
+      selectorMatches(".components-result-selector-current-result")
+    );
     expect(screen.getByTestId("filter-input-close")).to.exist;
   });
 
@@ -70,12 +85,16 @@ describe("FilteringInput", () => {
     render(
       <FilteringInput
         status={FilteringInputStatus.ReadyToFilter}
-        onFilterCancel={() => { }}
-        onFilterClear={() => { }}
+        onFilterCancel={() => {}}
+        onFilterClear={() => {}}
         onFilterStart={startCallback}
-        resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }} />);
+        resultSelectorProps={{ onSelectedChanged: () => {}, resultCount: 0 }}
+      />
+    );
 
-    await theUserTo.type(screen.getByRole("textbox"), "test{Backspace}", {skipAutoClose: true});
+    await theUserTo.type(screen.getByRole("textbox"), "test{Backspace}", {
+      skipAutoClose: true,
+    });
     expect(startCallback).to.not.be.called;
 
     await theUserTo.keyboard("[Enter]");
@@ -87,11 +106,15 @@ describe("FilteringInput", () => {
     render(
       <FilteringInput
         status={FilteringInputStatus.ReadyToFilter}
-        onFilterCancel={() => { }}
-        onFilterClear={() => { }}
-        onFilterStart={startCallback} />);
+        onFilterCancel={() => {}}
+        onFilterClear={() => {}}
+        onFilterStart={startCallback}
+      />
+    );
 
-    await theUserTo.type(screen.getByRole("textbox"), "{Enter}", {skipAutoClose: true});
+    await theUserTo.type(screen.getByRole("textbox"), "{Enter}", {
+      skipAutoClose: true,
+    });
     expect(startCallback).to.not.be.called;
 
     await theUserTo.click(screen.getByTitle("general.search"));
@@ -108,9 +131,13 @@ describe("FilteringInput", () => {
         status={FilteringInputStatus.ReadyToFilter}
         onFilterCancel={cancelCallback}
         onFilterClear={clearCallback}
-        onFilterStart={startCallback} />);
+        onFilterStart={startCallback}
+      />
+    );
 
-    await theUserTo.type(screen.getByRole("textbox"), "test", {skipAutoClose: true});
+    await theUserTo.type(screen.getByRole("textbox"), "test", {
+      skipAutoClose: true,
+    });
     await theUserTo.click(screen.getByTitle("general.search"));
     expect(startCallback).to.be.calledOnce;
 
@@ -119,7 +146,9 @@ describe("FilteringInput", () => {
         status={FilteringInputStatus.FilteringInProgress}
         onFilterCancel={cancelCallback}
         onFilterClear={clearCallback}
-        onFilterStart={startCallback} />);
+        onFilterStart={startCallback}
+      />
+    );
 
     await theUserTo.click(screen.getByTitle("dialog.cancel"));
     expect(cancelCallback).to.be.calledOnce;
@@ -127,10 +156,12 @@ describe("FilteringInput", () => {
     rerender(
       <FilteringInput
         status={FilteringInputStatus.FilteringFinished}
-        resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }}
+        resultSelectorProps={{ onSelectedChanged: () => {}, resultCount: 0 }}
         onFilterCancel={cancelCallback}
         onFilterClear={clearCallback}
-        onFilterStart={startCallback} />);
+        onFilterStart={startCallback}
+      />
+    );
 
     await theUserTo.click(screen.getByTitle("general.search"));
 
@@ -143,11 +174,15 @@ describe("FilteringInput", () => {
     const filteringInput = render(
       <FilteringInput
         onFilterCancel={cancelCallback}
-        onFilterClear={() => { }}
-        onFilterStart={() => { }}
-        status={FilteringInputStatus.ReadyToFilter} />);
+        onFilterClear={() => {}}
+        onFilterStart={() => {}}
+        status={FilteringInputStatus.ReadyToFilter}
+      />
+    );
 
-    const searchBar = filteringInput.container.querySelector('[class="components-filtering-input-input"]')?.firstChild;
+    const searchBar = filteringInput.container.querySelector(
+      '[class="components-filtering-input-input"]'
+    )?.firstChild;
     const searchIcon = filteringInput.getByTestId("filter-input-search");
     expect(searchBar).to.exist;
     expect(searchIcon).to.exist;
@@ -157,66 +192,101 @@ describe("FilteringInput", () => {
     fireEvent.change(searchBar as Element, { target: { value: "testing" } });
 
     expect(cancelCallback).to.be.calledOnce;
-
   });
 
   it("does not render `ResultSelector` but renders `search` button when status is set to `ReadyToFilter`", () => {
     const filteringInput = render(
       <FilteringInput
-        onFilterCancel={() => { }}
-        onFilterClear={() => { }}
-        onFilterStart={() => { }}
-        status={FilteringInputStatus.ReadyToFilter} />);
+        onFilterCancel={() => {}}
+        onFilterClear={() => {}}
+        onFilterStart={() => {}}
+        status={FilteringInputStatus.ReadyToFilter}
+      />
+    );
 
-    expect(filteringInput.container.querySelector('[class="components-result-selector"]'), "ResultSelector found").to.not.exist;
-    expect(filteringInput.getByTestId("filter-input-search"), "Search icon found").to.exist;
+    expect(
+      filteringInput.container.querySelector(
+        '[class="components-result-selector"]'
+      ),
+      "ResultSelector found"
+    ).to.not.exist;
+    expect(
+      filteringInput.getByTestId("filter-input-search"),
+      "Search icon found"
+    ).to.exist;
   });
 
   it("does not render `ResultSelector` but renders `X` button when status is set to `FilteringInProgress`", () => {
     const filteringInput = render(
       <FilteringInput
-        onFilterCancel={() => { }}
-        onFilterClear={() => { }}
-        onFilterStart={() => { }}
-        status={FilteringInputStatus.FilteringInProgress} />);
+        onFilterCancel={() => {}}
+        onFilterClear={() => {}}
+        onFilterStart={() => {}}
+        status={FilteringInputStatus.FilteringInProgress}
+      />
+    );
 
-    expect(filteringInput.container.querySelector('[class="components-result-selector"]'), "ResultSelector found").to.not.exist;
-    expect(filteringInput.getByTestId("filter-input-close"), "X button found").to.exist;
+    expect(
+      filteringInput.container.querySelector(
+        '[class="components-result-selector"]'
+      ),
+      "ResultSelector found"
+    ).to.not.exist;
+    expect(filteringInput.getByTestId("filter-input-close"), "X button found")
+      .to.exist;
   });
 
   it("renders `ResultSelector` and 'X' button when status is set to `FilteringFinished` and `resultSelectorProps` are provided ", () => {
     const filteringInput = render(
       <FilteringInput
-        onFilterCancel={() => { }}
-        onFilterClear={() => { }}
-        onFilterStart={() => { }}
+        onFilterCancel={() => {}}
+        onFilterClear={() => {}}
+        onFilterStart={() => {}}
         status={FilteringInputStatus.FilteringFinished}
-        resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }} />);
+        resultSelectorProps={{ onSelectedChanged: () => {}, resultCount: 0 }}
+      />
+    );
 
-    expect(filteringInput.container.querySelector('[class="components-result-selector"]'), "ResultSelector found").to.exist;
-    expect(filteringInput.getByTestId("filter-input-close"), "X button found").to.exist;
+    expect(
+      filteringInput.container.querySelector(
+        '[class="components-result-selector"]'
+      ),
+      "ResultSelector found"
+    ).to.exist;
+    expect(filteringInput.getByTestId("filter-input-close"), "X button found")
+      .to.exist;
   });
 
   it("doesn't render `ResultSelector` but renders 'X' button when status is set to `FilteringFinished` and `resultSelectorProps` are not provided ", () => {
     const filteringInput = render(
       <FilteringInput
-        onFilterCancel={() => { }}
-        onFilterClear={() => { }}
-        onFilterStart={() => { }}
-        status={FilteringInputStatus.FilteringFinished} />);
+        onFilterCancel={() => {}}
+        onFilterClear={() => {}}
+        onFilterStart={() => {}}
+        status={FilteringInputStatus.FilteringFinished}
+      />
+    );
 
-    expect(filteringInput.container.querySelector('[class="components-result-selector"]'), "ResultSelector found").to.not.exist;
-    expect(filteringInput.getByTestId("filter-input-close"), "X button found").to.exist;
+    expect(
+      filteringInput.container.querySelector(
+        '[class="components-result-selector"]'
+      ),
+      "ResultSelector found"
+    ).to.not.exist;
+    expect(filteringInput.getByTestId("filter-input-close"), "X button found")
+      .to.exist;
   });
 
   it("re-renders ResultSelector(sets activeMatchIndex to 1) when resultSelectorProps are updated when using status property", () => {
     const filteringInput = render(
       <FilteringInput
-        onFilterCancel={() => { }}
-        onFilterClear={() => { }}
-        onFilterStart={() => { }}
-        resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 5 }}
-        status={FilteringInputStatus.FilteringFinished} />);
+        onFilterCancel={() => {}}
+        onFilterClear={() => {}}
+        onFilterStart={() => {}}
+        resultSelectorProps={{ onSelectedChanged: () => {}, resultCount: 5 }}
+        status={FilteringInputStatus.FilteringFinished}
+      />
+    );
 
     expect(filteringInput.getByText("1")).to.exist;
     const nextButton = filteringInput.getByTestId("next-button");
@@ -227,11 +297,13 @@ describe("FilteringInput", () => {
 
     filteringInput.rerender(
       <FilteringInput
-        onFilterCancel={() => { }}
-        onFilterClear={() => { }}
-        onFilterStart={() => { }}
-        resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 5 }}
-        status={FilteringInputStatus.FilteringFinished} />);
+        onFilterCancel={() => {}}
+        onFilterClear={() => {}}
+        onFilterStart={() => {}}
+        resultSelectorProps={{ onSelectedChanged: () => {}, resultCount: 5 }}
+        status={FilteringInputStatus.FilteringFinished}
+      />
+    );
 
     expect(filteringInput.getByText("1")).to.exist;
   });

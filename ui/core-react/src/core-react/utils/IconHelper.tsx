@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -22,28 +22,34 @@ export class IconHelper {
    * @param icon abstract icon specification.
    * @param internalData a map that may hold a React.ReactNode stored in an abstract item definition.
    */
-  public static getIconReactNode(icon: string | ConditionalStringValue | React.ReactNode, internalData?: Map<string, any>): React.ReactNode {
+  public static getIconReactNode(
+    icon: string | ConditionalStringValue | React.ReactNode,
+    internalData?: Map<string, any>
+  ): React.ReactNode {
     // istanbul ignore else
-    if (!icon)
-      return null;
+    if (!icon) return null;
 
     // istanbul ignore else
-    if (React.isValidElement(icon))
-      return <Icon iconSpec={icon} />;
+    if (React.isValidElement(icon)) return <Icon iconSpec={icon} />;
 
     // istanbul ignore if
     if (!(icon instanceof ConditionalStringValue) && typeof icon !== "string")
       return null;
 
     const iconString = ConditionalStringValue.getValue(icon);
-    if (!iconString)
-      return null;
+    if (!iconString) return null;
 
     // istanbul ignore else
     if (iconString === IconHelper.reactIconKey) {
       // istanbul ignore else
       if (internalData)
-        return <Icon iconSpec={internalData.get(IconHelper.reactIconKey) as React.ReactNode} />;
+        return (
+          <Icon
+            iconSpec={
+              internalData.get(IconHelper.reactIconKey) as React.ReactNode
+            }
+          />
+        );
       return null;
     }
     return <Icon iconSpec={iconString} />;
@@ -54,10 +60,19 @@ export class IconHelper {
    * @param iconSpec any supported variations of how an icon can be defined in an abstract item or IconProps.
    * @param internalData a map supplied by the caller to store away react element if React.ReactNode
    */
-  public static getIconData(iconSpec: IconSpec, internalData?: Map<string, any>): string | ConditionalStringValue {
-    const icon = (React.isValidElement(iconSpec)) ? IconHelper.reactIconKey : iconSpec;
+  public static getIconData(
+    iconSpec: IconSpec,
+    internalData?: Map<string, any>
+  ): string | ConditionalStringValue {
+    const icon = React.isValidElement(iconSpec)
+      ? IconHelper.reactIconKey
+      : iconSpec;
 
-    if (internalData && typeof icon === "string" && icon === IconHelper.reactIconKey) {
+    if (
+      internalData &&
+      typeof icon === "string" &&
+      icon === IconHelper.reactIconKey
+    ) {
       internalData.set(IconHelper.reactIconKey, iconSpec);
     }
 

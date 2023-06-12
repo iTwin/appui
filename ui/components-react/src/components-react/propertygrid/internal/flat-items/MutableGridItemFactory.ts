@@ -1,19 +1,22 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyGrid
  */
-import type { PropertyRecord} from "@itwin/appui-abstract";
+import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyCategory } from "../../PropertyDataProvider";
 import { MutableCategorizedArrayProperty } from "./MutableCategorizedArrayProperty";
 import { MutableCategorizedPrimitiveProperty } from "./MutableCategorizedPrimitiveProperty";
 import { MutableCategorizedStructProperty } from "./MutableCategorizedStructProperty";
 import { MutableCustomGridCategory } from "./MutableCustomGridCategory";
-import type { IMutableCategorizedPropertyItem, IMutableGridCategoryItem } from "./MutableFlatGridItem";
-import type { CategoryRecordsDict} from "./MutableGridCategory";
+import type {
+  IMutableCategorizedPropertyItem,
+  IMutableGridCategoryItem,
+} from "./MutableFlatGridItem";
+import type { CategoryRecordsDict } from "./MutableGridCategory";
 import { MutableGridCategory } from "./MutableGridCategory";
 
 /**
@@ -27,14 +30,14 @@ export interface IMutableGridItemFactory {
     parentCategorySelectionKey: string,
     depth: number,
     overrideName?: string,
-    overrideDisplayLabel?: string,
+    overrideDisplayLabel?: string
   ) => IMutableCategorizedPropertyItem;
 
   createGridCategory: (
     category: PropertyCategory,
     recordsDict: CategoryRecordsDict,
     parentSelectionKey?: string,
-    depth?: number,
+    depth?: number
   ) => IMutableGridCategoryItem;
 }
 
@@ -49,9 +52,16 @@ export class MutableGridItemFactory implements IMutableGridItemFactory {
     parentCategorySelectionKey: string,
     depth: number,
     overrideName?: string,
-    overrideDisplayLabel?: string,
+    overrideDisplayLabel?: string
   ) {
-    return new MutableCategorizedPrimitiveProperty(record, parentSelectionKey, parentCategorySelectionKey, depth, overrideName, overrideDisplayLabel);
+    return new MutableCategorizedPrimitiveProperty(
+      record,
+      parentSelectionKey,
+      parentCategorySelectionKey,
+      depth,
+      overrideName,
+      overrideDisplayLabel
+    );
   }
 
   protected createArrayProperty(
@@ -60,9 +70,17 @@ export class MutableGridItemFactory implements IMutableGridItemFactory {
     parentCategorySelectionKey: string,
     depth: number,
     overrideName?: string,
-    overrideDisplayLabel?: string,
+    overrideDisplayLabel?: string
   ) {
-    return new MutableCategorizedArrayProperty(record, parentSelectionKey, parentCategorySelectionKey, depth, this, overrideName, overrideDisplayLabel);
+    return new MutableCategorizedArrayProperty(
+      record,
+      parentSelectionKey,
+      parentCategorySelectionKey,
+      depth,
+      this,
+      overrideName,
+      overrideDisplayLabel
+    );
   }
 
   protected createStructProperty(
@@ -71,9 +89,17 @@ export class MutableGridItemFactory implements IMutableGridItemFactory {
     parentCategorySelectionKey: string,
     depth: number,
     overrideName?: string,
-    overrideDisplayLabel?: string,
+    overrideDisplayLabel?: string
   ) {
-    return new MutableCategorizedStructProperty(record, parentSelectionKey, parentCategorySelectionKey, depth, this, overrideName, overrideDisplayLabel);
+    return new MutableCategorizedStructProperty(
+      record,
+      parentSelectionKey,
+      parentCategorySelectionKey,
+      depth,
+      this,
+      overrideName,
+      overrideDisplayLabel
+    );
   }
 
   /**
@@ -92,20 +118,43 @@ export class MutableGridItemFactory implements IMutableGridItemFactory {
     parentCategorySelectionKey: string,
     depth: number,
     overrideName?: string,
-    overrideDisplayLabel?: string,
+    overrideDisplayLabel?: string
   ): IMutableCategorizedPropertyItem {
     const valueFormat = record.value.valueFormat;
     switch (valueFormat) {
       case PropertyValueFormat.Primitive:
-        return this.createPrimitiveProperty(record, parentSelectionKey, parentCategorySelectionKey, depth, overrideName, overrideDisplayLabel);
+        return this.createPrimitiveProperty(
+          record,
+          parentSelectionKey,
+          parentCategorySelectionKey,
+          depth,
+          overrideName,
+          overrideDisplayLabel
+        );
       case PropertyValueFormat.Array:
-        return this.createArrayProperty(record, parentSelectionKey, parentCategorySelectionKey, depth, overrideName, overrideDisplayLabel);
+        return this.createArrayProperty(
+          record,
+          parentSelectionKey,
+          parentCategorySelectionKey,
+          depth,
+          overrideName,
+          overrideDisplayLabel
+        );
       case PropertyValueFormat.Struct:
-        return this.createStructProperty(record, parentSelectionKey, parentCategorySelectionKey, depth, overrideName, overrideDisplayLabel);
+        return this.createStructProperty(
+          record,
+          parentSelectionKey,
+          parentCategorySelectionKey,
+          depth,
+          overrideName,
+          overrideDisplayLabel
+        );
       /* istanbul ignore next */
       default:
         const unhandledRecordType: never = valueFormat;
-        throw new Error(`Unhandled property record type. Was a new type added? ${unhandledRecordType}`);
+        throw new Error(
+          `Unhandled property record type. Was a new type added? ${unhandledRecordType}`
+        );
     }
   }
 
@@ -121,13 +170,25 @@ export class MutableGridItemFactory implements IMutableGridItemFactory {
     category: PropertyCategory,
     recordsDict: CategoryRecordsDict,
     parentSelectionKey?: string,
-    depth?: number,
+    depth?: number
   ): IMutableGridCategoryItem {
     if (category.renderer !== undefined)
-      return new MutableCustomGridCategory(category, recordsDict, this, parentSelectionKey, depth ?? 0);
+      return new MutableCustomGridCategory(
+        category,
+        recordsDict,
+        this,
+        parentSelectionKey,
+        depth ?? 0
+      );
 
     if (parentSelectionKey !== undefined && depth !== undefined)
-      return new MutableGridCategory(category, recordsDict, this, parentSelectionKey, depth);
+      return new MutableGridCategory(
+        category,
+        recordsDict,
+        this,
+        parentSelectionKey,
+        depth
+      );
 
     return new MutableGridCategory(category, recordsDict, this);
   }

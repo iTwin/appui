@@ -1,13 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import { flattenChildren } from "../../core-react/utils/flattenChildren";
 
 describe("flattenChildren", () => {
-
   const checkFlattened = (flattened: React.ReactNode) => {
     const a = flattened as [1];
     expect(a.length).to.eq(1);
@@ -30,5 +29,4 @@ describe("flattenChildren", () => {
     const flattened = flattenChildren(element);
     checkFlattened(flattened);
   });
-
 });

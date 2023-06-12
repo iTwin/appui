@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Properties
  */
@@ -23,4 +23,6 @@ export interface ActionButtonRendererProps {
  * Renders a React component (usually a button) for a PropertyRecord
  * @public
  */
-export type ActionButtonRenderer = (props: ActionButtonRendererProps) => React.ReactNode;
+export type ActionButtonRenderer = (
+  props: ActionButtonRendererProps
+) => React.ReactNode;

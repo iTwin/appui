@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { getCssVariable, getCssVariableAsNumber } from "../../core-react";
@@ -11,7 +11,11 @@ const VARIABLE_NAME = "--test-variable";
 function fakeGetComputedStyle(value: string | null) {
   const style = new CSSStyleDeclaration();
   style.setProperty(VARIABLE_NAME, value);
-  return sinon.replace(globalThis, "getComputedStyle", sinon.fake.returns(style));
+  return sinon.replace(
+    globalThis,
+    "getComputedStyle",
+    sinon.fake.returns(style)
+  );
 }
 
 describe("getCssVariable", () => {
@@ -31,11 +35,9 @@ describe("getCssVariable", () => {
     expect(getCssVariable(VARIABLE_NAME, element)).to.eq(testValue);
     expect(spy).to.have.been.calledWith(element, null);
   });
-
 });
 
 describe("getCssVariableAsNumber", () => {
-
   it("should read a CSS variable from document", () => {
     const testValue = "12.345";
     const expectedValue = 12.345;

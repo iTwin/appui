@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as faker from "faker";
 import sinon from "sinon";
@@ -10,12 +10,18 @@ import { FilteredType } from "../../../../components-react/propertygrid/dataprov
 import type { PropertyCategory } from "../../../../components-react/propertygrid/PropertyDataProvider";
 
 describe("PropertyCategoryLabelFilterer", () => {
-
   describe("When filter text not set", () => {
-    const categoryToTest: PropertyCategory =
-    {
-      name: "Cat1", label: "Category 1", expand: true, childCategories: [
-        { name: "Cat1-1", label: "Category 1-1", expand: true, childCategories: [] },
+    const categoryToTest: PropertyCategory = {
+      name: "Cat1",
+      label: "Category 1",
+      expand: true,
+      childCategories: [
+        {
+          name: "Cat1-1",
+          label: "Category 1-1",
+          expand: true,
+          childCategories: [],
+        },
       ],
     };
 
@@ -47,7 +53,9 @@ describe("PropertyCategoryLabelFilterer", () => {
       const filterer = new PropertyCategoryLabelFilterer();
 
       const matchResult = await filterer.categoryMatchesFilter(categoryToTest);
-      const matchResult2 = await filterer.categoryMatchesFilter(categoryToTest.childCategories![0]);
+      const matchResult2 = await filterer.categoryMatchesFilter(
+        categoryToTest.childCategories![0]
+      );
       expect(matchResult).to.deep.eq({ matchesFilter: true });
       expect(matchResult2).to.deep.eq({ matchesFilter: true });
     });
@@ -73,7 +81,12 @@ describe("PropertyCategoryLabelFilterer", () => {
 
     it("Should not match when given empty label property category", async () => {
       const filterer = new PropertyCategoryLabelFilterer();
-      const category = { name: "Cat", label: "", expand: true, childCategories: [] };
+      const category = {
+        name: "Cat",
+        label: "",
+        expand: true,
+        childCategories: [],
+      };
 
       filterer.filterText = "SomeFilter";
       const matchResult = await filterer.categoryMatchesFilter(category);
@@ -90,7 +103,12 @@ describe("PropertyCategoryLabelFilterer", () => {
 
     it("Should not match when given non matching property category", async () => {
       const filterer = new PropertyCategoryLabelFilterer();
-      const category = { name: "Cat", label: "label", expand: true, childCategories: [] };
+      const category = {
+        name: "Cat",
+        label: "label",
+        expand: true,
+        childCategories: [],
+      };
 
       filterer.filterText = "SomeFilter";
       const matchResult = await filterer.categoryMatchesFilter(category);
@@ -99,34 +117,66 @@ describe("PropertyCategoryLabelFilterer", () => {
 
     it("Should match when given partially matching property category", async () => {
       const filterer = new PropertyCategoryLabelFilterer();
-      const category = { name: "Cat", label: "someFilterName", expand: true, childCategories: [] };
+      const category = {
+        name: "Cat",
+        label: "someFilterName",
+        expand: true,
+        childCategories: [],
+      };
 
       filterer.filterText = "someFilter";
       const matchResult = await filterer.categoryMatchesFilter(category);
-      expect(matchResult).to.deep.eq({ matchesFilter: true, shouldForceIncludeDescendants: true, shouldExpandNodeParents: true, matchesCount: 1, filteredTypes: [FilteredType.Category] });
+      expect(matchResult).to.deep.eq({
+        matchesFilter: true,
+        shouldForceIncludeDescendants: true,
+        shouldExpandNodeParents: true,
+        matchesCount: 1,
+        filteredTypes: [FilteredType.Category],
+      });
     });
 
     it("Should match when given fully matching property category", async () => {
       const filterer = new PropertyCategoryLabelFilterer();
-      const category = { name: "Cat", label: "displaySomefilteredNaMe", expand: true, childCategories: [] };
+      const category = {
+        name: "Cat",
+        label: "displaySomefilteredNaMe",
+        expand: true,
+        childCategories: [],
+      };
 
       filterer.filterText = "displaySomefilteredNaMe";
       const matchResult = await filterer.categoryMatchesFilter(category);
-      expect(matchResult).to.deep.eq({ matchesFilter: true, shouldForceIncludeDescendants: true, shouldExpandNodeParents: true, matchesCount: 1, filteredTypes: [FilteredType.Category] });
+      expect(matchResult).to.deep.eq({
+        matchesFilter: true,
+        shouldForceIncludeDescendants: true,
+        shouldExpandNodeParents: true,
+        matchesCount: 1,
+        filteredTypes: [FilteredType.Category],
+      });
     });
 
     it("Should match several times when given property category with repeated filter pattern", async () => {
       const filterer = new PropertyCategoryLabelFilterer();
-      const category = { name: "Cat", label: "displaySomefilteredNaMe", expand: true, childCategories: [] };
+      const category = {
+        name: "Cat",
+        label: "displaySomefilteredNaMe",
+        expand: true,
+        childCategories: [],
+      };
 
       filterer.filterText = "mE";
       const matchResult = await filterer.categoryMatchesFilter(category);
-      expect(matchResult).to.deep.eq({ matchesFilter: true, shouldForceIncludeDescendants: true, shouldExpandNodeParents: true, matchesCount: 2, filteredTypes: [FilteredType.Category] });
+      expect(matchResult).to.deep.eq({
+        matchesFilter: true,
+        shouldForceIncludeDescendants: true,
+        shouldExpandNodeParents: true,
+        matchesCount: 2,
+        filteredTypes: [FilteredType.Category],
+      });
     });
   });
 
   describe("raising `onFilterChanged` event", () => {
-
     const spy = sinon.spy();
     let filterer: PropertyCategoryLabelFilterer;
 
@@ -159,7 +209,5 @@ describe("PropertyCategoryLabelFilterer", () => {
       filterer.filterText = "b";
       expect(spy).to.be.calledTwice;
     });
-
   });
-
 });

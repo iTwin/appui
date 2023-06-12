@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import type { QuantityTypeArg } from "@itwin/core-frontend";
 import { IModelApp, MockRender, QuantityType } from "@itwin/core-frontend";
 import { SpecialKey } from "@itwin/appui-abstract";
@@ -15,9 +15,8 @@ import TestUtils from "../TestUtils";
 // cSpell:ignore decrementor QuantityNumberInput
 
 function exoticStep(direction: string) {
-  if (direction === "up")
-    return .5;
-  return .1;
+  if (direction === "up") return 0.5;
+  return 0.1;
 }
 
 function undefinedStepFunction(_direction: string) {
@@ -27,8 +26,11 @@ function undefinedStepFunction(_direction: string) {
 const metersPerFoot = 0.3048;
 
 describe("<QuantityNumberInput />", () => {
-  const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(IModelApp, "requestNextAnimation")!;
-  function requestNextAnimation() { }
+  const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
+    IModelApp,
+    "requestNextAnimation"
+  )!;
+  function requestNextAnimation() {}
 
   before(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
@@ -42,12 +44,24 @@ describe("<QuantityNumberInput />", () => {
   after(async () => {
     await MockRender.App.shutdown();
     TestUtils.terminateUiIModelComponents();
-    Object.defineProperty(IModelApp, "requestNextAnimation", rnaDescriptorToRestore);
+    Object.defineProperty(
+      IModelApp,
+      "requestNextAnimation",
+      rnaDescriptorToRestore
+    );
   });
 
   it(`should render disabled correctly`, () => {
-    const wrapper = render(<QuantityNumberInput persistenceValue={1} quantityType={QuantityType.Length} disabled={true} />);
-    const disabled = wrapper.container.querySelector(".component-quantity-number-input-disabled");
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={1}
+        quantityType={QuantityType.Length}
+        disabled={true}
+      />
+    );
+    const disabled = wrapper.container.querySelector(
+      ".component-quantity-number-input-disabled"
+    );
     expect(disabled).not.to.be.null;
   });
 
@@ -56,7 +70,14 @@ describe("<QuantityNumberInput />", () => {
     const handleChange = (v: number): void => {
       value = v;
     };
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.Length} step={undefined} onChange={handleChange} />);
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.Length}
+        step={undefined}
+        onChange={handleChange}
+      />
+    );
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     expect((input as HTMLInputElement).value).to.eq("3.2808");
@@ -77,16 +98,34 @@ describe("<QuantityNumberInput />", () => {
       spyMethod();
     };
 
-    const wrapper = render(<QuantityNumberInput persistenceValue={initialLengthInMeters} quantityType={QuantityType.LengthEngineering} step={undefined} onChange={handleChange} />);
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={initialLengthInMeters}
+        quantityType={QuantityType.LengthEngineering}
+        step={undefined}
+        onChange={handleChange}
+      />
+    );
     const input = wrapper.container.querySelector("input") as HTMLInputElement;
     expect(input.value).to.eq(`${initialLengthInFeet}`);
 
-    wrapper.rerender(<QuantityNumberInput persistenceValue={updatedLengthInMeters} quantityType={QuantityType.LengthEngineering} step={undefined} onChange={handleChange} />);
+    wrapper.rerender(
+      <QuantityNumberInput
+        persistenceValue={updatedLengthInMeters}
+        quantityType={QuantityType.LengthEngineering}
+        step={undefined}
+        onChange={handleChange}
+      />
+    );
     expect(input.value).to.eq(`${updatedLengthInFeet}`);
 
-    const incrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-up");
+    const incrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
+    );
     expect(incrementor).not.to.be.null;
-    const decrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-down");
+    const decrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-down"
+    );
     expect(decrementor).not.to.be.null;
 
     fireEvent.click(incrementor!);
@@ -104,8 +143,17 @@ describe("<QuantityNumberInput />", () => {
     const handleChange = (v: number): void => {
       value = v;
     };
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={undefined} onChange={handleChange} />);
-    const incrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-up");
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={undefined}
+        onChange={handleChange}
+      />
+    );
+    const incrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
+    );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
     expect(value).to.eq(1 * metersPerFoot);
@@ -118,8 +166,17 @@ describe("<QuantityNumberInput />", () => {
       spyMethod();
       value = v;
     };
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={5} onChange={handleChange} />);
-    const incrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-up");
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={5}
+        onChange={handleChange}
+      />
+    );
+    const incrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
+    );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
     spyMethod.calledOnce.should.true;
@@ -133,12 +190,21 @@ describe("<QuantityNumberInput />", () => {
       spyMethod();
       value = v;
     };
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={.25} onChange={handleChange} />);
-    const incrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-up");
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={0.25}
+        onChange={handleChange}
+      />
+    );
+    const incrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
+    );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
     spyMethod.calledOnce.should.true;
-    expect(value).to.eq(.25 * metersPerFoot);
+    expect(value).to.eq(0.25 * metersPerFoot);
   });
 
   it("properly handle max", () => {
@@ -146,15 +212,25 @@ describe("<QuantityNumberInput />", () => {
     const handleChange = (v: number): void => {
       value = v;
     };
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={1} max={5} onChange={handleChange} />);
-    const incrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-up");
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={1}
+        max={5}
+        onChange={handleChange}
+      />
+    );
+    const incrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
+    );
     expect(incrementor).not.to.be.null;
-    fireEvent.click(incrementor!);  // 1 ft
-    fireEvent.click(incrementor!);  // 2
-    fireEvent.click(incrementor!);  // 3
-    fireEvent.click(incrementor!);  // 4
-    fireEvent.click(incrementor!);  // 5
-    fireEvent.click(incrementor!);  // 6 => 5 ft
+    fireEvent.click(incrementor!); // 1 ft
+    fireEvent.click(incrementor!); // 2
+    fireEvent.click(incrementor!); // 3
+    fireEvent.click(incrementor!); // 4
+    fireEvent.click(incrementor!); // 5
+    fireEvent.click(incrementor!); // 6 => 5 ft
     expect(value).to.eq(5 * metersPerFoot);
   });
 
@@ -165,8 +241,17 @@ describe("<QuantityNumberInput />", () => {
       spyMethod();
       value = v;
     };
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={1} onChange={handleChange} />);
-    const incrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-up");
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={1}
+        onChange={handleChange}
+      />
+    );
+    const incrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
+    );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
     spyMethod.calledOnce.should.true;
@@ -178,15 +263,25 @@ describe("<QuantityNumberInput />", () => {
     const handleChange = (v: number): void => {
       value = v;
     };
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={1} min={-5} onChange={handleChange} />);
-    const decrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-down");
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={1}
+        min={-5}
+        onChange={handleChange}
+      />
+    );
+    const decrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-down"
+    );
     expect(decrementor).not.to.be.null;
-    fireEvent.click(decrementor!);  // -1 ft
-    fireEvent.click(decrementor!);  // -2
-    fireEvent.click(decrementor!);  // -3
-    fireEvent.click(decrementor!);  // -4
-    fireEvent.click(decrementor!);  // -5
-    fireEvent.click(decrementor!);  // -6 => -5 ft
+    fireEvent.click(decrementor!); // -1 ft
+    fireEvent.click(decrementor!); // -2
+    fireEvent.click(decrementor!); // -3
+    fireEvent.click(decrementor!); // -4
+    fireEvent.click(decrementor!); // -5
+    fireEvent.click(decrementor!); // -6 => -5 ft
     expect(value).to.eq(-5 * metersPerFoot);
   });
 
@@ -197,8 +292,17 @@ describe("<QuantityNumberInput />", () => {
       spyMethod();
       value = v;
     };
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={1} onChange={handleChange} />);
-    const decrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-down");
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={1}
+        onChange={handleChange}
+      />
+    );
+    const decrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-down"
+    );
     expect(decrementor).not.to.be.null;
     fireEvent.click(decrementor!);
     spyMethod.calledOnce.should.true;
@@ -217,8 +321,18 @@ describe("<QuantityNumberInput />", () => {
       value = v;
     };
 
-    const wrapper = render(<QuantityNumberInput persistenceValue={initialLengthInMeters} quantityType={QuantityType.LengthEngineering} step={.25} snap onChange={handleChange} />);
-    const incrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-up");
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={initialLengthInMeters}
+        quantityType={QuantityType.LengthEngineering}
+        step={0.25}
+        snap
+        onChange={handleChange}
+      />
+    );
+    const incrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
+    );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
     spyMethod.calledOnce.should.true;
@@ -230,12 +344,24 @@ describe("<QuantityNumberInput />", () => {
     const handleChange = (v: number): void => {
       value = v;
     };
-    const wrapper = render(<QuantityNumberInput persistenceValue={undefined} placeholder="Enter Text" quantityType={QuantityType.LengthEngineering} step={1} onChange={handleChange} />);
-    const incrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-up");
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={undefined}
+        placeholder="Enter Text"
+        quantityType={QuantityType.LengthEngineering}
+        step={1}
+        onChange={handleChange}
+      />
+    );
+    const incrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
+    );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
     expect(value).to.eq(1 * metersPerFoot);
-    const decrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-down");
+    const decrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-down"
+    );
     expect(decrementor).not.to.be.null;
     fireEvent.click(decrementor!);
     expect(value).to.eq(0);
@@ -247,15 +373,26 @@ describe("<QuantityNumberInput />", () => {
       value = v;
     };
     // Note: requires precision to avoid round off during incrementing.
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={exoticStep} onChange={handleChange} />);
-    const incrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-up");
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={exoticStep}
+        onChange={handleChange}
+      />
+    );
+    const incrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
+    );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
-    expect(value).to.eq(.5 * metersPerFoot);
-    const decrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-down");
+    expect(value).to.eq(0.5 * metersPerFoot);
+    const decrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-down"
+    );
     expect(decrementor).not.to.be.null;
     fireEvent.click(decrementor!);
-    expect(value).to.eq(.4 * metersPerFoot);
+    expect(value).to.eq(0.4 * metersPerFoot);
   });
 
   it("steps correctly when step function return undefined (ie use default of 1)", () => {
@@ -264,12 +401,23 @@ describe("<QuantityNumberInput />", () => {
       value = v;
     };
     // Note: requires precision to avoid round off during incrementing.
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={undefinedStepFunction} onChange={handleChange} />);
-    const incrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-up");
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={undefinedStepFunction}
+        onChange={handleChange}
+      />
+    );
+    const incrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-up"
+    );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
     expect(value).to.eq(1 * metersPerFoot);
-    const decrementor = wrapper.container.querySelector("div.component-quantity-number-input-button.component-quantity-number-input-button-down");
+    const decrementor = wrapper.container.querySelector(
+      "div.component-quantity-number-input-button.component-quantity-number-input-button-down"
+    );
     expect(decrementor).not.to.be.null;
     fireEvent.click(decrementor!);
     expect(value).to.eq(0);
@@ -283,12 +431,20 @@ describe("<QuantityNumberInput />", () => {
       value = v;
     };
     const spyKeyDown = sinon.spy();
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={.25} onChange={handleChange} onKeyDown={spyKeyDown} />);
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={0.25}
+        onChange={handleChange}
+        onKeyDown={spyKeyDown}
+      />
+    );
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     fireEvent.keyDown(input!, { key: SpecialKey.ArrowUp });
     spyMethod.calledOnce.should.true;
-    expect(value).to.eq(.25 * metersPerFoot);
+    expect(value).to.eq(0.25 * metersPerFoot);
 
     spyMethod.resetHistory();
     fireEvent.keyDown(input!, { key: SpecialKey.ArrowDown });
@@ -304,7 +460,14 @@ describe("<QuantityNumberInput />", () => {
       spyMethod();
       value = v;
     };
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={.25} onChange={handleChange} />);
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={0.25}
+        onChange={handleChange}
+      />
+    );
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "22.3" } });
@@ -320,7 +483,14 @@ describe("<QuantityNumberInput />", () => {
       spyMethod();
       value = v;
     };
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={.25} onChange={handleChange} />);
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={0.25}
+        onChange={handleChange}
+      />
+    );
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "42in" } });
@@ -337,7 +507,15 @@ describe("<QuantityNumberInput />", () => {
       value = v;
     };
     const spyBlur = sinon.spy();
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={.25} onChange={handleChange} onBlur={spyBlur} />);
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={0.25}
+        onChange={handleChange}
+        onBlur={spyBlur}
+      />
+    );
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     input?.focus();
@@ -358,7 +536,14 @@ describe("<QuantityNumberInput />", () => {
       spyMethod();
       value = v;
     };
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={.25} onChange={handleChange} />);
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={0.25}
+        onChange={handleChange}
+      />
+    );
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     input?.focus();
@@ -370,19 +555,32 @@ describe("<QuantityNumberInput />", () => {
     expect((input as HTMLInputElement).value).to.eq(originalValue);
 
     // trigger callbacks that exercise useEffects
-    const quantityKey = IModelApp.quantityFormatter.getQuantityTypeKey(QuantityType.LengthEngineering);
-    IModelApp.quantityFormatter.onQuantityFormatsChanged.emit({ quantityType: quantityKey });
-    IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.emit({ system: "imperial" });
+    const quantityKey = IModelApp.quantityFormatter.getQuantityTypeKey(
+      QuantityType.LengthEngineering
+    );
+    IModelApp.quantityFormatter.onQuantityFormatsChanged.emit({
+      quantityType: quantityKey,
+    });
+    IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.emit({
+      system: "imperial",
+    });
   });
 
   it("should reset value to original when invalid text is entered", () => {
-    let value = 1;  // 3.2808ft
+    let value = 1; // 3.2808ft
     const spyMethod = sinon.spy();
     const handleChange = (v: number): void => {
       spyMethod();
       value = v;
     };
-    const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={.25} onChange={handleChange} />);
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={value}
+        quantityType={QuantityType.LengthEngineering}
+        step={0.25}
+        onChange={handleChange}
+      />
+    );
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "abc" } });
@@ -393,21 +591,35 @@ describe("<QuantityNumberInput />", () => {
   });
 
   it("renders for touch correctly", () => {
-    const wrapper = render(<QuantityNumberInput persistenceValue={0} quantityType={QuantityType.LengthEngineering} showTouchButtons />);
-    const mainContainer = wrapper.container.querySelector("div.component-quantity-number-input-container.component-number-buttons-for-touch");
+    const wrapper = render(
+      <QuantityNumberInput
+        persistenceValue={0}
+        quantityType={QuantityType.LengthEngineering}
+        showTouchButtons
+      />
+    );
+    const mainContainer = wrapper.container.querySelector(
+      "div.component-quantity-number-input-container.component-number-buttons-for-touch"
+    );
     expect(mainContainer).not.to.be.null;
-    const buttonContainer = wrapper.container.querySelector("div.component-quantity-number-input-buttons-container.component-number-buttons-for-touch");
+    const buttonContainer = wrapper.container.querySelector(
+      "div.component-quantity-number-input-buttons-container.component-number-buttons-for-touch"
+    );
     expect(buttonContainer).not.to.be.null;
   });
 
   describe("<QuantityNumberInput with undefined formatter and parser specs/>", () => {
     beforeEach(() => {
-      sinon.stub(IModelApp.quantityFormatter, "findFormatterSpecByQuantityType").callsFake((_type: QuantityTypeArg, _unused?: boolean) => {
-        return undefined;
-      });
-      sinon.stub(IModelApp.quantityFormatter, "findParserSpecByQuantityType").callsFake((_type: QuantityTypeArg) => {
-        return undefined;
-      });
+      sinon
+        .stub(IModelApp.quantityFormatter, "findFormatterSpecByQuantityType")
+        .callsFake((_type: QuantityTypeArg, _unused?: boolean) => {
+          return undefined;
+        });
+      sinon
+        .stub(IModelApp.quantityFormatter, "findParserSpecByQuantityType")
+        .callsFake((_type: QuantityTypeArg) => {
+          return undefined;
+        });
     });
 
     afterEach(() => {
@@ -421,7 +633,14 @@ describe("<QuantityNumberInput />", () => {
         spyMethod();
         value = v;
       };
-      const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.LengthEngineering} step={.25} onChange={handleChange} />);
+      const wrapper = render(
+        <QuantityNumberInput
+          persistenceValue={value}
+          quantityType={QuantityType.LengthEngineering}
+          step={0.25}
+          onChange={handleChange}
+        />
+      );
       const input = wrapper.container.querySelector("input");
       expect(input).not.to.be.null;
       expect((input as HTMLInputElement).value).to.eq("1.00");
@@ -467,7 +686,10 @@ describe("<QuantityNumberInput />", () => {
     };
 
     it("renders correctly when formats are not composites", async () => {
-      await IModelApp.quantityFormatter.setOverrideFormats(QuantityType.Length, overrideLengthFormats);
+      await IModelApp.quantityFormatter.setOverrideFormats(
+        QuantityType.Length,
+        overrideLengthFormats
+      );
       await TestUtils.flushAsyncOperations();
 
       let value = 1; // since no units are specified the persistence unit of meters are used.
@@ -476,19 +698,25 @@ describe("<QuantityNumberInput />", () => {
         spyMethod();
         value = v;
       };
-      const wrapper = render(<QuantityNumberInput persistenceValue={value} quantityType={QuantityType.Length} step={.25} onChange={handleChange} />);
+      const wrapper = render(
+        <QuantityNumberInput
+          persistenceValue={value}
+          quantityType={QuantityType.Length}
+          step={0.25}
+          onChange={handleChange}
+        />
+      );
       const input = wrapper.container.querySelector("input");
       expect(input).not.to.be.null;
-      expect((input as HTMLInputElement).value.slice(0,2)).to.eq("1.");
+      expect((input as HTMLInputElement).value.slice(0, 2)).to.eq("1.");
 
       fireEvent.change(input!, { target: { value: "2" } });
       expect((input as HTMLInputElement).value).to.eq("2");
       fireEvent.keyDown(input!, { key: SpecialKey.Enter });
       spyMethod.calledOnce.should.be.true;
-      expect((input as HTMLInputElement).value.slice(0,2)).to.eq("2.");
+      expect((input as HTMLInputElement).value.slice(0, 2)).to.eq("2.");
 
       await IModelApp.quantityFormatter.clearAllOverrideFormats();
     });
   });
-
 });

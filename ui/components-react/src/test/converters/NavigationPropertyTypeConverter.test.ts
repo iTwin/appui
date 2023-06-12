@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import type { PrimitiveValue } from "@itwin/appui-abstract";
 import { expect } from "chai";
 import { NavigationPropertyTypeConverter } from "../../components-react/converters/NavigationPropertyTypeConverter";
@@ -11,24 +11,47 @@ describe("NavigationPropertyTypeConverter", () => {
   const converter = new NavigationPropertyTypeConverter();
   describe("convertPropertyToString", () => {
     it("returns property description display label when value is not undefined", () => {
-      const record = TestUtils.createNavigationProperty("test_property", { className: "", id: "0x1" }, "test_value");
+      const record = TestUtils.createNavigationProperty(
+        "test_property",
+        { className: "", id: "0x1" },
+        "test_value"
+      );
       const { property, value } = record;
-      const convertedString = converter.convertPropertyToString(property, (value as PrimitiveValue).value);
+      const convertedString = converter.convertPropertyToString(
+        property,
+        (value as PrimitiveValue).value
+      );
       expect(convertedString).to.be.equal("test_property");
     });
 
     it("returns empty string when value is undefined", () => {
-      const record = TestUtils.createNavigationProperty("test_property", { className: "", id: "0x1" }, "test_value");
-      const convertedString = converter.convertPropertyToString(record.property, undefined);
+      const record = TestUtils.createNavigationProperty(
+        "test_property",
+        { className: "", id: "0x1" },
+        "test_value"
+      );
+      const convertedString = converter.convertPropertyToString(
+        record.property,
+        undefined
+      );
       expect(convertedString).to.be.equal("");
     });
   });
 
   describe("sortCompare", () => {
     it("compares two navigation property values", () => {
-      const { value: a } = TestUtils.createNavigationProperty("test_property", { className: "", id: "0x1" });
-      const { value: b } = TestUtils.createNavigationProperty("test_property", { className: "", id: "0x2" });
-      const result = converter.sortCompare((a as PrimitiveValue).value!, (b as PrimitiveValue).value!);
+      const { value: a } = TestUtils.createNavigationProperty("test_property", {
+        className: "",
+        id: "0x1",
+      });
+      const { value: b } = TestUtils.createNavigationProperty("test_property", {
+        className: "",
+        id: "0x2",
+      });
+      const result = converter.sortCompare(
+        (a as PrimitiveValue).value!,
+        (b as PrimitiveValue).value!
+      );
       expect(result).to.be.equal(-1);
     });
 

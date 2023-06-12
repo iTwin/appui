@@ -1,14 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyGrid
  */
 import { immerable } from "immer";
 import type { PropertyCategory, PropertyData } from "../PropertyDataProvider";
 import type { FlatGridItem, GridCategoryItem } from "./flat-items/FlatGridItem";
-import type { IMutableFlatGridItem, IMutableGridCategoryItem } from "./flat-items/MutableFlatGridItem";
+import type {
+  IMutableFlatGridItem,
+  IMutableGridCategoryItem,
+} from "./flat-items/MutableFlatGridItem";
 import type { IMutableGridItemFactory } from "./flat-items/MutableGridItemFactory";
 
 /**
@@ -37,12 +40,20 @@ export interface IMutablePropertyGridModel {
  * Implementation of PropertyGridModel for working with and converting PropertyData to mutable FlatGridItems
  * @public
  */
-export class MutablePropertyGridModel implements IPropertyGridModel, IMutablePropertyGridModel {
+export class MutablePropertyGridModel
+  implements IPropertyGridModel, IMutablePropertyGridModel
+{
   public [immerable] = true;
 
   private _categories: IMutableGridCategoryItem[];
-  public constructor(propertyData: PropertyData, private _gridItemFactory: IMutableGridItemFactory) {
-    this._categories = propertyData.categories.map((category: PropertyCategory) => this._gridItemFactory.createGridCategory(category, propertyData.records));
+  public constructor(
+    propertyData: PropertyData,
+    private _gridItemFactory: IMutableGridItemFactory
+  ) {
+    this._categories = propertyData.categories.map(
+      (category: PropertyCategory) =>
+        this._gridItemFactory.createGridCategory(category, propertyData.records)
+    );
   }
 
   /**
@@ -63,18 +74,18 @@ export class MutablePropertyGridModel implements IPropertyGridModel, IMutablePro
    * @param selectionKey unique key for identifying item
    * @returns FlatGridItem if items with key exists, undefined otherwise
    */
-  private findItem(items: IMutableFlatGridItem[], selectionKey: string): IMutableFlatGridItem | undefined {
+  private findItem(
+    items: IMutableFlatGridItem[],
+    selectionKey: string
+  ): IMutableFlatGridItem | undefined {
     for (const item of items) {
       // Each items key is prefixed with it's parent key, so we can ignore the ones that aren't prefixed to reduce checking unnecessary branches.
-      if (!selectionKey.startsWith(item.selectionKey))
-        continue;
+      if (!selectionKey.startsWith(item.selectionKey)) continue;
 
-      if (item.selectionKey === selectionKey)
-        return item;
+      if (item.selectionKey === selectionKey) return item;
 
       const foundItem = this.findItem(item.getChildren(), selectionKey);
-      if (foundItem)
-        return foundItem;
+      if (foundItem) return foundItem;
     }
 
     return undefined;
@@ -94,7 +105,9 @@ export class MutablePropertyGridModel implements IPropertyGridModel, IMutablePro
    */
   public getFlatGrid(): IMutableFlatGridItem[] {
     const flatGrid: IMutableFlatGridItem[] = [];
-    this._categories.forEach((category) => flatGrid.push(...category.getDescendantsAndSelf()));
+    this._categories.forEach((category) =>
+      flatGrid.push(...category.getDescendantsAndSelf())
+    );
 
     return flatGrid;
   }
@@ -105,7 +118,9 @@ export class MutablePropertyGridModel implements IPropertyGridModel, IMutablePro
    */
   public getVisibleFlatGrid(): IMutableFlatGridItem[] {
     const visibleItems: IMutableFlatGridItem[] = [];
-    this._categories.forEach((category) => visibleItems.push(...category.getVisibleDescendantsAndSelf()));
+    this._categories.forEach((category) =>
+      visibleItems.push(...category.getVisibleDescendantsAndSelf())
+    );
 
     return visibleItems;
   }

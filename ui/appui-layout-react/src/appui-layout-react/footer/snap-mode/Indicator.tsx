@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module SnapMode
  */
@@ -32,10 +32,11 @@ export interface SnapModeProps extends FooterIndicatorProps {
  */
 export class SnapMode extends React.PureComponent<SnapModeProps> {
   public override render() {
-    const { children, className, icon, indicatorRef, onClick, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { children, className, icon, indicatorRef, onClick, ...props } =
+      this.props;
     return (
       <FooterIndicator
-        className={classnames("nz-footer-snapMode-indicator", this.props.className)}
+        className={classnames("nz-footer-snapMode-indicator", className)}
         {...props}
       >
         <div // eslint-disable-line jsx-a11y/click-events-have-key-events
@@ -45,14 +46,10 @@ export class SnapMode extends React.PureComponent<SnapModeProps> {
           role="button"
           tabIndex={-1}
         >
-          {children !== undefined &&
+          {children !== undefined && (
             <span className="nz-label">{children}</span>
-          }
-          <div
-            className="nz-icon"
-          >
-            {icon}
-          </div>
+          )}
+          <div className="nz-icon">{icon}</div>
         </div>
       </FooterIndicator>
     );

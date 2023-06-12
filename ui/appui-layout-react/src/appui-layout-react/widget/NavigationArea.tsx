@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -35,26 +35,30 @@ export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
  * @internal
  */
 export function NavigationArea(props: NavigationAreaProps) {
-  const className = classnames(
-    "nz-widget-navigationArea",
-    props.className);
+  const className = classnames("nz-widget-navigationArea", props.className);
   return (
     <div className={className} style={props.style}>
-      <div className="nz-horizontal-toolbar-container"
+      <div
+        className="nz-horizontal-toolbar-container"
         onMouseEnter={props.onMouseEnter}
-        onMouseLeave={props.onMouseLeave}>
+        onMouseLeave={props.onMouseLeave}
+      >
         {props.horizontalToolbar}
       </div>
       {props.navigationAid && (
-        <div className="nz-navigation-aid-container"
+        <div
+          className="nz-navigation-aid-container"
           onMouseEnter={props.onMouseEnter}
-          onMouseLeave={props.onMouseLeave}>
+          onMouseLeave={props.onMouseLeave}
+        >
           {props.navigationAid}
         </div>
       )}
-      <div className="nz-vertical-toolbar-container"
+      <div
+        className="nz-vertical-toolbar-container"
         onMouseEnter={props.onMouseEnter}
-        onMouseLeave={props.onMouseLeave}>
+        onMouseLeave={props.onMouseLeave}
+      >
         {props.verticalToolbar}
       </div>
     </div>

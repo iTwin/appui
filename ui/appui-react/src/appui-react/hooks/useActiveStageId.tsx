@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Hooks
  */
@@ -14,15 +14,23 @@ import { UiFramework } from "../UiFramework";
  * @public
  */
 export function useActiveStageId(): string {
-  const [activeStageId, setActiveStageId] = useState(UiFramework.frontstages.activeFrontstageId);
+  const [activeStageId, setActiveStageId] = useState(
+    UiFramework.frontstages.activeFrontstageId
+  );
   useEffect(() => {
-    const handleFrontstageActivatedEvent = (args: FrontstageActivatedEventArgs) => {
+    const handleFrontstageActivatedEvent = (
+      args: FrontstageActivatedEventArgs
+    ) => {
       setActiveStageId(args.activatedFrontstageDef.id);
     };
 
-    UiFramework.frontstages.onFrontstageActivatedEvent.addListener(handleFrontstageActivatedEvent);
+    UiFramework.frontstages.onFrontstageActivatedEvent.addListener(
+      handleFrontstageActivatedEvent
+    );
     return () => {
-      UiFramework.frontstages.onFrontstageActivatedEvent.removeListener(handleFrontstageActivatedEvent);
+      UiFramework.frontstages.onFrontstageActivatedEvent.removeListener(
+        handleFrontstageActivatedEvent
+      );
     };
   }, []);
   return activeStageId;

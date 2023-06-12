@@ -1,18 +1,22 @@
 ---
 publish: false
 ---
+
 # NextVersion
 
 Table of contents:
 
-- [iTwin.js version range](#itwinjs-version-range)
-- [@itwin/appui-react](#itwinappui-react)
-  - [Widget error handling](#widget-error-handling)
-  - [Added `SelectionCountField` component](#added-selectioncountfield-component)
-  - [`ViewSelector` changes](#viewselector-changes)
-  - [Fixes](#fixes)
-- [@itwin/core-react](#itwincore-react)
-- [@itwin/components-react](#itwincomponents-react)
+- [NextVersion](#nextversion)
+  - [iTwin.js version range](#itwinjs-version-range)
+  - [@itwin/appui-react](#itwinappui-react)
+    - [Widget error handling](#widget-error-handling)
+    - [Added `SelectionCountField` component](#added-selectioncountfield-component)
+    - [`ViewSelector` changes](#viewselector-changes)
+    - [Fixes](#fixes)
+  - [@itwin/core-react](#itwincore-react)
+    - [Changed base `Dialog` component for `MessageBox`](#changed-base-dialog-component-for-messagebox)
+    - [Fixes](#fixes-1)
+  - [@itwin/components-react](#itwincomponents-react)
 
 ## iTwin.js version range
 

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /* @author Vitim.us https://gist.github.com/victornpb/7736865 */
 
 /** @packageDocumentation
@@ -12,10 +12,10 @@
  * @internal
  */
 export function countMatchesInString(str: string, lookup: string) {
-  if (!str.length || !lookup.length)
-    return 0;
+  if (!str.length || !lookup.length) return 0;
 
-  let n = 0, pos = 0;
+  let n = 0,
+    pos = 0;
   const step = lookup.length;
 
   while (true) {
@@ -23,8 +23,7 @@ export function countMatchesInString(str: string, lookup: string) {
     if (pos >= 0) {
       ++n;
       pos += step;
-    } else
-      break;
+    } else break;
   }
   return n;
 }

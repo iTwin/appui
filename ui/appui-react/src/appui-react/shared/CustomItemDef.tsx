@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Item
  */
@@ -22,8 +22,7 @@ export class CustomItemDef extends ActionButtonItemDef {
   constructor(props: CustomItemProps) {
     super(props);
 
-    if (props.customId)
-      this.customId = props.customId;
+    if (props.customId) this.customId = props.customId;
     else {
       CustomItemDef._sId++;
       this.customId = CustomItemDef.customIdPrefix + CustomItemDef._sId;

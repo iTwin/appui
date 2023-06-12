@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Dialog
  */
@@ -26,15 +26,23 @@ import { SvgClose } from "@itwin/itwinui-icons-react";
  * @public
  */
 export enum DialogAlignment {
-  TopLeft = "top-left", Top = "top", TopRight = "top-right",
-  Left = "left", Center = "center", Right = "right",
-  BottomLeft = "bottom-left", Bottom = "bottom", BottomRight = "bottom-right",
+  TopLeft = "top-left",
+  Top = "top",
+  TopRight = "top-right",
+  Left = "left",
+  Center = "center",
+  Right = "right",
+  BottomLeft = "bottom-left",
+  Bottom = "bottom",
+  BottomRight = "bottom-right",
 }
 
 /** Properties for the [[Dialog]] component
  * @public
  */
-export interface DialogProps extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "title">, CommonProps {
+export interface DialogProps
+  extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "title">,
+    CommonProps {
   /** Indicates whether to show dialog or not */
   opened: boolean;
 
@@ -163,7 +171,11 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   public override componentWillUnmount(): void {
     const parentWindow = this.getParentWindow();
     parentWindow.removeEventListener("pointerup", this._handlePointerUp, true);
-    parentWindow.removeEventListener("pointermove", this._handlePointerMove, true);
+    parentWindow.removeEventListener(
+      "pointermove",
+      this._handlePointerMove,
+      true
+    );
     this._parentDocument.removeEventListener("keyup", this._handleKeyUp, true);
     parentWindow.addEventListener("resize", this._handleAppWindowResize);
   }
@@ -171,8 +183,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   /** Keep title bar of movable Dialog at least partially visible */
   // istanbul ignore next
   private _handleAppWindowResize = (): void => {
-    if (!this._containerRef.current || !this.props.movable)
-      return;
+    if (!this._containerRef.current || !this.props.movable) return;
 
     const parentWindow = this.getParentWindow();
     const { x, y } = this.state;
@@ -182,12 +193,15 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     if (undefined !== y && undefined !== x) {
       if (y > parentWindow.innerHeight - 32)
         newY = parentWindow.innerHeight - 32;
-      if (x > parentWindow.innerWidth - 32)
-        newX = parentWindow.innerWidth - 32;
+      if (x > parentWindow.innerWidth - 32) newX = parentWindow.innerWidth - 32;
     }
 
     if (newX !== undefined || newY !== undefined)
-      this.setState({ x: newX !== undefined ? newX : x, y: newY !== undefined ? newY : y, positionSet: true });
+      this.setState({
+        x: newX !== undefined ? newX : x,
+        y: newY !== undefined ? newY : y,
+        positionSet: true,
+      });
   };
 
   public override componentDidMount(): void {
@@ -198,22 +212,52 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   }
 
   public handleRefSet = (containerDiv: HTMLDivElement | null) => {
-    if (containerDiv)
-      this._parentDocument = containerDiv.ownerDocument;
+    if (containerDiv) this._parentDocument = containerDiv.ownerDocument;
   };
 
   public override render(): JSX.Element {
     const {
-      opened, title, footer, buttonCluster, onClose, onEscape, onOutsideClick, // eslint-disable-line @typescript-eslint/no-unused-vars
-      minWidth, minHeight, x, y, width, height, maxHeight, maxWidth,
-      backgroundStyle, titleStyle, footerStyle, style, contentStyle, contentClassName,
-      modal, resizable, movable, className, alignment, inset, trapFocus, modelessId, onModelessPointerDown, // eslint-disable-line @typescript-eslint/no-unused-vars
-      hideHeader, header, ...props } = this.props;
+      opened,
+      title,
+      footer,
+      buttonCluster, // eslint-disable-line @typescript-eslint/no-unused-vars
+      onClose,
+      onEscape, // eslint-disable-line @typescript-eslint/no-unused-vars
+      onOutsideClick, // eslint-disable-line @typescript-eslint/no-unused-vars
+      minWidth,
+      minHeight,
+      x,
+      y,
+      width,
+      height,
+      maxHeight,
+      maxWidth,
+      backgroundStyle,
+      titleStyle,
+      footerStyle,
+      style,
+      contentStyle,
+      contentClassName,
+      modal,
+      resizable,
+      movable,
+      className,
+      alignment,
+      inset,
+      trapFocus,
+      modelessId, // eslint-disable-line @typescript-eslint/no-unused-vars
+      onModelessPointerDown, // eslint-disable-line @typescript-eslint/no-unused-vars
+      hideHeader,
+      header,
+      ...props
+    } = this.props;
 
     const containerStyle: React.CSSProperties = {
       margin: "",
-      left: x, top: y,
-      width, height,
+      left: x,
+      top: y,
+      width,
+      height,
     };
 
     if (this.state.x !== undefined || this.state.y !== undefined) {
@@ -241,16 +285,24 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     }
 
     const minMaxStyle: React.CSSProperties = {};
-    minMaxStyle.minWidth = (typeof minWidth === "number") ? `${minWidth}px` : minWidth;
-    minMaxStyle.minHeight = (typeof minHeight === "number") ? `${minHeight}px` : minHeight;
+    minMaxStyle.minWidth =
+      typeof minWidth === "number" ? `${minWidth}px` : minWidth;
+    minMaxStyle.minHeight =
+      typeof minHeight === "number" ? `${minHeight}px` : minHeight;
     if (maxWidth !== undefined)
-      minMaxStyle.maxWidth = (typeof maxWidth === "number") ? `${maxWidth}px` : maxWidth;
+      minMaxStyle.maxWidth =
+        typeof maxWidth === "number" ? `${maxWidth}px` : maxWidth;
     if (maxHeight !== undefined)
-      minMaxStyle.maxHeight = (typeof maxHeight === "number") ? `${maxHeight}px` : maxHeight;
+      minMaxStyle.maxHeight =
+        typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight;
 
     const buttons = this.getFooterButtons(this.props);
 
-    const footerElement: React.ReactNode = footer || (buttons.length > 0 && <div className={"core-dialog-buttons"}>{buttons}</div>);
+    const footerElement: React.ReactNode =
+      footer ||
+      (buttons.length > 0 && (
+        <div className={"core-dialog-buttons"}>{buttons}</div>
+      ));
 
     const divStyle: React.CSSProperties = {
       ...backgroundStyle,
@@ -265,67 +317,98 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
           { "core-dialog-modal": modal }
         )}
         data-testid="core-dialog-head"
-        onPointerDown={this._handleStartMove}>
-        <div className={"core-dialog-title"} data-testid="core-dialog-title" style={titleStyle}>{title}</div>
+        onPointerDown={this._handleStartMove}
+      >
+        <div
+          className={"core-dialog-title"}
+          data-testid="core-dialog-title"
+          style={titleStyle}
+        >
+          {title}
+        </div>
         <button
           className={"core-focus-trap-ignore-initial core-dialog-close icon"}
           data-testid="core-dialog-close"
-          onClick={onClose}>
+          onClick={onClose}
+        >
           <Icon iconSpec={<SvgClose />} />
         </button>
       </div>
     );
 
     return (
-      <div ref={this.handleRefSet}
+      <div
+        ref={this.handleRefSet}
         className={classnames(
           "core-dialog",
           !modal && "core-dialog-hidden",
           opened && "core-dialog-opened",
-          className,
+          className
         )}
         style={divStyle}
         data-testid="core-dialog-root"
         {...props}
       >
-        {opened &&
+        {opened && (
           <DivWithOutsideClick onOutsideClick={onOutsideClick}>
-            <FocusTrap active={trapFocus && modal} returnFocusOnDeactivate={true}>
+            <FocusTrap
+              active={trapFocus && modal}
+              returnFocusOnDeactivate={true}
+            >
               <div
-                className={classnames("core-dialog-container", this.getCSSClassNameFromAlignment(alignment))}
+                className={classnames(
+                  "core-dialog-container",
+                  this.getCSSClassNameFromAlignment(alignment)
+                )}
                 style={{ ...containerStyle, ...minMaxStyle }}
                 data-testid="core-dialog-container"
                 onPointerDown={this._handleContainerPointerDown}
               >
-                <div className={"core-dialog-area"} ref={this._containerRef} style={minMaxStyle}>
-                  {!hideHeader &&
-                    headerElement
-                  }
+                <div
+                  className={"core-dialog-area"}
+                  ref={this._containerRef}
+                  style={minMaxStyle}
+                >
+                  {!hideHeader && headerElement}
                   <div
                     className={classnames(
                       "core-dialog-content",
                       { "core-dialog-content-no-inset": !inset },
-                      contentClassName)}
-                    style={contentStyle}>
+                      contentClassName
+                    )}
+                    style={contentStyle}
+                  >
                     {this.props.children}
                   </div>
-                  {footerElement &&
+                  {footerElement && (
                     <div className={"core-dialog-footer"} style={footerStyle}>
                       {footerElement}
                     </div>
-                  }
+                  )}
                   <div
-                    className={classnames("core-dialog-drag", "core-dialog-drag-right", { "core-dialog-drag-enabled": resizable })}
+                    className={classnames(
+                      "core-dialog-drag",
+                      "core-dialog-drag-right",
+                      { "core-dialog-drag-enabled": resizable }
+                    )}
                     data-testid="core-dialog-drag-right"
                     onPointerDown={this._handleStartResizeRight}
                   />
                   <div
-                    className={classnames("core-dialog-drag", "core-dialog-drag-bottom-mid", { "core-dialog-drag-enabled": resizable })}
+                    className={classnames(
+                      "core-dialog-drag",
+                      "core-dialog-drag-bottom-mid",
+                      { "core-dialog-drag-enabled": resizable }
+                    )}
                     data-testid="core-dialog-drag-bottom"
                     onPointerDown={this._handleStartResizeDown}
                   />
                   <div
-                    className={classnames("core-dialog-drag", "core-dialog-drag-bottom-right", { "core-dialog-drag-enabled": resizable })}
+                    className={classnames(
+                      "core-dialog-drag",
+                      "core-dialog-drag-bottom-right",
+                      { "core-dialog-drag-enabled": resizable }
+                    )}
                     data-testid="core-dialog-drag-bottom-right"
                     onPointerDown={this._handleStartResizeDownRight}
                   />
@@ -333,7 +416,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
               </div>
             </FocusTrap>
           </DivWithOutsideClick>
-        }
+        )}
       </div>
     );
   }
@@ -342,12 +425,10 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     let className = "";
 
     // Drop the alignment CSS class if the Dialog has been sized or moved.
-    if (this.state.positionSet)
-      return "";
+    if (this.state.positionSet) return "";
 
     // istanbul ignore next
-    if (!alignment)
-      alignment = DialogAlignment.Center;
+    if (!alignment) alignment = DialogAlignment.Center;
 
     switch (alignment) {
       case DialogAlignment.TopLeft:
@@ -387,8 +468,17 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     if (props.buttonCluster) {
       props.buttonCluster.forEach((button: DialogButtonDef, index: number) => {
         let buttonText = "";
-        let buttonClass = classnames("core-dialog-button", `dialog-button-${button.type}`, button.className);
-        let styleType: "default" | "cta" | "high-visibility" | "borderless" | undefined;
+        let buttonClass = classnames(
+          "core-dialog-button",
+          `dialog-button-${button.type}`,
+          button.className
+        );
+        let styleType:
+          | "default"
+          | "cta"
+          | "high-visibility"
+          | "borderless"
+          | undefined;
 
         switch (button.type) {
           case DialogButtonType.OK:
@@ -449,7 +539,11 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   }
 
   private _handleKeyUp = (event: KeyboardEvent) => {
-    if (event.key === SpecialKey.Escape && this.props.opened && this.props.onEscape) {
+    if (
+      event.key === SpecialKey.Escape &&
+      this.props.opened &&
+      this.props.onEscape
+    ) {
       this.props.onEscape();
     }
   };
@@ -483,8 +577,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   };
 
   private _handleStartMove = (event: React.PointerEvent): void => {
-    if (!this.props.movable)
-      return;
+    if (!this.props.movable) return;
 
     event.preventDefault();
     // istanbul ignore else
@@ -499,21 +592,32 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       });
 
       const parentWindow = this.getParentWindow();
-      parentWindow.addEventListener("pointermove", this._handlePointerMove, true);
+      parentWindow.addEventListener(
+        "pointermove",
+        this._handlePointerMove,
+        true
+      );
     }
   };
 
   private _handlePointerMove = (event: PointerEvent): void => {
-    if ((!this.props.resizable && !this.props.movable) || !this._containerRef.current)
+    if (
+      (!this.props.resizable && !this.props.movable) ||
+      !this._containerRef.current
+    )
       return;
 
     const { minWidth, maxWidth, minHeight, maxHeight, movable } = this.props;
     let { x, y, width, height } = this.state;
 
     // istanbul ignore else
-    if (x === undefined) { // if x is undefined, so is y, width, and height
+    if (x === undefined) {
+      // if x is undefined, so is y, width, and height
       const rect = this._containerRef.current.getBoundingClientRect();
-      width = rect.width, height = rect.height, x = rect.left, y = rect.top;
+      (width = rect.width),
+        (height = rect.height),
+        (x = rect.left),
+        (y = rect.top);
     }
 
     if (this.props.resizable) {
@@ -521,8 +625,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         const pointerX = event.clientX;
         width = pointerX - x;
         // istanbul ignore else
-        if (typeof minWidth === "number")
-          width = Math.max(width, minWidth);
+        if (typeof minWidth === "number") width = Math.max(width, minWidth);
         if (maxWidth !== undefined && typeof maxWidth === "number")
           width = Math.min(width, maxWidth);
       }
@@ -531,8 +634,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         const pointerY = event.clientY;
         height = pointerY - y!;
         // istanbul ignore else
-        if (typeof minHeight === "number")
-          height = Math.max(height, minHeight);
+        if (typeof minHeight === "number") height = Math.max(height, minHeight);
         if (maxHeight !== undefined && typeof maxHeight === "number")
           height = Math.min(height, maxHeight);
       }
@@ -544,16 +646,12 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     if (movable && this.state.moving) {
       x = event.clientX - this.state.grabOffsetX;
       y = event.clientY - this.state.grabOffsetY;
-      if (y < 0)
-        y = 0;
+      if (y < 0) y = 0;
       if (event.view) {
-        if (y > event.view.innerHeight - 32)
-          y = event.view.innerHeight - 32;
-        if (x > event.view.innerWidth - 32)
-          x = event.view.innerWidth - 32;
+        if (y > event.view.innerHeight - 32) y = event.view.innerHeight - 32;
+        if (x > event.view.innerWidth - 32) x = event.view.innerWidth - 32;
         if (width) {
-          if (x < (0 - width + 32))
-            x = 0 - width + 32;
+          if (x < 0 - width + 32) x = 0 - width + 32;
         }
       }
 
@@ -562,8 +660,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   };
 
   private _handlePointerUp = (_event: PointerEvent): void => {
-    if (!this.props.movable && !this.props.resizable)
-      return;
+    if (!this.props.movable && !this.props.resizable) return;
 
     // istanbul ignore else
     if (this._containerRef.current) {
@@ -577,6 +674,10 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     }
 
     const parentWindow = this.getParentWindow();
-    parentWindow.removeEventListener("pointermove", this._handlePointerMove, true);
+    parentWindow.removeEventListener(
+      "pointermove",
+      this._handlePointerMove,
+      true
+    );
   };
 }

@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/components-react",
-      "comment": "Fix a bug where `MultilineTextPropertyValueRenderer` doesn't show \"See less\" and \"See more\" buttons",
+      "comment": "`PropertyFilterBuilder`: Make `contains` default operator for string and text properties.",
       "type": "none"
     }
   ],

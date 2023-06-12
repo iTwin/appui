@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -18,7 +18,11 @@ describe("NavigationPropertyValueRenderer", () => {
   describe("render", () => {
     it("renders navigation property from display value", () => {
       const renderer = new NavigationPropertyValueRenderer();
-      const property = TestUtils.createNavigationProperty("Category", instanceKey, "Rod");
+      const property = TestUtils.createNavigationProperty(
+        "Category",
+        instanceKey,
+        "Rod"
+      );
 
       const element = renderer.render(property);
       const elementRender = render(<>{element}</>);
@@ -28,7 +32,11 @@ describe("NavigationPropertyValueRenderer", () => {
 
     it("renders navigation property from property name", () => {
       const renderer = new NavigationPropertyValueRenderer();
-      const property = TestUtils.createNavigationProperty("Category", instanceKey, "");
+      const property = TestUtils.createNavigationProperty(
+        "Category",
+        instanceKey,
+        ""
+      );
 
       const element = renderer.render(property);
       const elementRender = render(<>{element}</>);
@@ -38,7 +46,10 @@ describe("NavigationPropertyValueRenderer", () => {
 
     it("supports PropertyConverterInfo", () => {
       const renderer = new NavigationPropertyValueRenderer();
-      const property = TestUtils.createNavigationProperty("Category", instanceKey);
+      const property = TestUtils.createNavigationProperty(
+        "Category",
+        instanceKey
+      );
       const convertInfo: PropertyConverterInfo = { name: "" };
       property.property.converter = convertInfo;
 
@@ -50,7 +61,10 @@ describe("NavigationPropertyValueRenderer", () => {
 
     it("renders navigation property wrapped in an anchored tag when property record has it", () => {
       const renderer = new NavigationPropertyValueRenderer();
-      const stringProperty = TestUtils.createPrimitiveStringProperty("Label", "Test property");
+      const stringProperty = TestUtils.createPrimitiveStringProperty(
+        "Label",
+        "Test property"
+      );
       stringProperty.links = {
         onClick: sinon.spy(),
       };
@@ -60,14 +74,23 @@ describe("NavigationPropertyValueRenderer", () => {
 
       renderedElement.getByText("Test property");
 
-      expect(renderedElement.container.getElementsByClassName("core-underlined-button")).to.not.be.empty;
+      expect(
+        renderedElement.container.getElementsByClassName(
+          "core-underlined-button"
+        )
+      ).to.not.be.empty;
     });
 
     it("renders navigation property with highlighting", () => {
       const renderer = new NavigationPropertyValueRenderer();
-      const stringProperty = TestUtils.createPrimitiveStringProperty("Label", "Test property");
+      const stringProperty = TestUtils.createPrimitiveStringProperty(
+        "Label",
+        "Test property"
+      );
 
-      const highlightNode = (text: string) => <span>{`${text} Highlighted`}</span>;
+      const highlightNode = (text: string) => (
+        <span>{`${text} Highlighted`}</span>
+      );
       const renderContext: PropertyValueRendererContext = {
         textHighlighter: highlightNode,
       };
@@ -88,7 +111,10 @@ describe("NavigationPropertyValueRenderer", () => {
   describe("canRender", () => {
     it("returns true for a navigation property", () => {
       const renderer = new NavigationPropertyValueRenderer();
-      const property = TestUtils.createNavigationProperty("Category", instanceKey);
+      const property = TestUtils.createNavigationProperty(
+        "Category",
+        instanceKey
+      );
       expect(renderer.canRender(property)).to.be.true;
     });
 
@@ -96,7 +122,10 @@ describe("NavigationPropertyValueRenderer", () => {
       const renderer = new NavigationPropertyValueRenderer();
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
       const structProperty = TestUtils.createStructProperty("NameStruct");
-      const stringProperty = TestUtils.createPrimitiveStringProperty("Label", "Model");
+      const stringProperty = TestUtils.createPrimitiveStringProperty(
+        "Label",
+        "Model"
+      );
       expect(renderer.canRender(arrayProperty)).to.be.false;
       expect(renderer.canRender(structProperty)).to.be.false;
       expect(renderer.canRender(stringProperty)).to.be.false;

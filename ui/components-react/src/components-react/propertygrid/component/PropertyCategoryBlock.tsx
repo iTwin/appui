@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyGrid
  */
@@ -49,11 +49,22 @@ export class PropertyCategoryBlock extends React.Component<PropertyCategoryBlock
   /** @internal */
   public override render() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { highlight, category, children, onExpansionToggled, ...props } = this.props;
-    const activeMatchIndex = this.props.category.name === highlight?.activeHighlight?.highlightedItemIdentifier ? highlight.activeHighlight.highlightIndex : undefined;
-    const label = highlight ?
-      (<HighlightedText text={category.label} activeMatchIndex={activeMatchIndex} searchText={highlight.highlightedText} />) :
-      category.label;
+    const { highlight, category, children, onExpansionToggled, ...props } =
+      this.props;
+    const activeMatchIndex =
+      this.props.category.name ===
+      highlight?.activeHighlight?.highlightedItemIdentifier
+        ? highlight.activeHighlight.highlightIndex
+        : undefined;
+    const label = highlight ? (
+      <HighlightedText
+        text={category.label}
+        activeMatchIndex={activeMatchIndex}
+        searchText={highlight.highlightedText}
+      />
+    ) : (
+      category.label
+    );
     return (
       <ExpandableBlock
         isExpanded={category.expand}

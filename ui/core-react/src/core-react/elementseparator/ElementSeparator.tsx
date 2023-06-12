@@ -1,14 +1,21 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ElementSeparator
  */
 
 import "./ElementSeparator.scss";
 import * as React from "react";
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"; // eslint-disable-line no-duplicate-imports
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import classnames from "classnames";
 import { Orientation } from "../enums/Orientation";
 import type { CommonProps } from "../utils/Props";
@@ -47,7 +54,10 @@ export interface ElementSeparatorProps extends CommonProps {
   onResizeHandleDragChanged?: (isDragStarted: boolean) => void;
 }
 
-function getCurrentGlobalPosition(orientation: Orientation, e: PointerEvent | React.PointerEvent) {
+function getCurrentGlobalPosition(
+  orientation: Orientation,
+  e: PointerEvent | React.PointerEvent
+) {
   return orientation === Orientation.Horizontal ? e.clientX : e.clientY;
 }
 
@@ -60,8 +70,7 @@ const useConditionalCleanup = (condition: boolean, cleanup: () => void) => {
 
   useEffect(() => {
     return () => {
-      if (conditionRef.current)
-        cleanupRef.current();
+      if (conditionRef.current) cleanupRef.current();
     };
   }, []);
 };
@@ -84,8 +93,12 @@ const useElementSeparatorPointerHandler = ({
   const isGroupDragged = isResizeHandleBeingDragged ?? isElementDragged;
   const isGroupHovered = isResizeHandleHovered ?? isElementHovered;
 
-  useConditionalCleanup(isElementDragged && !!onResizeHandleDragChanged, () => onResizeHandleDragChanged!(false));
-  useConditionalCleanup(isElementHovered && !!onResizeHandleHoverChanged, () => onResizeHandleHoverChanged!(false));
+  useConditionalCleanup(isElementDragged && !!onResizeHandleDragChanged, () =>
+    onResizeHandleDragChanged!(false)
+  );
+  useConditionalCleanup(isElementHovered && !!onResizeHandleHoverChanged, () =>
+    onResizeHandleHoverChanged!(false)
+  );
 
   if (isGroupHovered && pointerOutOfBounds.current)
     pointerOutOfBounds.current = false;
@@ -94,50 +107,58 @@ const useElementSeparatorPointerHandler = ({
     // istanbul ignore else
     if (isGroupDragged) {
       setIsDragged(false);
-      if (onResizeHandleDragChanged)
-        onResizeHandleDragChanged(false);
+      if (onResizeHandleDragChanged) onResizeHandleDragChanged(false);
     }
   }, [isGroupDragged, onResizeHandleDragChanged]);
 
-  const startDrag = useCallback((e: PointerEvent | React.PointerEvent) => {
-    globalPosition.current = getCurrentGlobalPosition(orientation, e);
+  const startDrag = useCallback(
+    (e: PointerEvent | React.PointerEvent) => {
+      globalPosition.current = getCurrentGlobalPosition(orientation, e);
 
-    // istanbul ignore else
-    if (!isGroupDragged) {
-      setIsDragged(true);
-      if (onResizeHandleDragChanged)
-        onResizeHandleDragChanged(true);
-    }
-  }, [isGroupDragged, orientation, onResizeHandleDragChanged]);
+      // istanbul ignore else
+      if (!isGroupDragged) {
+        setIsDragged(true);
+        if (onResizeHandleDragChanged) onResizeHandleDragChanged(true);
+      }
+    },
+    [isGroupDragged, orientation, onResizeHandleDragChanged]
+  );
 
   const onPointerUp = useCallback(() => {
     stopDrag();
   }, [stopDrag]);
 
-  const onThrottledPointerMove = useThrottledFn((e: PointerEvent | React.PointerEvent) => {
-    if (!movableArea) {
-      stopDrag();
-      return;
-    }
+  const onThrottledPointerMove = useThrottledFn(
+    (e: PointerEvent | React.PointerEvent) => {
+      if (!movableArea) {
+        stopDrag();
+        return;
+      }
 
-    const currentPosition = getCurrentGlobalPosition(orientation, e);
-    const positionChange = currentPosition - globalPosition.current;
+      const currentPosition = getCurrentGlobalPosition(orientation, e);
+      const positionChange = currentPosition - globalPosition.current;
 
-    // Should not need to recalculate if position on our movement axis does not change
-    if (Math.abs(positionChange) < 1)
-      return;
+      // Should not need to recalculate if position on our movement axis does not change
+      if (Math.abs(positionChange) < 1) return;
 
-    const currentLocalPosition = movableArea * ratio + positionChange;
-    const newRatio = currentLocalPosition / movableArea;
+      const currentLocalPosition = movableArea * ratio + positionChange;
+      const newRatio = currentLocalPosition / movableArea;
 
-    globalPosition.current = currentPosition;
-    if (pointerOutOfBounds.current || !onRatioChanged)
-      return;
+      globalPosition.current = currentPosition;
+      if (pointerOutOfBounds.current || !onRatioChanged) return;
 
-    const result = onRatioChanged(newRatio);
-    if (result && result.ratio === ratio && !isGroupHovered && !pointerOutOfBounds.current)
-      pointerOutOfBounds.current = true;
-  }, 16, [stopDrag, isGroupHovered, ratio, movableArea, onRatioChanged, orientation]);
+      const result = onRatioChanged(newRatio);
+      if (
+        result &&
+        result.ratio === ratio &&
+        !isGroupHovered &&
+        !pointerOutOfBounds.current
+      )
+        pointerOutOfBounds.current = true;
+    },
+    16,
+    [stopDrag, isGroupHovered, ratio, movableArea, onRatioChanged, orientation]
+  );
 
   useEffect(() => {
     return () => onThrottledPointerMove.cancel();
@@ -155,34 +176,31 @@ const useElementSeparatorPointerHandler = ({
     };
   }, [isElementDragged, onPointerUp, onThrottledPointerMove]);
 
-  const onPointerDown = useCallback((e: PointerEvent | React.PointerEvent) => {
-    if (!isGroupDragged) {
-      startDrag(e);
-    } else {
-      stopDrag();
-    }
-  }, [isGroupDragged, startDrag, stopDrag]);
+  const onPointerDown = useCallback(
+    (e: PointerEvent | React.PointerEvent) => {
+      if (!isGroupDragged) {
+        startDrag(e);
+      } else {
+        stopDrag();
+      }
+    },
+    [isGroupDragged, startDrag, stopDrag]
+  );
 
   const onPointerOver = useCallback(() => {
     // istanbul ignore next
-    if (isGroupHovered)
-      return;
+    if (isGroupHovered) return;
 
     setIsHovered(true);
-    if (onResizeHandleHoverChanged)
-      onResizeHandleHoverChanged(true);
-
+    if (onResizeHandleHoverChanged) onResizeHandleHoverChanged(true);
   }, [isGroupHovered, onResizeHandleHoverChanged]);
 
   const onPointerOut = useCallback(() => {
     // istanbul ignore next
-    if (!isGroupHovered)
-      return;
+    if (!isGroupHovered) return;
 
     setIsHovered(false);
-    if (onResizeHandleHoverChanged)
-      onResizeHandleHoverChanged(false);
-
+    if (onResizeHandleHoverChanged) onResizeHandleHoverChanged(false);
   }, [isGroupHovered, onResizeHandleHoverChanged]);
 
   return {
@@ -194,7 +212,10 @@ const useElementSeparatorPointerHandler = ({
   };
 };
 
-function getStyle(orientation: Orientation, separatorSize?: number): React.CSSProperties {
+function getStyle(
+  orientation: Orientation,
+  separatorSize?: number
+): React.CSSProperties {
   separatorSize = separatorSize || 30;
 
   if (orientation === Orientation.Horizontal)
@@ -211,29 +232,35 @@ function getStyle(orientation: Orientation, separatorSize?: number): React.CSSPr
 /** A movable button, which allows to change the ratio between left element and right element
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const ElementSeparator = (props: ElementSeparatorProps) => {
   const label = useRef(UiCore.translate("elementSeparator.label"));
   const [hasHoverHappened, setHasHoverHappened] = useState(false);
-  const { isDragged, isHovered, onPointerDown, onPointerOver, onPointerOut } = useElementSeparatorPointerHandler(props);
+  const { isDragged, isHovered, onPointerDown, onPointerOver, onPointerOut } =
+    useElementSeparatorPointerHandler(props);
 
   const isHoverNeeded = isHovered || isDragged;
-  if (!hasHoverHappened && isHoverNeeded)
-    setHasHoverHappened(isHoverNeeded);
+  if (!hasHoverHappened && isHoverNeeded) setHasHoverHappened(isHoverNeeded);
 
   // This is done to avoid fade-out animation when first rendering.
-  const unhoverClass = hasHoverHappened ? "core-element-separator-group-unhovered" : "";
+  const unhoverClass = hasHoverHappened
+    ? "core-element-separator-group-unhovered"
+    : "";
 
   const classNames = classnames(
     "core-element-separator",
-    (props.orientation === Orientation.Horizontal) ? "core-element-separator--horizontal" : "core-element-separator--vertical",
+    props.orientation === Orientation.Horizontal
+      ? "core-element-separator--horizontal"
+      : "core-element-separator--vertical",
     props.className,
-    isHoverNeeded ? "core-element-separator-group-hovered" : unhoverClass,
+    isHoverNeeded ? "core-element-separator-group-hovered" : unhoverClass
   );
 
   const orientation = props.orientation;
   const separatorSize = props.separatorSize;
-  const style = useMemo(() => getStyle(orientation, separatorSize), [orientation, separatorSize]);
+  const style = useMemo(
+    () => getStyle(orientation, separatorSize),
+    [orientation, separatorSize]
+  );
   const styles: React.CSSProperties = {
     ...style,
     ...props.style,

@@ -1,13 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import { CustomItemDef } from "../../appui-react/shared/CustomItemDef";
 import TestUtils from "../TestUtils";
 
 describe("CustomItemDef", () => {
-
   before(async () => {
     await TestUtils.initializeUiFramework();
   });
@@ -17,10 +16,11 @@ describe("CustomItemDef", () => {
   });
 
   it("CustomItemDef with no commandId should get generated id", () => {
-    const item = new CustomItemDef({
-    });
+    const item = new CustomItemDef({});
 
-    expect(item.id.substring(0, CustomItemDef.customIdPrefix.length)).to.eq(CustomItemDef.customIdPrefix);
+    expect(item.id.substring(0, CustomItemDef.customIdPrefix.length)).to.eq(
+      CustomItemDef.customIdPrefix
+    );
   });
 
   it("CustomItemDef with commandId should use it", () => {

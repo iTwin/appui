@@ -1,14 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /**
  * Copies the source CSS into the destination
  * @param targetDoc - target document
  * @param sourceDoc - source document
  * @internal
  */
-export function copyStyles(targetDoc: Document, sourceDoc: Document = document) {
+export function copyStyles(
+  targetDoc: Document,
+  sourceDoc: Document = document
+) {
   const stylesheets = Array.from(sourceDoc.styleSheets);
   // istanbul ignore next
   stylesheets.forEach((stylesheet) => {

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -31,7 +31,9 @@ describe("PopoutWidget", () => {
 
   it("will render", () => {
     sandbox.stub(widgetDef, "reactNode").get(() => <div>Hello</div>);
-    const renderedComponent = render(<PopoutWidget widgetContainerId="testContainer" widgetDef={widgetDef} />);
+    const renderedComponent = render(
+      <PopoutWidget widgetContainerId="testContainer" widgetDef={widgetDef} />
+    );
     expect(renderedComponent.queryByText("Hello")).not.to.be.null;
     renderedComponent.unmount();
   });

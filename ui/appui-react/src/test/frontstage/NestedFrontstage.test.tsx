@@ -1,14 +1,19 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import type { FrontstageConfig} from "../../appui-react";
+import type { FrontstageConfig } from "../../appui-react";
 import {
-  ContentGroup, FrontstageDef, FrontstageProvider, NestedFrontstage, ToolItemDef, UiFramework,
+  ContentGroup,
+  FrontstageDef,
+  FrontstageProvider,
+  NestedFrontstage,
+  ToolItemDef,
+  UiFramework,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { TestContentControl, TestFrontstage } from "./FrontstageTestUtils";
@@ -20,7 +25,7 @@ class TestNestedFrontstage extends FrontstageProvider {
       icon: "dummy",
       label: "dummy",
       description: "dummy",
-      execute: async () => { },
+      execute: async () => {},
     });
   }
 
@@ -30,19 +35,17 @@ class TestNestedFrontstage extends FrontstageProvider {
   }
 
   public override frontstageConfig(): FrontstageConfig {
-    const contentGroup: ContentGroup = new ContentGroup(
-      {
-        id: "test-group",
-        layout: StandardContentLayouts.singleView,
-        contents: [
-          {
-            id: "main",
-            classId: TestContentControl,
-            applicationData: { label: "Content 1a", bgColor: "black" },
-          },
-        ],
-      },
-    );
+    const contentGroup: ContentGroup = new ContentGroup({
+      id: "test-group",
+      layout: StandardContentLayouts.singleView,
+      contents: [
+        {
+          id: "main",
+          classId: TestContentControl,
+          applicationData: { label: "Content 1a", bgColor: "black" },
+        },
+      ],
+    });
 
     return {
       id: this.id,
@@ -65,7 +68,6 @@ class TestNestedFrontstage extends FrontstageProvider {
 }
 
 describe("NestedFrontstage", async () => {
-
   before(async () => {
     await TestUtils.initializeUiFramework();
     UiFramework.frontstages.clearFrontstageProviders();
@@ -91,20 +93,31 @@ describe("NestedFrontstage", async () => {
     expect(UiFramework.frontstages.nestedFrontstageCount).to.eq(0);
 
     const nestedFrontstageProvider = new TestNestedFrontstage();
-    const nestedFrontstageDef = await FrontstageDef.create(nestedFrontstageProvider);
+    const nestedFrontstageDef = await FrontstageDef.create(
+      nestedFrontstageProvider
+    );
     const spyActivated = sinon.spy(nestedFrontstageDef, "_onActivated" as any);
-    const spyDeactivated = sinon.spy(nestedFrontstageDef, "_onDeactivated" as any);
+    const spyDeactivated = sinon.spy(
+      nestedFrontstageDef,
+      "_onDeactivated" as any
+    );
 
     await UiFramework.frontstages.openNestedFrontstage(nestedFrontstageDef);
     expect(UiFramework.frontstages.nestedFrontstageCount).to.eq(1);
-    expect(UiFramework.frontstages.activeNestedFrontstage).to.eq(nestedFrontstageDef);
+    expect(UiFramework.frontstages.activeNestedFrontstage).to.eq(
+      nestedFrontstageDef
+    );
     expect(spyActivated.calledOnce).to.be.true;
 
     const nestedFrontstageProvider2 = new TestNestedFrontstage();
-    const nestedFrontstageDef2 = await FrontstageDef.create(nestedFrontstageProvider2);
+    const nestedFrontstageDef2 = await FrontstageDef.create(
+      nestedFrontstageProvider2
+    );
     await UiFramework.frontstages.openNestedFrontstage(nestedFrontstageDef2);
     expect(UiFramework.frontstages.nestedFrontstageCount).to.eq(2);
-    expect(UiFramework.frontstages.activeNestedFrontstage).to.eq(nestedFrontstageDef2);
+    expect(UiFramework.frontstages.activeNestedFrontstage).to.eq(
+      nestedFrontstageDef2
+    );
     expect(spyDeactivated.calledOnce).to.be.true;
 
     NestedFrontstage.backToPreviousFrontstageCommand.execute();
@@ -118,5 +131,4 @@ describe("NestedFrontstage", async () => {
     expect(UiFramework.frontstages.nestedFrontstageCount).to.eq(0);
     expect(UiFramework.frontstages.activeFrontstageDef).to.eq(frontstageDef);
   });
-
 });

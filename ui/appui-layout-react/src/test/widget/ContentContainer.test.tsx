@@ -1,13 +1,21 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
 import { BeEvent } from "@itwin/core-bentley";
-import type { TabState, WidgetContentManagerContextArgs} from "../../appui-layout-react";
+import type {
+  TabState,
+  WidgetContentManagerContextArgs,
+} from "../../appui-layout-react";
 import {
-  addPanelWidget, addTab, createNineZoneState, WidgetContentContainer, WidgetContentManagerContext, WidgetIdContext,
+  addPanelWidget,
+  addTab,
+  createNineZoneState,
+  WidgetContentContainer,
+  WidgetContentManagerContext,
+  WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 
@@ -15,7 +23,7 @@ describe("WidgetContentContainer ", () => {
   it("should render minimized", () => {
     const onSaveTransientState = new BeEvent<(tabId: TabState["id"]) => void>();
     const widgetContentManager: WidgetContentManagerContextArgs = {
-      setContainer: () => { },
+      setContainer: () => {},
       onRestoreTransientState: new BeEvent<(tabId: TabState["id"]) => void>(),
       onSaveTransientState,
     };
@@ -28,8 +36,9 @@ describe("WidgetContentContainer ", () => {
           <WidgetIdContext.Provider value="w1">
             <WidgetContentContainer />
           </WidgetIdContext.Provider>
-        </WidgetContentManagerContext.Provider>,
-      </TestNineZoneProvider>,
+        </WidgetContentManagerContext.Provider>
+        ,
+      </TestNineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });

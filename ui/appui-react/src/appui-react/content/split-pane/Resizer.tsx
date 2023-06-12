@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContentView
  */
@@ -39,7 +39,10 @@ export function Resizer(props: ResizerProps) {
     style,
   } = props;
 
-  const resizerClasses = React.useMemo(() => classnames(split, className), [split, className]);
+  const resizerClasses = React.useMemo(
+    () => classnames(split, className),
+    [split, className]
+  );
 
   return (
     <span
@@ -68,6 +71,8 @@ export function Resizer(props: ResizerProps) {
           onDoubleClick(event.nativeEvent);
         }
       }}
-    />
+    >
+      <div className="nz-resizer-grip" />
+    </span>
   );
 }

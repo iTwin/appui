@@ -342,7 +342,7 @@ export type ActionCreatorsObject = {
 export type ActionsUnion<A extends ActionCreatorsObject> = ReturnType<A[keyof A]>;
 
 // @public
-export type ActionTypes<A extends Action<any>> = A["type"] extends infer X ? (X extends string ? X : never) : never;
+export type ActionTypes<A extends Action<any>> = A["type"] extends infer X ? X extends string ? X : never : never;
 
 // @public
 export interface ActionWithPayload<T extends string, P> extends Action<T> {
@@ -361,7 +361,7 @@ export interface ActiveContentChangedEventArgs {
 }
 
 // @internal (undocumented)
-export function ActiveFrontstageDefProvider({ frontstageDef, layout }: ActiveFrontstageDefProviderProps): JSX.Element;
+export function ActiveFrontstageDefProvider({ frontstageDef, layout, }: ActiveFrontstageDefProviderProps): JSX.Element;
 
 // @public
 export function ActivityCenterField(props: CommonProps): JSX.Element | null;
@@ -487,7 +487,7 @@ export interface BackstageAppButtonProps {
 export function BackstageComposer(props: BackstageComposerProps): JSX.Element;
 
 // @internal (undocumented)
-export function BackstageComposerActionItem({ item }: BackstageComposerActionItemProps): JSX.Element;
+export function BackstageComposerActionItem({ item, }: BackstageComposerActionItemProps): JSX.Element;
 
 // @internal (undocumented)
 export interface BackstageComposerActionItemProps {
@@ -512,7 +512,7 @@ export interface BackstageComposerProps extends CommonProps {
 }
 
 // @internal (undocumented)
-export function BackstageComposerStageLauncher({ item }: BackstageComposerStageLauncherProps): JSX.Element;
+export function BackstageComposerStageLauncher({ item, }: BackstageComposerStageLauncherProps): JSX.Element;
 
 // @internal (undocumented)
 export interface BackstageComposerStageLauncherProps {
@@ -1492,7 +1492,7 @@ export interface CustomItemProps extends ItemProps {
 }
 
 // @public
-export type DeepReadonly<T> = T extends ReadonlyArray<infer R> ? (R extends object ? DeepReadonlyArray<R> : ReadonlyArray<R>) : T extends FunctionType ? T : T extends object ? DeepReadonlyObject<T> : T;
+export type DeepReadonly<T> = T extends ReadonlyArray<infer R> ? R extends object ? DeepReadonlyArray<R> : ReadonlyArray<R> : T extends FunctionType ? T : T extends object ? DeepReadonlyObject<T> : T;
 
 // @public
 export interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {
@@ -1538,7 +1538,7 @@ export interface DefaultContentToolsAppData {
 }
 
 // @public
-export function DefaultDialogGridContainer({ componentGenerator, isToolSettings }: {
+export function DefaultDialogGridContainer({ componentGenerator, isToolSettings, }: {
     componentGenerator: ComponentGenerator;
     isToolSettings?: boolean;
 }): JSX.Element;
@@ -1598,7 +1598,7 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
 }
 
 // @public
-export function DefaultViewOverlay({ viewport, onPlayPause, featureOptions }: ViewOverlayProps): JSX.Element | null;
+export function DefaultViewOverlay({ viewport, onPlayPause, featureOptions, }: ViewOverlayProps): JSX.Element | null;
 
 // @public
 export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> {
@@ -1613,7 +1613,7 @@ export interface DialogChangedEventArgs {
 }
 
 // @internal (undocumented)
-export function DialogGridContainer({ componentGenerator, containerClassName }: DialogGridContainerProps): JSX.Element;
+export function DialogGridContainer({ componentGenerator, containerClassName, }: DialogGridContainerProps): JSX.Element;
 
 // @public
 export interface DialogInfo {
@@ -1793,7 +1793,7 @@ export interface FloatingViewportContentProps {
 }
 
 // @alpha (undocumented)
-export function FloatingViewportContentWrapper({ children }: FloatingViewportContentWrapperProps): JSX.Element;
+export function FloatingViewportContentWrapper({ children, }: FloatingViewportContentWrapperProps): JSX.Element;
 
 // @alpha (undocumented)
 export interface FloatingViewportContentWrapperProps {
@@ -2857,10 +2857,10 @@ export enum KeyinFieldLocalization {
 }
 
 // @internal (undocumented)
-export function KeyinPalettePanel({ keyins, onKeyinExecuted, historyLength: allowedHistoryLength }: KeyinPalettePanelProps): JSX.Element;
+export function KeyinPalettePanel({ keyins, onKeyinExecuted, historyLength: allowedHistoryLength, }: KeyinPalettePanelProps): JSX.Element;
 
 // @public
-export function KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted }: KeyinPalettePopupProps): JSX.Element;
+export function KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted, }: KeyinPalettePopupProps): JSX.Element;
 
 // @public
 export interface KeyinPalettePopupProps {
@@ -3139,7 +3139,7 @@ export interface ModalFrontstageClosedEventArgs {
 }
 
 // @internal (undocumented)
-export function ModalFrontstageComposer({ stageInfo }: {
+export function ModalFrontstageComposer({ stageInfo, }: {
     stageInfo: ModalFrontstageInfo | undefined;
 }): JSX.Element | null;
 
@@ -3520,7 +3520,7 @@ export type ProviderItem<T> = T & {
 };
 
 // @beta
-export function QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems }: QuantityFormatterSettingsOptions): JSX.Element;
+export function QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems, }: QuantityFormatterSettingsOptions): JSX.Element;
 
 // @beta
 export interface QuantityFormatterSettingsOptions {
@@ -3565,7 +3565,7 @@ export class ReactNotifyMessageDetails {
 export type Reducer<S, A> = (state: S, action: A) => S;
 
 // @public
-export type ReducerActions<R> = R extends Reducer<any, infer X> ? (X extends ActionWithPayload<infer T, infer P> ? DeepReadonly<ActionWithPayload<T, P>> : X extends Action<infer T2> ? DeepReadonly<Action<T2>> : X) : R;
+export type ReducerActions<R> = R extends Reducer<any, infer X> ? X extends ActionWithPayload<infer T, infer P> ? DeepReadonly<ActionWithPayload<T, P>> : X extends Action<infer T2> ? DeepReadonly<Action<T2>> : X : R;
 
 // @public
 export type ReducerMapActions<R> = ReducerActions<R[keyof R]>;
@@ -3790,23 +3790,23 @@ export const SessionStateActions: {
 // @beta
 export interface SessionStateActionsProps {
     // (undocumented)
-    setActiveIModelId: (typeof SessionStateActions.setActiveIModelId);
+    setActiveIModelId: typeof SessionStateActions.setActiveIModelId;
     // (undocumented)
-    setAvailableSelectionScopes: (typeof SessionStateActions.setAvailableSelectionScopes);
+    setAvailableSelectionScopes: typeof SessionStateActions.setAvailableSelectionScopes;
     // (undocumented)
-    setDefaultIModelViewportControlId: (typeof SessionStateActions.setDefaultIModelViewportControlId);
+    setDefaultIModelViewportControlId: typeof SessionStateActions.setDefaultIModelViewportControlId;
     // (undocumented)
-    setDefaultViewId: (typeof SessionStateActions.setDefaultViewId);
+    setDefaultViewId: typeof SessionStateActions.setDefaultViewId;
     // (undocumented)
-    setDefaultViewState: (typeof SessionStateActions.setDefaultViewState);
+    setDefaultViewState: typeof SessionStateActions.setDefaultViewState;
     // (undocumented)
-    setIModelConnection: (typeof SessionStateActions.setIModelConnection);
+    setIModelConnection: typeof SessionStateActions.setIModelConnection;
     // (undocumented)
-    setNumItemsSelected: (typeof SessionStateActions.setNumItemsSelected);
+    setNumItemsSelected: typeof SessionStateActions.setNumItemsSelected;
     // (undocumented)
-    setSelectionScope: (typeof SessionStateActions.setSelectionScope);
+    setSelectionScope: typeof SessionStateActions.setSelectionScope;
     // (undocumented)
-    updateCursorMenu: (typeof SessionStateActions.updateCursorMenu);
+    updateCursorMenu: typeof SessionStateActions.updateCursorMenu;
 }
 
 // @public
@@ -4728,7 +4728,7 @@ export interface ToolSettingsEntry {
 export function ToolSettingsGrid({ settings }: ToolSettingsGridProps): JSX.Element;
 
 // @public
-export function ToolSettingsGridContainer({ componentGenerator }: {
+export function ToolSettingsGridContainer({ componentGenerator, }: {
     componentGenerator: ComponentGenerator;
 }): JSX.Element;
 
@@ -5156,7 +5156,7 @@ export interface ViewLayout {
 }
 
 // @internal
-export function ViewOverlayHost({ viewport, featureOptions, userSuppliedOverlay }: ViewOverlayHostProps): JSX.Element | null;
+export function ViewOverlayHost({ viewport, featureOptions, userSuppliedOverlay, }: ViewOverlayHostProps): JSX.Element | null;
 
 // @public
 export interface ViewOverlayProps {

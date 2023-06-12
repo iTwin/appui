@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Notification
  */
@@ -14,7 +14,13 @@ import type { NotifyMessageType } from "./ReactNotifyMessageDetails";
 /** Message String/Label
  * @internal
  */
-export function MessageLabel(props: { message: NotifyMessageType, className: string }) {
-  const classNames = classnames("uifw-statusbar-message-label", props.className);
+export function MessageLabel(props: {
+  message: NotifyMessageType;
+  className: string;
+}) {
+  const classNames = classnames(
+    "uifw-statusbar-message-label",
+    props.className
+  );
   return <MessageDiv className={classNames} message={props.message} />;
 }

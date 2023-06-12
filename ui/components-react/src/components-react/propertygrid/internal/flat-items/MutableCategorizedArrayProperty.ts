@@ -1,21 +1,30 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 /** @packageDocumentation
  * @module PropertyGrid
  */
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import type { IMutableCategorizedPropertyItem, IMutableFlatGridItem} from "./MutableFlatGridItem";
-import { FlatGridItemType, MutableCategorizedProperty } from "./MutableFlatGridItem";
+import type {
+  IMutableCategorizedPropertyItem,
+  IMutableFlatGridItem,
+} from "./MutableFlatGridItem";
+import {
+  FlatGridItemType,
+  MutableCategorizedProperty,
+} from "./MutableFlatGridItem";
 import type { IMutableGridItemFactory } from "./MutableGridItemFactory";
 
 /**
  * Mutable wrapper object for PropertyRecord with array valueFormat which provides methods for working with and managing record children hierarchies.
  * @public
  */
-export class MutableCategorizedArrayProperty extends MutableCategorizedProperty implements IMutableCategorizedPropertyItem {
+export class MutableCategorizedArrayProperty
+  extends MutableCategorizedProperty
+  implements IMutableCategorizedPropertyItem
+{
   private _renderLabel: boolean;
   private _children: IMutableCategorizedPropertyItem[];
 
@@ -26,15 +35,30 @@ export class MutableCategorizedArrayProperty extends MutableCategorizedProperty 
     depth: number,
     gridItemFactory: IMutableGridItemFactory,
     overrideName?: string,
-    overrideDisplayLabel?: string,
+    overrideDisplayLabel?: string
   ) {
-    super(FlatGridItemType.Array, record, parentSelectionKey, parentCategorySelectionKey, depth, overrideName, overrideDisplayLabel);
+    super(
+      FlatGridItemType.Array,
+      record,
+      parentSelectionKey,
+      parentCategorySelectionKey,
+      depth,
+      overrideName,
+      overrideDisplayLabel
+    );
     this._renderLabel = !record.property.hideCompositePropertyLabel;
     const childrenDepth = depth + (this._renderLabel ? 1 : 0);
     this._children = record.getChildrenRecords().map((child, index) => {
       const newName = `${child.property.name}_${index}`;
       const newDisplayLabel = `[${index + 1}]`;
-      return gridItemFactory.createCategorizedProperty(child, this.selectionKey, parentCategorySelectionKey, childrenDepth, newName, newDisplayLabel);
+      return gridItemFactory.createCategorizedProperty(
+        child,
+        this.selectionKey,
+        parentCategorySelectionKey,
+        childrenDepth,
+        newName,
+        newDisplayLabel
+      );
     });
   }
 
@@ -47,7 +71,9 @@ export class MutableCategorizedArrayProperty extends MutableCategorizedProperty 
   }
 
   public override getDescendantsAndSelf() {
-    return this._renderLabel ? super.getDescendantsAndSelf() : this.getDescendants();
+    return this._renderLabel
+      ? super.getDescendantsAndSelf()
+      : this.getDescendants();
   }
 
   public override getVisibleDescendants(): IMutableFlatGridItem[] {
@@ -55,12 +81,16 @@ export class MutableCategorizedArrayProperty extends MutableCategorizedProperty 
     if (this.isExpanded || !this._renderLabel) {
       // always render children if not rendering the label, otherwise there's no way to expand
       // this item to make children visible
-      this.getChildren().forEach((child) => descendants.push(...child.getVisibleDescendantsAndSelf()));
+      this.getChildren().forEach((child) =>
+        descendants.push(...child.getVisibleDescendantsAndSelf())
+      );
     }
     return descendants;
   }
 
   public override getVisibleDescendantsAndSelf() {
-    return this._renderLabel ? super.getVisibleDescendantsAndSelf() : this.getVisibleDescendants();
+    return this._renderLabel
+      ? super.getVisibleDescendantsAndSelf()
+      : this.getVisibleDescendants();
   }
 }

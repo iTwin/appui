@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
@@ -29,7 +29,10 @@ interface TileLoadingIndicatorState {
 /** TileLoadingIndicator React component
  * @public
  */
-export class TileLoadingIndicator extends React.PureComponent<CommonProps, TileLoadingIndicatorState> {
+export class TileLoadingIndicator extends React.PureComponent<
+  CommonProps,
+  TileLoadingIndicatorState
+> {
   private _removeViewOpenListener?: () => void;
   private _removeOnRenderListener?: () => void;
 
@@ -42,28 +45,37 @@ export class TileLoadingIndicator extends React.PureComponent<CommonProps, TileL
     const requested = vp.numRequestedTiles;
     const ready = vp.numReadyTiles;
     const total = ready + requested;
-    const pctComplete = (total > 0) ? (ready / total) * 100 : /* istanbul ignore next */ 100;
+    const pctComplete =
+      total > 0 ? (ready / total) * 100 : /* istanbul ignore next */ 100;
     let enabled = this.state.enabled;
     let finished = this.state.finished;
 
     // istanbul ignore else
-    if (!enabled && total !== 0 && pctComplete !== 100)
-      enabled = true;
+    if (!enabled && total !== 0 && pctComplete !== 100) enabled = true;
 
-    if (enabled && (total === 0 || pctComplete === 100))
-      enabled = false;
+    if (enabled && (total === 0 || pctComplete === 100)) enabled = false;
 
     if (pctComplete === 100 && !finished) {
       finished = true;
-      Logger.logTrace(UiFramework.loggerCategory(this), `Tiles Finished Loading`);
-      Logger.logTrace(UiFramework.loggerCategory(this), `Tiles Load Report (tiles finished / tiles requested):  ${ready} / ${total}`);
+      Logger.logTrace(
+        UiFramework.loggerCategory(this),
+        `Tiles Finished Loading`
+      );
+      Logger.logTrace(
+        UiFramework.loggerCategory(this),
+        `Tiles Load Report (tiles finished / tiles requested):  ${ready} / ${total}`
+      );
     }
 
     // istanbul ignore else
-    if (pctComplete !== 100 && finished)
-      finished = false;
+    if (pctComplete !== 100 && finished) finished = false;
 
-    this.setState({ label: `${ready} / ${total}`, progress: pctComplete, enabled, finished });
+    this.setState({
+      label: `${ready} / ${total}`,
+      progress: pctComplete,
+      enabled,
+      finished,
+    });
   };
 
   private _update = (vp: Viewport) => {
@@ -79,8 +91,7 @@ export class TileLoadingIndicator extends React.PureComponent<CommonProps, TileL
 
   public override componentDidMount() {
     // istanbul ignore next
-    if (!IModelApp.viewManager)
-      return;
+    if (!IModelApp.viewManager) return;
 
     // get selected viewport
     const vp = IModelApp.viewManager.selectedView;
@@ -90,22 +101,20 @@ export class TileLoadingIndicator extends React.PureComponent<CommonProps, TileL
     if (vp) {
       this._onViewOpen(vp);
     } else {
-      this._removeViewOpenListener = IModelApp.viewManager.onViewOpen.addListener(this._onViewOpen);
+      this._removeViewOpenListener =
+        IModelApp.viewManager.onViewOpen.addListener(this._onViewOpen);
     }
   }
 
   public override componentWillUnmount() {
     // istanbul ignore next
-    if (!IModelApp.viewManager)
-      return;
+    if (!IModelApp.viewManager) return;
 
     // istanbul ignore next
-    if (this._removeViewOpenListener)
-      this._removeViewOpenListener();
+    if (this._removeViewOpenListener) this._removeViewOpenListener();
 
     // istanbul ignore else
-    if (this._removeOnRenderListener)
-      this._removeOnRenderListener();
+    if (this._removeOnRenderListener) this._removeOnRenderListener();
   }
 
   /** Renders TileLoadingIndicator */
@@ -113,7 +122,7 @@ export class TileLoadingIndicator extends React.PureComponent<CommonProps, TileL
     const classes = classnames(
       "uifw-tile-loading-bar",
       this.state.enabled && "uifw-tile-loading-bar-visible",
-      this.props.className,
+      this.props.className
     );
     return (
       <div className={classes} style={this.props.style}>

@@ -28,7 +28,7 @@ public;ActionTypes
 public;ActionWithPayload
 public;ActiveContentChangedEvent 
 public;ActiveContentChangedEventArgs
-internal;ActiveFrontstageDefProvider({ frontstageDef, layout }: ActiveFrontstageDefProviderProps): JSX.Element
+internal;ActiveFrontstageDefProvider({ frontstageDef, layout, }: ActiveFrontstageDefProviderProps): JSX.Element
 public;ActivityCenterField(props: CommonProps): JSX.Element | null
 public;ActivityMessageCancelledEvent 
 public;ActivityMessageEventArgs
@@ -48,12 +48,12 @@ public;BackstageActionItem
 public;BackstageAppButton(props: BackstageAppButtonProps): JSX.Element
 public;BackstageAppButtonProps
 public;BackstageComposer(props: BackstageComposerProps): JSX.Element
-internal;BackstageComposerActionItem({ item }: BackstageComposerActionItemProps): JSX.Element
+internal;BackstageComposerActionItem({ item, }: BackstageComposerActionItemProps): JSX.Element
 internal;BackstageComposerActionItemProps
 internal;BackstageComposerItem({ item }: BackstageComposerItemProps): JSX.Element
 internal;BackstageComposerItemProps
 public;BackstageComposerProps 
-internal;BackstageComposerStageLauncher({ item }: BackstageComposerStageLauncherProps): JSX.Element
+internal;BackstageComposerStageLauncher({ item, }: BackstageComposerStageLauncherProps): JSX.Element
 internal;BackstageComposerStageLauncherProps
 public;BackstageItem = BackstageActionItem | BackstageStageLauncher
 beta;BackstageItemUtilities
@@ -159,14 +159,14 @@ public;DeepReadonlyArray
 public;DeepReadonlyObject
 public;DefaultContentTools
 public;DefaultContentToolsAppData
-public;DefaultDialogGridContainer({ componentGenerator, isToolSettings }:
+public;DefaultDialogGridContainer({ componentGenerator, isToolSettings, }:
 public;DefaultNavigationTools
 public;DefaultStatusbarItems
 internal;DefaultToolSettingsProvider 
-public;DefaultViewOverlay({ viewport, onPlayPause, featureOptions }: ViewOverlayProps): JSX.Element | null
+public;DefaultViewOverlay({ viewport, onPlayPause, featureOptions, }: ViewOverlayProps): JSX.Element | null
 public;DialogChangedEvent 
 public;DialogChangedEventArgs
-internal;DialogGridContainer({ componentGenerator, containerClassName }: DialogGridContainerProps): JSX.Element
+internal;DialogGridContainer({ componentGenerator, containerClassName, }: DialogGridContainerProps): JSX.Element
 public;DialogInfo
 internal;DialogManagerBase
 internal;DialogRendererBase 
@@ -186,7 +186,7 @@ beta;FloatingContentControl
 beta;FloatingViewportContent(props: FloatingViewportContentProps): JSX.Element
 beta;FloatingViewportContentControl 
 beta;FloatingViewportContentProps
-alpha;FloatingViewportContentWrapper({ children }: FloatingViewportContentWrapperProps): JSX.Element
+alpha;FloatingViewportContentWrapper({ children, }: FloatingViewportContentWrapperProps): JSX.Element
 alpha;FloatingViewportContentWrapperProps
 alpha;FocusToolSettings 
 beta;FrameworkAccuDraw 
@@ -281,8 +281,8 @@ public;KeyboardShortcutMenuState
 public;KeyboardShortcutProps 
 public;KeyinEntry
 public;KeyinFieldLocalization
-internal;KeyinPalettePanel({ keyins, onKeyinExecuted, historyLength: allowedHistoryLength }: KeyinPalettePanelProps): JSX.Element
-public;KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted }: KeyinPalettePopupProps): JSX.Element
+internal;KeyinPalettePanel({ keyins, onKeyinExecuted, historyLength: allowedHistoryLength, }: KeyinPalettePanelProps): JSX.Element
+public;KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted, }: KeyinPalettePopupProps): JSX.Element
 public;KeyinPalettePopupProps
 beta;ListItem
 beta;ListItemType
@@ -310,7 +310,7 @@ public;ModalFrontstageChangedEvent
 public;ModalFrontstageChangedEventArgs
 public;ModalFrontstageClosedEvent 
 public;ModalFrontstageClosedEventArgs
-internal;ModalFrontstageComposer({ stageInfo }:
+internal;ModalFrontstageComposer({ stageInfo, }:
 public;ModalFrontstageInfo
 internal;ModalFrontstageItem
 public;ModalFrontstageProps 
@@ -359,7 +359,7 @@ beta;PositionPopupProps
 public;PresentationSelectionScope
 public;PropsHelper
 public;ProviderItem
-beta;QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems }: QuantityFormatterSettingsOptions): JSX.Element
+beta;QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems, }: QuantityFormatterSettingsOptions): JSX.Element
 beta;QuantityFormatterSettingsOptions
 public;ReactContent
 public;ReactNotifyMessageDetails
@@ -511,7 +511,7 @@ internal;ToolSettingsContent(): JSX.Element | null
 internal;ToolSettingsDockedContent(): JSX.Element
 public;ToolSettingsEntry
 internal;ToolSettingsGrid({ settings }: ToolSettingsGridProps): JSX.Element
-public;ToolSettingsGridContainer({ componentGenerator }:
+public;ToolSettingsGridContainer({ componentGenerator, }:
 internal;ToolSettingsGridProps
 internal;ToolSettingsWidgetContent(): JSX.Element
 public;ToolUiProvider 
@@ -578,7 +578,7 @@ alpha;useWidgetDirection(): "horizontal" | "vertical"
 alpha;ValidationTextbox 
 beta;ViewAttributesStatusField 
 public;ViewLayout
-internal;ViewOverlayHost({ viewport, featureOptions, userSuppliedOverlay }: ViewOverlayHostProps): JSX.Element | null
+internal;ViewOverlayHost({ viewport, featureOptions, userSuppliedOverlay, }: ViewOverlayHostProps): JSX.Element | null
 public;ViewOverlayProps
 public;ViewportContentControl 
 beta;ViewSelector 

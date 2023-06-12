@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Footer
  */
@@ -27,13 +27,13 @@ export interface FooterIndicatorProps extends CommonProps {
  * @note Use [StatusBarIndicator]($appui-react) instead
  * @internal
  */
-export const FooterIndicator = React.forwardRef<HTMLDivElement, FooterIndicatorProps>(function FooterIndicator(props, ref) {
+export const FooterIndicator = React.forwardRef<
+  HTMLDivElement,
+  FooterIndicatorProps
+>(function FooterIndicator(props, ref) {
   const { children, ...attributes } = props;
 
-  const className = classnames(
-    "nz-footer-indicator",
-    props.className
-  );
+  const className = classnames("nz-footer-indicator", props.className);
 
   return (
     <div ref={ref} {...{ ...attributes, className }}>

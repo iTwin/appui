@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as moq from "typemoq";
 import * as sinon from "sinon";
@@ -14,7 +14,6 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { expect } from "chai";
 
 describe("TileLoadingIndicator", () => {
-
   before(async () => {
     await TestUtils.initializeUiFramework();
     await MockRender.App.startup();
@@ -34,7 +33,9 @@ describe("TileLoadingIndicator", () => {
 
   it("should unmount correctly", () => {
     const spy = sinon.spy();
-    const viewOpenSpy = sinon.stub(IModelApp.viewManager.onViewOpen, "addListener").returns(spy);
+    const viewOpenSpy = sinon
+      .stub(IModelApp.viewManager.onViewOpen, "addListener")
+      .returns(spy);
 
     const { unmount } = render(<TileLoadingIndicator />);
     expect(viewOpenSpy).to.have.been.called;
@@ -55,22 +56,27 @@ describe("TileLoadingIndicator", () => {
     render(<TileLoadingIndicator />);
     IModelApp.viewManager.onViewOpen.emit(viewportMock.object);
     // 10% complete
-    viewportMock.setup((viewport) => viewport.numRequestedTiles).returns(() => 90);
+    viewportMock
+      .setup((viewport) => viewport.numRequestedTiles)
+      .returns(() => 90);
     viewportMock.setup((viewport) => viewport.numReadyTiles).returns(() => 10);
     onRenderEvent.raiseEvent(viewportMock.object);
-    await waitFor( () => expect(screen.getByText("10 / 100")).to.exist);
+    await waitFor(() => expect(screen.getByText("10 / 100")).to.exist);
 
     // 50% complete
-    viewportMock.setup((viewport) => viewport.numRequestedTiles).returns(() => 250);
+    viewportMock
+      .setup((viewport) => viewport.numRequestedTiles)
+      .returns(() => 250);
     viewportMock.setup((viewport) => viewport.numReadyTiles).returns(() => 250);
     onRenderEvent.raiseEvent(viewportMock.object);
-    await waitFor( () => expect(screen.getByText("250 / 500")).to.exist);
+    await waitFor(() => expect(screen.getByText("250 / 500")).to.exist);
 
     // 100% complete
-    viewportMock.setup((viewport) => viewport.numRequestedTiles).returns(() => 0);
+    viewportMock
+      .setup((viewport) => viewport.numRequestedTiles)
+      .returns(() => 0);
     viewportMock.setup((viewport) => viewport.numReadyTiles).returns(() => 0);
     onRenderEvent.raiseEvent(viewportMock.object);
-    await waitFor( () => expect(screen.getByText("0 / 0")).to.exist);
-
+    await waitFor(() => expect(screen.getByText("0 / 0")).to.exist);
   });
 });

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module UiProvider
  */
@@ -10,8 +10,15 @@ import "./DefaultDialogGridContainer.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type {
-  BaseDialogItem, DialogItem, DialogItemValue, DialogPropertySyncItem, DialogRow, SyncPropertiesChangeEventArgs} from "@itwin/appui-abstract";
-import { PropertyValueFormat,
+  BaseDialogItem,
+  DialogItem,
+  DialogItemValue,
+  DialogPropertySyncItem,
+  DialogRow,
+  SyncPropertiesChangeEventArgs,
+} from "@itwin/appui-abstract";
+import {
+  PropertyValueFormat,
   UiLayoutDataProvider,
 } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
@@ -19,17 +26,33 @@ import { EditorContainer } from "@itwin/components-react";
 import type { ToolSettingsEntry } from "../widget-panels/ToolSettings";
 import { assert, Logger } from "@itwin/core-bentley";
 
-function EditorLabel({ uiDataProvider, item, isLeftmostRecord }: { uiDataProvider: UiLayoutDataProvider, item: DialogItem, isLeftmostRecord?: boolean }) {
+function EditorLabel({
+  uiDataProvider,
+  item,
+  isLeftmostRecord,
+}: {
+  uiDataProvider: UiLayoutDataProvider;
+  item: DialogItem;
+  isLeftmostRecord?: boolean;
+}) {
   const [isDisabled, setIsDisabled] = React.useState(!!item.isDisabled);
   const displayLabel = React.useMemo(() => {
-    return item.property.displayLabel ? item.property.displayLabel : /* istanbul ignore next */ item.property.name;
+    return item.property.displayLabel
+      ? item.property.displayLabel
+      : /* istanbul ignore next */ item.property.name;
   }, [item]);
-  const propertyId = React.useMemo(() => `dialogItemProperty-${item.property.name}`, [item]);
+  const propertyId = React.useMemo(
+    () => `dialogItemProperty-${item.property.name}`,
+    [item]
+  );
 
   // listen for tool sync property events and update the isDisabled state
   React.useEffect(() => {
     const handleSync = (args: SyncPropertiesChangeEventArgs) => {
-      const mySyncItem = args.properties.find((syncItem: DialogPropertySyncItem) => syncItem.propertyName === item.property.name);
+      const mySyncItem = args.properties.find(
+        (syncItem: DialogPropertySyncItem) =>
+          syncItem.propertyName === item.property.name
+      );
       // istanbul ignore next
       if (mySyncItem) {
         setIsDisabled(!!mySyncItem.isDisabled);
@@ -46,17 +69,38 @@ function EditorLabel({ uiDataProvider, item, isLeftmostRecord }: { uiDataProvide
     "uifw-default-label",
     isDisabled && "uifw-label-disabled",
     !!isLeftmostRecord && "uifw-default-narrow-only-display",
-    !isLeftmostRecord && "uifw-default-inline-label",
+    !isLeftmostRecord && "uifw-default-inline-label"
   );
-  return <label className={className} htmlFor={propertyId}>{displayLabel}:</label>;
+  return (
+    <label className={className} htmlFor={propertyId}>
+      {displayLabel}:
+    </label>
+  );
 }
 
-function PropertyEditor({ uiDataProvider, initialItem, isLock, setFocus }: { uiDataProvider: UiLayoutDataProvider, initialItem: BaseDialogItem, isLock?: boolean, setFocus?: boolean }) {
+function PropertyEditor({
+  uiDataProvider,
+  initialItem,
+  isLock,
+  setFocus,
+}: {
+  uiDataProvider: UiLayoutDataProvider;
+  initialItem: BaseDialogItem;
+  isLock?: boolean;
+  setFocus?: boolean;
+}) {
   const getLatestRecordValue = React.useCallback(() => {
     let newRecord = UiLayoutDataProvider.getPropertyRecord(initialItem);
 
     // istanbul ignore next
-    const foundItem = isLock ? uiDataProvider.items.find((item) => item.lockProperty?.property.name === initialItem.property.name) : uiDataProvider.items.find((item) => item.property.name === initialItem.property.name);
+    const foundItem = isLock
+      ? uiDataProvider.items.find(
+          (item) =>
+            item.lockProperty?.property.name === initialItem.property.name
+        )
+      : uiDataProvider.items.find(
+          (item) => item.property.name === initialItem.property.name
+        );
     // istanbul ignore else
     if (foundItem) {
       if (isLock) {
@@ -82,14 +126,20 @@ function PropertyEditor({ uiDataProvider, initialItem, isLock, setFocus }: { uiD
   // monitor tool for sync UI events
   React.useEffect(() => {
     const handleSync = (args: SyncPropertiesChangeEventArgs) => {
-      const mySyncItem = args.properties.find((syncItem: DialogPropertySyncItem) => syncItem.propertyName === initialItem.property.name);
+      const mySyncItem = args.properties.find(
+        (syncItem: DialogPropertySyncItem) =>
+          syncItem.propertyName === initialItem.property.name
+      );
       // istanbul ignore else
       if (mySyncItem) {
-        const newPropertyValue = propertyRecord.copyWithNewValue({
-          value: mySyncItem.value.value,
-          valueFormat: PropertyValueFormat.Primitive,
-          displayValue: mySyncItem.value.displayValue,
-        }, mySyncItem.property);
+        const newPropertyValue = propertyRecord.copyWithNewValue(
+          {
+            value: mySyncItem.value.value,
+            valueFormat: PropertyValueFormat.Primitive,
+            displayValue: mySyncItem.value.displayValue,
+          },
+          mySyncItem.property
+        );
 
         if (mySyncItem.property) {
           // istanbul ignore else
@@ -97,7 +147,10 @@ function PropertyEditor({ uiDataProvider, initialItem, isLock, setFocus }: { uiD
             newPropertyValue.isDisabled = mySyncItem.isDisabled;
             setPropertyRecord(newPropertyValue);
           } else {
-            Logger.logError("PropertyEditor", `Error trying to replace propertyName=${mySyncItem.propertyName} with property named ${mySyncItem.property.name}`);
+            Logger.logError(
+              "PropertyEditor",
+              `Error trying to replace propertyName=${mySyncItem.propertyName} with property named ${mySyncItem.property.name}`
+            );
           }
         } else {
           newPropertyValue.isDisabled = mySyncItem.isDisabled;
@@ -111,54 +164,95 @@ function PropertyEditor({ uiDataProvider, initialItem, isLock, setFocus }: { uiD
     };
   }, [uiDataProvider, propertyRecord, initialItem.property.name]);
 
-  const className = React.useMemo(() => isLock ? "uifw-default-property-lock" : "uifw-default-editor", [isLock]);
+  const className = React.useMemo(
+    () => (isLock ? "uifw-default-property-lock" : "uifw-default-editor"),
+    [isLock]
+  );
   // istanbul ignore next
-  const handleCommit = React.useCallback((commit: PropertyUpdatedArgs) => {
-    // UiLayoutDataProvider supports only primitive property types
-    // istanbul ignore next
-    assert(commit.newValue.valueFormat === PropertyValueFormat.Primitive && commit.propertyRecord.value.valueFormat === PropertyValueFormat.Primitive);
-    const newPropertyValue = propertyRecord.copyWithNewValue(commit.newValue);
-    const syncItem: DialogPropertySyncItem = { value: commit.newValue as DialogItemValue, propertyName: initialItem.property.name, isDisabled: newPropertyValue.isDisabled };
-    uiDataProvider.applyUiPropertyChange(syncItem);
-    // Now have the uiDataProvider refetch the latest property values from the tool
-    uiDataProvider.reloadDialogItems(true);
-  }, [initialItem.property.name, propertyRecord, uiDataProvider]);
+  const handleCommit = React.useCallback(
+    (commit: PropertyUpdatedArgs) => {
+      // UiLayoutDataProvider supports only primitive property types
+      // istanbul ignore next
+      assert(
+        commit.newValue.valueFormat === PropertyValueFormat.Primitive &&
+          commit.propertyRecord.value.valueFormat ===
+            PropertyValueFormat.Primitive
+      );
+      const newPropertyValue = propertyRecord.copyWithNewValue(commit.newValue);
+      const syncItem: DialogPropertySyncItem = {
+        value: commit.newValue as DialogItemValue,
+        propertyName: initialItem.property.name,
+        isDisabled: newPropertyValue.isDisabled,
+      };
+      uiDataProvider.applyUiPropertyChange(syncItem);
+      // Now have the uiDataProvider refetch the latest property values from the tool
+      uiDataProvider.reloadDialogItems(true);
+    },
+    [initialItem.property.name, propertyRecord, uiDataProvider]
+  );
   // istanbul ignore next
-  const handleCancel = () => { };
+  const handleCancel = () => {};
 
   return (
-    <div key={initialItem.property.name} className={className} >
-      <EditorContainer key={initialItem.property.name} propertyRecord={propertyRecord} setFocus={setFocus} onCommit={handleCommit} onCancel={handleCancel} />
-    </div>);
+    <div key={initialItem.property.name} className={className}>
+      <EditorContainer
+        key={initialItem.property.name}
+        propertyRecord={propertyRecord}
+        setFocus={setFocus}
+        onCommit={handleCommit}
+        onCancel={handleCancel}
+      />
+    </div>
+  );
 }
 
 /** Utility methods to generate react ui from DialogRow specs
  * @internal
  */
 export class ComponentGenerator {
-  constructor(private _uiDataProvider: UiLayoutDataProvider) {
-  }
+  constructor(private _uiDataProvider: UiLayoutDataProvider) {}
 
   public get uiDataProvider() {
     return this._uiDataProvider;
   }
 
-  private getEditor(item: BaseDialogItem, isLock = false, setFocus = false): React.ReactNode {
-    return <PropertyEditor key={item.property.name} uiDataProvider={this.uiDataProvider} initialItem={item} isLock={isLock} setFocus={setFocus} />;
+  private getEditor(
+    item: BaseDialogItem,
+    isLock = false,
+    setFocus = false
+  ): React.ReactNode {
+    return (
+      <PropertyEditor
+        key={item.property.name}
+        uiDataProvider={this.uiDataProvider}
+        initialItem={item}
+        isLock={isLock}
+        setFocus={setFocus}
+      />
+    );
   }
 
-  private generateRowWithButtonGroupEditors(row: DialogRow, rowIndex: number): React.ReactNode {
+  private generateRowWithButtonGroupEditors(
+    row: DialogRow,
+    rowIndex: number
+  ): React.ReactNode {
     // istanbul ignore else
     if (1 === row.items.length) {
       return (
-        <div key={row.items[0].property.name} className="uifw-default-inline-editor-group uifw-default-center-across-width">
+        <div
+          key={row.items[0].property.name}
+          className="uifw-default-inline-editor-group uifw-default-center-across-width"
+        >
           {this.getEditor(row.items[0])}
         </div>
       );
     }
 
     return (
-      <div key={rowIndex} className="uifw-default-inline-editor-group uifw-default-center-across-width">
+      <div
+        key={rowIndex}
+        className="uifw-default-inline-editor-group uifw-default-center-across-width"
+      >
         <div className="uifw-default-inline-editor-group">
           {row.items.map((item) => this.getEditor(item))}
         </div>
@@ -166,43 +260,68 @@ export class ComponentGenerator {
     );
   }
 
-  private generateEntryWithButtonGroupEditors(row: DialogRow, rowIndex: number): ToolSettingsEntry {
+  private generateEntryWithButtonGroupEditors(
+    row: DialogRow,
+    rowIndex: number
+  ): ToolSettingsEntry {
     // istanbul ignore else
     if (1 === row.items.length) {
-      return (
-        {
-          labelNode: "",
-          editorNode:
-            <div key={row.items[0].property.name} className="uifw-default-inline-editor-group uifw-default-center-across-width">
-              {this.getEditor(row.items[0])}
-            </div>,
-        }
-      );
+      return {
+        labelNode: "",
+        editorNode: (
+          <div
+            key={row.items[0].property.name}
+            className="uifw-default-inline-editor-group uifw-default-center-across-width"
+          >
+            {this.getEditor(row.items[0])}
+          </div>
+        ),
+      };
     }
 
+    return {
+      labelNode: "",
+      editorNode: (
+        <div
+          key={rowIndex}
+          className="uifw-default-inline-editor-group uifw-default-center-across-width"
+        >
+          <div className="uifw-default-inline-editor-group">
+            {row.items.map((item) => this.getEditor(item))}
+          </div>
+        </div>
+      ),
+    };
+  }
+
+  private getEditorLabel(
+    item: DialogItem,
+    isLeftmostRecord = false
+  ): React.ReactNode {
     return (
-      {
-        labelNode: "",
-        editorNode:
-          <div key={rowIndex} className="uifw-default-inline-editor-group uifw-default-center-across-width">
-            <div className="uifw-default-inline-editor-group">
-              {row.items.map((item) => this.getEditor(item))}
-            </div>
-          </div>,
-      }
+      <EditorLabel
+        uiDataProvider={this.uiDataProvider}
+        item={item}
+        isLeftmostRecord={isLeftmostRecord}
+      />
     );
   }
 
-  private getEditorLabel(item: DialogItem, isLeftmostRecord = false): React.ReactNode {
-    return <EditorLabel uiDataProvider={this.uiDataProvider} item={item} isLeftmostRecord={isLeftmostRecord} />;
-  }
-
-  private getLeftLockAndLabel(rowItem: DialogItem, multiplePropertiesOnRow: boolean): React.ReactNode {
+  private getLeftLockAndLabel(
+    rowItem: DialogItem,
+    multiplePropertiesOnRow: boolean
+  ): React.ReactNode {
     const record = UiLayoutDataProvider.getPropertyRecord(rowItem);
     // istanbul ignore next
-    const lockEditor = (UiLayoutDataProvider.hasAssociatedLockProperty(rowItem)) ? this.getEditor(rowItem.lockProperty!, true) : null;
-    const label = (UiLayoutDataProvider.editorWantsLabel(rowItem)) ? this.getEditorLabel(rowItem) : null;
-    const classNames = multiplePropertiesOnRow ? "uifw-default-lock-and-label uifw-default-wide-only-display" : "uifw-default-lock-and-label";
+    const lockEditor = UiLayoutDataProvider.hasAssociatedLockProperty(rowItem)
+      ? this.getEditor(rowItem.lockProperty!, true)
+      : null;
+    const label = UiLayoutDataProvider.editorWantsLabel(rowItem)
+      ? this.getEditorLabel(rowItem)
+      : null;
+    const classNames = multiplePropertiesOnRow
+      ? "uifw-default-lock-and-label uifw-default-wide-only-display"
+      : "uifw-default-lock-and-label";
     return (
       <div key={`lock-${record.property.name}`} className={classNames}>
         {lockEditor}
@@ -211,10 +330,18 @@ export class ComponentGenerator {
     );
   }
 
-  private getInlineLabelAndEditor(item: DialogItem, isLeftmostRecord: boolean): React.ReactNode {
-    const label = (UiLayoutDataProvider.editorWantsLabel(item)) ? this.getEditorLabel(item, isLeftmostRecord) : null;
+  private getInlineLabelAndEditor(
+    item: DialogItem,
+    isLeftmostRecord: boolean
+  ): React.ReactNode {
+    const label = UiLayoutDataProvider.editorWantsLabel(item)
+      ? this.getEditorLabel(item, isLeftmostRecord)
+      : null;
     return (
-      <div key={item.property.name} className="uifw-default-inline-label-and-editor">
+      <div
+        key={item.property.name}
+        className="uifw-default-inline-label-and-editor"
+      >
         {label}
         {this.getEditor(item)}
       </div>
@@ -222,14 +349,17 @@ export class ComponentGenerator {
   }
 
   private getRowWithMultipleEditors(row: DialogRow): React.ReactNode {
-    return <div className="uifw-default-inline-editor-group">
-      {row.items.map((item: DialogItem, index: number) => this.getInlineLabelAndEditor(item, 0 === index))}
-    </div>;
+    return (
+      <div className="uifw-default-inline-editor-group">
+        {row.items.map((item: DialogItem, index: number) =>
+          this.getInlineLabelAndEditor(item, 0 === index)
+        )}
+      </div>
+    );
   }
 
   private getDivForRow(row: DialogRow): React.ReactNode {
-    if (1 === row.items.length)
-      return this.getEditor(row.items[0]);
+    if (1 === row.items.length) return this.getEditor(row.items[0]);
     return this.getRowWithMultipleEditors(row);
   }
 
@@ -246,21 +376,24 @@ export class ComponentGenerator {
     }
   }
 
-  public getToolSettingsEntry(row: DialogRow, rowIndex: number): ToolSettingsEntry {
+  public getToolSettingsEntry(
+    row: DialogRow,
+    rowIndex: number
+  ): ToolSettingsEntry {
     if (UiLayoutDataProvider.onlyContainButtonGroupEditors(row)) {
       return this.generateEntryWithButtonGroupEditors(row, rowIndex);
     } else {
-      return (
-        {
-          labelNode: this.getLeftLockAndLabel(row.items[0], row.items.length > 1),
-          editorNode: this.getDivForRow(row),
-        }
-      );
+      return {
+        labelNode: this.getLeftLockAndLabel(row.items[0], row.items.length > 1),
+        editorNode: this.getDivForRow(row),
+      };
     }
   }
 
   /** ToolSettingsEntries are used by the tool settings bar. */
   public getToolSettingsEntries(): ToolSettingsEntry[] {
-    return this.uiDataProvider.rows.map((row: DialogRow, index: number) => this.getToolSettingsEntry(row, index));
+    return this.uiDataProvider.rows.map((row: DialogRow, index: number) =>
+      this.getToolSettingsEntry(row, index)
+    );
   }
 }

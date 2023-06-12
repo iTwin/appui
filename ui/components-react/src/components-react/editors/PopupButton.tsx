@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyEditors
  */
@@ -10,10 +10,14 @@ import "./PopupButton.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { RelativePosition, SpecialKey } from "@itwin/appui-abstract";
-import type { CommonDivProps, CommonProps} from "@itwin/core-react";
+import type { CommonDivProps, CommonProps } from "@itwin/core-react";
 import { Div, Icon, Popup, UiCore } from "@itwin/core-react";
 import { Button } from "@itwin/itwinui-react";
-import { SvgCheckmark, SvgChevronDown, SvgRemove } from "@itwin/itwinui-icons-react";
+import {
+  SvgCheckmark,
+  SvgChevronDown,
+  SvgRemove,
+} from "@itwin/itwinui-icons-react";
 
 /** Properties for [[PopupButton]] component
  * @alpha
@@ -58,7 +62,10 @@ interface PopupButtonState {
 /** PopupButton React component that is a button and property editor popup host
  * @alpha
  */
-export class PopupButton extends React.PureComponent<PopupButtonProps, PopupButtonState> {
+export class PopupButton extends React.PureComponent<
+  PopupButtonProps,
+  PopupButtonState
+> {
   private _buttonRef = React.createRef<HTMLDivElement>();
 
   /** @internal */
@@ -75,7 +82,8 @@ export class PopupButton extends React.PureComponent<PopupButtonProps, PopupButt
   private _togglePopup = (event: React.MouseEvent) => {
     this.setState(
       (prevState) => ({ showPopup: !prevState.showPopup }),
-      () => this.props.onClick && this.props.onClick(event));
+      () => this.props.onClick && this.props.onClick(event)
+    );
   };
 
   public closePopup() {
@@ -83,20 +91,22 @@ export class PopupButton extends React.PureComponent<PopupButtonProps, PopupButt
   }
 
   private _closePopup = () => {
-    this.setState(
-      { showPopup: false },
-      () => {
-        this.props.onClose && this.props.onClose();
+    this.setState({ showPopup: false }, () => {
+      this.props.onClose && this.props.onClose();
 
-        // istanbul ignore else
-        if (this._buttonRef.current)
-          this._buttonRef.current.focus();
-      });
+      // istanbul ignore else
+      if (this._buttonRef.current) this._buttonRef.current.focus();
+    });
   };
 
   private _handleKeyDown = (event: React.KeyboardEvent) => {
     // istanbul ignore else
-    if ((event.key === SpecialKey.ArrowDown || event.key === SpecialKey.Space || event.key === SpecialKey.Enter) && !this.state.showPopup) {
+    if (
+      (event.key === SpecialKey.ArrowDown ||
+        event.key === SpecialKey.Space ||
+        event.key === SpecialKey.Enter) &&
+      !this.state.showPopup
+    ) {
       event.preventDefault();
       event.stopPropagation();
       this.setState({ showPopup: true });
@@ -108,21 +118,23 @@ export class PopupButton extends React.PureComponent<PopupButtonProps, PopupButt
     const showArrow = this.props.showArrow ?? false;
     const showShadow = this.props.showShadow ?? false;
     const moveFocus = this.props.moveFocus ?? true;
-    const showPlaceholder = this.props.label === undefined && this.props.placeholder !== undefined;
+    const showPlaceholder =
+      this.props.label === undefined && this.props.placeholder !== undefined;
 
     const classNames = classnames(
       "components-popup-button",
-      this.state.showPopup && "components-popup-expanded",
+      this.state.showPopup && "components-popup-expanded"
     );
 
     const valueClassNames = classnames(
       "components-popup-button-value",
-      showPlaceholder && "components-popup-button-placeholder",
+      showPlaceholder && "components-popup-button-placeholder"
     );
 
     return (
       <div className={this.props.className}>
-        <div className={classNames}
+        <div
+          className={classNames}
           onClick={this._togglePopup}
           onKeyDown={this._handleKeyDown}
           data-testid="components-popup-button"
@@ -135,18 +147,32 @@ export class PopupButton extends React.PureComponent<PopupButtonProps, PopupButt
             {this.props.label || this.props.placeholder}
           </div>
           <div className={"components-popup-button-arrow"}>
-            <div className={classnames("components-popup-button-arrow-icon", "icon")}><Icon iconSpec={<SvgChevronDown />} /></div>
+            <div
+              className={classnames(
+                "components-popup-button-arrow-icon",
+                "icon"
+              )}
+            >
+              <Icon iconSpec={<SvgChevronDown />} />
+            </div>
           </div>
         </div>
-        <Popup className="components-popup-button-popup" isOpen={this.state.showPopup} position={RelativePosition.Bottom}
-          onClose={this._closePopup} onEnter={this.props.onEnter} closeOnEnter={this.props.closeOnEnter} target={this._buttonRef.current}
-          showArrow={showArrow} showShadow={showShadow}
-          moveFocus={moveFocus} focusTarget={this.props.focusTarget}
+        <Popup
+          className="components-popup-button-popup"
+          isOpen={this.state.showPopup}
+          position={RelativePosition.Bottom}
+          onClose={this._closePopup}
+          onEnter={this.props.onEnter}
+          closeOnEnter={this.props.closeOnEnter}
+          target={this._buttonRef.current}
+          showArrow={showArrow}
+          showShadow={showShadow}
+          moveFocus={moveFocus}
+          focusTarget={this.props.focusTarget}
         >
           {this.props.children}
         </Popup>
       </div>
-
     );
   }
 }
@@ -173,7 +199,10 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
   return (
     <div className="components-popup-bottom-buttons">
       <Button
-        className={classnames("components-popup-large-button", "components-popup-ok-button")}
+        className={classnames(
+          "components-popup-large-button",
+          "components-popup-ok-button"
+        )}
         data-testid="components-popup-ok-button"
         styleType="cta"
         title={UiCore.translate("dialog.ok")}
@@ -182,7 +211,10 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         <Icon iconSpec={<SvgCheckmark />} />
       </Button>
       <Button
-        className={classnames("components-popup-large-button", "components-popup-cancel-button")}
+        className={classnames(
+          "components-popup-large-button",
+          "components-popup-cancel-button"
+        )}
         data-testid="components-popup-cancel-button"
         title={UiCore.translate("dialog.cancel")}
         onClick={props.onCancel}

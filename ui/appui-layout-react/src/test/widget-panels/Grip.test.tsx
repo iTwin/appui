@@ -1,17 +1,26 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import produce from "immer";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Rectangle } from "@itwin/core-react";
 import { fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import type { DragManager,
-  NineZoneDispatch, PanelSide} from "../../appui-layout-react";
+import type {
+  DragManager,
+  NineZoneDispatch,
+  PanelSide,
+} from "../../appui-layout-react";
 import {
-  addPanelWidget, addTab, createNineZoneState, PanelSideContext, useResizeGrip, WidgetPanelContext, WidgetPanelGrip,
+  addPanelWidget,
+  addTab,
+  createNineZoneState,
+  PanelSideContext,
+  useResizeGrip,
+  WidgetPanelContext,
+  WidgetPanelGrip,
 } from "../../appui-layout-react";
 import type { TestNineZoneProviderProps } from "../Providers";
 import { createDragInfo, TestNineZoneProvider } from "../Providers";
@@ -19,17 +28,19 @@ import { updatePanelState } from "../../appui-layout-react/state/internal/PanelS
 import { withWrapperAndProps } from "../Utils";
 
 describe("WidgetPanelGrip", () => {
-  const wrapper = (props: any) => <WidgetPanelContext.Provider
-    value={{
-      getBounds: () => ({
-        bottom: 0,
-        left: 0,
-        right: 0,
-        top: 0,
-      }),
-    }}
-    {...props}
-  />;
+  const wrapper = (props: any) => (
+    <WidgetPanelContext.Provider
+      value={{
+        getBounds: () => ({
+          bottom: 0,
+          left: 0,
+          right: 0,
+          top: 0,
+        }),
+      }}
+      {...props}
+    />
+  );
 
   it("should render resizing", () => {
     const { container } = render(
@@ -53,10 +64,7 @@ describe("WidgetPanelGrip", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
-      <TestNineZoneProvider
-        defaultState={state}
-        dispatch={dispatch}
-      >
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
         <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
         </PanelSideContext.Provider>
@@ -69,10 +77,12 @@ describe("WidgetPanelGrip", () => {
     fireEvent.mouseUp(handle);
     fireEvent.mouseDown(handle);
     fireEvent.mouseUp(handle);
-    dispatch.calledOnceWithExactly(sinon.match({
-      type: "PANEL_TOGGLE_COLLAPSED",
-      side: "left",
-    })).should.true;
+    dispatch.calledOnceWithExactly(
+      sinon.match({
+        type: "PANEL_TOGGLE_COLLAPSED",
+        side: "left",
+      })
+    ).should.true;
   });
 
   it("should start resize via timer and dispatch PANEL_SET_SIZE", () => {
@@ -83,10 +93,7 @@ describe("WidgetPanelGrip", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
-      <TestNineZoneProvider
-        defaultState={state}
-        dispatch={dispatch}
-      >
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
         <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
         </PanelSideContext.Provider>
@@ -103,11 +110,14 @@ describe("WidgetPanelGrip", () => {
     fireEvent(document, event);
 
     dispatch.callCount.should.eq(1);
-    sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
-      type: "PANEL_SET_SIZE",
-      side: "left",
-      size: 220,
-    }));
+    sinon.assert.calledOnceWithExactly(
+      dispatch,
+      sinon.match({
+        type: "PANEL_SET_SIZE",
+        side: "left",
+        size: 220,
+      })
+    );
   });
 
   it("should not start resize w/o pointer down", () => {
@@ -115,9 +125,7 @@ describe("WidgetPanelGrip", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
         </PanelSideContext.Provider>
@@ -135,9 +143,7 @@ describe("WidgetPanelGrip", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
         </PanelSideContext.Provider>
@@ -162,10 +168,7 @@ describe("WidgetPanelGrip", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
-      <TestNineZoneProvider
-        defaultState={state}
-        dispatch={dispatch}
-      >
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
         <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
         </PanelSideContext.Provider>
@@ -193,16 +196,17 @@ describe("useResizeGrip", () => {
   function Wrapper(props: WrapperProps) {
     const { children, side, defaultState, ...nzProps } = props;
     const nineZone = defaultState || createNineZoneState();
-    return <TestNineZoneProvider // eslint-disable-line react/display-name
-      defaultState={nineZone}
-      {...nzProps}
-    >
-      <WidgetPanelContext.Provider value={{ getBounds: () => new Rectangle() }}>
-        <PanelSideContext.Provider value={side || "left"}>
-          {children}
-        </PanelSideContext.Provider>
-      </WidgetPanelContext.Provider>
-    </TestNineZoneProvider>;
+    return (
+      <TestNineZoneProvider defaultState={nineZone} {...nzProps}>
+        <WidgetPanelContext.Provider
+          value={{ getBounds: () => new Rectangle() }}
+        >
+          <PanelSideContext.Provider value={side || "left"}>
+            {children}
+          </PanelSideContext.Provider>
+        </WidgetPanelContext.Provider>
+      </TestNineZoneProvider>
+    );
   }
   const wrapper = Wrapper;
 
@@ -216,7 +220,10 @@ describe("useResizeGrip", () => {
       defaultState,
       side: "top",
     };
-    const { result } = renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
+    const { result } = renderHook(
+      () => useResizeGrip(),
+      withWrapperAndProps(Wrapper, initialProps)
+    );
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -238,7 +245,10 @@ describe("useResizeGrip", () => {
       defaultState,
       side: "bottom",
     };
-    const { result } = renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
+    const { result } = renderHook(
+      () => useResizeGrip(),
+      withWrapperAndProps(Wrapper, initialProps)
+    );
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -258,7 +268,10 @@ describe("useResizeGrip", () => {
       dispatch,
       side: "bottom",
     };
-    renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
+    renderHook(
+      () => useResizeGrip(),
+      withWrapperAndProps(Wrapper, initialProps)
+    );
     dragManagerRef.current?.handleDragStart({
       info: createDragInfo(),
       item: {
@@ -306,7 +319,10 @@ describe("useResizeGrip", () => {
       dispatch,
       side: "left",
     };
-    const { result } = renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
+    const { result } = renderHook(
+      () => useResizeGrip(),
+      withWrapperAndProps(Wrapper, initialProps)
+    );
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -325,7 +341,10 @@ describe("useResizeGrip", () => {
       side: "left",
       defaultState,
     };
-    const { result } = renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
+    const { result } = renderHook(
+      () => useResizeGrip(),
+      withWrapperAndProps(Wrapper, initialProps)
+    );
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -348,7 +367,10 @@ describe("useResizeGrip", () => {
       side: "left",
       defaultState,
     };
-    const { result } = renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
+    const { result } = renderHook(
+      () => useResizeGrip(),
+      withWrapperAndProps(Wrapper, initialProps)
+    );
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -366,7 +388,10 @@ describe("useResizeGrip", () => {
       side: "left",
       defaultState,
     };
-    const { result } = renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
+    const { result } = renderHook(
+      () => useResizeGrip(),
+      withWrapperAndProps(Wrapper, initialProps)
+    );
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element, { clientX: 200 });
@@ -394,7 +419,10 @@ describe("useResizeGrip", () => {
       side: "left",
       defaultState,
     };
-    const { result } = renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
+    const { result } = renderHook(
+      () => useResizeGrip(),
+      withWrapperAndProps(Wrapper, initialProps)
+    );
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
@@ -10,21 +10,35 @@ import { classesFromElement } from "../TestUtils";
 
 describe("<InputLabel />", () => {
   it("renders correctly", () => {
-    render(<InputLabel label="input test"><input /></InputLabel>);
+    render(
+      <InputLabel label="input test">
+        <input />
+      </InputLabel>
+    );
 
-    expect(screen.getByLabelText("input test")).to.be.eq(screen.getByRole("textbox"));
+    expect(screen.getByLabelText("input test")).to.be.eq(
+      screen.getByRole("textbox")
+    );
   });
 
   it("renders disabled correctly", () => {
-    const {container} = render(<InputLabel label="input test" disabled={true} />);
+    const { container } = render(
+      <InputLabel label="input test" disabled={true} />
+    );
 
-    expect(classesFromElement(container.firstElementChild)).to.include("uicore-disabled");
+    expect(classesFromElement(container.firstElementChild)).to.include(
+      "uicore-disabled"
+    );
   });
 
   it("renders status correctly", () => {
-    const {container} = render(<InputLabel label="input test" status={InputStatus.Success} />);
+    const { container } = render(
+      <InputLabel label="input test" status={InputStatus.Success} />
+    );
 
-    expect(classesFromElement(container.firstElementChild)).to.include("success");
+    expect(classesFromElement(container.firstElementChild)).to.include(
+      "success"
+    );
   });
 
   it("renders message correctly", () => {

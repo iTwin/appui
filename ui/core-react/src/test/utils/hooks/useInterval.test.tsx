@@ -1,13 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as sinon from "sinon";
 import { renderHook } from "@testing-library/react-hooks";
 import { useInterval } from "../../../core-react";
 
 describe("useInterval", () => {
-
   it("should call interval's callback when timeout is reached", () => {
     const clock = sinon.useFakeTimers();
     const spy = sinon.spy();
@@ -32,5 +31,4 @@ describe("useInterval", () => {
 
     spy.calledOnce.should.false;
   });
-
 });

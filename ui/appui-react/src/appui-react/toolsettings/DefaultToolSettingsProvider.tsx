@@ -1,14 +1,14 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ToolSettings
  */
 
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
-import type { DialogItem, DialogPropertySyncItem} from "@itwin/appui-abstract";
+import type { DialogItem, DialogPropertySyncItem } from "@itwin/appui-abstract";
 import { UiLayoutDataProvider } from "@itwin/appui-abstract";
 import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
 import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
@@ -27,9 +27,13 @@ class ToolSettingsUiDataProvider extends UiLayoutDataProvider {
   }
 
   // send property changes from UI back to tool
-  public override applyUiPropertyChange = (syncItem: DialogPropertySyncItem) => {
+  public override applyUiPropertyChange = (
+    syncItem: DialogPropertySyncItem
+  ) => {
     // istanbul ignore next
-    IModelApp.toolAdmin.activeTool?.applyToolSettingPropertyChange(syncItem).catch((err) => UnexpectedErrors.handle(err));
+    IModelApp.toolAdmin.activeTool
+      ?.applyToolSettingPropertyChange(syncItem)
+      .catch((err) => UnexpectedErrors.handle(err));
   };
 }
 
@@ -42,7 +46,9 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
     this._dataProvider = new ToolSettingsUiDataProvider();
   }
 
-  public get uiDataProvider() { return this._dataProvider as ToolSettingsUiDataProvider; }
+  public get uiDataProvider() {
+    return this._dataProvider as ToolSettingsUiDataProvider;
+  }
 
   public updateToolSettingsNodes(): void {
     // istanbul ignore else
@@ -50,9 +56,13 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
       const componentGenerator = new ComponentGenerator(this.uiDataProvider);
 
       this.toolSettingsNode = (
-        <DefaultDialogGridContainer componentGenerator={componentGenerator} isToolSettings={true} />
+        <DefaultDialogGridContainer
+          componentGenerator={componentGenerator}
+          isToolSettings={true}
+        />
       );
-      this.horizontalToolSettingNodes = componentGenerator.getToolSettingsEntries();
+      this.horizontalToolSettingNodes =
+        componentGenerator.getToolSettingsEntries();
     } else {
       this.toolSettingsNode = null;
       this.horizontalToolSettingNodes = [];
@@ -74,9 +84,14 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
   }
 
   // called to process UiFramework.toolSettings.onSyncToolSettingsProperties event
-  public override syncToolSettingsProperties(args: SyncToolSettingsPropertiesEventArgs): void {
+  public override syncToolSettingsProperties(
+    args: SyncToolSettingsPropertiesEventArgs
+  ): void {
     this.uiDataProvider.fireSyncPropertiesEvent(args.syncProperties);
   }
 }
 
-UiFramework.controls.register("DefaultToolSettings", DefaultToolSettingsProvider);
+UiFramework.controls.register(
+  "DefaultToolSettings",
+  DefaultToolSettingsProvider
+);

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContextMenu
  */
@@ -22,7 +22,10 @@ import { SvgCaretRight } from "@itwin/itwinui-icons-react";
 /** Properties for the [[ContextSubMenu]] component
  * @public
  */
-export interface ContextSubMenuProps extends Omit<ContextMenuItemProps, "label">, Omit<ContextMenuProps, "label">, CommonProps {
+export interface ContextSubMenuProps
+  extends Omit<ContextMenuItemProps, "label">,
+    Omit<ContextMenuProps, "label">,
+    CommonProps {
   /** Text/jsx to display in the list item */
   label: string | JSX.Element;
   /** @internal */
@@ -40,7 +43,10 @@ interface ContextSubMenuState {
  * Submenu wrapper class for use within a [[ContextMenu]] component.
  * @public
  */
-export class ContextSubMenu extends React.Component<ContextSubMenuProps, ContextSubMenuState> {
+export class ContextSubMenu extends React.Component<
+  ContextSubMenuProps,
+  ContextSubMenuState
+> {
   private _menuElement: ContextMenu | null = null;
   private _subMenuElement: HTMLElement | null = null;
   private _menuButtonElement: HTMLElement | null = null;
@@ -70,10 +76,39 @@ export class ContextSubMenu extends React.Component<ContextSubMenuProps, Context
   public override render(): JSX.Element {
     const {
       label,
-      opened, direction, onOutsideClick, onEsc, autoflip, edgeLimit, selectedIndex, floating, parentMenu, parentSubmenu, // eslint-disable-line @typescript-eslint/no-unused-vars
-      onSelect, icon, disabled, hidden, onHover, isSelected, onHotKeyParsed, // eslint-disable-line @typescript-eslint/no-unused-vars
-      children, onClick, className, badgeType, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
-    const contextMenuProps = { onOutsideClick, onSelect, onEsc, autoflip, edgeLimit, selectedIndex, floating, parentMenu };
+      opened, // eslint-disable-line @typescript-eslint/no-unused-vars
+      direction, // eslint-disable-line @typescript-eslint/no-unused-vars
+      onOutsideClick,
+      onEsc,
+      autoflip,
+      edgeLimit,
+      selectedIndex,
+      floating,
+      parentMenu,
+      parentSubmenu, // eslint-disable-line @typescript-eslint/no-unused-vars
+      onSelect,
+      icon,
+      disabled,
+      hidden,
+      onHover, // eslint-disable-line @typescript-eslint/no-unused-vars
+      isSelected,
+      onHotKeyParsed, // eslint-disable-line @typescript-eslint/no-unused-vars
+      children,
+      onClick, // eslint-disable-line @typescript-eslint/no-unused-vars
+      className,
+      badgeType,
+      ...props
+    } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const contextMenuProps = {
+      onOutsideClick,
+      onSelect,
+      onEsc,
+      autoflip,
+      edgeLimit,
+      selectedIndex,
+      floating,
+      parentMenu,
+    };
     const badge = BadgeUtilities.getComponentForBadgeType(badgeType);
     const renderDirection = this.state.direction;
     const isDisabled = ConditionalBooleanValue.getValue(disabled);
@@ -85,20 +120,32 @@ export class ContextSubMenu extends React.Component<ContextSubMenuProps, Context
     }
     return (
       // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-      <div className={classnames("core-context-submenu", ContextMenu.getCSSClassNameFromDirection(renderDirection), className)}
+      <div
+        className={classnames(
+          "core-context-submenu",
+          ContextMenu.getCSSClassNameFromDirection(renderDirection),
+          className
+        )}
         onMouseOver={this._handleMouseOver}
-        ref={(el) => { this._subMenuElement = el; }}
+        ref={(el) => {
+          this._subMenuElement = el;
+        }}
         data-testid="core-context-submenu"
-        {...props} >
+        {...props}
+      >
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
         <div
           onClick={this._handleClick}
-          ref={(el) => { this._menuButtonElement = el; }}
-          className={classnames("core-context-menu-item",
+          ref={(el) => {
+            this._menuButtonElement = el;
+          }}
+          className={classnames(
+            "core-context-menu-item",
             "core-context-submenu-container",
             isDisabled && "core-context-menu-disabled",
             isHidden && "core-context-menu-hidden",
-            isSelected && "core-context-menu-is-selected")}
+            isSelected && "core-context-menu-is-selected"
+          )}
           data-testid="core-context-submenu-container"
           role="menuitem"
           tabIndex={isSelected ? 0 : -1}
@@ -108,20 +155,21 @@ export class ContextSubMenu extends React.Component<ContextSubMenuProps, Context
         >
           <div className={classnames("core-context-menu-icon", "icon", icon)} />
           <div className={"core-context-menu-content"}>{this._parsedLabel}</div>
-          <div className={classnames("core-context-submenu-arrow", "icon")}><Icon iconSpec={<SvgCaretRight />} /></div>
-          {badge &&
-            <div className="core-context-menu-badge">
-              {badge}
-            </div>
-          }
+          <div className={classnames("core-context-submenu-arrow", "icon")}>
+            <Icon iconSpec={<SvgCaretRight />} />
+          </div>
+          {badge && <div className="core-context-menu-badge">{badge}</div>}
         </div>
         <ContextMenu
-          ref={(el) => { this._menuElement = el; }}
+          ref={(el) => {
+            this._menuElement = el;
+          }}
           className="core-context-submenu-popup"
           opened={this.state.opened}
           direction={renderDirection}
           parentSubmenu={this}
-          {...contextMenuProps} >
+          {...contextMenuProps}
+        >
           {children}
         </ContextMenu>
       </div>
@@ -139,9 +187,16 @@ export class ContextSubMenu extends React.Component<ContextSubMenuProps, Context
     document.removeEventListener("click", this._handleClickGlobal);
   }
 
-  public override componentDidUpdate(prevProps: ContextSubMenuProps, prevState: ContextSubMenuState) {
+  public override componentDidUpdate(
+    prevProps: ContextSubMenuProps,
+    prevState: ContextSubMenuState
+  ) {
     const direction = this.props.direction!;
-    if ((this.state.opened !== prevState.opened && direction !== this.state.direction) || prevProps.direction !== direction)
+    if (
+      (this.state.opened !== prevState.opened &&
+        direction !== this.state.direction) ||
+      prevProps.direction !== direction
+    )
       this.checkRenderDirection();
     if (this.props.label !== prevProps.label) {
       this._updateHotkey(this.props.label);
@@ -161,7 +216,12 @@ export class ContextSubMenu extends React.Component<ContextSubMenuProps, Context
     // istanbul ignore else
     if (parentWindow && autoflip && this._menuElement) {
       const menuRect = this._menuElement.getRect();
-      renderDirection = ContextMenu.autoFlip(renderDirection, menuRect, parentWindow.innerWidth, parentWindow.innerHeight);
+      renderDirection = ContextMenu.autoFlip(
+        renderDirection,
+        menuRect,
+        parentWindow.innerWidth,
+        parentWindow.innerHeight
+      );
       // istanbul ignore next
       if (renderDirection !== this.state.direction)
         this.setState({ direction: renderDirection });
@@ -174,40 +234,43 @@ export class ContextSubMenu extends React.Component<ContextSubMenuProps, Context
     const isHidden = ConditionalBooleanValue.getValue(this.props.hidden);
     if (!isDisabled && !isHidden)
       hotKey = TildeFinder.findAfterTilde(node).character;
-    else
-      hotKey = undefined;
+    else hotKey = undefined;
     if (hotKey && hotKey !== this.state.hotKey) {
       this.setState({ hotKey });
-      if (this.props.onHotKeyParsed)
-        this.props.onHotKeyParsed(hotKey);
+      if (this.props.onHotKeyParsed) this.props.onHotKeyParsed(hotKey);
     }
   };
 
   public select = () => {
     this.setState({ opened: true }, () => {
       // istanbul ignore else
-      if (this._menuElement)
-        this._menuElement.focus();
-      if (this.props.onSelect !== undefined)
-        this.props.onSelect(undefined);
+      if (this._menuElement) this._menuElement.focus();
+      if (this.props.onSelect !== undefined) this.props.onSelect(undefined);
     });
   };
 
   public close = (propagate?: boolean) => {
     this.setState({ opened: false }, () => {
       // istanbul ignore else
-      if (this._menuElement)
-        this._menuElement.blur();
+      if (this._menuElement) this._menuElement.blur();
     });
     // istanbul ignore next
-    if (propagate && this.props.parentMenu && this.props.parentMenu.props.parentSubmenu) {
+    if (
+      propagate &&
+      this.props.parentMenu &&
+      this.props.parentMenu.props.parentSubmenu
+    ) {
       this.props.parentMenu.props.parentSubmenu.close(true);
     }
   };
 
   private _handleMouseOver = (_event: React.MouseEvent<HTMLDivElement>) => {
     // istanbul ignore else
-    if (this._menuButtonElement && this._menuButtonElement.style.visibility !== "hidden" && this.props.onHover) {
+    if (
+      this._menuButtonElement &&
+      this._menuButtonElement.style.visibility !== "hidden" &&
+      this.props.onHover
+    ) {
       this.props.onHover();
     }
   };
@@ -220,13 +283,10 @@ export class ContextSubMenu extends React.Component<ContextSubMenuProps, Context
     // istanbul ignore else
     if (!isDisabled) {
       // istanbul ignore else
-      if (this.props.onClick !== undefined)
-        this.props.onClick(event);
+      if (this.props.onClick !== undefined) this.props.onClick(event);
       // istanbul ignore next
-      if (this.props.opened)
-        this.close();
-      else
-        this.select();
+      if (this.props.opened) this.close();
+      else this.select();
     }
   };
 

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -20,19 +20,34 @@ export interface WidgetContentManagerProps {
 /** @internal */
 export function WidgetContentManager(props: WidgetContentManagerProps) {
   const setContentContainer = useContainersStore((state) => state.setContainer);
-  const saveTransientStateRef = React.useRef(new BeEvent<(tabId: TabState["id"]) => void>());
-  const restoreTransientStateRef = React.useRef(new BeEvent<(tabId: TabState["id"]) => void>());
-  const setContainer = React.useCallback<WidgetContentManagerContextArgs["setContainer"]>((tabId, container) => {
-    container === null && saveTransientStateRef.current.raiseEvent(tabId);
-    setContentContainer(tabId, container);
-  }, [setContentContainer]);
-  const widgetContentManagerContextValue = React.useMemo<WidgetContentManagerContextArgs>(() => ({
-    setContainer,
-    onSaveTransientState: saveTransientStateRef.current,
-    onRestoreTransientState: restoreTransientStateRef.current,
-  }), [setContainer]);
+  const saveTransientStateRef = React.useRef(
+    new BeEvent<(tabId: TabState["id"]) => void>()
+  );
+  const restoreTransientStateRef = React.useRef(
+    new BeEvent<(tabId: TabState["id"]) => void>()
+  );
+  const setContainer = React.useCallback<
+    WidgetContentManagerContextArgs["setContainer"]
+  >(
+    (tabId, container) => {
+      container === null && saveTransientStateRef.current.raiseEvent(tabId);
+      setContentContainer(tabId, container);
+    },
+    [setContentContainer]
+  );
+  const widgetContentManagerContextValue =
+    React.useMemo<WidgetContentManagerContextArgs>(
+      () => ({
+        setContainer,
+        onSaveTransientState: saveTransientStateRef.current,
+        onRestoreTransientState: restoreTransientStateRef.current,
+      }),
+      [setContainer]
+    );
   return (
-    <WidgetContentManagerContext.Provider value={widgetContentManagerContextValue}>
+    <WidgetContentManagerContext.Provider
+      value={widgetContentManagerContextValue}
+    >
       {props.children}
     </WidgetContentManagerContext.Provider>
   );
@@ -47,9 +62,11 @@ interface ContainersStore {
 export const useContainersStore = create<ContainersStore>((set) => ({
   containers: {},
   setContainer: (tabId: TabState["id"], container: Element | null) => {
-    set((state) => produce(state, (draft) => {
-      draft.containers[tabId] = castDraft(container);
-    }));
+    set((state) =>
+      produce(state, (draft) => {
+        draft.containers[tabId] = castDraft(container);
+      })
+    );
   },
 }));
 
@@ -61,5 +78,6 @@ export interface WidgetContentManagerContextArgs {
 }
 
 /** @internal */
-export const WidgetContentManagerContext = React.createContext<WidgetContentManagerContextArgs>(null!); // eslint-disable-line @typescript-eslint/naming-convention
+export const WidgetContentManagerContext =
+  React.createContext<WidgetContentManagerContextArgs>(null!);
 WidgetContentManagerContext.displayName = "nz:WidgetContentManagerContext";

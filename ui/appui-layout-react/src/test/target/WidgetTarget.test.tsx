@@ -1,11 +1,16 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
 import type { NineZoneState, WidgetState } from "../../appui-layout-react";
-import { addFloatingWidget, addTab, createNineZoneState, WidgetIdContext } from "../../appui-layout-react";
+import {
+  addFloatingWidget,
+  addTab,
+  createNineZoneState,
+  WidgetIdContext,
+} from "../../appui-layout-react";
 import { WidgetTarget } from "../../appui-layout-react/target/WidgetTarget";
 import { TestNineZoneProvider } from "../Providers";
 
@@ -14,7 +19,11 @@ interface WrapperProps {
   widgetId: WidgetState["id"];
 }
 
-function Wrapper({ children, defaultState, widgetId }: React.PropsWithChildren<WrapperProps>) {
+function Wrapper({
+  children,
+  defaultState,
+  widgetId,
+}: React.PropsWithChildren<WrapperProps>) {
   return (
     <TestNineZoneProvider defaultState={defaultState}>
       <WidgetIdContext.Provider value={widgetId}>
@@ -29,12 +38,13 @@ describe("WidgetTarget", () => {
     let state = createNineZoneState();
     state = addTab(state, "ft1");
     state = addFloatingWidget(state, "fw1", ["ft1"]);
-    const { container } = render(
-      <WidgetTarget />,
-      {
-        wrapper: (props) => <Wrapper defaultState={state} widgetId="fw1" {...props} />, // eslint-disable-line react/display-name
-      }
-    );
-    container.getElementsByClassName("nz-target-mergeTarget").length.should.eq(1);
+    const { container } = render(<WidgetTarget />, {
+      wrapper: (props) => (
+        <Wrapper defaultState={state} widgetId="fw1" {...props} />
+      ),
+    });
+    container
+      .getElementsByClassName("nz-target-mergeTarget")
+      .length.should.eq(1);
   });
 });
