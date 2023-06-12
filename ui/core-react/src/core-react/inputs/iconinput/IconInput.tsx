@@ -31,7 +31,6 @@ export interface IconInputProps extends Omit<InputProps, "size"> {
  */
 const ForwardRefIconInput = React.forwardRef<HTMLInputElement, IconInputProps>(
   function ForwardRefIconInput(props, ref) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { icon, containerClassName, size, ...otherProps } = props;
 
     // NEEDSWORK: still using core-react Input component because of `nativeKeyHandler` prop

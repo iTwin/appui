@@ -395,6 +395,10 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "@rushstack/eslint-patch",
+      "allowedCategories": [ "frontend", "internal" ]
+    },
+    {
       "name": "@svgdotjs/svg.js",
       "allowedCategories": [ "frontend" ]
     },

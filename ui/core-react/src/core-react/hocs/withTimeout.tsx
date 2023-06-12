@@ -48,7 +48,7 @@ export const withTimeout = <ComponentProps extends {}>(
     }
 
     public override render() {
-      const { timeout, onTimeout, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+      const { timeout, onTimeout, ...props } = this.props;
       return <Component {...(props as any)} {...this.state} />;
     }
 
