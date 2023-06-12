@@ -19,6 +19,29 @@ import DOMPurify, * as DOMPurifyNS from "dompurify";
  * only do the fetch once, and have all icon use the same result)
  */
 const promises = new Map<string, Promise<any>>();
+/**
+ * Return promise if created for the id, otherwise, create a new one and save it.
+ * if the promise fail, remove it from cache so we'll try again.
+ * @param id Identification for the promise
+ * @param createPromise Function to create the promise if not already running.
+ * @returns created promise
+ */
+async function reuseOrCreatePromise<T>(
+  id: string,
+  createPromise: () => Promise<T>
+): Promise<T> {
+  let getPromise = promises.get(id);
+  if (!getPromise) {
+    getPromise = createPromise().catch((e) => {
+      // Don't keep the cache if we fail, could be a temporary network error.
+      promises.delete(id);
+      throw e;
+    });
+    promises.set(id, getPromise);
+  }
+
+  return getPromise;
+}
 
 /**
  * Parse 'data:' uri to retrieve the Svg component within it.
@@ -87,30 +110,6 @@ async function getSvg(src: string, element: any) {
     return parseSvgFromDataUri(src, element);
   }
   return fetchSvg(src, element);
-}
-
-/**
- * Return promise if created for the id, otherwise, create a new one and save it.
- * if the promise fail, remove it from cache so we'll try again.
- * @param id Identification for the promise
- * @param createPromise Function to create the promise if not already running.
- * @returns created promise
- */
-async function reuseOrCreatePromise<T>(
-  id: string,
-  createPromise: () => Promise<T>
-): Promise<T> {
-  let getPromise = promises.get(id);
-  if (!getPromise) {
-    getPromise = createPromise().catch((e) => {
-      // Don't keep the cache if we fail, could be a temporary network error.
-      promises.delete(id);
-      throw e;
-    });
-    promises.set(id, getPromise);
-  }
-
-  return getPromise;
 }
 
 /**
