@@ -14,25 +14,19 @@ import { UiCore } from "../UiCore";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
 
 /**
- * Completed SVG cache
- * (If we get it once, we use it from there afterwards)
+ * "getSvg" list
+ * (if multiple icon require the same thing,
+ * only do the fetch once, and have all icon use the same result)
  */
-const svgCache = new Map<string, HTMLElement>();
-/**
- * Active "getSource" list
- * (if multiple icon require the same thing at the same time,
- * only do the fetch once, and have all icon use the same result,
- * clear result afterwards, good or bad.)
- */
-const getList = new Map<string, Promise<HTMLElement>>();
+const promises = new Map<string, Promise<HTMLElement>>();
 
 /**
- * Get the source (fetch and parse for url, or decode and parse for data: url)
+ * Get the svg (fetch and parse for url, or decode and parse for data: url)
  * @param src URL of the content to download/parse
  * @param element Element for logging purpose.
  * @returns HTMLElement (svg)
  */
-async function getSource(src: string, element: any) {
+async function getSvg(src: string, element: any) {
   if (src.startsWith("data:")) {
     const dataUriParts = src.split(",");
 
@@ -80,32 +74,24 @@ async function getSource(src: string, element: any) {
 }
 
 /**
- * Call `getSource` or wait for the previous result if
+ * Call `getSvg` or wait for the previous result if
  * it was already called for this `src`, and reuse the result.
  * @param src URL of the content to download/parse
  * @param element Element for logging purpose
  * @returns HTMLElement (svg)
  */
-async function callOrReuseGetSource(src: string, element: any) {
-  // Check if already getting the source svg
-  let getPromise = getList.get(src);
+async function reuseOrGetSvg(src: string, element: any) {
+  let getPromise = promises.get(src);
   if (!getPromise) {
-    // if not, get the source, make this reusable for other icons.
-    getPromise = getSource(src, element);
-    getList.set(src, getPromise);
+    getPromise = getSvg(src, element).catch((e) => {
+      // Don't keep the cache if we fail, could be a temporary network error.
+      promises.delete(src);
+      throw e;
+    });
+    promises.set(src, getPromise);
   }
 
-  try {
-    const svg = await getPromise;
-    if (!svgCache.has(src) && svg) {
-      // Cache the end result, so we don't have to await promise once that's done.
-      svgCache.set(src, svg);
-    }
-    return svg;
-  } finally {
-    // Success or failure, we don't want to keep the promise once we have the svg (or it failed, try again).
-    getList.delete(src);
-  }
+  return getPromise;
 }
 
 /**
@@ -120,14 +106,10 @@ export class IconWebComponent extends HTMLElement {
   private async loadSvg() {
     // if svg was already appended don't request it again
     if (this.childNodes.length) return;
-
     const src = this.getAttribute("src") || "";
+    if (!src) return;
 
-    // if svg was already downloaded, use it;
-    let svg = svgCache.get(src);
-    if (!svg) {
-      svg = await callOrReuseGetSource(src, this);
-    }
+    const svg = await reuseOrGetSvg(src, this);
     if (svg && !this.childNodes.length) {
       this.append(svg.cloneNode(true));
     }

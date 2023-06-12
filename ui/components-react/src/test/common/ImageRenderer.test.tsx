@@ -65,9 +65,11 @@ describe("ImageRenderer", () => {
       const image2 = imageRenderer.render({ sourceType: "svg", value: svg });
       const imageRender2 = render(<>{image2}</>);
 
-      expect(imageRender.container.innerHTML).to.be.eq(
-        imageRender2.container.innerHTML
-      );
+      await waitFor(() => {
+        expect(imageRender.container.innerHTML).to.be.eq(
+          imageRender2.container.innerHTML
+        );
+      });
     });
 
     it("renders url", () => {
