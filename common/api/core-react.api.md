@@ -411,6 +411,8 @@ export class Dialog extends React_2.Component<DialogProps, DialogState> {
     // (undocumented)
     static defaultProps: Partial<DialogProps>;
     // (undocumented)
+    protected _handleContainerPointerDown: (event: React_2.PointerEvent) => void;
+    // (undocumented)
     handleRefSet: (containerDiv: HTMLDivElement | null) => void;
     // (undocumented)
     render(): JSX.Element;
