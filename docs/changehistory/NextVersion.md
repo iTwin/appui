@@ -58,5 +58,5 @@ Made `MessageBox` appearance consistent with @itwin/itwinui-react `Dialog` compo
 ## @itwin/components-react
 
 - Fixed `SimplePropertyDataProvider` to correctly update when used in `VirtualizedPropertyGridWithDataProvider`
-- Fixed `MultilineTextPropertyValueRenderer` to correctly display ***See less*** and ***See more*** buttons
+- Fixed `MultilineTextPropertyValueRenderer` to correctly display **_See less_** and **_See more_** buttons
 - Fixed tree flickering without keeping the horizontal scrollbar
