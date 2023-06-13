@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "storybook build",
-    "dev": "storybook dev -p 6006",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "dev": "npm run copy:webfont && storybook dev -p 6006",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "copy:webfont": "cpx ./node_modules/@bentley/icons-generic-webfont/dist/**/* ./lib/webfont"
   },
   "dependencies": {
     "react": "^17.0.0",
@@ -14,7 +15,10 @@
     "@itwin/appui-react": "workspace:*",
     "@itwin/appui-layout-react": "workspace:*",
     "@itwin/core-react": "workspace:*",
-    "@itwin/itwinui-icons-react": "^2.1.0"
+    "@itwin/itwinui-icons-react": "^2.1.0",
+    "@itwin/appui-abstract": "^3.7.0",
+    "@itwin/core-frontend": "^3.7.0",
+    "@bentley/icons-generic-webfont": "^1.0.34"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.20",
@@ -38,6 +42,7 @@
     "prop-types": "^15.8.1",
     "storybook": "^7.0.20",
     "typescript": "~5.0.2",
-    "vite": "^4.3.9"
+    "vite": "^4.3.9",
+    "cpx": "~1.5.0"
   }
 }
