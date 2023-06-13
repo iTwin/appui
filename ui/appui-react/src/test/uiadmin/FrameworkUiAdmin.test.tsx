@@ -33,7 +33,7 @@ import {
 import { ClearKeyinPaletteHistoryTool } from "../../appui-react/tools/KeyinPaletteTools";
 import * as keyinExports from "../../appui-react/popup/KeyinPalettePanel";
 import TestUtils from "../TestUtils";
-import { MockRender, Tool } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, Tool } from "@itwin/core-frontend";
 import { Button } from "@itwin/itwinui-react";
 
 class TestDialogUiDataProvider extends DialogLayoutDataProvider {
@@ -185,11 +185,11 @@ describe("FrameworkUiAdmin", () => {
 
     uiAdmin = new FrameworkUiAdmin();
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
     sinon.reset();
     Object.defineProperty(Tool, "englishKeyin", descriptorToRestore1);

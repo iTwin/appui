@@ -14,10 +14,10 @@ import {
 } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { InternalModelessDialogManager } from "../../appui-react/dialog/InternalModelessDialogManager";
 
-describe("ModelessDialogManager", () => {
+describe("InternalModelessDialogManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   const spyMethod = sinon.spy();
   beforeEach(() => {
@@ -32,7 +32,7 @@ describe("ModelessDialogManager", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework(true);
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
 
     UiFramework.dialogs.modeless.onModelessDialogChangedEvent.addListener(
       handleModelessDialogChanged
@@ -40,10 +40,10 @@ describe("ModelessDialogManager", () => {
   });
 
   after(async () => {
-    UiFramework.dialogs.modeless.onModelessDialogChangedEvent.removeListener(
+    InternalModelessDialogManager.onModelessDialogChangedEvent.removeListener(
       handleModelessDialogChanged
     );
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework(); // clear out the framework key
   });
 
