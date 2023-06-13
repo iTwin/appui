@@ -7,16 +7,13 @@
  */
 
 import "./Dialog.scss";
-import classnames from "classnames";
 import * as React from "react";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
-import { DialogButtonType } from "@itwin/appui-abstract";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
-import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
 import { Dialog as CoreDialog } from "./Dialog";
-import { Button, Dialog } from "@itwin/itwinui-react";
+import { Dialog } from "@itwin/itwinui-react";
 
 /** Properties of [[SimpleDialog]] component.
  * @internal
@@ -127,7 +124,11 @@ export class SimpleDialog extends CoreDialog {
       ...minMaxStyle,
     };
 
-    const buttons = this.unwrapButtonCluster(buttonCluster);
+    const buttons = this.getFooterButtons(
+      buttonCluster,
+      "high-visibility",
+      true
+    );
 
     return (
       <Dialog
@@ -162,81 +163,5 @@ export class SimpleDialog extends CoreDialog {
         </DivWithOutsideClick>
       </Dialog>
     );
-  }
-
-  // istanbul ignore next
-  private unwrapButtonCluster(
-    buttonCluster: DialogButtonDef[] | undefined
-  ): React.ReactNode[] | undefined {
-    if (buttonCluster === undefined) return undefined;
-
-    const buttons: React.ReactNode[] = [];
-    if (buttonCluster) {
-      buttonCluster.forEach((button: DialogButtonDef, index: number) => {
-        let buttonText = "";
-        let buttonClass = button.className;
-        let styleType:
-          | "default"
-          | "cta"
-          | "high-visibility"
-          | "borderless"
-          | undefined;
-
-        switch (button.type) {
-          case DialogButtonType.OK:
-            buttonText = UiCore.translate("dialog.ok");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "high-visibility";
-            break;
-          case DialogButtonType.Retry:
-            buttonText = UiCore.translate("dialog.retry");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "high-visibility";
-            break;
-          case DialogButtonType.Yes:
-            buttonText = UiCore.translate("dialog.yes");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "high-visibility";
-            break;
-          case DialogButtonType.No:
-            buttonText = UiCore.translate("dialog.no");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            break;
-          case DialogButtonType.Cancel:
-            buttonText = UiCore.translate("dialog.cancel");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            break;
-          case DialogButtonType.Close:
-            buttonText = UiCore.translate("dialog.close");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            break;
-          case DialogButtonType.Next:
-            buttonText = UiCore.translate("dialog.next");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "high-visibility";
-            break;
-          case DialogButtonType.Previous:
-            buttonText = UiCore.translate("dialog.previous");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "high-visibility";
-            break;
-        }
-
-        if (button.label) buttonText = button.label;
-
-        buttons.push(
-          <Button
-            className={buttonClass}
-            disabled={button.disabled}
-            styleType={styleType}
-            key={index.toString()}
-            onClick={button.onClick}
-          >
-            {buttonText}
-          </Button>
-        );
-      });
-    }
-    return buttons;
   }
 }
