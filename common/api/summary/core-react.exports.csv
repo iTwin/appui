@@ -11,21 +11,21 @@ public;AutoSuggestProps
 internal;Badge 
 internal;BadgeProps 
 internal;BadgeUtilities
-internal;BetaBadge(props: CommonProps): React_2.JSX.Element
-public;BlockText(props: TextProps): React_2.JSX.Element
-public;BodyText(props: TextProps): React_2.JSX.Element
-deprecated;BodyText(props: TextProps): React_2.JSX.Element
+internal;BetaBadge(props: CommonProps): JSX.Element
+public;BlockText(props: TextProps): JSX.Element
+public;BodyText(props: TextProps): JSX.Element
+deprecated;BodyText(props: TextProps): JSX.Element
 internal;calculateBackdropFilterBlur: (proximityScale: number) => number
 internal;calculateBoxShadowOpacity: (proximityScale: number) => number
 internal;calculateProximityScale: (proximity: number, snap?: boolean, threshold?: number) => number
 internal;calculateToolbarOpacity: (proximityScale: number) => number
-public;Centered(props: CommonDivProps): React_2.JSX.Element
+public;Centered(props: CommonDivProps): JSX.Element
 public;CheckBoxInfo
 public;CheckBoxState
 public;CheckListBox 
 public;CheckListBoxItem 
 public;CheckListBoxItemProps 
-public;CheckListBoxSeparator(): React_2.JSX.Element
+public;CheckListBoxSeparator(): JSX.Element
 internal;Circle
 public;ClassNameProps
 internal;CloseSettingsContainerEvent 
@@ -45,27 +45,27 @@ internal;CrossAxisArrowKeyFunc = (forward: boolean) => void
 public;Dialog 
 public;DialogAlignment
 public;DialogProps 
-public;DisabledText(props: TextProps): React_2.JSX.Element
-public;Div(props: DivProps): React_2.JSX.Element
+public;DisabledText(props: TextProps): JSX.Element
+public;Div(props: DivProps): JSX.Element
 public;DivProps 
 public;DivWithOutsideClick:
 public;ElementResizeObserver({ watchedElement, render, }:
-public;ElementSeparator: (props: ElementSeparatorProps) => React_2.JSX.Element
+public;ElementSeparator: (props: ElementSeparatorProps) => JSX.Element
 public;ElementSeparatorProps 
 public;ExecuteHandler = (this: void) => void
 public;ExpandableList 
 public;ExpandableListProps 
 public;ExpansionToggle 
 public;ExpansionToggleProps 
-public;FillCentered(props: CommonDivProps): React_2.JSX.Element
-alpha;FilteredText(props: FilteredTextProps): React_2.JSX.Element
+public;FillCentered(props: CommonDivProps): JSX.Element
+alpha;FilteredText(props: FilteredTextProps): JSX.Element
 alpha;FilteredTextProps 
 internal;flattenChildren: (children: React_2.ReactNode) => React_2.ReactNode
-public;FlexWrapContainer(props: CommonDivProps): React_2.JSX.Element
+public;FlexWrapContainer(props: CommonDivProps): JSX.Element
 internal;focusIntoContainer(focusContainer: HTMLDivElement, initialFocusElement?: React_2.RefObject
-internal;FocusTrap(props: FocusTrapProps): React_2.JSX.Element | null
+internal;FocusTrap(props: FocusTrapProps): JSX.Element | null
 internal;FocusTrapProps 
-public;Gap(props: GapProps): React_2.JSX.Element
+public;Gap(props: GapProps): JSX.Element
 public;GapProps 
 public;GetAutoSuggestDataFunc = (value: string) => AutoSuggestData[]
 internal;getBestBWContrastColor(hexColor: string): "black" | "white"
@@ -83,7 +83,7 @@ public;GlobalDialogProps
 public;GlobalDialogState
 internal;hasPointerEventsSupport(): boolean
 public;HorizontalAlignment
-public;Icon(props: IconProps): React_2.JSX.Element | null
+public;Icon(props: IconProps): JSX.Element | null
 public;IconHelper
 public;IconInput: (props: IconInputProps) => React_2.ReactElement | null
 public;IconInputProps 
@@ -101,10 +101,10 @@ internal;isReactMessage: (message: MessageType) => message is ReactMessage
 internal;ItemKeyboardNavigator
 public;LabeledComponentProps
 internal;Line
-alpha;Listbox(props: ListboxProps): React_2.JSX.Element
+alpha;Listbox(props: ListboxProps): JSX.Element
 alpha;ListboxContext: React_2.Context
 alpha;ListboxContextProps
-alpha;ListboxItem(props: ListboxItemProps): React_2.JSX.Element
+alpha;ListboxItem(props: ListboxItemProps): JSX.Element
 alpha;ListboxItemProps 
 alpha;ListboxProps 
 alpha;ListboxValue = string
@@ -124,12 +124,12 @@ public;MessageBoxProps
 public;MessageContainer 
 public;MessageContainerProps 
 public;MessagedComponentProps
-public;MessageRenderer(props: MessageRendererProps): React_2.JSX.Element | null
+public;MessageRenderer(props: MessageRendererProps): JSX.Element | null
 public;MessageRendererProps 
 public;MessageType = string | HTMLElement | ReactMessage
-public;MutedText(props: TextProps): React_2.JSX.Element
-deprecated;MutedText(props: TextProps): React_2.JSX.Element
-internal;NewBadge(props: CommonProps): React_2.JSX.Element
+public;MutedText(props: TextProps): JSX.Element
+deprecated;MutedText(props: TextProps): JSX.Element
+internal;NewBadge(props: CommonProps): JSX.Element
 public;NoChildrenProps
 public;NodeCheckboxProps
 public;NodeCheckboxRenderer = (props: NodeCheckboxRenderProps) => React_2.ReactNode
@@ -142,7 +142,7 @@ public;OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent
 internal;percentInRange(percent: number): number
 internal;Point 
 public;Popup 
-public;PopupContextMenu(props: PopupContextMenuProps): React_2.JSX.Element
+public;PopupContextMenu(props: PopupContextMenuProps): JSX.Element
 public;PopupContextMenuProps 
 public;PopupProps 
 public;ProcessSettingsContainerCloseEvent 
@@ -163,10 +163,10 @@ public;RenderPropsArgs
 public;ResizableContainerObserver({ onResize, children, }:
 internal;ResizeObserverType = default_2
 public;ScrollPositionMaintainer 
-public;ScrollView(props: CommonDivProps): React_2.JSX.Element
+public;ScrollView(props: CommonDivProps): JSX.Element
 public;SearchBox 
 public;SearchBoxProps 
-public;SettingsContainer: ({ tabs, onSettingsTabSelected, currentSettingsTab, settingsManager, showHeader, }: SettingsContainerProps) => React_2.JSX.Element
+public;SettingsContainer: ({ tabs, onSettingsTabSelected, currentSettingsTab, settingsManager, showHeader, }: SettingsContainerProps) => JSX.Element
 public;SettingsContainerProps
 public;SettingsManager
 public;SettingsProvidersChangedEvent 
@@ -178,8 +178,8 @@ internal;Size
 public;SizeProps
 public;SortDirection
 public;StepFunctionProp = number | ((direction: string) => number | undefined)
-public;StyledText(props: StyledTextProps): React_2.JSX.Element
-deprecated;StyledText(props: StyledTextProps): React_2.JSX.Element
+public;StyledText(props: StyledTextProps): JSX.Element
+deprecated;StyledText(props: StyledTextProps): JSX.Element
 public;StyledTextProps 
 public;SvgPath 
 public;SvgPathProps 
@@ -206,7 +206,7 @@ public;UiStateEntry
 public;UiStateStorage
 public;UiStateStorageResult
 public;UiStateStorageStatus
-public;UnderlinedButton(props: UnderlinedButtonProps): React_2.JSX.Element
+public;UnderlinedButton(props: UnderlinedButtonProps): JSX.Element
 public;UnderlinedButtonProps
 beta;useCrossOriginPopup(visible: boolean, url: string | undefined, title: string, width: number, height: number, onClose: () => void): void
 public;useDisposable
@@ -225,8 +225,8 @@ public;useSaveBeforeClosingSettingsContainer(settingsManager: SettingsManager, s
 internal;useTargeted: (ref: React_2.RefObject
 internal;useWidgetOpacityContext(): WidgetOpacityContextProps
 public;VerticalAlignment
-public;VerticalTabs(props: TabsProps): React_2.JSX.Element
-public;WebFontIcon(props: WebFontIconProps): React_2.JSX.Element
+public;VerticalTabs(props: TabsProps): JSX.Element
+public;WebFontIcon(props: WebFontIconProps): JSX.Element
 public;WebFontIconProps 
 internal;WidgetElementSet 
 internal;WidgetOpacityContext: React_2.Context
