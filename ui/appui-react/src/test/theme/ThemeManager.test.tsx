@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
@@ -20,7 +20,7 @@ describe("ThemeManager", () => {
   });
 
   it("should change the theme", () => {
-    render(
+    const { container } = render(
       <Provider store={TestUtils.store}>
         <ThemeManager>
           <div>Hello World!</div>
@@ -29,18 +29,53 @@ describe("ThemeManager", () => {
     );
     UiFramework.setColorTheme(ColorTheme.Dark);
     expect(UiFramework.getColorTheme()).to.eq(ColorTheme.Dark);
+    expect(
+      container.ownerDocument.documentElement.getAttribute("data-theme")
+    ).to.eq("dark");
+    const providerDiv = container.querySelector(".iui-root")!;
+    expect(providerDiv.getAttribute("data-iui-theme")).to.eq("dark");
+    expect(providerDiv.getAttribute("data-root-container")).to.eq(
+      "iui-root-id"
+    );
   });
 
-  it("should change the widget opacity", () => {
-    render(
+  it("should change the widget opacity", async () => {
+    const { container } = render(
       <Provider store={TestUtils.store}>
         <ThemeManager>
           <div>Hello World!</div>
         </ThemeManager>
       </Provider>
     );
-    const testValue = 0.5;
+    const testValue = 0.699;
     UiFramework.setWidgetOpacity(testValue);
     expect(UiFramework.getWidgetOpacity()).to.eq(testValue);
+    await waitFor(() => {
+      expect(
+        container.ownerDocument.documentElement.style.getPropertyValue(
+          "--buic-widget-opacity"
+        )
+      ).to.eq("0.699");
+    });
+  });
+
+  it("should change the toolbar opacity", async () => {
+    const { container } = render(
+      <Provider store={TestUtils.store}>
+        <ThemeManager>
+          <div>Hello World!</div>
+        </ThemeManager>
+      </Provider>
+    );
+    const testValue = 0.822;
+    UiFramework.setToolbarOpacity(testValue);
+    expect(UiFramework.getToolbarOpacity()).to.eq(testValue);
+    await waitFor(() => {
+      expect(
+        container.ownerDocument.documentElement.style.getPropertyValue(
+          "--buic-toolbar-opacity"
+        )
+      ).to.eq("0.822");
+    });
   });
 });
