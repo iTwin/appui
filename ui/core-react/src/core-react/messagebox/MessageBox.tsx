@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { MessageSeverity } from "@itwin/appui-abstract";
-import { Dialog } from "../dialog/Dialog";
+import { SimpleDialog } from "../dialog/SimpleDialog";
 import type { CommonProps } from "../utils/Props";
 import {
   SvgHelpCircular,
@@ -82,16 +82,16 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
 
   public override render(): React.ReactElement {
     return (
-      <Dialog
+      <SimpleDialog
         title={this.props.title}
         buttonCluster={this.props.buttonCluster}
         opened={this.props.opened}
-        width={this.props.width}
         onClose={this.props.onClose}
         onEscape={this.props.onEscape}
         modal={this.props.modal}
         className={this.props.className}
         style={this.props.style}
+        width={this.props.width}
       >
         <MessageContainer
           severity={this.props.severity}
@@ -100,7 +100,7 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
         >
           {this.props.children}
         </MessageContainer>
-      </Dialog>
+      </SimpleDialog>
     );
   }
 }

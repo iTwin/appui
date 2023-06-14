@@ -16,6 +16,7 @@ import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
 import { FocusTrap } from "../focustrap/FocusTrap";
+import type { ButtonProps } from "@itwin/itwinui-react";
 import { Button } from "@itwin/itwinui-react";
 import { Icon } from "../icons/IconComponent";
 import { SvgClose } from "@itwin/itwinui-icons-react";
@@ -284,23 +285,18 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         containerStyle.height = this.state.height;
     }
 
-    const minMaxStyle: React.CSSProperties = {};
-    minMaxStyle.minWidth =
-      typeof minWidth === "number" ? `${minWidth}px` : minWidth;
-    minMaxStyle.minHeight =
-      typeof minHeight === "number" ? `${minHeight}px` : minHeight;
-    if (maxWidth !== undefined)
-      minMaxStyle.maxWidth =
-        typeof maxWidth === "number" ? `${maxWidth}px` : maxWidth;
-    if (maxHeight !== undefined)
-      minMaxStyle.maxHeight =
-        typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight;
+    const minMaxStyle: React.CSSProperties = {
+      minWidth,
+      minHeight,
+      maxWidth,
+      maxHeight,
+    };
 
-    const buttons = this.getFooterButtons(this.props);
+    const buttons = this.getFooterButtons(buttonCluster);
 
     const footerElement: React.ReactNode =
       footer ||
-      (buttons.length > 0 && (
+      (buttons && buttons.length > 0 && (
         <div className={"core-dialog-buttons"}>{buttons}</div>
       ));
 
@@ -463,78 +459,77 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     return className;
   }
 
-  private getFooterButtons(props: DialogProps) {
+  protected getFooterButtons(
+    buttonCluster: DialogButtonDef[] | undefined,
+    primaryStyleType: ButtonProps["styleType"] = "cta",
+    noCoreButtonClasses: boolean = false
+  ): React.ReactNode[] | undefined {
+    if (buttonCluster === undefined) return undefined;
+
     const buttons: React.ReactNode[] = [];
-    if (props.buttonCluster) {
-      props.buttonCluster.forEach((button: DialogButtonDef, index: number) => {
-        let buttonText = "";
-        let buttonClass = classnames(
-          "core-dialog-button",
-          `dialog-button-${button.type}`,
-          button.className
-        );
-        let styleType:
-          | "default"
-          | "cta"
-          | "high-visibility"
-          | "borderless"
-          | undefined;
+    buttonCluster.forEach((button: DialogButtonDef, index: number) => {
+      let buttonText = "";
+      let buttonClass = classnames(
+        !noCoreButtonClasses && "core-dialog-button",
+        !noCoreButtonClasses && `dialog-button-${button.type}`,
+        button.className
+      );
+      let usePrimaryStyleType = false;
 
-        switch (button.type) {
-          case DialogButtonType.OK:
-            buttonText = UiCore.translate("dialog.ok");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "cta";
-            break;
-          case DialogButtonType.Retry:
-            buttonText = UiCore.translate("dialog.retry");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "cta";
-            break;
-          case DialogButtonType.Yes:
-            buttonText = UiCore.translate("dialog.yes");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "cta";
-            break;
-          case DialogButtonType.No:
-            buttonText = UiCore.translate("dialog.no");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            break;
-          case DialogButtonType.Cancel:
-            buttonText = UiCore.translate("dialog.cancel");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            break;
-          case DialogButtonType.Close:
-            buttonText = UiCore.translate("dialog.close");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            break;
-          case DialogButtonType.Next:
-            buttonText = UiCore.translate("dialog.next");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "cta";
-            break;
-          case DialogButtonType.Previous:
-            buttonText = UiCore.translate("dialog.previous");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "cta";
-            break;
-        }
+      switch (button.type) {
+        case DialogButtonType.OK:
+          buttonText = UiCore.translate("dialog.ok");
+          buttonClass = classnames(buttonClass, button.buttonStyle);
+          usePrimaryStyleType = true;
+          break;
+        case DialogButtonType.Retry:
+          buttonText = UiCore.translate("dialog.retry");
+          buttonClass = classnames(buttonClass, button.buttonStyle);
+          usePrimaryStyleType = true;
+          break;
+        case DialogButtonType.Yes:
+          buttonText = UiCore.translate("dialog.yes");
+          buttonClass = classnames(buttonClass, button.buttonStyle);
+          usePrimaryStyleType = true;
+          break;
+        case DialogButtonType.No:
+          buttonText = UiCore.translate("dialog.no");
+          buttonClass = classnames(buttonClass, button.buttonStyle);
+          break;
+        case DialogButtonType.Cancel:
+          buttonText = UiCore.translate("dialog.cancel");
+          buttonClass = classnames(buttonClass, button.buttonStyle);
+          break;
+        case DialogButtonType.Close:
+          buttonText = UiCore.translate("dialog.close");
+          buttonClass = classnames(buttonClass, button.buttonStyle);
+          break;
+        case DialogButtonType.Next:
+          buttonText = UiCore.translate("dialog.next");
+          buttonClass = classnames(buttonClass, button.buttonStyle);
+          usePrimaryStyleType = true;
+          break;
+        case DialogButtonType.Previous:
+          buttonText = UiCore.translate("dialog.previous");
+          buttonClass = classnames(buttonClass, button.buttonStyle);
+          usePrimaryStyleType = true;
+          break;
+      }
 
-        if (button.label) buttonText = button.label;
+      if (button.label) buttonText = button.label;
 
-        buttons.push(
-          <Button
-            className={buttonClass}
-            disabled={button.disabled}
-            styleType={styleType}
-            key={index.toString()}
-            onClick={button.onClick}
-          >
-            {buttonText}
-          </Button>
-        );
-      });
-    }
+      buttons.push(
+        <Button
+          className={buttonClass}
+          disabled={button.disabled}
+          styleType={usePrimaryStyleType ? primaryStyleType : undefined}
+          key={index.toString()}
+          onClick={button.onClick}
+        >
+          {buttonText}
+        </Button>
+      );
+    });
     return buttons;
   }
 
@@ -548,7 +543,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     }
   };
 
-  private _handleContainerPointerDown = (event: React.PointerEvent): void => {
+  protected _handleContainerPointerDown = (event: React.PointerEvent): void => {
     if (!this.props.modal) {
       if (this.props.onModelessPointerDown && this.props.modelessId)
         this.props.onModelessPointerDown(event, this.props.modelessId);
