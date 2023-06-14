@@ -8,6 +8,7 @@
 
 import { BadgeType } from '@itwin/appui-abstract';
 import { BeUiEvent } from '@itwin/core-bentley';
+import type { ButtonProps } from '@itwin/itwinui-react';
 import type { CheckboxProps } from '@itwin/itwinui-react';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
 import { ConditionalStringValue } from '@itwin/appui-abstract';
@@ -410,6 +411,10 @@ export class Dialog extends React_2.Component<DialogProps, DialogState> {
     componentWillUnmount(): void;
     // (undocumented)
     static defaultProps: Partial<DialogProps>;
+    // (undocumented)
+    protected getFooterButtons(buttonCluster: DialogButtonDef[] | undefined, primaryStyleType?: ButtonProps["styleType"], noCoreButtonClasses?: boolean): React_2.ReactNode[] | undefined;
+    // (undocumented)
+    protected _handleContainerPointerDown: (event: React_2.PointerEvent) => void;
     // (undocumented)
     handleRefSet: (containerDiv: HTMLDivElement | null) => void;
     // (undocumented)
