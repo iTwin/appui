@@ -189,7 +189,7 @@ public;PagedTreeNodeLoader
 public;PageOptions
 internal;Panel(props: PanelProps): JSX.Element
 internal;PanelProps 
-public;ParsedInput: (props: ParsedInputProps) => JSX.Element | null
+public;ParsedInput: (props: ParsedInputProps) => React_2.ReactElement | null
 public;ParsedInputProps 
 public;Point2dTypeConverter 
 public;Point3dTypeConverter 

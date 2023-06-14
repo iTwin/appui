@@ -24,7 +24,7 @@ import {
   toolSettingsTabId,
 } from "@itwin/appui-layout-react";
 import { createDraggedTabState } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/state/internal/TabStateHelpers";
-import { IModelApp, MockRender, NoRenderApp } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type {
   FrontstageConfig,
   UiItemsProvider,
@@ -257,7 +257,7 @@ describe("Frontstage local storage wrapper", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
@@ -265,7 +265,7 @@ describe("Frontstage local storage wrapper", () => {
 
   after(async () => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

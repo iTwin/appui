@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import type { IModelAppOptions } from "@itwin/core-frontend";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { AccuDrawWidget } from "../../appui-react/accudraw/AccuDrawWidget";
 import { TestUtils } from "../TestUtils";
@@ -17,11 +17,11 @@ describe("AccuDrawWidget", () => {
 
     const opts: IModelAppOptions = {};
     opts.accuDraw = new FrameworkAccuDraw();
-    await MockRender.App.startup(opts);
+    await NoRenderApp.startup(opts);
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

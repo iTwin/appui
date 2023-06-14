@@ -9,10 +9,11 @@ import * as sinon from "sinon";
 import {
   ActivityMessageDetails,
   ActivityMessageEndReason,
+  IModelApp,
   MessageBoxIconType,
   MessageBoxType,
   MessageBoxValue,
-  MockRender,
+  NoRenderApp,
   NotifyMessageDetails,
   OutputMessageAlert,
   OutputMessagePriority,
@@ -33,11 +34,11 @@ describe("AppNotificationManager", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

@@ -7,8 +7,9 @@ import * as React from "react";
 import * as moq from "typemoq";
 import {
   DrawingViewState,
+  IModelApp,
   IModelConnection,
-  MockRender,
+  NoRenderApp,
   SheetViewState,
   SpatialViewState,
 } from "@itwin/core-frontend";
@@ -71,12 +72,12 @@ describe("ViewSelector", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
     await TestUtils.flushAsyncOperations();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     await TestUtils.flushAsyncOperations();
     TestUtils.terminateUiFramework();
   });

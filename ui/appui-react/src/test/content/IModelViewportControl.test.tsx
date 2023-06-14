@@ -6,20 +6,20 @@ import { expect } from "chai";
 import * as React from "react";
 import * as moq from "typemoq";
 import { render } from "@testing-library/react";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { ScreenViewport, ViewState3d } from "@itwin/core-frontend";
-import { MockRender } from "@itwin/core-frontend";
-import type {
-  ConfigurableCreateInfo,
-  FrontstageConfig,
-  IModelViewportControlOptions,
-  SupportsViewSelectorChange,
-} from "../../appui-react";
 import {
   ConfigurableUiControlType,
   ContentGroup,
   FrontstageProvider,
   IModelViewportControl,
   UiFramework,
+} from "../../appui-react";
+import type {
+  ConfigurableCreateInfo,
+  FrontstageConfig,
+  IModelViewportControlOptions,
+  SupportsViewSelectorChange,
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
@@ -41,14 +41,14 @@ describe("IModelViewportControl", () => {
     });
 
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
 
     InternalFrontstageManager.isInitialized = false;
     InternalFrontstageManager.initialize();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
 
     // restore the overriden property getter

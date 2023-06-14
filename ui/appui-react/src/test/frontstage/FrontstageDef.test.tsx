@@ -12,7 +12,7 @@ import {
   addTab,
   createNineZoneState,
 } from "@itwin/appui-layout-react";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { ProcessDetector } from "@itwin/core-bentley";
 import { renderHook } from "@testing-library/react-hooks";
 import type {
@@ -48,11 +48,11 @@ describe("FrontstageDef", () => {
       get: () => localStorageMock,
     });
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });

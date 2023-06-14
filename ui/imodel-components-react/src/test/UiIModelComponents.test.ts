@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { UiIModelComponents } from "../imodel-components-react";
 import TestUtils from "./TestUtils";
 
@@ -48,10 +48,10 @@ describe("UiIModelComponents", () => {
   });
 
   it("calling initialize without I18N will use IModelApp.i18n", async () => {
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
 
     await UiIModelComponents.initialize();
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
   });
 
   it("calling loggerCategory without an obj should return packageName", () => {
