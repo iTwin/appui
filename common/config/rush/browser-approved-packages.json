@@ -387,6 +387,10 @@
       "allowedCategories": [ "common" ]
     },
     {
+      "name": "@originjs/vite-plugin-commonjs",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "@playwright/test",
       "allowedCategories": [ "internal" ]
     },
@@ -541,6 +545,10 @@
     {
       "name": "copy-webpack-plugin",
       "allowedCategories": [ "tools" ]
+    },
+    {
+      "name": "cpx",
+      "allowedCategories": [ "internal" ]
     },
     {
       "name": "cpx2",
@@ -1128,6 +1136,10 @@
     },
     {
       "name": "vite",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "vite-plugin-inspect",
       "allowedCategories": [ "internal" ]
     },
     {
