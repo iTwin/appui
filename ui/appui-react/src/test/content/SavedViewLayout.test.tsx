@@ -22,8 +22,9 @@ import type { ScreenViewport, ViewState } from "@itwin/core-frontend";
 import {
   DrawingViewState,
   EmphasizeElements,
+  IModelApp,
   IModelConnection,
-  MockRender,
+  NoRenderApp,
   SheetViewState,
   SpatialViewState,
   SubCategoriesCache,
@@ -190,7 +191,7 @@ describe("StageContentLayout", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
 
     // Required for StageContentLayout
     UiFramework.controls.register("TestViewport", TestViewportContentControl);
@@ -203,7 +204,7 @@ describe("StageContentLayout", () => {
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     sinon.restore();
     TestUtils.terminateUiFramework();
   });

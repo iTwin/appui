@@ -11,7 +11,7 @@ import {
   CurrentState,
   IModelApp,
   ItemField,
-  MockRender,
+  NoRenderApp,
   RotationMode,
 } from "@itwin/core-frontend";
 import TestUtils, { storageMock } from "../TestUtils";
@@ -46,11 +46,11 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       const opts: IModelAppOptions = {};
       opts.accuDraw = new FrameworkAccuDraw();
       opts.uiAdmin = new FrameworkUiAdmin();
-      await MockRender.App.startup(opts);
+      await NoRenderApp.startup(opts);
     });
 
     after(async () => {
-      await MockRender.App.shutdown();
+      await IModelApp.shutdown();
       TestUtils.terminateUiFramework();
     });
 

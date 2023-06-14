@@ -84,7 +84,7 @@ export class AutoSuggest extends React_2.PureComponent<AutoSuggestProps, AutoSug
     // @internal (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
 }
 
 // @public
@@ -117,7 +117,7 @@ export interface AutoSuggestProps extends React_2.InputHTMLAttributes<HTMLInputE
 // @internal
 export class Badge extends React_2.PureComponent<BadgeProps> {
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
 }
 
 // @internal
@@ -266,7 +266,7 @@ export class ContextMenu extends React_2.PureComponent<ContextMenuProps, Context
     // (undocumented)
     getRect: () => DOMRect;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
     // @internal (undocumented)
     readonly state: Readonly<ContextMenuState>;
 }
@@ -298,7 +298,7 @@ export enum ContextMenuDirection {
 // @public
 export class ContextMenuDivider extends React_2.PureComponent<CommonProps> {
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
 }
 
 // @public
@@ -311,7 +311,7 @@ export class ContextMenuItem extends React_2.PureComponent<ContextMenuItemProps,
     // @internal (undocumented)
     static defaultProps: Partial<ContextMenuItemProps>;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
     // (undocumented)
     select: () => void;
     // @internal (undocumented)
@@ -373,7 +373,7 @@ export class ContextSubMenu extends React_2.Component<ContextSubMenuProps, Conte
     // (undocumented)
     static defaultProps: Partial<ContextSubMenuProps>;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
     // (undocumented)
     select: () => void;
     // @internal (undocumented)
@@ -382,7 +382,7 @@ export class ContextSubMenu extends React_2.Component<ContextSubMenuProps, Conte
 
 // @public
 export interface ContextSubMenuProps extends Omit<ContextMenuItemProps, "label">, Omit<ContextMenuProps, "label">, CommonProps {
-    label: string | JSX.Element;
+    label: string | React_2.ReactElement;
     // @internal (undocumented)
     onHotKeyParsed?: (hotKey: string) => void;
 }
@@ -418,7 +418,7 @@ export class Dialog extends React_2.Component<DialogProps, DialogState> {
     // (undocumented)
     handleRefSet: (containerDiv: HTMLDivElement | null) => void;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
     // @internal (undocumented)
     readonly state: Readonly<DialogState>;
 }
@@ -452,7 +452,7 @@ export interface DialogProps extends Omit_2<React_2.AllHTMLAttributes<HTMLDivEle
     buttonCluster?: DialogButtonDef[];
     contentClassName?: string;
     contentStyle?: React_2.CSSProperties;
-    footer?: string | JSX.Element;
+    footer?: string | React_2.ReactElement;
     footerStyle?: React_2.CSSProperties;
     header?: React_2.ReactNode;
     height?: string | number;
@@ -471,7 +471,7 @@ export interface DialogProps extends Omit_2<React_2.AllHTMLAttributes<HTMLDivEle
     onOutsideClick?: (event: MouseEvent) => any;
     opened: boolean;
     resizable?: boolean;
-    title?: string | JSX.Element;
+    title?: string | React_2.ReactElement;
     titleStyle?: React_2.CSSProperties;
     trapFocus?: boolean;
     width?: string | number;
@@ -566,8 +566,8 @@ export const DivWithOutsideClick: {
 // @public
 export function ElementResizeObserver({ watchedElement, render, }: {
     watchedElement: HTMLElement | null;
-    render: (props: RenderPropsArgs) => JSX.Element;
-}): JSX.Element;
+    render: (props: RenderPropsArgs) => React_2.ReactElement;
+}): React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>>;
 
 // @public
 export const ElementSeparator: (props: ElementSeparatorProps) => JSX.Element;
@@ -596,7 +596,7 @@ export class ExpandableList extends React_2.PureComponent<ExpandableListProps, E
     // (undocumented)
     static defaultProps: Partial<ExpandableListProps>;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
 }
 
 // @public
@@ -762,7 +762,7 @@ export class IconHelper {
 }
 
 // @public
-export const IconInput: (props: IconInputProps) => JSX.Element | null;
+export const IconInput: (props: IconInputProps) => React_2.ReactElement | null;
 
 // @public
 export interface IconInputProps extends Omit<InputProps, "size"> {
@@ -803,7 +803,7 @@ export interface ImageCheckBoxProps extends CommonProps {
 // @public
 export class InputLabel extends React_2.PureComponent<InputLabelProps> {
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
 }
 
 // @public
@@ -1015,7 +1015,7 @@ export class MessageBox extends React_2.PureComponent<MessageBoxProps> {
     // (undocumented)
     static defaultProps: Partial<MessageBoxProps>;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
 }
 
 // @public
@@ -1032,7 +1032,7 @@ export interface MessageBoxProps extends CommonProps {
     onEscape?: () => void;
     opened: boolean;
     severity: MessageSeverity;
-    title?: string | JSX.Element;
+    title?: string | React_2.ReactElement;
     width?: string | number;
 }
 
@@ -1042,7 +1042,7 @@ export class MessageContainer extends React_2.PureComponent<MessageContainerProp
     // @deprecated
     static getIconClassName(severity: MessageSeverity, _hollow?: boolean): string;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
 }
 
 // @public
@@ -1101,7 +1101,7 @@ export type NodeCheckboxRenderProps = Omit_2<CheckboxProps, "onChange" | "onClic
 };
 
 // @public
-export const NumberInput: (props: NumberInputProps) => JSX.Element | null;
+export const NumberInput: (props: NumberInputProps) => React_2.ReactElement | null;
 
 // @public
 export interface NumberInputProps extends Omit<InputProps_2, "min" | "max" | "step" | "onChange"> {
@@ -1278,7 +1278,7 @@ export const PROXIMITY_THRESHOLD_DEFAULT = 100;
 export class RadialButton extends React_2.Component<RadialButtonProps, RadialButtonState> {
     constructor(props: RadialButtonProps);
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
     select: () => void;
     // @internal (undocumented)
     readonly state: Readonly<RadialButtonState>;
@@ -1307,7 +1307,7 @@ export class RadialMenu extends React_2.Component<RadialMenuProps, RadialMenuSta
     // (undocumented)
     static defaultProps: Partial<RadialMenuProps>;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
     select: () => void;
     // @internal (undocumented)
     readonly state: Readonly<RadialMenuState>;
@@ -1514,15 +1514,15 @@ export interface SettingsProvidersChangedEventArgs {
 
 // @public
 export interface SettingsTabEntry {
-    readonly icon?: string | JSX.Element;
+    readonly icon?: string | React.ReactElement;
     readonly isDisabled?: boolean | ConditionalBooleanValue;
     readonly itemPriority: number;
     readonly label: string;
-    readonly page: JSX.Element;
+    readonly page: React.ReactElement;
     readonly pageWillHandleCloseRequest?: boolean;
     readonly subLabel?: string;
     readonly tabId: string;
-    readonly tooltip?: string | JSX.Element;
+    readonly tooltip?: string | React.ReactElement;
 }
 
 // @public
@@ -1597,14 +1597,14 @@ export interface TabLabel {
     // (undocumented)
     disabled?: boolean;
     // (undocumented)
-    icon?: string | JSX.Element;
+    icon?: string | React_2.ReactElement;
     // (undocumented)
     label: string;
     // (undocumented)
     subLabel?: string;
     // (undocumented)
     tabId: string;
-    tooltip?: string | JSX.Element;
+    tooltip?: string | React_2.ReactElement;
 }
 
 // @public
@@ -1615,7 +1615,7 @@ export class Tabs extends React_2.PureComponent<MainTabsProps, TabsState> {
     // @internal (undocumented)
     componentDidUpdate(prevProps: MainTabsProps): void;
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
 }
 
 // @public

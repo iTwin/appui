@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import * as moq from "typemoq";
 import { HideIsolateEmphasizeActionHandler } from "../../appui-react/selection/HideIsolateEmphasizeManager";
 import TestUtils from "../TestUtils";
@@ -82,14 +82,14 @@ describe("Use Custom HideIsolateEmphasizeActionHandler", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
     UiFramework.setHideIsolateEmphasizeActionHandler(
       new TestHideIsolateEmphasizeManager()
     );
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

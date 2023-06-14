@@ -48,5 +48,5 @@ const ForwardRefIconInput = React.forwardRef<HTMLInputElement, IconInputProps>(
 /** Input component with icon to the left of the input field
  * @public
  */
-export const IconInput: (props: IconInputProps) => JSX.Element | null =
+export const IconInput: (props: IconInputProps) => React.ReactElement | null =
   ForwardRefIconInput;
