@@ -25,7 +25,6 @@ export class ConditionalIconItem {
     value?: IconSpec
   ) {
     this._value = value;
-    Object.setPrototypeOf(this, ConditionalIconItem.prototype);
   }
 
   public static isConditionalIconItem(item: any): boolean {
