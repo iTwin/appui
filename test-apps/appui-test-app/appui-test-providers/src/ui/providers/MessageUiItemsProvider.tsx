@@ -2,10 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { ToolbarItemUtilities } from "@itwin/appui-abstract";
+import { BadgeType } from "@itwin/appui-abstract";
 import {
   StageUsage,
   ToolbarItem,
+  ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
   UiItemsProvider,
@@ -37,13 +38,13 @@ export class MessageUiItemsProvider implements UiItemsProvider {
       orientatipn === ToolbarOrientation.Vertical
     ) {
       return [
-        ToolbarItemUtilities.createGroupButton(
+        ToolbarItemUtilities.createGroupItem(
           `${this.id}:group`,
           10,
           "icon-placeholder",
           "Messages",
           [
-            ToolbarItemUtilities.createActionButton(
+            ToolbarItemUtilities.createActionItem(
               `${this.id}:activity`,
               1,
               "icon-placeholder",
@@ -75,7 +76,7 @@ export class MessageUiItemsProvider implements UiItemsProvider {
                 details = undefined;
               }
             ),
-            ToolbarItemUtilities.createActionButton(
+            ToolbarItemUtilities.createActionItem(
               `${this.id}:toast`,
               1,
               "icon-placeholder",
@@ -91,7 +92,7 @@ export class MessageUiItemsProvider implements UiItemsProvider {
                 );
               }
             ),
-            ToolbarItemUtilities.createActionButton(
+            ToolbarItemUtilities.createActionItem(
               `${this.id}:sticky`,
               1,
               "icon-placeholder",
@@ -107,7 +108,7 @@ export class MessageUiItemsProvider implements UiItemsProvider {
                 );
               }
             ),
-            ToolbarItemUtilities.createActionButton(
+            ToolbarItemUtilities.createActionItem(
               `${this.id}:alert`,
               1,
               "icon-placeholder",
@@ -121,7 +122,8 @@ export class MessageUiItemsProvider implements UiItemsProvider {
                     OutputMessageType.Alert
                   )
                 );
-              }
+              },
+              { badge: BadgeType.New }
             ),
           ]
         ),
