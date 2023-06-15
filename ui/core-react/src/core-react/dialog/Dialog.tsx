@@ -25,6 +25,7 @@ import { SvgClose } from "@itwin/itwinui-icons-react";
 
 /** Enum for dialog alignment
  * @public
+ * @deprecated in 4.2. Enum for a deprecated [Dialog]($core-react) component.
  */
 export enum DialogAlignment {
   TopLeft = "top-left",
@@ -40,6 +41,7 @@ export enum DialogAlignment {
 
 /** Properties for the [[Dialog]] component
  * @public
+ * @deprecated in 4.2. Props of a deprecated [Dialog] component.
  */
 export interface DialogProps
   extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "title">,
@@ -68,7 +70,7 @@ export interface DialogProps
   buttonCluster?: DialogButtonDef[];
 
   /** Default alignment of dialog. Default: DialogAlignment.Center */
-  alignment?: DialogAlignment;
+  alignment?: DialogAlignment; // eslint-disable-line deprecation/deprecation
   /** Initial x/left position of dialog in px. */
   x?: number;
   /** Initial y/top position of dialog in px. */
@@ -132,12 +134,15 @@ interface DialogState {
 /**
  * Dialog React component with optional resizing and dragging functionality
  * @public
+ * @deprecated in 4.2. Use [Dialog]($itwinui-react) instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class Dialog extends React.Component<DialogProps, DialogState> {
   private _parentDocument = document;
   private _containerRef = React.createRef<HTMLDivElement>();
+  // eslint-disable-next-line deprecation/deprecation
   public static defaultProps: Partial<DialogProps> = {
-    alignment: DialogAlignment.Center,
+    alignment: DialogAlignment.Center, // eslint-disable-line deprecation/deprecation
     minWidth: 300,
     minHeight: 100,
     width: "50%",
@@ -151,7 +156,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
 
   /** @internal */
   public override readonly state: Readonly<DialogState>;
-
+  // eslint-disable-next-line deprecation/deprecation
   constructor(props: DialogProps) {
     super(props);
     this.state = {
@@ -417,6 +422,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     );
   }
 
+  /* eslint-disable deprecation/deprecation */
   private getCSSClassNameFromAlignment(alignment?: DialogAlignment): string {
     let className = "";
 
@@ -458,6 +464,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
 
     return className;
   }
+  /* eslint-enable deprecation/deprecation */
 
   protected getFooterButtons(
     buttonCluster: DialogButtonDef[] | undefined,
