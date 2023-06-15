@@ -28,14 +28,14 @@ export const Basic: Story = {
         100,
         <Svg2D />,
         "Item 1",
-        () => {}
+        () => undefined
       ),
       ToolbarItemUtilities.createActionItem(
         "item2",
         100,
         <Svg3D />,
         "Item 2",
-        () => {}
+        () => undefined
       ),
     ],
     orientation: ToolbarOrientation.Horizontal,
