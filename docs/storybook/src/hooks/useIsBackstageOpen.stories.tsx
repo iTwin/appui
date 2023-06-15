@@ -87,7 +87,7 @@ function Initialized() {
 }
 
 const meta: Meta = {
-  title: "Hooks/useActiveFrontstageId",
+  title: "Hooks/useIsBackstageOpen",
   component: Demo,
 } satisfies Meta<typeof Demo>;
 
