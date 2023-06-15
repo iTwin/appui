@@ -32,7 +32,7 @@ export function SampleModalDialog() {
   }, [closeDialog]);
 
   return (
-    <Dialog
+    <Dialog // eslint-disable-line deprecation/deprecation
       title={title.current}
       opened={true}
       modal={true}

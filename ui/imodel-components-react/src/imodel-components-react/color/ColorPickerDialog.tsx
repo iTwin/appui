@@ -79,7 +79,7 @@ export function ColorPickerDialog({
 
   return (
     <div ref={dialogContainer}>
-      <Dialog
+      <Dialog // eslint-disable-line deprecation/deprecation
         title={dialogTitle}
         opened={true}
         resizable={false}

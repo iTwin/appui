@@ -17,6 +17,8 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { InternalModelessDialogManager } from "../../appui-react/dialog/InternalModelessDialogManager";
 
+/* eslint-disable deprecation/deprecation */
+
 describe("InternalModelessDialogManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   const spyMethod = sinon.spy();

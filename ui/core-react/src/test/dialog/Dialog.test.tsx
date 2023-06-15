@@ -14,6 +14,8 @@ import TestUtils from "../TestUtils";
 import { DialogButtonType } from "@itwin/appui-abstract";
 import userEvent from "@testing-library/user-event";
 
+/* eslint-disable deprecation/deprecation */
+
 /**
  * Build x,y,clientX,clientY coord object. (x,y required for user-event to determine a move,
  * but our code validates clientX and clientY)

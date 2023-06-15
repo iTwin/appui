@@ -441,7 +441,7 @@ function SaveFormatModalDialog({
   }, [handleClose]);
 
   return (
-    <Dialog
+    <Dialog // eslint-disable-line deprecation/deprecation
       title={"Save Format Changes"}
       opened={isOpen}
       resizable={false}

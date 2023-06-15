@@ -53,7 +53,7 @@ export function AccuDrawDialog(props: AccuDrawDialogProps) {
   const dialogWidth = orientation === Orientation.Horizontal ? 500 : 250;
 
   return (
-    <ModelessDialog
+    <ModelessDialog // eslint-disable-line deprecation/deprecation
       className={classNames}
       style={props.style}
       title={title.current}

@@ -8,75 +8,31 @@
 
 import "./Dialog.scss";
 import * as React from "react";
-import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
-import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
 import { Dialog as CoreDialog } from "./Dialog";
 import { Dialog } from "@itwin/itwinui-react";
+import type { DialogProps } from "./Dialog";
 
 /** Properties of [[SimpleDialog]] component.
  * @internal
  */
-export interface SimpleDialogProps
-  extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "title">,
-    CommonProps {
-  /** Indicates whether to show dialog or not */
-  opened: boolean;
-  /** Indicates whether the focus should be trapped within the dialog. Default: false */
-  trapFocus?: boolean;
-
-  /** Whether the hide the header. Default: false */
-  hideHeader?: boolean;
-  /** Title to show in title bar of dialog */
-  title?: string | JSX.Element;
-  /** List of DialogButtonDef objects specifying buttons and associated onClick events */
-  buttonCluster?: DialogButtonDef[];
-
-  /** onClick event for X button for dialog */
-  onClose?: () => void;
-  /** 'keyup' event for Esc key */
-  onEscape?: () => void;
-  /** Triggered when a click is triggered outside of this dialog. */
-  onOutsideClick?: (event: MouseEvent) => any;
-
-  /** Whether to show background overlay. Default: true.
-   * @note Modeless dialogs require an id and an implementation of onModelessPointerDown.
-   */
-  modal?: boolean;
-  /** An id for a modeless dialog */
-  modelessId?: string;
-  /** Pointer Down event handler when modeless (modal = false) */
-  onModelessPointerDown?: (event: React.PointerEvent, id: string) => void;
-
-  /** Initial width of dialog. Displayed in px if value is a number; otherwise, displayed in specified CSS unit. Default: "50%" */
-  width?: string | number;
-  /** Initial height of dialog. Displayed in px if value is a number; otherwise, displayed in specified CSS unit. */
-  height?: string | number;
-  /** Minimum width that the dialog may be resized to. Displayed in px if value is a number; otherwise, displayed in specified CSS unit. Default: 300px */
-  minWidth?: string | number;
-  /** Minimum height that the dialog may be resized to. Displayed in px if value is a number; otherwise, displayed in specified CSS unit. Default: 100px */
-  minHeight?: string | number;
-  /** Maximum width that the dialog may be resized to. Displayed in px if value is a number; otherwise, displayed in specified CSS unit. */
-  maxWidth?: string | number;
-  /** Maximum height that the dialog may be resized to. Displayed in px if value is a number; otherwise, displayed in specified CSS unit. */
-  maxHeight?: string | number;
-
-  /** Custom CSS Style for overlay */
-  backgroundStyle?: React.CSSProperties;
-  /** Custom CSS Style for title */
-  titleStyle?: React.CSSProperties;
-  /** Custom CSS Style for footer */
-  footerStyle?: React.CSSProperties;
-  /** Custom CSS class name for the content */
-  contentClassName?: string;
-  /** Custom CSS Style for the content */
-  contentStyle?: React.CSSProperties;
-}
+export type SimpleDialogProps = Omit<
+  DialogProps, // eslint-disable-line deprecation/deprecation
+  | "resizable"
+  | "movable"
+  | "inset"
+  | "header"
+  | "footer"
+  | "alignment"
+  | "x"
+  | "y"
+>;
 
 /** itwinui-react [[Dialog]] wrapper that excludes buggy features and adds features from core-react [[Dialog]].
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export class SimpleDialog extends CoreDialog {
   constructor(props: SimpleDialogProps) {
     super(props);
