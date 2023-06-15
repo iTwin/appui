@@ -28,7 +28,7 @@ export class ModelessDialog extends React.Component<ModelessDialogProps> {
     super(props);
   }
 
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     const {
       dialogId,
       style,

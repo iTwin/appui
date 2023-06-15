@@ -6,10 +6,10 @@ public;AnimationFractionChangeHandler = (animationFraction: number) => void
 alpha;BaseSolarDataProvider 
 alpha;BaseTimelineDataProvider 
 beta;ColorEditor 
-beta;ColorPickerButton: (props: ColorPickerProps) => JSX.Element | null
+beta;ColorPickerButton: (props: ColorPickerProps) => React_2.ReactElement | null
 beta;ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResult, colorPresets, colorInputType, }: ColorPickerDialogProps): JSX.Element
 beta;ColorPickerDialogProps
-public;ColorPickerPopup: (props: ColorPickerPopupProps) => JSX.Element | null
+public;ColorPickerPopup: (props: ColorPickerPopupProps) => React_2.ReactElement | null
 public;ColorPickerPopupProps 
 beta;ColorPickerProps 
 beta;ColorPropertyEditor 
@@ -69,7 +69,7 @@ internal;PlayerButtonProps
 alpha;QuantityFormatPanel(props: QuantityFormatPanelProps): JSX.Element
 alpha;QuantityFormatPanelProps 
 beta;QuantityInput({ initialValue, quantityType, readonly, className, style, onQuantityChange, ref, }: QuantityProps): JSX.Element
-beta;QuantityNumberInput: (props: QuantityNumberInputProps) => JSX.Element | null
+beta;QuantityNumberInput: (props: QuantityNumberInputProps) => React_2.ReactElement | null
 beta;QuantityNumberInputProps 
 beta;QuantityProps 
 internal;RailMarkers({ showToolTip, percent, tooltipText, markDate, }:

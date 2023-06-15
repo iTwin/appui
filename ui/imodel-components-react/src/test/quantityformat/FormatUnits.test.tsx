@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { IModelApp, MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { FormatProps } from "@itwin/core-quantity";
 import { TestUtils } from "../TestUtils";
 import {
@@ -28,11 +28,11 @@ describe("FormatUnits", () => {
       get: () => requestNextAnimation,
     });
     await TestUtils.initializeUiIModelComponents();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
     Object.defineProperty(
       IModelApp,

@@ -25,7 +25,8 @@ import type {
 } from "@itwin/core-frontend";
 import {
   EntityState,
-  MockRender,
+  IModelApp,
+  NoRenderApp,
   ScreenViewport,
   SpatialViewState,
   StandardViewId,
@@ -106,7 +107,7 @@ describe("ViewportComponent", () => {
     });
     ViewportComponentEvents.terminate();
     await TestUtils.initializeUiIModelComponents();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
@@ -115,7 +116,7 @@ describe("ViewportComponent", () => {
       "clone",
       vsCloneDescriptorToRestore
     );
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
   });
 
@@ -155,7 +156,6 @@ describe("ViewportComponent", () => {
         worldToViewPoint
     );
   viewportMock.setup((x) => x.viewRect).returns(() => viewRect);
-  viewportMock.object.viewCmdTargetCenter = undefined;
   viewportMock
     .setup((x) => x.pickNearestVisibleGeometry)
     .returns(
@@ -194,7 +194,6 @@ describe("ViewportComponent", () => {
     );
     globalViewId = "id1";
     tentativePointIsActive = false;
-    viewportMock.object.viewCmdTargetCenter = undefined;
     worldToViewPoint = Point3d.create(50, 50);
     nearestVisibleGeometryPoint = Point3d.create(30, 30);
     viewRect = new ViewRect(0, 0, 100, 100);
@@ -529,7 +528,6 @@ describe("ViewportComponent", () => {
         />
       );
       await TestUtils.flushAsyncOperations();
-      viewportMock.object.viewCmdTargetCenter = undefined;
       worldToViewPoint = Point3d.create(200, 200);
       ViewportComponentEvents.onCubeRotationChangeEvent.emit({
         rotMatrix: rot,
@@ -552,7 +550,6 @@ describe("ViewportComponent", () => {
         />
       );
       await TestUtils.flushAsyncOperations();
-      viewportMock.object.viewCmdTargetCenter = Point3d.create(0, 0);
       ViewportComponentEvents.onCubeRotationChangeEvent.emit({
         rotMatrix: rot,
         face: Face.Front,
@@ -579,7 +576,6 @@ describe("ViewportComponent", () => {
     });
     it("should register cubeRotationChangeEvent with vp.viewCmdTargetCenter defined where viewRect does not contain worldToView point", async () => {
       const rot = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.X);
-      viewportMock.object.viewCmdTargetCenter = Point3d.create(0, 0);
       worldToViewPoint = Point3d.create(200, 200);
       render(
         <ViewportComponent

@@ -15,7 +15,7 @@ import type {
   ScreenViewport,
   SpatialViewState,
 } from "@itwin/core-frontend";
-import { IModelApp, MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { ModalFrontstageRequestedCloseEventArgs } from "../../appui-react";
 import {
   ConfigurableCreateInfo,
@@ -52,14 +52,14 @@ describe("FrontstageManager", () => {
     });
 
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
 
     InternalFrontstageManager.initialize();
     InternalFrontstageManager.clearFrontstageProviders();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
 
     // restore the overriden property getter

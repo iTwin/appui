@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
+  BadgeType,
   ConditionalBooleanValue,
   IconSpecUtilities,
   ToolbarItemUtilities,
@@ -127,6 +128,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
 
       const dialogId = "sampleModeless";
       const openSampleModelessItem = new CommandItemDef({
+        badgeType: BadgeType.New,
         iconSpec: <SvgWindowAdd />,
         labelKey: "SampleApp:buttons.sampleModelessDialog",
         execute: () => {

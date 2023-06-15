@@ -5,7 +5,7 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import { expect } from "chai";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { TestUtils } from "../TestUtils";
 import {
   BumpToolSetting,
@@ -15,11 +15,11 @@ import {
 describe("ToolSettingsTools", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

@@ -12,7 +12,7 @@ import {
   CompassMode,
   IModelApp,
   ItemField,
-  MockRender,
+  NoRenderApp,
 } from "@itwin/core-frontend";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
@@ -49,11 +49,11 @@ describe("AccuDrawFieldContainer", () => {
     const opts: IModelAppOptions = {};
     opts.accuDraw = new FrameworkAccuDraw();
     opts.uiAdmin = new FrameworkUiAdmin();
-    await MockRender.App.startup(opts);
+    await NoRenderApp.startup(opts);
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
 
     Object.defineProperty(
       IModelApp,

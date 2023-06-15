@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix toolbar item badges not displaying",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

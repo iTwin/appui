@@ -11,7 +11,7 @@ import type { IModelRpcProps } from "@itwin/core-common";
 import type { Id64String } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
-import { IModelApp, MockRender, SelectionSet } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
 import type { CursorMenuData, UserSettingsProvider } from "../appui-react";
 import {
   ColorTheme,
@@ -125,12 +125,12 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("calling initialize without I18N will use IModelApp.i18n", async () => {
-      await MockRender.App.startup();
+      await NoRenderApp.startup();
 
       await UiFramework.initialize(TestUtils.store);
       expect(UiFramework.localization).to.eq(IModelApp.localization);
 
-      await MockRender.App.shutdown();
+      await IModelApp.shutdown();
     });
 
     it("test default frameworkState key", async () => {

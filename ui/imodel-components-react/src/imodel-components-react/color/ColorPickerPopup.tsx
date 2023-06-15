@@ -232,4 +232,4 @@ const ForwardRefColorPickerPopup = React.forwardRef<
  */
 export const ColorPickerPopup: (
   props: ColorPickerPopupProps
-) => JSX.Element | null = ForwardRefColorPickerPopup;
+) => React.ReactElement | null = ForwardRefColorPickerPopup;

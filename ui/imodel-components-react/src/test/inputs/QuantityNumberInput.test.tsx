@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { QuantityTypeArg } from "@itwin/core-frontend";
-import { IModelApp, MockRender, QuantityType } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
 import { expect } from "chai";
@@ -38,11 +38,11 @@ describe("<QuantityNumberInput />", () => {
       get: () => requestNextAnimation,
     });
     await TestUtils.initializeUiIModelComponents();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
     Object.defineProperty(
       IModelApp,

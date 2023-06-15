@@ -14,7 +14,7 @@ import {
 } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { InternalContentDialogManager } from "../../appui-react/dialog/InternalContentDialogManager";
 
 describe("ContentDialogManager", () => {
@@ -33,7 +33,7 @@ describe("ContentDialogManager", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework(true);
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
 
     UiFramework.content.dialogs.onContentDialogChangedEvent.addListener(
       handleContentDialogChanged
@@ -44,7 +44,7 @@ describe("ContentDialogManager", () => {
     UiFramework.content.dialogs.onContentDialogChangedEvent.removeListener(
       handleContentDialogChanged
     );
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework(); // clear out the framework key
   });
 

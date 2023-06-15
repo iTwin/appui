@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import { IModelApp, MockRender, QuantityType } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import { QuantityInput } from "../../imodel-components-react/inputs/QuantityInput";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { TestUtils } from "../TestUtils";
@@ -24,11 +24,11 @@ describe("QuantityInput", () => {
       get: () => requestNextAnimation,
     });
     await TestUtils.initializeUiIModelComponents();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
     Object.defineProperty(
       IModelApp,
