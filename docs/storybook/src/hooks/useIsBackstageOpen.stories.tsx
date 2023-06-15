@@ -95,7 +95,7 @@ export default meta;
 
 type Story = StoryObj<typeof Demo>;
 
-export const Primary: Story = {
+export const Basic: Story = {
   args: {
     label: "Test",
   },
