@@ -149,6 +149,8 @@ const [
   "PropertyGridInternalContext"
 );
 
+const ACTION_BUTTON_DEFAULT_WIDTH = 90;
+
 /**
  * VirtualizedPropertyGrid React component.
  * @public
@@ -339,15 +341,33 @@ export class VirtualizedPropertyGrid extends React.Component<
     return node.key;
   };
 
+  private _getMaxItemDepth = () => {
+    let depth = 0;
+    for (const item of this.state.gridItems) {
+      if (depth < item.depth) {
+        depth = item.depth;
+      }
+    }
+    return depth + 1;
+  };
+
   /** @internal */
   public override render() {
+    const defaultActionButtonWidth =
+      (this.props.actionButtonRenderers?.length ?? 0) > 0
+        ? ACTION_BUTTON_DEFAULT_WIDTH
+        : undefined;
+
     return (
       <ColumnResizingPropertyListPropsSupplier
         orientation={this.state.orientation}
         width={this.props.width}
         minLabelWidth={this.props.minLabelWidth}
         minValueWidth={this.props.minValueWidth}
-        actionButtonWidth={this.props.actionButtonWidth}
+        actionButtonWidth={
+          this.props.actionButtonWidth ?? defaultActionButtonWidth
+        }
+        maxPropertyDepth={this._getMaxItemDepth()}
       >
         {(columnResizeContext) => (
           <PropertyGridEventsRelatedPropsSupplier
