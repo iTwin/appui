@@ -142,7 +142,17 @@
       "summary": "Run gh-pages to deploy storybook to GitHub pages.",
       "safeForSimultaneousRushProcesses": true,
       "autoinstallerName": "rush-gh-pages",
-      "shellCommand": "gh-pages -d docs/storybook/storybook-static --dest local"
+      "shellCommand": "gh-pages -m \"Publish storybook\" -d docs/storybook/storybook-static --no-history"
+    }
+  ],
+  "parameters": [
+    {
+      "parameterKind": "string",
+      "longName": "--dest",
+      "argumentName": "DIR",
+      "required": true,
+      "description": "A destination folder for the 'gh-pages' commands.",
+      "associatedCommands": ["deploy:storybook"]
     }
   ]
 }
