@@ -9,7 +9,7 @@
 import type { CommonToolbarItem as UIA_CommonToolbarItem } from "@itwin/appui-abstract";
 import type { CustomToolbarItem } from "@itwin/components-react";
 import type { ToolbarItem } from "./ToolbarItem";
-import { isToolbarCustomItem } from "./ToolbarItem";
+import { isToolbarCustomItem, isToolbarGroupItem } from "./ToolbarItem";
 
 /** @internal */
 export function toUIAToolbarItem(item: ToolbarItem): UIA_CommonToolbarItem {
@@ -17,11 +17,22 @@ export function toUIAToolbarItem(item: ToolbarItem): UIA_CommonToolbarItem {
     // eslint-disable-next-line deprecation/deprecation
     const customItem: CustomToolbarItem = {
       ...item,
+      badgeType: item.badge,
       isCustom: true,
       icon: item.icon as string,
       panelContentNode: item.panelContent,
     };
     return customItem;
   }
-  return item as UIA_CommonToolbarItem;
+  if (isToolbarGroupItem(item)) {
+    return {
+      ...item,
+      items: item.items.map(toUIAToolbarItem),
+      badgeType: item.badge,
+    } as UIA_CommonToolbarItem;
+  }
+  return {
+    ...item,
+    badgeType: item.badge,
+  } as UIA_CommonToolbarItem;
 }
