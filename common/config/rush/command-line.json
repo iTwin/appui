@@ -135,6 +135,14 @@
       "safeForSimultaneousRushProcesses": true,
       "autoinstallerName": "rush-prettier",
       "shellCommand": "prettier --write ."
+    },
+    {
+      "name": "deploy:storybook",
+      "commandKind": "global",
+      "summary": "Run gh-pages to deploy storybook to GitHub pages.",
+      "safeForSimultaneousRushProcesses": true,
+      "autoinstallerName": "rush-gh-pages",
+      "shellCommand": "gh-pages -d docs/storybook/storybook-static --dest local"
     }
   ]
 }

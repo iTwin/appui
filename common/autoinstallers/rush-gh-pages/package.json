@@ -1,0 +1,8 @@
+{
+  "name": "rush-gh-pages",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "gh-pages": "^5.0.0"
+  }
+}
