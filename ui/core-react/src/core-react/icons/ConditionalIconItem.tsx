@@ -25,8 +25,18 @@ export class ConditionalIconItem {
     value?: IconSpec
   ) {
     this._value = value;
+    Object.setPrototypeOf(this, ConditionalIconItem.prototype);
   }
 
+  public static isConditionalIconItem(item: any): boolean {
+    /* istanbul ignore else */
+    if (!item || typeof item !== "object") return false;
+    const itemPrototype = Object.getPrototypeOf(item);
+    /* istanbul ignore else */
+    if (itemPrototype.constructor.name !== "ConditionalIconItem") return false;
+
+    return true;
+  }
   /** The current IconSpec according to conditions */
   public get value(): IconSpec {
     /* istanbul ignore else */
@@ -54,21 +64,21 @@ export class ConditionalIconItem {
     /* istanbul ignore else */
     if (
       undefined === conditionalValue ||
-      !(conditionalValue instanceof ConditionalIconItem)
+      !ConditionalIconItem.isConditionalIconItem(conditionalValue)
     )
       return false;
 
+    const iconItem = conditionalValue as ConditionalIconItem;
     /* istanbul ignore else */
     if (
-      conditionalValue.syncEventIds.some((value: string): boolean =>
+      iconItem.syncEventIds.some((value: string): boolean =>
         eventIds.has(value.toLowerCase())
       )
     )
-      return conditionalValue.refresh();
+      return iconItem.refresh();
 
     return false;
   }
-
   /** helper function to get the iconSpec from a ConditionIconItem as IconSpec | undefined*/
   public static getValue(
     conditionalValue: ConditionalIconItem | string | undefined
@@ -77,8 +87,10 @@ export class ConditionalIconItem {
     if (undefined === conditionalValue) return undefined;
 
     /* istanbul ignore else */
-    if (conditionalValue instanceof ConditionalIconItem)
-      return conditionalValue.value;
+    if (ConditionalIconItem.isConditionalIconItem(conditionalValue)) {
+      const iconItem = conditionalValue as ConditionalIconItem;
+      return iconItem.value;
+    }
 
     return conditionalValue;
   }

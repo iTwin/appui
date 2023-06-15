@@ -10,6 +10,7 @@ import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
+import { ConditionalIconItem } from "../icons/ConditionalIconItem";
 
 /** Icon Helper Class used to store the data needed to generate an <Icon> for use in any control that shows an icon.
  * @public
@@ -23,12 +24,22 @@ export class IconHelper {
    * @param internalData a map that may hold a React.ReactNode stored in an abstract item definition.
    */
   public static getIconReactNode(
-    icon: string | ConditionalStringValue | React.ReactNode,
+    icon:
+      | string
+      | ConditionalStringValue
+      | React.ReactNode
+      | ConditionalIconItem,
     internalData?: Map<string, any>
   ): React.ReactNode {
     // istanbul ignore else
     if (!icon) return null;
 
+    if (ConditionalIconItem.isConditionalIconItem(icon))
+      return (
+        <Icon
+          iconSpec={ConditionalIconItem.getValue(icon as ConditionalIconItem)}
+        />
+      );
     // istanbul ignore else
     if (React.isValidElement(icon)) return <Icon iconSpec={icon} />;
 
@@ -64,9 +75,15 @@ export class IconHelper {
     iconSpec: IconSpec,
     internalData?: Map<string, any>
   ): string | ConditionalStringValue {
-    const icon = React.isValidElement(iconSpec)
-      ? IconHelper.reactIconKey
-      : iconSpec;
+    let icon;
+    if (ConditionalIconItem.isConditionalIconItem(iconSpec)) {
+      icon = ConditionalIconItem.getValue(iconSpec as ConditionalIconItem);
+      if (typeof icon === "string") return icon;
+    } else {
+      icon = React.isValidElement(iconSpec)
+        ? IconHelper.reactIconKey
+        : iconSpec;
+    }
 
     if (
       internalData &&
