@@ -191,7 +191,7 @@ describe("DockedToolSettings", () => {
       .stub(ResizeObserverMock.prototype, "observe")
       .callsFake(function (this: ResizeObserverMock, element: Element) {
         if (element.classList.contains("nz-toolSettings-docked")) {
-          resizeObserver = this;
+          resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
           target = element;
         }
       });
@@ -253,7 +253,7 @@ describe("DockedToolSettings", () => {
           element.classList.contains("nz-toolSettings-setting") &&
           queryByText(element, "Entry 1")
         ) {
-          resizeObserver = this;
+          resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
           target = element;
         }
       });

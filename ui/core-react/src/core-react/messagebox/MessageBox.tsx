@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { MessageSeverity } from "@itwin/appui-abstract";
-import { Dialog } from "../dialog/Dialog";
+import { SimpleDialog } from "../dialog/SimpleDialog";
 import type { CommonProps } from "../utils/Props";
 import {
   SvgHelpCircular,
@@ -40,7 +40,7 @@ export interface MessageBoxProps extends CommonProps {
   /** List of [[DialogButtonDef]] objects specifying buttons and associated onClick events */
   buttonCluster: DialogButtonDef[];
   /** Title to show in title bar of dialog  */
-  title?: string | JSX.Element;
+  title?: string | React.ReactElement;
   /** onClick event for X button for dialog */
   onClose?: () => void;
   /** 'keyup' event for <Esc> key */
@@ -80,18 +80,18 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
     modal: true,
   };
 
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     return (
-      <Dialog
+      <SimpleDialog
         title={this.props.title}
         buttonCluster={this.props.buttonCluster}
         opened={this.props.opened}
-        width={this.props.width}
         onClose={this.props.onClose}
         onEscape={this.props.onEscape}
         modal={this.props.modal}
         className={this.props.className}
         style={this.props.style}
+        width={this.props.width}
       >
         <MessageContainer
           severity={this.props.severity}
@@ -100,7 +100,7 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
         >
           {this.props.children}
         </MessageContainer>
-      </Dialog>
+      </SimpleDialog>
     );
   }
 }
@@ -192,7 +192,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
     return iconSpec;
   }
 
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     const iconClassName = classnames("icon", "core-message-box-icon");
 
     const iconSpec = MessageContainer.getIcon(this.props.severity);

@@ -264,7 +264,7 @@ export class AutoSuggest extends React.PureComponent<
     sectionTitle: "uicore-autosuggest__section-title",
   };
 
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     const { inputValue, suggestions } = this.state;
     const {
       value,

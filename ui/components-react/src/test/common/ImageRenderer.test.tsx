@@ -6,7 +6,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import { UiError } from "@itwin/appui-abstract";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import type { LoadedBinaryImage } from "../../components-react/common/IImageLoader";
 import { ImageRenderer } from "../../components-react/common/ImageRenderer";
 import { UiCore } from "@itwin/core-react";
@@ -53,19 +53,23 @@ describe("ImageRenderer", () => {
       expect(imgElement.src).to.equal(`data:image/png;base64,${hexBase64}`);
     });
 
-    it("renders svg", () => {
+    it("renders svg", async () => {
       const image = imageRenderer.render({ sourceType: "svg", value: svg });
       const imageRender = render(<>{image}</>);
 
-      expect(imageRender.container.innerHTML).to.eq(renderedSvg);
+      await waitFor(() => {
+        expect(imageRender.container.innerHTML).to.eq(renderedSvg);
+      });
 
       // render a second time to see if it produces identical value
       const image2 = imageRenderer.render({ sourceType: "svg", value: svg });
       const imageRender2 = render(<>{image2}</>);
 
-      expect(imageRender.container.innerHTML).to.be.eq(
-        imageRender2.container.innerHTML
-      );
+      await waitFor(() => {
+        expect(imageRender.container.innerHTML).to.be.eq(
+          imageRender2.container.innerHTML
+        );
+      });
     });
 
     it("renders url", () => {

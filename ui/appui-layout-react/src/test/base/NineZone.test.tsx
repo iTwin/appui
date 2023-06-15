@@ -75,7 +75,7 @@ describe("<NineZone />", () => {
     sinon
       .stub(ResizeObserverMock.prototype, "observe")
       .callsFake(function (this: ResizeObserverMock, element: Element) {
-        resizeObserver = this;
+        resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
         measurer = element;
       });
 
@@ -117,7 +117,7 @@ describe("<NineZone />", () => {
     sinon
       .stub(ResizeObserverMock.prototype, "observe")
       .callsFake(function (this: ResizeObserverMock, element: Element) {
-        resizeObserver = this;
+        resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
         measurer = element;
       });
 

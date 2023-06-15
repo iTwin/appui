@@ -10,7 +10,7 @@ import type {
   OrthographicViewState,
   ScreenViewport,
 } from "@itwin/core-frontend";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { ViewportContentControl } from "../../appui-react";
 import {
   BasicNavigationWidget,
@@ -38,11 +38,11 @@ describe("BasicNavigationWidget", () => {
   });
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

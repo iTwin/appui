@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type {
@@ -102,7 +102,7 @@ describe("ContentLayout", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
     UiFramework.frontstages.clearFrontstageProviders();
 
     const frontstageProvider = new TestFrontstage2();
@@ -114,7 +114,7 @@ describe("ContentLayout", () => {
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 
@@ -613,7 +613,7 @@ describe("SingleContentLayout", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
     UiFramework.frontstages.clearFrontstageProviders();
 
     const frontstageProvider = new TestFrontstage1();
@@ -625,7 +625,7 @@ describe("SingleContentLayout", () => {
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

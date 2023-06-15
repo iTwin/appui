@@ -89,7 +89,7 @@ export class ExpandableList extends React.PureComponent<
     }
   }
 
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     return (
       <div
         className={classnames(

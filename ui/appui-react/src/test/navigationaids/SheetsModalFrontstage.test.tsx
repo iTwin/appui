@@ -8,7 +8,7 @@ import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { fireEvent, render, screen } from "@testing-library/react";
 import type { IModelConnection } from "@itwin/core-frontend";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { CardInfo, SheetData } from "../../appui-react";
 import {
   CardContainer,
@@ -27,11 +27,11 @@ describe("SheetsModalFrontstage", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

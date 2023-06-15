@@ -110,7 +110,7 @@ export function ViewFlagItem(flagName: string) {
 }
 
 export function ViewAttributesWidgetComponent() {
-  const items: JSX.Element[] = [];
+  const items: React.ReactElement[] = [];
   items.push(ViewFlagItem("acs"));
   items.push(ToggleCameraItem());
   items.push(ViewFlagItem("noConstruct"));
