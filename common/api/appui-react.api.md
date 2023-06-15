@@ -3183,7 +3183,7 @@ export interface ModalFrontstageRequestedCloseEventArgs {
     stageCloseFunc: () => void;
 }
 
-// @public
+// @public @deprecated
 export class ModelessDialog extends React_2.Component<ModelessDialogProps> {
     constructor(props: ModelessDialogProps);
     // (undocumented)
@@ -3204,7 +3204,7 @@ export interface ModelessDialogInfo {
     zIndex: number;
 }
 
-// @public
+// @public @deprecated
 export interface ModelessDialogProps extends DialogProps {
     // (undocumented)
     dialogId: string;

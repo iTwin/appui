@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Deprecate in 4.2 `Dialog` and `GlobalDialog`.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

@@ -402,7 +402,7 @@ export enum Corner {
 // @internal
 export type CrossAxisArrowKeyFunc = (forward: boolean) => void;
 
-// @public
+// @public @deprecated
 export class Dialog extends React_2.Component<DialogProps, DialogState> {
     constructor(props: DialogProps);
     // (undocumented)
@@ -423,7 +423,7 @@ export class Dialog extends React_2.Component<DialogProps, DialogState> {
     readonly state: Readonly<DialogState>;
 }
 
-// @public
+// @public @deprecated
 export enum DialogAlignment {
     // (undocumented)
     Bottom = "bottom",
@@ -445,7 +445,7 @@ export enum DialogAlignment {
     TopRight = "top-right"
 }
 
-// @public
+// @public @deprecated
 export interface DialogProps extends Omit_2<React_2.AllHTMLAttributes<HTMLDivElement>, "title">, CommonProps {
     alignment?: DialogAlignment;
     backgroundStyle?: React_2.CSSProperties;
@@ -712,8 +712,9 @@ export interface GlobalContextMenuProps extends ContextMenuProps {
     y: number | string;
 }
 
-// @public
-export class GlobalDialog extends React_2.Component<GlobalDialogProps, GlobalDialogState> {
+// @public @deprecated
+export class GlobalDialog extends React_2.Component<GlobalDialogProps, // eslint-disable-line deprecation/deprecation
+GlobalDialogState> {
     constructor(props: GlobalDialogProps);
     // (undocumented)
     componentWillUnmount(): void;
@@ -723,13 +724,13 @@ export class GlobalDialog extends React_2.Component<GlobalDialogProps, GlobalDia
     readonly state: GlobalDialogState;
 }
 
-// @public
+// @public @deprecated
 export interface GlobalDialogProps extends DialogProps {
     // (undocumented)
     identifier?: string;
 }
 
-// @public
+// @public @deprecated
 export interface GlobalDialogState {
     // (undocumented)
     parentDocument: Document | null;

@@ -43,8 +43,11 @@ public;ContextSubMenuProps
 internal;Corner
 internal;CrossAxisArrowKeyFunc = (forward: boolean) => void
 public;Dialog 
+deprecated;Dialog 
 public;DialogAlignment
+deprecated;DialogAlignment
 public;DialogProps 
+deprecated;DialogProps 
 public;DisabledText(props: TextProps): JSX.Element
 public;Div(props: DivProps): JSX.Element
 public;DivProps 
@@ -78,9 +81,10 @@ internal;getToolbarBoxShadow: (opacity: number) => string
 internal;getUserColor(email: string): string
 public;GlobalContextMenu 
 public;GlobalContextMenuProps 
-public;GlobalDialog 
 public;GlobalDialogProps 
+deprecated;GlobalDialogProps 
 public;GlobalDialogState
+deprecated;GlobalDialogState
 internal;hasPointerEventsSupport(): boolean
 public;HorizontalAlignment
 public;Icon(props: IconProps): JSX.Element | null

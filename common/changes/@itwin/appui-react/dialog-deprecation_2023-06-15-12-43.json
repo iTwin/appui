@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Deprecate in 4.2 `ModelessDialog`.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

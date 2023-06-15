@@ -317,9 +317,11 @@ public;ModalFrontstageProps
 alpha;ModalFrontstageRequestedCloseEvent 
 alpha;ModalFrontstageRequestedCloseEventArgs
 public;ModelessDialog 
+deprecated;ModelessDialog 
 public;ModelessDialogChangedEvent 
 public;ModelessDialogInfo
 public;ModelessDialogProps 
+deprecated;ModelessDialogProps 
 public;ModelessDialogRenderer 
 public;MouseDownChangedEvent 
 public;MouseDownChangedEventArgs
