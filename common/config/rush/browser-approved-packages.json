@@ -403,6 +403,38 @@
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
+      "name": "@storybook/addon-essentials",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/addon-interactions",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/addon-links",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/blocks",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/manager-api",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/react",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/react-vite",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/testing-library",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "@storybook/theming",
       "allowedCategories": [ "internal" ]
     },
