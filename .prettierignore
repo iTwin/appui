@@ -19,3 +19,7 @@ pnpm-lock.yaml
 
 # codemod specific
 __testfixtures__
+
+# storybook specific
+storybook-static
+.vite-inspect
