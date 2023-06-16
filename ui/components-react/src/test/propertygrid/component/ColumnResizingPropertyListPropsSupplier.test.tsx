@@ -133,9 +133,15 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
           orientation={Orientation.Horizontal}
           width={100}
           actionButtonWidth={30}
-          maxPropertyDepth={0}
+          maxPropertyDepth={1}
         >
-          {(listProps) => <PropertyList {...listProps} properties={records} />}
+          {(listProps) => (
+            <PropertyList
+              {...listProps}
+              properties={records}
+              actionButtonRenderers={[() => <div />]}
+            />
+          )}
         </ColumnResizingPropertyListPropsSupplier>
       );
 
