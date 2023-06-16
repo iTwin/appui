@@ -44,7 +44,6 @@ common/autoinstallers/*/.npmrc
 
 # storybook specific
 storybook-static
-.vite-inspect
 
 .env
 .env.local
