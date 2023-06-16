@@ -365,7 +365,9 @@ export class VirtualizedPropertyGrid extends React.Component<
         minLabelWidth={this.props.minLabelWidth}
         minValueWidth={this.props.minValueWidth}
         actionButtonWidth={
-          this.props.actionButtonWidth ?? defaultActionButtonWidth
+          this.props.actionButtonWidth !== undefined
+            ? this.props.actionButtonWidth
+            : defaultActionButtonWidth
         }
         maxPropertyDepth={this._getMaxItemDepth()}
       >

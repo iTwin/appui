@@ -1826,6 +1826,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       <VirtualizedPropertyGridWithDataProvider
         {...defaultProps}
         actionButtonRenderers={[() => <div>Test Button</div>]}
+        actionButtonWidth={30}
       />
     );
 
