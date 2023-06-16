@@ -13,7 +13,7 @@ import { UiFramework } from "../UiFramework";
 
 /** Properties for the [[ModelessDialog]] component
  * @public
- * @deprecated in 4.2. Props of a deprecated [ModelessDialog] component.
+ * @deprecated in 4.2. Props of a deprecated [ModelessDialog]($appui-react) component.
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface ModelessDialogProps extends DialogProps {
@@ -24,7 +24,7 @@ export interface ModelessDialogProps extends DialogProps {
 /** Modeless Dialog React component uses the Dialog component with a modal={false} prop.
  * It controls the z-index to keep the focused dialog above others.
  * @public
- * @deprecated in 4.2. Use [Dialog]($itwinui-react) instead.
+ * @deprecated in 4.2. Use iTwinUI Dialog instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class ModelessDialog extends React.Component<ModelessDialogProps> {

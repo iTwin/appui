@@ -30,7 +30,7 @@ export interface GlobalDialogState {
 
 /** GlobalDialog React component used to display a [[Dialog]] on the top of screen
  * @public
- * @deprecated in 4.2. Use [Dialog]($itwinui-react) instead.
+ * @deprecated in 4.2. Use iTwinUI Dialog or Modal instead.
  */
 export class GlobalDialog extends React.Component<
   GlobalDialogProps, // eslint-disable-line deprecation/deprecation

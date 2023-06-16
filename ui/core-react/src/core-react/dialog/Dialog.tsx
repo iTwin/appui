@@ -41,7 +41,7 @@ export enum DialogAlignment {
 
 /** Properties for the [[Dialog]] component
  * @public
- * @deprecated in 4.2. Props of a deprecated [Dialog] component.
+ * @deprecated in 4.2. Props of a deprecated [Dialog]($core-react) component.
  */
 export interface DialogProps
   extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "title">,
@@ -134,7 +134,7 @@ interface DialogState {
 /**
  * Dialog React component with optional resizing and dragging functionality
  * @public
- * @deprecated in 4.2. Use [Dialog]($itwinui-react) instead.
+ * @deprecated in 4.2. Use iTwinUI Dialog or Modal instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export class Dialog extends React.Component<DialogProps, DialogState> {
