@@ -99,8 +99,13 @@ export class ContextSubMenu extends React.Component<
       badgeType,
       ...props
     } = this.props;
+
+    const onOutsideClickWrapper = (event: MouseEvent) => {
+      this.close();
+      onOutsideClick && onOutsideClick(event);
+    };
     const contextMenuProps = {
-      onOutsideClick,
+      onOutsideClick: onOutsideClickWrapper,
       onSelect,
       onEsc,
       autoflip,
