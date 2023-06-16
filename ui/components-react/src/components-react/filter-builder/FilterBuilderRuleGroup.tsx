@@ -47,6 +47,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
     PropertyFilterBuilderContext
   );
   const groupRef = React.useRef<HTMLDivElement>(null);
+  const previousGroupItemsLength = React.useRef<number>(0);
 
   const addRule = () => actions.addItem(path, "RULE");
   const addRuleGroup = () => actions.addItem(path, "RULE_GROUP");
@@ -66,6 +67,21 @@ export function PropertyFilterBuilderRuleGroupRenderer(
   );
 
   const showOperator = group.items.length > 1;
+
+  React.useEffect(() => {
+    if (
+      group.items.length > 1 &&
+      previousGroupItemsLength.current < group.items.length &&
+      groupRef.current
+    ) {
+      const ruleProperties =
+        groupRef.current.querySelectorAll<HTMLInputElement>(
+          ".rule-property input"
+        );
+      ruleProperties[ruleProperties.length - 1].focus();
+    }
+    previousGroupItemsLength.current = group.items.length;
+  }, [group]);
 
   return (
     <div
