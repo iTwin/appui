@@ -14,6 +14,7 @@ import { PropertyFilterBuilderActions } from "../../components-react/filter-buil
 import { PropertyFilterRuleGroupOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";
+import { waitFor } from "@testing-library/react";
 
 describe("PropertyFilterBuilderRuleGroupRenderer", () => {
   const rootGroup: PropertyFilterBuilderRuleGroup = {
@@ -246,6 +247,24 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     expect(setRuleGroupOperatorSpy).to.be.calledOnceWith(
       defaultProps.path,
       PropertyFilterRuleGroupOperator.Or
+    );
+  });
+
+  it("focuses rule property after adding new rule", async () => {
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const { getByTestId, container } = renderWithContext(
+      <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />,
+      { actions }
+    );
+
+    const addRuleButton = getByTestId("rule-group-add-rule");
+    addRuleButton.click();
+
+    await waitFor(
+      () =>
+        expect(
+          container.querySelector(".rule-property input[aria-expanded=true")
+        ).to.not.be.null
     );
   });
 });
