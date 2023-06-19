@@ -47,10 +47,12 @@ export function PropertyFilterBuilderRuleGroupRenderer(
     PropertyFilterBuilderContext
   );
   const groupRef = React.useRef<HTMLDivElement>(null);
-  const previousGroupItemsLength = React.useRef<number>(0);
+  const onNewRuleAdded = useRulePropertyFocus(group.items.length, groupRef);
 
-  const addRule = () => actions.addItem(path, "RULE");
-  const addRuleGroup = () => actions.addItem(path, "RULE_GROUP");
+  const handleAddRule = (ruleType: "RULE" | "RULE_GROUP") => {
+    actions.addItem(path, ruleType);
+    onNewRuleAdded();
+  };
   const removeGroup = () => actions.removeItem(path);
 
   const onOperatorChange = React.useCallback(
@@ -67,21 +69,6 @@ export function PropertyFilterBuilderRuleGroupRenderer(
   );
 
   const showOperator = group.items.length > 1;
-
-  React.useEffect(() => {
-    if (
-      group.items.length > 1 &&
-      previousGroupItemsLength.current < group.items.length &&
-      groupRef.current
-    ) {
-      const ruleProperties =
-        groupRef.current.querySelectorAll<HTMLInputElement>(
-          ".rule-property input"
-        );
-      ruleProperties[ruleProperties.length - 1].focus();
-    }
-    previousGroupItemsLength.current = group.items.length;
-  }, [group]);
 
   return (
     <div
@@ -123,7 +110,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
           <Button
             key="add-rule-button"
             data-testid="rule-group-add-rule"
-            onClick={addRule}
+            onClick={() => handleAddRule("RULE")}
             styleType="borderless"
             size="small"
             startIcon={<SvgAdd />}
@@ -134,7 +121,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
             <Button
               key="add-rule-group-button"
               data-testid="rule-group-add-rule-group"
-              onClick={addRuleGroup}
+              onClick={() => handleAddRule("RULE_GROUP")}
               styleType="borderless"
               size="small"
               startIcon={<SvgAdd />}
@@ -222,3 +209,28 @@ const PropertyFilterBuilderGroupOrRule = React.memo(
     );
   }
 );
+
+const useRulePropertyFocus = (
+  currentGroupItemsLength: number,
+  groupRef: React.RefObject<HTMLDivElement>
+) => {
+  const previousGroupItemsLength = React.useRef<number>(0);
+  const isNewRuleAdded = React.useRef<boolean>(false);
+
+  React.useEffect(() => {
+    if (
+      isNewRuleAdded.current &&
+      previousGroupItemsLength.current < currentGroupItemsLength &&
+      groupRef.current
+    ) {
+      const ruleProperties =
+        groupRef.current.querySelectorAll<HTMLInputElement>(
+          ".rule-property input"
+        );
+      ruleProperties[ruleProperties.length - 1].focus();
+      isNewRuleAdded.current = false;
+    }
+    previousGroupItemsLength.current = currentGroupItemsLength;
+  }, [currentGroupItemsLength, groupRef]);
+  return () => (isNewRuleAdded.current = true);
+};
