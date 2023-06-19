@@ -140,6 +140,10 @@ export class InternalContentDialogManager {
   /** @internal */
   public static closeAll(): void {
     InternalContentDialogManager.dialogManager.closeAll();
+    InternalContentDialogManager._dialogMap.clear();
+    InternalContentDialogManager._idArray = [];
+    InternalContentDialogManager._topZIndex =
+      InternalContentDialogManager.getDialogZIndexDefault();
   }
 
   /** Update the dialogs */
