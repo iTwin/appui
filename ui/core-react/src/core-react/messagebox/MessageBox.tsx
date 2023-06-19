@@ -11,7 +11,8 @@ import classnames from "classnames";
 import * as React from "react";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { MessageSeverity } from "@itwin/appui-abstract";
-import { SimpleDialog } from "../dialog/SimpleDialog";
+import { Dialog as SimpleDialog } from "../dialog/SimpleDialog";
+import { Dialog } from "../dialog/Dialog";
 import type { CommonProps } from "../utils/Props";
 import {
   SvgHelpCircular,
@@ -92,6 +93,8 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
         className={this.props.className}
         style={this.props.style}
         width={this.props.width}
+        movable={true}
+        resizable={true}
       >
         <MessageContainer
           severity={this.props.severity}

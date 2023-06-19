@@ -5,12 +5,15 @@
 import * as React from "react";
 import {
   IModelApp,
+  MessageBoxIconType,
+  MessageBoxType,
   NotifyMessageDetails,
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
 import {
   FrontstageDef,
+  MessageManager,
   StagePanelLocation,
   StagePanelState,
   UiFramework,
@@ -598,6 +601,20 @@ function WidgetContent(
   );
 }
 
+function ShowDialog() {
+  return (
+    <Button
+      onClick={async () =>
+        MessageManager.openMessageBox(
+          MessageBoxType.YesNoCancel,
+          "Please work",
+          MessageBoxIconType.Critical
+        )
+      }
+    ></Button>
+  );
+}
+
 export function LayoutControls() {
   return (
     <WidgetContent
@@ -612,6 +629,7 @@ export function LayoutControls() {
       <SelectPanelControls />
       <SelectWidgetControls />
       <WidgetContentThrowError />
+      <ShowDialog />
     </WidgetContent>
   );
 }
