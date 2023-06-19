@@ -10,7 +10,7 @@ steps:
     displayName: Deploy main storybook
     workingDirectory: ${{ parameters.workingDir }}
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-  - script: node common/scripts/install-run-rush.js deploy:storybook --dest $(System.PullRequest.PullRequestId)
+  - script: node common/scripts/install-run-rush.js deploy:storybook --dest $(System.PullRequest.PullRequestNumber)
     displayName: Deploy PR storybook
     workingDirectory: ${{ parameters.workingDir }}
     condition: and(succeeded(), in(variables['Build.Reason'], 'PullRequest'))
