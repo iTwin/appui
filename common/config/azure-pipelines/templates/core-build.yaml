@@ -46,6 +46,11 @@ steps:
       RUSH_BUILD_CACHE_CREDENTIAL: $(RushBuildCacheSAS)
       RUSH_BUILD_CACHE_ENABLED: ${{parameters.rushBuildCacheEnabled}}
 
+  # Run storybook build
+  - script: npm run build:storybook
+    displayName: build storybook
+    workingDirectory: "docs/storybook"
+
   - script: node common/scripts/install-run-rush.js lint
     displayName: rush lint
     workingDirectory: ${{ parameters.workingDir }}
