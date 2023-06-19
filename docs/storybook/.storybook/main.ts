@@ -4,21 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import type { StorybookConfig } from "@storybook/react-vite";
 
-// Disable warnings for CI. Look into storybook logLevel and vite createLogger.
-const consoleWarn = console.warn;
-console.warn = (...data) => {
-  const [msg] = data;
-  if (msg.includes('"requireFromString" is not exported')) return;
-  if (msg.includes('"requireFromFile" is not exported')) return;
-  if (msg.includes('"release" is not exported')) return;
-  if (msg.includes('"type" is not exported')) return;
-  if (msg.includes('"default" is not exported')) return;
-  if (msg.includes("Use of eval in")) return;
-  if (msg.includes("./sb-common-assets/fonts.css doesn't exist at build time"))
-    return;
-  consoleWarn(...data);
-};
-
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
