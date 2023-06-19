@@ -247,4 +247,32 @@ describe("ContentDialogManager", () => {
 
     UiFramework.content.dialogs.close(dialogId2);
   });
+
+  it("internal: closeAll should not leave active dialogs", () => {
+    expect(UiFramework.content.dialogs.count).to.eq(0);
+    const dialogId = "closeAll1";
+    UiFramework.content.dialogs.open(<div />, dialogId);
+    expect(UiFramework.content.dialogs.count).to.eq(1);
+    expect(UiFramework.content.dialogs.active).to.not.be.undefined;
+    InternalContentDialogManager.closeAll();
+    expect(UiFramework.content.dialogs.count).to.eq(0);
+    expect(UiFramework.content.dialogs.active).to.be.undefined;
+  });
+
+  it("internal: closeAll should clear dialog ids", async () => {
+    expect(UiFramework.content.dialogs.count).to.eq(0);
+    const dialogId = "closeAll2";
+    UiFramework.content.dialogs.open(<div />, dialogId);
+    await waitFor(() => {
+      expect(UiFramework.content.dialogs.count).to.eq(1);
+    });
+    InternalContentDialogManager.closeAll();
+    await waitFor(() => {
+      expect(UiFramework.content.dialogs.count).to.eq(0);
+    });
+    UiFramework.content.dialogs.open(<div />, dialogId);
+    await waitFor(() => {
+      expect(UiFramework.content.dialogs.count).to.eq(1);
+    });
+  });
 });

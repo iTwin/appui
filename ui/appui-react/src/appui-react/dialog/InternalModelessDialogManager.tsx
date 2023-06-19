@@ -119,6 +119,8 @@ export class InternalModelessDialogManager {
   /** @internal */
   public static closeAll(): void {
     InternalModelessDialogManager.dialogManager.closeAll();
+    InternalModelessDialogManager._dialogMap.clear();
+    InternalModelessDialogManager._idArray = [];
   }
 
   /** Update the dialogs */
