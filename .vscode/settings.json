@@ -49,9 +49,7 @@
   ],
   "json.schemas": [
     {
-      "fileMatch": [
-        "certa.json"
-      ],
+      "fileMatch": ["certa.json"],
       "url": "./tools/certa/certa.schema.json"
     }
   ],
@@ -60,9 +58,7 @@
       "allow_different_nesting": true
     }
   },
-  "markdownlint.ignore": [
-    "**/CHANGELOG.md"
-  ],
+  "markdownlint.ignore": ["**/CHANGELOG.md"],
   "importSorter.importStringConfiguration.quoteMark": "double",
   "importSorter.generalConfiguration.sortImportsInDirectory": false,
   "importSorter.generalConfiguration.sortOnBeforeSave": false,
@@ -97,9 +93,7 @@
     "editor.action.fixAll": true, // Run the default formatter before eslint, it handles whitespace better
     "source.fixAll.eslint": true // then run ESLint auto-fix
   },
-  "cSpell.words": [
-    "Discoverability"
-  ],
+  "cSpell.words": ["Discoverability"],
   "typescript.tsdk": "common/temp/node_modules/typescript/lib",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "files.insertFinalNewline": true
