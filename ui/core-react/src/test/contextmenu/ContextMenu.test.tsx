@@ -865,7 +865,7 @@ describe("ContextMenu", () => {
           </ContextSubMenu>
         </ContextMenu>
       );
-      const theUserTo = userEvent.setup();
+
       const items = component.getAllByTestId("core-context-submenu-container");
 
       await theUserTo.click(items[0]);
