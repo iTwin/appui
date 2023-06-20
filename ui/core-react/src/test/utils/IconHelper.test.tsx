@@ -6,6 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { IconHelper } from "../../core-react/utils/IconHelper";
+import { ConditionalIconItem } from "../../core-react";
 
 describe("IconHelper", () => {
   it("should get string icon data", () => {
@@ -69,6 +70,29 @@ describe("IconHelper", () => {
       (iconNode as React.ReactElement).props.iconSpec.props.children
     ).to.eq("Test");
   });
+
+  it("should get reactNode for ConditionalIconItem", () => {
+    const internalData = new Map<string, any>(); // used to store ReactNode if iconSpec hold a ReactNode
+    const iconSpec = IconHelper.getIconData(
+      new ConditionalIconItem(() => {return <span>Test</span>}, ["dummy"]),
+      internalData
+    );
+
+    const iconNode = IconHelper.getIconReactNode(iconSpec, internalData);
+    expect(iconNode).not.to.be.null;
+    expect(iconNode).not.to.be.undefined;
+    expect(
+      (iconNode as React.ReactElement).props.iconSpec.props.children
+    ).to.eq("Test");
+
+    const iconNodeDirect = IconHelper.getIconReactNode(new ConditionalIconItem(() => {return <span>Plum</span>}, ["dummy"]));
+    expect(iconNodeDirect).not.to.be.null;
+    expect(iconNodeDirect).not.to.be.undefined;
+    expect(
+      (iconNodeDirect as React.ReactElement).props.iconSpec.props.children
+    ).to.eq("Plum");
+  });
+
 
   it("should get empty string back", () => {
     const iconSpec = IconHelper.getIconData(null);

@@ -53,7 +53,7 @@ describe("IconComponent", () => {
     expect(webComponent!.getAttribute("src")).to.be.eq(dataUri);
   });
 
-  it("should return value from a ConditionlIconItem", () => {
+  it("should return value from a ConditionalIconItem", () => {
     const iconSpec1: IconSpec = "icon1.svg";
     const icon1Getter = (): IconSpec => iconSpec1;
     const syncEventIds = ["sync-id-one", "sync-id-two", "sync-id-THREE"];
@@ -62,10 +62,11 @@ describe("IconComponent", () => {
       icon1Getter,
       syncEventIds
     );
-    const { container }  = render(<Icon iconSpec={sut.value} itemId={"my-test-id"}/>);
+    const { container }  = render(<Icon iconSpec={sut} />);
     // renderedComponent.debug();
     const iconItem = container.firstElementChild;
-    const iconClass = iconItem?.getAttribute("class");
-    expect(iconClass).to.contain("icon1.svg");
+    const iconName = iconItem?.firstChild?.nodeValue;
+    expect(iconName).to.not.be.null;
+    expect(iconName).to.contain("icon1.svg");
   });
 });

@@ -19,7 +19,10 @@ export class IconHelper {
   public static get reactIconKey(): string {
     return "#-react-iconspec-node-#";
   }
-  /** Returns an <Icon> ReactNode from the many ways an icon can be specified.
+  public static get conditionalIconItemKey(): string {
+    return "#-conditional-icon-item-node-#";
+  }
+/** Returns an <Icon> ReactNode from the many ways an icon can be specified.
    * @param icon abstract icon specification.
    * @param internalData a map that may hold a React.ReactNode stored in an abstract item definition.
    */
@@ -30,10 +33,11 @@ export class IconHelper {
       | React.ReactNode
       | ConditionalIconItem,
     internalData?: Map<string, any>
-  ): React.ReactNode {
+  ): React.ReactNode | ConditionalIconItem {
     // istanbul ignore else
     if (!icon) return null;
 
+    // istanbul ignore else
     if (ConditionalIconItem.isConditionalIconItem(icon))
       return (
         <Icon
@@ -62,6 +66,20 @@ export class IconHelper {
           />
         );
       return null;
+    } else if (iconString === IconHelper.conditionalIconItemKey) {
+      // istanbul ignore else
+      if (internalData) {
+        const iconItem = internalData.get(IconHelper.conditionalIconItemKey) as ConditionalIconItem;
+        return (
+          <Icon
+            iconSpec={
+              ConditionalIconItem.getValue(iconItem)
+            }
+          />
+        );
+
+      }
+      return null;
     }
     return <Icon iconSpec={iconString} />;
   }
@@ -77,8 +95,10 @@ export class IconHelper {
   ): string | ConditionalStringValue {
     let icon;
     if (ConditionalIconItem.isConditionalIconItem(iconSpec)) {
-      icon = ConditionalIconItem.getValue(iconSpec as ConditionalIconItem);
-      if (typeof icon === "string") return icon;
+      icon = IconHelper.conditionalIconItemKey;
+      // istanbul ignore else
+      if (internalData) internalData.set(IconHelper.conditionalIconItemKey, iconSpec);
+      return icon;
     } else {
       icon = React.isValidElement(iconSpec)
         ? IconHelper.reactIconKey
