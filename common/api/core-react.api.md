@@ -756,8 +756,10 @@ export function Icon(props: IconProps): JSX.Element | null;
 
 // @public
 export class IconHelper {
+    // (undocumented)
+    static get conditionalIconItemKey(): string;
     static getIconData(iconSpec: IconSpec, internalData?: Map<string, any>): string | ConditionalStringValue;
-    static getIconReactNode(icon: string | ConditionalStringValue | React_2.ReactNode | ConditionalIconItem, internalData?: Map<string, any>): React_2.ReactNode;
+    static getIconReactNode(icon: string | ConditionalStringValue | React_2.ReactNode | ConditionalIconItem, internalData?: Map<string, any>): React_2.ReactNode | ConditionalIconItem;
     // (undocumented)
     static get reactIconKey(): string;
 }
