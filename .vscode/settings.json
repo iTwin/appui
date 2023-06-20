@@ -95,5 +95,6 @@
   },
   "cSpell.words": ["Discoverability"],
   "typescript.tsdk": "common/temp/node_modules/typescript/lib",
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.insertFinalNewline": true
 }
