@@ -58,11 +58,8 @@ describe("IconComponent", () => {
     const icon1Getter = (): IconSpec => iconSpec1;
     const syncEventIds = ["sync-id-one", "sync-id-two", "sync-id-THREE"];
 
-    const sut = new ConditionalIconItem(
-      icon1Getter,
-      syncEventIds
-    );
-    const { container }  = render(<Icon iconSpec={sut} />);
+    const sut = new ConditionalIconItem(icon1Getter, syncEventIds);
+    const { container } = render(<Icon iconSpec={sut} />);
     // renderedComponent.debug();
     const iconItem = container.firstElementChild;
     const iconName = iconItem?.firstChild?.nodeValue;

@@ -22,7 +22,7 @@ export class IconHelper {
   public static get conditionalIconItemKey(): string {
     return "#-conditional-icon-item-node-#";
   }
-/** Returns an <Icon> ReactNode from the many ways an icon can be specified.
+  /** Returns an <Icon> ReactNode from the many ways an icon can be specified.
    * @param icon abstract icon specification.
    * @param internalData a map that may hold a React.ReactNode stored in an abstract item definition.
    */
@@ -69,15 +69,10 @@ export class IconHelper {
     } else if (iconString === IconHelper.conditionalIconItemKey) {
       // istanbul ignore else
       if (internalData) {
-        const iconItem = internalData.get(IconHelper.conditionalIconItemKey) as ConditionalIconItem;
-        return (
-          <Icon
-            iconSpec={
-              ConditionalIconItem.getValue(iconItem)
-            }
-          />
-        );
-
+        const iconItem = internalData.get(
+          IconHelper.conditionalIconItemKey
+        ) as ConditionalIconItem;
+        return <Icon iconSpec={ConditionalIconItem.getValue(iconItem)} />;
       }
       return null;
     }
@@ -97,7 +92,8 @@ export class IconHelper {
     if (ConditionalIconItem.isConditionalIconItem(iconSpec)) {
       icon = IconHelper.conditionalIconItemKey;
       // istanbul ignore else
-      if (internalData) internalData.set(IconHelper.conditionalIconItemKey, iconSpec);
+      if (internalData)
+        internalData.set(IconHelper.conditionalIconItemKey, iconSpec);
       return icon;
     } else {
       icon = React.isValidElement(iconSpec)
