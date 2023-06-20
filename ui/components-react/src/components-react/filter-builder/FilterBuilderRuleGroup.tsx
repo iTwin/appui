@@ -47,11 +47,14 @@ export function PropertyFilterBuilderRuleGroupRenderer(
     PropertyFilterBuilderContext
   );
   const groupRef = React.useRef<HTMLDivElement>(null);
-  const onNewRuleAdded = useRulePropertyFocus(group.items.length, groupRef);
+  const isNewRuleAdded = useRulePropertyFocus(
+    group.items.length,
+    groupRef.current
+  );
 
   const handleAddRule = (ruleType: "RULE" | "RULE_GROUP") => {
     actions.addItem(path, ruleType);
-    onNewRuleAdded();
+    isNewRuleAdded.current = true;
   };
   const removeGroup = () => actions.removeItem(path);
 
@@ -212,7 +215,7 @@ const PropertyFilterBuilderGroupOrRule = React.memo(
 
 const useRulePropertyFocus = (
   currentGroupItemsLength: number,
-  groupRef: React.RefObject<HTMLDivElement>
+  groupRef: HTMLDivElement | null
 ) => {
   const previousGroupItemsLength = React.useRef<number>(0);
   const isNewRuleAdded = React.useRef<boolean>(false);
@@ -221,16 +224,15 @@ const useRulePropertyFocus = (
     if (
       isNewRuleAdded.current &&
       previousGroupItemsLength.current < currentGroupItemsLength &&
-      groupRef.current
+      groupRef
     ) {
-      const ruleProperties =
-        groupRef.current.querySelectorAll<HTMLInputElement>(
-          ".rule-property input"
-        );
+      const ruleProperties = groupRef.querySelectorAll<HTMLInputElement>(
+        ".rule-property input"
+      );
       ruleProperties[ruleProperties.length - 1].focus();
       isNewRuleAdded.current = false;
     }
     previousGroupItemsLength.current = currentGroupItemsLength;
   }, [currentGroupItemsLength, groupRef]);
-  return () => (isNewRuleAdded.current = true);
+  return isNewRuleAdded;
 };
