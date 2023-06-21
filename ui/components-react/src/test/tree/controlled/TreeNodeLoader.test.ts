@@ -187,7 +187,9 @@ describe("TreeNodeLoader", () => {
     });
 
     it("reuses existing request from data provider", async () => {
-      const dataProvider = sinon.fake(() => new ResolvablePromise());
+      const dataProvider = sinon.fake(
+        () => new ResolvablePromise<ImmediatelyLoadedTreeNodeItem[]>()
+      );
       treeNodeLoader = new TreeNodeLoader(dataProvider, modelSourceMock.object);
       treeNodeLoader.loadNode(treeRootNode).subscribe();
       treeNodeLoader.loadNode(treeRootNode).subscribe();
@@ -198,7 +200,9 @@ describe("TreeNodeLoader", () => {
     });
 
     it("unschedules node load after cancellation", async () => {
-      const dataProvider = sinon.fake(() => new ResolvablePromise());
+      const dataProvider = sinon.fake(
+        () => new ResolvablePromise<ImmediatelyLoadedTreeNodeItem[]>()
+      );
       treeNodeLoader = new TreeNodeLoader(dataProvider, modelSourceMock.object);
       const subscription = treeNodeLoader.loadNode(treeRootNode).subscribe();
       await Promise.resolve();
@@ -342,7 +346,9 @@ describe("PagedTreeNodeLoader", () => {
     });
 
     it("reuses existing page request from data provider", async () => {
-      const dataProvider = sinon.fake(() => new ResolvablePromise());
+      const dataProvider = sinon.fake(
+        () => new ResolvablePromise<ImmediatelyLoadedTreeNodeItem[]>()
+      );
       pagedTreeNodeLoader = new PagedTreeNodeLoader(
         dataProvider,
         modelSourceMock.object,
@@ -357,7 +363,9 @@ describe("PagedTreeNodeLoader", () => {
     });
 
     it("unschedules node load after cancellation", async () => {
-      const dataProvider = sinon.fake(() => new ResolvablePromise());
+      const dataProvider = sinon.fake(
+        () => new ResolvablePromise<ImmediatelyLoadedTreeNodeItem[]>()
+      );
       pagedTreeNodeLoader = new PagedTreeNodeLoader(
         dataProvider,
         modelSourceMock.object,
@@ -379,7 +387,9 @@ describe("PagedTreeNodeLoader", () => {
     });
 
     it("does not load more than one page concurrently", async () => {
-      const dataProvider = sinon.fake(() => new ResolvablePromise());
+      const dataProvider = sinon.fake(
+        () => new ResolvablePromise<ImmediatelyLoadedTreeNodeItem[]>()
+      );
       pagedTreeNodeLoader = new PagedTreeNodeLoader(
         dataProvider,
         modelSourceMock.object,
@@ -469,7 +479,9 @@ describe("AbstractTreeNodeLoader", () => {
     it("allows one active load at a time", async () => {
       const modelSource = new TreeModelSource();
       sinon.stub(modelSource, "modifyModel");
-      const dataProvider = sinon.fake(() => new ResolvablePromise());
+      const dataProvider = sinon.fake(
+        () => new ResolvablePromise<LoadedNodeHierarchy>()
+      );
 
       const nodeLoader = createCustomTreeNodeLoader(modelSource, () =>
         defer(() => rxjsFrom<Promise<LoadedNodeHierarchy>>(dataProvider()))
@@ -595,7 +607,7 @@ describe("TreeDataSource", () => {
 
     describe("using ITreeDataProvider interface", () => {
       it("avoids loading stale data from the data provider", async () => {
-        const getNodesCountPromise = new ResolvablePromise();
+        const getNodesCountPromise = new ResolvablePromise<number>();
         const dataProvider: ITreeDataProvider = {
           getNodesCount: sinon.fake(() => getNodesCountPromise),
           getNodes: sinon.fake(),
