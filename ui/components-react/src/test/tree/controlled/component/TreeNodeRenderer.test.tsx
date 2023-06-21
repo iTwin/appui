@@ -3,15 +3,17 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import * as React from "react";
+import sinon from "sinon";
 import * as moq from "typemoq";
 import { CheckBoxState } from "@itwin/core-react";
 import { fireEvent, render } from "@testing-library/react";
+import userEvents from "@testing-library/user-event";
 import { TreeNodeRenderer } from "../../../../components-react/tree/controlled/component/TreeNodeRenderer";
+import { createRandomMutableTreeModelNode } from "../TreeHelpers";
+
 import type { TreeActions } from "../../../../components-react/tree/controlled/TreeActions";
 import type { MutableTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel";
 import type { ITreeImageLoader } from "../../../../components-react/tree/ImageLoader";
-import { createRandomMutableTreeModelNode } from "../TreeHelpers";
 
 describe("TreeNodeRenderer", () => {
   const treeActionsMock = moq.Mock.ofType<TreeActions>();
@@ -75,6 +77,22 @@ describe("TreeNodeRenderer", () => {
     );
 
     getByText(nodeLabel);
+  });
+
+  it("invokes `onContextMenu` when node is right clicked", async () => {
+    const spy = sinon.spy();
+    const { getByText } = render(
+      <TreeNodeRenderer
+        treeActions={treeActionsMock.object}
+        node={node}
+        onContextMenu={spy}
+      />
+    );
+
+    const nodeElement = getByText(nodeLabel);
+    await userEvents.pointer({ keys: "[MouseRight>]", target: nodeElement });
+
+    expect(spy).to.be.calledOnce;
   });
 
   describe("events", () => {
