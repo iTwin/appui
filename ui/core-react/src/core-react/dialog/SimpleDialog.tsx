@@ -125,6 +125,7 @@ interface DialogState {
   width?: number;
   height?: number;
   positionSet: boolean;
+  initialTransform?: string;
 }
 
 /**
@@ -137,7 +138,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   public static defaultProps: Partial<DialogProps> = {
     alignment: DialogAlignment.Center,
     minWidth: 300,
-    minHeight: 100,
+    minHeight: 135,
     width: "50%",
     hideHeader: false,
     resizable: false,
@@ -208,6 +209,12 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     parentWindow.addEventListener("pointerup", this._handlePointerUp, true);
     this._parentDocument.addEventListener("keyup", this._handleKeyUp, true);
     parentWindow.addEventListener("resize", this._handleAppWindowResize);
+
+    if (!this._containerRef.current) return;
+    const rect = this._containerRef.current.getBoundingClientRect();
+    this.setState({
+      initialTransform: `translate(${-rect.width / 2}px,${-rect.height / 3}px)`,
+    });
   }
 
   public handleRefSet = (containerDiv: HTMLDivElement | null) => {
@@ -259,6 +266,25 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       height,
     };
 
+    // istanbul ignore else
+    if (this.state.x !== undefined) {
+      containerStyle.marginLeft = "0";
+      containerStyle.marginRight = "0";
+      containerStyle.left = this.state.x;
+    }
+    // istanbul ignore else
+    if (this.state.y !== undefined) {
+      containerStyle.marginTop = "0";
+      containerStyle.marginBottom = "0";
+      containerStyle.top = this.state.y;
+    }
+
+    // istanbul ignore else
+    if (this.state.width !== undefined) containerStyle.width = this.state.width;
+    // istanbul ignore else
+    if (this.state.height !== undefined)
+      containerStyle.height = this.state.height;
+
     const minMaxStyle: React.CSSProperties = {
       minWidth,
       minHeight,
@@ -266,6 +292,9 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       maxHeight,
     };
     const dialogBaseContainerStyle: React.CSSProperties = {
+      display: "flex",
+      flexDirection: "column",
+      transform: this.state.initialTransform,
       ...containerStyle,
       ...minMaxStyle,
     };
@@ -284,7 +313,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         closeOnEsc={false}
         style={style}
         className={className}
-        isResizable={resizable}
+        // isResizable={resizable}
         isDraggable={movable}
         trapFocus={trapFocus && /* istanbul ignore next */ modal}
         preventDocumentScroll={true}
@@ -294,6 +323,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         {modal && <BaseDialog.Backdrop style={backgroundStyle} />}
         <DivWithOutsideClick onOutsideClick={onOutsideClick}>
           <BaseDialog.Main
+            ref={this._containerRef}
             data-testid="core-dialog-container"
             style={dialogBaseContainerStyle}
             onPointerDown={this._handleContainerPointerDown}
@@ -310,6 +340,39 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
             <BaseDialog.ButtonBar style={footerStyle}>
               {buttons}
             </BaseDialog.ButtonBar>
+            <div
+              style={{
+                right: -4,
+                top: 8,
+                bottom: 8,
+                width: 8,
+                position: "absolute",
+                cursor: "e-resize",
+              }}
+              onPointerDown={this._handleStartResizeRight}
+            />
+            <div
+              style={{
+                right: -4,
+                bottom: -4,
+                width: 12,
+                height: 12,
+                position: "absolute",
+                cursor: "se-resize",
+              }}
+              onPointerDown={this._handleStartResizeDownRight}
+            />
+            <div
+              style={{
+                right: 8,
+                left: 8,
+                bottom: -4,
+                height: 8,
+                position: "absolute",
+                cursor: "s-resize",
+              }}
+              onPointerDown={this._handleStartResizeDown}
+            />
           </BaseDialog.Main>
         </DivWithOutsideClick>
       </BaseDialog>
