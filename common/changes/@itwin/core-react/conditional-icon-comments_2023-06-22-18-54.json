@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Remove ConditionalIconItem return type from IconHelper.getIconReactNode(). Mark isConditionalIconItem() method internal.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}
