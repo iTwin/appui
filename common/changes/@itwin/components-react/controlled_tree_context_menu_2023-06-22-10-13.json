@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/components-react",
+      "comment": "ControlledTree: Improved context menu support by exposing `onContextMenu` callback through `TreeNodeRendererProps`.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/components-react"
+}
