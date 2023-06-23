@@ -19,7 +19,8 @@ const config: StorybookConfig = {
     autodocs: "tag",
   },
   viteFinal: async (config) => {
-    config.build!.chunkSizeWarningLimit = 5000;
+    if (!config.build) config.build = {};
+    config.build.chunkSizeWarningLimit = 5000;
     return config;
   },
 };
