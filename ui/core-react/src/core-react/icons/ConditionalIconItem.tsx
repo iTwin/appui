@@ -27,7 +27,9 @@ export class ConditionalIconItem {
     this._value = value;
   }
 
-  /** A work-around for isInstanceOf */
+  /** A work-around for instanceOf
+   * @internal
+   */
   public static isConditionalIconItem(item: any): boolean {
     /* istanbul ignore else */
     if (!item || typeof item !== "object") return false;

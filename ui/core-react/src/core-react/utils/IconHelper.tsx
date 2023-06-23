@@ -33,7 +33,7 @@ export class IconHelper {
       | React.ReactNode
       | ConditionalIconItem,
     internalData?: Map<string, any>
-  ): React.ReactNode | ConditionalIconItem {
+  ): React.ReactNode {
     // istanbul ignore else
     if (!icon) return null;
 

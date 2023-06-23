@@ -22,6 +22,10 @@ Made `MessageBox` appearance consistent with @itwin/itwinui-react `Dialog` compo
 
 Loaded `svg` from a URL is now cached and will be reused between render in different places, skipping the fetch/parsing it was doing each time before.
 
+### Fixed `ConditionalIconItem` functionality
+
+Apps can now use React icons directly for conditional display using the `ConditionalIconItem`. While this class was available in 4.0, there were implementation errors that prevented its use.
+
 ## @itwin/components-react
 
 - Improved property layout in `VirtualizedPropertyGrid` to make sure action buttons does not overflow on small screens.
