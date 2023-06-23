@@ -65,7 +65,7 @@ export interface DialogProps
   /** List of DialogButtonDef objects specifying buttons and associated onClick events */
   buttonCluster?: DialogButtonDef[];
 
-  /** Default alignment of dialog. Default: DialogAlignment.Center */
+  /** Default alignment of dialog. */
   alignment?: DialogAlignment;
   /** Initial x/left position of dialog in px. */
   x?: number;
@@ -85,9 +85,9 @@ export interface DialogProps
   height?: string | number;
   /** Minimum width that the dialog may be resized to. Displayed in px if value is a number; otherwise, displayed in specified CSS unit. Default: 300px */
   minWidth?: string | number;
-  /** Minimum height that the dialog may be resized to. Displayed in px if value is a number; otherwise, displayed in specified CSS unit. Default: 100px */
+  /** Minimum height that the dialog may be resized to. Displayed in px if value is a number; otherwise, displayed in specified CSS unit. Default: 135px */
   minHeight?: string | number;
-  /** Maximum width that the dialog may be resized to. Displayed in px if value is a number; otherwise, displayed in specified CSS unit. */
+  /** Maximum width that the dialog may be resized to. Displayed in px if value is a number; otherwise, displayed in specified CSS unit. Default: 100% */
   maxWidth?: string | number;
   /** Maximum height that the dialog may be resized to. Displayed in px if value is a number; otherwise, displayed in specified CSS unit. */
   maxHeight?: string | number;
@@ -117,15 +117,11 @@ export interface DialogProps
 interface DialogState {
   rightResizing: boolean;
   downResizing: boolean;
-  moving: boolean;
-  grabOffsetX: number;
-  grabOffsetY: number;
   x?: number;
   y?: number;
   width?: number;
   height?: number;
   positionSet: boolean;
-  initialTransform?: string;
 }
 
 /**
@@ -136,9 +132,9 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   private _parentDocument = document;
   private _containerRef = React.createRef<HTMLDivElement>();
   public static defaultProps: Partial<DialogProps> = {
-    alignment: DialogAlignment.Center,
     minWidth: 300,
     minHeight: 135,
+    maxWidth: "100%",
     width: "50%",
     hideHeader: false,
     resizable: false,
@@ -156,9 +152,6 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     this.state = {
       rightResizing: false,
       downResizing: false,
-      moving: false,
-      grabOffsetX: 0,
-      grabOffsetY: 0,
       positionSet: props.x !== undefined || props.y !== undefined,
     };
   }
@@ -209,12 +202,6 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     parentWindow.addEventListener("pointerup", this._handlePointerUp, true);
     this._parentDocument.addEventListener("keyup", this._handleKeyUp, true);
     parentWindow.addEventListener("resize", this._handleAppWindowResize);
-
-    if (!this._containerRef.current) return;
-    const rect = this._containerRef.current.getBoundingClientRect();
-    this.setState({
-      initialTransform: `translate(${-rect.width / 2}px,${-rect.height / 3}px)`,
-    });
   }
 
   public handleRefSet = (containerDiv: HTMLDivElement | null) => {
@@ -258,26 +245,23 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       ...props
     } = this.props;
 
+    let initialOffset: React.CSSProperties = {};
+    if (x || y) {
+      initialOffset = {
+        left: x,
+        top: y,
+        transform: x || y ? "none" : undefined,
+      };
+    } else if (alignment) {
+      initialOffset = this.getCSSClassNameFromAlignment(alignment);
+    }
+
     const containerStyle: React.CSSProperties = {
+      ...initialOffset,
       margin: "",
-      left: x,
-      top: y,
       width,
       height,
     };
-
-    // istanbul ignore else
-    if (this.state.x !== undefined) {
-      containerStyle.marginLeft = "0";
-      containerStyle.marginRight = "0";
-      containerStyle.left = this.state.x;
-    }
-    // istanbul ignore else
-    if (this.state.y !== undefined) {
-      containerStyle.marginTop = "0";
-      containerStyle.marginBottom = "0";
-      containerStyle.top = this.state.y;
-    }
 
     // istanbul ignore else
     if (this.state.width !== undefined) containerStyle.width = this.state.width;
@@ -294,7 +278,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     const dialogBaseContainerStyle: React.CSSProperties = {
       display: "flex",
       flexDirection: "column",
-      transform: this.state.initialTransform,
+      padding: inset ? undefined : 0,
       ...containerStyle,
       ...minMaxStyle,
     };
@@ -313,7 +297,6 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         closeOnEsc={false}
         style={style}
         className={className}
-        // isResizable={resizable}
         isDraggable={movable}
         trapFocus={trapFocus && /* istanbul ignore next */ modal}
         preventDocumentScroll={true}
@@ -328,100 +311,130 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
             style={dialogBaseContainerStyle}
             onPointerDown={this._handleContainerPointerDown}
           >
-            {!hideHeader && (
-              <BaseDialog.TitleBar titleText={title} style={titleStyle} />
-            )}
+            {!hideHeader &&
+              (header || (
+                <BaseDialog.TitleBar titleText={title} style={titleStyle} />
+              ))}
             <BaseDialog.Content
               className={contentClassName}
               style={contentStyle}
             >
               {this.props.children}
             </BaseDialog.Content>
-            <BaseDialog.ButtonBar style={footerStyle}>
-              {buttons}
-            </BaseDialog.ButtonBar>
-            <div
-              style={{
-                right: -4,
-                top: 8,
-                bottom: 8,
-                width: 8,
-                position: "absolute",
-                cursor: "e-resize",
-              }}
-              onPointerDown={this._handleStartResizeRight}
-            />
-            <div
-              style={{
-                right: -4,
-                bottom: -4,
-                width: 12,
-                height: 12,
-                position: "absolute",
-                cursor: "se-resize",
-              }}
-              onPointerDown={this._handleStartResizeDownRight}
-            />
-            <div
-              style={{
-                right: 8,
-                left: 8,
-                bottom: -4,
-                height: 8,
-                position: "absolute",
-                cursor: "s-resize",
-              }}
-              onPointerDown={this._handleStartResizeDown}
-            />
+            {footer || (
+              <BaseDialog.ButtonBar style={footerStyle}>
+                {buttons}
+              </BaseDialog.ButtonBar>
+            )}
+            {resizable && (
+              <>
+                <div
+                  style={{
+                    right: -4,
+                    top: 8,
+                    bottom: 8,
+                    width: 8,
+                    position: "absolute",
+                    cursor: "e-resize",
+                  }}
+                  onPointerDown={this._handleStartResizeRight}
+                />
+                <div
+                  style={{
+                    right: -4,
+                    bottom: -4,
+                    width: 12,
+                    height: 12,
+                    position: "absolute",
+                    cursor: "se-resize",
+                  }}
+                  onPointerDown={this._handleStartResizeDownRight}
+                />
+                <div
+                  style={{
+                    right: 8,
+                    left: 8,
+                    bottom: -4,
+                    height: 8,
+                    position: "absolute",
+                    cursor: "s-resize",
+                  }}
+                  onPointerDown={this._handleStartResizeDown}
+                />
+              </>
+            )}
           </BaseDialog.Main>
         </DivWithOutsideClick>
       </BaseDialog>
     );
   }
 
-  private getCSSClassNameFromAlignment(alignment?: DialogAlignment): string {
-    let className = "";
-
+  private getCSSClassNameFromAlignment(
+    alignment: DialogAlignment
+  ): React.CSSProperties {
     // Drop the alignment CSS class if the Dialog has been sized or moved.
-    if (this.state.positionSet) return "";
-
-    // istanbul ignore next
-    if (!alignment) alignment = DialogAlignment.Center;
+    if (this.state.positionSet) return {};
 
     switch (alignment) {
       case DialogAlignment.TopLeft:
-        className = "core-dialog-top-left";
-        break;
+        return {
+          top: 0,
+          left: 0,
+          transform: "none",
+        };
       case DialogAlignment.Top:
-        className = "core-dialog-top";
-        break;
+        return {
+          top: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+        };
       case DialogAlignment.TopRight:
-        className = "core-dialog-top-right";
-        break;
+        return {
+          top: 0,
+          left: "100%",
+          right: 0,
+          transform: "translateX(-100%)",
+        };
       case DialogAlignment.Left:
-        className = "core-dialog-left";
-        break;
+        return {
+          top: "50%",
+          left: 0,
+          transform: "translateY(-50%)",
+        };
       case DialogAlignment.Center:
-        className = "core-dialog-center";
-        break;
+        return {
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%,-50%)",
+        };
       case DialogAlignment.Right:
-        className = "core-dialog-right";
-        break;
+        return {
+          left: "100%",
+          top: "50%",
+          transform: "translate(-100%,-50%)",
+        };
       case DialogAlignment.BottomLeft:
-        className = "core-dialog-bottom-left";
-        break;
+        return {
+          top: "100%",
+          left: 0,
+          transform: "translateY(-100%)",
+        };
       case DialogAlignment.Bottom:
-        className = "core-dialog-bottom";
-        break;
+        return {
+          top: "100%",
+          left: "50%",
+          transform: "translate(-50%,-100%)",
+        };
       case DialogAlignment.BottomRight:
-        className = "core-dialog-bottom-right";
-        break;
+        return {
+          top: "100%",
+          left: "100%",
+          transform: "translate(-100%,-100%)",
+        };
     }
-
-    return className;
   }
 
-  protected getFooterButtons(
+  private getFooterButtons(
     buttonCluster: DialogButtonDef[] | undefined,
     primaryStyleType: ButtonProps["styleType"] = "cta",
     noCoreButtonClasses: boolean = false
@@ -533,38 +546,10 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     parentWindow.addEventListener("pointermove", this._handlePointerMove, true);
   };
 
-  private _handleStartMove = (event: React.PointerEvent): void => {
-    if (!this.props.movable) return;
-
-    event.preventDefault();
-    // istanbul ignore else
-    if (this._containerRef.current) {
-      const rect = this._containerRef.current.getBoundingClientRect();
-      const grabOffsetX = event.clientX - rect.left;
-      const grabOffsetY = event.clientY - rect.top;
-      this.setState({
-        grabOffsetX,
-        grabOffsetY,
-        moving: true,
-      });
-
-      const parentWindow = this.getParentWindow();
-      parentWindow.addEventListener(
-        "pointermove",
-        this._handlePointerMove,
-        true
-      );
-    }
-  };
-
   private _handlePointerMove = (event: PointerEvent): void => {
-    if (
-      (!this.props.resizable && !this.props.movable) ||
-      !this._containerRef.current
-    )
-      return;
+    if (!this.props.resizable || !this._containerRef.current) return;
 
-    const { minWidth, maxWidth, minHeight, maxHeight, movable } = this.props;
+    const { minWidth, maxWidth, minHeight, maxHeight } = this.props;
     let { x, y, width, height } = this.state;
 
     // istanbul ignore else
@@ -577,56 +562,35 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         (y = rect.top);
     }
 
-    if (this.props.resizable) {
-      if (this.state.rightResizing) {
-        const pointerX = event.clientX;
-        width = pointerX - x;
-        // istanbul ignore else
-        if (typeof minWidth === "number") width = Math.max(width, minWidth);
-        if (maxWidth !== undefined && typeof maxWidth === "number")
-          width = Math.min(width, maxWidth);
-      }
-
-      if (this.state.downResizing) {
-        const pointerY = event.clientY;
-        height = pointerY - y!;
-        // istanbul ignore else
-        if (typeof minHeight === "number") height = Math.max(height, minHeight);
-        if (maxHeight !== undefined && typeof maxHeight === "number")
-          height = Math.min(height, maxHeight);
-      }
-
-      this.setState({ width, height });
+    if (this.state.rightResizing) {
+      const pointerX = event.clientX;
+      width = pointerX - x;
+      // istanbul ignore else
+      if (typeof minWidth === "number") width = Math.max(width, minWidth);
+      if (maxWidth !== undefined && typeof maxWidth === "number")
+        width = Math.min(width, maxWidth);
     }
 
-    // istanbul ignore next
-    if (movable && this.state.moving) {
-      x = event.clientX - this.state.grabOffsetX;
-      y = event.clientY - this.state.grabOffsetY;
-      if (y < 0) y = 0;
-      if (event.view) {
-        if (y > event.view.innerHeight - 32) y = event.view.innerHeight - 32;
-        if (x > event.view.innerWidth - 32) x = event.view.innerWidth - 32;
-        if (width) {
-          if (x < 0 - width + 32) x = 0 - width + 32;
-        }
-      }
-
-      this.setState({ x, y, positionSet: true });
+    if (this.state.downResizing) {
+      const pointerY = event.clientY;
+      height = pointerY - y!;
+      // istanbul ignore else
+      if (typeof minHeight === "number") height = Math.max(height, minHeight);
+      if (maxHeight !== undefined && typeof maxHeight === "number")
+        height = Math.min(height, maxHeight);
     }
+
+    this.setState({ width, height });
   };
 
   private _handlePointerUp = (_event: PointerEvent): void => {
-    if (!this.props.movable && !this.props.resizable) return;
+    if (!this.props.resizable) return;
 
     // istanbul ignore else
     if (this._containerRef.current) {
       this.setState({
         rightResizing: false,
         downResizing: false,
-        moving: false,
-        grabOffsetX: 0,
-        grabOffsetY: 0,
       });
     }
 
