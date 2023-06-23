@@ -37,10 +37,12 @@ jobs:
         run: npm run build:storybook
         working-directory: docs/storybook
 
-      - name: Deploy with gh-pages
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
         if: ${{ env.dest != '' }}
-        run: |
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          node common/scripts/install-run-rush.js deploy:storybook --dest ${{ env.dest }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: gh-pages
+          folder: docs/storybook/storybook-static
+          target-folder: ${{ env.dest }}
+          single-commit: true
+          clean: true
