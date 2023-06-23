@@ -10,6 +10,7 @@ import {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
+import { ConditionalIconItem } from "@itwin/core-react";
 import { BeEvent } from "@itwin/core-bentley";
 import type {
   ToolbarActionItem,
@@ -129,15 +130,18 @@ export class ToolbarItemsManager {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
+        } else if (entry instanceof ConditionalStringValue) {
+          entry.syncEventIds.forEach((eventId: string) =>
+            eventIds.add(eventId.toLowerCase())
+          );
         } /* istanbul ignore else */ else if (
-          entry instanceof ConditionalStringValue
+          ConditionalIconItem.isConditionalIconItem(entry)
         ) {
           entry.syncEventIds.forEach((eventId: string) =>
             eventIds.add(eventId.toLowerCase())
           );
         }
       }
-
       // istanbul ignore else
       if (isToolbarGroupItem(item)) {
         this.gatherSyncIds(eventIds, item.items);
@@ -189,6 +193,17 @@ export class ToolbarItemsManager {
           // istanbul ignore else
           if (ConditionalStringValue.refreshValue(entry, eventIds))
             itemsUpdated = true;
+        } /* istanbul ignore else */ else if (
+          ConditionalIconItem.isConditionalIconItem(entry)
+        ) {
+          // istanbul ignore else
+          if (
+            ConditionalIconItem.refreshValue(
+              entry as ConditionalIconItem,
+              eventIds
+            )
+          )
+            itemsUpdated = true;
         }
       }
 
@@ -227,11 +242,20 @@ export class ToolbarItemsManager {
           // istanbul ignore else
           if (ConditionalBooleanValue.refreshValue(entry, eventIds))
             updateRequired = true;
-        } /* istanbul ignore else */ else if (
-          entry instanceof ConditionalStringValue
-        ) {
+        } else if (entry instanceof ConditionalStringValue) {
           // istanbul ignore else
           if (ConditionalStringValue.refreshValue(entry, eventIds))
+            updateRequired = true;
+        } /* istanbul ignore else */ else if (
+          ConditionalIconItem.isConditionalIconItem(entry)
+        ) {
+          // istanbul ignore else
+          if (
+            ConditionalIconItem.refreshValue(
+              entry as ConditionalIconItem,
+              eventIds
+            )
+          )
             updateRequired = true;
         }
       }

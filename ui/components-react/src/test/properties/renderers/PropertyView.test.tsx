@@ -109,7 +109,7 @@ describe("PropertyView", () => {
       );
 
       expect(screen.getByRole("presentation")).satisfy(
-        styleMatch({ gridTemplateColumns: "25% 1px auto auto" })
+        styleMatch({ gridTemplateColumns: "25% 1px auto 60px" })
       );
     });
 
