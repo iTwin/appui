@@ -7,6 +7,10 @@ import type { RatioChangeResult } from "@itwin/core-react";
 import { Orientation, UiGeometry } from "@itwin/core-react";
 import type { PropertyListProps } from "./PropertyList";
 
+const BORDER_WIDTH = 10;
+const PROPERTY_PADDING = 16;
+const VALUE_MIN_WIDTH = 10;
+
 /** @internal */
 export type ColumnResizeRelatedPropertyListProps = Required<
   Pick<
@@ -35,6 +39,8 @@ export interface ColumnResizingPropertyListPropsSupplierProps {
   minValueWidth?: number;
   /** Fixed action button column width */
   actionButtonWidth?: number;
+  /** Maximum depth of the properties shown */
+  maxPropertyDepth?: number;
   /** A callback that receives the required column-resize-related props for the [[PropertyList]] component  */
   children: (props: ColumnResizeRelatedPropertyListProps) => React.ReactNode;
 }
@@ -70,7 +76,6 @@ export class ColumnResizingPropertyListPropsSupplier extends React.Component<
     {
       minLabelWidth: 100,
       minValueWidth: 100,
-      actionButtonWidth: 90,
     };
 
   private _onColumnRatioChanged = (ratio: number): RatioChangeResult => {
@@ -93,24 +98,44 @@ export class ColumnResizingPropertyListPropsSupplier extends React.Component<
   private isMinimumColumnSizeEnabled() {
     if (this.props.orientation !== Orientation.Horizontal) return false;
 
-    // default behavior for screens that are too small to have minimum column widths
-    if (
-      this.props.width <
+    // calculated how much width all the borders of nested properties takes up.
+    const bordersWidth = this.props.maxPropertyDepth
+      ? this.props.maxPropertyDepth * BORDER_WIDTH
+      : 0;
+    const actionButtonWidth = this.props.actionButtonWidth ?? 0;
+
+    // minimum with required to render property. This consists of:
+    // * minimum label width
+    // * 1px resizer
+    // * minimum value width
+    // * actions buttons width
+    // * all nested borders width
+    // * padding
+    const propertyWidth =
       this.props.minLabelWidth! +
-        1 +
-        this.props.minValueWidth! +
-        this.props.actionButtonWidth!
-    ) {
+      1 +
+      this.props.minValueWidth! +
+      actionButtonWidth +
+      bordersWidth +
+      PROPERTY_PADDING;
+    // default behavior for screens that are too small to have minimum column widths
+    if (this.props.width < propertyWidth) {
       this._minRatio = this._defaultMinRatio;
-      this._maxRatio = this._defaultMaxRatio;
+      // if there are action buttons calculate maximum ratio for label. Otherwise use default.
+      this._maxRatio = this.props.actionButtonWidth
+        ? (this.props.width -
+            this.props.actionButtonWidth -
+            bordersWidth -
+            PROPERTY_PADDING -
+            VALUE_MIN_WIDTH) /
+          this.props.width
+        : this._defaultMaxRatio;
       return false;
     }
 
     this._minRatio = this.props.minLabelWidth! / this.props.width;
     this._maxRatio =
-      (this.props.width -
-        this.props.actionButtonWidth! -
-        this.props.minValueWidth!) /
+      (this.props.width - actionButtonWidth - this.props.minValueWidth!) /
       this.props.width;
     return true;
   }

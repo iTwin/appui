@@ -170,7 +170,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         });
       });
 
-      childWindow.onbeforeunload = () => {
+      childWindow.addEventListener("pagehide", () => {
         const frontStageDef = UiFramework.frontstages.activeFrontstageDef;
         if (!frontStageDef) return;
         frontStageDef.saveChildWindowSizeAndPosition(
@@ -178,7 +178,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
           childWindow
         );
         this.close(childWindowId, false);
-      };
+      });
     }
   }
 
@@ -216,26 +216,15 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
 
   // istanbul ignore next: Used in `open` which is not tested.
   private adjustWidowLocation(
-    location: ChildWindowLocationProps,
-    center?: boolean
+    location: ChildWindowLocationProps
   ): ChildWindowLocationProps {
     const outLocation = { ...location };
     if (0 === location.top && 0 === location.left) {
-      center = center ?? true;
-      const windowTop = window.top ?? window;
-
-      // Prepare position of the new window to be centered against the 'parent' window.
-      if (center) {
-        outLocation.left =
-          windowTop.outerWidth / 2 + windowTop.screenX - location.width / 2;
-        outLocation.top =
-          windowTop.outerHeight / 2 + windowTop.screenY - location.height / 2;
-      } else {
-        if (undefined !== window.screenLeft && undefined !== window.screenTop) {
-          outLocation.top = window.screenTop + location.top;
-          outLocation.left = window.screenLeft + location.left;
-        }
-      }
+      // If no location is provided, prepare position of the new window to be centered against the current window.
+      outLocation.left =
+        window.outerWidth / 2 + window.screenX - location.width / 2;
+      outLocation.top =
+        window.outerHeight / 2 + window.screenY - location.height / 2;
     }
     return outLocation;
   }

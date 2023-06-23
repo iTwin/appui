@@ -1820,6 +1820,18 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       expect(scrollToItemFake).to.not.have.been.called;
     });
   });
+
+  it("renders action buttons", async () => {
+    const { queryByText } = render(
+      <VirtualizedPropertyGridWithDataProvider
+        {...defaultProps}
+        actionButtonRenderers={[() => <div>Test Button</div>]}
+        actionButtonWidth={30}
+      />
+    );
+
+    await waitFor(() => expect(queryByText("Test Button")).to.not.be.null);
+  });
 });
 
 describe("Learning Snippets", () => {
