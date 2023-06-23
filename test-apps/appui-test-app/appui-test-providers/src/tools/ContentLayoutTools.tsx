@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
+import * as React from "react";
 import {
   ConditionalStringValue,
   IconSpecUtilities,
@@ -21,12 +22,14 @@ import {
   UiFramework,
 } from "@itwin/appui-react";
 import { IModelApp, IModelConnection, Tool } from "@itwin/core-frontend";
-import { LocalStateStorage } from "@itwin/core-react/lib/cjs/core-react";
+import {
+  ConditionalIconItem,
+  LocalStateStorage,
+} from "@itwin/core-react/lib/cjs/core-react";
+import { SvgWindow, SvgWindowSplitVertical } from "@itwin/itwinui-icons-react";
 
 import layoutRestoreIconSvg from "@bentley/icons-generic/icons/download.svg";
 import layoutSaveIconSvg from "@bentley/icons-generic/icons/upload.svg";
-import splitVerticalIconSvg from "@bentley/icons-generic/icons/window-split-vertical.svg";
-import singlePaneIconSvg from "@bentley/icons-generic/icons/window.svg";
 
 function getIModelSpecificKey(
   inKey: string,
@@ -215,22 +218,22 @@ export class RestoreSavedContentLayoutTool extends Tool {
     });
   }
 }
-
+const getSplitWindowCmdIcon = () => {
+  return 1 ===
+    UiFramework.frontstages.activeFrontstageDef?.contentGroup?.getContentControls()
+      .length ? (
+    <SvgWindowSplitVertical />
+  ) : (
+    <SvgWindow />
+  );
+};
 export function getSplitSingleViewportCommandDef() {
   const commandId = "splitSingleViewportCommandDef";
   return new CommandItemDef({
     commandId,
-    iconSpec: new ConditionalStringValue(
-      () =>
-        IconSpecUtilities.createWebComponentIconSpec(
-          1 ===
-            UiFramework.frontstages.activeFrontstageDef?.contentGroup?.getContentControls()
-              .length
-            ? splitVerticalIconSvg
-            : singlePaneIconSvg
-        ),
-      [SyncUiEventId.ActiveContentChanged]
-    ),
+    iconSpec: new ConditionalIconItem(getSplitWindowCmdIcon, [
+      SyncUiEventId.ActiveContentChanged,
+    ]),
     label: new ConditionalStringValue(
       () =>
         1 ===

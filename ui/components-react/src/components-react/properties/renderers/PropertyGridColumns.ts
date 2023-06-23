@@ -89,19 +89,21 @@ export class PropertyGridColumnStyleProvider {
     needElementSeparator: boolean
   ): React.CSSProperties {
     const separatorColumn = needElementSeparator ? "1px" : undefined;
+    const actionButtonColumn = needActionButtons
+      ? this.actionButtonWidth
+        ? `${this.actionButtonWidth}px`
+        : "auto"
+      : undefined;
     if (!this.isMinimumColumnSizeEnabled)
       return this.columnStyleBuilder([
         `${ratio * 100}%`,
         separatorColumn,
         "auto",
-        needActionButtons ? "auto" : undefined,
+        actionButtonColumn,
       ]);
 
     const labelColumn = `minmax(${this.minLabelWidth}px, ${ratio * 100}%)`;
     const valueColumn = `minmax(${this.minValueWidth}px, 1fr)`;
-    const actionButtonColumn = needActionButtons
-      ? `${this.actionButtonWidth}px`
-      : undefined;
 
     return this.columnStyleBuilder([
       labelColumn,

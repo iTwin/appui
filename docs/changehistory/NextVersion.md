@@ -10,6 +10,7 @@ Table of contents:
   - [@itwin/core-react](#itwincore-react)
     - [Changed base `Dialog` component for `MessageBox`](#changed-base-dialog-component-for-messagebox)
     - [IconWebComponent](#iconwebcomponent)
+  - [@itwin/components-react](#itwincomponents-react)
 
 ## @itwin/core-react
 
@@ -20,3 +21,7 @@ Made `MessageBox` appearance consistent with @itwin/itwinui-react `Dialog` compo
 ### `IconWebComponent`
 
 Loaded `svg` from a URL is now cached and will be reused between render in different places, skipping the fetch/parsing it was doing each time before.
+
+## @itwin/components-react
+
+- Improved property layout in `VirtualizedPropertyGrid` to make sure action buttons does not overflow on small screens.
