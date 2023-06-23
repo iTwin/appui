@@ -70,8 +70,6 @@ jobs:
 
       - template: ../templates/core-build.yaml
 
-      - template: ../templates/publish-storybook.yaml
-
       # Will run if even there is a failure somewhere else in the pipeline.
       - template: ../templates/publish-test-results.yaml
         parameters:
