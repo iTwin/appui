@@ -231,8 +231,7 @@ export function popoutWidgetToChildWindow(
   if (isPopoutTabLocation(location)) return state;
 
   const popoutWidgetId = getUniqueId();
-  const nzBounds = Rectangle.createFromSize(state.size);
-  const bounds = Rectangle.create(preferredBounds).containIn(nzBounds);
+  const bounds = Rectangle.create(preferredBounds);
 
   if (isPanelTabLocation(location)) {
     const panel = state.panels[location.side];
