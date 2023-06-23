@@ -25,3 +25,4 @@ Loaded `svg` from a URL is now cached and will be reused between render in diffe
 ## @itwin/components-react
 
 - Improved property layout in `VirtualizedPropertyGrid` to make sure action buttons does not overflow on small screens.
+- Improved context menu support in `ControlledTree` by exposing `onContextMenu` callback through `TreeNodeRendererProps`.
