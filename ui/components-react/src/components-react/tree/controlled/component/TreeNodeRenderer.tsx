@@ -55,6 +55,9 @@ export interface TreeNodeRendererProps extends CommonProps {
    */
   onLabelRendered?: (node: TreeModelNode) => void;
 
+  /** Callback that is invoked when context menu should be opened. */
+  onContextMenu?: (e: React.MouseEvent, node: TreeModelNode) => void;
+
   /** Child components to render inside the node.*/
   children?: React.ReactNode;
 }
@@ -81,6 +84,11 @@ export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(
   function onExpansionToggle() {
     if (props.node.isExpanded) props.treeActions.onNodeCollapsed(props.node.id);
     else props.treeActions.onNodeExpanded(props.node.id);
+  }
+
+  function onContextMenu(e: React.MouseEvent) {
+    e.preventDefault();
+    props.onContextMenu && props.onContextMenu(e, props.node);
   }
 
   const createCheckboxProps = (
@@ -118,6 +126,7 @@ export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(
       onMouseDown={() => props.treeActions.onNodeMouseDown(props.node.id)}
       onMouseMove={() => props.treeActions.onNodeMouseMove(props.node.id)}
       onClickExpansionToggle={onExpansionToggle}
+      onContextMenu={onContextMenu}
       renderOverrides={{ renderCheckbox: props.checkboxRenderer }}
     >
       {props.children}
