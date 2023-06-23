@@ -45,6 +45,7 @@ For incremental builds, the `rush build` command can be used to only build packa
 ## Source Code Edit Workflow
 
 1. Make source code changes on a new Git branch
+   - Each packages supports `npm start` command to enter build in watch mode for easy validation along the `test-apps`.
 2. Ensure unit tests pass when run locally: `rush cover`
 3. Ensure linting passes when run locally: `rush lint`
 4. Locally commit changes: `git commit` (or use the Visual Studio Code user interface)
