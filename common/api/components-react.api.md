@@ -3260,6 +3260,7 @@ export interface TreeNodeRendererProps extends CommonProps {
     node: TreeModelNode;
     nodeEditorRenderer?: TreeNodeEditorRenderer;
     nodeHighlightProps?: HighlightableTreeNodeProps;
+    onContextMenu?: (e: React_2.MouseEvent, node: TreeModelNode) => void;
     // @internal
     onLabelRendered?: (node: TreeModelNode) => void;
     treeActions: TreeActions;
