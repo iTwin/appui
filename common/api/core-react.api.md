@@ -237,6 +237,7 @@ export class ConditionalIconItem {
     static getValue(conditionalValue: ConditionalIconItem | string | undefined): IconSpec | undefined;
     // (undocumented)
     readonly iconGetter: () => IconSpec;
+    // @internal
     static isConditionalIconItem(item: any): boolean;
     refresh(): boolean;
     static refreshValue(conditionalValue: ConditionalIconItem | string | undefined, eventIds: Set<string>): boolean;
@@ -759,7 +760,7 @@ export class IconHelper {
     // (undocumented)
     static get conditionalIconItemKey(): string;
     static getIconData(iconSpec: IconSpec, internalData?: Map<string, any>): string | ConditionalStringValue;
-    static getIconReactNode(icon: string | ConditionalStringValue | React_2.ReactNode | ConditionalIconItem, internalData?: Map<string, any>): React_2.ReactNode | ConditionalIconItem;
+    static getIconReactNode(icon: string | ConditionalStringValue | React_2.ReactNode | ConditionalIconItem, internalData?: Map<string, any>): React_2.ReactNode;
     // (undocumented)
     static get reactIconKey(): string;
 }
