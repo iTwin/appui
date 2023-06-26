@@ -14,10 +14,10 @@ import {
 } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { InternalModelessDialogManager } from "../../appui-react/dialog/InternalModelessDialogManager";
 
-describe("ModelessDialogManager", () => {
+describe("InternalModelessDialogManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   const spyMethod = sinon.spy();
   beforeEach(() => {
@@ -32,7 +32,7 @@ describe("ModelessDialogManager", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework(true);
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
 
     UiFramework.dialogs.modeless.onModelessDialogChangedEvent.addListener(
       handleModelessDialogChanged
@@ -40,10 +40,10 @@ describe("ModelessDialogManager", () => {
   });
 
   after(async () => {
-    UiFramework.dialogs.modeless.onModelessDialogChangedEvent.removeListener(
+    InternalModelessDialogManager.onModelessDialogChangedEvent.removeListener(
       handleModelessDialogChanged
     );
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework(); // clear out the framework key
   });
 
@@ -216,5 +216,33 @@ describe("ModelessDialogManager", () => {
 
     UiFramework.dialogs.modeless.close(dialogId2);
     expect(UiFramework.dialogs.modeless.count).to.eq(0);
+  });
+
+  it("internal: closeAll should not leave active dialogs", () => {
+    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    const dialogId = "closeAll1";
+    UiFramework.dialogs.modeless.open(<div />, dialogId);
+    expect(UiFramework.dialogs.modeless.count).to.eq(1);
+    expect(UiFramework.dialogs.modeless.active).to.not.be.undefined;
+    InternalModelessDialogManager.closeAll();
+    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    expect(UiFramework.dialogs.modeless.active).to.be.undefined;
+  });
+
+  it("internal: closeAll should clear dialog ids", async () => {
+    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    const dialogId = "closeAll2";
+    UiFramework.dialogs.modeless.open(<div />, dialogId);
+    await waitFor(() => {
+      expect(UiFramework.dialogs.modeless.count).to.eq(1);
+    });
+    InternalModelessDialogManager.closeAll();
+    await waitFor(() => {
+      expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    });
+    UiFramework.dialogs.modeless.open(<div />, dialogId);
+    await waitFor(() => {
+      expect(UiFramework.dialogs.modeless.count).to.eq(1);
+    });
   });
 });

@@ -14,7 +14,7 @@ import {
 } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { InternalContentDialogManager } from "../../appui-react/dialog/InternalContentDialogManager";
 
 describe("ContentDialogManager", () => {
@@ -33,7 +33,7 @@ describe("ContentDialogManager", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework(true);
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
 
     UiFramework.content.dialogs.onContentDialogChangedEvent.addListener(
       handleContentDialogChanged
@@ -44,7 +44,7 @@ describe("ContentDialogManager", () => {
     UiFramework.content.dialogs.onContentDialogChangedEvent.removeListener(
       handleContentDialogChanged
     );
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework(); // clear out the framework key
   });
 
@@ -246,5 +246,33 @@ describe("ContentDialogManager", () => {
     expect(UiFramework.content.dialogs.active).to.eq(reactNode2);
 
     UiFramework.content.dialogs.close(dialogId2);
+  });
+
+  it("internal: closeAll should not leave active dialogs", () => {
+    expect(UiFramework.content.dialogs.count).to.eq(0);
+    const dialogId = "closeAll1";
+    UiFramework.content.dialogs.open(<div />, dialogId);
+    expect(UiFramework.content.dialogs.count).to.eq(1);
+    expect(UiFramework.content.dialogs.active).to.not.be.undefined;
+    InternalContentDialogManager.closeAll();
+    expect(UiFramework.content.dialogs.count).to.eq(0);
+    expect(UiFramework.content.dialogs.active).to.be.undefined;
+  });
+
+  it("internal: closeAll should clear dialog ids", async () => {
+    expect(UiFramework.content.dialogs.count).to.eq(0);
+    const dialogId = "closeAll2";
+    UiFramework.content.dialogs.open(<div />, dialogId);
+    await waitFor(() => {
+      expect(UiFramework.content.dialogs.count).to.eq(1);
+    });
+    InternalContentDialogManager.closeAll();
+    await waitFor(() => {
+      expect(UiFramework.content.dialogs.count).to.eq(0);
+    });
+    UiFramework.content.dialogs.open(<div />, dialogId);
+    await waitFor(() => {
+      expect(UiFramework.content.dialogs.count).to.eq(1);
+    });
   });
 });

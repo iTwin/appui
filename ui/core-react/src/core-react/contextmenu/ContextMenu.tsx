@@ -174,7 +174,7 @@ export class ContextMenu extends React.PureComponent<
       this.props.onOutsideClick(event);
   };
 
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     const {
       opened,
       direction,

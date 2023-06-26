@@ -5,7 +5,7 @@
 
 import { expect } from "chai";
 import * as React from "react";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type {
   ConfigurableCreateInfo,
@@ -29,10 +29,10 @@ class TableExampleContentControl extends ContentControl {
   }
 }
 
-describe("ConfigurableUiManager", () => {
+describe("InternalConfigurableUiManager", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
 
     InternalConfigurableUiManager.initialize();
     InternalConfigurableUiManager.register(
@@ -43,7 +43,7 @@ describe("ConfigurableUiManager", () => {
 
   after(async () => {
     InternalConfigurableUiManager.unregister("TableExampleContent");
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Add wrapper for iTwinUI `Dialog` that keeps core-react `Dialog` features except for dragging and resizing. Use the wrapped component as a new base for `MessageBox` to make UI more consistent with iTwinUI standards.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

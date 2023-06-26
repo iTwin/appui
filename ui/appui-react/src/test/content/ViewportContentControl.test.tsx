@@ -7,7 +7,7 @@ import * as React from "react";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
 import type { ScreenViewport, ViewState3d } from "@itwin/core-frontend";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type {
   ConfigurableCreateInfo,
   FrontstageConfig,
@@ -43,14 +43,14 @@ describe("ViewportContentControl", () => {
     });
 
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
 
     InternalFrontstageManager.isInitialized = false;
     InternalFrontstageManager.initialize();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
 
     // restore the overriden property getter

@@ -59,34 +59,20 @@ function mapStateToProps(state: any) {
   };
 }
 
-/** @internal */
-interface ThemeManagerState {
-  ownerDocument: Document | undefined;
-}
-
 /** ThemeManagerComponent handles setting themes.
  */
-class ThemeManagerComponent extends React.Component<
-  ThemeManagerProps,
-  ThemeManagerState
-> {
-  public override readonly state: ThemeManagerState = {
-    ownerDocument: undefined,
-  };
-
+class ThemeManagerComponent extends React.Component<ThemeManagerProps> {
   public override componentDidMount() {
     this._setTheme(this.props.theme);
+    this._setWidgetOpacity(this.props.widgetOpacity);
+    this._setToolbarOpacity(this.props.toolbarOpacity);
   }
 
   public override componentDidUpdate(prevProps: ThemeManagerProps) {
     if (this.props.theme !== prevProps.theme) this._setTheme(this.props.theme);
-    const currentWidgetOpacity =
-      document.documentElement.style.getPropertyValue("--buic-widget-opacity");
-    if (this.props.widgetOpacity.toString() !== currentWidgetOpacity)
+    if (this.props.widgetOpacity !== prevProps.widgetOpacity)
       this._setWidgetOpacity(this.props.widgetOpacity);
-    const currentToolbarOpacity =
-      document.documentElement.style.getPropertyValue("--buic-toolbar-opacity");
-    if (this.props.toolbarOpacity.toString() !== currentToolbarOpacity)
+    if (this.props.toolbarOpacity !== prevProps.toolbarOpacity)
       this._setToolbarOpacity(this.props.toolbarOpacity);
   }
 
@@ -100,27 +86,28 @@ class ThemeManagerComponent extends React.Component<
   };
 
   private _setWidgetOpacity = (opacity: number) => {
-    setTimeout(() =>
-      document.documentElement.style.setProperty(
-        "--buic-widget-opacity",
-        opacity.toString()
-      )
-    );
+    const currentWidgetOpacity =
+      document.documentElement.style.getPropertyValue("--buic-widget-opacity");
+    if (currentWidgetOpacity !== opacity.toString()) {
+      setTimeout(() =>
+        document.documentElement.style.setProperty(
+          "--buic-widget-opacity",
+          opacity.toString()
+        )
+      );
+    }
   };
 
   private _setToolbarOpacity = (opacity: number) => {
-    setTimeout(() =>
-      document.documentElement.style.setProperty(
-        "--buic-toolbar-opacity",
-        opacity.toString()
-      )
-    );
-  };
-
-  private _handleRefSet = (popupDiv: HTMLElement | null) => {
-    const ownerDocument = popupDiv?.ownerDocument ?? undefined;
-    if (ownerDocument) {
-      this.setState({ ownerDocument });
+    const currentToolbarOpacity =
+      document.documentElement.style.getPropertyValue("--buic-toolbar-opacity");
+    if (currentToolbarOpacity !== opacity.toString()) {
+      setTimeout(() => {
+        document.documentElement.style.setProperty(
+          "--buic-toolbar-opacity",
+          opacity.toString()
+        );
+      });
     }
   };
 
@@ -135,7 +122,6 @@ class ThemeManagerComponent extends React.Component<
         style={{ height: "100%" }}
         theme={theme}
         data-root-container={"iui-root-id"}
-        ref={this._handleRefSet}
       >
         {this.props.children}
       </ThemeProvider>

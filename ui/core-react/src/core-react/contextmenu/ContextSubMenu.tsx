@@ -27,7 +27,7 @@ export interface ContextSubMenuProps
     Omit<ContextMenuProps, "label">,
     CommonProps {
   /** Text/jsx to display in the list item */
-  label: string | JSX.Element;
+  label: string | React.ReactElement;
   /** @internal */
   onHotKeyParsed?: (hotKey: string) => void;
 }
@@ -73,7 +73,7 @@ export class ContextSubMenu extends React.Component<
     };
   }
 
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     const {
       label,
       opened,
@@ -99,8 +99,13 @@ export class ContextSubMenu extends React.Component<
       badgeType,
       ...props
     } = this.props;
+
+    const onOutsideClickWrapper = (event: MouseEvent) => {
+      this.close();
+      onOutsideClick && onOutsideClick(event);
+    };
     const contextMenuProps = {
-      onOutsideClick,
+      onOutsideClick: onOutsideClickWrapper,
       onSelect,
       onEsc,
       autoflip,

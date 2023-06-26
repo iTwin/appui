@@ -126,6 +126,46 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
         );
       });
     });
+
+    it("uses calculated maximum label-value ratio when it's modified higher than allowed and there are action buttons", async () => {
+      render(
+        <ColumnResizingPropertyListPropsSupplier
+          orientation={Orientation.Horizontal}
+          width={100}
+          actionButtonWidth={30}
+          maxPropertyDepth={1}
+        >
+          {(listProps) => (
+            <PropertyList
+              {...listProps}
+              properties={records}
+              actionButtonRenderers={[() => <div />]}
+            />
+          )}
+        </ColumnResizingPropertyListPropsSupplier>
+      );
+
+      expect(screen.getByRole("presentation")).satisfy(
+        styleMatch({ gridTemplateColumns: "25% 1px auto 30px" })
+      );
+      await theUserTo.pointer([
+        {
+          target: screen.getByRole("button"),
+          keys: "[MouseLeft>]",
+          coords: { x: 25 },
+        },
+        { coords: { x: 90 } },
+      ]);
+
+      // max ratio calculation:
+      // (width - button width - border width - padding - value width) / width
+      // (100 - 30 - 10 - 16 - 10) / 100
+      await waitFor(() => {
+        expect(screen.getByRole("presentation")).satisfy(
+          styleMatch({ gridTemplateColumns: "34% 1px auto 30px" })
+        );
+      });
+    });
   });
 
   describe("ratio between label and value when width above minimum column size", () => {

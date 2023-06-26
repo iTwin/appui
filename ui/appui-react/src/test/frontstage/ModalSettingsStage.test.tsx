@@ -23,7 +23,7 @@ import {
   useSaveBeforeActivatingNewSettingsTab,
   useSaveBeforeClosingSettingsContainer,
 } from "@itwin/core-react";
-import { IModelApp, MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 
 function TestModalSettingsPage({
@@ -68,11 +68,11 @@ function renderModalFrontstage(isOpen: boolean): React.ReactElement<any> {
 describe("ModalSettingsStage", () => {
   beforeEach(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   afterEach(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

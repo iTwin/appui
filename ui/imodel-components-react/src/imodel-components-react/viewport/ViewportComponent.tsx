@@ -17,12 +17,13 @@ import type {
   TentativePoint,
   ViewManager,
   Viewport,
+  ViewState,
 } from "@itwin/core-frontend";
 import {
   IModelApp,
   ScreenViewport,
+  StandardView,
   ToolSettings,
-  ViewState,
 } from "@itwin/core-frontend";
 
 import type { CommonProps } from "@itwin/core-react";
@@ -133,7 +134,7 @@ export function ViewportComponent(props: ViewportProps) {
       viewManager.selectedView === currentScreenViewport
     ) {
       currentScreenViewport.view.setRotationAboutPoint(
-        ViewState.getStandardViewMatrix(args.standardRotation)
+        StandardView.getStandardRotation(args.standardRotation)
       );
       currentScreenViewport.synchWithView();
     }
@@ -165,14 +166,6 @@ export function ViewportComponent(props: ViewportProps) {
       tentativePointOverrideRef.current ?? IModelApp.tentativePoint;
     // istanbul ignore else
     if (tentativePoint.isActive) return tentativePoint.getPoint();
-
-    // istanbul ignore else
-    if (undefined !== vp.viewCmdTargetCenter) {
-      const testPt = vp.worldToView(vp.viewCmdTargetCenter);
-      const viewRect = vp.viewRect;
-      if (viewRect.containsPoint(testPt)) return vp.viewCmdTargetCenter;
-      vp.viewCmdTargetCenter = undefined;
-    }
 
     // istanbul ignore else
     if (null !== lastTargetPoint) {

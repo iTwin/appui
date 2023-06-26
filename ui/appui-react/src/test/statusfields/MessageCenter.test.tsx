@@ -5,7 +5,8 @@
 import { expect } from "chai";
 import * as React from "react";
 import {
-  MockRender,
+  IModelApp,
+  NoRenderApp,
   NotifyMessageDetails,
   OutputMessagePriority,
 } from "@itwin/core-frontend";
@@ -25,11 +26,11 @@ describe(`MessageCenter`, () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

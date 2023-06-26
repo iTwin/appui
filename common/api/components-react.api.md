@@ -1739,7 +1739,7 @@ export interface PanelProps extends CommonProps {
 }
 
 // @public
-export const ParsedInput: (props: ParsedInputProps) => JSX.Element | null;
+export const ParsedInput: (props: ParsedInputProps) => React_2.ReactElement | null;
 
 // @public
 export interface ParsedInputProps extends CommonProps {
@@ -2171,7 +2171,7 @@ export class PropertyLabelRenderer extends React_2.PureComponent<PropertyLabelRe
 
 // @public
 export interface PropertyLabelRendererProps {
-    children: string | JSX.Element;
+    children: string | React_2.ReactElement;
     renderColon?: boolean;
     tooltip?: string;
 }
@@ -3260,6 +3260,7 @@ export interface TreeNodeRendererProps extends CommonProps {
     node: TreeModelNode;
     nodeEditorRenderer?: TreeNodeEditorRenderer;
     nodeHighlightProps?: HighlightableTreeNodeProps;
+    onContextMenu?: (e: React_2.MouseEvent, node: TreeModelNode) => void;
     // @internal
     onLabelRendered?: (node: TreeModelNode) => void;
     treeActions: TreeActions;
