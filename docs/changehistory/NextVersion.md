@@ -21,7 +21,7 @@ Table of contents:
 ### Popout widgets
 
 - Resolved an issue that prevented opening popouts from within an iFrame. Please note that sandboxed iFrames still require the allow-popups attribute.
-- Eliminated the logic responsible for containing the popped-out widget's location on the screen. Now, when the user closes the widget, it will reappear in the same position it was last closed.
+- Eliminated the logic responsible for containing the popped-out widget's location on the screen. Now, when the user opens the popout widget, it will reappear in the same position it was last closed.
 
 ### Fixes
 
