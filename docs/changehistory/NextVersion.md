@@ -47,3 +47,4 @@ Apps can now use React icons directly for conditional display using the `Conditi
 - Improved context menu support in `ControlledTree` by exposing `onContextMenu` callback through `TreeNodeRendererProps`.
 - Enhanced `PropertyFilterBuilder` to allow filtering when there are empty filter rules.
 - Updated delete button logic of `PropertyFilterBuilder` to clear rule instead of removing it when there is only one rule left in the rule group.
+- The `PropertyFilterBuilder` now sets the `contains` operator as the default for string and text properties.
