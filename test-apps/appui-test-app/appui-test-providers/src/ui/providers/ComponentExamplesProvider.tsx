@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /* eslint-disable deprecation/deprecation */
 
 import * as React from "react";
@@ -169,55 +169,6 @@ function UnitSystemSelectorFunction() {
   );
 }
 
-function ContentLayoutFunction(props: { contentLayout: ContentLayoutDef, contentGroup: ContentGroup }) {
-  const [shouldBeFullscreen, setShouldBeFullscreen] = React.useState<Boolean>(false);
-  return (
-    <>
-      {shouldBeFullscreen ?
-        UiFramework.frontstages.openModalFrontstage(
-          {title: "Content Layout Example",
-            content:
-              <ContentLayout
-                style={{height: "calc(100vh - 80px)", background: "$buic-background-dialog", top: "auto"}}
-                contentLayout={props.contentLayout}
-                contentGroup={props.contentGroup}
-              />,
-          }
-        )
-        : undefined
-      }
-      <Button size={"small"} onClick={() => { setShouldBeFullscreen(!shouldBeFullscreen); } }>Open Fullscreen</Button>
-    </>
-  );
-}
-
-function SplitPaneFunction() {
-  const [shouldBeFullscreen, setShouldBeFullscreen] = React.useState<Boolean>(false);
-  return (
-    <>
-      {shouldBeFullscreen ?
-        UiFramework.frontstages.openModalFrontstage(
-          {title: "Split Pane Example",
-            content:
-          <SplitPane
-            className="test-split-pane-fullscreen"
-            pane1ClassName="pane-one-class"
-            // pane1Style={{ backgroundColor: "blue" }}
-            pane2ClassName="pane-two-class"
-            // pane2Style={{ backgroundColor: "red" }}
-            resizerStyle={{ width: "10px", backgroundColor: "var(--iui-color-border)" }} >
-            <div>Pane One</div>
-            <div>Pane Two</div>
-          </SplitPane>,
-          }
-        )
-        :undefined
-      }
-      <Button size={"small"} onClick={() => { setShouldBeFullscreen(!shouldBeFullscreen); } }>Open Fullscreen</Button>
-    </>
-  );
-}
-
 function PositionPopupFunction() {
   const [isOpen, setIsOpen] = React.useState<Boolean>(false);
 
@@ -324,8 +275,38 @@ export class ComponentExamplesProvider {
     return {
       title: "Content",
       examples: [
-        createComponentExample("Content Layout", undefined, <ContentLayoutFunction contentLayout={fourQuadrantsHorizontalLayoutDef} contentGroup={fourContentGroup}/>),
-        createComponentExample("Split Pane", undefined, <SplitPaneFunction/>),
+        createComponentExample("Content Layout", undefined,
+          <Button
+            size={"small"}
+            onClick={() => { UiFramework.frontstages.openModalFrontstage(
+                {title: "Content Layout Example",
+                  content:
+                    <ContentLayout
+                      style={{height: "calc(100vh - 80px)", background: "$buic-background-dialog", top: "auto"}}
+                      contentLayout={fourQuadrantsHorizontalLayoutDef}
+                      contentGroup={fourContentGroup}
+                    />,
+                });}
+          }>Open Fullscreen</Button>
+        ),
+        createComponentExample("Split Pane", undefined,
+          <Button size={"small"} onClick={() => {
+            UiFramework.frontstages.openModalFrontstage(
+              {
+                title: "Split Pane Example",
+                content:
+                  <SplitPane
+                    className="test-split-pane-fullscreen"
+                    pane1ClassName="pane-one-class"
+                    pane2ClassName="pane-two-class"
+                    resizerStyle={{ width: "10px", backgroundColor: "var(--iui-color-border)" }} >
+                    <div>Pane One</div>
+                    <div>Pane Two</div>
+                  </SplitPane>,
+              }
+            );
+          } }>Open Fullscreen</Button>
+        ),
       ],
     };
   }
@@ -338,12 +319,9 @@ export class ComponentExamplesProvider {
     ];
     let menuData: CursorMenuData;
 
-    // TODO: Figure out a way to change zIndex of cursor popup without changing styling in package. Without zIndex being set to at least 14000, CursorPopup, appears behind Component Examples fronstage modal
+    // TODO: Figure out a way to change zIndex of cursor popup without changing styling in package. Without zIndex being set to at least 14000, CursorPopup, appears behind Component Examples frontstage modal
     function openCursorPopup() {
-      return(
-        <div style={{position: "absolute", zIndex: 16000}}>
-          {CursorPopupManager.open("test", <div>This is a Cursor Popup</div>, CursorInformation.cursorPosition, new Point(0, 0), relativePosition)}
-        </div>);
+      return(CursorPopupManager.open("test", <div>This is a Cursor Popup</div>, CursorInformation.cursorPosition, new Point(0, 0), relativePosition));
     }
 
     return {
