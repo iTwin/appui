@@ -2,6 +2,33 @@
   "name": "@itwin/core-react",
   "entries": [
     {
+      "version": "4.2.0",
+      "tag": "@itwin/core-react_v4.2.0",
+      "date": "Tue, 27 Jun 2023 14:50:22 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Remove ConditionalIconItem return type from IconHelper.getIconReactNode(). Mark isConditionalIconItem() method internal."
+          },
+          {
+            "comment": "Update IconComponent and IconHelper to support ConditionalIconItem."
+          },
+          {
+            "comment": "Remove non-public API calls."
+          },
+          {
+            "comment": "Add wrapper for iTwinUI `Dialog` that keeps core-react `Dialog` features except for dragging and resizing. Use the wrapped component as a new base for `MessageBox` to make UI more consistent with iTwinUI standards."
+          },
+          {
+            "comment": "Cache IconWebComponent svg content."
+          },
+          {
+            "comment": "Update `@itwin/itwinui-react` version to 2.11.6."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.1.0",
       "tag": "@itwin/core-react_v4.1.0",
       "date": "Mon, 29 May 2023 14:05:04 GMT",

@@ -1,6 +1,21 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Mon, 29 May 2023 14:05:04 GMT and should not be manually modified.
+This log was last generated on Tue, 27 Jun 2023 14:50:22 GMT and should not be manually modified.
+
+## 4.2.0
+Tue, 27 Jun 2023 14:50:22 GMT
+
+### Updates
+
+- `PropertyFilterBuilder`: Make `contains` default operator for string and text properties.
+- `PropertyFilterBuilder`: Delete button will clear rule instead of removing it when there is only one rule left in the rule group.
+- Promoted `TreeNodeContent` and `TreeNodeIcon` to `public`.
+- ControlledTree: Improved context menu support by exposing `onContextMenu` callback through `TreeNodeRendererProps`.
+- `PropertyFilterBuilder`: Set focus on property selector on `+ Rule` and `+ Rule Group` buttons click.
+- `PropertyFilterBuilder`: Allow filtering when there are empty filter rules.
+- Remove non-public API calls.
+- `VirtualizedPropertyGrid`: Improved property layout to make sure action buttons does not overflow on small screens.
+- Update `@itwin/itwinui-react` version to 2.11.6.
 
 ## 4.1.0
 Mon, 29 May 2023 14:05:04 GMT

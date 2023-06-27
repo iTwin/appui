@@ -1,6 +1,18 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Mon, 29 May 2023 14:05:04 GMT and should not be manually modified.
+This log was last generated on Tue, 27 Jun 2023 14:50:22 GMT and should not be manually modified.
+
+## 4.2.0
+Tue, 27 Jun 2023 14:50:22 GMT
+
+### Updates
+
+- Remove ConditionalIconItem return type from IconHelper.getIconReactNode(). Mark isConditionalIconItem() method internal.
+- Update IconComponent and IconHelper to support ConditionalIconItem.
+- Remove non-public API calls.
+- Add wrapper for iTwinUI `Dialog` that keeps core-react `Dialog` features except for dragging and resizing. Use the wrapped component as a new base for `MessageBox` to make UI more consistent with iTwinUI standards.
+- Cache IconWebComponent svg content.
+- Update `@itwin/itwinui-react` version to 2.11.6.
 
 ## 4.1.0
 Mon, 29 May 2023 14:05:04 GMT

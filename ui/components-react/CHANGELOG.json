@@ -2,6 +2,42 @@
   "name": "@itwin/components-react",
   "entries": [
     {
+      "version": "4.2.0",
+      "tag": "@itwin/components-react_v4.2.0",
+      "date": "Tue, 27 Jun 2023 14:50:22 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "`PropertyFilterBuilder`: Make `contains` default operator for string and text properties."
+          },
+          {
+            "comment": "`PropertyFilterBuilder`: Delete button will clear rule instead of removing it when there is only one rule left in the rule group."
+          },
+          {
+            "comment": "Promoted `TreeNodeContent` and `TreeNodeIcon` to `public`."
+          },
+          {
+            "comment": "ControlledTree: Improved context menu support by exposing `onContextMenu` callback through `TreeNodeRendererProps`."
+          },
+          {
+            "comment": "`PropertyFilterBuilder`: Set focus on property selector on `+ Rule` and `+ Rule Group` buttons click."
+          },
+          {
+            "comment": "`PropertyFilterBuilder`: Allow filtering when there are empty filter rules."
+          },
+          {
+            "comment": "Remove non-public API calls."
+          },
+          {
+            "comment": "`VirtualizedPropertyGrid`: Improved property layout to make sure action buttons does not overflow on small screens."
+          },
+          {
+            "comment": "Update `@itwin/itwinui-react` version to 2.11.6."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.1.0",
       "tag": "@itwin/components-react_v4.1.0",
       "date": "Mon, 29 May 2023 14:05:04 GMT",
