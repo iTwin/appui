@@ -45,3 +45,4 @@ Apps can now use React icons directly for conditional display using the `Conditi
 
 - Improved property layout in `VirtualizedPropertyGrid` to make sure action buttons does not overflow on small screens.
 - Improved context menu support in `ControlledTree` by exposing `onContextMenu` callback through `TreeNodeRendererProps`.
+- Enhanced `PropertyFilterBuilder` to allow filtering when there are empty filter rules.
