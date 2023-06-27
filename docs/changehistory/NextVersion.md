@@ -32,4 +32,3 @@ Apps can now use React icons directly for conditional display using the `Conditi
 - Improved context menu support in `ControlledTree` by exposing `onContextMenu` callback through `TreeNodeRendererProps`.
 - In the `PropertyFilterBuilder`, the focus is now set on the property selector when the user clicks on the "+ Rule" and "+ Rule Group" buttons.
 - Promoted `TreeNodeContent` and `TreeNodeIcon` to `public`.
-- 
