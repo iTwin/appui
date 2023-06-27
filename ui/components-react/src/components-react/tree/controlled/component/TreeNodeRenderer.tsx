@@ -14,7 +14,6 @@ import type {
 } from "@itwin/core-react";
 import { TreeNode } from "@itwin/core-react";
 import { ImageRenderer } from "../../../common/ImageRenderer";
-import { PropertyValueRendererManager } from "../../../properties/ValueRendererManager";
 import type { HighlightableTreeNodeProps } from "../../HighlightingEngine";
 import type { ITreeImageLoader } from "../../ImageLoader";
 import { TreeComponentTestId } from "../../TreeComponentTestId";
@@ -74,7 +73,6 @@ export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(
       key={props.node.id}
       node={props.node}
       showDescription={props.descriptionEnabled}
-      valueRendererManager={PropertyValueRendererManager.defaultManager}
       highlightProps={props.nodeHighlightProps}
       onLabelRendered={props.onLabelRendered}
       nodeEditorRenderer={props.nodeEditorRenderer}
@@ -134,12 +132,22 @@ export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(
   );
 });
 
-interface TreeNodeIconProps {
+/**
+ * Props for [[TreeNodeIcon]] component.
+ * @public
+ */
+export interface TreeNodeIconProps {
+  /** Tree node to render icon for. */
   node: TreeModelNode;
+  /** Image loader used to load tree node icon. */
   imageLoader: ITreeImageLoader;
 }
 
-function TreeNodeIcon(props: TreeNodeIconProps) {
+/**
+ * React component that renders icon for [[TreeNode]].
+ * @public
+ */
+export function TreeNodeIcon(props: TreeNodeIconProps) {
   const { imageLoader, node } = props;
   const image = imageLoader.load(node.item);
 
