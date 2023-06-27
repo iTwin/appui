@@ -348,10 +348,14 @@ public;TreeModelNodePlaceholder
 public;TreeModelNodeType = TreeModelNode | TreeModelNodePlaceholder | TreeModelRootNode
 public;TreeModelRootNode
 public;TreeModelSource
+public;TreeNodeContent(props: TreeNodeContentProps): JSX.Element
+public;TreeNodeContentProps 
 public;TreeNodeEditor(props: TreeNodeEditorProps): JSX.Element
 public;TreeNodeEditorProps
 public;TreeNodeEditorRenderer = (props: TreeNodeEditorProps) => React_2.ReactNode
 public;TreeNodeEventArgs
+public;TreeNodeIcon(props: TreeNodeIconProps): JSX.Element | null
+public;TreeNodeIconProps
 public;TreeNodeItem
 public;TreeNodeItemData = ImmediatelyLoadedTreeNodeItem & DelayLoadedTreeNodeItem
 public;TreeNodeLoader
