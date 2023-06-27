@@ -153,6 +153,7 @@ export * from "./components-react/tree/controlled/TreeHooks";
 export * from "./components-react/tree/controlled/component/ControlledTree";
 export * from "./components-react/tree/controlled/component/TreeNodeEditor";
 export * from "./components-react/tree/controlled/component/TreeNodeRenderer";
+export * from "./components-react/tree/controlled/component/NodeContent";
 export * from "./components-react/tree/controlled/component/TreeRenderer";
 export * from "./components-react/tree/controlled/internal/SparseTree";
 

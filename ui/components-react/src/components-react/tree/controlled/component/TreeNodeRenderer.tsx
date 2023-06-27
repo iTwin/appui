@@ -132,7 +132,10 @@ export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(
   );
 });
 
-/** Props for [[TreeNodeIcon]] component. */
+/**
+ * Props for [[TreeNodeIcon]] component.
+ * @public
+ */
 export interface TreeNodeIconProps {
   /** Tree node to render icon for. */
   node: TreeModelNode;
@@ -140,7 +143,10 @@ export interface TreeNodeIconProps {
   imageLoader: ITreeImageLoader;
 }
 
-/** React component that renders icon for [[TreeNode]]. */
+/**
+ * React component that renders icon for [[TreeNode]].
+ * @public
+ */
 export function TreeNodeIcon(props: TreeNodeIconProps) {
   const { imageLoader, node } = props;
   const image = imageLoader.load(node.item);

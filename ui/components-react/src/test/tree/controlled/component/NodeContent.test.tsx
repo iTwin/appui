@@ -80,7 +80,7 @@ describe("NodeContent", () => {
     getByText("New label");
   });
 
-  it.only("renders styled node", () => {
+  it("renders styled node", () => {
     node.item.style = {
       isBold: true,
     };
