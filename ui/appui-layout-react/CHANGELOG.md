@@ -1,6 +1,14 @@
 # Change Log - @itwin/appui-layout-react
 
-This log was last generated on Mon, 29 May 2023 14:05:04 GMT and should not be manually modified.
+This log was last generated on Tue, 27 Jun 2023 14:50:22 GMT and should not be manually modified.
+
+## 4.2.0
+Tue, 27 Jun 2023 14:50:22 GMT
+
+### Updates
+
+- Remove non-public API calls.
+- Do not limit popped out widget location on the screen
 
 ## 4.1.0
 Mon, 29 May 2023 14:05:04 GMT
