@@ -10,6 +10,7 @@ Table of contents:
   - [@itwin/appui-react](#itwinappui-react)
     - [Popout widgets](#popout-widgets)
     - [Badge icons](#badge-icons)
+    - [`ThemeManager`](#thememanager)
   - [@itwin/core-react](#itwincore-react)
     - [Changed base `Dialog` component for `MessageBox`](#changed-base-dialog-component-for-messagebox)
     - [`IconWebComponent`](#iconwebcomponent)
@@ -26,6 +27,10 @@ Table of contents:
 ### Badge icons
 
 An issue with the conversion of toolbar item definitions has been fixed. This fix addresses the problem where badge icons were not rendering correctly.
+
+### `ThemeManager`
+
+The `ThemeManager` component has been fixed to ensure the proper initialization of opacity values during component mount.
 
 ## @itwin/core-react
 
