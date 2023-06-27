@@ -9,7 +9,8 @@ Table of contents:
 - [NextVersion](#nextversion)
   - [@itwin/core-react](#itwincore-react)
     - [Changed base `Dialog` component for `MessageBox`](#changed-base-dialog-component-for-messagebox)
-    - [IconWebComponent](#iconwebcomponent)
+    - [`IconWebComponent`](#iconwebcomponent)
+    - [Fixed `ConditionalIconItem` functionality](#fixed-conditionaliconitem-functionality)
   - [@itwin/components-react](#itwincomponents-react)
 
 ## @itwin/core-react
