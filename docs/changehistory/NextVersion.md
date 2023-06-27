@@ -9,8 +9,7 @@ Table of contents:
 - [NextVersion](#nextversion)
   - [@itwin/appui-react](#itwinappui-react)
     - [Popout widgets](#popout-widgets)
-    - [Badge icons](#badge-icons)
-    - [`ThemeManager`](#thememanager)
+    - [Fixes](#fixes)
   - [@itwin/core-react](#itwincore-react)
     - [Changed base `Dialog` component for `MessageBox`](#changed-base-dialog-component-for-messagebox)
     - [`IconWebComponent`](#iconwebcomponent)
@@ -22,15 +21,12 @@ Table of contents:
 ### Popout widgets
 
 - Resolved an issue that prevented opening popouts from within an iFrame. Please note that sandboxed iFrames still require the allow-popups attribute.
-- Eliminated the logic responsible for storing the popped-out widget's location on the screen. Now, when the user closes the widget, it will reappear in the same position it was last closed.
+- Eliminated the logic responsible for containing the popped-out widget's location on the screen. Now, when the user closes the widget, it will reappear in the same position it was last closed.
 
-### Badge icons
+### Fixes
 
-An issue with the conversion of toolbar item definitions has been fixed. This fix addresses the problem where badge icons were not rendering correctly.
-
-### `ThemeManager`
-
-The `ThemeManager` component has been fixed to ensure the proper initialization of opacity values during component mount.
+- Fixed an issue with rendering of toolbar badge icons that was caused by conversion of toolbar item definitions.
+- Fixed `ThemeManager` component to ensure proper initialization of opacity values during component mount.
 
 ## @itwin/core-react
 
