@@ -21,6 +21,8 @@ const config: StorybookConfig = {
   viteFinal: async (config) => {
     if (!config.build) config.build = {};
     config.build.chunkSizeWarningLimit = 5000;
+    // This prevents component name mangling in stories.
+    config.build.minify = false;
     return config;
   },
 };
