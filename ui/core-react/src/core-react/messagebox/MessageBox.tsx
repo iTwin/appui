@@ -11,8 +11,6 @@ import classnames from "classnames";
 import * as React from "react";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { MessageSeverity } from "@itwin/appui-abstract";
-import { Dialog as SimpleDialog } from "../dialog/SimpleDialog";
-import { Dialog } from "../dialog/Dialog";
 import type { CommonProps } from "../utils/Props";
 import {
   SvgHelpCircular,
@@ -29,6 +27,7 @@ import {
 } from "@itwin/itwinui-icons-react";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
+import { Dialog } from "../dialog/Dialog";
 
 /** Properties for the [[MessageBox]] component
  * @public
@@ -83,7 +82,7 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
 
   public override render(): React.ReactElement {
     return (
-      <SimpleDialog
+      <Dialog
         title={this.props.title}
         buttonCluster={this.props.buttonCluster}
         opened={this.props.opened}
@@ -93,8 +92,6 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
         className={this.props.className}
         style={this.props.style}
         width={this.props.width}
-        movable={true}
-        resizable={true}
       >
         <MessageContainer
           severity={this.props.severity}
@@ -103,7 +100,7 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
         >
           {this.props.children}
         </MessageContainer>
-      </SimpleDialog>
+      </Dialog>
     );
   }
 }

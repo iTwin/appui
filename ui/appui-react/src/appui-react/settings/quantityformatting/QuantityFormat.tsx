@@ -41,6 +41,7 @@ import { UiFramework } from "../../UiFramework";
 import { UnitSystemSelector } from "./UnitSystemSelector";
 import { Button } from "@itwin/itwinui-react";
 import { SvgMeasure } from "@itwin/itwinui-icons-react";
+import { DialogManagerBase } from "../../dialog/DialogManagerBase";
 
 function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
   const compare = new DeepCompare();
@@ -458,6 +459,7 @@ function SaveFormatModalDialog({
       maxHeight={400}
       maxWidth={400}
       minWidth={200}
+      style={{ zIndex: DialogManagerBase.topZIndex }}
     >
       <div className="modal-dialog2">
         Do you want to save changes to format before changing to another type?
