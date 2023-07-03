@@ -250,10 +250,8 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       initialOffset = {
         left: x,
         top: y,
-        transform: x || y ? "none" : undefined,
+        transform: "none",
       };
-    } else if (alignment) {
-      initialOffset = this.getCSSClassNameFromAlignment(alignment);
     }
 
     const containerStyle: React.CSSProperties = {
@@ -276,8 +274,6 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       maxHeight,
     };
     const dialogBaseContainerStyle: React.CSSProperties = {
-      display: "flex",
-      flexDirection: "column",
       padding: inset ? undefined : 0,
       ...containerStyle,
       ...minMaxStyle,
@@ -307,6 +303,10 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         <DivWithOutsideClick onOutsideClick={onOutsideClick}>
           <BaseDialog.Main
             ref={this._containerRef}
+            className={classnames(
+              "dialog-main",
+              alignment && this.getCSSClassNameFromAlignment(alignment)
+            )}
             data-testid="core-dialog-container"
             style={dialogBaseContainerStyle}
             onPointerDown={this._handleContainerPointerDown}
@@ -333,38 +333,20 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
             {resizable && (
               <>
                 <div
-                  style={{
-                    right: -4,
-                    top: 8,
-                    bottom: 8,
-                    width: 8,
-                    position: "absolute",
-                    cursor: "e-resize",
-                  }}
+                  className={classnames("dialog-resize-bar", "drag-right")}
                   onPointerDown={this._handleStartResizeRight}
                   data-testid="core-dialog-drag-right"
                 />
                 <div
-                  style={{
-                    right: -4,
-                    bottom: -4,
-                    width: 12,
-                    height: 12,
-                    position: "absolute",
-                    cursor: "se-resize",
-                  }}
+                  className={classnames(
+                    "dialog-resize-bar",
+                    "drag-bottom-right"
+                  )}
                   onPointerDown={this._handleStartResizeDownRight}
                   data-testid="core-dialog-drag-bottom-right"
                 />
                 <div
-                  style={{
-                    right: 8,
-                    left: 8,
-                    bottom: -4,
-                    height: 8,
-                    position: "absolute",
-                    cursor: "s-resize",
-                  }}
+                  className={classnames("dialog-resize-bar", "drag-bottom")}
                   onPointerDown={this._handleStartResizeDown}
                   data-testid="core-dialog-drag-bottom"
                 />
@@ -378,66 +360,29 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
 
   private getCSSClassNameFromAlignment(
     alignment: DialogAlignment
-  ): React.CSSProperties {
+  ): string | undefined {
     // Drop the alignment CSS class if the Dialog has been sized or moved.
-    if (this.state.positionSet) return {};
+    if (this.state.positionSet) return undefined;
 
     switch (alignment) {
       case DialogAlignment.TopLeft:
-        return {
-          top: 0,
-          left: 0,
-          transform: "none",
-        };
+        return "align-top-left";
       case DialogAlignment.Top:
-        return {
-          top: 0,
-          left: "50%",
-          transform: "translateX(-50%)",
-        };
+        return "align-top";
       case DialogAlignment.TopRight:
-        return {
-          top: 0,
-          left: "100%",
-          right: 0,
-          transform: "translateX(-100%)",
-        };
+        return "align-top-right";
       case DialogAlignment.Left:
-        return {
-          top: "50%",
-          left: 0,
-          transform: "translateY(-50%)",
-        };
+        return "align-left";
       case DialogAlignment.Center:
-        return {
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%,-50%)",
-        };
+        return "align-center";
       case DialogAlignment.Right:
-        return {
-          left: "100%",
-          top: "50%",
-          transform: "translate(-100%,-50%)",
-        };
+        return "align-right";
       case DialogAlignment.BottomLeft:
-        return {
-          top: "100%",
-          left: 0,
-          transform: "translateY(-100%)",
-        };
+        return "align-bottom-left";
       case DialogAlignment.Bottom:
-        return {
-          top: "100%",
-          left: "50%",
-          transform: "translate(-50%,-100%)",
-        };
+        return "align-bottom";
       case DialogAlignment.BottomRight:
-        return {
-          top: "100%",
-          left: "100%",
-          transform: "translate(-100%,-100%)",
-        };
+        return "align-bottom-right";
     }
   }
 
