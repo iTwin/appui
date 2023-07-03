@@ -279,11 +279,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       ...minMaxStyle,
     };
 
-    const buttons = this.getFooterButtons(
-      buttonCluster,
-      "high-visibility",
-      true
-    );
+    const buttons = this.getFooterButtons(buttonCluster);
 
     return (
       <BaseDialog
@@ -387,20 +383,14 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   }
 
   private getFooterButtons(
-    buttonCluster: DialogButtonDef[] | undefined,
-    primaryStyleType: ButtonProps["styleType"] = "cta",
-    noCoreButtonClasses: boolean = false
+    buttonCluster: DialogButtonDef[] | undefined
   ): React.ReactNode[] | undefined {
     if (buttonCluster === undefined) return undefined;
 
     const buttons: React.ReactNode[] = [];
     buttonCluster.forEach((button: DialogButtonDef, index: number) => {
       let buttonText = "";
-      let buttonClass = classnames(
-        !noCoreButtonClasses && "core-dialog-button",
-        !noCoreButtonClasses && `dialog-button-${button.type}`,
-        button.className
-      );
+      let buttonClass = classnames(button.className);
       let usePrimaryStyleType = false;
 
       switch (button.type) {
@@ -449,7 +439,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         <Button
           className={buttonClass}
           disabled={button.disabled}
-          styleType={usePrimaryStyleType ? primaryStyleType : undefined}
+          styleType={usePrimaryStyleType ? "high-visibility" : undefined}
           key={index.toString()}
           onClick={button.onClick}
         >
