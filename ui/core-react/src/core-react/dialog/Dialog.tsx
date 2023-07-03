@@ -15,7 +15,6 @@ import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
 import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
-import type { ButtonProps } from "@itwin/itwinui-react";
 import { Dialog as BaseDialog } from "@itwin/itwinui-react";
 import { Button } from "@itwin/itwinui-react";
 
