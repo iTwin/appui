@@ -165,6 +165,15 @@ function WidgetSelect({
         ...panelDef.widgetDefs.map((w) => ({ label: w.id, value: w.id }))
       );
     }
+
+    const toolSettings = frontstageDef.toolSettings;
+    if (toolSettings) {
+      newOptions.push({
+        label: toolSettings.id,
+        value: toolSettings.id,
+      });
+    }
+
     setOptions(newOptions);
   }, [frontstageDef]);
   return (
