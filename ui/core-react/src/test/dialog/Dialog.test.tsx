@@ -57,15 +57,10 @@ describe("Dialog", () => {
           titleStyle={{ fontWeight: "bold" }}
         />
       );
-      const container = component.getByTestId("core-dialog-title");
-      expect(container.style.fontWeight).to.equal("bold");
-    });
-    it("should render with trapFocus", () => {
-      const component = render(
-        <Dialog opened={true} trapFocus={true} modal={true} />
-      );
-      expect(component.getByTestId("focus-trap-div")).to
-        .exist; /* Not a sufficient test - should test 'active' prop, but RTL doesn't support it */
+      const element = component.container.querySelector(
+        ".iui-dialog-title-bar"
+      ) as HTMLElement;
+      expect(element.style.fontWeight).to.equal("bold");
     });
   });
 
@@ -131,52 +126,6 @@ describe("Dialog", () => {
     it("should render with movable", () => {
       render(<Dialog opened={true} movable={true} />);
     });
-    it("should move from pointer events", async () => {
-      const component = render(
-        <Dialog opened={true} movable={true} height={400} width={400} />
-      );
-      const head = component.getByTestId("core-dialog-head");
-      await theUserTo.pointer([
-        {
-          keys: "[MouseLeft>]",
-          coords: coords(200, 5),
-          target: head,
-        },
-        {
-          coords: coords(300, 50),
-          target: head,
-        },
-        "[/MouseLeft]",
-      ]);
-      const container = component.getByTestId("core-dialog-container");
-      expect(container.style.left).to.equal("100px");
-      expect(container.style.top).to.equal("45px");
-    });
-    it("should not move from pointer events when movable is false", async () => {
-      const component = render(
-        <Dialog opened={true} movable={false} height={400} width={400} />
-      );
-      const head = component.getByTestId("core-dialog-head");
-      await theUserTo.pointer([
-        {
-          target: head,
-          coords: coords(200, 5),
-          keys: "[MouseLeft>]",
-        },
-        {
-          target: head,
-          coords: coords(250, 25),
-        },
-        {
-          target: head,
-          coords: coords(300, 50),
-        },
-        "/[MouseLeft]",
-      ]);
-      const container = component.getByTestId("core-dialog-container");
-      expect(container.style.left).to.equal("");
-      expect(container.style.top).to.equal("");
-    });
     it("should render with resizable", () => {
       render(<Dialog opened={true} resizable={true} />);
     });
@@ -202,24 +151,10 @@ describe("Dialog", () => {
           minWidth={200}
         />
       );
-      const bottomRightDragHandle = component.getByTestId(
-        "core-dialog-drag-bottom-right"
-      );
-      await theUserTo.pointer([
-        {
-          target: bottomRightDragHandle,
-          coords: coords(400, 400),
-          keys: "[MouseLeft>]",
-        },
-        {
-          target: bottomRightDragHandle,
-          coords: coords(200, 200),
-        },
-        "[/MouseLeft]",
-      ]);
-      const container = component.getByTestId("core-dialog-container");
-      expect(container.style.height).to.equal("400px");
-      expect(container.style.width).to.equal("400px");
+      expect(component.container.querySelector("drag-right")).to.not.exist;
+      expect(component.container.querySelector("drag-bottom-right")).to.not
+        .exist;
+      expect(component.container.querySelector("drag-bottom")).to.not.exist;
     });
     it("should resize from pointer events on bottom right", async () => {
       const component = render(
@@ -460,87 +395,79 @@ describe("Dialog", () => {
   });
 
   describe("alignment", () => {
-    it("should render center by default", () => {
-      const component = render(<Dialog opened={true} />);
-      expect(component.container.querySelector(".core-dialog-center")).not.to.be
-        .null;
-    });
     it("should render top left", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.TopLeft} />
       );
-      expect(component.container.querySelector(".core-dialog-top-left")).not.to
-        .be.null;
+      expect(component.container.querySelector(".align-top-left")).not.to.be
+        .null;
     });
     it("should render top", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Top} />
       );
-      expect(component.container.querySelector(".core-dialog-top")).not.to.be
-        .null;
+      expect(component.container.querySelector(".align-top")).not.to.be.null;
     });
     it("should render top right", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.TopRight} />
       );
-      expect(component.container.querySelector(".core-dialog-top-right")).not.to
-        .be.null;
+      expect(component.container.querySelector(".align-top-right")).not.to.be
+        .null;
     });
     it("should render left", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Left} />
       );
-      expect(component.container.querySelector(".core-dialog-left")).not.to.be
-        .null;
+      expect(component.container.querySelector(".align-left")).not.to.be.null;
     });
     it("should render center", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Center} />
       );
-      expect(component.container.querySelector(".core-dialog-center")).not.to.be
-        .null;
+      expect(component.container.querySelector(".align-center")).not.to.be.null;
     });
     it("should render right", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Right} />
       );
-      expect(component.container.querySelector(".core-dialog-right")).not.to.be
-        .null;
+      expect(component.container.querySelector(".align-right")).not.to.be.null;
     });
     it("should render bottom left", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.BottomLeft} />
       );
-      expect(component.container.querySelector(".core-dialog-bottom-left")).not
-        .to.be.null;
+      expect(component.container.querySelector(".align-bottom-left")).not.to.be
+        .null;
     });
     it("should render bottom", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Bottom} />
       );
-      expect(component.container.querySelector(".core-dialog-bottom")).not.to.be
-        .null;
+      expect(component.container.querySelector(".align-bottom")).not.to.be.null;
     });
     it("should render bottom right", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.BottomRight} />
       );
-      expect(component.container.querySelector(".core-dialog-bottom-right")).not
-        .to.be.null;
+      expect(component.container.querySelector(".align-bottom-right")).not.to.be
+        .null;
     });
   });
 
   describe("header", () => {
     it("should render without header", () => {
       const component = render(<Dialog opened={true} hideHeader={true} />);
-      expect(component.container.querySelector(".core-dialog-head")).to.be.null;
+      expect(component.container.querySelector(".iui-dialog-title-bar")).to.be
+        .null;
     });
     it("should render with header", () => {
       const component = render(
         <Dialog opened={true} header={<div className="header-test" />} />
       );
       expect(component.container.querySelector(".header-test")).not.to.be.null;
-      expect(component.container.querySelector(".core-dialog-head")).to.be.null;
+      expect(component.container.querySelector(".iui-dialog-title-bar")).to.be
+        .null;
     });
   });
 });

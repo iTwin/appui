@@ -69,7 +69,7 @@ describe("ColorPickerDialog", () => {
         />
       );
       const cancelButton = wrapper.container.querySelector(
-        "button.core-dialog-button.dialog-button-cancel"
+        "button.iui-button"
       ) as HTMLElement;
       expect(cancelButton).not.to.be.null;
       fireEvent.click(cancelButton);
@@ -94,7 +94,7 @@ describe("ColorPickerDialog", () => {
         />
       );
       const okButton = wrapper.container.querySelector(
-        'button.core-dialog-button.dialog-button-ok[data-iui-variant="cta"]'
+        'button.iui-button[data-iui-variant="high-visibility"]'
       ) as HTMLElement;
       expect(okButton).not.to.be.null;
       fireEvent.click(okButton);
@@ -137,7 +137,7 @@ describe("ColorPickerDialog", () => {
       fireEvent.click(colorButton);
 
       const okButton = wrapper.container.querySelector(
-        'button.core-dialog-button.dialog-button-ok[data-iui-variant="cta"]'
+        'button.iui-button[data-iui-variant="high-visibility"]'
       ) as HTMLElement;
       fireEvent.click(okButton);
       expect(spyOnOK).to.be.calledOnce;
