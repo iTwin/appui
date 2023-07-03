@@ -1385,8 +1385,8 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
       if (isFrontstageStateSettingResult(settingResult)) {
         const setting = settingResult.setting;
         if (
-          setting.version >= version &&
-          setting.stateVersion >= stateVersion
+          setting.version === version &&
+          setting.stateVersion === stateVersion
         ) {
           const restored = restoreNineZoneState(
             frontstageDef,
