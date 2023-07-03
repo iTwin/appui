@@ -66,6 +66,12 @@ class BadGroupFrontstage extends FrontstageProvider {
   }
 }
 
+const defaultFrontstageConfig: FrontstageConfig = {
+  id: "test-frontstage",
+  contentGroup: TestUtils.TestContentGroup1,
+  version: 1,
+};
+
 describe("FrontstageDef", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(
     window,
@@ -262,10 +268,7 @@ describe("FrontstageDef", () => {
   it("should activate a widget def", async () => {
     const def = new FrontstageDef();
     await def.initializeFromConfig({
-      id: "old",
-      version: 1,
-      usage: "General",
-      contentGroup: TestUtils.TestContentGroup2,
+      ...defaultFrontstageConfig,
       rightPanel: {
         sections: {
           start: [
@@ -289,6 +292,32 @@ describe("FrontstageDef", () => {
     // __PUBLISH_EXTRACT_END__
 
     expect(spy).to.calledOnceWith();
+  });
+
+  describe("findWidgetDef", () => {
+    it("should return tool settings", async () => {
+      const frontstage = new FrontstageDef();
+      await frontstage.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        toolSettings: {
+          id: "test-tool-settings-widget",
+        },
+      });
+      const widget = frontstage.findWidgetDef("test-tool-settings-widget");
+      expect(widget?.id).to.eq("test-tool-settings-widget");
+    });
+
+    it("should return status bar", async () => {
+      const frontstage = new FrontstageDef();
+      await frontstage.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        statusBar: {
+          id: "test-status-bar-widget",
+        },
+      });
+      const widget = frontstage.findWidgetDef("test-status-bar-widget");
+      expect(widget?.id).to.eq("test-status-bar-widget");
+    });
   });
 
   describe("restoreLayout", () => {

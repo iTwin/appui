@@ -1100,7 +1100,8 @@ export class FrontstageDef {
         yield widgetDef;
       }
     }
-
+    if (this.toolSettings) yield this.toolSettings;
+    if (this.statusBar) yield this.statusBar;
     return undefined;
   }
 
