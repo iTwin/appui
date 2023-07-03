@@ -6,16 +6,20 @@
  * @module Base
  */
 
-/** @internal */
-export const toolSettingsTabId = "nz-tool-settings-tab";
+import type { TabState } from "./TabState";
 
 /** @internal */
-export interface DockedToolSettingsState {
+export interface CommonToolSettingsState {
+  readonly tabId: TabState["id"];
+}
+
+/** @internal */
+export interface DockedToolSettingsState extends CommonToolSettingsState {
   readonly type: "docked";
 }
 
 /** @internal */
-export interface WidgetToolSettingsState {
+export interface WidgetToolSettingsState extends CommonToolSettingsState {
   readonly type: "widget";
 }
 

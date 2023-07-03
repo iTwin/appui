@@ -6,13 +6,13 @@ import * as React from "react";
 import { expect } from "chai";
 import { render } from "@testing-library/react";
 import {
+  addDockedToolSettings,
   addFloatingWidget,
   addPanelWidget,
   addTab,
   createNineZoneState,
   PanelSideContext,
   TabBarButtons,
-  toolSettingsTabId,
   WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
@@ -52,7 +52,8 @@ describe("TabBarButtons", () => {
 
   it("should render Dock button in floating ToolSettings", () => {
     let state = createNineZoneState();
-    state = addFloatingWidget(state, "fw1", [toolSettingsTabId]);
+    state = addDockedToolSettings(state, "ts");
+    state = addFloatingWidget(state, "fw1", ["ts"]);
     const wrapper = render(
       <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="fw1">

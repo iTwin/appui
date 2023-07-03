@@ -54,7 +54,6 @@ import {
   panelSides,
   removeTab,
   removeTabFromWidget,
-  toolSettingsTabId,
   WidgetPanels,
 } from "@itwin/appui-layout-react";
 import type {
@@ -679,9 +678,9 @@ function hideWidgets(
  */
 export function removeMissingWidgets(
   frontstageDef: FrontstageDef,
-  initialState: NineZoneState
+  state: NineZoneState
 ): NineZoneState {
-  let state = initialState;
+  const toolSettingsTabId = state.toolSettings?.tabId;
   for (const [, tab] of Object.entries(state.tabs)) {
     if (tab.id === toolSettingsTabId) continue;
     const widgetDef = frontstageDef.findWidgetDef(tab.id);
@@ -866,36 +865,35 @@ export function initializeNineZoneState(
     frontstageDef,
     StagePanelLocation.Bottom
   );
-  nineZone = produce(nineZone, (stateDraft) => {
-    for (const [, panel] of Object.entries(stateDraft.panels)) {
+  nineZone = produce(nineZone, (draft) => {
+    for (const [, panel] of Object.entries(draft.panels)) {
       const expanded = panel.widgets.find(
-        (widgetId) => stateDraft.widgets[widgetId].minimized === false
+        (widgetId) => draft.widgets[widgetId].minimized === false
       );
       const firstWidget =
-        panel.widgets.length > 0
-          ? stateDraft.widgets[panel.widgets[0]]
-          : undefined;
+        panel.widgets.length > 0 ? draft.widgets[panel.widgets[0]] : undefined;
       // istanbul ignore next
       if (!expanded && firstWidget) {
         firstWidget.minimized = false;
       }
     }
-    stateDraft.panels.left.collapsed = isPanelCollapsed(
+    draft.panels.left.collapsed = isPanelCollapsed(
       frontstageDef.leftPanel?.panelState
     );
-    stateDraft.panels.right.collapsed = isPanelCollapsed(
+    draft.panels.right.collapsed = isPanelCollapsed(
       frontstageDef.rightPanel?.panelState
     );
-    stateDraft.panels.top.collapsed = isPanelCollapsed(
+    draft.panels.top.collapsed = isPanelCollapsed(
       frontstageDef.topPanel?.panelState
     );
-    stateDraft.panels.bottom.collapsed = isPanelCollapsed(
+    draft.panels.bottom.collapsed = isPanelCollapsed(
       frontstageDef.bottomPanel?.panelState
     );
 
+    const toolSettingsTabId = draft.toolSettings?.tabId;
     const toolSettingsWidgetDef = frontstageDef.toolSettings;
-    if (toolSettingsWidgetDef) {
-      const toolSettingsTab = stateDraft.tabs[toolSettingsTabId];
+    if (toolSettingsWidgetDef && toolSettingsTabId) {
+      const toolSettingsTab = draft.tabs[toolSettingsTabId];
       toolSettingsTab.preferredPanelWidgetSize =
         toolSettingsWidgetDef.preferredPanelSize;
     }
@@ -1024,6 +1022,7 @@ export function packNineZoneState(state: NineZoneState): SavedNineZoneState {
     ...state,
     tabs: {},
   };
+  const toolSettingsTabId = state.toolSettings?.tabId;
   packed = produce(packed, (draft) => {
     for (const [, tab] of Object.entries(state.tabs)) {
       if (tab.id === toolSettingsTabId) continue;
@@ -1620,6 +1619,8 @@ export function useFrontstageManager(
       const label = useToolAsToolSettingsLabel
         ? IModelApp.tools.find(toolId)?.flyover || defaultLabel
         : defaultLabel;
+      const toolSettingsTabId = frontstageDef.nineZoneState.toolSettings?.tabId;
+      if (!toolSettingsTabId) return;
       frontstageDef.nineZoneState = setWidgetLabel(
         frontstageDef.nineZoneState,
         toolSettingsTabId,

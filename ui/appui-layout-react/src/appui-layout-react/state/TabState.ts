@@ -70,6 +70,29 @@ export function addTab(
   });
 }
 
+/** Adds a docked tool settings `tab`.
+ * @internal
+ */
+export function addDockedToolSettings(
+  state: NineZoneState,
+  tabId: TabState["id"],
+  tabArgs?: Partial<TabState>
+): NineZoneState {
+  if (state.toolSettings)
+    throw new UiError(category, "Tool settings already exist");
+  state = addTab(state, tabId, {
+    label: "Tool Settings",
+    allowedPanelTargets: ["bottom", "left", "right"],
+    ...tabArgs,
+  });
+  return produce(state, (stateDraft) => {
+    stateDraft.toolSettings = {
+      tabId,
+      type: "docked",
+    };
+  });
+}
+
 /** Adds an existing `tab` to a specified `widget`.
  * @internal
  */

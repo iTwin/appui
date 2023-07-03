@@ -9,6 +9,7 @@ import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import type { NineZoneDispatch } from "../../appui-layout-react";
 import {
+  addDockedToolSettings,
   addFloatingWidget,
   addTab,
   createLayoutStore,
@@ -19,6 +20,7 @@ import {
   WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
+import produce from "immer";
 
 describe("FloatingWidget", () => {
   it("should render", () => {
@@ -123,13 +125,17 @@ describe("FloatingWidget", () => {
   it("tool settings should NOT have resize handles", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
-    state = addFloatingWidget(
-      state,
-      "toolSettings",
-      ["nz-tool-settings-tab"],
-      undefined,
-      { minimized: true, isFloatingStateWindowResizable: false }
-    );
+    state = addDockedToolSettings(state, "ts");
+    state = produce(state, (draft) => {
+      draft.toolSettings = {
+        tabId: "ts",
+        type: "widget",
+      };
+    });
+    state = addFloatingWidget(state, "toolSettings", ["ts"], undefined, {
+      minimized: true,
+      isFloatingStateWindowResizable: false,
+    });
     const { container } = render(
       <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
         <FloatingWidgetProvider id="toolSettings" />

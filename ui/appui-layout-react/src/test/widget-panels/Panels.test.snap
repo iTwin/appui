@@ -81,7 +81,7 @@ exports[`WidgetPanels should render widget content 1`] = `
         class="nz-panel-section-0 nz-widgetPanels-vertical nz-panel-section-full-size"
       >
         <div
-          class="nz-widget-widget nz-widget-panelWidget nz-fill nz-border-left nz-border-right"
+          class="nz-widget-widget nz-widget-panelWidget nz-fill nz-border-top nz-border-left nz-border-right"
         >
           <div
             class="nz-widget-tabBar nz-separator"

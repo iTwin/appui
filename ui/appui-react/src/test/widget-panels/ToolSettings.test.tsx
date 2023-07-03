@@ -151,6 +151,7 @@ describe("ToolSettingsContent", () => {
       .get(() => <div>Hello World</div>);
     const layout = createLayoutStore({
       toolSettings: {
+        tabId: "ts",
         type: "widget",
       },
     });

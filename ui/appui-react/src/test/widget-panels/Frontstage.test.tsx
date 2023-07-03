@@ -21,7 +21,6 @@ import {
   createLayoutStore,
   createNineZoneState,
   getUniqueId,
-  toolSettingsTabId,
 } from "@itwin/appui-layout-react";
 import { createDraggedTabState } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/state/internal/TabStateHelpers";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
@@ -907,12 +906,12 @@ describe("Frontstage local storage wrapper", () => {
         it("should use localized default name when false", () => {
           const frontstageDef = new FrontstageDef();
           let state = createNineZoneState();
-          state = addPanelWidget(state, "left", "w1", [toolSettingsTabId]);
+          state = addPanelWidget(state, "left", "w1", ["ts"]);
           frontstageDef.nineZoneState = state;
 
           renderHook(() => useFrontstageManager(frontstageDef, false));
 
-          frontstageDef.nineZoneState?.tabs[toolSettingsTabId].label.should.eq(
+          frontstageDef.nineZoneState?.tabs.ts.label.should.eq(
             "widget.labels.toolSettings"
           );
         });
@@ -920,12 +919,12 @@ describe("Frontstage local storage wrapper", () => {
         it("should use localized default name when tool or flyover is not defined", () => {
           const frontstageDef = new FrontstageDef();
           let state = createNineZoneState();
-          state = addPanelWidget(state, "left", "w1", [toolSettingsTabId]);
+          state = addPanelWidget(state, "left", "w1", ["ts"]);
           frontstageDef.nineZoneState = state;
 
           renderHook(() => useFrontstageManager(frontstageDef, true));
 
-          frontstageDef.nineZoneState?.tabs[toolSettingsTabId].label.should.eq(
+          frontstageDef.nineZoneState?.tabs.ts.label.should.eq(
             "widget.labels.toolSettings"
           );
         });
@@ -933,7 +932,7 @@ describe("Frontstage local storage wrapper", () => {
         it("should use tool label when true", () => {
           const frontstageDef = new FrontstageDef();
           let state = createNineZoneState();
-          state = addPanelWidget(state, "left", "w1", [toolSettingsTabId]);
+          state = addPanelWidget(state, "left", "w1", ["ts"]);
           frontstageDef.nineZoneState = state;
           const fakeActiveToolId = "activeTool1";
           const fakeToolLabel = "activeToolLabel";
@@ -948,9 +947,7 @@ describe("Frontstage local storage wrapper", () => {
           renderHook(() => useFrontstageManager(frontstageDef, true));
 
           findSpy.calledWith(fakeActiveToolId).should.be.true;
-          frontstageDef.nineZoneState?.tabs[toolSettingsTabId].label.should.eq(
-            fakeToolLabel
-          );
+          frontstageDef.nineZoneState?.tabs.ts.label.should.eq(fakeToolLabel);
 
           sinon.restore();
         });
@@ -1012,9 +1009,7 @@ describe("Frontstage local storage wrapper", () => {
         });
         sinon.stub(frontstageDef, "toolSettings").get(() => widgetDef);
         const sut = initializeNineZoneState(frontstageDef);
-        sut.tabs[toolSettingsTabId].preferredPanelWidgetSize!.should.eq(
-          "fit-content"
-        );
+        sut.tabs.ts.preferredPanelWidgetSize!.should.eq("fit-content");
       });
 
       it("should add panel zone widgets", () => {

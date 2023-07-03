@@ -17,7 +17,6 @@ import {
 } from "../widget-panels/Panel";
 import { PinToggle } from "./PinToggle";
 import { PopoutToggle } from "./PopoutToggle";
-import { toolSettingsTabId } from "../state/ToolSettingsState";
 import { useLayout } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
 
@@ -43,6 +42,7 @@ export function TabBarButtons() {
 
 function useIsToolSettingsTab() {
   const activeTabId = useActiveTabId();
+  const toolSettingsTabId = useLayout((state) => state.toolSettings?.tabId);
   return activeTabId === toolSettingsTabId;
 }
 

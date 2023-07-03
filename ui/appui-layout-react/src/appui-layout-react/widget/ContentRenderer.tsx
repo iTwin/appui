@@ -19,7 +19,6 @@ import {
   useContainersStore,
   WidgetContentManagerContext,
 } from "./ContentManager";
-import { toolSettingsTabId } from "../state/ToolSettingsState";
 import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
@@ -29,6 +28,7 @@ export function WidgetContentRenderers() {
   const tabIds = useLayout((state) => {
     return Object.keys(state.tabs);
   }, true);
+  const toolSettingsTabId = useLayout((state) => state.toolSettings?.tabId);
   return (
     <>
       {tabIds.map((tabId) => {
