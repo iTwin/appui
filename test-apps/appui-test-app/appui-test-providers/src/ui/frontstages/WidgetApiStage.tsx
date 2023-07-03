@@ -143,6 +143,26 @@ export class WidgetApiStageContentGroupProvider extends ContentGroupProvider {
   }
 }
 
+/** Tool settings widget can be disabled by providing an URL param `toolSettings=0`. */
+class WidgetApiFrontstage extends StandardFrontstageProvider {
+  public override frontstageConfig() {
+    const config = super.frontstageConfig();
+    const urlParams = new URLSearchParams(window.location.search);
+    const noToolSettings = urlParams.get("toolSettings") === "0";
+    const toolSettings = noToolSettings
+      ? undefined
+      : {
+          id: "WidgetApi:ToolSettings",
+        };
+
+    const updatedConfig: FrontstageConfig = {
+      ...config,
+      toolSettings,
+    };
+    return updatedConfig;
+  }
+}
+
 export class WidgetApiStage {
   public static stageId = "appui-test-providers:WidgetApi";
 
@@ -189,7 +209,7 @@ export class WidgetApiStage {
     };
 
     UiFramework.frontstages.addFrontstageProvider(
-      new StandardFrontstageProvider(widgetApiStageProps)
+      new WidgetApiFrontstage(widgetApiStageProps)
     );
     this.registerToolProviders(localizationNamespace);
   }
