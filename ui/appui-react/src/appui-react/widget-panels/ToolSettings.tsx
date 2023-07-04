@@ -84,42 +84,26 @@ export function useHorizontalToolSettingNodes() {
     InternalFrontstageManager.activeToolSettingsProvider
       ?.horizontalToolSettingNodes
   );
+  const [emptySettings] = React.useState(() => [EmptyToolSettingsEntry()]);
   React.useEffect(() => {
-    const handleToolActivatedEvent = () => {
+    return UiFramework.frontstages.onToolActivatedEvent.addListener(() => {
       const nodes =
         InternalFrontstageManager.activeToolSettingsProvider
           ?.horizontalToolSettingNodes;
-      if (!nodes || nodes.length === 0) setSettings([EmptyToolSettingsEntry()]);
-      else setSettings(nodes);
-    };
-    UiFramework.frontstages.onToolActivatedEvent.addListener(
-      handleToolActivatedEvent
-    );
-    return () => {
-      UiFramework.frontstages.onToolActivatedEvent.removeListener(
-        handleToolActivatedEvent
-      );
-    };
+      setSettings(nodes);
+    });
   }, [setSettings]);
 
   React.useEffect(() => {
-    const handleToolSettingsReloadEvent = () => {
+    return UiFramework.frontstages.onToolSettingsReloadEvent.addListener(() => {
       const nodes =
         InternalFrontstageManager.activeToolSettingsProvider
           ?.horizontalToolSettingNodes;
-      if (!nodes || nodes.length === 0) setSettings([EmptyToolSettingsEntry()]);
-      else setSettings(nodes);
-    };
-    UiFramework.frontstages.onToolSettingsReloadEvent.addListener(
-      handleToolSettingsReloadEvent
-    );
-    return () => {
-      UiFramework.frontstages.onToolSettingsReloadEvent.removeListener(
-        handleToolSettingsReloadEvent
-      );
-    };
+      setSettings(nodes);
+    });
   }, [setSettings]);
 
+  if (!settings || settings.length === 0) return emptySettings;
   return settings;
 }
 
