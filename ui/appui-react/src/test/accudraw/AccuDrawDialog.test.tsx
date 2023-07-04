@@ -64,7 +64,9 @@ describe("AccuDrawDialog", () => {
       <AccuDrawDialog opened={true} dialogId="accudraw" onClose={spy} />
     );
 
-    const closeButton = component.getByTestId("core-dialog-close");
+    const closeButton = component.container.querySelector(
+      'button.iui-button[aria-label="Close"]'
+    ) as HTMLElement;
     fireEvent.click(closeButton);
     spy.calledOnce.should.true;
   });
