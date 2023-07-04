@@ -4,7 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 import { Rectangle } from "@itwin/core-react";
 import {
+  addDockedToolSettings,
+  addFloatingWidget,
+  addTab,
+  addWidgetToolSettings,
   createLayoutStore,
+  createNineZoneState,
   DragManager,
   DragManagerContext,
   NineZoneProvider,
@@ -58,10 +63,13 @@ describe("WidgetPanelsToolSettings", () => {
       .stub(InternalFrontstageManager, "activeToolSettingsProvider")
       .get(() => undefined);
     sinon.stub(frontstageDef, "toolSettings").get(() => toolSettings);
+    let state = createNineZoneState();
+    state = addTab(state, "ts");
+    state = addDockedToolSettings(state, "ts");
     const { container } = render(
       <NineZoneProvider
         dispatch={sinon.spy()}
-        layout={createLayoutStore()}
+        layout={createLayoutStore(state)}
         measure={sinon.spy()}
       >
         <WidgetPanelsToolSettings />
@@ -149,12 +157,11 @@ describe("ToolSettingsContent", () => {
     sinon
       .stub(activeToolSettingsProvider, "toolSettingsNode")
       .get(() => <div>Hello World</div>);
-    const layout = createLayoutStore({
-      toolSettings: {
-        tabId: "ts",
-        type: "widget",
-      },
-    });
+    let state = createNineZoneState();
+    state = addTab(state, "ts");
+    state = addFloatingWidget(state, "fw1", ["ts"]);
+    state = addWidgetToolSettings(state, "ts");
+    const layout = createLayoutStore(state);
     const { container } = render(
       <NineZoneProvider
         layout={layout}

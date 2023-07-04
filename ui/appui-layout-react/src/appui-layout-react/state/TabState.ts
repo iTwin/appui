@@ -23,6 +23,7 @@ import {
   setWidgetActiveTabId,
   updateWidgetState,
 } from "./internal/WidgetStateHelpers";
+import { removeTabFromToolSettings } from "./ToolSettingsState";
 
 /** `WidgetDef` is equivalent structure in `appui-react`.
  * @internal
@@ -67,29 +68,6 @@ export function addTab(
   };
   return produce(state, (stateDraft) => {
     stateDraft.tabs[id] = tab;
-  });
-}
-
-/** Adds a docked tool settings `tab`.
- * @internal
- */
-export function addDockedToolSettings(
-  state: NineZoneState,
-  tabId: TabState["id"],
-  tabArgs?: Partial<TabState>
-): NineZoneState {
-  if (state.toolSettings)
-    throw new UiError(category, "Tool settings already exist");
-  state = addTab(state, tabId, {
-    label: "Tool Settings",
-    allowedPanelTargets: ["bottom", "left", "right"],
-    ...tabArgs,
-  });
-  return produce(state, (stateDraft) => {
-    stateDraft.toolSettings = {
-      tabId,
-      type: "docked",
-    };
   });
 }
 
@@ -172,6 +150,7 @@ export function removeTab(
   if (!(tabId in state.tabs)) throw new UiError(category, "Tab does not exist");
 
   state = removeTabFromWidget(state, tabId);
+  state = removeTabFromToolSettings(state, tabId);
   return produce(state, (draft) => {
     delete draft.tabs[tabId];
   });

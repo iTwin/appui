@@ -6,10 +6,10 @@ import * as React from "react";
 import { expect } from "chai";
 import { render } from "@testing-library/react";
 import {
-  addDockedToolSettings,
   addFloatingWidget,
   addPanelWidget,
   addTab,
+  addWidgetToolSettings,
   createNineZoneState,
   PanelSideContext,
   TabBarButtons,
@@ -52,8 +52,9 @@ describe("TabBarButtons", () => {
 
   it("should render Dock button in floating ToolSettings", () => {
     let state = createNineZoneState();
-    state = addDockedToolSettings(state, "ts");
+    state = addTab(state, "ts");
     state = addFloatingWidget(state, "fw1", ["ts"]);
+    state = addWidgetToolSettings(state, "ts");
     const wrapper = render(
       <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="fw1">

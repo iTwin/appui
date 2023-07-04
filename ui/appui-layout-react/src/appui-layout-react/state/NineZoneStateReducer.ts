@@ -23,7 +23,12 @@ import { getWidgetPanelSectionId, insertPanelWidget } from "./PanelState";
 import type { NineZoneState } from "./NineZoneState";
 import type { FloatingWidgetHomeState } from "./WidgetState";
 import { addFloatingWidget, floatingWidgetBringToFront } from "./WidgetState";
-import { isDockedToolSettingsState } from "./ToolSettingsState";
+import {
+  addDockedToolSettings,
+  addWidgetToolSettings,
+  isDockedToolSettingsState,
+  removeTabFromToolSettings,
+} from "./ToolSettingsState";
 import { updatePanelState } from "./internal/PanelStateHelpers";
 import { createDraggedTabState } from "./internal/TabStateHelpers";
 import {
@@ -507,32 +512,23 @@ export function NineZoneStateReducer(
 
       const { newFloatingWidgetId } = action;
       const tabId = state.toolSettings.tabId;
-      state = produce(state, (draft) => {
-        draft.toolSettings = {
-          tabId,
-          type: "widget",
-        };
-      });
+      state = removeTabFromToolSettings(state, tabId);
 
       const tab = state.tabs[tabId];
       const size = tab.preferredFloatingWidgetSize || {
         height: 200,
         width: 300,
       };
-      return addFloatingWidget(state, newFloatingWidgetId, [tabId], {
+      state = addFloatingWidget(state, newFloatingWidgetId, [tabId], {
         bounds: Rectangle.createFromSize(size).toProps(),
       });
+      return addWidgetToolSettings(state, tabId);
     }
     case "TOOL_SETTINGS_DOCK": {
       if (!state.toolSettings) return state;
       const tabId = state.toolSettings.tabId;
-      state = removeTabFromWidget(state, tabId);
-      return produce(state, (draft) => {
-        draft.toolSettings = {
-          tabId,
-          type: "docked",
-        };
-      });
+      state = removeTabFromToolSettings(state, tabId);
+      return addDockedToolSettings(state, tabId);
     }
   }
   return state;

@@ -12,6 +12,7 @@ import {
   addDockedToolSettings,
   addFloatingWidget,
   addTab,
+  addWidgetToolSettings,
   createLayoutStore,
   createNineZoneState,
   FloatingWidgetProvider,
@@ -125,17 +126,12 @@ describe("FloatingWidget", () => {
   it("tool settings should NOT have resize handles", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
-    state = addDockedToolSettings(state, "ts");
-    state = produce(state, (draft) => {
-      draft.toolSettings = {
-        tabId: "ts",
-        type: "widget",
-      };
-    });
+    state = addTab(state, "ts");
     state = addFloatingWidget(state, "toolSettings", ["ts"], undefined, {
       minimized: true,
       isFloatingStateWindowResizable: false,
     });
+    state = addWidgetToolSettings(state, "ts");
     const { container } = render(
       <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
         <FloatingWidgetProvider id="toolSettings" />

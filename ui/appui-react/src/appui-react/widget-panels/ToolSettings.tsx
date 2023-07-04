@@ -17,7 +17,6 @@ import {
 } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 
 /** Defines a ToolSettings property entry.
  * @public
@@ -52,10 +51,8 @@ function TsLabel({ children }: { children: React.ReactNode }) {
 
 /** @internal */
 export function WidgetPanelsToolSettings() {
-  const frontstageDef = useActiveFrontstageDef();
   const toolSettingsType = useLayout((state) => state.toolSettings?.type);
-  const toolSettings = frontstageDef?.toolSettings;
-  if (!toolSettings || toolSettingsType === "widget") return null;
+  if (!toolSettingsType || toolSettingsType === "widget") return null;
   return <ToolSettingsDockedContent />;
 }
 
@@ -202,7 +199,7 @@ export function useToolSettingsNode() {
 export function ToolSettingsContent() {
   const toolSettingsType = useLayout((state) => state.toolSettings?.type);
   // This is needed to remount underlying components tree when going into widget state.
-  if (toolSettingsType === "docked") return null;
+  if (!toolSettingsType || toolSettingsType === "docked") return null;
   return <ToolSettingsWidgetContent />;
 }
 
