@@ -252,9 +252,7 @@ describe("QuantityFormatSettingsPage", () => {
     fireEvent.click(categoryEntry!);
     await TestUtils.flushAsyncOperations();
 
-    const yesButton = wrapper.container.querySelector(
-      "button.dialog-button-yes"
-    );
+    const yesButton = wrapper.getByText("dialog.yes").parentElement;
     fireEvent.click(yesButton!);
     await TestUtils.flushAsyncOperations();
     wrapper.unmount();
@@ -305,7 +303,7 @@ describe("QuantityFormatSettingsPage", () => {
     fireEvent.click(categoryEntry!);
     await TestUtils.flushAsyncOperations();
 
-    const noButton = wrapper.container.querySelector("button.dialog-button-no");
+    const noButton = wrapper.getByText("dialog.no").parentElement;
     fireEvent.click(noButton!);
     await TestUtils.flushAsyncOperations();
 
@@ -367,7 +365,7 @@ describe("QuantityFormatSettingsPage", () => {
     });
 
     await screen.findByText(/dialog\.no/);
-    const noButton = wrapper.container.querySelector("button.dialog-button-no");
+    const noButton = wrapper.getByText("dialog.no").parentElement;
     fireEvent.click(noButton!);
 
     wrapper.unmount();
