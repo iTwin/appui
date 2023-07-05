@@ -1,0 +1,20 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix empty tool settings message.",
+      "type": "none"
+    },
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix `FrontstageDef.findWidgetDef` to correctly return `toolSettings` and `statusBar` widgets.",
+      "type": "none"
+    },
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix `WidgetDef.setWidgetState` to correctly hide and show tool settings.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
