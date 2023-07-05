@@ -167,37 +167,12 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       true
     );
     this._parentDocument.removeEventListener("keyup", this._handleKeyUp, true);
-    parentWindow.addEventListener("resize", this._handleAppWindowResize);
   }
-
-  /** Keep title bar of movable Dialog at least partially visible */
-  // istanbul ignore next
-  private _handleAppWindowResize = (): void => {
-    if (!this._containerRef.current || !this.props.movable) return;
-
-    const parentWindow = this.getParentWindow();
-    const { x, y } = this.state;
-    let newX: number | undefined;
-    let newY: number | undefined;
-
-    if (undefined !== y && undefined !== x) {
-      if (y > parentWindow.innerHeight - 32)
-        newY = parentWindow.innerHeight - 32;
-      if (x > parentWindow.innerWidth - 32) newX = parentWindow.innerWidth - 32;
-    }
-
-    if (newX !== undefined || newY !== undefined)
-      this.setState({
-        x: newX !== undefined ? newX : x,
-        y: newY !== undefined ? newY : y,
-      });
-  };
 
   public override componentDidMount(): void {
     const parentWindow = this.getParentWindow();
     parentWindow.addEventListener("pointerup", this._handlePointerUp, true);
     this._parentDocument.addEventListener("keyup", this._handleKeyUp, true);
-    parentWindow.addEventListener("resize", this._handleAppWindowResize);
   }
 
   // istanbul ignore next

@@ -463,16 +463,16 @@ describe("Dialog", () => {
       const element = component.getByTestId("core-dialog-container");
       expect(element.style.left).to.equal("50px");
       expect(element.style.top).to.equal("0px");
-      expect(element.style.transformBox).to.equal("");
+      expect(element.style.transform).to.equal("none");
     });
-    it("should render with offset and without alignment", () => {
+    it("should render with offset and ignore alignment", () => {
       const component = render(
         <Dialog opened={true} y={50} alignment={DialogAlignment.BottomRight} />
       );
       const element = component.getByTestId("core-dialog-container");
       expect(element.style.left).to.equal("0px");
       expect(element.style.top).to.equal("50px");
-      expect(element.style.transformBox).to.equal("");
+      expect(element.style.transform).to.equal("none");
     });
   });
 
