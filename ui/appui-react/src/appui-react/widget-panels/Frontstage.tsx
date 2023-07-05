@@ -851,7 +851,7 @@ function getPanelMaxSize(
 }
 
 /** @internal */
-export const stateVersion = 13; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
+export const stateVersion = 14; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
 
 /** @internal */
 export function initializeNineZoneState(
