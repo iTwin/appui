@@ -17,6 +17,7 @@ import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
 import { Dialog as BaseDialog } from "@itwin/itwinui-react";
 import { Button } from "@itwin/itwinui-react";
+import type { ButtonProps } from "@itwin/itwinui-react";
 
 // cspell:ignore focustrap
 
@@ -180,7 +181,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     if (containerDiv) this._parentDocument = containerDiv.ownerDocument;
   };
 
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     const {
       opened,
       title,
@@ -251,7 +252,11 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       ...minMaxStyle,
     };
 
-    const buttons = this.getFooterButtons(buttonCluster);
+    const buttons = this.getFooterButtons(
+      buttonCluster,
+      "high-visibility",
+      true
+    );
 
     return (
       <BaseDialog
@@ -349,15 +354,22 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     }
   }
 
-  private getFooterButtons(
-    buttonCluster: DialogButtonDef[] | undefined
+  protected getFooterButtons(
+    buttonCluster: DialogButtonDef[] | undefined,
+    /* istanbul ignore next */ primaryStyleType: ButtonProps["styleType"] = "cta",
+    /* istanbul ignore next */ noCoreButtonClasses: boolean = false
   ): React.ReactNode[] | undefined {
     if (buttonCluster === undefined) return undefined;
 
     const buttons: React.ReactNode[] = [];
     buttonCluster.forEach((button: DialogButtonDef, index: number) => {
       let buttonText = "";
-      let buttonClass = classnames(button.className);
+      // istanbul ignore next
+      let buttonClass = classnames(
+        !noCoreButtonClasses && "core-dialog-button",
+        !noCoreButtonClasses && `dialog-button-${button.type}`,
+        button.className
+      );
       let usePrimaryStyleType = false;
 
       switch (button.type) {
@@ -406,7 +418,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         <Button
           className={buttonClass}
           disabled={button.disabled}
-          styleType={usePrimaryStyleType ? "high-visibility" : undefined}
+          styleType={usePrimaryStyleType ? primaryStyleType : undefined}
           key={index.toString()}
           onClick={button.onClick}
         >
