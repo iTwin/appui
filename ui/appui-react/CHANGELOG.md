@@ -1,6 +1,11 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Tue, 27 Jun 2023 14:50:22 GMT and should not be manually modified.
+This log was last generated on Wed, 05 Jul 2023 07:56:27 GMT and should not be manually modified.
+
+## 4.2.1
+Wed, 05 Jul 2023 07:56:27 GMT
+
+_Version update only_
 
 ## 4.2.0
 Tue, 27 Jun 2023 14:50:22 GMT
