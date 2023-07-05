@@ -62,6 +62,11 @@ describe("Dialog", () => {
       ) as HTMLElement;
       expect(element.style.fontWeight).to.equal("bold");
     });
+    it("should render without inset", () => {
+      const component = render(<Dialog opened={true} inset={false} />);
+      const element = component.getByTestId("core-dialog-container");
+      expect(element.style.padding).to.equal("0px");
+    });
   });
 
   describe("buttons", () => {
@@ -452,6 +457,22 @@ describe("Dialog", () => {
       );
       expect(component.container.querySelector(".align-bottom-right")).not.to.be
         .null;
+    });
+    it("should render with 50px offset from left corner", () => {
+      const component = render(<Dialog opened={true} x={50} />);
+      const element = component.getByTestId("core-dialog-container");
+      expect(element.style.left).to.equal("50px");
+      expect(element.style.top).to.equal("0px");
+      expect(element.style.transformBox).to.equal("");
+    });
+    it("should render with offset and without alignment", () => {
+      const component = render(
+        <Dialog opened={true} y={50} alignment={DialogAlignment.BottomRight} />
+      );
+      const element = component.getByTestId("core-dialog-container");
+      expect(element.style.left).to.equal("0px");
+      expect(element.style.top).to.equal("50px");
+      expect(element.style.transformBox).to.equal("");
     });
   });
 

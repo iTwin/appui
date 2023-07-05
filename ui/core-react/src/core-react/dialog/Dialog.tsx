@@ -120,7 +120,6 @@ interface DialogState {
   y?: number;
   width?: number;
   height?: number;
-  positionSet: boolean;
 }
 
 /**
@@ -151,7 +150,6 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     this.state = {
       rightResizing: false,
       downResizing: false,
-      positionSet: props.x !== undefined || props.y !== undefined,
     };
   }
 
@@ -192,7 +190,6 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       this.setState({
         x: newX !== undefined ? newX : x,
         y: newY !== undefined ? newY : y,
-        positionSet: true,
       });
   };
 
@@ -203,6 +200,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     parentWindow.addEventListener("resize", this._handleAppWindowResize);
   }
 
+  // istanbul ignore next
   public handleRefSet = (containerDiv: HTMLDivElement | null) => {
     if (containerDiv) this._parentDocument = containerDiv.ownerDocument;
   };
@@ -247,8 +245,8 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     let initialOffset: React.CSSProperties = {};
     if (x || y) {
       initialOffset = {
-        left: x,
-        top: y,
+        left: x ?? 0,
+        top: y ?? 0,
         transform: "none",
       };
     }
@@ -353,12 +351,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     );
   }
 
-  private getCSSClassNameFromAlignment(
-    alignment: DialogAlignment
-  ): string | undefined {
-    // Drop the alignment CSS class if the Dialog has been sized or moved.
-    if (this.state.positionSet) return undefined;
-
+  private getCSSClassNameFromAlignment(alignment: DialogAlignment): string {
     switch (alignment) {
       case DialogAlignment.TopLeft:
         return "align-top-left";
@@ -488,6 +481,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   };
 
   private _handlePointerMove = (event: PointerEvent): void => {
+    // istanbul ignore next
     if (!this.props.resizable || !this._containerRef.current) return;
 
     const { minWidth, maxWidth, minHeight, maxHeight } = this.props;

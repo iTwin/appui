@@ -27,7 +27,7 @@ import {
 } from "@itwin/itwinui-icons-react";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
-import { Dialog } from "../dialog/Dialog";
+import { Dialog, DialogAlignment } from "../dialog/Dialog";
 
 /** Properties for the [[MessageBox]] component
  * @public
@@ -92,6 +92,9 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
         className={this.props.className}
         style={this.props.style}
         width={this.props.width}
+        x={50}
+        y={50}
+        alignment={DialogAlignment.Right}
       >
         <MessageContainer
           severity={this.props.severity}
