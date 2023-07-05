@@ -21,6 +21,9 @@ import type { SizeProps } from '@itwin/core-react';
 import { StoreApi } from 'zustand';
 import { UseBoundStore } from 'zustand';
 
+// @internal
+export function addDockedToolSettings(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
+
 // @internal (undocumented)
 export function addFloatingWidget(state: NineZoneState, id: FloatingWidgetState["id"], tabs: WidgetState["tabs"], floatingWidgetArgs?: Partial<FloatingWidgetState>, widgetArgs?: Partial<WidgetState>): NineZoneState;
 
@@ -35,6 +38,9 @@ export function addTab(state: NineZoneState, id: TabState["id"], tabArgs?: Parti
 
 // @internal
 export function addTabToWidget(state: NineZoneState, tabId: TabState["id"], widgetId: WidgetState["id"]): NineZoneState;
+
+// @internal
+export function addWidgetToolSettings(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
 
 // @internal (undocumented)
 export const AnimateDockedToolSettingsContext: React_2.Context<boolean>;
@@ -133,6 +139,12 @@ export function CenterContent(): JSX.Element;
 export const CenterContentNodeContext: React_2.Context<React_2.ReactNode>;
 
 // @internal (undocumented)
+export interface CommonToolSettingsState {
+    // (undocumented)
+    readonly tabId: TabState["id"];
+}
+
+// @internal (undocumented)
 export const ContentNodeContext: React_2.Context<React_2.ReactNode>;
 
 // @internal
@@ -195,7 +207,7 @@ export interface DockedToolSettingsProps extends CommonProps {
 }
 
 // @internal (undocumented)
-export interface DockedToolSettingsState {
+export interface DockedToolSettingsState extends CommonToolSettingsState {
     // (undocumented)
     readonly type: "docked";
 }
@@ -753,7 +765,7 @@ export interface NineZoneState {
     // (undocumented)
     readonly tabs: TabsState;
     // (undocumented)
-    readonly toolSettings: ToolSettingsState;
+    readonly toolSettings: ToolSettingsState | undefined;
     // (undocumented)
     readonly widgets: WidgetsState;
 }
@@ -998,6 +1010,9 @@ export function popoutWidgetToChildWindow(state: NineZoneState, tabId: string, p
 
 // @internal
 export function removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
+
+// @internal
+export function removeTabFromToolSettings(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
 
 // @internal
 export function removeTabFromWidget(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
@@ -1356,9 +1371,6 @@ export interface ToolSettingsOverflowPanelProps extends CommonProps {
 
 // @internal (undocumented)
 export type ToolSettingsState = DockedToolSettingsState | WidgetToolSettingsState;
-
-// @internal (undocumented)
-export const toolSettingsTabId = "nz-tool-settings-tab";
 
 // @internal
 export class Tooltip extends React_2.PureComponent<TooltipProps> {
@@ -1973,7 +1985,7 @@ export interface WidgetTabsEntryContextProviderProps {
 export function WidgetTabsEntryProvider(props: WidgetTabsEntryContextProviderProps): JSX.Element;
 
 // @internal (undocumented)
-export interface WidgetToolSettingsState {
+export interface WidgetToolSettingsState extends CommonToolSettingsState {
     // (undocumented)
     readonly type: "widget";
 }

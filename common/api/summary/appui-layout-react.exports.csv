@@ -1,10 +1,12 @@
 sep=;
 Release Tag;API Item
+internal;addDockedToolSettings(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;addFloatingWidget(state: NineZoneState, id: FloatingWidgetState["id"], tabs: WidgetState["tabs"], floatingWidgetArgs?: Partial
 internal;addPanelWidget(state: NineZoneState, side: PanelSide, id: WidgetState["id"], tabs: WidgetState["tabs"], widgetArgs?: Partial
 internal;addPopoutWidget(state: NineZoneState, id: PopoutWidgetState["id"], tabs: WidgetState["tabs"], popoutWidgetArgs?: Partial
 internal;addTab(state: NineZoneState, id: TabState["id"], tabArgs?: Partial
 internal;addTabToWidget(state: NineZoneState, tabId: TabState["id"], widgetId: WidgetState["id"]): NineZoneState
+internal;addWidgetToolSettings(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;AnimateDockedToolSettingsContext: React_2.Context
 internal;AppButton 
 internal;AppButtonProps 
@@ -21,6 +23,7 @@ internal;BackstageSeparator
 internal;BottomPanelSide = "bottom"
 internal;CenterContent(): JSX.Element
 internal;CenterContentNodeContext: React_2.Context
+internal;CommonToolSettingsState
 internal;ContentNodeContext: React_2.Context
 internal;convertAllPopupWidgetContainersToFloating(state: NineZoneState): NineZoneState
 internal;createLayoutStore(args?: Partial
@@ -37,7 +40,7 @@ internal;DockedToolSettingsHandleProps
 internal;DockedToolSettingsOverflow: React_2.ForwardRefExoticComponent
 internal;DockedToolSettingsOverflowProps 
 internal;DockedToolSettingsProps 
-internal;DockedToolSettingsState
+internal;DockedToolSettingsState 
 internal;dockWidgetContainer(state: NineZoneState, widgetTabId: string, idIsContainerId?: boolean): NineZoneState
 internal;DraggedPanelSideContext: React_2.Context
 internal;DraggedResizeHandleContext: React_2.Context
@@ -168,6 +171,7 @@ internal;PopoutWidgetsState
 internal;PopoutWidgetState
 internal;popoutWidgetToChildWindow(state: NineZoneState, tabId: string, preferredBounds: RectangleProps): NineZoneState
 internal;removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState
+internal;removeTabFromToolSettings(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;removeTabFromWidget(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;ResizeAction
 internal;restrainInitialWidgetSize(size: SizeProps, nzSize: SizeProps): SizeProps
@@ -224,7 +228,6 @@ internal;ToolSettingsNodeContext: React_2.Context
 internal;ToolSettingsOverflowPanel(props: ToolSettingsOverflowPanelProps): JSX.Element
 internal;ToolSettingsOverflowPanelProps 
 internal;ToolSettingsState = DockedToolSettingsState | WidgetToolSettingsState
-internal;toolSettingsTabId = "nz-tool-settings-tab"
 internal;Tooltip 
 internal;TooltipDefaultProps = Pick
 internal;TooltipProps 
@@ -330,5 +333,5 @@ internal;WidgetTabs(): JSX.Element
 internal;WidgetTabsEntryContext: React_2.Context
 internal;WidgetTabsEntryContextProviderProps
 internal;WidgetTabsEntryProvider(props: WidgetTabsEntryContextProviderProps): JSX.Element
-internal;WidgetToolSettingsState
+internal;WidgetToolSettingsState 
 internal;WindowDropTargetState
