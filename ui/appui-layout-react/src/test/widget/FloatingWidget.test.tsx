@@ -9,7 +9,6 @@ import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import type { NineZoneDispatch } from "../../appui-layout-react";
 import {
-  addDockedToolSettings,
   addFloatingWidget,
   addTab,
   addWidgetToolSettings,
@@ -21,7 +20,6 @@ import {
   WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
-import produce from "immer";
 
 describe("FloatingWidget", () => {
   it("should render", () => {

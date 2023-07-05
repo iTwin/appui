@@ -262,7 +262,7 @@ describe("useHorizontalToolSettingNodes", () => {
       UiFramework.frontstages.onToolSettingsReloadEvent.emit();
     });
 
-    sut.result.current!.should.eq(entries);
+    sut.result.current.should.eq(entries);
   });
 });
 
