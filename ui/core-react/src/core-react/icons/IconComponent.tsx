@@ -15,7 +15,7 @@ import {
 } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
-import type { ConditionalIconItem } from "./ConditionalIconItem";
+import { ConditionalIconItem } from "./ConditionalIconItem";
 
 /** Prototype for an IconSpec which can be a string, ReactNode or ConditionalStringValue.
  * @public
@@ -83,6 +83,17 @@ export function Icon(props: IconProps) {
         className={classnames("icon", iconString, props.className)}
         style={props.style}
       />
+    );
+  }
+
+  if (ConditionalIconItem.isConditionalIconItem(props.iconSpec)) {
+    return (
+      <i
+        className={classnames("icon", "core-svg-icon", props.className)}
+        style={props.style}
+      >
+        {ConditionalIconItem.getValue(props.iconSpec as ConditionalIconItem)}
+      </i>
     );
   }
 
