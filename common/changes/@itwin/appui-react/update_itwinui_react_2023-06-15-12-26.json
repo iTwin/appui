@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Update `@itwin/itwinui-react` version to 2.11.6.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

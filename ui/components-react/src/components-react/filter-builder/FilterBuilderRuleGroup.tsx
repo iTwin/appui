@@ -46,12 +46,10 @@ export function PropertyFilterBuilderRuleGroupRenderer(
   const { actions, ruleGroupDepthLimit } = React.useContext(
     PropertyFilterBuilderContext
   );
-  const { onNewRuleAdded, groupRef } = useRulePropertyFocus(group.items.length);
+  const groupRef = React.useRef<HTMLDivElement>(null);
 
-  const handleAddRule = (ruleType: "RULE" | "RULE_GROUP") => {
-    actions.addItem(path, ruleType);
-    onNewRuleAdded();
-  };
+  const addRule = () => actions.addItem(path, "RULE");
+  const addRuleGroup = () => actions.addItem(path, "RULE_GROUP");
   const removeGroup = () => actions.removeItem(path);
 
   const onOperatorChange = React.useCallback(
@@ -109,7 +107,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
           <Button
             key="add-rule-button"
             data-testid="rule-group-add-rule"
-            onClick={() => handleAddRule("RULE")}
+            onClick={addRule}
             styleType="borderless"
             size="small"
             startIcon={<SvgAdd />}
@@ -120,7 +118,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
             <Button
               key="add-rule-group-button"
               data-testid="rule-group-add-rule-group"
-              onClick={() => handleAddRule("RULE_GROUP")}
+              onClick={addRuleGroup}
               styleType="borderless"
               size="small"
               startIcon={<SvgAdd />}
@@ -208,26 +206,3 @@ const PropertyFilterBuilderGroupOrRule = React.memo(
     );
   }
 );
-
-const useRulePropertyFocus = (currentGroupItemsLength: number) => {
-  const previousGroupItemsLength = React.useRef<number>(0);
-  const isNewRuleAdded = React.useRef<boolean>(false);
-  const groupRef = React.useRef<HTMLDivElement>(null);
-  React.useEffect(() => {
-    if (
-      isNewRuleAdded.current &&
-      previousGroupItemsLength.current < currentGroupItemsLength &&
-      groupRef.current
-    ) {
-      const ruleProperties =
-        groupRef.current.querySelectorAll<HTMLInputElement>(
-          ".rule-property input"
-        );
-      ruleProperties[ruleProperties.length - 1].focus();
-      isNewRuleAdded.current = false;
-    }
-    previousGroupItemsLength.current = currentGroupItemsLength;
-  }, [currentGroupItemsLength]);
-
-  return { onNewRuleAdded: () => (isNewRuleAdded.current = true), groupRef };
-};
