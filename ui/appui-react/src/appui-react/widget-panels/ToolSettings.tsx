@@ -30,12 +30,20 @@ export interface ToolSettingsEntry {
 }
 
 function EmptyToolSettingsEntry(): ToolSettingsEntry {
-  const labelString = IModelApp.localization.getLocalizedString(
-    "UiFramework:tools.noToolSettings"
+  const toolId = UiFramework.frontstages.activeToolId;
+  const toolName = IModelApp.tools.find(toolId)?.flyover;
+  const toolPlaceholderName = IModelApp.localization.getLocalizedString(
+    "UiFramework:tools.noToolSettingsPlaceholderName"
+  );
+  const labelStringStart = IModelApp.localization.getLocalizedString(
+    "UiFramework:tools.noToolSettingsStart"
+  );
+  const labelStringEnd = IModelApp.localization.getLocalizedString(
+    "UiFramework:tools.noToolSettingsEnd"
   );
   const labelNode = (
     <div className="uif-toolsetting-label-docked-horizontal-empty">
-      {labelString}
+      {labelStringStart}{toolName ? toolName : toolPlaceholderName}{labelStringEnd}
     </div>
   );
   const editorNode = <div />;
