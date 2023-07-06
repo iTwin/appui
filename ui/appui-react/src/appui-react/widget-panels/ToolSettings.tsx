@@ -43,7 +43,9 @@ function EmptyToolSettingsEntry(): ToolSettingsEntry {
   );
   const labelNode = (
     <div className="uif-toolsetting-label-docked-horizontal-empty">
-      {labelStringStart}{toolName ? toolName : toolPlaceholderName}{labelStringEnd}
+      {labelStringStart}
+      {toolName ? toolName : toolPlaceholderName}
+      {labelStringEnd}
     </div>
   );
   const editorNode = <div />;
