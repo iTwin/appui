@@ -26,8 +26,7 @@ import { addFloatingWidget, floatingWidgetBringToFront } from "./WidgetState";
 import {
   addDockedToolSettings,
   addWidgetToolSettings,
-  isDockedToolSettingsState,
-  removeTabFromToolSettings,
+  removeToolSettings,
 } from "./ToolSettingsState";
 import { updatePanelState } from "./internal/PanelStateHelpers";
 import { createDraggedTabState } from "./internal/TabStateHelpers";
@@ -507,12 +506,11 @@ export function NineZoneStateReducer(
       });
     }
     case "TOOL_SETTINGS_DRAG_START": {
-      if (!state.toolSettings) return state;
-      if (!isDockedToolSettingsState(state.toolSettings)) return state;
+      if (state.toolSettings?.type !== "docked") return state;
 
       const { newFloatingWidgetId } = action;
       const tabId = state.toolSettings.tabId;
-      state = removeTabFromToolSettings(state, tabId);
+      state = removeToolSettings(state);
 
       const tab = state.tabs[tabId];
       const size = tab.preferredFloatingWidgetSize || {
@@ -525,9 +523,9 @@ export function NineZoneStateReducer(
       return addWidgetToolSettings(state, tabId);
     }
     case "TOOL_SETTINGS_DOCK": {
-      if (!state.toolSettings) return state;
+      if (state.toolSettings?.type !== "widget") return state;
       const tabId = state.toolSettings.tabId;
-      state = removeTabFromToolSettings(state, tabId);
+      state = removeToolSettings(state);
       return addDockedToolSettings(state, tabId);
     }
   }

@@ -546,9 +546,6 @@ export function insertPanelWidget(state: NineZoneState, side: PanelSide, id: Wid
 export function insertTabToWidget(state: NineZoneState, tabId: TabState["id"], widgetId: WidgetState["id"], tabIndex: number): NineZoneState;
 
 // @internal (undocumented)
-export function isDockedToolSettingsState(state: ToolSettingsState): state is DockedToolSettingsState;
-
-// @internal (undocumented)
 export function isFloatingTabLocation(location: TabLocation): location is FloatingTabLocation;
 
 // @internal (undocumented)
@@ -1012,10 +1009,10 @@ export function popoutWidgetToChildWindow(state: NineZoneState, tabId: string, p
 export function removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
 
 // @internal
-export function removeTabFromToolSettings(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
+export function removeTabFromWidget(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
 
 // @internal
-export function removeTabFromWidget(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
+export function removeToolSettings(state: NineZoneState): NineZoneState;
 
 // @internal (undocumented)
 export interface ResizeAction {

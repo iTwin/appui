@@ -99,7 +99,6 @@ internal;HorizontalPanelState
 internal;IconOnlyOnWidgetTabContext: React_2.Context
 internal;insertPanelWidget(state: NineZoneState, side: PanelSide, id: WidgetState["id"], tabs: WidgetState["tabs"], sectionIndex: number, widgetArgs?: Partial
 internal;insertTabToWidget(state: NineZoneState, tabId: TabState["id"], widgetId: WidgetState["id"], tabIndex: number): NineZoneState
-internal;isDockedToolSettingsState(state: ToolSettingsState): state is DockedToolSettingsState
 internal;isFloatingTabLocation(location: TabLocation): location is FloatingTabLocation
 internal;isFloatingWidgetLocation(location: WidgetLocation): location is FloatingWidgetLocation
 internal;isHorizontalPanelSide: (side: PanelSide) => side is HorizontalPanelSide
@@ -171,8 +170,8 @@ internal;PopoutWidgetsState
 internal;PopoutWidgetState
 internal;popoutWidgetToChildWindow(state: NineZoneState, tabId: string, preferredBounds: RectangleProps): NineZoneState
 internal;removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState
-internal;removeTabFromToolSettings(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;removeTabFromWidget(state: NineZoneState, tabId: TabState["id"]): NineZoneState
+internal;removeToolSettings(state: NineZoneState): NineZoneState
 internal;ResizeAction
 internal;restrainInitialWidgetSize(size: SizeProps, nzSize: SizeProps): SizeProps
 internal;RightPanelSide = "right"

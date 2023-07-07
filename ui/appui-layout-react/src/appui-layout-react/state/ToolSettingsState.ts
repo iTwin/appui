@@ -34,13 +34,6 @@ export type ToolSettingsState =
   | DockedToolSettingsState
   | WidgetToolSettingsState;
 
-/** @internal */
-export function isDockedToolSettingsState(
-  state: ToolSettingsState
-): state is DockedToolSettingsState {
-  return state.type === "docked";
-}
-
 /** Adds a docked tool settings.
  * @internal
  */
@@ -101,17 +94,11 @@ export function addWidgetToolSettings(
 /** Removes tab from the tool settings, but keeps the tab state.
  * @internal
  */
-export function removeTabFromToolSettings(
-  state: NineZoneState,
-  tabId: TabState["id"]
-): NineZoneState {
+export function removeToolSettings(state: NineZoneState): NineZoneState {
   if (!state.toolSettings) return state;
 
-  const toolSettingsTabId = state.toolSettings.tabId;
-  if (toolSettingsTabId !== tabId) return state;
-
   if (state.toolSettings.type === "widget") {
-    state = removeTabFromWidget(state, tabId);
+    state = removeTabFromWidget(state, state.toolSettings.tabId);
   }
 
   return produce(state, (draft) => {

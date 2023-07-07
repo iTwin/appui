@@ -1275,6 +1275,16 @@ describe("NineZoneStateReducer", () => {
   });
 
   describe("TOOL_SETTINGS_DOCK", () => {
+    it("should skip if tool settings is not a widget", () => {
+      let state = createNineZoneState();
+      state = addTab(state, "ts");
+      state = addDockedToolSettings(state, "ts");
+      const newState = NineZoneStateReducer(state, {
+        type: "TOOL_SETTINGS_DOCK",
+      });
+      newState.should.eq(state);
+    });
+
     it("should dock from panel widget", () => {
       let state = createNineZoneState();
       state = addTab(state, "ts");
@@ -1303,18 +1313,6 @@ describe("NineZoneStateReducer", () => {
   });
 
   describe("TOOL_SETTINGS_DRAG_START", () => {
-    it("should convert to floating widget", () => {
-      let state = createNineZoneState();
-      state = addTab(state, "ts");
-      state = addDockedToolSettings(state, "ts");
-      const newState = NineZoneStateReducer(state, {
-        type: "TOOL_SETTINGS_DRAG_START",
-        newFloatingWidgetId: "new-fw1",
-      });
-      expect(newState.toolSettings?.type).to.eq("widget");
-      newState.floatingWidgets.byId["new-fw1"].id.should.eq("new-fw1");
-    });
-
     it("should skip if not docked", () => {
       let state = createNineZoneState();
       state = addTab(state, "ts");
@@ -1325,6 +1323,18 @@ describe("NineZoneStateReducer", () => {
         newFloatingWidgetId: "new-fw1",
       });
       newState.should.eq(state);
+    });
+
+    it("should convert to floating widget", () => {
+      let state = createNineZoneState();
+      state = addTab(state, "ts");
+      state = addDockedToolSettings(state, "ts");
+      const newState = NineZoneStateReducer(state, {
+        type: "TOOL_SETTINGS_DRAG_START",
+        newFloatingWidgetId: "new-fw1",
+      });
+      expect(newState.toolSettings?.type).to.eq("widget");
+      newState.floatingWidgets.byId["new-fw1"].id.should.eq("new-fw1");
     });
 
     it("should use preferredFloatingWidgetSize", () => {
