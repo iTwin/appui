@@ -29,7 +29,7 @@ export interface SimpleDialogProps
   /** Whether the hide the header. Default: false */
   hideHeader?: boolean;
   /** Title to show in title bar of dialog */
-  title?: string | React.JSX.Element;
+  title?: string | JSX.Element;
   /** List of DialogButtonDef objects specifying buttons and associated onClick events */
   buttonCluster?: DialogButtonDef[];
 
@@ -82,7 +82,7 @@ export class SimpleDialog extends CoreDialog {
     super(props);
   }
 
-  public override render(): React.JSX.Element {
+  public override render(): JSX.Element {
     const {
       opened,
       title,
