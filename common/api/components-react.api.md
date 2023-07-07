@@ -2544,6 +2544,7 @@ export class SparseArray<T> implements Iterable<T | undefined> {
     // (undocumented)
     [immerable]: boolean;
     [Symbol.iterator](): IterableIterator<T | undefined>;
+    constructor();
     get(index: number): T | undefined;
     getIndex(lookupValue: T): number | undefined;
     getLength(): number;
@@ -2558,6 +2559,7 @@ export class SparseArray<T> implements Iterable<T | undefined> {
 export class SparseTree<T extends Node_2> {
     // (undocumented)
     [immerable]: boolean;
+    constructor();
     // (undocumented)
     deleteSubtree(parentId: string | undefined, deleteParent?: boolean): void;
     // (undocumented)
