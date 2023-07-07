@@ -19,11 +19,13 @@ import { UnitsPopupUiDataProvider } from "../dialogs/UnitsPopup";
 import { IModelApp } from "@itwin/core-frontend";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { OpenAbstractDialogTool } from "../../tools/OpenAbstractModalDialogTool";
+import { AnalysisAnimationTool } from "../../tools/AnalysisAnimation";
 import statusFieldSvg from "../icons/StatusField.svg";
 
 export interface AbstractUiItemsProviderProps {
   sampleTool?: { itemPriority?: number; groupPriority?: number };
   openAbstractDialogTool?: { itemPriority?: number; groupPriority?: number };
+  analysisTool?: { itemPriority?: number; groupPriority?: number };
   unitsStatusBarItem?: { itemPriority?: number; section?: StatusBarSection };
 }
 
@@ -43,6 +45,7 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
     // register tools that will be returned via this provider
     OpenAbstractDialogTool.register(localizationNamespace);
     SampleTool.register(localizationNamespace);
+    AnalysisAnimationTool.register(localizationNamespace);
   }
 
   public provideToolbarItems(
@@ -61,6 +64,10 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
         SampleTool.getActionButtonDef(
           this.props?.sampleTool?.itemPriority ?? 1000,
           this.props?.sampleTool?.groupPriority
+        ),
+        AnalysisAnimationTool.getActionButtonDef(
+          this.props?.analysisTool?.itemPriority ?? 1001,
+          this.props?.analysisTool?.groupPriority
         ),
       ];
     }
