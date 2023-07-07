@@ -56,6 +56,7 @@ import {
   panelSides,
   removeTab,
   removeTabFromWidget,
+  removeToolSettings,
   WidgetPanels,
 } from "@itwin/appui-layout-react";
 import type {
@@ -1241,6 +1242,10 @@ export function setWidgetState(
     });
   } else if (widgetState === WidgetState.Closed) {
     const id = widgetDef.id;
+    if (widgetDef.isToolSettings && state.toolSettings?.type !== "widget") {
+      return state;
+    }
+
     let location = getTabLocation(state, id);
     if (!location) {
       state = addHiddenWidget(state, widgetDef);
@@ -1273,6 +1278,15 @@ export function setWidgetState(
     state = removeTabFromWidget(state, id);
     const bounds = widgetDef.tabLocation?.floatingWidget?.bounds;
     state = addFloatingWidget(state, getUniqueId(), [id], { bounds });
+
+    if (widgetDef.isToolSettings) {
+      if (state.toolSettings?.type === "docked") {
+        state = removeToolSettings(state);
+      }
+      if (!state.toolSettings) {
+        state = addWidgetToolSettings(state, id);
+      }
+    }
   }
   return state;
 }

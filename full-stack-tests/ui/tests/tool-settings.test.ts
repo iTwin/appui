@@ -94,6 +94,49 @@ test.describe("tool settings", () => {
     await expect(widgetToolSettings).toBeVisible();
   });
 
+  test("should float docked tool settings", async ({ page }) => {
+    const dockedToolSettings = page.getByText("No settings for this tool.");
+    const widgetToolSettings = tabLocator(page, "Tool Settings");
+
+    await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Floating);
+    await expect(dockedToolSettings).not.toBeVisible();
+    await expect(widgetToolSettings).toBeVisible();
+  });
+
+  test("should close floating tool settings", async ({ page }) => {
+    const dockedToolSettings = page.getByText("No settings for this tool.");
+    const widgetToolSettings = tabLocator(page, "Tool Settings");
+
+    await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Floating);
+    await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Closed);
+    await expect(dockedToolSettings).not.toBeVisible();
+    await expect(widgetToolSettings).toBeVisible();
+  });
+
+  test("should ignore WidgetState.Closed if tool settings is hidden", async ({
+    page,
+  }) => {
+    const dockedToolSettings = page.getByText("No settings for this tool.");
+    const widgetToolSettings = tabLocator(page, "Tool Settings");
+
+    await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Floating);
+    await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Hidden);
+    await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Closed);
+    await expect(dockedToolSettings).not.toBeVisible();
+    await expect(widgetToolSettings).not.toBeVisible();
+  });
+
+  test("should ignore WidgetState.Closed for docked tool settings", async ({
+    page,
+  }) => {
+    const dockedToolSettings = page.getByText("No settings for this tool.");
+    const widgetToolSettings = tabLocator(page, "Tool Settings");
+
+    await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Closed);
+    await expect(dockedToolSettings).toBeVisible();
+    await expect(widgetToolSettings).not.toBeVisible();
+  });
+
   test("should maintain tool settings as widget (after reload) ", async ({
     context,
     page,
