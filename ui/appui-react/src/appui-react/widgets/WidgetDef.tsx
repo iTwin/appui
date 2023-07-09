@@ -31,14 +31,6 @@ import { WidgetState } from "./WidgetState";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 
-const widgetStateNameMap = new Map<WidgetState, string>([
-  [WidgetState.Closed, "Closed"],
-  [WidgetState.Floating, "Floating"],
-  [WidgetState.Hidden, "Hidden"],
-  [WidgetState.Open, "Open"],
-  [WidgetState.Unloaded, "Unloaded"],
-]);
-
 /** Widget State Changed Event Args interface.
  * @public
  */

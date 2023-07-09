@@ -6,7 +6,6 @@
  * @module Tools
  */
 
-import type { GuidString } from "@itwin/core-bentley";
 import { BeEvent } from "@itwin/core-bentley";
 import type { GeometricElementProps } from "@itwin/core-common";
 import { FeatureAppearance } from "@itwin/core-common";
@@ -19,7 +18,6 @@ import type {
 } from "@itwin/core-frontend";
 import { EmphasizeElements, IModelApp } from "@itwin/core-frontend";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
-import { UiFramework } from "../UiFramework";
 
 /** Supported Hide, Isolate, and Emphasize Actions. These also serve as FeatureTracking Ids.
  * @public
@@ -36,49 +34,6 @@ export enum HideIsolateEmphasizeAction {
   ClearOverrideModels = "ClearOverrideModels",
   ClearOverrideCategories = "ClearOverrideCategories",
 }
-
-const featureIdMap = new Map<HideIsolateEmphasizeAction, GuidString>([
-  [
-    HideIsolateEmphasizeAction.EmphasizeSelectedElements,
-    "d74eb93f-deae-4700-8da6-1013a8a7aa26",
-  ],
-  [
-    HideIsolateEmphasizeAction.IsolateSelectedElements,
-    "24327638-1611-45fa-a379-fa73329098ec",
-  ],
-  [
-    HideIsolateEmphasizeAction.IsolateSelectedCategories,
-    "e58081ab-2c33-4a15-924f-71082b58ca3b",
-  ],
-  [
-    HideIsolateEmphasizeAction.IsolateSelectedModels,
-    "3475921e-7dd1-4547-993e-a3e284ef8b62",
-  ],
-  [
-    HideIsolateEmphasizeAction.HideSelectedElements,
-    "2ca673ec-001a-4890-bc25-18bc88358fe0",
-  ],
-  [
-    HideIsolateEmphasizeAction.HideSelectedModels,
-    "8b41e859-ae17-4e19-b220-87a5cf9f8242",
-  ],
-  [
-    HideIsolateEmphasizeAction.HideSelectedCategories,
-    "c5d6916b-e8d7-4796-bae9-a5303712d46b",
-  ],
-  [
-    HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized,
-    "7b135c8a-3f3c-4297-b36c-b0ac51f1d8de",
-  ],
-  [
-    HideIsolateEmphasizeAction.ClearOverrideModels,
-    "6e519b94-edab-4b13-9ce7-0bcdfa27ccfe",
-  ],
-  [
-    HideIsolateEmphasizeAction.ClearOverrideCategories,
-    "9d2be3c6-6992-4c30-84eb-10f6b9379d06",
-  ],
-]);
 
 /** Selection Context Action Event Argument
  * @public

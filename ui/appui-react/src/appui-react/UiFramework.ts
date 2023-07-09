@@ -9,12 +9,10 @@
 // cSpell:ignore configurableui clientservices
 
 import type { Store } from "redux";
-import type { GuidString } from "@itwin/core-bentley";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
-import type { Localization, RpcActivity } from "@itwin/core-common";
+import type { Localization } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
-import { TelemetryEvent } from "@itwin/core-telemetry";
 import { getClassName, UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
