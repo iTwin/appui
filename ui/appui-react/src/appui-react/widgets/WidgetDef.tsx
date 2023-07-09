@@ -474,14 +474,6 @@ export class WidgetDef {
   }
 
   public onWidgetStateChanged(): void {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    this.widgetControl &&
-      UiFramework.postTelemetry(
-        `Widget ${
-          this.widgetControl.classId
-        } state set to ${widgetStateNameMap.get(this.state)}`,
-        "35402486-9839-441E-A5C7-46D546142D11"
-      );
     this.widgetControl && this.widgetControl.onWidgetStateChanged();
     // istanbul ignore next
     this._onWidgetStateChanged && this._onWidgetStateChanged();

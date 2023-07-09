@@ -827,42 +827,7 @@ export class UiFramework {
       display
     );
   }
-  /** Send logging message to the telemetry system
-   * @internal
-   */
-  // istanbul ignore next
-  public static async postTelemetry(
-    eventName: string,
-    eventId?: GuidString,
-    iTwinId?: GuidString,
-    iModeId?: GuidString,
-    changeSetId?: string,
-    time?: TrackingTime,
-    additionalProperties?: { [key: string]: any }
-  ): Promise<void> {
-    if (!IModelApp.authorizationClient) return;
 
-    try {
-      const activity: RpcActivity = {
-        sessionId: IModelApp.sessionId,
-        activityId: "",
-        applicationId: IModelApp.applicationId,
-        applicationVersion: IModelApp.applicationVersion,
-        accessToken:
-          (await IModelApp.authorizationClient.getAccessToken()) ?? "",
-      };
-      const telemetryEvent = new TelemetryEvent(
-        eventName,
-        eventId,
-        iTwinId,
-        iModeId,
-        changeSetId,
-        time,
-        additionalProperties
-      );
-      await IModelApp.telemetry.postTelemetry(activity, telemetryEvent);
-    } catch {}
-  }
   /** Determines whether a ContextMenu is open
    * @alpha
    * */

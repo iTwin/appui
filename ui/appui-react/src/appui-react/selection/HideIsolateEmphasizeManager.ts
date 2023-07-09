@@ -579,10 +579,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.IsolateSelectedModels,
     });
-    void UiFramework.postTelemetry(
-      HideIsolateEmphasizeAction.IsolateSelectedModels,
-      featureIdMap.get(HideIsolateEmphasizeAction.IsolateSelectedModels)
-    );
+
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -601,10 +598,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.IsolateSelectedCategories,
     });
-    void UiFramework.postTelemetry(
-      HideIsolateEmphasizeAction.IsolateSelectedCategories,
-      featureIdMap.get(HideIsolateEmphasizeAction.IsolateSelectedCategories)
-    );
+
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -622,10 +616,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.IsolateSelectedElements,
     });
-    void UiFramework.postTelemetry(
-      HideIsolateEmphasizeAction.IsolateSelectedElements,
-      featureIdMap.get(HideIsolateEmphasizeAction.IsolateSelectedElements)
-    );
+
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -648,10 +639,6 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.HideSelectedModels,
     });
-    void UiFramework.postTelemetry(
-      HideIsolateEmphasizeAction.HideSelectedModels,
-      featureIdMap.get(HideIsolateEmphasizeAction.HideSelectedModels)
-    );
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -670,10 +657,6 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.HideSelectedCategories,
     });
-    void UiFramework.postTelemetry(
-      HideIsolateEmphasizeAction.HideSelectedCategories,
-      featureIdMap.get(HideIsolateEmphasizeAction.HideSelectedCategories)
-    );
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -692,10 +675,6 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.HideSelectedElements,
     });
-    void UiFramework.postTelemetry(
-      HideIsolateEmphasizeAction.HideSelectedCategories,
-      featureIdMap.get(HideIsolateEmphasizeAction.HideSelectedElements)
-    );
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -717,10 +696,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.EmphasizeSelectedElements,
     });
-    void UiFramework.postTelemetry(
-      HideIsolateEmphasizeAction.EmphasizeSelectedElements,
-      featureIdMap.get(HideIsolateEmphasizeAction.EmphasizeSelectedElements)
-    );
+
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -742,10 +718,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized,
     });
-    void UiFramework.postTelemetry(
-      HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized,
-      featureIdMap.get(HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized)
-    );
+
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -763,10 +736,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.ClearOverrideModels,
     });
-    void UiFramework.postTelemetry(
-      HideIsolateEmphasizeAction.ClearOverrideModels,
-      featureIdMap.get(HideIsolateEmphasizeAction.ClearOverrideModels)
-    );
+
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -784,10 +754,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.ClearOverrideCategories,
     });
-    void UiFramework.postTelemetry(
-      HideIsolateEmphasizeAction.ClearOverrideCategories,
-      featureIdMap.get(HideIsolateEmphasizeAction.ClearOverrideCategories)
-    );
+
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
