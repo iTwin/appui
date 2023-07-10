@@ -20,6 +20,12 @@
   },
   "projects": [
     {
+      "packageName": "appui-storybook",
+      "projectFolder": "docs/storybook",
+      "reviewCategory": "internal",
+      "shouldPublish": false
+    },
+    {
       "packageName": "ui-end-to-end-tests",
       "projectFolder": "full-stack-tests/ui",
       "reviewCategory": "internal",
