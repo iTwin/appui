@@ -191,6 +191,24 @@ describe("PropertyFilterBuilder", () => {
       .null;
   });
 
+  it("focus new rule property after adding new rule", async () => {
+    const spy = sinon.spy();
+    const { container, getByTestId } = render(
+      <PropertyFilterBuilder properties={[]} onFilterChanged={spy} />
+    );
+
+    const addRuleButton = getByTestId("rule-group-add-rule");
+    addRuleButton.click();
+
+    await waitFor(
+      () =>
+        expect(
+          container.querySelectorAll(".rule-property input")[1] ===
+            container.ownerDocument.activeElement
+        ).to.be.true
+    );
+  });
+
   describe("buildPropertyFilter", () => {
     const defaultRule: PropertyFilterBuilderRule = {
       id: "rule",

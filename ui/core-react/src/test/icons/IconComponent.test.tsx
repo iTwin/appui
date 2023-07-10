@@ -6,7 +6,8 @@ import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
-
+import { ConditionalIconItem } from "../../core-react/icons/ConditionalIconItem";
+import type { IconSpec } from "../../core-react/icons/IconComponent";
 import { Icon } from "../../core-react/icons/IconComponent";
 
 describe("IconComponent", () => {
@@ -50,5 +51,19 @@ describe("IconComponent", () => {
     const webComponent = container.querySelector("svg-loader");
     expect(webComponent).to.not.be.null;
     expect(webComponent!.getAttribute("src")).to.be.eq(dataUri);
+  });
+
+  it("should return value from a ConditionalIconItem", () => {
+    const iconSpec1: IconSpec = "icon1.svg";
+    const icon1Getter = (): IconSpec => iconSpec1;
+    const syncEventIds = ["sync-id-one", "sync-id-two", "sync-id-THREE"];
+
+    const sut = new ConditionalIconItem(icon1Getter, syncEventIds);
+    const { container } = render(<Icon iconSpec={sut} />);
+    // renderedComponent.debug();
+    const iconItem = container.firstElementChild;
+    const iconName = iconItem?.firstChild?.nodeValue;
+    expect(iconName).to.not.be.null;
+    expect(iconName).to.contain("icon1.svg");
   });
 });

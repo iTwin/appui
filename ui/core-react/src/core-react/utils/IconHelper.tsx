@@ -10,6 +10,7 @@ import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
+import { ConditionalIconItem } from "../icons/ConditionalIconItem";
 
 /** Icon Helper Class used to store the data needed to generate an <Icon> for use in any control that shows an icon.
  * @public
@@ -18,17 +19,31 @@ export class IconHelper {
   public static get reactIconKey(): string {
     return "#-react-iconspec-node-#";
   }
+  public static get conditionalIconItemKey(): string {
+    return "#-conditional-icon-item-node-#";
+  }
   /** Returns an <Icon> ReactNode from the many ways an icon can be specified.
    * @param icon abstract icon specification.
    * @param internalData a map that may hold a React.ReactNode stored in an abstract item definition.
    */
   public static getIconReactNode(
-    icon: string | ConditionalStringValue | React.ReactNode,
+    icon:
+      | string
+      | ConditionalStringValue
+      | React.ReactNode
+      | ConditionalIconItem,
     internalData?: Map<string, any>
   ): React.ReactNode {
     // istanbul ignore else
     if (!icon) return null;
 
+    // istanbul ignore else
+    if (ConditionalIconItem.isConditionalIconItem(icon))
+      return (
+        <Icon
+          iconSpec={ConditionalIconItem.getValue(icon as ConditionalIconItem)}
+        />
+      );
     // istanbul ignore else
     if (React.isValidElement(icon)) return <Icon iconSpec={icon} />;
 
@@ -51,6 +66,15 @@ export class IconHelper {
           />
         );
       return null;
+    } else if (iconString === IconHelper.conditionalIconItemKey) {
+      // istanbul ignore else
+      if (internalData) {
+        const iconItem = internalData.get(
+          IconHelper.conditionalIconItemKey
+        ) as ConditionalIconItem;
+        return <Icon iconSpec={ConditionalIconItem.getValue(iconItem)} />;
+      }
+      return null;
     }
     return <Icon iconSpec={iconString} />;
   }
@@ -64,9 +88,18 @@ export class IconHelper {
     iconSpec: IconSpec,
     internalData?: Map<string, any>
   ): string | ConditionalStringValue {
-    const icon = React.isValidElement(iconSpec)
-      ? IconHelper.reactIconKey
-      : iconSpec;
+    let icon;
+    if (ConditionalIconItem.isConditionalIconItem(iconSpec)) {
+      icon = IconHelper.conditionalIconItemKey;
+      // istanbul ignore else
+      if (internalData)
+        internalData.set(IconHelper.conditionalIconItemKey, iconSpec);
+      return icon;
+    } else {
+      icon = React.isValidElement(iconSpec)
+        ? IconHelper.reactIconKey
+        : iconSpec;
+    }
 
     if (
       internalData &&
