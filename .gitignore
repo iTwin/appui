@@ -42,6 +42,9 @@ common/autoinstallers/*/.npmrc
 # Mac specfic
 .DS_Store
 
+# storybook specific
+storybook-static
+
 .env
 .env.local
 .env.*.local
