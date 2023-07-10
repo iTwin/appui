@@ -5,7 +5,14 @@
 import "./ComponentExamples.scss";
 import * as React from "react";
 import { CommonProps, VerticalTabs } from "@itwin/core-react";
-import { BackstageItemUtilities, ColorTheme, CursorPopupManager, MessageManager, ModalFrontstageInfo, UiFramework } from "@itwin/appui-react";
+import {
+  BackstageItemUtilities,
+  ColorTheme,
+  CursorPopupManager,
+  MessageManager,
+  ModalFrontstageInfo,
+  UiFramework,
+} from "@itwin/appui-react";
 import { ToggleSwitch } from "@itwin/itwinui-react";
 import { ComponentExamplesProvider } from "../providers/ComponentExamplesProvider";
 
@@ -18,14 +25,30 @@ export interface ComponentExampleCategory {
  */
 export class ComponentExamplesModalFrontstage implements ModalFrontstageInfo {
   public static stageId = "appui-test-app:componentExamplesStage";
-  public title: string = UiFramework.localization.getLocalizedString("SampleApp:componentExamplesStage.examples");
-  public categories: ComponentExampleCategory[] = [...ComponentExamplesProvider.categories];
+  public title: string = UiFramework.localization.getLocalizedString(
+    "SampleApp:componentExamplesStage.examples"
+  );
+  public categories: ComponentExampleCategory[] = [
+    ...ComponentExamplesProvider.categories,
+  ];
   public get content(): React.ReactNode {
     MessageManager.maxDisplayedStickyMessages = 6;
-    return (<ComponentExamplesPage categories={this.categories}/>);
+    return <ComponentExamplesPage categories={this.categories} />;
   }
-  public static getBackstageActionItem(groupPriority: number, itemPriority: number) {
-    return BackstageItemUtilities.createActionItem(ComponentExamplesModalFrontstage.stageId, groupPriority, itemPriority, () => UiFramework.frontstages.openModalFrontstage(new ComponentExamplesModalFrontstage()), "Component Examples");
+  public static getBackstageActionItem(
+    groupPriority: number,
+    itemPriority: number
+  ) {
+    return BackstageItemUtilities.createActionItem(
+      ComponentExamplesModalFrontstage.stageId,
+      groupPriority,
+      itemPriority,
+      () =>
+        UiFramework.frontstages.openModalFrontstage(
+          new ComponentExamplesModalFrontstage()
+        ),
+      "Component Examples"
+    );
   }
 }
 
@@ -36,12 +59,20 @@ interface ComponentExamplesPageProps {
 
 /** ComponentExamplesPage displaying the component examples.
  */
-export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (props: ComponentExamplesPageProps) => {
-  const themeTitle: string = UiFramework.localization.getLocalizedString("SampleApp:componentExamplesStage.themeTitle");
-  const themeDescription: string = UiFramework.localization.getLocalizedString("SampleApp:componentExamplesStage.themeDescription");
-  const showThemeOption = !(!!props.hideThemeOption);
+export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
+  props: ComponentExamplesPageProps
+) => {
+  const themeTitle: string = UiFramework.localization.getLocalizedString(
+    "SampleApp:componentExamplesStage.themeTitle"
+  );
+  const themeDescription: string = UiFramework.localization.getLocalizedString(
+    "SampleApp:componentExamplesStage.themeDescription"
+  );
+  const showThemeOption = !!!props.hideThemeOption;
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const [colorTheme, setColorTheme] = React.useState(() => UiFramework.getColorTheme());
+  const [colorTheme, setColorTheme] = React.useState(() =>
+    UiFramework.getColorTheme()
+  );
 
   const onThemeChange = () => {
     const theme = isLightTheme() ? ColorTheme.Dark : ColorTheme.Light;
@@ -50,12 +81,16 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (prop
   };
 
   const isLightTheme = (): boolean => {
-    return (colorTheme === ColorTheme.Light);
+    return colorTheme === ColorTheme.Light;
   };
 
   const isChecked = isLightTheme();
-  const darkLabel = UiFramework.localization.getLocalizedString("SampleApp:settingsStage.dark");
-  const lightLabel = UiFramework.localization.getLocalizedString("SampleApp:settingsStage.light");
+  const darkLabel = UiFramework.localization.getLocalizedString(
+    "SampleApp:settingsStage.dark"
+  );
+  const lightLabel = UiFramework.localization.getLocalizedString(
+    "SampleApp:settingsStage.light"
+  );
 
   const handleActivateTab = (index: number) => {
     setActiveIndex(index);
@@ -66,31 +101,46 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (prop
     <div className="component-examples">
       <div className="component-examples-categories">
         <VerticalTabs
-          labels={props.categories.map((category: ComponentExampleCategory) => category.title)}
-          activeIndex={activeIndex} onActivateTab={handleActivateTab} />
+          labels={props.categories.map(
+            (category: ComponentExampleCategory) => category.title
+          )}
+          activeIndex={activeIndex}
+          onActivateTab={handleActivateTab}
+        />
       </div>
       <div className="component-examples-items">
-        {showThemeOption && <>
-          <ComponentExample title={themeTitle} description={themeDescription}
-            content={
-              <>
-                {darkLabel}
-                &nbsp;
-                <ToggleSwitch checked={isChecked} onChange={onThemeChange} />
-                &nbsp;
-                {lightLabel}
-              </>
-            }
-          />
-          <hr className="component-examples-items-separator" />
-        </>
-        }
-        {props.categories[activeIndex].examples.map((exampleProps: ComponentExampleProps, index: number) => {
-          const { title, description, content, ...otherProps } = exampleProps;
-          return (
-            <ComponentExample key={index.toString()} title={title} description={description} content={content} {...otherProps} />
-          );
-        })}
+        {showThemeOption && (
+          <>
+            <ComponentExample
+              title={themeTitle}
+              description={themeDescription}
+              content={
+                <>
+                  {darkLabel}
+                  &nbsp;
+                  <ToggleSwitch checked={isChecked} onChange={onThemeChange} />
+                  &nbsp;
+                  {lightLabel}
+                </>
+              }
+            />
+            <hr className="component-examples-items-separator" />
+          </>
+        )}
+        {props.categories[activeIndex].examples.map(
+          (exampleProps: ComponentExampleProps, index: number) => {
+            const { title, description, content, ...otherProps } = exampleProps;
+            return (
+              <ComponentExample
+                key={index.toString()}
+                title={title}
+                description={description}
+                content={content}
+                {...otherProps}
+              />
+            );
+          }
+        )}
       </div>
       {/* eslint-disable-next-line deprecation/deprecation */}
     </div>
@@ -105,7 +155,9 @@ export interface ComponentExampleProps extends CommonProps {
 }
 
 /** Component Example component */
-export const ComponentExample: React.FC<ComponentExampleProps> = (props: ComponentExampleProps) => {
+export const ComponentExample: React.FC<ComponentExampleProps> = (
+  props: ComponentExampleProps
+) => {
   const { title, description, content } = props;
   return (
     <div className="component-examples-item">
@@ -113,9 +165,7 @@ export const ComponentExample: React.FC<ComponentExampleProps> = (props: Compone
         <span className="title">{title}</span>
         {description && <span className="description">{description}</span>}
       </div>
-      <div className="panel right-panel">
-        {content}
-      </div>
+      <div className="panel right-panel">{content}</div>
     </div>
   );
 };
