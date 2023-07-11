@@ -9,7 +9,7 @@ module.exports = [
   {
     files: ["**/*.{ts,tsx}"],
     rules: {
-      ...prettierConfig.rules
-    }
+      ...prettierConfig.rules,
+    },
   },
 ];

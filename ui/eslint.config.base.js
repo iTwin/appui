@@ -31,5 +31,5 @@ module.exports = [
       "no-duplicate-imports": "off",
       "@itwin/no-internal-barrel-imports": "warn",
     },
-  }
+  },
 ];

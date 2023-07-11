@@ -9,7 +9,7 @@ const customLanguageOptions = {
     ecmaVersion: "latest",
     ecmaFeatures: {
       jsx: true,
-      modules: true
+      modules: true,
     },
   },
 };
@@ -18,13 +18,13 @@ module.exports = [
   {
     files: ["**/*.{ts,tsx}"],
     ...iTwinPlugin.configs.iTwinjsRecommendedConfig,
-    languageOptions: customLanguageOptions
+    languageOptions: customLanguageOptions,
   },
   {
     files: ["**/*.{ts,tsx}"],
     rules: {
-      ...prettierConfig.rules
-    }
+      ...prettierConfig.rules,
+    },
   },
   {
     files: ["**/*.{ts,tsx}"],
@@ -39,6 +39,6 @@ module.exports = [
         },
       ],
       "@typescript-eslint/unbound-method": "off",
-    }
+    },
   },
 ];
