@@ -45,7 +45,7 @@
     "@axe-core/react": "4.3.1",
     "@bentley/react-scripts": "^5.0.3",
     "@itwin/build-tools": "^3.7.0",
-    "@itwin/eslint-plugin": "^3.7.0",
+    "@itwin/eslint-plugin": "^4.0.0-dev.43",
     "@itwin/projects-client": "^0.6.0",
     "@types/node": "18.11.5",
     "@types/react": "^17.0.37",
@@ -56,7 +56,7 @@
     "dotenv": "^10.0.0",
     "dotenv-expand": "^5.1.0",
     "electron": "^22.0.0",
-    "eslint": "^7.11.0",
+    "eslint": "^8.44.0",
     "internal-tools": "workspace:*",
     "npm-run-all": "^4.1.5",
     "null-loader": "^4.0.1",
@@ -65,7 +65,7 @@
     "typescript": "~5.0.2",
     "webpack": "^5.76.0",
     "eslint-config-prettier": "~8.8.0",
-    "@rushstack/eslint-patch": "^1.3.0"
+    "@typescript-eslint/parser": "^5.59.0"
   },
   "dependencies": {
     "@bentley/icons-generic": "^1.0.34",
