@@ -40,10 +40,25 @@ jobs:
 
       - name: Deploy to gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
-        if: ${{ env.dest != '' }}
+        if: env.dest != ''
         with:
           branch: gh-pages
           folder: docs/storybook/storybook-static
           target-folder: ${{ env.dest }}
           single-commit: true
           clean: true
+
+      - name: Post link
+        if: github.event.number
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: '${{ github.event.pull_request.head.sha }}',
+              state: 'success',
+              context: 'Storybook preview',
+              description: 'Storybook preview of the current branch',
+              target_url: 'https://itwin.github.io/appui/${{ github.event.number }}',
+            })
