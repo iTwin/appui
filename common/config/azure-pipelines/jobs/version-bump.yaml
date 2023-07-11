@@ -112,7 +112,7 @@ jobs:
                   New-Item $sourceFile
 
                   # Update NextVersion.md with template
-                  "---`npublish: false`n---`n`n# NextVersion <!-- omit from toc -->`n" + (Get-Content $sourceFile | Out-String) | Set-Content $sourceFile -NoNewline
+                  "---`npublish: false`n---`n`n# NextVersion <!-- omit from toc -->`n" | Set-Content $sourceFile -NoNewline
               }
 
             failOnStderr: true
