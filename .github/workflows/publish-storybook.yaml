@@ -1,0 +1,48 @@
+# This workflow publishes storybook to GitHub pages
+
+name: Publish Storybook
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  publish-storybook:
+    runs-on: ubuntu-latest
+    env:
+      dest: ${{ github.event.number || github.ref == 'refs/heads/master' && 'storybook' || '' }}
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+      - name: Configure git
+        run: |
+          git config --local user.email imodeljs-admin@users.noreply.github.com
+          git config --local user.name imodeljs-admin
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.16.0
+
+      - name: Rush install
+        run: node common/scripts/install-run-rush.js install
+
+      - name: Rush build
+        run: node common/scripts/install-run-rush.js build -v -p max --to-except appui-storybook
+
+      - name: Build storybook
+        run: npm run build:storybook
+        working-directory: docs/storybook
+
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        if: ${{ env.dest != '' }}
+        with:
+          branch: gh-pages
+          folder: docs/storybook/storybook-static
+          target-folder: ${{ env.dest }}
+          single-commit: true
+          clean: true
