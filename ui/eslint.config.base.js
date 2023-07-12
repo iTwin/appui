@@ -1,4 +1,5 @@
-const iTwinPlugin = require("@itwin/eslint-plugin");
+// eslint plugin on vscode cannot resolve with just `require("@itwin/eslint-plugin")`
+const iTwinPlugin = require("../common/temp/node_modules/@itwin/eslint-plugin");
 
 module.exports = [
   {
