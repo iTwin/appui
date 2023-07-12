@@ -16,6 +16,11 @@ const customLanguageOptions = {
 
 module.exports = [
   {
+    files: ["src/frontend/**/*.{ts,tsx}"],
+    ...iTwinPlugin.configs.uiConfig,
+    languageOptions: customLanguageOptions,
+  },
+  {
     files: ["**/*.{ts,tsx}"],
     ...iTwinPlugin.configs.iTwinjsRecommendedConfig,
     languageOptions: customLanguageOptions,
