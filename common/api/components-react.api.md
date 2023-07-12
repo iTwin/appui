@@ -3182,6 +3182,18 @@ export class TreeModelSource {
 }
 
 // @public
+export function TreeNodeContent(props: TreeNodeContentProps): JSX.Element;
+
+// @public
+export interface TreeNodeContentProps extends CommonProps {
+    highlightProps?: HighlightableTreeNodeProps;
+    node: TreeModelNode;
+    nodeEditorRenderer?: TreeNodeEditorRenderer;
+    onLabelRendered?: (node: TreeModelNode) => void;
+    showDescription?: boolean;
+}
+
+// @public
 export function TreeNodeEditor(props: TreeNodeEditorProps): JSX.Element;
 
 // @public
@@ -3200,6 +3212,15 @@ export type TreeNodeEditorRenderer = (props: TreeNodeEditorProps) => React_2.Rea
 // @public
 export interface TreeNodeEventArgs {
     nodeId: string;
+}
+
+// @public
+export function TreeNodeIcon(props: TreeNodeIconProps): JSX.Element | null;
+
+// @public
+export interface TreeNodeIconProps {
+    imageLoader: ITreeImageLoader;
+    node: TreeModelNode;
 }
 
 // @public

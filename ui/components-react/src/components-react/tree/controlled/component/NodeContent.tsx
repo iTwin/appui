@@ -13,10 +13,8 @@ import type { CommonProps } from "@itwin/core-react";
 import { TreeNodePlaceholder } from "@itwin/core-react";
 import type { ItemStyle } from "../../../properties/ItemStyle";
 import { ItemStyleProvider } from "../../../properties/ItemStyle";
-import type {
-  PropertyValueRendererContext,
-  PropertyValueRendererManager,
-} from "../../../properties/ValueRendererManager";
+import type { PropertyValueRendererContext } from "../../../properties/ValueRendererManager";
+import { PropertyValueRendererManager } from "../../../properties/ValueRendererManager";
 import { PropertyContainerType } from "../../../properties/ValueRendererManager";
 import type { HighlightableTreeNodeProps } from "../../HighlightingEngine";
 import { HighlightingEngine } from "../../HighlightingEngine";
@@ -24,28 +22,33 @@ import type { TreeModelNode } from "../TreeModel";
 import type { TreeNodeEditorRenderer } from "./TreeNodeEditor";
 import { TreeNodeEditor } from "./TreeNodeEditor";
 
-/** Properties for [[TreeNodeContent]] component
- * @internal
+/**
+ * Properties for [[TreeNodeContent]] component
+ * @public
  */
 export interface TreeNodeContentProps extends CommonProps {
+  /** Tree node to render label for. */
   node: TreeModelNode;
+  /** Flag that specified whether the description should be shown or not. */
   showDescription?: boolean;
+  /** Props for highlighting label parts that matches filter when tree is filtered. */
   highlightProps?: HighlightableTreeNodeProps;
-  valueRendererManager: PropertyValueRendererManager;
-
+  /** Callback used to detect when label is rendered. */
   onLabelRendered?: (node: TreeModelNode) => void;
+  /** Callback to render custom node editor when node is in editing mode. */
   nodeEditorRenderer?: TreeNodeEditorRenderer;
 }
 
-/** React component for displaying [[TreeNode]] label
- * @internal
+/**
+ * React component for displaying [[TreeNode]] label
+ * @public
  */
 export function TreeNodeContent(props: TreeNodeContentProps) {
-  const { node, valueRendererManager, onLabelRendered, highlightProps } = props;
+  const { node, onLabelRendered, highlightProps } = props;
   const label = React.useMemo(
     // eslint-disable-next-line @typescript-eslint/promise-function-async
-    () => getLabel(node, valueRendererManager, highlightProps),
-    [node, valueRendererManager, highlightProps]
+    () => getLabel(node, highlightProps),
+    [node, highlightProps]
   );
   React.useEffect(() => {
     onLabelRendered && onLabelRendered(node);
@@ -99,7 +102,6 @@ export function TreeNodeContent(props: TreeNodeContentProps) {
 
 function getLabel(
   node: TreeModelNode,
-  valueRendererManager: PropertyValueRendererManager,
   highlightProps?: HighlightableTreeNodeProps
 ): React.ReactNode | Promise<React.ReactNode> {
   // handle filtered matches' highlighting
@@ -117,7 +119,10 @@ function getLabel(
     ),
   };
 
-  return valueRendererManager.render(node.item.label, context);
+  return PropertyValueRendererManager.defaultManager.render(
+    node.item.label,
+    context
+  );
 }
 
 function getStyle(

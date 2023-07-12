@@ -151,6 +151,7 @@ export * from "./components-react/tree/controlled/TreeNodeLoader";
 export * from "./components-react/tree/controlled/Observable";
 export * from "./components-react/tree/controlled/TreeHooks";
 export * from "./components-react/tree/controlled/component/ControlledTree";
+export * from "./components-react/tree/controlled/component/NodeContent";
 export * from "./components-react/tree/controlled/component/TreeNodeEditor";
 export * from "./components-react/tree/controlled/component/TreeNodeRenderer";
 export * from "./components-react/tree/controlled/component/TreeRenderer";
