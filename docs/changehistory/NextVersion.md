@@ -2,7 +2,7 @@
 publish: false
 ---
 
-# NextVersion
+# NextVersion <!-- omit from toc -->
 
 Table of contents:
 
