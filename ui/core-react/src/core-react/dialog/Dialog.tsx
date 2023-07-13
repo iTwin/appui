@@ -247,7 +247,6 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       maxHeight,
     };
     const dialogBaseContainerStyle: React.CSSProperties = {
-      padding: inset ? undefined : 0,
       ...containerStyle,
       ...minMaxStyle,
     };
@@ -277,7 +276,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
           <BaseDialog.Main
             ref={this._containerRef}
             className={classnames(
-              "dialog-main",
+              "core-dialog-main",
               alignment && this.getCSSClassNameFromAlignment(alignment)
             )}
             data-testid="core-dialog-container"
@@ -294,7 +293,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
               ))}
             <BaseDialog.Content
               className={contentClassName}
-              style={contentStyle}
+              style={{ padding: inset ? undefined : 0, ...contentStyle }}
             >
               {this.props.children}
             </BaseDialog.Content>
@@ -306,20 +305,23 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
             {resizable && (
               <>
                 <div
-                  className={classnames("dialog-resize-bar", "drag-right")}
+                  className={classnames("core-dialog-resize-bar", "drag-right")}
                   onPointerDown={this._handleStartResizeRight}
                   data-testid="core-dialog-drag-right"
                 />
                 <div
                   className={classnames(
-                    "dialog-resize-bar",
+                    "core-dialog-resize-bar",
                     "drag-bottom-right"
                   )}
                   onPointerDown={this._handleStartResizeDownRight}
                   data-testid="core-dialog-drag-bottom-right"
                 />
                 <div
-                  className={classnames("dialog-resize-bar", "drag-bottom")}
+                  className={classnames(
+                    "core-dialog-resize-bar",
+                    "drag-bottom"
+                  )}
                   onPointerDown={this._handleStartResizeDown}
                   data-testid="core-dialog-drag-bottom"
                 />

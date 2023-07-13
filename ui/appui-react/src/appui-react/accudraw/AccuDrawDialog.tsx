@@ -61,7 +61,7 @@ export function AccuDrawDialog(props: AccuDrawDialogProps) {
       dialogId={props.dialogId}
       width={dialogWidth}
       minHeight={75}
-      inset={true}
+      inset={false}
       movable={true}
       onClose={handleClose}
       onEscape={handleEscape}

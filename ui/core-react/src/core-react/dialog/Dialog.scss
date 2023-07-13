@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-.dialog-main {
+.core-dialog-main {
   display: flex;
   flex-direction: column;
 
@@ -54,7 +54,7 @@
   }
 }
 
-.dialog-resize-bar {
+.core-dialog-resize-bar {
   &.drag-right {
     right: -4px;
     top: 8px;

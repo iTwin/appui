@@ -63,8 +63,12 @@ describe("Dialog", () => {
       expect(element.style.fontWeight).to.equal("bold");
     });
     it("should render without inset", () => {
-      const component = render(<Dialog opened={true} inset={false} />);
-      const element = component.getByTestId("core-dialog-container");
+      const component = render(
+        <Dialog opened={true} inset={false}>
+          Content
+        </Dialog>
+      );
+      const element = component.getByText("Content");
       expect(element.style.padding).to.equal("0px");
     });
   });
