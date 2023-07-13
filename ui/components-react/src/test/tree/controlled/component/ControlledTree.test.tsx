@@ -10,9 +10,13 @@ import * as moq from "typemoq";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
 import { render } from "@testing-library/react";
+import { renderHook } from "@testing-library/react-hooks";
 import { SelectionMode } from "../../../../components-react/common/selection/SelectionModes";
 import type { ControlledTreeProps } from "../../../../components-react/tree/controlled/component/ControlledTree";
-import { ControlledTree } from "../../../../components-react/tree/controlled/component/ControlledTree";
+import {
+  ControlledTree,
+  useControlledTreeLayoutStorage,
+} from "../../../../components-react/tree/controlled/component/ControlledTree";
 import { from } from "../../../../components-react/tree/controlled/Observable";
 import type { TreeEvents } from "../../../../components-react/tree/controlled/TreeEvents";
 import type {
@@ -24,6 +28,7 @@ import type { HighlightableTreeProps } from "../../../../components-react/tree/H
 import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
 import TestUtils from "../../../TestUtils";
 import { SparseArray } from "../../../../components-react/tree/controlled/internal/SparseTree";
+import * as useElementScrollStorageModule from "../../../../components-react/common/UseElementScrollStorage";
 
 describe("ControlledTree", () => {
   const nodeLoaderMock = moq.Mock.ofType<ITreeNodeLoader>();
@@ -225,5 +230,17 @@ describe("ControlledTree", () => {
     render(<ControlledTree {...defaultProps} noDataRenderer={spy} />);
 
     expect(spy).to.be.called;
+  });
+});
+
+describe("useControlledTreeTransientState", () => {
+  it("invokes `useElementScrollStorage`", () => {
+    const stub = sinon.stub(
+      useElementScrollStorageModule,
+      "useElementScrollStorage"
+    );
+    renderHook(() => useControlledTreeLayoutStorage());
+
+    expect(stub).to.be.calledWith("ReactWindow__VariableSizeList");
   });
 });

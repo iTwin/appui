@@ -28,6 +28,7 @@ import type { TreeNodeRendererProps } from "./TreeNodeRenderer";
 import { TreeNodeRenderer } from "./TreeNodeRenderer";
 import type { RenderedItemsRange, TreeRendererProps } from "./TreeRenderer";
 import { TreeRenderer } from "./TreeRenderer";
+import { useElementScrollStorage } from "../../../common/UseElementScrollStorage";
 
 /**
  * Properties for [[ControlledTree]]
@@ -128,6 +129,15 @@ export function ControlledTree(props: ControlledTreeProps) {
       )}
     </Loader>
   );
+}
+
+/**
+ * Returns callbacks for persisting and restoring [[ControlledTree]] layout state.
+ * Returned `ref` should be set on container containing ControlledTree.
+ * @public
+ */
+export function useControlledTreeLayoutStorage<T extends Element>() {
+  return useElementScrollStorage<T>("ReactWindow__VariableSizeList");
 }
 
 function useRootNodeLoader(

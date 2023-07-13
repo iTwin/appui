@@ -17,6 +17,7 @@ import {
   render,
   waitFor,
 } from "@testing-library/react";
+import { renderHook } from "@testing-library/react-hooks";
 import type { HighlightingComponentProps } from "../../../components-react/common/HighlightingComponentProps";
 import type { VirtualizedPropertyGridWithDataProviderProps } from "../../../components-react/propertygrid/component/VirtualizedPropertyGridWithDataProvider";
 import { VirtualizedPropertyGridWithDataProvider } from "../../../components-react/propertygrid/component/VirtualizedPropertyGridWithDataProvider";
@@ -32,6 +33,8 @@ import { PropertyDataChangeEvent } from "../../../components-react/propertygrid/
 import { SimplePropertyDataProvider } from "../../../components-react/propertygrid/SimplePropertyDataProvider";
 import { ResolvablePromise } from "../../test-helpers/misc";
 import TestUtils from "../../TestUtils";
+import { useVirtualizedPropertyGridLayoutStorage } from "../../../components-react/propertygrid/component/VirtualizedPropertyGrid";
+import * as useElementScrollStorageModule from "../../../components-react/common/UseElementScrollStorage";
 
 describe("VirtualizedPropertyGridWithDataProvider", () => {
   const categories: PropertyCategory[] = [
@@ -1871,6 +1874,18 @@ describe("Learning Snippets", () => {
       const { getByText } = render(<MyPropertiesComponent />);
       await waitFor(() => getByText("My Property"));
     });
+  });
+});
+
+describe("useVirtualizedPropertyGridLayoutStorage", () => {
+  it("invokes `useElementScrollStorage`", () => {
+    const stub = sinon.stub(
+      useElementScrollStorageModule,
+      "useElementScrollStorage"
+    );
+    renderHook(() => useVirtualizedPropertyGridLayoutStorage());
+
+    expect(stub).to.be.calledWith("ReactWindow__VariableSizeList");
   });
 });
 
