@@ -4,11 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import { StateManager, ThemeManager } from "@itwin/appui-react";
-import {
-  ContextMenu,
-  ContextMenuItem,
-  ContextSubMenu,
-} from "@itwin/core-react";
+import { ContextMenuItem, ContextSubMenu } from "@itwin/core-react";
+import { ContextMenu } from "@itwin/core-react/src/core-react/contextmenu/ContextMenu";
 import { Provider } from "react-redux";
 
 const meta = {
