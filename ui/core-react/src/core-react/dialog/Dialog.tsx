@@ -264,7 +264,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         closeOnExternalClick={false}
         closeOnEsc={false}
         style={style}
-        className={className}
+        className={classnames("core-dialog", className)}
         isDraggable={movable}
         trapFocus={trapFocus && /* istanbul ignore next */ modal}
         preventDocumentScroll={true}

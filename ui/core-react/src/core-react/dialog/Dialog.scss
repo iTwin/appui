@@ -2,81 +2,86 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+@import "../z-index";
 
-.core-dialog-main {
-  display: flex;
-  flex-direction: column;
+.core-dialog {
+  @include uicore-z-index(dialog);
 
-  &.align-top-left {
-    top: 0px;
-    left: 0px;
-    transform: none;
-  }
-  &.align-top {
-    top: 0px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  &.align-top-right {
-    top: 0px;
-    left: 100%;
-    transform: translateX(-100%);
-  }
-  &.align-left {
-    top: 50%;
-    left: 0px;
-    transform: translateY(-50%);
-  }
-  &.align-center {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  &.align-right {
-    top: 50%;
-    left: 100%;
-    transform: translate(-100%, -50%);
-  }
-  &.align-bottom-left {
-    top: 100%;
-    left: 0px;
-    transform: translateY(-100%);
-  }
-  &.align-bottom {
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -100%);
-  }
-  &.align-bottom-right {
-    top: 100%;
-    left: 100%;
-    transform: translate(-100%, -100%);
-  }
-}
+  > .core-dialog-main {
+    display: flex;
+    flex-direction: column;
 
-.core-dialog-resize-bar {
-  &.drag-right {
-    right: -4px;
-    top: 8px;
-    bottom: 8px;
-    width: 8px;
-    position: absolute;
-    cursor: e-resize;
+    &.align-top-left {
+      top: 0px;
+      left: 0px;
+      transform: none;
+    }
+    &.align-top {
+      top: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &.align-top-right {
+      top: 0px;
+      left: 100%;
+      transform: translateX(-100%);
+    }
+    &.align-left {
+      top: 50%;
+      left: 0px;
+      transform: translateY(-50%);
+    }
+    &.align-center {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &.align-right {
+      top: 50%;
+      left: 100%;
+      transform: translate(-100%, -50%);
+    }
+    &.align-bottom-left {
+      top: 100%;
+      left: 0px;
+      transform: translateY(-100%);
+    }
+    &.align-bottom {
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, -100%);
+    }
+    &.align-bottom-right {
+      top: 100%;
+      left: 100%;
+      transform: translate(-100%, -100%);
+    }
   }
-  &.drag-bottom-right {
-    right: -4px;
-    bottom: -4px;
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    cursor: se-resize;
-  }
-  &.drag-bottom {
-    right: 8px;
-    left: 8px;
-    bottom: -4px;
-    height: 8px;
-    position: absolute;
-    cursor: s-resize;
+
+  > .core-dialog-resize-bar {
+    &.drag-right {
+      right: -4px;
+      top: 8px;
+      bottom: 8px;
+      width: 8px;
+      position: absolute;
+      cursor: e-resize;
+    }
+    &.drag-bottom-right {
+      right: -4px;
+      bottom: -4px;
+      width: 12px;
+      height: 12px;
+      position: absolute;
+      cursor: se-resize;
+    }
+    &.drag-bottom {
+      right: 8px;
+      left: 8px;
+      bottom: -4px;
+      height: 8px;
+      position: absolute;
+      cursor: s-resize;
+    }
   }
 }
