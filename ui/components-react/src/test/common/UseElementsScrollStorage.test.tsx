@@ -20,8 +20,8 @@ describe("useElementsScrollStorage", () => {
   // eslint-disable-next-line react/display-name
   const TestComponent = forwardRef<
     TestComponentAttributes,
-    { lookupClassName?: string }
-  >(({ lookupClassName }, testRef) => {
+    { lookupClassName?: string; renderSecond?: boolean }
+  >(({ lookupClassName, renderSecond }, testRef) => {
     const { ref, persist, restore } = useElementsScrollStorage<HTMLDivElement>(
       lookupClassName ?? containerClassName
     );
@@ -37,6 +37,7 @@ describe("useElementsScrollStorage", () => {
     return (
       <div ref={ref}>
         <div className={containerClassName}>Test Element</div>
+        {renderSecond && <div className={containerClassName}>Test Element</div>}
       </div>
     );
   });
@@ -92,6 +93,35 @@ describe("useElementsScrollStorage", () => {
 
     ref.current!.persist();
     expect(getterCalled).to.be.false;
+
+    ref.current!.restore();
+    expect(scrollValue).to.be.undefined;
+  });
+
+  it("does not restore scroll if element count changes", () => {
+    const ref = React.createRef<TestComponentAttributes>();
+    const { getByText, rerender } = render(
+      <TestComponent ref={ref} renderSecond={false} />
+    );
+
+    const element = getByText("Test Element");
+
+    let getterCalled = false;
+    let scrollValue: number | undefined;
+    sinon
+      .stub(element, "scrollTop")
+      .get(() => {
+        getterCalled = true;
+        return 10;
+      })
+      .set((value: number) => {
+        scrollValue = value;
+      });
+
+    ref.current!.persist();
+    expect(getterCalled).to.be.true;
+
+    rerender(<TestComponent ref={ref} renderSecond={true} />);
 
     ref.current!.restore();
     expect(scrollValue).to.be.undefined;

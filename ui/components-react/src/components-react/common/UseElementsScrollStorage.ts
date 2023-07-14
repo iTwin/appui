@@ -23,21 +23,16 @@ export function useElementsScrollStorage<T extends Element>(
   const scrollTop = useRef<number[]>([]);
 
   const getElements = () => {
-    const elements = ref.current?.getElementsByClassName(elementsClassName);
-    if (!elements) {
-      return undefined;
+    // istanbul ignore if
+    if (!ref.current) {
+      return [];
     }
-
-    return elements;
+    return ref.current.getElementsByClassName(elementsClassName);
   };
 
   /** Persists current `scrollTop` property value of elements. */
   const persist = () => {
     const elements = getElements();
-    if (!elements) {
-      return;
-    }
-
     const offsets: number[] = [];
     for (const element of elements) {
       offsets.push(element.scrollTop);
@@ -48,7 +43,8 @@ export function useElementsScrollStorage<T extends Element>(
   /** Restores `scrollTop` property values back. If `persist` was not called does nothing. */
   const restore = () => {
     const elements = getElements();
-    if (!elements || elements.length !== scrollTop.current.length) {
+    if (elements.length !== scrollTop.current.length) {
+      scrollTop.current = [];
       return;
     }
 
