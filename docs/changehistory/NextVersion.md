@@ -24,14 +24,20 @@ The behavior of the floating Tool Settings widget to disappear when there are no
 
 ```typescript
 import { useTransientState } from "@itwin/appui-react";
-import { ControlledTree, useControlledTreeLayoutStorage } from "@itwin/components-react";
+import {
+  ControlledTree,
+  useControlledTreeLayoutStorage,
+} from "@itwin/components-react";
 
 function ControlledTreeWidget() {
-  const { ref, persist, restore } = useControlledTreeLayoutStorage<HTMLDivElement>();
+  const { ref, persist, restore } =
+    useControlledTreeLayoutStorage<HTMLDivElement>();
   useTransientState(persist, restore);
 
-  return <div ref={ref}>
-    <ControlledTree />
-  </div>
+  return (
+    <div ref={ref}>
+      <ControlledTree />
+    </div>
+  );
 }
 ```
