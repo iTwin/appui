@@ -160,10 +160,11 @@ describe("Dialog", () => {
           minWidth={200}
         />
       );
-      expect(component.container.querySelector("drag-right")).to.not.exist;
-      expect(component.container.querySelector("drag-bottom-right")).to.not
+      expect(component.container.querySelector("core-drag-right")).to.not.exist;
+      expect(component.container.querySelector("core-drag-bottom-right")).to.not
         .exist;
-      expect(component.container.querySelector("drag-bottom")).to.not.exist;
+      expect(component.container.querySelector("core-drag-bottom")).to.not
+        .exist;
     });
     it("should resize from pointer events on bottom right", async () => {
       const component = render(
@@ -408,59 +409,64 @@ describe("Dialog", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.TopLeft} />
       );
-      expect(component.container.querySelector(".align-top-left")).not.to.be
-        .null;
+      expect(component.container.querySelector(".core-align-top-left")).not.to
+        .be.null;
     });
     it("should render top", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Top} />
       );
-      expect(component.container.querySelector(".align-top")).not.to.be.null;
+      expect(component.container.querySelector(".core-align-top")).not.to.be
+        .null;
     });
     it("should render top right", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.TopRight} />
       );
-      expect(component.container.querySelector(".align-top-right")).not.to.be
-        .null;
+      expect(component.container.querySelector(".core-align-top-right")).not.to
+        .be.null;
     });
     it("should render left", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Left} />
       );
-      expect(component.container.querySelector(".align-left")).not.to.be.null;
+      expect(component.container.querySelector(".core-align-left")).not.to.be
+        .null;
     });
     it("should render center", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Center} />
       );
-      expect(component.container.querySelector(".align-center")).not.to.be.null;
+      expect(component.container.querySelector(".core-align-center")).not.to.be
+        .null;
     });
     it("should render right", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Right} />
       );
-      expect(component.container.querySelector(".align-right")).not.to.be.null;
+      expect(component.container.querySelector(".core-align-right")).not.to.be
+        .null;
     });
     it("should render bottom left", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.BottomLeft} />
       );
-      expect(component.container.querySelector(".align-bottom-left")).not.to.be
-        .null;
+      expect(component.container.querySelector(".core-align-bottom-left")).not
+        .to.be.null;
     });
     it("should render bottom", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.Bottom} />
       );
-      expect(component.container.querySelector(".align-bottom")).not.to.be.null;
+      expect(component.container.querySelector(".core-align-bottom")).not.to.be
+        .null;
     });
     it("should render bottom right", () => {
       const component = render(
         <Dialog opened={true} alignment={DialogAlignment.BottomRight} />
       );
-      expect(component.container.querySelector(".align-bottom-right")).not.to.be
-        .null;
+      expect(component.container.querySelector(".core-align-bottom-right")).not
+        .to.be.null;
     });
     it("should render with 50px offset from left corner", () => {
       const component = render(<Dialog opened={true} x={50} />);

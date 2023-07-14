@@ -305,14 +305,17 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
             {resizable && (
               <>
                 <div
-                  className={classnames("core-dialog-resize-bar", "drag-right")}
+                  className={classnames(
+                    "core-dialog-resize-bar",
+                    "core-drag-right"
+                  )}
                   onPointerDown={this._handleStartResizeRight}
                   data-testid="core-dialog-drag-right"
                 />
                 <div
                   className={classnames(
                     "core-dialog-resize-bar",
-                    "drag-bottom-right"
+                    "core-drag-bottom-right"
                   )}
                   onPointerDown={this._handleStartResizeDownRight}
                   data-testid="core-dialog-drag-bottom-right"
@@ -320,7 +323,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
                 <div
                   className={classnames(
                     "core-dialog-resize-bar",
-                    "drag-bottom"
+                    "core-drag-bottom"
                   )}
                   onPointerDown={this._handleStartResizeDown}
                   data-testid="core-dialog-drag-bottom"
@@ -336,23 +339,23 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   private getCSSClassNameFromAlignment(alignment: DialogAlignment): string {
     switch (alignment) {
       case DialogAlignment.TopLeft:
-        return "align-top-left";
+        return "core-align-top-left";
       case DialogAlignment.Top:
-        return "align-top";
+        return "core-align-top";
       case DialogAlignment.TopRight:
-        return "align-top-right";
+        return "core-align-top-right";
       case DialogAlignment.Left:
-        return "align-left";
+        return "core-align-left";
       case DialogAlignment.Center:
-        return "align-center";
+        return "core-align-center";
       case DialogAlignment.Right:
-        return "align-right";
+        return "core-align-right";
       case DialogAlignment.BottomLeft:
-        return "align-bottom-left";
+        return "core-align-bottom-left";
       case DialogAlignment.Bottom:
-        return "align-bottom";
+        return "core-align-bottom";
       case DialogAlignment.BottomRight:
-        return "align-bottom-right";
+        return "core-align-bottom-right";
     }
   }
 
