@@ -7,15 +7,15 @@ publish: false
 Table of contents:
 
 - [@itwin/core-react](#itwincore-react)
-  - [Standardize `Dialog`](#standardize-dialog)
-- [@itwin/appui-react](#itwinappui-react)
   - [Changes](#changes)
+- [@itwin/appui-react](#itwinappui-react)
+  - [Changes](#changes-1)
 
 ## @itwin/core-react
 
-### Standardize `Dialog`
+### Changes
 
-`Dialog` from core-react now has iTwinUI `Dialog` as a base component so it should look and act similar to iTwinUI `Dialog`. The overhead features and dialog resizing of core-react `Dialog` are kept.
+- `Dialog` from core-react now has iTwinUI `Dialog` as a base component so it should look and act similar to iTwinUI `Dialog`. The overhead features and dialog resizing of core-react `Dialog` are kept.
 
 ## @itwin/appui-react
 
