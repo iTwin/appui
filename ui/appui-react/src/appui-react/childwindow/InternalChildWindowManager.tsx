@@ -150,7 +150,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         copyStyles(childWindow.document);
         setTimeout(() => {
           this.render(
-            <Provider store={StateManager.store}>
+            <Provider store={UiFramework.store}>
               <UiStateStorageHandler>
                 <ThemeManager>
                   <div className="uifw-child-window-container-host">
