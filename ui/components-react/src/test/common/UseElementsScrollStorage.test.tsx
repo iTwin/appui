@@ -7,9 +7,9 @@ import { expect } from "chai";
 import sinon from "sinon";
 import React, { forwardRef, useImperativeHandle } from "react";
 import { render } from "@testing-library/react";
-import { useElementScrollStorage } from "../../components-react/common/UseElementScrollStorage";
+import { useElementsScrollStorage } from "../../components-react/common/UseElementsScrollStorage";
 
-describe("useElementScrollStorage", () => {
+describe("useElementsScrollStorage", () => {
   const containerClassName = "some-container";
 
   interface TestComponentAttributes {
@@ -22,7 +22,7 @@ describe("useElementScrollStorage", () => {
     TestComponentAttributes,
     { lookupClassName?: string }
   >(({ lookupClassName }, testRef) => {
-    const { ref, persist, restore } = useElementScrollStorage<HTMLDivElement>(
+    const { ref, persist, restore } = useElementsScrollStorage<HTMLDivElement>(
       lookupClassName ?? containerClassName
     );
     useImperativeHandle(

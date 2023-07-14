@@ -28,7 +28,7 @@ import type { HighlightableTreeProps } from "../../../../components-react/tree/H
 import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
 import TestUtils from "../../../TestUtils";
 import { SparseArray } from "../../../../components-react/tree/controlled/internal/SparseTree";
-import * as useElementScrollStorageModule from "../../../../components-react/common/UseElementScrollStorage";
+import * as useElementsScrollStorageModule from "../../../../components-react/common/UseElementsScrollStorage";
 
 describe("ControlledTree", () => {
   const nodeLoaderMock = moq.Mock.ofType<ITreeNodeLoader>();
@@ -236,8 +236,8 @@ describe("ControlledTree", () => {
 describe("useControlledTreeTransientState", () => {
   it("invokes `useElementScrollStorage`", () => {
     const stub = sinon.stub(
-      useElementScrollStorageModule,
-      "useElementScrollStorage"
+      useElementsScrollStorageModule,
+      "useElementsScrollStorage"
     );
     renderHook(() => useControlledTreeLayoutStorage());
 

@@ -28,7 +28,7 @@ import type { TreeNodeRendererProps } from "./TreeNodeRenderer";
 import { TreeNodeRenderer } from "./TreeNodeRenderer";
 import type { RenderedItemsRange, TreeRendererProps } from "./TreeRenderer";
 import { TreeRenderer } from "./TreeRenderer";
-import { useElementScrollStorage } from "../../../common/UseElementScrollStorage";
+import { useElementsScrollStorage } from "../../../common/UseElementsScrollStorage";
 
 /**
  * Properties for [[ControlledTree]]
@@ -137,7 +137,7 @@ export function ControlledTree(props: ControlledTreeProps) {
  * @public
  */
 export function useControlledTreeLayoutStorage<T extends Element>() {
-  return useElementScrollStorage<T>("ReactWindow__VariableSizeList");
+  return useElementsScrollStorage<T>("ReactWindow__VariableSizeList");
 }
 
 function useRootNodeLoader(

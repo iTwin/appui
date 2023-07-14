@@ -34,7 +34,7 @@ import { SimplePropertyDataProvider } from "../../../components-react/propertygr
 import { ResolvablePromise } from "../../test-helpers/misc";
 import TestUtils from "../../TestUtils";
 import { useVirtualizedPropertyGridLayoutStorage } from "../../../components-react/propertygrid/component/VirtualizedPropertyGrid";
-import * as useElementScrollStorageModule from "../../../components-react/common/UseElementScrollStorage";
+import * as useElementsScrollStorageModule from "../../../components-react/common/UseElementsScrollStorage";
 
 describe("VirtualizedPropertyGridWithDataProvider", () => {
   const categories: PropertyCategory[] = [
@@ -1878,10 +1878,10 @@ describe("Learning Snippets", () => {
 });
 
 describe("useVirtualizedPropertyGridLayoutStorage", () => {
-  it("invokes `useElementScrollStorage`", () => {
+  it("invokes `useElementsScrollStorage`", () => {
     const stub = sinon.stub(
-      useElementScrollStorageModule,
-      "useElementScrollStorage"
+      useElementsScrollStorageModule,
+      "useElementsScrollStorage"
     );
     renderHook(() => useVirtualizedPropertyGridLayoutStorage());
 
