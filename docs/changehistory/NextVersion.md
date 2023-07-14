@@ -20,4 +20,18 @@ The behavior of the floating Tool Settings widget to disappear when there are no
 
 ### Additions
 
-- Added `useControlledTreeLayoutStorage` and `useVirtualizedPropertyGridLayoutStorage` hooks. These hooks can be used with `useTransientState` to persist scroll position when `VirtualizePropertyGrid` or `ControlledTree` is used in `Widget`.
+- Added `useControlledTreeLayoutStorage` and `useVirtualizedPropertyGridLayoutStorage` hooks. These hooks can be used with `useTransientState` to persist scroll position when `VirtualizePropertyGrid` or `ControlledTree` is used in `Widget`. Example:
+
+```typescript
+import { useTransientState } from "@itwin/appui-react";
+import { ControlledTree, useControlledTreeLayoutStorage } from "@itwin/components-react";
+
+function ControlledTreeWidget() {
+  const { ref, persist, restore } = useControlledTreeLayoutStorage<HTMLDivElement>();
+  useTransientState(persist, restore);
+
+  return <div ref={ref}>
+    <ControlledTree />
+  </div>
+}
+```
