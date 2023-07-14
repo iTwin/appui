@@ -9,12 +9,10 @@
 // cSpell:ignore configurableui clientservices
 
 import type { Store } from "redux";
-import type { GuidString } from "@itwin/core-bentley";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
-import type { Localization, RpcActivity } from "@itwin/core-common";
+import type { Localization } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
-import { TelemetryEvent } from "@itwin/core-telemetry";
 import { getClassName, UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
@@ -827,42 +825,7 @@ export class UiFramework {
       display
     );
   }
-  /** Send logging message to the telemetry system
-   * @internal
-   */
-  // istanbul ignore next
-  public static async postTelemetry(
-    eventName: string,
-    eventId?: GuidString,
-    iTwinId?: GuidString,
-    iModeId?: GuidString,
-    changeSetId?: string,
-    time?: TrackingTime,
-    additionalProperties?: { [key: string]: any }
-  ): Promise<void> {
-    if (!IModelApp.authorizationClient) return;
 
-    try {
-      const activity: RpcActivity = {
-        sessionId: IModelApp.sessionId,
-        activityId: "",
-        applicationId: IModelApp.applicationId,
-        applicationVersion: IModelApp.applicationVersion,
-        accessToken:
-          (await IModelApp.authorizationClient.getAccessToken()) ?? "",
-      };
-      const telemetryEvent = new TelemetryEvent(
-        eventName,
-        eventId,
-        iTwinId,
-        iModeId,
-        changeSetId,
-        time,
-        additionalProperties
-      );
-      await IModelApp.telemetry.postTelemetry(activity, telemetryEvent);
-    } catch {}
-  }
   /** Determines whether a ContextMenu is open
    * @alpha
    * */

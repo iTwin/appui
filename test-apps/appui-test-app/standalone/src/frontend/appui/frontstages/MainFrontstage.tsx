@@ -37,6 +37,7 @@ import { AppUi } from "../AppUi";
 // cSpell:Ignore contentviews statusbars
 import { LocalStateStorage } from "@itwin/core-react";
 import stageIconSvg from "./imodeljs.svg";
+import { ComponentExamplesModalFrontstage } from "@itwin/appui-test-providers";
 
 function getIModelSpecificKey(
   inKey: string,
@@ -233,6 +234,7 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
         IconSpecUtilities.createWebComponentIconSpec(stageIconSvg)
       ),
       SettingsModalFrontstage.getBackstageActionItem(400, 10),
+      ComponentExamplesModalFrontstage.getBackstageActionItem(400, 20),
     ];
   }
 }
