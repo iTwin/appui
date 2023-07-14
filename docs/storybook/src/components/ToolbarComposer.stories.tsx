@@ -4,11 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import {
-  ToolbarComposer,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
 } from "@itwin/appui-react";
+import { ToolbarComposer } from "@itwin/appui-react/src/appui-react/toolbar/ToolbarComposer";
 import { Svg2D, Svg3D } from "@itwin/itwinui-icons-react";
 
 const meta = {
