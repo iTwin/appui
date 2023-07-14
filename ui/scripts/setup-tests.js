@@ -58,6 +58,13 @@ global.DOMRect.fromRect = function (rect) {
 const { JSDOM } = require("jsdom");
 global.DOMParser = new JSDOM().window.DOMParser;
 
+global.DOMMatrix = class DOMMatrix {
+  constructor(init) {
+    this.m41 = 0;
+    this.m42 = 0;
+  }
+};
+
 // setup chai
 const chai = require("chai");
 chai.should();

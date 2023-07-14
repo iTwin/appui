@@ -6,10 +6,48 @@ publish: false
 
 Table of contents:
 
-- [Empty Tool Settings Message](#empty-tool-settings-message)
+- [@itwin/core-react](#itwincore-react)
+  - [Changes](#changes)
+- [@itwin/appui-react](#itwinappui-react)
+  - [Changes](#changes-1)
+- [@itwin/components-react](#itwincomponents-react)
+  - [Additions](#additions)
 
-## Empty Tool Settings Message
+## @itwin/core-react
 
-When a tool that does not specify any [Tool Settings]($appui-react) is active, the Tool Settings bar no longer reads "No settings available for this tool." The new message incorporates the active tool's name (or the string "Active Tool" if one is not specified). Message is composed of a pre-string, the tool name, and a post-string, to allow translation into languages with different grammatical structures. The pre-string's key is "noToolSettingsStart" and the post-string's key is "noToolSettingsEnd".
+### Changes
 
-The behavior of the floating Tool Settings widget to disappear when there are not settings has not been changed.
+- `Dialog` from core-react now has iTwinUI `Dialog` as a base component so it should look and act similar to iTwinUI `Dialog`. The overhead features and dialog resizing of core-react `Dialog` are kept.
+
+## @itwin/appui-react
+
+### Changes
+
+- Changed the tool settings message that is displayed when a tool does not specify any tool settings. Previously negative message **No settings for this tool** is replaced with a positive dynamic message i.e. **Measure Distance does not have tool settings.** The new message is composed of a pre-string (`noToolSettingsStart` translation key), the tool name (uses `noToolSettingsPlaceholderName` translation key if tool name is not specified), and a post-string (`noToolSettingsEnd` translation key) to allow translation into languages with different grammatical structures.
+- Removed the leftover usage of the telemetry APIs. The suggested way for the applications to handle the feature tracking moving forward is to listen to various AppUI events (i.e. widget state change events) or other observable state like React hooks. This allows the application to decide how to handle the events.
+
+## @itwin/components-react
+
+### Additions
+
+- Added `useControlledTreeLayoutStorage` and `useVirtualizedPropertyGridLayoutStorage` hooks. These hooks can be used with `useTransientState` to persist scroll position when `VirtualizePropertyGrid` or `ControlledTree` is used in `Widget`. Example:
+
+```typescript
+import { useTransientState } from "@itwin/appui-react";
+import {
+  ControlledTree,
+  useControlledTreeLayoutStorage,
+} from "@itwin/components-react";
+
+function ControlledTreeWidget() {
+  const { ref, persist, restore } =
+    useControlledTreeLayoutStorage<HTMLDivElement>();
+  useTransientState(persist, restore);
+
+  return (
+    <div ref={ref}>
+      <ControlledTree />
+    </div>
+  );
+}
+```
