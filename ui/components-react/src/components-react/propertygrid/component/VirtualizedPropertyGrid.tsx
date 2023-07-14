@@ -47,6 +47,7 @@ import type {
 } from "./PropertyGridCommons";
 import { PropertyGridCommons } from "./PropertyGridCommons";
 import { PropertyGridEventsRelatedPropsSupplier } from "./PropertyGridEventsRelatedPropsSupplier";
+import { useElementsScrollStorage } from "../../common/UseElementsScrollStorage";
 
 /** Properties for [[VirtualizedPropertyGrid]] React component
  * @public
@@ -473,6 +474,15 @@ export class VirtualizedPropertyGrid extends React.Component<
       </ColumnResizingPropertyListPropsSupplier>
     );
   }
+}
+
+/**
+ * Returns callbacks for persisting and restoring [[VirtualizedPropertyGrid]] layout state.
+ * Returned `ref` should be set on container containing [[VirtualizedPropertyGrid]].
+ * @public
+ */
+export function useVirtualizedPropertyGridLayoutStorage<T extends Element>() {
+  return useElementsScrollStorage<T>("ReactWindow__VariableSizeList");
 }
 
 const FlatGridItemNode = React.memo(
