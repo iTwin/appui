@@ -6,10 +6,18 @@ publish: false
 
 Table of contents:
 
-- [@itwin/appui-react](#itwinappui-react)
+- [@itwin/core-react](#itwincore-react)
   - [Changes](#changes)
+- [@itwin/appui-react](#itwinappui-react)
+  - [Changes](#changes-1)
 - [@itwin/components-react](#itwincomponents-react)
   - [Additions](#additions)
+
+## @itwin/core-react
+
+### Changes
+
+- `Dialog` from core-react now has iTwinUI `Dialog` as a base component so it should look and act similar to iTwinUI `Dialog`. The overhead features and dialog resizing of core-react `Dialog` are kept.
 
 ## @itwin/appui-react
 
