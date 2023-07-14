@@ -9,6 +9,7 @@ export * from "./ui/providers/InspectUiItemInfoToolProvider";
 export * from "./ui/providers/FloatingWidgetsUiItemsProvider";
 export * from "./ui/providers/MessageUiItemsProvider";
 
+export * from "./ui/frontstages/ComponentExamples";
 export * from "./ui/frontstages/ContentLayout";
 export * from "./ui/frontstages/CustomContent";
 export * from "./ui/frontstages/CustomFrontstageProvider";
