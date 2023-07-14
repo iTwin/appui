@@ -458,7 +458,11 @@ export class ViewSelector extends React.Component<
         searchBox={this.state.searchBox}
         onSearchValueChange={debounce((search: string) => {
           this._searchInput = search;
-          if (this.state.expand === false && this._searchInput.length > 0)
+          if (
+            this._isMounted &&
+            this.state.expand === false &&
+            this._searchInput.length > 0
+          )
             this.setState({ expand: true });
           void this.loadViews();
         }, 300)}
