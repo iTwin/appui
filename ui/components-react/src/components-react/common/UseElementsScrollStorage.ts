@@ -3,7 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { useRef, Ref } from "react";
+import type { Ref } from "react";
+import { useRef } from "react";
 
 /**
  * Returns callbacks for persisting and restoring elements `scrollTop` property value.
@@ -38,8 +39,8 @@ export function useElementsScrollStorage<T extends Element>(
     }
 
     const offsets: number[] = [];
-    for (let i = 0; i < elements.length; i++) {
-      offsets.push(elements[i].scrollTop);
+    for (const element of elements) {
+      offsets.push(element.scrollTop);
     }
     scrollTop.current = offsets;
   };
