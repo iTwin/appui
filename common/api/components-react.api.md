@@ -3413,7 +3413,7 @@ export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined;
 
 // @public
 export function useControlledTreeLayoutStorage<T extends Element>(): {
-    ref: React_2.RefObject<T>;
+    ref: React_2.Ref<T>;
     persist: () => void;
     restore: () => void;
 };
@@ -3482,7 +3482,7 @@ export function useTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataPr
 
 // @public
 export function useVirtualizedPropertyGridLayoutStorage<T extends Element>(): {
-    ref: React_2.RefObject<T>;
+    ref: React_2.Ref<T>;
     persist: () => void;
     restore: () => void;
 };
