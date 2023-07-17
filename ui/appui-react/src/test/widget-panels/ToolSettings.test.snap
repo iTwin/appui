@@ -86,7 +86,9 @@ exports[`WidgetPanelsToolSettings should render 1`] = `
         <div
           class="uif-toolsetting-label-docked-horizontal-empty"
         >
-          tools.noToolSettings
+          tools.noToolSettingsStart
+          tools.noToolSettingsPlaceholderName
+          tools.noToolSettingsEnd
         </div>
       </div>
       <div />
