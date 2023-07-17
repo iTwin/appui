@@ -16,7 +16,6 @@ import type {
 } from "../WidgetState";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Rectangle } from "@itwin/core-react";
-import { toolSettingsTabId } from "../ToolSettingsState";
 import {
   getWidgetState,
   updateFloatingWidgetState,
@@ -90,6 +89,7 @@ export function isToolSettingsFloatingWidget(
   id: FloatingWidgetState["id"]
 ) {
   const widget = getWidgetState(state, id);
+  const toolSettingsTabId = state.toolSettings?.tabId;
   return (
     widget.tabs.length === 1 &&
     widget.tabs[0] === toolSettingsTabId &&

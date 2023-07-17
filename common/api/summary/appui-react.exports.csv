@@ -368,7 +368,7 @@ public;ReducerActions
 public;ReducerMapActions
 beta;ReducerRegistry
 beta;ReducerRegistryInstance: ReducerRegistry
-internal;removeMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState
+internal;removeMissingWidgets(frontstageDef: FrontstageDef, state: NineZoneState): NineZoneState
 public;RestoreAllFrontstagesTool 
 public;RestoreFrontstageLayoutTool 
 internal;restoreNineZoneState(frontstageDef: FrontstageDef, saved: SavedNineZoneState): NineZoneState
@@ -437,6 +437,7 @@ public;StandardStatusbarItemsProvider
 beta;StandardStatusbarUiItemsProvider 
 public;StateManager
 public;StateType
+internal;stateVersion = 14
 public;StatusBar 
 public;StatusBar
 public;StatusBarActionItem 
@@ -550,7 +551,7 @@ public;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly Toolba
 alpha;useFloatingViewport(args: FloatingViewportContentProps):
 internal;useFrontstageManager(frontstageDef: FrontstageDef, useToolAsToolSettingsLabel?: boolean): void
 internal;useGroupedItems: (items: ReadonlyArray
-internal;useHorizontalToolSettingNodes(): ToolSettingsEntry[] | undefined
+internal;useHorizontalToolSettingNodes(): ToolSettingsEntry[]
 public;useIsBackstageOpen: (manager: FrameworkBackstage) => boolean
 internal;useItemsManager(frontstageDef: FrontstageDef): void
 internal;useLabels(): NineZoneLabels

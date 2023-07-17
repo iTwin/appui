@@ -2,6 +2,36 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.3.0",
+      "tag": "@itwin/appui-react_v4.3.0",
+      "date": "Mon, 17 Jul 2023 10:16:20 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Update sinon to 15.2.0 and @types/sinon to 10.0.15"
+          },
+          {
+            "comment": "Reword emtpy tool settings message to include tool name."
+          },
+          {
+            "comment": "Use UiFramework.store instead of StateManager.store to display popout widgets."
+          },
+          {
+            "comment": "Fix empty tool settings message."
+          },
+          {
+            "comment": "Fix `FrontstageDef.findWidgetDef` to correctly return `toolSettings` and `statusBar` widgets."
+          },
+          {
+            "comment": "Fix `WidgetDef.setWidgetState` to correctly hide and show tool settings."
+          },
+          {
+            "comment": "Add missing `isMounted` check to fix a warning message while running tests."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.2.0",
       "tag": "@itwin/appui-react_v4.2.0",
       "date": "Tue, 27 Jun 2023 14:50:22 GMT",

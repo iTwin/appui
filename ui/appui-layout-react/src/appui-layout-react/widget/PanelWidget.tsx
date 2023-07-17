@@ -143,7 +143,7 @@ export function useBorders(widgetId: WidgetState["id"]) {
     if (isVertical && isLast) {
       bottom = false;
     }
-    if (isTopMostPanelBorder && toolSettings.type === "docked") {
+    if (isTopMostPanelBorder && toolSettings?.type === "docked") {
       top = false;
     }
     if (isVertical && !isFirst) {

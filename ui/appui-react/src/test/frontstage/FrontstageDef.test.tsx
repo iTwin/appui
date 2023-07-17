@@ -36,6 +36,42 @@ import {
 import TestUtils, { storageMock } from "../TestUtils";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
+class BadLayoutFrontstage extends FrontstageProvider {
+  public static stageId = "BadLayout";
+  public get id(): string {
+    return BadLayoutFrontstage.stageId;
+  }
+
+  public override frontstageConfig(): FrontstageConfig {
+    return {
+      id: this.id,
+      version: 1,
+      contentGroup: TestUtils.TestContentGroup1,
+    };
+  }
+}
+
+class BadGroupFrontstage extends FrontstageProvider {
+  public static stageId = "BadGroup";
+  public get id(): string {
+    return BadGroupFrontstage.stageId;
+  }
+
+  public override frontstageConfig(): FrontstageConfig {
+    return {
+      id: this.id,
+      version: 1,
+      contentGroup: TestUtils.TestContentGroup1,
+    };
+  }
+}
+
+const defaultFrontstageConfig: FrontstageConfig = {
+  id: "test-frontstage",
+  contentGroup: TestUtils.TestContentGroup1,
+  version: 1,
+};
+
 describe("FrontstageDef", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(
     window,
@@ -57,36 +93,6 @@ describe("FrontstageDef", () => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
 
-  class BadLayoutFrontstage extends FrontstageProvider {
-    public static stageId = "BadLayout";
-    public get id(): string {
-      return BadLayoutFrontstage.stageId;
-    }
-
-    public override frontstageConfig(): FrontstageConfig {
-      return {
-        id: this.id,
-        version: 1,
-        contentGroup: TestUtils.TestContentGroup1,
-      };
-    }
-  }
-
-  class BadGroupFrontstage extends FrontstageProvider {
-    public static stageId = "BadGroup";
-    public get id(): string {
-      return BadGroupFrontstage.stageId;
-    }
-
-    public override frontstageConfig(): FrontstageConfig {
-      return {
-        id: this.id,
-        version: 1,
-        contentGroup: TestUtils.TestContentGroup1,
-      };
-    }
-  }
-
   it("setActiveFrontstage should throw Error on invalid content layout", () => {
     const frontstageProvider = new BadLayoutFrontstage();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
@@ -101,129 +107,6 @@ describe("FrontstageDef", () => {
     void expect(
       UiFramework.frontstages.setActiveFrontstage("BadGroup")
     ).to.be.rejectedWith(Error);
-  });
-
-  describe("restoreLayout", () => {
-    it("should emit onFrontstageRestoreLayoutEvent", () => {
-      const spy = sinon.spy(
-        InternalFrontstageManager.onFrontstageRestoreLayoutEvent,
-        "emit"
-      );
-      const frontstageDef = new FrontstageDef();
-      frontstageDef.restoreLayout();
-      spy.calledOnceWithExactly(
-        sinon.match({
-          frontstageDef,
-        })
-      ).should.true;
-    });
-
-    it("should restore panel widget to default state", () => {
-      const frontstageDef = new FrontstageDef();
-      const rightPanel = new StagePanelDef();
-      const w1 = WidgetDef.create({
-        id: "w1",
-        defaultState: WidgetState.Open,
-      });
-      sinon.stub(rightPanel, "widgetDefs").get(() => [w1]);
-      sinon.stub(frontstageDef, "rightPanel").get(() => rightPanel);
-      const spy = sinon.spy(w1, "setWidgetState");
-
-      frontstageDef.restoreLayout();
-      sinon.assert.calledOnceWithExactly(spy, WidgetState.Open);
-    });
-
-    it("should restore panel size to default size", () => {
-      const frontstageDef = new FrontstageDef();
-      const rightPanel = new StagePanelDef();
-      sinon.stub(rightPanel, "defaultSize").get(() => 300);
-      sinon.stub(frontstageDef, "rightPanel").get(() => rightPanel);
-      const spy = sinon.spy(rightPanel, "size", ["set"]);
-
-      frontstageDef.restoreLayout();
-      sinon.assert.calledOnceWithExactly(spy.set, 300);
-    });
-  });
-
-  describe("dynamic widgets", () => {
-    class WidgetsProvider implements UiItemsProvider {
-      public readonly id = "WidgetsProvider";
-
-      public provideWidgets(
-        _stageId: string,
-        _stageUsage: string,
-        location: StagePanelLocation,
-        section?: StagePanelSection
-      ) {
-        const widgets: Widget[] = [];
-        widgets.push({
-          // This should be added to Left stage panel, Start location.
-          id: "WidgetsProviderW1",
-          label: "WidgetsProvider W1",
-        });
-        if (location === StagePanelLocation.Right)
-          widgets.push({
-            id: "WidgetsProviderR1",
-            label: "WidgetsProvider R1",
-          });
-        if (
-          location === StagePanelLocation.Right &&
-          section === StagePanelSection.End
-        )
-          widgets.push({
-            id: "WidgetsProviderRM1",
-            label: "WidgetsProvider RM1",
-          });
-
-        return widgets;
-      }
-    }
-
-    class EmptyFrontstageProvider extends FrontstageProvider {
-      public static stageId = "TestFrontstageUi2";
-      public override get id(): string {
-        return EmptyFrontstageProvider.stageId;
-      }
-
-      public override frontstageConfig(): FrontstageConfig {
-        return {
-          id: this.id,
-          version: 1,
-          contentGroup: TestUtils.TestContentGroup1,
-        };
-      }
-    }
-
-    beforeEach(() => {
-      UiItemsManager.register(new WidgetsProvider());
-    });
-
-    afterEach(() => {
-      UiItemsManager.unregister("WidgetsProvider");
-    });
-
-    it("should add extension widgets to stage panel zones", async () => {
-      const frontstageProvider = new EmptyFrontstageProvider();
-      UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
-      const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
-        EmptyFrontstageProvider.stageId
-      );
-      expect(!!frontstageDef?.isReady).to.be.false;
-      await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
-      const sut = UiFramework.frontstages.activeFrontstageDef!;
-      sut
-        .rightPanel!.getPanelSectionDef(StagePanelSection.Start)
-        .widgetDefs.map((w) => w.id)
-        .should.eql(["WidgetsProviderR1"]);
-      sut
-        .rightPanel!.getPanelSectionDef(StagePanelSection.End)
-        .widgetDefs.map((w) => w.id)
-        .should.eql(["WidgetsProviderRM1"]);
-      sut
-        .leftPanel!.getPanelSectionDef(StagePanelSection.Start)
-        .widgetDefs.map((w) => w.id)
-        .should.eql(["WidgetsProviderW1"]);
-    });
   });
 
   it("should be able to determine if widget is visible", async () => {
@@ -385,10 +268,7 @@ describe("FrontstageDef", () => {
   it("should activate a widget def", async () => {
     const def = new FrontstageDef();
     await def.initializeFromConfig({
-      id: "old",
-      version: 1,
-      usage: "General",
-      contentGroup: TestUtils.TestContentGroup2,
+      ...defaultFrontstageConfig,
       rightPanel: {
         sections: {
           start: [
@@ -412,6 +292,155 @@ describe("FrontstageDef", () => {
     // __PUBLISH_EXTRACT_END__
 
     expect(spy).to.calledOnceWith();
+  });
+
+  describe("findWidgetDef", () => {
+    it("should return tool settings", async () => {
+      const frontstage = new FrontstageDef();
+      await frontstage.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        toolSettings: {
+          id: "test-tool-settings-widget",
+        },
+      });
+      const widget = frontstage.findWidgetDef("test-tool-settings-widget");
+      expect(widget?.id).to.eq("test-tool-settings-widget");
+    });
+
+    it("should return status bar", async () => {
+      const frontstage = new FrontstageDef();
+      await frontstage.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        statusBar: {
+          id: "test-status-bar-widget",
+        },
+      });
+      const widget = frontstage.findWidgetDef("test-status-bar-widget");
+      expect(widget?.id).to.eq("test-status-bar-widget");
+    });
+  });
+
+  describe("restoreLayout", () => {
+    it("should emit onFrontstageRestoreLayoutEvent", () => {
+      const spy = sinon.spy(
+        InternalFrontstageManager.onFrontstageRestoreLayoutEvent,
+        "emit"
+      );
+      const frontstageDef = new FrontstageDef();
+      frontstageDef.restoreLayout();
+      spy.calledOnceWithExactly(
+        sinon.match({
+          frontstageDef,
+        })
+      ).should.true;
+    });
+
+    it("should restore panel widget to default state", () => {
+      const frontstageDef = new FrontstageDef();
+      const rightPanel = new StagePanelDef();
+      const w1 = WidgetDef.create({
+        id: "w1",
+        defaultState: WidgetState.Open,
+      });
+      sinon.stub(rightPanel, "widgetDefs").get(() => [w1]);
+      sinon.stub(frontstageDef, "rightPanel").get(() => rightPanel);
+      const spy = sinon.spy(w1, "setWidgetState");
+
+      frontstageDef.restoreLayout();
+      sinon.assert.calledOnceWithExactly(spy, WidgetState.Open);
+    });
+
+    it("should restore panel size to default size", () => {
+      const frontstageDef = new FrontstageDef();
+      const rightPanel = new StagePanelDef();
+      sinon.stub(rightPanel, "defaultSize").get(() => 300);
+      sinon.stub(frontstageDef, "rightPanel").get(() => rightPanel);
+      const spy = sinon.spy(rightPanel, "size", ["set"]);
+
+      frontstageDef.restoreLayout();
+      sinon.assert.calledOnceWithExactly(spy.set, 300);
+    });
+  });
+
+  describe("dynamic widgets", () => {
+    class WidgetsProvider implements UiItemsProvider {
+      public readonly id = "WidgetsProvider";
+
+      public provideWidgets(
+        _stageId: string,
+        _stageUsage: string,
+        location: StagePanelLocation,
+        section?: StagePanelSection
+      ) {
+        const widgets: Widget[] = [];
+        widgets.push({
+          // This should be added to Left stage panel, Start location.
+          id: "WidgetsProviderW1",
+          label: "WidgetsProvider W1",
+        });
+        if (location === StagePanelLocation.Right)
+          widgets.push({
+            id: "WidgetsProviderR1",
+            label: "WidgetsProvider R1",
+          });
+        if (
+          location === StagePanelLocation.Right &&
+          section === StagePanelSection.End
+        )
+          widgets.push({
+            id: "WidgetsProviderRM1",
+            label: "WidgetsProvider RM1",
+          });
+
+        return widgets;
+      }
+    }
+
+    class EmptyFrontstageProvider extends FrontstageProvider {
+      public static stageId = "TestFrontstageUi2";
+      public override get id(): string {
+        return EmptyFrontstageProvider.stageId;
+      }
+
+      public override frontstageConfig(): FrontstageConfig {
+        return {
+          id: this.id,
+          version: 1,
+          contentGroup: TestUtils.TestContentGroup1,
+        };
+      }
+    }
+
+    beforeEach(() => {
+      UiItemsManager.register(new WidgetsProvider());
+    });
+
+    afterEach(() => {
+      UiItemsManager.unregister("WidgetsProvider");
+    });
+
+    it("should add extension widgets to stage panel zones", async () => {
+      const frontstageProvider = new EmptyFrontstageProvider();
+      UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
+      const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+        EmptyFrontstageProvider.stageId
+      );
+      expect(!!frontstageDef?.isReady).to.be.false;
+      await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
+      const sut = UiFramework.frontstages.activeFrontstageDef!;
+      sut
+        .rightPanel!.getPanelSectionDef(StagePanelSection.Start)
+        .widgetDefs.map((w) => w.id)
+        .should.eql(["WidgetsProviderR1"]);
+      sut
+        .rightPanel!.getPanelSectionDef(StagePanelSection.End)
+        .widgetDefs.map((w) => w.id)
+        .should.eql(["WidgetsProviderRM1"]);
+      sut
+        .leftPanel!.getPanelSectionDef(StagePanelSection.Start)
+        .widgetDefs.map((w) => w.id)
+        .should.eql(["WidgetsProviderW1"]);
+    });
   });
 
   describe("getWidgetCurrentState", () => {

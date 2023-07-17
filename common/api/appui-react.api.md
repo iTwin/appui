@@ -3584,7 +3584,7 @@ export class ReducerRegistry {
 export const ReducerRegistryInstance: ReducerRegistry;
 
 // @internal
-export function removeMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState;
+export function removeMissingWidgets(frontstageDef: FrontstageDef, state: NineZoneState): NineZoneState;
 
 // @public
 export class RestoreAllFrontstagesTool extends Tool {
@@ -4233,6 +4233,9 @@ export class StateManager {
 
 // @public
 export type StateType<R extends Reducer<any, any>> = DeepReadonly<ReturnType<R>>;
+
+// @internal (undocumented)
+export const stateVersion = 14;
 
 // @public
 export class StatusBar extends React_2.Component<StatusBarProps, StatusBarState> {
@@ -5044,7 +5047,7 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
 export const useGroupedItems: (items: ReadonlyArray<BackstageItem>) => GroupedItems;
 
 // @internal (undocumented)
-export function useHorizontalToolSettingNodes(): ToolSettingsEntry[] | undefined;
+export function useHorizontalToolSettingNodes(): ToolSettingsEntry[];
 
 // @public
 export const useIsBackstageOpen: (manager: FrameworkBackstage) => boolean;

@@ -9,10 +9,10 @@ import {
   addFloatingWidget,
   addPanelWidget,
   addTab,
+  addWidgetToolSettings,
   createNineZoneState,
   PanelSideContext,
   TabBarButtons,
-  toolSettingsTabId,
   WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
@@ -52,7 +52,9 @@ describe("TabBarButtons", () => {
 
   it("should render Dock button in floating ToolSettings", () => {
     let state = createNineZoneState();
-    state = addFloatingWidget(state, "fw1", [toolSettingsTabId]);
+    state = addTab(state, "ts");
+    state = addFloatingWidget(state, "fw1", ["ts"]);
+    state = addWidgetToolSettings(state, "ts");
     const wrapper = render(
       <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="fw1">

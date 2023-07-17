@@ -24,6 +24,7 @@ import {
   StateManager,
   UiFramework,
   UiItemsManager,
+  WidgetState,
 } from "@itwin/appui-react";
 import {
   ConditionalStringValue,
@@ -143,6 +144,28 @@ export class WidgetApiStageContentGroupProvider extends ContentGroupProvider {
   }
 }
 
+/** Tool settings widget can be configured by providing an URL param `toolSettings` with values `off` or `hidden`. */
+class WidgetApiFrontstage extends StandardFrontstageProvider {
+  public override frontstageConfig() {
+    const config = super.frontstageConfig();
+    const urlParams = new URLSearchParams(window.location.search);
+    const noToolSettings = urlParams.get("toolSettings") === "off";
+    const hiddenToolSettings = urlParams.get("toolSettings") === "hidden";
+    const toolSettings = noToolSettings
+      ? undefined
+      : {
+          id: "WidgetApi:ToolSettings",
+          defaultState: hiddenToolSettings ? WidgetState.Hidden : undefined,
+        };
+
+    const updatedConfig: FrontstageConfig = {
+      ...config,
+      toolSettings,
+    };
+    return updatedConfig;
+  }
+}
+
 export class WidgetApiStage {
   public static stageId = "appui-test-providers:WidgetApi";
 
@@ -189,7 +212,7 @@ export class WidgetApiStage {
     };
 
     UiFramework.frontstages.addFrontstageProvider(
-      new StandardFrontstageProvider(widgetApiStageProps)
+      new WidgetApiFrontstage(widgetApiStageProps)
     );
     this.registerToolProviders(localizationNamespace);
   }
