@@ -2,4 +2,4 @@
 publish: false
 ---
 
-# NextVersion
+# NextVersion <!-- omit from toc -->
