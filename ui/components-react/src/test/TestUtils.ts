@@ -63,14 +63,14 @@ export class TestUtils {
           _briefMessage: HTMLElement | string,
           _detailedMessage?: HTMLElement | string,
           _messageType?: DisplayMessageType.Toast
-        ): void => { },
+        ): void => {},
         displayInputFieldMessage: (
           _inputField: HTMLElement,
           _severity: MessageSeverity,
           _briefMessage: HTMLElement | string,
           _detailedMessage?: HTMLElement | string
-        ): void => { },
-        closeInputFieldMessage: (): void => { },
+        ): void => {},
+        closeInputFieldMessage: (): void => {},
       };
       UiAdmin.messagePresenter = mp;
     }
@@ -88,7 +88,7 @@ export class TestUtils {
 
   public static createPropertyRecord(
     value: any,
-    column: { key: string; label: string; },
+    column: { key: string; label: string },
     typename: string
   ) {
     const v: PrimitiveValue = {
@@ -191,7 +191,7 @@ export class TestUtils {
 
   public static createStructProperty(
     name: string,
-    members?: { [name: string]: PropertyRecord; },
+    members?: { [name: string]: PropertyRecord },
     autoExpand?: boolean
   ) {
     if (!members) members = {};
