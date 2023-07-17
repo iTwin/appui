@@ -1,6 +1,13 @@
 # Change Log - @itwin/appui-layout-react
 
-This log was last generated on Tue, 27 Jun 2023 14:50:22 GMT and should not be manually modified.
+This log was last generated on Mon, 17 Jul 2023 10:16:20 GMT and should not be manually modified.
+
+## 4.3.0
+Mon, 17 Jul 2023 10:16:20 GMT
+
+### Updates
+
+- Update sinon to 15.2.0 and @types/sinon to 10.0.15
 
 ## 4.2.0
 Tue, 27 Jun 2023 14:50:22 GMT
