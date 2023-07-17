@@ -45,7 +45,6 @@ import type { EmphasizeElementsProps } from '@itwin/core-common';
 import type { FloatingWidgetState } from '@itwin/appui-layout-react';
 import type { FunctionKey } from '@itwin/appui-abstract';
 import type { GroupButton } from '@itwin/appui-abstract';
-import type { GuidString } from '@itwin/core-bentley';
 import type { IconProps } from '@itwin/core-react';
 import type { IconSpec } from '@itwin/core-react';
 import type { Id64String } from '@itwin/core-bentley';
@@ -4869,10 +4868,6 @@ export class UiFramework {
     static openCursorMenu(menuData: CursorMenuData | undefined): void;
     // @internal (undocumented)
     static get packageName(): string;
-    // @internal
-    static postTelemetry(eventName: string, eventId?: GuidString, iTwinId?: GuidString, iModeId?: GuidString, changeSetId?: string, time?: TrackingTime, additionalProperties?: {
-        [key: string]: any;
-    }): Promise<void>;
     static registerUserSettingsProvider(entry: UserSettingsProvider): boolean;
     // (undocumented)
     static setAccudrawSnapMode(snapMode: SnapMode): void;

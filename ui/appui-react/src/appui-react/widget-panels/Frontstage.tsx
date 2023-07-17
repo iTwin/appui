@@ -221,20 +221,7 @@ export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
       if (action.type === "RESIZE") {
         InternalFrontstageManager.nineZoneSize = Size.create(action.size);
       }
-      // istanbul ignore if
-      if (action.type === "TOOL_SETTINGS_DRAG_START") {
-        void UiFramework.postTelemetry(
-          "Tool Settings Undocking",
-          "28B04E07-AE73-4533-A0BA-8E2A8DC99ADF"
-        );
-      }
-      // istanbul ignore if
-      if (action.type === "TOOL_SETTINGS_DOCK") {
-        void UiFramework.postTelemetry(
-          "Tool Settings Docking to Settings Bar",
-          "BEDE684B-B3DB-4637-B3AF-DC3CBA223F94"
-        );
-      }
+
       if (action.type === "WIDGET_TAB_POPOUT") {
         const tabId = action.id;
         frontstageDef.popoutWidget(tabId);

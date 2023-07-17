@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Use UiFramework.store instead of StateManager.store to display popout widgets.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
