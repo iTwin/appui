@@ -33,8 +33,7 @@ import { ITwinLocalization } from "@itwin/core-i18n";
 import { prettyDOM } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { AsyncValueProcessingResult } from "../components-react";
-import { UiComponents } from "../components-react/UiComponents";
-import { DataControllerBase } from "../components-react/editors/PropertyEditorManager";
+import { DataControllerBase, UiComponents } from "../components-react";
 
 export { userEvent };
 
