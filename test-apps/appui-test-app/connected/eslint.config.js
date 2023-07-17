@@ -21,6 +21,11 @@ module.exports = [
     languageOptions: customLanguageOptions,
   },
   {
+    files: ["src/frontend/**/*.{ts,tsx}"],
+    ...iTwinPlugin.configs.uiConfig,
+    languageOptions: customLanguageOptions,
+  },
+  {
     files: ["**/*.{ts,tsx}"],
     rules: {
       ...prettierConfig.rules,

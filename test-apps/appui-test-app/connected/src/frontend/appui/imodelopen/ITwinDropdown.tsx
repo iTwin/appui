@@ -96,6 +96,7 @@ export class ITwinDropdown extends React.Component<
         <ul style={ulStyle}>
           {iTwins &&
             iTwins.map((iTwin: ITwin, i: number) => (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
               <li
                 style={liStyle}
                 key={i}
@@ -133,6 +134,7 @@ export class ITwinDropdown extends React.Component<
     );
     return (
       <div className="ip">
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
         <div
           className="ip-content"
           onClick={this._splitterClicked}
