@@ -226,7 +226,7 @@ jobs:
               $sourceFile = 'docs/changehistory/NextVersion.md'
 
               # Overwrite everything with just the header
-              "---`npublish: false`n---`n`n# NextVersion" | Set-Content $sourceFile
+              "---`npublish: false`n---`n`n# NextVersion <!-- omit from toc -->`n" | Set-Content $sourceFile -NoNewline
             displayName: "Clear current NextVersion.md"
 
           - bash: git add .
