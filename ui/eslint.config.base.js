@@ -33,7 +33,7 @@ module.exports = [
     },
   },
   {
-    files: ["**/*.test.{ts,tsx}"],
+    files: ["**/test/**/*.{ts,tsx}"],
     rules: {
       "@itwin/no-internal-barrel-imports": "off",
     }
