@@ -12,7 +12,6 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { copyStyles } from "./CopyStyles";
 import { Provider } from "react-redux";
-import { StateManager } from "../redux/StateManager";
 import { UiStateStorageHandler } from "../uistate/useUiStateStorage";
 import { PopupRenderer } from "../popup/PopupManager";
 import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager";
@@ -150,7 +149,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         copyStyles(childWindow.document);
         setTimeout(() => {
           this.render(
-            <Provider store={StateManager.store}>
+            <Provider store={UiFramework.store}>
               <UiStateStorageHandler>
                 <ThemeManager>
                   <div className="uifw-child-window-container-host">
