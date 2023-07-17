@@ -24,6 +24,9 @@ Table of contents:
 ### Fixes
 
 - Fixed an issue which caused popout widgets to throw an error when `StateManager` is not initialized and Redux store is configured via `UiFramework.initialize` instead.
+- Fixed display of empty tool settings message after the floating tool settings widget is docked.
+- Fixed `FrontstageDef.findWidgetDef` to correctly return `toolSettings` and `statusBar` widgets.
+- Fixed `WidgetDef.setWidgetState` to correctly hide and show tool settings widget.
 
 ## @itwin/components-react
 

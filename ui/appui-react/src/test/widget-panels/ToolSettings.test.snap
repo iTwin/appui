@@ -76,5 +76,23 @@ exports[`WidgetPanelsToolSettings should render 1`] = `
       />
     </svg>
   </div>
+  <div>
+    <div
+      class="nz-toolSettings-setting"
+    >
+      <div
+        class="uif-toolsetting-label-docked-horizontal"
+      >
+        <div
+          class="uif-toolsetting-label-docked-horizontal-empty"
+        >
+          tools.noToolSettingsStart
+          tools.noToolSettingsPlaceholderName
+          tools.noToolSettingsEnd
+        </div>
+      </div>
+      <div />
+    </div>
+  </div>
 </div>
 `;

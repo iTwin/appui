@@ -37,7 +37,6 @@ import type { PointerCaptorArgs } from "../base/usePointerCaptor";
 import { usePointerCaptor } from "../base/usePointerCaptor";
 import { WidgetTarget } from "../target/WidgetTarget";
 import { WidgetOutline } from "../outline/WidgetOutline";
-import { toolSettingsTabId } from "../state/ToolSettingsState";
 import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 
@@ -168,6 +167,7 @@ function useFloatingWidgetState() {
     const userSized = floatingWidget.userSized;
     const singleTab = 1 === tabs.length;
 
+    const toolSettingsTabId = state.toolSettings?.tabId;
     const isToolSettingsTab = widget.tabs[0] === toolSettingsTabId;
     const resizable =
       (undefined === widget.isFloatingStateWindowResizable ||

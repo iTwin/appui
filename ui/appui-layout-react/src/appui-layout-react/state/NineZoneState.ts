@@ -10,7 +10,7 @@
 import produce from "immer";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Rectangle } from "@itwin/core-react";
-import { createTabsState, updateTabState } from "./internal/TabStateHelpers";
+import { updateTabState } from "./internal/TabStateHelpers";
 import type {
   FloatingWidgetsState,
   PopoutWidgetsState,
@@ -49,7 +49,7 @@ export interface NineZoneState {
   readonly popoutWidgets: PopoutWidgetsState;
   readonly panels: PanelsState;
   readonly tabs: TabsState;
-  readonly toolSettings: ToolSettingsState;
+  readonly toolSettings: ToolSettingsState | undefined;
   readonly widgets: WidgetsState;
   readonly size: SizeProps;
 }
@@ -70,10 +70,8 @@ export function createNineZoneState(
     },
     panels: createPanelsState(),
     widgets: {},
-    tabs: createTabsState(),
-    toolSettings: {
-      type: "docked",
-    },
+    tabs: {},
+    toolSettings: undefined,
     size: {
       height: 0,
       width: 0,

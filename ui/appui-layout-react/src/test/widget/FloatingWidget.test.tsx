@@ -11,6 +11,7 @@ import type { NineZoneDispatch } from "../../appui-layout-react";
 import {
   addFloatingWidget,
   addTab,
+  addWidgetToolSettings,
   createLayoutStore,
   createNineZoneState,
   FloatingWidgetProvider,
@@ -123,13 +124,12 @@ describe("FloatingWidget", () => {
   it("tool settings should NOT have resize handles", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
-    state = addFloatingWidget(
-      state,
-      "toolSettings",
-      ["nz-tool-settings-tab"],
-      undefined,
-      { minimized: true, isFloatingStateWindowResizable: false }
-    );
+    state = addTab(state, "ts");
+    state = addFloatingWidget(state, "toolSettings", ["ts"], undefined, {
+      minimized: true,
+      isFloatingStateWindowResizable: false,
+    });
+    state = addWidgetToolSettings(state, "ts");
     const { container } = render(
       <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
         <FloatingWidgetProvider id="toolSettings" />

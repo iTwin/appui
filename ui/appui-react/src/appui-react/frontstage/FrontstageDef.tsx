@@ -207,6 +207,15 @@ export class FrontstageDef {
         }
       }
     }
+
+    const toolSettingsDef = this.toolSettings;
+    if (toolSettingsDef) {
+      if (!nineZone.toolSettings) {
+        widgetMap.set(toolSettingsDef, WidgetState.Hidden);
+      } else if (nineZone.toolSettings.type === "docked") {
+        widgetMap.set(toolSettingsDef, WidgetState.Open);
+      }
+    }
   }
 
   private triggerStateChangeEventForWidgetsAndPanels(
@@ -680,15 +689,26 @@ export class FrontstageDef {
    *  @internal
    */
   public getWidgetCurrentState(widgetDef: WidgetDef): WidgetState | undefined {
+    const state = this.nineZoneState;
+
     // istanbul ignore else
-    if (this.nineZoneState) {
-      const location = getTabLocation(this.nineZoneState, widgetDef.id);
+    if (state) {
+      const toolSettingsTabId = state.toolSettings?.tabId;
+      if (
+        toolSettingsTabId === widgetDef.id &&
+        state.toolSettings?.type === "docked"
+      ) {
+        return WidgetState.Open;
+      }
+
+      const location = getTabLocation(state, widgetDef.id);
+
       // istanbul ignore next
       if (!location) return WidgetState.Hidden;
 
       if (isFloatingTabLocation(location)) {
         const floatingWidget =
-          this.nineZoneState.floatingWidgets.byId[location.floatingWidgetId];
+          state.floatingWidgets.byId[location.floatingWidgetId];
         if (floatingWidget && floatingWidget.hidden) return WidgetState.Hidden;
         else return WidgetState.Floating;
       }
@@ -696,11 +716,11 @@ export class FrontstageDef {
       let collapsedPanel = false;
       // istanbul ignore else
       if ("side" in location) {
-        const panel = this.nineZoneState.panels[location.side];
+        const panel = state.panels[location.side];
         collapsedPanel =
           panel.collapsed || undefined === panel.size || 0 === panel.size;
       }
-      const widgetContainer = this.nineZoneState.widgets[location.widgetId];
+      const widgetContainer = state.widgets[location.widgetId];
       if (widgetDef.id === widgetContainer.activeTabId && !collapsedPanel)
         return WidgetState.Open;
       else return WidgetState.Closed;
@@ -1100,7 +1120,8 @@ export class FrontstageDef {
         yield widgetDef;
       }
     }
-
+    if (this.toolSettings) yield this.toolSettings;
+    if (this.statusBar) yield this.statusBar;
     return undefined;
   }
 

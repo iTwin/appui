@@ -14,6 +14,7 @@ import type {
   VerticalPanelSide,
 } from "../../appui-layout-react";
 import {
+  addDockedToolSettings,
   addPanelWidget,
   addTab,
   createNineZoneState,
@@ -271,7 +272,8 @@ describe("useBorders", () => {
     it("should render w/o top border in docked tool settings mode", () => {
       const side: PanelSide = "top";
       let state = createNineZoneState();
-      state = addTab(state, "t1");
+      state = addTabs(state, ["t1", "ts"]);
+      state = addDockedToolSettings(state, "ts");
       state = addPanelWidget(state, "top", "w1", ["t1"]);
       const { result } = renderHook(
         () => useBorders("w1"),
