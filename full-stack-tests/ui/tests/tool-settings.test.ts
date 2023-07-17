@@ -19,7 +19,7 @@ test.describe("tool settings", () => {
   });
 
   test("should render tool settings", async ({ page }) => {
-    await expect(page.getByText("No settings for this tool.")).toBeVisible();
+    await expect(page.getByText("does not have tool settings.")).toBeVisible();
   });
 
   test("should not render tool settings (undefined tool settings config)", async ({
@@ -30,7 +30,7 @@ test.describe("tool settings", () => {
       `${baseURL}?frontstage=appui-test-providers:WidgetApi&toolSettings=off`
     );
     await expect(
-      page.getByText("No settings for this tool.")
+      page.getByText("does not have tool settings.")
     ).not.toBeVisible();
   });
 
@@ -42,18 +42,18 @@ test.describe("tool settings", () => {
       `${baseURL}?frontstage=appui-test-providers:WidgetApi&toolSettings=hidden`
     );
     await expect(
-      page.getByText("No settings for this tool.")
+      page.getByText("does not have tool settings.")
     ).not.toBeVisible();
   });
 
   test("should hide/show docked tool settings", async ({ page }) => {
     await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Hidden);
     await expect(
-      page.getByText("No settings for this tool.")
+      page.getByText("does not have tool settings.")
     ).not.toBeVisible();
 
     await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Open);
-    await expect(page.getByText("No settings for this tool.")).toBeVisible();
+    await expect(page.getByText("does not have tool settings.")).toBeVisible();
   });
 
   test("should show/hide (hidden tool settings)", async ({ page, baseURL }) => {
@@ -61,15 +61,15 @@ test.describe("tool settings", () => {
       `${baseURL}?frontstage=appui-test-providers:WidgetApi&toolSettings=hidden`
     );
     await expect(
-      page.getByText("No settings for this tool.")
+      page.getByText("does not have tool settings.")
     ).not.toBeVisible();
 
     await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Open);
-    await expect(page.getByText("No settings for this tool.")).toBeVisible();
+    await expect(page.getByText("does not have tool settings.")).toBeVisible();
 
     await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Hidden);
     await expect(
-      page.getByText("No settings for this tool.")
+      page.getByText("does not have tool settings.")
     ).not.toBeVisible();
   });
 
@@ -95,7 +95,7 @@ test.describe("tool settings", () => {
   });
 
   test("should float docked tool settings", async ({ page }) => {
-    const dockedToolSettings = page.getByText("No settings for this tool.");
+    const dockedToolSettings = page.getByText("does not have tool settings.");
     const widgetToolSettings = tabLocator(page, "Tool Settings");
 
     await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Floating);
@@ -104,7 +104,7 @@ test.describe("tool settings", () => {
   });
 
   test("should close floating tool settings", async ({ page }) => {
-    const dockedToolSettings = page.getByText("No settings for this tool.");
+    const dockedToolSettings = page.getByText("does not have tool settings.");
     const widgetToolSettings = tabLocator(page, "Tool Settings");
 
     await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Floating);
@@ -116,7 +116,7 @@ test.describe("tool settings", () => {
   test("should ignore WidgetState.Closed if tool settings is hidden", async ({
     page,
   }) => {
-    const dockedToolSettings = page.getByText("No settings for this tool.");
+    const dockedToolSettings = page.getByText("does not have tool settings.");
     const widgetToolSettings = tabLocator(page, "Tool Settings");
 
     await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Floating);
@@ -129,7 +129,7 @@ test.describe("tool settings", () => {
   test("should ignore WidgetState.Closed for docked tool settings", async ({
     page,
   }) => {
-    const dockedToolSettings = page.getByText("No settings for this tool.");
+    const dockedToolSettings = page.getByText("does not have tool settings.");
     const widgetToolSettings = tabLocator(page, "Tool Settings");
 
     await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Closed);
