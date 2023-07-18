@@ -10,8 +10,13 @@
 
   .rule-condition {
     display: grid;
-    grid-template-columns: minmax(auto, 500px) 150px minmax(auto, 300px);
+    grid-template-columns: minmax(auto, 500px) 150px minmax(auto, 100%);
     grid-column-gap: var(--iui-size-m);
+
+    .rule-property > .iui-input-container > .iui-input-with-icon > .iui-input,
+    .rule-operator > .iui-input-with-icon > .iui-select-button  {
+      height: 27px;
+    }
   }
 
   .rule-remove-action {

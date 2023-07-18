@@ -11,10 +11,10 @@ import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "../editors/EditorContainer";
 import { EditorContainer } from "../editors/EditorContainer";
+import { PropertyFilterRuleOperator } from "./Operators";
 
 /**
  * Props for [[PropertyFilterBuilderRuleValue]] component.
- * @internal
  */
 export interface PropertyFilterBuilderRuleValueProps {
   /** Currently entered value. */
@@ -23,11 +23,12 @@ export interface PropertyFilterBuilderRuleValueProps {
   property: PropertyDescription;
   /** Callback that is invoked when value changes. */
   onChange: (value: PropertyValue) => void;
+  /** Current operator. */
+  operator: PropertyFilterRuleOperator;
 }
 
 /**
  * Component that renders [[PropertyFilterBuilderRuleRenderer]] value input.
- * @internal
  */
 export function PropertyFilterBuilderRuleValue(
   props: PropertyFilterBuilderRuleValueProps
@@ -49,14 +50,12 @@ export function PropertyFilterBuilderRuleValue(
   );
 
   return (
-    <div className="rule-value">
-      <EditorContainer
-        propertyRecord={propertyRecord}
-        onCancel={/* istanbul ignore next */ () => {}}
-        onCommit={onValueChange}
-        setFocus={false}
-        shouldCommitOnChange={true}
-      />
-    </div>
+    <EditorContainer
+      propertyRecord={propertyRecord}
+      onCancel={/* istanbul ignore next */ () => {}}
+      onCommit={onValueChange}
+      setFocus={false}
+      shouldCommitOnChange={true}
+    />
   );
 }

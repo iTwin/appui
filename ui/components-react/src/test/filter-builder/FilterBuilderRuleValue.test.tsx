@@ -11,6 +11,7 @@ import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, screen, waitFor } from "@testing-library/react";
 import { PropertyFilterBuilderRuleValue } from "../../components-react/filter-builder/FilterBuilderRuleValue";
 import TestUtils, { userEvent } from "../TestUtils";
+import { PropertyFilterRuleOperator } from "../../components-react";
 
 describe("PropertyFilterBuilderRuleValue", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -41,6 +42,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
         }}
         property={defaultProperty}
         onChange={() => {}}
+        operator={PropertyFilterRuleOperator.IsEqual}
       />
     );
     await waitFor(() => getByDisplayValue("Test String"));
@@ -51,6 +53,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
       <PropertyFilterBuilderRuleValue
         property={defaultProperty}
         onChange={() => {}}
+        operator={PropertyFilterRuleOperator.IsEqual}
       />
     );
 
@@ -66,6 +69,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
       <PropertyFilterBuilderRuleValue
         property={defaultProperty}
         onChange={spy}
+        operator={PropertyFilterRuleOperator.IsEqual}
       />
     );
 

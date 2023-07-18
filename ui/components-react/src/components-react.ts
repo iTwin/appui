@@ -77,6 +77,7 @@ export * from "./components-react/properties/renderers/value/WithContextStyle";
 export * from "./components-react/filter-builder/FilterBuilder";
 export * from "./components-react/filter-builder/Operators";
 export * from "./components-react/filter-builder/Types";
+export * from "./components-react/filter-builder/FilterBuilderRuleValue";
 
 export * from "./components-react/properties/renderers/label/NonPrimitivePropertyLabelRenderer";
 export * from "./components-react/properties/renderers/label/PrimitivePropertyLabelRenderer";

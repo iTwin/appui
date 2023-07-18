@@ -100,22 +100,24 @@ export function PropertyFilterBuilderRuleRenderer(
   );
 
   const valueRenderer = React.useCallback(
-    (prop: PropertyDescription) => {
+    (prop: PropertyDescription, op: PropertyFilterRuleOperator) => {
       if (ruleValueRenderer)
         return ruleValueRenderer({
           property: prop,
           value,
           onChange: onRuleValueChange,
+          operator: op
         });
       return (
         <PropertyFilterBuilderRuleValue
           property={prop}
           onChange={onRuleValueChange}
           value={value}
+          operator={op}
         />
       );
     },
-    [value, ruleValueRenderer, onRuleValueChange]
+    [value, ruleValueRenderer, onRuleValueChange, operator]
   );
 
   return (
@@ -139,7 +141,7 @@ export function PropertyFilterBuilderRuleRenderer(
         {property !== undefined &&
         operator !== undefined &&
         !isUnaryPropertyFilterOperator(operator)
-          ? valueRenderer(property)
+          ? <div className="rule-value">{valueRenderer(property, operator)}</div>
           : null}
       </div>
     </div>
