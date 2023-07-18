@@ -134,15 +134,14 @@ export class SignIn extends React.PureComponent<SignInProps, SignInState> {
           {this.props.onRegister !== undefined && (
             <span className="components-signin-register">
               {this.state.profilePrompt}
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a
+              <button
                 onClick={this.props.onRegister}
                 onKeyUp={(e) => this._handleKeyUp(e, this.props.onRegister)}
                 role="link"
                 tabIndex={0}
               >
                 {this.state.registerAnchor}
-              </a>
+              </button>
             </span>
           )}
         </div>
