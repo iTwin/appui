@@ -53,7 +53,20 @@ export class ITwinDropdown extends React.Component<
       case SpecialKey.Enter:
       case SpecialKey.Space:
         this.closeDropdown();
-        this.props.onITwinClicked(iTwin);   
+        this.props.onITwinClicked(iTwin);
+        break;
+    }
+  }
+
+  private _onSplitterKeyUp(event: React.KeyboardEvent) {
+    const key = event.key;
+
+    switch (key) {
+      case SpecialKey.Enter:
+      case SpecialKey.Space:
+        this.setState((prevState) => ({
+          isDropdownOpen: !prevState.isDropdownOpen,
+        }));
         break;
     }
   }
@@ -148,13 +161,15 @@ export class ITwinDropdown extends React.Component<
     );
     return (
       <div className="ip">
-        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
         <div
           className="ip-content"
           onClick={this._splitterClicked}
+          onKeyUp={(e) => this._onSplitterKeyUp(e)}
           ref={(element) => {
             this._target = element;
           }}
+          role="button"
+          tabIndex={0}
         >
           <div>
             <span className="number">
