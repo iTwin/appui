@@ -55,7 +55,7 @@ describe("PanelOutline", () => {
     let state = createNineZoneState();
     state = updatePanelState(state, "bottom", { span: true });
     const { container } = render(<PanelOutline />, {
-      wrapper: (props) => (
+      wrapper: (props: Record<string, any>) => (
         <Wrapper defaultState={state} side="bottom" {...props} />
       ),
     });
@@ -88,7 +88,7 @@ describe("useHidden", () => {
   it("should return `true` if target is not a panel", () => {
     const dragManagerRef = React.createRef<DragManager>();
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => (
+      wrapper: (props: Record<string, any>) => (
         <Wrapper dragManagerRef={dragManagerRef} {...props} />
       ),
     });
@@ -104,7 +104,7 @@ describe("useHidden", () => {
   it("should return `true` if target is not a current panel", () => {
     const dragManagerRef = React.createRef<DragManager>();
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => (
+      wrapper: (props: Record<string, any>) => (
         <Wrapper dragManagerRef={dragManagerRef} {...props} />
       ),
     });
@@ -122,7 +122,7 @@ describe("useHidden", () => {
   it("should return `false` if target is a current panel", () => {
     const dragManagerRef = React.createRef<DragManager>();
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => (
+      wrapper: (props: Record<string, any>) => (
         <Wrapper dragManagerRef={dragManagerRef} {...props} />
       ),
     });
@@ -150,7 +150,7 @@ describe("useHidden", () => {
 
     useActiveSendBackWidgetIdStore.setState("w1");
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => <Wrapper defaultState={state} {...props} />,
+      wrapper: (props: Record<string, any>) => <Wrapper defaultState={state} {...props} />,
     });
 
     result.current.should.false;
@@ -169,7 +169,7 @@ describe("useHidden", () => {
 
     useActiveSendBackWidgetIdStore.setState("w1");
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => <Wrapper defaultState={state} {...props} />,
+      wrapper: (props: Record<string, any>) => <Wrapper defaultState={state} {...props} />,
     });
 
     result.current.should.true;

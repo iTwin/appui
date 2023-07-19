@@ -52,7 +52,7 @@ class MessageBoxCallbacks {
   constructor(
     public readonly onFulfilled: (result: MessageBoxValue) => void,
     public readonly onRejected: (result: any) => void
-  ) {}
+  ) { }
 
   public handleMessageBoxResult = (result: MessageBoxValue) => {
     this.onFulfilled(result);
@@ -106,42 +106,42 @@ export interface ToolAssistanceChangedEventArgs {
 /** Message Added Event class.
  * @public
  */
-export class MessageAddedEvent extends UiEvent<MessageAddedEventArgs> {}
+export class MessageAddedEvent extends UiEvent<MessageAddedEventArgs> { }
 
 /** Messages Updated Event class.
  * @public
  */
-export class MessagesUpdatedEvent extends UiEvent<{}> {}
+export class MessagesUpdatedEvent extends UiEvent<{}> { }
 
 /** Activity Message Added Event class.
  * @public
  */
-export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArgs> {}
+export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArgs> { }
 
 /** Activity Message Cancelled Event class.
  * @public
  */
-export class ActivityMessageCancelledEvent extends UiEvent<{}> {}
+export class ActivityMessageCancelledEvent extends UiEvent<{}> { }
 
 /** Input Field Message Added Event class
  * @public
  */
-export class InputFieldMessageAddedEvent extends UiEvent<InputFieldMessageEventArgs> {}
+export class InputFieldMessageAddedEvent extends UiEvent<InputFieldMessageEventArgs> { }
 
 /** Input Field Message Removed Event class.
  * @public
  */
-export class InputFieldMessageRemovedEvent extends UiEvent<{}> {}
+export class InputFieldMessageRemovedEvent extends UiEvent<{}> { }
 
 /** Open Message Center Event class.
  * @public
  */
-export class OpenMessageCenterEvent extends UiEvent<{}> {}
+export class OpenMessageCenterEvent extends UiEvent<{}> { }
 
 /** Tool Assistance Changed event class
  * @public
  */
-export class ToolAssistanceChangedEvent extends UiEvent<ToolAssistanceChangedEventArgs> {}
+export class ToolAssistanceChangedEvent extends UiEvent<ToolAssistanceChangedEventArgs> { }
 
 /**
  * Keeps track of the current activity message, and updates whenever
@@ -313,6 +313,7 @@ export class MessageManager {
           message.briefMessage}
         {message.detailedMessage && (
           <Text variant="small" style={{ display: "block" }}>
+            {/* @ts-expect-error different types/react  */}
             {(message.detailedMessage as ReactMessage).reactNode ||
               message.detailedMessage}
           </Text>

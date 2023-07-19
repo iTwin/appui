@@ -44,7 +44,7 @@ export function Icon(props: IconProps) {
 
   const iconString =
     typeof props.iconSpec === "string" ||
-    props.iconSpec instanceof ConditionalStringValue
+      props.iconSpec instanceof ConditionalStringValue
       ? ConditionalStringValue.getValue(props.iconSpec)
       : undefined;
 
@@ -92,6 +92,7 @@ export function Icon(props: IconProps) {
         className={classnames("icon", "core-svg-icon", props.className)}
         style={props.style}
       >
+        {/* @ts-expect-error different types/react  */}
         {ConditionalIconItem.getValue(props.iconSpec as ConditionalIconItem)}
       </i>
     );
@@ -102,6 +103,7 @@ export function Icon(props: IconProps) {
       className={classnames("icon", "core-svg-icon", props.className)}
       style={props.style}
     >
+      {/* @ts-expect-error different types/react  */}
       {props.iconSpec instanceof ConditionalStringValue
         ? undefined
         : props.iconSpec}

@@ -53,7 +53,7 @@ describe("useTabTarget", () => {
           widgetId: "w1",
         }),
       {
-        wrapper: (props) => (
+        wrapper: (props: Record<string, any>) => (
           <DragManagerContext.Provider value={dragManager} {...props} />
         ),
       }
@@ -98,7 +98,7 @@ describe("useTabTarget", () => {
           widgetId: "w1",
         }),
       {
-        wrapper: (props) => (
+        wrapper: (props: Record<string, any>) => (
           <DragManagerContext.Provider value={dragManager} {...props} />
         ),
       }
@@ -138,7 +138,7 @@ describe("usePanelTarget", () => {
           newWidgetId: "w1",
         }),
       {
-        wrapper: (props) => (
+        wrapper: (props: Record<string, any>) => (
           <DragManagerContext.Provider value={dragManager} {...props} />
         ),
       }
@@ -171,7 +171,7 @@ describe("useWidgetTarget", () => {
           widgetId: "0",
         }),
       {
-        wrapper: (props) => (
+        wrapper: (props: Record<string, any>) => (
           <DragManagerContext.Provider value={dragManager} {...props} />
         ),
       }
@@ -197,7 +197,7 @@ describe("useIsDraggedType", () => {
   it("should return true", async () => {
     const dragManager = new DragManager();
     const { result } = renderHook(() => useIsDraggedType("tab"), {
-      wrapper: (props) => (
+      wrapper: (props: Record<string, any>) => (
         <DragManagerContext.Provider value={dragManager} {...props} />
       ),
     });
@@ -220,7 +220,7 @@ describe("useDraggedItem", () => {
   it("should return dragged item", () => {
     const dragManager = new DragManager();
     const { result } = renderHook(() => useDraggedItem(), {
-      wrapper: (props) => (
+      wrapper: (props: Record<string, any>) => (
         <DragManagerContext.Provider value={dragManager} {...props} />
       ),
     });
@@ -260,7 +260,7 @@ describe("useTargeted", () => {
   it("returns a targeted object", () => {
     const dragManager = new DragManager();
     const { result } = renderHook(() => useTargeted(), {
-      wrapper: (props) => (
+      wrapper: (props: Record<string, any>) => (
         <DragManagerContext.Provider value={dragManager} {...props} />
       ),
     });

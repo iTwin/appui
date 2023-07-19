@@ -222,7 +222,7 @@ describe("useFloatingWidgetId", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { result } = renderHook(() => useFloatingWidgetId(), {
-      wrapper: (props) => (
+      wrapper: (props: Record<string, any>) => (
         <TestNineZoneProvider layout={createLayoutStore(state)}>
           <WidgetIdContext.Provider value="w1" {...props} />
         </TestNineZoneProvider>
@@ -233,7 +233,7 @@ describe("useFloatingWidgetId", () => {
 
   it("should return `undefined` if WidgetIdContext is not provided", () => {
     const { result } = renderHook(() => useFloatingWidgetId(), {
-      wrapper: (props) => <TestNineZoneProvider {...props} />,
+      wrapper: (props: Record<string, any>) => <TestNineZoneProvider {...props} />,
     });
     expect(result.current).to.be.undefined;
   });

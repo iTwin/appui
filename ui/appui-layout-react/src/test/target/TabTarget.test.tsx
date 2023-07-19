@@ -43,7 +43,7 @@ describe("TabTarget", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(<TabTarget />, {
-      wrapper: (props) => (
+      wrapper: (props: Record<string, any>) => (
         <Wrapper defaultState={state} widgetId="w1" {...props} />
       ),
     });
@@ -58,7 +58,7 @@ describe("TabTarget", () => {
     state = addTab(state, "t3", { allowedPanelTargets: ["right"] });
     state = addPanelWidget(state, "right", "w2", ["t2", "t3"]);
     const { result } = renderHook(() => useAllowedWidgetTarget("w1"), {
-      wrapper: (props) => (
+      wrapper: (props: Record<string, any>) => (
         <TestNineZoneProvider defaultState={state}>
           <DraggedWidgetIdContext.Provider value="w2">
             {props.children}
@@ -77,7 +77,7 @@ describe("TabTarget", () => {
     state = addTab(state, "t2", { allowedPanelTargets: ["right"] });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { result } = renderHook(() => useAllowedWidgetTarget("w1"), {
-      wrapper: (props) => (
+      wrapper: (props: Record<string, any>) => (
         <TestNineZoneProvider defaultState={state}>
           {props.children}
         </TestNineZoneProvider>
@@ -94,7 +94,7 @@ describe("TabTarget", () => {
     state = addTab(state, "t4", { allowedPanelTargets: ["right"] });
     state = addPanelWidget(state, "left", "w2", ["t2", "t3", "t4"]);
     const { result } = renderHook(() => useAllowedWidgetTarget("w1"), {
-      wrapper: (props) => (
+      wrapper: (props: Record<string, any>) => (
         <TestNineZoneProvider defaultState={state}>
           <DraggedWidgetIdContext.Provider value="w2">
             {props.children}
