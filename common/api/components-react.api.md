@@ -2031,10 +2031,10 @@ export interface PropertyFilterBuilderProps {
     ruleValueRenderer?: (props: PropertyFilterBuilderRuleValueProps) => React_3.ReactNode;
 }
 
-// @public
+// @beta
 export function PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueProps): React_3.JSX.Element;
 
-// @public
+// @beta
 export interface PropertyFilterBuilderRuleValueProps {
     onChange: (value: PropertyValue) => void;
     operator: PropertyFilterRuleOperator;

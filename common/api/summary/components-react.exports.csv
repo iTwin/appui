@@ -226,8 +226,8 @@ public;PropertyEditorProps
 beta;PropertyFilter = PropertyFilterRule | PropertyFilterRuleGroup
 beta;PropertyFilterBuilder(props: PropertyFilterBuilderProps): React_3.JSX.Element
 beta;PropertyFilterBuilderProps
-public;PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueProps): React_3.JSX.Element
-public;PropertyFilterBuilderRuleValueProps
+beta;PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueProps): React_3.JSX.Element
+beta;PropertyFilterBuilderRuleValueProps
 public;PropertyFilterChangeEvent 
 public;PropertyFilterChangesListener = () => void
 beta;PropertyFilterRule

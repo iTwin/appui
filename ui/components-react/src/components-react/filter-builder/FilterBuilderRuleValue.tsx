@@ -30,6 +30,7 @@ export interface PropertyFilterBuilderRuleValueProps {
 
 /**
  * Component that renders [[PropertyFilterBuilderRuleRenderer]] value input.
+ * @beta
  */
 export function PropertyFilterBuilderRuleValue(
   props: PropertyFilterBuilderRuleValueProps
