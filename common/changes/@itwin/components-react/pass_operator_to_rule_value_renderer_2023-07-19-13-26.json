@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/components-react",
-      "comment": "Promote `PropertyFilterBuilderRuleValue` and `PropertyFilterBuilderRuleValueProps` to public and pass `PropertyFilterRuleOperator` to `PropertyFilterBuilderRuleValue`.",
+      "comment": "Promote `PropertyFilterBuilderRuleValueProps` and `PropertyFilterBuilderRuleOperatorProps`  to beta, `PropertyFilterBuilderRuleValue` to public and pass `PropertyFilterRuleOperator` to `PropertyFilterBuilderRuleValue`.",
       "type": "none"
     }
   ],
