@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/common-versions.schema.json",
   "preferredVersions": {
-    "@types/react": "^17.0.37",
+    "@types/react": "^18.2.15",
     "axe-core": "4.1.2",
     "caniuse-lite": "^1.0.30001458",
     "event-stream": "~4.0.1",

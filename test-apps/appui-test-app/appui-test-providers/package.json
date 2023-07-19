@@ -34,7 +34,7 @@
   "devDependencies": {
     "@itwin/build-tools": "^3.7.0",
     "@itwin/eslint-plugin": "^4.0.0-dev.45",
-    "@types/react": "^17.0.37",
+    "@types/react": "^18.2.15",
     "@types/react-redux": "^7.1.18",
     "@types/react-table": "^7.7.0",
     "cpx2": "^3.0.0",

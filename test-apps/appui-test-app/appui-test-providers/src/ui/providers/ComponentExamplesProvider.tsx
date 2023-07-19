@@ -809,14 +809,16 @@ export class ComponentExamplesProvider {
           <Button
             id="input-message-field-button"
             onClick={() => {
-              <div className="input-field-message">
-                {MessageManager.displayInputFieldMessage(
+              // <div className="input-field-message">
+              {
+                MessageManager.displayInputFieldMessage(
                   document.getElementById("input-message-field-button")!,
                   details.briefMessage,
                   details.detailedMessage,
                   details.priority
-                )}
-              </div>;
+                );
+              }
+              // </div>;
             }}
           >
             Open Input Message Field
