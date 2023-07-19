@@ -15,6 +15,7 @@ import { PropertyFilterRuleOperator } from "./Operators";
 
 /**
  * Props for [[PropertyFilterBuilderRuleValue]] component.
+ * @beta
  */
 export interface PropertyFilterBuilderRuleValueProps {
   /** Currently entered value. */
