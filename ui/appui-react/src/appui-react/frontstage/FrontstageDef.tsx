@@ -781,24 +781,18 @@ export class FrontstageDef {
    */
   public floatWidget(widgetId: string, point?: PointProps, size?: SizeProps) {
     // istanbul ignore else
-    if (this.nineZoneState) {
-      const location = getTabLocation(this.nineZoneState, widgetId);
-      if (location) {
-        let popoutWidgetContainerId: string | undefined;
-        if (isPopoutTabLocation(location)) {
-          popoutWidgetContainerId = location.popoutWidgetId;
-        }
-        const state = floatWidget(this.nineZoneState, widgetId, point, size);
-        // istanbul ignore else
-        if (state) {
-          this.nineZoneState = state;
-          setTimeout(() => {
-            popoutWidgetContainerId &&
-              UiFramework.childWindows.close(popoutWidgetContainerId, true);
-          }, 600);
-        }
-      }
-    }
+    if (!this.nineZoneState) return;
+    const location = getTabLocation(this.nineZoneState, widgetId);
+    if (!location) return;
+
+    const state = floatWidget(this.nineZoneState, widgetId, point, size);
+    this.nineZoneState = state;
+
+    if (!isPopoutTabLocation(location)) return;
+    const popoutWidgetContainerId = location.popoutWidgetId;
+    setTimeout(() => {
+      UiFramework.childWindows.close(popoutWidgetContainerId, true);
+    }, 600);
   }
   /** Check widget and panel state to determine whether the widget is currently displayed
    * @param widgetId case-sensitive Widget Id
