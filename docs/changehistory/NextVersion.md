@@ -1,8 +1,4 @@
----
-publish: false
----
-
-# NextVersion
+# NextVersion <!-- omit from toc -->
 
 ## @itwin/components-react
 

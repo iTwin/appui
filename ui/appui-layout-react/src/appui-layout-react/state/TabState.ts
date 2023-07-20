@@ -23,6 +23,7 @@ import {
   setWidgetActiveTabId,
   updateWidgetState,
 } from "./internal/WidgetStateHelpers";
+import { removeToolSettings } from "./ToolSettingsState";
 
 /** `WidgetDef` is equivalent structure in `appui-react`.
  * @internal
@@ -149,6 +150,7 @@ export function removeTab(
   if (!(tabId in state.tabs)) throw new UiError(category, "Tab does not exist");
 
   state = removeTabFromWidget(state, tabId);
+  state = removeToolSettings(state);
   return produce(state, (draft) => {
     delete draft.tabs[tabId];
   });

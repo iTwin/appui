@@ -377,6 +377,7 @@ public;UiComponents
 public;Unsubscribable
 public;UrlPropertyValueRenderer 
 public;useAsyncValue
+public;useControlledTreeLayoutStorage
 beta;useDebouncedAsyncValue
 public;usePagedTreeNodeLoader
 public;usePropertyData(props:
@@ -392,6 +393,7 @@ public;useTreeEventsHandler
 public;useTreeModel(modelSource: TreeModelSource): TreeModel
 public;useTreeModelSource(dataProvider: TreeDataProvider): TreeModelSource
 public;useTreeNodeLoader
+public;useVirtualizedPropertyGridLayoutStorage
 public;VirtualizedPropertyGrid 
 public;VirtualizedPropertyGridContext
 public;VirtualizedPropertyGridProps 

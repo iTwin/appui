@@ -28,16 +28,8 @@ import { IconHelper } from "@itwin/core-react";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
-import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
-
-const widgetStateNameMap = new Map<WidgetState, string>([
-  [WidgetState.Closed, "Closed"],
-  [WidgetState.Floating, "Floating"],
-  [WidgetState.Hidden, "Hidden"],
-  [WidgetState.Open, "Open"],
-  [WidgetState.Unloaded, "Unloaded"],
-]);
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -259,6 +251,7 @@ export class WidgetDef {
       this._label = UiFramework.localization.getLocalizedString(
         config.labelKey
       );
+    else if (type === WidgetType.ToolSettings) this.setLabel("Tool Settings");
 
     this.setCanPopout(config.canPopout);
 
@@ -272,7 +265,14 @@ export class WidgetDef {
       this._defaultFloatingSize = canFloat.defaultSize;
     }
 
-    this.allowedPanelTargets = config.allowedPanels;
+    if ("allowedPanels" in config) {
+      this.allowedPanelTargets = config.allowedPanels;
+    } else if (type === WidgetType.ToolSettings)
+      this.allowedPanelTargets = [
+        StagePanelLocation.Bottom,
+        StagePanelLocation.Left,
+        StagePanelLocation.Right,
+      ];
 
     if (config.priority !== undefined) this._priority = config.priority;
 
@@ -474,14 +474,6 @@ export class WidgetDef {
   }
 
   public onWidgetStateChanged(): void {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    this.widgetControl &&
-      UiFramework.postTelemetry(
-        `Widget ${
-          this.widgetControl.classId
-        } state set to ${widgetStateNameMap.get(this.state)}`,
-        "35402486-9839-441E-A5C7-46D546142D11"
-      );
     this.widgetControl && this.widgetControl.onWidgetStateChanged();
     // istanbul ignore next
     this._onWidgetStateChanged && this._onWidgetStateChanged();

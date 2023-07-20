@@ -45,7 +45,6 @@ import type { EmphasizeElementsProps } from '@itwin/core-common';
 import type { FloatingWidgetState } from '@itwin/appui-layout-react';
 import type { FunctionKey } from '@itwin/appui-abstract';
 import type { GroupButton } from '@itwin/appui-abstract';
-import type { GuidString } from '@itwin/core-bentley';
 import type { IconProps } from '@itwin/core-react';
 import type { IconSpec } from '@itwin/core-react';
 import type { Id64String } from '@itwin/core-bentley';
@@ -3585,7 +3584,7 @@ export class ReducerRegistry {
 export const ReducerRegistryInstance: ReducerRegistry;
 
 // @internal
-export function removeMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState;
+export function removeMissingWidgets(frontstageDef: FrontstageDef, state: NineZoneState): NineZoneState;
 
 // @public
 export class RestoreAllFrontstagesTool extends Tool {
@@ -4235,6 +4234,9 @@ export class StateManager {
 // @public
 export type StateType<R extends Reducer<any, any>> = DeepReadonly<ReturnType<R>>;
 
+// @internal (undocumented)
+export const stateVersion = 14;
+
 // @public
 export class StatusBar extends React_2.Component<StatusBarProps, StatusBarState> {
     // @internal
@@ -4866,10 +4868,6 @@ export class UiFramework {
     static openCursorMenu(menuData: CursorMenuData | undefined): void;
     // @internal (undocumented)
     static get packageName(): string;
-    // @internal
-    static postTelemetry(eventName: string, eventId?: GuidString, iTwinId?: GuidString, iModeId?: GuidString, changeSetId?: string, time?: TrackingTime, additionalProperties?: {
-        [key: string]: any;
-    }): Promise<void>;
     static registerUserSettingsProvider(entry: UserSettingsProvider): boolean;
     // (undocumented)
     static setAccudrawSnapMode(snapMode: SnapMode): void;
@@ -5049,7 +5047,7 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
 export const useGroupedItems: (items: ReadonlyArray<BackstageItem>) => GroupedItems;
 
 // @internal (undocumented)
-export function useHorizontalToolSettingNodes(): ToolSettingsEntry[] | undefined;
+export function useHorizontalToolSettingNodes(): ToolSettingsEntry[];
 
 // @public
 export const useIsBackstageOpen: (manager: FrameworkBackstage) => boolean;

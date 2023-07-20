@@ -2,7 +2,7 @@
 
 exports[`PanelWidget should render 1`] = `
 <div
-  class="nz-widget-widget nz-widget-panelWidget nz-fill nz-border-left nz-border-right"
+  class="nz-widget-widget nz-widget-panelWidget nz-fill nz-border-top nz-border-left nz-border-right"
 >
   <div
     class="nz-widget-tabBar nz-separator"
@@ -85,7 +85,7 @@ exports[`PanelWidget should render 1`] = `
 
 exports[`PanelWidget should render horizontal with fit-content 1`] = `
 <div
-  class="nz-widget-widget nz-widget-panelWidget nz-horizontal nz-fit nz-border-bottom nz-border-left nz-border-right"
+  class="nz-widget-widget nz-widget-panelWidget nz-horizontal nz-fit nz-border-top nz-border-bottom nz-border-left nz-border-right"
 >
   <div
     class="nz-widget-tabBar nz-separator"
@@ -157,7 +157,7 @@ exports[`PanelWidget should render horizontal with fit-content 1`] = `
 
 exports[`PanelWidget should render minimized 1`] = `
 <div
-  class="nz-widget-widget nz-widget-panelWidget nz-minimized nz-border-left nz-border-right"
+  class="nz-widget-widget nz-widget-panelWidget nz-minimized nz-border-top nz-border-left nz-border-right"
 >
   <div
     class="nz-widget-tabBar"
@@ -240,7 +240,7 @@ exports[`PanelWidget should render minimized 1`] = `
 
 exports[`PanelWidget should render with fit-content 1`] = `
 <div
-  class="nz-widget-widget nz-widget-panelWidget nz-fit nz-border-bottom nz-border-left nz-border-right"
+  class="nz-widget-widget nz-widget-panelWidget nz-fit nz-border-top nz-border-bottom nz-border-left nz-border-right"
 >
   <div
     class="nz-widget-tabBar nz-separator"

@@ -71,20 +71,8 @@ Object {
     "height": 0,
     "width": 0,
   },
-  "tabs": Object {
-    "nz-tool-settings-tab": Object {
-      "allowedPanelTargets": Array [
-        "bottom",
-        "left",
-        "right",
-      ],
-      "id": "nz-tool-settings-tab",
-      "label": "Tool Settings",
-    },
-  },
-  "toolSettings": Object {
-    "type": "docked",
-  },
+  "tabs": Object {},
+  "toolSettings": undefined,
   "widgets": Object {},
 }
 `;
@@ -180,21 +168,17 @@ Object {
   },
   "tabs": Object {
     "t1": Object {
-      "allowedPanelTargets": undefined,
       "id": "t1",
       "preferredFloatingWidgetSize": undefined,
       "userSized": undefined,
     },
     "t2": Object {
-      "allowedPanelTargets": undefined,
       "id": "t2",
       "preferredFloatingWidgetSize": undefined,
       "userSized": undefined,
     },
   },
-  "toolSettings": Object {
-    "type": "docked",
-  },
+  "toolSettings": undefined,
   "widgets": Object {
     "w1": Object {
       "activeTabId": "t1",
@@ -287,15 +271,6 @@ Object {
     "width": 0,
   },
   "tabs": Object {
-    "nz-tool-settings-tab": Object {
-      "allowedPanelTargets": Array [
-        "bottom",
-        "left",
-        "right",
-      ],
-      "id": "nz-tool-settings-tab",
-      "label": "Tool Settings",
-    },
     "t1": Object {
       "allowedPanelTargets": undefined,
       "canPopout": undefined,
@@ -304,11 +279,11 @@ Object {
       "id": "t1",
       "isFloatingStateWindowResizable": true,
       "label": "Widget",
+      "preferredFloatingWidgetSize": undefined,
+      "preferredPanelWidgetSize": undefined,
     },
   },
-  "toolSettings": Object {
-    "type": "docked",
-  },
+  "toolSettings": undefined,
   "widgets": Object {},
 }
 `;
@@ -384,20 +359,8 @@ Object {
     "height": 0,
     "width": 0,
   },
-  "tabs": Object {
-    "nz-tool-settings-tab": Object {
-      "allowedPanelTargets": Array [
-        "bottom",
-        "left",
-        "right",
-      ],
-      "id": "nz-tool-settings-tab",
-      "label": "Tool Settings",
-    },
-  },
-  "toolSettings": Object {
-    "type": "docked",
-  },
+  "tabs": Object {},
+  "toolSettings": undefined,
   "widgets": Object {},
 }
 `;

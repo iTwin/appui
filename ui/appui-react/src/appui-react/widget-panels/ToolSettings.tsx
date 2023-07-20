@@ -17,7 +17,6 @@ import {
 } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 
 /** Defines a ToolSettings property entry.
  * @public
@@ -30,12 +29,22 @@ export interface ToolSettingsEntry {
 }
 
 function EmptyToolSettingsEntry(): ToolSettingsEntry {
-  const labelString = IModelApp.localization.getLocalizedString(
-    "UiFramework:tools.noToolSettings"
+  const toolId = UiFramework.frontstages.activeToolId;
+  const toolName = IModelApp.tools.find(toolId)?.flyover;
+  const toolPlaceholderName = IModelApp.localization.getLocalizedString(
+    "UiFramework:tools.noToolSettingsPlaceholderName"
+  );
+  const labelStringStart = IModelApp.localization.getLocalizedString(
+    "UiFramework:tools.noToolSettingsStart"
+  );
+  const labelStringEnd = IModelApp.localization.getLocalizedString(
+    "UiFramework:tools.noToolSettingsEnd"
   );
   const labelNode = (
     <div className="uif-toolsetting-label-docked-horizontal-empty">
-      {labelString}
+      {labelStringStart}
+      {toolName ? toolName : toolPlaceholderName}
+      {labelStringEnd}
     </div>
   );
   const editorNode = <div />;
@@ -52,10 +61,8 @@ function TsLabel({ children }: { children: React.ReactNode }) {
 
 /** @internal */
 export function WidgetPanelsToolSettings() {
-  const frontstageDef = useActiveFrontstageDef();
-  const toolSettingsType = useLayout((state) => state.toolSettings.type);
-  const toolSettings = frontstageDef?.toolSettings;
-  if (!toolSettings || toolSettingsType === "widget") return null;
+  const toolSettingsType = useLayout((state) => state.toolSettings?.type);
+  if (!toolSettingsType || toolSettingsType === "widget") return null;
   return <ToolSettingsDockedContent />;
 }
 
@@ -87,42 +94,26 @@ export function useHorizontalToolSettingNodes() {
     InternalFrontstageManager.activeToolSettingsProvider
       ?.horizontalToolSettingNodes
   );
+  const [emptySettings] = React.useState(() => [EmptyToolSettingsEntry()]);
   React.useEffect(() => {
-    const handleToolActivatedEvent = () => {
+    return UiFramework.frontstages.onToolActivatedEvent.addListener(() => {
       const nodes =
         InternalFrontstageManager.activeToolSettingsProvider
           ?.horizontalToolSettingNodes;
-      if (!nodes || nodes.length === 0) setSettings([EmptyToolSettingsEntry()]);
-      else setSettings(nodes);
-    };
-    UiFramework.frontstages.onToolActivatedEvent.addListener(
-      handleToolActivatedEvent
-    );
-    return () => {
-      UiFramework.frontstages.onToolActivatedEvent.removeListener(
-        handleToolActivatedEvent
-      );
-    };
+      setSettings(nodes);
+    });
   }, [setSettings]);
 
   React.useEffect(() => {
-    const handleToolSettingsReloadEvent = () => {
+    return UiFramework.frontstages.onToolSettingsReloadEvent.addListener(() => {
       const nodes =
         InternalFrontstageManager.activeToolSettingsProvider
           ?.horizontalToolSettingNodes;
-      if (!nodes || nodes.length === 0) setSettings([EmptyToolSettingsEntry()]);
-      else setSettings(nodes);
-    };
-    UiFramework.frontstages.onToolSettingsReloadEvent.addListener(
-      handleToolSettingsReloadEvent
-    );
-    return () => {
-      UiFramework.frontstages.onToolSettingsReloadEvent.removeListener(
-        handleToolSettingsReloadEvent
-      );
-    };
+      setSettings(nodes);
+    });
   }, [setSettings]);
 
+  if (!settings || settings.length === 0) return emptySettings;
   return settings;
 }
 
@@ -200,9 +191,9 @@ export function useToolSettingsNode() {
 
 /** @internal */
 export function ToolSettingsContent() {
-  const toolSettingsType = useLayout((state) => state.toolSettings.type);
+  const toolSettingsType = useLayout((state) => state.toolSettings?.type);
   // This is needed to remount underlying components tree when going into widget state.
-  if (toolSettingsType === "docked") return null;
+  if (!toolSettingsType || toolSettingsType === "docked") return null;
   return <ToolSettingsWidgetContent />;
 }
 

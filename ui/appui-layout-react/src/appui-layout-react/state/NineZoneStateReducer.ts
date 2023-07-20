@@ -24,8 +24,9 @@ import type { NineZoneState } from "./NineZoneState";
 import type { FloatingWidgetHomeState } from "./WidgetState";
 import { addFloatingWidget, floatingWidgetBringToFront } from "./WidgetState";
 import {
-  isDockedToolSettingsState,
-  toolSettingsTabId,
+  addDockedToolSettings,
+  addWidgetToolSettings,
+  removeToolSettings,
 } from "./ToolSettingsState";
 import { updatePanelState } from "./internal/PanelStateHelpers";
 import { createDraggedTabState } from "./internal/TabStateHelpers";
@@ -505,36 +506,27 @@ export function NineZoneStateReducer(
       });
     }
     case "TOOL_SETTINGS_DRAG_START": {
-      if (!isDockedToolSettingsState(state.toolSettings)) return state;
+      if (state.toolSettings?.type !== "docked") return state;
 
       const { newFloatingWidgetId } = action;
-      state = produce(state, (draft) => {
-        draft.toolSettings = {
-          type: "widget",
-        };
-      });
+      const tabId = state.toolSettings.tabId;
+      state = removeToolSettings(state);
 
-      const tab = state.tabs[toolSettingsTabId];
+      const tab = state.tabs[tabId];
       const size = tab.preferredFloatingWidgetSize || {
         height: 200,
         width: 300,
       };
-      return addFloatingWidget(
-        state,
-        newFloatingWidgetId,
-        [toolSettingsTabId],
-        {
-          bounds: Rectangle.createFromSize(size).toProps(),
-        }
-      );
+      state = addFloatingWidget(state, newFloatingWidgetId, [tabId], {
+        bounds: Rectangle.createFromSize(size).toProps(),
+      });
+      return addWidgetToolSettings(state, tabId);
     }
     case "TOOL_SETTINGS_DOCK": {
-      state = removeTabFromWidget(state, toolSettingsTabId);
-      return produce(state, (draft) => {
-        draft.toolSettings = {
-          type: "docked",
-        };
-      });
+      if (state.toolSettings?.type !== "widget") return state;
+      const tabId = state.toolSettings.tabId;
+      state = removeToolSettings(state);
+      return addDockedToolSettings(state, tabId);
     }
   }
   return state;

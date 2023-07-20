@@ -7,6 +7,7 @@ import { render } from "@testing-library/react";
 import {
   addPanelWidget,
   addTab,
+  addWidgetToolSettings,
   createNineZoneState,
   WidgetPanels,
 } from "../../appui-layout-react";
@@ -22,18 +23,34 @@ describe("WidgetPanels", () => {
     container.firstChild!.should.matchSnapshot();
   });
 
-  it("should render widget content", () => {
+  it("should render widget content", async () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    const { container } = render(
+    const { findByText } = render(
       <TestNineZoneProvider
         defaultState={state}
-        widgetContent={<div>Hello World!</div>}
+        widgetContent={<div>Hello Widget!</div>}
       >
         <WidgetPanels />
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    await findByText("Hello Widget!");
+  });
+
+  it("should render tool settings content", async () => {
+    let state = createNineZoneState();
+    state = addTab(state, "ts");
+    state = addPanelWidget(state, "left", "w1", ["ts"]);
+    state = addWidgetToolSettings(state, "ts");
+    const { findByText } = render(
+      <TestNineZoneProvider
+        defaultState={state}
+        toolSettingsContent={<div>Hello ToolSettings!</div>}
+      >
+        <WidgetPanels />
+      </TestNineZoneProvider>
+    );
+    await findByText("Hello ToolSettings!");
   });
 });

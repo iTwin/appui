@@ -387,6 +387,10 @@
       "allowedCategories": [ "common" ]
     },
     {
+      "name": "@originjs/vite-plugin-commonjs",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "@playwright/test",
       "allowedCategories": [ "internal" ]
     },
@@ -397,6 +401,42 @@
     {
       "name": "@rushstack/eslint-patch",
       "allowedCategories": [ "frontend", "internal" ]
+    },
+    {
+      "name": "@storybook/addon-essentials",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/addon-interactions",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/addon-links",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/blocks",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/manager-api",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/react",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/react-vite",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/testing-library",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@storybook/theming",
+      "allowedCategories": [ "internal" ]
     },
     {
       "name": "@svgdotjs/svg.js",
@@ -424,11 +464,15 @@
     },
     {
       "name": "@typescript-eslint/parser",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "internal", "tools" ]
     },
     {
       "name": "@typescript-eslint/typescript-estree",
       "allowedCategories": [ "tools" ]
+    },
+    {
+      "name": "@vitejs/plugin-react",
+      "allowedCategories": [ "internal" ]
     },
     {
       "name": "@wojtekmaj/enzyme-adapter-react-17",
@@ -535,6 +579,10 @@
       "allowedCategories": [ "tools" ]
     },
     {
+      "name": "cpx",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "cpx2",
       "allowedCategories": [ "backend", "common", "edit", "extensions", "frontend", "integration-testing", "internal", "tools" ]
     },
@@ -637,6 +685,14 @@
     {
       "name": "eslint-plugin-react-hooks",
       "allowedCategories": [ "internal", "tools" ]
+    },
+    {
+      "name": "eslint-plugin-react-refresh",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "eslint-plugin-storybook",
+      "allowedCategories": [ "internal" ]
     },
     {
       "name": "eslint-plugin-testing-library",
@@ -875,6 +931,10 @@
       "allowedCategories": [ "tools" ]
     },
     {
+      "name": "prop-types",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "puppeteer",
       "allowedCategories": [ "integration-testing", "tools" ]
     },
@@ -1031,6 +1091,10 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "storybook",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "stream-browserify",
       "allowedCategories": [ "integration-testing", "internal" ]
     },
@@ -1101,6 +1165,10 @@
     {
       "name": "uuid",
       "allowedCategories": [ "frontend", "tools" ]
+    },
+    {
+      "name": "vite",
+      "allowedCategories": [ "internal" ]
     },
     {
       "name": "webpack",

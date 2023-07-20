@@ -2,6 +2,18 @@
   "name": "@itwin/imodel-components-react",
   "entries": [
     {
+      "version": "4.3.0",
+      "tag": "@itwin/imodel-components-react_v4.3.0",
+      "date": "Mon, 17 Jul 2023 10:16:20 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Update sinon to 15.2.0 and @types/sinon to 10.0.15"
+          }
+        ]
+      }
+    },
+    {
       "version": "4.2.0",
       "tag": "@itwin/imodel-components-react_v4.2.0",
       "date": "Tue, 27 Jun 2023 14:50:22 GMT",

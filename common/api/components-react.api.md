@@ -3422,6 +3422,13 @@ export class UrlPropertyValueRenderer implements IPropertyValueRenderer {
 // @public
 export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined;
 
+// @public
+export function useControlledTreeLayoutStorage<T extends Element>(): {
+    ref: React_2.Ref<T>;
+    persist: () => void;
+    restore: () => void;
+};
+
 // @beta
 export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (() => Promise<TReturn>)): {
     value: TReturn | undefined;
@@ -3483,6 +3490,13 @@ export function useTreeModelSource(dataProvider: TreeDataProvider): TreeModelSou
 
 // @public
 export function useTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataProvider: TDataProvider, modelSource: TreeModelSource): TreeNodeLoader<TDataProvider>;
+
+// @public
+export function useVirtualizedPropertyGridLayoutStorage<T extends Element>(): {
+    ref: React_2.Ref<T>;
+    persist: () => void;
+    restore: () => void;
+};
 
 // @public
 export class VirtualizedPropertyGrid extends React_2.Component<VirtualizedPropertyGridProps, VirtualizedPropertyGridState> {

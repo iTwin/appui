@@ -96,11 +96,8 @@ jobs:
                   # Replace placeholder header
                   (Get-Content $sourceFile ) -replace 'NextVersion', "$(getVersion.version) Change Notes" | Set-Content $sourceFile
 
-                  # Remove old frontmatter
-                  (Get-Content $sourceFile | Select-Object -Skip 3) | Set-Content $sourceFile
-
-                  # Add relevant frontmatter
-                  "---`ndeltaDoc: true`nversion: `"$(getVersion.version)`"`n---`n" + (Get-Content $sourceFile | Out-String) | Set-Content $sourceFile
+                  # Remove carriage return characters
+                  (Get-Content $sourceFile -Raw) -replace "`r", "" | Set-Content $sourceFile -NoNewline
 
                   # Rename NextVersion
                   Rename-Item -Path $sourceFile -NewName "$(getVersion.version).md"
@@ -109,7 +106,7 @@ jobs:
                   New-Item $sourceFile
 
                   # Update NextVersion.md with template
-                  "---`npublish: false`n---`n# NextVersion`n" + (Get-Content $sourceFile | Out-String) | Set-Content $sourceFile
+                  "# NextVersion <!-- omit from toc -->`n" | Set-Content $sourceFile -NoNewline
               }
 
             failOnStderr: true
@@ -223,7 +220,7 @@ jobs:
               $sourceFile = 'docs/changehistory/NextVersion.md'
 
               # Overwrite everything with just the header
-              "---`npublish: false`n---`n`n# NextVersion" | Set-Content $sourceFile
+              "# NextVersion <!-- omit from toc -->`n" | Set-Content $sourceFile -NoNewline
             displayName: "Clear current NextVersion.md"
 
           - bash: git add .
