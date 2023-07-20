@@ -5,8 +5,10 @@
 import { test, expect } from "@playwright/test";
 import assert from "assert";
 import {
+  WidgetState,
   expectSavedFrontstageState,
   floatingWidgetLocator,
+  setWidgetState,
   tabLocator,
   widgetLocator,
 } from "./Utils";
@@ -119,5 +121,29 @@ test.describe("popout widget", () => {
       height: 400,
       width: 300,
     });
+  });
+
+  test("should close a popout (when floating a widget)", async ({
+    context,
+    page,
+  }) => {
+    const widget = floatingWidgetLocator({
+      page,
+      id: "appui-test-providers:ViewAttributesWidget",
+    });
+    const popoutButton = widget.locator('[title="Pop out active widget tab"]');
+
+    const [popoutPage] = await Promise.all([
+      context.waitForEvent("page"),
+      popoutButton.click(),
+    ]);
+    expect(popoutPage.isClosed()).toBe(false);
+
+    await setWidgetState(
+      page,
+      "appui-test-providers:ViewAttributesWidget",
+      WidgetState.Floating
+    );
+    await expect.poll(async () => popoutPage.isClosed()).toBe(true);
   });
 });

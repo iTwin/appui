@@ -18,7 +18,6 @@ import { Rectangle } from "@itwin/core-react";
 import type { NineZoneState, PanelSide } from "@itwin/appui-layout-react";
 import {
   dockWidgetContainer,
-  floatWidget,
   getTabLocation,
   getWidgetLocation,
   isFloatingTabLocation,
@@ -45,7 +44,10 @@ import { TimeTracker } from "../configurableui/TimeTracker";
 import type { ChildWindowLocationProps } from "../framework/FrameworkChildWindows";
 import { PopoutWidget } from "../childwindow/PopoutWidget";
 import type { SavedWidgets } from "../widget-panels/Frontstage";
-import { FrameworkStateReducer } from "../widget-panels/Frontstage";
+import {
+  floatWidget,
+  FrameworkStateReducer,
+} from "../widget-panels/Frontstage";
 import { assert, BentleyStatus, ProcessDetector } from "@itwin/core-bentley";
 import type { FrontstageConfig } from "./FrontstageConfig";
 import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
@@ -236,8 +238,18 @@ export class FrontstageDef {
           );
         this.populateStateMaps(state, newPanelStateMap, newWidgetStateMap);
 
+        const oldPopouts = this._nineZoneState?.popoutWidgets.allIds || [];
+        const newPopouts = state.popoutWidgets.allIds;
+        const popoutsToClose = oldPopouts.filter(
+          (p) => !newPopouts.includes(p)
+        );
+
         // set internal state value before triggering events
         this._nineZoneState = state;
+
+        for (const popoutToClose of popoutsToClose) {
+          UiFramework.childWindows.close(popoutToClose, true);
+        }
 
         // now walk and trigger set state events
         newWidgetStateMap.forEach((newState, widgetDef) => {
@@ -775,20 +787,13 @@ export class FrontstageDef {
    * @beta
    */
   public floatWidget(widgetId: string, point?: PointProps, size?: SizeProps) {
-    // istanbul ignore else
     if (!this.nineZoneState) return;
-    const location = getTabLocation(this.nineZoneState, widgetId);
-    if (!location) return;
-
-    const state = floatWidget(this.nineZoneState, widgetId, point, size);
+    const widgetDef = this.findWidgetDef(widgetId);
+    if (!widgetDef) return;
+    const state = floatWidget(this.nineZoneState, widgetDef, point, size);
     this.nineZoneState = state;
-
-    if (!isPopoutTabLocation(location)) return;
-    const popoutWidgetContainerId = location.popoutWidgetId;
-    setTimeout(() => {
-      UiFramework.childWindows.close(popoutWidgetContainerId, true);
-    }, 600);
   }
+
   /** Check widget and panel state to determine whether the widget is currently displayed
    * @param widgetId case-sensitive Widget Id
    * @public

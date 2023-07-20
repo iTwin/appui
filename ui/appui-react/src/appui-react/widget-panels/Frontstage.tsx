@@ -53,6 +53,7 @@ import {
   isPopoutTabLocation,
   NineZone,
   NineZoneStateReducer,
+  floatWidget as nzFloatWidget,
   panelSides,
   removeTab,
   removeTabFromWidget,
@@ -93,6 +94,7 @@ import { WidgetState } from "../widgets/WidgetState";
 import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
+import type { PointProps } from "@itwin/appui-abstract";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -1181,6 +1183,32 @@ function addHiddenWidget(
 }
 
 /** @internal */
+export function floatWidget(
+  state: NineZoneState,
+  widgetDef: WidgetDef,
+  location?: PointProps,
+  size?: SizeProps
+) {
+  const id = widgetDef.id;
+  const tabLocation = getTabLocation(state, id);
+  if (!tabLocation) {
+    state = addHiddenWidget(state, widgetDef);
+  }
+
+  state = nzFloatWidget(state, id, location, size);
+  if (widgetDef.isToolSettings) {
+    if (state.toolSettings?.type === "docked") {
+      state = removeToolSettings(state);
+    }
+    if (!state.toolSettings) {
+      state = addWidgetToolSettings(state, id);
+    }
+  }
+
+  return state;
+}
+
+/** @internal */
 export function setWidgetState(
   state: NineZoneState,
   widgetDef: WidgetDef,
@@ -1251,29 +1279,7 @@ export function setWidgetState(
       }
     });
   } else if (widgetState === WidgetState.Floating) {
-    const id = widgetDef.id;
-    let location = getTabLocation(state, id);
-    if (!location) {
-      state = addHiddenWidget(state, widgetDef);
-      location = getTabLocation(state, id);
-    }
-
-    assert(!!location);
-    if (isFloatingTabLocation(location)) return state;
-
-    // Widget is not floating.
-    state = removeTabFromWidget(state, id);
-    const bounds = widgetDef.tabLocation?.floatingWidget?.bounds;
-    state = addFloatingWidget(state, getUniqueId(), [id], { bounds });
-
-    if (widgetDef.isToolSettings) {
-      if (state.toolSettings?.type === "docked") {
-        state = removeToolSettings(state);
-      }
-      if (!state.toolSettings) {
-        state = addWidgetToolSettings(state, id);
-      }
-    }
+    return floatWidget(state, widgetDef);
   }
   return state;
 }
