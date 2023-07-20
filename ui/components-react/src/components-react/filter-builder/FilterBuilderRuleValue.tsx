@@ -11,6 +11,7 @@ import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "../editors/EditorContainer";
 import { EditorContainer } from "../editors/EditorContainer";
+import type { PropertyFilterRuleOperator } from "./Operators";
 
 /**
  * Props for [[PropertyFilterBuilderRuleValue]] component.
@@ -23,6 +24,16 @@ export interface PropertyFilterBuilderRuleValueProps {
   property: PropertyDescription;
   /** Callback that is invoked when value changes. */
   onChange: (value: PropertyValue) => void;
+}
+
+/**
+ * Props for custom ruleValueRenderer.
+ * @beta
+ */
+export interface PropertyFilterBuilderRuleValueRendererProps
+  extends PropertyFilterBuilderRuleValueProps {
+  /** Current operator. */
+  operator: PropertyFilterRuleOperator;
 }
 
 /**

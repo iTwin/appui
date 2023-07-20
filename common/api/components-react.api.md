@@ -387,11 +387,6 @@ export class CustomNumberPropertyEditor extends PropertyEditorBase {
     get reactNode(): React_2.ReactNode;
 }
 
-// @beta
-export interface CustomPropertyFilterBuilderRuleValueProps extends PropertyFilterBuilderRuleValueProps {
-    operator: PropertyFilterRuleOperator;
-}
-
 // @public @deprecated
 export interface CustomToolbarItem extends CustomButtonDefinition {
     keepContentsLoaded?: boolean;
@@ -2032,7 +2027,7 @@ export interface PropertyFilterBuilderProps {
     propertyRenderer?: (name: string) => React_2.ReactNode;
     ruleGroupDepthLimit?: number;
     ruleOperatorRenderer?: (props: PropertyFilterBuilderRuleOperatorProps) => React_2.ReactNode;
-    ruleValueRenderer?: (props: CustomPropertyFilterBuilderRuleValueProps) => React_2.ReactNode;
+    ruleValueRenderer?: (props: PropertyFilterBuilderRuleValueRendererProps) => React_2.ReactNode;
 }
 
 // @internal
@@ -2053,6 +2048,11 @@ export interface PropertyFilterBuilderRuleValueProps {
     onChange: (value: PropertyValue) => void;
     property: PropertyDescription;
     value?: PropertyValue;
+}
+
+// @beta
+export interface PropertyFilterBuilderRuleValueRendererProps extends PropertyFilterBuilderRuleValueProps {
+    operator: PropertyFilterRuleOperator;
 }
 
 // @public

@@ -37,7 +37,6 @@ public;ConvertedPrimitives
 internal;convertPrimitiveRecordToString(record: PropertyRecord): string | Promise
 alpha;CustomNumberEditor 
 alpha;CustomNumberPropertyEditor 
-beta;CustomPropertyFilterBuilderRuleValueProps 
 public;CustomToolbarItem 
 deprecated;CustomToolbarItem 
 public;DataController
@@ -231,6 +230,7 @@ internal;PropertyFilterBuilderRuleOperator(props: PropertyFilterBuilderRuleOpera
 beta;PropertyFilterBuilderRuleOperatorProps
 beta;PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueProps): JSX.Element
 beta;PropertyFilterBuilderRuleValueProps
+beta;PropertyFilterBuilderRuleValueRendererProps 
 public;PropertyFilterChangeEvent 
 public;PropertyFilterChangesListener = () => void
 beta;PropertyFilterRule
