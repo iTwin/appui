@@ -98,7 +98,6 @@ export class WidgetDef {
   private _icon?: IconSpec;
   private _internalData?: Map<string, any>;
   private _badge?: BadgeType;
-  private _onWidgetStateChanged?: () => void;
   private _saveTransientState?: () => void;
   private _restoreTransientState?: () => boolean;
   private _preferredPanelSize: "fit-content" | undefined;
@@ -475,8 +474,6 @@ export class WidgetDef {
 
   public onWidgetStateChanged(): void {
     this.widgetControl && this.widgetControl.onWidgetStateChanged();
-    // istanbul ignore next
-    this._onWidgetStateChanged && this._onWidgetStateChanged();
   }
 
   /** Overwrite to save transient DOM state (i.e. scroll offset). */
