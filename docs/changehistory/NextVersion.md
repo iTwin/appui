@@ -2,4 +2,4 @@
 
 ## @itwin/components-react
 
-- Promoted `PropertyFilterBuilderRuleOperatorProps`, `PropertyFilterBuilderRuleValueProps`, `PropertyFilterBuilderRuleValue` to beta, created interface `PropertyFilterBuilderRuleValueRendererProps` which extends `PropertyFilterBuilderRuleValueProps`, passed `PropertyFilterRuleOperator` to `ruleValueRenderer` of `PropertyFilterBuilderProps`.
+- Promoted `PropertyFilterBuilderRuleOperatorProps`, `PropertyFilterBuilderRuleValueProps`, `PropertyFilterBuilderRuleValue` to beta, created interface `PropertyFilterBuilderRuleValueRendererProps` which extends `PropertyFilterBuilderRuleValueProps`, passed `PropertyFilterRuleOperator` to custom `PropertyFilterBuilderRuleValue` renderer.
