@@ -113,7 +113,6 @@ export function PropertyFilterBuilderRuleRenderer(
           property={prop}
           onChange={onRuleValueChange}
           value={value}
-          operator={op}
         />
       );
     },

@@ -26,6 +26,17 @@ import {
   usePropertyFilterBuilderState,
 } from "./FilterBuilderState";
 import type { PropertyFilter } from "./Types";
+import type { PropertyFilterRuleOperator } from "./Operators";
+
+/**
+ * Props for custom ruleValueRenderer.
+ * @beta
+ */
+export interface CustomPropertyFilterBuilderRuleValueProps
+  extends PropertyFilterBuilderRuleValueProps {
+  /** Current operator. */
+  operator: PropertyFilterRuleOperator;
+}
 
 /**
  * Props for [[PropertyFilterBuilder]] component.
@@ -44,7 +55,7 @@ export interface PropertyFilterBuilderProps {
   ) => React.ReactNode;
   /** Custom renderer for rule value input. */
   ruleValueRenderer?: (
-    props: PropertyFilterBuilderRuleValueProps
+    props: CustomPropertyFilterBuilderRuleValueProps
   ) => React.ReactNode;
   /** Custom renderer for property selector in rule. */
   propertyRenderer?: (name: string) => React.ReactNode;

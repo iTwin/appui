@@ -42,7 +42,6 @@ describe("PropertyFilterBuilderRuleValue", () => {
         }}
         property={defaultProperty}
         onChange={() => {}}
-        operator={PropertyFilterRuleOperator.IsEqual}
       />
     );
     await waitFor(() => getByDisplayValue("Test String"));
@@ -53,7 +52,6 @@ describe("PropertyFilterBuilderRuleValue", () => {
       <PropertyFilterBuilderRuleValue
         property={defaultProperty}
         onChange={() => {}}
-        operator={PropertyFilterRuleOperator.IsEqual}
       />
     );
 
@@ -69,7 +67,6 @@ describe("PropertyFilterBuilderRuleValue", () => {
       <PropertyFilterBuilderRuleValue
         property={defaultProperty}
         onChange={spy}
-        operator={PropertyFilterRuleOperator.IsEqual}
       />
     );
 
