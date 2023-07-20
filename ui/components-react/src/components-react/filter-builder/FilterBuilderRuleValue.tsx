@@ -11,7 +11,7 @@ import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "../editors/EditorContainer";
 import { EditorContainer } from "../editors/EditorContainer";
-import { PropertyFilterRuleOperator } from "./Operators";
+import type { PropertyFilterRuleOperator } from "./Operators";
 
 /**
  * Props for [[PropertyFilterBuilderRuleValue]] component.

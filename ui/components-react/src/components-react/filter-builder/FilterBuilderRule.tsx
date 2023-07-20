@@ -106,7 +106,7 @@ export function PropertyFilterBuilderRuleRenderer(
           property: prop,
           value,
           onChange: onRuleValueChange,
-          operator: op
+          operator: op,
         });
       return (
         <PropertyFilterBuilderRuleValue
@@ -117,7 +117,7 @@ export function PropertyFilterBuilderRuleRenderer(
         />
       );
     },
-    [value, ruleValueRenderer, onRuleValueChange, operator]
+    [value, ruleValueRenderer, onRuleValueChange]
   );
 
   return (
@@ -140,9 +140,9 @@ export function PropertyFilterBuilderRuleRenderer(
         {property !== undefined ? operatorRenderer(property) : null}
         {property !== undefined &&
         operator !== undefined &&
-        !isUnaryPropertyFilterOperator(operator)
-          ? <div className="rule-value">{valueRenderer(property, operator)}</div>
-          : null}
+        !isUnaryPropertyFilterOperator(operator) ? (
+          <div className="rule-value">{valueRenderer(property, operator)}</div>
+        ) : null}
       </div>
     </div>
   );
