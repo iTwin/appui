@@ -27,7 +27,7 @@ export interface PropertyFilterBuilderRuleValueProps {
 }
 
 /**
- * Props for custom ruleValueRenderer.
+ * Props for custom [[PropertyFilterBuilderRuleValue]] renderer.
  * @beta
  */
 export interface PropertyFilterBuilderRuleValueRendererProps
