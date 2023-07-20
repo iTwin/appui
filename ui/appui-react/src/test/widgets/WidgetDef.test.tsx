@@ -119,7 +119,7 @@ describe("WidgetDef", () => {
         id: "w1",
         badge: BadgeType.None,
       });
-      widgetDef.setWidgetState(WidgetState.Open);
+      widgetDef.handleWidgetStateChanged(WidgetState.Open);
 
       expect(widgetDef.stateChanged).to.eq(true);
       expect(widgetDef.isVisible).to.eq(true);
@@ -132,8 +132,7 @@ describe("WidgetDef", () => {
       });
       const spy = sinon.spy();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
-
-      widgetDef.setWidgetState(WidgetState.Hidden);
+      widgetDef.handleWidgetStateChanged(WidgetState.Hidden);
 
       sinon.assert.calledOnce(spy);
     });

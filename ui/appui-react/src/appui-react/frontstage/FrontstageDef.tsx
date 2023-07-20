@@ -240,15 +240,10 @@ export class FrontstageDef {
         this._nineZoneState = state;
 
         // now walk and trigger set state events
-        newWidgetStateMap.forEach((stateValue, widgetDef) => {
+        newWidgetStateMap.forEach((newState, widgetDef) => {
           const originalState = originalWidgetStateMap.get(widgetDef);
-          if (originalState !== stateValue) {
-            UiFramework.frontstages.onWidgetStateChangedEvent.emit({
-              widgetDef,
-              widgetState: stateValue,
-            });
-            widgetDef.onWidgetStateChanged();
-          }
+          if (originalState === newState) return;
+          widgetDef.handleWidgetStateChanged(newState);
         });
         newPanelStateMap.forEach((stateValue, panelDef) => {
           const originalState = originalPanelStateMap.get(panelDef);

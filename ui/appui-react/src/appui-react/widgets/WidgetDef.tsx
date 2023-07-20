@@ -30,6 +30,7 @@ import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
+import { setWidgetState } from "../widget-panels/Frontstage";
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -410,7 +411,17 @@ export class WidgetDef {
   }
 
   public setWidgetState(newState: WidgetState): void {
-    if (this.state === newState) return;
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    if (!frontstageDef) return;
+    if (!frontstageDef.findWidgetDef(this.id)) return;
+
+    const state = frontstageDef.nineZoneState;
+    if (!state) return;
+    frontstageDef.nineZoneState = setWidgetState(state, this, newState);
+  }
+
+  /** @internal */
+  public handleWidgetStateChanged(newState: WidgetState) {
     this._stateChanged = true;
     UiFramework.frontstages.onWidgetStateChangedEvent.emit({
       widgetDef: this,

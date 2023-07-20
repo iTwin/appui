@@ -1531,18 +1531,6 @@ export function useFrontstageManager(
   useToolAsToolSettingsLabel?: boolean
 ) {
   React.useEffect(() => {
-    return UiFramework.frontstages.onWidgetStateChangedEvent.addListener(
-      ({ widgetDef, widgetState }) => {
-        if (!frontstageDef.nineZoneState) return;
-        frontstageDef.nineZoneState = setWidgetState(
-          frontstageDef.nineZoneState,
-          widgetDef,
-          widgetState
-        );
-      }
-    );
-  }, [frontstageDef]);
-  React.useEffect(() => {
     const listener = createListener(
       frontstageDef,
       ({ widgetDef }: WidgetEventArgs) => {

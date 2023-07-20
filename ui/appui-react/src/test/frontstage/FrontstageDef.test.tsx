@@ -23,6 +23,7 @@ import type {
 import {
   FrontstageDef,
   FrontstageProvider,
+  initializeNineZoneState,
   StagePanelDef,
   StagePanelLocation,
   StagePanelSection,
@@ -274,11 +275,13 @@ describe("FrontstageDef", () => {
           start: [
             {
               id: "test-widget",
+              defaultState: WidgetState.Hidden,
             },
           ],
         },
       },
     });
+    def.nineZoneState = initializeNineZoneState(def);
     sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
 
     const spy = sinon.spy();
