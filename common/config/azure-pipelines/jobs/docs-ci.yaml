@@ -64,6 +64,26 @@ stages:
               PathtoPublish: "$(Build.StagingDirectory)/docs/"
               ArtifactName: "AppUI Docs"
 
+          - powershell: |
+              $commitMsg = @"
+              $(Build.SourceVersionMessage)
+              "@
+              if ($commitMsg -match '^(\d+.\d+.\d+)$') {
+                Write-Host `'$commitMsg`'` is a major/minor/patch version bump
+                Write-Host '##vso[task.setvariable variable=ShouldPublish;]True'
+              } else {
+                Write-Host `'$commitMsg`'` is not a major/minor/patch version bump
+                Write-Host '##vso[task.setvariable variable=ShouldPublish;]False'
+              }
+            displayName: Publish if major/minor/patch version bump
+            condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'Schedule', 'Manual'), eq(variables['Agent.OS'], 'Windows_NT'))
+
+          - task: tagBuildOrRelease@0
+            inputs:
+              type: "Build"
+              tags: "hasDocs"
+            condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'Schedule', 'Manual'), eq(variables['Agent.OS'], 'Windows_NT'), eq(variables['ShouldPublish'], 'True'))
+
   - stage: Validate_Docs
     dependsOn: Generate_Docs
     condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'PullRequest', 'Manual'))
