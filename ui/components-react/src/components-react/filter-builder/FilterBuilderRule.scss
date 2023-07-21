@@ -10,8 +10,9 @@
 
   .rule-condition {
     display: grid;
-    grid-template-columns: minmax(auto, 500px) 150px minmax(auto, 300px);
+    grid-template-columns: minmax(auto, 500px) 150px minmax(auto, 100%);
     grid-column-gap: var(--iui-size-m);
+    width: calc(100% - var(--iui-size-s));
   }
 
   .rule-remove-action {
