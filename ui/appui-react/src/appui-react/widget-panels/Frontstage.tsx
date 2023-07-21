@@ -1110,7 +1110,7 @@ function addHiddenWidget(
 export function floatWidget(
   state: NineZoneState,
   widgetDef: WidgetDef,
-  location?: PointProps,
+  position?: PointProps,
   size?: SizeProps
 ) {
   const id = widgetDef.id;
@@ -1119,7 +1119,7 @@ export function floatWidget(
     state = addHiddenWidget(state, widgetDef);
   }
 
-  state = nzFloatWidget(state, id, location, size);
+  state = nzFloatWidget(state, id, position, size);
   if (widgetDef.isToolSettings) {
     if (state.toolSettings?.type === "docked") {
       state = removeToolSettings(state);

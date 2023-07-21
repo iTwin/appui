@@ -161,7 +161,7 @@ export function dockWidgetContainer(
 export function floatWidget(
   state: NineZoneState,
   widgetTabId: string,
-  point?: PointProps,
+  position?: PointProps,
   size?: SizeProps
 ): NineZoneState {
   // TODO: review
@@ -173,9 +173,9 @@ export function floatWidget(
   const tab = state.tabs[widgetTabId];
   const preferredSize = size ??
     tab.preferredFloatingWidgetSize ?? { height: 400, width: 400 };
-  const preferredPoint = point ?? { x: 50, y: 100 };
+  const preferredPosition = position ?? { x: 50, y: 100 };
   const preferredBounds =
-    Rectangle.createFromSize(preferredSize).offset(preferredPoint);
+    Rectangle.createFromSize(preferredSize).offset(preferredPosition);
   const nzBounds = Rectangle.createFromSize(state.size);
   const containedBounds = preferredBounds.containIn(nzBounds);
 

@@ -779,16 +779,20 @@ export class FrontstageDef {
   /** Create a new floating panel that contains the widget specified by its Id. Supported only when in
    *  UI 2.0 or higher.
    * @param widgetId case sensitive Widget Id
-   * @param point Position of top left corner of floating panel in pixels. If undefined {x:50, y:100} is used.
+   * @param position Position of top left corner of floating panel in pixels. If undefined {x:50, y:100} is used.
    * @param size defines the width and height of the floating panel. If undefined and widget has been floated before
    * the previous size is used, else {height:400, width:400} is used.
    * @beta
    */
-  public floatWidget(widgetId: string, point?: PointProps, size?: SizeProps) {
+  public floatWidget(
+    widgetId: string,
+    position?: PointProps,
+    size?: SizeProps
+  ) {
     if (!this.nineZoneState) return;
     const widgetDef = this.findWidgetDef(widgetId);
     if (!widgetDef) return;
-    const state = floatWidget(this.nineZoneState, widgetDef, point, size);
+    const state = floatWidget(this.nineZoneState, widgetDef, position, size);
     this.nineZoneState = state;
   }
 
