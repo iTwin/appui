@@ -28,7 +28,10 @@ import {
   addWidgetToolSettings,
   removeToolSettings,
 } from "./ToolSettingsState";
-import { updatePanelState } from "./internal/PanelStateHelpers";
+import {
+  getPanelMaxSize,
+  updatePanelState,
+} from "./internal/PanelStateHelpers";
 import { createDraggedTabState } from "./internal/TabStateHelpers";
 import {
   initSizeProps,
@@ -49,6 +52,7 @@ import {
   updateWidgetState,
 } from "./internal/WidgetStateHelpers";
 import { getSendBackHomeState } from "../widget/SendBack";
+import { panelSides } from "../widget-panels/Panel";
 
 /** @internal */
 export function NineZoneStateReducer(
@@ -69,6 +73,15 @@ export function NineZoneStateReducer(
           bounds: containedBounds.toProps(),
         });
       }
+      for (const side of panelSides) {
+        const panel = state.panels[side];
+        if (!panel.size) continue;
+        const maxSize = getPanelMaxSize(side, state.size, panel.maxSize);
+        const size = Math.min(Math.max(panel.size, panel.minSize), maxSize);
+        state = updatePanelState(state, side, {
+          size,
+        });
+      }
       return state;
     }
     case "PANEL_TOGGLE_COLLAPSED": {
@@ -86,12 +99,15 @@ export function NineZoneStateReducer(
       });
     }
     case "PANEL_SET_SIZE": {
-      const panel = state.panels[action.side];
-      const size = Math.min(
-        Math.max(action.size, panel.minSize),
-        panel.maxSize
-      );
-      return updatePanelState(state, action.side, {
+      const { side, size: preferredSize } = action;
+      const panel = state.panels[side];
+      let size = preferredSize;
+      if (size !== undefined) {
+        const maxSize = getPanelMaxSize(side, state.size, panel.maxSize);
+        size = Math.min(Math.max(size, panel.minSize), maxSize);
+      }
+
+      return updatePanelState(state, side, {
         size,
       });
     }
@@ -120,10 +136,8 @@ export function NineZoneStateReducer(
     case "PANEL_INITIALIZE": {
       const { side } = action;
       const panel = state.panels[action.side];
-      const size = Math.min(
-        Math.max(action.size, panel.minSize),
-        panel.maxSize
-      );
+      const maxSize = getPanelMaxSize(panel.side, state.size, panel.maxSize);
+      const size = Math.min(Math.max(action.size, panel.minSize), maxSize);
       return updatePanelState(state, side, {
         size,
       });

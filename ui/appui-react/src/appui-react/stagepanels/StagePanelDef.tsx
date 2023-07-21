@@ -9,7 +9,11 @@
 import type { Draft } from "immer";
 import produce from "immer";
 import { UiEvent } from "@itwin/appui-abstract";
-import type { NineZoneState, PanelSide } from "@itwin/appui-layout-react";
+import {
+  type NineZoneState,
+  NineZoneStateReducer,
+  type PanelSide,
+} from "@itwin/appui-layout-react";
 import { WidgetDef } from "../widgets/WidgetDef";
 import { WidgetHost } from "../widgets/WidgetHost";
 import type {
@@ -115,10 +119,13 @@ export class StagePanelDef extends WidgetHost {
     // istanbul ignore else
     if (frontstageDef && frontstageDef.nineZoneState) {
       const side = toPanelSide(this.location);
-      frontstageDef.nineZoneState = setPanelSize(
+      frontstageDef.nineZoneState = NineZoneStateReducer(
         frontstageDef.nineZoneState,
-        side,
-        size
+        {
+          type: "PANEL_SET_SIZE",
+          side,
+          size,
+        }
       );
       const panel = frontstageDef.nineZoneState.panels[side];
       if (panel.size === this._size) return;
@@ -330,25 +337,6 @@ export function toPanelSide(location: StagePanelLocation): PanelSide {
       return "top";
   }
 }
-
-/** @internal */
-export const setPanelSize: (
-  nineZone: NineZoneState,
-  side: PanelSide,
-  size: number | undefined
-) => NineZoneState = produce(
-  (
-    nineZone: Draft<NineZoneState>,
-    side: PanelSide,
-    size: number | undefined
-  ) => {
-    const panel = nineZone.panels[side];
-    panel.size =
-      size === undefined
-        ? size
-        : Math.min(Math.max(size, panel.minSize), panel.maxSize);
-  }
-);
 
 /** @internal */
 export const setPanelPinned: (

@@ -8,7 +8,6 @@ import * as sinon from "sinon";
 import { createNineZoneState } from "@itwin/appui-layout-react";
 import {
   FrontstageDef,
-  setPanelSize,
   StagePanelDef,
   StagePanelLocation,
   StagePanelState,
@@ -187,16 +186,5 @@ describe("toPanelSide", () => {
 
   it("should return 'top'", () => {
     toPanelSide(StagePanelLocation.Top).should.eq("top");
-  });
-});
-
-describe("setPanelSize", () => {
-  it("should reset size", () => {
-    let nineZone = createNineZoneState();
-    nineZone = produce(nineZone, (draft) => {
-      draft.panels.left.size = 200;
-    });
-    const sut = setPanelSize(nineZone, "left", undefined);
-    (sut.panels.left.size === undefined).should.true;
   });
 });

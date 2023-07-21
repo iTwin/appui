@@ -19,6 +19,7 @@ import type {
   TabDragDropTargetState,
   WidgetDragDropTargetState,
 } from "./DropTargetState";
+import type { PanelState } from "./PanelState";
 
 /** @internal */
 export interface ResizeAction {
@@ -43,7 +44,7 @@ export interface PanelSetCollapsedAction {
 export interface PanelSetSizeAction {
   readonly type: "PANEL_SET_SIZE";
   readonly side: PanelSide;
-  readonly size: number;
+  readonly size: PanelState["size"];
 }
 
 /** @internal */

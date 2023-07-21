@@ -24,6 +24,7 @@ import {
   isPanelTabLocation,
   isPopoutTabLocation,
   isPopoutWidgetLocation,
+  NineZoneStateReducer,
   panelSides,
   popoutWidgetToChildWindow,
 } from "@itwin/appui-layout-react";
@@ -44,10 +45,7 @@ import { TimeTracker } from "../configurableui/TimeTracker";
 import type { ChildWindowLocationProps } from "../framework/FrameworkChildWindows";
 import { PopoutWidget } from "../childwindow/PopoutWidget";
 import type { SavedWidgets } from "../widget-panels/Frontstage";
-import {
-  floatWidget,
-  FrameworkStateReducer,
-} from "../widget-panels/Frontstage";
+import { floatWidget } from "../widget-panels/Frontstage";
 import { assert, BentleyStatus, ProcessDetector } from "@itwin/core-bentley";
 import type { FrontstageConfig } from "./FrontstageConfig";
 import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
@@ -1038,24 +1036,16 @@ export class FrontstageDef {
     )
       return false;
 
-    let state = FrameworkStateReducer(
-      this.nineZoneState,
-      {
-        type: "FLOATING_WIDGET_SET_BOUNDS",
-        id: floatingWidgetId,
-        bounds,
-      },
-      this
-    );
-    state = FrameworkStateReducer(
-      state,
-      {
-        type: "FLOATING_WIDGET_SET_USER_SIZED",
-        id: floatingWidgetId,
-        userSized: true,
-      },
-      this
-    );
+    let state = NineZoneStateReducer(this.nineZoneState, {
+      type: "FLOATING_WIDGET_SET_BOUNDS",
+      id: floatingWidgetId,
+      bounds,
+    });
+    state = NineZoneStateReducer(state, {
+      type: "FLOATING_WIDGET_SET_USER_SIZED",
+      id: floatingWidgetId,
+      userSized: true,
+    });
     this.nineZoneState = state;
     return true;
   }
