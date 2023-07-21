@@ -64,26 +64,6 @@ stages:
               PathtoPublish: "$(Build.StagingDirectory)/docs/"
               ArtifactName: "AppUI Docs"
 
-          - powershell: |
-              $commitMsg = @"
-              $(Build.SourceVersionMessage)
-              "@
-              if ($commitMsg -match '^(\d+.\d+.\d+)$') {
-                Write-Host `'$commitMsg`'` is a major/minor/patch version bump
-                Write-Host '##vso[task.setvariable variable=ShouldPublish;]True'
-              } else {
-                Write-Host `'$commitMsg`'` is not a major/minor/patch version bump
-                Write-Host '##vso[task.setvariable variable=ShouldPublish;]False'
-              }
-            displayName: Publish if major/minor/patch version bump
-            condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'Schedule', 'Manual'), eq(variables['Agent.OS'], 'Windows_NT'))
-
-          - task: tagBuildOrRelease@0
-            inputs:
-              type: "Build"
-              tags: "hasDocs"
-            condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'Schedule', 'Manual'), eq(variables['Agent.OS'], 'Windows_NT'), eq(variables['ShouldPublish'], 'True'))
-
   - stage: Validate_Docs
     dependsOn: Generate_Docs
     condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'PullRequest', 'Manual'))
@@ -93,3 +73,33 @@ stages:
           checkout: itwinjs-core
           useCurrentAppUIDocsArtifact: true
           ignoreAudit: true
+
+  - stage: Tag_Docs
+    dependsOn: Validate_Docs
+    condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'Manual))
+    jobs:
+      - job:
+        displayName: Tag build
+        pool:
+          name: iModelTechCI
+          demands: Agent.OS -equals Windows_NT
+
+        steps:
+          - powershell: |
+              $commitMsg = @"
+              $(Build.SourceVersionMessage)
+              "@
+              if ($commitMsg -match '^(\d+.\d+.\d+)$') {
+                Write-Host `'$commitMsg`'` is a major/minor/patch version bump
+                Write-Host '##vso[task.setvariable variable=ShouldTag;]True'
+              } else {
+                Write-Host `'$commitMsg`'` is not a major/minor/patch version bump
+                Write-Host '##vso[task.setvariable variable=ShouldTag;]False'
+              }
+            displayName: Tag if major/minor/patch version bump
+
+          - task: tagBuildOrRelease@0
+            inputs:
+              type: "Build"
+              tags: "hasDocs"
+            condition: and(succeeded(), eq(variables['ShouldTag'], 'True'))
