@@ -223,7 +223,9 @@ describe("PanelWidget", () => {
 describe("useMode", () => {
   it("should force fill", () => {
     let state = createNineZoneState();
-    state = updatePanelState(state, "left", { maxWidgetCount: 3 });
+    state = updatePanelState(state, "left", (draft) => {
+      draft.maxWidgetCount = 3;
+    });
     state = addTabs(state, ["t1", "t2", "t3"], {
       preferredPanelWidgetSize: "fit-content",
     });
@@ -238,7 +240,9 @@ describe("useMode", () => {
 
   it("should only force fill last widget", () => {
     let state = createNineZoneState();
-    state = updatePanelState(state, "left", { maxWidgetCount: 3 });
+    state = updatePanelState(state, "left", (draft) => {
+      draft.maxWidgetCount = 3;
+    });
     state = addTabs(state, ["t1", "t2", "t3"], {
       preferredPanelWidgetSize: "fit-content",
     });
@@ -322,7 +326,9 @@ describe("useBorders", () => {
 
       it("should render w/o left border if there is left panel to the left", () => {
         let state = createNineZoneState();
-        state = updatePanelState(state, side, { span: false });
+        state = updatePanelState(state, side, (draft) => {
+          draft.span = false;
+        });
         state = addTabs(state, ["t1", "t2"]);
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, "left", "w2", ["t2"]);
@@ -338,7 +344,9 @@ describe("useBorders", () => {
 
       it("should render w/o right border if there is right panel to the right", () => {
         let state = createNineZoneState();
-        state = updatePanelState(state, side, { span: false });
+        state = updatePanelState(state, side, (draft) => {
+          draft.span = false;
+        });
         state = addTabs(state, ["t1", "t2"]);
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, "right", "w2", ["t2"]);

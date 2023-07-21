@@ -78,68 +78,56 @@ export function NineZoneStateReducer(
         if (!panel.size) continue;
         const maxSize = getPanelMaxSize(side, state.size, panel.maxSize);
         const size = Math.min(Math.max(panel.size, panel.minSize), maxSize);
-        state = updatePanelState(state, side, {
-          size,
+        state = updatePanelState(state, side, (draft) => {
+          draft.size = size;
         });
       }
       return state;
     }
     case "PANEL_TOGGLE_COLLAPSED": {
-      const { side } = action;
-      const panel = state.panels[side];
-      const collapsed = !panel.collapsed;
-      return updatePanelState(state, action.side, {
-        collapsed,
+      return updatePanelState(state, action.side, (draft) => {
+        draft.collapsed = !draft.collapsed;
       });
     }
     case "PANEL_SET_COLLAPSED": {
-      const { side, collapsed } = action;
-      return updatePanelState(state, side, {
-        collapsed,
+      return updatePanelState(state, action.side, (draft) => {
+        draft.collapsed = action.collapsed;
       });
     }
     case "PANEL_SET_SIZE": {
       const { side, size: preferredSize } = action;
-      const panel = state.panels[side];
-      let size = preferredSize;
-      if (size !== undefined) {
-        const maxSize = getPanelMaxSize(side, state.size, panel.maxSize);
-        size = Math.min(Math.max(size, panel.minSize), maxSize);
-      }
 
-      return updatePanelState(state, side, {
-        size,
+      return updatePanelState(state, side, (draft) => {
+        let size = preferredSize;
+        if (size !== undefined) {
+          const maxSize = getPanelMaxSize(side, state.size, draft.maxSize);
+          size = Math.min(Math.max(size, draft.minSize), maxSize);
+        }
+        draft.size = size;
       });
     }
     case "PANEL_SET_SPLITTER_VALUE": {
       const splitterPercent = Math.min(Math.max(action.percent, 0), 100);
-      return updatePanelState(state, action.side, {
-        splitterPercent,
+      return updatePanelState(state, action.side, (draft) => {
+        draft.splitterPercent = splitterPercent;
       });
     }
     case "PANEL_TOGGLE_SPAN": {
       const { side } = action;
-      const panel = state.panels[side];
-      const span = !panel.span;
-      return updatePanelState(state, side, {
-        span,
+      return updatePanelState(state, side, (draft) => {
+        draft.span = !draft.span;
       });
     }
     case "PANEL_TOGGLE_PINNED": {
-      const { side } = action;
-      const panel = state.panels[side];
-      const pinned = !panel.pinned;
-      return updatePanelState(state, side, {
-        pinned,
+      return updatePanelState(state, action.side, (draft) => {
+        draft.pinned = !draft.pinned;
       });
     }
     case "PANEL_INITIALIZE": {
-      const { side } = action;
-      const panel = state.panels[action.side];
-      const maxSize = getPanelMaxSize(panel.side, state.size, panel.maxSize);
-      const size = Math.min(Math.max(action.size, panel.minSize), maxSize);
-      return updatePanelState(state, side, {
-        size,
+      return updatePanelState(state, action.side, (draft) => {
+        const maxSize = getPanelMaxSize(draft.side, state.size, draft.maxSize);
+        const size = Math.min(Math.max(action.size, draft.minSize), maxSize);
+        draft.size = size;
       });
     }
     case "PANEL_WIDGET_DRAG_START": {
@@ -211,12 +199,9 @@ export function NineZoneStateReducer(
           tabs,
         });
       } else if (isSectionDropTargetState(target)) {
-        const panel = state.panels[target.side];
-        const widgets = [...panel.widgets];
-        widgets.splice(target.sectionIndex, 0, target.newWidgetId);
-        state = updatePanelState(state, target.side, {
-          widgets,
-          collapsed: false,
+        state = updatePanelState(state, target.side, (draft) => {
+          draft.widgets.splice(target.sectionIndex, 0, target.newWidgetId);
+          draft.collapsed = false;
         });
         state = addWidgetState(
           state,
@@ -232,8 +217,8 @@ export function NineZoneStateReducer(
         );
         const widget = getWidgetLocation(state, target.widgetId);
         if (widget && isPanelWidgetLocation(widget)) {
-          state = updatePanelState(state, widget.side, {
-            collapsed: false,
+          state = updatePanelState(state, widget.side, (draft) => {
+            draft.collapsed = false;
           });
         }
         const targetWidget = getWidgetState(state, target.widgetId);
@@ -244,9 +229,9 @@ export function NineZoneStateReducer(
         });
       } else {
         const panelSectionId = getWidgetPanelSectionId(target.side, 0);
-        state = updatePanelState(state, target.side, {
-          widgets: [panelSectionId],
-          collapsed: false,
+        state = updatePanelState(state, target.side, (draft) => {
+          draft.widgets = [panelSectionId];
+          draft.collapsed = false;
         });
         state = addWidgetState(state, panelSectionId, draggedWidget.tabs, {
           ...draggedWidget,
@@ -456,20 +441,15 @@ export function NineZoneStateReducer(
           tabs,
         });
       } else if (isPanelDropTargetState(target)) {
-        const panel = state.panels[target.side];
-        const widgets = [...panel.widgets, target.newWidgetId];
-        state = updatePanelState(state, panel.side, {
-          collapsed: false,
-          widgets,
+        state = updatePanelState(state, target.side, (draft) => {
+          draft.widgets.push(target.newWidgetId);
+          draft.collapsed = false;
         });
         state = addWidgetState(state, target.newWidgetId, [action.id]);
       } else if (isSectionDropTargetState(target)) {
-        const panel = state.panels[target.side];
-        const widgets = [...panel.widgets];
-        widgets.splice(target.sectionIndex, 0, target.newWidgetId);
-        state = updatePanelState(state, panel.side, {
-          widgets,
-          collapsed: false,
+        state = updatePanelState(state, target.side, (draft) => {
+          draft.widgets.splice(target.sectionIndex, 0, target.newWidgetId);
+          draft.collapsed = false;
         });
         state = addWidgetState(state, target.newWidgetId, [action.id]);
       } else if (isWidgetDropTargetState(target)) {
@@ -480,9 +460,8 @@ export function NineZoneStateReducer(
         );
         const widget = getWidgetLocation(state, target.widgetId);
         if (widget && isPanelWidgetLocation(widget)) {
-          const panel = state.panels[widget.side];
-          state = updatePanelState(state, panel.side, {
-            collapsed: false,
+          state = updatePanelState(state, widget.side, (draft) => {
+            draft.collapsed = false;
           });
         }
         const targetWidget = getWidgetState(state, target.widgetId);

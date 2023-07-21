@@ -8,6 +8,9 @@
 
 import { castDraft, produce } from "immer";
 import { UiError } from "@itwin/appui-abstract";
+import { assert } from "@itwin/core-bentley";
+import type { RectangleProps } from "@itwin/core-react";
+import { Point, Rectangle } from "@itwin/core-react";
 import type { NineZoneState } from "../NineZoneState";
 import type {
   FloatingWidgetState,
@@ -22,8 +25,6 @@ import {
   isPanelWidgetLocation,
   isPopoutWidgetLocation,
 } from "../WidgetLocation";
-import type { RectangleProps } from "@itwin/core-react";
-import { Point, Rectangle } from "@itwin/core-react";
 import {
   category,
   setRectangleProps,
@@ -222,13 +223,12 @@ export function removePanelWidget(
   location = location || findPanelWidget(state, id);
   if (!location) throw new UiError(category, "Panel widget not found");
 
-  const panel = state.panels[location.side];
-  const widgets = [...panel.widgets];
-  widgets.splice(location.index, 1);
-  state = updatePanelState(state, panel.side, {
-    widgets,
+  state = updatePanelState(state, location.side, (draft) => {
+    assert(!!location);
+    draft.widgets.splice(location.index, 1);
   });
 
+  const widgets = state.panels[location.side].widgets;
   const expandedWidget = widgets.find((widgetId) => {
     const widget = getWidgetState(state, widgetId);
     return !widget.minimized;

@@ -497,62 +497,6 @@ describe("Frontstage local storage wrapper", () => {
         });
         spy.calledOnceWithExactly(sinon.match({ width: 5, height: 10 }));
       });
-
-      it("should set vertical (left/right) panel max size from percentage spec", () => {
-        const frontstageDef = new FrontstageDef();
-        const panel = new StagePanelDef();
-        sinon.stub(panel, "maxSizeSpec").get(() => ({ percentage: 50 }));
-        sinon.stub(frontstageDef, "leftPanel").get(() => panel);
-        frontstageDef.nineZoneState = createNineZoneState();
-        const { result } = renderHook(() => useNineZoneDispatch(frontstageDef));
-        result.current({
-          type: "RESIZE",
-          size: {
-            height: 200,
-            width: 500,
-          },
-        });
-        frontstageDef.nineZoneState?.panels.left.maxSize.should.eq(250);
-      });
-
-      it("should set horizontal (top/bottom) panel max size from percentage spec", () => {
-        const frontstageDef = new FrontstageDef();
-        const panel = new StagePanelDef();
-        sinon.stub(panel, "maxSizeSpec").get(() => ({ percentage: 50 }));
-        sinon.stub(frontstageDef, "topPanel").get(() => panel);
-        frontstageDef.nineZoneState = createNineZoneState();
-        const { result } = renderHook(() => useNineZoneDispatch(frontstageDef));
-        result.current({
-          type: "RESIZE",
-          size: {
-            height: 200,
-            width: 500,
-          },
-        });
-        frontstageDef.nineZoneState?.panels.top.maxSize.should.eq(100);
-      });
-
-      it("should update panel size", () => {
-        const frontstageDef = new FrontstageDef();
-        const panel = new StagePanelDef();
-        sinon.stub(panel, "maxSizeSpec").get(() => 250);
-        sinon.stub(frontstageDef, "leftPanel").get(() => panel);
-
-        let state = createNineZoneState();
-        state = produce(state, (draft) => {
-          draft.panels.left.size = 300;
-        });
-        frontstageDef.nineZoneState = state;
-        const { result } = renderHook(() => useNineZoneDispatch(frontstageDef));
-        result.current({
-          type: "RESIZE",
-          size: {
-            height: 200,
-            width: 500,
-          },
-        });
-        frontstageDef.nineZoneState?.panels.left.size!.should.eq(250);
-      });
     });
 
     describe("useLayoutStore", () => {

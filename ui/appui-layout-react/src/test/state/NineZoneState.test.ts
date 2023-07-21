@@ -27,6 +27,7 @@ import {
   convertPopoutWidgetContainerToFloating,
 } from "../../appui-layout-react/state/internal/NineZoneStateHelpers";
 import { createDraggedTabState } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 
 describe("isWidgetDragDropTargetState", () => {
   it("returns `true`", () => {
@@ -106,6 +107,23 @@ describe("NineZoneStateReducer", () => {
         left: 60,
         right: 160,
       });
+    });
+
+    it("should update panel size", () => {
+      let state = createNineZoneState();
+      state = updatePanelState(state, "left", (draft) => {
+        draft.maxSize = { percentage: 50 };
+        draft.size = 400;
+      });
+
+      const newState = NineZoneStateReducer(state, {
+        type: "RESIZE",
+        size: {
+          height: 200,
+          width: 500,
+        },
+      });
+      expect(newState.panels.left.size).to.eq(250);
     });
   });
 

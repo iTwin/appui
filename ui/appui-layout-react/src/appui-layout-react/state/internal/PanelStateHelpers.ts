@@ -7,6 +7,8 @@
  */
 
 import produce from "immer";
+import type { WritableDraft } from "immer/dist/types/types-external";
+import type { SizeProps } from "@itwin/core-react";
 import {
   type HorizontalPanelSide,
   isHorizontalPanelSide,
@@ -20,7 +22,6 @@ import type {
   PanelsState,
   VerticalPanelState,
 } from "../PanelState";
-import type { SizeProps } from "@itwin/core-react";
 
 function createPanelState(side: PanelSide) {
   return {
@@ -79,14 +80,11 @@ export function createPanelsState(args?: Partial<PanelsState>): PanelsState {
 export function updatePanelState<K extends keyof PanelsState>(
   state: NineZoneState,
   side: K,
-  args: Partial<PanelsState[K]>
+  update: (draft: WritableDraft<PanelsState>[K]) => void
 ) {
   return produce(state, (draft) => {
     const panel = draft.panels[side];
-    draft.panels[side] = {
-      ...panel,
-      ...args,
-    };
+    update(panel);
   });
 }
 
