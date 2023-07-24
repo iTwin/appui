@@ -526,22 +526,27 @@ export class UiFramework {
     immediateSync = false
   ) {
     const oldConnection = UiFramework.getIModelConnection();
-    if (oldConnection !== iModelConnection) {
-      if (oldConnection?.iModelId)
-        InternalFrontstageManager.clearFrontstageDefsForIModelId(
-          oldConnection.iModelId
-        );
-      oldConnection &&
-        undefined === iModelConnection &&
-        SyncUiEventDispatcher.clearConnectionEvents(oldConnection);
-      iModelConnection &&
-        SyncUiEventDispatcher.initializeConnectionEvents(iModelConnection);
-      UiFramework.dispatchActionToStore(
-        SessionStateActionId.SetIModelConnection,
-        iModelConnection,
-        immediateSync
-      );
-    }
+    if (oldConnection === iModelConnection) return;
+
+    InternalFrontstageManager.clearFrontstageDefsForIModelId(
+      oldConnection?.iModelId
+    );
+
+    oldConnection && SyncUiEventDispatcher.clearConnectionEvents(oldConnection);
+    iModelConnection &&
+      SyncUiEventDispatcher.initializeConnectionEvents(iModelConnection);
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetIModelConnection,
+      iModelConnection,
+      immediateSync
+    );
+    const itemsSelected = iModelConnection
+      ? iModelConnection.selectionSet.elements.size
+      : 0;
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetNumItemsSelected,
+      itemsSelected
+    );
     UiFramework.setActiveIModelId(iModelConnection?.iModelId ?? "");
   }
 
