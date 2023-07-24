@@ -412,11 +412,10 @@ export class WidgetDef {
 
   public setWidgetState(newState: WidgetState): void {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    if (!frontstageDef) return;
+    const state = frontstageDef?.nineZoneState;
+    if (!state) return;
     if (!frontstageDef.findWidgetDef(this.id)) return;
 
-    const state = frontstageDef.nineZoneState;
-    if (!state) return;
     frontstageDef.nineZoneState = setWidgetState(state, this, newState);
   }
 

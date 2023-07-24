@@ -118,6 +118,11 @@ export function NineZoneStateReducer(
         draft.span = !draft.span;
       });
     }
+    case "PANEL_SET_PINNED": {
+      return updatePanelState(state, action.side, (draft) => {
+        draft.pinned = action.pinned;
+      });
+    }
     case "PANEL_TOGGLE_PINNED": {
       return updatePanelState(state, action.side, (draft) => {
         draft.pinned = !draft.pinned;

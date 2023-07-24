@@ -749,13 +749,10 @@ export function initializePanel(
   const panelDef = frontstageDef.getStagePanelDef(location);
   state = produce(state, (draft) => {
     const panel = draft.panels[side];
-    panel.minSize = panelDef?.minSize ?? panel.minSize;
+    panel.minSize = panelDef?.initialConfig?.minSize ?? panel.minSize;
     panel.pinned = panelDef?.pinned ?? panel.pinned;
     panel.resizable = panelDef?.resizable ?? panel.resizable;
-    panel.maxSize =
-      panelDef?.maxSizeSpec === undefined
-        ? panel.maxSize
-        : panelDef.maxSizeSpec;
+    panel.maxSize = panelDef?.initialConfig?.maxSize ?? panel.maxSize;
   });
   if (panelDef?.size !== undefined) {
     state = NineZoneStateReducer(state, {

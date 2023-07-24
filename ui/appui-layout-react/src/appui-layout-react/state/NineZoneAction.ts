@@ -41,6 +41,13 @@ export interface PanelSetCollapsedAction {
 }
 
 /** @internal */
+export interface PanelSetPinnedAction {
+  readonly type: "PANEL_SET_PINNED";
+  readonly side: PanelSide;
+  readonly pinned: boolean;
+}
+
+/** @internal */
 export interface PanelSetSizeAction {
   readonly type: "PANEL_SET_SIZE";
   readonly side: PanelSide;
@@ -205,6 +212,7 @@ export type NineZoneAction =
   | ResizeAction
   | PanelToggleCollapsedAction
   | PanelSetCollapsedAction
+  | PanelSetPinnedAction
   | PanelSetSizeAction
   | PanelSetSplitterPercentAction
   | PanelToggleSpanAction

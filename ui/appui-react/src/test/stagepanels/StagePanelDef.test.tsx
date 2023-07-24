@@ -44,7 +44,7 @@ describe("StagePanelDef", () => {
     const spy = sinon.spy();
     UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
     const panelDef = new StagePanelDef();
-    panelDef.panelState = StagePanelState.Minimized;
+    panelDef.handlePanelStateChanged(StagePanelState.Minimized);
     expect(spy).to.be.calledOnceWithExactly(
       sinon.match({ panelDef, panelState: StagePanelState.Minimized })
     );
@@ -70,7 +70,7 @@ describe("StagePanelDef", () => {
     const spy = sinon.spy();
     InternalFrontstageManager.onPanelSizeChangedEvent.addListener(spy);
     const panelDef = new StagePanelDef();
-    panelDef.size = 200;
+    panelDef.handleSizeChanged(200);
     expect(spy).to.be.calledOnceWithExactly(
       sinon.match({ panelDef, size: 200 })
     );

@@ -1100,7 +1100,9 @@ describe("Frontstage local storage wrapper", () => {
         const frontstageDef = new FrontstageDef();
         const leftPanel = new StagePanelDef();
         sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
-        sinon.stub(leftPanel, "maxSizeSpec").get(() => 100);
+        sinon.stub(leftPanel, "initialConfig").get(() => ({
+          maxSize: 100,
+        }));
         const sut = initializePanel(
           state,
           frontstageDef,
@@ -1114,7 +1116,9 @@ describe("Frontstage local storage wrapper", () => {
         const frontstageDef = new FrontstageDef();
         const leftPanel = new StagePanelDef();
         sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
-        sinon.stub(leftPanel, "minSize").get(() => 50);
+        sinon.stub(leftPanel, "initialConfig").get(() => ({
+          minSize: 50,
+        }));
         const sut = initializePanel(
           state,
           frontstageDef,
