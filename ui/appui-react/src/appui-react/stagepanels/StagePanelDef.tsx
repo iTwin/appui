@@ -107,10 +107,12 @@ export class StagePanelDef extends WidgetHost {
   /** Current size of the panel */
   public get size(): number | undefined {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    if (!frontstageDef) return this.defaultSize;
+    const state = frontstageDef?.nineZoneState;
+    if (!state) return this.defaultSize;
 
-    const [_, size] = frontstageDef.getPanelCurrentState(this);
-    return size;
+    const side = toPanelSide(this.location);
+    const panel = state.panels[side];
+    return panel.size;
   }
 
   public set size(size) {
@@ -142,10 +144,12 @@ export class StagePanelDef extends WidgetHost {
   /** Indicates whether the panel is pinned. */
   public get pinned(): boolean {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    if (!frontstageDef) return false;
+    const state = frontstageDef?.nineZoneState;
+    if (!state) return this.initialConfig?.pinned ?? true;
 
-    const state = frontstageDef.getPanelCurrentState(this);
-    return state[2];
+    const side = toPanelSide(this.location);
+    const panel = state.panels[side];
+    return panel.pinned;
   }
 
   public set pinned(pinned: boolean) {
@@ -177,9 +181,10 @@ export class StagePanelDef extends WidgetHost {
   /** Panel state. Defaults to PanelState.Open. */
   public get panelState(): StagePanelState {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    if (!frontstageDef) return this.defaultState;
-    const [state] = frontstageDef.getPanelCurrentState(this);
-    return state;
+    const state = frontstageDef?.nineZoneState;
+    if (!state) return this.defaultState;
+    const side = toPanelSide(this.location);
+    return getPanelState(state, side);
   }
 
   public set panelState(panelState: StagePanelState) {
@@ -297,3 +302,9 @@ export const setPanelPinned: (
     panel.pinned = pinned;
   }
 );
+
+/** @internal */
+export function getPanelState(state: NineZoneState, side: PanelSide) {
+  const panel = state.panels[side];
+  return panel.collapsed ? StagePanelState.Minimized : StagePanelState.Open;
+}
