@@ -63,6 +63,7 @@ export enum SyncUiEventId {
   ShowHideManagerSettingChange = "show-hide-setting-change",
   /** The list of feature overrides applied has been changed */
   FeatureOverridesChanged = "featureoverrideschanged",
+  ViewedModelsChanged = "viewedmodelschanged",
 }
 
 /** This class is used to send eventIds to interested UI components so the component can determine if it needs
@@ -144,6 +145,13 @@ export class SyncUiEventDispatcher {
   private static _dispatchFeatureOverridesChange() {
     SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
       SyncUiEventId.FeatureOverridesChanged
+    );
+  }
+
+  // istanbul ignore next
+  private static _dispatchViewedModelsChanged() {
+    SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
+      SyncUiEventId.ViewedModelsChanged
     );
   }
 
@@ -232,6 +240,16 @@ export class SyncUiEventDispatcher {
             args.previous.onFeatureOverridesChanged.removeListener(
               SyncUiEventDispatcher._dispatchFeatureOverridesChange
             );
+          // istanbul ignore next
+          if (
+            args.previous.onViewedModelsChanged &&
+            typeof args.previous.onViewedModelsChanged.removeListener ===
+              "function"
+          )
+            // not set during unit test
+            args.previous.onViewedModelsChanged.removeListener(
+              SyncUiEventDispatcher._dispatchViewedModelsChanged
+            );
         }
         // istanbul ignore next
         if (args.current) {
@@ -252,6 +270,15 @@ export class SyncUiEventDispatcher {
             // not set during unit test
             args.current.onFeatureOverridesChanged.addListener(
               SyncUiEventDispatcher._dispatchFeatureOverridesChange
+            );
+          // istanbul ignore next
+          if (
+            args.current.onViewedModelsChanged &&
+            typeof args.current.onViewedModelsChanged.addListener === "function"
+          )
+            // not set during unit test
+            args.current.onViewedModelsChanged.addListener(
+              SyncUiEventDispatcher._dispatchViewedModelsChanged
             );
         }
       })
