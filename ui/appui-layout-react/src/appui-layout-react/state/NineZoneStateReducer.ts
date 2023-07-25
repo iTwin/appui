@@ -9,7 +9,7 @@
 import { produce } from "immer";
 import { Point, Rectangle } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
-import { removeTabFromWidget } from "./TabState";
+import { addRemovedTab, removeTabFromWidget } from "./TabState";
 import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation";
 import type { NineZoneAction } from "./NineZoneAction";
 import {
@@ -20,19 +20,17 @@ import {
   isWindowDropTargetState,
 } from "./DropTargetState";
 import { getWidgetPanelSectionId, insertPanelWidget } from "./PanelState";
-import type { NineZoneState } from "./NineZoneState";
+import { floatWidget, type NineZoneState } from "./NineZoneState";
 import type { FloatingWidgetHomeState } from "./WidgetState";
 import { addFloatingWidget, floatingWidgetBringToFront } from "./WidgetState";
-import {
-  addDockedToolSettings,
-  addWidgetToolSettings,
-  removeToolSettings,
-} from "./ToolSettingsState";
 import {
   getPanelMaxSize,
   updatePanelState,
 } from "./internal/PanelStateHelpers";
-import { createDraggedTabState } from "./internal/TabStateHelpers";
+import {
+  createDraggedTabState,
+  updateTabState,
+} from "./internal/TabStateHelpers";
 import {
   initSizeProps,
   isToolSettingsFloatingWidget,
@@ -53,6 +51,11 @@ import {
 } from "./internal/WidgetStateHelpers";
 import { getSendBackHomeState } from "../widget/SendBack";
 import { panelSides } from "../widget-panels/Panel";
+import {
+  getTabLocation,
+  isFloatingTabLocation,
+  isPanelTabLocation,
+} from "./TabLocation";
 
 /** @internal */
 export function NineZoneStateReducer(
@@ -503,12 +506,131 @@ export function NineZoneStateReducer(
         draft.draggedTab = undefined;
       });
     }
+    case "WIDGET_TAB_SET_HIDDEN": {
+      const { id } = action;
+      const isToolSettings = state.toolSettings?.tabId === id;
+      if (isToolSettings && state.toolSettings?.type === "docked") {
+        return produce(state, (draft) => {
+          assert(draft.toolSettings?.type === "docked");
+          draft.toolSettings.hidden = true;
+        });
+      }
+
+      const location = getTabLocation(state, id);
+      if (!location) return state;
+
+      const tabIndex = state.widgets[location.widgetId].tabs.indexOf(id);
+      if (isFloatingTabLocation(location)) {
+        const floatingWidget = state.floatingWidgets.byId[location.widgetId];
+        // widgetDef.setFloatingContainerId(location.floatingWidgetId);
+        state = updateTabState(state, id, {
+          home: {
+            widgetId: location.widgetId,
+            tabIndex,
+            floatingWidget,
+          },
+        });
+      } else if (isPanelTabLocation(location)) {
+        const widgetId = location.widgetId;
+        const side = location.side;
+        const widgetIndex = state.panels[side].widgets.indexOf(widgetId);
+        state = updateTabState(state, id, {
+          home: {
+            widgetId,
+            side,
+            widgetIndex,
+            tabIndex,
+          },
+        });
+      }
+
+      return removeTabFromWidget(state, id);
+    }
+    case "WIDGET_TAB_SET_OPEN": {
+      const { id } = action;
+      const isToolSettings = state.toolSettings?.tabId === id;
+      if (isToolSettings && state.toolSettings?.type === "docked") {
+        state = produce(state, (draft) => {
+          assert(draft.toolSettings?.type === "docked");
+          draft.toolSettings.hidden = false;
+        });
+      }
+
+      let location = getTabLocation(state, id);
+      if (!location) {
+        state = addRemovedTab(state, id);
+        location = getTabLocation(state, id);
+      }
+
+      return produce(state, (draft) => {
+        assert(!!location);
+        const widget = draft.widgets[location.widgetId];
+        widget.minimized = false;
+        widget.activeTabId = id;
+
+        if (isFloatingTabLocation(location)) {
+          const floatingWidget =
+            draft.floatingWidgets.byId[location.floatingWidgetId];
+          floatingWidget.hidden = false;
+        } else if (isPanelTabLocation(location)) {
+          const panel = draft.panels[location.side];
+          panel.collapsed = false;
+          if (undefined === panel.size || 0 === panel.size) {
+            panel.size = panel.minSize ?? 200;
+          }
+        }
+      });
+    }
+    case "WIDGET_TAB_SET_CLOSED": {
+      const { id } = action;
+      const isToolSettings = state.toolSettings?.tabId === id;
+      if (isToolSettings && state.toolSettings?.type === "docked") {
+        return state;
+      }
+
+      let location = getTabLocation(state, id);
+      if (!location) {
+        state = addRemovedTab(state, id);
+        location = getTabLocation(state, id);
+      }
+
+      // TODO: should change activeTabId of a widget with multiple tabs.
+      return produce(state, (draft) => {
+        assert(!!location);
+        const widget = draft.widgets[location.widgetId];
+
+        if (isFloatingTabLocation(location)) {
+          if (id === widget.activeTabId) {
+            widget.minimized = true;
+          }
+        }
+      });
+    }
+    case "WIDGET_TAB_SET_FLOATING": {
+      const { id, position, size } = action;
+      const tabLocation = getTabLocation(state, id);
+      if (!tabLocation) {
+        state = addRemovedTab(state, id);
+      }
+
+      state = floatWidget(state, id, position, size);
+
+      const isToolSettings = state.toolSettings?.tabId === id;
+      if (isToolSettings) {
+        state = produce(state, (draft) => {
+          assert(!!draft.toolSettings);
+          draft.toolSettings.type = "widget";
+        });
+      }
+
+      return state;
+    }
     case "TOOL_SETTINGS_DRAG_START": {
-      if (state.toolSettings?.type !== "docked") return state;
+      if (!state.toolSettings) return state;
+      if (state.toolSettings.type === "widget") return state;
 
       const { newFloatingWidgetId } = action;
       const tabId = state.toolSettings.tabId;
-      state = removeToolSettings(state);
 
       const tab = state.tabs[tabId];
       const size = tab.preferredFloatingWidgetSize || {
@@ -518,13 +640,20 @@ export function NineZoneStateReducer(
       state = addFloatingWidget(state, newFloatingWidgetId, [tabId], {
         bounds: Rectangle.createFromSize(size).toProps(),
       });
-      return addWidgetToolSettings(state, tabId);
+      return produce(state, (draft) => {
+        assert(!!draft.toolSettings);
+        draft.toolSettings.type = "widget";
+      });
     }
     case "TOOL_SETTINGS_DOCK": {
-      if (state.toolSettings?.type !== "widget") return state;
-      const tabId = state.toolSettings.tabId;
-      state = removeToolSettings(state);
-      return addDockedToolSettings(state, tabId);
+      if (!state.toolSettings) return state;
+      if (state.toolSettings.type === "docked") return state;
+
+      state = removeTabFromWidget(state, state.toolSettings.tabId);
+      return produce(state, (draft) => {
+        assert(!!draft.toolSettings);
+        draft.toolSettings.type = "docked";
+      });
     }
   }
   return state;

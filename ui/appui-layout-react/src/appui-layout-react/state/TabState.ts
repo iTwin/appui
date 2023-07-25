@@ -9,10 +9,14 @@
 import produce from "immer";
 import type { PointProps } from "@itwin/appui-abstract";
 import { UiError } from "@itwin/appui-abstract";
-import type { IconSpec, SizeProps } from "@itwin/core-react";
+import { type IconSpec, Rectangle, type SizeProps } from "@itwin/core-react";
 import type { PanelSide } from "../widget-panels/Panel";
 import type { NineZoneState } from "./NineZoneState";
-import type { FloatingWidgetHomeState, WidgetState } from "./WidgetState";
+import {
+  addFloatingWidget,
+  type FloatingWidgetHomeState,
+  type WidgetState,
+} from "./WidgetState";
 import { getTabLocation } from "./TabLocation";
 import { category } from "./internal/NineZoneStateHelpers";
 import { createTabState } from "./internal/TabStateHelpers";
@@ -23,7 +27,12 @@ import {
   setWidgetActiveTabId,
   updateWidgetState,
 } from "./internal/WidgetStateHelpers";
-import { removeToolSettings } from "./ToolSettingsState";
+import {
+  isFloatingWidgetTabHomeState,
+  type TabHomeState,
+} from "./TabHomeState";
+import { insertPanelWidget } from "./PanelState";
+import { getUniqueId } from "../base/NineZone";
 
 /** `WidgetDef` is equivalent structure in `appui-react`.
  * @internal
@@ -39,6 +48,7 @@ export interface TabState {
   readonly userSized?: boolean;
   readonly isFloatingStateWindowResizable?: boolean;
   readonly hideWithUiWhenFloating?: boolean;
+  readonly home?: TabHomeState;
 }
 
 /** @internal */
@@ -111,7 +121,7 @@ export function insertTabToWidget(
   });
 }
 
-/** Removes tab from the UI, but keeps the tab state.
+/** Removes tab from the UI, but keeps the tab state (hide).
  * @internal
  */
 export function removeTabFromWidget(
@@ -150,8 +160,73 @@ export function removeTab(
   if (!(tabId in state.tabs)) throw new UiError(category, "Tab does not exist");
 
   state = removeTabFromWidget(state, tabId);
-  state = removeToolSettings(state);
   return produce(state, (draft) => {
     delete draft.tabs[tabId];
+
+    if (draft.toolSettings?.tabId === tabId) {
+      draft.toolSettings = undefined;
+    }
   });
+}
+
+const defaultHomeState: TabHomeState = {
+  side: "left",
+  widgetId: "",
+  widgetIndex: 0,
+  tabIndex: 0,
+};
+
+/** Adds removed tab to the UI (show).
+ * @internal
+ */
+export function addRemovedTab(
+  state: NineZoneState,
+  tabId: TabState["id"]
+): NineZoneState {
+  if (!(tabId in state.tabs))
+    throw new UiError(category, "Tab does not exist", undefined, () => ({
+      tabId,
+    }));
+
+  const tab = state.tabs[tabId];
+  const home = tab.home || defaultHomeState;
+  const { widgetId, tabIndex } = home;
+
+  // Add to an existing widget (by widget id).
+  if (widgetId in state.widgets) {
+    return insertTabToWidget(state, tabId, widgetId, tabIndex);
+  }
+
+  // Add to a floating widget.
+  if (isFloatingWidgetTabHomeState(home)) {
+    // Add to a new floating widget.
+    const nzBounds = Rectangle.createFromSize(state.size);
+    const bounds = Rectangle.create(home.floatingWidget.bounds).containIn(
+      nzBounds
+    );
+    return addFloatingWidget(state, home.widgetId, [tabId], {
+      ...home.floatingWidget,
+      bounds: bounds.toProps(),
+    });
+  }
+
+  // Add to a panel section.
+  const panel = state.panels[home.side];
+
+  // Add to existing panel section.
+  if (panel.widgets.length >= panel.maxWidgetCount) {
+    const sectionIndex = Math.min(panel.maxWidgetCount - 1, home.widgetIndex);
+    const sectionId = panel.widgets[sectionIndex];
+    return insertTabToWidget(state, tabId, sectionId, home.tabIndex);
+  }
+
+  // Create a new panel section.
+  const newSectionId = getUniqueId();
+  return insertPanelWidget(
+    state,
+    panel.side,
+    newSectionId,
+    [tabId],
+    home.widgetIndex
+  );
 }

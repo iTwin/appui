@@ -6,27 +6,25 @@
  * @module Base
  */
 
+import { assert } from "chai";
 import produce from "immer";
 import { UiError } from "@itwin/appui-abstract";
+import { getTabLocation } from "./TabLocation";
+import { removeTabFromWidget, type TabState } from "./TabState";
 import { category } from "./internal/NineZoneStateHelpers";
 import type { NineZoneState } from "./NineZoneState";
-import type { TabState } from "./TabState";
-import { removeTabFromWidget } from "./TabState";
-import { getTabLocation } from "./TabLocation";
 
 /** @internal */
-export interface CommonToolSettingsState {
-  readonly tabId: TabState["id"];
-}
-
-/** @internal */
-export interface DockedToolSettingsState extends CommonToolSettingsState {
+export interface DockedToolSettingsState {
   readonly type: "docked";
+  readonly tabId: TabState["id"];
+  readonly hidden?: boolean;
 }
 
 /** @internal */
-export interface WidgetToolSettingsState extends CommonToolSettingsState {
+export interface WidgetToolSettingsState {
   readonly type: "widget";
+  readonly tabId: TabState["id"];
 }
 
 /** @internal */
@@ -64,7 +62,7 @@ export function addDockedToolSettings(
   });
 }
 
-/** Adds a widget to the tool settings.
+/** Adds a widget tool settings.
  * @internal
  */
 export function addWidgetToolSettings(
@@ -88,20 +86,5 @@ export function addWidgetToolSettings(
       tabId,
       type: "widget",
     };
-  });
-}
-
-/** Removes tab from the tool settings, but keeps the tab state.
- * @internal
- */
-export function removeToolSettings(state: NineZoneState): NineZoneState {
-  if (!state.toolSettings) return state;
-
-  if (state.toolSettings.type === "widget") {
-    state = removeTabFromWidget(state, state.toolSettings.tabId);
-  }
-
-  return produce(state, (draft) => {
-    draft.toolSettings = undefined;
   });
 }

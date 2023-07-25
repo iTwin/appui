@@ -27,7 +27,6 @@ import {
   StagePanelDef,
   StagePanelLocation,
   StagePanelSection,
-  StagePanelState,
   UiFramework,
   UiItemsManager,
   useSpecificWidgetDef,
@@ -914,18 +913,6 @@ describe("floatWidget", () => {
         .undefined;
       expect(frontstageDef.getFloatingWidgetContainerBounds(undefined)).to.be
         .undefined;
-    });
-
-    it("should return default size for panel", () => {
-      const frontstageDef = new FrontstageDef();
-      const panelDef = StagePanelDef.create(
-        { resizable: true, size: 300 },
-        StagePanelLocation.Left
-      );
-
-      expect(
-        frontstageDef.getPanelCurrentState(panelDef)
-      ).to.have.ordered.members([StagePanelState.Open, 300, true]);
     });
   });
 

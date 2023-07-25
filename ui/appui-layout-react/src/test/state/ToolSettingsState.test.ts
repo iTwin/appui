@@ -9,9 +9,8 @@ import {
   addTab,
   addWidgetToolSettings,
   createNineZoneState,
-  removeToolSettings,
 } from "../../appui-layout-react";
-import { addTabs, handleMetaData } from "../Utils";
+import { handleMetaData } from "../Utils";
 
 describe("addDockedToolSettings", () => {
   it("should add docked tool settings", () => {
@@ -67,23 +66,5 @@ describe("addWidgetToolSettings", () => {
     let state = createNineZoneState();
     state = addTab(state, "ts");
     handleMetaData(() => addWidgetToolSettings(state, "ts")).should.throw();
-  });
-});
-
-describe("removeToolSettings", () => {
-  it("should remove tab from tool settings", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "ts");
-    state = addDockedToolSettings(state, "ts");
-    state = removeToolSettings(state);
-    expect(state.toolSettings).to.be.undefined;
-  });
-
-  it("should not remove tab if it not a tool settings tab", () => {
-    let state = createNineZoneState();
-    state = addTabs(state, ["ts", "t1"]);
-    state = addDockedToolSettings(state, "ts");
-    state = removeToolSettings(state);
-    expect(state.toolSettings).to.be.undefined;
   });
 });

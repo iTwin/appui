@@ -167,12 +167,6 @@ export interface WidgetTabDoubleClickAction {
 }
 
 /** @internal */
-export interface WidgetTabPopoutAction {
-  readonly type: "WIDGET_TAB_POPOUT";
-  readonly id: WidgetState["activeTabId"];
-}
-
-/** @internal */
 export interface WidgetTabDragStartAction {
   readonly type: "WIDGET_TAB_DRAG_START";
   readonly side: PanelSide | undefined;
@@ -194,6 +188,38 @@ export interface WidgetTabDragEndAction {
   readonly type: "WIDGET_TAB_DRAG_END";
   readonly id: TabState["id"];
   readonly target: TabDragDropTargetState;
+}
+
+/** @internal */
+export interface WidgetTabSetClosedAction {
+  readonly type: "WIDGET_TAB_SET_CLOSED";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
+export interface WidgetTabSetFloatingAction {
+  readonly type: "WIDGET_TAB_SET_FLOATING";
+  readonly id: TabState["id"];
+  readonly position?: PointProps;
+  readonly size?: SizeProps;
+}
+
+/** @internal */
+export interface WidgetTabSetHiddenAction {
+  readonly type: "WIDGET_TAB_SET_HIDDEN";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
+export interface WidgetTabSetOpenAction {
+  readonly type: "WIDGET_TAB_SET_OPEN";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
+export interface WidgetTabPopoutAction {
+  readonly type: "WIDGET_TAB_POPOUT";
+  readonly id: TabState["id"];
 }
 
 /** @internal */
@@ -233,6 +259,10 @@ export type NineZoneAction =
   | WidgetTabDragStartAction
   | WidgetTabDragAction
   | WidgetTabDragEndAction
+  | WidgetTabSetClosedAction
+  | WidgetTabSetFloatingAction
+  | WidgetTabSetHiddenAction
+  | WidgetTabSetOpenAction
   | WidgetTabPopoutAction
   | ToolSettingsDragStartAction
   | ToolSettingsDockAction;

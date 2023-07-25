@@ -156,7 +156,7 @@ test.describe("widget state", () => {
 
     // Wait for "FW-1" state to be saved before reloading.
     await expectSavedFrontstageState(context, (state) => {
-      return !!state.widgets.find((w) => w.id === "FW-1");
+      return !!state.nineZone.tabs["FW-1"]?.home;
     });
 
     await page.reload();
@@ -175,7 +175,7 @@ test.describe("widget state", () => {
 
     await setWidgetState(page, "WT-2", WidgetState.Hidden);
     await expectSavedFrontstageState(context, (state) => {
-      return !!state.widgets.find((w) => w.id === "WT-2");
+      return !!state.nineZone.tabs["WT-2"]?.home;
     });
 
     await openFrontstage(page, "appui-test-app:main-stage");
@@ -207,7 +207,7 @@ test.describe("widget state", () => {
 
     await setWidgetState(page, "WT-A", WidgetState.Hidden);
     await expectSavedFrontstageState(context, (state) => {
-      return !!state.widgets.find((w) => w.id === "WT-A");
+      return !!state.nineZone.tabs["WT-A"]?.home;
     });
     await page.reload();
 
@@ -288,10 +288,7 @@ test.describe("widget state", () => {
     await expect(widget).toHaveCount(2);
   });
 
-  test("should float a widget that is hidden by default", async ({
-    context,
-    page,
-  }) => {
+  test("should float a widget that is hidden by default", async ({ page }) => {
     const tab = tabLocator(page, "FW-H1");
     await expect(tab).toBeHidden();
 

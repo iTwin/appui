@@ -99,8 +99,13 @@ export interface SavedFrontstageState {
         tabs: string[];
       };
     };
+    tabs: {
+      [id in string]: {
+        id: string;
+        home?: {};
+      };
+    };
   };
-  widgets: { id: string }[];
 }
 
 /** Assertion helper that polls saved frontstage state from local storage until `conditionFn` is satisfied. */

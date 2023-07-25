@@ -198,22 +198,4 @@ describe("WidgetDef", () => {
       spy.notCalled.should.true;
     });
   });
-
-  describe("tabLocation", () => {
-    it("should set tabLocation", () => {
-      const sut = new WidgetDef();
-      sut.tabLocation = {
-        side: "bottom",
-        tabIndex: 8,
-        widgetId: "abc",
-        widgetIndex: 5,
-      };
-      sut.tabLocation.should.eql({
-        side: "bottom",
-        tabIndex: 8,
-        widgetId: "abc",
-        widgetIndex: 5,
-      });
-    });
-  });
 });

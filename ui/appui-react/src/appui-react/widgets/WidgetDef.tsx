@@ -14,7 +14,11 @@ import type {
   StringGetter,
 } from "@itwin/appui-abstract";
 import { UiError, UiEvent } from "@itwin/appui-abstract";
-import type { FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
+import {
+  type FloatingWidgetState,
+  NineZoneStateReducer,
+  type PanelSide,
+} from "@itwin/appui-layout-react";
 import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 import {
   ConfigurableCreateInfo,
@@ -30,7 +34,6 @@ import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
-import { setWidgetState } from "../widget-panels/Frontstage";
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -64,15 +67,6 @@ export enum WidgetType {
   Rectangular,
   ToolSettings,
   StatusBar,
-}
-
-/** @internal */
-export interface TabLocation {
-  widgetId: string;
-  widgetIndex: number;
-  side: PanelSide;
-  tabIndex: number;
-  floatingWidget?: FloatingWidgetState;
 }
 
 // -----------------------------------------------------------------------------
@@ -111,13 +105,6 @@ export class WidgetDef {
   private _allowedPanelTargets?: ReadonlyArray<StagePanelLocation>;
   private _initialConfig?: WidgetConfig;
 
-  private _tabLocation?: TabLocation;
-  private _defaultTabLocation: TabLocation = {
-    side: "left",
-    tabIndex: 0,
-    widgetId: "",
-    widgetIndex: 0,
-  };
   private _popoutBounds?: Rectangle;
 
   public get state(): WidgetState {
@@ -182,19 +169,6 @@ export class WidgetDef {
   }
   public set widgetType(type: WidgetType) {
     this._widgetType = type;
-  }
-
-  /** @internal */
-  public get tabLocation() {
-    return this._tabLocation;
-  }
-  public set tabLocation(tabLocation: TabLocation | undefined) {
-    this._tabLocation = tabLocation;
-  }
-
-  /** @internal */
-  public get defaultTabLocation() {
-    return this._defaultTabLocation;
   }
 
   /** @internal */
@@ -416,7 +390,36 @@ export class WidgetDef {
     if (!state) return;
     if (!frontstageDef.findWidgetDef(this.id)) return;
 
-    frontstageDef.nineZoneState = setWidgetState(state, this, newState);
+    switch (newState) {
+      case WidgetState.Closed: {
+        frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+          type: "WIDGET_TAB_SET_CLOSED",
+          id: this.id,
+        });
+        break;
+      }
+      case WidgetState.Floating: {
+        frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+          type: "WIDGET_TAB_SET_FLOATING",
+          id: this.id,
+        });
+        break;
+      }
+      case WidgetState.Hidden: {
+        frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+          type: "WIDGET_TAB_SET_HIDDEN",
+          id: this.id,
+        });
+        break;
+      }
+      case WidgetState.Open: {
+        frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+          type: "WIDGET_TAB_SET_OPEN",
+          id: this.id,
+        });
+        break;
+      }
+    }
   }
 
   /** @internal */

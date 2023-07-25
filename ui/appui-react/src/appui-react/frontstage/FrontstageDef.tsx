@@ -32,11 +32,7 @@ import type { ContentControl } from "../content/ContentControl";
 import type { ContentGroup } from "../content/ContentGroup";
 import { ContentGroupProvider } from "../content/ContentGroup";
 import type { ContentLayoutDef } from "../content/ContentLayout";
-import {
-  StagePanelDef,
-  StagePanelState,
-  toPanelSide,
-} from "../stagepanels/StagePanelDef";
+import { StagePanelDef, StagePanelState } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import type { WidgetControl } from "../widgets/WidgetControl";
 import { WidgetDef, WidgetType } from "../widgets/WidgetDef";
