@@ -831,7 +831,7 @@ describe("floatWidget", () => {
 
       expect(frontstageDef.isPopoutWidget("t1")).to.be.true;
       expect(frontstageDef.isPopoutWidget("bad")).to.be.false;
-      frontstageDef.dockPopoutWidgetContainer("fw1");
+      frontstageDef.dockWidgetContainer("fw1");
       nineZoneStateSetter.calledOnce.should.true;
     });
 
@@ -848,7 +848,7 @@ describe("floatWidget", () => {
         .get(() => state)
         .set(nineZoneStateSetter);
 
-      frontstageDef.dockPopoutWidgetContainer("fw1");
+      frontstageDef.dockWidgetContainer("fw1");
       expect(nineZoneStateSetter).to.not.be.called;
     });
 

@@ -29,18 +29,12 @@ import {
   category,
   convertPopoutWidgetContainerToFloating,
 } from "./internal/NineZoneStateHelpers";
-import { NineZoneStateReducer } from "./NineZoneStateReducer";
 import {
   getTabLocation,
   isFloatingTabLocation,
   isPanelTabLocation,
   isPopoutTabLocation,
 } from "./TabLocation";
-import {
-  getWidgetLocation,
-  isFloatingWidgetLocation,
-  isPopoutWidgetLocation,
-} from "./WidgetLocation";
 
 /** @internal */
 export interface NineZoneState {
@@ -103,58 +97,6 @@ export function convertAllPopupWidgetContainersToFloating(
       draft.floatingWidgets.allIds.push(widgetContainerId);
     }
   });
-}
-
-/** @internal */
-export function dockWidgetContainer(
-  state: NineZoneState,
-  widgetTabId: string,
-  idIsContainerId?: boolean
-): NineZoneState {
-  // TODO: review
-  if (idIsContainerId) {
-    const widgetLocation = getWidgetLocation(state, widgetTabId);
-    // istanbul ignore else
-    if (widgetLocation) {
-      if (isFloatingWidgetLocation(widgetLocation)) {
-        const floatingWidgetId = widgetLocation.floatingWidgetId;
-        return NineZoneStateReducer(state, {
-          type: "FLOATING_WIDGET_SEND_BACK",
-          id: floatingWidgetId,
-        });
-      } else {
-        // istanbul ignore else
-        if (isPopoutWidgetLocation(widgetLocation)) {
-          const popoutWidgetId = widgetLocation.popoutWidgetId;
-          return NineZoneStateReducer(state, {
-            type: "POPOUT_WIDGET_SEND_BACK",
-            id: popoutWidgetId,
-          });
-        }
-      }
-    }
-  } else {
-    const location = getTabLocation(state, widgetTabId);
-    if (location) {
-      if (isFloatingTabLocation(location)) {
-        const floatingWidgetId = location.widgetId;
-        return NineZoneStateReducer(state, {
-          type: "FLOATING_WIDGET_SEND_BACK",
-          id: floatingWidgetId,
-        });
-      } else {
-        // istanbul ignore else
-        if (isPopoutTabLocation(location)) {
-          const popoutWidgetId = location.widgetId;
-          return NineZoneStateReducer(state, {
-            type: "POPOUT_WIDGET_SEND_BACK",
-            id: popoutWidgetId,
-          });
-        }
-      }
-    }
-  }
-  throw new UiError(category, "Widget not found");
 }
 
 /** @internal */

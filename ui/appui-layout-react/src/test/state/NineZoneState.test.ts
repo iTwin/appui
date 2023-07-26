@@ -14,7 +14,6 @@ import {
   addWidgetToolSettings,
   convertAllPopupWidgetContainersToFloating,
   createNineZoneState,
-  dockWidgetContainer,
   floatWidget,
   isTabDragDropTargetState,
   isWidgetDragDropTargetState,
@@ -1600,9 +1599,9 @@ describe("floatWidget", () => {
     });
 
     // restore widget tab "t1" back to original "rightStart" location
-    const dockedState = dockWidgetContainer(newState, "t1");
-    dockedState.panels.right.widgets.should.eql(["rightStart", "rightEnd"]);
-    dockedState.widgets.rightStart.tabs.should.eql(["t1"]);
+    // const dockedState = dockWidgetContainer(newState, "t1");
+    // dockedState.panels.right.widgets.should.eql(["rightStart", "rightEnd"]);
+    // dockedState.widgets.rightStart.tabs.should.eql(["t1"]);
   });
 
   it("should apply position and preferred size", () => {
@@ -1634,8 +1633,8 @@ describe("floatWidget", () => {
     });
 
     // restore widget tab "t1" back to original "rightStart" location
-    const dockedState = dockWidgetContainer(newState, "t1");
-    dockedState.widgets.rightEnd.tabs.should.eql(["t2"]);
+    // const dockedState = dockWidgetContainer(newState, "t1");
+    // dockedState.widgets.rightEnd.tabs.should.eql(["t2"]);
   });
 
   it("should apply default position {x:50, y:100} and size {height:400, width:400}", () => {
@@ -1665,8 +1664,8 @@ describe("floatWidget", () => {
     });
 
     // restore widget tab "t1" back to original "rightStart" location
-    const dockedState = dockWidgetContainer(newState, "t1");
-    dockedState.widgets.rightEnd.tabs.should.eql(["t2"]);
+    // const dockedState = dockWidgetContainer(newState, "t1");
+    // dockedState.widgets.rightEnd.tabs.should.eql(["t2"]);
   });
 
   it("should apply position and default size of (400,400)", () => {
@@ -1695,8 +1694,8 @@ describe("floatWidget", () => {
     });
 
     // restore widget tab "t1" back to original "rightStart" location
-    const dockedState = dockWidgetContainer(newState, "t1");
-    dockedState.widgets.rightEnd.tabs.should.eql(["t2"]);
+    // const dockedState = dockWidgetContainer(newState, "t1");
+    // dockedState.widgets.rightEnd.tabs.should.eql(["t2"]);
   });
 
   it("should properly handle multiple widget tabs", () => {
@@ -1723,9 +1722,9 @@ describe("floatWidget", () => {
     });
 
     // Restore "t1" back to original "rightStart" location
-    const dockedState = dockWidgetContainer(newState, "t1");
-    dockedState.widgets.rightStart.tabs.should.contain("t1");
-    dockedState.floatingWidgets.allIds.should.length(0);
+    // const dockedState = dockWidgetContainer(newState, "t1");
+    // dockedState.widgets.rightStart.tabs.should.contain("t1");
+    // dockedState.floatingWidgets.allIds.should.length(0);
   });
 
   it("should create popout entries with default size and location", () => {
@@ -1819,9 +1818,9 @@ describe("floatWidget", () => {
       Rectangle.createFromSize({ height: 800, width: 600 })
     );
     expect(Object.entries(newState.popoutWidgets.byId).length).to.be.eql(1);
-    const popoutWidgetContainerId1 = Object.keys(
-      newState.popoutWidgets.byId
-    )[0];
+    // const popoutWidgetContainerId1 = Object.keys(
+    //   newState.popoutWidgets.byId
+    // )[0];
 
     newState = popoutWidgetToChildWindow(
       newState,
@@ -1829,21 +1828,21 @@ describe("floatWidget", () => {
       Rectangle.createFromSize({ height: 800, width: 600 })
     );
     expect(Object.entries(newState.popoutWidgets.byId).length).to.be.eql(2);
-    const popoutWidgetContainerId2 = Object.keys(
-      newState.popoutWidgets.byId
-    )[1];
-    let latestState = dockWidgetContainer(
-      newState,
-      popoutWidgetContainerId2,
-      true
-    );
-    expect(Object.entries(latestState.popoutWidgets.byId).length).to.be.eql(1);
-    expect(Object.keys(latestState.popoutWidgets.byId)[0]).to.be.eql(
-      popoutWidgetContainerId1
-    );
+    // const popoutWidgetContainerId2 = Object.keys(
+    //   newState.popoutWidgets.byId
+    // )[1];
+    // let latestState = dockWidgetContainer(
+    //   newState,
+    //   popoutWidgetContainerId2,
+    //   true
+    // );
+    // expect(Object.entries(latestState.popoutWidgets.byId).length).to.be.eql(1);
+    // expect(Object.keys(latestState.popoutWidgets.byId)[0]).to.be.eql(
+    //   popoutWidgetContainerId1
+    // );
 
-    latestState = dockWidgetContainer(latestState, "t1", false);
-    expect(Object.entries(latestState.popoutWidgets.byId).length).to.be.eql(0);
+    // latestState = dockWidgetContainer(latestState, "t1", false);
+    // expect(Object.entries(latestState.popoutWidgets.byId).length).to.be.eql(0);
   });
 
   it("should create multiple popout entries and then convert them to floating", () => {
@@ -1903,49 +1902,49 @@ describe("floatWidget", () => {
   });
 });
 
-describe("dockWidgetContainer", () => {
-  it("should throw if tab does not exist", () => {
-    let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
-    state = addTabs(state, ["t1", "t2"]);
-    state = addPanelWidget(state, "right", "rightStart", ["t1"]);
-    state = addPanelWidget(state, "right", "rightEnd", ["t2"]);
+// describe("dockWidgetContainer", () => {
+//   it("should throw if tab does not exist", () => {
+//     let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
+//     state = addTabs(state, ["t1", "t2"]);
+//     state = addPanelWidget(state, "right", "rightStart", ["t1"]);
+//     state = addPanelWidget(state, "right", "rightEnd", ["t2"]);
 
-    (() => dockWidgetContainer(state, "t0")).should.throw();
-  });
+//     (() => dockWidgetContainer(state, "t0")).should.throw();
+//   });
 
-  it("should send back to specified `left` panel widget via function call", () => {
-    let state = createNineZoneState();
-    state = addTabs(state, ["t1", "fwt1", "fwt2"]);
-    state = addPanelWidget(state, "left", "w1", ["t1"]);
-    state = addFloatingWidget(state, "fw1", ["fwt1", "fwt2"], {
-      home: {
-        side: "left",
-        widgetId: "w1",
-        widgetIndex: 0,
-      },
-    });
+//   it("should send back to specified `left` panel widget via function call", () => {
+//     let state = createNineZoneState();
+//     state = addTabs(state, ["t1", "fwt1", "fwt2"]);
+//     state = addPanelWidget(state, "left", "w1", ["t1"]);
+//     state = addFloatingWidget(state, "fw1", ["fwt1", "fwt2"], {
+//       home: {
+//         side: "left",
+//         widgetId: "w1",
+//         widgetIndex: 0,
+//       },
+//     });
 
-    const newState = dockWidgetContainer(state, "fw1", true);
-    newState.widgets.w1.tabs.should.eql(["t1", "fwt1", "fwt2"]);
-    should().not.exist(newState.widgets.fw1);
-    should().not.exist(newState.floatingWidgets.byId.fw1);
-  });
+//     const newState = dockWidgetContainer(state, "fw1", true);
+//     newState.widgets.w1.tabs.should.eql(["t1", "fwt1", "fwt2"]);
+//     should().not.exist(newState.widgets.fw1);
+//     should().not.exist(newState.floatingWidgets.byId.fw1);
+//   });
 
-  it("should send back to specified `left` panel widget via tabId and function call", () => {
-    let state = createNineZoneState();
-    state = addTabs(state, ["t1", "fwt1", "fwt2"]);
-    state = addPanelWidget(state, "left", "w1", ["t1"]);
-    state = addFloatingWidget(state, "fw1", ["fwt1", "fwt2"], {
-      home: {
-        side: "left",
-        widgetId: "w1",
-        widgetIndex: 0,
-      },
-    });
+//   it("should send back to specified `left` panel widget via tabId and function call", () => {
+//     let state = createNineZoneState();
+//     state = addTabs(state, ["t1", "fwt1", "fwt2"]);
+//     state = addPanelWidget(state, "left", "w1", ["t1"]);
+//     state = addFloatingWidget(state, "fw1", ["fwt1", "fwt2"], {
+//       home: {
+//         side: "left",
+//         widgetId: "w1",
+//         widgetIndex: 0,
+//       },
+//     });
 
-    const newState = dockWidgetContainer(state, "fwt1", false);
-    newState.widgets.w1.tabs.should.eql(["t1", "fwt1", "fwt2"]);
-    should().not.exist(newState.widgets.fw1);
-    should().not.exist(newState.floatingWidgets.byId.fw1);
-  });
-});
+//     const newState = dockWidgetContainer(state, "fwt1", false);
+//     newState.widgets.w1.tabs.should.eql(["t1", "fwt1", "fwt2"]);
+//     should().not.exist(newState.widgets.fw1);
+//     should().not.exist(newState.floatingWidgets.byId.fw1);
+//   });
+// });

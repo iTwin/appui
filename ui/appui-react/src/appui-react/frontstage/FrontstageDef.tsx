@@ -17,10 +17,10 @@ import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Rectangle } from "@itwin/core-react";
 import type { NineZoneState, PanelSide } from "@itwin/appui-layout-react";
 import {
-  dockWidgetContainer,
   getTabLocation,
   getWidgetLocation,
   isFloatingTabLocation,
+  isFloatingWidgetLocation,
   isPanelTabLocation,
   isPopoutTabLocation,
   isPopoutWidgetLocation,
@@ -952,25 +952,28 @@ export class FrontstageDef {
     });
   }
 
-  /** Method used to possibly change a Popout Widget back to a docked widget if the user was the one closing the popout's child
-   * window.
-   *  @internal
-   */
-  public dockPopoutWidgetContainer(widgetContainerId: string) {
-    if (!this.nineZoneState) return;
+  /** @internal */
+  public dockWidgetContainerByContainerId(widgetContainerId: string) {
+    const state = this.nineZoneState;
+    if (!state) return;
 
-    // Make sure the widgetContainerId is still in popout state. We don't want to set it to docked if the window is being closed because
-    // an API call has moved the widget from a popout state to a floating state.
-    // istanbul ignore else
-    const location = getWidgetLocation(this.nineZoneState, widgetContainerId);
-    if (!location || !isPopoutWidgetLocation(location)) return;
+    const location = getWidgetLocation(state, widgetContainerId);
+    if (!location) return;
 
-    const state = dockWidgetContainer(
-      this.nineZoneState,
-      widgetContainerId,
-      true
-    );
-    this.nineZoneState = state;
+    if (isFloatingWidgetLocation(location)) {
+      this.nineZoneState = NineZoneStateReducer(state, {
+        type: "FLOATING_WIDGET_SEND_BACK",
+        id: location.floatingWidgetId,
+      });
+      return;
+    }
+    if (isPopoutWidgetLocation(location)) {
+      this.nineZoneState = NineZoneStateReducer(state, {
+        type: "POPOUT_WIDGET_SEND_BACK",
+        id: location.popoutWidgetId,
+      });
+      return;
+    }
   }
 
   /** Finds the container with the specified widget and re-docks all widgets
@@ -980,22 +983,13 @@ export class FrontstageDef {
    * @beta
    */
   public dockWidgetContainer(widgetId: string) {
-    // istanbul ignore else
-    if (this.nineZoneState) {
-      const location = getTabLocation(this.nineZoneState, widgetId);
-      if (location) {
-        const widgetContainerId = location.widgetId;
-        const state = dockWidgetContainer(
-          this.nineZoneState,
-          widgetContainerId,
-          true
-        );
-        this.nineZoneState = state;
-        if (isPopoutTabLocation(location)) {
-          UiFramework.childWindows.close(location.widgetId, true);
-        }
-      }
-    }
+    const state = this.nineZoneState;
+    if (!state) return;
+
+    const location = getTabLocation(state, widgetId);
+    if (!location) return;
+
+    this.dockWidgetContainerByContainerId(location.widgetId);
   }
 
   public setFloatingWidgetContainerBounds(
