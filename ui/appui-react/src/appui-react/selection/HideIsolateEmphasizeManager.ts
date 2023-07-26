@@ -277,6 +277,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   public static clearEmphasize(vp: Viewport | undefined) {
     if (vp) {
+      EmphasizeElements.getOrCreate(vp).clearEmphasizedElements(vp);
       EmphasizeElements.clear(vp);
     }
   }
@@ -492,6 +493,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       emphasizeElementsProvider.isActive(vp)
     )
       return true;
+    else if (vp.neverDrawn && vp.neverDrawn.size > 0) return true;
 
     const modelOverrideProvider =
       vp.findFeatureOverrideProviderOfType<ModelOverrideProvider>(

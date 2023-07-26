@@ -63,6 +63,7 @@ export enum SyncUiEventId {
   ShowHideManagerSettingChange = "show-hide-setting-change",
   /** The list of feature overrides applied has been changed */
   FeatureOverridesChanged = "featureoverrideschanged",
+  ViewedModelsChanged = "viewedmodelschanged",
 }
 
 /** This class is used to send eventIds to interested UI components so the component can determine if it needs
@@ -147,6 +148,13 @@ export class SyncUiEventDispatcher {
     );
   }
 
+  // istanbul ignore next
+  private static _dispatchViewedModelsChanged() {
+    SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
+      SyncUiEventId.ViewedModelsChanged
+    );
+  }
+
   /** Initializes the Monitoring of Events that trigger dispatching sync events */
   public static initialize() {
     // clear any registered listeners - this should only be encountered in unit test scenarios
@@ -213,46 +221,27 @@ export class SyncUiEventDispatcher {
         if (undefined === args.previous) {
           void IModelApp.toolAdmin.startDefaultTool();
         } else {
-          // istanbul ignore next
-          if (
-            args.previous.onViewChanged &&
-            typeof args.previous.onViewChanged.removeListener === "function"
-          )
-            // not set during unit test
-            args.previous.onViewChanged.removeListener(
-              SyncUiEventDispatcher._dispatchViewChange
-            );
-          // istanbul ignore next
-          if (
-            args.previous.onFeatureOverridesChanged &&
-            typeof args.previous.onFeatureOverridesChanged.removeListener ===
-              "function"
-          )
-            // not set during unit test
-            args.previous.onFeatureOverridesChanged.removeListener(
-              SyncUiEventDispatcher._dispatchFeatureOverridesChange
-            );
+          args.previous.onViewChanged.removeListener(
+            SyncUiEventDispatcher._dispatchViewChange
+          );
+          args.previous.onFeatureOverridesChanged.removeListener(
+            SyncUiEventDispatcher._dispatchFeatureOverridesChange
+          );
+          args.previous.onViewedModelsChanged.removeListener(
+            SyncUiEventDispatcher._dispatchViewedModelsChanged
+          );
         }
         // istanbul ignore next
         if (args.current) {
-          if (
-            args.current.onViewChanged &&
-            typeof args.current.onViewChanged.addListener === "function"
-          )
-            // not set during unit test
-            args.current.onViewChanged.addListener(
-              SyncUiEventDispatcher._dispatchViewChange
-            );
-          // istanbul ignore next
-          if (
-            args.current.onFeatureOverridesChanged &&
-            typeof args.current.onFeatureOverridesChanged.addListener ===
-              "function"
-          )
-            // not set during unit test
-            args.current.onFeatureOverridesChanged.addListener(
-              SyncUiEventDispatcher._dispatchFeatureOverridesChange
-            );
+          args.current.onViewChanged.addListener(
+            SyncUiEventDispatcher._dispatchViewChange
+          );
+          args.current.onFeatureOverridesChanged.addListener(
+            SyncUiEventDispatcher._dispatchFeatureOverridesChange
+          );
+          args.current.onViewedModelsChanged.addListener(
+            SyncUiEventDispatcher._dispatchViewedModelsChanged
+          );
         }
       })
     );

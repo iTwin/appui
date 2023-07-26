@@ -18,7 +18,7 @@ Table of contents:
 
 - Fixed store initialization when iModelConnection is set.
 - Fixed store reset when iModelConnection is cleared.
--
+- Fixed `clearHideIsolateEmphasizeElements` and `hideElements` button display when view changes happen outside AppUI's API.
 
 ## @itwin/components-react
 
