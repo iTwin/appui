@@ -210,95 +210,66 @@ export class FrontstageDef {
     }
   }
 
-  private triggerStateChangeEventForWidgetsAndPanels(
-    state: NineZoneState | undefined
-  ) {
+  private triggerStateChangeEvents(oldState: NineZoneState) {
+    const newState = this.nineZoneState;
+    if (!newState) return;
+
     if (this._isStageClosing || this._isApplicationClosing) return;
 
-    if (!state) {
-      this._nineZoneState = state;
-      return;
-    }
-
-    const oldState = this._nineZoneState;
     const originalPanelStateMap = new Map<StagePanelDef, StagePanelState>();
     const originalWidgetStateMap = new Map<WidgetDef, WidgetState>();
     const newPanelStateMap = new Map<StagePanelDef, StagePanelState>();
     const newWidgetStateMap = new Map<WidgetDef, WidgetState>();
-    this._nineZoneState &&
-      this.populateStateMaps(
-        this._nineZoneState,
-        originalPanelStateMap,
-        originalWidgetStateMap
-      );
-    this.populateStateMaps(state, newPanelStateMap, newWidgetStateMap);
+    this.populateStateMaps(
+      oldState,
+      originalPanelStateMap,
+      originalWidgetStateMap
+    );
+    this.populateStateMaps(newState, newPanelStateMap, newWidgetStateMap);
 
-    const oldPopouts = this._nineZoneState?.popoutWidgets.allIds || [];
-    const newPopouts = state.popoutWidgets.allIds;
+    // Now walk and trigger set state events
+    newWidgetStateMap.forEach((newWidgetState, widgetDef) => {
+      const originalState = originalWidgetStateMap.get(widgetDef);
+      if (originalState === newWidgetState) return;
+      widgetDef.handleWidgetStateChanged(newWidgetState);
+    });
+    newPanelStateMap.forEach((newPanelState, panelDef) => {
+      const originalState = originalPanelStateMap.get(panelDef);
+      if (originalState === newPanelState) return;
+      panelDef.handlePanelStateChanged(newPanelState);
+    });
+
+    for (const panelSide of panelSides) {
+      const panel = newState.panels[panelSide];
+      const oldPanel = oldState.panels[panelSide];
+      const location = this.toStagePanelLocation(panelSide);
+      const panelDef = this.getStagePanelDef(location);
+      if (!panelDef) continue;
+
+      if (panel.size !== oldPanel.size) {
+        panelDef.handleSizeChanged(panel.size);
+      }
+
+      if (panel.pinned !== oldPanel.pinned) {
+        panelDef.handlePinnedChanged(panel.pinned);
+      }
+    }
+  }
+
+  private handlePopouts(oldState: NineZoneState | undefined) {
+    const newState = this.nineZoneState;
+
+    const oldPopouts = oldState?.popoutWidgets.allIds || [];
+    const newPopouts = newState?.popoutWidgets.allIds || [];
     const popoutsToClose = oldPopouts.filter((p) => !newPopouts.includes(p));
     const popoutsToOpen = newPopouts.filter((p) => !oldPopouts.includes(p));
-
-    // set internal state value before triggering events
-    this._nineZoneState = state;
 
     for (const popoutId of popoutsToClose) {
       UiFramework.childWindows.close(popoutId, true);
     }
 
     for (const popoutId of popoutsToOpen) {
-      const location = getWidgetLocation(state, popoutId);
-      assert(!!location && isPopoutWidgetLocation(location));
-
-      const widgetContainer = state.widgets[popoutId];
-      const tabId = widgetContainer.tabs[0];
-      const widgetDef = this.findWidgetDef(tabId);
-      if (!widgetDef) continue;
-
-      const popoutWidget = state.popoutWidgets.byId[popoutId];
-      const bounds = Rectangle.create(popoutWidget.bounds);
-      const popoutContent = (
-        <PopoutWidget widgetContainerId={popoutId} widgetDef={widgetDef} />
-      );
-      const position: ChildWindowLocationProps = {
-        width: bounds.getWidth(),
-        height: bounds.getHeight(),
-        left: bounds.left,
-        top: bounds.top,
-      };
-      UiFramework.childWindows.open(
-        popoutId,
-        widgetDef.label,
-        popoutContent,
-        position,
-        UiFramework.useDefaultPopoutUrl
-      );
-    }
-
-    // Now walk and trigger set state events
-    newWidgetStateMap.forEach((newState, widgetDef) => {
-      const originalState = originalWidgetStateMap.get(widgetDef);
-      if (originalState === newState) return;
-      widgetDef.handleWidgetStateChanged(newState);
-    });
-    newPanelStateMap.forEach((newState, panelDef) => {
-      const originalState = originalPanelStateMap.get(panelDef);
-      if (originalState === newState) return;
-      panelDef.handlePanelStateChanged(newState);
-    });
-
-    if (!oldState) return;
-    for (const panelSide of panelSides) {
-      const panel = state.panels[panelSide];
-      const oldPanel = oldState.panels[panelSide];
-      const location = this.toStagePanelLocation(panelSide);
-      const panelDef = this.getStagePanelDef(location);
-
-      if (panel.size !== oldPanel.size) {
-        panelDef?.handleSizeChanged(panel.size);
-      }
-      if (panel.pinned !== oldPanel.pinned) {
-        panelDef?.handlePinnedChanged(panel.pinned);
-      }
+      this.openPopoutWidgetContainer(popoutId);
     }
   }
 
@@ -309,19 +280,19 @@ export class FrontstageDef {
   public set nineZoneState(state: NineZoneState | undefined) {
     if (this._nineZoneState === state) return;
 
-    if (!this._nineZoneState) {
-      this._nineZoneState = state;
-    } else {
-      this.triggerStateChangeEventForWidgetsAndPanels(state);
+    const oldState = this._nineZoneState;
+    this._nineZoneState = state;
+    this.handlePopouts(oldState);
+    if (oldState) {
+      this.triggerStateChangeEvents(oldState);
     }
 
-    // istanbul ignore next - don't trigger any side effects until stage "isReady"
-    if (!(this._isStageClosing || this._isApplicationClosing) || this.isReady) {
-      InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.emit({
-        frontstageDef: this,
-        state,
-      });
-    }
+    const isClosing = this._isStageClosing || this._isApplicationClosing;
+    if (isClosing && !this.isReady) return;
+    InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.emit({
+      frontstageDef: this,
+      state,
+    });
   }
 
   /** @internal */
@@ -552,7 +523,6 @@ export class FrontstageDef {
     }
 
     // Panels can be undefined in a Frontstage
-
     return panelDef;
   }
 
@@ -834,27 +804,22 @@ export class FrontstageDef {
   }
 
   /** Opens window for specified PopoutWidget container. Used to reopen popout when running in Electron.
-   * @internal */
-  public openPopoutWidgetContainer(
-    state: NineZoneState,
-    widgetContainerId: string
-  ) {
+   * @internal
+   */
+  public openPopoutWidgetContainer(widgetContainerId: string) {
+    const state = this.nineZoneState;
+    if (!state) return;
+
     const location = getWidgetLocation(state, widgetContainerId);
-    // istanbul ignore next
     if (!location) return;
-    // istanbul ignore next
     if (!isPopoutWidgetLocation(location)) return;
 
     const widget = state.widgets[widgetContainerId];
-    const popoutWidget = state.popoutWidgets.byId[location.popoutWidgetId];
-
     // Popout widget should only contain a single tab.
-    // istanbul ignore next
     if (widget.tabs.length !== 1) return;
 
     const tabId = widget.tabs[0];
     const widgetDef = this.findWidgetDef(tabId);
-    // istanbul ignore next
     if (!widgetDef) return;
 
     const popoutContent = (
@@ -863,8 +828,9 @@ export class FrontstageDef {
         widgetDef={widgetDef}
       />
     );
-    const bounds = Rectangle.create(popoutWidget.bounds);
 
+    const popoutWidget = state.popoutWidgets.byId[location.popoutWidgetId];
+    const bounds = Rectangle.create(popoutWidget.bounds);
     const position: ChildWindowLocationProps = {
       width: bounds.getWidth(),
       height: bounds.getHeight(),

@@ -720,14 +720,14 @@ describe("floatWidget", () => {
       const openStub = sinon.stub();
       sinon.stub(window, "open").callsFake(openStub);
 
-      frontstageDef.openPopoutWidgetContainer(state, "fw1");
+      frontstageDef.openPopoutWidgetContainer("fw1");
       await new Promise((r) => {
         setTimeout(r, 100);
       }); // wait for open processing
       openStub.calledOnce.should.be.true;
 
       openStub.resetHistory();
-      frontstageDef.openPopoutWidgetContainer(state, "fw2");
+      frontstageDef.openPopoutWidgetContainer("fw2");
       await new Promise((r) => {
         setTimeout(r, 100);
       }); // wait for open processing

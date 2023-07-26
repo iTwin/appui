@@ -451,17 +451,9 @@ export function appendWidgets(
   return state;
 }
 
-function processPopoutWidgets(
-  state: NineZoneState,
-  frontstageDef: FrontstageDef
-): NineZoneState {
-  if (!state.popoutWidgets) return state;
-
-  // Electron case that reopens popout windows
+function processPopoutWidgets(state: NineZoneState): NineZoneState {
+  // Electron reopens popout windows
   if (ProcessDetector.isElectronAppFrontend) {
-    for (const widgetContainerId of state.popoutWidgets.allIds) {
-      frontstageDef.openPopoutWidgetContainer(state, widgetContainerId);
-    }
     return state;
   }
 
@@ -796,7 +788,7 @@ export function initializeNineZoneState(
   }
 
   nineZone = hideWidgets(nineZone, frontstageDef);
-  nineZone = processPopoutWidgets(nineZone, frontstageDef);
+  nineZone = processPopoutWidgets(nineZone);
 
   return nineZone;
 }
@@ -810,14 +802,14 @@ export function restoreNineZoneState(
   frontstageDef: FrontstageDef,
   saved: SavedNineZoneState
 ): NineZoneState {
-  let restored: NineZoneState = {
+  let state: NineZoneState = {
     ...saved,
     tabs: {},
   };
 
   for (const [, tab] of Object.entries(saved.tabs)) {
     // Re-add the placeholder tab in order to correctly remove it from the state if WidgetDef is not found.
-    restored = addTab(restored, tab.id);
+    state = addTab(state, tab.id);
 
     const widgetDef = frontstageDef.findWidgetDef(tab.id);
     if (!widgetDef) {
@@ -829,10 +821,10 @@ export function restoreNineZoneState(
           tabId: tab.id,
         })
       );
-      restored = removeTab(restored, tab.id);
+      state = removeTab(state, tab.id);
       continue;
     }
-    restored = produce(restored, (draft) => {
+    state = produce(state, (draft) => {
       draft.tabs[tab.id] = {
         ...tab,
         ...toTabArgs(widgetDef),
@@ -841,7 +833,7 @@ export function restoreNineZoneState(
       };
     });
   }
-  restored = produce(restored, (draft) => {
+  state = produce(state, (draft) => {
     // remove center panel section if one is found in left or right panels
     const oldLeftMiddleIndex = saved.panels.left.widgets.findIndex(
       (value) => value === "leftMiddle"
@@ -887,7 +879,7 @@ export function restoreNineZoneState(
     (0 !== InternalFrontstageManager.nineZoneSize.height ||
       0 !== InternalFrontstageManager.nineZoneSize.width)
   ) {
-    restored = NineZoneStateReducer(restored, {
+    state = NineZoneStateReducer(state, {
       type: "RESIZE",
       size: {
         height: InternalFrontstageManager.nineZoneSize.height,
@@ -895,7 +887,11 @@ export function restoreNineZoneState(
       },
     });
   }
-  return restored;
+
+  state = addMissingWidgets(frontstageDef, state);
+  state = hideWidgets(state, frontstageDef);
+  state = processPopoutWidgets(state);
+  return state;
 }
 
 /** Prepares NineZoneState to be saved.
@@ -1020,13 +1016,6 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
   }, [uiStateStorage]);
   React.useEffect(() => {
     async function fetchFrontstageState() {
-      if (frontstageDef.nineZoneState) {
-        frontstageDef.nineZoneState = processPopoutWidgets(
-          frontstageDef.nineZoneState,
-          frontstageDef
-        );
-        return;
-      }
       const id = frontstageDef.id;
       const version = frontstageDef.version;
       const settingResult = await uiStateStorageRef.current.getSetting(
@@ -1041,16 +1030,10 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
           setting.version === version &&
           setting.stateVersion === stateVersion
         ) {
-          const restored = restoreNineZoneState(
+          frontstageDef.nineZoneState = restoreNineZoneState(
             frontstageDef,
             setting.nineZone
           );
-
-          let state = addMissingWidgets(frontstageDef, restored);
-          state = hideWidgets(state, frontstageDef);
-          state = processPopoutWidgets(state, frontstageDef);
-
-          frontstageDef.nineZoneState = state;
           return;
         }
       }
