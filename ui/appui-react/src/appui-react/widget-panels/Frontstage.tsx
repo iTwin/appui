@@ -12,7 +12,7 @@ import "./Frontstage.scss";
 import produce from "immer";
 import * as React from "react";
 import { unstable_batchedUpdates } from "react-dom";
-import { assert, Logger, ProcessDetector } from "@itwin/core-bentley";
+import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { UiStateStorageResult } from "@itwin/core-react";
 import { Rectangle, Size, UiStateStorageStatus } from "@itwin/core-react";
 import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
@@ -46,14 +46,11 @@ import {
   removeTab,
   WidgetPanels,
 } from "@itwin/appui-layout-react";
-import type {
-  FrontstageDef,
-  FrontstageEventArgs,
-} from "../frontstage/FrontstageDef";
+import type { FrontstageDef } from "../frontstage/FrontstageDef";
 import { StagePanelState, toPanelSide } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
-import type { WidgetDef, WidgetEventArgs } from "../widgets/WidgetDef";
+import type { WidgetDef } from "../widgets/WidgetDef";
 import { WidgetContent } from "./Content";
 import { WidgetPanelsFrontstageContent } from "./FrontstageContent";
 import {
@@ -1107,27 +1104,16 @@ function debounce<T extends (...args: any[]) => any>(
   return debounced;
 }
 
-const createListener = <T extends (...args: any[]) => void>(
-  frontstageDef: FrontstageDef,
-  listener: T
-) => {
-  return (...args: Parameters<T>) => {
-    if (!frontstageDef.nineZoneState) return;
-    listener(...args);
-  };
-};
-
 /** @internal */
 export function useFrontstageManager(
   frontstageDef: FrontstageDef,
   useToolAsToolSettingsLabel?: boolean
 ) {
   React.useEffect(() => {
-    const listener = createListener(
-      frontstageDef,
-      ({ widgetDef }: WidgetEventArgs) => {
+    return InternalFrontstageManager.onWidgetShowEvent.addListener(
+      ({ widgetDef }) => {
         const state = frontstageDef.nineZoneState;
-        assert(!!state);
+        if (!state) return;
         const nineZoneState = NineZoneStateReducer(state, {
           type: "WIDGET_TAB_SET_OPEN",
           id: widgetDef.id,
@@ -1135,17 +1121,12 @@ export function useFrontstageManager(
         frontstageDef.nineZoneState = showWidget(nineZoneState, widgetDef.id);
       }
     );
-    InternalFrontstageManager.onWidgetShowEvent.addListener(listener);
-    return () => {
-      InternalFrontstageManager.onWidgetShowEvent.removeListener(listener);
-    };
   }, [frontstageDef]);
   React.useEffect(() => {
-    const listener = createListener(
-      frontstageDef,
-      ({ widgetDef }: WidgetEventArgs) => {
+    return InternalFrontstageManager.onWidgetExpandEvent.addListener(
+      ({ widgetDef }) => {
         const state = frontstageDef.nineZoneState;
-        assert(!!state);
+        if (!state) return;
         let nineZoneState = NineZoneStateReducer(state, {
           type: "WIDGET_TAB_SET_OPEN",
           id: widgetDef.id,
@@ -1155,41 +1136,30 @@ export function useFrontstageManager(
         frontstageDef.nineZoneState = nineZoneState;
       }
     );
-    InternalFrontstageManager.onWidgetExpandEvent.addListener(listener);
-    return () => {
-      InternalFrontstageManager.onWidgetExpandEvent.removeListener(listener);
-    };
   }, [frontstageDef]);
   const uiSettingsStorage = useUiStateStorageHandler();
   React.useEffect(() => {
-    const listener = (args: FrontstageEventArgs) => {
-      // TODO: track restoring frontstages to support workflows:  i.e. prevent loading frontstage OR saving layout when delete is pending
-      void uiSettingsStorage.deleteSetting(
-        FRONTSTAGE_SETTINGS_NAMESPACE,
-        getFrontstageStateSettingName(args.frontstageDef.id)
-      );
-      if (frontstageDef.id === args.frontstageDef.id) {
-        args.frontstageDef.nineZoneState =
-          initializeNineZoneState(frontstageDef);
-      } else {
-        args.frontstageDef.nineZoneState = undefined;
+    return InternalFrontstageManager.onFrontstageRestoreLayoutEvent.addListener(
+      (args) => {
+        // TODO: track restoring frontstages to support workflows:  i.e. prevent loading frontstage OR saving layout when delete is pending
+        void uiSettingsStorage.deleteSetting(
+          FRONTSTAGE_SETTINGS_NAMESPACE,
+          getFrontstageStateSettingName(args.frontstageDef.id)
+        );
+        if (frontstageDef.id === args.frontstageDef.id) {
+          args.frontstageDef.nineZoneState =
+            initializeNineZoneState(frontstageDef);
+        } else {
+          args.frontstageDef.nineZoneState = undefined;
+        }
       }
-    };
-    InternalFrontstageManager.onFrontstageRestoreLayoutEvent.addListener(
-      listener
     );
-    return () => {
-      InternalFrontstageManager.onFrontstageRestoreLayoutEvent.removeListener(
-        listener
-      );
-    };
   }, [uiSettingsStorage, frontstageDef]);
   React.useEffect(() => {
-    const listener = createListener(
-      frontstageDef,
-      ({ widgetDef }: WidgetEventArgs) => {
+    return InternalFrontstageManager.onWidgetLabelChangedEvent.addListener(
+      ({ widgetDef }) => {
         const state = frontstageDef.nineZoneState;
-        assert(!!state);
+        if (!state) return;
         frontstageDef.nineZoneState = NineZoneStateReducer(state, {
           type: "WIDGET_TAB_SET_LABEL",
           id: widgetDef.id,
@@ -1197,12 +1167,6 @@ export function useFrontstageManager(
         });
       }
     );
-    InternalFrontstageManager.onWidgetLabelChangedEvent.addListener(listener);
-    return () => {
-      InternalFrontstageManager.onWidgetLabelChangedEvent.removeListener(
-        listener
-      );
-    };
   }, [frontstageDef]);
 
   const defaultLabel = React.useMemo(
@@ -1210,9 +1174,9 @@ export function useFrontstageManager(
     []
   );
   React.useEffect(() => {
-    const updateLabel = createListener(frontstageDef, () => {
+    const updateLabel = () => {
       const state = frontstageDef.nineZoneState;
-      assert(!!state);
+      if (!state) return;
       const toolSettingsTabId = state.toolSettings?.tabId;
       if (!toolSettingsTabId) return;
 
@@ -1225,35 +1189,26 @@ export function useFrontstageManager(
         id: toolSettingsTabId,
         label,
       });
-    });
+    };
     // Whenever the frontstageDef or the useTool... changes, keep the label up to date.
     updateLabel();
+
+    const removeListenerFuncs: (() => void)[] = [];
     // If useTool... is true, listen for events to keep up the label up to date.
     if (useToolAsToolSettingsLabel) {
-      UiFramework.frontstages.onFrontstageReadyEvent.addListener(updateLabel);
-      InternalFrontstageManager.onFrontstageRestoreLayoutEvent.addListener(
-        updateLabel
-      );
-      UiFramework.frontstages.onToolActivatedEvent.addListener(updateLabel);
-      UiFramework.frontstages.onToolSettingsReloadEvent.addListener(
-        updateLabel
+      removeListenerFuncs.push(
+        UiFramework.frontstages.onFrontstageReadyEvent.addListener(updateLabel),
+        InternalFrontstageManager.onFrontstageRestoreLayoutEvent.addListener(
+          updateLabel
+        ),
+        UiFramework.frontstages.onToolActivatedEvent.addListener(updateLabel),
+        UiFramework.frontstages.onToolSettingsReloadEvent.addListener(
+          updateLabel
+        )
       );
     }
     return () => {
-      if (useToolAsToolSettingsLabel) {
-        UiFramework.frontstages.onFrontstageReadyEvent.removeListener(
-          updateLabel
-        );
-        InternalFrontstageManager.onFrontstageRestoreLayoutEvent.removeListener(
-          updateLabel
-        );
-        UiFramework.frontstages.onToolActivatedEvent.removeListener(
-          updateLabel
-        );
-        UiFramework.frontstages.onToolSettingsReloadEvent.removeListener(
-          updateLabel
-        );
-      }
+      removeListenerFuncs.forEach((removeListener) => removeListener());
     };
   }, [frontstageDef, useToolAsToolSettingsLabel, defaultLabel]);
 }
