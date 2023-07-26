@@ -860,28 +860,25 @@ export class FrontstageDef {
    * @beta
    */
   public popoutWidget(widgetId: string, point?: PointProps, size?: SizeProps) {
-    // istanbul ignore next
-    if (!this.nineZoneState) return;
-
-    let location = getTabLocation(this.nineZoneState, widgetId);
-    if (!location || isPopoutTabLocation(location)) return;
+    let state = this.nineZoneState;
+    if (!state) return;
 
     const widgetDef = this.findWidgetDef(widgetId);
-    // istanbul ignore next
     if (!widgetDef) return;
 
+    let location = getTabLocation(state, widgetId);
+    if (!location || isPopoutTabLocation(location)) return;
+
+    const tab = state.tabs[widgetId];
+
     // get the state to apply that will pop-out the specified WidgetTab to child window.
-    let preferredBounds = Rectangle.createFromSize({ height: 800, width: 600 });
-    // istanbul ignore next
-    if (widgetDef.popoutBounds) preferredBounds = widgetDef.popoutBounds;
+    let preferredBounds = tab.popoutBounds
+      ? Rectangle.create(tab.popoutBounds)
+      : Rectangle.createFromSize({ height: 800, width: 600 });
     if (size) preferredBounds = preferredBounds.setSize(size);
     if (point) preferredBounds = preferredBounds.setPosition(point);
 
-    const state = popoutWidgetToChildWindow(
-      this.nineZoneState,
-      widgetId,
-      preferredBounds
-    );
+    state = popoutWidgetToChildWindow(state, widgetId, preferredBounds);
     this.nineZoneState = state;
 
     // now that the state is updated get the id of the container that houses the widgetTab/widgetId
@@ -932,12 +929,13 @@ export class FrontstageDef {
     childWindowId: string,
     childWindow: Window
   ) {
-    if (!this.nineZoneState) return;
+    const state = this.nineZoneState;
+    if (!state) return;
 
-    const location = getWidgetLocation(this.nineZoneState, childWindowId);
+    const location = getWidgetLocation(state, childWindowId);
     if (!location || !isPopoutWidgetLocation(location)) return;
 
-    const widget = this.nineZoneState.widgets[location.popoutWidgetId];
+    const widget = state.widgets[location.popoutWidgetId];
     const tabId = widget.tabs[0];
     const widgetDef = this.findWidgetDef(tabId);
     if (!widgetDef) return;
@@ -951,7 +949,12 @@ export class FrontstageDef {
       x: childWindow.screenX,
       y: childWindow.screenY,
     });
-    widgetDef.popoutBounds = bounds;
+
+    this.nineZoneState = NineZoneStateReducer(state, {
+      type: "WIDGET_TAB_SET_POPOUT_BOUNDS",
+      id: tabId,
+      bounds,
+    });
   }
 
   /** Method used to possibly change a Popout Widget back to a docked widget if the user was the one closing the popout's child

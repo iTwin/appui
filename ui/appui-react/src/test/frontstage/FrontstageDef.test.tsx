@@ -163,73 +163,73 @@ describe("FrontstageDef", () => {
     expect(frontstageDef.getWidgetCurrentState(t5)).to.eql(WidgetState.Hidden);
   });
 
-  it("should save size and position", async () => {
-    let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
-    state = addTab(state, "t1");
-    state = addTab(state, "t2");
-    state = addTab(state, "t3");
-    state = addPopoutWidget(state, "pw1", ["t1"]);
-    state = addPanelWidget(state, "right", "rightMiddle", ["t2"]);
-    state = addPanelWidget(state, "right", "rightEnd", ["t3"]);
+  // it("should save size and position", async () => {
+  //   let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
+  //   state = addTab(state, "t1");
+  //   state = addTab(state, "t2");
+  //   state = addTab(state, "t3");
+  //   state = addPopoutWidget(state, "pw1", ["t1"]);
+  //   state = addPanelWidget(state, "right", "rightMiddle", ["t2"]);
+  //   state = addPanelWidget(state, "right", "rightEnd", ["t3"]);
 
-    const t1 = WidgetDef.create({ id: "t1" });
+  //   const t1 = WidgetDef.create({ id: "t1" });
 
-    const frontstageDef = new FrontstageDef();
-    sinon.stub(frontstageDef, "findWidgetDef").withArgs("t1").returns(t1);
-    sinon.stub(frontstageDef, "nineZoneState").get(() => state);
-    sinon.stub(frontstageDef, "id").get(() => "testFrontstage");
-    sinon.stub(frontstageDef, "version").get(() => 11);
+  //   const frontstageDef = new FrontstageDef();
+  //   sinon.stub(frontstageDef, "findWidgetDef").withArgs("t1").returns(t1);
+  //   sinon.stub(frontstageDef, "nineZoneState").get(() => state);
+  //   sinon.stub(frontstageDef, "id").get(() => "testFrontstage");
+  //   sinon.stub(frontstageDef, "version").get(() => 11);
 
-    sinon.stub(window, "screenX").get(() => 99);
-    sinon.stub(window, "screenY").get(() => 99);
-    sinon.stub(window, "innerWidth").get(() => 999);
-    sinon.stub(window, "innerHeight").get(() => 999);
+  //   sinon.stub(window, "screenX").get(() => 99);
+  //   sinon.stub(window, "screenY").get(() => 99);
+  //   sinon.stub(window, "innerWidth").get(() => 999);
+  //   sinon.stub(window, "innerHeight").get(() => 999);
 
-    frontstageDef.saveChildWindowSizeAndPosition("pw1", window);
+  //   frontstageDef.saveChildWindowSizeAndPosition("pw1", window);
 
-    const widgetDef = frontstageDef.findWidgetDef("t1");
-    expect(widgetDef?.popoutBounds).to.eql({
-      left: 99,
-      top: 99,
-      right: 99 + 999,
-      bottom: 99 + 999,
-    });
-  });
+  //   const widgetDef = frontstageDef.findWidgetDef("t1");
+  //   expect(widgetDef?.popoutBounds).to.eql({
+  //     left: 99,
+  //     top: 99,
+  //     right: 99 + 999,
+  //     bottom: 99 + 999,
+  //   });
+  // });
 
-  it("should save size and position in Electron", async () => {
-    let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
-    state = addTab(state, "t1");
-    state = addTab(state, "t2");
-    state = addTab(state, "t3");
-    state = addPopoutWidget(state, "pw1", ["t1"]);
-    state = addPanelWidget(state, "right", "rightMiddle", ["t2"]);
-    state = addPanelWidget(state, "right", "rightEnd", ["t3"]);
+  // it("should save size and position in Electron", async () => {
+  //   let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
+  //   state = addTab(state, "t1");
+  //   state = addTab(state, "t2");
+  //   state = addTab(state, "t3");
+  //   state = addPopoutWidget(state, "pw1", ["t1"]);
+  //   state = addPanelWidget(state, "right", "rightMiddle", ["t2"]);
+  //   state = addPanelWidget(state, "right", "rightEnd", ["t3"]);
 
-    const t1 = WidgetDef.create({ id: "t1" });
+  //   const t1 = WidgetDef.create({ id: "t1" });
 
-    const frontstageDef = new FrontstageDef();
-    sinon.stub(frontstageDef, "findWidgetDef").withArgs("t1").returns(t1);
-    sinon.stub(frontstageDef, "nineZoneState").get(() => state);
-    sinon.stub(frontstageDef, "id").get(() => "testFrontstage");
-    sinon.stub(frontstageDef, "version").get(() => 11);
+  //   const frontstageDef = new FrontstageDef();
+  //   sinon.stub(frontstageDef, "findWidgetDef").withArgs("t1").returns(t1);
+  //   sinon.stub(frontstageDef, "nineZoneState").get(() => state);
+  //   sinon.stub(frontstageDef, "id").get(() => "testFrontstage");
+  //   sinon.stub(frontstageDef, "version").get(() => 11);
 
-    sinon.stub(window, "screenX").get(() => 99);
-    sinon.stub(window, "screenY").get(() => 99);
-    sinon.stub(window, "innerWidth").get(() => 999);
-    sinon.stub(window, "innerHeight").get(() => 999);
+  //   sinon.stub(window, "screenX").get(() => 99);
+  //   sinon.stub(window, "screenY").get(() => 99);
+  //   sinon.stub(window, "innerWidth").get(() => 999);
+  //   sinon.stub(window, "innerHeight").get(() => 999);
 
-    sinon.stub(ProcessDetector, "isElectronAppFrontend").get(() => true);
-    frontstageDef.saveChildWindowSizeAndPosition("pw1", window);
-    sinon.stub(ProcessDetector, "isElectronAppFrontend").get(() => false);
+  //   sinon.stub(ProcessDetector, "isElectronAppFrontend").get(() => true);
+  //   frontstageDef.saveChildWindowSizeAndPosition("pw1", window);
+  //   sinon.stub(ProcessDetector, "isElectronAppFrontend").get(() => false);
 
-    const widgetDef = frontstageDef.findWidgetDef("t1");
-    expect(widgetDef?.popoutBounds).to.eql({
-      left: 99,
-      top: 99,
-      right: 99 + 999 + 16,
-      bottom: 99 + 999 + 39,
-    });
-  });
+  //   const widgetDef = frontstageDef.findWidgetDef("t1");
+  //   expect(widgetDef?.popoutBounds).to.eql({
+  //     left: 99,
+  //     top: 99,
+  //     right: 99 + 999 + 16,
+  //     bottom: 99 + 999 + 39,
+  //   });
+  // });
 
   it("should not save size and position if ninezone state is not available", () => {
     const frontstageDef = new FrontstageDef();

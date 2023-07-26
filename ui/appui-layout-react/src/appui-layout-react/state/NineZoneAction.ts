@@ -223,6 +223,13 @@ export interface WidgetTabPopoutAction {
 }
 
 /** @internal */
+export interface WidgetTabSetPopoutBoundsAction {
+  readonly type: "WIDGET_TAB_SET_POPOUT_BOUNDS";
+  readonly id: TabState["id"];
+  readonly bounds: RectangleProps | undefined;
+}
+
+/** @internal */
 export interface ToolSettingsDragStartAction {
   readonly type: "TOOL_SETTINGS_DRAG_START";
   readonly newFloatingWidgetId: FloatingWidgetState["id"];
@@ -264,5 +271,6 @@ export type NineZoneAction =
   | WidgetTabSetHiddenAction
   | WidgetTabSetOpenAction
   | WidgetTabPopoutAction
+  | WidgetTabSetPopoutBoundsAction
   | ToolSettingsDragStartAction
   | ToolSettingsDockAction;

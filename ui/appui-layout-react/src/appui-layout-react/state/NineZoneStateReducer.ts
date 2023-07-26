@@ -625,6 +625,18 @@ export function NineZoneStateReducer(
 
       return state;
     }
+    case "WIDGET_TAB_SET_POPOUT_BOUNDS": {
+      state = produce(state, (draft) => {
+        const tab = draft.tabs[action.id];
+        if (tab.popoutBounds && action.bounds)
+          setRectangleProps(tab.popoutBounds, action.bounds);
+        else
+          tab.popoutBounds = action.bounds
+            ? Rectangle.create(action.bounds).toProps()
+            : undefined;
+      });
+      return state;
+    }
     case "TOOL_SETTINGS_DRAG_START": {
       if (!state.toolSettings) return state;
       if (state.toolSettings.type === "widget") return state;

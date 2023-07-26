@@ -14,11 +14,7 @@ import type {
   StringGetter,
 } from "@itwin/appui-abstract";
 import { UiError, UiEvent } from "@itwin/appui-abstract";
-import {
-  type FloatingWidgetState,
-  NineZoneStateReducer,
-  type PanelSide,
-} from "@itwin/appui-layout-react";
+import { NineZoneStateReducer } from "@itwin/appui-layout-react";
 import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 import {
   ConfigurableCreateInfo,
@@ -27,7 +23,7 @@ import {
 import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
 import type { WidgetControl } from "./WidgetControl";
-import type { IconSpec, Rectangle, SizeProps } from "@itwin/core-react";
+import type { IconSpec, SizeProps } from "@itwin/core-react";
 import { IconHelper } from "@itwin/core-react";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import type { WidgetConfig } from "./WidgetConfig";
@@ -104,8 +100,6 @@ export class WidgetDef {
   private _hideWithUiWhenFloating?: boolean;
   private _allowedPanelTargets?: ReadonlyArray<StagePanelLocation>;
   private _initialConfig?: WidgetConfig;
-
-  private _popoutBounds?: Rectangle;
 
   public get state(): WidgetState {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
@@ -190,14 +184,6 @@ export class WidgetDef {
   /** @internal */
   public get defaultState() {
     return this._defaultState;
-  }
-
-  /** @internal */
-  public get popoutBounds() {
-    return this._popoutBounds;
-  }
-  public set popoutBounds(bounds: Rectangle | undefined) {
-    this._popoutBounds = bounds;
   }
 
   constructor() {

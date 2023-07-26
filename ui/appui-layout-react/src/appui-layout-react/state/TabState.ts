@@ -9,6 +9,7 @@
 import produce from "immer";
 import type { PointProps } from "@itwin/appui-abstract";
 import { UiError } from "@itwin/appui-abstract";
+import type { RectangleProps } from "@itwin/core-react";
 import { type IconSpec, Rectangle, type SizeProps } from "@itwin/core-react";
 import type { PanelSide } from "../widget-panels/Panel";
 import type { NineZoneState } from "./NineZoneState";
@@ -49,6 +50,7 @@ export interface TabState {
   readonly isFloatingStateWindowResizable?: boolean;
   readonly hideWithUiWhenFloating?: boolean;
   readonly home?: TabHomeState;
+  readonly popoutBounds?: RectangleProps;
 }
 
 /** @internal */

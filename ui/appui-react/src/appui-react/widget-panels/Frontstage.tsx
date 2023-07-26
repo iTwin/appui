@@ -930,6 +930,7 @@ export function packNineZoneState(state: NineZoneState): SavedNineZoneState {
         preferredFloatingWidgetSize: tab.preferredFloatingWidgetSize,
         userSized: tab.userSized,
         home: tab.home,
+        popoutBounds: tab.popoutBounds,
       };
     }
   });
