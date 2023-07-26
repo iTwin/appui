@@ -211,6 +211,13 @@ export interface WidgetTabSetHiddenAction {
 }
 
 /** @internal */
+export interface WidgetTabSetLabelAction {
+  readonly type: "WIDGET_TAB_SET_LABEL";
+  readonly id: TabState["id"];
+  readonly label: TabState["label"];
+}
+
+/** @internal */
 export interface WidgetTabSetOpenAction {
   readonly type: "WIDGET_TAB_SET_OPEN";
   readonly id: TabState["id"];
@@ -272,6 +279,7 @@ export type NineZoneAction =
   | WidgetTabSetFloatingAction
   | WidgetTabSetHiddenAction
   | WidgetTabSetOpenAction
+  | WidgetTabSetLabelAction
   | WidgetTabPopoutAction
   | WidgetTabSetPopoutBoundsAction
   | ToolSettingsDragStartAction

@@ -568,6 +568,11 @@ export function NineZoneStateReducer(
 
       return removeTabFromWidget(state, id);
     }
+    case "WIDGET_TAB_SET_LABEL": {
+      return updateTabState(state, action.id, {
+        label: action.label,
+      });
+    }
     case "WIDGET_TAB_SET_OPEN": {
       const { id } = action;
       const isToolSettings = state.toolSettings?.tabId === id;

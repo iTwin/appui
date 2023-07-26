@@ -987,20 +987,6 @@ export function expandWidget(state: NineZoneState, id: TabState["id"]) {
 }
 
 /** @internal */
-export function setWidgetLabel(
-  state: NineZoneState,
-  id: TabState["id"],
-  label: string
-) {
-  if (!(id in state.tabs)) return state;
-
-  return produce(state, (draft) => {
-    const tab = draft.tabs[id];
-    tab.label = label;
-  });
-}
-
-/** @internal */
 export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
   const uiStateStorage = useUiStateStorageHandler();
   const uiStateStorageRef = React.useRef(uiStateStorage);
@@ -1202,13 +1188,13 @@ export function useFrontstageManager(
     const listener = createListener(
       frontstageDef,
       ({ widgetDef }: WidgetEventArgs) => {
-        assert(!!frontstageDef.nineZoneState);
-        const label = widgetDef.label;
-        frontstageDef.nineZoneState = setWidgetLabel(
-          frontstageDef.nineZoneState,
-          widgetDef.id,
-          label
-        );
+        const state = frontstageDef.nineZoneState;
+        assert(!!state);
+        frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+          type: "WIDGET_TAB_SET_LABEL",
+          id: widgetDef.id,
+          label: widgetDef.label,
+        });
       }
     );
     InternalFrontstageManager.onWidgetLabelChangedEvent.addListener(listener);
@@ -1225,18 +1211,20 @@ export function useFrontstageManager(
   );
   React.useEffect(() => {
     const updateLabel = createListener(frontstageDef, () => {
+      const state = frontstageDef.nineZoneState;
+      assert(!!state);
+      const toolSettingsTabId = state.toolSettings?.tabId;
+      if (!toolSettingsTabId) return;
+
       const toolId = UiFramework.frontstages.activeToolId;
-      assert(!!frontstageDef.nineZoneState);
       const label = useToolAsToolSettingsLabel
         ? IModelApp.tools.find(toolId)?.flyover || defaultLabel
         : defaultLabel;
-      const toolSettingsTabId = frontstageDef.nineZoneState.toolSettings?.tabId;
-      if (!toolSettingsTabId) return;
-      frontstageDef.nineZoneState = setWidgetLabel(
-        frontstageDef.nineZoneState,
-        toolSettingsTabId,
-        label
-      );
+      frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_SET_LABEL",
+        id: toolSettingsTabId,
+        label,
+      });
     });
     // Whenever the frontstageDef or the useTool... changes, keep the label up to date.
     updateLabel();
