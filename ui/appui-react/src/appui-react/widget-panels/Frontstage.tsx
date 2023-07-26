@@ -452,29 +452,20 @@ export function appendWidgets(
 }
 
 function processPopoutWidgets(
-  initialState: NineZoneState,
+  state: NineZoneState,
   frontstageDef: FrontstageDef
 ): NineZoneState {
-  // istanbul ignore next
-  if (!initialState.popoutWidgets) return initialState;
+  if (!state.popoutWidgets) return state;
 
-  // istanbul ignore next - not unit testing electron case that reopens popout windows
-  if (initialState.popoutWidgets && ProcessDetector.isElectronAppFrontend) {
-    if (
-      initialState.popoutWidgets.allIds.length &&
-      ProcessDetector.isElectronAppFrontend
-    ) {
-      for (const widgetContainerId of initialState.popoutWidgets.allIds) {
-        frontstageDef.openPopoutWidgetContainer(
-          initialState,
-          widgetContainerId
-        );
-      }
+  // Electron case that reopens popout windows
+  if (ProcessDetector.isElectronAppFrontend) {
+    for (const widgetContainerId of state.popoutWidgets.allIds) {
+      frontstageDef.openPopoutWidgetContainer(state, widgetContainerId);
     }
-    return initialState;
+    return state;
   }
 
-  return convertAllPopupWidgetContainersToFloating(initialState);
+  return convertAllPopupWidgetContainersToFloating(state);
 }
 
 /** Adds frontstageDef widgets that are missing in NineZoneState.
