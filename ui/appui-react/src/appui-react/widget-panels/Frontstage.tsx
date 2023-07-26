@@ -167,12 +167,6 @@ export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
         InternalFrontstageManager.nineZoneSize = Size.create(action.size);
       }
 
-      if (action.type === "WIDGET_TAB_POPOUT") {
-        const tabId = action.id;
-        frontstageDef.popoutWidget(tabId);
-        return;
-      }
-
       const state = frontstageDef.nineZoneState;
       if (!state) return;
       frontstageDef.nineZoneState = NineZoneStateReducer(state, action);

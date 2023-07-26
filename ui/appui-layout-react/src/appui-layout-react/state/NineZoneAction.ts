@@ -220,6 +220,8 @@ export interface WidgetTabSetOpenAction {
 export interface WidgetTabPopoutAction {
   readonly type: "WIDGET_TAB_POPOUT";
   readonly id: TabState["id"];
+  readonly position?: PointProps;
+  readonly size?: SizeProps;
 }
 
 /** @internal */

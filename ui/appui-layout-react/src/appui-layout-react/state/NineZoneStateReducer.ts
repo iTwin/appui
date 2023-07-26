@@ -20,7 +20,11 @@ import {
   isWindowDropTargetState,
 } from "./DropTargetState";
 import { getWidgetPanelSectionId, insertPanelWidget } from "./PanelState";
-import { floatWidget, type NineZoneState } from "./NineZoneState";
+import {
+  floatWidget,
+  type NineZoneState,
+  popoutWidgetToChildWindow,
+} from "./NineZoneState";
 import type { FloatingWidgetHomeState } from "./WidgetState";
 import { addFloatingWidget, floatingWidgetBringToFront } from "./WidgetState";
 import {
@@ -55,6 +59,7 @@ import {
   getTabLocation,
   isFloatingTabLocation,
   isPanelTabLocation,
+  isPopoutTabLocation,
 } from "./TabLocation";
 
 /** @internal */
@@ -505,6 +510,23 @@ export function NineZoneStateReducer(
       return produce(state, (draft) => {
         draft.draggedTab = undefined;
       });
+    }
+    case "WIDGET_TAB_POPOUT": {
+      const { id, position, size } = action;
+      const location = getTabLocation(state, id);
+      if (!location) return state;
+      if (isPopoutTabLocation(location)) return state;
+
+      const tab = state.tabs[id];
+
+      let preferredBounds = tab.popoutBounds
+        ? Rectangle.create(tab.popoutBounds)
+        : Rectangle.createFromSize({ height: 800, width: 600 });
+      if (size) preferredBounds = preferredBounds.setSize(size);
+      if (position) preferredBounds = preferredBounds.setPosition(position);
+
+      state = popoutWidgetToChildWindow(state, id, preferredBounds);
+      return state;
     }
     case "WIDGET_TAB_SET_HIDDEN": {
       const { id } = action;

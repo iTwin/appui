@@ -215,13 +215,11 @@ export function floatWidget(
 }
 
 /** @internal */
-// istanbul ignore next
 export function popoutWidgetToChildWindow(
   state: NineZoneState,
   tabId: string,
   preferredBounds: RectangleProps
 ): NineZoneState {
-  // TODO: review
   const location = getTabLocation(state, tabId);
   if (!location) throw new UiError(category, "Tab not found");
 
