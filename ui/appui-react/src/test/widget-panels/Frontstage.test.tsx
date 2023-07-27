@@ -782,28 +782,9 @@ describe("Frontstage local storage wrapper", () => {
           renderHook(() => useFrontstageManager(frontstageDef));
 
           sinon.stub(widgetDef, "label").get(() => "test");
-          InternalFrontstageManager.onWidgetLabelChangedEvent.emit({
-            widgetDef,
-          });
+          widgetDef.setLabel("test");
 
           frontstageDef.nineZoneState?.tabs.t1.label.should.eq("test");
-        });
-
-        it("should not fail if tab doesn't exist", () => {
-          const frontstageDef = new FrontstageDef();
-          frontstageDef.nineZoneState = createNineZoneState();
-          const widgetDef = WidgetDef.create({
-            id: "t1",
-          });
-          renderHook(() => useFrontstageManager(frontstageDef));
-
-          sinon.stub(widgetDef, "label").get(() => "test");
-
-          (() => {
-            InternalFrontstageManager.onWidgetLabelChangedEvent.emit({
-              widgetDef,
-            });
-          }).should.not.throw();
         });
       });
 

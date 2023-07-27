@@ -117,8 +117,7 @@ export class StagePanelDef extends WidgetHost {
 
   public set size(size) {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    const state = frontstageDef?.nineZoneState;
-    if (!state) return;
+    if (!frontstageDef) return;
 
     const side = toPanelSide(this.location);
     frontstageDef.dispatch({
@@ -154,8 +153,7 @@ export class StagePanelDef extends WidgetHost {
 
   public set pinned(pinned: boolean) {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    const state = frontstageDef?.nineZoneState;
-    if (!state) return;
+    if (!frontstageDef) return;
 
     const side = toPanelSide(this.location);
     frontstageDef.dispatch({
@@ -189,8 +187,7 @@ export class StagePanelDef extends WidgetHost {
 
   public set panelState(panelState: StagePanelState) {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    const state = frontstageDef?.nineZoneState;
-    if (!state) return;
+    if (!frontstageDef) return;
 
     const side = toPanelSide(this.location);
     const collapsed = panelState === StagePanelState.Open ? false : true;

@@ -7,9 +7,7 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { BadgeType } from "@itwin/appui-abstract";
 import { SvgList } from "@itwin/itwinui-icons-react";
-import type { WidgetChangedEventArgs } from "../../appui-react";
 import { UiFramework, WidgetDef, WidgetState } from "../../appui-react";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 import TestUtils from "../TestUtils";
 
 describe("WidgetDef", () => {
@@ -144,26 +142,6 @@ describe("WidgetDef", () => {
       sut.setLabel("test");
 
       sut.label.should.eq("test");
-    });
-
-    it("should emit onWidgetLabelChangedEvent", () => {
-      const spy = sinon.stub<(args: WidgetChangedEventArgs) => void>();
-      InternalFrontstageManager.onWidgetLabelChangedEvent.addListener(spy);
-      const sut = new WidgetDef();
-      sut.setLabel("test");
-
-      spy.calledOnceWithExactly(sinon.match({ widgetDef: sut })).should.true;
-    });
-
-    it("should not emit onWidgetLabelChangedEvent for same label", () => {
-      const spy = sinon.stub<(args: WidgetChangedEventArgs) => void>();
-      const sut = new WidgetDef();
-      sut.setLabel("test");
-
-      InternalFrontstageManager.onWidgetLabelChangedEvent.addListener(spy);
-      sut.setLabel("test");
-
-      spy.notCalled.should.true;
     });
   });
 });

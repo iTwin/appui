@@ -1114,20 +1114,6 @@ export function useFrontstageManager(
       }
     );
   }, [uiSettingsStorage, frontstageDef]);
-  React.useEffect(() => {
-    return InternalFrontstageManager.onWidgetLabelChangedEvent.addListener(
-      ({ widgetDef }) => {
-        const state = frontstageDef.nineZoneState;
-        if (!state) return;
-        frontstageDef.dispatch({
-          type: "WIDGET_TAB_SET_LABEL",
-          id: widgetDef.id,
-          label: widgetDef.label,
-        });
-      }
-    );
-  }, [frontstageDef]);
-
   const defaultLabel = React.useMemo(
     () => UiFramework.translate("widget.labels.toolSettings"),
     []

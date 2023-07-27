@@ -14,7 +14,6 @@ import type {
   StringGetter,
 } from "@itwin/appui-abstract";
 import { UiError, UiEvent } from "@itwin/appui-abstract";
-import { NineZoneStateReducer } from "@itwin/appui-layout-react";
 import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 import {
   ConfigurableCreateInfo,
@@ -25,7 +24,6 @@ import { PropsHelper } from "../utils/PropsHelper";
 import type { WidgetControl } from "./WidgetControl";
 import type { IconSpec, SizeProps } from "@itwin/core-react";
 import { IconHelper } from "@itwin/core-react";
-import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
@@ -206,12 +204,12 @@ export class WidgetDef {
     this._initialConfig = config;
     this._id = config.id;
 
-    if (config.label) this.setLabel(config.label);
+    if (config.label) this._label = config.label;
     else if (config.labelKey)
       this._label = UiFramework.localization.getLocalizedString(
         config.labelKey
       );
-    else if (type === WidgetType.ToolSettings) this.setLabel("Tool Settings");
+    else if (type === WidgetType.ToolSettings) this._label = "Tool Settings";
 
     this.setCanPopout(config.canPopout);
 
@@ -269,13 +267,19 @@ export class WidgetDef {
   }
 
   /** Set the label.
-   * @param v A string or a function to get the string.
+   * @param labelSpec A string or a function to get the string.
    */
-  public setLabel(v: string | ConditionalStringValue | StringGetter) {
-    if (this._label === v) return;
-    this._label = v;
-    InternalFrontstageManager.onWidgetLabelChangedEvent.emit({
-      widgetDef: this,
+  public setLabel(labelSpec: string | ConditionalStringValue | StringGetter) {
+    this._label = labelSpec; // TODO: handle ConditionalStringValue
+
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    if (!frontstageDef) return;
+
+    const label = PropsHelper.getStringFromSpec(labelSpec);
+    frontstageDef.dispatch({
+      type: "WIDGET_TAB_SET_LABEL",
+      id: this.id,
+      label,
     });
   }
 

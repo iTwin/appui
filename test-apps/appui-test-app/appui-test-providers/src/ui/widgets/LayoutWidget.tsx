@@ -247,13 +247,12 @@ function WidgetInfo({ id }: { id: string }) {
     setIsPopout(frontstageDef ? frontstageDef.isPopoutWidget(id) : false);
 
     return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
-      (e: any) => {
-        if (e.frontstageDef === frontstageDef) {
-          setIsFloating(
-            frontstageDef ? frontstageDef.isFloatingWidget(id) : false
-          );
-          setIsPopout(frontstageDef ? frontstageDef.isPopoutWidget(id) : false);
-        }
+      (e) => {
+        if (e.frontstageDef !== frontstageDef) return;
+        setIsFloating(
+          frontstageDef ? frontstageDef.isFloatingWidget(id) : false
+        );
+        setIsPopout(frontstageDef ? frontstageDef.isPopoutWidget(id) : false);
       }
     );
   }, [frontstageDef, id]);
@@ -693,7 +692,7 @@ export function FloatingLayoutInfo() {
   );
   React.useEffect(() => {
     return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
-      (e: any) => {
+      (e) => {
         if (e.frontstageDef !== frontstageDef) return;
 
         const allIds = frontstageDef
