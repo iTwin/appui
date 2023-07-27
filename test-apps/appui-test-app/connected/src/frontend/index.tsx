@@ -418,7 +418,7 @@ export class SampleAppIModelApp {
     Logger.logInfo(
       SampleAppIModelApp.loggerCategory(this),
       `openIModelAndViews: iTwinId=${iTwinId}&iModelId=${iModelId} mode=${
-        this.allowWrite ? "ReadWrite" : "Readonly"
+        "Readonly"
       }`
     );
 
@@ -529,7 +529,7 @@ export class SampleAppIModelApp {
       Logger.logInfo(
         SampleAppIModelApp.loggerCategory(this),
         `showIModel: iTwinId = ${iTwinId}& iModelId=${iModelId} mode = ${
-          this.allowWrite ? "ReadWrite" : "Readonly"
+          "Readonly"
         } `
       );
 
@@ -674,10 +674,6 @@ export class SampleAppIModelApp {
 
   public static isEnvVarOn(envVar: string): boolean {
     return process.env[envVar] === "1" || process.env[envVar] === "true";
-  }
-
-  public static get allowWrite() {
-    return SampleAppIModelApp.isEnvVarOn("IMJS_UITESTAPP_ALLOW_WRITE");
   }
 
   public static setTestProperty(value: string, immediateSync = false) {
