@@ -45,7 +45,10 @@ import {
   removeTab,
   WidgetPanels,
 } from "@itwin/appui-layout-react";
-import type { FrontstageDef } from "../frontstage/FrontstageDef";
+import {
+  type FrontstageDef,
+  useActiveFrontstageDef,
+} from "../frontstage/FrontstageDef";
 import { StagePanelState, toPanelSide } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
@@ -99,42 +102,23 @@ const toolSettingsContent = <ToolSettingsContent />;
 const widgetPanelsFrontstage = <WidgetPanelsFrontstageComponent />;
 
 /** @internal */
-export function useLayoutStore() {
-  const [def, setDef] = React.useState(
-    UiFramework.frontstages.activeFrontstageDef
+export function useLayoutStore(frontstageDef: FrontstageDef | undefined) {
+  const layoutStore = React.useMemo(
+    () => createLayoutStore(frontstageDef?.nineZoneState),
+    [frontstageDef]
   );
-  const [layout, setLayout] = React.useState(() =>
-    createLayoutStore(def?.nineZoneState)
-  );
-  React.useEffect(() => {
-    return UiFramework.frontstages.onFrontstageActivatedEvent.addListener(
-      (args) => {
-        unstable_batchedUpdates(() => {
-          setDef(args.activatedFrontstageDef);
-          setLayout(
-            createLayoutStore(args.activatedFrontstageDef.nineZoneState)
-          );
-        });
-      }
-    );
-  }, []);
   React.useEffect(() => {
     return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
       (args) => {
-        if (
-          args.frontstageDef !== def ||
-          def.isStageClosing ||
-          def.isApplicationClosing
-        )
-          return;
+        if (args.frontstageDef !== frontstageDef) return;
         unstable_batchedUpdates(() => {
           // https://github.com/pmndrs/zustand/blob/main/docs/guides/event-handler-in-pre-react-18.md
-          layout.setState(args.state || defaultNineZone);
+          layoutStore.setState(args.state || defaultNineZone);
         });
       }
     );
-  }, [def, layout]);
-  return [layout, def] as const;
+  }, [frontstageDef, layoutStore]);
+  return layoutStore;
 }
 
 /** Update in-memory NineZoneState of newly activated frontstage with up to date size.
@@ -162,15 +146,13 @@ export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
 
 /** @internal */
 export function WidgetPanelsFrontstage() {
-  const [layout, frontstageDef] = useLayoutStore();
+  const frontstageDef = useActiveFrontstageDef();
+  const layout = useLayoutStore(frontstageDef);
 
   React.useEffect(() => {
     const triggerWidowCloseProcessing = () => {
       frontstageDef && frontstageDef.setIsApplicationClosing(true);
     };
-
-    frontstageDef && frontstageDef.setIsApplicationClosing(false);
-
     window.addEventListener("unload", triggerWidowCloseProcessing);
     return () => {
       window.removeEventListener("unload", triggerWidowCloseProcessing);
@@ -1173,15 +1155,14 @@ export function useItemsManager(frontstageDef: FrontstageDef) {
   };
 
   React.useEffect(() => {
-    const remove = UiItemsManager.onUiProviderRegisteredEvent.addListener(
-      () => {
-        refreshNineZoneState(frontstageDef);
-      }
-    );
     // Need to refresh anytime frontstageDef changes because uiItemsProvider may have added something to
     // another stage before it was possibly unloaded in this stage.
     refreshNineZoneState(frontstageDef);
-    return remove;
+  }, [frontstageDef]);
+  React.useEffect(() => {
+    return UiItemsManager.onUiProviderRegisteredEvent.addListener(() => {
+      refreshNineZoneState(frontstageDef);
+    });
   }, [frontstageDef]);
 }
 
