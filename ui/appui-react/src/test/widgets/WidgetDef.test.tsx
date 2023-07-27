@@ -138,38 +138,6 @@ describe("WidgetDef", () => {
     });
   });
 
-  describe("show", () => {
-    it("should emit onWidgetShowEvent", () => {
-      const spy = sinon.spy(
-        InternalFrontstageManager.onWidgetShowEvent,
-        "emit"
-      );
-      const widgetDef = new WidgetDef();
-      widgetDef.show();
-      spy.calledOnceWithExactly(
-        sinon.match({
-          widgetDef,
-        })
-      ).should.true;
-    });
-  });
-
-  describe("expand", () => {
-    it("should emit onWidgetExpandEvent", () => {
-      const spy = sinon.spy(
-        InternalFrontstageManager.onWidgetExpandEvent,
-        "emit"
-      );
-      const widgetDef = new WidgetDef();
-      widgetDef.expand();
-      spy.calledOnceWithExactly(
-        sinon.match({
-          widgetDef,
-        })
-      ).should.true;
-    });
-  });
-
   describe("label", () => {
     it("should set label", () => {
       const sut = new WidgetDef();

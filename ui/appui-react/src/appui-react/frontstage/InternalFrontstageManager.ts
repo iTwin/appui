@@ -253,12 +253,6 @@ export class InternalFrontstageManager {
     new UiEvent<WidgetChangedEventArgs>();
 
   /** @internal */
-  public static readonly onWidgetShowEvent = new UiEvent<WidgetEventArgs>();
-
-  /** @internal */
-  public static readonly onWidgetExpandEvent = new UiEvent<WidgetEventArgs>();
-
-  /** @internal */
   public static readonly onWidgetDefsUpdatedEvent = new UiEvent<void>();
 
   /** @internal */

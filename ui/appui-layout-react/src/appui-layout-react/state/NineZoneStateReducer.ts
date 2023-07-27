@@ -7,8 +7,9 @@
  */
 
 import { produce } from "immer";
-import { Point, Rectangle } from "@itwin/core-react";
+import { Point, Rectangle, Tabs } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
+import type { TabState } from "./TabState";
 import { addRemovedTab, removeTabFromWidget } from "./TabState";
 import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation";
 import type { NineZoneAction } from "./NineZoneAction";
@@ -574,39 +575,7 @@ export function NineZoneStateReducer(
       });
     }
     case "WIDGET_TAB_SET_OPEN": {
-      const { id } = action;
-      const isToolSettings = state.toolSettings?.tabId === id;
-      if (isToolSettings && state.toolSettings?.type === "docked") {
-        state = produce(state, (draft) => {
-          assert(draft.toolSettings?.type === "docked");
-          draft.toolSettings.hidden = false;
-        });
-      }
-
-      let location = getTabLocation(state, id);
-      if (!location) {
-        state = addRemovedTab(state, id);
-        location = getTabLocation(state, id);
-      }
-
-      return produce(state, (draft) => {
-        assert(!!location);
-        const widget = draft.widgets[location.widgetId];
-        widget.minimized = false;
-        widget.activeTabId = id;
-
-        if (isFloatingTabLocation(location)) {
-          const floatingWidget =
-            draft.floatingWidgets.byId[location.floatingWidgetId];
-          floatingWidget.hidden = false;
-        } else if (isPanelTabLocation(location)) {
-          const panel = draft.panels[location.side];
-          panel.collapsed = false;
-          if (undefined === panel.size || 0 === panel.size) {
-            panel.size = panel.minSize ?? 200;
-          }
-        }
-      });
+      return openWidgetTab(state, action.id);
     }
     case "WIDGET_TAB_SET_CLOSED": {
       const { id } = action;
@@ -664,6 +633,26 @@ export function NineZoneStateReducer(
       });
       return state;
     }
+    case "WIDGET_TAB_SHOW": {
+      return showWidgetTab(state, action.id);
+    }
+    case "WIDGET_TAB_EXPAND": {
+      state = showWidgetTab(state, action.id);
+      const location = getTabLocation(state, action.id);
+      if (!location) return state;
+
+      return produce(state, (draft) => {
+        const widget = draft.widgets[location.widgetId];
+        if (isPanelTabLocation(location)) {
+          const panel = draft.panels[location.side];
+          panel.splitterPercent =
+            panel.widgets.findIndex((wId) => wId === location.widgetId) === 0
+              ? 100
+              : 0;
+        }
+        widget.minimized = false;
+      });
+    }
     case "TOOL_SETTINGS_DRAG_START": {
       if (!state.toolSettings) return state;
       if (state.toolSettings.type === "widget") return state;
@@ -694,6 +683,60 @@ export function NineZoneStateReducer(
         draft.toolSettings.type = "docked";
       });
     }
+  }
+  return state;
+}
+
+function openWidgetTab(state: NineZoneState, id: TabState["id"]) {
+  const isToolSettings = state.toolSettings?.tabId === id;
+  if (isToolSettings && state.toolSettings?.type === "docked") {
+    state = produce(state, (draft) => {
+      assert(draft.toolSettings?.type === "docked");
+      draft.toolSettings.hidden = false;
+    });
+  }
+
+  let location = getTabLocation(state, id);
+  if (!location) {
+    state = addRemovedTab(state, id);
+    location = getTabLocation(state, id);
+  }
+
+  return produce(state, (draft) => {
+    assert(!!location);
+    const widget = draft.widgets[location.widgetId];
+    widget.minimized = false;
+    widget.activeTabId = id;
+
+    if (isFloatingTabLocation(location)) {
+      const floatingWidget =
+        draft.floatingWidgets.byId[location.floatingWidgetId];
+      floatingWidget.hidden = false;
+    } else if (isPanelTabLocation(location)) {
+      const panel = draft.panels[location.side];
+      panel.collapsed = false;
+      if (undefined === panel.size || 0 === panel.size) {
+        panel.size = panel.minSize ?? 200;
+      }
+    }
+  });
+}
+
+function showWidgetTab(state: NineZoneState, id: TabState["id"]) {
+  state = openWidgetTab(state, id);
+  const location = getTabLocation(state, id);
+  if (!location) return state;
+  state = produce(state, (draft) => {
+    const widget = draft.widgets[location.widgetId];
+    widget.activeTabId = id;
+    widget.minimized = false;
+    if (isPanelTabLocation(location)) {
+      const panel = draft.panels[location.side];
+      panel.collapsed = false;
+    }
+  });
+  if (isFloatingTabLocation(location)) {
+    state = floatingWidgetBringToFront(state, location.floatingWidgetId);
   }
   return state;
 }

@@ -502,13 +502,29 @@ export class WidgetDef {
    * @public
    */
   public show() {
-    InternalFrontstageManager.onWidgetShowEvent.emit({ widgetDef: this });
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    const state = frontstageDef?.nineZoneState;
+    if (!state) return;
+    if (!frontstageDef.findWidgetDef(this.id)) return;
+
+    frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+      type: "WIDGET_TAB_SHOW",
+      id: this.id,
+    });
   }
 
   /** Opens the widget and expands it to fill full size of the stage panel.
    * @public
    */
   public expand() {
-    InternalFrontstageManager.onWidgetExpandEvent.emit({ widgetDef: this });
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    const state = frontstageDef?.nineZoneState;
+    if (!state) return;
+    if (!frontstageDef.findWidgetDef(this.id)) return;
+
+    frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+      type: "WIDGET_TAB_EXPAND",
+      id: this.id,
+    });
   }
 }

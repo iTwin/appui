@@ -733,45 +733,6 @@ describe("Frontstage local storage wrapper", () => {
         frontstageDef.nineZoneState?.widgets.w1.minimized.should.false; // Closed has no effect on widgets in panels
       });
 
-      it("should handle onWidgetShowEvent", () => {
-        const frontstageDef = new FrontstageDef();
-        let nineZoneState = createNineZoneState();
-        nineZoneState = addTab(nineZoneState, "t1");
-        nineZoneState = addPanelWidget(nineZoneState, "left", "w1", ["t1"]);
-        nineZoneState = produce(nineZoneState, (draft) => {
-          draft.panels.left.collapsed = true;
-        });
-        frontstageDef.nineZoneState = nineZoneState;
-        renderHook(() => useFrontstageManager(frontstageDef));
-        const widgetDef = WidgetDef.create({
-          id: "t1",
-        });
-        InternalFrontstageManager.onWidgetShowEvent.emit({
-          widgetDef,
-        });
-        frontstageDef.nineZoneState?.panels.left.collapsed.should.false;
-      });
-
-      it("should handle onWidgetExpandEvent", () => {
-        const frontstageDef = new FrontstageDef();
-        let nineZoneState = createNineZoneState();
-        nineZoneState = addTab(nineZoneState, "t1");
-        nineZoneState = addTab(nineZoneState, "t2");
-        nineZoneState = addPanelWidget(nineZoneState, "left", "w1", ["t1"], {
-          minimized: true,
-        });
-        nineZoneState = addPanelWidget(nineZoneState, "left", "w2", ["t2"]);
-        frontstageDef.nineZoneState = nineZoneState;
-        renderHook(() => useFrontstageManager(frontstageDef));
-        const widgetDef = WidgetDef.create({
-          id: "t1",
-        });
-        InternalFrontstageManager.onWidgetExpandEvent.emit({
-          widgetDef,
-        });
-        frontstageDef.nineZoneState?.widgets.w1.minimized.should.false;
-      });
-
       describe("onFrontstageRestoreLayoutEvent", () => {
         it("should delete saved setting", async () => {
           const frontstageDef = new FrontstageDef();

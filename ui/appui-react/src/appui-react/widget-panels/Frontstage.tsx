@@ -1109,34 +1109,6 @@ export function useFrontstageManager(
   frontstageDef: FrontstageDef,
   useToolAsToolSettingsLabel?: boolean
 ) {
-  React.useEffect(() => {
-    return InternalFrontstageManager.onWidgetShowEvent.addListener(
-      ({ widgetDef }) => {
-        const state = frontstageDef.nineZoneState;
-        if (!state) return;
-        const nineZoneState = NineZoneStateReducer(state, {
-          type: "WIDGET_TAB_SET_OPEN",
-          id: widgetDef.id,
-        });
-        frontstageDef.nineZoneState = showWidget(nineZoneState, widgetDef.id);
-      }
-    );
-  }, [frontstageDef]);
-  React.useEffect(() => {
-    return InternalFrontstageManager.onWidgetExpandEvent.addListener(
-      ({ widgetDef }) => {
-        const state = frontstageDef.nineZoneState;
-        if (!state) return;
-        let nineZoneState = NineZoneStateReducer(state, {
-          type: "WIDGET_TAB_SET_OPEN",
-          id: widgetDef.id,
-        });
-        nineZoneState = showWidget(nineZoneState, widgetDef.id);
-        nineZoneState = expandWidget(nineZoneState, widgetDef.id);
-        frontstageDef.nineZoneState = nineZoneState;
-      }
-    );
-  }, [frontstageDef]);
   const uiSettingsStorage = useUiStateStorageHandler();
   React.useEffect(() => {
     return InternalFrontstageManager.onFrontstageRestoreLayoutEvent.addListener(
