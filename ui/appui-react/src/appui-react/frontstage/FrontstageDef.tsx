@@ -14,8 +14,12 @@ import { IModelApp } from "@itwin/core-frontend";
 import type { PointProps } from "@itwin/appui-abstract";
 import { UiError } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
-import { Rectangle } from "@itwin/core-react";
-import type { NineZoneState, PanelSide } from "@itwin/appui-layout-react";
+import { Rectangle, Size } from "@itwin/core-react";
+import type {
+  NineZoneDispatch,
+  NineZoneState,
+  PanelSide,
+} from "@itwin/appui-layout-react";
 import {
   getTabLocation,
   getWidgetLocation,
@@ -39,7 +43,7 @@ import type { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
 import type { ChildWindowLocationProps } from "../framework/FrameworkChildWindows";
 import { PopoutWidget } from "../childwindow/PopoutWidget";
-import { assert, BentleyStatus, ProcessDetector } from "@itwin/core-bentley";
+import { BentleyStatus, ProcessDetector } from "@itwin/core-bentley";
 import type { FrontstageConfig } from "./FrontstageConfig";
 import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import type { WidgetConfig } from "../widgets/WidgetConfig";
@@ -87,6 +91,7 @@ export class FrontstageDef {
   private _contentGroupProvider?: ContentGroupProvider;
   private _floatingContentControls?: ContentControl[];
   private _toolAdminDefaultToolId?: string;
+  private _dispatch?: NineZoneDispatch;
 
   public get id(): string {
     return this._id;
@@ -293,6 +298,22 @@ export class FrontstageDef {
       frontstageDef: this,
       state,
     });
+  }
+
+  /** @internal */
+  public get dispatch(): NineZoneDispatch {
+    if (!this._dispatch) {
+      this._dispatch = (action) => {
+        if (action.type === "RESIZE") {
+          InternalFrontstageManager.nineZoneSize = Size.create(action.size);
+        }
+
+        const state = this.nineZoneState;
+        if (!state) return;
+        this.nineZoneState = NineZoneStateReducer(state, action);
+      };
+    }
+    return this._dispatch;
   }
 
   /** @internal */
@@ -757,7 +778,7 @@ export class FrontstageDef {
     const widgetDef = this.findWidgetDef(widgetId);
     if (!widgetDef) return;
 
-    this.nineZoneState = NineZoneStateReducer(state, {
+    this.dispatch({
       type: "WIDGET_TAB_SET_FLOATING",
       id: widgetId,
       position,
@@ -865,7 +886,7 @@ export class FrontstageDef {
     const widgetDef = this.findWidgetDef(widgetId);
     if (!widgetDef) return;
 
-    this.nineZoneState = NineZoneStateReducer(state, {
+    this.dispatch({
       type: "WIDGET_TAB_POPOUT",
       id: widgetId,
       position,
@@ -911,7 +932,7 @@ export class FrontstageDef {
       y: childWindow.screenY,
     });
 
-    this.nineZoneState = NineZoneStateReducer(state, {
+    this.dispatch({
       type: "WIDGET_TAB_SET_POPOUT_BOUNDS",
       id: tabId,
       bounds,
@@ -927,14 +948,14 @@ export class FrontstageDef {
     if (!location) return;
 
     if (isFloatingWidgetLocation(location)) {
-      this.nineZoneState = NineZoneStateReducer(state, {
+      this.dispatch({
         type: "FLOATING_WIDGET_SEND_BACK",
         id: location.floatingWidgetId,
       });
       return;
     }
     if (isPopoutWidgetLocation(location)) {
-      this.nineZoneState = NineZoneStateReducer(state, {
+      this.dispatch({
         type: "POPOUT_WIDGET_SEND_BACK",
         id: location.popoutWidgetId,
       });
@@ -973,7 +994,7 @@ export class FrontstageDef {
       id: floatingWidgetId,
       bounds,
     });
-    this.nineZoneState = NineZoneStateReducer(state, {
+    this.dispatch({
       type: "FLOATING_WIDGET_SET_USER_SIZED",
       id: floatingWidgetId,
       userSized: true,

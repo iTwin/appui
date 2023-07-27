@@ -14,12 +14,11 @@ import * as React from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { UiStateStorageResult } from "@itwin/core-react";
-import { Rectangle, Size, UiStateStorageStatus } from "@itwin/core-react";
+import { Rectangle, UiStateStorageStatus } from "@itwin/core-react";
 import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
 import type {
   FloatingWidgetHomeState,
   LayoutStore,
-  NineZoneDispatch,
   NineZoneLabels,
   NineZoneState,
   PanelSide,
@@ -146,7 +145,7 @@ export function useUpdateNineZoneSize(frontstageDef: FrontstageDef) {
     const size = InternalFrontstageManager.nineZoneSize;
     const state = frontstageDef.nineZoneState;
     if (!size || !state) return;
-    frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+    frontstageDef.dispatch({
       type: "RESIZE",
       size: {
         height: size.height,
@@ -158,19 +157,7 @@ export function useUpdateNineZoneSize(frontstageDef: FrontstageDef) {
 
 /** @internal */
 export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
-  const dispatch = React.useCallback<NineZoneDispatch>(
-    (action) => {
-      if (action.type === "RESIZE") {
-        InternalFrontstageManager.nineZoneSize = Size.create(action.size);
-      }
-
-      const state = frontstageDef.nineZoneState;
-      if (!state) return;
-      frontstageDef.nineZoneState = NineZoneStateReducer(state, action);
-    },
-    [frontstageDef]
-  );
-  return dispatch;
+  return React.useMemo(() => frontstageDef.dispatch, [frontstageDef]);
 }
 
 /** @internal */
@@ -1132,7 +1119,7 @@ export function useFrontstageManager(
       ({ widgetDef }) => {
         const state = frontstageDef.nineZoneState;
         if (!state) return;
-        frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+        frontstageDef.dispatch({
           type: "WIDGET_TAB_SET_LABEL",
           id: widgetDef.id,
           label: widgetDef.label,
@@ -1156,7 +1143,7 @@ export function useFrontstageManager(
       const label = useToolAsToolSettingsLabel
         ? IModelApp.tools.find(toolId)?.flyover || defaultLabel
         : defaultLabel;
-      frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+      frontstageDef.dispatch({
         type: "WIDGET_TAB_SET_LABEL",
         id: toolSettingsTabId,
         label,

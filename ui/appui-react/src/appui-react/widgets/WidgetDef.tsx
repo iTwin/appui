@@ -378,28 +378,28 @@ export class WidgetDef {
 
     switch (newState) {
       case WidgetState.Closed: {
-        frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+        frontstageDef.dispatch({
           type: "WIDGET_TAB_SET_CLOSED",
           id: this.id,
         });
         break;
       }
       case WidgetState.Floating: {
-        frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+        frontstageDef.dispatch({
           type: "WIDGET_TAB_SET_FLOATING",
           id: this.id,
         });
         break;
       }
       case WidgetState.Hidden: {
-        frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+        frontstageDef.dispatch({
           type: "WIDGET_TAB_SET_HIDDEN",
           id: this.id,
         });
         break;
       }
       case WidgetState.Open: {
-        frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+        frontstageDef.dispatch({
           type: "WIDGET_TAB_SET_OPEN",
           id: this.id,
         });
@@ -507,7 +507,7 @@ export class WidgetDef {
     if (!state) return;
     if (!frontstageDef.findWidgetDef(this.id)) return;
 
-    frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+    frontstageDef.dispatch({
       type: "WIDGET_TAB_SHOW",
       id: this.id,
     });
@@ -522,7 +522,7 @@ export class WidgetDef {
     if (!state) return;
     if (!frontstageDef.findWidgetDef(this.id)) return;
 
-    frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+    frontstageDef.dispatch({
       type: "WIDGET_TAB_EXPAND",
       id: this.id,
     });

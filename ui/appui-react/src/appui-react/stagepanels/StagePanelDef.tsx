@@ -121,7 +121,7 @@ export class StagePanelDef extends WidgetHost {
     if (!state) return;
 
     const side = toPanelSide(this.location);
-    frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+    frontstageDef.dispatch({
       type: "PANEL_SET_SIZE",
       side,
       size,
@@ -158,7 +158,7 @@ export class StagePanelDef extends WidgetHost {
     if (!state) return;
 
     const side = toPanelSide(this.location);
-    frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+    frontstageDef.dispatch({
       type: "PANEL_SET_PINNED",
       side,
       pinned,
@@ -194,7 +194,7 @@ export class StagePanelDef extends WidgetHost {
 
     const side = toPanelSide(this.location);
     const collapsed = panelState === StagePanelState.Open ? false : true;
-    frontstageDef.nineZoneState = NineZoneStateReducer(state, {
+    frontstageDef.dispatch({
       type: "PANEL_SET_COLLAPSED",
       collapsed,
       side,
