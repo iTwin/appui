@@ -162,3 +162,14 @@ export async function setWidgetState(
 ) {
   await runKeyin(page, `widget setstate ${widgetId} ${widgetState}`);
 }
+
+export async function openComponentExamples(page: Page) {
+  await page.goto("/");
+  const fileChooserPromise = page.waitForEvent('filechooser');
+  await page.getByRole('button', { name: 'Select Local File' }).click();
+  const fileChooser = await fileChooserPromise;
+  //can change file to other test files
+  await fileChooser.setFiles("./test-files/04_Plant.i.ibim");
+  await page.locator('.nz-toolbar-button-button').click();
+  await page.getByRole('menuitem', { name: 'Component Examples' }).click();
+}
