@@ -49,14 +49,12 @@ export function PropertyFilterBuilderRuleValue(
   );
 
   return (
-    <div className="rule-value">
-      <EditorContainer
-        propertyRecord={propertyRecord}
-        onCancel={/* istanbul ignore next */ () => {}}
-        onCommit={onValueChange}
-        setFocus={false}
-        shouldCommitOnChange={true}
-      />
-    </div>
+    <EditorContainer
+      propertyRecord={propertyRecord}
+      onCancel={/* istanbul ignore next */ () => {}}
+      onCommit={onValueChange}
+      setFocus={false}
+      shouldCommitOnChange={false}
+    />
   );
 }

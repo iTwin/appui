@@ -10,7 +10,7 @@ import type { Draft } from "immer";
 import { produce } from "immer";
 import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
-import { PropertyValueFormat } from "@itwin/appui-abstract";
+import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
 import { Guid } from "@itwin/core-bentley";
 import type { PropertyFilterRuleOperator } from "./Operators";
 import {
@@ -19,6 +19,7 @@ import {
 } from "./Operators";
 import type { PropertyFilter, PropertyFilterRule } from "./Types";
 import { isPropertyFilterRuleGroup } from "./Types";
+import { UiComponents } from "../UiComponents";
 
 /**
  * Data structure that describes [[PropertyFilterBuilder]] component state.
@@ -67,6 +68,8 @@ export interface PropertyFilterBuilderRule {
   operator?: PropertyFilterRuleOperator;
   /** Value that property should be compared to. */
   value?: PropertyValue;
+  /** Error message of this rule. */
+  errorMessage?: string;
 }
 
 /**
@@ -146,6 +149,7 @@ export class PropertyFilterBuilderActions {
       if (!rule) return;
       rule.property = property;
       rule.value = undefined;
+      rule.errorMessage = undefined;
     });
   }
 
@@ -167,11 +171,38 @@ export class PropertyFilterBuilderActions {
       rule.value = value;
     });
   }
+
+  public setRuleErrorMessage(path: string[], errorMessage?: string) {
+    this.updateState((state) => {
+      const rule = findRule(state.rootGroup, path);
+      if (!rule) return;
+      if (
+        rule.operator !== undefined &&
+        isUnaryPropertyFilterOperator(rule.operator)
+      ) {
+        return;
+      }
+      rule.errorMessage = errorMessage;
+    });
+  }
+
+  public removeErrorMessages() {
+    const removeRule = (item: PropertyFilterBuilderRuleGroupItem) => {
+      if (isPropertyFilterBuilderRuleGroup(item)) {
+        item.items.forEach((itm) => removeRule(itm));
+      } else {
+        item.errorMessage = undefined;
+      }
+    };
+    this.updateState((state) => {
+      removeRule(state.rootGroup);
+    });
+  }
 }
 
 /**
  * Function to check if supplied [[PropertyFilterBuilderRuleGroupItem]] is [[PropertyFilterBuilderRuleGroup]].
- * @internal
+ * @beta
  */
 export function isPropertyFilterBuilderRuleGroup(
   item: PropertyFilterBuilderRuleGroupItem
@@ -180,21 +211,141 @@ export function isPropertyFilterBuilderRuleGroup(
 }
 
 /**
+ * Props for [[usePropertyFilterBuilder]]
+ * @beta
+ */
+export interface UsePropertyFilterBuilderProps {
+  initialFilter?: PropertyFilter;
+}
+/**
  * Custom hook that creates state for [[PropertyFilterBuilder]] component. It creates empty state or initializes
  * state from supplied initial filter.
- * @internal
+ * @beta
  */
-export function usePropertyFilterBuilderState(initialFilter?: PropertyFilter) {
-  const [state, setState] = React.useState<PropertyFilterBuilderState>(() =>
+export function usePropertyFilterBuilder({
+  initialFilter,
+}: UsePropertyFilterBuilderProps) {
+  const [state, setState] = React.useState<PropertyFilterBuilderState>(
     initialFilter
       ? convertFilterToState(initialFilter)
       : { rootGroup: createEmptyRuleGroup() }
   );
+
   const [actions] = React.useState(
     () => new PropertyFilterBuilderActions(setState)
   );
 
-  return { state, actions };
+  const validate = (
+    ruleValidator?: ({
+      actions,
+      item,
+      path,
+    }: DefaultRuleGroupItemValidatorProps) => boolean
+  ) => {
+    actions.removeErrorMessages();
+    if (
+      ruleValidator
+        ? ruleValidator({ actions, item: state.rootGroup, path: [] })
+        : defaultRuleGroupItemValidator({
+            actions,
+            item: state.rootGroup,
+            path: [],
+          })
+    ) {
+      return buildPropertyFilter(state.rootGroup);
+    } else {
+      return undefined;
+    }
+  };
+  return { rootGroup: state.rootGroup, actions, validate };
+}
+
+interface DefaultRuleGroupItemValidatorProps {
+  actions: PropertyFilterBuilderActions;
+  item: PropertyFilterBuilderRuleGroupItem;
+  path: string[];
+}
+
+function defaultRuleGroupItemValidator({
+  actions,
+  item,
+  path,
+}: DefaultRuleGroupItemValidatorProps) {
+  if (isPropertyFilterBuilderRuleGroup(item)) {
+    return defaultRuleGroupValidator({ actions, item, path });
+  } else {
+    return defaultRuleValidator({ actions, item, path });
+  }
+}
+
+interface DefaultRuleGroupValidatorProps
+  extends Omit<DefaultRuleGroupItemValidatorProps, "item"> {
+  item: PropertyFilterBuilderRuleGroup;
+}
+
+function defaultRuleGroupValidator({
+  actions,
+  item,
+  path,
+}: DefaultRuleGroupValidatorProps) {
+  let areRulesValid = true;
+  item.items.forEach((itm) => {
+    const isRuleValid = defaultRuleGroupItemValidator({
+      actions,
+      item: itm,
+      path: [...path, itm.id],
+    });
+    if (!isRuleValid) areRulesValid = false;
+  });
+  return areRulesValid;
+}
+
+interface DefaultRuleValidatorProps
+  extends Omit<DefaultRuleGroupItemValidatorProps, "item"> {
+  item: PropertyFilterBuilderRule;
+}
+
+function defaultRuleValidator({
+  actions,
+  item,
+  path,
+}: DefaultRuleValidatorProps) {
+  if (
+    item.operator === undefined ||
+    isUnaryPropertyFilterOperator(item.operator)
+  ) {
+    return true;
+  }
+  if (item.value === undefined) {
+    actions.setRuleErrorMessage(
+      path,
+      isTypeNameNumeric(item.property?.typename)
+        ? UiComponents.translate("filterBuilder.errorMessages.notANumber")
+        : UiComponents.translate("filterBuilder.errorMessages.emptyValue")
+    );
+    return false;
+  }
+  // istanbul ignore else
+  if (item.value.valueFormat === PropertyValueFormat.Primitive) {
+    if (
+      isTypeNameNumeric(item.property?.typename) &&
+      item.value.value === undefined
+    ) {
+      actions.setRuleErrorMessage(
+        path,
+        UiComponents.translate("filterBuilder.errorMessages.notANumber")
+      );
+      return false;
+    }
+    if (item.value.value === undefined || item.value.value === "") {
+      actions.setRuleErrorMessage(
+        path,
+        UiComponents.translate("filterBuilder.errorMessages.emptyValue")
+      );
+      return false;
+    }
+  }
+  return true;
 }
 
 /** @internal */
@@ -337,3 +488,12 @@ function convertFilterToState(
     },
   };
 }
+
+const isTypeNameNumeric = (typename?: string) => {
+  return (
+    typename === StandardTypeNames.Number ||
+    typename === StandardTypeNames.Int ||
+    typename === StandardTypeNames.Float ||
+    typename === StandardTypeNames.Double
+  );
+};

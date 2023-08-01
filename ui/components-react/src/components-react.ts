@@ -75,6 +75,9 @@ export * from "./components-react/properties/renderers/value/UrlPropertyValueRen
 export * from "./components-react/properties/renderers/value/WithContextStyle";
 
 export * from "./components-react/filter-builder/FilterBuilder";
+export * from "./components-react/filter-builder/FilterBuilderRuleOperator";
+export * from "./components-react/filter-builder/FilterBuilderState";
+export * from "./components-react/filter-builder/FilterBuilderRuleValue";
 export * from "./components-react/filter-builder/Operators";
 export * from "./components-react/filter-builder/Types";
 

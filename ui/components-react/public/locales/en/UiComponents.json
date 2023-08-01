@@ -134,6 +134,10 @@
       "and": "And",
       "or": "Or"
     },
-    "chooseProperty": "Choose property"
+    "chooseProperty": "Choose property",
+    "errorMessages": {
+      "notANumber": "Value is not a number",
+      "emptyValue": "Value is empty"
+    }
   }
 }
