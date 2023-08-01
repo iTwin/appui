@@ -6,6 +6,7 @@ import { test, expect, Page } from "@playwright/test";
 import assert from "assert";
 import {
   activeTabLocator,
+  dragTab,
   expectSavedFrontstageState,
   expectTabInPanelSection,
   floatingWidgetLocator,
@@ -195,14 +196,7 @@ test.describe("widget state", () => {
     await expectTabInPanelSection(tab1, "top", 0);
 
     // Drag from top start to top end.
-    const bounds2 = (await tab2.boundingBox())!;
-    await tab1.dispatchEvent("mousedown", { clientX: 0, clientY: 0 });
-    await tab1.dispatchEvent("mousemove", { clientX: 20, clientY: 20 });
-    await body.dispatchEvent("mousemove", {
-      clientX: bounds2.x,
-      clientY: bounds2.y,
-    });
-    await body.dispatchEvent("mouseup");
+    await dragTab(tab1, tab2);
     await expectTabInPanelSection(tab1, "top", 1);
 
     await setWidgetState(page, "WT-A", WidgetState.Hidden);

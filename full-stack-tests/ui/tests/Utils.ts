@@ -131,15 +131,19 @@ export async function expectSavedFrontstageState<
 export async function expectTabInPanelSection(
   tab: Locator,
   side: PanelSide,
-  sectionId: 0 | 1
+  sectionId: 0 | 1,
+  message?: string
 ) {
   const page = tab.page();
   const panel = panelLocator({ tab });
   const section = page.locator(`.nz-panel-section-${sectionId}`, { has: tab });
-  await expect(panel).toHaveClass(new RegExp(`nz-${side}`));
+  await expect(
+    panel,
+    `expected tab to be in panel '${side}' ${message}`
+  ).toHaveClass(new RegExp(`nz-${side}`));
   await expect(
     section,
-    `expected tab to be in section '${sectionId}'`
+    `expected tab to be in section '${sectionId}' ${message}`
   ).toBeVisible();
 }
 
@@ -166,4 +170,17 @@ export async function setWidgetState(
   widgetState: WidgetState
 ) {
   await runKeyin(page, `widget setstate ${widgetId} ${widgetState}`);
+}
+
+export async function dragTab(tab: Locator, target: Locator) {
+  const page = tab.page();
+  const body = page.locator("body");
+  await tab.dispatchEvent("mousedown", { clientX: 0, clientY: 0 });
+  await tab.dispatchEvent("mousemove", { clientX: 20, clientY: 20 });
+  const bounds = (await target.boundingBox())!;
+  await body.dispatchEvent("mousemove", {
+    clientX: bounds.x,
+    clientY: bounds.y,
+  });
+  await body.dispatchEvent("mouseup");
 }

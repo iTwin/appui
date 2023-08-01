@@ -248,7 +248,7 @@ function WidgetInfo({ id }: { id: string }) {
 
     return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
       (e) => {
-        if (e.frontstageDef !== frontstageDef) return;
+        if (e.frontstageDef !== (frontstageDef as any)) return;
         setIsFloating(
           frontstageDef ? frontstageDef.isFloatingWidget(id) : false
         );
@@ -693,7 +693,7 @@ export function FloatingLayoutInfo() {
   React.useEffect(() => {
     return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
       (e) => {
-        if (e.frontstageDef !== frontstageDef) return;
+        if (e.frontstageDef !== (frontstageDef as any)) return;
 
         const allIds = frontstageDef
           ? frontstageDef.getFloatingWidgetContainerIds()
