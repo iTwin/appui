@@ -556,7 +556,7 @@ describe("usePropertyFilterBuilder", () => {
         expect(validateResult).to.be.undefined;
       });
 
-      it("returns propert filter and doesn't set error message if operator is unary.", () => {
+      it("returns property filter and doesn't set error message if operator is unary.", () => {
         const { result } = renderHook(() =>
           usePropertyFilterBuilder({
             initialFilter: {

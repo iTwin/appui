@@ -313,6 +313,7 @@ function defaultRuleValidator({
   path,
 }: DefaultRuleValidatorProps) {
   if (
+    item.property === undefined ||
     item.operator === undefined ||
     isUnaryPropertyFilterOperator(item.operator)
   ) {
@@ -321,7 +322,7 @@ function defaultRuleValidator({
   if (item.value === undefined) {
     actions.setRuleErrorMessage(
       path,
-      isTypeNameNumeric(item.property?.typename)
+      isTypeNameNumeric(item.property.typename)
         ? UiComponents.translate("filterBuilder.errorMessages.notANumber")
         : UiComponents.translate("filterBuilder.errorMessages.emptyValue")
     );
@@ -330,7 +331,7 @@ function defaultRuleValidator({
   // istanbul ignore else
   if (item.value.valueFormat === PropertyValueFormat.Primitive) {
     if (
-      isTypeNameNumeric(item.property?.typename) &&
+      isTypeNameNumeric(item.property.typename) &&
       item.value.value === undefined
     ) {
       actions.setRuleErrorMessage(
@@ -491,7 +492,7 @@ function convertFilterToState(
   };
 }
 
-const isTypeNameNumeric = (typename?: string) => {
+const isTypeNameNumeric = (typename: string) => {
   return (
     typename === StandardTypeNames.Number ||
     typename === StandardTypeNames.Int ||
