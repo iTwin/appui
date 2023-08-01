@@ -25,4 +25,7 @@ Table of contents:
 ### Additions
 
 - Promoted `PropertyFilterBuilderRuleOperatorProps`, `PropertyFilterBuilderRuleValueProps`, `PropertyFilterBuilderRuleValue` to **@beta**.
+- Promoted `isPropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderActions`, `PropertyFilterBuilderProps`, `PropertyFilterBuilderRenderer`, `PropertyFilterBuilderRendererProps`, `PropertyFilterBuilderRule`
+  `PropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRuleGroupItem`, `PropertyFilterBuilderState`, `usePropertyFilterBuilder`, `UsePropertyFilterBuilderProps` to **@beta** and added `errorMessage` to
+  `PropertyFilterBuilderRule`.
 - Added rendered specific interface `PropertyFilterBuilderRuleValueRendererProps` marked as **@beta**.
