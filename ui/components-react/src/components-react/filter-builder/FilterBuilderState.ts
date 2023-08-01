@@ -386,7 +386,7 @@ function buildPropertyFilterFromRule(
     !isUnaryPropertyFilterOperator(operator) &&
     (!value ||
       value.valueFormat !== PropertyValueFormat.Primitive ||
-      !value.value)
+      value.value === undefined)
   )
     return undefined;
 

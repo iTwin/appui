@@ -16,7 +16,6 @@ import type { BaseItemState } from "../shared/ItemDefBase";
 import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { GroupItemDef } from "../toolbar/GroupItem";
 import { UiFramework } from "../UiFramework";
-import { HideIsolateEmphasizeActionHandler } from "./HideIsolateEmphasizeManager";
 import svgModelIsolate from "@bentley/icons-generic/icons/model-isolate.svg";
 import svgLayersIsolate from "@bentley/icons-generic/icons/layers-isolate.svg";
 import svgAssetIsolate from "@bentley/icons-generic/icons/asset-isolate.svg";
@@ -35,7 +34,8 @@ export function getFeatureOverrideSyncEventIds(): string[] {
   return [
     SyncUiEventId.ActiveContentChanged,
     SyncUiEventId.ActiveViewportChanged,
-    HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId,
+    SyncUiEventId.FeatureOverridesChanged,
+    SyncUiEventId.ViewedModelsChanged,
   ];
 }
 
@@ -48,6 +48,8 @@ export function getSelectionContextSyncEventIds(): string[] {
     SyncUiEventId.ActiveContentChanged,
     SyncUiEventId.ActiveViewportChanged,
     SessionStateActionId.SetNumItemsSelected,
+    SyncUiEventId.FeatureOverridesChanged,
+    SyncUiEventId.ViewedModelsChanged,
   ];
 }
 
@@ -64,14 +66,17 @@ export function isNoSelectionActive(): boolean {
         .sessionState.numItemsSelected;
 
   // istanbul ignore if
-  if (
-    activeContentControl &&
-    /* istanbul ignore next */ activeContentControl.viewport &&
-    /* istanbul ignore next */ (activeContentControl.viewport.view.iModel
-      .selectionSet.size > 0 ||
-      /* istanbul ignore next */ selectionCount > 0)
-  )
-    return false;
+  if (activeContentControl?.viewport) {
+    const hiddenElementsSet = activeContentControl.viewport.neverDrawn;
+    const selectedElementsSet =
+      activeContentControl.viewport.view.iModel.selectionSet.elements;
+    // TODO: add check for categories, subcategories and models
+    if (
+      selectionCount > 0 ||
+      ![...selectedElementsSet].every((value) => hiddenElementsSet?.has(value))
+    )
+      return false;
+  }
   return true;
 }
 

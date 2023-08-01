@@ -5,7 +5,7 @@
 import "./ITwinDropdown.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { RelativePosition } from "@itwin/appui-abstract";
+import { RelativePosition, SpecialKey } from "@itwin/appui-abstract";
 import { Popup } from "@itwin/core-react";
 import { Project as ITwin } from "@itwin/projects-client";
 
@@ -44,6 +44,31 @@ export class ITwinDropdown extends React.Component<
   private _onItemClick(iTwin: ITwin) {
     this.closeDropdown();
     this.props.onITwinClicked(iTwin);
+  }
+
+  private _onKeyUp(event: React.KeyboardEvent, iTwin: ITwin) {
+    const key = event.key;
+
+    switch (key) {
+      case SpecialKey.Enter:
+      case SpecialKey.Space:
+        this.closeDropdown();
+        this.props.onITwinClicked(iTwin);
+        break;
+    }
+  }
+
+  private _onSplitterKeyUp(event: React.KeyboardEvent) {
+    const key = event.key;
+
+    switch (key) {
+      case SpecialKey.Enter:
+      case SpecialKey.Space:
+        this.setState((prevState) => ({
+          isDropdownOpen: !prevState.isDropdownOpen,
+        }));
+        break;
+    }
   }
 
   private _onITwinSelected = (iTwin: ITwin) => {
@@ -96,17 +121,20 @@ export class ITwinDropdown extends React.Component<
         <ul style={ulStyle}>
           {iTwins &&
             iTwins.map((iTwin: ITwin, i: number) => (
-              <li
+              <div
                 style={liStyle}
                 key={i}
                 onClick={() => this._onItemClick(iTwin)}
+                onKeyUp={(e) => this._onKeyUp(e, iTwin)}
+                role="button"
+                tabIndex={0}
               >
                 <span className="ip-icon icon icon-placeholder" />
                 <div className="ip-details">
                   <span>{iTwin.code}</span>
                   <span>{iTwin.name}</span>
                 </div>
-              </li>
+              </div>
             ))}
         </ul>
       );
@@ -136,9 +164,12 @@ export class ITwinDropdown extends React.Component<
         <div
           className="ip-content"
           onClick={this._splitterClicked}
+          onKeyUp={(e) => this._onSplitterKeyUp(e)}
           ref={(element) => {
             this._target = element;
           }}
+          role="button"
+          tabIndex={0}
         >
           <div>
             <span className="number">

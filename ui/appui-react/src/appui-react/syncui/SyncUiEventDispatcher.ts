@@ -9,11 +9,7 @@
 import type { UiSyncEvent } from "@itwin/appui-abstract";
 import { UiEventDispatcher } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
-import type {
-  IModelConnection,
-  SelectedViewportChangedArgs,
-  SelectionSetEvent,
-} from "@itwin/core-frontend";
+import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { SessionStateActionId } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
@@ -67,6 +63,7 @@ export enum SyncUiEventId {
   ShowHideManagerSettingChange = "show-hide-setting-change",
   /** The list of feature overrides applied has been changed */
   FeatureOverridesChanged = "featureoverrideschanged",
+  ViewedModelsChanged = "viewedmodelschanged",
 }
 
 /** This class is used to send eventIds to interested UI components so the component can determine if it needs
@@ -75,8 +72,9 @@ export enum SyncUiEventId {
  */
 export class SyncUiEventDispatcher {
   private static _uiEventDispatcher = new UiEventDispatcher();
-  private static _unregisterListenerFunc?: () => void;
-  private static _unregisterListenerFuncs: Array<() => void> = [];
+  private static _unregisterFuncs = new Array<() => void>();
+  private static _connectionUnregisterFuncs = new Array<() => void>();
+  private static _iModelConnection?: IModelConnection;
 
   /** @internal - used for testing only */
   /* istanbul ignore next */
@@ -150,197 +148,131 @@ export class SyncUiEventDispatcher {
     );
   }
 
+  // istanbul ignore next
+  private static _dispatchViewedModelsChanged() {
+    SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
+      SyncUiEventId.ViewedModelsChanged
+    );
+  }
+
   /** Initializes the Monitoring of Events that trigger dispatching sync events */
   public static initialize() {
     // clear any registered listeners - this should only be encountered in unit test scenarios
-    this._unregisterListenerFuncs.forEach((unregisterListenerFunc) =>
-      unregisterListenerFunc()
-    );
+    this._unregisterFuncs.forEach((unregister) => unregister());
+    this._unregisterFuncs = [];
 
-    this._unregisterListenerFuncs.push(
+    this._unregisterFuncs.push(
       UiFramework.frontstages.onContentControlActivatedEvent.addListener(() => {
         SyncUiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.ContentControlActivated
         );
-      })
-    );
-
-    this._unregisterListenerFuncs.push(
+      }),
       UiFramework.frontstages.onContentLayoutActivatedEvent.addListener(() => {
         SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.ContentLayoutActivated
         );
-      })
-    );
-
-    this._unregisterListenerFuncs.push(
+      }),
       UiFramework.frontstages.onFrontstageActivatedEvent.addListener(() => {
         SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.FrontstageActivating
         );
-      })
-    );
-
-    this._unregisterListenerFuncs.push(
+      }),
       UiFramework.frontstages.onFrontstageReadyEvent.addListener(() => {
         SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.FrontstageReady
         );
-      })
-    );
-
-    this._unregisterListenerFuncs.push(
+      }),
       UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(() => {
         SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.ModalFrontstageChanged
         );
-      })
-    );
-
-    this._unregisterListenerFuncs.push(
+      }),
       UiFramework.frontstages.onNavigationAidActivatedEvent.addListener(() => {
         SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.NavigationAidActivated
         );
-      })
-    );
-
-    this._unregisterListenerFuncs.push(
+      }),
       UiFramework.frontstages.onToolActivatedEvent.addListener(() => {
         SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.ToolActivated
         );
-      })
-    );
-
-    this._unregisterListenerFuncs.push(
+      }),
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(() => {
         SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.WidgetStateChanged
         );
-      })
-    );
-
-    this._unregisterListenerFuncs.push(
+      }),
       UiFramework.backstage.onToggled.addListener(() => {
         SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.BackstageEvent
         );
-      })
-    );
-
-    this._unregisterListenerFuncs.push(
+      }),
       UiFramework.content.onActiveContentChangedEvent.addListener(() => {
         SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.ActiveContentChanged
         );
+      }),
+      IModelApp.viewManager.onSelectedViewportChanged.addListener((args) => {
+        SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
+          SyncUiEventId.ActiveViewportChanged
+        );
+
+        // if this is the first view being opened up start the default tool so tool admin is happy.
+        if (undefined === args.previous) {
+          void IModelApp.toolAdmin.startDefaultTool();
+        } else {
+          args.previous.onViewChanged.removeListener(
+            SyncUiEventDispatcher._dispatchViewChange
+          );
+          args.previous.onFeatureOverridesChanged.removeListener(
+            SyncUiEventDispatcher._dispatchFeatureOverridesChange
+          );
+          args.previous.onViewedModelsChanged.removeListener(
+            SyncUiEventDispatcher._dispatchViewedModelsChanged
+          );
+        }
+        // istanbul ignore next
+        if (args.current) {
+          args.current.onViewChanged.addListener(
+            SyncUiEventDispatcher._dispatchViewChange
+          );
+          args.current.onFeatureOverridesChanged.addListener(
+            SyncUiEventDispatcher._dispatchFeatureOverridesChange
+          );
+          args.current.onViewedModelsChanged.addListener(
+            SyncUiEventDispatcher._dispatchViewedModelsChanged
+          );
+        }
       })
-    );
-
-    // istanbul ignore else
-    if (IModelApp && IModelApp.viewManager) {
-      this._unregisterListenerFuncs.push(
-        IModelApp.viewManager.onSelectedViewportChanged.addListener(
-          (args: SelectedViewportChangedArgs) => {
-            SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
-              SyncUiEventId.ActiveViewportChanged
-            );
-
-            // if this is the first view being opened up start the default tool so tool admin is happy.
-            if (undefined === args.previous) {
-              void IModelApp.toolAdmin.startDefaultTool();
-            } else {
-              // istanbul ignore next
-              if (
-                args.previous.onViewChanged &&
-                typeof args.previous.onViewChanged.removeListener === "function"
-              )
-                // not set during unit test
-                args.previous.onViewChanged.removeListener(
-                  SyncUiEventDispatcher._dispatchViewChange
-                );
-              // istanbul ignore next
-              if (
-                args.previous.onFeatureOverridesChanged &&
-                typeof args.previous.onFeatureOverridesChanged
-                  .removeListener === "function"
-              )
-                // not set during unit test
-                args.previous.onFeatureOverridesChanged.removeListener(
-                  SyncUiEventDispatcher._dispatchFeatureOverridesChange
-                );
-            }
-            // istanbul ignore next
-            if (args.current) {
-              if (
-                args.current.onViewChanged &&
-                typeof args.current.onViewChanged.addListener === "function"
-              )
-                // not set during unit test
-                args.current.onViewChanged.addListener(
-                  SyncUiEventDispatcher._dispatchViewChange
-                );
-              // istanbul ignore next
-              if (
-                args.current.onFeatureOverridesChanged &&
-                typeof args.current.onFeatureOverridesChanged.addListener ===
-                  "function"
-              )
-                // not set during unit test
-                args.current.onFeatureOverridesChanged.addListener(
-                  SyncUiEventDispatcher._dispatchFeatureOverridesChange
-                );
-            }
-          }
-        )
-      );
-    }
-  }
-
-  private static selectionChangedHandler(_ev: SelectionSetEvent) {
-    SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
-      SyncUiEventId.SelectionSetChanged
     );
   }
 
   /** This should be called by IModelApp when the active IModelConnection is closed. */
   public static clearConnectionEvents(iModelConnection: IModelConnection) {
-    iModelConnection.selectionSet.onChanged.removeListener(
-      SyncUiEventDispatcher.selectionChangedHandler
-    );
-    SyncUiEventDispatcher._unregisterListenerFunc &&
-      SyncUiEventDispatcher._unregisterListenerFunc();
+    if (this._iModelConnection !== iModelConnection) return;
+    this._connectionUnregisterFuncs.forEach((unregister) => unregister());
+    this._connectionUnregisterFuncs = [];
   }
 
   /** This should be called by IModelApp when the active IModelConnection is established. */
   public static initializeConnectionEvents(iModelConnection: IModelConnection) {
-    if (SyncUiEventDispatcher._unregisterListenerFunc)
-      SyncUiEventDispatcher._unregisterListenerFunc();
+    this._iModelConnection &&
+      this.clearConnectionEvents(this._iModelConnection);
+    this._iModelConnection = iModelConnection;
 
-    if (iModelConnection.isBlankConnection() || !iModelConnection.isOpen) {
-      UiFramework.dispatchActionToStore(
-        SessionStateActionId.SetNumItemsSelected,
-        0
-      );
-      return;
-    }
-
-    iModelConnection.selectionSet.onChanged.removeListener(
-      SyncUiEventDispatcher.selectionChangedHandler
-    );
-    iModelConnection.selectionSet.onChanged.addListener(
-      SyncUiEventDispatcher.selectionChangedHandler
-    );
-    iModelConnection.iModelId &&
-      UiFramework.setActiveIModelId(iModelConnection.iModelId);
-
-    SyncUiEventDispatcher._unregisterListenerFunc =
+    this._connectionUnregisterFuncs.push(
+      iModelConnection.selectionSet.onChanged.addListener(() => {
+        SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
+          SyncUiEventId.SelectionSetChanged
+        );
+      }),
       iModelConnection.selectionSet.onChanged.addListener((ev) => {
         const numSelected = ev.set.elements.size;
         UiFramework.dispatchActionToStore(
           SessionStateActionId.SetNumItemsSelected,
           numSelected
         );
-      });
+      })
+    );
   }
 }

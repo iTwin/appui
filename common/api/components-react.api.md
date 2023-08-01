@@ -2027,7 +2027,32 @@ export interface PropertyFilterBuilderProps {
     propertyRenderer?: (name: string) => React_2.ReactNode;
     ruleGroupDepthLimit?: number;
     ruleOperatorRenderer?: (props: PropertyFilterBuilderRuleOperatorProps) => React_2.ReactNode;
-    ruleValueRenderer?: (props: PropertyFilterBuilderRuleValueProps) => React_2.ReactNode;
+    ruleValueRenderer?: (props: PropertyFilterBuilderRuleValueRendererProps) => React_2.ReactNode;
+}
+
+// @internal
+export function PropertyFilterBuilderRuleOperator(props: PropertyFilterBuilderRuleOperatorProps): JSX.Element;
+
+// @beta
+export interface PropertyFilterBuilderRuleOperatorProps {
+    onChange: (operator: PropertyFilterRuleOperator) => void;
+    operator?: PropertyFilterRuleOperator;
+    property: PropertyDescription;
+}
+
+// @beta
+export function PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueProps): JSX.Element;
+
+// @beta
+export interface PropertyFilterBuilderRuleValueProps {
+    onChange: (value: PropertyValue) => void;
+    property: PropertyDescription;
+    value?: PropertyValue;
+}
+
+// @beta
+export interface PropertyFilterBuilderRuleValueRendererProps extends PropertyFilterBuilderRuleValueProps {
+    operator: PropertyFilterRuleOperator;
 }
 
 // @public

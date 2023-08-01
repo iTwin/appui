@@ -10,7 +10,7 @@ import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import type { PropertyFilterBuilderActions } from "./FilterBuilderState";
 import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
-import type { PropertyFilterBuilderRuleValueProps } from "./FilterBuilderRuleValue";
+import type { PropertyFilterBuilderRuleValueRendererProps } from "./FilterBuilderRuleValue";
 
 /**
  * Data structure that describes [[PropertyFilterBuilderContext]] value.
@@ -45,7 +45,7 @@ export interface PropertyFilterBuilderRuleRenderingContextProps {
   ) => React.ReactNode;
   /** Custom renderer for value input in rule. */
   ruleValueRenderer?: (
-    props: PropertyFilterBuilderRuleValueProps
+    props: PropertyFilterBuilderRuleValueRendererProps
   ) => React.ReactNode;
   /** Custom renderer for property selector in rule. */
   propertyRenderer?: (name: string) => React.ReactNode;

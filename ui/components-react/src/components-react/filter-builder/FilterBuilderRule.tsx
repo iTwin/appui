@@ -100,12 +100,13 @@ export function PropertyFilterBuilderRuleRenderer(
   );
 
   const valueRenderer = React.useCallback(
-    (prop: PropertyDescription) => {
+    (prop: PropertyDescription, op: PropertyFilterRuleOperator) => {
       if (ruleValueRenderer)
         return ruleValueRenderer({
           property: prop,
           value,
           onChange: onRuleValueChange,
+          operator: op,
         });
       return (
         <PropertyFilterBuilderRuleValue

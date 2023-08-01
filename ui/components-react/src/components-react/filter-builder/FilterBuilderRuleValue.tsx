@@ -11,10 +11,11 @@ import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "../editors/EditorContainer";
 import { EditorContainer } from "../editors/EditorContainer";
+import type { PropertyFilterRuleOperator } from "./Operators";
 
 /**
  * Props for [[PropertyFilterBuilderRuleValue]] component.
- * @internal
+ * @beta
  */
 export interface PropertyFilterBuilderRuleValueProps {
   /** Currently entered value. */
@@ -26,8 +27,18 @@ export interface PropertyFilterBuilderRuleValueProps {
 }
 
 /**
+ * Props for custom [[PropertyFilterBuilderRuleValue]] renderer.
+ * @beta
+ */
+export interface PropertyFilterBuilderRuleValueRendererProps
+  extends PropertyFilterBuilderRuleValueProps {
+  /** Current operator. */
+  operator: PropertyFilterRuleOperator;
+}
+
+/**
  * Component that renders [[PropertyFilterBuilderRuleRenderer]] value input.
- * @internal
+ * @beta
  */
 export function PropertyFilterBuilderRuleValue(
   props: PropertyFilterBuilderRuleValueProps

@@ -17,7 +17,7 @@ import {
 
 /**
  * Props for [[PropertyFilterBuilderRuleOperator]] component.
- * @internal
+ * @beta
  */
 export interface PropertyFilterBuilderRuleOperatorProps {
   /** Currently selected operator. */

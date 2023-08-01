@@ -20,7 +20,7 @@ import {
 } from "./FilterBuilderContext";
 import { PropertyFilterBuilderRuleGroupRenderer } from "./FilterBuilderRuleGroup";
 import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
-import type { PropertyFilterBuilderRuleValueProps } from "./FilterBuilderRuleValue";
+import type { PropertyFilterBuilderRuleValueRendererProps } from "./FilterBuilderRuleValue";
 import {
   buildPropertyFilter,
   usePropertyFilterBuilder,
@@ -91,7 +91,7 @@ export interface PropertyFilterBuilderRendererProps {
   ) => React.ReactNode;
   /** Custom renderer for rule value input. */
   ruleValueRenderer?: (
-    props: PropertyFilterBuilderRuleValueProps
+    props: PropertyFilterBuilderRuleValueRendererProps
   ) => React.ReactNode;
   /** Custom renderer for property selector in rule. */
   propertyRenderer?: (name: string) => React.ReactNode;
