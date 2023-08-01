@@ -23,7 +23,7 @@ import { UiComponents } from "../UiComponents";
 
 /**
  * Data structure that describes [[PropertyFilterBuilder]] component state.
- * @internal
+ * @beta
  */
 export interface PropertyFilterBuilderState {
   /** Root group of rules in [[PropertyFilterBuilder]] component. */
@@ -32,7 +32,7 @@ export interface PropertyFilterBuilderState {
 
 /**
  * Type that describes [[PropertyFilterBuilder]] component group item.
- * @internal
+ * @beta
  */
 export type PropertyFilterBuilderRuleGroupItem =
   | PropertyFilterBuilderRuleGroup
@@ -40,7 +40,7 @@ export type PropertyFilterBuilderRuleGroupItem =
 
 /**
  * Data structure that describes [[PropertyFilterBuilder]] component rule group.
- * @internal
+ * @beta
  */
 export interface PropertyFilterBuilderRuleGroup {
   /** Id of this rule group. */
@@ -55,7 +55,7 @@ export interface PropertyFilterBuilderRuleGroup {
 
 /**
  * Data structure that describes [[PropertyFilterBuilder]] component single rule.
- * @internal
+ * @beta
  */
 export interface PropertyFilterBuilderRule {
   /** Id of this rule. */
@@ -74,7 +74,7 @@ export interface PropertyFilterBuilderRule {
 
 /**
  * Actions for controlling [[PropertyFilterBuilder]] component state.
- * @internal
+ * @beta
  */
 export class PropertyFilterBuilderActions {
   constructor(
@@ -172,6 +172,7 @@ export class PropertyFilterBuilderActions {
     });
   }
 
+  /** Sets error message of rule specified by the path. */
   public setRuleErrorMessage(path: string[], errorMessage?: string) {
     this.updateState((state) => {
       const rule = findRule(state.rootGroup, path);
@@ -186,6 +187,7 @@ export class PropertyFilterBuilderActions {
     });
   }
 
+  /** Removes all error messages. */
   public removeErrorMessages() {
     const removeRule = (item: PropertyFilterBuilderRuleGroupItem) => {
       if (isPropertyFilterBuilderRuleGroup(item)) {
