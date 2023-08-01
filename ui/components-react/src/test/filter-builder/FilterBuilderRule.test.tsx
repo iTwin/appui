@@ -177,6 +177,23 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
       expect(spy).to.be.calledOnce;
     });
+
+    it("renders error message", () => {
+      const errorMessage = "This is an error";
+      const { queryByText } = renderWithContext(
+        <PropertyFilterBuilderRuleRenderer
+          {...defaultProps}
+          rule={{
+            ...defaultProps.rule,
+            property: defaultProperty,
+            operator: PropertyFilterRuleOperator.IsEqual,
+            errorMessage,
+          }}
+        />
+      );
+
+      expect(queryByText(errorMessage)).to.not.be.null;
+    });
   });
 
   describe("rule property", () => {
