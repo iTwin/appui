@@ -207,18 +207,41 @@ export function isPropertyFilterBuilderRuleGroup(
  * @beta
  */
 export interface UsePropertyFilterBuilderProps {
+  /** Initial filter for [[PropertyFilterBuilder]] */
   initialFilter?: PropertyFilter;
+  /** Custom rule validator to be used when [[buildFilter]] is invoked. Should return error message or undefined, if rule is valid. */
+  ruleValidator?: (rule: PropertyFilterBuilderRule) => string | undefined;
 }
+
+/**
+ * Type for [[usePropertyFilterBuilder]] return object.
+ * @beta
+ */
+export interface UsePropertyFilterBuilderValues {
+  /** Root group of the [[PropertyFilterBuilder]]. */
+  rootGroup: PropertyFilterBuilderRuleGroup;
+  /** Actions for manipulating [[PropertyFilterBuilder]] state. */
+  actions: PropertyFilterBuilderActions;
+  /**
+   * Filter builder for building [[PropertyFilter]] from [[PropertyFilterBuilder]] state.
+   * @returns PropertyFilter if all rules are valid, otherwise sets error messages fow invalid rules using
+   * default rule validator or custom validator provided from [[UsePropertyFilterBuilderProps]] and returns undefined.
+   */
+  buildFilter: () => string | undefined;
+}
+
 /**
  * Custom hook that creates state for [[PropertyFilterBuilder]] component. It creates empty state or initializes
  * state from supplied initial filter.
- * @returns root group of the [[PropertyFilterBuilder]], actions for manipulating state and validate function, which is used for validating rules.
- * Validate function accepts [[PropertyFilterBuilderRuleGroupItem]] and should return error message or undefined.
  * @beta
  */
-export function usePropertyFilterBuilder({
-  initialFilter,
-}: UsePropertyFilterBuilderProps) {
+export function usePropertyFilterBuilder(
+  props?: UsePropertyFilterBuilderProps
+) {
+  const { initialFilter, ruleValidator } = props ?? {
+    initialFilter: undefined,
+    ruleValidator: undefined,
+  };
   const [state, setState] = React.useState<PropertyFilterBuilderState>(
     initialFilter
       ? convertFilterToState(initialFilter)
@@ -229,61 +252,62 @@ export function usePropertyFilterBuilder({
     () => new PropertyFilterBuilderActions(setState)
   );
 
-  const buildFilter = (
-    ruleValidator?: (item: PropertyFilterBuilderRule) => string | undefined
-  ) => {
-    const ruleIdsAndErrorMessages = new Map<string, string>();
-    ruleGroupItemValidator({
-      actions,
+  const buildFilter = () => {
+    const ruleIdsAndErrorMessages = ruleGroupItemValidator({
       item: state.rootGroup,
-      path: [],
-      ruleIdsAndErrorMessages,
       ruleValidator,
     });
-    if (ruleIdsAndErrorMessages.size === 0)
+    if (ruleIdsAndErrorMessages.size === 0) {
+      actions.setRuleErrorMessages(new Map<string, string>());
       return buildPropertyFilter(state.rootGroup);
-    else {
+    } else {
       actions.setRuleErrorMessages(ruleIdsAndErrorMessages);
       return undefined;
     }
   };
-  return { rootGroup: state.rootGroup, actions, validate };
+  return { rootGroup: state.rootGroup, actions, buildFilter };
 }
 
 interface RuleGroupItemValidatorProps {
-  actions: PropertyFilterBuilderActions;
   item: PropertyFilterBuilderRuleGroupItem;
-  path: string[];
-  ruleIdsAndErrorMessages: Map<string, string>;
   ruleValidator?: (tem: PropertyFilterBuilderRule) => string | undefined;
 }
 
 function ruleGroupItemValidator({
-  actions,
   item,
-  path,
-  ruleIdsAndErrorMessages,
   ruleValidator,
 }: RuleGroupItemValidatorProps) {
-  if (isPropertyFilterBuilderRuleGroup(item)) {
-    item.items.forEach((itm) => {
-      ruleGroupItemValidator({
-        actions,
-        item: itm,
-        path,
-        ruleIdsAndErrorMessages,
-        ruleValidator,
+  const ruleIdsAndErrorMessages = new Map<string, string>();
+
+  const ruleGroupItemValidatorInner = ({
+    item,
+    ruleValidator,
+  }: RuleGroupItemValidatorProps) => {
+    if (isPropertyFilterBuilderRuleGroup(item)) {
+      item.items.forEach((itm) => {
+        ruleGroupItemValidatorInner({
+          item: itm,
+          ruleValidator,
+        });
       });
-    });
-  } else {
-    const errorMessage = ruleValidator
-      ? ruleValidator(item)
-      : defaultRuleValidator(item);
-    if (errorMessage) ruleIdsAndErrorMessages.set(item.id, errorMessage);
-  }
+    } else {
+      const errorMessage = ruleValidator
+        ? ruleValidator(item)
+        : defaultRuleValidator(item);
+      if (errorMessage) ruleIdsAndErrorMessages.set(item.id, errorMessage);
+    }
+  };
+
+  ruleGroupItemValidatorInner({ item, ruleValidator });
+
+  return ruleIdsAndErrorMessages;
 }
 
-function defaultRuleValidator(
+/**
+ * Default rule validator.
+ * @beta
+ */
+export function defaultRuleValidator(
   item: PropertyFilterBuilderRule
 ): string | undefined {
   if (
@@ -294,21 +318,13 @@ function defaultRuleValidator(
     return undefined;
   }
   if (item.value === undefined) {
-    return isTypeNameNumeric(item.property.typename)
-      ? UiComponents.translate("filterBuilder.errorMessages.notANumber")
-      : UiComponents.translate("filterBuilder.errorMessages.emptyValue");
+    return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
   }
-  // istanbul ignore else
-  if (item.value.valueFormat === PropertyValueFormat.Primitive) {
-    if (
-      isTypeNameNumeric(item.property.typename) &&
-      item.value.value === undefined
-    ) {
-      return UiComponents.translate("filterBuilder.errorMessages.notANumber");
-    }
-    if (item.value.value === undefined || item.value.value === "") {
-      return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
-    }
+  if (
+    item.value.valueFormat === PropertyValueFormat.Primitive &&
+    (item.value.value === undefined || item.value.value === "")
+  ) {
+    return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
   }
   return undefined;
 }
@@ -453,12 +469,3 @@ function convertFilterToState(
     },
   };
 }
-
-const isTypeNameNumeric = (typename: string) => {
-  return (
-    typename === StandardTypeNames.Number ||
-    typename === StandardTypeNames.Int ||
-    typename === StandardTypeNames.Float ||
-    typename === StandardTypeNames.Double
-  );
-};
