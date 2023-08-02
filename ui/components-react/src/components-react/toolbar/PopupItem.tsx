@@ -16,7 +16,7 @@ import {
   useToolbarPopupAutoHideContext,
   useToolbarWithOverflowDirectionContext,
   useToolItemEntryContext,
-} from "./ToolbarWithOverflow";
+} from "./Toolbar";
 import { toToolbarPopupRelativePosition } from "./PopupItemWithDrag";
 
 /** @public */

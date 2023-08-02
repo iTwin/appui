@@ -24,7 +24,7 @@ import {
   ToolbarPanelAlignment,
   useToolbarWithOverflowDirectionContext,
   useToolItemEntryContext,
-} from "./ToolbarWithOverflow";
+} from "./Toolbar";
 import { useDragInteraction } from "./useDragInteraction";
 import { Direction } from "./utilities/Direction";
 

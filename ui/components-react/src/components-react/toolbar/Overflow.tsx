@@ -14,7 +14,7 @@ import { Popup, useRefState } from "@itwin/core-react";
 import {
   useToolbarPopupAutoHideContext,
   useToolItemEntryContext,
-} from "./ToolbarWithOverflow";
+} from "./Toolbar";
 import { useResizeObserverSingleDimension } from "./ItemWrapper";
 import { Direction } from "./utilities/Direction";
 import { RelativePosition } from "@itwin/appui-abstract";

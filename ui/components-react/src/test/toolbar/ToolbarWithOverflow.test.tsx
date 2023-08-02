@@ -17,14 +17,14 @@ import {
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import type { CustomToolbarItem } from "../../components-react/toolbar/ToolbarWithOverflow";
+import type { CustomToolbarItem } from "../../components-react/toolbar/Toolbar";
 import {
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
   ToolbarPanelAlignmentHelpers,
   ToolbarPopupAutoHideContext,
   ToolbarWithOverflow,
-} from "../../components-react/toolbar/ToolbarWithOverflow";
+} from "../../components-react/toolbar/Toolbar";
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import TestUtils from "../TestUtils";
 
