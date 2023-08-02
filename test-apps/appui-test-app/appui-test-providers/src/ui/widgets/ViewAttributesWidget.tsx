@@ -45,9 +45,10 @@ export function ViewFlagItem(flagName: string) {
 
   const flagValue = React.useCallback((name: string, vp?: Viewport) => {
     const props: ViewFlagProps | undefined = vp?.viewFlags.toJSON();
-    return props && (props as any)[name] === undefined
-      ? false
-      : (props as any)[name];
+    if (!props) return false;
+    const val = (props as any)[name];
+    if (val === undefined) return false;
+    return val;
   }, []);
 
   const [value, setValue] = React.useState(flagValue(flagName, activeViewport));
