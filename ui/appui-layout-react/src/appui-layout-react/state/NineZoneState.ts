@@ -35,6 +35,7 @@ import {
   isPanelTabLocation,
   isPopoutTabLocation,
 } from "./TabLocation";
+import type { SavedTabsState } from "./SavedTabState";
 
 /** @internal */
 export interface NineZoneState {
@@ -43,6 +44,7 @@ export interface NineZoneState {
   readonly popoutWidgets: PopoutWidgetsState;
   readonly panels: PanelsState;
   readonly tabs: TabsState;
+  readonly savedTabs: SavedTabsState;
   readonly toolSettings: ToolSettingsState | undefined;
   readonly widgets: WidgetsState;
   readonly size: SizeProps;
@@ -65,6 +67,10 @@ export function createNineZoneState(
     panels: createPanelsState(),
     widgets: {},
     tabs: {},
+    savedTabs: {
+      allIds: [],
+      byId: {},
+    },
     toolSettings: undefined,
     size: {
       height: 0,

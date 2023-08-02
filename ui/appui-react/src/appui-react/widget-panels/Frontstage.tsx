@@ -28,6 +28,7 @@ import {
   addDockedToolSettings,
   addFloatingWidget,
   addPanelWidget,
+  addRemovedTab,
   addTab,
   addTabToWidget,
   convertAllPopupWidgetContainersToFloating,
@@ -341,7 +342,11 @@ export function appendWidgets(
       userSized,
     });
 
-    if (
+    const savedTab = state.savedTabs.byId[widgetDef.id];
+    if (savedTab) {
+      savedTab.home;
+      state = addRemovedTab(state, widgetDef.id);
+    } else if (
       widgetDef.isFloatingStateSupported &&
       widgetDef.defaultState === WidgetState.Floating
     ) {
@@ -411,6 +416,13 @@ export function appendWidgets(
           state = addTabToWidget(state, widgetDef.id, widgetId);
         }
       }
+    }
+
+    if (widgetDef.defaultState === WidgetState.Hidden) {
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_SET_HIDDEN",
+        id: widgetDef.id,
+      });
     }
   }
 
@@ -560,7 +572,7 @@ function hideWidgets(
 /** Removes NineZoneState widgets that are missing in frontstageDef.
  * @internal
  */
-export function removeMissingWidgets(
+function removeMissingWidgets(
   frontstageDef: FrontstageDef,
   state: NineZoneState
 ): NineZoneState {
@@ -569,6 +581,10 @@ export function removeMissingWidgets(
     if (tab.id === toolSettingsTabId) continue;
     const widgetDef = frontstageDef.findWidgetDef(tab.id);
     if (widgetDef) continue;
+    state = NineZoneStateReducer(state, {
+      type: "WIDGET_TAB_SET_HIDDEN",
+      id: tab.id,
+    });
     state = removeTab(state, tab.id);
   }
   return state;
@@ -876,8 +892,6 @@ export function packNineZoneState(state: NineZoneState): SavedNineZoneState {
         id: tab.id,
         preferredFloatingWidgetSize: tab.preferredFloatingWidgetSize,
         userSized: tab.userSized,
-        home: tab.home,
-        popoutBounds: tab.popoutBounds,
       };
     }
   });
@@ -1150,7 +1164,6 @@ export function useItemsManager(frontstageDef: FrontstageDef) {
     if (!state) return;
     state = addMissingWidgets(def, state);
     state = removeMissingWidgets(def, state);
-    state = hideWidgets(state, def); // TODO: should only apply to widgets provided by registered provider in onUiProviderRegisteredEvent.
     def.nineZoneState = state;
   };
 

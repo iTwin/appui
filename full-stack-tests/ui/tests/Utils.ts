@@ -102,8 +102,10 @@ export interface SavedFrontstageState {
     tabs: {
       [id in string]: {
         id: string;
-        home?: {};
       };
+    };
+    savedTabs: {
+      allIds: string[];
     };
   };
 }

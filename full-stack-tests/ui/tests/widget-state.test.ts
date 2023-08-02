@@ -157,7 +157,7 @@ test.describe("widget state", () => {
 
     // Wait for "FW-1" state to be saved before reloading.
     await expectSavedFrontstageState(context, (state) => {
-      return !!state.nineZone.tabs["FW-1"]?.home;
+      return state.nineZone.savedTabs.allIds.indexOf("FW-1") >= 0;
     });
 
     await page.reload();
@@ -176,7 +176,7 @@ test.describe("widget state", () => {
 
     await setWidgetState(page, "WT-2", WidgetState.Hidden);
     await expectSavedFrontstageState(context, (state) => {
-      return !!state.nineZone.tabs["WT-2"]?.home;
+      return state.nineZone.savedTabs.allIds.indexOf("WT-2") >= 0;
     });
 
     await openFrontstage(page, "appui-test-app:main-stage");
@@ -201,7 +201,7 @@ test.describe("widget state", () => {
 
     await setWidgetState(page, "WT-A", WidgetState.Hidden);
     await expectSavedFrontstageState(context, (state) => {
-      return !!state.nineZone.tabs["WT-A"]?.home;
+      return state.nineZone.savedTabs.allIds.indexOf("WT-A") >= 0;
     });
     await page.reload();
 

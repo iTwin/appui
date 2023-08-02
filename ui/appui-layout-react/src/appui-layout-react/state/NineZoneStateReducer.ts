@@ -7,7 +7,7 @@
  */
 
 import { produce } from "immer";
-import { Point, Rectangle, Tabs } from "@itwin/core-react";
+import { Point, Rectangle } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
 import type { TabState } from "./TabState";
 import { addRemovedTab, removeTabFromWidget } from "./TabState";
@@ -34,6 +34,7 @@ import {
 } from "./internal/PanelStateHelpers";
 import {
   createDraggedTabState,
+  setSavedTabState,
   updateTabState,
 } from "./internal/TabStateHelpers";
 import {
@@ -518,10 +519,10 @@ export function NineZoneStateReducer(
       if (!location) return state;
       if (isPopoutTabLocation(location)) return state;
 
-      const tab = state.tabs[id];
+      const savedTab = state.savedTabs.byId[id];
 
-      let preferredBounds = tab.popoutBounds
-        ? Rectangle.create(tab.popoutBounds)
+      let preferredBounds = savedTab?.popoutBounds
+        ? Rectangle.create(savedTab.popoutBounds)
         : Rectangle.createFromSize({ height: 800, width: 600 });
       if (size) preferredBounds = preferredBounds.setSize(size);
       if (position) preferredBounds = preferredBounds.setPosition(position);
@@ -542,28 +543,28 @@ export function NineZoneStateReducer(
       const location = getTabLocation(state, id);
       if (!location) return state;
 
-      const tabIndex = state.widgets[location.widgetId].tabs.indexOf(id);
+      const widgetId = location.widgetId;
+      const tabIndex = state.widgets[widgetId].tabs.indexOf(id);
       if (isFloatingTabLocation(location)) {
-        const floatingWidget = state.floatingWidgets.byId[location.widgetId];
+        const floatingWidget = state.floatingWidgets.byId[widgetId];
         // widgetDef.setFloatingContainerId(location.floatingWidgetId);
-        state = updateTabState(state, id, {
-          home: {
-            widgetId: location.widgetId,
+        state = setSavedTabState(state, id, (draft) => {
+          draft.home = {
+            widgetId,
             tabIndex,
             floatingWidget,
-          },
+          };
         });
       } else if (isPanelTabLocation(location)) {
-        const widgetId = location.widgetId;
         const side = location.side;
         const widgetIndex = state.panels[side].widgets.indexOf(widgetId);
-        state = updateTabState(state, id, {
-          home: {
+        state = setSavedTabState(state, id, (draft) => {
+          draft.home = {
             widgetId,
             side,
             widgetIndex,
             tabIndex,
-          },
+          };
         });
       }
 
@@ -622,12 +623,11 @@ export function NineZoneStateReducer(
       return state;
     }
     case "WIDGET_TAB_SET_POPOUT_BOUNDS": {
-      state = produce(state, (draft) => {
-        const tab = draft.tabs[action.id];
-        if (tab.popoutBounds && action.bounds)
-          setRectangleProps(tab.popoutBounds, action.bounds);
+      state = setSavedTabState(state, action.id, (draft) => {
+        if (draft.popoutBounds && action.bounds)
+          setRectangleProps(draft.popoutBounds, action.bounds);
         else
-          tab.popoutBounds = action.bounds
+          draft.popoutBounds = action.bounds
             ? Rectangle.create(action.bounds).toProps()
             : undefined;
       });
