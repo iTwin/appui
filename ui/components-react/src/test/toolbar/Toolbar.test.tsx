@@ -20,7 +20,7 @@ import {
   ToolbarPanelAlignment,
   ToolbarPanelAlignmentHelpers,
 } from "../../components-react/toolbar/ToolbarWithOverflow";
-import { Toolbar } from "../../components-react/toolbar/Toolbar";
+import { Toolbar } from "../../components-react/toolbar/ToolbarWithOverflow";
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import { BackArrow } from "../../components-react/toolbar/groupPanel/BackArrow";
 import { GroupTool } from "../../components-react/toolbar/groupPanel/tool/Tool";

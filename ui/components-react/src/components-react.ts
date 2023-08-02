@@ -132,7 +132,6 @@ export * from "./components-react/toolbar/groupPanel/Columns";
 export * from "./components-react/toolbar/groupPanel/Panel";
 export * from "./components-react/toolbar/groupPanel/Title";
 
-export * from "./components-react/toolbar/Toolbar";
 export * from "./components-react/toolbar/ToolbarWithOverflow";
 export * from "./components-react/toolbar/PopupItem";
 export * from "./components-react/toolbar/PopupItemWithDrag";

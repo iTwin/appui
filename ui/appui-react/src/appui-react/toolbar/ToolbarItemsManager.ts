@@ -33,8 +33,11 @@ export interface ToolbarItemsChangedArgs {
 /**
  * Controls status bar items.
  * @internal
+ * @deprecated in 4.4.0. This is no longer used internally, left because of an erroneous public dependency that is also deprecated.
  */
 export class ToolbarItemsManager {
+  // This class should be removed once `useDefaultToolbarItems` and `useUiItemsProviderToolbarItems` (public version) get removed.
+  // If you are attempting to fix/clean this class, it is probably an error as it is no longer used and should not be reintroduced, use Hooks instead.
   protected _items: ReadonlyArray<ToolbarItem> = [];
 
   constructor(items?: ReadonlyArray<ToolbarItem>) {
@@ -54,6 +57,7 @@ export class ToolbarItemsManager {
     sendItemChanged: boolean
   ) {
     if (processConditions && items) {
+      // eslint-disable-next-line deprecation/deprecation
       const eventIds = ToolbarItemsManager.getSyncIdsOfInterest(items);
       if (0 !== eventIds.length) {
         const { itemsUpdated, updatedItems } =
@@ -197,12 +201,7 @@ export class ToolbarItemsManager {
           ConditionalIconItem.isConditionalIconItem(entry)
         ) {
           // istanbul ignore else
-          if (
-            ConditionalIconItem.refreshValue(
-              entry as ConditionalIconItem,
-              eventIds
-            )
-          )
+          if (ConditionalIconItem.refreshValue(entry, eventIds))
             itemsUpdated = true;
         }
       }
@@ -226,6 +225,7 @@ export class ToolbarItemsManager {
       let updatedItem = { ...item };
       if (isToolbarGroupItem(updatedItem)) {
         const { childrenUpdated, childItems } =
+          // eslint-disable-next-line deprecation/deprecation
           ToolbarItemsManager.refreshChildItems(updatedItem, eventIds);
         // istanbul ignore else
         if (childrenUpdated) {
@@ -250,12 +250,7 @@ export class ToolbarItemsManager {
           ConditionalIconItem.isConditionalIconItem(entry)
         ) {
           // istanbul ignore else
-          if (
-            ConditionalIconItem.refreshValue(
-              entry as ConditionalIconItem,
-              eventIds
-            )
-          )
+          if (ConditionalIconItem.refreshValue(entry, eventIds))
             updateRequired = true;
         }
       }
@@ -303,6 +298,7 @@ export class ToolbarItemsManager {
     for (const item of this.items) {
       if (isToolbarGroupItem(item)) {
         if (
+          // eslint-disable-next-line deprecation/deprecation
           ToolbarItemsManager.isActiveToolIdRefreshRequiredForChildren(
             item.items,
             toolId
@@ -333,6 +329,7 @@ export class ToolbarItemsManager {
       if (isToolbarGroupItem(updatedItem)) {
         updatedItem = {
           ...updatedItem,
+          // eslint-disable-next-line deprecation/deprecation
           items: ToolbarItemsManager.refreshActiveToolIdInChildItems(
             updatedItem,
             toolId
@@ -357,6 +354,7 @@ export class ToolbarItemsManager {
       if (isToolbarGroupItem(updatedItem)) {
         updatedItem = {
           ...updatedItem,
+          // eslint-disable-next-line deprecation/deprecation
           items: ToolbarItemsManager.refreshActiveToolIdInChildItems(
             updatedItem,
             toolId

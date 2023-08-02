@@ -16,7 +16,6 @@ import {
 import { ViewSelector } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 import { Provider } from "react-redux";
-import { ToolbarItemContext } from "@itwin/components-react";
 import { render, screen, waitFor } from "@testing-library/react";
 
 // cSpell:ignore Spatials
@@ -85,15 +84,7 @@ describe("ViewSelector", () => {
   it("should support empty props", async () => {
     render(
       <Provider store={TestUtils.store}>
-        <ToolbarItemContext.Provider
-          value={{
-            hasOverflow: false,
-            useHeight: false,
-            onResize: () => {},
-          }}
-        >
-          <ViewSelector />
-        </ToolbarItemContext.Provider>
+        <ViewSelector />
       </Provider>
     );
     await waitFor(async () => theUserTo.click(screen.getByRole("button")));
@@ -108,19 +99,11 @@ describe("ViewSelector", () => {
   it("should set Show settings by ViewSelector.updateShowSettings", async () => {
     render(
       <Provider store={TestUtils.store}>
-        <ToolbarItemContext.Provider
-          value={{
-            hasOverflow: false,
-            useHeight: false,
-            onResize: () => {},
-          }}
-        >
-          <ViewSelector
-            imodel={imodelMock.object}
-            listenForShowUpdates={true}
-            searchBox={false}
-          />
-        </ToolbarItemContext.Provider>
+        <ViewSelector
+          imodel={imodelMock.object}
+          listenForShowUpdates={true}
+          searchBox={false}
+        />
       </Provider>
     );
     await waitFor(async () => theUserTo.click(screen.getByRole("button")));
@@ -143,15 +126,7 @@ describe("ViewSelector", () => {
   it("should trigger componentDidUpdate processing", async () => {
     const { rerender } = render(
       <Provider store={TestUtils.store}>
-        <ToolbarItemContext.Provider
-          value={{
-            hasOverflow: false,
-            useHeight: false,
-            onResize: () => {},
-          }}
-        >
-          <ViewSelector imodel={imodelMock.object} />
-        </ToolbarItemContext.Provider>
+        <ViewSelector imodel={imodelMock.object} />
       </Provider>
     );
 
@@ -162,15 +137,7 @@ describe("ViewSelector", () => {
 
     rerender(
       <Provider store={TestUtils.store}>
-        <ToolbarItemContext.Provider
-          value={{
-            hasOverflow: false,
-            useHeight: false,
-            onResize: () => {},
-          }}
-        >
-          <ViewSelector imodel={imodelMock2.object} panelOnly={true} />
-        </ToolbarItemContext.Provider>
+        <ViewSelector imodel={imodelMock2.object} panelOnly={true} />
       </Provider>
     );
 
@@ -179,15 +146,7 @@ describe("ViewSelector", () => {
   it("should filter views based on search input", async () => {
     render(
       <Provider store={TestUtils.store}>
-        <ToolbarItemContext.Provider
-          value={{
-            hasOverflow: false,
-            useHeight: false,
-            onResize: () => {},
-          }}
-        >
-          <ViewSelector imodel={imodelMock.object} searchBox={true} />
-        </ToolbarItemContext.Provider>
+        <ViewSelector imodel={imodelMock.object} searchBox={true} />
       </Provider>
     );
     await waitFor(async () => theUserTo.click(screen.getByRole("button")));

@@ -22,7 +22,7 @@ import {
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import { BadgeUtilities, Icon, IconHelper, useRefs } from "@itwin/core-react";
+import { BadgeUtilities, Icon, IconHelper } from "@itwin/core-react";
 import { ToolbarButtonItem } from "./Item";
 import { ToolbarItems } from "./Items";
 import { ItemWrapper, useResizeObserverSingleDimension } from "./ItemWrapper";
@@ -39,6 +39,8 @@ import {
 } from "./utilities/Direction";
 import { UiComponents } from "../UiComponents";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
+import type { BeEvent } from "@itwin/core-bentley";
+import { useConditionalSynchedItems } from "./useConditionalSynchedItems";
 
 /** Describes the data needed to insert a custom `React` button into an ToolbarWithOverflow.
  * @public
@@ -372,14 +374,58 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
   onItemExecuted?: OnItemExecutedFunc;
   /** Optional function to call on any KeyDown events processed by toolbar */
   onKeyDown?: (e: React.KeyboardEvent) => void;
+  /**
+   * @internal Use [Toolbar]($appui-react) from appui-react instead of using this property.
+   */
+  syncUiEvent?: BeEvent<(args: { eventIds: Set<string> }) => void>;
 }
 
-/** Component that displays tool settings as a bar across the top of the content view.
+/** Component that displays toolbar items, displaying only the elements that can fit in the available space,
+ * and put the other items into a single panel.
  * @public
  * @deprecated in 4.0. Use [ToolbarWithOverflow]($appui-react) instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
+  // eslint-disable-next-line deprecation/deprecation
+  return <Toolbar enableOverflow={true} {...props} />;
+}
+
+/** Properties of [[Toolbar]] component.
+ * @public
+ * @deprecated in 4.0. Use [ToolbarProps]($appui-react) instead.
+ */
+// eslint-disable-next-line deprecation/deprecation
+export interface ToolbarProps extends ToolbarWithOverflowProps {
+  /** Describes if items that do not fit available space should move to an expandable panel. Defaults to: false */
+  enableOverflow?: boolean;
+}
+
+/**
+ * Recursively looks through all items and groups and removes the hidden items
+ * from the working object.
+ * @param items List of object to analyse
+ * @returns Copy of the provided items, minus the hidden ones.
+ */
+function filterHiddenItems<T extends CommonToolbarItem>(
+  items: ReadonlyArray<T>
+): T[] {
+  return items
+    .filter((item) => !ConditionalBooleanValue.getValue(item.isHidden))
+    .map((i) => {
+      if ("items" in i) {
+        return { ...i, items: filterHiddenItems(i.items) };
+      }
+      return i;
+    });
+}
+
+/** Component that displays toolbar items.
+ * @public
+ * @deprecated in 4.0. Use [Toolbar]($appui-react) instead.
+ */
+// eslint-disable-next-line deprecation/deprecation
+export function Toolbar(props: ToolbarProps) {
   const expandsTo = props.expandsTo ? props.expandsTo : Direction.Bottom;
   const useDragInteraction = !!props.useDragInteraction;
   const panelAlignment = props.panelAlignment
@@ -412,14 +458,20 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
     });
   }, []);
 
-  const ref = React.useRef<HTMLDivElement>(null);
   const width = React.useRef<number | undefined>(undefined);
+
+  const eventSynchedItems = useConditionalSynchedItems(
+    props.items,
+    props.syncUiEvent
+  );
+
   const availableNodes = React.useMemo<React.ReactNode>(() => {
-    return props.items.map((item, index) => {
+    const filteredItems = filterHiddenItems(eventSynchedItems);
+    return filteredItems.map((item, index) => {
       let addGroupSeparator = false;
       if (index > 0)
         addGroupSeparator =
-          item.groupPriority !== props.items[index - 1].groupPriority;
+          item.groupPriority !== filteredItems[index - 1].groupPriority;
       return (
         <ToolbarItemComponent
           key={item.id}
@@ -428,7 +480,7 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
         />
       );
     });
-  }, [props.items]);
+  }, [eventSynchedItems]);
   /* overflowItemKeys - keys of items to show in overflow panel
    * handleContainerResize - handler called when container <div> is resized.
    * handleOverflowResize - handler called when determining size of overflow indicator/button.
@@ -459,7 +511,8 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
     setIsOverflowPanelOpen(false);
   }, []);
 
-  const refs = useRefs(ref, resizeObserverRef);
+  // Not setting the ref will disable overflow management, but will keep proper refresh of items.
+  const ref = props.enableOverflow ? resizeObserverRef : undefined;
   const availableItems = React.Children.toArray(availableNodes);
   const displayedItems = availableItems.reduce<
     Array<[string, React.ReactNode]>
@@ -587,13 +640,14 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
       {availableItems.length > 0 && (
         <div
           className={className}
-          ref={refs}
+          ref={ref}
           style={props.style}
           onKeyDown={props.onKeyDown}
           role="presentation"
         >
           <ToolbarItems className="components-items" direction={direction}>
-            {(!overflowItemKeys || overflowItemKeys.length > 0) &&
+            {props.enableOverflow &&
+              (!overflowItemKeys || overflowItemKeys.length > 0) &&
               showOverflowAtStart &&
               addOverflowButton(true)}
             {displayedItems.map(([key, child]) => {
@@ -607,15 +661,14 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
                     onResize: onEntryResize,
                   }}
                 >
-                  {
-                    <ItemWrapper className={getItemWrapperClass(child)}>
-                      {child}
-                    </ItemWrapper>
-                  }
+                  <ItemWrapper className={getItemWrapperClass(child)}>
+                    {child}
+                  </ItemWrapper>
                 </ToolbarItemContext.Provider>
               );
             })}
-            {(!overflowItemKeys || overflowItemKeys.length > 0) &&
+            {props.enableOverflow &&
+              (!overflowItemKeys || overflowItemKeys.length > 0) &&
               !showOverflowAtStart &&
               addOverflowButton(false)}
           </ToolbarItems>
@@ -796,9 +849,13 @@ export interface ToolbarItemContextArgs {
 /** Interface toolbars use to define context for its items.
  * @internal
  */
-export const ToolbarItemContext = React.createContext<ToolbarItemContextArgs>(
-  null!
-);
+export const ToolbarItemContext = React.createContext<ToolbarItemContextArgs>({
+  hasOverflow: false,
+  useHeight: false,
+  onResize: () => {
+    // intentionally do nothing by default.
+  },
+});
 
 /** @internal */
 export function useToolItemEntryContext() {

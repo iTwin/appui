@@ -7,59 +7,36 @@
  */
 
 import * as React from "react";
-import { useActiveStageId } from "../hooks/useActiveStageId";
-import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
-import { UiFramework } from "../UiFramework";
 import type {
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
 } from "./ToolbarItem";
-import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import type { ToolbarItemsManager } from "./ToolbarItemsManager";
+import { useActiveStageProvidedToolbarItems } from "./useActiveStageProvidedToolbarItems";
 
-/** Hook that returns items from [[ToolbarItemsManager]].
+/** Hook that retrieves active frontstage toolbar items from UiItemsProviders and manage them through [[ToolbarItemsManager]].
  * @public
+ * @deprecated in 4.4.0. This uses ToolbarItemsManager which is internal, directly use [[ToolbarComposer]] instead.
  */
-export const useUiItemsProviderToolbarItems = (
+export function useUiItemsProviderToolbarItems(
+  // eslint-disable-next-line deprecation/deprecation
   manager: ToolbarItemsManager,
   toolbarUsage: ToolbarUsage,
   toolbarOrientation: ToolbarOrientation
-): readonly ToolbarItem[] => {
-  const uiItemsProviderIds = useAvailableUiItemsProviders();
-  const stageId = useActiveStageId();
-  const [items, setItems] = React.useState(manager.items);
-  const providersRef = React.useRef("");
-  const currentStageRef = React.useRef("");
-  // gathers items from registered extensions - dependent on when a uiItemsProvider is register or unregistered and if the
-  // current stage's composer allows entries from extensions.
+): readonly ToolbarItem[] {
+  const providedItems = useActiveStageProvidedToolbarItems(
+    toolbarUsage,
+    toolbarOrientation
+  );
+  const [items, setItems] = React.useState(providedItems);
   React.useEffect(() => {
-    const uiProviders = uiItemsProviderIds.join("-");
+    manager?.loadItems(providedItems);
+    setItems(manager?.items ?? providedItems);
 
-    // istanbul ignore else
-    if (
-      providersRef.current !== uiProviders ||
-      currentStageRef.current !== stageId
-    ) {
-      const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-      // istanbul ignore else
-      if (frontstageDef) {
-        const usage = frontstageDef.usage;
-        currentStageRef.current = stageId;
-        providersRef.current = uiProviders;
-        const toolbarItems = UiItemsManager.getToolbarButtonItems(
-          stageId,
-          usage,
-          toolbarUsage,
-          toolbarOrientation
-        );
-        manager.loadItems(toolbarItems);
-        setItems(manager.items);
-      }
-    }
-    return manager.onItemsChanged.addListener((args) => {
+    return manager?.onItemsChanged.addListener((args) => {
       setItems(args.items);
     });
-  }, [uiItemsProviderIds, stageId, manager, toolbarUsage, toolbarOrientation]);
+  }, [manager, providedItems]);
   return items;
-};
+}
