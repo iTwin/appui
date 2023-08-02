@@ -223,7 +223,7 @@ export interface UsePropertyFilterBuilderResult {
   /** Actions for manipulating [[PropertyFilterBuilder]] state. */
   actions: PropertyFilterBuilderActions;
   /**
-   * Validates and builds [[PropertyFilter]] based on current state. It uses [[defaultPropertyFilterBuilderRuleValidator]] or 
+   * Validates and builds [[PropertyFilter]] based on current state. It uses [[defaultPropertyFilterBuilderRuleValidator]] or
    * custom validator provided through [[UsePropertyFilterBuilderProps]] to validate each rule.
    * @returns [[PropertyFilter]] if all rules are valid, `undefined` otherwise.
    */
@@ -253,47 +253,36 @@ export function usePropertyFilterBuilder(
   );
 
   const buildFilter = () => {
-    const ruleErrors = ruleGroupItemValidator({
-      item: state.rootGroup,
-      ruleValidator,
-    });
+    const ruleErrors = validateRules(state.rootGroup, ruleValidator);
     actions.setRuleErrorMessages(ruleErrors);
-    if (ruleIdsAndErrorMessages.size > 0) {
+    if (ruleErrors.size > 0) {
       return undefined;
     }
-    return buildPropertyFilter(state.rootgroup);
+    return buildPropertyFilter(state.rootGroup);
   };
   return { rootGroup: state.rootGroup, actions, buildFilter };
 }
 
-interface RuleGroupItemValidatorProps {
-  item: PropertyFilterBuilderRuleGroupItem;
-  ruleValidator?: (tem: PropertyFilterBuilderRule) => string | undefined;
-}
-
-function ruleGroupItemValidator(props: RuleGroupItemValidatorProps) {
+function validateRules(
+  rule: PropertyFilterBuilderRuleGroupItem,
+  ruleValidator?: (item: PropertyFilterBuilderRule) => string | undefined
+) {
   const ruleIdsAndErrorMessages = new Map<string, string>();
 
-  const validateRuleGroupItem = (item: PropertyFilterBuilderRuleGroupItem) => {
+  const validateRulesInner = (item: PropertyFilterBuilderRuleGroupItem) => {
     if (isPropertyFilterBuilderRuleGroup(item)) {
       item.items.forEach((itm) => {
-        ruleGroupItemValidatorInner({
-          item: itm,
-          ruleValidator,
-        });
+        validateRulesInner(itm);
       });
     } else {
       const errorMessage = ruleValidator
         ? ruleValidator(item)
-        : defaultRuleValidator(item);
+        : defaultPropertyFilterBuilderRuleValidator(item);
       if (errorMessage) ruleIdsAndErrorMessages.set(item.id, errorMessage);
     }
   };
 
-  ruleGroupItemValidatorInner({
-    item: props.item,
-    ruleValidator: props.ruleValidator,
-  });
+  validateRulesInner(rule);
 
   return ruleIdsAndErrorMessages;
 }
