@@ -10,7 +10,7 @@ import type { Draft } from "immer";
 import { produce } from "immer";
 import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
-import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
+import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { Guid } from "@itwin/core-bentley";
 import type { PropertyFilterRuleOperator } from "./Operators";
 import {
@@ -273,10 +273,7 @@ interface RuleGroupItemValidatorProps {
   ruleValidator?: (tem: PropertyFilterBuilderRule) => string | undefined;
 }
 
-function ruleGroupItemValidator({
-  item,
-  ruleValidator,
-}: RuleGroupItemValidatorProps) {
+function ruleGroupItemValidator(props: RuleGroupItemValidatorProps) {
   const ruleIdsAndErrorMessages = new Map<string, string>();
 
   const ruleGroupItemValidatorInner = ({
@@ -298,7 +295,10 @@ function ruleGroupItemValidator({
     }
   };
 
-  ruleGroupItemValidatorInner({ item, ruleValidator });
+  ruleGroupItemValidatorInner({
+    item: props.item,
+    ruleValidator: props.ruleValidator,
+  });
 
   return ruleIdsAndErrorMessages;
 }

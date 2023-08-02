@@ -20,7 +20,6 @@ import {
   PropertyFilterRuleOperator,
 } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
-import sinon from "sinon";
 import { UiComponents } from "../../components-react";
 
 chai.use(chaiSubset);
