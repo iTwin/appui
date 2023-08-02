@@ -392,60 +392,25 @@ describe("usePropertyFilterBuilder", () => {
     expect(rootGroup).to.be.eq(newRootGroup);
   });
 
-  it("does not set rule error message if rule is not found", () => {
-    const { result } = renderHook(() => usePropertyFilterBuilder({}));
-    const { actions } = result.current;
-
-    actions.setRuleErrorMessage(["invalid path"], "error");
-
-    const { rootGroup } = result.current;
-
-    expect(rootGroup.items).to.have.lengthOf(1);
-    expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage).to.be
-      .undefined;
-  });
-
-  it("does not set error message if operator is unary", () => {
+  it("sets rule error message", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder({}));
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
-    actions.setRuleOperator(
-      [rootGroup.items[0].id],
-      PropertyFilterRuleOperator.IsTrue
+    actions.addItem([], "RULE");
+
+    actions.setRuleErrorMessages(
+      new Map([[rootGroup.items[0].id, "error message"]])
     );
 
     rootGroup = result.current.rootGroup;
-    expect(rootGroup.items[0].operator).to.be.eq(
-      PropertyFilterRuleOperator.IsTrue
-    );
-    actions.setRuleErrorMessage([rootGroup.items[0].id], "error");
 
-    rootGroup = result.current.rootGroup;
-    expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage).to.be
-      .undefined;
-  });
-
-  it("sets rule error message if rule is found and it's operator is not unary", () => {
-    const { result } = renderHook(() => usePropertyFilterBuilder({}));
-    const { actions } = result.current;
-    let { rootGroup } = result.current;
-
-    actions.setRuleOperator(
-      [rootGroup.items[0].id],
-      PropertyFilterRuleOperator.IsEqual
-    );
-
-    rootGroup = result.current.rootGroup;
-    expect(rootGroup.items[0].operator).to.be.eq(
-      PropertyFilterRuleOperator.IsEqual
-    );
-    actions.setRuleErrorMessage([rootGroup.items[0].id], "error message");
-
-    rootGroup = result.current.rootGroup;
     expect(
       (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
     ).to.be.eq("error message");
+
+    expect((rootGroup.items[1] as PropertyFilterBuilderRule).errorMessage).to.be
+      .undefined;
   });
 
   describe("validate", () => {
@@ -615,13 +580,20 @@ describe("usePropertyFilterBuilder", () => {
     });
 
     it("uses custom validator", () => {
-      const spy = sinon.spy();
+      const customErrorMessage = "My custom error";
+      const spy = sinon.spy((_) => customErrorMessage);
       const { result } = renderHook(() => usePropertyFilterBuilder({}));
       const { validate } = result.current;
 
       validate(spy);
 
+      const { rootGroup } = result.current;
+
       expect(spy).to.be.calledOnce;
+
+      expect(
+        (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+      ).to.be.eq(customErrorMessage);
     });
   });
 
