@@ -2027,9 +2027,8 @@ export function PropertyFilterBuilder(props: PropertyFilterBuilderProps): JSX.El
 export class PropertyFilterBuilderActions {
     constructor(setState: (setter: (prevState: PropertyFilterBuilderState) => PropertyFilterBuilderState) => void);
     addItem(path: string[], itemType: "RULE_GROUP" | "RULE"): void;
-    removeErrorMessages(): void;
     removeItem(path: string[]): void;
-    setRuleErrorMessage(path: string[], errorMessage?: string): void;
+    setRuleErrorMessages(ruleIdsAndErrorMessages: Map<string, string>): void;
     setRuleGroupOperator(path: string[], operator: PropertyFilterRuleGroupOperator): void;
     setRuleOperator(path: string[], operator: PropertyFilterRuleOperator): void;
     setRuleProperty(path: string[], property?: PropertyDescription): void;
@@ -3517,7 +3516,7 @@ export function usePropertyData(props: {
 export function usePropertyFilterBuilder({ initialFilter, }: UsePropertyFilterBuilderProps): {
     rootGroup: PropertyFilterBuilderRuleGroup;
     actions: PropertyFilterBuilderActions;
-    validate: (ruleValidator?: (({ actions, item, path, }: DefaultRuleGroupItemValidatorProps) => boolean) | undefined) => PropertyFilter | undefined;
+    validate: (ruleValidator?: ((item: PropertyFilterBuilderRule) => string | undefined) | undefined) => PropertyFilter | undefined;
 };
 
 // @beta
