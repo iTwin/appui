@@ -17,7 +17,11 @@ describe("addDockedToolSettings", () => {
     let state = createNineZoneState();
     state = addTab(state, "ts");
     state = addDockedToolSettings(state, "ts");
-    expect(state.toolSettings).to.eql({ tabId: "ts", type: "docked" });
+    expect(state.toolSettings).to.eql({
+      tabId: "ts",
+      type: "docked",
+      hidden: false,
+    });
   });
 
   it("should throw if tool settings are already added", () => {

@@ -191,22 +191,22 @@ export interface WidgetTabDragEndAction {
 }
 
 /** @internal */
-export interface WidgetTabSetClosedAction {
-  readonly type: "WIDGET_TAB_SET_CLOSED";
+export interface WidgetTabCloseAction {
+  readonly type: "WIDGET_TAB_CLOSE";
   readonly id: TabState["id"];
 }
 
 /** @internal */
-export interface WidgetTabSetFloatingAction {
-  readonly type: "WIDGET_TAB_SET_FLOATING";
+export interface WidgetTabFloatAction {
+  readonly type: "WIDGET_TAB_FLOAT";
   readonly id: TabState["id"];
   readonly position?: PointProps;
   readonly size?: SizeProps;
 }
 
 /** @internal */
-export interface WidgetTabSetHiddenAction {
-  readonly type: "WIDGET_TAB_SET_HIDDEN";
+export interface WidgetTabHideAction {
+  readonly type: "WIDGET_TAB_HIDE";
   readonly id: TabState["id"];
 }
 
@@ -218,8 +218,8 @@ export interface WidgetTabSetLabelAction {
 }
 
 /** @internal */
-export interface WidgetTabSetOpenAction {
-  readonly type: "WIDGET_TAB_SET_OPEN";
+export interface WidgetTabOpenAction {
+  readonly type: "WIDGET_TAB_OPEN";
   readonly id: TabState["id"];
 }
 
@@ -288,10 +288,10 @@ export type NineZoneAction =
   | WidgetTabDragAction
   | WidgetTabDragEndAction
   | WidgetTabPopoutAction
-  | WidgetTabSetClosedAction
-  | WidgetTabSetFloatingAction
-  | WidgetTabSetHiddenAction
-  | WidgetTabSetOpenAction
+  | WidgetTabCloseAction
+  | WidgetTabFloatAction
+  | WidgetTabHideAction
+  | WidgetTabOpenAction
   | WidgetTabSetLabelAction
   | WidgetTabSetPopoutBoundsAction
   | WidgetTabShowAction

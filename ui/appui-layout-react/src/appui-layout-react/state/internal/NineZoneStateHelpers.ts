@@ -83,6 +83,26 @@ export function initSizeProps<
 }
 
 /** @internal */
+export function initRectangleProps<
+  T,
+  K extends KeysOfType<T, RectangleProps | undefined>
+>(obj: T, key: K, rectangle: T[K]) {
+  const rect = rectangle as unknown as RectangleProps | undefined;
+  if (obj[key] && rect) {
+    setRectangleProps(obj[key] as unknown as RectangleProps, rect);
+    return;
+  }
+  (obj[key] as unknown as RectangleProps | undefined) = rect
+    ? {
+        bottom: rect.bottom,
+        left: rect.left,
+        right: rect.right,
+        top: rect.top,
+      }
+    : undefined;
+}
+
+/** @internal */
 export function isToolSettingsFloatingWidget(
   state: NineZoneState,
   id: FloatingWidgetState["id"]

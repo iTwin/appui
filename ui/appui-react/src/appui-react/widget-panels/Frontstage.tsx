@@ -418,7 +418,7 @@ export function appendWidgets(
 
     if (widgetDef.defaultState === WidgetState.Hidden) {
       state = NineZoneStateReducer(state, {
-        type: "WIDGET_TAB_SET_HIDDEN",
+        type: "WIDGET_TAB_HIDE",
         id: widgetDef.id,
       });
     }
@@ -437,7 +437,7 @@ function processPopoutWidgets(state: NineZoneState): NineZoneState {
     const widget = state.widgets[popoutWidgetId];
     const id = widget.tabs[0];
     state = NineZoneStateReducer(state, {
-      type: "WIDGET_TAB_SET_FLOATING",
+      type: "WIDGET_TAB_FLOAT",
       id,
     });
   }
@@ -566,7 +566,7 @@ function hideWidgets(
 
     if (widgetDef.defaultState === WidgetState.Hidden) {
       state = NineZoneStateReducer(state, {
-        type: "WIDGET_TAB_SET_HIDDEN",
+        type: "WIDGET_TAB_HIDE",
         id: widgetDef.id,
       });
     }
@@ -588,7 +588,7 @@ function removeMissingWidgets(
     const widgetDef = frontstageDef.findWidgetDef(tab.id);
     if (widgetDef) continue;
     state = NineZoneStateReducer(state, {
-      type: "WIDGET_TAB_SET_HIDDEN",
+      type: "WIDGET_TAB_HIDE",
       id: tab.id,
     });
     state = removeTab(state, tab.id);

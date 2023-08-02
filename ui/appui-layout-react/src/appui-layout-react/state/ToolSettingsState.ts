@@ -6,11 +6,10 @@
  * @module Base
  */
 
-import { assert } from "chai";
 import produce from "immer";
 import { UiError } from "@itwin/appui-abstract";
 import { getTabLocation } from "./TabLocation";
-import { removeTabFromWidget, type TabState } from "./TabState";
+import { type TabState } from "./TabState";
 import { category } from "./internal/NineZoneStateHelpers";
 import type { NineZoneState } from "./NineZoneState";
 
@@ -18,7 +17,7 @@ import type { NineZoneState } from "./NineZoneState";
 export interface DockedToolSettingsState {
   readonly type: "docked";
   readonly tabId: TabState["id"];
-  readonly hidden?: boolean;
+  readonly hidden: boolean;
 }
 
 /** @internal */
@@ -37,7 +36,8 @@ export type ToolSettingsState =
  */
 export function addDockedToolSettings(
   state: NineZoneState,
-  tabId: TabState["id"]
+  tabId: TabState["id"],
+  hidden = false
 ): NineZoneState {
   if (state.toolSettings)
     throw new UiError(category, "Tool settings already exist");
@@ -58,6 +58,7 @@ export function addDockedToolSettings(
     stateDraft.toolSettings = {
       tabId,
       type: "docked",
+      hidden,
     };
   });
 }

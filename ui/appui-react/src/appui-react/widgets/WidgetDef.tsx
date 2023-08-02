@@ -383,28 +383,28 @@ export class WidgetDef {
     switch (newState) {
       case WidgetState.Closed: {
         frontstageDef.dispatch({
-          type: "WIDGET_TAB_SET_CLOSED",
+          type: "WIDGET_TAB_CLOSE",
           id: this.id,
         });
         break;
       }
       case WidgetState.Floating: {
         frontstageDef.dispatch({
-          type: "WIDGET_TAB_SET_FLOATING",
+          type: "WIDGET_TAB_FLOAT",
           id: this.id,
         });
         break;
       }
       case WidgetState.Hidden: {
         frontstageDef.dispatch({
-          type: "WIDGET_TAB_SET_HIDDEN",
+          type: "WIDGET_TAB_HIDE",
           id: this.id,
         });
         break;
       }
       case WidgetState.Open: {
         frontstageDef.dispatch({
-          type: "WIDGET_TAB_SET_OPEN",
+          type: "WIDGET_TAB_OPEN",
           id: this.id,
         });
         break;

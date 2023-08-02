@@ -779,7 +779,7 @@ export class FrontstageDef {
     if (!widgetDef) return;
 
     this.dispatch({
-      type: "WIDGET_TAB_SET_FLOATING",
+      type: "WIDGET_TAB_FLOAT",
       id: widgetId,
       position,
       size,
@@ -989,7 +989,7 @@ export class FrontstageDef {
     )
       return false;
 
-    const state = NineZoneStateReducer(this.nineZoneState, {
+    this.dispatch({
       type: "FLOATING_WIDGET_SET_BOUNDS",
       id: floatingWidgetId,
       bounds,

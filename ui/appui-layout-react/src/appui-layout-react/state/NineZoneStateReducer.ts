@@ -38,6 +38,7 @@ import {
   updateTabState,
 } from "./internal/TabStateHelpers";
 import {
+  initRectangleProps,
   initSizeProps,
   isToolSettingsFloatingWidget,
   setPointProps,
@@ -58,6 +59,7 @@ import {
 } from "./internal/WidgetStateHelpers";
 import { getSendBackHomeState } from "../widget/SendBack";
 import { panelSides } from "../widget-panels/Panel";
+import type { TabLocation } from "./TabLocation";
 import {
   getTabLocation,
   isFloatingTabLocation,
@@ -517,14 +519,8 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_POPOUT": {
       const { id, position, size } = action;
-      let location = getTabLocation(state, id);
-      if (!location) {
-        state = addRemovedTab(state, id);
-        location = getTabLocation(state, id);
-        assert(!!location);
-      }
-
-      if (isPopoutTabLocation(location)) return state;
+      const location = getTabLocation(state, id);
+      if (location && isPopoutTabLocation(location)) return state;
 
       const savedTab = state.savedTabs.byId[id];
       let preferredBounds = savedTab?.popoutBounds
@@ -535,7 +531,7 @@ export function NineZoneStateReducer(
 
       const popoutWidgetId = getUniqueId();
       let home: FloatingWidgetHomeState | undefined;
-      if (isPanelTabLocation(location)) {
+      if (location && isPanelTabLocation(location)) {
         const panel = state.panels[location.side];
         const widgetIndex = panel.widgets.indexOf(location.widgetId);
         home = {
@@ -543,20 +539,19 @@ export function NineZoneStateReducer(
           widgetId: location.widgetId,
           widgetIndex,
         };
-      } else if (isFloatingTabLocation(location)) {
+      } else if (location && isFloatingTabLocation(location)) {
         const floatingWidget =
           state.floatingWidgets.byId[location.floatingWidgetId];
         home = floatingWidget.home;
       }
 
-      // Move the tab from the floating container and create a new popout container
       state = removeTabFromWidget(state, id);
       return addPopoutWidget(state, popoutWidgetId, [id], {
         bounds: preferredBounds.toProps(),
         home,
       });
     }
-    case "WIDGET_TAB_SET_HIDDEN": {
+    case "WIDGET_TAB_HIDE": {
       const { id } = action;
       const isToolSettings = state.toolSettings?.tabId === id;
       if (isToolSettings && state.toolSettings?.type === "docked") {
@@ -601,42 +596,34 @@ export function NineZoneStateReducer(
         label: action.label,
       });
     }
-    case "WIDGET_TAB_SET_OPEN": {
+    case "WIDGET_TAB_OPEN": {
       return openWidgetTab(state, action.id);
     }
-    case "WIDGET_TAB_SET_CLOSED": {
+    case "WIDGET_TAB_CLOSE": {
       const { id } = action;
       const isToolSettings = state.toolSettings?.tabId === id;
       if (isToolSettings && state.toolSettings?.type === "docked") {
         return state;
       }
 
-      let location = getTabLocation(state, id);
-      if (!location) {
-        state = addRemovedTab(state, id);
-        location = getTabLocation(state, id);
-      }
+      let location: TabLocation;
+      [state, location] = unhideTab(state, id);
 
       // TODO: should change activeTabId of a widget with multiple tabs.
-      return produce(state, (draft) => {
-        assert(!!location);
-        const widget = draft.widgets[location.widgetId];
-
-        if (isFloatingTabLocation(location)) {
-          if (id === widget.activeTabId) {
-            widget.minimized = true;
-          }
-        }
-      });
-    }
-    case "WIDGET_TAB_SET_FLOATING": {
-      const { id, position, size } = action;
-      let location = getTabLocation(state, id);
-      if (!location) {
-        state = addRemovedTab(state, id);
-        location = getTabLocation(state, id);
-        assert(!!location);
+      const widget = state.widgets[location.widgetId];
+      // istanbul ignore else
+      if (isFloatingTabLocation(location) && id === widget.activeTabId) {
+        state = updateWidgetState(state, widget.id, {
+          minimized: true,
+        });
       }
+      return state;
+    }
+    case "WIDGET_TAB_FLOAT": {
+      const { id, position, size } = action;
+
+      let location: TabLocation;
+      [state, location] = unhideTab(state, id);
 
       if (isFloatingTabLocation(location)) return state;
 
@@ -704,12 +691,7 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_SET_POPOUT_BOUNDS": {
       state = updateSavedTabState(state, action.id, (draft) => {
-        if (draft.popoutBounds && action.bounds)
-          setRectangleProps(draft.popoutBounds, action.bounds);
-        else
-          draft.popoutBounds = action.bounds
-            ? Rectangle.create(action.bounds).toProps()
-            : undefined;
+        initRectangleProps(draft, "popoutBounds", action.bounds);
       });
       return state;
     }
@@ -719,19 +701,16 @@ export function NineZoneStateReducer(
     case "WIDGET_TAB_EXPAND": {
       state = showWidgetTab(state, action.id);
       const location = getTabLocation(state, action.id);
-      if (!location) return state;
-
-      return produce(state, (draft) => {
-        const widget = draft.widgets[location.widgetId];
-        if (isPanelTabLocation(location)) {
-          const panel = draft.panels[location.side];
-          panel.splitterPercent =
-            panel.widgets.findIndex((wId) => wId === location.widgetId) === 0
+      // istanbul ignore else
+      if (location && isPanelTabLocation(location)) {
+        state = updatePanelState(state, location.side, (draft) => {
+          draft.splitterPercent =
+            draft.widgets.findIndex((wId) => wId === location.widgetId) === 0
               ? 100
               : 0;
-        }
-        widget.minimized = false;
-      });
+        });
+      }
+      return state;
     }
     case "TOOL_SETTINGS_DRAG_START": {
       if (!state.toolSettings) return state;
@@ -770,20 +749,16 @@ export function NineZoneStateReducer(
 function openWidgetTab(state: NineZoneState, id: TabState["id"]) {
   const isToolSettings = state.toolSettings?.tabId === id;
   if (isToolSettings && state.toolSettings?.type === "docked") {
-    state = produce(state, (draft) => {
+    return produce(state, (draft) => {
       assert(draft.toolSettings?.type === "docked");
       draft.toolSettings.hidden = false;
     });
   }
 
-  let location = getTabLocation(state, id);
-  if (!location) {
-    state = addRemovedTab(state, id);
-    location = getTabLocation(state, id);
-  }
+  let location: TabLocation;
+  [state, location] = unhideTab(state, id);
 
   return produce(state, (draft) => {
-    assert(!!location);
     const widget = draft.widgets[location.widgetId];
     widget.minimized = false;
     widget.activeTabId = id;
@@ -795,6 +770,7 @@ function openWidgetTab(state: NineZoneState, id: TabState["id"]) {
     } else if (isPanelTabLocation(location)) {
       const panel = draft.panels[location.side];
       panel.collapsed = false;
+      // istanbul ignore next
       if (undefined === panel.size || 0 === panel.size) {
         panel.size = panel.minSize ?? 200;
       }
@@ -806,17 +782,27 @@ function showWidgetTab(state: NineZoneState, id: TabState["id"]) {
   state = openWidgetTab(state, id);
   const location = getTabLocation(state, id);
   if (!location) return state;
-  state = produce(state, (draft) => {
-    const widget = draft.widgets[location.widgetId];
-    widget.activeTabId = id;
-    widget.minimized = false;
-    if (isPanelTabLocation(location)) {
-      const panel = draft.panels[location.side];
-      panel.collapsed = false;
-    }
+  state = updateWidgetState(state, location.widgetId, {
+    activeTabId: id,
+    minimized: false,
   });
+  if (isPanelTabLocation(location)) {
+    state = updatePanelState(state, location.side, (draft) => {
+      draft.collapsed = false;
+    });
+  }
   if (isFloatingTabLocation(location)) {
     state = floatingWidgetBringToFront(state, location.floatingWidgetId);
   }
   return state;
+}
+
+function unhideTab(state: NineZoneState, id: TabState["id"]) {
+  let location = getTabLocation(state, id);
+  if (!location) {
+    state = addRemovedTab(state, id);
+    location = getTabLocation(state, id);
+    assert(!!location);
+  }
+  return [state, location] as const;
 }
