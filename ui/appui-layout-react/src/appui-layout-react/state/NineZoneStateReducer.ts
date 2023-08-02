@@ -21,13 +21,13 @@ import {
   isWindowDropTargetState,
 } from "./DropTargetState";
 import { getWidgetPanelSectionId, insertPanelWidget } from "./PanelState";
-import {
-  floatWidget,
-  type NineZoneState,
-  popoutWidgetToChildWindow,
-} from "./NineZoneState";
+import { floatWidget, type NineZoneState } from "./NineZoneState";
 import type { FloatingWidgetHomeState } from "./WidgetState";
-import { addFloatingWidget, floatingWidgetBringToFront } from "./WidgetState";
+import {
+  addFloatingWidget,
+  addPopoutWidget,
+  floatingWidgetBringToFront,
+} from "./WidgetState";
 import {
   getPanelMaxSize,
   updatePanelState,
@@ -63,6 +63,7 @@ import {
   isPanelTabLocation,
   isPopoutTabLocation,
 } from "./TabLocation";
+import { getUniqueId } from "../base/NineZone";
 
 /** @internal */
 export function NineZoneStateReducer(
@@ -516,19 +517,42 @@ export function NineZoneStateReducer(
     case "WIDGET_TAB_POPOUT": {
       const { id, position, size } = action;
       const location = getTabLocation(state, id);
-      if (!location) return state;
-      if (isPopoutTabLocation(location)) return state;
+
+      // Tab is already in a popout.
+      if (location && isPopoutTabLocation(location)) return state;
 
       const savedTab = state.savedTabs.byId[id];
-
       let preferredBounds = savedTab?.popoutBounds
         ? Rectangle.create(savedTab.popoutBounds)
         : Rectangle.createFromSize({ height: 800, width: 600 });
       if (size) preferredBounds = preferredBounds.setSize(size);
       if (position) preferredBounds = preferredBounds.setPosition(position);
 
-      state = popoutWidgetToChildWindow(state, id, preferredBounds);
-      return state;
+      const popoutWidgetId = getUniqueId();
+      const bounds = Rectangle.create(preferredBounds);
+      let home: FloatingWidgetHomeState | undefined;
+      if (location && isPanelTabLocation(location)) {
+        const panel = state.panels[location.side];
+        const widgetIndex = panel.widgets.indexOf(location.widgetId);
+
+        state = removeTabFromWidget(state, id);
+        home = {
+          side: location.side,
+          widgetId: location.widgetId,
+          widgetIndex,
+        };
+      } else if (location && isFloatingTabLocation(location)) {
+        const floatingWidget =
+          state.floatingWidgets.byId[location.floatingWidgetId];
+        home = floatingWidget.home;
+      }
+
+      // Move the tab from the floating container and create a new popout container
+      state = removeTabFromWidget(state, id);
+      return addPopoutWidget(state, popoutWidgetId, [id], {
+        bounds: bounds.toProps(),
+        home,
+      });
     }
     case "WIDGET_TAB_SET_HIDDEN": {
       const { id } = action;

@@ -8,7 +8,7 @@
 
 // Cspell:ignore popout
 import produce from "immer";
-import type { RectangleProps, SizeProps } from "@itwin/core-react";
+import type { SizeProps } from "@itwin/core-react";
 import { Rectangle } from "@itwin/core-react";
 import { updateTabState } from "./internal/TabStateHelpers";
 import type {
@@ -16,7 +16,7 @@ import type {
   PopoutWidgetsState,
   WidgetsState,
 } from "./WidgetState";
-import { addFloatingWidget, addPopoutWidget } from "./WidgetState";
+import { addFloatingWidget } from "./WidgetState";
 import type { PanelsState } from "./PanelState";
 import type { ToolSettingsState } from "./ToolSettingsState";
 import { createPanelsState } from "./internal/PanelStateHelpers";
@@ -33,7 +33,6 @@ import {
   getTabLocation,
   isFloatingTabLocation,
   isPanelTabLocation,
-  isPopoutTabLocation,
 } from "./TabLocation";
 import type { SavedTabsState } from "./SavedTabState";
 
@@ -160,46 +159,4 @@ export function floatWidget(
   }
   // istanbul ignore next
   return convertPopoutWidgetContainerToFloating(state, location.popoutWidgetId);
-}
-
-/** @internal */
-export function popoutWidgetToChildWindow(
-  state: NineZoneState,
-  tabId: string,
-  preferredBounds: RectangleProps
-): NineZoneState {
-  const location = getTabLocation(state, tabId);
-  if (!location) throw new UiError(category, "Tab not found");
-
-  // Already in popout state.
-  if (isPopoutTabLocation(location)) return state;
-
-  const popoutWidgetId = getUniqueId();
-  const bounds = Rectangle.create(preferredBounds);
-
-  if (isPanelTabLocation(location)) {
-    const panel = state.panels[location.side];
-    const widgetIndex = panel.widgets.indexOf(location.widgetId);
-
-    state = removeTabFromWidget(state, tabId);
-    return addPopoutWidget(state, popoutWidgetId, [tabId], {
-      bounds: bounds.toProps(),
-      home: {
-        side: location.side,
-        widgetId: location.widgetId,
-        widgetIndex,
-      },
-    });
-  }
-
-  // Floating location
-  const floatingWidget = state.floatingWidgets.byId[location.floatingWidgetId];
-  const home = floatingWidget.home;
-
-  // Move the tab from the floating container and create a new popout container
-  state = removeTabFromWidget(state, tabId);
-  return addPopoutWidget(state, popoutWidgetId, [tabId], {
-    bounds: bounds.toProps(),
-    home,
-  });
 }

@@ -14,7 +14,6 @@ import {
   addWidgetToolSettings,
   createNineZoneState,
   NineZoneStateReducer,
-  popoutWidgetToChildWindow,
 } from "../../appui-layout-react";
 import { addTabs } from "../Utils";
 import { createDraggedTabState } from "../../appui-layout-react/state/internal/TabStateHelpers";
@@ -1269,6 +1268,34 @@ describe("NineZoneStateReducer", () => {
     });
   });
 
+  describe("WIDGET_TAB_POPOUT", () => {
+    it("should popout a tab", async () => {
+      let state = createNineZoneState();
+      state = addTab(state, "t1");
+      state = addPanelWidget(state, "left", "w1", ["t1"]);
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_POPOUT",
+        id: "t1",
+      });
+
+      newState.popoutWidgets.allIds.should.length(1);
+    });
+
+    it("should skip if already in a popout", async () => {
+      let state = createNineZoneState();
+      state = addTab(state, "t1");
+      state = addPopoutWidget(state, "w1", ["t1"]);
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_POPOUT",
+        id: "t1",
+      });
+
+      newState.should.eq(state);
+    });
+  });
+
   describe("TOOL_SETTINGS_DOCK", () => {
     it("should skip if no tool settings", () => {
       const state = createNineZoneState();
@@ -1380,21 +1407,19 @@ describe("NineZoneStateReducer", () => {
         minimized: true,
       });
 
-      let newState = popoutWidgetToChildWindow(
-        state,
-        "t1",
-        Rectangle.createFromSize({ height: 800, width: 600 })
-      );
+      let newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_POPOUT",
+        id: "t1",
+      });
       expect(Object.entries(newState.popoutWidgets.byId).length).to.be.eql(1);
       const popoutWidgetContainerId1 = Object.keys(
         newState.popoutWidgets.byId
       )[0];
 
-      newState = popoutWidgetToChildWindow(
-        newState,
-        "ta",
-        Rectangle.createFromSize({ height: 800, width: 600 })
-      );
+      newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_POPOUT",
+        id: "ta",
+      });
       expect(Object.entries(newState.popoutWidgets.byId).length).to.be.eql(2);
       const popoutWidgetContainerId2 = Object.keys(
         newState.popoutWidgets.byId

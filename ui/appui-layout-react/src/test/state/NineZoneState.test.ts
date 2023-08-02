@@ -13,7 +13,7 @@ import {
   floatWidget,
   isTabDragDropTargetState,
   isWidgetDragDropTargetState,
-  popoutWidgetToChildWindow,
+  NineZoneStateReducer,
 } from "../../appui-layout-react";
 import { addTabs } from "../Utils";
 import {
@@ -229,11 +229,10 @@ describe("floatWidget", () => {
     state = addPanelWidget(state, "right", "rightStart", ["t1", "ta", "tb"], {
       minimized: true,
     });
-    const newState = popoutWidgetToChildWindow(
-      state,
-      "t1",
-      Rectangle.createFromSize({ height: 800, width: 600 })
-    );
+    const newState = NineZoneStateReducer(state, {
+      type: "WIDGET_TAB_POPOUT",
+      id: "t1",
+    });
     expect(Object.entries(newState.popoutWidgets.byId).length).to.be.eql(1);
     const popoutWidgetContainerId = Object.keys(newState.popoutWidgets.byId)[0];
 
@@ -251,14 +250,18 @@ describe("floatWidget", () => {
     state = addPanelWidget(state, "right", "rightStart", ["t1", "ta", "tb"], {
       minimized: true,
     });
-    const newState = popoutWidgetToChildWindow(
-      state,
-      "t1",
-      Rectangle.createFromSize({ width: 100, height: 200 }).offset({
+    const bounds = Rectangle.createFromSize({ width: 100, height: 200 }).offset(
+      {
         x: 5,
         y: 10,
-      })
+      }
     );
+    const newState = NineZoneStateReducer(state, {
+      type: "WIDGET_TAB_POPOUT",
+      id: "t1",
+      size: bounds.getSize(),
+      position: bounds.topLeft(),
+    });
     expect(Object.entries(newState.popoutWidgets.byId).length).to.be.eql(1);
     const popoutWidgetContainerId = Object.keys(newState.popoutWidgets.byId)[0];
 
@@ -282,14 +285,18 @@ describe("floatWidget", () => {
       minimized: true,
     });
 
-    const newState = popoutWidgetToChildWindow(
-      state,
-      "t1",
-      Rectangle.createFromSize({ width: 100, height: 200 }).offset({
+    const bounds = Rectangle.createFromSize({ width: 100, height: 200 }).offset(
+      {
         x: 5,
         y: 10,
-      })
+      }
     );
+    const newState = NineZoneStateReducer(state, {
+      type: "WIDGET_TAB_POPOUT",
+      id: "t1",
+      size: bounds.getSize(),
+      position: bounds.topLeft(),
+    });
     expect(Object.entries(newState.popoutWidgets.byId).length).to.be.eql(1);
     const popoutWidgetContainerId = Object.keys(newState.popoutWidgets.byId)[0];
 
@@ -308,21 +315,19 @@ describe("floatWidget", () => {
       minimized: true,
     });
 
-    let newState = popoutWidgetToChildWindow(
-      state,
-      "t1",
-      Rectangle.createFromSize({ height: 800, width: 600 })
-    );
+    let newState = NineZoneStateReducer(state, {
+      type: "WIDGET_TAB_POPOUT",
+      id: "t1",
+    });
     expect(Object.entries(newState.popoutWidgets.byId).length).to.be.eql(1);
     // const popoutWidgetContainerId1 = Object.keys(
     //   newState.popoutWidgets.byId
     // )[0];
 
-    newState = popoutWidgetToChildWindow(
-      newState,
-      "ta",
-      Rectangle.createFromSize({ height: 800, width: 600 })
-    );
+    newState = NineZoneStateReducer(state, {
+      type: "WIDGET_TAB_POPOUT",
+      id: "ta",
+    });
     expect(Object.entries(newState.popoutWidgets.byId).length).to.be.eql(2);
     // const popoutWidgetContainerId2 = Object.keys(
     //   newState.popoutWidgets.byId
@@ -347,17 +352,15 @@ describe("floatWidget", () => {
     state = addPanelWidget(state, "right", "rightStart", ["t1", "ta", "tb"], {
       minimized: true,
     });
-    let newState = popoutWidgetToChildWindow(
-      state,
-      "t1",
-      Rectangle.createFromSize({ height: 800, width: 600 })
-    );
+    let newState = NineZoneStateReducer(state, {
+      type: "WIDGET_TAB_POPOUT",
+      id: "t1",
+    });
     expect(Object.entries(newState.popoutWidgets.byId).length).to.be.eql(1);
-    newState = popoutWidgetToChildWindow(
-      newState,
-      "ta",
-      Rectangle.createFromSize({ height: 800, width: 600 })
-    );
+    newState = NineZoneStateReducer(state, {
+      type: "WIDGET_TAB_POPOUT",
+      id: "ta",
+    });
     expect(Object.entries(newState.popoutWidgets.byId).length).to.be.eql(2);
     newState = convertAllPopupWidgetContainersToFloating(newState);
     expect(Object.entries(newState.popoutWidgets.byId).length).to.be.eql(0);
@@ -369,20 +372,18 @@ describe("floatWidget", () => {
     state = addPanelWidget(state, "right", "rightStart", ["t1", "ta", "tb"], {
       minimized: true,
     });
-    let newState = popoutWidgetToChildWindow(
-      state,
-      "t1",
-      Rectangle.createFromSize({ height: 800, width: 600 })
-    );
+    let newState = NineZoneStateReducer(state, {
+      type: "WIDGET_TAB_POPOUT",
+      id: "t1",
+    });
     expect(Object.entries(newState.popoutWidgets.byId).length).to.be.eql(1);
     const popoutWidgetContainerId1 = Object.keys(
       newState.popoutWidgets.byId
     )[0];
-    newState = popoutWidgetToChildWindow(
-      newState,
-      "ta",
-      Rectangle.createFromSize({ height: 800, width: 600 })
-    );
+    newState = NineZoneStateReducer(state, {
+      type: "WIDGET_TAB_POPOUT",
+      id: "ta",
+    });
     expect(Object.entries(newState.popoutWidgets.byId).length).to.be.eql(2);
     newState = convertPopoutWidgetContainerToFloating(
       newState,
