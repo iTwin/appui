@@ -31,7 +31,6 @@ import {
   addRemovedTab,
   addTab,
   addTabToWidget,
-  convertAllPopupWidgetContainersToFloating,
   createLayoutStore,
   createNineZoneState,
   floatingWidgetBringToFront,
@@ -344,7 +343,6 @@ export function appendWidgets(
 
     const savedTab = state.savedTabs.byId[widgetDef.id];
     if (savedTab) {
-      savedTab.home;
       state = addRemovedTab(state, widgetDef.id);
     } else if (
       widgetDef.isFloatingStateSupported &&
@@ -435,7 +433,15 @@ function processPopoutWidgets(state: NineZoneState): NineZoneState {
     return state;
   }
 
-  return convertAllPopupWidgetContainersToFloating(state);
+  for (const popoutWidgetId of state.popoutWidgets.allIds) {
+    const widget = state.widgets[popoutWidgetId];
+    const id = widget.tabs[0];
+    state = NineZoneStateReducer(state, {
+      type: "WIDGET_TAB_SET_FLOATING",
+      id,
+    });
+  }
+  return state;
 }
 
 /** Adds frontstageDef widgets that are missing in NineZoneState.

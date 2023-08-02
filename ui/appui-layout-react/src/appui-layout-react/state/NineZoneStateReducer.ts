@@ -21,7 +21,7 @@ import {
   isWindowDropTargetState,
 } from "./DropTargetState";
 import { getWidgetPanelSectionId, insertPanelWidget } from "./PanelState";
-import { floatWidget, type NineZoneState } from "./NineZoneState";
+import type { NineZoneState } from "./NineZoneState";
 import type { FloatingWidgetHomeState } from "./WidgetState";
 import {
   addFloatingWidget,
@@ -34,7 +34,7 @@ import {
 } from "./internal/PanelStateHelpers";
 import {
   createDraggedTabState,
-  setSavedTabState,
+  updateSavedTabState,
   updateTabState,
 } from "./internal/TabStateHelpers";
 import {
@@ -50,6 +50,7 @@ import {
   getWidgetState,
   removeFloatingWidget,
   removePanelWidget,
+  removePopoutWidget,
   removeWidget,
   setWidgetActiveTabId,
   updateFloatingWidgetState,
@@ -516,10 +517,14 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_POPOUT": {
       const { id, position, size } = action;
-      const location = getTabLocation(state, id);
+      let location = getTabLocation(state, id);
+      if (!location) {
+        state = addRemovedTab(state, id);
+        location = getTabLocation(state, id);
+        assert(!!location);
+      }
 
-      // Tab is already in a popout.
-      if (location && isPopoutTabLocation(location)) return state;
+      if (isPopoutTabLocation(location)) return state;
 
       const savedTab = state.savedTabs.byId[id];
       let preferredBounds = savedTab?.popoutBounds
@@ -529,19 +534,16 @@ export function NineZoneStateReducer(
       if (position) preferredBounds = preferredBounds.setPosition(position);
 
       const popoutWidgetId = getUniqueId();
-      const bounds = Rectangle.create(preferredBounds);
       let home: FloatingWidgetHomeState | undefined;
-      if (location && isPanelTabLocation(location)) {
+      if (isPanelTabLocation(location)) {
         const panel = state.panels[location.side];
         const widgetIndex = panel.widgets.indexOf(location.widgetId);
-
-        state = removeTabFromWidget(state, id);
         home = {
           side: location.side,
           widgetId: location.widgetId,
           widgetIndex,
         };
-      } else if (location && isFloatingTabLocation(location)) {
+      } else if (isFloatingTabLocation(location)) {
         const floatingWidget =
           state.floatingWidgets.byId[location.floatingWidgetId];
         home = floatingWidget.home;
@@ -550,7 +552,7 @@ export function NineZoneStateReducer(
       // Move the tab from the floating container and create a new popout container
       state = removeTabFromWidget(state, id);
       return addPopoutWidget(state, popoutWidgetId, [id], {
-        bounds: bounds.toProps(),
+        bounds: preferredBounds.toProps(),
         home,
       });
     }
@@ -572,7 +574,7 @@ export function NineZoneStateReducer(
       if (isFloatingTabLocation(location)) {
         const floatingWidget = state.floatingWidgets.byId[widgetId];
         // widgetDef.setFloatingContainerId(location.floatingWidgetId);
-        state = setSavedTabState(state, id, (draft) => {
+        state = updateSavedTabState(state, id, (draft) => {
           draft.home = {
             widgetId,
             tabIndex,
@@ -582,7 +584,7 @@ export function NineZoneStateReducer(
       } else if (isPanelTabLocation(location)) {
         const side = location.side;
         const widgetIndex = state.panels[side].widgets.indexOf(widgetId);
-        state = setSavedTabState(state, id, (draft) => {
+        state = updateSavedTabState(state, id, (draft) => {
           draft.home = {
             widgetId,
             side,
@@ -629,12 +631,66 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_SET_FLOATING": {
       const { id, position, size } = action;
-      const tabLocation = getTabLocation(state, id);
-      if (!tabLocation) {
+      let location = getTabLocation(state, id);
+      if (!location) {
         state = addRemovedTab(state, id);
+        location = getTabLocation(state, id);
+        assert(!!location);
       }
 
-      state = floatWidget(state, id, position, size);
+      if (isFloatingTabLocation(location)) return state;
+
+      const tab = state.tabs[id];
+      const preferredSize = size ??
+        tab.preferredFloatingWidgetSize ?? { height: 400, width: 400 };
+      const preferredPosition = position ?? { x: 50, y: 100 };
+      const preferredBounds =
+        Rectangle.createFromSize(preferredSize).offset(preferredPosition);
+      const nzBounds = Rectangle.createFromSize(state.size);
+      const containedBounds = preferredBounds.containIn(nzBounds);
+
+      if (isPanelTabLocation(location)) {
+        const panel = state.panels[location.side];
+        const widgetIndex = panel.widgets.indexOf(location.widgetId);
+
+        state = updateTabState(state, id, {
+          preferredFloatingWidgetSize: preferredSize,
+        });
+        state = removeTabFromWidget(state, id);
+        state = addFloatingWidget(
+          state,
+          id,
+          [id],
+          {
+            bounds: containedBounds,
+            home: {
+              side: location.side,
+              widgetId: location.widgetId,
+              widgetIndex,
+            },
+          },
+          { isFloatingStateWindowResizable: tab.isFloatingStateWindowResizable }
+        );
+      } else {
+        const popoutWidgetId = location.popoutWidgetId;
+        const popoutWidget = state.popoutWidgets.byId[popoutWidgetId];
+        const widget = state.widgets[popoutWidgetId];
+        state = removePopoutWidget(state, popoutWidgetId);
+
+        const bounds = popoutWidget.bounds;
+        const home = popoutWidget.home;
+
+        state = addFloatingWidget(
+          state,
+          popoutWidgetId,
+          [id],
+          {
+            bounds,
+            home,
+          },
+          widget
+        );
+      }
 
       const isToolSettings = state.toolSettings?.tabId === id;
       if (isToolSettings) {
@@ -647,7 +703,7 @@ export function NineZoneStateReducer(
       return state;
     }
     case "WIDGET_TAB_SET_POPOUT_BOUNDS": {
-      state = setSavedTabState(state, action.id, (draft) => {
+      state = updateSavedTabState(state, action.id, (draft) => {
         if (draft.popoutBounds && action.bounds)
           setRectangleProps(draft.popoutBounds, action.bounds);
         else

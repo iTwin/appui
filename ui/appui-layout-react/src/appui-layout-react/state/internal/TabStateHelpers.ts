@@ -61,7 +61,7 @@ export function updateTabState(
 }
 
 /** @internal */
-export function setSavedTabState(
+export function updateSavedTabState(
   state: NineZoneState,
   id: TabState["id"],
   update: (draft: WritableDraft<SavedTabState>) => void

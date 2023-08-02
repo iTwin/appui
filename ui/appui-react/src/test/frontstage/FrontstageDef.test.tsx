@@ -13,7 +13,6 @@ import {
   createNineZoneState,
 } from "@itwin/appui-layout-react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
-import { ProcessDetector } from "@itwin/core-bentley";
 import { renderHook } from "@testing-library/react-hooks";
 import type {
   FrontstageConfig,

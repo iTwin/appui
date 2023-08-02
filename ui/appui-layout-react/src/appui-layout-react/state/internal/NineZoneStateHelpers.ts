@@ -7,7 +7,6 @@
  */
 
 import type { Draft } from "immer";
-import { produce } from "immer";
 import type { PointProps } from "@itwin/appui-abstract";
 import type { NineZoneState } from "../NineZoneState";
 import type {
@@ -107,51 +106,5 @@ export function updateHomeOfToolSettingsWidget(
 
   return updateFloatingWidgetState(state, id, {
     home,
-  });
-}
-
-/** @internal */
-export function convertFloatingWidgetContainerToPopout(
-  state: NineZoneState,
-  widgetContainerId: string
-): NineZoneState {
-  const widget = getWidgetState(state, widgetContainerId);
-  // istanbul ignore next
-  if (widget.tabs.length !== 1) {
-    // currently only support popping out a floating widget container if it has a single tab
-    return state;
-  }
-  return produce(state, (draft) => {
-    const floatingWidget = state.floatingWidgets.byId[widgetContainerId];
-    const bounds = floatingWidget.bounds;
-    const home = floatingWidget.home;
-    const id = floatingWidget.id;
-    // remove the floating entry
-    delete draft.floatingWidgets.byId[widgetContainerId];
-    const idIndex = draft.floatingWidgets.allIds.indexOf(widgetContainerId);
-    draft.floatingWidgets.allIds.splice(idIndex, 1);
-    // insert popout entry
-    draft.popoutWidgets.byId[widgetContainerId] = { bounds, id, home };
-    draft.popoutWidgets.allIds.push(widgetContainerId);
-  });
-}
-
-/** @internal */
-export function convertPopoutWidgetContainerToFloating(
-  state: NineZoneState,
-  widgetContainerId: string
-): NineZoneState {
-  return produce(state, (draft) => {
-    const popoutWidget = state.popoutWidgets.byId[widgetContainerId];
-    const bounds = popoutWidget.bounds;
-    const home = popoutWidget.home;
-    const id = popoutWidget.id;
-    // remove the floating entry
-    delete draft.popoutWidgets.byId[widgetContainerId];
-    const idIndex = draft.popoutWidgets.allIds.indexOf(widgetContainerId);
-    draft.popoutWidgets.allIds.splice(idIndex, 1);
-    // insert popout entry
-    draft.floatingWidgets.byId[widgetContainerId] = { bounds, id, home };
-    draft.floatingWidgets.allIds.push(widgetContainerId);
   });
 }
