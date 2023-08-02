@@ -2938,14 +2938,8 @@ export interface ToolbarPopupContextProps {
 }
 
 // @public @deprecated
-export interface ToolbarProps extends CommonProps, NoChildrenProps {
-    expandsTo?: Direction;
-    items: CommonToolbarItem[];
-    onItemExecuted?: OnItemExecutedFunc;
-    onKeyDown?: (e: React_2.KeyboardEvent) => void;
-    panelAlignment?: ToolbarPanelAlignment;
-    toolbarOpacitySetting?: ToolbarOpacitySetting;
-    useDragInteraction?: boolean;
+export interface ToolbarProps extends ToolbarWithOverflowProps {
+    enableOverflow?: boolean;
 }
 
 // @public @deprecated
@@ -2962,6 +2956,10 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
     onKeyDown?: (e: React_2.KeyboardEvent) => void;
     overflowExpandsTo?: Direction;
     panelAlignment?: ToolbarPanelAlignment;
+    // @internal
+    syncUiEvent?: BeEvent<(args: {
+        eventIds: Set<string>;
+    }) => void>;
     toolbarOpacitySetting?: ToolbarOpacitySetting;
     useDragInteraction?: boolean;
 }

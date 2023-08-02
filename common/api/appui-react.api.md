@@ -4650,10 +4650,12 @@ export interface ToolbarPopupProps extends PopupPropsBase {
 
 // @beta
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
+    enableOverflow?: boolean;
     expandsTo?: Direction;
     items: ToolbarItem[];
     onItemExecuted?: OnItemExecutedFunc;
     onKeyDown?: (e: React_2.KeyboardEvent) => void;
+    overflowExpandsTo?: Direction;
     panelAlignment?: ToolbarPanelAlignment;
     toolbarOpacitySetting?: ToolbarOpacitySetting;
     useDragInteraction?: boolean;
@@ -4665,7 +4667,7 @@ export enum ToolbarUsage {
     ViewNavigation = 1
 }
 
-// @beta
+// @beta @deprecated
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element;
 
 // @beta
@@ -5034,7 +5036,7 @@ export const useDefaultBackstageItems: (manager: BackstageItemsManager) => reado
 // @public
 export const useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[];
 
-// @public
+// @public @deprecated
 export const useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[];
 
 // @alpha (undocumented)
@@ -5111,7 +5113,7 @@ export const useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) 
 // @public
 export const useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[];
 
-// @public
+// @public @deprecated
 export const useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[];
 
 // @public (undocumented)
