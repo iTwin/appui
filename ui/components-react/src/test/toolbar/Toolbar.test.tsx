@@ -19,11 +19,13 @@ import {
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
   ToolbarPanelAlignmentHelpers,
+  useToolItemEntryContext,
 } from "../../components-react/toolbar/Toolbar";
 import { Toolbar } from "../../components-react/toolbar/Toolbar";
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import { BackArrow } from "../../components-react/toolbar/groupPanel/BackArrow";
 import { GroupTool } from "../../components-react/toolbar/groupPanel/tool/Tool";
+import { renderHook } from "@testing-library/react-hooks";
 
 /* eslint-disable deprecation/deprecation */
 // cSpell:ignore testid
@@ -601,6 +603,19 @@ describe("<Toolbar (No Overflow) />", () => {
       expect(div).not.to.be.null;
       fireEvent.pointerUp(div!);
       spy.calledOnce.should.true;
+    });
+  });
+
+  describe("useToolItemEntryContext", () => {
+    it("do not require explicit context use (have defaults)", () => {
+      const { result } = renderHook(() => {
+        return useToolItemEntryContext();
+      });
+
+      expect(() => result.current.onResize(0)).to.not.throw();
+      expect(result.current.onResize).to.exist;
+      expect(result.current.hasOverflow).to.exist;
+      expect(result.current.useHeight).to.exist;
     });
   });
 });
