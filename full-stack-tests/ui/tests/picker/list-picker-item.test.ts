@@ -5,11 +5,13 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('list picker item test', async ({ page }) => {
+test("list picker item test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Picker', exact: true }).click();
+  await page.getByRole("button", { name: "Picker", exact: true }).click();
 
-  const listPickerItem = page.getByRole('button', { name: 'List Picker Item Label' });
-  await expect(listPickerItem).toHaveScreenshot()
+  const listPickerItem = page.getByRole("button", {
+    name: "List Picker Item Label",
+  });
+  await expect(listPickerItem).toHaveScreenshot();
 });

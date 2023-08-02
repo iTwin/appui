@@ -5,11 +5,14 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('status bar center section test', async ({ page }) => {
+test("status bar center section test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'StatusBar', exact: true }).click();
+  await page.getByRole("button", { name: "StatusBar", exact: true }).click();
 
-  const statusBarCenterSection = page.locator('div').filter({ hasText: /^Status-Bar-Center-Section$/ }).first();
-  await expect(statusBarCenterSection).toHaveScreenshot()
+  const statusBarCenterSection = page
+    .locator("div")
+    .filter({ hasText: /^Status-Bar-Center-Section$/ })
+    .first();
+  await expect(statusBarCenterSection).toHaveScreenshot();
 });

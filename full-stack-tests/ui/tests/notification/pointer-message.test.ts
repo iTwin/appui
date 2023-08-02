@@ -5,12 +5,17 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('pointer message test', async ({ page }) => {
+test("pointer message test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Notification', exact: true }).click();
+  await page.getByRole("button", { name: "Notification", exact: true }).click();
 
-  await page.getByRole('button', { name: 'Open Pointer Message' }).click();
-  const pointerMessage = page.locator('div').filter({ hasText: /^This is the brief messageThis is the detailed message$/ }).first();
-  await expect(pointerMessage).toHaveScreenshot()
+  await page.getByRole("button", { name: "Open Pointer Message" }).click();
+  const pointerMessage = page
+    .locator("div")
+    .filter({
+      hasText: /^This is the brief messageThis is the detailed message$/,
+    })
+    .first();
+  await expect(pointerMessage).toHaveScreenshot();
 });

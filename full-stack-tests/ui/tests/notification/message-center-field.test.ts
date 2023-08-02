@@ -5,13 +5,19 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('message center field test', async ({ page }) => {
+test("message center field test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Notification', exact: true }).click();
+  await page.getByRole("button", { name: "Notification", exact: true }).click();
 
-  await page.locator('div').filter({ hasText: /^Message Center FieldMessages0$/ }).getByRole('button', { name: 'Messages 0' }).click();
+  await page
+    .locator("div")
+    .filter({ hasText: /^Message Center FieldMessages0$/ })
+    .getByRole("button", { name: "Messages 0" })
+    .click();
   //This will be a screenshot of the whole right panel of the screen so that both the button and panel are included
-  const messageCenterField = page.getByText('ThemeToggle the theme between light and darkDark LightElement TooltipOpen Elemen');
-  await expect(messageCenterField).toHaveScreenshot()
+  const messageCenterField = page.getByText(
+    "ThemeToggle the theme between light and darkDark LightElement TooltipOpen Elemen"
+  );
+  await expect(messageCenterField).toHaveScreenshot();
 });

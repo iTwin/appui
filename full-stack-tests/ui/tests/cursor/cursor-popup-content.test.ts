@@ -5,11 +5,11 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('cursor popup content test', async ({ page }) => {
+test("cursor popup content test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Cursor', exact: true }).click();
+  await page.getByRole("button", { name: "Cursor", exact: true }).click();
 
-  const cursorPopupContent = page.getByText('Hello world');
+  const cursorPopupContent = page.getByText("Hello world");
   await expect(cursorPopupContent).toHaveScreenshot();
 });

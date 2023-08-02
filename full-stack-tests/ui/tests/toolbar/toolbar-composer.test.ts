@@ -5,11 +5,13 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('toolbar composer test', async ({ page }) => {
+test("toolbar composer test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Toolbar', exact: true }).click();
+  await page.getByRole("button", { name: "Toolbar", exact: true }).click();
 
-  const toolbarComposer = page.locator('.component-examples-items > div:nth-child(3) > div:nth-child(2)');
-  await expect(toolbarComposer).toHaveScreenshot()
+  const toolbarComposer = page.locator(
+    ".component-examples-items > div:nth-child(3) > div:nth-child(2)"
+  );
+  await expect(toolbarComposer).toHaveScreenshot();
 });

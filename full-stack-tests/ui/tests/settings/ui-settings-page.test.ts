@@ -5,11 +5,13 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('ui settings page test', async ({ page }) => {
+test("ui settings page test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Settings', exact: true }).click();
+  await page.getByRole("button", { name: "Settings", exact: true }).click();
 
-  const uiSettingsPage = page.locator('div:nth-child(4) > div:nth-child(2)').first();
-  await expect(uiSettingsPage).toHaveScreenshot()
+  const uiSettingsPage = page
+    .locator("div:nth-child(4) > div:nth-child(2)")
+    .first();
+  await expect(uiSettingsPage).toHaveScreenshot();
 });

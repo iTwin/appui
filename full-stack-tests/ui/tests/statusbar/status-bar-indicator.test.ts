@@ -6,11 +6,13 @@ import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 import { stat } from "fs";
 
-test('status bar indicator test', async ({ page }) => {
+test("status bar indicator test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'StatusBar', exact: true }).click();
+  await page.getByRole("button", { name: "StatusBar", exact: true }).click();
 
-  const statusBarIndicator = page.getByRole('button', { name: 'Indicator Label' });
-  await expect(statusBarIndicator).toHaveScreenshot()
+  const statusBarIndicator = page.getByRole("button", {
+    name: "Indicator Label",
+  });
+  await expect(statusBarIndicator).toHaveScreenshot();
 });

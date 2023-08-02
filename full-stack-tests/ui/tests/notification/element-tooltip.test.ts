@@ -5,12 +5,12 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('element tooltip test', async ({ page }) => {
+test("element tooltip test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Notification', exact: true }).click();
+  await page.getByRole("button", { name: "Notification", exact: true }).click();
 
-  await page.getByRole('button', { name: 'Open Element Tooltip' }).click();
+  await page.getByRole("button", { name: "Open Element Tooltip" }).click();
   const elementTooltip = page.getByText("Testing element tool tip message");
-  await expect(elementTooltip).toHaveScreenshot()
+  await expect(elementTooltip).toHaveScreenshot();
 });

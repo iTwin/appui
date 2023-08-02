@@ -5,12 +5,14 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('cursor popup menu test', async ({ page }) => {
+test("cursor popup menu test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Cursor', exact: true }).click();
+  await page.getByRole("button", { name: "Cursor", exact: true }).click();
 
-  await page.getByRole('button', { name: 'Open Cursor Popup Menu' }).click();
-  const cursorPopupMenu = page.getByText('Menu Item 1Menu Item 2Submenu Item 1Submenu Item 2');
+  await page.getByRole("button", { name: "Open Cursor Popup Menu" }).click();
+  const cursorPopupMenu = page.getByText(
+    "Menu Item 1Menu Item 2Submenu Item 1Submenu Item 2"
+  );
   await expect(cursorPopupMenu).toHaveScreenshot();
 });

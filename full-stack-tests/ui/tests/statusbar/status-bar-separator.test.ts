@@ -5,11 +5,13 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('status bar separator test', async ({ page }) => {
+test("status bar separator test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'StatusBar', exact: true }).click();
+  await page.getByRole("button", { name: "StatusBar", exact: true }).click();
 
-  const statusBarSeparator = page.locator('div:nth-child(15) > div:nth-child(2)');
-  await expect(statusBarSeparator).toHaveScreenshot()
+  const statusBarSeparator = page.locator(
+    "div:nth-child(15) > div:nth-child(2)"
+  );
+  await expect(statusBarSeparator).toHaveScreenshot();
 });

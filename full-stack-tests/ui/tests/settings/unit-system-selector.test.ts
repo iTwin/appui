@@ -5,11 +5,14 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('unit system selector test', async ({ page }) => {
+test("unit system selector test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Settings', exact: true }).click();
+  await page.getByRole("button", { name: "Settings", exact: true }).click();
 
-  const unitSystemSelector = page.locator('div').filter({ hasText: /^Presentation Unit SystemMetric$/ }).first();
-  await expect(unitSystemSelector).toHaveScreenshot()
+  const unitSystemSelector = page
+    .locator("div")
+    .filter({ hasText: /^Presentation Unit SystemMetric$/ })
+    .first();
+  await expect(unitSystemSelector).toHaveScreenshot();
 });

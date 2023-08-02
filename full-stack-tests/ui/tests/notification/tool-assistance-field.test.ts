@@ -5,12 +5,18 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('tool assistance field test', async ({ page }) => {
+test("tool assistance field test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Notification', exact: true }).click();
+  await page.getByRole("button", { name: "Notification", exact: true }).click();
 
-  await page.getByRole('button', { name: 'Select Elements > Click for more information' }).click();
-  const toolAssistanceField = page.getByText('ThemeToggle the theme between light and darkDark LightElement TooltipOpen Elemen');
-  await expect(toolAssistanceField).toHaveScreenshot()
+  await page
+    .getByRole("button", {
+      name: "Select Elements > Click for more information",
+    })
+    .click();
+  const toolAssistanceField = page.getByText(
+    "ThemeToggle the theme between light and darkDark LightElement TooltipOpen Elemen"
+  );
+  await expect(toolAssistanceField).toHaveScreenshot();
 });

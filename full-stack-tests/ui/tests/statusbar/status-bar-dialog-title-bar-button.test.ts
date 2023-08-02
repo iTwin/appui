@@ -5,11 +5,11 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('status bar dialog title bar button test', async ({ page }) => {
+test("status bar dialog title bar button test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'StatusBar', exact: true }).click();
+  await page.getByRole("button", { name: "StatusBar", exact: true }).click();
 
-  const statusBarDialogTitleBarButton = page.getByText('Button Label');
-  await expect(statusBarDialogTitleBarButton).toHaveScreenshot()
+  const statusBarDialogTitleBarButton = page.getByText("Button Label");
+  await expect(statusBarDialogTitleBarButton).toHaveScreenshot();
 });

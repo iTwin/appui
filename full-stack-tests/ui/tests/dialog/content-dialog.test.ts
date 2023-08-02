@@ -5,12 +5,12 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('content dialog test', async ({ page }) => {
+test("content dialog test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Dialog', exact: true }).click();
+  await page.getByRole("button", { name: "Dialog", exact: true }).click();
 
-  await page.getByRole('button', { name: 'Open Content Dialog' }).click();
-  const contentDialog = page.getByTestId('core-dialog-container');
-  await expect(contentDialog).toHaveScreenshot()
+  await page.getByRole("button", { name: "Open Content Dialog" }).click();
+  const contentDialog = page.getByTestId("core-dialog-container");
+  await expect(contentDialog).toHaveScreenshot();
 });

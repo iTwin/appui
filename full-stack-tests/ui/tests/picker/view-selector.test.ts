@@ -5,11 +5,11 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('view selector test', async ({ page }) => {
+test("view selector test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Picker', exact: true }).click();
+  await page.getByRole("button", { name: "Picker", exact: true }).click();
 
-  await page.getByRole('button', { name: 'Views' }).click();
-  await expect(page).toHaveScreenshot()
+  await page.getByRole("button", { name: "Views" }).click();
+  await expect(page).toHaveScreenshot();
 });

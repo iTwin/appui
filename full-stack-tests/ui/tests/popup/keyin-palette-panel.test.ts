@@ -5,11 +5,14 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('keyin palette panel test', async ({ page }) => {
+test("keyin palette panel test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Popup', exact: true }).click();
+  await page.getByRole("button", { name: "Popup", exact: true }).click();
 
-  const keyinPalettePanel = page.locator('div').filter({ hasText: /^keyin onekeyin twotest atest b$/ }).first();
-  await expect(keyinPalettePanel).toHaveScreenshot()
+  const keyinPalettePanel = page
+    .locator("div")
+    .filter({ hasText: /^keyin onekeyin twotest atest b$/ })
+    .first();
+  await expect(keyinPalettePanel).toHaveScreenshot();
 });

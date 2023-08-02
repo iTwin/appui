@@ -5,12 +5,14 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('expandable section test', async ({ page }) => {
+test("expandable section test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Picker', exact: true }).click();
+  await page.getByRole("button", { name: "Picker", exact: true }).click();
 
-  await page.getByRole('button', { name: 'Expandable Section Title' }).click();
-  const expandableSection = page.getByText('Expandable Section TitleItem 1Item 2Item 3Item 4');
-  await expect(expandableSection).toHaveScreenshot()
+  await page.getByRole("button", { name: "Expandable Section Title" }).click();
+  const expandableSection = page.getByText(
+    "Expandable Section TitleItem 1Item 2Item 3Item 4"
+  );
+  await expect(expandableSection).toHaveScreenshot();
 });

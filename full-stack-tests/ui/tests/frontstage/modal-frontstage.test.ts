@@ -5,11 +5,11 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test('modal frontstage test', async ({ page }) => {
+test("modal frontstage test", async ({ page }) => {
   await openComponentExamples(page);
 
-  await page.getByRole('button', { name: 'Frontstage', exact: true }).click();
+  await page.getByRole("button", { name: "Frontstage", exact: true }).click();
 
-  await page.getByRole('button', { name: 'Open Modal Frontstage' }).click();
+  await page.getByRole("button", { name: "Open Modal Frontstage" }).click();
   await expect(page).toHaveScreenshot();
 });
