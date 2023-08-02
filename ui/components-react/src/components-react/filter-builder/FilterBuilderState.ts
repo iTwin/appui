@@ -209,7 +209,7 @@ export function isPropertyFilterBuilderRuleGroup(
 export interface UsePropertyFilterBuilderProps {
   /** Initial filter for [[PropertyFilterBuilder]] */
   initialFilter?: PropertyFilter;
-  /** Custom rule validator to be used when [[buildFilter]] is invoked. Should return error message or undefined, if rule is valid. */
+  /** Custom rule validator to be used when [[UsePropertyFilterBuilderResult.buildFilter]] is invoked. Should return error message or `undefined`, if rule is valid. */
   ruleValidator?: (rule: PropertyFilterBuilderRule) => string | undefined;
 }
 
@@ -217,17 +217,17 @@ export interface UsePropertyFilterBuilderProps {
  * Type for [[usePropertyFilterBuilder]] return object.
  * @beta
  */
-export interface UsePropertyFilterBuilderValues {
+export interface UsePropertyFilterBuilderResult {
   /** Root group of the [[PropertyFilterBuilder]]. */
   rootGroup: PropertyFilterBuilderRuleGroup;
   /** Actions for manipulating [[PropertyFilterBuilder]] state. */
   actions: PropertyFilterBuilderActions;
   /**
-   * Filter builder for building [[PropertyFilter]] from [[PropertyFilterBuilder]] state.
-   * @returns PropertyFilter if all rules are valid, otherwise sets error messages fow invalid rules using
-   * default rule validator or custom validator provided from [[UsePropertyFilterBuilderProps]] and returns undefined.
+   * Validates and builds [[PropertyFilter]] based on current state. It uses [[defaultPropertyFilterBuilderRuleValidator]] or 
+   * custom validator provided through [[UsePropertyFilterBuilderProps]] to validate each rule.
+   * @returns [[PropertyFilter]] if all rules are valid, `undefined` otherwise.
    */
-  buildFilter: () => string | undefined;
+  buildFilter: () => PropertyFilter | undefined;
 }
 
 /**
@@ -253,17 +253,15 @@ export function usePropertyFilterBuilder(
   );
 
   const buildFilter = () => {
-    const ruleIdsAndErrorMessages = ruleGroupItemValidator({
+    const ruleErrors = ruleGroupItemValidator({
       item: state.rootGroup,
       ruleValidator,
     });
-    if (ruleIdsAndErrorMessages.size === 0) {
-      actions.setRuleErrorMessages(new Map<string, string>());
-      return buildPropertyFilter(state.rootGroup);
-    } else {
-      actions.setRuleErrorMessages(ruleIdsAndErrorMessages);
+    actions.setRuleErrorMessages(ruleErrors);
+    if (ruleIdsAndErrorMessages.size > 0) {
       return undefined;
     }
+    return buildPropertyFilter(state.rootgroup);
   };
   return { rootGroup: state.rootGroup, actions, buildFilter };
 }
@@ -276,10 +274,7 @@ interface RuleGroupItemValidatorProps {
 function ruleGroupItemValidator(props: RuleGroupItemValidatorProps) {
   const ruleIdsAndErrorMessages = new Map<string, string>();
 
-  const ruleGroupItemValidatorInner = ({
-    item,
-    ruleValidator,
-  }: RuleGroupItemValidatorProps) => {
+  const validateRuleGroupItem = (item: PropertyFilterBuilderRuleGroupItem) => {
     if (isPropertyFilterBuilderRuleGroup(item)) {
       item.items.forEach((itm) => {
         ruleGroupItemValidatorInner({
@@ -307,7 +302,7 @@ function ruleGroupItemValidator(props: RuleGroupItemValidatorProps) {
  * Default rule validator.
  * @beta
  */
-export function defaultRuleValidator(
+export function defaultPropertyFilterBuilderRuleValidator(
   item: PropertyFilterBuilderRule
 ): string | undefined {
   if (
