@@ -229,7 +229,7 @@ export function usePropertyFilterBuilder({
     () => new PropertyFilterBuilderActions(setState)
   );
 
-  const validate = (
+  const buildFilter = (
     ruleValidator?: (item: PropertyFilterBuilderRule) => string | undefined
   ) => {
     const ruleIdsAndErrorMessages = new Map<string, string>();

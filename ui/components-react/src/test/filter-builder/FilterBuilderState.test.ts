@@ -585,7 +585,7 @@ describe("usePropertyFilterBuilder", () => {
       const { result } = renderHook(() => usePropertyFilterBuilder({}));
       const { validate } = result.current;
 
-      validate(spy);
+      validate(() => "My custom error");
 
       const { rootGroup } = result.current;
 
