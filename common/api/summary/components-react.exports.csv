@@ -54,6 +54,7 @@ internal;DateTimePropertyEditor
 public;DateTimeTypeConverter 
 public;class DateTimeTypeConverterBase 
 public;DEFAULT_LINKS_HANDLER: LinkElementsInfo
+beta;defaultRuleValidator(item: PropertyFilterBuilderRule): string | undefined
 public;DelayLoadedTreeNodeItem 
 public;Direction
 internal;DirectionHelpers
@@ -393,8 +394,9 @@ public;useControlledTreeLayoutStorage
 beta;useDebouncedAsyncValue
 public;usePagedTreeNodeLoader
 public;usePropertyData(props:
-beta;usePropertyFilterBuilder({ initialFilter, }: UsePropertyFilterBuilderProps):
+beta;usePropertyFilterBuilder(props?: UsePropertyFilterBuilderProps):
 beta;UsePropertyFilterBuilderProps
+beta;UsePropertyFilterBuilderValues
 public;usePropertyGridEventHandler(props:
 public;usePropertyGridModel(props:
 public;usePropertyGridModelSource(props:

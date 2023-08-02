@@ -535,6 +535,9 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
 // @public
 export const DEFAULT_LINKS_HANDLER: LinkElementsInfo;
 
+// @beta
+export function defaultRuleValidator(item: PropertyFilterBuilderRule): string | undefined;
+
 // @public
 export interface DelayLoadedTreeNodeItem extends TreeNodeItem {
     // (undocumented)
@@ -3513,16 +3516,23 @@ export function usePropertyData(props: {
 };
 
 // @beta
-export function usePropertyFilterBuilder({ initialFilter, }: UsePropertyFilterBuilderProps): {
+export function usePropertyFilterBuilder(props?: UsePropertyFilterBuilderProps): {
     rootGroup: PropertyFilterBuilderRuleGroup;
     actions: PropertyFilterBuilderActions;
-    validate: (ruleValidator?: ((item: PropertyFilterBuilderRule) => string | undefined) | undefined) => PropertyFilter | undefined;
+    buildFilter: () => PropertyFilter | undefined;
 };
 
 // @beta
 export interface UsePropertyFilterBuilderProps {
-    // (undocumented)
     initialFilter?: PropertyFilter;
+    ruleValidator?: (rule: PropertyFilterBuilderRule) => string | undefined;
+}
+
+// @beta
+export interface UsePropertyFilterBuilderValues {
+    actions: PropertyFilterBuilderActions;
+    buildFilter: () => string | undefined;
+    rootGroup: PropertyFilterBuilderRuleGroup;
 }
 
 // @public
