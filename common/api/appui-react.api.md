@@ -4437,6 +4437,8 @@ export enum SyncUiEventId {
     ShowHideManagerSettingChange = "show-hide-setting-change",
     ToolActivated = "toolactivated",
     UiStateStorageChanged = "uistatestoragechanged",
+    // (undocumented)
+    ViewedModelsChanged = "viewedmodelschanged",
     ViewStateChanged = "viewstatechanged",
     WidgetStateChanged = "widgetstatechanged"
 }

@@ -47,6 +47,7 @@ describe("BasicToolWidget", () => {
           },
           iModel: {
             selectionSet: {
+              elements: new Set<string>([""]),
               size: 1,
             },
           },
@@ -88,6 +89,7 @@ describe("BasicToolWidget", () => {
           },
           iModel: {
             selectionSet: {
+              elements: new Set<string>([""]),
               size: 1,
             },
           },

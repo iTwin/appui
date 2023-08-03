@@ -226,6 +226,11 @@ public;PropertyEditorProps
 beta;PropertyFilter = PropertyFilterRule | PropertyFilterRuleGroup
 beta;PropertyFilterBuilder(props: PropertyFilterBuilderProps): JSX.Element
 beta;PropertyFilterBuilderProps
+internal;PropertyFilterBuilderRuleOperator(props: PropertyFilterBuilderRuleOperatorProps): JSX.Element
+beta;PropertyFilterBuilderRuleOperatorProps
+beta;PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueProps): JSX.Element
+beta;PropertyFilterBuilderRuleValueProps
+beta;PropertyFilterBuilderRuleValueRendererProps 
 public;PropertyFilterChangeEvent 
 public;PropertyFilterChangesListener = () => void
 beta;PropertyFilterRule
