@@ -74,7 +74,6 @@ import TestUtils, {
   UiStateStorageStub,
 } from "../TestUtils";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
-import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test";
 
 function createSavedNineZoneState(args?: Partial<NineZoneState>) {
   return {

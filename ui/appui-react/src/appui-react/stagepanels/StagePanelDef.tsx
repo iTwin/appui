@@ -9,11 +9,7 @@
 import type { Draft } from "immer";
 import produce from "immer";
 import { UiEvent } from "@itwin/appui-abstract";
-import {
-  type NineZoneState,
-  NineZoneStateReducer,
-  type PanelSide,
-} from "@itwin/appui-layout-react";
+import type { NineZoneState, PanelSide } from "@itwin/appui-layout-react";
 import { WidgetDef } from "../widgets/WidgetDef";
 import { WidgetHost } from "../widgets/WidgetHost";
 import type {

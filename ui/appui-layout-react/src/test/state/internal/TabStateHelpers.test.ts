@@ -8,7 +8,6 @@ import {
 } from "../../../appui-layout-react/state/internal/TabStateHelpers";
 import { createNineZoneState } from "../../../appui-layout-react";
 import { expect } from "chai";
-import { Rectangle } from "@itwin/core-react";
 
 describe("updateTabState", () => {
   it("should throw if tab does not exist", () => {
