@@ -14,7 +14,7 @@ import type {
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
 } from "@itwin/components-react";
-import { Toolbar as CR_Toolbar } from "@itwin/components-react";
+import { InternalToolbarComponent as CR_Toolbar } from "@itwin/components-react";
 import type { ToolbarItem } from "./ToolbarItem";
 import { toUIAToolbarItem } from "./toUIAToolbarItem";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";

@@ -14,13 +14,13 @@ import {
 } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
 import * as useTargetedModule from "@itwin/core-react/lib/cjs/core-react/utils/hooks/useTargeted";
-import type { CustomToolbarItem } from "../../components-react/toolbar/Toolbar";
+import type { CustomToolbarItem } from "../../components-react/toolbar/InternalToolbarComponent";
 import {
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
   ToolbarPanelAlignmentHelpers,
   useToolItemEntryContext,
-} from "../../components-react/toolbar/Toolbar";
+} from "../../components-react/toolbar/InternalToolbarComponent";
 import { Toolbar } from "../../components-react/toolbar/Toolbar";
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import { BackArrow } from "../../components-react/toolbar/groupPanel/BackArrow";

@@ -20,14 +20,15 @@ import type {
 } from "./InternalToolbarComponent";
 import { InternalToolbarComponent } from "./InternalToolbarComponent";
 
-/** Properties of [[Toolbar]] component.
+/** Properties of [[ToolbarWithOverflow]] component.
  * @public
- * @deprecated in 4.0. Use [ToolbarProps]($appui-react) instead.
+ * @deprecated in 4.0. Use [ToolbarWithOverflowProps]($appui-react) instead.
  */
-// eslint-disable-next-line deprecation/deprecation
-export interface ToolbarProps extends CommonProps, NoChildrenProps {
+export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
   /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
   expandsTo?: Direction;
+  /** Describes to which direction the overflow popup panels are expanded. Defaults to: [[Direction.Right]] */
+  overflowExpandsTo?: Direction;
   /** Definitions for items of the toolbar. Items are expected to be already sorted by group and item. */
   items: CommonToolbarItem[];
   /** Describes how expanded panels are aligned. Defaults to: [[ToolbarPanelAlignment.Start]] */
@@ -42,11 +43,12 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
   onKeyDown?: (e: React.KeyboardEvent) => void;
 }
 
-/** Component that displays toolbar items.
+/** Component that displays toolbar items, displaying only the elements that can fit in the available space,
+ * and put the other items into a single panel.
  * @public
- * @deprecated in 4.0. Use [Toolbar]($appui-react) instead.
+ * @deprecated in 4.0. Use [ToolbarWithOverflow]($appui-react) instead.
  */
 // eslint-disable-next-line deprecation/deprecation
-export function Toolbar(props: ToolbarProps) {
-  return <InternalToolbarComponent {...props} />;
+export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
+  return <InternalToolbarComponent enableOverflow={true} {...props} />;
 }

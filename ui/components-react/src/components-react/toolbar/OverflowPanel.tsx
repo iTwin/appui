@@ -26,7 +26,7 @@ import {
 import {
   ToolbarOpacitySetting,
   useToolbarWithOverflowDirectionContext,
-} from "./Toolbar";
+} from "./InternalToolbarComponent";
 import {
   DirectionHelpers,
   OrthogonalDirectionHelpers,

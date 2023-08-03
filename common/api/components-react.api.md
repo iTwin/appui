@@ -1113,6 +1113,25 @@ export interface IMutablePropertyGridModel {
     getVisibleFlatGrid: () => IMutableFlatGridItem[];
 }
 
+// @internal
+export function InternalToolbarComponent(props: InternalToolbarComponentProps): JSX.Element;
+
+// @internal
+export interface InternalToolbarComponentProps extends CommonProps, NoChildrenProps {
+    enableOverflow?: boolean;
+    expandsTo?: Direction;
+    items: CommonToolbarItem[];
+    onItemExecuted?: OnItemExecutedFunc;
+    onKeyDown?: (e: React_2.KeyboardEvent) => void;
+    overflowExpandsTo?: Direction;
+    panelAlignment?: ToolbarPanelAlignment;
+    syncUiEvent?: BeEvent<(args: {
+        eventIds: Set<string>;
+    }) => void>;
+    toolbarOpacitySetting?: ToolbarOpacitySetting;
+    useDragInteraction?: boolean;
+}
+
 // @alpha
 export class IntlFormatter implements DateFormatter {
     constructor(_intlFormatter?: Intl.DateTimeFormat | undefined);
@@ -2938,8 +2957,14 @@ export interface ToolbarPopupContextProps {
 }
 
 // @public @deprecated
-export interface ToolbarProps extends ToolbarWithOverflowProps {
-    enableOverflow?: boolean;
+export interface ToolbarProps extends CommonProps, NoChildrenProps {
+    expandsTo?: Direction;
+    items: CommonToolbarItem[];
+    onItemExecuted?: OnItemExecutedFunc;
+    onKeyDown?: (e: React_2.KeyboardEvent) => void;
+    panelAlignment?: ToolbarPanelAlignment;
+    toolbarOpacitySetting?: ToolbarOpacitySetting;
+    useDragInteraction?: boolean;
 }
 
 // @public @deprecated
@@ -2956,10 +2981,6 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
     onKeyDown?: (e: React_2.KeyboardEvent) => void;
     overflowExpandsTo?: Direction;
     panelAlignment?: ToolbarPanelAlignment;
-    // @internal
-    syncUiEvent?: BeEvent<(args: {
-        eventIds: Set<string>;
-    }) => void>;
     toolbarOpacitySetting?: ToolbarOpacitySetting;
     useDragInteraction?: boolean;
 }
