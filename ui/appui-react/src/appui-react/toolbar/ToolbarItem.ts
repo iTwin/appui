@@ -17,9 +17,9 @@ import type { IconSpec } from "@itwin/core-react";
  * @public
  */
 export enum ToolbarUsage {
-  /** Contains tools to Create Update and Delete content - in ninezone this is in top left of content area. */
+  /** Contains tools to Create Update and Delete content - in AppUI this is in top left of content area. */
   ContentManipulation = 0,
-  /** Manipulate view/camera - in ninezone this is in top right of content area. */
+  /** Manipulate view/camera - in AppUI this is in top right of content area. */
   ViewNavigation = 1,
 }
 
