@@ -536,7 +536,7 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
 export const DEFAULT_LINKS_HANDLER: LinkElementsInfo;
 
 // @beta
-export function defaultRuleValidator(item: PropertyFilterBuilderRule): string | undefined;
+export function defaultPropertyFilterBuilderRuleValidator(item: PropertyFilterBuilderRule): string | undefined;
 
 // @public
 export interface DelayLoadedTreeNodeItem extends TreeNodeItem {
@@ -3529,9 +3529,9 @@ export interface UsePropertyFilterBuilderProps {
 }
 
 // @beta
-export interface UsePropertyFilterBuilderValues {
+export interface UsePropertyFilterBuilderResult {
     actions: PropertyFilterBuilderActions;
-    buildFilter: () => string | undefined;
+    buildFilter: () => PropertyFilter | undefined;
     rootGroup: PropertyFilterBuilderRuleGroup;
 }
 
