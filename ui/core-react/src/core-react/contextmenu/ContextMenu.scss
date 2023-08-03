@@ -213,8 +213,9 @@ $uicore-menu-top-bottom-padding: calc(#{$uicore-menu-padding} * 0.6667);
       }
 
       .core-context-submenu-container .core-context-submenu-arrow {
-        margin-left: $uicore-unbordered-padding;
+        margin-left: var(--iui-size-s);
         margin-top: var(--iui-size-3xs);
+        margin-bottom: calc(var(--iui-size-3xs) * -1);
       }
     }
   }
