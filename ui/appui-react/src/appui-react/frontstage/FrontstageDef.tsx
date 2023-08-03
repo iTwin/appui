@@ -882,7 +882,6 @@ export class FrontstageDef {
   ) {
     const state = this.nineZoneState;
     if (!state) return;
-
     const widgetDef = this.findWidgetDef(widgetId);
     if (!widgetDef) return;
 

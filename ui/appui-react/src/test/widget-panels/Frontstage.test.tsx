@@ -74,6 +74,7 @@ import TestUtils, {
   UiStateStorageStub,
 } from "../TestUtils";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test";
 
 function createSavedNineZoneState(args?: Partial<NineZoneState>) {
   return {
@@ -769,25 +770,6 @@ describe("Frontstage local storage wrapper", () => {
             frontstageDef: frontstageDef1,
           });
           expect(frontstageDef1.nineZoneState).to.be.undefined;
-        });
-      });
-
-      describe("onWidgetLabelChangedEvent", () => {
-        it("should update tab label", () => {
-          const frontstageDef = new FrontstageDef();
-          let state = createNineZoneState();
-          state = addTab(state, "t1");
-          state = addPanelWidget(state, "left", "w1", ["t1"]);
-          frontstageDef.nineZoneState = state;
-          const widgetDef = WidgetDef.create({
-            id: "t1",
-          });
-          renderHook(() => useFrontstageManager(frontstageDef));
-
-          sinon.stub(widgetDef, "label").get(() => "test");
-          widgetDef.setLabel("test");
-
-          frontstageDef.nineZoneState?.tabs.t1.label.should.eq("test");
         });
       });
 
@@ -1679,9 +1661,8 @@ describe("Frontstage local storage wrapper", () => {
             <WidgetPanelsFrontstage />
           </Provider>
         );
-        spy.calledOnce.should.true;
         window.dispatchEvent(new Event("unload"));
-        spy.calledTwice.should.true;
+        sinon.assert.calledOnce(spy);
         wrapper.unmount();
       });
 
@@ -1808,20 +1789,6 @@ describe("Frontstage local storage wrapper", () => {
         );
       });
     });
-  });
-
-  it("should set nineZoneSize when WIDGET_TAB_POPOUT is received", () => {
-    const frontstageDef = new FrontstageDef();
-    const spy = sinon.stub(frontstageDef, "popoutWidget");
-
-    addFloatingWidget;
-    frontstageDef.nineZoneState = createNineZoneState();
-    const { result } = renderHook(() => useNineZoneDispatch(frontstageDef));
-    result.current({
-      type: "WIDGET_TAB_POPOUT",
-      id: "t1",
-    });
-    spy.calledOnceWithExactly("t1");
   });
 
   it("should set nineZoneSize when FLOATING_WIDGET_SET_BOUNDS is received", () => {

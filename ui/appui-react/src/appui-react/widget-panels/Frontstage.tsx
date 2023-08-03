@@ -988,6 +988,13 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
   }, [uiStateStorage]);
   React.useEffect(() => {
     async function fetchFrontstageState() {
+      if (frontstageDef.nineZoneState) {
+        frontstageDef.nineZoneState = processPopoutWidgets(
+          frontstageDef.nineZoneState
+        );
+        return;
+      }
+
       const id = frontstageDef.id;
       const version = frontstageDef.version;
       const settingResult = await uiStateStorageRef.current.getSetting(
