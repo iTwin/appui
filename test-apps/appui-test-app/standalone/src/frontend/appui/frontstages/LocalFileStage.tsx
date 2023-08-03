@@ -264,10 +264,7 @@ function LocalFilePage(props: LocalFilePageProps) {
 
     const filePath = val.filePaths[0];
     if (filePath) {
-      const connection = await LocalFileSupport.openLocalFile(
-        filePath,
-        true
-      );
+      const connection = await LocalFileSupport.openLocalFile(filePath, true);
       if (connection) {
         SampleAppIModelApp.setIsIModelLocal(true, true);
         const viewId = await getDefaultViewId(connection);

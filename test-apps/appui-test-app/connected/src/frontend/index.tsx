@@ -417,9 +417,7 @@ export class SampleAppIModelApp {
 
     Logger.logInfo(
       SampleAppIModelApp.loggerCategory(this),
-      `openIModelAndViews: iTwinId=${iTwinId}&iModelId=${iModelId} mode=${
-        "Readonly"
-      }`
+      `openIModelAndViews: iTwinId=${iTwinId}&iModelId=${iModelId} mode=${"Readonly"}`
     );
 
     let iModelConnection: IModelConnection | undefined;
@@ -528,9 +526,7 @@ export class SampleAppIModelApp {
       // open the imodel
       Logger.logInfo(
         SampleAppIModelApp.loggerCategory(this),
-        `showIModel: iTwinId = ${iTwinId}& iModelId=${iModelId} mode = ${
-          "Readonly"
-        } `
+        `showIModel: iTwinId = ${iTwinId}& iModelId=${iModelId} mode = ${"Readonly"} `
       );
 
       try {
