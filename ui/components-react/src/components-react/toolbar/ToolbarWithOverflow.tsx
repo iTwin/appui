@@ -50,5 +50,11 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
  */
 // eslint-disable-next-line deprecation/deprecation
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
-  return <InternalToolbarComponent enableOverflow={true} {...props} />;
+  const { overflowExpandsTo, ...internalProps } = props;
+  return (
+    <InternalToolbarComponent
+      enableOverflow={{ overflowExpandsTo }}
+      {...internalProps}
+    />
+  );
 }

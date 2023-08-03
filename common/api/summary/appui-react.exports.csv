@@ -336,6 +336,7 @@ public;NotifyMessageDetailsType = NotifyMessageDetails | ReactNotifyMessageDetai
 public;NotifyMessageType = MessageType
 public;OpenChildWindowInfo
 public;OpenMessageCenterEvent 
+beta;OverflowProps
 internal;packNineZoneState(state: NineZoneState): SavedNineZoneState
 public;PanelPinnedChangedEventArgs
 internal;PanelSizeChangedEvent 

@@ -1118,12 +1118,13 @@ export function InternalToolbarComponent(props: InternalToolbarComponentProps): 
 
 // @internal
 export interface InternalToolbarComponentProps extends CommonProps, NoChildrenProps {
-    enableOverflow?: boolean;
+    enableOverflow?: boolean | {
+        overflowExpandsTo?: Direction;
+    };
     expandsTo?: Direction;
     items: CommonToolbarItem[];
     onItemExecuted?: OnItemExecutedFunc;
     onKeyDown?: (e: React_2.KeyboardEvent) => void;
-    overflowExpandsTo?: Direction;
     panelAlignment?: ToolbarPanelAlignment;
     syncUiEvent?: BeEvent<(args: {
         eventIds: Set<string>;

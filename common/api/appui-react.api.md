@@ -3299,6 +3299,11 @@ export interface OpenChildWindowInfo {
 export class OpenMessageCenterEvent extends UiEvent<{}> {
 }
 
+// @beta
+export interface OverflowProps {
+    overflowExpandsTo?: Direction;
+}
+
 // @internal
 export function packNineZoneState(state: NineZoneState): SavedNineZoneState;
 
@@ -4650,12 +4655,11 @@ export interface ToolbarPopupProps extends PopupPropsBase {
 
 // @beta
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
-    enableOverflow?: boolean;
+    enableOverflow?: boolean | OverflowProps;
     expandsTo?: Direction;
     items: ToolbarItem[];
     onItemExecuted?: OnItemExecutedFunc;
     onKeyDown?: (e: React_2.KeyboardEvent) => void;
-    overflowExpandsTo?: Direction;
     panelAlignment?: ToolbarPanelAlignment;
     toolbarOpacitySetting?: ToolbarOpacitySetting;
     useDragInteraction?: boolean;

@@ -381,9 +381,12 @@ export interface InternalToolbarComponentProps
   /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
   expandsTo?: Direction;
   /** Describes if items that do not fit available space should move to an expandable panel. Defaults to: false */
-  enableOverflow?: boolean;
-  /** Describes to which direction the overflow popup panels are expanded. Defaults to: [[Direction.Right]] */
-  overflowExpandsTo?: Direction;
+  enableOverflow?:
+    | boolean
+    | {
+        /** Describes to which direction the overflow popup panels are expanded if overflow is enabled. Defaults to: [[Direction.Right]] */
+        overflowExpandsTo?: Direction;
+      };
   /** Definitions for items of the toolbar. Items are expected to be already sorted by group and item. */
   items: CommonToolbarItem[];
   /** Describes how expanded panels are aligned. Defaults to: [[ToolbarPanelAlignment.Start]] */
@@ -517,9 +520,9 @@ export function InternalToolbarComponent(props: InternalToolbarComponentProps) {
 
   const direction = getToolbarDirection(expandsTo);
   const overflowExpandsTo =
-    undefined !== props.overflowExpandsTo
-      ? props.overflowExpandsTo
-      : Direction.Right;
+    (typeof props.enableOverflow !== "boolean" &&
+      props.enableOverflow?.overflowExpandsTo) ||
+    Direction.Right;
   const addOverflowButton = React.useCallback(
     (atStart: boolean) => {
       const overflowItems = !!atStart

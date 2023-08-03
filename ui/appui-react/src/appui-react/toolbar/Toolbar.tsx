@@ -19,6 +19,15 @@ import type { ToolbarItem } from "./ToolbarItem";
 import { toUIAToolbarItem } from "./toUIAToolbarItem";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 
+/**
+ * Properties of [[Toolbar.enableOverflow]] component.
+ * @beta
+ */
+export interface OverflowProps {
+  /** Describes to which direction the overflow popup panels are expanded if overflow is enabled. Defaults to: [[Direction.Right]] */
+  overflowExpandsTo?: Direction;
+}
+
 /** Properties of [[Toolbar]] component.
  * @beta
  */
@@ -26,9 +35,7 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
   /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
   expandsTo?: Direction;
   /** Describes if items that do not fit available space should move to an expandable panel. Defaults to: false */
-  enableOverflow?: boolean;
-  /** Describes to which direction the overflow popup panels are expanded if overflow is enabled. Defaults to: [[Direction.Right]] */
-  overflowExpandsTo?: Direction;
+  enableOverflow?: boolean | OverflowProps;
   /** Definitions for items of the toolbar. Items are expected to be already sorted by group and item. */
   items: ToolbarItem[];
   /** Describes how expanded panels are aligned. Defaults to: [[ToolbarPanelAlignment.Start]] */
