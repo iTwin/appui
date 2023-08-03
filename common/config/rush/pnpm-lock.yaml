@@ -437,6 +437,7 @@ importers:
       '@types/jscodeshift': ^0.11.6
       '@types/node': 18.11.5
       '@types/yargs': ^17.0.22
+      ast-types: ^0.14.2
       glob: ~10.2.4
       jest: ^29.4.2
       jscodeshift: ^0.14.0
@@ -449,6 +450,7 @@ importers:
       yargs: ^17.6.2
     dependencies:
       '@types/jscodeshift': 0.11.6
+      ast-types: 0.14.2
       glob: 10.2.4
       jscodeshift: 0.14.0
       postcss: 8.4.23

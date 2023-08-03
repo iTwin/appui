@@ -491,6 +491,10 @@
       "allowedCategories": [ "integration-testing", "internal" ]
     },
     {
+      "name": "ast-types",
+      "allowedCategories": [ "tools" ]
+    },
+    {
       "name": "autoprefixer",
       "allowedCategories": [ "internal" ]
     },
