@@ -8,7 +8,7 @@
 
 import { BeEvent } from '@itwin/core-bentley';
 import type { CommonProps } from '@itwin/core-react';
-import type { IconSpec } from '@itwin/core-react';
+import { IconSpec } from '@itwin/core-react';
 import type { NoChildrenProps } from '@itwin/core-react';
 import type { OmitChildrenProp } from '@itwin/core-react';
 import { Point } from '@itwin/core-react';
@@ -17,12 +17,12 @@ import type { PopupProps } from '@itwin/core-react';
 import * as React_2 from 'react';
 import { Rectangle } from '@itwin/core-react';
 import type { RectangleProps } from '@itwin/core-react';
-import type { SizeProps } from '@itwin/core-react';
+import { SizeProps } from '@itwin/core-react';
 import { StoreApi } from 'zustand';
 import { UseBoundStore } from 'zustand';
 
 // @internal
-export function addDockedToolSettings(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
+export function addDockedToolSettings(state: NineZoneState, tabId: TabState["id"], hidden?: boolean): NineZoneState;
 
 // @internal (undocumented)
 export function addFloatingWidget(state: NineZoneState, id: FloatingWidgetState["id"], tabs: WidgetState["tabs"], floatingWidgetArgs?: Partial<FloatingWidgetState>, widgetArgs?: Partial<WidgetState>): NineZoneState;
@@ -32,6 +32,9 @@ export function addPanelWidget(state: NineZoneState, side: PanelSide, id: Widget
 
 // @internal (undocumented)
 export function addPopoutWidget(state: NineZoneState, id: PopoutWidgetState["id"], tabs: WidgetState["tabs"], popoutWidgetArgs?: Partial<PopoutWidgetState>, widgetArgs?: Partial<WidgetState>): NineZoneState;
+
+// @internal
+export function addRemovedTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
 
 // @internal
 export function addTab(state: NineZoneState, id: TabState["id"], tabArgs?: Partial<TabState>): NineZoneState;
@@ -139,16 +142,7 @@ export function CenterContent(): JSX.Element;
 export const CenterContentNodeContext: React_2.Context<React_2.ReactNode>;
 
 // @internal (undocumented)
-export interface CommonToolSettingsState {
-    // (undocumented)
-    readonly tabId: TabState["id"];
-}
-
-// @internal (undocumented)
 export const ContentNodeContext: React_2.Context<React_2.ReactNode>;
-
-// @internal
-export function convertAllPopupWidgetContainersToFloating(state: NineZoneState): NineZoneState;
 
 // @internal (undocumented)
 export function createLayoutStore(args?: Partial<LayoutState>): LayoutStore;
@@ -207,13 +201,14 @@ export interface DockedToolSettingsProps extends CommonProps {
 }
 
 // @internal (undocumented)
-export interface DockedToolSettingsState extends CommonToolSettingsState {
+export interface DockedToolSettingsState {
+    // (undocumented)
+    readonly hidden: boolean;
+    // (undocumented)
+    readonly tabId: TabState["id"];
     // (undocumented)
     readonly type: "docked";
 }
-
-// @internal (undocumented)
-export function dockWidgetContainer(state: NineZoneState, widgetTabId: string, idIsContainerId?: boolean): NineZoneState;
 
 // @internal (undocumented)
 export const DraggedPanelSideContext: React_2.Context<PanelSide | undefined>;
@@ -452,9 +447,6 @@ export interface FloatingWidgetState {
     readonly userSized?: boolean;
 }
 
-// @internal (undocumented)
-export function floatWidget(state: NineZoneState, widgetTabId: string, point?: PointProps, size?: SizeProps): NineZoneState;
-
 // @internal
 export class Footer extends React_2.PureComponent<FooterProps> {
     // (undocumented)
@@ -677,7 +669,7 @@ export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
 export function NineZone(props: NineZoneProps): JSX.Element;
 
 // @internal (undocumented)
-export type NineZoneAction = ResizeAction | PanelToggleCollapsedAction | PanelSetCollapsedAction | PanelSetSizeAction | PanelSetSplitterPercentAction | PanelToggleSpanAction | PanelTogglePinnedAction | PanelInitializeAction | FloatingWidgetResizeAction | FloatingWidgetSetBoundsAction | FloatingWidgetBringToFrontAction | FloatingWidgetSendBackAction | FloatingWidgetClearUserSizedAction | FloatingWidgetSetUserSizedAction | PopoutWidgetSendBackAction | PanelWidgetDragStartAction | WidgetDragAction | WidgetDragEndAction | WidgetTabClickAction | WidgetTabDoubleClickAction | WidgetTabDragStartAction | WidgetTabDragAction | WidgetTabDragEndAction | WidgetTabPopoutAction | ToolSettingsDragStartAction | ToolSettingsDockAction;
+export type NineZoneAction = ResizeAction | PanelToggleCollapsedAction | PanelSetCollapsedAction | PanelSetPinnedAction | PanelSetSizeAction | PanelSetSplitterPercentAction | PanelToggleSpanAction | PanelTogglePinnedAction | PanelInitializeAction | FloatingWidgetResizeAction | FloatingWidgetSetBoundsAction | FloatingWidgetBringToFrontAction | FloatingWidgetSendBackAction | FloatingWidgetClearUserSizedAction | FloatingWidgetSetUserSizedAction | PopoutWidgetSendBackAction | PanelWidgetDragStartAction | WidgetDragAction | WidgetDragEndAction | WidgetTabClickAction | WidgetTabDoubleClickAction | WidgetTabDragStartAction | WidgetTabDragAction | WidgetTabDragEndAction | WidgetTabPopoutAction | WidgetTabCloseAction | WidgetTabFloatAction | WidgetTabHideAction | WidgetTabOpenAction | WidgetTabSetLabelAction | WidgetTabSetPopoutBoundsAction | WidgetTabShowAction | WidgetTabExpandAction | ToolSettingsDragStartAction | ToolSettingsDockAction;
 
 // @internal (undocumented)
 export type NineZoneDispatch = (action: NineZoneAction) => void;
@@ -758,6 +750,8 @@ export interface NineZoneState {
     // (undocumented)
     readonly popoutWidgets: PopoutWidgetsState;
     // (undocumented)
+    readonly savedTabs: SavedTabsState;
+    // (undocumented)
     readonly size: SizeProps;
     // (undocumented)
     readonly tabs: TabsState;
@@ -797,6 +791,11 @@ export interface PanelInitializeAction {
 }
 
 // @internal (undocumented)
+export type PanelMaxSizeState = number | {
+    readonly percentage: number;
+};
+
+// @internal (undocumented)
 export interface PanelSetCollapsedAction {
     // (undocumented)
     readonly collapsed: boolean;
@@ -807,11 +806,21 @@ export interface PanelSetCollapsedAction {
 }
 
 // @internal (undocumented)
+export interface PanelSetPinnedAction {
+    // (undocumented)
+    readonly pinned: boolean;
+    // (undocumented)
+    readonly side: PanelSide;
+    // (undocumented)
+    readonly type: "PANEL_SET_PINNED";
+}
+
+// @internal (undocumented)
 export interface PanelSetSizeAction {
     // (undocumented)
     readonly side: PanelSide;
     // (undocumented)
-    readonly size: number;
+    readonly size: PanelState["size"];
     // (undocumented)
     readonly type: "PANEL_SET_SIZE";
 }
@@ -859,7 +868,7 @@ export interface PanelState {
     // (undocumented)
     readonly collapseOffset: number;
     // (undocumented)
-    readonly maxSize: number;
+    readonly maxSize: PanelMaxSizeState;
     // (undocumented)
     readonly maxWidgetCount: number;
     // (undocumented)
@@ -1002,17 +1011,11 @@ export interface PopoutWidgetState {
     readonly id: WidgetState["id"];
 }
 
-// @internal (undocumented)
-export function popoutWidgetToChildWindow(state: NineZoneState, tabId: string, preferredBounds: RectangleProps): NineZoneState;
-
 // @internal
 export function removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
 
 // @internal
 export function removeTabFromWidget(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
-
-// @internal
-export function removeToolSettings(state: NineZoneState): NineZoneState;
 
 // @internal (undocumented)
 export interface ResizeAction {
@@ -1886,6 +1889,14 @@ export interface WidgetTabClickAction {
 }
 
 // @internal (undocumented)
+export interface WidgetTabCloseAction {
+    // (undocumented)
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly type: "WIDGET_TAB_CLOSE";
+}
+
+// @internal (undocumented)
 export interface WidgetTabDoubleClickAction {
     // (undocumented)
     readonly floatingWidgetId: FloatingWidgetState["id"] | undefined;
@@ -1936,9 +1947,49 @@ export interface WidgetTabDragStartAction {
 }
 
 // @internal (undocumented)
+export interface WidgetTabExpandAction {
+    // (undocumented)
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly type: "WIDGET_TAB_EXPAND";
+}
+
+// @internal (undocumented)
+export interface WidgetTabFloatAction {
+    // (undocumented)
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly position?: PointProps;
+    // (undocumented)
+    readonly size?: SizeProps;
+    // (undocumented)
+    readonly type: "WIDGET_TAB_FLOAT";
+}
+
+// @internal (undocumented)
+export interface WidgetTabHideAction {
+    // (undocumented)
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly type: "WIDGET_TAB_HIDE";
+}
+
+// @internal (undocumented)
+export interface WidgetTabOpenAction {
+    // (undocumented)
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly type: "WIDGET_TAB_OPEN";
+}
+
+// @internal (undocumented)
 export interface WidgetTabPopoutAction {
     // (undocumented)
-    readonly id: WidgetState["activeTabId"];
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly position?: PointProps;
+    // (undocumented)
+    readonly size?: SizeProps;
     // (undocumented)
     readonly type: "WIDGET_TAB_POPOUT";
 }
@@ -1982,7 +2033,37 @@ export interface WidgetTabsEntryContextProviderProps {
 export function WidgetTabsEntryProvider(props: WidgetTabsEntryContextProviderProps): JSX.Element;
 
 // @internal (undocumented)
-export interface WidgetToolSettingsState extends CommonToolSettingsState {
+export interface WidgetTabSetLabelAction {
+    // (undocumented)
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly label: TabState["label"];
+    // (undocumented)
+    readonly type: "WIDGET_TAB_SET_LABEL";
+}
+
+// @internal (undocumented)
+export interface WidgetTabSetPopoutBoundsAction {
+    // (undocumented)
+    readonly bounds: RectangleProps | undefined;
+    // (undocumented)
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly type: "WIDGET_TAB_SET_POPOUT_BOUNDS";
+}
+
+// @internal (undocumented)
+export interface WidgetTabShowAction {
+    // (undocumented)
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly type: "WIDGET_TAB_SHOW";
+}
+
+// @internal (undocumented)
+export interface WidgetToolSettingsState {
+    // (undocumented)
+    readonly tabId: TabState["id"];
     // (undocumented)
     readonly type: "widget";
 }
