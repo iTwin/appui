@@ -3300,7 +3300,7 @@ export class OpenMessageCenterEvent extends UiEvent<{}> {
 }
 
 // @beta
-export interface OverflowProps {
+export interface OverflowToolbarOptions {
     overflowExpandsTo?: Direction;
 }
 
@@ -4655,7 +4655,7 @@ export interface ToolbarPopupProps extends PopupPropsBase {
 
 // @beta
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
-    enableOverflow?: boolean | OverflowProps;
+    enableOverflow?: boolean | OverflowToolbarOptions;
     expandsTo?: Direction;
     items: ToolbarItem[];
     onItemExecuted?: OnItemExecutedFunc;
