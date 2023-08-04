@@ -92,7 +92,6 @@ class LocalFileOpenControl extends ContentControl {
       <LocalFilePage
         onClose={this._handleClose}
         onViewsSelected={this._handleViewsSelected}
-        writable={SampleAppIModelApp.allowWrite}
       />
     );
   }
@@ -156,7 +155,6 @@ export class LocalFileOpenFrontstage {
     if (fullBimFileName) {
       const connection = await LocalFileSupport.openLocalFile(
         fullBimFileName,
-        SampleAppIModelApp.allowWrite,
         true
       );
       if (connection) {
@@ -212,12 +210,11 @@ interface LocalFilePageProps {
     views: Id64String[]
   ) => void;
   onClose: () => void;
-  writable: boolean;
 }
 
 /** LocalFilePage displays the file picker and view picker. */
 function LocalFilePage(props: LocalFilePageProps) {
-  const { onViewsSelected, writable } = props;
+  const { onViewsSelected } = props;
 
   const title = React.useRef(
     UiFramework.localization.getLocalizedString(
@@ -243,7 +240,6 @@ function LocalFilePage(props: LocalFilePageProps) {
         if (file) {
           const connection = await LocalFileSupport.openLocalFile(
             file.name,
-            writable,
             false
           );
           // const hasSavedContent = await hasSavedViewLayoutProps(MainFrontstage.stageId, connection);
@@ -255,7 +251,7 @@ function LocalFilePage(props: LocalFilePageProps) {
         }
       }
     },
-    [onViewsSelected, writable]
+    [onViewsSelected]
   );
 
   const handleElectronFileOpen = React.useCallback(async () => {
@@ -268,18 +264,14 @@ function LocalFilePage(props: LocalFilePageProps) {
 
     const filePath = val.filePaths[0];
     if (filePath) {
-      const connection = await LocalFileSupport.openLocalFile(
-        filePath,
-        writable,
-        true
-      );
+      const connection = await LocalFileSupport.openLocalFile(filePath, true);
       if (connection) {
         SampleAppIModelApp.setIsIModelLocal(true, true);
         const viewId = await getDefaultViewId(connection);
         if (undefined !== viewId) onViewsSelected(connection, [viewId]);
       }
     }
-  }, [onViewsSelected, writable]);
+  }, [onViewsSelected]);
 
   const handleButtonClick = React.useCallback(async () => {
     if (isElectronApp.current) {

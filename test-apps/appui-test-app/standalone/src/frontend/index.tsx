@@ -436,10 +436,6 @@ export class SampleAppIModelApp {
     return process.env[envVar] === "1" || process.env[envVar] === "true";
   }
 
-  public static get allowWrite() {
-    return SampleAppIModelApp.isEnvVarOn("IMJS_UITESTAPP_ALLOW_WRITE");
-  }
-
   public static setTestProperty(value: string, immediateSync = false) {
     if (value !== SampleAppIModelApp.getTestProperty()) {
       UiFramework.dispatchActionToStore(
