@@ -1647,6 +1647,27 @@ describe("NineZoneStateReducer", () => {
       expect(newState.toolSettings.hidden).to.true;
     });
 
+    it("should hide widget tool settings tab", () => {
+      let state = createNineZoneState();
+      state = addTab(state, "t1");
+      state = addFloatingWidget(state, "w1", ["t1"]);
+      state = addWidgetToolSettings(state, "t1");
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+
+      expect(newState.toolSettings?.type).to.eq("widget");
+      expect(newState.toolSettings?.tabId).to.eq("t1");
+      expect(newState.floatingWidgets.allIds).lengthOf(0);
+      expect(newState.savedTabs.byId.t1?.home).to.eql({
+        widgetId: "w1",
+        tabIndex: 0,
+        floatingWidget: state.floatingWidgets.byId.w1,
+      });
+    });
+
     it("should hide tab in a floating widget", () => {
       let state = createNineZoneState();
       state = addTab(state, "t1");

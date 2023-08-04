@@ -553,13 +553,14 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_HIDE": {
       const { id } = action;
-      const isToolSettings = state.toolSettings?.tabId === id;
-      if (isToolSettings && state.toolSettings?.type === "docked") {
-        return produce(state, (draft) => {
-          assert(draft.toolSettings?.type === "docked");
+      state = produce(state, (draft) => {
+        if (!draft.toolSettings) return;
+
+        const isToolSettings = draft.toolSettings.tabId === id;
+        if (isToolSettings && draft.toolSettings.type === "docked") {
           draft.toolSettings.hidden = true;
-        });
-      }
+        }
+      });
 
       const location = getTabLocation(state, id);
       if (!location) return state;
@@ -601,8 +602,10 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_CLOSE": {
       const { id } = action;
-      const isToolSettings = state.toolSettings?.tabId === id;
-      if (isToolSettings && state.toolSettings?.type === "docked") {
+      if (
+        state.toolSettings?.tabId === id &&
+        state.toolSettings.type === "docked"
+      ) {
         return state;
       }
 
@@ -747,11 +750,13 @@ export function NineZoneStateReducer(
 }
 
 function openWidgetTab(state: NineZoneState, id: TabState["id"]) {
-  const isToolSettings = state.toolSettings?.tabId === id;
-  if (isToolSettings && state.toolSettings?.type === "docked") {
+  if (
+    state.toolSettings?.tabId === id &&
+    state.toolSettings.type === "docked"
+  ) {
     return produce(state, (draft) => {
-      assert(draft.toolSettings?.type === "docked");
-      draft.toolSettings.hidden = false;
+      assert(draft.toolSettings!.type === "docked");
+      draft.toolSettings!.hidden = false;
     });
   }
 

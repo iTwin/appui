@@ -147,7 +147,7 @@ export function createPopoutWidgetState(
 ): PopoutWidgetState {
   const bounds = toRectangleProps(args?.bounds);
   const home: PopoutWidgetState["home"] = args?.home
-    ? args?.home
+    ? args.home
     : {
         side: "left",
         widgetId: undefined,
