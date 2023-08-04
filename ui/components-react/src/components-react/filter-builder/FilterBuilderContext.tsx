@@ -65,8 +65,10 @@ export const PropertyFilterBuilderRuleRenderingContext =
  * @internal
  */
 export interface ActiveRuleGroupContextProps {
-  /** Element of currently active rule group. */
-  activeElement: HTMLElement | undefined;
+  /** Element of currently focused rule group. */
+  focusedElement: HTMLElement | undefined;
+  /** Element of currently hovered rule group. */
+  hoveredElement: HTMLElement | undefined;
   /** Even handler for rule group element 'onFocus' event */
   onFocus: React.FocusEventHandler<HTMLElement>;
   /** Even handler for rule group element 'onBlur' event */
@@ -92,60 +94,72 @@ export const ActiveRuleGroupContext =
 export function useActiveRuleGroupContextProps(
   rootElementRef: React.RefObject<HTMLElement>
 ) {
-  const [activeElement, setActiveElement] = React.useState<
+  const [focusedElement, setFocusedElement] = React.useState<
+    HTMLElement | undefined
+  >();
+  const [hoveredElement, setHoveredElement] = React.useState<
     HTMLElement | undefined
   >();
 
-  const onFocus: React.FocusEventHandler<HTMLElement> = React.useCallback(
-    (e) => {
-      e.stopPropagation();
-      setActiveElement(e.currentTarget);
-    },
-    []
-  );
+  // This is used to prevent handling onFocus, onBlur, onMouseOver, onMouseOut in the same event cycle.
+  const focusedTimeout = useSetTimeout();
+  const hoveredTimeout = useSetTimeout();
 
-  const onBlur: React.FocusEventHandler<HTMLElement> = React.useCallback(
-    (e) => {
-      e.stopPropagation();
-      if (
-        activeElement !== e.currentTarget ||
-        (rootElementRef.current &&
-          rootElementRef.current.contains(e.relatedTarget))
-      )
-        return;
+  const onFocus: React.FocusEventHandler<HTMLElement> = (e) => {
+    e.stopPropagation();
+    const target = e.currentTarget;
+    focusedTimeout(() => {
+      setFocusedElement(target);
+    });
+  };
 
-      setActiveElement(undefined);
-    },
-    [activeElement, rootElementRef]
-  );
+  const onBlur: React.FocusEventHandler<HTMLElement> = (e) => {
+    e.stopPropagation();
+    if (
+      focusedElement !== e.currentTarget ||
+      (rootElementRef.current &&
+        rootElementRef.current.contains(e.relatedTarget))
+    )
+      return;
 
-  const onMouseOver: React.MouseEventHandler<HTMLElement> = React.useCallback(
-    (e) => {
-      e.stopPropagation();
-      setActiveElement(e.currentTarget);
-    },
-    []
-  );
+    focusedTimeout(() => {
+      setFocusedElement(undefined);
+    });
+  };
 
-  const onMouseOut: React.MouseEventHandler<HTMLElement> = React.useCallback(
-    (e) => {
-      e.stopPropagation();
-      // istanbul ignore if
-      if (activeElement !== e.currentTarget) return;
+  const onMouseOver: React.MouseEventHandler<HTMLElement> = (e) => {
+    const target = e.currentTarget;
+    e.stopPropagation();
+    hoveredTimeout(() => {
+      setHoveredElement(target);
+    });
+  };
 
-      setActiveElement(undefined);
-    },
-    [activeElement]
-  );
+  const onMouseOut: React.MouseEventHandler<HTMLElement> = (e) => {
+    e.stopPropagation();
+    // istanbul ignore if
+    if (hoveredElement !== e.currentTarget) return;
 
-  return React.useMemo(
-    () => ({
-      activeElement,
-      onFocus,
-      onBlur,
-      onMouseOver,
-      onMouseOut,
-    }),
-    [activeElement, onFocus, onBlur, onMouseOver, onMouseOut]
-  );
+    hoveredTimeout(() => {
+      setHoveredElement(undefined);
+    });
+  };
+
+  return {
+    focusedElement,
+    hoveredElement,
+    onFocus,
+    onBlur,
+    onMouseOver,
+    onMouseOut,
+  };
+}
+
+function useSetTimeout() {
+  const timeoutRef = React.useRef<number>();
+
+  return (callback: () => void) => {
+    window.clearTimeout(timeoutRef.current);
+    timeoutRef.current = window.setTimeout(callback);
+  };
 }
