@@ -163,6 +163,7 @@ test.describe("popout widget", () => {
       context.waitForEvent("page"),
       popoutButton.click(),
     ]);
+    await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
     expect(popoutPage.isClosed()).toBe(false);
 
     await setWidgetState(
