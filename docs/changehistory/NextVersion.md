@@ -26,3 +26,4 @@ Table of contents:
 
 - Promoted `PropertyFilterBuilderRuleOperatorProps`, `PropertyFilterBuilderRuleValueProps`, `PropertyFilterBuilderRuleValue` to **@beta**.
 - Added rendered specific interface `PropertyFilterBuilderRuleValueRendererProps` marked as **@beta**.
+- `PropertyFilterBuilder`: Fix bug where user can't change rule group operator.
