@@ -8,8 +8,7 @@ import {
   SnapshotConnection,
 } from "@itwin/core-frontend";
 import { SampleAppIModelApp } from "../index";
-import { IModelStatus, Logger, OpenMode } from "@itwin/core-bentley";
-import { IModelError } from "@itwin/core-common";
+import { Logger, OpenMode } from "@itwin/core-bentley";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 
 // cSpell:ignore TESTAPP FILEPATH
@@ -37,7 +36,6 @@ export class LocalFileSupport {
 
   public static openLocalFile = async (
     fileSpec: string,
-    writable: boolean,
     definesFullPath = false
   ): Promise<IModelConnection | undefined> => {
     // Close the current iModelConnection
@@ -51,12 +49,12 @@ export class LocalFileSupport {
       filePath = fileSpec;
       Logger.logInfo(
         SampleAppIModelApp.loggerCategory(LocalFileSupport),
-        `openLocalFile: Opening standalone. path=${filePath} writable=${writable}`
+        `openLocalFile: Opening standalone. path=${filePath}`
       );
       try {
         iModelConnection = await BriefcaseConnection.openStandalone(
           filePath,
-          writable ? OpenMode.ReadWrite : OpenMode.Readonly,
+          OpenMode.Readonly,
           { key: filePath }
         );
       } catch (err: any) {
@@ -64,20 +62,8 @@ export class LocalFileSupport {
           SampleAppIModelApp.loggerCategory(LocalFileSupport),
           `openLocalFile: BriefcaseConnection.openStandalone failed.`
         );
-
-        if (
-          writable &&
-          err instanceof IModelError &&
-          err.errorNumber === IModelStatus.ReadOnly
-        ) {
-          iModelConnection = await SnapshotConnection.openFile(filePath);
-          alert(
-            `Local file (${filePath}) could not be opened as writable. Special bytes are required in the props table of the iModel to make it editable. File opened as read-only instead.`
-          );
-        } else {
-          alert(err.message);
-          iModelConnection = undefined;
-        }
+        alert(err.message);
+        iModelConnection = undefined;
       }
     } else {
       if (
