@@ -7,6 +7,8 @@ Table of contents:
   - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Additions](#additions-1)
+- [@itwin/core-react](#itwincore-react)
+  - [Fixes](#fixes)
 
 ## @itwin/appui-react
 
@@ -26,3 +28,9 @@ Table of contents:
 
 - Promoted `PropertyFilterBuilderRuleOperatorProps`, `PropertyFilterBuilderRuleValueProps`, `PropertyFilterBuilderRuleValue` to **@beta**.
 - Added rendered specific interface `PropertyFilterBuilderRuleValueRendererProps` marked as **@beta**.
+
+## @itwin/core-react
+
+### Fixes
+
+- Center and decrease size of arrow in `SubContextMenu`.
