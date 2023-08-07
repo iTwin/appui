@@ -136,7 +136,7 @@
     },
     "chooseProperty": "Choose property",
     "errorMessages": {
-      "emptyValue": "Value is empty"
+      "emptyValue": "Value is required"
     }
   }
 }
