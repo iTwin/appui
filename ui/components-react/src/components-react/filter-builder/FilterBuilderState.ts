@@ -12,7 +12,7 @@ import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { Guid } from "@itwin/core-bentley";
-import type { PropertyFilterRuleOperator } from "./Operators";
+import { PropertyFilterRuleOperator } from "./Operators";
 import {
   isUnaryPropertyFilterOperator,
   PropertyFilterRuleGroupOperator,
@@ -158,6 +158,15 @@ export class PropertyFilterBuilderActions {
       const rule = findRule(state.rootGroup, path);
       if (!rule) return;
       if (isUnaryPropertyFilterOperator(operator)) rule.value = undefined;
+      if (
+        (!isOperatorEqualOrIsNotEqual(rule.operator) ||
+          !isOperatorEqualOrIsNotEqual(operator)) &&
+        (!isInequalityOperator(rule.operator) ||
+          !isInequalityOperator(operator)) &&
+        operator !== rule.operator
+      ) {
+        rule.value = undefined;
+      }
       rule.operator = operator;
     });
   }
@@ -452,4 +461,20 @@ function convertFilterToState(
       items: [getRuleItem(filter, id)],
     },
   };
+}
+
+function isOperatorEqualOrIsNotEqual(operator?: PropertyFilterRuleOperator) {
+  return (
+    operator === PropertyFilterRuleOperator.IsEqual ||
+    operator === PropertyFilterRuleOperator.IsNotEqual
+  );
+}
+
+function isInequalityOperator(operator?: PropertyFilterRuleOperator) {
+  return (
+    operator === PropertyFilterRuleOperator.Less ||
+    operator === PropertyFilterRuleOperator.LessOrEqual ||
+    operator === PropertyFilterRuleOperator.Greater ||
+    operator === PropertyFilterRuleOperator.GreaterOrEqual
+  );
 }
