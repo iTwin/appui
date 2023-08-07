@@ -17,11 +17,22 @@ describe("dialog", () => {
     />
     `,
     `
+    `,
+    "attribute rename"
+  );
+
+  defineInlineTest(
+    `
     import { Dialog } from "@itwin/core-react";
     <Dialog
-      isOpened={true}
+      opened={true}
+      title="MyTitle"
+      hideHeader
+      header={header}
     />
     `,
-    "test get and find"
+    `
+    `,
+    "TitleBar"
   );
 });
