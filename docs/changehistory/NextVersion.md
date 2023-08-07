@@ -22,9 +22,13 @@ Table of contents:
 
 ## @itwin/components-react
 
-- `PropertyFilterBuilder`: Fix bug where user can't change rule group operator.
-
 ### Additions
 
 - Promoted `PropertyFilterBuilderRuleOperatorProps`, `PropertyFilterBuilderRuleValueProps`, `PropertyFilterBuilderRuleValue` to **@beta**.
 - Added rendered specific interface `PropertyFilterBuilderRuleValueRendererProps` marked as **@beta**.
+- Added `PropertyFilterBuilderRenderer`, `PropertyFilterBuilderRendererProps`, `defaultPropertyFilterBuilderRuleValidator`, `UsePropertyFilterBuilderProps`, `UsePropertyFilterBuilderResult`, `usePropertyFilterBuilder`, marked as **@beta**.
+- Promoted `isPropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRule`, `PropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRuleGroupItem`, `PropertyFilterBuilderState` to **@beta**.
+
+### Fixes
+
+- `PropertyFilterBuilder`: Fixed bug where the user couldn't change rule group operator.

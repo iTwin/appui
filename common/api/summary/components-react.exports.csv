@@ -16,6 +16,7 @@ public;BasicPropertyEditor
 public;BooleanEditor 
 public;BooleanPropertyEditor 
 public;BooleanTypeConverter 
+internal;buildPropertyFilter(groupItem: PropertyFilterBuilderRuleGroupItem): PropertyFilter | undefined
 public;CategorizedPropertyItem 
 public;CategorizedPropertyTypes = FlatGridItemType.Array | FlatGridItemType.Primitive | FlatGridItemType.Struct
 public;CategoryRecordsDict
@@ -53,6 +54,7 @@ internal;DateTimePropertyEditor
 public;DateTimeTypeConverter 
 public;class DateTimeTypeConverterBase 
 public;DEFAULT_LINKS_HANDLER: LinkElementsInfo
+beta;defaultPropertyFilterBuilderRuleValidator(item: PropertyFilterBuilderRule): string | undefined
 public;DelayLoadedTreeNodeItem 
 public;Direction
 internal;DirectionHelpers
@@ -127,6 +129,7 @@ public;IPropertyGridModel
 public;IPropertyGridModelSource
 public;IPropertyValueRenderer
 internal;isCustomToolbarItem(item: ToolbarItem): item is CustomToolbarItem
+beta;isPropertyFilterBuilderRuleGroup(item: PropertyFilterBuilderRuleGroupItem): item is PropertyFilterBuilderRuleGroup
 beta;isPropertyFilterRuleGroup(filter: PropertyFilter): filter is PropertyFilterRuleGroup
 public;isTreeDataProviderInterface: (provider: TreeDataProvider) => provider is ITreeDataProvider
 public;isTreeDataProviderMethod: (provider: TreeDataProvider) => provider is TreeDataProviderMethod
@@ -225,12 +228,19 @@ public;PropertyEditorManager
 public;PropertyEditorProps 
 beta;PropertyFilter = PropertyFilterRule | PropertyFilterRuleGroup
 beta;PropertyFilterBuilder(props: PropertyFilterBuilderProps): JSX.Element
-beta;PropertyFilterBuilderProps
+beta;PropertyFilterBuilderActions
+beta;PropertyFilterBuilderProps 
+beta;PropertyFilterBuilderRenderer(props: PropertyFilterBuilderRendererProps): JSX.Element
+beta;PropertyFilterBuilderRendererProps
+beta;PropertyFilterBuilderRule
+beta;PropertyFilterBuilderRuleGroup
+beta;PropertyFilterBuilderRuleGroupItem = PropertyFilterBuilderRuleGroup | PropertyFilterBuilderRule
 internal;PropertyFilterBuilderRuleOperator(props: PropertyFilterBuilderRuleOperatorProps): JSX.Element
 beta;PropertyFilterBuilderRuleOperatorProps
 beta;PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueProps): JSX.Element
 beta;PropertyFilterBuilderRuleValueProps
 beta;PropertyFilterBuilderRuleValueRendererProps 
+beta;PropertyFilterBuilderState
 public;PropertyFilterChangeEvent 
 public;PropertyFilterChangesListener = () => void
 beta;PropertyFilterRule
@@ -384,6 +394,9 @@ public;useControlledTreeLayoutStorage
 beta;useDebouncedAsyncValue
 public;usePagedTreeNodeLoader
 public;usePropertyData(props:
+beta;usePropertyFilterBuilder(props?: UsePropertyFilterBuilderProps):
+beta;UsePropertyFilterBuilderProps
+beta;UsePropertyFilterBuilderResult
 public;usePropertyGridEventHandler(props:
 public;usePropertyGridModel(props:
 public;usePropertyGridModelSource(props:

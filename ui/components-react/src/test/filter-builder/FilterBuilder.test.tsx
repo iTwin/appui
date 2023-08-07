@@ -72,11 +72,11 @@ describe("PropertyFilterBuilder", () => {
       operator: PropertyFilterRuleOperator.IsNull,
       value: undefined,
     };
-    const spy = sinon.spy();
+
     const { container, queryByDisplayValue } = render(
       <PropertyFilterBuilder
         properties={[property1]}
-        onFilterChanged={spy}
+        onFilterChanged={() => {}}
         initialFilter={propertyFilter}
       />
     );
@@ -108,11 +108,10 @@ describe("PropertyFilterBuilder", () => {
         },
       ],
     };
-    const spy = sinon.spy();
     const { container, queryByDisplayValue } = render(
       <PropertyFilterBuilder
         properties={[property1, property2]}
-        onFilterChanged={spy}
+        onFilterChanged={() => {}}
         initialFilter={propertyFilter}
       />
     );
@@ -129,7 +128,7 @@ describe("PropertyFilterBuilder", () => {
     const user = userEvent.setup();
     const spy = sinon.spy();
     const { container } = render(
-      <PropertyFilterBuilder properties={[]} onFilterChanged={spy} />
+      <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
 
     const group = container.querySelector(".rule-group");
@@ -150,7 +149,7 @@ describe("PropertyFilterBuilder", () => {
   it("marks rule group as active on focus", async () => {
     const spy = sinon.spy();
     const { container } = render(
-      <PropertyFilterBuilder properties={[]} onFilterChanged={spy} />
+      <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
 
     const group = container.querySelector(".rule-group");
@@ -177,7 +176,7 @@ describe("PropertyFilterBuilder", () => {
   it("keeps rule group marked as active when focus moves to other element inside group", async () => {
     const spy = sinon.spy();
     const { container } = render(
-      <PropertyFilterBuilder properties={[]} onFilterChanged={spy} />
+      <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
 
     const group = container.querySelector(".rule-group");
@@ -205,9 +204,8 @@ describe("PropertyFilterBuilder", () => {
   });
 
   it("focus new rule property after adding new rule", async () => {
-    const spy = sinon.spy();
     const { container, getByTestId } = render(
-      <PropertyFilterBuilder properties={[]} onFilterChanged={spy} />
+      <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
 
     const addRuleButton = getByTestId("rule-group-add-rule");
