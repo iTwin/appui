@@ -31,4 +31,4 @@ Table of contents:
 
 ### Fixes
 
-- `PropertyFilterBuilder`: Keep rule value the same when operator changes between `Less`, `LessOrEqual`, `Greater`, `GreaterOrEqual` and `IsEqual`, `IsNotEqual`, otherwise clear it.
+- `PropertyFilterBuilder`: Keep the rule value the same when the operator changes between `Less`, `LessOrEqual`, `Greater`, `GreaterOrEqual` and `IsEqual`, `IsNotEqual`, otherwise clear it.
