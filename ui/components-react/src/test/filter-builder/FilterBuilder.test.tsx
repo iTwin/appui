@@ -126,7 +126,6 @@ describe("PropertyFilterBuilder", () => {
 
   it("marks rule group as active on mouse over", async () => {
     const user = userEvent.setup();
-    const spy = sinon.spy();
     const { container } = render(
       <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
@@ -147,7 +146,6 @@ describe("PropertyFilterBuilder", () => {
   });
 
   it("marks rule group as active on focus", async () => {
-    const spy = sinon.spy();
     const { container } = render(
       <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
@@ -174,7 +172,6 @@ describe("PropertyFilterBuilder", () => {
   });
 
   it("keeps rule group marked as active when focus moves to other element inside group", async () => {
-    const spy = sinon.spy();
     const { container } = render(
       <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
