@@ -23,19 +23,66 @@ import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRule
 import type { PropertyFilterBuilderRuleValueRendererProps } from "./FilterBuilderRuleValue";
 import {
   buildPropertyFilter,
-  usePropertyFilterBuilderState,
+  usePropertyFilterBuilder,
 } from "./FilterBuilderState";
 import type { PropertyFilter } from "./Types";
+import type {
+  PropertyFilterBuilderActions,
+  PropertyFilterBuilderRuleGroup,
+  UsePropertyFilterBuilderProps,
+} from "./FilterBuilderState";
 
 /**
  * Props for [[PropertyFilterBuilder]] component.
  * @beta
  */
-export interface PropertyFilterBuilderProps {
-  /** List of properties available to be used in filter rules. */
-  properties: PropertyDescription[];
+export interface PropertyFilterBuilderProps
+  extends Omit<PropertyFilterBuilderRendererProps, "actions" | "rootGroup">,
+    UsePropertyFilterBuilderProps {
   /** Callback that is invoked when filter changes. */
   onFilterChanged: (filter?: PropertyFilter) => void;
+}
+
+/**
+ * Component for building complex filters. It allows to create filter rules or rule groups based on provided list of properties.
+ * @beta
+ */
+export function PropertyFilterBuilder(props: PropertyFilterBuilderProps) {
+  const { initialFilter, onFilterChanged } = props;
+  const { actions, rootGroup } = usePropertyFilterBuilder({
+    initialFilter,
+  });
+
+  const firstRender = React.useRef(true);
+  const filter = React.useMemo(
+    () => buildPropertyFilter(rootGroup),
+    [rootGroup]
+  );
+  React.useEffect(() => {
+    if (!firstRender.current) onFilterChanged(filter);
+    firstRender.current = false;
+  }, [filter, onFilterChanged]);
+
+  return (
+    <PropertyFilterBuilderRenderer
+      {...props}
+      actions={actions}
+      rootGroup={rootGroup}
+    />
+  );
+}
+
+/**
+ * Props for [[PropertyFilterBuilderRenderer]] component.
+ * @beta
+ */
+export interface PropertyFilterBuilderRendererProps {
+  /** Root group of rules in [[PropertyFilterBuilder]] component. */
+  rootGroup: PropertyFilterBuilderRuleGroup;
+  /** Actions for modifying [[PropertyFilterBuilder]] state. */
+  actions: PropertyFilterBuilderActions;
+  /** List of properties available to be used in filter rules. */
+  properties: PropertyDescription[];
   /** Callback that is invoked when property is selected in any rule. */
   onRulePropertySelected?: (property: PropertyDescription) => void;
   /** Custom renderer for rule operator selector. */
@@ -52,40 +99,29 @@ export interface PropertyFilterBuilderProps {
   ruleGroupDepthLimit?: number;
   /** Specifies whether component is disabled or not. */
   isDisabled?: boolean;
-  /** Initial filter that should be shown when component is mounted. */
-  initialFilter?: PropertyFilter;
 }
 
 const ROOT_GROUP_PATH: string[] = [];
 
 /**
- * Component for building complex filters. It allows to create filter rules or rule groups based on provided list of properties.
+ * Renderer for [[PropertyFilterBuilder]] component.
  * @beta
  */
-export function PropertyFilterBuilder(props: PropertyFilterBuilderProps) {
+export function PropertyFilterBuilderRenderer(
+  props: PropertyFilterBuilderRendererProps
+) {
   const {
+    rootGroup,
+    actions,
     properties,
-    onFilterChanged,
     onRulePropertySelected,
     ruleOperatorRenderer,
     ruleValueRenderer,
     ruleGroupDepthLimit,
     propertyRenderer,
     isDisabled,
-    initialFilter,
   } = props;
-  const { state, actions } = usePropertyFilterBuilderState(initialFilter);
   const rootRef = React.useRef<HTMLDivElement>(null);
-
-  const firstRender = React.useRef(true);
-  const filter = React.useMemo(
-    () => buildPropertyFilter(state.rootGroup),
-    [state]
-  );
-  React.useEffect(() => {
-    if (!firstRender.current) onFilterChanged(filter);
-    firstRender.current = false;
-  }, [filter, onFilterChanged]);
 
   const contextValue = React.useMemo<PropertyFilterBuilderContextProps>(
     () => ({
@@ -117,7 +153,7 @@ export function PropertyFilterBuilder(props: PropertyFilterBuilderProps) {
           <div ref={rootRef} className="filter-builder">
             <PropertyFilterBuilderRuleGroupRenderer
               path={ROOT_GROUP_PATH}
-              group={state.rootGroup}
+              group={rootGroup}
             />
           </div>
         </ActiveRuleGroupContext.Provider>

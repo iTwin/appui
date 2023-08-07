@@ -134,6 +134,9 @@
       "and": "And",
       "or": "Or"
     },
-    "chooseProperty": "Choose property"
+    "chooseProperty": "Choose property",
+    "errorMessages": {
+      "emptyValue": "Value is required"
+    }
   }
 }

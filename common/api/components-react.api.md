@@ -192,6 +192,9 @@ export class BooleanTypeConverter extends TypeConverter {
     sortCompare(a: Primitives.Boolean, b: Primitives.Boolean, _ignoreCase?: boolean): number;
 }
 
+// @internal (undocumented)
+export function buildPropertyFilter(groupItem: PropertyFilterBuilderRuleGroupItem): PropertyFilter | undefined;
+
 // @public
 export interface CategorizedPropertyItem extends FlatGridItemBase {
     // (undocumented)
@@ -531,6 +534,9 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
 
 // @public
 export const DEFAULT_LINKS_HANDLER: LinkElementsInfo;
+
+// @beta
+export function defaultPropertyFilterBuilderRuleValidator(item: PropertyFilterBuilderRule): string | undefined;
 
 // @public
 export interface DelayLoadedTreeNodeItem extends TreeNodeItem {
@@ -1186,6 +1192,9 @@ export interface IPropertyValueRenderer {
 
 // @internal
 export function isCustomToolbarItem(item: ToolbarItem): item is CustomToolbarItem;
+
+// @beta
+export function isPropertyFilterBuilderRuleGroup(item: PropertyFilterBuilderRuleGroupItem): item is PropertyFilterBuilderRuleGroup;
 
 // @beta
 export function isPropertyFilterRuleGroup(filter: PropertyFilter): filter is PropertyFilterRuleGroup;
@@ -2018,17 +2027,58 @@ export type PropertyFilter = PropertyFilterRule | PropertyFilterRuleGroup;
 export function PropertyFilterBuilder(props: PropertyFilterBuilderProps): JSX.Element;
 
 // @beta
-export interface PropertyFilterBuilderProps {
-    initialFilter?: PropertyFilter;
-    isDisabled?: boolean;
+export class PropertyFilterBuilderActions {
+    constructor(setState: (setter: (prevState: PropertyFilterBuilderState) => PropertyFilterBuilderState) => void);
+    addItem(path: string[], itemType: "RULE_GROUP" | "RULE"): void;
+    removeItem(path: string[]): void;
+    setRuleErrorMessages(ruleIdsAndErrorMessages: Map<string, string>): void;
+    setRuleGroupOperator(path: string[], operator: PropertyFilterRuleGroupOperator): void;
+    setRuleOperator(path: string[], operator: PropertyFilterRuleOperator): void;
+    setRuleProperty(path: string[], property?: PropertyDescription): void;
+    setRuleValue(path: string[], value: PropertyValue): void;
+}
+
+// @beta
+export interface PropertyFilterBuilderProps extends Omit<PropertyFilterBuilderRendererProps, "actions" | "rootGroup">, UsePropertyFilterBuilderProps {
     onFilterChanged: (filter?: PropertyFilter) => void;
+}
+
+// @beta
+export function PropertyFilterBuilderRenderer(props: PropertyFilterBuilderRendererProps): JSX.Element;
+
+// @beta
+export interface PropertyFilterBuilderRendererProps {
+    actions: PropertyFilterBuilderActions;
+    isDisabled?: boolean;
     onRulePropertySelected?: (property: PropertyDescription) => void;
     properties: PropertyDescription[];
     propertyRenderer?: (name: string) => React_2.ReactNode;
+    rootGroup: PropertyFilterBuilderRuleGroup;
     ruleGroupDepthLimit?: number;
     ruleOperatorRenderer?: (props: PropertyFilterBuilderRuleOperatorProps) => React_2.ReactNode;
     ruleValueRenderer?: (props: PropertyFilterBuilderRuleValueRendererProps) => React_2.ReactNode;
 }
+
+// @beta
+export interface PropertyFilterBuilderRule {
+    errorMessage?: string;
+    groupId: string;
+    id: string;
+    operator?: PropertyFilterRuleOperator;
+    property?: PropertyDescription;
+    value?: PropertyValue;
+}
+
+// @beta
+export interface PropertyFilterBuilderRuleGroup {
+    groupId?: string;
+    id: string;
+    items: PropertyFilterBuilderRuleGroupItem[];
+    operator: PropertyFilterRuleGroupOperator;
+}
+
+// @beta
+export type PropertyFilterBuilderRuleGroupItem = PropertyFilterBuilderRuleGroup | PropertyFilterBuilderRule;
 
 // @internal
 export function PropertyFilterBuilderRuleOperator(props: PropertyFilterBuilderRuleOperatorProps): JSX.Element;
@@ -2053,6 +2103,11 @@ export interface PropertyFilterBuilderRuleValueProps {
 // @beta
 export interface PropertyFilterBuilderRuleValueRendererProps extends PropertyFilterBuilderRuleValueProps {
     operator: PropertyFilterRuleOperator;
+}
+
+// @beta
+export interface PropertyFilterBuilderState {
+    rootGroup: PropertyFilterBuilderRuleGroup;
 }
 
 // @public
@@ -3459,6 +3514,26 @@ export function usePropertyData(props: {
     value: PropertyData | undefined;
     inProgress: boolean;
 };
+
+// @beta
+export function usePropertyFilterBuilder(props?: UsePropertyFilterBuilderProps): {
+    rootGroup: PropertyFilterBuilderRuleGroup;
+    actions: PropertyFilterBuilderActions;
+    buildFilter: () => PropertyFilter | undefined;
+};
+
+// @beta
+export interface UsePropertyFilterBuilderProps {
+    initialFilter?: PropertyFilter;
+    ruleValidator?: (rule: PropertyFilterBuilderRule) => string | undefined;
+}
+
+// @beta
+export interface UsePropertyFilterBuilderResult {
+    actions: PropertyFilterBuilderActions;
+    buildFilter: () => PropertyFilter | undefined;
+    rootGroup: PropertyFilterBuilderRuleGroup;
+}
 
 // @public
 export function usePropertyGridEventHandler(props: {

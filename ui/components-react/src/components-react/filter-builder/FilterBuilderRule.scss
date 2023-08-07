@@ -13,6 +13,12 @@
     grid-template-columns: minmax(auto, 500px) 150px minmax(auto, 100%);
     grid-column-gap: var(--iui-size-m);
     width: calc(100% - var(--iui-size-s));
+
+    .iui-input-container.iui-with-message {
+      .rule-value {
+        grid-area: inputs;
+      }
+    }
   }
 
   .rule-remove-action {
