@@ -28,3 +28,7 @@ Table of contents:
 - Added rendered specific interface `PropertyFilterBuilderRuleValueRendererProps` marked as **@beta**.
 - Added `PropertyFilterBuilderRenderer`, `PropertyFilterBuilderRendererProps`, `defaultPropertyFilterBuilderRuleValidator`, `UsePropertyFilterBuilderProps`, `UsePropertyFilterBuilderResult`, `usePropertyFilterBuilder`, marked as **@beta**.
 - Promoted `isPropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRule`, `PropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRuleGroupItem`, `PropertyFilterBuilderState` to **@beta**.
+
+### Fixes
+
+- `PropertyFilterBuilder`: Keep rule value the same when operator changes between `Less`, `LessOrEqual`, `Greater`, `GreaterOrEqual` and `IsEqual`, `IsNotEqual`, otherwise clear it.
