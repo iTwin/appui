@@ -17,7 +17,7 @@ import { ContextMenuDirection } from "./ContextMenuDirection";
 import { TildeFinder } from "./TildeFinder";
 import { BadgeUtilities } from "../badge/BadgeUtilities";
 import { Icon } from "../icons/IconComponent";
-import { SvgCaretRight } from "@itwin/itwinui-icons-react";
+import { SvgCaretRightSmall } from "@itwin/itwinui-icons-react";
 
 /** Properties for the [[ContextSubMenu]] component
  * @public
@@ -161,7 +161,7 @@ export class ContextSubMenu extends React.Component<
           <div className={classnames("core-context-menu-icon", "icon", icon)} />
           <div className={"core-context-menu-content"}>{this._parsedLabel}</div>
           <div className={classnames("core-context-submenu-arrow", "icon")}>
-            <Icon iconSpec={<SvgCaretRight />} />
+            <Icon iconSpec={<SvgCaretRightSmall />} />
           </div>
           {badge && <div className="core-context-menu-badge">{badge}</div>}
         </div>
