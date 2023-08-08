@@ -9,6 +9,7 @@ Table of contents:
   - [Additions](#additions-1)
 - [@itwin/core-react](#itwincore-react)
   - [Additions](#additions-2)
+  - [Fixes](#fixes)
 
 ## @itwin/appui-react
 
@@ -44,3 +45,10 @@ Table of contents:
 ### Additions
 
 - `ConditionalIconItem.isConditionalIconItem` is now a `ConditionalIconItem` _type predicate_, on top of returning a boolean.
+
+### Fixes
+
+- Center and decrease size of arrow in `SubContextMenu`.
+- Added `PropertyFilterBuilderRenderer`, `PropertyFilterBuilderRendererProps`, `defaultPropertyFilterBuilderRuleValidator`, `UsePropertyFilterBuilderProps`, `UsePropertyFilterBuilderResult`, `usePropertyFilterBuilder`, marked as **@beta**.
+- Promoted `isPropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRule`, `PropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRuleGroupItem`, `PropertyFilterBuilderState` to **@beta**.
+- `PropertyFilterBuilder`: Fixed bug where the user couldn't change rule group operator.

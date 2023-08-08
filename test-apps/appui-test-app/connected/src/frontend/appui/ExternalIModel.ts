@@ -127,7 +127,7 @@ export class ExternalIModel {
           SampleAppIModelApp.loggerCategory(this),
           `openIModel (external): iTwinId=${this.iTwinId}&iModelId=${
             this.iModelId
-          } mode=${SampleAppIModelApp.allowWrite ? "ReadWrite" : "Readonly"}`
+          } mode=${"Readonly"}`
         );
       } catch (err: any) {
         Logger.logInfo(
