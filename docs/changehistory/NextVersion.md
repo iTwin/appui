@@ -39,4 +39,5 @@ Table of contents:
 
 ### Fixes
 
+- `PropertyFilterBuilder`: Fixed bug where the user couldn't change rule group operator.
 - `PropertyFilterBuilder`: Keep the rule value the same when the operator changes between `Less`, `LessOrEqual`, `Greater`, `GreaterOrEqual` and `IsEqual`, `IsNotEqual`, otherwise clear it.
