@@ -8,31 +8,37 @@ import transformer from "../dialog";
 
 const defineInlineTest = createDefineInlineTest(transformer);
 
-describe("dialog", () => {
-  defineInlineTest(
-    `
-    import { Dialog } from "@itwin/core-react";
-    <Dialog
-      opened={true}
-    />
-    `,
-    `
-    `,
-    "attribute rename"
-  );
+describe("dialog tests", () => {
+  defineTest(__dirname, "./dialog", defaultOptions, "dialog", {
+    parser: "tsx",
+  });
 
-  defineInlineTest(
-    `
-    import { Dialog } from "@itwin/core-react";
-    <Dialog
-      opened={true}
-      title="MyTitle"
-      hideHeader
-      header={header}
-    />
-    `,
-    `
-    `,
-    "TitleBar"
-  );
+  // describe("inner dialog", () => {
+  //   defineInlineTest(
+  //     `
+  //     import { Dialog } from "@itwin/core-react";
+  //     <Dialog
+  //       opened={true}
+  //     />
+  //     `,
+  //     `
+  //     `,
+  //     "attribute rename"
+  //   );
+
+  //   defineInlineTest(
+  //     `
+  //     import { Dialog } from "@itwin/core-react";
+  //     <Dialog
+  //       opened={true}
+  //       title="MyTitle"
+  //       hideHeader
+  //       header={header}
+  //     />
+  //     `,
+  //     `
+  //     `,
+  //     "TitleBar"
+  //   );
+  // });
 });
