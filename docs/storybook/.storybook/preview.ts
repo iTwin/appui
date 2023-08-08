@@ -14,6 +14,11 @@ const preview: Preview = {
       },
     },
     layout: "fullscreen",
+    options: {
+      storySort: {
+        order: ["Layouts", "Components", "Hooks"],
+      },
+    },
   },
 };
 
