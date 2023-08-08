@@ -36,3 +36,7 @@ Table of contents:
 - Center and decrease size of arrow in `SubContextMenu`.
 - Added `PropertyFilterBuilderRenderer`, `PropertyFilterBuilderRendererProps`, `defaultPropertyFilterBuilderRuleValidator`, `UsePropertyFilterBuilderProps`, `UsePropertyFilterBuilderResult`, `usePropertyFilterBuilder`, marked as **@beta**.
 - Promoted `isPropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRule`, `PropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRuleGroupItem`, `PropertyFilterBuilderState` to **@beta**.
+
+### Fixes
+
+- `PropertyFilterBuilder`: Fixed bug where the user couldn't change rule group operator.

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/components-react",
+      "comment": "`PropertyFilterBuilder`: Fix bug where user can't change rule group operator.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/components-react"
+}
