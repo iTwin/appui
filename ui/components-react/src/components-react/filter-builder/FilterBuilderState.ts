@@ -159,11 +159,8 @@ export class PropertyFilterBuilderActions {
       if (!rule) return;
       if (isUnaryPropertyFilterOperator(operator)) rule.value = undefined;
       if (
-        (!isOperatorEqualOrIsNotEqual(rule.operator) ||
-          !isOperatorEqualOrIsNotEqual(operator)) &&
-        (!isInequalityOperator(rule.operator) ||
-          !isInequalityOperator(operator)) &&
-        operator !== rule.operator
+        operator !== rule.operator &&
+        !areOperatorsSimilar(operator, rule.operator)
       ) {
         rule.value = undefined;
       }
@@ -461,6 +458,18 @@ function convertFilterToState(
       items: [getRuleItem(filter, id)],
     },
   };
+}
+
+function areOperatorsSimilar(
+  firstOperator?: PropertyFilterRuleOperator,
+  secondOperator?: PropertyFilterRuleOperator
+) {
+  return (
+    (isOperatorEqualOrIsNotEqual(firstOperator) &&
+      isOperatorEqualOrIsNotEqual(secondOperator)) ||
+    (isInequalityOperator(firstOperator) &&
+      isInequalityOperator(secondOperator))
+  );
 }
 
 function isOperatorEqualOrIsNotEqual(operator?: PropertyFilterRuleOperator) {
