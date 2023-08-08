@@ -7,17 +7,13 @@ import {
   API,
   Options,
   JSCodeshift,
-  Collection,
   JSXElement,
   ASTPath,
   JSXIdentifier,
   JSXAttribute,
-  ConditionalExpression,
-  LogicalExpression,
-  JSXExpressionContainer,
-  JSXFragment,
-  JSXText,
   ObjectExpression,
+  JSXText,
+  JSXMemberExpression,
 } from "jscodeshift";
 import { useExtensions } from "../utils/Extensions";
 import {
@@ -46,7 +42,7 @@ export default function transformer(
   const dialogName = coreReactImportDec.findSpecifiers("Dialog").getLocalName();
 
   if (dialogName !== "") {
-    // TODO: Add import from itwinui
+    // TODO: Add Dialog import from itwinui and remove from core-react
     const dialogTransformer = new DialogTransformer(j);
     root
       .findJSXElements(dialogName)
@@ -57,8 +53,6 @@ export default function transformer(
 }
 
 class DialogTransformer {
-  private dialog: JSXElementCollection;
-
   constructor(private j: JSCodeshift) {
     this.j = j;
     useExtensions(j);
@@ -66,448 +60,510 @@ class DialogTransformer {
     useJSXAttribute(j);
   }
 
-  transform(dialogPath: ASTPath<JSXElement>) {
-    const j = this.j;
-    this.dialog = j(dialogPath) as JSXElementCollection;
-    const dialog = this.dialog;
+  transform(dialogPath: ASTPath<JSXElement>): void {
+    new DialogTransformer.PathTransformer(this, dialogPath).execute();
+  }
 
-    const isOpenAttribute = dialog
-      .getAttribute("opened")
-      ?.renameAttribute("isOpen");
-    const isResizableAttribute = dialog
-      .getAttribute("resizable")
-      ?.renameAttribute("isResizable");
-    const isDraggableAttribute = dialog
-      .getAttribute("movable")
-      ?.renameAttribute("isResizable");
+  private static PathTransformer = class {
+    private _dialog: JSXElementCollection;
+    private _dialogNameNode: JSXIdentifier | JSXMemberExpression;
+    private _initialIndentSize: number;
+    private _indentSize: number;
 
-    const hideHeaderAttributeValue = dialog
-      .getAttribute("hideHeader")
-      ?.removeFromParentPath()
-      .extractAttributeValue();
-    const hideHeaderExpressionNode =
-      hideHeaderAttributeValue === null
-        ? null
-        : hideHeaderAttributeValue?.node();
+    constructor(
+      private superThis: DialogTransformer,
+      dialogPath: ASTPath<JSXElement>
+    ) {
+      const j = superThis.j;
+      this._dialog = j(dialogPath) as JSXElementCollection;
+      this._dialogNameNode = (dialogPath.node.name ??
+        j.jsxIdentifier("Dialog")) as JSXIdentifier | JSXMemberExpression;
+      this._initialIndentSize = dialogPath.node.loc?.start.column ?? 0;
+      this._indentSize = this.calculateIndentationSizeOrReturnDefault();
+    }
 
-    const headerAttributeValue = dialog
-      .getAttribute("header")
-      ?.removeFromParentPath()
-      .extractAttributeValue();
-    const headerExpressionNode =
-      headerAttributeValue === null ? null : headerAttributeValue?.node();
+    private get dialog(): JSXElementCollection {
+      return this._dialog;
+    }
+    private get dialogNameNode() {
+      return this._dialogNameNode;
+    }
+    private get initialIndentSize() {
+      return this._initialIndentSize;
+    }
+    private get indentSize() {
+      return this._indentSize;
+    }
 
-    const titleAttributeNode = dialog
-      .getAttribute("title")
-      ?.removeFromParentPath()
-      .renameAttribute("titleText")
-      .node();
-    const titleStyleAttributeNode = dialog
-      .getAttribute("titleStyle")
-      ?.removeFromParentPath()
-      .renameAttribute("style")
-      .node();
-    const titleBarAttributeNodes = this.createAttributeNodes(
-      titleAttributeNode,
-      titleStyleAttributeNode
-    );
+    execute() {
+      const t = this.superThis;
+      const j = this.superThis.j;
+      const dialog = this.dialog;
 
-    const titleBarExpressionNode = this.createTitleBarExpressionNode(
-      hideHeaderExpressionNode,
-      headerExpressionNode,
-      titleBarAttributeNodes
-    );
+      const isOpenAttribute = dialog
+        .getAttribute("opened")
+        ?.renameAttribute("isOpen");
+      const isResizableAttribute = dialog
+        .getAttribute("resizable")
+        ?.renameAttribute("isResizable");
+      const isDraggableAttribute = dialog
+        .getAttribute("movable")
+        ?.renameAttribute("isDraggable");
 
-    const contentClassNameAttributeNode = dialog
-      .getAttribute("contentClassName")
-      ?.removeFromParentPath()
-      .renameAttribute("className")
-      .node();
-    const contentStyleAttributeNode = dialog
-      .getAttribute("contentStyle")
-      ?.removeFromParentPath()
-      .renameAttribute("style")
-      .node();
-    const contentAttributeNodes = this.createAttributeNodes(
-      contentClassNameAttributeNode,
-      contentStyleAttributeNode
-    );
+      const hideHeaderAttributeValue = dialog
+        .getAttribute("hideHeader")
+        ?.removeFromParentPath()
+        .extractAttributeValue();
+      const hideHeaderExpressionNode =
+        hideHeaderAttributeValue === null
+          ? null
+          : hideHeaderAttributeValue?.node();
 
-    const contentElementNode = this.createInnerDialogElementNode(
-      "Content",
-      contentAttributeNodes,
-      this.dialogChildren
-    );
+      const headerAttributeValue = dialog
+        .getAttribute("header")
+        ?.removeFromParentPath()
+        .extractAttributeValue();
+      const headerExpressionNode =
+        headerAttributeValue === null ? null : headerAttributeValue?.node();
 
-    const footerAttributeValue = dialog
-      .getAttribute("footer")
-      ?.removeFromParentPath()
-      .extractAttributeValue();
-    const footerExpressionNode =
-      footerAttributeValue === null ? null : footerAttributeValue?.node();
+      const titleAttributeNode = dialog
+        .getAttribute("title")
+        ?.removeFromParentPath()
+        .renameAttribute("titleText")
+        .node();
+      const titleStyleAttributeNode = dialog
+        .getAttribute("titleStyle")
+        ?.removeFromParentPath()
+        .renameAttribute("style")
+        .node();
+      const titleBarAttributeNodes = t.createAttributeNodes(
+        titleAttributeNode,
+        titleStyleAttributeNode
+      );
 
-    const footerStyleAttributeNode = dialog
-      .getAttribute("footerStyle")
-      ?.removeFromParentPath()
-      .renameAttribute("style")
-      .node();
-    const buttonBarAttributeNodes = this.createAttributeNodes(
-      footerStyleAttributeNode
-    );
+      const titleBarExpressionNode = this.createTitleBarExpressionNode(
+        hideHeaderExpressionNode,
+        headerExpressionNode,
+        titleBarAttributeNodes
+      );
 
-    const buttonClusterExpressionNode = dialog
-      .getAttribute("buttonCluster")
-      ?.removeFromParentPath()
-      .extractAttributeValue()
-      ?.node();
+      const contentClassNameAttributeNode = dialog
+        .getAttribute("contentClassName")
+        ?.removeFromParentPath()
+        .renameAttribute("className")
+        .node();
+      const contentStyleAttributeNode = dialog
+        .getAttribute("contentStyle")
+        ?.removeFromParentPath()
+        .renameAttribute("style")
+        .node();
+      const contentAttributeNodes = t.createAttributeNodes(
+        contentClassNameAttributeNode,
+        contentStyleAttributeNode
+      );
+      const dialogChildren = this.dialog.node().children;
 
-    const buttonClusterChildren = buttonClusterExpressionNode
-      ? [
-          this.convertToChildExpression(
-            j.callExpression(j.identifier("getFooterButtons"), [
-              buttonClusterExpressionNode,
-            ])
-          ),
-        ]
-      : undefined;
-    // TODO: add getFooterButtons import
-    const buttonBarExpressionNode = this.createButtonBarExpressionNode(
-      footerExpressionNode,
-      buttonBarAttributeNodes,
-      buttonClusterChildren
-    );
+      const contentElementNode = this.createInnerDialogElementNode(
+        "Content",
+        contentAttributeNodes,
+        dialogChildren
+      );
 
-    const widthExpressionNode = dialog
-      .getAttribute("width")
-      ?.removeFromParentPath()
-      .extractAttributeValue()
-      ?.node();
-    const heightExpressionNode = dialog
-      .getAttribute("height")
-      ?.removeFromParentPath()
-      .extractAttributeValue()
-      ?.node();
-    const minWidthExpressionNode = dialog
-      .getAttribute("minWidth")
-      ?.removeFromParentPath()
-      .extractAttributeValue()
-      ?.node();
-    const minHeightExpressionNode = dialog
-      .getAttribute("minHeight")
-      ?.removeFromParentPath()
-      .extractAttributeValue()
-      ?.node();
-    const maxWidthExpressionNode = dialog
-      .getAttribute("maxWidth")
-      ?.removeFromParentPath()
-      .extractAttributeValue()
-      ?.node();
-    const maxHeightExpressionNode = dialog
-      .getAttribute("maxHeight")
-      ?.removeFromParentPath()
-      .extractAttributeValue()
-      ?.node();
+      const footerAttributeValue = dialog
+        .getAttribute("footer")
+        ?.removeFromParentPath()
+        .extractAttributeValue();
+      const footerExpressionNode =
+        footerAttributeValue === null ? null : footerAttributeValue?.node();
 
-    const mainStyleProperties = this.createPropertyNodes(
-      widthExpressionNode &&
-        j.objectProperty(j.identifier("width"), widthExpressionNode),
-      heightExpressionNode &&
-        j.objectProperty(j.identifier("height"), heightExpressionNode),
-      minWidthExpressionNode &&
-        j.objectProperty(j.identifier("minWidth"), minWidthExpressionNode),
-      minHeightExpressionNode &&
-        j.objectProperty(j.identifier("minHeight"), minHeightExpressionNode),
-      maxWidthExpressionNode &&
-        j.objectProperty(j.identifier("maxWidth"), maxWidthExpressionNode),
-      maxHeightExpressionNode &&
-        j.objectProperty(j.identifier("maxHeight"), maxHeightExpressionNode)
-    );
+      const footerStyleAttributeNode = dialog
+        .getAttribute("footerStyle")
+        ?.removeFromParentPath()
+        .renameAttribute("style")
+        .node();
+      const buttonBarAttributeNodes = t.createAttributeNodes(
+        footerStyleAttributeNode
+      );
 
-    const mainStyleObjectExpressionNode = mainStyleProperties
-      ? j.objectExpression(mainStyleProperties)
-      : undefined;
-    const mainStyleExpressionNode = mainStyleObjectExpressionNode
-      ? this.createAttributeNode(
-          "style",
-          j.jsxExpressionContainer(mainStyleObjectExpressionNode)
-        )
-      : undefined;
+      const buttonClusterExpressionNode = dialog
+        .getAttribute("buttonCluster")
+        ?.removeFromParentPath()
+        .extractAttributeValue()
+        ?.node();
 
-    const mainAttributeNodes = this.createAttributeNodes(
-      mainStyleExpressionNode
-    );
+      const buttonClusterChildren = buttonClusterExpressionNode
+        ? t.createChildNodes(
+            this.convertToChildExpression(
+              j.callExpression(j.identifier("parseButtonCluster"), [
+                buttonClusterExpressionNode,
+              ])
+            )
+          )
+        : undefined;
+      // TODO: add parseButtonCluster import
+      const buttonBarExpressionNode = this.createButtonBarExpressionNode(
+        footerExpressionNode,
+        buttonBarAttributeNodes,
+        buttonClusterChildren
+      );
 
-    const mainChildren = this.createChildNodes(
-      titleBarExpressionNode,
-      contentElementNode,
-      buttonBarExpressionNode
-    );
+      const widthExpressionNode = dialog
+        .getAttribute("width")
+        ?.removeFromParentPath()
+        .extractAttributeValue()
+        ?.node();
+      const heightExpressionNode = dialog
+        .getAttribute("height")
+        ?.removeFromParentPath()
+        .extractAttributeValue()
+        ?.node();
+      const minWidthExpressionNode = dialog
+        .getAttribute("minWidth")
+        ?.removeFromParentPath()
+        .extractAttributeValue()
+        ?.node();
+      const minHeightExpressionNode = dialog
+        .getAttribute("minHeight")
+        ?.removeFromParentPath()
+        .extractAttributeValue()
+        ?.node();
+      const maxWidthExpressionNode = dialog
+        .getAttribute("maxWidth")
+        ?.removeFromParentPath()
+        .extractAttributeValue()
+        ?.node();
+      const maxHeightExpressionNode = dialog
+        .getAttribute("maxHeight")
+        ?.removeFromParentPath()
+        .extractAttributeValue()
+        ?.node();
 
-    const mainElementNode =
-      mainAttributeNodes || mainChildren
-        ? this.createInnerDialogElementNode(
-            "Main",
-            mainAttributeNodes,
-            mainChildren
+      const mainStyleProperties = t.createPropertyNodes(
+        widthExpressionNode &&
+          j.objectProperty(j.identifier("width"), widthExpressionNode),
+        heightExpressionNode &&
+          j.objectProperty(j.identifier("height"), heightExpressionNode),
+        minWidthExpressionNode &&
+          j.objectProperty(j.identifier("minWidth"), minWidthExpressionNode),
+        minHeightExpressionNode &&
+          j.objectProperty(j.identifier("minHeight"), minHeightExpressionNode),
+        maxWidthExpressionNode &&
+          j.objectProperty(j.identifier("maxWidth"), maxWidthExpressionNode),
+        maxHeightExpressionNode &&
+          j.objectProperty(j.identifier("maxHeight"), maxHeightExpressionNode)
+      );
+
+      const mainStyleObjectExpressionNode = mainStyleProperties
+        ? j.objectExpression(mainStyleProperties)
+        : undefined;
+      const mainStyleExpressionNode = mainStyleObjectExpressionNode
+        ? t.createAttributeNode(
+            "style",
+            j.jsxExpressionContainer(mainStyleObjectExpressionNode)
           )
         : undefined;
 
-    const onOutsideClickAttributeNode = dialog
-      .getAttribute("onOutsideClick")
-      ?.removeFromParentPath()
-      .node();
+      const mainAttributeNodes = t.createAttributeNodes(
+        mainStyleExpressionNode
+      );
 
-    const divWithOutsideClickAttributeNodes = this.createAttributeNodes(
-      onOutsideClickAttributeNode
-    );
-    const divWithOutsideClickChildren = this.createChildNodes(mainElementNode);
+      const mainChildren = t.createChildNodes(
+        titleBarExpressionNode,
+        contentElementNode,
+        buttonBarExpressionNode
+      );
 
-    const divWithOutsideClickElementNode = divWithOutsideClickAttributeNodes
-      ? this.createInnerDialogElementNode(
-          "DivWithOutsideClick",
-          divWithOutsideClickAttributeNodes,
-          divWithOutsideClickChildren,
-          false
-        )
-      : undefined;
+      const mainElementNode =
+        mainAttributeNodes || mainChildren
+          ? this.createInnerDialogElementNode(
+              "Main",
+              mainAttributeNodes,
+              mainChildren
+            )
+          : undefined;
 
-    const modalExpressionNode = dialog
-      .getAttribute("modal")
-      ?.removeFromParentPath()
-      .extractAttributeValue()
-      ?.node();
+      const onOutsideClickAttributeNode = dialog
+        .getAttribute("onOutsideClick")
+        ?.removeFromParentPath()
+        .node();
 
-    const backgroundStyleAttributeNode = dialog
-      .getAttribute("backgroundStyle")
-      ?.removeFromParentPath()
-      .renameAttribute("style")
-      ?.node();
-    const backdropAttributeNodes = this.createAttributeNodes(
-      backgroundStyleAttributeNode
-    );
+      const divWithOutsideClickAttributeNodes = t.createAttributeNodes(
+        onOutsideClickAttributeNode
+      );
+      const divWithOutsideClickChildren = t.createChildNodes(mainElementNode);
 
-    const backdropExpressionNode = this.createBackdropExpressionNode(
-      modalExpressionNode,
-      backdropAttributeNodes
-    );
+      const divWithOutsideClickElementNode = divWithOutsideClickAttributeNodes
+        ? this.createInnerDialogElementNode(
+            "DivWithOutsideClick",
+            divWithOutsideClickAttributeNodes,
+            divWithOutsideClickChildren,
+            false
+          )
+        : undefined;
+      // TODO: add DivWithOutsideClick import
 
-    // TODO: add z-index of 150000
+      const modalExpressionNode = dialog
+        .getAttribute("modal")
+        ?.removeFromParentPath()
+        .extractAttributeValue()
+        ?.node();
 
-    const children = this.createChildNodes(
-      backdropExpressionNode,
-      divWithOutsideClickElementNode || mainElementNode
-    );
-    if (children) {
-      const closingElementName = j.jsxIdentifier(this.dialogName);
-      const closingElement = j.jsxClosingElement(closingElementName);
+      // TODO: add preventDocumentScroll={modal}
+      const closeOnEscAttributeNode = t.createAttributeNode(
+        "closeOnEsc",
+        j.jsxExpressionContainer(j.booleanLiteral(false))
+      );
+      dialog.appendAttributes(
+        j(closeOnEscAttributeNode) as JSXAttributeCollection
+      );
 
-      dialog.node().openingElement.selfClosing = false;
-      dialog.node().closingElement = closingElement;
-      dialog.node().children = children;
+      const backgroundStyleAttributeNode = dialog
+        .getAttribute("backgroundStyle")
+        ?.removeFromParentPath()
+        .renameAttribute("style")
+        ?.node();
+      const backdropAttributeNodes = t.createAttributeNodes(
+        backgroundStyleAttributeNode
+      );
+
+      const backdropExpressionNode = this.createBackdropExpressionNode(
+        modalExpressionNode,
+        backdropAttributeNodes
+      );
+
+      // TODO: add z-index of 150000
+
+      const children = t.createChildNodes(
+        backdropExpressionNode,
+        divWithOutsideClickElementNode || mainElementNode
+      );
+      if (children) {
+        const closingElementName = this.dialogNameNode;
+        const closingElement = j.jsxClosingElement(closingElementName);
+
+        dialog.node().openingElement.selfClosing = false;
+        dialog.node().closingElement = closingElement;
+        dialog.node().children = children;
+      }
     }
-  }
 
-  get dialogName(): string {
-    return (this.dialog.node().openingElement.name as JSXIdentifier).name;
-  }
+    calculateIndentationSizeOrReturnDefault(): number {
+      const node = this.dialog.node();
+      const indentStart = node.loc?.start.column ?? 0;
+      const indentEnd = node.attributes?.[0].loc?.start.column ?? 0;
+      const indentSize = indentEnd - indentStart;
+      const defaultIndentSize = 2;
+      return indentSize > 0 ? indentSize : defaultIndentSize;
+    }
 
-  get dialogChildren(): JSXElement["children"] {
-    return this.dialog.node().children;
+    // TODO: move to Collection methods
+    addIndent(jsxTextNode: JSXText, times: number = 1): JSXText {
+      const indent = " ".repeat(times * this.indentSize);
+      jsxTextNode.value += indent;
+      jsxTextNode.raw += indent;
+      return jsxTextNode;
+    }
+
+    createInnerDialogElementNode(
+      elementName: string,
+      attributes?: JSXElement["attributes"],
+      children?: JSXElement["children"],
+      useDialogName: boolean = true
+    ): JSXElement {
+      const j = this.superThis.j;
+
+      const object = this.dialogNameNode;
+      const property = j.jsxIdentifier(elementName);
+      const name = useDialogName
+        ? j.jsxMemberExpression(object, property)
+        : property;
+
+      const selfClosing = children ? false : true;
+      const openingElement = j.jsxOpeningElement(
+        name,
+        attributes ?? [],
+        selfClosing
+      );
+      const closingElement = selfClosing ? null : j.jsxClosingElement(name);
+
+      return j.jsxElement(openingElement, closingElement, children ?? []);
+    }
+
+    createLogicalExpressionNode(
+      operator: "&&" | "||" | "??",
+      left: ExpressionKind | undefined,
+      right: ExpressionKind | undefined
+    ): ExpressionKind | undefined {
+      const j = this.superThis.j;
+
+      if (left) {
+        if (right) return j.logicalExpression(operator, left, right);
+        else return left;
+      } else if (right) return right;
+      else return undefined;
+    }
+
+    convertToChildExpression(expression: ExpressionKind): ChildElement {
+      const j = this.superThis.j;
+      const type = expression.type;
+      if (
+        type === "JSXExpressionContainer" ||
+        type === "JSXElement" ||
+        type === "JSXFragment" ||
+        type === "JSXText"
+      )
+        return expression;
+      return j.jsxExpressionContainer(expression);
+    }
+
+    createTitleBarExpressionNode(
+      hideHeaderExpression: ExpressionKind | null | undefined,
+      headerExpression: ExpressionKind | null | undefined,
+      titleBarAttributeNodes: JSXAttribute[] | undefined
+    ): ChildElement | undefined {
+      const j = this.superThis.j;
+
+      let includeHideHeader = hideHeaderExpression !== undefined;
+      let includeHeader = headerExpression !== undefined;
+      let includeTitleBar = true;
+      if (includeHideHeader) {
+        switch (hideHeaderExpression?.type) {
+          case undefined: {
+            // value === null/undefined means hideHeader attribute is implicitly passed as true
+            includeHideHeader = false;
+            includeHeader = false;
+            includeTitleBar = false;
+            break;
+          }
+          case "BooleanLiteral": {
+            if (hideHeaderExpression.value === true) {
+              includeHideHeader = false;
+              includeHeader = false;
+              includeTitleBar = false;
+            } else includeHideHeader = false;
+            break;
+          }
+        }
+      }
+
+      if (includeHeader)
+        if (headerExpression!.type === "JSXElement") includeTitleBar = false;
+
+      hideHeaderExpression = includeHideHeader
+        ? hideHeaderExpression
+        : undefined;
+      const negatedHideHeaderExpression = hideHeaderExpression
+        ? j.unaryExpression("!", hideHeaderExpression)
+        : undefined;
+      headerExpression = includeHeader ? headerExpression : undefined;
+
+      const titleBarElement = includeTitleBar
+        ? this.createInnerDialogElementNode("TitleBar", titleBarAttributeNodes)
+        : undefined;
+
+      const headerOrTitleBarExpression = this.createLogicalExpressionNode(
+        "||",
+        headerExpression ?? undefined,
+        titleBarElement
+      );
+      const finalExpression = this.createLogicalExpressionNode(
+        "&&",
+        negatedHideHeaderExpression,
+        headerOrTitleBarExpression
+      );
+
+      return finalExpression
+        ? this.convertToChildExpression(finalExpression)
+        : undefined;
+    }
+
+    createButtonBarExpressionNode(
+      footerExpression: ExpressionKind | null | undefined,
+      buttonBarAttributeNodes: JSXAttribute[] | undefined,
+      buttonBarChildren: JSXElement["children"]
+    ): ChildElement | undefined {
+      const j = this.superThis.j;
+
+      let includeFooter = footerExpression !== undefined;
+      let includeButtonBar = true;
+      if (includeFooter && footerExpression)
+        if (footerExpression.type === "JSXElement") includeButtonBar = false;
+
+      footerExpression = includeFooter ? footerExpression : undefined;
+
+      const buttonBarElement = includeButtonBar
+        ? this.createInnerDialogElementNode(
+            "ButtonBar",
+            buttonBarAttributeNodes,
+            buttonBarChildren
+          )
+        : undefined;
+
+      const finalExpression = this.createLogicalExpressionNode(
+        "||",
+        footerExpression ?? undefined,
+        buttonBarElement
+      );
+
+      return finalExpression
+        ? this.convertToChildExpression(finalExpression)
+        : undefined;
+    }
+
+    createBackdropExpressionNode(
+      modalExpression: ExpressionKind | null | undefined,
+      backdropAttributeNodes: JSXAttribute[] | undefined
+    ): ChildElement | undefined {
+      const j = this.superThis.j;
+
+      let includeModal = modalExpression !== undefined;
+      let includeBackdrop = true;
+      if (includeModal) {
+        switch (modalExpression?.type) {
+          case undefined: {
+            // value === null/undefined means modal attribute is implicitly passed as true
+            includeModal = false;
+            break;
+          }
+          case "BooleanLiteral": {
+            if (modalExpression.value === true) includeModal = false;
+            else {
+              includeModal = false;
+              includeBackdrop = false;
+            }
+            break;
+          }
+        }
+      }
+
+      modalExpression = includeModal ? modalExpression : undefined;
+
+      const backdropElement = includeBackdrop
+        ? this.createInnerDialogElementNode("Backdrop", backdropAttributeNodes)
+        : undefined;
+
+      const finalExpression = this.createLogicalExpressionNode(
+        "&&",
+        modalExpression ?? undefined,
+        backdropElement
+      );
+
+      return finalExpression
+        ? this.convertToChildExpression(finalExpression)
+        : undefined;
+    }
+  };
+
+  createNewLineJSXTextNode() {
+    return this.j.jsxText("\n", "\n");
   }
 
   createAttributeNode(
     name: string,
-    value?: Parameters<typeof this.j.jsxAttribute>[1]
+    value?: JSXAttribute["value"]
   ): JSXAttribute {
     const j = this.j;
-    return j.jsxAttribute(j.jsxIdentifier(name), value ?? null);
-  }
-
-  createInnerDialogElementNode(
-    stringName: string,
-    attributes?: JSXElement["attributes"],
-    children?: JSXElement["children"],
-    useDialogName?: boolean
-  ): JSXElement {
-    const j = this.j;
-
-    const dialogName = this.dialogName;
-    const object = j.jsxIdentifier(dialogName);
-    const property = j.jsxIdentifier(stringName);
-    const name =
-      useDialogName || useDialogName === undefined
-        ? j.jsxMemberExpression(object, property)
-        : property;
-
-    const selfClosing = children ? false : true;
-    const openingElement = j.jsxOpeningElement(
-      name,
-      attributes ?? [],
-      selfClosing
-    );
-    const closingElement = selfClosing ? null : j.jsxClosingElement(name);
-
-    return j.jsxElement(openingElement, closingElement, children ?? []);
-  }
-
-  createLogicalExpressionNode(
-    operator: "&&" | "||" | "??",
-    left: ExpressionKind | undefined,
-    right: ExpressionKind | undefined
-  ): ExpressionKind | undefined {
-    const j = this.j;
-    if (left) {
-      if (right) return j.logicalExpression(operator, left, right);
-      else return left;
-    } else if (right) return right;
-    else return undefined;
-  }
-
-  convertToChildExpression(expression: ExpressionKind): ChildElement {
-    const type = expression.type;
-    if (
-      type === "JSXExpressionContainer" ||
-      type === "JSXElement" ||
-      type === "JSXFragment" ||
-      type === "JSXText"
-    )
-      return expression;
-    return this.j.jsxExpressionContainer(expression);
-  }
-
-  createTitleBarExpressionNode(
-    hideHeaderExpression: ExpressionKind | null | undefined,
-    headerExpression: ExpressionKind | null | undefined,
-    titleBarAttributeNodes: JSXAttribute[] | undefined
-  ): ChildElement | undefined {
-    const j = this.j;
-
-    let includeHideHeader = hideHeaderExpression !== undefined;
-    let includeHeader = headerExpression !== undefined;
-    let includeTitleBar = true;
-    if (includeHideHeader) {
-      switch (hideHeaderExpression?.type) {
-        case undefined: {
-          // value === null/undefined means hideHeader attribute is implicitly passed as true
-          includeHideHeader = false;
-          includeHeader = false;
-          includeTitleBar = false;
-          break;
-        }
-        case "BooleanLiteral": {
-          if (hideHeaderExpression.value === true) {
-            includeHideHeader = false;
-            includeHeader = false;
-            includeTitleBar = false;
-          } else includeHideHeader = false;
-          break;
-        }
-      }
-    }
-
-    if (includeHeader)
-      if (headerExpression!.type === "JSXElement") includeTitleBar = false;
-
-    hideHeaderExpression = includeHideHeader ? hideHeaderExpression : undefined;
-    const negatedHideHeaderExpression = hideHeaderExpression
-      ? j.unaryExpression("!", hideHeaderExpression)
-      : undefined;
-    headerExpression = includeHeader ? headerExpression : undefined;
-
-    const titleBarElement = includeTitleBar
-      ? this.createInnerDialogElementNode("TitleBar", titleBarAttributeNodes)
-      : undefined;
-
-    const headerOrTitleBarExpression = this.createLogicalExpressionNode(
-      "||",
-      headerExpression ?? undefined,
-      titleBarElement
-    );
-    const finalExpression = this.createLogicalExpressionNode(
-      "&&",
-      negatedHideHeaderExpression,
-      headerOrTitleBarExpression
-    );
-
-    return finalExpression
-      ? this.convertToChildExpression(finalExpression)
-      : undefined;
-  }
-
-  createButtonBarExpressionNode(
-    footerExpression: ExpressionKind | null | undefined,
-    buttonBarAttributeNodes: JSXAttribute[] | undefined,
-    buttonBarChildren: JSXElement["children"]
-  ): ChildElement | undefined {
-    const j = this.j;
-
-    let includeFooter = footerExpression !== undefined;
-    let includeButtonBar = true;
-    if (includeFooter && footerExpression)
-      if (footerExpression.type === "JSXElement") includeButtonBar = false;
-
-    footerExpression = includeFooter ? footerExpression : undefined;
-
-    const buttonBarElement = includeButtonBar
-      ? this.createInnerDialogElementNode(
-          "ButtonBar",
-          buttonBarAttributeNodes,
-          buttonBarChildren
-        )
-      : undefined;
-
-    const finalExpression = this.createLogicalExpressionNode(
-      "||",
-      footerExpression ?? undefined,
-      buttonBarElement
-    );
-
-    return finalExpression
-      ? this.convertToChildExpression(finalExpression)
-      : undefined;
-  }
-
-  createBackdropExpressionNode(
-    modalExpression: ExpressionKind | null | undefined,
-    backdropAttributeNodes: JSXAttribute[] | undefined
-  ): ChildElement | undefined {
-    const j = this.j;
-
-    let includeModal = modalExpression !== undefined;
-    let includeBackdrop = true;
-    if (includeModal) {
-      switch (modalExpression?.type) {
-        case undefined: {
-          // value === null/undefined means modal attribute is implicitly passed as true
-          includeModal = false;
-          break;
-        }
-        case "BooleanLiteral": {
-          if (modalExpression.value === true) includeModal = false;
-          else {
-            includeModal = false;
-            includeBackdrop = false;
-          }
-          break;
-        }
-      }
-    }
-
-    modalExpression = includeModal ? modalExpression : undefined;
-
-    const backdropElement = includeBackdrop
-      ? this.createInnerDialogElementNode("Backdrop", backdropAttributeNodes)
-      : undefined;
-
-    const finalExpression = this.createLogicalExpressionNode(
-      "&&",
-      modalExpression ?? undefined,
-      backdropElement
-    );
-
-    return finalExpression
-      ? this.convertToChildExpression(finalExpression)
-      : undefined;
+    return j.jsxAttribute(j.jsxIdentifier(name), value);
   }
 
   createAttributeNodes(
@@ -534,9 +590,16 @@ class DialogTransformer {
     ...children: (ChildElement | undefined)[]
   ): ChildElement[] | undefined {
     const childNodes: ChildElement[] = [];
-    children.forEach((childNodes) => {
-      childNodes && children.push(childNodes);
+    children.forEach((childNode) => {
+      if (childNode) {
+        childNodes.push(this.createNewLineJSXTextNode());
+        childNodes.push(childNode);
+      }
     });
-    return childNodes.length > 0 ? childNodes : undefined;
+
+    if (childNodes.length === 0) return undefined;
+
+    childNodes.push(this.createNewLineJSXTextNode());
+    return childNodes;
   }
 }
