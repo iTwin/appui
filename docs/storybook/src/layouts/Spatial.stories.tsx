@@ -1,0 +1,349 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
+import {
+  Avatar,
+  ButtonGroup,
+  Flex,
+  IconButton,
+  Select,
+  getUserColor,
+} from "@itwin/itwinui-react";
+import {
+  IModelViewportControl,
+  StageUsage,
+  ToolbarItemUtilities,
+  ToolbarOrientation,
+  ToolbarUsage,
+  UiFramework,
+  UiItemsManager,
+} from "@itwin/appui-react";
+import { IModelApp } from "@itwin/core-frontend";
+import { CommonProps } from "@itwin/core-react";
+import {
+  SvgConfiguration,
+  SvgDocument,
+  SvgGlobe,
+  SvgHome,
+  SvgImodel,
+  SvgLayers,
+  SvgLocation,
+  SvgNotification,
+  SvgTableOfContents,
+} from "@itwin/itwinui-icons-react";
+import { AppUiDecorator } from "../AppUiDecorator";
+import { StorybookFrontstageProvider } from "../StorybookFrontstageProvider";
+import { useGroupToolbarItems, useToolbarItems } from "./useToolbarItems";
+
+function Demo() {
+  const [initialized, setInitialized] = React.useState(false);
+  React.useEffect(() => {
+    void (async function () {
+      await IModelApp.startup();
+      await UiFramework.initialize(undefined);
+      UiFramework.frontstages.addFrontstageProvider(
+        new StorybookFrontstageProvider({
+          id: "main-frontstage",
+          usage: StageUsage.Private,
+          contentGroupProps: {
+            id: "ViewportContentGroup",
+            layout: StandardContentLayouts.singleView,
+            contents: [
+              {
+                id: "ViewportContent",
+                classId: IModelViewportControl,
+                applicationData: {},
+              },
+            ],
+          },
+          hideStatusBar: true,
+          hideToolSettings: true,
+          hideNavigationAid: true,
+        })
+      );
+      UiItemsManager.register({
+        id: "content-manipulation-provider",
+        provideToolbarItems: (_stageid, _stageUsage, usage, orientation) => {
+          if (usage !== ToolbarUsage.ContentManipulation) return [];
+          if (orientation !== ToolbarOrientation.Vertical) return [];
+          return [
+            ToolbarItemUtilities.createActionItem(
+              "viewpoints",
+              0,
+              <SvgLocation />,
+              "Viewpoints",
+              () => undefined,
+              {
+                groupPriority: 0,
+              }
+            ),
+            ToolbarItemUtilities.createActionItem(
+              "layers",
+              0,
+              <SvgLayers />,
+              "Layers",
+              () => undefined,
+              {
+                groupPriority: 1,
+              }
+            ),
+            ToolbarItemUtilities.createActionItem(
+              "home",
+              0,
+              <SvgHome />,
+              "Home",
+              () => undefined,
+              {
+                groupPriority: 2,
+              }
+            ),
+            ToolbarItemUtilities.createActionItem(
+              "Assets",
+              0,
+              <SvgTableOfContents />,
+              "Home",
+              () => undefined,
+              {
+                groupPriority: 2,
+              }
+            ),
+            ToolbarItemUtilities.createActionItem(
+              "documents",
+              0,
+              <SvgDocument />,
+              "Documents",
+              () => undefined,
+              {
+                groupPriority: 2,
+              }
+            ),
+          ];
+        },
+      });
+      UiItemsManager.register({
+        id: "context-navigation-provider",
+        provideToolbarItems: (_stageid, _stageUsage, usage, orientation) => {
+          if (usage !== ToolbarUsage.ViewNavigation) return [];
+          if (orientation !== ToolbarOrientation.Horizontal) return [];
+          return [
+            ToolbarItemUtilities.createCustomItem(
+              "logo",
+              0,
+              <SvgImodel />,
+              "",
+              () => undefined
+            ),
+            ToolbarItemUtilities.createCustomItem(
+              "title",
+              0,
+              <>Spatial Layout</>, // TODO: allow custom node in a ToolbarCustomItem
+              "",
+              () => undefined
+            ),
+            ToolbarItemUtilities.createCustomItem(
+              "context-select",
+              0,
+              <ContextSelect />, // TODO: allow custom node in a ToolbarCustomItem
+              "",
+              () => undefined
+            ),
+          ];
+        },
+      });
+      UiItemsManager.register({
+        id: "view-navigation-provider",
+        provideToolbarItems: (_stageid, _stageUsage, usage, orientation) => {
+          if (usage !== ToolbarUsage.ViewNavigation) return [];
+          if (orientation !== ToolbarOrientation.Vertical) return []; // TODO: add `toolbarId` as `preferredLocation` as part of UiItemsProvider refactor?
+          return [
+            ToolbarItemUtilities.createActionItem(
+              "settings",
+              0,
+              <SvgConfiguration />,
+              "Settings",
+              () => undefined,
+              {
+                groupPriority: 1,
+              }
+            ),
+            ToolbarItemUtilities.createActionItem(
+              "compass",
+              0,
+              <SvgGlobe />,
+              "Compass",
+              () => undefined,
+              {
+                groupPriority: 1,
+              }
+            ),
+            ToolbarItemUtilities.createActionItem(
+              "notifications",
+              0,
+              <SvgNotification />,
+              "Notifications",
+              () => undefined,
+              {
+                groupPriority: 2,
+              }
+            ),
+            ToolbarItemUtilities.createActionItem(
+              "user",
+              0,
+              <Avatar
+                abbreviation="NS"
+                backgroundColor={getUserColor("Name Surname")}
+                size="small"
+                title="Name Surname"
+              />,
+              "User Account",
+              () => undefined,
+              {
+                groupPriority: 2,
+              }
+            ),
+          ];
+        },
+      });
+      void UiFramework.frontstages.setActiveFrontstage("main-frontstage");
+      setInitialized(true);
+    })();
+    return () => {
+      UiItemsManager.unregister("provider-1");
+    };
+  }, []);
+  if (!initialized) return null;
+  return <Initialized />;
+}
+
+function Initialized() {
+  return (
+    <SpatialLayout style={{ height: "100vh" }} content={<Viewport />}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+          padding: "0.5em",
+          boxSizing: "border-box",
+          justifyContent: "space-between",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <ContextNavigationToolbar />
+          <ViewNavigationToolbar />
+        </div>
+        <ContentManipulationToolbar />
+      </div>
+    </SpatialLayout>
+  );
+}
+
+function Viewport() {
+  return (
+    <div
+      style={{
+        height: "100%",
+        background: "radial-gradient(#666, #00000000)",
+        cursor: "pointer",
+      }}
+    />
+  );
+}
+
+function ContextNavigationToolbar() {
+  const items = useToolbarItems(
+    ToolbarUsage.ViewNavigation,
+    ToolbarOrientation.Horizontal
+  );
+  return (
+    <ButtonGroup>
+      {items.map((item) => {
+        if (item.id === "context-select") return item.icon;
+        return <IconButton>{item.icon}</IconButton>;
+      })}
+    </ButtonGroup>
+  );
+}
+
+function ViewNavigationToolbar() {
+  const items = useToolbarItems(
+    ToolbarUsage.ViewNavigation,
+    ToolbarOrientation.Vertical
+  );
+  const groupedItems = useGroupToolbarItems(items);
+  return (
+    <Flex gap="m">
+      {groupedItems.map((group) => (
+        <ButtonGroup>
+          {group.map((item) => (
+            <IconButton label={item.label}>{item.icon}</IconButton>
+          ))}
+        </ButtonGroup>
+      ))}
+    </Flex>
+  );
+}
+
+function ContentManipulationToolbar() {
+  const items = useToolbarItems(
+    ToolbarUsage.ContentManipulation,
+    ToolbarOrientation.Vertical
+  );
+  const groupedItems = useGroupToolbarItems(items);
+  return (
+    <Flex gap="s" style={{ flexDirection: "column", alignItems: "end" }}>
+      {groupedItems.map((group) => (
+        <ButtonGroup orientation="vertical">
+          {group.map((item) => (
+            <IconButton label={item.label}>{item.icon}</IconButton>
+          ))}
+        </ButtonGroup>
+      ))}
+    </Flex>
+  );
+}
+
+function ContextSelect() {
+  return (
+    <Select
+      value={1}
+      options={[
+        { value: 1, label: "Selected view #1" },
+        { value: 2, label: "Selected view #2" },
+        { value: 3, label: "Selected view #3" },
+      ]}
+    />
+  );
+}
+
+interface SpatialLayoutProps extends CommonProps {
+  content?: React.ReactNode;
+  children?: React.ReactNode;
+}
+
+function SpatialLayout(props: SpatialLayoutProps) {
+  return (
+    <div style={props.style}>
+      <div style={{ position: "absolute", height: "100%", width: "100%" }}>
+        {props.content}
+      </div>
+      {props.children}
+    </div>
+  );
+}
+
+const meta: Meta = {
+  title: "Layouts/Spatial",
+  component: Demo,
+  decorators: [AppUiDecorator],
+} satisfies Meta<typeof Demo>;
+
+export default meta;
+
+type Story = StoryObj<typeof Demo>;
+
+export const Basic: Story = {};
