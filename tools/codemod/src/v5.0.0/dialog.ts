@@ -120,6 +120,7 @@ class DialogTransformer {
       const j = this.superThis.j;
       const dialog = this.dialog;
 
+      // rename transforms ---------------------------------
       const isOpenAttribute = dialog
         .getAttribute("opened")
         ?.renameAttribute("isOpen");
@@ -130,6 +131,7 @@ class DialogTransformer {
         .getAttribute("movable")
         ?.renameAttribute("isDraggable");
 
+      // TitleBar transforms --------------------------------
       const hideHeaderAttributeValue = dialog
         .getAttribute("hideHeader")
         ?.removeFromParentPath()
@@ -167,6 +169,7 @@ class DialogTransformer {
         titleBarAttributeNodes
       );
 
+      // Content transforms -----------------------------------------
       const contentClassNameAttributeNode = dialog
         .getAttribute("contentClassName")
         ?.removeFromParentPath()
@@ -189,6 +192,7 @@ class DialogTransformer {
         dialogChildren
       );
 
+      // ButtonBar transforms ------------------------------------------
       const footerAttributeValue = dialog
         .getAttribute("footer")
         ?.removeFromParentPath()
@@ -233,6 +237,7 @@ class DialogTransformer {
         buttonClusterChildren
       );
 
+      // Main transforms -----------------------------------------
       const widthExpressionNode = dialog
         .getAttribute("width")
         ?.removeFromParentPath()
@@ -308,6 +313,7 @@ class DialogTransformer {
             )
           : undefined;
 
+      // DivWithOutsideClick transform ---------------------------------------------
       const onOutsideClickAttributeNode = dialog
         .getAttribute("onOutsideClick")
         ?.removeFromParentPath()
@@ -331,12 +337,28 @@ class DialogTransformer {
           .findOrCreateImportDeclaration("@itwin/core-react")
           .addSpecifier(j.importSpecifier(j.identifier("DivWithOutsideClick")));
 
+      // Backdrop transform ------------------------------------------------
       const modalExpressionNode = dialog
         .getAttribute("modal")
         ?.removeFromParentPath()
         .extractAttributeValue()
         ?.node();
 
+      const backgroundStyleAttributeNode = dialog
+        .getAttribute("backgroundStyle")
+        ?.removeFromParentPath()
+        .renameAttribute("style")
+        ?.node();
+      const backdropAttributeNodes = t.createAttributeNodes(
+        backgroundStyleAttributeNode
+      );
+
+      const backdropExpressionNode = this.createBackdropExpressionNode(
+        modalExpressionNode,
+        backdropAttributeNodes
+      );
+
+      // Additional attributes transform ------------------------------------
       const preventDocumentScrollAttributeNode = t.createAttributeNode(
         "preventDocumentScroll",
         modalExpressionNode
@@ -353,20 +375,6 @@ class DialogTransformer {
       );
       dialog.appendAttributes(
         j(closeOnEscAttributeNode) as JSXAttributeCollection
-      );
-
-      const backgroundStyleAttributeNode = dialog
-        .getAttribute("backgroundStyle")
-        ?.removeFromParentPath()
-        .renameAttribute("style")
-        ?.node();
-      const backdropAttributeNodes = t.createAttributeNodes(
-        backgroundStyleAttributeNode
-      );
-
-      const backdropExpressionNode = this.createBackdropExpressionNode(
-        modalExpressionNode,
-        backdropAttributeNodes
       );
 
       const styleAttributeNode =
@@ -426,6 +434,7 @@ class DialogTransformer {
         }
       }
 
+      // Children transform -----------------------------------------------
       const children = t.createChildNodes(
         backdropExpressionNode,
         divWithOutsideClickElementNode || mainElementNode

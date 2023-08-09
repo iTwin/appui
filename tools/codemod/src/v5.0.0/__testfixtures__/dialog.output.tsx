@@ -2,10 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { Dialog as BaseDialog, DialogAlignment } from "@itwin/core-react";
+import { Dialog as BaseDialog } from "@itwin/itwinui-react";
+
+import { DialogAlignment, parseButtonCluster, DivWithOutsideClick, getCssVariable } from "@itwin/core-react";
 
 <BaseDialog
   closeOnEsc={false}
+  preventDocumentScroll={modal}
   isOpen={opened}
   isResizable={true}
   isDraggable={false}
@@ -18,7 +21,10 @@ import { Dialog as BaseDialog, DialogAlignment } from "@itwin/core-react";
   onClose={()=>setOpened(false)}
   onEscape={onEscape}
   onModelessPointerDown={someFunc}
-  style={{...this.props.style}}
+  style={{
+    zIndex: getCssVariable("--uicore-z-index-dialog"),
+    ...this.props.style,
+  }}
   data-testid="core-dialog-root"
   {...this.props}>
   {modal && <Dialog.Backdrop style={{color: "red"}} />}
