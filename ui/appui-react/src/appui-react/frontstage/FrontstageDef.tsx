@@ -55,6 +55,7 @@ import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { WidgetState } from "../widgets/WidgetState";
 import { InternalFrontstageManager } from "./InternalFrontstageManager";
 import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager";
+import type { Dispatch } from "../layout/Action";
 
 /** @internal */
 export interface FrontstageEventArgs {
@@ -95,6 +96,20 @@ export class FrontstageDef {
   private _floatingContentControls?: ContentControl[];
   private _savedWidgetDefs?: SavedWidgets;
   private _toolAdminDefaultToolId?: string;
+  private _dispatch?: Dispatch;
+
+  /** @internal */
+  public get dispatch(): Dispatch {
+    if (!this._dispatch) {
+      return () => {};
+    }
+    return this._dispatch;
+  }
+
+  /** @internal */
+  public set dispatch(dispatch: Dispatch | undefined) {
+    this._dispatch = dispatch;
+  }
 
   public get id(): string {
     return this._id;

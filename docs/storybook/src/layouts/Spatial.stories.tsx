@@ -16,6 +16,8 @@ import {
 } from "@itwin/itwinui-react";
 import {
   IModelViewportControl,
+  SpatialLayoutWidget,
+  SpatialLayout,
   StageUsage,
   ToolbarItemUtilities,
   ToolbarOrientation,
@@ -23,9 +25,9 @@ import {
   UiFramework,
   UiItemsManager,
   WidgetState,
+  isToolbarActionItem,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
-import { CommonProps } from "@itwin/core-react";
 import {
   SvgConfiguration,
   SvgDocument,
@@ -35,13 +37,13 @@ import {
   SvgLayers,
   SvgLocation,
   SvgNotification,
+  SvgPlaceholder,
   SvgSettings,
   SvgTableOfContents,
 } from "@itwin/itwinui-icons-react";
 import { AppUiDecorator } from "../AppUiDecorator";
 import { StorybookFrontstageProvider } from "../StorybookFrontstageProvider";
 import { useGroupToolbarItems, useToolbarItems } from "./useToolbarItems";
-import { Panel } from "./Panel";
 
 function Demo() {
   const [initialized, setInitialized] = React.useState(false);
@@ -149,28 +151,28 @@ function Demo() {
           if (usage !== ToolbarUsage.ViewNavigation) return [];
           if (orientation !== ToolbarOrientation.Horizontal) return [];
           return [
-            ToolbarItemUtilities.createCustomItem(
+            ToolbarItemUtilities.createActionItem(
               "logo",
               0,
               <SvgImodel />,
               "",
               () => undefined
             ),
-            ToolbarItemUtilities.createCustomItem(
+            ToolbarItemUtilities.createActionItem(
               "title",
               0,
               <>Spatial Layout</>, // TODO: allow custom node in a ToolbarCustomItem
               "",
               () => undefined
             ),
-            ToolbarItemUtilities.createCustomItem(
+            ToolbarItemUtilities.createActionItem(
               "context-select",
               0,
               <ContextSelect />, // TODO: allow custom node in a ToolbarCustomItem
               "",
               () => undefined
             ),
-            ToolbarItemUtilities.createCustomItem(
+            ToolbarItemUtilities.createActionItem(
               "configure",
               0,
               <SvgSettings />,
@@ -252,14 +254,20 @@ function Demo() {
             {
               id: "home",
               content: <b>Home content</b>,
+              label: "Home widget",
+              icon: <SvgPlaceholder />,
             },
             {
               id: "assets",
               content: <b>Assets content</b>,
+              label: "Assets widget",
+              icon: <SvgPlaceholder />,
             },
             {
               id: "documents",
               content: <b>Documents content</b>,
+              label: "Documents widget",
+              icon: <SvgPlaceholder />,
             },
           ];
         },
@@ -292,7 +300,7 @@ function Initialized() {
           <ContextNavigationToolbar />
           <ViewNavigationToolbar />
         </div>
-        <Panel />
+        <SpatialLayoutWidget />
         <ContentManipulationToolbar />
       </div>
     </SpatialLayout>
@@ -311,6 +319,7 @@ function Viewport() {
   );
 }
 
+// TODO: replace with iTwinUI based Toolbar components.
 function ContextNavigationToolbar() {
   const items = useToolbarItems(
     ToolbarUsage.ViewNavigation,
@@ -322,7 +331,15 @@ function ContextNavigationToolbar() {
         if (item.id === "context-select")
           return <React.Fragment key={item.id}>{item.icon}</React.Fragment>;
         return (
-          <IconButton key={item.id} label={item.label}>
+          <IconButton
+            key={item.id}
+            label={item.label}
+            onClick={() => {
+              if (isToolbarActionItem(item)) {
+                item.execute();
+              }
+            }}
+          >
             {item.icon}
           </IconButton>
         );
@@ -342,7 +359,15 @@ function ViewNavigationToolbar() {
       {groupedItems.map((group) => (
         <ButtonGroup key={group[0].groupPriority ?? 0}>
           {group.map((item) => (
-            <IconButton key={item.id} label={item.label}>
+            <IconButton
+              key={item.id}
+              label={item.label}
+              onClick={() => {
+                if (isToolbarActionItem(item)) {
+                  item.execute();
+                }
+              }}
+            >
               {item.icon}
             </IconButton>
           ))}
@@ -363,7 +388,15 @@ function ContentManipulationToolbar() {
       {groupedItems.map((group) => (
         <ButtonGroup orientation="vertical" key={group[0].groupPriority ?? 0}>
           {group.map((item) => (
-            <IconButton key={item.id} label={item.label}>
+            <IconButton
+              key={item.id}
+              label={item.label}
+              onClick={() => {
+                if (isToolbarActionItem(item)) {
+                  item.execute();
+                }
+              }}
+            >
               {item.icon}
             </IconButton>
           ))}
@@ -383,22 +416,6 @@ function ContextSelect() {
         { value: 3, label: "Selected view #3" },
       ]}
     />
-  );
-}
-
-interface SpatialLayoutProps extends CommonProps {
-  content?: React.ReactNode;
-  children?: React.ReactNode;
-}
-
-function SpatialLayout(props: SpatialLayoutProps) {
-  return (
-    <div style={props.style}>
-      <div style={{ position: "absolute", height: "100%", width: "100%" }}>
-        {props.content}
-      </div>
-      {props.children}
-    </div>
   );
 }
 

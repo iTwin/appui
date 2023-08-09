@@ -4,18 +4,15 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Dialog, IconButton } from "@itwin/itwinui-react";
-import {
-  WidgetDef,
-  WidgetState,
-  useSpecificWidgetDef,
-} from "@itwin/appui-react";
 import { SvgClose, SvgWindowMaximize } from "@itwin/itwinui-icons-react";
+import { useSpecificWidgetDef } from "../frontstage/FrontstageDef";
+import { WidgetState } from "../widgets/WidgetState";
+import { useSpatialLayout } from "./useSpatialLayout";
 
-export interface PanelProps {}
-
-export function Panel() {
-  const [widgetId] = React.useState<WidgetDef["id"]>("configure");
-  const widgetDef = useSpecificWidgetDef(widgetId);
+/** @internal */
+export function SpatialLayoutWidget() {
+  const activeWidgetId = useSpatialLayout((state) => state.activeWidgetId);
+  const widgetDef = useSpecificWidgetDef(activeWidgetId || "");
   if (!widgetDef) return null;
   return (
     <Dialog isOpen={true}>

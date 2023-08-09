@@ -411,6 +411,18 @@ export class WidgetDef {
   }
 
   public setWidgetState(newState: WidgetState): void {
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    // TODO: map the dispatcher actions to existing appui-layout-react actions.
+    if (frontstageDef?.dispatch) {
+      const widgetDef = frontstageDef.findWidgetDef(this.id);
+      if (!widgetDef) return;
+      frontstageDef.dispatch({
+        type: "SET_WIDGET_STATE",
+        id: this.id,
+        state: newState,
+      });
+      return;
+    }
     if (this.state === newState) return;
     this._stateChanged = true;
     UiFramework.frontstages.onWidgetStateChangedEvent.emit({
