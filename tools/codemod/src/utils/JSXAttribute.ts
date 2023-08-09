@@ -2,9 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { ASTNode, Collection, JSCodeshift, JSXAttribute } from "jscodeshift";
+import {
+  ASTNode,
+  Collection,
+  JSCodeshift,
+  JSXAttribute,
+  JSXExpressionContainer,
+} from "jscodeshift";
 import { usePlugin } from "./usePlugin";
 import { useExtensions } from "./Extensions";
+import { ExpressionKind } from "./TransformUtils";
 
 declare module "jscodeshift/src/collection" {
   interface Collection<N> extends GlobalMethods {}
@@ -17,7 +24,9 @@ interface GlobalMethods {
 export type JSXAttributeCollection = Collection<JSXAttribute> &
   JSXAttributeMethods;
 
-export type AttributeValue = Exclude<JSXAttribute["value"], null | undefined>;
+export type AttributeValue =
+  | Exclude<JSXAttribute["value"], JSXExpressionContainer | null | undefined>
+  | ExpressionKind;
 
 export interface JSXAttributeMethods {
   renameAttribute(newName: string): this;
@@ -56,8 +65,12 @@ function jsxAttributePlugin(j: JSCodeshift) {
 
       if (attributeValue === undefined) throw new Error("Invalid path");
 
+      // We know JSXExpressionContainer will not contain JSXEmptyExpression as part of an attribute
       if (attributeValue.type === "JSXExpressionContainer")
-        return j(path).navigatePath("value", "expression");
+        return j(path).navigatePath(
+          "value",
+          "expression"
+        ) as Collection<ExpressionKind>;
 
       return j(path).navigatePath("value", "expression");
     },
