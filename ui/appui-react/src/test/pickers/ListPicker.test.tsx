@@ -5,7 +5,6 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { ToolbarItemContext } from "@itwin/components-react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 
 import type { ListItem } from "../../appui-react";
@@ -81,20 +80,12 @@ describe("ListPicker", () => {
   it("should render correctly", () => {
     render(
       <Provider store={TestUtils.store}>
-        <ToolbarItemContext.Provider
-          value={{
-            hasOverflow: false,
-            useHeight: false,
-            onResize: () => {},
-          }}
-        >
-          <ListPicker
-            title={title}
-            items={listItems}
-            searchBox={true}
-            setEnabled={setEnabled}
-          />
-        </ToolbarItemContext.Provider>
+        <ListPicker
+          title={title}
+          items={listItems}
+          searchBox={true}
+          setEnabled={setEnabled}
+        />
       </Provider>
     );
     expect(screen.getByRole("button", { name: "Test" })).to.satisfy(
@@ -109,22 +100,14 @@ describe("ListPicker", () => {
 
     render(
       <Provider store={TestUtils.store}>
-        <ToolbarItemContext.Provider
-          value={{
-            hasOverflow: false,
-            useHeight: false,
-            onResize: () => {},
-          }}
-        >
-          <ListPicker
-            title={title}
-            items={listItems}
-            setEnabled={setEnabled}
-            enableAllFunc={enableAllFunc}
-            disableAllFunc={disableAllFunc}
-            invertFunc={invertFunc}
-          />
-        </ToolbarItemContext.Provider>
+        <ListPicker
+          title={title}
+          items={listItems}
+          setEnabled={setEnabled}
+          enableAllFunc={enableAllFunc}
+          disableAllFunc={disableAllFunc}
+          invertFunc={invertFunc}
+        />
       </Provider>
     );
     await theUserTo.click(screen.getByRole("button"));

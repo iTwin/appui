@@ -7,32 +7,24 @@
  */
 
 import "./Toolbar.scss";
-import classnames from "classnames";
 import * as React from "react";
 import type {
   CommonToolbarItem,
   OnItemExecutedFunc,
 } from "@itwin/appui-abstract";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import { ToolbarItems } from "./Items";
-import {
-  Direction,
-  OrthogonalDirection,
-  OrthogonalDirectionHelpers,
-} from "./utilities/Direction";
-import {
-  getToolbarDirection,
-  ToolbarItemComponent,
-  ToolbarItemContext,
+import type { Direction } from "./utilities/Direction";
+import type {
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
-  ToolbarWithOverflowDirectionContext,
-} from "./ToolbarWithOverflow";
+} from "./InternalToolbarComponent";
+import { InternalToolbarComponent } from "./InternalToolbarComponent";
 
 /** Properties of [[Toolbar]] component.
  * @public
  * @deprecated in 4.0. Use [ToolbarProps]($appui-react) instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
   /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
   expandsTo?: Direction;
@@ -50,119 +42,11 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
   onKeyDown?: (e: React.KeyboardEvent) => void;
 }
 
-function getItemWrapperClass(child: React.ReactNode) {
-  // istanbul ignore else
-  if (React.isValidElement(child)) {
-    if (child.props && child.props.addGroupSeparator)
-      return "components-toolbar-button-add-gap-before";
-  }
-  return "";
-}
-
 /** Component that displays toolbar items.
  * @public
  * @deprecated in 4.0. Use [Toolbar]($appui-react) instead.
  */
 // eslint-disable-next-line deprecation/deprecation
 export function Toolbar(props: ToolbarProps) {
-  const expandsTo = props.expandsTo ? props.expandsTo : Direction.Bottom;
-  const useDragInteraction = !!props.useDragInteraction;
-  const panelAlignment = props.panelAlignment
-    ? props.panelAlignment
-    : ToolbarPanelAlignment.Start;
-  const [popupPanelCount, setPopupPanelCount] = React.useState(0);
-
-  const handlePopupPanelOpenClose = React.useCallback((isOpening: boolean) => {
-    // use setTimeout to avoid warning about setting state in Toolbar from render method of PopupItem/PopupItemWithDrag
-    setTimeout(() => {
-      setPopupPanelCount((prev) => {
-        const nextCount = isOpening ? prev + 1 : prev - 1;
-        return nextCount < 0 ? /* istanbul ignore next */ 0 : nextCount;
-      });
-    });
-  }, []);
-
-  const availableNodes = React.useMemo<React.ReactNode[]>(() => {
-    return props.items.map((item, index) => {
-      let addGroupSeparator = false;
-      if (index > 0)
-        addGroupSeparator =
-          item.groupPriority !== props.items[index - 1].groupPriority;
-      return (
-        <ToolbarItemComponent
-          key={item.id}
-          item={item}
-          addGroupSeparator={!!addGroupSeparator}
-        />
-      );
-    });
-  }, [props.items]);
-
-  const direction = getToolbarDirection(expandsTo);
-  const className = classnames(
-    "components-toolbar-overflow-sizer",
-    OrthogonalDirectionHelpers.getCssClassName(direction),
-    props.className
-  );
-
-  // needed to construct DOM structure identical to ToolbarWithOverflow so same css can be applied.
-  const wrapperClassName = classnames(
-    "components-toolbar-item-container",
-    OrthogonalDirectionHelpers.getCssClassName(direction)
-  );
-
-  return (
-    <ToolbarWithOverflowDirectionContext.Provider
-      value={{
-        expandsTo,
-        direction,
-        overflowExpandsTo: Direction.Right,
-        panelAlignment,
-        useDragInteraction,
-        toolbarOpacitySetting: props.toolbarOpacitySetting
-          ? props.toolbarOpacitySetting
-          : ToolbarOpacitySetting.Proximity,
-        overflowDirection: OrthogonalDirection.Horizontal,
-        openPopupCount: popupPanelCount,
-        onPopupPanelOpenClose: handlePopupPanelOpenClose,
-        overflowDisplayActive: false,
-        onItemExecuted: props.onItemExecuted
-          ? props.onItemExecuted
-          : /* istanbul ignore next */ () => {},
-        onKeyDown: props.onKeyDown
-          ? props.onKeyDown
-          : /* istanbul ignore next */ (_e: React.KeyboardEvent) => {},
-      }}
-    >
-      <ToolbarItemContext.Provider
-        value={{
-          hasOverflow: false,
-          useHeight: false,
-          onResize: /* istanbul ignore next */ () => {},
-        }}
-      >
-        {availableNodes.length > 0 && (
-          <div
-            className={className}
-            style={props.style}
-            onKeyDown={props.onKeyDown}
-            role="presentation"
-          >
-            <ToolbarItems className="components-items" direction={direction}>
-              {availableNodes.map((child, index) => (
-                <div
-                  key={index}
-                  className={`${wrapperClassName} ${getItemWrapperClass(
-                    child
-                  )}`}
-                >
-                  {child}
-                </div>
-              ))}
-            </ToolbarItems>
-          </div>
-        )}
-      </ToolbarItemContext.Provider>
-    </ToolbarWithOverflowDirectionContext.Provider>
-  );
+  return <InternalToolbarComponent {...props} />;
 }
