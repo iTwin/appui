@@ -375,7 +375,7 @@ function ContentManipulationToolbar() {
 
 function ContextSelect() {
   return (
-    <Select
+    <Select // TODO: not styled correctly in the ButtonGroup
       value={1}
       options={[
         { value: 1, label: "Selected view #1" },
