@@ -2,7 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { Collection, ImportDeclaration, JSCodeshift } from "jscodeshift";
+import type {
+  Collection,
+  ImportDeclaration,
+  ImportDefaultSpecifier,
+  ImportNamespaceSpecifier,
+  ImportSpecifier,
+  JSCodeshift,
+} from "jscodeshift";
 import { useImportSpecifier } from "./ImportSpecifier";
 import retainFirstComment from "./retainFirstComment";
 import { usePlugin } from "./usePlugin";
@@ -15,11 +22,17 @@ interface GlobalMethods {
   findImportDeclarations(name?: string): ImportDeclarationCollection;
 }
 
-type ImportDeclarationCollection = Collection<ImportDeclaration> &
+export type ImportDeclarationCollection = Collection<ImportDeclaration> &
   ImportDeclarationMethods;
 
 interface ImportDeclarationMethods {
   removeSpecifier(specifier: string): this;
+  addSpecifier(
+    specifier:
+      | ImportSpecifier
+      | ImportNamespaceSpecifier
+      | ImportDefaultSpecifier
+  ): this;
 }
 
 function importDeclarationPlugin(j: JSCodeshift) {
@@ -52,6 +65,14 @@ function importDeclarationPlugin(j: JSCodeshift) {
         }, j.ImportDeclaration) as ImportDeclarationCollection;
       });
       return collection;
+    },
+    addSpecifier(this: ImportDeclarationCollection, specifier) {
+      useImportSpecifier(j);
+      return this.forEach((path) => {
+        const specifiers = path.value.specifiers || [];
+        specifiers.push(specifier);
+        path.value.specifiers = specifiers;
+      });
     },
   };
   j.registerMethods(globalMethods);
