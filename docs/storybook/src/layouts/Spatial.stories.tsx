@@ -11,6 +11,7 @@ import {
   Flex,
   IconButton,
   Select,
+  Stepper,
   getUserColor,
 } from "@itwin/itwinui-react";
 import {
@@ -21,6 +22,7 @@ import {
   ToolbarUsage,
   UiFramework,
   UiItemsManager,
+  WidgetState,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { CommonProps } from "@itwin/core-react";
@@ -33,11 +35,13 @@ import {
   SvgLayers,
   SvgLocation,
   SvgNotification,
+  SvgSettings,
   SvgTableOfContents,
 } from "@itwin/itwinui-icons-react";
 import { AppUiDecorator } from "../AppUiDecorator";
 import { StorybookFrontstageProvider } from "../StorybookFrontstageProvider";
 import { useGroupToolbarItems, useToolbarItems } from "./useToolbarItems";
+import { Panel } from "./Panel";
 
 function Demo() {
   const [initialized, setInitialized] = React.useState(false);
@@ -96,7 +100,12 @@ function Demo() {
               0,
               <SvgHome />,
               "Home",
-              () => undefined,
+              () => {
+                const frontstageDef =
+                  UiFramework.frontstages.activeFrontstageDef;
+                const widgetDef = frontstageDef?.findWidgetDef("home");
+                widgetDef?.setWidgetState(WidgetState.Open);
+              },
               {
                 groupPriority: 2,
               }
@@ -105,8 +114,13 @@ function Demo() {
               "Assets",
               0,
               <SvgTableOfContents />,
-              "Home",
-              () => undefined,
+              "Assets",
+              () => {
+                const frontstageDef =
+                  UiFramework.frontstages.activeFrontstageDef;
+                const widgetDef = frontstageDef?.findWidgetDef("assets");
+                widgetDef?.setWidgetState(WidgetState.Open);
+              },
               {
                 groupPriority: 2,
               }
@@ -116,7 +130,12 @@ function Demo() {
               0,
               <SvgDocument />,
               "Documents",
-              () => undefined,
+              () => {
+                const frontstageDef =
+                  UiFramework.frontstages.activeFrontstageDef;
+                const widgetDef = frontstageDef?.findWidgetDef("documents");
+                widgetDef?.setWidgetState(WidgetState.Open);
+              },
               {
                 groupPriority: 2,
               }
@@ -150,6 +169,18 @@ function Demo() {
               <ContextSelect />, // TODO: allow custom node in a ToolbarCustomItem
               "",
               () => undefined
+            ),
+            ToolbarItemUtilities.createCustomItem(
+              "configure",
+              0,
+              <SvgSettings />,
+              "Configure",
+              () => {
+                const frontstageDef =
+                  UiFramework.frontstages.activeFrontstageDef;
+                const widgetDef = frontstageDef?.findWidgetDef("configure");
+                widgetDef?.setWidgetState(WidgetState.Open);
+              }
             ),
           ];
         },
@@ -208,7 +239,32 @@ function Demo() {
           ];
         },
       });
-      void UiFramework.frontstages.setActiveFrontstage("main-frontstage");
+      UiItemsManager.register({
+        id: "widget-provider",
+        provideWidgets: (_stageid, _stageUsage) => {
+          return [
+            {
+              id: "configure",
+              content: <ConfigureWidget />,
+              label: "Portfolio Configuration",
+              icon: <SvgSettings />,
+            },
+            {
+              id: "home",
+              content: <b>Home content</b>,
+            },
+            {
+              id: "assets",
+              content: <b>Assets content</b>,
+            },
+            {
+              id: "documents",
+              content: <b>Documents content</b>,
+            },
+          ];
+        },
+      });
+      await UiFramework.frontstages.setActiveFrontstage("main-frontstage");
       setInitialized(true);
     })();
     return () => {
@@ -236,6 +292,7 @@ function Initialized() {
           <ContextNavigationToolbar />
           <ViewNavigationToolbar />
         </div>
+        <Panel />
         <ContentManipulationToolbar />
       </div>
     </SpatialLayout>
@@ -262,8 +319,13 @@ function ContextNavigationToolbar() {
   return (
     <ButtonGroup>
       {items.map((item) => {
-        if (item.id === "context-select") return item.icon;
-        return <IconButton>{item.icon}</IconButton>;
+        if (item.id === "context-select")
+          return <React.Fragment key={item.id}>{item.icon}</React.Fragment>;
+        return (
+          <IconButton key={item.id} label={item.label}>
+            {item.icon}
+          </IconButton>
+        );
       })}
     </ButtonGroup>
   );
@@ -278,9 +340,11 @@ function ViewNavigationToolbar() {
   return (
     <Flex gap="m">
       {groupedItems.map((group) => (
-        <ButtonGroup>
+        <ButtonGroup key={group[0].groupPriority ?? 0}>
           {group.map((item) => (
-            <IconButton label={item.label}>{item.icon}</IconButton>
+            <IconButton key={item.id} label={item.label}>
+              {item.icon}
+            </IconButton>
           ))}
         </ButtonGroup>
       ))}
@@ -297,9 +361,11 @@ function ContentManipulationToolbar() {
   return (
     <Flex gap="s" style={{ flexDirection: "column", alignItems: "end" }}>
       {groupedItems.map((group) => (
-        <ButtonGroup orientation="vertical">
+        <ButtonGroup orientation="vertical" key={group[0].groupPriority ?? 0}>
           {group.map((item) => (
-            <IconButton label={item.label}>{item.icon}</IconButton>
+            <IconButton key={item.id} label={item.label}>
+              {item.icon}
+            </IconButton>
           ))}
         </ButtonGroup>
       ))}
@@ -333,6 +399,24 @@ function SpatialLayout(props: SpatialLayoutProps) {
       </div>
       {props.children}
     </div>
+  );
+}
+
+function ConfigureWidget() {
+  const [currentStep, setCurrentStep] = React.useState(2);
+  return (
+    <Stepper
+      currentStep={currentStep}
+      steps={[
+        { name: "First Step" },
+        { name: "Second Step" },
+        { name: "Third Step" },
+        { name: "Last Step" },
+      ]}
+      onStepClick={(index) => {
+        setCurrentStep(index);
+      }}
+    />
   );
 }
 
