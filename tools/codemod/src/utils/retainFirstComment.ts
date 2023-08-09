@@ -23,9 +23,10 @@ export default function retainFirstComment(
 
   transform();
 
-  // If the first node has been modified or deleted, reattach the comments
+  // If the first node has been modified, deleted or is no longer the first node, reattach the comments
   const firstNode = getFirstNode(j, root);
   if (initialFirstNode !== firstNode) {
+    if (initialFirstNode) initialFirstNode.comments = undefined;
     firstNode.comments = comments;
   }
 }
