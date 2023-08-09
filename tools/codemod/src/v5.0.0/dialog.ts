@@ -24,7 +24,13 @@ import {
 import { JSXAttributeCollection, useJSXAttribute } from "../utils/JSXAttribute";
 import { useImportDeclaration } from "../utils/ImportDeclaration";
 import { useImportSpecifier } from "../utils/ImportSpecifier";
+import { FileCollection, useFile } from "../utils/File";
 import { ExpressionKind } from "ast-types/gen/kinds";
+
+/* Potential problems:
+  - Duplicate identifier imports (like DivWithOutsideClick)
+  - Dialog import can not be found due to namespaced import (import * as x from "@itwin/core-react")
+*/
 
 export default function transformer(
   file: FileInfo,
@@ -35,14 +41,22 @@ export default function transformer(
   useExtensions(j);
   useImportDeclaration(j);
   useImportSpecifier(j);
+  useFile(j);
 
-  const root = j(file.source);
+  const root = j(file.source) as FileCollection;
   const coreReactImportDec = root.findImportDeclarations("@itwin/core-react");
 
-  const dialogName = coreReactImportDec.findSpecifiers("Dialog").getLocalName();
+  const dialogSpecifier = coreReactImportDec.findSpecifiers("Dialog");
 
-  if (dialogName !== "") {
-    // TODO: Add Dialog import from itwinui and remove from core-react
+  if (dialogSpecifier.single()) {
+    const dialogName = dialogSpecifier.getLocalName();
+
+    root
+      .findOrCreateImportDeclaration("@itwin/itwinui-react")
+      .addSpecifier(dialogSpecifier.node());
+    // TODO: sort specifiers
+    coreReactImportDec.removeSpecifier("Dialog");
+
     const dialogTransformer = new DialogTransformer(j);
     root
       .findJSXElements(dialogName)
@@ -56,6 +70,7 @@ class DialogTransformer {
   constructor(private j: JSCodeshift) {
     this.j = j;
     useExtensions(j);
+    useFile(j);
     useJSXElement(j);
     useJSXAttribute(j);
   }
@@ -65,6 +80,7 @@ class DialogTransformer {
   }
 
   private static PathTransformer = class {
+    private _root: FileCollection;
     private _dialog: JSXElementCollection;
     private _dialogNameNode: JSXIdentifier | JSXMemberExpression;
     private _initialIndentSize: number;
@@ -76,12 +92,16 @@ class DialogTransformer {
     ) {
       const j = superThis.j;
       this._dialog = j(dialogPath) as JSXElementCollection;
+      this._root = this._dialog.closest(j.File) as FileCollection;
       this._dialogNameNode = (dialogPath.node.name ??
         j.jsxIdentifier("Dialog")) as JSXIdentifier | JSXMemberExpression;
       this._initialIndentSize = dialogPath.node.loc?.start.column ?? 0;
       this._indentSize = this.calculateIndentationSizeOrReturnDefault();
     }
 
+    private get root(): FileCollection {
+      return this._root;
+    }
     private get dialog(): JSXElementCollection {
       return this._dialog;
     }
@@ -191,16 +211,22 @@ class DialogTransformer {
         .extractAttributeValue()
         ?.node();
 
+      const parseButtonIdentifierNode = j.identifier("parseButtonCluster");
       const buttonClusterChildren = buttonClusterExpressionNode
         ? t.createChildNodes(
             this.convertToChildExpression(
-              j.callExpression(j.identifier("parseButtonCluster"), [
+              j.callExpression(parseButtonIdentifierNode, [
                 buttonClusterExpressionNode,
               ])
             )
           )
         : undefined;
-      // TODO: add parseButtonCluster import
+
+      if (buttonClusterExpressionNode)
+        this.root
+          .findOrCreateImportDeclaration("@itwin/core-react")
+          .addSpecifier(j.importSpecifier(parseButtonIdentifierNode));
+
       const buttonBarExpressionNode = this.createButtonBarExpressionNode(
         footerExpressionNode,
         buttonBarAttributeNodes,
@@ -300,7 +326,10 @@ class DialogTransformer {
             false
           )
         : undefined;
-      // TODO: add DivWithOutsideClick import
+      if (divWithOutsideClickElementNode)
+        this.root
+          .findOrCreateImportDeclaration("@itwin/core-react")
+          .addSpecifier(j.importSpecifier(j.identifier("DivWithOutsideClick")));
 
       const modalExpressionNode = dialog
         .getAttribute("modal")
@@ -308,7 +337,16 @@ class DialogTransformer {
         .extractAttributeValue()
         ?.node();
 
-      // TODO: add preventDocumentScroll={modal}
+      const preventDocumentScrollAttributeNode = t.createAttributeNode(
+        "preventDocumentScroll",
+        modalExpressionNode
+          ? j.jsxExpressionContainer(modalExpressionNode)
+          : j.jsxExpressionContainer(j.booleanLiteral(true))
+      );
+      dialog.appendAttributes(
+        j(preventDocumentScrollAttributeNode) as JSXAttributeCollection
+      );
+
       const closeOnEscAttributeNode = t.createAttributeNode(
         "closeOnEsc",
         j.jsxExpressionContainer(j.booleanLiteral(false))
@@ -331,7 +369,62 @@ class DialogTransformer {
         backdropAttributeNodes
       );
 
-      // TODO: add z-index of 150000
+      const styleAttributeNode =
+        dialog.getAttribute("style")?.node() ??
+        t.createAttributeNode(
+          "style",
+          j.jsxExpressionContainer(j.objectExpression([]))
+        );
+      const styleAttribute = j(styleAttributeNode) as JSXAttributeCollection;
+      const styleExpressionPath = styleAttribute
+        .extractAttributeValue()
+        ?.path();
+      const styleExpressionNode = styleAttribute
+        .extractAttributeValue()
+        ?.node();
+      if (styleExpressionNode) {
+        if (styleExpressionNode.type === "ObjectExpression") {
+          const zIndexProperty = styleExpressionNode.properties.find((prop) => {
+            if (prop.type !== "Property" && prop.type !== "ObjectProperty")
+              return false;
+            if (prop.key.type !== "Identifier") return false;
+            return prop.key.name === "zIndex";
+          });
+          if (!zIndexProperty) {
+            const getCssVariableIdentifier = j.identifier("getCssVariable");
+            const zIndexValue = j.callExpression(getCssVariableIdentifier, [
+              j.literal("--uicore-z-index-dialog"),
+            ]);
+            styleExpressionNode.properties.unshift(
+              j.property("init", j.identifier("zIndex"), zIndexValue)
+            );
+
+            this.root
+              .findOrCreateImportDeclaration("@itwin/core-react")
+              .addSpecifier(j.importSpecifier(getCssVariableIdentifier));
+          }
+        } else {
+          const getCssVariableIdentifier = j.identifier("getCssVariable");
+          const zIndexValue = j.callExpression(getCssVariableIdentifier, [
+            j.literal("--uicore-z-index-dialog"),
+          ]);
+          const zIndexProp = j.property(
+            "init",
+            j.identifier("zIndex"),
+            zIndexValue
+          );
+          const spreadElement = j.spreadElement(styleExpressionNode);
+
+          styleExpressionPath!.value = j.objectExpression([
+            zIndexProp,
+            spreadElement,
+          ]);
+
+          this.root
+            .findOrCreateImportDeclaration("@itwin/core-react")
+            .addSpecifier(j.importSpecifier(getCssVariableIdentifier));
+        }
+      }
 
       const children = t.createChildNodes(
         backdropExpressionNode,
