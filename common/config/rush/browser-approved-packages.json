@@ -1059,6 +1059,10 @@
       "allowedCategories": [ "frontend" ]
     },
     {
+      "name": "sass",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "semver",
       "allowedCategories": [ "backend", "common", "frontend", "internal" ]
     },
