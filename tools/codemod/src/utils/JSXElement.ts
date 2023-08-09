@@ -3,12 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import {
-  ASTPath,
-  ASTNode,
   Collection,
   JSCodeshift,
   JSXElement,
-  JSXIdentifier,
   JSXText,
   JSXSpreadChild,
   JSXExpressionContainer,
@@ -17,7 +14,6 @@ import {
 import { JSXAttributeCollection } from "./JSXAttribute";
 import { usePlugin } from "./usePlugin";
 import { useExtensions } from "./Extensions";
-import { LiteralKind } from "ast-types/gen/kinds";
 
 declare module "jscodeshift/src/collection" {
   interface Collection<N> extends GlobalMethods {}
