@@ -10,6 +10,8 @@ import { parse, stringify } from "postcss-scss";
 export const defaultOptions = {
   printOptions: {
     trailingComma: true,
+    lineTerminator: "\n",
+    tabWidth: 2,
   },
 };
 
@@ -24,12 +26,7 @@ export function createDefineInlineTest(transform: Transform) {
         default: transform,
         parser: "tsx",
       },
-      {
-        printOptions: {
-          ...defaultOptions.printOptions,
-          lineTerminator: "\n",
-        },
-      },
+      defaultOptions,
       inputSource,
       expectedOutputSource,
       testName

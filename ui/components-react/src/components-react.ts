@@ -133,10 +133,11 @@ export * from "./components-react/toolbar/groupPanel/Columns";
 export * from "./components-react/toolbar/groupPanel/Panel";
 export * from "./components-react/toolbar/groupPanel/Title";
 
-export * from "./components-react/toolbar/Toolbar";
-export * from "./components-react/toolbar/ToolbarWithOverflow";
+export * from "./components-react/toolbar/InternalToolbarComponent";
 export * from "./components-react/toolbar/PopupItem";
 export * from "./components-react/toolbar/PopupItemWithDrag";
+export * from "./components-react/toolbar/Toolbar";
+export * from "./components-react/toolbar/ToolbarWithOverflow";
 export * from "./components-react/toolbar/Item";
 export * from "./components-react/toolbar/utilities/Direction";
 

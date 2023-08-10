@@ -23,7 +23,7 @@ import { Title } from "./groupPanel/Title";
 import { GroupToolExpander } from "./groupPanel/tool/Expander";
 import { GroupTool } from "./groupPanel/tool/Tool";
 import { useToolbarPopupContext } from "./PopupItem";
-import { useToolbarWithOverflowDirectionContext } from "./ToolbarWithOverflow";
+import { useToolbarWithOverflowDirectionContext } from "./InternalToolbarComponent";
 
 function getNumItemsInColumn(numTotalItems: number): number {
   if (numTotalItems <= 6) return numTotalItems;

@@ -60,8 +60,10 @@ import {
   StatusBarRightSection,
   StatusBarSeparator,
   StatusBarSpaceBetween,
+  SyncUiEventDispatcher,
   TileLoadingIndicator,
   ToolAssistanceField,
+  Toolbar,
   ToolbarComposer,
   ToolbarHelper,
   ToolbarOrientation,
@@ -83,6 +85,7 @@ import {
 } from "@itwin/core-frontend";
 import {
   ConditionalBooleanValue,
+  ConditionalStringValue,
   DialogButtonDef,
   DialogButtonType,
   DialogItem,
@@ -100,7 +103,6 @@ import { StatusBarDialogTitleBar } from "@itwin/appui-react/lib/cjs/appui-react/
 import { StatusBarDialogTitleBarButton } from "@itwin/appui-react/lib/cjs/appui-react/statusbar/dialog/Button";
 import { ComponentGenerator } from "@itwin/appui-react/lib/cjs/appui-react/uiprovider/ComponentGenerator";
 import { UnitSystemKey } from "@itwin/core-quantity";
-import { ToolbarItemContext } from "@itwin/components-react";
 import { Button } from "@itwin/itwinui-react";
 
 class TestContentControl extends ContentControl {
@@ -928,17 +930,13 @@ export class ComponentExamplesProvider {
         createComponentExample(
           "List Picker",
           undefined,
-          <ToolbarItemContext.Provider
-            value={{ hasOverflow: false, useHeight: false, onResize: () => {} }}
-          >
-            <div style={{ width: 50 }}>
-              <ListPicker
-                title={"ListPicker Title"}
-                items={listItems}
-                setEnabled={() => {}}
-              ></ListPicker>
-            </div>
-          </ToolbarItemContext.Provider>
+          <div style={{ width: 50 }}>
+            <ListPicker
+              title={"ListPicker Title"}
+              items={listItems}
+              setEnabled={() => {}}
+            ></ListPicker>
+          </div>
         ),
         createComponentExample(
           "List Picker Item",
@@ -953,17 +951,9 @@ export class ComponentExamplesProvider {
         createComponentExample(
           "View Selector",
           undefined,
-          <ToolbarItemContext.Provider
-            value={{
-              hasOverflow: false,
-              useHeight: false,
-              onResize: () => {},
-            }}
-          >
-            <div style={{ width: 50 }}>
-              <IModelConnectedViewSelector />
-            </div>
-          </ToolbarItemContext.Provider>
+          <div style={{ width: 50 }}>
+            <IModelConnectedViewSelector />
+          </div>
         ),
       ],
     };
@@ -1145,8 +1135,8 @@ export class ComponentExamplesProvider {
 
   private static get toolbarSample(): ComponentExampleCategory {
     const testItemEventId = "test-event";
-    const visibleState = false;
-    const testIsHiddenFunc = () => !visibleState;
+    const visibleState = { visible: false };
+    const testIsHiddenFunc = () => !visibleState.visible;
 
     const tool1 = new CommandItemDef({
       commandId: "test.tool1",
@@ -1176,32 +1166,57 @@ export class ComponentExamplesProvider {
       isDisabled: false,
     });
 
-    const isHiddenCondition = new ConditionalBooleanValue(testIsHiddenFunc, [
-      testItemEventId,
-    ]);
+    /**
+     * Conditonal[...] instances must not be reused in different object, so we create as many copies of them
+     * as toolbars (with the same behavior, to compare).
+     * @returns
+     */
+    function createUniqueConditionalsForGroup() {
+      const tool1c = new CommandItemDef({
+        commandId: "test.tool1_c",
+        label: new ConditionalStringValue(
+          () => (visibleState.visible ? "Tool_1C (V)" : "Tool_1C (H)"),
+          [testItemEventId]
+        ),
+        iconSpec: "icon-placeholder",
+        isHidden: new ConditionalBooleanValue(testIsHiddenFunc, [
+          testItemEventId,
+        ]),
+      });
 
-    const tool1c = new CommandItemDef({
-      commandId: "test.tool1_c",
-      label: "Tool_1C",
-      iconSpec: "icon-placeholder",
-      isHidden: isHiddenCondition,
-    });
+      const tool2c = new CommandItemDef({
+        commandId: "test.tool2_c",
+        label: new ConditionalStringValue(
+          () => (visibleState.visible ? "Hide Tool_1C" : "Show Tool_1C"),
+          [testItemEventId]
+        ),
+        iconSpec: new ConditionalStringValue(
+          () =>
+            visibleState.visible ? "icon-visibility-hide" : "icon-visibility",
+          [testItemEventId]
+        ),
+        execute: () => {
+          visibleState.visible = !visibleState.visible;
+          SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(testItemEventId);
+        },
+      });
 
-    const groupNested = new GroupItemDef({
-      groupId: "test.group.nested",
-      label: "Tool_Group_Nested",
-      iconSpec: "icon-placeholder",
-      items: [tool1c],
-      itemsInColumn: 4,
-    });
+      const groupNested = new GroupItemDef({
+        groupId: "test.group.nested",
+        label: "Tool_Group_Nested",
+        iconSpec: "icon-placeholder",
+        items: [tool1c, tool2c],
+        itemsInColumn: 4,
+      });
 
-    const group1 = new GroupItemDef({
-      groupId: "test.group",
-      label: "Tool_Group",
-      iconSpec: "icon-placeholder",
-      items: [tool1a, tool2a, groupNested],
-      itemsInColumn: 4,
-    });
+      return new GroupItemDef({
+        groupId: "test.group",
+        label: "Tool_Group",
+        iconSpec: "icon-placeholder",
+        items: [tool1a, tool2a, groupNested],
+        itemsInColumn: 4,
+      });
+    }
 
     const custom1 = new CustomItemDef({
       customId: "test.custom",
@@ -1226,10 +1241,37 @@ export class ComponentExamplesProvider {
             items={ToolbarHelper.createToolbarItemsFromItemDefs([
               tool1,
               tool2,
-              group1,
+              createUniqueConditionalsForGroup(),
               custom1,
             ])}
           />
+        ),
+        createComponentExample(
+          "Toolbar",
+          "Raw toolbar component",
+          <Toolbar
+            items={ToolbarHelper.createToolbarItemsFromItemDefs([
+              tool1,
+              tool2,
+              createUniqueConditionalsForGroup(),
+              custom1,
+            ])}
+          />
+        ),
+        createComponentExample(
+          "Toolbar (overflow)",
+          "Raw toolbar component wrapped in small div with enableOverflow set to true",
+          <div style={{ maxWidth: 50 }}>
+            <Toolbar
+              enableOverflow={true}
+              items={ToolbarHelper.createToolbarItemsFromItemDefs([
+                tool1,
+                tool2,
+                createUniqueConditionalsForGroup(),
+                custom1,
+              ])}
+            />
+          </div>
         ),
       ],
     };
