@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { Dialog as BaseDialog } from "@itwin/itwinui-react";
 
-import { DialogAlignment, parseButtonCluster, DivWithOutsideClick, getCssVariable } from "@itwin/core-react";
+import { DialogAlignment, DivWithOutsideClick, getCssVariable, parseButtonCluster } from "@itwin/core-react";
 
 <BaseDialog
   closeOnEsc={false}

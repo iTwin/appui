@@ -10,12 +10,11 @@ import {
   toExpressionName,
   useCallExpression,
 } from "./CallExpression";
-import { useImportDeclaration } from "./ImportDeclaration";
 import {
-  findRootIdentifiers,
-  sortSpecifiers,
-  useImportSpecifier,
-} from "./ImportSpecifier";
+  ImportDeclarationCollection,
+  useImportDeclaration,
+} from "./ImportDeclaration";
+import { findRootIdentifiers, useImportSpecifier } from "./ImportSpecifier";
 import retainFirstComment from "./retainFirstComment";
 import { usePlugin } from "./usePlugin";
 
@@ -26,6 +25,7 @@ declare module "jscodeshift/src/collection" {
 interface GlobalMethods<N> {
   path(): ASTPath<N>;
   node(): N;
+  first(): this;
   nonEmpty(): this | undefined;
   single(): this | undefined;
   navigatePath(...path: (string | number)[]): Collection<any>;
@@ -54,6 +54,9 @@ function extensionsPlugin(j: JSCodeshift) {
     /** Returns the first node in this collection */
     node(this: Collection) {
       return this.nodes()[0];
+    },
+    first(this: Collection) {
+      return this.at(0);
     },
     nonEmpty(this: Collection) {
       return this.length > 0 ? this : undefined;
@@ -234,11 +237,10 @@ function extensionsPlugin(j: JSCodeshift) {
           targetSpecifiers.size() === 0 &&
           renamed
         ) {
-          const targetDeclaration = targetDeclarations.nodes()[0];
-          targetDeclaration.specifiers = sortSpecifiers(j, [
-            ...(targetDeclaration.specifiers ?? []),
-            j.importSpecifier(j.identifier(target.specifier)),
-          ]);
+          targetDeclarations
+            .first()
+            .addSpecifier(j.importSpecifier(j.identifier(target.specifier)))
+            .sortSpecifiers();
         }
 
         if (renamed && sourceLocalSpecifierName === target.specifier) {

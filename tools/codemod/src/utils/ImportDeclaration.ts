@@ -33,6 +33,7 @@ interface ImportDeclarationMethods {
       | ImportNamespaceSpecifier
       | ImportDefaultSpecifier
   ): this;
+  sortSpecifiers(): this;
 }
 
 function importDeclarationPlugin(j: JSCodeshift) {
@@ -68,10 +69,37 @@ function importDeclarationPlugin(j: JSCodeshift) {
     },
     addSpecifier(this: ImportDeclarationCollection, specifier) {
       useImportSpecifier(j);
+      const newSpecifierName =
+        specifier.type === "ImportSpecifier"
+          ? specifier.imported.name
+          : specifier.local?.name;
       return this.forEach((path) => {
         const specifiers = path.value.specifiers || [];
-        specifiers.push(specifier);
+        const specifierAlreadyExists = specifiers.some((value) => {
+          const existingSpecifierName =
+            value.type === "ImportSpecifier"
+              ? value.imported.name
+              : value.local?.name;
+          return newSpecifierName === existingSpecifierName;
+        });
+
+        !specifierAlreadyExists && specifiers.push(specifier);
         path.value.specifiers = specifiers;
+      });
+    },
+    sortSpecifiers(this: ImportDeclarationCollection) {
+      return this.forEach(({ value: { specifiers } }) => {
+        specifiers &&
+          specifiers.sort((a, b) => {
+            if (a.type !== b.type) {
+              if (a.type === "ImportDefaultSpecifier") return 1;
+              if (b.type === "ImportDefaultSpecifier") return -1;
+            }
+            if (a.type === "ImportSpecifier" && b.type === "ImportSpecifier") {
+              return a.imported.name.localeCompare(b.imported.name);
+            }
+            return 0;
+          });
       });
     },
   };

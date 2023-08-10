@@ -76,19 +76,3 @@ export function findRootIdentifiers(
       );
     });
 }
-
-export function sortSpecifiers(
-  j: JSCodeshift,
-  specifiers: Required<ImportDeclaration>["specifiers"]
-) {
-  return specifiers.sort((a, b) => {
-    if (a.type !== b.type) {
-      if (a.type === "ImportDefaultSpecifier") return 1;
-      if (b.type === "ImportDefaultSpecifier") return -1;
-    }
-    if (a.type === "ImportSpecifier" && b.type === "ImportSpecifier") {
-      return a.imported.name.localeCompare(b.imported.name);
-    }
-    return 0;
-  });
-}

@@ -53,8 +53,8 @@ export default function transformer(
 
     root
       .findOrCreateImportDeclaration("@itwin/itwinui-react")
-      .addSpecifier(dialogSpecifier.node());
-    // TODO: sort specifiers
+      .addSpecifier(dialogSpecifier.node())
+      .sortSpecifiers();
     coreReactImportDec.removeSpecifier("Dialog");
 
     const dialogTransformer = new DialogTransformer(j);
@@ -229,7 +229,8 @@ class DialogTransformer {
       if (buttonClusterExpressionNode)
         this.root
           .findOrCreateImportDeclaration("@itwin/core-react")
-          .addSpecifier(j.importSpecifier(parseButtonIdentifierNode));
+          .addSpecifier(j.importSpecifier(parseButtonIdentifierNode))
+          .sortSpecifiers();
 
       const buttonBarExpressionNode = this.createButtonBarExpressionNode(
         footerExpressionNode,
@@ -335,7 +336,8 @@ class DialogTransformer {
       if (divWithOutsideClickElementNode)
         this.root
           .findOrCreateImportDeclaration("@itwin/core-react")
-          .addSpecifier(j.importSpecifier(j.identifier("DivWithOutsideClick")));
+          .addSpecifier(j.importSpecifier(j.identifier("DivWithOutsideClick")))
+          .sortSpecifiers();
 
       // Backdrop transform ------------------------------------------------
       const modalExpressionNode = dialog
@@ -409,7 +411,8 @@ class DialogTransformer {
 
             this.root
               .findOrCreateImportDeclaration("@itwin/core-react")
-              .addSpecifier(j.importSpecifier(getCssVariableIdentifier));
+              .addSpecifier(j.importSpecifier(getCssVariableIdentifier))
+              .sortSpecifiers();
           }
         } else {
           const getCssVariableIdentifier = j.identifier("getCssVariable");
@@ -430,7 +433,8 @@ class DialogTransformer {
 
           this.root
             .findOrCreateImportDeclaration("@itwin/core-react")
-            .addSpecifier(j.importSpecifier(getCssVariableIdentifier));
+            .addSpecifier(j.importSpecifier(getCssVariableIdentifier))
+            .sortSpecifiers();
         }
       }
 
@@ -456,14 +460,6 @@ class DialogTransformer {
       const indentSize = indentEnd - indentStart;
       const defaultIndentSize = 2;
       return indentSize > 0 ? indentSize : defaultIndentSize;
-    }
-
-    // TODO: move to Collection methods
-    addIndent(jsxTextNode: JSXText, times: number = 1): JSXText {
-      const indent = " ".repeat(times * this.indentSize);
-      jsxTextNode.value += indent;
-      jsxTextNode.raw += indent;
-      return jsxTextNode;
     }
 
     createInnerDialogElementNode(
