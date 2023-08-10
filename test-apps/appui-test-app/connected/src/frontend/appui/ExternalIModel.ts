@@ -67,16 +67,14 @@ export class ExternalIModel {
       );
     } else if (args.iTwinId) {
       const iTwinClient = new ITwinsAccessClient();
-      const iTwinsResponse: ITwinsAPIResponse<ITwin> = await iTwinClient.getAsync(
-        accessToken,
-        args.iTwinId
-      );
+      const iTwinsResponse: ITwinsAPIResponse<ITwin> =
+        await iTwinClient.getAsync(accessToken, args.iTwinId);
 
-    const actualiTwin = iTwinsResponse.data!;
-    if (!actualiTwin)
-      throw new Error(`ITwin ${args.iTwinId} was not found for the user.`);
+      const actualiTwin = iTwinsResponse.data!;
+      if (!actualiTwin)
+        throw new Error(`ITwin ${args.iTwinId} was not found for the user.`);
 
-    // note: iTwinName is set in createArgs
+      // note: iTwinName is set in createArgs
       createArgs.iTwinId = actualiTwin.id;
     }
 

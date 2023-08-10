@@ -587,7 +587,7 @@ export class SampleAppIModelApp {
 
       if (iTwins.length === 0)
         throw new Error(`ITwin ${iTwinName} was not found for the user.`);
-        else if (iTwins.length > 1)
+      else if (iTwins.length > 1)
         throw new Error(
           `Multiple iTwins named ${iTwinName} were found for the user.`
         );

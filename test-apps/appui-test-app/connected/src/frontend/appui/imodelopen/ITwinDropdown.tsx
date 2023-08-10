@@ -176,7 +176,9 @@ export class ITwinDropdown extends React.Component<
               {this.props.currentITwin ? this.props.currentITwin.number : ""}
             </span>
             <span className="name">
-              {this.props.currentITwin ? this.props.currentITwin.displayName : ""}
+              {this.props.currentITwin
+                ? this.props.currentITwin.displayName
+                : ""}
             </span>
           </div>
           <span className={splitterClassName} />
