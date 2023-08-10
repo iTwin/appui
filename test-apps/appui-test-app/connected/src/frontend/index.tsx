@@ -13,10 +13,11 @@ import {
   BrowserAuthorizationClient,
 } from "@itwin/browser-authorization";
 import {
-  Project as ITwin,
-  ProjectsAccessClient,
-  ProjectsSearchableProperty,
-} from "@itwin/projects-client";
+  ITwin,
+  ITwinsAccessClient,
+  ITwinsAPIResponse,
+  ITwinSubClass,
+} from "@itwin/itwins-client";
 import {
   RealityDataAccessClient,
   RealityDataClientOptions,
@@ -574,25 +575,24 @@ export class SampleAppIModelApp {
       const iModelName = process.env.IMJS_UITESTAPP_IMODEL_NAME ?? "";
 
       const accessToken = await IModelApp.getAccessToken();
-      const iTwinList: ITwin[] = await new ProjectsAccessClient().getAll(
-        accessToken,
-        {
-          search: {
-            searchString: iTwinName,
-            propertyName: ProjectsSearchableProperty.Name,
-            exactMatch: true,
-          },
-        }
-      );
+      const iTwinsResponse: ITwinsAPIResponse<ITwin[]> =
+        await new ITwinsAccessClient().queryAsync(
+          accessToken,
+          ITwinSubClass.Project,
+          {
+            displayName: iTwinName,
+          }
+        );
+      const iTwins: ITwin[] = iTwinsResponse.data!;
 
-      if (iTwinList.length === 0)
+      if (iTwins.length === 0)
         throw new Error(`ITwin ${iTwinName} was not found for the user.`);
-      else if (iTwinList.length > 1)
+        else if (iTwins.length > 1)
         throw new Error(
           `Multiple iTwins named ${iTwinName} were found for the user.`
         );
 
-      const iTwin: ITwin = iTwinList[0];
+      const iTwin: ITwin = iTwins[0];
 
       if (!SampleAppIModelApp.hubClient) return;
 
@@ -602,7 +602,7 @@ export class SampleAppIModelApp {
           urlParams: {
             name: iModelName,
             $top: 1,
-            iTwinId: iTwin.id,
+            iTwinId: iTwin.id ?? "",
           },
           authorization:
             AccessTokenAdapter.toAuthorizationCallback(accessToken),
@@ -612,12 +612,12 @@ export class SampleAppIModelApp {
 
       if (!iModel) throw new Error(`No iModel with the name ${iModelName} `);
 
-      if (viewId) {
+      if (iTwin.id && viewId) {
         // open directly into the iModel (view)
         await SampleAppIModelApp.openIModelAndViews(iTwin.id, iModel?.id, [
           viewId,
         ]);
-      } else {
+      } else if (iTwin.id) {
         // open directly into the iModel with default viewId
         await SampleAppIModelApp.showIModel(iTwin.id, iModel.id);
       }

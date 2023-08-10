@@ -279,6 +279,10 @@
       "allowedCategories": [ "integration-testing", "internal" ]
     },
     {
+      "name": "@itwin/itwins-client",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "@itwin/itwinui-css",
       "allowedCategories": [ "extensions", "frontend", "internal" ]
     },
