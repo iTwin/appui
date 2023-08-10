@@ -123,6 +123,10 @@ export class WidgetDef {
   public get state(): WidgetState {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (frontstageDef && frontstageDef.findWidgetDef(this.id)) {
+      if (frontstageDef.layout) {
+        return frontstageDef.layout.getWidgetState(this.id);
+      }
+
       const currentState = frontstageDef.getWidgetCurrentState(this);
       // istanbul ignore else
       if (undefined !== currentState) return currentState;
@@ -413,10 +417,10 @@ export class WidgetDef {
   public setWidgetState(newState: WidgetState): void {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     // TODO: map the dispatcher actions to existing appui-layout-react actions.
-    if (frontstageDef?.dispatch) {
+    if (frontstageDef?.layout) {
       const widgetDef = frontstageDef.findWidgetDef(this.id);
       if (!widgetDef) return;
-      frontstageDef.dispatch({
+      frontstageDef.layout.dispatch({
         type: "SET_WIDGET_STATE",
         id: this.id,
         state: newState,
