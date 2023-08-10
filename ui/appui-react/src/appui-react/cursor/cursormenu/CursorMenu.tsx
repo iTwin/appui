@@ -77,6 +77,7 @@ export class CursorPopupMenu extends React.PureComponent<
   public override componentWillUnmount() {
     this._componentUnmounting = true;
     SyncUiEventDispatcher.onSyncUiEvent.removeListener(this._handleSyncUiEvent);
+    this._componentUnmounting = false;
   }
 
   private _handleRefSet = (popupDiv: HTMLElement | null) => {
