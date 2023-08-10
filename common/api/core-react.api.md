@@ -421,8 +421,6 @@ export class Dialog extends React_2.Component<DialogProps, DialogState> {
     handleRefSet: (containerDiv: HTMLDivElement | null) => void;
     // (undocumented)
     render(): React_2.ReactElement;
-    // @internal (undocumented)
-    readonly state: Readonly<DialogState>;
 }
 
 // @public
