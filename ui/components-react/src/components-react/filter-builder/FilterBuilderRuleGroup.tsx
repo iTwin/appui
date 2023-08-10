@@ -63,7 +63,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
 
   const allowToAddGroup =
     ruleGroupDepthLimit === undefined || path.length < ruleGroupDepthLimit;
-  const { activeElement, ...eventHandlers } = React.useContext(
+  const { focusedElement, hoveredElement, ...eventHandlers } = React.useContext(
     ActiveRuleGroupContext
   );
 
@@ -73,7 +73,10 @@ export function PropertyFilterBuilderRuleGroupRenderer(
     <div
       ref={groupRef}
       className="rule-group"
-      data-isactive={groupRef.current === activeElement}
+      data-isactive={
+        groupRef.current === focusedElement ||
+        groupRef.current === hoveredElement
+      }
       {...eventHandlers}
     >
       <div className="rule-group-remove-action">

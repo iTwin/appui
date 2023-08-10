@@ -120,6 +120,8 @@ public;IMutableFlatPropertyGridItem
 public;IMutableGridCategoryItem 
 public;IMutableGridItemFactory
 public;IMutablePropertyGridModel
+internal;InternalToolbarComponent(props: InternalToolbarComponentProps): JSX.Element
+internal;InternalToolbarComponentProps 
 alpha;IntlFormatter 
 public;IntTypeConverter 
 public;IPropertyDataFilterer

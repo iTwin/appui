@@ -14,9 +14,8 @@ import type {
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
 } from "@itwin/components-react";
-import { ToolbarWithOverflow as CR_ToolbarWithOverflow } from "@itwin/components-react";
 import type { ToolbarItem } from "./ToolbarItem";
-import { toUIAToolbarItem } from "./toUIAToolbarItem";
+import { Toolbar } from "./Toolbar";
 
 /** Component that displays toolbar items.
  * @beta
@@ -40,18 +39,12 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
   onKeyDown?: (e: React.KeyboardEvent) => void;
 }
 
-/** Component that displays toolbar items.
+/** Component that displays toolbar items, displaying only the elements that can fit in the available space,
+ * and put the other items into a single panel.
  * @beta
+ * @deprecated in 4.4.0. Use Toolbar component with "enableOverflow" prop to {overflowExpandsTo: props.overflowExpandsTo}.
  */
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
-  const { items, ...other } = props;
-  const uiaItems = React.useMemo(() => {
-    return items.map((item) => toUIAToolbarItem(item));
-  }, [items]);
-  return (
-    <CR_ToolbarWithOverflow // eslint-disable-line deprecation/deprecation
-      items={uiaItems}
-      {...other}
-    />
-  );
+  const { overflowExpandsTo, ...toolbarProps } = props;
+  return <Toolbar enableOverflow={{ overflowExpandsTo }} {...toolbarProps} />;
 }

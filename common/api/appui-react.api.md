@@ -3299,6 +3299,11 @@ export interface OpenChildWindowInfo {
 export class OpenMessageCenterEvent extends UiEvent<{}> {
 }
 
+// @beta
+export interface OverflowToolbarOptions {
+    overflowExpandsTo?: Direction;
+}
+
 // @internal
 export function packNineZoneState(state: NineZoneState): SavedNineZoneState;
 
@@ -4650,6 +4655,7 @@ export interface ToolbarPopupProps extends PopupPropsBase {
 
 // @beta
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
+    enableOverflow?: boolean | OverflowToolbarOptions;
     expandsTo?: Direction;
     items: ToolbarItem[];
     onItemExecuted?: OnItemExecutedFunc;
@@ -4665,7 +4671,7 @@ export enum ToolbarUsage {
     ViewNavigation = 1
 }
 
-// @beta
+// @beta @deprecated
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element;
 
 // @beta
@@ -5034,7 +5040,7 @@ export const useDefaultBackstageItems: (manager: BackstageItemsManager) => reado
 // @public
 export const useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[];
 
-// @public
+// @public @deprecated
 export const useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[];
 
 // @alpha (undocumented)
@@ -5111,7 +5117,7 @@ export const useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) 
 // @public
 export const useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[];
 
-// @public
+// @public @deprecated
 export const useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[];
 
 // @public (undocumented)

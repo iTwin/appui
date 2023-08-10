@@ -1119,6 +1119,26 @@ export interface IMutablePropertyGridModel {
     getVisibleFlatGrid: () => IMutableFlatGridItem[];
 }
 
+// @internal
+export function InternalToolbarComponent(props: InternalToolbarComponentProps): JSX.Element;
+
+// @internal
+export interface InternalToolbarComponentProps extends CommonProps, NoChildrenProps {
+    enableOverflow?: boolean | {
+        overflowExpandsTo?: Direction;
+    };
+    expandsTo?: Direction;
+    items: CommonToolbarItem[];
+    onItemExecuted?: OnItemExecutedFunc;
+    onKeyDown?: (e: React_2.KeyboardEvent) => void;
+    panelAlignment?: ToolbarPanelAlignment;
+    syncUiEvent?: BeEvent<(args: {
+        eventIds: Set<string>;
+    }) => void>;
+    toolbarOpacitySetting?: ToolbarOpacitySetting;
+    useDragInteraction?: boolean;
+}
+
 // @alpha
 export class IntlFormatter implements DateFormatter {
     constructor(_intlFormatter?: Intl.DateTimeFormat | undefined);
