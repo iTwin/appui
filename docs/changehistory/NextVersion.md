@@ -10,6 +10,7 @@ Table of contents:
   - [Additions](#additions-1)
 - [@itwin/core-react](#itwincore-react)
   - [Additions](#additions-2)
+  - [Changes](#changes)
   - [Fixes](#fixes-1)
 
 ## @itwin/appui-react
@@ -46,7 +47,10 @@ Table of contents:
 ### Additions
 
 - `ConditionalIconItem.isConditionalIconItem` is now a `ConditionalIconItem` _type predicate_, on top of returning a boolean.
-- `Dialog` now has resize functionality from iTwinUI `Dialog`.
+
+### Changes
+
+- Changed `Dialog` to use resize functionality from iTwinUI `Dialog`.
 
 ### Fixes
 
