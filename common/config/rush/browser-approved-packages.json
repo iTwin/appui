@@ -343,10 +343,6 @@
       "allowedCategories": [ "internal" ]
     },
     {
-      "name": "@itwin/projects-client",
-      "allowedCategories": [ "integration-testing", "internal" ]
-    },
-    {
       "name": "@itwin/reality-data-client",
       "allowedCategories": [ "internal" ]
     },
