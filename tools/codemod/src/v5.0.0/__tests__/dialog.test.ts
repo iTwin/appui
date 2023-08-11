@@ -37,8 +37,6 @@ describe("dialog", () => {
         <Dialog.Backdrop />
         <Dialog.Main>
           <Dialog.TitleBar />
-          <Dialog.Content></Dialog.Content>
-          <Dialog.ButtonBar />
         </Dialog.Main>
       </Dialog>
       `,

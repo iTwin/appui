@@ -167,16 +167,14 @@ class DialogTransformer {
       const children = t.createChildNodes(
         backdropExpressionNode,
         mainElementNode
-      );
-      if (children) {
-        const closingElementName = this.dialogNameNode;
-        const closingElement = j.jsxClosingElement(closingElementName);
+      ) ?? [j.jsxText(" ")];
+      const closingElementName = this.dialogNameNode;
+      const closingElement = j.jsxClosingElement(closingElementName);
 
-        const node = dialog.node();
-        node.openingElement.selfClosing = false;
-        node.closingElement = closingElement;
-        node.children = children;
-      }
+      const node = dialog.node();
+      node.openingElement.selfClosing = false;
+      node.closingElement = closingElement;
+      node.children = children;
     }
 
     transformToTitleBar() {
@@ -223,6 +221,7 @@ class DialogTransformer {
 
     transformToContent() {
       const dialog = this.dialog;
+      const j = this.superThis.j;
       const t = this.superThis;
 
       const contentClassNameAttributeNode = dialog
@@ -241,10 +240,14 @@ class DialogTransformer {
       );
       const dialogChildren = this.dialog.node().children;
 
-      return this.createInnerDialogElementNode(
-        "Content",
-        contentAttributeNodes,
-        dialogChildren
+      return (
+        (contentAttributeNodes ||
+          (dialogChildren && dialogChildren.length > 0)) &&
+        this.createInnerDialogElementNode(
+          "Content",
+          contentAttributeNodes,
+          dialogChildren ?? [j.jsxText(" ")]
+        )
       );
     }
 
@@ -374,13 +377,14 @@ class DialogTransformer {
         buttonBarExpressionNode
       );
 
-      return mainAttributeNodes || mainChildren
-        ? this.createInnerDialogElementNode(
-            "Main",
-            mainAttributeNodes,
-            mainChildren
-          )
-        : undefined;
+      return (
+        (mainAttributeNodes || mainChildren) &&
+        this.createInnerDialogElementNode(
+          "Main",
+          mainAttributeNodes,
+          mainChildren ?? [j.jsxText(" ")]
+        )
+      );
     }
 
     transformToOutsideClick(mainElementNode: ChildElement | undefined) {
@@ -626,7 +630,9 @@ class DialogTransformer {
       const j = this.superThis.j;
 
       let includeFooter = footerExpression !== undefined;
-      let includeButtonBar = true;
+      let includeButtonBar =
+        buttonBarAttributeNodes !== undefined ||
+        buttonBarChildren !== undefined;
       if (includeFooter && footerExpression)
         if (footerExpression.type === "JSXElement") includeButtonBar = false;
 
@@ -636,7 +642,7 @@ class DialogTransformer {
         ? this.createInnerDialogElementNode(
             "ButtonBar",
             buttonBarAttributeNodes,
-            buttonBarChildren
+            buttonBarChildren ?? [j.jsxText(" ")]
           )
         : undefined;
 
