@@ -7,8 +7,8 @@ import { Dialog as BaseDialog } from "@itwin/itwinui-react";
 import { DialogAlignment, DivWithOutsideClick, getCssVariable, parseButtonCluster } from "@itwin/core-react";
 
 <BaseDialog
-  closeOnEsc={false}
   preventDocumentScroll={modal}
+  closeOnEsc={false}
   isOpen={opened}
   isResizable={true}
   isDraggable={false}

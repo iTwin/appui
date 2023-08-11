@@ -465,7 +465,7 @@ class DialogTransformer {
         );
         const newStyleAttributePath = new j.types.NodePath(
           newStyleAttributeNode,
-          dialog.navigatePath("attributes")
+          dialog.navigatePath("attributes").path()
         );
         styleAttribute = j(newStyleAttributePath) as JSXAttributeCollection;
         dialog.appendAttributes(styleAttribute);

@@ -8,37 +8,57 @@ import transformer from "../dialog";
 
 const defineInlineTest = createDefineInlineTest(transformer);
 
-describe("dialog tests", () => {
+describe("dialog", () => {
   defineTest(__dirname, "./dialog", defaultOptions, "dialog", {
     parser: "tsx",
   });
 
-  // describe("inner dialog", () => {
-  //   defineInlineTest(
-  //     `
-  //     import { Dialog } from "@itwin/core-react";
-  //     <Dialog
-  //       opened={true}
-  //     />
-  //     `,
-  //     `
-  //     `,
-  //     "attribute rename"
-  //   );
+  describe("attribute renames", () => {
+    defineInlineTest(
+      `
+      import { Dialog } from "@itwin/core-react";
+      <Dialog
+        opened={true}
+        resizable={resizeEnabled}
+        movable
+      />
+      `,
+      `
+      import { getCssVariable } from "@itwin/core-react";
+      import { Dialog } from "@itwin/itwinui-react";
+      <Dialog
+        preventDocumentScroll={true}
+        style={{
+          zIndex: getCssVariable("--uicore-z-index-dialog"),
+        }}
+        closeOnEsc={false}
+        isOpen={true}
+        isResizable={resizeEnabled}
+        isDraggable>
+        <Dialog.Backdrop />
+        <Dialog.Main>
+          <Dialog.TitleBar />
+          <Dialog.Content></Dialog.Content>
+          <Dialog.ButtonBar />
+        </Dialog.Main>
+      </Dialog>
+      `,
+      "should rename correctly"
+    );
 
-  //   defineInlineTest(
-  //     `
-  //     import { Dialog } from "@itwin/core-react";
-  //     <Dialog
-  //       opened={true}
-  //       title="MyTitle"
-  //       hideHeader
-  //       header={header}
-  //     />
-  //     `,
-  //     `
-  //     `,
-  //     "TitleBar"
-  //   );
-  // });
+    //   defineInlineTest(
+    //     `
+    //     import { Dialog } from "@itwin/core-react";
+    //     <Dialog
+    //       opened={true}
+    //       title="MyTitle"
+    //       hideHeader
+    //       header={header}
+    //     />
+    //     `,
+    //     `
+    //     `,
+    //     "TitleBar"
+    //   );
+  });
 });
