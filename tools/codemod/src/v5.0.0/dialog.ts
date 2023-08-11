@@ -240,15 +240,14 @@ class DialogTransformer {
       );
       const dialogChildren = this.dialog.node().children;
 
-      return (
-        (contentAttributeNodes ||
-          (dialogChildren && dialogChildren.length > 0)) &&
-        this.createInnerDialogElementNode(
-          "Content",
-          contentAttributeNodes,
-          dialogChildren ?? [j.jsxText(" ")]
-        )
-      );
+      return contentAttributeNodes ||
+        (dialogChildren && dialogChildren.length > 0)
+        ? this.createInnerDialogElementNode(
+            "Content",
+            contentAttributeNodes,
+            dialogChildren ?? [j.jsxText(" ")]
+          )
+        : undefined;
     }
 
     transformToButtonBar() {
@@ -492,10 +491,11 @@ class DialogTransformer {
             );
           }
         } else {
-          styleValueExpression!.path().value = j.objectExpression([
+          const newStyleValue = j.objectExpression([
             j.property("init", j.identifier("zIndex"), zIndexValue),
             j.spreadElement(styleExpressionNode),
           ]);
+          styleValueExpression!.path().replace(newStyleValue);
         }
       }
     }
