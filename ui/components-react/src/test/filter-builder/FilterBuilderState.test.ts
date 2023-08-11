@@ -5,8 +5,8 @@
 
 import chai, { expect } from "chai";
 import chaiSubset from "chai-subset";
-import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
-import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
+import type { PropertyValue } from "@itwin/appui-abstract";
+import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import type {
@@ -20,7 +20,7 @@ import {
   PropertyFilterRuleOperator,
 } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
-import { UiComponents } from "../../components-react";
+import { UiComponents } from "../../components-react/UiComponents";
 
 chai.use(chaiSubset);
 
@@ -32,6 +32,18 @@ describe("usePropertyFilterBuilder", () => {
   after(() => {
     TestUtils.terminateUiComponents();
   });
+
+  const property = {
+    name: "testName",
+    displayLabel: "testLabel",
+    typename: "testTypename",
+  };
+
+  const value: PropertyValue = {
+    valueFormat: PropertyValueFormat.Primitive,
+    value: "test string",
+    displayValue: "TEST STRING",
+  };
 
   it("initializes group with one empty rule", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
@@ -156,16 +168,11 @@ describe("usePropertyFilterBuilder", () => {
     actions.setRuleValue([rootGroup.items[0].id], {
       valueFormat: PropertyValueFormat.Primitive,
     });
-    const testProperty = {
-      name: "testName",
-      displayLabel: "testLabel",
-      typename: "testTypename",
-    };
-    actions.setRuleProperty([rootGroup.items[0].id], testProperty);
+    actions.setRuleProperty([rootGroup.items[0].id], property);
 
     rootGroup = result.current.rootGroup;
     expect((rootGroup.items[0] as PropertyFilterBuilderRule).property).to.be.eq(
-      testProperty
+      property
     );
     actions.removeItem([rootGroup.items[0].id]);
 
@@ -232,11 +239,6 @@ describe("usePropertyFilterBuilder", () => {
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
-    const property: PropertyDescription = {
-      name: "prop",
-      displayLabel: "Prop",
-      typename: "string",
-    };
     actions.setRuleProperty([rootGroup.items[0].id], property);
 
     await waitFor(() => {
@@ -256,11 +258,6 @@ describe("usePropertyFilterBuilder", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
 
-    const property: PropertyDescription = {
-      name: "prop",
-      displayLabel: "Prop",
-      typename: "string",
-    };
     actions.setRuleProperty(["invalidRule"], property);
 
     const { rootGroup: newRootGroup } = result.current;
@@ -295,11 +292,6 @@ describe("usePropertyFilterBuilder", () => {
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
-    const value: PropertyValue = {
-      valueFormat: PropertyValueFormat.Primitive,
-      value: "test string",
-      displayValue: "TEST STRING",
-    };
     actions.setRuleValue([rootGroup.items[0].id], value);
     await waitFor(() => {
       rootGroup = result.current.rootGroup;
@@ -326,6 +318,153 @@ describe("usePropertyFilterBuilder", () => {
     });
   });
 
+  it("resets rule value if new operator is `IsEqual` and previous operator was `Less`", () => {
+    const { result } = renderHook(() =>
+      usePropertyFilterBuilder({
+        initialFilter: {
+          value,
+          property,
+          operator: PropertyFilterRuleOperator.IsEqual,
+        },
+      })
+    );
+    const { actions } = result.current;
+    let { rootGroup } = result.current;
+    actions.setRuleValue([rootGroup.items[0].id], value);
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
+
+    actions.setRuleOperator(
+      [rootGroup.items[0].id],
+      PropertyFilterRuleOperator.Less
+    );
+
+    rootGroup = result.current.rootGroup;
+
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).value).to.be
+      .undefined;
+  });
+
+  it("resets rule value if new operator is `Less` and previous operator was `IsNotEqual``", () => {
+    const { result } = renderHook(() =>
+      usePropertyFilterBuilder({
+        initialFilter: {
+          value,
+          property,
+          operator: PropertyFilterRuleOperator.Less,
+        },
+      })
+    );
+    const { actions } = result.current;
+    let { rootGroup } = result.current;
+    actions.setRuleValue([rootGroup.items[0].id], value);
+
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
+
+    actions.setRuleOperator(
+      [rootGroup.items[0].id],
+      PropertyFilterRuleOperator.IsNotEqual
+    );
+
+    rootGroup = result.current.rootGroup;
+
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).value).to.be
+      .undefined;
+  });
+
+  it("does not reset rule value when new operator is the same as the previous", () => {
+    const { result } = renderHook(() =>
+      usePropertyFilterBuilder({
+        initialFilter: {
+          value,
+          property,
+          operator: PropertyFilterRuleOperator.Like,
+        },
+      })
+    );
+    const { actions } = result.current;
+    let { rootGroup } = result.current;
+    actions.setRuleValue([rootGroup.items[0].id], value);
+
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
+
+    actions.setRuleOperator(
+      [rootGroup.items[0].id],
+      PropertyFilterRuleOperator.Like
+    );
+
+    rootGroup = result.current.rootGroup;
+
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
+  });
+
+  it("does not reset rule value when new operator changes from `IsEqual` to `IsNotEqual`", () => {
+    const { result } = renderHook(() =>
+      usePropertyFilterBuilder({
+        initialFilter: {
+          value,
+          property,
+          operator: PropertyFilterRuleOperator.IsEqual,
+        },
+      })
+    );
+    const { actions } = result.current;
+    let { rootGroup } = result.current;
+    actions.setRuleValue([rootGroup.items[0].id], value);
+
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
+
+    actions.setRuleOperator(
+      [rootGroup.items[0].id],
+      PropertyFilterRuleOperator.IsNotEqual
+    );
+
+    rootGroup = result.current.rootGroup;
+
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
+  });
+
+  it("does not reset rule value when new operator changes from `Less` to `Greater`", () => {
+    const { result } = renderHook(() =>
+      usePropertyFilterBuilder({
+        initialFilter: {
+          value,
+          property,
+          operator: PropertyFilterRuleOperator.Less,
+        },
+      })
+    );
+    const { actions } = result.current;
+    let { rootGroup } = result.current;
+    actions.setRuleValue([rootGroup.items[0].id], value);
+
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
+
+    actions.setRuleOperator(
+      [rootGroup.items[0].id],
+      PropertyFilterRuleOperator.Greater
+    );
+
+    rootGroup = result.current.rootGroup;
+
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
+  });
+
   it("does not change state when setting non existing rule operator", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
@@ -344,11 +483,6 @@ describe("usePropertyFilterBuilder", () => {
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
-    const value: PropertyValue = {
-      valueFormat: PropertyValueFormat.Primitive,
-      value: "test string",
-      displayValue: "TEST STRING",
-    };
     actions.setRuleValue([rootGroup.items[0].id], value);
 
     await waitFor(() => {
@@ -368,11 +502,6 @@ describe("usePropertyFilterBuilder", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
 
-    const value: PropertyValue = {
-      valueFormat: PropertyValueFormat.Primitive,
-      value: "test string",
-      displayValue: "TEST STRING",
-    };
     actions.setRuleValue(["invalidRule"], value);
 
     const { rootGroup: newRootGroup } = result.current;
@@ -383,11 +512,6 @@ describe("usePropertyFilterBuilder", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
 
-    const property: PropertyDescription = {
-      name: "prop",
-      displayLabel: "Prop",
-      typename: "string",
-    };
     actions.setRuleProperty([], property);
 
     const { rootGroup: newRootGroup } = result.current;
@@ -417,12 +541,6 @@ describe("usePropertyFilterBuilder", () => {
 
   describe("buildFilter", () => {
     describe("defaultRuleValidator", () => {
-      const property: PropertyDescription = {
-        name: "propertyField",
-        displayLabel: "Prop",
-        typename: StandardTypeNames.String,
-      };
-
       it("returns undefined and sets rule error message to `Value is empty` if item has a property but value is undefined", () => {
         const { result } = renderHook(() =>
           usePropertyFilterBuilder({
@@ -571,11 +689,6 @@ describe("usePropertyFilterBuilder", () => {
           await getStateWithNestedRule();
         const { actions } = result.current;
 
-        const property: PropertyDescription = {
-          name: "prop",
-          displayLabel: "Prop",
-          typename: "string",
-        };
         actions.setRuleProperty(getNestedRulePath(), property);
 
         await waitFor(() => {
@@ -611,11 +724,6 @@ describe("usePropertyFilterBuilder", () => {
           await getStateWithNestedRule();
         const { actions } = result.current;
 
-        const value: PropertyValue = {
-          valueFormat: PropertyValueFormat.Primitive,
-          value: "test string",
-          displayValue: "TEST STRING",
-        };
         actions.setRuleValue(getNestedRulePath(), value);
 
         await waitFor(() => {
