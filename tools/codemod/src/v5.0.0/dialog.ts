@@ -473,15 +473,7 @@ class DialogTransformer {
       const styleValueExpression = styleAttribute.extractAttributeValue();
       const styleExpressionNode = styleValueExpression?.node();
       if (styleExpressionNode) {
-        const getCssVariableIdentifier = j.identifier("getCssVariable");
-        const zIndexValue = j.callExpression(getCssVariableIdentifier, [
-          j.literal("--uicore-z-index-dialog"),
-        ]);
-        const addGetCssVariableImport = () =>
-          this.root
-            .findOrCreateImportDeclaration("@itwin/core-react")
-            .addSpecifier(j.importSpecifier(getCssVariableIdentifier))
-            .sortSpecifiers();
+        const zIndexValue = j.literal("var(--uicore-z-index-dialog)");
 
         if (styleExpressionNode.type === "ObjectExpression") {
           const zIndexProperty = styleExpressionNode.properties.find((prop) => {
@@ -494,23 +486,12 @@ class DialogTransformer {
             styleExpressionNode.properties.unshift(
               j.property("init", j.identifier("zIndex"), zIndexValue)
             );
-
-            addGetCssVariableImport();
           }
         } else {
-          const zIndexProp = j.property(
-            "init",
-            j.identifier("zIndex"),
-            zIndexValue
-          );
-          const spreadElement = j.spreadElement(styleExpressionNode);
-
           styleValueExpression!.path().value = j.objectExpression([
-            zIndexProp,
-            spreadElement,
+            j.property("init", j.identifier("zIndex"), zIndexValue),
+            j.spreadElement(styleExpressionNode),
           ]);
-
-          addGetCssVariableImport();
         }
       }
     }

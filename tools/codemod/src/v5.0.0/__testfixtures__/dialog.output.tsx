@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { Dialog as BaseDialog } from "@itwin/itwinui-react";
 
-import { DialogAlignment, DivWithOutsideClick, getCssVariable, parseButtonCluster } from "@itwin/core-react";
+import { DialogAlignment, DivWithOutsideClick, parseButtonCluster } from "@itwin/core-react";
 
 <BaseDialog
   preventDocumentScroll={modal}
@@ -22,7 +22,7 @@ import { DialogAlignment, DivWithOutsideClick, getCssVariable, parseButtonCluste
   onEscape={onEscape}
   onModelessPointerDown={someFunc}
   style={{
-    zIndex: getCssVariable("--uicore-z-index-dialog"),
+    zIndex: "var(--uicore-z-index-dialog)",
     ...this.props.style,
   }}
   data-testid="core-dialog-root"

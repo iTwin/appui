@@ -24,12 +24,11 @@ describe("dialog", () => {
       />
       `,
       `
-      import { getCssVariable } from "@itwin/core-react";
       import { Dialog } from "@itwin/itwinui-react";
       <Dialog
         preventDocumentScroll={true}
         style={{
-          zIndex: getCssVariable("--uicore-z-index-dialog"),
+          zIndex: "var(--uicore-z-index-dialog)",
         }}
         closeOnEsc={false}
         isOpen={true}
