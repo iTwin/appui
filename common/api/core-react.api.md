@@ -238,7 +238,7 @@ export class ConditionalIconItem {
     // (undocumented)
     readonly iconGetter: () => IconSpec;
     // @internal
-    static isConditionalIconItem(item: any): boolean;
+    static isConditionalIconItem(item: any): item is ConditionalIconItem;
     refresh(): boolean;
     static refreshValue(conditionalValue: ConditionalIconItem | string | undefined, eventIds: Set<string>): boolean;
     // (undocumented)

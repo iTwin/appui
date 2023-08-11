@@ -42,7 +42,8 @@ export function renderWithContext(
   };
 
   const activeGroupContextValue: ActiveRuleGroupContextProps = {
-    activeElement: activeGroupContextProps.activeElement,
+    focusedElement: activeGroupContextProps.focusedElement,
+    hoveredElement: activeGroupContextProps.hoveredElement,
     onMouseOver: activeGroupContextProps.onMouseOver ?? sinon.fake(),
     onMouseOut: activeGroupContextProps.onMouseOut ?? sinon.fake(),
     onBlur: activeGroupContextProps.onBlur ?? sinon.fake(),

@@ -20,7 +20,7 @@ import {
   PropertyFilterRuleGroupOperator,
   PropertyFilterRuleOperator,
 } from "../../components-react/filter-builder/Operators";
-import TestUtils from "../TestUtils";
+import TestUtils, { userEvent } from "../TestUtils";
 import type { PropertyFilter } from "../../components-react/filter-builder/Types";
 
 chai.use(chaiSubset);
@@ -72,11 +72,11 @@ describe("PropertyFilterBuilder", () => {
       operator: PropertyFilterRuleOperator.IsNull,
       value: undefined,
     };
-    const spy = sinon.spy();
+
     const { container, queryByDisplayValue } = render(
       <PropertyFilterBuilder
         properties={[property1]}
-        onFilterChanged={spy}
+        onFilterChanged={() => {}}
         initialFilter={propertyFilter}
       />
     );
@@ -108,11 +108,10 @@ describe("PropertyFilterBuilder", () => {
         },
       ],
     };
-    const spy = sinon.spy();
     const { container, queryByDisplayValue } = render(
       <PropertyFilterBuilder
         properties={[property1, property2]}
-        onFilterChanged={spy}
+        onFilterChanged={() => {}}
         initialFilter={propertyFilter}
       />
     );
@@ -125,10 +124,10 @@ describe("PropertyFilterBuilder", () => {
     expect(rule2).to.not.be.null;
   });
 
-  it("marks rule group as active on mouse over", () => {
-    const spy = sinon.spy();
+  it("marks rule group as active on mouse over", async () => {
+    const user = userEvent.setup();
     const { container } = render(
-      <PropertyFilterBuilder properties={[]} onFilterChanged={spy} />
+      <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
 
     const group = container.querySelector(".rule-group");
@@ -137,19 +136,18 @@ describe("PropertyFilterBuilder", () => {
     expect(container.querySelector(".rule-group[data-isactive=true]")).to.be
       .null;
 
-    fireEvent.mouseOver(group!);
+    await user.hover(group!);
     expect(container.querySelector(".rule-group[data-isactive=true]")).to.not.be
       .null;
 
-    fireEvent.mouseOut(group!);
+    await user.unhover(group!);
     expect(container.querySelector(".rule-group[data-isactive=true]")).to.be
       .null;
   });
 
-  it("marks rule group as active on focus", () => {
-    const spy = sinon.spy();
+  it("marks rule group as active on focus", async () => {
     const { container } = render(
-      <PropertyFilterBuilder properties={[]} onFilterChanged={spy} />
+      <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
 
     const group = container.querySelector(".rule-group");
@@ -159,18 +157,23 @@ describe("PropertyFilterBuilder", () => {
       .null;
 
     fireEvent.focus(group!);
-    expect(container.querySelector(".rule-group[data-isactive=true]")).to.not.be
-      .null;
+    await waitFor(
+      () =>
+        expect(container.querySelector(".rule-group[data-isactive=true]")).to
+          .not.be.null
+    );
 
     fireEvent.blur(group!);
-    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be
-      .null;
+    await waitFor(
+      () =>
+        expect(container.querySelector(".rule-group[data-isactive=true]")).to.be
+          .null
+    );
   });
 
-  it("keeps rule group marked as active when focus moves to other element inside group", () => {
-    const spy = sinon.spy();
+  it("keeps rule group marked as active when focus moves to other element inside group", async () => {
     const { container } = render(
-      <PropertyFilterBuilder properties={[]} onFilterChanged={spy} />
+      <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
 
     const group = container.querySelector(".rule-group");
@@ -180,21 +183,26 @@ describe("PropertyFilterBuilder", () => {
       .null;
 
     fireEvent.focus(group!);
-    expect(container.querySelector(".rule-group[data-isactive=true]")).to.not.be
-      .null;
+    await waitFor(
+      () =>
+        expect(container.querySelector(".rule-group[data-isactive=true]")).to
+          .not.be.null
+    );
 
     const rule = container.querySelector(".rule");
     expect(rule).to.not.be.null;
 
     fireEvent.blur(group!, { relatedTarget: rule });
-    expect(container.querySelector(".rule-group[data-isactive=true]")).to.not.be
-      .null;
+    await waitFor(
+      () =>
+        expect(container.querySelector(".rule-group[data-isactive=true]")).to
+          .not.be.null
+    );
   });
 
   it("focus new rule property after adding new rule", async () => {
-    const spy = sinon.spy();
     const { container, getByTestId } = render(
-      <PropertyFilterBuilder properties={[]} onFilterChanged={spy} />
+      <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
 
     const addRuleButton = getByTestId("rule-group-add-rule");

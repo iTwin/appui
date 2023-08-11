@@ -7,5 +7,5 @@ const w: Widget = {
   badge: BadgeType.New,
   label: "Widget 1",
   content: <WidgetContent />,
-  allowedPanels: [StagePanelLocation.Left, StagePanelLocation.Right]
+  allowedPanels: [StagePanelLocation.Left, StagePanelLocation.Right],
 };

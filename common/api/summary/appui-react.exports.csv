@@ -336,6 +336,7 @@ public;NotifyMessageDetailsType = NotifyMessageDetails | ReactNotifyMessageDetai
 public;NotifyMessageType = MessageType
 public;OpenChildWindowInfo
 public;OpenMessageCenterEvent 
+beta;OverflowToolbarOptions
 internal;packNineZoneState(state: NineZoneState): SavedNineZoneState
 public;PanelPinnedChangedEventArgs
 internal;PanelSizeChangedEvent 
@@ -502,6 +503,7 @@ beta;ToolbarPopupProps
 beta;ToolbarProps 
 public;ToolbarUsage
 beta;ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element
+deprecated;ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element
 beta;ToolbarWithOverflowProps 
 public;ToolIconChangedEvent 
 public;ToolIconChangedEventArgs
@@ -548,6 +550,7 @@ public;useBackstageManager: () => FrameworkBackstage
 internal;useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
 public;useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
 public;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[]
+deprecated;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[]
 alpha;useFloatingViewport(args: FloatingViewportContentProps):
 internal;useFrontstageManager(frontstageDef: FrontstageDef, useToolAsToolSettingsLabel?: boolean): void
 internal;useGroupedItems: (items: ReadonlyArray
@@ -571,6 +574,7 @@ beta;useTransientState(onSave?: () => void, onRestore?: () => void): void
 public;useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
 public;useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[]
 public;useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[]
+deprecated;useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[]
 public;useUiStateStorageHandler(): UiStateStorage
 internal;useUiVisibility(): boolean
 internal;useUpdateNineZoneSize(frontstageDef: FrontstageDef): void

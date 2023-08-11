@@ -12,17 +12,17 @@ import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { Guid } from "@itwin/core-bentley";
-import type { PropertyFilterRuleOperator } from "./Operators";
+import { PropertyFilterRuleOperator } from "./Operators";
 import {
   isUnaryPropertyFilterOperator,
   PropertyFilterRuleGroupOperator,
 } from "./Operators";
 import type { PropertyFilter, PropertyFilterRule } from "./Types";
 import { isPropertyFilterRuleGroup } from "./Types";
-
+import { UiComponents } from "../UiComponents";
 /**
  * Data structure that describes [[PropertyFilterBuilder]] component state.
- * @internal
+ * @beta
  */
 export interface PropertyFilterBuilderState {
   /** Root group of rules in [[PropertyFilterBuilder]] component. */
@@ -31,7 +31,7 @@ export interface PropertyFilterBuilderState {
 
 /**
  * Type that describes [[PropertyFilterBuilder]] component group item.
- * @internal
+ * @beta
  */
 export type PropertyFilterBuilderRuleGroupItem =
   | PropertyFilterBuilderRuleGroup
@@ -39,7 +39,7 @@ export type PropertyFilterBuilderRuleGroupItem =
 
 /**
  * Data structure that describes [[PropertyFilterBuilder]] component rule group.
- * @internal
+ * @beta
  */
 export interface PropertyFilterBuilderRuleGroup {
   /** Id of this rule group. */
@@ -54,7 +54,7 @@ export interface PropertyFilterBuilderRuleGroup {
 
 /**
  * Data structure that describes [[PropertyFilterBuilder]] component single rule.
- * @internal
+ * @beta
  */
 export interface PropertyFilterBuilderRule {
   /** Id of this rule. */
@@ -67,11 +67,13 @@ export interface PropertyFilterBuilderRule {
   operator?: PropertyFilterRuleOperator;
   /** Value that property should be compared to. */
   value?: PropertyValue;
+  /** Error message of this rule. */
+  errorMessage?: string;
 }
 
 /**
  * Actions for controlling [[PropertyFilterBuilder]] component state.
- * @internal
+ * @beta
  */
 export class PropertyFilterBuilderActions {
   constructor(
@@ -146,6 +148,7 @@ export class PropertyFilterBuilderActions {
       if (!rule) return;
       rule.property = property;
       rule.value = undefined;
+      rule.errorMessage = undefined;
     });
   }
 
@@ -155,6 +158,12 @@ export class PropertyFilterBuilderActions {
       const rule = findRule(state.rootGroup, path);
       if (!rule) return;
       if (isUnaryPropertyFilterOperator(operator)) rule.value = undefined;
+      if (
+        operator !== rule.operator &&
+        !areOperatorsSimilar(operator, rule.operator)
+      ) {
+        rule.value = undefined;
+      }
       rule.operator = operator;
     });
   }
@@ -167,11 +176,31 @@ export class PropertyFilterBuilderActions {
       rule.value = value;
     });
   }
+
+  /**
+   * Sets error messages of the rules specified by id.
+   * If rule id is not present in the map, then its error message will be cleared.
+   */
+  public setRuleErrorMessages(ruleIdsAndErrorMessages: Map<string, string>) {
+    this.updateState((state) => {
+      const setErrorMessages = (item: PropertyFilterBuilderRuleGroupItem) => {
+        if (isPropertyFilterBuilderRuleGroup(item)) {
+          item.items.forEach((itm) => {
+            setErrorMessages(itm);
+          });
+        } else {
+          item.errorMessage = ruleIdsAndErrorMessages.get(item.id);
+        }
+      };
+
+      setErrorMessages(state.rootGroup);
+    });
+  }
 }
 
 /**
  * Function to check if supplied [[PropertyFilterBuilderRuleGroupItem]] is [[PropertyFilterBuilderRuleGroup]].
- * @internal
+ * @beta
  */
 export function isPropertyFilterBuilderRuleGroup(
   item: PropertyFilterBuilderRuleGroupItem
@@ -180,21 +209,114 @@ export function isPropertyFilterBuilderRuleGroup(
 }
 
 /**
+ * Props for [[usePropertyFilterBuilder]]
+ * @beta
+ */
+export interface UsePropertyFilterBuilderProps {
+  /** Initial filter for [[PropertyFilterBuilder]] */
+  initialFilter?: PropertyFilter;
+  /** Custom rule validator to be used when [[UsePropertyFilterBuilderResult.buildFilter]] is invoked. Should return error message or `undefined`, if rule is valid. */
+  ruleValidator?: (rule: PropertyFilterBuilderRule) => string | undefined;
+}
+
+/**
+ * Type for [[usePropertyFilterBuilder]] return object.
+ * @beta
+ */
+export interface UsePropertyFilterBuilderResult {
+  /** Root group of the [[PropertyFilterBuilder]]. */
+  rootGroup: PropertyFilterBuilderRuleGroup;
+  /** Actions for manipulating [[PropertyFilterBuilder]] state. */
+  actions: PropertyFilterBuilderActions;
+  /**
+   * Validates and builds [[PropertyFilter]] based on current state. It uses [[defaultPropertyFilterBuilderRuleValidator]] or
+   * custom validator provided through [[UsePropertyFilterBuilderProps]] to validate each rule.
+   * @returns [[PropertyFilter]] if all rules are valid, `undefined` otherwise.
+   */
+  buildFilter: () => PropertyFilter | undefined;
+}
+
+/**
  * Custom hook that creates state for [[PropertyFilterBuilder]] component. It creates empty state or initializes
  * state from supplied initial filter.
- * @internal
+ * @beta
  */
-export function usePropertyFilterBuilderState(initialFilter?: PropertyFilter) {
-  const [state, setState] = React.useState<PropertyFilterBuilderState>(() =>
+export function usePropertyFilterBuilder(
+  props?: UsePropertyFilterBuilderProps
+) {
+  const { initialFilter, ruleValidator } = props ?? {
+    initialFilter: undefined,
+    ruleValidator: undefined,
+  };
+  const [state, setState] = React.useState<PropertyFilterBuilderState>(
     initialFilter
       ? convertFilterToState(initialFilter)
       : { rootGroup: createEmptyRuleGroup() }
   );
+
   const [actions] = React.useState(
     () => new PropertyFilterBuilderActions(setState)
   );
 
-  return { state, actions };
+  const buildFilter = () => {
+    const ruleErrors = validateRules(state.rootGroup, ruleValidator);
+    actions.setRuleErrorMessages(ruleErrors);
+    if (ruleErrors.size > 0) {
+      return undefined;
+    }
+    return buildPropertyFilter(state.rootGroup);
+  };
+  return { rootGroup: state.rootGroup, actions, buildFilter };
+}
+
+function validateRules(
+  rule: PropertyFilterBuilderRuleGroupItem,
+  ruleValidator?: (item: PropertyFilterBuilderRule) => string | undefined
+) {
+  const ruleIdsAndErrorMessages = new Map<string, string>();
+
+  const validateRulesInner = (item: PropertyFilterBuilderRuleGroupItem) => {
+    if (isPropertyFilterBuilderRuleGroup(item)) {
+      item.items.forEach((itm) => {
+        validateRulesInner(itm);
+      });
+    } else {
+      const errorMessage = ruleValidator
+        ? ruleValidator(item)
+        : defaultPropertyFilterBuilderRuleValidator(item);
+      if (errorMessage) ruleIdsAndErrorMessages.set(item.id, errorMessage);
+    }
+  };
+
+  validateRulesInner(rule);
+
+  return ruleIdsAndErrorMessages;
+}
+
+/**
+ * Default rule validator.
+ * @beta
+ */
+export function defaultPropertyFilterBuilderRuleValidator(
+  item: PropertyFilterBuilderRule
+): string | undefined {
+  if (
+    item.property === undefined ||
+    item.operator === undefined ||
+    isUnaryPropertyFilterOperator(item.operator)
+  ) {
+    return undefined;
+  }
+  if (item.value === undefined) {
+    return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
+  }
+  if (
+    item.value.valueFormat === PropertyValueFormat.Primitive &&
+    (item.value.value === undefined || item.value.value === "")
+  ) {
+    return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
+  }
+  return undefined;
 }
 
 /** @internal */
@@ -336,4 +458,32 @@ function convertFilterToState(
       items: [getRuleItem(filter, id)],
     },
   };
+}
+
+function areOperatorsSimilar(
+  firstOperator?: PropertyFilterRuleOperator,
+  secondOperator?: PropertyFilterRuleOperator
+) {
+  return (
+    (isOperatorEqualOrIsNotEqual(firstOperator) &&
+      isOperatorEqualOrIsNotEqual(secondOperator)) ||
+    (isInequalityOperator(firstOperator) &&
+      isInequalityOperator(secondOperator))
+  );
+}
+
+function isOperatorEqualOrIsNotEqual(operator?: PropertyFilterRuleOperator) {
+  return (
+    operator === PropertyFilterRuleOperator.IsEqual ||
+    operator === PropertyFilterRuleOperator.IsNotEqual
+  );
+}
+
+function isInequalityOperator(operator?: PropertyFilterRuleOperator) {
+  return (
+    operator === PropertyFilterRuleOperator.Less ||
+    operator === PropertyFilterRuleOperator.LessOrEqual ||
+    operator === PropertyFilterRuleOperator.Greater ||
+    operator === PropertyFilterRuleOperator.GreaterOrEqual
+  );
 }
