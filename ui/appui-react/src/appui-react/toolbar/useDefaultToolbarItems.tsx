@@ -12,8 +12,10 @@ import type { ToolbarItemsManager } from "./ToolbarItemsManager";
 
 /** Hook that returns items from [[ToolbarItemsManager]].
  * @public
+ * @deprecated in 4.4.0. Use [[Toolbar]] component instead of this hooks, ToolbarItemsManager is internal and should not be used here.
  */
 export const useDefaultToolbarItems = (
+  // eslint-disable-next-line deprecation/deprecation
   manager: ToolbarItemsManager
 ): readonly ToolbarItem[] => {
   const [items, setItems] = React.useState(() => manager.items);

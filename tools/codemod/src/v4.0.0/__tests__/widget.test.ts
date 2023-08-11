@@ -3,13 +3,15 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { defineTest } from "jscodeshift/src/testUtils";
-import { createDefineInlineTest } from "../../utils/TestUtils";
+import { createDefineInlineTest, defaultOptions } from "../../utils/TestUtils";
 import transformer from "../widget";
 
 const defineInlineTest = createDefineInlineTest(transformer);
 
 describe("widget", () => {
-  defineTest(__dirname, "./widget", null, "widget", { parser: "tsx" });
+  defineTest(__dirname, "./widget", defaultOptions, "widget", {
+    parser: "tsx",
+  });
 
   defineInlineTest(
     `
