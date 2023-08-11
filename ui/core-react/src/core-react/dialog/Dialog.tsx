@@ -529,3 +529,76 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     );
   };
 }
+
+/**
+ * A temporary function for converting DialogButtonDef items to Button elements
+ * @public
+ */
+// istanbul ignore next
+export function parseButtonCluster(
+  buttonCluster: DialogButtonDef[] | undefined
+): React.ReactNode[] | undefined {
+  if (buttonCluster === undefined) return undefined;
+
+  const buttons: React.ReactNode[] = [];
+  buttonCluster.forEach((button: DialogButtonDef, index: number) => {
+    let buttonText = "";
+    let buttonClass = classnames(button.className);
+    let usePrimaryStyleType = false;
+
+    switch (button.type) {
+      case DialogButtonType.OK:
+        buttonText = UiCore.translate("dialog.ok");
+        buttonClass = classnames(button.className, button.buttonStyle);
+        usePrimaryStyleType = true;
+        break;
+      case DialogButtonType.Retry:
+        buttonText = UiCore.translate("dialog.retry");
+        buttonClass = classnames(buttonClass, button.buttonStyle);
+        usePrimaryStyleType = true;
+        break;
+      case DialogButtonType.Yes:
+        buttonText = UiCore.translate("dialog.yes");
+        buttonClass = classnames(buttonClass, button.buttonStyle);
+        usePrimaryStyleType = true;
+        break;
+      case DialogButtonType.No:
+        buttonText = UiCore.translate("dialog.no");
+        buttonClass = classnames(buttonClass, button.buttonStyle);
+        break;
+      case DialogButtonType.Cancel:
+        buttonText = UiCore.translate("dialog.cancel");
+        buttonClass = classnames(buttonClass, button.buttonStyle);
+        break;
+      case DialogButtonType.Close:
+        buttonText = UiCore.translate("dialog.close");
+        buttonClass = classnames(buttonClass, button.buttonStyle);
+        break;
+      case DialogButtonType.Next:
+        buttonText = UiCore.translate("dialog.next");
+        buttonClass = classnames(buttonClass, button.buttonStyle);
+        usePrimaryStyleType = true;
+        break;
+      case DialogButtonType.Previous:
+        buttonText = UiCore.translate("dialog.previous");
+        buttonClass = classnames(buttonClass, button.buttonStyle);
+        usePrimaryStyleType = true;
+        break;
+    }
+
+    if (button.label) buttonText = button.label;
+
+    buttons.push(
+      <Button
+        className={buttonClass}
+        disabled={button.disabled}
+        styleType={usePrimaryStyleType ? "high-visibility" : undefined}
+        key={index.toString()}
+        onClick={button.onClick}
+      >
+        {buttonText}
+      </Button>
+    );
+  });
+  return buttons;
+}
