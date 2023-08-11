@@ -116,22 +116,73 @@ class DialogTransformer {
     }
 
     execute() {
-      const t = this.superThis;
-      const j = this.superThis.j;
+      void this.transformAttributes();
+      void this.transformToStyle();
+
+      const titleBarExpression = this.transformToTitleBar();
+      const contentElement = this.transformToContent();
+      const buttonBarExpression = this.transformToButtonBar();
+
+      const mainElement = this.transformToMain(
+        titleBarExpression,
+        contentElement,
+        buttonBarExpression
+      );
+
+      const outsideClickElement = this.transformToOutsideClick(mainElement);
+      const backdropExpression = this.transformToBackdrop();
+
+      void this.transformChildren(
+        backdropExpression,
+        outsideClickElement ?? mainElement
+      );
+    }
+
+    transformAttributes() {
       const dialog = this.dialog;
+      const j = this.superThis.j;
+      const t = this.superThis;
 
-      // rename transforms ---------------------------------
-      const isOpenAttribute = dialog
-        .getAttribute("opened")
-        ?.renameAttribute("isOpen");
-      const isResizableAttribute = dialog
-        .getAttribute("resizable")
-        ?.renameAttribute("isResizable");
-      const isDraggableAttribute = dialog
-        .getAttribute("movable")
-        ?.renameAttribute("isDraggable");
+      dialog.getAttribute("opened")?.renameAttribute("isOpen");
+      dialog.getAttribute("resizable")?.renameAttribute("isResizable");
+      dialog.getAttribute("movable")?.renameAttribute("isDraggable");
 
-      // TitleBar transforms --------------------------------
+      const closeOnEscAttributeNode = t.createAttributeNode(
+        "closeOnEsc",
+        j.jsxExpressionContainer(j.booleanLiteral(false))
+      );
+      dialog.appendAttributes(
+        j(closeOnEscAttributeNode) as JSXAttributeCollection
+      );
+    }
+
+    transformChildren(
+      backdropExpressionNode: ChildElement | undefined,
+      mainElementNode: ChildElement | undefined
+    ) {
+      const dialog = this.dialog;
+      const j = this.superThis.j;
+      const t = this.superThis;
+
+      const children = t.createChildNodes(
+        backdropExpressionNode,
+        mainElementNode
+      );
+      if (children) {
+        const closingElementName = this.dialogNameNode;
+        const closingElement = j.jsxClosingElement(closingElementName);
+
+        const node = dialog.node();
+        node.openingElement.selfClosing = false;
+        node.closingElement = closingElement;
+        node.children = children;
+      }
+    }
+
+    transformToTitleBar() {
+      const dialog = this.dialog;
+      const t = this.superThis;
+
       const hideHeaderAttributeValue = dialog
         .getAttribute("hideHeader")
         ?.removeFromParentPath()
@@ -163,13 +214,17 @@ class DialogTransformer {
         titleStyleAttributeNode
       );
 
-      const titleBarExpressionNode = this.createTitleBarExpressionNode(
+      return this.createTitleBarExpressionNode(
         hideHeaderExpressionNode,
         headerExpressionNode,
         titleBarAttributeNodes
       );
+    }
 
-      // Content transforms -----------------------------------------
+    transformToContent() {
+      const dialog = this.dialog;
+      const t = this.superThis;
+
       const contentClassNameAttributeNode = dialog
         .getAttribute("contentClassName")
         ?.removeFromParentPath()
@@ -186,13 +241,18 @@ class DialogTransformer {
       );
       const dialogChildren = this.dialog.node().children;
 
-      const contentElementNode = this.createInnerDialogElementNode(
+      return this.createInnerDialogElementNode(
         "Content",
         contentAttributeNodes,
         dialogChildren
       );
+    }
 
-      // ButtonBar transforms ------------------------------------------
+    transformToButtonBar() {
+      const dialog = this.dialog;
+      const j = this.superThis.j;
+      const t = this.superThis;
+
       const footerAttributeValue = dialog
         .getAttribute("footer")
         ?.removeFromParentPath()
@@ -232,13 +292,22 @@ class DialogTransformer {
           .addSpecifier(j.importSpecifier(parseButtonIdentifierNode))
           .sortSpecifiers();
 
-      const buttonBarExpressionNode = this.createButtonBarExpressionNode(
+      return this.createButtonBarExpressionNode(
         footerExpressionNode,
         buttonBarAttributeNodes,
         buttonClusterChildren
       );
+    }
 
-      // Main transforms -----------------------------------------
+    transformToMain(
+      titleBarExpressionNode: ChildElement | undefined,
+      contentElementNode: ChildElement | undefined,
+      buttonBarExpressionNode: ChildElement | undefined
+    ) {
+      const dialog = this.dialog;
+      const j = this.superThis.j;
+      const t = this.superThis;
+
       const widthExpressionNode = dialog
         .getAttribute("width")
         ?.removeFromParentPath()
@@ -305,16 +374,20 @@ class DialogTransformer {
         buttonBarExpressionNode
       );
 
-      const mainElementNode =
-        mainAttributeNodes || mainChildren
-          ? this.createInnerDialogElementNode(
-              "Main",
-              mainAttributeNodes,
-              mainChildren
-            )
-          : undefined;
+      return mainAttributeNodes || mainChildren
+        ? this.createInnerDialogElementNode(
+            "Main",
+            mainAttributeNodes,
+            mainChildren
+          )
+        : undefined;
+    }
 
-      // DivWithOutsideClick transform ---------------------------------------------
+    transformToOutsideClick(mainElementNode: ChildElement | undefined) {
+      const dialog = this.dialog;
+      const j = this.superThis.j;
+      const t = this.superThis;
+
       const onOutsideClickAttributeNode = dialog
         .getAttribute("onOutsideClick")
         ?.removeFromParentPath()
@@ -333,34 +406,27 @@ class DialogTransformer {
             false
           )
         : undefined;
-      if (divWithOutsideClickElementNode)
+
+      divWithOutsideClickElementNode &&
         this.root
           .findOrCreateImportDeclaration("@itwin/core-react")
           .addSpecifier(j.importSpecifier(j.identifier("DivWithOutsideClick")))
           .sortSpecifiers();
 
-      // Backdrop transform ------------------------------------------------
+      return divWithOutsideClickElementNode;
+    }
+
+    transformToBackdrop() {
+      const dialog = this.dialog;
+      const j = this.superThis.j;
+      const t = this.superThis;
+
       const modalExpressionNode = dialog
         .getAttribute("modal")
         ?.removeFromParentPath()
         .extractAttributeValue()
         ?.node();
 
-      const backgroundStyleAttributeNode = dialog
-        .getAttribute("backgroundStyle")
-        ?.removeFromParentPath()
-        .renameAttribute("style")
-        ?.node();
-      const backdropAttributeNodes = t.createAttributeNodes(
-        backgroundStyleAttributeNode
-      );
-
-      const backdropExpressionNode = this.createBackdropExpressionNode(
-        modalExpressionNode,
-        backdropAttributeNodes
-      );
-
-      // Additional attributes transform ------------------------------------
       const preventDocumentScrollAttributeNode = t.createAttributeNode(
         "preventDocumentScroll",
         modalExpressionNode
@@ -371,28 +437,52 @@ class DialogTransformer {
         j(preventDocumentScrollAttributeNode) as JSXAttributeCollection
       );
 
-      const closeOnEscAttributeNode = t.createAttributeNode(
-        "closeOnEsc",
-        j.jsxExpressionContainer(j.booleanLiteral(false))
-      );
-      dialog.appendAttributes(
-        j(closeOnEscAttributeNode) as JSXAttributeCollection
+      const backgroundStyleAttributeNode = dialog
+        .getAttribute("backgroundStyle")
+        ?.removeFromParentPath()
+        .renameAttribute("style")
+        ?.node();
+      const backdropAttributeNodes = t.createAttributeNodes(
+        backgroundStyleAttributeNode
       );
 
-      const styleAttributeNode =
-        dialog.getAttribute("style")?.node() ??
-        t.createAttributeNode(
+      return this.createBackdropExpressionNode(
+        modalExpressionNode,
+        backdropAttributeNodes
+      );
+    }
+
+    transformToStyle() {
+      const dialog = this.dialog;
+      const j = this.superThis.j;
+      const t = this.superThis;
+
+      let styleAttribute = dialog.getAttribute("style");
+      if (!styleAttribute) {
+        const newStyleAttributeNode = t.createAttributeNode(
           "style",
           j.jsxExpressionContainer(j.objectExpression([]))
         );
-      const styleAttribute = j(styleAttributeNode) as JSXAttributeCollection;
-      const styleExpressionPath = styleAttribute
-        .extractAttributeValue()
-        ?.path();
-      const styleExpressionNode = styleAttribute
-        .extractAttributeValue()
-        ?.node();
+        const newStyleAttributePath = new j.types.NodePath(
+          newStyleAttributeNode,
+          dialog.navigatePath("attributes")
+        );
+        styleAttribute = j(newStyleAttributePath) as JSXAttributeCollection;
+        dialog.appendAttributes(styleAttribute);
+      }
+      const styleValueExpression = styleAttribute.extractAttributeValue();
+      const styleExpressionNode = styleValueExpression?.node();
       if (styleExpressionNode) {
+        const getCssVariableIdentifier = j.identifier("getCssVariable");
+        const zIndexValue = j.callExpression(getCssVariableIdentifier, [
+          j.literal("--uicore-z-index-dialog"),
+        ]);
+        const addGetCssVariableImport = () =>
+          this.root
+            .findOrCreateImportDeclaration("@itwin/core-react")
+            .addSpecifier(j.importSpecifier(getCssVariableIdentifier))
+            .sortSpecifiers();
+
         if (styleExpressionNode.type === "ObjectExpression") {
           const zIndexProperty = styleExpressionNode.properties.find((prop) => {
             if (prop.type !== "Property" && prop.type !== "ObjectProperty")
@@ -401,24 +491,13 @@ class DialogTransformer {
             return prop.key.name === "zIndex";
           });
           if (!zIndexProperty) {
-            const getCssVariableIdentifier = j.identifier("getCssVariable");
-            const zIndexValue = j.callExpression(getCssVariableIdentifier, [
-              j.literal("--uicore-z-index-dialog"),
-            ]);
             styleExpressionNode.properties.unshift(
               j.property("init", j.identifier("zIndex"), zIndexValue)
             );
 
-            this.root
-              .findOrCreateImportDeclaration("@itwin/core-react")
-              .addSpecifier(j.importSpecifier(getCssVariableIdentifier))
-              .sortSpecifiers();
+            addGetCssVariableImport();
           }
         } else {
-          const getCssVariableIdentifier = j.identifier("getCssVariable");
-          const zIndexValue = j.callExpression(getCssVariableIdentifier, [
-            j.literal("--uicore-z-index-dialog"),
-          ]);
           const zIndexProp = j.property(
             "init",
             j.identifier("zIndex"),
@@ -426,30 +505,13 @@ class DialogTransformer {
           );
           const spreadElement = j.spreadElement(styleExpressionNode);
 
-          styleExpressionPath!.value = j.objectExpression([
+          styleValueExpression!.path().value = j.objectExpression([
             zIndexProp,
             spreadElement,
           ]);
 
-          this.root
-            .findOrCreateImportDeclaration("@itwin/core-react")
-            .addSpecifier(j.importSpecifier(getCssVariableIdentifier))
-            .sortSpecifiers();
+          addGetCssVariableImport();
         }
-      }
-
-      // Children transform -----------------------------------------------
-      const children = t.createChildNodes(
-        backdropExpressionNode,
-        divWithOutsideClickElementNode || mainElementNode
-      );
-      if (children) {
-        const closingElementName = this.dialogNameNode;
-        const closingElement = j.jsxClosingElement(closingElementName);
-
-        dialog.node().openingElement.selfClosing = false;
-        dialog.node().closingElement = closingElement;
-        dialog.node().children = children;
       }
     }
 
