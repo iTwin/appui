@@ -8,11 +8,12 @@ import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   Avatar,
   ButtonGroup,
+  DropdownButton,
   Flex,
   IconButton,
   List,
   ListItem,
-  Select,
+  MenuItem,
   Stepper,
   getUserColor,
 } from "@itwin/itwinui-react";
@@ -418,15 +419,30 @@ function ContentManipulationToolbar() {
 }
 
 function ContextSelect() {
+  const [views] = React.useState([
+    "Selected view #1",
+    "Selected view #2",
+    "Selected view #3",
+  ]);
+  const [selectedView, setSelectedView] = React.useState(views[0]);
   return (
-    <Select // TODO: not styled correctly in the ButtonGroup
-      value={1}
-      options={[
-        { value: 1, label: "Selected view #1" },
-        { value: 2, label: "Selected view #2" },
-        { value: 3, label: "Selected view #3" },
-      ]}
-    />
+    <DropdownButton // TODO: `Select` is not styled correctly in the `ButtonGroup`
+      menuItems={(close) =>
+        views.map((view) => (
+          <MenuItem
+            key={view}
+            onClick={() => {
+              setSelectedView(view);
+              close();
+            }}
+          >
+            {view}
+          </MenuItem>
+        ))
+      }
+    >
+      {selectedView}
+    </DropdownButton>
   );
 }
 
