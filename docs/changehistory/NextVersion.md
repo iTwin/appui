@@ -28,7 +28,6 @@ Table of contents:
 
 ### Deprecations
 
-- `ToolbarWithOverflow` is now deprecated in favor of the `Toolbar` with `enableOverflow` prop set to `true`.
 - `useUiItemsProviderToolbarItems` is now deprecated in favor of the fixed `Toolbar` [^1].
 - `useDefaultToolbarItems` is now deprecated in favor of the fixed `Toolbar` [^1].
 
