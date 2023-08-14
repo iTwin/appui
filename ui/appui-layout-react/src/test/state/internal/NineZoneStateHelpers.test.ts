@@ -48,4 +48,17 @@ describe("initRectangleProps", () => {
     });
     expect(sut.x).to.undefined;
   });
+
+  it("should not update object", () => {
+    const obj = { x: { left: 1, top: 2, bottom: 30, right: 40 } };
+    const sut = produce(obj, (draft) => {
+      initRectangleProps(draft, "x", {
+        left: 1,
+        top: 2,
+        bottom: 30,
+        right: 40,
+      });
+    });
+    expect(sut).to.eq(obj);
+  });
 });
