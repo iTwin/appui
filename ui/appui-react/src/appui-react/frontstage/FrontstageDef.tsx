@@ -302,7 +302,7 @@ export class FrontstageDef {
 
   /** @internal */
   public get dispatch(): NineZoneDispatch {
-    return this._dispatch ??= (action) => {
+    return (this._dispatch ??= (action) => {
       if (action.type === "RESIZE") {
         InternalFrontstageManager.nineZoneSize = Size.create(action.size);
       }
@@ -310,7 +310,7 @@ export class FrontstageDef {
       const state = this.nineZoneState;
       if (!state) return;
       this.nineZoneState = NineZoneStateReducer(state, action);
-    };
+    });
   }
 
   /** @internal */
