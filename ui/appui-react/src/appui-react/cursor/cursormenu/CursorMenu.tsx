@@ -35,7 +35,7 @@ export class CursorPopupMenu extends React.PureComponent<
   CommonProps,
   CursorPopupMenuState
 > {
-  private _componentUnmounting = false; // used to ensure _handleSyncUiEvent callback is not processed after componentWillUnmount is called
+  private _isMounted = false; // used to ensure _handleSyncUiEvent callback is not processed after componentWillUnmount is called
   private _hostChildWindowId?: string;
 
   /** @internal */
@@ -48,7 +48,7 @@ export class CursorPopupMenu extends React.PureComponent<
 
   private _handleSyncUiEvent = (args: UiSyncEventArgs): void => {
     /* istanbul ignore next */
-    if (this._componentUnmounting) return;
+    if (!this._isMounted) return;
 
     /* istanbul ignore else */
     if (
@@ -71,13 +71,13 @@ export class CursorPopupMenu extends React.PureComponent<
   };
 
   public override componentDidMount() {
+    this._isMounted = true;
     SyncUiEventDispatcher.onSyncUiEvent.addListener(this._handleSyncUiEvent);
   }
 
   public override componentWillUnmount() {
-    this._componentUnmounting = true;
+    this._isMounted = false;
     SyncUiEventDispatcher.onSyncUiEvent.removeListener(this._handleSyncUiEvent);
-    this._componentUnmounting = false;
   }
 
   private _handleRefSet = (popupDiv: HTMLElement | null) => {
