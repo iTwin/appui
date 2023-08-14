@@ -201,13 +201,13 @@ importers:
       '@itwin/imodels-access-frontend': ^3.0.0
       '@itwin/imodels-client-authoring': ^3.0.0
       '@itwin/imodels-client-management': ^3.0.0
+      '@itwin/itwins-client': ^1.2.0
       '@itwin/itwinui-icons-react': ^2.1.0
       '@itwin/itwinui-react': ^2.11.11
       '@itwin/itwinui-variables': ^2.0.0
       '@itwin/map-layers': 5.0.0-dev.2
       '@itwin/map-layers-auth': 4.0.0-dev.104
       '@itwin/presentation-common': 4.0.0-dev.104
-      '@itwin/projects-client': ^0.6.0
       '@itwin/reality-data-client': 0.9.0
       '@itwin/webgl-compatibility': 4.0.0-dev.104
       '@types/node': 18.11.5
@@ -284,7 +284,7 @@ importers:
       '@bentley/react-scripts': 5.0.4_react@17.0.2+typescript@5.0.2
       '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
       '@itwin/eslint-plugin': 4.0.0-dev.45_eslint@8.44.0+typescript@5.0.2
-      '@itwin/projects-client': 0.6.0
+      '@itwin/itwins-client': 1.2.0
       '@types/node': 18.11.5
       '@types/react': 17.0.53
       '@types/react-dom': 17.0.19
@@ -340,7 +340,6 @@ importers:
       '@itwin/itwinui-variables': ^2.0.0
       '@itwin/map-layers': 5.0.0-dev.2
       '@itwin/presentation-common': 4.0.0-dev.104
-      '@itwin/projects-client': ^0.6.0
       '@itwin/reality-data-client': 0.9.0
       '@itwin/webgl-compatibility': 4.0.0-dev.104
       '@types/node': 18.11.5
@@ -410,7 +409,6 @@ importers:
       '@bentley/react-scripts': 5.0.4_react@17.0.2+typescript@5.0.2
       '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
       '@itwin/eslint-plugin': 4.0.0-dev.45_eslint@8.44.0+typescript@5.0.2
-      '@itwin/projects-client': 0.6.0
       '@types/node': 18.11.5
       '@types/react': 17.0.53
       '@types/react-dom': 17.0.19
@@ -4962,6 +4960,14 @@ packages:
       - debug
     dev: false
 
+  /@itwin/itwins-client/1.2.0:
+    resolution: {integrity: sha512-J0yksZPMVYYp8KotRJ8u7uzz8zBIFq8gqDamBDtG2hy8Uv0MnoYDooPoFOR7zhm3JNdjMrb4Vcz0Z+ZwJ7GoRg==}
+    dependencies:
+      axios: 0.25.0
+    transitivePeerDependencies:
+      - debug
+    dev: true
+
   /@itwin/itwinui-css/0.63.2:
     resolution: {integrity: sha512-rsqk2U4FehGRv3XXdHnvahmnR7ujuyNok1n0Ph+HiX0TnxUKbGb14mssBStGhyg2xfOzydwU4h07K6TDTMgGSA==}
     dev: false
@@ -5140,14 +5146,6 @@ packages:
       '@itwin/core-quantity': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
       '@itwin/ecschema-metadata': 4.0.0-dev.104_6c63b696a22fe956a2134234ccc60320
     dev: false
-
-  /@itwin/projects-client/0.6.0:
-    resolution: {integrity: sha512-uA8lqjNLIpmpdldoOa/EwQfaV+F2yflxoi1aEZSb+R+dlCyvlsE/hLM7oTzYwmYmFzdezKNbFjwN2PvWLBWaBg==}
-    dependencies:
-      axios: 0.25.0
-    transitivePeerDependencies:
-      - debug
-    dev: true
 
   /@itwin/reality-data-client/0.9.0_be9786c2146472f5e05bafea59511dc9:
     resolution: {integrity: sha512-vypWdeeKwHd/Yj8ffychypVDQ+LZfwaeAzT7tQhAk/F50Hn6Z/0aWibBMusUycVc1O9CC1lT3d4yYBPjVsFstQ==}

@@ -150,7 +150,9 @@ export function removeTab(
   if (!(tabId in state.tabs)) throw new UiError(category, "Tab does not exist");
 
   state = removeTabFromWidget(state, tabId);
-  state = removeToolSettings(state);
+  if (state.toolSettings?.tabId === tabId) {
+    state = removeToolSettings(state);
+  }
   return produce(state, (draft) => {
     delete draft.tabs[tabId];
   });
