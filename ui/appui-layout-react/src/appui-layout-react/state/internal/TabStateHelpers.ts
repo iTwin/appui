@@ -72,8 +72,7 @@ export function updateSavedTabState(
     let tab = byId[id];
     if (!tab) {
       allIds.push(id);
-      byId[id] = { id };
-      tab = byId[id]!;
+      tab = byId[id]  = { id };
     } else {
       const index = allIds.indexOf(id);
       allIds.splice(index, 1);
