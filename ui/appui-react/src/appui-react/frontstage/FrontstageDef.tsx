@@ -302,18 +302,15 @@ export class FrontstageDef {
 
   /** @internal */
   public get dispatch(): NineZoneDispatch {
-    if (!this._dispatch) {
-      this._dispatch = (action) => {
-        if (action.type === "RESIZE") {
-          InternalFrontstageManager.nineZoneSize = Size.create(action.size);
-        }
+    return this._dispatch ??= (action) => {
+      if (action.type === "RESIZE") {
+        InternalFrontstageManager.nineZoneSize = Size.create(action.size);
+      }
 
-        const state = this.nineZoneState;
-        if (!state) return;
-        this.nineZoneState = NineZoneStateReducer(state, action);
-      };
-    }
-    return this._dispatch;
+      const state = this.nineZoneState;
+      if (!state) return;
+      this.nineZoneState = NineZoneStateReducer(state, action);
+    };
   }
 
   /** @internal */
