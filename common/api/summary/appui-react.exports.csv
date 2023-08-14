@@ -503,7 +503,6 @@ beta;ToolbarPopupProps
 beta;ToolbarProps 
 public;ToolbarUsage
 beta;ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element
-deprecated;ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element
 beta;ToolbarWithOverflowProps 
 public;ToolIconChangedEvent 
 public;ToolIconChangedEventArgs
