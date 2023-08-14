@@ -120,7 +120,7 @@ export function insertTabToWidget(
   });
 }
 
-/** Removes tab from the UI, but keeps the tab state (hide).
+/** Removes tab from the UI, but keeps the tab state.
  * @internal
  */
 export function removeTabFromWidget(
@@ -175,7 +175,7 @@ const defaultHomeState: TabHomeState = {
   tabIndex: 0,
 };
 
-/** Adds removed tab to the UI (show).
+/** Adds removed tab to the UI.
  * @internal
  */
 export function addRemovedTab(
