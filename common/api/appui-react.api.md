@@ -4671,7 +4671,7 @@ export enum ToolbarUsage {
     ViewNavigation = 1
 }
 
-// @beta @deprecated
+// @beta
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element;
 
 // @beta
