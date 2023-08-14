@@ -7,7 +7,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { RelativePosition, SpecialKey } from "@itwin/appui-abstract";
 import { Popup } from "@itwin/core-react";
-import { Project as ITwin } from "@itwin/projects-client";
+import { ITwin } from "@itwin/itwins-client";
 
 /** Properties for the [[ITwinDropdown]] component */
 export interface ITwinDropdownProps {
@@ -131,8 +131,8 @@ export class ITwinDropdown extends React.Component<
               >
                 <span className="ip-icon icon icon-placeholder" />
                 <div className="ip-details">
-                  <span>{iTwin.code}</span>
-                  <span>{iTwin.name}</span>
+                  <span>{iTwin.class}</span>
+                  <span>{iTwin.displayName}</span>
                 </div>
               </div>
             ))}
@@ -173,10 +173,12 @@ export class ITwinDropdown extends React.Component<
         >
           <div>
             <span className="number">
-              {this.props.currentITwin ? this.props.currentITwin.code : ""}
+              {this.props.currentITwin ? this.props.currentITwin.number : ""}
             </span>
             <span className="name">
-              {this.props.currentITwin ? this.props.currentITwin.name : ""}
+              {this.props.currentITwin
+                ? this.props.currentITwin.displayName
+                : ""}
             </span>
           </div>
           <span className={splitterClassName} />
