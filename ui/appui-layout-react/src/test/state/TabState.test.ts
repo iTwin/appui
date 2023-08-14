@@ -2,12 +2,15 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { should } from "chai";
+import { expect, should } from "chai";
 import {
+  addDockedToolSettings,
+  addFloatingWidget,
   addPanelWidget,
   addPopoutWidget,
   addTab,
   addTabToWidget,
+  addWidgetToolSettings,
   createNineZoneState,
   insertTabToWidget,
   removeTab,
@@ -99,6 +102,41 @@ describe("removeTab", () => {
 
     should().not.exist(newState.popoutWidgets.byId.pow1);
     should().not.exist(newState.tabs.t1);
+  });
+
+  it("should remove docked tool settings tab", () => {
+    let state = createNineZoneState();
+    state = addTabs(state, ["t1"]);
+    state = addDockedToolSettings(state, "t1");
+    const newState = removeTab(state, "t1");
+
+    expect(newState.tabs.t1).to.not.exist;
+    expect(newState.toolSettings).to.not.exist;
+  });
+
+  it("should remove widget tool settings tab", () => {
+    let state = createNineZoneState();
+    state = addTabs(state, ["t1"]);
+    state = addFloatingWidget(state, "w1", ["t1"]);
+    state = addWidgetToolSettings(state, "t1");
+    const newState = removeTab(state, "t1");
+
+    expect(newState.tabs.t1).to.not.exist;
+    expect(newState.toolSettings).to.not.exist;
+  });
+
+  it("should keep tool settings if other tab is removed", () => {
+    let state = createNineZoneState();
+    state = addTabs(state, ["t1", "t2"]);
+    state = addFloatingWidget(state, "w1", ["t1"]);
+    state = addDockedToolSettings(state, "t2");
+    const newState = removeTab(state, "t1");
+
+    expect(newState.tabs.t2).to.exist;
+    expect(newState.toolSettings).to.eql({
+      type: "docked",
+      tabId: "t2",
+    });
   });
 });
 
