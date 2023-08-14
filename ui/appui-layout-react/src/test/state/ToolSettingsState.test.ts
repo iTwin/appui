@@ -71,6 +71,12 @@ describe("addWidgetToolSettings", () => {
 });
 
 describe("removeToolSettings", () => {
+  it("should not update state w/o tool settings", () => {
+    const state = createNineZoneState();
+    const sut = removeToolSettings(state);
+    expect(sut).to.eq(state);
+  });
+
   it("should remove tab from tool settings", () => {
     let state = createNineZoneState();
     state = addTab(state, "ts");
