@@ -1,6 +1,16 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Mon, 17 Jul 2023 10:16:20 GMT and should not be manually modified.
+This log was last generated on Tue, 15 Aug 2023 18:02:09 GMT and should not be manually modified.
+
+## 4.4.0
+Tue, 15 Aug 2023 18:02:09 GMT
+
+### Updates
+
+- Add `PropertyFilterBuilderRenderer`, `PropertyFilterBuilderRendererProps`, `defaultPropertyFilterBuilderRuleValidator`, `UsePropertyFilterBuilderProps`, `UsePropertyFilterBuilderResult`, `usePropertyFilterBuilder`, marked as beta. Promote `isPropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRule`, `PropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRuleGroupItem`, `PropertyFilterBuilderState` to beta.
+- `PropertyFilterBuilder`: clear rule values when operator changes.
+- `PropertyFilterBuilder`: Fix bug where user can't change rule group operator.
+- Promote `PropertyFilterBuilderRuleOperatorProps`, `PropertyFilterBuilderRuleValueProps`, `PropertyFilterBuilderRuleValue` to beta, create interface `PropertyFilterBuilderRuleValueRendererProps` which extends `PropertyFilterBuilderRuleValueProps`, pass `PropertyFilterRuleOperator` to custom `PropertyFilterBuilderRuleValue` renderer.
 
 ## 4.3.0
 Mon, 17 Jul 2023 10:16:20 GMT

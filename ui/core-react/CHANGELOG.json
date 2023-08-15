@@ -2,6 +2,21 @@
   "name": "@itwin/core-react",
   "entries": [
     {
+      "version": "4.4.0",
+      "tag": "@itwin/core-react_v4.4.0",
+      "date": "Tue, 15 Aug 2023 18:02:09 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Decrease size of arrows in ContextSubMenu"
+          },
+          {
+            "comment": "`ConditionalIconItem.isConditionalIconItem` is now a _type predicate_."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.3.0",
       "tag": "@itwin/core-react_v4.3.0",
       "date": "Mon, 17 Jul 2023 10:16:20 GMT",
