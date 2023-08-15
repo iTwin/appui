@@ -123,7 +123,7 @@ jobs:
             git commit -m "Prep to branch to $(getVersion.version)" --author="imodeljs-admin <imodeljs-admin@users.noreply.github.com>"
           displayName: Commit version bump
 
-      - ${{ if neq(parameters.BumpType, 'releaseCandidate') }}:
+      - ${{ if ne(parameters.BumpType, 'releaseCandidate') }}:
         - bash: |
             echo Committing version bump $(getVersion.version)...
 
