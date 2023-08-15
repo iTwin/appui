@@ -5,11 +5,13 @@ Table of contents:
 - [@itwin/appui-react](#itwinappui-react)
   - [Additions](#additions)
   - [Fixes](#fixes)
+  - [Deprecations](#deprecations)
 - [@itwin/components-react](#itwincomponents-react)
   - [Additions](#additions-1)
 - [@itwin/core-react](#itwincore-react)
   - [Additions](#additions-2)
-  - [Fixes](#fixes)
+  - [Changes](#changes)
+  - [Fixes](#fixes-1)
 
 ## @itwin/appui-react
 
@@ -45,6 +47,10 @@ Table of contents:
 ### Additions
 
 - `ConditionalIconItem.isConditionalIconItem` is now a `ConditionalIconItem` _type predicate_, on top of returning a boolean.
+
+### Changes
+
+- Changed `Dialog` to use resize functionality from iTwinUI `Dialog`.
 
 ### Fixes
 
