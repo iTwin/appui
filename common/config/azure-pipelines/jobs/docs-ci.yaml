@@ -76,7 +76,7 @@ stages:
 
   - stage: Tag_Docs
     dependsOn: Validate_Docs
-    condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'Manual))
+    condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'Manual'))
     jobs:
       - job:
         displayName: Tag build
