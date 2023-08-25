@@ -246,88 +246,64 @@ export class TreeSelectionManager
     actions: TreeActions,
     isKeyDown: boolean
   ) => {
-    if (isNavigationKey(e.key)) {
-      const processedNodeId = this._selectionHandler.processedItem;
-
-      const isExpandable = (node: TreeModelNode): boolean =>
-        !node.isLoading && node.numChildren !== 0;
-      const isEditing = (node: TreeModelNode): boolean =>
-        node.editingInfo !== undefined;
-
-      // istanbul ignore else
-      if (this._getVisibleNodes && isIndividualSelection(processedNodeId)) {
-        const processedNode = this._getVisibleNodes()
-          .getModel()
-          .getNode(processedNodeId);
-        // istanbul ignore next
-        if (processedNode && isEditing(processedNode)) return;
-      }
-
-      const handleKeyboardSelectItem = (index: number) => {
-        const node = this.getVisibleNodeAtIndex(this._getVisibleNodes(), index);
-        // istanbul ignore else
-        if (node) {
-          // istanbul ignore next
-          if (isEditing(node)) return;
-
-          const selectionFunc = this._selectionHandler.createSelectionFunction(
-            ...this.createSelectionHandlers(node.id)
-          );
-          selectionFunc(e.shiftKey, e.ctrlKey);
-        }
-      };
-      const handleKeyboardActivateItem = (_index: number) => {
-        // istanbul ignore else
-        if (isIndividualSelection(processedNodeId)) {
-          const node = this._getVisibleNodes()
-            .getModel()
-            .getNode(processedNodeId);
-          // istanbul ignore else
-          if (node) {
-            if (isExpandable(node)) {
-              if (!node.isExpanded) actions.onNodeExpanded(node.id);
-              else actions.onNodeCollapsed(node.id);
-            } else {
-              actions.onNodeEditorActivated(node.id);
-            }
-          }
-        }
-      };
-      const handleCrossAxisArrowKey = (forward: boolean) => {
-        // istanbul ignore else
-        if (isIndividualSelection(processedNodeId)) {
-          const node = this._getVisibleNodes()
-            .getModel()
-            .getNode(processedNodeId);
-          // istanbul ignore else
-          if (node) {
-            if (isExpandable(node)) {
-              if (forward && !node.isExpanded) actions.onNodeExpanded(node.id);
-              else if (!forward && node.isExpanded)
-                actions.onNodeCollapsed(node.id);
-            }
-          }
-        }
-      };
-
-      // istanbul ignore else
-      if (isIndividualSelection(processedNodeId)) {
-        const itemKeyboardNavigator = new ItemKeyboardNavigator(
-          handleKeyboardSelectItem,
-          handleKeyboardActivateItem
-        );
-        itemKeyboardNavigator.orientation = Orientation.Vertical;
-        itemKeyboardNavigator.crossAxisArrowKeyHandler =
-          handleCrossAxisArrowKey;
-        itemKeyboardNavigator.allowWrap = false;
-        itemKeyboardNavigator.itemCount = this._getVisibleNodes().getNumNodes();
-
-        const index = this._getVisibleNodes().getIndexOfNode(processedNodeId);
-        isKeyDown
-          ? itemKeyboardNavigator.handleKeyDownEvent(e, index)
-          : itemKeyboardNavigator.handleKeyUpEvent(e, index);
-      }
+    const processedNodeId = this._selectionHandler.processedItem;
+    if (!isNavigationKey(e.key) || !isIndividualSelection(processedNodeId)) {
+      return;
     }
+
+    const isExpandable = (node: TreeModelNode): boolean =>
+      !node.isLoading && node.numChildren !== 0;
+    const isEditing = (node: TreeModelNode): boolean =>
+      node.editingInfo !== undefined;
+
+    const processedNode = this._getVisibleNodes()
+      .getModel()
+      .getNode(processedNodeId);
+
+    // istanbul ignore if
+    if (!processedNode || isEditing(processedNode)) return;
+
+    const handleKeyboardSelectItem = (index: number) => {
+      const node = this.getVisibleNodeAtIndex(this._getVisibleNodes(), index);
+      // istanbul ignore if
+      if (!node || isEditing(node)) return;
+
+      const selectionFunc = this._selectionHandler.createSelectionFunction(
+        ...this.createSelectionHandlers(node.id)
+      );
+      selectionFunc(e.shiftKey, e.ctrlKey);
+    };
+    const handleKeyboardActivateItem = (_index: number) => {
+      if (isExpandable(processedNode)) {
+        if (!processedNode.isExpanded) actions.onNodeExpanded(processedNode.id);
+        else actions.onNodeCollapsed(processedNode.id);
+      } else {
+        actions.onNodeEditorActivated(processedNode.id);
+      }
+    };
+    const handleCrossAxisArrowKey = (forward: boolean) => {
+      if (!isExpandable(processedNode)) return;
+
+      if (forward && !processedNode.isExpanded)
+        actions.onNodeExpanded(processedNode.id);
+      else if (!forward && processedNode.isExpanded)
+        actions.onNodeCollapsed(processedNode.id);
+    };
+
+    const itemKeyboardNavigator = new ItemKeyboardNavigator(
+      handleKeyboardSelectItem,
+      handleKeyboardActivateItem
+    );
+    itemKeyboardNavigator.orientation = Orientation.Vertical;
+    itemKeyboardNavigator.crossAxisArrowKeyHandler = handleCrossAxisArrowKey;
+    itemKeyboardNavigator.allowWrap = false;
+    itemKeyboardNavigator.itemCount = this._getVisibleNodes().getNumNodes();
+
+    const processedNodeIndex =
+      this._getVisibleNodes().getIndexOfNode(processedNodeId);
+    isKeyDown
+      ? itemKeyboardNavigator.handleKeyDownEvent(e, processedNodeIndex)
+      : itemKeyboardNavigator.handleKeyUpEvent(e, processedNodeIndex);
   };
 }
 
