@@ -12,14 +12,12 @@ import {
   concat,
   concatAll,
   concatMap,
-  defaultIfEmpty,
   defer,
   distinctUntilChanged,
   EMPTY,
   filter,
   finalize,
   from,
-  generate,
   map,
   merge,
   mergeAll,
@@ -28,7 +26,6 @@ import {
   share,
   subscribeOn,
   toArray,
-  zip,
 } from "rxjs";
 import type { CheckBoxState } from "@itwin/core-react";
 import type { SelectionMode } from "../../common/selection/SelectionModes";
@@ -283,21 +280,16 @@ export class TreeEventDispatcher implements TreeActions {
   }> {
     const deselectedItems = this.collectNodeItems(deselection);
     if (isRangeSelection(selection)) {
-      return zip(
-        this.collectNodesBetween(selection.from, selection.to).pipe(
-          defaultIfEmpty([] as TreeNodeItem[])
-        ),
-        // Without a scheduler `generate` would block the main thread indefinitely
-        generate({
-          initialState: deselectedItems,
-          iterate: () => [],
-          scheduler: asapScheduler,
+      let firstEmission = true;
+      return this.collectNodesBetween(selection.from, selection.to).pipe(
+        map((selectedNodeItems) => {
+          if (firstEmission) {
+            firstEmission = false;
+            return { selectedNodeItems, deselectedNodeItems: deselectedItems };
+          }
+
+          return { selectedNodeItems, deselectedNodeItems: [] };
         })
-      ).pipe(
-        map(([selectedNodeItems, deselectedNodeItems]) => ({
-          selectedNodeItems,
-          deselectedNodeItems,
-        }))
       );
     }
 

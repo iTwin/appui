@@ -13,7 +13,10 @@ import type {
 import type { TreeNodeItem } from "../../../components-react/tree/TreeDataProvider";
 
 /** @internal */
-export function createTreeNodeInput(id: string): TreeModelNodeInput {
+export function createTreeNodeInput(
+  id: string,
+  node?: Partial<TreeModelNodeInput>
+): TreeModelNodeInput {
   const label = PropertyRecord.fromString(id, id);
   return {
     id,
@@ -22,6 +25,7 @@ export function createTreeNodeInput(id: string): TreeModelNodeInput {
     isExpanded: false,
     isLoading: false,
     isSelected: false,
+    ...node,
   };
 }
 

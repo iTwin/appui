@@ -16,6 +16,22 @@ export async function extractSequence<T>(
   return sequence;
 }
 
+/** Subscribes to observable and starts collecting emitted values in sequence*/
+export function startExtractingSequence<T>(observable: Observable<T>) {
+  const current: { sequence: T[] } = {
+    sequence: [],
+  };
+  const waitForComplete = waitForUnsubscription(
+    observable.subscribe((value) => {
+      current.sequence.push(value);
+    })
+  );
+  return {
+    current,
+    waitForComplete,
+  };
+}
+
 /** Returns a promise which is resolved when the input subscription is disposed. */
 export async function waitForUnsubscription(
   subscription: Subscription
