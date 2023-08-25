@@ -6,28 +6,30 @@
  * @module Tree
  */
 
-import type { Observable } from "rxjs/internal/Observable";
-import { concat } from "rxjs/internal/observable/concat";
-import { defer } from "rxjs/internal/observable/defer";
-import { EMPTY } from "rxjs/internal/observable/empty";
-import { from } from "rxjs/internal/observable/from";
-import { generate } from "rxjs/internal/observable/generate";
-import { merge } from "rxjs/internal/observable/merge";
-import { of } from "rxjs/internal/observable/of";
-import { zip } from "rxjs/internal/observable/zip";
-import { concatAll } from "rxjs/internal/operators/concatAll";
-import { concatMap } from "rxjs/internal/operators/concatMap";
-import { defaultIfEmpty } from "rxjs/internal/operators/defaultIfEmpty";
-import { distinctUntilChanged } from "rxjs/internal/operators/distinctUntilChanged";
-import { filter } from "rxjs/internal/operators/filter";
-import { finalize } from "rxjs/internal/operators/finalize";
-import { map } from "rxjs/internal/operators/map";
-import { mergeAll } from "rxjs/internal/operators/mergeAll";
-import { publishReplay } from "rxjs/internal/operators/publishReplay";
-import { refCount } from "rxjs/internal/operators/refCount";
-import { subscribeOn } from "rxjs/internal/operators/subscribeOn";
-import { toArray } from "rxjs/internal/operators/toArray";
-import { asapScheduler } from "rxjs/internal/scheduler/asap";
+import type { Observable } from "rxjs";
+import {
+  asapScheduler,
+  concat,
+  concatAll,
+  concatMap,
+  defaultIfEmpty,
+  defer,
+  distinctUntilChanged,
+  EMPTY,
+  filter,
+  finalize,
+  from,
+  generate,
+  map,
+  merge,
+  mergeAll,
+  of,
+  ReplaySubject,
+  share,
+  subscribeOn,
+  toArray,
+  zip,
+} from "rxjs";
 import type { CheckBoxState } from "@itwin/core-react";
 import type { SelectionMode } from "../../common/selection/SelectionModes";
 import type { TreeNodeItem } from "../TreeDataProvider";
@@ -48,6 +50,7 @@ import type {
 } from "./TreeModel";
 import { isTreeModelNode } from "./TreeModel";
 import type { ITreeNodeLoader } from "./TreeNodeLoader";
+import { toRxjsObservable } from "./Observable";
 
 /**
  * Default event dispatcher that emits tree events according performed actions.
@@ -85,9 +88,9 @@ export class TreeEventDispatcher implements TreeActions {
 
     this._selectionManager.onDragSelection.addListener(
       ({ selectionChanges }) => {
-        const modifications = from(selectionChanges).pipe(
+        const modifications = selectionChanges.pipe(
           map(({ selectedNodes, deselectedNodes }) =>
-            from(this.collectSelectionChanges(selectedNodes, [])).pipe(
+            this.collectSelectionChanges(selectedNodes, []).pipe(
               concatMap(({ selectedNodeItems }) => from(selectedNodeItems)),
               toArray(),
               map((collectedIds) => ({
@@ -97,8 +100,12 @@ export class TreeEventDispatcher implements TreeActions {
             )
           ),
           concatAll(),
-          publishReplay(),
-          refCount()
+          share({
+            connector: () => new ReplaySubject(),
+            resetOnError: false,
+            resetOnComplete: false,
+            resetOnRefCountZero: true,
+          })
         );
 
         /* istanbul ignore else */
@@ -119,8 +126,12 @@ export class TreeEventDispatcher implements TreeActions {
           finalize(() => {
             this._activeSelections.delete(modifications);
           }),
-          publishReplay(),
-          refCount()
+          share({
+            connector: () => new ReplaySubject(),
+            resetOnError: false,
+            resetOnComplete: false,
+            resetOnRefCountZero: true,
+          })
         );
 
         /* istanbul ignore else */
@@ -141,8 +152,12 @@ export class TreeEventDispatcher implements TreeActions {
           finalize(() => {
             this._activeSelections.delete(replacements);
           }),
-          publishReplay(),
-          refCount()
+          share({
+            connector: () => new ReplaySubject(),
+            resetOnError: false,
+            resetOnComplete: false,
+            resetOnRefCountZero: true,
+          })
         );
 
         /* istanbul ignore else */
@@ -186,7 +201,14 @@ export class TreeEventDispatcher implements TreeActions {
           selectedNodeItems.map((item) => ({ nodeItem: item, newState }))
         )
       )
-    ).pipe(publishReplay(), refCount());
+    ).pipe(
+      share({
+        connector: () => new ReplaySubject(),
+        resetOnError: false,
+        resetOnComplete: false,
+        resetOnRefCountZero: true,
+      })
+    );
 
     /* istanbul ignore else */
     if (this._treeEvents.onCheckboxStateChanged !== undefined)
@@ -301,7 +323,9 @@ export class TreeEventDispatcher implements TreeActions {
           ? this._getVisibleNodes!().getModel().getNode(node.parentId)
           : this._getVisibleNodes!().getModel().getRootNode();
         return parentNode
-          ? this._nodeLoader.loadNode(parentNode, node.childIndex)
+          ? toRxjsObservable(
+              this._nodeLoader.loadNode(parentNode, node.childIndex)
+            )
           : /* istanbul ignore next */ EMPTY;
       })
     ).pipe(

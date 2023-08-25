@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { from as rxjsFrom } from "rxjs/internal/observable/from";
+import { from } from "rxjs";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { CheckBoxState } from "@itwin/core-react";
@@ -12,7 +12,6 @@ import type {
   RangeSelection,
   TreeSelectionManager,
 } from "../../../components-react/tree/controlled/internal/TreeSelectionManager";
-import { from } from "../../../components-react/tree/controlled/Observable";
 import { TreeEventDispatcher } from "../../../components-react/tree/controlled/TreeEventDispatcher";
 import type {
   TreeCheckboxStateChangeEventArgs,
@@ -40,6 +39,7 @@ import {
   createRandomMutableTreeModelNodes,
   createTreeNodeInput,
 } from "./TreeHelpers";
+import { toRxjsObservable } from "../../../components-react";
 
 describe("TreeEventDispatcher", () => {
   let dispatcher: TreeEventDispatcher;
@@ -171,7 +171,9 @@ describe("TreeEventDispatcher", () => {
         expect(spy).to.be.called;
 
         const spyArgs = spy.args[0][0] as TreeSelectionModificationEventArgs;
-        const results = await extractSequence(rxjsFrom(spyArgs.modifications));
+        const results = await extractSequence(
+          toRxjsObservable(spyArgs.modifications)
+        );
         expect(results).to.not.be.empty;
         const selectionChange = results[0];
         expect(selectionChange.selectedNodeItems).to.be.deep.eq(
@@ -201,7 +203,9 @@ describe("TreeEventDispatcher", () => {
         expect(spy).to.be.called;
 
         const spyArgs = spy.args[0][0] as TreeSelectionModificationEventArgs;
-        const results = await extractSequence(rxjsFrom(spyArgs.modifications));
+        const results = await extractSequence(
+          toRxjsObservable(spyArgs.modifications)
+        );
         expect(results).to.not.be.empty;
         const selectionChange = results[0];
         expect(selectionChange.selectedNodeItems).to.be.deep.eq(
@@ -245,7 +249,9 @@ describe("TreeEventDispatcher", () => {
         expect(spy).to.be.called;
 
         const spyArgs = spy.args[0][0] as TreeSelectionModificationEventArgs;
-        const results = await extractSequence(rxjsFrom(spyArgs.modifications));
+        const results = await extractSequence(
+          toRxjsObservable(spyArgs.modifications)
+        );
         expect(results).to.not.be.empty;
         const selectionChange = results[0];
         expect(selectionChange.selectedNodeItems).to.be.deep.eq(
@@ -271,7 +277,9 @@ describe("TreeEventDispatcher", () => {
         expect(spy).to.be.called;
 
         const spyArgs = spy.args[0][0] as TreeSelectionModificationEventArgs;
-        const results = await extractSequence(rxjsFrom(spyArgs.modifications));
+        const results = await extractSequence(
+          toRxjsObservable(spyArgs.modifications)
+        );
         expect(results).to.not.be.empty;
         expect(results[0].selectedNodeItems).to.be.empty;
         expect(results[0].deselectedNodeItems).to.be.empty;
@@ -294,7 +302,9 @@ describe("TreeEventDispatcher", () => {
         const selectedNodeItems = deselectedNodes.map((node) => node.item);
         const deselectedNodeItems = selectedNodes.map((node) => node.item);
         const spyArgs = spy.args[0][0] as TreeSelectionModificationEventArgs;
-        const results = await extractSequence(rxjsFrom(spyArgs.modifications));
+        const results = await extractSequence(
+          toRxjsObservable(spyArgs.modifications)
+        );
         expect(results).to.not.be.empty;
         const selectionChange = results[0];
         expect(selectionChange.selectedNodeItems).to.be.deep.eq(
@@ -317,7 +327,9 @@ describe("TreeEventDispatcher", () => {
         expect(spy).to.be.called;
 
         const spyArgs = spy.args[0][0] as TreeSelectionReplacementEventArgs;
-        const results = await extractSequence(rxjsFrom(spyArgs.replacements));
+        const results = await extractSequence(
+          toRxjsObservable(spyArgs.replacements)
+        );
         expect(results).to.not.be.empty;
         const selectionChange = results[0];
         expect(selectionChange.selectedNodeItems).to.be.deep.eq(
@@ -339,7 +351,9 @@ describe("TreeEventDispatcher", () => {
         expect(spy).to.be.called;
 
         const spyArgs = spy.args[0][0] as TreeSelectionReplacementEventArgs;
-        const results = await extractSequence(rxjsFrom(spyArgs.replacements));
+        const results = await extractSequence(
+          toRxjsObservable(spyArgs.replacements)
+        );
         expect(results).to.not.be.empty;
         const selectionChange = results[0];
         expect(selectionChange.selectedNodeItems).to.be.deep.eq([
@@ -360,7 +374,9 @@ describe("TreeEventDispatcher", () => {
 
       expect(spy).to.be.calledOnce;
       const changes = spy.args[0][0] as TreeCheckboxStateChangeEventArgs;
-      const results = await extractSequence(rxjsFrom(changes.stateChanges));
+      const results = await extractSequence(
+        toRxjsObservable(changes.stateChanges)
+      );
       expect(results).to.not.be.empty;
       const affectedNodeItems = results[0].map((change) => change.nodeItem);
       expect(affectedNodeItems).to.be.deep.eq(expectedAffectedNodeItems);
@@ -377,7 +393,9 @@ describe("TreeEventDispatcher", () => {
       dispatcher.onNodeCheckboxClicked(selectedNodes[0].id, CheckBoxState.On);
 
       const changes = spy.args[0][0] as TreeCheckboxStateChangeEventArgs;
-      const results = await extractSequence(rxjsFrom(changes.stateChanges));
+      const results = await extractSequence(
+        toRxjsObservable(changes.stateChanges)
+      );
       expect(results).to.not.be.empty;
       const affectedItems = results[0].map((change) => change.nodeItem);
       expect(affectedItems).to.be.deep.eq(expectedAffectedNodeItems);
@@ -408,7 +426,7 @@ describe("TreeEventDispatcher", () => {
       const checkboxChanges = spy
         .args[0][0] as TreeCheckboxStateChangeEventArgs;
       const results = await extractSequence(
-        rxjsFrom(checkboxChanges.stateChanges)
+        toRxjsObservable(checkboxChanges.stateChanges)
       );
       expect(results).to.not.be.empty;
       const affectedItems = results
@@ -600,7 +618,7 @@ describe("TreeEventDispatcher", () => {
         expect(treeEvents.onSelectionModified).not.to.have.been.called;
         expect(treeEvents.onSelectionReplaced).to.have.been.calledOnce;
         const changes = await extractSequence(
-          rxjsFrom(
+          toRxjsObservable(
             treeEvents.onSelectionReplaced.firstCall.args[0].replacements
           )
         );
@@ -617,7 +635,7 @@ describe("TreeEventDispatcher", () => {
         expect(treeEvents.onSelectionModified).not.to.have.been.called;
         expect(treeEvents.onSelectionReplaced).to.have.been.calledTwice;
         const changes = await extractSequence(
-          rxjsFrom(
+          toRxjsObservable(
             treeEvents.onSelectionReplaced.secondCall.args[0].replacements
           )
         );
@@ -638,7 +656,7 @@ describe("TreeEventDispatcher", () => {
         expect(treeEvents.onSelectionModified).not.to.have.been.called;
         expect(treeEvents.onSelectionReplaced).to.have.been.calledTwice;
         const changes = await extractSequence(
-          rxjsFrom(
+          toRxjsObservable(
             treeEvents.onSelectionReplaced.secondCall.args[0].replacements
           )
         );
@@ -659,7 +677,7 @@ describe("TreeEventDispatcher", () => {
           loadNode: sinon.fake(() => {
             const nodeItem = createTreeNodeInput("B").item;
             nodeItem.isSelectionDisabled = true;
-            return rxjsFrom([{ loadedNodes: [nodeItem] }]);
+            return from([{ loadedNodes: [nodeItem] }]);
           }),
         };
         const treeEventDispatcher = new TreeEventDispatcher(
@@ -678,7 +696,7 @@ describe("TreeEventDispatcher", () => {
         expect(treeEvents.onSelectionReplaced).to.have.been.calledTwice;
         expect(nodeLoader.loadNode).to.have.been.calledOnce;
         const changes = await extractSequence(
-          rxjsFrom(
+          toRxjsObservable(
             treeEvents.onSelectionReplaced.secondCall.args[0].replacements
           )
         );

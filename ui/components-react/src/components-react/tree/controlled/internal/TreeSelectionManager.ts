@@ -6,8 +6,8 @@
  * @module Tree
  */
 
-import { take } from "rxjs/internal/operators/take";
-import { Subject } from "rxjs/internal/Subject";
+import type { Observable } from "rxjs";
+import { Subject, take } from "rxjs";
 import { BeUiEvent } from "@itwin/core-bentley";
 import type {
   MultiSelectionHandler,
@@ -15,7 +15,6 @@ import type {
 } from "../../../common/selection/SelectionHandler";
 import { SelectionHandler } from "../../../common/selection/SelectionHandler";
 import type { SelectionMode } from "../../../common/selection/SelectionModes";
-import type { Observable } from "../Observable";
 import type { TreeActions } from "../TreeActions";
 import type { TreeModelNode, VisibleTreeNodes } from "../TreeModel";
 import { isTreeModelNode } from "../TreeModel";
