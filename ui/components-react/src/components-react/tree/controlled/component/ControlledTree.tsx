@@ -158,18 +158,10 @@ function useRootNodeLoader(
 
 function useVisibleTreeNodes(model: TreeModel) {
   const visibleNodesRef = React.useRef<VisibleTreeNodes>();
-
-  // istanbul ignore else
-  if (!visibleNodesRef.current) {
-    // initialize initial value
-    visibleNodesRef.current = computeVisibleNodes(model);
-  }
-
-  React.useEffect(() => {
-    // update visible nodes when model changes
-    visibleNodesRef.current = computeVisibleNodes(model);
-  }, [model]);
-
+  visibleNodesRef.current = React.useMemo(
+    () => computeVisibleNodes(model),
+    [model]
+  );
   return React.useCallback(() => visibleNodesRef.current!, []);
 }
 
