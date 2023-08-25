@@ -90,19 +90,27 @@ export function ControlledTree(props: ControlledTreeProps) {
     [props.descriptionsEnabled, props.iconsEnabled, imageLoader]
   );
 
-  const visibleNodesGetter = useVisibleTreeNodes(props.model);
-  const eventDispatcher = useEventDispatcher(
-    props.nodeLoader,
-    props.eventsHandler,
-    props.selectionMode,
-    visibleNodesGetter
+  const visibleNodesRef = React.useRef<VisibleTreeNodes>();
+  visibleNodesRef.current = React.useMemo(
+    () => computeVisibleNodes(props.model),
+    [props.model]
   );
 
-  const visibleNodes = visibleNodesGetter();
+  const eventDispatcher = React.useMemo(
+    () =>
+      new TreeEventDispatcher(
+        props.eventsHandler,
+        props.nodeLoader,
+        props.selectionMode,
+        () => visibleNodesRef.current!
+      ),
+    [props.eventsHandler, props.nodeLoader, props.selectionMode]
+  );
+
   const treeProps: TreeRendererProps = {
     nodeRenderer,
     nodeHeight,
-    visibleNodes,
+    visibleNodes: visibleNodesRef.current,
     treeActions: eventDispatcher,
     nodeLoader: props.nodeLoader,
     nodeHighlightingProps: props.nodeHighlightingProps,
@@ -111,8 +119,8 @@ export function ControlledTree(props: ControlledTreeProps) {
     height: props.height,
   };
 
-  const loading = useRootNodeLoader(visibleNodes, props.nodeLoader);
-  const noData = visibleNodes.getNumRootNodes() === 0;
+  const loading = useRootNodeLoader(visibleNodesRef.current, props.nodeLoader);
+  const noData = visibleNodesRef.current.getNumRootNodes() === 0;
   return (
     <Loader
       loading={loading}
@@ -154,33 +162,6 @@ function useRootNodeLoader(
   }, [visibleNodes, nodeLoader]);
 
   return visibleNodes.getNumRootNodes() === undefined;
-}
-
-function useVisibleTreeNodes(model: TreeModel) {
-  const visibleNodesRef = React.useRef<VisibleTreeNodes>();
-  visibleNodesRef.current = React.useMemo(
-    () => computeVisibleNodes(model),
-    [model]
-  );
-  return React.useCallback(() => visibleNodesRef.current!, []);
-}
-
-function useEventDispatcher(
-  nodeLoader: ITreeNodeLoader,
-  treeEvents: TreeEvents,
-  selectionMode: SelectionMode,
-  getVisibleNodes: () => VisibleTreeNodes
-) {
-  return React.useMemo(
-    () =>
-      new TreeEventDispatcher(
-        treeEvents,
-        nodeLoader,
-        selectionMode,
-        getVisibleNodes
-      ),
-    [treeEvents, nodeLoader, selectionMode, getVisibleNodes]
-  );
 }
 
 interface LoaderProps {
