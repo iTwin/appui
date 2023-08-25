@@ -7,7 +7,7 @@
  */
 
 import type { Observable } from "rxjs";
-import { Subject, take } from "rxjs";
+import { Subject } from "rxjs";
 import { BeUiEvent } from "@itwin/core-bentley";
 import type {
   MultiSelectionHandler,
@@ -180,11 +180,8 @@ export class TreeSelectionManager
       { once: true }
     );
     this._dragSelectionOperation = new Subject();
-    this._dragSelectionOperation.pipe(take(1)).subscribe((value) => {
-      this.onDragSelection.emit({
-        selectionChanges: this._dragSelectionOperation!,
-      });
-      this._dragSelectionOperation!.next(value);
+    this.onDragSelection.emit({
+      selectionChanges: this._dragSelectionOperation,
     });
   }
 
