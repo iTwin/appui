@@ -269,15 +269,12 @@ export class TreeEventDispatcher implements TreeActions {
   }> {
     const deselectedItems = this.collectNodeItems(deselection);
     if (isRangeSelection(selection)) {
-      let firstEmission = true;
       return this.collectNodesBetween(selection.from, selection.to).pipe(
-        map((selectedNodeItems) => {
-          if (firstEmission) {
-            firstEmission = false;
-            return { selectedNodeItems, deselectedNodeItems: deselectedItems };
-          }
-
-          return { selectedNodeItems, deselectedNodeItems: [] };
+        map((selectedNodeItems, index) => {
+          return {
+            selectedNodeItems,
+            deselectedNodeItems: index === 0 ? deselectedItems : [],
+          };
         })
       );
     }
