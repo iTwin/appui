@@ -67,7 +67,7 @@ export class TreeSelectionManager
   private _dragSelectionOperation?: Subject<SelectionModificationEvent>;
   private _itemHandlers: Array<Array<SingleSelectionHandler<string>>>;
 
-  private _getVisibleNodes: (() => VisibleTreeNodes) | undefined;
+  private _getVisibleNodes: () => VisibleTreeNodes;
 
   public onSelectionChanged = new BeUiEvent<SelectionModificationEvent>();
   public onSelectionReplaced = new BeUiEvent<SelectionReplacementEvent>();
@@ -75,7 +75,7 @@ export class TreeSelectionManager
 
   constructor(
     selectionMode: SelectionMode,
-    getVisibleNodes?: () => VisibleTreeNodes
+    getVisibleNodes: () => VisibleTreeNodes
   ) {
     this._getVisibleNodes = getVisibleNodes;
 
@@ -128,13 +128,8 @@ export class TreeSelectionManager
       {
         get(_target, prop) {
           if (prop === "length") {
-            return _this._getVisibleNodes === undefined
-              ? 0
-              : _this._getVisibleNodes().getNumNodes();
+            return _this._getVisibleNodes().getNumNodes();
           }
-
-          // istanbul ignore next
-          if (_this._getVisibleNodes === undefined) return undefined;
 
           const index: number = +(prop as string);
           const node = _this.getVisibleNodeAtIndex(
@@ -157,10 +152,6 @@ export class TreeSelectionManager
         ? nodes.getAtIndex(index)
         : /* istanbul ignore next */ undefined;
     return isTreeModelNode(foundNode) ? foundNode : undefined;
-  }
-
-  public setVisibleNodes(visibleNodes: (() => VisibleTreeNodes) | undefined) {
-    this._getVisibleNodes = visibleNodes;
   }
 
   public onNodeClicked(nodeId: string, event: React.MouseEvent) {
@@ -229,7 +220,7 @@ export class TreeSelectionManager
       select: () => {},
       deselect: () => {},
       isSelected: () => {
-        if (deselectedAll || this._getVisibleNodes === undefined) {
+        if (deselectedAll) {
           return false;
         }
 
@@ -256,9 +247,6 @@ export class TreeSelectionManager
     isKeyDown: boolean
   ) => {
     if (isNavigationKey(e.key)) {
-      // istanbul ignore next
-      if (!this._getVisibleNodes) return;
-
       const processedNodeId = this._selectionHandler.processedItem;
 
       const isExpandable = (node: TreeModelNode): boolean =>
@@ -276,28 +264,21 @@ export class TreeSelectionManager
       }
 
       const handleKeyboardSelectItem = (index: number) => {
+        const node = this.getVisibleNodeAtIndex(this._getVisibleNodes(), index);
         // istanbul ignore else
-        if (this._getVisibleNodes) {
-          const node = this.getVisibleNodeAtIndex(
-            this._getVisibleNodes(),
-            index
-          );
-          // istanbul ignore else
-          if (node) {
-            // istanbul ignore next
-            if (isEditing(node)) return;
+        if (node) {
+          // istanbul ignore next
+          if (isEditing(node)) return;
 
-            const selectionFunc =
-              this._selectionHandler.createSelectionFunction(
-                ...this.createSelectionHandlers(node.id)
-              );
-            selectionFunc(e.shiftKey, e.ctrlKey);
-          }
+          const selectionFunc = this._selectionHandler.createSelectionFunction(
+            ...this.createSelectionHandlers(node.id)
+          );
+          selectionFunc(e.shiftKey, e.ctrlKey);
         }
       };
       const handleKeyboardActivateItem = (_index: number) => {
         // istanbul ignore else
-        if (this._getVisibleNodes && isIndividualSelection(processedNodeId)) {
+        if (isIndividualSelection(processedNodeId)) {
           const node = this._getVisibleNodes()
             .getModel()
             .getNode(processedNodeId);
@@ -314,7 +295,7 @@ export class TreeSelectionManager
       };
       const handleCrossAxisArrowKey = (forward: boolean) => {
         // istanbul ignore else
-        if (this._getVisibleNodes && isIndividualSelection(processedNodeId)) {
+        if (isIndividualSelection(processedNodeId)) {
           const node = this._getVisibleNodes()
             .getModel()
             .getNode(processedNodeId);

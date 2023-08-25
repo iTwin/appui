@@ -90,17 +90,15 @@ export function ControlledTree(props: ControlledTreeProps) {
     [props.descriptionsEnabled, props.iconsEnabled, imageLoader]
   );
 
-  const visibleNodes = React.useMemo(
-    () => computeVisibleNodes(props.model),
-    [props.model]
-  );
+  const visibleNodesGetter = useVisibleTreeNodes(props.model);
   const eventDispatcher = useEventDispatcher(
     props.nodeLoader,
     props.eventsHandler,
     props.selectionMode,
-    visibleNodes
+    visibleNodesGetter
   );
 
+  const visibleNodes = visibleNodesGetter();
   const treeProps: TreeRendererProps = {
     nodeRenderer,
     nodeHeight,
@@ -158,24 +156,39 @@ function useRootNodeLoader(
   return visibleNodes.getNumRootNodes() === undefined;
 }
 
+function useVisibleTreeNodes(model: TreeModel) {
+  const visibleNodesRef = React.useRef<VisibleTreeNodes>();
+
+  // istanbul ignore else
+  if (!visibleNodesRef.current) {
+    // initialize initial value
+    visibleNodesRef.current = computeVisibleNodes(model);
+  }
+
+  React.useEffect(() => {
+    // update visible nodes when model changes
+    visibleNodesRef.current = computeVisibleNodes(model);
+  }, [model]);
+
+  return React.useCallback(() => visibleNodesRef.current!, []);
+}
+
 function useEventDispatcher(
   nodeLoader: ITreeNodeLoader,
   treeEvents: TreeEvents,
   selectionMode: SelectionMode,
-  visibleNodes: VisibleTreeNodes
+  getVisibleNodes: () => VisibleTreeNodes
 ) {
-  /* istanbul ignore next */
-  const getVisibleNodes = React.useCallback(() => visibleNodes, [visibleNodes]);
-  const eventDispatcher = React.useMemo(
-    () => new TreeEventDispatcher(treeEvents, nodeLoader, selectionMode),
-    [treeEvents, nodeLoader, selectionMode]
+  return React.useMemo(
+    () =>
+      new TreeEventDispatcher(
+        treeEvents,
+        nodeLoader,
+        selectionMode,
+        getVisibleNodes
+      ),
+    [treeEvents, nodeLoader, selectionMode, getVisibleNodes]
   );
-
-  React.useEffect(() => {
-    eventDispatcher.setVisibleNodes(getVisibleNodes);
-  }, [eventDispatcher, getVisibleNodes]);
-
-  return eventDispatcher;
 }
 
 interface LoaderProps {

@@ -57,7 +57,7 @@ import { toRxjsObservable } from "./Observable";
 export class TreeEventDispatcher implements TreeActions {
   private _treeEvents: TreeEvents;
   private _nodeLoader: ITreeNodeLoader;
-  private _getVisibleNodes: (() => VisibleTreeNodes) | undefined;
+  private _getVisibleNodes: () => VisibleTreeNodes;
 
   private _selectionManager: TreeSelectionManager;
 
@@ -72,7 +72,7 @@ export class TreeEventDispatcher implements TreeActions {
     treeEvents: TreeEvents,
     nodeLoader: ITreeNodeLoader,
     selectionMode: SelectionMode,
-    getVisibleNodes?: () => VisibleTreeNodes
+    getVisibleNodes: () => VisibleTreeNodes
   ) {
     this._treeEvents = treeEvents;
     this._nodeLoader = nodeLoader;
@@ -164,14 +164,7 @@ export class TreeEventDispatcher implements TreeActions {
     );
   }
 
-  public setVisibleNodes(visibleNodes: () => VisibleTreeNodes) {
-    this._getVisibleNodes = visibleNodes;
-    this._selectionManager.setVisibleNodes(visibleNodes);
-  }
-
   public onNodeCheckboxClicked(nodeId: string, newState: CheckBoxState) {
-    if (this._getVisibleNodes === undefined) return;
-
     const visibleNodes = this._getVisibleNodes();
     const clickedNode = visibleNodes.getModel().getNode(nodeId);
     if (clickedNode === undefined) return;
@@ -228,9 +221,7 @@ export class TreeEventDispatcher implements TreeActions {
     nodeId: string,
     event: React.MouseEvent<Element, MouseEvent>
   ) {
-    const node = this._getVisibleNodes
-      ? this._getVisibleNodes().getModel().getNode(nodeId)
-      : undefined;
+    const node = this._getVisibleNodes().getModel().getNode(nodeId);
     const isNodeSelected = node ? node.isSelected : false;
     this._selectionManager.onNodeClicked(nodeId, event);
 
@@ -249,9 +240,7 @@ export class TreeEventDispatcher implements TreeActions {
   }
 
   public onNodeEditorActivated(nodeId: string) {
-    const node = this._getVisibleNodes
-      ? this._getVisibleNodes().getModel().getNode(nodeId)
-      : /* istanbul ignore next */ undefined;
+    const node = this._getVisibleNodes().getModel().getNode(nodeId);
     const isNodeSelected = node ? node.isSelected : false;
 
     // if node was already selected, fire onNodeEditorActivated event
@@ -312,8 +301,8 @@ export class TreeEventDispatcher implements TreeActions {
     const loadedSelectedNodes = from(
       nodesToLoad.map((node) => {
         const parentNode = node.parentId
-          ? this._getVisibleNodes!().getModel().getNode(node.parentId)
-          : this._getVisibleNodes!().getModel().getRootNode();
+          ? this._getVisibleNodes().getModel().getNode(node.parentId)
+          : this._getVisibleNodes().getModel().getRootNode();
         return parentNode
           ? toRxjsObservable(
               this._nodeLoader.loadNode(parentNode, node.childIndex)
@@ -352,10 +341,6 @@ export class TreeEventDispatcher implements TreeActions {
     nodeId2: string
   ): Iterable<TreeModelNode | TreeModelNodePlaceholder> {
     let firstNodeFound = false;
-    if (this._getVisibleNodes === undefined) {
-      return;
-    }
-
     for (const node of this._getVisibleNodes()) {
       if (firstNodeFound) {
         yield node;
@@ -381,10 +366,6 @@ export class TreeEventDispatcher implements TreeActions {
 
   private collectNodeItems(nodeIds: string[]): TreeNodeItem[] {
     const items: TreeNodeItem[] = [];
-    if (this._getVisibleNodes === undefined) {
-      return items;
-    }
-
     for (const nodeId of nodeIds) {
       const node = this._getVisibleNodes().getModel().getNode(nodeId);
       // istanbul ignore else
