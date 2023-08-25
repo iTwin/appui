@@ -2,6 +2,18 @@
   "name": "@itwin/appui-layout-react",
   "entries": [
     {
+      "version": "4.4.0",
+      "tag": "@itwin/appui-layout-react_v4.4.0",
+      "date": "Tue, 15 Aug 2023 18:02:09 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix unintentional removal of tool settings while removing widgets."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.3.0",
       "tag": "@itwin/appui-layout-react_v4.3.0",
       "date": "Mon, 17 Jul 2023 10:16:20 GMT",

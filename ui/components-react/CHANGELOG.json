@@ -2,6 +2,27 @@
   "name": "@itwin/components-react",
   "entries": [
     {
+      "version": "4.4.0",
+      "tag": "@itwin/components-react_v4.4.0",
+      "date": "Tue, 15 Aug 2023 18:02:09 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Add `PropertyFilterBuilderRenderer`, `PropertyFilterBuilderRendererProps`, `defaultPropertyFilterBuilderRuleValidator`, `UsePropertyFilterBuilderProps`, `UsePropertyFilterBuilderResult`, `usePropertyFilterBuilder`, marked as beta. Promote `isPropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRule`, `PropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRuleGroupItem`, `PropertyFilterBuilderState` to beta."
+          },
+          {
+            "comment": "`PropertyFilterBuilder`: clear rule values when operator changes."
+          },
+          {
+            "comment": "`PropertyFilterBuilder`: Fix bug where user can't change rule group operator."
+          },
+          {
+            "comment": "Promote `PropertyFilterBuilderRuleOperatorProps`, `PropertyFilterBuilderRuleValueProps`, `PropertyFilterBuilderRuleValue` to beta, create interface `PropertyFilterBuilderRuleValueRendererProps` which extends `PropertyFilterBuilderRuleValueProps`, pass `PropertyFilterRuleOperator` to custom `PropertyFilterBuilderRuleValue` renderer."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.3.0",
       "tag": "@itwin/components-react_v4.3.0",
       "date": "Mon, 17 Jul 2023 10:16:20 GMT",

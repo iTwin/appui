@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "",
+      "comment": "Refresh the EmptyToolSettingsEntry when the active tool changes. (#442)",
       "type": "none"
     }
   ],

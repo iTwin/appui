@@ -42,7 +42,6 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
 /** Component that displays toolbar items, displaying only the elements that can fit in the available space,
  * and put the other items into a single panel.
  * @beta
- * @deprecated in 4.4.0. Use Toolbar component with "enableOverflow" prop to {overflowExpandsTo: props.overflowExpandsTo}.
  */
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
   const { overflowExpandsTo, ...toolbarProps } = props;
