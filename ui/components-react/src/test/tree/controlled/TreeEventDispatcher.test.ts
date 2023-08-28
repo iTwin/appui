@@ -417,6 +417,7 @@ describe("TreeEventDispatcher", () => {
           },
         ]);
 
+      // `onSelectionModified` is called second time with selected items when drag operation is completed
       expect(treeEvents.onSelectionModified).to.be.calledTwice;
       const [args1] = treeEvents.onSelectionModified.args[1];
       expect(await extractSequence(toRxjsObservable(args1.modifications)))
@@ -469,6 +470,9 @@ describe("TreeEventDispatcher", () => {
           },
         ]);
 
+      // `onSelectionModified` is called two more times when drag operation is completed:
+      // - first call has all the items that were selected during drag operation
+      // - second call has all the items that were deselected during drag operation
       expect(treeEvents.onSelectionModified).to.be.calledThrice;
       const [args1] = treeEvents.onSelectionModified.args[1];
       expect(await extractSequence(toRxjsObservable(args1.modifications)))
