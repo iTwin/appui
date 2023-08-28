@@ -22,8 +22,7 @@ import {
   merge,
   mergeAll,
   of,
-  ReplaySubject,
-  share,
+  shareReplay,
   subscribeOn,
   toArray,
 } from "rxjs";
@@ -97,11 +96,8 @@ export class TreeEventDispatcher implements TreeActions {
             )
           ),
           concatAll(),
-          share({
-            connector: () => new ReplaySubject(),
-            resetOnError: false,
-            resetOnComplete: false,
-            resetOnRefCountZero: true,
+          shareReplay({
+            refCount: true,
           })
         );
 
@@ -123,11 +119,8 @@ export class TreeEventDispatcher implements TreeActions {
           finalize(() => {
             this._activeSelections.delete(modifications);
           }),
-          share({
-            connector: () => new ReplaySubject(),
-            resetOnError: false,
-            resetOnComplete: false,
-            resetOnRefCountZero: true,
+          shareReplay({
+            refCount: true,
           })
         );
 
@@ -149,11 +142,8 @@ export class TreeEventDispatcher implements TreeActions {
           finalize(() => {
             this._activeSelections.delete(replacements);
           }),
-          share({
-            connector: () => new ReplaySubject(),
-            resetOnError: false,
-            resetOnComplete: false,
-            resetOnRefCountZero: true,
+          shareReplay({
+            refCount: true,
           })
         );
 
@@ -192,11 +182,8 @@ export class TreeEventDispatcher implements TreeActions {
         )
       )
     ).pipe(
-      share({
-        connector: () => new ReplaySubject(),
-        resetOnError: false,
-        resetOnComplete: false,
-        resetOnRefCountZero: true,
+      shareReplay({
+        refCount: true,
       })
     );
 
