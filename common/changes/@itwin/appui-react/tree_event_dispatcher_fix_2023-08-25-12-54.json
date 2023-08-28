@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Bump 'rxjs' version.",
+      "comment": "Bump `rxjs` dependency to `7.8.1`.",
       "type": "none"
     }
   ],

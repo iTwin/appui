@@ -487,7 +487,7 @@ describe("TreeEventDispatcher", () => {
       );
 
       dispatcher.onNodeCheckboxClicked("B", CheckBoxState.On);
-      expect(treeEvents.onCheckboxStateChanged).to.not.be.calledOnce;
+      expect(treeEvents.onCheckboxStateChanged).to.not.be.called;
     });
 
     it("checks checkbox state", async () => {
@@ -775,7 +775,7 @@ describe("TreeEventDispatcher", () => {
   });
 
   describe("keyboard navigation", () => {
-    it("forward events to `TreeSelectionManager", () => {
+    it("forwards events to `TreeSelectionManager`", () => {
       const { dispatcher } = setupTreeEventDispatcher(
         SelectionMode.Extended,
         (model) => {
