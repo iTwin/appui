@@ -392,13 +392,13 @@ describe("TreeEventDispatcher", () => {
       );
 
       dispatcher.onNodeMouseDown("A");
-
       expect(treeEvents.onSelectionModified).to.be.calledOnce;
       const [args0] = treeEvents.onSelectionModified.args[0];
       const result0 = startExtractingSequence(
         toRxjsObservable(args0.modifications)
       );
 
+      dispatcher.onNodeMouseMove("A");
       dispatcher.onNodeMouseMove("B");
       dispatcher.onNodeMouseMove("C");
       fireEvent.mouseUp(window);
@@ -443,34 +443,47 @@ describe("TreeEventDispatcher", () => {
       );
 
       dispatcher.onNodeMouseDown("A");
+      expect(treeEvents.onSelectionModified).to.be.calledOnce;
+      const [args0] = treeEvents.onSelectionModified.args[0];
+      const result0 = startExtractingSequence(
+        toRxjsObservable(args0.modifications)
+      );
+
+      dispatcher.onNodeMouseMove("A");
       dispatcher.onNodeMouseMove("B");
       dispatcher.onNodeMouseMove("C");
 
       fireEvent.mouseUp(window);
 
-      expect(treeEvents.onSelectionModified).to.be.calledThrice;
-
-      const [args0] = treeEvents.onSelectionModified.args[0];
-      expect(
-        await extractSequence(toRxjsObservable(args0.modifications))
-      ).to.have.lengthOf(0);
-
-      const [args2] = treeEvents.onSelectionModified.args[1];
-      expect(await extractSequence(toRxjsObservable(args2.modifications)))
-        .to.have.lengthOf(1)
+      await result0.waitForComplete;
+      expect(result0.current.sequence)
+        .to.have.lengthOf(2)
         .and.containSubset([
           {
-            selectedNodeItems: [{ id: "A" }, { id: "C" }],
+            selectedNodeItems: [{ id: "A" }],
+            deselectedNodeItems: [{ id: "B" }],
+          },
+          {
+            selectedNodeItems: [{ id: "C" }],
             deselectedNodeItems: [],
           },
         ]);
 
-      const [args3] = treeEvents.onSelectionModified.args[2];
-      expect(await extractSequence(toRxjsObservable(args3.modifications)))
+      expect(treeEvents.onSelectionModified).to.be.calledThrice;
+      const [args1] = treeEvents.onSelectionModified.args[1];
+      expect(await extractSequence(toRxjsObservable(args1.modifications)))
         .to.have.lengthOf(1)
         .and.containSubset([
           {
-            selectedNodeItems: [],
+            selectedNodeItems: [{ id: "A" }, { id: "C" }],
+          },
+        ]);
+
+      const [args2] = treeEvents.onSelectionModified.args[2];
+      expect(await extractSequence(toRxjsObservable(args2.modifications)))
+        .to.have.lengthOf(1)
+        .and.containSubset([
+          {
             deselectedNodeItems: [{ id: "B" }],
           },
         ]);
