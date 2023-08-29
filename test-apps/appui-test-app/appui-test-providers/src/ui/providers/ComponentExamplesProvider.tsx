@@ -104,6 +104,7 @@ import { StatusBarDialogTitleBarButton } from "@itwin/appui-react/lib/cjs/appui-
 import { ComponentGenerator } from "@itwin/appui-react/lib/cjs/appui-react/uiprovider/ComponentGenerator";
 import { UnitSystemKey } from "@itwin/core-quantity";
 import { Button } from "@itwin/itwinui-react";
+import { TreeWidgetComponent } from "../widgets/TreeWidget";
 
 class TestContentControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -1277,6 +1278,21 @@ export class ComponentExamplesProvider {
     };
   }
 
+  private static get treeSample(): ComponentExampleCategory {
+    return {
+      title: "Controlled Tree Widget",
+      examples: [
+        createComponentExample(
+          "Controlled Tree Widget",
+          undefined,
+          <div className="tree-widget-tree-container">
+            <TreeWidgetComponent />
+          </div>
+        ),
+      ],
+    };
+  }
+
   private static get uiProviderSample(): ComponentExampleCategory {
     const testUiLayoutDataProvider = new TestUiDataProvider();
     const componentGenerator = new ComponentGenerator(testUiLayoutDataProvider);
@@ -1327,6 +1343,7 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.settingsSample,
       ComponentExamplesProvider.statusBarSample,
       ComponentExamplesProvider.toolbarSample,
+      ComponentExamplesProvider.treeSample,
       ComponentExamplesProvider.uiProviderSample,
       ComponentExamplesProvider.widgetSample,
     ];

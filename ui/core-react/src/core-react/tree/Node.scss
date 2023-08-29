@@ -35,6 +35,10 @@ $node-font-size: var(--iui-font-size-1);
       margin-bottom: auto;
     }
 
+    > .blank-expansion-toggle {
+      width: 10px;
+    }
+
     > .core-image-checkbox {
       top: -1px;
     }
