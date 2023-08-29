@@ -1,6 +1,19 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Mon, 17 Jul 2023 10:16:20 GMT and should not be manually modified.
+This log was last generated on Tue, 15 Aug 2023 18:02:09 GMT and should not be manually modified.
+
+## 4.4.0
+Tue, 15 Aug 2023 18:02:09 GMT
+
+### Updates
+
+- Fix `clearHideIsolateEmphasizeElements` and `hideElements` button display when view changes happen outside AppUI's API.
+- Added `BlankConnection` event handling to `SyncUiEventDispatcher`.
+- Fixed store initialization when iModelConnection is set.
+- Fixed store reset when iModelConnection is cleared.
+- Remove obsolete ninezone term from API doc comments.
+- Fixed openCursorMenu so that it works in React 18 Strict Mode
+- `Toolbar` now correctly handles `Conditional` properties and support `enableOverflow` prop.
 
 ## 4.3.0
 Mon, 17 Jul 2023 10:16:20 GMT
