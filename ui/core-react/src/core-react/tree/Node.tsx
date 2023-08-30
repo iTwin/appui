@@ -142,7 +142,7 @@ export class TreeNode extends React.Component<TreeNodeProps> {
 
     const toggle =
       this.props.isLoading || this.props.isLeaf ? (
-        <div className={"blank-expansion-toggle"} />
+        <div />
       ) : (
         <ExpansionToggle
           className="expansion-toggle"
