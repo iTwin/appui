@@ -7,9 +7,7 @@
  */
 
 import { useEffect, useMemo, useState } from "react";
-import { defer } from "rxjs/internal/observable/defer";
-import { publish } from "rxjs/internal/operators/publish";
-import { refCount } from "rxjs/internal/operators/refCount";
+import { defer, share } from "rxjs";
 import {
   scheduleSubscription,
   SubscriptionScheduler,
@@ -49,7 +47,14 @@ export function useDebouncedAsyncValue<TReturn>(
     setInProgress(true);
     // schedule and subscribe to the observable emitting value from valueToBeResolved promise
     const subscription = defer(valueToBeResolved)
-      .pipe(publish(), refCount(), scheduleSubscription(scheduler))
+      .pipe(
+        share({
+          resetOnError: false,
+          resetOnComplete: false,
+          resetOnRefCountZero: true,
+        }),
+        scheduleSubscription(scheduler)
+      )
       .subscribe({
         next: (data) => {
           setValue(data);
