@@ -475,10 +475,6 @@
       "allowedCategories": [ "internal" ]
     },
     {
-      "name": "@wojtekmaj/enzyme-adapter-react-17",
-      "allowedCategories": [ "extensions", "frontend" ]
-    },
-    {
       "name": "@xmldom/xmldom",
       "allowedCategories": [ "backend", "common", "internal", "tools" ]
     },
@@ -625,14 +621,6 @@
     {
       "name": "electron",
       "allowedCategories": [ "backend", "internal", "tools" ]
-    },
-    {
-      "name": "enzyme",
-      "allowedCategories": [ "extensions", "frontend" ]
-    },
-    {
-      "name": "enzyme-to-json",
-      "allowedCategories": [ "extensions", "frontend" ]
     },
     {
       "name": "esbuild",
