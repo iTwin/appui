@@ -661,6 +661,21 @@ describe("usePropertyFilterBuilder", () => {
         (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
       ).to.be.eq(customErrorMessage);
     });
+
+    it("does not save errors if options specify to ignore them", () => {
+      const errorMessage = "My error";
+      const { result } = renderHook(() =>
+        usePropertyFilterBuilder({ ruleValidator: () => errorMessage })
+      );
+      const { buildFilter } = result.current;
+
+      buildFilter({ ignoreErrors: true });
+
+      const { rootGroup } = result.current;
+
+      expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage).to
+        .be.undefined;
+    });
   });
 
   describe("rule group", () => {

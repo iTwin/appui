@@ -158,6 +158,13 @@ export function useActiveRuleGroupContextProps(
 function useSetTimeout() {
   const timeoutRef = React.useRef<number>();
 
+  React.useEffect(() => {
+    // clear pending timeout on unmount
+    return () => {
+      window.clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
   return (callback: () => void) => {
     window.clearTimeout(timeoutRef.current);
     timeoutRef.current = window.setTimeout(callback);

@@ -3,9 +3,14 @@
 Table of contents:
 
 - [@itwin/components-react](#itwincomponents-react)
+  - [Additions](#additions)
   - [Fixes](#fixes)
 
 ## @itwin/components-react
+
+### Additions
+
+- `usePropertyFilterBuilder`: Added ability to build filter without showing errors.
 
 ### Fixes
 

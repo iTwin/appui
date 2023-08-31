@@ -192,6 +192,11 @@ export class BooleanTypeConverter extends TypeConverter {
     sortCompare(a: Primitives.Boolean, b: Primitives.Boolean, _ignoreCase?: boolean): number;
 }
 
+// @beta
+export interface BuildFilterOptions {
+    ignoreErrors?: boolean;
+}
+
 // @internal (undocumented)
 export function buildPropertyFilter(groupItem: PropertyFilterBuilderRuleGroupItem): PropertyFilter | undefined;
 
@@ -3534,11 +3539,7 @@ export function usePropertyData(props: {
 };
 
 // @beta
-export function usePropertyFilterBuilder(props?: UsePropertyFilterBuilderProps): {
-    rootGroup: PropertyFilterBuilderRuleGroup;
-    actions: PropertyFilterBuilderActions;
-    buildFilter: () => PropertyFilter | undefined;
-};
+export function usePropertyFilterBuilder(props?: UsePropertyFilterBuilderProps): UsePropertyFilterBuilderResult;
 
 // @beta
 export interface UsePropertyFilterBuilderProps {
@@ -3549,7 +3550,7 @@ export interface UsePropertyFilterBuilderProps {
 // @beta
 export interface UsePropertyFilterBuilderResult {
     actions: PropertyFilterBuilderActions;
-    buildFilter: () => PropertyFilter | undefined;
+    buildFilter: (options?: BuildFilterOptions) => PropertyFilter | undefined;
     rootGroup: PropertyFilterBuilderRuleGroup;
 }
 
