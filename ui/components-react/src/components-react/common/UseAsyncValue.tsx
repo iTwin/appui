@@ -7,9 +7,7 @@
  */
 
 import * as React from "react";
-import { from } from "rxjs/internal/observable/from";
-import { takeUntil } from "rxjs/internal/operators/takeUntil";
-import { Subject } from "rxjs/internal/Subject";
+import { from, Subject, takeUntil } from "rxjs";
 import { isPromiseLike, useEffectSkipFirst } from "@itwin/core-react";
 
 /**

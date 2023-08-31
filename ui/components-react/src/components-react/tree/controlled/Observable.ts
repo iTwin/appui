@@ -6,8 +6,7 @@
  * @module Tree
  */
 
-import { from as rxjsFrom } from "rxjs/internal/observable/from";
-import { Observable as RxjsObservable } from "rxjs/internal/Observable";
+import { from as rxjsFrom, Observable as RxjsObservable } from "rxjs";
 
 /**
  * Helper method that creates an Observable from Iterable or Promise.
