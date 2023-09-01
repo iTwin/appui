@@ -59,7 +59,7 @@ function constructToolbarItemArray<T extends boolean>(
     : Array<ToolbarActionItem | ToolbarGroupItem>;
 }
 
-/** Helper functions for defining an ToolbarComposer.
+/** Helper functions for defining a Toolbar items used in `Toolbar`, `ToolbarComposer` and `UiItemsProvider`.
  * @public
  */
 export class ToolbarHelper {
@@ -145,6 +145,9 @@ export class ToolbarHelper {
     }
   }
 
+  /**
+   * Helper method to creates a generic toolbar item entry list.
+   */
   public static createToolbarItemsFromItemDefs(
     itemDefs: AnyItemDef[],
     startingItemPriority = 10,
