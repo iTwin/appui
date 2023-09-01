@@ -4,15 +4,15 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as faker from "faker";
-import type { Observable as RxjsObservable } from "rxjs/internal/Observable";
-import { defer } from "rxjs/internal/observable/defer";
-import { from as rxjsFrom } from "rxjs/internal/observable/from";
+import type { Observable as RxjsObservable } from "rxjs";
+import { defer, from as rxjsFrom } from "rxjs";
 import sinon from "sinon";
 import * as moq from "typemoq";
 import { PropertyRecord } from "@itwin/appui-abstract";
-import type {
-  Observable,
-  Observer,
+import {
+  type Observable,
+  type Observer,
+  toRxjsObservable,
 } from "../../../components-react/tree/controlled/Observable";
 import type {
   MutableTreeModelNode,
@@ -114,7 +114,7 @@ const mockDataProvider = (
 };
 
 const extractLoadedNodeIds = async (obs: Observable<TreeNodeLoadResult>) => {
-  const loadResult = await extractSequence(rxjsFrom(obs));
+  const loadResult = await extractSequence(toRxjsObservable(obs));
   if (loadResult.length === 0) return [];
   return loadResult[0]!.loadedNodes.map((item) => item.id);
 };

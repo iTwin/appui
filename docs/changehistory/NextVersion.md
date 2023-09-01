@@ -4,13 +4,20 @@ Table of contents:
 
 - [@itwin/components-react](#itwincomponents-react)
   - [Fixes](#fixes)
+  - [Additions](#additions)
 - [@itwin/core-react](#itwincore-react)
   - [Fixes](#fixes-1)
 
 ## @itwin/components-react
 
+### Additions
+
+- `usePropertyFilterBuilder`: Added ability to build filter without showing errors.
+
 ### Fixes
 
+- `ControlledTree`: Fixed range selection over nodes that are not loaded causing browser to hang.
+- Removed `require` call from `TypeConverterManager` (No `require` calls remaining in any of the packages.)
 - `ControlledTree` spacing issue between nodes with and without expander is fixed.
 
 ## @itwin/core-react
