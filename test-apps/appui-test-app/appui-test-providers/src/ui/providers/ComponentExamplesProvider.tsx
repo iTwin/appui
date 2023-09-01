@@ -1285,9 +1285,7 @@ export class ComponentExamplesProvider {
         createComponentExample(
           "Controlled Tree Widget",
           undefined,
-          <div className="tree-widget-tree-container">
-            <TreeWidgetComponent />
-          </div>
+          <TreeWidgetComponent />
         ),
       ],
     };
