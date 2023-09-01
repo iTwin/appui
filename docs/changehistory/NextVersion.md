@@ -2,9 +2,17 @@
 
 Table of contents:
 
+- [@itwin/appui-react](#itwinappui-react)
+  - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Additions](#additions)
-  - [Fixes](#fixes)
+  - [Fixes](#fixes-1)
+
+## @itwin/appui-react
+
+### Fixes
+
+- `ToolbarHelper`: Fixed `badgeType` override.
 
 ## @itwin/components-react
 
