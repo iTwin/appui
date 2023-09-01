@@ -34,10 +34,6 @@ export const Basic: Story = {
   args: {
     width: 300,
     height: 300,
-    nodeLoader: undefined,
-    model: undefined,
-    eventsHandler: undefined,
-    selectionMode: undefined,
   },
   render: (props) => <TreeWidgetComponent {...props} />,
 };
@@ -108,22 +104,16 @@ function TreeWidgetComponent(props: ControlledTreeProps) {
 
   const modelSource = useTreeModelSource(dataProvider);
 
-  const nodeLoader = props.nodeLoader
-    ? props.nodeLoader
-    : useTreeNodeLoader(dataProvider, modelSource);
+  const nodeLoader = useTreeNodeLoader(dataProvider, modelSource);
 
-  const eventHandler = props.eventsHandler
-    ? props.eventsHandler
-    : useTreeEventsHandler({ modelSource, nodeLoader });
-  const treeModel = props.model ? props.model : useTreeModel(modelSource);
+  const eventsHandler = useTreeEventsHandler({ modelSource, nodeLoader });
+  const model = useTreeModel(modelSource);
 
   const defaultProps: ControlledTreeProps = {
-    model: treeModel,
+    model,
     nodeLoader,
-    eventsHandler: eventHandler,
-    selectionMode: props.selectionMode
-      ? props.selectionMode
-      : SelectionMode.Single,
+    eventsHandler,
+    selectionMode: SelectionMode.Single,
     width: props.width,
     height: props.height,
   };
