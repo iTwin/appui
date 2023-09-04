@@ -99,6 +99,11 @@ export class FrontstageDef {
   private _layout?: Layout;
 
   /** @internal */
+  public get initialConfig(): FrontstageConfig | undefined {
+    return this._initialConfig;
+  }
+
+  /** @internal */
   public get layout(): Layout | undefined {
     return this._layout;
   }

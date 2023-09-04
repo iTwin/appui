@@ -71,6 +71,7 @@ export * from "./appui-react/framework/FrameworkKeyboardShortcuts";
 export * from "./appui-react/framework/FrameworkToolSettings";
 export * from "./appui-react/framework/FrameworkVisibility";
 
+export * from "./appui-react/frontstage/CustomFrontstageProvider";
 export * from "./appui-react/frontstage/FrontstageConfig";
 export * from "./appui-react/frontstage/FrontstageDef";
 export * from "./appui-react/frontstage/FrontstageProvider";
@@ -94,6 +95,7 @@ export * from "./appui-react/keyboardshortcut/KeyboardShortcutMenu";
 
 export * from "./appui-react/spatial-layout/SpatialLayout";
 export * from "./appui-react/spatial-layout/SpatialLayoutWidget";
+export * from "./appui-react/spatial-layout/useSetupSpatialLayout";
 export * from "./appui-react/spatial-layout/useSpatialLayout";
 
 export * from "./appui-react/messages/AppNotificationManager";

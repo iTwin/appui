@@ -6,6 +6,7 @@
  * @module Frontstage
  */
 
+import type * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import type {
   ContentGroup,
@@ -52,4 +53,16 @@ export interface FrontstageConfig extends CommonProps {
   readonly rightPanel?: StagePanelConfig;
   /** Bottom panel of the application. */
   readonly bottomPanel?: StagePanelConfig;
+}
+
+/** @internal */
+export interface CustomFrontstageConfig extends FrontstageConfig {
+  readonly layout?: React.ReactNode;
+}
+
+/** @internal */
+export function isCustomFrontstageConfig(
+  config: FrontstageConfig
+): config is CustomFrontstageConfig {
+  return "layout" in config;
 }

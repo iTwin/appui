@@ -9,28 +9,37 @@ import {
   IModelViewportControl,
   SpatialLayoutWidget,
   SpatialLayout,
-  StageUsage,
   UiFramework,
   UiItemsManager,
+  ConfigurableUiContent,
+  useSetupSpatialLayout,
+  CustomFrontstageProvider,
+  WidgetPanelsFrontstageContent,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { AppUiDecorator } from "../../AppUiDecorator";
-import { StorybookFrontstageProvider } from "../../StorybookFrontstageProvider";
 import {
   contentManipulationProvider,
   contextNavigationProvider,
   viewNavigationProvider,
 } from "./ToolbarProviders";
 import { widgetProvider } from "./WidgetProvider";
-import { WidgetsInfo } from "./WidgetsInfo";
 import {
   ContentManipulationToolbar,
   ContextNavigationToolbar,
   ViewNavigationToolbar,
 } from "./Toolbars";
+import { WidgetsInfo } from "./WidgetsInfo";
 
-function Demo() {
+interface DemoProps {
+  widgetsInfo: boolean;
+}
+
+const DemoContext = React.createContext<DemoProps>({ widgetsInfo: true });
+
+function Demo(props: DemoProps) {
   const [initialized, setInitialized] = React.useState(false);
+
   React.useEffect(() => {
     const providers = [
       contentManipulationProvider,
@@ -42,10 +51,10 @@ function Demo() {
     void (async function () {
       await IModelApp.startup();
       await UiFramework.initialize(undefined);
+
       UiFramework.frontstages.addFrontstageProvider(
-        new StorybookFrontstageProvider({
+        new CustomFrontstageProvider({
           id: "main-frontstage",
-          usage: StageUsage.Private,
           contentGroupProps: {
             id: "ViewportContentGroup",
             layout: StandardContentLayouts.singleView,
@@ -57,9 +66,7 @@ function Demo() {
               },
             ],
           },
-          hideStatusBar: true,
-          hideToolSettings: true,
-          hideNavigationAid: true,
+          layout: <Layout />,
         })
       );
 
@@ -76,46 +83,33 @@ function Demo() {
     };
   }, []);
   if (!initialized) return null;
-  return <Initialized />;
-}
-
-function Initialized() {
   return (
-    <SpatialLayout style={{ height: "100vh" }} content={<Viewport />}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100%",
-          padding: "0.5em",
-          boxSizing: "border-box",
-          justifyContent: "space-between",
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <ContextNavigationToolbar />
-          <ViewNavigationToolbar />
-        </div>
-        <SpatialLayoutWidget />
-        <ContentManipulationToolbar />
-      </div>
-    </SpatialLayout>
+    <DemoContext.Provider value={props}>
+      <ConfigurableUiContent />
+    </DemoContext.Provider>
   );
 }
 
-function Viewport() {
-  const [hidden, setHidden] = React.useState(true);
+function Layout() {
+  useSetupSpatialLayout();
+  return (
+    <SpatialLayout
+      style={{ height: "100vh" }}
+      content={<Content />}
+      contextNavigation={<ContextNavigationToolbar />}
+      viewNavigation={<ViewNavigationToolbar />}
+      contentManipulation={<ContentManipulationToolbar />}
+      panel={<SpatialLayoutWidget />}
+    />
+  );
+}
+
+function Content() {
+  const { widgetsInfo } = React.useContext(DemoContext);
   return (
     <>
-      <div
-        style={{
-          height: "100%",
-          background: "radial-gradient(#666, #00000000)",
-          cursor: "pointer",
-        }}
-        onClick={() => setHidden((prev) => !prev)}
-      />
-      <WidgetsInfo style={{ visibility: hidden ? "hidden" : undefined }} />
+      <WidgetPanelsFrontstageContent /> {/* TODO: currently @internal */}
+      <WidgetsInfo style={{ visibility: widgetsInfo ? undefined : "hidden" }} />
     </>
   );
 }
@@ -124,6 +118,9 @@ const meta: Meta = {
   title: "Layouts/Spatial",
   component: Demo,
   decorators: [AppUiDecorator],
+  args: {
+    widgetsInfo: true,
+  },
 } satisfies Meta<typeof Demo>;
 
 export default meta;
