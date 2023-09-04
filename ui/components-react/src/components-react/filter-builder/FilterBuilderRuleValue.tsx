@@ -65,7 +65,7 @@ export function PropertyFilterBuilderRuleValue(
       onCancel={/* istanbul ignore next */ () => {}}
       onCommit={onValueChange}
       setFocus={false}
-      shouldCommitOnChange={true}
+      shouldCommitOnChange={false}
     />
   );
 }

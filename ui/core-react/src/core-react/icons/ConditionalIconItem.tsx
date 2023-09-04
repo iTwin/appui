@@ -30,7 +30,7 @@ export class ConditionalIconItem {
   /** A work-around for instanceOf
    * @internal
    */
-  public static isConditionalIconItem(item: any): boolean {
+  public static isConditionalIconItem(item: any): item is ConditionalIconItem {
     /* istanbul ignore else */
     if (!item || typeof item !== "object") return false;
     const itemPrototype = Object.getPrototypeOf(item);
@@ -70,7 +70,7 @@ export class ConditionalIconItem {
     )
       return false;
 
-    const iconItem = conditionalValue as ConditionalIconItem;
+    const iconItem = conditionalValue;
     /* istanbul ignore else */
     if (
       iconItem.syncEventIds.some((value: string): boolean =>
@@ -90,7 +90,7 @@ export class ConditionalIconItem {
 
     /* istanbul ignore else */
     if (ConditionalIconItem.isConditionalIconItem(conditionalValue)) {
-      const iconItem = conditionalValue as ConditionalIconItem;
+      const iconItem = conditionalValue;
       return iconItem.value;
     }
 

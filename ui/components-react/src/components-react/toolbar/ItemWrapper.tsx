@@ -14,7 +14,7 @@ import { useResizeObserver } from "@itwin/core-react";
 import {
   useToolbarWithOverflowDirectionContext,
   useToolItemEntryContext,
-} from "./ToolbarWithOverflow";
+} from "./InternalToolbarComponent";
 import {
   DirectionHelpers,
   OrthogonalDirectionHelpers,

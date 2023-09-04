@@ -238,7 +238,7 @@ export class ConditionalIconItem {
     // (undocumented)
     readonly iconGetter: () => IconSpec;
     // @internal
-    static isConditionalIconItem(item: any): boolean;
+    static isConditionalIconItem(item: any): item is ConditionalIconItem;
     refresh(): boolean;
     static refreshValue(conditionalValue: ConditionalIconItem | string | undefined, eventIds: Set<string>): boolean;
     // (undocumented)
@@ -421,8 +421,6 @@ export class Dialog extends React_2.Component<DialogProps, DialogState> {
     handleRefSet: (containerDiv: HTMLDivElement | null) => void;
     // (undocumented)
     render(): React_2.ReactElement;
-    // @internal (undocumented)
-    readonly state: Readonly<DialogState>;
 }
 
 // @public
