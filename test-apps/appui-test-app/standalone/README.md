@@ -8,12 +8,12 @@ The application contained within this directory provides a test environment for 
 
 The application may be run as an Electron app, Mobile app or within a browser. The following steps outline the procedure for successfully building the application as part of a larger monorepo, and then starting the application via npm scripts.
 
-1. To get started, follow the instructions to setup the entire repository, located [here](<../../README.md#Build\ Instructions>).
+1. To get started, follow the instructions to setup the entire repository, located [here](<../../../README.md#Build\ Instructions>).
 2. Optionally, set other environment variables to configure the application prior to startup. The full list of supported variable are [below](#environment-variables).
-3. Build the application code using `buildapp` script (`build` is reserved for rush overall builds, we use a different script to build this application backend to reduce normal builds):
+3. Build the application code using `build` script:
 
    ```cmd
-   npm run buildapp
+   npm run build
    ```
 
 - To start the application in Electron, navigate to the `standalone` directory under appui-test-app, and use the command:

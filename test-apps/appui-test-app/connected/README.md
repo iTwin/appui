@@ -8,7 +8,7 @@ The application contained within this directory provides a test environment for 
 
 The application may be run as an Electron app, Mobile app or within a browser. The following steps outline the procedure for successfully building the application as part of a larger monorepo, and then starting the application via npm scripts.
 
-1. To get started, follow the instructions to setup the entire repository, located [here](<../../README.md#Build\ Instructions>).
+1. To get started, follow the instructions to setup the entire repository, located [here](<../../../README.md#Build\ Instructions>).
 2. To work online, follow the configure the [client application section](#client-configuration).
 3. Set other environment variables to configure the application prior to startup. The full list of supported variable are [below](#environment-variables).
 4. Build the application code using `build` script:
