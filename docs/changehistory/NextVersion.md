@@ -2,11 +2,19 @@
 
 Table of contents:
 
+- [@itwin/appui-react](#itwinappui-react)
+  - [Fixes](#fixes-2)
 - [@itwin/components-react](#itwincomponents-react)
   - [Fixes](#fixes)
   - [Additions](#additions)
 - [@itwin/core-react](#itwincore-react)
   - [Fixes](#fixes-1)
+
+## @itwin/appui-react
+
+### Fixes
+
+- Can now pass a blank array into `allowedPanelTargets` that will prevent widget from being able to to dock to any target.
 
 ## @itwin/components-react
 
