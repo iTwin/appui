@@ -8,18 +8,8 @@ import { defer, from as rxjsFrom } from "rxjs";
 import sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { EmptyLocalization } from "@itwin/core-common";
-import {
-  Observable,
-  Observer,
-  toRxjsObservable,
-} from "../../../components-react/tree/controlled/Observable";
-import {
-  MutableTreeModel,
-  TreeModelNode,
-  TreeModelNodeInput,
-  TreeModelRootNode,
-  TreeNodeItemData,
-} from "../../../components-react/tree/controlled/TreeModel";
+import { toRxjsObservable } from "../../../components-react/tree/controlled/Observable";
+import { MutableTreeModel } from "../../../components-react/tree/controlled/TreeModel";
 import { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource";
 import {
   AbstractTreeNodeLoader,
@@ -42,6 +32,16 @@ import type {
   LoadedNodeHierarchy,
   TreeNodeLoadResult,
 } from "../../../components-react/tree/controlled/TreeNodeLoader";
+import type {
+  Observable,
+  Observer,
+} from "../../../components-react/tree/controlled/Observable";
+import type {
+  TreeModelNode,
+  TreeModelNodeInput,
+  TreeModelRootNode,
+  TreeNodeItemData,
+} from "../../../components-react/tree/controlled/TreeModel";
 import type {
   DelayLoadedTreeNodeItem,
   ImmediatelyLoadedTreeNodeItem,
