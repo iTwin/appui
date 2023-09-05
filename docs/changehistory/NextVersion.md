@@ -3,8 +3,10 @@
 Table of contents:
 
 - [@itwin/components-react](#itwincomponents-react)
-  - [Additions](#additions)
   - [Fixes](#fixes)
+  - [Additions](#additions)
+- [@itwin/core-react](#itwincore-react)
+  - [Fixes](#fixes-1)
 
 ## @itwin/components-react
 
@@ -17,3 +19,10 @@ Table of contents:
 - `ControlledTree`: Fixed range selection over nodes that are not loaded causing browser to hang.
 - Fixed `TreeNodeLoader` adding loaded nodes to model when `loadNode` observable is unsubscribed before nodes request is completed.
 - Removed `require` call from `TypeConverterManager` (No `require` calls remaining in any of the packages.)
+- `ControlledTree` spacing issue between nodes with and without expander is fixed.
+
+## @itwin/core-react
+
+### Fixes
+
+- Added blank space to `Node` component without expander, so that it aligns with `Node` with expander
