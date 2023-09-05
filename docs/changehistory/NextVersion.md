@@ -3,17 +3,18 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
-  - [Fixes](#fixes-2)
-- [@itwin/components-react](#itwincomponents-react)
   - [Fixes](#fixes)
+- [@itwin/components-react](#itwincomponents-react)
+  - [Fixes](#fixes-1)
   - [Additions](#additions)
 - [@itwin/core-react](#itwincore-react)
-  - [Fixes](#fixes-1)
+  - [Fixes](#fixes-2)
 
 ## @itwin/appui-react
 
 ### Fixes
 
+- `ToolbarHelper`: Fixed `badgeType` override.
 - Can now pass a blank array into `allowedPanelTargets` that will prevent widget from being able to to dock to any target.
 
 ## @itwin/components-react
@@ -25,6 +26,7 @@ Table of contents:
 ### Fixes
 
 - `ControlledTree`: Fixed range selection over nodes that are not loaded causing browser to hang.
+- Fixed `TreeNodeLoader` adding loaded nodes to model when `loadNode` observable is unsubscribed before nodes request is completed.
 - Removed `require` call from `TypeConverterManager` (No `require` calls remaining in any of the packages.)
 - `ControlledTree` spacing issue between nodes with and without expander is fixed.
 

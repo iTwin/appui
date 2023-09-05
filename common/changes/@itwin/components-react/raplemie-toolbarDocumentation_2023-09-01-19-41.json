@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/components-react",
+      "comment": "Improved `Toolbar` and `ToolbarWithOverflow` documentation regarding orientation.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/components-react"
+}

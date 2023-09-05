@@ -89,7 +89,7 @@ export interface ITreeNodeLoaderWithProvider<
  */
 export abstract class AbstractTreeNodeLoader implements ITreeNodeLoader {
   private _treeModelSource: TreeModelSource;
-  private _loadScheduler = new SubscriptionScheduler<TreeNodeLoadResult>();
+  private _loadScheduler = new SubscriptionScheduler<LoadedNodeHierarchy>();
 
   protected constructor(modelSource: TreeModelSource) {
     this._treeModelSource = modelSource;
@@ -105,13 +105,13 @@ export abstract class AbstractTreeNodeLoader implements ITreeNodeLoader {
     childIndex: number
   ): Observable<TreeNodeLoadResult> {
     return toRxjsObservable(this.load(parent, childIndex)).pipe(
+      scheduleSubscription(this._loadScheduler),
       map((loadedHierarchy) => {
         this.updateModel(loadedHierarchy);
         return {
           loadedNodes: collectTreeNodeItems(loadedHierarchy.hierarchyItems),
         };
-      }),
-      scheduleSubscription(this._loadScheduler)
+      })
     );
   }
 
@@ -169,7 +169,7 @@ export class TreeNodeLoader<
     string | undefined,
     RxjsObservable<TreeNodeLoadResult>
   >();
-  private _scheduler = new SubscriptionScheduler<TreeNodeLoadResult>();
+  private _scheduler = new SubscriptionScheduler<LoadedNodeHierarchy>();
 
   constructor(dataProvider: TDataProvider, modelSource: TreeModelSource) {
     super(modelSource, dataProvider);
@@ -199,13 +199,13 @@ export class TreeNodeLoader<
         0,
         parent.numChildren === undefined
       ).pipe(
+        scheduleSubscription(this._scheduler),
         map((loadedHierarchy) => {
           this.updateModel(loadedHierarchy);
           return {
             loadedNodes: collectTreeNodeItems(loadedHierarchy.hierarchyItems),
           };
         }),
-        scheduleSubscription(this._scheduler),
         finalize(() => this._activeRequests.delete(parentId))
       );
       this._activeRequests.set(parentId, newRequest);
@@ -232,7 +232,7 @@ export class PagedTreeNodeLoader<
     string | undefined,
     Map<number, RxjsObservable<TreeNodeLoadResult>>
   >;
-  private _scheduler: SubscriptionScheduler<TreeNodeLoadResult>;
+  private _scheduler: SubscriptionScheduler<LoadedNodeHierarchy>;
 
   constructor(
     dataProvider: TDataProvider,
@@ -279,13 +279,13 @@ export class PagedTreeNodeLoader<
         this._pageSize,
         parent.numChildren === undefined
       ).pipe(
+        scheduleSubscription(this._scheduler),
         map((loadedHierarchy) => {
           this.updateModel(loadedHierarchy);
           return {
             loadedNodes: collectTreeNodeItems(loadedHierarchy.hierarchyItems),
           };
         }),
-        scheduleSubscription(this._scheduler),
         finalize(() => {
           parentPageRequests.delete(page);
           if (parentPageRequests.size === 0) {
