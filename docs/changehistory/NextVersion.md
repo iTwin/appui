@@ -15,4 +15,5 @@ Table of contents:
 ### Fixes
 
 - `ControlledTree`: Fixed range selection over nodes that are not loaded causing browser to hang.
+- Fixed `TreeNodeLoader` adding loaded nodes to model when `loadNode` observable is unsubscribed before nodes request is completed.
 - Removed `require` call from `TypeConverterManager` (No `require` calls remaining in any of the packages.)
