@@ -5,8 +5,10 @@ Table of contents:
 - [@itwin/appui-react](#itwinappui-react)
   - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
-  - [Additions](#additions)
   - [Fixes](#fixes-1)
+  - [Additions](#additions)
+- [@itwin/core-react](#itwincore-react)
+  - [Fixes](#fixes-2)
 
 ## @itwin/appui-react
 
@@ -24,3 +26,10 @@ Table of contents:
 
 - `ControlledTree`: Fixed range selection over nodes that are not loaded causing browser to hang.
 - Removed `require` call from `TypeConverterManager` (No `require` calls remaining in any of the packages.)
+- `ControlledTree` spacing issue between nodes with and without expander is fixed.
+
+## @itwin/core-react
+
+### Fixes
+
+- Added blank space to `Node` component without expander, so that it aligns with `Node` with expander
