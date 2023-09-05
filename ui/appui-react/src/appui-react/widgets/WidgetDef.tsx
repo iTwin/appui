@@ -469,8 +469,7 @@ export class WidgetDef {
   public set allowedPanelTargets(
     targets: ReadonlyArray<StagePanelLocation> | undefined
   ) {
-    this._allowedPanelTargets =
-      targets && targets?.length > 0 ? targets : undefined;
+    this._allowedPanelTargets = targets && targets?.length > 0 ? targets : [];
   }
 
   public onWidgetStateChanged(): void {
