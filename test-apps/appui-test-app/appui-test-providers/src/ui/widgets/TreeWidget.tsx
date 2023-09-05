@@ -76,13 +76,18 @@ export function TreeWidgetComponent() {
 
   const nodeLoader = useTreeNodeLoader(dataProvider, modelSource);
 
-  const eventHandler = useTreeEventsHandler({ modelSource, nodeLoader });
+  const eventsHandler = useTreeEventsHandler(
+    React.useMemo(
+      () => ({ modelSource, nodeLoader }),
+      [modelSource, nodeLoader]
+    )
+  );
   const treeModel = useTreeModel(modelSource);
 
   const defaultProps: ControlledTreeProps = {
     model: treeModel,
     nodeLoader,
-    eventsHandler: eventHandler,
+    eventsHandler,
     selectionMode: SelectionMode.Single,
     width: 300,
     height: 300,

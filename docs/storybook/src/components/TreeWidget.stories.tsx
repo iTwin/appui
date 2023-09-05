@@ -106,7 +106,12 @@ function TreeWidgetComponent(props: ControlledTreeProps) {
 
   const nodeLoader = useTreeNodeLoader(dataProvider, modelSource);
 
-  const eventsHandler = useTreeEventsHandler({ modelSource, nodeLoader });
+  const eventsHandler = useTreeEventsHandler(
+    React.useMemo(
+      () => ({ modelSource, nodeLoader }),
+      [modelSource, nodeLoader]
+    )
+  );
   const model = useTreeModel(modelSource);
 
   const defaultProps: ControlledTreeProps = {
