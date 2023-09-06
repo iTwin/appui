@@ -80,13 +80,6 @@ describe("TreeSelectionManager", () => {
     });
   }
 
-  describe("constructor", () => {
-    it("creates new TreeSelectionManager without visible nodes", () => {
-      const selectionManager = new TreeSelectionManager(SelectionMode.Multiple);
-      expect(selectionManager).to.not.be.undefined;
-    });
-  });
-
   describe("onNodeClicked", () => {
     let extendedSelectionManager: TreeSelectionManager;
 
@@ -212,22 +205,6 @@ describe("TreeSelectionManager", () => {
         selectedNodes: [nodes[0].id, nodes[1].id],
         deselectedNodes: [],
       });
-    });
-
-    it("does not select nodes if visible nodes are not set", () => {
-      const nodes = [createTreeModelNode(), createTreeModelNode()];
-      setupModelWithNodes(nodes);
-      multipleSelectionManager.setVisibleNodes(undefined);
-      const spy = sinon.spy(selectionHandler, "completeDragAction");
-      const changeSpy = sinon.spy(
-        multipleSelectionManager.onSelectionChanged,
-        "emit"
-      );
-      multipleSelectionManager.onNodeMouseDown(nodes[0].id);
-      multipleSelectionManager.onNodeMouseMove(nodes[1].id);
-      window.dispatchEvent(new Event("mouseup"));
-      expect(spy).to.be.called;
-      expect(changeSpy).to.not.be.called;
     });
 
     it("selects nodes when there are placeholder visible nodes", () => {

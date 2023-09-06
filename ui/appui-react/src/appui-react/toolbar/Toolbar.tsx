@@ -32,7 +32,7 @@ export interface OverflowToolbarOptions {
  * @beta
  */
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
-  /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
+  /** Describes to which direction the popup panels are expanded, also defines the orientation of the toolbar (Top/Bottom will create an horizontal toolbar, Left/Right will create a vertical toolbar). Defaults to: [[Direction.Bottom]] */
   expandsTo?: Direction;
   /** Describes if items that do not fit available space should move to an expandable panel. Defaults to: false */
   enableOverflow?: boolean | OverflowToolbarOptions;

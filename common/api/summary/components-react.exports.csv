@@ -16,6 +16,7 @@ public;BasicPropertyEditor
 public;BooleanEditor 
 public;BooleanPropertyEditor 
 public;BooleanTypeConverter 
+beta;BuildFilterOptions
 internal;buildPropertyFilter(groupItem: PropertyFilterBuilderRuleGroupItem): PropertyFilter | undefined
 public;CategorizedPropertyItem 
 public;CategorizedPropertyTypes = FlatGridItemType.Array | FlatGridItemType.Primitive | FlatGridItemType.Struct
@@ -396,7 +397,7 @@ public;useControlledTreeLayoutStorage
 beta;useDebouncedAsyncValue
 public;usePagedTreeNodeLoader
 public;usePropertyData(props:
-beta;usePropertyFilterBuilder(props?: UsePropertyFilterBuilderProps):
+beta;usePropertyFilterBuilder(props?: UsePropertyFilterBuilderProps): UsePropertyFilterBuilderResult
 beta;UsePropertyFilterBuilderProps
 beta;UsePropertyFilterBuilderResult
 public;usePropertyGridEventHandler(props:

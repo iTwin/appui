@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "`ToolbarHelper`: Fix `badgeType` override.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

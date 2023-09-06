@@ -220,6 +220,18 @@ export interface UsePropertyFilterBuilderProps {
 }
 
 /**
+ * Options for [[UsePropertyFilterBuilderResult.buildFilter]].
+ * @beta
+ */
+export interface BuildFilterOptions {
+  /**
+   * Specifies whether errors encountered while validating filter rules should be ignored and not persisted in state.
+   * This is useful in case component needs to get filter matching rule validator but does not want to show errors in UI.
+   */
+  ignoreErrors?: boolean;
+}
+
+/**
  * Type for [[usePropertyFilterBuilder]] return object.
  * @beta
  */
@@ -233,7 +245,7 @@ export interface UsePropertyFilterBuilderResult {
    * custom validator provided through [[UsePropertyFilterBuilderProps]] to validate each rule.
    * @returns [[PropertyFilter]] if all rules are valid, `undefined` otherwise.
    */
-  buildFilter: () => PropertyFilter | undefined;
+  buildFilter: (options?: BuildFilterOptions) => PropertyFilter | undefined;
 }
 
 /**
@@ -243,7 +255,7 @@ export interface UsePropertyFilterBuilderResult {
  */
 export function usePropertyFilterBuilder(
   props?: UsePropertyFilterBuilderProps
-) {
+): UsePropertyFilterBuilderResult {
   const { initialFilter, ruleValidator } = props ?? {
     initialFilter: undefined,
     ruleValidator: undefined,
@@ -258,14 +270,19 @@ export function usePropertyFilterBuilder(
     () => new PropertyFilterBuilderActions(setState)
   );
 
-  const buildFilter = () => {
-    const ruleErrors = validateRules(state.rootGroup, ruleValidator);
-    actions.setRuleErrorMessages(ruleErrors);
-    if (ruleErrors.size > 0) {
-      return undefined;
-    }
-    return buildPropertyFilter(state.rootGroup);
-  };
+  const buildFilter = React.useCallback(
+    (options?: BuildFilterOptions) => {
+      const ruleErrors = validateRules(state.rootGroup, ruleValidator);
+      if (!options?.ignoreErrors) {
+        actions.setRuleErrorMessages(ruleErrors);
+      }
+
+      return ruleErrors.size === 0
+        ? buildPropertyFilter(state.rootGroup)
+        : undefined;
+    },
+    [state.rootGroup, actions, ruleValidator]
+  );
   return { rootGroup: state.rootGroup, actions, buildFilter };
 }
 
