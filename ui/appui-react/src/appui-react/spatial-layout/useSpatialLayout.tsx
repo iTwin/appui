@@ -8,7 +8,7 @@
 
 import { useStore } from "zustand";
 import { shallow } from "zustand/shallow";
-import type { SpatialLayoutState } from "./SpatialLayoutState";
+import type { SpatialLayoutState } from "./SpatialLayoutStore";
 import { useSpatialLayoutStore } from "./SpatialLayoutStore";
 
 /** @internal */

@@ -8,8 +8,8 @@
 
 import * as React from "react";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
+import type { SpatialLayoutState } from "./SpatialLayoutStore";
 import { useSpatialLayoutStore } from "./SpatialLayoutStore";
-import type { SpatialLayoutState } from "./SpatialLayoutState";
 import { WidgetState } from "../widgets/WidgetState";
 
 /** @internal */

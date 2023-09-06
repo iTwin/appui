@@ -12,20 +12,31 @@ import { useSpatialLayout } from "./useSpatialLayout";
 /** @internal */
 export function SpatialLayoutWidget() {
   const activeWidgetId = useSpatialLayout((state) => state.activeWidgetId);
+  const setPanelSize = useSpatialLayout((state) => state.layout.setPanelSize);
+  const panelSize = useSpatialLayout((state) => state.panelSize);
   const widgetDef = useSpecificWidgetDef(activeWidgetId || "");
   if (!widgetDef) return null;
   return (
     <Dialog isOpen={true}>
       <Dialog.Main
         data-iui-placement=""
-        style={{ top: "4em", left: "0.5em", height: "calc(100% - 4.5em)" }}
+        style={{
+          top: "4em",
+          left: "0.5em",
+          height: "calc(100% - 4.5em)",
+          width: panelSize,
+          minWidth: 150,
+        }}
       >
         <Dialog.TitleBar>
           <Dialog.TitleBar.Title>{widgetDef.label}</Dialog.TitleBar.Title>
           <IconButton
             size="small"
             styleType="borderless"
-            onClick={() => {}}
+            onClick={() => {
+              if (panelSize === 300) setPanelSize(500);
+              else setPanelSize(300);
+            }}
             aria-label="Expand"
           >
             <SvgWindowMaximize />
