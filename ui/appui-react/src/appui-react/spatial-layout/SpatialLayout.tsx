@@ -6,42 +6,33 @@
  * @module State
  */
 
-import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
+import { useSpatialLayoutStore } from "./SpatialLayoutStore";
+import type { Layout } from "../layout/Layout";
+import { WidgetState } from "../widgets/WidgetState";
+import produce from "immer";
+import { BeEvent } from "@itwin/core-bentley";
+import { getWidgetState } from "./useSpatialLayoutEvents";
 
 /** @internal */
-export interface SpatialLayoutProps extends CommonProps {
-  content?: React.ReactNode;
-  contextNavigation?: React.ReactNode;
-  viewNavigation?: React.ReactNode;
-  contentManipulation?: React.ReactNode;
-  panel?: React.ReactNode;
-}
-
-/** @internal */
-export function SpatialLayout(props: SpatialLayoutProps) {
-  return (
-    <div style={props.style}>
-      <div style={{ position: "absolute", height: "100%", width: "100%" }}>
-        {props.content}
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100%",
-          padding: "0.5em",
-          boxSizing: "border-box",
-          justifyContent: "space-between",
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          {props.contextNavigation}
-          {props.viewNavigation}
-        </div>
-        {props.panel}
-        {props.contentManipulation}
-      </div>
-    </div>
-  );
+export function createSpatialLayout(): Layout {
+  return {
+    setWidgetState: (id, state) => {
+      useSpatialLayoutStore.setState(
+        produce((draft) => {
+          if (state === WidgetState.Open) {
+            draft.activeWidgetId = id;
+            return;
+          }
+          if (draft.activeWidgetId === id) {
+            draft.activeWidgetId = undefined;
+          }
+        })
+      );
+    },
+    getWidgetState: (widgetId) => {
+      const state = useSpatialLayoutStore.getState();
+      return getWidgetState(state, widgetId);
+    },
+    onWidgetStateChanged: new BeEvent(),
+  };
 }

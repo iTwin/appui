@@ -47,7 +47,10 @@ import { PopoutWidget } from "../childwindow/PopoutWidget";
 import type { SavedWidgets } from "../widget-panels/Frontstage";
 import { FrameworkStateReducer } from "../widget-panels/Frontstage";
 import { assert, BentleyStatus, ProcessDetector } from "@itwin/core-bentley";
-import type { FrontstageConfig } from "./FrontstageConfig";
+import {
+  type FrontstageConfig,
+  isCustomFrontstageConfig,
+} from "./FrontstageConfig";
 import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import type { WidgetConfig } from "../widgets/WidgetConfig";
 import { StageUsage } from "./StageUsage";
@@ -97,7 +100,6 @@ export class FrontstageDef {
   private _savedWidgetDefs?: SavedWidgets;
   private _toolAdminDefaultToolId?: string;
   private _layout?: Layout;
-  private _layoutEventHandlers: Array<undefined | (() => void)> = [];
 
   /** @internal */
   public get initialConfig(): FrontstageConfig | undefined {
@@ -109,27 +111,17 @@ export class FrontstageDef {
     return this._layout;
   }
 
-  /** @internal */
-  public set layout(layout: Layout | undefined) {
-    this._layout = layout;
-    this.updateLayoutHandlers();
-  }
-
-  private updateLayoutHandlers() {
-    this._layoutEventHandlers.forEach((remove) => remove?.());
-    this._layoutEventHandlers = [];
+  private handleLayoutEvents() {
     if (!this._layout) return;
 
-    this._layoutEventHandlers = [
-      this._layout.onWidgetStateChanged?.addListener((id, widgetState) => {
-        const widgetDef = this.findWidgetDef(id);
-        if (!widgetDef) return;
-        UiFramework.frontstages.onWidgetStateChangedEvent.emit({
-          widgetDef,
-          widgetState,
-        });
-      }),
-    ];
+    this._layout.onWidgetStateChanged?.addListener((id, widgetState) => {
+      const widgetDef = this.findWidgetDef(id);
+      if (!widgetDef) return;
+      UiFramework.frontstages.onWidgetStateChangedEvent.emit({
+        widgetDef,
+        widgetState,
+      });
+    });
   }
 
   public get id(): string {
@@ -670,6 +662,11 @@ export class FrontstageDef {
 
     this._usage = config.usage;
     this._version = config.version;
+
+    if (isCustomFrontstageConfig(config)) {
+      this._layout = config.layout;
+      this.handleLayoutEvents();
+    }
 
     this._toolSettings = createWidgetDef(
       config.toolSettings,

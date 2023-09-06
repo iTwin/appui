@@ -14,6 +14,7 @@ import {
   CustomFrontstageProvider,
   WidgetPanelsFrontstageContent,
   SpatialFrontstage,
+  createSpatialLayout,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { AppUiDecorator } from "../../AppUiDecorator";
@@ -66,6 +67,7 @@ function Demo(props: DemoProps) {
             ],
           },
           content: <Layout />,
+          layout: createSpatialLayout(),
         })
       );
 

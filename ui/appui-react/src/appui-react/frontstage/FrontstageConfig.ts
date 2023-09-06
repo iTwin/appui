@@ -14,6 +14,7 @@ import type {
 } from "../content/ContentGroup";
 import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import type { WidgetConfig } from "../widgets/WidgetConfig";
+import type { Layout } from "../layout/Layout";
 
 /** Configuration from which a frontstage is created.
  * @public
@@ -58,6 +59,7 @@ export interface FrontstageConfig extends CommonProps {
 /** @internal */
 export interface CustomFrontstageConfig extends FrontstageConfig {
   readonly content?: React.ReactNode;
+  readonly layout?: Layout;
 }
 
 /** @internal */
