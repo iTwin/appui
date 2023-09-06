@@ -97,6 +97,7 @@ export class FrontstageDef {
   private _savedWidgetDefs?: SavedWidgets;
   private _toolAdminDefaultToolId?: string;
   private _layout?: Layout;
+  private _layoutEventHandlers: Array<undefined | (() => void)> = [];
 
   /** @internal */
   public get initialConfig(): FrontstageConfig | undefined {
@@ -111,6 +112,24 @@ export class FrontstageDef {
   /** @internal */
   public set layout(layout: Layout | undefined) {
     this._layout = layout;
+    this.updateLayoutHandlers();
+  }
+
+  private updateLayoutHandlers() {
+    this._layoutEventHandlers.forEach((remove) => remove?.());
+    this._layoutEventHandlers = [];
+    if (!this._layout) return;
+
+    this._layoutEventHandlers = [
+      this._layout.onWidgetStateChanged?.addListener((id, widgetState) => {
+        const widgetDef = this.findWidgetDef(id);
+        if (!widgetDef) return;
+        UiFramework.frontstages.onWidgetStateChangedEvent.emit({
+          widgetDef,
+          widgetState,
+        });
+      }),
+    ];
   }
 
   public get id(): string {

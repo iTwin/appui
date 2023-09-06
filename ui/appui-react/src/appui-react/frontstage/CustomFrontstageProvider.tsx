@@ -14,7 +14,7 @@ import type { CustomFrontstageConfig } from "./FrontstageConfig";
 /** @internal */
 export interface CustomFrontstageProviderProps
   extends Pick<StandardFrontstageProps, "id" | "contentGroupProps"> {
-  layout?: React.ReactNode;
+  content?: React.ReactNode;
 }
 
 /** @internal */
@@ -36,7 +36,7 @@ export class CustomFrontstageProvider extends FrontstageProvider {
       id: this._props.id,
       contentGroup,
       version: 1.0,
-      layout: this._props.layout,
+      content: this._props.content,
     };
   }
 }

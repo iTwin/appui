@@ -420,11 +420,7 @@ export class WidgetDef {
     if (frontstageDef?.layout) {
       const widgetDef = frontstageDef.findWidgetDef(this.id);
       if (!widgetDef) return;
-      frontstageDef.layout.dispatch({
-        type: "SET_WIDGET_STATE",
-        id: this.id,
-        state: newState,
-      });
+      frontstageDef.layout.setWidgetState(this.id, newState);
       return;
     }
     if (this.state === newState) return;

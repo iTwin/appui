@@ -8,13 +8,12 @@ import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   IModelViewportControl,
   SpatialLayoutWidget,
-  SpatialLayout,
   UiFramework,
   UiItemsManager,
   ConfigurableUiContent,
-  useSetupSpatialLayout,
   CustomFrontstageProvider,
   WidgetPanelsFrontstageContent,
+  SpatialFrontstage,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { AppUiDecorator } from "../../AppUiDecorator";
@@ -66,7 +65,7 @@ function Demo(props: DemoProps) {
               },
             ],
           },
-          layout: <Layout />,
+          content: <Layout />,
         })
       );
 
@@ -91,9 +90,8 @@ function Demo(props: DemoProps) {
 }
 
 function Layout() {
-  useSetupSpatialLayout();
   return (
-    <SpatialLayout
+    <SpatialFrontstage
       style={{ height: "100vh" }}
       content={<Content />}
       contextNavigation={<ContextNavigationToolbar />}

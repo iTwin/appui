@@ -6,12 +6,15 @@
  * @module State
  */
 
-import type { Dispatch } from "./Action";
 import type { WidgetState } from "../widgets/WidgetState";
 import type { WidgetDef } from "../widgets/WidgetDef";
+import type { BeEvent } from "@itwin/core-bentley";
 
 /** @internal */
 export interface Layout {
-  dispatch: Dispatch;
-  getWidgetState(widgetId: WidgetDef["id"]): WidgetState;
+  readonly setWidgetState: (id: WidgetDef["id"], state: WidgetState) => void;
+  readonly getWidgetState: (id: WidgetDef["id"]) => WidgetState;
+  readonly onWidgetStateChanged: BeEvent<
+    (id: WidgetDef["id"], state: WidgetState) => void
+  >;
 }

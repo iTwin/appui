@@ -93,9 +93,9 @@ export * from "./appui-react/hooks/useUiVisibility";
 export * from "./appui-react/keyboardshortcut/KeyboardShortcut";
 export * from "./appui-react/keyboardshortcut/KeyboardShortcutMenu";
 
+export * from "./appui-react/spatial-layout/SpatialFrontstage";
 export * from "./appui-react/spatial-layout/SpatialLayout";
 export * from "./appui-react/spatial-layout/SpatialLayoutWidget";
-export * from "./appui-react/spatial-layout/useSetupSpatialLayout";
 export * from "./appui-react/spatial-layout/useSpatialLayout";
 
 export * from "./appui-react/messages/AppNotificationManager";

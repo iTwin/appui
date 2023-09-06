@@ -6,17 +6,13 @@
  * @module State
  */
 
-import type { WidgetState } from "../widgets/WidgetState";
+import * as React from "react";
+import type { SpatialLayoutProps } from "./SpatialLayout";
+import { SpatialLayout } from "./SpatialLayout";
+import { useSetupSpatialLayout } from "./useSetupSpatialLayout";
 
 /** @internal */
-export type Dispatch = (action: Action) => void;
-
-/** @internal */
-export interface SetWidgetStateAction {
-  readonly type: "SET_WIDGET_STATE";
-  readonly id: string;
-  readonly state: WidgetState;
+export function SpatialFrontstage(props: SpatialLayoutProps) {
+  useSetupSpatialLayout();
+  return <SpatialLayout {...props} />;
 }
-
-/** @internal */
-export type Action = SetWidgetStateAction;

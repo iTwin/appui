@@ -57,12 +57,12 @@ export interface FrontstageConfig extends CommonProps {
 
 /** @internal */
 export interface CustomFrontstageConfig extends FrontstageConfig {
-  readonly layout?: React.ReactNode;
+  readonly content?: React.ReactNode;
 }
 
 /** @internal */
 export function isCustomFrontstageConfig(
   config: FrontstageConfig
 ): config is CustomFrontstageConfig {
-  return "layout" in config;
+  return "content" in config;
 }

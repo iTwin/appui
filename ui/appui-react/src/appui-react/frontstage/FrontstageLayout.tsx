@@ -16,7 +16,7 @@ export function FrontstageLayout() {
   const frontstageDef = useActiveFrontstageDef();
   const config = frontstageDef?.initialConfig;
   if (config && isCustomFrontstageConfig(config)) {
-    return <>{config.layout}</>;
+    return <>{config.content}</>;
   }
   return <WidgetPanelsFrontstage />;
 }
