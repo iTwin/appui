@@ -2,6 +2,18 @@
   "name": "@itwin/core-react",
   "entries": [
     {
+      "version": "4.5.0",
+      "tag": "@itwin/core-react_v4.5.0",
+      "date": "Wed, 06 Sep 2023 17:29:22 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Added ControlledTree to component providers example. Fixed spacing issue with ControlledTree"
+          }
+        ]
+      }
+    },
+    {
       "version": "4.4.0",
       "tag": "@itwin/core-react_v4.4.0",
       "date": "Tue, 15 Aug 2023 18:02:09 GMT",
