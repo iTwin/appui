@@ -1626,6 +1626,9 @@ export function useToolSettingsEntry(): DockedToolSettingsEntryContextArgs;
 export function useTransientState(onSave?: () => void, onRestore?: () => void): void;
 
 // @internal (undocumented)
+export function useWidgetAllowedToDock(): boolean;
+
+// @internal (undocumented)
 export type VerticalPanelSide = LeftPanelSide | RightPanelSide;
 
 // @internal (undocumented)

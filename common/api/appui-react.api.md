@@ -3732,7 +3732,7 @@ export enum SelectionScope {
 }
 
 // @public
-export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "availableSelectionScopes" | "activeSelectionScope">>;
+export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "activeSelectionScope" | "availableSelectionScopes">>;
 
 // @public
 export interface SessionState {
@@ -5295,7 +5295,6 @@ export interface Widget {
     readonly canFloat?: boolean | CanFloatWidgetOptions;
     readonly canPopout?: boolean;
     readonly content?: React.ReactNode;
-    // (undocumented)
     readonly defaultState?: WidgetState;
     // (undocumented)
     readonly icon?: IconSpec;
