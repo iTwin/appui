@@ -19,30 +19,11 @@ import { PinToggle } from "./PinToggle";
 import { PopoutToggle } from "./PopoutToggle";
 import { useLayout } from "../base/LayoutStore";
 import { useFloatingWidgetId, useWidgetAllowedToDock } from "./FloatingWidget";
-import { getWidgetState } from "../state/internal/WidgetStateHelpers";
-
 /** @internal */
 export function TabBarButtons() {
   const isToolSettings = useIsToolSettingsTab();
   const floatingWidgetId = useFloatingWidgetId();
   const canBeDocked = useWidgetAllowedToDock();
-  const allTabsCanBeDocked = useLayout((state) => {
-    let noDockingCount = 0;
-    if (floatingWidgetId) {
-      const widget = getWidgetState(state, floatingWidgetId);
-      widget.tabs.forEach((tab) => {
-        const innerTab = state.tabs[tab];
-        if (innerTab.allowedPanelTargets?.length === 0) {
-          noDockingCount++;
-        }
-      });
-    }
-    if (noDockingCount === 0) {
-      return true;
-    } else {
-      return false;
-    }
-  });
 
   const isMainPanelWidget = useIsMainPanelWidget();
   const tabId = useActiveTabId();
@@ -53,10 +34,7 @@ export function TabBarButtons() {
   return (
     <div className="nz-widget-tabBarButtons">
       {canPopout && <PopoutToggle />}
-      {floatingWidgetId &&
-        !isToolSettings &&
-        canBeDocked &&
-        allTabsCanBeDocked && <SendBack />}
+      {floatingWidgetId && !isToolSettings && canBeDocked && <SendBack />}
       {isToolSettings && <Dock />}
       {isMainPanelWidget && <PinToggle />}
     </div>

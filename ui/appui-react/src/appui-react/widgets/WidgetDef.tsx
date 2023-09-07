@@ -290,7 +290,11 @@ export class WidgetDef {
       this._defaultState = config.defaultState;
     }
 
-    if (config.allowedPanels && config.allowedPanels.length === 0) {
+    if (
+      config.allowedPanels &&
+      config.allowedPanels.length === 0 &&
+      config.defaultState === WidgetState.Open
+    ) {
       this._defaultState = 3;
     }
 
@@ -477,12 +481,7 @@ export class WidgetDef {
   public set allowedPanelTargets(
     targets: ReadonlyArray<StagePanelLocation> | undefined
   ) {
-    this._allowedPanelTargets =
-      targets && targets?.length > 0
-        ? targets
-        : targets?.length === 0
-        ? []
-        : undefined;
+    this._allowedPanelTargets = targets;
   }
 
   public onWidgetStateChanged(): void {
