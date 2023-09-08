@@ -1,6 +1,13 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Wed, 06 Sep 2023 17:29:22 GMT and should not be manually modified.
+This log was last generated on Fri, 08 Sep 2023 16:10:53 GMT and should not be manually modified.
+
+## 4.5.1
+Fri, 08 Sep 2023 16:10:53 GMT
+
+### Updates
+
+- Fix an issue with `useSpecificWidgetDef` to correctly return re-created WidgetDef.
 
 ## 4.5.0
 Wed, 06 Sep 2023 17:29:22 GMT
