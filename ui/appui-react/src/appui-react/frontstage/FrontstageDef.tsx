@@ -669,6 +669,10 @@ export class FrontstageDef {
         allStageWidgetDefs
       );
     });
+
+    InternalFrontstageManager.onFrontstageWidgetsChangedEvent.emit({
+      frontstageDef: this,
+    });
   }
 
   /** @beta */
@@ -1208,5 +1212,17 @@ export function useActiveFrontstageDef() {
  */
 export function useSpecificWidgetDef(widgetId: string) {
   const frontstageDef = useActiveFrontstageDef();
-  return frontstageDef?.findWidgetDef(widgetId);
+  const [widgetDef, setWidgetDef] = React.useState(() =>
+    frontstageDef?.findWidgetDef(widgetId)
+  );
+  React.useEffect(() => {
+    setWidgetDef(frontstageDef?.findWidgetDef(widgetId));
+    return InternalFrontstageManager.onFrontstageWidgetsChangedEvent.addListener(
+      (args) => {
+        if (args.frontstageDef !== frontstageDef) return;
+        setWidgetDef(frontstageDef.findWidgetDef(widgetId));
+      }
+    );
+  }, [frontstageDef, widgetId]);
+  return widgetDef;
 }
