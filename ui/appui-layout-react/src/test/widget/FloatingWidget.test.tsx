@@ -21,10 +21,6 @@ import {
   WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
-import {
-  getWidgetState,
-  removeFloatingWidget,
-} from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 
 describe("FloatingWidget", () => {
   it("should render", () => {
