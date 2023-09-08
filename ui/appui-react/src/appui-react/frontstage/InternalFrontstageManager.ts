@@ -269,6 +269,10 @@ export class InternalFrontstageManager {
   public static readonly onFrontstageRestoreLayoutEvent =
     new UiEvent<FrontstageEventArgs>();
 
+  /** @internal */
+  public static readonly onFrontstageWidgetsChangedEvent =
+    new UiEvent<FrontstageEventArgs>();
+
   /** Get panel state changed event.
    * @alpha
    */
