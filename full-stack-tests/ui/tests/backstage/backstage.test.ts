@@ -5,12 +5,13 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test("backstage test", async ({ page }) => {
-  await openComponentExamples(page);
+test("backstage test", async ({ page, baseURL }) => {
+  await openComponentExamples(page, baseURL);
 
   await page.getByRole("button", { name: "Backstage", exact: true }).click();
 
   await page.getByRole("button", { name: "Open Backstage" }).click();
+
   const backstage = page.locator("#uifw-configurableui-wrapper div").filter({
     hasText:
       "View iModelReview iModelSimple viewportSimple custom frontstageCustom Contentfro",

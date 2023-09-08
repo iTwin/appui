@@ -5,8 +5,8 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test("modal frontstage test", async ({ page }) => {
-  await openComponentExamples(page);
+test("modal frontstage test", async ({ page, baseURL }) => {
+  await openComponentExamples(page, baseURL);
 
   await page.getByRole("button", { name: "Frontstage", exact: true }).click();
 

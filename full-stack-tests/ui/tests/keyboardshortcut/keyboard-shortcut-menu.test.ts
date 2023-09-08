@@ -5,8 +5,8 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test("keyboard shortcut menu test", async ({ page }) => {
-  await openComponentExamples(page);
+test("keyboard shortcut menu test", async ({ page, baseURL }) => {
+  await openComponentExamples(page, baseURL);
 
   await page
     .getByRole("button", { name: "KeyboardShortcut", exact: true })
@@ -15,6 +15,7 @@ test("keyboard shortcut menu test", async ({ page }) => {
   await page
     .getByRole("button", { name: "Open Keyboard Shortcut Menu" })
     .click();
+
   const keyboardShortcutMenu = page.getByText(
     "M AccuDraw TestsN Bump Tool Setting ToggleF Focus into Tool SettingsA AccuDrawS "
   );

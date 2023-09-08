@@ -5,8 +5,8 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test("cursor popup content test", async ({ page }) => {
-  await openComponentExamples(page);
+test("cursor popup content test", async ({ page, baseURL }) => {
+  await openComponentExamples(page, baseURL);
 
   await page.getByRole("button", { name: "Cursor", exact: true }).click();
 

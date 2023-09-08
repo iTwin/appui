@@ -6,8 +6,8 @@ import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 import { stat } from "fs";
 
-test("status bar indicator test", async ({ page }) => {
-  await openComponentExamples(page);
+test("status bar indicator test", async ({ page, baseURL }) => {
+  await openComponentExamples(page, baseURL);
 
   await page.getByRole("button", { name: "StatusBar", exact: true }).click();
 

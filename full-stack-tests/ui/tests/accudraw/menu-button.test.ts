@@ -5,8 +5,8 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test("menu button test", async ({ page }) => {
-  await openComponentExamples(page);
+test("menu button test", async ({ page, baseURL }) => {
+  await openComponentExamples(page, baseURL);
 
   await page.getByRole("button", { name: "AccuDraw", exact: true }).click();
 

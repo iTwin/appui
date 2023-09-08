@@ -5,8 +5,8 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test("backstage app button test", async ({ page }) => {
-  await openComponentExamples(page);
+test("backstage app button test", async ({ page, baseURL }) => {
+  await openComponentExamples(page, baseURL);
 
   await page.getByRole("button", { name: "Widget", exact: true }).click();
 

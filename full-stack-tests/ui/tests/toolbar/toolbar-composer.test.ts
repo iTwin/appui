@@ -5,8 +5,8 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test("toolbar composer test", async ({ page }) => {
-  await openComponentExamples(page);
+test("toolbar composer test", async ({ page, baseURL }) => {
+  await openComponentExamples(page, baseURL);
 
   await page.getByRole("button", { name: "Toolbar", exact: true }).click();
 

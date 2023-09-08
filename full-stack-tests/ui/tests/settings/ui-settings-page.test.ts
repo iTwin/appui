@@ -5,8 +5,8 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test("ui settings page test", async ({ page }) => {
-  await openComponentExamples(page);
+test("ui settings page test", async ({ page, baseURL }) => {
+  await openComponentExamples(page, baseURL);
 
   await page.getByRole("button", { name: "Settings", exact: true }).click();
 

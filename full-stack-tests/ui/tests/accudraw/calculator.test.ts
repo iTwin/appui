@@ -5,10 +5,8 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test("calculator test", async ({ page }) => {
-  await openComponentExamples(page);
-
-  await page.getByRole("button", { name: "AccuDraw", exact: true }).click();
+test("calculator test", async ({ page, baseURL }) => {
+  await openComponentExamples(page, baseURL);
 
   const calculator = page
     .locator("div:nth-child(5) > div:nth-child(2)")

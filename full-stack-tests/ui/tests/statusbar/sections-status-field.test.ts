@@ -5,15 +5,13 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test("sections status field test", async ({ page }) => {
-  await openComponentExamples(page);
+test("sections status field test", async ({ page, baseURL }) => {
+  await openComponentExamples(page, baseURL);
 
   await page.getByRole("button", { name: "StatusBar", exact: true }).click();
 
-  //page.waitForSelector('div');
-  //await page.locator('div').filter({ hasText: /^Sections Status Field\.cls-1\{opacity:0\.5;isolation:isolate;\}$/ }).getByRole('button').click();
-  const sectionsStatusField = page.locator(
-    "div:nth-child(6) > div:nth-child(2)"
-  );
+  const sectionsStatusField = page
+    .locator("div:nth-child(6) > div:nth-child(2)")
+    .first();
   await expect(sectionsStatusField).toHaveScreenshot();
 });

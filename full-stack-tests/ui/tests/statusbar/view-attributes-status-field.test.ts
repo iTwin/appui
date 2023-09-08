@@ -5,12 +5,11 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test("view attributes status field test", async ({ page }) => {
-  await openComponentExamples(page);
+test("view attributes status field test", async ({ page, baseURL }) => {
+  await openComponentExamples(page, baseURL);
 
   await page.getByRole("button", { name: "StatusBar", exact: true }).click();
 
-  //await page.getByRole('button', { name: 'View Attributes' }).click();
   const viewAttributesStatusField = page
     .locator("div:nth-child(5) > div:nth-child(2)")
     .first();

@@ -5,8 +5,8 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test("tool settings grid container test", async ({ page }) => {
-  await openComponentExamples(page);
+test("tool settings grid container test", async ({ page, baseURL }) => {
+  await openComponentExamples(page, baseURL);
 
   await page.getByRole("button", { name: "UiProvider", exact: true }).click();
 
