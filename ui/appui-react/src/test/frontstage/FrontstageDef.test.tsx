@@ -14,7 +14,7 @@ import {
 } from "@itwin/appui-layout-react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { ProcessDetector } from "@itwin/core-bentley";
-import { renderHook } from "@testing-library/react-hooks";
+import { act, renderHook } from "@testing-library/react-hooks";
 import type {
   FrontstageConfig,
   UiItemsProvider,
@@ -932,6 +932,16 @@ describe("float and dock widget", () => {
 });
 
 describe("useSpecificWidgetDef", () => {
+  before(async () => {
+    await NoRenderApp.startup();
+    await TestUtils.initializeUiFramework();
+  });
+
+  after(async () => {
+    await IModelApp.shutdown();
+    TestUtils.terminateUiFramework();
+  });
+
   it("should return widgetDef from active frontstage", () => {
     const frontstageDef = new FrontstageDef();
     const widgetDef = new WidgetDef();
@@ -952,5 +962,37 @@ describe("useSpecificWidgetDef", () => {
     const { result } = renderHook(() => useSpecificWidgetDef("t1"));
 
     expect(result.current).to.be.undefined;
+  });
+
+  it("should return re-created dynamic widgetDef", async () => {
+    const frontstageDef = new FrontstageDef();
+    await frontstageDef.initializeFromConfig(defaultFrontstageConfig);
+    UiItemsManager.register({
+      id: "provider1",
+      provideWidgets: () => [
+        {
+          id: "w1",
+        },
+      ],
+    });
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
+
+    const initialDef = frontstageDef.findWidgetDef("w1");
+    const { result } = renderHook(() => useSpecificWidgetDef("w1"));
+    expect(initialDef).to.exist;
+    expect(initialDef).to.eq(result.current);
+
+    await act(async () => {
+      // Re-creates dynamic widgets.
+      await UiFramework.frontstages.setActiveFrontstageDef(undefined);
+      await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
+    });
+
+    const recreatedDef = frontstageDef.findWidgetDef("w1");
+    expect(recreatedDef).to.exist;
+    expect(recreatedDef).to.not.eq(initialDef);
+    expect(recreatedDef).to.eq(result.current);
+
+    UiItemsManager.unregister("provider1");
   });
 });

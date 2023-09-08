@@ -288,14 +288,11 @@ test.describe("widget state", () => {
     await expect(widget).toHaveCount(2);
   });
 
-  test("should float a widget that is hidden by default", async ({
-    context,
-    page,
-  }) => {
+  test("should float a widget that is hidden by default", async ({ page }) => {
     const tab = tabLocator(page, "FW-H1");
     await expect(tab).toBeHidden();
 
-    setWidgetState(page, "FW-H1", WidgetState.Floating);
+    await setWidgetState(page, "FW-H1", WidgetState.Floating);
     await expect(tab).toBeVisible();
   });
 });
