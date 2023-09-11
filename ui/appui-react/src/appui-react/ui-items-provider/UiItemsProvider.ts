@@ -15,6 +15,7 @@ import type {
   ToolbarOrientation,
   ToolbarUsage,
 } from "../toolbar/ToolbarItem";
+import type { ToolbarItemLocation } from "../toolbar/ToolbarItemLocation";
 import type { Widget } from "../widgets/Widget";
 
 /** Describes interface of objects that want to provide UI component to the running IModelApp.
@@ -23,6 +24,15 @@ import type { Widget } from "../widgets/Widget";
 export interface UiItemsProvider {
   /** Id of provider. */
   readonly id: string;
+
+  /** Provides toolbar items.
+   * @internal
+   */
+  readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
+  /** Provides toolbar item locations for the layout.
+   * @internal
+   */
+  readonly getToolbarItemLocations?: () => ReadonlyArray<ToolbarItemLocation>;
 
   /** Provides toolbar items. */
   readonly provideToolbarItems?: (

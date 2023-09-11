@@ -7,7 +7,7 @@ import { ToolbarItem, isToolbarActionItem } from "@itwin/appui-react";
 import { ButtonGroup, IconButton } from "@itwin/itwinui-react";
 
 export interface ToolbarProps {
-  items: ToolbarItem[];
+  items: ReadonlyArray<ToolbarItem>;
   orientation?: "horizontal" | "vertical";
 }
 

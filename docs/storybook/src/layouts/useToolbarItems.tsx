@@ -14,9 +14,9 @@ import {
 } from "@itwin/appui-react";
 
 export function useToolbarItems(
-  usage: ToolbarUsage, // TODO: no usage, orientation args
+  usage: ToolbarUsage,
   orientation: ToolbarOrientation
-): ToolbarItem[] {
+): ReadonlyArray<ToolbarItem> {
   const [items, setItems] = React.useState<ToolbarItem[]>([]);
   const providerIds = useAvailableUiItemsProviders();
   const providerIdsStr = providerIds.join("-");
@@ -37,7 +37,7 @@ export function useToolbarItems(
   return items;
 }
 
-export function useGroupToolbarItems(items: ToolbarItem[]) {
+export function useGroupToolbarItems(items: ReadonlyArray<ToolbarItem>) {
   const priorityToItems = items.reduce<Map<number, ToolbarItem[]>>(
     (acc, item) => {
       const groupPriority = item.groupPriority ?? 0;
