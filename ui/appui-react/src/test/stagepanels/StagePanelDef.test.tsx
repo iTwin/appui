@@ -8,7 +8,6 @@ import * as sinon from "sinon";
 import { createNineZoneState } from "@itwin/appui-layout-react";
 import {
   FrontstageDef,
-  setPanelSize,
   StagePanelDef,
   StagePanelLocation,
   StagePanelState,
@@ -45,7 +44,7 @@ describe("StagePanelDef", () => {
     const spy = sinon.spy();
     UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
     const panelDef = new StagePanelDef();
-    panelDef.panelState = StagePanelState.Minimized;
+    panelDef.handlePanelStateChanged(StagePanelState.Minimized);
     expect(spy).to.be.calledOnceWithExactly(
       sinon.match({ panelDef, panelState: StagePanelState.Minimized })
     );
@@ -71,7 +70,7 @@ describe("StagePanelDef", () => {
     const spy = sinon.spy();
     InternalFrontstageManager.onPanelSizeChangedEvent.addListener(spy);
     const panelDef = new StagePanelDef();
-    panelDef.size = 200;
+    panelDef.handleSizeChanged(200);
     expect(spy).to.be.calledOnceWithExactly(
       sinon.match({ panelDef, size: 200 })
     );
@@ -187,16 +186,5 @@ describe("toPanelSide", () => {
 
   it("should return 'top'", () => {
     toPanelSide(StagePanelLocation.Top).should.eq("top");
-  });
-});
-
-describe("setPanelSize", () => {
-  it("should reset size", () => {
-    let nineZone = createNineZoneState();
-    nineZone = produce(nineZone, (draft) => {
-      draft.panels.left.size = 200;
-    });
-    const sut = setPanelSize(nineZone, "left", undefined);
-    (sut.panels.left.size === undefined).should.true;
   });
 });

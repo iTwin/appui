@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import type { OpenChildWindowInfo } from "../../appui-react";
-import { UiFramework } from "../../appui-react";
+import { FrontstageDef, UiFramework } from "../../appui-react";
 import { copyStyles } from "../../appui-react/childwindow/CopyStyles";
 import { InternalChildWindowManager } from "../../appui-react/childwindow/InternalChildWindowManager";
 import TestUtils from "../TestUtils";
@@ -44,12 +44,9 @@ describe("ChildWindowManager", () => {
 
     expect(manager.findId(window)).to.be.eql("child");
     expect(manager.find("child")).to.not.be.undefined;
-    sinon.replaceGetter(
-      UiFramework.frontstages,
-      "activeFrontstageDef",
-      () => ({ dockPopoutWidgetContainer: sinon.spy() } as any)
-    );
-    expect(manager.close("child", false)).to.eql(true);
+    const def = new FrontstageDef();
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
+    expect(manager.close("child", false)).to.true;
   });
 
   it("will find id and close", () => {

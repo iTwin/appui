@@ -64,6 +64,15 @@
         "identifyElement": "Identify Element",
         "identifyPosition": "Identify Position"
       }
+    },
+    "SetWidgetStateTool": {
+      "keyin": "widget setstate"
+    },
+    "RegisterUiProviderTool": {
+      "keyin": "uiprovider register"
+    },
+    "UnregisterUiProviderTool": {
+      "keyin": "uiprovider unregister"
     }
   }
 }

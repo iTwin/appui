@@ -54,6 +54,7 @@ global.DOMRect = class DOMRect {
 global.DOMRect.fromRect = function (rect) {
   return new DOMRect(rect.x, rect.y, rect.width, rect.height);
 };
+window.open = () => {};
 
 const { JSDOM } = require("jsdom");
 global.DOMParser = new JSDOM().window.DOMParser;

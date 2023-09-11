@@ -7,14 +7,18 @@
  */
 
 import produce from "immer";
-import type {
-  HorizontalPanelSide,
-  PanelSide,
-  VerticalPanelSide,
+import type { WritableDraft } from "immer/dist/types/types-external";
+import type { SizeProps } from "@itwin/core-react";
+import {
+  type HorizontalPanelSide,
+  isHorizontalPanelSide,
+  type PanelSide,
+  type VerticalPanelSide,
 } from "../../widget-panels/Panel";
 import type { NineZoneState } from "../NineZoneState";
 import type {
   HorizontalPanelState,
+  PanelMaxSizeState,
   PanelsState,
   VerticalPanelState,
 } from "../PanelState";
@@ -76,13 +80,23 @@ export function createPanelsState(args?: Partial<PanelsState>): PanelsState {
 export function updatePanelState<K extends keyof PanelsState>(
   state: NineZoneState,
   side: K,
-  args: Partial<PanelsState[K]>
+  update: (draft: WritableDraft<PanelsState>[K]) => void
 ) {
   return produce(state, (draft) => {
     const panel = draft.panels[side];
-    draft.panels[side] = {
-      ...panel,
-      ...args,
-    };
+    update(panel);
   });
+}
+
+/** @internal */
+export function getPanelMaxSize(
+  side: PanelSide,
+  appSize: SizeProps,
+  maxSize: PanelMaxSizeState
+) {
+  if (typeof maxSize === "number") {
+    return maxSize;
+  }
+  const size = isHorizontalPanelSide(side) ? appSize.height : appSize.width;
+  return (maxSize.percentage / 100) * size;
 }

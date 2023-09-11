@@ -94,9 +94,9 @@ importers:
 
   ../../full-stack-tests/ui:
     specifiers:
-      '@playwright/test': ^1.24.1
+      '@playwright/test': ^1.36.2
     devDependencies:
-      '@playwright/test': 1.31.2
+      '@playwright/test': 1.37.1
 
   ../../test-apps/appui-test-app/appui-test-providers:
     specifiers:
@@ -5882,13 +5882,13 @@ packages:
     dev: false
     optional: true
 
-  /@playwright/test/1.31.2:
-    resolution: {integrity: sha512-BYVutxDI4JeZKV1+ups6dt5WiqKhjBtIYowyZIJ3kBDmJgsuPKsqqKNIMFbUePLSCmp2cZu+BDL427RcNKTRYw==}
-    engines: {node: '>=14'}
+  /@playwright/test/1.37.1:
+    resolution: {integrity: sha512-bq9zTli3vWJo8S3LwB91U0qDNQDpEXnw7knhxLM0nwDvexQAwx9tO8iKDZSqqneVq+URd/WIoz+BALMqUTgdSg==}
+    engines: {node: '>=16'}
     hasBin: true
     dependencies:
       '@types/node': 18.11.5
-      playwright-core: 1.31.2
+      playwright-core: 1.37.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -16500,9 +16500,9 @@ packages:
       find-up: 3.0.0
     dev: true
 
-  /playwright-core/1.31.2:
-    resolution: {integrity: sha512-a1dFgCNQw4vCsG7bnojZjDnPewZcw7tZUNFN0ZkcLYKj+mPmXvg4MpaaKZ5SgqPsOmqIf2YsVRkgqiRDxD+fDQ==}
-    engines: {node: '>=14'}
+  /playwright-core/1.37.1:
+    resolution: {integrity: sha512-17EuQxlSIYCmEMwzMqusJ2ztDgJePjrbttaefgdsiqeLWidjYz9BxXaTaZWxH1J95SHGk6tjE+dwgWILJoUZfA==}
+    engines: {node: '>=16'}
     hasBin: true
     dev: true
 

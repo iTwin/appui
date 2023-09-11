@@ -155,11 +155,10 @@ export const useResizeGrip = <T extends HTMLElement>(): [
         return;
       }
 
-      const newSize = Math.min(Math.max(size, panel.minSize), panel.maxSize);
       dispatch({
         type: "PANEL_SET_SIZE",
         side,
-        size: newSize,
+        size,
       });
     },
     [dispatch, side, widgetPanel]
