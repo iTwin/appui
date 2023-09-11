@@ -286,7 +286,7 @@ test.describe("widget state", () => {
     const tab = tabLocator(page, "FW-H1");
     await expect(tab).toBeHidden();
 
-    setWidgetState(page, "FW-H1", WidgetState.Floating);
+    await setWidgetState(page, "FW-H1", WidgetState.Floating);
     await expect(tab).toBeVisible();
   });
 });

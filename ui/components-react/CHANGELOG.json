@@ -2,6 +2,39 @@
   "name": "@itwin/components-react",
   "entries": [
     {
+      "version": "4.5.1",
+      "tag": "@itwin/components-react_v4.5.1",
+      "date": "Fri, 08 Sep 2023 16:10:53 GMT",
+      "comments": {}
+    },
+    {
+      "version": "4.5.0",
+      "tag": "@itwin/components-react_v4.5.0",
+      "date": "Wed, 06 Sep 2023 17:29:22 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "`usePropertyFilterBuilder`: Added ability to build filter without showing errors."
+          },
+          {
+            "comment": "Fixed `TreeNodeLoader` adding loaded nodes to model when `loadNode` observable is unsubscribed before nodes request is completed."
+          },
+          {
+            "comment": "Remove `require` call in `TypeConverterManager`."
+          },
+          {
+            "comment": "Improved `Toolbar` and `ToolbarWithOverflow` documentation regarding orientation."
+          },
+          {
+            "comment": "Bump `rxjs` dependency to `7.8.1`."
+          },
+          {
+            "comment": "`ControlledTree`: Fixed range selection over nodes that are not loaded causing browser to hang."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.4.0",
       "tag": "@itwin/components-react_v4.4.0",
       "date": "Tue, 15 Aug 2023 18:02:09 GMT",
