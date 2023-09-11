@@ -215,7 +215,7 @@ export class WidgetDef {
 
     let canFloat = config.canFloat;
     if (config.allowedPanels && config.allowedPanels.length === 0) {
-      if (config.canFloat !== true) {
+      if (typeof config.canFloat === "object") {
         canFloat = config.canFloat;
       } else {
         canFloat = true;
