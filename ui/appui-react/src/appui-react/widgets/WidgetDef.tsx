@@ -215,7 +215,11 @@ export class WidgetDef {
 
     let canFloat = config.canFloat;
     if (config.allowedPanels && config.allowedPanels.length === 0) {
-      canFloat = true;
+      if (config.canFloat !== true) {
+        canFloat = config.canFloat;
+      } else {
+        canFloat = true;
+      }
     }
 
     this._isFloatingStateSupported = !!canFloat;
