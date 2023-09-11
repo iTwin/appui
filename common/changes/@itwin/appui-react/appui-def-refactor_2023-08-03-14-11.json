@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Fix an issue with `useSpecificWidgetDef` to correctly return re-created WidgetDef.",
+      "comment": "",
       "type": "none"
     }
   ],

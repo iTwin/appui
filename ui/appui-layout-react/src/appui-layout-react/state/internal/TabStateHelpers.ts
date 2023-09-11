@@ -11,6 +11,8 @@ import { UiError } from "@itwin/appui-abstract";
 import type { NineZoneState } from "../NineZoneState";
 import type { DraggedTabState, TabState } from "../TabState";
 import { category } from "./NineZoneStateHelpers";
+import type { SavedTabState } from "../SavedTabState";
+import type { WritableDraft } from "immer/dist/internal";
 
 /** @internal */
 export function createTabState(
@@ -55,5 +57,28 @@ export function updateTabState(
       ...tab,
       ...args,
     };
+  });
+}
+
+/** @internal */
+export function updateSavedTabState(
+  state: NineZoneState,
+  id: TabState["id"],
+  update: (draft: WritableDraft<SavedTabState>) => void
+) {
+  return produce(state, (draft) => {
+    const allIds = draft.savedTabs.allIds;
+    const byId = draft.savedTabs.byId;
+    let tab = byId[id];
+    if (!tab) {
+      allIds.push(id);
+      tab = byId[id] = { id };
+    } else {
+      const index = allIds.indexOf(id);
+      allIds.splice(index, 1);
+      allIds.push(id);
+    }
+
+    update(tab);
   });
 }

@@ -20,10 +20,13 @@ import type { NineZoneState } from "./NineZoneState";
 import type { WidgetState } from "./WidgetState";
 
 /** @internal */
+export type PanelMaxSizeState = number | { readonly percentage: number };
+
+/** @internal */
 export interface PanelState {
   readonly collapseOffset: number;
   readonly collapsed: boolean;
-  readonly maxSize: number;
+  readonly maxSize: PanelMaxSizeState;
   readonly minSize: number;
   readonly pinned: boolean;
   readonly resizable: boolean;

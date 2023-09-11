@@ -45,6 +45,9 @@ common/autoinstallers/*/.npmrc
 # storybook specific
 storybook-static
 
+# playwright specific
+test-results
+
 .env
 .env.local
 .env.*.local
