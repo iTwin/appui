@@ -11,6 +11,7 @@ importers:
       '@itwin/appui-abstract': ^3.7.0
       '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
+      '@itwin/components-react': workspace:*
       '@itwin/core-bentley': ^3.7.0
       '@itwin/core-common': ^3.7.0
       '@itwin/core-frontend': ^3.7.0
@@ -52,6 +53,7 @@ importers:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/appui-layout-react': link:../../ui/appui-layout-react
       '@itwin/appui-react': link:../../ui/appui-react
+      '@itwin/components-react': link:../../ui/components-react
       '@itwin/core-bentley': 3.7.0
       '@itwin/core-common': 3.7.0_d3cf7b747b827c7a0a662ddd00c672b6
       '@itwin/core-frontend': 3.7.0_be3a269a91e7505de9f0319af0616d71
@@ -92,9 +94,9 @@ importers:
 
   ../../full-stack-tests/ui:
     specifiers:
-      '@playwright/test': ^1.24.1
+      '@playwright/test': ^1.36.2
     devDependencies:
-      '@playwright/test': 1.32.0
+      '@playwright/test': 1.37.1
 
   ../../test-apps/appui-test-app/appui-test-providers:
     specifiers:
@@ -637,7 +639,7 @@ importers:
       react-test-renderer: ^17.0.0
       redux: ^4.1.0
       rimraf: ^3.0.2
-      rxjs: ^6.6.2
+      rxjs: ^7.8.1
       sinon: ^15.2.0
       sinon-chai: ^3.2.0
       ts-node: ^10.8.2
@@ -654,7 +656,7 @@ importers:
       immer: 9.0.6
       lodash: 4.17.21
       react-error-boundary: 4.0.3_react@17.0.2
-      rxjs: 6.6.7
+      rxjs: 7.8.1
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/appui-layout-react': link:../appui-layout-react
@@ -773,7 +775,7 @@ importers:
       react-highlight-words: ^0.17.0
       react-window: ^1.8.2
       rimraf: ^3.0.2
-      rxjs: ^6.6.2
+      rxjs: ^7.8.1
       shortid: ~2.2.15
       sinon: ^15.2.0
       sinon-chai: ^3.2.0
@@ -792,7 +794,7 @@ importers:
       lodash: 4.17.21
       react-highlight-words: 0.17.0_react@17.0.2
       react-window: 1.8.8_react-dom@17.0.2+react@17.0.2
-      rxjs: 6.6.7
+      rxjs: 7.8.1
       shortid: 2.2.16
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
@@ -5988,13 +5990,13 @@ packages:
     dev: false
     optional: true
 
-  /@playwright/test/1.32.0:
-    resolution: {integrity: sha512-zOdGloaF0jeec7hqoLqM5S3L2rR4WxMJs6lgiAeR70JlH7Ml54ZPoIIf3X7cvnKde3Q9jJ/gaxkFh8fYI9s1rg==}
-    engines: {node: '>=14'}
+  /@playwright/test/1.37.1:
+    resolution: {integrity: sha512-bq9zTli3vWJo8S3LwB91U0qDNQDpEXnw7knhxLM0nwDvexQAwx9tO8iKDZSqqneVq+URd/WIoz+BALMqUTgdSg==}
+    engines: {node: '>=16'}
     hasBin: true
     dependencies:
       '@types/node': 18.11.5
-      playwright-core: 1.32.0
+      playwright-core: 1.37.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -16583,9 +16585,9 @@ packages:
       find-up: 3.0.0
     dev: true
 
-  /playwright-core/1.32.0:
-    resolution: {integrity: sha512-Z9Ij17X5Z3bjpp6XKujGBp9Gv4eViESac9aDmwgQFUEJBW0K80T21m/Z+XJQlu4cNsvPygw33b6V1Va6Bda5zQ==}
-    engines: {node: '>=14'}
+  /playwright-core/1.37.1:
+    resolution: {integrity: sha512-17EuQxlSIYCmEMwzMqusJ2ztDgJePjrbttaefgdsiqeLWidjYz9BxXaTaZWxH1J95SHGk6tjE+dwgWILJoUZfA==}
+    engines: {node: '>=16'}
     hasBin: true
     dev: true
 
@@ -18474,11 +18476,10 @@ packages:
       queue-microtask: 1.2.3
     dev: true
 
-  /rxjs/6.6.7:
-    resolution: {integrity: sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==}
-    engines: {npm: '>=2.0.0'}
+  /rxjs/7.8.1:
+    resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
     dependencies:
-      tslib: 1.14.1
+      tslib: 2.5.0
     dev: false
 
   /safe-buffer/5.1.1:
@@ -19907,6 +19908,7 @@ packages:
 
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
+    dev: true
 
   /tslib/2.5.0:
     resolution: {integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==}

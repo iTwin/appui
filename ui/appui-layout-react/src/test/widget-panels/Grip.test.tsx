@@ -89,7 +89,9 @@ describe("WidgetPanelGrip", () => {
     const fakeTimers = sinon.useFakeTimers();
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
-    state = updatePanelState(state, "left", { size: 200 });
+    state = updatePanelState(state, "left", (draft) => {
+      draft.size = 200;
+    });
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
@@ -161,9 +163,9 @@ describe("WidgetPanelGrip", () => {
   it("should auto-open collapsed unpinned panel", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
-    state = updatePanelState(state, "left", {
-      pinned: false,
-      collapsed: true,
+    state = updatePanelState(state, "left", (draft) => {
+      draft.pinned = false;
+      draft.collapsed = true;
     });
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);

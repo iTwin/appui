@@ -19,6 +19,7 @@ import type {
   TabDragDropTargetState,
   WidgetDragDropTargetState,
 } from "./DropTargetState";
+import type { PanelState } from "./PanelState";
 
 /** @internal */
 export interface ResizeAction {
@@ -40,10 +41,17 @@ export interface PanelSetCollapsedAction {
 }
 
 /** @internal */
+export interface PanelSetPinnedAction {
+  readonly type: "PANEL_SET_PINNED";
+  readonly side: PanelSide;
+  readonly pinned: boolean;
+}
+
+/** @internal */
 export interface PanelSetSizeAction {
   readonly type: "PANEL_SET_SIZE";
   readonly side: PanelSide;
-  readonly size: number;
+  readonly size: PanelState["size"];
 }
 
 /** @internal */
@@ -159,12 +167,6 @@ export interface WidgetTabDoubleClickAction {
 }
 
 /** @internal */
-export interface WidgetTabPopoutAction {
-  readonly type: "WIDGET_TAB_POPOUT";
-  readonly id: WidgetState["activeTabId"];
-}
-
-/** @internal */
 export interface WidgetTabDragStartAction {
   readonly type: "WIDGET_TAB_DRAG_START";
   readonly side: PanelSide | undefined;
@@ -189,6 +191,66 @@ export interface WidgetTabDragEndAction {
 }
 
 /** @internal */
+export interface WidgetTabCloseAction {
+  readonly type: "WIDGET_TAB_CLOSE";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
+export interface WidgetTabFloatAction {
+  readonly type: "WIDGET_TAB_FLOAT";
+  readonly id: TabState["id"];
+  readonly position?: PointProps;
+  readonly size?: SizeProps;
+}
+
+/** @internal */
+export interface WidgetTabHideAction {
+  readonly type: "WIDGET_TAB_HIDE";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
+export interface WidgetTabSetLabelAction {
+  readonly type: "WIDGET_TAB_SET_LABEL";
+  readonly id: TabState["id"];
+  readonly label: TabState["label"];
+}
+
+/** @internal */
+export interface WidgetTabOpenAction {
+  readonly type: "WIDGET_TAB_OPEN";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
+export interface WidgetTabPopoutAction {
+  readonly type: "WIDGET_TAB_POPOUT";
+  readonly id: TabState["id"];
+  readonly position?: PointProps;
+  readonly size?: SizeProps;
+}
+
+/** @internal */
+export interface WidgetTabSetPopoutBoundsAction {
+  readonly type: "WIDGET_TAB_SET_POPOUT_BOUNDS";
+  readonly id: TabState["id"];
+  readonly bounds: RectangleProps | undefined;
+}
+
+/** @internal */
+export interface WidgetTabShowAction {
+  readonly type: "WIDGET_TAB_SHOW";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
+export interface WidgetTabExpandAction {
+  readonly type: "WIDGET_TAB_EXPAND";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
 export interface ToolSettingsDragStartAction {
   readonly type: "TOOL_SETTINGS_DRAG_START";
   readonly newFloatingWidgetId: FloatingWidgetState["id"];
@@ -204,6 +266,7 @@ export type NineZoneAction =
   | ResizeAction
   | PanelToggleCollapsedAction
   | PanelSetCollapsedAction
+  | PanelSetPinnedAction
   | PanelSetSizeAction
   | PanelSetSplitterPercentAction
   | PanelToggleSpanAction
@@ -225,5 +288,13 @@ export type NineZoneAction =
   | WidgetTabDragAction
   | WidgetTabDragEndAction
   | WidgetTabPopoutAction
+  | WidgetTabCloseAction
+  | WidgetTabFloatAction
+  | WidgetTabHideAction
+  | WidgetTabOpenAction
+  | WidgetTabSetLabelAction
+  | WidgetTabSetPopoutBoundsAction
+  | WidgetTabShowAction
+  | WidgetTabExpandAction
   | ToolSettingsDragStartAction
   | ToolSettingsDockAction;

@@ -5,7 +5,7 @@
 import { UiFramework, WidgetState } from "@itwin/appui-react";
 import { Tool } from "@itwin/core-frontend";
 
-/** Tool that will set widget state of a widget. I.e. `widget setstate w1 2` where w1 is widget id and 2 is WidgetState. */
+/** Tool that will set widget state of a widget. I.e. `widget setstate {id} {widgetState}`. */
 export class SetWidgetStateTool extends Tool {
   public static override toolId = "SetWidgetStateTool";
   public static override get minArgs() {
@@ -13,9 +13,6 @@ export class SetWidgetStateTool extends Tool {
   }
   public static override get maxArgs() {
     return 2;
-  }
-  public static override get keyin() {
-    return "widget setstate";
   }
 
   public override async run(widgetId: string, widgetState: WidgetState) {
