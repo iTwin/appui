@@ -199,6 +199,7 @@ export * from "./appui-react/toolbar/ToolbarItem";
 export * from "./appui-react/toolbar/ToolbarItemUtilities";
 export * from "./appui-react/toolbar/ToolbarWithOverflow";
 export * from "./appui-react/toolbar/useDefaultToolbarItems";
+export * from "./appui-react/toolbar/useToolbarItems";
 export * from "./appui-react/toolbar/useUiItemsProviderToolbarItems";
 
 export * from "./appui-react/tools/CoreToolDefinitions";

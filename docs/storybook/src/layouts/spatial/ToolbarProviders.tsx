@@ -32,29 +32,21 @@ import {
 
 export const contentManipulationProvider: UiItemsProvider = {
   id: "content-manipulation-provider",
-  provideToolbarItems: (_stageid, _stageUsage, usage, orientation) => {
-    if (usage !== ToolbarUsage.ContentManipulation) return [];
-    if (orientation !== ToolbarOrientation.Vertical) return [];
+  getToolbarItems: () => {
     return [
       ToolbarItemUtilities.createActionItem(
         "viewpoints",
         0,
         <SvgLocation />,
         "Viewpoints",
-        () => undefined,
-        {
-          groupPriority: 0,
-        }
+        () => undefined
       ),
       ToolbarItemUtilities.createActionItem(
         "layers",
         0,
         <SvgLayers />,
         "Layers",
-        () => undefined,
-        {
-          groupPriority: 1,
-        }
+        () => undefined
       ),
       ToolbarItemUtilities.createActionItem(
         "home",
@@ -65,13 +57,10 @@ export const contentManipulationProvider: UiItemsProvider = {
           const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
           const widgetDef = frontstageDef?.findWidgetDef("home");
           widgetDef?.setWidgetState(WidgetState.Open);
-        },
-        {
-          groupPriority: 2,
         }
       ),
       ToolbarItemUtilities.createActionItem(
-        "Assets",
+        "assets",
         0,
         <SvgTableOfContents />,
         "Assets",
@@ -79,9 +68,6 @@ export const contentManipulationProvider: UiItemsProvider = {
           const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
           const widgetDef = frontstageDef?.findWidgetDef("assets");
           widgetDef?.setWidgetState(WidgetState.Open);
-        },
-        {
-          groupPriority: 2,
         }
       ),
       ToolbarItemUtilities.createActionItem(
@@ -93,11 +79,38 @@ export const contentManipulationProvider: UiItemsProvider = {
           const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
           const widgetDef = frontstageDef?.findWidgetDef("documents");
           widgetDef?.setWidgetState(WidgetState.Open);
-        },
-        {
-          groupPriority: 2,
         }
       ),
+    ];
+  },
+  getToolbarItemLocations: () => {
+    const toolbarId = "content-manipulation";
+    return [
+      {
+        id: "viewpoints",
+        toolbarId,
+        groupPriority: 0,
+      },
+      {
+        id: "layers",
+        toolbarId,
+        groupPriority: 1,
+      },
+      {
+        id: "home",
+        toolbarId,
+        groupPriority: 2,
+      },
+      {
+        id: "assets",
+        toolbarId,
+        groupPriority: 2,
+      },
+      {
+        id: "documents",
+        toolbarId,
+        groupPriority: 2,
+      },
     ];
   },
 };

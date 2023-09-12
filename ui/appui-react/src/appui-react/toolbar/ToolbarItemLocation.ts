@@ -13,7 +13,7 @@ export interface ToolbarItemLocation {
   readonly id: string;
   readonly toolbarId?: string;
   readonly groupPriority?: number;
-  readonly itemPriority: number;
+  readonly itemPriority?: number;
   readonly stageId?: string;
   readonly stageUsage?: string;
 }

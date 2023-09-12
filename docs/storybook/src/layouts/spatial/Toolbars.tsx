@@ -2,7 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { ToolbarOrientation, ToolbarUsage } from "@itwin/appui-react";
+import React from "react";
+import {
+  ToolbarOrientation,
+  ToolbarUsage,
+  useGroupToolbarItemLocations,
+  useGroupedToolbarItems,
+  useToolbarItemLocations,
+} from "@itwin/appui-react";
 import { Flex } from "@itwin/itwinui-react";
 import { useGroupToolbarItems, useToolbarItems } from "../useToolbarItems";
 import { Toolbar } from "./Toolbar";
@@ -32,19 +39,18 @@ export function ViewNavigationToolbar() {
 }
 
 export function ContentManipulationToolbar() {
-  const items = useToolbarItems(
-    ToolbarUsage.ContentManipulation,
-    ToolbarOrientation.Vertical
-  );
-  const groupedItems = useGroupToolbarItems(items);
+  const allLocations = useToolbarItemLocations();
+  const locations = React.useMemo(() => {
+    return allLocations.filter((location) => {
+      return location.toolbarId === "content-manipulation";
+    });
+  }, [allLocations]);
+  const groupedLocations = useGroupToolbarItemLocations(locations);
+  const groupedItems = useGroupedToolbarItems(groupedLocations);
   return (
     <Flex gap="m" style={{ flexDirection: "column", alignItems: "end" }}>
-      {groupedItems.map((items) => (
-        <Toolbar
-          orientation="vertical"
-          key={items[0].groupPriority ?? 0}
-          items={items}
-        />
+      {groupedItems.map((items, index) => (
+        <Toolbar orientation="vertical" key={index} items={items} />
       ))}
     </Flex>
   );

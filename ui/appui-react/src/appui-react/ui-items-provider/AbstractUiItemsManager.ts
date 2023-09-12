@@ -137,6 +137,10 @@ class AbstractUiItemsManagerAdapter implements Target {
     const abstractProvider = this._adaptee.getUiItemsProvider(providerId);
     if (!abstractProvider) return undefined;
 
+    if (abstractProvider instanceof UiItemsProviderToAbstractAdapter) {
+      return abstractProvider._adaptee;
+    }
+
     const provider = new AbstractToUiItemsProviderAdapter(abstractProvider);
     return provider;
   }
@@ -252,7 +256,7 @@ class UiItemsProviderToAbstractAdapter implements AbstractUiItemsProvider {
     return this._adaptee.id;
   }
 
-  constructor(private readonly _adaptee: UiItemsProvider) {}
+  constructor(public readonly _adaptee: UiItemsProvider) {}
 
   public onUnregister() {
     this._adaptee.onUnregister?.();
@@ -322,17 +326,12 @@ class UiItemsProviderToAbstractAdapter implements AbstractUiItemsProvider {
     return abstractWidgets;
   }
 }
-
 class AbstractToUiItemsProviderAdapter implements UiItemsProvider {
   public get id(): string {
     return this._adaptee.id;
   }
 
   constructor(private readonly _adaptee: AbstractUiItemsProvider) {}
-
-  public onUnregister() {
-    this._adaptee.onUnregister?.();
-  }
 
   public provideBackstageItems() {
     if (!this._adaptee.provideBackstageItems) return [];
