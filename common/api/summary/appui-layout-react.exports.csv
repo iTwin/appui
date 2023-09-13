@@ -270,6 +270,7 @@ internal;useTabTransientState(tabId: string, onSave?: () => void, onRestore?: ()
 internal;useTargeted(): DropTargetState | undefined
 internal;useToolSettingsEntry(): DockedToolSettingsEntryContextArgs
 internal;useTransientState(onSave?: () => void, onRestore?: () => void): void
+internal;useWidgetAllowedToDock(): boolean
 internal;VerticalPanelSide = LeftPanelSide | RightPanelSide
 internal;VerticalPanelState 
 internal;Widget: React_2.ForwardRefExoticComponent

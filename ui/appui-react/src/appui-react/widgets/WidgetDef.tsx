@@ -213,7 +213,15 @@ export class WidgetDef {
 
     this.setCanPopout(config.canPopout);
 
-    const canFloat = config.canFloat;
+    let canFloat = config.canFloat;
+    if (config.allowedPanels && config.allowedPanels.length === 0) {
+      if (typeof config.canFloat === "object") {
+        canFloat = config.canFloat;
+      } else {
+        canFloat = true;
+      }
+    }
+
     this._isFloatingStateSupported = !!canFloat;
     if (typeof canFloat === "object") {
       this.setFloatingContainerId(canFloat.containerId);
@@ -242,6 +250,14 @@ export class WidgetDef {
 
     if (config.defaultState !== undefined) {
       this._defaultState = config.defaultState;
+    }
+
+    if (
+      config.allowedPanels &&
+      config.allowedPanels.length === 0 &&
+      config.defaultState === WidgetState.Open
+    ) {
+      this._defaultState = 3;
     }
 
     this._widgetReactNode = config.content;
@@ -471,8 +487,7 @@ export class WidgetDef {
   public set allowedPanelTargets(
     targets: ReadonlyArray<StagePanelLocation> | undefined
   ) {
-    this._allowedPanelTargets =
-      targets && targets?.length > 0 ? targets : undefined;
+    this._allowedPanelTargets = targets;
   }
 
   public onWidgetStateChanged(): void {

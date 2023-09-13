@@ -5254,7 +5254,6 @@ export interface Widget {
     readonly canFloat?: boolean | CanFloatWidgetOptions;
     readonly canPopout?: boolean;
     readonly content?: React.ReactNode;
-    // (undocumented)
     readonly defaultState?: WidgetState;
     // (undocumented)
     readonly icon?: IconSpec;
