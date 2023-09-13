@@ -18,7 +18,6 @@ import {
   SvgHome,
   SvgImodel,
   SvgLayers,
-  SvgLocation,
   SvgNotification,
   SvgSettings,
   SvgTableOfContents,
@@ -34,13 +33,6 @@ export const contentManipulationProvider: UiItemsProvider = {
   id: "content-manipulation-provider",
   getToolbarItems: () => {
     return [
-      ToolbarItemUtilities.createActionItem(
-        "viewpoints",
-        0,
-        <SvgLocation />,
-        "Viewpoints",
-        () => undefined
-      ),
       ToolbarItemUtilities.createActionItem(
         "layers",
         0,
@@ -86,11 +78,6 @@ export const contentManipulationProvider: UiItemsProvider = {
   getToolbarItemLocations: () => {
     const toolbarId = "content-manipulation";
     return [
-      {
-        id: "viewpoints",
-        toolbarId,
-        groupPriority: 0,
-      },
       {
         id: "layers",
         toolbarId,
