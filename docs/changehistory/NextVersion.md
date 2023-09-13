@@ -9,4 +9,5 @@ Table of contents:
 
 ### Fixes
 
+- Fix `zustand` deprecation warning by replacing `useStore` with `useStoreWithEqualityFn`.
 - Can now pass a blank array into `allowedPanelTargets` that will prevent widget from being able to to dock to any target.
