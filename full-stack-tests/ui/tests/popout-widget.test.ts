@@ -5,8 +5,11 @@
 import { test, expect } from "@playwright/test";
 import assert from "assert";
 import {
+  WidgetState,
   expectSavedFrontstageState,
   floatingWidgetLocator,
+  openFrontstage,
+  setWidgetState,
   tabLocator,
   widgetLocator,
 } from "./Utils";
@@ -34,6 +37,31 @@ test.describe("popout widget", () => {
 
     await expect(tab).not.toBeVisible();
     expect(await popoutPage.title()).toEqual("View Attributes");
+  });
+
+  test("should float a popout widget (after frontstage change)", async ({
+    context,
+    page,
+  }) => {
+    const tab = tabLocator(page, "View Attributes");
+    const widget = widgetLocator({ tab });
+    const popoutButton = widget.locator('[title="Pop out active widget tab"]');
+
+    // Popout the widget w/ default size.
+    let [popoutPage] = await Promise.all([
+      context.waitForEvent("page"),
+      popoutButton.click(),
+    ]);
+    expect(popoutPage.isClosed()).toBe(false);
+
+    await openFrontstage(page, "appui-test-app:main-stage");
+    expect(popoutPage.isClosed()).toBe(true);
+
+    await openFrontstage(page, "appui-test-providers:WidgetApi");
+    expect(popoutPage.isClosed()).toBe(true);
+
+    const floatingWidget = floatingWidgetLocator({ tab });
+    await expect(floatingWidget).toBeVisible();
   });
 
   test("should maintain popout widget bounds", async ({ context, page }) => {
@@ -119,5 +147,30 @@ test.describe("popout widget", () => {
       height: 400,
       width: 300,
     });
+  });
+
+  test("should close a popout (when floating a widget)", async ({
+    context,
+    page,
+  }) => {
+    const widget = floatingWidgetLocator({
+      page,
+      id: "appui-test-providers:ViewAttributesWidget",
+    });
+    const popoutButton = widget.locator('[title="Pop out active widget tab"]');
+
+    const [popoutPage] = await Promise.all([
+      context.waitForEvent("page"),
+      popoutButton.click(),
+    ]);
+    await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
+    expect(popoutPage.isClosed()).toBe(false);
+
+    await setWidgetState(
+      page,
+      "appui-test-providers:ViewAttributesWidget",
+      WidgetState.Floating
+    );
+    await expect.poll(async () => popoutPage.isClosed()).toBe(true);
   });
 });

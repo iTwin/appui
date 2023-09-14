@@ -7,9 +7,7 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { BadgeType } from "@itwin/appui-abstract";
 import { SvgList } from "@itwin/itwinui-icons-react";
-import type { WidgetChangedEventArgs } from "../../appui-react";
 import { UiFramework, WidgetDef, WidgetState } from "../../appui-react";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 import TestUtils from "../TestUtils";
 
 describe("WidgetDef", () => {
@@ -119,7 +117,7 @@ describe("WidgetDef", () => {
         id: "w1",
         badge: BadgeType.None,
       });
-      widgetDef.setWidgetState(WidgetState.Open);
+      widgetDef.handleWidgetStateChanged(WidgetState.Open);
 
       expect(widgetDef.stateChanged).to.eq(true);
       expect(widgetDef.isVisible).to.eq(true);
@@ -132,42 +130,9 @@ describe("WidgetDef", () => {
       });
       const spy = sinon.spy();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
-
-      widgetDef.setWidgetState(WidgetState.Hidden);
+      widgetDef.handleWidgetStateChanged(WidgetState.Hidden);
 
       sinon.assert.calledOnce(spy);
-    });
-  });
-
-  describe("show", () => {
-    it("should emit onWidgetShowEvent", () => {
-      const spy = sinon.spy(
-        InternalFrontstageManager.onWidgetShowEvent,
-        "emit"
-      );
-      const widgetDef = new WidgetDef();
-      widgetDef.show();
-      spy.calledOnceWithExactly(
-        sinon.match({
-          widgetDef,
-        })
-      ).should.true;
-    });
-  });
-
-  describe("expand", () => {
-    it("should emit onWidgetExpandEvent", () => {
-      const spy = sinon.spy(
-        InternalFrontstageManager.onWidgetExpandEvent,
-        "emit"
-      );
-      const widgetDef = new WidgetDef();
-      widgetDef.expand();
-      spy.calledOnceWithExactly(
-        sinon.match({
-          widgetDef,
-        })
-      ).should.true;
     });
   });
 
@@ -177,44 +142,6 @@ describe("WidgetDef", () => {
       sut.setLabel("test");
 
       sut.label.should.eq("test");
-    });
-
-    it("should emit onWidgetLabelChangedEvent", () => {
-      const spy = sinon.stub<(args: WidgetChangedEventArgs) => void>();
-      InternalFrontstageManager.onWidgetLabelChangedEvent.addListener(spy);
-      const sut = new WidgetDef();
-      sut.setLabel("test");
-
-      spy.calledOnceWithExactly(sinon.match({ widgetDef: sut })).should.true;
-    });
-
-    it("should not emit onWidgetLabelChangedEvent for same label", () => {
-      const spy = sinon.stub<(args: WidgetChangedEventArgs) => void>();
-      const sut = new WidgetDef();
-      sut.setLabel("test");
-
-      InternalFrontstageManager.onWidgetLabelChangedEvent.addListener(spy);
-      sut.setLabel("test");
-
-      spy.notCalled.should.true;
-    });
-  });
-
-  describe("tabLocation", () => {
-    it("should set tabLocation", () => {
-      const sut = new WidgetDef();
-      sut.tabLocation = {
-        side: "bottom",
-        tabIndex: 8,
-        widgetId: "abc",
-        widgetIndex: 5,
-      };
-      sut.tabLocation.should.eql({
-        side: "bottom",
-        tabIndex: 8,
-        widgetId: "abc",
-        widgetIndex: 5,
-      });
     });
   });
 });

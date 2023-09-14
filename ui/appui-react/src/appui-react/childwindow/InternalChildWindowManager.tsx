@@ -208,7 +208,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     } else {
       // call the following to convert popout to docked widget
       const frontStageDef = UiFramework.frontstages.activeFrontstageDef;
-      frontStageDef && frontStageDef.dockPopoutWidgetContainer(childWindowId);
+      frontStageDef &&
+        frontStageDef.dockWidgetContainerByContainerId(childWindowId);
     }
     return true;
   };

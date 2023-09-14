@@ -1,6 +1,23 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Tue, 15 Aug 2023 18:02:09 GMT and should not be manually modified.
+This log was last generated on Fri, 08 Sep 2023 16:10:53 GMT and should not be manually modified.
+
+## 4.5.1
+Fri, 08 Sep 2023 16:10:53 GMT
+
+### Updates
+
+- Fix an issue with `useSpecificWidgetDef` to correctly return re-created WidgetDef.
+
+## 4.5.0
+Wed, 06 Sep 2023 17:29:22 GMT
+
+### Updates
+
+- Refresh the EmptyToolSettingsEntry when the active tool changes. (#442)
+- Improved `Toolbar` and `ToolbarWithOverflow` documentation regarding orientation.
+- `ToolbarHelper`: Fix `badgeType` override.
+- Bump `rxjs` dependency to `7.8.1`.
 
 ## 4.4.0
 Tue, 15 Aug 2023 18:02:09 GMT

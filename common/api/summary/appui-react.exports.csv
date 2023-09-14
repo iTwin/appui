@@ -204,7 +204,6 @@ public;FrameworkReducer: (state: CombinedReducerState
 beta;FrameworkRootState
 beta;FrameworkStackedDialog
 public;FrameworkState
-internal;FrameworkStateReducer(state: NineZoneState, action: NineZoneAction, frontstageDef: FrontstageDef): NineZoneState
 alpha;FrameworkToolAdmin 
 public;FrameworkToolSettings
 public;FrameworkUiAdmin 
@@ -229,6 +228,7 @@ beta;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue
 beta;getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue
 beta;getListPanel(props: ListPickerProps): React_2.ReactNode
 internal;getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray
+internal;getPanelState(state: NineZoneState, side: PanelSide): StagePanelState.Minimized | StagePanelState.Open
 beta;getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial
 beta;getSelectionContextSyncEventIds(): string[]
 beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry
@@ -369,15 +369,12 @@ public;ReducerActions
 public;ReducerMapActions
 beta;ReducerRegistry
 beta;ReducerRegistryInstance: ReducerRegistry
-internal;removeMissingWidgets(frontstageDef: FrontstageDef, state: NineZoneState): NineZoneState
 public;RestoreAllFrontstagesTool 
 public;RestoreFrontstageLayoutTool 
 internal;restoreNineZoneState(frontstageDef: FrontstageDef, saved: SavedNineZoneState): NineZoneState
 internal;RotationData
 public;SafeAreaContext: React_2.Context
 public;SafeAreaInsets
-internal;SavedWidget
-internal;SavedWidgets = ReadonlyArray
 public;ScheduleAnimationTimelineDataProvider 
 beta;SectionsStatusField(props: SectionsStatusFieldProps): JSX.Element
 beta;SectionsStatusFieldProps 
@@ -396,10 +393,7 @@ public;SessionStateActionsUnion = ActionsUnion
 beta;sessionStateMapDispatchToProps:
 public;SessionStateReducer(state: SessionState | undefined, action: SessionStateActionsUnion): DeepReadonly
 internal;setPanelPinned: (nineZone: NineZoneState, side: PanelSide, pinned: boolean) => NineZoneState
-internal;setPanelSize: (nineZone: NineZoneState, side: PanelSide, size: number | undefined) => NineZoneState
 beta;SettingsModalFrontstage 
-internal;setWidgetLabel(state: NineZoneState, id: TabState["id"], label: string): NineZoneState
-internal;setWidgetState(state: NineZoneState, widgetDef: WidgetDef, widgetState: WidgetState): NineZoneState
 alpha;SheetCard 
 alpha;SheetCardProps
 alpha;SheetData
@@ -438,7 +432,7 @@ public;StandardStatusbarItemsProvider
 beta;StandardStatusbarUiItemsProvider 
 public;StateManager
 public;StateType
-internal;stateVersion = 14
+internal;stateVersion = 15
 public;StatusBar 
 public;StatusBar
 public;StatusBarActionItem 
@@ -476,7 +470,6 @@ public;SyncToolSettingsPropertiesEventArgs
 public;SyncUiEventDispatcher
 public;SyncUiEventId
 public;SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED"
-internal;TabLocation
 public;ThemeManager: ConnectedComponent
 public;TileLoadingIndicator 
 public;ToolActivatedEvent 
@@ -557,7 +550,7 @@ internal;useHorizontalToolSettingNodes(): ToolSettingsEntry[]
 public;useIsBackstageOpen: (manager: FrameworkBackstage) => boolean
 internal;useItemsManager(frontstageDef: FrontstageDef): void
 internal;useLabels(): NineZoneLabels
-internal;useLayoutStore(): readonly [LayoutStore, FrontstageDef | undefined]
+internal;useLayoutStore(frontstageDef: FrontstageDef | undefined): LayoutStore
 internal;useNineZoneDispatch(frontstageDef: FrontstageDef): NineZoneDispatch
 public;UserSettingsProvider
 internal;useSavedFrontstageState(frontstageDef: FrontstageDef): void

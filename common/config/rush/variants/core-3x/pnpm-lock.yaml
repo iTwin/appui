@@ -94,9 +94,9 @@ importers:
 
   ../../full-stack-tests/ui:
     specifiers:
-      '@playwright/test': ^1.24.1
+      '@playwright/test': ^1.36.2
     devDependencies:
-      '@playwright/test': 1.32.0
+      '@playwright/test': 1.37.1
 
   ../../test-apps/appui-test-app/appui-test-providers:
     specifiers:
@@ -523,7 +523,7 @@ importers:
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~5.0.2
-      zustand: ^4.3.6
+      zustand: ^4.4.1
     dependencies:
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 2.0.0
@@ -531,7 +531,7 @@ importers:
       immer: 9.0.6
       lodash: 4.17.21
       react-transition-group: 4.4.5_react-dom@17.0.2+react@17.0.2
-      zustand: 4.3.6_immer@9.0.6+react@17.0.2
+      zustand: 4.4.1_b4b4c799a5a2f4488606d88d938fa77d
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/build-tools': 3.7.4
@@ -5990,13 +5990,13 @@ packages:
     dev: false
     optional: true
 
-  /@playwright/test/1.32.0:
-    resolution: {integrity: sha512-zOdGloaF0jeec7hqoLqM5S3L2rR4WxMJs6lgiAeR70JlH7Ml54ZPoIIf3X7cvnKde3Q9jJ/gaxkFh8fYI9s1rg==}
-    engines: {node: '>=14'}
+  /@playwright/test/1.37.1:
+    resolution: {integrity: sha512-bq9zTli3vWJo8S3LwB91U0qDNQDpEXnw7knhxLM0nwDvexQAwx9tO8iKDZSqqneVq+URd/WIoz+BALMqUTgdSg==}
+    engines: {node: '>=16'}
     hasBin: true
     dependencies:
       '@types/node': 18.11.5
-      playwright-core: 1.32.0
+      playwright-core: 1.37.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -16585,9 +16585,9 @@ packages:
       find-up: 3.0.0
     dev: true
 
-  /playwright-core/1.32.0:
-    resolution: {integrity: sha512-Z9Ij17X5Z3bjpp6XKujGBp9Gv4eViESac9aDmwgQFUEJBW0K80T21m/Z+XJQlu4cNsvPygw33b6V1Va6Bda5zQ==}
-    engines: {node: '>=14'}
+  /playwright-core/1.37.1:
+    resolution: {integrity: sha512-17EuQxlSIYCmEMwzMqusJ2ztDgJePjrbttaefgdsiqeLWidjYz9BxXaTaZWxH1J95SHGk6tjE+dwgWILJoUZfA==}
+    engines: {node: '>=16'}
     hasBin: true
     dev: true
 
@@ -21162,18 +21162,22 @@ packages:
       commander: 9.5.0
     dev: true
 
-  /zustand/4.3.6_immer@9.0.6+react@17.0.2:
-    resolution: {integrity: sha512-6J5zDxjxLE+yukC2XZWf/IyWVKnXT9b9HUv09VJ/bwGCpKNcaTqp7Ws28Xr8jnbvnZcdRaidztAPsXFBIqufiw==}
+  /zustand/4.4.1_b4b4c799a5a2f4488606d88d938fa77d:
+    resolution: {integrity: sha512-QCPfstAS4EBiTQzlaGP1gmorkh/UL1Leaj2tdj+zZCZ/9bm0WS7sI2wnfD5lpOszFqWJ1DcPnGoY8RDL61uokw==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
+      '@types/react': '>=16.8'
       immer: '>=9.0'
       react: '>=16.8'
     peerDependenciesMeta:
+      '@types/react':
+        optional: true
       immer:
         optional: true
       react:
         optional: true
     dependencies:
+      '@types/react': 17.0.53
       immer: 9.0.6
       react: 17.0.2
       use-sync-external-store: 1.2.0_react@17.0.2

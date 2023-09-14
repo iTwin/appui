@@ -61,8 +61,13 @@ function TsLabel({ children }: { children: React.ReactNode }) {
 
 /** @internal */
 export function WidgetPanelsToolSettings() {
-  const toolSettingsType = useLayout((state) => state.toolSettings?.type);
-  if (!toolSettingsType || toolSettingsType === "widget") return null;
+  const renderDocked = useLayout((state) => {
+    const toolSettings = state.toolSettings;
+    if (!toolSettings) return false;
+    if (toolSettings.type === "widget") return false;
+    return !toolSettings.hidden;
+  });
+  if (!renderDocked) return null;
   return <ToolSettingsDockedContent />;
 }
 
