@@ -4,10 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import {
-  StandardContentLayouts,
-  ToolbarItemUtilities,
-} from "@itwin/appui-abstract";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   IModelViewportControl,
   SpatialLayoutWidget,
@@ -18,24 +15,16 @@ import {
   WidgetPanelsFrontstageContent,
   SpatialFrontstage,
   createSpatialLayout,
-  UiItemsProvider,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { AppUiDecorator } from "../../AppUiDecorator";
-import {
-  contentManipulationProvider,
-  contextNavigationProvider,
-  viewNavigationProvider,
-} from "../ToolbarProviders";
-import { widgetProvider } from "../WidgetProviders";
 import {
   ContentManipulationToolbar,
   ContextNavigationToolbar,
   ViewNavigationToolbar,
 } from "./Toolbars";
 import { WidgetsInfo } from "./WidgetsInfo";
-import { viewpointsProvider } from "../providers/viewpointsProvider";
-import { UiItemsProviderUtilities } from "../UiItemsProviderUtilities";
+import { SpatialProviders } from "./Providers";
 
 interface DemoProps {
   widgetsInfo: boolean;
@@ -48,20 +37,12 @@ function Demo(props: DemoProps) {
 
   React.useEffect(() => {
     const providers = [
-      contentManipulationProvider,
-      contextNavigationProvider,
-      viewNavigationProvider,
-      widgetProvider,
-      UiItemsProviderUtilities.updateToolbarItemLocations(
-        viewpointsProvider,
-        (item) => [
-          // For each item return 0..N locations.
-          {
-            id: item.id,
-            toolbarId: "content-manipulation",
-          },
-        ]
-      ),
+      SpatialProviders.contentManipulation,
+      SpatialProviders.contextNavigation,
+      SpatialProviders.viewNavigation,
+      SpatialProviders.widgets,
+      SpatialProviders.viewpoints(),
+      SpatialProviders.layers(),
     ];
 
     void (async function () {

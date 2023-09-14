@@ -29,4 +29,37 @@ export namespace UiItemsProviderUtilities {
       },
     };
   }
+
+  export function overrideToolbarItems(
+    provider: UiItemsProvider,
+    overrideItem: (item: ToolbarItem) => ReadonlyArray<ToolbarItem>
+  ): UiItemsProvider {
+    return {
+      ...provider,
+      getToolbarItems: () => {
+        const newItems: ToolbarItem[] = [];
+
+        const items = provider.getToolbarItems
+          ? provider.getToolbarItems()
+          : [];
+
+        for (const item of items) {
+          const override = overrideItem(item);
+          newItems.push(...override);
+        }
+        return newItems;
+      },
+    };
+  }
+
+  export function override(
+    provider: UiItemsProvider,
+    overrides: Partial<UiItemsProvider>
+  ): UiItemsProvider {
+    return {
+      ...provider,
+      id: provider.id,
+      ...overrides,
+    };
+  }
 }

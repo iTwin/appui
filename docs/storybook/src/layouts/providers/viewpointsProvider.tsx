@@ -10,11 +10,22 @@ import {
   UiItemsProvider,
   WidgetState,
 } from "@itwin/appui-react";
-import { SvgLocation } from "@itwin/itwinui-icons-react";
-import { WidgetLayout } from "./WidgetLayout";
-import { ExpandableBlock } from "@itwin/itwinui-react";
+import {
+  SvgCheckmark,
+  SvgLocation,
+  SvgSearch,
+  SvgVisibilityHalf,
+  SvgVisibilityHide,
+  SvgVisibilityShow,
+} from "@itwin/itwinui-icons-react";
+import {
+  ExpandableBlock,
+  IconButton,
+  Tabs,
+  ToggleSwitch,
+} from "@itwin/itwinui-react";
 
-function createViewpointsToolbarItem() {
+function createToolbarItem() {
   return ToolbarItemUtilities.createActionItem(
     "viewpoints",
     0,
@@ -24,14 +35,20 @@ function createViewpointsToolbarItem() {
       console.log("viewpoints clicked");
       const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
       const widgetDef = frontstageDef?.findWidgetDef("viewpoints");
-      widgetDef?.setWidgetState(WidgetState.Open);
+      if (!widgetDef) return;
+      if (widgetDef.state === WidgetState.Open) {
+        widgetDef.setWidgetState(WidgetState.Hidden);
+        return;
+      }
+      widgetDef.setWidgetState(WidgetState.Open);
     }
   );
 }
+
 export const viewpointsProvider: UiItemsProvider = {
   id: "viewpoints-provider",
   getToolbarItems: () => {
-    return [createViewpointsToolbarItem()];
+    return [createToolbarItem()];
   },
   getToolbarItemLocations: () => {
     return [
@@ -48,6 +65,7 @@ export const viewpointsProvider: UiItemsProvider = {
         content: <Viewpoints />,
         label: "Viewpoints",
         icon: <SvgLocation />,
+        defaultState: WidgetState.Hidden,
       },
     ];
   },
@@ -55,7 +73,7 @@ export const viewpointsProvider: UiItemsProvider = {
   provideToolbarItems: (_stageId, _stageUsage, usage, orientation) => {
     if (usage !== ToolbarUsage.ContentManipulation) return [];
     if (orientation !== ToolbarOrientation.Horizontal) return [];
-    return [createViewpointsToolbarItem()];
+    return [createToolbarItem()];
   },
 };
 
@@ -67,5 +85,43 @@ export function Viewpoints() {
       <ExpandableBlock title="Viewpoint 1">Viewpoint 1 content</ExpandableBlock>
       <ExpandableBlock title="Viewpoint 2">Viewpoint 2 content</ExpandableBlock>
     </WidgetLayout>
+  );
+}
+
+function WidgetLayout(props: React.PropsWithChildren<{}>) {
+  return <div style={{ padding: "0.5em" }}>{props.children}</div>;
+}
+
+WidgetLayout.Tools = Tools;
+WidgetLayout.Tabs = WidgetTabs;
+
+function Tools() {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div style={{ display: "flex" }}>
+        <IconButton styleType="borderless">
+          <SvgVisibilityShow />
+        </IconButton>
+        <IconButton styleType="borderless">
+          <SvgVisibilityHide />
+        </IconButton>
+        <IconButton styleType="borderless">
+          <SvgVisibilityHalf />
+        </IconButton>
+      </div>
+      <IconButton styleType="borderless">
+        <SvgSearch />
+      </IconButton>
+    </div>
+  );
+}
+
+function WidgetTabs() {
+  return (
+    <Tabs type="pill" labels={["Pill tab 1", "Pill tab 2"]}>
+      <ToggleSwitch label="Toggle feature No.1" icon={<SvgCheckmark />} />
+      <ToggleSwitch checked={true} disabled label="This you cannot change" />
+      <ToggleSwitch label="Toggle feature No.2" />
+    </Tabs>
   );
 }
