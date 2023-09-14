@@ -102,7 +102,7 @@ export class WidgetDef {
   public get state(): WidgetState {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (frontstageDef && frontstageDef.findWidgetDef(this.id)) {
-      if (frontstageDef.layout) {
+      if (frontstageDef.layout?.getWidgetState) {
         return frontstageDef.layout.getWidgetState(this.id);
       }
 
@@ -398,7 +398,7 @@ export class WidgetDef {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
 
     // TODO: map the dispatcher actions to existing appui-layout-react actions.
-    if (frontstageDef?.layout) {
+    if (frontstageDef?.layout?.setWidgetState) {
       const widgetDef = frontstageDef.findWidgetDef(this.id);
       if (!widgetDef) return;
       frontstageDef.layout.setWidgetState(this.id, newState);

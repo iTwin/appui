@@ -9,40 +9,39 @@ import {
   UiFramework,
   UiItemsProvider,
   WidgetState,
+  useLayout,
 } from "@itwin/appui-react";
-import { SvgLayers } from "@itwin/itwinui-icons-react";
-import { Input, InputGroup, List, ListItem } from "@itwin/itwinui-react";
+import { SvgTableOfContents } from "@itwin/itwinui-icons-react";
+import { List, ListItem } from "@itwin/itwinui-react";
 
 function createToolbarItem() {
   return ToolbarItemUtilities.createActionItem(
-    "layers",
+    "assets",
     0,
-    <SvgLayers />,
-    "Layers",
+    <SvgTableOfContents />,
+    "Assets",
     () => {
-      console.log("layers clicked");
+      console.log("assets clicked");
       const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-      const widgetDefs = [
-        frontstageDef?.findWidgetDef("layers:list"),
-        frontstageDef?.findWidgetDef("layers:manage"),
-      ];
-      const isOpen = !!widgetDefs.find((w) => w?.state === WidgetState.Open);
-      const newState = isOpen ? WidgetState.Hidden : WidgetState.Open;
-      for (const widgetDef of widgetDefs) {
-        widgetDef?.setWidgetState(newState);
+      const widgetDef = frontstageDef?.findWidgetDef("assets");
+      if (!widgetDef) return;
+      if (widgetDef.state === WidgetState.Open) {
+        widgetDef.setWidgetState(WidgetState.Hidden);
+        return;
       }
+      widgetDef.setWidgetState(WidgetState.Open);
     }
   );
 }
-export const layersProvider: UiItemsProvider = {
-  id: "layers-provider",
+export const assetsProvider: UiItemsProvider = {
+  id: "assets-provider",
   getToolbarItems: () => {
     return [createToolbarItem()];
   },
   getToolbarItemLocations: () => {
     return [
       {
-        id: "layers",
+        id: "assets",
         toolbarId: "contentManipulation-horizontal",
       },
     ];
@@ -50,17 +49,10 @@ export const layersProvider: UiItemsProvider = {
   provideWidgets: () => {
     return [
       {
-        id: "layers:list",
-        content: <LayerList />,
-        label: "View Layers",
-        icon: <SvgLayers />,
-        defaultState: WidgetState.Hidden,
-      },
-      {
-        id: "layers:manage",
-        content: <ManageLayers />,
-        label: "Manage Layers",
-        icon: <SvgLayers />,
+        id: "assets",
+        content: <Assets />,
+        label: "Assets",
+        icon: <SvgTableOfContents />,
         defaultState: WidgetState.Hidden,
       },
     ];
@@ -73,21 +65,32 @@ export const layersProvider: UiItemsProvider = {
   },
 };
 
-export function LayerList() {
+function Assets() {
   return (
     <List>
-      <ListItem>Layer 1</ListItem>
-      <ListItem>Layer 2</ListItem>
-      <ListItem>Layer 3</ListItem>
+      <Asset id="1" />
+      <Asset id="2" />
+      <Asset id="3" />
     </List>
   );
 }
 
-export function ManageLayers() {
+function Asset(props: { id: string }) {
+  const { id } = useLayout();
   return (
-    <InputGroup label="New Layer" style={{ padding: "12px" }}>
-      <Input placeholder="Id" />
-      <Input placeholder="Name" />
-    </InputGroup>
+    <ListItem
+      style={
+        id === "spatial"
+          ? {
+              display: "flex",
+              justifyContent: "space-between",
+              padding: "20px",
+            }
+          : undefined
+      }
+    >
+      <span>Asset</span>
+      <span>{props.id}</span>
+    </ListItem>
   );
 }

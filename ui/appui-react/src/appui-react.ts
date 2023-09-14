@@ -93,10 +93,7 @@ export * from "./appui-react/hooks/useUiVisibility";
 export * from "./appui-react/keyboardshortcut/KeyboardShortcut";
 export * from "./appui-react/keyboardshortcut/KeyboardShortcutMenu";
 
-export * from "./appui-react/spatial-layout/SpatialFrontstage";
-export * from "./appui-react/spatial-layout/SpatialLayout";
-export * from "./appui-react/spatial-layout/SpatialLayoutWidget";
-export * from "./appui-react/spatial-layout/useSpatialLayout";
+export * from "./appui-react/layout/Layout";
 
 export * from "./appui-react/messages/AppNotificationManager";
 export * from "./appui-react/messages/InputField";
@@ -152,6 +149,11 @@ export * from "./appui-react/shared/ItemProps";
 export * from "./appui-react/shared/MenuItem";
 export * from "./appui-react/shared/SelectionScope";
 export * from "./appui-react/shared/ToolItemDef";
+
+export * from "./appui-react/spatial-layout/SpatialFrontstage";
+export * from "./appui-react/spatial-layout/SpatialLayout";
+export * from "./appui-react/spatial-layout/SpatialLayoutWidget";
+export * from "./appui-react/spatial-layout/useSpatialLayout";
 
 export * from "./appui-react/stagepanels/StagePanelConfig";
 export * from "./appui-react/stagepanels/StagePanelDef";

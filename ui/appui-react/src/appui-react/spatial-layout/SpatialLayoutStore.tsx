@@ -25,6 +25,7 @@ export const useSpatialLayoutStore = create<SpatialLayoutState>((set, get) => ({
   activeWidgetId: undefined,
   panelSize: 300,
   layout: {
+    id: "spatial",
     setWidgetState: (id, widgetState) =>
       set((state) =>
         produce(state, (draft) => {

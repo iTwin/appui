@@ -21,7 +21,6 @@ import {
 } from "@itwin/itwinui-react";
 import {
   SvgHome,
-  SvgTableOfContents,
   SvgDocument,
   SvgImodel,
   SvgSettings,
@@ -33,6 +32,7 @@ import {
 import { UiItemsProviderUtilities } from "../UiItemsProviderUtilities";
 import { layersProvider } from "../providers/layersProvider";
 import { viewpointsProvider } from "../providers/viewpointsProvider";
+import { assetsProvider } from "../providers/assetsProvider";
 
 export namespace SpatialProviders {
   /** Updates toolbar item location. Renders widget in a spatial panel as is. */
@@ -110,6 +110,20 @@ export namespace SpatialProviders {
     return provider;
   }
 
+  /** Updates toolbar item location. Widget is rendered based on frontstage layout. */
+  export function assets() {
+    return UiItemsProviderUtilities.updateToolbarItemLocations(
+      assetsProvider,
+      (item) => [
+        {
+          id: item.id,
+          toolbarId: "content-manipulation",
+          groupPriority: 2,
+        },
+      ]
+    );
+  }
+
   export const contentManipulation: UiItemsProvider = {
     id: "content-manipulation-provider",
     getToolbarItems: () => {
@@ -122,17 +136,6 @@ export namespace SpatialProviders {
           () => {
             const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
             const widgetDef = frontstageDef?.findWidgetDef("home");
-            widgetDef?.setWidgetState(WidgetState.Open);
-          }
-        ),
-        ToolbarItemUtilities.createActionItem(
-          "assets",
-          0,
-          <SvgTableOfContents />,
-          "Assets",
-          () => {
-            const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-            const widgetDef = frontstageDef?.findWidgetDef("assets");
             widgetDef?.setWidgetState(WidgetState.Open);
           }
         ),
@@ -154,11 +157,6 @@ export namespace SpatialProviders {
       return [
         {
           id: "home",
-          toolbarId,
-          groupPriority: 2,
-        },
-        {
-          id: "assets",
           toolbarId,
           groupPriority: 2,
         },
@@ -282,12 +280,6 @@ export namespace SpatialProviders {
           id: "home",
           content: <b>Home content</b>,
           label: "Home widget",
-          icon: <SvgPlaceholder />,
-        },
-        {
-          id: "assets",
-          content: <b>Assets content</b>,
-          label: "Assets widget",
           icon: <SvgPlaceholder />,
         },
         {

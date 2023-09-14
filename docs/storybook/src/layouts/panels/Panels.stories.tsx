@@ -17,12 +17,13 @@ import { IModelApp } from "@itwin/core-frontend";
 import { AppUiDecorator } from "../../AppUiDecorator";
 import { viewpointsProvider } from "../providers/viewpointsProvider";
 import { layersProvider } from "../providers/layersProvider";
+import { assetsProvider } from "../providers/assetsProvider";
 
 function Demo() {
   const [initialized, setInitialized] = React.useState(false);
 
   React.useEffect(() => {
-    const providers = [viewpointsProvider, layersProvider];
+    const providers = [viewpointsProvider, layersProvider, assetsProvider];
 
     void (async function () {
       await IModelApp.startup();

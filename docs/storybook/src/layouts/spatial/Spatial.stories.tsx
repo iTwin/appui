@@ -43,6 +43,7 @@ function Demo(props: DemoProps) {
       SpatialProviders.widgets,
       SpatialProviders.viewpoints(),
       SpatialProviders.layers(),
+      SpatialProviders.assets(),
     ];
 
     void (async function () {
