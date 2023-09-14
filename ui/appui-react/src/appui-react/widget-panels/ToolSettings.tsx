@@ -74,17 +74,23 @@ export function WidgetPanelsToolSettings() {
 /** @internal */
 export function ToolSettingsDockedContent() {
   const settings = useHorizontalToolSettingNodes();
+  const [forceRefreshKey, setForceRefreshKey] = React.useState(Date.now());
+  React.useEffect(() => {
+    // We cant work with the content of the settings, but we can force refresh when
+    // the array is different.
+    setForceRefreshKey(Date.now());
+  }, [settings]);
   // for the overflow to work properly each setting in the DockedToolSettings should be wrapped by a DockedToolSetting component
   return (
     <DockedToolSettings
       itemId={
         InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ?? "none"
       }
-      key={Date.now()}
+      key={forceRefreshKey}
     >
       {settings &&
         settings.map((entry, index) => (
-          <DockedToolSetting key={index}>
+          <DockedToolSetting key={`${index}${entry.editorNode?.toString()}`}>
             <TsLabel>{entry.labelNode}</TsLabel>
             {entry.editorNode}
           </DockedToolSetting>
