@@ -14,15 +14,14 @@ import type {
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
 } from "@itwin/components-react";
-import { ToolbarWithOverflow as CR_ToolbarWithOverflow } from "@itwin/components-react";
 import type { ToolbarItem } from "./ToolbarItem";
-import { toUIAToolbarItem } from "./toUIAToolbarItem";
+import { Toolbar } from "./Toolbar";
 
 /** Component that displays toolbar items.
  * @beta
  */
 export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
-  /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
+  /** Describes to which direction the popup panels are expanded, also defines the orientation of the toolbar (Top/Bottom will create an horizontal toolbar, Left/Right will create a vertical toolbar). Defaults to: [[Direction.Bottom]] */
   expandsTo?: Direction;
   /** Describes to which direction the overflow popup panels are expanded. Defaults to: [[Direction.Right]] */
   overflowExpandsTo?: Direction;
@@ -40,18 +39,11 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
   onKeyDown?: (e: React.KeyboardEvent) => void;
 }
 
-/** Component that displays toolbar items.
+/** Component that displays toolbar items, displaying only the elements that can fit in the available space,
+ * and put the other items into a single panel.
  * @beta
  */
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
-  const { items, ...other } = props;
-  const uiaItems = React.useMemo(() => {
-    return items.map((item) => toUIAToolbarItem(item));
-  }, [items]);
-  return (
-    <CR_ToolbarWithOverflow // eslint-disable-line deprecation/deprecation
-      items={uiaItems}
-      {...other}
-    />
-  );
+  const { overflowExpandsTo, ...toolbarProps } = props;
+  return <Toolbar enableOverflow={{ overflowExpandsTo }} {...toolbarProps} />;
 }

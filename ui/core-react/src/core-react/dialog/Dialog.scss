@@ -7,10 +7,7 @@
 .core-dialog {
   @include uicore-z-index(dialog);
 
-  > .core-dialog-main {
-    display: flex;
-    flex-direction: column;
-
+  .core-dialog-main {
     &.core-align-top-left {
       top: 0px;
       left: 0px;
@@ -55,33 +52,6 @@
       top: 100%;
       left: 100%;
       transform: translate(-100%, -100%);
-    }
-  }
-
-  > .core-dialog-resize-bar {
-    &.core-drag-right {
-      right: -4px;
-      top: 8px;
-      bottom: 8px;
-      width: 8px;
-      position: absolute;
-      cursor: e-resize;
-    }
-    &.core-drag-bottom-right {
-      right: -4px;
-      bottom: -4px;
-      width: 12px;
-      height: 12px;
-      position: absolute;
-      cursor: se-resize;
-    }
-    &.core-drag-bottom {
-      right: 8px;
-      left: 8px;
-      bottom: -4px;
-      height: 8px;
-      position: absolute;
-      cursor: s-resize;
     }
   }
 }

@@ -14,16 +14,28 @@ import type {
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
 } from "@itwin/components-react";
-import { Toolbar as CR_Toolbar } from "@itwin/components-react";
+import { InternalToolbarComponent as CR_Toolbar } from "@itwin/components-react";
 import type { ToolbarItem } from "./ToolbarItem";
 import { toUIAToolbarItem } from "./toUIAToolbarItem";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
+
+/**
+ * Properties of [[Toolbar.enableOverflow]] component.
+ * @beta
+ */
+export interface OverflowToolbarOptions {
+  /** Describes to which direction the overflow popup panels are expanded if overflow is enabled. Defaults to: [[Direction.Right]] */
+  overflowExpandsTo?: Direction;
+}
 
 /** Properties of [[Toolbar]] component.
  * @beta
  */
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
-  /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
+  /** Describes to which direction the popup panels are expanded, also defines the orientation of the toolbar (Top/Bottom will create an horizontal toolbar, Left/Right will create a vertical toolbar). Defaults to: [[Direction.Bottom]] */
   expandsTo?: Direction;
+  /** Describes if items that do not fit available space should move to an expandable panel. Defaults to: false */
+  enableOverflow?: boolean | OverflowToolbarOptions;
   /** Definitions for items of the toolbar. Items are expected to be already sorted by group and item. */
   items: ToolbarItem[];
   /** Describes how expanded panels are aligned. Defaults to: [[ToolbarPanelAlignment.Start]] */
@@ -49,6 +61,7 @@ export function Toolbar(props: ToolbarProps) {
   return (
     <CR_Toolbar // eslint-disable-line deprecation/deprecation
       items={uiaItems}
+      syncUiEvent={SyncUiEventDispatcher.onSyncUiEvent}
       {...other}
     />
   );

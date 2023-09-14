@@ -61,8 +61,13 @@ function TsLabel({ children }: { children: React.ReactNode }) {
 
 /** @internal */
 export function WidgetPanelsToolSettings() {
-  const toolSettingsType = useLayout((state) => state.toolSettings?.type);
-  if (!toolSettingsType || toolSettingsType === "widget") return null;
+  const renderDocked = useLayout((state) => {
+    const toolSettings = state.toolSettings;
+    if (!toolSettings) return false;
+    if (toolSettings.type === "widget") return false;
+    return !toolSettings.hidden;
+  });
+  if (!renderDocked) return null;
   return <ToolSettingsDockedContent />;
 }
 
@@ -94,15 +99,18 @@ export function useHorizontalToolSettingNodes() {
     InternalFrontstageManager.activeToolSettingsProvider
       ?.horizontalToolSettingNodes
   );
-  const [emptySettings] = React.useState(() => [EmptyToolSettingsEntry()]);
+  const [emptySettings, setEmptySettings] = React.useState(() => [
+    EmptyToolSettingsEntry(),
+  ]);
   React.useEffect(() => {
     return UiFramework.frontstages.onToolActivatedEvent.addListener(() => {
       const nodes =
         InternalFrontstageManager.activeToolSettingsProvider
           ?.horizontalToolSettingNodes;
       setSettings(nodes);
+      setEmptySettings([EmptyToolSettingsEntry()]);
     });
-  }, [setSettings]);
+  }, [setSettings, setEmptySettings]);
 
   React.useEffect(() => {
     return UiFramework.frontstages.onToolSettingsReloadEvent.addListener(() => {
@@ -110,8 +118,9 @@ export function useHorizontalToolSettingNodes() {
         InternalFrontstageManager.activeToolSettingsProvider
           ?.horizontalToolSettingNodes;
       setSettings(nodes);
+      setEmptySettings([EmptyToolSettingsEntry()]);
     });
-  }, [setSettings]);
+  }, [setSettings, setEmptySettings]);
 
   if (!settings || settings.length === 0) return emptySettings;
   return settings;

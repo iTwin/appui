@@ -113,13 +113,12 @@ test.describe("tool settings", () => {
     await expect(widgetToolSettings).toBeVisible();
   });
 
-  test("should ignore WidgetState.Closed if tool settings is hidden", async ({
+  test("should ignore WidgetState.Closed if tool settings is docked", async ({
     page,
   }) => {
     const dockedToolSettings = page.getByText("does not have tool settings.");
     const widgetToolSettings = tabLocator(page, "Tool Settings");
 
-    await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Floating);
     await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Hidden);
     await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Closed);
     await expect(dockedToolSettings).not.toBeVisible();

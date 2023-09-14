@@ -42,7 +42,9 @@ describe("PanelTargets", () => {
 
   it("should render 3 targets in a single section", () => {
     let state = createNineZoneState();
-    state = updatePanelState(state, "left", { collapsed: true });
+    state = updatePanelState(state, "left", (draft) => {
+      draft.collapsed = true;
+    });
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
@@ -60,7 +62,9 @@ describe("PanelTargets", () => {
 
   it("should render one target in each section (2 sections)", () => {
     let state = createNineZoneState();
-    state = updatePanelState(state, "left", { collapsed: true });
+    state = updatePanelState(state, "left", (draft) => {
+      draft.collapsed = true;
+    });
     state = addTabs(state, ["t1", "t2"]);
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addPanelWidget(state, "left", "w2", ["t2"]);

@@ -14,7 +14,6 @@ import type {
   StringGetter,
 } from "@itwin/appui-abstract";
 import { UiError, UiEvent } from "@itwin/appui-abstract";
-import type { FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
 import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 import {
   ConfigurableCreateInfo,
@@ -23,9 +22,8 @@ import {
 import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
 import type { WidgetControl } from "./WidgetControl";
-import type { IconSpec, Rectangle, SizeProps } from "@itwin/core-react";
+import type { IconSpec, SizeProps } from "@itwin/core-react";
 import { IconHelper } from "@itwin/core-react";
-import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
@@ -65,15 +63,6 @@ export enum WidgetType {
   StatusBar,
 }
 
-/** @internal */
-export interface TabLocation {
-  widgetId: string;
-  widgetIndex: number;
-  side: PanelSide;
-  tabIndex: number;
-  floatingWidget?: FloatingWidgetState;
-}
-
 // -----------------------------------------------------------------------------
 
 /** A Widget Definition in the 9-Zone Layout system.
@@ -98,7 +87,6 @@ export class WidgetDef {
   private _icon?: IconSpec;
   private _internalData?: Map<string, any>;
   private _badge?: BadgeType;
-  private _onWidgetStateChanged?: () => void;
   private _saveTransientState?: () => void;
   private _restoreTransientState?: () => boolean;
   private _preferredPanelSize: "fit-content" | undefined;
@@ -110,15 +98,6 @@ export class WidgetDef {
   private _hideWithUiWhenFloating?: boolean;
   private _allowedPanelTargets?: ReadonlyArray<StagePanelLocation>;
   private _initialConfig?: WidgetConfig;
-
-  private _tabLocation?: TabLocation;
-  private _defaultTabLocation: TabLocation = {
-    side: "left",
-    tabIndex: 0,
-    widgetId: "",
-    widgetIndex: 0,
-  };
-  private _popoutBounds?: Rectangle;
 
   public get state(): WidgetState {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
@@ -189,19 +168,6 @@ export class WidgetDef {
   }
 
   /** @internal */
-  public get tabLocation() {
-    return this._tabLocation;
-  }
-  public set tabLocation(tabLocation: TabLocation | undefined) {
-    this._tabLocation = tabLocation;
-  }
-
-  /** @internal */
-  public get defaultTabLocation() {
-    return this._defaultTabLocation;
-  }
-
-  /** @internal */
   public get defaultFloatingPosition() {
     return this._defaultFloatingPosition;
   }
@@ -220,14 +186,6 @@ export class WidgetDef {
   /** @internal */
   public get defaultState() {
     return this._defaultState;
-  }
-
-  /** @internal */
-  public get popoutBounds() {
-    return this._popoutBounds;
-  }
-  public set popoutBounds(bounds: Rectangle | undefined) {
-    this._popoutBounds = bounds;
   }
 
   constructor() {
@@ -250,16 +208,24 @@ export class WidgetDef {
     this._initialConfig = config;
     this._id = config.id;
 
-    if (config.label) this.setLabel(config.label);
+    if (config.label) this._label = config.label;
     else if (config.labelKey)
       this._label = UiFramework.localization.getLocalizedString(
         config.labelKey
       );
-    else if (type === WidgetType.ToolSettings) this.setLabel("Tool Settings");
+    else if (type === WidgetType.ToolSettings) this._label = "Tool Settings";
 
     this.setCanPopout(config.canPopout);
 
-    const canFloat = config.canFloat;
+    let canFloat = config.canFloat;
+    if (config.allowedPanels && config.allowedPanels.length === 0) {
+      if (typeof config.canFloat === "object") {
+        canFloat = config.canFloat;
+      } else {
+        canFloat = true;
+      }
+    }
+
     this._isFloatingStateSupported = !!canFloat;
     if (typeof canFloat === "object") {
       this.setFloatingContainerId(canFloat.containerId);
@@ -290,6 +256,14 @@ export class WidgetDef {
       this._defaultState = config.defaultState;
     }
 
+    if (
+      config.allowedPanels &&
+      config.allowedPanels.length === 0 &&
+      config.defaultState === WidgetState.Open
+    ) {
+      this._defaultState = 3;
+    }
+
     this._widgetReactNode = config.content;
     this._icon = config.icon;
 
@@ -313,13 +287,19 @@ export class WidgetDef {
   }
 
   /** Set the label.
-   * @param v A string or a function to get the string.
+   * @param labelSpec A string or a function to get the string.
    */
-  public setLabel(v: string | ConditionalStringValue | StringGetter) {
-    if (this._label === v) return;
-    this._label = v;
-    InternalFrontstageManager.onWidgetLabelChangedEvent.emit({
-      widgetDef: this,
+  public setLabel(labelSpec: string | ConditionalStringValue | StringGetter) {
+    this._label = labelSpec; // TODO: handle ConditionalStringValue
+
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    if (!frontstageDef) return;
+
+    const label = PropsHelper.getStringFromSpec(labelSpec);
+    frontstageDef.dispatch({
+      type: "WIDGET_TAB_SET_LABEL",
+      id: this.id,
+      label,
     });
   }
 
@@ -416,6 +396,7 @@ export class WidgetDef {
 
   public setWidgetState(newState: WidgetState): void {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+
     // TODO: map the dispatcher actions to existing appui-layout-react actions.
     if (frontstageDef?.layout) {
       const widgetDef = frontstageDef.findWidgetDef(this.id);
@@ -423,7 +404,45 @@ export class WidgetDef {
       frontstageDef.layout.setWidgetState(this.id, newState);
       return;
     }
-    if (this.state === newState) return;
+
+    const state = frontstageDef?.nineZoneState;
+    if (!state) return;
+    if (!frontstageDef.findWidgetDef(this.id)) return;
+
+    switch (newState) {
+      case WidgetState.Closed: {
+        frontstageDef.dispatch({
+          type: "WIDGET_TAB_CLOSE",
+          id: this.id,
+        });
+        break;
+      }
+      case WidgetState.Floating: {
+        frontstageDef.dispatch({
+          type: "WIDGET_TAB_FLOAT",
+          id: this.id,
+        });
+        break;
+      }
+      case WidgetState.Hidden: {
+        frontstageDef.dispatch({
+          type: "WIDGET_TAB_HIDE",
+          id: this.id,
+        });
+        break;
+      }
+      case WidgetState.Open: {
+        frontstageDef.dispatch({
+          type: "WIDGET_TAB_OPEN",
+          id: this.id,
+        });
+        break;
+      }
+    }
+  }
+
+  /** @internal */
+  public handleWidgetStateChanged(newState: WidgetState) {
     this._stateChanged = true;
     UiFramework.frontstages.onWidgetStateChangedEvent.emit({
       widgetDef: this,
@@ -481,14 +500,11 @@ export class WidgetDef {
   public set allowedPanelTargets(
     targets: ReadonlyArray<StagePanelLocation> | undefined
   ) {
-    this._allowedPanelTargets =
-      targets && targets?.length > 0 ? targets : undefined;
+    this._allowedPanelTargets = targets;
   }
 
   public onWidgetStateChanged(): void {
     this.widgetControl && this.widgetControl.onWidgetStateChanged();
-    // istanbul ignore next
-    this._onWidgetStateChanged && this._onWidgetStateChanged();
   }
 
   /** Overwrite to save transient DOM state (i.e. scroll offset). */
@@ -518,13 +534,29 @@ export class WidgetDef {
    * @public
    */
   public show() {
-    InternalFrontstageManager.onWidgetShowEvent.emit({ widgetDef: this });
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    const state = frontstageDef?.nineZoneState;
+    if (!state) return;
+    if (!frontstageDef.findWidgetDef(this.id)) return;
+
+    frontstageDef.dispatch({
+      type: "WIDGET_TAB_SHOW",
+      id: this.id,
+    });
   }
 
   /** Opens the widget and expands it to fill full size of the stage panel.
    * @public
    */
   public expand() {
-    InternalFrontstageManager.onWidgetExpandEvent.emit({ widgetDef: this });
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    const state = frontstageDef?.nineZoneState;
+    if (!state) return;
+    if (!frontstageDef.findWidgetDef(this.id)) return;
+
+    frontstageDef.dispatch({
+      type: "WIDGET_TAB_EXPAND",
+      id: this.id,
+    });
   }
 }

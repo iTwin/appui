@@ -76,6 +76,7 @@ export * from "./components-react/properties/renderers/value/WithContextStyle";
 
 export * from "./components-react/filter-builder/FilterBuilder";
 export * from "./components-react/filter-builder/FilterBuilderRuleOperator";
+export * from "./components-react/filter-builder/FilterBuilderState";
 export * from "./components-react/filter-builder/FilterBuilderRuleValue";
 export * from "./components-react/filter-builder/Operators";
 export * from "./components-react/filter-builder/Types";
@@ -132,10 +133,11 @@ export * from "./components-react/toolbar/groupPanel/Columns";
 export * from "./components-react/toolbar/groupPanel/Panel";
 export * from "./components-react/toolbar/groupPanel/Title";
 
-export * from "./components-react/toolbar/Toolbar";
-export * from "./components-react/toolbar/ToolbarWithOverflow";
+export * from "./components-react/toolbar/InternalToolbarComponent";
 export * from "./components-react/toolbar/PopupItem";
 export * from "./components-react/toolbar/PopupItemWithDrag";
+export * from "./components-react/toolbar/Toolbar";
+export * from "./components-react/toolbar/ToolbarWithOverflow";
 export * from "./components-react/toolbar/Item";
 export * from "./components-react/toolbar/utilities/Direction";
 

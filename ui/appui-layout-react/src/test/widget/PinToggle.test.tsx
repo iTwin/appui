@@ -28,8 +28,8 @@ describe("PinToggle", () => {
 
   it("should render with `pin panel` title", () => {
     let state = createNineZoneState();
-    state = updatePanelState(state, "left", {
-      pinned: false,
+    state = updatePanelState(state, "left", (draft) => {
+      draft.pinned = false;
     });
     const { container } = render(
       <TestNineZoneProvider

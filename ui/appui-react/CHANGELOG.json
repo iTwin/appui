@@ -2,6 +2,69 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.5.1",
+      "tag": "@itwin/appui-react_v4.5.1",
+      "date": "Fri, 08 Sep 2023 16:10:53 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix an issue with `useSpecificWidgetDef` to correctly return re-created WidgetDef."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.5.0",
+      "tag": "@itwin/appui-react_v4.5.0",
+      "date": "Wed, 06 Sep 2023 17:29:22 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Refresh the EmptyToolSettingsEntry when the active tool changes. (#442)"
+          },
+          {
+            "comment": "Improved `Toolbar` and `ToolbarWithOverflow` documentation regarding orientation."
+          },
+          {
+            "comment": "`ToolbarHelper`: Fix `badgeType` override."
+          },
+          {
+            "comment": "Bump `rxjs` dependency to `7.8.1`."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.4.0",
+      "tag": "@itwin/appui-react_v4.4.0",
+      "date": "Tue, 15 Aug 2023 18:02:09 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix `clearHideIsolateEmphasizeElements` and `hideElements` button display when view changes happen outside AppUI's API."
+          },
+          {
+            "comment": "Added `BlankConnection` event handling to `SyncUiEventDispatcher`."
+          },
+          {
+            "comment": "Fixed store initialization when iModelConnection is set."
+          },
+          {
+            "comment": "Fixed store reset when iModelConnection is cleared."
+          },
+          {
+            "comment": "Remove obsolete ninezone term from API doc comments."
+          },
+          {
+            "comment": "Fixed openCursorMenu so that it works in React 18 Strict Mode"
+          },
+          {
+            "comment": "`Toolbar` now correctly handles `Conditional` properties and support `enableOverflow` prop."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.3.0",
       "tag": "@itwin/appui-react_v4.3.0",
       "date": "Mon, 17 Jul 2023 10:16:20 GMT",

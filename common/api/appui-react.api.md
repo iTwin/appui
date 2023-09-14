@@ -42,7 +42,6 @@ import type { DialogRow } from '@itwin/appui-abstract';
 import type { Direction } from '@itwin/components-react';
 import type { DisplayStyle3dState } from '@itwin/core-frontend';
 import type { EmphasizeElementsProps } from '@itwin/core-common';
-import type { FloatingWidgetState } from '@itwin/appui-layout-react';
 import type { FunctionKey } from '@itwin/appui-abstract';
 import type { GroupButton } from '@itwin/appui-abstract';
 import type { IconProps } from '@itwin/core-react';
@@ -62,8 +61,7 @@ import { MessageBoxType } from '@itwin/core-frontend';
 import { MessageBoxValue } from '@itwin/core-frontend';
 import { MessageSeverity } from '@itwin/appui-abstract';
 import type { MessageType } from '@itwin/core-react';
-import type { NineZoneAction } from '@itwin/appui-layout-react';
-import type { NineZoneDispatch } from '@itwin/appui-layout-react';
+import { NineZoneDispatch } from '@itwin/appui-layout-react';
 import type { NineZoneLabels } from '@itwin/appui-layout-react';
 import type { NineZoneState } from '@itwin/appui-layout-react';
 import type { NoChildrenProps } from '@itwin/core-react';
@@ -91,7 +89,6 @@ import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyUpdatedArgs } from '@itwin/components-react';
 import type { QuantityTypeArg } from '@itwin/core-frontend';
 import * as React_2 from 'react';
-import type { Rectangle } from '@itwin/core-react';
 import type { RectangleProps } from '@itwin/core-react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import type { ScreenViewport } from '@itwin/core-frontend';
@@ -2074,9 +2071,6 @@ export interface FrameworkState {
     sessionState: SessionState;
 }
 
-// @internal (undocumented)
-export function FrameworkStateReducer(state: NineZoneState, action: NineZoneAction, frontstageDef: FrontstageDef): NineZoneState;
-
 // @alpha
 export class FrameworkToolAdmin extends ToolAdmin {
     processShortcutKey(e: KeyboardEvent, wentDown: boolean): Promise<boolean>;
@@ -2212,17 +2206,19 @@ export class FrontstageDef {
     // (undocumented)
     get contentManipulation(): WidgetDef | undefined;
     static create(provider: FrontstageProvider): Promise<FrontstageDef>;
-    // @internal
-    dockPopoutWidgetContainer(widgetContainerId: string): void;
+    // @internal (undocumented)
+    get dispatch(): NineZoneDispatch;
     // @beta
     dockWidgetContainer(widgetId: string): void;
+    // @internal (undocumented)
+    dockWidgetContainerByContainerId(widgetContainerId: string): void;
     // (undocumented)
     dropFloatingContentControl(contentControl?: ContentControl): void;
     findWidgetDef(id: string): WidgetDef | undefined;
     // (undocumented)
     get floatingContentControls(): ContentControl[] | undefined;
     // @beta
-    floatWidget(widgetId: string, point?: PointProps, size?: SizeProps): void;
+    floatWidget(widgetId: string, position?: PointProps, size?: SizeProps): void;
     // (undocumented)
     get frontstageProvider(): FrontstageProvider | undefined;
     // (undocumented)
@@ -2231,8 +2227,6 @@ export class FrontstageDef {
     getFloatingWidgetContainerIdByWidgetId(widgetId: string): string | undefined;
     // (undocumented)
     getFloatingWidgetContainerIds(): string[];
-    // @internal
-    getPanelCurrentState(panelDef: StagePanelDef): [StagePanelState, number, boolean];
     // @beta
     getStagePanelDef(location: StagePanelLocation): StagePanelDef | undefined;
     // @internal
@@ -2264,20 +2258,17 @@ export class FrontstageDef {
     onFrontstageReady(): void;
     protected _onFrontstageReady(): void;
     // @internal
-    openPopoutWidgetContainer(state: NineZoneState, widgetContainerId: string): void;
+    openPopoutWidgetContainer(widgetContainerId: string): void;
     // @beta
     get panelDefs(): StagePanelDef[];
     // @beta
-    popoutWidget(widgetId: string, point?: PointProps, size?: SizeProps): void;
+    popoutWidget(widgetId: string, position?: PointProps, size?: SizeProps): void;
     // @beta (undocumented)
     restoreLayout(): void;
     // (undocumented)
     get rightPanel(): StagePanelDef | undefined;
     // @internal (undocumented)
     saveChildWindowSizeAndPosition(childWindowId: string, childWindow: Window): void;
-    // @internal (undocumented)
-    get savedWidgetDefs(): SavedWidgets | undefined;
-    set savedWidgetDefs(widgets: SavedWidgets | undefined);
     setActiveContent(): Promise<boolean>;
     setActiveView(newContent: ContentControl, oldContent?: ContentControl): void;
     setActiveViewFromViewport(viewport: ScreenViewport): boolean;
@@ -2360,6 +2351,9 @@ export function getListPanel(props: ListPickerProps): React_2.ReactNode;
 
 // @internal (undocumented)
 export function getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray<WidgetDef>;
+
+// @internal (undocumented)
+export function getPanelState(state: NineZoneState, side: PanelSide): StagePanelState.Minimized | StagePanelState.Open;
 
 // @beta
 export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial<QuantityFormatterSettingsOptions>): SettingsTabEntry;
@@ -3299,6 +3293,11 @@ export interface OpenChildWindowInfo {
 export class OpenMessageCenterEvent extends UiEvent<{}> {
 }
 
+// @beta
+export interface OverflowToolbarOptions {
+    overflowExpandsTo?: Direction;
+}
+
 // @internal
 export function packNineZoneState(state: NineZoneState): SavedNineZoneState;
 
@@ -3583,9 +3582,6 @@ export class ReducerRegistry {
 // @beta
 export const ReducerRegistryInstance: ReducerRegistry;
 
-// @internal
-export function removeMissingWidgets(frontstageDef: FrontstageDef, state: NineZoneState): NineZoneState;
-
 // @public
 export class RestoreAllFrontstagesTool extends Tool {
     // (undocumented)
@@ -3639,19 +3635,6 @@ export enum SafeAreaInsets {
     // (undocumented)
     Top = 8
 }
-
-// @internal
-export interface SavedWidget {
-    // (undocumented)
-    readonly id: WidgetDef["id"];
-    // (undocumented)
-    readonly popoutBounds?: RectangleProps;
-    // (undocumented)
-    readonly tabLocation?: TabLocation;
-}
-
-// @internal (undocumented)
-export type SavedWidgets = ReadonlyArray<SavedWidget>;
 
 // @public
 export class ScheduleAnimationTimelineDataProvider extends BaseTimelineDataProvider {
@@ -3830,9 +3813,6 @@ export function SessionStateReducer(state: SessionState | undefined, action: Ses
 // @internal (undocumented)
 export const setPanelPinned: (nineZone: NineZoneState, side: PanelSide, pinned: boolean) => NineZoneState;
 
-// @internal (undocumented)
-export const setPanelSize: (nineZone: NineZoneState, side: PanelSide, size: number | undefined) => NineZoneState;
-
 // @beta
 export class SettingsModalFrontstage implements ModalFrontstageInfo {
     constructor(initialSettingsTabId?: string | undefined);
@@ -3851,12 +3831,6 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
     // (undocumented)
     title: string;
 }
-
-// @internal (undocumented)
-export function setWidgetLabel(state: NineZoneState, id: TabState["id"], label: string): NineZoneState;
-
-// @internal (undocumented)
-export function setWidgetState(state: NineZoneState, widgetDef: WidgetDef, widgetState: WidgetState): NineZoneState;
 
 // @alpha
 export class SheetCard extends React_2.Component<SheetCardProps, SheetCardState> {
@@ -4016,12 +3990,16 @@ export class StagePanelDef extends WidgetHost {
     // @internal (undocumented)
     getPanelSectionDef(section: StagePanelSection): StagePanelSectionDef;
     // @internal (undocumented)
+    handlePanelStateChanged(panelState: StagePanelState): void;
+    // @internal (undocumented)
+    handlePinnedChanged(pinned: boolean): void;
+    // @internal (undocumented)
+    handleSizeChanged(size: number | undefined): void;
+    // @internal (undocumented)
+    get initialConfig(): StagePanelConfig | undefined;
+    // @internal (undocumented)
     initializeFromConfig(config: StagePanelConfig | undefined, location: StagePanelLocation): void;
     get location(): StagePanelLocation;
-    // @internal (undocumented)
-    get maxSizeSpec(): StagePanelMaxSizeSpec | undefined;
-    // @internal (undocumented)
-    get minSize(): number | undefined;
     get panelState(): StagePanelState;
     set panelState(panelState: StagePanelState);
     get pinned(): boolean;
@@ -4235,7 +4213,7 @@ export class StateManager {
 export type StateType<R extends Reducer<any, any>> = DeepReadonly<ReturnType<R>>;
 
 // @internal (undocumented)
-export const stateVersion = 14;
+export const stateVersion = 15;
 
 // @public
 export class StatusBar extends React_2.Component<StatusBarProps, StatusBarState> {
@@ -4473,20 +4451,6 @@ export enum SyncUiEventId {
 // @public
 export const SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED";
 
-// @internal (undocumented)
-export interface TabLocation {
-    // (undocumented)
-    floatingWidget?: FloatingWidgetState;
-    // (undocumented)
-    side: PanelSide;
-    // (undocumented)
-    tabIndex: number;
-    // (undocumented)
-    widgetId: string;
-    // (undocumented)
-    widgetIndex: number;
-}
-
 // @public
 export const ThemeManager: ConnectedComponent<typeof ThemeManagerComponent, Omit_3<React_2.ClassAttributes<ThemeManagerComponent> & ThemeManagerProps, "theme" | "widgetOpacity" | "toolbarOpacity">>;
 
@@ -4602,7 +4566,6 @@ export class ToolbarHelper {
     static constructChildToolbarItems(itemDefs: AnyItemDef[]): Array<ToolbarActionItem | ToolbarGroupItem>;
     static createCustomDefinitionToolbarItem(itemPriority: number, itemDef: CustomItemDef, overrides?: Partial<CustomButtonDefinition>): ToolbarCustomItem;
     static createToolbarItemFromItemDef(itemPriority: number, itemDef: AnyItemDef, overrides?: Partial<CommonToolbarItem_2>): ToolbarItem;
-    // (undocumented)
     static createToolbarItemsFromItemDefs(itemDefs: AnyItemDef[], startingItemPriority?: number, overrides?: Partial<CommonToolbarItem_2>): ToolbarItem[];
     // (undocumented)
     static getIconReactNode(item: ActionButton | GroupButton): React_2.ReactNode;
@@ -4650,6 +4613,7 @@ export interface ToolbarPopupProps extends PopupPropsBase {
 
 // @beta
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
+    enableOverflow?: boolean | OverflowToolbarOptions;
     expandsTo?: Direction;
     items: ToolbarItem[];
     onItemExecuted?: OnItemExecutedFunc;
@@ -5001,7 +4965,7 @@ export interface UnitSystemSelectorProps {
 // @internal (undocumented)
 export function useActiveContentControlId(): string | undefined;
 
-// @public (undocumented)
+// @public
 export function useActiveFrontstageDef(): FrontstageDef | undefined;
 
 // @public
@@ -5034,7 +4998,7 @@ export const useDefaultBackstageItems: (manager: BackstageItemsManager) => reado
 // @public
 export const useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[];
 
-// @public
+// @public @deprecated
 export const useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[];
 
 // @alpha (undocumented)
@@ -5061,7 +5025,7 @@ export function useItemsManager(frontstageDef: FrontstageDef): void;
 export function useLabels(): NineZoneLabels;
 
 // @internal (undocumented)
-export function useLayoutStore(): readonly [LayoutStore, FrontstageDef | undefined];
+export function useLayoutStore(frontstageDef: FrontstageDef | undefined): LayoutStore;
 
 // @internal (undocumented)
 export function useNineZoneDispatch(frontstageDef: FrontstageDef): NineZoneDispatch;
@@ -5111,7 +5075,7 @@ export const useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) 
 // @public
 export const useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly StatusBarItem[];
 
-// @public
+// @public @deprecated
 export const useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly ToolbarItem[];
 
 // @public (undocumented)
@@ -5290,7 +5254,6 @@ export interface Widget {
     readonly canFloat?: boolean | CanFloatWidgetOptions;
     readonly canPopout?: boolean;
     readonly content?: React.ReactNode;
-    // (undocumented)
     readonly defaultState?: WidgetState;
     // (undocumented)
     readonly icon?: IconSpec;
@@ -5366,13 +5329,13 @@ export class WidgetDef {
     set defaultFloatingSize(size: SizeProps | undefined);
     // @internal (undocumented)
     get defaultState(): WidgetState;
-    // @internal (undocumented)
-    get defaultTabLocation(): TabLocation;
     expand(): void;
     // (undocumented)
     get floatingContainerId(): string | undefined;
     // (undocumented)
     getWidgetControl(type: ConfigurableUiControlType): WidgetControl | undefined;
+    // @internal (undocumented)
+    handleWidgetStateChanged(newState: WidgetState): void;
     set hideWithUiWhenFloating(hide: boolean | undefined);
     // (undocumented)
     get hideWithUiWhenFloating(): boolean;
@@ -5400,9 +5363,6 @@ export class WidgetDef {
     get label(): string;
     // (undocumented)
     onWidgetStateChanged(): void;
-    // @internal (undocumented)
-    get popoutBounds(): Rectangle | undefined;
-    set popoutBounds(bounds: Rectangle | undefined);
     // @alpha (undocumented)
     get preferredPanelSize(): "fit-content" | undefined;
     // (undocumented)
@@ -5416,7 +5376,7 @@ export class WidgetDef {
     setCanPopout(value: boolean | undefined): void;
     // (undocumented)
     setFloatingContainerId(value: string | undefined): void;
-    setLabel(v: string | ConditionalStringValue | StringGetter): void;
+    setLabel(labelSpec: string | ConditionalStringValue | StringGetter): void;
     setTooltip(v: string | ConditionalStringValue | StringGetter): void;
     // (undocumented)
     setWidgetState(newState: WidgetState): void;
@@ -5425,9 +5385,6 @@ export class WidgetDef {
     get state(): WidgetState;
     // (undocumented)
     get stateChanged(): boolean;
-    // @internal (undocumented)
-    get tabLocation(): TabLocation | undefined;
-    set tabLocation(tabLocation: TabLocation | undefined);
     get tooltip(): string;
     // (undocumented)
     get widgetControl(): WidgetControl | undefined;
@@ -5499,8 +5456,6 @@ export interface WidgetPanelsFrontstageState {
     nineZone: SavedNineZoneState;
     stateVersion: number;
     version: number;
-    // (undocumented)
-    widgets: SavedWidgets;
 }
 
 // @internal (undocumented)

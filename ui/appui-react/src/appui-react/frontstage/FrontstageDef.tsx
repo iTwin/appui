@@ -14,29 +14,28 @@ import { IModelApp } from "@itwin/core-frontend";
 import type { PointProps } from "@itwin/appui-abstract";
 import { UiError } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
-import { Rectangle } from "@itwin/core-react";
-import type { NineZoneState, PanelSide } from "@itwin/appui-layout-react";
+import { Rectangle, Size } from "@itwin/core-react";
+import type {
+  NineZoneDispatch,
+  NineZoneState,
+  PanelSide,
+} from "@itwin/appui-layout-react";
 import {
-  dockWidgetContainer,
-  floatWidget,
   getTabLocation,
   getWidgetLocation,
   isFloatingTabLocation,
+  isFloatingWidgetLocation,
   isPanelTabLocation,
   isPopoutTabLocation,
   isPopoutWidgetLocation,
+  NineZoneStateReducer,
   panelSides,
-  popoutWidgetToChildWindow,
 } from "@itwin/appui-layout-react";
 import type { ContentControl } from "../content/ContentControl";
 import type { ContentGroup } from "../content/ContentGroup";
 import { ContentGroupProvider } from "../content/ContentGroup";
 import type { ContentLayoutDef } from "../content/ContentLayout";
-import {
-  StagePanelDef,
-  StagePanelState,
-  toPanelSide,
-} from "../stagepanels/StagePanelDef";
+import { StagePanelDef, StagePanelState } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import type { WidgetControl } from "../widgets/WidgetControl";
 import { WidgetDef, WidgetType } from "../widgets/WidgetDef";
@@ -44,9 +43,7 @@ import type { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
 import type { ChildWindowLocationProps } from "../framework/FrameworkChildWindows";
 import { PopoutWidget } from "../childwindow/PopoutWidget";
-import type { SavedWidgets } from "../widget-panels/Frontstage";
-import { FrameworkStateReducer } from "../widget-panels/Frontstage";
-import { assert, BentleyStatus, ProcessDetector } from "@itwin/core-bentley";
+import { BentleyStatus, ProcessDetector } from "@itwin/core-bentley";
 import {
   type FrontstageConfig,
   isCustomFrontstageConfig,
@@ -97,8 +94,8 @@ export class FrontstageDef {
   private _nineZoneState?: NineZoneState;
   private _contentGroupProvider?: ContentGroupProvider;
   private _floatingContentControls?: ContentControl[];
-  private _savedWidgetDefs?: SavedWidgets;
   private _toolAdminDefaultToolId?: string;
+  private _dispatch?: NineZoneDispatch;
   private _layout?: Layout;
 
   /** @internal */
@@ -246,60 +243,66 @@ export class FrontstageDef {
     }
   }
 
-  private triggerStateChangeEventForWidgetsAndPanels(
-    state: NineZoneState | undefined
-  ) {
-    // istanbul ignore else
-    if (!(this._isStageClosing || this._isApplicationClosing)) {
-      if (state) {
-        const originalPanelStateMap = new Map<StagePanelDef, StagePanelState>();
-        const originalWidgetStateMap = new Map<WidgetDef, WidgetState>();
-        const newPanelStateMap = new Map<StagePanelDef, StagePanelState>();
-        const newWidgetStateMap = new Map<WidgetDef, WidgetState>();
-        this._nineZoneState &&
-          this.populateStateMaps(
-            this._nineZoneState,
-            originalPanelStateMap,
-            originalWidgetStateMap
-          );
-        this.populateStateMaps(state, newPanelStateMap, newWidgetStateMap);
+  private triggerStateChangeEvents(oldState: NineZoneState) {
+    const newState = this.nineZoneState;
+    if (!newState) return;
 
-        // set internal state value before triggering events
-        this._nineZoneState = state;
+    if (this._isStageClosing || this._isApplicationClosing) return;
 
-        // now walk and trigger set state events
-        newWidgetStateMap.forEach((stateValue, widgetDef) => {
-          const originalState = originalWidgetStateMap.get(widgetDef);
-          if (originalState !== stateValue) {
-            UiFramework.frontstages.onWidgetStateChangedEvent.emit({
-              widgetDef,
-              widgetState: stateValue,
-            });
-            widgetDef.onWidgetStateChanged();
-          }
-        });
-        newPanelStateMap.forEach((stateValue, panelDef) => {
-          const originalState = originalPanelStateMap.get(panelDef);
-          if (originalState !== stateValue) {
-            UiFramework.frontstages.onPanelStateChangedEvent.emit({
-              panelDef,
-              panelState: stateValue,
-            });
-          }
-        });
+    const originalPanelStateMap = new Map<StagePanelDef, StagePanelState>();
+    const originalWidgetStateMap = new Map<WidgetDef, WidgetState>();
+    const newPanelStateMap = new Map<StagePanelDef, StagePanelState>();
+    const newWidgetStateMap = new Map<WidgetDef, WidgetState>();
+    this.populateStateMaps(
+      oldState,
+      originalPanelStateMap,
+      originalWidgetStateMap
+    );
+    this.populateStateMaps(newState, newPanelStateMap, newWidgetStateMap);
 
-        for (const panelSide of panelSides) {
-          const panel = state.panels[panelSide];
-          const location = this.toStagePanelLocation(panelSide);
-          const panelDef = this.getStagePanelDef(location);
-          if (panelDef) {
-            panelDef.size = panel.size;
-            panelDef.pinned = panel.pinned;
-          }
-        }
-      } else {
-        this._nineZoneState = state;
+    // Now walk and trigger set state events
+    newWidgetStateMap.forEach((newWidgetState, widgetDef) => {
+      const originalState = originalWidgetStateMap.get(widgetDef);
+      if (originalState === newWidgetState) return;
+      widgetDef.handleWidgetStateChanged(newWidgetState);
+    });
+    newPanelStateMap.forEach((newPanelState, panelDef) => {
+      const originalState = originalPanelStateMap.get(panelDef);
+      if (originalState === newPanelState) return;
+      panelDef.handlePanelStateChanged(newPanelState);
+    });
+
+    for (const panelSide of panelSides) {
+      const panel = newState.panels[panelSide];
+      const oldPanel = oldState.panels[panelSide];
+      const location = this.toStagePanelLocation(panelSide);
+      const panelDef = this.getStagePanelDef(location);
+      if (!panelDef) continue;
+
+      if (panel.size !== oldPanel.size) {
+        panelDef.handleSizeChanged(panel.size);
       }
+
+      if (panel.pinned !== oldPanel.pinned) {
+        panelDef.handlePinnedChanged(panel.pinned);
+      }
+    }
+  }
+
+  private handlePopouts(oldState: NineZoneState | undefined) {
+    const newState = this.nineZoneState;
+
+    const oldPopouts = oldState?.popoutWidgets.allIds || [];
+    const newPopouts = newState?.popoutWidgets.allIds || [];
+    const popoutsToClose = oldPopouts.filter((p) => !newPopouts.includes(p));
+    const popoutsToOpen = newPopouts.filter((p) => !oldPopouts.includes(p));
+
+    for (const popoutId of popoutsToClose) {
+      UiFramework.childWindows.close(popoutId, true);
+    }
+
+    for (const popoutId of popoutsToOpen) {
+      this.openPopoutWidgetContainer(popoutId);
     }
   }
 
@@ -310,27 +313,32 @@ export class FrontstageDef {
   public set nineZoneState(state: NineZoneState | undefined) {
     if (this._nineZoneState === state) return;
 
-    if (!this._nineZoneState) {
-      this._nineZoneState = state;
-    } else {
-      this.triggerStateChangeEventForWidgetsAndPanels(state);
+    const oldState = this._nineZoneState;
+    this._nineZoneState = state;
+    this.handlePopouts(oldState);
+    if (oldState) {
+      this.triggerStateChangeEvents(oldState);
     }
 
-    // istanbul ignore next - don't trigger any side effects until stage "isReady"
-    if (!(this._isStageClosing || this._isApplicationClosing) || this.isReady) {
-      InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.emit({
-        frontstageDef: this,
-        state,
-      });
-    }
+    const isClosing = this._isStageClosing || this._isApplicationClosing;
+    if (isClosing && !this.isReady) return;
+    InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.emit({
+      frontstageDef: this,
+      state,
+    });
   }
 
   /** @internal */
-  public get savedWidgetDefs() {
-    return this._savedWidgetDefs;
-  }
-  public set savedWidgetDefs(widgets: SavedWidgets | undefined) {
-    this._savedWidgetDefs = widgets;
+  public get dispatch(): NineZoneDispatch {
+    return (this._dispatch ??= (action) => {
+      if (action.type === "RESIZE") {
+        InternalFrontstageManager.nineZoneSize = Size.create(action.size);
+      }
+
+      const state = this.nineZoneState;
+      if (!state) return;
+      this.nineZoneState = NineZoneStateReducer(state, action);
+    });
   }
 
   /** @internal */
@@ -561,7 +569,6 @@ export class FrontstageDef {
     }
 
     // Panels can be undefined in a Frontstage
-
     return panelDef;
   }
 
@@ -702,6 +709,10 @@ export class FrontstageDef {
         allStageWidgetDefs
       );
     });
+
+    InternalFrontstageManager.onFrontstageWidgetsChangedEvent.emit({
+      frontstageDef: this,
+    });
   }
 
   /** @beta */
@@ -761,27 +772,6 @@ export class FrontstageDef {
     return widgetDef.defaultState;
   }
 
-  /** Used only in UI 2.0 to determine StagePanelState and size from NinezoneState
-   *  @internal
-   */
-  public getPanelCurrentState(
-    panelDef: StagePanelDef
-  ): [StagePanelState, number, boolean] {
-    // istanbul ignore next
-    if (this.nineZoneState) {
-      const side = toPanelSide(panelDef.location);
-      const panel = this.nineZoneState.panels[side];
-      if (panel)
-        return [
-          panel.collapsed ? StagePanelState.Minimized : StagePanelState.Open,
-          panel.size ?? 0,
-          panel.pinned,
-        ];
-      return [StagePanelState.Off, 0, false];
-    }
-    return [panelDef.defaultState, panelDef.defaultSize ?? 0, true];
-  }
-
   public isPopoutWidget(widgetId: string) {
     // istanbul ignore else
     if (this.nineZoneState) {
@@ -807,32 +797,29 @@ export class FrontstageDef {
   /** Create a new floating panel that contains the widget specified by its Id. Supported only when in
    *  UI 2.0 or higher.
    * @param widgetId case sensitive Widget Id
-   * @param point Position of top left corner of floating panel in pixels. If undefined {x:50, y:100} is used.
+   * @param position Position of top left corner of floating panel in pixels. If undefined {x:50, y:100} is used.
    * @param size defines the width and height of the floating panel. If undefined and widget has been floated before
    * the previous size is used, else {height:400, width:400} is used.
    * @beta
    */
-  public floatWidget(widgetId: string, point?: PointProps, size?: SizeProps) {
-    // istanbul ignore else
-    if (this.nineZoneState) {
-      const location = getTabLocation(this.nineZoneState, widgetId);
-      if (location) {
-        let popoutWidgetContainerId: string | undefined;
-        if (isPopoutTabLocation(location)) {
-          popoutWidgetContainerId = location.popoutWidgetId;
-        }
-        const state = floatWidget(this.nineZoneState, widgetId, point, size);
-        // istanbul ignore else
-        if (state) {
-          this.nineZoneState = state;
-          setTimeout(() => {
-            popoutWidgetContainerId &&
-              UiFramework.childWindows.close(popoutWidgetContainerId, true);
-          }, 600);
-        }
-      }
-    }
+  public floatWidget(
+    widgetId: string,
+    position?: PointProps,
+    size?: SizeProps
+  ) {
+    const state = this.nineZoneState;
+    if (!state) return;
+    const widgetDef = this.findWidgetDef(widgetId);
+    if (!widgetDef) return;
+
+    this.dispatch({
+      type: "WIDGET_TAB_FLOAT",
+      id: widgetId,
+      position,
+      size,
+    });
   }
+
   /** Check widget and panel state to determine whether the widget is currently displayed
    * @param widgetId case-sensitive Widget Id
    * @public
@@ -872,27 +859,22 @@ export class FrontstageDef {
   }
 
   /** Opens window for specified PopoutWidget container. Used to reopen popout when running in Electron.
-   * @internal */
-  public openPopoutWidgetContainer(
-    state: NineZoneState,
-    widgetContainerId: string
-  ) {
+   * @internal
+   */
+  public openPopoutWidgetContainer(widgetContainerId: string) {
+    const state = this.nineZoneState;
+    if (!state) return;
+
     const location = getWidgetLocation(state, widgetContainerId);
-    // istanbul ignore next
     if (!location) return;
-    // istanbul ignore next
     if (!isPopoutWidgetLocation(location)) return;
 
     const widget = state.widgets[widgetContainerId];
-    const popoutWidget = state.popoutWidgets.byId[location.popoutWidgetId];
-
     // Popout widget should only contain a single tab.
-    // istanbul ignore next
     if (widget.tabs.length !== 1) return;
 
     const tabId = widget.tabs[0];
     const widgetDef = this.findWidgetDef(tabId);
-    // istanbul ignore next
     if (!widgetDef) return;
 
     const popoutContent = (
@@ -901,8 +883,9 @@ export class FrontstageDef {
         widgetDef={widgetDef}
       />
     );
-    const bounds = Rectangle.create(popoutWidget.bounds);
 
+    const popoutWidget = state.popoutWidgets.byId[location.popoutWidgetId];
+    const bounds = Rectangle.create(popoutWidget.bounds);
     const position: ChildWindowLocationProps = {
       width: bounds.getWidth(),
       height: bounds.getHeight(),
@@ -921,64 +904,26 @@ export class FrontstageDef {
   /** Create a new popout/child window that contains the widget specified by its Id. Supported only when in
    *  UI 2.0 or higher.
    * @param widgetId case sensitive Widget Id
-   * @param point Position of top left corner of floating panel in pixels. If undefined {x:0, y:0} is used.
+   * @param position Position of top left corner of floating panel in pixels. If undefined {x:0, y:0} is used.
    * @param size defines the width and height of the floating panel. If undefined and widget has been floated before
    * the previous size is used, else {height:800, width:600} is used.
    * @beta
    */
-  public popoutWidget(widgetId: string, point?: PointProps, size?: SizeProps) {
-    // istanbul ignore next
-    if (!this.nineZoneState) return;
-
-    let location = getTabLocation(this.nineZoneState, widgetId);
-    if (!location || isPopoutTabLocation(location)) return;
-
+  public popoutWidget(
+    widgetId: string,
+    position?: PointProps,
+    size?: SizeProps
+  ) {
+    const state = this.nineZoneState;
+    if (!state) return;
     const widgetDef = this.findWidgetDef(widgetId);
-    // istanbul ignore next
     if (!widgetDef) return;
 
-    // get the state to apply that will pop-out the specified WidgetTab to child window.
-    let preferredBounds = Rectangle.createFromSize({ height: 800, width: 600 });
-    // istanbul ignore next
-    if (widgetDef.popoutBounds) preferredBounds = widgetDef.popoutBounds;
-    if (size) preferredBounds = preferredBounds.setSize(size);
-    if (point) preferredBounds = preferredBounds.setPosition(point);
-
-    const state = popoutWidgetToChildWindow(
-      this.nineZoneState,
-      widgetId,
-      preferredBounds
-    );
-    this.nineZoneState = state;
-
-    // now that the state is updated get the id of the container that houses the widgetTab/widgetId
-    location = getTabLocation(state, widgetId);
-    assert(!!location && isPopoutTabLocation(location));
-
-    const widgetContainerId = location.widgetId;
-    const popoutWidget = state.popoutWidgets.byId[widgetContainerId];
-    const bounds = Rectangle.create(popoutWidget.bounds);
-
-    setTimeout(() => {
-      const popoutContent = (
-        <PopoutWidget
-          widgetContainerId={widgetContainerId}
-          widgetDef={widgetDef}
-        />
-      );
-      const position: ChildWindowLocationProps = {
-        width: bounds.getWidth(),
-        height: bounds.getHeight(),
-        left: bounds.left,
-        top: bounds.top,
-      };
-      UiFramework.childWindows.open(
-        widgetContainerId,
-        widgetDef.label,
-        popoutContent,
-        position,
-        UiFramework.useDefaultPopoutUrl
-      );
+    this.dispatch({
+      type: "WIDGET_TAB_POPOUT",
+      id: widgetId,
+      position,
+      size,
     });
   }
 
@@ -999,12 +944,13 @@ export class FrontstageDef {
     childWindowId: string,
     childWindow: Window
   ) {
-    if (!this.nineZoneState) return;
+    const state = this.nineZoneState;
+    if (!state) return;
 
-    const location = getWidgetLocation(this.nineZoneState, childWindowId);
+    const location = getWidgetLocation(state, childWindowId);
     if (!location || !isPopoutWidgetLocation(location)) return;
 
-    const widget = this.nineZoneState.widgets[location.popoutWidgetId];
+    const widget = state.widgets[location.popoutWidgetId];
     const tabId = widget.tabs[0];
     const widgetDef = this.findWidgetDef(tabId);
     if (!widgetDef) return;
@@ -1018,28 +964,36 @@ export class FrontstageDef {
       x: childWindow.screenX,
       y: childWindow.screenY,
     });
-    widgetDef.popoutBounds = bounds;
+
+    this.dispatch({
+      type: "WIDGET_TAB_SET_POPOUT_BOUNDS",
+      id: tabId,
+      bounds,
+    });
   }
 
-  /** Method used to possibly change a Popout Widget back to a docked widget if the user was the one closing the popout's child
-   * window.
-   *  @internal
-   */
-  public dockPopoutWidgetContainer(widgetContainerId: string) {
-    if (!this.nineZoneState) return;
+  /** @internal */
+  public dockWidgetContainerByContainerId(widgetContainerId: string) {
+    const state = this.nineZoneState;
+    if (!state) return;
 
-    // Make sure the widgetContainerId is still in popout state. We don't want to set it to docked if the window is being closed because
-    // an API call has moved the widget from a popout state to a floating state.
-    // istanbul ignore else
-    const location = getWidgetLocation(this.nineZoneState, widgetContainerId);
-    if (!location || !isPopoutWidgetLocation(location)) return;
+    const location = getWidgetLocation(state, widgetContainerId);
+    if (!location) return;
 
-    const state = dockWidgetContainer(
-      this.nineZoneState,
-      widgetContainerId,
-      true
-    );
-    this.nineZoneState = state;
+    if (isFloatingWidgetLocation(location)) {
+      this.dispatch({
+        type: "FLOATING_WIDGET_SEND_BACK",
+        id: location.floatingWidgetId,
+      });
+      return;
+    }
+    if (isPopoutWidgetLocation(location)) {
+      this.dispatch({
+        type: "POPOUT_WIDGET_SEND_BACK",
+        id: location.popoutWidgetId,
+      });
+      return;
+    }
   }
 
   /** Finds the container with the specified widget and re-docks all widgets
@@ -1049,22 +1003,13 @@ export class FrontstageDef {
    * @beta
    */
   public dockWidgetContainer(widgetId: string) {
-    // istanbul ignore else
-    if (this.nineZoneState) {
-      const location = getTabLocation(this.nineZoneState, widgetId);
-      if (location) {
-        const widgetContainerId = location.widgetId;
-        const state = dockWidgetContainer(
-          this.nineZoneState,
-          widgetContainerId,
-          true
-        );
-        state && (this.nineZoneState = state);
-        if (isPopoutTabLocation(location)) {
-          UiFramework.childWindows.close(location.widgetId, true);
-        }
-      }
-    }
+    const state = this.nineZoneState;
+    if (!state) return;
+
+    const location = getTabLocation(state, widgetId);
+    if (!location) return;
+
+    this.dockWidgetContainerByContainerId(location.widgetId);
   }
 
   public setFloatingWidgetContainerBounds(
@@ -1077,25 +1022,16 @@ export class FrontstageDef {
     )
       return false;
 
-    let state = FrameworkStateReducer(
-      this.nineZoneState,
-      {
-        type: "FLOATING_WIDGET_SET_BOUNDS",
-        id: floatingWidgetId,
-        bounds,
-      },
-      this
-    );
-    state = FrameworkStateReducer(
-      state,
-      {
-        type: "FLOATING_WIDGET_SET_USER_SIZED",
-        id: floatingWidgetId,
-        userSized: true,
-      },
-      this
-    );
-    this.nineZoneState = state;
+    this.dispatch({
+      type: "FLOATING_WIDGET_SET_BOUNDS",
+      id: floatingWidgetId,
+      bounds,
+    });
+    this.dispatch({
+      type: "FLOATING_WIDGET_SET_USER_SIZED",
+      id: floatingWidgetId,
+      userSized: true,
+    });
     return true;
   }
 
@@ -1220,8 +1156,9 @@ export const useActiveFrontstageId = () => {
   return id;
 };
 
-/** Hook to return the active Frontstage def */
-/** @public */
+/** Hook to return the active Frontstage def.
+ *  @public
+ */
 export function useActiveFrontstageDef() {
   const [def, setDef] = React.useState(
     UiFramework.frontstages.activeFrontstageDef
@@ -1241,5 +1178,17 @@ export function useActiveFrontstageDef() {
  */
 export function useSpecificWidgetDef(widgetId: string) {
   const frontstageDef = useActiveFrontstageDef();
-  return frontstageDef?.findWidgetDef(widgetId);
+  const [widgetDef, setWidgetDef] = React.useState(() =>
+    frontstageDef?.findWidgetDef(widgetId)
+  );
+  React.useEffect(() => {
+    setWidgetDef(frontstageDef?.findWidgetDef(widgetId));
+    return InternalFrontstageManager.onFrontstageWidgetsChangedEvent.addListener(
+      (args) => {
+        if (args.frontstageDef !== frontstageDef) return;
+        setWidgetDef(frontstageDef.findWidgetDef(widgetId));
+      }
+    );
+  }, [frontstageDef, widgetId]);
+  return widgetDef;
 }

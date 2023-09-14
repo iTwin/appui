@@ -92,7 +92,7 @@ export function Icon(props: IconProps) {
         className={classnames("icon", "core-svg-icon", props.className)}
         style={props.style}
       >
-        {ConditionalIconItem.getValue(props.iconSpec as ConditionalIconItem)}
+        {ConditionalIconItem.getValue(props.iconSpec)}
       </i>
     );
   }
