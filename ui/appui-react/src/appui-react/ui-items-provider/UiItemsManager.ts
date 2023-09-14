@@ -21,7 +21,6 @@ import { UiFramework } from "../UiFramework";
 import type { Widget } from "../widgets/Widget";
 import type { ProviderItem } from "./ProviderItem";
 import type { UiItemsProvider } from "./UiItemsProvider";
-import { createAbstractUiItemsManagerAdapter } from "./AbstractUiItemsManager";
 
 /** UiItemsProvider register event args.
  * @public
@@ -71,38 +70,26 @@ export class UiItemsManager {
     new Map<string, UiItemProviderEntry>();
   private static _onUiProviderRegisteredEvent =
     new BeUiEvent<UiItemsProviderRegisteredEventArgs>();
-  private static _abstractAdapter = createAbstractUiItemsManagerAdapter();
 
   /** For use in unit testing
    * @internal */
   public static clearAllProviders() {
-    if (this._abstractAdapter) return this._abstractAdapter.clearAllProviders();
-
     UiItemsManager._registeredUiItemsProviders.clear();
   }
 
   /** Event raised any time a UiProvider is registered or unregistered. */
   public static get onUiProviderRegisteredEvent(): BeUiEvent<UiItemsProviderRegisteredEventArgs> {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.onUiProviderRegisteredEvent;
-
     return this._onUiProviderRegisteredEvent;
   }
 
   /** Return number of registered UiProvider. */
   public static get registeredProviderIds(): string[] {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.registeredProviderIds;
-
     const ids = [...UiItemsManager._registeredUiItemsProviders.keys()];
     return ids;
   }
 
   /** Return true if there is any registered UiProvider. */
   public static get hasRegisteredProviders(): boolean {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.hasRegisteredProviders;
-
     return this._registeredUiItemsProviders.size > 0;
   }
 
@@ -113,9 +100,6 @@ export class UiItemsManager {
   public static getUiItemsProvider(
     providerId: string
   ): UiItemsProvider | undefined {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.getUiItemsProvider(providerId);
-
     return UiItemsManager._registeredUiItemsProviders.get(providerId)?.provider;
   }
 
@@ -131,9 +115,6 @@ export class UiItemsManager {
     uiProvider: UiItemsProvider,
     overrides?: UiItemsProviderOverrides
   ): void {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.register(uiProvider, overrides);
-
     const providerId = overrides?.providerId ?? uiProvider.id;
 
     if (UiItemsManager.getUiItemsProvider(providerId)) {
@@ -157,9 +138,6 @@ export class UiItemsManager {
 
   /** Remove a specific UiItemsProvider from the list of available providers. */
   public static unregister(providerId: string): void {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.unregister(providerId);
-
     const provider = UiItemsManager.getUiItemsProvider(providerId);
     if (!provider) return;
 
@@ -211,14 +189,6 @@ export class UiItemsManager {
     usage: ToolbarUsage,
     orientation: ToolbarOrientation
   ): ReadonlyArray<ProviderItem<ToolbarItem>> {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.getToolbarButtonItems(
-        stageId,
-        stageUsage,
-        usage,
-        orientation
-      );
-
     const buttonItems: ProviderItem<ToolbarItem>[] = [];
 
     UiItemsManager._registeredUiItemsProviders.forEach(
@@ -258,9 +228,6 @@ export class UiItemsManager {
     stageId: string,
     stageUsage: string
   ): ReadonlyArray<ProviderItem<StatusBarItem>> {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.getStatusBarItems(stageId, stageUsage);
-
     const statusBarItems: ProviderItem<StatusBarItem>[] = [];
 
     UiItemsManager._registeredUiItemsProviders.forEach(
@@ -298,8 +265,6 @@ export class UiItemsManager {
   public static getBackstageItems(): ReadonlyArray<
     ProviderItem<BackstageItem>
   > {
-    if (this._abstractAdapter) return this._abstractAdapter.getBackstageItems();
-
     const backstageItems: ProviderItem<BackstageItem>[] = [];
 
     UiItemsManager._registeredUiItemsProviders.forEach(
@@ -343,14 +308,6 @@ export class UiItemsManager {
     location: StagePanelLocation,
     section?: StagePanelSection
   ): ReadonlyArray<ProviderItem<Widget>> {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.getWidgets(
-        stageId,
-        stageUsage,
-        location,
-        section
-      );
-
     const widgets: ProviderItem<Widget>[] = [];
 
     UiItemsManager._registeredUiItemsProviders.forEach((entry) => {

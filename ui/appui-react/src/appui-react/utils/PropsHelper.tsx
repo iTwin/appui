@@ -11,13 +11,7 @@
 import * as React from "react";
 import type { IconSpec } from "@itwin/core-react";
 import { Icon, IconHelper } from "@itwin/core-react";
-import type {
-  StringGetter,
-  // @ts-ignore Removed in 4.0
-  AbstractWidgetProps as UIA_AbstractWidgetProps,
-  // @ts-ignore Removed in 4.0
-  CommonBackstageItem as UIA_CommonBackstageItem,
-} from "@itwin/appui-abstract";
+import type { StringGetter } from "@itwin/appui-abstract";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
 
@@ -67,22 +61,5 @@ export class PropsHelper {
       if (newObj[key] !== prevObj[key]) return false;
     }
     return true;
-  }
-
-  /** @deprecated in 4.0 These abstract props types are obsolete. */
-  public static getAbstractPropsForReactIcon(
-    iconSpec: IconSpec,
-    internalData?: Map<string, any>
-    // eslint-disable-next-line deprecation/deprecation
-  ): Partial<UIA_AbstractWidgetProps> | Partial<UIA_CommonBackstageItem> {
-    // istanbul ignore else
-    if (!iconSpec || !React.isValidElement(iconSpec)) return {};
-
-    // istanbul ignore else
-    if (!internalData) internalData = new Map<string, any>();
-
-    const icon = IconHelper.getIconData(iconSpec, internalData);
-
-    return icon === "" ? { icon } : { icon, internalData };
   }
 }
