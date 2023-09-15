@@ -9,7 +9,7 @@
 import "./PositionPopup.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { XAndY } from "@itwin/core-geometry"
+import type { XAndY } from "@itwin/core-geometry";
 import type { CommonDivProps, CommonProps, SizeProps } from "@itwin/core-react";
 import { Div, Size } from "@itwin/core-react";
 

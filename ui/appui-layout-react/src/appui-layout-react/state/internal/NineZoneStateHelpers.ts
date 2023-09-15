@@ -23,10 +23,9 @@ import {
  * @internal
  */
 export interface XAndY {
-  readonly x: number
-  readonly y: number
+  readonly x: number;
+  readonly y: number;
 }
-
 
 /** @internal */
 export const category = "appui-layout-react:layout";
@@ -102,11 +101,11 @@ export function initRectangleProps<
   }
   (obj[key] as unknown as RectangleProps | undefined) = rect
     ? {
-      bottom: rect.bottom,
-      left: rect.left,
-      right: rect.right,
-      top: rect.top,
-    }
+        bottom: rect.bottom,
+        left: rect.left,
+        right: rect.right,
+        top: rect.top,
+      }
     : undefined;
 }
 

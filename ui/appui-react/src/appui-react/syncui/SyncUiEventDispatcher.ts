@@ -75,7 +75,7 @@ export interface UiSyncEventArgs {
 /** UiSync Event class.
  * @public
  */
-export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> { }
+export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> {}
 
 /** This class is used to send eventIds to interested UI components so the component can determine if it needs
  * to refresh its display by calling setState on itself.
@@ -86,17 +86,19 @@ export class SyncUiEventDispatcher {
   private static _connectionUnregisterFuncs = new Array<() => void>();
   private static _iModelConnection?: IModelConnection;
   private static _syncEventTimerId: number | undefined;
-  private static _eventIds = new Set<string>()
-  private static _eventIdAdded = false
-  private static _uiSyncEvent = new UiSyncEvent()
-  private static _timeoutPeriod = 100
-  private static _secondaryTimeoutPeriod = 50
+  private static _eventIds = new Set<string>();
+  private static _eventIdAdded = false;
+  private static _uiSyncEvent = new UiSyncEvent();
+  private static _timeoutPeriod = 100;
+  private static _secondaryTimeoutPeriod = 50;
 
   /** @internal - used for testing only */
   /* istanbul ignore next */
   public static setTimeoutPeriod(period: number): void {
     SyncUiEventDispatcher._timeoutPeriod = period;
-    SyncUiEventDispatcher._secondaryTimeoutPeriod = Math.floor(SyncUiEventDispatcher._timeoutPeriod / 2);
+    SyncUiEventDispatcher._secondaryTimeoutPeriod = Math.floor(
+      SyncUiEventDispatcher._timeoutPeriod / 2
+    );
     if (SyncUiEventDispatcher._secondaryTimeoutPeriod < 1)
       SyncUiEventDispatcher._secondaryTimeoutPeriod = 1;
     if (SyncUiEventDispatcher._syncEventTimerId) {
@@ -142,8 +144,11 @@ export class SyncUiEventDispatcher {
     }
 
     SyncUiEventDispatcher.syncEventIds.add(eventId.toLowerCase());
-    if (!SyncUiEventDispatcher._syncEventTimerId) {  // if there is not a timer active, create one
-      SyncUiEventDispatcher._syncEventTimerId = window.setTimeout(() => { SyncUiEventDispatcher.checkForAdditionalIds(); }, SyncUiEventDispatcher._timeoutPeriod);
+    if (!SyncUiEventDispatcher._syncEventTimerId) {
+      // if there is not a timer active, create one
+      SyncUiEventDispatcher._syncEventTimerId = window.setTimeout(() => {
+        SyncUiEventDispatcher.checkForAdditionalIds();
+      }, SyncUiEventDispatcher._timeoutPeriod);
     } else {
       this._eventIdAdded = true;
     }
@@ -159,10 +164,15 @@ export class SyncUiEventDispatcher {
       );
     }
 
-    eventIds.forEach((id) => SyncUiEventDispatcher.syncEventIds.add(id.toLowerCase()));
+    eventIds.forEach((id) =>
+      SyncUiEventDispatcher.syncEventIds.add(id.toLowerCase())
+    );
     // istanbul ignore else
-    if (!SyncUiEventDispatcher._syncEventTimerId) {  // if there is not a timer active, create one
-      SyncUiEventDispatcher._syncEventTimerId = window.setTimeout(() => { SyncUiEventDispatcher.checkForAdditionalIds(); }, SyncUiEventDispatcher._timeoutPeriod);
+    if (!SyncUiEventDispatcher._syncEventTimerId) {
+      // if there is not a timer active, create one
+      SyncUiEventDispatcher._syncEventTimerId = window.setTimeout(() => {
+        SyncUiEventDispatcher.checkForAdditionalIds();
+      }, SyncUiEventDispatcher._timeoutPeriod);
     } else {
       SyncUiEventDispatcher._eventIdAdded = true;
     }
@@ -181,7 +191,9 @@ export class SyncUiEventDispatcher {
       // istanbul ignore else
       if (SyncUiEventDispatcher.syncEventIds.size > 0) {
         const eventIds = new Set<string>();
-        SyncUiEventDispatcher.syncEventIds.forEach((value) => eventIds.add(value));
+        SyncUiEventDispatcher.syncEventIds.forEach((value) =>
+          eventIds.add(value)
+        );
         SyncUiEventDispatcher._eventIds.clear();
         SyncUiEventDispatcher.onSyncUiEvent.emit({ eventIds });
       }
@@ -197,7 +209,9 @@ export class SyncUiEventDispatcher {
     SyncUiEventDispatcher._eventIdAdded = false;
     // if events have been added before the initial timer expired wait half that time to see if events are still being added.
     // istanbul ignore next
-    SyncUiEventDispatcher._syncEventTimerId = window.setTimeout(() => { SyncUiEventDispatcher.checkForAdditionalIds(); }, SyncUiEventDispatcher._secondaryTimeoutPeriod);
+    SyncUiEventDispatcher._syncEventTimerId = window.setTimeout(() => {
+      SyncUiEventDispatcher.checkForAdditionalIds();
+    }, SyncUiEventDispatcher._secondaryTimeoutPeriod);
   }
 
   /** Checks to see if an eventId of interest is contained in the set of eventIds */
@@ -205,14 +219,15 @@ export class SyncUiEventDispatcher {
     eventIds: Set<string>,
     idsOfInterest: string[]
   ) {
-    return idsOfInterest.length > 0 && idsOfInterest.some((value) => eventIds.has(value.toLowerCase()))
+    return (
+      idsOfInterest.length > 0 &&
+      idsOfInterest.some((value) => eventIds.has(value.toLowerCase()))
+    );
   }
 
   // istanbul ignore next
   private static _dispatchViewChange() {
-    SyncUiEventDispatcher.dispatchSyncUiEvent(
-      SyncUiEventId.ViewStateChanged
-    );
+    SyncUiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.ViewStateChanged);
   }
 
   // istanbul ignore next
@@ -267,9 +282,7 @@ export class SyncUiEventDispatcher {
         );
       }),
       UiFramework.frontstages.onToolActivatedEvent.addListener(() => {
-        SyncUiEventDispatcher.dispatchSyncUiEvent(
-          SyncUiEventId.ToolActivated
-        );
+        SyncUiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.ToolActivated);
       }),
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(() => {
         SyncUiEventDispatcher.dispatchSyncUiEvent(
@@ -277,9 +290,7 @@ export class SyncUiEventDispatcher {
         );
       }),
       UiFramework.backstage.onToggled.addListener(() => {
-        SyncUiEventDispatcher.dispatchSyncUiEvent(
-          SyncUiEventId.BackstageEvent
-        );
+        SyncUiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.BackstageEvent);
       }),
       UiFramework.content.onActiveContentChangedEvent.addListener(() => {
         SyncUiEventDispatcher.dispatchSyncUiEvent(

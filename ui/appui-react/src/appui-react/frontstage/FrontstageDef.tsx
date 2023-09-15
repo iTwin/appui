@@ -769,11 +769,7 @@ export class FrontstageDef {
    * the previous size is used, else {height:400, width:400} is used.
    * @beta
    */
-  public floatWidget(
-    widgetId: string,
-    position?: XAndY,
-    size?: SizeProps
-  ) {
+  public floatWidget(widgetId: string, position?: XAndY, size?: SizeProps) {
     const state = this.nineZoneState;
     if (!state) return;
     const widgetDef = this.findWidgetDef(widgetId);
@@ -876,11 +872,7 @@ export class FrontstageDef {
    * the previous size is used, else {height:800, width:600} is used.
    * @beta
    */
-  public popoutWidget(
-    widgetId: string,
-    position?: XAndY,
-    size?: SizeProps
-  ) {
+  public popoutWidget(widgetId: string, position?: XAndY, size?: SizeProps) {
     const state = this.nineZoneState;
     if (!state) return;
     const widgetDef = this.findWidgetDef(widgetId);

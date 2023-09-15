@@ -16,7 +16,7 @@ import {
 } from "./KeyboardShortcut";
 import {
   SyncUiEventDispatcher,
-  type UiSyncEventArgs
+  type UiSyncEventArgs,
 } from "../syncui/SyncUiEventDispatcher";
 
 type OnShortcutFunc = (shortcut: KeyboardShortcut) => void;

@@ -9,7 +9,7 @@
 import "./CursorPrompt.scss";
 import * as React from "react";
 import type { ToolAssistanceInstruction } from "@itwin/core-frontend";
-import type { XAndY } from "@itwin/core-geometry"
+import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { Icon, Point, Timer } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
