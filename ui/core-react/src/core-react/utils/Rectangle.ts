@@ -6,7 +6,7 @@
  * @module Utilities
  */
 
-import type { PointProps } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import { Point } from "./Point";
 import type { SizeProps } from "./Size";
 import { Size } from "./Size";
@@ -127,7 +127,7 @@ export class Rectangle implements RectangleProps {
    * Offsets the rectangle along the X and Y axes.
    * @returns New [[Rectangle]] with modified position.
    */
-  public offset(offset: PointProps): Rectangle {
+  public offset(offset: XAndY): Rectangle {
     return new Rectangle(
       this.left + offset.x,
       this.top + offset.y,
@@ -166,7 +166,7 @@ export class Rectangle implements RectangleProps {
    * Moves the top left corner of rectangle to specified point.
    * @returns New [[Rectangle]] with modified position.
    */
-  public setPosition(position: PointProps): Rectangle {
+  public setPosition(position: XAndY): Rectangle {
     return new Rectangle(
       position.x,
       position.y,
@@ -224,7 +224,7 @@ export class Rectangle implements RectangleProps {
    * Checks if point is within bounds of the rectangle.
    * @note Inclusive.
    */
-  public containsPoint(point: PointProps): boolean {
+  public containsPoint(point: XAndY): boolean {
     return (
       point.x >= this.left &&
       point.x <= this.right &&
@@ -339,7 +339,7 @@ export class Rectangle implements RectangleProps {
    * Calculates the shortest distance between this rectangle and a given point.
    * @returns The shortest distance to a point.
    */
-  public getShortestDistanceToPoint(point: PointProps): number {
+  public getShortestDistanceToPoint(point: XAndY): number {
     let shortestDistance = 0;
 
     if (point.x < this.left) {

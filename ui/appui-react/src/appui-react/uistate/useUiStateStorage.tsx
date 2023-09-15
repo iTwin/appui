@@ -7,13 +7,13 @@
  */
 
 import * as React from "react";
-import type { UiSyncEventArgs } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
+  type UiSyncEventArgs,
 } from "../syncui/SyncUiEventDispatcher";
 
 /** @public */

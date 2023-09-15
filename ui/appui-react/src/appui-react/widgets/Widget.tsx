@@ -9,8 +9,8 @@
 import type {
   BadgeType,
   ConditionalStringValue,
-  PointProps,
 } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import type { IconSpec, SizeProps } from "@itwin/core-react";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { WidgetState } from "./WidgetState";
@@ -20,7 +20,7 @@ import type { WidgetState } from "./WidgetState";
  */
 export interface CanFloatWidgetOptions {
   readonly isResizable?: boolean;
-  readonly defaultPosition?: PointProps;
+  readonly defaultPosition?: XAndY;
   readonly defaultSize?: SizeProps;
   readonly containerId?: string;
   readonly hideWithUi?: boolean;

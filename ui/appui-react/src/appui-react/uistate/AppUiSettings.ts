@@ -8,8 +8,7 @@
 
 import type { UiStateStorage } from "@itwin/core-react";
 import { UiStateEntry } from "@itwin/core-react";
-import type { UiSyncEventArgs } from "@itwin/appui-abstract";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
+import { SyncUiEventDispatcher, type UiSyncEventArgs } from "../syncui/SyncUiEventDispatcher";
 import type { UserSettingsProvider } from "../UiFramework";
 import { UiFramework } from "../UiFramework";
 

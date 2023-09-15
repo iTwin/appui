@@ -7,7 +7,6 @@
  */
 import * as React from "react";
 import { isEqual } from "lodash";
-import type { PointProps } from "@itwin/appui-abstract";
 import { BeEvent } from "@itwin/core-bentley";
 import type { SizeProps } from "@itwin/core-react";
 import { Point } from "@itwin/core-react";
@@ -16,6 +15,7 @@ import type { FloatingWidgetResizeHandle } from "../widget/FloatingWidget";
 import type { WidgetState } from "../state/WidgetState";
 import type { TabState } from "../state/TabState";
 import { getUniqueId } from "./NineZone";
+import type { XAndY } from "../state/internal/NineZoneStateHelpers";
 import type {
   DropTargetState,
   PanelDropTargetState,
@@ -42,7 +42,7 @@ export interface TabDragStartArgs extends DragStartArgs {
 /** @internal */
 export interface UseDragTabArgs {
   tabId: TabState["id"];
-  onDrag?: (dragBy: PointProps) => void;
+  onDrag?: (dragBy: XAndY) => void;
   onDragEnd?: (target: TabDragDropTargetState) => void;
 }
 

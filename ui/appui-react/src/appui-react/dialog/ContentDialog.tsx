@@ -14,9 +14,9 @@ import type { ActiveContentChangedEventArgs } from "../framework/FrameworkConten
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
+  type UiSyncEventArgs,
 } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
-import type { UiSyncEventArgs } from "@itwin/appui-abstract";
 import classnames from "classnames";
 
 // istanbul ignore next

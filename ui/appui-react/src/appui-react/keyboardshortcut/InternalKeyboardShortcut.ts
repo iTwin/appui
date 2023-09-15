@@ -6,7 +6,6 @@
  * @module KeyboardShortcut
  */
 
-import type { UiSyncEventArgs } from "@itwin/appui-abstract";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { CursorInformation } from "../cursor/CursorInformation";
 import type { KeyboardShortcutProps } from "../framework/FrameworkKeyboardShortcuts";
@@ -15,7 +14,10 @@ import {
   KeyboardShortcut,
   KeyboardShortcutContainer,
 } from "./KeyboardShortcut";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
+import {
+  SyncUiEventDispatcher,
+  type UiSyncEventArgs
+} from "../syncui/SyncUiEventDispatcher";
 
 type OnShortcutFunc = (shortcut: KeyboardShortcut) => void;
 

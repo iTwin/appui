@@ -11,7 +11,7 @@
 import * as React from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import type { PointProps } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import { UiError } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Rectangle, Size } from "@itwin/core-react";
@@ -771,7 +771,7 @@ export class FrontstageDef {
    */
   public floatWidget(
     widgetId: string,
-    position?: PointProps,
+    position?: XAndY,
     size?: SizeProps
   ) {
     const state = this.nineZoneState;
@@ -878,7 +878,7 @@ export class FrontstageDef {
    */
   public popoutWidget(
     widgetId: string,
-    position?: PointProps,
+    position?: XAndY,
     size?: SizeProps
   ) {
     const state = this.nineZoneState;

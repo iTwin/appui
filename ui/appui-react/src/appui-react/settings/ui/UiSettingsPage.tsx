@@ -20,8 +20,8 @@ import {
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
+  type UiSyncEventArgs,
 } from "../../syncui/SyncUiEventDispatcher";
-import type { UiSyncEventArgs } from "@itwin/appui-abstract";
 import { IconSpecUtilities } from "@itwin/appui-abstract";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select, Slider, ToggleSwitch } from "@itwin/itwinui-react";

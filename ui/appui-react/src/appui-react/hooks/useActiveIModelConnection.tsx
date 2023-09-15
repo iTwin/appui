@@ -7,10 +7,12 @@
  */
 
 import { useEffect, useState } from "react";
-import type { UiSyncEventArgs } from "@itwin/appui-abstract";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { SessionStateActionId } from "../redux/SessionState";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
+import {
+  SyncUiEventDispatcher,
+  type UiSyncEventArgs,
+} from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
 
 /** React hook that maintains the active IModelConnection. For this hook to work properly the

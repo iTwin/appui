@@ -11,7 +11,6 @@ import classnames from "classnames";
 import * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
 import { OutputMessagePriority } from "@itwin/core-frontend";
-import type { PointProps } from "@itwin/appui-abstract";
 import {
   MessageSeverity,
   RelativePosition,
@@ -47,7 +46,7 @@ interface PointerMessageState {
   isVisible: boolean;
   message: NotifyMessageType;
   detailedMessage?: NotifyMessageType;
-  position: PointProps;
+  position: XAndY;
   messageDetails?: NotifyMessageDetailsType;
 }
 
@@ -235,7 +234,7 @@ export class PointerMessage extends React.Component<
 
   private updatePosition() {
     const adjustmentOffset = 20;
-    let offset: PointProps | undefined;
+    let offset: XAndY | undefined;
     switch (this._relativePosition) {
       case RelativePosition.Top:
         offset = { x: 0, y: -adjustmentOffset };

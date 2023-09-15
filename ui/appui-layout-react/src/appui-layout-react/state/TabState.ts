@@ -7,7 +7,6 @@
  */
 
 import produce from "immer";
-import type { PointProps } from "@itwin/appui-abstract";
 import { UiError } from "@itwin/appui-abstract";
 import { type IconSpec, Rectangle, type SizeProps } from "@itwin/core-react";
 import type { PanelSide } from "../widget-panels/Panel";
@@ -18,7 +17,7 @@ import {
   type WidgetState,
 } from "./WidgetState";
 import { getTabLocation } from "./TabLocation";
-import { category } from "./internal/NineZoneStateHelpers";
+import { category, type XAndY } from "./internal/NineZoneStateHelpers";
 import { createTabState } from "./internal/TabStateHelpers";
 import {
   assertWidgetState,
@@ -58,7 +57,7 @@ export interface TabsState {
 /** @internal */
 export interface DraggedTabState {
   readonly tabId: TabState["id"];
-  readonly position: PointProps;
+  readonly position: XAndY;
   readonly home: FloatingWidgetHomeState;
 }
 
