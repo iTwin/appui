@@ -17,6 +17,7 @@ import {
   FloatingWidgetProvider,
   getResizeBy,
   useFloatingWidgetId,
+  useWidgetAllowedToDock,
   WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
@@ -236,5 +237,36 @@ describe("useFloatingWidgetId", () => {
       wrapper: (props) => <TestNineZoneProvider {...props} />,
     });
     expect(result.current).to.be.undefined;
+  });
+});
+
+describe("useWidgetAllowedToDock", () => {
+  it("should return true if floating widget is allowed to dock", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addFloatingWidget(state, "w1", ["t1"]);
+    const { result } = renderHook(() => useWidgetAllowedToDock(), {
+      wrapper: (props) => (
+        <TestNineZoneProvider layout={createLayoutStore(state)}>
+          <WidgetIdContext.Provider value="w1" {...props} />
+        </TestNineZoneProvider>
+      ),
+    });
+    expect(result.current).to.be.true;
+  });
+
+  it("should return false if floating widget is not allowed to dock", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1", { allowedPanelTargets: [] });
+    state = addFloatingWidget(state, "test1", ["t1"]);
+
+    const { result } = renderHook(() => useWidgetAllowedToDock(), {
+      wrapper: (props) => (
+        <TestNineZoneProvider layout={createLayoutStore(state)}>
+          <WidgetIdContext.Provider value="test1" {...props} />
+        </TestNineZoneProvider>
+      ),
+    });
+    expect(result.current).to.be.false;
   });
 });

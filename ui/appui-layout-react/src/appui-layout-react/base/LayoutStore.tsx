@@ -8,7 +8,8 @@
 
 import * as React from "react";
 import type { StoreApi } from "zustand";
-import { createStore, useStore } from "zustand";
+import { createStore } from "zustand";
+import { useStoreWithEqualityFn } from "zustand/traditional";
 import { shallow } from "zustand/shallow";
 import { assert } from "@itwin/core-bentley";
 import type { NineZoneState } from "../state/NineZoneState";
@@ -44,5 +45,9 @@ export function useLayout<SelectorOutput>(
   multipleSlices = false
 ) {
   const store = useLayoutStore();
-  return useStore(store, selector, multipleSlices ? shallow : undefined);
+  return useStoreWithEqualityFn(
+    store,
+    selector,
+    multipleSlices ? shallow : undefined
+  );
 }
