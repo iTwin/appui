@@ -36,7 +36,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Defaults: Story = {};
+export const Default: Story = {};
 
 export const Resizable: Story = {
   args: {
@@ -44,7 +44,7 @@ export const Resizable: Story = {
   },
 };
 
-export const DefaultPosition: Story = {
+export const Position: Story = {
   args: {
     defaultPosition: {
       x: 10,
@@ -53,7 +53,7 @@ export const DefaultPosition: Story = {
   },
 };
 
-export const DefaultSize: Story = {
+export const Size: Story = {
   args: {
     defaultSize: {
       height: 100,
@@ -65,6 +65,15 @@ export const DefaultSize: Story = {
 export const HideWithUI: Story = {
   args: {
     hideWithUi: true,
+  },
+};
+
+export const AllOptions: Story = {
+  args: {
+    ...Resizable.args,
+    ...Position.args,
+    ...Size.args,
+    ...HideWithUI.args,
   },
 };
 
