@@ -11,26 +11,45 @@ const meta = {
   component: CanFloatOptions,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],
-  args: {
-    isResizable: false,
-  },
 } satisfies Meta<typeof CanFloatOptions>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
+export const Defaults: Story = {};
+
+export const Resizable: Story = {
   args: {
     isResizable: true,
+  },
+};
+
+export const DefaultPosition: Story = {
+  args: {
     defaultPosition: {
-      x: 250,
-      y: 50,
+      x: 10,
+      y: 200,
     },
+  },
+};
+
+export const DefaultSize: Story = {
+  args: {
     defaultSize: {
       height: 100,
       width: 100,
     },
-    containerId: "container-1",
+  },
+};
+
+export const HideWithUI: Story = {
+  args: {
     hideWithUi: true,
   },
 };
+
+// export const ContainerId: Story = {
+//   args: {
+//     containerId: "container-1",
+//   },
+// };
