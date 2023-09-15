@@ -436,6 +436,14 @@ export class SampleAppIModelApp {
     return process.env[envVar] === "1" || process.env[envVar] === "true";
   }
 
+  public static setSnapshotPath(): string | undefined {
+    const url = window.location.href.toString();
+    if (url.includes("snapshotPath")) {
+      return url.split("snapshotPath=").pop();
+    }
+    return process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
+  }
+
   public static setTestProperty(value: string, immediateSync = false) {
     if (value !== SampleAppIModelApp.getTestProperty()) {
       UiFramework.dispatchActionToStore(
@@ -626,7 +634,7 @@ async function main() {
   SampleAppIModelApp.testAppConfiguration.fullSnapshotPath =
     process.env.IMJS_UITESTAPP_SNAPSHOT_FULLPATH;
   SampleAppIModelApp.testAppConfiguration.snapshotPath =
-    process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
+    SampleAppIModelApp.setSnapshotPath();
   SampleAppIModelApp.testAppConfiguration.bingMapsKey =
     process.env.IMJS_BING_MAPS_KEY;
   SampleAppIModelApp.testAppConfiguration.mapBoxKey =
