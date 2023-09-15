@@ -19,11 +19,11 @@ import type { IMatch } from '@itwin/appui-abstract';
 import type { InputProps as InputProps_2 } from '@itwin/itwinui-react';
 import type { Localization } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
-import type { PointProps } from '@itwin/appui-abstract';
 import type { ProgressRadialProps } from '@itwin/itwinui-react';
 import * as React_2 from 'react';
 import * as ReactAutosuggest from 'react-autosuggest';
 import { RelativePosition } from '@itwin/appui-abstract';
+import type { XAndY } from '@itwin/core-geometry';
 
 // @public
 export class ActivateSettingsTabEvent extends BeUiEvent<ActivateSettingsTabEventArgs> {
@@ -1148,18 +1148,18 @@ export type OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent;
 export function percentInRange(percent: number): number;
 
 // @internal
-export class Point implements PointProps {
+export class Point implements XAndY {
     constructor(x?: number, y?: number);
-    static create(pointProps: PointProps): Point;
+    static create(XAndY: XAndY): Point;
     // (undocumented)
-    equals(other: PointProps): boolean;
-    getDistanceTo(other: PointProps): number;
-    getManhattanDistanceTo(other: PointProps): number;
-    getOffsetTo(other: PointProps): Point;
+    equals(other: XAndY): boolean;
+    getDistanceTo(other: XAndY): number;
+    getManhattanDistanceTo(other: XAndY): number;
+    getOffsetTo(other: XAndY): Point;
     // (undocumented)
     multiply(factor: number): Point;
     // (undocumented)
-    offset(offset: PointProps): Point;
+    offset(offset: XAndY): Point;
     // (undocumented)
     offsetX(offset: number): Point;
     // (undocumented)
@@ -1169,7 +1169,7 @@ export class Point implements PointProps {
     // (undocumented)
     setY(y: number): Point;
     // (undocumented)
-    toProps(): PointProps;
+    toProps(): XAndY;
     // (undocumented)
     readonly x: number;
     // (undocumented)
@@ -1357,7 +1357,7 @@ export class Rectangle implements RectangleProps {
     containIn(other: RectangleProps): Rectangle;
     // (undocumented)
     contains(other: RectangleProps): boolean;
-    containsPoint(point: PointProps): boolean;
+    containsPoint(point: XAndY): boolean;
     containsXY(x: number, y: number): boolean;
     // (undocumented)
     containVerticallyIn(other: RectangleProps): Rectangle;
@@ -1370,7 +1370,7 @@ export class Rectangle implements RectangleProps {
     // (undocumented)
     getHeight(): number;
     getHorizontalSegmentBounds(segmentId: number, numberOfSegments: number): Rectangle;
-    getShortestDistanceToPoint(point: PointProps): number;
+    getShortestDistanceToPoint(point: XAndY): number;
     // (undocumented)
     getSize(): Size;
     getVerticalSegmentBounds(segmentId: number, numberOfSegments: number): Rectangle;
@@ -1381,14 +1381,14 @@ export class Rectangle implements RectangleProps {
     intersects(other: RectangleProps): boolean;
     // (undocumented)
     readonly left: number;
-    offset(offset: PointProps): Rectangle;
+    offset(offset: XAndY): Rectangle;
     offsetX(offset: number): Rectangle;
     offsetY(offset: number): Rectangle;
     outerMergeWith(other: RectangleProps): Rectangle;
     // (undocumented)
     readonly right: number;
     setHeight(height: number): Rectangle;
-    setPosition(position: PointProps): Rectangle;
+    setPosition(position: XAndY): Rectangle;
     setSize(size: SizeProps): Rectangle;
     setWidth(width: number): Rectangle;
     // (undocumented)

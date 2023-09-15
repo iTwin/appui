@@ -84,7 +84,7 @@ internal;FooterProps
 internal;getChildKey(child: React_2.ReactNode, index: number): string
 internal;getCursorClassName(type: CursorType): string
 internal;getOverflown(width: number, docked: ReadonlyArray
-internal;getResizeBy(handle: FloatingWidgetResizeHandle, offset: PointProps): Rectangle
+internal;getResizeBy(handle: FloatingWidgetResizeHandle, offset: XAndY): Rectangle
 internal;getSendBackHomeState(state: NineZoneState, widgetId: WidgetState["id"]):
 internal;getTabLocation(state: NineZoneState, id: TabState["id"]): TabLocation | undefined
 internal;getUniqueId(): string
@@ -137,7 +137,7 @@ internal;NineZoneProvider(props: NineZoneProviderProps): JSX.Element
 internal;NineZoneProviderProps 
 internal;NineZoneState
 internal;NineZoneStateReducer(state: NineZoneState, action: NineZoneAction): NineZoneState
-internal;offsetAndContainInContainer: (tooltipBounds: RectangleProps, containerSize: SizeProps, offset?: PointProps) => Point
+internal;offsetAndContainInContainer: (tooltipBounds: RectangleProps, containerSize: SizeProps, offset?: XAndY) => Point
 internal;onOverflowLabelAndEditorResize(): void
 internal;PanelDropTargetState
 internal;PanelInitializeAction
