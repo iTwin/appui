@@ -30,7 +30,7 @@ interface DemoProps {
   widgetsInfo: boolean;
 }
 
-const DemoContext = React.createContext<DemoProps>({ widgetsInfo: true });
+const DemoContext = React.createContext<DemoProps>({ widgetsInfo: false });
 
 function Demo(props: DemoProps) {
   const [initialized, setInitialized] = React.useState(false);
@@ -113,11 +113,11 @@ function Content() {
 }
 
 const meta: Meta = {
-  title: "Layouts/Spatial",
+  title: "Layouts/Custom",
   component: Demo,
   decorators: [AppUiDecorator],
   args: {
-    widgetsInfo: true,
+    widgetsInfo: false,
   },
 } satisfies Meta<typeof Demo>;
 

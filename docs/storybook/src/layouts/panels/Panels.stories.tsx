@@ -44,6 +44,7 @@ function Demo() {
               },
             ],
           },
+          hideToolSettings: true,
         })
       );
 
@@ -64,7 +65,7 @@ function Demo() {
 }
 
 const meta: Meta = {
-  title: "Layouts/Panels",
+  title: "Layouts/Current",
   component: Demo,
   decorators: [AppUiDecorator],
 } satisfies Meta<typeof Demo>;
