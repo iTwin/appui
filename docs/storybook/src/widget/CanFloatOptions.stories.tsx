@@ -68,17 +68,18 @@ export const HideWithUI: Story = {
   },
 };
 
-export const AllOptions: Story = {
+export const ContainerId: Story = {
+  args: {
+    containerId: "container-1",
+  },
+};
+
+export const MultipleOptions: Story = {
   args: {
     ...Resizable.args,
     ...Position.args,
     ...Size.args,
     ...HideWithUI.args,
+    ...ContainerId.args,
   },
 };
-
-// export const ContainerId: Story = {
-//   args: {
-//     containerId: "container-1",
-//   },
-// };

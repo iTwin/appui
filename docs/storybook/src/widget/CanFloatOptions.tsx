@@ -13,21 +13,35 @@ import {
   UiFramework,
   UiItemsManager,
   UiItemsProvider,
-  Widget,
   WidgetState,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 
-function Content() {
-  return <>Widget content</>;
-}
-
-function createFloatingWidget(canFloat: CanFloatWidgetOptions): Widget {
+function createProvider(props: CanFloatWidgetOptions): UiItemsProvider {
   return {
-    id: "w1",
-    content: <Content />,
-    defaultState: WidgetState.Floating,
-    canFloat,
+    id: "widgets",
+    provideWidgets: () => {
+      const floatingWidget = {
+        id: "w1",
+        content: <>Widget 1 content </>,
+        defaultState: WidgetState.Floating,
+        canFloat: props,
+      };
+      if (props.containerId) {
+        return [
+          floatingWidget,
+          {
+            id: "w2",
+            content: <>Widget 2 content</>,
+            defaultState: WidgetState.Floating,
+            canFloat: {
+              containerId: props.containerId,
+            },
+          },
+        ];
+      }
+      return [floatingWidget];
+    },
   };
 }
 
@@ -35,12 +49,7 @@ function createFloatingWidget(canFloat: CanFloatWidgetOptions): Widget {
 export function CanFloatOptions(props: CanFloatWidgetOptions) {
   const [initialized, setInitialized] = React.useState(false);
   React.useEffect(() => {
-    const providers: UiItemsProvider[] = [
-      {
-        id: "widgets",
-        provideWidgets: () => [createFloatingWidget(props)],
-      },
-    ];
+    const provider = createProvider(props);
     void (async function () {
       await IModelApp.startup();
       await UiFramework.initialize(undefined);
@@ -65,18 +74,14 @@ export function CanFloatOptions(props: CanFloatWidgetOptions) {
           hideNavigationAid: true,
         })
       );
-      for (const provider of providers) {
-        UiItemsManager.register(provider);
-      }
-
+      UiItemsManager.register(provider);
       await UiFramework.frontstages.setActiveFrontstage("main-frontstage");
       setInitialized(true);
     })();
     return () => {
+      void UiFramework.frontstages.setActiveFrontstageDef(undefined);
       UiFramework.frontstages.clearFrontstageProviders();
-      for (const provider of providers) {
-        UiItemsManager.unregister(provider.id);
-      }
+      UiItemsManager.unregister(provider.id);
     };
   }, [props]);
   if (!initialized) return null;
