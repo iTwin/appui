@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-// TODO: use https://vitejs.dev/config/server-options.html#server-fs-allow instead
-import "../../lib/webfont/bentley-icons-generic-webfont.css";
+import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
@@ -13,15 +12,12 @@ import {
   IModelViewportControl,
   StageUsage,
   StandardFrontstageProvider,
-  StateManager,
-  ThemeManager,
   UiFramework,
   useBackstageManager,
   useIsBackstageOpen,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
-import React from "react";
-import { Provider } from "react-redux";
+import { AppUiDecorator } from "../AppUiDecorator";
 
 function Demo() {
   const [initialized, setInitialized] = React.useState(false);
@@ -74,14 +70,10 @@ function Initialized() {
       <pre>
         <code>isOpen: {String(isOpen)}</code>
       </pre>
-      <Provider store={StateManager.store}>
-        <ThemeManager>
-          <ConfigurableUiContent
-            style={{ height: 300 }}
-            appBackstage={<BackstageComposer />}
-          />
-        </ThemeManager>
-      </Provider>
+      <ConfigurableUiContent
+        style={{ height: 300 }}
+        appBackstage={<BackstageComposer />}
+      />
     </>
   );
 }
@@ -89,6 +81,7 @@ function Initialized() {
 const meta: Meta = {
   title: "Hooks/useIsBackstageOpen",
   component: Demo,
+  decorators: [AppUiDecorator],
 } satisfies Meta<typeof Demo>;
 
 export default meta;
