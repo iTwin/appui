@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Disable user select when dragging or resizing a widget.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
