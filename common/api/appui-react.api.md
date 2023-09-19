@@ -725,15 +725,10 @@ export type CalculatorPropsProps = Pick<CalculatorProps, "engine">;
 
 // @public
 export interface CanFloatWidgetOptions {
-    // (undocumented)
     readonly containerId?: string;
-    // (undocumented)
     readonly defaultPosition?: PointProps;
-    // (undocumented)
     readonly defaultSize?: SizeProps;
-    // (undocumented)
     readonly hideWithUi?: boolean;
-    // (undocumented)
     readonly isResizable?: boolean;
 }
 
@@ -2263,7 +2258,7 @@ export class FrontstageDef {
     get panelDefs(): StagePanelDef[];
     // @beta
     popoutWidget(widgetId: string, position?: PointProps, size?: SizeProps): void;
-    // @beta (undocumented)
+    // @beta
     restoreLayout(): void;
     // (undocumented)
     get rightPanel(): StagePanelDef | undefined;
