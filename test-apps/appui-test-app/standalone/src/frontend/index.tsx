@@ -437,12 +437,12 @@ export class SampleAppIModelApp {
   }
 
   public static getSnapshotPath(): string | undefined {
-    const url = window.location.href.toString();
-    if (url.includes("snapshotPath")) {
-      const snapshotPath = url.split("snapshotPath=").pop();
-      return snapshotPath ? decodeURIComponent(snapshotPath) : undefined;
-    }
-    return process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    const snapshotPath = params.get("snapshotPath");
+    return snapshotPath
+      ? decodeURIComponent(snapshotPath)
+      : process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
   }
 
   public static setTestProperty(value: string, immediateSync = false) {
