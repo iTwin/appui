@@ -436,10 +436,11 @@ export class SampleAppIModelApp {
     return process.env[envVar] === "1" || process.env[envVar] === "true";
   }
 
-  public static setSnapshotPath(): string | undefined {
+  public static getSnapshotPath(): string | undefined {
     const url = window.location.href.toString();
     if (url.includes("snapshotPath")) {
-      return url.split("snapshotPath=").pop();
+      const snapshotPath = url.split("snapshotPath=").pop();
+      return snapshotPath ? decodeURIComponent(snapshotPath) : undefined;
     }
     return process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
   }
@@ -634,7 +635,7 @@ async function main() {
   SampleAppIModelApp.testAppConfiguration.fullSnapshotPath =
     process.env.IMJS_UITESTAPP_SNAPSHOT_FULLPATH;
   SampleAppIModelApp.testAppConfiguration.snapshotPath =
-    SampleAppIModelApp.setSnapshotPath();
+    SampleAppIModelApp.getSnapshotPath();
   SampleAppIModelApp.testAppConfiguration.bingMapsKey =
     process.env.IMJS_BING_MAPS_KEY;
   SampleAppIModelApp.testAppConfiguration.mapBoxKey =
