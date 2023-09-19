@@ -85,5 +85,5 @@ export function CanFloatOptions(props: CanFloatWidgetOptions) {
     };
   }, [props]);
   if (!initialized) return null;
-  return <ConfigurableUiContent style={{ height: "400px" }} />;
+  return <ConfigurableUiContent style={{ height: "calc(100vh - 2rem)" }} />;
 }
