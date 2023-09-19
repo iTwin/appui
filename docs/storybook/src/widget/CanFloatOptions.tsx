@@ -13,6 +13,7 @@ import {
   UiFramework,
   UiItemsManager,
   UiItemsProvider,
+  Widget,
   WidgetState,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
@@ -21,26 +22,25 @@ function createProvider(props: CanFloatWidgetOptions): UiItemsProvider {
   return {
     id: "widgets",
     provideWidgets: () => {
-      const floatingWidget = {
+      const widget1: Widget = {
         id: "w1",
+        label: "Widget 1",
         content: <>Widget 1 content </>,
         defaultState: WidgetState.Floating,
         canFloat: props,
       };
-      if (props.containerId) {
-        return [
-          floatingWidget,
-          {
-            id: "w2",
-            content: <>Widget 2 content</>,
-            defaultState: WidgetState.Floating,
-            canFloat: {
+      const widget2: Widget = {
+        id: "w2",
+        label: "Widget 2",
+        content: <>Widget 2 content </>,
+        defaultState: props.containerId ? WidgetState.Floating : undefined,
+        canFloat: props.containerId
+          ? {
               containerId: props.containerId,
-            },
-          },
-        ];
-      }
-      return [floatingWidget];
+            }
+          : undefined,
+      };
+      return [widget1, widget2];
     },
   };
 }
