@@ -18,12 +18,13 @@ import {
 import { PinToggle } from "./PinToggle";
 import { PopoutToggle } from "./PopoutToggle";
 import { useLayout } from "../base/LayoutStore";
-import { useFloatingWidgetId } from "./FloatingWidget";
-
+import { useFloatingWidgetId, useWidgetAllowedToDock } from "./FloatingWidget";
 /** @internal */
 export function TabBarButtons() {
   const isToolSettings = useIsToolSettingsTab();
   const floatingWidgetId = useFloatingWidgetId();
+  const canBeDocked = useWidgetAllowedToDock();
+
   const isMainPanelWidget = useIsMainPanelWidget();
   const tabId = useActiveTabId();
   const canPopout = useLayout((state) => {
@@ -33,7 +34,7 @@ export function TabBarButtons() {
   return (
     <div className="nz-widget-tabBarButtons">
       {canPopout && <PopoutToggle />}
-      {floatingWidgetId && !isToolSettings && <SendBack />}
+      {floatingWidgetId && !isToolSettings && canBeDocked && <SendBack />}
       {isToolSettings && <Dock />}
       {isMainPanelWidget && <PinToggle />}
     </div>

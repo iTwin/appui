@@ -349,3 +349,18 @@ export function useFloatingWidgetId(): FloatingWidgetState["id"] | undefined {
     return widgetId;
   });
 }
+
+/** @internal */
+export function useWidgetAllowedToDock(): boolean {
+  const id = useFloatingWidgetId();
+  return useLayout((state) => {
+    if (id) {
+      const widget = getWidgetState(state, id);
+      const activeTab = state.tabs[widget.activeTabId];
+      if (activeTab.allowedPanelTargets?.length === 0) {
+        return false;
+      }
+    }
+    return true;
+  });
+}

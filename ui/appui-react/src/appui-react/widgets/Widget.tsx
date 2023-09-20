@@ -28,13 +28,15 @@ export interface CanFloatWidgetOptions {
  */
 export interface Widget {
   readonly id: string;
-  /** Stage panels to which this widget can be docked. All stage panels are allowed if nothing is provided. */
+  /** Stage panels to which this widget can be docked. All stage panels are allowed if nothing is provided. To not allow docking to any panels, provide a blank array. */
   readonly allowedPanels?: ReadonlyArray<StagePanelLocation>;
   readonly badge?: BadgeType;
   /** Defaults to `false`. */
   readonly canPopout?: boolean;
-  /** Set to `false` to disable floating of a widget. Alternatively options object can be provided which enables floating. Defaults to `true`. */
+  /** Set to `false` to disable floating of a widget. Alternatively options object can be provided which enables floating.
+   * If allowedPanels is an empty array, automatically set to `true`. Defaults to `true`. */
   readonly canFloat?: boolean | CanFloatWidgetOptions;
+  /** Defaults to `Floating`(3) if widget is not allowed to dock to any panels. */
   readonly defaultState?: WidgetState;
   /** Content of the Widget. */
   readonly content?: React.ReactNode;

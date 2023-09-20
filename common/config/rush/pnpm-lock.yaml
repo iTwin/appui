@@ -523,7 +523,7 @@ importers:
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ^5.0.2
-      zustand: ^4.3.6
+      zustand: ^4.4.1
     dependencies:
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 2.0.0
@@ -531,7 +531,7 @@ importers:
       immer: 9.0.6
       lodash: 4.17.21
       react-transition-group: 4.4.5_react-dom@17.0.2+react@17.0.2
-      zustand: 4.3.6_immer@9.0.6+react@17.0.2
+      zustand: 4.4.1_b4b4c799a5a2f4488606d88d938fa77d
     devDependencies:
       '@itwin/appui-abstract': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
       '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
@@ -21074,18 +21074,22 @@ packages:
       commander: 9.5.0
     dev: true
 
-  /zustand/4.3.6_immer@9.0.6+react@17.0.2:
-    resolution: {integrity: sha512-6J5zDxjxLE+yukC2XZWf/IyWVKnXT9b9HUv09VJ/bwGCpKNcaTqp7Ws28Xr8jnbvnZcdRaidztAPsXFBIqufiw==}
+  /zustand/4.4.1_b4b4c799a5a2f4488606d88d938fa77d:
+    resolution: {integrity: sha512-QCPfstAS4EBiTQzlaGP1gmorkh/UL1Leaj2tdj+zZCZ/9bm0WS7sI2wnfD5lpOszFqWJ1DcPnGoY8RDL61uokw==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
+      '@types/react': '>=16.8'
       immer: '>=9.0'
       react: '>=16.8'
     peerDependenciesMeta:
+      '@types/react':
+        optional: true
       immer:
         optional: true
       react:
         optional: true
     dependencies:
+      '@types/react': 17.0.53
       immer: 9.0.6
       react: 17.0.2
       use-sync-external-store: 1.2.0_react@17.0.2
