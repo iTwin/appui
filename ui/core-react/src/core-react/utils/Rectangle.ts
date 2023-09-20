@@ -67,7 +67,7 @@ export class Rectangle implements RectangleProps {
     public readonly top = 0,
     public readonly right = 0,
     public readonly bottom = 0
-  ) { }
+  ) {}
 
   /** @returns Size of this rectangle. */
   public getSize(): Size {

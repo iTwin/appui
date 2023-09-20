@@ -18,7 +18,7 @@ export class Point implements PointProps {
   }
 
   /** Creates a new point. */
-  public constructor(public readonly x = 0, public readonly y = 0) { }
+  public constructor(public readonly x = 0, public readonly y = 0) {}
 
   /** Calculates Euclidean distance to other point. */
   public getDistanceTo(other: PointProps): number {
