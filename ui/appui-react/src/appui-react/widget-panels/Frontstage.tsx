@@ -382,7 +382,6 @@ export function appendWidgets(
           bounds: containedBounds.toProps(),
           home,
           userSized,
-          resizable: widgetDef.isFloatingStateWindowResizable,
         });
       }
     } else {

@@ -654,7 +654,6 @@ export function NineZoneStateReducer(
             widgetId: location.widgetId,
             widgetIndex,
           },
-          resizable: tab.isFloatingWidgetResizable,
         });
       } else {
         const popoutWidgetId = location.popoutWidgetId;
