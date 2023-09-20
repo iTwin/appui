@@ -763,11 +763,7 @@ function openWidgetTab(state: NineZoneState, id: TabState["id"]) {
     widget.minimized = false;
     widget.activeTabId = id;
 
-    if (isFloatingTabLocation(location)) {
-      const floatingWidget =
-        draft.floatingWidgets.byId[location.floatingWidgetId];
-      floatingWidget.hidden = false;
-    } else if (isPanelTabLocation(location)) {
+    if (isPanelTabLocation(location)) {
       const panel = draft.panels[location.side];
       panel.collapsed = false;
       // istanbul ignore next

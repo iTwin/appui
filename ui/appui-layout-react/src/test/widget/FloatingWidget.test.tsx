@@ -49,18 +49,6 @@ describe("FloatingWidget", () => {
     container.firstChild!.should.matchSnapshot();
   });
 
-  it("should render hidden", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "t1");
-    state = addFloatingWidget(state, "w1", ["t1"], { hidden: true }, undefined);
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state}>
-        <FloatingWidgetProvider id="w1" />
-      </TestNineZoneProvider>
-    );
-    container.firstChild!.should.matchSnapshot();
-  });
-
   it("should render hidden when hideWithUiWhenFloating is true", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { hideWithUiWhenFloating: true });

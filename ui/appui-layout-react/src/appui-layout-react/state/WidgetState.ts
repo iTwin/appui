@@ -48,7 +48,7 @@ export interface FloatingWidgetState {
   readonly bounds: RectangleProps;
   readonly home: FloatingWidgetHomeState;
   readonly userSized?: boolean;
-  readonly hidden?: boolean;
+  /** Defaults to `true`. */
   readonly resizable?: boolean;
 }
 

@@ -133,7 +133,6 @@ export function createFloatingWidgetState(
       widgetId: undefined,
       widgetIndex: 0,
     },
-    hidden: false,
     resizable: true,
     ...args,
     bounds,

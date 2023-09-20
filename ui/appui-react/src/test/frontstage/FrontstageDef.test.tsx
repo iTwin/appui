@@ -119,7 +119,6 @@ describe("FrontstageDef", () => {
     state = addPanelWidget(state, "right", "rightMiddle", ["t2"]);
     state = addPanelWidget(state, "right", "rightEnd", ["t3"]);
     state = addFloatingWidget(state, "fw2", ["t4"]);
-    state = addFloatingWidget(state, "fw3", ["t5"], { hidden: true });
 
     const frontstageDef = new FrontstageDef();
     frontstageDef.nineZoneState = state;
@@ -141,11 +140,6 @@ describe("FrontstageDef", () => {
       defaultState: WidgetState.Floating,
     });
 
-    const t5 = WidgetDef.create({
-      id: "t5",
-      defaultState: WidgetState.Hidden,
-    });
-
     const findWidgetDefGetter = sinon.stub(frontstageDef, "findWidgetDef");
     findWidgetDefGetter.onFirstCall().returns(t2);
     findWidgetDefGetter.returns(t3);
@@ -159,7 +153,6 @@ describe("FrontstageDef", () => {
     expect(frontstageDef.getWidgetCurrentState(t4)).to.eql(
       WidgetState.Floating
     );
-    expect(frontstageDef.getWidgetCurrentState(t5)).to.eql(WidgetState.Hidden);
   });
 
   it("should not save size and position if ninezone state is not available", () => {
