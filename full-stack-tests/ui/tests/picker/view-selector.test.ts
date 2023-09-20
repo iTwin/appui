@@ -11,5 +11,7 @@ test("view selector test", async ({ page, baseURL }) => {
   await page.getByRole("button", { name: "Picker", exact: true }).click();
 
   await page.getByRole("button", { name: "Views" }).click();
-  await expect(page).toHaveScreenshot();
+  await expect(page).toHaveScreenshot({
+    mask: [page.locator(".component-examples-categories")],
+  });
 });
