@@ -855,7 +855,6 @@ importers:
       '@itwin/build-tools': ^3.7.0
       '@itwin/core-bentley': ^3.7.0
       '@itwin/core-common': ^3.7.0
-      '@itwin/core-geometry': ^3.7.0
       '@itwin/core-i18n': ^3.7.0
       '@itwin/eslint-plugin': ^4.0.0-dev.45
       '@itwin/itwinui-icons-react': ^2.1.0
@@ -916,8 +915,7 @@ importers:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/build-tools': 3.7.4
       '@itwin/core-bentley': 3.7.0
-      '@itwin/core-common': 3.7.0_d3cf7b747b827c7a0a662ddd00c672b6
-      '@itwin/core-geometry': 3.7.0
+      '@itwin/core-common': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/core-i18n': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/eslint-plugin': 4.0.0-dev.45_eslint@8.44.0+typescript@5.0.2
       '@testing-library/dom': 8.20.0
@@ -4649,6 +4647,21 @@ packages:
 
   /@itwin/core-bentley/3.7.0:
     resolution: {integrity: sha512-HzkFgiSDTWUxcWqbBoV0PXe5YDl2tCNzCl/IEwR8fqYjKX12KL7B1+L10QNB8YwnxqrmKfI0vC7ejTPjRgNmDg==}
+
+  /@itwin/core-common/3.7.0_@itwin+core-bentley@3.7.0:
+    resolution: {integrity: sha512-rD/51qebYBdYN+NeOdOTnceR8KJCoyOLyZEDYxO6C2/rBNjdok1LRTfluAeRHFnp0h/xfIzfChNP0yUidsycog==}
+    peerDependencies:
+      '@itwin/core-bentley': ^3.7.0
+      '@itwin/core-geometry': ^3.7.0
+    dependencies:
+      '@itwin/core-bentley': 3.7.0
+      '@itwin/object-storage-core': 1.4.0
+      flatbuffers: 1.12.0
+      js-base64: 3.7.5
+      semver: 7.3.8
+    transitivePeerDependencies:
+      - debug
+    dev: true
 
   /@itwin/core-common/3.7.0_d3cf7b747b827c7a0a662ddd00c672b6:
     resolution: {integrity: sha512-rD/51qebYBdYN+NeOdOTnceR8KJCoyOLyZEDYxO6C2/rBNjdok1LRTfluAeRHFnp0h/xfIzfChNP0yUidsycog==}
