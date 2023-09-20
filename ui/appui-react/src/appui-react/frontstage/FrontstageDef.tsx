@@ -682,7 +682,9 @@ export class FrontstageDef {
     });
   }
 
-  /** @beta */
+  /** Restores frontstage layout to initial configuration.
+   * @beta
+   */
   public restoreLayout() {
     for (const panelDef of this.panelDefs) {
       panelDef.size = panelDef.defaultSize;

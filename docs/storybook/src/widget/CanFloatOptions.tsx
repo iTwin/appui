@@ -3,25 +3,53 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
-  BackstageAppButton,
-  BackstageComposer,
+  CanFloatWidgetOptions,
   ConfigurableUiContent,
   IModelViewportControl,
   StageUsage,
   StandardFrontstageProvider,
   UiFramework,
-  useBackstageManager,
-  useIsBackstageOpen,
+  UiItemsManager,
+  UiItemsProvider,
+  Widget,
+  WidgetState,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
-import { AppUiDecorator } from "../AppUiDecorator";
 
-function Demo() {
+function createProvider(props: CanFloatWidgetOptions): UiItemsProvider {
+  return {
+    id: "widgets",
+    provideWidgets: () => {
+      const widget1: Widget = {
+        id: "w1",
+        label: "Widget 1",
+        content: <>Widget 1 content </>,
+        defaultState: WidgetState.Floating,
+        canFloat: props,
+      };
+      const widget2: Widget = {
+        id: "w2",
+        label: "Widget 2",
+        content: <>Widget 2 content </>,
+        defaultState: props.containerId ? WidgetState.Floating : undefined,
+        canFloat: props.containerId
+          ? {
+              containerId: props.containerId,
+            }
+          : undefined,
+      };
+      return [widget1, widget2];
+    },
+  };
+}
+
+/** [canFloat](https://www.itwinjs.org/reference/appui-react/widget/widget/canfloat) property can be used to configure a floating widget. */
+export function CanFloatOptions(props: CanFloatWidgetOptions) {
   const [initialized, setInitialized] = React.useState(false);
   React.useEffect(() => {
+    const provider = createProvider(props);
     void (async function () {
       await IModelApp.startup();
       await UiFramework.initialize(undefined);
@@ -29,6 +57,7 @@ function Demo() {
         new StandardFrontstageProvider({
           id: "main-frontstage",
           usage: StageUsage.Private,
+          version: Math.random(),
           contentGroupProps: {
             id: "ViewportContentGroup",
             layout: StandardContentLayouts.singleView,
@@ -40,56 +69,21 @@ function Demo() {
               },
             ],
           },
-          cornerButton: (
-            <BackstageAppButton
-              label="Toggle Backstage"
-              icon="icon-bentley-systems"
-              execute={() => {
-                UiFramework.backstage.getBackstageToggleCommand().execute();
-              }}
-            />
-          ),
           hideStatusBar: true,
           hideToolSettings: true,
           hideNavigationAid: true,
         })
       );
-      void UiFramework.frontstages.setActiveFrontstage("main-frontstage");
+      UiItemsManager.register(provider);
+      await UiFramework.frontstages.setActiveFrontstage("main-frontstage");
       setInitialized(true);
     })();
-  }, []);
+    return () => {
+      void UiFramework.frontstages.setActiveFrontstageDef(undefined);
+      UiFramework.frontstages.clearFrontstageProviders();
+      UiItemsManager.unregister(provider.id);
+    };
+  }, [props]);
   if (!initialized) return null;
-  return <Initialized />;
+  return <ConfigurableUiContent style={{ height: "calc(100vh - 2rem)" }} />;
 }
-
-function Initialized() {
-  const manager = useBackstageManager();
-  const isOpen = useIsBackstageOpen(manager);
-  return (
-    <>
-      <pre>
-        <code>isOpen: {String(isOpen)}</code>
-      </pre>
-      <ConfigurableUiContent
-        style={{ height: 300 }}
-        appBackstage={<BackstageComposer />}
-      />
-    </>
-  );
-}
-
-const meta: Meta = {
-  title: "Hooks/useIsBackstageOpen",
-  component: Demo,
-  decorators: [AppUiDecorator],
-} satisfies Meta<typeof Demo>;
-
-export default meta;
-
-type Story = StoryObj<typeof Demo>;
-
-export const Basic: Story = {
-  args: {
-    label: "Test",
-  },
-};

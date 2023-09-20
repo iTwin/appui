@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
+import { BadgeType } from "@itwin/appui-abstract";
 import {
   CommandItemDef,
   ToolbarHelper,
@@ -11,7 +12,7 @@ import {
   ToolbarUsage,
   UiFramework,
 } from "@itwin/appui-react";
-import { ToolbarComposer } from "@itwin/appui-react/src/appui-react/toolbar/ToolbarComposer";
+import { ConditionalIconItem, IconHelper } from "@itwin/core-react";
 import {
   Svg2D,
   Svg3D,
@@ -20,8 +21,7 @@ import {
   SvgClipboard,
   SvgExport,
 } from "@itwin/itwinui-icons-react";
-import { BadgeType } from "@itwin/appui-abstract";
-import { ConditionalIconItem, IconHelper } from "@itwin/core-react";
+import { ToolbarComposer } from "@itwin/appui-react/src/appui-react/toolbar/ToolbarComposer";
 
 UiFramework.initialize(undefined);
 

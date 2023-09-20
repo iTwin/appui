@@ -723,15 +723,12 @@ export type CalculatorPropsProps = Pick<CalculatorProps, "engine">;
 
 // @public
 export interface CanFloatWidgetOptions {
-    // (undocumented)
     readonly containerId?: string;
     // (undocumented)
     readonly defaultPosition?: XAndY;
     // (undocumented)
     readonly defaultSize?: SizeProps;
-    // (undocumented)
     readonly hideWithUi?: boolean;
-    // (undocumented)
     readonly isResizable?: boolean;
 }
 

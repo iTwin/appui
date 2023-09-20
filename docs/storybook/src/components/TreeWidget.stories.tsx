@@ -2,9 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { PropertyRecord } from "@itwin/appui-abstract";
-import { StateManager, ThemeManager, UiFramework } from "@itwin/appui-react";
+import { UiFramework } from "@itwin/appui-react";
 import {
   ImmediatelyLoadedTreeNodeItem,
   SimpleTreeDataProviderHierarchy,
@@ -17,14 +18,14 @@ import {
   ControlledTree,
   SelectionMode,
 } from "@itwin/components-react";
-import React from "react";
-import { Provider } from "react-redux";
 import { IModelApp } from "@itwin/core-frontend";
+import { AppUiDecorator } from "../AppUiDecorator";
 
 const meta = {
   title: "Components/ControlledTree",
   component: TreeWidgetComponent,
   tags: ["autodocs"],
+  decorators: [AppUiDecorator],
 } satisfies Meta<typeof TreeWidgetComponent>;
 
 export default meta;
@@ -124,11 +125,5 @@ function TreeWidgetComponent(props: ControlledTreeProps) {
   };
 
   if (!initialized) return null;
-  return (
-    <Provider store={StateManager.store}>
-      <ThemeManager>
-        <ControlledTree {...defaultProps} />
-      </ThemeManager>
-    </Provider>
-  );
+  return <ControlledTree {...defaultProps} />;
 }

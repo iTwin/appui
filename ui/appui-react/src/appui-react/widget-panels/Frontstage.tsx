@@ -348,8 +348,9 @@ export function appendWidgets(
       widgetDef.isFloatingStateSupported &&
       widgetDef.defaultState === WidgetState.Floating
     ) {
-      const floatingContainerId =
-        widgetDef.floatingContainerId ?? getUniqueId();
+      const floatingContainerId = widgetDef.floatingContainerId
+        ? widgetDef.floatingContainerId
+        : getUniqueId();
       const widgetContainerId = getWidgetId(location, section);
       const home: FloatingWidgetHomeState = {
         side,
