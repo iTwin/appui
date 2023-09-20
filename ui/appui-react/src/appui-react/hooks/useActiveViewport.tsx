@@ -13,9 +13,9 @@ import type { ActiveContentChangedEventArgs } from "../framework/FrameworkConten
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
-  type UiSyncEventArgs,
 } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
+import type { UiSyncEventArgs } from "../syncui/InternalSyncUiEventDispatcher";
 
 /** React hook that maintains the active viewport.
  * @public

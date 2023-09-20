@@ -17,11 +17,11 @@ import type {
   ModalFrontstageChangedEventArgs,
   NavigationAidActivatedEventArgs,
   ToolActivatedEventArgs,
-  UiSyncEventArgs,
   WidgetStateChangedEventArgs,
 } from "../../appui-react";
 import { SyncUiEventDispatcher, UiFramework } from "../../appui-react";
 import TestUtils from "../TestUtils";
+import type { UiSyncEventArgs } from "../../appui-react/syncui/InternalSyncUiEventDispatcher";
 
 const timeToWaitForUiSyncCallback = 60;
 

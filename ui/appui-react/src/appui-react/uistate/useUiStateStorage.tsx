@@ -13,8 +13,8 @@ import { UiFramework } from "../UiFramework";
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
-  type UiSyncEventArgs,
 } from "../syncui/SyncUiEventDispatcher";
+import type { UiSyncEventArgs } from "../syncui/InternalSyncUiEventDispatcher";
 
 /** @public */
 export function useUiStateStorageHandler(): UiStateStorage {

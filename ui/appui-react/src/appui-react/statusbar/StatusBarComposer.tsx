@@ -8,6 +8,7 @@
 
 import classnames from "classnames";
 import * as React from "react";
+import type { UiSyncEventArgs } from "@itwin/appui-abstract";
 import {
   ConditionalBooleanValue,
   ConditionalStringValue,
@@ -15,10 +16,7 @@ import {
 import type { CommonProps } from "@itwin/core-react";
 import { useRefs, useResizeObserver } from "@itwin/core-react";
 import { eqlOverflown } from "@itwin/appui-layout-react";
-import {
-  SyncUiEventDispatcher,
-  type UiSyncEventArgs,
-} from "../syncui/SyncUiEventDispatcher";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { StatusBarOverflow } from "./Overflow";
 import { StatusBarOverflowPanel } from "./OverflowPanel";
 import {

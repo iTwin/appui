@@ -58,7 +58,6 @@
     "@itwin/build-tools": "^3.7.0",
     "@itwin/core-bentley": "^3.7.0",
     "@itwin/core-common": "^3.7.0",
-    "@itwin/core-geometry": "^3.7.0",
     "@itwin/core-i18n": "^3.7.0",
     "@itwin/eslint-plugin": "^4.0.0-dev.45",
     "@testing-library/dom": "^8.11.2",

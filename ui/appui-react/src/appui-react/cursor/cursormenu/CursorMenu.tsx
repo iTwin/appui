@@ -12,12 +12,10 @@ import { GlobalContextMenu } from "@itwin/core-react"; // ContextSubMenu,
 import { SessionStateActionId } from "../../redux/SessionState";
 import type { MenuItemProps } from "../../shared/MenuItem";
 import { MenuItemHelpers } from "../../shared/MenuItem";
-import {
-  SyncUiEventDispatcher,
-  type UiSyncEventArgs,
-} from "../../syncui/SyncUiEventDispatcher";
+import { SyncUiEventDispatcher } from "../../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../../UiFramework";
 import { Logger } from "@itwin/core-bentley";
+import type { UiSyncEventArgs } from "../../syncui/InternalSyncUiEventDispatcher";
 
 /** State for [[CursorPopupMenu]] component
  * @alpha

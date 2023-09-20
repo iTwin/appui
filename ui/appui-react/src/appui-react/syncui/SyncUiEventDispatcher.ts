@@ -6,7 +6,9 @@
  * @module SyncUi
  */
 
-import { BeUiEvent, Logger } from "@itwin/core-bentley";
+import type { UiSyncEvent } from "./InternalSyncUiEventDispatcher";
+import { InternalSyncUiDispatcher } from "./InternalSyncUiEventDispatcher";
+import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { SessionStateActionId } from "../redux/SessionState";
@@ -64,154 +66,61 @@ export enum SyncUiEventId {
   ViewedModelsChanged = "viewedmodelschanged",
 }
 
-/**
- * UiSync Event arguments. Contains a set of lower case event Ids.
- * @public
- */
-export interface UiSyncEventArgs {
-  eventIds: Set<string>;
-}
-
-/** UiSync Event class.
- * @public
- */
-export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> {}
-
 /** This class is used to send eventIds to interested UI components so the component can determine if it needs
  * to refresh its display by calling setState on itself.
  * @public
  */
 export class SyncUiEventDispatcher {
+  private static _uiEventDispatcher = new InternalSyncUiDispatcher();
   private static _unregisterFuncs = new Array<() => void>();
   private static _connectionUnregisterFuncs = new Array<() => void>();
   private static _iModelConnection?: IModelConnection;
-  private static _syncEventTimerId: number | undefined;
-  private static _eventIds = new Set<string>();
-  private static _eventIdAdded = false;
-  private static _uiSyncEvent = new UiSyncEvent();
-  private static _timeoutPeriod = 100;
-  private static _secondaryTimeoutPeriod = 50;
 
   /** @internal - used for testing only */
   /* istanbul ignore next */
   public static setTimeoutPeriod(period: number): void {
-    SyncUiEventDispatcher._timeoutPeriod = period;
-    SyncUiEventDispatcher._secondaryTimeoutPeriod = Math.floor(
-      SyncUiEventDispatcher._timeoutPeriod / 2
-    );
-    if (SyncUiEventDispatcher._secondaryTimeoutPeriod < 1)
-      SyncUiEventDispatcher._secondaryTimeoutPeriod = 1;
-    if (SyncUiEventDispatcher._syncEventTimerId) {
-      window.clearTimeout(SyncUiEventDispatcher._syncEventTimerId);
-      SyncUiEventDispatcher._syncEventTimerId = undefined;
-    }
-    if (SyncUiEventDispatcher._eventIds)
-      SyncUiEventDispatcher._eventIds.clear();
-
-    SyncUiEventDispatcher._eventIdAdded = false;
-  }
-
-  /** The current timeout period */
-  public static get timeoutPeriod(): number {
-    return SyncUiEventDispatcher._timeoutPeriod;
+    SyncUiEventDispatcher._uiEventDispatcher.setTimeoutPeriod(period);
   }
 
   /** Return set of event ids that will be sent to listeners/. */
   public static get syncEventIds(): Set<string> {
-    return SyncUiEventDispatcher._eventIds;
+    return SyncUiEventDispatcher._uiEventDispatcher.syncEventIds;
   }
 
   /** Return SyncUiEvent so callers can register an event callback. */
   public static get onSyncUiEvent(): UiSyncEvent {
-    return SyncUiEventDispatcher._uiSyncEvent;
+    return SyncUiEventDispatcher._uiEventDispatcher.onSyncUiEvent;
   }
 
   /** Immediately trigger sync event processing. */
   public static dispatchImmediateSyncUiEvent(eventId: string): void {
-    const eventIds = new Set<string>();
-    eventIds.add(eventId.toLowerCase());
-    SyncUiEventDispatcher.onSyncUiEvent.emit({ eventIds });
+    SyncUiEventDispatcher._uiEventDispatcher.dispatchImmediateSyncUiEvent(
+      eventId
+    );
   }
 
   /** Save eventId in Set for processing. */
   public static dispatchSyncUiEvent(eventId: string): void {
-    if (0 === SyncUiEventDispatcher.timeoutPeriod) {
+    if (0 === SyncUiEventDispatcher._uiEventDispatcher.timeoutPeriod) {
       Logger.logInfo(
         UiFramework.loggerCategory(this),
         `[dispatchSyncUiEvent] not processed because timeoutPeriod=0`
       );
       return;
     }
-
-    SyncUiEventDispatcher.syncEventIds.add(eventId.toLowerCase());
-    if (!SyncUiEventDispatcher._syncEventTimerId) {
-      // if there is not a timer active, create one
-      SyncUiEventDispatcher._syncEventTimerId = window.setTimeout(() => {
-        SyncUiEventDispatcher.checkForAdditionalIds();
-      }, SyncUiEventDispatcher._timeoutPeriod);
-    } else {
-      this._eventIdAdded = true;
-    }
+    SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(eventId);
   }
 
   /** Save multiple eventIds in Set for processing. */
   public static dispatchSyncUiEvents(eventIds: string[]): void {
     // istanbul ignore if
-    if (0 === SyncUiEventDispatcher.timeoutPeriod) {
+    if (0 === SyncUiEventDispatcher._uiEventDispatcher.timeoutPeriod) {
       Logger.logInfo(
         UiFramework.loggerCategory(this),
         `[dispatchSyncUiEvents] not processed because _timeoutPeriod=0`
       );
     }
-
-    eventIds.forEach((id) =>
-      SyncUiEventDispatcher.syncEventIds.add(id.toLowerCase())
-    );
-    // istanbul ignore else
-    if (!SyncUiEventDispatcher._syncEventTimerId) {
-      // if there is not a timer active, create one
-      SyncUiEventDispatcher._syncEventTimerId = window.setTimeout(() => {
-        SyncUiEventDispatcher.checkForAdditionalIds();
-      }, SyncUiEventDispatcher._timeoutPeriod);
-    } else {
-      SyncUiEventDispatcher._eventIdAdded = true;
-    }
-  }
-
-  /** Trigger registered event processing when timer has expired and no addition eventId are added. */
-  public static checkForAdditionalIds() {
-    /* istanbul ignore else */
-    if (!SyncUiEventDispatcher._eventIdAdded) {
-      // istanbul ignore else
-      if (SyncUiEventDispatcher._syncEventTimerId) {
-        window.clearTimeout(SyncUiEventDispatcher._syncEventTimerId);
-        SyncUiEventDispatcher._syncEventTimerId = undefined;
-      }
-      SyncUiEventDispatcher._eventIdAdded = false;
-      // istanbul ignore else
-      if (SyncUiEventDispatcher.syncEventIds.size > 0) {
-        const eventIds = new Set<string>();
-        SyncUiEventDispatcher.syncEventIds.forEach((value) =>
-          eventIds.add(value)
-        );
-        SyncUiEventDispatcher._eventIds.clear();
-        SyncUiEventDispatcher.onSyncUiEvent.emit({ eventIds });
-      }
-      return;
-    }
-
-    // istanbul ignore next
-    if (SyncUiEventDispatcher._syncEventTimerId) {
-      window.clearTimeout(SyncUiEventDispatcher._syncEventTimerId);
-      SyncUiEventDispatcher._syncEventTimerId = undefined;
-    }
-    // istanbul ignore next
-    SyncUiEventDispatcher._eventIdAdded = false;
-    // if events have been added before the initial timer expired wait half that time to see if events are still being added.
-    // istanbul ignore next
-    SyncUiEventDispatcher._syncEventTimerId = window.setTimeout(() => {
-      SyncUiEventDispatcher.checkForAdditionalIds();
-    }, SyncUiEventDispatcher._secondaryTimeoutPeriod);
+    SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvents(eventIds);
   }
 
   /** Checks to see if an eventId of interest is contained in the set of eventIds */
@@ -219,27 +128,29 @@ export class SyncUiEventDispatcher {
     eventIds: Set<string>,
     idsOfInterest: string[]
   ) {
-    return (
-      idsOfInterest.length > 0 &&
-      idsOfInterest.some((value) => eventIds.has(value.toLowerCase()))
+    return SyncUiEventDispatcher._uiEventDispatcher.hasEventOfInterest(
+      eventIds,
+      idsOfInterest
     );
   }
 
   // istanbul ignore next
   private static _dispatchViewChange() {
-    SyncUiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.ViewStateChanged);
+    SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
+      SyncUiEventId.ViewStateChanged
+    );
   }
 
   // istanbul ignore next
   private static _dispatchFeatureOverridesChange() {
-    SyncUiEventDispatcher.dispatchSyncUiEvent(
+    SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
       SyncUiEventId.FeatureOverridesChanged
     );
   }
 
   // istanbul ignore next
   private static _dispatchViewedModelsChanged() {
-    SyncUiEventDispatcher.dispatchSyncUiEvent(
+    SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
       SyncUiEventId.ViewedModelsChanged
     );
   }
@@ -257,48 +168,52 @@ export class SyncUiEventDispatcher {
         );
       }),
       UiFramework.frontstages.onContentLayoutActivatedEvent.addListener(() => {
-        SyncUiEventDispatcher.dispatchSyncUiEvent(
+        SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.ContentLayoutActivated
         );
       }),
       UiFramework.frontstages.onFrontstageActivatedEvent.addListener(() => {
-        SyncUiEventDispatcher.dispatchSyncUiEvent(
+        SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.FrontstageActivating
         );
       }),
       UiFramework.frontstages.onFrontstageReadyEvent.addListener(() => {
-        SyncUiEventDispatcher.dispatchSyncUiEvent(
+        SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.FrontstageReady
         );
       }),
       UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(() => {
-        SyncUiEventDispatcher.dispatchSyncUiEvent(
+        SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.ModalFrontstageChanged
         );
       }),
       UiFramework.frontstages.onNavigationAidActivatedEvent.addListener(() => {
-        SyncUiEventDispatcher.dispatchSyncUiEvent(
+        SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.NavigationAidActivated
         );
       }),
       UiFramework.frontstages.onToolActivatedEvent.addListener(() => {
-        SyncUiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.ToolActivated);
+        SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
+          SyncUiEventId.ToolActivated
+        );
       }),
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(() => {
-        SyncUiEventDispatcher.dispatchSyncUiEvent(
+        SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.WidgetStateChanged
         );
       }),
       UiFramework.backstage.onToggled.addListener(() => {
-        SyncUiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.BackstageEvent);
+        SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
+          SyncUiEventId.BackstageEvent
+        );
       }),
       UiFramework.content.onActiveContentChangedEvent.addListener(() => {
-        SyncUiEventDispatcher.dispatchSyncUiEvent(
+        SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.ActiveContentChanged
         );
       }),
       IModelApp.viewManager.onSelectedViewportChanged.addListener((args) => {
-        SyncUiEventDispatcher.dispatchSyncUiEvent(
+        SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.ActiveViewportChanged
         );
 
@@ -347,7 +262,7 @@ export class SyncUiEventDispatcher {
 
     this._connectionUnregisterFuncs.push(
       iModelConnection.selectionSet.onChanged.addListener(() => {
-        SyncUiEventDispatcher.dispatchSyncUiEvent(
+        SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(
           SyncUiEventId.SelectionSetChanged
         );
       }),
