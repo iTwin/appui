@@ -19,10 +19,15 @@ import type { WidgetState } from "./WidgetState";
  * @public
  */
 export interface CanFloatWidgetOptions {
+  /** Describes if the widget is resizable. */
   readonly isResizable?: boolean;
+  /** Describes the preferred default position of a floating widget. */
   readonly defaultPosition?: PointProps;
+  /** Describes the preferred default size of a floating widget. */
   readonly defaultSize?: SizeProps;
+  /** Describes to which container the floating widget is assigned. This allows the grouping of multiple widgets within the same floating widget. */
   readonly containerId?: string;
+  /** Describes if the floating widget should hide together with other UI elements. */
   readonly hideWithUi?: boolean;
 }
 
