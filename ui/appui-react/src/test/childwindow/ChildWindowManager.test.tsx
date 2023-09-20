@@ -101,15 +101,25 @@ describe("ChildWindowManager", () => {
   `;
 
   const childHtml = `
-    <head>
-      <title>iTwinPopup</title>
-    </head>
-    <body>
-      <noscript>
-        You need to enable JavaScript to run this app.
-      </noscript>
-      <div id="root"></div>
-    </body>
+  <head>
+    <title>iTwinPopup</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+      #root {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body class="iui-root">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
   `;
 
   afterEach(() => {
