@@ -2258,7 +2258,7 @@ export class FrontstageDef {
     get panelDefs(): StagePanelDef[];
     // @beta
     popoutWidget(widgetId: string, position?: XAndY, size?: SizeProps): void;
-    // @beta (undocumented)
+    // @beta
     restoreLayout(): void;
     // (undocumented)
     get rightPanel(): StagePanelDef | undefined;
@@ -3705,7 +3705,7 @@ export enum SelectionScope {
 }
 
 // @public
-export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "availableSelectionScopes" | "activeSelectionScope">>;
+export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "activeSelectionScope" | "availableSelectionScopes">>;
 
 // @public
 export interface SessionState {
@@ -4403,7 +4403,6 @@ export interface SyncToolSettingsPropertiesEventArgs {
 
 // @public
 export class SyncUiEventDispatcher {
-    static checkForAdditionalIds(): void;
     static clearConnectionEvents(iModelConnection: IModelConnection): void;
     static dispatchImmediateSyncUiEvent(eventId: string): void;
     static dispatchSyncUiEvent(eventId: string): void;
@@ -4415,7 +4414,6 @@ export class SyncUiEventDispatcher {
     // @internal
     static setTimeoutPeriod(period: number): void;
     static get syncEventIds(): Set<string>;
-    static get timeoutPeriod(): number;
 }
 
 // @public
