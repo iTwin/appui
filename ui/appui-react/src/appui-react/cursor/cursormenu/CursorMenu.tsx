@@ -15,7 +15,7 @@ import { MenuItemHelpers } from "../../shared/MenuItem";
 import { SyncUiEventDispatcher } from "../../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../../UiFramework";
 import { Logger } from "@itwin/core-bentley";
-import type { UiSyncEventArgs } from "../../syncui/InternalSyncUiEventDispatcher";
+import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
 
 /** State for [[CursorPopupMenu]] component
  * @alpha

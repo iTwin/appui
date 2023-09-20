@@ -6,13 +6,13 @@
  * @module SyncUi
  */
 
-import type { UiSyncEvent } from "./InternalSyncUiEventDispatcher";
-import { InternalSyncUiDispatcher } from "./InternalSyncUiEventDispatcher";
 import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { SessionStateActionId } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
+import type { UiSyncEvent } from "./UiSyncEvent";
+import { InternalSyncUiDispatcher } from "./InternalSyncUiEventDispatcher";
 
 // cSpell:ignore activecontentchanged, activitymessageupdated, activitymessagecancelled, backstageevent, contentlayoutactivated, contentcontrolactivated,
 // cSpell:ignore elementtooltipchanged, frontstageactivated, inputfieldmessageadded, inputfieldmessageremoved, modalfrontstagechanged, modaldialogchanged

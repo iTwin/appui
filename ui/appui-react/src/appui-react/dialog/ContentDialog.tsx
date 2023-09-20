@@ -17,7 +17,7 @@ import {
 } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
 import classnames from "classnames";
-import type { UiSyncEventArgs } from "../syncui/InternalSyncUiEventDispatcher";
+import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 
 // istanbul ignore next
 /**

@@ -24,7 +24,7 @@ import {
 import { IconSpecUtilities } from "@itwin/appui-abstract";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select, Slider, ToggleSwitch } from "@itwin/itwinui-react";
-import type { UiSyncEventArgs } from "../../syncui/InternalSyncUiEventDispatcher";
+import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
 
 /** UiSettingsPage displaying the active UI settings. This page lets users set the following settings.
  *

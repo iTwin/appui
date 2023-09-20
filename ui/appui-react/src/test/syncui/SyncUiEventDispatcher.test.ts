@@ -21,7 +21,7 @@ import type {
 } from "../../appui-react";
 import { SyncUiEventDispatcher, UiFramework } from "../../appui-react";
 import TestUtils from "../TestUtils";
-import type { UiSyncEventArgs } from "../../appui-react/syncui/InternalSyncUiEventDispatcher";
+import type { UiSyncEventArgs } from "../../appui-react/syncui/UiSyncEvent";
 
 const timeToWaitForUiSyncCallback = 60;
 

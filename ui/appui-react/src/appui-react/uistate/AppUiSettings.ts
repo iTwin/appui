@@ -13,7 +13,7 @@ import {
 } from "../syncui/SyncUiEventDispatcher";
 import type { UserSettingsProvider } from "../UiFramework";
 import { UiFramework } from "../UiFramework";
-import type { UiSyncEventArgs } from "../syncui/InternalSyncUiEventDispatcher";
+import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 
 // cSpell:ignore configurableui
 
