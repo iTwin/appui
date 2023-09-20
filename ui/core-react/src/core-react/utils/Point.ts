@@ -13,8 +13,8 @@ import type { PointProps } from "./PointProps";
  */
 export class Point implements PointProps {
   /** Creates point from PointProps */
-  public static create(PointProps: PointProps) {
-    return new Point(PointProps.x, PointProps.y);
+  public static create(pointProps: PointProps) {
+    return new Point(pointProps.x, pointProps.y);
   }
 
   /** Creates a new point. */

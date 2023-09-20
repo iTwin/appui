@@ -24,7 +24,7 @@ export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> { }
  * to refresh its display by calling setState on itself.
  * @internal
  */
-export class InternalSyncUiDispatcher {
+export class InternalSyncUiEventDispatcher {
   private _syncEventTimerId: number | undefined;
   private _eventIds: Set<string>;
   private _eventIdAdded;
