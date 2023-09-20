@@ -264,18 +264,19 @@ export function useLabels() {
 
 function toTabArgs(widget: WidgetDef) {
   const label = getWidgetLabel(widget.label);
-  return {
+  const args = {
     allowedPanelTargets: widget.allowedPanelTargets?.map((location) =>
       toPanelSide(location)
     ),
     hideWithUiWhenFloating: !!widget.hideWithUiWhenFloating,
     canPopout: widget.canPopout,
     iconSpec: widget.iconSpec,
-    isFloatingStateWindowResizable: widget.isFloatingStateWindowResizable,
+    isFloatingWidgetResizable: widget.isFloatingStateWindowResizable,
     label,
     preferredFloatingWidgetSize: widget.defaultFloatingSize,
     preferredPanelWidgetSize: widget.preferredPanelSize,
   };
+  return args satisfies Pick<TabState, keyof typeof args>;
 }
 
 /** @internal */
@@ -710,7 +711,7 @@ export function initializePanel(
 }
 
 /** @internal */
-export const stateVersion = 15; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
+export const stateVersion = 16; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
 
 /** @internal */
 export function initializeNineZoneState(

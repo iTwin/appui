@@ -236,7 +236,7 @@ export function useTabInteractions<T extends HTMLElement>({
       const tab = tabRef.current;
       const userSized =
         tab.userSized ||
-        (tab.isFloatingStateWindowResizable &&
+        (tab.isFloatingWidgetResizable &&
           /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
       let position = bounds.topLeft();
       const widgetBounds = widgetContext.measure();

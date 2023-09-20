@@ -46,7 +46,7 @@ export interface TabState {
   readonly allowedPanelTargets?: ReadonlyArray<PanelSide>;
   readonly canPopout?: boolean;
   readonly userSized?: boolean;
-  readonly isFloatingStateWindowResizable?: boolean;
+  readonly isFloatingWidgetResizable?: boolean;
   readonly hideWithUiWhenFloating?: boolean;
 }
 

@@ -186,7 +186,7 @@ describe("FloatingTab", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", {
       label: "tab 1",
-      isFloatingStateWindowResizable: true,
+      isFloatingWidgetResizable: true,
       preferredFloatingWidgetSize: { width: 50, height: 50 },
     });
     state = addPanelWidget(state, "left", "w1", ["t1"]);

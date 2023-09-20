@@ -499,7 +499,7 @@ export function NineZoneStateReducer(
         const containedBounds = bounds.containIn(nzBounds);
         const userSized =
           tab.userSized ||
-          (tab.isFloatingStateWindowResizable &&
+          (tab.isFloatingWidgetResizable &&
             /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
 
         state = addFloatingWidget(
@@ -654,7 +654,7 @@ export function NineZoneStateReducer(
             widgetId: location.widgetId,
             widgetIndex,
           },
-          resizable: tab.isFloatingStateWindowResizable,
+          resizable: tab.isFloatingWidgetResizable,
         });
       } else {
         const popoutWidgetId = location.popoutWidgetId;
