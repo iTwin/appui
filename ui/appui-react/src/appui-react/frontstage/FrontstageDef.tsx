@@ -790,7 +790,7 @@ export class FrontstageDef {
    * @param widgetId case-sensitive Widget Id
    * @public
    */
-  public isWidgetDisplayed(widgetId: string) {
+  public isWidgetDisplayed(widgetId: string): boolean {
     if (!this.nineZoneState) return false;
 
     const tabLocation = getTabLocation(this.nineZoneState, widgetId);
@@ -800,7 +800,7 @@ export class FrontstageDef {
       const panel = this.nineZoneState.panels[tabLocation.side];
       const widgetDef = this.findWidgetDef(widgetId);
       const isVisible =
-        widgetDef && widgetDef.state === WidgetState.Open && !panel.collapsed;
+        !!widgetDef && widgetDef.state === WidgetState.Open && !panel.collapsed;
       return isVisible;
     }
 
