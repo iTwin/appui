@@ -80,7 +80,6 @@ export class WidgetDef {
     undefined;
   private _priority: number = 0;
   private _isFloatingStateSupported: boolean = false;
-  private _isFloatingStateWindowResizable: boolean = true;
   private _stateChanged: boolean = false;
   private _widgetType: WidgetType = WidgetType.Rectangular;
   private _applicationData?: any;
@@ -122,7 +121,12 @@ export class WidgetDef {
     return this._isFloatingStateSupported;
   }
   public get isFloatingStateWindowResizable(): boolean {
-    return this._isFloatingStateWindowResizable;
+    const canFloat = this.initialConfig?.canFloat;
+    if (typeof canFloat === "object") {
+      return !!canFloat.isResizable;
+    }
+
+    return true;
   }
   public get isToolSettings(): boolean {
     return this._widgetType === WidgetType.ToolSettings;
@@ -227,7 +231,6 @@ export class WidgetDef {
       this.setFloatingContainerId(canFloat.containerId);
       this.defaultFloatingPosition = canFloat.defaultPosition;
       this._hideWithUiWhenFloating = !!canFloat.hideWithUi;
-      this._isFloatingStateWindowResizable = !!canFloat.isResizable;
       this._defaultFloatingSize = canFloat.defaultSize;
     }
 
