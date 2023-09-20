@@ -6,7 +6,7 @@
  * @module Base
  */
 
-import produce from "immer";
+import produce, { castDraft } from "immer";
 import { UiError } from "@itwin/appui-abstract";
 import type { NineZoneState } from "../NineZoneState";
 import type { DraggedTabState, TabState } from "../TabState";
@@ -53,10 +53,10 @@ export function updateTabState(
 
   return produce(state, (draft) => {
     const tab = draft.tabs[id];
-    draft.tabs[id] = {
+    draft.tabs[id] = castDraft({
       ...tab,
       ...args,
-    };
+    });
   });
 }
 
