@@ -134,6 +134,7 @@ export function createFloatingWidgetState(
       widgetIndex: 0,
     },
     hidden: false,
+    resizable: true,
     ...args,
     bounds,
     id,

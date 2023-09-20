@@ -28,7 +28,6 @@ export interface WidgetState {
   readonly id: string;
   readonly minimized: boolean;
   readonly tabs: ReadonlyArray<TabState["id"]>;
-  readonly isFloatingStateWindowResizable?: boolean;
 }
 
 /** @internal */
@@ -45,11 +44,12 @@ export interface FloatingWidgetHomeState {
 
 /** @internal */
 export interface FloatingWidgetState {
-  readonly bounds: RectangleProps;
   readonly id: WidgetState["id"];
+  readonly bounds: RectangleProps;
   readonly home: FloatingWidgetHomeState;
   readonly userSized?: boolean;
   readonly hidden?: boolean;
+  readonly resizable?: boolean;
 }
 
 /** @internal */

@@ -647,20 +647,15 @@ export function NineZoneStateReducer(
           preferredFloatingWidgetSize: preferredSize,
         });
         state = removeTabFromWidget(state, id);
-        state = addFloatingWidget(
-          state,
-          id,
-          [id],
-          {
-            bounds: containedBounds,
-            home: {
-              side: location.side,
-              widgetId: location.widgetId,
-              widgetIndex,
-            },
+        state = addFloatingWidget(state, id, [id], {
+          bounds: containedBounds,
+          home: {
+            side: location.side,
+            widgetId: location.widgetId,
+            widgetIndex,
           },
-          { isFloatingStateWindowResizable: tab.isFloatingStateWindowResizable }
-        );
+          resizable: tab.isFloatingStateWindowResizable,
+        });
       } else {
         const popoutWidgetId = location.popoutWidgetId;
         const popoutWidget = state.popoutWidgets.byId[popoutWidgetId];

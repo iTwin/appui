@@ -169,10 +169,7 @@ function useFloatingWidgetState() {
 
     const toolSettingsTabId = state.toolSettings?.tabId;
     const isToolSettingsTab = widget.tabs[0] === toolSettingsTabId;
-    const resizable =
-      (undefined === widget.isFloatingStateWindowResizable ||
-        widget.isFloatingStateWindowResizable) &&
-      !isToolSettingsTab;
+    const resizable = !!floatingWidget.resizable && !isToolSettingsTab;
     const autoSized = singleTab && !userSized;
     return {
       autoSized,

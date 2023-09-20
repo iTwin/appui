@@ -377,20 +377,12 @@ export function appendWidgets(
         const bounds = Rectangle.createFromSize(size).offset(preferredPoint);
         const containedBounds = bounds.containIn(nzBounds);
 
-        state = addFloatingWidget(
-          state,
-          floatingContainerId,
-          [widgetDef.id],
-          {
-            bounds: containedBounds.toProps(),
-            home,
-            userSized,
-          },
-          {
-            isFloatingStateWindowResizable:
-              widgetDef.isFloatingStateWindowResizable,
-          }
-        );
+        state = addFloatingWidget(state, floatingContainerId, [widgetDef.id], {
+          bounds: containedBounds.toProps(),
+          home,
+          userSized,
+          resizable: widgetDef.isFloatingStateWindowResizable,
+        });
       }
     } else {
       const preferredWidgetIndex: number = section;
