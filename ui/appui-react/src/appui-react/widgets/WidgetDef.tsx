@@ -79,7 +79,6 @@ export class WidgetDef {
   private _classId: string | ConfigurableUiControlConstructor | undefined =
     undefined;
   private _priority: number = 0;
-  private _isFloatingStateSupported: boolean = false;
   private _stateChanged: boolean = false;
   private _widgetType: WidgetType = WidgetType.Rectangular;
   private _applicationData?: any;
@@ -117,9 +116,19 @@ export class WidgetDef {
   public get priority(): number {
     return this._priority;
   }
+
   public get isFloatingStateSupported(): boolean {
-    return this._isFloatingStateSupported;
+    if (!this.initialConfig) return false;
+
+    const allowedPanels = this.initialConfig.allowedPanels;
+    if (allowedPanels && allowedPanels.length === 0) {
+      return true;
+    }
+
+    const canFloat = this.initialConfig.canFloat;
+    return !!canFloat;
   }
+
   public get isFloatingStateWindowResizable(): boolean {
     const canFloat = this.initialConfig?.canFloat;
     if (typeof canFloat === "object") {
@@ -128,6 +137,7 @@ export class WidgetDef {
 
     return true;
   }
+
   public get isToolSettings(): boolean {
     return this._widgetType === WidgetType.ToolSettings;
   }
@@ -217,16 +227,7 @@ export class WidgetDef {
 
     this.setCanPopout(config.canPopout);
 
-    let canFloat = config.canFloat;
-    if (config.allowedPanels && config.allowedPanels.length === 0) {
-      if (typeof config.canFloat === "object") {
-        canFloat = config.canFloat;
-      } else {
-        canFloat = true;
-      }
-    }
-
-    this._isFloatingStateSupported = !!canFloat;
+    const canFloat = config.canFloat;
     if (typeof canFloat === "object") {
       this.setFloatingContainerId(canFloat.containerId);
       this.defaultFloatingPosition = canFloat.defaultPosition;
