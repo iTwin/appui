@@ -2,6 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+/** @packageDocumentation
+ * @module SyncUi
+ */
+
 import { BeUiEvent } from "@itwin/core-bentley";
 
 /** UiSync Event arguments. Contains a set of lower case event Ids.
@@ -14,4 +18,4 @@ export interface UiSyncEventArgs {
 /** UiSync Event class.
  * @public
  */
-export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> {}
+export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> { }
