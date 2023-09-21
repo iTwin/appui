@@ -58,7 +58,6 @@
     "@itwin/build-tools": "^3.7.0",
     "@itwin/core-bentley": "^3.7.0",
     "@itwin/core-common": "^3.7.0",
-    "@itwin/core-geometry": "^3.7.0",
     "@itwin/core-i18n": "^3.7.0",
     "@itwin/eslint-plugin": "^4.0.0-dev.45",
     "@testing-library/dom": "^8.11.2",
@@ -104,7 +103,7 @@
   ],
   "dependencies": {
     "@bentley/icons-generic": "^1.0.34",
-    "@itwin/itwinui-react": "^2.11.11",
+    "@itwin/itwinui-react": "^2.12.8",
     "@itwin/itwinui-variables": "^2.0.0",
     "@itwin/itwinui-icons-react": "^2.1.0",
     "classnames": "2.3.1",

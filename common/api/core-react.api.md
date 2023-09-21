@@ -19,7 +19,6 @@ import type { IMatch } from '@itwin/appui-abstract';
 import type { InputProps as InputProps_2 } from '@itwin/itwinui-react';
 import type { Localization } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
-import type { PointProps } from '@itwin/appui-abstract';
 import type { ProgressRadialProps } from '@itwin/itwinui-react';
 import * as React_2 from 'react';
 import * as ReactAutosuggest from 'react-autosuggest';
