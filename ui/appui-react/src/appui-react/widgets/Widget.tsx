@@ -52,4 +52,8 @@ export interface Widget {
   readonly label?: string | ConditionalStringValue;
   readonly priority?: number;
   readonly tooltip?: string | ConditionalStringValue;
+  /** Describes to which container the item is added.
+   * @alpha
+   */
+  readonly containerId?: string;
 }

@@ -24,21 +24,47 @@ export interface UiItemsProvider {
   /** Id of provider. */
   readonly id: string;
 
-  /** Provides toolbar items. */
+  /** Provides toolbar items.
+   * @alpha
+   */
+  readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
+  /** Provides status bar items.
+   * @alpha
+   */
+  readonly getStatusBarItems?: () => ReadonlyArray<StatusBarItem>;
+  /** Provides backstage items. Backstage items are filtered based on stage usage and stage id as other items.
+   * A separate `UiItemsProvider` is needed to define global backstage items.
+   * @alpha
+   */
+  readonly getBackstageItems?: () => ReadonlyArray<BackstageItem>;
+  /** Provides widgets.
+   * @alpha
+   */
+  readonly getWidgets?: () => ReadonlyArray<Widget>;
+
+  /** Provides toolbar items.
+   * @note Use `getToolbarItems` instead.
+   */
   readonly provideToolbarItems?: (
     stageId: string,
     stageUsage: string,
     toolbarUsage: ToolbarUsage,
     toolbarOrientation: ToolbarOrientation
   ) => ReadonlyArray<ToolbarItem>;
-  /** Provides status bar items. */
+  /** Provides status bar items.
+   * @note Use `getStatusBarItems` instead.
+   */
   readonly provideStatusBarItems?: (
     stageId: string,
     stageUsage: string
   ) => ReadonlyArray<StatusBarItem>;
-  /** Provides backstage items. */
+  /** Provides backstage items.
+   * @note Use `getBackstageItems` instead.
+   */
   readonly provideBackstageItems?: () => ReadonlyArray<BackstageItem>;
-  /** Provides widgets. */
+  /** Provides widgets.
+   * @note Use `getWidgets` instead.
+   */
   readonly provideWidgets?: (
     stageId: string,
     stageUsage: string,

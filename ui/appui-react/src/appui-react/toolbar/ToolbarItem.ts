@@ -56,6 +56,10 @@ export interface CommonToolbarItem {
   readonly groupPriority?: number;
   /** Priority within a toolbar or group. */
   readonly itemPriority: number;
+  /** Describes to which toolbar the item is added.
+   * @alpha
+   */
+  readonly toolbarId?: string;
 }
 
 /** Describes the data needed to insert an action button into a toolbar.
