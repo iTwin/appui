@@ -6,7 +6,7 @@
  * @module Cursor
  */
 
-import type { PointProps } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition, UiEvent } from "@itwin/appui-abstract";
 import { Point } from "@itwin/core-react";
 
@@ -39,8 +39,8 @@ export enum CursorDirection {
  * @public
  */
 export interface CursorUpdatedEventArgs {
-  oldPt: PointProps;
-  newPt: PointProps;
+  oldPt: XAndY;
+  newPt: XAndY;
   direction: CursorDirection;
 }
 
@@ -60,10 +60,10 @@ export class CursorInformation {
   private static _cursorDirections = new Array<CursorDirection>();
 
   /** The cursor position. */
-  public static get cursorPosition(): PointProps {
+  public static get cursorPosition(): XAndY {
     return this._cursorPosition;
   }
-  public static set cursorPosition(pt: PointProps) {
+  public static set cursorPosition(pt: XAndY) {
     this._cursorPosition = Point.create(pt);
   }
 
@@ -85,7 +85,7 @@ export class CursorInformation {
   public static readonly onCursorUpdatedEvent = new CursorUpdatedEvent();
 
   /** Handles the mouse movement.  Sets the cursor position and direction and emits onCursorUpdatedEvent. */
-  public static handleMouseMove(point: PointProps): void {
+  public static handleMouseMove(point: XAndY): void {
     const oldPt = CursorInformation.cursorPosition;
     const direction = this._determineMostFrequentDirection(
       this._cursorDirections,

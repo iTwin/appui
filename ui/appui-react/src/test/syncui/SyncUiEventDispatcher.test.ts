@@ -5,7 +5,6 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
-import type { UiSyncEventArgs } from "@itwin/appui-abstract";
 import type { IModelRpcProps } from "@itwin/core-common";
 import type { IModelConnection, ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
@@ -22,6 +21,7 @@ import type {
 } from "../../appui-react";
 import { SyncUiEventDispatcher, UiFramework } from "../../appui-react";
 import TestUtils from "../TestUtils";
+import type { UiSyncEventArgs } from "../../appui-react/syncui/UiSyncEvent";
 
 const timeToWaitForUiSyncCallback = 60;
 

@@ -10,10 +10,10 @@ import type * as React from "react";
 import type {
   BadgeType,
   ConditionalStringValue,
-  PointProps,
   StringGetter,
 } from "@itwin/appui-abstract";
 import { UiError, UiEvent } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 import {
   ConfigurableCreateInfo,
@@ -93,7 +93,7 @@ export class WidgetDef {
   private _defaultFloatingSize: SizeProps | undefined;
   private _canPopout?: boolean;
   private _floatingContainerId?: string;
-  private _defaultFloatingPosition: PointProps | undefined;
+  private _defaultFloatingPosition: XAndY | undefined;
 
   private _hideWithUiWhenFloating?: boolean;
   private _allowedPanelTargets?: ReadonlyArray<StagePanelLocation>;
@@ -167,7 +167,7 @@ export class WidgetDef {
   public get defaultFloatingPosition() {
     return this._defaultFloatingPosition;
   }
-  public set defaultFloatingPosition(position: PointProps | undefined) {
+  public set defaultFloatingPosition(position: XAndY | undefined) {
     this._defaultFloatingPosition = position;
   }
 
