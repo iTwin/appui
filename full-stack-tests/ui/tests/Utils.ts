@@ -186,3 +186,12 @@ export async function dragTab(tab: Locator, target: Locator) {
   });
   await body.dispatchEvent("mouseup");
 }
+
+export async function openComponentExamples(
+  page: Page,
+  baseURL: string | undefined
+) {
+  await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
+  await page.locator(".nz-toolbar-button-button").click();
+  await page.getByRole("menuitem", { name: "Component Examples" }).click();
+}

@@ -14,5 +14,6 @@ npm run start:webserver
 ```
 
 2. Run the tests: `npx playwright test`
+   - To update component snapshots for visual testing: `npx playwright test --update-snapshots`
 
 _Suggested:_ use a VSCode extension `ms-playwright.playwright` to run the tests.
