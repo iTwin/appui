@@ -6,11 +6,8 @@
  * @module Widget
  */
 
-import type {
-  BadgeType,
-  ConditionalStringValue,
-  PointProps,
-} from "@itwin/appui-abstract";
+import type { BadgeType, ConditionalStringValue } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import type { IconSpec, SizeProps } from "@itwin/core-react";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { WidgetState } from "./WidgetState";
@@ -21,9 +18,7 @@ import type { WidgetState } from "./WidgetState";
 export interface CanFloatWidgetOptions {
   /** Describes if the widget is resizable. */
   readonly isResizable?: boolean;
-  /** Describes the preferred default position of a floating widget. */
-  readonly defaultPosition?: PointProps;
-  /** Describes the preferred default size of a floating widget. */
+  readonly defaultPosition?: XAndY;
   readonly defaultSize?: SizeProps;
   /** Describes to which container the floating widget is assigned. This allows the grouping of multiple widgets within the same floating widget. */
   readonly containerId?: string;

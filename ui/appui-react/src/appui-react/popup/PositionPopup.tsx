@@ -9,7 +9,7 @@
 import "./PositionPopup.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { PointProps } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import type { CommonDivProps, CommonProps, SizeProps } from "@itwin/core-react";
 import { Div, Size } from "@itwin/core-react";
 
@@ -17,7 +17,7 @@ import { Div, Size } from "@itwin/core-react";
  * @beta */
 export interface PositionPopupProps extends CommonProps {
   /** Center point */
-  point: PointProps;
+  point: XAndY;
   /** Function called when size is known. */
   onSizeKnown?: (size: SizeProps) => void;
   /** Content */

@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
-import type { PointProps } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition, UiEvent } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Point, Size } from "@itwin/core-react";
@@ -33,7 +33,7 @@ export interface CursorPopupOptions {
  * @internal
  */
 export interface CursorPopupUpdatePositionEventArgs {
-  pt: PointProps;
+  pt: XAndY;
 }
 
 /** CursorPopup Update Position Event class.
@@ -116,8 +116,8 @@ export class CursorPopupManager {
   public static open(
     id: string,
     content: React.ReactNode,
-    pt: PointProps,
-    offset: PointProps,
+    pt: XAndY,
+    offset: XAndY,
     relativePosition: RelativePosition,
     priority: number = 0,
     options?: CursorPopupOptions
@@ -153,8 +153,8 @@ export class CursorPopupManager {
   public static update(
     id: string,
     content: React.ReactNode,
-    pt: PointProps,
-    offset: PointProps,
+    pt: XAndY,
+    offset: XAndY,
     relativePosition: RelativePosition,
     priority: number = 0
   ) {
@@ -179,7 +179,7 @@ export class CursorPopupManager {
 
   /** Called to move the open popup to new location
    */
-  public static updatePosition(pt: PointProps) {
+  public static updatePosition(pt: XAndY) {
     CursorPopupManager.resetPopupsRenderRelativePosition(Point.create(pt));
     CursorPopupManager.onCursorPopupUpdatePositionEvent.emit({ pt });
   }

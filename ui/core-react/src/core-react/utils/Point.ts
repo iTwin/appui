@@ -6,13 +6,13 @@
  * @module Utilities
  */
 
-import type { PointProps } from "@itwin/appui-abstract";
+import type { PointProps } from "./PointProps";
 
 /** Describes and provides methods to work with 2d points.
  * @internal
  */
 export class Point implements PointProps {
-  /** Creates point from [[PointProps]]. */
+  /** Creates point from PointProps */
   public static create(pointProps: PointProps) {
     return new Point(pointProps.x, pointProps.y);
   }
@@ -71,7 +71,7 @@ export class Point implements PointProps {
     return new Point(this.x * factor, this.y * factor);
   }
 
-  /** @returns [[PointProps]] object for this point. */
+  /** @returns PointProps object for this point. */
   public toProps(): PointProps {
     return {
       x: this.x,

@@ -6,7 +6,6 @@
  * @module Base
  */
 
-import type { PointProps } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import type { HorizontalPanelSide, PanelSide } from "../widget-panels/Panel";
 import type { TabState } from "./TabState";
@@ -20,6 +19,7 @@ import type {
   WidgetDragDropTargetState,
 } from "./DropTargetState";
 import type { PanelState } from "./PanelState";
+import type { XAndY } from "./internal/NineZoneStateHelpers";
 
 /** @internal */
 export interface ResizeAction {
@@ -138,7 +138,7 @@ export interface PanelWidgetDragStartAction {
 /** @internal */
 export interface WidgetDragAction {
   readonly type: "WIDGET_DRAG";
-  readonly dragBy: PointProps;
+  readonly dragBy: XAndY;
   readonly floatingWidgetId: FloatingWidgetState["id"];
 }
 
@@ -173,14 +173,14 @@ export interface WidgetTabDragStartAction {
   readonly widgetId: WidgetState["id"];
   readonly floatingWidgetId: FloatingWidgetState["id"] | undefined;
   readonly id: TabState["id"];
-  readonly position: PointProps;
+  readonly position: XAndY;
   readonly userSized?: boolean;
 }
 
 /** @internal */
 export interface WidgetTabDragAction {
   readonly type: "WIDGET_TAB_DRAG";
-  readonly dragBy: PointProps;
+  readonly dragBy: XAndY;
 }
 
 /** @internal */
@@ -200,7 +200,7 @@ export interface WidgetTabCloseAction {
 export interface WidgetTabFloatAction {
   readonly type: "WIDGET_TAB_FLOAT";
   readonly id: TabState["id"];
-  readonly position?: PointProps;
+  readonly position?: XAndY;
   readonly size?: SizeProps;
 }
 
@@ -227,7 +227,7 @@ export interface WidgetTabOpenAction {
 export interface WidgetTabPopoutAction {
   readonly type: "WIDGET_TAB_POPOUT";
   readonly id: TabState["id"];
-  readonly position?: PointProps;
+  readonly position?: XAndY;
   readonly size?: SizeProps;
 }
 

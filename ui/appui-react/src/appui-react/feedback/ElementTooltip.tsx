@@ -10,7 +10,6 @@ import classnames from "classnames";
 import * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
 import type { ToolTipOptions } from "@itwin/core-frontend";
-import type { PointProps } from "@itwin/appui-abstract";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { CommonProps, Point, SizeProps } from "@itwin/core-react";
 import { Rectangle } from "@itwin/core-react";
@@ -27,7 +26,7 @@ import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
 interface ElementTooltipState {
   isVisible: boolean;
   message: NotifyMessageType;
-  position: PointProps;
+  position: XAndY;
   options?: ToolTipOptions;
 }
 
@@ -111,7 +110,7 @@ export class ElementTooltip extends React.Component<
     width: 0,
   };
   private _element?: HTMLElement;
-  private _position?: PointProps;
+  private _position?: XAndY;
 
   /** @internal */
   public override readonly state: Readonly<ElementTooltipState> = {

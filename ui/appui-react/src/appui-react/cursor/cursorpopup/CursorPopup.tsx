@@ -9,7 +9,7 @@
 import "./CursorPopup.scss";
 import * as React from "react";
 import classnames from "classnames";
-import type { PointProps } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type {
   CommonDivProps,
@@ -28,8 +28,8 @@ import { CursorPopupManager } from "./CursorPopupManager";
 export interface CursorPopupProps extends CommonProps {
   id: string;
   content: React.ReactNode;
-  pt: PointProps;
-  offset: PointProps;
+  pt: XAndY;
+  offset: XAndY;
   relativePosition: RelativePosition;
   title?: string;
   shadow?: boolean;
@@ -101,8 +101,8 @@ export class CursorPopup extends React.Component<
 
   /** @internal */
   public static getPopupRect(
-    pt: PointProps,
-    offset: PointProps,
+    pt: XAndY,
+    offset: XAndY,
     popupSize: SizeProps | undefined,
     relativePosition: RelativePosition
   ): RectangleProps {
