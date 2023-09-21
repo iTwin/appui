@@ -18,4 +18,4 @@ export interface UiSyncEventArgs {
 /** UiSync Event class.
  * @public
  */
-export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> { }
+export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> {}
