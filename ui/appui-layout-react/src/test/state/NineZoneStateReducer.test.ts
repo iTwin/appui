@@ -644,7 +644,7 @@ describe("NineZoneStateReducer", () => {
 
     it("should set preferredFloatingWidgetSize of active tab", () => {
       let state = createNineZoneState();
-      state = addTabs(state, ["t1"]);
+      state = addTab(state, "t1", { isFloatingWidgetResizable: true });
       state = addFloatingWidget(state, "fw1", ["t1"], {
         bounds: new Rectangle(0, 100, 200, 400).toProps(),
       });
@@ -831,7 +831,7 @@ describe("NineZoneStateReducer", () => {
 
     it("should update preferredFloatingWidgetSize of a tab", () => {
       let state = createNineZoneState();
-      state = addTabs(state, ["t1"]);
+      state = addTab(state, "t1", { isFloatingWidgetResizable: true });
       state = addFloatingWidget(state, "w1", ["t1"], {
         bounds: new Rectangle(0, 100, 200, 400).toProps(),
       });
