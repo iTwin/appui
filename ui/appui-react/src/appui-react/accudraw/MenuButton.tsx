@@ -8,7 +8,7 @@
 
 import "./MenuButton.scss";
 import * as React from "react";
-import type { PointProps } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import type { SizeProps } from "@itwin/core-react";
 import { ContextMenu, Icon, Size } from "@itwin/core-react";
 import type { SquareButtonProps } from "./SquareButton";
@@ -18,7 +18,7 @@ import { SvgMore } from "@itwin/itwinui-icons-react";
 /** @alpha */
 export interface MenuButtonProps extends SquareButtonProps {
   /** Center point */
-  point: PointProps;
+  point: XAndY;
   /** Function called when size is known. */
   onSizeKnown?: (size: SizeProps) => void;
 }

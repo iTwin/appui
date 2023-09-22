@@ -177,6 +177,7 @@ export * from "./appui-react/statusfields/ViewAttributes";
 export * from "./appui-react/statusfields/toolassistance/ToolAssistanceField";
 
 export * from "./appui-react/syncui/SyncUiEventDispatcher";
+export * from "./appui-react/syncui/UiSyncEvent";
 
 export * from "./appui-react/theme/ThemeManager";
 

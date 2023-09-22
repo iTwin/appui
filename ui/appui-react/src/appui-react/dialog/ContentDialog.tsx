@@ -16,8 +16,8 @@ import {
   SyncUiEventId,
 } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
-import type { UiSyncEventArgs } from "@itwin/appui-abstract";
 import classnames from "classnames";
+import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 
 // istanbul ignore next
 /**

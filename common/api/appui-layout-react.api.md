@@ -12,7 +12,6 @@ import { IconSpec } from '@itwin/core-react';
 import type { NoChildrenProps } from '@itwin/core-react';
 import type { OmitChildrenProp } from '@itwin/core-react';
 import { Point } from '@itwin/core-react';
-import type { PointProps } from '@itwin/appui-abstract';
 import type { PopupProps } from '@itwin/core-react';
 import * as React_2 from 'react';
 import { Rectangle } from '@itwin/core-react';
@@ -221,7 +220,7 @@ export interface DraggedTabState {
     // (undocumented)
     readonly home: FloatingWidgetHomeState;
     // (undocumented)
-    readonly position: PointProps;
+    readonly position: XAndY;
     // (undocumented)
     readonly tabId: TabState["id"];
 }
@@ -485,7 +484,7 @@ export function getCursorClassName(type: CursorType): string;
 export function getOverflown(width: number, docked: ReadonlyArray<readonly [string, number]>, overflowWidth: number, activeIndex?: number): string[];
 
 // @internal (undocumented)
-export function getResizeBy(handle: FloatingWidgetResizeHandle, offset: PointProps): Rectangle;
+export function getResizeBy(handle: FloatingWidgetResizeHandle, offset: XAndY): Rectangle;
 
 // @internal (undocumented)
 export function getSendBackHomeState(state: NineZoneState, widgetId: WidgetState["id"]): {
@@ -765,7 +764,7 @@ export interface NineZoneState {
 export function NineZoneStateReducer(state: NineZoneState, action: NineZoneAction): NineZoneState;
 
 // @internal
-export const offsetAndContainInContainer: (tooltipBounds: RectangleProps, containerSize: SizeProps, offset?: PointProps) => Point;
+export const offsetAndContainInContainer: (tooltipBounds: RectangleProps, containerSize: SizeProps, offset?: XAndY) => Point;
 
 // @internal (undocumented)
 export function onOverflowLabelAndEditorResize(): void;
@@ -1392,7 +1391,7 @@ export interface TooltipProps extends CommonProps {
     children?: React_2.ReactNode;
     icon?: React_2.ReactNode;
     onSizeChanged?: (size: SizeProps) => void;
-    position: PointProps;
+    position: XAndY;
 }
 
 // @internal (undocumented)
@@ -1482,7 +1481,7 @@ export function useDragTab(args: UseDragTabArgs): ({ initialPointerPosition, poi
 // @internal (undocumented)
 export interface UseDragTabArgs {
     // (undocumented)
-    onDrag?: (dragBy: PointProps) => void;
+    onDrag?: (dragBy: XAndY) => void;
     // (undocumented)
     onDragEnd?: (target: TabDragDropTargetState) => void;
     // (undocumented)
@@ -1695,7 +1694,7 @@ export interface WidgetContextArgs {
 // @internal (undocumented)
 export interface WidgetDragAction {
     // (undocumented)
-    readonly dragBy: PointProps;
+    readonly dragBy: XAndY;
     // (undocumented)
     readonly floatingWidgetId: FloatingWidgetState["id"];
     // (undocumented)
@@ -1914,7 +1913,7 @@ export interface WidgetTabDoubleClickAction {
 // @internal (undocumented)
 export interface WidgetTabDragAction {
     // (undocumented)
-    readonly dragBy: PointProps;
+    readonly dragBy: XAndY;
     // (undocumented)
     readonly type: "WIDGET_TAB_DRAG";
 }
@@ -1936,7 +1935,7 @@ export interface WidgetTabDragStartAction {
     // (undocumented)
     readonly id: TabState["id"];
     // (undocumented)
-    readonly position: PointProps;
+    readonly position: XAndY;
     // (undocumented)
     readonly side: PanelSide | undefined;
     // (undocumented)
@@ -1960,7 +1959,7 @@ export interface WidgetTabFloatAction {
     // (undocumented)
     readonly id: TabState["id"];
     // (undocumented)
-    readonly position?: PointProps;
+    readonly position?: XAndY;
     // (undocumented)
     readonly size?: SizeProps;
     // (undocumented)
@@ -1988,7 +1987,7 @@ export interface WidgetTabPopoutAction {
     // (undocumented)
     readonly id: TabState["id"];
     // (undocumented)
-    readonly position?: PointProps;
+    readonly position?: XAndY;
     // (undocumented)
     readonly size?: SizeProps;
     // (undocumented)

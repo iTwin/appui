@@ -11,7 +11,7 @@
 import * as React from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import type { PointProps } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import { UiError } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Rectangle, Size } from "@itwin/core-react";
@@ -768,11 +768,7 @@ export class FrontstageDef {
    * the previous size is used, else {height:400, width:400} is used.
    * @beta
    */
-  public floatWidget(
-    widgetId: string,
-    position?: PointProps,
-    size?: SizeProps
-  ) {
+  public floatWidget(widgetId: string, position?: XAndY, size?: SizeProps) {
     const state = this.nineZoneState;
     if (!state) return;
     const widgetDef = this.findWidgetDef(widgetId);
@@ -858,11 +854,7 @@ export class FrontstageDef {
    * the previous size is used, else {height:800, width:600} is used.
    * @beta
    */
-  public popoutWidget(
-    widgetId: string,
-    position?: PointProps,
-    size?: SizeProps
-  ) {
+  public popoutWidget(widgetId: string, position?: XAndY, size?: SizeProps) {
     const state = this.nineZoneState;
     if (!state) return;
     const widgetDef = this.findWidgetDef(widgetId);

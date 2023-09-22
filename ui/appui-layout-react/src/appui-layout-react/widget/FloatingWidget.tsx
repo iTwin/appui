@@ -9,7 +9,6 @@
 import "./FloatingWidget.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { PointProps } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
 import {
   Point,
@@ -39,6 +38,7 @@ import { WidgetTarget } from "../target/WidgetTarget";
 import { WidgetOutline } from "../outline/WidgetOutline";
 import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
+import type { XAndY } from "../state/internal/NineZoneStateHelpers";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle =
@@ -314,10 +314,7 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
 }
 
 /** @internal */
-export function getResizeBy(
-  handle: FloatingWidgetResizeHandle,
-  offset: PointProps
-) {
+export function getResizeBy(handle: FloatingWidgetResizeHandle, offset: XAndY) {
   switch (handle) {
     case "left":
       return new Rectangle(-offset.x);

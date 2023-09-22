@@ -7,18 +7,25 @@
  */
 
 import type { Draft } from "immer";
-import type { PointProps } from "@itwin/appui-abstract";
+import type { RectangleProps, SizeProps } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react";
 import type { NineZoneState } from "../NineZoneState";
 import type {
   FloatingWidgetHomeState,
   FloatingWidgetState,
 } from "../WidgetState";
-import type { RectangleProps, SizeProps } from "@itwin/core-react";
-import { Rectangle } from "@itwin/core-react";
 import {
   getWidgetState,
   updateFloatingWidgetState,
 } from "./WidgetStateHelpers";
+
+/** Same as XAndY from core-geometry, but reproduced here to avoid a breaking peer dependency change.
+ * @internal
+ */
+export interface XAndY {
+  readonly x: number;
+  readonly y: number;
+}
 
 /** @internal */
 export const category = "appui-layout-react:layout";
@@ -52,7 +59,7 @@ export function setRectangleProps(
 }
 
 /** @internal */
-export function setPointProps(props: Draft<PointProps>, point: PointProps) {
+export function setPointProps(props: Draft<XAndY>, point: XAndY) {
   props.x = point.x;
   props.y = point.y;
 }
