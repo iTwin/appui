@@ -5,6 +5,9 @@
 
 import * as React from "react";
 import {
+  BackstageItemUtilities,
+  StatusBarItemUtilities,
+  StatusBarSection,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
@@ -30,6 +33,38 @@ export const updatedUiItemsProvider: UiItemsProvider = {
           ),
         }
       ),
+    ];
+  },
+  getBackstageItems: () => {
+    return [
+      BackstageItemUtilities.createActionItem(
+        `${id}:backstage-item`,
+        0,
+        0,
+        () => undefined,
+        "Updated backstage item"
+      ),
+    ];
+  },
+  getStatusBarItems: () => {
+    return [
+      StatusBarItemUtilities.createActionItem(
+        `${id}:statusbar-item`,
+        StatusBarSection.Center, // TODO: map by sectionId?
+        0,
+        <SvgUpgrade />,
+        "Updated status bar item",
+        () => undefined
+      ),
+    ];
+  },
+  getWidgets: () => {
+    return [
+      {
+        id: `${id}:widget`,
+        label: "Updated widget",
+        content: <div />,
+      },
     ];
   },
 };
