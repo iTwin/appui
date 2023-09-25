@@ -223,40 +223,45 @@ export class UiItemsManager {
       items.push(...abstractItems);
     } else {
       UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
+        if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
+
         const uiProvider = entry.provider;
         const providerId = entry.overrides?.providerId ?? uiProvider.id;
-        if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
-        uiProvider
-          .provideToolbarItems?.(stageId, stageUsage, usage, orientation)
-          .forEach((item) => {
-            // ignore duplicate ids
-            if (items.find((existingItem) => item.id === existingItem.id))
-              return;
-            items.push({ ...item, providerId });
-          });
+        const providerItems = uiProvider.provideToolbarItems
+          ? uiProvider
+              .provideToolbarItems(stageId, stageUsage, usage, orientation)
+              .map((item) => ({ ...item, providerId }))
+          : [];
+        items.push(...providerItems);
       });
     }
 
     // TODO: should run only w/o _abstractAdapter?
     this.registeredProviderIds.forEach((registeredProviderId) => {
-      const provider = this.getUiItemsProvider(registeredProviderId);
-      if (!provider) return;
-
       // TODO: no way to get overrides from _abstractAdapter.
       // if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
 
-      provider.getToolbarItems?.().forEach((item) => {
-        if (!item.toolbarId) return;
-        const location = ToolbarItemUtilities.fromToolbarId(item.toolbarId);
-        if (!location) return;
-        if (location.orientation !== orientation) return;
-        if (location.usage !== usage) return;
-        if (items.find((existingItem) => item.id === existingItem.id)) return;
-        items.push({ ...item, providerId: provider.id });
-      });
+      const provider = this.getUiItemsProvider(registeredProviderId);
+      const providerItems = provider?.getToolbarItems
+        ? provider
+            .getToolbarItems()
+            .filter((item) => {
+              if (!item.toolbarId) return false;
+              const location = ToolbarItemUtilities.fromToolbarId(
+                item.toolbarId
+              );
+              if (!location) return false;
+              if (location.orientation !== orientation) return false;
+              if (location.usage !== usage) return false;
+              return true;
+            })
+            .map((item) => ({ ...item, providerId: provider.id }))
+        : [];
+      items.push(...providerItems);
     });
 
-    return items;
+    const uniqueItems = getUniqueItems(items);
+    return uniqueItems;
   }
 
   /** Called when the application is populating the statusbar so that any registered UiItemsProvider can add status fields
@@ -277,36 +282,35 @@ export class UiItemsManager {
       items.push(...abstractItems);
     } else {
       UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
+        if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
+
         const uiProvider = entry.provider;
         const providerId = entry.overrides?.providerId ?? uiProvider.id;
-
-        if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
-        uiProvider
-          .provideStatusBarItems?.(stageId, stageUsage)
-          .forEach((item) => {
-            // ignore duplicate ids
-            if (items.find((existingItem) => item.id === existingItem.id))
-              return;
-            items.push({ ...item, providerId });
-          });
+        const providerItems = uiProvider.provideStatusBarItems
+          ? uiProvider
+              .provideStatusBarItems(stageId, stageUsage)
+              .map((item) => ({ ...item, providerId }))
+          : [];
+        items.push(...providerItems);
       });
     }
 
     // TODO:
     this.registeredProviderIds.forEach((registeredProviderId) => {
-      const provider = this.getUiItemsProvider(registeredProviderId);
-      if (!provider) return;
-
       // TODO:
       // if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
 
-      provider.getStatusBarItems?.().forEach((item) => {
-        if (items.find((existingItem) => item.id === existingItem.id)) return;
-        items.push({ ...item, providerId: provider.id });
-      });
+      const provider = this.getUiItemsProvider(registeredProviderId);
+      const providerItems = provider?.getStatusBarItems
+        ? provider
+            .getStatusBarItems()
+            .map((item) => ({ ...item, providerId: provider.id }))
+        : [];
+      items.push(...providerItems);
     });
 
-    return items;
+    const uniqueItems = getUniqueItems(items);
+    return uniqueItems;
   }
 
   /** Called when the application is populating the statusbar so that any registered UiItemsProvider can add status fields
@@ -325,33 +329,29 @@ export class UiItemsManager {
         const providerId = entry.overrides?.providerId ?? uiProvider.id;
 
         // Note: We do not call this.allowItemsFromProvider here as backstage items
-        uiProvider
-          .provideBackstageItems?.() // should not be considered stage specific. If they need to be hidden
-          .forEach((item) => {
-            // the isHidden property should be set to a ConditionalBooleanValue
-            // ignore duplicate ids
-            if (items.find((existingItem) => item.id === existingItem.id))
-              return;
-            items.push({ ...item, providerId });
-          });
+        // should not be considered stage specific. If they need to be hidden
+        const providerItems = uiProvider.provideBackstageItems
+          ? uiProvider
+              .provideBackstageItems()
+              .map((item) => ({ ...item, providerId }))
+          : [];
+        items.push(...providerItems);
       });
     }
 
     // TODO:
     this.registeredProviderIds.forEach((registeredProviderId) => {
       const provider = this.getUiItemsProvider(registeredProviderId);
-      if (!provider) return;
-
-      // TODO:
-      // if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
-
-      provider.getBackstageItems?.().forEach((item) => {
-        if (items.find((existingItem) => item.id === existingItem.id)) return;
-        items.push({ ...item, providerId: provider.id });
-      });
+      const providerItems = provider?.getBackstageItems
+        ? provider
+            .getBackstageItems()
+            .map((item) => ({ ...item, providerId: provider.id }))
+        : [];
+      items.push(...providerItems);
     });
 
-    return items;
+    const uniqueItems = getUniqueItems(items);
+    return uniqueItems;
   }
 
   /** Called when the application is populating the Stage Panels so that any registered UiItemsProvider can add widgets
@@ -367,7 +367,7 @@ export class UiItemsManager {
     location: StagePanelLocation,
     section?: StagePanelSection
   ): ReadonlyArray<ProviderItem<Widget>> {
-    const widgets: ProviderItem<Widget>[] = [];
+    const items: ProviderItem<Widget>[] = [];
     if (this._abstractAdapter) {
       const abstractWidgets = this._abstractAdapter.getWidgets(
         stageId,
@@ -375,7 +375,7 @@ export class UiItemsManager {
         location,
         section
       );
-      widgets.push(...abstractWidgets);
+      items.push(...abstractWidgets);
     }
 
     UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
@@ -386,11 +386,10 @@ export class UiItemsManager {
       if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
       uiProvider
         .provideWidgets?.(stageId, stageUsage, location, section)
-        .forEach((widget) => {
+        .forEach((item) => {
           // ignore duplicate ids
-          if (widgets.find((existingWidget) => widget.id === existingWidget.id))
-            return;
-          widgets.push({ ...widget, providerId });
+          if (items.find((existingItem) => item.id === existingItem.id)) return;
+          items.push({ ...item, providerId });
         });
     });
 
@@ -402,13 +401,22 @@ export class UiItemsManager {
       // TODO:
       // if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
 
-      provider.getWidgets?.().forEach((widget) => {
-        if (widgets.find((existingWidget) => widget.id === existingWidget.id))
-          return;
-        widgets.push({ ...widget, providerId: provider.id });
+      provider.getWidgets?.().forEach((item) => {
+        if (items.find((existingItem) => item.id === existingItem.id)) return;
+        items.push({ ...item, providerId: provider.id });
       });
     });
 
-    return widgets;
+    const uniqueItems = getUniqueItems(items);
+    return uniqueItems;
   }
+}
+
+function getUniqueItems<T extends { id: string }>(items: T[]) {
+  const uniqueItems: T[] = [];
+  items.forEach((item) => {
+    if (uniqueItems.find((existingItem) => item.id === existingItem.id)) return;
+    uniqueItems.push(item);
+  });
+  return uniqueItems;
 }
