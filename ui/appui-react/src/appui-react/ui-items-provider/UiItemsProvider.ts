@@ -24,9 +24,19 @@ export interface UiItemsProvider {
   /** Id of provider. */
   readonly id: string;
 
-  // TODO: stageId, stageUsage.
+  /** Describes stages for which the items should be provided.
+   * @note Ignored for `provideToolbarItems`, `provideStatusBarItems`, `provideBackstageItems`, `provideWidgets` methods.
+   * @alpha
+   */
+  readonly stageIds?: ReadonlyArray<string>;
+  /** Describes stage usages for which the items should be provided.
+   * @note Ignored for `provideToolbarItems`, `provideStatusBarItems`, `provideBackstageItems`, `provideWidgets` methods.
+   * @alpha
+   */
+  readonly stageUsages?: ReadonlyArray<string>;
 
   /** Provides toolbar items.
+   * @note Use [[ToolbarItemUtilities.toToolbarId]] to map toolbar item to location previously specified by `provideToolbarItems` arguments.
    * @alpha
    */
   readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;

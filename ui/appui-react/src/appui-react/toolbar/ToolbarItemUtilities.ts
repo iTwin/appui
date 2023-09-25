@@ -76,7 +76,7 @@ export namespace ToolbarItemUtilities {
   }
 
   /** @alpha */
-  export function toToolbarId(
+  export function toToolbarId( // TODO: rename?
     usage: ToolbarUsage,
     orientation: ToolbarOrientation
   ) {
