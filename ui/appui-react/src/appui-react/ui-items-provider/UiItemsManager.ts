@@ -22,6 +22,7 @@ import type { Widget } from "../widgets/Widget";
 import type { ProviderItem } from "./ProviderItem";
 import type { UiItemsProvider } from "./UiItemsProvider";
 import { createAbstractUiItemsManagerAdapter } from "./AbstractUiItemsManager";
+import { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
 
 /** UiItemsProvider register event args.
  * @public
@@ -211,42 +212,54 @@ export class UiItemsManager {
     usage: ToolbarUsage,
     orientation: ToolbarOrientation
   ): ReadonlyArray<ProviderItem<ToolbarItem>> {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.getToolbarButtonItems(
+    const items: ProviderItem<ToolbarItem>[] = [];
+    if (this._abstractAdapter) {
+      const abstractItems = this._abstractAdapter.getToolbarButtonItems(
         stageId,
         stageUsage,
         usage,
         orientation
       );
-
-    const buttonItems: ProviderItem<ToolbarItem>[] = [];
-
-    UiItemsManager._registeredUiItemsProviders.forEach(
-      (entry: UiItemProviderEntry) => {
+      items.push(...abstractItems);
+    } else {
+      UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
         const uiProvider = entry.provider;
         const providerId = entry.overrides?.providerId ?? uiProvider.id;
-        // istanbul ignore else
-        if (
-          uiProvider.provideToolbarItems &&
-          this.allowItemsFromProvider(entry, stageId, stageUsage)
-        ) {
-          uiProvider
-            .provideToolbarItems(stageId, stageUsage, usage, orientation)
-            .forEach((spec: ToolbarItem) => {
-              // ignore duplicate ids
-              if (
-                -1 ===
-                buttonItems.findIndex(
-                  (existingItem) => spec.id === existingItem.id
-                )
-              )
-                buttonItems.push({ ...spec, providerId });
-            });
-        }
-      }
-    );
+        if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
 
-    return buttonItems;
+        uiProvider
+          .provideToolbarItems?.(stageId, stageUsage, usage, orientation)
+          .forEach((item) => {
+            // ignore duplicate ids
+            if (
+              -1 ===
+              items.findIndex((existingItem) => item.id === existingItem.id)
+            )
+              items.push({ ...item, providerId });
+          });
+      });
+    }
+
+    // TODO: should run only w/o _abstractAdapter?
+    this.registeredProviderIds.forEach((registeredProviderId) => {
+      const provider = this.getUiItemsProvider(registeredProviderId);
+      if (!provider) return;
+
+      // TODO: no way to get overrides.
+      // if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
+
+      provider.getToolbarItems?.().forEach((item) => {
+        if (!item.toolbarId) return;
+        const location = ToolbarItemUtilities.fromToolbarId(item.toolbarId);
+        if (!location) return;
+        if (location.orientation !== orientation) return;
+        if (location.usage !== usage) return;
+        if (items.find((existingItem) => item.id === existingItem.id)) return;
+        items.push({ ...item, providerId: provider.id });
+      });
+    });
+
+    return items;
   }
 
   /** Called when the application is populating the statusbar so that any registered UiItemsProvider can add status fields
