@@ -41,7 +41,7 @@ export interface UiItemsProvider {
    */
   readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
   /** Provides status bar items.
-   * @alpha
+   * @alpha // TODO: map section to sectionId
    */
   readonly getStatusBarItems?: () => ReadonlyArray<StatusBarItem>;
   /** Provides backstage items. Backstage items are filtered based on stage usage and stage id as other items.
@@ -50,7 +50,7 @@ export interface UiItemsProvider {
    */
   readonly getBackstageItems?: () => ReadonlyArray<BackstageItem>;
   /** Provides widgets.
-   * @alpha
+   * @alpha // TODO: map StagePanelLocation and StagePanelSection to containerId.
    */
   readonly getWidgets?: () => ReadonlyArray<Widget>;
 
