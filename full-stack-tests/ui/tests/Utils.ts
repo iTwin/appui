@@ -42,6 +42,18 @@ export function activeTabLocator(widget: Locator) {
   return widget.locator(".nz-active");
 }
 
+export function toolbarItemLocator(page: Page, label: string) {
+  return page.locator(`[title="${label}"]`);
+}
+
+export function statusBarItemLocator(page: Page, label: string) {
+  return page.locator(`[title="${label}"]`);
+}
+
+export function backstageItemLocator(page: Page, label: string) {
+  return page.getByText(label, { exact: true });
+}
+
 type PanelLocatorArgs = { page: Page; side: PanelSide } | { tab: Locator };
 
 export function panelLocator(args: PanelLocatorArgs) {
