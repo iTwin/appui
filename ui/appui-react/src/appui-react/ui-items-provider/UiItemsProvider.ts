@@ -24,6 +24,8 @@ export interface UiItemsProvider {
   /** Id of provider. */
   readonly id: string;
 
+  // TODO: stageId, stageUsage.
+
   /** Provides toolbar items.
    * @alpha
    */
