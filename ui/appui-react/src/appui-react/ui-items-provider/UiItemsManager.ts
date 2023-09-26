@@ -127,6 +127,7 @@ export class UiItemsManager {
   /**
    * Registers a UiItemsProvider with the UiItemsManager.
    * @param uiProvider the UI items provider to register.
+   * @param overrides the UI items provider to register.
    */
   public static register(
     uiProvider: UiItemsProvider,
@@ -236,13 +237,15 @@ export class UiItemsManager {
       });
     }
 
+    // Note: items returned by `getToolbarItems` are not returned when using UiItemsManager from @itwin/appui-abstract@^3.0.0
     // TODO: should run only w/o _abstractAdapter?
     this.registeredProviderIds.forEach((registeredProviderId) => {
       // TODO: no way to get overrides from _abstractAdapter.
-      // if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
-
       const provider = this.getUiItemsProvider(registeredProviderId);
-      const providerItems = provider?.getToolbarItems
+      if (!provider) return;
+      if (!allowItems(provider, stageId, stageUsage)) return;
+
+      const providerItems = provider.getToolbarItems
         ? provider
             .getToolbarItems()
             .filter((item) => {
@@ -297,11 +300,11 @@ export class UiItemsManager {
 
     // TODO:
     this.registeredProviderIds.forEach((registeredProviderId) => {
-      // TODO:
-      // if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
-
       const provider = this.getUiItemsProvider(registeredProviderId);
-      const providerItems = provider?.getStatusBarItems
+      if (!provider) return;
+      if (!allowItems(provider, stageId, stageUsage)) return;
+
+      const providerItems = provider.getStatusBarItems
         ? provider
             .getStatusBarItems()
             .map((item) => ({ ...item, providerId: provider.id }))
@@ -342,7 +345,10 @@ export class UiItemsManager {
     // TODO:
     this.registeredProviderIds.forEach((registeredProviderId) => {
       const provider = this.getUiItemsProvider(registeredProviderId);
-      const providerItems = provider?.getBackstageItems
+      if (!provider) return;
+      // if (!allowItems(provider, stageId, stageUsage)) return; // TODO:
+
+      const providerItems = provider.getBackstageItems
         ? provider
             .getBackstageItems()
             .map((item) => ({ ...item, providerId: provider.id }))
@@ -397,14 +403,15 @@ export class UiItemsManager {
     this.registeredProviderIds.forEach((registeredProviderId) => {
       const provider = this.getUiItemsProvider(registeredProviderId);
       if (!provider) return;
+      if (!allowItems(provider, stageId, stageUsage)) return;
 
-      // TODO:
-      // if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
+      const providerItems = provider.getWidgets
+        ? provider
+            .getWidgets()
+            .map((item) => ({ ...item, providerId: provider.id }))
+        : [];
 
-      provider.getWidgets?.().forEach((item) => {
-        if (items.find((existingItem) => item.id === existingItem.id)) return;
-        items.push({ ...item, providerId: provider.id });
-      });
+      items.push(...providerItems);
     });
 
     const uniqueItems = getUniqueItems(items);
@@ -419,4 +426,16 @@ function getUniqueItems<T extends { id: string }>(items: T[]) {
     uniqueItems.push(item);
   });
   return uniqueItems;
+}
+
+function allowItems(
+  provider: UiItemsProvider,
+  stageId: string,
+  stageUsage: string
+) {
+  if (provider.stageIds && provider.stageIds.indexOf(stageId) === -1)
+    return false;
+  if (provider.stageUsages && provider.stageUsages.indexOf(stageUsage) === -1)
+    return false;
+  return true;
 }
