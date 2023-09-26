@@ -152,7 +152,7 @@ export function DateField({
           return dateFormatter.parseDate(dateString);
 
         const newDateValue = Date.parse(dateString);
-        // istanbul ignore else
+        // istanbul ignore next
         if (newDateValue) return new Date(newDateValue);
       } catch (_error) /* istanbul ignore next */ {
         Logger.logInfo(
