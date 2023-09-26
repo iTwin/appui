@@ -163,7 +163,9 @@ export class PointerMessage extends React.Component<
           {severity !== MessageSeverity.None && (
             <span className="uifw-pointer-message-icon">
               <Icon
-                className="icon"
+                className={`icon ${MessageContainer.getIconClassName(
+                  severity
+                )}`}
                 iconSpec={`${MessageContainer.getIcon(severity, false)}`}
               />
             </span>
