@@ -22,6 +22,7 @@ import {
   ToolbarOrientation,
   ToolbarUsage,
   UiItemsManager,
+  WidgetUtilities,
 } from "../../appui-react";
 
 // @ts-ignore Removed in 4.0
@@ -1004,7 +1005,15 @@ describe("UiItemsManager", () => {
       const provider = {
         id: "provider1",
         getWidgets: () => {
-          return [{ id: "item1" }];
+          return [
+            {
+              id: "item1",
+              containerId: WidgetUtilities.toContainerId(
+                StagePanelLocation.Bottom,
+                StagePanelSection.End
+              ),
+            },
+          ];
         },
       } satisfies UiItemsProvider;
 
@@ -1019,6 +1028,39 @@ describe("UiItemsManager", () => {
             StagePanelSection.End
           )
         ).lengthOf(1);
+      });
+
+      it("should not provide w/o containerId", () => {
+        UiItemsManager.register({
+          ...provider,
+          getWidgets: () => {
+            return provider
+              .getWidgets()
+              .map((item) => ({ ...item, containerId: undefined }));
+          },
+        });
+
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            StageUsage.General,
+            StagePanelLocation.Bottom,
+            StagePanelSection.End
+          )
+        ).lengthOf(0);
+      });
+
+      it("should not provide for different location", () => {
+        UiItemsManager.register(provider);
+
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            StageUsage.General,
+            StagePanelLocation.Top,
+            StagePanelSection.End
+          )
+        ).lengthOf(0);
       });
 
       it("should provide only for specified stageIds", () => {

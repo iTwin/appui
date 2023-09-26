@@ -23,6 +23,7 @@ import type { ProviderItem } from "./ProviderItem";
 import type { UiItemsProvider } from "./UiItemsProvider";
 import { createAbstractUiItemsManagerAdapter } from "./AbstractUiItemsManager";
 import { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
+import { WidgetUtilities } from "../widgets/WidgetUtilities";
 
 /** UiItemsProvider register event args.
  * @public
@@ -249,10 +250,9 @@ export class UiItemsManager {
         ? provider
             .getToolbarItems()
             .filter((item) => {
-              if (!item.toolbarId) return false;
-              const location = ToolbarItemUtilities.fromToolbarId(
-                item.toolbarId
-              );
+              const location = item.toolbarId
+                ? ToolbarItemUtilities.fromToolbarId(item.toolbarId)
+                : undefined;
               if (!location) return false;
               if (location.orientation !== orientation) return false;
               if (location.usage !== usage) return false;
@@ -408,6 +408,15 @@ export class UiItemsManager {
       const providerItems = provider.getWidgets
         ? provider
             .getWidgets()
+            .filter((item) => {
+              const containerLocation = item.containerId
+                ? WidgetUtilities.fromContainerId(item.containerId)
+                : undefined;
+              if (!containerLocation) return false;
+              if (containerLocation.location !== location) return false;
+              if (containerLocation.section !== section) return false;
+              return true;
+            })
             .map((item) => ({ ...item, providerId: provider.id }))
         : [];
 

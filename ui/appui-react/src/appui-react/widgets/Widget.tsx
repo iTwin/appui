@@ -53,7 +53,7 @@ export interface Widget {
   readonly priority?: number;
   readonly tooltip?: string | ConditionalStringValue;
   /** Describes to which container the item is added.
-   * @alpha
+   * @alpha TODO: rename due to CanFloatWidgetOptions["containerId"]
    */
   readonly containerId?: string;
 }

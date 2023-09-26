@@ -6,12 +6,15 @@
 import * as React from "react";
 import {
   BackstageItemUtilities,
+  StagePanelLocation,
+  StagePanelSection,
   StatusBarItemUtilities,
   StatusBarSection,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
   UiItemsProvider,
+  WidgetUtilities,
 } from "@itwin/appui-react";
 import { SvgUpgrade } from "@itwin/itwinui-icons-react";
 
@@ -64,6 +67,10 @@ export const updatedUiItemsProvider: UiItemsProvider = {
         id: `${id}:widget`,
         label: "Updated widget",
         content: <div />,
+        containerId: WidgetUtilities.toContainerId(
+          StagePanelLocation.Right,
+          StagePanelSection.End
+        ),
       },
     ];
   },
