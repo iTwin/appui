@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Fix an issue with dropdown closing when main UI hides.",
+      "comment": "Fix an issue with closing tool settings dropdown when main UI hides.",
       "type": "none"
     }
   ],

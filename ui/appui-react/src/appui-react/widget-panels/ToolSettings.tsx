@@ -90,7 +90,7 @@ export function ToolSettingsDockedContent() {
     >
       {settings &&
         settings.map((entry, index) => (
-          <DockedToolSetting key={`${index}${entry.editorNode?.toString()}`}>
+          <DockedToolSetting key={index}>
             <TsLabel>{entry.labelNode}</TsLabel>
             {entry.editorNode}
           </DockedToolSetting>
