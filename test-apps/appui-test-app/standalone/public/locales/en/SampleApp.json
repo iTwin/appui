@@ -173,6 +173,12 @@
     "sketch": "Sketch New Geometry"
   },
   "tools": {
+    "OpenLocalFile": {
+      "keyin": "Open Local File",
+      "description": "Open breifcase at full filepath spec provided.",
+      "flyover": "Open Local File"
+
+    },
     "ToolWithSettings": {
       "keyin": "Tool With Settings",
       "description": "Demo Tool with Settings",

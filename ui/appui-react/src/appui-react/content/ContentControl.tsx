@@ -32,7 +32,13 @@ export interface ContentControlActivatedEventArgs {
  * @public
  */
 export class ContentControlActivatedEvent extends UiEvent<ContentControlActivatedEventArgs> {}
-
+/** Props passed into the ContentControl's update method */
+export class ContentControlUpdateProps {
+  public iModel?: IModelConnection;
+  public viewDefinitionId?: Id64String;
+  public viewState?: ViewState;
+  public name?: string;
+}
 /** Interface to be implemented when the ContentControl supports ViewSelector changes
  * @public
  */
@@ -112,6 +118,9 @@ export class ContentControl extends ConfigurableUiControl {
   /** Get the NavigationAidControl associated with this ContentControl */
   public get navigationAidControl(): string {
     return "";
+  }
+  public async updateContentControlFromProps( _updateProps: ContentControlUpdateProps) {
+    return;
   }
 }
 

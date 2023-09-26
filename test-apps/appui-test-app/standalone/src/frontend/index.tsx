@@ -107,6 +107,7 @@ import {
   addExampleFrontstagesToBackstage,
   registerExampleFrontstages,
 } from "./appui/frontstages/example-stages/ExampleStagesBackstageProvider";
+import { OpenLocalFileTool } from "./tools/OpenLocalFileTool";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -266,6 +267,7 @@ export class SampleAppIModelApp {
 
     // register core commands not automatically registered
     ViewClipByPlaneTool.register();
+    OpenLocalFileTool.register(this.sampleAppNamespace);
 
     if (SampleAppIModelApp.testAppConfiguration?.reactAxeConsole) {
       if (process.env.NODE_ENV !== "production") {

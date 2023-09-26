@@ -6,7 +6,7 @@
  * @module ContentView
  */
 
-import type { Id64String } from "@itwin/core-bentley";
+import { Id64, Id64String } from "@itwin/core-bentley";
 import type {
   IModelConnection,
   ScreenViewport,
@@ -28,7 +28,7 @@ import { DrawingNavigationAidControl } from "../navigationaids/DrawingNavigation
 import { SheetNavigationAidControl } from "../navigationaids/SheetNavigationAid";
 import { UiFramework } from "../UiFramework";
 import { ViewUtilities } from "../utils/ViewUtilities";
-import type { SupportsViewSelectorChange } from "./ContentControl";
+import type { ContentControlUpdateProps, SupportsViewSelectorChange } from "./ContentControl";
 import { ContentControl } from "./ContentControl";
 
 /**
@@ -149,22 +149,48 @@ export class ViewportContentControl
     viewState: ViewState,
     name: string
   ): Promise<void> {
+    await this.updateContentControlFromProps({iModel, viewDefinitionId, viewState, name});
+  }
+
+  public override async updateContentControlFromProps(
+    updateProps: ContentControlUpdateProps
+  ) {
+    let iModel = updateProps.iModel;
+    let viewDefinitionId = updateProps.viewDefinitionId;
+    let viewState = updateProps.viewState;
+    const viewName = updateProps.name ? updateProps.name : "name";
+
+    if (!iModel) {
+      iModel = UiFramework.getIModelConnection();
+      if (!iModel) return;
+    }
+
+    if (!viewDefinitionId) {
+      viewDefinitionId = await iModel.views.queryDefaultViewId();
+      if (!viewDefinitionId) return;
+    }
+    if (!viewState) {
+      if (!viewDefinitionId || !Id64.isValidId64(viewDefinitionId))  return;
+      viewState = await iModel?.views.load(viewDefinitionId);
+      if (!viewState) return;
+    }
+
     if (this.viewport) {
+      this.viewport.changeView(viewState);
       if (
         IModelApp.viewManager &&
         this.viewport === IModelApp.viewManager.selectedView
       )
-        this.viewport.changeView(viewState);
-    } else {
+        UiFramework.content.refreshActive(this.reactNode);
+      } else {
       this.reactNode = this.getReactElementForViewSelectorChange(
         iModel,
         viewDefinitionId,
         viewState,
-        name
+        viewName
       );
     }
-    UiFramework.content.refreshActive(this.reactNode);
-  }
+    }
 
   /** Get the React.Element for a ViewSelector change. */
   // istanbul ignore next
