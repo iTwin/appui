@@ -16,6 +16,7 @@ Table of contents:
 - Disable `user-select` of a widget tab bar and resize handle to avoid content selection when dragging a widget.
 - Fix an issue with closing tool settings dropdown when main UI hides.
 - Fix message center messages icon colors based on message severity.
+- Correctly configure `resizable` flag of a floating widget after docking and undocking.
 
 ## @itwin/core-react
 

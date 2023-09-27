@@ -49,18 +49,6 @@ describe("FloatingWidget", () => {
     container.firstChild!.should.matchSnapshot();
   });
 
-  it("should render hidden", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "t1");
-    state = addFloatingWidget(state, "w1", ["t1"], { hidden: true }, undefined);
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state}>
-        <FloatingWidgetProvider id="w1" />
-      </TestNineZoneProvider>
-    );
-    container.firstChild!.should.matchSnapshot();
-  });
-
   it("should render hidden when hideWithUiWhenFloating is true", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { hideWithUiWhenFloating: true });
@@ -97,10 +85,15 @@ describe("FloatingWidget", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
-    state = addFloatingWidget(state, "w1", ["t1"], undefined, {
-      minimized: true,
-      isFloatingStateWindowResizable: true,
-    });
+    state = addFloatingWidget(
+      state,
+      "w1",
+      ["t1"],
+      { resizable: true },
+      {
+        minimized: true,
+      }
+    );
     const { container } = render(
       <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
         <FloatingWidgetProvider id="w1" />
@@ -126,10 +119,15 @@ describe("FloatingWidget", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "ts");
-    state = addFloatingWidget(state, "toolSettings", ["ts"], undefined, {
-      minimized: true,
-      isFloatingStateWindowResizable: false,
-    });
+    state = addFloatingWidget(
+      state,
+      "toolSettings",
+      ["ts"],
+      { resizable: true },
+      {
+        minimized: true,
+      }
+    );
     state = addWidgetToolSettings(state, "ts");
     const { container } = render(
       <TestNineZoneProvider defaultState={state} dispatch={dispatch}>

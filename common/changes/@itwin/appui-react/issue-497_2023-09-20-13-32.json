@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Correctly configure `resizable` flag of a floating widget after docking and undocking.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

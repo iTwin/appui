@@ -77,29 +77,5 @@ exports[`FloatingWidgets should render 1`] = `
       class="nz-outline-widgetOutline nz-hidden"
     />
   </div>
-  <div
-    class="nz-widget-floatingWidget_handle nz-left"
-  />
-  <div
-    class="nz-widget-floatingWidget_handle nz-top"
-  />
-  <div
-    class="nz-widget-floatingWidget_handle nz-right"
-  />
-  <div
-    class="nz-widget-floatingWidget_handle nz-bottom"
-  />
-  <div
-    class="nz-widget-floatingWidget_handle nz-topLeft"
-  />
-  <div
-    class="nz-widget-floatingWidget_handle nz-topRight"
-  />
-  <div
-    class="nz-widget-floatingWidget_handle nz-bottomLeft"
-  />
-  <div
-    class="nz-widget-floatingWidget_handle nz-bottomRight"
-  />
 </div>
 `;

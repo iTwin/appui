@@ -78,15 +78,17 @@ type KeysOfType<T, Type> = {
 export function initSizeProps<
   T,
   K extends KeysOfType<T, SizeProps | undefined>
->(obj: T, key: K, size: SizeProps) {
-  if (obj[key]) {
+>(obj: T, key: K, size: SizeProps | undefined) {
+  if (obj[key] && size) {
     setSizeProps(obj[key] as unknown as SizeProps, size);
     return;
   }
-  (obj[key] as unknown as SizeProps) = {
-    height: size.height,
-    width: size.width,
-  };
+  (obj[key] as unknown as SizeProps | undefined) = size
+    ? {
+        height: size.height,
+        width: size.width,
+      }
+    : undefined;
 }
 
 /** @internal */

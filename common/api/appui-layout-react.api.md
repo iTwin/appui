@@ -437,11 +437,11 @@ export interface FloatingWidgetState {
     // (undocumented)
     readonly bounds: RectangleProps;
     // (undocumented)
-    readonly hidden?: boolean;
-    // (undocumented)
     readonly home: FloatingWidgetHomeState;
     // (undocumented)
     readonly id: WidgetState["id"];
+    // (undocumented)
+    readonly resizable?: boolean;
     // (undocumented)
     readonly userSized?: boolean;
 }
@@ -1187,7 +1187,7 @@ export interface TabsState {
 // @internal
 export interface TabState {
     // (undocumented)
-    readonly allowedPanelTargets?: PanelSide[];
+    readonly allowedPanelTargets?: ReadonlyArray<PanelSide>;
     // (undocumented)
     readonly canPopout?: boolean;
     // (undocumented)
@@ -1197,7 +1197,7 @@ export interface TabState {
     // (undocumented)
     readonly id: string;
     // (undocumented)
-    readonly isFloatingStateWindowResizable?: boolean;
+    readonly isFloatingWidgetResizable?: boolean;
     // (undocumented)
     readonly label: string;
     // (undocumented)
@@ -1858,8 +1858,6 @@ export interface WidgetState {
     readonly activeTabId: TabState["id"];
     // (undocumented)
     readonly id: string;
-    // (undocumented)
-    readonly isFloatingStateWindowResizable?: boolean;
     // (undocumented)
     readonly minimized: boolean;
     // (undocumented)

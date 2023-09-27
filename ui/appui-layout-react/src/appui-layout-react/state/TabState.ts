@@ -6,7 +6,7 @@
  * @module Base
  */
 
-import produce from "immer";
+import produce, { castDraft } from "immer";
 import { UiError } from "@itwin/appui-abstract";
 import { type IconSpec, Rectangle, type SizeProps } from "@itwin/core-react";
 import type { PanelSide } from "../widget-panels/Panel";
@@ -42,10 +42,10 @@ export interface TabState {
   readonly iconSpec?: IconSpec;
   readonly preferredFloatingWidgetSize?: SizeProps;
   readonly preferredPanelWidgetSize?: "fit-content";
-  readonly allowedPanelTargets?: PanelSide[];
+  readonly allowedPanelTargets?: ReadonlyArray<PanelSide>;
   readonly canPopout?: boolean;
   readonly userSized?: boolean;
-  readonly isFloatingStateWindowResizable?: boolean;
+  readonly isFloatingWidgetResizable?: boolean;
   readonly hideWithUiWhenFloating?: boolean;
 }
 
@@ -75,7 +75,7 @@ export function addTab(
     ...tabArgs,
   };
   return produce(state, (stateDraft) => {
-    stateDraft.tabs[id] = tab;
+    stateDraft.tabs[id] = castDraft(tab);
   });
 }
 
