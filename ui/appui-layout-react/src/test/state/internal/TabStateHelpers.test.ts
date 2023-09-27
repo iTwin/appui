@@ -6,7 +6,7 @@ import {
   updateSavedTabState,
   updateTabState,
 } from "../../../appui-layout-react/state/internal/TabStateHelpers";
-import { createNineZoneState } from "../../../appui-layout-react";
+import { addTab, createNineZoneState } from "../../../appui-layout-react";
 import { expect } from "chai";
 
 describe("updateTabState", () => {
@@ -15,6 +15,18 @@ describe("updateTabState", () => {
     (() => updateTabState(state, "t1", { iconSpec: "test" })).should.throw(
       "Tab does not exist"
     );
+  });
+
+  it("should update `preferredFloatingWidgetSize`", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    const newState = updateTabState(state, "t1", {
+      preferredFloatingWidgetSize: { height: 100, width: 200 },
+    });
+    expect(newState.tabs.t1.preferredFloatingWidgetSize).to.eql({
+      height: 100,
+      width: 200,
+    });
   });
 });
 

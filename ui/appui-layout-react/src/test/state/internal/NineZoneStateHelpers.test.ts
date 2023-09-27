@@ -18,6 +18,16 @@ describe("initSizeProps", () => {
     });
     sut.should.eq(obj);
   });
+
+  it("should reset", () => {
+    const obj = {
+      x: { height: 1, width: 2 },
+    };
+    const sut = produce(obj, (draft) => {
+      initSizeProps(draft, "x", undefined);
+    });
+    expect(sut.x).to.undefined;
+  });
 });
 
 describe("initRectangleProps", () => {

@@ -4207,7 +4207,7 @@ export class StateManager {
 export type StateType<R extends Reducer<any, any>> = DeepReadonly<ReturnType<R>>;
 
 // @internal (undocumented)
-export const stateVersion = 15;
+export const stateVersion = 16;
 
 // @public
 export class StatusBar extends React_2.Component<StatusBarProps, StatusBarState> {

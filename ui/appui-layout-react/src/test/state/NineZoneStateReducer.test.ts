@@ -644,7 +644,7 @@ describe("NineZoneStateReducer", () => {
 
     it("should set preferredFloatingWidgetSize of active tab", () => {
       let state = createNineZoneState();
-      state = addTabs(state, ["t1"]);
+      state = addTab(state, "t1", { isFloatingWidgetResizable: true });
       state = addFloatingWidget(state, "fw1", ["t1"], {
         bounds: new Rectangle(0, 100, 200, 400).toProps(),
       });
@@ -831,7 +831,7 @@ describe("NineZoneStateReducer", () => {
 
     it("should update preferredFloatingWidgetSize of a tab", () => {
       let state = createNineZoneState();
-      state = addTabs(state, ["t1"]);
+      state = addTab(state, "t1", { isFloatingWidgetResizable: true });
       state = addFloatingWidget(state, "w1", ["t1"], {
         bounds: new Rectangle(0, 100, 200, 400).toProps(),
       });
@@ -1772,18 +1772,6 @@ describe("NineZoneStateReducer", () => {
       const widgetId = newState.panels.left.widgets[0];
       const widget = newState.widgets[widgetId];
       expect(widget.activeTabId).to.eq("t1");
-    });
-
-    it("should open tab in a floating widget", () => {
-      let state = createNineZoneState();
-      state = addTab(state, "t1");
-      state = addFloatingWidget(state, "w1", ["t1"], { hidden: true });
-
-      const newState = NineZoneStateReducer(state, {
-        type: "WIDGET_TAB_OPEN",
-        id: "t1",
-      });
-      expect(newState.floatingWidgets.byId.w1.hidden).to.false;
     });
 
     it("should skip if tab is in a popout widget", () => {

@@ -2,9 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { expect } from "chai";
 import {
   addFloatingWidget,
   addPanelWidget,
+  addTab,
   createNineZoneState,
 } from "../../../appui-layout-react";
 import {
@@ -88,6 +90,26 @@ describe("updateFloatingWidgetState", () => {
       updateFloatingWidgetState(state, "fw1", {
         userSized: true,
       })).should.throw("Floating widget does not exist");
+  });
+
+  it("should update `bounds`", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addFloatingWidget(state, "w1", ["t1"]);
+    const newState = updateFloatingWidgetState(state, "w1", {
+      bounds: {
+        bottom: 0,
+        left: 10,
+        right: 20,
+        top: 40,
+      },
+    });
+    expect(newState.floatingWidgets.byId.w1.bounds).to.eql({
+      bottom: 0,
+      left: 10,
+      right: 20,
+      top: 40,
+    });
   });
 });
 
