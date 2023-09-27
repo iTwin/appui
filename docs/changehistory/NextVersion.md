@@ -4,6 +4,8 @@ Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
   - [Fixes](#fixes)
+- [@itwin/core-react](#itwincore-react)
+  - [Fixes](#fixes-1)
 
 ## @itwin/appui-react
 
@@ -13,3 +15,10 @@ Table of contents:
 - Can now pass a blank array into `allowedPanelTargets` that will prevent widget from being able to to dock to any target.
 - Disable `user-select` of a widget tab bar and resize handle to avoid content selection when dragging a widget.
 - Correctly configure `resizable` flag of a floating widget after docking and undocking.
+- Fix message center messages icon colors based on message severity.
+
+## @itwin/core-react
+
+### Fixes
+
+- Fix `MessageContainer` icon colors based on severity.

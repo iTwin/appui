@@ -21,7 +21,6 @@ import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDet
 import { UiFramework } from "../UiFramework";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
-import classnames from "classnames";
 
 /** Enum for the [[MessageCenterField]] active tab
  * @internal
@@ -193,7 +192,7 @@ export class MessageCenterField extends React.Component<
         this.state.activeTab === MessageCenterActiveTab.AllMessages ||
         this.isProblemStatus(details.priority)
       ) {
-        const iconClassName = classnames("icon", "notifymessage-icon");
+        const iconClassName = MessageManager.getIconClassName(details);
         const iconSpec = MessageManager.getIconSpecFromDetails(details);
         const message = details.briefMessage;
 

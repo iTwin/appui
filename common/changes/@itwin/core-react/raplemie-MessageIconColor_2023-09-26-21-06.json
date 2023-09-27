@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Fix `MessageContainer` icon colors based on severity.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

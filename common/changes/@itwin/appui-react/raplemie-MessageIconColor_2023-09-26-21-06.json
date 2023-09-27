@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix message center messages icon colors based on message severity.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
