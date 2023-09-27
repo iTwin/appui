@@ -118,11 +118,20 @@ export interface MessageContainerProps extends CommonProps {
  * @public
  */
 export class MessageContainer extends React.PureComponent<MessageContainerProps> {
+  /** Returns the class name corresponding to the MessageSeverity.
+   * @param severity MessageSeverity
+   */
+  public static getIconClassName(severity: MessageSeverity): string;
   /** Returns the class name associated with the WebFont icon corresponding to the MessageSeverity.
    * @param severity MessageSeverity
-   * @param _hollow @deprecated in 4.0. Ignored.
-   * @deprecated in 4.0. Please use getIcon method
+   * @param hollow Should the icon be hollow
+   * @deprecated in 4.0. Hollow parameter ignored, WebFont is not returned, only the color.
    */
+  public static getIconClassName(
+    severity: MessageSeverity,
+    // eslint-disable-next-line @typescript-eslint/unified-signatures
+    hollow?: boolean
+  ): string;
   /* istanbul ignore next */
   public static getIconClassName(
     severity: MessageSeverity,
@@ -144,7 +153,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
         iconClassName = "core-message-box-question";
         break;
       case MessageSeverity.Warning:
-        iconClassName = "core-message-box-warning"; // TODO - need icon-status-warning-hollow icon
+        iconClassName = "core-message-box-warning";
         break;
       case MessageSeverity.Error:
         iconClassName = "core-message-box-error";
@@ -193,7 +202,11 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
   }
 
   public override render(): React.ReactElement {
-    const iconClassName = classnames("icon", "core-message-box-icon");
+    const iconClassName = classnames(
+      "icon",
+      "core-message-box-icon",
+      MessageContainer.getIconClassName(this.props.severity)
+    );
 
     const iconSpec = MessageContainer.getIcon(this.props.severity);
 
