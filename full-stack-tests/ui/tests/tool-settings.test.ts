@@ -169,4 +169,36 @@ test.describe("tool settings", () => {
     await expect(widgetToolSettings).toBeVisible();
     await expect(dockedToolSettingsHandle).not.toBeVisible();
   });
+
+  test("should support dynamic tool settings", async ({ page }) => {
+    const toolButton = page.getByTitle("Tool With Dynamic Settings");
+    await toolButton.click();
+
+    const initialState = page.getByText("Undefined", { exact: true });
+    const californiaState = page.getByText("California", { exact: true });
+    const alabamaState = page.getByText("Alabama", { exact: true });
+    const californiaCity = page.getByText("Los Angeles", { exact: true });
+    const alabamaCity = page.getByText("Birmingham", { exact: true });
+
+    await expect(initialState).toBeVisible();
+    // Open state dropdown list;
+    await initialState.click();
+
+    // Pick state item in dropdown;
+    await californiaState.click();
+
+    // Check that we are currently displaying the correct city in he second picker
+    await expect(californiaCity).toBeVisible();
+    await expect(alabamaCity).not.toBeVisible();
+
+    // Open state dropdown list;
+    await californiaState.click();
+
+    // Pick state item in dropdown;
+    await alabamaState.click();
+
+    // Check that we are currently displaying the correct city in he second picker
+    await expect(alabamaCity).toBeVisible();
+    await expect(californiaCity).not.toBeVisible();
+  });
 });
