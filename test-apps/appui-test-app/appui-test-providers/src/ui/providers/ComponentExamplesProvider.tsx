@@ -826,11 +826,6 @@ export class ComponentExamplesProvider {
           </Button>
         ),
         createComponentExample(
-          "Message Center Field",
-          undefined,
-          <MessageCenterField />
-        ),
-        createComponentExample(
           "Pointer Message",
           undefined,
           <Button
@@ -855,6 +850,50 @@ export class ComponentExamplesProvider {
           <StatusBar>
             <ToolAssistanceField />
           </StatusBar>
+        ),
+        createComponentExample(
+          "Message Center Field",
+          undefined,
+          <div>
+            <MessageCenterField />
+            <Button
+              id="message-center-fill-button"
+              onClick={() => {
+                MessageManager.clearMessages();
+                MessageManager.addToMessageCenter(
+                  new NotifyMessageDetails(
+                    OutputMessagePriority.Success,
+                    "success"
+                  )
+                );
+                MessageManager.addToMessageCenter(
+                  new NotifyMessageDetails(OutputMessagePriority.Info, "info")
+                );
+                MessageManager.addToMessageCenter(
+                  new NotifyMessageDetails(
+                    OutputMessagePriority.Warning,
+                    "warning"
+                  )
+                );
+                MessageManager.addToMessageCenter(
+                  new NotifyMessageDetails(OutputMessagePriority.Fatal, "fatal")
+                );
+                MessageManager.addToMessageCenter(
+                  new NotifyMessageDetails(OutputMessagePriority.Error, "error")
+                );
+              }}
+            >
+              Fill message center
+            </Button>
+            <Button
+              id="message-center-clear-button"
+              onClick={() => {
+                MessageManager.clearMessages();
+              }}
+            >
+              Clear message center
+            </Button>
+          </div>
         ),
       ],
     };
