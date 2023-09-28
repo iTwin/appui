@@ -10,10 +10,10 @@ import type * as React from "react";
 import type {
   BadgeType,
   ConditionalStringValue,
-  PointProps,
   StringGetter,
 } from "@itwin/appui-abstract";
 import { UiError, UiEvent } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 import {
   ConfigurableCreateInfo,
@@ -79,8 +79,6 @@ export class WidgetDef {
   private _classId: string | ConfigurableUiControlConstructor | undefined =
     undefined;
   private _priority: number = 0;
-  private _isFloatingStateSupported: boolean = false;
-  private _isFloatingStateWindowResizable: boolean = true;
   private _stateChanged: boolean = false;
   private _widgetType: WidgetType = WidgetType.Rectangular;
   private _applicationData?: any;
@@ -93,7 +91,7 @@ export class WidgetDef {
   private _defaultFloatingSize: SizeProps | undefined;
   private _canPopout?: boolean;
   private _floatingContainerId?: string;
-  private _defaultFloatingPosition: PointProps | undefined;
+  private _defaultFloatingPosition: XAndY | undefined;
 
   private _hideWithUiWhenFloating?: boolean;
   private _allowedPanelTargets?: ReadonlyArray<StagePanelLocation>;
@@ -118,12 +116,28 @@ export class WidgetDef {
   public get priority(): number {
     return this._priority;
   }
+
   public get isFloatingStateSupported(): boolean {
-    return this._isFloatingStateSupported;
+    if (!this.initialConfig) return false;
+
+    const allowedPanels = this.initialConfig.allowedPanels;
+    if (allowedPanels && allowedPanels.length === 0) {
+      return true;
+    }
+
+    const canFloat = this.initialConfig.canFloat;
+    return !!canFloat;
   }
+
   public get isFloatingStateWindowResizable(): boolean {
-    return this._isFloatingStateWindowResizable;
+    const canFloat = this.initialConfig?.canFloat;
+    if (typeof canFloat === "object") {
+      return !!canFloat.isResizable;
+    }
+
+    return true;
   }
+
   public get isToolSettings(): boolean {
     return this._widgetType === WidgetType.ToolSettings;
   }
@@ -167,7 +181,7 @@ export class WidgetDef {
   public get defaultFloatingPosition() {
     return this._defaultFloatingPosition;
   }
-  public set defaultFloatingPosition(position: PointProps | undefined) {
+  public set defaultFloatingPosition(position: XAndY | undefined) {
     this._defaultFloatingPosition = position;
   }
 
@@ -213,21 +227,11 @@ export class WidgetDef {
 
     this.setCanPopout(config.canPopout);
 
-    let canFloat = config.canFloat;
-    if (config.allowedPanels && config.allowedPanels.length === 0) {
-      if (typeof config.canFloat === "object") {
-        canFloat = config.canFloat;
-      } else {
-        canFloat = true;
-      }
-    }
-
-    this._isFloatingStateSupported = !!canFloat;
+    const canFloat = config.canFloat;
     if (typeof canFloat === "object") {
       this.setFloatingContainerId(canFloat.containerId);
       this.defaultFloatingPosition = canFloat.defaultPosition;
       this._hideWithUiWhenFloating = !!canFloat.hideWithUi;
-      this._isFloatingStateWindowResizable = !!canFloat.isResizable;
       this._defaultFloatingSize = canFloat.defaultSize;
     }
 

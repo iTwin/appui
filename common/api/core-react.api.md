@@ -19,7 +19,6 @@ import type { IMatch } from '@itwin/appui-abstract';
 import type { InputProps as InputProps_2 } from '@itwin/itwinui-react';
 import type { Localization } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
-import type { PointProps } from '@itwin/appui-abstract';
 import type { ProgressRadialProps } from '@itwin/itwinui-react';
 import * as React_2 from 'react';
 import * as ReactAutosuggest from 'react-autosuggest';
@@ -1041,8 +1040,9 @@ export interface MessageBoxProps extends CommonProps {
 // @public
 export class MessageContainer extends React_2.PureComponent<MessageContainerProps> {
     static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec;
+    static getIconClassName(severity: MessageSeverity): string;
     // @deprecated
-    static getIconClassName(severity: MessageSeverity, _hollow?: boolean): string;
+    static getIconClassName(severity: MessageSeverity, hollow?: boolean): string;
     // (undocumented)
     render(): React_2.ReactElement;
 }

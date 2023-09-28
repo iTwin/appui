@@ -6,13 +6,13 @@
  * @module SyncUi
  */
 
-import type { UiSyncEvent } from "@itwin/appui-abstract";
-import { UiEventDispatcher } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { SessionStateActionId } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
+import type { UiSyncEvent } from "./UiSyncEvent";
+import { InternalSyncUiEventDispatcher } from "./InternalSyncUiEventDispatcher";
 
 // cSpell:ignore activecontentchanged, activitymessageupdated, activitymessagecancelled, backstageevent, contentlayoutactivated, contentcontrolactivated,
 // cSpell:ignore elementtooltipchanged, frontstageactivated, inputfieldmessageadded, inputfieldmessageremoved, modalfrontstagechanged, modaldialogchanged
@@ -71,7 +71,7 @@ export enum SyncUiEventId {
  * @public
  */
 export class SyncUiEventDispatcher {
-  private static _uiEventDispatcher = new UiEventDispatcher();
+  private static _uiEventDispatcher = new InternalSyncUiEventDispatcher();
   private static _unregisterFuncs = new Array<() => void>();
   private static _connectionUnregisterFuncs = new Array<() => void>();
   private static _iModelConnection?: IModelConnection;

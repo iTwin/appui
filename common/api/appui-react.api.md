@@ -81,7 +81,6 @@ import type { PanelSide } from '@itwin/appui-layout-react';
 import type { PlaybackSettings } from '@itwin/imodel-components-react';
 import { Point } from '@itwin/core-react';
 import type { Point2d } from '@itwin/core-geometry';
-import type { PointProps } from '@itwin/appui-abstract';
 import type { PopupProps } from '@itwin/core-react';
 import type { Primitives } from '@itwin/appui-abstract';
 import type { PropertyDescription } from '@itwin/appui-abstract';
@@ -120,7 +119,6 @@ import { UiStateEntry } from '@itwin/core-react';
 import type { UiStateStorage } from '@itwin/core-react';
 import type { UiStateStorageResult } from '@itwin/core-react';
 import { UiStateStorageStatus } from '@itwin/core-react';
-import type { UiSyncEvent } from '@itwin/appui-abstract';
 import type { UnitSystemKey } from '@itwin/core-quantity';
 import type { ViewFlagProps } from '@itwin/core-common';
 import type { Viewport } from '@itwin/core-frontend';
@@ -725,15 +723,12 @@ export type CalculatorPropsProps = Pick<CalculatorProps, "engine">;
 
 // @public
 export interface CanFloatWidgetOptions {
-    // (undocumented)
     readonly containerId?: string;
     // (undocumented)
-    readonly defaultPosition?: PointProps;
+    readonly defaultPosition?: XAndY;
     // (undocumented)
     readonly defaultSize?: SizeProps;
-    // (undocumented)
     readonly hideWithUi?: boolean;
-    // (undocumented)
     readonly isResizable?: boolean;
 }
 
@@ -1308,12 +1303,12 @@ export class CursorInformation {
     // @internal
     static clearCursorDirections(): void;
     static get cursorDirection(): CursorDirection;
-    static get cursorPosition(): PointProps;
-    static set cursorPosition(pt: PointProps);
+    static get cursorPosition(): XAndY;
+    static set cursorPosition(pt: XAndY);
     static get cursorX(): number;
     static get cursorY(): number;
     static getRelativePositionFromCursorDirection(cursorDirection: CursorDirection): RelativePosition;
-    static handleMouseMove(point: PointProps): void;
+    static handleMouseMove(point: XAndY): void;
     static readonly onCursorUpdatedEvent: CursorUpdatedEvent;
 }
 
@@ -1338,7 +1333,7 @@ export class CursorPopup extends React_2.Component<CursorPopupProps, CursorPopup
     // @internal (undocumented)
     static fadeOutTime: number;
     // @internal (undocumented)
-    static getPopupRect(pt: PointProps, offset: PointProps, popupSize: SizeProps | undefined, relativePosition: RelativePosition): RectangleProps;
+    static getPopupRect(pt: XAndY, offset: XAndY, popupSize: SizeProps | undefined, relativePosition: RelativePosition): RectangleProps;
     // @internal (undocumented)
     render(): JSX.Element;
 }
@@ -1367,13 +1362,13 @@ export class CursorPopupManager {
     static readonly onCursorPopupsChangedEvent: CursorPopupsChangedEvent;
     // @internal (undocumented)
     static readonly onCursorPopupUpdatePositionEvent: CursorPopupUpdatePositionEvent;
-    static open(id: string, content: React_2.ReactNode, pt: PointProps, offset: PointProps, relativePosition: RelativePosition, priority?: number, options?: CursorPopupOptions): void;
+    static open(id: string, content: React_2.ReactNode, pt: XAndY, offset: XAndY, relativePosition: RelativePosition, priority?: number, options?: CursorPopupOptions): void;
     // (undocumented)
     static get popupCount(): number;
     // (undocumented)
     static get popups(): CursorPopupInfo[];
-    static update(id: string, content: React_2.ReactNode, pt: PointProps, offset: PointProps, relativePosition: RelativePosition, priority?: number): void;
-    static updatePosition(pt: PointProps): void;
+    static update(id: string, content: React_2.ReactNode, pt: XAndY, offset: XAndY, relativePosition: RelativePosition, priority?: number): void;
+    static updatePosition(pt: XAndY): void;
 }
 
 // @alpha
@@ -1403,10 +1398,10 @@ export interface CursorPopupProps extends CommonProps {
     // (undocumented)
     id: string;
     // (undocumented)
-    offset: PointProps;
+    offset: XAndY;
     onSizeKnown?: (size: SizeProps) => void;
     // (undocumented)
-    pt: PointProps;
+    pt: XAndY;
     // (undocumented)
     relativePosition: RelativePosition;
     // (undocumented)
@@ -1441,7 +1436,7 @@ export class CursorPopupUpdatePositionEvent extends UiEvent<CursorPopupUpdatePos
 // @internal
 export interface CursorPopupUpdatePositionEventArgs {
     // (undocumented)
-    pt: PointProps;
+    pt: XAndY;
 }
 
 // @internal (undocumented)
@@ -1449,7 +1444,7 @@ export class CursorPrompt {
     constructor(timeOut: number, fadeOut: boolean);
     close(fadeOut: boolean): void;
     // (undocumented)
-    display(toolIconSpec: string, instruction: ToolAssistanceInstruction, offset?: PointProps, relativePosition?: RelativePosition): void;
+    display(toolIconSpec: string, instruction: ToolAssistanceInstruction, offset?: XAndY, relativePosition?: RelativePosition): void;
 }
 
 // @public
@@ -1461,9 +1456,9 @@ export interface CursorUpdatedEventArgs {
     // (undocumented)
     direction: CursorDirection;
     // (undocumented)
-    newPt: PointProps;
+    newPt: XAndY;
     // (undocumented)
-    oldPt: PointProps;
+    oldPt: XAndY;
 }
 
 // @public
@@ -2218,7 +2213,7 @@ export class FrontstageDef {
     // (undocumented)
     get floatingContentControls(): ContentControl[] | undefined;
     // @beta
-    floatWidget(widgetId: string, position?: PointProps, size?: SizeProps): void;
+    floatWidget(widgetId: string, position?: XAndY, size?: SizeProps): void;
     // (undocumented)
     get frontstageProvider(): FrontstageProvider | undefined;
     // (undocumented)
@@ -2262,8 +2257,8 @@ export class FrontstageDef {
     // @beta
     get panelDefs(): StagePanelDef[];
     // @beta
-    popoutWidget(widgetId: string, position?: PointProps, size?: SizeProps): void;
-    // @beta (undocumented)
+    popoutWidget(widgetId: string, position?: XAndY, size?: SizeProps): void;
+    // @beta
     restoreLayout(): void;
     // (undocumented)
     get rightPanel(): StagePanelDef | undefined;
@@ -2989,7 +2984,7 @@ export interface MenuButtonPopupProps extends PopupPropsBase {
 // @alpha (undocumented)
 export interface MenuButtonProps extends SquareButtonProps {
     onSizeKnown?: (size: SizeProps) => void;
-    point: PointProps;
+    point: XAndY;
 }
 
 // @alpha
@@ -3051,7 +3046,6 @@ export class MessageManager {
         close: () => void;
     } | undefined;
     static endActivityMessage(isCompleted: boolean): boolean;
-    // @deprecated
     static getIconClassName(details: NotifyMessageDetailsType): string;
     static getIconSpecFromDetails(details: NotifyMessageDetailsType): IconSpec;
     static getIconType(details: NotifyMessageDetailsType): MessageBoxIconType;
@@ -3491,7 +3485,7 @@ export function PositionPopupContent(props: CommonDivProps): JSX.Element;
 export interface PositionPopupProps extends CommonProps {
     children?: React_2.ReactNode;
     onSizeKnown?: (size: SizeProps) => void;
-    point: PointProps;
+    point: XAndY;
 }
 
 // @public
@@ -4213,7 +4207,7 @@ export class StateManager {
 export type StateType<R extends Reducer<any, any>> = DeepReadonly<ReturnType<R>>;
 
 // @internal (undocumented)
-export const stateVersion = 15;
+export const stateVersion = 16;
 
 // @public
 export class StatusBar extends React_2.Component<StatusBarProps, StatusBarState> {
@@ -4940,6 +4934,16 @@ export const UiStateStorageContext: React_2.Context<UiStateStorage>;
 export function UiStateStorageHandler(props: UiSettingsProviderProps): JSX.Element;
 
 // @public
+export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> {
+}
+
+// @public
+export interface UiSyncEventArgs {
+    // (undocumented)
+    eventIds: Set<string>;
+}
+
+// @public
 export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {
 }
 
@@ -5322,8 +5326,8 @@ export class WidgetDef {
     // @internal (undocumented)
     static create(config: WidgetConfig, type?: WidgetType): WidgetDef;
     // @internal (undocumented)
-    get defaultFloatingPosition(): PointProps | undefined;
-    set defaultFloatingPosition(position: PointProps | undefined);
+    get defaultFloatingPosition(): XAndY | undefined;
+    set defaultFloatingPosition(position: XAndY | undefined);
     // @internal (undocumented)
     get defaultFloatingSize(): SizeProps | undefined;
     set defaultFloatingSize(size: SizeProps | undefined);

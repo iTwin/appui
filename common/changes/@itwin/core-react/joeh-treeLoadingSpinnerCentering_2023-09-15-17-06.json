@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Bump iTwinUI to get ProgressRadial fix",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

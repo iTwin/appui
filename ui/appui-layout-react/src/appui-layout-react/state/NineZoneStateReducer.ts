@@ -39,10 +39,8 @@ import {
 } from "./internal/TabStateHelpers";
 import {
   initRectangleProps,
-  initSizeProps,
   isToolSettingsFloatingWidget,
   setPointProps,
-  setRectangleProps,
   setSizeProps,
   updateHomeOfToolSettingsWidget,
 } from "./internal/NineZoneStateHelpers";
@@ -262,43 +260,52 @@ export function NineZoneStateReducer(
     case "FLOATING_WIDGET_RESIZE": {
       const { resizeBy } = action;
       const widget = getWidgetState(state, action.id);
-      return produce(state, (draft) => {
-        const floatingWidget = draft.floatingWidgets.byId[action.id];
-        // if this is not a tool settings widget then set the userSized flag
-        // istanbul ignore else
-        if (!isToolSettingsFloatingWidget(draft, action.id)) {
-          floatingWidget.userSized = true;
-        }
 
-        const minWidth = 200;
-        const minHeight = 120;
-        let newBounds = Rectangle.create(floatingWidget.bounds);
+      const floatingWidget = state.floatingWidgets.byId[action.id];
+      // if this is not a tool settings widget then set the userSized flag
+      // istanbul ignore else
+      if (!isToolSettingsFloatingWidget(state, action.id)) {
+        state = updateFloatingWidgetState(state, action.id, {
+          userSized: true,
+        });
+      }
 
-        // Resize top-left corner.
-        const maxLeft = newBounds.right - minWidth;
-        const maxTop = newBounds.bottom - minHeight;
+      const minWidth = 200;
+      const minHeight = 120;
+      let newBounds = Rectangle.create(floatingWidget.bounds);
 
-        newBounds = newBounds.inset(-resizeBy.left, -resizeBy.top, 0, 0);
-        const left = Math.min(maxLeft, newBounds.left);
-        const top = Math.min(maxTop, newBounds.top);
-        newBounds = new Rectangle(left, top, newBounds.right, newBounds.bottom);
+      // Resize top-left corner.
+      const maxLeft = newBounds.right - minWidth;
+      const maxTop = newBounds.bottom - minHeight;
 
-        // Resize bottom-right corner.
-        const minRight = newBounds.left + minWidth;
-        const minBottom = newBounds.top + minHeight;
+      newBounds = newBounds.inset(-resizeBy.left, -resizeBy.top, 0, 0);
+      const left = Math.min(maxLeft, newBounds.left);
+      const top = Math.min(maxTop, newBounds.top);
+      newBounds = new Rectangle(left, top, newBounds.right, newBounds.bottom);
 
-        newBounds = newBounds.inset(0, 0, -resizeBy.right, -resizeBy.bottom);
-        const right = Math.max(minRight, newBounds.right);
-        const bottom = Math.max(minBottom, newBounds.bottom);
-        newBounds = new Rectangle(left, top, right, bottom);
+      // Resize bottom-right corner.
+      const minRight = newBounds.left + minWidth;
+      const minBottom = newBounds.top + minHeight;
 
-        setRectangleProps(floatingWidget.bounds, newBounds);
+      newBounds = newBounds.inset(0, 0, -resizeBy.right, -resizeBy.bottom);
+      const right = Math.max(minRight, newBounds.right);
+      const bottom = Math.max(minBottom, newBounds.bottom);
+      newBounds = new Rectangle(left, top, right, bottom);
 
-        const size = newBounds.getSize();
-        const tab = draft.tabs[widget.activeTabId];
-        initSizeProps(tab, "preferredFloatingWidgetSize", size);
-        tab.userSized = true;
+      state = updateFloatingWidgetState(state, action.id, {
+        bounds: newBounds,
       });
+
+      const tab = state.tabs[widget.activeTabId];
+      if (tab.isFloatingWidgetResizable) {
+        const size = newBounds.getSize();
+        state = updateTabState(state, widget.activeTabId, {
+          preferredFloatingWidgetSize: size,
+          userSized: true,
+        });
+      }
+
+      return state;
     }
     case "FLOATING_WIDGET_SET_BOUNDS": {
       const nzBounds = Rectangle.createFromSize(state.size);
@@ -499,7 +506,7 @@ export function NineZoneStateReducer(
         const containedBounds = bounds.containIn(nzBounds);
         const userSized =
           tab.userSized ||
-          (tab.isFloatingStateWindowResizable &&
+          (tab.isFloatingWidgetResizable &&
             /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
 
         state = addFloatingWidget(
@@ -647,20 +654,14 @@ export function NineZoneStateReducer(
           preferredFloatingWidgetSize: preferredSize,
         });
         state = removeTabFromWidget(state, id);
-        state = addFloatingWidget(
-          state,
-          id,
-          [id],
-          {
-            bounds: containedBounds,
-            home: {
-              side: location.side,
-              widgetId: location.widgetId,
-              widgetIndex,
-            },
+        state = addFloatingWidget(state, id, [id], {
+          bounds: containedBounds,
+          home: {
+            side: location.side,
+            widgetId: location.widgetId,
+            widgetIndex,
           },
-          { isFloatingStateWindowResizable: tab.isFloatingStateWindowResizable }
-        );
+        });
       } else {
         const popoutWidgetId = location.popoutWidgetId;
         const popoutWidget = state.popoutWidgets.byId[popoutWidgetId];
@@ -768,11 +769,7 @@ function openWidgetTab(state: NineZoneState, id: TabState["id"]) {
     widget.minimized = false;
     widget.activeTabId = id;
 
-    if (isFloatingTabLocation(location)) {
-      const floatingWidget =
-        draft.floatingWidgets.byId[location.floatingWidgetId];
-      floatingWidget.hidden = false;
-    } else if (isPanelTabLocation(location)) {
+    if (isPanelTabLocation(location)) {
       const panel = draft.panels[location.side];
       panel.collapsed = false;
       // istanbul ignore next

@@ -23,6 +23,7 @@ import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
 import type { BackstageItem } from "./BackstageItem";
 import { isBackstageStageLauncher } from "./BackstageItem";
 import { BackstageItemsManager } from "./BackstageItemsManager";
+import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 
 // cSpell:ignore safearea
 
@@ -40,19 +41,21 @@ function useBackstageItemSyncEffect(
       itemsManager.refreshAffectedItems(new Set(syncIdsOfInterest));
     }
 
-    return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
-      if (0 === syncIdsOfInterest.length) return;
+    return SyncUiEventDispatcher.onSyncUiEvent.addListener(
+      (args: UiSyncEventArgs) => {
+        if (0 === syncIdsOfInterest.length) return;
 
-      // istanbul ignore else
-      if (
-        syncIdsOfInterest.some((value: string): boolean =>
-          args.eventIds.has(value.toLowerCase())
-        )
-      ) {
-        // process each item that has interest
-        itemsManager.refreshAffectedItems(args.eventIds);
+        // istanbul ignore else
+        if (
+          syncIdsOfInterest.some((value: string): boolean =>
+            args.eventIds.has(value.toLowerCase())
+          )
+        ) {
+          // process each item that has interest
+          itemsManager.refreshAffectedItems(args.eventIds);
+        }
       }
-    });
+    );
   }, [itemsManager, itemsManager.items, syncIdsOfInterest]);
 }
 

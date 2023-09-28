@@ -12,7 +12,10 @@ export function copyStyles(
   targetDoc: Document,
   sourceDoc: Document = document
 ) {
-  const stylesheets = Array.from(sourceDoc.styleSheets);
+  const stylesheets = sourceDoc.adoptedStyleSheets
+    ? Array.from([...sourceDoc.styleSheets, ...sourceDoc.adoptedStyleSheets])
+    : Array.from(sourceDoc.styleSheets);
+
   // istanbul ignore next
   stylesheets.forEach((stylesheet) => {
     const css = stylesheet;

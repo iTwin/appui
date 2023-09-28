@@ -55,6 +55,7 @@
   $cornerSize: 1em;
 
   position: absolute;
+  user-select: none;
 
   &.nz-left,
   &.nz-right {
