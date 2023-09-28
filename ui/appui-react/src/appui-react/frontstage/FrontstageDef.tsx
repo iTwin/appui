@@ -295,7 +295,7 @@ export class FrontstageDef {
 
     const oldState = this._nineZoneState;
     this._nineZoneState = state;
-    let popoutResult = this.handlePopouts(oldState);
+    const popoutResult = this.handlePopouts(oldState);
     if (oldState) {
       this.triggerStateChangeEvents(oldState);
     }

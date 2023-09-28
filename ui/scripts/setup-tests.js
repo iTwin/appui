@@ -10,12 +10,12 @@ const commonjsGlobal =
   typeof globalThis !== "undefined"
     ? globalThis
     : typeof window !== "undefined"
-    ? window
-    : typeof global !== "undefined"
-    ? global
-    : typeof self !== "undefined"
-    ? self
-    : {};
+      ? window
+      : typeof global !== "undefined"
+        ? global
+        : typeof self !== "undefined"
+          ? self
+          : {};
 if (commonjsGlobal.MessageChannel) delete commonjsGlobal.MessageChannel;
 
 const path = require("path");
@@ -26,7 +26,7 @@ const path = require("path");
 require("jsdom-global")();
 window.Date = Date;
 document.elementFromPoint = () => null;
-window.HTMLElement.prototype.scrollIntoView = () => {};
+window.HTMLElement.prototype.scrollIntoView = () => { };
 
 // Fill in more missing functions left out by jsdom or mocha
 performance = window.performance;
@@ -54,7 +54,7 @@ global.DOMRect = class DOMRect {
 global.DOMRect.fromRect = function (rect) {
   return new DOMRect(rect.x, rect.y, rect.width, rect.height);
 };
-window.open = () => {};
+window.open = () => { return window; };
 
 const { JSDOM } = require("jsdom");
 global.DOMParser = new JSDOM().window.DOMParser;
@@ -75,12 +75,12 @@ let chaiJestSnapshot;
 try {
   chaiJestSnapshot = require("chai-jest-snapshot");
   chai.use(chaiJestSnapshot);
-} catch (e) {}
+} catch (e) { }
 const sinonChai = require("sinon-chai");
 chai.use(sinonChai);
 try {
   chai.use(require("chai-string"));
-} catch (e) {}
+} catch (e) { }
 
 before(function () {
   if (chaiJestSnapshot) {
@@ -120,18 +120,18 @@ beforeEach(function () {
 let rhtl;
 try {
   rhtl = require("@testing-library/react-hooks");
-} catch (e) {}
+} catch (e) { }
 
 afterEach(async () => {
   try {
     const rtl = require("@testing-library/react");
     rtl.cleanup();
-  } catch (e) {}
+  } catch (e) { }
   if (rhtl) {
     await rhtl.cleanup();
   }
   try {
     const sinon = require("sinon");
     sinon.restore();
-  } catch (e) {}
+  } catch (e) { }
 });

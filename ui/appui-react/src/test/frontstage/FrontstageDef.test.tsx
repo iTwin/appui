@@ -577,7 +577,10 @@ describe("FrontstageDef", () => {
       const spy = sinon.spy(window, "open");
       const popoutWidgets = frontstageDef.nineZoneState.popoutWidgets;
       const popoutWidget = popoutWidgets.byId[popoutWidgets.allIds[0]];
-      frontstageDef.openPopoutWidgetContainer(popoutWidget.id);
+      frontstageDef.openPopoutWidgetContainer(
+        popoutWidget.id,
+        frontstageDef.nineZoneState
+      );
       sinon.assert.calledOnce(spy);
     });
   });
