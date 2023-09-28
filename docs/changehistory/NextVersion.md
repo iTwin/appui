@@ -18,6 +18,7 @@ Table of contents:
 - Fix message center messages overflow behavior breaking layout.
 - Fix message center messages icon colors based on message severity.
 - Correctly configure `resizable` flag of a floating widget after docking and undocking.
+- Whenever widget is popped out and `window.open` fails, widget no longer disappears.
 
 ## @itwin/core-react
 
