@@ -103,7 +103,7 @@ import { StatusBarDialogTitleBar } from "@itwin/appui-react/lib/cjs/appui-react/
 import { StatusBarDialogTitleBarButton } from "@itwin/appui-react/lib/cjs/appui-react/statusbar/dialog/Button";
 import { ComponentGenerator } from "@itwin/appui-react/lib/cjs/appui-react/uiprovider/ComponentGenerator";
 import { UnitSystemKey } from "@itwin/core-quantity";
-import { Button } from "@itwin/itwinui-react";
+import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";
 import { TreeWidgetComponent } from "../widgets/TreeWidget";
 
 class TestContentControl extends ContentControl {
@@ -856,35 +856,72 @@ export class ComponentExamplesProvider {
           undefined,
           <div>
             <MessageCenterField />
-            <Button
-              id="message-center-fill-button"
-              onClick={() => {
-                MessageManager.clearMessages();
-                MessageManager.addToMessageCenter(
-                  new NotifyMessageDetails(
-                    OutputMessagePriority.Success,
-                    "success"
-                  )
-                );
-                MessageManager.addToMessageCenter(
-                  new NotifyMessageDetails(OutputMessagePriority.Info, "info")
-                );
-                MessageManager.addToMessageCenter(
-                  new NotifyMessageDetails(
-                    OutputMessagePriority.Warning,
-                    "warning"
-                  )
-                );
-                MessageManager.addToMessageCenter(
-                  new NotifyMessageDetails(OutputMessagePriority.Fatal, "fatal")
-                );
-                MessageManager.addToMessageCenter(
-                  new NotifyMessageDetails(OutputMessagePriority.Error, "error")
-                );
-              }}
+            <DropdownMenu
+              menuItems={(close) => [
+                <MenuItem
+                  key="icons"
+                  onClick={() => {
+                    MessageManager.clearMessages();
+                    MessageManager.addToMessageCenter(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Success,
+                        "success"
+                      )
+                    );
+                    MessageManager.addToMessageCenter(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Info,
+                        "info"
+                      )
+                    );
+                    MessageManager.addToMessageCenter(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Warning,
+                        "warning"
+                      )
+                    );
+                    MessageManager.addToMessageCenter(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Fatal,
+                        "fatal"
+                      )
+                    );
+                    MessageManager.addToMessageCenter(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Error,
+                        "error"
+                      )
+                    );
+                    close();
+                  }}
+                >
+                  ...with severity icons
+                </MenuItem>,
+                <MenuItem
+                  key="overflow"
+                  onClick={() => {
+                    MessageManager.clearMessages();
+                    MessageManager.addToMessageCenter(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Success,
+                        "Long message that is properly cut in multiple elements with enough space to allow correct word wrap."
+                      )
+                    );
+                    MessageManager.addToMessageCenter(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Error,
+                        "Long message with breaking url: http://invalid.bentley.com/with/some/long/url/that/will/not/typically/wrap/as/expected/and/cause/layout/issue"
+                      )
+                    );
+                    close();
+                  }}
+                >
+                  ...with overflowing content
+                </MenuItem>,
+              ]}
             >
-              Fill message center
-            </Button>
+              <Button>Fill message center</Button>
+            </DropdownMenu>
             <Button
               id="message-center-clear-button"
               onClick={() => {

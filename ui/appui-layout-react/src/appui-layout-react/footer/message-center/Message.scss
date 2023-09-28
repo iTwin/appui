@@ -33,4 +33,9 @@
   > .nz-icon {
     min-width: 20px;
   }
+
+  > .nz-content {
+    overflow: hidden;
+    overflow-wrap: break-word;
+  }
 }
