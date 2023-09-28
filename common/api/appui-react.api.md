@@ -2253,7 +2253,7 @@ export class FrontstageDef {
     onFrontstageReady(): void;
     protected _onFrontstageReady(): void;
     // @internal
-    openPopoutWidgetContainer(widgetContainerId: string): void;
+    openPopoutWidgetContainer(widgetContainerId: string, oldState: NineZoneState): boolean | void;
     // @beta
     get panelDefs(): StagePanelDef[];
     // @beta
@@ -3704,7 +3704,7 @@ export enum SelectionScope {
 }
 
 // @public
-export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "availableSelectionScopes" | "activeSelectionScope">>;
+export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "activeSelectionScope" | "availableSelectionScopes">>;
 
 // @public
 export interface SessionState {

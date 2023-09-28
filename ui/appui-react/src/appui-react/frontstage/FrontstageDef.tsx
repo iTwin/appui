@@ -57,6 +57,7 @@ import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { WidgetState } from "../widgets/WidgetState";
 import { InternalFrontstageManager } from "./InternalFrontstageManager";
 import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager";
+import type { XAndY } from "@itwin/core-geometry";
 
 /** @internal */
 export interface FrontstageEventArgs {
