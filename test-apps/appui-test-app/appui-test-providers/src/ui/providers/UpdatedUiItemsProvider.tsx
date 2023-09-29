@@ -53,7 +53,7 @@ export const updatedUiItemsProvider: UiItemsProvider = {
     return [
       StatusBarItemUtilities.createActionItem(
         `${id}:statusbar-item`,
-        StatusBarSection.Center, // TODO: map by sectionId?
+        StatusBarSection.Center,
         0,
         <SvgUpgrade />,
         "Updated status bar item",
