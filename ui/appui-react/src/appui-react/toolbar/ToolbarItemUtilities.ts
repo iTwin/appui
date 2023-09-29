@@ -83,7 +83,7 @@ export namespace ToolbarItemUtilities {
     return JSON.stringify({ usage, orientation });
   }
 
-  /** @alpha */
+  /** @internal */
   export function fromToolbarId(toolbarId: string):
     | undefined
     | {

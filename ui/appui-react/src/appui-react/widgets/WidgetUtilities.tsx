@@ -21,14 +21,14 @@ export namespace WidgetUtilities {
     return JSON.stringify({ location, section });
   }
 
-  /** @alpha */
-  export function fromContainerId(toolbarId: string):
+  /** @internal */
+  export function fromContainerId(containerId: string):
     | undefined
     | {
         location: StagePanelLocation;
         section: StagePanelSection;
       } {
-    const obj = JSON.parse(toolbarId);
+    const obj = JSON.parse(containerId);
     const location = obj.location;
     const section = obj.section;
     if (location === undefined) return undefined;
