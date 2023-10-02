@@ -135,13 +135,17 @@ export function isToolbarCustomItem(
   return !isToolbarActionItem(item) && !isToolbarGroupItem(item);
 }
 
-/** @alpha */
+/** `ToolbarItem` used in `PanelsUiItemsProvider`.
+ * @alpha
+ */
 export type PanelsToolbarItem = ToolbarItem & {
   readonly usage: ToolbarUsage;
   readonly orientation: ToolbarOrientation;
 };
 
-/** @alpha */
+/** `PanelsToolbarItem` type guard.
+ * @alpha
+ */
 export function isPanelsToolbarItem(
   item: ToolbarItem
 ): item is PanelsToolbarItem {

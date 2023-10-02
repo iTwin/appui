@@ -55,7 +55,9 @@ export interface Widget {
   readonly tooltip?: string | ConditionalStringValue;
 }
 
-/** @alpha */
+/** `Widget` used in `PanelsUiItemsProvider`.
+ * @alpha
+ */
 export interface PanelsWidget extends Widget {
   /** Describes to which panel the widget is added. */
   readonly location: StagePanelLocation;
@@ -63,7 +65,9 @@ export interface PanelsWidget extends Widget {
   readonly section: StagePanelSection;
 }
 
-/** @alpha */
+/** `PanelsWidget` type guard.
+ * @alpha
+ */
 export function isPanelsWidget(widget: Widget): widget is PanelsWidget {
   return "location" in widget && "section" in widget;
 }

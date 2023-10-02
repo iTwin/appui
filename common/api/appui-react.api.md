@@ -2666,10 +2666,10 @@ export function isNoSelectionActive(): boolean;
 // @internal (undocumented)
 export function isPanelCollapsed(panelState: StagePanelState | undefined): boolean;
 
-// @alpha (undocumented)
+// @alpha
 export function isPanelsToolbarItem(item: ToolbarItem): item is PanelsToolbarItem;
 
-// @alpha (undocumented)
+// @alpha
 export function isPanelsWidget(widget: Widget): widget is PanelsWidget;
 
 // @internal
@@ -3334,19 +3334,19 @@ export interface PanelStateChangedEventArgs {
     panelState: StagePanelState;
 }
 
-// @alpha (undocumented)
+// @alpha
 export type PanelsToolbarItem = ToolbarItem & {
     readonly usage: ToolbarUsage;
     readonly orientation: ToolbarOrientation;
 };
 
-// @alpha (undocumented)
+// @alpha
 export interface PanelsUiItemsProvider extends UiItemsProvider {
     readonly getToolbarItems?: () => ReadonlyArray<PanelsToolbarItem>;
     readonly getWidgets?: () => ReadonlyArray<PanelsWidget>;
 }
 
-// @alpha (undocumented)
+// @alpha
 export interface PanelsWidget extends Widget {
     readonly location: StagePanelLocation;
     readonly section: StagePanelSection;

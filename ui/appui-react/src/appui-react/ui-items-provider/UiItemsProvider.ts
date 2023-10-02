@@ -88,7 +88,9 @@ export interface UiItemsProvider {
   readonly onUnregister?: () => void;
 }
 
-/** @alpha */
+/** `UiItemsProvider` to provide UI items to panels layout.
+ * @alpha
+ */
 export interface PanelsUiItemsProvider extends UiItemsProvider {
   /** Provides toolbar items. */
   readonly getToolbarItems?: () => ReadonlyArray<PanelsToolbarItem>;
