@@ -14,6 +14,7 @@ import type {
 import type { IconSpec, SizeProps } from "@itwin/core-react";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { WidgetState } from "./WidgetState";
+import type { StagePanelSection } from "../stagepanels/StagePanelSection";
 
 /** Describes options of a floating widget.
  * @public
@@ -52,8 +53,17 @@ export interface Widget {
   readonly label?: string | ConditionalStringValue;
   readonly priority?: number;
   readonly tooltip?: string | ConditionalStringValue;
-  /** Describes to which container the item is added.
-   * @alpha TODO: rename due to CanFloatWidgetOptions["containerId"]
-   */
-  readonly containerId?: string;
+}
+
+/** @alpha */
+export interface PanelsWidget extends Widget {
+  /** Describes to which panel the widget is added. */
+  location: StagePanelLocation;
+  /** Describes to which section of a panel the widget is added. */
+  section: StagePanelSection;
+}
+
+/** @alpha */
+export function isPanelsWidget(widget: Widget): widget is PanelsWidget {
+  return "location" in widget && "section" in widget;
 }

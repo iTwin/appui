@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation, @typescript-eslint/ban-ts-comment */
+/* eslint-disable deprecation/deprecation */
 
 import * as React from "react";
 import * as sinon from "sinon";
@@ -10,7 +10,7 @@ import { expect } from "chai";
 import * as abstract from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
 import { IconHelper } from "@itwin/core-react";
-import type { UiItemsProvider } from "../../appui-react";
+import type { PanelsUiItemsProvider, UiItemsProvider } from "../../appui-react";
 import {
   BackstageItemUtilities,
   StagePanelLocation,
@@ -22,7 +22,6 @@ import {
   ToolbarOrientation,
   ToolbarUsage,
   UiItemsManager,
-  WidgetUtilities,
 } from "../../appui-react";
 
 // @ts-ignore Removed in 4.0
@@ -1008,14 +1007,12 @@ describe("UiItemsManager", () => {
           return [
             {
               id: "item1",
-              containerId: WidgetUtilities.toContainerId(
-                StagePanelLocation.Bottom,
-                StagePanelSection.End
-              ),
+              location: StagePanelLocation.Bottom,
+              section: StagePanelSection.End,
             },
           ];
         },
-      } satisfies UiItemsProvider;
+      } satisfies PanelsUiItemsProvider;
 
       it("should provide", () => {
         UiItemsManager.register(provider);
@@ -1030,14 +1027,14 @@ describe("UiItemsManager", () => {
         ).lengthOf(1);
       });
 
-      it("should not provide w/o containerId", () => {
+      it("should not provide if widget is not a `PanelsWidget`", () => {
         UiItemsManager.register({
-          ...provider,
-          getWidgets: () => {
-            return provider
-              .getWidgets()
-              .map((item) => ({ ...item, containerId: undefined }));
-          },
+          id: "provider1",
+          getWidgets: () => [
+            {
+              id: "w1",
+            },
+          ],
         });
 
         expect(

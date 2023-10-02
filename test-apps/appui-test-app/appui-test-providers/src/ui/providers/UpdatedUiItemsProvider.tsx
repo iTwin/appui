@@ -6,6 +6,7 @@
 import * as React from "react";
 import {
   BackstageItemUtilities,
+  PanelsUiItemsProvider,
   StagePanelLocation,
   StagePanelSection,
   StatusBarItemUtilities,
@@ -13,13 +14,11 @@ import {
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
-  UiItemsProvider,
-  WidgetUtilities,
 } from "@itwin/appui-react";
 import { SvgUpgrade } from "@itwin/itwinui-icons-react";
 
 const id = "appui-test-providers:updated";
-export const updatedUiItemsProvider: UiItemsProvider = {
+export const updatedUiItemsProvider: PanelsUiItemsProvider = {
   id,
   getToolbarItems: () => {
     return [
@@ -67,10 +66,8 @@ export const updatedUiItemsProvider: UiItemsProvider = {
         id: `${id}:widget`,
         label: "Updated widget",
         content: <div />,
-        containerId: WidgetUtilities.toContainerId(
-          StagePanelLocation.Right,
-          StagePanelSection.End
-        ),
+        location: StagePanelLocation.Right,
+        section: StagePanelSection.End,
       },
     ];
   },

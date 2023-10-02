@@ -18,12 +18,11 @@ import type {
   ToolbarUsage,
 } from "../toolbar/ToolbarItem";
 import { UiFramework } from "../UiFramework";
-import type { Widget } from "../widgets/Widget";
+import { isPanelsWidget, type Widget } from "../widgets/Widget";
 import type { ProviderItem } from "./ProviderItem";
 import type { UiItemsProvider } from "./UiItemsProvider";
 import { createAbstractUiItemsManagerAdapter } from "./AbstractUiItemsManager";
 import { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
-import { WidgetUtilities } from "../widgets/WidgetUtilities";
 
 /** UiItemsProvider register event args.
  * @public
@@ -409,12 +408,9 @@ export class UiItemsManager {
         ? provider
             .getWidgets()
             .filter((item) => {
-              const containerLocation = item.containerId
-                ? WidgetUtilities.fromContainerId(item.containerId)
-                : undefined;
-              if (!containerLocation) return false;
-              if (containerLocation.location !== location) return false;
-              if (containerLocation.section !== section) return false;
+              if (!isPanelsWidget(item)) return false;
+              if (item.location !== location) return false;
+              if (item.section !== section) return false;
               return true;
             })
             .map((item) => ({ ...item, providerId: provider.id }))

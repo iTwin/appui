@@ -15,7 +15,7 @@ import type {
   ToolbarOrientation,
   ToolbarUsage,
 } from "../toolbar/ToolbarItem";
-import type { Widget } from "../widgets/Widget";
+import type { PanelsWidget, Widget } from "../widgets/Widget";
 
 /** Describes interface of objects that want to provide UI component to the running IModelApp.
  * @public
@@ -85,4 +85,12 @@ export interface UiItemsProvider {
   ) => ReadonlyArray<Widget>;
   /** Function called when the provider is unregistered. Allows provider to do a cleanup. */
   readonly onUnregister?: () => void;
+}
+
+/** @alpha */
+export interface PanelsUiItemsProvider extends UiItemsProvider {
+  /** Provides widgets.
+   * @alpha
+   */
+  readonly getWidgets?: () => ReadonlyArray<PanelsWidget>;
 }
