@@ -58,9 +58,9 @@ export interface Widget {
 /** @alpha */
 export interface PanelsWidget extends Widget {
   /** Describes to which panel the widget is added. */
-  location: StagePanelLocation;
+  readonly location: StagePanelLocation;
   /** Describes to which section of a panel the widget is added. */
-  section: StagePanelSection;
+  readonly section: StagePanelSection;
 }
 
 /** @alpha */

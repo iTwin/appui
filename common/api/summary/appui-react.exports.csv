@@ -261,6 +261,8 @@ public;isBackstageStageLauncher(item: BackstageItem): item is BackstageStageLaun
 internal;isFrontstageStateSettingResult(settingsResult: UiStateStorageResult): settingsResult is
 beta;isNoSelectionActive(): boolean
 internal;isPanelCollapsed(panelState: StagePanelState | undefined): boolean
+alpha;isPanelsToolbarItem(item: ToolbarItem): item is PanelsToolbarItem
+alpha;isPanelsWidget(widget: Widget): widget is PanelsWidget
 internal;isReactContent: (content: PopupContentType) => content is ReactContent
 internal;isReactNotifyMessageDetails: (details: any) => details is ReactNotifyMessageDetails
 public;isStatusBarActionItem(item: StatusBarItem): item is StatusBarActionItem
@@ -343,6 +345,9 @@ internal;PanelSizeChangedEvent
 internal;PanelSizeChangedEventArgs
 beta;PanelStateChangedEvent 
 public;PanelStateChangedEventArgs
+alpha;PanelsToolbarItem = ToolbarItem &
+alpha;PanelsUiItemsProvider 
+alpha;PanelsWidget 
 public;PointerMessage 
 public;PointerMessageChangedEvent 
 public;PointerMessageChangedEventArgs

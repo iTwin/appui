@@ -2666,6 +2666,12 @@ export function isNoSelectionActive(): boolean;
 // @internal (undocumented)
 export function isPanelCollapsed(panelState: StagePanelState | undefined): boolean;
 
+// @alpha (undocumented)
+export function isPanelsToolbarItem(item: ToolbarItem): item is PanelsToolbarItem;
+
+// @alpha (undocumented)
+export function isPanelsWidget(widget: Widget): widget is PanelsWidget;
+
 // @internal
 export const isReactContent: (content: PopupContentType) => content is ReactContent;
 
@@ -3326,6 +3332,24 @@ export interface PanelStateChangedEventArgs {
     panelDef: StagePanelDef;
     // (undocumented)
     panelState: StagePanelState;
+}
+
+// @alpha (undocumented)
+export type PanelsToolbarItem = ToolbarItem & {
+    readonly usage: ToolbarUsage;
+    readonly orientation: ToolbarOrientation;
+};
+
+// @alpha (undocumented)
+export interface PanelsUiItemsProvider extends UiItemsProvider {
+    readonly getToolbarItems?: () => ReadonlyArray<PanelsToolbarItem>;
+    readonly getWidgets?: () => ReadonlyArray<PanelsWidget>;
+}
+
+// @alpha (undocumented)
+export interface PanelsWidget extends Widget {
+    readonly location: StagePanelLocation;
+    readonly section: StagePanelSection;
 }
 
 // @public
@@ -4902,12 +4926,24 @@ export class UiItemsManager {
 
 // @public
 export interface UiItemsProvider {
+    // @alpha
+    readonly getBackstageItems?: () => ReadonlyArray<BackstageItem>;
+    // @alpha
+    readonly getStatusBarItems?: () => ReadonlyArray<StatusBarItem>;
+    // @alpha
+    readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
+    // @alpha
+    readonly getWidgets?: () => ReadonlyArray<Widget>;
     readonly id: string;
     readonly onUnregister?: () => void;
     readonly provideBackstageItems?: () => ReadonlyArray<BackstageItem>;
     readonly provideStatusBarItems?: (stageId: string, stageUsage: string) => ReadonlyArray<StatusBarItem>;
     readonly provideToolbarItems?: (stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => ReadonlyArray<ToolbarItem>;
     readonly provideWidgets?: (stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection) => ReadonlyArray<Widget>;
+    // @alpha
+    readonly stageIds?: ReadonlyArray<string>;
+    // @alpha
+    readonly stageUsages?: ReadonlyArray<string>;
 }
 
 // @public
