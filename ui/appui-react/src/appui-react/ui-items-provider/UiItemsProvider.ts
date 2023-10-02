@@ -11,6 +11,7 @@ import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection";
 import type { StatusBarItem } from "../statusbar/StatusBarItem";
 import type {
+  PanelsToolbarItem,
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
@@ -41,7 +42,7 @@ export interface UiItemsProvider {
    */
   readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
   /** Provides status bar items.
-   * @alpha // TODO: map section to sectionId
+   * @alpha
    */
   readonly getStatusBarItems?: () => ReadonlyArray<StatusBarItem>;
   /** Provides backstage items. Backstage items are filtered based on stage usage and stage id as other items.
@@ -50,12 +51,12 @@ export interface UiItemsProvider {
    */
   readonly getBackstageItems?: () => ReadonlyArray<BackstageItem>;
   /** Provides widgets.
-   * @alpha // TODO: map StagePanelLocation and StagePanelSection to containerId.
+   * @alpha
    */
   readonly getWidgets?: () => ReadonlyArray<Widget>;
 
   /** Provides toolbar items.
-   * @note Use `getToolbarItems` instead.
+   * @note Use `getToolbarItems` of `PanelsUiItemsProvider` instead.
    */
   readonly provideToolbarItems?: (
     stageId: string,
@@ -75,7 +76,7 @@ export interface UiItemsProvider {
    */
   readonly provideBackstageItems?: () => ReadonlyArray<BackstageItem>;
   /** Provides widgets.
-   * @note Use `getWidgets` instead.
+   * @note Use `getWidgets` of `PanelsUiItemsProvider` instead.
    */
   readonly provideWidgets?: (
     stageId: string,
@@ -89,8 +90,8 @@ export interface UiItemsProvider {
 
 /** @alpha */
 export interface PanelsUiItemsProvider extends UiItemsProvider {
-  /** Provides widgets.
-   * @alpha
-   */
+  /** Provides toolbar items. */
+  readonly getToolbarItems?: () => ReadonlyArray<PanelsToolbarItem>;
+  /** Provides widgets. */
   readonly getWidgets?: () => ReadonlyArray<PanelsWidget>;
 }

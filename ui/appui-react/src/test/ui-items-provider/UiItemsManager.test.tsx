@@ -773,28 +773,26 @@ describe("UiItemsManager", () => {
     });
   });
 
-  describe("UiItemsManager (UiItemsProvider v2)", () => {
+  describe("PanelsUiItemsProvider", () => {
     describe("toolbar items", () => {
       const provider = {
         id: "provider1",
         getToolbarItems: () => {
           return [
-            ToolbarItemUtilities.createActionItem(
-              "item1",
-              0,
-              "",
-              "",
-              () => undefined,
-              {
-                toolbarId: ToolbarItemUtilities.toToolbarId(
-                  ToolbarUsage.ContentManipulation,
-                  ToolbarOrientation.Horizontal
-                ),
-              }
-            ),
+            {
+              ...ToolbarItemUtilities.createActionItem(
+                "item1",
+                0,
+                "",
+                "",
+                () => undefined
+              ),
+              usage: ToolbarUsage.ContentManipulation,
+              orientation: ToolbarOrientation.Horizontal,
+            },
           ];
         },
-      } satisfies UiItemsProvider;
+      } satisfies PanelsUiItemsProvider;
 
       it("should provide", () => {
         UiItemsManager.register(provider);
@@ -809,14 +807,18 @@ describe("UiItemsManager", () => {
         ).lengthOf(1);
       });
 
-      it("should not provide w/o toolbarId", () => {
+      it("should not provide if item is not a `PanelsToolbarItem`", () => {
         UiItemsManager.register({
-          ...provider,
-          getToolbarItems: () => {
-            return provider
-              .getToolbarItems()
-              .map((item) => ({ ...item, toolbarId: undefined }));
-          },
+          id: "provider1",
+          getToolbarItems: () => [
+            ToolbarItemUtilities.createActionItem(
+              "item1",
+              0,
+              "",
+              "",
+              () => undefined
+            ),
+          ],
         });
 
         expect(
@@ -906,7 +908,7 @@ describe("UiItemsManager", () => {
             ),
           ];
         },
-      } satisfies UiItemsProvider;
+      } satisfies PanelsUiItemsProvider;
 
       it("should provide", () => {
         UiItemsManager.register(provider);
@@ -959,7 +961,7 @@ describe("UiItemsManager", () => {
             ),
           ];
         },
-      } satisfies UiItemsProvider;
+      } satisfies PanelsUiItemsProvider;
 
       it("should provide", () => {
         UiItemsManager.register(provider);

@@ -12,17 +12,17 @@ import type { BackstageItem } from "../backstage/BackstageItem";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection";
 import type { StatusBarItem } from "../statusbar/StatusBarItem";
-import type {
-  ToolbarItem,
-  ToolbarOrientation,
-  ToolbarUsage,
+import {
+  isPanelsToolbarItem,
+  type ToolbarItem,
+  type ToolbarOrientation,
+  type ToolbarUsage,
 } from "../toolbar/ToolbarItem";
 import { UiFramework } from "../UiFramework";
 import { isPanelsWidget, type Widget } from "../widgets/Widget";
 import type { ProviderItem } from "./ProviderItem";
 import type { UiItemsProvider } from "./UiItemsProvider";
 import { createAbstractUiItemsManagerAdapter } from "./AbstractUiItemsManager";
-import { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities";
 
 /** UiItemsProvider register event args.
  * @public
@@ -249,12 +249,9 @@ export class UiItemsManager {
         ? provider
             .getToolbarItems()
             .filter((item) => {
-              const location = item.toolbarId
-                ? ToolbarItemUtilities.fromToolbarId(item.toolbarId)
-                : undefined;
-              if (!location) return false;
-              if (location.orientation !== orientation) return false;
-              if (location.usage !== usage) return false;
+              if (!isPanelsToolbarItem(item)) return false;
+              if (item.orientation !== orientation) return false;
+              if (item.usage !== usage) return false;
               return true;
             })
             .map((item) => ({ ...item, providerId: provider.id }))

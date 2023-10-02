@@ -10,8 +10,6 @@ import type {
   ToolbarActionItem,
   ToolbarCustomItem,
   ToolbarGroupItem,
-  ToolbarOrientation,
-  ToolbarUsage,
 } from "./ToolbarItem";
 
 /** Helper class to create toolbar items.
@@ -73,28 +71,5 @@ export namespace ToolbarItemUtilities {
       panelContent,
       ...overrides,
     };
-  }
-
-  /** @alpha */
-  export function toToolbarId( // TODO: rename?
-    usage: ToolbarUsage,
-    orientation: ToolbarOrientation
-  ) {
-    return JSON.stringify({ usage, orientation });
-  }
-
-  /** @internal */
-  export function fromToolbarId(toolbarId: string):
-    | undefined
-    | {
-        usage: ToolbarUsage;
-        orientation: ToolbarOrientation;
-      } {
-    const obj = JSON.parse(toolbarId);
-    const usage = obj.usage;
-    const orientation = obj.orientation;
-    if (usage === undefined) return undefined;
-    if (orientation === undefined) return undefined;
-    return { usage, orientation };
   }
 }
