@@ -113,7 +113,7 @@
     "@bentley/icons-generic": "^1.0.34",
     "@itwin/itwinui-variables": "^2.0.0",
     "@itwin/itwinui-icons-react": "^2.1.0",
-    "@itwin/itwinui-react": "^2.12.8",
+    "@itwin/itwinui-react": "^2.11.11",
     "@types/shortid": "~0.0.29",
     "classnames": "2.3.1",
     "immer": "9.0.6",
