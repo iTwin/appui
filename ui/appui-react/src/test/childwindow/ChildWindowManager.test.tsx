@@ -68,7 +68,7 @@ describe("ChildWindowManager", () => {
   });
 });
 
-describe.only("ChildWindowManager", () => {
+describe("ChildWindowManager", () => {
   const mainHtml = `
     <head>
       <title>iModel.js Presentation Test App</title>
@@ -112,24 +112,6 @@ describe.only("ChildWindowManager", () => {
 
   afterEach(() => {
     sinon.restore();
-  });
-
-  it.skip("no styles to styles", () => {
-    // SKIP: No stylesheets are created with jsdom.DOMParser, these tests are not working.
-    const childDoc = new DOMParser().parseFromString(childHtml, "text/html");
-    copyStyles(childDoc);
-    const childStyleSheetCount = childDoc.head.querySelectorAll("style").length;
-    const documentStyleSheetCount =
-      document.head.querySelectorAll("style").length;
-    expect(documentStyleSheetCount).to.eql(childStyleSheetCount);
-  });
-
-  it.skip("will copy styles", () => {
-    // SKIP: No stylesheets are created with jsdom.DOMParser, these tests are not working.
-    const mainDoc = new DOMParser().parseFromString(mainHtml, "text/html");
-    const childDoc = new DOMParser().parseFromString(childHtml, "text/html");
-    copyStyles(childDoc, mainDoc);
-    expect(mainDoc.styleSheets.length).to.eql(childDoc.styleSheets.length);
   });
 
   it("will copy __SVG_SPRITE_NODE__", () => {
