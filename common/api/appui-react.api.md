@@ -4912,7 +4912,7 @@ export class UiFramework {
 export class UiItemsManager {
     // @internal
     static clearAllProviders(): void;
-    static getBackstageItems(): ReadonlyArray<ProviderItem<BackstageItem>>;
+    static getBackstageItems(stageId?: string, stageUsage?: string): ReadonlyArray<ProviderItem<BackstageItem>>;
     static getStatusBarItems(stageId: string, stageUsage: string): ReadonlyArray<ProviderItem<StatusBarItem>>;
     static getToolbarButtonItems(stageId: string, stageUsage: string, usage: ToolbarUsage, orientation: ToolbarOrientation): ReadonlyArray<ProviderItem<ToolbarItem>>;
     static getUiItemsProvider(providerId: string): UiItemsProvider | undefined;

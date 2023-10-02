@@ -877,19 +877,19 @@ describe("UiItemsManager", () => {
         expect(
           UiItemsManager.getToolbarButtonItems(
             "stage1",
-            "custom",
-            ToolbarUsage.ContentManipulation,
-            ToolbarOrientation.Horizontal
-          )
-        ).lengthOf(1);
-        expect(
-          UiItemsManager.getToolbarButtonItems(
-            "stage1",
             StageUsage.General,
             ToolbarUsage.ContentManipulation,
             ToolbarOrientation.Horizontal
           )
         ).lengthOf(0);
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage1",
+            "custom",
+            ToolbarUsage.ContentManipulation,
+            ToolbarOrientation.Horizontal
+          )
+        ).lengthOf(1);
       });
     });
 
@@ -969,36 +969,32 @@ describe("UiItemsManager", () => {
         expect(UiItemsManager.getBackstageItems()).lengthOf(1);
       });
 
-      it.skip("should provide only for specified stageIds", () => {
+      it("should provide only for specified stageIds", () => {
         UiItemsManager.register({
-          id: "provider1",
+          ...provider,
           stageIds: ["stage2"],
-          getBackstageItems: () => {
-            return [
-              BackstageItemUtilities.createActionItem(
-                "",
-                0,
-                0,
-                () => undefined,
-                ""
-              ),
-            ];
-          },
         });
 
-        // TODO: stageId of a provider is ignored in this case.
-        const items = UiItemsManager.getBackstageItems();
-        expect(items).lengthOf(0);
+        expect(
+          UiItemsManager.getBackstageItems("stage1", StageUsage.General)
+        ).lengthOf(0);
+        expect(
+          UiItemsManager.getBackstageItems("stage2", StageUsage.General)
+        ).lengthOf(1);
       });
 
-      it.skip("should provide only for specified stageUsages", () => {
+      it("should provide only for specified stageUsages", () => {
         UiItemsManager.register({
           ...provider,
           stageUsages: ["custom"],
         });
 
-        // TODO:
-        expect(UiItemsManager.getBackstageItems()).lengthOf(0);
+        expect(
+          UiItemsManager.getBackstageItems("stage1", StageUsage.General)
+        ).lengthOf(0);
+        expect(UiItemsManager.getBackstageItems("stage1", "custom")).lengthOf(
+          1
+        );
       });
     });
 
@@ -1095,19 +1091,19 @@ describe("UiItemsManager", () => {
         expect(
           UiItemsManager.getWidgets(
             "stage1",
-            "custom",
-            StagePanelLocation.Bottom,
-            StagePanelSection.End
-          )
-        ).lengthOf(1);
-        expect(
-          UiItemsManager.getWidgets(
-            "stage1",
             StageUsage.General,
             StagePanelLocation.Bottom,
             StagePanelSection.End
           )
         ).lengthOf(0);
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            "custom",
+            StagePanelLocation.Bottom,
+            StagePanelSection.End
+          )
+        ).lengthOf(1);
       });
     });
   });

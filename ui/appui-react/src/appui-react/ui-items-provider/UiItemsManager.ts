@@ -201,7 +201,7 @@ export class UiItemsManager {
 
   /** Called when the application is populating a toolbar so that any registered UiItemsProvider can add tool buttons that either either execute
    * an action or specify a registered ToolId into toolbar.
-   * @param stageId a string identifier the active stage.
+   * @param stageId a string identifier of the active stage.
    * @param stageUsage the StageUsage of the active stage.
    * @param usage usage of the toolbar
    * @param orientation orientation of the toolbar
@@ -264,7 +264,7 @@ export class UiItemsManager {
   }
 
   /** Called when the application is populating the statusbar so that any registered UiItemsProvider can add status fields
-   * @param stageId a string identifier the active stage.
+   * @param stageId a string identifier of the active stage.
    * @param stageUsage the StageUsage of the active stage.
    * @returns An array of CommonStatusBarItem that will be used to create controls for the status bar.
    */
@@ -313,11 +313,14 @@ export class UiItemsManager {
   }
 
   /** Called when the application is populating the statusbar so that any registered UiItemsProvider can add status fields
+   * @param stageId a string identifier of the active stage.
+   * @param stageUsage the StageUsage of the active stage.
    * @returns An array of BackstageItem that will be used to create controls for the backstage menu.
    */
-  public static getBackstageItems(): ReadonlyArray<
-    ProviderItem<BackstageItem>
-  > {
+  public static getBackstageItems(
+    stageId?: string,
+    stageUsage?: string
+  ): ReadonlyArray<ProviderItem<BackstageItem>> {
     const items: ProviderItem<BackstageItem>[] = [];
     if (this._abstractAdapter) {
       const abstractItems = this._abstractAdapter.getBackstageItems();
@@ -342,7 +345,7 @@ export class UiItemsManager {
     this.registeredProviderIds.forEach((registeredProviderId) => {
       const provider = this.getUiItemsProvider(registeredProviderId);
       if (!provider) return;
-      // if (!allowItems(provider, stageId, stageUsage)) return; // TODO:
+      if (!allowItems(provider, stageId, stageUsage)) return;
 
       const providerItems = provider.getBackstageItems
         ? provider
@@ -357,7 +360,7 @@ export class UiItemsManager {
   }
 
   /** Called when the application is populating the Stage Panels so that any registered UiItemsProvider can add widgets
-   * @param stageId a string identifier the active stage.
+   * @param stageId a string identifier of the active stage.
    * @param stageUsage the StageUsage of the active stage.
    * @param location the location within the stage.
    * @param section the section within location.
@@ -432,12 +435,16 @@ function getUniqueItems<T extends { id: string }>(items: T[]) {
 
 function allowItems(
   provider: UiItemsProvider,
-  stageId: string,
-  stageUsage: string
+  stageId: string | undefined,
+  stageUsage: string | undefined
 ) {
-  if (provider.stageIds && provider.stageIds.indexOf(stageId) === -1)
+  if (stageId && provider.stageIds && provider.stageIds.indexOf(stageId) === -1)
     return false;
-  if (provider.stageUsages && provider.stageUsages.indexOf(stageUsage) === -1)
+  if (
+    stageUsage &&
+    provider.stageUsages &&
+    provider.stageUsages.indexOf(stageUsage) === -1
+  )
     return false;
   return true;
 }
