@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import sinon from "sinon";
 import * as moq from "typemoq";
-import { BeUiEvent } from "@itwin/core-bentley";
+import * as React from "react";
 import { renderHook } from "@testing-library/react-hooks";
 import type {
   TreeEventHandler,
@@ -18,73 +18,122 @@ import {
   useTreeModelSource,
   useTreeNodeLoader,
 } from "../../../components-react/tree/controlled/TreeHooks";
-import type { TreeModel } from "../../../components-react/tree/controlled/TreeModel";
+import type { TreeModelNodeInput } from "../../../components-react/tree/controlled/TreeModel";
 import { MutableTreeModel } from "../../../components-react/tree/controlled/TreeModel";
-import type {
-  TreeModelChanges,
-  TreeModelSource,
-} from "../../../components-react/tree/controlled/TreeModelSource";
+import { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource";
 import type { ITreeNodeLoader } from "../../../components-react/tree/controlled/TreeNodeLoader";
 import type {
   TreeDataProvider,
   TreeDataProviderRaw,
 } from "../../../components-react/tree/TreeDataProvider";
+import type { PrimitiveValue } from "@itwin/appui-abstract";
+import { PropertyRecord } from "@itwin/appui-abstract";
+import { render, waitFor } from "@testing-library/react";
+import TestUtils from "../../TestUtils";
 
 describe("useTreeModel", () => {
-  const modelSourceMock = moq.Mock.ofType<TreeModelSource>();
-  const testModel = new MutableTreeModel();
-  let onModelChangeEvent: BeUiEvent<[TreeModel, TreeModelChanges]>;
-
-  beforeEach(() => {
-    modelSourceMock.reset();
-    onModelChangeEvent = new BeUiEvent<[TreeModel, TreeModelChanges]>();
-
-    modelSourceMock
-      .setup((x) => x.onModelChanged)
-      .returns(() => onModelChangeEvent);
-    modelSourceMock.setup((x) => x.getModel()).returns(() => testModel);
-  });
-
   it("subscribes to onModelChange event and returns visible nodes", () => {
-    const spy = sinon.spy(onModelChangeEvent, "addListener");
+    const modelSource = new TreeModelSource();
+    const spy = sinon.spy(modelSource.onModelChanged, "addListener");
     const { result } = renderHook(
       (props: { modelSource: TreeModelSource }) =>
         useTreeModel(props.modelSource),
-      { initialProps: { modelSource: modelSourceMock.object } }
+      { initialProps: { modelSource } }
     );
-    expect(result.current).to.eq(testModel);
+    expect(result.current).to.eq(modelSource.getModel());
     expect(spy).to.have.been.calledOnce;
   });
 
   it("resubscribes to onModelChangeEvent when model source changes", () => {
-    const firstModelEventAddSpy = sinon.spy(onModelChangeEvent, "addListener");
+    const modelSource = new TreeModelSource();
+    const firstModelEventAddSpy = sinon.spy(
+      modelSource.onModelChanged,
+      "addListener"
+    );
     const firstModelEventRemoveSpy = sinon.spy(
-      onModelChangeEvent,
+      modelSource.onModelChanged,
       "removeListener"
     );
     const { result, rerender } = renderHook(
       (props: { modelSource: TreeModelSource }) =>
         useTreeModel(props.modelSource),
-      { initialProps: { modelSource: modelSourceMock.object } }
+      { initialProps: { modelSource } }
     );
-    expect(result.current).to.eq(testModel);
+    expect(result.current).to.eq(modelSource.getModel());
     expect(firstModelEventAddSpy).to.have.been.calledOnce;
 
-    const newOnModelChangeEvent = new BeUiEvent<
-      [TreeModel, TreeModelChanges]
-    >();
-    const newModelEventAddSpy = sinon.spy(newOnModelChangeEvent, "addListener");
-    const newTestModel = new MutableTreeModel();
-    const newModelSourceMock = moq.Mock.ofType<TreeModelSource>();
-    newModelSourceMock
-      .setup((x) => x.onModelChanged)
-      .returns(() => newOnModelChangeEvent);
-    newModelSourceMock.setup((x) => x.getModel()).returns(() => newTestModel);
+    const newModelSource = new TreeModelSource();
+    const newModelEventAddSpy = sinon.spy(
+      newModelSource.onModelChanged,
+      "addListener"
+    );
 
-    rerender({ modelSource: newModelSourceMock.object });
-    expect(result.current).to.eq(newTestModel);
+    rerender({ modelSource: newModelSource });
+    expect(result.current).to.eq(newModelSource.getModel());
     expect(firstModelEventRemoveSpy).to.have.been.calledOnce;
     expect(newModelEventAddSpy).to.have.been.calledOnce;
+  });
+
+  describe("handles tree model modifications", async () => {
+    function createNodeInput(label: string): TreeModelNodeInput {
+      const labelRecord = PropertyRecord.fromString(label);
+      return {
+        id: "root",
+        isExpanded: false,
+        isLoading: false,
+        isSelected: false,
+        item: {
+          id: "root",
+          label: labelRecord,
+        },
+        label: labelRecord,
+      };
+    }
+
+    function TestComponent({ modelSource }: { modelSource: TreeModelSource }) {
+      React.useEffect(() => {
+        // simulate some additional changes to tree model
+        modelSource.modifyModel((model) => {
+          const modelNode = model.getNode("root");
+          if (!modelNode) {
+            return;
+          }
+          modelNode.label = PropertyRecord.fromString(
+            `${(modelNode.label.value as PrimitiveValue).displayValue}-Updated`
+          );
+        });
+      }, [modelSource]);
+
+      const treeModel = useTreeModel(modelSource);
+
+      return (
+        <div>
+          {
+            (treeModel.getNode("root")?.label.value as PrimitiveValue)
+              .displayValue
+          }
+        </div>
+      );
+    }
+
+    before(async () => {
+      await TestUtils.initializeUiComponents();
+    });
+
+    after(() => {
+      TestUtils.terminateUiComponents();
+    });
+
+    it("made before `onModelChanged` event listener is added", async () => {
+      const newModel = new MutableTreeModel();
+      newModel.setChildren(undefined, [createNodeInput("InitialNode")], 0);
+      const testModelSource = new TreeModelSource(newModel);
+      const { getByText } = render(
+        <TestComponent modelSource={testModelSource} />
+      );
+
+      await waitFor(() => getByText("InitialNode-Updated"));
+    });
   });
 });
 
