@@ -39,6 +39,22 @@ test.describe("popout widget", () => {
     expect(await popoutPage.title()).toEqual("View Attributes");
   });
 
+  test("should apply styles to popout", async ({ context, page }) => {
+    const widget = floatingWidgetLocator({
+      page,
+      id: "appui-test-providers:ViewAttributesWidget",
+    });
+    const tab = tabLocator(page, "View Attributes");
+    const popoutButton = widget.locator('[title="Pop out active widget tab"]');
+    await expect(tab).toBeVisible();
+
+    const [popoutPage] = await Promise.all([
+      context.waitForEvent("page"),
+      popoutButton.click(),
+    ]);
+    await expect(popoutPage.locator("body")).toHaveScreenshot();
+  });
+
   test("should float a popout widget (after frontstage change)", async ({
     context,
     page,

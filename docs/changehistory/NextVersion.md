@@ -7,6 +7,8 @@ Table of contents:
   - [Fixes](#fixes)
 - [@itwin/core-react](#itwincore-react)
   - [Fixes](#fixes-1)
+- [@itwin/components-react](#itwincomponents-react)
+  - [Fixes](#fixes-2)
 
 ## @itwin/appui-react
 
@@ -24,9 +26,16 @@ Table of contents:
 - Fix message center messages overflow behavior breaking layout.
 - Fix message center messages icon colors based on message severity.
 - Correctly configure `resizable` flag of a floating widget after docking and undocking.
+- Fix missing styles in child window by also copying `adoptedStylesheets`.
 
 ## @itwin/core-react
 
 ### Fixes
 
 - Fix `MessageContainer` icon colors based on severity.
+
+## @itwin/components-react
+
+### Fixes
+
+- Fix `useTreeModel` missing tree model changes that happen after render until `useTreeModel` subscribes to `TreeModelSource.onModelChanged` event.
