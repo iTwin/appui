@@ -6,6 +6,8 @@ Table of contents:
   - [Fixes](#fixes)
 - [@itwin/core-react](#itwincore-react)
   - [Fixes](#fixes-1)
+- [@itwin/components-react](#itwincomponents-react)
+  - [Fixes](#fixes-2)
 
 ## @itwin/appui-react
 
@@ -24,3 +26,9 @@ Table of contents:
 ### Fixes
 
 - Fix `MessageContainer` icon colors based on severity.
+
+## @itwin/components-react
+
+### Fixes
+
+- Fix `useTreeModel` missing tree model changes that happen after render until `useTreeModel` subscribes to `TreeModelSource.onModelChanged` event.
