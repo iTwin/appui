@@ -3,6 +3,7 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Additions](#additions)
   - [Fixes](#fixes)
 - [@itwin/core-react](#itwincore-react)
   - [Fixes](#fixes-1)
@@ -10,6 +11,10 @@ Table of contents:
   - [Fixes](#fixes-2)
 
 ## @itwin/appui-react
+
+### Additions
+
+- Added `UiSyncEvent` and `UiSyncEventArgs` that were deprecated in `@itwin/appui-abstract`.
 
 ### Fixes
 
