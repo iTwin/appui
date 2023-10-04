@@ -16,7 +16,6 @@ import {
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
-import type { PointProps } from "@itwin/appui-abstract";
 import { UiError } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Rectangle, Size } from "@itwin/core-react";

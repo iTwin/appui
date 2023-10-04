@@ -2253,7 +2253,7 @@ export class FrontstageDef {
     onFrontstageReady(): void;
     protected _onFrontstageReady(): void;
     // @internal
-    openPopoutWidgetContainer(widgetContainerId: string, oldState: NineZoneState): boolean | void;
+    openPopoutWidgetContainer(widgetContainerId: string, oldState: NineZoneState | undefined): boolean;
     // @beta
     get panelDefs(): StagePanelDef[];
     // @beta
