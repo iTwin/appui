@@ -3,6 +3,7 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Additions](#additions)
   - [Fixes](#fixes)
 - [@itwin/core-react](#itwincore-react)
   - [Fixes](#fixes-1)
@@ -10,6 +11,10 @@ Table of contents:
   - [Fixes](#fixes-2)
 
 ## @itwin/appui-react
+
+### Additions
+
+- Added `UiSyncEvent` and `UiSyncEventArgs` that were deprecated in `@itwin/appui-abstract`.
 
 ### Fixes
 
@@ -22,6 +27,7 @@ Table of contents:
 - Fix message center messages icon colors based on message severity.
 - Correctly configure `resizable` flag of a floating widget after docking and undocking.
 - Whenever widget is popped out and `window.open` fails, widget no longer disappears.
+- Fix missing styles in child window by also copying `adoptedStylesheets`.
 
 ## @itwin/core-react
 
