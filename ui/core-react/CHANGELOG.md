@@ -1,6 +1,14 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Fri, 08 Sep 2023 16:10:53 GMT and should not be manually modified.
+This log was last generated on Wed, 04 Oct 2023 18:05:34 GMT and should not be manually modified.
+
+## 4.6.0
+Wed, 04 Oct 2023 18:05:34 GMT
+
+### Updates
+
+- Fix `MessageContainer` icon colors based on severity.
+- React to core/appui-abstract deprecations
 
 ## 4.5.1
 Fri, 08 Sep 2023 16:10:53 GMT
