@@ -32,8 +32,6 @@ import { render, waitFor } from "@testing-library/react";
 import TestUtils from "../../TestUtils";
 
 describe("useTreeModel", () => {
-  beforeEach(() => {});
-
   it("subscribes to onModelChange event and returns visible nodes", () => {
     const modelSource = new TreeModelSource();
     const spy = sinon.spy(modelSource.onModelChanged, "addListener");
@@ -126,7 +124,7 @@ describe("useTreeModel", () => {
       TestUtils.terminateUiComponents();
     });
 
-    it("until subscription to `onModelChangedEvent`", async () => {
+    it("made before `onModelChanged` event listener is added", async () => {
       const newModel = new MutableTreeModel();
       newModel.setChildren(undefined, [createNodeInput("InitialNode")], 0);
       const testModelSource = new TreeModelSource(newModel);
