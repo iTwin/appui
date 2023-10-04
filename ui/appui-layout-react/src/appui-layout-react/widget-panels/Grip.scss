@@ -16,13 +16,23 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
   justify-content: center;
   position: relative;
   display: flex;
-  transition: background-color 0.2s ease-out;
+  transition: 0.2s ease-out;
 
   > .nz-handle {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  &.nz-left {
+    transition-property: background-color, right;
+  }
+  &.nz-right {
+    transition-property: background-color, left;
+  }
+  &.nz-top {
+    transition-property: background-color, bottom;
   }
 
   &.nz-left,
