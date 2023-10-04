@@ -21,6 +21,7 @@ Table of contents:
 - Fix message center messages overflow behavior breaking layout.
 - Fix message center messages icon colors based on message severity.
 - Correctly configure `resizable` flag of a floating widget after docking and undocking.
+- Fix missing styles in child window by also copying `adoptedStylesheets`.
 
 ## @itwin/core-react
 
