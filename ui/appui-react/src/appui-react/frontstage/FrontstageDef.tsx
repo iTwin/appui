@@ -280,11 +280,11 @@ export class FrontstageDef {
     }
 
     for (const popoutId of popoutsToOpen) {
-      if (oldState) {
-        const result = this.openPopoutWidgetContainer(popoutId, oldState);
-        return result;
-      }
+      const result = this.openPopoutWidgetContainer(popoutId, oldState);
+      if (!result) return result;
     }
+
+    return true;
   }
 
   /** @internal */
@@ -828,22 +828,22 @@ export class FrontstageDef {
    */
   public openPopoutWidgetContainer(
     widgetContainerId: string,
-    oldState: NineZoneState
-  ): boolean | void {
+    oldState: NineZoneState | undefined
+  ): boolean {
     const state = this.nineZoneState;
-    if (!state) return;
+    if (!state) return false;
 
     const location = getWidgetLocation(state, widgetContainerId);
-    if (!location) return;
-    if (!isPopoutWidgetLocation(location)) return;
+    if (!location) return false;
+    if (!isPopoutWidgetLocation(location)) return false;
 
     const widget = state.widgets[widgetContainerId];
     // Popout widget should only contain a single tab.
-    if (widget.tabs.length !== 1) return;
+    if (widget.tabs.length !== 1) return false;
 
     const tabId = widget.tabs[0];
     const widgetDef = this.findWidgetDef(tabId);
-    if (!widgetDef) return;
+    if (!widgetDef) return false;
 
     const popoutContent = (
       <PopoutWidget
@@ -869,10 +869,12 @@ export class FrontstageDef {
       UiFramework.useDefaultPopoutUrl
     );
 
-    if (!result) {
+    if (!result && oldState) {
       this.nineZoneState = oldState;
       return false;
     }
+
+    return true;
   }
 
   /** Create a new popout/child window that contains the widget specified by its Id. Supported only when in
