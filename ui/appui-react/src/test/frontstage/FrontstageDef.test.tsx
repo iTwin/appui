@@ -547,6 +547,42 @@ describe("FrontstageDef", () => {
         id: "t1",
       });
     });
+    it("should handle multiple popoutWidgets being set for empty 'oldState' (For electron initialization)", async () => {
+      let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
+      state = addTab(state, "t1");
+      state = addTab(state, "t2");
+      state = addPopoutWidget(state, "fw1", ["t1"]);
+      state = addPopoutWidget(state, "fw2", ["t2"]);
+
+      const frontstageDef = new FrontstageDef();
+      await frontstageDef.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        leftPanel: {
+          sections: {
+            start: [
+              {
+                id: "t1",
+              },
+            ],
+          },
+        },
+        rightPanel: {
+          sections: {
+            start: [
+              {
+                id: "t2",
+              },
+            ],
+          },
+        },
+      });
+
+      const spy = sinon.spy(window, "open");
+      frontstageDef.nineZoneState = state;
+
+      expect(frontstageDef.nineZoneState).to.be.eq(state);
+      sinon.assert.calledTwice(spy);
+    });
   });
 
   describe("openPopoutWidgetContainer", () => {
