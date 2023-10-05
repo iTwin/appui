@@ -53,21 +53,28 @@ export interface Widget {
   readonly label?: string | ConditionalStringValue;
   readonly priority?: number;
   readonly tooltip?: string | ConditionalStringValue;
+  /** Describes a location based on which the widget is added to the layout.
+   * @alpha
+   */
+  readonly location?: WidgetLocation;
 }
 
-/** `Widget` used in `PanelsUiItemsProvider`.
+/** Describes widget locations specific for each layout.
  * @alpha
  */
-export interface PanelsWidget extends Widget {
+export interface WidgetLocation {
+  /** Widget location in a panel layout. */
+  readonly panels?: PanelsWidgetLocation;
+  /** Describes a location for a custom layout. */
+  readonly [layoutId: string]: Object | undefined;
+}
+
+/** Describes widget location in a panel layout.
+ * @alpha
+ */
+export interface PanelsWidgetLocation {
   /** Describes to which panel the widget is added. */
   readonly location: StagePanelLocation;
   /** Describes to which section of a panel the widget is added. */
   readonly section: StagePanelSection;
-}
-
-/** `PanelsWidget` type guard.
- * @alpha
- */
-export function isPanelsWidget(widget: Widget): widget is PanelsWidget {
-  return "location" in widget && "section" in widget;
 }

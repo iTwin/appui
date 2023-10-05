@@ -56,6 +56,10 @@ export interface CommonToolbarItem {
   readonly groupPriority?: number;
   /** Priority within a toolbar or group. */
   readonly itemPriority: number;
+  /** Describes a location based on which the toolbar item is added to the layout.
+   * @alpha
+   */
+  readonly location?: ToolbarItemLocation;
 }
 
 /** Describes the data needed to insert an action button into a toolbar.
@@ -135,19 +139,22 @@ export function isToolbarCustomItem(
   return !isToolbarActionItem(item) && !isToolbarGroupItem(item);
 }
 
-/** `ToolbarItem` used in `PanelsUiItemsProvider`.
+/** Describes toolbar item locations specific for each layout.
  * @alpha
  */
-export type PanelsToolbarItem = ToolbarItem & {
-  readonly usage: ToolbarUsage;
-  readonly orientation: ToolbarOrientation;
-};
+export interface ToolbarItemLocation {
+  /** Toolbar item location in a panel layout. */
+  readonly panels?: PanelsToolbarItemLocation;
+  /** Describes a location for a custom layout. */
+  readonly [layoutId: string]: Object | undefined;
+}
 
-/** `PanelsToolbarItem` type guard.
+/** Describes toolbar item location in a panel layout.
  * @alpha
  */
-export function isPanelsToolbarItem(
-  item: ToolbarItem
-): item is PanelsToolbarItem {
-  return "usage" in item && "orientation" in item;
+export interface PanelsToolbarItemLocation {
+  /** Describes toolbar usage. */
+  readonly usage: ToolbarUsage;
+  /** Describes toolbar orientation. */
+  readonly orientation: ToolbarOrientation;
 }
