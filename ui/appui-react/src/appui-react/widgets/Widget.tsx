@@ -34,7 +34,7 @@ export interface Widget {
   /** Stage panels to which this widget can be docked. All stage panels are allowed if nothing is provided. To not allow docking to any panels, provide a blank array. */
   readonly allowedPanels?: ReadonlyArray<StagePanelLocation>;
   readonly badge?: BadgeType;
-  /** Defaults to `false`. */
+  /** Describes if the widget can be popped out to a separate window. Defaults to `false`. */
   readonly canPopout?: boolean;
   /** Set to `false` to disable floating of a widget. Alternatively options object can be provided which enables floating.
    * If allowedPanels is an empty array, automatically set to `true`. Defaults to `true`. */
