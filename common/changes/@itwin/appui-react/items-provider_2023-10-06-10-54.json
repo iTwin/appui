@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Add alternative provider methods to UiItemsProvider.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
