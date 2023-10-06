@@ -811,7 +811,7 @@ describe("UiItemsManager", () => {
         ).lengthOf(1);
       });
 
-      it("should not provide if item does not define a panels location", () => {
+      it("should provide to default location if not specified", () => {
         UiItemsManager.register({
           id: "provider1",
           getToolbarItems: () => [
@@ -830,9 +830,17 @@ describe("UiItemsManager", () => {
             "stage1",
             StageUsage.General,
             ToolbarUsage.ContentManipulation,
-            ToolbarOrientation.Horizontal
+            ToolbarOrientation.Vertical
           )
         ).lengthOf(0);
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage1",
+            StageUsage.General,
+            ToolbarUsage.ContentManipulation,
+            ToolbarOrientation.Horizontal
+          )
+        ).lengthOf(1);
       });
 
       it("should not provide for different usage", () => {
@@ -1009,7 +1017,7 @@ describe("UiItemsManager", () => {
           return [
             {
               id: "item1",
-              layout: {
+              layouts: {
                 panels: {
                   location: StagePanelLocation.Bottom,
                   section: StagePanelSection.End,
@@ -1033,7 +1041,7 @@ describe("UiItemsManager", () => {
         ).lengthOf(1);
       });
 
-      it("should not provide if widget does not define a panels location", () => {
+      it("should provide to default location if not specified", () => {
         UiItemsManager.register({
           id: "provider1",
           getWidgets: () => [
@@ -1047,10 +1055,18 @@ describe("UiItemsManager", () => {
           UiItemsManager.getWidgets(
             "stage1",
             StageUsage.General,
-            StagePanelLocation.Bottom,
-            StagePanelSection.End
+            StagePanelLocation.Right,
+            StagePanelSection.Start
           )
         ).lengthOf(0);
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            StageUsage.General,
+            StagePanelLocation.Left,
+            StagePanelSection.Start
+          )
+        ).lengthOf(1);
       });
 
       it("should not provide for different location", () => {
