@@ -65,7 +65,7 @@ export const updatedUiItemsProvider: UiItemsProvider = {
         content: <div />,
         layouts: {
           panels: {
-            location: StagePanelLocation.Right,
+            location: StagePanelLocation.Bottom,
             section: StagePanelSection.End,
           },
         },
