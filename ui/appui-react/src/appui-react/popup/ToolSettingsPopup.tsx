@@ -12,7 +12,6 @@ import type {
   OnCancelFunc,
   RelativePosition,
 } from "@itwin/appui-abstract";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { Orientation, SizeProps } from "@itwin/core-react";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
 import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
@@ -21,6 +20,7 @@ import { PopupManager } from "./PopupManager";
 import { PositionPopup, PositionPopupContent } from "./PositionPopup";
 import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
 import { DialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
+import { SpecialKey } from "../keyboardKey/KeyboardKey";
 
 /** Props for defining a popup tool settings component
  * @beta */

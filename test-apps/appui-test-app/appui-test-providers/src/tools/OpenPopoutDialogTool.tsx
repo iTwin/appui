@@ -6,11 +6,14 @@ import * as React from "react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import {
   ConditionalBooleanValue,
-  IconSpecUtilities,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import windowAddSvg from "@bentley/icons-generic/icons/window-add.svg";
-import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
+import {
+  ChildWindowLocationProps,
+  createWebComponentIconSpec,
+  UiFramework,
+} from "@itwin/appui-react";
 import { PopoutDialog } from "../ui/dialogs/PopoutDialog";
 
 /**
@@ -72,9 +75,7 @@ export class OpenPopoutDialogTool extends Tool {
       groupPriority,
       isHidden,
     };
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
-      `${this.iconSpec}`
-    );
+    const iconSpec = createWebComponentIconSpec(`${this.iconSpec}`);
     return ToolbarItemUtilities.createActionButton(
       OpenPopoutDialogTool.toolId,
       itemPriority,

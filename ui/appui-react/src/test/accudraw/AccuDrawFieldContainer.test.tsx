@@ -14,7 +14,6 @@ import {
   ItemField,
   NoRenderApp,
 } from "@itwin/core-frontend";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import TestUtils, { selectAllBeforeType, userEvent } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
@@ -22,6 +21,7 @@ import { AccuDrawFieldContainer } from "../../appui-react/accudraw/AccuDrawField
 import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import type { AccuDrawUiSettings } from "../../appui-react/accudraw/AccuDrawUiSettings";
 import { UiFramework } from "../../appui-react";
+import { SpecialKey } from "../../appui-react/keyboardKey/KeyboardKey";
 
 // cspell:ignore uiadmin
 

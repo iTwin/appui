@@ -18,7 +18,6 @@ import {
   share,
   toArray,
 } from "rxjs";
-import { UiError } from "@itwin/appui-abstract";
 import {
   scheduleSubscription,
   SubscriptionScheduler,
@@ -47,6 +46,7 @@ import type {
 } from "./TreeModel";
 import { isTreeModelNode } from "./TreeModel";
 import type { TreeModelSource } from "./TreeModelSource";
+import { UiError } from "../../common/UIError";
 
 /**
  * Data structure that describes node load result
@@ -137,8 +137,8 @@ export abstract class AbstractTreeNodeLoader implements ITreeNodeLoader {
  * @public
  */
 export abstract class AbstractTreeNodeLoaderWithProvider<
-    TDataProvider extends TreeDataProvider
-  >
+  TDataProvider extends TreeDataProvider
+>
   extends AbstractTreeNodeLoader
   implements ITreeNodeLoaderWithProvider<TDataProvider>
 {

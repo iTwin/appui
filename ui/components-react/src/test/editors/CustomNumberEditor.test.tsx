@@ -12,7 +12,7 @@ import type {
   InputEditorSizeParams,
   PrimitiveValue,
 } from "@itwin/appui-abstract";
-import { PropertyEditorParamTypes, SpecialKey } from "@itwin/appui-abstract";
+import { PropertyEditorParamTypes } from "@itwin/appui-abstract";
 import { CustomNumberEditor } from "../../components-react/editors/CustomNumberEditor";
 import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
@@ -22,6 +22,7 @@ import TestUtils, {
   styleMatch,
 } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
+import { SpecialKey } from "../../components-react/common/KeyboardKey";
 
 // cSpell:ignore customnumber
 

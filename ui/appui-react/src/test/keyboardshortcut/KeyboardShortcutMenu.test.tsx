@@ -8,9 +8,9 @@ import * as sinon from "sinon";
 import type { KeyboardShortcutProps } from "../../appui-react";
 import { CommandItemDef, KeyboardShortcutMenu } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
-import { FunctionKey } from "@itwin/appui-abstract";
 import { UiFramework } from "../../appui-react/UiFramework";
 import { render, screen, waitFor } from "@testing-library/react";
+import { FunctionKey } from "../../appui-react/keyboardKey/KeyboardKey";
 
 describe("KeyboardShortcutMenu", () => {
   const testSpyMethod = sinon.spy();

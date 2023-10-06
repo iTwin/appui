@@ -12,7 +12,6 @@ import {
   RealityDataAccessClient,
   RealityDataClientOptions,
 } from "@itwin/reality-data-client";
-import { getClassName } from "@itwin/appui-abstract";
 import {
   ActionsUnion,
   AppNotificationManager,
@@ -358,11 +357,18 @@ export class SampleAppIModelApp {
   }
 
   public static loggerCategory(obj: any): string {
-    const className = getClassName(obj);
+    const className = SampleAppIModelApp.getObjectClassName(obj);
     const category = `appui-test-app.${className}`;
     return category;
   }
 
+  private static getObjectClassName(obj: any): string {
+    return obj?.name
+      ? obj.name
+      : obj?.constructor?.name
+      ? obj.constructor.name
+      : "";
+  }
   public static async closeCurrentIModel() {
     if (SampleAppIModelApp.isIModelLocal) {
       const currentIModelConnection = UiFramework.getIModelConnection();

@@ -9,7 +9,6 @@ import { Observable } from "rxjs";
 import sinon from "sinon";
 import * as moq from "typemoq";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
 import type { TreeNodeRendererProps } from "../../../../components-react/tree/controlled/component/TreeNodeRenderer";
 import type { TreeRendererProps } from "../../../../components-react/tree/controlled/component/TreeRenderer";
@@ -32,6 +31,7 @@ import type { HighlightableTreeProps } from "../../../../components-react/tree/H
 import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
 import TestUtils from "../../../TestUtils";
 import { createRandomMutableTreeModelNode } from "../TreeHelpers";
+import { SpecialKey } from "../../../../components-react/common/KeyboardKey";
 
 describe("TreeRenderer", () => {
   const visibleNodesMock = moq.Mock.ofType<VisibleTreeNodes>();

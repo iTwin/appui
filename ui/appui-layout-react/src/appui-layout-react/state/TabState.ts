@@ -7,7 +7,6 @@
  */
 
 import produce, { castDraft } from "immer";
-import { UiError } from "@itwin/appui-abstract";
 import { type IconSpec, Rectangle, type SizeProps } from "@itwin/core-react";
 import type { PanelSide } from "../widget-panels/Panel";
 import type { NineZoneState } from "./NineZoneState";
@@ -32,6 +31,7 @@ import {
 } from "./TabHomeState";
 import { insertPanelWidget } from "./PanelState";
 import { getUniqueId } from "../base/NineZone";
+import { UiError } from "../base/UiError";
 
 /** `WidgetDef` is equivalent structure in `appui-react`.
  * @internal

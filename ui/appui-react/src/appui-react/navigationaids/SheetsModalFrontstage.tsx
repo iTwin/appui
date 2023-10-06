@@ -9,9 +9,9 @@
 import "./SheetsModalFrontstage.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { BeUiEvent } from "@itwin/core-bentley";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import { UiEvent } from "@itwin/appui-abstract";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
 import {
   FlexWrapContainer,
@@ -47,7 +47,7 @@ export interface CardSelectedEventArgs {
 /** Class for CardSelectedEvent
  * @alpha
  */
-export class CardSelectedEvent extends UiEvent<CardSelectedEventArgs> {}
+export class CardSelectedEvent extends BeUiEvent<CardSelectedEventArgs> {}
 
 /** Modal frontstage displaying sheet information in cards.
  * @alpha

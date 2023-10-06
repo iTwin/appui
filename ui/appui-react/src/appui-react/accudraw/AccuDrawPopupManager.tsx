@@ -15,8 +15,6 @@ import type {
   OnNumberCommitFunc,
   OnValueCommitFunc,
 } from "@itwin/appui-abstract";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
-
 import type { PopupInfo } from "../popup/PopupManager";
 import { PopupManager } from "../popup/PopupManager";
 import { MenuItemHelpers } from "../shared/MenuItem";
@@ -26,6 +24,7 @@ import { MenuButtonPopup } from "./MenuButtonPopup";
 import angleIcon from "./angle.svg";
 import lengthIcon from "./distance.svg";
 import heightIcon from "./height-2.svg";
+import { createWebComponentIconSpec } from "../utils/IconHelper";
 
 /** AccuDraw Popup Manager class
  * @alpha
@@ -114,7 +113,7 @@ export class AccuDrawPopupManager {
     const propertyDescription = new AngleDescription(
       undefined,
       undefined,
-      IconSpecUtilities.createWebComponentIconSpec(angleIcon)
+      createWebComponentIconSpec(angleIcon)
     );
     return PopupManager.showInputEditor(
       el,
@@ -136,7 +135,7 @@ export class AccuDrawPopupManager {
     const propertyDescription = new LengthDescription(
       undefined,
       undefined,
-      IconSpecUtilities.createWebComponentIconSpec(lengthIcon)
+      createWebComponentIconSpec(lengthIcon)
     );
     return PopupManager.showInputEditor(
       el,
@@ -158,7 +157,7 @@ export class AccuDrawPopupManager {
     const propertyDescription = new LengthDescription(
       undefined,
       undefined,
-      IconSpecUtilities.createWebComponentIconSpec(heightIcon)
+      createWebComponentIconSpec(heightIcon)
     );
     return PopupManager.showInputEditor(
       el,

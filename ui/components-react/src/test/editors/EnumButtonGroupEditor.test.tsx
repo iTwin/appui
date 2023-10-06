@@ -8,12 +8,12 @@ import React from "react";
 import sinon from "sinon";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { EnumButtonGroupEditor } from "../../components-react/editors/EnumButtonGroupEditor";
 import TestUtils, { MineDataController } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
+import { SpecialKey } from "../../components-react/common/KeyboardKey";
 
 // cSpell:ignore enumbuttongroup
 

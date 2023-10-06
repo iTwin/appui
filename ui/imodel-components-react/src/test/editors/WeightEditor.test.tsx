@@ -7,7 +7,6 @@ import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
 import {
   EditorContainer,
@@ -16,6 +15,7 @@ import {
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { WeightEditor } from "../../imodel-components-react/editors/WeightEditor";
 import { MineDataController, TestUtils } from "../TestUtils";
+import { SpecialKey } from "../../imodel-components-react/inputs/SpecialKey";
 
 describe("<WeightEditor />", () => {
   it("should render", () => {

@@ -7,12 +7,12 @@
  */
 
 import produce, { castDraft } from "immer";
-import { UiError } from "@itwin/appui-abstract";
 import type { NineZoneState } from "../NineZoneState";
 import type { DraggedTabState, TabState } from "../TabState";
 import { category, initSizeProps } from "./NineZoneStateHelpers";
 import type { SavedTabState } from "../SavedTabState";
 import type { WritableDraft } from "immer/dist/internal";
+import { UiError } from "../../base/UiError";
 
 /** @internal */
 export function createTabState(

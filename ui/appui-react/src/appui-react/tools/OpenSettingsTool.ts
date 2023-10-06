@@ -8,7 +8,7 @@
 import { Tool } from "@itwin/core-frontend";
 import { SettingsModalFrontstage } from "../frontstage/ModalSettingsStage";
 import svgSettings from "@bentley/icons-generic/icons/settings.svg";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
+import { createWebComponentIconSpec } from "../utils/IconHelper";
 
 /**
  * Immediate tool that will open the Settings modal stage.
@@ -17,7 +17,7 @@ import { IconSpecUtilities } from "@itwin/appui-abstract";
 export class OpenSettingsTool extends Tool {
   public static override toolId = "OpenSettings";
   public static override iconSpec =
-    IconSpecUtilities.createWebComponentIconSpec(svgSettings);
+    createWebComponentIconSpec(svgSettings);
 
   // istanbul ignore next
   public static override get minArgs() {

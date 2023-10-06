@@ -10,9 +10,9 @@ import "./SaturationPicker.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { ColorDef, HSVColor } from "@itwin/core-common";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
+import { SpecialKey } from "../inputs/SpecialKey";
 
 function calculateChange(
   e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,

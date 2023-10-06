@@ -6,7 +6,7 @@
  * @module Frontstage
  */
 
-import { Logger } from "@itwin/core-bentley";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type {
   IModelConnection,
   SelectedViewportChangedArgs,
@@ -14,7 +14,6 @@ import type {
   Tool,
 } from "@itwin/core-frontend";
 import { IModelApp, InteractiveTool } from "@itwin/core-frontend";
-import { UiEvent } from "@itwin/appui-abstract";
 import type { Size } from "@itwin/core-react";
 import { ContentControlActivatedEvent } from "../content/ContentControl";
 import type { ContentGroup } from "../content/ContentGroup";
@@ -218,12 +217,12 @@ export class InternalFrontstageManager {
   public static readonly onToolActivatedEvent = new ToolActivatedEvent();
 
   /** Get ToolSetting Reload event. */
-  public static readonly onToolSettingsReloadEvent = new UiEvent<void>();
+  public static readonly onToolSettingsReloadEvent = new BeUiEvent<void>();
 
   /** Get Tool Panel Opened event.
    * @internal
    */
-  public static readonly onToolPanelOpenedEvent = new UiEvent<void>();
+  public static readonly onToolPanelOpenedEvent = new BeUiEvent<void>();
 
   /** Get Tool Icon Changed event. */
   public static readonly onToolIconChangedEvent = new ToolIconChangedEvent();
@@ -245,19 +244,19 @@ export class InternalFrontstageManager {
     new WidgetStateChangedEvent();
 
   /** @internal */
-  public static readonly onWidgetDefsUpdatedEvent = new UiEvent<void>();
+  public static readonly onWidgetDefsUpdatedEvent = new BeUiEvent<void>();
 
   /** @internal */
   public static readonly onFrontstageNineZoneStateChangedEvent =
-    new UiEvent<FrontstageNineZoneStateChangedEventArgs>();
+    new BeUiEvent<FrontstageNineZoneStateChangedEventArgs>();
 
   /** @internal */
   public static readonly onFrontstageRestoreLayoutEvent =
-    new UiEvent<FrontstageEventArgs>();
+    new BeUiEvent<FrontstageEventArgs>();
 
   /** @internal */
   public static readonly onFrontstageWidgetsChangedEvent =
-    new UiEvent<FrontstageEventArgs>();
+    new BeUiEvent<FrontstageEventArgs>();
 
   /** Get panel state changed event.
    * @alpha
@@ -269,7 +268,7 @@ export class InternalFrontstageManager {
    * @alpha
    */
   public static readonly onPanelPinnedChangedEvent =
-    new UiEvent<PanelPinnedChangedEventArgs>();
+    new BeUiEvent<PanelPinnedChangedEventArgs>();
 
   /** @internal */
   public static readonly onPanelSizeChangedEvent = new PanelSizeChangedEvent();

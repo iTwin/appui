@@ -8,9 +8,10 @@ import React from "react";
 import sinon from "sinon";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
-import { RelativePosition, SpecialKey } from "@itwin/appui-abstract";
+import { RelativePosition } from "@itwin/appui-abstract";
 import { TestUtils } from "../TestUtils";
 import { ColorPickerPopup } from "../../imodel-components-react/color/ColorPickerPopup";
+import { SpecialKey } from "../../imodel-components-react/inputs/SpecialKey";
 
 describe("<ColorPickerPopup/>", () => {
   const colorDef = ColorDef.create(ColorByName.blue);

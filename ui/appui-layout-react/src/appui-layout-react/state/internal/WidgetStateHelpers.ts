@@ -7,7 +7,6 @@
  */
 
 import { castDraft, produce } from "immer";
-import { UiError } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
 import type { RectangleProps } from "@itwin/core-react";
 import { Point, Rectangle } from "@itwin/core-react";
@@ -32,6 +31,7 @@ import {
 } from "./NineZoneStateHelpers";
 import { updatePanelState } from "./PanelStateHelpers";
 import { updateTabState } from "./TabStateHelpers";
+import { UiError } from "../../base/UiError";
 
 /** @internal */
 export function createWidgetState(

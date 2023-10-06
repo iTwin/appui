@@ -5,9 +5,9 @@
 import "./InlineEdit.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
+import { SpecialKey } from "../inputs/SpecialKey";
 
 interface InlineEditProps extends CommonProps {
   defaultValue: string;

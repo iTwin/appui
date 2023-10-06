@@ -6,7 +6,6 @@ import { fireEvent, render, waitFor } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { AccuDrawInputField } from "../../appui-react/accudraw/AccuDrawInputField";
 import { TestUtils } from "../TestUtils";
 import type { IModelAppOptions } from "@itwin/core-frontend";
@@ -14,6 +13,7 @@ import { IModelApp, ItemField, NoRenderApp } from "@itwin/core-frontend";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import { UiFramework } from "../../appui-react";
+import { SpecialKey } from "../../appui-react/keyboardKey/KeyboardKey";
 
 // cspell:ignore uiadmin
 

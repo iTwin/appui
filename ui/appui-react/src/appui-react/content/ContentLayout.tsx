@@ -22,10 +22,10 @@ import type {
   LayoutSplitPropsBase,
   LayoutVerticalSplitProps,
 } from "@itwin/appui-abstract";
-import { UiEvent } from "@itwin/appui-abstract";
 import type { ActiveContentChangedEventArgs } from "../framework/FrameworkContent";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { UiFramework } from "../UiFramework";
+import { BeUiEvent } from "@itwin/core-bentley";
 
 /** Properties for [[ContentWrapper]] */
 interface ContentWrapperProps extends CommonProps {
@@ -570,7 +570,7 @@ export interface ContentLayoutActivatedEventArgs {
 /** Content Layout Activated Event class.
  * @public
  */
-export class ContentLayoutActivatedEvent extends UiEvent<ContentLayoutActivatedEventArgs> {}
+export class ContentLayoutActivatedEvent extends BeUiEvent<ContentLayoutActivatedEventArgs> {}
 
 /** State for the [[ContentLayout]].
  */

@@ -9,7 +9,7 @@
 import "./UnderlinedButton.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { SpecialKey } from "../utils/KeyboardKey";
 
 /** Properties for the [[UnderlinedButton]] React component
  * @public

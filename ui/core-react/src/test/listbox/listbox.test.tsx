@@ -7,7 +7,7 @@ import * as React from "react";
 import * as sinon from "sinon";
 
 import { fireEvent, render } from "@testing-library/react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { SpecialKey } from "../../core-react/utils/KeyboardKey";
 import type { ListboxValue } from "../../core-react/listbox/Listbox";
 import { Listbox, ListboxItem } from "../../core-react/listbox/Listbox";
 

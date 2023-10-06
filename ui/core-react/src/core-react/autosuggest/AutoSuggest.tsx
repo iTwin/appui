@@ -10,7 +10,7 @@ import "./AutoSuggest.scss";
 import * as React from "react";
 import * as ReactAutosuggest from "react-autosuggest";
 import { Logger } from "@itwin/core-bentley";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { SpecialKey } from "../utils/KeyboardKey";
 import type { CommonProps } from "../utils/Props";
 import { UiCore } from "../UiCore";
 

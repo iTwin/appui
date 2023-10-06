@@ -23,7 +23,6 @@ import {
   DialogItem,
   DialogItemValue,
   DialogPropertySyncItem,
-  IconSpecUtilities,
   InputEditorSizeParams,
   PropertyDescription,
   PropertyEditorParamTypes,
@@ -37,6 +36,7 @@ import { Point3d } from "@itwin/core-geometry";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { FormatterSpec } from "@itwin/core-quantity";
 import {
+  createWebComponentIconSpec,
   CursorInformation,
   MenuItemProps,
   UiFramework,
@@ -708,7 +708,7 @@ export class SampleTool extends PrimitiveTool {
     groupPriority?: number
   ) {
     const overrides = undefined !== groupPriority ? { groupPriority } : {};
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
+    const iconSpec = createWebComponentIconSpec(
       this.iconSpec
     );
 

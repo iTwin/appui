@@ -9,9 +9,9 @@
 import * as React from "react";
 import { Input } from "@itwin/itwinui-react";
 import type { TimeDisplay } from "@itwin/appui-abstract";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { UiComponents } from "../UiComponents";
 import "./TimeField.scss";
+import { SpecialKey } from "../common/KeyboardKey";
 
 /** Interface used to hold 24 hour time in
  * hours, minutes, and seconds.

@@ -7,7 +7,6 @@ import "@bentley/icons-generic-webfont/dist/bentley-icons-generic-webfont.css";
  */
 import {
   ContentLayoutProps,
-  FunctionKey,
   StandardContentLayouts,
 } from "@itwin/appui-abstract";
 import { IModelApp } from "@itwin/core-frontend";
@@ -76,7 +75,7 @@ export class AppUi {
         ],
       },
       {
-        key: FunctionKey.F7,
+        key: "F7",
         item: AppUi._showShortcutsMenuCommand,
       },
     ];

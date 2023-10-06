@@ -25,11 +25,12 @@ import {
 } from "@itwin/core-frontend";
 import { UiFramework } from "../UiFramework";
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
-import { matchesWords, SpecialKey } from "@itwin/appui-abstract";
 import { ClearKeyinPaletteHistoryTool } from "../tools/KeyinPaletteTools";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
 import type { KeyinEntry } from "../uiadmin/FrameworkUiAdmin";
 import { Input } from "@itwin/itwinui-react";
+import { SpecialKey } from "../keyboardKey/KeyboardKey";
+import { matchesWords } from "../utils/matchesWords";
 
 const KEYIN_PALETTE_NAMESPACE = "KeyinPalettePanel";
 const KEYIN_HISTORY_KEY = "historyArray";

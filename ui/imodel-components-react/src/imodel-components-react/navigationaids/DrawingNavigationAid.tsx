@@ -26,7 +26,6 @@ import type {
   ViewState,
 } from "@itwin/core-frontend";
 import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
@@ -38,6 +37,7 @@ import {
   SvgRotateLeft,
   SvgSortUp,
 } from "@itwin/itwinui-icons-react";
+import { SpecialKey } from "../inputs/SpecialKey";
 
 // cSpell:ignore Quaternion Quaternions unrotate
 /* eslint-disable jsx-a11y/click-events-have-key-events */

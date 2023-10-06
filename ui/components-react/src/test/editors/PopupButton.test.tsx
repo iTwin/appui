@@ -7,9 +7,9 @@ import { expect } from "chai";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import sinon from "sinon";
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { PopupButton } from "../../components-react/editors/PopupButton";
 import { selectorMatches, TestUtils, userEvent } from "../TestUtils";
+import { SpecialKey } from "../../components-react/common/KeyboardKey";
 
 describe("<PopupButton />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

@@ -9,7 +9,8 @@ import sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
 import TestUtils from "../TestUtils";
 import { DatePickerPopupButton } from "../../components-react/datepicker/DatePickerPopupButton";
-import { SpecialKey, TimeDisplay } from "@itwin/appui-abstract";
+import { TimeDisplay } from "@itwin/appui-abstract";
+import { SpecialKey } from "../../components-react/common/KeyboardKey";
 
 describe("<DatePickerPopupButton />", () => {
   let renderSpy: sinon.SinonSpy;

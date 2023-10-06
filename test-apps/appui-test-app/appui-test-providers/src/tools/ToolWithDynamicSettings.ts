@@ -18,12 +18,12 @@ import {
   DialogItemValue,
   DialogPropertySyncItem,
   EnumerationChoice,
-  IconSpecUtilities,
   PropertyDescription,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import dynamicToolSvg from "./DynamicTool.svg";
 import { AppUiTestProviders } from "../AppUiTestProviders";
+import { createWebComponentIconSpec } from "@itwin/appui-react";
 
 interface MajorCities {
   state: number;
@@ -241,7 +241,7 @@ export class ToolWithDynamicSettings extends PrimitiveTool {
     groupPriority?: number
   ) {
     const overrides = undefined !== groupPriority ? { groupPriority } : {};
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
+    const iconSpec = createWebComponentIconSpec(
       this.iconSpec
     );
 

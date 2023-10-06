@@ -9,11 +9,11 @@
 import "./ResultSelector.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { UiComponents } from "../UiComponents";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
+import { SpecialKey } from "../common/KeyboardKey";
 
 /** [[ResultSelector]] React Component state
  * @internal

@@ -12,7 +12,6 @@ import type {
   OnItemExecutedFunc,
   RelativePosition,
 } from "@itwin/appui-abstract";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { Orientation, SizeProps } from "@itwin/core-react";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
 import {
@@ -26,6 +25,7 @@ import { PopupManager } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
 import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { Toolbar } from "../toolbar/Toolbar";
+import { SpecialKey } from "../keyboardKey/KeyboardKey";
 
 /** Props for a popup toolbar
  * @beta */

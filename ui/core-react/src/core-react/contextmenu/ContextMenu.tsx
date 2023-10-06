@@ -9,8 +9,9 @@
 import "./ContextMenu.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { ConditionalBooleanValue, SpecialKey } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props";
+import { SpecialKey } from "../utils/KeyboardKey";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
 import { ContextMenuDirection } from "./ContextMenuDirection";
 import type { ContextMenuItemProps } from "./ContextMenuItem";

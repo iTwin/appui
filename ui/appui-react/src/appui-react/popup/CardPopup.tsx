@@ -16,7 +16,6 @@ import type {
   PropertyRecord,
   RelativePosition,
 } from "@itwin/appui-abstract";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { Orientation, SizeProps } from "@itwin/core-react";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
@@ -32,6 +31,7 @@ import {
   ToolbarPanelAlignment,
   ToolbarWithOverflow,
 } from "@itwin/components-react";
+import { SpecialKey } from "../keyboardKey/KeyboardKey";
 
 /** Props for defining a CardPopup editor
  * @beta */

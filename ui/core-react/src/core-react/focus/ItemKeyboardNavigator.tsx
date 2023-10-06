@@ -6,8 +6,8 @@
  * @module Focus
  */
 
-import { isArrowKey, SpecialKey } from "@itwin/appui-abstract";
 import { Orientation } from "../enums/Orientation";
+import { isArrowKey, SpecialKey } from "../utils/KeyboardKey";
 
 /** Cross-Axis Arrow Key Callback
  * @internal

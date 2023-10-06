@@ -7,7 +7,7 @@ import classnames from "classnames";
 
 import "./Listbox.scss";
 import { Guid } from "@itwin/core-bentley";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { SpecialKey } from "../utils/KeyboardKey";
 
 /** Ideas borrowed from  https://reacttraining.com/reach-ui/listbox */
 

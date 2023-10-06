@@ -11,7 +11,6 @@ import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import type { FormatProps } from "@itwin/core-quantity";
 import { FormatType, ShowSignOption } from "@itwin/core-quantity";
 import { BearingQuantityType } from "./BearingQuantityType";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { TestUtils } from "../TestUtils";
 import {
   handleError,
@@ -20,6 +19,7 @@ import {
   stubScrollIntoView,
 } from "../test-helpers/misc";
 import { QuantityFormatPanel } from "../../imodel-components-react/quantityformat/QuantityFormatPanel";
+import { SpecialKey } from "../../imodel-components-react/inputs/SpecialKey";
 
 describe("QuantityInput", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

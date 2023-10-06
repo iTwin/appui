@@ -11,10 +11,8 @@ import { connect } from "react-redux";
 import { SnapMode } from "@itwin/core-frontend";
 import { Snap, SnapModePanel } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
-import type { CommonProps, IconSpec } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
+import { type CommonProps, Icon, type IconSpec } from "@itwin/core-react";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import snapModeKeypoint from "@bentley/icons-generic/icons/snaps.svg";
 import snapModeIntersection from "@bentley/icons-generic/icons/snaps-intersection.svg";
 import snapModeCenter from "@bentley/icons-generic/icons/snaps-center.svg";
@@ -22,6 +20,7 @@ import snapModeNearest from "@bentley/icons-generic/icons/snaps-nearest.svg";
 import snapModeOrigin from "@bentley/icons-generic/icons/snaps-origin.svg";
 import snapModeMidpoint from "@bentley/icons-generic/icons/snaps-midpoint.svg";
 import snapModeBisector from "@bentley/icons-generic/icons/snaps-bisector.svg";
+import { createWebComponentIconSpec } from "../utils/IconHelper";
 
 // cSpell:ignore multione
 
@@ -39,29 +38,28 @@ interface SnapModeFieldEntry {
 }
 
 function getIconFromIconName(iconName: string): IconSpec {
-  let iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeKeypoint);
+  let iconSpec = createWebComponentIconSpec(snapModeKeypoint);
   switch (iconName) {
     case "snaps":
-      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeKeypoint);
+      iconSpec = createWebComponentIconSpec(snapModeKeypoint);
       break;
     case "snaps-intersection":
-      iconSpec =
-        IconSpecUtilities.createWebComponentIconSpec(snapModeIntersection);
+      iconSpec = createWebComponentIconSpec(snapModeIntersection);
       break;
     case "snaps-center":
-      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeCenter);
+      iconSpec = createWebComponentIconSpec(snapModeCenter);
       break;
     case "snaps-nearest":
-      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeNearest);
+      iconSpec = createWebComponentIconSpec(snapModeNearest);
       break;
     case "snaps-origin":
-      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeOrigin);
+      iconSpec = createWebComponentIconSpec(snapModeOrigin);
       break;
     case "snaps-midpoint":
-      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeMidpoint);
+      iconSpec = createWebComponentIconSpec(snapModeMidpoint);
       break;
     case "snaps-bisector":
-      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeBisector);
+      iconSpec = createWebComponentIconSpec(snapModeBisector);
       break;
   }
   return iconSpec;

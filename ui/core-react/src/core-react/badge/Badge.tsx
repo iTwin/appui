@@ -10,8 +10,10 @@ import "./Badge.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "../utils/Props";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import { Icon } from "../icons/IconComponent";
+
+type WEB_COMPONENT_PREFIX = "webSvg:";
+type WebComponentIconSpec = `${WEB_COMPONENT_PREFIX}${string}`;
 
 /** Properties for the [[Badge]] React component
  * @internal
@@ -25,9 +27,7 @@ export interface BadgeProps extends CommonProps {
  */
 export class Badge extends React.PureComponent<BadgeProps> {
   public override render(): React.ReactElement {
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
-      this.props.svg
-    );
+    const iconSpec: WebComponentIconSpec = `webSvg:${this.props.svg}`;
     return (
       <div
         className={classnames("core-badge", this.props.className)}

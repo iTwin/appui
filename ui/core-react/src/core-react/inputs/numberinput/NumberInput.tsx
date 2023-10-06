@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import type { InputProps } from "@itwin/itwinui-react";
 import { Input } from "@itwin/itwinui-react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { SpecialKey } from "../../utils/KeyboardKey";
 import { Icon } from "../../icons/IconComponent";
 import {
   SvgCaretDown,

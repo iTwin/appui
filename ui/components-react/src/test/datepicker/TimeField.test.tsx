@@ -10,7 +10,8 @@ import { fireEvent, render, waitFor } from "@testing-library/react";
 import type { TimeSpec } from "../../components-react/datepicker/TimeField";
 import { TimeField } from "../../components-react/datepicker/TimeField";
 import TestUtils from "../TestUtils";
-import { SpecialKey, TimeDisplay } from "@itwin/appui-abstract";
+import { TimeDisplay } from "@itwin/appui-abstract";
+import { SpecialKey } from "../../components-react/common/KeyboardKey";
 
 describe("<TimeField />", () => {
   let renderSpy: sinon.SinonSpy;

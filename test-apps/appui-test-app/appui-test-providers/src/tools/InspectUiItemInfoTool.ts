@@ -15,8 +15,9 @@ import {
   PrimitiveTool,
 } from "@itwin/core-frontend";
 
-import { IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
+import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import inspectIconSvg from "@bentley/icons-generic/icons/search.svg";
+import { createWebComponentIconSpec } from "@itwin/appui-react/lib/cjs/appui-react/utils/IconHelper";
 
 export class InspectUiItemInfoTool extends PrimitiveTool {
   private _timerId: number | undefined;
@@ -27,7 +28,7 @@ export class InspectUiItemInfoTool extends PrimitiveTool {
   private static _counter = 0;
   public static override toolId = "InspectUiItemInfoTool";
   public static override iconSpec =
-    IconSpecUtilities.createWebComponentIconSpec(inspectIconSvg);
+    createWebComponentIconSpec(inspectIconSvg);
 
   public static override get minArgs() {
     return 0;

@@ -21,7 +21,6 @@ import {
   ToolAssistanceImage,
   ToolAssistanceInputMethod,
 } from "@itwin/core-frontend";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import type {
   CommonProps,
   UiStateStorage,
@@ -69,6 +68,10 @@ import touchCursorDragIcon from "./touch-cursor-pan.svg";
 import touchCursorTapIcon from "./touch-cursor-point.svg";
 import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
 import { SvgClose, SvgPin } from "@itwin/itwinui-icons-react";
+import {
+  createWebComponentIconSpec,
+  getWebComponentSource,
+} from "../../utils/IconHelper";
 
 // cSpell:ignore cursorprompt
 
@@ -644,9 +647,7 @@ export class ToolAssistanceField extends React.Component<
       }
     } else if (typeof instruction.image === "string") {
       if (instruction.image.length > 0) {
-        const svgSource = IconSpecUtilities.getWebComponentSource(
-          instruction.image
-        );
+        const svgSource = getWebComponentSource(instruction.image);
         const className =
           svgSource !== undefined
             ? "uifw-toolassistance-svg"
@@ -754,7 +755,7 @@ export class ToolAssistanceField extends React.Component<
             : "uifw-toolassistance-svg-wide";
           break;
       }
-      const iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgImage);
+      const iconSpec = createWebComponentIconSpec(svgImage);
       image = (
         <div className={className}>
           {svgImage && (

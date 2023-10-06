@@ -7,8 +7,8 @@
  */
 
 import type * as React from "react";
+import { BeUiEvent } from "@itwin/core-bentley";
 import type { IModelConnection } from "@itwin/core-frontend";
-import { UiEvent } from "@itwin/appui-abstract";
 import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
 import {
   ConfigurableUiControl,
@@ -26,7 +26,7 @@ export interface NavigationAidActivatedEventArgs {
 /** NavigationAid Activated Event class.
  * @public
  */
-export class NavigationAidActivatedEvent extends UiEvent<NavigationAidActivatedEventArgs> {}
+export class NavigationAidActivatedEvent extends BeUiEvent<NavigationAidActivatedEventArgs> {}
 
 /** The base class for Navigation Aid controls.
  * @public

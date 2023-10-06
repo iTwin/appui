@@ -14,7 +14,6 @@ import type {
   AbstractToolbarProps,
   DialogLayoutDataProvider,
   DialogProps,
-  IMatch,
   OnCancelFunc,
   OnItemExecutedFunc,
   OnNumberCommitFunc,
@@ -27,6 +26,7 @@ import { RelativePosition, UiAdmin } from "@itwin/appui-abstract";
 import { AccuDrawPopupManager } from "../accudraw/AccuDrawPopupManager";
 import { CursorInformation } from "../cursor/CursorInformation";
 import { PopupManager } from "../popup/PopupManager";
+import type { IMatch } from "../utils/matchesWords";
 import type { CursorMenuData } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
 import { UiDataProvidedDialog } from "../dialog/UiDataProvidedDialog";

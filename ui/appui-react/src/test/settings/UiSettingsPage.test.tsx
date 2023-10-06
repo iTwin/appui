@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import {
   getUiSettingsManagerEntry,
   UiSettingsPage,
@@ -18,7 +18,7 @@ import TestUtils, {
 } from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
 import { ColorTheme } from "../../appui-react/theme/ThemeManager";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import { SpecialKey } from "../../appui-react/keyboardKey/KeyboardKey";
 
 describe("UiSettingsPage", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(

@@ -11,7 +11,7 @@
 import widowSettingsIconSvg from "@bentley/icons-generic/icons/window-settings.svg";
 import "./UiSettingsPage.scss";
 import * as React from "react";
-import type { SettingsTabEntry } from "@itwin/core-react";
+import { type SettingsTabEntry } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";
 import {
   ColorTheme,
@@ -21,10 +21,10 @@ import {
   SyncUiEventDispatcher,
   SyncUiEventId,
 } from "../../syncui/SyncUiEventDispatcher";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select, Slider, ToggleSwitch } from "@itwin/itwinui-react";
 import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
+import { createWebComponentIconSpec } from "../../utils/IconHelper";
 
 /** UiSettingsPage displaying the active UI settings. This page lets users set the following settings.
  *
@@ -459,7 +459,7 @@ export function getUiSettingsManagerEntry(
     itemPriority,
     tabId: "uifw:UiStateStorage",
     label: UiFramework.translate("settings.uiSettingsPage.label"),
-    icon: IconSpecUtilities.createWebComponentIconSpec(widowSettingsIconSvg),
+    icon: createWebComponentIconSpec(widowSettingsIconSvg),
     page: <UiSettingsPage />,
     isDisabled: false,
     tooltip: UiFramework.translate("settings.uiSettingsPage.tooltip"),

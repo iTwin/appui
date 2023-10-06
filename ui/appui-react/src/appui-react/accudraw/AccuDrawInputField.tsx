@@ -12,7 +12,6 @@ import * as React from "react";
 import type { ItemField } from "@itwin/core-frontend";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
 import { Icon, useRefs } from "@itwin/core-react";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { Input } from "@itwin/itwinui-react";
 import type {
   AccuDrawSetFieldFocusEventArgs,
@@ -21,6 +20,7 @@ import type {
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
 import { UiFramework } from "../UiFramework";
 import { SvgLock } from "@itwin/itwinui-icons-react";
+import { SpecialKey } from "../keyboardKey/KeyboardKey";
 
 function isLetter(char: string): boolean {
   return char.length === 1 && char.toLowerCase() !== char.toUpperCase();

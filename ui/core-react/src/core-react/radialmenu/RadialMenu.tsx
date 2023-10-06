@@ -9,9 +9,9 @@
 import "./RadialMenu.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
+import { SpecialKey } from "../utils/KeyboardKey";
 import { Point } from "../utils/Point";
 import type { CommonProps } from "../utils/Props";
 import { AnnularSector, Annulus } from "./Annulus";

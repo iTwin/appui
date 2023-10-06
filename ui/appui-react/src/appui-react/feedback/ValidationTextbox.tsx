@@ -9,10 +9,10 @@
 import "./ValidationTextbox.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
-import type { CommonProps } from "@itwin/core-react";
+import { type CommonProps } from "@itwin/core-react";
 import { MessageManager } from "../messages/MessageManager";
 import { Input } from "@itwin/itwinui-react";
+import { SpecialKey } from "../keyboardKey/KeyboardKey";
 
 /** Enum for Input Status used in [[ValidationTextbox]]
  * @alpha

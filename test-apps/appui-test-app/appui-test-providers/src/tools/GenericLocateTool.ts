@@ -17,8 +17,8 @@ import {
   SelectionMode,
 } from "@itwin/core-frontend";
 import { Point3d } from "@itwin/core-geometry";
-import { UiFramework } from "@itwin/appui-react";
-import { IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
+import { createWebComponentIconSpec, UiFramework } from "@itwin/appui-react";
+import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { AppUiTestProviders } from "../AppUiTestProviders";
 import genericToolSvg from "./generic-tool.svg";
 
@@ -159,7 +159,7 @@ export class GenericLocateTool extends PrimitiveTool {
     groupPriority?: number
   ) {
     const overrides = undefined !== groupPriority ? { groupPriority } : {};
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
+    const iconSpec = createWebComponentIconSpec(
       this.iconSpec
     );
     return ToolbarItemUtilities.createActionButton(

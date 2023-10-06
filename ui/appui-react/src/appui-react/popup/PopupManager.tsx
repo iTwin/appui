@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { Logger } from "@itwin/core-bentley";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
 import type {
   AbstractToolbarProps,
@@ -20,11 +20,7 @@ import type {
   PropertyDescription,
   RelativePosition,
 } from "@itwin/appui-abstract";
-import {
-  PropertyRecord,
-  PropertyValueFormat,
-  UiEvent,
-} from "@itwin/appui-abstract";
+import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import type { Point, SizeProps } from "@itwin/core-react";
 import { Orientation, Rectangle } from "@itwin/core-react";
 import { offsetAndContainInContainer } from "@itwin/appui-layout-react";
@@ -57,7 +53,7 @@ export interface PopupsChangedEventArgs {
 /** Popups Changed Event class.
  * @public
  */
-export class PopupsChangedEvent extends UiEvent<PopupsChangedEventArgs> {}
+export class PopupsChangedEvent extends BeUiEvent<PopupsChangedEventArgs> {}
 
 /** Props for each popup managed by the PopupManager
  * @public

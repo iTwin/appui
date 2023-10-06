@@ -8,12 +8,12 @@
 
 import * as React from "react";
 import type { FormatterSpec } from "@itwin/core-quantity";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { SvgProgressForward } from "@itwin/itwinui-icons-react";
+import { SpecialKey } from "../inputs/SpecialKey";
 
 /** Properties of [[FormatSample]] component.
  * @alpha

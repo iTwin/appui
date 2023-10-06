@@ -5,7 +5,7 @@
 /** @packageDocumentation
  * @module KeyboardShortcut
  */
-import type { FunctionKey, SpecialKey } from "@itwin/appui-abstract";
+import type { FunctionKey, SpecialKey } from "../keyboardKey/KeyboardKey";
 import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
 import type { ItemDefBase } from "../shared/ItemDefBase";
 import type { ItemProps } from "../shared/ItemProps";

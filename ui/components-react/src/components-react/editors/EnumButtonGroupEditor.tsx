@@ -18,7 +18,6 @@ import type {
   PropertyValue,
 } from "@itwin/appui-abstract";
 import {
-  IconSpecUtilities,
   PropertyEditorParamTypes,
   PropertyValueFormat,
   StandardEditorNames,
@@ -32,6 +31,8 @@ import {
 } from "./PropertyEditorManager";
 import svgPlaceholder from "@bentley/icons-generic/icons/placeholder.svg";
 
+type WEB_COMPONENT_PREFIX = "webSvg:";
+type WebComponentIconSpec = `${WEB_COMPONENT_PREFIX}${string}`;
 // cspell:ignore buttongroup enumbuttongroup
 
 /** @internal */
@@ -50,8 +51,7 @@ export class EnumButtonGroupEditor
 {
   private _btnRefs = new Map<string | number, HTMLButtonElement>();
   private _divElement = React.createRef<HTMLDivElement>();
-  private _placeholderIconSpec =
-    IconSpecUtilities.createWebComponentIconSpec(svgPlaceholder);
+  private _placeholderIconSpec: WebComponentIconSpec = `webSvg:${svgPlaceholder}`;
 
   /** @internal */
   public override readonly state: Readonly<EnumButtonGroupEditorState> = {

@@ -6,7 +6,6 @@ import { expect } from "chai";
 import * as faker from "faker";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { SelectionHandler } from "../../../../components-react/common/selection/SelectionHandler";
 import { SelectionMode } from "../../../../components-react/common/selection/SelectionModes";
 import type {
@@ -26,6 +25,7 @@ import type {
 } from "../../../../components-react/tree/controlled/TreeModel";
 import { isTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel";
 import { createRandomMutableTreeModelNode } from "../TreeHelpers";
+import { SpecialKey } from "../../../../components-react/common/KeyboardKey";
 
 type Selection = string | RangeSelection;
 

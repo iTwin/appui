@@ -7,6 +7,8 @@
  */
 
 import * as React from "react";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
+import { BeUiEvent } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
 import {
   ContextMenuItem,
@@ -14,7 +16,6 @@ import {
   GlobalContextMenu,
 } from "@itwin/core-react";
 import type { KeyboardShortcut } from "./KeyboardShortcut";
-import { ConditionalBooleanValue, UiEvent } from "@itwin/appui-abstract";
 
 /** State for a [[KeyboardShortcutMenuEvent]] and [[KeyboardShortcutMenu]] component
  * @public
@@ -29,7 +30,7 @@ export interface KeyboardShortcutMenuState {
 /** KeyboardShortcut Menu Event class.
  * @public
  */
-export class KeyboardShortcutMenuEvent extends UiEvent<KeyboardShortcutMenuState> {}
+export class KeyboardShortcutMenuEvent extends BeUiEvent<KeyboardShortcutMenuState> {}
 
 /** React component that displays a context menu at the cursor containing keyboard shortcuts.
  * @public

@@ -9,12 +9,14 @@
 import classnames from "classnames";
 import { isEqual } from "lodash";
 import * as React from "react";
-import type { XAndY } from "@itwin/core-geometry";
+import { MessageSeverity } from "@itwin/appui-abstract";
+import { BeUiEvent } from "@itwin/core-bentley";
 import type {
   MessageBoxValue,
   ToolAssistanceInstructions,
   ToolTipOptions,
 } from "@itwin/core-frontend";
+import type { XAndY } from "@itwin/core-geometry";
 import {
   ActivityMessageDetails,
   IModelApp,
@@ -24,7 +26,6 @@ import {
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
-import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
 import type { IconSpec, ReactMessage } from "@itwin/core-react";
 import { MessageContainer } from "@itwin/core-react";
 import { ConfigurableUiActionId } from "../configurableui/state";
@@ -106,42 +107,42 @@ export interface ToolAssistanceChangedEventArgs {
 /** Message Added Event class.
  * @public
  */
-export class MessageAddedEvent extends UiEvent<MessageAddedEventArgs> {}
+export class MessageAddedEvent extends BeUiEvent<MessageAddedEventArgs> {}
 
 /** Messages Updated Event class.
  * @public
  */
-export class MessagesUpdatedEvent extends UiEvent<{}> {}
+export class MessagesUpdatedEvent extends BeUiEvent<{}> {}
 
 /** Activity Message Added Event class.
  * @public
  */
-export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArgs> {}
+export class ActivityMessageUpdatedEvent extends BeUiEvent<ActivityMessageEventArgs> {}
 
 /** Activity Message Cancelled Event class.
  * @public
  */
-export class ActivityMessageCancelledEvent extends UiEvent<{}> {}
+export class ActivityMessageCancelledEvent extends BeUiEvent<{}> {}
 
 /** Input Field Message Added Event class
  * @public
  */
-export class InputFieldMessageAddedEvent extends UiEvent<InputFieldMessageEventArgs> {}
+export class InputFieldMessageAddedEvent extends BeUiEvent<InputFieldMessageEventArgs> {}
 
 /** Input Field Message Removed Event class.
  * @public
  */
-export class InputFieldMessageRemovedEvent extends UiEvent<{}> {}
+export class InputFieldMessageRemovedEvent extends BeUiEvent<{}> {}
 
 /** Open Message Center Event class.
  * @public
  */
-export class OpenMessageCenterEvent extends UiEvent<{}> {}
+export class OpenMessageCenterEvent extends BeUiEvent<{}> {}
 
 /** Tool Assistance Changed event class
  * @public
  */
-export class ToolAssistanceChangedEvent extends UiEvent<ToolAssistanceChangedEventArgs> {}
+export class ToolAssistanceChangedEvent extends BeUiEvent<ToolAssistanceChangedEventArgs> {}
 
 /**
  * Keeps track of the current activity message, and updates whenever

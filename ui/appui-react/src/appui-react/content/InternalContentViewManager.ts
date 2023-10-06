@@ -7,13 +7,12 @@
  */
 
 import type * as React from "react";
-import { UiEvent } from "@itwin/appui-abstract";
 import { ViewUtilities } from "../utils/ViewUtilities";
 import type { ContentControl } from "./ContentControl";
 import { InternalContentLayoutManager } from "./InternalContentLayoutManager";
 import { IModelApp } from "@itwin/core-frontend";
 import type { ContentGroup } from "./ContentGroup";
-import { Logger } from "@itwin/core-bentley";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework";
 import {
   ActiveContentChangedEvent,
@@ -48,7 +47,7 @@ export class InternalContentViewManager {
 
   /** Fires when floating contents are added or removed */
 
-  public static readonly onAvailableContentChangedEvent = new UiEvent<{
+  public static readonly onAvailableContentChangedEvent = new BeUiEvent<{
     contentId: string;
   }>();
 

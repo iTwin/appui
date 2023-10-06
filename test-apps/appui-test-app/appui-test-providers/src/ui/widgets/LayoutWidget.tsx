@@ -17,7 +17,6 @@ import {
   useActiveFrontstageDef,
   WidgetState,
 } from "@itwin/appui-react";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { NumberInput, Rectangle, RectangleProps } from "@itwin/core-react";
 import { Button, Input, Select, SelectOption } from "@itwin/itwinui-react";
 import {
@@ -473,11 +472,11 @@ function PanelControls({ location }: { location: StagePanelLocation }) {
         onBlur={handleSubmitValue}
         onKeyDown={(e) => {
           switch (e.key) {
-            case SpecialKey.Enter: {
+            case "Enter": {
               handleSubmitValue();
               break;
             }
-            case SpecialKey.Escape: {
+            case "Escape": {
               setSizeValue("");
               break;
             }

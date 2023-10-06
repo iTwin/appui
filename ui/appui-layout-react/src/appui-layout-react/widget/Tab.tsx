@@ -46,7 +46,7 @@ import { WidgetOverflowContext } from "./Overflow";
 import { useLayout, useLayoutStore } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { SpecialKey } from "../base/SpecialKey";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {

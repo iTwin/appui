@@ -4,13 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { UiError } from "@itwin/appui-abstract";
 import type {
   ActionCreatorsObject,
   ActionsUnion,
   NameToReducerMap,
 } from "../../appui-react";
-import { createAction, ReducerRegistryInstance } from "../../appui-react";
+import { createAction, ReducerRegistryInstance, UiError } from "../../appui-react";
 
 // Manages the state for extension
 interface ExtensionState {

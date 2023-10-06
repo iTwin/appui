@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import { IconSpecUtilities, UiError } from "@itwin/appui-abstract";
 import type { WebFontIconProps } from "@itwin/core-react";
 import { Icon, WebFontIcon } from "@itwin/core-react";
 import { UiComponents } from "../UiComponents";
@@ -17,6 +16,10 @@ import type {
   LoadedBinaryImage,
   LoadedImage,
 } from "./IImageLoader";
+import { UiError } from "./UIError";
+
+type WEB_COMPONENT_PREFIX = "webSvg:";
+type WebComponentIconSpec = `${WEB_COMPONENT_PREFIX}${string}`;
 
 /** A class that renders images from data provided by an image loader
  * @internal
@@ -80,7 +83,7 @@ export class ImageRenderer {
       ImageRenderer._svgCache.set(svg, svgAsDataUri);
     }
 
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgAsDataUri);
+    const iconSpec: WebComponentIconSpec = `webSvg:${svgAsDataUri}`;
     return (
       <div>
         <Icon iconSpec={iconSpec} />

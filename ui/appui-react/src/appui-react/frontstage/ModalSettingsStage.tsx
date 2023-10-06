@@ -8,10 +8,7 @@
 
 import "./ModalSettingsStage.scss";
 import * as React from "react";
-import {
-  ConditionalBooleanValue,
-  IconSpecUtilities,
-} from "@itwin/appui-abstract";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import settingsIconSvg from "@bentley/icons-generic/icons/settings.svg";
 import {
   IModelApp,
@@ -29,6 +26,7 @@ import { UiFramework } from "../UiFramework";
 import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { StageUsage } from "./StageUsage";
 import { BackstageItemUtilities } from "../backstage/BackstageItemUtilities";
+import { createWebComponentIconSpec } from "../utils/IconHelper";
 
 function ModalSettingsStage({
   initialSettingsTabId,
@@ -127,7 +125,7 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
         ),
       UiFramework.translate("settings.settingsStageLabel"),
       undefined,
-      IconSpecUtilities.createWebComponentIconSpec(settingsIconSvg),
+      createWebComponentIconSpec(settingsIconSvg),
       { isHidden: SettingsModalFrontstage.noSettingsAvailable() }
     );
   }

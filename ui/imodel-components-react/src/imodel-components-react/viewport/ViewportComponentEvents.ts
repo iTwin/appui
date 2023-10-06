@@ -6,6 +6,7 @@
  * @module Viewport
  */
 
+import { BeUiEvent } from "@itwin/core-bentley";
 import { Matrix3d, Point3d, Vector3d } from "@itwin/core-geometry";
 import type {
   SelectedViewportChangedArgs,
@@ -13,7 +14,6 @@ import type {
   Viewport,
 } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import { UiEvent } from "@itwin/appui-abstract";
 import { Face } from "../navigationaids/Cube";
 
 /** Arguments for [[DrawingViewportChangeEvent]]
@@ -28,7 +28,7 @@ export interface DrawingViewportChangeEventArgs {
 /** Drawing View Change event
  * @public
  */
-export class DrawingViewportChangeEvent extends UiEvent<DrawingViewportChangeEventArgs> {}
+export class DrawingViewportChangeEvent extends BeUiEvent<DrawingViewportChangeEventArgs> { }
 
 /** Arguments for [[CubeRotationChangeEvent]]
  * @public
@@ -42,7 +42,7 @@ export interface CubeRotationChangeEventArgs {
 /** 3d Cube Rotation Change event
  * @public
  */
-export class CubeRotationChangeEvent extends UiEvent<CubeRotationChangeEventArgs> {}
+export class CubeRotationChangeEvent extends BeUiEvent<CubeRotationChangeEventArgs> { }
 
 /** Arguments for [[StandardRotationChangeEvent]]
  * @public
@@ -54,7 +54,7 @@ export interface StandardRotationChangeEventArgs {
 /** Standard Rotation Change event
  * @public
  */
-export class StandardRotationChangeEvent extends UiEvent<StandardRotationChangeEventArgs> {}
+export class StandardRotationChangeEvent extends BeUiEvent<StandardRotationChangeEventArgs> { }
 
 /** Arguments for [[ViewRotationChangeEvent]]
  * @public
@@ -67,7 +67,7 @@ export interface ViewRotationChangeEventArgs {
 /** View Rotation Change event
  * @public
  */
-export class ViewRotationChangeEvent extends UiEvent<ViewRotationChangeEventArgs> {}
+export class ViewRotationChangeEvent extends BeUiEvent<ViewRotationChangeEventArgs> { }
 
 /** Arguments for [[ViewClassFullNameChangedEvent]]
  * @public
@@ -81,7 +81,7 @@ export interface ViewClassFullNameChangedEventArgs {
 /** View Class Full Name Change event
  * @public
  */
-export class ViewClassFullNameChangedEvent extends UiEvent<ViewClassFullNameChangedEventArgs> {}
+export class ViewClassFullNameChangedEvent extends BeUiEvent<ViewClassFullNameChangedEventArgs> { }
 
 /** Arguments for [[ViewIdChangedEvent]]
  * @public
@@ -95,7 +95,7 @@ export interface ViewIdChangedEventArgs {
 /** View Id Change event
  * @public
  */
-export class ViewIdChangedEvent extends UiEvent<ViewIdChangedEventArgs> {}
+export class ViewIdChangedEvent extends BeUiEvent<ViewIdChangedEventArgs> { }
 
 /** Viewport Rotation events and methods
  * @public

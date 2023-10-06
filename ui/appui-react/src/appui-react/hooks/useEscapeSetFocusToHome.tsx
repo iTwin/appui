@@ -7,8 +7,8 @@
  */
 
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
+import { SpecialKey } from "../keyboardKey/KeyboardKey";
 
 /** Keyboard Event handler to set focus to Home on Escape key
  * @internal

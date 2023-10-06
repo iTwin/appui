@@ -8,15 +8,15 @@
 
 import { CommandItemDef } from "../shared/CommandItemDef";
 import { UiFramework } from "../UiFramework";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import svgProgressBackwardCircular from "@bentley/icons-generic/icons/progress-backward.svg";
+import { createWebComponentIconSpec } from "../utils/IconHelper";
 
 /**
  * Nested Frontstage related classes and commands
  * @public
  */
 export class NestedFrontstage {
-  private static iconSpec = IconSpecUtilities.createWebComponentIconSpec(
+  private static iconSpec = createWebComponentIconSpec(
     svgProgressBackwardCircular
   );
   /** Command that returns to the previous Frontstage */

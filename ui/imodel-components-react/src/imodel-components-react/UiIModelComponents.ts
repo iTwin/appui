@@ -8,7 +8,6 @@
 
 import { Logger } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
-import { getClassName } from "@itwin/appui-abstract";
 import { UiComponents } from "@itwin/components-react";
 import { EmptyLocalization } from "@itwin/core-common";
 
@@ -92,9 +91,13 @@ export class UiIModelComponents {
 
   /** @internal */
   public static loggerCategory(obj: any): string {
-    const className = getClassName(obj);
+    const className = UiIModelComponents.getObjectClassName(obj);
     const category =
       UiIModelComponents.packageName + (className ? `.${className}` : "");
     return category;
+  }
+
+  private static getObjectClassName(obj: any): string {
+    return obj?.name ? obj.name : obj?.constructor?.name ? obj.constructor.name : "";
   }
 }

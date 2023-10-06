@@ -10,7 +10,7 @@ import {
   ItemKeyboardNavigator,
   Orientation,
 } from "../../core-react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { SpecialKey } from "../../core-react/utils/KeyboardKey";
 
 describe("ItemKeyboardNavigator", () => {
   describe("properties", () => {

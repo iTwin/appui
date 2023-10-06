@@ -6,7 +6,6 @@
  * @module Base
  */
 
-import { UiError } from "@itwin/appui-abstract";
 import produce from "immer";
 import type {
   HorizontalPanelSide,
@@ -18,6 +17,7 @@ import { category } from "./internal/NineZoneStateHelpers";
 import { addWidgetState } from "./internal/WidgetStateHelpers";
 import type { NineZoneState } from "./NineZoneState";
 import type { WidgetState } from "./WidgetState";
+import { UiError } from "../base/UiError";
 
 /** @internal */
 export type PanelMaxSizeState = number | { readonly percentage: number };

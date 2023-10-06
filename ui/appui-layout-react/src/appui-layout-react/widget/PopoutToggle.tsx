@@ -13,16 +13,18 @@ import * as React from "react";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import popoutToggleSvg from "./window-popout.svg";
 import { Icon } from "@itwin/core-react";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import { useActiveTabId } from "./Widget";
+
+type WEB_COMPONENT_PREFIX = "webSvg:";
+type WebComponentIconSpec = `${WEB_COMPONENT_PREFIX}${string}`;
 
 /** @internal */
 export function PopoutToggle() {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const activeTabId = useActiveTabId();
-  const iconSpec =
-    IconSpecUtilities.createWebComponentIconSpec(popoutToggleSvg);
+  const iconSpec: WebComponentIconSpec = `webSvg:${popoutToggleSvg}`;
   const popoutTitle = useLabel("popoutActiveTab");
+
   return (
     <button
       className="nz-widget-popoutToggle"

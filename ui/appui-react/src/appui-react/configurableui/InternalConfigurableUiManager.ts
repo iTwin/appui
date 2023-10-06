@@ -6,7 +6,6 @@
  * @module ConfigurableUi
  */
 
-import { UiError } from "@itwin/appui-abstract";
 import { CubeNavigationAidControl } from "../navigationaids/CubeNavigationAidControl";
 import { DrawingNavigationAidControl } from "../navigationaids/DrawingNavigationAidControl";
 import { SheetNavigationAidControl } from "../navigationaids/SheetNavigationAid";
@@ -28,6 +27,7 @@ import { InternalContentDialogManager } from "../dialog/InternalContentDialogMan
 import { InternalKeyboardShortcutManager } from "../keyboardshortcut/InternalKeyboardShortcut";
 import { InternalModalDialogManager } from "../dialog/InternalModalDialogManager";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
+import { UiError } from "../utils/UIError";
 
 /** Ui Activity Event Args interface.
  * @internal

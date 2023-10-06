@@ -6,8 +6,8 @@
  * @module State
  */
 
-import { UiError } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
+import { UiError } from "../utils/UIError";
 
 /** NameToReducerMap used by Reducer Registry
  * @public

@@ -8,8 +8,9 @@ import * as React from "react";
 import sinon from "sinon";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import TestUtils, { childStructure, userEvent } from "../TestUtils";
-import { SpecialKey, StandardEditorNames } from "@itwin/appui-abstract";
+import { StandardEditorNames } from "@itwin/appui-abstract";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { SpecialKey } from "../../components-react/common/KeyboardKey";
 
 describe("<EditorContainer />", () => {
   before(async () => {

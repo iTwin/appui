@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import {
+  createWebComponentIconSpec,
   StageUsage,
   StatusBarItem,
   StatusBarItemUtilities,
@@ -92,8 +92,7 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
     _stageId: string,
     stageUsage: string
   ): StatusBarItem[] {
-    const unitsIcon =
-      IconSpecUtilities.createWebComponentIconSpec(statusFieldSvg);
+    const unitsIcon = createWebComponentIconSpec(statusFieldSvg);
     const statusBarItems: StatusBarItem[] = [];
     if (stageUsage === StageUsage.General) {
       statusBarItems.push(

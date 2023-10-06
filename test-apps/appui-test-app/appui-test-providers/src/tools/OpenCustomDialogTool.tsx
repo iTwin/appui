@@ -11,12 +11,11 @@ import { IModelApp, Tool } from "@itwin/core-frontend";
 import { SampleModalDialog } from "../ui/dialogs/SampleModalDialog";
 import {
   ConditionalBooleanValue,
-  IconSpecUtilities,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import { AppUiTestProviders } from "../AppUiTestProviders";
 import connectedQuerySvg from "../ui/icons/connected-query.svg";
-import { UiFramework } from "@itwin/appui-react";
+import { createWebComponentIconSpec, UiFramework } from "@itwin/appui-react";
 
 /**
  * Immediate tool that will open an example modal dialog.The tool is created and register to allow the user
@@ -63,9 +62,7 @@ export class OpenCustomDialogTool extends Tool {
       groupPriority,
       isHidden,
     };
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
-      `${this.iconSpec}`
-    );
+    const iconSpec = createWebComponentIconSpec(`${this.iconSpec}`);
     return ToolbarItemUtilities.createActionButton(
       OpenCustomDialogTool.toolId,
       itemPriority,

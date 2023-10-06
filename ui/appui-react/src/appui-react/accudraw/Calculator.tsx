@@ -10,8 +10,7 @@ import "./Calculator.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { OnCancelFunc, OnNumberCommitFunc } from "@itwin/appui-abstract";
-import { IconSpecUtilities, SpecialKey } from "@itwin/appui-abstract";
-import type { CommonProps, Omit } from "@itwin/core-react";
+import { type CommonProps, type Omit } from "@itwin/core-react";
 import { Icon, IconInput } from "@itwin/core-react";
 import { Button, Input } from "@itwin/itwinui-react";
 import { CalculatorEngine, CalculatorOperator } from "./CalculatorEngine";
@@ -20,6 +19,8 @@ import { SquareButton } from "./SquareButton";
 import { SvgCheckmark, SvgRemove } from "@itwin/itwinui-icons-react";
 
 import backspaceIcon from "./backspace.svg";
+import { createWebComponentIconSpec } from "../utils/IconHelper";
+import { SpecialKey } from "../keyboardKey/KeyboardKey";
 
 // cSpell:ignore plusmn
 
@@ -257,8 +258,7 @@ interface CalculatorKeyPadProps extends CommonProps {
 
 class CalculatorKeyPad extends React.PureComponent<CalculatorKeyPadProps> {
   public override render() {
-    const iconSpec =
-      IconSpecUtilities.createWebComponentIconSpec(backspaceIcon);
+    const iconSpec = createWebComponentIconSpec(backspaceIcon);
 
     return (
       <div className={classnames("uifw-calculator-button-grid")}>

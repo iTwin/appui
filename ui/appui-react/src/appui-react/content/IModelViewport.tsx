@@ -23,9 +23,9 @@ import { UiFramework } from "../UiFramework";
 import { DefaultViewOverlay } from "./DefaultViewOverlay";
 import { ViewportContentControl } from "./ViewportContentControl";
 import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid";
-import { UiError } from "@itwin/appui-abstract";
 import { useSelector } from "react-redux";
 import type { FrameworkState } from "../redux/FrameworkState";
+import { UiError } from "../utils/UIError";
 
 /** Viewport that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
  * @public

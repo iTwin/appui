@@ -5,7 +5,7 @@
 /** @packageDocumentation
  * @module Frontstage
  */
-import { UiEvent } from "@itwin/appui-abstract";
+import { BeUiEvent } from "@itwin/core-bentley";
 import type { IModelConnection, Tool } from "@itwin/core-frontend";
 import type { ToolInformation } from "../toolsettings/ToolInformation";
 import type { TimeTracker } from "../configurableui/TimeTracker";
@@ -32,7 +32,7 @@ export interface FrontstageActivatedEventArgs {
 /** Frontstage Activated Event class.
  * @public
  */
-export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> {}
+export class FrontstageActivatedEvent extends BeUiEvent<FrontstageActivatedEventArgs> {}
 
 /** Frontstage Deactivated Event Args interface.
  * @public
@@ -54,7 +54,7 @@ export interface FrontstageDeactivatedEventArgs {
 /** Frontstage Deactivated Event class.
  * @public
  */
-export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> {}
+export class FrontstageDeactivatedEvent extends BeUiEvent<FrontstageDeactivatedEventArgs> {}
 
 /** Frontstage Ready Event Args interface.
  * @public
@@ -66,7 +66,7 @@ export interface FrontstageReadyEventArgs {
 /** Frontstage Ready Event class.
  * @public
  */
-export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> {}
+export class FrontstageReadyEvent extends BeUiEvent<FrontstageReadyEventArgs> {}
 
 /** Modal Frontstage Changed Event Args interface.
  * @public
@@ -78,7 +78,7 @@ export interface ModalFrontstageChangedEventArgs {
 /** Modal Frontstage Stack Changed Event class.
  * @public
  */
-export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> {}
+export class ModalFrontstageChangedEvent extends BeUiEvent<ModalFrontstageChangedEventArgs> {}
 
 /** Modal Frontstage Closed Event Args interface.
  * @public
@@ -102,7 +102,7 @@ export interface ModalFrontstageClosedEventArgs {
  * any unsaved data.
  * @alpha
  */
-export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> {}
+export class ModalFrontstageRequestedCloseEvent extends BeUiEvent<ModalFrontstageRequestedCloseEventArgs> {}
 
 /** Modal Frontstage RequestedClose Event Args interface.
  * @alpha
@@ -117,7 +117,7 @@ export interface ModalFrontstageRequestedCloseEventArgs {
 /** Modal Frontstage Closed Event class.
  * @public
  */
-export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> {}
+export class ModalFrontstageClosedEvent extends BeUiEvent<ModalFrontstageClosedEventArgs> {}
 
 /** Tool Activated Event Args interface.
  * @public
@@ -129,7 +129,7 @@ export interface ToolActivatedEventArgs {
 /** Tool Activated Event class.
  * @public
  */
-export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> {}
+export class ToolActivatedEvent extends BeUiEvent<ToolActivatedEventArgs> {}
 
 /** Tool Icon Changed Event Args interface.
  * @public
@@ -141,7 +141,7 @@ export interface ToolIconChangedEventArgs {
 /** Tool Icon Changed Event class.
  * @public
  */
-export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {}
+export class ToolIconChangedEvent extends BeUiEvent<ToolIconChangedEventArgs> {}
 
 /** Modal Frontstage information interface.
  * @public
@@ -196,7 +196,7 @@ export interface FrameworkFrontstages {
   readonly onToolActivatedEvent: ToolActivatedEvent;
 
   /** Get ToolSetting Reload event. */
-  readonly onToolSettingsReloadEvent: UiEvent<void>;
+  readonly onToolSettingsReloadEvent: BeUiEvent<void>;
 
   /** Get Tool Icon Changed event. */
   readonly onToolIconChangedEvent: ToolIconChangedEvent;
@@ -221,7 +221,7 @@ export interface FrameworkFrontstages {
   /** Get panel pinned changed event.
    * @alpha
    */
-  readonly onPanelPinnedChangedEvent: UiEvent<PanelPinnedChangedEventArgs>;
+  readonly onPanelPinnedChangedEvent: BeUiEvent<PanelPinnedChangedEventArgs>;
 
   /** Clears the Frontstage map.
    */

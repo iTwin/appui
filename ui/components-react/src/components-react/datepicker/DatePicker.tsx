@@ -8,12 +8,12 @@
 
 import * as React from "react";
 import classnames from "classnames";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { UiComponents } from "../UiComponents";
 import { Icon } from "@itwin/core-react";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 
 import "./DatePicker.scss";
+import { SpecialKey } from "../common/KeyboardKey";
 
 function isSameDay(a: Date, b: Date) {
   return (

@@ -17,13 +17,13 @@ import {
   ViewClipDecoration,
   ViewClipDecorationProvider,
 } from "@itwin/core-frontend";
-import type { CommonProps } from "@itwin/core-react";
+import { type CommonProps } from "@itwin/core-react";
 import { Button, ToggleSwitch } from "@itwin/itwinui-react";
 import { useActiveViewport } from "../hooks/useActiveViewport";
 import { UiFramework } from "../UiFramework";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
+import { createWebComponentIconSpec } from "../utils/IconHelper";
 
 /** Sections Status Field Props
  * @beta
@@ -104,7 +104,7 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
     );
     setPopupOpen(false);
   };
-  const iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgSectionTool);
+  const iconSpec = createWebComponentIconSpec(svgSectionTool);
 
   return (
     <div className="uifw-section-footer-popup-container">

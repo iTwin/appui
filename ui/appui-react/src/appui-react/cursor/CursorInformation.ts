@@ -7,8 +7,9 @@
  */
 
 import type { XAndY } from "@itwin/core-geometry";
-import { RelativePosition, UiEvent } from "@itwin/appui-abstract";
+import { RelativePosition } from "@itwin/appui-abstract";
 import { Point } from "@itwin/core-react";
+import { BeUiEvent } from "@itwin/core-bentley";
 
 /** Enum for Cursor Direction parts
  *  @public
@@ -47,7 +48,7 @@ export interface CursorUpdatedEventArgs {
 /** Cursor Updated Event class.
  * @public
  */
-export class CursorUpdatedEvent extends UiEvent<CursorUpdatedEventArgs> {}
+export class CursorUpdatedEvent extends BeUiEvent<CursorUpdatedEventArgs> {}
 
 /** Cursor Information class
  * @public

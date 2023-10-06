@@ -8,10 +8,9 @@
 
 import * as React from "react";
 import type { Id64String } from "@itwin/core-bentley";
-import { Logger } from "@itwin/core-bentley";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { FuzzySearch, IModelApp } from "@itwin/core-frontend";
-import { IconSpecUtilities, UiEvent } from "@itwin/appui-abstract";
 import type { SupportsViewSelectorChange } from "../content/ContentControl";
 import { connectIModelConnection } from "../redux/connectIModel";
 import { UiFramework } from "../UiFramework";
@@ -20,6 +19,7 @@ import type { ListItem } from "./ListPicker";
 import { ListItemType, ListPicker } from "./ListPicker";
 import { debounce } from "lodash";
 import svgSavedView from "@bentley/icons-generic/icons/saved-view.svg";
+import { createWebComponentIconSpec } from "../utils/IconHelper";
 
 // cSpell:ignore Spatials
 
@@ -36,7 +36,7 @@ export interface ViewSelectorChangedEventArgs {
 /** ViewSelector Changed Event class.
  * @beta
  */
-export class ViewSelectorChangedEvent extends UiEvent<ViewSelectorChangedEventArgs> {}
+export class ViewSelectorChangedEvent extends BeUiEvent<ViewSelectorChangedEventArgs> {}
 
 /** Properties for the [[ViewSelector]] component
  * @beta
@@ -88,7 +88,7 @@ interface ViewSelectorShowUpdateEventArgs {
 
 /** ViewSelector Show Update Event class.
  */
-class ViewSelectorShowUpdateEvent extends UiEvent<ViewSelectorShowUpdateEventArgs> {}
+class ViewSelectorShowUpdateEvent extends BeUiEvent<ViewSelectorShowUpdateEventArgs> {}
 
 /** View Selector React component
  * @beta
@@ -443,7 +443,7 @@ export class ViewSelector extends React.Component<
    *  Renders ViewSelector component
    */
   public override render() {
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgSavedView);
+    const iconSpec = createWebComponentIconSpec(svgSavedView);
 
     const { imodel, ...props } = this.props;
 

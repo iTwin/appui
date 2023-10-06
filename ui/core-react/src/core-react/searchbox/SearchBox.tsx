@@ -11,10 +11,10 @@ import classnames from "classnames";
 import * as React from "react";
 import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { Input } from "@itwin/itwinui-react";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
+import { SpecialKey } from "../utils/KeyboardKey";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
 
 /** Properties for [[SearchBox]] component

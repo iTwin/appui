@@ -11,11 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
 import { OutputMessagePriority } from "@itwin/core-frontend";
-import {
-  MessageSeverity,
-  RelativePosition,
-  UiEvent,
-} from "@itwin/appui-abstract";
+import { MessageSeverity, RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps, SizeProps } from "@itwin/core-react";
 import { Icon, MessageContainer, Point, Rectangle } from "@itwin/core-react";
 import {
@@ -28,6 +24,7 @@ import type {
   NotifyMessageDetailsType,
   NotifyMessageType,
 } from "./ReactNotifyMessageDetails";
+import { BeUiEvent } from "@itwin/core-bentley";
 
 // cSpell:ignore noicon
 
@@ -67,7 +64,7 @@ export interface PointerMessageChangedEventArgs {
 /** Pointer Message Changed Event emitted by the [[PointerMessage]] component
  * @public
  */
-export class PointerMessageChangedEvent extends UiEvent<PointerMessageChangedEventArgs> {}
+export class PointerMessageChangedEvent extends BeUiEvent<PointerMessageChangedEventArgs> {}
 
 /** [[PointerMessagePositionChangedEvent]] arguments.
  * @internal
@@ -80,7 +77,7 @@ interface PointerMessagePositionChangedEventArgs {
 /** Pointer Message Position Changed Event emitted by the [[PointerMessage]] component
  * @internal
  */
-class PointerMessagePositionChangedEvent extends UiEvent<PointerMessagePositionChangedEventArgs> {}
+class PointerMessagePositionChangedEvent extends BeUiEvent<PointerMessagePositionChangedEventArgs> {}
 
 /** Pointer message pops up near pointer when attempting an invalid interaction.
  * @public

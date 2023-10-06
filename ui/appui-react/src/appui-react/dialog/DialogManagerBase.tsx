@@ -7,8 +7,7 @@
  */
 
 import * as React from "react";
-import { Logger } from "@itwin/core-bentley";
-import { UiEvent } from "@itwin/appui-abstract";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework";
 import { getCssVariableAsNumber } from "@itwin/core-react";
 
@@ -23,7 +22,7 @@ export interface DialogChangedEventArgs {
 /** Dialog Changed Event class.
  * @public
  */
-export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> {}
+export class DialogChangedEvent extends BeUiEvent<DialogChangedEventArgs> {}
 
 /** Information maintained by a Dialog Manager about a dialog
  * @public

@@ -9,10 +9,7 @@
 import "./IconComponent.scss";
 import * as React from "react";
 import classnames from "classnames";
-import {
-  ConditionalStringValue,
-  IconSpecUtilities,
-} from "@itwin/appui-abstract";
+import { ConditionalStringValue } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
 import { ConditionalIconItem } from "./ConditionalIconItem";
@@ -36,6 +33,17 @@ export interface IconProps extends CommonProps {
   iconSpec?: IconSpec;
 }
 
+const WEB_COMPONENT_PREFIX = "webSvg:";
+
+/** Get the SVG Source from an svg-loader IconSpec */
+function getWebComponentSource(iconSpec: string): string | undefined {
+  if (iconSpec.startsWith(WEB_COMPONENT_PREFIX) && iconSpec.length > 7) {
+    return iconSpec.slice(7);
+  }
+
+  return undefined;
+}
+
 /** Icon Functional component displays an icon based on an [[IconSpec]].
  * @public
  */
@@ -49,8 +57,7 @@ export function Icon(props: IconProps) {
       : undefined;
 
   if (iconString) {
-    const webComponentString =
-      IconSpecUtilities.getWebComponentSource(iconString);
+    const webComponentString = getWebComponentSource(iconString);
     if (webComponentString) {
       const svgLoader = `<svg-loader src="${webComponentString}"></svg-loader>`;
       const svgDiv = `<div>${svgLoader}</div>`;

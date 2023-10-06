@@ -7,8 +7,8 @@
  */
 
 import { ToolAdmin } from "@itwin/core-frontend";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
+import { SpecialKey } from "../keyboardKey/KeyboardKey";
 
 /** UiFramework implementation of ToolAdmin
  * @alpha

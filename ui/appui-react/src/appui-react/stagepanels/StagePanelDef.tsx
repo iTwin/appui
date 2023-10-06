@@ -8,8 +8,8 @@
 
 import type { Draft } from "immer";
 import produce from "immer";
-import { UiEvent } from "@itwin/appui-abstract";
 import type { NineZoneState, PanelSide } from "@itwin/appui-layout-react";
+import { BeUiEvent } from "@itwin/core-bentley";
 import { WidgetDef } from "../widgets/WidgetDef";
 import { WidgetHost } from "../widgets/WidgetHost";
 import type {
@@ -42,7 +42,7 @@ export interface PanelStateChangedEventArgs {
 /** Panel state changed event class.
  * @beta
  */
-export class PanelStateChangedEvent extends UiEvent<PanelStateChangedEventArgs> {}
+export class PanelStateChangedEvent extends BeUiEvent<PanelStateChangedEventArgs> {}
 
 /** @internal */
 export interface PanelSizeChangedEventArgs {
@@ -51,7 +51,7 @@ export interface PanelSizeChangedEventArgs {
 }
 
 /** @internal */
-export class PanelSizeChangedEvent extends UiEvent<PanelSizeChangedEventArgs> {}
+export class PanelSizeChangedEvent extends BeUiEvent<PanelSizeChangedEventArgs> {}
 
 /** Panel pinned changed event args interface.
  * @public

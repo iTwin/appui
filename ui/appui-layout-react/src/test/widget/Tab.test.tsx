@@ -23,7 +23,7 @@ import {
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { SpecialKey } from "../../appui-layout-react/base/SpecialKey";
 
 describe("WidgetTab", () => {
   it("should render active", () => {

@@ -9,11 +9,11 @@
 // cSpell:ignore configurableui clientservices
 
 import type { Store } from "redux";
-import { Logger, ProcessDetector } from "@itwin/core-bentley";
+import { BeUiEvent, Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
-import { getClassName, UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
+import { UiAdmin } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
 import { UiIModelComponents } from "@itwin/imodel-components-react";
@@ -63,6 +63,7 @@ import {
   SyncUiEventDispatcher,
   SyncUiEventId,
 } from "./syncui/SyncUiEventDispatcher";
+import { UiError } from "./utils/UIError";
 
 // cSpell:ignore Mobi
 
@@ -86,7 +87,7 @@ export interface UiVisibilityEventArgs {
 /** UiVisibility Event class.
  * @public
  */
-export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {}
+export class UiVisibilityChangedEvent extends BeUiEvent<UiVisibilityEventArgs> { }
 
 /** TrackingTime time argument used by our feature tracking manager as an option argument to the TelemetryClient
  * @internal
@@ -428,10 +429,14 @@ export class UiFramework {
 
   /** @internal */
   public static loggerCategory(obj: any): string {
-    const className = getClassName(obj);
+    const className = UiFramework.getObjectClassName(obj);
     const category =
       UiFramework.packageName + (className ? `.${className}` : "");
     return category;
+  }
+
+  private static getObjectClassName(obj: any): string {
+    return obj?.name ? obj.name : obj?.constructor?.name ? obj.constructor.name : "";
   }
 
   public static dispatchActionToStore(
@@ -475,7 +480,7 @@ export class UiFramework {
       if (-1 !== foundIndex) {
         const scope =
           UiFramework.frameworkState.sessionState.availableSelectionScopes[
-            foundIndex
+          foundIndex
           ];
         UiFramework.dispatchActionToStore(
           SessionStateActionId.SetSelectionScope,
@@ -653,7 +658,7 @@ export class UiFramework {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.availableSelectionScopes
       : /* istanbul ignore next */
-        [{ id: "element", label: "Element" } as PresentationSelectionScope];
+      [{ id: "element", label: "Element" } as PresentationSelectionScope];
   }
 
   public static getIsUiVisible() {
@@ -761,7 +766,7 @@ export class UiFramework {
   public static get useToolAsToolSettingsLabel(): boolean {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState
-          .useToolAsToolSettingsLabel
+        .useToolAsToolSettingsLabel
       : /* istanbul ignore next */ false;
   }
   public static setUseToolAsToolSettingsLabel(value: boolean) {
@@ -779,7 +784,7 @@ export class UiFramework {
   public static get autoCollapseUnpinnedPanels(): boolean {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState
-          .autoCollapseUnpinnedPanels
+        .autoCollapseUnpinnedPanels
       : /* istanbul ignore next */ false;
   }
 

@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { SpecialKey } from "../inputs/SpecialKey";
 
 /** Properties for the [[AlphaSlider]] React component
  * @public

@@ -12,7 +12,6 @@ import type {
   ConditionalStringValue,
   StringGetter,
 } from "@itwin/appui-abstract";
-import { UiError, UiEvent } from "@itwin/appui-abstract";
 import type { XAndY } from "@itwin/core-geometry";
 import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 import {
@@ -28,6 +27,8 @@ import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
+import { BeUiEvent } from "@itwin/core-bentley";
+import { UiError } from "../utils/UIError";
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -40,7 +41,7 @@ export interface WidgetStateChangedEventArgs {
 /** Widget State Changed Event class.
  * @public
  */
-export class WidgetStateChangedEvent extends UiEvent<WidgetStateChangedEventArgs> {}
+export class WidgetStateChangedEvent extends BeUiEvent<WidgetStateChangedEventArgs> {}
 
 /** @internal */
 export interface WidgetChangedEventArgs {

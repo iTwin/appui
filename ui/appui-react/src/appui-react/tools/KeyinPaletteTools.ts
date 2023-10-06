@@ -9,7 +9,7 @@
 import { clearKeyinPaletteHistory } from "../popup/KeyinPalettePanel";
 import { Tool } from "@itwin/core-frontend";
 import svgRemove from "@bentley/icons-generic/icons/remove.svg";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
+import { createWebComponentIconSpec } from "../utils/IconHelper";
 
 /**
  * Immediate tool that will clear the recent history of command/tool keyins shown in
@@ -19,7 +19,7 @@ import { IconSpecUtilities } from "@itwin/appui-abstract";
 export class ClearKeyinPaletteHistoryTool extends Tool {
   public static override toolId = "ClearKeyinPaletteHistory";
   public static override iconSpec =
-    IconSpecUtilities.createWebComponentIconSpec(svgRemove);
+    createWebComponentIconSpec(svgRemove);
 
   // istanbul ignore next
   public static override get minArgs() {

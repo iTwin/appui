@@ -12,7 +12,6 @@ import * as React from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type { XAndY } from "@itwin/core-geometry";
-import { UiError } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Rectangle, Size } from "@itwin/core-react";
 import type {
@@ -52,6 +51,7 @@ import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { WidgetState } from "../widgets/WidgetState";
 import { InternalFrontstageManager } from "./InternalFrontstageManager";
 import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager";
+import { UiError } from "../utils/UIError";
 
 /** @internal */
 export interface FrontstageEventArgs {

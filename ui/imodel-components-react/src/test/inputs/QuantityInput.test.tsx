@@ -8,8 +8,8 @@ import * as React from "react";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import { QuantityInput } from "../../imodel-components-react/inputs/QuantityInput";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { TestUtils } from "../TestUtils";
+import { SpecialKey } from "../../imodel-components-react/inputs/SpecialKey";
 
 describe("QuantityInput", () => {
   const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(

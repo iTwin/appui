@@ -6,7 +6,7 @@
  * @module ToolSettings
  */
 import type { DialogItem, DialogPropertySyncItem } from "@itwin/appui-abstract";
-import { UiEvent } from "@itwin/appui-abstract";
+import { BeUiEvent } from "@itwin/core-bentley";
 import type { InteractiveTool } from "@itwin/core-frontend";
 
 /** Sync Tool Settings Properties Event Args interface.
@@ -20,7 +20,7 @@ export interface SyncToolSettingsPropertiesEventArgs {
 /** Sync Tool Settings Properties Event class.
  * @public
  */
-export class SyncToolSettingsPropertiesEvent extends UiEvent<SyncToolSettingsPropertiesEventArgs> {}
+export class SyncToolSettingsPropertiesEvent extends BeUiEvent<SyncToolSettingsPropertiesEventArgs> {}
 
 /**
  * [[UiFramework.toolSettings]] interface
@@ -58,7 +58,7 @@ export interface FrameworkToolSettings {
 
   /** Get ToolSettings Properties sync event. */
   readonly onSyncToolSettingsProperties: SyncToolSettingsPropertiesEvent;
-  readonly onReloadToolSettingsProperties: UiEvent<void>;
+  readonly onReloadToolSettingsProperties: BeUiEvent<void>;
 
   /** Gets the Id of the active tool. If a tool is not active, blank is returned.
    * @return  Id of the active tool, or blank if one is not active.
