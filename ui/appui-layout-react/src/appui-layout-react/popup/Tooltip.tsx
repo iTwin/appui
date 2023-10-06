@@ -9,9 +9,9 @@
 import "./Tooltip.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { PointProps } from "@itwin/appui-abstract";
 import type { CommonProps, RectangleProps, SizeProps } from "@itwin/core-react";
 import { Point, Rectangle, Size } from "@itwin/core-react";
+import type { XAndY } from "../state/internal/NineZoneStateHelpers";
 
 /** Properties of [[Tooltip]] component.
  * @internal
@@ -24,7 +24,7 @@ export interface TooltipProps extends CommonProps {
   /** Function called when the bounds of the tooltip changes. */
   onSizeChanged?: (size: SizeProps) => void;
   /** Position of the tooltip. */
-  position: PointProps;
+  position: XAndY;
 }
 
 /** Default properties of [[Tooltip]] component.
@@ -95,7 +95,7 @@ export class Tooltip extends React.PureComponent<TooltipProps> {
 export const offsetAndContainInContainer = (
   tooltipBounds: RectangleProps,
   containerSize: SizeProps,
-  offset: PointProps = new Point(20, 20)
+  offset: XAndY = new Point(20, 20)
 ): Point => {
   let newBounds = Rectangle.create(tooltipBounds).offset(offset);
   const containerBounds = Rectangle.createFromSize(containerSize);

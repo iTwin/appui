@@ -11,7 +11,7 @@
 import * as React from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import type { PointProps } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import { UiError } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Rectangle, Size } from "@itwin/core-react";
@@ -720,10 +720,7 @@ export class FrontstageDef {
       if (!location) return WidgetState.Hidden;
 
       if (isFloatingTabLocation(location)) {
-        const floatingWidget =
-          state.floatingWidgets.byId[location.floatingWidgetId];
-        if (floatingWidget && floatingWidget.hidden) return WidgetState.Hidden;
-        else return WidgetState.Floating;
+        return WidgetState.Floating;
       }
 
       let collapsedPanel = false;
@@ -771,11 +768,7 @@ export class FrontstageDef {
    * the previous size is used, else {height:400, width:400} is used.
    * @beta
    */
-  public floatWidget(
-    widgetId: string,
-    position?: PointProps,
-    size?: SizeProps
-  ) {
+  public floatWidget(widgetId: string, position?: XAndY, size?: SizeProps) {
     const state = this.nineZoneState;
     if (!state) return;
     const widgetDef = this.findWidgetDef(widgetId);
@@ -793,38 +786,21 @@ export class FrontstageDef {
    * @param widgetId case-sensitive Widget Id
    * @public
    */
-  public isWidgetDisplayed(widgetId: string) {
-    let widgetIsVisible = false;
-    // istanbul ignore else
-    if (this.nineZoneState) {
-      const tabLocation = getTabLocation(this.nineZoneState, widgetId);
-      // istanbul ignore else
-      if (tabLocation) {
-        if (isFloatingTabLocation(tabLocation)) {
-          const floatingWidget =
-            this.nineZoneState.floatingWidgets.byId[
-              tabLocation.floatingWidgetId
-            ];
-          // istanbul ignore else
-          if (!!!floatingWidget.hidden) widgetIsVisible = true;
-        } else if (isPopoutTabLocation(tabLocation)) {
-          widgetIsVisible = true;
-        } else {
-          // istanbul ignore else
-          if (isPanelTabLocation(tabLocation)) {
-            const panel = this.nineZoneState.panels[tabLocation.side];
-            const widgetDef = this.findWidgetDef(widgetId);
-            if (
-              widgetDef &&
-              widgetDef.state === WidgetState.Open &&
-              !panel.collapsed
-            )
-              widgetIsVisible = true;
-          }
-        }
-      }
+  public isWidgetDisplayed(widgetId: string): boolean {
+    if (!this.nineZoneState) return false;
+
+    const tabLocation = getTabLocation(this.nineZoneState, widgetId);
+    if (!tabLocation) return false;
+
+    if (isPanelTabLocation(tabLocation)) {
+      const panel = this.nineZoneState.panels[tabLocation.side];
+      const widgetDef = this.findWidgetDef(widgetId);
+      const isVisible =
+        !!widgetDef && widgetDef.state === WidgetState.Open && !panel.collapsed;
+      return isVisible;
     }
-    return widgetIsVisible;
+
+    return true;
   }
 
   /** Opens window for specified PopoutWidget container. Used to reopen popout when running in Electron.
@@ -878,11 +854,7 @@ export class FrontstageDef {
    * the previous size is used, else {height:800, width:600} is used.
    * @beta
    */
-  public popoutWidget(
-    widgetId: string,
-    position?: PointProps,
-    size?: SizeProps
-  ) {
+  public popoutWidget(widgetId: string, position?: XAndY, size?: SizeProps) {
     const state = this.nineZoneState;
     if (!state) return;
     const widgetDef = this.findWidgetDef(widgetId);

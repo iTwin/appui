@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import type { UiSyncEventArgs } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { GlobalContextMenu } from "@itwin/core-react"; // ContextSubMenu,
 import { SessionStateActionId } from "../../redux/SessionState";
@@ -16,6 +15,7 @@ import { MenuItemHelpers } from "../../shared/MenuItem";
 import { SyncUiEventDispatcher } from "../../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../../UiFramework";
 import { Logger } from "@itwin/core-bentley";
+import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
 
 /** State for [[CursorPopupMenu]] component
  * @alpha

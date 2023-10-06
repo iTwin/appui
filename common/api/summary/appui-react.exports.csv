@@ -437,7 +437,7 @@ public;StandardStatusbarItemsProvider
 beta;StandardStatusbarUiItemsProvider 
 public;StateManager
 public;StateType
-internal;stateVersion = 15
+internal;stateVersion = 16
 public;StatusBar 
 public;StatusBar
 public;StatusBarActionItem 
@@ -530,6 +530,8 @@ beta;UiSettingsPage(): JSX.Element
 public;UiSettingsProviderProps
 internal;UiStateStorageContext: React_2.Context
 public;UiStateStorageHandler(props: UiSettingsProviderProps): JSX.Element
+public;UiSyncEvent 
+public;UiSyncEventArgs
 public;UiVisibilityChangedEvent 
 public;UiVisibilityEventArgs
 alpha;UnitSystemSelector(props: UnitSystemSelectorProps): JSX.Element

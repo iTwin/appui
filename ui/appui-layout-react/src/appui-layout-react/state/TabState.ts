@@ -6,8 +6,7 @@
  * @module Base
  */
 
-import produce from "immer";
-import type { PointProps } from "@itwin/appui-abstract";
+import produce, { castDraft } from "immer";
 import { UiError } from "@itwin/appui-abstract";
 import { type IconSpec, Rectangle, type SizeProps } from "@itwin/core-react";
 import type { PanelSide } from "../widget-panels/Panel";
@@ -18,7 +17,7 @@ import {
   type WidgetState,
 } from "./WidgetState";
 import { getTabLocation } from "./TabLocation";
-import { category } from "./internal/NineZoneStateHelpers";
+import { category, type XAndY } from "./internal/NineZoneStateHelpers";
 import { createTabState } from "./internal/TabStateHelpers";
 import {
   assertWidgetState,
@@ -43,10 +42,10 @@ export interface TabState {
   readonly iconSpec?: IconSpec;
   readonly preferredFloatingWidgetSize?: SizeProps;
   readonly preferredPanelWidgetSize?: "fit-content";
-  readonly allowedPanelTargets?: PanelSide[];
+  readonly allowedPanelTargets?: ReadonlyArray<PanelSide>;
   readonly canPopout?: boolean;
   readonly userSized?: boolean;
-  readonly isFloatingStateWindowResizable?: boolean;
+  readonly isFloatingWidgetResizable?: boolean;
   readonly hideWithUiWhenFloating?: boolean;
 }
 
@@ -58,7 +57,7 @@ export interface TabsState {
 /** @internal */
 export interface DraggedTabState {
   readonly tabId: TabState["id"];
-  readonly position: PointProps;
+  readonly position: XAndY;
   readonly home: FloatingWidgetHomeState;
 }
 
@@ -76,7 +75,7 @@ export function addTab(
     ...tabArgs,
   };
   return produce(state, (stateDraft) => {
-    stateDraft.tabs[id] = tab;
+    stateDraft.tabs[id] = castDraft(tab);
   });
 }
 

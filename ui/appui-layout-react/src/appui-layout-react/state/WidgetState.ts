@@ -28,7 +28,6 @@ export interface WidgetState {
   readonly id: string;
   readonly minimized: boolean;
   readonly tabs: ReadonlyArray<TabState["id"]>;
-  readonly isFloatingStateWindowResizable?: boolean;
 }
 
 /** @internal */
@@ -45,11 +44,11 @@ export interface FloatingWidgetHomeState {
 
 /** @internal */
 export interface FloatingWidgetState {
-  readonly bounds: RectangleProps;
   readonly id: WidgetState["id"];
+  readonly bounds: RectangleProps;
   readonly home: FloatingWidgetHomeState;
   readonly userSized?: boolean;
-  readonly hidden?: boolean;
+  readonly resizable?: boolean;
 }
 
 /** @internal */
@@ -85,14 +84,20 @@ export function addFloatingWidget(
 
   state = addWidgetState(state, id, tabs, widgetArgs);
 
-  if (!floatingWidgetArgs?.bounds) {
-    const bounds = getNewFloatingWidgetBounds(state);
-    floatingWidgetArgs = {
-      ...floatingWidgetArgs,
-      bounds,
-    };
+  let bounds = floatingWidgetArgs?.bounds;
+  if (!bounds) {
+    bounds = getNewFloatingWidgetBounds(state);
   }
-  const floatingWidget = createFloatingWidgetState(id, floatingWidgetArgs);
+
+  const tabId = tabs[0];
+  const tab = state.tabs[tabId];
+  const resizable = tab.isFloatingWidgetResizable;
+
+  const floatingWidget = createFloatingWidgetState(id, {
+    bounds,
+    resizable,
+    ...floatingWidgetArgs,
+  });
   return produce(state, (stateDraft) => {
     stateDraft.floatingWidgets.byId[id] = floatingWidget;
     stateDraft.floatingWidgets.allIds.push(id);

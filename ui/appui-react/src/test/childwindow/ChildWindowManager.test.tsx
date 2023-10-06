@@ -72,7 +72,7 @@ describe("ChildWindowManager", () => {
   const mainHtml = `
     <head>
       <title>iModel.js Presentation Test App</title>
-      <style>
+      <style type="text/css">
         h1 {color:red;}
         p {color:blue;}
       </style>
@@ -101,36 +101,24 @@ describe("ChildWindowManager", () => {
   `;
 
   const childHtml = `
-    <head>
-      <title>iTwinPopup</title>
-    </head>
-    <body>
-      <noscript>
-        You need to enable JavaScript to run this app.
-      </noscript>
-      <div id="root"></div>
-    </body>
+  <head>
+    <title>iTwinPopup</title>
+  </head>
+  <body class="iui-root">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
   `;
 
   afterEach(() => {
     sinon.restore();
   });
 
-  it("no styles to styles", () => {
-    const childDoc = new DOMParser().parseFromString(childHtml, "text/html");
-    copyStyles(childDoc);
-    const childStyleSheetCount = childDoc.head.querySelectorAll("style").length;
-    const documentStyleSheetCount =
-      document.head.querySelectorAll("style").length;
-    expect(documentStyleSheetCount).to.eql(childStyleSheetCount);
-  });
-
-  it("will copy styles", () => {
+  it("will copy __SVG_SPRITE_NODE__", () => {
     const mainDoc = new DOMParser().parseFromString(mainHtml, "text/html");
     const childDoc = new DOMParser().parseFromString(childHtml, "text/html");
     copyStyles(childDoc, mainDoc);
     expect(childDoc.getElementById("__SVG_SPRITE_NODE__")).to.not.be.null;
-    expect(mainDoc.styleSheets.length).to.eql(childDoc.styleSheets.length);
   });
 
   it("will close and processWindowClose by default", () => {

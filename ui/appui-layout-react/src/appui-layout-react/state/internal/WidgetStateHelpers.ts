@@ -125,7 +125,6 @@ export function createFloatingWidgetState(
   id: FloatingWidgetState["id"],
   args?: Partial<FloatingWidgetState>
 ): FloatingWidgetState {
-  // istanbul ignore next
   const bounds = toRectangleProps(args?.bounds);
   return {
     home: {
@@ -133,7 +132,6 @@ export function createFloatingWidgetState(
       widgetId: undefined,
       widgetIndex: 0,
     },
-    hidden: false,
     ...args,
     bounds,
     id,
