@@ -55,7 +55,7 @@ export interface UiItemsProvider {
   readonly getWidgets?: () => ReadonlyArray<Widget>;
 
   /** Provides toolbar items.
-   * @note Use `getToolbarItems` of `UiItemsProvider` and define a `location` property instead.
+   * @note Use `getToolbarItems` and define a `layouts` property instead.
    */
   readonly provideToolbarItems?: (
     stageId: string,
@@ -75,7 +75,7 @@ export interface UiItemsProvider {
    */
   readonly provideBackstageItems?: () => ReadonlyArray<BackstageItem>;
   /** Provides widgets.
-   * @note Use `getWidgets` of `UiItemsProvider` and define a location property instead.
+   * @note Use `getWidgets` and define a `layouts` property instead.
    */
   readonly provideWidgets?: (
     stageId: string,

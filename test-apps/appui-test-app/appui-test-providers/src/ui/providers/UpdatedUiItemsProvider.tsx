@@ -63,7 +63,7 @@ export const updatedUiItemsProvider: UiItemsProvider = {
         id: `${id}:widget`,
         label: "Updated widget",
         content: <div />,
-        location: {
+        layouts: {
           panels: {
             location: StagePanelLocation.Right,
             section: StagePanelSection.End,

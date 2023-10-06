@@ -786,7 +786,7 @@ describe("UiItemsManager", () => {
               "",
               () => undefined,
               {
-                location: {
+                layouts: {
                   panels: {
                     usage: ToolbarUsage.ContentManipulation,
                     orientation: ToolbarOrientation.Horizontal,
@@ -1009,7 +1009,7 @@ describe("UiItemsManager", () => {
           return [
             {
               id: "item1",
-              location: {
+              layout: {
                 panels: {
                   location: StagePanelLocation.Bottom,
                   section: StagePanelSection.End,

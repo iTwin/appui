@@ -862,7 +862,7 @@ export interface CommonToolbarItem {
     readonly isHidden?: boolean | ConditionalBooleanValue;
     readonly itemPriority: number;
     // @alpha
-    readonly location?: ToolbarItemLocation;
+    readonly layouts?: ToolbarItemLayouts;
 }
 
 // @public
@@ -3317,6 +3317,18 @@ export interface PanelSizeChangedEventArgs {
     size: number | undefined;
 }
 
+// @alpha
+export interface PanelsLayoutToolbarItem {
+    readonly orientation: ToolbarOrientation;
+    readonly usage: ToolbarUsage;
+}
+
+// @alpha
+export interface PanelsLayoutWidget {
+    readonly location: StagePanelLocation;
+    readonly section: StagePanelSection;
+}
+
 // @beta
 export class PanelStateChangedEvent extends UiEvent<PanelStateChangedEventArgs> {
 }
@@ -3327,18 +3339,6 @@ export interface PanelStateChangedEventArgs {
     panelDef: StagePanelDef;
     // (undocumented)
     panelState: StagePanelState;
-}
-
-// @alpha
-export interface PanelsToolbarItemLocation {
-    readonly orientation: ToolbarOrientation;
-    readonly usage: ToolbarUsage;
-}
-
-// @alpha
-export interface PanelsWidgetLocation {
-    readonly location: StagePanelLocation;
-    readonly section: StagePanelSection;
 }
 
 // @public
@@ -4583,9 +4583,9 @@ export class ToolbarHelper {
 export type ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomItem;
 
 // @alpha
-export interface ToolbarItemLocation {
+export interface ToolbarItemLayouts {
     readonly [layoutId: string]: Object | undefined;
-    readonly panels?: PanelsToolbarItemLocation;
+    readonly panels?: PanelsLayoutToolbarItem;
 }
 
 // @beta
@@ -5298,7 +5298,7 @@ export interface Widget {
     // (undocumented)
     readonly label?: string | ConditionalStringValue;
     // @alpha
-    readonly location?: WidgetLocation;
+    readonly layouts?: WidgetLayouts;
     // (undocumented)
     readonly priority?: number;
     // (undocumented)
@@ -5464,9 +5464,9 @@ export interface WidgetInfo {
 }
 
 // @alpha
-export interface WidgetLocation {
+export interface WidgetLayouts {
     readonly [layoutId: string]: Object | undefined;
-    readonly panels?: PanelsWidgetLocation;
+    readonly panels?: PanelsLayoutWidget;
 }
 
 // @beta

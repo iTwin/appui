@@ -245,7 +245,7 @@ export class UiItemsManager {
         ? provider
             .getToolbarItems()
             .filter((item) => {
-              const itemLocation = item.location?.panels ?? {
+              const itemLocation = item.layouts?.panels ?? {
                 orientation: ToolbarOrientation.Horizontal,
                 usage: ToolbarUsage.ContentManipulation,
               };
@@ -407,7 +407,7 @@ export class UiItemsManager {
         ? provider
             .getWidgets()
             .filter((item) => {
-              const itemLocation = item.location?.panels ?? {
+              const itemLocation = item.layouts?.panels ?? {
                 location: StagePanelLocation.Left,
                 section: StagePanelSection.Start,
               };

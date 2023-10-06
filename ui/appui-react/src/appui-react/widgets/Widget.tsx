@@ -48,26 +48,26 @@ export interface Widget {
   readonly label?: string | ConditionalStringValue;
   readonly priority?: number;
   readonly tooltip?: string | ConditionalStringValue;
-  /** Describes a location based on which the widget is added to the layout.
+  /** Describes layout specific configurations of a widget.
    * @alpha
    */
-  readonly location?: WidgetLocation;
+  readonly layouts?: WidgetLayouts;
 }
 
-/** Describes widget locations specific for each layout.
+/** Describes widget configuration specific for each layout.
  * @alpha
  */
-export interface WidgetLocation {
-  /** Widget location in a panel layout. */
-  readonly panels?: PanelsWidgetLocation;
-  /** Describes a location for a custom layout. */
+export interface WidgetLayouts {
+  /** Widget configuration in a panels layout. */
+  readonly panels?: PanelsLayoutWidget;
+  /** Widget configuration in a custom layout. */
   readonly [layoutId: string]: Object | undefined;
 }
 
-/** Describes widget location in a panel layout.
+/** Describes widget configuration specific to a panels layout.
  * @alpha
  */
-export interface PanelsWidgetLocation {
+export interface PanelsLayoutWidget {
   /** Describes to which panel the widget is added. */
   readonly location: StagePanelLocation;
   /** Describes to which section of a panel the widget is added. */

@@ -341,10 +341,10 @@ internal;packNineZoneState(state: NineZoneState): SavedNineZoneState
 public;PanelPinnedChangedEventArgs
 internal;PanelSizeChangedEvent 
 internal;PanelSizeChangedEventArgs
+alpha;PanelsLayoutToolbarItem
+alpha;PanelsLayoutWidget
 beta;PanelStateChangedEvent 
 public;PanelStateChangedEventArgs
-alpha;PanelsToolbarItemLocation
-alpha;PanelsWidgetLocation
 public;PointerMessage 
 public;PointerMessageChangedEvent 
 public;PointerMessageChangedEventArgs
@@ -491,7 +491,7 @@ beta;ToolbarDragInteractionContext: React_2.Context
 public;ToolbarGroupItem 
 public;ToolbarHelper
 public;ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomItem
-alpha;ToolbarItemLocation
+alpha;ToolbarItemLayouts
 beta;ToolbarItemUtilities
 public;ToolbarOrientation
 beta;ToolbarPopup 
@@ -603,7 +603,7 @@ public;WidgetDef
 internal;WidgetEventArgs
 public;WidgetHost
 internal;WidgetInfo
-alpha;WidgetLocation
+alpha;WidgetLayouts
 beta;WidgetManager
 public;WidgetPanelProps = Omit
 internal;WidgetPanelsFrontstage(): JSX.Element | null
