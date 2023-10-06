@@ -261,8 +261,6 @@ public;isBackstageStageLauncher(item: BackstageItem): item is BackstageStageLaun
 internal;isFrontstageStateSettingResult(settingsResult: UiStateStorageResult): settingsResult is
 beta;isNoSelectionActive(): boolean
 internal;isPanelCollapsed(panelState: StagePanelState | undefined): boolean
-alpha;isPanelsToolbarItem(item: ToolbarItem): item is PanelsToolbarItem
-alpha;isPanelsWidget(widget: Widget): widget is PanelsWidget
 internal;isReactContent: (content: PopupContentType) => content is ReactContent
 internal;isReactNotifyMessageDetails: (details: any) => details is ReactNotifyMessageDetails
 public;isStatusBarActionItem(item: StatusBarItem): item is StatusBarActionItem
@@ -345,9 +343,8 @@ internal;PanelSizeChangedEvent
 internal;PanelSizeChangedEventArgs
 beta;PanelStateChangedEvent 
 public;PanelStateChangedEventArgs
-alpha;PanelsToolbarItem = ToolbarItem &
-alpha;PanelsUiItemsProvider 
-alpha;PanelsWidget 
+alpha;PanelsToolbarItemLocation
+alpha;PanelsWidgetLocation
 public;PointerMessage 
 public;PointerMessageChangedEvent 
 public;PointerMessageChangedEventArgs
@@ -494,6 +491,7 @@ beta;ToolbarDragInteractionContext: React_2.Context
 public;ToolbarGroupItem 
 public;ToolbarHelper
 public;ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomItem
+alpha;ToolbarItemLocation
 beta;ToolbarItemUtilities
 public;ToolbarOrientation
 beta;ToolbarPopup 
@@ -605,6 +603,7 @@ public;WidgetDef
 internal;WidgetEventArgs
 public;WidgetHost
 internal;WidgetInfo
+alpha;WidgetLocation
 beta;WidgetManager
 public;WidgetPanelProps = Omit
 internal;WidgetPanelsFrontstage(): JSX.Element | null

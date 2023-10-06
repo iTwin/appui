@@ -13,13 +13,12 @@ import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection";
 import type { StatusBarItem } from "../statusbar/StatusBarItem";
 import {
-  isPanelsToolbarItem,
   type ToolbarItem,
   type ToolbarOrientation,
   type ToolbarUsage,
 } from "../toolbar/ToolbarItem";
 import { UiFramework } from "../UiFramework";
-import { isPanelsWidget, type Widget } from "../widgets/Widget";
+import type { Widget } from "../widgets/Widget";
 import type { ProviderItem } from "./ProviderItem";
 import type { UiItemsProvider } from "./UiItemsProvider";
 import { createAbstractUiItemsManagerAdapter } from "./AbstractUiItemsManager";
@@ -249,9 +248,10 @@ export class UiItemsManager {
         ? provider
             .getToolbarItems()
             .filter((item) => {
-              if (!isPanelsToolbarItem(item)) return false;
-              if (item.orientation !== orientation) return false;
-              if (item.usage !== usage) return false;
+              const itemLocation = item.location?.panels;
+              if (!itemLocation) return false;
+              if (itemLocation.orientation !== orientation) return false;
+              if (itemLocation.usage !== usage) return false;
               return true;
             })
             .map((item) => ({ ...item, providerId: provider.id }))
@@ -408,9 +408,10 @@ export class UiItemsManager {
         ? provider
             .getWidgets()
             .filter((item) => {
-              if (!isPanelsWidget(item)) return false;
-              if (item.location !== location) return false;
-              if (item.section !== section) return false;
+              const itemLocation = item.location?.panels;
+              if (!itemLocation) return false;
+              if (itemLocation.location !== location) return false;
+              if (itemLocation.section !== section) return false;
               return true;
             })
             .map((item) => ({ ...item, providerId: provider.id }))

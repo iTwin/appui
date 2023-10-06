@@ -11,12 +11,11 @@ import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection";
 import type { StatusBarItem } from "../statusbar/StatusBarItem";
 import type {
-  PanelsToolbarItem,
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
 } from "../toolbar/ToolbarItem";
-import type { PanelsWidget, Widget } from "../widgets/Widget";
+import type { Widget } from "../widgets/Widget";
 
 /** Describes interface of objects that want to provide UI component to the running IModelApp.
  * @public
@@ -56,7 +55,7 @@ export interface UiItemsProvider {
   readonly getWidgets?: () => ReadonlyArray<Widget>;
 
   /** Provides toolbar items.
-   * @note Use `getToolbarItems` of `PanelsUiItemsProvider` instead.
+   * @note Use `getToolbarItems` of `UiItemsProvider` and define a `location` property instead.
    */
   readonly provideToolbarItems?: (
     stageId: string,
@@ -76,7 +75,7 @@ export interface UiItemsProvider {
    */
   readonly provideBackstageItems?: () => ReadonlyArray<BackstageItem>;
   /** Provides widgets.
-   * @note Use `getWidgets` of `PanelsUiItemsProvider` instead.
+   * @note Use `getWidgets` of `UiItemsProvider` and define a location property instead.
    */
   readonly provideWidgets?: (
     stageId: string,
@@ -86,14 +85,4 @@ export interface UiItemsProvider {
   ) => ReadonlyArray<Widget>;
   /** Function called when the provider is unregistered. Allows provider to do a cleanup. */
   readonly onUnregister?: () => void;
-}
-
-/** `UiItemsProvider` to provide UI items to panels layout.
- * @alpha
- */
-export interface PanelsUiItemsProvider extends UiItemsProvider {
-  /** Provides toolbar items. */
-  readonly getToolbarItems?: () => ReadonlyArray<PanelsToolbarItem>;
-  /** Provides widgets. */
-  readonly getWidgets?: () => ReadonlyArray<PanelsWidget>;
 }

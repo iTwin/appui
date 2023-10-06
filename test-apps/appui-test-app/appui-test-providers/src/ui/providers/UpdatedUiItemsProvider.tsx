@@ -5,7 +5,6 @@
 import * as React from "react";
 import {
   BackstageItemUtilities,
-  PanelsUiItemsProvider,
   StagePanelLocation,
   StagePanelSection,
   StatusBarItemUtilities,
@@ -64,9 +63,13 @@ export const updatedUiItemsProvider: UiItemsProvider = {
         id: `${id}:widget`,
         label: "Updated widget",
         content: <div />,
-        location: StagePanelLocation.Right,
-        section: StagePanelSection.End,
+        location: {
+          panels: {
+            location: StagePanelLocation.Right,
+            section: StagePanelSection.End,
+          },
+        },
       },
     ];
   },
-} satisfies PanelsUiItemsProvider;
+} satisfies UiItemsProvider;

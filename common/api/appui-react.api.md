@@ -861,6 +861,8 @@ export interface CommonToolbarItem {
     readonly isDisabled?: boolean | ConditionalBooleanValue;
     readonly isHidden?: boolean | ConditionalBooleanValue;
     readonly itemPriority: number;
+    // @alpha
+    readonly location?: ToolbarItemLocation;
 }
 
 // @public
@@ -2666,12 +2668,6 @@ export function isNoSelectionActive(): boolean;
 // @internal (undocumented)
 export function isPanelCollapsed(panelState: StagePanelState | undefined): boolean;
 
-// @alpha
-export function isPanelsToolbarItem(item: ToolbarItem): item is PanelsToolbarItem;
-
-// @alpha
-export function isPanelsWidget(widget: Widget): widget is PanelsWidget;
-
 // @internal
 export const isReactContent: (content: PopupContentType) => content is ReactContent;
 
@@ -3334,19 +3330,13 @@ export interface PanelStateChangedEventArgs {
 }
 
 // @alpha
-export type PanelsToolbarItem = ToolbarItem & {
-    readonly usage: ToolbarUsage;
+export interface PanelsToolbarItemLocation {
     readonly orientation: ToolbarOrientation;
-};
-
-// @alpha
-export interface PanelsUiItemsProvider extends UiItemsProvider {
-    readonly getToolbarItems?: () => ReadonlyArray<PanelsToolbarItem>;
-    readonly getWidgets?: () => ReadonlyArray<PanelsWidget>;
+    readonly usage: ToolbarUsage;
 }
 
 // @alpha
-export interface PanelsWidget extends Widget {
+export interface PanelsWidgetLocation {
     readonly location: StagePanelLocation;
     readonly section: StagePanelSection;
 }
@@ -4592,6 +4582,12 @@ export class ToolbarHelper {
 // @public
 export type ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomItem;
 
+// @alpha
+export interface ToolbarItemLocation {
+    readonly [layoutId: string]: Object | undefined;
+    readonly panels?: PanelsToolbarItemLocation;
+}
+
 // @beta
 export namespace ToolbarItemUtilities {
     export function createActionItem(id: ToolbarActionItem["id"], itemPriority: ToolbarActionItem["itemPriority"], icon: ToolbarActionItem["icon"], label: ToolbarActionItem["label"], execute: ToolbarActionItem["execute"], overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
@@ -5301,6 +5297,8 @@ export interface Widget {
     readonly id: string;
     // (undocumented)
     readonly label?: string | ConditionalStringValue;
+    // @alpha
+    readonly location?: WidgetLocation;
     // (undocumented)
     readonly priority?: number;
     // (undocumented)
@@ -5463,6 +5461,12 @@ export interface WidgetInfo {
     stageUsage?: string;
     // (undocumented)
     widgetDef: WidgetDef;
+}
+
+// @alpha
+export interface WidgetLocation {
+    readonly [layoutId: string]: Object | undefined;
+    readonly panels?: PanelsWidgetLocation;
 }
 
 // @beta

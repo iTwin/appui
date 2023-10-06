@@ -10,7 +10,7 @@ import { expect } from "chai";
 import * as abstract from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
 import { IconHelper } from "@itwin/core-react";
-import type { PanelsUiItemsProvider, UiItemsProvider } from "../../appui-react";
+import type { UiItemsProvider } from "../../appui-react";
 import {
   BackstageItemUtilities,
   StagePanelLocation,
@@ -773,26 +773,30 @@ describe("UiItemsManager", () => {
     });
   });
 
-  describe("PanelsUiItemsProvider", () => {
+  describe("UiItemsProvider v2", () => {
     describe("toolbar items", () => {
       const provider = {
         id: "provider1",
         getToolbarItems: () => {
           return [
-            {
-              ...ToolbarItemUtilities.createActionItem(
-                "item1",
-                0,
-                "",
-                "",
-                () => undefined
-              ),
-              usage: ToolbarUsage.ContentManipulation,
-              orientation: ToolbarOrientation.Horizontal,
-            },
+            ToolbarItemUtilities.createActionItem(
+              "item1",
+              0,
+              "",
+              "",
+              () => undefined,
+              {
+                location: {
+                  panels: {
+                    usage: ToolbarUsage.ContentManipulation,
+                    orientation: ToolbarOrientation.Horizontal,
+                  },
+                },
+              }
+            ),
           ];
         },
-      } satisfies PanelsUiItemsProvider;
+      } satisfies UiItemsProvider;
 
       it("should provide", () => {
         UiItemsManager.register(provider);
@@ -807,7 +811,7 @@ describe("UiItemsManager", () => {
         ).lengthOf(1);
       });
 
-      it("should not provide if item is not a `PanelsToolbarItem`", () => {
+      it("should not provide if item does not define a panels location", () => {
         UiItemsManager.register({
           id: "provider1",
           getToolbarItems: () => [
@@ -908,7 +912,7 @@ describe("UiItemsManager", () => {
             ),
           ];
         },
-      } satisfies PanelsUiItemsProvider;
+      } satisfies UiItemsProvider;
 
       it("should provide", () => {
         UiItemsManager.register(provider);
@@ -961,7 +965,7 @@ describe("UiItemsManager", () => {
             ),
           ];
         },
-      } satisfies PanelsUiItemsProvider;
+      } satisfies UiItemsProvider;
 
       it("should provide", () => {
         UiItemsManager.register(provider);
@@ -1005,12 +1009,16 @@ describe("UiItemsManager", () => {
           return [
             {
               id: "item1",
-              location: StagePanelLocation.Bottom,
-              section: StagePanelSection.End,
+              location: {
+                panels: {
+                  location: StagePanelLocation.Bottom,
+                  section: StagePanelSection.End,
+                },
+              },
             },
           ];
         },
-      } satisfies PanelsUiItemsProvider;
+      } satisfies UiItemsProvider;
 
       it("should provide", () => {
         UiItemsManager.register(provider);
@@ -1025,7 +1033,7 @@ describe("UiItemsManager", () => {
         ).lengthOf(1);
       });
 
-      it("should not provide if widget is not a `PanelsWidget`", () => {
+      it("should not provide if widget does not define a panels location", () => {
         UiItemsManager.register({
           id: "provider1",
           getWidgets: () => [
