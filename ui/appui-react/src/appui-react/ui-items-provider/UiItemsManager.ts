@@ -9,14 +9,11 @@
 import type { MarkRequired } from "@itwin/core-bentley";
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { BackstageItem } from "../backstage/BackstageItem";
-import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import type { StagePanelSection } from "../stagepanels/StagePanelSection";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
+import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import type { StatusBarItem } from "../statusbar/StatusBarItem";
-import {
-  type ToolbarItem,
-  type ToolbarOrientation,
-  type ToolbarUsage,
-} from "../toolbar/ToolbarItem";
+import type { ToolbarItem } from "../toolbar/ToolbarItem";
+import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { UiFramework } from "../UiFramework";
 import type { Widget } from "../widgets/Widget";
 import type { ProviderItem } from "./ProviderItem";
@@ -248,8 +245,10 @@ export class UiItemsManager {
         ? provider
             .getToolbarItems()
             .filter((item) => {
-              const itemLocation = item.location?.panels;
-              if (!itemLocation) return false;
+              const itemLocation = item.location?.panels ?? {
+                orientation: ToolbarOrientation.Horizontal,
+                usage: ToolbarUsage.ContentManipulation,
+              };
               if (itemLocation.orientation !== orientation) return false;
               if (itemLocation.usage !== usage) return false;
               return true;
@@ -408,8 +407,10 @@ export class UiItemsManager {
         ? provider
             .getWidgets()
             .filter((item) => {
-              const itemLocation = item.location?.panels;
-              if (!itemLocation) return false;
+              const itemLocation = item.location?.panels ?? {
+                location: StagePanelLocation.Left,
+                section: StagePanelSection.Start,
+              };
               if (itemLocation.location !== location) return false;
               if (itemLocation.section !== section) return false;
               return true;
