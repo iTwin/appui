@@ -20,6 +20,7 @@ importers:
       '@itwin/core-quantity': 4.0.0-dev.104
       '@itwin/core-react': workspace:*
       '@itwin/itwinui-icons-react': ^2.1.0
+      '@itwin/itwinui-react': ^2.11.11
       '@originjs/vite-plugin-commonjs': ~1.0.3
       '@storybook/addon-essentials': ^7.0.20
       '@storybook/addon-interactions': ^7.0.20
@@ -62,6 +63,7 @@ importers:
       '@itwin/core-quantity': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
       '@itwin/core-react': link:../../ui/core-react
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-react': 2.11.11_react-dom@17.0.2+react@17.0.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2

@@ -26,6 +26,7 @@
     "@itwin/core-react": "workspace:*",
     "@itwin/components-react": "workspace:*",
     "@itwin/itwinui-icons-react": "^2.1.0",
+    "@itwin/itwinui-react": "^2.11.11",
     "@itwin/appui-abstract": "^3.7.0",
     "@itwin/core-frontend": "^3.7.0",
     "react": "^17.0.0",
