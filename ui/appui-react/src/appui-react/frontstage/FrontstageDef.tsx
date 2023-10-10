@@ -10,8 +10,13 @@
 
 import * as React from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
-import { IModelApp } from "@itwin/core-frontend";
 import type { XAndY } from "@itwin/core-geometry";
+import {
+  IModelApp,
+  NotifyMessageDetails,
+  OutputMessagePriority,
+  OutputMessageType,
+} from "@itwin/core-frontend";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Rectangle, Size } from "@itwin/core-react";
 import type {
@@ -274,8 +279,11 @@ export class FrontstageDef {
     }
 
     for (const popoutId of popoutsToOpen) {
-      this.openPopoutWidgetContainer(popoutId);
+      const result = this.openPopoutWidgetContainer(popoutId, oldState);
+      if (!result) return result;
     }
+
+    return true;
   }
 
   /** @internal */
@@ -287,13 +295,24 @@ export class FrontstageDef {
 
     const oldState = this._nineZoneState;
     this._nineZoneState = state;
-    this.handlePopouts(oldState);
+    const popoutResult = this.handlePopouts(oldState);
     if (oldState) {
       this.triggerStateChangeEvents(oldState);
     }
 
     const isClosing = this._isStageClosing || this._isApplicationClosing;
     if (isClosing && !this.isReady) return;
+    if (popoutResult === false) {
+      IModelApp.notifications.outputMessage(
+        new NotifyMessageDetails(
+          OutputMessagePriority.Error,
+          "Widget Failed To Popout",
+          undefined,
+          OutputMessageType.Toast
+        )
+      );
+      return;
+    }
     InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.emit({
       frontstageDef: this,
       state,
@@ -806,21 +825,24 @@ export class FrontstageDef {
   /** Opens window for specified PopoutWidget container. Used to reopen popout when running in Electron.
    * @internal
    */
-  public openPopoutWidgetContainer(widgetContainerId: string) {
+  public openPopoutWidgetContainer(
+    widgetContainerId: string,
+    oldState: NineZoneState | undefined
+  ): boolean {
     const state = this.nineZoneState;
-    if (!state) return;
+    if (!state) return false;
 
     const location = getWidgetLocation(state, widgetContainerId);
-    if (!location) return;
-    if (!isPopoutWidgetLocation(location)) return;
+    if (!location) return false;
+    if (!isPopoutWidgetLocation(location)) return false;
 
     const widget = state.widgets[widgetContainerId];
     // Popout widget should only contain a single tab.
-    if (widget.tabs.length !== 1) return;
+    if (widget.tabs.length !== 1) return false;
 
     const tabId = widget.tabs[0];
     const widgetDef = this.findWidgetDef(tabId);
-    if (!widgetDef) return;
+    if (!widgetDef) return false;
 
     const popoutContent = (
       <PopoutWidget
@@ -837,13 +859,21 @@ export class FrontstageDef {
       left: bounds.left,
       top: bounds.top,
     };
-    UiFramework.childWindows.open(
+
+    const result = UiFramework.childWindows.open(
       widgetContainerId,
       widgetDef.label,
       popoutContent,
       position,
       UiFramework.useDefaultPopoutUrl
     );
+
+    if (!result && oldState) {
+      this.nineZoneState = oldState;
+      return false;
+    }
+
+    return true;
   }
 
   /** Create a new popout/child window that contains the widget specified by its Id. Supported only when in
