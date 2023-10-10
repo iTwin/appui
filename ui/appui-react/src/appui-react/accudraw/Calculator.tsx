@@ -19,7 +19,7 @@ import { SquareButton } from "./SquareButton";
 import { SvgCheckmark, SvgRemove } from "@itwin/itwinui-icons-react";
 
 import backspaceIcon from "./backspace.svg";
-import { createWebComponentIconSpec } from "../utils/IconHelper";
+import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 import { SpecialKey } from "../keyboardKey/KeyboardKey";
 
 // cSpell:ignore plusmn

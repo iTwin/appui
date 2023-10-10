@@ -71,7 +71,7 @@ import { SvgClose, SvgPin } from "@itwin/itwinui-icons-react";
 import {
   createWebComponentIconSpec,
   getWebComponentSource,
-} from "../../utils/IconHelper";
+} from "../../utils/IconSpecUtilities";
 
 // cSpell:ignore cursorprompt
 

@@ -8,7 +8,7 @@
 import { Tool } from "@itwin/core-frontend";
 import { SettingsModalFrontstage } from "../frontstage/ModalSettingsStage";
 import svgSettings from "@bentley/icons-generic/icons/settings.svg";
-import { createWebComponentIconSpec } from "../utils/IconHelper";
+import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /**
  * Immediate tool that will open the Settings modal stage.

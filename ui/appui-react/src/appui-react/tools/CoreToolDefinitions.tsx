@@ -47,7 +47,7 @@ import svgRotateLeft from "@bentley/icons-generic/icons/rotate-left.svg";
 import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
 import svgSelectionClear from "@bentley/icons-generic/icons/selection-clear.svg";
 import { SvgMeasure, SvgProcess } from "@itwin/itwinui-icons-react";
-import { createWebComponentIconSpec } from "../utils/IconHelper";
+import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /** Utility Class that provides definitions of tools provided by the ($core-frontend) core. These definitions can be used to populate the UI.
  * @public

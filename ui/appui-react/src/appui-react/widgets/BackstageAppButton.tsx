@@ -12,7 +12,7 @@ import type { IconSpec } from "@itwin/core-react";
 import { Icon, useWidgetOpacityContext } from "@itwin/core-react";
 import { AppButton } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
-import { createWebComponentIconSpec } from "../utils/IconHelper";
+import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /**
  * Properties for the [[BackstageAppButton]] React component

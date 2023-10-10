@@ -9,7 +9,7 @@
 import { clearKeyinPaletteHistory } from "../popup/KeyinPalettePanel";
 import { Tool } from "@itwin/core-frontend";
 import svgRemove from "@bentley/icons-generic/icons/remove.svg";
-import { createWebComponentIconSpec } from "../utils/IconHelper";
+import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /**
  * Immediate tool that will clear the recent history of command/tool keyins shown in

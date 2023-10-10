@@ -25,7 +25,7 @@ import svgAssetClassificationHide from "@bentley/icons-generic/icons/asset-class
 import svgVisibilitySemiTransparent from "@bentley/icons-generic/icons/visibility-semi-transparent.svg";
 import svgVisibilityHide from "@bentley/icons-generic/icons/visibility-hide_2.svg";
 import svgVisibility from "@bentley/icons-generic/icons/visibility.svg";
-import { createWebComponentIconSpec } from "../utils/IconHelper";
+import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /** return SyncEventIds that trigger selection state function refresh.
  * @beta

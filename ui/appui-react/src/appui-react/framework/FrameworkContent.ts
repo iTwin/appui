@@ -12,7 +12,7 @@ import type { ContentControl } from "../content/ContentControl";
 import type { ContentGroup, ContentGroupProps } from "../content/ContentGroup";
 import type { ContentLayoutDef } from "../content/ContentLayout";
 import { DialogChangedEvent } from "../dialog/DialogManagerBase";
-import type { FrameworkStackedDialog } from "./FrameworkDialogs";\
+import type { FrameworkStackedDialog } from "./FrameworkDialogs";
 
 /** [[MouseDownChangedEvent]] Args interface.
  * @public

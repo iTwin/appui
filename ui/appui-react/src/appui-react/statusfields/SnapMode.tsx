@@ -20,7 +20,7 @@ import snapModeNearest from "@bentley/icons-generic/icons/snaps-nearest.svg";
 import snapModeOrigin from "@bentley/icons-generic/icons/snaps-origin.svg";
 import snapModeMidpoint from "@bentley/icons-generic/icons/snaps-midpoint.svg";
 import snapModeBisector from "@bentley/icons-generic/icons/snaps-bisector.svg";
-import { createWebComponentIconSpec } from "../utils/IconHelper";
+import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 // cSpell:ignore multione
 

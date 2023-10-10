@@ -31,7 +31,7 @@ import type { AccuDrawUiSettings } from "./AccuDrawUiSettings";
 import angleIconSvg from "./angle.svg";
 import distanceIconSvg from "./distance.svg";
 import { UiFramework } from "../UiFramework";
-import { createWebComponentIconSpec } from "../utils/IconHelper";
+import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /** Properties for [[AccuDrawFieldContainer]] component
  * @beta */

@@ -35,7 +35,7 @@ import svgCubeFacesFront from "@bentley/icons-generic/icons/cube-faces/front.svg
 import svgCubeFacesRear from "@bentley/icons-generic/icons/cube-faces/rear.svg";
 import svgCubeFacesIsoLeft from "@bentley/icons-generic/icons/cube-faces/iso-left.svg";
 import svgCubeFacesIsoRight from "@bentley/icons-generic/icons/cube-faces/iso-right.svg";
-import { createWebComponentIconSpec } from "../utils/IconHelper";
+import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /** A 3D Standard Rotation Navigation Aid control.
  * @alpha

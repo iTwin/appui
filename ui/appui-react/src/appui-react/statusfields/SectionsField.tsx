@@ -23,7 +23,7 @@ import { useActiveViewport } from "../hooks/useActiveViewport";
 import { UiFramework } from "../UiFramework";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
-import { createWebComponentIconSpec } from "../utils/IconHelper";
+import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /** Sections Status Field Props
  * @beta

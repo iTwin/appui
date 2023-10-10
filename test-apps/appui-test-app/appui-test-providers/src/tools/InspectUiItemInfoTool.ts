@@ -17,7 +17,7 @@ import {
 
 import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import inspectIconSvg from "@bentley/icons-generic/icons/search.svg";
-import { createWebComponentIconSpec } from "@itwin/appui-react/lib/cjs/appui-react/utils/IconHelper";
+import { createWebComponentIconSpec } from "@itwin/appui-react";
 
 export class InspectUiItemInfoTool extends PrimitiveTool {
   private _timerId: number | undefined;

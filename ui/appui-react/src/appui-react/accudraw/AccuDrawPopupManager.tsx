@@ -24,7 +24,7 @@ import { MenuButtonPopup } from "./MenuButtonPopup";
 import angleIcon from "./angle.svg";
 import lengthIcon from "./distance.svg";
 import heightIcon from "./height-2.svg";
-import { createWebComponentIconSpec } from "../utils/IconHelper";
+import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /** AccuDraw Popup Manager class
  * @alpha

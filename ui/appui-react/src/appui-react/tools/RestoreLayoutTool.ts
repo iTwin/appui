@@ -15,7 +15,7 @@ import type { FrontstageDef } from "../frontstage/FrontstageDef";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { UiFramework } from "../UiFramework";
 import svgViewLayouts from "@bentley/icons-generic/icons/view-layouts.svg";
-import { createWebComponentIconSpec } from "../utils/IconHelper";
+import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /**
  * Immediate tool that will reset the layout to that specified in the stage definition. A stage Id
