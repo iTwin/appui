@@ -6,6 +6,7 @@
 
 /// <reference types="react" />
 
+import { BeUiEvent } from '@itwin/core-bentley';
 import { Cartographic } from '@itwin/core-common';
 import { ColorDef } from '@itwin/core-common';
 import type { CommonProps } from '@itwin/core-react';
@@ -30,7 +31,6 @@ import { ScreenViewport } from '@itwin/core-frontend';
 import type { StandardViewId } from '@itwin/core-frontend';
 import type { TentativePoint } from '@itwin/core-frontend';
 import type { TypeEditor } from '@itwin/components-react';
-import { UiEvent } from '@itwin/appui-abstract';
 import type { UnitProps } from '@itwin/core-quantity';
 import type { UnitsProvider } from '@itwin/core-quantity';
 import { Vector3d } from '@itwin/core-geometry';
@@ -333,7 +333,7 @@ export interface CubeProps extends React_2.AllHTMLAttributes<HTMLDivElement>, Co
 }
 
 // @public
-export class CubeRotationChangeEvent extends UiEvent<CubeRotationChangeEventArgs> {
+export class CubeRotationChangeEvent extends BeUiEvent<CubeRotationChangeEventArgs> {
 }
 
 // @public
@@ -429,7 +429,7 @@ export interface DrawingNavigationCanvasProps {
 }
 
 // @public
-export class DrawingViewportChangeEvent extends UiEvent<DrawingViewportChangeEventArgs> {
+export class DrawingViewportChangeEvent extends BeUiEvent<DrawingViewportChangeEventArgs> {
 }
 
 // @public
@@ -834,7 +834,7 @@ export class SolarTimeline extends React_2.PureComponent<SolarTimelineComponentP
 }
 
 // @public
-export class StandardRotationChangeEvent extends UiEvent<StandardRotationChangeEventArgs> {
+export class StandardRotationChangeEvent extends BeUiEvent<StandardRotationChangeEventArgs> {
 }
 
 // @public
@@ -967,7 +967,7 @@ export class UiIModelComponents {
 export function useFocusedThumb(sliderContainer: HTMLDivElement | undefined): boolean;
 
 // @public
-export class ViewClassFullNameChangedEvent extends UiEvent<ViewClassFullNameChangedEventArgs> {
+export class ViewClassFullNameChangedEvent extends BeUiEvent<ViewClassFullNameChangedEventArgs> {
 }
 
 // @public
@@ -981,7 +981,7 @@ export interface ViewClassFullNameChangedEventArgs {
 }
 
 // @public
-export class ViewIdChangedEvent extends UiEvent<ViewIdChangedEventArgs> {
+export class ViewIdChangedEvent extends BeUiEvent<ViewIdChangedEventArgs> {
 }
 
 // @public
@@ -1054,7 +1054,7 @@ export interface ViewportProps extends CommonProps {
 }
 
 // @public
-export class ViewRotationChangeEvent extends UiEvent<ViewRotationChangeEventArgs> {
+export class ViewRotationChangeEvent extends BeUiEvent<ViewRotationChangeEventArgs> {
 }
 
 // @public

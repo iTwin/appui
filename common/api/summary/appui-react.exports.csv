@@ -132,6 +132,7 @@ public;CoreTools
 public;createAction
 public;createAction
 internal;createStableWidgetDef(widgetDef: WidgetDef, stableId: string): WidgetDef
+public;createWebComponentIconSpec(srcString: string): string
 public;CubeNavigationAidControl 
 public;CursorDirection
 public;CursorDirectionParts
@@ -232,6 +233,7 @@ internal;getPanelState(state: NineZoneState, side: PanelSide): StagePanelState.M
 beta;getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial
 beta;getSelectionContextSyncEventIds(): string[]
 beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry
+public;getWebComponentSource(iconSpec: string): string | undefined
 internal;getWidgetId(location: StagePanelLocation, section: StagePanelSection): WidgetId
 internal;GroupedItems = ReadonlyArray
 public;GroupItemDef 
@@ -516,6 +518,7 @@ internal;toPanelSide(location: StagePanelLocation): PanelSide
 internal;TrackingTime
 public;UiDataProvidedDialog({ uiDataProvider, id, isModal, ...dialogProps }: UiDataProvidedDialogProps): JSX.Element
 public;UiDataProvidedDialogProps
+public;UiError 
 public;UiFramework
 public;UiItemsManager
 public;UiItemsProvider

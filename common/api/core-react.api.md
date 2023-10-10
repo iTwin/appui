@@ -15,7 +15,6 @@ import { ConditionalStringValue } from '@itwin/appui-abstract';
 import { default as default_2 } from 'resize-observer-polyfill';
 import type { DialogButtonDef } from '@itwin/appui-abstract';
 import type { IDisposable } from '@itwin/core-bentley';
-import type { IMatch } from '@itwin/appui-abstract';
 import type { InputProps as InputProps_2 } from '@itwin/itwinui-react';
 import type { Localization } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
