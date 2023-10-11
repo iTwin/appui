@@ -11,6 +11,7 @@ export interface OpenChildWindowInfo {
   childWindowId: string;
   window: Window;
   parentWindow: Window;
+  root?: any;
 }
 
 /** @public */
