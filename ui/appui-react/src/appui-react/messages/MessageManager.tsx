@@ -222,7 +222,9 @@ export class MessageManager {
   public static clearMessages(): void {
     this._messages.splice(0);
     this._activeMessageManager.initialize();
+
     toaster.closeAll(); // Because https://github.com/iTwin/iTwinUI/issues/1604
+    this._toastCloseCallbacks.splice(0);
 
     this.onMessagesUpdatedEvent.emit({});
     this._lastMessage = undefined;
