@@ -10,3 +10,5 @@ Table of contents:
 ### Fixes
 
 - Whenever widget is popped out and `window.open` fails, widget no longer disappears.
+- `AppNotificationManager` no longer requires `StatusBar` to be rendered in the active frontstage to show messages.
+- Fix error when `HTMLElement` used in `NotifyMessageDetails` messages.
