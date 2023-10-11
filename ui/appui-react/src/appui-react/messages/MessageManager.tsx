@@ -25,7 +25,7 @@ import {
   OutputMessageType,
 } from "@itwin/core-frontend";
 import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
-import type { IconSpec, ReactMessage } from "@itwin/core-react";
+import type { IconSpec } from "@itwin/core-react";
 import { MessageContainer, MessageRenderer } from "@itwin/core-react";
 import { ConfigurableUiActionId } from "../configurableui/state";
 import { StandardMessageBox } from "../dialog/StandardMessageBox";
