@@ -1,6 +1,13 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Wed, 04 Oct 2023 18:05:34 GMT and should not be manually modified.
+This log was last generated on Thu, 12 Oct 2023 16:59:20 GMT and should not be manually modified.
+
+## 4.6.1
+Thu, 12 Oct 2023 16:59:20 GMT
+
+### Updates
+
+- Fix an issue where `onWidgetStateChangedEvent` is not emitted for a hidden widget.
 
 ## 4.6.0
 Wed, 04 Oct 2023 18:05:34 GMT
