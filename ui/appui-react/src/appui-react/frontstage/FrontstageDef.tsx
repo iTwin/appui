@@ -237,6 +237,15 @@ export class FrontstageDef {
     );
     this.populateStateMaps(newState, newPanelStateMap, newWidgetStateMap);
 
+    for (const [widgetDef, widgetState] of originalWidgetStateMap) {
+      if (
+        newWidgetStateMap.has(widgetDef) ||
+        widgetState === WidgetState.Hidden
+      )
+        continue;
+      newWidgetStateMap.set(widgetDef, WidgetState.Hidden);
+    }
+
     // Now walk and trigger set state events
     newWidgetStateMap.forEach((newWidgetState, widgetDef) => {
       const originalState = originalWidgetStateMap.get(widgetDef);
