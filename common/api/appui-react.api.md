@@ -3280,6 +3280,8 @@ export interface OpenChildWindowInfo {
     // (undocumented)
     parentWindow: Window;
     // (undocumented)
+    root?: any;
+    // (undocumented)
     window: Window;
 }
 
