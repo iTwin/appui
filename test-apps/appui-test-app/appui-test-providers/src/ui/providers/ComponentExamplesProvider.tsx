@@ -47,6 +47,7 @@ import {
   PositionPopup,
   PositionPopupContent,
   QuantityFormatSettingsPage,
+  ReactNotifyMessageDetails,
   SectionsStatusField,
   SplitPane,
   StandardMessageBox,
@@ -76,6 +77,7 @@ import {
   ViewAttributesStatusField,
 } from "@itwin/appui-react";
 import {
+  IModelApp,
   MessageBoxIconType,
   MessageBoxType,
   NotifyMessageDetails,
@@ -787,6 +789,9 @@ export class ComponentExamplesProvider {
       OutputMessageType.InputField
     );
 
+    const htmlMsg = document.createElement("div");
+    htmlMsg.innerHTML = "This is a sticky HTML message. A div containing text.";
+
     return {
       title: "Notification",
       examples: [
@@ -917,6 +922,46 @@ export class ComponentExamplesProvider {
                   }}
                 >
                   ...with overflowing content
+                </MenuItem>,
+                <MenuItem
+                  key="fancy"
+                  onClick={() => {
+                    MessageManager.clearMessages();
+                    IModelApp.notifications.outputMessage(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Info,
+                        htmlMsg,
+                        "This section however is only a string, which should automatically wraps because I expect it to be too long.",
+                        OutputMessageType.Sticky
+                      )
+                    );
+                    MessageManager.outputMessage(
+                      new ReactNotifyMessageDetails(
+                        OutputMessagePriority.Info,
+                        {
+                          reactNode: (
+                            <div>
+                              This is a sticky React message, encapsulated in
+                              `div` tags.
+                            </div>
+                          ),
+                        },
+                        {
+                          reactNode: (
+                            <span>
+                              This is a detailed React message, encapsulated in
+                              `span` tags. It is also very long, so it should
+                              wrap.
+                            </span>
+                          ),
+                        },
+                        OutputMessageType.Sticky
+                      )
+                    );
+                    close();
+                  }}
+                >
+                  ...with HTML and React messages
                 </MenuItem>,
               ]}
             >

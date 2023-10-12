@@ -4210,13 +4210,7 @@ export type StateType<R extends Reducer<any, any>> = DeepReadonly<ReturnType<R>>
 export const stateVersion = 16;
 
 // @public
-export class StatusBar extends React_2.Component<StatusBarProps, StatusBarState> {
-    // @internal
-    constructor(props: StatusBarProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
+export class StatusBar extends React_2.Component<StatusBarProps> {
     // (undocumented)
     render(): React_2.ReactNode;
 }
