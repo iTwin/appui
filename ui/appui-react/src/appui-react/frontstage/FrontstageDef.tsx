@@ -167,51 +167,36 @@ export class FrontstageDef {
       const panel = nineZone.panels[panelSide];
       const location = this.toStagePanelLocation(panelSide);
       const panelDef = this.getStagePanelDef(location);
-      if (panelDef) {
-        const panelState = panel.collapsed
-          ? StagePanelState.Minimized
-          : StagePanelState.Open;
-        panelMap.set(panelDef, panelState);
-      }
-      for (const widgetId of panel.widgets) {
-        const widget = nineZone.widgets[widgetId];
-        // istanbul ignore else
-        if (widget) {
-          for (const tabId of widget.tabs) {
-            const widgetDef = this.findWidgetDef(tabId);
-            if (widgetDef) {
-              let widgetState = WidgetState.Open;
-              if (widget.minimized || tabId !== widget.activeTabId)
-                widgetState = WidgetState.Closed;
-              widgetMap.set(widgetDef, widgetState);
-            }
-          }
-        }
-      }
-    }
-    // istanbul ignore next
-    for (const widgetId of nineZone.floatingWidgets.allIds) {
-      const widget = nineZone.widgets[widgetId];
-      if (widget) {
-        for (const tabId of widget.tabs) {
-          const widgetDef = this.findWidgetDef(tabId);
-          if (widgetDef) {
-            let widgetState = WidgetState.Open;
-            if (widget.minimized || tabId !== widget.activeTabId)
-              widgetState = WidgetState.Closed;
-            widgetMap.set(widgetDef, widgetState);
-          }
-        }
-      }
+      if (!panelDef) continue;
+      const panelState = panel.collapsed
+        ? StagePanelState.Minimized
+        : StagePanelState.Open;
+      panelMap.set(panelDef, panelState);
     }
 
-    const toolSettingsDef = this.toolSettings;
-    if (toolSettingsDef) {
-      if (!nineZone.toolSettings) {
-        widgetMap.set(toolSettingsDef, WidgetState.Hidden);
-      } else if (nineZone.toolSettings.type === "docked") {
-        widgetMap.set(toolSettingsDef, WidgetState.Open);
+    for (const widgetDef of this.widgetDefs) {
+      const widgetId = widgetDef.id;
+      if (widgetDef === this.toolSettings) {
+        if (!nineZone.toolSettings) {
+          widgetMap.set(widgetDef, WidgetState.Hidden);
+          continue;
+        } else if (nineZone.toolSettings.type === "docked") {
+          widgetMap.set(widgetDef, WidgetState.Open);
+          continue;
+        }
       }
+
+      const tabLocation = getTabLocation(nineZone, widgetId);
+      if (!tabLocation) {
+        widgetMap.set(widgetDef, WidgetState.Hidden);
+        continue;
+      }
+
+      const widget = nineZone.widgets[tabLocation.widgetId];
+      let widgetState = WidgetState.Open;
+      if (widget.minimized || widgetId !== widget.activeTabId)
+        widgetState = WidgetState.Closed;
+      widgetMap.set(widgetDef, widgetState);
     }
   }
 
