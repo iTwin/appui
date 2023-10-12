@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix error when `HTMLElement` used in `NotifyMessageDetails` messages.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

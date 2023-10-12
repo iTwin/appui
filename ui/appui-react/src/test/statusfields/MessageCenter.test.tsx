@@ -4,19 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import {
-  IModelApp,
-  NoRenderApp,
-  NotifyMessageDetails,
-  OutputMessagePriority,
-} from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
 import {
   MessageCenterField,
   MessageManager,
   StatusBar,
 } from "../../appui-react";
-import TestUtils, { childStructure, userEvent } from "../TestUtils";
+import TestUtils, { userEvent } from "../TestUtils";
 
 describe(`MessageCenter`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -32,105 +27,6 @@ describe(`MessageCenter`, () => {
   after(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
-  });
-
-  it("Message Center should support all message types", async () => {
-    MessageManager.clearMessages();
-    expect(MessageManager.messages.length).to.eq(0);
-
-    const infoMessage = new NotifyMessageDetails(
-      OutputMessagePriority.Info,
-      "Info text."
-    );
-    MessageManager.addMessage(infoMessage);
-    const warningMessage = new NotifyMessageDetails(
-      OutputMessagePriority.Warning,
-      "Warning text."
-    );
-    MessageManager.addMessage(warningMessage);
-    const errorMessage = new NotifyMessageDetails(
-      OutputMessagePriority.Error,
-      "Error text."
-    );
-    MessageManager.addMessage(errorMessage);
-    const fatalMessage = new NotifyMessageDetails(
-      OutputMessagePriority.Fatal,
-      "Fatal text."
-    );
-    MessageManager.addMessage(fatalMessage);
-    expect(MessageManager.messages.length).to.eq(4);
-
-    render(
-      <StatusBar>
-        <MessageCenterField />
-      </StatusBar>
-    );
-
-    await theUserTo.click(screen.getByRole("button"));
-    // TODO: This only tests that icons are displayed. Should be replaced with visual testing.
-    expect(
-      screen.getByText("Fatal text.", {
-        selector: ".nz-footer-messageCenter-message > .nz-content > span",
-      }).parentElement?.parentElement
-    ).to.satisfy(childStructure(".icon.core-svg-icon.icon.notifymessage-icon"));
-    expect(
-      screen.getByText("Warning text.", {
-        selector: ".nz-footer-messageCenter-message > .nz-content > span",
-      }).parentElement?.parentElement
-    ).to.satisfy(childStructure(".icon.core-svg-icon.icon.notifymessage-icon"));
-    expect(
-      screen.getByText("Error text.", {
-        selector: ".nz-footer-messageCenter-message > .nz-content > span",
-      }).parentElement?.parentElement
-    ).to.satisfy(childStructure(".icon.core-svg-icon.icon.notifymessage-icon"));
-    expect(
-      screen.getByText("Info text.", {
-        selector: ".nz-footer-messageCenter-message > .nz-content > span",
-      }).parentElement?.parentElement
-    ).to.satisfy(childStructure(".icon.core-svg-icon.icon.notifymessage-icon"));
-    await theUserTo.click(screen.getByRole("button"));
-  });
-
-  it("Message Center should change tabs", async () => {
-    MessageManager.clearMessages();
-    expect(MessageManager.messages.length).to.eq(0);
-
-    const infoMessage = new NotifyMessageDetails(
-      OutputMessagePriority.Info,
-      "Info text.",
-      "Detail text"
-    );
-    MessageManager.addMessage(infoMessage);
-    const errorMessage = new NotifyMessageDetails(
-      OutputMessagePriority.Error,
-      "Error text."
-    );
-    MessageManager.addMessage(errorMessage);
-    expect(MessageManager.messages.length).to.eq(2);
-
-    render(
-      <StatusBar>
-        <MessageCenterField />
-      </StatusBar>
-    );
-
-    await theUserTo.click(screen.getByRole("button"));
-
-    expect(screen.getByText("Info text.")).to.exist;
-    expect(screen.getByText("Error text.")).to.exist;
-    expect(screen.getByRole("tablist"))
-      .to.have.property("childNodes")
-      .that.have.lengthOf(2);
-
-    await theUserTo.click(screen.getByText("messageCenter.errors"));
-
-    expect(screen.queryByText("Info text.")).to.be.null;
-    expect(screen.getByText("Error text.")).to.exist;
-
-    await theUserTo.click(screen.getByText("messageCenter.all"));
-
-    expect(screen.getByText("Info text.")).to.exist;
-    expect(screen.getByText("Error text.")).to.exist;
   });
 
   it("Message Center should close on outside click", async () => {
