@@ -202,7 +202,6 @@ export class FrontstageDef {
       if (widget.minimized || widgetId !== widget.activeTabId)
         widgetState = WidgetState.Closed;
       widgetMap.set(widgetDef, widgetState);
-      continue;
     }
   }
 
