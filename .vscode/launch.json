@@ -87,7 +87,7 @@
       "outputCapture": "std"
     },
     {
-      "name": "[UI] Tests: ApppUi Layout React",
+      "name": "[UI] Tests: AppUi Layout React",
       "presentation": {
         "group": "4_UI"
       },
