@@ -197,7 +197,7 @@ export function removeFloatingWidget(
   return removeWidgetState(state, id);
 }
 
-/** Removes floating widget from the UI and deletes the widget state.
+/** Removes popout widget from the UI and deletes the widget state.
  * @internal
  */
 export function removePopoutWidget(

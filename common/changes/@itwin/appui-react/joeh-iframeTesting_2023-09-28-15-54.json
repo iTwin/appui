@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Widgets no longer disappear when popped out and window.open fails",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
