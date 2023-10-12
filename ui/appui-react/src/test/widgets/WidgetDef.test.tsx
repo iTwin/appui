@@ -6,17 +6,27 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { BadgeType } from "@itwin/appui-abstract";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { SvgList } from "@itwin/itwinui-icons-react";
-import { UiFramework, WidgetDef, WidgetState } from "../../appui-react";
+import {
+  FrontstageDef,
+  initializeNineZoneState,
+  UiFramework,
+  WidgetDef,
+  WidgetState,
+} from "../../appui-react";
 import TestUtils from "../TestUtils";
+import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test";
 
 describe("WidgetDef", () => {
   before(async () => {
+    await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  after(async () => {
     TestUtils.terminateUiFramework();
+    await IModelApp.shutdown();
   });
 
   it("optional properties", () => {
@@ -133,6 +143,63 @@ describe("WidgetDef", () => {
       widgetDef.handleWidgetStateChanged(WidgetState.Hidden);
 
       sinon.assert.calledOnce(spy);
+    });
+
+    it("should emit onWidgetStateChangedEvent for a hidden widget", async () => {
+      const def = new FrontstageDef();
+      await def.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        rightPanel: {
+          sections: {
+            start: [
+              {
+                id: "w1",
+              },
+            ],
+          },
+        },
+      });
+      def.nineZoneState = initializeNineZoneState(def);
+      sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
+
+      const spy = sinon.spy();
+      UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
+
+      const widgetDef = def.findWidgetDef("w1")!;
+      widgetDef.setWidgetState(WidgetState.Hidden);
+      expect(spy).to.calledOnceWithExactly({
+        widgetDef,
+        widgetState: WidgetState.Hidden,
+      });
+    });
+
+    it("should emit onWidgetStateChangedEvent for an opened widget", async () => {
+      const def = new FrontstageDef();
+      await def.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        rightPanel: {
+          sections: {
+            start: [
+              {
+                id: "w1",
+                defaultState: WidgetState.Hidden,
+              },
+            ],
+          },
+        },
+      });
+      def.nineZoneState = initializeNineZoneState(def);
+      sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
+
+      const spy = sinon.spy();
+      UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
+
+      const widgetDef = def.findWidgetDef("w1")!;
+      widgetDef.setWidgetState(WidgetState.Open);
+      expect(spy).to.calledOnceWithExactly({
+        widgetDef,
+        widgetState: WidgetState.Open,
+      });
     });
   });
 
