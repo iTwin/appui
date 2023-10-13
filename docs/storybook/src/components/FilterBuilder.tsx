@@ -41,7 +41,7 @@ function FilterBuilderComponent({
   );
 }
 
-function Initialized({ children }: React.PropsWithChildren<{}>) {
+function Initialized({ children }: React.PropsWithChildren<unknown>) {
   const [initialized, setInitialized] = React.useState(false);
   React.useEffect(() => {
     void (async function () {
