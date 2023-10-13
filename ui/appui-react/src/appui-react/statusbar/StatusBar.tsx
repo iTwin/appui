@@ -11,27 +11,14 @@ import * as React from "react";
 import type { CommonDivProps, CommonProps } from "@itwin/core-react";
 import { Div } from "@itwin/core-react";
 import { Footer } from "@itwin/appui-layout-react";
-import type {
-  ActivityMessageEventArgs,
-  MessageAddedEventArgs,
-} from "../messages/MessageManager";
-import { MessageManager } from "../messages/MessageManager";
 import { SafeAreaContext } from "../safearea/SafeAreaContext";
 import type { StatusBarWidgetControl } from "./StatusBarWidgetControl";
 import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
-import { ActivityMessageRenderer } from "../messages/ActivityMessage";
 import { UiFramework } from "../UiFramework";
 import { StatusBarField } from "./Field";
 import { StatusBarPopup } from "./Popup";
 
 // cspell:ignore safearea
-
-/** State for the [[StatusBar]] React component
- * @internal
- */
-interface StatusBarState {
-  activityMessageInfo: ActivityMessageEventArgs | undefined;
-}
 
 /** Properties for the [[StatusBar]] React component
  * @public
@@ -41,36 +28,16 @@ export interface StatusBarProps extends CommonProps {
   widgetControl?: StatusBarWidgetControl;
 }
 
-/** Message type for the [[StatusBar]] React component
- * @internal
- */
-interface StatusBarMessage {
-  close: () => void;
-  id: string;
-}
-
 /** Status Bar React component.
  * @public
  */
-export class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
-  private messages: StatusBarMessage[] = [];
-
-  /** @internal */
-  constructor(props: StatusBarProps) {
-    super(props);
-
-    this.state = {
-      activityMessageInfo: undefined,
-    };
-  }
-
+export class StatusBar extends React.Component<StatusBarProps> {
   public override render(): React.ReactNode {
     return (
       <SafeAreaContext.Consumer>
         {(safeAreaInsets) => (
           <Footer
             className={this.props.className}
-            messages={<ActivityMessageRenderer />}
             onMouseEnter={UiFramework.visibility.handleWidgetMouseEnter}
             safeAreaInsets={toLayoutSafeAreaInsets(safeAreaInsets)}
             style={this.props.style}
@@ -82,100 +49,6 @@ export class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
       </SafeAreaContext.Consumer>
     );
   }
-
-  public override componentDidMount() {
-    MessageManager.onMessageAddedEvent.addListener(
-      this._handleMessageAddedEvent
-    );
-    MessageManager.onActivityMessageUpdatedEvent.addListener(
-      this._handleActivityMessageUpdatedEvent
-    );
-    MessageManager.onActivityMessageCancelledEvent.addListener(
-      this._handleActivityMessageCancelledEvent
-    );
-    MessageManager.onMessagesUpdatedEvent.addListener(
-      this._handleMessagesUpdatedEvent
-    );
-
-    MessageManager.updateMessages();
-  }
-
-  public override componentWillUnmount() {
-    MessageManager.onMessageAddedEvent.removeListener(
-      this._handleMessageAddedEvent
-    );
-    MessageManager.onActivityMessageUpdatedEvent.removeListener(
-      this._handleActivityMessageUpdatedEvent
-    );
-    MessageManager.onActivityMessageCancelledEvent.removeListener(
-      this._handleActivityMessageCancelledEvent
-    );
-    MessageManager.onMessagesUpdatedEvent.removeListener(
-      this._handleMessagesUpdatedEvent
-    );
-  }
-
-  private _handleMessageAddedEvent = (_args: MessageAddedEventArgs) => {
-    this._updateMessages();
-    const messagesToAdd = MessageManager.activeMessageManager.messages.filter(
-      (msg) => !this.messages.find((m) => m.id === msg.id)
-    );
-    messagesToAdd.forEach((msg) => {
-      const displayedMessage = MessageManager.displayMessage(
-        msg.messageDetails,
-        { onRemove: () => this._closeMessage(msg.id) }
-      );
-      if (!!displayedMessage)
-        this.messages.push({ close: displayedMessage.close, id: msg.id });
-    });
-  };
-
-  private _updateMessages = () => {
-    const updatedMessages = [...this.messages];
-    this.messages.forEach((m) => {
-      if (
-        !MessageManager.activeMessageManager.messages.some(
-          (msg) => m.id === msg.id
-        )
-      ) {
-        m.close();
-        const index = updatedMessages.findIndex((msg) => msg.id === m.id);
-        updatedMessages.splice(index, 1);
-      }
-    });
-    this.messages = updatedMessages;
-  };
-
-  /** Respond to clearing the message list */
-  private _handleMessagesUpdatedEvent = () => {
-    this._updateMessages();
-  };
-
-  /**
-   * Sets state of the status bar to updated values reflecting activity progress.
-   * @param args  New values to set for ActivityMessage
-   */
-  private _handleActivityMessageUpdatedEvent = (
-    args: ActivityMessageEventArgs
-  ) => {
-    this.setState({
-      activityMessageInfo: args,
-    });
-  };
-
-  /**
-   * Hides ActivityMessage after cancellation
-   */
-  private _handleActivityMessageCancelledEvent = () => {
-    this.setState({
-      activityMessageInfo: undefined,
-    });
-  };
-
-  private _closeMessage = (id: string) => {
-    MessageManager.activeMessageManager.remove(id);
-    MessageManager.updateMessages();
-  };
 }
 
 /** StatusBar With Space Between Items React functional component

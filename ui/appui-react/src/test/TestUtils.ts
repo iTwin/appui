@@ -112,6 +112,7 @@ export class TestUtils {
       TestUtils._uiFrameworkInitialized = true;
     }
     UiFramework.toolSettings.clearToolSettingsData();
+    UiFramework.useDefaultPopoutUrl = true;
     SyncUiEventDispatcher.setTimeoutPeriod(0); // disables non-immediate event processing.
   }
 

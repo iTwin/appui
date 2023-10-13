@@ -2253,7 +2253,7 @@ export class FrontstageDef {
     onFrontstageReady(): void;
     protected _onFrontstageReady(): void;
     // @internal
-    openPopoutWidgetContainer(widgetContainerId: string): void;
+    openPopoutWidgetContainer(widgetContainerId: string, oldState: NineZoneState | undefined): boolean;
     // @beta
     get panelDefs(): StagePanelDef[];
     // @beta
@@ -4210,13 +4210,7 @@ export type StateType<R extends Reducer<any, any>> = DeepReadonly<ReturnType<R>>
 export const stateVersion = 16;
 
 // @public
-export class StatusBar extends React_2.Component<StatusBarProps, StatusBarState> {
-    // @internal
-    constructor(props: StatusBarProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
+export class StatusBar extends React_2.Component<StatusBarProps> {
     // (undocumented)
     render(): React_2.ReactNode;
 }

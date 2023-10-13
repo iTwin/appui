@@ -122,3 +122,25 @@ test("message center field message overflow test", async ({
 
   await page.getByText("Clear message center");
 });
+
+test("message center field HTML and React message and overflow test", async ({
+  page,
+  baseURL,
+}) => {
+  await openComponentExamples(page, baseURL);
+
+  await page.getByRole("button", { name: "Notification", exact: true }).click();
+
+  await page.getByText("Fill message center").click();
+  await page.getByText("...with HTML and React messages").click();
+
+  await openMessageCenterPopup(page);
+
+  //This will be a screenshot of the whole right panel of the screen so that both the button and panel are included
+  const messageCenterField = page.getByText(
+    "ThemeToggle the theme between light and darkDark LightElement TooltipOpen Elemen"
+  );
+  await expect.soft(messageCenterField).toHaveScreenshot();
+
+  await page.getByText("Clear message center");
+});

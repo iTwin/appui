@@ -24,6 +24,7 @@ import { WidgetPanelsFrontstage } from "../widget-panels/Frontstage";
 import { ContentDialogRenderer } from "../dialog/ContentDialogManager";
 import { UiFramework } from "../UiFramework";
 import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager";
+import { ActivityMessageRenderer } from "../messages/ActivityMessage";
 
 // cSpell:ignore cursormenu cursorpopup
 
@@ -82,6 +83,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
       <CursorPopupMenu />
       <CursorPopupRenderer />
       <PopupRenderer />
+      <ActivityMessageRenderer />
     </main>
   );
 }
