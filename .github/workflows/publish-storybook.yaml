@@ -38,6 +38,31 @@ jobs:
         run: npm run build:storybook
         working-directory: docs/storybook
 
+      - name: List of gh-pages to preserve
+        id: clean_exclude_folders
+        uses: actions/github-script@v4
+        with:
+          result-encoding: string
+          script: |
+            return ['index.html', '.nojekyll', 'storybook', ...((await github.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            })).data.map(pr => pr.number).join('\n'))]
+
+      - name: Create an empty folder
+        run: |
+          mkdir emptyFolder
+
+      - name: Clean gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        if: env.dest == 'storybook'
+        with:
+          branch: gh-pages
+          folder: emptyFolder
+          single-commit: true
+          clean-exclude: ${{ steps.clean_exclude_folders.outputs.result }}
+
       - name: Deploy to gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
         if: env.dest != ''
