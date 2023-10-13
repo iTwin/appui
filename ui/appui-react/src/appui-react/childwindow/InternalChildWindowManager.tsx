@@ -24,7 +24,6 @@ import type {
   FrameworkChildWindows,
   OpenChildWindowInfo,
 } from "../framework/FrameworkChildWindows";
-import { StateManager } from "../redux/StateManager";
 
 const childHtml = `<!DOCTYPE html>
 <html>
@@ -101,8 +100,6 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       const childWindowId = UiFramework.childWindows.findId(
         container.ownerDocument.defaultView
       );
-      // this._roots[childWindowId] = this._createRoot(container);
-      // this._roots[childWindowId] = this.render();
       if (childWindowId) {
         this._roots[childWindowId] = this._createRoot(container);
         this._roots[childWindowId].render(element);
