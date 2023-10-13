@@ -44,7 +44,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            return ['index.html', 'storybook', ...((await github.pulls.list({
+            return ['/index.html', 'storybook', ...((await github.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open'
