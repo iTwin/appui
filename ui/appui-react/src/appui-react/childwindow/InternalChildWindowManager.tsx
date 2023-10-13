@@ -24,6 +24,7 @@ import type {
   FrameworkChildWindows,
   OpenChildWindowInfo,
 } from "../framework/FrameworkChildWindows";
+import { StateManager } from "../redux/StateManager";
 
 const childHtml = `<!DOCTYPE html>
 <html>
@@ -63,6 +64,7 @@ export type CreateRoot = Parameters<FrameworkChildWindows["useCreateRoot"]>[0];
 export class InternalChildWindowManager implements FrameworkChildWindows {
   private _openChildWindows: OpenChildWindowInfo[] = [];
   private _createRoot?: CreateRoot;
+  private _roots: { [childwindowId: string]: any } = {};
 
   public get openChildWindows() {
     return this._openChildWindows;
@@ -96,12 +98,15 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     // than without it. React 17 vs React 18. We need to save the root to
     // unmount it.
     if (this._createRoot) {
-      this.openChildWindows.forEach((openChildWindow) => {
-        if (this._createRoot) {
-          openChildWindow.root = this._createRoot(container);
-          openChildWindow.root.render(element);
-        }
-      });
+      const childWindowId = UiFramework.childWindows.findId(
+        container.ownerDocument.defaultView
+      );
+      // this._roots[childWindowId] = this._createRoot(container);
+      // this._roots[childWindowId] = this.render();
+      if (childWindowId) {
+        this._roots[childWindowId] = this._createRoot(container);
+        this._roots[childWindowId].render(element);
+      }
     } else {
       ReactDOM.render(element, container);
     }
@@ -184,18 +189,13 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
           childWindowId,
           childWindow
         );
+        this.close(childWindowId, false);
         // UnmountComponentAtNode is deprecated in React 18, so if they are
         // using React 18 and passing in a createRoot function, unmount()
         // will be used
-        if (this._createRoot) {
-          this.openChildWindows
-            .find((openWindow) => openWindow.childWindowId === childWindowId)
-            ?.root.unmount();
-          this.close(childWindowId, false);
-        } else {
-          this.close(childWindowId, false);
-          ReactDOM.unmountComponentAtNode(reactConnectionDiv);
-        }
+        if (this._roots[childWindowId]) {
+          this._roots[childWindowId].unmount();
+        } else ReactDOM.unmountComponentAtNode(reactConnectionDiv);
       });
     }
   }
