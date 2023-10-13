@@ -58,6 +58,7 @@
     "prop-types": "^15.8.1",
     "storybook": "^7.0.20",
     "typescript": "~5.0.2",
-    "vite": "^4.3.9"
+    "vite": "^4.3.9",
+    "vite-plugin-static-copy": "^0.17.0"
   }
 }
