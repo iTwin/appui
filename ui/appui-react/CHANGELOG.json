@@ -2,6 +2,45 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.6.1",
+      "tag": "@itwin/appui-react_v4.6.1",
+      "date": "Thu, 12 Oct 2023 16:59:20 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix an issue where `onWidgetStateChangedEvent` is not emitted for a hidden widget."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.6.0",
+      "tag": "@itwin/appui-react_v4.6.0",
+      "date": "Wed, 04 Oct 2023 18:05:34 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Disable user select when dragging or resizing a widget."
+          },
+          {
+            "comment": "Correctly configure `resizable` flag of a floating widget after docking and undocking."
+          },
+          {
+            "comment": "Fixed tool settings widget so that can set to dockings not allowed"
+          },
+          {
+            "comment": "Fix message center messages icon colors based on message severity."
+          },
+          {
+            "comment": "Fix an issue with closing tool settings dropdown when main UI hides."
+          },
+          {
+            "comment": "React to core/appui-abstract deprecations"
+          }
+        ]
+      }
+    },
+    {
       "version": "4.5.1",
       "tag": "@itwin/appui-react_v4.5.1",
       "date": "Fri, 08 Sep 2023 16:10:53 GMT",
