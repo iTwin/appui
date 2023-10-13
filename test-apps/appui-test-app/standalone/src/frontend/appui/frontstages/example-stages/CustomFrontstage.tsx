@@ -37,10 +37,7 @@ class CustomContentControl extends ContentControl {
 }
 // __PUBLISH_EXTRACT_END__
 
-// __PUBLISH_EXTRACT_START__ Example_Custom_Frontstage_Provider_1
-// __PUBLISH_EXTRACT_END__
-
-// __PUBLISH_EXTRACT_START__ Example_Custom_Frontstage_Provider_2
+// __PUBLISH_EXTRACT_START__ Example_Custom_Frontstage_Provider
 export class CustomFrontstageProvider extends FrontstageProvider {
   public override get id(): string {
     return "example:CustomFrontstage";
