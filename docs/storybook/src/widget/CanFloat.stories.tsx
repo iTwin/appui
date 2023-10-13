@@ -2,36 +2,22 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import {
-  Title,
-  Subtitle,
-  Description,
-  Primary,
-  Controls,
-} from "@storybook/blocks";
 import type { Meta, StoryObj } from "@storybook/react";
+import { CanFloatStory } from "./CanFloat";
 import { AppUiDecorator } from "../AppUiDecorator";
-import { CanFloatOptions } from "./CanFloatOptions";
+import { Page } from "../AppUiStory";
 
 const meta = {
-  title: "Widget/canFloat Options",
-  component: CanFloatOptions,
+  title: "Widget/canFloat",
+  component: CanFloatStory,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],
   parameters: {
     docs: {
-      page: () => (
-        <>
-          <Title />
-          <Subtitle />
-          <Description />
-          <Primary />
-          <Controls />
-        </>
-      ),
+      page: () => <Page />,
     },
   },
-} satisfies Meta<typeof CanFloatOptions>;
+} satisfies Meta<typeof CanFloatStory>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

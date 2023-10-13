@@ -1,6 +1,11 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Wed, 04 Oct 2023 18:05:34 GMT and should not be manually modified.
+This log was last generated on Thu, 12 Oct 2023 16:59:20 GMT and should not be manually modified.
+
+## 4.6.1
+Thu, 12 Oct 2023 16:59:20 GMT
+
+_Version update only_
 
 ## 4.6.0
 Wed, 04 Oct 2023 18:05:34 GMT
