@@ -44,11 +44,11 @@ jobs:
         with:
           result-encoding: string
           script: |
-            return ['index.html', '.nojekyll', 'storybook', ...((await github.pulls.list({
+            return ['index.html', 'storybook', ...((await github.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open'
-            })).data.map(pr => pr.number).join('\n'))]
+            })).data.map(pr => pr.number))].join('\n')
 
       - name: Create an empty folder
         run: |
