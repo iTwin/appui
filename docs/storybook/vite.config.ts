@@ -9,6 +9,7 @@ import {
   Options,
 } from "@originjs/vite-plugin-commonjs";
 import react from "@vitejs/plugin-react";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 
 // Fixes: ReferenceError: require is not defined
 function fixedViteCommonjs(options: Options) {
@@ -23,6 +24,18 @@ export default defineConfig({
     react(),
     fixedViteCommonjs({
       include: ["@itwin/core-frontend"],
+    }),
+    viteStaticCopy({
+      targets: [
+        {
+          src: "./node_modules/@itwin/core-react/lib/public/locales",
+          dest: ".",
+        },
+        {
+          src: "./node_modules/@itwin/components-react/lib/public/locales",
+          dest: ".",
+        },
+      ],
     }),
   ],
   resolve: {
