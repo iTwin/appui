@@ -3,12 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { useActiveFrontstageDef } from "@itwin/appui-react";
-
-export function useWidgetDef(id: string) {
-  const frontstageDef = useActiveFrontstageDef();
-  return frontstageDef?.findWidgetDef(id);
-}
 
 export function PopoutMountUnmountWidgetComponent() {
   React.useEffect(() => {
@@ -20,16 +14,5 @@ export function PopoutMountUnmountWidgetComponent() {
     };
   }, []);
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        padding: "8px",
-        overflowY: "auto",
-      }}
-    >
-      Mount Unmount Widget
-    </div>
-  );
+  return <div>Mount Unmount Widget</div>;
 }
