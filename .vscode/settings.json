@@ -3,25 +3,8 @@
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "editor.formatOnSave": true,
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/bower_components": true,
-    "**/.nyc_output": true,
-    "**/.rush": true
-  },
-  "files.exclude": {
-    "**/.nyc_output": true,
-    "**/.rush": true,
-    "**/*.build.log": true,
-    "**/*.build.error.log": true,
-    "**/generated-docs": true,
-    "**/package-deps.json": true,
-    "**/node_modules": true,
-    "**/test-apps/**/build": true,
-    "**/out": true,
-    "**/lib": true,
-    "common/temp": true
-  },
+  "search.exclude": {},
+  "files.exclude": {},
   "files.trimTrailingWhitespace": true,
   "files.associations": {
     "*.snap": "javascript",
