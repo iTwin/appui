@@ -12,6 +12,7 @@ import {
   Widget,
   WidgetState,
 } from "@itwin/appui-react";
+import { PopoutMountUnmountWidgetComponent } from "../widgets/PopoutMountUnmountWidget";
 
 /**
  * Test UiItemsProvider that provide FloatingWidgets in any General usage stage.
@@ -87,6 +88,18 @@ export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
           containerId: "appui-test-providers:hidden-floating-widget",
         },
         content: <div>Hidden floating widget 1</div>,
+      });
+      widgets.push({
+        id: "appui-test-providers:PopoutMountUnmountWidget",
+        label: "Mount/Unmount",
+        icon: "icon-window-settings",
+        defaultState: WidgetState.Floating,
+        canFloat: {
+          containerId: "appui-test-providers:PopoutMountUnmountWidget",
+        },
+        content: <PopoutMountUnmountWidgetComponent />,
+        canPopout: true,
+        allowedPanels: [StagePanelLocation.Left],
       });
     }
     return widgets;
