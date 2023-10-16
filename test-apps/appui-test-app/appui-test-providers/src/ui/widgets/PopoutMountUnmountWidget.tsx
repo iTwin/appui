@@ -10,7 +10,6 @@ export function useWidgetDef(id: string) {
   return frontstageDef?.findWidgetDef(id);
 }
 
-// Copy of View Attribute Widget with logs for mounting and unmounting
 export function PopoutMountUnmountWidgetComponent() {
   React.useEffect(() => {
     // eslint-disable-next-line no-console
