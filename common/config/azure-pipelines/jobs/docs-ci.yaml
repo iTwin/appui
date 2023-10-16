@@ -10,6 +10,12 @@ pr:
     include:
       - master
 
+parameters:
+  - name: tagDocs
+    displayName: Tag Docs
+    type: boolean
+    default: false
+
 resources:
   repositories:
     - repository: itwinjs-core
@@ -98,6 +104,12 @@ stages:
                 Write-Host '##vso[task.setvariable variable=ShouldTag;]False'
               }
             displayName: Tag if major/minor/patch version bump
+
+          - powershell: |
+              Write-Host Tagging docs explicitly...
+              Write-Host '##vso[task.setvariable variable=ShouldTag;]True'
+            condition: and(succeeded(), eq('${{ parameters.tagDocs }}', true))
+            displayName: Tag if 'tagDocs' is true
 
           - task: tagBuildOrRelease@0
             inputs:
