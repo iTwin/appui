@@ -50,10 +50,9 @@ describe("IconComponent", () => {
 
   it("should render base64 data uri web svg iconSpec", async () => {
     const expectedPath = "M7,1v6H1v2h6v6h2V9h6V7H9V1H7z";
-    // eslint-disable-next-line deprecation/deprecation
-    const dataUri = `data:image/svg+xml;base64,${btoa(
+    const dataUri = `data:image/svg+xml;base64,${Buffer.from(
       `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="${expectedPath}"/></svg>`
-    )}`;
+    ).toString("base64")}`;
     const { container } = render(<Icon iconSpec={`webSvg:${dataUri}`} />);
     await waitFor(() =>
       expect(container.querySelector("svg-loader")?.innerHTML).to.contain(
@@ -64,7 +63,6 @@ describe("IconComponent", () => {
 
   it("should render data uri web svg iconSpec", async () => {
     const expectedPath = "M7,1v6H1v2h6v6h2V9h6V7H9V1H7z";
-    // eslint-disable-next-line deprecation/deprecation
     const dataUri = `data:image/svg+xml,${encodeURIComponent(
       `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="${expectedPath}"/></svg>`
     )}`;
@@ -83,7 +81,6 @@ describe("IconComponent", () => {
 
     const sut = new ConditionalIconItem(icon1Getter, syncEventIds);
     const { container } = render(<Icon iconSpec={sut} />);
-    // renderedComponent.debug();
     const iconItem = container.firstElementChild;
     const iconName = iconItem?.firstChild?.nodeValue;
     expect(iconName).to.not.be.null;

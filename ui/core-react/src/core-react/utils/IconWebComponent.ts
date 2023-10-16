@@ -41,8 +41,7 @@ function parseSvgFromDataUri(src: string, element: any) {
 
   let rawSvg = "";
   if ("data:image/svg+xml;base64" === dataUriParts[0]) {
-    // eslint-disable-next-line deprecation/deprecation
-    rawSvg = atob(dataUriParts[1]);
+    rawSvg = Buffer.from(dataUriParts[1], "base64").toString("utf8");
   } else {
     rawSvg = decodeURIComponent(dataUriParts[1]);
   }
