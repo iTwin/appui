@@ -3,14 +3,20 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { ConditionalStringValue } from "@itwin/appui-abstract";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import { ConditionalIconItem } from "../../core-react/icons/ConditionalIconItem";
 import type { IconSpec } from "../../core-react/icons/IconComponent";
 import { Icon } from "../../core-react/icons/IconComponent";
+import { UiCore } from "../../core-react/UiCore";
+import { EmptyLocalization } from "@itwin/core-common";
 
 describe("IconComponent", () => {
+  before(async () => {
+    await UiCore.initialize(new EmptyLocalization());
+  });
+
   it("Should return null from undefined iconSpec", () => {
     const { container } = render(<Icon />);
     expect(container.firstChild).to.be.null;
@@ -42,15 +48,30 @@ describe("IconComponent", () => {
     expect(webComponent!.getAttribute("src")).to.be.eq("test.svg");
   });
 
-  it("should render base64 data uri web svg iconSpec", () => {
-    // eslint-disable-next-line deprecation/deprecation
-    const dataUri = `data:image/svg+xml;base64,${btoa(
-      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7,1v6H1v2h6v6h2V9h6V7H9V1H7z"/></svg>`
+  it("should render base64 data uri web svg iconSpec", async () => {
+    const expectedPath = "M7,1v6H1v2h6v6h2V9h6V7H9V1H7z";
+    const dataUri = `data:image/svg+xml;base64,${Buffer.from(
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="${expectedPath}"/></svg>`
+    ).toString("base64")}`;
+    const { container } = render(<Icon iconSpec={`webSvg:${dataUri}`} />);
+    await waitFor(() =>
+      expect(container.querySelector("svg-loader")?.innerHTML).to.contain(
+        expectedPath
+      )
+    );
+  });
+
+  it("should render data uri web svg iconSpec", async () => {
+    const expectedPath = "M7,1v6H1v2h6v6h2V9h6V7H9V1H7z";
+    const dataUri = `data:image/svg+xml,${encodeURIComponent(
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="${expectedPath}"/></svg>`
     )}`;
     const { container } = render(<Icon iconSpec={`webSvg:${dataUri}`} />);
-    const webComponent = container.querySelector("svg-loader");
-    expect(webComponent).to.not.be.null;
-    expect(webComponent!.getAttribute("src")).to.be.eq(dataUri);
+    await waitFor(() =>
+      expect(container.querySelector("svg-loader")?.innerHTML).to.contain(
+        expectedPath
+      )
+    );
   });
 
   it("should return value from a ConditionalIconItem", () => {
@@ -60,7 +81,6 @@ describe("IconComponent", () => {
 
     const sut = new ConditionalIconItem(icon1Getter, syncEventIds);
     const { container } = render(<Icon iconSpec={sut} />);
-    // renderedComponent.debug();
     const iconItem = container.firstElementChild;
     const iconName = iconItem?.firstChild?.nodeValue;
     expect(iconName).to.not.be.null;
