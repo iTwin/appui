@@ -1,6 +1,13 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Thu, 12 Oct 2023 16:59:20 GMT and should not be manually modified.
+This log was last generated on Tue, 17 Oct 2023 19:16:23 GMT and should not be manually modified.
+
+## 4.6.2
+Tue, 17 Oct 2023 19:16:23 GMT
+
+### Updates
+
+- Support `data:image/svg+xml` web component icons. (base64 already supported)
 
 ## 4.6.1
 Thu, 12 Oct 2023 16:59:20 GMT
