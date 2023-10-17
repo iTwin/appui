@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Unmount childWindowManager whenever window is closed",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
