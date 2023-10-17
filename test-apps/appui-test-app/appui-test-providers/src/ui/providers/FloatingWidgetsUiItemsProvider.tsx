@@ -96,6 +96,7 @@ export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
         defaultState: WidgetState.Floating,
         canFloat: {
           containerId: "appui-test-providers:PopoutMountUnmountWidget",
+          defaultPosition: { x: 101, y: 200 },
         },
         content: <PopoutMountUnmountWidgetComponent />,
         canPopout: true,
