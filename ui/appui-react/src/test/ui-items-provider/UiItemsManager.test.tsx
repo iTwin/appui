@@ -911,6 +911,48 @@ describe("UiItemsManager", () => {
         expect(items).lengthOf(1);
         expect(items[0].id).to.eq("item1");
       });
+
+      it("should only provide for specified stage ids", () => {
+        UiItemsManager.register(provider, { stageIds: ["stage2"] });
+
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage1",
+            StageUsage.General,
+            ToolbarUsage.ContentManipulation,
+            ToolbarOrientation.Horizontal
+          )
+        ).lengthOf(0);
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage2",
+            StageUsage.General,
+            ToolbarUsage.ContentManipulation,
+            ToolbarOrientation.Horizontal
+          )
+        ).lengthOf(1);
+      });
+
+      it("should only provide for specified stage usages", () => {
+        UiItemsManager.register(provider, { stageUsages: ["custom"] });
+
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage1",
+            StageUsage.General,
+            ToolbarUsage.ContentManipulation,
+            ToolbarOrientation.Horizontal
+          )
+        ).lengthOf(0);
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage1",
+            "custom",
+            ToolbarUsage.ContentManipulation,
+            ToolbarOrientation.Horizontal
+          )
+        ).lengthOf(1);
+      });
     });
 
     describeAbstractAdapter("status bar items", () => {
@@ -941,6 +983,28 @@ describe("UiItemsManager", () => {
         );
         expect(items).lengthOf(1);
         expect(items[0].id).to.eq("item1");
+      });
+
+      it("should only provide for specified stage ids", () => {
+        UiItemsManager.register(provider, { stageIds: ["stage2"] });
+
+        expect(
+          UiItemsManager.getStatusBarItems("stage1", StageUsage.General)
+        ).lengthOf(0);
+        expect(
+          UiItemsManager.getStatusBarItems("stage2", StageUsage.General)
+        ).lengthOf(1);
+      });
+
+      it("should only provide for specified stage usages", () => {
+        UiItemsManager.register(provider, { stageUsages: ["custom"] });
+
+        expect(
+          UiItemsManager.getStatusBarItems("stage1", StageUsage.General)
+        ).lengthOf(0);
+        expect(UiItemsManager.getStatusBarItems("stage1", "custom")).lengthOf(
+          1
+        );
       });
     });
 
@@ -1043,6 +1107,48 @@ describe("UiItemsManager", () => {
             StagePanelSection.Start
           )
         ).lengthOf(0);
+      });
+
+      it("should only provide for specified stage ids", () => {
+        UiItemsManager.register(provider, { stageIds: ["stage2"] });
+
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            StageUsage.General,
+            StagePanelLocation.Bottom,
+            StagePanelSection.End
+          )
+        ).lengthOf(0);
+        expect(
+          UiItemsManager.getWidgets(
+            "stage2",
+            StageUsage.General,
+            StagePanelLocation.Bottom,
+            StagePanelSection.End
+          )
+        ).lengthOf(1);
+      });
+
+      it("should only provide for specified stage usages", () => {
+        UiItemsManager.register(provider, { stageUsages: ["custom"] });
+
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            StageUsage.General,
+            StagePanelLocation.Bottom,
+            StagePanelSection.End
+          )
+        ).lengthOf(0);
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            "custom",
+            StagePanelLocation.Bottom,
+            StagePanelSection.End
+          )
+        ).lengthOf(1);
       });
     });
   });
