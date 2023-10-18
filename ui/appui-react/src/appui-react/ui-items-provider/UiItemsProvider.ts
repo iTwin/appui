@@ -25,7 +25,6 @@ export interface UiItemsProvider {
   readonly id: string;
 
   /** Provides toolbar items.
-   * @note Use [[ToolbarItemUtilities.toToolbarId]] to map toolbar item to location previously specified by `provideToolbarItems` arguments.
    * @alpha
    */
   readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
@@ -33,18 +32,18 @@ export interface UiItemsProvider {
    * @alpha
    */
   readonly getStatusBarItems?: () => ReadonlyArray<StatusBarItem>;
-  /** Provides backstage items. Backstage items are filtered based on stage usage and stage id as other items.
-   * A separate `UiItemsProvider` is needed to define global backstage items.
+  /** Provides backstage items.
    * @alpha
    */
   readonly getBackstageItems?: () => ReadonlyArray<BackstageItem>;
   /** Provides widgets.
+   * @note Use [[Widget.layouts]] to map item to location previously specified by `provideWidgets` arguments.
    * @alpha
    */
   readonly getWidgets?: () => ReadonlyArray<Widget>;
 
   /** Provides toolbar items.
-   * @note Use `getToolbarItems` and define a `layouts` property instead.
+   * @note Use [[UiItemsProvider.getToolbarItems]] instead. To map item to location previously specified by arguments use [[ToolbarItem.layouts]].
    */
   readonly provideToolbarItems?: (
     stageId: string,
@@ -53,18 +52,18 @@ export interface UiItemsProvider {
     toolbarOrientation: ToolbarOrientation
   ) => ReadonlyArray<ToolbarItem>;
   /** Provides status bar items.
-   * @note Use `getStatusBarItems` instead.
+   * @note Use [[UiItemsProvider.getStatusBarItems]] instead.
    */
   readonly provideStatusBarItems?: (
     stageId: string,
     stageUsage: string
   ) => ReadonlyArray<StatusBarItem>;
   /** Provides backstage items.
-   * @note Use `getBackstageItems` instead.
+   * @note Use [[UiItemsProvider.getBackstageItems]] instead.
    */
   readonly provideBackstageItems?: () => ReadonlyArray<BackstageItem>;
   /** Provides widgets.
-   * @note Use `getWidgets` and define a `layouts` property instead.
+   * @note Use [[UiItemsProvider.getWidgets]] instead. To map item to location previously specified by arguments use [[Widget.layouts]].
    */
   readonly provideWidgets?: (
     stageId: string,
