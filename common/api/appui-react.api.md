@@ -4579,7 +4579,7 @@ export type ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomIt
 // @alpha
 export interface ToolbarItemLayouts {
     readonly [layoutId: string]: Object | undefined;
-    readonly panels?: PanelsLayoutToolbarItem;
+    readonly standard?: PanelsLayoutToolbarItem;
 }
 
 // @beta
@@ -4901,7 +4901,7 @@ export class UiFramework {
 export class UiItemsManager {
     // @internal
     static clearAllProviders(): void;
-    static getBackstageItems(stageId?: string, stageUsage?: string): ReadonlyArray<ProviderItem<BackstageItem>>;
+    static getBackstageItems(): ReadonlyArray<ProviderItem<BackstageItem>>;
     static getStatusBarItems(stageId: string, stageUsage: string): ReadonlyArray<ProviderItem<StatusBarItem>>;
     static getToolbarButtonItems(stageId: string, stageUsage: string, usage: ToolbarUsage, orientation: ToolbarOrientation): ReadonlyArray<ProviderItem<ToolbarItem>>;
     static getUiItemsProvider(providerId: string): UiItemsProvider | undefined;
@@ -4911,6 +4911,8 @@ export class UiItemsManager {
     static register(uiProvider: UiItemsProvider, overrides?: UiItemsProviderOverrides): void;
     static get registeredProviderIds(): string[];
     static unregister(providerId: string): void;
+    // @internal
+    static useAbstractAdapter(useAbstractAdapter: boolean): void;
 }
 
 // @public
@@ -4929,10 +4931,6 @@ export interface UiItemsProvider {
     readonly provideStatusBarItems?: (stageId: string, stageUsage: string) => ReadonlyArray<StatusBarItem>;
     readonly provideToolbarItems?: (stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => ReadonlyArray<ToolbarItem>;
     readonly provideWidgets?: (stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection) => ReadonlyArray<Widget>;
-    // @alpha
-    readonly stageIds?: ReadonlyArray<string>;
-    // @alpha
-    readonly stageUsages?: ReadonlyArray<string>;
 }
 
 // @public
@@ -5460,7 +5458,7 @@ export interface WidgetInfo {
 // @alpha
 export interface WidgetLayouts {
     readonly [layoutId: string]: Object | undefined;
-    readonly panels?: PanelsLayoutWidget;
+    readonly standard?: PanelsLayoutWidget;
 }
 
 // @beta
