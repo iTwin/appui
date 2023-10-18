@@ -21,17 +21,21 @@ export const updatedUiItemsProvider: UiItemsProvider = {
   id,
   getToolbarItems: () => {
     return [
-      {
-        ...ToolbarItemUtilities.createActionItem(
-          `${id}:toolbar-item`,
-          0,
-          <SvgUpgrade />,
-          "Updated toolbar item",
-          () => undefined
-        ),
-        usage: ToolbarUsage.ViewNavigation,
-        orientation: ToolbarOrientation.Vertical,
-      },
+      ToolbarItemUtilities.createActionItem(
+        `${id}:toolbar-item`,
+        0,
+        <SvgUpgrade />,
+        "Updated toolbar item",
+        () => undefined,
+        {
+          layouts: {
+            standard: {
+              orientation: ToolbarOrientation.Vertical,
+              usage: ToolbarUsage.ViewNavigation,
+            },
+          },
+        }
+      ),
     ];
   },
   getBackstageItems: () => {
