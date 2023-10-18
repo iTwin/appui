@@ -10,7 +10,11 @@ import { expect } from "chai";
 import * as abstract from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
 import { IconHelper } from "@itwin/core-react";
-import type { UiItemsProvider } from "../../appui-react";
+import type {
+  ToolbarActionItem,
+  UiItemsProvider,
+  Widget,
+} from "../../appui-react";
 import {
   BackstageItemUtilities,
   StagePanelLocation,
@@ -28,6 +32,57 @@ import {
 const AbstractUiItemsManager = abstract.UiItemsManager;
 // @ts-ignore Removed in 4.0
 const AbstractStagePanelLocation = abstract.StagePanelLocation;
+
+function createStatusBarItem(id: string) {
+  return StatusBarItemUtilities.createActionItem(
+    id,
+    StatusBarSection.Left,
+    0,
+    "",
+    "",
+    () => undefined
+  );
+}
+
+function createBackstageItem(id: string) {
+  return BackstageItemUtilities.createActionItem(id, 0, 0, () => undefined, "");
+}
+
+function createToolbarItem(id: string, overrides?: Partial<ToolbarActionItem>) {
+  return ToolbarItemUtilities.createActionItem(
+    id,
+    0,
+    "",
+    "",
+    () => undefined,
+    overrides
+  );
+}
+
+function createWidget(id: string, overrides?: Partial<Widget>) {
+  return {
+    id,
+    ...overrides,
+  } satisfies Widget;
+}
+
+function describeAbstractAdapter(title: string, fn: () => void) {
+  for (const useAbstractAdapter of [true, false]) {
+    describe(`${title} ${
+      useAbstractAdapter ? "(uses abstract adapter)" : "(no abstract adapter)"
+    }`, () => {
+      before(() => {
+        UiItemsManager.useAbstractAdapter(useAbstractAdapter);
+      });
+
+      after(() => {
+        UiItemsManager.useAbstractAdapter(true);
+      });
+
+      fn();
+    });
+  }
+}
 
 describe("UiItemsManager", () => {
   afterEach(() => {
@@ -774,26 +829,19 @@ describe("UiItemsManager", () => {
   });
 
   describe("UiItemsProvider v2", () => {
-    describe("toolbar items", () => {
+    describeAbstractAdapter("toolbar items", () => {
       const provider = {
         id: "provider1",
         getToolbarItems: () => {
           return [
-            ToolbarItemUtilities.createActionItem(
-              "item1",
-              0,
-              "",
-              "",
-              () => undefined,
-              {
-                layouts: {
-                  panels: {
-                    usage: ToolbarUsage.ContentManipulation,
-                    orientation: ToolbarOrientation.Horizontal,
-                  },
+            createToolbarItem("item1", {
+              layouts: {
+                panels: {
+                  usage: ToolbarUsage.ContentManipulation,
+                  orientation: ToolbarOrientation.Horizontal,
                 },
-              }
-            ),
+              },
+            }),
           ];
         },
       } satisfies UiItemsProvider;
@@ -811,19 +859,24 @@ describe("UiItemsManager", () => {
         ).lengthOf(1);
       });
 
-      it("should provide to default location if not specified", () => {
+      it("should not provide w/o location/usage", () => {
         UiItemsManager.register({
           id: "provider1",
-          getToolbarItems: () => [
-            ToolbarItemUtilities.createActionItem(
-              "item1",
-              0,
-              "",
-              "",
-              () => undefined
-            ),
-          ],
+          getToolbarItems: () => [createToolbarItem("item1")],
         });
+
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage1",
+            StageUsage.General,
+            ToolbarUsage.ContentManipulation,
+            ToolbarOrientation.Horizontal
+          )
+        ).lengthOf(0);
+      });
+
+      it("should not provide for different location/usage", () => {
+        UiItemsManager.register(provider);
 
         expect(
           UiItemsManager.getToolbarButtonItems(
@@ -837,88 +890,34 @@ describe("UiItemsManager", () => {
           UiItemsManager.getToolbarButtonItems(
             "stage1",
             StageUsage.General,
-            ToolbarUsage.ContentManipulation,
-            ToolbarOrientation.Horizontal
-          )
-        ).lengthOf(1);
-      });
-
-      it("should not provide for different usage", () => {
-        UiItemsManager.register(provider);
-
-        expect(
-          UiItemsManager.getToolbarButtonItems(
-            "stage1",
-            StageUsage.General,
             ToolbarUsage.ViewNavigation,
             ToolbarOrientation.Horizontal
           )
         ).lengthOf(0);
       });
 
-      it("should provide only for specified stageIds", () => {
+      it("should prefer `getToolbarItems` of a provider", () => {
         UiItemsManager.register({
           ...provider,
-          stageIds: ["stage2"],
+          provideToolbarItems: () => [createToolbarItem("item2")],
         });
 
-        expect(
-          UiItemsManager.getToolbarButtonItems(
-            "stage1",
-            StageUsage.General,
-            ToolbarUsage.ContentManipulation,
-            ToolbarOrientation.Horizontal
-          )
-        ).lengthOf(0);
-        expect(
-          UiItemsManager.getToolbarButtonItems(
-            "stage2",
-            StageUsage.General,
-            ToolbarUsage.ContentManipulation,
-            ToolbarOrientation.Horizontal
-          )
-        ).lengthOf(1);
-      });
-
-      it("should provide only for specified stageUsages", () => {
-        UiItemsManager.register({
-          ...provider,
-          stageUsages: ["custom"],
-        });
-
-        expect(
-          UiItemsManager.getToolbarButtonItems(
-            "stage1",
-            StageUsage.General,
-            ToolbarUsage.ContentManipulation,
-            ToolbarOrientation.Horizontal
-          )
-        ).lengthOf(0);
-        expect(
-          UiItemsManager.getToolbarButtonItems(
-            "stage1",
-            "custom",
-            ToolbarUsage.ContentManipulation,
-            ToolbarOrientation.Horizontal
-          )
-        ).lengthOf(1);
+        const items = UiItemsManager.getToolbarButtonItems(
+          "stage1",
+          StageUsage.General,
+          ToolbarUsage.ContentManipulation,
+          ToolbarOrientation.Horizontal
+        );
+        expect(items).lengthOf(1);
+        expect(items[0].id).to.eq("item1");
       });
     });
 
-    describe("status bar items", () => {
+    describeAbstractAdapter("status bar items", () => {
       const provider = {
         id: "provider1",
         getStatusBarItems: () => {
-          return [
-            StatusBarItemUtilities.createActionItem(
-              "item1",
-              StatusBarSection.Left,
-              0,
-              "",
-              "",
-              () => undefined
-            ),
-          ];
+          return [createStatusBarItem("item1")];
         },
       } satisfies UiItemsProvider;
 
@@ -930,48 +929,26 @@ describe("UiItemsManager", () => {
         ).lengthOf(1);
       });
 
-      it("should provide only for specified stageIds", () => {
+      it("should prefer `getStatusBarItems` of a provider", () => {
         UiItemsManager.register({
           ...provider,
-          stageIds: ["stage2"],
+          provideStatusBarItems: () => [createStatusBarItem("item2")],
         });
 
-        expect(
-          UiItemsManager.getStatusBarItems("stage1", StageUsage.General)
-        ).lengthOf(0);
-        expect(
-          UiItemsManager.getStatusBarItems("stage2", StageUsage.General)
-        ).lengthOf(1);
-      });
-
-      it("should provide only for specified stageUsages", () => {
-        UiItemsManager.register({
-          ...provider,
-          stageUsages: ["custom"],
-        });
-
-        expect(UiItemsManager.getStatusBarItems("stage1", "custom")).lengthOf(
-          1
+        const items = UiItemsManager.getStatusBarItems(
+          "stage1",
+          StageUsage.General
         );
-        expect(
-          UiItemsManager.getStatusBarItems("stage1", StageUsage.General)
-        ).lengthOf(0);
+        expect(items).lengthOf(1);
+        expect(items[0].id).to.eq("item1");
       });
     });
 
-    describe("backstage items", () => {
+    describeAbstractAdapter("backstage items", () => {
       const provider = {
         id: "provider1",
         getBackstageItems: () => {
-          return [
-            BackstageItemUtilities.createActionItem(
-              "item1",
-              0,
-              0,
-              () => undefined,
-              ""
-            ),
-          ];
+          return [createBackstageItem("item1")];
         },
       } satisfies UiItemsProvider;
 
@@ -981,49 +958,31 @@ describe("UiItemsManager", () => {
         expect(UiItemsManager.getBackstageItems()).lengthOf(1);
       });
 
-      it("should provide only for specified stageIds", () => {
+      it("should prefer `getBackstageItems` of a provider", () => {
         UiItemsManager.register({
           ...provider,
-          stageIds: ["stage2"],
+          provideBackstageItems: () => [createBackstageItem("item2")],
         });
 
-        expect(
-          UiItemsManager.getBackstageItems("stage1", StageUsage.General)
-        ).lengthOf(0);
-        expect(
-          UiItemsManager.getBackstageItems("stage2", StageUsage.General)
-        ).lengthOf(1);
-      });
-
-      it("should provide only for specified stageUsages", () => {
-        UiItemsManager.register({
-          ...provider,
-          stageUsages: ["custom"],
-        });
-
-        expect(
-          UiItemsManager.getBackstageItems("stage1", StageUsage.General)
-        ).lengthOf(0);
-        expect(UiItemsManager.getBackstageItems("stage1", "custom")).lengthOf(
-          1
-        );
+        const items = UiItemsManager.getBackstageItems();
+        expect(items).lengthOf(1);
+        expect(items[0].id).to.eq("item1");
       });
     });
 
-    describe("widgets", () => {
+    describeAbstractAdapter("widgets", () => {
       const provider = {
         id: "provider1",
         getWidgets: () => {
           return [
-            {
-              id: "item1",
+            createWidget("item1", {
               layouts: {
                 panels: {
                   location: StagePanelLocation.Bottom,
                   section: StagePanelSection.End,
                 },
               },
-            },
+            }),
           ];
         },
       } satisfies UiItemsProvider;
@@ -1041,24 +1000,12 @@ describe("UiItemsManager", () => {
         ).lengthOf(1);
       });
 
-      it("should provide to default location if not specified", () => {
+      it("should not provide w/o location", () => {
         UiItemsManager.register({
           id: "provider1",
-          getWidgets: () => [
-            {
-              id: "w1",
-            },
-          ],
+          getWidgets: () => [createWidget("w1")],
         });
 
-        expect(
-          UiItemsManager.getWidgets(
-            "stage1",
-            StageUsage.General,
-            StagePanelLocation.Right,
-            StagePanelSection.Start
-          )
-        ).lengthOf(0);
         expect(
           UiItemsManager.getWidgets(
             "stage1",
@@ -1066,10 +1013,10 @@ describe("UiItemsManager", () => {
             StagePanelLocation.Left,
             StagePanelSection.Start
           )
-        ).lengthOf(1);
+        ).lengthOf(0);
       });
 
-      it("should not provide for different location", () => {
+      it("should not provide for different location/section", () => {
         UiItemsManager.register(provider);
 
         expect(
@@ -1080,54 +1027,22 @@ describe("UiItemsManager", () => {
             StagePanelSection.End
           )
         ).lengthOf(0);
-      });
-
-      it("should provide only for specified stageIds", () => {
-        UiItemsManager.register({
-          ...provider,
-          stageIds: ["stage2"],
-        });
-
         expect(
           UiItemsManager.getWidgets(
             "stage1",
             StageUsage.General,
-            StagePanelLocation.Bottom,
-            StagePanelSection.End
-          )
-        ).lengthOf(0);
-        expect(
-          UiItemsManager.getWidgets(
-            "stage2",
-            StageUsage.General,
-            StagePanelLocation.Bottom,
-            StagePanelSection.End
-          )
-        ).lengthOf(1);
-      });
-
-      it("should provide only for specified stageUsages", () => {
-        UiItemsManager.register({
-          ...provider,
-          stageUsages: ["custom"],
-        });
-
-        expect(
-          UiItemsManager.getWidgets(
-            "stage1",
-            StageUsage.General,
-            StagePanelLocation.Bottom,
-            StagePanelSection.End
+            StagePanelLocation.Top,
+            StagePanelSection.Start
           )
         ).lengthOf(0);
         expect(
           UiItemsManager.getWidgets(
             "stage1",
-            "custom",
+            StageUsage.General,
             StagePanelLocation.Bottom,
-            StagePanelSection.End
+            StagePanelSection.Start
           )
-        ).lengthOf(1);
+        ).lengthOf(0);
       });
     });
   });

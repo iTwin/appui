@@ -11,7 +11,6 @@ import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProvid
 import type { BackstageItem } from "./BackstageItem";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import type { BackstageItemsManager } from "./BackstageItemsManager";
-import { UiFramework } from "../UiFramework";
 
 /** Hook that returns items from [[BackstageItemsManager]].
  * @public
@@ -30,14 +29,8 @@ export const useUiItemsProviderBackstageItems = (
     const uiProviders = uiItemProviderIds.join("-");
     // istanbul ignore else
     if (providersRef.current !== uiProviders) {
-      const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-      const stageId = frontstageDef?.id;
-      const stageUsage = frontstageDef?.usage;
       providersRef.current = uiProviders;
-      const backstageItems = UiItemsManager.getBackstageItems(
-        stageId,
-        stageUsage
-      );
+      const backstageItems = UiItemsManager.getBackstageItems();
       manager.loadItems(backstageItems);
       setItems(manager.items);
     }

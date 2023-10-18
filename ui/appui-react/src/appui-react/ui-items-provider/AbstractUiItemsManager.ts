@@ -254,20 +254,17 @@ function createUiItemsProviderToAbstractAdapter(
     provideWidgets,
     ...other
   } = adaptee;
+  const provider = createGetPropertyAdapter(adaptee);
   return {
     id: adaptee.id,
     onUnregister: adaptee.onUnregister,
     provideBackstageItems: () => {
-      if (!adaptee.provideBackstageItems) return [];
-
-      const items = adaptee.provideBackstageItems();
+      const items = provider.provideBackstageItems();
       const abstractItems = items.map((item) => toAbstractBackstageItem(item));
       return abstractItems;
     },
     provideStatusBarItems: (stageId, stageUsage, _stageAppData) => {
-      if (!adaptee.provideStatusBarItems) return [];
-
-      const items = adaptee.provideStatusBarItems(stageId, stageUsage);
+      const items = provider.provideStatusBarItems(stageId, stageUsage);
       const abstractItems = items.map((item) => toAbstractStatusBarItem(item));
       return abstractItems;
     },
@@ -278,9 +275,7 @@ function createUiItemsProviderToAbstractAdapter(
       orientation,
       _stageAppData
     ) => {
-      if (!adaptee.provideToolbarItems) return [];
-
-      const items = adaptee.provideToolbarItems(
+      const items = provider.provideToolbarItems(
         stageId,
         stageUsage,
         usage,
@@ -297,20 +292,18 @@ function createUiItemsProviderToAbstractAdapter(
       _zoneLocation,
       _stageAppData
     ) => {
-      if (!adaptee.provideWidgets) return [];
-
       const location = fromAbstractStagePanelLocation(abstractLocation);
       const section =
         abstractSection === undefined
           ? undefined
           : fromAbstractStagePanelSection(abstractSection);
-      const widgets = adaptee.provideWidgets(
+      const items = provider.provideWidgets(
         stageId,
         stageUsage,
         location,
         section
       );
-      const abstractWidgets = widgets.map((widget) => toAbstractWidget(widget));
+      const abstractWidgets = items.map((item) => toAbstractWidget(item));
       return abstractWidgets;
     },
     ...other,
@@ -730,4 +723,56 @@ function getOriginalData<TData>(obj: Object): TData | undefined {
 
 function setOriginalData<TData>(obj: Object, data: TData) {
   (obj as any)[originalDataSymbol] = data;
+}
+
+/** Maps items of existing `get` properties to `provide` properties, otherwise uses `provide` properties.
+ * @internal
+ */
+export function createGetPropertyAdapter(provider: UiItemsProvider) {
+  return {
+    ...provider,
+    provideBackstageItems: () => {
+      return (
+        provider.getBackstageItems?.() ??
+        provider.provideBackstageItems?.() ??
+        []
+      );
+    },
+    provideStatusBarItems: (stageId, stageUsage) => {
+      return (
+        provider.getStatusBarItems?.() ??
+        provider.provideStatusBarItems?.(stageId, stageUsage) ??
+        []
+      );
+    },
+    provideToolbarItems: (stageId, stageUsage, usage, orientation) => {
+      if (provider.getToolbarItems) {
+        return provider.getToolbarItems().filter((item) => {
+          const layout = item.layouts?.panels;
+          if (!layout) return false;
+          return layout.usage === usage && layout.orientation === orientation;
+        });
+      }
+      return (
+        provider.provideToolbarItems?.(
+          stageId,
+          stageUsage,
+          usage,
+          orientation
+        ) ?? []
+      );
+    },
+    provideWidgets: (stageId, stageUsage, location, section) => {
+      if (provider.getWidgets) {
+        return provider.getWidgets().filter((item) => {
+          const layout = item.layouts?.panels;
+          if (!layout) return false;
+          return layout.location === location && layout.section === section;
+        });
+      }
+      return (
+        provider.provideWidgets?.(stageId, stageUsage, location, section) ?? []
+      );
+    },
+  } satisfies UiItemsProvider;
 }
