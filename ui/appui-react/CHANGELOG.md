@@ -1,6 +1,32 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Fri, 08 Sep 2023 16:10:53 GMT and should not be manually modified.
+This log was last generated on Tue, 17 Oct 2023 19:16:23 GMT and should not be manually modified.
+
+## 4.6.2
+Tue, 17 Oct 2023 19:16:23 GMT
+
+### Updates
+
+- Unmount childWindowManager whenever window is closed
+
+## 4.6.1
+Thu, 12 Oct 2023 16:59:20 GMT
+
+### Updates
+
+- Fix an issue where `onWidgetStateChangedEvent` is not emitted for a hidden widget.
+
+## 4.6.0
+Wed, 04 Oct 2023 18:05:34 GMT
+
+### Updates
+
+- Disable user select when dragging or resizing a widget.
+- Correctly configure `resizable` flag of a floating widget after docking and undocking.
+- Fixed tool settings widget so that can set to dockings not allowed
+- Fix message center messages icon colors based on message severity.
+- Fix an issue with closing tool settings dropdown when main UI hides.
+- React to core/appui-abstract deprecations
 
 ## 4.5.1
 Fri, 08 Sep 2023 16:10:53 GMT

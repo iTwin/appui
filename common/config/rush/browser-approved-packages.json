@@ -515,6 +515,10 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "vite-plugin-static-copy",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "webpack",
       "allowedCategories": [ "internal" ]
     },

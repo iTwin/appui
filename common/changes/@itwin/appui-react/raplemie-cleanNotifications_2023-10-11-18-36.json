@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "`AppNotificationManager` no longer requires `StatusBar` to be displayed to show messages.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

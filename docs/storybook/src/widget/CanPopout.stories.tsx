@@ -22,8 +22,14 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Enabled: Story = {
   args: {
     canPopout: true,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    canPopout: false,
   },
 };
