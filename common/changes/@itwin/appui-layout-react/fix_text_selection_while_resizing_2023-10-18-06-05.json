@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-layout-react",
+      "comment": "disable text selection when resizing a stage panel",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-layout-react"
+}
