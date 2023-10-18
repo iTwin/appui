@@ -59,7 +59,7 @@ export interface Widget {
  */
 export interface WidgetLayouts {
   /** Widget configuration in a panels layout. */
-  readonly panels?: PanelsLayoutWidget;
+  readonly standard?: PanelsLayoutWidget;
   /** Widget configuration in a custom layout. */
   readonly [layoutId: string]: Object | undefined;
 }

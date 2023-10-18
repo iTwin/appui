@@ -836,7 +836,7 @@ describe("UiItemsManager", () => {
           return [
             createToolbarItem("item1", {
               layouts: {
-                panels: {
+                standard: {
                   usage: ToolbarUsage.ContentManipulation,
                   orientation: ToolbarOrientation.Horizontal,
                 },
@@ -977,7 +977,7 @@ describe("UiItemsManager", () => {
           return [
             createWidget("item1", {
               layouts: {
-                panels: {
+                standard: {
                   location: StagePanelLocation.Bottom,
                   section: StagePanelSection.End,
                 },

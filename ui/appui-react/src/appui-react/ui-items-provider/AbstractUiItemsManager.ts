@@ -748,7 +748,7 @@ export function createGetPropertyAdapter(provider: UiItemsProvider) {
     provideToolbarItems: (stageId, stageUsage, usage, orientation) => {
       if (provider.getToolbarItems) {
         return provider.getToolbarItems().filter((item) => {
-          const layout = item.layouts?.panels;
+          const layout = item.layouts?.standard;
           if (!layout) return false;
           return layout.usage === usage && layout.orientation === orientation;
         });
@@ -765,7 +765,7 @@ export function createGetPropertyAdapter(provider: UiItemsProvider) {
     provideWidgets: (stageId, stageUsage, location, section) => {
       if (provider.getWidgets) {
         return provider.getWidgets().filter((item) => {
-          const layout = item.layouts?.panels;
+          const layout = item.layouts?.standard;
           if (!layout) return false;
           return layout.location === location && layout.section === section;
         });

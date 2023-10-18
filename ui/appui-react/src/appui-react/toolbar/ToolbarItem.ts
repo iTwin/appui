@@ -144,7 +144,7 @@ export function isToolbarCustomItem(
  */
 export interface ToolbarItemLayouts {
   /** Toolbar item location in a panel layout. */
-  readonly panels?: PanelsLayoutToolbarItem;
+  readonly standard?: PanelsLayoutToolbarItem;
   /** Describes a location for a custom layout. */
   readonly [layoutId: string]: Object | undefined;
 }

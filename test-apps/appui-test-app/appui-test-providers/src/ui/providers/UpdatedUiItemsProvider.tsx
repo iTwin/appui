@@ -64,7 +64,7 @@ export const updatedUiItemsProvider: UiItemsProvider = {
         label: "Updated widget",
         content: <div />,
         layouts: {
-          panels: {
+          standard: {
             location: StagePanelLocation.Bottom,
             section: StagePanelSection.End,
           },
