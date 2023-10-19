@@ -1254,9 +1254,6 @@ export function createAction<T extends string, P>(type: T, payload: P): ActionWi
 export function createStableWidgetDef(widgetDef: WidgetDef, stableId: string): WidgetDef;
 
 // @public
-export function createWebComponentIconSpec(srcString: string): string;
-
-// @public
 export class CubeNavigationAidControl extends NavigationAidControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     // (undocumented)
@@ -2359,9 +2356,6 @@ export function getSelectionContextSyncEventIds(): string[];
 
 // @beta
 export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry;
-
-// @public
-export function getWebComponentSource(iconSpec: string): string | undefined;
 
 // @internal (undocumented)
 export function getWidgetId(location: StagePanelLocation, section: StagePanelSection): WidgetId;
@@ -3708,7 +3702,7 @@ export enum SelectionScope {
 }
 
 // @public
-export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "availableSelectionScopes" | "activeSelectionScope">>;
+export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "activeSelectionScope" | "availableSelectionScopes">>;
 
 // @public
 export interface SessionState {
