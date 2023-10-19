@@ -5,6 +5,8 @@
 import { AppUiStory, AppUiStoryProps } from "../AppUiStory";
 
 /** [FrontstageProvider](https://www.itwinjs.org/reference/appui-react/frontstage/frontstageprovider/) can be used to configure a frontstage. */
-export function FrontstageStory(props: AppUiStoryProps) {
+export function FrontstageStory(
+  props: Pick<AppUiStoryProps, "frontstageProviders" | "itemProviders">
+) {
   return <AppUiStory layout="fullscreen" {...props} />;
 }
