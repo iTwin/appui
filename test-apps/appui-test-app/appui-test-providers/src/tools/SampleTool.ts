@@ -36,7 +36,6 @@ import { Point3d } from "@itwin/core-geometry";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { FormatterSpec } from "@itwin/core-quantity";
 import {
-  createWebComponentIconSpec,
   CursorInformation,
   MenuItemProps,
   UiFramework,
@@ -635,9 +634,8 @@ export class SampleTool extends PrimitiveTool {
   }
 
   private showColorInfoFromUi(updatedValue: DialogPropertySyncItem) {
-    const msg = `Property '${
-      updatedValue.propertyName
-    }' updated to value ${this.colorDef.toRgbString()}`;
+    const msg = `Property '${updatedValue.propertyName
+      }' updated to value ${this.colorDef.toRgbString()}`;
     IModelApp.notifications.outputMessage(
       new NotifyMessageDetails(OutputMessagePriority.Info, msg)
     );
@@ -708,14 +706,11 @@ export class SampleTool extends PrimitiveTool {
     groupPriority?: number
   ) {
     const overrides = undefined !== groupPriority ? { groupPriority } : {};
-    const iconSpec = createWebComponentIconSpec(
-      this.iconSpec
-    );
 
     return ToolbarItemUtilities.createActionButton(
       SampleTool.toolId,
       itemPriority,
-      iconSpec,
+      this.iconSpec,
       SampleTool.flyover,
       async () => {
         await IModelApp.tools.run(SampleTool.toolId);

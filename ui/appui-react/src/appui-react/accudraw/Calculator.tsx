@@ -19,7 +19,6 @@ import { SquareButton } from "./SquareButton";
 import { SvgCheckmark, SvgRemove } from "@itwin/itwinui-icons-react";
 
 import backspaceIcon from "./backspace.svg";
-import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 import { SpecialKey } from "../keyboardKey/KeyboardKey";
 
 // cSpell:ignore plusmn
@@ -258,8 +257,6 @@ interface CalculatorKeyPadProps extends CommonProps {
 
 class CalculatorKeyPad extends React.PureComponent<CalculatorKeyPadProps> {
   public override render() {
-    const iconSpec = createWebComponentIconSpec(backspaceIcon);
-
     return (
       <div className={classnames("uifw-calculator-button-grid")}>
         <OperatorButton
@@ -279,7 +276,7 @@ class CalculatorKeyPad extends React.PureComponent<CalculatorKeyPadProps> {
           onClick={this.props.onOperatorClick}
         >
           <div className="uifw-calculator-button-svg">
-            <Icon iconSpec={iconSpec} />
+            <Icon iconSpec={backspaceIcon} />
           </div>
         </OperatorButton>
         <OperatorButton

@@ -24,7 +24,6 @@ import {
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select, Slider, ToggleSwitch } from "@itwin/itwinui-react";
 import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
-import { createWebComponentIconSpec } from "../../utils/IconSpecUtilities";
 
 /** UiSettingsPage displaying the active UI settings. This page lets users set the following settings.
  *
@@ -459,7 +458,7 @@ export function getUiSettingsManagerEntry(
     itemPriority,
     tabId: "uifw:UiStateStorage",
     label: UiFramework.translate("settings.uiSettingsPage.label"),
-    icon: createWebComponentIconSpec(widowSettingsIconSvg),
+    icon: widowSettingsIconSvg,
     page: <UiSettingsPage />,
     isDisabled: false,
     tooltip: UiFramework.translate("settings.uiSettingsPage.tooltip"),

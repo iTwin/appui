@@ -68,10 +68,6 @@ import touchCursorDragIcon from "./touch-cursor-pan.svg";
 import touchCursorTapIcon from "./touch-cursor-point.svg";
 import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
 import { SvgClose, SvgPin } from "@itwin/itwinui-icons-react";
-import {
-  createWebComponentIconSpec,
-  getWebComponentSource,
-} from "../../utils/IconSpecUtilities";
 
 // cSpell:ignore cursorprompt
 
@@ -755,12 +751,12 @@ export class ToolAssistanceField extends React.Component<
             : "uifw-toolassistance-svg-wide";
           break;
       }
-      const iconSpec = createWebComponentIconSpec(svgImage);
+
       image = (
         <div className={className}>
           {svgImage && (
             // istanbul ignore next
-            <Icon iconSpec={iconSpec} />
+            <Icon iconSpec={svgImage} />
           )}
         </div>
       );
@@ -840,4 +836,12 @@ export class ToolAssistanceField extends React.Component<
       </div>
     );
   }
+}
+
+function getWebComponentSource(iconSpec: string): string | undefined {
+  if (iconSpec.startsWith("webSvg:") && iconSpec.length > 7) {
+    return iconSpec.slice(7);
+  }
+
+  return undefined;
 }

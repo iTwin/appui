@@ -47,7 +47,6 @@ import svgRotateLeft from "@bentley/icons-generic/icons/rotate-left.svg";
 import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
 import svgSelectionClear from "@bentley/icons-generic/icons/selection-clear.svg";
 import { SvgMeasure, SvgProcess } from "@itwin/itwinui-icons-react";
-import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /** Utility Class that provides definitions of tools provided by the ($core-frontend) core. These definitions can be used to populate the UI.
  * @public
@@ -128,9 +127,8 @@ export class CoreTools {
       iconSpec: new ConditionalStringValue(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
-        if (activeContentControl?.viewport?.view.is2d())
-          return createWebComponentIconSpec(svgRotateLeft);
-        return createWebComponentIconSpec(svgGyroscope);
+        if (activeContentControl?.viewport?.view.is2d()) return svgRotateLeft;
+        return svgGyroscope;
       }, [
         SyncUiEventId.ActiveContentChanged,
         SyncUiEventId.ActiveViewportChanged,
@@ -199,9 +197,9 @@ export class CoreTools {
           activeContentControl?.viewport?.view.is3d() &&
           activeContentControl?.viewport?.isCameraOn
         ) {
-          return createWebComponentIconSpec(cameraAnimationIcon);
+          return cameraAnimationIcon;
         }
-        return createWebComponentIconSpec(cameraAnimationDisabledIcon);
+        return cameraAnimationDisabledIcon;
       }, [
         SyncUiEventId.ActiveContentChanged,
         SyncUiEventId.ActiveViewportChanged,
@@ -396,7 +394,7 @@ export class CoreTools {
     return new GroupItemDef({
       groupId: "sectionTools-group",
       labelKey: "UiFramework:tools.sectionTools",
-      iconSpec: createWebComponentIconSpec(svgSectionTool),
+      iconSpec: svgSectionTool,
       isHidden: new ConditionalBooleanValue(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
@@ -426,7 +424,7 @@ export class CoreTools {
       groupId: "sectionTools-group-with-panel",
       labelKey: "UiFramework:tools.sectionTools",
       panelLabelKey: "UiFramework:tools.sectionPanelLabel",
-      iconSpec: createWebComponentIconSpec(svgSectionTool),
+      iconSpec: svgSectionTool,
       isHidden: new ConditionalBooleanValue(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
@@ -500,7 +498,7 @@ export class CoreTools {
   public static get clearSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.ClearSelection",
-      iconSpec: createWebComponentIconSpec(svgSelectionClear),
+      iconSpec: svgSelectionClear,
       labelKey: "UiFramework:buttons.clearSelection",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () => {

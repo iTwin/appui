@@ -13,7 +13,6 @@ import {
   ContentGroup,
   ContentGroupProps,
   ContentProps,
-  createWebComponentIconSpec,
   IModelViewportControl,
   StageContentLayout,
   StageContentLayoutProps,
@@ -88,8 +87,7 @@ export async function getSavedViewLayoutProps(
 
 export class SaveContentLayoutTool extends Tool {
   public static override toolId = "SaveContentLayoutTool";
-  public static override iconSpec =
-    createWebComponentIconSpec(layoutSaveIconSvg);
+  public static override iconSpec = layoutSaveIconSvg;
   public static override get minArgs() {
     return 0;
   }
@@ -163,8 +161,7 @@ export class SaveContentLayoutTool extends Tool {
 
 export class RestoreSavedContentLayoutTool extends Tool {
   public static override toolId = "RestoreSavedContentLayoutTool";
-  public static override iconSpec =
-    createWebComponentIconSpec(layoutRestoreIconSvg);
+  public static override iconSpec = layoutRestoreIconSvg;
   public static override get minArgs() {
     return 0;
   }

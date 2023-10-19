@@ -33,11 +33,9 @@ export interface IconProps extends CommonProps {
   iconSpec?: IconSpec;
 }
 
-const WEB_COMPONENT_PREFIX = "webSvg:";
-
 /** Get the SVG Source from an svg-loader IconSpec */
 function getWebComponentSource(iconSpec: string): string | undefined {
-  if (iconSpec.startsWith(WEB_COMPONENT_PREFIX) && iconSpec.length > 7) {
+  if (iconSpec.startsWith("webSvg:") && iconSpec.length > 7) {
     return iconSpec.slice(7);
   }
 
@@ -58,8 +56,16 @@ export function Icon(props: IconProps) {
 
   if (iconString) {
     const webComponentString = getWebComponentSource(iconString);
-    if (webComponentString) {
-      const svgLoader = `<svg-loader src="${webComponentString}"></svg-loader>`;
+
+    if (
+      iconString.startsWith("data:") ||
+      iconString.endsWith(".svg") ||
+      webComponentString
+    ) {
+      const definitiveIconString = webComponentString
+        ? webComponentString
+        : iconString;
+      const svgLoader = `<svg-loader src="${definitiveIconString}"></svg-loader>`;
       const svgDiv = `<div>${svgLoader}</div>`;
       // the esm build of dompurify has a default import but the cjs build does not
       // if there is a default export, use it (likely esm), otherwise use the namespace
@@ -68,7 +74,7 @@ export function Icon(props: IconProps) {
 
       const sanitizerConfig = {
         ALLOWED_TAGS: ["svg-loader"],
-        ADD_URI_SAFE_ATTR: webComponentString.startsWith("data:")
+        ADD_URI_SAFE_ATTR: definitiveIconString.startsWith("data:")
           ? ["src"]
           : [],
       };

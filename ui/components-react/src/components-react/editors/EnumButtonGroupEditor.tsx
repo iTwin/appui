@@ -31,8 +31,6 @@ import {
 } from "./PropertyEditorManager";
 import svgPlaceholder from "@bentley/icons-generic/icons/placeholder.svg";
 
-type WEB_COMPONENT_PREFIX = "webSvg:";
-type WebComponentIconSpec = `${WEB_COMPONENT_PREFIX}${string}`;
 // cspell:ignore buttongroup enumbuttongroup
 
 /** @internal */
@@ -51,7 +49,6 @@ export class EnumButtonGroupEditor
 {
   private _btnRefs = new Map<string | number, HTMLButtonElement>();
   private _divElement = React.createRef<HTMLDivElement>();
-  private _placeholderIconSpec: WebComponentIconSpec = `webSvg:${svgPlaceholder}`;
 
   /** @internal */
   public override readonly state: Readonly<EnumButtonGroupEditorState> = {
@@ -130,7 +127,7 @@ export class EnumButtonGroupEditor
 
       const numChoices = choices.length;
       const enumIcons = new Array<IconDefinition>(numChoices);
-      enumIcons.fill({ iconSpec: this._placeholderIconSpec });
+      enumIcons.fill({ iconSpec: svgPlaceholder });
 
       // istanbul ignore else
       if (

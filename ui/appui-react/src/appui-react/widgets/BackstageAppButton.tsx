@@ -12,7 +12,6 @@ import type { IconSpec } from "@itwin/core-react";
 import { Icon, useWidgetOpacityContext } from "@itwin/core-react";
 import { AppButton } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
-import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /**
  * Properties for the [[BackstageAppButton]] React component
@@ -41,7 +40,7 @@ export function BackstageAppButton(props: BackstageAppButtonProps) {
     [backstageToggleCommand.tooltip, props.label]
   );
   const [icon, setIcon] = React.useState(
-    props.icon ? props.icon : createWebComponentIconSpec(widgetIconSvg)
+    props.icon ? props.icon : widgetIconSvg
   );
   const isInitialMount = React.useRef(true);
   const divClassName = "uifw-app-button-small";
@@ -58,9 +57,7 @@ export function BackstageAppButton(props: BackstageAppButtonProps) {
       isInitialMount.current = false;
       onElementRef(ref);
     } else {
-      setIcon(
-        props.icon ? props.icon : createWebComponentIconSpec(widgetIconSvg)
-      );
+      setIcon(props.icon ? props.icon : widgetIconSvg);
     }
   }, [props.icon, onElementRef]);
 

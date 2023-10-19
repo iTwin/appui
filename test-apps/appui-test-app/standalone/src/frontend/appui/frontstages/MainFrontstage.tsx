@@ -16,7 +16,6 @@ import {
   ContentGroupProps,
   ContentGroupProvider,
   ContentProps,
-  createWebComponentIconSpec,
   FrontstageConfig,
   IModelViewportControl,
   SettingsModalFrontstage,
@@ -231,7 +230,7 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
         IModelApp.localization.getLocalizedString(
           "SampleApp:backstage.iModelStage"
         ),
-        createWebComponentIconSpec(stageIconSvg)
+        stageIconSvg
       ),
       SettingsModalFrontstage.getBackstageActionItem(400, 10),
       ComponentExamplesModalFrontstage.getBackstageActionItem(400, 20),

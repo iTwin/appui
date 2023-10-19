@@ -23,7 +23,6 @@ import { useActiveViewport } from "../hooks/useActiveViewport";
 import { UiFramework } from "../UiFramework";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
-import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /** Sections Status Field Props
  * @beta
@@ -104,7 +103,6 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
     );
     setPopupOpen(false);
   };
-  const iconSpec = createWebComponentIconSpec(svgSectionTool);
 
   return (
     <div className="uifw-section-footer-popup-container">
@@ -113,7 +111,7 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
           <div ref={targetDiv} title={toolTip}>
             <StatusBarLabelIndicator
               className={classes}
-              iconSpec={iconSpec}
+              iconSpec={svgSectionTool}
               onClick={() => setPopupOpen(!isPopupOpen)}
             />
           </div>

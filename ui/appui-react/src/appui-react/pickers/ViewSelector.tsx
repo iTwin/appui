@@ -19,7 +19,6 @@ import type { ListItem } from "./ListPicker";
 import { ListItemType, ListPicker } from "./ListPicker";
 import { debounce } from "lodash";
 import svgSavedView from "@bentley/icons-generic/icons/saved-view.svg";
-import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 // cSpell:ignore Spatials
 
@@ -443,8 +442,6 @@ export class ViewSelector extends React.Component<
    *  Renders ViewSelector component
    */
   public override render() {
-    const iconSpec = createWebComponentIconSpec(svgSavedView);
-
     const { imodel, ...props } = this.props;
 
     return (
@@ -453,7 +450,7 @@ export class ViewSelector extends React.Component<
         title={this.state.title}
         setEnabled={this._setEnabled}
         items={this.state.items}
-        iconSpec={iconSpec}
+        iconSpec={svgSavedView}
         onExpanded={this._onExpanded}
         searchBox={this.state.searchBox}
         onSearchValueChange={debounce((search: string) => {

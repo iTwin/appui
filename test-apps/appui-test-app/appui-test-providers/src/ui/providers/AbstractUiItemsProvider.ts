@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 import {
-  createWebComponentIconSpec,
   StageUsage,
   StatusBarItem,
   StatusBarItemUtilities,
@@ -92,7 +91,7 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
     _stageId: string,
     stageUsage: string
   ): StatusBarItem[] {
-    const unitsIcon = createWebComponentIconSpec(statusFieldSvg);
+
     const statusBarItems: StatusBarItem[] = [];
     if (stageUsage === StageUsage.General) {
       statusBarItems.push(
@@ -101,7 +100,7 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
           "AppUiTestProviders:UnitsStatusBarItem",
           this.props?.unitsStatusBarItem?.section ?? StatusBarSection.Center,
           this.props?.unitsStatusBarItem?.itemPriority ?? 100,
-          unitsIcon,
+          statusFieldSvg,
           AppUiTestProviders.translate("StatusBar.UnitsFlyover"),
           () => {
             IModelApp.uiAdmin.openDialog(

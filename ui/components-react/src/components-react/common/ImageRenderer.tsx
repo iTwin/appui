@@ -18,9 +18,6 @@ import type {
 } from "./IImageLoader";
 import { UiError } from "./UIError";
 
-type WEB_COMPONENT_PREFIX = "webSvg:";
-type WebComponentIconSpec = `${WEB_COMPONENT_PREFIX}${string}`;
-
 /** A class that renders images from data provided by an image loader
  * @internal
  */
@@ -83,10 +80,9 @@ export class ImageRenderer {
       ImageRenderer._svgCache.set(svg, svgAsDataUri);
     }
 
-    const iconSpec: WebComponentIconSpec = `webSvg:${svgAsDataUri}`;
     return (
       <div>
-        <Icon iconSpec={iconSpec} />
+        <Icon iconSpec={svgAsDataUri} />
       </div>
     );
   }

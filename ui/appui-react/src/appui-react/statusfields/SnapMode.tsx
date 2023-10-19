@@ -20,7 +20,6 @@ import snapModeNearest from "@bentley/icons-generic/icons/snaps-nearest.svg";
 import snapModeOrigin from "@bentley/icons-generic/icons/snaps-origin.svg";
 import snapModeMidpoint from "@bentley/icons-generic/icons/snaps-midpoint.svg";
 import snapModeBisector from "@bentley/icons-generic/icons/snaps-bisector.svg";
-import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 // cSpell:ignore multione
 
@@ -38,28 +37,28 @@ interface SnapModeFieldEntry {
 }
 
 function getIconFromIconName(iconName: string): IconSpec {
-  let iconSpec = createWebComponentIconSpec(snapModeKeypoint);
+  let iconSpec = snapModeKeypoint;
   switch (iconName) {
     case "snaps":
-      iconSpec = createWebComponentIconSpec(snapModeKeypoint);
+      iconSpec = snapModeKeypoint;
       break;
     case "snaps-intersection":
-      iconSpec = createWebComponentIconSpec(snapModeIntersection);
+      iconSpec = snapModeIntersection;
       break;
     case "snaps-center":
-      iconSpec = createWebComponentIconSpec(snapModeCenter);
+      iconSpec = snapModeCenter;
       break;
     case "snaps-nearest":
-      iconSpec = createWebComponentIconSpec(snapModeNearest);
+      iconSpec = snapModeNearest;
       break;
     case "snaps-origin":
-      iconSpec = createWebComponentIconSpec(snapModeOrigin);
+      iconSpec = snapModeOrigin;
       break;
     case "snaps-midpoint":
-      iconSpec = createWebComponentIconSpec(snapModeMidpoint);
+      iconSpec = snapModeMidpoint;
       break;
     case "snaps-bisector":
-      iconSpec = createWebComponentIconSpec(snapModeBisector);
+      iconSpec = snapModeBisector;
       break;
   }
   return iconSpec;

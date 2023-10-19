@@ -26,7 +26,6 @@ import { UiFramework } from "../UiFramework";
 import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { StageUsage } from "./StageUsage";
 import { BackstageItemUtilities } from "../backstage/BackstageItemUtilities";
-import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 function ModalSettingsStage({
   initialSettingsTabId,
@@ -125,7 +124,7 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
         ),
       UiFramework.translate("settings.settingsStageLabel"),
       undefined,
-      createWebComponentIconSpec(settingsIconSvg),
+      settingsIconSvg,
       { isHidden: SettingsModalFrontstage.noSettingsAvailable() }
     );
   }

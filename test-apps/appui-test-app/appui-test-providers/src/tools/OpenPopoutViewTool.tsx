@@ -3,11 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { ToolbarItemUtilities } from "@itwin/appui-abstract";
-import {
-  ChildWindowLocationProps,
-  createWebComponentIconSpec,
-  UiFramework,
-} from "@itwin/appui-react";
+import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import * as React from "react";
 import windowPopoutSvg from "@bentley/icons-generic/icons/window-new.svg";
@@ -16,7 +12,7 @@ import { PopupTestView } from "../ui/dialogs/PopupTestView";
 export class OpenPopoutViewTool extends Tool {
   private static _counter = 0;
   public static override toolId = "OpenViewPopout";
-  public static override iconSpec = createWebComponentIconSpec(windowPopoutSvg);
+  public static override iconSpec = windowPopoutSvg;
   public static get dialogId(): string {
     return `appui-test-app:popup-view-dialog-${OpenPopoutViewTool._counter}`;
   }

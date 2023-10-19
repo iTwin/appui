@@ -35,7 +35,6 @@ import svgCubeFacesFront from "@bentley/icons-generic/icons/cube-faces/front.svg
 import svgCubeFacesRear from "@bentley/icons-generic/icons/cube-faces/rear.svg";
 import svgCubeFacesIsoLeft from "@bentley/icons-generic/icons/cube-faces/iso-left.svg";
 import svgCubeFacesIsoRight from "@bentley/icons-generic/icons/cube-faces/iso-right.svg";
-import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /** A 3D Standard Rotation Navigation Aid control.
  * @alpha
@@ -80,35 +79,35 @@ export class StandardRotationNavigationAid extends React.Component<
     const list: RotationData[] = [
       {
         label: UiFramework.translate("rotations.top"),
-        iconsSpec: createWebComponentIconSpec(svgCubeFacesTop),
+        iconsSpec: svgCubeFacesTop,
       },
       {
         label: UiFramework.translate("rotations.bottom"),
-        iconsSpec: createWebComponentIconSpec(svgCubeFacesBottom),
+        iconsSpec: svgCubeFacesBottom,
       },
       {
         label: UiFramework.translate("rotations.left"),
-        iconsSpec: createWebComponentIconSpec(svgCubeFacesLeft),
+        iconsSpec: svgCubeFacesLeft,
       },
       {
         label: UiFramework.translate("rotations.right"),
-        iconsSpec: createWebComponentIconSpec(svgCubeFacesRight),
+        iconsSpec: svgCubeFacesRight,
       },
       {
         label: UiFramework.translate("rotations.front"),
-        iconsSpec: createWebComponentIconSpec(svgCubeFacesFront),
+        iconsSpec: svgCubeFacesFront,
       },
       {
         label: UiFramework.translate("rotations.rear"),
-        iconsSpec: createWebComponentIconSpec(svgCubeFacesRear),
+        iconsSpec: svgCubeFacesRear,
       },
       {
         label: UiFramework.translate("rotations.isoLeft"),
-        iconsSpec: createWebComponentIconSpec(svgCubeFacesIsoLeft),
+        iconsSpec: svgCubeFacesIsoLeft,
       },
       {
         label: UiFramework.translate("rotations.isoRight"),
-        iconsSpec: createWebComponentIconSpec(svgCubeFacesIsoRight),
+        iconsSpec: svgCubeFacesIsoRight,
       },
     ];
     this.state = {

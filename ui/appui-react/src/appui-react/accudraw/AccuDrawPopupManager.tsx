@@ -24,7 +24,6 @@ import { MenuButtonPopup } from "./MenuButtonPopup";
 import angleIcon from "./angle.svg";
 import lengthIcon from "./distance.svg";
 import heightIcon from "./height-2.svg";
-import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /** AccuDraw Popup Manager class
  * @alpha
@@ -113,7 +112,7 @@ export class AccuDrawPopupManager {
     const propertyDescription = new AngleDescription(
       undefined,
       undefined,
-      createWebComponentIconSpec(angleIcon)
+      angleIcon
     );
     return PopupManager.showInputEditor(
       el,
@@ -135,7 +134,7 @@ export class AccuDrawPopupManager {
     const propertyDescription = new LengthDescription(
       undefined,
       undefined,
-      createWebComponentIconSpec(lengthIcon)
+      lengthIcon
     );
     return PopupManager.showInputEditor(
       el,
@@ -157,7 +156,7 @@ export class AccuDrawPopupManager {
     const propertyDescription = new LengthDescription(
       undefined,
       undefined,
-      createWebComponentIconSpec(heightIcon)
+      heightIcon
     );
     return PopupManager.showInputEditor(
       el,

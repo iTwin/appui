@@ -27,11 +27,9 @@ import type {
 } from "./FrameworkAccuDraw";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
 import type { AccuDrawUiSettings } from "./AccuDrawUiSettings";
-
 import angleIconSvg from "./angle.svg";
 import distanceIconSvg from "./distance.svg";
 import { UiFramework } from "../UiFramework";
-import { createWebComponentIconSpec } from "../utils/IconSpecUtilities";
 
 /** Properties for [[AccuDrawFieldContainer]] component
  * @beta */
@@ -55,8 +53,6 @@ function determineShowZ(vp?: ScreenViewport): boolean {
 const defaultXLabel = "X";
 const defaultYLabel = "Y";
 const defaultZLabel = "Z";
-const defaultAngleIcon = createWebComponentIconSpec(angleIconSvg);
-const defaultDistanceIcon = createWebComponentIconSpec(distanceIconSvg);
 
 /** AccuDraw Ui Field Container displays [[AccuDrawInputField]] for each field
  * @beta */
@@ -97,10 +93,10 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   const [yIcon, setYIcon] = React.useState<IconSpec | undefined>(undefined);
   const [zIcon, setZIcon] = React.useState<IconSpec | undefined>(undefined);
   const [angleIcon, setAngleIcon] = React.useState<IconSpec | undefined>(
-    defaultAngleIcon
+    angleIconSvg
   );
   const [distanceIcon, setDistanceIcon] = React.useState<IconSpec | undefined>(
-    defaultDistanceIcon
+    distanceIconSvg
   );
   const [xStyle, setXStyle] = React.useState<React.CSSProperties | undefined>(
     undefined
@@ -354,12 +350,12 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
       setAngleIcon(
         settings && settings.angleIcon !== undefined
           ? settings.angleIcon
-          : defaultAngleIcon
+          : angleIconSvg
       );
       setDistanceIcon(
         settings && settings.distanceIcon !== undefined
           ? settings.distanceIcon
-          : defaultDistanceIcon
+          : distanceIconSvg
       );
     };
 

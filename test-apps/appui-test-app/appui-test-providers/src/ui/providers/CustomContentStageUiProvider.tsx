@@ -12,7 +12,6 @@ import {
   BackstageItem,
   BackstageItemUtilities,
   CommandItemDef,
-  createWebComponentIconSpec,
   StagePanelLocation,
   StagePanelSection,
   StageUsage,
@@ -81,7 +80,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
       const customActionButton = ToolbarItemUtilities.createActionButton(
         "custom-action-button",
         -1,
-        createWebComponentIconSpec(visibilitySemiTransparentSvg),
+        visibilitySemiTransparentSvg,
         "Custom Action Button",
         (): void => {
           IModelApp.notifications.outputMessage(
