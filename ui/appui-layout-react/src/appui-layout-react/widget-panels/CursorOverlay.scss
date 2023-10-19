@@ -11,6 +11,7 @@ body {
     &.nz-#{$cursor} {
       * {
         cursor: $cursor !important;
+        user-select: none;
       }
     }
   }

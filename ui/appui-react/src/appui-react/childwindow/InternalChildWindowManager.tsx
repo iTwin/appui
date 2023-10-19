@@ -63,6 +63,7 @@ export type CreateRoot = Parameters<FrameworkChildWindows["useCreateRoot"]>[0];
 export class InternalChildWindowManager implements FrameworkChildWindows {
   private _openChildWindows: OpenChildWindowInfo[] = [];
   private _createRoot?: CreateRoot;
+  private _roots: { [childwindowId: string]: any } = {};
 
   public get openChildWindows() {
     return this._openChildWindows;
@@ -92,8 +93,17 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     element: React.FunctionComponentElement<any>,
     container: Element | DocumentFragment
   ) {
+    // If createRoot is passed in for React 18 we have to render differently
+    // than without it. React 17 vs React 18. We need to save the root to
+    // unmount it.
     if (this._createRoot) {
-      this._createRoot(container).render(element);
+      const childWindowId = UiFramework.childWindows.findId(
+        container.ownerDocument.defaultView
+      );
+      if (childWindowId) {
+        this._roots[childWindowId] = this._createRoot(container);
+        this._roots[childWindowId].render(element);
+      }
     } else {
       ReactDOM.render(element, container);
     }
@@ -177,6 +187,12 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
           childWindow
         );
         this.close(childWindowId, false);
+        // UnmountComponentAtNode is deprecated in React 18, so if they are
+        // using React 18 and passing in a createRoot function, unmount()
+        // will be used
+        if (this._roots[childWindowId]) {
+          this._roots[childWindowId].unmount();
+        } else ReactDOM.unmountComponentAtNode(reactConnectionDiv);
       });
     }
   }

@@ -189,4 +189,38 @@ test.describe("popout widget", () => {
     );
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
   });
+  test("should open and mount a popout, and then unmount when closed", async ({
+    context,
+    page,
+  }) => {
+    let mountCount = 0;
+    let unMountCount = 0;
+    page.on("console", (msg) => {
+      if (msg.text() === "POPOUT COMPONENT MOUNT") mountCount++;
+      if (msg.text() === "POPOUT COMPONENT UNMOUNT") unMountCount++;
+    });
+    const widget = floatingWidgetLocator({
+      page,
+      id: "appui-test-providers:PopoutMountUnmountWidget",
+    });
+    const popoutButton = widget.locator('[title="Pop out active widget tab"]');
+
+    const [popoutPage] = await Promise.all([
+      context.waitForEvent("page"),
+      popoutButton.click(),
+    ]);
+    await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
+    expect(popoutPage.isClosed()).toBe(false);
+
+    popoutPage.close();
+
+    await setWidgetState(
+      page,
+      "appui-test-providers:PopoutMountUnmountWidget",
+      WidgetState.Floating
+    );
+    await expect.poll(async () => popoutPage.isClosed()).toBe(true);
+    expect(mountCount).toBe(2);
+    expect(unMountCount).toBe(1);
+  });
 });
