@@ -40,7 +40,7 @@ export function useOptionalDisposable<TDisposable extends IDisposable>(
     initialValue.current = false;
     return () => {
       setValue((prev) => {
-        prev?.dispose();
+        prev && prev.dispose();
         return prev;
       });
     };
