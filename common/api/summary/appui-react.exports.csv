@@ -516,7 +516,6 @@ internal;toPanelSide(location: StagePanelLocation): PanelSide
 internal;TrackingTime
 public;UiDataProvidedDialog({ uiDataProvider, id, isModal, ...dialogProps }: UiDataProvidedDialogProps): JSX.Element
 public;UiDataProvidedDialogProps
-public;UiError 
 public;UiFramework
 public;UiItemsManager
 public;UiItemsProvider

@@ -7,7 +7,6 @@
 /// <reference types="react" />
 
 import { BadgeType } from '@itwin/appui-abstract';
-import { BeUiEvent } from '@itwin/core-bentley';
 import type { ButtonProps } from '@itwin/itwinui-react';
 import type { CheckboxProps } from '@itwin/itwinui-react';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
@@ -22,9 +21,10 @@ import type { ProgressRadialProps } from '@itwin/itwinui-react';
 import * as React_2 from 'react';
 import * as ReactAutosuggest from 'react-autosuggest';
 import { RelativePosition } from '@itwin/appui-abstract';
+import { UiEvent } from '@itwin/appui-abstract';
 
 // @public
-export class ActivateSettingsTabEvent extends BeUiEvent<ActivateSettingsTabEventArgs> {
+export class ActivateSettingsTabEvent extends UiEvent<ActivateSettingsTabEventArgs> {
 }
 
 // @public
@@ -216,7 +216,7 @@ export interface ClassNameProps {
 }
 
 // @internal
-export class CloseSettingsContainerEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> {
+export class CloseSettingsContainerEvent extends UiEvent<ProcessSettingsContainerCloseEventArgs> {
 }
 
 // @public
@@ -1249,7 +1249,7 @@ export interface PopupProps extends CommonProps {
 }
 
 // @public
-export class ProcessSettingsContainerCloseEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> {
+export class ProcessSettingsContainerCloseEvent extends UiEvent<ProcessSettingsContainerCloseEventArgs> {
 }
 
 // @public
@@ -1261,7 +1261,7 @@ export interface ProcessSettingsContainerCloseEventArgs {
 }
 
 // @public
-export class ProcessSettingsTabActivationEvent extends BeUiEvent<ProcessSettingsTabActivationEventArgs> {
+export class ProcessSettingsTabActivationEvent extends UiEvent<ProcessSettingsTabActivationEventArgs> {
 }
 
 // @public
@@ -1504,7 +1504,7 @@ export class SettingsManager {
 }
 
 // @public
-export class SettingsProvidersChangedEvent extends BeUiEvent<SettingsProvidersChangedEventArgs> {
+export class SettingsProvidersChangedEvent extends UiEvent<SettingsProvidersChangedEventArgs> {
 }
 
 // @public

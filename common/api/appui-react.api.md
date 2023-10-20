@@ -19,8 +19,6 @@ import { BaseTimelineDataProvider } from '@itwin/imodel-components-react';
 import type { BeButtonEvent } from '@itwin/core-frontend';
 import type { BeDuration } from '@itwin/core-bentley';
 import { BeEvent } from '@itwin/core-bentley';
-import { BentleyError } from '@itwin/core-bentley';
-import { BeUiEvent } from '@itwin/core-bentley';
 import type { ButtonProps } from '@itwin/itwinui-react';
 import { ColorDef } from '@itwin/core-common';
 import type { CommandHandler } from '@itwin/appui-abstract';
@@ -32,18 +30,17 @@ import { CompassMode } from '@itwin/core-frontend';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
 import { ConditionalStringValue } from '@itwin/appui-abstract';
 import { ConnectedComponent } from 'react-redux';
-import type { ContentLayoutProps } from '@itwin/appui-abstract';
+import { ContentLayoutProps } from '@itwin/appui-abstract';
 import type { CustomButtonDefinition } from '@itwin/appui-abstract';
-import type { DialogItem } from '@itwin/appui-abstract';
+import { DialogItem } from '@itwin/appui-abstract';
 import type { DialogLayoutDataProvider } from '@itwin/appui-abstract';
-import type { DialogPropertySyncItem } from '@itwin/appui-abstract';
+import { DialogPropertySyncItem } from '@itwin/appui-abstract';
 import type { DialogProps } from '@itwin/core-react';
 import type { DialogProps as DialogProps_2 } from '@itwin/appui-abstract';
 import type { DialogRow } from '@itwin/appui-abstract';
 import type { Direction } from '@itwin/components-react';
 import type { DisplayStyle3dState } from '@itwin/core-frontend';
 import type { EmphasizeElementsProps } from '@itwin/core-common';
-import type { GetMetaDataFunction } from '@itwin/core-bentley';
 import type { GroupButton } from '@itwin/appui-abstract';
 import type { IconProps } from '@itwin/core-react';
 import type { IconSpec } from '@itwin/core-react';
@@ -52,7 +49,7 @@ import type { IModelConnection } from '@itwin/core-frontend';
 import { InferableComponentEnhancerWithProps } from 'react-redux';
 import type { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
-import type { LayoutFragmentProps } from '@itwin/appui-abstract';
+import { LayoutFragmentProps } from '@itwin/appui-abstract';
 import type { LayoutStore } from '@itwin/appui-layout-react';
 import type { Localization } from '@itwin/core-common';
 import type { MarkRequired } from '@itwin/core-bentley';
@@ -99,7 +96,7 @@ import { SnapMode } from '@itwin/core-frontend';
 import type { SolarDataProvider } from '@itwin/imodel-components-react';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
-import type { StringGetter } from '@itwin/appui-abstract';
+import { StringGetter } from '@itwin/appui-abstract';
 import type { TabState } from '@itwin/appui-layout-react';
 import type { ToasterSettings } from '@itwin/itwinui-react/cjs/core/Toast/Toaster';
 import type { ToastOptions } from '@itwin/itwinui-react';
@@ -112,6 +109,7 @@ import type { ToolbarPanelAlignment } from '@itwin/components-react';
 import type { ToolTipOptions } from '@itwin/core-frontend';
 import { UiAdmin } from '@itwin/appui-abstract';
 import type { UiDataProvider } from '@itwin/appui-abstract';
+import { UiEvent } from '@itwin/appui-abstract';
 import { UiLayoutDataProvider } from '@itwin/appui-abstract';
 import { UiStateEntry } from '@itwin/core-react';
 import type { UiStateStorage } from '@itwin/core-react';
@@ -178,7 +176,7 @@ export interface AccuDrawDialogProps extends CommonProps {
 }
 
 // @beta
-export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {
+export class AccuDrawGrabInputFocusEvent extends UiEvent<{}> {
 }
 
 // @beta
@@ -205,7 +203,7 @@ export class AccuDrawPopupManager {
 }
 
 // @beta
-export class AccuDrawSetCompassModeEvent extends BeUiEvent<AccuDrawSetCompassModeEventArgs> {
+export class AccuDrawSetCompassModeEvent extends UiEvent<AccuDrawSetCompassModeEventArgs> {
 }
 
 // @beta
@@ -215,7 +213,7 @@ export interface AccuDrawSetCompassModeEventArgs {
 }
 
 // @beta
-export class AccuDrawSetFieldFocusEvent extends BeUiEvent<AccuDrawSetFieldFocusEventArgs> {
+export class AccuDrawSetFieldFocusEvent extends UiEvent<AccuDrawSetFieldFocusEventArgs> {
 }
 
 // @beta
@@ -225,7 +223,7 @@ export interface AccuDrawSetFieldFocusEventArgs {
 }
 
 // @beta
-export class AccuDrawSetFieldLockEvent extends BeUiEvent<AccuDrawSetFieldLockEventArgs> {
+export class AccuDrawSetFieldLockEvent extends UiEvent<AccuDrawSetFieldLockEventArgs> {
 }
 
 // @beta
@@ -237,7 +235,7 @@ export interface AccuDrawSetFieldLockEventArgs {
 }
 
 // @beta
-export class AccuDrawSetFieldValueFromUiEvent extends BeUiEvent<AccuDrawSetFieldValueFromUiEventArgs> {
+export class AccuDrawSetFieldValueFromUiEvent extends UiEvent<AccuDrawSetFieldValueFromUiEventArgs> {
 }
 
 // @beta
@@ -249,7 +247,7 @@ export interface AccuDrawSetFieldValueFromUiEventArgs {
 }
 
 // @beta
-export class AccuDrawSetFieldValueToUiEvent extends BeUiEvent<AccuDrawSetFieldValueToUiEventArgs> {
+export class AccuDrawSetFieldValueToUiEvent extends UiEvent<AccuDrawSetFieldValueToUiEventArgs> {
 }
 
 // @beta
@@ -292,7 +290,7 @@ export interface AccuDrawUiSettings {
 }
 
 // @beta
-export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {
+export class AccuDrawUiSettingsChangedEvent extends UiEvent<{}> {
 }
 
 // @beta
@@ -343,7 +341,7 @@ export interface ActionWithPayload<T extends string, P> extends Action<T> {
 }
 
 // @public
-export class ActiveContentChangedEvent extends BeUiEvent<ActiveContentChangedEventArgs> {
+export class ActiveContentChangedEvent extends UiEvent<ActiveContentChangedEventArgs> {
 }
 
 // @public
@@ -359,7 +357,7 @@ export function ActiveFrontstageDefProvider({ frontstageDef, layout, }: ActiveFr
 export function ActivityCenterField(props: CommonProps): JSX.Element | null;
 
 // @public
-export class ActivityMessageCancelledEvent extends BeUiEvent<{}> {
+export class ActivityMessageCancelledEvent extends UiEvent<{}> {
 }
 
 // @public
@@ -371,7 +369,7 @@ export interface ActivityMessageEventArgs {
 }
 
 // @public
-export class ActivityMessageUpdatedEvent extends BeUiEvent<ActivityMessageEventArgs> {
+export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArgs> {
 }
 
 // @internal
@@ -762,7 +760,7 @@ export interface CardInfo {
 }
 
 // @alpha
-export class CardSelectedEvent extends BeUiEvent<CardSelectedEventArgs> {
+export class CardSelectedEvent extends UiEvent<CardSelectedEventArgs> {
 }
 
 // @alpha
@@ -1040,7 +1038,7 @@ export class ContentControl extends ConfigurableUiControl {
 }
 
 // @public
-export class ContentControlActivatedEvent extends BeUiEvent<ContentControlActivatedEventArgs> {
+export class ContentControlActivatedEvent extends UiEvent<ContentControlActivatedEventArgs> {
 }
 
 // @public
@@ -1141,7 +1139,7 @@ export class ContentLayout extends React_2.Component<ContentLayoutComponentProps
 }
 
 // @public
-export class ContentLayoutActivatedEvent extends BeUiEvent<ContentLayoutActivatedEventArgs> {
+export class ContentLayoutActivatedEvent extends UiEvent<ContentLayoutActivatedEventArgs> {
 }
 
 // @public
@@ -1340,7 +1338,7 @@ export class CursorPopup extends React_2.Component<CursorPopupProps, CursorPopup
 export function CursorPopupContent(props: CommonDivProps): JSX.Element;
 
 // @internal
-export class CursorPopupFadeOutEvent extends BeUiEvent<CursorPopupFadeOutEventArgs> {
+export class CursorPopupFadeOutEvent extends UiEvent<CursorPopupFadeOutEventArgs> {
 }
 
 // @internal
@@ -1428,7 +1426,7 @@ export enum CursorPopupShow {
 }
 
 // @internal
-export class CursorPopupUpdatePositionEvent extends BeUiEvent<CursorPopupUpdatePositionEventArgs> {
+export class CursorPopupUpdatePositionEvent extends UiEvent<CursorPopupUpdatePositionEventArgs> {
 }
 
 // @internal
@@ -1446,7 +1444,7 @@ export class CursorPrompt {
 }
 
 // @public
-export class CursorUpdatedEvent extends BeUiEvent<CursorUpdatedEventArgs> {
+export class CursorUpdatedEvent extends UiEvent<CursorUpdatedEventArgs> {
 }
 
 // @public
@@ -1590,7 +1588,7 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
 export function DefaultViewOverlay({ viewport, onPlayPause, featureOptions, }: ViewOverlayProps): JSX.Element | null;
 
 // @public
-export class DialogChangedEvent extends BeUiEvent<DialogChangedEventArgs> {
+export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> {
 }
 
 // @public
@@ -1703,7 +1701,7 @@ export class ElementTooltip extends React_2.Component<CommonProps, ElementToolti
 }
 
 // @public
-export class ElementTooltipChangedEvent extends BeUiEvent<ElementTooltipChangedEventArgs> {
+export class ElementTooltipChangedEvent extends UiEvent<ElementTooltipChangedEventArgs> {
 }
 
 // @public
@@ -1900,7 +1898,7 @@ export interface FrameworkContent {
         refreshActive(): void;
     };
     readonly onActiveContentChangedEvent: ActiveContentChangedEvent;
-    readonly onAvailableContentChangedEvent: BeUiEvent<{
+    readonly onAvailableContentChangedEvent: UiEvent<{
         contentId: string;
     }>;
     readonly onMouseDownChangedEvent: MouseDownChangedEvent;
@@ -1973,12 +1971,12 @@ export interface FrameworkFrontstages {
     readonly onModalFrontstageClosedEvent: ModalFrontstageClosedEvent;
     readonly onNavigationAidActivatedEvent: NavigationAidActivatedEvent;
     // @alpha
-    readonly onPanelPinnedChangedEvent: BeUiEvent<PanelPinnedChangedEventArgs>;
+    readonly onPanelPinnedChangedEvent: UiEvent<PanelPinnedChangedEventArgs>;
     // @alpha
     readonly onPanelStateChangedEvent: PanelStateChangedEvent;
     readonly onToolActivatedEvent: ToolActivatedEvent;
     readonly onToolIconChangedEvent: ToolIconChangedEvent;
-    readonly onToolSettingsReloadEvent: BeUiEvent<void>;
+    readonly onToolSettingsReloadEvent: UiEvent<void>;
     readonly onWidgetStateChangedEvent: WidgetStateChangedEvent;
     openModalFrontstage(modalFrontstage: ModalFrontstageInfo): void;
     openNestedFrontstage(nestedFrontstage: FrontstageDef): Promise<void>;
@@ -2078,7 +2076,7 @@ export interface FrameworkToolSettings {
     initializeDataForTool(tool: InteractiveTool): void;
     initializeToolSettingsData(toolSettingsProperties: DialogItem[] | undefined, toolId?: string, toolLabel?: string, toolDescription?: string): boolean;
     // (undocumented)
-    readonly onReloadToolSettingsProperties: BeUiEvent<void>;
+    readonly onReloadToolSettingsProperties: UiEvent<void>;
     readonly onSyncToolSettingsProperties: SyncToolSettingsPropertiesEvent;
     readonly toolIdForToolSettings: string;
     readonly toolSettingsProperties: DialogItem[];
@@ -2142,7 +2140,7 @@ export interface FrameworkVisibility {
 export const FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings";
 
 // @public
-export class FrontstageActivatedEvent extends BeUiEvent<FrontstageActivatedEventArgs> {
+export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> {
 }
 
 // @public
@@ -2171,7 +2169,7 @@ export interface FrontstageConfig extends CommonProps {
 }
 
 // @public
-export class FrontstageDeactivatedEvent extends BeUiEvent<FrontstageDeactivatedEventArgs> {
+export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> {
 }
 
 // @public
@@ -2312,7 +2310,7 @@ export abstract class FrontstageProvider {
 }
 
 // @public
-export class FrontstageReadyEvent extends BeUiEvent<FrontstageReadyEventArgs> {
+export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> {
 }
 
 // @public
@@ -2623,7 +2621,7 @@ export class InputFieldMessage extends React_2.PureComponent<InputFieldMessagePr
 }
 
 // @public
-export class InputFieldMessageAddedEvent extends BeUiEvent<InputFieldMessageEventArgs> {
+export class InputFieldMessageAddedEvent extends UiEvent<InputFieldMessageEventArgs> {
 }
 
 // @public
@@ -2635,7 +2633,7 @@ export interface InputFieldMessageEventArgs {
 }
 
 // @public
-export class InputFieldMessageRemovedEvent extends BeUiEvent<{}> {
+export class InputFieldMessageRemovedEvent extends UiEvent<{}> {
 }
 
 // @alpha
@@ -2803,7 +2801,7 @@ export class KeyboardShortcutMenu extends React_2.PureComponent<CommonProps, Key
 }
 
 // @public
-export class KeyboardShortcutMenuEvent extends BeUiEvent<KeyboardShortcutMenuState> {
+export class KeyboardShortcutMenuEvent extends UiEvent<KeyboardShortcutMenuState> {
 }
 
 // @public
@@ -3012,7 +3010,7 @@ export class MenuItemHelpers {
 export type MenuItemProps = AbstractMenuItemProps;
 
 // @public
-export class MessageAddedEvent extends BeUiEvent<MessageAddedEventArgs> {
+export class MessageAddedEvent extends UiEvent<MessageAddedEventArgs> {
 }
 
 // @public
@@ -3080,7 +3078,7 @@ export class MessageManager {
 }
 
 // @public
-export class MessagesUpdatedEvent extends BeUiEvent<{}> {
+export class MessagesUpdatedEvent extends UiEvent<{}> {
 }
 
 // @public
@@ -3102,7 +3100,7 @@ export class ModalFrontstage extends React_2.Component<ModalFrontstageProps> {
 }
 
 // @public
-export class ModalFrontstageChangedEvent extends BeUiEvent<ModalFrontstageChangedEventArgs> {
+export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> {
 }
 
 // @public
@@ -3112,7 +3110,7 @@ export interface ModalFrontstageChangedEventArgs {
 }
 
 // @public
-export class ModalFrontstageClosedEvent extends BeUiEvent<ModalFrontstageClosedEventArgs> {
+export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> {
 }
 
 // @public
@@ -3159,7 +3157,7 @@ export interface ModalFrontstageProps extends CommonProps {
 }
 
 // @alpha
-export class ModalFrontstageRequestedCloseEvent extends BeUiEvent<ModalFrontstageRequestedCloseEventArgs> {
+export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> {
 }
 
 // @alpha
@@ -3205,7 +3203,7 @@ export class ModelessDialogRenderer extends React_2.PureComponent<CommonProps> {
 }
 
 // @public
-export class MouseDownChangedEvent extends BeUiEvent<MouseDownChangedEventArgs> {
+export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> {
 }
 
 // @public
@@ -3220,7 +3218,7 @@ export interface NameToReducerMap {
 }
 
 // @public
-export class NavigationAidActivatedEvent extends BeUiEvent<NavigationAidActivatedEventArgs> {
+export class NavigationAidActivatedEvent extends UiEvent<NavigationAidActivatedEventArgs> {
 }
 
 // @public
@@ -3282,7 +3280,7 @@ export interface OpenChildWindowInfo {
 }
 
 // @public
-export class OpenMessageCenterEvent extends BeUiEvent<{}> {
+export class OpenMessageCenterEvent extends UiEvent<{}> {
 }
 
 // @beta
@@ -3302,7 +3300,7 @@ export interface PanelPinnedChangedEventArgs {
 }
 
 // @internal (undocumented)
-export class PanelSizeChangedEvent extends BeUiEvent<PanelSizeChangedEventArgs> {
+export class PanelSizeChangedEvent extends UiEvent<PanelSizeChangedEventArgs> {
 }
 
 // @internal (undocumented)
@@ -3314,7 +3312,7 @@ export interface PanelSizeChangedEventArgs {
 }
 
 // @beta
-export class PanelStateChangedEvent extends BeUiEvent<PanelStateChangedEventArgs> {
+export class PanelStateChangedEvent extends UiEvent<PanelStateChangedEventArgs> {
 }
 
 // @public
@@ -3346,7 +3344,7 @@ export class PointerMessage extends React_2.Component<PointerMessageProps, Point
 }
 
 // @public
-export class PointerMessageChangedEvent extends BeUiEvent<PointerMessageChangedEventArgs> {
+export class PointerMessageChangedEvent extends UiEvent<PointerMessageChangedEventArgs> {
 }
 
 // @public
@@ -3460,7 +3458,7 @@ export class PopupRenderer extends React_2.Component<{}, PopupRendererState> {
 }
 
 // @public
-export class PopupsChangedEvent extends BeUiEvent<PopupsChangedEventArgs> {
+export class PopupsChangedEvent extends UiEvent<PopupsChangedEventArgs> {
 }
 
 // @public (undocumented)
@@ -3702,7 +3700,7 @@ export enum SelectionScope {
 }
 
 // @public
-export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "activeSelectionScope" | "availableSelectionScopes">>;
+export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "availableSelectionScopes" | "activeSelectionScope">>;
 
 // @public
 export interface SessionState {
@@ -4381,7 +4379,7 @@ export interface SupportsViewSelectorChange {
 }
 
 // @public
-export class SyncToolSettingsPropertiesEvent extends BeUiEvent<SyncToolSettingsPropertiesEventArgs> {
+export class SyncToolSettingsPropertiesEvent extends UiEvent<SyncToolSettingsPropertiesEventArgs> {
 }
 
 // @public
@@ -4451,7 +4449,7 @@ export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, Til
 }
 
 // @public
-export class ToolActivatedEvent extends BeUiEvent<ToolActivatedEventArgs> {
+export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> {
 }
 
 // @public
@@ -4461,7 +4459,7 @@ export interface ToolActivatedEventArgs {
 }
 
 // @public
-export class ToolAssistanceChangedEvent extends BeUiEvent<ToolAssistanceChangedEventArgs> {
+export class ToolAssistanceChangedEvent extends UiEvent<ToolAssistanceChangedEventArgs> {
 }
 
 // @public
@@ -4631,7 +4629,7 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
 }
 
 // @public
-export class ToolIconChangedEvent extends BeUiEvent<ToolIconChangedEventArgs> {
+export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {
 }
 
 // @public
@@ -4753,13 +4751,6 @@ export interface UiDataProvidedDialogProps {
     title: string;
     uiDataProvider: DialogLayoutDataProvider;
     width?: string | number;
-}
-
-// @public
-export class UiError extends BentleyError {
-    constructor(category: string, message: string, errorNumber?: number, getMetaData?: GetMetaDataFunction);
-    // (undocumented)
-    category: string;
 }
 
 // @public
@@ -4892,7 +4883,7 @@ export class UiItemsManager {
     static getUiItemsProvider(providerId: string): UiItemsProvider | undefined;
     static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<ProviderItem<Widget>>;
     static get hasRegisteredProviders(): boolean;
-    static get onUiProviderRegisteredEvent(): BeUiEvent<UiItemsProviderRegisteredEventArgs>;
+    static get onUiProviderRegisteredEvent(): UiEvent<UiItemsProviderRegisteredEventArgs>;
     static register(uiProvider: UiItemsProvider, overrides?: UiItemsProviderOverrides): void;
     static get registeredProviderIds(): string[];
     static unregister(providerId: string): void;
@@ -4933,7 +4924,7 @@ export const UiStateStorageContext: React_2.Context<UiStateStorage>;
 export function UiStateStorageHandler(props: UiSettingsProviderProps): JSX.Element;
 
 // @public
-export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> {
+export class UiSyncEvent extends UiEvent<UiSyncEventArgs> {
 }
 
 // @public
@@ -4943,7 +4934,7 @@ export interface UiSyncEventArgs {
 }
 
 // @public
-export class UiVisibilityChangedEvent extends BeUiEvent<UiVisibilityEventArgs> {
+export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {
 }
 
 // @public
@@ -5172,7 +5163,7 @@ export class ViewSelector extends React_2.Component<ViewSelectorProps, ViewSelec
 }
 
 // @beta
-export class ViewSelectorChangedEvent extends BeUiEvent<ViewSelectorChangedEventArgs> {
+export class ViewSelectorChangedEvent extends UiEvent<ViewSelectorChangedEventArgs> {
 }
 
 // @beta
@@ -5474,7 +5465,7 @@ export function WidgetPanelsToolbars(): JSX.Element;
 export function WidgetPanelsToolSettings(): JSX.Element | null;
 
 // @internal
-export class WidgetsChangedEvent extends BeUiEvent<WidgetsChangedEventArgs> {
+export class WidgetsChangedEvent extends UiEvent<WidgetsChangedEventArgs> {
 }
 
 // @internal
@@ -5498,7 +5489,7 @@ export enum WidgetState {
 }
 
 // @public
-export class WidgetStateChangedEvent extends BeUiEvent<WidgetStateChangedEventArgs> {
+export class WidgetStateChangedEvent extends UiEvent<WidgetStateChangedEventArgs> {
 }
 
 // @public
