@@ -6,7 +6,7 @@
  * @module Utilities
  */
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { IDisposable } from "@itwin/core-bentley";
 
 /**
@@ -29,14 +29,22 @@ export function useDisposable<TDisposable extends IDisposable>(
 export function useOptionalDisposable<TDisposable extends IDisposable>(
   createDisposable: () => TDisposable | undefined
 ): TDisposable | undefined {
-  const previous = useRef<TDisposable>();
-  const value = useMemo(() => {
-    if (previous.current) previous.current.dispose();
+  const [value, setValue] = useState(() => createDisposable());
+  const initialValue = useRef(true);
 
-    previous.current = createDisposable();
-    return previous.current;
+  useEffect(() => {
+    if (!initialValue.current) {
+      setValue(createDisposable());
+    }
+
+    initialValue.current = false;
+    return () => {
+      setValue((prev) => {
+        prev?.dispose();
+        return prev;
+      });
+    };
   }, [createDisposable]);
 
-  useEffect(() => () => previous.current && previous.current.dispose(), []);
   return value;
 }
