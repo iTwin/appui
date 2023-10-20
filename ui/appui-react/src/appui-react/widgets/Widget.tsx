@@ -60,8 +60,6 @@ export interface Widget {
 export interface WidgetLayouts {
   /** Widget configuration in a panels layout. */
   readonly standard?: PanelsLayoutWidget;
-  /** Widget configuration in a custom layout. */
-  readonly [layoutId: string]: Object | undefined;
 }
 
 /** Describes widget configuration specific to a panels layout.
