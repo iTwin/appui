@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
-import { BeUiEvent } from "@itwin/core-bentley";
+import { UiEvent } from "@itwin/appui-abstract";
 import { Matrix3d, Point3d } from "@itwin/core-geometry";
 import type {
   SelectedViewportChangedArgs,
@@ -16,7 +16,7 @@ import { ViewportComponentEvents } from "../../imodel-components-react/viewport/
 import { TestUtils } from "../TestUtils";
 
 describe("ViewportComponentEvents", () => {
-  const onSelectedViewportChanged = new BeUiEvent();
+  const onSelectedViewportChanged = new UiEvent();
 
   before(() => {
     ViewportComponentEvents.terminate();

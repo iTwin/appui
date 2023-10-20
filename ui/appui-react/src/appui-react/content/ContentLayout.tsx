@@ -15,17 +15,17 @@ import { SplitPane } from "./split-pane/SplitPane";
 import type { CommonProps } from "@itwin/core-react";
 import { Orientation } from "@itwin/core-react";
 import type { ContentGroup } from "./ContentGroup";
-import type {
-  ContentLayoutProps,
-  LayoutFragmentProps,
-  LayoutHorizontalSplitProps,
-  LayoutSplitPropsBase,
-  LayoutVerticalSplitProps,
+import {
+  type ContentLayoutProps,
+  type LayoutFragmentProps,
+  type LayoutHorizontalSplitProps,
+  type LayoutSplitPropsBase,
+  type LayoutVerticalSplitProps,
+  UiEvent,
 } from "@itwin/appui-abstract";
 import type { ActiveContentChangedEventArgs } from "../framework/FrameworkContent";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { UiFramework } from "../UiFramework";
-import { BeUiEvent } from "@itwin/core-bentley";
 
 /** Properties for [[ContentWrapper]] */
 interface ContentWrapperProps extends CommonProps {
@@ -570,7 +570,7 @@ export interface ContentLayoutActivatedEventArgs {
 /** Content Layout Activated Event class.
  * @public
  */
-export class ContentLayoutActivatedEvent extends BeUiEvent<ContentLayoutActivatedEventArgs> {}
+export class ContentLayoutActivatedEvent extends UiEvent<ContentLayoutActivatedEventArgs> {}
 
 /** State for the [[ContentLayout]].
  */

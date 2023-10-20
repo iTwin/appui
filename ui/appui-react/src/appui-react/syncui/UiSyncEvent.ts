@@ -6,7 +6,7 @@
  * @module SyncUi
  */
 
-import { BeUiEvent } from "@itwin/core-bentley";
+import { UiEvent } from "@itwin/appui-abstract";
 
 /** UiSync Event arguments. Contains a set of lower case event Ids.
  * @public
@@ -18,4 +18,4 @@ export interface UiSyncEventArgs {
 /** UiSync Event class.
  * @public
  */
-export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> {}
+export class UiSyncEvent extends UiEvent<UiSyncEventArgs> { }

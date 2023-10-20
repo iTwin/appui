@@ -7,7 +7,7 @@
  */
 
 import type { DialogItem, DialogPropertySyncItem } from "@itwin/appui-abstract";
-import { BeUiEvent } from "@itwin/core-bentley";
+import { UiEvent } from "@itwin/appui-abstract";
 import type { InteractiveTool } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { focusIntoContainer } from "@itwin/core-react";
@@ -114,7 +114,7 @@ export class InternalToolSettingsManager {
       IModelApp.toolAdmin &&
       IModelApp.toolAdmin.activeTool &&
       IModelApp.toolAdmin.activeTool.toolId ===
-        InternalToolSettingsManager._toolIdForToolSettings
+      InternalToolSettingsManager._toolIdForToolSettings
     ) {
       const properties =
         IModelApp.toolAdmin.activeTool.supplyToolSettingsProperties();
@@ -154,7 +154,7 @@ export class InternalToolSettingsManager {
   /** Get ToolSettings Properties sync event. */
   public static readonly onSyncToolSettingsProperties =
     new SyncToolSettingsPropertiesEvent();
-  public static readonly onReloadToolSettingsProperties = new BeUiEvent<void>();
+  public static readonly onReloadToolSettingsProperties = new UiEvent<void>();
 
   /** Gets the Id of the active tool. If a tool is not active, blank is returned.
    * @return  Id of the active tool, or blank if one is not active.

@@ -9,11 +9,11 @@
 // cSpell:ignore configurableui clientservices
 
 import type { Store } from "redux";
-import { BeUiEvent, Logger, ProcessDetector } from "@itwin/core-bentley";
+import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
-import { UiAdmin, UiError } from "@itwin/appui-abstract";
+import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
 import { UiIModelComponents } from "@itwin/imodel-components-react";
@@ -86,7 +86,7 @@ export interface UiVisibilityEventArgs {
 /** UiVisibility Event class.
  * @public
  */
-export class UiVisibilityChangedEvent extends BeUiEvent<UiVisibilityEventArgs> { }
+export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> { }
 
 /** TrackingTime time argument used by our feature tracking manager as an option argument to the TelemetryClient
  * @internal

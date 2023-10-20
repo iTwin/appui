@@ -7,9 +7,9 @@
  */
 
 import * as React from "react";
-import { BeUiEvent, Logger } from "@itwin/core-bentley";
+import { RelativePosition, UiEvent } from "@itwin/appui-abstract";
+import { Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
-import { RelativePosition } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Point, Size } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";
@@ -39,7 +39,7 @@ export interface CursorPopupUpdatePositionEventArgs {
 /** CursorPopup Update Position Event class.
  * @internal
  */
-export class CursorPopupUpdatePositionEvent extends BeUiEvent<CursorPopupUpdatePositionEventArgs> {}
+export class CursorPopupUpdatePositionEvent extends UiEvent<CursorPopupUpdatePositionEventArgs> {}
 
 /** CursorPopup FadeOut Event Args interface.
  * @internal
@@ -51,7 +51,7 @@ export interface CursorPopupFadeOutEventArgs {
 /** CursorPopup FadeOut Event class.
  * @internal
  */
-export class CursorPopupFadeOutEvent extends BeUiEvent<CursorPopupFadeOutEventArgs> {}
+export class CursorPopupFadeOutEvent extends UiEvent<CursorPopupFadeOutEventArgs> {}
 
 /** Information maintained by CursorPopupManager about a CursorPopup
  * @internal
@@ -71,7 +71,7 @@ interface CursorPopupInfo {
 /** Cursor Popups Changed Event class.
  * @internal
  */
-class CursorPopupsChangedEvent extends BeUiEvent<{}> {}
+class CursorPopupsChangedEvent extends UiEvent<{}> {}
 
 /** CursorPopup component
  * @public

@@ -7,7 +7,8 @@
  */
 
 import * as React from "react";
-import { BeUiEvent, Logger } from "@itwin/core-bentley";
+import { UiEvent } from "@itwin/appui-abstract";
+import { Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
 import type {
   AbstractToolbarProps,
@@ -53,7 +54,7 @@ export interface PopupsChangedEventArgs {
 /** Popups Changed Event class.
  * @public
  */
-export class PopupsChangedEvent extends BeUiEvent<PopupsChangedEventArgs> {}
+export class PopupsChangedEvent extends UiEvent<PopupsChangedEventArgs> {}
 
 /** Props for each popup managed by the PopupManager
  * @public

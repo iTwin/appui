@@ -7,8 +7,9 @@
  */
 
 import * as React from "react";
+import { UiEvent } from "@itwin/appui-abstract";
 import type { Id64String } from "@itwin/core-bentley";
-import { BeUiEvent, Logger } from "@itwin/core-bentley";
+import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { FuzzySearch, IModelApp } from "@itwin/core-frontend";
 import type { SupportsViewSelectorChange } from "../content/ContentControl";
@@ -35,7 +36,7 @@ export interface ViewSelectorChangedEventArgs {
 /** ViewSelector Changed Event class.
  * @beta
  */
-export class ViewSelectorChangedEvent extends BeUiEvent<ViewSelectorChangedEventArgs> {}
+export class ViewSelectorChangedEvent extends UiEvent<ViewSelectorChangedEventArgs> {}
 
 /** Properties for the [[ViewSelector]] component
  * @beta
@@ -87,7 +88,7 @@ interface ViewSelectorShowUpdateEventArgs {
 
 /** ViewSelector Show Update Event class.
  */
-class ViewSelectorShowUpdateEvent extends BeUiEvent<ViewSelectorShowUpdateEventArgs> {}
+class ViewSelectorShowUpdateEvent extends UiEvent<ViewSelectorShowUpdateEventArgs> {}
 
 /** View Selector React component
  * @beta

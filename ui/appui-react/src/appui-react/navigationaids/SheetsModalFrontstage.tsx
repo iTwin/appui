@@ -9,7 +9,7 @@
 import "./SheetsModalFrontstage.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { BeUiEvent } from "@itwin/core-bentley";
+import { UiEvent } from "@itwin/appui-abstract";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
@@ -47,7 +47,7 @@ export interface CardSelectedEventArgs {
 /** Class for CardSelectedEvent
  * @alpha
  */
-export class CardSelectedEvent extends BeUiEvent<CardSelectedEventArgs> {}
+export class CardSelectedEvent extends UiEvent<CardSelectedEventArgs> {}
 
 /** Modal frontstage displaying sheet information in cards.
  * @alpha

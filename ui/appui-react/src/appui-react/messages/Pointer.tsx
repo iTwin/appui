@@ -24,7 +24,7 @@ import type {
   NotifyMessageDetailsType,
   NotifyMessageType,
 } from "./ReactNotifyMessageDetails";
-import { BeUiEvent } from "@itwin/core-bentley";
+import { UiEvent } from "@itwin/appui-abstract";
 
 // cSpell:ignore noicon
 
@@ -64,7 +64,7 @@ export interface PointerMessageChangedEventArgs {
 /** Pointer Message Changed Event emitted by the [[PointerMessage]] component
  * @public
  */
-export class PointerMessageChangedEvent extends BeUiEvent<PointerMessageChangedEventArgs> {}
+export class PointerMessageChangedEvent extends UiEvent<PointerMessageChangedEventArgs> {}
 
 /** [[PointerMessagePositionChangedEvent]] arguments.
  * @internal
@@ -77,7 +77,7 @@ interface PointerMessagePositionChangedEventArgs {
 /** Pointer Message Position Changed Event emitted by the [[PointerMessage]] component
  * @internal
  */
-class PointerMessagePositionChangedEvent extends BeUiEvent<PointerMessagePositionChangedEventArgs> {}
+class PointerMessagePositionChangedEvent extends UiEvent<PointerMessagePositionChangedEventArgs> {}
 
 /** Pointer message pops up near pointer when attempting an invalid interaction.
  * @public

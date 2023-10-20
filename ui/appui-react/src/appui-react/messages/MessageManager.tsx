@@ -9,8 +9,7 @@
 import classnames from "classnames";
 import { isEqual } from "lodash";
 import * as React from "react";
-import { MessageSeverity } from "@itwin/appui-abstract";
-import { BeUiEvent } from "@itwin/core-bentley";
+import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
 import type {
   MessageBoxValue,
   ToolAssistanceInstructions,
@@ -107,42 +106,42 @@ export interface ToolAssistanceChangedEventArgs {
 /** Message Added Event class.
  * @public
  */
-export class MessageAddedEvent extends BeUiEvent<MessageAddedEventArgs> {}
+export class MessageAddedEvent extends UiEvent<MessageAddedEventArgs> {}
 
 /** Messages Updated Event class.
  * @public
  */
-export class MessagesUpdatedEvent extends BeUiEvent<{}> {}
+export class MessagesUpdatedEvent extends UiEvent<{}> {}
 
 /** Activity Message Added Event class.
  * @public
  */
-export class ActivityMessageUpdatedEvent extends BeUiEvent<ActivityMessageEventArgs> {}
+export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArgs> {}
 
 /** Activity Message Cancelled Event class.
  * @public
  */
-export class ActivityMessageCancelledEvent extends BeUiEvent<{}> {}
+export class ActivityMessageCancelledEvent extends UiEvent<{}> {}
 
 /** Input Field Message Added Event class
  * @public
  */
-export class InputFieldMessageAddedEvent extends BeUiEvent<InputFieldMessageEventArgs> {}
+export class InputFieldMessageAddedEvent extends UiEvent<InputFieldMessageEventArgs> {}
 
 /** Input Field Message Removed Event class.
  * @public
  */
-export class InputFieldMessageRemovedEvent extends BeUiEvent<{}> {}
+export class InputFieldMessageRemovedEvent extends UiEvent<{}> {}
 
 /** Open Message Center Event class.
  * @public
  */
-export class OpenMessageCenterEvent extends BeUiEvent<{}> {}
+export class OpenMessageCenterEvent extends UiEvent<{}> {}
 
 /** Tool Assistance Changed event class
  * @public
  */
-export class ToolAssistanceChangedEvent extends BeUiEvent<ToolAssistanceChangedEventArgs> {}
+export class ToolAssistanceChangedEvent extends UiEvent<ToolAssistanceChangedEventArgs> {}
 
 /**
  * Keeps track of the current activity message, and updates whenever

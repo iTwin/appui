@@ -6,7 +6,8 @@
  * @module Frontstage
  */
 
-import { BeUiEvent, Logger } from "@itwin/core-bentley";
+import { Logger } from "@itwin/core-bentley";
+import { UiEvent } from "@itwin/appui-abstract";
 import type {
   IModelConnection,
   SelectedViewportChangedArgs,
@@ -217,12 +218,12 @@ export class InternalFrontstageManager {
   public static readonly onToolActivatedEvent = new ToolActivatedEvent();
 
   /** Get ToolSetting Reload event. */
-  public static readonly onToolSettingsReloadEvent = new BeUiEvent<void>();
+  public static readonly onToolSettingsReloadEvent = new UiEvent<void>();
 
   /** Get Tool Panel Opened event.
    * @internal
    */
-  public static readonly onToolPanelOpenedEvent = new BeUiEvent<void>();
+  public static readonly onToolPanelOpenedEvent = new UiEvent<void>();
 
   /** Get Tool Icon Changed event. */
   public static readonly onToolIconChangedEvent = new ToolIconChangedEvent();
@@ -244,19 +245,19 @@ export class InternalFrontstageManager {
     new WidgetStateChangedEvent();
 
   /** @internal */
-  public static readonly onWidgetDefsUpdatedEvent = new BeUiEvent<void>();
+  public static readonly onWidgetDefsUpdatedEvent = new UiEvent<void>();
 
   /** @internal */
   public static readonly onFrontstageNineZoneStateChangedEvent =
-    new BeUiEvent<FrontstageNineZoneStateChangedEventArgs>();
+    new UiEvent<FrontstageNineZoneStateChangedEventArgs>();
 
   /** @internal */
   public static readonly onFrontstageRestoreLayoutEvent =
-    new BeUiEvent<FrontstageEventArgs>();
+    new UiEvent<FrontstageEventArgs>();
 
   /** @internal */
   public static readonly onFrontstageWidgetsChangedEvent =
-    new BeUiEvent<FrontstageEventArgs>();
+    new UiEvent<FrontstageEventArgs>();
 
   /** Get panel state changed event.
    * @alpha
@@ -268,7 +269,7 @@ export class InternalFrontstageManager {
    * @alpha
    */
   public static readonly onPanelPinnedChangedEvent =
-    new BeUiEvent<PanelPinnedChangedEventArgs>();
+    new UiEvent<PanelPinnedChangedEventArgs>();
 
   /** @internal */
   public static readonly onPanelSizeChangedEvent = new PanelSizeChangedEvent();
@@ -589,7 +590,7 @@ export class InternalFrontstageManager {
     if (InternalFrontstageManager._modalFrontstages.length > 0) {
       const topMostStageItem =
         InternalFrontstageManager._modalFrontstages[
-          InternalFrontstageManager._modalFrontstages.length - 1
+        InternalFrontstageManager._modalFrontstages.length - 1
         ];
       if (topMostStageItem.modalFrontstage.notifyCloseRequest)
         InternalFrontstageManager.onCloseModalFrontstageRequestedEvent.emit({
@@ -639,7 +640,7 @@ export class InternalFrontstageManager {
     if (InternalFrontstageManager._modalFrontstages.length > 0) {
       const frontstageItem =
         InternalFrontstageManager._modalFrontstages[
-          InternalFrontstageManager._modalFrontstages.length - 1
+        InternalFrontstageManager._modalFrontstages.length - 1
         ];
       const modalFrontstage = frontstageItem.modalFrontstage;
       return modalFrontstage;

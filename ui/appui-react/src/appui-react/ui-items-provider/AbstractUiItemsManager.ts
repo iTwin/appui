@@ -9,7 +9,7 @@
 /* eslint-disable deprecation/deprecation, @typescript-eslint/ban-ts-comment */
 
 import * as abstract from "@itwin/appui-abstract";
-import type { BeUiEvent } from "@itwin/core-bentley";
+import type { UiEvent } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
 import type { IconSpec } from "@itwin/core-react";
 import { IconHelper } from "@itwin/core-react";
@@ -95,13 +95,13 @@ type Target = Pick<
 >;
 
 class AbstractUiItemsManagerAdapter implements Target {
-  constructor(private readonly _adaptee: typeof AbstractUiItemsManagerType) {}
+  constructor(private readonly _adaptee: typeof AbstractUiItemsManagerType) { }
 
   public clearAllProviders(): void {
     return this._adaptee.clearAllProviders();
   }
 
-  public get onUiProviderRegisteredEvent(): BeUiEvent<UiItemsProviderRegisteredEventArgs> {
+  public get onUiProviderRegisteredEvent(): UiEvent<UiItemsProviderRegisteredEventArgs> {
     if (!("emit" in this._adaptee.onUiProviderRegisteredEvent)) {
       (this._adaptee.onUiProviderRegisteredEvent as any).emit = (
         args: UiItemsProviderRegisteredEventArgs
@@ -110,7 +110,7 @@ class AbstractUiItemsManagerAdapter implements Target {
       };
     }
     return this._adaptee
-      .onUiProviderRegisteredEvent as BeUiEvent<UiItemsProviderRegisteredEventArgs>;
+      .onUiProviderRegisteredEvent as UiEvent<UiItemsProviderRegisteredEventArgs>;
   }
 
   public unregister(providerId: string): void {
@@ -252,7 +252,7 @@ class UiItemsProviderToAbstractAdapter implements AbstractUiItemsProvider {
     return this._adaptee.id;
   }
 
-  constructor(private readonly _adaptee: UiItemsProvider) {}
+  constructor(private readonly _adaptee: UiItemsProvider) { }
 
   public onUnregister() {
     this._adaptee.onUnregister?.();
@@ -328,7 +328,7 @@ class AbstractToUiItemsProviderAdapter implements UiItemsProvider {
     return this._adaptee.id;
   }
 
-  constructor(private readonly _adaptee: AbstractUiItemsProvider) {}
+  constructor(private readonly _adaptee: AbstractUiItemsProvider) { }
 
   public onUnregister() {
     this._adaptee.onUnregister?.();

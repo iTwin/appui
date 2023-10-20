@@ -7,7 +7,8 @@
  */
 
 import * as React from "react";
-import { BeUiEvent, type Id64String } from "@itwin/core-bentley";
+import { UiEvent } from "@itwin/appui-abstract";
+import { type Id64String } from "@itwin/core-bentley";
 import type {
   IModelConnection,
   ScreenViewport,
@@ -30,7 +31,7 @@ export interface ContentControlActivatedEventArgs {
 /** ContentControl Activated Event class.
  * @public
  */
-export class ContentControlActivatedEvent extends BeUiEvent<ContentControlActivatedEventArgs> {}
+export class ContentControlActivatedEvent extends UiEvent<ContentControlActivatedEventArgs> {}
 
 /** Interface to be implemented when the ContentControl supports ViewSelector changes
  * @public

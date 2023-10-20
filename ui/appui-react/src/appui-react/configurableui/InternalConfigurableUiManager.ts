@@ -6,7 +6,7 @@
  * @module ConfigurableUi
  */
 
-import { UiError } from "@itwin/appui-abstract";
+import { UiError, UiEvent } from "@itwin/appui-abstract";
 import { CubeNavigationAidControl } from "../navigationaids/CubeNavigationAidControl";
 import { DrawingNavigationAidControl } from "../navigationaids/DrawingNavigationAidControl";
 import { SheetNavigationAidControl } from "../navigationaids/SheetNavigationAid";
@@ -20,7 +20,6 @@ import { ConfigurableCreateInfo } from "./ConfigurableUiControl";
 import { MessageManager } from "../messages/MessageManager";
 import { PopupManager } from "../popup/PopupManager";
 import { ActivityTracker } from "./ActivityTracker";
-import { BeUiEvent } from "@itwin/core-bentley";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { InternalToolSettingsManager } from "../toolsettings/InternalToolSettingsManager";
 import { InternalModelessDialogManager } from "../dialog/InternalModelessDialogManager";
@@ -39,7 +38,7 @@ export interface UiActivityEventArgs {
 /** Ui Activity Event class.
  * @internal
  */
-export class UiActivityEvent extends BeUiEvent<UiActivityEventArgs> { }
+export class UiActivityEvent extends UiEvent<UiActivityEventArgs> { }
 
 /** Ui Interval Event Args interface
  * @internal
@@ -51,7 +50,7 @@ export interface UiIntervalEventArgs {
 /** Ui Interval Event class.
  * @internal
  */
-export class UiIntervalEvent extends BeUiEvent<UiIntervalEventArgs> { }
+export class UiIntervalEvent extends UiEvent<UiIntervalEventArgs> { }
 
 /** Configurable Ui Manager maintains controls, Frontstages, Content Groups, Content Layouts, Tasks and Workflows.
  * @internal

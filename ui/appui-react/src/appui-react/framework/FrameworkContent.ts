@@ -6,8 +6,7 @@
  * @module ContentView
  */
 
-import type { ContentLayoutProps } from "@itwin/appui-abstract";
-import { BeUiEvent } from "@itwin/core-bentley";
+import { type ContentLayoutProps, UiEvent } from "@itwin/appui-abstract";
 import type { ContentControl } from "../content/ContentControl";
 import type { ContentGroup, ContentGroupProps } from "../content/ContentGroup";
 import type { ContentLayoutDef } from "../content/ContentLayout";
@@ -25,7 +24,7 @@ export interface MouseDownChangedEventArgs {
 /** Mouse Down Changed Event class.
  * @public
  */
-export class MouseDownChangedEvent extends BeUiEvent<MouseDownChangedEventArgs> {}
+export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> { }
 
 /** [[ActiveContentChangedEvent]] Args interface.
  * @public
@@ -40,12 +39,12 @@ export interface ActiveContentChangedEventArgs {
 /** Active Content Changed Event class.
  * @public
  */
-export class ActiveContentChangedEvent extends BeUiEvent<ActiveContentChangedEventArgs> {}
+export class ActiveContentChangedEvent extends UiEvent<ActiveContentChangedEventArgs> { }
 
 /** Content Dialog Changed Event class.
  * @public
  */
-export class ContentDialogChangedEvent extends DialogChangedEvent {}
+export class ContentDialogChangedEvent extends DialogChangedEvent { }
 
 /** @public */
 export interface ContentDialogInfo {
@@ -73,7 +72,7 @@ export interface FrameworkContent {
 
   /** Fires when floating contents are added or removed */
 
-  readonly onAvailableContentChangedEvent: BeUiEvent<{ contentId: string }>;
+  readonly onAvailableContentChangedEvent: UiEvent<{ contentId: string }>;
 
   /** Gets the active content as a React.ReactNode. */
   getActive(): React.ReactNode | undefined;

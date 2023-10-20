@@ -8,7 +8,7 @@
 
 import type { Patch } from "immer";
 import { produce } from "immer";
-import { BeUiEvent } from "@itwin/core-bentley";
+import { UiEvent } from "@itwin/appui-abstract";
 import type { TreeModel } from "./TreeModel";
 import { MutableTreeModel } from "./TreeModel";
 
@@ -29,9 +29,9 @@ export interface TreeModelChanges {
  */
 export class TreeModelSource {
   /** Event that is emitted every time tree model is changed. */
-  public onModelChanged = new BeUiEvent<[TreeModel, TreeModelChanges]>();
+  public onModelChanged = new UiEvent<[TreeModel, TreeModelChanges]>();
 
-  constructor(private _model: MutableTreeModel = new MutableTreeModel()) {}
+  constructor(private _model: MutableTreeModel = new MutableTreeModel()) { }
 
   /**
    * Modifies tree model using provided callback.
