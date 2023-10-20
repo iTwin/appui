@@ -16,7 +16,7 @@ import {
   MessageCenterTab,
 } from "@itwin/appui-layout-react";
 import { MessageManager } from "../messages/MessageManager";
-import { MessageSpan } from "../messages/MessageSpan";
+import { MessageDiv, MessageSpan } from "../messages/MessageSpan";
 import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
 import { UiFramework } from "../UiFramework";
 import type { CommonProps } from "@itwin/core-react";
@@ -203,13 +203,10 @@ export class MessageCenterField extends React.Component<
           >
             <MessageSpan message={message} />
             {details.detailedMessage && (
-              <>
-                <br />
-                <MessageSpan
-                  className="iui-text-small"
-                  message={details.detailedMessage}
-                />
-              </>
+              <MessageDiv
+                className="iui-text-small"
+                message={details.detailedMessage}
+              />
             )}
           </MessageCenterMessage>
         );

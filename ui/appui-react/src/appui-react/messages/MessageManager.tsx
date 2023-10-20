@@ -25,8 +25,8 @@ import {
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
-import type { IconSpec, ReactMessage } from "@itwin/core-react";
-import { MessageContainer } from "@itwin/core-react";
+import type { IconSpec } from "@itwin/core-react";
+import { MessageContainer, MessageRenderer } from "@itwin/core-react";
 import { ConfigurableUiActionId } from "../configurableui/state";
 import { StandardMessageBox } from "../dialog/StandardMessageBox";
 import { ElementTooltip } from "../feedback/ElementTooltip";
@@ -171,7 +171,11 @@ export class MessageManager {
     new OngoingActivityMessage();
   private static _lastMessage?: NotifyMessageDetailsType;
   private static _activeMessageManager = new StatusMessageManager();
-  private static _animateOutToElement: HTMLElement | null;
+  private static _animateOutToElement: HTMLElement[] = [];
+  private static _toastCloseCallbacks: {
+    close: () => void;
+    id: string;
+  }[] = [];
 
   /** The MessageAddedEvent is fired when a message is added via outputMessage(). */
   public static readonly onMessageAddedEvent = new MessageAddedEvent();
@@ -218,6 +222,9 @@ export class MessageManager {
   public static clearMessages(): void {
     this._messages.splice(0);
     this._activeMessageManager.initialize();
+
+    toaster.closeAll(); // Because https://github.com/iTwin/iTwinUI/issues/1604
+    this._toastCloseCallbacks.splice(0);
 
     this.onMessagesUpdatedEvent.emit({});
     this._lastMessage = undefined;
@@ -271,7 +278,23 @@ export class MessageManager {
    * @param  element `HTMLElement` to animate out to.
    */
   public static registerAnimateOutToElement(element: HTMLElement | null) {
-    this._animateOutToElement = element;
+    this._animateOutToElement = !element
+      ? []
+      : [element, ...this._animateOutToElement];
+  }
+
+  /**
+   * Handles disconnected element modal frontstages, revert to last still displayed.
+   */
+  private static get animateOutToElement(): HTMLElement | null {
+    if (this._animateOutToElement.length === 0) {
+      return null;
+    }
+    if (this._animateOutToElement[0]?.isConnected) {
+      return this._animateOutToElement[0];
+    }
+    this._animateOutToElement.splice(0, 1);
+    return this.animateOutToElement;
   }
 
   /** Display a message.
@@ -299,7 +322,7 @@ export class MessageManager {
         message.msgType === OutputMessageType.Sticky
           ? "persisting"
           : "temporary",
-      animateOutTo: this._animateOutToElement,
+      animateOutTo: this.animateOutToElement,
       ...options,
     };
     toaster.setSettings({
@@ -309,12 +332,10 @@ export class MessageManager {
     });
     const content = (
       <>
-        {(message.briefMessage as ReactMessage).reactNode ||
-          message.briefMessage}
+        <MessageRenderer message={message.briefMessage} />
         {message.detailedMessage && (
-          <Text variant="small" style={{ display: "block" }}>
-            {(message.detailedMessage as ReactMessage).reactNode ||
-              message.detailedMessage}
+          <Text variant="small">
+            <MessageRenderer message={message.detailedMessage} />
           </Text>
         )}
       </>
@@ -343,7 +364,46 @@ export class MessageManager {
 
     this._activeMessageManager.add(message);
 
+    this.refreshToastMessages();
+
     this.onMessageAddedEvent.emit({ message });
+  }
+
+  /**
+   * Closes sticky messages that are beyond the limit,
+   * opens new toast and sticky messages from the active message manager.
+   */
+  private static refreshToastMessages() {
+    this._toastCloseCallbacks = this._toastCloseCallbacks.filter((t) => {
+      if (
+        MessageManager.activeMessageManager.messages.some(
+          (msg) => t.id === msg.id
+        )
+      ) {
+        return true;
+      }
+      t.close();
+      return false;
+    });
+
+    const messagesToAdd = MessageManager.activeMessageManager.messages.filter(
+      (msg) => !this._toastCloseCallbacks.find((m) => m.id === msg.id)
+    );
+    messagesToAdd.forEach((msg) => {
+      const displayedMessage = MessageManager.displayMessage(
+        msg.messageDetails,
+        {
+          onRemove: () => {
+            MessageManager.activeMessageManager.remove(msg.id);
+          },
+        }
+      );
+      if (!!displayedMessage)
+        this._toastCloseCallbacks.push({
+          close: displayedMessage.close,
+          id: msg.id,
+        });
+    });
   }
 
   /** Add a message to the Message Center.

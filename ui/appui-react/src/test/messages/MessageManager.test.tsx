@@ -7,22 +7,46 @@ import * as React from "react";
 import * as sinon from "sinon";
 import {
   MessageBoxIconType,
+  NoRenderApp,
   NotifyMessageDetails,
   OutputMessagePriority,
+  OutputMessageType,
 } from "@itwin/core-frontend";
 import { MessageSeverity } from "@itwin/appui-abstract";
 import { UnderlinedButton } from "@itwin/core-react";
-import { MessageManager, ReactNotifyMessageDetails } from "../../appui-react";
+import {
+  AppNotificationManager,
+  MessageManager,
+  ReactNotifyMessageDetails,
+} from "../../appui-react";
 import TestUtils from "../TestUtils";
+import {
+  act,
+  fireEvent,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 
 describe("MessageManager", () => {
+  let notifications: AppNotificationManager;
+
   before(async () => {
+    await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
+
+    notifications = new AppNotificationManager();
+    MessageManager.clearMessages();
   });
 
-  after(() => {
+  beforeEach(async () => {
+    act(() => {
+      MessageManager.closeAllMessages();
+    });
+  });
+
+  after(async () => {
     TestUtils.terminateUiFramework();
-    MessageManager.clearMessages();
   });
 
   it("maxCachedMessages handled correctly", () => {
@@ -206,5 +230,126 @@ describe("MessageManager", () => {
 
     MessageManager.openMessageCenter();
     expect(onOpenMessageCenterEventSpy.callCount).to.eq(1);
+  });
+
+  it("MessageManager should render a Toast message", async () => {
+    const details = new NotifyMessageDetails(
+      OutputMessagePriority.None,
+      "A brief message.",
+      "A detailed message."
+    );
+    act(() => {
+      notifications.outputMessage(details);
+    });
+    await waitFor(() => {
+      expect(screen.getByText("A brief message.")).to.be.not.null;
+    });
+
+    act(() => {
+      MessageManager.closeAllMessages();
+    });
+    await waitForElementToBeRemoved(screen.queryByText("A brief message."));
+  });
+
+  it("MessageManager should render a Sticky message", async () => {
+    const details = new NotifyMessageDetails(
+      OutputMessagePriority.Info,
+      "A brief message.",
+      "A detailed message.",
+      OutputMessageType.Sticky
+    );
+    act(() => {
+      notifications.outputMessage(details);
+    });
+    await waitFor(() => {
+      expect(screen.getByText("A brief message.")).to.be.not.null;
+    });
+
+    act(() => {
+      MessageManager.closeAllMessages();
+    });
+    await waitForElementToBeRemoved(screen.queryByText("A brief message."));
+  });
+
+  it("Sticky message should close on button click", async () => {
+    const details = new NotifyMessageDetails(
+      OutputMessagePriority.Error,
+      "A brief message.",
+      "A detailed message.",
+      OutputMessageType.Sticky
+    );
+    act(() => {
+      notifications.outputMessage(details);
+    });
+    await waitFor(() => {
+      expect(screen.getByText("A brief message.")).to.be.not.null;
+    });
+
+    const closeButton = screen.getByRole("button", { name: "Close" });
+    fireEvent.click(closeButton);
+    await waitForElementToBeRemoved(screen.queryByText("A brief message."));
+    act(() => {
+      MessageManager.clearMessages();
+    });
+  });
+
+  it("StatusBar should render maximum of 3 Sticky messages", async () => {
+    MessageManager.maxDisplayedStickyMessages = 3;
+
+    const details1 = new NotifyMessageDetails(
+      OutputMessagePriority.None,
+      "A brief message 1.",
+      undefined,
+      OutputMessageType.Sticky
+    );
+    act(() => {
+      notifications.outputMessage(details1);
+    });
+    await waitFor(() => {
+      expect(screen.getByText("A brief message 1.")).to.be.not.null;
+    });
+    const details2 = new NotifyMessageDetails(
+      OutputMessagePriority.None,
+      "A brief message 2.",
+      undefined,
+      OutputMessageType.Sticky
+    );
+    act(() => {
+      notifications.outputMessage(details2);
+    });
+    await waitFor(() => {
+      expect(screen.getByText("A brief message 2.")).to.be.not.null;
+    });
+    const details3 = new NotifyMessageDetails(
+      OutputMessagePriority.None,
+      "A brief message 3.",
+      undefined,
+      OutputMessageType.Sticky
+    );
+    act(() => {
+      notifications.outputMessage(details3);
+    });
+    await waitFor(() => {
+      expect(screen.getByText("A brief message 3.")).to.be.not.null;
+    });
+
+    const details4 = new NotifyMessageDetails(
+      OutputMessagePriority.None,
+      "A brief message 4.",
+      undefined,
+      OutputMessageType.Sticky
+    );
+    act(() => {
+      notifications.outputMessage(details4);
+    });
+    await waitForElementToBeRemoved(screen.queryByText("A brief message 1."));
+    await waitFor(() => {
+      expect(screen.getByText("A brief message 4.")).to.be.not.null;
+    });
+
+    act(() => {
+      MessageManager.closeAllMessages();
+    });
+    await waitForElementToBeRemoved(screen.queryByText("A brief message 4."));
   });
 });

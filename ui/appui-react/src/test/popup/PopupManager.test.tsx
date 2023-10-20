@@ -337,9 +337,11 @@ describe("PopupManager", () => {
   });
 
   describe("PopupRenderer", () => {
-    it("PopupRenderer should render", () => {
+    it("PopupRenderer should render (Mount and Unmount)", () => {
+      const spyLogger = sinon.spy(Logger, "logInfo");
       const wrapper = render(<PopupRenderer />);
       wrapper.unmount();
+      spyLogger.calledTwice.should.true;
     });
 
     it("PopupRenderer should render menuButton with menu item", async () => {

@@ -262,7 +262,7 @@ export class WidgetDef {
       config.allowedPanels.length === 0 &&
       config.defaultState === WidgetState.Open
     ) {
-      this._defaultState = 3;
+      this._defaultState = WidgetState.Floating;
     }
 
     this._widgetReactNode = config.content;

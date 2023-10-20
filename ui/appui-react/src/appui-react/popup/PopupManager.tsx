@@ -453,12 +453,14 @@ export class PopupRenderer extends React.Component<{}, PopupRendererState> {
   };
 
   public override componentDidMount(): void {
+    Logger.logInfo("PopupManager", `mounting PopupManager`);
     PopupManager.onPopupsChangedEvent.addListener(
       this._handlePopupsChangedEvent
     );
   }
 
   public override componentWillUnmount(): void {
+    Logger.logInfo("PopupManager", `un-mounting PopupManager`);
     PopupManager.onPopupsChangedEvent.removeListener(
       this._handlePopupsChangedEvent
     );

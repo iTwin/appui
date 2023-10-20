@@ -14,9 +14,7 @@ import {
 } from "@itwin/appui-react";
 import React from "react";
 
-// __PUBLISH_EXTRACT_START__ Example_Viewport_Frontstage_Group_Provider_1
-// __PUBLISH_EXTRACT_END__
-// __PUBLISH_EXTRACT_START__ Example_Viewport_Frontstage_Group_Provider_2
+// __PUBLISH_EXTRACT_START__ Example_Viewport_Frontstage_Group_Provider
 export class ViewportFrontstageGroupProvider extends ContentGroupProvider {
   public override async contentGroup(): Promise<ContentGroup> {
     return new ContentGroup({
