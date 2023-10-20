@@ -20,10 +20,18 @@ import {
 import { IModelApp } from "@itwin/core-frontend";
 import { createFrontstageProvider } from "./Utils";
 
-export interface AppUiStoryProps {
+export type AppUiStoryProps = {
   itemProviders?: UiItemsProvider[];
-  frontstageProviders?: FrontstageProvider[];
   layout?: "fullscreen";
+  frontstageProviders?: FrontstageProvider[] | (() => FrontstageProvider[]);
+};
+
+function getFrontstageProviders(
+  frontstageProviders: AppUiStoryProps["frontstageProviders"]
+) {
+  if (!frontstageProviders) return undefined;
+  if (Array.isArray(frontstageProviders)) return frontstageProviders;
+  return frontstageProviders();
 }
 
 export function AppUiStory(props: AppUiStoryProps) {
@@ -33,9 +41,9 @@ export function AppUiStory(props: AppUiStoryProps) {
       await IModelApp.startup();
       await UiFramework.initialize(undefined);
 
-      const frontstageProviders = props.frontstageProviders ?? [
-        createFrontstageProvider(),
-      ];
+      const frontstageProviders = getFrontstageProviders(
+        props.frontstageProviders
+      ) ?? [createFrontstageProvider()];
       for (const provider of frontstageProviders) {
         UiFramework.frontstages.addFrontstageProvider(provider);
       }

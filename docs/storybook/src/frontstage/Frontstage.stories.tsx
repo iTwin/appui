@@ -315,7 +315,7 @@ export const WidgetContainer: Story = {
 
 export const Interaction: Story = {
   args: {
-    frontstageProviders: [createFrontstageProvider()],
+    frontstageProviders: () => [createFrontstageProvider()],
     itemProviders: [
       {
         id: "widgets",
