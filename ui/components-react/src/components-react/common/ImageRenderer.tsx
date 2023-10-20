@@ -16,7 +16,7 @@ import type {
   LoadedBinaryImage,
   LoadedImage,
 } from "./IImageLoader";
-import { UiError } from "./UIError";
+import { UiError } from "@itwin/appui-abstract";
 
 /** A class that renders images from data provided by an image loader
  * @internal

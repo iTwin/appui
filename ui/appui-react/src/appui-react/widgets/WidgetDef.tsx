@@ -7,10 +7,11 @@
  */
 
 import type * as React from "react";
-import type {
-  BadgeType,
-  ConditionalStringValue,
-  StringGetter,
+import {
+  type BadgeType,
+  type ConditionalStringValue,
+  type StringGetter,
+  UiError,
 } from "@itwin/appui-abstract";
 import type { XAndY } from "@itwin/core-geometry";
 import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
@@ -28,7 +29,6 @@ import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 import { BeUiEvent } from "@itwin/core-bentley";
-import { UiError } from "../utils/UIError";
 
 /** Widget State Changed Event Args interface.
  * @public

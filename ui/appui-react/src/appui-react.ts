@@ -221,7 +221,6 @@ export * from "./appui-react/uistate/useUiStateStorage";
 
 export * from "./appui-react/utils/PropsHelper";
 export * from "./appui-react/utils/ToolbarButtonHelper";
-export * from "./appui-react/utils/UIError";
 export * from "./appui-react/utils/ViewUtilities";
 
 export * from "./appui-react/widget-panels/Content";

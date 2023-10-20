@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import { UiError } from "@itwin/appui-abstract";
 import type { Id64String } from "@itwin/core-bentley";
 import type {
   IModelConnection,
@@ -25,7 +26,6 @@ import { ViewportContentControl } from "./ViewportContentControl";
 import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid";
 import { useSelector } from "react-redux";
 import type { FrameworkState } from "../redux/FrameworkState";
-import { UiError } from "../utils/UIError";
 
 /** Viewport that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
  * @public

@@ -6,13 +6,13 @@
  * @module KeyboardShortcut
  */
 
+import { UiError } from "@itwin/appui-abstract";
 import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
 import { ItemDefBase } from "../shared/ItemDefBase";
 import type { KeyboardShortcutProps } from "../framework/FrameworkKeyboardShortcuts";
 import { UiFramework } from "../UiFramework";
 import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu";
 import { FunctionKey, SpecialKey } from "../keyboardKey/KeyboardKey";
-import { UiError } from "../utils/UIError";
 
 /** Keyboard Shortcut used to execute an action
  * @public

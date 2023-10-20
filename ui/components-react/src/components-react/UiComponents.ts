@@ -11,7 +11,7 @@ import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import { UiCore } from "@itwin/core-react";
 import { getObjectClassName } from "./common/getObjectClassName";
-import { UiError } from "./common/UIError";
+import { UiError } from "@itwin/appui-abstract";
 
 /**
  * Manages the localization service for the components-react package.

@@ -18,6 +18,7 @@ import {
   share,
   toArray,
 } from "rxjs";
+import { UiError } from "@itwin/appui-abstract";
 import {
   scheduleSubscription,
   SubscriptionScheduler,
@@ -46,7 +47,6 @@ import type {
 } from "./TreeModel";
 import { isTreeModelNode } from "./TreeModel";
 import type { TreeModelSource } from "./TreeModelSource";
-import { UiError } from "../../common/UIError";
 
 /**
  * Data structure that describes node load result

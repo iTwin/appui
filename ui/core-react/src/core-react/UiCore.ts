@@ -12,10 +12,10 @@ import "./colorvariables.scss";
 import "./layout-variables.scss";
 import "./classes.scss";
 
+import { UiError } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import { IconWebComponent } from "./utils/IconWebComponent";
-import { UiError } from "./utils/UiError";
 import { getObjectClassName } from "./utils/getObjectClassName";
 // cSpell:ignore colorthemes colorvariables
 

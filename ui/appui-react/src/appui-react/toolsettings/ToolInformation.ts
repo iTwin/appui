@@ -6,9 +6,9 @@
  * @module Item
  */
 
+import { UiError } from "@itwin/appui-abstract";
 import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { UiFramework } from "../UiFramework";
-import { UiError } from "../utils/UIError";
 import type { ToolUiProvider } from "./ToolUiProvider";
 
 /** Provides information about a tool with a given id, including the ToolUiProvider.
@@ -17,7 +17,7 @@ import type { ToolUiProvider } from "./ToolUiProvider";
 export class ToolInformation {
   private _toolUiProvider: ToolUiProvider | undefined;
 
-  constructor(public toolId: string) {}
+  constructor(public toolId: string) { }
 
   /** Get the ToolUiProvider registered for this tool */
   public get toolUiProvider(): ToolUiProvider | undefined {

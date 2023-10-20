@@ -6,6 +6,7 @@
  * @module Base
  */
 
+import { UiError } from "@itwin/appui-abstract";
 import { type RectangleProps } from "@itwin/core-react";
 import produce from "immer";
 import type { PanelSide } from "../widget-panels/Panel";
@@ -18,7 +19,6 @@ import {
 } from "./internal/WidgetStateHelpers";
 import type { NineZoneState } from "./NineZoneState";
 import type { TabState } from "./TabState";
-import { UiError } from "../base/UiError";
 
 /** State of a stacked widget, which can contain multiple tabs. I.e. in a panel section or a floating widget.
  * @internal

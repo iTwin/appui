@@ -8,11 +8,11 @@
  * @module Utilities
  */
 
+import { UiError } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
 import { UiCore } from "../UiCore";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
 import { reuseOrCreatePromise } from "./reuseOrCreatePromise";
-import { UiError } from "./UiError";
 
 /**
  * "getSvg" list

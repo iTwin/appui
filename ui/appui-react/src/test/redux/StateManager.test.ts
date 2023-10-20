@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
+import { UiError } from "@itwin/appui-abstract";
 import { SnapMode } from "@itwin/core-frontend";
 import type { ActionCreatorsObject, ActionsUnion } from "../../appui-react";
 import {
@@ -12,7 +13,6 @@ import {
   ReducerRegistryInstance,
   SYSTEM_PREFERRED_COLOR_THEME,
   TOOLBAR_OPACITY_DEFAULT,
-  UiError,
   WIDGET_OPACITY_DEFAULT,
 } from "../../appui-react";
 import { StateManager } from "../../appui-react/redux/StateManager";

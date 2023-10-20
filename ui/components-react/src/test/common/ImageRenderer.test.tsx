@@ -6,11 +6,11 @@
 import { expect } from "chai";
 import * as React from "react";
 import { render, waitFor } from "@testing-library/react";
+import { UiError } from "@itwin/appui-abstract";
 import type { LoadedBinaryImage } from "../../components-react/common/IImageLoader";
 import { ImageRenderer } from "../../components-react/common/ImageRenderer";
 import { UiCore } from "@itwin/core-react";
 import { EmptyLocalization } from "@itwin/core-common";
-import { UiError } from "../../components-react/common/UIError";
 
 describe("ImageRenderer", () => {
   before(async () => {

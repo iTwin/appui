@@ -7,11 +7,11 @@
  */
 
 import produce from "immer";
+import { UiError } from "@itwin/appui-abstract";
 import { getTabLocation } from "./TabLocation";
 import { type TabState } from "./TabState";
 import { category } from "./internal/NineZoneStateHelpers";
 import type { NineZoneState } from "./NineZoneState";
-import { UiError } from "../base/UiError";
 
 /** @internal */
 export interface DockedToolSettingsState {

@@ -6,6 +6,7 @@
  * @module ConfigurableUi
  */
 
+import { UiError } from "@itwin/appui-abstract";
 import { CubeNavigationAidControl } from "../navigationaids/CubeNavigationAidControl";
 import { DrawingNavigationAidControl } from "../navigationaids/DrawingNavigationAidControl";
 import { SheetNavigationAidControl } from "../navigationaids/SheetNavigationAid";
@@ -27,7 +28,6 @@ import { InternalContentDialogManager } from "../dialog/InternalContentDialogMan
 import { InternalKeyboardShortcutManager } from "../keyboardshortcut/InternalKeyboardShortcut";
 import { InternalModalDialogManager } from "../dialog/InternalModalDialogManager";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
-import { UiError } from "../utils/UIError";
 
 /** Ui Activity Event Args interface.
  * @internal
@@ -39,7 +39,7 @@ export interface UiActivityEventArgs {
 /** Ui Activity Event class.
  * @internal
  */
-export class UiActivityEvent extends BeUiEvent<UiActivityEventArgs> {}
+export class UiActivityEvent extends BeUiEvent<UiActivityEventArgs> { }
 
 /** Ui Interval Event Args interface
  * @internal
@@ -51,7 +51,7 @@ export interface UiIntervalEventArgs {
 /** Ui Interval Event class.
  * @internal
  */
-export class UiIntervalEvent extends BeUiEvent<UiIntervalEventArgs> {}
+export class UiIntervalEvent extends BeUiEvent<UiIntervalEventArgs> { }
 
 /** Configurable Ui Manager maintains controls, Frontstages, Content Groups, Content Layouts, Tasks and Workflows.
  * @internal

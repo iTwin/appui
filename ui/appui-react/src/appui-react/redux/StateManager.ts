@@ -8,6 +8,7 @@
 
 // cSpell:ignore DEVTOOLS
 
+import { UiError } from "@itwin/appui-abstract";
 import type { ReducersMapObject, Store } from "redux";
 import { combineReducers, createStore } from "redux";
 import { Logger } from "@itwin/core-bentley";
@@ -15,7 +16,6 @@ import type { FrameworkState } from "./FrameworkState";
 import { FrameworkReducer } from "./FrameworkState";
 import type { NameToReducerMap } from "./ReducerRegistry";
 import { ReducerRegistryInstance } from "./ReducerRegistry";
-import { UiError } from "../utils/UIError";
 
 /** Generic 'root' state for the appui-react package. Since this state contains common values needed by many applications
  * it is automatically added to the Redux store when using [[StateManager]].
@@ -68,7 +68,7 @@ export class StateManager {
     this._store = createStore(
       allReducers,
       (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-        (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+      (window as any).__REDUX_DEVTOOLS_EXTENSION__()
     );
 
     ReducerRegistryInstance.setChangeListener((newDynamicReducers) => {

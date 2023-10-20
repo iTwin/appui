@@ -8,14 +8,13 @@
 
 import * as React from "react";
 import type { AbstractMenuItemProps } from "@itwin/appui-abstract";
-import { ConditionalBooleanValue } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue, UiError } from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
 import { ContextMenuItem, ContextSubMenu } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 import type { ActionButtonItemDef } from "./ActionButtonItemDef";
 import { CommandItemDef } from "./CommandItemDef";
 import { ItemDefBase } from "./ItemDefBase";
-import { UiError } from "../utils/UIError";
 
 /** Menu Item Properties
  * @public

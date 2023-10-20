@@ -13,7 +13,7 @@ import { BeUiEvent, Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
-import { UiAdmin } from "@itwin/appui-abstract";
+import { UiAdmin, UiError } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
 import { UiIModelComponents } from "@itwin/imodel-components-react";
@@ -63,7 +63,6 @@ import {
   SyncUiEventDispatcher,
   SyncUiEventId,
 } from "./syncui/SyncUiEventDispatcher";
-import { UiError } from "./utils/UIError";
 
 // cSpell:ignore Mobi
 
