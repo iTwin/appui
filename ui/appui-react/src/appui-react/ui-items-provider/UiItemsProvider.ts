@@ -25,6 +25,7 @@ export interface UiItemsProvider {
   readonly id: string;
 
   /** Provides toolbar items.
+   * @note Use [[ToolbarItem.layouts]] to map item to location previously specified by `provideToolbarItems` arguments.
    * @alpha
    */
   readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
