@@ -3317,18 +3317,6 @@ export interface PanelSizeChangedEventArgs {
     size: number | undefined;
 }
 
-// @alpha
-export interface PanelsLayoutToolbarItem {
-    readonly orientation: ToolbarOrientation;
-    readonly usage: ToolbarUsage;
-}
-
-// @alpha
-export interface PanelsLayoutWidget {
-    readonly location: StagePanelLocation;
-    readonly section: StagePanelSection;
-}
-
 // @beta
 export class PanelStateChangedEvent extends UiEvent<PanelStateChangedEventArgs> {
 }
@@ -4138,6 +4126,18 @@ export class StandardFrontstageProvider extends FrontstageProvider {
     get id(): string;
 }
 
+// @alpha
+export interface StandardLayoutToolbarItem {
+    readonly orientation: ToolbarOrientation;
+    readonly usage: ToolbarUsage;
+}
+
+// @alpha
+export interface StandardLayoutWidget {
+    readonly location: StagePanelLocation;
+    readonly section: StagePanelSection;
+}
+
 // @public
 export class StandardMessageBox extends React_2.PureComponent<StandardMessageBoxProps, StandardMessageBoxState> {
     constructor(props: StandardMessageBoxProps);
@@ -4578,8 +4578,7 @@ export type ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomIt
 
 // @alpha
 export interface ToolbarItemLayouts {
-    readonly [layoutId: string]: Object | undefined;
-    readonly standard?: PanelsLayoutToolbarItem;
+    readonly standard?: StandardLayoutToolbarItem;
 }
 
 // @beta
@@ -5457,8 +5456,7 @@ export interface WidgetInfo {
 
 // @alpha
 export interface WidgetLayouts {
-    readonly [layoutId: string]: Object | undefined;
-    readonly standard?: PanelsLayoutWidget;
+    readonly standard?: StandardLayoutWidget;
 }
 
 // @beta

@@ -341,8 +341,6 @@ internal;packNineZoneState(state: NineZoneState): SavedNineZoneState
 public;PanelPinnedChangedEventArgs
 internal;PanelSizeChangedEvent 
 internal;PanelSizeChangedEventArgs
-alpha;PanelsLayoutToolbarItem
-alpha;PanelsLayoutWidget
 beta;PanelStateChangedEvent 
 public;PanelStateChangedEventArgs
 public;PointerMessage 
@@ -424,6 +422,8 @@ public;StandardContentToolsProvider
 beta;StandardContentToolsUiItemsProvider 
 public;StandardFrontstageProps
 public;StandardFrontstageProvider 
+alpha;StandardLayoutToolbarItem
+alpha;StandardLayoutWidget
 public;StandardMessageBox 
 public;StandardMessageBoxProps 
 public;StandardNavigationToolsProvider 
