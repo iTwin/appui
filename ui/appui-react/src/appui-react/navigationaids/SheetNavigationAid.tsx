@@ -233,7 +233,6 @@ export class SheetNavigationAid extends React.Component<
         className={classnames("uifw-sheet-navigation", this.props.className)}
         style={this.props.style}
       >
-        <div className="gradient"></div>
         {content}
       </div>
     );

@@ -30,6 +30,7 @@ import { SessionStateActionId } from "./redux/SessionState";
 import { StateManager } from "./redux/StateManager";
 import type { HideIsolateEmphasizeActionHandler } from "./selection/HideIsolateEmphasizeManager";
 import { HideIsolateEmphasizeManager } from "./selection/HideIsolateEmphasizeManager";
+import type { ThemeValues } from "./theme/ThemeManager";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
   TOOLBAR_OPACITY_DEFAULT,
@@ -667,7 +668,7 @@ export class UiFramework {
     }
   }
 
-  public static setColorTheme(theme: string) {
+  public static setColorTheme(theme: ThemeValues) {
     if (UiFramework.getColorTheme() === theme) return;
 
     UiFramework.dispatchActionToStore(
@@ -677,7 +678,7 @@ export class UiFramework {
     );
   }
 
-  public static getColorTheme(): string {
+  public static getColorTheme(): ThemeValues {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState.theme
       : /* istanbul ignore next */ SYSTEM_PREFERRED_COLOR_THEME;

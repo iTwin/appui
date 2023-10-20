@@ -13,18 +13,51 @@ import { ThemeProvider } from "@itwin/itwinui-react";
 import type { FrameworkState } from "../redux/FrameworkState";
 import { UiFramework } from "../UiFramework";
 
+/** System preferred color theme.
+ * @public
+ */
+export const SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED";
+
 /** Enum for the Color Theme string.
  * @public
  */
 export enum ColorTheme {
   Light = "light",
   Dark = "dark",
+  System = SYSTEM_PREFERRED_COLOR_THEME,
+  Inherit = "inherit",
+  HighContrastLight = "high-contrast-light",
+  HighContrastDark = "high-contrast-dark",
 }
 
-/** System preferred color theme.
+/**
+ * List of valid theme values
  * @public
  */
-export const SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED";
+export type ThemeValues =
+  | keyof {
+      [P in keyof typeof ColorTheme as `${(typeof ColorTheme)[P]}`]: "";
+    }
+  | (string & {});
+
+/**
+ * Map of ColorTheme to ThemeType
+ */
+const colorThemeToThemeTypeMap: { [x: string]: ThemeType } = {
+  [ColorTheme.Light]: "light",
+  [ColorTheme.HighContrastLight]: "light",
+  [ColorTheme.Dark]: "dark",
+  [ColorTheme.HighContrastDark]: "dark",
+  [ColorTheme.System]: "os",
+};
+
+/**
+ * List of high contrast color themes
+ */
+const highContrastColorThemes: string[] = [
+  ColorTheme.HighContrastDark,
+  ColorTheme.HighContrastLight,
+];
 
 /** The default widget opacity.
  * @public
@@ -40,7 +73,7 @@ export const TOOLBAR_OPACITY_DEFAULT = 0.5;
  */
 interface ThemeManagerProps {
   /** theme ("light", "dark", etc.) */
-  theme: string;
+  theme: ThemeValues;
   /* Widget Opacity */
   widgetOpacity: number;
   children?: React.ReactNode;
@@ -112,15 +145,14 @@ class ThemeManagerComponent extends React.Component<ThemeManagerProps> {
   };
 
   public override render(): React.ReactNode {
-    const theme: ThemeType =
-      this.props.theme === SYSTEM_PREFERRED_COLOR_THEME
-        ? "os"
-        : (this.props.theme as ThemeType);
+    const theme = colorThemeToThemeTypeMap[this.props.theme];
+    const highContrast = highContrastColorThemes.includes(this.props.theme);
 
     return (
       <ThemeProvider
         style={{ height: "100%" }}
-        theme={theme}
+        theme={theme ?? "inherit"}
+        themeOptions={{ highContrast }}
         data-root-container={"iui-root-id"}
       >
         {this.props.children}
@@ -130,7 +162,10 @@ class ThemeManagerComponent extends React.Component<ThemeManagerProps> {
 }
 
 /**
- * ThemeManager handles setting color themes.
+ * ThemeManager handles setting color themes. Note that this component will
+ * affect the entire application by setting the AppUI theme to the html element.
+ * It also sets an iTwinUI `ThemeProvider` element locally, so all elements
+ * within the AppUI tree will have the same theme, and should be using iTwinUI 2.x or later.
  * This React component is Redux connected.
  * @public
  */

@@ -9,6 +9,7 @@
 import { SnapMode } from "@itwin/core-frontend";
 import type { ActionsUnion } from "../redux/redux-ts";
 import { createAction } from "../redux/redux-ts";
+import type { ThemeValues } from "../theme/ThemeManager";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
   TOOLBAR_OPACITY_DEFAULT,
@@ -41,7 +42,7 @@ export enum ConfigurableUiActionId {
 export interface ConfigurableUiState {
   snapMode: number;
   toolPrompt: string;
-  theme: string;
+  theme: ThemeValues;
   widgetOpacity: number;
   useDragInteraction: boolean;
   showWidgetIcon: boolean;
@@ -75,7 +76,8 @@ export const ConfigurableUiActions = {
     createAction(ConfigurableUiActionId.SetSnapMode, snapMode),
   setTheme:
     // istanbul ignore next
-    (theme: string) => createAction(ConfigurableUiActionId.SetTheme, theme),
+    (theme: ThemeValues) =>
+      createAction(ConfigurableUiActionId.SetTheme, theme),
   setToolPrompt:
     // istanbul ignore next
     (toolPrompt: string) =>
@@ -136,7 +138,7 @@ export function ConfigurableUiReducer(
       return { ...state, toolPrompt: action.payload };
     }
     case ConfigurableUiActionId.SetTheme: {
-      return { ...state, theme: action.payload };
+      return { ...state, theme: action.payload as ThemeValues }; // Need to cast because of the (string & {}) trick.
     }
     case ConfigurableUiActionId.SetWidgetOpacity: {
       return { ...state, widgetOpacity: action.payload };
