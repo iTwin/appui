@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { beforeEach, describe, expect, it } from "vitest";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { Point } from "@itwin/core-react";
 import {

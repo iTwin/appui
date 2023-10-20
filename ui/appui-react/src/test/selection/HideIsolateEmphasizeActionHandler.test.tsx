@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import * as moq from "typemoq";
@@ -80,7 +80,7 @@ describe("Use Custom HideIsolateEmphasizeActionHandler", () => {
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
   const vp = viewportMock.object;
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
     UiFramework.setHideIsolateEmphasizeActionHandler(
@@ -88,7 +88,7 @@ describe("Use Custom HideIsolateEmphasizeActionHandler", () => {
     );
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });

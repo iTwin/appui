@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import type {
   DialogButtonDef,
@@ -24,8 +23,8 @@ import {
 import { UiDataProvidedDialog } from "../../appui-react";
 import TestUtils, { getButtonWithText, handleError } from "../TestUtils";
 
-const spyCancel = sinon.spy();
-const spyOK = sinon.spy();
+const spyCancel = vi.fn();
+const spyOK = vi.fn();
 
 class TestUiDataProvider extends DialogLayoutDataProvider {
   public currentPageIndex = 0;
@@ -171,17 +170,17 @@ class TestUiDataProvider extends DialogLayoutDataProvider {
 }
 
 describe("UiDataProvidedDialog", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 
   describe("Modal Dialog", () => {
     it("should handle button presses", async () => {
-      // const spyOnEscape = sinon.spy();
+      // const spyOnEscape = vi.fn();
       const reactNode = (
         <UiDataProvidedDialog
           title="My Title"
@@ -240,20 +239,20 @@ describe("UiDataProvidedDialog", () => {
         expect(okButton.disabled).to.be.false;
       });
       fireEvent.click(okButton);
-      expect(spyOK.calledOnce).to.be.true;
+      expect(spyOK).toHaveBeenCalledOnce();
 
       component.baseElement.dispatchEvent(
         new KeyboardEvent("keyup", { key: "Escape" })
       );
-      expect(spyCancel.calledOnce).to.be.true;
+      expect(spyCancel).toHaveBeenCalledOnce();
     });
   });
 
   describe("Modeless Dialog", () => {
     it("should handle button presses", async () => {
       const dataProvider = new TestUiDataProvider();
-      spyOK.resetHistory();
-      spyCancel.resetHistory();
+      spyOK.mockReset();
+      spyCancel.mockReset();
       const reactNode = (
         <UiDataProvidedDialog
           title="My Title"
@@ -313,12 +312,12 @@ describe("UiDataProvidedDialog", () => {
         expect(okButton.disabled).to.be.false;
       });
       fireEvent.click(okButton);
-      expect(spyOK.calledOnce).to.be.true;
+      expect(spyOK).toHaveBeenCalledOnce();
 
       component.baseElement.dispatchEvent(
         new KeyboardEvent("keyup", { key: "Escape" })
       );
-      expect(spyCancel.calledOnce).to.be.true;
+      expect(spyCancel).toHaveBeenCalledOnce();
 
       dataProvider.disableUserInputReplaceDescription();
       dataProvider.disableUserInput();

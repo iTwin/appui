@@ -2,8 +2,15 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import { Point } from "@itwin/core-react";
 import type { KeyboardShortcutProps } from "../../appui-react";
 import {
@@ -25,11 +32,11 @@ import {
 import { InternalKeyboardShortcutManager } from "../../appui-react/keyboardshortcut/InternalKeyboardShortcut";
 
 describe("KeyboardShortcut", () => {
-  const testSpyMethod = sinon.spy();
+  const testSpyMethod = vi.fn();
   let testCommand: CommandItemDef;
   let testCommand2: CommandItemDef;
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
 
     testCommand = new CommandItemDef({
@@ -51,12 +58,12 @@ describe("KeyboardShortcut", () => {
     });
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 
   beforeEach(() => {
-    testSpyMethod.resetHistory();
+    testSpyMethod.mockReset();
     InternalKeyboardShortcutManager.shortcutContainer.emptyData();
   });
 
@@ -99,7 +106,7 @@ describe("KeyboardShortcut", () => {
         shortcut.itemPicked();
 
         await TestUtils.flushAsyncOperations();
-        expect(testSpyMethod.calledOnce).to.be.true;
+        expect(testSpyMethod).toHaveBeenCalledOnce();
       }
     });
 
@@ -142,13 +149,13 @@ describe("KeyboardShortcut", () => {
           .true;
         expect(shortcut.getShortcut("1")).to.not.be.undefined;
 
-        const menuSpyMethod = sinon.spy();
+        const menuSpyMethod = vi.fn();
         const remove =
           KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.addListener(
             menuSpyMethod
           );
         shortcut.itemPicked();
-        expect(menuSpyMethod.calledOnce).to.be.true;
+        expect(menuSpyMethod).toHaveBeenCalledOnce();
         remove();
       }
     });
@@ -243,9 +250,9 @@ describe("KeyboardShortcut", () => {
         },
       ];
 
-      const menuSpyMethod = sinon.spy();
+      const menuSpyMethod = vi.fn();
       InternalKeyboardShortcutManager.displayMenu(); // No shortcuts to display yet
-      expect(menuSpyMethod.calledOnce).to.be.false;
+      expect(menuSpyMethod).toHaveBeenCalledOnce();
 
       UiFramework.keyboardShortcuts.loadShortcuts(keyboardShortcutList);
 
@@ -270,7 +277,7 @@ describe("KeyboardShortcut", () => {
           menuSpyMethod
         );
       InternalKeyboardShortcutManager.displayMenu();
-      expect(menuSpyMethod.calledOnce).to.be.true;
+      expect(menuSpyMethod).toHaveBeenCalledOnce();
       remove();
     });
 
@@ -287,7 +294,7 @@ describe("KeyboardShortcut", () => {
       expect(processed).to.be.true;
 
       await TestUtils.flushAsyncOperations();
-      expect(testSpyMethod.calledOnce).to.be.true;
+      expect(testSpyMethod).toHaveBeenCalledOnce();
 
       const processedG = InternalKeyboardShortcutManager.processKey("g");
       expect(processedG).to.be.false;

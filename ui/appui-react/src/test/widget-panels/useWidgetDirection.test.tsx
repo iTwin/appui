@@ -15,13 +15,14 @@ import {
 import { useWidgetDirection } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { Provider } from "react-redux";
+import { afterAll, beforeAll, describe, it } from "vitest";
 
 describe("useWidgetDirection", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 

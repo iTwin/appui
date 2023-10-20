@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, waitFor } from "@testing-library/react";
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { UiFramework } from "../../appui-react";
@@ -11,11 +11,11 @@ import { ColorTheme, ThemeManager } from "../../appui-react/theme/ThemeManager";
 import TestUtils from "../TestUtils";
 
 describe("ThemeManager", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 

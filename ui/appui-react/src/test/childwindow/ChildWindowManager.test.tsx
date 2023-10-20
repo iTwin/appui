@@ -2,8 +2,15 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import type { OpenChildWindowInfo } from "../../appui-react";
 import { FrontstageDef, UiFramework } from "../../appui-react";
 import { copyStyles } from "../../appui-react/childwindow/CopyStyles";
@@ -11,16 +18,16 @@ import { InternalChildWindowManager } from "../../appui-react/childwindow/Intern
 import TestUtils from "../TestUtils";
 
 describe("ChildWindowManager", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(async () => {
+  afterAll(async () => {
     TestUtils.terminateUiFramework();
   });
 
   afterEach(() => {
-    sinon.restore();
+    vi.restoreAllMocks();
   });
 
   it("will construct", () => {
@@ -39,13 +46,20 @@ describe("ChildWindowManager", () => {
       parentWindow: {} as Window,
     };
 
-    sinon.stub(manager, "openChildWindows").get(() => [childWindowInfo]);
+    vi.spyOn(manager, "openChildWindows", "get").mockImplementation(() => [
+      childWindowInfo,
+    ]);
+
     expect(manager.close("bogus", false)).to.eql(false);
 
     expect(manager.findId(window)).to.be.eql("child");
     expect(manager.find("child")).to.not.be.undefined;
     const def = new FrontstageDef();
-    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => def);
     expect(manager.close("child", false)).to.true;
   });
 
@@ -58,13 +72,16 @@ describe("ChildWindowManager", () => {
       parentWindow: {} as Window,
     };
 
-    sinon.stub(manager, "openChildWindows").get(() => [childWindowInfo]);
+    vi.spyOn(manager, "openChildWindows", "get").mockImplementation(() => [
+      childWindowInfo,
+    ]);
+
     expect(manager.findId(window)).to.be.eql("child");
     expect(manager.find("child")).to.not.be.undefined;
-    const closeStub = sinon.stub();
-    sinon.stub(window, "close").callsFake(closeStub);
+    const closeStub = vi.fn();
+    vi.spyOn(window, "close").mockImplementation(closeStub);
     expect(manager.close("child")).to.eql(true);
-    expect(closeStub).to.be.called;
+    expect(closeStub).toHaveBeenCalled();
   });
 });
 
@@ -111,7 +128,7 @@ describe("ChildWindowManager", () => {
   `;
 
   afterEach(() => {
-    sinon.restore();
+    vi.restoreAllMocks();
   });
 
   it("will copy __SVG_SPRITE_NODE__", () => {
@@ -123,7 +140,7 @@ describe("ChildWindowManager", () => {
 
   it("will close and processWindowClose by default", () => {
     const manager = new InternalChildWindowManager();
-    const closeSpy = sinon.spy();
+    const closeSpy = vi.fn();
     const stubbedResponse: OpenChildWindowInfo[] = [
       {
         childWindowId: "childId",
@@ -133,9 +150,11 @@ describe("ChildWindowManager", () => {
         parentWindow: window,
       },
     ];
-    sinon.stub(manager, "openChildWindows").get(() => stubbedResponse);
+    vi.spyOn(manager, "openChildWindows", "get").mockImplementation(
+      () => stubbedResponse
+    );
 
     manager.close("childId");
-    expect(closeSpy).to.have.been.called;
+    expect(closeSpy).toHaveBeenCalled();
   });
 });

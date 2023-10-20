@@ -2,9 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   MessageBoxIconType,
   NoRenderApp,
@@ -31,7 +38,7 @@ import {
 describe("MessageManager", () => {
   let notifications: AppNotificationManager;
 
-  before(async () => {
+  beforeAll(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
 
@@ -45,16 +52,16 @@ describe("MessageManager", () => {
     });
   });
 
-  after(async () => {
+  afterAll(async () => {
     TestUtils.terminateUiFramework();
   });
 
   it("maxCachedMessages handled correctly", () => {
-    const clearSpy = sinon.spy();
+    const clearSpy = vi.fn();
     MessageManager.onMessagesUpdatedEvent.addListener(clearSpy);
     MessageManager.clearMessages();
     expect(MessageManager.messages.length).to.eq(0);
-    clearSpy.calledOnce.should.true;
+    expect(clearSpy).toHaveBeenCalledOnce();
 
     for (let i = 0; i < 500; i++) {
       const details = new NotifyMessageDetails(
@@ -65,14 +72,14 @@ describe("MessageManager", () => {
     }
     expect(MessageManager.messages.length).to.eq(500);
 
-    clearSpy.resetHistory();
+    clearSpy.mockReset();
     const details2 = new NotifyMessageDetails(
       OutputMessagePriority.Debug,
       `A brief message.`
     );
     MessageManager.addMessage(details2);
     expect(MessageManager.messages.length).to.eq(376);
-    clearSpy.calledTwice.should.true;
+    expect(clearSpy).toHaveBeenCalledTimes(2);
 
     const newMax = 375;
     MessageManager.setMaxCachedMessages(newMax);
@@ -223,13 +230,13 @@ describe("MessageManager", () => {
   });
 
   it("openMessageCenter raises OpenMessageCenterEvent", () => {
-    const onOpenMessageCenterEventSpy = sinon.spy();
+    const onOpenMessageCenterEventSpy = vi.fn();
     MessageManager.onOpenMessageCenterEvent.addOnce(
       onOpenMessageCenterEventSpy
     );
 
     MessageManager.openMessageCenter();
-    expect(onOpenMessageCenterEventSpy.callCount).to.eq(1);
+    expect(onOpenMessageCenterEventSpy).toHaveBeenCalledOnce();
   });
 
   it("MessageManager should render a Toast message", async () => {

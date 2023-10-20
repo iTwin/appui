@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { MessageBoxIconType, MessageBoxType } from "@itwin/core-frontend";
 import type { DialogChangedEventArgs } from "../../appui-react";
 import {
@@ -16,13 +15,13 @@ import TestUtils from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("ModalDialogManager", () => {
-  const spyMethod = sinon.spy();
+  const spyMethod = vi.fn();
 
   function handleModalDialogChanged(_args: DialogChangedEventArgs) {
     spyMethod();
   }
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework(true);
 
     UiFramework.dialogs.modal.onModalDialogChangedEvent.addListener(
@@ -30,7 +29,7 @@ describe("ModalDialogManager", () => {
     );
   });
 
-  after(() => {
+  afterAll(() => {
     UiFramework.dialogs.modal.onModalDialogChangedEvent.removeListener(
       handleModalDialogChanged
     );

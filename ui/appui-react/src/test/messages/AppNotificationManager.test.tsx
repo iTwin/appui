@@ -3,9 +3,16 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   ActivityMessageDetails,
   ActivityMessageEndReason,
@@ -32,12 +39,12 @@ import { render, screen } from "@testing-library/react";
 describe("AppNotificationManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
@@ -50,30 +57,30 @@ describe("AppNotificationManager", () => {
   });
 
   it("outputPromptByKey", () => {
-    const spyMethod = sinon.spy(MessageManager, "outputPrompt");
+    const spyMethod = vi.spyOn(MessageManager, "outputPrompt");
     notifications.outputPromptByKey("Framework:tests.label");
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("outputPrompt", () => {
-    const spyMethod = sinon.spy(MessageManager, "outputPrompt");
+    const spyMethod = vi.spyOn(MessageManager, "outputPrompt");
     notifications.outputPrompt("This is a prompt.");
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("outputMessage", () => {
-    const spyMethod = sinon.spy(MessageManager, "addMessage");
+    const spyMethod = vi.spyOn(MessageManager, "addMessage");
     const details = new NotifyMessageDetails(
       OutputMessagePriority.Debug,
       "A brief message."
     );
     notifications.outputMessage(details);
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("outputMessage with Alert", () => {
-    const spyMethod = sinon.spy(MessageManager, "addMessage");
-    const alertBoxMethod = sinon.spy(MessageManager, "showAlertMessageBox");
+    const spyMethod = vi.spyOn(MessageManager, "addMessage");
+    const alertBoxMethod = vi.spyOn(MessageManager, "showAlertMessageBox");
 
     const details = new NotifyMessageDetails(
       OutputMessagePriority.Success,
@@ -82,15 +89,15 @@ describe("AppNotificationManager", () => {
       OutputMessageType.Alert
     );
     notifications.outputMessage(details);
-    expect(spyMethod.calledOnce).to.be.true;
-    expect(alertBoxMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
+    expect(alertBoxMethod).toHaveBeenCalledOnce();
 
     UiFramework.dialogs.modal.close();
   });
 
   it("outputMessage with Alert & Balloon", () => {
-    const spyMethod = sinon.spy(MessageManager, "addMessage");
-    const alertBoxMethod = sinon.spy(MessageManager, "showAlertMessageBox");
+    const spyMethod = vi.spyOn(MessageManager, "addMessage");
+    const alertBoxMethod = vi.spyOn(MessageManager, "showAlertMessageBox");
 
     const details = new NotifyMessageDetails(
       OutputMessagePriority.Debug,
@@ -100,14 +107,14 @@ describe("AppNotificationManager", () => {
       OutputMessageAlert.Balloon
     );
     notifications.outputMessage(details);
-    expect(spyMethod.calledOnce).to.be.true;
-    expect(alertBoxMethod.calledOnce).to.be.false;
+    expect(spyMethod).toHaveBeenCalledOnce();
+    expect(alertBoxMethod).toHaveBeenCalledOnce();
   });
 
   it("outputMessage with InputField", () => {
-    const spyMethod = sinon.spy(MessageManager, "addMessage");
-    const spyMethod2 = sinon.spy(MessageManager, "displayInputFieldMessage");
-    const spyMethod3 = sinon.spy(MessageManager, "hideInputFieldMessage");
+    const spyMethod = vi.spyOn(MessageManager, "addMessage");
+    const spyMethod2 = vi.spyOn(MessageManager, "displayInputFieldMessage");
+    const spyMethod3 = vi.spyOn(MessageManager, "hideInputFieldMessage");
     const details = new NotifyMessageDetails(
       OutputMessagePriority.Debug,
       "A brief message.",
@@ -124,15 +131,15 @@ describe("AppNotificationManager", () => {
     );
     details.setInputFieldTypeDetails(divElement!);
     notifications.outputMessage(details);
-    expect(spyMethod.calledOnce).to.be.true;
-    expect(spyMethod2.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
+    expect(spyMethod2).toHaveBeenCalledOnce();
     notifications.closeInputFieldMessage();
-    expect(spyMethod3.calledOnce).to.be.true;
+    expect(spyMethod3).toHaveBeenCalledOnce();
   });
 
   it("outputMessage with InputField but without setInputFieldTypeDetails", () => {
-    const spyMethod = sinon.spy(MessageManager, "addMessage");
-    const spyMethod2 = sinon.spy(MessageManager, "displayInputFieldMessage");
+    const spyMethod = vi.spyOn(MessageManager, "addMessage");
+    const spyMethod2 = vi.spyOn(MessageManager, "displayInputFieldMessage");
     const details = new NotifyMessageDetails(
       OutputMessagePriority.Debug,
       "A brief message.",
@@ -140,14 +147,14 @@ describe("AppNotificationManager", () => {
       OutputMessageType.InputField
     );
     notifications.outputMessage(details);
-    expect(spyMethod.calledOnce).to.be.true;
-    expect(spyMethod2.called).to.be.false;
+    expect(spyMethod).toHaveBeenCalledOnce();
+    expect(spyMethod2).not.toHaveBeenCalled();
   });
 
   it("openMessageBox", async () => {
     render(<ModalDialogRenderer />);
 
-    const spyMethod = sinon.spy(MessageManager, "openMessageBox");
+    const spyMethod = vi.spyOn(MessageManager, "openMessageBox");
     expect(UiFramework.dialogs.modal.count).to.eq(0);
     const boxResult = notifications.openMessageBox(
       MessageBoxType.OkCancel,
@@ -155,7 +162,7 @@ describe("AppNotificationManager", () => {
       MessageBoxIconType.Information
     );
 
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
     expect(UiFramework.dialogs.modal.count).to.eq(1);
 
     await theUserTo.click(
@@ -168,28 +175,28 @@ describe("AppNotificationManager", () => {
   });
 
   it("setupActivityMessage", () => {
-    const spyMethod = sinon.spy(MessageManager, "setupActivityMessageDetails");
+    const spyMethod = vi.spyOn(MessageManager, "setupActivityMessageDetails");
     const details = new ActivityMessageDetails(true, true, true, true);
     notifications.setupActivityMessage(details);
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("outputActivityMessage", () => {
-    const spyMethod = sinon.spy(MessageManager, "setupActivityMessageValues");
+    const spyMethod = vi.spyOn(MessageManager, "setupActivityMessageValues");
     notifications.outputActivityMessage("Message text", 50);
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("endActivityMessage", () => {
-    const spyMethod = sinon.spy(MessageManager, "endActivityMessage");
+    const spyMethod = vi.spyOn(MessageManager, "endActivityMessage");
     notifications.endActivityMessage(ActivityMessageEndReason.Cancelled);
     notifications.endActivityMessage(ActivityMessageEndReason.Completed);
-    expect(spyMethod.calledTwice).to.be.true;
+    expect(spyMethod).toHaveBeenCalledTimes(2);
   });
 
   it("ElementTooltip", () => {
-    const showMethod = sinon.spy(ElementTooltip, "showTooltip");
-    const hideMethod = sinon.spy(ElementTooltip, "hideTooltip");
+    const showMethod = vi.spyOn(ElementTooltip, "showTooltip");
+    const hideMethod = vi.spyOn(ElementTooltip, "hideTooltip");
     let divElement: HTMLElement | null;
     render(
       <div
@@ -200,14 +207,14 @@ describe("AppNotificationManager", () => {
     );
     notifications.openToolTip(divElement!, "Tooltip message");
     notifications.clearToolTip();
-    expect(showMethod.calledOnce).to.be.true;
-    expect(hideMethod.calledOnce).to.be.true;
+    expect(showMethod).toHaveBeenCalledOnce();
+    expect(hideMethod).toHaveBeenCalledOnce();
     expect(notifications.isToolTipSupported).to.be.true;
   });
 
   it("ElementTooltip with a React component", () => {
-    const showMethod = sinon.spy(ElementTooltip, "showTooltip");
-    const hideMethod = sinon.spy(ElementTooltip, "hideTooltip");
+    const showMethod = vi.spyOn(ElementTooltip, "showTooltip");
+    const hideMethod = vi.spyOn(ElementTooltip, "hideTooltip");
     let divElement: HTMLElement | null;
     render(
       <div
@@ -219,14 +226,14 @@ describe("AppNotificationManager", () => {
     const reactNode = <span>Tooltip message</span>;
     MessageManager.openToolTip(divElement!, { reactNode });
     notifications.clearToolTip();
-    expect(showMethod.calledOnce).to.be.true;
-    expect(hideMethod.calledOnce).to.be.true;
+    expect(showMethod).toHaveBeenCalledOnce();
+    expect(hideMethod).toHaveBeenCalledOnce();
   });
 
   it("ActivityMessage with a React component", () => {
-    const spyMethod = sinon.spy(MessageManager, "setupActivityMessageValues");
+    const spyMethod = vi.spyOn(MessageManager, "setupActivityMessageValues");
     const reactNode = <span>Activity message</span>;
     MessageManager.outputActivityMessage({ reactNode }, 50);
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 });

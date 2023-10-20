@@ -2,9 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { KeyboardShortcutProps } from "../../appui-react";
 import { CommandItemDef, KeyboardShortcutMenu } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
@@ -13,12 +20,12 @@ import { UiFramework } from "../../appui-react/UiFramework";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("KeyboardShortcutMenu", () => {
-  const testSpyMethod = sinon.spy();
+  const testSpyMethod = vi.fn();
   let testCommand: CommandItemDef;
   let keyboardShortcutList: KeyboardShortcutProps[];
   let theUserTo: ReturnType<typeof userEvent.setup>;
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
 
     testCommand = new CommandItemDef({
@@ -68,12 +75,12 @@ describe("KeyboardShortcutMenu", () => {
     ];
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 
   beforeEach(() => {
-    testSpyMethod.resetHistory();
+    testSpyMethod.mockReset();
     UiFramework.keyboardShortcuts.shortcutContainer.emptyData();
     theUserTo = userEvent.setup();
   });
@@ -122,6 +129,6 @@ describe("KeyboardShortcutMenu", () => {
     expect(screen.queryAllByRole("menuitem")).to.have.lengthOf(0);
 
     await TestUtils.flushAsyncOperations();
-    expect(testSpyMethod.calledOnce).to.be.true;
+    expect(testSpyMethod).toHaveBeenCalledOnce();
   });
 });

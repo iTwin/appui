@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as sinon from "sinon";
 import { fireEvent, render, screen } from "@testing-library/react";
 import * as React from "react";
 import { Provider } from "react-redux";
@@ -11,7 +10,7 @@ import { ToolWidgetComposer } from "../../appui-react/widgets/ToolWidgetComposer
 import { BackstageAppButton } from "../../appui-react/widgets/BackstageAppButton";
 import TestUtils, { childStructure, storageMock } from "../TestUtils";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 
 describe("FrameworkAccuDraw localStorage Wrapper", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(
@@ -20,23 +19,23 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
   )!;
   const localStorageMock = storageMock();
 
-  before(async () => {
+  beforeAll(async () => {
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
   });
 
-  after(() => {
+  afterAll(() => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
 
   describe("ToolWidgetComposer", () => {
-    before(async () => {
+    beforeAll(async () => {
       await TestUtils.initializeUiFramework();
       await NoRenderApp.startup();
     });
 
-    after(async () => {
+    afterAll(async () => {
       TestUtils.terminateUiFramework();
       await IModelApp.shutdown();
     });
@@ -94,7 +93,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
     });
 
     it("BackstageAppButton should render in 2.0 mode", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const component = render(
         <Provider store={TestUtils.store}>
           <BackstageAppButton icon={"icon-test"} execute={spy} label="Hello" />
@@ -104,11 +103,11 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       const icon = component.container.querySelector("i.icon.icon-test");
       expect(icon).not.to.be.null;
       fireEvent.click(button);
-      spy.called.should.true;
+      expect(spy).toHaveBeenCalled();
     });
 
     it("BackstageAppButton should render with defaults in 2.0 mode", () => {
-      const spy = sinon.spy(UiFramework.backstage, "toggle");
+      const spy = vi.spyOn(UiFramework.backstage, "toggle");
       const component = render(
         <Provider store={TestUtils.store}>
           <BackstageAppButton />
@@ -116,7 +115,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       );
       const button = component.container.querySelector("button");
       fireEvent.click(button!);
-      spy.called.should.true;
+      expect(spy).toHaveBeenCalled();
     });
   });
 });

@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import * as sinon from "sinon";
-import { expect } from "chai";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import * as abstract from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
 import { IconHelper } from "@itwin/core-react";
@@ -183,8 +183,8 @@ describe("UiItemsManager", () => {
     });
 
     it("should emit events", () => {
-      const spy = sinon.spy();
-      const abstractSpy = sinon.spy();
+      const spy = vi.fn();
+      const abstractSpy = vi.fn();
       UiItemsManager.onUiProviderRegisteredEvent.addListener(spy);
       AbstractUiItemsManager.onUiProviderRegisteredEvent.addListener(
         abstractSpy
@@ -197,13 +197,13 @@ describe("UiItemsManager", () => {
         id: "provider2",
       });
 
-      sinon.assert.calledTwice(spy);
-      sinon.assert.calledTwice(abstractSpy);
+      expect(spy).toHaveBeenCalledTimes(2);
+      expect(abstractSpy).toHaveBeenCalledTimes(2);
     });
 
     it("should provide status bar items", () => {
-      const execute2 = sinon.stub();
-      const execute4 = sinon.stub();
+      const execute2 = vi.fn();
+      const execute4 = vi.fn();
       UiItemsManager.register({
         id: "provider1",
         provideStatusBarItems: () => [
@@ -361,7 +361,7 @@ describe("UiItemsManager", () => {
     });
 
     it("should provide backstage items", () => {
-      const execute = sinon.stub();
+      const execute = vi.fn();
       UiItemsManager.register({
         id: "provider1",
         provideBackstageItems: () => [
@@ -478,8 +478,8 @@ describe("UiItemsManager", () => {
     });
 
     it("should provide toolbar items", () => {
-      const execute1 = sinon.stub();
-      const execute3 = sinon.stub();
+      const execute1 = vi.fn();
+      const execute3 = vi.fn();
       UiItemsManager.register({
         id: "provider1",
         provideToolbarItems: () => [

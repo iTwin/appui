@@ -3,8 +3,15 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { expect } from "chai";
-import * as sinon from "sinon";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import type { IModelAppOptions } from "@itwin/core-frontend";
@@ -37,7 +44,7 @@ describe("AccuDrawFieldContainer", () => {
     "requestNextAnimation"
   )!;
 
-  before(async () => {
+  beforeAll(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
     // Tried replacing window.requestAnimationFrame first but that did not work.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
@@ -52,7 +59,7 @@ describe("AccuDrawFieldContainer", () => {
     await NoRenderApp.startup(opts);
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
 
     Object.defineProperty(
@@ -75,54 +82,54 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it("should emit onAccuDrawSetFieldValueToUiEvent", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn().mockReturnValue({});
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
     IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
     IModelApp.accuDraw.onFieldValueChange(ItemField.X_Item);
-    spy.calledOnce.should.true;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     IModelApp.accuDraw.onFieldValueChange(ItemField.Y_Item);
-    spy.calledOnce.should.true;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     IModelApp.accuDraw.onFieldValueChange(ItemField.Z_Item);
-    spy.calledOnce.should.true;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     IModelApp.accuDraw.onFieldValueChange(ItemField.ANGLE_Item);
-    spy.calledOnce.should.true;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     IModelApp.accuDraw.onFieldValueChange(ItemField.DIST_Item);
-    spy.calledOnce.should.true;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     remove();
   });
 
   it("should emit onAccuDrawSetFieldLockEvent", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn().mockReturnValue({});
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
     IModelApp.accuDraw.setFieldLock(ItemField.X_Item, true);
-    spy.calledOnce.should.true;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     IModelApp.accuDraw.setFieldLock(ItemField.Y_Item, true);
-    spy.calledOnce.should.true;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     IModelApp.accuDraw.setFieldLock(ItemField.Z_Item, true);
-    spy.calledOnce.should.true;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     IModelApp.accuDraw.setFieldLock(ItemField.ANGLE_Item, true);
-    spy.calledOnce.should.true;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     IModelApp.accuDraw.setFieldLock(ItemField.DIST_Item, true);
-    spy.calledOnce.should.true;
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockReset();
     remove();
   });
 
   it("should emit onAccuDrawSetFieldFocusEvent", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn().mockReturnValue({});
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
     const wrapper = render(
@@ -134,18 +141,18 @@ describe("AccuDrawFieldContainer", () => {
     await TestUtils.flushAsyncOperations();
 
     IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     let input = wrapper.queryByTestId("uifw-accudraw-x");
     expect(input).not.to.be.null;
     expect(document.activeElement === input).to.be.true;
-    spy.resetHistory();
+    spy.mockReset();
 
     IModelApp.accuDraw.setFocusItem(ItemField.Y_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     input = wrapper.queryByTestId("uifw-accudraw-y");
     expect(input).not.to.be.null;
     expect(document.activeElement === input).to.be.true;
-    spy.resetHistory();
+    spy.mockReset();
 
     input = wrapper.queryByTestId("uifw-accudraw-z");
     expect(input).to.be.null;
@@ -154,18 +161,18 @@ describe("AccuDrawFieldContainer", () => {
     await TestUtils.flushAsyncOperations();
 
     IModelApp.accuDraw.setFocusItem(ItemField.ANGLE_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     input = wrapper.queryByTestId("uifw-accudraw-angle");
     expect(input).not.to.be.null;
     expect(document.activeElement === input).to.be.true;
-    spy.resetHistory();
+    spy.mockReset();
 
     IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     input = wrapper.queryByTestId("uifw-accudraw-distance");
     expect(input).not.to.be.null;
     expect(document.activeElement === input).to.be.true;
-    spy.resetHistory();
+    spy.mockReset();
 
     await TestUtils.flushAsyncOperations();
     expect(IModelApp.accuDraw.hasInputFocus).to.be.true;
@@ -174,7 +181,7 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it("should emit onAccuDrawSetFieldFocusEvent and show Z field", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn().mockReturnValue({});
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
     render(
@@ -192,10 +199,10 @@ describe("AccuDrawFieldContainer", () => {
     });
 
     IModelApp.accuDraw.setFocusItem(ItemField.Z_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     await TestUtils.flushAsyncOperations();
     expect(document.activeElement).to.eq(screen.getByTestId("uifw-accudraw-z"));
-    spy.resetHistory();
+    spy.mockReset();
 
     expect(IModelApp.accuDraw.hasInputFocus).to.be.true;
 
@@ -203,7 +210,7 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it("should emit onAccuDrawGrabFieldFocusEvent", async () => {
-    const spySet = sinon.spy();
+    const spySet = vi.fn().mockReturnValue({});
     const removeSet =
       FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spySet);
     const wrapper = render(
@@ -215,7 +222,7 @@ describe("AccuDrawFieldContainer", () => {
     await TestUtils.flushAsyncOperations();
 
     IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
-    spySet.calledOnce.should.true;
+    expect(spySet).toHaveBeenCalledOnce();
     const input = wrapper.queryByTestId("uifw-accudraw-x");
     expect(input).not.to.be.null;
     expect(document.activeElement === input).to.be.true;
@@ -223,11 +230,11 @@ describe("AccuDrawFieldContainer", () => {
     UiFramework.keyboardShortcuts.setFocusToHome();
     expect(document.activeElement === input).to.be.false;
 
-    const spyGrab = sinon.spy();
+    const spyGrab = vi.fn().mockReturnValue({});
     const removeGrab =
       FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(spyGrab);
     IModelApp.accuDraw.grabInputFocus();
-    spyGrab.calledOnce.should.true;
+    expect(spyGrab).toHaveBeenCalledOnce();
     expect(document.activeElement === input).to.be.true;
 
     removeSet();
@@ -235,19 +242,19 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it("should emit onAccuDrawSetModeEvent", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn().mockReturnValue({});
     const remove =
       FrameworkAccuDraw.onAccuDrawSetCompassModeEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
     IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
-    spy.calledTwice.should.true;
+    expect(spy).toHaveBeenCalledTimes(2);
     remove();
   });
 
   it("should call onValueChanged & setFieldValueFromUi", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn().mockReturnValue({});
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldValueFromUiEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
@@ -260,9 +267,9 @@ describe("AccuDrawFieldContainer", () => {
       selectAllBeforeType()
     );
     await waitFor(() => {
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
-    spy.resetHistory();
+    spy.mockReset();
 
     await theUserTo.type(
       screen.getByTestId("uifw-accudraw-y"),
@@ -270,9 +277,9 @@ describe("AccuDrawFieldContainer", () => {
       selectAllBeforeType()
     );
     await waitFor(() => {
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
-    spy.resetHistory();
+    spy.mockReset();
 
     expect(screen.queryByTestId("uifw-accudraw-z")).to.be.null;
 
@@ -286,9 +293,9 @@ describe("AccuDrawFieldContainer", () => {
       );
     });
     await waitFor(() => {
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
-    spy.resetHistory();
+    spy.mockReset();
 
     await theUserTo.type(
       screen.getByTestId("uifw-accudraw-distance"),
@@ -296,15 +303,15 @@ describe("AccuDrawFieldContainer", () => {
       selectAllBeforeType()
     );
     await waitFor(() => {
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
-    spy.resetHistory();
+    spy.mockReset();
 
     remove();
   });
 
   it("should call onValueChanged & setFieldValueFromUi & show the Z field", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn().mockReturnValue({});
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldValueFromUiEvent.addListener(spy);
     render(
@@ -324,14 +331,14 @@ describe("AccuDrawFieldContainer", () => {
       );
     });
     await waitFor(() => {
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     remove();
   });
 
   it("should set focus to home on Esc", () => {
-    const spy = sinon.spy(UiFramework.keyboardShortcuts, "setFocusToHome");
+    const spy = vi.spyOn(UiFramework.keyboardShortcuts, "setFocusToHome");
     const wrapper = render(
       <AccuDrawFieldContainer orientation={Orientation.Vertical} />
     );
@@ -341,8 +348,7 @@ describe("AccuDrawFieldContainer", () => {
     const input = wrapper.queryByTestId("uifw-accudraw-x");
     expect(input).not.to.be.null;
     fireEvent.keyDown(input!, { key: SpecialKey.Escape });
-    spy.calledOnce.should.true;
-
+    expect(spy).toHaveBeenCalledOnce();
     (UiFramework.keyboardShortcuts.setFocusToHome as any).restore();
   });
 
@@ -383,7 +389,7 @@ describe("AccuDrawFieldContainer", () => {
     it("should support FrameworkAccuDraw.uiStateStorage- set after render", async () => {
       const emptySettings: AccuDrawUiSettings = {};
 
-      const spy = sinon.spy();
+      const spy = vi.fn().mockReturnValue({});
       FrameworkAccuDraw.uiStateStorage = undefined;
       const remove =
         FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(spy);
@@ -395,7 +401,7 @@ describe("AccuDrawFieldContainer", () => {
       );
 
       const settingsTest = async (count: number) => {
-        spy.calledOnce.should.true;
+        expect(spy).toHaveBeenCalledOnce();
 
         let labelElements = wrapper.queryAllByLabelText(labelTest);
         await waitFor(() => {
@@ -414,14 +420,14 @@ describe("AccuDrawFieldContainer", () => {
         expect(iElements.length).to.eq(count);
 
         FrameworkAccuDraw.uiStateStorage = emptySettings;
-        spy.calledTwice.should.true;
+        expect(spy).toHaveBeenCalledTimes(2);
         await waitFor(() => {
           labelElements = wrapper.queryAllByLabelText(labelTest);
           expect(labelElements.length).to.eq(0);
         });
 
         FrameworkAccuDraw.uiStateStorage = undefined;
-        spy.calledThrice.should.true;
+        expect(spy).toHaveBeenCalledTimes(3);
         labelElements = wrapper.queryAllByLabelText(labelTest);
         expect(labelElements.length).to.eq(0);
       };
@@ -432,7 +438,7 @@ describe("AccuDrawFieldContainer", () => {
       await TestUtils.flushAsyncOperations();
       await settingsTest(3);
 
-      spy.resetHistory();
+      spy.mockReset();
 
       IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
       expect(wrapper.queryAllByLabelText(labelTest).length).to.eq(0);
@@ -444,7 +450,7 @@ describe("AccuDrawFieldContainer", () => {
     });
 
     it("should support FrameworkAccuDraw.uiStateStorage - set before render", async () => {
-      const spy = sinon.spy();
+      const spy = vi.fn().mockReturnValue({});
       FrameworkAccuDraw.uiStateStorage = fullSettings;
       const remove =
         FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(spy);

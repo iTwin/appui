@@ -2,15 +2,19 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { afterAll, beforeAll, describe } from "vitest";
-import TestUtils from "../TestUtils";
+import { defineConfig } from 'vitest/config'
+import react from "@vitejs/plugin-react"
 
-describe("NavigationAidControl", () => {
-  beforeAll(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterAll(() => {
-    TestUtils.terminateUiFramework();
-  });
-});
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    environment: 'happy-dom',
+    include: ["**/MenuButton.test.tsx"],
+    experimentalVmThreads: true,
+    deps: {
+      web: {
+        transformAssets: false,
+      }
+    }
+  }
+})

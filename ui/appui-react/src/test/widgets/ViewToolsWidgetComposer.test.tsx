@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
-import { expect } from "chai";
+import { describe, expect, it } from "vitest";
 import * as React from "react";
 import { ViewToolWidgetComposer } from "../../appui-react/widgets/ViewToolWidgetComposer";
 import { childStructure } from "../TestUtils";

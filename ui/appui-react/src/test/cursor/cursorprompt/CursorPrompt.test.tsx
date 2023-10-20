@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { ToolAssistance } from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { Point } from "@itwin/core-react";
@@ -45,7 +44,7 @@ describe("CursorPrompt", () => {
     const offset = new Point(20, 20);
     const cursor = { x: 6, y: 6 };
     CursorInformation.cursorPosition = cursor;
-    const fakeTimers = sinon.useFakeTimers({ shouldAdvanceTime: true });
+    const fakeTimers = vi.useFakeTimers({ shouldAdvanceTime: true });
     const { container } = render(<CursorPopupRenderer />);
     expect(CursorPopupManager.popupCount).to.eq(0);
     CursorPopup.fadeOutTime = 50;
@@ -73,7 +72,7 @@ describe("CursorPrompt", () => {
 
     const move = new Point(50, 60);
     CursorInformation.handleMouseMove(move);
-    fakeTimers.tick(0);
+    fakeTimers.advanceTimersByTime(0);
 
     const moved = move.offset(offset);
     const styleForMoved = { top: `${moved.y}px`, left: `${moved.x}px` };
@@ -83,11 +82,11 @@ describe("CursorPrompt", () => {
       ).to.include(styleForMoved);
     });
 
-    fakeTimers.tick(40);
+    fakeTimers.advanceTimersByTime(40);
     expect(CursorPopupManager.popupCount).to.eq(1);
 
-    fakeTimers.tick(1000);
-    fakeTimers.restore();
+    fakeTimers.advanceTimersByTime(1000);
+    fakeTimers.restoreAllMocks();
     expect(CursorPopupManager.popupCount).to.eq(0);
   });
 

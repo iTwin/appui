@@ -2,9 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import type { IModelAppOptions } from "@itwin/core-frontend";
 import {
@@ -53,7 +60,7 @@ describe("PopupManager", () => {
     "requestNextAnimation"
   )!;
 
-  before(async () => {
+  beforeAll(async () => {
     Object.defineProperty(window, "localStorage", {
       get: () => myLocalStorage,
     });
@@ -70,7 +77,7 @@ describe("PopupManager", () => {
     await NoRenderApp.startup(opts);
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     // restore the overriden property getter
     Object.defineProperty(window, "localStorage", propertyDescriptorToRestore);
@@ -164,12 +171,12 @@ describe("PopupManager", () => {
     });
 
     it("hideMenuButton should log error when invalid id passed", () => {
-      const spyMethod = sinon.spy(Logger, "logError");
+      const spyMethod = vi.spyOn(Logger, "logError");
 
       AccuDrawPopupManager.hideMenuButton("invalid-id");
 
-      spyMethod.calledOnce.should.true;
-      (Logger.logError as any).restore();
+      expect(spyMethod).toHaveBeenCalledOnce();
+      (Logger.logError as any).mockRestore();
     });
 
     it("showCalculator should show Calculator", () => {
@@ -177,8 +184,8 @@ describe("PopupManager", () => {
         "<div>xyz</div>",
         "text/html"
       );
-      const spyOk = sinon.spy();
-      const spyCancel = sinon.spy();
+      const spyOk = vi.fn();
+      const spyCancel = vi.fn();
 
       AccuDrawPopupManager.showCalculator(
         doc.documentElement,
@@ -214,8 +221,8 @@ describe("PopupManager", () => {
         "<div>xyz</div>",
         "text/html"
       );
-      const spyOk = sinon.spy();
-      const spyCancel = sinon.spy();
+      const spyOk = vi.fn();
+      const spyCancel = vi.fn();
 
       AccuDrawPopupManager.showCalculator(
         doc.documentElement,
@@ -238,8 +245,8 @@ describe("PopupManager", () => {
         "<div>xyz</div>",
         "text/html"
       );
-      const spyCommit = sinon.spy();
-      const spyCancel = sinon.spy();
+      const spyCommit = vi.fn();
+      const spyCancel = vi.fn();
 
       AccuDrawPopupManager.showAngleEditor(
         doc.documentElement,
@@ -306,8 +313,8 @@ describe("PopupManager", () => {
         "<div>xyz</div>",
         "text/html"
       );
-      const spyCommit = sinon.spy();
-      const spyCancel = sinon.spy();
+      const spyCommit = vi.fn();
+      const spyCancel = vi.fn();
 
       PopupManager.showInputEditor(
         doc.documentElement,
@@ -338,10 +345,10 @@ describe("PopupManager", () => {
 
   describe("PopupRenderer", () => {
     it("PopupRenderer should render (Mount and Unmount)", () => {
-      const spyLogger = sinon.spy(Logger, "logInfo");
+      const spyLogger = vi.spyOn(Logger, "logInfo");
       const wrapper = render(<PopupRenderer />);
       wrapper.unmount();
-      spyLogger.calledTwice.should.true;
+      expect(spyLogger).toHaveBeenCalledTimes(2);
     });
 
     it("PopupRenderer should render menuButton with menu item", async () => {
@@ -371,8 +378,8 @@ describe("PopupManager", () => {
     it("PopupRenderer should render Calculator", async () => {
       const wrapper = render(<PopupRenderer />);
 
-      const spyOk = sinon.spy();
-      const spyCancel = sinon.spy();
+      const spyOk = vi.fn();
+      const spyCancel = vi.fn();
 
       AccuDrawPopupManager.showCalculator(
         wrapper.container,
@@ -393,8 +400,8 @@ describe("PopupManager", () => {
     it("PopupRenderer should render InputEditor", async () => {
       const wrapper = render(<PopupRenderer />);
 
-      const spyCommit = sinon.spy();
-      const spyCancel = sinon.spy();
+      const spyCommit = vi.fn();
+      const spyCancel = vi.fn();
       const description: PropertyDescription = {
         name: "test",
         displayLabel: "Test",
@@ -417,7 +424,7 @@ describe("PopupManager", () => {
         fireEvent.keyDown(firstInput as HTMLElement, { key: "Enter" });
       });
       await TestUtils.flushAsyncOperations();
-      expect(spyCommit.calledOnce).to.be.true;
+      expect(spyCommit).toHaveBeenCalledOnce();
 
       PopupManager.showInputEditor(
         wrapper.container,
@@ -433,7 +440,7 @@ describe("PopupManager", () => {
 
         fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       });
-      expect(spyCancel.called).to.be.true;
+      expect(spyCancel).toHaveBeenCalled();
     });
 
     it("PopupRenderer should render Toolbar", async () => {
@@ -459,8 +466,8 @@ describe("PopupManager", () => {
         ],
       };
 
-      const spyItemExecuted = sinon.spy();
-      const spyCancel = sinon.spy();
+      const spyItemExecuted = vi.fn();
+      const spyCancel = vi.fn();
 
       PopupManager.showToolbar(
         toolbarProps,
@@ -479,14 +486,14 @@ describe("PopupManager", () => {
         fireEvent.keyDown(buttonNodes[0] as HTMLElement, { key: "Escape" });
       });
 
-      expect(spyCancel.calledOnce).to.be.true;
+      expect(spyCancel).toHaveBeenCalledOnce();
     });
 
     it("PopupRenderer should render HTMLElement", async () => {
       const wrapper = render(<PopupRenderer />);
       const html = "<div class='test-element'>Hello World!</div>";
       const display = new DOMParser().parseFromString(html, "text/html");
-      const spyCancel = sinon.spy();
+      const spyCancel = vi.fn();
       PopupManager.showHTMLElement(
         display.documentElement,
         wrapper.container,
@@ -525,8 +532,8 @@ describe("PopupManager", () => {
         ],
       };
 
-      const spyItemExecuted = sinon.spy();
-      const spyCancel = sinon.spy();
+      const spyItemExecuted = vi.fn();
+      const spyCancel = vi.fn();
 
       PopupManager.showCard(
         content.documentElement,
@@ -558,7 +565,7 @@ describe("PopupManager", () => {
 
       fireEvent.keyDown(buttonNodes[0] as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
-      expect(spyCancel.called).to.be.true;
+      expect(spyCancel).toHaveBeenCalled();
       PopupManager.hideCard();
 
       const record = TestUtils.createPrimitiveStringProperty("record", "Title");
@@ -625,7 +632,7 @@ describe("PopupManager", () => {
 
     it("PopupRenderer should render Tool Settings", async () => {
       const wrapper = render(<PopupRenderer />);
-      const spyChange = sinon.spy();
+      const spyChange = vi.fn();
 
       class TestUiDataProvider extends DialogLayoutDataProvider {
         private static _sourcePropertyName = "source";
@@ -686,7 +693,7 @@ describe("PopupManager", () => {
 
       const uiDataProvider = new TestUiDataProvider();
 
-      const spyCancel = sinon.spy();
+      const spyCancel = vi.fn();
 
       PopupManager.openToolSettings(
         uiDataProvider,
@@ -708,7 +715,7 @@ describe("PopupManager", () => {
 
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
       await TestUtils.flushAsyncOperations();
-      expect(spyChange.calledOnce).to.be.true;
+      expect(spyChange).toHaveBeenCalledOnce();
 
       PopupManager.openToolSettings(
         uiDataProvider,
@@ -727,7 +734,7 @@ describe("PopupManager", () => {
       fireEvent.click(inputNode as HTMLElement);
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
-      expect(spyCancel.calledOnce).to.be.true;
+      expect(spyCancel).toHaveBeenCalledOnce();
     });
 
     it("PopupRenderer should render Keyin Palette", async () => {
@@ -736,8 +743,8 @@ describe("PopupManager", () => {
         { value: "keyin one" },
         { value: "keyin two" },
       ];
-      const spyOk = sinon.spy();
-      const spyCancel = sinon.spy();
+      const spyOk = vi.fn();
+      const spyCancel = vi.fn();
 
       PopupManager.showKeyinPalette(
         keyins,
@@ -756,7 +763,7 @@ describe("PopupManager", () => {
       expect(inputNode).not.to.null;
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
-      expect(spyCancel.calledOnce).to.be.true;
+      expect(spyCancel).toHaveBeenCalledOnce();
     });
   });
 });

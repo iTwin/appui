@@ -2,9 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 
 import type { ListItem } from "../../appui-react";
@@ -23,14 +30,14 @@ import { Provider } from "react-redux";
 import { render, screen } from "@testing-library/react";
 const title = "Test";
 const listItems = new Array<ListItem>();
-const setEnabled = sinon.spy();
+const setEnabled = vi.fn();
 
 describe("ListPicker", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
 
@@ -68,12 +75,12 @@ describe("ListPicker", () => {
     listItems.push(emptyContainerItem);
   });
 
-  after(async () => {
+  afterAll(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
   });
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.flushAsyncOperations();
   });
 
@@ -94,9 +101,9 @@ describe("ListPicker", () => {
   });
 
   it("should support items and functions", async () => {
-    const enableAllFunc = sinon.spy();
-    const disableAllFunc = sinon.spy();
-    const invertFunc = sinon.spy();
+    const enableAllFunc = vi.fn();
+    const disableAllFunc = vi.fn();
+    const invertFunc = vi.fn();
 
     render(
       <Provider store={TestUtils.store}>
@@ -113,16 +120,16 @@ describe("ListPicker", () => {
     await theUserTo.click(screen.getByRole("button"));
 
     await theUserTo.click(screen.getByText("pickerButtons.all"));
-    expect(enableAllFunc).to.be.called;
+    expect(enableAllFunc).toHaveBeenCalled();
 
     await theUserTo.click(screen.getByText("pickerButtons.none"));
-    expect(disableAllFunc).to.be.called;
+    expect(disableAllFunc).toHaveBeenCalled();
 
     await theUserTo.click(screen.getByText("pickerButtons.invert"));
-    expect(invertFunc).to.be.called;
+    expect(invertFunc).toHaveBeenCalled();
 
     await theUserTo.click(screen.getByText("123456789012345678901234567890"));
-    expect(setEnabled).to.be.called;
+    expect(setEnabled).toHaveBeenCalled();
   });
 
   describe("isSpecialItem", () => {

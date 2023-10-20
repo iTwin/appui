@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 // cSpell:ignore typemoq
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import * as moq from "typemoq";
 import type {
   DrawingViewState,
@@ -16,11 +16,11 @@ import { ViewUtilities } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 describe("ViewUtilities", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 

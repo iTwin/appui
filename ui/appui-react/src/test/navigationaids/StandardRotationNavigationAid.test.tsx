@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import * as React from "react";
 import { StandardRotationNavigationAid } from "../../appui-react";
 import TestUtils, { childStructure, userEvent } from "../TestUtils";
@@ -15,12 +15,12 @@ describe("StandardRotationNavigationAid", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });

@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
@@ -16,12 +16,12 @@ describe(`SectionsField`, () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });

@@ -3,9 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
+import { describe, expect, it, vi } from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   FrontstageDef,
   UiFramework,
@@ -16,9 +15,11 @@ import { childStructure, selectorMatches } from "../TestUtils";
 
 describe("WidgetPanelsToolbars", () => {
   it("should not render", () => {
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => undefined);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => undefined);
     const { container } = render(<WidgetPanelsToolbars />);
     expect(container).to.satisfy(
       childStructure("div.uifw-widgetPanels-toolbars:only-child:empty")
@@ -35,13 +36,17 @@ describe("WidgetPanelsToolbars", () => {
       id: "viewNavigationWidget",
       content: <>navigation</>,
     });
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
-    sinon
-      .stub(frontstageDef, "contentManipulation")
-      .get(() => contentManipulationWidget);
-    sinon.stub(frontstageDef, "viewNavigation").get(() => viewNavigationWidget);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
+    vi.spyOn(frontstageDef, "contentManipulation", "get").mockImplementation(
+      () => contentManipulationWidget
+    );
+    vi.spyOn(frontstageDef, "viewNavigation", "get").mockImplementation(
+      () => viewNavigationWidget
+    );
     render(<WidgetPanelsToolbars />);
     expect(screen.getByText(/tools.*navigation/)).to.satisfy(
       selectorMatches(".uifw-widgetPanels-toolbars")

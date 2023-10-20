@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 // cSpell:ignore typemoq
 
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import * as moq from "typemoq";
 import type {
   DrawingViewState,
@@ -18,11 +18,11 @@ import TestUtils from "../TestUtils";
 import { InternalContentViewManager } from "../../appui-react/content/InternalContentViewManager";
 
 describe("ContentViewManager", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 

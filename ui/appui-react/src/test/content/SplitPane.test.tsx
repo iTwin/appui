@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
+import { describe, expect, it, vi } from "vitest";
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { SplitPane } from "../../appui-react";
@@ -141,8 +140,8 @@ describe("SplitPane", () => {
   });
 
   it("should handle click on resizer", async () => {
-    const spyMethod = sinon.spy();
-    const dblSpyMethod = sinon.spy();
+    const spyMethod = vi.fn();
+    const dblSpyMethod = vi.fn();
     const componentWrapper = render(
       <SplitPane
         split="horizontal"
@@ -159,13 +158,13 @@ describe("SplitPane", () => {
     );
     fireEvent.click(resizer!);
     fireEvent.dblClick(resizer!);
-    spyMethod.calledOnce.should.true;
-    dblSpyMethod.calledOnce.should.true;
+    expect(spyMethod).toHaveBeenCalled();
+    expect(dblSpyMethod).toHaveBeenCalled();
   });
 
   it("should handle touch resizing", async () => {
-    const spyMethod = sinon.spy();
-    const spyDragFinishMethod = sinon.spy();
+    const spyMethod = vi.fn();
+    const spyDragFinishMethod = vi.fn();
     const componentWrapper = render(
       <SplitPane
         split="horizontal"
@@ -204,13 +203,13 @@ describe("SplitPane", () => {
         },
       ],
     });
-    spyMethod.called.should.true;
-    spyDragFinishMethod.called.should.true;
+    expect(spyMethod).toHaveBeenCalled();
+    expect(spyDragFinishMethod).toHaveBeenCalled();
   });
 
   it("should handle mouse resizing", async () => {
-    const spyMethod = sinon.spy();
-    const spyDragStartedMethod = sinon.spy();
+    const spyMethod = vi.fn();
+    const spyDragStartedMethod = vi.fn();
     const componentWrapper = render(
       <SplitPane
         split="horizontal"
@@ -232,13 +231,13 @@ describe("SplitPane", () => {
     fireEvent.mouseDown(resizer!, { clientX: 10, clientY: 10 });
     fireEvent.mouseMove(resizer!, { clientX: 10, clientY: 20 });
     fireEvent.mouseUp(resizer!, { clientX: 10, clientY: 30 });
-    spyMethod.called.should.true;
-    spyDragStartedMethod.called.should.true;
+    expect(spyMethod).toHaveBeenCalled();
+    expect(spyDragStartedMethod).toHaveBeenCalled();
   });
 
   it("should handle mouse resizing (vertical)", async () => {
-    const spyMethod = sinon.spy();
-    const spyDragStartedMethod = sinon.spy();
+    const spyMethod = vi.fn();
+    const spyDragStartedMethod = vi.fn();
     const componentWrapper = render(
       <SplitPane
         split="vertical"
@@ -259,12 +258,12 @@ describe("SplitPane", () => {
     fireEvent.mouseDown(resizer!, { clientX: 10, clientY: 10 });
     fireEvent.mouseMove(resizer!, { clientX: 20, clientY: 10 });
     fireEvent.mouseUp(resizer!, { clientX: 30, clientY: 10 });
-    spyMethod.called.should.true;
-    spyDragStartedMethod.called.should.true;
+    expect(spyMethod).toHaveBeenCalled();
+    expect(spyDragStartedMethod).toHaveBeenCalled();
   });
 
   it("should ignore mouse resizing", async () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
     const componentWrapper = render(
       <SplitPane
         split="horizontal"
@@ -286,6 +285,6 @@ describe("SplitPane", () => {
     fireEvent.mouseDown(resizer!, { clientX: 10, clientY: 10 });
     fireEvent.mouseMove(resizer!, { clientX: 10, clientY: 20 });
     fireEvent.mouseUp(resizer!, { clientX: 10, clientY: 30 });
-    spyMethod.called.should.false;
+    expect(spyMethod).toHaveBeenCalled();
   });
 });

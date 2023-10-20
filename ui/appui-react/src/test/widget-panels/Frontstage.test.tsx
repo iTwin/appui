@@ -2,7 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import { Provider } from "react-redux";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -254,7 +263,7 @@ describe("Frontstage local storage wrapper", () => {
   )!;
   const localStorageMock = storageMock();
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
     Object.defineProperty(window, "localStorage", {
@@ -262,7 +271,7 @@ describe("Frontstage local storage wrapper", () => {
     });
   });
 
-  after(async () => {
+  afterAll(async () => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
@@ -282,7 +291,9 @@ describe("Frontstage local storage wrapper", () => {
       sinon
         .stub(UiFramework.frontstages, "activeFrontstageDef")
         .get(() => frontstageDef);
-      sinon.stub(frontstageDef, "contentGroup").get(() => contentGroup.object);
+      vi.spyOn(frontstageDef, "contentGroup", "get").mockImplementation(
+        () => contentGroup.object
+      );
       render(
         <Provider store={TestUtils.store}>
           <WidgetPanelsFrontstage />
@@ -310,11 +321,11 @@ describe("Frontstage local storage wrapper", () => {
   });
 
   describe("ModalFrontstageComposer", () => {
-    before(async () => {
+    beforeAll(async () => {
       await TestUtils.initializeUiFramework();
     });
 
-    after(() => {
+    afterAll(() => {
       TestUtils.terminateUiFramework();
     });
 
@@ -333,18 +344,18 @@ describe("Frontstage local storage wrapper", () => {
     });
 
     it("should add tool activated event listener", () => {
-      const addListenerSpy = sinon.spy(
+      const addListenerSpy = vi.spyOn(
         UiFramework.frontstages.onModalFrontstageChangedEvent,
         "addListener"
       );
-      const removeListenerSpy = sinon.spy(
+      const removeListenerSpy = vi.spyOn(
         UiFramework.frontstages.onModalFrontstageChangedEvent,
         "removeListener"
       );
       const sut = renderHook(() => useActiveModalFrontstageInfo());
       sut.unmount();
-      addListenerSpy.calledOnce.should.true;
-      removeListenerSpy.calledOnce.should.true;
+      expect(addListenerSpy).toHaveBeenCalledOnce();
+      expect(removeListenerSpy).toHaveBeenCalledOnce();
     });
 
     it("should update active modal info", () => {
@@ -375,16 +386,20 @@ describe("Frontstage local storage wrapper", () => {
     });
 
     describe("ActiveFrontstageDefProvider", () => {
-      before(async () => {
+      beforeAll(async () => {
         await TestUtils.initializeUiFramework();
       });
 
-      after(() => {
+      afterAll(() => {
         TestUtils.terminateUiFramework();
       });
 
       beforeEach(() => {
-        sinon.stub(InternalFrontstageManager, "nineZoneSize").set(() => {});
+        vi.spyOn(
+          InternalFrontstageManager,
+          "nineZoneSize",
+          "set"
+        ).mockImplementation(() => {});
       });
 
       it("should render", () => {
@@ -451,7 +466,11 @@ describe("Frontstage local storage wrapper", () => {
 
     describe("useNineZoneDispatch", () => {
       beforeEach(() => {
-        sinon.stub(InternalFrontstageManager, "nineZoneSize").set(() => {});
+        vi.spyOn(
+          InternalFrontstageManager,
+          "nineZoneSize",
+          "set"
+        ).mockImplementation(() => {});
       });
 
       it("should modify nineZoneState with default NineZoneReducer", () => {
@@ -533,7 +552,9 @@ describe("Frontstage local storage wrapper", () => {
 
       it("should return updated nineZoneState", () => {
         const frontstageDef = new FrontstageDef();
-        sinon.stub(frontstageDef, "isReady").get(() => true);
+        vi.spyOn(frontstageDef, "isReady", "get").mockImplementation(
+          () => true
+        );
         sinon
           .stub(UiFramework.frontstages, "activeFrontstageDef")
           .get(() => frontstageDef);
@@ -568,11 +589,11 @@ describe("Frontstage local storage wrapper", () => {
     });
 
     describe("useSavedFrontstageState", () => {
-      before(async () => {
+      beforeAll(async () => {
         await TestUtils.initializeUiFramework();
       });
 
-      after(() => {
+      afterAll(() => {
         TestUtils.terminateUiFramework();
       });
 
@@ -580,7 +601,7 @@ describe("Frontstage local storage wrapper", () => {
         const setting = createFrontstageState();
         const uiStateStorage = new UiStateStorageStub();
         await UiFramework.setUiStateStorage(uiStateStorage);
-        sinon.stub(uiStateStorage, "getSetting").resolves({
+        vi.spyOn(uiStateStorage, "getSetting").mockResolvedValue({
           status: UiStateStorageStatus.Success,
           setting,
         });
@@ -589,7 +610,7 @@ describe("Frontstage local storage wrapper", () => {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
         await TestUtils.flushAsyncOperations();
-        frontstageDef.nineZoneState?.should.matchSnapshot();
+        expect(frontstageDef.nineZoneState).to.matchSnapshot();
       });
 
       it("should not load nineZoneState when nineZoneState is already initialized", async () => {
@@ -598,17 +619,17 @@ describe("Frontstage local storage wrapper", () => {
         const uiStateStorage = new UiStateStorageStub();
         await UiFramework.setUiStateStorage(uiStateStorage);
 
-        const spy = sinon.spy(uiStateStorage, "getSetting");
+        const spy = vi.spyOn(uiStateStorage, "getSetting");
         renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
-        spy.notCalled.should.true;
+        expect(spy).not.toHaveBeenCalled();
       });
 
       it("should initialize nineZoneState", async () => {
         const setting = createFrontstageState();
         const uiStateStorage = new UiStateStorageStub();
-        sinon.stub(uiStateStorage, "getSetting").returns(
+        vi.spyOn(uiStateStorage, "getSetting").mockReturnValue(
           Promise.resolve<UiStateStorageResult>({
             status: UiStateStorageStatus.Success,
             setting,
@@ -617,7 +638,9 @@ describe("Frontstage local storage wrapper", () => {
         const frontstageDef = new FrontstageDef();
         await UiFramework.setUiStateStorage(uiStateStorage);
 
-        sinon.stub(frontstageDef, "version").get(() => setting.version + 1);
+        vi.spyOn(frontstageDef, "version", "get").mockImplementation(
+          () => setting.version + 1
+        );
         renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
@@ -630,7 +653,7 @@ describe("Frontstage local storage wrapper", () => {
         const setting = createFrontstageState();
         const uiStateStorage = new UiStateStorageStub();
 
-        sinon.stub(uiStateStorage, "getSetting").resolves({
+        vi.spyOn(uiStateStorage, "getSetting").mockResolvedValue({
           status: UiStateStorageStatus.Success,
           setting,
         });
@@ -646,7 +669,9 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
+        vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+          () => leftPanel
+        );
 
         renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
@@ -659,9 +684,9 @@ describe("Frontstage local storage wrapper", () => {
 
     describe("useSaveFrontstageSettings", () => {
       it("should save frontstage settings", async () => {
-        const fakeTimers = sinon.useFakeTimers();
+        const fakeTimers = vi.useFakeTimers();
         const uiStateStorage = new UiStateStorageStub();
-        const spy = sinon.stub(uiStateStorage, "saveSetting").resolves({
+        const spy = vi.spyOn(uiStateStorage, "saveSetting").mockResolvedValue({
           status: UiStateStorageStatus.Success,
         });
         const frontstageDef = new FrontstageDef();
@@ -672,16 +697,16 @@ describe("Frontstage local storage wrapper", () => {
         renderHook(() => useSaveFrontstageSettings(frontstageDef, layout), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
-        fakeTimers.tick(1000);
-        fakeTimers.restore();
+        fakeTimers.advanceTimersByTime(1000);
+        fakeTimers.restoreAllMocks();
 
-        sinon.assert.calledOnce(spy);
+        expect(spy).not.toHaveBeenCalled();
       });
 
       it("should not save if tab is dragged", async () => {
-        const fakeTimers = sinon.useFakeTimers();
+        const fakeTimers = vi.useFakeTimers();
         const uiStateStorage = new UiStateStorageStub();
-        const spy = sinon.stub(uiStateStorage, "saveSetting").resolves({
+        const spy = vi.spyOn(uiStateStorage, "saveSetting").mockResolvedValue({
           status: UiStateStorageStatus.Success,
         });
         const frontstageDef = new FrontstageDef();
@@ -698,10 +723,10 @@ describe("Frontstage local storage wrapper", () => {
         renderHook(() => useSaveFrontstageSettings(frontstageDef, layout), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
-        fakeTimers.tick(1000);
-        fakeTimers.restore();
+        fakeTimers.advanceTimersByTime(1000);
+        fakeTimers.restoreAllMocks();
 
-        sinon.assert.notCalled(spy);
+        expect(spy).not.toHaveBeenCalled();
       });
     });
 
@@ -743,14 +768,14 @@ describe("Frontstage local storage wrapper", () => {
           const uiStateStorage = new UiStateStorageStub();
           await UiFramework.setUiStateStorage(uiStateStorage);
 
-          const spy = sinon.spy(uiStateStorage, "deleteSetting");
+          const spy = vi.spyOn(uiStateStorage, "deleteSetting");
           renderHook(() => useFrontstageManager(frontstageDef), {
             wrapper: (props) => <UiStateStorageHandler {...props} />,
           });
           InternalFrontstageManager.onFrontstageRestoreLayoutEvent.emit({
             frontstageDef,
           });
-          spy.calledOnce.should.true;
+          expect(spy).toHaveBeenCalled();
         });
 
         it("should unset nineZoneState", async () => {
@@ -763,7 +788,7 @@ describe("Frontstage local storage wrapper", () => {
             wrapper: (props) => <UiStateStorageHandler {...props} />,
           });
           const frontstageDef1 = new FrontstageDef();
-          sinon.stub(frontstageDef1, "id").get(() => "f1");
+          vi.spyOn(frontstageDef1, "id", "get").mockImplementation(() => "f1");
           frontstageDef1.nineZoneState = createNineZoneState();
           InternalFrontstageManager.onFrontstageRestoreLayoutEvent.emit({
             frontstageDef: frontstageDef1,
@@ -836,12 +861,20 @@ describe("Frontstage local storage wrapper", () => {
         sinon
           .stub(UiFramework.frontstages, "activeFrontstageDef")
           .get(() => frontstageDef);
-        sinon.stub(frontstageDef, "leftPanel").get(() => new StagePanelDef());
-        sinon.stub(frontstageDef, "rightPanel").get(() => new StagePanelDef());
-        sinon.stub(frontstageDef, "topPanel").get(() => new StagePanelDef());
-        sinon.stub(frontstageDef, "bottomPanel").get(() => new StagePanelDef());
+        vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+          () => new StagePanelDef()
+        );
+        vi.spyOn(frontstageDef, "rightPanel", "get").mockImplementation(
+          () => new StagePanelDef()
+        );
+        vi.spyOn(frontstageDef, "topPanel", "get").mockImplementation(
+          () => new StagePanelDef()
+        );
+        vi.spyOn(frontstageDef, "bottomPanel", "get").mockImplementation(
+          () => new StagePanelDef()
+        );
         const state = initializeNineZoneState(frontstageDef);
-        state.should.matchSnapshot();
+        expect(state).to.matchSnapshot();
       });
 
       it("should keep one widget open", () => {
@@ -854,7 +887,9 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "leftPanel").get(() => panel);
+        vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+          () => panel
+        );
         const state = initializeNineZoneState(frontstageDef);
         state.widgets.leftEnd.activeTabId.should.eq("w1");
       });
@@ -883,7 +918,9 @@ describe("Frontstage local storage wrapper", () => {
             defaultSize: { width: 33, height: 33 },
           },
         });
-        sinon.stub(frontstageDef, "toolSettings").get(() => widgetDef);
+        vi.spyOn(frontstageDef, "toolSettings", "get").mockImplementation(
+          () => widgetDef
+        );
         const sut = initializeNineZoneState(frontstageDef);
         sut.tabs.w1.preferredPanelWidgetSize!.should.eq("fit-content");
         expect(sut.toolSettings?.tabId).to.eq("w1");
@@ -900,7 +937,9 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "leftPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+          () => panelDef
+        );
         const state = initializeNineZoneState(frontstageDef);
         state.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
         state.widgets.leftStart.tabs.should.eql(["w1"]);
@@ -918,8 +957,12 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "leftPanel").get(() => panelDef);
-        sinon.stub(frontstageDef, "rightPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+          () => panelDef
+        );
+        vi.spyOn(frontstageDef, "rightPanel", "get").mockImplementation(
+          () => panelDef
+        );
         const state = initializeNineZoneState(frontstageDef);
         state.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
         state.panels.right.widgets.should.empty;
@@ -940,7 +983,9 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
+        vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+          () => leftPanel
+        );
         state = addPanelWidgets(state, frontstageDef, StagePanelLocation.Left);
         state.panels.left.widgets[0].should.eq("leftStart");
       });
@@ -956,7 +1001,9 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "leftPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+          () => panelDef
+        );
         state = addPanelWidgets(state, frontstageDef, StagePanelLocation.Left);
         state.panels.left.widgets[0].should.eq("leftEnd");
         state.widgets.leftEnd.tabs.should.eql(["w1"]);
@@ -973,7 +1020,9 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Right
         );
-        sinon.stub(frontstageDef, "rightPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "rightPanel", "get").mockImplementation(
+          () => panelDef
+        );
         state = addPanelWidgets(state, frontstageDef, StagePanelLocation.Right);
         state.panels.right.widgets[0].should.eq("rightEnd");
         state.widgets.rightEnd.tabs.should.eql(["w1"]);
@@ -990,7 +1039,9 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "topPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "topPanel", "get").mockImplementation(
+          () => panelDef
+        );
         state = addPanelWidgets(state, frontstageDef, StagePanelLocation.Top);
         state.panels.top.widgets[0].should.eq("topStart");
         state.widgets.topStart.tabs.should.eql(["w1"]);
@@ -1007,7 +1058,9 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Bottom
         );
-        sinon.stub(frontstageDef, "bottomPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "bottomPanel", "get").mockImplementation(
+          () => panelDef
+        );
         state = addPanelWidgets(
           state,
           frontstageDef,
@@ -1023,8 +1076,10 @@ describe("Frontstage local storage wrapper", () => {
         const state = createNineZoneState();
         const frontstageDef = new FrontstageDef();
         const leftPanel = new StagePanelDef();
-        sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
-        sinon.stub(leftPanel, "initialConfig").get(() => ({
+        vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+          () => leftPanel
+        );
+        vi.spyOn(leftPanel, "initialConfig", "get").mockImplementation(() => ({
           maxSize: 100,
         }));
         const sut = initializePanel(
@@ -1039,8 +1094,10 @@ describe("Frontstage local storage wrapper", () => {
         const state = createNineZoneState();
         const frontstageDef = new FrontstageDef();
         const leftPanel = new StagePanelDef();
-        sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
-        sinon.stub(leftPanel, "initialConfig").get(() => ({
+        vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+          () => leftPanel
+        );
+        vi.spyOn(leftPanel, "initialConfig", "get").mockImplementation(() => ({
           minSize: 50,
         }));
         const sut = initializePanel(
@@ -1176,7 +1233,7 @@ describe("Frontstage local storage wrapper", () => {
 
     describe("restoreNineZoneState", () => {
       it("should log info if widgetDef is not found", () => {
-        const spy = sinon.spy(Logger, "logInfo");
+        const spy = vi.spyOn(Logger, "logInfo");
         const frontstageDef = new FrontstageDef();
         const savedState = {
           ...createSavedNineZoneState(),
@@ -1185,10 +1242,10 @@ describe("Frontstage local storage wrapper", () => {
           },
         };
         restoreNineZoneState(frontstageDef, savedState);
-        spy.calledOnce.should.true;
-        (
-          BentleyError.getMetaData(spy.firstCall.args[2]) as any
-        ).should.matchSnapshot();
+        expect(spy).toHaveBeenCalled();
+        expect(
+          BentleyError.getMetaData(spy.mock.calls[0][2]) as any
+        ).to.matchSnapshot();
       });
 
       it("should remove tab from widgetState if widgetDef is not found", () => {
@@ -1225,7 +1282,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should restore tabs", () => {
         const frontstageDef = new FrontstageDef();
         const widgetDef = new WidgetDef();
-        sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef);
+        vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
         const savedState = {
           ...createSavedNineZoneState(),
           tabs: {
@@ -1233,7 +1290,7 @@ describe("Frontstage local storage wrapper", () => {
           },
         };
         const sut = restoreNineZoneState(frontstageDef, savedState);
-        sut.should.matchSnapshot();
+        expect(sut).to.matchSnapshot();
       });
 
       it("should RESIZE", () => {
@@ -1283,7 +1340,7 @@ describe("Frontstage local storage wrapper", () => {
         nineZone = addTab(nineZone, "t2");
         nineZone = addFloatingWidget(nineZone, "w1", ["t1"]);
         const sut = packNineZoneState(nineZone);
-        sut.should.matchSnapshot();
+        expect(sut).to.matchSnapshot();
       });
 
       it("should not remove floating widgets with unique id", () => {
@@ -1358,7 +1415,9 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "leftPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+          () => panelDef
+        );
         const newState = addMissingWidgets(frontstageDef, state);
         newState.widgets.leftStart.tabs.should.eql(["start1", "ws1"]);
         newState.widgets.leftEnd.tabs.should.eql(["end1", "w1", "wm1", "we1"]);
@@ -1382,7 +1441,9 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Right
         );
-        sinon.stub(frontstageDef, "rightPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "rightPanel", "get").mockImplementation(
+          () => panelDef
+        );
         const newState = addMissingWidgets(frontstageDef, state);
         newState.widgets.rightStart.tabs.should.eql(["start1", "ws1"]);
         newState.widgets.rightEnd.tabs.should.eql(["end1", "w1", "wm1", "we1"]);
@@ -1405,7 +1466,9 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Top
         );
-        sinon.stub(frontstageDef, "topPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "topPanel", "get").mockImplementation(
+          () => panelDef
+        );
         const newState = addMissingWidgets(frontstageDef, state);
         newState.widgets.topStart.tabs.should.eql(["start1", "w1", "ws1"]);
         newState.widgets.topEnd.tabs.should.eql(["end1", "we1"]);
@@ -1428,7 +1491,9 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Bottom
         );
-        sinon.stub(frontstageDef, "bottomPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "bottomPanel", "get").mockImplementation(
+          () => panelDef
+        );
         const newState = addMissingWidgets(frontstageDef, state);
         newState.widgets.bottomStart.tabs.should.eql(["start1", "w1", "ws1"]);
         newState.widgets.bottomEnd.tabs.should.eql(["end1", "we1"]);
@@ -1456,8 +1521,12 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Right
         );
-        sinon.stub(frontstageDef, "leftPanel").get(() => leftPanelDef);
-        sinon.stub(frontstageDef, "rightPanel").get(() => rightPanelDef);
+        vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+          () => leftPanelDef
+        );
+        vi.spyOn(frontstageDef, "rightPanel", "get").mockImplementation(
+          () => rightPanelDef
+        );
 
         const newState = addMissingWidgets(frontstageDef, state);
         const widgets = Object.values(newState.widgets);
@@ -1654,28 +1723,28 @@ describe("Frontstage local storage wrapper", () => {
           frontstageProvider.id
         );
         await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
-        const spy = sinon.stub(frontstageDef!, "setIsApplicationClosing");
+        const spy = vi.spyOn(frontstageDef!, "setIsApplicationClosing");
         const wrapper = render(
           <Provider store={TestUtils.store}>
             <WidgetPanelsFrontstage />
           </Provider>
         );
         window.dispatchEvent(new Event("unload"));
-        sinon.assert.calledOnce(spy);
+        expect(spy).not.toHaveBeenCalled();
         wrapper.unmount();
       });
 
       it("should render pre-loaded extension widgets when state is restored", async () => {
         UiItemsManager.register(new TestUi2Provider());
 
-        const spy = sinon.spy(localStorageMock, "getItem");
+        const spy = vi.spyOn(localStorageMock, "getItem");
         let state = createNineZoneState();
         state = addTab(state, "LeftStart1");
         state = addPanelWidget(state, "left", "leftStart", ["LeftStart1"]);
         const setting = createFrontstageState(state);
 
         const uiStateStorage = new UiStateStorageStub();
-        sinon.stub(uiStateStorage, "getSetting").resolves({
+        vi.spyOn(uiStateStorage, "getSetting").mockResolvedValue({
           status: UiStateStorageStatus.Success,
           setting,
         });
@@ -1698,7 +1767,7 @@ describe("Frontstage local storage wrapper", () => {
         await findByText("TestUi2Provider RM1");
         await findByText("TestUi2Provider W1");
 
-        sinon.assert.notCalled(spy);
+        expect(spy).not.toHaveBeenCalled();
       });
 
       it("should render loaded extension widgets", async () => {

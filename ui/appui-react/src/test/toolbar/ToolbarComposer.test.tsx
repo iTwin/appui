@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import * as React from "react";
 import { Provider } from "react-redux";
 import * as sinon from "sinon";
@@ -153,7 +153,7 @@ describe("<ToolbarComposer  />", async () => {
     }
   }
 
-  before(async () => {
+  beforeAll(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
     UiFramework.frontstages.addFrontstageProvider(new Frontstage1());
@@ -164,7 +164,7 @@ describe("<ToolbarComposer  />", async () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
@@ -172,7 +172,7 @@ describe("<ToolbarComposer  />", async () => {
   describe("<UI 2.0 />", async () => {
     const sandbox = sinon.createSandbox();
 
-    before(async () => {
+    beforeAll(async () => {
       await TestUtils.flushAsyncOperations();
     });
 

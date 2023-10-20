@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { fireEvent, render } from "@testing-library/react";
@@ -14,7 +14,7 @@ import { UiFramework } from "../../appui-react/UiFramework";
 import TestUtils from "../TestUtils";
 
 describe("ConnectedContent", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework(true);
   });
 
@@ -124,7 +124,7 @@ describe("ConnectedContent", () => {
     expect(span3.innerHTML).to.be.eq(viewportControlId);
   });
 
-  after(() => {
+  afterAll(() => {
     // clear out the framework key
     TestUtils.terminateUiFramework();
   });

@@ -2,9 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import type { ConfigurableCreateInfo } from "../../appui-react";
 import {
@@ -31,13 +39,13 @@ describe("UiShowHideManager localStorage Wrapper", () => {
   )!;
   const localStorageMock = storageMock();
 
-  before(async () => {
+  beforeAll(async () => {
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
   });
 
-  after(() => {
+  afterAll(() => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
 
@@ -67,16 +75,16 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       });
 
       it("showHidePanels should set & return correct value", () => {
-        const spyMethod = sinon.spy();
+        const spyMethod = vi.fn();
         const remove = UiFramework.onUiVisibilityChanged.addListener(spyMethod);
 
         InternalUiShowHideManager.showHidePanels = true;
         expect(InternalUiShowHideManager.showHidePanels).to.be.true;
-        spyMethod.calledOnce.should.true;
+        expect(spyMethod).toHaveBeenCalledOnce();
 
         InternalUiShowHideManager.showHidePanels = false;
         expect(InternalUiShowHideManager.showHidePanels).to.be.false;
-        spyMethod.calledTwice.should.true;
+        expect(spyMethod).toBeCalledTimes(2);
 
         remove();
       });
@@ -86,16 +94,16 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       });
 
       it("showHideFooter should set & return correct value", () => {
-        const spyMethod = sinon.spy();
+        const spyMethod = vi.fn();
         const remove = UiFramework.onUiVisibilityChanged.addListener(spyMethod);
 
         InternalUiShowHideManager.showHideFooter = true;
         expect(InternalUiShowHideManager.showHideFooter).to.be.true;
-        spyMethod.calledOnce.should.true;
+        expect(spyMethod).toHaveBeenCalledOnce();
 
         InternalUiShowHideManager.showHideFooter = false;
         expect(InternalUiShowHideManager.showHideFooter).to.be.false;
-        spyMethod.calledTwice.should.true;
+        expect(spyMethod).toBeCalledTimes(2);
 
         remove();
       });
@@ -105,16 +113,16 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       });
 
       it("useProximityOpacity should set & return correct value", () => {
-        const spyMethod = sinon.spy();
+        const spyMethod = vi.fn();
         const remove = UiFramework.onUiVisibilityChanged.addListener(spyMethod);
 
         InternalUiShowHideManager.useProximityOpacity = false;
         expect(InternalUiShowHideManager.useProximityOpacity).to.be.false;
-        spyMethod.calledOnce.should.true;
+        expect(spyMethod).toHaveBeenCalledOnce();
 
         InternalUiShowHideManager.useProximityOpacity = true;
         expect(InternalUiShowHideManager.useProximityOpacity).to.be.true;
-        spyMethod.calledTwice.should.true;
+        expect(spyMethod).toBeCalledTimes(2);
 
         remove();
       });
@@ -124,16 +132,16 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       });
 
       it("snapWidgetOpacity should set & return correct value", () => {
-        const spyMethod = sinon.spy();
+        const spyMethod = vi.fn();
         const remove = UiFramework.onUiVisibilityChanged.addListener(spyMethod);
 
         InternalUiShowHideManager.snapWidgetOpacity = true;
         expect(InternalUiShowHideManager.snapWidgetOpacity).to.be.true;
-        spyMethod.calledOnce.should.true;
+        expect(spyMethod).toHaveBeenCalledOnce();
 
         InternalUiShowHideManager.snapWidgetOpacity = false;
         expect(InternalUiShowHideManager.snapWidgetOpacity).to.be.false;
-        spyMethod.calledTwice.should.true;
+        expect(spyMethod).toBeCalledTimes(2);
 
         remove();
       });
@@ -190,7 +198,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       });
 
       it("Mouse move in content view should show the UI then hide after inactivity", () => {
-        const fakeTimers = sinon.useFakeTimers();
+        const fakeTimers = vi.useFakeTimers();
         UiFramework.setIsUiVisible(false);
         InternalUiShowHideManager.autoHideUi = true;
         InternalUiShowHideManager.inactivityTime = 20;
@@ -211,11 +219,11 @@ describe("UiShowHideManager localStorage Wrapper", () => {
           })
         );
 
-        fakeTimers.tick(0);
+        fakeTimers.advanceTimersByTime(0);
         expect(InternalUiShowHideManager.isUiVisible).to.eq(true);
 
-        fakeTimers.tick(1000);
-        fakeTimers.restore();
+        fakeTimers.advanceTimersByTime(1000);
+        fakeTimers.restoreAllMocks();
         expect(InternalUiShowHideManager.isUiVisible).to.eq(false);
       });
 

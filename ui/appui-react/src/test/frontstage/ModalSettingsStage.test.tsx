@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { render, waitFor } from "@testing-library/react";
 import type { ModalFrontstageInfo } from "../../appui-react";
 import {
@@ -96,9 +95,9 @@ describe("ModalSettingsStage", () => {
   });
 
   it("will open no available settings message", () => {
-    const spyOutput = sinon.spy(IModelApp.notifications, "outputMessage");
+    const spyOutput = vi.spyOn(IModelApp.notifications, "outputMessage");
     SettingsModalFrontstage.showSettingsStage("page1");
-    spyOutput.calledOnce.should.true;
+    expect(spyOutput).toHaveBeenCalledOnce();
   });
 
   it("will return action item", () => {
@@ -173,9 +172,11 @@ describe("ModalSettingsStage", () => {
       usage: "General",
       contentGroup: TestUtils.TestContentGroup2,
     });
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());
     // const modalFrontstage = new SettingsModalFrontstage();
@@ -223,9 +224,11 @@ describe("ModalSettingsStage", () => {
       usage: "General",
       contentGroup: TestUtils.TestContentGroup2,
     });
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());
     SettingsModalFrontstage.showSettingsStage("page-3");
@@ -256,9 +259,11 @@ describe("ModalSettingsStage", () => {
       usage: "General",
       contentGroup: TestUtils.TestContentGroup2,
     });
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());
     SettingsModalFrontstage.showSettingsStage("page2");

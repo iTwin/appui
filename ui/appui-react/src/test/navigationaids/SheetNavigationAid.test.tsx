@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import * as React from "react";
 import * as moq from "typemoq";
 import type { IModelConnection } from "@itwin/core-frontend";
@@ -12,12 +12,12 @@ import { CardContainer, SheetNavigationAid } from "../../appui-react";
 import TestUtils, { childStructure } from "../TestUtils";
 
 describe("SheetNavigationAid", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });

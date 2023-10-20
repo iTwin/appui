@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import * as moq from "typemoq";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";

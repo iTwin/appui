@@ -3,8 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { expect } from "chai";
-import * as sinon from "sinon";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { render } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type {
@@ -62,12 +61,12 @@ describe("InternalToolSettingsManager", () => {
     },
   };
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
   });
@@ -223,16 +222,16 @@ describe("InternalToolSettingsManager", () => {
 
   it("handleDispatchSyncUiEvent", () => {
     InternalToolSettingsManager.initialize();
-    const immediateStub = sinon.stub(
+    const immediateStub = vi.spyOn(
       SyncUiEventDispatcher,
       "dispatchImmediateSyncUiEvent"
     );
-    const timerStub = sinon.stub(SyncUiEventDispatcher, "dispatchSyncUiEvent");
+    const timerStub = vi.spyOn(SyncUiEventDispatcher, "dispatchSyncUiEvent");
     IModelApp.toolAdmin.dispatchUiSyncEvent("test1");
-    timerStub.calledOnce.should.be.true;
+    expect(timerStub).toHaveBeenCalledOnce();
 
     IModelApp.toolAdmin.dispatchImmediateUiSyncEvent("test2");
-    immediateStub.calledOnce.should.be.true;
+    expect(immediateStub).toHaveBeenCalledOnce();
   });
 
   describe("focusIntoToolSettings", () => {

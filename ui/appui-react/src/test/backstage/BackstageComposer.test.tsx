@@ -2,9 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { BackstageItem, UiItemsProvider } from "../../appui-react";
 import {
   BackstageComposer,
@@ -93,7 +100,7 @@ class TestUiItemsProvider implements UiItemsProvider {
 }
 
 describe("BackstageComposer", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
   });
 
@@ -101,7 +108,7 @@ describe("BackstageComposer", () => {
     TestUiItemsProvider.sampleStatusVisible = true;
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 
@@ -118,13 +125,13 @@ describe("BackstageComposer", () => {
 
   it("should close the backstage", async () => {
     const theUserTo = userEvent.setup();
-    const spy = sinon.spy(UiFramework.backstage, "close");
+    const spy = vi.spyOn(UiFramework.backstage, "close");
     render(<BackstageComposer items={[]} />);
     UiFramework.backstage.open();
 
     await theUserTo.click(screen.getByRole("presentation"));
 
-    expect(spy).to.have.been.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should render backstage separators", async () => {

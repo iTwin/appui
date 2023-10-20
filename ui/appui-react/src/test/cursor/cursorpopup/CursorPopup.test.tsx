@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { Point } from "@itwin/core-react";
@@ -83,8 +82,8 @@ describe("CursorPopup", () => {
     render(<CursorPopupRenderer />);
     expect(CursorPopupManager.popupCount).to.eq(0);
 
-    const spyClose = sinon.spy();
-    const spyApply = sinon.spy();
+    const spyClose = vi.fn();
+    const spyApply = vi.fn();
 
     const relativePosition =
       CursorInformation.getRelativePositionFromCursorDirection(
@@ -111,12 +110,12 @@ describe("CursorPopup", () => {
     await TestUtils.flushAsyncOperations();
     expect(CursorPopupManager.popupCount).to.eq(0);
 
-    spyClose.calledOnce.should.true;
-    spyApply.calledOnce.should.true;
+    expect(spyClose).toHaveBeenCalledOnce();
+    expect(spyApply).toHaveBeenCalledOnce();
   });
 
   it("should open and close with fadeOut", async function test() {
-    const fakeTimers = sinon.useFakeTimers({ shouldAdvanceTime: true });
+    const fakeTimers = vi.useFakeTimers({ shouldAdvanceTime: true });
     render(<CursorPopupRenderer />);
     expect(CursorPopupManager.popupCount).to.eq(0);
 
@@ -143,13 +142,13 @@ describe("CursorPopup", () => {
       );
     });
 
-    fakeTimers.tick(1000);
-    fakeTimers.restore();
+    fakeTimers.advanceTimersByTime(1000);
+    fakeTimers.useRealTimers();
     expect(CursorPopupManager.popupCount).to.eq(0);
   });
 
   it("should fadeOut correct popup", async () => {
-    const fakeTimers = sinon.useFakeTimers({ shouldAdvanceTime: true });
+    const fakeTimers = vi.useFakeTimers({ shouldAdvanceTime: true });
     render(<CursorPopupRenderer />);
     expect(CursorPopupManager.popupCount).to.eq(0);
 
@@ -185,8 +184,8 @@ describe("CursorPopup", () => {
       );
     });
 
-    fakeTimers.tick(1000);
-    fakeTimers.restore();
+    fakeTimers.advanceTimersByTime(1000);
+    fakeTimers.useRealTimers();
     expect(CursorPopupManager.popupCount).to.eq(1);
 
     CursorPopupManager.close("test2", false);
@@ -194,9 +193,9 @@ describe("CursorPopup", () => {
   });
 
   it("should set relativePosition", async () => {
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 }));
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
+      DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 })
+    );
     render(<CursorPopupRenderer />);
     const center = new Point(300, 300);
 
@@ -239,9 +238,9 @@ describe("CursorPopup", () => {
   // After looking thoroughly the numbers, the "working" tests are wrong
   // This needs to be completely reviewed...
   it("should set offset if more than one popup in a position", async () => {
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 }));
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
+      DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 })
+    );
     render(<CursorPopupRenderer />);
     const pt = new Point(300, 300);
     const offset = new Point(20, 20);
@@ -320,9 +319,9 @@ describe("CursorPopup", () => {
   });
 
   it("should flip right to left appropriately", async () => {
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 }));
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
+      DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 })
+    );
     render(<CursorPopupRenderer />);
     const offset = new Point(20, 20);
     const pt = new Point(300, 300);
@@ -348,9 +347,9 @@ describe("CursorPopup", () => {
   });
 
   it("should flip bottom to top appropriately", async () => {
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 }));
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
+      DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 })
+    );
     render(<CursorPopupRenderer />);
     const offset = new Point(20, 20);
     const pt = new Point(300, 300);
@@ -376,9 +375,9 @@ describe("CursorPopup", () => {
   });
 
   it("should flip left to right appropriately", async () => {
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 }));
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
+      DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 })
+    );
     render(<CursorPopupRenderer />);
     const offset = new Point(20, 20);
     const pt = new Point(1, 300);
@@ -400,9 +399,9 @@ describe("CursorPopup", () => {
   });
 
   it("should flip top to bottom appropriately", async () => {
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 }));
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
+      DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 })
+    );
     render(<CursorPopupRenderer />);
     const offset = new Point(20, 20);
     const pt = new Point(300, 1);
@@ -432,7 +431,7 @@ describe("CursorPopup", () => {
   });
 
   it("CursorPopupManager.update should log error when id not found", () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spyMethod = vi.spyOn(Logger, "logError");
 
     CursorPopupManager.update(
       "xyz",
@@ -442,14 +441,14 @@ describe("CursorPopup", () => {
       RelativePosition.Left
     );
 
-    spyMethod.calledOnce.should.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("CursorPopupManager.close should log error when id not found", () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spyMethod = vi.spyOn(Logger, "logError");
 
     CursorPopupManager.close("xyz", false);
 
-    spyMethod.calledOnce.should.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 });

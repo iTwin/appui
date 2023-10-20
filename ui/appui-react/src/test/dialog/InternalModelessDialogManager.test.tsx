@@ -2,9 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import type { DialogChangedEventArgs } from "../../appui-react";
 import {
@@ -19,18 +26,18 @@ import { InternalModelessDialogManager } from "../../appui-react/dialog/Internal
 
 describe("InternalModelessDialogManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  const spyMethod = sinon.spy();
+  const spyMethod = vi.fn();
   beforeEach(() => {
     theUserTo = userEvent.setup();
     InternalModelessDialogManager.closeAll();
-    spyMethod.resetHistory();
+    spyMethod.mockReset();
   });
 
   function handleModelessDialogChanged(_args: DialogChangedEventArgs) {
     spyMethod();
   }
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework(true);
     await NoRenderApp.startup();
 
@@ -39,7 +46,7 @@ describe("InternalModelessDialogManager", () => {
     );
   });
 
-  after(async () => {
+  afterAll(async () => {
     InternalModelessDialogManager.onModelessDialogChangedEvent.removeListener(
       handleModelessDialogChanged
     );
@@ -55,7 +62,7 @@ describe("InternalModelessDialogManager", () => {
 
     expect(UiFramework.dialogs.modeless.count).to.eq(0);
     UiFramework.dialogs.modeless.open(reactNode, dialogId);
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
 
     expect(UiFramework.dialogs.modeless.active).to.eq(reactNode);
 
@@ -67,17 +74,17 @@ describe("InternalModelessDialogManager", () => {
     expect(UiFramework.dialogs.modeless.dialogs[0].reactNode).to.eq(reactNode);
 
     UiFramework.dialogs.modeless.update();
-    expect(spyMethod.calledTwice).to.be.true;
+    expect(spyMethod).toHaveBeenCalledTimes(2);
 
     UiFramework.dialogs.modeless.close(dialogId);
-    expect(spyMethod.calledThrice).to.be.true;
+    expect(spyMethod).toHaveBeenCalledTimes(3);
     expect(UiFramework.dialogs.modeless.count).to.eq(0);
   });
 
   it("close should log error if passed a bad id", () => {
-    const logSpyMethod = sinon.spy(Logger, "logError");
+    const logSpyMethod = vi.spyOn(Logger, "logError");
     UiFramework.dialogs.modeless.close("bad");
-    logSpyMethod.calledOnce.should.true;
+    expect(logSpyMethod).toHaveBeenCalledOnce();
   });
 
   it("ModelessDialogRenderer component", async () => {

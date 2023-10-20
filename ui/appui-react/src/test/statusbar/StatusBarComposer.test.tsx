@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   ConditionalBooleanValue,
   ConditionalStringValue,
@@ -122,12 +121,12 @@ describe("StatusBarComposer", () => {
     return <div className="status-bar-component" {...props} />;
   }
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
   });
@@ -278,9 +277,11 @@ describe("StatusBarComposer", () => {
         usage: StageUsage.General,
         contentGroup: TestUtils.TestContentGroup2,
       });
-      sinon
-        .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => frontstageDef);
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => frontstageDef);
 
       const items: StatusBarItem[] = [
         StatusBarItemUtilities.createCustomItem(
@@ -332,9 +333,11 @@ describe("StatusBarComposer", () => {
         usage: StageUsage.General,
         contentGroup: TestUtils.TestContentGroup2,
       });
-      sinon
-        .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => frontstageDef);
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => frontstageDef);
 
       const items: StatusBarItem[] = [
         StatusBarItemUtilities.createCustomItem(
@@ -435,14 +438,15 @@ describe("StatusBarComposer", () => {
         usage: StageUsage.General,
         contentGroup: TestUtils.TestContentGroup2,
       });
-      sinon
-        .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => frontstageDef);
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => frontstageDef);
 
       // make sure we have enough size to render without overflow
-      sinon
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("uifw-statusbar-docked")) {
             return DOMRect.fromRect({ width: 1000 });
           } else if (this.classList.contains("uifw-statusbar-item-container")) {
@@ -452,7 +456,8 @@ describe("StatusBarComposer", () => {
           }
 
           return new DOMRect();
-        });
+        }
+      );
 
       const items: StatusBarItem[] = [
         StatusBarItemUtilities.createCustomItem(
@@ -508,14 +513,15 @@ describe("StatusBarComposer", () => {
         usage: StageUsage.General,
         contentGroup: TestUtils.TestContentGroup2,
       });
-      sinon
-        .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => frontstageDef);
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => frontstageDef);
 
       // make sure we have enough size to render without overflow
-      sinon
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("uifw-statusbar-docked")) {
             return DOMRect.fromRect({ width: 1600 });
           } else if (this.classList.contains("uifw-statusbar-item-container")) {
@@ -525,7 +531,8 @@ describe("StatusBarComposer", () => {
           }
 
           return new DOMRect();
-        });
+        }
+      );
 
       const items: StatusBarItem[] = [
         StatusBarItemUtilities.createCustomItem(
@@ -573,9 +580,8 @@ describe("StatusBarComposer", () => {
     });
 
     it("will render 4 items without overflow", () => {
-      sinon
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("uifw-statusbar-docked")) {
             return DOMRect.fromRect({ width: 168 }); // 4*42
           } else if (this.classList.contains("uifw-statusbar-item-container")) {
@@ -585,7 +591,8 @@ describe("StatusBarComposer", () => {
           }
 
           return new DOMRect();
-        });
+        }
+      );
 
       const items: StatusBarItem[] = [
         StatusBarItemUtilities.createCustomItem(
@@ -669,9 +676,8 @@ describe("StatusBarComposer", () => {
     });
 
     it("will render 1 item with overflow - 4 in overflow panel", async () => {
-      sinon
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("uifw-statusbar-docked")) {
             return DOMRect.fromRect({ width: 84 }); // 2*42
           } else if (this.classList.contains("uifw-statusbar-item-container")) {
@@ -681,7 +687,8 @@ describe("StatusBarComposer", () => {
           }
 
           return new DOMRect();
-        });
+        }
+      );
 
       const items: StatusBarItem[] = [
         StatusBarItemUtilities.createCustomItem(

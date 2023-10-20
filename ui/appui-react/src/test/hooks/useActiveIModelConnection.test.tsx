@@ -2,11 +2,18 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
 import { Provider } from "react-redux";
 import * as moq from "typemoq";
-import * as sinon from "sinon";
 
 import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
@@ -20,20 +27,20 @@ import {
 import TestUtils from "../TestUtils";
 
 describe("useActiveIModelConnection", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
 
     // use mock renderer so standards tools are registered.
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 
   afterEach(() => {
-    sinon.restore();
+    vi.restoreAllMocks();
   });
 
   describe("useActiveIModelConnection Hook", () => {
@@ -74,30 +81,30 @@ describe("useActiveIModelConnection", () => {
       const initialLabel = result.getByTestId("mylabel");
       expect(initialLabel.innerHTML).to.be.eq("NoConnection");
 
-      const initEventStub = sinon.stub(
+      const initEventStub = vi.spyOn(
         SyncUiEventDispatcher,
         "initializeConnectionEvents"
       );
-      const clearEventStub = sinon.stub(
+      const clearEventStub = vi.spyOn(
         SyncUiEventDispatcher,
         "clearConnectionEvents"
       );
 
       // should trigger dispatch action
       UiFramework.setIModelConnection(imodelMock.object, true);
-      expect(initEventStub).to.be.called;
-      expect(clearEventStub).not.to.be.called;
-      initEventStub.resetHistory();
+      expect(initEventStub).toHaveBeenCalled();
+      expect(clearEventStub).not.toHaveBeenCalled();
+      initEventStub.mockReset();
 
       // already set, so should not trigger dispatch action
       UiFramework.setIModelConnection(imodelMock.object, true);
-      expect(initEventStub).not.to.be.called;
-      expect(clearEventStub).not.to.be.called;
+      expect(initEventStub).not.toHaveBeenCalled();
+      expect(clearEventStub).not.toHaveBeenCalled();
 
       // should trigger clearing action
       UiFramework.setIModelConnection(undefined, true);
-      expect(clearEventStub).to.be.called;
-      expect(initEventStub).not.to.be.called;
+      expect(clearEventStub).toHaveBeenCalled();
+      expect(initEventStub).not.toHaveBeenCalled();
 
       // --- the following does not work yet
       // const updatedLabel = result.getByTestId("mylabel");

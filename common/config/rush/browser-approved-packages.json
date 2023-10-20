@@ -272,7 +272,7 @@
     },
     {
       "name": "@vitejs/plugin-react",
-      "allowedCategories": [ "internal" ]
+      "allowedCategories": [ "frontend", "internal" ]
     },
     {
       "name": "chai",
@@ -349,6 +349,10 @@
     {
       "name": "glob",
       "allowedCategories": [ "tools" ]
+    },
+    {
+      "name": "happy-dom",
+      "allowedCategories": [ "frontend" ]
     },
     {
       "name": "ignore-styles",
@@ -517,6 +521,10 @@
     {
       "name": "vite-plugin-static-copy",
       "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "vitest",
+      "allowedCategories": [ "frontend" ]
     },
     {
       "name": "webpack",

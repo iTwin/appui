@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import {
   addPanelWidget,
@@ -21,13 +20,14 @@ import {
   WidgetDef,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 
 describe("WidgetContent", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 
@@ -38,14 +38,16 @@ describe("WidgetContent", () => {
     const layout = createLayoutStore(state);
     const frontstage = new FrontstageDef();
     const widget = WidgetDef.create({ id: "w1" });
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstage);
-    sinon.stub(frontstage, "findWidgetDef").returns(widget);
-    sinon.stub(widget, "reactNode").get(() => <>Content</>);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstage);
+    vi.spyOn(frontstage, "findWidgetDef").mockReturnValue(widget);
+    vi.spyOn(widget, "reactNode", "get").mockImplementation(() => <>Content</>);
     const { container } = render(
       <NineZoneProvider
-        dispatch={sinon.stub()}
+        dispatch={vi.fn()}
         layout={layout}
         measure={() => new Rectangle()}
       >
@@ -54,7 +56,7 @@ describe("WidgetContent", () => {
         </WidgetIdContext.Provider>
       </NineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    expect(container.firstChild!).to.matchSnapshot();
   });
 
   it("should render w/o frontstage", () => {
@@ -62,12 +64,14 @@ describe("WidgetContent", () => {
     state = addTab(state, "w1");
     state = addPanelWidget(state, "left", "leftStart", ["w1"]);
     const layout = createLayoutStore(state);
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => undefined);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => undefined);
     const { container } = render(
       <NineZoneProvider
-        dispatch={sinon.stub()}
+        dispatch={vi.fn()}
         layout={layout}
         measure={() => new Rectangle()}
       >
@@ -76,7 +80,7 @@ describe("WidgetContent", () => {
         </WidgetIdContext.Provider>
       </NineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    expect(container.firstChild!).to.matchSnapshot();
   });
 
   it("should render w/o widgetDef", () => {
@@ -85,13 +89,15 @@ describe("WidgetContent", () => {
     state = addPanelWidget(state, "left", "leftStart", ["w1"]);
     const layout = createLayoutStore(state);
     const frontstage = new FrontstageDef();
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstage);
-    sinon.stub(frontstage, "findWidgetDef").returns(undefined);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstage);
+    vi.spyOn(frontstage, "findWidgetDef").mockReturnValue(undefined);
     const { container } = render(
       <NineZoneProvider
-        dispatch={sinon.stub()}
+        dispatch={vi.fn()}
         layout={layout}
         measure={() => new Rectangle()}
       >
@@ -100,6 +106,6 @@ describe("WidgetContent", () => {
         </WidgetIdContext.Provider>
       </NineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    expect(container.firstChild!).to.matchSnapshot();
   });
 });

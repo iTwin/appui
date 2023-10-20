@@ -2,7 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
@@ -22,12 +31,12 @@ import { UiFramework } from "../../appui-react/UiFramework";
 describe("QuantityFormatSettingsPage", () => {
   const sandbox = sinon.createSandbox();
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
   });
@@ -64,14 +73,14 @@ describe("QuantityFormatSettingsPage", () => {
       "presentationUnitSystem.BritishImperial",
       handleError
     );
-    expect(unitSystemSpy).to.be.callCount(0);
+    expect(unitSystemSpy).toHaveBeenCalledTimes(0);
 
     selectChangeValueByText(
       selectButton,
       "presentationUnitSystem.Metric",
       handleError
     );
-    expect(unitSystemSpy).to.be.callCount(1);
+    expect(unitSystemSpy).toHaveBeenCalledTimes(1);
     unitSystemSpy.resetHistory();
     await TestUtils.flushAsyncOperations();
 
@@ -80,7 +89,7 @@ describe("QuantityFormatSettingsPage", () => {
       "presentationUnitSystem.USCustomary",
       handleError
     );
-    expect(unitSystemSpy).to.be.callCount(1);
+    expect(unitSystemSpy).toHaveBeenCalledTimes(1);
     unitSystemSpy.resetHistory();
     await TestUtils.flushAsyncOperations();
 
@@ -89,7 +98,7 @@ describe("QuantityFormatSettingsPage", () => {
       "presentationUnitSystem.USSurvey",
       handleError
     );
-    expect(unitSystemSpy).to.be.callCount(1);
+    expect(unitSystemSpy).toHaveBeenCalledTimes(1);
     unitSystemSpy.resetHistory();
     await TestUtils.flushAsyncOperations();
 
@@ -98,7 +107,7 @@ describe("QuantityFormatSettingsPage", () => {
       "presentationUnitSystem.BritishImperial",
       handleError
     );
-    expect(unitSystemSpy).to.be.callCount(1);
+    expect(unitSystemSpy).toHaveBeenCalledTimes(1);
     await TestUtils.flushAsyncOperations();
 
     wrapper.unmount();
@@ -344,7 +353,7 @@ describe("QuantityFormatSettingsPage", () => {
     await TestUtils.flushAsyncOperations();
 
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
-    const addListenerSpy = sinon.spy(
+    const addListenerSpy = vi.spyOn(
       UiFramework.settingsManager.onProcessSettingsTabActivation,
       "addListener"
     );
@@ -356,7 +365,7 @@ describe("QuantityFormatSettingsPage", () => {
     // Wait that the handler have been updated, otherwise it compares with the previous version...
     // Visual change already have been processed but scope didnt upddate.
     await waitFor(() => {
-      expect(addListenerSpy).to.have.been.called;
+      expect(addListenerSpy).toHaveBeenCalled();
     });
 
     UiFramework.settingsManager.onProcessSettingsTabActivation.emit({

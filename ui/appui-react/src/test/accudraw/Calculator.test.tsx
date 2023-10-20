@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Calculator } from "../../appui-react/accudraw/Calculator";
 import { CalculatorEngine } from "../../appui-react/accudraw/CalculatorEngine";
 import { selectorMatches, userEvent } from "../TestUtils";
@@ -93,7 +92,7 @@ describe("Calculator", () => {
   });
 
   it("clicking on OK button should fire onOk", async () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
     render(<Calculator engine={new CalculatorEngine()} onOk={spyMethod} />);
 
     await theUserTo.click(screen.getByRole("button", { name: "5" }));
@@ -103,11 +102,11 @@ describe("Calculator", () => {
     expect(okButton).to.exist;
     await theUserTo.click(okButton!);
 
-    expect(spyMethod).to.have.been.calledWith(5);
+    expect(spyMethod).toHaveBeenCalledWith(5);
   });
 
   it("clicking on Cancel button should fire onCancel", async () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
     render(<Calculator engine={new CalculatorEngine()} onCancel={spyMethod} />);
     await theUserTo.click(screen.getByRole("button", { name: "5" }));
 
@@ -117,16 +116,16 @@ describe("Calculator", () => {
     expect(cancelButton).to.exist;
     await theUserTo.click(cancelButton!);
 
-    expect(spyMethod).to.have.been.called;
+    expect(spyMethod).toHaveBeenCalled();
   });
 
   it("Pressing Esc should fire onCancel", async () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
     render(<Calculator engine={new CalculatorEngine()} onCancel={spyMethod} />);
 
     await theUserTo.type(screen.getByRole("textbox"), "[Escape]");
 
-    spyMethod.called.should.true;
+    expect(spyMethod).toHaveBeenCalled();
   });
 
   it("pressing keys and multiply should give correct result", async () => {
@@ -185,7 +184,7 @@ describe("Calculator", () => {
   });
 
   it("pressing keys and Enter should give correct result", async () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
     render(<Calculator engine={new CalculatorEngine()} onOk={spyMethod} />);
 
     await theUserTo.type(screen.getByRole("textbox"), "8/");
@@ -196,7 +195,7 @@ describe("Calculator", () => {
 
     await theUserTo.type(screen.getByRole("textbox"), "[Enter]");
     expect(screen.getByDisplayValue("2")).to.exist;
-    spyMethod.called.should.true;
+    expect(spyMethod).toHaveBeenCalled();
   });
 
   it("pressing keys and Clear should give correct result", async () => {
@@ -220,7 +219,7 @@ describe("Calculator", () => {
   });
 
   it("pressing keys and Equal and Enter should give correct result", async () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
     render(<Calculator engine={new CalculatorEngine()} onOk={spyMethod} />);
 
     await theUserTo.type(screen.getByRole("textbox"), "65-");
@@ -234,7 +233,7 @@ describe("Calculator", () => {
 
     await theUserTo.type(screen.getByRole("textbox"), "[Enter]");
     expect(screen.getByDisplayValue("61")).to.exist;
-    spyMethod.called.should.true;
+    expect(spyMethod).toHaveBeenCalled();
   });
 
   it("pressing keys and Equal and Clear should give correct result", async () => {

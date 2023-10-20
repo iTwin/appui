@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { getUniqueId } from "@itwin/appui-layout-react";
-import { expect } from "chai";
-import * as sinon from "sinon";
+import { beforeAll, describe, expect, it, vi } from "vitest";
+
 import { UiFramework } from "../../appui-react";
 import type {
   ContentGroupProps,
@@ -16,7 +16,7 @@ import { InternalContentLayoutManager } from "../../appui-react/content/Internal
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
 describe("ContentLayoutManager", () => {
-  before(async () => {
+  beforeAll(async () => {
     await UiFramework.frontstages.setActiveFrontstageDef(undefined);
   });
 
@@ -92,10 +92,8 @@ describe("ContentLayoutManager", () => {
     };
 
     const contentGroup = new ContentGroup(groupProps);
-    const spy = sinon
-      .stub(InternalFrontstageManager, "setActiveContentGroup")
-      .returns(Promise.resolve());
+    const spy = vi.spyOn(InternalFrontstageManager, "setActiveContentGroup").mockResolvedValueOnce();
     await InternalContentLayoutManager.setActiveContentGroup(contentGroup);
-    expect(spy).to.have.been.called;
+    expect(spy).toHaveBeenCalled()
   });
 });

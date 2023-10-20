@@ -2,13 +2,15 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as React from "react";
+import mysvg from "@bentley/icons-generic/icons/2d.svg";
 import { MenuButton } from "../../appui-react/accudraw/MenuButton";
 import { selectorMatches, userEvent } from "../TestUtils";
 import { fireEvent, render, screen } from "@testing-library/react";
-import * as sinon from "sinon";
 
+// eslint-disable-next-line no-console
+console.log(mysvg);
 describe("MenuButton", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
@@ -16,10 +18,10 @@ describe("MenuButton", () => {
   });
 
   it("should call onSizeKnown when mounting", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(<MenuButton point={{ x: 100, y: 120 }} onSizeKnown={spy} />);
 
-    expect(spy).to.have.been.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("should open and close on click", async () => {

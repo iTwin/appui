@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { describe, expect, it, vi } from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { BadgeType } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import type { MenuItemProps } from "../../appui-react/shared/MenuItem";
@@ -214,8 +213,8 @@ describe("MenuItem", () => {
   });
 
   it("onSelect handled correctly on click", async () => {
-    const handleSelect = sinon.fake();
-    const handleSelect2 = sinon.fake();
+    const handleSelect = vi.fn();
+    const handleSelect2 = vi.fn();
 
     const menuItemProps: MenuItemProps[] = [
       {
@@ -243,8 +242,8 @@ describe("MenuItem", () => {
     item.dispatchEvent(createBubbledEvent("click"));
 
     await TestUtils.flushAsyncOperations();
-    handleSelect.should.have.been.calledOnce;
-    handleSelect2.should.have.been.calledOnce;
+    expect(handleSelect).toHaveBeenCalledOnce();
+    expect(handleSelect2).toHaveBeenCalledOnce();
     expect(component.container.querySelector(".core-badge")).not.to.be.null;
   });
 

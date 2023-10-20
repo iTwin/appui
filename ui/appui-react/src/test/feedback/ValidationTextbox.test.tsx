@@ -3,9 +3,16 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { MessageManager, ValidationTextbox } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 
@@ -15,22 +22,22 @@ describe("ValidationTextbox", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 
-  const onValueChanged = sinon.spy();
-  const onEnterPressed = sinon.spy();
-  const onEscPressed = sinon.spy();
+  const onValueChanged = vi.fn();
+  const onEnterPressed = vi.fn();
+  const onEscPressed = vi.fn();
 
   beforeEach(async () => {
-    onValueChanged.resetHistory();
-    onEnterPressed.resetHistory();
-    onEscPressed.resetHistory();
+    onValueChanged.mockReset();
+    onEnterPressed.mockReset();
+    onEscPressed.mockReset();
   });
 
   it("should render correctly", () => {
@@ -49,7 +56,7 @@ describe("ValidationTextbox", () => {
       />
     );
     await theUserTo.type(screen.getByRole("textbox"), "a");
-    expect(onValueChanged.called).to.be.true;
+    expect(onValueChanged).toHaveBeenCalled();
   });
 
   it("should use default value check if none provided", async () => {
@@ -72,9 +79,9 @@ describe("ValidationTextbox", () => {
         errorText="Error"
       />
     );
-    const hideMessage = sinon.spy(MessageManager, "hideInputFieldMessage");
+    const hideMessage = vi.spyOn(MessageManager, "hideInputFieldMessage");
     await theUserTo.type(screen.getByRole("textbox"), "test");
-    expect(hideMessage.called).to.be.true;
+    expect(hideMessage).toHaveBeenCalled();
   });
 
   it("should show message when value is invalid", async () => {
@@ -85,9 +92,9 @@ describe("ValidationTextbox", () => {
         errorText="Error"
       />
     );
-    const showMessage = sinon.spy(MessageManager, "displayInputFieldMessage");
+    const showMessage = vi.spyOn(MessageManager, "displayInputFieldMessage");
     await theUserTo.type(screen.getByRole("textbox"), "t[Backspace]");
-    expect(showMessage.called).to.be.true;
+    expect(showMessage).toHaveBeenCalled();
   });
 
   it("should manage escape press", async () => {
@@ -100,7 +107,7 @@ describe("ValidationTextbox", () => {
       />
     );
     await theUserTo.type(screen.getByRole("textbox"), "[Escape]");
-    expect(onEscPressed.called).to.be.true;
+    expect(onEscPressed).toHaveBeenCalled();
   });
 
   it("should manage enter press", async () => {
@@ -113,6 +120,6 @@ describe("ValidationTextbox", () => {
       />
     );
     await theUserTo.type(screen.getByRole("textbox"), "[Enter]");
-    expect(onEnterPressed.called).to.be.true;
+    expect(onEnterPressed).toHaveBeenCalled();
   });
 });

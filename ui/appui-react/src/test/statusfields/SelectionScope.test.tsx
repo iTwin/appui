@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
@@ -21,12 +21,12 @@ import TestUtils, {
 
 describe(`SelectionScopeField`, () => {
   describe("Bare tests", () => {
-    before(async () => {
+    beforeAll(async () => {
       await NoRenderApp.startup();
       await TestUtils.initializeUiFramework();
     });
 
-    after(async () => {
+    afterAll(async () => {
       TestUtils.terminateUiFramework();
       await IModelApp.shutdown();
     });
@@ -86,13 +86,13 @@ describe(`SelectionScopeField`, () => {
       if (IModelApp.initialized) await IModelApp.shutdown();
     };
 
-    before(async () => {
+    beforeAll(async () => {
       await shutdownIModelApp();
 
       await TestUtils.initializeUiFramework();
     });
 
-    after(async () => {
+    afterAll(async () => {
       TestUtils.terminateUiFramework();
     });
 

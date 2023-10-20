@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { BadgeType } from "@itwin/appui-abstract";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { SvgList } from "@itwin/itwinui-icons-react";
@@ -19,12 +18,12 @@ import TestUtils from "../TestUtils";
 import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test";
 
 describe("WidgetDef", () => {
-  before(async () => {
+  beforeAll(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
   });
 
-  after(async () => {
+  afterAll(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
   });
@@ -138,11 +137,10 @@ describe("WidgetDef", () => {
         id: "t1",
         defaultState: WidgetState.Closed,
       });
-      const spy = sinon.spy();
+      const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
       widgetDef.handleWidgetStateChanged(WidgetState.Hidden);
-
-      sinon.assert.calledOnce(spy);
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("should emit onWidgetStateChangedEvent for a hidden widget", async () => {
@@ -160,14 +158,18 @@ describe("WidgetDef", () => {
         },
       });
       def.nineZoneState = initializeNineZoneState(def);
-      sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => def);
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
       const widgetDef = def.findWidgetDef("w1")!;
       widgetDef.setWidgetState(WidgetState.Hidden);
-      expect(spy).to.calledOnceWithExactly({
+      expect(spy).toHaveBeenNthCalledWith(1, {
         widgetDef,
         widgetState: WidgetState.Hidden,
       });
@@ -189,14 +191,18 @@ describe("WidgetDef", () => {
         },
       });
       def.nineZoneState = initializeNineZoneState(def);
-      sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => def);
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
       const widgetDef = def.findWidgetDef("w1")!;
       widgetDef.setWidgetState(WidgetState.Open);
-      expect(spy).to.calledOnceWithExactly({
+      expect(spy).toHaveBeenNthCalledWith(1, {
         widgetDef,
         widgetState: WidgetState.Open,
       });

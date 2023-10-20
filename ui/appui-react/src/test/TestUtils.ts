@@ -4,9 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Store } from "redux";
 import { createStore } from "redux";
-import type * as sinon from "sinon";
 import { fireEvent, prettyDOM } from "@testing-library/react";
-import { expect } from "chai";
+import { afterAll, afterEach, beforeAll, beforeEach, expect } from 'vitest'
 
 import type {
   ContentLayoutProps,
@@ -102,7 +101,7 @@ export class TestUtils {
       this.store = createStore(
         this._rootReducer,
         (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-          (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+        (window as any).__REDUX_DEVTOOLS_EXTENSION__()
       );
 
       if (testAlternateKey)
@@ -278,7 +277,7 @@ export function stubRaf() {
   const raf = window.requestAnimationFrame;
   const caf = window.cancelAnimationFrame;
 
-  before(() => {
+  beforeAll(() => {
     window.requestAnimationFrame = (cb: FrameRequestCallback) => {
       return window.setTimeout(cb, 0);
     };
@@ -287,21 +286,21 @@ export function stubRaf() {
     };
   });
 
-  after(() => {
+  afterAll(() => {
     window.requestAnimationFrame = raf;
     window.cancelAnimationFrame = caf;
   });
 }
 
-declare module "sinon" {
-  interface SinonStubStatic {
-    // eslint-disable-next-line @typescript-eslint/prefer-function-type
-    <T extends (...args: any) => any>(): sinon.SinonStub<
-      Parameters<T>,
-      ReturnType<T>
-    >;
-  }
-}
+// declare module "sinon" {
+//   interface SinonStubStatic {
+//     // eslint-disable-next-line @typescript-eslint/prefer-function-type
+//     <T extends (...args: any) => any>(): sinon.SinonStub<
+//       Parameters<T>,
+//       ReturnType<T>
+//     >;
+//   }
+// }
 
 /** Get a iTwinUI Button with a given label */
 export function getButtonWithText(
@@ -407,7 +406,7 @@ export function handleError(msg: string) {
 /** Stubs scrollIntoView. */
 export function stubScrollIntoView() {
   const originalScrollIntoView = window.HTMLElement.prototype.scrollIntoView;
-  const scrollIntoViewMock = function () {};
+  const scrollIntoViewMock = function () { };
 
   beforeEach(() => {
     window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;

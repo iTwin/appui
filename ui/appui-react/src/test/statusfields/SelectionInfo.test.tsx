@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { render, waitFor } from "@testing-library/react";

@@ -2,9 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import type { DialogChangedEventArgs } from "../../appui-react";
 import {
@@ -22,16 +29,16 @@ describe("ContentDialogManager", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
     InternalContentDialogManager.closeAll();
-    spyMethod.resetHistory();
+    spyMethod.mockReset();
   });
 
-  const spyMethod = sinon.spy();
+  const spyMethod = vi.fn();
 
   function handleContentDialogChanged(_args: DialogChangedEventArgs) {
     spyMethod();
   }
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework(true);
     await NoRenderApp.startup();
 
@@ -40,7 +47,7 @@ describe("ContentDialogManager", () => {
     );
   });
 
-  after(async () => {
+  afterAll(async () => {
     UiFramework.content.dialogs.onContentDialogChangedEvent.removeListener(
       handleContentDialogChanged
     );
@@ -58,7 +65,7 @@ describe("ContentDialogManager", () => {
 
     expect(UiFramework.content.dialogs.count).to.eq(0);
     UiFramework.content.dialogs.open(reactNode, dialogId);
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
 
     expect(UiFramework.content.dialogs.active).to.eq(reactNode);
 
@@ -70,17 +77,17 @@ describe("ContentDialogManager", () => {
     expect(UiFramework.content.dialogs.dialogs[0].reactNode).to.eq(reactNode);
 
     UiFramework.content.dialogs.update();
-    expect(spyMethod.calledTwice).to.be.true;
+    expect(spyMethod).toHaveBeenCalledTimes(2);
 
     UiFramework.content.dialogs.close(dialogId);
-    expect(spyMethod.calledThrice).to.be.true;
+    expect(spyMethod).toHaveBeenCalledTimes(3);
     expect(UiFramework.content.dialogs.count).to.eq(0);
   });
 
   it("close should log error if passed a bad id", () => {
-    const logSpyMethod = sinon.spy(Logger, "logError");
+    const logSpyMethod = vi.spyOn(Logger, "logError");
     UiFramework.content.dialogs.close("bad");
-    logSpyMethod.calledOnce.should.true;
+    expect(logSpyMethod).toHaveBeenCalledOnce();
   });
 
   it("ContentDialogRenderer component", async () => {

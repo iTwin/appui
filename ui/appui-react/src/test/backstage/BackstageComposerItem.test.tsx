@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import * as sinon from "sinon";
+
 import type {
   BackstageActionItem,
   BackstageStageLauncher,
@@ -20,7 +20,15 @@ import TestUtils, {
   userEvent,
 } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import { BadgeType } from "@itwin/appui-abstract";
 
 /** @internal */
@@ -53,11 +61,11 @@ describe("BackstageComposerItem", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 
@@ -71,13 +79,13 @@ describe("BackstageComposerItem", () => {
     });
 
     it("should invoke execute", async () => {
-      const spyExecute = sinon.fake();
+      const spyExecute = vi.fn();
       const actionItem = getActionItem({ execute: spyExecute });
       render(<BackstageComposerActionItem item={actionItem} />);
 
       await theUserTo.click(screen.getByRole("menuitem"));
 
-      spyExecute.calledOnce.should.true;
+      expect(spyExecute).toHaveBeenCalledOnce();
     });
   });
 
@@ -91,11 +99,14 @@ describe("BackstageComposerItem", () => {
     });
 
     it("should activate frontstage", async () => {
-      sinon
-        .stub(UiFramework.frontstages, "hasFrontstage")
-        .withArgs("Frontstage-1")
-        .returns(true);
-      const spy = sinon.stub(UiFramework.frontstages, "setActiveFrontstage");
+      vi.spyOn(UiFramework.frontstages, "hasFrontstage").mockImplementation(
+        (frontstageId) => {
+          if (frontstageId === "Frontstage-1") return true;
+          return false;
+        }
+      );
+
+      const spy = vi.spyOn(UiFramework.frontstages, "setActiveFrontstage");
 
       render(
         <BackstageComposerStageLauncher
@@ -104,16 +115,16 @@ describe("BackstageComposerItem", () => {
       );
 
       await theUserTo.click(screen.getByRole("menuitem"));
-      spy.calledOnceWithExactly("Frontstage-1").should.true;
+      expect(spy).toHaveBeenNthCalledWith(1, "Frontstage-1");
     });
 
     it("should not activate if frontstage is not found", async () => {
-      const spy = sinon.stub(UiFramework.frontstages, "setActiveFrontstage");
+      const spy = vi.spyOn(UiFramework.frontstages, "setActiveFrontstage");
 
       render(<BackstageComposerStageLauncher item={getStageLauncherItem()} />);
       await theUserTo.click(screen.getByRole("menuitem"));
 
-      spy.notCalled.should.true;
+      expect(spy).not.toHaveBeenCalled();
     });
 
     it("should honor isActive prop override", () => {
@@ -131,22 +142,22 @@ describe("BackstageComposerItem", () => {
 
   describe("BackstageComposerItem", () => {
     it("should render stage launcher", async () => {
-      const spy = sinon.spy(UiFramework.frontstages, "setActiveFrontstage");
-      sinon.stub(UiFramework.frontstages, "hasFrontstage").returns(true);
+      const spy = vi.spyOn(UiFramework.frontstages, "setActiveFrontstage");
+      vi.spyOn(UiFramework.frontstages, "hasFrontstage").mockReturnValue(true);
       render(<BackstageComposerItem item={getStageLauncherItem()} />);
 
       await theUserTo.click(screen.getByRole("menuitem"));
 
-      expect(spy).to.have.been.called;
+      expect(spy).toHaveBeenCalled();
     });
 
     it("should render action item", async () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       render(<BackstageComposerItem item={getActionItem({ execute: spy })} />);
 
       await theUserTo.click(screen.getByRole("menuitem"));
 
-      expect(spy).to.have.been.called;
+      expect(spy).toHaveBeenCalled();
     });
 
     it("should render with TP badgeType", async () => {

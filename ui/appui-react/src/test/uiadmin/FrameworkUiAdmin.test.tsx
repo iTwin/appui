@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { expect } from "chai";
-import * as sinon from "sinon";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+
 import { render } from "@testing-library/react";
 import type {
   AbstractMenuItemProps,
@@ -170,7 +170,7 @@ describe("FrameworkUiAdmin", () => {
   let uiAdmin: FrameworkUiAdmin;
 
   // avoid problems due to no real localization resources by return dummy values for englishKeyin and keyin properties.
-  before(async () => {
+  beforeAll(async () => {
     Object.defineProperty(Tool, "englishKeyin", {
       get: () => {
         return "english";
@@ -188,10 +188,10 @@ describe("FrameworkUiAdmin", () => {
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
-    sinon.reset();
+    vi.resetAllMocks();
     Object.defineProperty(Tool, "englishKeyin", descriptorToRestore1);
     Object.defineProperty(Tool, "keyin", descriptorToRestore2);
   });
@@ -283,8 +283,8 @@ describe("FrameworkUiAdmin", () => {
       ],
     };
 
-    const spySelect = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spySelect = vi.fn();
+    const spyCancel = vi.fn();
 
     expect(
       uiAdmin.showToolbar(
@@ -359,8 +359,8 @@ describe("FrameworkUiAdmin", () => {
 
   it("showCalculator should return true", () => {
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    const spyCommit = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spyCommit = vi.fn();
+    const spyCancel = vi.fn();
 
     expect(
       uiAdmin.showCalculator(
@@ -387,8 +387,8 @@ describe("FrameworkUiAdmin", () => {
 
   it("showAngleEditor should return true", () => {
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    const spyCommit = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spyCommit = vi.fn();
+    const spyCancel = vi.fn();
 
     expect(
       uiAdmin.showAngleEditor(
@@ -413,8 +413,8 @@ describe("FrameworkUiAdmin", () => {
 
   it("showLengthEditor should return true", () => {
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    const spyCommit = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spyCommit = vi.fn();
+    const spyCancel = vi.fn();
 
     expect(
       uiAdmin.showLengthEditor(
@@ -439,8 +439,8 @@ describe("FrameworkUiAdmin", () => {
 
   it("showHeightEditor should return true", () => {
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    const spyCommit = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spyCommit = vi.fn();
+    const spyCancel = vi.fn();
 
     expect(
       uiAdmin.showHeightEditor(
@@ -465,8 +465,8 @@ describe("FrameworkUiAdmin", () => {
 
   it("showInputEditor should return true", () => {
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    const spyCommit = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spyCommit = vi.fn();
+    const spyCancel = vi.fn();
     const propertyDescription: PropertyDescription = {
       name: "test",
       displayLabel: "Test",
@@ -501,7 +501,7 @@ describe("FrameworkUiAdmin", () => {
       "<div style='width: 120px; height: 50px; display: flex; justify-content: center; align-items: center; background-color: aqua;'>Hello World!</div>";
     const display = new DOMParser().parseFromString(html, "text/html");
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    const spyCancel = sinon.fake();
+    const spyCancel = vi.fn();
 
     expect(
       uiAdmin.showHTMLElement(
@@ -564,8 +564,8 @@ describe("FrameworkUiAdmin", () => {
         },
       ],
     };
-    const spySelect = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spySelect = vi.fn();
+    const spyCancel = vi.fn();
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
 
     expect(
@@ -637,8 +637,8 @@ describe("FrameworkUiAdmin", () => {
         },
       ],
     };
-    const spySelect = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spySelect = vi.fn();
+    const spyCancel = vi.fn();
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
 
     expect(
@@ -686,7 +686,7 @@ describe("FrameworkUiAdmin", () => {
     class TestUiDataProvider extends DialogLayoutDataProvider {}
     const uiDataProvider = new TestUiDataProvider();
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    const spyCancel = sinon.fake();
+    const spyCancel = vi.fn();
 
     expect(
       uiAdmin.openToolSettingsPopup(
@@ -720,10 +720,12 @@ describe("FrameworkUiAdmin", () => {
   });
 
   it("should ClearKeyinPaletteHistoryTool", async () => {
-    const stub = sinon.stub(keyinExports, "clearKeyinPaletteHistory").returns();
+    const stub = vi
+      .spyOn(keyinExports, "clearKeyinPaletteHistory")
+      .mockReturnValue();
     const tool = new ClearKeyinPaletteHistoryTool();
     await tool.parseAndRun();
-    expect(stub).to.be.calledOnce;
+    expect(stub).toHaveBeenCalledOnce();
   });
 
   it("should get/set keyin preference", () => {

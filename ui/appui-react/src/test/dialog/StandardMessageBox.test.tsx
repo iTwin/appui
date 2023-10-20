@@ -2,9 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { MessageBoxIconType, MessageBoxType } from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
 import { StandardMessageBox } from "../../appui-react";
@@ -16,16 +23,16 @@ describe("StandardMessageBox", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 
   it("OK button & NoSymbol", async () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
 
     const reactNode = (
       <StandardMessageBox
@@ -43,11 +50,11 @@ describe("StandardMessageBox", () => {
     ).to.eq(2);
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.ok" }));
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("OK/Cancel buttons & Information", async () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
 
     const reactNode = (
       <StandardMessageBox
@@ -65,11 +72,11 @@ describe("StandardMessageBox", () => {
     );
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.ok" }));
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("Yes/No buttons & Question", async () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
 
     const reactNode = (
       <StandardMessageBox
@@ -87,11 +94,11 @@ describe("StandardMessageBox", () => {
     );
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.yes" }));
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("MediumAlert & Question", async () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
     const reactNode = (
       <StandardMessageBox
         opened={true}
@@ -109,11 +116,11 @@ describe("StandardMessageBox", () => {
     await theUserTo.click(
       screen.getByRole("button", { name: "dialog.cancel" })
     );
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("YesNoCancel & Critical", async () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
     const reactNode = (
       <StandardMessageBox
         opened={true}
@@ -129,11 +136,11 @@ describe("StandardMessageBox", () => {
     );
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.no" }));
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("YesNoCancel & Warning", async () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
     const reactNode = (
       <StandardMessageBox
         opened={true}
@@ -151,11 +158,11 @@ describe("StandardMessageBox", () => {
     await theUserTo.click(
       screen.getByRole("button", { name: "dialog.cancel" })
     );
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("should close on Esc key", async () => {
-    const spyOnEscape = sinon.spy();
+    const spyOnEscape = vi.fn();
     const reactNode = (
       <StandardMessageBox
         opened={true}
@@ -168,6 +175,6 @@ describe("StandardMessageBox", () => {
     render(reactNode);
 
     await theUserTo.type(screen.getByText("My Title"), "[Escape]");
-    spyOnEscape.calledOnce.should.true;
+    expect(spyOnEscape).toHaveBeenCalled();
   });
 });

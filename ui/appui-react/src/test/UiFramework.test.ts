@@ -4,9 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 // cSpell:ignore typemoq, tabid
 
-import { expect } from "chai";
 import * as moq from "typemoq";
-import * as sinon from "sinon";
+// import * as sinon from "sinon";
 import type { IModelRpcProps } from "@itwin/core-common";
 import type { Id64String } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
@@ -22,6 +21,7 @@ import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage } from "@itwin/core-react";
 import TestUtils, { storageMock } from "./TestUtils";
 import { OpenSettingsTool } from "../appui-react/tools/OpenSettingsTool";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 describe("UiFramework localStorage Wrapper", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(
@@ -30,13 +30,13 @@ describe("UiFramework localStorage Wrapper", () => {
   )!;
   const localStorageMock = storageMock();
 
-  before(async () => {
+  beforeAll(async () => {
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
   });
 
-  after(() => {
+  afterAll(() => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
 
@@ -69,7 +69,7 @@ describe("UiFramework localStorage Wrapper", () => {
     it("test OpenSettingsTool", async () => {
       await TestUtils.initializeUiFramework(true);
 
-      const spy = sinon.spy();
+      const spy = vi.fn().mockImplementation(() => { })
       const tabName = "page1";
       const handleOpenSetting = (settingsCategory: string) => {
         expect(settingsCategory).to.eql(tabName);
@@ -90,16 +90,17 @@ describe("UiFramework localStorage Wrapper", () => {
       const tool = new OpenSettingsTool();
       // tabid arg
       await tool.parseAndRun(tabName);
-      spy.calledOnce.should.true;
-      spy.resetHistory();
+
+      expect(spy).toHaveBeenCalledOnce()
+      spy.mockReset()
 
       // No tabid arg
       Object.defineProperty(SettingsModalFrontstage, "showSettingsStage", {
         get: () => handleOpenSetting2,
       });
       await tool.parseAndRun();
-      spy.calledOnce.should.true;
-      spy.resetHistory();
+      expect(spy).toHaveBeenCalledOnce()
+      spy.mockReset()
 
       Object.defineProperty(
         SettingsModalFrontstage,
@@ -116,12 +117,12 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("calling initialize twice should log", async () => {
-      const spyLogger = sinon.spy(Logger, "logInfo");
+      const spyLogger = vi.spyOn(Logger, "logInfo");
       expect(UiFramework.initialized).to.be.false;
       await UiFramework.initialize(TestUtils.store);
       expect(UiFramework.initialized).to.be.true;
       await UiFramework.initialize(TestUtils.store);
-      spyLogger.calledOnce.should.true;
+      expect(spyLogger).toHaveBeenCalledOnce()
     });
 
     it("calling initialize without I18N will use IModelApp.i18n", async () => {

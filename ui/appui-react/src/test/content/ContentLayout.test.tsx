@@ -2,9 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
@@ -100,7 +107,7 @@ describe("ContentLayout", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
     UiFramework.frontstages.clearFrontstageProviders();
@@ -113,7 +120,7 @@ describe("ContentLayout", () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
@@ -414,17 +421,24 @@ describe("ContentLayout", () => {
       </div>
     );
 
-    const rect = sinon.stub(Element.prototype, "getBoundingClientRect");
-    rect
-      .onFirstCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect
-      .onSecondCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect
-      .onThirdCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect.returns(DOMRect.fromRect({ height: 0, width: 0, x: 0, y: 0 }));
+    const rect = vi.spyOn(Element.prototype, "getBoundingClientRect");
+    expect(rect).toHaveBeenNthCalledWith(
+      1,
+      DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 })
+    );
+
+    expect(rect).toHaveBeenNthCalledWith(
+      2,
+      DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 })
+    );
+    expect(rect).toHaveBeenNthCalledWith(
+      3,
+      DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 })
+    );
+    expect(rect).toHaveBeenNthCalledWith(
+      4,
+      DOMRect.fromRect({ height: 0, width: 0, x: 0, y: 0 })
+    );
 
     await theUserTo.pointer([
       {
@@ -459,17 +473,25 @@ describe("ContentLayout", () => {
       </div>
     );
 
-    const rect = sinon.stub(Element.prototype, "getBoundingClientRect");
-    rect
-      .onFirstCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect
-      .onSecondCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect
-      .onThirdCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect.returns(DOMRect.fromRect({ height: 0, width: 0, x: 0, y: 0 }));
+    const rect = vi.spyOn(Element.prototype, "getBoundingClientRect");
+
+    expect(rect).toHaveBeenNthCalledWith(
+      1,
+      DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 })
+    );
+
+    expect(rect).toHaveBeenNthCalledWith(
+      2,
+      DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 })
+    );
+    expect(rect).toHaveBeenNthCalledWith(
+      3,
+      DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 })
+    );
+    expect(rect).toHaveBeenNthCalledWith(
+      4,
+      DOMRect.fromRect({ height: 0, width: 0, x: 0, y: 0 })
+    );
 
     await theUserTo.pointer([
       {
@@ -495,7 +517,7 @@ describe("ContentLayout", () => {
   });
 
   it("UiFramework.content.layouts.setActiveLayout & refreshActiveLayout should emit onContentLayoutActivatedEvent", async () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
     const layoutProps: ContentLayoutProps = {
       id: "UiFramework:tests.singleContent",
       description: "UiFramework:tests.singleContent",
@@ -522,10 +544,10 @@ describe("ContentLayout", () => {
       contentLayout,
       emptyContentGroup
     );
-    spyMethod.calledOnce.should.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
 
     UiFramework.content.layouts.refreshActive();
-    spyMethod.calledTwice.should.true;
+    expect(spyMethod).toHaveBeenCalledTimes(2);
 
     remove();
   });
@@ -611,7 +633,7 @@ describe("SingleContentLayout", () => {
     }
   }
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
     UiFramework.frontstages.clearFrontstageProviders();
@@ -624,7 +646,7 @@ describe("SingleContentLayout", () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });

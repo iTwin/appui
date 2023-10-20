@@ -2,12 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import {
   CalculatorEngine,
   CalculatorOperator,
 } from "../../appui-react/accudraw/CalculatorEngine";
 
+import { beforeEach, describe, expect, it } from "vitest";
 describe("CalculatorEngine", () => {
   let engine: CalculatorEngine;
 

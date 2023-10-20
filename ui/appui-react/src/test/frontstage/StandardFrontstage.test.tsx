@@ -2,9 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type { ContentGroupProps, ContentProps } from "../../appui-react";
@@ -120,21 +127,23 @@ class TestContentGroupProvider extends ContentGroupProvider {
 }
 
 describe("ContentGroupProvider", () => {
-  before(async () => {
+  beforeAll(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
     UiFramework.frontstages.clearFrontstageProviders();
   });
 
-  after(async () => {
+  afterAll(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
   });
 
   beforeEach(() => {
-    sinon
-      .stub(InternalFrontstageManager, "activeToolSettingsProvider")
-      .get(() => undefined);
+    vi.spyOn(
+      InternalFrontstageManager,
+      "activeToolSettingsProvider",
+      "get"
+    ).mockImplementation(() => undefined);
     UiFramework.frontstages.clearFrontstageProviders();
   });
 

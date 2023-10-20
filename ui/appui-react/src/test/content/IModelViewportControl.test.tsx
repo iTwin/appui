@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import * as React from "react";
 import * as moq from "typemoq";
 import { render } from "@testing-library/react";
@@ -35,7 +35,7 @@ describe("IModelViewportControl", () => {
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
   const viewMock = moq.Mock.ofType<ViewState3d>();
 
-  before(async () => {
+  beforeAll(async () => {
     Object.defineProperty(window, "sessionStorage", {
       get: () => mySessionStorage,
     });
@@ -47,7 +47,7 @@ describe("IModelViewportControl", () => {
     InternalFrontstageManager.initialize();
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
 

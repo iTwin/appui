@@ -2,7 +2,15 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+} from "vitest";
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { SpecialKey } from "@itwin/appui-abstract";
@@ -27,11 +35,11 @@ describe("UiSettingsPage", () => {
   )!;
   let localStorageMock = storageMock();
 
-  before(async () => {
+  beforeAll(async () => {
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
   });
 

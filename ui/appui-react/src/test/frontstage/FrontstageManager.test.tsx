@@ -3,8 +3,15 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { expect } from "chai";
-import * as sinon from "sinon";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as moq from "typemoq";
 import { Provider } from "react-redux";
 import { render } from "@testing-library/react";
@@ -46,7 +53,7 @@ const propertyDescriptorToRestore = Object.getOwnPropertyDescriptor(
 )!;
 
 describe("FrontstageManager", () => {
-  before(async () => {
+  beforeAll(async () => {
     Object.defineProperty(window, "sessionStorage", {
       get: () => mySessionStorage,
     });
@@ -58,7 +65,7 @@ describe("FrontstageManager", () => {
     InternalFrontstageManager.clearFrontstageProviders();
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
 
@@ -101,9 +108,11 @@ describe("FrontstageManager", () => {
 
   it("getFronstageDef should return active frontstage when no id provided", async () => {
     const activeFrontstageDef = new FrontstageDef();
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => activeFrontstageDef);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => activeFrontstageDef);
 
     const frontstageDef = await InternalFrontstageManager.getFrontstageDef();
 
@@ -143,7 +152,7 @@ describe("FrontstageManager", () => {
   });
 
   it("should emit onFrontstageRestoreLayoutEvent", async () => {
-    const spy = sinon.spy(
+    const spy = vi.spyOn(
       InternalFrontstageManager.onFrontstageRestoreLayoutEvent,
       "emit"
     );
@@ -164,24 +173,24 @@ describe("FrontstageManager", () => {
 
       const tool = new RestoreFrontstageLayoutTool();
       await tool.parseAndRun(frontstageDef.id);
-      spy.calledOnce.should.true;
-      spy.resetHistory();
+      expect(spy).toHaveBeenCalledOnce();
+      spy.mockReset();
 
       // call without id to use active stage
       await tool.parseAndRun();
-      spy.calledOnce.should.true;
-      spy.resetHistory();
+      expect(spy).toHaveBeenCalledOnce();
+      spy.mockReset();
 
       // call without invalid id
       await tool.parseAndRun("bad-id");
-      spy.calledOnce.should.false;
+      expect(spy).not.toHaveBeenCalledOnce();
     }
   });
 
   it("setActiveFrontstage should log Error on invalid id", async () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spyMethod = vi.spyOn(Logger, "logError");
     await InternalFrontstageManager.setActiveFrontstage("xyz");
-    spyMethod.calledOnce.should.true;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("setActiveFrontstage should set active frontstage", async () => {
@@ -227,10 +236,12 @@ describe("FrontstageManager", () => {
       layout: { id: "1" },
     });
     const layoutDef = new ContentLayoutDef({ id: "1" });
-    sinon.stub(UiFramework.content.layouts, "getForGroup").returns(layoutDef);
-    const spy = sinon.stub(InternalFrontstageManager, "setActiveLayout");
+    vi.spyOn(UiFramework.content.layouts, "getForGroup").mockReturnValue(
+      layoutDef
+    );
+    const spy = vi.spyOn(InternalFrontstageManager, "setActiveLayout");
     await InternalFrontstageManager.setActiveContentGroup(contentGroup);
-    expect(spy).to.have.been.calledWithExactly(layoutDef, contentGroup);
+    expect(spy).toHaveBeenCalledWith(layoutDef, contentGroup);
   });
 
   it("setWidgetState returns false on invalid id", () => {
@@ -240,18 +251,18 @@ describe("FrontstageManager", () => {
 
   it("setWidgetState apply state on widgetDef", () => {
     const stubbedWidget = {
-      setWidgetState: sinon.spy(),
+      setWidgetState: vi.fn(),
     };
-    sinon
-      .stub(UiFramework.frontstages, "findWidget")
-      .withArgs("xyz")
-      .returns(stubbedWidget as any);
+    vi.spyOn(UiFramework.frontstages, "findWidget").mockImplementation((a) => {
+      if (a === "xyz") return stubbedWidget as any;
+    });
+
     expect(InternalFrontstageManager.setWidgetState("xyz", WidgetState.Closed))
       .to.be.true;
-    expect(stubbedWidget.setWidgetState).to.calledWithExactly(
+    expect(stubbedWidget.setWidgetState).toHaveBeenCalledWith(
       WidgetState.Closed
     );
-    sinon.restore();
+    vi.restoreAllMocks();
   });
 
   it("findWidget returns undefined on invalid id", () => {
@@ -299,7 +310,7 @@ describe("FrontstageManager", () => {
   describe("Executing a tool should set activeToolId", () => {
     const viewportMock = moq.Mock.ofType<ScreenViewport>();
 
-    before(() => {
+    beforeAll(() => {
       const spatialViewStateMock = moq.Mock.ofType<SpatialViewState>();
       spatialViewStateMock.setup((view) => view.is3d()).returns(() => true);
       spatialViewStateMock
@@ -335,27 +346,30 @@ describe("FrontstageManager", () => {
         new ConfigurableCreateInfo("test", "test", "test"),
         undefined
       );
-      sinon
-        .stub(InternalFrontstageManager, "activeToolSettingsProvider")
-        .get(() => activeToolSettingsProvider);
+      vi.spyOn(
+        InternalFrontstageManager,
+        "activeToolSettingsProvider",
+        "get"
+      ).mockImplementation(() => activeToolSettingsProvider);
 
       UiFramework.toolSettings.onReloadToolSettingsProperties.emit();
     });
   });
 
   describe("ConfigurableUiContent", () => {
-    before(() => {
+    beforeAll(() => {
       const imodelConnectionMock = moq.Mock.ofType<IModelConnection>();
       imodelConnectionMock
         .setup((x) => x.iModelId)
         .returns(() => "dummyImodelId");
-      sinon
-        .stub(UiFramework, "getIModelConnection")
-        .get(() => imodelConnectionMock.object);
+
+      vi.spyOn(UiFramework, "getIModelConnection").mockImplementation(
+        () => imodelConnectionMock.object
+      );
     });
 
     it("mouse moves should be handled for frontstage tracking", async () => {
-      const fakeTimers = sinon.useFakeTimers();
+      const fakeTimers = vi.useFakeTimers();
       render(
         <Provider store={TestUtils.store}>
           <ConfigurableUiContent idleTimeout={100} intervalTimeout={100} />
@@ -366,7 +380,7 @@ describe("FrontstageManager", () => {
         "uifw-configurableui-wrapper"
       )!;
 
-      const spyDeactivated = sinon.spy();
+      const spyDeactivated = vi.fn();
       InternalFrontstageManager.onFrontstageDeactivatedEvent.addListener(
         spyDeactivated
       );
@@ -381,7 +395,7 @@ describe("FrontstageManager", () => {
         frontstageDef
       );
 
-      fakeTimers.tick(200);
+      fakeTimers.advanceTimersByTime(200);
 
       divContainer.dispatchEvent(
         new MouseEvent("mousemove", {
@@ -400,8 +414,8 @@ describe("FrontstageManager", () => {
         })
       );
 
-      fakeTimers.tick(200);
-      fakeTimers.restore();
+      fakeTimers.advanceTimersByTime(200);
+      fakeTimers.restoreAllMocks();
 
       divContainer.dispatchEvent(
         new MouseEvent("mousemove", {
@@ -422,14 +436,14 @@ describe("FrontstageManager", () => {
 
       await InternalFrontstageManager.deactivateFrontstageDef();
       expect(InternalFrontstageManager.activeFrontstageDef).to.be.undefined;
-      spyDeactivated.calledOnce.should.true;
+      expect(spyDeactivated).toHaveBeenCalledOnce();
     });
   });
 
   describe("nineZoneSize", () => {
     let nineZoneSize: typeof InternalFrontstageManager.nineZoneSize;
 
-    before(() => {
+    beforeAll(() => {
       nineZoneSize = InternalFrontstageManager.nineZoneSize;
     });
 

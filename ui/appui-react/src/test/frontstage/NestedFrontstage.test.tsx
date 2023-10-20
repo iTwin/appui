@@ -3,9 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { FrontstageConfig } from "../../appui-react";
 import {
   ContentGroup,
@@ -68,12 +67,12 @@ class TestNestedFrontstage extends FrontstageProvider {
 }
 
 describe("NestedFrontstage", async () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     UiFramework.frontstages.clearFrontstageProviders();
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 
@@ -96,8 +95,8 @@ describe("NestedFrontstage", async () => {
     const nestedFrontstageDef = await FrontstageDef.create(
       nestedFrontstageProvider
     );
-    const spyActivated = sinon.spy(nestedFrontstageDef, "_onActivated" as any);
-    const spyDeactivated = sinon.spy(
+    const spyActivated = vi.spyOn(nestedFrontstageDef, "_onActivated" as any);
+    const spyDeactivated = vi.spyOn(
       nestedFrontstageDef,
       "_onDeactivated" as any
     );
@@ -107,7 +106,7 @@ describe("NestedFrontstage", async () => {
     expect(UiFramework.frontstages.activeNestedFrontstage).to.eq(
       nestedFrontstageDef
     );
-    expect(spyActivated.calledOnce).to.be.true;
+    expect(spyActivated).toHaveBeenCalledOnce();
 
     const nestedFrontstageProvider2 = new TestNestedFrontstage();
     const nestedFrontstageDef2 = await FrontstageDef.create(
@@ -118,7 +117,7 @@ describe("NestedFrontstage", async () => {
     expect(UiFramework.frontstages.activeNestedFrontstage).to.eq(
       nestedFrontstageDef2
     );
-    expect(spyDeactivated.calledOnce).to.be.true;
+    expect(spyDeactivated).toHaveBeenCalledOnce();
 
     NestedFrontstage.backToPreviousFrontstageCommand.execute();
     await TestUtils.flushAsyncOperations();

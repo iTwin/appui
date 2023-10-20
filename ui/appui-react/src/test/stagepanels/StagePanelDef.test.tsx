@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import produce from "immer";
 import * as sinon from "sinon";
 import { createNineZoneState } from "@itwin/appui-layout-react";
@@ -19,11 +19,11 @@ import { InternalFrontstageManager } from "../../appui-react/frontstage/Internal
 import TestUtils from "../TestUtils";
 
 describe("StagePanelDef", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 
@@ -41,11 +41,12 @@ describe("StagePanelDef", () => {
   });
 
   it("should emit onPanelStateChangedEvent", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
     const panelDef = new StagePanelDef();
     panelDef.handlePanelStateChanged(StagePanelState.Minimized);
-    expect(spy).to.be.calledOnceWithExactly(
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith(
       sinon.match({ panelDef, panelState: StagePanelState.Minimized })
     );
   });
@@ -56,9 +57,11 @@ describe("StagePanelDef", () => {
   });
 
   it("should initialize pinned", () => {
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => undefined);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => undefined);
     const panelDef = StagePanelDef.create(
       { resizable: false, pinned: false },
       StagePanelLocation.Left
@@ -67,22 +70,23 @@ describe("StagePanelDef", () => {
   });
 
   it("should emit onPanelSizeChangedEvent", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     InternalFrontstageManager.onPanelSizeChangedEvent.addListener(spy);
     const panelDef = new StagePanelDef();
     panelDef.handleSizeChanged(200);
-    expect(spy).to.be.calledOnceWithExactly(
-      sinon.match({ panelDef, size: 200 })
-    );
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith(sinon.match({ panelDef, size: 200 }));
   });
 
   it("should respect min/max size", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     const panelDef = new StagePanelDef();
     panelDef.size = 150;
     panelDef.size.should.eq(200);
@@ -92,31 +96,37 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     const panelDef = new StagePanelDef();
     panelDef.size = 200;
     panelDef.size.should.eq(200);
 
-    const spy = sinon.spy(
+    const spy = vi.spyOn(
       InternalFrontstageManager.onPanelSizeChangedEvent,
       "emit"
     );
     panelDef.size = 150;
     panelDef.size.should.eq(200);
-    sinon.assert.notCalled(spy);
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("should collapse panel when panelState is Minimized", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     const panelDef = new StagePanelDef();
-    sinon.stub(panelDef, "location").get(() => StagePanelLocation.Right);
+    vi.spyOn(panelDef, "location", "get").mockImplementation(
+      () => StagePanelLocation.Right
+    );
     panelDef.panelState = StagePanelState.Minimized;
 
     frontstageDef.nineZoneState.panels.right.collapsed.should.true;
@@ -126,11 +136,15 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     const panelDef = new StagePanelDef();
-    sinon.stub(panelDef, "location").get(() => StagePanelLocation.Right);
+    vi.spyOn(panelDef, "location", "get").mockImplementation(
+      () => StagePanelLocation.Right
+    );
     panelDef.panelState = StagePanelState.Off;
 
     frontstageDef.nineZoneState.panels.right.collapsed.should.true;
@@ -142,9 +156,11 @@ describe("StagePanelDef", () => {
       draft.panels.right.collapsed = true;
     });
     frontstageDef.nineZoneState = nineZoneState;
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     const panelDef = StagePanelDef.create(
       {
         resizable: true,

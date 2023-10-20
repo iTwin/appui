@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type * as React from "react";
 import type {
   ButtonGroupEditorParams,
@@ -144,7 +144,7 @@ describe("DefaultToolUiSettingsProvider", () => {
     },
   };
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
 
     class Frontstage1 extends FrontstageProvider {
@@ -170,7 +170,7 @@ describe("DefaultToolUiSettingsProvider", () => {
     UiFramework.toolSettings.useDefaultToolSettingsProvider = false;
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 

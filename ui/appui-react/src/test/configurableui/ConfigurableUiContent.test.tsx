@@ -3,9 +3,17 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
+import sinon from "sinon";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Provider } from "react-redux";
 import { render, screen } from "@testing-library/react";
 import { SpecialKey } from "@itwin/appui-abstract";
@@ -21,7 +29,7 @@ describe("ConfigurableUiContent", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework(true);
   });
 
@@ -43,7 +51,7 @@ describe("ConfigurableUiContent", () => {
   });
 
   it("mouse moves should be handled", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const removeListener =
       CursorInformation.onCursorUpdatedEvent.addListener(spy);
     render(
@@ -57,7 +65,7 @@ describe("ConfigurableUiContent", () => {
       coords: { x: 10, y: 10 },
     });
 
-    expect(spy).to.have.been.calledWith(
+    expect(spy).toHaveBeenCalledWith(
       sinon.match({
         oldPt: sinon.match.any,
         newPt: sinon.match.any,
@@ -68,7 +76,7 @@ describe("ConfigurableUiContent", () => {
     removeListener();
   });
 
-  after(() => {
+  afterAll(() => {
     // clear out the framework key
     TestUtils.terminateUiFramework();
   });

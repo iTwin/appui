@@ -30,10 +30,18 @@ import {
   SubCategoriesCache,
 } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
 import * as moq from "typemoq";
-import * as sinon from "sinon";
+
 import type {
   ConfigurableCreateInfo,
   ContentProps,
@@ -189,7 +197,7 @@ describe("StageContentLayout", () => {
 
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
 
@@ -198,14 +206,14 @@ describe("StageContentLayout", () => {
   });
 
   beforeEach(async () => {
-    sinon
-      .stub(IModelReadRpcInterface, "getClientForRouting")
-      .returns(rpcMock.object);
+    vi.spyOn(IModelReadRpcInterface, "getClientForRouting").mockReturnValue(
+      rpcMock.object
+    );
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
-    sinon.restore();
+    vi.restoreAllMocks();
     TestUtils.terminateUiFramework();
   });
 

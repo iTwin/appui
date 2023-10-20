@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
+import { afterEach, describe, expect, it } from "vitest";
 import { UiError } from "@itwin/appui-abstract";
 import type { ActionCreatorsObject, ActionsUnion } from "../../appui-react";
 import {

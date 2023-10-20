@@ -4,9 +4,16 @@
  *--------------------------------------------------------------------------------------------*/
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { ToolbarHelper, UiFramework } from "../../appui-react";
 import { CommandItemDef } from "../../appui-react/shared/CommandItemDef";
 import { BasicToolWidget } from "../../appui-react/widgets/BasicToolWidget";
@@ -14,9 +21,8 @@ import TestUtils, { childStructure } from "../TestUtils";
 
 describe("BasicToolWidget", () => {
   beforeEach(() => {
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .callsFake(function rect(this: any) {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function rect(this: any) {
         if (
           this instanceof HTMLButtonElement ||
           this.firstElementChild?.tagName === "BUTTON"
@@ -24,21 +30,22 @@ describe("BasicToolWidget", () => {
           return DOMRect.fromRect({ width: 16, height: 16 });
         }
         return DOMRect.fromRect({ width: 300, height: 300 });
-      });
+      }
+    );
   });
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 
   it("BasicToolWidget should render correctly", () => {
-    sinon.stub(UiFramework.content, "getActiveContentControl").returns({
+    vi.spyOn(UiFramework.content, "getActiveContentControl").mockReturnValue({
       viewport: {
         findFeatureOverrideProviderOfType() {},
         view: {
@@ -80,7 +87,7 @@ describe("BasicToolWidget", () => {
   });
 
   it("BasicToolWidget with Categories and Models should render", () => {
-    sinon.stub(UiFramework.content, "getActiveContentControl").returns({
+    vi.spyOn(UiFramework.content, "getActiveContentControl").mockReturnValue({
       viewport: {
         findFeatureOverrideProviderOfType() {},
         view: {

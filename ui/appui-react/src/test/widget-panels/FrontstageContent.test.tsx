@@ -3,9 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
+import { describe, expect, it, vi } from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
+
 import {
   FrontstageDef,
   UiFramework,
@@ -15,17 +15,28 @@ import {
 describe("WidgetPanelsFrontstageContent", () => {
   it("should render", () => {
     const frontstageDef = new FrontstageDef();
-    sinon.stub(frontstageDef, "contentLayoutDef").get(() => ({
-      fillLayoutContainer() {
-        return "ContentLayoutDefMockContent";
-      },
-    }));
-    sinon
-      .stub(frontstageDef, "contentGroup")
-      .get(() => ({ getContentNodes() {} }));
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(frontstageDef, "contentLayoutDef", "get").mockImplementation(
+      () =>
+        ({
+          fillLayoutContainer() {
+            return "ContentLayoutDefMockContent";
+          },
+        } as any) // probably need to fix or fill in rest of obj
+    );
+
+    vi.spyOn(frontstageDef, "contentGroup", "get").mockImplementation(
+      () =>
+        ({
+          getContentNodes() {
+            return [<></>] as React.ReactNode[];
+          },
+        } as any) // same as above
+    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     render(<WidgetPanelsFrontstageContent />);
     expect(screen.getByRole("presentation")).to.have.property(
       "innerHTML",
@@ -34,9 +45,11 @@ describe("WidgetPanelsFrontstageContent", () => {
   });
 
   it("should not render", () => {
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => undefined);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => undefined);
     const { container } = render(<WidgetPanelsFrontstageContent />);
     expect(container.childNodes).lengthOf(0);
   });

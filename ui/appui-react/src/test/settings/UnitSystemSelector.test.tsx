@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import type { UnitSystemKey } from "@itwin/core-quantity";
 import { UnitSystemSelector } from "../../appui-react/settings/quantityformatting/UnitSystemSelector";
@@ -13,20 +12,21 @@ import TestUtils, {
   selectTestOptionCount,
   stubScrollIntoView,
 } from "../TestUtils";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 
 describe("UnitSystemSelector", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 
   stubScrollIntoView();
 
   it("will render four systems", () => {
-    const onChangedSpy = sinon.spy();
+    const onChangedSpy = vi.fn();
     const availableUnitSystems = new Set<UnitSystemKey>([
       "metric",
       "imperial",
@@ -50,12 +50,12 @@ describe("UnitSystemSelector", () => {
       "presentationUnitSystem.USCustomary",
       handleError
     );
-    onChangedSpy.calledOnce.should.true;
+    expect(onChangedSpy).toHaveBeenCalled();
     wrapper.unmount();
   });
 
   it("will render three systems", () => {
-    const onChangedSpy = sinon.spy();
+    const onChangedSpy = vi.fn();
     const availableUnitSystems = new Set<UnitSystemKey>([
       "metric",
       "imperial",
@@ -78,7 +78,7 @@ describe("UnitSystemSelector", () => {
       "presentationUnitSystem.USSurvey",
       handleError
     );
-    onChangedSpy.calledOnce.should.true;
+    expect(onChangedSpy).toHaveBeenCalled();
     wrapper.unmount();
   });
 });

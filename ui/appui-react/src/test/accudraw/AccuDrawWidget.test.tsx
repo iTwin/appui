@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import * as React from "react";
 import type { IModelAppOptions } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
@@ -12,7 +12,7 @@ import { TestUtils } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 
 describe("AccuDrawWidget", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
 
     const opts: IModelAppOptions = {};
@@ -20,7 +20,7 @@ describe("AccuDrawWidget", () => {
     await NoRenderApp.startup(opts);
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });

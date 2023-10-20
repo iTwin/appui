@@ -2,9 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { fireEvent, render, screen } from "@testing-library/react";
 import type { IModelConnection } from "@itwin/core-frontend";
@@ -25,12 +32,12 @@ describe("SheetsModalFrontstage", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
@@ -71,19 +78,19 @@ describe("SheetsModalFrontstage", () => {
 
       const content = modal.content;
       render(content as React.ReactElement<any>);
-      const onCardSelected = sinon.spy();
+      const onCardSelected = vi.fn();
       const removeListener =
         CardContainer.onCardSelectedEvent.addListener(onCardSelected);
 
       await theUserTo.click(screen.getByText("Name"));
-      expect(onCardSelected.called).to.be.true;
+      expect(onCardSelected).toHaveBeenCalled();
       removeListener();
     });
   });
 
   describe("CardContainer React Testing", () => {
     it("search box calls onValueChanged after 250ms delay", async () => {
-      const fakeTimers = sinon.useFakeTimers();
+      const fakeTimers = vi.useFakeTimers();
       modal = new SheetsModalFrontstage(
         new Array<SheetData>({
           name: "Name",
@@ -95,7 +102,7 @@ describe("SheetsModalFrontstage", () => {
 
       const content = modal.appBarRight;
       const wrapper = render(content as React.ReactElement<any>);
-      const onChange = sinon.spy();
+      const onChange = vi.fn();
       const removeListener =
         UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(
           onChange
@@ -103,10 +110,10 @@ describe("SheetsModalFrontstage", () => {
       const input = wrapper.container.querySelector("input");
       expect(input).not.to.be.null;
       fireEvent.change(input!, { target: { value: "search value" } });
-      await fakeTimers.tickAsync(500);
-      expect(onChange.called).to.be.true;
+      await fakeTimers.advanceTimersByTimeAsync(500);
+      expect(onChange).toHaveBeenCalled();
       removeListener();
-      fakeTimers.restore();
+      fakeTimers.restoreAllMocks();
       wrapper.unmount();
     });
   });
@@ -189,7 +196,7 @@ describe("SheetsModalFrontstage", () => {
 
   describe("SheetCard", () => {
     it("handles card selection", async () => {
-      const onClick = sinon.spy();
+      const onClick = vi.fn();
       render(
         <SheetCard
           label="Findable Label"
@@ -202,7 +209,7 @@ describe("SheetsModalFrontstage", () => {
 
       await theUserTo.click(screen.getByText("Findable Label"));
 
-      expect(onClick.called).to.be.true;
+      expect(onClick).toHaveBeenCalled();
     });
 
     it("handles mouse down and leave", async () => {

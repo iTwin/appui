@@ -2,9 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as React from "react";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as sinon from "sinon";
+import * as React from "react";
 import { Provider } from "react-redux";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
@@ -17,12 +25,12 @@ describe(`ViewAttributes`, () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
@@ -66,12 +74,12 @@ describe(`ViewAttributes`, () => {
       screen.getByText("listTools.acs").previousElementSibling
     ).to.have.property("checked", true);
 
-    const spy = sinon.stub(IModelApp.tools, "run");
+    const spy = vi.spyOn(IModelApp.tools, "run");
     await theUserTo.click(screen.getByText("listTools.camera"));
     expect(
       screen.getByText("listTools.camera").previousElementSibling
     ).to.have.property("checked", true);
-    expect(spy).to.have.been.calledWith("View.ToggleCamera", sinon.match.any);
+    expect(spy).toHaveBeenCalledWith("View.ToggleCamera", sinon.match.any);
 
     await theUserTo.click(screen.getAllByRole("button")[0]);
   });

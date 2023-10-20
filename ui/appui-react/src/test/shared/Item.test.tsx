@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import {
   IModelApp,
   NoRenderApp,
@@ -20,12 +19,12 @@ import {
 import TestUtils from "../TestUtils";
 
 describe("Item", () => {
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
   });
@@ -51,18 +50,18 @@ describe("Item", () => {
   });
 
   it("CommandItemDef with getCommandArgs should call it on execute", () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
     const commandItem = new CommandItemDef({
       iconSpec: "icon-placeholder",
       execute: () => {},
       getCommandArgs: () => spyMethod(),
     });
     commandItem.execute();
-    expect(spyMethod).to.be.calledOnce;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("CommandItemDef with onItemExecuted should call it on execute", () => {
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
     const commandItem = new CommandItemDef(
       {
         iconSpec: "icon-placeholder",
@@ -71,7 +70,7 @@ describe("Item", () => {
       spyMethod
     );
     commandItem.execute();
-    expect(spyMethod).to.be.calledOnce;
+    expect(spyMethod).toHaveBeenCalledOnce();
   });
 
   it("ToolItemDef with no execute has no commandHandler", () => {
@@ -144,10 +143,10 @@ describe("Item", () => {
 
     toolItem.execute();
 
-    const spyMethod = sinon.spy(IModelApp.tools, "run");
+    const spyMethod = vi.spyOn(IModelApp.tools, "run");
     toolItem.execute();
     expect(TestImmediate.isValid).to.be.true;
-    spyMethod.calledOnceWithExactly("1");
+    expect(spyMethod).toHaveBeenNthCalledWith(1, "1");
   });
 
   class TestItemDef extends ActionButtonItemDef {

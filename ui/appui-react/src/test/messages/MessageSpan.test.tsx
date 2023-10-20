@@ -9,7 +9,7 @@ import {
   MessageSpan,
 } from "../../appui-react/messages/MessageSpan";
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
+import { describe, expect, it } from "vitest";
 import { selectorMatches } from "../TestUtils";
 
 describe("MessageSpan & MessageDiv", () => {

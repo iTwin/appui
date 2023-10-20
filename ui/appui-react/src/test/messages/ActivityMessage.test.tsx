@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import * as React from "react";
 import {
   act,
@@ -27,7 +27,7 @@ import { ActivityMessageRenderer } from "../../appui-react/messages/ActivityMess
 describe("ActivityMessageRenderer", () => {
   let notifications: AppNotificationManager;
 
-  before(async () => {
+  beforeAll(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
 
@@ -35,7 +35,7 @@ describe("ActivityMessageRenderer", () => {
     MessageManager.clearMessages();
   });
 
-  after(async () => {
+  afterAll(async () => {
     TestUtils.terminateUiFramework();
   });
 

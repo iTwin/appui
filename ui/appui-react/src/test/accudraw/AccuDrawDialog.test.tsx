@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
-import * as sinon from "sinon";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import * as React from "react";
 import { CompassMode, IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { SpecialKey } from "@itwin/appui-abstract";
@@ -14,14 +14,14 @@ import { AccuDrawDialog } from "../../appui-react/accudraw/AccuDrawDialog";
 import { UiFramework } from "../../appui-react";
 
 describe("AccuDrawDialog", () => {
-  before(async () => {
+  beforeAll(async () => {
     await NoRenderApp.startup({
       accuDraw: new FrameworkAccuDraw(),
     });
     await TestUtils.initializeUiFramework();
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
@@ -43,7 +43,7 @@ describe("AccuDrawDialog", () => {
   });
 
   it("should set focus to Home on Esc key", () => {
-    const spy = sinon.spy(UiFramework.keyboardShortcuts, "setFocusToHome");
+    const spy = vi.spyOn(UiFramework.keyboardShortcuts, "setFocusToHome");
     const component = render(
       <AccuDrawDialog opened={true} dialogId="accudraw" />
     );
@@ -51,19 +51,19 @@ describe("AccuDrawDialog", () => {
     component.baseElement.dispatchEvent(
       new KeyboardEvent("keyup", { key: SpecialKey.Escape })
     );
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
 
     (UiFramework.keyboardShortcuts.setFocusToHome as any).restore();
   });
 
   it("should call onClose on close", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <AccuDrawDialog opened={true} dialogId="accudraw" onClose={spy} />
     );
 
     const closeButton = component.getByRole("button", { name: "Close" });
     fireEvent.click(closeButton);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 });

@@ -2,7 +2,15 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Provider } from "react-redux";
@@ -21,12 +29,12 @@ describe("SnapModeField", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  before(async () => {
+  beforeAll(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
   });
 
-  after(async () => {
+  afterAll(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
   });
@@ -75,7 +83,7 @@ describe("SnapModeField", () => {
   });
 
   it("should change snapMode and dispatch SyncEvent on click", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
     render(
       <Provider store={TestUtils.store}>
@@ -88,7 +96,7 @@ describe("SnapModeField", () => {
     await theUserTo.click(screen.getByText("snapModeField.bisector"));
 
     expect(UiFramework.getAccudrawSnapMode()).to.equal(SnapMode.Bisector);
-    expect(spy).to.have.been.calledWith({
+    expect(spy).toHaveBeenCalledWith({
       eventIds: sinon.match.set.contains(
         new Set(["configurableui:set_snapmode"])
       ),

@@ -3,7 +3,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "types": ["sinon-chai", "chai-as-promised", "mocha", "chai-jest-snapshot"]
+    "types": ["vitest"]
   },
-  "include": ["./src/**/*.ts*"]
+  "include": ["./src/**/*.ts*", "./vitest.config.ts"]
 }

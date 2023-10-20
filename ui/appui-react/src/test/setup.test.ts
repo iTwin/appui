@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { toaster } from "@itwin/itwinui-react";
+import { afterEach } from "vitest";
 
 afterEach(() => {
   // Undo DOM manipulations made by iTwinUI-React components

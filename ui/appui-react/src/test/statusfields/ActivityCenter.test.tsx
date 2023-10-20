@@ -2,9 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import {
@@ -15,12 +14,12 @@ import {
 import TestUtils from "../TestUtils";
 
 describe("ActivityCenter", () => {
-  before(async () => {
+  beforeAll(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
   });
 
-  after(async () => {
+  afterAll(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
   });
@@ -65,8 +64,8 @@ describe("ActivityCenter", () => {
     MessageManager.setupActivityMessageValues("Test", 50);
     const field = await findByTitle(/activityCenter.moreDetails/);
 
-    const spy = sinon.spy(MessageManager, "setupActivityMessageValues");
+    const spy = vi.spyOn(MessageManager, "setupActivityMessageValues");
     fireEvent.click(field);
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 });

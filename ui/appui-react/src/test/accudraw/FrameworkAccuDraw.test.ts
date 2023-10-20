@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as sinon from "sinon";
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import type { IModelAppOptions } from "@itwin/core-frontend";
 import {
   BeButtonEvent,
@@ -29,18 +28,18 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
   )!;
   const localStorageMock = storageMock();
 
-  before(async () => {
+  beforeAll(async () => {
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
   });
 
-  after(() => {
+  afterAll(() => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
 
   describe("FrameworkAccuDraw", () => {
-    before(async () => {
+    beforeAll(async () => {
       await TestUtils.initializeUiFramework();
 
       const opts: IModelAppOptions = {};
@@ -49,7 +48,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       await NoRenderApp.startup(opts);
     });
 
-    after(async () => {
+    afterAll(async () => {
       await IModelApp.shutdown();
       TestUtils.terminateUiFramework();
     });
@@ -63,8 +62,8 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
 
     it("should call onCompassModeChange & emit onAccuDrawSetModeEvent & set conditionals", () => {
       FrameworkAccuDraw.displayNotifications = true;
-      const spy = sinon.spy();
-      const spyMessage = sinon.spy(IModelApp.notifications, "outputMessage");
+      const spy = vi.fn().mockReturnValueOnce({})
+      const spyMessage = vi.spyOn(IModelApp.notifications, "outputMessage");
       const remove =
         FrameworkAccuDraw.onAccuDrawSetCompassModeEvent.addListener(spy);
 
@@ -75,9 +74,9 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           FrameworkAccuDraw.isPolarModeConditional
         )
       ).to.be.true;
-      spy.calledOnce.should.true;
-      spyMessage.calledOnce.should.true;
-      spyMessage.resetHistory();
+      expect(spy).toHaveBeenCalledOnce()
+      expect(spyMessage).toHaveBeenCalledOnce()
+      spyMessage.mockReset()
 
       IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
       FrameworkAccuDraw.isRectangularModeConditional.refresh();
@@ -86,43 +85,44 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           FrameworkAccuDraw.isRectangularModeConditional
         )
       ).to.be.true;
-      spy.calledTwice.should.true;
-      spyMessage.calledOnce.should.true;
-      spyMessage.resetHistory();
+      expect(spy).toHaveBeenCalledTimes(2)
+      expect(spyMessage).toHaveBeenCalledOnce()
+      spyMessage.mockReset
+
 
       FrameworkAccuDraw.displayNotifications = false;
       IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
-      spyMessage.called.should.false;
-      spyMessage.resetHistory();
+      expect(spyMessage).not.toHaveBeenCalled()
+      spyMessage.mockReset()
 
       remove();
     });
 
     it("should call onFieldLockChange & emit onAccuDrawSetFieldLockEvent", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn().mockImplementationOnce(() => { })
       const remove =
         FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener(spy);
       IModelApp.accuDraw.setFieldLock(ItemField.X_Item, true);
-      spy.calledOnce.should.true;
-      spy.resetHistory();
+      expect(spy).toHaveBeenCalledOnce()
+      spy.mockReset()
       IModelApp.accuDraw.setFieldLock(ItemField.Y_Item, true);
-      spy.calledOnce.should.true;
-      spy.resetHistory();
+      expect(spy).toHaveBeenCalledOnce()
+      spy.mockReset()
       IModelApp.accuDraw.setFieldLock(ItemField.Z_Item, true);
-      spy.calledOnce.should.true;
-      spy.resetHistory();
+      expect(spy).toHaveBeenCalledOnce()
+      spy.mockReset()
       IModelApp.accuDraw.setFieldLock(ItemField.ANGLE_Item, true);
-      spy.calledOnce.should.true;
-      spy.resetHistory();
+      expect(spy).toHaveBeenCalledOnce()
+      spy.mockReset()
       IModelApp.accuDraw.setFieldLock(ItemField.DIST_Item, true);
-      spy.calledOnce.should.true;
-      spy.resetHistory();
+      expect(spy).toHaveBeenCalledOnce()
+      spy.mockReset()
       remove();
     });
 
     it("should set rotation & conditionals correctly & notify", () => {
       FrameworkAccuDraw.displayNotifications = true;
-      const spyMessage = sinon.spy(IModelApp.notifications, "outputMessage");
+      const spyMessage = vi.spyOn(IModelApp.notifications, "outputMessage");
 
       IModelApp.accuDraw.setRotationMode(RotationMode.Top);
       FrameworkAccuDraw.isTopRotationConditional.refresh();
@@ -131,8 +131,8 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           FrameworkAccuDraw.isTopRotationConditional
         )
       ).to.be.true;
-      spyMessage.calledOnce.should.true;
-      spyMessage.resetHistory();
+      expect(spyMessage).toHaveBeenCalledOnce()
+      spyMessage.mockReset()
       IModelApp.accuDraw.setRotationMode(RotationMode.Front);
       FrameworkAccuDraw.isFrontRotationConditional.refresh();
       expect(
@@ -140,8 +140,8 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           FrameworkAccuDraw.isFrontRotationConditional
         )
       ).to.be.true;
-      spyMessage.calledOnce.should.true;
-      spyMessage.resetHistory();
+      expect(spyMessage).toHaveBeenCalledOnce()
+      spyMessage.mockReset()
       IModelApp.accuDraw.setRotationMode(RotationMode.Side);
       FrameworkAccuDraw.isSideRotationConditional.refresh();
       expect(
@@ -149,8 +149,8 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           FrameworkAccuDraw.isSideRotationConditional
         )
       ).to.be.true;
-      spyMessage.calledOnce.should.true;
-      spyMessage.resetHistory();
+      expect(spyMessage).toHaveBeenCalledOnce()
+      spyMessage.mockReset()
       IModelApp.accuDraw.setRotationMode(RotationMode.View);
       FrameworkAccuDraw.isViewRotationConditional.refresh();
       expect(
@@ -158,8 +158,8 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           FrameworkAccuDraw.isViewRotationConditional
         )
       ).to.be.true;
-      spyMessage.calledOnce.should.true;
-      spyMessage.resetHistory();
+      expect(spyMessage).toHaveBeenCalledOnce()
+      spyMessage.mockReset()
       IModelApp.accuDraw.setRotationMode(RotationMode.ACS);
       FrameworkAccuDraw.isACSRotationConditional.refresh();
       expect(
@@ -167,8 +167,8 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           FrameworkAccuDraw.isACSRotationConditional
         )
       ).to.be.true;
-      spyMessage.calledOnce.should.true;
-      spyMessage.resetHistory();
+      expect(spyMessage).toHaveBeenCalledOnce()
+      spyMessage.mockReset()
       IModelApp.accuDraw.setRotationMode(RotationMode.Context);
       FrameworkAccuDraw.isContextRotationConditional.refresh();
       expect(
@@ -176,40 +176,41 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           FrameworkAccuDraw.isContextRotationConditional
         )
       ).to.be.true;
-      spyMessage.calledOnce.should.true;
-      spyMessage.resetHistory();
+      expect(spyMessage).toHaveBeenCalledOnce()
+      spyMessage.mockReset()
 
       FrameworkAccuDraw.displayNotifications = false;
       IModelApp.accuDraw.setRotationMode(RotationMode.Top);
-      spyMessage.calledOnce.should.false;
-      spyMessage.resetHistory();
+      expect(spyMessage).toHaveBeenCalledOnce()
+      spyMessage.mockReset()
     });
 
     it("should call onFieldValueChange & emit onAccuDrawSetFieldValueToUiEvent", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn().mockReturnValueOnce({})
       const remove =
         FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(spy);
       IModelApp.accuDraw.setValueByIndex(ItemField.X_Item, 1.0);
       IModelApp.accuDraw.onFieldValueChange(ItemField.X_Item);
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce()
+
       remove();
     });
 
     it("should emit onAccuDrawSetFieldFocusEvent", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn().mockReturnValueOnce({})
       const remove =
         FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
       IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce()
       remove();
     });
 
     it("should emit onAccuDrawGrabInputFocusEvent", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn().mockReturnValueOnce({})
       const remove =
         FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(spy);
       IModelApp.accuDraw.grabInputFocus();
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce()
       remove();
     });
 
@@ -218,31 +219,34 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
     });
 
     it("should emit onAccuDrawSetFieldValueToUiEvent & onAccuDrawSetFieldFocusEvent", () => {
-      const spyValue = sinon.spy();
+      const spyValue = vi.fn().mockReturnValueOnce({})
       const remove =
         FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(
           spyValue
         );
-      const spyFocus = sinon.spy();
+      const spyFocus = vi.fn().mockReturnValueOnce({})
       const removeFocusSpy =
         FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spyFocus);
 
       IModelApp.accuDraw.currentState = CurrentState.Deactivated;
       IModelApp.accuDraw.onMotion(new BeButtonEvent());
-      spyValue.called.should.false;
-      spyValue.resetHistory();
+
+      expect(spyValue).not.toHaveBeenCalled()
+      spyValue.mockReset()
 
       IModelApp.accuDraw.currentState = CurrentState.Active;
       IModelApp.accuDraw.onMotion(new BeButtonEvent());
-      spyValue.called.should.true;
-      spyFocus.called.should.true;
-      spyValue.resetHistory();
-      spyFocus.resetHistory();
+
+      expect(spyValue).toHaveBeenCalled()
+      expect(spyFocus).toHaveBeenCalled()
+
+      spyValue.mockReset()
+      spyFocus.mockReset();
 
       IModelApp.accuDraw.dontMoveFocus = true;
       IModelApp.accuDraw.onMotion(new BeButtonEvent());
-      spyValue.called.should.true;
-      spyFocus.called.should.false;
+      expect(spyValue).toHaveBeenCalled()
+      expect(spyFocus).not.toHaveBeenCalled()
 
       remove();
       removeFocusSpy();

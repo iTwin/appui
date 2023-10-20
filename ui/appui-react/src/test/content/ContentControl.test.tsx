@@ -3,9 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { expect } from "chai";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import type {
   ConfigurableCreateInfo,
   FrontstageConfig,
@@ -27,12 +26,12 @@ describe("ContentControl", () => {
     }
   }
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     UiFramework.controls.register("TestContentControl", TestContentControl);
   });
 
-  after(() => {
+  afterAll(() => {
     TestUtils.terminateUiFramework();
   });
 
@@ -87,12 +86,9 @@ describe("ContentControl", () => {
         expect(contentControl).to.not.be.undefined;
 
         if (contentControl) {
-          const activatedMethod = sinon.spy(contentControl, "onActivated");
+          const activatedMethod = vi.spyOn(contentControl, "onActivated");
           UiFramework.content.setActive(contentSet[1]);
-          expect(
-            activatedMethod.calledOnce,
-            `onActivated called ${activatedMethod.callCount} times`
-          ).to.be.true;
+          expect(activatedMethod).toHaveBeenCalledOnce();
 
           expect(contentControl.isViewport).to.be.false;
           expect(contentControl.viewport).to.be.undefined;
@@ -153,13 +149,13 @@ describe("ContentControl", () => {
         expect(contentControl).to.not.be.undefined;
 
         if (contentControl) {
-          const deactivatedMethod = sinon.spy(contentControl, "onDeactivated");
+          const deactivatedMethod = vi.spyOn(contentControl, "onDeactivated");
           UiFramework.content.setActive(contentSet[1]);
-          expect(deactivatedMethod.calledOnce).to.be.true;
+          expect(deactivatedMethod).toHaveBeenCalledOnce();
 
-          const activatedMethod = sinon.spy(contentControl, "onActivated");
+          const activatedMethod = vi.spyOn(contentControl, "onActivated");
           UiFramework.content.refreshActive(contentSet[0]);
-          expect(activatedMethod.calledOnce).to.be.true;
+          expect(activatedMethod).toHaveBeenCalledOnce();
         }
       }
     }

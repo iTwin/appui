@@ -2,9 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import {
   IModelApp,
@@ -48,12 +55,12 @@ describe(`ToolAssistanceField`, () => {
     localStorage: storageMock(),
   } as Window);
 
-  before(async () => {
+  beforeAll(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterAll(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
   });
@@ -445,7 +452,7 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard but keyboardInfo should log error", async () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spyMethod = vi.spyOn(Logger, "logError");
     render(
       <StatusBar>
         <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -462,12 +469,12 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      expect(spyMethod).toHaveBeenCalled();
     });
   });
 
   it("ToolAssistanceImage.Keyboard with invalid keyboardInfo should log error", async () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spyMethod = vi.spyOn(Logger, "logError");
     render(
       <StatusBar>
         <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -484,7 +491,7 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      expect(spyMethod).toHaveBeenCalled();
     });
   });
 
@@ -615,7 +622,7 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("invalid modifier key info along with image should log error", async () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spyMethod = vi.spyOn(Logger, "logError");
     render(
       <StatusBar>
         <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -634,7 +641,7 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      expect(spyMethod).toHaveBeenCalled();
     });
   });
 
@@ -726,7 +733,7 @@ describe(`ToolAssistanceField`, () => {
       </StatusBar>
     );
 
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
     CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spyMethod);
 
     const notifications = new AppNotificationManager();
@@ -739,7 +746,7 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      expect(spyMethod).toHaveBeenCalled();
     });
 
     CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(
@@ -757,7 +764,7 @@ describe(`ToolAssistanceField`, () => {
       </StatusBar>
     );
 
-    const spyMethod = sinon.spy();
+    const spyMethod = vi.fn();
     CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spyMethod);
 
     // emit before instructions set
@@ -765,7 +772,7 @@ describe(`ToolAssistanceField`, () => {
       iconSpec: "icon-placeholder",
     });
 
-    spyMethod.called.should.false;
+    expect(spyMethod).not.toHaveBeenCalled();
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -776,7 +783,7 @@ describe(`ToolAssistanceField`, () => {
     const instructions = ToolAssistance.createInstructions(mainInstruction);
     notifications.setToolAssistance(instructions);
 
-    spyMethod.resetHistory();
+    spyMethod.mockReset();
 
     // emit after instructions set
     UiFramework.frontstages.onToolIconChangedEvent.emit({
@@ -784,7 +791,7 @@ describe(`ToolAssistanceField`, () => {
     });
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      expect(spyMethod).toHaveBeenCalled();
     });
 
     CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(

@@ -2,9 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import * as React from "react";
-import * as sinon from "sinon";
 
 import type { IModelAppOptions } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, Tool } from "@itwin/core-frontend";
@@ -34,7 +42,7 @@ const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
 function requestNextAnimation() {}
 
 describe("<KeyinPalettePanel>", () => {
-  before(async () => {
+  beforeAll(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it. Tried replacing window.requestAnimationFrame first
     // but that did not work.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
@@ -51,7 +59,7 @@ describe("<KeyinPalettePanel>", () => {
     await NoRenderApp.startup(opts);
   });
 
-  after(async () => {
+  afterAll(async () => {
     await IModelApp.shutdown();
 
     // restore the overriden property getter
@@ -262,14 +270,16 @@ describe("<KeyinPalettePanel>", () => {
     }
 
     beforeEach(() => {
-      sinon.stub(IModelApp.tools, "parseKeyin").callsFake((keyin: string) => {
-        if (keyin === "bogus") return { ok: false, error: 1 };
-        return { ok: true, args: [], tool: TestImmediate };
-      });
+      vi.spyOn(IModelApp.tools, "parseKeyin").mockImplementation(
+        (keyin: string) => {
+          if (keyin === "bogus") return { ok: false, error: 1 };
+          return { ok: true, args: [], tool: TestImmediate };
+        }
+      );
     });
 
     afterEach(() => {
-      sinon.restore();
+      vi.restoreAllMocks();
     });
 
     it("Renders and filters out bogus history entry", async () => {
