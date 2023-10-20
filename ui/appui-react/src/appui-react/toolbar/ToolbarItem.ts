@@ -143,14 +143,14 @@ export function isToolbarCustomItem(
  * @alpha
  */
 export interface ToolbarItemLayouts {
-  /** Toolbar item configuration in a panels layout. */
-  readonly standard?: PanelsLayoutToolbarItem;
+  /** Toolbar item configuration in a standard layout. */
+  readonly standard?: StandardLayoutToolbarItem;
 }
 
-/** Describes toolbar item configuration specific to a panels layout.
+/** Describes toolbar item configuration specific to a standard layout.
  * @alpha
  */
-export interface PanelsLayoutToolbarItem {
+export interface StandardLayoutToolbarItem {
   /** Describes toolbar usage. */
   readonly usage: ToolbarUsage;
   /** Describes toolbar orientation. */

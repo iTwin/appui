@@ -58,14 +58,14 @@ export interface Widget {
  * @alpha
  */
 export interface WidgetLayouts {
-  /** Widget configuration in a panels layout. */
-  readonly standard?: PanelsLayoutWidget;
+  /** Widget configuration in a standard layout. */
+  readonly standard?: StandardLayoutWidget;
 }
 
-/** Describes widget configuration specific to a panels layout.
+/** Describes widget configuration specific to a standard layout.
  * @alpha
  */
-export interface PanelsLayoutWidget {
+export interface StandardLayoutWidget {
   /** Describes to which panel the widget is added. */
   readonly location: StagePanelLocation;
   /** Describes to which section of a panel the widget is added. */
