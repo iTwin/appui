@@ -15,6 +15,9 @@ export default defineConfig({
       web: {
         transformAssets: false,
       }
+    },
+    alias: {
+      "*.svg": ""
     }
   }
 })
