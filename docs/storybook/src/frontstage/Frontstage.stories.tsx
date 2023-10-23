@@ -14,7 +14,7 @@ import { AppUiDecorator } from "../AppUiDecorator";
 import { Page } from "../AppUiStory";
 import { FrontstageStory } from "./Frontstage";
 import { removeProperty, createFrontstageProvider } from "../Utils";
-import { VirtualCursorElement } from "../VirtualCursor";
+import { createCursorEvents, VirtualCursorElement } from "../VirtualCursor";
 
 const meta = {
   title: "Frontstage/FrontstageProvider",
@@ -343,32 +343,44 @@ export const Interaction: Story = {
 
     const virtualMouse = new VirtualCursorElement();
     canvasElement.append(virtualMouse);
+
+    const cursorEvents = createCursorEvents(
+      { x: virtualMouse.left, y: virtualMouse.top },
+      (to) => {
+        fireEvent.mouseMove(canvasElement.ownerDocument, {
+          clientX: to.x,
+          clientY: to.y,
+        });
+      }
+    );
     await step("test", async () => {
       const widget = await canvas.findByTitle("Widget 2", undefined, {
         timeout: 5000,
       });
       const initialBounds = widget.getBoundingClientRect();
       const startPos = {
-        clientX: initialBounds.x + 10,
-        clientY: initialBounds.y + 10,
+        x: initialBounds.x + 10,
+        y: initialBounds.y + 10,
       };
       const moveTo = {
-        clientX: initialBounds.x - 300,
-        clientY: initialBounds.y + 200,
+        x: initialBounds.x - 300,
+        y: initialBounds.y + 200,
       };
 
       await wait(1000);
-      fireEvent.mouseDown(widget, startPos);
-
+      await cursorEvents.move(startPos);
       await wait(1000);
-      fireEvent.mouseMove(widget.ownerDocument, {
-        clientX: startPos.clientX + 1,
-        clientY: startPos.clientY + 1,
+      fireEvent.mouseDown(widget, {
+        clientX: startPos.x,
+        clientY: startPos.y,
       });
-      fireEvent.mouseMove(widget.ownerDocument, moveTo);
 
-      await wait(1000);
-      fireEvent.mouseUp(widget.ownerDocument, moveTo);
+      await cursorEvents.move(moveTo);
+      await wait(500);
+      fireEvent.mouseUp(widget.ownerDocument, {
+        clientX: moveTo.x,
+        clientY: moveTo.y,
+      });
     });
   },
 };

@@ -2,13 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { LineSegment3d, Point3d, XAndY } from "@itwin/core-geometry";
 
 export class VirtualCursorElement extends HTMLElement {
   private _removeListeners: (() => void)[] = [];
-
-  private _cursorDown = false;
-  private _left = 100;
-  private _top = 100;
+  public top = 100;
+  public left = 100;
 
   public connectedCallback() {
     // Create a shadow root
@@ -22,7 +21,6 @@ export class VirtualCursorElement extends HTMLElement {
 
     // Create some CSS to apply to the shadow dom
     const cursorSize = 25;
-    const duration = 250;
     const style = document.createElement("style");
     style.textContent = `
       .overlay {
@@ -38,7 +36,6 @@ export class VirtualCursorElement extends HTMLElement {
       .cursor {
         width: ${cursorSize}px;
         height: ${cursorSize}px;
-        transition: transform ${duration / 1000}s ease-out;
 
         background: red;
         border-radius: 50%;
@@ -52,16 +49,16 @@ export class VirtualCursorElement extends HTMLElement {
     `;
 
     const setCursorPosition = (top: number, left: number) => {
-      this._left = left;
-      this._top = top;
+      this.top = top;
+      this.left = left;
       cursor.style.transform = `translate(${left}px, ${top}px)`;
     };
-    setCursorPosition(100, 100);
-
     const setCursorDown = (down: boolean) => {
       if (down) cursor.classList.add("down");
       if (!down) cursor.classList.remove("down");
     };
+    setCursorPosition(this.top, this.left);
+    setCursorDown(false);
 
     const getNewPosition = (e: MouseEvent) => {
       const left = e.pageX - cursorSize / 2;
@@ -71,26 +68,17 @@ export class VirtualCursorElement extends HTMLElement {
 
     const handleMouseMove = (e: MouseEvent) => {
       const { left, top } = getNewPosition(e);
-      setCursorDown(this._cursorDown);
       setCursorPosition(top, left);
     };
     const handleMouseDown = (e: MouseEvent) => {
-      this._cursorDown = true;
       const { left, top } = getNewPosition(e);
-      if (left === this._left && top === this._top) {
-        setCursorDown(true);
-        return;
-      }
       setCursorPosition(top, left);
+      setCursorDown(true);
     };
     const handleMouseUp = (e: MouseEvent) => {
-      this._cursorDown = false;
       const { left, top } = getNewPosition(e);
-      if (left === this._left && top === this._top) {
-        setCursorDown(false);
-        return;
-      }
       setCursorPosition(top, left);
+      setCursorDown(false);
     };
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mousedown", handleMouseDown);
@@ -103,19 +91,13 @@ export class VirtualCursorElement extends HTMLElement {
     overlay.addEventListener("mousedown", stopPropagation);
     overlay.addEventListener("mouseup", stopPropagation);
 
-    const handleTransitionEnd = () => {
-      setCursorDown(this._cursorDown);
-    };
-    cursor.addEventListener("transitionend", handleTransitionEnd);
-
     this._removeListeners.push(
       () => document.removeEventListener("mousemove", handleMouseMove),
       () => document.removeEventListener("mousedown", handleMouseDown),
       () => document.removeEventListener("mouseup", handleMouseUp),
       () => overlay.removeEventListener("mousemove", stopPropagation),
       () => overlay.removeEventListener("mousedown", stopPropagation),
-      () => overlay.removeEventListener("mouseup", stopPropagation),
-      () => cursor.removeEventListener("transitionend", handleTransitionEnd)
+      () => overlay.removeEventListener("mouseup", stopPropagation)
     );
 
     shadow.appendChild(style);
@@ -128,6 +110,44 @@ export class VirtualCursorElement extends HTMLElement {
       removeListener();
     }
   }
+}
+
+export function createCursorEvents(
+  initialPosition: XAndY,
+  onMove: (to: XAndY) => void,
+  options?: {
+    duration?: number;
+  }
+) {
+  let currentPosition = initialPosition;
+  const duration = options?.duration ?? 250;
+  return {
+    move: async (to: XAndY) => {
+      let start = Date.now();
+      const line = LineSegment3d.create(
+        new Point3d(currentPosition.x, currentPosition.y, 0),
+        new Point3d(to.x, to.y, 0)
+      );
+      return new Promise<void>((resolve) => {
+        const move = () => {
+          const now = Date.now();
+          const elapsed = now - start;
+          const fraction = elapsed / duration;
+          if (fraction < 1) {
+            const position = line.fractionToPoint(fraction);
+            onMove({ x: position.x, y: position.y });
+            requestAnimationFrame(move);
+            return;
+          }
+
+          onMove(to);
+          currentPosition = to;
+          resolve();
+        };
+        requestAnimationFrame(move);
+      });
+    },
+  };
 }
 
 if (!customElements.get("virtual-cursor-element"))
