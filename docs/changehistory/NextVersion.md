@@ -15,6 +15,7 @@ Table of contents:
 ### Changes
 
 - `AppNotificationManager` no longer requires `StatusBar` to be rendered in the active frontstage to show messages.
+- Popout Widgets will now size to content on popout.
 
 ### Fixes
 

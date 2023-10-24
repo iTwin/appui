@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Popout Widgets will now size to content on popout",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
