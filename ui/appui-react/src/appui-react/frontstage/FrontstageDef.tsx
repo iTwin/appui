@@ -191,6 +191,11 @@ export class FrontstageDef {
         }
       }
 
+      if (nineZone.draggedTab?.tabId === widgetId) {
+        widgetMap.set(widgetDef, WidgetState.Closed);
+        continue;
+      }
+
       const tabLocation = getTabLocation(nineZone, widgetId);
       if (!tabLocation) {
         widgetMap.set(widgetDef, WidgetState.Hidden);
