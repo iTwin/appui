@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Fix broken datauri containing commas in `IconWebComponent`.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}
