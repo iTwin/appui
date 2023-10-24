@@ -34,7 +34,6 @@ export const Default: Story = {};
 export const Floating: Story = {
   args: {
     defaultState: WidgetState.Floating,
-    canFloat: {}, // TODO: #550
   },
 };
 
