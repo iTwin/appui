@@ -119,8 +119,8 @@
     "immer": "9.0.6",
     "linkify-it": "~2.2.0",
     "lodash": "^4.17.10",
-    "react-highlight-words": "^0.17.0",
-    "react-window": "^1.8.2",
+    "react-highlight-words": "^0.20.0",
+    "react-window": "^1.8.9",
     "rxjs": "^7.8.1",
     "shortid": "~2.2.15"
   },
