@@ -56,7 +56,8 @@ export interface CommonToolbarItem {
   readonly groupPriority?: number;
   /** Priority within a toolbar or group. */
   readonly itemPriority: number;
-  /** Describes layout specific configurations of a toolbar item.
+  /** Describes layout specific configuration of a toolbar item.
+   * @note Only used by `get*` methods of [[UiItemsProvider]].
    * @alpha
    */
   readonly layouts?: ToolbarItemLayouts;

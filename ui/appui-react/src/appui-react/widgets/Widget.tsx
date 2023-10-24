@@ -48,7 +48,8 @@ export interface Widget {
   readonly label?: string | ConditionalStringValue;
   readonly priority?: number;
   readonly tooltip?: string | ConditionalStringValue;
-  /** Describes layout specific configurations of a widget.
+  /** Describes layout specific configuration of a widget.
+   * @note Only used by `get*` methods of [[UiItemsProvider]].
    * @alpha
    */
   readonly layouts?: WidgetLayouts;
