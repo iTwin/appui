@@ -36,10 +36,12 @@ export interface Widget {
   readonly badge?: BadgeType;
   /** Describes if the widget can be popped out to a separate window. Defaults to `false`. */
   readonly canPopout?: boolean;
-  /** Set to `false` to disable floating of a widget. Alternatively options object can be provided which enables floating.
-   * If allowedPanels is an empty array, automatically set to `true`. Defaults to `true`. */
+  /** Set to `false` to disable floating of a widget. Defaults to `true`.
+   * Alternatively options object can be provided to configure floating behavior.
+   * It is not possible to disable the floating of a widget if `allowedPanels` is an empty array.
+   */
   readonly canFloat?: boolean | CanFloatWidgetOptions;
-  /** Defaults to `Floating`(3) if widget is not allowed to dock to any panels. */
+  /** Defaults to `Floating` if widget is not allowed to dock to any panels. */
   readonly defaultState?: WidgetState;
   /** Content of the Widget. */
   readonly content?: React.ReactNode;
