@@ -479,6 +479,10 @@
       "allowedCategories": [ "frontend" ]
     },
     {
+      "name": "sass",
+      "allowedCategories": [ "frontend" ]
+    },
+    {
       "name": "serve",
       "allowedCategories": [ "internal" ]
     },

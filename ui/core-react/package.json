@@ -110,7 +110,8 @@
     "dompurify": "^2.0.12",
     "lodash": "^4.17.10",
     "react-autosuggest": "^10.1.0",
-    "resize-observer-polyfill": "1.5.1"
+    "resize-observer-polyfill": "1.5.1",
+    "sass": "~1.69.4"
   },
   "nyc": {
     "extends": "./node_modules/@itwin/build-tools/.nycrc",

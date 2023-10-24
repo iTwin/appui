@@ -10,14 +10,29 @@ export default defineConfig({
   test: {
     environment: 'happy-dom',
     include: ["**/MenuButton.test.tsx"],
+
     experimentalVmThreads: true,
+    css: false,
     deps: {
+      optimizer: {
+        web: {
+          enabled: true,
+          include: ["@itwin/core-react"]
+        }
+      },
       web: {
-        transformAssets: false,
-      }
-    },
-    alias: {
-      "*.svg": ""
+        transformCss: false,
+        transformAssets: true
+      },
     }
+  },
+  build: {
+    commonjsOptions: {
+      include: ["@itwin/core-react"]
+    }
+  },
+  optimizeDeps: {
+    force: true,
+    include: ["@itwin/core-react"],
   }
 })
