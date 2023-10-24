@@ -58,8 +58,9 @@ describe("useDebouncedAsyncValue", () => {
   describe("rethrows exceptions capturable by react error boundary", () => {
     it("rethrows `Error` exceptions", async () => {
       const promise = Promise.reject(new Error("test error"));
+      const asyncValue = async () => promise;
       function TestComponent() {
-        useDebouncedAsyncValue(async () => promise);
+        useDebouncedAsyncValue(asyncValue);
         return null;
       }
       const errorSpy = sinon.spy();
@@ -77,8 +78,9 @@ describe("useDebouncedAsyncValue", () => {
 
     it("throws generic `Error` when promise rejects with `undefined`", async () => {
       const promise = Promise.reject(undefined);
+      const asyncValue = async () => promise;
       function TestComponent() {
-        useDebouncedAsyncValue(async () => promise);
+        useDebouncedAsyncValue(asyncValue);
         return null;
       }
       const errorSpy = sinon.spy();
