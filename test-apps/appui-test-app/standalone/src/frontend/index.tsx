@@ -107,7 +107,6 @@ import {
   addExampleFrontstagesToBackstage,
   registerExampleFrontstages,
 } from "./appui/frontstages/example-stages/ExampleStagesBackstageProvider";
-import { ThemeProvider } from "@itwin/itwinui-react";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -694,13 +693,7 @@ async function main() {
 
   ReactDOM.render(
     <React.StrictMode>
-      <ThemeProvider
-        theme="dark"
-        themeOptions={{ highContrast: true }}
-        style={{ height: "100%" }}
-      >
-        <SampleAppViewer />
-      </ThemeProvider>
+      <SampleAppViewer />
     </React.StrictMode>,
     document.getElementById("root") as HTMLElement
   );
