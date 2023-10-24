@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { ConditionalStringValue } from "@itwin/appui-abstract";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import { ConditionalIconItem } from "../../core-react/icons/ConditionalIconItem";
