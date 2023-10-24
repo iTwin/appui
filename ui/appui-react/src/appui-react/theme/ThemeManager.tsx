@@ -22,23 +22,26 @@ export const SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED";
  * @public
  */
 export enum ColorTheme {
+  /** Will use iTwinUI `light` theme. */
   Light = "light",
+  /** Will use iTwinUI `dark` theme. */
   Dark = "dark",
+  /** Will use iTwinUI `os` theme. */
   System = SYSTEM_PREFERRED_COLOR_THEME,
+  /** Will use iTwinUI wrapping `ThemeProvider` if provided, or default to 'Light' */
   Inherit = "inherit",
+  /** Will use iTwinUI `light` theme with `highContrast` set to `true` */
   HighContrastLight = "high-contrast-light",
+  /** Will use iTwinUI `dark` theme with `highContrast` set to `true` */
   HighContrastDark = "high-contrast-dark",
 }
 
 /**
- * List of valid theme values
+ * Describe valid themes.
+ * See [[ThemeManager]] for more information.
  * @public
  */
-export type ThemeValues =
-  | keyof {
-      [P in keyof typeof ColorTheme as `${(typeof ColorTheme)[P]}`]: "";
-    }
-  | (string & {});
+export type ThemeId = `${ColorTheme}` | (string & {});
 
 /**
  * Map of ColorTheme to ThemeType
@@ -73,7 +76,7 @@ export const TOOLBAR_OPACITY_DEFAULT = 0.5;
  */
 interface ThemeManagerProps {
   /** theme ("light", "dark", etc.) */
-  theme: ThemeValues;
+  theme: ThemeId;
   /* Widget Opacity */
   widgetOpacity: number;
   children?: React.ReactNode;
@@ -163,9 +166,13 @@ class ThemeManagerComponent extends React.Component<ThemeManagerProps> {
 
 /**
  * ThemeManager handles setting color themes. Note that this component will
- * affect the entire application by setting the AppUI theme to the html element.
+ * affect the entire application by setting the data-theme attribute to the html element.
  * It also sets an iTwinUI `ThemeProvider` element locally, so all elements
  * within the AppUI tree will have the same theme, and should be using iTwinUI 2.x or later.
+ * A ColorTheme enum values will configure iTwinUI `ThemeProvider` accordingly.
+ * Any other string will only apply the `data-theme` attribute to the `html` element
+ * and `ThemeProvider` theme will be set to `inherit`, in this case the application is
+ * responsible for setting the theme by overriding iTwinUI css variables.
  * This React component is Redux connected.
  * @public
  */

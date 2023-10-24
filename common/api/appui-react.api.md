@@ -441,7 +441,7 @@ export class AppUiSettings implements UserSettingsProvider {
     // (undocumented)
     autoCollapseUnpinnedPanels: UiStateEntry<boolean>;
     // (undocumented)
-    colorTheme: UiStateEntry<ThemeValues>;
+    colorTheme: UiStateEntry<ThemeId>;
     // (undocumented)
     dragInteraction: UiStateEntry<boolean>;
     // (undocumented)
@@ -792,17 +792,11 @@ export function clearKeyinPaletteHistory(): void;
 
 // @public
 export enum ColorTheme {
-    // (undocumented)
     Dark = "dark",
-    // (undocumented)
     HighContrastDark = "high-contrast-dark",
-    // (undocumented)
     HighContrastLight = "high-contrast-light",
-    // (undocumented)
     Inherit = "inherit",
-    // (undocumented)
     Light = "light",
-    // (undocumented)
     System = "SYSTEM_PREFERRED"
 }
 
@@ -923,7 +917,7 @@ export enum ConfigurableUiActionId {
 // @public
 export const ConfigurableUiActions: {
     setSnapMode: (snapMode: number) => ActionWithPayload<ConfigurableUiActionId.SetSnapMode, number>;
-    setTheme: (theme: ThemeValues) => ActionWithPayload<ConfigurableUiActionId.SetTheme, "inherit" | "dark" | "light" | "SYSTEM_PREFERRED" | "high-contrast-light" | "high-contrast-dark" | DeepReadonlyObject<string & {}>>;
+    setTheme: (theme: ThemeId) => ActionWithPayload<ConfigurableUiActionId.SetTheme, "inherit" | "dark" | "light" | "SYSTEM_PREFERRED" | "high-contrast-light" | "high-contrast-dark" | DeepReadonlyObject<string & {}>>;
     setToolPrompt: (toolPrompt: string) => ActionWithPayload<ConfigurableUiActionId.SetToolPrompt, string>;
     setWidgetOpacity: (opacity: number) => ActionWithPayload<ConfigurableUiActionId.SetWidgetOpacity, number>;
     setDragInteraction: (dragInteraction: boolean) => ActionWithPayload<ConfigurableUiActionId.SetDragInteraction, boolean>;
@@ -1006,7 +1000,7 @@ export interface ConfigurableUiState {
     // (undocumented)
     snapMode: number;
     // (undocumented)
-    theme: ThemeValues;
+    theme: ThemeId;
     // (undocumented)
     toolbarOpacity: number;
     // (undocumented)
@@ -2572,7 +2566,7 @@ export interface InitialAppUiSettings {
     // @alpha (undocumented)
     autoCollapseUnpinnedPanels?: boolean;
     // (undocumented)
-    colorTheme: ThemeValues;
+    colorTheme: ThemeId;
     // (undocumented)
     dragInteraction: boolean;
     // (undocumented)
@@ -4448,12 +4442,10 @@ export enum SyncUiEventId {
 export const SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED";
 
 // @public
-export const ThemeManager: ConnectedComponent<typeof ThemeManagerComponent, Omit_3<React_2.ClassAttributes<ThemeManagerComponent> & ThemeManagerProps, "theme" | "widgetOpacity" | "toolbarOpacity">>;
+export type ThemeId = `${ColorTheme}` | (string & {});
 
 // @public
-export type ThemeValues = keyof {
-    [P in keyof typeof ColorTheme as `${(typeof ColorTheme)[P]}`]: "";
-} | (string & {});
+export const ThemeManager: ConnectedComponent<typeof ThemeManagerComponent, Omit_3<React_2.ClassAttributes<ThemeManagerComponent> & ThemeManagerProps, "theme" | "widgetOpacity" | "toolbarOpacity">>;
 
 // @public
 export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, TileLoadingIndicatorState> {
@@ -4796,7 +4788,7 @@ export class UiFramework {
     // (undocumented)
     static getAvailableSelectionScopes(): PresentationSelectionScope[];
     // (undocumented)
-    static getColorTheme(): ThemeValues;
+    static getColorTheme(): ThemeId;
     // (undocumented)
     static getCursorMenuData(): CursorMenuData | undefined;
     // (undocumented)
@@ -4845,8 +4837,7 @@ export class UiFramework {
     // (undocumented)
     static setAnimateToolSettings(value: boolean): void;
     static setAutoCollapseUnpinnedPanels(value: boolean): void;
-    // (undocumented)
-    static setColorTheme(theme: ThemeValues): void;
+    static setColorTheme(theme: ThemeId): void;
     // (undocumented)
     static setDefaultIModelViewportControlId(iModelViewportControlId: string, immediateSync?: boolean): void;
     // (undocumented)

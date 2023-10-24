@@ -470,8 +470,8 @@ public;SyncToolSettingsPropertiesEventArgs
 public;SyncUiEventDispatcher
 public;SyncUiEventId
 public;SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED"
+public;ThemeId = `${ColorTheme}` | (string & {})
 public;ThemeManager: ConnectedComponent
-public;ThemeValues = keyof
 public;TileLoadingIndicator 
 public;ToolActivatedEvent 
 public;ToolActivatedEventArgs

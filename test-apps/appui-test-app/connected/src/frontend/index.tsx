@@ -111,6 +111,7 @@ import {
   SynchronizedFloatingViewportStage,
   WidgetApiStage,
 } from "@itwin/appui-test-providers";
+import { ThemeProvider } from "@itwin/itwinui-react";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -931,7 +932,13 @@ async function main() {
 
   ReactDOM.render(
     <React.StrictMode>
-      <SampleAppViewer2 />
+      <ThemeProvider
+        theme="dark"
+        themeOptions={{ highContrast: true }}
+        style={{ height: "100%" }}
+      >
+        <SampleAppViewer2 />
+      </ThemeProvider>
     </React.StrictMode>,
     document.getElementById("root") as HTMLElement
   );

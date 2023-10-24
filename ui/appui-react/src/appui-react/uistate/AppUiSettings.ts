@@ -12,7 +12,7 @@ import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import type { UserSettingsProvider } from "../UiFramework";
 import { UiFramework } from "../UiFramework";
 import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
-import type { ThemeValues } from "../theme/ThemeManager";
+import type { ThemeId } from "../theme/ThemeManager";
 
 // cSpell:ignore configurableui
 
@@ -20,7 +20,7 @@ import type { ThemeValues } from "../theme/ThemeManager";
  * @public
  */
 export interface InitialAppUiSettings {
-  colorTheme: ThemeValues;
+  colorTheme: ThemeId;
   dragInteraction: boolean;
   widgetOpacity: number;
   showWidgetIcon?: boolean;
@@ -49,7 +49,7 @@ export class AppUiSettings implements UserSettingsProvider {
   private _settings: Array<UiStateEntry<any>> = [];
   private _applyingLocalSettings = false;
 
-  public colorTheme: UiStateEntry<ThemeValues>;
+  public colorTheme: UiStateEntry<ThemeId>;
   public dragInteraction: UiStateEntry<boolean>;
   public widgetOpacity: UiStateEntry<number>;
   public showWidgetIcon: UiStateEntry<boolean>;
@@ -58,7 +58,7 @@ export class AppUiSettings implements UserSettingsProvider {
   public useToolAsToolSettingsLabel: UiStateEntry<boolean>;
   public toolbarOpacity: UiStateEntry<number>;
 
-  private setColorTheme = (theme: ThemeValues) => {
+  private setColorTheme = (theme: ThemeId) => {
     UiFramework.setColorTheme(theme);
     // always store to local storage to avoid flicker during startup if user is not yet logged-in
     window.localStorage.setItem("uifw:defaultTheme", theme);
@@ -67,7 +67,7 @@ export class AppUiSettings implements UserSettingsProvider {
   constructor(defaults: Partial<InitialAppUiSettings>) {
     this._settings = [];
 
-    this.colorTheme = new UiStateEntry<ThemeValues>(
+    this.colorTheme = new UiStateEntry<ThemeId>(
       AppUiSettings._settingNamespace,
       "ColorTheme",
       UiFramework.getColorTheme,
