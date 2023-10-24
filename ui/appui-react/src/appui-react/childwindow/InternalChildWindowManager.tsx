@@ -271,12 +271,25 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       return false;
     }
 
+    const nineZoneState =
+      UiFramework.frontstages.activeFrontstageDef?.nineZoneState;
+
+    if (nineZoneState === undefined) return false;
+
+    const popoutContentContainer = document.getElementById(
+      `content-container:${nineZoneState.widgets[childWindowId].activeTabId}`
+    );
+    if (popoutContentContainer === null) return false;
+
+    const contentWidth = popoutContentContainer.offsetWidth + 20;
+    const contentHeight = popoutContentContainer.offsetHeight + 20;
+
     location = this.adjustWidowLocation(location);
     const url = useDefaultPopoutUrl ? "/iTwinPopup.html" : "";
     const childWindow = window.open(
       url,
       "",
-      `width=${location.width},height=${location.height},left=${location.left},top=${location.top},menubar=no,resizable=yes,scrollbars=no,status=no,location=no`
+      `width=${contentWidth},height=${contentHeight},left=${location.left},top=${location.top},menubar=no,resizable=yes,scrollbars=no,status=no,location=no`
     );
     if (!childWindow) return false;
     if (0 === url.length) {
