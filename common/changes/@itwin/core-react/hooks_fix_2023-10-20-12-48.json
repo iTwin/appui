@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Support `data:image/svg+xml` web component icons. (base64 already supported)",
+      "comment": "Fixed `useDisposable` hook to work in React 18 strict mode.",
       "type": "none"
     }
   ],

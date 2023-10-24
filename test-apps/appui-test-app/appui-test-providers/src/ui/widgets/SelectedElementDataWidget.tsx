@@ -13,7 +13,9 @@ import * as React from "react";
 
 /** Hook used to return ids from selected element */
 export function useIdOfSelectedElements() {
-  const [locatedIds, setLocatedIds] = React.useState<string[]>([]); // TODO: IModelApp
+  const [locatedIds, setLocatedIds] = React.useState<string[]>([
+    ...(UiFramework.getIModelConnection()?.selectionSet.elements ?? []),
+  ]);
 
   React.useEffect(() => {
     const iModel = UiFramework.getIModelConnection();
