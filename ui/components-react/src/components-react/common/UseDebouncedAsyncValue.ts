@@ -6,7 +6,7 @@
  * @module Common
  */
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { defer, share } from "rxjs";
 import {
   scheduleSubscription,
@@ -25,26 +25,26 @@ import {
 export function useDebouncedAsyncValue<TReturn>(
   valueToBeResolved: undefined | (() => Promise<TReturn>)
 ) {
-  const scheduler = useMemo(() => new SubscriptionScheduler<TReturn>(), []);
+  const [scheduler] = useState(() => new SubscriptionScheduler<TReturn>());
 
-  const [value, setValue] = useState<TReturn>();
-  const [inProgress, setInProgress] = useState(false);
-  const [errorState, setErrorState] = useState<{
-    error: Error | undefined;
-    hasError: boolean;
+  const [{ result, inProgress }, setState] = useState<{
+    result: TReturn | ErrorResult | undefined;
+    inProgress: boolean;
   }>({
-    error: undefined,
-    hasError: false,
+    result: undefined,
+    inProgress: false,
   });
 
   useEffect(() => {
     if (!valueToBeResolved) {
-      setValue(undefined);
-      setInProgress(false);
+      setState((prev) => ({ ...prev, result: undefined, inProgress: false }));
       return;
     }
 
-    setInProgress(true);
+    setState((prev) => ({
+      ...prev,
+      inProgress: true,
+    }));
     // schedule and subscribe to the observable emitting value from valueToBeResolved promise
     const subscription = defer(valueToBeResolved)
       .pipe(
@@ -57,12 +57,14 @@ export function useDebouncedAsyncValue<TReturn>(
       )
       .subscribe({
         next: (data) => {
-          setValue(data);
-          setInProgress(false);
+          setState((prev) => ({ ...prev, result: data, inProgress: false }));
         },
         error: (err) => {
-          setErrorState({ error: err, hasError: true });
-          setInProgress(false);
+          setState((prev) => ({
+            ...prev,
+            result: { error: err, hasError: true },
+            inProgress: false,
+          }));
         },
       });
 
@@ -71,10 +73,20 @@ export function useDebouncedAsyncValue<TReturn>(
     };
   }, [valueToBeResolved, scheduler]);
 
-  if (errorState.hasError)
-    throw (
-      errorState.error ?? new Error("Exception in `useDebouncedAsyncValue`")
-    );
+  if (isErrorResult(result)) {
+    throw result.error ?? new Error("Exception in `useDebouncedAsyncValue`");
+  }
 
-  return { value, inProgress };
+  return { value: result, inProgress };
+}
+
+interface ErrorResult {
+  error: Error | undefined;
+  hasError: boolean;
+}
+
+function isErrorResult<TResult>(
+  obj?: TResult | ErrorResult
+): obj is ErrorResult {
+  return obj !== undefined && (obj as ErrorResult).hasError;
 }
