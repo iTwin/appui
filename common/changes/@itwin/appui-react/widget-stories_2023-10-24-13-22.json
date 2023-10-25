@@ -1,0 +1,15 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Correctly enable `isFloatingStateSupported` for every widget unless it is disabled explicitly.",
+      "type": "none"
+    },
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Correctly enable `isResizable` flag for every floating widget unless it is disabled explicitly.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
