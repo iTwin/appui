@@ -422,6 +422,8 @@ public;StandardContentToolsProvider
 beta;StandardContentToolsUiItemsProvider 
 public;StandardFrontstageProps
 public;StandardFrontstageProvider 
+alpha;StandardLayoutToolbarItem
+alpha;StandardLayoutWidget
 public;StandardMessageBox 
 public;StandardMessageBoxProps 
 public;StandardNavigationToolsProvider 
@@ -490,6 +492,7 @@ beta;ToolbarDragInteractionContext: React_2.Context
 public;ToolbarGroupItem 
 public;ToolbarHelper
 public;ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomItem
+alpha;ToolbarItemLayouts
 beta;ToolbarItemUtilities
 public;ToolbarOrientation
 beta;ToolbarPopup 
@@ -601,6 +604,7 @@ public;WidgetDef
 internal;WidgetEventArgs
 public;WidgetHost
 internal;WidgetInfo
+alpha;WidgetLayouts
 beta;WidgetManager
 public;WidgetPanelProps = Omit
 internal;WidgetPanelsFrontstage(): JSX.Element | null

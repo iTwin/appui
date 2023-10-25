@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation, @typescript-eslint/ban-ts-comment */
+/* eslint-disable deprecation/deprecation */
 
 import * as React from "react";
 import * as sinon from "sinon";
@@ -10,9 +10,15 @@ import { expect } from "chai";
 import * as abstract from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
 import { IconHelper } from "@itwin/core-react";
+import type {
+  ToolbarActionItem,
+  UiItemsProvider,
+  Widget,
+} from "../../appui-react";
 import {
   BackstageItemUtilities,
   StagePanelLocation,
+  StagePanelSection,
   StageUsage,
   StatusBarItemUtilities,
   StatusBarSection,
@@ -26,6 +32,57 @@ import {
 const AbstractUiItemsManager = abstract.UiItemsManager;
 // @ts-ignore Removed in 4.0
 const AbstractStagePanelLocation = abstract.StagePanelLocation;
+
+function createStatusBarItem(id: string) {
+  return StatusBarItemUtilities.createActionItem(
+    id,
+    StatusBarSection.Left,
+    0,
+    "",
+    "",
+    () => undefined
+  );
+}
+
+function createBackstageItem(id: string) {
+  return BackstageItemUtilities.createActionItem(id, 0, 0, () => undefined, "");
+}
+
+function createToolbarItem(id: string, overrides?: Partial<ToolbarActionItem>) {
+  return ToolbarItemUtilities.createActionItem(
+    id,
+    0,
+    "",
+    "",
+    () => undefined,
+    overrides
+  );
+}
+
+function createWidget(id: string, overrides?: Partial<Widget>) {
+  return {
+    id,
+    ...overrides,
+  } satisfies Widget;
+}
+
+function describeAbstractAdapter(title: string, fn: () => void) {
+  for (const useAbstractAdapter of [true, false]) {
+    describe(`${title} ${
+      useAbstractAdapter ? "(uses abstract adapter)" : "(no abstract adapter)"
+    }`, () => {
+      before(() => {
+        UiItemsManager.useAbstractAdapter(useAbstractAdapter);
+      });
+
+      after(() => {
+        UiItemsManager.useAbstractAdapter(true);
+      });
+
+      fn();
+    });
+  }
+}
 
 describe("UiItemsManager", () => {
   afterEach(() => {
@@ -768,6 +825,331 @@ describe("UiItemsManager", () => {
         );
         sinon.assert.match(topMostWidgets, [sinon.match({ id: "w2" })]);
       }
+    });
+  });
+
+  describe("UiItemsProvider v2", () => {
+    describeAbstractAdapter("toolbar items", () => {
+      const provider = {
+        id: "provider1",
+        getToolbarItems: () => {
+          return [
+            createToolbarItem("item1", {
+              layouts: {
+                standard: {
+                  usage: ToolbarUsage.ContentManipulation,
+                  orientation: ToolbarOrientation.Horizontal,
+                },
+              },
+            }),
+          ];
+        },
+      } satisfies UiItemsProvider;
+
+      it("should provide", () => {
+        UiItemsManager.register(provider);
+
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage1",
+            StageUsage.General,
+            ToolbarUsage.ContentManipulation,
+            ToolbarOrientation.Horizontal
+          )
+        ).lengthOf(1);
+      });
+
+      it("should not provide w/o location/usage", () => {
+        UiItemsManager.register({
+          id: "provider1",
+          getToolbarItems: () => [createToolbarItem("item1")],
+        });
+
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage1",
+            StageUsage.General,
+            ToolbarUsage.ContentManipulation,
+            ToolbarOrientation.Horizontal
+          )
+        ).lengthOf(0);
+      });
+
+      it("should not provide for different location/usage", () => {
+        UiItemsManager.register(provider);
+
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage1",
+            StageUsage.General,
+            ToolbarUsage.ContentManipulation,
+            ToolbarOrientation.Vertical
+          )
+        ).lengthOf(0);
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage1",
+            StageUsage.General,
+            ToolbarUsage.ViewNavigation,
+            ToolbarOrientation.Horizontal
+          )
+        ).lengthOf(0);
+      });
+
+      it("should prefer `getToolbarItems` of a provider", () => {
+        UiItemsManager.register({
+          ...provider,
+          provideToolbarItems: () => [createToolbarItem("item2")],
+        });
+
+        const items = UiItemsManager.getToolbarButtonItems(
+          "stage1",
+          StageUsage.General,
+          ToolbarUsage.ContentManipulation,
+          ToolbarOrientation.Horizontal
+        );
+        expect(items).lengthOf(1);
+        expect(items[0].id).to.eq("item1");
+      });
+
+      it("should only provide for specified stage ids", () => {
+        UiItemsManager.register(provider, { stageIds: ["stage2"] });
+
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage1",
+            StageUsage.General,
+            ToolbarUsage.ContentManipulation,
+            ToolbarOrientation.Horizontal
+          )
+        ).lengthOf(0);
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage2",
+            StageUsage.General,
+            ToolbarUsage.ContentManipulation,
+            ToolbarOrientation.Horizontal
+          )
+        ).lengthOf(1);
+      });
+
+      it("should only provide for specified stage usages", () => {
+        UiItemsManager.register(provider, { stageUsages: ["custom"] });
+
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage1",
+            StageUsage.General,
+            ToolbarUsage.ContentManipulation,
+            ToolbarOrientation.Horizontal
+          )
+        ).lengthOf(0);
+        expect(
+          UiItemsManager.getToolbarButtonItems(
+            "stage1",
+            "custom",
+            ToolbarUsage.ContentManipulation,
+            ToolbarOrientation.Horizontal
+          )
+        ).lengthOf(1);
+      });
+    });
+
+    describeAbstractAdapter("status bar items", () => {
+      const provider = {
+        id: "provider1",
+        getStatusBarItems: () => {
+          return [createStatusBarItem("item1")];
+        },
+      } satisfies UiItemsProvider;
+
+      it("should provide", () => {
+        UiItemsManager.register(provider);
+
+        expect(
+          UiItemsManager.getStatusBarItems("stage1", StageUsage.General)
+        ).lengthOf(1);
+      });
+
+      it("should prefer `getStatusBarItems` of a provider", () => {
+        UiItemsManager.register({
+          ...provider,
+          provideStatusBarItems: () => [createStatusBarItem("item2")],
+        });
+
+        const items = UiItemsManager.getStatusBarItems(
+          "stage1",
+          StageUsage.General
+        );
+        expect(items).lengthOf(1);
+        expect(items[0].id).to.eq("item1");
+      });
+
+      it("should only provide for specified stage ids", () => {
+        UiItemsManager.register(provider, { stageIds: ["stage2"] });
+
+        expect(
+          UiItemsManager.getStatusBarItems("stage1", StageUsage.General)
+        ).lengthOf(0);
+        expect(
+          UiItemsManager.getStatusBarItems("stage2", StageUsage.General)
+        ).lengthOf(1);
+      });
+
+      it("should only provide for specified stage usages", () => {
+        UiItemsManager.register(provider, { stageUsages: ["custom"] });
+
+        expect(
+          UiItemsManager.getStatusBarItems("stage1", StageUsage.General)
+        ).lengthOf(0);
+        expect(UiItemsManager.getStatusBarItems("stage1", "custom")).lengthOf(
+          1
+        );
+      });
+    });
+
+    describeAbstractAdapter("backstage items", () => {
+      const provider = {
+        id: "provider1",
+        getBackstageItems: () => {
+          return [createBackstageItem("item1")];
+        },
+      } satisfies UiItemsProvider;
+
+      it("should provide", () => {
+        UiItemsManager.register(provider);
+
+        expect(UiItemsManager.getBackstageItems()).lengthOf(1);
+      });
+
+      it("should prefer `getBackstageItems` of a provider", () => {
+        UiItemsManager.register({
+          ...provider,
+          provideBackstageItems: () => [createBackstageItem("item2")],
+        });
+
+        const items = UiItemsManager.getBackstageItems();
+        expect(items).lengthOf(1);
+        expect(items[0].id).to.eq("item1");
+      });
+    });
+
+    describeAbstractAdapter("widgets", () => {
+      const provider = {
+        id: "provider1",
+        getWidgets: () => {
+          return [
+            createWidget("item1", {
+              layouts: {
+                standard: {
+                  location: StagePanelLocation.Bottom,
+                  section: StagePanelSection.End,
+                },
+              },
+            }),
+          ];
+        },
+      } satisfies UiItemsProvider;
+
+      it("should provide", () => {
+        UiItemsManager.register(provider);
+
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            StageUsage.General,
+            StagePanelLocation.Bottom,
+            StagePanelSection.End
+          )
+        ).lengthOf(1);
+      });
+
+      it("should not provide w/o location", () => {
+        UiItemsManager.register({
+          id: "provider1",
+          getWidgets: () => [createWidget("w1")],
+        });
+
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            StageUsage.General,
+            StagePanelLocation.Left,
+            StagePanelSection.Start
+          )
+        ).lengthOf(0);
+      });
+
+      it("should not provide for different location/section", () => {
+        UiItemsManager.register(provider);
+
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            StageUsage.General,
+            StagePanelLocation.Top,
+            StagePanelSection.End
+          )
+        ).lengthOf(0);
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            StageUsage.General,
+            StagePanelLocation.Top,
+            StagePanelSection.Start
+          )
+        ).lengthOf(0);
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            StageUsage.General,
+            StagePanelLocation.Bottom,
+            StagePanelSection.Start
+          )
+        ).lengthOf(0);
+      });
+
+      it("should only provide for specified stage ids", () => {
+        UiItemsManager.register(provider, { stageIds: ["stage2"] });
+
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            StageUsage.General,
+            StagePanelLocation.Bottom,
+            StagePanelSection.End
+          )
+        ).lengthOf(0);
+        expect(
+          UiItemsManager.getWidgets(
+            "stage2",
+            StageUsage.General,
+            StagePanelLocation.Bottom,
+            StagePanelSection.End
+          )
+        ).lengthOf(1);
+      });
+
+      it("should only provide for specified stage usages", () => {
+        UiItemsManager.register(provider, { stageUsages: ["custom"] });
+
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            StageUsage.General,
+            StagePanelLocation.Bottom,
+            StagePanelSection.End
+          )
+        ).lengthOf(0);
+        expect(
+          UiItemsManager.getWidgets(
+            "stage1",
+            "custom",
+            StagePanelLocation.Bottom,
+            StagePanelSection.End
+          )
+        ).lengthOf(1);
+      });
     });
   });
 });
