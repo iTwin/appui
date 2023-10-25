@@ -21,8 +21,6 @@ Table of contents:
 - Unmount `ChildWindowManager` whenever child window is closed.
 - Whenever widget is popped out and `window.open` fails, widget no longer disappears.
 - Fix error when `HTMLElement` used in `NotifyMessageDetails` messages.
-- Fixed an issue where setting a `defaultState` to `Floating` would have no effect without a `canFloat` property of a `Widget`.
-- Correctly set the default value of `CanFloatWidgetOptions.isResizable` to `true`. Every floating widget is resizable unless disabled explicitly.
 
 ## @itwin/components-react
 
