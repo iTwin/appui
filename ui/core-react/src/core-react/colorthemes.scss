@@ -11,47 +11,6 @@
 $background: var(--iui-color-background);
 $accent: var(--iui-color-background-accent);
 
-@mixin light-theme {
-  --buic-button-gradient1: rgba(
-    var(--iui-color-foreground-body-invert-rgb),
-    0.65
-  );
-  --buic-button-gradient2: rgba(var(--iui-color-foreground-body-invert-rgb), 0);
-
-  --buic-background-editable: var(--iui-color-background);
-}
-
-@mixin dark-theme {
-  --buic-button-gradient1: rgba(var(--iui-color-foreground-body-invert-rgb), 0);
-  --buic-button-gradient2: rgba(
-    var(--iui-color-foreground-body-invert-rgb),
-    0.25
-  );
-
-  --buic-background-editable: var(--iui-color-background);
-}
-
-html,
-html[data-theme="light"] {
-  @include light-theme;
-}
-
-html[data-theme="dark"] {
-  @include dark-theme;
-}
-
-@media (prefers-color-scheme: light) {
-  html[data-theme="SYSTEM_PREFERRED"] {
-    @include light-theme;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  html[data-theme="SYSTEM_PREFERRED"] {
-    @include dark-theme;
-  }
-}
-
 html.theme-transition,
 html.theme-transition *,
 html.theme-transition *:before,

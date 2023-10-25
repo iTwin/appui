@@ -17,13 +17,13 @@ import type { StagePanelSection } from "../stagepanels/StagePanelSection";
  * @public
  */
 export interface CanFloatWidgetOptions {
-  /** Describes if the widget is resizable. */
+  /** Describes if the widget is resizable. Defaults to `true`. */
   readonly isResizable?: boolean;
   readonly defaultPosition?: XAndY;
   readonly defaultSize?: SizeProps;
   /** Describes to which container the floating widget is assigned. This allows the grouping of multiple widgets within the same floating widget. */
   readonly containerId?: string;
-  /** Describes if the floating widget should hide together with other UI elements. */
+  /** Describes if the floating widget should hide together with other UI elements. Defaults to `false`. */
   readonly hideWithUi?: boolean;
 }
 
@@ -37,10 +37,12 @@ export interface Widget {
   readonly badge?: BadgeType;
   /** Describes if the widget can be popped out to a separate window. Defaults to `false`. */
   readonly canPopout?: boolean;
-  /** Set to `false` to disable floating of a widget. Alternatively options object can be provided which enables floating.
-   * If allowedPanels is an empty array, automatically set to `true`. Defaults to `true`. */
+  /** Set to `false` to disable floating of a widget. Defaults to `true`.
+   * Alternatively options object can be provided to configure floating behavior.
+   * It is not possible to disable the floating of a widget if `allowedPanels` is an empty array.
+   */
   readonly canFloat?: boolean | CanFloatWidgetOptions;
-  /** Defaults to `Floating`(3) if widget is not allowed to dock to any panels. */
+  /** Defaults to `Floating` if widget is not allowed to dock to any panels. */
   readonly defaultState?: WidgetState;
   /** Content of the Widget. */
   readonly content?: React.ReactNode;
