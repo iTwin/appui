@@ -13,6 +13,7 @@ import {
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   ConfigurableUiContent,
+  FrameworkToolAdmin,
   IModelViewportControl,
   StageUsage,
   StandardFrontstageProps,
@@ -24,6 +25,7 @@ import {
 import { IModelApp } from "@itwin/core-frontend";
 
 export interface AppUiStoryProps {
+  onInitialize?: () => Promise<void>;
   frontstage?: Partial<StandardFrontstageProps>;
   itemProviders?: UiItemsProvider[];
 }
@@ -32,8 +34,12 @@ export function AppUiStory(props: AppUiStoryProps) {
   const [initialized, setInitialized] = React.useState(false);
   React.useEffect(() => {
     void (async function () {
-      await IModelApp.startup();
+      await IModelApp.startup({
+        toolAdmin: new FrameworkToolAdmin(),
+      });
       await UiFramework.initialize(undefined);
+      await props.onInitialize?.();
+
       UiFramework.frontstages.addFrontstageProvider(
         new StandardFrontstageProvider({
           id: "main-frontstage",
