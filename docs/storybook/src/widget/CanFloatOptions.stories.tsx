@@ -38,9 +38,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-export const Resizable: Story = {
+export const NotResizable: Story = {
   args: {
-    isResizable: true,
+    isResizable: false,
   },
 };
 
@@ -76,7 +76,6 @@ export const ContainerId: Story = {
 
 export const MultipleOptions: Story = {
   args: {
-    ...Resizable.args,
     ...Position.args,
     ...Size.args,
     ...HideWithUI.args,
