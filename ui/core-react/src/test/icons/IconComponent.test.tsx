@@ -61,11 +61,9 @@ describe("IconComponent", () => {
     );
   });
 
-  it("should render data uri web svg iconSpec", async () => {
+  it("should render data uri web svg iconSpec with minimum encoding", async () => {
     const expectedPath = "M7,1v6H1v2h6v6h2V9h6V7H9V1H7z";
-    const dataUri = `data:image/svg+xml,${encodeURIComponent(
-      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="${expectedPath}"/></svg>`
-    )}`;
+    const dataUri = `data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%3E%3Cpath%20d='${expectedPath}'/%3E%3C/svg%3E`;
     const { container } = render(<Icon iconSpec={`webSvg:${dataUri}`} />);
     await waitFor(() =>
       expect(container.querySelector("svg-loader")?.innerHTML).to.contain(
