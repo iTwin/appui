@@ -12,6 +12,7 @@ import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import type { UserSettingsProvider } from "../UiFramework";
 import { UiFramework } from "../UiFramework";
 import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
+import type { ThemeId } from "../theme/ThemeManager";
 
 // cSpell:ignore configurableui
 
@@ -19,7 +20,7 @@ import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
  * @public
  */
 export interface InitialAppUiSettings {
-  colorTheme: string;
+  colorTheme: ThemeId;
   dragInteraction: boolean;
   widgetOpacity: number;
   showWidgetIcon?: boolean;
@@ -30,8 +31,8 @@ export interface InitialAppUiSettings {
   toolbarOpacity: number;
 }
 
-/** These are the UI settings that are stored in the Redux store. They control the color theme, the UI version,
- * how toolbar group buttons work, and the opacity of widgets in 1.0 and floating widget in 2.0 when the cursor
+/** These are the UI settings that are stored in the Redux store. They control the color theme,
+ * how toolbar group buttons work, and the opacity of floating widget when the cursor
  * is not inside them. It is expect that an IModelApp using App UI components will create and register AppUiSettings with
  * defaults specific to their application. This would be done by calling the following.
  *
@@ -48,7 +49,7 @@ export class AppUiSettings implements UserSettingsProvider {
   private _settings: Array<UiStateEntry<any>> = [];
   private _applyingLocalSettings = false;
 
-  public colorTheme: UiStateEntry<string>;
+  public colorTheme: UiStateEntry<ThemeId>;
   public dragInteraction: UiStateEntry<boolean>;
   public widgetOpacity: UiStateEntry<number>;
   public showWidgetIcon: UiStateEntry<boolean>;
@@ -57,7 +58,7 @@ export class AppUiSettings implements UserSettingsProvider {
   public useToolAsToolSettingsLabel: UiStateEntry<boolean>;
   public toolbarOpacity: UiStateEntry<number>;
 
-  private setColorTheme = (theme: string) => {
+  private setColorTheme = (theme: ThemeId) => {
     UiFramework.setColorTheme(theme);
     // always store to local storage to avoid flicker during startup if user is not yet logged-in
     window.localStorage.setItem("uifw:defaultTheme", theme);
@@ -66,7 +67,7 @@ export class AppUiSettings implements UserSettingsProvider {
   constructor(defaults: Partial<InitialAppUiSettings>) {
     this._settings = [];
 
-    this.colorTheme = new UiStateEntry<string>(
+    this.colorTheme = new UiStateEntry<ThemeId>(
       AppUiSettings._settingNamespace,
       "ColorTheme",
       UiFramework.getColorTheme,

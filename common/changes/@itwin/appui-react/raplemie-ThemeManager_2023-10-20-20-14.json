@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Provide union type values for Theme so IDE can suggest values.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
