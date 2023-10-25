@@ -843,9 +843,23 @@ export class FrontstageDef {
 
     const popoutWidget = state.popoutWidgets.byId[location.popoutWidgetId];
     const bounds = Rectangle.create(popoutWidget.bounds);
+
+    const nineZoneState =
+      UiFramework.frontstages.activeFrontstageDef?.nineZoneState;
+
+    if (nineZoneState === undefined) return false;
+
+    const popoutContentContainer = document.getElementById(
+      `content-container:${nineZoneState.widgets[widgetContainerId].activeTabId}`
+    );
+    if (popoutContentContainer === null) return false;
+
+    const contentWidth = popoutContentContainer.offsetWidth + 20;
+    const contentHeight = popoutContentContainer.offsetHeight + 20;
+
     const position: ChildWindowLocationProps = {
-      width: bounds.getWidth(),
-      height: bounds.getHeight(),
+      width: contentWidth,
+      height: contentHeight,
       left: bounds.left,
       top: bounds.top,
     };
