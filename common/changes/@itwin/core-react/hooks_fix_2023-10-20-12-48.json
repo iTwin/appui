@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Fixed `useDisposable` hook to work in React 18 strict mode.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}
