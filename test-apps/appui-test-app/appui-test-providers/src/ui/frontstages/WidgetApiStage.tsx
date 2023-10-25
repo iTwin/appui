@@ -43,6 +43,8 @@ import {
   MeasureDistanceTool,
   ScreenViewport,
 } from "@itwin/core-frontend";
+import { updatedUiItemsProvider } from "../providers/UpdatedUiItemsProvider";
+import { RegisterUiProviderTool } from "../../tools/RegisterUiProviderTool";
 
 /**
  * The WidgetApiStageContentGroupProvider class method `provideContentGroup` returns a ContentGroup that displays
@@ -252,6 +254,7 @@ export class WidgetApiStage {
 
     // Provides example widgets stage and tool to toggle display of Custom overlay.
     WidgetApiStageUiItemsProvider.register(localizationNamespace);
+    RegisterUiProviderTool.providers.push(updatedUiItemsProvider);
   }
 }
 

@@ -3,6 +3,7 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Additions](#additions)
   - [Changes](#changes)
   - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
@@ -11,6 +12,51 @@ Table of contents:
   - [Fixes](#fixes-2)
 
 ## @itwin/appui-react
+
+### Additions
+
+- `UiItemsProvider` is enhanced by additional properties `getToolbarItems`, `getStatusBarItems`, `getBackstageItems`, `getWidgets` with an intention to replace existing `provideToolbarItems`, `provideStatusBarItems`, `provideBackstageItems`, `provideWidgets` to facilitate overriding scenarios.
+  Additionally `layout` property is added to `ToolbarItem` and `Widget` types to define additional layout-specific properties of an item.
+  Location arguments of `UiItemsProvider.provide*` methods are moved to `layout.standard`. #504
+
+  Usage example:
+
+  ```ts
+  // Before
+  const provider: UiItemsProvider = {
+    id: "provider1",
+    provideWidgets: (stageId, _stageUsage, location, section) => {
+      if (
+        stageId === "stage1" &&
+        location === StagePanelLocation.Bottom &&
+        section === StagePanelSection.End
+      ) {
+        return [{ id: "w1" }];
+      }
+      return [];
+    },
+  };
+  UiItemsManager.register(provider);
+
+  // After
+  const provider: UiItemsProvider = {
+    id: "provider1",
+    getWidgets: () => {
+      return [
+        {
+          id: "w1",
+          layouts: {
+            standard: {
+              location: StagePanelLocation.Bottom,
+              section: StagePanelSection.End,
+            },
+          },
+        },
+      ];
+    },
+  };
+  UiItemsManager.register(provider, { stageIds: ["stage1"] });
+  ```
 
 ### Changes
 

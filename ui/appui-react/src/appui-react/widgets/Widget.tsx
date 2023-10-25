@@ -11,6 +11,7 @@ import type { XAndY } from "@itwin/core-geometry";
 import type { IconSpec, SizeProps } from "@itwin/core-react";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { WidgetState } from "./WidgetState";
+import type { StagePanelSection } from "../stagepanels/StagePanelSection";
 
 /** Describes options of a floating widget.
  * @public
@@ -49,4 +50,27 @@ export interface Widget {
   readonly label?: string | ConditionalStringValue;
   readonly priority?: number;
   readonly tooltip?: string | ConditionalStringValue;
+  /** Describes layout specific configuration of a widget.
+   * @note Only used by `get*` methods of [[UiItemsProvider]].
+   * @alpha
+   */
+  readonly layouts?: WidgetLayouts;
+}
+
+/** Describes widget configuration specific for each layout.
+ * @alpha
+ */
+export interface WidgetLayouts {
+  /** Widget configuration in a standard layout. */
+  readonly standard?: StandardLayoutWidget;
+}
+
+/** Describes widget configuration specific to a standard layout.
+ * @alpha
+ */
+export interface StandardLayoutWidget {
+  /** Describes to which panel the widget is added. */
+  readonly location: StagePanelLocation;
+  /** Describes to which section of a panel the widget is added. */
+  readonly section: StagePanelSection;
 }

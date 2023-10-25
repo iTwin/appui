@@ -20,10 +20,6 @@ import type {
   CommonStatusBarItem as AbstractStatusBarItem,
   CommonToolbarItem as AbstractToolbarItem,
   // @ts-ignore Removed in 4.0
-  ToolbarOrientation as AbstractToolbarOrientation,
-  // @ts-ignore Removed in 4.0
-  ToolbarUsage as AbstractToolbarUsage,
-  // @ts-ignore Removed in 4.0
   UiItemsManager as AbstractUiItemsManagerType,
   // @ts-ignore Removed in 4.0
   UiItemsProvider as AbstractUiItemsProvider,
@@ -129,7 +125,7 @@ class AbstractUiItemsManagerAdapter implements Target {
     provider: UiItemsProvider,
     overrides?: UiItemsProviderOverrides | undefined
   ): void {
-    const abstractProvider = new UiItemsProviderToAbstractAdapter(provider);
+    const abstractProvider = createUiItemsProviderToAbstractAdapter(provider);
     return this._adaptee.register(abstractProvider, overrides);
   }
 
@@ -137,7 +133,7 @@ class AbstractUiItemsManagerAdapter implements Target {
     const abstractProvider = this._adaptee.getUiItemsProvider(providerId);
     if (!abstractProvider) return undefined;
 
-    const provider = new AbstractToUiItemsProviderAdapter(abstractProvider);
+    const provider = createAbstractToUiItemsProviderAdapter(abstractProvider);
     return provider;
   }
 
@@ -247,188 +243,168 @@ class AbstractUiItemsManagerAdapter implements Target {
   }
 }
 
-class UiItemsProviderToAbstractAdapter implements AbstractUiItemsProvider {
-  public get id(): string {
-    return this._adaptee.id;
-  }
-
-  constructor(private readonly _adaptee: UiItemsProvider) {}
-
-  public onUnregister() {
-    this._adaptee.onUnregister?.();
-  }
-
-  public provideBackstageItems() {
-    if (!this._adaptee.provideBackstageItems) return [];
-
-    const items = this._adaptee.provideBackstageItems();
-    const abstractItems = items.map((item) => toAbstractBackstageItem(item));
-    return abstractItems;
-  }
-
-  public provideStatusBarItems(
-    stageId: string,
-    stageUsage: string,
-    _stageAppData?: any
-  ) {
-    if (!this._adaptee.provideStatusBarItems) return [];
-
-    const items = this._adaptee.provideStatusBarItems(stageId, stageUsage);
-    const abstractItems = items.map((item) => toAbstractStatusBarItem(item));
-    return abstractItems;
-  }
-
-  public provideToolbarButtonItems(
-    stageId: string,
-    stageUsage: string,
-    usage: AbstractToolbarUsage,
-    orientation: AbstractToolbarOrientation,
-    _stageAppData?: any
-  ) {
-    if (!this._adaptee.provideToolbarItems) return [];
-
-    const items = this._adaptee.provideToolbarItems(
+function createUiItemsProviderToAbstractAdapter(
+  adaptee: UiItemsProvider
+): AbstractUiItemsProvider {
+  const {
+    id,
+    onUnregister,
+    provideBackstageItems,
+    provideStatusBarItems,
+    provideWidgets,
+    ...other
+  } = adaptee;
+  const provider = createGetPropertyAdapter(adaptee);
+  return {
+    id: adaptee.id,
+    onUnregister: adaptee.onUnregister,
+    provideBackstageItems: () => {
+      const items = provider.provideBackstageItems();
+      const abstractItems = items.map((item) => toAbstractBackstageItem(item));
+      return abstractItems;
+    },
+    provideStatusBarItems: (stageId, stageUsage, _stageAppData) => {
+      const items = provider.provideStatusBarItems(stageId, stageUsage);
+      const abstractItems = items.map((item) => toAbstractStatusBarItem(item));
+      return abstractItems;
+    },
+    provideToolbarButtonItems: (
       stageId,
       stageUsage,
       usage,
-      orientation
-    );
-    const abstractItems = items.map((item) => toAbstractToolbarItem(item));
-    return abstractItems;
-  }
-
-  public provideWidgets(
-    stageId: string,
-    stageUsage: string,
-    abstractLocation: AbstractStagePanelLocation,
-    abstractSection?: AbstractStagePanelSection | undefined,
-    _zoneLocation?: any,
-    _stageAppData?: any
-  ) {
-    if (!this._adaptee.provideWidgets) return [];
-
-    const location = fromAbstractStagePanelLocation(abstractLocation);
-    const section =
-      abstractSection === undefined
-        ? undefined
-        : fromAbstractStagePanelSection(abstractSection);
-    const widgets = this._adaptee.provideWidgets(
+      orientation,
+      _stageAppData
+    ) => {
+      const items = provider.provideToolbarItems(
+        stageId,
+        stageUsage,
+        usage,
+        orientation
+      );
+      const abstractItems = items.map((item) => toAbstractToolbarItem(item));
+      return abstractItems;
+    },
+    provideWidgets: (
       stageId,
       stageUsage,
-      location,
-      section
-    );
-    const abstractWidgets = widgets.map((widget) => toAbstractWidget(widget));
-    return abstractWidgets;
-  }
+      abstractLocation,
+      abstractSection,
+      _zoneLocation,
+      _stageAppData
+    ) => {
+      const location = fromAbstractStagePanelLocation(abstractLocation);
+      const section =
+        abstractSection === undefined
+          ? undefined
+          : fromAbstractStagePanelSection(abstractSection);
+      const items = provider.provideWidgets(
+        stageId,
+        stageUsage,
+        location,
+        section
+      );
+      const abstractWidgets = items.map((item) => toAbstractWidget(item));
+      return abstractWidgets;
+    },
+    ...other,
+  };
 }
 
-class AbstractToUiItemsProviderAdapter implements UiItemsProvider {
-  public get id(): string {
-    return this._adaptee.id;
-  }
+function createAbstractToUiItemsProviderAdapter(
+  adaptee: AbstractUiItemsProvider
+): UiItemsProvider {
+  const {
+    id,
+    onUnregister,
+    provideBackstageItems,
+    provideStatusBarItems,
+    provideWidgets,
+    ...other
+  } = adaptee;
+  return {
+    id: adaptee.id,
+    onUnregister: adaptee.onUnregister,
+    provideBackstageItems: () => {
+      if (!adaptee.provideBackstageItems) return [];
 
-  constructor(private readonly _adaptee: AbstractUiItemsProvider) {}
+      const abstractItems = adaptee.provideBackstageItems();
+      // @ts-ignore Possibly 'any'
+      const items = abstractItems.map((abstractItem) =>
+        fromAbstractBackstageItem(abstractItem)
+      );
+      return items;
+    },
+    provideStatusBarItems: (stageId, stageUsage) => {
+      if (!adaptee.provideStatusBarItems) return [];
 
-  public onUnregister() {
-    this._adaptee.onUnregister?.();
-  }
+      const abstractItems = adaptee.provideStatusBarItems(stageId, stageUsage);
+      // @ts-ignore Possibly 'any'
+      const items = abstractItems.map((abstractItem) =>
+        fromAbstractStatusBarItem(abstractItem)
+      );
+      return items;
+    },
+    provideWidgets: (stageId, stageUsage, location, section) => {
+      if (!adaptee.provideWidgets) return [];
 
-  public provideBackstageItems() {
-    if (!this._adaptee.provideBackstageItems) return [];
-
-    const abstractItems = this._adaptee.provideBackstageItems();
-    // @ts-ignore Possibly 'any'
-    const items = abstractItems.map((abstractItem) =>
-      fromAbstractBackstageItem(abstractItem)
-    );
-    return items;
-  }
-
-  public provideStatusBarItems(stageId: string, stageUsage: string) {
-    if (!this._adaptee.provideStatusBarItems) return [];
-
-    const abstractItems = this._adaptee.provideStatusBarItems(
-      stageId,
-      stageUsage
-    );
-    // @ts-ignore Possibly 'any'
-    const items = abstractItems.map((abstractItem) =>
-      fromAbstractStatusBarItem(abstractItem)
-    );
-    return items;
-  }
-
-  public provideWidgets(
-    stageId: string,
-    stageUsage: string,
-    location: StagePanelLocation,
-    section?: StagePanelSection
-  ) {
-    if (!this._adaptee.provideWidgets) return [];
-
-    const abstractLocations = toAbstractStagePanelLocation(location);
-    const abstractSections =
-      section === undefined
-        ? ([undefined] as const)
-        : toAbstractStagePanelSection(section);
-    const combos: [
-      AbstractStagePanelLocation,
-      AbstractStagePanelSection | undefined
-    ][] = [];
-    abstractLocations.forEach((abstractLocation) => {
-      abstractSections.forEach((abstractSection) => {
-        combos.push([abstractLocation, abstractSection]);
+      const abstractLocations = toAbstractStagePanelLocation(location);
+      const abstractSections =
+        section === undefined
+          ? ([undefined] as const)
+          : toAbstractStagePanelSection(section);
+      const combos: [
+        AbstractStagePanelLocation,
+        AbstractStagePanelSection | undefined
+      ][] = [];
+      abstractLocations.forEach((abstractLocation) => {
+        abstractSections.forEach((abstractSection) => {
+          combos.push([abstractLocation, abstractSection]);
+        });
       });
-    });
-    let abstractWidgets = combos.reduce<AbstractWidget[]>(
-      (acc, [abstractLocation, abstractSection]) => {
-        assert(!!this._adaptee.provideWidgets);
-        const w = this._adaptee.provideWidgets(
-          stageId,
-          stageUsage,
-          abstractLocation,
-          abstractSection
-        );
-        acc.push(...w);
-        return acc;
-      },
-      []
-    );
-    abstractWidgets = abstractWidgets.reduce<AbstractWidget[]>(
-      (acc, abstractWidget) => {
-        if (-1 === acc.findIndex((w) => w.id === abstractWidget.id))
-          acc.push(abstractWidget);
-        return acc;
-      },
-      []
-    );
-    const widgets = abstractWidgets.map((abstractWidget) =>
-      fromAbstractWidget(abstractWidget)
-    );
-    return widgets;
-  }
+      let abstractWidgets = combos.reduce<AbstractWidget[]>(
+        (acc, [abstractLocation, abstractSection]) => {
+          assert(!!adaptee.provideWidgets);
+          const w = adaptee.provideWidgets(
+            stageId,
+            stageUsage,
+            abstractLocation,
+            abstractSection
+          );
+          acc.push(...w);
+          return acc;
+        },
+        []
+      );
+      abstractWidgets = abstractWidgets.reduce<AbstractWidget[]>(
+        (acc, abstractWidget) => {
+          if (-1 === acc.findIndex((w) => w.id === abstractWidget.id))
+            acc.push(abstractWidget);
+          return acc;
+        },
+        []
+      );
+      const widgets = abstractWidgets.map((abstractWidget) =>
+        fromAbstractWidget(abstractWidget)
+      );
+      return widgets;
+    },
+    provideToolbarItems: (stageId, stageUsage, usage, orientation) => {
+      if (!adaptee.provideToolbarButtonItems) return [];
 
-  public provideToolbarItems(
-    stageId: string,
-    stageUsage: string,
-    usage: ToolbarUsage,
-    orientation: ToolbarOrientation
-  ) {
-    if (!this._adaptee.provideToolbarButtonItems) return [];
-
-    const abstractItems = this._adaptee.provideToolbarButtonItems(
-      stageId,
-      stageUsage,
-      usage,
-      orientation
-    );
-    // @ts-ignore Possibly 'any'
-    const items = abstractItems.map((abstractItem) =>
-      fromAbstractToolbarItem(abstractItem)
-    );
-    return items;
-  }
+      const abstractItems = adaptee.provideToolbarButtonItems(
+        stageId,
+        stageUsage,
+        usage,
+        orientation
+      );
+      // @ts-ignore Possibly 'any'
+      const items = abstractItems.map((abstractItem) =>
+        fromAbstractToolbarItem(abstractItem)
+      );
+      return items;
+    },
+    ...other,
+  };
 }
 
 function toAbstractBackstageItem(item: BackstageItem): AbstractBackstageItem {
@@ -747,4 +723,56 @@ function getOriginalData<TData>(obj: Object): TData | undefined {
 
 function setOriginalData<TData>(obj: Object, data: TData) {
   (obj as any)[originalDataSymbol] = data;
+}
+
+/** Maps items of existing `get` properties to `provide` properties, otherwise uses `provide` properties.
+ * @internal
+ */
+export function createGetPropertyAdapter(provider: UiItemsProvider) {
+  return {
+    ...provider,
+    provideBackstageItems: () => {
+      return (
+        provider.getBackstageItems?.() ??
+        provider.provideBackstageItems?.() ??
+        []
+      );
+    },
+    provideStatusBarItems: (stageId, stageUsage) => {
+      return (
+        provider.getStatusBarItems?.() ??
+        provider.provideStatusBarItems?.(stageId, stageUsage) ??
+        []
+      );
+    },
+    provideToolbarItems: (stageId, stageUsage, usage, orientation) => {
+      if (provider.getToolbarItems) {
+        return provider.getToolbarItems().filter((item) => {
+          const layout = item.layouts?.standard;
+          if (!layout) return false;
+          return layout.usage === usage && layout.orientation === orientation;
+        });
+      }
+      return (
+        provider.provideToolbarItems?.(
+          stageId,
+          stageUsage,
+          usage,
+          orientation
+        ) ?? []
+      );
+    },
+    provideWidgets: (stageId, stageUsage, location, section) => {
+      if (provider.getWidgets) {
+        return provider.getWidgets().filter((item) => {
+          const layout = item.layouts?.standard;
+          if (!layout) return false;
+          return layout.location === location && layout.section === section;
+        });
+      }
+      return (
+        provider.provideWidgets?.(stageId, stageUsage, location, section) ?? []
+      );
+    },
+  } satisfies UiItemsProvider;
 }
