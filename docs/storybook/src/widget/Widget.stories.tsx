@@ -3,13 +3,15 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
-import { CanFloatStory } from "./CanFloat";
+import { BadgeType } from "@itwin/appui-abstract";
+import { WidgetState } from "@itwin/appui-react";
 import { AppUiDecorator } from "../AppUiDecorator";
 import { Page } from "../AppUiStory";
+import { WidgetStory } from "./Widget";
 
 const meta = {
-  title: "Widget/canFloat",
-  component: CanFloatStory,
+  title: "Widget/Widget",
+  component: WidgetStory,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],
   parameters: {
@@ -17,54 +19,26 @@ const meta = {
       page: () => <Page />,
     },
   },
-} satisfies Meta<typeof CanFloatStory>;
+  args: {
+    id: "w1",
+    label: "Widget 1",
+    content: <>Widget 1 content </>,
+  },
+} satisfies Meta<typeof WidgetStory>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-export const NotResizable: Story = {
+export const Floating: Story = {
   args: {
-    isResizable: false,
+    defaultState: WidgetState.Floating,
   },
 };
 
-export const Position: Story = {
+export const Badge: Story = {
   args: {
-    defaultPosition: {
-      x: 10,
-      y: 200,
-    },
-  },
-};
-
-export const Size: Story = {
-  args: {
-    defaultSize: {
-      height: 100,
-      width: 100,
-    },
-  },
-};
-
-export const HideWithUI: Story = {
-  args: {
-    hideWithUi: true,
-  },
-};
-
-export const ContainerId: Story = {
-  args: {
-    containerId: "container-1",
-  },
-};
-
-export const MultipleOptions: Story = {
-  args: {
-    ...Position.args,
-    ...Size.args,
-    ...HideWithUI.args,
-    ...ContainerId.args,
+    badge: BadgeType.TechnicalPreview,
   },
 };

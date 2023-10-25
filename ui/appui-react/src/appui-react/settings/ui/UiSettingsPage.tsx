@@ -28,7 +28,7 @@ import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
 
 /** UiSettingsPage displaying the active UI settings. This page lets users set the following settings.
  *
- * - theme - Dark, Light, or based on OS preference.
+ * - theme - Dark, Light, with or without High contrast, or based on OS preference.
  * - auto hide - Starts a timer and blanks out ui components that overlay content if there is no mouse movement for a period of time.
  * - drag interaction - If set, toolbar group buttons require a press and drag or a long press to open. In this mode a child action
  * item is shown as the group button and is activated when button is clicked. If a different child item is selected, it becomes the
@@ -80,6 +80,15 @@ export function UiSettingsPage() {
   );
   const lightLabel = React.useRef(
     UiFramework.translate("settings.uiSettingsPage.light")
+  );
+  const darkHCLabel = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.darkHighContrast")
+  );
+  const lightHCLabel = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.lightHighContrast")
+  );
+  const inheritLabel = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.inherit")
   );
   const systemPreferredLabel = React.useRef(
     UiFramework.translate("settings.uiSettingsPage.systemPreferred")
@@ -235,6 +244,9 @@ export function UiSettingsPage() {
     defaultThemeOption,
     { label: lightLabel.current, value: ColorTheme.Light },
     { label: darkLabel.current, value: ColorTheme.Dark },
+    { label: lightHCLabel.current, value: ColorTheme.HighContrastLight },
+    { label: darkHCLabel.current, value: ColorTheme.HighContrastDark },
+    { label: inheritLabel.current, value: ColorTheme.Inherit },
   ];
 
   const onThemeChange = React.useCallback((newValue: string) => {
