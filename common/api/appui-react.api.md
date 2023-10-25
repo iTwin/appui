@@ -441,7 +441,7 @@ export class AppUiSettings implements UserSettingsProvider {
     // (undocumented)
     autoCollapseUnpinnedPanels: UiStateEntry<boolean>;
     // (undocumented)
-    colorTheme: UiStateEntry<string>;
+    colorTheme: UiStateEntry<ThemeId>;
     // (undocumented)
     dragInteraction: UiStateEntry<boolean>;
     // (undocumented)
@@ -792,10 +792,12 @@ export function clearKeyinPaletteHistory(): void;
 
 // @public
 export enum ColorTheme {
-    // (undocumented)
     Dark = "dark",
-    // (undocumented)
-    Light = "light"
+    HighContrastDark = "high-contrast-dark",
+    HighContrastLight = "high-contrast-light",
+    Inherit = "inherit",
+    Light = "light",
+    System = "SYSTEM_PREFERRED"
 }
 
 // @public
@@ -861,6 +863,8 @@ export interface CommonToolbarItem {
     readonly isDisabled?: boolean | ConditionalBooleanValue;
     readonly isHidden?: boolean | ConditionalBooleanValue;
     readonly itemPriority: number;
+    // @alpha
+    readonly layouts?: ToolbarItemLayouts;
 }
 
 // @public
@@ -915,7 +919,7 @@ export enum ConfigurableUiActionId {
 // @public
 export const ConfigurableUiActions: {
     setSnapMode: (snapMode: number) => ActionWithPayload<ConfigurableUiActionId.SetSnapMode, number>;
-    setTheme: (theme: string) => ActionWithPayload<ConfigurableUiActionId.SetTheme, string>;
+    setTheme: (theme: ThemeId) => ActionWithPayload<ConfigurableUiActionId.SetTheme, "inherit" | "dark" | "light" | "SYSTEM_PREFERRED" | "high-contrast-light" | "high-contrast-dark" | DeepReadonlyObject<string & {}>>;
     setToolPrompt: (toolPrompt: string) => ActionWithPayload<ConfigurableUiActionId.SetToolPrompt, string>;
     setWidgetOpacity: (opacity: number) => ActionWithPayload<ConfigurableUiActionId.SetWidgetOpacity, number>;
     setDragInteraction: (dragInteraction: boolean) => ActionWithPayload<ConfigurableUiActionId.SetDragInteraction, boolean>;
@@ -998,7 +1002,7 @@ export interface ConfigurableUiState {
     // (undocumented)
     snapMode: number;
     // (undocumented)
-    theme: string;
+    theme: ThemeId;
     // (undocumented)
     toolbarOpacity: number;
     // (undocumented)
@@ -2039,7 +2043,7 @@ export interface FrameworkKeyboardShortcuts {
 export const FrameworkReducer: (state: CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
-}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
+}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, "inherit" | "dark" | "light" | "SYSTEM_PREFERRED" | "high-contrast-light" | "high-contrast-dark" | DeepReadonlyObject<string & {}>>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
 }>;
@@ -2564,7 +2568,7 @@ export interface InitialAppUiSettings {
     // @alpha (undocumented)
     autoCollapseUnpinnedPanels?: boolean;
     // (undocumented)
-    colorTheme: string;
+    colorTheme: ThemeId;
     // (undocumented)
     dragInteraction: boolean;
     // (undocumented)
@@ -4124,6 +4128,18 @@ export class StandardFrontstageProvider extends FrontstageProvider {
     get id(): string;
 }
 
+// @alpha
+export interface StandardLayoutToolbarItem {
+    readonly orientation: ToolbarOrientation;
+    readonly usage: ToolbarUsage;
+}
+
+// @alpha
+export interface StandardLayoutWidget {
+    readonly location: StagePanelLocation;
+    readonly section: StagePanelSection;
+}
+
 // @public
 export class StandardMessageBox extends React_2.PureComponent<StandardMessageBoxProps, StandardMessageBoxState> {
     constructor(props: StandardMessageBoxProps);
@@ -4440,6 +4456,9 @@ export enum SyncUiEventId {
 export const SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED";
 
 // @public
+export type ThemeId = `${ColorTheme}` | (string & {});
+
+// @public
 export const ThemeManager: ConnectedComponent<typeof ThemeManagerComponent, Omit_3<React_2.ClassAttributes<ThemeManagerComponent> & ThemeManagerProps, "theme" | "widgetOpacity" | "toolbarOpacity">>;
 
 // @public
@@ -4561,6 +4580,11 @@ export class ToolbarHelper {
 
 // @public
 export type ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomItem;
+
+// @alpha
+export interface ToolbarItemLayouts {
+    readonly standard?: StandardLayoutToolbarItem;
+}
 
 // @beta
 export namespace ToolbarItemUtilities {
@@ -4783,7 +4807,7 @@ export class UiFramework {
     // (undocumented)
     static getAvailableSelectionScopes(): PresentationSelectionScope[];
     // (undocumented)
-    static getColorTheme(): string;
+    static getColorTheme(): ThemeId;
     // (undocumented)
     static getCursorMenuData(): CursorMenuData | undefined;
     // (undocumented)
@@ -4832,8 +4856,7 @@ export class UiFramework {
     // (undocumented)
     static setAnimateToolSettings(value: boolean): void;
     static setAutoCollapseUnpinnedPanels(value: boolean): void;
-    // (undocumented)
-    static setColorTheme(theme: string): void;
+    static setColorTheme(theme: ThemeId): void;
     // (undocumented)
     static setDefaultIModelViewportControlId(iModelViewportControlId: string, immediateSync?: boolean): void;
     // (undocumented)
@@ -4891,10 +4914,20 @@ export class UiItemsManager {
     static register(uiProvider: UiItemsProvider, overrides?: UiItemsProviderOverrides): void;
     static get registeredProviderIds(): string[];
     static unregister(providerId: string): void;
+    // @internal
+    static useAbstractAdapter(useAbstractAdapter: boolean): void;
 }
 
 // @public
 export interface UiItemsProvider {
+    // @alpha
+    readonly getBackstageItems?: () => ReadonlyArray<BackstageItem>;
+    // @alpha
+    readonly getStatusBarItems?: () => ReadonlyArray<StatusBarItem>;
+    // @alpha
+    readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
+    // @alpha
+    readonly getWidgets?: () => ReadonlyArray<Widget>;
     readonly id: string;
     readonly onUnregister?: () => void;
     readonly provideBackstageItems?: () => ReadonlyArray<BackstageItem>;
@@ -5259,6 +5292,8 @@ export interface Widget {
     readonly id: string;
     // (undocumented)
     readonly label?: string | ConditionalStringValue;
+    // @alpha
+    readonly layouts?: WidgetLayouts;
     // (undocumented)
     readonly priority?: number;
     // (undocumented)
@@ -5421,6 +5456,11 @@ export interface WidgetInfo {
     stageUsage?: string;
     // (undocumented)
     widgetDef: WidgetDef;
+}
+
+// @alpha
+export interface WidgetLayouts {
+    readonly standard?: StandardLayoutWidget;
 }
 
 // @beta

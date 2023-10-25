@@ -24,21 +24,48 @@ export interface UiItemsProvider {
   /** Id of provider. */
   readonly id: string;
 
-  /** Provides toolbar items. */
+  /** Provides toolbar items.
+   * @note Use [[ToolbarItem.layouts]] to map item to location previously specified by `provideToolbarItems` arguments.
+   * @alpha
+   */
+  readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
+  /** Provides status bar items.
+   * @alpha
+   */
+  readonly getStatusBarItems?: () => ReadonlyArray<StatusBarItem>;
+  /** Provides backstage items.
+   * @alpha
+   */
+  readonly getBackstageItems?: () => ReadonlyArray<BackstageItem>;
+  /** Provides widgets.
+   * @note Use [[Widget.layouts]] to map item to location previously specified by `provideWidgets` arguments.
+   * @alpha
+   */
+  readonly getWidgets?: () => ReadonlyArray<Widget>;
+
+  /** Provides toolbar items.
+   * @note Use [[UiItemsProvider.getToolbarItems]] instead. To map item to location previously specified by arguments use [[ToolbarItem.layouts]].
+   */
   readonly provideToolbarItems?: (
     stageId: string,
     stageUsage: string,
     toolbarUsage: ToolbarUsage,
     toolbarOrientation: ToolbarOrientation
   ) => ReadonlyArray<ToolbarItem>;
-  /** Provides status bar items. */
+  /** Provides status bar items.
+   * @note Use [[UiItemsProvider.getStatusBarItems]] instead.
+   */
   readonly provideStatusBarItems?: (
     stageId: string,
     stageUsage: string
   ) => ReadonlyArray<StatusBarItem>;
-  /** Provides backstage items. */
+  /** Provides backstage items.
+   * @note Use [[UiItemsProvider.getBackstageItems]] instead.
+   */
   readonly provideBackstageItems?: () => ReadonlyArray<BackstageItem>;
-  /** Provides widgets. */
+  /** Provides widgets.
+   * @note Use [[UiItemsProvider.getWidgets]] instead. To map item to location previously specified by arguments use [[Widget.layouts]].
+   */
   readonly provideWidgets?: (
     stageId: string,
     stageUsage: string,

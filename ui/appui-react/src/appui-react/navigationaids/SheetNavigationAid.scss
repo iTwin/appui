@@ -49,19 +49,4 @@
       text-align: center;
     }
   }
-
-  > .gradient {
-    background: linear-gradient(
-      to bottom,
-      $buic-button-gradient1,
-      $buic-button-gradient2
-    );
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-
-    display: none;
-  }
 }
