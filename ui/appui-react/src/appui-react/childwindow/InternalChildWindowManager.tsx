@@ -276,7 +276,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     const childWindow = window.open(
       url,
       "",
-      `width=${location.width}},height=${location.height},left=${location.left},top=${location.top},menubar=no,resizable=yes,scrollbars=no,status=no,location=no`
+      `width=${location.width},height=${location.height},left=${location.left},top=${location.top},menubar=no,resizable=yes,scrollbars=no,status=no,location=no`
     );
     if (!childWindow) return false;
     if (0 === url.length) {
