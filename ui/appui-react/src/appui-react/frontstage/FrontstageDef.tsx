@@ -858,8 +858,8 @@ export class FrontstageDef {
     const contentHeight = popoutContentContainer.offsetHeight + 20;
 
     const position: ChildWindowLocationProps = {
-      width: contentWidth,
-      height: contentHeight,
+      width: widgetDef.hasPoppedOut ? bounds.getWidth() : contentWidth,
+      height: widgetDef.hasPoppedOut ? bounds.getHeight() : contentHeight,
       left: bounds.left,
       top: bounds.top,
     };
@@ -876,6 +876,8 @@ export class FrontstageDef {
       this.nineZoneState = oldState;
       return false;
     }
+
+    widgetDef.setHasPoppedOut(true);
 
     return true;
   }

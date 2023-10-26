@@ -90,6 +90,7 @@ export class WidgetDef {
   private _preferredPanelSize: "fit-content" | undefined;
   private _defaultFloatingSize: SizeProps | undefined;
   private _canPopout?: boolean;
+  private _hasPoppedOut?: boolean = false;
   private _floatingContainerId?: string;
   private _defaultFloatingPosition: XAndY | undefined;
 
@@ -449,6 +450,14 @@ export class WidgetDef {
 
   public get canPopout(): boolean | undefined {
     return this._canPopout;
+  }
+
+  public setHasPoppedOut(value: boolean | undefined) {
+    this._hasPoppedOut = value;
+  }
+
+  public get hasPoppedOut(): boolean | undefined {
+    return this._hasPoppedOut;
   }
 
   public setFloatingContainerId(value: string | undefined) {
