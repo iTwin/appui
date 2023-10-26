@@ -31,7 +31,8 @@ function parseSvgFromDataUri(src: string, element: any) {
   const dataUriParts = src.split(",");
 
   if (
-    dataUriParts.length !== 2 ||
+    (dataUriParts.length !== 2 &&
+      "data:image/svg+xml;base64" === dataUriParts[0]) ||
     ("data:image/svg+xml;base64" !== dataUriParts[0] &&
       "data:image/svg+xml" !== dataUriParts[0])
   ) {
@@ -43,7 +44,8 @@ function parseSvgFromDataUri(src: string, element: any) {
   if ("data:image/svg+xml;base64" === dataUriParts[0]) {
     rawSvg = Buffer.from(dataUriParts[1], "base64").toString("utf8");
   } else {
-    rawSvg = decodeURIComponent(dataUriParts[1]);
+    // `,` is valid character in data when not in base64, rebuild the data correctly
+    rawSvg = decodeURIComponent(dataUriParts.slice(1).join(","));
   }
 
   // the esm build of dompurify has a default import but the cjs build does not

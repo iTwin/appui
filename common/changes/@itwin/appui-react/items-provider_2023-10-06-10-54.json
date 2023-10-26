@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Fix an issue where a hidden widget state change event is emitted when a widget tab is dragged.",
+      "comment": "Add alternative provider methods to UiItemsProvider.",
       "type": "none"
     }
   ],

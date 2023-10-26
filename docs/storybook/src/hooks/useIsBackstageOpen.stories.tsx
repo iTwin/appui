@@ -88,8 +88,4 @@ export default meta;
 
 type Story = StoryObj<typeof Demo>;
 
-export const Basic: Story = {
-  args: {
-    label: "Test",
-  },
-};
+export const Basic: Story = {};
