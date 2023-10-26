@@ -5369,6 +5369,8 @@ export class WidgetDef {
     getWidgetControl(type: ConfigurableUiControlType): WidgetControl | undefined;
     // @internal (undocumented)
     handleWidgetStateChanged(newState: WidgetState): void;
+    // (undocumented)
+    get hasPoppedOut(): boolean | undefined;
     set hideWithUiWhenFloating(hide: boolean | undefined);
     // (undocumented)
     get hideWithUiWhenFloating(): boolean;
@@ -5409,6 +5411,8 @@ export class WidgetDef {
     setCanPopout(value: boolean | undefined): void;
     // (undocumented)
     setFloatingContainerId(value: string | undefined): void;
+    // (undocumented)
+    setHasPoppedOut(value: boolean | undefined): void;
     setLabel(labelSpec: string | ConditionalStringValue | StringGetter): void;
     setTooltip(v: string | ConditionalStringValue | StringGetter): void;
     // (undocumented)
