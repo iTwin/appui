@@ -19,6 +19,8 @@ importers:
       '@itwin/core-orbitgt': 4.0.0-dev.104
       '@itwin/core-quantity': 4.0.0-dev.104
       '@itwin/core-react': workspace:*
+      '@itwin/imodels-access-frontend': ^3.0.0
+      '@itwin/imodels-client-authoring': ^3.0.0
       '@itwin/itwinui-icons-react': ^2.1.0
       '@itwin/itwinui-react': ^2.11.11
       '@originjs/vite-plugin-commonjs': ~1.0.3
@@ -63,6 +65,8 @@ importers:
       '@itwin/core-orbitgt': 4.0.0-dev.104
       '@itwin/core-quantity': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
       '@itwin/core-react': link:../../ui/core-react
+      '@itwin/imodels-access-frontend': 3.0.0_c241bdb4b0088af2ef0f0f9823d9ac47
+      '@itwin/imodels-client-authoring': 3.0.0
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 2.11.11_react-dom@17.0.2+react@17.0.2
       react: 17.0.2
