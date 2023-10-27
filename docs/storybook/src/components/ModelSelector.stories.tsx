@@ -13,13 +13,14 @@ import {
 import { createFrontstageProvider } from "../Utils";
 import { AppUiDecorator } from "../AppUiDecorator";
 import { AppUiStory } from "../AppUiStory";
+import { demoIModels } from "../demoModels";
 
 function ModelSelector() {
   return (
     <AppUiStory
       onInitialize={async () => {
-        const iTwinId = "402f1a92-c7b1-4012-b787-7fa45e2e7fe4";
-        const iModelId = "b55dec38-d9b7-4029-9b9c-6b899151328f";
+        const demoModel = demoIModels[0];
+        const { iTwinId, iModelId } = demoModel;
         const iModelConnection = await CheckpointConnection.openRemote(
           iTwinId,
           iModelId
