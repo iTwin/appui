@@ -3,8 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Preview } from "@storybook/react";
+import { addDemoIModelToolbarItem } from "./addons/DemoIModel";
 
-const preview: Preview = {
+const preview: Preview = addDemoIModelToolbarItem({
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
@@ -14,6 +15,6 @@ const preview: Preview = {
       },
     },
   },
-};
+});
 
 export default preview;

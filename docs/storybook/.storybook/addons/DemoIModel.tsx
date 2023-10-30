@@ -2,6 +2,74 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import React from "react";
+import type { Decorator, Preview } from "@storybook/react";
+
+export namespace Storybook {
+  export interface MenuItem {
+    value: string;
+    title: string;
+    left?: string;
+    right?: string;
+    icon?: string;
+  }
+}
+
+const getDemoIModel = (name: string) => {
+  const model = demoIModels.find((model) => model.name === name);
+  return model;
+};
+
+const DemoIModelContext = React.createContext<DemoIModel | undefined>(
+  undefined
+);
+
+export function addDemoIModelToolbarItem(preview: Preview): Preview {
+  return {
+    ...preview,
+    globalTypes: {
+      ...preview.globalTypes,
+      iModel: {
+        description: "Global iModel for components",
+        defaultValue: undefined,
+        toolbar: {
+          // The label to show for this toolbar item
+          title: "Demo IModel",
+          icon: "doclist",
+          // Array of plain string values or MenuItem shape (see below)
+          items: [
+            { title: "No iModel", value: "no" },
+            { title: "Blank iModel", value: "blank" },
+            ...demoIModels.map((model) => ({
+              title: model.label,
+              value: model.name,
+            })),
+          ] as Storybook.MenuItem[],
+          // Change title based on selected value
+          dynamicTitle: true,
+        },
+      },
+    },
+    decorators: [...(preview.decorators ?? []), withDemoIModel],
+  };
+}
+
+// https://github.com/storybookjs/storybook/issues/14617
+// https://github.com/storybookjs/storybook/blob/next/code/addons/toolbars/src/types.ts
+
+const withDemoIModel: Decorator = (Story, context) => {
+  const demoIModel = getDemoIModel(context.globals.iModel);
+  return (
+    <DemoIModelContext.Provider value={demoIModel}>
+      <Story />
+    </DemoIModelContext.Provider>
+  );
+};
+
+export function useDemoIModel() {
+  return React.useContext(DemoIModelContext);
+}
+
 export interface DemoIModel {
   name: string;
   label: string;

@@ -25,10 +25,16 @@ import {
   IModelTileRpcInterface,
   SnapshotIModelRpcInterface,
 } from "@itwin/core-common";
-import { IModelApp } from "@itwin/core-frontend";
+import {
+  CheckpointConnection,
+  IModelApp,
+  IModelConnection,
+  ViewCreator3d,
+} from "@itwin/core-frontend";
 import { FrontendIModelsAccess } from "@itwin/imodels-access-frontend";
 import { IModelsClient } from "@itwin/imodels-client-authoring";
 import { createFrontstageProvider } from "./Utils";
+import { DemoIModel, useDemoIModel } from "../.storybook/addons/DemoIModel";
 
 export interface AppUiStoryProps {
   onInitialize?: () => Promise<void>;
@@ -38,6 +44,8 @@ export interface AppUiStoryProps {
 }
 
 export function AppUiStory(props: AppUiStoryProps) {
+  const demoIModel = useDemoIModel();
+
   const [initialized, setInitialized] = React.useState(false);
   React.useEffect(() => {
     void (async function () {
@@ -67,6 +75,7 @@ export function AppUiStory(props: AppUiStoryProps) {
           SnapshotIModelRpcInterface,
         ]
       );
+      demoIModel && (await openIModel(demoIModel));
       await props.onInitialize?.();
 
       const frontstageProviders = getFrontstageProviders(
@@ -75,7 +84,6 @@ export function AppUiStory(props: AppUiStoryProps) {
       for (const provider of frontstageProviders) {
         UiFramework.frontstages.addFrontstageProvider(provider);
       }
-
       for (const provider of props.itemProviders ?? []) {
         UiItemsManager.register(provider);
       }
@@ -92,6 +100,9 @@ export function AppUiStory(props: AppUiStoryProps) {
       for (const provider of props.itemProviders ?? []) {
         UiItemsManager.unregister(provider.id);
       }
+      UiFramework.getIModelConnection()?.close();
+      UiFramework.terminate();
+      void IModelApp.shutdown();
     };
   }, [props]);
   if (!initialized) return null;
@@ -148,4 +159,22 @@ class DemoAuthClient implements AuthorizationClient {
     })();
     return this.accessToken;
   }
+}
+
+export async function openIModel({
+  iTwinId,
+  iModelId,
+}: Pick<DemoIModel, "iTwinId" | "iModelId">) {
+  const iModelConnection = await CheckpointConnection.openRemote(
+    iTwinId,
+    iModelId
+  );
+  UiFramework.setIModelConnection(iModelConnection, true);
+  const viewState = await getViewState(iModelConnection);
+  UiFramework.setDefaultViewState(viewState, true);
+}
+
+async function getViewState(iModelConnection: IModelConnection) {
+  const viewCreator = new ViewCreator3d(iModelConnection);
+  return viewCreator.createDefaultView();
 }
