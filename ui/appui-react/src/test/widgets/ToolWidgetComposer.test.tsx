@@ -93,7 +93,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       );
     });
 
-    it("BackstageAppButton should render in 2.0 mode", () => {
+    it("BackstageAppButton should execute on click", () => {
       const spy = sinon.spy();
       const component = render(
         <Provider store={TestUtils.store}>
@@ -107,7 +107,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       spy.called.should.true;
     });
 
-    it("BackstageAppButton should render with defaults in 2.0 mode", () => {
+    it("BackstageAppButton should render with defaults", () => {
       const spy = sinon.spy(UiFramework.backstage, "toggle");
       const component = render(
         <Provider store={TestUtils.store}>

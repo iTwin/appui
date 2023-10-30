@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Remove remaining UI 2.0 mention in docs",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

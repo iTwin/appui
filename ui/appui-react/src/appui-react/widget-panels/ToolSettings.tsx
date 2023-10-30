@@ -133,7 +133,6 @@ export function useHorizontalToolSettingNodes() {
 }
 
 /** Defines the ToolSettingsEntry entries that are used to populate a grid layout of ToolSetting properties.
- * Used only when the "Use UI 2.0" setting is true
  * @internal
  */
 export interface ToolSettingsGridProps {
