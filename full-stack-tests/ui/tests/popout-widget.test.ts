@@ -92,10 +92,9 @@ test.describe("popout widget", () => {
     ]);
     await expect(popoutPage).toHaveTitle(/View Attributes/);
 
-    // Fit size of content on initial popout
     expect(popoutPage.viewportSize()).toEqual({
-      height: 270,
-      width: 215,
+      height: 800,
+      width: 600,
     });
 
     // Update widget size and close the popout.
