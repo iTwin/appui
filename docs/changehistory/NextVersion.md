@@ -6,12 +6,14 @@ Table of contents:
   - [Additions](#additions)
   - [Changes](#changes)
   - [Fixes](#fixes)
-- [@itwin/components-react](#itwincomponents-react)
+- [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Fixes](#fixes-1)
-- [@itwin/core-react](#itwincore-react)
+- [@itwin/components-react](#itwincomponents-react)
   - [Fixes](#fixes-2)
 - [@itwin/appui-layout-react](#itwinappui-layout-react)
   - [Changes](#changes)
+- [@itwin/core-react](#itwincore-react)
+  - [Fixes](#fixes-3)
 
 ## @itwin/appui-react
 
@@ -69,6 +71,13 @@ Table of contents:
 - Unmount `ChildWindowManager` whenever child window is closed.
 - Whenever widget is popped out and `window.open` fails, widget no longer disappears.
 - Fix error when `HTMLElement` used in `NotifyMessageDetails` messages.
+- Remove unneeded `changeView` call in `FloatingViewportComponent`.
+
+## @itwin/imodel-components-react
+
+### Fixes
+
+- Remove unneeded `changeView` call when mounting `ViewportComponent`.
 
 ## @itwin/components-react
 
