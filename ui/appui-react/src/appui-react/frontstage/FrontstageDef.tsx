@@ -843,7 +843,6 @@ export class FrontstageDef {
 
     const popoutWidget = state.popoutWidgets.byId[location.popoutWidgetId];
     const bounds = Rectangle.create(popoutWidget.bounds);
-
     const position: ChildWindowLocationProps = {
       width: bounds.getWidth(),
       height: bounds.getHeight(),
