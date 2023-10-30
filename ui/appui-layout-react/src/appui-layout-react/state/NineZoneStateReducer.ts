@@ -530,9 +530,25 @@ export function NineZoneStateReducer(
       if (location && isPopoutTabLocation(location)) return state;
 
       const savedTab = state.savedTabs.byId[id];
+
+      const popoutContentContainer = document.getElementById(
+        `content-container:${savedTab?.id}`
+      );
+
+      let contentHeight = 800;
+      let contentWidth = 600;
+
+      if (popoutContentContainer !== null) {
+        contentWidth = popoutContentContainer.offsetWidth + 20;
+        contentHeight = popoutContentContainer.offsetHeight + 20;
+      }
+
       let preferredBounds = savedTab?.popoutBounds
         ? Rectangle.create(savedTab.popoutBounds)
-        : Rectangle.createFromSize({ height: 800, width: 600 });
+        : Rectangle.createFromSize({
+            height: contentHeight,
+            width: contentWidth,
+          });
       if (size) preferredBounds = preferredBounds.setSize(size);
       if (position) preferredBounds = preferredBounds.setPosition(position);
 
