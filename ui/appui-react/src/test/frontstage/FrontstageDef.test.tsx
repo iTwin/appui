@@ -65,21 +65,6 @@ class BadGroupFrontstage extends FrontstageProvider {
   }
 }
 
-class EmptyFrontstageProvider extends FrontstageProvider {
-  public static stageId = "TestFrontstageUi2";
-  public override get id(): string {
-    return EmptyFrontstageProvider.stageId;
-  }
-
-  public override frontstageConfig(): FrontstageConfig {
-    return {
-      id: this.id,
-      version: 1,
-      contentGroup: TestUtils.TestContentGroup1,
-    };
-  }
-}
-
 export const defaultFrontstageConfig: FrontstageConfig = {
   id: "test-frontstage",
   contentGroup: TestUtils.TestContentGroup1,
@@ -337,6 +322,21 @@ describe("FrontstageDef", () => {
       }
     }
 
+    class EmptyFrontstageProvider extends FrontstageProvider {
+      public static stageId = "TestFrontstageUi2";
+      public override get id(): string {
+        return EmptyFrontstageProvider.stageId;
+      }
+
+      public override frontstageConfig(): FrontstageConfig {
+        return {
+          id: this.id,
+          version: 1,
+          contentGroup: TestUtils.TestContentGroup1,
+        };
+      }
+    }
+
     beforeEach(() => {
       UiItemsManager.register(new WidgetsProvider());
     });
@@ -548,41 +548,36 @@ describe("FrontstageDef", () => {
       });
     });
     it("should handle multiple popoutWidgets being set for empty 'oldState' (For electron initialization)", async () => {
-      const frontstageProvider = new EmptyFrontstageProvider();
-      UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
-      const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
-        EmptyFrontstageProvider.stageId
-      );
-      if (frontstageDef === undefined) return;
-      let state = createNineZoneState();
+      let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
       state = addTab(state, "t1");
       state = addTab(state, "t2");
-      state = addPopoutWidget(state, "w1", ["t1"]);
-      state = addPopoutWidget(state, "w2", ["t2"]);
+      state = addPopoutWidget(state, "fw1", ["t1"]);
+      state = addPopoutWidget(state, "fw2", ["t2"]);
 
-      const widgetDef1 = WidgetDef.create({
-        id: "t1",
-        defaultState: WidgetState.Open,
+      const frontstageDef = new FrontstageDef();
+      await frontstageDef.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        leftPanel: {
+          sections: {
+            start: [
+              {
+                id: "t1",
+              },
+            ],
+          },
+        },
+        rightPanel: {
+          sections: {
+            start: [
+              {
+                id: "t2",
+              },
+            ],
+          },
+        },
       });
-
-      const widgetDef2 = WidgetDef.create({
-        id: "t2",
-        defaultState: WidgetState.Open,
-      });
-
-      const findWidgetStub = sinon.stub(frontstageDef, "findWidgetDef");
-
-      findWidgetStub.withArgs("t1").returns(widgetDef1);
-      findWidgetStub.withArgs("t2").returns(widgetDef2);
-
-      await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
       const spy = sinon.spy(window, "open");
-
-      const blankHTML = document.createElement("div");
-
-      sinon.stub(document, "getElementById").returns(blankHTML);
-
       frontstageDef.nineZoneState = state;
 
       expect(frontstageDef.nineZoneState).to.be.eq(state);
@@ -592,36 +587,23 @@ describe("FrontstageDef", () => {
 
   describe("openPopoutWidgetContainer", () => {
     it("should open a popout window", async () => {
-      const frontstageProvider = new EmptyFrontstageProvider();
-      UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
-      const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
-        EmptyFrontstageProvider.stageId
-      );
-      if (frontstageDef === undefined) return;
-      let state = createNineZoneState();
-      state = addTab(state, "t1");
-      state = addPopoutWidget(state, "w1", ["t1"]);
-
-      const widgetDef = WidgetDef.create({
-        id: "t1",
-        defaultState: WidgetState.Open,
+      const frontstageDef = new FrontstageDef();
+      await frontstageDef.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        leftPanel: {
+          sections: {
+            start: [
+              {
+                id: "t1",
+              },
+            ],
+          },
+        },
       });
-
-      sinon
-        .stub(frontstageDef, "findWidgetDef")
-        .withArgs("t1")
-        .returns(widgetDef);
-      frontstageDef.nineZoneState = state;
-      await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
+      frontstageDef.nineZoneState = initializeNineZoneState(frontstageDef);
+      frontstageDef.popoutWidget("t1");
 
       const spy = sinon.spy(window, "open");
-
-      const blankHTML = document.createElement("div");
-
-      sinon
-        .stub(document, "getElementById")
-        .withArgs("content-container:t1")
-        .returns(blankHTML);
       const popoutWidgets = frontstageDef.nineZoneState.popoutWidgets;
       const popoutWidget = popoutWidgets.byId[popoutWidgets.allIds[0]];
       frontstageDef.openPopoutWidgetContainer(
@@ -634,16 +616,17 @@ describe("FrontstageDef", () => {
 
   describe("dockWidgetContainer", () => {
     it("should dock popout widget", async () => {
-      const frontstageProvider = new EmptyFrontstageProvider();
-      UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
-      const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
-        EmptyFrontstageProvider.stageId
-      );
-      if (frontstageDef === undefined) return;
-      let state = createNineZoneState();
-      state = addTab(state, "t1");
-      state = addPopoutWidget(state, "w1", ["t1"]);
-      frontstageDef.nineZoneState = state;
+      const frontstageDef = new FrontstageDef();
+      await frontstageDef.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        leftPanel: {
+          sections: {
+            start: [{ id: "t1" }],
+          },
+        },
+      });
+      frontstageDef.nineZoneState = initializeNineZoneState(frontstageDef);
+      frontstageDef.popoutWidget("t1");
 
       frontstageDef.dockWidgetContainer("t1");
       expect(frontstageDef.nineZoneState.popoutWidgets.allIds).lengthOf(0);
