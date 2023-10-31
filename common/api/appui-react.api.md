@@ -863,6 +863,8 @@ export interface CommonToolbarItem {
     readonly isDisabled?: boolean | ConditionalBooleanValue;
     readonly isHidden?: boolean | ConditionalBooleanValue;
     readonly itemPriority: number;
+    // @alpha
+    readonly layouts?: ToolbarItemLayouts;
 }
 
 // @public
@@ -4126,6 +4128,18 @@ export class StandardFrontstageProvider extends FrontstageProvider {
     get id(): string;
 }
 
+// @alpha
+export interface StandardLayoutToolbarItem {
+    readonly orientation: ToolbarOrientation;
+    readonly usage: ToolbarUsage;
+}
+
+// @alpha
+export interface StandardLayoutWidget {
+    readonly location: StagePanelLocation;
+    readonly section: StagePanelSection;
+}
+
 // @public
 export class StandardMessageBox extends React_2.PureComponent<StandardMessageBoxProps, StandardMessageBoxState> {
     constructor(props: StandardMessageBoxProps);
@@ -4567,6 +4581,11 @@ export class ToolbarHelper {
 // @public
 export type ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomItem;
 
+// @alpha
+export interface ToolbarItemLayouts {
+    readonly standard?: StandardLayoutToolbarItem;
+}
+
 // @beta
 export namespace ToolbarItemUtilities {
     export function createActionItem(id: ToolbarActionItem["id"], itemPriority: ToolbarActionItem["itemPriority"], icon: ToolbarActionItem["icon"], label: ToolbarActionItem["label"], execute: ToolbarActionItem["execute"], overrides?: Partial<ToolbarActionItem>): ToolbarActionItem;
@@ -4895,10 +4914,20 @@ export class UiItemsManager {
     static register(uiProvider: UiItemsProvider, overrides?: UiItemsProviderOverrides): void;
     static get registeredProviderIds(): string[];
     static unregister(providerId: string): void;
+    // @internal
+    static useAbstractAdapter(useAbstractAdapter: boolean): void;
 }
 
 // @public
 export interface UiItemsProvider {
+    // @alpha
+    readonly getBackstageItems?: () => ReadonlyArray<BackstageItem>;
+    // @alpha
+    readonly getStatusBarItems?: () => ReadonlyArray<StatusBarItem>;
+    // @alpha
+    readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
+    // @alpha
+    readonly getWidgets?: () => ReadonlyArray<Widget>;
     readonly id: string;
     readonly onUnregister?: () => void;
     readonly provideBackstageItems?: () => ReadonlyArray<BackstageItem>;
@@ -5263,6 +5292,8 @@ export interface Widget {
     readonly id: string;
     // (undocumented)
     readonly label?: string | ConditionalStringValue;
+    // @alpha
+    readonly layouts?: WidgetLayouts;
     // (undocumented)
     readonly priority?: number;
     // (undocumented)
@@ -5425,6 +5456,11 @@ export interface WidgetInfo {
     stageUsage?: string;
     // (undocumented)
     widgetDef: WidgetDef;
+}
+
+// @alpha
+export interface WidgetLayouts {
+    readonly standard?: StandardLayoutWidget;
 }
 
 // @beta
