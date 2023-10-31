@@ -10,7 +10,16 @@ import { ToolAdmin } from "@itwin/core-frontend";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
 
-/** UiFramework implementation of ToolAdmin
+/** UiFramework implementation of ToolAdmin.
+ *
+ * Enable processing of shortcut keys registered to
+ * [[UiFramework.keyboardShortcuts]] when focus is set to Home.
+ *
+ * ```ts
+ * await IModelApp.startup({
+ *   toolAdmin: new FrameworkToolAdmin()
+ * });
+ * ```
  * @alpha
  */
 export class FrameworkToolAdmin extends ToolAdmin {
