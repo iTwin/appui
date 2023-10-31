@@ -104,6 +104,7 @@ export class IModelViewportControl extends ViewportContentControl {
   ) {
     _options = _options ?? {};
     super(info, _options);
+    this._options = _options;
 
     if (_options.featureOptions) this._featureOptions = _options.featureOptions;
     this._alwaysUseSuppliedViewState =
