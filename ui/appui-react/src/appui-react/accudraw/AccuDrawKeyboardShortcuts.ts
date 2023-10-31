@@ -11,6 +11,14 @@ import { AccuDrawCommandItems } from "./AccuDrawCommandItems";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
 
 /** Default AccuDraw Keyboard Shortcuts
+ *
+ * Expected to be used with [[UiFramework.keyboardShortcuts]].
+ *
+ * ```ts
+ * UiFramework.keyboardShortcuts.loadShortcuts(
+ *   AccuDrawKeyboardShortcuts.getDefaultShortcuts()
+ * );
+ * ```
  * @beta
  */
 export class AccuDrawKeyboardShortcuts {
