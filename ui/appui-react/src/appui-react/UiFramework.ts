@@ -169,6 +169,11 @@ export class UiFramework {
 
   /**
    * Manages global keyboard shortcuts
+   *
+   * Note: This only manages the list of available shortcuts registered with it. It does not listens to the actual
+   * keyboard events. In order for these shortcuts to be called upon a keyboard event, the application can
+   * override the `IModelApp.toolAdmin` and assign it [[FrameworkToolAdmin]] or create an event listener
+   * and call `UiFramework.keyboardShortcuts.processKey`.
    * @public
    */
   public static get keyboardShortcuts(): FrameworkKeyboardShortcuts {
@@ -702,7 +707,7 @@ export class UiFramework {
       : /* istanbul ignore next */ SYSTEM_PREFERRED_COLOR_THEME;
   }
 
-  /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified. Used by UI 2.0 and later.
+  /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified.
    * @param opacity a value between 0 and 1. The default value is 0.5. IT IS NOT ADVISED TO USE A VALUE BELOW 0.2
    * @public
    */
