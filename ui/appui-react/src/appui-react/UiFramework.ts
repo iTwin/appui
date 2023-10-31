@@ -169,6 +169,11 @@ export class UiFramework {
 
   /**
    * Manages global keyboard shortcuts
+   *
+   * Note: This only manages the list of available shortcuts registered with it. It does not listens to the actual
+   * keyboard events. In order for these shortcuts to be called upon a keyboard event, the application can
+   * override the `IModelApp.toolAdmin` and assign it [[FrameworkToolAdmin]] or create an event listener
+   * and call `UiFramework.keyboardShortcuts.processKey`.
    * @public
    */
   public static get keyboardShortcuts(): FrameworkKeyboardShortcuts {
