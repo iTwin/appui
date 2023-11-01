@@ -1635,6 +1635,13 @@ describe("NineZoneStateReducer", () => {
         id: "t1",
       });
       newState.popoutWidgets.allIds.should.length(1);
+      const popoutWidgetId = newState.popoutWidgets.allIds[0];
+      newState.popoutWidgets.byId[popoutWidgetId].bounds.should.eql({
+        left: 0,
+        top: 0,
+        bottom: 20,
+        right: 20,
+      });
     });
   });
 
