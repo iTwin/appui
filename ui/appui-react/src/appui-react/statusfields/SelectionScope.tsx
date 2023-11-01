@@ -9,6 +9,7 @@
 import "./SelectionScope.scss";
 import classnames from "classnames";
 import * as React from "react";
+import type { ConnectedComponent } from "react-redux";
 import { connect } from "react-redux";
 import { FooterIndicator } from "@itwin/appui-layout-react";
 import { Select } from "@itwin/itwinui-react";
@@ -26,11 +27,6 @@ interface SelectionScopeFieldProps extends CommonProps {
 
 /**
  * Status Field React component. This component is designed to be specified in a status bar definition.
- * It is used to display the number of selected items based on the Presentation Rules Selection Manager.
- * The IModelApp should call either UiFramework.setIModelConnection or SyncUiEventDispatcher.initializeConnectionEvents
- * with the active iModelConnection each time a new iModel is opened so the selection scope data is properly updated
- * in the Redux state.
- * @public
  */
 function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
   const label = UiFramework.translate("selectionScopeField.label");
@@ -86,13 +82,14 @@ function mapStateToProps(state: any) {
   };
 }
 
-// we declare the variable and export that rather than using export default.
 /**
  * SelectionScopeField React component. This component is designed to be specified in a status bar definition. It will
- * display the active selection scope that is used by the PresentationManager to determine what elements are added to the selection nap mode.
+ * display the active selection scope from `UiFramework.getActiveSelectionScope()`, and display the stored list of scopes from
+ * `UiFramework.getAvailableSelectionScopes()` to allow the user to change the active selection scope, using `UiFramework.setActiveSelectionScope()`.
  * This React component is Redux connected.
  * @public
  */
-export const SelectionScopeField = connect(mapStateToProps)(
-  SelectionScopeFieldComponent
-);
+export const SelectionScopeField: ConnectedComponent<
+  typeof SelectionScopeFieldComponent,
+  CommonProps
+> = connect(mapStateToProps)(SelectionScopeFieldComponent);
