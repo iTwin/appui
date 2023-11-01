@@ -19,7 +19,17 @@ const commonjsGlobal =
 if (commonjsGlobal.MessageChannel) delete commonjsGlobal.MessageChannel;
 
 const path = require("path");
-
+const os = require("os");
+require("ignore-styles").default(
+  [".css", ".scss", ".sass", ".svg"],
+  (module, filename) => {
+    if (filename.endsWith(".svg")) {
+      const homeDir = os.homedir();
+      const filePath = filename.replace(homeDir, "");
+      module.exports = { default: filePath };
+    }
+  }
+);
 // A workaround to @testing-library/react {@testing-library/dom {wait-for-expect}} breaking somewhere,
 // because somewhere (most likely in jsdom) window.Date becomes undefined.
 // Similar issue mentioned in https://github.com/vuejs/vue-test-utils/issues/936

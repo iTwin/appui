@@ -3,8 +3,7 @@
     "../scripts/copy-test-setup.js",
     "raf/polyfill",
     "source-map-support/register",
-    "jsdom-global/register",
-    "ignore-styles"
+    "jsdom-global/register"
   ],
   "checkLeaks": true,
   "timeout": 60000,

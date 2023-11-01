@@ -4,18 +4,18 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { UiError } from "@itwin/appui-abstract";
+import { getObjectClassName } from "@itwin/core-react/lib/cjs/core-react/utils/getObjectClassName";
 import { UiComponents } from "../UiComponents";
 import React from "react";
-import { getObjectClassName } from "./getObjectClassName";
 
 /** @internal */
 export function createContextWithMandatoryProvider<T>(
   contextName: string
 ): [
-  React.ProviderExoticComponent<React.ProviderProps<T>>,
-  React.ExoticComponent<React.ConsumerProps<T>>,
-  <P>(component: React.ComponentType<P>) => T
-] {
+    React.ProviderExoticComponent<React.ProviderProps<T>>,
+    React.ExoticComponent<React.ConsumerProps<T>>,
+    <P>(component: React.ComponentType<P>) => T
+  ] {
   const context = React.createContext<T>(undefined as any as T);
   function useContextWithoutDefaultValue<P>(
     ConsumingComponent: React.ComponentType<P>

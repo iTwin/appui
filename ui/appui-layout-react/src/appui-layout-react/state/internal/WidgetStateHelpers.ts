@@ -147,10 +147,10 @@ export function createPopoutWidgetState(
   const home: PopoutWidgetState["home"] = args?.home
     ? args.home
     : {
-      side: "left",
-      widgetId: undefined,
-      widgetIndex: 0,
-    };
+        side: "left",
+        widgetId: undefined,
+        widgetIndex: 0,
+      };
   return {
     ...args,
     home,

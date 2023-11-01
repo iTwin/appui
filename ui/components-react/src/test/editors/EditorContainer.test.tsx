@@ -10,7 +10,7 @@ import { EditorContainer } from "../../components-react/editors/EditorContainer"
 import TestUtils, { childStructure, userEvent } from "../TestUtils";
 import { StandardEditorNames } from "@itwin/appui-abstract";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { SpecialKey } from "../../components-react/common/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 describe("<EditorContainer />", () => {
   before(async () => {

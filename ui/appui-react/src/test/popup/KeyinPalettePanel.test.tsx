@@ -18,7 +18,7 @@ import {
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { UiStateStorageStatus } from "@itwin/core-react";
-import { SpecialKey } from "../../appui-react/keyboardKey/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 const myLocalStorage = storageMock();
 const KEYIN_PALETTE_NAMESPACE = "KeyinPalettePanel";

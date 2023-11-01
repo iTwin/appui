@@ -7,7 +7,6 @@ import "@bentley/icons-generic-webfont/dist/bentley-icons-generic-webfont.css";
  */
 import {
   ContentLayoutProps,
-  FunctionKey,
   StandardContentLayouts,
 } from "@itwin/appui-abstract";
 import { IModelApp } from "@itwin/core-frontend";
@@ -19,6 +18,7 @@ import {
   KeyboardShortcutProps,
   UiFramework,
 } from "@itwin/appui-react";
+import { FunctionKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 // cSpell:ignore uitestapp
 

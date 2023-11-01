@@ -77,6 +77,7 @@ import {
   ToolAdmin,
   ViewClipByPlaneTool,
 } from "@itwin/core-frontend";
+import { getObjectClassName } from "@itwin/core-react/lib/cjs/core-react/utils/getObjectClassName";
 import {
   MobileApp,
   MobileAppOpts,
@@ -402,17 +403,9 @@ export class SampleAppIModelApp {
   }
 
   public static loggerCategory(obj: any): string {
-    const className = SampleAppIModelApp.getObjectClassName(obj);
+    const className = getObjectClassName(obj);
     const category = `appui-test-app.${className}`;
     return category;
-  }
-
-  private static getObjectClassName(obj: any): string {
-    return obj?.name
-      ? obj.name
-      : obj?.constructor?.name
-      ? obj.constructor.name
-      : "";
   }
 
   public static async openIModelAndViews(

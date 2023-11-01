@@ -219,9 +219,9 @@ export * from "./appui-react/uiprovider/DefaultDialogGridContainer";
 export * from "./appui-react/uistate/AppUiSettings";
 export * from "./appui-react/uistate/useUiStateStorage";
 
+export * from "./appui-react/utils/ViewUtilities";
 export * from "./appui-react/utils/PropsHelper";
 export * from "./appui-react/utils/ToolbarButtonHelper";
-export * from "./appui-react/utils/ViewUtilities";
 
 export * from "./appui-react/widget-panels/Content";
 export * from "./appui-react/widget-panels/Frontstage";

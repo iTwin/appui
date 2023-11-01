@@ -22,8 +22,7 @@ import TestUtils, {
   styleMatch,
 } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { SpecialKey } from "../../components-react/common/KeyboardKey";
-
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 // cSpell:ignore customnumber
 
 const numVal = 3.345689;

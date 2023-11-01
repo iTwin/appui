@@ -6,8 +6,8 @@
  * @module Base
  */
 
-import produce from "immer";
 import { UiError } from "@itwin/appui-abstract";
+import produce from "immer";
 import type {
   HorizontalPanelSide,
   PanelSide,

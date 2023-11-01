@@ -11,7 +11,7 @@ import { TestUtils } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { AccuDrawDialog } from "../../appui-react/accudraw/AccuDrawDialog";
 import { UiFramework } from "../../appui-react";
-import { SpecialKey } from "../../appui-react/keyboardKey/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 describe("AccuDrawDialog", () => {
   before(async () => {

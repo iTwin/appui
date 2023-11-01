@@ -12,7 +12,7 @@ import { ItemDefBase } from "../shared/ItemDefBase";
 import type { KeyboardShortcutProps } from "../framework/FrameworkKeyboardShortcuts";
 import { UiFramework } from "../UiFramework";
 import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu";
-import { FunctionKey, SpecialKey } from "../keyboardKey/KeyboardKey";
+import { FunctionKey, SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 /** Keyboard Shortcut used to execute an action
  * @public

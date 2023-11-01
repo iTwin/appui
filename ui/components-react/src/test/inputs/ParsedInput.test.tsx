@@ -9,7 +9,7 @@ import { fireEvent, render } from "@testing-library/react";
 import TestUtils from "../TestUtils";
 import { ParsedInput } from "../../components-react/inputs/ParsedInput";
 import type { ParseResults } from "@itwin/appui-abstract";
-import { SpecialKey } from "../../components-react/common/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 function fahrenheitToCelsius(f: number) {
   return ((f - 32) * 5) / 9;

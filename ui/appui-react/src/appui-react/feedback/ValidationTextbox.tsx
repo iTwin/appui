@@ -12,7 +12,7 @@ import * as React from "react";
 import { type CommonProps } from "@itwin/core-react";
 import { MessageManager } from "../messages/MessageManager";
 import { Input } from "@itwin/itwinui-react";
-import { SpecialKey } from "../keyboardKey/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 /** Enum for Input Status used in [[ValidationTextbox]]
  * @alpha

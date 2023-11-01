@@ -16,6 +16,7 @@ import { IModelApp, SnapMode } from "@itwin/core-frontend";
 import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
+import { getObjectClassName } from "@itwin/core-react/lib/cjs/core-react/utils/getObjectClassName";
 import { UiIModelComponents } from "@itwin/imodel-components-react";
 import { BackstageManager } from "./backstage/BackstageManager";
 import { InternalChildWindowManager } from "./childwindow/InternalChildWindowManager";
@@ -86,7 +87,7 @@ export interface UiVisibilityEventArgs {
 /** UiVisibility Event class.
  * @public
  */
-export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> { }
+export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {}
 
 /** TrackingTime time argument used by our feature tracking manager as an option argument to the TelemetryClient
  * @internal
@@ -428,14 +429,10 @@ export class UiFramework {
 
   /** @internal */
   public static loggerCategory(obj: any): string {
-    const className = UiFramework.getObjectClassName(obj);
+    const className = getObjectClassName(obj);
     const category =
       UiFramework.packageName + (className ? `.${className}` : "");
     return category;
-  }
-
-  private static getObjectClassName(obj: any): string {
-    return obj?.name ? obj.name : obj?.constructor?.name ? obj.constructor.name : "";
   }
 
   public static dispatchActionToStore(

@@ -7,7 +7,7 @@
  */
 
 import { UiError } from "@itwin/appui-abstract";
-import { type RectangleProps } from "@itwin/core-react";
+import type { RectangleProps } from "@itwin/core-react";
 import produce from "immer";
 import type { PanelSide } from "../widget-panels/Panel";
 import { category } from "./internal/NineZoneStateHelpers";

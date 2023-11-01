@@ -13,7 +13,7 @@ import { Icon } from "@itwin/core-react";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 
 import "./DatePicker.scss";
-import { SpecialKey } from "../common/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 function isSameDay(a: Date, b: Date) {
   return (

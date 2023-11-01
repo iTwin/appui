@@ -11,7 +11,7 @@ import type { TimeSpec } from "../../components-react/datepicker/TimeField";
 import { TimeField } from "../../components-react/datepicker/TimeField";
 import TestUtils from "../TestUtils";
 import { TimeDisplay } from "@itwin/appui-abstract";
-import { SpecialKey } from "../../components-react/common/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 describe("<TimeField />", () => {
   let renderSpy: sinon.SinonSpy;

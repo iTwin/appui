@@ -31,7 +31,7 @@ import {
   ToolbarPanelAlignment,
   ToolbarWithOverflow,
 } from "@itwin/components-react";
-import { SpecialKey } from "../keyboardKey/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 /** Props for defining a CardPopup editor
  * @beta */

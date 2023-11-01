@@ -72,6 +72,7 @@ import {
   MobileApp,
   MobileAppOpts,
 } from "@itwin/core-mobile/lib/cjs/MobileFrontend";
+import { getObjectClassName } from "@itwin/core-react/lib/cjs/core-react/utils/getObjectClassName";
 import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
 // import { DefaultMapFeatureInfoTool, MapLayersUI } from "@itwin/map-layers";
@@ -357,18 +358,11 @@ export class SampleAppIModelApp {
   }
 
   public static loggerCategory(obj: any): string {
-    const className = SampleAppIModelApp.getObjectClassName(obj);
+    const className = getObjectClassName(obj);
     const category = `appui-test-app.${className}`;
     return category;
   }
 
-  private static getObjectClassName(obj: any): string {
-    return obj?.name
-      ? obj.name
-      : obj?.constructor?.name
-      ? obj.constructor.name
-      : "";
-  }
   public static async closeCurrentIModel() {
     if (SampleAppIModelApp.isIModelLocal) {
       const currentIModelConnection = UiFramework.getIModelConnection();

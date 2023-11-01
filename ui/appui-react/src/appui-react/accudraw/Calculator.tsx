@@ -12,14 +12,13 @@ import * as React from "react";
 import type { OnCancelFunc, OnNumberCommitFunc } from "@itwin/appui-abstract";
 import { type CommonProps, type Omit } from "@itwin/core-react";
 import { Icon, IconInput } from "@itwin/core-react";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 import { Button, Input } from "@itwin/itwinui-react";
 import { CalculatorEngine, CalculatorOperator } from "./CalculatorEngine";
 import type { SquareButtonProps } from "./SquareButton";
 import { SquareButton } from "./SquareButton";
 import { SvgCheckmark, SvgRemove } from "@itwin/itwinui-icons-react";
-
 import backspaceIcon from "./backspace.svg";
-import { SpecialKey } from "../keyboardKey/KeyboardKey";
 
 // cSpell:ignore plusmn
 

@@ -8,7 +8,7 @@
 
 import { ToolAdmin } from "@itwin/core-frontend";
 import { UiFramework } from "../UiFramework";
-import { SpecialKey } from "../keyboardKey/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 /** UiFramework implementation of ToolAdmin
  * @alpha

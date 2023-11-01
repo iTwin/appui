@@ -25,7 +25,7 @@ import type {
 } from "../../../../components-react/tree/controlled/TreeModel";
 import { isTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel";
 import { createRandomMutableTreeModelNode } from "../TreeHelpers";
-import { SpecialKey } from "../../../../components-react/common/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 type Selection = string | RangeSelection;
 

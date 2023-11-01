@@ -10,7 +10,7 @@ import { fireEvent, render } from "@testing-library/react";
 import TestUtils from "../TestUtils";
 import { DatePicker } from "../../components-react/datepicker/DatePicker";
 import { adjustDateToTimezone } from "../../components-react/common/DateUtils";
-import { SpecialKey } from "../../components-react/common/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 describe("<DatePicker />", () => {
   let renderSpy: sinon.SinonSpy;

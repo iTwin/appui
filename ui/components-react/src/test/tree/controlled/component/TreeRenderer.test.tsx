@@ -31,7 +31,7 @@ import type { HighlightableTreeProps } from "../../../../components-react/tree/H
 import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
 import TestUtils from "../../../TestUtils";
 import { createRandomMutableTreeModelNode } from "../TreeHelpers";
-import { SpecialKey } from "../../../../components-react/common/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 describe("TreeRenderer", () => {
   const visibleNodesMock = moq.Mock.ofType<VisibleTreeNodes>();

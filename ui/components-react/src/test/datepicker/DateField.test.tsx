@@ -13,7 +13,7 @@ import { TimeDisplay } from "@itwin/appui-abstract";
 import { DateField } from "../../components-react/datepicker/DateField";
 import TestUtils from "../TestUtils";
 import { IntlFormatter } from "../../components-react/datepicker/IntlFormatter";
-import { SpecialKey } from "../../components-react/common/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 // Note many test do not test exact time because it may yield different results depending on time zone of machine running test.
 

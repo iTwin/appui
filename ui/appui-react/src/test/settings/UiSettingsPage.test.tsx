@@ -18,7 +18,7 @@ import TestUtils, {
 } from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
 import { ColorTheme } from "../../appui-react/theme/ThemeManager";
-import { SpecialKey } from "../../appui-react/keyboardKey/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 describe("UiSettingsPage", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(

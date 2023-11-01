@@ -13,7 +13,7 @@ import { ConfigurableUiContent } from "../../appui-react/configurableui/Configur
 import { FrameworkToolAdmin } from "../../appui-react/tools/FrameworkToolAdmin";
 import userEvent from "@testing-library/user-event";
 import { CursorInformation, UiFramework } from "../../appui-react";
-import { SpecialKey } from "../../appui-react/keyboardKey/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 describe("ConfigurableUiContent", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

@@ -5,7 +5,6 @@
 
 import { expect } from "chai";
 import { UiError } from "@itwin/appui-abstract";
-import { SnapMode } from "@itwin/core-frontend";
 import type { ActionCreatorsObject, ActionsUnion } from "../../appui-react";
 import {
   createAction,
@@ -21,6 +20,7 @@ import {
   ConfigurableUiActions,
   ConfigurableUiReducer,
 } from "../../appui-react/configurableui/state";
+import { SnapMode } from "@itwin/core-frontend";
 
 // Fake state for the host app
 interface IAppState {

@@ -11,7 +11,7 @@ import { Input } from "@itwin/itwinui-react";
 import type { TimeDisplay } from "@itwin/appui-abstract";
 import { UiComponents } from "../UiComponents";
 import "./TimeField.scss";
-import { SpecialKey } from "../common/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 /** Interface used to hold 24 hour time in
  * hours, minutes, and seconds.

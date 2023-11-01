@@ -13,7 +13,7 @@ import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { UiComponents } from "../UiComponents";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
-import { SpecialKey } from "../common/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 /** [[ResultSelector]] React Component state
  * @internal

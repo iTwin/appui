@@ -20,7 +20,7 @@ import { PopupManager } from "./PopupManager";
 import { PositionPopup, PositionPopupContent } from "./PositionPopup";
 import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
 import { DialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
-import { SpecialKey } from "../keyboardKey/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 /** Props for defining a popup tool settings component
  * @beta */

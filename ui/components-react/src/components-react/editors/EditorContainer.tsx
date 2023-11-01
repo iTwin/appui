@@ -10,13 +10,13 @@ import "./EditorContainer.scss";
 import * as React from "react";
 import type { PropertyRecord, PropertyValue } from "@itwin/appui-abstract";
 import { UiAdmin } from "@itwin/appui-abstract";
-import { type CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import type {
   AsyncErrorMessage,
   PropertyEditorBase,
 } from "./PropertyEditorManager";
 import { PropertyEditorManager } from "./PropertyEditorManager";
-import { SpecialKey } from "../common/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
 
 /** Arguments for the Property Updated event callback
  * @public
