@@ -539,6 +539,14 @@ export function NineZoneStateReducer(
       if (tab.preferredFloatingWidgetSize) {
         contentWidth = tab.preferredFloatingWidgetSize.width;
         contentHeight = tab.preferredFloatingWidgetSize.height;
+      } else {
+        const popoutContentContainer = document.getElementById(
+          `content-container:${savedTab?.id}`
+        );
+        if (popoutContentContainer !== null) {
+          contentWidth = popoutContentContainer.offsetWidth + 20;
+          contentHeight = popoutContentContainer.offsetHeight + 20;
+        }
       }
 
       let preferredBounds = savedTab?.popoutBounds
