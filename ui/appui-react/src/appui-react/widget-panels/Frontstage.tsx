@@ -42,6 +42,7 @@ import {
   isPanelTabLocation,
   NineZone,
   NineZoneStateReducer,
+  PreviewFeaturesProvider,
   removeTab,
   WidgetPanels,
 } from "@itwin/appui-layout-react";
@@ -74,13 +75,19 @@ import { WidgetState } from "../widgets/WidgetState";
 import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
+import type { PreviewFeatures } from "../preview/PreviewFeatures";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
   const uiIsVisible = useUiVisibility();
+  const previewFeatures = useSelector((state: FrameworkRootState) => {
+    const frameworkState = (state as any)[UiFramework.frameworkStateKey];
+    return frameworkState.configurableUiState
+      .previewFeatures as PreviewFeatures;
+  });
 
   return (
-    <>
+    <PreviewFeaturesProvider {...previewFeatures}>
       <WidgetPanelsToolSettings />
       <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
         <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
@@ -93,7 +100,7 @@ function WidgetPanelsFrontstageComponent() {
         <WidgetPanelsStatusBar />
         <FloatingWidgets />
       </ToolbarPopupAutoHideContext.Provider>
-    </>
+    </PreviewFeaturesProvider>
   );
 }
 

@@ -173,6 +173,18 @@ describe("UiFramework localStorage Wrapper", () => {
       TestUtils.terminateUiFramework();
     });
 
+    it("PreviewFeatures", async () => {
+      await TestUtils.initializeUiFramework();
+      UiFramework.setPreviewFeatures({
+        panelsAlwaysOverContent: true,
+        randomContent: "randomValue",
+      });
+      expect(UiFramework.previewFeatures).to.be.eql({
+        panelsAlwaysOverContent: true,
+      });
+      TestUtils.terminateUiFramework();
+    });
+
     it("ActiveIModelId", async () => {
       await TestUtils.initializeUiFramework();
       const testValue = "Test";
