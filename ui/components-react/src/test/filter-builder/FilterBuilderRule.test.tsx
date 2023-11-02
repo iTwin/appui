@@ -321,14 +321,6 @@ describe("FilterBuilderRuleRenderer", () => {
     expect(removeItemSpy).to.be.calledOnceWith(defaultProps.path);
   });
 
-  // it("does not render remove rule buttom when there is only one rule in the rule group", () => {
-  //   const { container } = renderWithContext(
-  //     <FilterBuilderRuleRenderer {...defaultProps} />
-  //   );
-  //   expect(container.querySelector(".fb-toolbar")?.firstElementChild).to.be
-  //     .null;
-  // });
-
   it("dispatches operator change when operator is changed", () => {
     const actions = new FilterBuilderActions(sinon.spy());
     const operatorRendererSpy = sinon.spy();
