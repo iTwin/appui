@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-layout-react",
+      "comment": "Popout widgets will now popout to fit content when bounds are not set",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-layout-react"
+}
