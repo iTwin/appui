@@ -20,7 +20,6 @@ import { addTabs } from "../Utils";
 import { createDraggedTabState } from "../../appui-layout-react/state/internal/TabStateHelpers";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 import { assert } from "@itwin/core-bentley";
-import { stub } from "sinon";
 
 describe("NineZoneStateReducer", () => {
   it("should not update for unhandled action", () => {
@@ -1621,13 +1620,11 @@ describe("NineZoneStateReducer", () => {
       });
     });
 
-    it("should popout a tab and fit to content container", () => {
-      const blankHTML = document.createElement("div");
-
-      stub(document, "getElementById").returns(blankHTML);
-
+    it("should popout a tab and fit to preferredFloatingWidgetSize if bounds are not set", () => {
       let state = createNineZoneState();
-      state = addTab(state, "t1");
+      state = addTab(state, "t1", {
+        preferredFloatingWidgetSize: { width: 50, height: 50 },
+      });
       state = addPanelWidget(state, "left", "w1", ["t1"]);
 
       const newState = NineZoneStateReducer(state, {
@@ -1639,8 +1636,8 @@ describe("NineZoneStateReducer", () => {
       newState.popoutWidgets.byId[popoutWidgetId].bounds.should.eql({
         left: 0,
         top: 0,
-        bottom: 20,
-        right: 20,
+        bottom: 50,
+        right: 50,
       });
     });
   });

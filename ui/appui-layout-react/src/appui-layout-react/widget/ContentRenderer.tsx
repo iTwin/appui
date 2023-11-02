@@ -78,14 +78,9 @@ export function WidgetContentRenderer(props: WidgetContentRendererProps) {
     };
   }, [renderTo, widgetContentManager, props.tabId]);
   return ReactDOM.createPortal(
-    <div
-      id={`content-container:${props.tabId}`}
-      style={{ width: "fit-content", height: "fit-content" }}
-    >
-      <TabIdContext.Provider value={props.tabId}>
-        {props.children}
-      </TabIdContext.Provider>
-    </div>,
+    <TabIdContext.Provider value={props.tabId}>
+      {props.children}
+    </TabIdContext.Provider>,
     container.current
   );
 }

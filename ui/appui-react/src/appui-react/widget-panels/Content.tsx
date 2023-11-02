@@ -27,10 +27,7 @@ function WidgetFallback() {
     "widget.errorMessage.unknownError"
   );
   return (
-    <div
-      role="alert"
-      style={{ position: "relative", minHeight: 400, minWidth: 400 }}
-    >
+    <div role="alert" style={{ position: "relative", minHeight: 400 }}>
       <NonIdealState svg={<SvgError />} heading={errorMessage} />
     </div>
   );

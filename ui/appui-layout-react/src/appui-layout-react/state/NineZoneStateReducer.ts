@@ -531,16 +531,14 @@ export function NineZoneStateReducer(
 
       const savedTab = state.savedTabs.byId[id];
 
-      const popoutContentContainer = document.getElementById(
-        `content-container:${savedTab?.id}`
-      );
+      const tab = state.tabs[id];
 
       let contentHeight = 800;
       let contentWidth = 600;
 
-      if (popoutContentContainer !== null) {
-        contentWidth = popoutContentContainer.offsetWidth + 20;
-        contentHeight = popoutContentContainer.offsetHeight + 20;
+      if (tab.preferredFloatingWidgetSize) {
+        contentWidth = tab.preferredFloatingWidgetSize.width;
+        contentHeight = tab.preferredFloatingWidgetSize.height;
       }
 
       let preferredBounds = savedTab?.popoutBounds
