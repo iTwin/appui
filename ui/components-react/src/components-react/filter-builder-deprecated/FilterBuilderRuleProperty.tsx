@@ -3,21 +3,20 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module FilterBuilder
+ * @module PropertyFilterBuilder
  */
 
 import * as React from "react";
-import "./FilterBuilderPropertyName.scss";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import type { ComboBoxProps, SelectOption } from "@itwin/itwinui-react";
 import { ComboBox, MenuItem } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
 
 /**
- * Props for [[FilterBuilderRuleProperty]] component.
+ * Props for [[PropertyFilterBuilderRuleProperty]] component.
  * @internal
  */
-export interface FilterBuilderRulePropertyProps {
+export interface PropertyFilterBuilderRulePropertyProps {
   /** List of available properties. */
   properties: PropertyDescription[];
   /** Currently selected property. */
@@ -28,16 +27,14 @@ export interface FilterBuilderRulePropertyProps {
   propertyRenderer?: (name: string) => React.ReactNode;
   /** Specifies whether selector should be disabled or not. */
   isDisabled?: boolean;
-  /** Size to render the component */
-  size?: "small" | "large";
 }
 
 /**
- * Component that renders [[FilterBuilderRuleRenderer]] property selector.
+ * Component that renders [[PropertyFilterBuilderRuleRenderer]] property selector.
  * @internal
  */
-export function FilterBuilderRuleProperty(
-  props: FilterBuilderRulePropertyProps
+export function PropertyFilterBuilderRuleProperty(
+  props: PropertyFilterBuilderRulePropertyProps
 ) {
   const {
     selectedProperty,
@@ -90,7 +87,7 @@ export function FilterBuilderRuleProperty(
   );
 
   return (
-    <div className="fb-property-name fb-row-name">
+    <div className="rule-property">
       <ComboBox
         options={selectOptions}
         onChange={onPropertyChanged}
@@ -98,7 +95,7 @@ export function FilterBuilderRuleProperty(
         inputProps={{
           placeholder: UiComponents.translate("filterBuilder.chooseProperty"),
           disabled: isDisabled,
-          size: props.size,
+          size: "small",
         }}
         itemRenderer={itemRenderer}
         enableVirtualization={true}

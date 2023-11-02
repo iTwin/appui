@@ -1,0 +1,23 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.fb-toolbar {
+  .fb-toolbar-action-buttons {
+    visibility: hidden;
+  }
+
+  .fb-toolbar-settings {
+    display: flex;
+  }
+
+  &.fb-show-action-buttons {
+    .fb-toolbar-action-buttons {
+      visibility: visible;
+    }
+
+    .fb-toolbar-settings {
+      display: none;
+    }
+  }
+}

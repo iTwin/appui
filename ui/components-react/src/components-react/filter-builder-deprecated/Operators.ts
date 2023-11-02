@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module FilterBuilder
+ * @module PropertyFilterBuilder
  */
 
 import type { PropertyDescription } from "@itwin/appui-abstract";
@@ -14,7 +14,7 @@ import { UiComponents } from "../UiComponents";
  * Logical operator for joining rules.
  * @beta
  */
-export enum FilterRuleGroupOperator {
+export enum PropertyFilterRuleGroupOperator {
   And,
   Or,
 }
@@ -23,7 +23,7 @@ export enum FilterRuleGroupOperator {
  * Operators for comparing property value in rule.
  * @beta
  */
-export enum FilterRuleOperator {
+export enum PropertyFilterRuleOperator {
   IsTrue,
   IsFalse,
 
@@ -45,21 +45,24 @@ export enum FilterRuleOperator {
  * Function that returns set of available operator based on property type.
  * @beta
  */
-export function getFilterOperators(property: PropertyDescription) {
+export function getPropertyFilterOperators(property: PropertyDescription) {
   const typename = property.typename;
 
   if (
     typename === StandardTypeNames.Bool ||
     typename === StandardTypeNames.Boolean
   ) {
-    return [FilterRuleOperator.IsTrue, FilterRuleOperator.IsFalse];
+    return [
+      PropertyFilterRuleOperator.IsTrue,
+      PropertyFilterRuleOperator.IsFalse,
+    ];
   }
 
   const operators = [
-    FilterRuleOperator.IsEqual,
-    FilterRuleOperator.IsNotEqual,
-    FilterRuleOperator.IsNull,
-    FilterRuleOperator.IsNotNull,
+    PropertyFilterRuleOperator.IsEqual,
+    PropertyFilterRuleOperator.IsNotEqual,
+    PropertyFilterRuleOperator.IsNull,
+    PropertyFilterRuleOperator.IsNotNull,
   ];
 
   if (
@@ -75,10 +78,10 @@ export function getFilterOperators(property: PropertyDescription) {
   ) {
     return [
       ...operators,
-      FilterRuleOperator.Greater,
-      FilterRuleOperator.GreaterOrEqual,
-      FilterRuleOperator.Less,
-      FilterRuleOperator.LessOrEqual,
+      PropertyFilterRuleOperator.Greater,
+      PropertyFilterRuleOperator.GreaterOrEqual,
+      PropertyFilterRuleOperator.Less,
+      PropertyFilterRuleOperator.LessOrEqual,
     ];
   }
 
@@ -86,7 +89,7 @@ export function getFilterOperators(property: PropertyDescription) {
     typename === StandardTypeNames.String ||
     typename === StandardTypeNames.Text
   ) {
-    return [FilterRuleOperator.Like, ...operators];
+    return [PropertyFilterRuleOperator.Like, ...operators];
   }
 
   return operators;
@@ -97,29 +100,31 @@ export function getFilterOperators(property: PropertyDescription) {
  * Function that returns display label for rule operator.
  * @beta
  */
-export function getFilterOperatorLabel(operator: FilterRuleOperator) {
+export function getPropertyFilterOperatorLabel(
+  operator: PropertyFilterRuleOperator
+) {
   switch (operator) {
-    case FilterRuleOperator.IsTrue:
+    case PropertyFilterRuleOperator.IsTrue:
       return UiComponents.translate("filterBuilder.operators.isTrue");
-    case FilterRuleOperator.IsFalse:
+    case PropertyFilterRuleOperator.IsFalse:
       return UiComponents.translate("filterBuilder.operators.isFalse");
-    case FilterRuleOperator.IsEqual:
+    case PropertyFilterRuleOperator.IsEqual:
       return UiComponents.translate("filterBuilder.operators.equal");
-    case FilterRuleOperator.IsNotEqual:
+    case PropertyFilterRuleOperator.IsNotEqual:
       return UiComponents.translate("filterBuilder.operators.notEqual");
-    case FilterRuleOperator.Greater:
+    case PropertyFilterRuleOperator.Greater:
       return ">";
-    case FilterRuleOperator.GreaterOrEqual:
+    case PropertyFilterRuleOperator.GreaterOrEqual:
       return ">=";
-    case FilterRuleOperator.Less:
+    case PropertyFilterRuleOperator.Less:
       return "<";
-    case FilterRuleOperator.LessOrEqual:
+    case PropertyFilterRuleOperator.LessOrEqual:
       return "<=";
-    case FilterRuleOperator.Like:
+    case PropertyFilterRuleOperator.Like:
       return UiComponents.translate("filterBuilder.operators.contains");
-    case FilterRuleOperator.IsNull:
+    case PropertyFilterRuleOperator.IsNull:
       return UiComponents.translate("filterBuilder.operators.isNull");
-    case FilterRuleOperator.IsNotNull:
+    case PropertyFilterRuleOperator.IsNotNull:
       return UiComponents.translate("filterBuilder.operators.isNotNull");
   }
 }
@@ -128,12 +133,14 @@ export function getFilterOperatorLabel(operator: FilterRuleOperator) {
  * Function that checks if supplied operator is unary.
  * @beta
  */
-export function isUnaryFilterOperator(operator: FilterRuleOperator) {
+export function isUnaryPropertyFilterOperator(
+  operator: PropertyFilterRuleOperator
+) {
   switch (operator) {
-    case FilterRuleOperator.IsTrue:
-    case FilterRuleOperator.IsFalse:
-    case FilterRuleOperator.IsNull:
-    case FilterRuleOperator.IsNotNull:
+    case PropertyFilterRuleOperator.IsTrue:
+    case PropertyFilterRuleOperator.IsFalse:
+    case PropertyFilterRuleOperator.IsNull:
+    case PropertyFilterRuleOperator.IsNotNull:
       return true;
   }
   return false;

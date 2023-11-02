@@ -2,67 +2,130 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+.fb-group {
+  --border-color: var(--iui-color-border);
+  --fb-operator-width: 75px;
+  --divider-width: 4px;
+  --divider-background-color: var(--iui-color-border-subtle);
+  --border-radius: var(--iui-border-radius-1);
 
-.filter-builder > .rule-group {
-  & > .rule-group-content {
-    border-left: 0;
-    padding-left: 0;
+  // display: grid;
+  // grid-template-columns: auto 1fr;
+  // grid-template-areas:
+  //   "group-operator"
+  //   "criteria";
+
+  // grid areas
+  .fb-group-operator {
+    grid-area: group-operator;
+  }
+  // .fb-group-header {
+  //   grid-area: header;
+  // }
+  // .fb-group-divider {
+  //   grid-area: divider;
+  // }
+  .fb-group-criteria {
+    grid-area: criteria;
   }
 
-  & > .rule-group-remove-action {
-    padding-right: 0;
+  // set the width of the logical operator
+  &[data-iui-size="small"] {
+    --fb-operator-width: 65px;
   }
-}
-
-.rule-group {
-  display: grid;
-  grid-template-columns: min-content auto;
-  padding: 11px 0;
-
-  &[data-isactive="true"] > .rule-group-remove-action {
-    visibility: visible;
+  &[data-iui-size="large"] {
+    --fb-operator-width: 80px;
+  }
+  .fb-logical-operator {
+    width: var(--fb-operator-width);
   }
 
-  &[data-isactive="true"] > .rule-group-content {
-    border-color: var(--iui-color-border-foreground-hover);
+  // borders (all the corners have border radius)
+  .fb-group-operator {
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    border-style: solid;
+    border-color: var(--border-color);
+    border-width: 1px 0 1px 1px;
+  }
+  .fb-logical-operator:not(.fb-group-operator) {
+    border: 0;
+  }
+  .fb-group-header {
+    border: 1px solid var(--border-color);
+    border-top-right-radius: var(--border-radius);
+  }
+  .fb-group-criteria {
+    .fb-criteria-container:not(:first-child) {
+      overflow: hidden;
+      border-style: solid;
+      border-color: var(--border-color);
+      // border-width: 0 1px 1px 1px;
+      border-bottom-left-radius: var(--border-radius);
+    }
+
+    .fb-criteria-container {
+      border-bottom-right-radius: var(--border-radius);
+    }
+
+    .fb-row {
+      overflow: hidden;
+      border-radius: 0;
+      border-style: solid;
+      border-color: var(--border-color);
+      border-width: 0 0 1px 1px;
+
+      &:last-child {
+        border-bottom-width: 0;
+      }
+    }
   }
 
-  &[data-isactive="false"]
-    > .rule-group-content
-    > .rule-group-actions
-    .iui-button {
-    color: var(--iui-color-icon);
+  // create divider pseudo element
+  .fb-group-divider {
+    position: relative;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      bottom: calc(var(--divider-height) * -1);
+      transform: translateX(-50%);
+      width: var(--divider-width);
+      background-color: var(--divider-background-color);
+    }
   }
 
-  .rule-group-remove-action {
-    padding: 3px var(--iui-size-s) 3px 0;
+  // do not show divider for the last group (if used in query builder)
+  &:last-of-type .fb-group-divider {
+    display: none;
+  }
+
+  // indent nested children
+  .fb-group-criteria .fb-critiera-container {
+    margin-left: calc(
+      var(--level) * calc(var(--fb-operator-width) + 1px)
+    ); // 1 pixel border
+  }
+
+  // remove "add" buttons in the header and for all but the last row
+  .fb-group-header button:first-child,
+  .fb-group-criteria
+    .fb-criteria-container
+    .iui-flex-item
+    .fb-row:not(:last-child)
+    button:first-child {
     visibility: hidden;
   }
-
-  .rule-group-content {
-    padding-left: var(--iui-size-s);
-    border-left: 1px solid;
-    box-sizing: border-box;
-    border-color: var(--iui-color-border-subtle);
-
-    .rule-group-operator {
-      padding: 3px 0;
-      width: max-content;
-    }
-
-    .rule-group-actions {
-      padding: 3px 0;
-      display: grid;
-      grid-template-columns: min-content min-content;
-      gap: 8px;
-    }
-  }
 }
 
-.rule-group-items > .rule-group {
-  padding-bottom: 22px;
+.fb-add-row-button {
+  margin-top: var(--iui-size-s);
+  min-height: var(--iui-size-l);
+  padding: var(--iui-size-xs);
+  align-self: flex-start;
+}
 
-  &:last-child {
-    padding-bottom: 11px;
-  }
+.fb-rule-group {
+  flex-direction: column;
 }

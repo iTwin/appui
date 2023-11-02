@@ -46,6 +46,8 @@ export interface PropertyEditorProps extends CommonProps {
    * @internal
    */
   shouldCommitOnChange?: boolean;
+  /** Size to render the component */
+  size?: "small" | "large";
 }
 
 /** [[EditorContainer]] React component properties
@@ -70,6 +72,8 @@ export interface EditorContainerProps extends CommonProps {
    * @internal
    */
   shouldCommitOnChange?: boolean;
+  /** Size to render the component */
+  size?: "small" | "large";
 }
 
 /** @internal */
@@ -107,6 +111,7 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
       className: this.props.className,
       style: this.props.style,
       shouldCommitOnChange: this.props.shouldCommitOnChange,
+      size: this.props.size,
     };
 
     const propDescription = this.props.propertyRecord.property;

@@ -3,89 +3,100 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module FilterBuilder
+ * @module PropertyFilterBuilder
  */
 
 import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import type {
-  FilterBuilderContextProps,
-  FilterBuilderRuleRenderingContextProps,
+  PropertyFilterBuilderContextProps,
+  PropertyFilterBuilderRuleRenderingContextProps,
 } from "./FilterBuilderContext";
 import {
   ActiveRuleGroupContext,
-  FilterBuilderContext,
-  FilterBuilderRuleRenderingContext,
+  PropertyFilterBuilderContext,
+  PropertyFilterBuilderRuleRenderingContext,
   useActiveRuleGroupContextProps,
 } from "./FilterBuilderContext";
-import { FilterBuilderRuleGroupRenderer } from "./FilterBuilderRuleGroup";
-import type { FilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
-import type { FilterBuilderRuleValueRendererProps } from "./FilterBuilderRuleValue";
-import { createFilter, useFilterBuilder } from "./FilterBuilderState";
-import type { Filter } from "./Types";
-import type {
-  FilterBuilderActions,
-  FilterBuilderRuleGroup,
-  UseFilterBuilderProps,
+import { PropertyFilterBuilderRuleGroupRenderer } from "./FilterBuilderRuleGroup";
+import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
+import type { PropertyFilterBuilderRuleValueRendererProps } from "./FilterBuilderRuleValue";
+import {
+  buildPropertyFilter,
+  usePropertyFilterBuilder,
 } from "./FilterBuilderState";
-import { Flex } from "@itwin/itwinui-react";
+import type { PropertyFilter } from "./Types";
+import type {
+  PropertyFilterBuilderActions,
+  PropertyFilterBuilderRuleGroup,
+  UsePropertyFilterBuilderProps,
+} from "./FilterBuilderState";
 
 /**
- * Props for [[FilterBuilder]] component.
+ * Props for [[PropertyFilterBuilder]] component.
  * @beta
  */
-export interface FilterBuilderProps
-  extends Omit<FilterBuilderRendererProps, "actions" | "rootGroup">,
-    UseFilterBuilderProps {
+export interface PropertyFilterBuilderProps
+  extends Omit<PropertyFilterBuilderRendererProps, "actions" | "rootGroup">,
+    UsePropertyFilterBuilderProps {
   /** Callback that is invoked when filter changes. */
-  onFilterChanged: (filter?: Filter) => void;
+  onFilterChanged: (filter?: PropertyFilter) => void;
 }
 
 /**
  * Component for building complex filters. It allows to create filter rules or rule groups based on provided list of properties.
  * @beta
  */
-export function FilterBuilder(props: FilterBuilderProps) {
+export function PropertyFilterBuilder(props: PropertyFilterBuilderProps) {
   const { initialFilter, onFilterChanged } = props;
-  const { actions, rootGroup } = useFilterBuilder({
+  const { actions, rootGroup } = usePropertyFilterBuilder({
     initialFilter,
   });
 
   const firstRender = React.useRef(true);
-  const filter = React.useMemo(() => createFilter(rootGroup), [rootGroup]);
+  const filter = React.useMemo(
+    () => buildPropertyFilter(rootGroup),
+    [rootGroup]
+  );
   React.useEffect(() => {
     if (!firstRender.current) onFilterChanged(filter);
     firstRender.current = false;
   }, [filter, onFilterChanged]);
 
   return (
-    <FilterBuilderRenderer {...props} actions={actions} rootGroup={rootGroup} />
+    <PropertyFilterBuilderRenderer
+      {...props}
+      actions={actions}
+      rootGroup={rootGroup}
+    />
   );
 }
 
 /**
- * Props for [[FilterBuilderRenderer]] component.
+ * Props for [[PropertyFilterBuilderRenderer]] component.
  * @beta
  */
-export interface FilterBuilderRendererProps {
-  /** Root group of rules in [[FilterBuilder]] component. */
-  rootGroup: FilterBuilderRuleGroup;
-  /** Actions for modifying [[FilterBuilder]] state. */
-  actions: FilterBuilderActions;
+export interface PropertyFilterBuilderRendererProps {
+  /** Root group of rules in [[PropertyFilterBuilder]] component. */
+  rootGroup: PropertyFilterBuilderRuleGroup;
+  /** Actions for modifying [[PropertyFilterBuilder]] state. */
+  actions: PropertyFilterBuilderActions;
   /** List of properties available to be used in filter rules. */
   properties: PropertyDescription[];
   /** Callback that is invoked when property is selected in any rule. */
   onRulePropertySelected?: (property: PropertyDescription) => void;
   /** Custom renderer for rule operator selector. */
   ruleOperatorRenderer?: (
-    props: FilterBuilderRuleOperatorProps
+    props: PropertyFilterBuilderRuleOperatorProps
   ) => React.ReactNode;
   /** Custom renderer for rule value input. */
   ruleValueRenderer?: (
-    props: FilterBuilderRuleValueRendererProps
+    props: PropertyFilterBuilderRuleValueRendererProps
   ) => React.ReactNode;
   /** Custom renderer for property selector in rule. */
   propertyRenderer?: (name: string) => React.ReactNode;
+  /** Specifies how deep rule groups can be nested. */
+  ruleGroupDepthLimit?: number;
   /** Specifies whether component is disabled or not. */
   isDisabled?: boolean;
 }
@@ -93,10 +104,12 @@ export interface FilterBuilderRendererProps {
 const ROOT_GROUP_PATH: string[] = [];
 
 /**
- * Renderer for [[FilterBuilder]] component.
+ * Renderer for [[PropertyFilterBuilder]] component.
  * @beta
  */
-export function FilterBuilderRenderer(props: FilterBuilderRendererProps) {
+export function PropertyFilterBuilderRenderer(
+  props: PropertyFilterBuilderRendererProps
+) {
   const {
     rootGroup,
     actions,
@@ -104,21 +117,23 @@ export function FilterBuilderRenderer(props: FilterBuilderRendererProps) {
     onRulePropertySelected,
     ruleOperatorRenderer,
     ruleValueRenderer,
+    ruleGroupDepthLimit,
     propertyRenderer,
     isDisabled,
   } = props;
   const rootRef = React.useRef<HTMLDivElement>(null);
 
-  const contextValue = React.useMemo<FilterBuilderContextProps>(
+  const contextValue = React.useMemo<PropertyFilterBuilderContextProps>(
     () => ({
       actions,
       properties,
       onRulePropertySelected,
+      ruleGroupDepthLimit,
     }),
-    [actions, properties, onRulePropertySelected]
+    [actions, properties, onRulePropertySelected, ruleGroupDepthLimit]
   );
   const renderingContextValue =
-    React.useMemo<FilterBuilderRuleRenderingContextProps>(
+    React.useMemo<PropertyFilterBuilderRuleRenderingContextProps>(
       () => ({
         ruleOperatorRenderer,
         ruleValueRenderer,
@@ -128,19 +143,21 @@ export function FilterBuilderRenderer(props: FilterBuilderRendererProps) {
       [ruleOperatorRenderer, ruleValueRenderer, propertyRenderer, isDisabled]
     );
   return (
-    <FilterBuilderRuleRenderingContext.Provider value={renderingContextValue}>
-      <FilterBuilderContext.Provider value={contextValue}>
+    <PropertyFilterBuilderRuleRenderingContext.Provider
+      value={renderingContextValue}
+    >
+      <PropertyFilterBuilderContext.Provider value={contextValue}>
         <ActiveRuleGroupContext.Provider
           value={useActiveRuleGroupContextProps(rootRef)}
         >
-          <Flex style={{ flexDirection: "column" }}>
-            <FilterBuilderRuleGroupRenderer
+          <div ref={rootRef} className="filter-builder">
+            <PropertyFilterBuilderRuleGroupRenderer
               path={ROOT_GROUP_PATH}
               group={rootGroup}
             />
-          </Flex>
+          </div>
         </ActiveRuleGroupContext.Provider>
-      </FilterBuilderContext.Provider>
-    </FilterBuilderRuleRenderingContext.Provider>
+      </PropertyFilterBuilderContext.Provider>
+    </PropertyFilterBuilderRuleRenderingContext.Provider>
   );
 }

@@ -31,6 +31,7 @@ export interface TimeFieldProps {
   timeDisplay: TimeDisplay;
   onTimeChange?: (time: TimeSpec) => void;
   readOnly?: boolean;
+  size?: "small" | "large";
 }
 
 function getValidInt(
@@ -64,6 +65,7 @@ export function TimeField({
   timeDisplay,
   readOnly,
   onTimeChange,
+  size,
 }: TimeFieldProps) {
   const initialDateRef = React.useRef(time);
   const amLabelRef = React.useRef(
@@ -370,7 +372,7 @@ export function TimeField({
         onChange={handleHoursChange}
         value={hoursText}
         disabled={readOnly}
-        size="small"
+        size={size}
       />
       <span className="component-time-separator">:</span>
       <Input
@@ -380,7 +382,7 @@ export function TimeField({
         onChange={handleMinutesChange}
         value={minutesText}
         disabled={readOnly}
-        size="small"
+        size={size}
       />
       {showSeconds && (
         <>
@@ -392,7 +394,7 @@ export function TimeField({
             onChange={handleSecondsChange}
             value={secondsText}
             disabled={readOnly}
-            size="small"
+            size={size}
           />
         </>
       )}
@@ -404,7 +406,7 @@ export function TimeField({
           onChange={handleDayPeriodChange}
           value={dayPeriodText}
           disabled={readOnly}
-          size="small"
+          size={size}
         />
       )}
     </div>

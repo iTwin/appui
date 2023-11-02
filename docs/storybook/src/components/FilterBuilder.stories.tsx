@@ -10,9 +10,9 @@ import {
   StandardTypeNames,
 } from "@itwin/appui-abstract";
 import {
-  PropertyFilterRuleGroupOperator,
-  PropertyFilter,
-  PropertyFilterRuleOperator,
+  FilterRuleGroupOperator,
+  Filter,
+  FilterRuleOperator,
 } from "@itwin/components-react";
 import { AppUiDecorator } from "../AppUiDecorator";
 import { FilterBuilderStory } from "./FilterBuilder";
@@ -30,7 +30,6 @@ type Story = StoryObj<typeof FilterBuilderStory>;
 export const Basic: Story = {
   args: {
     properties: createProperties(),
-    ruleGroupDepthLimit: 3,
   },
 };
 
@@ -38,7 +37,6 @@ export const WithInitialFilter: Story = {
   args: {
     initialFilter: createInitialFilter(),
     properties: createProperties(),
-    ruleGroupDepthLimit: 3,
   },
 };
 
@@ -84,19 +82,19 @@ function createProperties(): PropertyDescription[] {
   ];
 }
 
-function createInitialFilter(): PropertyFilter {
+function createInitialFilter(): Filter {
   const properties = createProperties();
   return {
-    operator: PropertyFilterRuleGroupOperator.Or,
+    operator: FilterRuleGroupOperator.Or,
     rules: [
       {
         property: properties[1],
-        operator: PropertyFilterRuleOperator.Less,
+        operator: FilterRuleOperator.Less,
         value: { valueFormat: PropertyValueFormat.Primitive, value: 123 },
       },
       {
         property: properties[0],
-        operator: PropertyFilterRuleOperator.Like,
+        operator: FilterRuleOperator.Like,
       },
     ],
   };

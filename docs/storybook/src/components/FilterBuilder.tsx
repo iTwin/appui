@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import { UiFramework } from "@itwin/appui-react";
 import {
-  PropertyFilterBuilderProps,
-  PropertyFilterBuilderRenderer,
-  usePropertyFilterBuilder,
+  FilterBuilderProps,
+  FilterBuilderRenderer,
+  useFilterBuilder,
 } from "@itwin/components-react";
 import { IModelApp } from "@itwin/core-frontend";
 import React from "react";
@@ -20,19 +20,19 @@ export function FilterBuilderStory(props: FilterBuilderComponentProps) {
 }
 
 type FilterBuilderComponentProps = Pick<
-  PropertyFilterBuilderProps,
-  "properties" | "ruleGroupDepthLimit" | "initialFilter"
+  FilterBuilderProps,
+  "properties" | "initialFilter"
 >;
 
 function FilterBuilderComponent({
   initialFilter,
   ...props
 }: FilterBuilderComponentProps) {
-  const { rootGroup, actions } = usePropertyFilterBuilder({ initialFilter });
+  const { rootGroup, actions } = useFilterBuilder({ initialFilter });
 
   return (
     <div style={{ padding: "10px" }}>
-      <PropertyFilterBuilderRenderer
+      <FilterBuilderRenderer
         {...props}
         actions={actions}
         rootGroup={rootGroup}

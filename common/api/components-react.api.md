@@ -2079,7 +2079,6 @@ export interface PropertyFilterBuilderRendererProps {
     properties: PropertyDescription[];
     propertyRenderer?: (name: string) => React_2.ReactNode;
     rootGroup: PropertyFilterBuilderRuleGroup;
-    ruleGroupDepthLimit?: number;
     ruleOperatorRenderer?: (props: PropertyFilterBuilderRuleOperatorProps) => React_2.ReactNode;
     ruleValueRenderer?: (props: PropertyFilterBuilderRuleValueRendererProps) => React_2.ReactNode;
 }

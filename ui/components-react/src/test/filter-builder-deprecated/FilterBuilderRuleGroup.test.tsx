@@ -7,16 +7,16 @@ import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
 import type { PropertyDescription } from "@itwin/appui-abstract";
-import type { FilterBuilderRuleGroupRendererProps } from "../../components-react/filter-builder/FilterBuilderRuleGroup";
-import { FilterBuilderRuleGroupRenderer } from "../../components-react/filter-builder/FilterBuilderRuleGroup";
-import type { FilterBuilderRuleGroup } from "../../components-react/filter-builder/FilterBuilderState";
-import { FilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
-import { FilterRuleGroupOperator } from "../../components-react/filter-builder/Operators";
+import type { PropertyFilterBuilderRuleGroupRendererProps } from "../../components-react/filter-builder-deprecated/FilterBuilderRuleGroup";
+import { PropertyFilterBuilderRuleGroupRenderer } from "../../components-react/filter-builder-deprecated/FilterBuilderRuleGroup";
+import type { PropertyFilterBuilderRuleGroup } from "../../components-react/filter-builder-deprecated/FilterBuilderState";
+import { PropertyFilterBuilderActions } from "../../components-react/filter-builder-deprecated/FilterBuilderState";
+import { PropertyFilterRuleGroupOperator } from "../../components-react/filter-builder-deprecated/Operators";
 import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";
 
-describe("FilterBuilderRuleGroupRenderer", () => {
-  const rootGroup: FilterBuilderRuleGroup = {
+describe("PropertyFilterBuilderRuleGroupRenderer", () => {
+  const rootGroup: PropertyFilterBuilderRuleGroup = {
     id: "id",
     items: [
       {
@@ -28,9 +28,9 @@ describe("FilterBuilderRuleGroupRenderer", () => {
         groupId: "id",
       },
     ],
-    operator: FilterRuleGroupOperator.And,
+    operator: PropertyFilterRuleGroupOperator.And,
   };
-  const defaultProps: FilterBuilderRuleGroupRendererProps = {
+  const defaultProps: PropertyFilterBuilderRuleGroupRendererProps = {
     group: rootGroup,
     path: [],
   };
@@ -45,7 +45,7 @@ describe("FilterBuilderRuleGroupRenderer", () => {
 
   it("does not render remove button for root group", () => {
     const { queryByTestId } = renderWithContext(
-      <FilterBuilderRuleGroupRenderer {...defaultProps} />
+      <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />
     );
 
     expect(queryByTestId("rule-group-remove")).to.be.null;
@@ -53,13 +53,13 @@ describe("FilterBuilderRuleGroupRenderer", () => {
 
   it("renders remove button for non root group", () => {
     const { getByTestId } = renderWithContext(
-      <FilterBuilderRuleGroupRenderer
+      <PropertyFilterBuilderRuleGroupRenderer
         {...defaultProps}
         group={{
           id: "id",
           groupId: "parentId",
           items: [],
-          operator: FilterRuleGroupOperator.And,
+          operator: PropertyFilterRuleGroupOperator.And,
         }}
       />
     );
@@ -68,28 +68,29 @@ describe("FilterBuilderRuleGroupRenderer", () => {
 
   it("does not render add group button if depth limit is reached", () => {
     const { queryByTestId } = renderWithContext(
-      <FilterBuilderRuleGroupRenderer
+      <PropertyFilterBuilderRuleGroupRenderer
         {...defaultProps}
         path={["parentId", "id"]}
         group={{
           id: "id",
           groupId: "parentId",
           items: [],
-          operator: FilterRuleGroupOperator.And,
+          operator: PropertyFilterRuleGroupOperator.And,
         }}
-      />
+      />,
+      { ruleGroupDepthLimit: 1 }
     );
     expect(queryByTestId("rule-group-add-rule-group")).to.be.null;
   });
 
   it("does not render operator selector if only one rule is in group", () => {
     const { queryByText } = renderWithContext(
-      <FilterBuilderRuleGroupRenderer
+      <PropertyFilterBuilderRuleGroupRenderer
         {...defaultProps}
         group={{
           id: "id",
           items: [{ id: "childId", groupId: "id" }],
-          operator: FilterRuleGroupOperator.And,
+          operator: PropertyFilterRuleGroupOperator.And,
         }}
       />
     );
@@ -109,11 +110,11 @@ describe("FilterBuilderRuleGroupRenderer", () => {
       typename: "int",
     };
     const { getByDisplayValue } = renderWithContext(
-      <FilterBuilderRuleGroupRenderer
+      <PropertyFilterBuilderRuleGroupRenderer
         {...defaultProps}
         group={{
           id: "id",
-          operator: FilterRuleGroupOperator.And,
+          operator: PropertyFilterRuleGroupOperator.And,
           items: [
             {
               id: "childId",
@@ -136,16 +137,16 @@ describe("FilterBuilderRuleGroupRenderer", () => {
       typename: "int",
     };
     const { getByText } = renderWithContext(
-      <FilterBuilderRuleGroupRenderer
+      <PropertyFilterBuilderRuleGroupRenderer
         {...defaultProps}
         group={{
           id: "id",
-          operator: FilterRuleGroupOperator.And,
+          operator: PropertyFilterRuleGroupOperator.And,
           items: [
             {
               id: "childId",
               groupId: "id",
-              operator: FilterRuleGroupOperator.Or,
+              operator: PropertyFilterRuleGroupOperator.Or,
               items: [
                 {
                   id: "grandChildId1",
@@ -170,9 +171,9 @@ describe("FilterBuilderRuleGroupRenderer", () => {
   });
 
   it("dispatches add rule event when button is clicked", () => {
-    const actions = new FilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
     const { getByTestId } = renderWithContext(
-      <FilterBuilderRuleGroupRenderer {...defaultProps} />,
+      <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />,
       { actions }
     );
     const addItemSpy = sinon.stub(actions, "addItem");
@@ -184,9 +185,9 @@ describe("FilterBuilderRuleGroupRenderer", () => {
   });
 
   it("dispatches add rule group event when button is clicked", () => {
-    const actions = new FilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
     const { getByTestId } = renderWithContext(
-      <FilterBuilderRuleGroupRenderer {...defaultProps} />,
+      <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />,
       { actions }
     );
     const addItemSpy = sinon.stub(actions, "addItem");
@@ -198,14 +199,14 @@ describe("FilterBuilderRuleGroupRenderer", () => {
   });
 
   it("dispatches remove item event when button is clicked", () => {
-    const actions = new FilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
     const { getByTestId } = renderWithContext(
-      <FilterBuilderRuleGroupRenderer
+      <PropertyFilterBuilderRuleGroupRenderer
         {...defaultProps}
         group={{
           id: "id",
           groupId: "parentGroupId",
-          operator: FilterRuleGroupOperator.And,
+          operator: PropertyFilterRuleGroupOperator.And,
           items: [],
         }}
       />,
@@ -220,9 +221,9 @@ describe("FilterBuilderRuleGroupRenderer", () => {
   });
 
   it("dispatches operator change event when operator is selected", async () => {
-    const actions = new FilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
     const { container, findByText } = renderWithContext(
-      <FilterBuilderRuleGroupRenderer {...defaultProps} />,
+      <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />,
       { actions }
     );
     const setRuleGroupOperatorSpy = sinon.stub(actions, "setRuleGroupOperator");
@@ -244,7 +245,7 @@ describe("FilterBuilderRuleGroupRenderer", () => {
 
     expect(setRuleGroupOperatorSpy).to.be.calledOnceWith(
       defaultProps.path,
-      FilterRuleGroupOperator.Or
+      PropertyFilterRuleGroupOperator.Or
     );
   });
 });

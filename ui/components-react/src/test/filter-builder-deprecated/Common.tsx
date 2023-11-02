@@ -8,31 +8,33 @@ import sinon from "sinon";
 import { render } from "@testing-library/react";
 import type {
   ActiveRuleGroupContextProps,
-  FilterBuilderContextProps,
-  FilterBuilderRuleRenderingContextProps,
-} from "../../components-react/filter-builder/FilterBuilderContext";
+  PropertyFilterBuilderContextProps,
+  PropertyFilterBuilderRuleRenderingContextProps,
+} from "../../components-react/filter-builder-deprecated/FilterBuilderContext";
 import {
   ActiveRuleGroupContext,
-  FilterBuilderContext,
-  FilterBuilderRuleRenderingContext,
-} from "../../components-react/filter-builder/FilterBuilderContext";
-import { FilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
+  PropertyFilterBuilderContext,
+  PropertyFilterBuilderRuleRenderingContext,
+} from "../../components-react/filter-builder-deprecated/FilterBuilderContext";
+import { PropertyFilterBuilderActions } from "../../components-react/filter-builder-deprecated/FilterBuilderState";
 
 /** @internal */
 export function renderWithContext(
   component: React.ReactElement,
-  builderContextProps: Partial<FilterBuilderContextProps> = {},
-  rendererContextProps: Partial<FilterBuilderRuleRenderingContextProps> = {},
+  builderContextProps: Partial<PropertyFilterBuilderContextProps> = {},
+  rendererContextProps: Partial<PropertyFilterBuilderRuleRenderingContextProps> = {},
   activeGroupContextProps: Partial<ActiveRuleGroupContextProps> = {}
 ): ReturnType<typeof render> {
-  const builderContextValue: FilterBuilderContextProps = {
+  const builderContextValue: PropertyFilterBuilderContextProps = {
     actions:
-      builderContextProps.actions ?? new FilterBuilderActions(sinon.fake()),
+      builderContextProps.actions ??
+      new PropertyFilterBuilderActions(sinon.fake()),
     properties: builderContextProps.properties ?? [],
+    ruleGroupDepthLimit: builderContextProps.ruleGroupDepthLimit,
     onRulePropertySelected: builderContextProps.onRulePropertySelected,
   };
 
-  const rendererContextValue: FilterBuilderRuleRenderingContextProps = {
+  const rendererContextValue: PropertyFilterBuilderRuleRenderingContextProps = {
     ruleOperatorRenderer: rendererContextProps.ruleOperatorRenderer,
     ruleValueRenderer: rendererContextProps.ruleValueRenderer,
     propertyRenderer: rendererContextProps.propertyRenderer,
@@ -49,12 +51,14 @@ export function renderWithContext(
   };
 
   return render(
-    <FilterBuilderContext.Provider value={builderContextValue}>
-      <FilterBuilderRuleRenderingContext.Provider value={rendererContextValue}>
+    <PropertyFilterBuilderContext.Provider value={builderContextValue}>
+      <PropertyFilterBuilderRuleRenderingContext.Provider
+        value={rendererContextValue}
+      >
         <ActiveRuleGroupContext.Provider value={activeGroupContextValue}>
           {component}
         </ActiveRuleGroupContext.Provider>
-      </FilterBuilderRuleRenderingContext.Provider>
-    </FilterBuilderContext.Provider>
+      </PropertyFilterBuilderRuleRenderingContext.Provider>
+    </PropertyFilterBuilderContext.Provider>
   );
 }

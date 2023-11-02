@@ -9,10 +9,10 @@ import sinon from "sinon";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, screen, waitFor } from "@testing-library/react";
-import { FilterBuilderRuleValue } from "../../components-react/filter-builder/FilterBuilderRuleValue";
+import { PropertyFilterBuilderRuleValue } from "../../components-react/filter-builder-deprecated/FilterBuilderRuleValue";
 import TestUtils, { userEvent } from "../TestUtils";
 
-describe("FilterBuilderRuleValue", () => {
+describe("PropertyFilterBuilderRuleValue", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
@@ -34,7 +34,7 @@ describe("FilterBuilderRuleValue", () => {
 
   it("renders string value", async () => {
     const { getByDisplayValue } = render(
-      <FilterBuilderRuleValue
+      <PropertyFilterBuilderRuleValue
         value={{
           valueFormat: PropertyValueFormat.Primitive,
           value: "Test String",
@@ -48,7 +48,10 @@ describe("FilterBuilderRuleValue", () => {
 
   it("renders empty value", () => {
     const { container } = render(
-      <FilterBuilderRuleValue property={defaultProperty} onChange={() => {}} />
+      <PropertyFilterBuilderRuleValue
+        property={defaultProperty}
+        onChange={() => {}}
+      />
     );
 
     const input = container.querySelector<HTMLInputElement>(".iui-input");
@@ -60,7 +63,10 @@ describe("FilterBuilderRuleValue", () => {
   it("calls onChange when value is changed", async () => {
     const spy = sinon.spy();
     render(
-      <FilterBuilderRuleValue property={defaultProperty} onChange={spy} />
+      <PropertyFilterBuilderRuleValue
+        property={defaultProperty}
+        onChange={spy}
+      />
     );
 
     await theUserTo.type(screen.getByRole("textbox"), "test text");

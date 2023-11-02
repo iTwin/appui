@@ -1,0 +1,132 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.fb-component {
+  --fb-drag-handle-width: 20px;
+  --fb-operator-width: 75px;
+  --divider-height: 10px;
+  --divider-width: 4px;
+  --divider-background-color: var(--iui-color-border-subtle);
+
+  // set the CSS var for the width of the logical operator (if size=small)
+  [data-iui-size="small"] {
+    --fb-operator-width: 65px;
+  }
+
+  [data-iui-size="large"] {
+    --fb-operator-width: 80px;
+    --fb-drag-handle-width: 25px;
+  }
+
+  // set the width of the drag handle
+  .fb-row-drag-handle {
+    width: var(--fb-drag-handle-width);
+  }
+
+  // set the width of the logical operator
+  .fb-row-operator {
+    width: var(--fb-operator-width);
+  }
+
+  // indent "child" components
+  .fb-component-indent {
+    margin-left: calc(var(--level) * var(--fb-operator-width));
+
+    > div {
+      border-top: none; // collapse border with previous sibling
+    }
+
+    &.fb-component-draggable {
+      margin-left: calc(
+        var(--level) * (var(--fb-drag-handle-width) + var(--fb-operator-width))
+      );
+    }
+  }
+
+  .fb-component-row:not(.fb-component-indent) {
+    ~ .fb-component-indent {
+      > div {
+        border-radius: 0;
+      }
+
+      &:nth-last-child(1 of .fb-component-indent) > div {
+        border-radius: 0 0 4px 4px;
+      }
+    }
+  }
+
+  // remove bottom right border radius of parent node (must have children)
+  .fb-component-row:not(.fb-component-indent):has(+ .fb-component-indent)
+    > div {
+    border-bottom-right-radius: 0;
+  }
+
+  // add margin & divider for all rows except the top row
+  .fb-component-row:not(:first-child) {
+    position: relative;
+    &:before {
+      content: "";
+      position: absolute;
+      width: var(--divider-width);
+      background-color: var(--divider-background-color);
+      transform: translateX(-50%);
+    }
+  }
+
+  .fb-component-row:not(.fb-component-indent):not(:first-child) {
+    // all parent (non-indented) rows have space between them
+    margin-top: var(--divider-height);
+
+    // size and location of the divider
+    &:before {
+      top: calc(var(--divider-height) * -1);
+      bottom: 100%;
+      left: calc(0.5 * var(--fb-operator-width));
+    }
+
+    &.fb-component-draggable:before {
+      left: calc(
+        var(--fb-drag-handle-width) + (0.5 * var(--fb-operator-width))
+      );
+    }
+  }
+
+  .fb-component-row.fb-component-indent {
+    // size and location of the divider
+    &:before {
+      top: 0;
+      bottom: 0;
+      left: calc(
+        (0.5 * var(--fb-operator-width)) + var(--level) *
+          var(--fb-operator-width) * -1
+      );
+    }
+
+    &.fb-component-draggable {
+      // size and location of the divider
+      &:before {
+        left: calc(
+          (
+              (0.5 * var(--fb-operator-width)) +
+                (
+                  (var(--level) - 1) *
+                    (var(--fb-operator-width) + var(--fb-drag-handle-width))
+                )
+            ) * -1
+        );
+      }
+    }
+  }
+
+  // always hide dividers of the children of the last parent node
+  .fb-component-row:nth-last-child(1 of :not(.fb-component-indent))
+    ~ .fb-component-indent:before {
+    display: none;
+  }
+
+  .fb-wrapper {
+    border-right: "1px solid var(--iui-color-border)";
+    border-radius: "4px";
+  }
+}

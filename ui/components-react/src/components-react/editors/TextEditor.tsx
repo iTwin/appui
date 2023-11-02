@@ -202,6 +202,7 @@ export class TextEditor
       onBlur: this.props.onBlur,
       onChange: this._updateInputValue,
       setFocus: this.props.setFocus && !this.state.isDisabled,
+      size: this.props.size,
     };
 
     inputProps["aria-label"] = this._ariaLabel;
@@ -223,7 +224,7 @@ export class TextEditor
           {...inputProps}
           ref={this._inputElement}
           data-testid="components-text-editor"
-          size="small"
+          size={this.props.size}
         />
       );
     }

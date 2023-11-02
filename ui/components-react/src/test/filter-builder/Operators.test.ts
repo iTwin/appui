@@ -6,126 +6,111 @@
 import chai, { expect } from "chai";
 import chaiSubset from "chai-subset";
 import {
-  getPropertyFilterOperators,
-  isUnaryPropertyFilterOperator,
-  PropertyFilterRuleOperator,
+  FilterRuleOperator,
+  getFilterOperators,
+  isUnaryFilterOperator,
 } from "../../components-react/filter-builder/Operators";
 
 chai.use(chaiSubset);
 
-describe("getPropertyFilterOperators", () => {
+describe("getFilterOperators", () => {
   it("returns operators by type", () => {
     expect(
-      getPropertyFilterOperators({
+      getFilterOperators({
         name: "prop",
         displayLabel: "Prop",
         typename: "boolean",
       })
-    ).to.containSubset([
-      PropertyFilterRuleOperator.IsTrue,
-      PropertyFilterRuleOperator.IsFalse,
-    ]);
+    ).to.containSubset([FilterRuleOperator.IsTrue, FilterRuleOperator.IsFalse]);
     expect(
-      getPropertyFilterOperators({
+      getFilterOperators({
         name: "prop",
         displayLabel: "Prop",
         typename: "string",
       })
     ).to.containSubset([
-      PropertyFilterRuleOperator.IsEqual,
-      PropertyFilterRuleOperator.IsNotEqual,
-      PropertyFilterRuleOperator.IsNull,
-      PropertyFilterRuleOperator.IsNotNull,
-      PropertyFilterRuleOperator.Like,
+      FilterRuleOperator.IsEqual,
+      FilterRuleOperator.IsNotEqual,
+      FilterRuleOperator.IsNull,
+      FilterRuleOperator.IsNotNull,
+      FilterRuleOperator.Like,
     ]);
     expect(
-      getPropertyFilterOperators({
+      getFilterOperators({
         name: "prop",
         displayLabel: "Prop",
         typename: "int",
       })
     ).to.containSubset([
-      PropertyFilterRuleOperator.IsEqual,
-      PropertyFilterRuleOperator.IsNotEqual,
-      PropertyFilterRuleOperator.IsNull,
-      PropertyFilterRuleOperator.IsNotNull,
-      PropertyFilterRuleOperator.Greater,
-      PropertyFilterRuleOperator.GreaterOrEqual,
-      PropertyFilterRuleOperator.Less,
-      PropertyFilterRuleOperator.LessOrEqual,
+      FilterRuleOperator.IsEqual,
+      FilterRuleOperator.IsNotEqual,
+      FilterRuleOperator.IsNull,
+      FilterRuleOperator.IsNotNull,
+      FilterRuleOperator.Greater,
+      FilterRuleOperator.GreaterOrEqual,
+      FilterRuleOperator.Less,
+      FilterRuleOperator.LessOrEqual,
     ]);
     expect(
-      getPropertyFilterOperators({
+      getFilterOperators({
         name: "prop",
         displayLabel: "Prop",
         typename: "double",
       })
     ).to.containSubset([
-      PropertyFilterRuleOperator.IsEqual,
-      PropertyFilterRuleOperator.IsNotEqual,
-      PropertyFilterRuleOperator.IsNull,
-      PropertyFilterRuleOperator.IsNotNull,
-      PropertyFilterRuleOperator.Greater,
-      PropertyFilterRuleOperator.GreaterOrEqual,
-      PropertyFilterRuleOperator.Less,
-      PropertyFilterRuleOperator.LessOrEqual,
+      FilterRuleOperator.IsEqual,
+      FilterRuleOperator.IsNotEqual,
+      FilterRuleOperator.IsNull,
+      FilterRuleOperator.IsNotNull,
+      FilterRuleOperator.Greater,
+      FilterRuleOperator.GreaterOrEqual,
+      FilterRuleOperator.Less,
+      FilterRuleOperator.LessOrEqual,
     ]);
     expect(
-      getPropertyFilterOperators({
+      getFilterOperators({
         name: "prop",
         displayLabel: "Prop",
         typename: "dateTime",
       })
     ).to.containSubset([
-      PropertyFilterRuleOperator.IsEqual,
-      PropertyFilterRuleOperator.IsNotEqual,
-      PropertyFilterRuleOperator.IsNull,
-      PropertyFilterRuleOperator.IsNotNull,
-      PropertyFilterRuleOperator.Greater,
-      PropertyFilterRuleOperator.GreaterOrEqual,
-      PropertyFilterRuleOperator.Less,
-      PropertyFilterRuleOperator.LessOrEqual,
+      FilterRuleOperator.IsEqual,
+      FilterRuleOperator.IsNotEqual,
+      FilterRuleOperator.IsNull,
+      FilterRuleOperator.IsNotNull,
+      FilterRuleOperator.Greater,
+      FilterRuleOperator.GreaterOrEqual,
+      FilterRuleOperator.Less,
+      FilterRuleOperator.LessOrEqual,
     ]);
     expect(
-      getPropertyFilterOperators({
+      getFilterOperators({
         name: "prop",
         displayLabel: "Prop",
         typename: "otherType",
       })
     ).to.containSubset([
-      PropertyFilterRuleOperator.IsEqual,
-      PropertyFilterRuleOperator.IsNotEqual,
-      PropertyFilterRuleOperator.IsNull,
-      PropertyFilterRuleOperator.IsNotNull,
+      FilterRuleOperator.IsEqual,
+      FilterRuleOperator.IsNotEqual,
+      FilterRuleOperator.IsNull,
+      FilterRuleOperator.IsNotNull,
     ]);
   });
 });
 
-describe("isUnaryPropertyFilterOperator", () => {
+describe("isUnaryFilterOperator", () => {
   it("returns correct values", () => {
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.IsTrue)).to
-      .be.true;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.IsFalse)).to
-      .be.true;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.IsNull)).to
-      .be.true;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.IsNotNull))
-      .to.be.true;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.IsEqual)).to
-      .be.false;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.IsNotEqual))
-      .to.be.false;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.Greater)).to
-      .be.false;
-    expect(
-      isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.GreaterOrEqual)
-    ).to.be.false;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.Less)).to.be
+    expect(isUnaryFilterOperator(FilterRuleOperator.IsTrue)).to.be.true;
+    expect(isUnaryFilterOperator(FilterRuleOperator.IsFalse)).to.be.true;
+    expect(isUnaryFilterOperator(FilterRuleOperator.IsNull)).to.be.true;
+    expect(isUnaryFilterOperator(FilterRuleOperator.IsNotNull)).to.be.true;
+    expect(isUnaryFilterOperator(FilterRuleOperator.IsEqual)).to.be.false;
+    expect(isUnaryFilterOperator(FilterRuleOperator.IsNotEqual)).to.be.false;
+    expect(isUnaryFilterOperator(FilterRuleOperator.Greater)).to.be.false;
+    expect(isUnaryFilterOperator(FilterRuleOperator.GreaterOrEqual)).to.be
       .false;
-    expect(
-      isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.LessOrEqual)
-    ).to.be.false;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.Like)).to.be
-      .false;
+    expect(isUnaryFilterOperator(FilterRuleOperator.Less)).to.be.false;
+    expect(isUnaryFilterOperator(FilterRuleOperator.LessOrEqual)).to.be.false;
+    expect(isUnaryFilterOperator(FilterRuleOperator.Like)).to.be.false;
   });
 });

@@ -52,6 +52,8 @@ export interface PopupButtonProps extends CommonProps {
   onClose?: () => void;
   /** Listens for Enter key in popup */
   onEnter?: () => void;
+  /** Size to render the component */
+  size?: "small" | "large";
 }
 
 /** @internal */
@@ -123,7 +125,12 @@ export class PopupButton extends React.PureComponent<
 
     const classNames = classnames(
       "components-popup-button",
-      this.state.showPopup && "components-popup-expanded"
+      this.state.showPopup && "components-popup-expanded",
+      this.props.size === "small"
+        ? "components-popup-button-small"
+        : this.props.size === "large"
+        ? "components-popup-button-large"
+        : "components-popup-button-medium"
     );
 
     const valueClassNames = classnames(

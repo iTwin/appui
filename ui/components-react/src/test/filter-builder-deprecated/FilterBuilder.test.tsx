@@ -10,22 +10,22 @@ import sinon from "sinon";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import { FilterBuilder } from "../../components-react/filter-builder/FilterBuilder";
+import { PropertyFilterBuilder } from "../../components-react/filter-builder-deprecated/FilterBuilder";
 import type {
-  FilterBuilderRule,
-  FilterBuilderRuleGroup,
-} from "../../components-react/filter-builder/FilterBuilderState";
-import { createFilter } from "../../components-react/filter-builder/FilterBuilderState";
+  PropertyFilterBuilderRule,
+  PropertyFilterBuilderRuleGroup,
+} from "../../components-react/filter-builder-deprecated/FilterBuilderState";
+import { buildPropertyFilter } from "../../components-react/filter-builder-deprecated/FilterBuilderState";
 import {
-  FilterRuleGroupOperator,
-  FilterRuleOperator,
-} from "../../components-react/filter-builder/Operators";
+  PropertyFilterRuleGroupOperator,
+  PropertyFilterRuleOperator,
+} from "../../components-react/filter-builder-deprecated/Operators";
 import TestUtils, { userEvent } from "../TestUtils";
-import type { Filter } from "../../components-react/filter-builder/Types";
+import type { PropertyFilter } from "../../components-react/filter-builder-deprecated/Types";
 
 chai.use(chaiSubset);
 
-describe("FilterBuilder", () => {
+describe("PropertyFilterBuilder", () => {
   const property1: PropertyDescription = {
     name: "propertyField1",
     displayLabel: "Prop1",
@@ -48,10 +48,10 @@ describe("FilterBuilder", () => {
   it("call onFilterChanged with filter after new rule is setup", async () => {
     const spy = sinon.spy();
     const { container, getByText, getByDisplayValue } = render(
-      <FilterBuilder properties={[property1]} onFilterChanged={spy} />
+      <PropertyFilterBuilder properties={[property1]} onFilterChanged={spy} />
     );
     const propertySelector = container.querySelector<HTMLInputElement>(
-      ".fb-row-name .iui-input"
+      ".rule-property .iui-input"
     );
     expect(propertySelector).to.not.be.null;
     propertySelector?.focus();
@@ -66,42 +66,42 @@ describe("FilterBuilder", () => {
     });
   });
 
-  it("renders FilterBuilder with single rule correctly", async () => {
-    const Filter: Filter = {
+  it("renders propertyFilterBuilder with single rule correctly", async () => {
+    const propertyFilter: PropertyFilter = {
       property: property1,
-      operator: FilterRuleOperator.IsNull,
+      operator: PropertyFilterRuleOperator.IsNull,
       value: undefined,
     };
 
     const { container, queryByDisplayValue } = render(
-      <FilterBuilder
+      <PropertyFilterBuilder
         properties={[property1]}
         onFilterChanged={() => {}}
-        initialFilter={Filter}
+        initialFilter={propertyFilter}
       />
     );
 
-    const rules = container.querySelectorAll(".fb-property-name .fb-row-name");
+    const rules = container.querySelectorAll(".rule-property");
     expect(rules.length).to.be.eq(1);
     const rule1 = queryByDisplayValue(property1.displayLabel);
     expect(rule1).to.not.be.null;
   });
 
-  it("renders FilterBuilder with multiple rules correctly", async () => {
-    const Filter: Filter = {
-      operator: FilterRuleGroupOperator.And,
+  it("renders propertyFilterBuilder with multiple rules correctly", async () => {
+    const propertyFilter: PropertyFilter = {
+      operator: PropertyFilterRuleGroupOperator.And,
       rules: [
         {
-          operator: FilterRuleGroupOperator.And,
+          operator: PropertyFilterRuleGroupOperator.And,
           rules: [
             {
               property: property1,
-              operator: FilterRuleOperator.IsTrue,
+              operator: PropertyFilterRuleOperator.IsTrue,
               value: undefined,
             },
             {
               property: property2,
-              operator: FilterRuleOperator.IsNull,
+              operator: PropertyFilterRuleOperator.IsNull,
               value: undefined,
             },
           ],
@@ -109,14 +109,14 @@ describe("FilterBuilder", () => {
       ],
     };
     const { container, queryByDisplayValue } = render(
-      <FilterBuilder
+      <PropertyFilterBuilder
         properties={[property1, property2]}
         onFilterChanged={() => {}}
-        initialFilter={Filter}
+        initialFilter={propertyFilter}
       />
     );
 
-    const rules = container.querySelectorAll(".fb-property-name .fb-row-name");
+    const rules = container.querySelectorAll(".rule-property");
     expect(rules.length).to.be.eq(2);
     const rule1 = queryByDisplayValue(property1.displayLabel);
     expect(rule1).to.not.be.null;
@@ -127,98 +127,102 @@ describe("FilterBuilder", () => {
   it("marks rule group as active on mouse over", async () => {
     const user = userEvent.setup();
     const { container } = render(
-      <FilterBuilder properties={[]} onFilterChanged={() => {}} />
+      <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
 
-    const group = container.querySelector(".fb-group");
+    const group = container.querySelector(".rule-group");
     expect(group).to.not.be.null;
 
-    expect(container.querySelector(".fb-group[data-isactive=true]")).to.be.null;
+    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be
+      .null;
 
     await user.hover(group!);
-    expect(container.querySelector(".fb-group[data-isactive=true]")).to.not.be
+    expect(container.querySelector(".rule-group[data-isactive=true]")).to.not.be
       .null;
 
     await user.unhover(group!);
-    expect(container.querySelector(".fb-group[data-isactive=true]")).to.be.null;
+    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be
+      .null;
   });
 
   it("marks rule group as active on focus", async () => {
     const { container } = render(
-      <FilterBuilder properties={[]} onFilterChanged={() => {}} />
+      <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
 
-    const group = container.querySelector(".fb-group");
+    const group = container.querySelector(".rule-group");
     expect(group).to.not.be.null;
 
-    expect(container.querySelector(".fb-group[data-isactive=true]")).to.be.null;
+    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be
+      .null;
 
     fireEvent.focus(group!);
     await waitFor(
       () =>
-        expect(container.querySelector(".fb-group[data-isactive=true]")).to.not
-          .be.null
+        expect(container.querySelector(".rule-group[data-isactive=true]")).to
+          .not.be.null
     );
 
     fireEvent.blur(group!);
     await waitFor(
       () =>
-        expect(container.querySelector(".fb-group[data-isactive=true]")).to.be
+        expect(container.querySelector(".rule-group[data-isactive=true]")).to.be
           .null
     );
   });
 
   it("keeps rule group marked as active when focus moves to other element inside group", async () => {
     const { container } = render(
-      <FilterBuilder properties={[]} onFilterChanged={() => {}} />
+      <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
 
-    const group = container.querySelector(".fb-group");
+    const group = container.querySelector(".rule-group");
     expect(group).to.not.be.null;
 
-    expect(container.querySelector(".fb-group[data-isactive=true]")).to.be.null;
+    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be
+      .null;
 
     fireEvent.focus(group!);
     await waitFor(
       () =>
-        expect(container.querySelector(".fb-group[data-isactive=true]")).to.not
-          .be.null
+        expect(container.querySelector(".rule-group[data-isactive=true]")).to
+          .not.be.null
     );
 
-    const rule = container.querySelector(".fb-component-row");
+    const rule = container.querySelector(".rule");
     expect(rule).to.not.be.null;
 
     fireEvent.blur(group!, { relatedTarget: rule });
     await waitFor(
       () =>
-        expect(container.querySelector(".fb-group[data-isactive=true]")).to.not
-          .be.null
+        expect(container.querySelector(".rule-group[data-isactive=true]")).to
+          .not.be.null
     );
   });
 
   it("focus new rule property after adding new rule", async () => {
     const { container, getByTestId } = render(
-      <FilterBuilder properties={[]} onFilterChanged={() => {}} />
+      <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
 
-    const addRuleButton = getByTestId("fb-add-rule-button");
+    const addRuleButton = getByTestId("rule-group-add-rule");
     addRuleButton.click();
 
     await waitFor(
       () =>
         expect(
-          container.querySelectorAll(".fb-row-name input")[1] ===
+          container.querySelectorAll(".rule-property input")[1] ===
             container.ownerDocument.activeElement
         ).to.be.true
     );
   });
 
-  describe("createFilter", () => {
-    const defaultRule: FilterBuilderRule = {
+  describe("buildPropertyFilter", () => {
+    const defaultRule: PropertyFilterBuilderRule = {
       id: "rule",
       groupId: "rootGroup",
       property: { name: "prop", displayLabel: "Prop", typename: "string" },
-      operator: FilterRuleOperator.IsEqual,
+      operator: PropertyFilterRuleOperator.IsEqual,
       value: {
         valueFormat: PropertyValueFormat.Primitive,
         value: "test string",
@@ -226,31 +230,31 @@ describe("FilterBuilder", () => {
     };
 
     it("returns undefined when rule does not have property", () => {
-      const rule: FilterBuilderRule = {
+      const rule: PropertyFilterBuilderRule = {
         ...defaultRule,
         property: undefined,
       };
-      expect(createFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).to.be.undefined;
     });
 
     it("returns undefined when rule does not have operator", () => {
-      const rule: FilterBuilderRule = {
+      const rule: PropertyFilterBuilderRule = {
         ...defaultRule,
         operator: undefined,
       };
-      expect(createFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).to.be.undefined;
     });
 
     it("returns undefined when rule does not have value and operator requires value", () => {
-      const rule: FilterBuilderRule = {
+      const rule: PropertyFilterBuilderRule = {
         ...defaultRule,
         value: undefined,
       };
-      expect(createFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).to.be.undefined;
     });
 
     it("returns undefined when rule has non primitive value", () => {
-      const rule: FilterBuilderRule = {
+      const rule: PropertyFilterBuilderRule = {
         ...defaultRule,
         value: {
           valueFormat: PropertyValueFormat.Array,
@@ -258,25 +262,25 @@ describe("FilterBuilder", () => {
           itemsTypeName: "arrayType",
         },
       };
-      expect(createFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).to.be.undefined;
     });
 
     it("returns undefined when group has no rules", () => {
-      const ruleGroup: FilterBuilderRuleGroup = {
+      const ruleGroup: PropertyFilterBuilderRuleGroup = {
         id: "rootGroup",
-        operator: FilterRuleGroupOperator.And,
+        operator: PropertyFilterRuleGroupOperator.And,
         items: [],
       };
-      expect(createFilter(ruleGroup)).to.be.undefined;
+      expect(buildPropertyFilter(ruleGroup)).to.be.undefined;
     });
 
     it("returns single filter condition when group has one rule", () => {
-      const ruleGroup: FilterBuilderRuleGroup = {
+      const ruleGroup: PropertyFilterBuilderRuleGroup = {
         id: "rootGroup",
-        operator: FilterRuleGroupOperator.And,
+        operator: PropertyFilterRuleGroupOperator.And,
         items: [defaultRule],
       };
-      expect(createFilter(ruleGroup)).to.containSubset({
+      expect(buildPropertyFilter(ruleGroup)).to.containSubset({
         operator: defaultRule.operator,
         property: defaultRule.property,
         value: defaultRule.value,
@@ -284,9 +288,9 @@ describe("FilterBuilder", () => {
     });
 
     it("returns filter condition when group has at least one rule and others rules are empty", () => {
-      const ruleGroup: FilterBuilderRuleGroup = {
+      const ruleGroup: PropertyFilterBuilderRuleGroup = {
         id: "rootGroup",
-        operator: FilterRuleGroupOperator.And,
+        operator: PropertyFilterRuleGroupOperator.And,
         items: [
           defaultRule,
           { ...defaultRule, operator: undefined },
@@ -294,7 +298,7 @@ describe("FilterBuilder", () => {
           { ...defaultRule, value: undefined },
         ],
       };
-      expect(createFilter(ruleGroup)).to.containSubset({
+      expect(buildPropertyFilter(ruleGroup)).to.containSubset({
         operator: defaultRule.operator,
         property: defaultRule.property,
         value: defaultRule.value,
@@ -302,12 +306,12 @@ describe("FilterBuilder", () => {
     });
 
     it("returns filter conditions group when group has multiple rules", () => {
-      const ruleGroup: FilterBuilderRuleGroup = {
+      const ruleGroup: PropertyFilterBuilderRuleGroup = {
         id: "rootGroup",
-        operator: FilterRuleGroupOperator.Or,
+        operator: PropertyFilterRuleGroupOperator.Or,
         items: [defaultRule, defaultRule],
       };
-      const filter = createFilter(ruleGroup);
+      const filter = buildPropertyFilter(ruleGroup);
       const expectedFilter = {
         operator: ruleGroup.operator,
         rules: [

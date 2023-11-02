@@ -2,44 +2,81 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+.fb-row {
+  --background-color: var(--iui-color-background);
+  --border-color: var(--iui-color-border);
+  --drag-handle-width: 20px;
+  --operator-width: 80px;
+  --property-name-width: 25%;
+  --condition-width: 10rem;
+  --toolbar-width: 100px;
+  --border-radius: 4px;
+  border: 1px solid var(--iui-color-border);
 
-.rule {
-  display: grid;
-  grid-template-columns: min-content auto;
-  padding: 3px 0;
+  display: block;
+  position: relative;
 
-  .rule-condition {
-    display: grid;
-    grid-template-columns: minmax(auto, 500px) 150px minmax(auto, 100%);
-    grid-column-gap: var(--iui-size-m);
-    width: calc(100% - var(--iui-size-s));
+  > div {
+    background: var(--background-color);
+    // border: 1px solid var(--border-color);
+    // border-radius: var(--border-radius);
+    // padding-right: var(--iui-size-xs);
+    align-items: stretch;
+    overflow: hidden;
+  }
 
-    .iui-input-container.iui-with-message {
-      .rule-value {
-        grid-area: inputs;
-      }
+  .fb-row-container {
+    padding-block: var(--iui-size-xs);
+    padding-inline: var(--iui-size-m);
+    gap: var(--iui-size-m);
+  }
+
+  &[data-iui-size="small"] .fb-row-container {
+    padding-block: var(--iui-size-2xs);
+  }
+
+  .fb-row-drag-handle {
+    width: var(--drag-handle-width);
+    border-right: 1px solid var(--border-color);
+    box-sizing: border-box;
+  }
+
+  &:not(.fb-row-drag-enabled) {
+    .fb-row-drag-handle {
+      display: none;
     }
   }
 
-  .rule-remove-action {
-    padding-right: var(--iui-size-s);
-    visibility: hidden;
+  .fb-row-container {
+    flex: 1;
   }
 
-  &:focus-within .rule-remove-action,
-  &:hover .rule-remove-action {
-    visibility: visible;
+  .fb-row-operator {
+    width: var(--operator-width);
+    border-right: 1px solid var(--border-color);
+  }
+
+  .fb-row-name {
+    width: var(--property-name-width);
+  }
+
+  .fb-row-condition {
+    width: var(--condition-width);
+  }
+
+  .fb-row-value {
+    flex: 1;
+    width: 15rem;
+  }
+
+  .fb-row-toolbar {
+    width: var(--toolbar-width);
+    margin-left: auto;
   }
 }
 
-.rule-group-items > .rule {
-  padding-bottom: 14px;
-
-  &:first-child {
-    padding-top: 14px;
-  }
-
-  &:only-child {
-    padding-top: 3px;
+.fb-row:not(:last-child) {
+  .iui-button:first-child {
+    visibility: hidden;
   }
 }
