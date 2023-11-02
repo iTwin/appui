@@ -66,26 +66,9 @@ describe("UiSettingsPage", () => {
     wrapper.unmount();
   });
 
-  // function getSelectBySpanTitle(titleSpan: HTMLElement) {
-  //   const settingsItemDiv = titleSpan.parentElement?.parentElement;
-  //   expect(settingsItemDiv).not.to.be.undefined;
-  //   return settingsItemDiv!.querySelector("select");
-  // }
-
   it("renders set theme", async () => {
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
-
-    // const themeSpan = wrapper.getByText("settings.uiSettingsPage.themeTitle");
-    // const themeSelect = getSelectBySpanTitle(themeSpan);
-    // expect(themeSelect).not.to.be.null;
-    // await TestUtils.flushAsyncOperations();
-    // fireEvent.change(themeSelect!, { target: { value: "dark" } });
-    // await TestUtils.flushAsyncOperations();
-    // expect(themeSelect!.value).to.be.eq("dark");
-    // fireEvent.change(themeSelect!, { target: { value: "light" } });
-    // await TestUtils.flushAsyncOperations();
-    // expect(themeSelect!.value).to.be.eq("light");
 
     const selectButton = wrapper.getByTestId("select-theme");
     selectChangeValueByText(
@@ -102,6 +85,20 @@ describe("UiSettingsPage", () => {
     );
     await TestUtils.flushAsyncOperations();
     expect(UiFramework.getColorTheme()).to.eq(ColorTheme.Light);
+    selectChangeValueByText(
+      selectButton,
+      "settings.uiSettingsPage.lightHighContrast",
+      handleError
+    );
+    await TestUtils.flushAsyncOperations();
+    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.HighContrastLight);
+    selectChangeValueByText(
+      selectButton,
+      "settings.uiSettingsPage.darkHighContrast",
+      handleError
+    );
+    await TestUtils.flushAsyncOperations();
+    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.HighContrastDark);
 
     wrapper.unmount();
   });

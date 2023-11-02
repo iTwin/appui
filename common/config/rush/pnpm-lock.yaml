@@ -776,8 +776,8 @@ importers:
       raf: ^3.4.0
       react: ^17.0.0
       react-dom: ^17.0.0
-      react-highlight-words: ^0.17.0
-      react-window: ^1.8.2
+      react-highlight-words: ^0.20.0
+      react-window: ^1.8.9
       rimraf: ^3.0.2
       rxjs: ^7.8.1
       shortid: ~2.2.15
@@ -796,8 +796,8 @@ importers:
       immer: 9.0.6
       linkify-it: 2.2.0
       lodash: 4.17.21
-      react-highlight-words: 0.17.0_react@17.0.2
-      react-window: 1.8.8_react-dom@17.0.2+react@17.0.2
+      react-highlight-words: 0.20.0_react@17.0.2
+      react-window: 1.8.9_react-dom@17.0.2+react@17.0.2
       rxjs: 7.8.1
       shortid: 2.2.16
     devDependencies:
@@ -11074,8 +11074,8 @@ packages:
     resolution: {integrity: sha1-iNf/fsDfuG9xPch7u0LQRNPmxBs=}
     dev: true
 
-  /crypto-js/4.1.1:
-    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
+  /crypto-js/4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
     dev: false
 
   /crypto-random-string/2.0.0:
@@ -17012,7 +17012,7 @@ packages:
     resolution: {integrity: sha512-tEpnC1xQX6PMhnDMNEvDhpqnsu0buh29b/sA9a1I5tq6lD87wRAW1rTj49B2+5925I0sQlvU64DoK0Pxeiu7Dg==}
     engines: {node: '>=12.13.0'}
     dependencies:
-      crypto-js: 4.1.1
+      crypto-js: 4.2.0
       jwt-decode: 3.1.2
     dev: false
 
@@ -18687,10 +18687,10 @@ packages:
     resolution: {integrity: sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==}
     dev: true
 
-  /react-highlight-words/0.17.0_react@17.0.2:
-    resolution: {integrity: sha512-uX1Qh5IGjnLuJT0Zok234QDwRC8h4hcVMnB99Cb7aquB1NlPPDiWKm0XpSZOTdSactvnClCk8LOmVlP+75dgHA==}
+  /react-highlight-words/0.20.0_react@17.0.2:
+    resolution: {integrity: sha512-asCxy+jCehDVhusNmCBoxDf2mm1AJ//D+EzDx1m5K7EqsMBIHdZ5G4LdwbSEXqZq1Ros0G0UySWmAtntSph7XA==}
     peerDependencies:
-      react: ^0.14.0 || ^15.0.0 || ^16.0.0-0 || ^17.0.0-0
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0-0 || ^17.0.0-0 || ^18.0.0-0
     dependencies:
       highlight-words-core: 1.2.2
       memoize-one: 4.0.3
@@ -18861,8 +18861,8 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     dev: false
 
-  /react-window/1.8.8_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-D4IiBeRtGXziZ1n0XklnFGu7h9gU684zepqyKzgPNzrsrk7xOCxni+TCckjg2Nr/DiaEEGVVmnhYSlT2rB47dQ==}
+  /react-window/1.8.9_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-+Eqx/fj1Aa5WnhRfj9dJg4VYATGwIUP2ItwItiJ6zboKWA6EX3lYDAXfGF2hyNqplEprhbtjbipiADEcwQ823Q==}
     engines: {node: '>8.0.0'}
     peerDependencies:
       react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0

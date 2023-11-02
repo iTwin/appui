@@ -141,9 +141,12 @@
       "tooltip": "UI Settings",
       "light": "Light",
       "dark": "Dark",
+      "lightHighContrast": "Light (High contrast)",
+      "darkHighContrast": "Dark (High contrast)",
+      "inherit": "Inherit",
       "systemPreferred": "System preferred",
       "themeTitle": "Theme",
-      "themeDescription": "Toggle the theme between light and dark",
+      "themeDescription": "Change the theme",
       "autoHideTitle": "Auto-Hide UI",
       "autoHideDescription": "Toggle the auto-hide of UI after inactivity",
       "dragInteractionTitle": "Toolbar Group Buttons show child action item",
@@ -155,7 +158,7 @@
       "accuDrawNotificationsTitle": "Display AccuDraw Notifications",
       "accuDrawNotificationsDescription": "Display toast notifications when AccuDraw status changes",
       "widgetOpacityTitle": "Widget Opacity",
-      "widgetOpacityDescription": "Opacity when mouse is not hovering for 2.0 floating widgets and all 1.0 widgets",
+      "widgetOpacityDescription": "Opacity when mouse is not hovering floating widgets",
       "widgetIconTitle": "Show Icon on Widget Tab",
       "widgetIconDescription": "If widget panel less 320 pixels wide then only icons will display on widget tab.",
       "autoCollapseUnpinnedPanelsTitle": "Auto Collapse Unpinned Panels",
@@ -165,7 +168,7 @@
       "useToolAsToolSettingsLabelTitle": "Use tool as tool settings label",
       "useToolAsToolSettingsLabelDescription": "Use active tool name as the Tool Settings tab label, if false, will always be titled 'Tool Settings'.",
       "toolbarOpacityTitle": "Toolbar Opacity",
-      "toolbarOpacityDescription": "Opacity of 2.0 toolbars when mouse is not hovering."
+      "toolbarOpacityDescription": "Opacity of toolbars when mouse is not hovering."
     }
   },
   "tools": {
@@ -240,7 +243,6 @@
     "listView": "List",
     "thumbnailView": "Thumbnails",
     "camera": "Camera",
-    "selectVersion": "Select Version",
     "views": "Saved Views",
     "viewAttributes": "View Attributes",
     "constructions": "Constructions",

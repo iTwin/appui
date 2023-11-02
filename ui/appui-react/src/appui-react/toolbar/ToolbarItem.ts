@@ -56,6 +56,11 @@ export interface CommonToolbarItem {
   readonly groupPriority?: number;
   /** Priority within a toolbar or group. */
   readonly itemPriority: number;
+  /** Describes layout specific configuration of a toolbar item.
+   * @note Only used by `get*` methods of [[UiItemsProvider]].
+   * @alpha
+   */
+  readonly layouts?: ToolbarItemLayouts;
 }
 
 /** Describes the data needed to insert an action button into a toolbar.
@@ -133,4 +138,22 @@ export function isToolbarCustomItem(
   item: ToolbarItem
 ): item is ToolbarCustomItem {
   return !isToolbarActionItem(item) && !isToolbarGroupItem(item);
+}
+
+/** Describes toolbar item configuration specific for each layout.
+ * @alpha
+ */
+export interface ToolbarItemLayouts {
+  /** Toolbar item configuration in a standard layout. */
+  readonly standard?: StandardLayoutToolbarItem;
+}
+
+/** Describes toolbar item configuration specific to a standard layout.
+ * @alpha
+ */
+export interface StandardLayoutToolbarItem {
+  /** Describes toolbar usage. */
+  readonly usage: ToolbarUsage;
+  /** Describes toolbar orientation. */
+  readonly orientation: ToolbarOrientation;
 }

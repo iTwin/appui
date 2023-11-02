@@ -27,15 +27,14 @@ import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
 
 /** UiSettingsPage displaying the active UI settings. This page lets users set the following settings.
  *
- * - theme - Dark, Light, or based on OS preference.
+ * - theme - Dark, Light, with or without High contrast, or based on OS preference.
  * - auto hide - Starts a timer and blanks out ui components that overlay content if there is no mouse movement for a period of time.
  * - drag interaction - If set, toolbar group buttons require a press and drag or a long press to open. In this mode a child action
  * item is shown as the group button and is activated when button is clicked. If a different child item is selected, it becomes the
  * active group button item.
  * - use proximity - Changes the opacity of toolbar from transparent to opaque as the mouse moves closer.
  * - snap widget opacity - triggers an abrupt change from transparent to opaque for tool and navigation widgets, instead of a gradual change based on mouse location.
- * - widget opacity - determines how transparent floating widgets in V2 and all widgets in V1 become when the mouse in not in them.
- * - UI version - if allowed by props, the UI version can be toggled between V1 and V2.
+ * - widget opacity - determines how transparent floating widgets become when the mouse in not in them.
  *
  * @beta
  */
@@ -79,6 +78,15 @@ export function UiSettingsPage() {
   );
   const lightLabel = React.useRef(
     UiFramework.translate("settings.uiSettingsPage.light")
+  );
+  const darkHCLabel = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.darkHighContrast")
+  );
+  const lightHCLabel = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.lightHighContrast")
+  );
+  const inheritLabel = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.inherit")
   );
   const systemPreferredLabel = React.useRef(
     UiFramework.translate("settings.uiSettingsPage.systemPreferred")
@@ -166,7 +174,6 @@ export function UiSettingsPage() {
       "configurableui:set_widget_opacity",
       "configurableui:set-show-widget-icon",
       "configurableui:set-drag-interaction",
-      "configurableui:set-framework-version",
       "configurableui:set-auto-collapse-unpinned-panels",
       "configurableui:set-animate-tool-settings",
       "configurableui:set-use-tool-as-tool-settings-label",
@@ -234,6 +241,9 @@ export function UiSettingsPage() {
     defaultThemeOption,
     { label: lightLabel.current, value: ColorTheme.Light },
     { label: darkLabel.current, value: ColorTheme.Dark },
+    { label: lightHCLabel.current, value: ColorTheme.HighContrastLight },
+    { label: darkHCLabel.current, value: ColorTheme.HighContrastDark },
+    { label: inheritLabel.current, value: ColorTheme.Inherit },
   ];
 
   const onThemeChange = React.useCallback((newValue: string) => {

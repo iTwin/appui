@@ -47,20 +47,23 @@ For incremental builds, the `rush build` command can be used to only build packa
 1. Make source code changes on a new Git branch
    - Each packages supports `npm start` command to enter build in watch mode for easy validation along the `test-apps`.
 2. Ensure unit tests pass when run locally: `rush cover`
-3. Ensure linting passes when run locally: `rush lint`
-4. Locally commit changes: `git commit` (or use the Visual Studio Code user interface)
-5. Repeat steps 1-4 until ready to push changes
-6. Check for API signature changes: `rush extract-api`. This will update the signature files, located in `common/api`. **Note:** before doing this, first do the following:
+3. Ensure integration tests pass when run locally: See [the related Readme](./full-stack-tests/ui/README.md)
+4. Ensure linting passes when run locally: `rush lint` / `rush lint:fix`
+5. Ensure prettier passes when run locally: `rush prettier` / `rush prettier:fix`
+6. Locally commit changes: `git commit` (or use the Visual Studio Code user interface)
+7. Repeat steps 1-4 until ready to push changes
+8. Check for API signature changes: `rush extract-api`. This will update the signature files, located in `common/api`. **Note:** before doing this, first do the following:
    - Be sure that your branch is up to date with the target branch (i.e. `git merge origin/master`)
    - Cleanup your build output: `rush clean`
    - Rebuild the project: `rush build`
-7. Review any diffs to the API signature files in the `common/api` directory to ensure they are compatible with the intended release of the package.
+9. Review any diffs to the API signature files in the `common/api` directory to ensure they are compatible with the intended release of the package.
    - If any differences are in packages not modified on this branch, revert the changes before committing.
-8. Add changelog entry (which could potentially cover several commits): `rush change`
-9. Follow prompts to enter a change description or press ENTER if the change does not warrant a changelog entry. If multiple packages have changed, multiple sets of prompts will be presented. If the changes are only to non-published packages (like **display-test-app**), then `rush change` will indicate that a changelog entry is not needed.
-10. Completing the `rush change` prompts will cause new changelog entry JSON files to be created.
-11. Add and commit the changelog JSON files and any API signature updates.
-12. Publish changes on the branch and open a pull request.
+10. Add changelog entry (which could potentially cover several commits): `rush change`
+11. Follow prompts to enter a change description or press ENTER if the change does not warrant a changelog entry. If multiple packages have changed, multiple sets of prompts will be presented. If the changes are only to non-published packages (like the **test-apps**), then `rush change` will indicate that a changelog entry is not needed.
+12. Completing the `rush change` prompts will cause new changelog entry JSON files to be created.
+13. Add and commit the changelog JSON files and any API signature updates.
+14. Add or edit the related section in the `docs/changehistory/NextVersion.md` file.
+15. Publish changes on the branch and open a pull request.
 
 If using the command line, steps 8 through 11 above can be completed in one step by running `rushchange.bat` from the root directory.
 Only use `rushchange.bat` if none of the changes require a changelog entry.

@@ -127,11 +127,6 @@ export enum SampleAppUiActionId {
   setInitialViewIds = "sampleapp:setInitialViewIds",
 }
 
-/* ----------------------------------------------------------------------------
-* The following variable is used to test initializing UiFramework to use UI 1.0
-* and using that initial value in ui-test-app. By default UiFramework initializes
-* the Redux state to UI 2.0 mode.
------------------------------------------------------------------------------ */
 export interface SampleAppState {
   testProperty: string;
   animationViewId: string;

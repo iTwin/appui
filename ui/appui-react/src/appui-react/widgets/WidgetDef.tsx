@@ -119,7 +119,7 @@ export class WidgetDef {
   }
 
   public get isFloatingStateSupported(): boolean {
-    if (!this.initialConfig) return false;
+    if (!this.initialConfig) return true;
 
     const allowedPanels = this.initialConfig.allowedPanels;
     if (allowedPanels && allowedPanels.length === 0) {
@@ -127,13 +127,14 @@ export class WidgetDef {
     }
 
     const canFloat = this.initialConfig.canFloat;
+    if (canFloat === undefined) return true;
     return !!canFloat;
   }
 
   public get isFloatingStateWindowResizable(): boolean {
     const canFloat = this.initialConfig?.canFloat;
     if (typeof canFloat === "object") {
-      return !!canFloat.isResizable;
+      return canFloat.isResizable === undefined ? true : canFloat.isResizable;
     }
 
     return true;

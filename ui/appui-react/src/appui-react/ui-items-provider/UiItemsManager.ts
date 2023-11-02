@@ -13,16 +13,16 @@ import type { BackstageItem } from "../backstage/BackstageItem";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection";
 import type { StatusBarItem } from "../statusbar/StatusBarItem";
-import type {
-  ToolbarItem,
-  ToolbarOrientation,
-  ToolbarUsage,
-} from "../toolbar/ToolbarItem";
+import type { ToolbarItem } from "../toolbar/ToolbarItem";
+import type { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { UiFramework } from "../UiFramework";
 import type { Widget } from "../widgets/Widget";
 import type { ProviderItem } from "./ProviderItem";
 import type { UiItemsProvider } from "./UiItemsProvider";
-import { createAbstractUiItemsManagerAdapter } from "./AbstractUiItemsManager";
+import {
+  createAbstractUiItemsManagerAdapter,
+  createGetPropertyAdapter,
+} from "./AbstractUiItemsManager";
 
 /** UiItemsProvider register event args.
  * @public
@@ -73,6 +73,17 @@ export class UiItemsManager {
   private static _onUiProviderRegisteredEvent =
     new UiEvent<UiItemsProviderRegisteredEventArgs>();
   private static _abstractAdapter = createAbstractUiItemsManagerAdapter();
+
+  /** For use in unit testing
+   * @internal
+   */
+  public static useAbstractAdapter(useAbstractAdapter: boolean) {
+    if (useAbstractAdapter) {
+      this._abstractAdapter = createAbstractUiItemsManagerAdapter();
+    } else {
+      this._abstractAdapter = undefined;
+    }
+  }
 
   /** For use in unit testing
    * @internal */
@@ -127,6 +138,7 @@ export class UiItemsManager {
   /**
    * Registers a UiItemsProvider with the UiItemsManager.
    * @param uiProvider the UI items provider to register.
+   * @param overrides the UI items provider to register.
    */
   public static register(
     uiProvider: UiItemsProvider,
@@ -200,7 +212,7 @@ export class UiItemsManager {
 
   /** Called when the application is populating a toolbar so that any registered UiItemsProvider can add tool buttons that either either execute
    * an action or specify a registered ToolId into toolbar.
-   * @param stageId a string identifier the active stage.
+   * @param stageId a string identifier of the active stage.
    * @param stageUsage the StageUsage of the active stage.
    * @param usage usage of the toolbar
    * @param orientation orientation of the toolbar
@@ -212,46 +224,36 @@ export class UiItemsManager {
     usage: ToolbarUsage,
     orientation: ToolbarOrientation
   ): ReadonlyArray<ProviderItem<ToolbarItem>> {
-    if (this._abstractAdapter)
+    if (this._abstractAdapter) {
       return this._abstractAdapter.getToolbarButtonItems(
         stageId,
         stageUsage,
         usage,
         orientation
       );
+    }
 
-    const buttonItems: ProviderItem<ToolbarItem>[] = [];
+    const items: ProviderItem<ToolbarItem>[] = [];
+    UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
+      if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
 
-    UiItemsManager._registeredUiItemsProviders.forEach(
-      (entry: UiItemProviderEntry) => {
-        const uiProvider = entry.provider;
-        const providerId = entry.overrides?.providerId ?? uiProvider.id;
-        // istanbul ignore else
-        if (
-          uiProvider.provideToolbarItems &&
-          this.allowItemsFromProvider(entry, stageId, stageUsage)
-        ) {
-          uiProvider
-            .provideToolbarItems(stageId, stageUsage, usage, orientation)
-            .forEach((spec: ToolbarItem) => {
-              // ignore duplicate ids
-              if (
-                -1 ===
-                buttonItems.findIndex(
-                  (existingItem) => spec.id === existingItem.id
-                )
-              )
-                buttonItems.push({ ...spec, providerId });
-            });
-        }
-      }
-    );
+      const uiProvider = entry.provider;
+      const providerId = entry.overrides?.providerId ?? uiProvider.id;
+      const provider = createGetPropertyAdapter(uiProvider);
+      const providerItems = provider
+        .provideToolbarItems(stageId, stageUsage, usage, orientation)
+        .map((item) => ({
+          ...item,
+          providerId,
+        }));
+      items.push(...providerItems);
+    });
 
-    return buttonItems;
+    return getUniqueItems(items);
   }
 
   /** Called when the application is populating the statusbar so that any registered UiItemsProvider can add status fields
-   * @param stageId a string identifier the active stage.
+   * @param stageId a string identifier of the active stage.
    * @param stageUsage the StageUsage of the active stage.
    * @returns An array of CommonStatusBarItem that will be used to create controls for the status bar.
    */
@@ -259,38 +261,28 @@ export class UiItemsManager {
     stageId: string,
     stageUsage: string
   ): ReadonlyArray<ProviderItem<StatusBarItem>> {
-    if (this._abstractAdapter)
+    if (this._abstractAdapter) {
       return this._abstractAdapter.getStatusBarItems(stageId, stageUsage);
+    }
 
-    const statusBarItems: ProviderItem<StatusBarItem>[] = [];
+    const items: ProviderItem<StatusBarItem>[] = [];
+    UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
+      if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
 
-    UiItemsManager._registeredUiItemsProviders.forEach(
-      (entry: UiItemProviderEntry) => {
-        const uiProvider = entry.provider;
-        const providerId = entry.overrides?.providerId ?? uiProvider.id;
+      const uiProvider = entry.provider;
+      const providerId = entry.overrides?.providerId ?? uiProvider.id;
+      const provider = createGetPropertyAdapter(uiProvider);
 
-        // istanbul ignore else
-        if (
-          uiProvider.provideStatusBarItems &&
-          this.allowItemsFromProvider(entry, stageId, stageUsage)
-        ) {
-          uiProvider
-            .provideStatusBarItems(stageId, stageUsage)
-            .forEach((item: StatusBarItem) => {
-              // ignore duplicate ids
-              if (
-                -1 ===
-                statusBarItems.findIndex(
-                  (existingItem) => item.id === existingItem.id
-                )
-              )
-                statusBarItems.push({ ...item, providerId });
-            });
-        }
-      }
-    );
+      const providerItems = provider
+        .provideStatusBarItems(stageId, stageUsage)
+        .map((item) => ({
+          ...item,
+          providerId,
+        }));
+      items.push(...providerItems);
+    });
 
-    return statusBarItems;
+    return getUniqueItems(items);
   }
 
   /** Called when the application is populating the statusbar so that any registered UiItemsProvider can add status fields
@@ -299,40 +291,29 @@ export class UiItemsManager {
   public static getBackstageItems(): ReadonlyArray<
     ProviderItem<BackstageItem>
   > {
-    if (this._abstractAdapter) return this._abstractAdapter.getBackstageItems();
+    if (this._abstractAdapter) {
+      return this._abstractAdapter.getBackstageItems();
+    }
 
-    const backstageItems: ProviderItem<BackstageItem>[] = [];
+    const items: ProviderItem<BackstageItem>[] = [];
+    UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
+      const uiProvider = entry.provider;
+      const providerId = entry.overrides?.providerId ?? uiProvider.id;
+      const provider = createGetPropertyAdapter(uiProvider);
+      // Note: We do not call this.allowItemsFromProvider here as backstage items
+      // should not be considered stage specific.
+      const providerItems = provider.provideBackstageItems().map((item) => ({
+        ...item,
+        providerId,
+      }));
+      items.push(...providerItems);
+    });
 
-    UiItemsManager._registeredUiItemsProviders.forEach(
-      (entry: UiItemProviderEntry) => {
-        const uiProvider = entry.provider;
-        const providerId = entry.overrides?.providerId ?? uiProvider.id;
-
-        // istanbul ignore else
-        if (uiProvider.provideBackstageItems) {
-          // Note: We do not call this.allowItemsFromProvider here as backstage items
-          uiProvider
-            .provideBackstageItems() //       should not be considered stage specific. If they need to be hidden
-            .forEach((item: BackstageItem) => {
-              //       the isHidden property should be set to a ConditionalBooleanValue
-              // ignore duplicate ids
-              if (
-                -1 ===
-                backstageItems.findIndex(
-                  (existingItem) => item.id === existingItem.id
-                )
-              )
-                backstageItems.push({ ...item, providerId });
-            });
-        }
-      }
-    );
-
-    return backstageItems;
+    return getUniqueItems(items);
   }
 
   /** Called when the application is populating the Stage Panels so that any registered UiItemsProvider can add widgets
-   * @param stageId a string identifier the active stage.
+   * @param stageId a string identifier of the active stage.
    * @param stageUsage the StageUsage of the active stage.
    * @param location the location within the stage.
    * @param section the section within location.
@@ -344,38 +325,41 @@ export class UiItemsManager {
     location: StagePanelLocation,
     section?: StagePanelSection
   ): ReadonlyArray<ProviderItem<Widget>> {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.getWidgets(
+    const items: ProviderItem<Widget>[] = [];
+    if (this._abstractAdapter) {
+      const abstractWidgets = this._abstractAdapter.getWidgets(
         stageId,
         stageUsage,
         location,
         section
       );
-
-    const widgets: ProviderItem<Widget>[] = [];
+      items.push(...abstractWidgets);
+    }
 
     UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
       const uiProvider = entry.provider;
       const providerId = entry.overrides?.providerId ?? uiProvider.id;
+      if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
 
-      // istanbul ignore else
-      if (
-        uiProvider.provideWidgets &&
-        this.allowItemsFromProvider(entry, stageId, stageUsage)
-      ) {
-        uiProvider
-          .provideWidgets(stageId, stageUsage, location, section)
-          .forEach((widget) => {
-            // ignore duplicate ids
-            if (
-              -1 ===
-              widgets.findIndex((existingItem) => widget.id === existingItem.id)
-            )
-              widgets.push({ ...widget, providerId });
-          });
-      }
+      const provider = createGetPropertyAdapter(uiProvider);
+      const providerItems = provider
+        .provideWidgets(stageId, stageUsage, location, section)
+        .map((item) => ({
+          ...item,
+          providerId,
+        }));
+      items.push(...providerItems);
     });
 
-    return widgets;
+    return getUniqueItems(items);
   }
+}
+
+function getUniqueItems<T extends { id: string }>(items: readonly T[]) {
+  const uniqueItems: T[] = [];
+  items.forEach((item) => {
+    if (uniqueItems.find((existingItem) => item.id === existingItem.id)) return;
+    uniqueItems.push(item);
+  });
+  return uniqueItems;
 }

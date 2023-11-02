@@ -294,14 +294,7 @@ export function ViewportComponent(props: ViewportProps) {
 
   const [initialViewState, setInitialViewState] = React.useState<
     ViewState | undefined
-  >(() => {
-    if (viewState) {
-      if (typeof viewState === "function") return viewState().clone();
-      else return viewState.clone();
-    }
-    return undefined;
-  });
-
+  >(undefined);
   React.useEffect(() => {
     setInitialViewState(undefined);
   }, [viewDefinitionId, viewState]);

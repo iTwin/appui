@@ -1,6 +1,13 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Tue, 17 Oct 2023 19:16:23 GMT and should not be manually modified.
+This log was last generated on Wed, 25 Oct 2023 09:39:22 GMT and should not be manually modified.
+
+## 4.6.3
+Wed, 25 Oct 2023 09:39:22 GMT
+
+### Updates
+
+- Fix broken datauri containing commas in `IconWebComponent`.
 
 ## 4.6.2
 Tue, 17 Oct 2023 19:16:23 GMT

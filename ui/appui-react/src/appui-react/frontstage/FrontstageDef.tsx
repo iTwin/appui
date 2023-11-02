@@ -191,6 +191,11 @@ export class FrontstageDef {
         }
       }
 
+      if (nineZone.draggedTab?.tabId === widgetId) {
+        widgetMap.set(widgetDef, WidgetState.Closed);
+        continue;
+      }
+
       const tabLocation = getTabLocation(nineZone, widgetId);
       if (!tabLocation) {
         widgetMap.set(widgetDef, WidgetState.Hidden);
@@ -702,7 +707,7 @@ export class FrontstageDef {
     });
   }
 
-  /** Used only in UI 2.0 to determine WidgetState from NinezoneState
+  /** Used to determine WidgetState from NinezoneState
    *  @internal
    */
   public getWidgetCurrentState(widgetDef: WidgetDef): WidgetState | undefined {
@@ -764,8 +769,7 @@ export class FrontstageDef {
     return false;
   }
 
-  /** Create a new floating panel that contains the widget specified by its Id. Supported only when in
-   *  UI 2.0 or higher.
+  /** Create a new floating panel that contains the widget specified by its Id.
    * @param widgetId case sensitive Widget Id
    * @param position Position of top left corner of floating panel in pixels. If undefined {x:50, y:100} is used.
    * @param size defines the width and height of the floating panel. If undefined and widget has been floated before
@@ -861,8 +865,7 @@ export class FrontstageDef {
     return true;
   }
 
-  /** Create a new popout/child window that contains the widget specified by its Id. Supported only when in
-   *  UI 2.0 or higher.
+  /** Create a new popout/child window that contains the widget specified by its Id.
    * @param widgetId case sensitive Widget Id
    * @param position Position of top left corner of floating panel in pixels. If undefined {x:0, y:0} is used.
    * @param size defines the width and height of the floating panel. If undefined and widget has been floated before
@@ -954,7 +957,7 @@ export class FrontstageDef {
 
   /** Finds the container with the specified widget and re-docks all widgets
    * back to the panel zone location that was used when the floating container
-   * was generated. Supported only when in UI 2.0 or higher.
+   * was generated.
    * @param widgetId  case sensitive Widget Id.
    * @beta
    */
