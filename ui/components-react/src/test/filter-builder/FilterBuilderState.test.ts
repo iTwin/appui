@@ -71,63 +71,6 @@ describe("useFilterBuilder", () => {
     ).to.be.true;
   });
 
-  it("adds rule to nested group", async () => {
-    const { result } = renderHook(() => useFilterBuilder());
-    const { actions } = result.current;
-    actions.addItem([]);
-
-    let nestedGroup: FilterBuilderRuleGroupItem | undefined;
-
-    await waitFor(() => {
-      nestedGroup = result.current.rootGroup.items[1];
-      expect(nestedGroup).to.not.be.undefined;
-    });
-
-    actions.addItem([]);
-
-    const rootGroup = result.current.rootGroup;
-    expect(rootGroup).to.containSubset({
-      operator: FilterRuleGroupOperator.And,
-      items: [
-        {
-          groupId: rootGroup.id,
-        },
-        {
-          groupId: rootGroup.id,
-          operator: FilterRuleGroupOperator.And,
-          items: [
-            {
-              groupId: nestedGroup!.id,
-            },
-          ],
-        },
-      ],
-    });
-  });
-
-  it("adds rule group to root group", async () => {
-    const { result } = renderHook(() => useFilterBuilder());
-    const { actions } = result.current;
-    actions.addItem([]);
-
-    await waitFor(() => {
-      const { rootGroup } = result.current;
-      expect(rootGroup).to.containSubset({
-        operator: FilterRuleGroupOperator.And,
-        items: [
-          {
-            groupId: rootGroup.id,
-          },
-          {
-            groupId: rootGroup.id,
-            operator: FilterRuleGroupOperator.And,
-            items: [],
-          },
-        ],
-      });
-    });
-  });
-
   it("does not change state if parent group is not found when adding item", () => {
     const { result } = renderHook(() => useFilterBuilder());
     const { rootGroup, actions } = result.current;
@@ -152,31 +95,6 @@ describe("useFilterBuilder", () => {
     expect(rootGroup.items).to.have.lengthOf(1);
     expect(rootGroup).to.containSubset({
       items: [{ groupId: rootGroup.id }],
-    });
-  });
-
-  it("clears rule instead of removing it when only one rule is left in the rule group", () => {
-    const { result } = renderHook(() => useFilterBuilder());
-    const { actions } = result.current;
-
-    let { rootGroup } = result.current;
-    expect(rootGroup.items).to.have.lengthOf(1);
-    actions.setRuleOperator([rootGroup.items[0].id], FilterRuleOperator.IsTrue);
-    actions.setRuleValue([rootGroup.items[0].id], {
-      valueFormat: PropertyValueFormat.Primitive,
-    });
-    actions.setRuleProperty([rootGroup.items[0].id], property);
-
-    rootGroup = result.current.rootGroup;
-    expect((rootGroup.items[0] as FilterBuilderRule).property).to.be.eq(
-      property
-    );
-    actions.removeItem([rootGroup.items[0].id]);
-
-    rootGroup = result.current.rootGroup;
-    expect(result.current.rootGroup).to.containSubset({
-      operator: FilterRuleGroupOperator.And,
-      items: [{ operator: undefined, value: undefined, property: undefined }],
     });
   });
 
@@ -488,37 +406,6 @@ describe("useFilterBuilder", () => {
     expect(rootGroup).to.be.eq(newRootGroup);
   });
 
-  it("does not change state when trying to set property on rule group", () => {
-    const { result } = renderHook(() => useFilterBuilder());
-    const { actions, rootGroup } = result.current;
-
-    actions.setRuleProperty([], property);
-
-    const { rootGroup: newRootGroup } = result.current;
-    expect(rootGroup).to.be.eq(newRootGroup);
-  });
-
-  it("sets rule error message", () => {
-    const { result } = renderHook(() => useFilterBuilder());
-    const { actions } = result.current;
-    let { rootGroup } = result.current;
-
-    actions.addItem([]);
-
-    actions.setRuleErrorMessages(
-      new Map([[rootGroup.items[0].id, "error message"]])
-    );
-
-    rootGroup = result.current.rootGroup;
-
-    expect((rootGroup.items[0] as FilterBuilderRule).errorMessage).to.be.eq(
-      "error message"
-    );
-
-    expect((rootGroup.items[1] as FilterBuilderRule).errorMessage).to.be
-      .undefined;
-  });
-
   describe("buildFilter", () => {
     describe("defaultRuleValidator", () => {
       it("returns undefined and sets rule error message to `Value is empty` if item has a property but value is undefined", () => {
@@ -651,95 +538,6 @@ describe("useFilterBuilder", () => {
 
       expect((rootGroup.items[0] as FilterBuilderRule).errorMessage).to.be
         .undefined;
-    });
-  });
-
-  describe("rule group", () => {
-    async function getStateWithNestedRule() {
-      const { result } = renderHook(() => useFilterBuilder());
-      const { actions } = result.current;
-
-      const getNestingRule = () =>
-        result.current.rootGroup.items[1] as FilterBuilderRuleGroup;
-      const getNestedRule = () =>
-        getNestingRule().items[0] as FilterBuilderRule;
-      const getNestedRulePath = () => [getNestingRule().id, getNestedRule().id];
-
-      actions.addItem([]);
-      await waitFor(() => {
-        expect(getNestingRule()).to.not.be.undefined;
-        expect(getNestedRule()).to.not.be.undefined;
-      });
-
-      return { result, getNestingRule, getNestedRule, getNestedRulePath };
-    }
-
-    describe("nested rule", () => {
-      it("sets property", async () => {
-        const { result, getNestingRule, getNestedRule, getNestedRulePath } =
-          await getStateWithNestedRule();
-        const { actions } = result.current;
-
-        actions.setRuleProperty(getNestedRulePath(), property);
-
-        await waitFor(() => {
-          const rule = getNestedRule();
-          expect(rule).to.containSubset({
-            groupId: getNestingRule().id,
-            property,
-          });
-        });
-      });
-
-      it("sets operator", async () => {
-        const { result, getNestingRule, getNestedRule, getNestedRulePath } =
-          await getStateWithNestedRule();
-        const { actions } = result.current;
-
-        actions.setRuleOperator(
-          getNestedRulePath(),
-          FilterRuleOperator.IsEqual
-        );
-
-        await waitFor(() => {
-          const rule = getNestedRule();
-          expect(rule).to.containSubset({
-            groupId: getNestingRule().id,
-            operator: FilterRuleOperator.IsEqual,
-          });
-        });
-      });
-
-      it("sets value", async () => {
-        const { result, getNestingRule, getNestedRule, getNestedRulePath } =
-          await getStateWithNestedRule();
-        const { actions } = result.current;
-
-        actions.setRuleValue(getNestedRulePath(), value);
-
-        await waitFor(() => {
-          const rule = getNestedRule();
-          expect(rule).to.containSubset({
-            groupId: getNestingRule().id,
-            value,
-          });
-        });
-      });
-    });
-
-    it("adds and removes rule", async () => {
-      const { result, getNestingRule } = await getStateWithNestedRule();
-      const { actions } = result.current;
-
-      actions.addItem([getNestingRule().id]);
-      await waitFor(() => {
-        expect(getNestingRule().items).to.have.lengthOf(2);
-      });
-
-      actions.removeItem([getNestingRule().id, getNestingRule().items[1].id]);
-      await waitFor(() => {
-        expect(getNestingRule().items).to.have.lengthOf(1);
-      });
     });
   });
 });

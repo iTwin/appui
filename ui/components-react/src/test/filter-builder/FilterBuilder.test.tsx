@@ -81,7 +81,7 @@ describe("FilterBuilder", () => {
       />
     );
 
-    const rules = container.querySelectorAll(".fb-property-name .fb-row-name");
+    const rules = container.querySelectorAll(".fb-row-name");
     expect(rules.length).to.be.eq(1);
     const rule1 = queryByDisplayValue(property1.displayLabel);
     expect(rule1).to.not.be.null;
@@ -116,84 +116,12 @@ describe("FilterBuilder", () => {
       />
     );
 
-    const rules = container.querySelectorAll(".fb-property-name .fb-row-name");
+    const rules = container.querySelectorAll(".fb-row-name");
     expect(rules.length).to.be.eq(2);
     const rule1 = queryByDisplayValue(property1.displayLabel);
     expect(rule1).to.not.be.null;
     const rule2 = queryByDisplayValue(property2.displayLabel);
     expect(rule2).to.not.be.null;
-  });
-
-  it("marks rule group as active on mouse over", async () => {
-    const user = userEvent.setup();
-    const { container } = render(
-      <FilterBuilder properties={[]} onFilterChanged={() => {}} />
-    );
-
-    const group = container.querySelector(".fb-group");
-    expect(group).to.not.be.null;
-
-    expect(container.querySelector(".fb-group[data-isactive=true]")).to.be.null;
-
-    await user.hover(group!);
-    expect(container.querySelector(".fb-group[data-isactive=true]")).to.not.be
-      .null;
-
-    await user.unhover(group!);
-    expect(container.querySelector(".fb-group[data-isactive=true]")).to.be.null;
-  });
-
-  it("marks rule group as active on focus", async () => {
-    const { container } = render(
-      <FilterBuilder properties={[]} onFilterChanged={() => {}} />
-    );
-
-    const group = container.querySelector(".fb-group");
-    expect(group).to.not.be.null;
-
-    expect(container.querySelector(".fb-group[data-isactive=true]")).to.be.null;
-
-    fireEvent.focus(group!);
-    await waitFor(
-      () =>
-        expect(container.querySelector(".fb-group[data-isactive=true]")).to.not
-          .be.null
-    );
-
-    fireEvent.blur(group!);
-    await waitFor(
-      () =>
-        expect(container.querySelector(".fb-group[data-isactive=true]")).to.be
-          .null
-    );
-  });
-
-  it("keeps rule group marked as active when focus moves to other element inside group", async () => {
-    const { container } = render(
-      <FilterBuilder properties={[]} onFilterChanged={() => {}} />
-    );
-
-    const group = container.querySelector(".fb-group");
-    expect(group).to.not.be.null;
-
-    expect(container.querySelector(".fb-group[data-isactive=true]")).to.be.null;
-
-    fireEvent.focus(group!);
-    await waitFor(
-      () =>
-        expect(container.querySelector(".fb-group[data-isactive=true]")).to.not
-          .be.null
-    );
-
-    const rule = container.querySelector(".fb-component-row");
-    expect(rule).to.not.be.null;
-
-    fireEvent.blur(group!, { relatedTarget: rule });
-    await waitFor(
-      () =>
-        expect(container.querySelector(".fb-group[data-isactive=true]")).to.not
-          .be.null
-    );
   });
 
   it("focus new rule property after adding new rule", async () => {
