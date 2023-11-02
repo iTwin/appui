@@ -13,7 +13,9 @@ interface FilterBuilderToolbarProps {
   onDelete?: () => void;
 }
 
-/** Toolbar displaying the "add" and "delete" row buttons in the filter builder */
+/** Toolbar displaying the "add" and "delete" row buttons in the filter builder
+ * @beta
+ */
 export const FilterBuilderToolbar = (
   props: FlexProps & FilterBuilderToolbarProps
 ) => {

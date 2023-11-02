@@ -16,7 +16,9 @@ interface FilterBuilderLogicalOperatorProps {
   onOperatorChange?: (operator: Operator) => void;
 }
 
-/** Component to render the operator inside of the filter builder */
+/** Component to render the operator inside of the filter builder
+ * @beta
+ */
 export const FilterBuilderLogicalOperator = (
   props: Omit<React.HTMLProps<HTMLDivElement>, "size"> &
     FilterBuilderLogicalOperatorProps

@@ -37,6 +37,7 @@ public;ControlledTree(props: ControlledTreeProps): JSX.Element
 public;ControlledTreeProps 
 public;ConvertedPrimitives
 internal;convertPrimitiveRecordToString(record: PropertyRecord): string | Promise
+internal;createFilter(groupItem: FilterBuilderRuleGroupItem): Filter | undefined
 alpha;CustomNumberEditor 
 alpha;CustomNumberPropertyEditor 
 public;CustomToolbarItem 
@@ -55,6 +56,7 @@ internal;DateTimePropertyEditor
 public;DateTimeTypeConverter 
 public;class DateTimeTypeConverterBase 
 public;DEFAULT_LINKS_HANDLER: LinkElementsInfo
+beta;defaultFilterBuilderRuleValidator(item: FilterBuilderRule): string | undefined
 beta;defaultPropertyFilterBuilderRuleValidator(item: PropertyFilterBuilderRule): string | undefined
 public;DelayLoadedTreeNodeItem 
 public;Direction
@@ -74,18 +76,42 @@ public;ErrorObserver
 public;FavoritePropertiesRenderer
 alpha;FavoritePropertyList(props: FavoritePropertyListProps): JSX.Element | null
 alpha;FavoritePropertyListProps
+beta;Filter = FilterRule | FilterRuleGroup
+beta;FilterBuilder(props: FilterBuilderProps): JSX.Element
+beta;FilterBuilderActions
+beta;FilterBuilderLogicalOperator: (props: Omit
+beta;FilterBuilderProps 
+beta;FilterBuilderRenderer(props: FilterBuilderRendererProps): JSX.Element
+beta;FilterBuilderRendererProps
+beta;FilterBuilderRule
+beta;FilterBuilderRuleGroup
+beta;FilterBuilderRuleGroupItem = FilterBuilderRuleGroup | FilterBuilderRule
+internal;FilterBuilderRuleOperator(props: FilterBuilderRuleOperatorProps): JSX.Element
+beta;FilterBuilderRuleOperatorProps
+beta;FilterBuilderRuleValue(props: FilterBuilderRuleValueProps): JSX.Element
+beta;FilterBuilderRuleValueProps
+beta;FilterBuilderRuleValueRendererProps 
+beta;FilterBuilderState
+beta;FilterBuilderToolbar: (props: FlexProps & FilterBuilderToolbarProps) => JSX.Element
 public;FilteredPropertyData 
 public;FilteredType
 public;FilteringInput 
 public;FilteringInputProps 
 public;FilteringInputStatus
 public;FilteringPropertyDataProvider 
+beta;FilterOptions
+beta;FilterRule
+beta;FilterRuleGroup
+beta;FilterRuleGroupOperator
+beta;FilterRuleOperator
 public;FlatGridItem = CategorizedPropertyItem | GridCategoryItem
 public;FlatGridItemBase
 public;FlatGridItemType
 public;FloatTypeConverter 
 internal;formatInputDate(inputDate: Date, timeDisplay?: TimeDisplay, customFormatter?: DateFormatter, alternateDateFormat?: AlternateDateFormats): string | undefined
 public;from
+beta;getFilterOperatorLabel(operator: FilterRuleOperator): string
+beta;getFilterOperators(property: PropertyDescription): FilterRuleOperator[]
 beta;getPropertyFilterOperatorLabel(operator: PropertyFilterRuleOperator): string
 beta;getPropertyFilterOperators(property: PropertyDescription): PropertyFilterRuleOperator[]
 internal;getPropertyKey(propertyCategory: PropertyCategory, propertyRecord: PropertyRecord): string
@@ -132,6 +158,8 @@ public;IPropertyGridModel
 public;IPropertyGridModelSource
 public;IPropertyValueRenderer
 internal;isCustomToolbarItem(item: ToolbarItem): item is CustomToolbarItem
+beta;isFilterBuilderRuleGroup(item: FilterBuilderRuleGroupItem): item is FilterBuilderRuleGroup
+beta;isFilterRuleGroup(filter: Filter): filter is FilterRuleGroup
 beta;isPropertyFilterBuilderRuleGroup(item: PropertyFilterBuilderRuleGroupItem): item is PropertyFilterBuilderRuleGroup
 beta;isPropertyFilterRuleGroup(filter: PropertyFilter): filter is PropertyFilterRuleGroup
 public;isTreeDataProviderInterface: (provider: TreeDataProvider) => provider is ITreeDataProvider
@@ -141,6 +169,7 @@ public;isTreeDataProviderRaw: (provider: TreeDataProvider) => provider is TreeDa
 public;isTreeModelNode(obj: TreeModelNodeType | undefined): obj is TreeModelNode
 public;isTreeModelNodePlaceholder(obj: TreeModelNodeType | undefined): obj is TreeModelNodePlaceholder
 public;isTreeModelRootNode(obj: TreeModelNodeType | undefined): obj is TreeModelRootNode
+beta;isUnaryFilterOperator(operator: FilterRuleOperator): boolean
 beta;isUnaryPropertyFilterOperator(operator: PropertyFilterRuleOperator): boolean
 public;ItemColorOverrides
 public;ItemStyle
@@ -310,7 +339,7 @@ public;TableStructValueRenderer
 public;TextareaEditor 
 public;TextareaPropertyEditor 
 public;TextEditor 
-internal;TimeField({ time, timeDisplay, readOnly, onTimeChange, }: TimeFieldProps): JSX.Element
+internal;TimeField({ time, timeDisplay, readOnly, onTimeChange, size, }: TimeFieldProps): JSX.Element
 internal;TimeFieldProps
 internal;TimeSpec
 internal;Title(props: TitleProps): JSX.Element
@@ -395,6 +424,9 @@ public;UrlPropertyValueRenderer
 public;useAsyncValue
 public;useControlledTreeLayoutStorage
 beta;useDebouncedAsyncValue
+beta;useFilterBuilder(props?: UseFilterBuilderProps): UseFilterBuilderResult
+beta;UseFilterBuilderProps
+beta;UseFilterBuilderResult
 public;usePagedTreeNodeLoader
 public;usePropertyData(props:
 beta;usePropertyFilterBuilder(props?: UsePropertyFilterBuilderProps): UsePropertyFilterBuilderResult
