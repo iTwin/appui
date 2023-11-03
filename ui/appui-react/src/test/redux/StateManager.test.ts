@@ -301,12 +301,12 @@ describe("ConfigurableUiReducer", () => {
     outState = ConfigurableUiReducer(
       initialState,
       ConfigurableUiActions.setPreviewFeatures({
-        panelsAlwaysOverContent: true,
+        contentAlwaysMaxSize: true,
         randomFeature: "random",
       })
     );
     expect(outState.previewFeatures).to.be.eql({
-      panelsAlwaysOverContent: true,
+      contentAlwaysMaxSize: true,
     });
   });
 });

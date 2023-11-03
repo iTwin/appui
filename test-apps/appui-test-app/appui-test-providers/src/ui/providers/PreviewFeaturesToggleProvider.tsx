@@ -14,18 +14,16 @@ import { Checkbox, DropdownButton, MenuItem } from "@itwin/itwinui-react";
 import * as React from "react";
 
 const featureList = [
-  { id: "panelsAlwaysOverContent", label: "Panels are always over content" },
+  { id: "contentAlwaysMaxSize", label: "Content is always maximum size" },
 ];
 function PreviewFeatureList() {
   const [activeFeatureList, setActiveFeatureList] = React.useState<string[]>(
-    []
+    Object.keys(UiFramework.previewFeatures)
   );
 
   React.useEffect(() => {
     UiFramework.setPreviewFeatures({
-      panelsAlwaysOverContent: activeFeatureList.includes(
-        "panelsAlwaysOverContent"
-      ),
+      contentAlwaysMaxSize: activeFeatureList.includes("contentAlwaysMaxSize"),
     });
   }, [activeFeatureList]);
 

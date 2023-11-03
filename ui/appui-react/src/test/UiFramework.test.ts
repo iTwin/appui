@@ -176,11 +176,11 @@ describe("UiFramework localStorage Wrapper", () => {
     it("PreviewFeatures", async () => {
       await TestUtils.initializeUiFramework();
       UiFramework.setPreviewFeatures({
-        panelsAlwaysOverContent: true,
+        contentAlwaysMaxSize: true,
         randomContent: "randomValue",
       });
       expect(UiFramework.previewFeatures).to.be.eql({
-        panelsAlwaysOverContent: true,
+        contentAlwaysMaxSize: true,
       });
       TestUtils.terminateUiFramework();
     });

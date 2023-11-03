@@ -3,15 +3,20 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 // Defined as an object so we can access the keys for runtime validation.
+
+import { useSelector } from "react-redux";
+import type { FrameworkRootState } from "../redux/StateManager";
+import { UiFramework } from "../UiFramework";
+
 /**
  * List of known preview features.
  */
 const knownFeaturesObject = {
   /**
-   * If true, the panels will always be rendered over the content.
+   * If true, the panels and tool settings will always be rendered over the content.
    * The content will never change size.
    */
-  panelsAlwaysOverContent: true as boolean, // So `typeof` below do not type this `true` but `boolean`
+  contentAlwaysMaxSize: true as boolean, // So `typeof` below do not type this `true` but `boolean`
 };
 
 /**
@@ -57,4 +62,16 @@ export function trimToKnownFeaturesOnly(previewFeatures: PreviewFeatures) {
     );
   }
   return knownFeatures;
+}
+
+/**
+ * Hook to access the preview features set in the Redux store.
+ * @internal
+ */
+export function usePreviewFeatures() {
+  return useSelector((state: FrameworkRootState) => {
+    const frameworkState = (state as any)[UiFramework.frameworkStateKey];
+    return frameworkState.configurableUiState
+      .previewFeatures as PreviewFeatures;
+  });
 }

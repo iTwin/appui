@@ -44,6 +44,7 @@ import {
   NineZoneStateReducer,
   PreviewFeaturesProvider,
   removeTab,
+  useLayout,
   WidgetPanels,
 } from "@itwin/appui-layout-react";
 import {
@@ -63,7 +64,11 @@ import {
 import { WidgetPanelsStatusBar } from "./StatusBar";
 import { WidgetPanelsTab } from "./Tab";
 import { WidgetPanelsToolbars } from "./Toolbars";
-import { ToolSettingsContent, WidgetPanelsToolSettings } from "./ToolSettings";
+import {
+  ToolSettingsContent,
+  useShouldRenderDockedToolSettings,
+  WidgetPanelsToolSettings,
+} from "./ToolSettings";
 import { useEscapeSetFocusToHome } from "../hooks/useEscapeSetFocusToHome";
 import type { FrameworkRootState } from "../redux/StateManager";
 import { useSelector } from "react-redux";
@@ -75,16 +80,24 @@ import { WidgetState } from "../widgets/WidgetState";
 import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
-import type { PreviewFeatures } from "../preview/PreviewFeatures";
+import { usePreviewFeatures } from "../preview/PreviewFeatures";
+import classNames from "classnames";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
   const uiIsVisible = useUiVisibility();
-  const previewFeatures = useSelector((state: FrameworkRootState) => {
-    const frameworkState = (state as any)[UiFramework.frameworkStateKey];
-    return frameworkState.configurableUiState
-      .previewFeatures as PreviewFeatures;
-  });
+  const previewFeatures = usePreviewFeatures();
+
+  const previewContentAlwaysMaxSizeDockedClass =
+    useShouldRenderDockedToolSettings() &&
+    previewFeatures.contentAlwaysMaxSize &&
+    "preview-contentAlwaysMaxSize-toolSettingsDocked";
+  const previewContentAlwaysMaxSizeTopPanelClass =
+    useLayout((state) => {
+      return state.panels.top.widgets.length > 0;
+    }) &&
+    previewFeatures.contentAlwaysMaxSize &&
+    "preview-contentAlwaysMaxSize-topPanelActive";
 
   return (
     <PreviewFeaturesProvider {...previewFeatures}>
@@ -92,7 +105,11 @@ function WidgetPanelsFrontstageComponent() {
       <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
         <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
         <WidgetPanels
-          className="uifw-widgetPanels"
+          className={classNames(
+            "uifw-widgetPanels",
+            previewContentAlwaysMaxSizeDockedClass,
+            previewContentAlwaysMaxSizeTopPanelClass
+          )}
           centerContent={<WidgetPanelsToolbars />}
         >
           <WidgetPanelsFrontstageContent />

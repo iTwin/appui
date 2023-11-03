@@ -22,7 +22,7 @@ import { usePreviewFeatures } from "../preview/PreviewFeatures";
  * @internal
  */
 export function AppContent() {
-  const { panelsAlwaysOverContent } = usePreviewFeatures();
+  const { contentAlwaysMaxSize } = usePreviewFeatures();
   const { pinnedLeft, pinnedRight, pinnedTop, pinnedBottom } = useLayout(
     (state) => {
       const panels = state.panels;
@@ -41,10 +41,10 @@ export function AppContent() {
     <WidgetPanelsContent
       className="nz-widgetPanels-appContent"
       ref={ref}
-      pinnedLeft={pinnedLeft && !panelsAlwaysOverContent}
-      pinnedRight={pinnedRight && !panelsAlwaysOverContent}
-      pinnedTop={pinnedTop && !panelsAlwaysOverContent}
-      pinnedBottom={pinnedBottom && !panelsAlwaysOverContent}
+      pinnedLeft={pinnedLeft && !contentAlwaysMaxSize}
+      pinnedRight={pinnedRight && !contentAlwaysMaxSize}
+      pinnedTop={pinnedTop && !contentAlwaysMaxSize}
+      pinnedBottom={pinnedBottom && !contentAlwaysMaxSize}
     >
       {content}
     </WidgetPanelsContent>

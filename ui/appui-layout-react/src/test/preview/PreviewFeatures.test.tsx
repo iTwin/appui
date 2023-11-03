@@ -20,16 +20,13 @@ describe("PreviewFeatures", () => {
       return <div>Rendered</div>;
     }
     render(
-      <PreviewFeaturesProvider
-        panelsAlwaysOverContent
-        randomProp={"randomValue"}
-      >
+      <PreviewFeaturesProvider contentAlwaysMaxSize randomProp={"randomValue"}>
         <TestComponent />
       </PreviewFeaturesProvider>
     );
 
     expect(testContext.renderedContext).to.deep.equal({
-      panelsAlwaysOverContent: true,
+      contentAlwaysMaxSize: true,
       randomProp: "randomValue",
     });
   });

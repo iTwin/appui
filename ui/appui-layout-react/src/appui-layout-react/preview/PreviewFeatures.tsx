@@ -9,7 +9,7 @@
 import * as React from "react";
 
 interface PreviewFeaturesState {
-  panelsAlwaysOverContent?: boolean;
+  contentAlwaysMaxSize?: boolean;
 }
 
 /**

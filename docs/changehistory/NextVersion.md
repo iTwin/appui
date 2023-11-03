@@ -72,11 +72,11 @@ Table of contents:
 
   ```ts
   UiFramework.setPreviewFeatures({
-    panelsAlwaysOverContent: true,
+    contentAlwaysMaxSize: true,
   });
   ```
 
-- `panelsAlwaysOverContent` is the first preview features that is introduced. When enabled, panels will always be rendered over the content even when the panel is pinned. The content will no longer be resized to make room for the panel, making the content never move when the panel is pinned or unpinned, open or closed.
+- `contentAlwaysMaxSize` is the first preview features that is introduced. When enabled, the content no longer gets resized by panels or docking the tool settings. This allows for a more consistent experience when the content is always the same size, regardless of the panels or tool settings being open, closed or floating.
 
 ### Changes
 
