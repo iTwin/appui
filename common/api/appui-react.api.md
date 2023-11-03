@@ -5090,6 +5090,9 @@ export interface UseSelectionSetSizeArgs {
     iModel: IModelConnection | undefined;
 }
 
+// @internal
+export function useShouldRenderDockedToolSettings(): boolean;
+
 // @beta
 export function useSolarDataProvider(viewport: ScreenViewport | undefined): SolarDataProvider | undefined;
 

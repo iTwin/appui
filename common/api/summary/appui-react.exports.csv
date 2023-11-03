@@ -564,6 +564,7 @@ internal;useSaveFrontstageSettings(frontstageDef: FrontstageDef, store: LayoutSt
 public;useScheduleAnimationDataProvider(viewport: ScreenViewport | undefined): ScheduleAnimationTimelineDataProvider | undefined
 beta;useSelectionSetSize(args: UseSelectionSetSizeArgs): number
 beta;UseSelectionSetSizeArgs
+internal;useShouldRenderDockedToolSettings(): boolean
 beta;useSolarDataProvider(viewport: ScreenViewport | undefined): SolarDataProvider | undefined
 public;useSpecificWidgetDef(widgetId: string): WidgetDef | undefined
 internal;useStatusBarEntry(): DockedStatusBarEntryContextArg
