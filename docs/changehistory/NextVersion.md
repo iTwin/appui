@@ -90,4 +90,3 @@ Table of contents:
 ### Fixes
 
 - Fixed `useDisposable` hook to work in React 18 strict mode.
-
