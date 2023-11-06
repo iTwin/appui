@@ -8,7 +8,8 @@
 
 import type * as React from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
-import { type ContentLayoutProps, UiError } from "@itwin/appui-abstract";
+import { UiError } from "@itwin/appui-abstract";
+import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 import {
   ConfigurableCreateInfo,

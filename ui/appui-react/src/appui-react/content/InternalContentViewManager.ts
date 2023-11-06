@@ -189,7 +189,7 @@ export class InternalContentViewManager {
             if (
               activeContentControl.viewport &&
               activeContentControl.viewport !==
-              IModelApp.viewManager.selectedView
+                IModelApp.viewManager.selectedView
             ) {
               void IModelApp.viewManager.setSelectedView(
                 activeContentControl.viewport

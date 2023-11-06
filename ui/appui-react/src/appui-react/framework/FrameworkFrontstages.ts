@@ -32,7 +32,7 @@ export interface FrontstageActivatedEventArgs {
 /** Frontstage Activated Event class.
  * @public
  */
-export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> { }
+export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> {}
 
 /** Frontstage Deactivated Event Args interface.
  * @public
@@ -54,7 +54,7 @@ export interface FrontstageDeactivatedEventArgs {
 /** Frontstage Deactivated Event class.
  * @public
  */
-export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> { }
+export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> {}
 
 /** Frontstage Ready Event Args interface.
  * @public
@@ -66,7 +66,7 @@ export interface FrontstageReadyEventArgs {
 /** Frontstage Ready Event class.
  * @public
  */
-export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> { }
+export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> {}
 
 /** Modal Frontstage Changed Event Args interface.
  * @public
@@ -78,7 +78,7 @@ export interface ModalFrontstageChangedEventArgs {
 /** Modal Frontstage Stack Changed Event class.
  * @public
  */
-export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> { }
+export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> {}
 
 /** Modal Frontstage Closed Event Args interface.
  * @public
@@ -102,7 +102,7 @@ export interface ModalFrontstageClosedEventArgs {
  * any unsaved data.
  * @alpha
  */
-export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> { }
+export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> {}
 
 /** Modal Frontstage RequestedClose Event Args interface.
  * @alpha
@@ -117,7 +117,7 @@ export interface ModalFrontstageRequestedCloseEventArgs {
 /** Modal Frontstage Closed Event class.
  * @public
  */
-export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> { }
+export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> {}
 
 /** Tool Activated Event Args interface.
  * @public
@@ -129,7 +129,7 @@ export interface ToolActivatedEventArgs {
 /** Tool Activated Event class.
  * @public
  */
-export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> { }
+export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> {}
 
 /** Tool Icon Changed Event Args interface.
  * @public
@@ -141,7 +141,7 @@ export interface ToolIconChangedEventArgs {
 /** Tool Icon Changed Event class.
  * @public
  */
-export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> { }
+export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {}
 
 /** Modal Frontstage information interface.
  * @public

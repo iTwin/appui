@@ -6,10 +6,10 @@
  * @module ToolSettings
  */
 
-import type { DialogItem, DialogPropertySyncItem } from "@itwin/appui-abstract";
-import { UiEvent } from "@itwin/appui-abstract";
 import type { InteractiveTool } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
+import type { DialogItem, DialogPropertySyncItem } from "@itwin/appui-abstract";
+import { UiEvent } from "@itwin/appui-abstract";
 import { focusIntoContainer } from "@itwin/core-react";
 import { SyncToolSettingsPropertiesEvent } from "../framework/FrameworkToolSettings";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
@@ -114,7 +114,7 @@ export class InternalToolSettingsManager {
       IModelApp.toolAdmin &&
       IModelApp.toolAdmin.activeTool &&
       IModelApp.toolAdmin.activeTool.toolId ===
-      InternalToolSettingsManager._toolIdForToolSettings
+        InternalToolSettingsManager._toolIdForToolSettings
     ) {
       const properties =
         IModelApp.toolAdmin.activeTool.supplyToolSettingsProperties();

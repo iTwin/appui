@@ -137,8 +137,8 @@ export abstract class AbstractTreeNodeLoader implements ITreeNodeLoader {
  * @public
  */
 export abstract class AbstractTreeNodeLoaderWithProvider<
-  TDataProvider extends TreeDataProvider
->
+    TDataProvider extends TreeDataProvider
+  >
   extends AbstractTreeNodeLoader
   implements ITreeNodeLoaderWithProvider<TDataProvider>
 {

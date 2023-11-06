@@ -5,7 +5,8 @@
 /** @packageDocumentation
  * @module ToolSettings
  */
-import { type DialogItem, type DialogPropertySyncItem, UiEvent } from "@itwin/appui-abstract";
+import type { DialogItem, DialogPropertySyncItem } from "@itwin/appui-abstract";
+import { UiEvent } from "@itwin/appui-abstract";
 import type { InteractiveTool } from "@itwin/core-frontend";
 
 /** Sync Tool Settings Properties Event Args interface.
@@ -19,7 +20,7 @@ export interface SyncToolSettingsPropertiesEventArgs {
 /** Sync Tool Settings Properties Event class.
  * @public
  */
-export class SyncToolSettingsPropertiesEvent extends UiEvent<SyncToolSettingsPropertiesEventArgs> { }
+export class SyncToolSettingsPropertiesEvent extends UiEvent<SyncToolSettingsPropertiesEventArgs> {}
 
 /**
  * [[UiFramework.toolSettings]] interface

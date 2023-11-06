@@ -7,9 +7,9 @@
  */
 
 import * as React from "react";
-import { RelativePosition, UiEvent } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
+import { RelativePosition, UiEvent } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Point, Size } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";

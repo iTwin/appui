@@ -9,9 +9,9 @@
 import "./SheetsModalFrontstage.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { UiEvent } from "@itwin/appui-abstract";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
+import { UiEvent } from "@itwin/appui-abstract";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
 import {
   FlexWrapContainer,

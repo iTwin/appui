@@ -8,10 +8,10 @@
 
 // cSpell:ignore DEVTOOLS
 
-import { UiError } from "@itwin/appui-abstract";
 import type { ReducersMapObject, Store } from "redux";
 import { combineReducers, createStore } from "redux";
 import { Logger } from "@itwin/core-bentley";
+import { UiError } from "@itwin/appui-abstract";
 import type { FrameworkState } from "./FrameworkState";
 import { FrameworkReducer } from "./FrameworkState";
 import type { NameToReducerMap } from "./ReducerRegistry";
@@ -68,7 +68,7 @@ export class StateManager {
     this._store = createStore(
       allReducers,
       (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-      (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+        (window as any).__REDUX_DEVTOOLS_EXTENSION__()
     );
 
     ReducerRegistryInstance.setChangeListener((newDynamicReducers) => {

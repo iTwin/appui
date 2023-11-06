@@ -10,7 +10,6 @@ import { CommandItemDef } from "../shared/CommandItemDef";
 import { UiFramework } from "../UiFramework";
 import svgProgressBackwardCircular from "@bentley/icons-generic/icons/progress-backward.svg";
 
-
 /**
  * Nested Frontstage related classes and commands
  * @public

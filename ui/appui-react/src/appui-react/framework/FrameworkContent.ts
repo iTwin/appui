@@ -6,7 +6,8 @@
  * @module ContentView
  */
 
-import { type ContentLayoutProps, UiEvent } from "@itwin/appui-abstract";
+import type { ContentLayoutProps } from "@itwin/appui-abstract";
+import { UiEvent } from "@itwin/appui-abstract";
 import type { ContentControl } from "../content/ContentControl";
 import type { ContentGroup, ContentGroupProps } from "../content/ContentGroup";
 import type { ContentLayoutDef } from "../content/ContentLayout";
@@ -24,7 +25,7 @@ export interface MouseDownChangedEventArgs {
 /** Mouse Down Changed Event class.
  * @public
  */
-export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> { }
+export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> {}
 
 /** [[ActiveContentChangedEvent]] Args interface.
  * @public
@@ -39,12 +40,12 @@ export interface ActiveContentChangedEventArgs {
 /** Active Content Changed Event class.
  * @public
  */
-export class ActiveContentChangedEvent extends UiEvent<ActiveContentChangedEventArgs> { }
+export class ActiveContentChangedEvent extends UiEvent<ActiveContentChangedEventArgs> {}
 
 /** Content Dialog Changed Event class.
  * @public
  */
-export class ContentDialogChangedEvent extends DialogChangedEvent { }
+export class ContentDialogChangedEvent extends DialogChangedEvent {}
 
 /** @public */
 export interface ContentDialogInfo {

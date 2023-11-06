@@ -7,7 +7,6 @@
  */
 
 import { Logger } from "@itwin/core-bentley";
-import { UiEvent } from "@itwin/appui-abstract";
 import type {
   IModelConnection,
   SelectedViewportChangedArgs,
@@ -15,6 +14,7 @@ import type {
   Tool,
 } from "@itwin/core-frontend";
 import { IModelApp, InteractiveTool } from "@itwin/core-frontend";
+import { UiEvent } from "@itwin/appui-abstract";
 import type { Size } from "@itwin/core-react";
 import { ContentControlActivatedEvent } from "../content/ContentControl";
 import type { ContentGroup } from "../content/ContentGroup";
@@ -590,7 +590,7 @@ export class InternalFrontstageManager {
     if (InternalFrontstageManager._modalFrontstages.length > 0) {
       const topMostStageItem =
         InternalFrontstageManager._modalFrontstages[
-        InternalFrontstageManager._modalFrontstages.length - 1
+          InternalFrontstageManager._modalFrontstages.length - 1
         ];
       if (topMostStageItem.modalFrontstage.notifyCloseRequest)
         InternalFrontstageManager.onCloseModalFrontstageRequestedEvent.emit({
@@ -640,7 +640,7 @@ export class InternalFrontstageManager {
     if (InternalFrontstageManager._modalFrontstages.length > 0) {
       const frontstageItem =
         InternalFrontstageManager._modalFrontstages[
-        InternalFrontstageManager._modalFrontstages.length - 1
+          InternalFrontstageManager._modalFrontstages.length - 1
         ];
       const modalFrontstage = frontstageItem.modalFrontstage;
       return modalFrontstage;

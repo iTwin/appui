@@ -9,13 +9,12 @@
 import classnames from "classnames";
 import { isEqual } from "lodash";
 import * as React from "react";
-import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import type {
   MessageBoxValue,
   ToolAssistanceInstructions,
   ToolTipOptions,
 } from "@itwin/core-frontend";
-import type { XAndY } from "@itwin/core-geometry";
 import {
   ActivityMessageDetails,
   IModelApp,
@@ -25,6 +24,7 @@ import {
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
+import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
 import { MessageContainer, MessageRenderer } from "@itwin/core-react";
 import { ConfigurableUiActionId } from "../configurableui/state";

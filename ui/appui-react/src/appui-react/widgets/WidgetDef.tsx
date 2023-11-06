@@ -7,13 +7,12 @@
  */
 
 import type * as React from "react";
-import {
-  type BadgeType,
-  type ConditionalStringValue,
-  type StringGetter,
-  UiError,
-  UiEvent,
+import type {
+  BadgeType,
+  ConditionalStringValue,
+  StringGetter,
 } from "@itwin/appui-abstract";
+import { UiError, UiEvent } from "@itwin/appui-abstract";
 import type { XAndY } from "@itwin/core-geometry";
 import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 import {

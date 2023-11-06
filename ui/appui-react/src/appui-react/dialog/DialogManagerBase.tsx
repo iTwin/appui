@@ -7,8 +7,8 @@
  */
 
 import * as React from "react";
-import { UiEvent } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
+import { UiEvent } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
 import { getCssVariableAsNumber } from "@itwin/core-react";
 

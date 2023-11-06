@@ -17,7 +17,7 @@ import type { ToolUiProvider } from "./ToolUiProvider";
 export class ToolInformation {
   private _toolUiProvider: ToolUiProvider | undefined;
 
-  constructor(public toolId: string) { }
+  constructor(public toolId: string) {}
 
   /** Get the ToolUiProvider registered for this tool */
   public get toolUiProvider(): ToolUiProvider | undefined {

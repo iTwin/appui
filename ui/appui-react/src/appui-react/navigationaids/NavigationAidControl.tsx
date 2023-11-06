@@ -7,8 +7,8 @@
  */
 
 import type * as React from "react";
-import { UiEvent } from "@itwin/appui-abstract";
 import type { IModelConnection } from "@itwin/core-frontend";
+import { UiEvent } from "@itwin/appui-abstract";
 import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
 import {
   ConfigurableUiControl,

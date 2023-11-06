@@ -47,7 +47,7 @@ export interface CursorUpdatedEventArgs {
 /** Cursor Updated Event class.
  * @public
  */
-export class CursorUpdatedEvent extends UiEvent<CursorUpdatedEventArgs> { }
+export class CursorUpdatedEvent extends UiEvent<CursorUpdatedEventArgs> {}
 
 /** Cursor Information class
  * @public
