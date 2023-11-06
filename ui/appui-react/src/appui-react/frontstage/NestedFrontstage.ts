@@ -15,7 +15,7 @@ import svgProgressBackwardCircular from "@bentley/icons-generic/icons/progress-b
  * @public
  */
 export class NestedFrontstage {
-  private static iconSpec = svgProgressBackwardCircular
+  private static iconSpec = svgProgressBackwardCircular;
 
   /** Command that returns to the previous Frontstage */
   public static get backToPreviousFrontstageCommand() {

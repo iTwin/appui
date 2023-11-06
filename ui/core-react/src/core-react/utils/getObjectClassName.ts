@@ -7,6 +7,9 @@
  * @internal
  */
 export const getObjectClassName = (obj: any): string => {
-  return obj?.name ? obj.name : obj?.constructor?.name ? obj.constructor.name : "";
+  return obj?.name
+    ? obj.name
+    : obj?.constructor?.name
+    ? obj.constructor.name
+    : "";
 };
-

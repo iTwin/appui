@@ -34,7 +34,7 @@ export class GenericLocateTool extends PrimitiveTool {
   }
   public static override iconSpec = genericToolSvg;
   public static useDefaultPosition = false;
-  public override autoLockTarget(): void { } // NOTE: For selecting elements we only care about iModel, so don't lock target model automatically.
+  public override autoLockTarget(): void {} // NOTE: For selecting elements we only care about iModel, so don't lock target model automatically.
   protected wantSelectionClearOnMiss(_ev: BeButtonEvent): boolean {
     return SelectionMode.Replace === this.getSelectionMode();
   }
@@ -159,7 +159,7 @@ export class GenericLocateTool extends PrimitiveTool {
     groupPriority?: number
   ) {
     const overrides = undefined !== groupPriority ? { groupPriority } : {};
-    const iconSpec = this.iconSpec
+    const iconSpec = this.iconSpec;
     return ToolbarItemUtilities.createActionButton(
       GenericLocateTool.toolId,
       itemPriority,

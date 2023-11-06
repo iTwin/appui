@@ -91,7 +91,6 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
     _stageId: string,
     stageUsage: string
   ): StatusBarItem[] {
-
     const statusBarItems: StatusBarItem[] = [];
     if (stageUsage === StageUsage.General) {
       statusBarItems.push(

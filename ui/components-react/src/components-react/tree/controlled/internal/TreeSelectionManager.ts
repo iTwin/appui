@@ -8,7 +8,7 @@
 
 import type { Observable } from "rxjs";
 import { Subject } from "rxjs";
-import { UiEvent } from "@itwin/appui-abstract"
+import { UiEvent } from "@itwin/appui-abstract";
 import type {
   MultiSelectionHandler,
   SingleSelectionHandler,
@@ -61,7 +61,7 @@ export function isRangeSelection(selection: any): selection is RangeSelection {
 /** @internal */
 export class TreeSelectionManager
   implements
-  Pick<TreeActions, "onNodeClicked" | "onNodeMouseDown" | "onNodeMouseMove">
+    Pick<TreeActions, "onNodeClicked" | "onNodeMouseDown" | "onNodeMouseMove">
 {
   private _selectionHandler: SelectionHandler<Selection>;
   private _dragSelectionOperation?: Subject<SelectionModificationEvent>;

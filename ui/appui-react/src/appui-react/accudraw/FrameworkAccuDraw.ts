@@ -52,7 +52,7 @@ export interface AccuDrawSetFieldFocusEventArgs {
 
 /** AccuDraw Set Field Focus event
  * @beta */
-export class AccuDrawSetFieldFocusEvent extends UiEvent<AccuDrawSetFieldFocusEventArgs> { }
+export class AccuDrawSetFieldFocusEvent extends UiEvent<AccuDrawSetFieldFocusEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldValueToUiEvent]]
  * @beta */
@@ -64,7 +64,7 @@ export interface AccuDrawSetFieldValueToUiEventArgs {
 
 /** AccuDraw Set Field Value to Ui event
  * @beta */
-export class AccuDrawSetFieldValueToUiEvent extends UiEvent<AccuDrawSetFieldValueToUiEventArgs> { }
+export class AccuDrawSetFieldValueToUiEvent extends UiEvent<AccuDrawSetFieldValueToUiEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldValueFromUiEvent]]
  * @beta */
@@ -75,7 +75,7 @@ export interface AccuDrawSetFieldValueFromUiEventArgs {
 
 /** AccuDraw Set Field Value from Ui event
  * @beta */
-export class AccuDrawSetFieldValueFromUiEvent extends UiEvent<AccuDrawSetFieldValueFromUiEventArgs> { }
+export class AccuDrawSetFieldValueFromUiEvent extends UiEvent<AccuDrawSetFieldValueFromUiEventArgs> {}
 
 /** Arguments for [[AccuDrawSetFieldLockEvent]]
  * @beta */
@@ -86,7 +86,7 @@ export interface AccuDrawSetFieldLockEventArgs {
 
 /** AccuDraw Set Field Lock event
  * @beta */
-export class AccuDrawSetFieldLockEvent extends UiEvent<AccuDrawSetFieldLockEventArgs> { }
+export class AccuDrawSetFieldLockEvent extends UiEvent<AccuDrawSetFieldLockEventArgs> {}
 
 /** Arguments for [[AccuDrawSetCompassModeEvent]]
  * @beta */
@@ -96,22 +96,23 @@ export interface AccuDrawSetCompassModeEventArgs {
 
 /** AccuDraw Set Compass Mode event
  * @beta */
-export class AccuDrawSetCompassModeEvent extends UiEvent<AccuDrawSetCompassModeEventArgs> { }
+export class AccuDrawSetCompassModeEvent extends UiEvent<AccuDrawSetCompassModeEventArgs> {}
 
 /** AccuDraw Grab Input Focus event
  * @beta */
-export class AccuDrawGrabInputFocusEvent extends UiEvent<{}> { }
+export class AccuDrawGrabInputFocusEvent extends UiEvent<{}> {}
 
 /** AccuDraw Ui Settings Changed event
  * @beta */
-export class AccuDrawUiSettingsChangedEvent extends UiEvent<{}> { }
+export class AccuDrawUiSettingsChangedEvent extends UiEvent<{}> {}
 
 /** Implementation of AccuDraw that sends events for UI and status changes
  * @beta
  */
 export class FrameworkAccuDraw
   extends AccuDraw
-  implements UserSettingsProvider {
+  implements UserSettingsProvider
+{
   private static _displayNotifications = false;
   private static _uiSettings: AccuDrawUiSettings | undefined;
   private static _settingsNamespace = "AppUiSettings";

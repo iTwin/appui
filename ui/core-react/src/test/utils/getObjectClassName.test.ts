@@ -45,4 +45,4 @@ describe("getObjectClassName", () => {
   it("should be Number if passed a numeric value", () => {
     expect(getObjectClassName(123)).to.eq("Number");
   });
-})
+});

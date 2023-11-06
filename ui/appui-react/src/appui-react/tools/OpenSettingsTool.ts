@@ -15,7 +15,7 @@ import svgSettings from "@bentley/icons-generic/icons/settings.svg";
  */
 export class OpenSettingsTool extends Tool {
   public static override toolId = "OpenSettings";
-  public static override iconSpec = svgSettings
+  public static override iconSpec = svgSettings;
 
   // istanbul ignore next
   public static override get minArgs() {

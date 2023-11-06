@@ -54,9 +54,9 @@ export type UiItemsProviderOverrides =
   | MarkRequired<AllowedUiItemsProviderOverrides, "stageIds">
   | MarkRequired<AllowedUiItemsProviderOverrides, "stageUsages">
   | MarkRequired<
-    AllowedUiItemsProviderOverrides,
-    "providerId" | "stageUsages" | "stageIds"
-  >;
+      AllowedUiItemsProviderOverrides,
+      "providerId" | "stageUsages" | "stageIds"
+    >;
 
 /** Interface that defines an instance of a UiItemsProvider and its application specified overrides. */
 interface UiItemProviderEntry {

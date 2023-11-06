@@ -36,7 +36,7 @@ export interface WidgetsChangedEventArgs {
 /** Event class for [[this.onWidgetsChanged]].
  * @internal
  */
-export class WidgetsChangedEvent extends UiEvent<WidgetsChangedEventArgs> { }
+export class WidgetsChangedEvent extends UiEvent<WidgetsChangedEventArgs> {}
 
 function getWidgetManagerStableWidgetId(
   stageUsage: string | undefined,
@@ -44,8 +44,9 @@ function getWidgetManagerStableWidgetId(
   section: StagePanelSection,
   index: number
 ) {
-  return `uifw-wm-${stageUsage || ""}-${StagePanelLocation[location]}-${StagePanelSection[section]
-    }-${index}`;
+  return `uifw-wm-${stageUsage || ""}-${StagePanelLocation[location]}-${
+    StagePanelSection[section]
+  }-${index}`;
 }
 
 /** Widget Manager class.

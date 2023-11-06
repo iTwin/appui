@@ -11,7 +11,6 @@ export interface IMatch {
   end: number;
 }
 
-
 /**
  * Matches beginning of words supporting non-ASCII languages.
  * @param word Filter string
@@ -21,7 +20,11 @@ export interface IMatch {
  * Useful in cases where the target is words (e.g. command labels)
  * @internal
  */
-export function matchesWords(word: string, target: string, contiguous: boolean = false): IMatch[] | null {
+export function matchesWords(
+  word: string,
+  target: string,
+  contiguous: boolean = false
+): IMatch[] | null {
   if (!target || target.length === 0) {
     return null;
   }
@@ -31,14 +34,23 @@ export function matchesWords(word: string, target: string, contiguous: boolean =
 
   word = word.toLowerCase();
   target = target.toLowerCase();
-  while (i < target.length && (result = matchesWordsInternal(word, target, 0, i, contiguous)) === null) {
+  while (
+    i < target.length &&
+    (result = matchesWordsInternal(word, target, 0, i, contiguous)) === null
+  ) {
     i = nextWord(target, i + 1);
   }
 
   return result;
 }
 
-function matchesWordsInternal(word: string, target: string, i: number, j: number, contiguous: boolean): IMatch[] | null {
+function matchesWordsInternal(
+  word: string,
+  target: string,
+  i: number,
+  j: number,
+  contiguous: boolean
+): IMatch[] | null {
   if (i === word.length) {
     return [];
   } else if (j === target.length) {
@@ -50,8 +62,17 @@ function matchesWordsInternal(word: string, target: string, i: number, j: number
     let nextWordIndex = j + 1;
     result = matchesWordsInternal(word, target, i + 1, j + 1, contiguous);
     if (!contiguous) {
-      while (!result && (nextWordIndex = nextWord(target, nextWordIndex)) < target.length) {
-        result = matchesWordsInternal(word, target, i + 1, nextWordIndex, contiguous);
+      while (
+        !result &&
+        (nextWordIndex = nextWord(target, nextWordIndex)) < target.length
+      ) {
+        result = matchesWordsInternal(
+          word,
+          target,
+          i + 1,
+          nextWordIndex,
+          contiguous
+        );
         nextWordIndex++;
       }
     }
@@ -61,8 +82,10 @@ function matchesWordsInternal(word: string, target: string, i: number, j: number
 
 function nextWord(word: string, start: number): number {
   for (let i = start; i < word.length; i++) {
-    if (isWordSeparator(word.charCodeAt(i)) ||
-      (i > 0 && isWordSeparator(word.charCodeAt(i - 1)))) {
+    if (
+      isWordSeparator(word.charCodeAt(i)) ||
+      (i > 0 && isWordSeparator(word.charCodeAt(i - 1)))
+    ) {
       return i;
     }
   }
@@ -73,19 +96,19 @@ enum CharCode {
   Space = 32,
   Tab = 9,
   LineFeed = 10,
-  CarriageReturn = 13
+  CarriageReturn = 13,
 }
 
 function isWhitespace(code: number): boolean {
   return (
-    code === CharCode.Space
-    || code === CharCode.Tab
-    || code === CharCode.LineFeed
-    || code === CharCode.CarriageReturn
+    code === CharCode.Space ||
+    code === CharCode.Tab ||
+    code === CharCode.LineFeed ||
+    code === CharCode.CarriageReturn
   );
 }
 const wordSeparators = new Set<number>();
-'`~!@#$%^&*()-=+[{]}\\|;:\'",.<>/?'
+"`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?"
   .split("")
   .forEach((s) => wordSeparators.add(s.charCodeAt(0)));
 
@@ -94,7 +117,7 @@ function isWordSeparator(code: number): boolean {
 }
 
 function charactersMatch(codeA: number, codeB: number): boolean {
-  return (codeA === codeB) || (isWordSeparator(codeA) && isWordSeparator(codeB));
+  return codeA === codeB || (isWordSeparator(codeA) && isWordSeparator(codeB));
 }
 
 function join(head: IMatch, tail: IMatch[]): IMatch[] {

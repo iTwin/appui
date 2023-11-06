@@ -6,9 +6,7 @@
  * @module Tools
  */
 
-import {
-  ConditionalBooleanValue,
-} from "@itwin/appui-abstract";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { SessionStateActionId } from "../redux/SessionState";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import type { BaseItemState } from "../shared/ItemDefBase";
@@ -187,7 +185,7 @@ export class SelectionContextToolDefinitions {
   public static get isolateElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.IsolateSelected",
-      iconSpec: (svgAssetIsolate),
+      iconSpec: svgAssetIsolate,
       labelKey: "UiFramework:tools.isolateSelected",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () =>

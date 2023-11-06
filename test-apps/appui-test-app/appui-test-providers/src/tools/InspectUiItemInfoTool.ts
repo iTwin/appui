@@ -26,7 +26,7 @@ export class InspectUiItemInfoTool extends PrimitiveTool {
 
   private static _counter = 0;
   public static override toolId = "InspectUiItemInfoTool";
-  public static override iconSpec = inspectIconSvg
+  public static override iconSpec = inspectIconSvg;
 
   public static override get minArgs() {
     return 0;
