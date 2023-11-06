@@ -12,6 +12,7 @@ import {
 } from "@storybook/blocks";
 import {
   ConfigurableUiContent,
+  FrameworkToolAdmin,
   FrontstageProvider,
   UiFramework,
   UiItemsManager,
@@ -20,26 +21,22 @@ import {
 import { IModelApp } from "@itwin/core-frontend";
 import { createFrontstageProvider } from "./Utils";
 
-export type AppUiStoryProps = {
+export interface AppUiStoryProps {
+  onInitialize?: () => Promise<void>;
   itemProviders?: UiItemsProvider[];
   layout?: "fullscreen";
   frontstageProviders?: FrontstageProvider[] | (() => FrontstageProvider[]);
-};
-
-function getFrontstageProviders(
-  frontstageProviders: AppUiStoryProps["frontstageProviders"]
-) {
-  if (!frontstageProviders) return undefined;
-  if (Array.isArray(frontstageProviders)) return frontstageProviders;
-  return frontstageProviders();
 }
 
 export function AppUiStory(props: AppUiStoryProps) {
   const [initialized, setInitialized] = React.useState(false);
   React.useEffect(() => {
     void (async function () {
-      await IModelApp.startup();
+      await IModelApp.startup({
+        toolAdmin: new FrameworkToolAdmin(),
+      });
       await UiFramework.initialize(undefined);
+      await props.onInitialize?.();
 
       const frontstageProviders = getFrontstageProviders(
         props.frontstageProviders
@@ -47,6 +44,7 @@ export function AppUiStory(props: AppUiStoryProps) {
       for (const provider of frontstageProviders) {
         UiFramework.frontstages.addFrontstageProvider(provider);
       }
+
       for (const provider of props.itemProviders ?? []) {
         UiItemsManager.register(provider);
       }
@@ -85,4 +83,12 @@ export function Page() {
       <Controls />
     </>
   );
+}
+
+function getFrontstageProviders(
+  frontstageProviders: AppUiStoryProps["frontstageProviders"]
+) {
+  if (!frontstageProviders) return undefined;
+  if (Array.isArray(frontstageProviders)) return frontstageProviders;
+  return frontstageProviders();
 }

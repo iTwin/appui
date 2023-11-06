@@ -123,7 +123,7 @@ export function createCursorEvents(
   const duration = options?.duration ?? 250;
   return {
     move: async (to: XAndY) => {
-      let start = Date.now();
+      const start = Date.now();
       const line = LineSegment3d.create(
         new Point3d(currentPosition.x, currentPosition.y, 0),
         new Point3d(to.x, to.y, 0)
