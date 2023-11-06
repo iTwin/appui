@@ -15,14 +15,14 @@ import { SplitPane } from "./split-pane/SplitPane";
 import type { CommonProps } from "@itwin/core-react";
 import { Orientation } from "@itwin/core-react";
 import type { ContentGroup } from "./ContentGroup";
-import {
-  type ContentLayoutProps,
-  type LayoutFragmentProps,
-  type LayoutHorizontalSplitProps,
-  type LayoutSplitPropsBase,
-  type LayoutVerticalSplitProps,
-  UiEvent,
+import type {
+  ContentLayoutProps,
+  LayoutFragmentProps,
+  LayoutHorizontalSplitProps,
+  LayoutSplitPropsBase,
+  LayoutVerticalSplitProps,
 } from "@itwin/appui-abstract";
+import { UiEvent } from "@itwin/appui-abstract";
 import type { ActiveContentChangedEventArgs } from "../framework/FrameworkContent";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { UiFramework } from "../UiFramework";
