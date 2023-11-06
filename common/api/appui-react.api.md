@@ -3708,7 +3708,7 @@ export enum SelectionScope {
 }
 
 // @public
-export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "availableSelectionScopes" | "activeSelectionScope">>;
+export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, CommonProps>;
 
 // @public
 export interface SessionState {
@@ -4802,9 +4802,7 @@ export class UiFramework {
     static getAccudrawSnapMode(): SnapMode;
     // (undocumented)
     static getActiveIModelId(): string;
-    // (undocumented)
     static getActiveSelectionScope(): string;
-    // (undocumented)
     static getAvailableSelectionScopes(): PresentationSelectionScope[];
     // (undocumented)
     static getColorTheme(): ThemeId;
@@ -4851,7 +4849,6 @@ export class UiFramework {
     static setAccudrawSnapMode(snapMode: SnapMode): void;
     // (undocumented)
     static setActiveIModelId(iModelId: string): void;
-    // (undocumented)
     static setActiveSelectionScope(selectionScopeId: string): void;
     // (undocumented)
     static setAnimateToolSettings(value: boolean): void;

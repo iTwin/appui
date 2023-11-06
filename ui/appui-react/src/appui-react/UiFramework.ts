@@ -169,6 +169,11 @@ export class UiFramework {
 
   /**
    * Manages global keyboard shortcuts
+   *
+   * Note: This only manages the list of available shortcuts registered with it. It does not listens to the actual
+   * keyboard events. In order for these shortcuts to be called upon a keyboard event, the application can
+   * override the `IModelApp.toolAdmin` and assign it [[FrameworkToolAdmin]] or create an event listener
+   * and call `UiFramework.keyboardShortcuts.processKey`.
    * @public
    */
   public static get keyboardShortcuts(): FrameworkKeyboardShortcuts {
@@ -459,12 +464,22 @@ export class UiFramework {
       : /* istanbul ignore next */ SnapMode.NearestKeypoint;
   }
 
+  /**
+   * Returns the stored active selection scope id.
+   */
   public static getActiveSelectionScope(): string {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.activeSelectionScope
       : /* istanbul ignore next */ "element";
   }
 
+  /**
+   * This method stores the active selection scope to the supplied scope id, and triggers
+   * a `SessionStateActionId.SetSelectionScope` event in the `SyncUiEventDispatcher`.
+   * Note: As of 4.0, this method *does not change* the active selection scope in the `Presentation.selection.scopes.activeScope` property.
+   * This event should be listened to and the change should typically be applied to
+   * `Presentation.selection.scopes.activeScope` property from the `@itwin/presentation-frontend` package.
+   */
   public static setActiveSelectionScope(selectionScopeId: string): void {
     // istanbul ignore else
     if (UiFramework.frameworkState) {
@@ -649,7 +664,12 @@ export class UiFramework {
       : /* istanbul ignore next */ undefined;
   }
 
-  /** @public */
+  /**
+   * Returns the stored list of available selection scopes. This list should be set by the application
+   * by dispatching the `setAvailableSelectionScopes` action.
+   * The value for this action typically come from `Presentation.selection.scopes.getSelectionScopes()`
+   * method found in the `@itwin/presentation-frontend` package.
+   * @public */
   public static getAvailableSelectionScopes(): PresentationSelectionScope[] {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.availableSelectionScopes
@@ -687,7 +707,7 @@ export class UiFramework {
       : /* istanbul ignore next */ SYSTEM_PREFERRED_COLOR_THEME;
   }
 
-  /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified. Used by UI 2.0 and later.
+  /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified.
    * @param opacity a value between 0 and 1. The default value is 0.5. IT IS NOT ADVISED TO USE A VALUE BELOW 0.2
    * @public
    */
