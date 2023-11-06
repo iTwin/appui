@@ -30,11 +30,11 @@ import { CompassMode } from '@itwin/core-frontend';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
 import { ConditionalStringValue } from '@itwin/appui-abstract';
 import { ConnectedComponent } from 'react-redux';
-import { ContentLayoutProps } from '@itwin/appui-abstract';
+import type { ContentLayoutProps } from '@itwin/appui-abstract';
 import type { CustomButtonDefinition } from '@itwin/appui-abstract';
-import { DialogItem } from '@itwin/appui-abstract';
+import type { DialogItem } from '@itwin/appui-abstract';
 import type { DialogLayoutDataProvider } from '@itwin/appui-abstract';
-import { DialogPropertySyncItem } from '@itwin/appui-abstract';
+import type { DialogPropertySyncItem } from '@itwin/appui-abstract';
 import type { DialogProps } from '@itwin/core-react';
 import type { DialogProps as DialogProps_2 } from '@itwin/appui-abstract';
 import type { DialogRow } from '@itwin/appui-abstract';
@@ -45,7 +45,7 @@ import type { FunctionKey } from '@itwin/core-react/lib/cjs/core-react/utils/Key
 import type { GroupButton } from '@itwin/appui-abstract';
 import type { IconProps } from '@itwin/core-react';
 import type { IconSpec } from '@itwin/core-react';
-import { Id64String } from '@itwin/core-bentley';
+import type { Id64String } from '@itwin/core-bentley';
 import type { IModelConnection } from '@itwin/core-frontend';
 import { InferableComponentEnhancerWithProps } from 'react-redux';
 import type { InteractiveTool } from '@itwin/core-frontend';
@@ -98,7 +98,7 @@ import type { SolarDataProvider } from '@itwin/imodel-components-react';
 import type { SpecialKey } from '@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
-import { StringGetter } from '@itwin/appui-abstract';
+import type { StringGetter } from '@itwin/appui-abstract';
 import type { TabState } from '@itwin/appui-layout-react';
 import type { ToasterSettings } from '@itwin/itwinui-react/cjs/core/Toast/Toaster';
 import type { ToastOptions } from '@itwin/itwinui-react';
@@ -917,7 +917,7 @@ export enum ConfigurableUiActionId {
 // @public
 export const ConfigurableUiActions: {
     setSnapMode: (snapMode: number) => ActionWithPayload<ConfigurableUiActionId.SetSnapMode, number>;
-    setTheme: (theme: ThemeId) => ActionWithPayload<ConfigurableUiActionId.SetTheme, "inherit" | "dark" | "light" | "SYSTEM_PREFERRED" | "high-contrast-light" | "high-contrast-dark" | DeepReadonlyObject<string & {}>>;
+    setTheme: (theme: ThemeId) => ActionWithPayload<ConfigurableUiActionId.SetTheme, "inherit" | "light" | "dark" | "SYSTEM_PREFERRED" | "high-contrast-light" | "high-contrast-dark" | DeepReadonlyObject<string & {}>>;
     setToolPrompt: (toolPrompt: string) => ActionWithPayload<ConfigurableUiActionId.SetToolPrompt, string>;
     setWidgetOpacity: (opacity: number) => ActionWithPayload<ConfigurableUiActionId.SetWidgetOpacity, number>;
     setDragInteraction: (dragInteraction: boolean) => ActionWithPayload<ConfigurableUiActionId.SetDragInteraction, boolean>;
@@ -2041,7 +2041,7 @@ export interface FrameworkKeyboardShortcuts {
 export const FrameworkReducer: (state: CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
-}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, "inherit" | "dark" | "light" | "SYSTEM_PREFERRED" | "high-contrast-light" | "high-contrast-dark" | DeepReadonlyObject<string & {}>>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
+}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, "inherit" | "light" | "dark" | "SYSTEM_PREFERRED" | "high-contrast-light" | "high-contrast-dark" | DeepReadonlyObject<string & {}>>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
 }>;
