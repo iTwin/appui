@@ -16,11 +16,13 @@ import { ContentNodeContext } from "./Panels";
 import { panelSides } from "./Panel";
 import { useRefEffect, useRefs } from "@itwin/core-react";
 import { useLayout, useLayoutStore } from "../base/LayoutStore";
+import { usePreviewFeatures } from "../preview/PreviewFeatures";
 
 /** Main app content (i.e. viewport) that will change bounds based on panel pinned settings.
  * @internal
  */
 export function AppContent() {
+  const { contentAlwaysMaxSize } = usePreviewFeatures();
   const { pinnedLeft, pinnedRight, pinnedTop, pinnedBottom } = useLayout(
     (state) => {
       const panels = state.panels;
@@ -39,10 +41,10 @@ export function AppContent() {
     <WidgetPanelsContent
       className="nz-widgetPanels-appContent"
       ref={ref}
-      pinnedLeft={pinnedLeft}
-      pinnedRight={pinnedRight}
-      pinnedTop={pinnedTop}
-      pinnedBottom={pinnedBottom}
+      pinnedLeft={pinnedLeft && !contentAlwaysMaxSize}
+      pinnedRight={pinnedRight && !contentAlwaysMaxSize}
+      pinnedTop={pinnedTop && !contentAlwaysMaxSize}
+      pinnedBottom={pinnedBottom && !contentAlwaysMaxSize}
     >
       {content}
     </WidgetPanelsContent>

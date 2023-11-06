@@ -59,15 +59,21 @@ function TsLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** @internal */
-export function WidgetPanelsToolSettings() {
-  const renderDocked = useLayout((state) => {
+/**
+ * Hook that returns true if the tool settings should be rendered docked.
+ * @internal */
+export function useShouldRenderDockedToolSettings() {
+  return useLayout((state) => {
     const toolSettings = state.toolSettings;
     if (!toolSettings) return false;
     if (toolSettings.type === "widget") return false;
     return !toolSettings.hidden;
   });
-  if (!renderDocked) return null;
+}
+
+/** @internal */
+export function WidgetPanelsToolSettings() {
+  if (!useShouldRenderDockedToolSettings()) return null;
   return <ToolSettingsDockedContent />;
 }
 

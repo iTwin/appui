@@ -8,6 +8,7 @@ export * from "./ui/providers/AbstractUiItemsProvider";
 export * from "./ui/providers/InspectUiItemInfoToolProvider";
 export * from "./ui/providers/FloatingWidgetsUiItemsProvider";
 export * from "./ui/providers/MessageUiItemsProvider";
+export * from "./ui/providers/PreviewFeaturesToggleProvider";
 
 export * from "./ui/frontstages/ComponentExamples";
 export * from "./ui/frontstages/ContentLayout";

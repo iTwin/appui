@@ -1011,6 +1011,9 @@ export interface PopoutWidgetState {
 }
 
 // @internal
+export const PreviewFeaturesProvider: ({ children, ...props }: PreviewFeaturesProviderProps) => JSX.Element;
+
+// @internal
 export function removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
 
 // @internal
@@ -1563,6 +1566,9 @@ export interface UsePanelTargetArgs {
 
 // @internal
 export const usePointerCaptor: <T extends HTMLElement>(onPointerDown?: ((args: PointerCaptorArgs, e: PointerCaptorEvent) => void) | undefined, onPointerMove?: ((args: PointerCaptorArgs, e: PointerCaptorEvent) => void) | undefined, onPointerUp?: ((e: PointerCaptorEvent) => void) | undefined) => (instance: T | null) => void;
+
+// @internal
+export const usePreviewFeatures: () => PreviewFeaturesState;
 
 // @internal (undocumented)
 export const useResizeGrip: <T extends HTMLElement>() => [(instance: T | null) => void, boolean, boolean];
