@@ -42,11 +42,11 @@ import { DemoIModel, useDemoIModel } from "../.storybook/addons/DemoIModel";
 export interface AppUiStoryProps {
   appBackstage?: React.ReactNode;
   children?: React.ReactNode;
-  onInitialize?: () => Promise<void>;
+  demoIModel?: boolean;
+  frontstageProviders?: FrontstageProvider[] | (() => FrontstageProvider[]);
   itemProviders?: UiItemsProvider[];
   layout?: "fullscreen";
-  frontstageProviders?: FrontstageProvider[] | (() => FrontstageProvider[]);
-  demoIModel?: boolean;
+  onInitialize?: () => Promise<void>;
 }
 
 export function AppUiStory(props: AppUiStoryProps) {
@@ -86,6 +86,10 @@ export function AppUiStory(props: AppUiStoryProps) {
       );
       demoIModel && (await openIModel(demoIModel));
       await props.onInitialize?.();
+
+      for (const provider of props.itemProviders ?? []) {
+        UiItemsManager.register(provider);
+      }
 
       const frontstageProviders = getFrontstageProviders(
         props.frontstageProviders

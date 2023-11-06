@@ -4,17 +4,33 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import { fireEvent, within } from "@storybook/testing-library";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
+  IModelViewportControl,
   StagePanelLocation,
   StagePanelSection,
   StagePanelState,
+  StageUsage,
+  StandardFrontstageProvider,
+  UiFramework,
   WidgetState,
 } from "@itwin/appui-react";
+import { Cartographic } from "@itwin/core-common";
+import {
+  BlankConnection,
+  IModelApp,
+  IModelConnection,
+  SpatialViewState,
+} from "@itwin/core-frontend";
+import { Range3d } from "@itwin/core-geometry";
 import { AppUiDecorator } from "../AppUiDecorator";
 import { Page } from "../AppUiStory";
 import { FrontstageStory } from "./Frontstage";
-import { removeProperty, createFrontstageProvider } from "../Utils";
-import { createCursorEvents, VirtualCursorElement } from "../VirtualCursor";
+import { activateCustomFrontstage } from "../docs/activateCustomFrontstage";
+import { registerStandardFrontstage } from "../docs/registerStandardFrontstage";
+import { CustomTool } from "../docs/ToolSettingProperties";
+import { createFrontstageProvider, removeProperty } from "../Utils";
+import { VirtualCursorElement, createCursorEvents } from "../VirtualCursor";
 
 const meta = {
   title: "Frontstage/FrontstageProvider",
@@ -385,6 +401,78 @@ export const Interaction: Story = {
   },
 };
 
+export const ToolSettings: Story = {
+  args: {
+    frontstageProviders: [],
+    onInitialized: async () => {
+      const iModelConnection = createBlankConnection();
+      const viewState = await createBlankViewState(iModelConnection);
+      UiFramework.setIModelConnection(iModelConnection, true);
+      UiFramework.setDefaultViewState(viewState, true);
+
+      UiFramework.frontstages.addFrontstageProvider(
+        new StandardFrontstageProvider({
+          id: "main-frontstage",
+          usage: StageUsage.General,
+          version: Math.random(),
+          contentGroupProps: {
+            id: "ContentGroup",
+            layout: StandardContentLayouts.singleView,
+            contents: [
+              {
+                id: "Content",
+                classId: IModelViewportControl,
+              },
+            ],
+          },
+        })
+      );
+      await UiFramework.frontstages.setActiveFrontstage("main-frontstage");
+
+      IModelApp.tools.register(CustomTool, UiFramework.localizationNamespace);
+      IModelApp.tools.run(CustomTool.toolId);
+    },
+  },
+};
+
+export const CustomFrontstage: Story = {
+  args: {
+    frontstageProviders: [],
+    onInitialized: () => {
+      activateCustomFrontstage();
+    },
+  },
+};
+
+export const StandardFrontstage: Story = {
+  args: {
+    frontstageProviders: [],
+    onInitialized: async () => {
+      registerStandardFrontstage();
+      void UiFramework.frontstages.setActiveFrontstage(
+        "example:StandardFrontstage"
+      );
+    },
+  },
+};
+
 async function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function createBlankConnection() {
+  return BlankConnection.create({
+    name: "Exton PA",
+    location: Cartographic.fromDegrees({
+      longitude: -75.686694,
+      latitude: 40.065757,
+      height: 0,
+    }),
+    extents: new Range3d(-1000, -1000, -100, 1000, 1000, 100),
+  });
+}
+
+async function createBlankViewState(iModel: IModelConnection) {
+  const ext = iModel.projectExtents;
+  return SpatialViewState.createBlank(iModel, ext.low, ext.high.minus(ext.low));
 }
