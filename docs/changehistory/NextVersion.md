@@ -10,8 +10,6 @@ Table of contents:
   - [Fixes](#fixes-1)
 - [@itwin/components-react](#itwincomponents-react)
   - [Fixes](#fixes-2)
-- [@itwin/appui-layout-react](#itwinappui-layout-react)
-  - [Changes](#changes)
 - [@itwin/core-react](#itwincore-react)
   - [Fixes](#fixes-3)
 
@@ -65,6 +63,7 @@ Table of contents:
 ### Changes
 
 - `AppNotificationManager` no longer requires `StatusBar` to be rendered in the active frontstage to show messages.
+- Popout widgets will now popout to `preferredFloatingWidgetSize`. Will popout to container size if `preferredFloatingWidgetSize` is not set.
 
 ### Fixes
 
@@ -92,8 +91,3 @@ Table of contents:
 
 - Fixed `useDisposable` hook to work in React 18 strict mode.
 
-## @itwin/appui-layout-react
-
-### Changes
-
-- Popout widgets will now popout to preferredFloatingWidgetSize. Will popout to container size if preferredFloatingWidgetSize is not set.
