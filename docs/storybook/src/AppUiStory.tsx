@@ -10,24 +10,22 @@ import {
   Subtitle,
   Title,
 } from "@storybook/blocks";
-import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   ConfigurableUiContent,
   FrameworkToolAdmin,
-  IModelViewportControl,
-  StageUsage,
-  StandardFrontstageProps,
-  StandardFrontstageProvider,
+  FrontstageProvider,
   UiFramework,
   UiItemsManager,
   UiItemsProvider,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
+import { createFrontstageProvider } from "./Utils";
 
 export interface AppUiStoryProps {
   onInitialize?: () => Promise<void>;
-  frontstage?: Partial<StandardFrontstageProps>;
   itemProviders?: UiItemsProvider[];
+  layout?: "fullscreen";
+  frontstageProviders?: FrontstageProvider[] | (() => FrontstageProvider[]);
 }
 
 export function AppUiStory(props: AppUiStoryProps) {
@@ -40,32 +38,21 @@ export function AppUiStory(props: AppUiStoryProps) {
       await UiFramework.initialize(undefined);
       await props.onInitialize?.();
 
-      UiFramework.frontstages.addFrontstageProvider(
-        new StandardFrontstageProvider({
-          id: "main-frontstage",
-          usage: StageUsage.Private,
-          version: Math.random(),
-          contentGroupProps: {
-            id: "ViewportContentGroup",
-            layout: StandardContentLayouts.singleView,
-            contents: [
-              {
-                id: "ViewportContent",
-                classId: IModelViewportControl,
-                applicationData: {},
-              },
-            ],
-          },
-          hideStatusBar: true,
-          hideToolSettings: true,
-          hideNavigationAid: true,
-          ...props.frontstage,
-        })
-      );
+      const frontstageProviders = getFrontstageProviders(
+        props.frontstageProviders
+      ) ?? [createFrontstageProvider()];
+      for (const provider of frontstageProviders) {
+        UiFramework.frontstages.addFrontstageProvider(provider);
+      }
+
       for (const provider of props.itemProviders ?? []) {
         UiItemsManager.register(provider);
       }
-      await UiFramework.frontstages.setActiveFrontstage("main-frontstage");
+      const defaultFrontstage = frontstageProviders[0];
+      defaultFrontstage &&
+        (await UiFramework.frontstages.setActiveFrontstage(
+          defaultFrontstage.id
+        ));
       setInitialized(true);
     })();
     return () => {
@@ -77,7 +64,13 @@ export function AppUiStory(props: AppUiStoryProps) {
     };
   }, [props]);
   if (!initialized) return null;
-  return <ConfigurableUiContent style={{ height: "calc(100vh - 2rem)" }} />;
+  return (
+    <ConfigurableUiContent
+      style={{
+        height: props.layout === "fullscreen" ? "100vh" : "calc(100vh - 2rem)",
+      }}
+    />
+  );
 }
 
 export function Page() {
@@ -90,4 +83,12 @@ export function Page() {
       <Controls />
     </>
   );
+}
+
+function getFrontstageProviders(
+  frontstageProviders: AppUiStoryProps["frontstageProviders"]
+) {
+  if (!frontstageProviders) return undefined;
+  if (Array.isArray(frontstageProviders)) return frontstageProviders;
+  return frontstageProviders();
 }

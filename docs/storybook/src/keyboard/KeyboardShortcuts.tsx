@@ -13,6 +13,7 @@ import {
 } from "@itwin/appui-react";
 import { Input } from "@itwin/itwinui-react";
 import { AppUiStory } from "../AppUiStory";
+import { createFrontstageProvider } from "../Utils";
 
 function createProvider(): UiItemsProvider {
   return {
@@ -76,12 +77,14 @@ export function KeyboardShortcutsStory(props: KeyboardShortcutsStoryProps) {
       {props.processKeys && <KeyboardShortcutHandler />}
       <AppUiStory
         itemProviders={[provider]}
-        frontstage={{
-          leftPanelProps: {
-            defaultState: StagePanelState.Open,
-            pinned: true,
-          },
-        }}
+        frontstageProviders={[
+          createFrontstageProvider({
+            leftPanelProps: {
+              defaultState: StagePanelState.Open,
+              pinned: true,
+            },
+          }),
+        ]}
         onInitialize={async () => {
           UiFramework.keyboardShortcuts.loadShortcuts(
             createKeyboardShortcuts()

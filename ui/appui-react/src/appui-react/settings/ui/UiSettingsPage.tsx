@@ -35,8 +35,7 @@ import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
  * active group button item.
  * - use proximity - Changes the opacity of toolbar from transparent to opaque as the mouse moves closer.
  * - snap widget opacity - triggers an abrupt change from transparent to opaque for tool and navigation widgets, instead of a gradual change based on mouse location.
- * - widget opacity - determines how transparent floating widgets in V2 and all widgets in V1 become when the mouse in not in them.
- * - UI version - if allowed by props, the UI version can be toggled between V1 and V2.
+ * - widget opacity - determines how transparent floating widgets become when the mouse in not in them.
  *
  * @beta
  */
@@ -176,7 +175,6 @@ export function UiSettingsPage() {
       "configurableui:set_widget_opacity",
       "configurableui:set-show-widget-icon",
       "configurableui:set-drag-interaction",
-      "configurableui:set-framework-version",
       "configurableui:set-auto-collapse-unpinned-panels",
       "configurableui:set-animate-tool-settings",
       "configurableui:set-use-tool-as-tool-settings-label",
