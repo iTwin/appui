@@ -17,7 +17,7 @@ function createProvider(props: CanFloatWidgetOptions): UiItemsProvider {
       const widget1: Widget = {
         id: "w1",
         label: "Widget 1",
-        content: <>Widget 1 content </>,
+        content: <>Widget 1 content</>,
         defaultState: WidgetState.Floating,
         canFloat: props,
       };

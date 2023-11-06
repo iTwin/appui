@@ -70,8 +70,9 @@ Table of contents:
 
 - Unmount `ChildWindowManager` whenever child window is closed.
 - Whenever widget is popped out and `window.open` fails, widget no longer disappears.
-- Fix error when `HTMLElement` used in `NotifyMessageDetails` messages.
-- Remove unneeded `changeView` call in `FloatingViewportComponent`.
+- Fixed error when `HTMLElement` used in `NotifyMessageDetails` messages.
+- Removed unneeded `changeView` call in `FloatingViewportComponent`.
+- Fixed reference error in case `applicationData` is not provided for `IModelViewportControl`.
 
 ## @itwin/imodel-components-react
 
