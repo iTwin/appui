@@ -96,4 +96,4 @@ Table of contents:
 
 ### Changes
 
-- Popouts will now fit to content when bounds are not set.
+- Popout widgets will now popout to preferredFloatingWidgetSize. Will popout to container size if preferredFloatingWidgetSize is not set.
