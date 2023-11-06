@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "",
+      "comment": "Popout widgets will now popout to preferredFloatingWidgetSize. Will popout to container size if preferredFloatingWidgetSize is not set",
       "type": "none"
     }
   ],
