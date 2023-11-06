@@ -15,7 +15,7 @@ interface PopoutWidgetProps {
   widgetDef: WidgetDef;
 }
 
-/** Component used to wrap a widget for use is a child window.
+/** Component used to wrap a widget for use in a child window.
  * @internal
  */
 export function PopoutWidget({

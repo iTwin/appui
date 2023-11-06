@@ -81,13 +81,15 @@ Table of contents:
 ### Changes
 
 - `AppNotificationManager` no longer requires `StatusBar` to be rendered in the active frontstage to show messages.
+- Popout widgets will now popout to `preferredFloatingWidgetSize`. Will popout to container size if `preferredFloatingWidgetSize` is not set.
 
 ### Fixes
 
 - Unmount `ChildWindowManager` whenever child window is closed.
 - Whenever widget is popped out and `window.open` fails, widget no longer disappears.
-- Fix error when `HTMLElement` used in `NotifyMessageDetails` messages.
-- Remove unneeded `changeView` call in `FloatingViewportComponent`.
+- Fixed error when `HTMLElement` used in `NotifyMessageDetails` messages.
+- Removed unneeded `changeView` call in `FloatingViewportComponent`.
+- Fixed reference error in case `applicationData` is not provided for `IModelViewportControl`.
 
 ## @itwin/imodel-components-react
 

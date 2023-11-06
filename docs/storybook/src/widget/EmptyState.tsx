@@ -11,6 +11,7 @@ import {
 } from "@itwin/appui-react";
 import { Button } from "@itwin/itwinui-react";
 import { AppUiStory } from "../AppUiStory";
+import { createFrontstageProvider } from "../Utils";
 
 interface EmptyStateStoryProps {
   /** Toggle this on to hide the widget when there is no data to display. */
@@ -33,14 +34,15 @@ export function EmptyStateStory(props: EmptyStateStoryProps) {
       },
     ],
   } satisfies UiItemsProvider;
+  const frontstageProvider = createFrontstageProvider({
+    leftPanelProps: {
+      defaultState: StagePanelState.Open,
+    },
+  });
   return (
     <AppUiStory
       itemProviders={[provider]}
-      frontstage={{
-        leftPanelProps: {
-          defaultState: StagePanelState.Open,
-        },
-      }}
+      frontstageProviders={[frontstageProvider]}
     />
   );
 }
