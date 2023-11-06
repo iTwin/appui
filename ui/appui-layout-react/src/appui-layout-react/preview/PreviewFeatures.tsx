@@ -15,14 +15,14 @@ interface PreviewFeaturesState {
 /**
  * Context containing all configuration for preview features.
  */
-const PreviewFeatureContext = React.createContext<PreviewFeaturesState>({});
+const PreviewFeaturesContext = React.createContext<PreviewFeaturesState>({});
 
 /**
- * Preview feature properties
+ * Properties of `PreviewFeaturesProvider`.
  * @internal
  */
 interface PreviewFeaturesProviderProps extends PreviewFeaturesState {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   [key: string]: any;
 }
 
@@ -35,9 +35,9 @@ export const PreviewFeaturesProvider = ({
   ...props
 }: PreviewFeaturesProviderProps) => {
   return (
-    <PreviewFeatureContext.Provider value={props}>
+    <PreviewFeaturesContext.Provider value={props}>
       {children}
-    </PreviewFeatureContext.Provider>
+    </PreviewFeaturesContext.Provider>
   );
 };
 
@@ -46,5 +46,5 @@ export const PreviewFeaturesProvider = ({
  * @internal
  */
 export const usePreviewFeatures = () => {
-  return React.useContext(PreviewFeatureContext);
+  return React.useContext(PreviewFeaturesContext);
 };

@@ -3506,6 +3506,12 @@ export interface PresentationSelectionScope {
 }
 
 // @public
+export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
+    // (undocumented)
+    [featureName: string]: any;
+}
+
+// @public
 export class PropsHelper {
     // @deprecated (undocumented)
     static getAbstractPropsForReactIcon(iconSpec: IconSpec, internalData?: Map<string, any>): Partial<AbstractWidgetProps> | Partial<CommonBackstageItem_2>;
@@ -4849,6 +4855,7 @@ export class UiFramework {
     static openCursorMenu(menuData: CursorMenuData | undefined): void;
     // @internal (undocumented)
     static get packageName(): string;
+    // @beta
     static get previewFeatures(): PreviewFeatures;
     static registerUserSettingsProvider(entry: UserSettingsProvider): boolean;
     // (undocumented)
@@ -4872,7 +4879,7 @@ export class UiFramework {
     static setIModelConnection(iModelConnection: IModelConnection | undefined, immediateSync?: boolean): void;
     // (undocumented)
     static setIsUiVisible(visible: boolean): void;
-    // @alpha
+    // @beta
     static setPreviewFeatures(features: PreviewFeatures): void;
     // (undocumented)
     static setShowWidgetIcon(value: boolean): void;

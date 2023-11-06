@@ -11,12 +11,20 @@ import { UiFramework } from "../UiFramework";
 /**
  * List of known preview features.
  */
-const knownFeaturesObject = {
+interface KnownPreviewFeatures {
   /**
    * If true, the panels and tool settings will always be rendered over the content.
    * The content will never change size.
    */
-  contentAlwaysMaxSize: true as boolean, // So `typeof` below do not type this `true` but `boolean`
+  contentAlwaysMaxSize: boolean;
+}
+
+/**
+ * Object used trim to only known features at runtime.
+ * @internal
+ */
+const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
+  contentAlwaysMaxSize: undefined,
 };
 
 /**
@@ -24,9 +32,9 @@ const knownFeaturesObject = {
  * This list is expected to change over time, the interface is made
  * so that new features can be added or removed without breaking existing code.
  * A console warning will simply appear if unknown features are passed.
- * @alpha
+ * @public
  */
-export interface PreviewFeatures extends Partial<typeof knownFeaturesObject> {
+export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
   [featureName: string]: any;
 }
 

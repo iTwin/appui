@@ -869,7 +869,7 @@ export class UiFramework {
    * a proper API defined yet.
    * The available set of features are defined in the [[PreviewFeatures]] interface.
    * @param features Set of feature to enable.
-   * @alpha
+   * @beta
    */
   public static setPreviewFeatures(features: PreviewFeatures) {
     UiFramework.dispatchActionToStore(
@@ -880,6 +880,7 @@ export class UiFramework {
 
   /**
    * Get which preview features are enabled. These features are not yet ready for production use.
+   * @beta
    */
   public static get previewFeatures(): PreviewFeatures {
     return (

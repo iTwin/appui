@@ -69,7 +69,7 @@ export class PreviewFeaturesToggleProvider implements UiItemsProvider {
       {
         content: <PreviewFeatureList />,
         section: StatusBarSection.Right,
-        id: "appui-test-providers:PreviewFeaturesToggleProviderStatusBarItem",
+        id: `${this.id}:StatusBarItem`,
         itemPriority: Infinity,
       },
     ];

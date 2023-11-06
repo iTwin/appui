@@ -12,7 +12,7 @@ test("status bar test", async ({ page, baseURL }) => {
 
   const statusBar = page
     .locator("div")
-    .filter({ hasText: /^Messages0Snap Mode$/ })
+    .filter({ hasText: /^Messages0Snap Mode/ })
     .first();
   await expect(statusBar).toHaveScreenshot();
 });
