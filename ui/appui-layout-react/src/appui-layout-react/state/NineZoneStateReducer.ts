@@ -541,7 +541,7 @@ export function NineZoneStateReducer(
         contentHeight = tab.preferredFloatingWidgetSize.height;
       } else {
         const popoutContentContainer = document.getElementById(
-          `content-container:${savedTab?.id}`
+          `content-container:${id}`
         );
         if (popoutContentContainer !== null) {
           contentWidth = popoutContentContainer.offsetWidth + 20;
