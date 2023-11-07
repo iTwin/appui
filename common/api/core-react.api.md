@@ -7,7 +7,6 @@
 /// <reference types="react" />
 
 import { BadgeType } from '@itwin/appui-abstract';
-import { BeUiEvent } from '@itwin/core-bentley';
 import type { ButtonProps } from '@itwin/itwinui-react';
 import type { CheckboxProps } from '@itwin/itwinui-react';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
@@ -15,7 +14,6 @@ import { ConditionalStringValue } from '@itwin/appui-abstract';
 import { default as default_2 } from 'resize-observer-polyfill';
 import type { DialogButtonDef } from '@itwin/appui-abstract';
 import type { IDisposable } from '@itwin/core-bentley';
-import type { IMatch } from '@itwin/appui-abstract';
 import type { InputProps as InputProps_2 } from '@itwin/itwinui-react';
 import type { Localization } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
@@ -23,9 +21,10 @@ import type { ProgressRadialProps } from '@itwin/itwinui-react';
 import * as React_2 from 'react';
 import * as ReactAutosuggest from 'react-autosuggest';
 import { RelativePosition } from '@itwin/appui-abstract';
+import { UiEvent } from '@itwin/appui-abstract';
 
 // @public
-export class ActivateSettingsTabEvent extends BeUiEvent<ActivateSettingsTabEventArgs> {
+export class ActivateSettingsTabEvent extends UiEvent<ActivateSettingsTabEventArgs> {
 }
 
 // @public
@@ -217,7 +216,7 @@ export interface ClassNameProps {
 }
 
 // @internal
-export class CloseSettingsContainerEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> {
+export class CloseSettingsContainerEvent extends UiEvent<ProcessSettingsContainerCloseEventArgs> {
 }
 
 // @public
@@ -679,6 +678,9 @@ export function getCssVariableAsNumber(variableName: string, htmlElement?: HTMLE
 
 // @internal
 export const getDisplayName: (component: React_2.ComponentType<any>) => string;
+
+// @internal
+export const getObjectClassName: (obj: any) => string;
 
 // @internal
 export const getToolbarBackdropFilter: (filterBlur: number) => string;
@@ -1250,7 +1252,7 @@ export interface PopupProps extends CommonProps {
 }
 
 // @public
-export class ProcessSettingsContainerCloseEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> {
+export class ProcessSettingsContainerCloseEvent extends UiEvent<ProcessSettingsContainerCloseEventArgs> {
 }
 
 // @public
@@ -1262,7 +1264,7 @@ export interface ProcessSettingsContainerCloseEventArgs {
 }
 
 // @public
-export class ProcessSettingsTabActivationEvent extends BeUiEvent<ProcessSettingsTabActivationEventArgs> {
+export class ProcessSettingsTabActivationEvent extends UiEvent<ProcessSettingsTabActivationEventArgs> {
 }
 
 // @public
@@ -1505,7 +1507,7 @@ export class SettingsManager {
 }
 
 // @public
-export class SettingsProvidersChangedEvent extends BeUiEvent<SettingsProvidersChangedEventArgs> {
+export class SettingsProvidersChangedEvent extends UiEvent<SettingsProvidersChangedEventArgs> {
 }
 
 // @public
