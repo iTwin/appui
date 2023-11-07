@@ -24,8 +24,10 @@ require("ignore-styles").default(
   [".css", ".scss", ".sass", ".svg"],
   (module, filename) => {
     if (filename.endsWith(".svg")) {
+      let filePath = filename;
       const homeDir = os.homedir();
-      const filePath = filename.replace(homeDir, "");
+      console.log(homeDir, filename);
+      if (homeDir) filePath = filename.replace(homeDir, "");
       module.exports = { default: filePath };
     }
   }
