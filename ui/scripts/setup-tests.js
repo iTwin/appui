@@ -21,6 +21,11 @@ if (commonjsGlobal.MessageChannel) delete commonjsGlobal.MessageChannel;
 const path = require("path");
 const os = require("os");
 const upath = require("upath");
+
+// Don't ignore svgs or imports will return 'undefined'
+// We need a path to correctly test svg icons.
+// This sets the path to the source of the svg file,
+// normalizing the path to work on all platforms.
 require("ignore-styles").default(
   [".css", ".scss", ".sass", ".svg"],
   (module, filename) => {
@@ -28,7 +33,6 @@ require("ignore-styles").default(
       const newPath = upath.normalize(
         filename.replace(process.cwd(), "/ui/appui-layout-react")
       );
-      console.log(`${filename}->${newPath}`);
       module.exports = { default: newPath };
     }
   }
