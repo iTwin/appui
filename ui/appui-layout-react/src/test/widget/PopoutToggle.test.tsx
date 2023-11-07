@@ -27,7 +27,9 @@ describe("PopoutToggle", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    // eslint-disable-next-line no-console
+    console.log(container.innerHTML);
+    container.should.matchSnapshot();
   });
 
   it("should dispatch PANEL_TOGGLE_PINNED", () => {
