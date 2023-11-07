@@ -65,6 +65,7 @@ public;FlexWrapContainer(props: CommonDivProps): JSX.Element
 internal;focusIntoContainer(focusContainer: HTMLDivElement, initialFocusElement?: React_2.RefObject
 internal;FocusTrap(props: FocusTrapProps): JSX.Element | null
 internal;FocusTrapProps 
+internal;FunctionKey
 public;Gap(props: GapProps): JSX.Element
 public;GapProps 
 public;GetAutoSuggestDataFunc = (value: string) => AutoSuggestData[]
@@ -72,6 +73,7 @@ internal;getBestBWContrastColor(hexColor: string): "black" | "white"
 public;getCssVariable(variableName: string, htmlElement?: HTMLElement): string
 public;getCssVariableAsNumber(variableName: string, htmlElement?: HTMLElement): number
 internal;getDisplayName: (component: React_2.ComponentType
+internal;getObjectClassName: (obj: any) => string
 internal;getToolbarBackdropFilter: (filterBlur: number) => string
 internal;getToolbarBackgroundColor: (opacity: number) => string
 internal;getToolbarBoxShadow: (opacity: number) => string
@@ -94,6 +96,7 @@ public;ImageCheckBoxProps
 public;InputLabel 
 public;InputLabelProps 
 public;InputStatus
+internal;isArrowKey(key: string): boolean
 internal;isHTMLElement: (message: MessageType) => message is HTMLElement
 internal;isNavigationKey(key: string): boolean
 internal;isPromiseLike(obj: unknown): obj is PromiseLike
@@ -177,6 +180,7 @@ internal;shallowDiffers: (a:
 internal;Size 
 public;SizeProps
 public;SortDirection
+internal;SpecialKey
 public;StepFunctionProp = number | ((direction: string) => number | undefined)
 public;StyledText(props: StyledTextProps): JSX.Element
 deprecated;StyledText(props: StyledTextProps): JSX.Element

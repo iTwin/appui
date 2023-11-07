@@ -41,7 +41,7 @@ import type { DialogRow } from '@itwin/appui-abstract';
 import type { Direction } from '@itwin/components-react';
 import type { DisplayStyle3dState } from '@itwin/core-frontend';
 import type { EmphasizeElementsProps } from '@itwin/core-common';
-import type { FunctionKey } from '@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey';
+import type { FunctionKey } from '@itwin/core-react';
 import type { GroupButton } from '@itwin/appui-abstract';
 import type { IconProps } from '@itwin/core-react';
 import type { IconSpec } from '@itwin/core-react';
@@ -95,7 +95,7 @@ import { Size } from '@itwin/core-react';
 import type { SizeProps } from '@itwin/core-react';
 import { SnapMode } from '@itwin/core-frontend';
 import type { SolarDataProvider } from '@itwin/imodel-components-react';
-import type { SpecialKey } from '@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey';
+import type { SpecialKey } from '@itwin/core-react';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
 import type { StringGetter } from '@itwin/appui-abstract';
@@ -919,7 +919,7 @@ export enum ConfigurableUiActionId {
 // @public
 export const ConfigurableUiActions: {
     setSnapMode: (snapMode: number) => ActionWithPayload<ConfigurableUiActionId.SetSnapMode, number>;
-    setTheme: (theme: ThemeId) => ActionWithPayload<ConfigurableUiActionId.SetTheme, "inherit" | "light" | "dark" | "SYSTEM_PREFERRED" | "high-contrast-light" | "high-contrast-dark" | DeepReadonlyObject<string & {}>>;
+    setTheme: (theme: ThemeId) => ActionWithPayload<ConfigurableUiActionId.SetTheme, "inherit" | "dark" | "light" | "SYSTEM_PREFERRED" | "high-contrast-light" | "high-contrast-dark" | DeepReadonlyObject<string & {}>>;
     setToolPrompt: (toolPrompt: string) => ActionWithPayload<ConfigurableUiActionId.SetToolPrompt, string>;
     setWidgetOpacity: (opacity: number) => ActionWithPayload<ConfigurableUiActionId.SetWidgetOpacity, number>;
     setDragInteraction: (dragInteraction: boolean) => ActionWithPayload<ConfigurableUiActionId.SetDragInteraction, boolean>;
