@@ -17,12 +17,9 @@ import {
 import { CursorInformation } from "../../appui-react/cursor/CursorInformation";
 import { KeyboardShortcutMenu } from "../../appui-react/keyboardshortcut/KeyboardShortcutMenu";
 import TestUtils from "../TestUtils";
-import {
-  ConditionalBooleanValue,
-  FunctionKey,
-  SpecialKey,
-} from "@itwin/appui-abstract";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { InternalKeyboardShortcutManager } from "../../appui-react/keyboardshortcut/InternalKeyboardShortcut";
+import { Key } from "ts-key-enum";
 
 describe("KeyboardShortcut", () => {
   const testSpyMethod = sinon.spy();
@@ -69,7 +66,7 @@ describe("KeyboardShortcut", () => {
 
     it("should support function keys", () => {
       const keyboardShortcut = new KeyboardShortcut({
-        key: FunctionKey.F7,
+        key: Key.F7,
         item: testCommand,
       });
       expect(keyboardShortcut.isFunctionKey).to.be.true;
@@ -78,7 +75,7 @@ describe("KeyboardShortcut", () => {
 
     it("should support special keys", () => {
       const keyboardShortcut = new KeyboardShortcut({
-        key: SpecialKey.ArrowDown,
+        key: Key.ArrowDown,
         item: testCommand,
       });
       expect(keyboardShortcut.isSpecialKey).to.be.true;
@@ -234,11 +231,11 @@ describe("KeyboardShortcut", () => {
           ],
         },
         {
-          key: FunctionKey.F7,
+          key: Key.F7,
           item: testCommand,
         },
         {
-          key: SpecialKey.Home,
+          key: Key.Home,
           item: testCommand,
         },
       ];
@@ -260,10 +257,10 @@ describe("KeyboardShortcut", () => {
         .undefined;
       expect(InternalKeyboardShortcutManager.getShortcut("d")).to.not.be
         .undefined;
-      expect(InternalKeyboardShortcutManager.getShortcut(FunctionKey.F7)).to.not
-        .be.undefined;
-      expect(InternalKeyboardShortcutManager.getShortcut(SpecialKey.Home)).to
-        .not.be.undefined;
+      expect(InternalKeyboardShortcutManager.getShortcut(Key.F7)).to.not.be
+        .undefined;
+      expect(InternalKeyboardShortcutManager.getShortcut(Key.Home)).to.not.be
+        .undefined;
 
       const remove =
         KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.addListener(

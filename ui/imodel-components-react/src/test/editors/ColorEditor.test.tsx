@@ -17,7 +17,7 @@ import {
 } from "@itwin/components-react";
 import { ColorEditor } from "../../imodel-components-react/editors/ColorEditor";
 import { MineDataController, TestUtils } from "../TestUtils";
-import { SpecialKey } from "../../imodel-components-react/inputs/SpecialKey";
+import { Key } from "ts-key-enum";
 
 // cspell:ignore colorpicker
 
@@ -117,7 +117,7 @@ describe("<ColorEditor />", () => {
     const pickerButton = wrapper.getByTestId("components-colorpicker-button");
     expect(pickerButton).not.to.be.null;
 
-    fireEvent.keyDown(pickerButton, { key: SpecialKey.Enter });
+    fireEvent.keyDown(pickerButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.calledOnce).to.be.false;
 

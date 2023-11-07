@@ -13,7 +13,7 @@ import * as ReactDOM from "react-dom";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { FocusTrap } from "../focustrap/FocusTrap";
 import type { CommonProps } from "../utils/Props";
-import { SpecialKey } from "../utils/KeyboardKey";
+import { Key } from "ts-key-enum";
 
 // cSpell:ignore focustrap focusable alertdialog
 
@@ -268,10 +268,10 @@ export class Popup extends React.Component<PopupProps, PopupState> {
   private _handleKeyboard = (event: KeyboardEvent): void => {
     if (this.props.isPinned) return;
 
-    if (event.key === SpecialKey.Escape || event.key === SpecialKey.Enter) {
+    if (event.key === Key.Escape || event.key === Key.Enter) {
       const closeOnEnter =
         this.props.closeOnEnter !== undefined ? this.props.closeOnEnter : true;
-      if (event.key === SpecialKey.Enter) {
+      if (event.key === Key.Enter) {
         if (closeOnEnter) this._onClose(true);
         else this.props.onEnter && this.props.onEnter();
       } else {

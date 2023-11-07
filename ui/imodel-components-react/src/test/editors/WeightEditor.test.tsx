@@ -15,7 +15,7 @@ import {
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { WeightEditor } from "../../imodel-components-react/editors/WeightEditor";
 import { MineDataController, TestUtils } from "../TestUtils";
-import { SpecialKey } from "../../imodel-components-react/inputs/SpecialKey";
+import { Key } from "ts-key-enum";
 
 describe("<WeightEditor />", () => {
   it("should render", () => {
@@ -121,7 +121,7 @@ describe("<WeightEditor />", () => {
     );
     expect(button).to.exist;
 
-    fireEvent.keyDown(button, { key: SpecialKey.Enter });
+    fireEvent.keyDown(button, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.called).to.be.false;
 

@@ -31,7 +31,6 @@ import type { HighlightableTreeProps } from "../../../../components-react/tree/H
 import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
 import TestUtils from "../../../TestUtils";
 import { createRandomMutableTreeModelNode } from "../TreeHelpers";
-import { SpecialKey } from "@itwin/core-react";
 
 describe("TreeRenderer", () => {
   const visibleNodesMock = moq.Mock.ofType<VisibleTreeNodes>();
@@ -354,8 +353,8 @@ describe("TreeRenderer", () => {
 
     const treeNode: HTMLElement =
       renderNode.container.querySelector(".core-tree-node")!;
-    fireEvent.keyDown(treeNode, { key: SpecialKey.Space });
-    fireEvent.keyUp(treeNode, { key: SpecialKey.Space });
+    fireEvent.keyDown(treeNode, { key: " " });
+    fireEvent.keyUp(treeNode, { key: " " });
     expect(spyKeyDown).to.be.called;
     expect(spyKeyUp).to.be.called;
   });

@@ -140,7 +140,6 @@ export * from "./core-react/utils/typeUtils";
 export * from "./core-react/utils/isPromiseLike";
 export * from "./core-react/utils/ScrollPositionMaintainer";
 export * from "./core-react/utils/getObjectClassName";
-export * from "./core-react/utils/KeyboardKey";
 
 export * from "./core-react/utils/hooks/useDisposable";
 export * from "./core-react/utils/hooks/useEffectSkipFirst";

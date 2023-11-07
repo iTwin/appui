@@ -8,7 +8,7 @@
 
 import { ToolAdmin } from "@itwin/core-frontend";
 import { UiFramework } from "../UiFramework";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 /** UiFramework implementation of ToolAdmin.
  *
@@ -33,7 +33,7 @@ export class FrameworkToolAdmin extends ToolAdmin {
     if (wentDown && !UiFramework.isContextMenuOpen) {
       if (
         UiFramework.keyboardShortcuts.isFocusOnHome &&
-        e.key !== SpecialKey.Escape
+        e.key !== Key.Escape
       ) {
         UiFramework.keyboardShortcuts.processKey(
           e.key,

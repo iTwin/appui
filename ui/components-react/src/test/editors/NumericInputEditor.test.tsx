@@ -14,7 +14,6 @@ import type {
 } from "@itwin/appui-abstract";
 import {
   PropertyEditorParamTypes,
-  SpecialKey,
   StandardEditorNames,
 } from "@itwin/appui-abstract";
 import { NumericInputEditor } from "../../components-react/editors/NumericInputEditor";
@@ -26,6 +25,7 @@ import TestUtils, {
 import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
+import { Key } from "ts-key-enum";
 
 describe("<NumericInputEditor />", () => {
   before(async () => {
@@ -198,7 +198,7 @@ describe("<NumericInputEditor />", () => {
     const inputNode = wrapper.container.querySelector("input");
     expect(inputNode).not.to.be.null;
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.calledOnce).to.be.true;
   });
@@ -261,11 +261,11 @@ describe("<NumericInputEditor />", () => {
     const inputNode = renderedComponent.container.querySelector("input");
     expect(inputNode).not.to.be.null;
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.called).to.be.false;
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Escape });
+    fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCancel.calledOnce).to.be.true;
 

@@ -25,7 +25,7 @@ import type {
 } from "../../../../components-react/tree/controlled/TreeModel";
 import { isTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel";
 import { createRandomMutableTreeModelNode } from "../TreeHelpers";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 type Selection = string | RangeSelection;
 
@@ -258,7 +258,7 @@ describe("TreeSelectionManager", () => {
         extendedSelectionManager.onSelectionReplaced,
         "emit"
       );
-      keyEventMock.setup((x) => x.key).returns(() => SpecialKey.Divide);
+      keyEventMock.setup((x) => x.key).returns(() => Key.Divide);
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
       extendedSelectionManager.onTreeKeyDown(
@@ -283,7 +283,7 @@ describe("TreeSelectionManager", () => {
         extendedSelectionManager.onSelectionReplaced,
         "emit"
       );
-      keyEventMock.setup((x) => x.key).returns(() => SpecialKey.ArrowDown);
+      keyEventMock.setup((x) => x.key).returns(() => Key.ArrowDown);
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
       extendedSelectionManager.onTreeKeyDown(
@@ -308,7 +308,7 @@ describe("TreeSelectionManager", () => {
         extendedSelectionManager.onSelectionReplaced,
         "emit"
       );
-      keyEventMock.setup((x) => x.key).returns(() => SpecialKey.ArrowDown);
+      keyEventMock.setup((x) => x.key).returns(() => Key.ArrowDown);
       keyEventMock.setup((x) => x.shiftKey).returns(() => true);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
       extendedSelectionManager.onTreeKeyDown(
@@ -332,7 +332,7 @@ describe("TreeSelectionManager", () => {
         extendedSelectionManager.onSelectionReplaced,
         "emit"
       );
-      keyEventMock.setup((x) => x.key).returns(() => SpecialKey.Home);
+      keyEventMock.setup((x) => x.key).returns(() => Key.Home);
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
       extendedSelectionManager.onTreeKeyDown(
@@ -354,7 +354,7 @@ describe("TreeSelectionManager", () => {
         extendedSelectionManager.onSelectionReplaced,
         "emit"
       );
-      keyEventMock.setup((x) => x.key).returns(() => SpecialKey.End);
+      keyEventMock.setup((x) => x.key).returns(() => Key.End);
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
       extendedSelectionManager.onTreeKeyDown(
@@ -372,7 +372,7 @@ describe("TreeSelectionManager", () => {
       const node = createTreeModelNode({ numChildren: 1, isExpanded: false });
       setupModelWithNodes([node]);
       extendedSelectionManager.onNodeClicked(node.id, eventMock.object);
-      keyEventMock.setup((x) => x.key).returns(() => SpecialKey.ArrowRight);
+      keyEventMock.setup((x) => x.key).returns(() => Key.ArrowRight);
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
       const spy = sinon.spy();
@@ -392,7 +392,7 @@ describe("TreeSelectionManager", () => {
       const node = createTreeModelNode({ numChildren: 1, isExpanded: true });
       setupModelWithNodes([node]);
       extendedSelectionManager.onNodeClicked(node.id, eventMock.object);
-      keyEventMock.setup((x) => x.key).returns(() => SpecialKey.ArrowRight);
+      keyEventMock.setup((x) => x.key).returns(() => Key.ArrowRight);
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
       const spy = sinon.spy();
@@ -412,7 +412,7 @@ describe("TreeSelectionManager", () => {
       const node = createTreeModelNode({ numChildren: 1, isExpanded: true });
       setupModelWithNodes([node]);
       extendedSelectionManager.onNodeClicked(node.id, eventMock.object);
-      keyEventMock.setup((x) => x.key).returns(() => SpecialKey.ArrowLeft);
+      keyEventMock.setup((x) => x.key).returns(() => Key.ArrowLeft);
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
       const spy = sinon.spy();
@@ -432,7 +432,7 @@ describe("TreeSelectionManager", () => {
       const node = createTreeModelNode({ numChildren: 1, isExpanded: false });
       setupModelWithNodes([node]);
       extendedSelectionManager.onNodeClicked(node.id, eventMock.object);
-      keyEventMock.setup((x) => x.key).returns(() => SpecialKey.ArrowLeft);
+      keyEventMock.setup((x) => x.key).returns(() => Key.ArrowLeft);
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
       const spy = sinon.spy();
@@ -452,7 +452,7 @@ describe("TreeSelectionManager", () => {
       const node = createTreeModelNode({ numChildren: 1, isExpanded: false });
       setupModelWithNodes([node]);
       extendedSelectionManager.onNodeClicked(node.id, eventMock.object);
-      keyEventMock.setup((x) => x.key).returns(() => SpecialKey.Space);
+      keyEventMock.setup((x) => x.key).returns(() => " ");
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
       const spy = sinon.spy();
@@ -472,7 +472,7 @@ describe("TreeSelectionManager", () => {
       const node = createTreeModelNode({ numChildren: 1, isExpanded: true });
       setupModelWithNodes([node]);
       extendedSelectionManager.onNodeClicked(node.id, eventMock.object);
-      keyEventMock.setup((x) => x.key).returns(() => SpecialKey.Space);
+      keyEventMock.setup((x) => x.key).returns(() => " ");
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
       const spy = sinon.spy();
@@ -492,7 +492,7 @@ describe("TreeSelectionManager", () => {
       const node = createTreeModelNode({ numChildren: 0, isExpanded: false });
       setupModelWithNodes([node]);
       extendedSelectionManager.onNodeClicked(node.id, eventMock.object);
-      keyEventMock.setup((x) => x.key).returns(() => SpecialKey.ArrowRight);
+      keyEventMock.setup((x) => x.key).returns(() => Key.ArrowRight);
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
       const spyExpanded = sinon.spy();
@@ -517,7 +517,7 @@ describe("TreeSelectionManager", () => {
       const node = createTreeModelNode({ numChildren: 0, isExpanded: false });
       setupModelWithNodes([node]);
       extendedSelectionManager.onNodeClicked(node.id, eventMock.object);
-      keyEventMock.setup((x) => x.key).returns(() => SpecialKey.Space);
+      keyEventMock.setup((x) => x.key).returns(() => " ");
       keyEventMock.setup((x) => x.shiftKey).returns(() => false);
       keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
       const spyEditorActivated = sinon.spy();

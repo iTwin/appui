@@ -14,8 +14,8 @@ import type { CommonProps } from "../utils/Props";
 import { Input } from "@itwin/itwinui-react";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
-import { SpecialKey } from "../utils/KeyboardKey";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
+import { Key } from "ts-key-enum";
 
 /** Properties for [[SearchBox]] component
  * @public
@@ -143,11 +143,11 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
 
   private _handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
-      case SpecialKey.Escape:
+      case Key.Escape:
         // istanbul ignore else
         if (this.props.onEscPressed) this.props.onEscPressed();
         break;
-      case SpecialKey.Enter:
+      case Key.Enter:
         // istanbul ignore else
         if (this.props.onEnterPressed) this.props.onEnterPressed();
         break;

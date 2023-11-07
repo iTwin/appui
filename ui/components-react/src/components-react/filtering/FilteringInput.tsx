@@ -16,7 +16,7 @@ import { UiComponents } from "../UiComponents";
 import type { ResultSelectorProps } from "./ResultSelector";
 import { ResultSelector } from "./ResultSelector";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 /** [[FilteringInput]] React Component state
  * @internal
@@ -122,7 +122,7 @@ export class FilteringInput extends React.PureComponent<
   };
 
   private _onFilterKeyDown = (e: React.KeyboardEvent<HTMLElement>): void => {
-    if (e.key !== SpecialKey.Enter) return;
+    if (e.key !== Key.Enter) return;
 
     if (!this.state.searchText) return;
 

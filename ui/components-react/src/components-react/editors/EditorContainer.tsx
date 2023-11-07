@@ -16,7 +16,7 @@ import type {
   PropertyEditorBase,
 } from "./PropertyEditorManager";
 import { PropertyEditorManager } from "./PropertyEditorManager";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 /** Arguments for the Property Updated event callback
  * @public
@@ -152,13 +152,13 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
 
   private _handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
-      case SpecialKey.Escape:
+      case Key.Escape:
         this.onPressEscape(e);
         break;
-      case SpecialKey.Enter:
+      case Key.Enter:
         this.onPressEnter(e);
         break;
-      case SpecialKey.Tab:
+      case Key.Tab:
         this.onPressTab(e);
         break;
       default:

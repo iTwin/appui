@@ -21,7 +21,7 @@ import { AccuDrawFieldContainer } from "../../appui-react/accudraw/AccuDrawField
 import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import type { AccuDrawUiSettings } from "../../appui-react/accudraw/AccuDrawUiSettings";
 import { UiFramework } from "../../appui-react";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 // cspell:ignore uiadmin
 
@@ -340,7 +340,7 @@ describe("AccuDrawFieldContainer", () => {
 
     const input = wrapper.queryByTestId("uifw-accudraw-x");
     expect(input).not.to.be.null;
-    fireEvent.keyDown(input!, { key: SpecialKey.Escape });
+    fireEvent.keyDown(input!, { key: Key.Escape });
     spy.calledOnce.should.true;
 
     (UiFramework.keyboardShortcuts.setFocusToHome as any).restore();

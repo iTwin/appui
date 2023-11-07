@@ -13,7 +13,7 @@ import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
 import { PositionPopup } from "./PositionPopup";
 import { KeyinPalettePanel } from "./KeyinPalettePanel";
 import type { KeyinEntry } from "../uiadmin/FrameworkUiAdmin";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 /** Props defining KeyinPalettePopup component
  * @public */
@@ -52,7 +52,7 @@ export function KeyinPalettePopup({
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>): void => {
       switch (event.key) {
-        case SpecialKey.Escape:
+        case Key.Escape:
           cancel();
           event.preventDefault();
           break;

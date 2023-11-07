@@ -10,7 +10,7 @@ import {
   StandardContentLayouts,
 } from "@itwin/appui-abstract";
 import { IModelApp } from "@itwin/core-frontend";
-
+import { Key } from "ts-key-enum";
 import {
   AccuDrawCommandItems,
   AccuDrawKeyboardShortcuts,
@@ -18,7 +18,6 @@ import {
   KeyboardShortcutProps,
   UiFramework,
 } from "@itwin/appui-react";
-import { FunctionKey } from "@itwin/core-react";
 
 // cSpell:ignore uitestapp
 
@@ -66,7 +65,7 @@ export class AppUi {
         ],
       },
       {
-        key: FunctionKey.F7,
+        key: Key.F7,
         item: AppUi._showShortcutsMenuCommand,
       },
     ];

@@ -12,7 +12,7 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import type { SafeAreaInsets } from "../base/SafeAreaInsets";
 import { SafeAreaInsetsHelpers } from "../base/SafeAreaInsets";
-import { SpecialKey } from "../base/SpecialKey";
+import { Key } from "ts-key-enum";
 
 /** Properties of [[Backstage]] component.
  * @internal
@@ -93,7 +93,7 @@ export class Backstage extends React.PureComponent<BackstageProps> {
   };
 
   private _onEsc = (event: KeyboardEvent): void => {
-    if (this.props.isOpen && event.key === SpecialKey.Escape) {
+    if (this.props.isOpen && event.key === Key.Escape) {
       this._onClose();
     }
   };

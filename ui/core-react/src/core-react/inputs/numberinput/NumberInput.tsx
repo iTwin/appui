@@ -11,7 +11,6 @@ import classnames from "classnames";
 import * as React from "react";
 import type { InputProps } from "@itwin/itwinui-react";
 import { Input } from "@itwin/itwinui-react";
-import { SpecialKey } from "../../utils/KeyboardKey";
 import { Icon } from "../../icons/IconComponent";
 import {
   SvgCaretDown,
@@ -19,6 +18,7 @@ import {
   SvgCaretUp,
   SvgCaretUpSmall,
 } from "@itwin/itwinui-icons-react";
+import { Key } from "ts-key-enum";
 
 /** Step function prototype for [[NumberInput]] component
  * @public
@@ -230,18 +230,18 @@ const ForwardRefNumberInput = React.forwardRef<
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
-      if (event.key === SpecialKey.Enter) {
+      if (event.key === Key.Enter) {
         updateValueFromString(event.currentTarget.value);
         event.preventDefault();
         event.stopPropagation();
-      } else if (event.key === SpecialKey.Escape) {
+      } else if (event.key === Key.Escape) {
         setFormattedValue(formatInternal(currentValueRef.current));
         event.preventDefault();
-      } else if (event.key === SpecialKey.ArrowDown) {
+      } else if (event.key === Key.ArrowDown) {
         applyStep(false);
         event.preventDefault();
         event.stopPropagation();
-      } else if (event.key === SpecialKey.ArrowUp) {
+      } else if (event.key === Key.ArrowUp) {
         applyStep(true);
         event.preventDefault();
         event.stopPropagation();

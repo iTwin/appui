@@ -31,7 +31,7 @@ import {
   ToolbarPanelAlignment,
   ToolbarWithOverflow,
 } from "@itwin/components-react";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 /** Props for defining a CardPopup editor
  * @beta */
@@ -70,7 +70,7 @@ export class CardPopup extends React.PureComponent<
 
   private _handleKeyDown = (event: React.KeyboardEvent): void => {
     switch (event.key) {
-      case SpecialKey.Escape:
+      case Key.Escape:
         this._cancel();
         break;
     }

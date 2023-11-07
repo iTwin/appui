@@ -9,7 +9,7 @@ import sinon from "sinon";
 import * as React from "react";
 import { PopupButton } from "../../components-react/editors/PopupButton";
 import { selectorMatches, TestUtils, userEvent } from "../TestUtils";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 describe("<PopupButton />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -89,7 +89,7 @@ describe("<PopupButton />", () => {
         bubbles: true,
         cancelable: true,
         view: window,
-        key: SpecialKey.ArrowDown,
+        key: Key.ArrowDown,
       })
     );
     await TestUtils.flushAsyncOperations();
@@ -113,7 +113,7 @@ describe("<PopupButton />", () => {
         bubbles: true,
         cancelable: true,
         view: window,
-        key: SpecialKey.Space,
+        key: " ",
       })
     );
     await TestUtils.flushAsyncOperations();
@@ -137,7 +137,7 @@ describe("<PopupButton />", () => {
         bubbles: true,
         cancelable: true,
         view: window,
-        key: SpecialKey.Enter,
+        key: Key.Enter,
       })
     );
     await TestUtils.flushAsyncOperations();

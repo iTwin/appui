@@ -37,7 +37,7 @@ import {
   SvgRotateLeft,
   SvgSortUp,
 } from "@itwin/itwinui-icons-react";
-import { SpecialKey } from "../inputs/SpecialKey";
+import { Key } from "ts-key-enum";
 
 // cSpell:ignore Quaternion Quaternions unrotate
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -597,7 +597,7 @@ export class DrawingNavigationAid extends React.Component<
 
   private _handleKeyUp = (event: React.KeyboardEvent) => {
     // istanbul ignore else
-    if (event.key === SpecialKey.Escape && this.state.mode === MapMode.Opened) {
+    if (event.key === Key.Escape && this.state.mode === MapMode.Opened) {
       this._closeLargeMap();
     }
   };

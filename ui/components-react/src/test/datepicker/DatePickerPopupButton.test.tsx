@@ -10,7 +10,7 @@ import { fireEvent, render } from "@testing-library/react";
 import TestUtils from "../TestUtils";
 import { DatePickerPopupButton } from "../../components-react/datepicker/DatePickerPopupButton";
 import { TimeDisplay } from "@itwin/appui-abstract";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 describe("<DatePickerPopupButton />", () => {
   let renderSpy: sinon.SinonSpy;
@@ -95,7 +95,7 @@ describe("<DatePickerPopupButton />", () => {
       "components-date-picker-calendar-popup-button"
     );
     expect(pickerButton.tagName).to.be.equal("BUTTON");
-    fireEvent.keyDown(pickerButton, { key: SpecialKey.Space });
+    fireEvent.keyDown(pickerButton, { key: " " });
 
     const popupPanelDiv = renderedComponent.getByTestId(
       "components-date-picker-calendar-popup-panel"
@@ -139,7 +139,7 @@ describe("<DatePickerPopupButton />", () => {
     const inputs = timeInputContainer.querySelectorAll("input");
     expect(inputs.length).to.eq(3);
     const hour = inputs[0];
-    fireEvent.keyDown(hour, { key: SpecialKey.ArrowUp });
+    fireEvent.keyDown(hour, { key: Key.ArrowUp });
     expect(renderSpy).to.be.called;
   });
 });

@@ -25,7 +25,7 @@ import { PopupManager } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
 import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { Toolbar } from "../toolbar/Toolbar";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 /** Props for a popup toolbar
  * @beta */
@@ -64,7 +64,7 @@ export class ToolbarPopup extends React.PureComponent<
     event: React.KeyboardEvent<HTMLDivElement>
   ): void => {
     switch (event.key) {
-      case SpecialKey.Escape:
+      case Key.Escape:
         this._cancel();
         break;
     }

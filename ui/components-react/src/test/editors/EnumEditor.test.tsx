@@ -16,7 +16,7 @@ import TestUtils, {
 } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 import { stubScrollIntoView } from "../test-helpers/misc";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 describe("<EnumEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -76,7 +76,7 @@ describe("<EnumEditor />", () => {
     const selectNode = wrapper.getByTestId("components-select-editor");
     expect(selectNode).not.to.be.null;
 
-    fireEvent.keyDown(selectNode, { key: SpecialKey.Escape });
+    fireEvent.keyDown(selectNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.called).to.be.false;
   });
@@ -118,7 +118,7 @@ describe("<EnumEditor />", () => {
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.called).to.be.false;
 
-    fireEvent.keyDown(selectNode, { key: SpecialKey.Escape });
+    fireEvent.keyDown(selectNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCancel.called).to.be.true;
 
@@ -142,7 +142,7 @@ describe("<EnumEditor />", () => {
     const selectNode = wrapper.getByTestId("components-select-editor");
     expect(selectNode).not.to.be.null;
 
-    fireEvent.keyDown(selectNode, { key: SpecialKey.PageDown });
+    fireEvent.keyDown(selectNode, { key: Key.PageDown });
     await TestUtils.flushAsyncOperations();
     expect(spyParent.called).to.be.true;
   });

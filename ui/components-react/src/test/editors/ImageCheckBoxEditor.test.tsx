@@ -11,7 +11,7 @@ import { EditorContainer } from "../../components-react/editors/EditorContainer"
 import { ImageCheckBoxEditor } from "../../components-react/editors/ImageCheckBoxEditor";
 import TestUtils, { MineDataController, userEvent } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 describe("<ImageCheckBoxEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -111,11 +111,11 @@ describe("<ImageCheckBoxEditor />", () => {
 
     const inputNode = screen.getByRole("checkbox");
 
-    fireEvent.keyDown(inputNode, { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputNode, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.called).to.be.false;
 
-    fireEvent.keyDown(inputNode, { key: SpecialKey.Escape });
+    fireEvent.keyDown(inputNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCancel.calledOnce).to.be.true;
 

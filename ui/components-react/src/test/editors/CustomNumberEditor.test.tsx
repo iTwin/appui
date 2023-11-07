@@ -22,7 +22,7 @@ import TestUtils, {
   styleMatch,
 } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 // cSpell:ignore customnumber
 
 const numVal = 3.345689;
@@ -103,12 +103,12 @@ describe("<CustomNumberEditor />", () => {
     await TestUtils.flushAsyncOperations();
 
     // resetToOriginalValue
-    fireEvent.keyDown(inputField, { key: SpecialKey.Escape });
+    fireEvent.keyDown(inputField, { key: Key.Escape });
     expect(inputField.value).to.be.equal(displayVal);
     expect(spyOnCancel).not.to.be.called;
 
     // since value is same as original, cancel
-    fireEvent.keyDown(inputField, { key: SpecialKey.Escape });
+    fireEvent.keyDown(inputField, { key: Key.Escape });
     expect(inputField.value).to.be.equal(displayVal);
     expect(spyOnCancel).to.be.calledOnce;
 
@@ -126,7 +126,7 @@ describe("<CustomNumberEditor />", () => {
     await TestUtils.flushAsyncOperations();
 
     // resetToLastValue
-    fireEvent.keyDown(inputField, { key: SpecialKey.Escape });
+    fireEvent.keyDown(inputField, { key: Key.Escape });
     expect(inputField.value).to.be.equal(newDisplayValue);
   });
 
@@ -325,7 +325,7 @@ describe("<CustomNumberEditor />", () => {
     const inputNode = wrapper.queryByTestId(testId) as HTMLInputElement;
     expect(inputNode).not.to.be.null;
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.calledOnce).to.be.false;
 

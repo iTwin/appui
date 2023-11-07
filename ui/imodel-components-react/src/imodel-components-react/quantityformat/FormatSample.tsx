@@ -13,7 +13,7 @@ import { Icon } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { SvgProgressForward } from "@itwin/itwinui-icons-react";
-import { SpecialKey } from "../inputs/SpecialKey";
+import { Key } from "ts-key-enum";
 
 /** Properties of [[FormatSample]] component.
  * @alpha
@@ -56,7 +56,7 @@ export function FormatSample(props: FormatSampleProps) {
   const handleKeyDown = React.useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
-      if (e.key === SpecialKey.Enter) {
+      if (e.key === Key.Enter) {
         let newValue = Number.parseFloat(sampleValue);
         if (Number.isNaN(newValue)) newValue = 0;
         setMagnitude(newValue);

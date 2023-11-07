@@ -13,7 +13,7 @@ import { IModelApp, ItemField, NoRenderApp } from "@itwin/core-frontend";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import { UiFramework } from "../../appui-react";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 // cspell:ignore uiadmin
 
@@ -85,11 +85,11 @@ describe("AccuDrawInputField", () => {
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "22.3" } });
     expect((input as HTMLInputElement).value).to.eq("22.3");
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     spyMethod.calledOnce.should.be.true;
     fireEvent.change(input!, { target: { value: "22.3" } }); // Test no value change
     expect((input as HTMLInputElement).value).to.eq("22.3");
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     spyMethod.calledOnce.should.be.true;
   });
 
@@ -109,7 +109,7 @@ describe("AccuDrawInputField", () => {
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "22.3" } });
     expect((input as HTMLInputElement).value).to.eq("22.3");
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     spyMethod.called.should.not.be.true;
 
     fakeTimers.tick(20);
@@ -131,7 +131,7 @@ describe("AccuDrawInputField", () => {
     );
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
-    fireEvent.keyDown(input!, { key: SpecialKey.Escape });
+    fireEvent.keyDown(input!, { key: Key.Escape });
     spyEsc.calledOnce.should.be.true;
   });
 
@@ -149,7 +149,7 @@ describe("AccuDrawInputField", () => {
     );
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     spyEnter.calledOnce.should.be.true;
   });
 

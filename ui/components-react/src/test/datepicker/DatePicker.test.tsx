@@ -10,7 +10,7 @@ import { fireEvent, render } from "@testing-library/react";
 import TestUtils from "../TestUtils";
 import { DatePicker } from "../../components-react/datepicker/DatePicker";
 import { adjustDateToTimezone } from "../../components-react/common/DateUtils";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 describe("<DatePicker />", () => {
   let renderSpy: sinon.SinonSpy;
@@ -145,26 +145,26 @@ describe("<DatePicker />", () => {
       "components-date-picker-calendar-list"
     );
     calendar.focus();
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowDown }); // 29
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowDown }); // 8-5
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowDown }); // 1
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowDown }); // 8
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowDown }); // 15
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowDown }); // 22
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowUp }); // 15
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowUp }); // 8
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowUp }); // 1
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowUp }); // 8-5
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowUp }); // 29
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowUp }); // 22
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowUp }); // 15
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowLeft });
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowRight });
-    fireEvent.keyDown(calendar, { key: SpecialKey.Enter });
+    fireEvent.keyDown(calendar, { key: Key.ArrowDown }); // 29
+    fireEvent.keyDown(calendar, { key: Key.ArrowDown }); // 8-5
+    fireEvent.keyDown(calendar, { key: Key.ArrowDown }); // 1
+    fireEvent.keyDown(calendar, { key: Key.ArrowDown }); // 8
+    fireEvent.keyDown(calendar, { key: Key.ArrowDown }); // 15
+    fireEvent.keyDown(calendar, { key: Key.ArrowDown }); // 22
+    fireEvent.keyDown(calendar, { key: Key.ArrowUp }); // 15
+    fireEvent.keyDown(calendar, { key: Key.ArrowUp }); // 8
+    fireEvent.keyDown(calendar, { key: Key.ArrowUp }); // 1
+    fireEvent.keyDown(calendar, { key: Key.ArrowUp }); // 8-5
+    fireEvent.keyDown(calendar, { key: Key.ArrowUp }); // 29
+    fireEvent.keyDown(calendar, { key: Key.ArrowUp }); // 22
+    fireEvent.keyDown(calendar, { key: Key.ArrowUp }); // 15
+    fireEvent.keyDown(calendar, { key: Key.ArrowLeft });
+    fireEvent.keyDown(calendar, { key: Key.ArrowRight });
+    fireEvent.keyDown(calendar, { key: Key.Enter });
     expect(renderSpy).to.be.called;
     renderSpy.resetHistory();
-    fireEvent.keyDown(calendar, { key: SpecialKey.ArrowLeft });
-    fireEvent.keyDown(calendar, { key: SpecialKey.Space });
+    fireEvent.keyDown(calendar, { key: Key.ArrowLeft });
+    fireEvent.keyDown(calendar, { key: " " });
     expect(renderSpy).to.be.called;
   });
 });

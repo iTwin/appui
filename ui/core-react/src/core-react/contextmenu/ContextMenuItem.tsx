@@ -11,12 +11,12 @@ import classnames from "classnames";
 import type { BadgeType } from "@itwin/appui-abstract";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props";
-import { SpecialKey } from "../utils/KeyboardKey";
 import type { ContextMenu } from "./ContextMenu";
 import { BadgeUtilities } from "../badge/BadgeUtilities";
 import { TildeFinder } from "./TildeFinder";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
+import { Key } from "ts-key-enum";
 
 /** Properties for the [[ContextMenuItem]] component
  * @public
@@ -209,7 +209,7 @@ export class ContextMenuItem extends React.PureComponent<
   private _handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
     const isDisabled = ConditionalBooleanValue.getValue(this.props.disabled);
     if (
-      event.key === SpecialKey.Enter &&
+      event.key === Key.Enter &&
       this.props.onSelect !== undefined &&
       !isDisabled
     ) {

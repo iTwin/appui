@@ -122,7 +122,8 @@
     "react-highlight-words": "^0.20.0",
     "react-window": "^1.8.9",
     "rxjs": "^7.8.1",
-    "shortid": "~2.2.15"
+    "shortid": "~2.2.15",
+    "ts-key-enum": "~2.0.12"
   },
   "nyc": {
     "extends": "./node_modules/@itwin/build-tools/.nycrc",

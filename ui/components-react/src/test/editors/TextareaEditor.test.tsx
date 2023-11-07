@@ -14,12 +14,12 @@ import type {
 } from "@itwin/appui-abstract";
 import {
   PropertyEditorParamTypes,
-  SpecialKey,
   StandardEditorNames,
 } from "@itwin/appui-abstract";
 import { TextareaEditor } from "../../components-react/editors/TextareaEditor";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import TestUtils, { styleMatch, userEvent } from "../TestUtils";
+import { Key } from "ts-key-enum";
 
 describe("<TextareaEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -202,7 +202,7 @@ describe("<TextareaEditor />", () => {
     );
     expect(popupButton).not.to.be.null;
 
-    fireEvent.keyDown(popupButton, { key: SpecialKey.Escape });
+    fireEvent.keyDown(popupButton, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCancel.calledOnce).to.be.true;
   });

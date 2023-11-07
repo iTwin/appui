@@ -11,7 +11,7 @@ import { TestUtils } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { AccuDrawDialog } from "../../appui-react/accudraw/AccuDrawDialog";
 import { UiFramework } from "../../appui-react";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 describe("AccuDrawDialog", () => {
   before(async () => {
@@ -49,7 +49,7 @@ describe("AccuDrawDialog", () => {
     );
 
     component.baseElement.dispatchEvent(
-      new KeyboardEvent("keyup", { key: SpecialKey.Escape })
+      new KeyboardEvent("keyup", { key: Key.Escape })
     );
     spy.calledOnce.should.true;
 

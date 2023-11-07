@@ -117,7 +117,8 @@
     "@itwin/itwinui-react": "^2.11.11",
     "@itwin/itwinui-variables": "^2.0.0",
     "@itwin/itwinui-icons-react": "^2.1.0",
-    "classnames": "2.3.1"
+    "classnames": "2.3.1",
+    "ts-key-enum": "~2.0.12"
   },
   "nyc": {
     "extends": "./node_modules/@itwin/build-tools/.nycrc",

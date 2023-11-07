@@ -20,7 +20,7 @@ import type {
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
 import { UiFramework } from "../UiFramework";
 import { SvgLock } from "@itwin/itwinui-icons-react";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 function isLetter(char: string): boolean {
   return char.length === 1 && char.toLowerCase() !== char.toUpperCase();
@@ -140,10 +140,10 @@ const ForwardRefAccuDrawInput = React.forwardRef<
   const handleKeyDown = React.useCallback(
     (e: React.KeyboardEvent) => {
       switch (e.key) {
-        case SpecialKey.Escape:
+        case Key.Escape:
           onEscPressed && onEscPressed();
           return;
-        case SpecialKey.Enter:
+        case Key.Enter:
           onEnterPressed && onEnterPressed();
           return;
       }

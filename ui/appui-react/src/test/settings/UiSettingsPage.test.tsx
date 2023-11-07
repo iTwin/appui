@@ -18,7 +18,7 @@ import TestUtils, {
 } from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
 import { ColorTheme } from "../../appui-react/theme/ThemeManager";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 describe("UiSettingsPage", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(
@@ -111,7 +111,7 @@ describe("UiSettingsPage", () => {
     const thumb =
       wrapper.container.ownerDocument.querySelector(".iui-slider-thumb");
     expect(thumb).to.exist;
-    fireEvent.keyDown(thumb!, { key: SpecialKey.ArrowRight });
+    fireEvent.keyDown(thumb!, { key: Key.ArrowRight });
     await TestUtils.flushAsyncOperations();
     let widgetOpacity = UiFramework.getWidgetOpacity();
     expect(widgetOpacity).greaterThanOrEqual(0.9);
@@ -130,8 +130,8 @@ describe("UiSettingsPage", () => {
     const thumb =
       wrapper.container.ownerDocument.querySelectorAll(".iui-slider-thumb");
     expect(thumb[0]).to.exist;
-    fireEvent.keyDown(thumb[0]!, { key: SpecialKey.ArrowRight });
-    fireEvent.keyUp(thumb[0]!, { key: SpecialKey.ArrowRight });
+    fireEvent.keyDown(thumb[0]!, { key: Key.ArrowRight });
+    fireEvent.keyUp(thumb[0]!, { key: Key.ArrowRight });
     await TestUtils.flushAsyncOperations();
     let toolbarOpacity = UiFramework.getToolbarOpacity();
     expect(toolbarOpacity).greaterThan(0.5);

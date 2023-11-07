@@ -35,7 +35,7 @@ import {
   SvgCaretUp,
   SvgCaretUpSmall,
 } from "@itwin/itwinui-icons-react";
-import { SpecialKey } from "./SpecialKey";
+import { Key } from "ts-key-enum";
 
 /** Step function prototype for [[QuantityNumberInput]] component
  * @beta
@@ -384,16 +384,16 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
-      if (event.key === SpecialKey.Enter) {
+      if (event.key === Key.Enter) {
         updateValueFromString(event.currentTarget.value);
         event.preventDefault();
-      } else if (event.key === SpecialKey.Escape) {
+      } else if (event.key === Key.Escape) {
         setFormattedValue(formatValue(rawValueRef.current));
         event.preventDefault();
-      } else if (event.key === SpecialKey.ArrowDown) {
+      } else if (event.key === Key.ArrowDown) {
         applyStep(false);
         event.preventDefault();
-      } else if (event.key === SpecialKey.ArrowUp) {
+      } else if (event.key === Key.ArrowUp) {
         applyStep(true);
         event.preventDefault();
       }

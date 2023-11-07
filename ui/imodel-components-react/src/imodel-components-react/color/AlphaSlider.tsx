@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
-import { SpecialKey } from "../inputs/SpecialKey";
+import { Key } from "ts-key-enum";
 
 /** Properties for the [[AlphaSlider]] React component
  * @public
@@ -138,22 +138,19 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
 
   private _onKeyDown = (evt: React.KeyboardEvent<HTMLDivElement>) => {
     let newTransparency: number | undefined;
-    if (evt.key === SpecialKey.ArrowLeft || evt.key === SpecialKey.ArrowDown) {
+    if (evt.key === Key.ArrowLeft || evt.key === Key.ArrowDown) {
       newTransparency = this.props.alpha - (evt.ctrlKey ? 0.1 : 0.05);
-    } else if (
-      evt.key === SpecialKey.ArrowRight ||
-      evt.key === SpecialKey.ArrowUp
-    ) {
+    } else if (evt.key === Key.ArrowRight || evt.key === Key.ArrowUp) {
       newTransparency = this.props.alpha + (evt.ctrlKey ? 0.1 : 0.05);
-    } else if (evt.key === SpecialKey.PageDown) {
+    } else if (evt.key === Key.PageDown) {
       newTransparency = this.props.alpha - (evt.ctrlKey ? 0.5 : 0.25);
-    } else if (evt.key === SpecialKey.PageUp) {
+    } else if (evt.key === Key.PageUp) {
       newTransparency = this.props.alpha + (evt.ctrlKey ? 0.5 : 0.25);
-    } else if (evt.key === SpecialKey.Home) {
+    } else if (evt.key === Key.Home) {
       newTransparency = 0;
     } else {
       // istanbul ignore else
-      if (evt.key === SpecialKey.End) {
+      if (evt.key === Key.End) {
         newTransparency = 1;
       }
     }

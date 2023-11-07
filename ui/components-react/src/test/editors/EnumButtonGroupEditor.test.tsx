@@ -13,7 +13,7 @@ import { EditorContainer } from "../../components-react/editors/EditorContainer"
 import { EnumButtonGroupEditor } from "../../components-react/editors/EnumButtonGroupEditor";
 import TestUtils, { MineDataController } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 // cSpell:ignore enumbuttongroup
 
@@ -161,7 +161,7 @@ describe("<EnumButtonGroupEditor />", () => {
       .be.null;
     const greenButton = renderedComponent.getByTestId("Green");
 
-    fireEvent.keyDown(greenButton, { key: SpecialKey.Enter });
+    fireEvent.keyDown(greenButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.calledOnce).to.be.false;
 

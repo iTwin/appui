@@ -11,10 +11,10 @@ import classnames from "classnames";
 import * as React from "react";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
-import { SpecialKey } from "../utils/KeyboardKey";
 import { Point } from "../utils/Point";
 import type { CommonProps } from "../utils/Props";
 import { AnnularSector, Annulus } from "./Annulus";
+import { Key } from "ts-key-enum";
 
 /** Properties for [[RadialMenu]]
  * @public
@@ -165,8 +165,7 @@ export class RadialMenu extends React.Component<
   }
 
   private _handleKeyUp = (event: KeyboardEvent) => {
-    if (event.key === SpecialKey.Escape && this.props.onEsc)
-      this.props.onEsc(event);
+    if (event.key === Key.Escape && this.props.onEsc) this.props.onEsc(event);
   };
 
   private _handleClick = (event: MouseEvent) => {

@@ -11,7 +11,7 @@ import { EditorContainer } from "../../components-react/editors/EditorContainer"
 import { ToggleEditor } from "../../components-react/editors/ToggleEditor";
 import TestUtils, { MineDataController, userEvent } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 describe("<ToggleEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -103,7 +103,7 @@ describe("<ToggleEditor />", () => {
     const inputNode = wrapper.container.querySelector("input");
     expect(inputNode).not.to.be.null;
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.calledOnce).to.be.false;
 

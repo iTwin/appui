@@ -14,11 +14,11 @@ import { DialogButtonType } from "@itwin/appui-abstract";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
 import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
-import { SpecialKey } from "../utils/KeyboardKey";
 import type { Omit } from "../utils/typeUtils";
 import { Dialog as BaseDialog } from "@itwin/itwinui-react";
 import { Button } from "@itwin/itwinui-react";
 import type { ButtonProps } from "@itwin/itwinui-react";
+import { Key } from "ts-key-enum";
 
 // cspell:ignore focustrap
 
@@ -378,11 +378,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   }
 
   private _handleKeyUp = (event: KeyboardEvent) => {
-    if (
-      event.key === SpecialKey.Escape &&
-      this.props.opened &&
-      this.props.onEscape
-    ) {
+    if (event.key === Key.Escape && this.props.opened && this.props.onEscape) {
       this.props.onEscape();
     }
   };

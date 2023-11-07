@@ -7,7 +7,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { NumberInput } from "../../../core-react/inputs/numberinput/NumberInput";
-import { SpecialKey } from "../../../core-react/utils/KeyboardKey";
+import { Key } from "ts-key-enum";
 
 // cSpell:ignore decrementor numberinput
 
@@ -400,12 +400,12 @@ describe("<NumberInput - React Testing Library />", () => {
     );
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
-    fireEvent.keyDown(input!, { key: SpecialKey.ArrowUp });
+    fireEvent.keyDown(input!, { key: Key.ArrowUp });
     spyMethod.calledOnce.should.true;
     expect(value).to.eq(1.48);
 
     spyMethod.resetHistory();
-    fireEvent.keyDown(input!, { key: SpecialKey.ArrowDown });
+    fireEvent.keyDown(input!, { key: Key.ArrowDown });
     spyMethod.calledOnce.should.true;
     expect(value).to.eq(1.23);
     spyKeyDown.calledTwice.should.true;
@@ -432,7 +432,7 @@ describe("<NumberInput - React Testing Library />", () => {
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "22.3" } });
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     spyMethod.calledOnce.should.true;
     expect(value).to.eq(22.3);
   });
@@ -509,7 +509,7 @@ describe("<NumberInput - React Testing Library />", () => {
     const originalValue = (input as HTMLInputElement).value;
     fireEvent.change(input!, { target: { value: "22.3" } });
     expect((input as HTMLInputElement).value).to.eq("22.3");
-    fireEvent.keyDown(input!, { key: SpecialKey.Escape });
+    fireEvent.keyDown(input!, { key: Key.Escape });
     spyMethod.notCalled.should.be.true;
     expect((input as HTMLInputElement).value).to.eq(originalValue);
   });
@@ -536,7 +536,7 @@ describe("<NumberInput - React Testing Library />", () => {
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "abc" } });
     expect((input as HTMLInputElement).value).to.eq("abc");
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     spyMethod.calledOnce.should.be.true;
     expect(value).to.eq(0);
   });
@@ -587,12 +587,12 @@ describe("<NumberInput - React Testing Library />", () => {
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "15.3" } });
     expect((input as HTMLInputElement).value).to.eq("15.3");
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     expect(formattedValue).to.eq("$15.30");
 
     fireEvent.change(input!, { target: { value: "$2.25" } });
     expect((input as HTMLInputElement).value).to.eq("$2.25");
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     expect(formattedValue).to.eq("$2.25");
   });
 });

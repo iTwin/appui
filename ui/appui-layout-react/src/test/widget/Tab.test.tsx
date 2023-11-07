@@ -23,7 +23,7 @@ import {
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
-import { SpecialKey } from "../../appui-layout-react/base/SpecialKey";
+import { Key } from "ts-key-enum";
 
 describe("WidgetTab", () => {
   it("should render active", () => {
@@ -256,7 +256,7 @@ describe("WidgetTab", () => {
     );
     const tab = document.getElementsByClassName("nz-widget-tab")[0];
     act(() => {
-      fireEvent.keyDown(tab, { key: SpecialKey.Enter });
+      fireEvent.keyDown(tab, { key: Key.Enter });
       fakeTimers.tick(300);
     });
     sinon.assert.calledOnceWithExactly(
@@ -293,7 +293,7 @@ describe("WidgetTab", () => {
     );
     const tab = document.getElementsByClassName("nz-widget-tab")[0];
     act(() => {
-      fireEvent.keyDown(tab, { key: SpecialKey.Space });
+      fireEvent.keyDown(tab, { key: " " });
       fakeTimers.tick(300);
     });
     sinon.assert.calledOnceWithExactly(

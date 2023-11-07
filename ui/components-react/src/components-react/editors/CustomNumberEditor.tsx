@@ -25,7 +25,6 @@ import {
   MessageSeverity,
   PropertyEditorParamTypes,
   PropertyValueFormat,
-  SpecialKey,
   StandardEditorNames,
   StandardTypeNames,
   UiAdmin,
@@ -40,6 +39,7 @@ import {
   PropertyEditorBase,
   PropertyEditorManager,
 } from "./PropertyEditorManager";
+import { Key } from "ts-key-enum";
 
 /** @internal */
 interface CustomNumberEditorState {
@@ -308,7 +308,7 @@ export class CustomNumberEditor
 
   private _onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     // istanbul ignore else
-    if (e.key === SpecialKey.Escape) {
+    if (e.key === Key.Escape) {
       const initialDisplayValue =
         (this._lastValidValue &&
           (this._lastValidValue as PrimitiveValue).displayValue) ??
@@ -324,7 +324,7 @@ export class CustomNumberEditor
     }
 
     // istanbul ignore else
-    if (e.key !== SpecialKey.Enter) {
+    if (e.key !== Key.Enter) {
       UiAdmin.messagePresenter.closeInputFieldMessage();
     }
   };

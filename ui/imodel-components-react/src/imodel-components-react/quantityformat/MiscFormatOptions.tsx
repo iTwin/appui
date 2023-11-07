@@ -30,7 +30,7 @@ import { ScientificTypeSelector } from "./misc/ScientificType";
 import { StationSeparatorSelector } from "./misc/StationSeparatorSelector";
 import { StationSizeSelector } from "./misc/StationSizeSelector";
 import { UiIModelComponents } from "../UiIModelComponents";
-import { SpecialKey } from "../inputs/SpecialKey";
+import { Key } from "ts-key-enum";
 
 /** Properties of [[MiscFormatOptions]] component.
  * @alpha
@@ -213,7 +213,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
   const handleKeyUpOnLink = React.useCallback(
     (e: React.KeyboardEvent<HTMLAnchorElement>) => {
       // istanbul ignore else
-      if (e.key === SpecialKey.Enter || e.key === SpecialKey.Space) {
+      if (e.key === Key.Enter || e.key === " ") {
         onShowHideOptions(!showOptions);
         e.preventDefault();
       }

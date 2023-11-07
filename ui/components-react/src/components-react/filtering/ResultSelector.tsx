@@ -13,7 +13,7 @@ import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { UiComponents } from "../UiComponents";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 /** [[ResultSelector]] React Component state
  * @internal
@@ -114,7 +114,7 @@ export class ResultSelector extends React.PureComponent<
   };
 
   private _onSelectedResultKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === SpecialKey.Enter) this._onSelectedResultConfirmed();
+    if (event.key === Key.Enter) this._onSelectedResultConfirmed();
   };
 
   /** @internal */

@@ -20,7 +20,7 @@ import { PopupManager } from "./PopupManager";
 import { PositionPopup, PositionPopupContent } from "./PositionPopup";
 import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
 import { DialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 /** Props for defining a popup tool settings component
  * @beta */
@@ -60,7 +60,7 @@ export class ToolSettingsPopup extends React.PureComponent<
 
   private _handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
-      case SpecialKey.Escape:
+      case Key.Escape:
         // istanbul ignore else
         if (this.props.onCancel) this.props.onCancel();
         break;

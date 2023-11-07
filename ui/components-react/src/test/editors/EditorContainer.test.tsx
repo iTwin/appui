@@ -10,7 +10,7 @@ import { EditorContainer } from "../../components-react/editors/EditorContainer"
 import TestUtils, { childStructure, userEvent } from "../TestUtils";
 import { StandardEditorNames } from "@itwin/appui-abstract";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 describe("<EditorContainer />", () => {
   before(async () => {
@@ -171,7 +171,7 @@ describe("<EditorContainer />", () => {
     expect(blurSpy).to.not.been.called;
     fireEvent.contextMenu(testInput);
     expect(contextSpy).to.not.been.called;
-    fireEvent.keyDown(testInput, { key: SpecialKey.ArrowLeft });
+    fireEvent.keyDown(testInput, { key: Key.ArrowLeft });
     expect(keySpy).to.not.been.called;
 
     // Sanity: Validating that a similar control would indeed cause these to be triggered.
@@ -180,7 +180,7 @@ describe("<EditorContainer />", () => {
     expect(blurSpy).to.have.been.called;
     fireEvent.contextMenu(controlInput);
     expect(contextSpy).to.have.been.called;
-    fireEvent.keyDown(controlInput, { key: SpecialKey.ArrowLeft });
+    fireEvent.keyDown(controlInput, { key: Key.ArrowLeft });
     expect(keySpy).to.have.been.called;
   });
 });

@@ -11,7 +11,7 @@ import { fireEvent, render } from "@testing-library/react";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { TestUtils } from "../TestUtils";
 import { ColorPickerPopup } from "../../imodel-components-react/color/ColorPickerPopup";
-import { SpecialKey } from "../../imodel-components-react/inputs/SpecialKey";
+import { Key } from "ts-key-enum";
 
 describe("<ColorPickerPopup/>", () => {
   const colorDef = ColorDef.create(ColorByName.blue);
@@ -330,7 +330,7 @@ describe("<ColorPickerPopup/>", () => {
     );
     fireEvent.change(inputs[0], { target: { value: "100" } });
     expect((inputs[0] as HTMLInputElement).value).to.eq("100");
-    fireEvent.keyDown(inputs[0], { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputs[0], { key: Key.Enter });
     spyOnChange.calledOnce.should.be.true;
   });
 
@@ -364,7 +364,7 @@ describe("<ColorPickerPopup/>", () => {
     );
     fireEvent.change(inputs[0], { target: { value: "100" } });
     expect((inputs[0] as HTMLInputElement).value).to.eq("100");
-    fireEvent.keyDown(inputs[0], { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputs[0], { key: Key.Enter });
     spyOnChange.calledOnce.should.be.true;
   });
 

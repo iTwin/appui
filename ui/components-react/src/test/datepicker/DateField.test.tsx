@@ -13,7 +13,7 @@ import { TimeDisplay } from "@itwin/appui-abstract";
 import { DateField } from "../../components-react/datepicker/DateField";
 import TestUtils from "../TestUtils";
 import { IntlFormatter } from "../../components-react/datepicker/IntlFormatter";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 // Note many test do not test exact time because it may yield different results depending on time zone of machine running test.
 
@@ -107,7 +107,7 @@ describe("<DateField />", () => {
     expect(localValue.match(/:/)).not.to.be.null; // should contain hour:minute separator.
     expect(input!.disabled).to.be.false;
     fireEvent.change(input!, { target: { value: localValue } });
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     input!.focus();
     fireEvent.change(input!, { target: { value: localValue } });
     input!.blur();
@@ -168,7 +168,7 @@ describe("<DateField />", () => {
     expect(input).not.to.be.null;
     expect(input!.value).to.eq("07-22-2018");
     fireEvent.change(input!, { target: { value: "07-04-2004" } });
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     expect(renderSpy).to.be.called;
     expect(input!.value).to.eq("07-04-2004");
     renderSpy.resetHistory();
@@ -178,7 +178,7 @@ describe("<DateField />", () => {
       )
     ).to.be.null;
     fireEvent.change(input!, { target: { value: "07-04-zzzz" } });
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     expect(renderSpy).not.to.be.called;
     // renderedComponent.debug();
     expect(
@@ -187,7 +187,7 @@ describe("<DateField />", () => {
       )
     ).not.to.be.null;
     fireEvent.change(input!, { target: { value: "07-04-2004" } });
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     expect(
       renderedComponent.container.querySelector(
         "input.components-date-has-error"

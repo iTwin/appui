@@ -18,7 +18,7 @@ import {
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { UiStateStorageStatus } from "@itwin/core-react";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 const myLocalStorage = storageMock();
 const KEYIN_PALETTE_NAMESPACE = "KeyinPalettePanel";
@@ -128,7 +128,7 @@ describe("<KeyinPalettePanel>", () => {
     fireEvent.change(selectInput, { target: { value: "two" } });
     await TestUtils.flushAsyncOperations();
     expect(renderedComponent.container.querySelectorAll("li").length).to.eq(1);
-    fireEvent.keyDown(selectInput, { key: SpecialKey.Enter });
+    fireEvent.keyDown(selectInput, { key: Key.Enter });
   });
 
   it("handles ctrl+key presses in select input ", async () => {
@@ -154,11 +154,11 @@ describe("<KeyinPalettePanel>", () => {
     fireEvent.change(selectInput, { target: { value: "two" } });
     await TestUtils.flushAsyncOperations();
     expect(renderedComponent.container.querySelectorAll("li").length).to.eq(1);
-    fireEvent.keyDown(selectInput, { key: SpecialKey.Enter, ctrlKey: true });
+    fireEvent.keyDown(selectInput, { key: Key.Enter, ctrlKey: true });
     await TestUtils.flushAsyncOperations();
     fireEvent.change(selectInput, { target: { value: "two" } });
     await TestUtils.flushAsyncOperations();
-    fireEvent.keyDown(selectInput, { key: SpecialKey.Tab });
+    fireEvent.keyDown(selectInput, { key: Key.Tab });
   });
 
   it("Handles keyboard running selection", async () => {
@@ -171,13 +171,13 @@ describe("<KeyinPalettePanel>", () => {
     const selectInput = renderedComponent.getByTestId(
       "command-palette-input"
     ) as HTMLInputElement;
-    fireEvent.keyDown(selectInput, { key: SpecialKey.ArrowDown });
+    fireEvent.keyDown(selectInput, { key: Key.ArrowDown });
 
     await TestUtils.flushAsyncOperations();
     const listComponent = renderedComponent.container.querySelector("ul");
     expect(listComponent).not.to.be.null;
-    fireEvent.keyDown(listComponent!, { key: SpecialKey.ArrowDown });
-    fireEvent.keyDown(listComponent!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(listComponent!, { key: Key.ArrowDown });
+    fireEvent.keyDown(listComponent!, { key: Key.Enter });
   });
 
   it("Handles keyboard updating input after CTRL + selection", async () => {
@@ -192,11 +192,11 @@ describe("<KeyinPalettePanel>", () => {
     ) as HTMLInputElement;
     expect(selectInput.value.length === 0);
     await TestUtils.flushAsyncOperations();
-    fireEvent.keyDown(selectInput, { key: SpecialKey.ArrowDown });
+    fireEvent.keyDown(selectInput, { key: Key.ArrowDown });
     const listComponent = renderedComponent.container.querySelector("ul");
     expect(listComponent).not.to.be.null;
-    fireEvent.keyDown(listComponent!, { key: SpecialKey.ArrowDown });
-    fireEvent.keyDown(listComponent!, { key: SpecialKey.Enter, ctrlKey: true });
+    fireEvent.keyDown(listComponent!, { key: Key.ArrowDown });
+    fireEvent.keyDown(listComponent!, { key: Key.Enter, ctrlKey: true });
     expect(selectInput.value.length > 0);
   });
 
@@ -245,7 +245,7 @@ describe("<KeyinPalettePanel>", () => {
     ) as HTMLInputElement;
     expect(selectInput.value.length === 0);
     // force a list item to get focus so focus value is set
-    fireEvent.keyDown(selectInput, { key: SpecialKey.ArrowDown });
+    fireEvent.keyDown(selectInput, { key: Key.ArrowDown });
 
     const liItems = renderedComponent.container.querySelectorAll("li");
     expect(liItems.length).to.eq(4);
@@ -331,7 +331,7 @@ describe("<KeyinPalettePanel>", () => {
       expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
         1
       );
-      fireEvent.keyDown(selectInput, { key: SpecialKey.Enter });
+      fireEvent.keyDown(selectInput, { key: Key.Enter });
     });
 
     it("handles ctrl+key presses in select input ", async () => {
@@ -367,11 +367,11 @@ describe("<KeyinPalettePanel>", () => {
       expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
         1
       );
-      fireEvent.keyDown(selectInput, { key: SpecialKey.Enter, ctrlKey: true });
+      fireEvent.keyDown(selectInput, { key: Key.Enter, ctrlKey: true });
       await TestUtils.flushAsyncOperations();
       fireEvent.change(selectInput, { target: { value: "two" } });
       await TestUtils.flushAsyncOperations();
-      fireEvent.keyDown(selectInput, { key: SpecialKey.Tab });
+      fireEvent.keyDown(selectInput, { key: Key.Tab });
     });
 
     it("Handles keyboard running selection", async () => {
@@ -384,13 +384,13 @@ describe("<KeyinPalettePanel>", () => {
       const selectInput = renderedComponent.getByTestId(
         "command-palette-input"
       ) as HTMLInputElement;
-      fireEvent.keyDown(selectInput, { key: SpecialKey.ArrowDown });
+      fireEvent.keyDown(selectInput, { key: Key.ArrowDown });
 
       await TestUtils.flushAsyncOperations();
       const listComponent = renderedComponent.container.querySelector("ul");
       expect(listComponent).not.to.be.null;
-      fireEvent.keyDown(listComponent!, { key: SpecialKey.ArrowDown });
-      fireEvent.keyDown(listComponent!, { key: SpecialKey.Enter });
+      fireEvent.keyDown(listComponent!, { key: Key.ArrowDown });
+      fireEvent.keyDown(listComponent!, { key: Key.Enter });
     });
 
     it("Handles listbox click processing", async () => {
@@ -450,7 +450,7 @@ describe("<KeyinPalettePanel>", () => {
       ) as HTMLInputElement;
       expect(selectInput.value.length === 0);
       // force a list item to get focus so focus value is set
-      fireEvent.keyDown(selectInput, { key: SpecialKey.ArrowDown });
+      fireEvent.keyDown(selectInput, { key: Key.ArrowDown });
 
       const liItems = renderedComponent.container.querySelectorAll("li");
       expect(liItems.length).to.eq(4);

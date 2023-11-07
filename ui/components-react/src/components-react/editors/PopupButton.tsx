@@ -18,7 +18,7 @@ import {
   SvgChevronDown,
   SvgRemove,
 } from "@itwin/itwinui-icons-react";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 /** Properties for [[PopupButton]] component
  * @alpha
@@ -103,9 +103,9 @@ export class PopupButton extends React.PureComponent<
   private _handleKeyDown = (event: React.KeyboardEvent) => {
     // istanbul ignore else
     if (
-      (event.key === SpecialKey.ArrowDown ||
-        event.key === SpecialKey.Space ||
-        event.key === SpecialKey.Enter) &&
+      (event.key === Key.ArrowDown ||
+        event.key === " " ||
+        event.key === Key.Enter) &&
       !this.state.showPopup
     ) {
       event.preventDefault();

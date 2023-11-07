@@ -5,10 +5,7 @@
 /** @packageDocumentation
  * @module KeyboardShortcut
  */
-import type {
-  FunctionKey,
-  SpecialKey,
-} from "@itwin/core-react";
+import type { Key } from "ts-key-enum";
 import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
 import type { ItemDefBase } from "../shared/ItemDefBase";
 import type { ItemProps } from "../shared/ItemProps";
@@ -20,7 +17,7 @@ export interface KeyboardShortcutProps extends ItemProps {
   /** The key that invokes the shortcut.
    * This is either an alphanumeric key, a function key or a special key.
    */
-  key: string | FunctionKey | SpecialKey;
+  key: string | Key;
 
   /** The item to execute when this shortcut is invoked. Either 'item' or 'shortcuts' must be specified. */
   item?: ActionButtonItemDef;

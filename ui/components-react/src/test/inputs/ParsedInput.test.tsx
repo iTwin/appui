@@ -9,7 +9,7 @@ import { fireEvent, render } from "@testing-library/react";
 import TestUtils from "../TestUtils";
 import { ParsedInput } from "../../components-react/inputs/ParsedInput";
 import type { ParseResults } from "@itwin/appui-abstract";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 function fahrenheitToCelsius(f: number) {
   return ((f - 32) * 5) / 9;
@@ -69,12 +69,12 @@ describe("ParsedInput", () => {
     ) as HTMLInputElement;
     expect(input.value).to.eq("20.0C");
     fireEvent.change(input, { target: { value: "32F" } });
-    fireEvent.keyDown(input, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input, { key: Key.Enter });
     expect(spyOnChange).to.have.been.called;
     spyOnChange.resetHistory();
     expect(input.value).to.eq("0.0C");
     fireEvent.change(input, { target: { value: "0.0C" } });
-    fireEvent.keyDown(input, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input, { key: Key.Enter });
     expect(spyOnChange).to.not.have.been.called;
   });
 
@@ -122,7 +122,7 @@ describe("ParsedInput", () => {
 
     // Escape does not change
     fireEvent.change(input, { target: { value: "20.0C" } });
-    fireEvent.keyDown(input, { key: SpecialKey.Escape });
+    fireEvent.keyDown(input, { key: Key.Escape });
     expect(spyOnChange).to.not.have.been.called;
   });
 
@@ -216,7 +216,7 @@ describe("ParsedInput", () => {
 
     // Should add "components-parsed-input-has-error" CSS class on bad input
     fireEvent.change(input, { target: { value: "XYZ" } });
-    fireEvent.keyDown(input, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input, { key: Key.Enter });
     expect(spyOnChange).to.not.have.been.called;
     expect(
       wrapper.container.querySelector(".components-parsed-input-has-error")

@@ -10,7 +10,7 @@ import { CommandItemDef, KeyboardShortcutMenu } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
 import { render, screen, waitFor } from "@testing-library/react";
-import { FunctionKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 describe("KeyboardShortcutMenu", () => {
   const testSpyMethod = sinon.spy();
@@ -46,7 +46,7 @@ describe("KeyboardShortcutMenu", () => {
         ],
       },
       {
-        key: FunctionKey.F7,
+        key: Key.F7,
         item: testCommand,
       },
       {

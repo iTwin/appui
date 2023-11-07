@@ -13,7 +13,7 @@ import { ConfigurableUiContent } from "../../appui-react/configurableui/Configur
 import { FrameworkToolAdmin } from "../../appui-react/tools/FrameworkToolAdmin";
 import userEvent from "@testing-library/user-event";
 import { CursorInformation, UiFramework } from "../../appui-react";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 describe("ConfigurableUiContent", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -38,7 +38,7 @@ describe("ConfigurableUiContent", () => {
     expect(await toolAdmin.processShortcutKey(keyEvent, true)).to.be.true;
     keyEvent = new KeyboardEvent("keyup", { key: "a" });
     expect(await toolAdmin.processShortcutKey(keyEvent, false)).to.be.false;
-    keyEvent = new KeyboardEvent("keydown", { key: SpecialKey.Escape });
+    keyEvent = new KeyboardEvent("keydown", { key: Key.Escape });
     expect(await toolAdmin.processShortcutKey(keyEvent, true)).to.be.false;
   });
 

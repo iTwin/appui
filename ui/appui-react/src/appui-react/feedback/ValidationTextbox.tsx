@@ -12,7 +12,7 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { MessageManager } from "../messages/MessageManager";
 import { Input } from "@itwin/itwinui-react";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 /** Enum for Input Status used in [[ValidationTextbox]]
  * @alpha
@@ -166,11 +166,11 @@ export class ValidationTextbox extends React.PureComponent<
     this.processValidateText(event.target as HTMLInputElement);
 
     switch (event.key) {
-      case SpecialKey.Escape:
+      case Key.Escape:
         // istanbul ignore else
         if (this.props.onEscPressed) this.props.onEscPressed();
         break;
-      case SpecialKey.Enter:
+      case Key.Enter:
         // istanbul ignore else
         if (this.props.onEnterPressed) this.props.onEnterPressed();
         break;

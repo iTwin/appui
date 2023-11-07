@@ -11,7 +11,7 @@ import type { TimeSpec } from "../../components-react/datepicker/TimeField";
 import { TimeField } from "../../components-react/datepicker/TimeField";
 import TestUtils from "../TestUtils";
 import { TimeDisplay } from "@itwin/appui-abstract";
-import { SpecialKey } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 
 describe("<TimeField />", () => {
   let renderSpy: sinon.SinonSpy;
@@ -159,31 +159,31 @@ describe("<TimeField />", () => {
     const hour = inputs[0];
     const cycle = inputs[2];
     expect(hour.value).to.eq("09");
-    fireEvent.keyDown(hour, { key: SpecialKey.ArrowUp });
+    fireEvent.keyDown(hour, { key: Key.ArrowUp });
     expect(renderSpy).to.be.called;
     expect(hour.value).to.eq("10");
-    fireEvent.keyDown(hour, { key: SpecialKey.ArrowDown });
-    fireEvent.keyDown(hour, { key: SpecialKey.ArrowDown });
+    fireEvent.keyDown(hour, { key: Key.ArrowDown });
+    fireEvent.keyDown(hour, { key: Key.ArrowDown });
     expect(hour.value).to.eq("08");
     fireEvent.change(hour, { target: { value: "06" } });
-    fireEvent.keyDown(hour, { key: SpecialKey.Enter });
+    fireEvent.keyDown(hour, { key: Key.Enter });
     expect(hour.value).to.eq("06");
     fireEvent.change(hour, { target: { value: "01" } });
-    fireEvent.keyDown(hour, { key: SpecialKey.Enter });
-    fireEvent.keyDown(hour, { key: SpecialKey.ArrowDown });
+    fireEvent.keyDown(hour, { key: Key.Enter });
+    fireEvent.keyDown(hour, { key: Key.ArrowDown });
     expect(hour.value).to.eq("12");
     expect(cycle.value).to.eq("timepicker.day-period-am");
-    fireEvent.keyDown(hour, { key: SpecialKey.ArrowDown });
+    fireEvent.keyDown(hour, { key: Key.ArrowDown });
     fireEvent.change(hour, { target: { value: "11" } });
-    fireEvent.keyDown(hour, { key: SpecialKey.Enter });
-    fireEvent.keyDown(hour, { key: SpecialKey.ArrowUp });
+    fireEvent.keyDown(hour, { key: Key.Enter });
+    fireEvent.keyDown(hour, { key: Key.ArrowUp });
     expect(hour.value).to.eq("12");
     expect(cycle.value).to.eq("timepicker.day-period-pm");
 
     // invalid time should cause input to revert to valid time
     hour.focus();
     fireEvent.change(hour, { target: { value: "26" } });
-    // fireEvent.keyDown(hour, { key: SpecialKey.Enter });
+    // fireEvent.keyDown(hour, { key: Key.Enter });
     hour.blur();
     await waitFor(() => expect(hour.value).to.eq("12"));
 
@@ -209,27 +209,27 @@ describe("<TimeField />", () => {
     expect(inputs.length).to.eq(3);
     const minute = inputs[1];
     expect(minute.value).to.eq("15");
-    fireEvent.keyDown(minute, { key: SpecialKey.ArrowUp });
+    fireEvent.keyDown(minute, { key: Key.ArrowUp });
     expect(renderSpy).to.be.called;
     expect(minute.value).to.eq("16");
-    fireEvent.keyDown(minute, { key: SpecialKey.ArrowDown });
-    fireEvent.keyDown(minute, { key: SpecialKey.ArrowDown });
+    fireEvent.keyDown(minute, { key: Key.ArrowDown });
+    fireEvent.keyDown(minute, { key: Key.ArrowDown });
     expect(minute.value).to.eq("14");
     fireEvent.change(minute, { target: { value: "30" } });
-    fireEvent.keyDown(minute, { key: SpecialKey.Enter });
+    fireEvent.keyDown(minute, { key: Key.Enter });
     expect(minute.value).to.eq("30");
     // invalid time should cause input to revert to valid time
     minute.focus();
     fireEvent.change(minute, { target: { value: "66" } });
     minute.blur();
     await waitFor(() => expect(minute.value).to.eq("30"));
-    fireEvent.keyDown(minute, { key: SpecialKey.Home });
+    fireEvent.keyDown(minute, { key: Key.Home });
     expect(minute.value).to.eq("00");
-    fireEvent.keyDown(minute, { key: SpecialKey.ArrowDown });
+    fireEvent.keyDown(minute, { key: Key.ArrowDown });
     expect(minute.value).to.eq("59");
-    fireEvent.keyDown(minute, { key: SpecialKey.End });
+    fireEvent.keyDown(minute, { key: Key.End });
     expect(minute.value).to.eq("59");
-    fireEvent.keyDown(minute, { key: SpecialKey.ArrowUp });
+    fireEvent.keyDown(minute, { key: Key.ArrowUp });
     expect(minute.value).to.eq("00");
   });
 
@@ -248,29 +248,29 @@ describe("<TimeField />", () => {
     expect(inputs.length).to.eq(4);
     const seconds = inputs[2];
     expect(seconds.value).to.eq("58");
-    fireEvent.keyDown(seconds, { key: SpecialKey.ArrowUp });
+    fireEvent.keyDown(seconds, { key: Key.ArrowUp });
     expect(renderSpy).to.be.called;
     expect(seconds.value).to.eq("59");
-    fireEvent.keyDown(seconds, { key: SpecialKey.ArrowDown });
-    fireEvent.keyDown(seconds, { key: SpecialKey.ArrowDown });
+    fireEvent.keyDown(seconds, { key: Key.ArrowDown });
+    fireEvent.keyDown(seconds, { key: Key.ArrowDown });
     expect(seconds.value).to.eq("57");
-    fireEvent.keyDown(seconds, { key: SpecialKey.ArrowUp });
-    fireEvent.keyDown(seconds, { key: SpecialKey.ArrowUp });
-    fireEvent.keyDown(seconds, { key: SpecialKey.ArrowUp });
+    fireEvent.keyDown(seconds, { key: Key.ArrowUp });
+    fireEvent.keyDown(seconds, { key: Key.ArrowUp });
+    fireEvent.keyDown(seconds, { key: Key.ArrowUp });
     expect(seconds.value).to.eq("00");
     fireEvent.change(seconds, { target: { value: "30" } });
-    fireEvent.keyDown(seconds, { key: SpecialKey.Enter });
+    fireEvent.keyDown(seconds, { key: Key.Enter });
     expect(seconds.value).to.eq("30");
     // invalid time should cause input to revert to valid time
     seconds.focus();
     fireEvent.change(seconds, { target: { value: "66" } });
     seconds.blur();
     await waitFor(() => expect(seconds.value).to.eq("30"));
-    fireEvent.keyDown(seconds, { key: SpecialKey.Home });
+    fireEvent.keyDown(seconds, { key: Key.Home });
     expect(seconds.value).to.eq("00");
-    fireEvent.keyDown(seconds, { key: SpecialKey.ArrowDown });
+    fireEvent.keyDown(seconds, { key: Key.ArrowDown });
     expect(seconds.value).to.eq("59");
-    fireEvent.keyDown(seconds, { key: SpecialKey.End });
+    fireEvent.keyDown(seconds, { key: Key.End });
     expect(seconds.value).to.eq("59");
   });
 
@@ -290,12 +290,12 @@ describe("<TimeField />", () => {
     const cycle = inputs[3];
     const hour = inputs[0];
     expect(cycle.value).to.eq("timepicker.day-period-am");
-    fireEvent.keyDown(cycle, { key: SpecialKey.ArrowUp });
+    fireEvent.keyDown(cycle, { key: Key.ArrowUp });
     expect(renderSpy).to.be.called;
     expect(cycle.value).to.eq("timepicker.day-period-pm");
-    fireEvent.keyDown(cycle, { key: SpecialKey.ArrowDown });
+    fireEvent.keyDown(cycle, { key: Key.ArrowDown });
     expect(cycle.value).to.eq("timepicker.day-period-am");
-    fireEvent.keyDown(cycle, { key: SpecialKey.End });
+    fireEvent.keyDown(cycle, { key: Key.End });
     expect(cycle.value).to.eq("timepicker.day-period-pm");
     fireEvent.keyDown(cycle, { key: "a" });
     expect(cycle.value).to.eq("timepicker.day-period-am");
@@ -305,23 +305,23 @@ describe("<TimeField />", () => {
     expect(cycle.value).to.eq("timepicker.day-period-am");
     fireEvent.keyDown(cycle, { key: "P" });
     expect(cycle.value).to.eq("timepicker.day-period-pm");
-    fireEvent.keyDown(cycle, { key: SpecialKey.Home });
+    fireEvent.keyDown(cycle, { key: Key.Home });
     expect(cycle.value).to.eq("timepicker.day-period-am");
 
     fireEvent.change(cycle, { target: { value: "pm" } });
-    fireEvent.keyDown(cycle, { key: SpecialKey.Enter });
+    fireEvent.keyDown(cycle, { key: Key.Enter });
     expect(cycle.value).to.eq("timepicker.day-period-pm");
 
     fireEvent.change(cycle, { target: { value: "am" } });
-    fireEvent.keyDown(cycle, { key: SpecialKey.Enter });
+    fireEvent.keyDown(cycle, { key: Key.Enter });
     expect(cycle.value).to.eq("timepicker.day-period-am");
 
     fireEvent.change(cycle, { target: { value: "PM" } });
-    fireEvent.keyDown(cycle, { key: SpecialKey.Enter });
+    fireEvent.keyDown(cycle, { key: Key.Enter });
     expect(cycle.value).to.eq("timepicker.day-period-pm");
 
     fireEvent.change(cycle, { target: { value: "AM" } });
-    fireEvent.keyDown(cycle, { key: SpecialKey.Enter });
+    fireEvent.keyDown(cycle, { key: Key.Enter });
     expect(cycle.value).to.eq("timepicker.day-period-am");
 
     cycle.focus();
@@ -331,28 +331,28 @@ describe("<TimeField />", () => {
 
     cycle.focus();
     fireEvent.change(hour, { target: { value: "22" } });
-    fireEvent.keyDown(hour, { key: SpecialKey.Enter });
+    fireEvent.keyDown(hour, { key: Key.Enter });
     fireEvent.change(cycle, { target: { value: "timepicker.day-period-am" } });
     cycle.blur();
     expect(cycle.value).to.eq("timepicker.day-period-am");
 
     cycle.focus();
     fireEvent.change(hour, { target: { value: "08" } });
-    fireEvent.keyDown(hour, { key: SpecialKey.Enter });
+    fireEvent.keyDown(hour, { key: Key.Enter });
     fireEvent.change(cycle, { target: { value: "PM" } });
     cycle.blur();
     await waitFor(() => expect(cycle.value).to.eq("timepicker.day-period-pm"));
 
     cycle.focus();
     fireEvent.change(hour, { target: { value: "22" } });
-    fireEvent.keyDown(hour, { key: SpecialKey.Enter });
+    fireEvent.keyDown(hour, { key: Key.Enter });
     fireEvent.change(cycle, { target: { value: "am" } });
     cycle.blur();
     await waitFor(() => expect(cycle.value).to.eq("timepicker.day-period-am"));
 
     cycle.focus();
     fireEvent.change(hour, { target: { value: "08" } });
-    fireEvent.keyDown(hour, { key: SpecialKey.Enter });
+    fireEvent.keyDown(hour, { key: Key.Enter });
     fireEvent.change(cycle, { target: { value: "timepicker.day-period-pm" } });
     cycle.blur();
     await waitFor(() => expect(cycle.value).to.eq("timepicker.day-period-pm"));

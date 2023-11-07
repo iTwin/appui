@@ -19,7 +19,7 @@ import {
   stubScrollIntoView,
 } from "../test-helpers/misc";
 import { QuantityFormatPanel } from "../../imodel-components-react/quantityformat/QuantityFormatPanel";
-import { SpecialKey } from "../../imodel-components-react/inputs/SpecialKey";
+import { Key } from "ts-key-enum";
 
 describe("QuantityInput", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -407,12 +407,12 @@ describe("QuantityInput", () => {
     await TestUtils.flushAsyncOperations();
 
     fireEvent.keyUp(renderedComponent.getByTestId("quantityFormat-more"), {
-      key: SpecialKey.Enter,
+      key: Key.Enter,
     });
     await TestUtils.flushAsyncOperations();
 
     fireEvent.keyUp(renderedComponent.getByTestId("quantityFormat-less"), {
-      key: SpecialKey.Space,
+      key: " ",
     });
     await TestUtils.flushAsyncOperations();
   });

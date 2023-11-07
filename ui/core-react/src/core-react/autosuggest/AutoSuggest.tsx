@@ -10,9 +10,9 @@ import "./AutoSuggest.scss";
 import * as React from "react";
 import * as ReactAutosuggest from "react-autosuggest";
 import { Logger } from "@itwin/core-bentley";
-import { SpecialKey } from "../utils/KeyboardKey";
 import type { CommonProps } from "../utils/Props";
 import { UiCore } from "../UiCore";
+import { Key } from "ts-key-enum";
 
 /** Data for the [[AutoSuggest]] options
  * @public
@@ -232,15 +232,15 @@ export class AutoSuggest extends React.PureComponent<
 
   private _handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     switch (e.key) {
-      case SpecialKey.Enter:
+      case Key.Enter:
         // istanbul ignore else
         if (this.props.onPressEnter) this.props.onPressEnter(e);
         break;
-      case SpecialKey.Escape:
+      case Key.Escape:
         // istanbul ignore else
         if (this.props.onPressEscape) this.props.onPressEscape(e);
         break;
-      case SpecialKey.Tab:
+      case Key.Tab:
         // istanbul ignore else
         if (this.props.onPressTab) this.props.onPressTab(e);
         break;

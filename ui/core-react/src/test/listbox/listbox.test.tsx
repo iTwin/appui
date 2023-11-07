@@ -7,9 +7,9 @@ import * as React from "react";
 import * as sinon from "sinon";
 
 import { fireEvent, render } from "@testing-library/react";
-import { SpecialKey } from "../../core-react/utils/KeyboardKey";
 import type { ListboxValue } from "../../core-react/listbox/Listbox";
 import { Listbox, ListboxItem } from "../../core-react/listbox/Listbox";
+import { Key } from "ts-key-enum";
 
 describe("<ListBox />", () => {
   const listItems = [
@@ -204,7 +204,7 @@ describe("<ListBox />", () => {
     expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[2]);
 
     // set list box selection using space key
-    fireEvent.keyDown(listBoxElement!, { key: SpecialKey.Space });
+    fireEvent.keyDown(listBoxElement!, { key: " " });
     // ensure list box value is set to match
     expect(listBoxElement!.getAttribute("data-value")).to.eq(listItems[2]);
 
@@ -286,7 +286,7 @@ describe("<ListBox />", () => {
     expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[5]);
 
     // set list box selection using space key
-    fireEvent.keyDown(listBoxElement!, { key: SpecialKey.Space });
+    fireEvent.keyDown(listBoxElement!, { key: " " });
     // ensure list box value is set to match
     expect(listBoxElement!.getAttribute("data-value")).to.eq(listItems[5]);
 
@@ -361,12 +361,12 @@ describe("<ListBox />", () => {
 
     // hitting spacebar below should trigger onListboxValueChange
     expect(onListboxValueChangeCalled).to.be.false;
-    fireEvent.keyDown(listBoxElement!, { key: SpecialKey.Space });
+    fireEvent.keyDown(listBoxElement!, { key: " " });
     expect(onListboxValueChangeCalled).to.be.true;
     expect(spyOnKeyboard.notCalled);
     spyOnKeyboard.resetHistory();
 
-    fireEvent.keyDown(listBoxElement!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(listBoxElement!, { key: Key.Enter });
     expect(spyOnKeyboard.calledOnce);
     spyOnKeyboard.resetHistory();
 
