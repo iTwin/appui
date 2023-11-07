@@ -655,34 +655,6 @@ export interface FocusTrapProps extends React_2.AllHTMLAttributes<any> {
     returnFocusOnDeactivate: boolean;
 }
 
-// @internal
-export enum FunctionKey {
-    // (undocumented)
-    F1 = "F1",
-    // (undocumented)
-    F10 = "F10",
-    // (undocumented)
-    F11 = "F11",
-    // (undocumented)
-    F12 = "F12",
-    // (undocumented)
-    F2 = "F2",
-    // (undocumented)
-    F3 = "F3",
-    // (undocumented)
-    F4 = "F4",
-    // (undocumented)
-    F5 = "F5",
-    // (undocumented)
-    F6 = "F6",
-    // (undocumented)
-    F7 = "F7",
-    // (undocumented)
-    F8 = "F8",
-    // (undocumented)
-    F9 = "F9"
-}
-
 // @public
 export function Gap(props: GapProps): JSX.Element;
 
@@ -853,9 +825,6 @@ export enum InputStatus {
     // (undocumented)
     Warning = "warning"
 }
-
-// @internal
-export function isArrowKey(key: string): boolean;
 
 // @internal
 export const isHTMLElement: (message: MessageType) => message is HTMLElement;
@@ -1601,54 +1570,6 @@ export enum SortDirection {
     Descending = 2,
     // (undocumented)
     NoSort = 0
-}
-
-// @internal
-export enum SpecialKey {
-    // (undocumented)
-    Add = "Add",
-    // (undocumented)
-    ArrowDown = "ArrowDown",
-    // (undocumented)
-    ArrowLeft = "ArrowLeft",
-    // (undocumented)
-    ArrowRight = "ArrowRight",
-    // (undocumented)
-    ArrowUp = "ArrowUp",
-    // (undocumented)
-    Backspace = "Backspace",
-    // (undocumented)
-    Clear = "Clear",
-    // (undocumented)
-    Decimal = "Decimal",
-    // (undocumented)
-    Delete = "Delete",
-    // (undocumented)
-    Divide = "Divide",
-    // (undocumented)
-    End = "End",
-    // (undocumented)
-    Enter = "Enter",
-    // (undocumented)
-    Escape = "Escape",
-    // (undocumented)
-    Home = "Home",
-    // (undocumented)
-    Insert = "Insert",
-    // (undocumented)
-    Multiply = "Multiply",
-    // (undocumented)
-    PageDown = "PageDown",
-    // (undocumented)
-    PageUp = "PageUp",
-    // (undocumented)
-    Return = "Enter",
-    // (undocumented)
-    Space = " ",
-    // (undocumented)
-    Subtract = "Subtract",
-    // (undocumented)
-    Tab = "Tab"
 }
 
 // @public
