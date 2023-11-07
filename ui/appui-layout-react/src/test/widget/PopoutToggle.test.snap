@@ -10,7 +10,7 @@ exports[`PopoutToggle should render 1`] = `
     >
       <div>
         <svg-loader
-          src="/source/appui/ui/appui-layout-react/lib/cjs/appui-layout-react/widget/window-popout.svg"
+          src="/ui/appui-layout-react/lib/cjs/appui-layout-react/widget/window-popout.svg"
         />
       </div>
     </i>
