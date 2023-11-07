@@ -17,6 +17,7 @@ import { DockedToolSettingsOverflow } from "./Overflow";
 import { ToolSettingsOverflowPanel } from "./Panel";
 import { AnimateDockedToolSettingsContext } from "../base/NineZone";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { usePreviewFeatures } from "../preview/PreviewFeatures";
 
 /** @internal */
 export function onOverflowLabelAndEditorResize() {}
@@ -60,6 +61,7 @@ export interface DockedToolSettingsProps extends CommonProps {
  */
 export function DockedToolSettings(props: DockedToolSettingsProps) {
   const [open, setOpen] = React.useState(false);
+  const { contentAlwaysMaxSize } = usePreviewFeatures();
   const animateToolSettings = React.useContext(
     AnimateDockedToolSettingsContext
   );
@@ -128,7 +130,12 @@ export function DockedToolSettings(props: DockedToolSettingsProps) {
   const PanelContainer = props.panelContainer
     ? props.panelContainer
     : DefaultPanelContainer;
-  const className = classnames("nz-toolSettings-docked", props.className);
+  const className = classnames(
+    "nz-toolSettings-docked",
+    props.className,
+    // istanbul ignore next (preview)
+    contentAlwaysMaxSize && "preview-contentAlwaysMaxSize"
+  );
   return (
     <div
       data-toolsettings-provider={props.itemId}

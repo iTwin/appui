@@ -65,6 +65,7 @@ import {
   SyncUiEventDispatcher,
   SyncUiEventId,
 } from "./syncui/SyncUiEventDispatcher";
+import type { PreviewFeatures } from "./preview/PreviewFeatures";
 
 // cSpell:ignore Mobi
 
@@ -862,5 +863,29 @@ export class UiFramework {
   public static get isContextMenuOpen(): boolean {
     const contextMenu = document.querySelector("div.core-context-menu-opened");
     return contextMenu !== null && contextMenu !== undefined;
+  }
+
+  /**
+   * Set which preview features are enabled. These features are not yet ready for production use nor have
+   * a proper API defined yet.
+   * The available set of features are defined in the [[PreviewFeatures]] interface.
+   * @param features Set of feature to enable.
+   * @beta
+   */
+  public static setPreviewFeatures(features: PreviewFeatures) {
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetPreviewFeatures,
+      features
+    );
+  }
+
+  /**
+   * Get which preview features are enabled. These features are not yet ready for production use.
+   * @beta
+   */
+  public static get previewFeatures(): PreviewFeatures {
+    return (
+      UiFramework.frameworkState?.configurableUiState.previewFeatures ?? {}
+    );
   }
 }
