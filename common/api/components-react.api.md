@@ -9,6 +9,7 @@
 import type { ActionButton } from '@itwin/appui-abstract';
 import { AlternateDateFormats } from '@itwin/appui-abstract';
 import { BeEvent } from '@itwin/core-bentley';
+import { BeUiEvent } from '@itwin/core-bentley';
 import { CheckBoxState } from '@itwin/core-react';
 import type { CommonProps } from '@itwin/core-react';
 import type { CommonToolbarItem } from '@itwin/appui-abstract';
@@ -42,7 +43,6 @@ import { RelativePosition } from '@itwin/appui-abstract';
 import type { SelectOption } from '@itwin/itwinui-react';
 import { TimeDisplay } from '@itwin/appui-abstract';
 import { TimeFormat } from '@itwin/core-react';
-import { UiEvent } from '@itwin/appui-abstract';
 
 // @public
 export abstract class AbstractTreeNodeLoader implements ITreeNodeLoader {
@@ -3281,7 +3281,7 @@ export class TreeModelSource {
     constructor(_model?: MutableTreeModel);
     getModel(): TreeModel;
     modifyModel(callback: (model: MutableTreeModel) => void): void;
-    onModelChanged: UiEvent<[TreeModel, TreeModelChanges]>;
+    onModelChanged: BeUiEvent<[TreeModel, TreeModelChanges]>;
 }
 
 // @public

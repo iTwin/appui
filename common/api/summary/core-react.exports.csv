@@ -72,7 +72,6 @@ internal;getBestBWContrastColor(hexColor: string): "black" | "white"
 public;getCssVariable(variableName: string, htmlElement?: HTMLElement): string
 public;getCssVariableAsNumber(variableName: string, htmlElement?: HTMLElement): number
 internal;getDisplayName: (component: React_2.ComponentType
-internal;getObjectClassName: (obj: any) => string
 internal;getToolbarBackdropFilter: (filterBlur: number) => string
 internal;getToolbarBackgroundColor: (opacity: number) => string
 internal;getToolbarBoxShadow: (opacity: number) => string
