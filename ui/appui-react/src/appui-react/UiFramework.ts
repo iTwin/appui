@@ -89,7 +89,7 @@ export interface UiVisibilityEventArgs {
 /** UiVisibility Event class.
  * @public
  */
-export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> { }
+export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {}
 
 /** TrackingTime time argument used by our feature tracking manager as an option argument to the TelemetryClient
  * @internal
@@ -493,7 +493,7 @@ export class UiFramework {
       if (-1 !== foundIndex) {
         const scope =
           UiFramework.frameworkState.sessionState.availableSelectionScopes[
-          foundIndex
+            foundIndex
           ];
         UiFramework.dispatchActionToStore(
           SessionStateActionId.SetSelectionScope,
@@ -676,7 +676,7 @@ export class UiFramework {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.availableSelectionScopes
       : /* istanbul ignore next */
-      [{ id: "element", label: "Element" } as PresentationSelectionScope];
+        [{ id: "element", label: "Element" } as PresentationSelectionScope];
   }
 
   public static getIsUiVisible() {
@@ -787,7 +787,7 @@ export class UiFramework {
   public static get useToolAsToolSettingsLabel(): boolean {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState
-        .useToolAsToolSettingsLabel
+          .useToolAsToolSettingsLabel
       : /* istanbul ignore next */ false;
   }
   public static setUseToolAsToolSettingsLabel(value: boolean) {
@@ -805,7 +805,7 @@ export class UiFramework {
   public static get autoCollapseUnpinnedPanels(): boolean {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState
-        .autoCollapseUnpinnedPanels
+          .autoCollapseUnpinnedPanels
       : /* istanbul ignore next */ false;
   }
 

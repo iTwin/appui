@@ -53,7 +53,6 @@ enum SpecialKey {
   Decimal = "Decimal",
 }
 
-
 /** Keyboard Shortcut used to execute an action
  * @public
  */
