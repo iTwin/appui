@@ -24,10 +24,13 @@ require("ignore-styles").default(
   [".css", ".scss", ".sass", ".svg"],
   (module, filename) => {
     if (filename.endsWith(".svg")) {
-      let filePath = filename;
-      const homeDir = os.homedir();
-      console.log(homeDir, filename);
-      if (homeDir) filePath = filename.replace(homeDir, "");
+      console.log(process.env.CI);
+      console.log(process.env.BUILD_SOURCES_DIRECTORY);
+      const toReplace = process.env.CI
+        ? process.env.BUILD_SOURCES_DIRECTORY
+        : os.homedir();
+      const filePath = filename.replace(toReplace, "");
+      console.log(`${filename}->${filePath}`);
       module.exports = { default: filePath };
     }
   }
