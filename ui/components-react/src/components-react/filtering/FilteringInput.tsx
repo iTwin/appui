@@ -16,7 +16,7 @@ import { UiComponents } from "../UiComponents";
 import type { ResultSelectorProps } from "./ResultSelector";
 import { ResultSelector } from "./ResultSelector";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
-import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react";
 
 /** [[FilteringInput]] React Component state
  * @internal

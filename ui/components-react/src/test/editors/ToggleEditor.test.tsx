@@ -11,7 +11,7 @@ import { EditorContainer } from "../../components-react/editors/EditorContainer"
 import { ToggleEditor } from "../../components-react/editors/ToggleEditor";
 import TestUtils, { MineDataController, userEvent } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react";
 
 describe("<ToggleEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

@@ -13,7 +13,7 @@ import { EditorContainer } from "../../components-react/editors/EditorContainer"
 import { EnumButtonGroupEditor } from "../../components-react/editors/EnumButtonGroupEditor";
 import TestUtils, { MineDataController } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react";
 
 // cSpell:ignore enumbuttongroup
 

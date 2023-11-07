@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { UiFramework } from "../UiFramework";
-import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react";
 
 /** Keyboard Event handler to set focus to Home on Escape key
  * @internal

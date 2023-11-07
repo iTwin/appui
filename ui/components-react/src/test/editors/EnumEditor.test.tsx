@@ -16,7 +16,7 @@ import TestUtils, {
 } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 import { stubScrollIntoView } from "../test-helpers/misc";
-import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react";
 
 describe("<EnumEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

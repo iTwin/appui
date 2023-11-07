@@ -9,7 +9,7 @@ import sinon from "sinon";
 import * as React from "react";
 import { PopupButton } from "../../components-react/editors/PopupButton";
 import { selectorMatches, TestUtils, userEvent } from "../TestUtils";
-import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react";
 
 describe("<PopupButton />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

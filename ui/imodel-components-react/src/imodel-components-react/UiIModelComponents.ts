@@ -10,7 +10,7 @@ import { Logger } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
 import { UiComponents } from "@itwin/components-react";
 import { EmptyLocalization } from "@itwin/core-common";
-import { getObjectClassName } from "@itwin/core-react/lib/cjs/core-react/utils/getObjectClassName";
+import { getObjectClassName } from "@itwin/core-react";
 /**
  * Manages the localization service for the imodel-components-react package.
  * @public

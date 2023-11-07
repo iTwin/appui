@@ -13,7 +13,7 @@ import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
 import { PositionPopup } from "./PositionPopup";
 import { KeyinPalettePanel } from "./KeyinPalettePanel";
 import type { KeyinEntry } from "../uiadmin/FrameworkUiAdmin";
-import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react";
 
 /** Props defining KeyinPalettePopup component
  * @public */

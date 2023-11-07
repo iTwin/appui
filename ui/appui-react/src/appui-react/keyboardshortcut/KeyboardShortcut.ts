@@ -15,7 +15,7 @@ import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu";
 import {
   FunctionKey,
   SpecialKey,
-} from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
+} from "@itwin/core-react";
 
 /** Keyboard Shortcut used to execute an action
  * @public

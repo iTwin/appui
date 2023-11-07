@@ -12,7 +12,7 @@ import { Input } from "@itwin/itwinui-react";
 import type { CommonProps } from "@itwin/core-react";
 import type { ParseResults } from "@itwin/appui-abstract";
 import "./ParsedInput.scss";
-import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react";
 
 /** Props for [[ParsedInput]] control
  * @public

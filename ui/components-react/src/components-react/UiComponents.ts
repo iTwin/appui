@@ -10,7 +10,7 @@ import { enablePatches } from "immer";
 import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import { UiCore } from "@itwin/core-react";
-import { getObjectClassName } from "@itwin/core-react/lib/cjs/core-react/utils/getObjectClassName";
+import { getObjectClassName } from "@itwin/core-react";
 import { UiError } from "@itwin/appui-abstract";
 
 /**

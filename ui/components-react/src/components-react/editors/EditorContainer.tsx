@@ -16,7 +16,7 @@ import type {
   PropertyEditorBase,
 } from "./PropertyEditorManager";
 import { PropertyEditorManager } from "./PropertyEditorManager";
-import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react";
 
 /** Arguments for the Property Updated event callback
  * @public

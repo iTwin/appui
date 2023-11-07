@@ -8,7 +8,7 @@
 import type {
   FunctionKey,
   SpecialKey,
-} from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
+} from "@itwin/core-react";
 import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
 import type { ItemDefBase } from "../shared/ItemDefBase";
 import type { ItemProps } from "../shared/ItemProps";

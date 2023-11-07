@@ -18,7 +18,7 @@ import {
   KeyboardShortcutProps,
   UiFramework,
 } from "@itwin/appui-react";
-import { FunctionKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
+import { FunctionKey } from "@itwin/core-react";
 
 // cSpell:ignore uitestapp
 

@@ -11,7 +11,7 @@ import { EditorContainer } from "../../components-react/editors/EditorContainer"
 import { ImageCheckBoxEditor } from "../../components-react/editors/ImageCheckBoxEditor";
 import TestUtils, { MineDataController, userEvent } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { SpecialKey } from "@itwin/core-react/lib/cjs/core-react/utils/KeyboardKey";
+import { SpecialKey } from "@itwin/core-react";
 
 describe("<ImageCheckBoxEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
