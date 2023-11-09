@@ -60,6 +60,24 @@ Table of contents:
   UiItemsManager.register(provider, { stageIds: ["stage1"] });
   ```
 
+- Introduce preview features.
+
+  `UiFramework.setPreviewFeatures()` method allows to enable preview features for the application. The interface is built so the application can enable preview features and will not break when new preview features are added or removed in the future.
+
+  Preview features should not have any other API than the `UiFramework.setPreviewFeatures()` method, which can potentially allow for settings if needed. Once the feature is validated by the community, it will be promoted to a stable feature with a proper API.
+
+  Only a warning will be displayed in the console when an unknown preview feature is enabled, in development mode. In production mode, unknown preview features will be ignored.
+
+  Usage example:
+
+  ```ts
+  UiFramework.setPreviewFeatures({
+    contentAlwaysMaxSize: true,
+  });
+  ```
+
+- `contentAlwaysMaxSize` is the first preview features that is introduced. When enabled, the content no longer gets resized by panels or docking the tool settings. This allows for a more consistent experience when the content is always the same size, regardless of the panels or tool settings being open, closed or floating.
+
 ### Changes
 
 - `AppNotificationManager` no longer requires `StatusBar` to be rendered in the active frontstage to show messages.

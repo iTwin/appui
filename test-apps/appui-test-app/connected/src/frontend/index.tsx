@@ -108,6 +108,7 @@ import {
   FloatingWidgetsUiItemsProvider,
   InspectUiItemInfoToolProvider,
   PopoutWindowsFrontstage,
+  PreviewFeaturesToggleProvider,
   SynchronizedFloatingViewportStage,
   WidgetApiStage,
 } from "@itwin/appui-test-providers";
@@ -385,6 +386,7 @@ export class SampleAppIModelApp {
         AppUiTestProviders.localizationNamespace
       )
     );
+    UiItemsManager.register(new PreviewFeaturesToggleProvider());
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers

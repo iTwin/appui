@@ -297,5 +297,16 @@ describe("ConfigurableUiReducer", () => {
       ConfigurableUiActions.setToolbarOpacity(0.9)
     );
     expect(outState.toolbarOpacity).to.be.eql(0.9);
+
+    outState = ConfigurableUiReducer(
+      initialState,
+      ConfigurableUiActions.setPreviewFeatures({
+        contentAlwaysMaxSize: true,
+        randomFeature: "random",
+      })
+    );
+    expect(outState.previewFeatures).to.be.eql({
+      contentAlwaysMaxSize: true,
+    });
   });
 });
