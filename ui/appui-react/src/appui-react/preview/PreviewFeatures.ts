@@ -5,6 +5,9 @@
 import { useSelector } from "react-redux";
 import type { FrameworkRootState } from "../redux/StateManager";
 import { UiFramework } from "../UiFramework";
+/** @packageDocumentation
+ * @module Utilities
+ */
 
 /**
  * List of known preview features.
