@@ -668,11 +668,10 @@ export function NineZoneStateReducer(
       const nzBounds = Rectangle.createFromSize(state.size);
       const containedBounds = preferredBounds.containIn(nzBounds);
 
-      const userSized = position
-        ? tab.userSized ||
-          (tab.isFloatingWidgetResizable &&
-            /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize)
-        : undefined;
+      const userSized =
+        tab.userSized ||
+        (tab.isFloatingWidgetResizable &&
+          /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
 
       if (isPanelTabLocation(location)) {
         const panel = state.panels[location.side];
