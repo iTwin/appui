@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-// Defined as an object so we can access the keys for runtime validation.
-
 import { useSelector } from "react-redux";
 import type { FrameworkRootState } from "../redux/StateManager";
 import { UiFramework } from "../UiFramework";
@@ -17,6 +15,10 @@ interface KnownPreviewFeatures {
    * The content will never change size.
    */
   contentAlwaysMaxSize: boolean;
+  /**
+   * If true, the floating widget will have a "maximize" button.
+   */
+  enableMaximizedFloatingWidget: boolean;
 }
 
 /**
@@ -25,6 +27,7 @@ interface KnownPreviewFeatures {
  */
 const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   contentAlwaysMaxSize: undefined,
+  enableMaximizedFloatingWidget: undefined,
 };
 
 /**
@@ -32,7 +35,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
  * This list is expected to change over time, the interface is made
  * so that new features can be added or removed without breaking existing code.
  * A console warning will simply appear if unknown features are passed.
- * @public
+ * @beta
  */
 export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
   [featureName: string]: any;

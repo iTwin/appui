@@ -39,6 +39,7 @@ import { WidgetOutline } from "../outline/WidgetOutline";
 import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import type { XAndY } from "../state/internal/NineZoneStateHelpers";
+import { usePreviewFeatures } from "../preview/PreviewFeatures";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle =
@@ -93,12 +94,21 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   );
   const dragged = useIsDraggedItem(item);
   const ref = useHandleAutoSize(dragged);
+  const { enableMaximizedFloatingWidget, previewState: previewState } =
+    usePreviewFeatures();
+  // istanbul ignore next (preview)
+  const previewMaximizedWidgetSectionsClass =
+    previewState.maximizedWidget === id &&
+    enableMaximizedFloatingWidget &&
+    "preview-enableMaximizedFloatingWidget-maximized";
+
   const className = classnames(
     "nz-widget-floatingWidget",
     dragged && "nz-dragged",
     isToolSettingsTab && "nz-floating-toolSettings",
     minimized && "nz-minimized",
-    hideFloatingWidget && "nz-hidden"
+    hideFloatingWidget && "nz-hidden",
+    previewMaximizedWidgetSectionsClass
   );
   const style = React.useMemo(() => {
     const boundsRect = Rectangle.create(bounds);
@@ -193,6 +203,8 @@ function useHandleAutoSize(dragged: boolean) {
   const userSized = useLayout(
     (state) => state.floatingWidgets.byId[id].userSized
   );
+  const { previewState } = usePreviewFeatures();
+  const maximized = previewState.maximizedWidget === id;
 
   const updatePosition = React.useRef(true);
   const ref = React.useRef<HTMLDivElement>(null);
@@ -200,6 +212,8 @@ function useHandleAutoSize(dragged: boolean) {
   React.useLayoutEffect(() => {
     if (!updatePosition.current) return;
     if (!dragged) return;
+    // istanbul ignore next (preview)
+    if (maximized) return;
     if (!dragManager.draggedItem) return;
     if (!ref.current) return;
 
@@ -229,10 +243,12 @@ function useHandleAutoSize(dragged: boolean) {
       userSized: true,
     });
     updatePosition.current = false;
-  }, [dragged, dragManager, dispatch, id, measureNz]);
+  }, [dragged, dragManager, dispatch, id, measureNz, maximized]);
   const handleResize = React.useCallback(() => {
     if (!ref.current) return;
     if (dragged) return;
+    // istanbul ignore next (preview)
+    if (maximized) return;
     if (userSized) return;
 
     let bounds = Rectangle.create(ref.current.getBoundingClientRect());
@@ -246,7 +262,7 @@ function useHandleAutoSize(dragged: boolean) {
       id,
       bounds,
     });
-  }, [dispatch, dragged, id, userSized, measureNz]);
+  }, [dispatch, dragged, id, userSized, measureNz, maximized]);
   const roRef = useResizeObserver(handleResize);
   const refs = useRefs(ref, roRef);
   return refs;
