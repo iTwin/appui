@@ -413,6 +413,10 @@ export class WidgetDef {
         frontstageDef.dispatch({
           type: "WIDGET_TAB_FLOAT",
           id: this.id,
+          position:
+            this.defaultState === WidgetState.Hidden && !this.stateChanged
+              ? this._defaultFloatingPosition
+              : undefined,
         });
         break;
       }
