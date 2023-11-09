@@ -31,7 +31,7 @@ export function PreviewMaximizeToggle() {
     previewEnableMaximizedFloatingWidget
       ? {
           id: undefined,
-          title: "Minimize",
+          title: "Restore",
           iconSpec: <SvgWindowMinimize />,
         }
       : {
