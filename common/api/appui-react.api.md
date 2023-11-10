@@ -3511,7 +3511,7 @@ export interface PresentationSelectionScope {
     label: string;
 }
 
-// @beta
+// @public
 export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
     // (undocumented)
     [featureName: string]: any;
