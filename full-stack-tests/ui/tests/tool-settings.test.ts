@@ -201,4 +201,35 @@ test.describe("tool settings", () => {
     await expect(alabamaCity).toBeVisible();
     await expect(californiaCity).not.toBeVisible();
   });
+
+  test("should display tool updated tool settings when switching widget/docked mode", async ({
+    page,
+  }) => {
+    const toolButton = page.getByTitle("Sample Tool");
+    await toolButton.click();
+
+    const widgetToolSettings = tabLocator(page, "Tool Settings");
+    const defaultStateField = page.locator("[value='PA']");
+    await expect(defaultStateField).toBeVisible();
+
+    // Test undocking after initial edit of tool settings by the tool.
+    await page.type(".nz-widgetPanels-appContent", "q");
+
+    const updatedStateField = page.locator("[value='qPA']");
+    await expect(widgetToolSettings).not.toBeVisible();
+    await expect(updatedStateField).toBeVisible();
+    await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Floating);
+    await expect(widgetToolSettings).toBeVisible();
+    await expect(updatedStateField).toBeVisible();
+
+    // Test docking back after second edit of tool settings by the tool.
+    await page.type(".nz-widgetPanels-appContent", "q");
+
+    const finalStateField = page.locator("[value='qqPA']");
+    await expect(widgetToolSettings).toBeVisible();
+    await expect(finalStateField).toBeVisible();
+    await page.getByTitle("Dock to top").click();
+    await expect(widgetToolSettings).not.toBeVisible();
+    await expect(finalStateField).toBeVisible();
+  });
 });
