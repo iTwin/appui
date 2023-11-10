@@ -38,7 +38,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
  * This list is expected to change over time, the interface is made
  * so that new features can be added or removed without breaking existing code.
  * A console warning will simply appear if unknown features are passed.
- * @beta
+ * @public
  */
 export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
   [featureName: string]: any;
