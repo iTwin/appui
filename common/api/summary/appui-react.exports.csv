@@ -519,7 +519,6 @@ public;ToolWidgetComposer(props: ToolWidgetComposerProps): JSX.Element
 public;ToolWidgetComposerProps 
 internal;toPanelSide(location: StagePanelLocation): PanelSide
 internal;TrackingTime
-internal;trimToKnownFeaturesOnly(previewFeatures: PreviewFeatures): PreviewFeatures
 public;UiDataProvidedDialog({ uiDataProvider, id, isModal, ...dialogProps }: UiDataProvidedDialogProps): JSX.Element
 public;UiDataProvidedDialogProps
 public;UiFramework
@@ -560,7 +559,6 @@ internal;useItemsManager(frontstageDef: FrontstageDef): void
 internal;useLabels(): NineZoneLabels
 internal;useLayoutStore(frontstageDef: FrontstageDef | undefined): LayoutStore
 internal;useNineZoneDispatch(frontstageDef: FrontstageDef): NineZoneDispatch
-internal;usePreviewFeatures(): PreviewFeatures
 public;UserSettingsProvider
 internal;useSavedFrontstageState(frontstageDef: FrontstageDef): void
 internal;useSaveFrontstageSettings(frontstageDef: FrontstageDef, store: LayoutStore): void

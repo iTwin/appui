@@ -4779,9 +4779,6 @@ export interface TrackingTime {
     startTime: Date;
 }
 
-// @internal
-export function trimToKnownFeaturesOnly(previewFeatures: PreviewFeatures): PreviewFeatures;
-
 // @public
 export function UiDataProvidedDialog({ uiDataProvider, id, isModal, ...dialogProps }: UiDataProvidedDialogProps): JSX.Element;
 
@@ -5081,9 +5078,6 @@ export function useLayoutStore(frontstageDef: FrontstageDef | undefined): Layout
 
 // @internal (undocumented)
 export function useNineZoneDispatch(frontstageDef: FrontstageDef): NineZoneDispatch;
-
-// @internal
-export function usePreviewFeatures(): PreviewFeatures;
 
 // @public
 export interface UserSettingsProvider {

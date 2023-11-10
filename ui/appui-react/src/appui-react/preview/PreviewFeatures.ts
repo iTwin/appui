@@ -2,12 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { useSelector } from "react-redux";
-import type { FrameworkRootState } from "../redux/StateManager";
-import { UiFramework } from "../UiFramework";
 /** @packageDocumentation
  * @module Utilities
  */
+
+import { useSelector } from "react-redux";
+import type { FrameworkRootState } from "../redux/StateManager";
+import { UiFramework } from "../UiFramework";
 
 /**
  * List of known preview features.
