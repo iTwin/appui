@@ -77,7 +77,7 @@ export function getTabLocation(
     const index = widget.tabs.indexOf(id);
     if (index >= 0) {
       widgetId = widget.id;
-      break; //
+      break;
     }
   }
   if (!widgetId) return undefined;
