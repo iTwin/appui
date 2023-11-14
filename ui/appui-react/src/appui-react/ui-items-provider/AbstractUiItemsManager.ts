@@ -9,7 +9,7 @@
 /* eslint-disable deprecation/deprecation, @typescript-eslint/ban-ts-comment */
 
 import * as abstract from "@itwin/appui-abstract";
-import type { UiEvent } from "@itwin/appui-abstract";
+import type { BeUiEvent } from "@itwin/core-bentley";
 import { assert } from "@itwin/core-bentley";
 import type { IconSpec } from "@itwin/core-react";
 import { IconHelper } from "@itwin/core-react";
@@ -91,13 +91,13 @@ type Target = Pick<
 >;
 
 class AbstractUiItemsManagerAdapter implements Target {
-  constructor(private readonly _adaptee: typeof AbstractUiItemsManagerType) {}
+  constructor(private readonly _adaptee: typeof AbstractUiItemsManagerType) { }
 
   public clearAllProviders(): void {
     return this._adaptee.clearAllProviders();
   }
 
-  public get onUiProviderRegisteredEvent(): UiEvent<UiItemsProviderRegisteredEventArgs> {
+  public get onUiProviderRegisteredEvent(): BeUiEvent<UiItemsProviderRegisteredEventArgs> {
     if (!("emit" in this._adaptee.onUiProviderRegisteredEvent)) {
       (this._adaptee.onUiProviderRegisteredEvent as any).emit = (
         args: UiItemsProviderRegisteredEventArgs
@@ -106,7 +106,7 @@ class AbstractUiItemsManagerAdapter implements Target {
       };
     }
     return this._adaptee
-      .onUiProviderRegisteredEvent as UiEvent<UiItemsProviderRegisteredEventArgs>;
+      .onUiProviderRegisteredEvent as BeUiEvent<UiItemsProviderRegisteredEventArgs>;
   }
 
   public unregister(providerId: string): void {
