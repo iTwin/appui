@@ -17,6 +17,8 @@ Table of contents:
 
 ### Additions
 
+#### UiItemsProvider improvements
+
 - `UiItemsProvider` is enhanced by additional properties `getToolbarItems`, `getStatusBarItems`, `getBackstageItems`, `getWidgets` with an intention to replace existing `provideToolbarItems`, `provideStatusBarItems`, `provideBackstageItems`, `provideWidgets` to facilitate overriding scenarios.
   Additionally `layout` property is added to `ToolbarItem` and `Widget` types to define additional layout-specific properties of an item.
   Location arguments of `UiItemsProvider.provide*` methods are moved to `layout.standard`. #504
@@ -60,6 +62,8 @@ Table of contents:
   UiItemsManager.register(provider, { stageIds: ["stage1"] });
   ```
 
+#### Preview features
+
 - Introduce preview features.
 
   `UiFramework.setPreviewFeatures()` method allows to enable preview features for the application. The interface is built so the application can enable preview features and will not break when new preview features are added or removed in the future.
@@ -76,7 +80,11 @@ Table of contents:
   });
   ```
 
-- `contentAlwaysMaxSize` is the first preview features that is introduced. When enabled, the content no longer gets resized by panels or docking the tool settings. This allows for a more consistent experience when the content is always the same size, regardless of the panels or tool settings being open, closed or floating.
+  Note that every wanted preview features need to be set at the same time, as the method will override the existing preview features.
+
+- `contentAlwaysMaxSize` feature preview. When enabled, the content no longer gets resized by panels or docking the tool settings. This allows for a more consistent experience when the content is always the same size, regardless of the panels or tool settings being open, closed or floating.
+
+- `enableMaximizedFloatingWidget` feature preview. When enabled, floating widgets can be maximized to fill the entire screen. In this mode the widgets can still be popped out, or restored to their original size.
 
 ### Changes
 
