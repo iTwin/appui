@@ -91,7 +91,7 @@ type Target = Pick<
 >;
 
 class AbstractUiItemsManagerAdapter implements Target {
-  constructor(private readonly _adaptee: typeof AbstractUiItemsManagerType) { }
+  constructor(private readonly _adaptee: typeof AbstractUiItemsManagerType) {}
 
   public clearAllProviders(): void {
     return this._adaptee.clearAllProviders();
