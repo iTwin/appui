@@ -6,8 +6,7 @@
  * @module Settings
  */
 
-import { UiEvent } from "@itwin/appui-abstract";
-import { Logger } from "@itwin/core-bentley";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { UiCore } from "../UiCore";
 
@@ -39,7 +38,7 @@ export interface SettingsTabEntry {
 /** Event class for [[this.onSettingsProvidersChanged]] which is emitted when a new SettingsTabsProvider is added or removed.
  * @public
  */
-export class SettingsProvidersChangedEvent extends UiEvent<SettingsProvidersChangedEventArgs> {}
+export class SettingsProvidersChangedEvent extends BeUiEvent<SettingsProvidersChangedEventArgs> {}
 
 /** Arguments of [[this.onSettingsProvidersChanged]] event.
  * @public
@@ -52,7 +51,7 @@ export interface SettingsProvidersChangedEventArgs {
  * settings page to save its settings before activating the new SettingTab.
  * @public
  */
-export class ProcessSettingsTabActivationEvent extends UiEvent<ProcessSettingsTabActivationEventArgs> {}
+export class ProcessSettingsTabActivationEvent extends BeUiEvent<ProcessSettingsTabActivationEventArgs> {}
 
 /** Arguments of [[this.onProcessSettingsTabActivation]] event.
  * @public
@@ -66,12 +65,12 @@ export interface ProcessSettingsTabActivationEventArgs {
  * settings page to save its settings before calling the function to close the container.
  * @public
  */
-export class ProcessSettingsContainerCloseEvent extends UiEvent<ProcessSettingsContainerCloseEventArgs> {}
+export class ProcessSettingsContainerCloseEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> {}
 
 /** Event class for [[this.onCloseSettingsContainer]] which is monitored by the settings container and indicates that some out process want to close the settings container.
  * @internal
  */
-export class CloseSettingsContainerEvent extends UiEvent<ProcessSettingsContainerCloseEventArgs> {}
+export class CloseSettingsContainerEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> {}
 
 /** Arguments of [[this.onProcessSettingsContainerClose]] event.
  * @public
@@ -84,7 +83,7 @@ export interface ProcessSettingsContainerCloseEventArgs {
 /** Event class for [[this.onActivateSettingsTab]] which is emitted when API call needs to set the active settings tab (ie via Tool key-in).
  * @public
  */
-export class ActivateSettingsTabEvent extends UiEvent<ActivateSettingsTabEventArgs> {}
+export class ActivateSettingsTabEvent extends BeUiEvent<ActivateSettingsTabEventArgs> {}
 
 /** Arguments of [[this.onActivateSettingsTab]] event.
  * @public

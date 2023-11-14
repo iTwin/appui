@@ -6,9 +6,8 @@
  * @module UiProvider
  */
 
-import { UiEvent } from "@itwin/appui-abstract";
 import type { MarkRequired } from "@itwin/core-bentley";
-import { Logger } from "@itwin/core-bentley";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { BackstageItem } from "../backstage/BackstageItem";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection";
@@ -71,7 +70,7 @@ export class UiItemsManager {
   private static _registeredUiItemsProviders: Map<string, UiItemProviderEntry> =
     new Map<string, UiItemProviderEntry>();
   private static _onUiProviderRegisteredEvent =
-    new UiEvent<UiItemsProviderRegisteredEventArgs>();
+    new BeUiEvent<UiItemsProviderRegisteredEventArgs>();
   private static _abstractAdapter = createAbstractUiItemsManagerAdapter();
 
   /** For use in unit testing
@@ -94,7 +93,7 @@ export class UiItemsManager {
   }
 
   /** Event raised any time a UiProvider is registered or unregistered. */
-  public static get onUiProviderRegisteredEvent(): UiEvent<UiItemsProviderRegisteredEventArgs> {
+  public static get onUiProviderRegisteredEvent(): BeUiEvent<UiItemsProviderRegisteredEventArgs> {
     if (this._abstractAdapter)
       return this._abstractAdapter.onUiProviderRegisteredEvent;
 
