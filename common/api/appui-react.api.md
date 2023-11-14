@@ -19,6 +19,7 @@ import { BaseTimelineDataProvider } from '@itwin/imodel-components-react';
 import type { BeButtonEvent } from '@itwin/core-frontend';
 import type { BeDuration } from '@itwin/core-bentley';
 import { BeEvent } from '@itwin/core-bentley';
+import { BeUiEvent } from '@itwin/core-bentley';
 import type { ButtonProps } from '@itwin/itwinui-react';
 import { ColorDef } from '@itwin/core-common';
 import type { CommandHandler } from '@itwin/appui-abstract';
@@ -177,7 +178,7 @@ export interface AccuDrawDialogProps extends CommonProps {
 }
 
 // @beta
-export class AccuDrawGrabInputFocusEvent extends UiEvent<{}> {
+export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {
 }
 
 // @beta
@@ -204,7 +205,7 @@ export class AccuDrawPopupManager {
 }
 
 // @beta
-export class AccuDrawSetCompassModeEvent extends UiEvent<AccuDrawSetCompassModeEventArgs> {
+export class AccuDrawSetCompassModeEvent extends BeUiEvent<AccuDrawSetCompassModeEventArgs> {
 }
 
 // @beta
@@ -214,7 +215,7 @@ export interface AccuDrawSetCompassModeEventArgs {
 }
 
 // @beta
-export class AccuDrawSetFieldFocusEvent extends UiEvent<AccuDrawSetFieldFocusEventArgs> {
+export class AccuDrawSetFieldFocusEvent extends BeUiEvent<AccuDrawSetFieldFocusEventArgs> {
 }
 
 // @beta
@@ -224,7 +225,7 @@ export interface AccuDrawSetFieldFocusEventArgs {
 }
 
 // @beta
-export class AccuDrawSetFieldLockEvent extends UiEvent<AccuDrawSetFieldLockEventArgs> {
+export class AccuDrawSetFieldLockEvent extends BeUiEvent<AccuDrawSetFieldLockEventArgs> {
 }
 
 // @beta
@@ -236,7 +237,7 @@ export interface AccuDrawSetFieldLockEventArgs {
 }
 
 // @beta
-export class AccuDrawSetFieldValueFromUiEvent extends UiEvent<AccuDrawSetFieldValueFromUiEventArgs> {
+export class AccuDrawSetFieldValueFromUiEvent extends BeUiEvent<AccuDrawSetFieldValueFromUiEventArgs> {
 }
 
 // @beta
@@ -248,7 +249,7 @@ export interface AccuDrawSetFieldValueFromUiEventArgs {
 }
 
 // @beta
-export class AccuDrawSetFieldValueToUiEvent extends UiEvent<AccuDrawSetFieldValueToUiEventArgs> {
+export class AccuDrawSetFieldValueToUiEvent extends BeUiEvent<AccuDrawSetFieldValueToUiEventArgs> {
 }
 
 // @beta
@@ -291,7 +292,7 @@ export interface AccuDrawUiSettings {
 }
 
 // @beta
-export class AccuDrawUiSettingsChangedEvent extends UiEvent<{}> {
+export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {
 }
 
 // @beta
@@ -4919,7 +4920,7 @@ export class UiItemsManager {
     static getUiItemsProvider(providerId: string): UiItemsProvider | undefined;
     static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<ProviderItem<Widget>>;
     static get hasRegisteredProviders(): boolean;
-    static get onUiProviderRegisteredEvent(): UiEvent<UiItemsProviderRegisteredEventArgs>;
+    static get onUiProviderRegisteredEvent(): BeUiEvent<UiItemsProviderRegisteredEventArgs>;
     static register(uiProvider: UiItemsProvider, overrides?: UiItemsProviderOverrides): void;
     static get registeredProviderIds(): string[];
     static unregister(providerId: string): void;
@@ -5521,7 +5522,7 @@ export function WidgetPanelsToolbars(): JSX.Element;
 export function WidgetPanelsToolSettings(): JSX.Element | null;
 
 // @internal
-export class WidgetsChangedEvent extends UiEvent<WidgetsChangedEventArgs> {
+export class WidgetsChangedEvent extends BeUiEvent<WidgetsChangedEventArgs> {
 }
 
 // @internal

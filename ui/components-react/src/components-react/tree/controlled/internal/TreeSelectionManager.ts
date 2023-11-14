@@ -61,7 +61,7 @@ export function isRangeSelection(selection: any): selection is RangeSelection {
 /** @internal */
 export class TreeSelectionManager
   implements
-  Pick<TreeActions, "onNodeClicked" | "onNodeMouseDown" | "onNodeMouseMove">
+    Pick<TreeActions, "onNodeClicked" | "onNodeMouseDown" | "onNodeMouseMove">
 {
   private _selectionHandler: SelectionHandler<Selection>;
   private _dragSelectionOperation?: Subject<SelectionModificationEvent>;
@@ -213,9 +213,9 @@ export class TreeSelectionManager
     };
 
     const singleSelectionHandler: SingleSelectionHandler<string> = {
-      preselect: () => { },
-      select: () => { },
-      deselect: () => { },
+      preselect: () => {},
+      select: () => {},
+      deselect: () => {},
       isSelected: () => {
         if (deselectedAll) {
           return false;
@@ -320,13 +320,13 @@ class ItemHandler implements SingleSelectionHandler<string> {
   }
 
   /* istanbul ignore next: noop */
-  public preselect() { }
+  public preselect() {}
 
   /* istanbul ignore next: noop */
-  public select() { }
+  public select() {}
 
   /* istanbul ignore next: noop */
-  public deselect() { }
+  public deselect() {}
 
   // eslint-disable-next-line @itwin/prefer-get
   public isSelected(): boolean {
