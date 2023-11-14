@@ -222,10 +222,16 @@ test.describe("tool settings", () => {
     await expect(widgetToolSettings).toBeVisible();
     await expect(updatedStateField).toBeVisible();
 
+    // Type something at the end of the state field to simulate user editing the tool settings.
+    await updatedStateField.focus();
+    await updatedStateField.press("End"); // type("type in field") only would add to the start of the filed, we want to validate the "e" wasn't added by the tool behavior.
+    await updatedStateField.type("type in field");
+    await page.locator("[value='qPAtype in field']").blur();
+
     // Test docking back after second edit of tool settings by the tool.
     await page.type(".nz-widgetPanels-appContent", "q");
 
-    const finalStateField = page.locator("[value='qqPA']");
+    const finalStateField = page.locator("[value='qqPAtype in field']");
     await expect(widgetToolSettings).toBeVisible();
     await expect(finalStateField).toBeVisible();
     await page.getByTitle("Dock to top").click();
