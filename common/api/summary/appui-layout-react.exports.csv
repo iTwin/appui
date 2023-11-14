@@ -262,7 +262,7 @@ internal;useMode(widgetId: string): "fit" | "fill" | "minimized"
 internal;usePanelsAutoCollapse
 internal;UsePanelTargetArgs
 internal;usePointerCaptor: 
-internal;usePreviewFeatures: () => PreviewFeaturesState
+internal;usePreviewFeatures: () => KnownPreviewFeatures &
 internal;useResizeGrip: 
 internal;useSendBackHomeState():
 internal;useTabInteractions

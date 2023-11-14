@@ -48,6 +48,21 @@
       visibility: hidden;
     }
   }
+
+  &.preview-enableMaximizedFloatingWidget-maximized {
+    transform: unset !important;
+    height: unset !important;
+    width: unset !important;
+    max-height: unset !important;
+    max-width: unset !important;
+    opacity: 1 !important;
+    border-radius: unset !important;
+    inset: 0;
+
+    .nz-widget-floatingWidget_handle {
+      visibility: hidden;
+    }
+  }
 }
 
 .nz-widget-floatingWidget_handle {

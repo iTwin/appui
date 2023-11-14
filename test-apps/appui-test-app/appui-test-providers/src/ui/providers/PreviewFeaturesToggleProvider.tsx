@@ -15,6 +15,10 @@ import * as React from "react";
 
 const featureList = [
   { id: "contentAlwaysMaxSize", label: "Content is always maximum size" },
+  {
+    id: "enableMaximizedFloatingWidget",
+    label: "Enable maximized floating widgets",
+  },
 ];
 function PreviewFeatureList() {
   const [activeFeatureList, setActiveFeatureList] = React.useState<string[]>(
@@ -24,6 +28,9 @@ function PreviewFeatureList() {
   React.useEffect(() => {
     UiFramework.setPreviewFeatures({
       contentAlwaysMaxSize: activeFeatureList.includes("contentAlwaysMaxSize"),
+      enableMaximizedFloatingWidget: activeFeatureList.includes(
+        "enableMaximizedFloatingWidget"
+      ),
     });
   }, [activeFeatureList]);
 
