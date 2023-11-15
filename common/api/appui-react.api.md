@@ -25,7 +25,7 @@ import { ColorDef } from '@itwin/core-common';
 import type { CommandHandler } from '@itwin/appui-abstract';
 import type { CommonBackstageItem as CommonBackstageItem_2 } from '@itwin/appui-abstract';
 import type { CommonDivProps } from '@itwin/core-react';
-import { CommonProps } from '@itwin/core-react';
+import type { CommonProps } from '@itwin/core-react';
 import type { CommonToolbarItem as CommonToolbarItem_2 } from '@itwin/appui-abstract';
 import { CompassMode } from '@itwin/core-frontend';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
@@ -91,7 +91,7 @@ import type { RectangleProps } from '@itwin/core-react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import type { ScreenViewport } from '@itwin/core-frontend';
 import { SettingsManager } from '@itwin/core-react';
-import { SettingsTabEntry } from '@itwin/core-react';
+import type { SettingsTabEntry } from '@itwin/core-react';
 import { Size } from '@itwin/core-react';
 import type { SizeProps } from '@itwin/core-react';
 import { SnapMode } from '@itwin/core-frontend';
@@ -4977,7 +4977,7 @@ export const UiStateStorageContext: React_2.Context<UiStateStorage>;
 export function UiStateStorageHandler(props: UiSettingsProviderProps): JSX.Element;
 
 // @public
-export class UiSyncEvent extends UiEvent<UiSyncEventArgs> {
+export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> {
 }
 
 // @public
