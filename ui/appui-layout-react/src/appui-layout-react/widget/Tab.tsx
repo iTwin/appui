@@ -216,7 +216,7 @@ export function useTabInteractions<T extends HTMLElement>({
     dispatch({
       type: "WIDGET_TAB_CLICK",
       side,
-      widgetId,>
+      widgetId,
       id,
     });
     onClick?.();
