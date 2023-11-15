@@ -134,6 +134,7 @@ importers:
       react: ^17.0.0
       react-dom: ^17.0.0
       rimraf: ^3.0.2
+      ts-key-enum: ~2.0.12
       typescript: ~5.0.2
     dependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
@@ -156,6 +157,7 @@ importers:
       classnames: 2.3.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+      ts-key-enum: 2.0.12
     devDependencies:
       '@itwin/build-tools': 3.7.4
       '@itwin/eslint-plugin': 4.0.0-dev.45_eslint@8.44.0+typescript@5.0.2
@@ -237,6 +239,7 @@ importers:
       react-redux: ^7.2.2
       redux: ^4.1.0
       rimraf: ^3.0.2
+      ts-key-enum: ~2.0.12
       typescript: ~5.0.2
       webpack: ^5.76.0
     dependencies:
@@ -285,6 +288,7 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
       redux: 4.2.1
+      ts-key-enum: 2.0.12
     devDependencies:
       '@axe-core/react': 4.3.1
       '@bentley/react-scripts': 5.0.4_react@17.0.2+typescript@5.0.2
