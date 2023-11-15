@@ -98,6 +98,7 @@ Table of contents:
 - Fixed error when `HTMLElement` used in `NotifyMessageDetails` messages.
 - Removed unneeded `changeView` call in `FloatingViewportComponent`.
 - Fixed reference error in case `applicationData` is not provided for `IModelViewportControl`.
+- Hidden widget will now popout to `defaultSize` and `defaultPosition` of `canFloat` property when set to floating.
 
 ## @itwin/imodel-components-react
 

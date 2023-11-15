@@ -413,6 +413,7 @@ export class WidgetDef {
         frontstageDef.dispatch({
           type: "WIDGET_TAB_FLOAT",
           id: this.id,
+          position: this._defaultFloatingPosition,
         });
         break;
       }

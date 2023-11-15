@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Hidden widget will now open to default position and size of CanFloat property when set to floating",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
