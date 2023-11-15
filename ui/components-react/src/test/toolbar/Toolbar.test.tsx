@@ -9,6 +9,7 @@ import * as sinon from "sinon";
 import type { ActionButton, CommonToolbarItem } from "@itwin/appui-abstract";
 import { BadgeType, ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
+import { Key } from "ts-key-enum";
 import * as useTargetedModule from "@itwin/core-react/lib/cjs/core-react/utils/hooks/useTargeted";
 import type { CustomToolbarItem } from "../../components-react/toolbar/InternalToolbarComponent";
 import {
@@ -22,7 +23,6 @@ import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import { BackArrow } from "../../components-react/toolbar/groupPanel/BackArrow";
 import { GroupTool } from "../../components-react/toolbar/groupPanel/tool/Tool";
 import { renderHook } from "@testing-library/react-hooks";
-import { Key } from "ts-key-enum";
 
 /* eslint-disable deprecation/deprecation */
 // cSpell:ignore testid

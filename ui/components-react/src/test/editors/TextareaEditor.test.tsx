@@ -7,6 +7,7 @@ import { expect } from "chai";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import sinon from "sinon";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type {
   InputEditorSizeParams,
   MultilineTextEditorParams,
@@ -19,7 +20,6 @@ import {
 import { TextareaEditor } from "../../components-react/editors/TextareaEditor";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import TestUtils, { styleMatch, userEvent } from "../TestUtils";
-import { Key } from "ts-key-enum";
 
 describe("<TextareaEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

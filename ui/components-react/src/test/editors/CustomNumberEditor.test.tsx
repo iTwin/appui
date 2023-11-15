@@ -7,6 +7,7 @@ import { expect } from "chai";
 import React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { Key } from "ts-key-enum";
 import type {
   IconEditorParams,
   InputEditorSizeParams,
@@ -22,7 +23,7 @@ import TestUtils, {
   styleMatch,
 } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { Key } from "ts-key-enum";
+
 // cSpell:ignore customnumber
 
 const numVal = 3.345689;

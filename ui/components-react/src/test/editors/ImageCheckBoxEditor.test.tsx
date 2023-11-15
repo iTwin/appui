@@ -7,11 +7,11 @@ import { expect } from "chai";
 import { fireEvent, render, screen } from "@testing-library/react";
 import * as React from "react";
 import sinon from "sinon";
+import { Key } from "ts-key-enum";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { ImageCheckBoxEditor } from "../../components-react/editors/ImageCheckBoxEditor";
 import TestUtils, { MineDataController, userEvent } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { Key } from "ts-key-enum";
 
 describe("<ImageCheckBoxEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

@@ -7,13 +7,13 @@
  */
 
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { FormatterSpec } from "@itwin/core-quantity";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { SvgProgressForward } from "@itwin/itwinui-icons-react";
-import { Key } from "ts-key-enum";
 
 /** Properties of [[FormatSample]] component.
  * @alpha

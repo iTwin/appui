@@ -13,10 +13,9 @@ import { CommonProps } from "@itwin/core-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { Button } from "@itwin/itwinui-react";
 import { ProcessDetector } from "@itwin/core-bentley";
+import { Key } from "ts-key-enum";
 
 // cspell:ignore signingin
-const SPACE_KEY = " ";
-const ENTER_KEY = "Enter";
 
 /** Properties for the [[SignIn]] component
  * @public
@@ -86,8 +85,8 @@ export class SignIn extends React.PureComponent<SignInProps, SignInState> {
     const key = event.key;
 
     switch (key) {
-      case ENTER_KEY:
-      case SPACE_KEY:
+      case Key.Enter:
+      case " ":
         onActivate && onActivate();
         break;
     }

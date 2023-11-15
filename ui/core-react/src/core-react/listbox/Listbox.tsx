@@ -4,10 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
+import { Key } from "ts-key-enum";
 
 import "./Listbox.scss";
 import { Guid } from "@itwin/core-bentley";
-import { Key } from "ts-key-enum";
 
 /** Ideas borrowed from  https://reacttraining.com/reach-ui/listbox */
 

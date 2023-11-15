@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import { Key } from "ts-key-enum";
 import {
   getUiSettingsManagerEntry,
   UiSettingsPage,
@@ -18,7 +18,7 @@ import TestUtils, {
 } from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
 import { ColorTheme } from "../../appui-react/theme/ThemeManager";
-import { Key } from "ts-key-enum";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 
 describe("UiSettingsPage", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(

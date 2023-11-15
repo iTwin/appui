@@ -5,6 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
+import { Key } from "ts-key-enum";
 
 import type { IModelAppOptions } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, Tool } from "@itwin/core-frontend";
@@ -18,7 +19,6 @@ import {
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { UiStateStorageStatus } from "@itwin/core-react";
-import { Key } from "ts-key-enum";
 
 const myLocalStorage = storageMock();
 const KEYIN_PALETTE_NAMESPACE = "KeyinPalettePanel";

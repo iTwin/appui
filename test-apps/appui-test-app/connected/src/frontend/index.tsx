@@ -77,7 +77,7 @@ import {
   ToolAdmin,
   ViewClipByPlaneTool,
 } from "@itwin/core-frontend";
-import { getObjectClassName } from "@itwin/core-react/lib/cjs/core-react/utils/getObjectClassName";
+import { getObjectClassName } from "@itwin/core-react";
 import {
   MobileApp,
   MobileAppOpts,

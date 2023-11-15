@@ -7,8 +7,8 @@
  */
 
 import * as React from "react";
-import { UiFramework } from "../UiFramework";
 import { Key } from "ts-key-enum";
+import { UiFramework } from "../UiFramework";
 
 /** Keyboard Event handler to set focus to Home on Escape key
  * @internal

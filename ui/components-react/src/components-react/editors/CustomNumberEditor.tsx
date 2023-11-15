@@ -11,6 +11,7 @@
 import "./CustomNumberEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { Logger } from "@itwin/core-bentley";
 import type {
   CustomFormattedNumberParams,
@@ -39,7 +40,6 @@ import {
   PropertyEditorBase,
   PropertyEditorManager,
 } from "./PropertyEditorManager";
-import { Key } from "ts-key-enum";
 
 /** @internal */
 interface CustomNumberEditorState {

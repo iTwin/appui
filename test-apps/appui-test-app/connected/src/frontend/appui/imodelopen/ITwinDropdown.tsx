@@ -5,6 +5,7 @@
 import "./ITwinDropdown.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { Popup } from "@itwin/core-react";
 import { ITwin } from "@itwin/itwins-client";
@@ -21,9 +22,6 @@ interface ITwinDropdownState {
   isDropdownOpen: boolean;
   showITwinsDialog: boolean;
 }
-
-const SPACE_KEY = " ";
-const ENTER_KEY = "Enter";
 
 /**
  * List of iTwins in a dropdown
@@ -53,8 +51,8 @@ export class ITwinDropdown extends React.Component<
     const key = event.key;
 
     switch (key) {
-      case ENTER_KEY:
-      case SPACE_KEY:
+      case Key.Enter:
+      case " ":
         this.closeDropdown();
         this.props.onITwinClicked(iTwin);
         break;
@@ -65,8 +63,8 @@ export class ITwinDropdown extends React.Component<
     const key = event.key;
 
     switch (key) {
-      case ENTER_KEY:
-      case SPACE_KEY:
+      case Key.Enter:
+      case " ":
         this.setState((prevState) => ({
           isDropdownOpen: !prevState.isDropdownOpen,
         }));

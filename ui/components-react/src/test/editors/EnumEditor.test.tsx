@@ -7,6 +7,7 @@ import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { Key } from "ts-key-enum";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { EnumEditor } from "../../components-react/editors/EnumEditor";
 import TestUtils, {
@@ -16,7 +17,6 @@ import TestUtils, {
 } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 import { stubScrollIntoView } from "../test-helpers/misc";
-import { Key } from "ts-key-enum";
 
 describe("<EnumEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

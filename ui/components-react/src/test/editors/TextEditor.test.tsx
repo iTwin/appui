@@ -7,6 +7,7 @@ import { expect } from "chai";
 import sinon from "sinon";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type {
   IconEditorParams,
   InputEditorSizeParams,
@@ -39,7 +40,6 @@ import {
   StringTypeConverter,
   TypeConverterManager,
 } from "../../components-react";
-import { Key } from "ts-key-enum";
 
 describe("<TextEditor />", () => {
   before(async () => {

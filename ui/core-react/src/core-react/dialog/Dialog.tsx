@@ -9,6 +9,7 @@
 import "./Dialog.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { DialogButtonType } from "@itwin/appui-abstract";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
@@ -18,7 +19,6 @@ import type { Omit } from "../utils/typeUtils";
 import { Dialog as BaseDialog } from "@itwin/itwinui-react";
 import { Button } from "@itwin/itwinui-react";
 import type { ButtonProps } from "@itwin/itwinui-react";
-import { Key } from "ts-key-enum";
 
 // cspell:ignore focustrap
 

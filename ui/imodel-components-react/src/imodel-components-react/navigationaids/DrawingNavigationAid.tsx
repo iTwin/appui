@@ -10,6 +10,7 @@ import "./DrawingNavigationAid.scss";
 import classnames from "classnames";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { Key } from "ts-key-enum";
 import {
   Constant,
   Geometry,
@@ -37,7 +38,6 @@ import {
   SvgRotateLeft,
   SvgSortUp,
 } from "@itwin/itwinui-icons-react";
-import { Key } from "ts-key-enum";
 
 // cSpell:ignore Quaternion Quaternions unrotate
 /* eslint-disable jsx-a11y/click-events-have-key-events */

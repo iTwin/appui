@@ -7,6 +7,7 @@ import { expect } from "chai";
 import { fireEvent, render, screen } from "@testing-library/react";
 import sinon from "sinon";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type {
   BasePropertyEditorParams,
   InputEditorSizeParams,
@@ -25,7 +26,6 @@ import TestUtils, {
 import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { Key } from "ts-key-enum";
 
 describe("<NumericInputEditor />", () => {
   before(async () => {

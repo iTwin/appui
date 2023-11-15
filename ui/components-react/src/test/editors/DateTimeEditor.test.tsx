@@ -6,6 +6,7 @@
 import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
+import { Key } from "ts-key-enum";
 import type {
   PrimitiveValue,
   PropertyDescription,
@@ -26,7 +27,6 @@ import { DateTimeEditor } from "../../components-react/editors/DateTimeEditor";
 import TestUtils, { MineDataController } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 import { findInstance } from "../ReactInstance";
-import { Key } from "ts-key-enum";
 
 function createDateProperty(propertyName: string, value: Date, option: number) {
   const v: PropertyValue = {

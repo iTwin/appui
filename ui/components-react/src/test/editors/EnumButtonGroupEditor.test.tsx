@@ -7,13 +7,13 @@ import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
 import { fireEvent, render, waitFor } from "@testing-library/react";
+import { Key } from "ts-key-enum";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { EnumButtonGroupEditor } from "../../components-react/editors/EnumButtonGroupEditor";
 import TestUtils, { MineDataController } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { Key } from "ts-key-enum";
 
 // cSpell:ignore enumbuttongroup
 

@@ -9,6 +9,7 @@
 import "./CardPopup.scss";
 import * as React from "react";
 import classnames from "classnames";
+import { Key } from "ts-key-enum";
 import type {
   CommonToolbarItem,
   OnCancelFunc,
@@ -31,7 +32,6 @@ import {
   ToolbarPanelAlignment,
   ToolbarWithOverflow,
 } from "@itwin/components-react";
-import { Key } from "ts-key-enum";
 
 /** Props for defining a CardPopup editor
  * @beta */

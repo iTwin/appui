@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import {
   IModelApp,
   NotifyMessageDetails,
@@ -472,11 +473,11 @@ function PanelControls({ location }: { location: StagePanelLocation }) {
         onBlur={handleSubmitValue}
         onKeyDown={(e) => {
           switch (e.key) {
-            case "Enter": {
+            case Key.Enter: {
               handleSubmitValue();
               break;
             }
-            case "Escape": {
+            case Key.Escape: {
               setSizeValue("");
               break;
             }

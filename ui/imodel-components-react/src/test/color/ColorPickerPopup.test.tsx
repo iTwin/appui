@@ -6,12 +6,12 @@
 import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
+import { Key } from "ts-key-enum";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { TestUtils } from "../TestUtils";
 import { ColorPickerPopup } from "../../imodel-components-react/color/ColorPickerPopup";
-import { Key } from "ts-key-enum";
 
 describe("<ColorPickerPopup/>", () => {
   const colorDef = ColorDef.create(ColorByName.blue);

@@ -9,6 +9,7 @@
 import "./ContextMenu.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
@@ -17,7 +18,6 @@ import type { ContextMenuItemProps } from "./ContextMenuItem";
 import { ContextMenuItem } from "./ContextMenuItem";
 import type { ContextSubMenuProps } from "./ContextSubMenu";
 import { ContextSubMenu } from "./ContextSubMenu";
-import { Key } from "ts-key-enum";
 
 /** Properties for the [[ContextMenu]] component
  * @public

@@ -17,7 +17,6 @@ import {
   offsetAndContainInContainer,
   Tooltip,
 } from "@itwin/appui-layout-react";
-
 import { MessageDiv } from "../messages/MessageSpan";
 import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
 

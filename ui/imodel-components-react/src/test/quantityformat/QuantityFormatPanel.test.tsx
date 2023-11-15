@@ -7,6 +7,7 @@ import * as sinon from "sinon";
 import * as React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { Key } from "ts-key-enum";
 import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import type { FormatProps } from "@itwin/core-quantity";
 import { FormatType, ShowSignOption } from "@itwin/core-quantity";
@@ -19,7 +20,6 @@ import {
   stubScrollIntoView,
 } from "../test-helpers/misc";
 import { QuantityFormatPanel } from "../../imodel-components-react/quantityformat/QuantityFormatPanel";
-import { Key } from "ts-key-enum";
 
 describe("QuantityInput", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

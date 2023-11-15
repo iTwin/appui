@@ -6,9 +6,9 @@
  * @module Tools
  */
 
+import { Key } from "ts-key-enum";
 import { ToolAdmin } from "@itwin/core-frontend";
 import { UiFramework } from "../UiFramework";
-import { Key } from "ts-key-enum";
 
 /** UiFramework implementation of ToolAdmin.
  *

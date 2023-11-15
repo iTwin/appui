@@ -6,6 +6,7 @@ import { expect } from "chai";
 import * as faker from "faker";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
+import { Key } from "ts-key-enum";
 import type { SelectionHandler } from "../../../../components-react/common/selection/SelectionHandler";
 import { SelectionMode } from "../../../../components-react/common/selection/SelectionModes";
 import type {
@@ -25,7 +26,6 @@ import type {
 } from "../../../../components-react/tree/controlled/TreeModel";
 import { isTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel";
 import { createRandomMutableTreeModelNode } from "../TreeHelpers";
-import { Key } from "ts-key-enum";
 
 type Selection = string | RangeSelection;
 

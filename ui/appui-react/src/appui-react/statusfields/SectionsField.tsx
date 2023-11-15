@@ -17,7 +17,7 @@ import {
   ViewClipDecoration,
   ViewClipDecorationProvider,
 } from "@itwin/core-frontend";
-import { type CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Button, ToggleSwitch } from "@itwin/itwinui-react";
 import { useActiveViewport } from "../hooks/useActiveViewport";
 import { UiFramework } from "../UiFramework";

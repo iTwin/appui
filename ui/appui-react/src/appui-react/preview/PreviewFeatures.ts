@@ -12,7 +12,6 @@ import { UiFramework } from "../UiFramework";
 
 /**
  * List of known preview features.
- * @internal
  */
 interface KnownPreviewFeatures {
   /**

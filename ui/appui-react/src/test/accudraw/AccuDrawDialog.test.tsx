@@ -5,13 +5,13 @@
 import { fireEvent, render } from "@testing-library/react";
 import * as sinon from "sinon";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { CompassMode, IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { Orientation } from "@itwin/core-react";
 import { TestUtils } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { AccuDrawDialog } from "../../appui-react/accudraw/AccuDrawDialog";
 import { UiFramework } from "../../appui-react";
-import { Key } from "ts-key-enum";
 
 describe("AccuDrawDialog", () => {
   before(async () => {

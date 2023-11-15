@@ -6,6 +6,7 @@
 import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
+import { Key } from "ts-key-enum";
 import { fireEvent, render } from "@testing-library/react";
 import { ColorByName } from "@itwin/core-common";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
@@ -17,7 +18,6 @@ import {
 } from "@itwin/components-react";
 import { ColorEditor } from "../../imodel-components-react/editors/ColorEditor";
 import { MineDataController, TestUtils } from "../TestUtils";
-import { Key } from "ts-key-enum";
 
 // cspell:ignore colorpicker
 

@@ -7,6 +7,7 @@ import { expect } from "chai";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import sinon from "sinon";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type {
   BasePropertyEditorParams,
   SliderEditorParams,
@@ -20,7 +21,6 @@ import TestUtils, { MineDataController, userEvent } from "../TestUtils";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 import { findInstance } from "../ReactInstance";
-import { Key } from "ts-key-enum";
 
 describe("<SliderEditor />", () => {
   before(async () => {

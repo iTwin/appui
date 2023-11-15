@@ -8,6 +8,7 @@
 
 import * as React from "react";
 import classnames from "classnames";
+import { Key } from "ts-key-enum";
 import type { BadgeType } from "@itwin/appui-abstract";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props";
@@ -16,7 +17,6 @@ import { BadgeUtilities } from "../badge/BadgeUtilities";
 import { TildeFinder } from "./TildeFinder";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
-import { Key } from "ts-key-enum";
 
 /** Properties for the [[ContextMenuItem]] component
  * @public

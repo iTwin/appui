@@ -10,10 +10,10 @@ import "./Popup.scss";
 import classnames from "classnames";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { Key } from "ts-key-enum";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { FocusTrap } from "../focustrap/FocusTrap";
 import type { CommonProps } from "../utils/Props";
-import { Key } from "ts-key-enum";
 
 // cSpell:ignore focustrap focusable alertdialog
 

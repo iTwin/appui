@@ -5,12 +5,12 @@
 import type { QuantityTypeArg } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import { fireEvent, render } from "@testing-library/react";
+import { Key } from "ts-key-enum";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { QuantityNumberInput } from "../../imodel-components-react/inputs/QuantityNumberInput";
 import TestUtils from "../TestUtils";
-import { Key } from "ts-key-enum";
 
 // cSpell:ignore decrementor QuantityNumberInput
 

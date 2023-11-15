@@ -9,6 +9,7 @@
 import "./AccuDrawInputField.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { ItemField } from "@itwin/core-frontend";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
 import { Icon, useRefs } from "@itwin/core-react";
@@ -20,7 +21,6 @@ import type {
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
 import { UiFramework } from "../UiFramework";
 import { SvgLock } from "@itwin/itwinui-icons-react";
-import { Key } from "ts-key-enum";
 
 function isLetter(char: string): boolean {
   return char.length === 1 && char.toLowerCase() !== char.toUpperCase();

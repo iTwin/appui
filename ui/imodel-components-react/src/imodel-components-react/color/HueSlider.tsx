@@ -9,10 +9,10 @@
 import "./HueSlider.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { HSVColor } from "@itwin/core-common";
 import type { CommonProps } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
-import { Key } from "ts-key-enum";
 
 // hue is a value from 0 to 360
 function calculateHue(currentPos: number, high: number, isVertical: boolean) {

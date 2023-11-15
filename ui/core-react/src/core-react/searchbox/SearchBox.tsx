@@ -9,13 +9,13 @@
 import "./SearchBox.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
 import { Input } from "@itwin/itwinui-react";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
-import { Key } from "ts-key-enum";
 
 /** Properties for [[SearchBox]] component
  * @public

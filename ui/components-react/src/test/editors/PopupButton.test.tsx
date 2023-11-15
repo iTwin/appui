@@ -7,9 +7,9 @@ import { expect } from "chai";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import sinon from "sinon";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { PopupButton } from "../../components-react/editors/PopupButton";
 import { selectorMatches, TestUtils, userEvent } from "../TestUtils";
-import { Key } from "ts-key-enum";
 
 describe("<PopupButton />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

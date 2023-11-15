@@ -11,7 +11,7 @@
 import widowSettingsIconSvg from "@bentley/icons-generic/icons/window-settings.svg";
 import "./UiSettingsPage.scss";
 import * as React from "react";
-import { type SettingsTabEntry } from "@itwin/core-react";
+import type { SettingsTabEntry } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";
 import {
   ColorTheme,

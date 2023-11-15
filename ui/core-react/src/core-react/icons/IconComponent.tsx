@@ -15,7 +15,7 @@ import DOMPurify, * as DOMPurifyNS from "dompurify";
 import { ConditionalIconItem } from "./ConditionalIconItem";
 
 /** Prototype for an IconSpec which can be a string, ReactNode or ConditionalStringValue.
- * Strings are expected to be the following:
+ * Strings are expected to be one of the following:
  *  - Created by `IconSpecUtilities.createWebComponentIconSpec` in appui-abstract (deprecated).
  *  - A URL to a SVG file (must end with ".svg").
  *  - A dataURI with MimeTypes `image/svg+xml` (ensure valid dataURI encoding) or `image/svg+xml;base64`;

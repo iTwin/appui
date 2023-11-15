@@ -5,11 +5,11 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
+import { Key } from "ts-key-enum";
 
 import { fireEvent, render } from "@testing-library/react";
 import type { ListboxValue } from "../../core-react/listbox/Listbox";
 import { Listbox, ListboxItem } from "../../core-react/listbox/Listbox";
-import { Key } from "ts-key-enum";
 
 describe("<ListBox />", () => {
   const listItems = [

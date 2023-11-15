@@ -6,6 +6,7 @@
 import { expect } from "chai";
 import React from "react";
 import * as sinon from "sinon";
+import { Key } from "ts-key-enum";
 import type {
   ActionButton,
   CommonToolbarItem,
@@ -23,7 +24,6 @@ import {
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import TestUtils from "../TestUtils";
 import { ToolbarWithOverflow } from "../../components-react/toolbar/ToolbarWithOverflow";
-import { Key } from "ts-key-enum";
 
 /* eslint-disable deprecation/deprecation */
 // cSpell:ignore testid

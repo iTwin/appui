@@ -8,12 +8,12 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { Provider } from "react-redux";
 import { render, screen } from "@testing-library/react";
+import { Key } from "ts-key-enum";
 import TestUtils from "../TestUtils";
 import { ConfigurableUiContent } from "../../appui-react/configurableui/ConfigurableUiContent";
 import { FrameworkToolAdmin } from "../../appui-react/tools/FrameworkToolAdmin";
 import userEvent from "@testing-library/user-event";
 import { CursorInformation, UiFramework } from "../../appui-react";
-import { Key } from "ts-key-enum";
 
 describe("ConfigurableUiContent", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type {
   OnCancelFunc,
   OnItemExecutedFunc,
@@ -25,7 +26,6 @@ import { PopupManager } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
 import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { Toolbar } from "../toolbar/Toolbar";
-import { Key } from "ts-key-enum";
 
 /** Props for a popup toolbar
  * @beta */

@@ -6,6 +6,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import type { IModelAppOptions } from "@itwin/core-frontend";
 import {
@@ -21,7 +22,6 @@ import { AccuDrawFieldContainer } from "../../appui-react/accudraw/AccuDrawField
 import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import type { AccuDrawUiSettings } from "../../appui-react/accudraw/AccuDrawUiSettings";
 import { UiFramework } from "../../appui-react";
-import { Key } from "ts-key-enum";
 
 // cspell:ignore uiadmin
 

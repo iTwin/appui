@@ -9,6 +9,7 @@
 import "./NumberInput.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { InputProps } from "@itwin/itwinui-react";
 import { Input } from "@itwin/itwinui-react";
 import { Icon } from "../../icons/IconComponent";
@@ -18,7 +19,6 @@ import {
   SvgCaretUp,
   SvgCaretUpSmall,
 } from "@itwin/itwinui-icons-react";
-import { Key } from "ts-key-enum";
 
 /** Step function prototype for [[NumberInput]] component
  * @public

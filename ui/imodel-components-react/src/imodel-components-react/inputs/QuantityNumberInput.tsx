@@ -9,6 +9,7 @@
 import "./QuantityNumberInput.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { Icon } from "@itwin/core-react";
 import type {
   QuantityFormatsChangedArgs,
@@ -35,7 +36,6 @@ import {
   SvgCaretUp,
   SvgCaretUpSmall,
 } from "@itwin/itwinui-icons-react";
-import { Key } from "ts-key-enum";
 
 /** Step function prototype for [[QuantityNumberInput]] component
  * @beta

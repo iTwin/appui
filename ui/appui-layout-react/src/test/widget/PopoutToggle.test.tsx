@@ -27,8 +27,6 @@ describe("PopoutToggle", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    // eslint-disable-next-line no-console
-    console.log(container.innerHTML);
     container.should.matchSnapshot();
   });
 

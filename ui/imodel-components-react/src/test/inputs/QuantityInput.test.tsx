@@ -5,11 +5,11 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import { QuantityInput } from "../../imodel-components-react/inputs/QuantityInput";
 import { TestUtils } from "../TestUtils";
-import { Key } from "ts-key-enum";
 
 describe("QuantityInput", () => {
   const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(

@@ -9,9 +9,9 @@
 import "./AlphaSlider.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
-import { Key } from "ts-key-enum";
 
 /** Properties for the [[AlphaSlider]] React component
  * @public

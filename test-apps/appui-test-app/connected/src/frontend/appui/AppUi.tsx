@@ -5,6 +5,7 @@
 import "@bentley/icons-generic-webfont/dist/bentley-icons-generic-webfont.css";
 /** Include application registered Controls in Webpack
  */
+import { Key } from "ts-key-enum";
 import {
   ContentLayoutProps,
   StandardContentLayouts,
@@ -75,7 +76,7 @@ export class AppUi {
         ],
       },
       {
-        key: "F7",
+        key: Key.F7,
         item: AppUi._showShortcutsMenuCommand,
       },
     ];

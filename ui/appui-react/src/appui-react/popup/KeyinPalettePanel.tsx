@@ -9,6 +9,7 @@
 // cSpell:ignore focusvalue uiadmin
 
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import "./KeyinPalettePanel.scss";
 import {
   FilteredText,
@@ -30,7 +31,6 @@ import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
 import type { KeyinEntry } from "../uiadmin/FrameworkUiAdmin";
 import { Input } from "@itwin/itwinui-react";
 import { matchesWords } from "../utils/matchesWords";
-import { Key } from "ts-key-enum";
 
 const KEYIN_PALETTE_NAMESPACE = "KeyinPalettePanel";
 const KEYIN_HISTORY_KEY = "historyArray";

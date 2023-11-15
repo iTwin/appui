@@ -6,11 +6,11 @@
 import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
+import { Key } from "ts-key-enum";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import TestUtils, { childStructure, userEvent } from "../TestUtils";
 import { StandardEditorNames } from "@itwin/appui-abstract";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { Key } from "ts-key-enum";
 
 describe("<EditorContainer />", () => {
   before(async () => {

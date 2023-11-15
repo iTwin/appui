@@ -8,11 +8,11 @@
 
 import * as React from "react";
 import classnames from "classnames";
+import { Key } from "ts-key-enum";
 import { Input } from "@itwin/itwinui-react";
 import type { CommonProps } from "@itwin/core-react";
 import type { ParseResults } from "@itwin/appui-abstract";
 import "./ParsedInput.scss";
-import { Key } from "ts-key-enum";
 
 /** Props for [[ParsedInput]] control
  * @public

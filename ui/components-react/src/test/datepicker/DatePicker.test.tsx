@@ -7,10 +7,10 @@ import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
+import { Key } from "ts-key-enum";
 import TestUtils from "../TestUtils";
 import { DatePicker } from "../../components-react/datepicker/DatePicker";
 import { adjustDateToTimezone } from "../../components-react/common/DateUtils";
-import { Key } from "ts-key-enum";
 
 describe("<DatePicker />", () => {
   let renderSpy: sinon.SinonSpy;

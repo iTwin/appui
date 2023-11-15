@@ -8,6 +8,7 @@
 
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
 import { Checkbox } from "@itwin/itwinui-react";
 import type { FormatProps, ShowSignOption } from "@itwin/core-quantity";
@@ -30,7 +31,6 @@ import { ScientificTypeSelector } from "./misc/ScientificType";
 import { StationSeparatorSelector } from "./misc/StationSeparatorSelector";
 import { StationSizeSelector } from "./misc/StationSizeSelector";
 import { UiIModelComponents } from "../UiIModelComponents";
-import { Key } from "ts-key-enum";
 
 /** Properties of [[MiscFormatOptions]] component.
  * @alpha

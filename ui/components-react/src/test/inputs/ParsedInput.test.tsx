@@ -6,10 +6,10 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
+import { Key } from "ts-key-enum";
 import TestUtils from "../TestUtils";
 import { ParsedInput } from "../../components-react/inputs/ParsedInput";
 import type { ParseResults } from "@itwin/appui-abstract";
-import { Key } from "ts-key-enum";
 
 function fahrenheitToCelsius(f: number) {
   return ((f - 32) * 5) / 9;

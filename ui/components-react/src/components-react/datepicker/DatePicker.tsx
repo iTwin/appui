@@ -8,10 +8,10 @@
 
 import * as React from "react";
 import classnames from "classnames";
+import { Key } from "ts-key-enum";
 import { UiComponents } from "../UiComponents";
 import { Icon } from "@itwin/core-react";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
-import { Key } from "ts-key-enum";
 import "./DatePicker.scss";
 
 function isSameDay(a: Date, b: Date) {

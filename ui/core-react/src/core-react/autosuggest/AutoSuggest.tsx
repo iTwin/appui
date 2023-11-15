@@ -9,10 +9,10 @@
 import "./AutoSuggest.scss";
 import * as React from "react";
 import * as ReactAutosuggest from "react-autosuggest";
+import { Key } from "ts-key-enum";
 import { Logger } from "@itwin/core-bentley";
 import type { CommonProps } from "../utils/Props";
 import { UiCore } from "../UiCore";
-import { Key } from "ts-key-enum";
 
 /** Data for the [[AutoSuggest]] options
  * @public

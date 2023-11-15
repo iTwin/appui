@@ -8,6 +8,7 @@
 
 import "./EditorContainer.scss";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { PropertyRecord, PropertyValue } from "@itwin/appui-abstract";
 import { UiAdmin } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
@@ -16,7 +17,6 @@ import type {
   PropertyEditorBase,
 } from "./PropertyEditorManager";
 import { PropertyEditorManager } from "./PropertyEditorManager";
-import { Key } from "ts-key-enum";
 
 /** Arguments for the Property Updated event callback
  * @public

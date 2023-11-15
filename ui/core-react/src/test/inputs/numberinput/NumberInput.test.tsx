@@ -6,8 +6,8 @@ import { fireEvent, render } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { NumberInput } from "../../../core-react/inputs/numberinput/NumberInput";
 import { Key } from "ts-key-enum";
+import { NumberInput } from "../../../core-react/inputs/numberinput/NumberInput";
 
 // cSpell:ignore decrementor numberinput
 

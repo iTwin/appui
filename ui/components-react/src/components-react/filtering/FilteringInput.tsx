@@ -9,6 +9,7 @@
 import "./FilteringInput.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon, UiCore } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
@@ -16,7 +17,6 @@ import { UiComponents } from "../UiComponents";
 import type { ResultSelectorProps } from "./ResultSelector";
 import { ResultSelector } from "./ResultSelector";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
-import { Key } from "ts-key-enum";
 
 /** [[FilteringInput]] React Component state
  * @internal

@@ -9,12 +9,12 @@
 import "./WeightPickerButton.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { ColorDef } from "@itwin/core-common";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { ElementResizeObserver, Popup } from "@itwin/core-react";
 import { LineWeightSwatch } from "./Swatch";
-import { Key } from "ts-key-enum";
 
 // cSpell:ignore weightpicker lineweight
 

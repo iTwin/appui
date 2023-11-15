@@ -5,12 +5,12 @@
 import { expect } from "chai";
 import * as moq from "typemoq";
 import * as sinon from "sinon";
+import { Key } from "ts-key-enum";
 import {
   isNavigationKey,
   ItemKeyboardNavigator,
   Orientation,
 } from "../../core-react";
-import { Key } from "ts-key-enum";
 
 describe("ItemKeyboardNavigator", () => {
   describe("properties", () => {

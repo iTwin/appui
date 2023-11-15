@@ -5,6 +5,7 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { Point } from "@itwin/core-react";
+import { Key } from "ts-key-enum";
 import type { KeyboardShortcutProps } from "../../appui-react";
 import {
   AccuDrawKeyboardShortcuts,
@@ -19,7 +20,6 @@ import { KeyboardShortcutMenu } from "../../appui-react/keyboardshortcut/Keyboar
 import TestUtils from "../TestUtils";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { InternalKeyboardShortcutManager } from "../../appui-react/keyboardshortcut/InternalKeyboardShortcut";
-import { Key } from "ts-key-enum";
 
 describe("KeyboardShortcut", () => {
   const testSpyMethod = sinon.spy();

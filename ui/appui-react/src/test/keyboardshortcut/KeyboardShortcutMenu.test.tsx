@@ -5,12 +5,12 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
+import { Key } from "ts-key-enum";
 import type { KeyboardShortcutProps } from "../../appui-react";
 import { CommandItemDef, KeyboardShortcutMenu } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
 import { render, screen, waitFor } from "@testing-library/react";
-import { Key } from "ts-key-enum";
 
 describe("KeyboardShortcutMenu", () => {
   const testSpyMethod = sinon.spy();

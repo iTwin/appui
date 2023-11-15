@@ -9,6 +9,7 @@
 import "./PopupButton.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonDivProps, CommonProps } from "@itwin/core-react";
 import { Div, Icon, Popup, UiCore } from "@itwin/core-react";
@@ -18,7 +19,6 @@ import {
   SvgChevronDown,
   SvgRemove,
 } from "@itwin/itwinui-icons-react";
-import { Key } from "ts-key-enum";
 
 /** Properties for [[PopupButton]] component
  * @alpha

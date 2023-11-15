@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type {
   DialogLayoutDataProvider,
   OnCancelFunc,
@@ -20,7 +21,6 @@ import { PopupManager } from "./PopupManager";
 import { PositionPopup, PositionPopupContent } from "./PositionPopup";
 import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
 import { DialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
-import { Key } from "ts-key-enum";
 
 /** Props for defining a popup tool settings component
  * @beta */

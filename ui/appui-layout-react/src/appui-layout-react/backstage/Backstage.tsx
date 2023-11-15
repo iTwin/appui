@@ -9,10 +9,10 @@
 import "./Backstage.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
 import type { SafeAreaInsets } from "../base/SafeAreaInsets";
 import { SafeAreaInsetsHelpers } from "../base/SafeAreaInsets";
-import { Key } from "ts-key-enum";
 
 /** Properties of [[Backstage]] component.
  * @internal
