@@ -22,6 +22,10 @@
     position: absolute;
     cursor: auto;
     user-select: none;
+
+    .preview-enableMaximizedFloatingWidget-maximized & {
+      pointer-events: none;
+    }
   }
 
   > .nz-widget-tabBarButtons {

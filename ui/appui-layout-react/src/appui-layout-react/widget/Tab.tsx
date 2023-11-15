@@ -47,6 +47,7 @@ import { useLayout, useLayoutStore } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import { Key } from "ts-key-enum";
+import { usePreviewFeatures } from "../preview/PreviewFeatures";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -119,10 +120,18 @@ function WidgetTabComponent(props: WidgetTabProps) {
     (state) => getWidgetState(state, widgetId).minimized
   );
 
+  const { enableMaximizedFloatingWidget, previewState } = usePreviewFeatures();
+  const floatingWidgetId = useFloatingWidgetId();
+  // istanbul ignore next (preview)
+  const maximized =
+    !!floatingWidgetId &&
+    previewState.maximizedWidget === floatingWidgetId &&
+    enableMaximizedFloatingWidget;
+
   const resizeObserverRef = useResizeObserver<HTMLDivElement>(
     widgetTabsEntryContext?.onResize
   );
-  const pointerCaptorRef = useTabInteractions({});
+  const pointerCaptorRef = useTabInteractions({ clickOnly: maximized });
   const refs = useRefs<HTMLDivElement>(resizeObserverRef, pointerCaptorRef);
 
   const active = activeTabId === id;
@@ -166,6 +175,7 @@ export interface UseTabInteractionsArgs {
   onClick?: () => void;
   onDoubleClick?: () => void;
   onDragStart?: () => void;
+  clickOnly?: boolean;
 }
 
 /** @internal */
@@ -173,6 +183,7 @@ export function useTabInteractions<T extends HTMLElement>({
   onClick,
   onDoubleClick,
   onDragStart,
+  clickOnly,
 }: UseTabInteractionsArgs) {
   const id = React.useContext(TabIdContext);
   const widgetContext = React.useContext(WidgetContext);
@@ -205,12 +216,14 @@ export function useTabInteractions<T extends HTMLElement>({
     dispatch({
       type: "WIDGET_TAB_CLICK",
       side,
-      widgetId,
+      widgetId,>
       id,
     });
     onClick?.();
   }, [dispatch, widgetId, id, side, onClick]);
   const handleDoubleClick = React.useCallback(() => {
+    // istanbul ignore next (preview)
+    if (clickOnly) return;
     dispatch({
       type: "WIDGET_TAB_DOUBLE_CLICK",
       side,
@@ -219,13 +232,23 @@ export function useTabInteractions<T extends HTMLElement>({
       id,
     });
     onDoubleClick?.();
-  }, [dispatch, floatingWidgetId, widgetId, id, side, onDoubleClick]);
+  }, [
+    clickOnly,
+    dispatch,
+    floatingWidgetId,
+    widgetId,
+    id,
+    side,
+    onDoubleClick,
+  ]);
 
   const handleDragTabStart = useDragTab({
     tabId: id,
   });
   const handleDragStart = React.useCallback(
     (pointerPosition: Point) => {
+      // istanbul ignore next (preview)
+      if (clickOnly) return;
       assert(!!ref.current);
       assert(!!initialPointerPosition.current);
       const nzBounds = measure();
@@ -272,6 +295,7 @@ export function useTabInteractions<T extends HTMLElement>({
       initialPointerPosition.current = undefined;
     },
     [
+      clickOnly,
       measure,
       widgetContext,
       handleDragTabStart,

@@ -45,7 +45,7 @@ export enum ConfigurableUiActionId {
 export interface ConfigurableUiState {
   snapMode: number;
   toolPrompt: string;
-  theme: ThemeId;
+  theme: string;
   widgetOpacity: number;
   useDragInteraction: boolean;
   showWidgetIcon: boolean;
@@ -54,6 +54,7 @@ export interface ConfigurableUiState {
   animateToolSettings: boolean;
   useToolAsToolSettingsLabel: boolean;
   toolbarOpacity: number;
+  /** @beta */
   previewFeatures?: PreviewFeatures;
 }
 
@@ -80,8 +81,11 @@ export const ConfigurableUiActions = {
   setSnapMode: (snapMode: number) =>
     createAction(ConfigurableUiActionId.SetSnapMode, snapMode),
   setTheme:
-    // istanbul ignore next
-    (theme: ThemeId) => createAction(ConfigurableUiActionId.SetTheme, theme),
+    /**
+     * Use `UiFramework.setColorTheme` instead which is conveniently typed with available theme union.
+     * @param theme ThemeId
+     */
+    (theme: string) => createAction(ConfigurableUiActionId.SetTheme, theme),
   setToolPrompt:
     // istanbul ignore next
     (toolPrompt: string) =>
@@ -116,7 +120,11 @@ export const ConfigurableUiActions = {
     ),
   setToolbarOpacity: (opacity: number) =>
     createAction(ConfigurableUiActionId.SetToolbarOpacity, opacity),
-  setPreviewFeatures: (features: PreviewFeatures) =>
+  /**
+   * Use `UiFramework.setPreviewFeatures` instead which is conveniently typed with current available features.
+   * @param features PreviewFeatures
+   */
+  setPreviewFeatures: (features: { [featureName: string]: any }) =>
     createAction(ConfigurableUiActionId.SetPreviewFeatures, features),
 };
 
