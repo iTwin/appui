@@ -6,7 +6,7 @@
  * @module SyncUi
  */
 
-import { BeUiEvent } from "@itwin/core-bentley"
+import { BeUiEvent } from "@itwin/core-bentley";
 
 /** UiSync Event arguments. Contains a set of lower case event Ids.
  * @public
