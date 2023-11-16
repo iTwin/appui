@@ -99,6 +99,7 @@ Table of contents:
 - Removed unneeded `changeView` call in `FloatingViewportComponent`.
 - Fixed reference error in case `applicationData` is not provided for `IModelViewportControl`.
 - Hidden widget will now float to `defaultSize` and `defaultPosition` of `canFloat` property when set to floating.
+- Fixed an issue with tool settings not being refreshed from tool when floating/docking tool settings.
 
 ## @itwin/imodel-components-react
 
