@@ -201,4 +201,41 @@ test.describe("tool settings", () => {
     await expect(alabamaCity).toBeVisible();
     await expect(californiaCity).not.toBeVisible();
   });
+
+  test("should display tool updated tool settings when switching widget/docked mode", async ({
+    page,
+  }) => {
+    const toolButton = page.getByTitle("Sample Tool");
+    await toolButton.click();
+
+    const widgetToolSettings = tabLocator(page, "Tool Settings");
+    const defaultStateField = page.locator("[value='PA']");
+    await expect(defaultStateField).toBeVisible();
+
+    // Test undocking after initial edit of tool settings by the tool.
+    await page.type(".nz-widgetPanels-appContent", "q");
+
+    const updatedStateField = page.locator("[value='qPA']");
+    await expect(widgetToolSettings).not.toBeVisible();
+    await expect(updatedStateField).toBeVisible();
+    await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Floating);
+    await expect(widgetToolSettings).toBeVisible();
+    await expect(updatedStateField).toBeVisible();
+
+    // Type something at the end of the state field to simulate user editing the tool settings.
+    await updatedStateField.focus();
+    await updatedStateField.press("End"); // type("type in field") only would add to the start of the filed, we want to validate the "e" wasn't added by the tool behavior.
+    await updatedStateField.type("type in field");
+    await page.locator("[value='qPAtype in field']").blur();
+
+    // Test docking back after second edit of tool settings by the tool.
+    await page.type(".nz-widgetPanels-appContent", "q");
+
+    const finalStateField = page.locator("[value='qqPAtype in field']");
+    await expect(widgetToolSettings).toBeVisible();
+    await expect(finalStateField).toBeVisible();
+    await page.getByTitle("Dock to top").click();
+    await expect(widgetToolSettings).not.toBeVisible();
+    await expect(finalStateField).toBeVisible();
+  });
 });
