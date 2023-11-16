@@ -115,6 +115,10 @@ Table of contents:
 
 ## @itwin/core-react
 
+### Changes
+
+- `IconSpec` now accepts the path to an `.svg` file as valid string input. `IconSpecUtilities` methods from `@itwin/appui-abstract` should no longer be used and will be deprecated in an upcoming release.
+
 ### Fixes
 
 - Fixed `useDisposable` hook to work in React 18 strict mode.
