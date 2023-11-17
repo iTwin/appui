@@ -11070,8 +11070,8 @@ packages:
     resolution: {integrity: sha1-iNf/fsDfuG9xPch7u0LQRNPmxBs=}
     dev: true
 
-  /crypto-js/4.1.1:
-    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
+  /crypto-js/4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
     dev: false
 
   /crypto-random-string/2.0.0:
@@ -17008,7 +17008,7 @@ packages:
     resolution: {integrity: sha512-tEpnC1xQX6PMhnDMNEvDhpqnsu0buh29b/sA9a1I5tq6lD87wRAW1rTj49B2+5925I0sQlvU64DoK0Pxeiu7Dg==}
     engines: {node: '>=12.13.0'}
     dependencies:
-      crypto-js: 4.1.1
+      crypto-js: 4.2.0
       jwt-decode: 3.1.2
     dev: false
 
