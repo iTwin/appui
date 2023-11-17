@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import {
   getUiSettingsManagerEntry,
   UiSettingsPage,
@@ -111,7 +111,7 @@ describe("UiSettingsPage", () => {
     const thumb =
       wrapper.container.ownerDocument.querySelector(".iui-slider-thumb");
     expect(thumb).to.exist;
-    fireEvent.keyDown(thumb!, { key: SpecialKey.ArrowRight });
+    fireEvent.keyDown(thumb!, { key: Key.ArrowRight });
     await TestUtils.flushAsyncOperations();
     let widgetOpacity = UiFramework.getWidgetOpacity();
     expect(widgetOpacity).greaterThanOrEqual(0.9);
@@ -130,8 +130,8 @@ describe("UiSettingsPage", () => {
     const thumb =
       wrapper.container.ownerDocument.querySelectorAll(".iui-slider-thumb");
     expect(thumb[0]).to.exist;
-    fireEvent.keyDown(thumb[0]!, { key: SpecialKey.ArrowRight });
-    fireEvent.keyUp(thumb[0]!, { key: SpecialKey.ArrowRight });
+    fireEvent.keyDown(thumb[0]!, { key: Key.ArrowRight });
+    fireEvent.keyUp(thumb[0]!, { key: Key.ArrowRight });
     await TestUtils.flushAsyncOperations();
     let toolbarOpacity = UiFramework.getToolbarOpacity();
     expect(toolbarOpacity).greaterThan(0.5);

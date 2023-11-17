@@ -19,7 +19,24 @@ const commonjsGlobal =
 if (commonjsGlobal.MessageChannel) delete commonjsGlobal.MessageChannel;
 
 const path = require("path");
+const os = require("os");
+const upath = require("upath");
 
+// Don't ignore svgs or imports will return 'undefined'
+// We need a path to correctly test svg icons.
+// This sets the path to the source of the svg file,
+// normalizing the path to work on all platforms.
+require("ignore-styles").default(
+  [".css", ".scss", ".sass", ".svg"],
+  (module, filename) => {
+    if (filename.endsWith(".svg")) {
+      const newPath = upath.normalize(
+        filename.replace(process.cwd(), "/ui/appui-layout-react")
+      );
+      module.exports = { default: newPath };
+    }
+  }
+);
 // A workaround to @testing-library/react {@testing-library/dom {wait-for-expect}} breaking somewhere,
 // because somewhere (most likely in jsdom) window.Date becomes undefined.
 // Similar issue mentioned in https://github.com/vuejs/vue-test-utils/issues/936

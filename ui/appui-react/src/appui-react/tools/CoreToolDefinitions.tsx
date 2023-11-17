@@ -32,7 +32,6 @@ import {
 import {
   ConditionalBooleanValue,
   ConditionalStringValue,
-  IconSpecUtilities,
 } from "@itwin/appui-abstract";
 import { getIsHiddenIfSelectionNotActive } from "../selection/SelectionContextItemDef";
 import { CommandItemDef } from "../shared/CommandItemDef";
@@ -128,9 +127,8 @@ export class CoreTools {
       iconSpec: new ConditionalStringValue(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
-        if (activeContentControl?.viewport?.view.is2d())
-          return IconSpecUtilities.createWebComponentIconSpec(svgRotateLeft);
-        return IconSpecUtilities.createWebComponentIconSpec(svgGyroscope);
+        if (activeContentControl?.viewport?.view.is2d()) return svgRotateLeft;
+        return svgGyroscope;
       }, [
         SyncUiEventId.ActiveContentChanged,
         SyncUiEventId.ActiveViewportChanged,
@@ -199,13 +197,9 @@ export class CoreTools {
           activeContentControl?.viewport?.view.is3d() &&
           activeContentControl?.viewport?.isCameraOn
         ) {
-          return IconSpecUtilities.createWebComponentIconSpec(
-            cameraAnimationIcon
-          );
+          return cameraAnimationIcon;
         }
-        return IconSpecUtilities.createWebComponentIconSpec(
-          cameraAnimationDisabledIcon
-        );
+        return cameraAnimationDisabledIcon;
       }, [
         SyncUiEventId.ActiveContentChanged,
         SyncUiEventId.ActiveViewportChanged,
@@ -400,7 +394,7 @@ export class CoreTools {
     return new GroupItemDef({
       groupId: "sectionTools-group",
       labelKey: "UiFramework:tools.sectionTools",
-      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgSectionTool),
+      iconSpec: svgSectionTool,
       isHidden: new ConditionalBooleanValue(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
@@ -430,7 +424,7 @@ export class CoreTools {
       groupId: "sectionTools-group-with-panel",
       labelKey: "UiFramework:tools.sectionTools",
       panelLabelKey: "UiFramework:tools.sectionPanelLabel",
-      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgSectionTool),
+      iconSpec: svgSectionTool,
       isHidden: new ConditionalBooleanValue(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
@@ -504,7 +498,7 @@ export class CoreTools {
   public static get clearSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.ClearSelection",
-      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgSelectionClear),
+      iconSpec: svgSelectionClear,
       labelKey: "UiFramework:buttons.clearSelection",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () => {

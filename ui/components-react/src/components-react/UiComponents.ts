@@ -9,8 +9,9 @@
 import { enablePatches } from "immer";
 import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
-import { getClassName, UiError } from "@itwin/appui-abstract";
 import { UiCore } from "@itwin/core-react";
+import { getObjectClassName } from "@itwin/core-react";
+import { UiError } from "@itwin/appui-abstract";
 
 /**
  * Manages the localization service for the components-react package.
@@ -100,7 +101,7 @@ export class UiComponents {
 
   /** @internal */
   public static loggerCategory(obj: any): string {
-    const className = getClassName(obj);
+    const className = getObjectClassName(obj);
     const category =
       UiComponents.packageName + (className ? `.${className}` : "");
     return category;

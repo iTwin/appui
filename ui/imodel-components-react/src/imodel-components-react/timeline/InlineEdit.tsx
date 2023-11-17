@@ -5,7 +5,7 @@
 import "./InlineEdit.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 
@@ -60,13 +60,13 @@ export class InlineEdit extends React.Component<
 
   private _onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     switch (event.key) {
-      case SpecialKey.Escape:
+      case Key.Escape:
         this.setState(
           (prevState) => ({ value: prevState.originalValue }),
           () => this._inputRef.current!.select()
         );
         break;
-      case SpecialKey.Enter:
+      case Key.Enter:
         this._sendChange(this.state.value);
         break;
     }

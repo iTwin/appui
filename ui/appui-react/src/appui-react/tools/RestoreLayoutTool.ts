@@ -15,7 +15,6 @@ import type { FrontstageDef } from "../frontstage/FrontstageDef";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { UiFramework } from "../UiFramework";
 import svgViewLayouts from "@bentley/icons-generic/icons/view-layouts.svg";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 
 /**
  * Immediate tool that will reset the layout to that specified in the stage definition. A stage Id
@@ -24,8 +23,7 @@ import { IconSpecUtilities } from "@itwin/appui-abstract";
  */
 export class RestoreFrontstageLayoutTool extends Tool {
   public static override toolId = "RestoreFrontstageLayout";
-  public static override iconSpec =
-    IconSpecUtilities.createWebComponentIconSpec(svgViewLayouts);
+  public static override iconSpec = svgViewLayouts;
 
   // istanbul ignore next
   public static override get minArgs() {
@@ -69,8 +67,7 @@ export class RestoreFrontstageLayoutTool extends Tool {
  */
 export class RestoreAllFrontstagesTool extends Tool {
   public static override toolId = "RestoreAllFrontstages";
-  public static override iconSpec =
-    IconSpecUtilities.createWebComponentIconSpec(svgViewLayouts);
+  public static override iconSpec = svgViewLayouts;
 
   public override async run() {
     const frontstages = InternalFrontstageManager.frontstageDefs;

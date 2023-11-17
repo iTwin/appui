@@ -46,7 +46,7 @@ import { WidgetOverflowContext } from "./Overflow";
 import { useLayout, useLayoutStore } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
 
 /** @internal */
@@ -356,7 +356,7 @@ export function useTabInteractions<T extends HTMLElement>({
       clickCount.current = 0;
     });
     const keydown = (e: KeyboardEvent) => {
-      if (e.key === SpecialKey.Space || e.key === SpecialKey.Enter) {
+      if (e.key === " " || e.key === Key.Enter) {
         handleClick();
       }
     };

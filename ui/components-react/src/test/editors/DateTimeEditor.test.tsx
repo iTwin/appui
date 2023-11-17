@@ -6,6 +6,7 @@
 import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
+import { Key } from "ts-key-enum";
 import type {
   PrimitiveValue,
   PropertyDescription,
@@ -15,7 +16,6 @@ import {
   AlternateDateFormats,
   PropertyRecord,
   PropertyValueFormat,
-  SpecialKey,
   StandardTypeNames,
   TimeDisplay,
 } from "@itwin/appui-abstract";
@@ -249,7 +249,7 @@ describe("<DateTimeEditor />", () => {
     // expect(renderedComponent).not.to.be.undefined;
     const popupButton = await findByTestId("components-popup-button");
     fireEvent.click(popupButton);
-    fireEvent.keyDown(popupButton, { key: SpecialKey.Enter });
+    fireEvent.keyDown(popupButton, { key: Key.Enter });
   });
 
   it("all variations should render", async () => {
@@ -373,7 +373,7 @@ describe("<DateTimeEditor />", () => {
     );
     expect(popupButton).not.to.be.null;
 
-    fireEvent.keyDown(popupButton, { key: SpecialKey.Enter });
+    fireEvent.keyDown(popupButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.called).to.be.false;
 

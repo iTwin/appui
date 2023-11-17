@@ -8,7 +8,6 @@
 
 import * as React from "react";
 import widgetIconSvg from "@bentley/icons-generic/icons/home.svg";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
 import { Icon, useWidgetOpacityContext } from "@itwin/core-react";
 import { AppButton } from "@itwin/appui-layout-react";
@@ -41,9 +40,7 @@ export function BackstageAppButton(props: BackstageAppButtonProps) {
     [backstageToggleCommand.tooltip, props.label]
   );
   const [icon, setIcon] = React.useState(
-    props.icon
-      ? props.icon
-      : IconSpecUtilities.createWebComponentIconSpec(widgetIconSvg)
+    props.icon ? props.icon : widgetIconSvg
   );
   const isInitialMount = React.useRef(true);
   const divClassName = "uifw-app-button-small";
@@ -60,11 +57,7 @@ export function BackstageAppButton(props: BackstageAppButtonProps) {
       isInitialMount.current = false;
       onElementRef(ref);
     } else {
-      setIcon(
-        props.icon
-          ? props.icon
-          : IconSpecUtilities.createWebComponentIconSpec(widgetIconSvg)
-      );
+      setIcon(props.icon ? props.icon : widgetIconSvg);
     }
   }, [props.icon, onElementRef]);
 

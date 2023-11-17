@@ -18,7 +18,6 @@ import type {
   PropertyValue,
 } from "@itwin/appui-abstract";
 import {
-  IconSpecUtilities,
   PropertyEditorParamTypes,
   PropertyValueFormat,
   StandardEditorNames,
@@ -50,8 +49,6 @@ export class EnumButtonGroupEditor
 {
   private _btnRefs = new Map<string | number, HTMLButtonElement>();
   private _divElement = React.createRef<HTMLDivElement>();
-  private _placeholderIconSpec =
-    IconSpecUtilities.createWebComponentIconSpec(svgPlaceholder);
 
   /** @internal */
   public override readonly state: Readonly<EnumButtonGroupEditorState> = {
@@ -130,7 +127,7 @@ export class EnumButtonGroupEditor
 
       const numChoices = choices.length;
       const enumIcons = new Array<IconDefinition>(numChoices);
-      enumIcons.fill({ iconSpec: this._placeholderIconSpec });
+      enumIcons.fill({ iconSpec: svgPlaceholder });
 
       // istanbul ignore else
       if (

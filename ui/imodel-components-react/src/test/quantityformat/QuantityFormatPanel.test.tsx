@@ -7,11 +7,11 @@ import * as sinon from "sinon";
 import * as React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { Key } from "ts-key-enum";
 import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import type { FormatProps } from "@itwin/core-quantity";
 import { FormatType, ShowSignOption } from "@itwin/core-quantity";
 import { BearingQuantityType } from "./BearingQuantityType";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { TestUtils } from "../TestUtils";
 import {
   handleError,
@@ -407,12 +407,12 @@ describe("QuantityInput", () => {
     await TestUtils.flushAsyncOperations();
 
     fireEvent.keyUp(renderedComponent.getByTestId("quantityFormat-more"), {
-      key: SpecialKey.Enter,
+      key: Key.Enter,
     });
     await TestUtils.flushAsyncOperations();
 
     fireEvent.keyUp(renderedComponent.getByTestId("quantityFormat-less"), {
-      key: SpecialKey.Space,
+      key: " ",
     });
     await TestUtils.flushAsyncOperations();
   });

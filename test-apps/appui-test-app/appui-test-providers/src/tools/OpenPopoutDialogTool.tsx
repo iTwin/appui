@@ -6,7 +6,6 @@ import * as React from "react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import {
   ConditionalBooleanValue,
-  IconSpecUtilities,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import windowAddSvg from "@bentley/icons-generic/icons/window-add.svg";
@@ -72,13 +71,11 @@ export class OpenPopoutDialogTool extends Tool {
       groupPriority,
       isHidden,
     };
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
-      `${this.iconSpec}`
-    );
+
     return ToolbarItemUtilities.createActionButton(
       OpenPopoutDialogTool.toolId,
       itemPriority,
-      iconSpec,
+      this.iconSpec,
       OpenPopoutDialogTool.flyover,
       async () => {
         await IModelApp.tools.run(OpenPopoutDialogTool.toolId);

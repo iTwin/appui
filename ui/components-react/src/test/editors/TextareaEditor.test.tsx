@@ -7,6 +7,7 @@ import { expect } from "chai";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import sinon from "sinon";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type {
   InputEditorSizeParams,
   MultilineTextEditorParams,
@@ -14,7 +15,6 @@ import type {
 } from "@itwin/appui-abstract";
 import {
   PropertyEditorParamTypes,
-  SpecialKey,
   StandardEditorNames,
 } from "@itwin/appui-abstract";
 import { TextareaEditor } from "../../components-react/editors/TextareaEditor";
@@ -202,7 +202,7 @@ describe("<TextareaEditor />", () => {
     );
     expect(popupButton).not.to.be.null;
 
-    fireEvent.keyDown(popupButton, { key: SpecialKey.Escape });
+    fireEvent.keyDown(popupButton, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCancel.calledOnce).to.be.true;
   });

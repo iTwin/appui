@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import {
   StageUsage,
   StatusBarItem,
@@ -92,8 +91,6 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
     _stageId: string,
     stageUsage: string
   ): StatusBarItem[] {
-    const unitsIcon =
-      IconSpecUtilities.createWebComponentIconSpec(statusFieldSvg);
     const statusBarItems: StatusBarItem[] = [];
     if (stageUsage === StageUsage.General) {
       statusBarItems.push(
@@ -102,7 +99,7 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
           "AppUiTestProviders:UnitsStatusBarItem",
           this.props?.unitsStatusBarItem?.section ?? StatusBarSection.Center,
           this.props?.unitsStatusBarItem?.itemPriority ?? 100,
-          unitsIcon,
+          statusFieldSvg,
           AppUiTestProviders.translate("StatusBar.UnitsFlyover"),
           () => {
             IModelApp.uiAdmin.openDialog(

@@ -9,6 +9,7 @@
 // cSpell:ignore focusvalue uiadmin
 
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import "./KeyinPalettePanel.scss";
 import {
   FilteredText,
@@ -25,11 +26,11 @@ import {
 } from "@itwin/core-frontend";
 import { UiFramework } from "../UiFramework";
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
-import { matchesWords, SpecialKey } from "@itwin/appui-abstract";
 import { ClearKeyinPaletteHistoryTool } from "../tools/KeyinPaletteTools";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
 import type { KeyinEntry } from "../uiadmin/FrameworkUiAdmin";
 import { Input } from "@itwin/itwinui-react";
+import { matchesWords } from "../utils/matchesWords";
 
 const KEYIN_PALETTE_NAMESPACE = "KeyinPalettePanel";
 const KEYIN_HISTORY_KEY = "historyArray";
@@ -224,7 +225,7 @@ export function KeyinPalettePanel({
       // built into listbox a "Space" key will trigger the selection of a entry so if an Enter key is pressed
       // assume user wants to execute the entry.
       // istanbul ignore else
-      if (key === SpecialKey.Enter) {
+      if (key === Key.Enter) {
         event.preventDefault();
         // istanbul ignore next
         const keyinToSend = getKeyinFromListboxValue(
@@ -299,7 +300,7 @@ export function KeyinPalettePanel({
 
   const onInputValueKeyDown = React.useCallback(
     async (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (SpecialKey.Enter === event.key) {
+      if (Key.Enter === event.key) {
         event.preventDefault();
         event.stopPropagation();
         // istanbul ignore else
@@ -309,12 +310,12 @@ export function KeyinPalettePanel({
         } else {
           if (currentKeyin) await submitKeyin(currentKeyin);
         }
-      } else if (SpecialKey.Tab === event.key && 1 === filteredKeyins.length) {
+      } else if (Key.Tab === event.key && 1 === filteredKeyins.length) {
         event.preventDefault();
         event.stopPropagation();
         updateKeyin(filteredKeyins[0].value);
       } else {
-        if (event.key === SpecialKey.ArrowDown && filteredKeyins.length > 0) {
+        if (event.key === Key.ArrowDown && filteredKeyins.length > 0) {
           event.preventDefault();
           event.stopPropagation();
           // istanbul ignore else

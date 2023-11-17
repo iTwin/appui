@@ -9,9 +9,9 @@
 import "./SearchBox.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { Input } from "@itwin/itwinui-react";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
@@ -143,11 +143,11 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
 
   private _handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
-      case SpecialKey.Escape:
+      case Key.Escape:
         // istanbul ignore else
         if (this.props.onEscPressed) this.props.onEscPressed();
         break;
-      case SpecialKey.Enter:
+      case Key.Enter:
         // istanbul ignore else
         if (this.props.onEnterPressed) this.props.onEnterPressed();
         break;

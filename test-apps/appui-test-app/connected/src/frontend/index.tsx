@@ -22,7 +22,6 @@ import {
   RealityDataAccessClient,
   RealityDataClientOptions,
 } from "@itwin/reality-data-client";
-import { getClassName } from "@itwin/appui-abstract";
 import {
   ActionsUnion,
   AppNotificationManager,
@@ -78,6 +77,7 @@ import {
   ToolAdmin,
   ViewClipByPlaneTool,
 } from "@itwin/core-frontend";
+import { getObjectClassName } from "@itwin/core-react";
 import {
   MobileApp,
   MobileAppOpts,
@@ -400,7 +400,7 @@ export class SampleAppIModelApp {
   }
 
   public static loggerCategory(obj: any): string {
-    const className = getClassName(obj);
+    const className = getObjectClassName(obj);
     const category = `appui-test-app.${className}`;
     return category;
   }

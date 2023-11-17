@@ -21,7 +21,6 @@ import {
   SyncUiEventDispatcher,
   SyncUiEventId,
 } from "../../syncui/SyncUiEventDispatcher";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select, Slider, ToggleSwitch } from "@itwin/itwinui-react";
 import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
@@ -469,7 +468,7 @@ export function getUiSettingsManagerEntry(
     itemPriority,
     tabId: "uifw:UiStateStorage",
     label: UiFramework.translate("settings.uiSettingsPage.label"),
-    icon: IconSpecUtilities.createWebComponentIconSpec(widowSettingsIconSvg),
+    icon: widowSettingsIconSvg,
     page: <UiSettingsPage />,
     isDisabled: false,
     tooltip: UiFramework.translate("settings.uiSettingsPage.tooltip"),

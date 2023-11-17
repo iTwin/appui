@@ -7,12 +7,9 @@ import { expect } from "chai";
 import React from "react";
 import * as sinon from "sinon";
 import type { ActionButton, CommonToolbarItem } from "@itwin/appui-abstract";
-import {
-  BadgeType,
-  SpecialKey,
-  ToolbarItemUtilities,
-} from "@itwin/appui-abstract";
+import { BadgeType, ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
+import { Key } from "ts-key-enum";
 import * as useTargetedModule from "@itwin/core-react/lib/cjs/core-react/utils/hooks/useTargeted";
 import type { CustomToolbarItem } from "../../components-react/toolbar/InternalToolbarComponent";
 import {
@@ -446,7 +443,7 @@ describe("<Toolbar (No Overflow) />", () => {
       const popupPanel = renderedComponent.queryByTestId("popup-panel");
       expect(popupPanel).not.to.be.null;
       popupPanel!.dispatchEvent(
-        createBubbledEvent("keydown", { key: SpecialKey.Escape /* <Esc> */ })
+        createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
       );
       onKeyDownSpy.calledOnce.should.true;
     });

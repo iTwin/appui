@@ -8,8 +8,9 @@
 
 import "./EditorContainer.scss";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { PropertyRecord, PropertyValue } from "@itwin/appui-abstract";
-import { SpecialKey, UiAdmin } from "@itwin/appui-abstract";
+import { UiAdmin } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import type {
   AsyncErrorMessage,
@@ -151,13 +152,13 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
 
   private _handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
-      case SpecialKey.Escape:
+      case Key.Escape:
         this.onPressEscape(e);
         break;
-      case SpecialKey.Enter:
+      case Key.Enter:
         this.onPressEnter(e);
         break;
-      case SpecialKey.Tab:
+      case Key.Tab:
         this.onPressTab(e);
         break;
       default:

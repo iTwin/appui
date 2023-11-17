@@ -18,7 +18,6 @@ import {
   DialogItemValue,
   DialogPropertySyncItem,
   EnumerationChoice,
-  IconSpecUtilities,
   PropertyDescription,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
@@ -241,14 +240,11 @@ export class ToolWithDynamicSettings extends PrimitiveTool {
     groupPriority?: number
   ) {
     const overrides = undefined !== groupPriority ? { groupPriority } : {};
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
-      this.iconSpec
-    );
 
     return ToolbarItemUtilities.createActionButton(
       ToolWithDynamicSettings.toolId,
       itemPriority,
-      iconSpec,
+      this.iconSpec,
       ToolWithDynamicSettings.flyover,
       async () => {
         await IModelApp.tools.run(ToolWithDynamicSettings.toolId);

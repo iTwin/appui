@@ -7,7 +7,7 @@ import { expect } from "chai";
 import { fireEvent, render, screen } from "@testing-library/react";
 import * as React from "react";
 import sinon from "sinon";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { ImageCheckBoxEditor } from "../../components-react/editors/ImageCheckBoxEditor";
 import TestUtils, { MineDataController, userEvent } from "../TestUtils";
@@ -111,11 +111,11 @@ describe("<ImageCheckBoxEditor />", () => {
 
     const inputNode = screen.getByRole("checkbox");
 
-    fireEvent.keyDown(inputNode, { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputNode, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.called).to.be.false;
 
-    fireEvent.keyDown(inputNode, { key: SpecialKey.Escape });
+    fireEvent.keyDown(inputNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCancel.calledOnce).to.be.true;
 

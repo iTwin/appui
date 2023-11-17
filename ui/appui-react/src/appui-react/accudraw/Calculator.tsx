@@ -9,8 +9,8 @@
 import "./Calculator.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { OnCancelFunc, OnNumberCommitFunc } from "@itwin/appui-abstract";
-import { IconSpecUtilities, SpecialKey } from "@itwin/appui-abstract";
 import type { CommonProps, Omit } from "@itwin/core-react";
 import { Icon, IconInput } from "@itwin/core-react";
 import { Button, Input } from "@itwin/itwinui-react";
@@ -18,7 +18,6 @@ import { CalculatorEngine, CalculatorOperator } from "./CalculatorEngine";
 import type { SquareButtonProps } from "./SquareButton";
 import { SquareButton } from "./SquareButton";
 import { SvgCheckmark, SvgRemove } from "@itwin/itwinui-icons-react";
-
 import backspaceIcon from "./backspace.svg";
 
 // cSpell:ignore plusmn
@@ -207,39 +206,39 @@ export class Calculator extends React.PureComponent<
         break;
       case "c":
       case "C":
-      case SpecialKey.Clear:
+      case Key.Clear:
         this._onOperatorButtonClick(CalculatorOperator.Clear);
         break;
-      case SpecialKey.Escape:
+      case Key.Escape:
         this._cancel();
         break;
-      case SpecialKey.Backspace:
+      case Key.Backspace:
         this._onOperatorButtonClick(CalculatorOperator.Backspace);
         break;
       case "/":
-      case SpecialKey.Divide:
+      case Key.Divide:
         this._onOperatorButtonClick(CalculatorOperator.Divide);
         break;
       case "*":
-      case SpecialKey.Multiply:
+      case Key.Multiply:
         this._onOperatorButtonClick(CalculatorOperator.Multiply);
         break;
       case "-":
-      case SpecialKey.Subtract:
+      case Key.Subtract:
         this._onOperatorButtonClick(CalculatorOperator.Subtract);
         break;
       case "+":
-      case SpecialKey.Add:
+      case Key.Add:
         this._onOperatorButtonClick(CalculatorOperator.Add);
         break;
       case ".":
-      case SpecialKey.Decimal:
+      case Key.Decimal:
         this._onOperatorButtonClick(CalculatorOperator.Decimal);
         break;
       case "=":
         this._onOperatorButtonClick(CalculatorOperator.Equals);
         break;
-      case SpecialKey.Enter:
+      case Key.Enter:
         if (!this._equalsClicked)
           this._onOperatorButtonClick(CalculatorOperator.Equals);
         this._ok();
@@ -257,9 +256,6 @@ interface CalculatorKeyPadProps extends CommonProps {
 
 class CalculatorKeyPad extends React.PureComponent<CalculatorKeyPadProps> {
   public override render() {
-    const iconSpec =
-      IconSpecUtilities.createWebComponentIconSpec(backspaceIcon);
-
     return (
       <div className={classnames("uifw-calculator-button-grid")}>
         <OperatorButton
@@ -279,7 +275,7 @@ class CalculatorKeyPad extends React.PureComponent<CalculatorKeyPadProps> {
           onClick={this.props.onOperatorClick}
         >
           <div className="uifw-calculator-button-svg">
-            <Icon iconSpec={iconSpec} />
+            <Icon iconSpec={backspaceIcon} />
           </div>
         </OperatorButton>
         <OperatorButton

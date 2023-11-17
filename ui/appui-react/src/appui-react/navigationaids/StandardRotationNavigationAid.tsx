@@ -10,11 +10,7 @@ import "./StandardRotationNavigationAid.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { StandardViewId } from "@itwin/core-frontend";
-import {
-  IconSpecUtilities,
-  RelativePosition,
-  ToolbarItemUtilities,
-} from "@itwin/appui-abstract";
+import { RelativePosition, ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { ViewportComponentEvents } from "@itwin/imodel-components-react";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
 import { Icon, Popup } from "@itwin/core-react";
@@ -83,43 +79,35 @@ export class StandardRotationNavigationAid extends React.Component<
     const list: RotationData[] = [
       {
         label: UiFramework.translate("rotations.top"),
-        iconsSpec:
-          IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesTop),
+        iconsSpec: svgCubeFacesTop,
       },
       {
         label: UiFramework.translate("rotations.bottom"),
-        iconsSpec:
-          IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesBottom),
+        iconsSpec: svgCubeFacesBottom,
       },
       {
         label: UiFramework.translate("rotations.left"),
-        iconsSpec:
-          IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesLeft),
+        iconsSpec: svgCubeFacesLeft,
       },
       {
         label: UiFramework.translate("rotations.right"),
-        iconsSpec:
-          IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesRight),
+        iconsSpec: svgCubeFacesRight,
       },
       {
         label: UiFramework.translate("rotations.front"),
-        iconsSpec:
-          IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesFront),
+        iconsSpec: svgCubeFacesFront,
       },
       {
         label: UiFramework.translate("rotations.rear"),
-        iconsSpec:
-          IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesRear),
+        iconsSpec: svgCubeFacesRear,
       },
       {
         label: UiFramework.translate("rotations.isoLeft"),
-        iconsSpec:
-          IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesIsoLeft),
+        iconsSpec: svgCubeFacesIsoLeft,
       },
       {
         label: UiFramework.translate("rotations.isoRight"),
-        iconsSpec:
-          IconSpecUtilities.createWebComponentIconSpec(svgCubeFacesIsoRight),
+        iconsSpec: svgCubeFacesIsoRight,
       },
     ];
     this.state = {

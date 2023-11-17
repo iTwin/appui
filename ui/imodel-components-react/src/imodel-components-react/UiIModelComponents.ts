@@ -8,10 +8,9 @@
 
 import { Logger } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
-import { getClassName } from "@itwin/appui-abstract";
 import { UiComponents } from "@itwin/components-react";
 import { EmptyLocalization } from "@itwin/core-common";
-
+import { getObjectClassName } from "@itwin/core-react";
 /**
  * Manages the localization service for the imodel-components-react package.
  * @public
@@ -92,7 +91,7 @@ export class UiIModelComponents {
 
   /** @internal */
   public static loggerCategory(obj: any): string {
-    const className = getClassName(obj);
+    const className = getObjectClassName(obj);
     const category =
       UiIModelComponents.packageName + (className ? `.${className}` : "");
     return category;

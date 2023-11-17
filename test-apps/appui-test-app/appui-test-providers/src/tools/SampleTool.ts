@@ -23,7 +23,6 @@ import {
   DialogItem,
   DialogItemValue,
   DialogPropertySyncItem,
-  IconSpecUtilities,
   InputEditorSizeParams,
   PropertyDescription,
   PropertyEditorParamTypes,
@@ -724,14 +723,11 @@ export class SampleTool extends PrimitiveTool {
     groupPriority?: number
   ) {
     const overrides = undefined !== groupPriority ? { groupPriority } : {};
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
-      this.iconSpec
-    );
 
     return ToolbarItemUtilities.createActionButton(
       SampleTool.toolId,
       itemPriority,
-      iconSpec,
+      this.iconSpec,
       SampleTool.flyover,
       async () => {
         await IModelApp.tools.run(SampleTool.toolId);

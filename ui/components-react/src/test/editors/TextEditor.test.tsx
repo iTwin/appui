@@ -7,6 +7,7 @@ import { expect } from "chai";
 import sinon from "sinon";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type {
   IconEditorParams,
   InputEditorSizeParams,
@@ -20,7 +21,6 @@ import type {
 import {
   MessageSeverity,
   PropertyEditorParamTypes,
-  SpecialKey,
 } from "@itwin/appui-abstract";
 import { TextEditor } from "../../components-react/editors/TextEditor";
 import TestUtils, {
@@ -199,7 +199,7 @@ describe("<TextEditor />", () => {
     const inputNode = wrapper.container.querySelector("input");
     expect(inputNode).not.to.be.null;
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.calledOnce).to.be.true;
   });
@@ -264,7 +264,7 @@ describe("<TextEditor />", () => {
       const inputNode = wrapper.container.querySelector("input");
       expect(inputNode).not.to.be.null;
 
-      fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });
+      fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
       await TestUtils.flushAsyncOperations();
       expect(spyOnCommit.calledOnce).to.be.false;
 
@@ -311,7 +311,7 @@ describe("<TextEditor />", () => {
       const inputNode = wrapper.container.querySelector("input");
       expect(inputNode).not.to.be.null;
 
-      fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });
+      fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
       await TestUtils.flushAsyncOperations();
       expect(spyOnCommit.calledOnce).to.be.false;
 

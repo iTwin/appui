@@ -6,9 +6,10 @@
 import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
+import { Key } from "ts-key-enum";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
-import { RelativePosition, SpecialKey } from "@itwin/appui-abstract";
+import { RelativePosition } from "@itwin/appui-abstract";
 import { TestUtils } from "../TestUtils";
 import { ColorPickerPopup } from "../../imodel-components-react/color/ColorPickerPopup";
 
@@ -329,7 +330,7 @@ describe("<ColorPickerPopup/>", () => {
     );
     fireEvent.change(inputs[0], { target: { value: "100" } });
     expect((inputs[0] as HTMLInputElement).value).to.eq("100");
-    fireEvent.keyDown(inputs[0], { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputs[0], { key: Key.Enter });
     spyOnChange.calledOnce.should.be.true;
   });
 
@@ -363,7 +364,7 @@ describe("<ColorPickerPopup/>", () => {
     );
     fireEvent.change(inputs[0], { target: { value: "100" } });
     expect((inputs[0] as HTMLInputElement).value).to.eq("100");
-    fireEvent.keyDown(inputs[0], { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputs[0], { key: Key.Enter });
     spyOnChange.calledOnce.should.be.true;
   });
 

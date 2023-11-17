@@ -7,11 +7,11 @@
  */
 
 import * as React from "react";
+import { UiEvent } from "@itwin/appui-abstract";
 import type { Id64String } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { FuzzySearch, IModelApp } from "@itwin/core-frontend";
-import { IconSpecUtilities, UiEvent } from "@itwin/appui-abstract";
 import type { SupportsViewSelectorChange } from "../content/ContentControl";
 import { connectIModelConnection } from "../redux/connectIModel";
 import { UiFramework } from "../UiFramework";
@@ -443,8 +443,6 @@ export class ViewSelector extends React.Component<
    *  Renders ViewSelector component
    */
   public override render() {
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgSavedView);
-
     const { imodel, ...props } = this.props;
 
     return (
@@ -453,7 +451,7 @@ export class ViewSelector extends React.Component<
         title={this.state.title}
         setEnabled={this._setEnabled}
         items={this.state.items}
-        iconSpec={iconSpec}
+        iconSpec={svgSavedView}
         onExpanded={this._onExpanded}
         searchBox={this.state.searchBox}
         onSearchValueChange={debounce((search: string) => {

@@ -9,6 +9,7 @@
 import "./CardPopup.scss";
 import * as React from "react";
 import classnames from "classnames";
+import { Key } from "ts-key-enum";
 import type {
   CommonToolbarItem,
   OnCancelFunc,
@@ -16,7 +17,6 @@ import type {
   PropertyRecord,
   RelativePosition,
 } from "@itwin/appui-abstract";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { Orientation, SizeProps } from "@itwin/core-react";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
@@ -70,7 +70,7 @@ export class CardPopup extends React.PureComponent<
 
   private _handleKeyDown = (event: React.KeyboardEvent): void => {
     switch (event.key) {
-      case SpecialKey.Escape:
+      case Key.Escape:
         this._cancel();
         break;
     }
