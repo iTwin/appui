@@ -120,9 +120,8 @@ export function useFloatingViewport(args: FloatingViewportContentProps) {
       if (null === contentControl.current.reactNode) {
         contentControl.current.reactNode = viewportControl;
       }
-      void contentControl.current.viewport.changeView(viewState);
     }
-  }, [viewState, viewport, viewportControl]);
+  }, [viewport, viewportControl]);
 
   React.useEffect(() => {
     const onViewClose = (vp: ScreenViewport) => {

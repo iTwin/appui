@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Remove unneeded `changeView` call on `FloatingViewportComponent`",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
