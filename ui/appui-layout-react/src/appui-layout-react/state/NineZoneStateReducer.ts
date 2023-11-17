@@ -646,6 +646,11 @@ export function NineZoneStateReducer(
       const nzBounds = Rectangle.createFromSize(state.size);
       const containedBounds = preferredBounds.containIn(nzBounds);
 
+      const userSized =
+        tab.userSized ||
+        (tab.isFloatingWidgetResizable &&
+          /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
+
       if (isPanelTabLocation(location)) {
         const panel = state.panels[location.side];
         const widgetIndex = panel.widgets.indexOf(location.widgetId);
@@ -661,6 +666,7 @@ export function NineZoneStateReducer(
             widgetId: location.widgetId,
             widgetIndex,
           },
+          userSized,
         });
       } else {
         const popoutWidgetId = location.popoutWidgetId;
