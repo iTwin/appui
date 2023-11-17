@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fixed an issue where frontstage state would be lost when it is closed too soon after a change.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
