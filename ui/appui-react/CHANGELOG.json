@@ -2,6 +2,27 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.6.4",
+      "tag": "@itwin/appui-react_v4.6.4",
+      "date": "Mon, 20 Nov 2023 19:07:50 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Hidden widget will now open to default position and size of CanFloat property when set to floating"
+          },
+          {
+            "comment": "Fixed an issue where frontstage state changes would be lost when it is closed too soon after the change."
+          },
+          {
+            "comment": "Remove unneeded `changeView` call on `FloatingViewportComponent`"
+          },
+          {
+            "comment": "Refresh tool setting values when undocking"
+          }
+        ]
+      }
+    },
+    {
       "version": "4.6.3",
       "tag": "@itwin/appui-react_v4.6.3",
       "date": "Wed, 25 Oct 2023 09:39:22 GMT",

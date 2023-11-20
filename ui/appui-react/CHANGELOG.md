@@ -1,6 +1,16 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Wed, 25 Oct 2023 09:39:22 GMT and should not be manually modified.
+This log was last generated on Mon, 20 Nov 2023 19:07:50 GMT and should not be manually modified.
+
+## 4.6.4
+Mon, 20 Nov 2023 19:07:50 GMT
+
+### Updates
+
+- Hidden widget will now open to default position and size of CanFloat property when set to floating
+- Fixed an issue where frontstage state changes would be lost when it is closed too soon after the change.
+- Remove unneeded `changeView` call on `FloatingViewportComponent`
+- Refresh tool setting values when undocking
 
 ## 4.6.3
 Wed, 25 Oct 2023 09:39:22 GMT
