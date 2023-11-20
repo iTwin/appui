@@ -706,11 +706,11 @@ export class DragManager {
     );
   }
 
-  public handleDragUpdate(item: DragItem | undefined) {
+  public handleDragUpdate(item: DragItem) {
     // istanbul ignore next
     if (!this._dragged) return;
 
-    this._dragged.item = item ?? this._dragged.item;
+    this._dragged.item = item;
     this._onDragUpdateEmitter.raiseEvent(
       this._dragged.item,
       this._dragged.info,
