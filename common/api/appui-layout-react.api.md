@@ -1011,6 +1011,9 @@ export interface PopoutWidgetState {
 }
 
 // @internal
+export const PreviewFeaturesProvider: ({ children, ...props }: PreviewFeaturesProviderProps) => JSX.Element;
+
+// @internal
 export function removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
 
 // @internal
@@ -1564,6 +1567,12 @@ export interface UsePanelTargetArgs {
 // @internal
 export const usePointerCaptor: <T extends HTMLElement>(onPointerDown?: ((args: PointerCaptorArgs, e: PointerCaptorEvent) => void) | undefined, onPointerMove?: ((args: PointerCaptorArgs, e: PointerCaptorEvent) => void) | undefined, onPointerUp?: ((e: PointerCaptorEvent) => void) | undefined) => (instance: T | null) => void;
 
+// @internal
+export const usePreviewFeatures: () => KnownPreviewFeatures & {
+    previewState: PreviewFeatureState;
+    previewDispatch: React_2.Dispatch<PreviewActions>;
+};
+
 // @internal (undocumented)
 export const useResizeGrip: <T extends HTMLElement>() => [(instance: T | null) => void, boolean, boolean];
 
@@ -1583,10 +1592,12 @@ export function useSendBackHomeState(): {
 } | undefined;
 
 // @internal (undocumented)
-export function useTabInteractions<T extends HTMLElement>({ onClick, onDoubleClick, onDragStart, }: UseTabInteractionsArgs): (instance: T | null | undefined) => void;
+export function useTabInteractions<T extends HTMLElement>({ onClick, onDoubleClick, onDragStart, clickOnly, }: UseTabInteractionsArgs): (instance: T | null | undefined) => void;
 
 // @internal (undocumented)
 export interface UseTabInteractionsArgs {
+    // (undocumented)
+    clickOnly?: boolean;
     // (undocumented)
     onClick?: () => void;
     // (undocumented)

@@ -42,7 +42,9 @@ import {
   isPanelTabLocation,
   NineZone,
   NineZoneStateReducer,
+  PreviewFeaturesProvider,
   removeTab,
+  useLayout,
   WidgetPanels,
 } from "@itwin/appui-layout-react";
 import {
@@ -62,7 +64,11 @@ import {
 import { WidgetPanelsStatusBar } from "./StatusBar";
 import { WidgetPanelsTab } from "./Tab";
 import { WidgetPanelsToolbars } from "./Toolbars";
-import { ToolSettingsContent, WidgetPanelsToolSettings } from "./ToolSettings";
+import {
+  ToolSettingsContent,
+  useShouldRenderDockedToolSettings,
+  WidgetPanelsToolSettings,
+} from "./ToolSettings";
 import { useEscapeSetFocusToHome } from "../hooks/useEscapeSetFocusToHome";
 import type { FrameworkRootState } from "../redux/StateManager";
 import { useSelector } from "react-redux";
@@ -74,18 +80,36 @@ import { WidgetState } from "../widgets/WidgetState";
 import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
+import { usePreviewFeatures } from "../preview/PreviewFeatures";
+import classNames from "classnames";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
   const uiIsVisible = useUiVisibility();
+  const previewFeatures = usePreviewFeatures();
+
+  const previewContentAlwaysMaxSizeDockedClass =
+    useShouldRenderDockedToolSettings() &&
+    previewFeatures.contentAlwaysMaxSize &&
+    "preview-contentAlwaysMaxSize-toolSettingsDocked";
+  const previewContentAlwaysMaxSizeTopPanelClass =
+    useLayout((state) => {
+      return state.panels.top.widgets.length > 0;
+    }) &&
+    previewFeatures.contentAlwaysMaxSize &&
+    "preview-contentAlwaysMaxSize-topPanelActive";
 
   return (
-    <>
+    <PreviewFeaturesProvider {...previewFeatures}>
       <WidgetPanelsToolSettings />
       <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
         <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
         <WidgetPanels
-          className="uifw-widgetPanels"
+          className={classNames(
+            "uifw-widgetPanels",
+            previewContentAlwaysMaxSizeDockedClass,
+            previewContentAlwaysMaxSizeTopPanelClass
+          )}
           centerContent={<WidgetPanelsToolbars />}
         >
           <WidgetPanelsFrontstageContent />
@@ -93,7 +117,7 @@ function WidgetPanelsFrontstageComponent() {
         <WidgetPanelsStatusBar />
         <FloatingWidgets />
       </ToolbarPopupAutoHideContext.Provider>
-    </>
+    </PreviewFeaturesProvider>
   );
 }
 
@@ -1021,6 +1045,7 @@ export function useSaveFrontstageSettings(
   store: LayoutStore
 ) {
   const uiSettingsStorage = useUiStateStorageHandler();
+  const pendingSave = React.useRef(() => {});
   const saveSetting = React.useMemo(() => {
     const debounced = debounce(
       async (frontstage: FrontstageDef, state: NineZoneState) => {
@@ -1045,6 +1070,7 @@ export function useSaveFrontstageSettings(
       debounced(frontstage, state);
     };
     save.cancel = debounced.cancel;
+    pendingSave.current = debounced.immediate;
     return save;
   }, [uiSettingsStorage]);
   React.useEffect(() => {
@@ -1061,6 +1087,11 @@ export function useSaveFrontstageSettings(
       saveSetting(frontstageDef, store.getState());
     });
   }, [saveSetting, frontstageDef, store]);
+  React.useEffect(() => {
+    return () => {
+      pendingSave.current();
+    };
+  });
 }
 
 /** @internal */
@@ -1079,16 +1110,29 @@ function debounce<T extends (...args: any[]) => any>(
   duration: number
 ) {
   let timeout: number | undefined;
+  let handler: () => any | undefined;
   const debounced = (...args: Parameters<T>) => {
-    const handler = () => {
+    handler = () => {
       timeout = undefined;
       return func(...args);
     };
     window.clearTimeout(timeout);
     timeout = window.setTimeout(handler, duration);
   };
+  /**
+   * Will cancel the timeout without running the function.
+   */
   debounced.cancel = () => {
     window.clearTimeout(timeout);
+    timeout = undefined;
+  };
+  /**
+   * If not already ran, will run the function immediately and remove the timeout.
+   */
+  debounced.immediate = () => {
+    if (timeout === undefined) return;
+    debounced.cancel();
+    handler?.();
   };
   return debounced;
 }

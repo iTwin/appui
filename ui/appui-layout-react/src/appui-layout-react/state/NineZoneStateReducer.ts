@@ -530,9 +530,31 @@ export function NineZoneStateReducer(
       if (location && isPopoutTabLocation(location)) return state;
 
       const savedTab = state.savedTabs.byId[id];
+
+      const tab = state.tabs[id];
+
+      let contentHeight = 800;
+      let contentWidth = 600;
+
+      if (tab.preferredFloatingWidgetSize) {
+        contentWidth = tab.preferredFloatingWidgetSize.width;
+        contentHeight = tab.preferredFloatingWidgetSize.height;
+      } else {
+        const popoutContentContainer = document.getElementById(
+          `content-container:${id}`
+        );
+        if (popoutContentContainer !== null) {
+          contentWidth = popoutContentContainer.offsetWidth + 20;
+          contentHeight = popoutContentContainer.offsetHeight + 20;
+        }
+      }
+
       let preferredBounds = savedTab?.popoutBounds
         ? Rectangle.create(savedTab.popoutBounds)
-        : Rectangle.createFromSize({ height: 800, width: 600 });
+        : Rectangle.createFromSize({
+            height: contentHeight,
+            width: contentWidth,
+          });
       if (size) preferredBounds = preferredBounds.setSize(size);
       if (position) preferredBounds = preferredBounds.setPosition(position);
 
@@ -646,6 +668,11 @@ export function NineZoneStateReducer(
       const nzBounds = Rectangle.createFromSize(state.size);
       const containedBounds = preferredBounds.containIn(nzBounds);
 
+      const userSized =
+        tab.userSized ||
+        (tab.isFloatingWidgetResizable &&
+          /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
+
       if (isPanelTabLocation(location)) {
         const panel = state.panels[location.side];
         const widgetIndex = panel.widgets.indexOf(location.widgetId);
@@ -661,6 +688,7 @@ export function NineZoneStateReducer(
             widgetId: location.widgetId,
             widgetIndex,
           },
+          userSized,
         });
       } else {
         const popoutWidgetId = location.popoutWidgetId;

@@ -6,6 +6,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import type { IModelAppOptions } from "@itwin/core-frontend";
 import {
@@ -14,7 +15,6 @@ import {
   ItemField,
   NoRenderApp,
 } from "@itwin/core-frontend";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import TestUtils, { selectAllBeforeType, userEvent } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
@@ -340,7 +340,7 @@ describe("AccuDrawFieldContainer", () => {
 
     const input = wrapper.queryByTestId("uifw-accudraw-x");
     expect(input).not.to.be.null;
-    fireEvent.keyDown(input!, { key: SpecialKey.Escape });
+    fireEvent.keyDown(input!, { key: Key.Escape });
     spy.calledOnce.should.true;
 
     (UiFramework.keyboardShortcuts.setFocusToHome as any).restore();

@@ -11,6 +11,7 @@
 import "./CustomNumberEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { Logger } from "@itwin/core-bentley";
 import type {
   CustomFormattedNumberParams,
@@ -25,7 +26,6 @@ import {
   MessageSeverity,
   PropertyEditorParamTypes,
   PropertyValueFormat,
-  SpecialKey,
   StandardEditorNames,
   StandardTypeNames,
   UiAdmin,
@@ -308,7 +308,7 @@ export class CustomNumberEditor
 
   private _onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     // istanbul ignore else
-    if (e.key === SpecialKey.Escape) {
+    if (e.key === Key.Escape) {
       const initialDisplayValue =
         (this._lastValidValue &&
           (this._lastValidValue as PrimitiveValue).displayValue) ??
@@ -324,7 +324,7 @@ export class CustomNumberEditor
     }
 
     // istanbul ignore else
-    if (e.key !== SpecialKey.Enter) {
+    if (e.key !== Key.Enter) {
       UiAdmin.messagePresenter.closeInputFieldMessage();
     }
   };

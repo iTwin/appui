@@ -15,6 +15,8 @@ import {
   TOOLBAR_OPACITY_DEFAULT,
   WIDGET_OPACITY_DEFAULT,
 } from "../theme/ThemeManager";
+import type { PreviewFeatures } from "../preview/PreviewFeatures";
+import { trimToKnownFeaturesOnly } from "../preview/PreviewFeatures";
 
 // cSpell:ignore configurableui snapmode toolprompt
 
@@ -34,6 +36,7 @@ export enum ConfigurableUiActionId {
   AnimateToolSettings = "configurableui:set-animate-tool-settings",
   UseToolAsToolSettingsLabel = "configurableui:set-use-tool-as-tool-settings-label",
   SetToolbarOpacity = "configurableui:set-toolbar-opacity",
+  SetPreviewFeatures = "configurableui:set-preview-features",
 }
 
 /** The portion of state managed by the ConfigurableUiReducer.
@@ -42,7 +45,7 @@ export enum ConfigurableUiActionId {
 export interface ConfigurableUiState {
   snapMode: number;
   toolPrompt: string;
-  theme: ThemeId;
+  theme: string;
   widgetOpacity: number;
   useDragInteraction: boolean;
   showWidgetIcon: boolean;
@@ -51,6 +54,8 @@ export interface ConfigurableUiState {
   animateToolSettings: boolean;
   useToolAsToolSettingsLabel: boolean;
   toolbarOpacity: number;
+  /** @beta */
+  previewFeatures?: PreviewFeatures;
 }
 
 /** used on first call of ConfigurableUiReducer */
@@ -66,6 +71,7 @@ const initialState: ConfigurableUiState = {
   animateToolSettings: false,
   useToolAsToolSettingsLabel: false,
   toolbarOpacity: TOOLBAR_OPACITY_DEFAULT,
+  previewFeatures: {},
 };
 
 /** An object with a function that creates each ConfigurableUiReducer that can be handled by our reducer.
@@ -75,8 +81,11 @@ export const ConfigurableUiActions = {
   setSnapMode: (snapMode: number) =>
     createAction(ConfigurableUiActionId.SetSnapMode, snapMode),
   setTheme:
-    // istanbul ignore next
-    (theme: ThemeId) => createAction(ConfigurableUiActionId.SetTheme, theme),
+    /**
+     * Use `UiFramework.setColorTheme` instead which is conveniently typed with available theme union.
+     * @param theme ThemeId
+     */
+    (theme: string) => createAction(ConfigurableUiActionId.SetTheme, theme),
   setToolPrompt:
     // istanbul ignore next
     (toolPrompt: string) =>
@@ -111,6 +120,12 @@ export const ConfigurableUiActions = {
     ),
   setToolbarOpacity: (opacity: number) =>
     createAction(ConfigurableUiActionId.SetToolbarOpacity, opacity),
+  /**
+   * Use `UiFramework.setPreviewFeatures` instead which is conveniently typed with current available features.
+   * @param features PreviewFeatures
+   */
+  setPreviewFeatures: (features: { [featureName: string]: any }) =>
+    createAction(ConfigurableUiActionId.SetPreviewFeatures, features),
 };
 
 /** Union of ConfigurableUi Redux actions
@@ -162,6 +177,12 @@ export function ConfigurableUiReducer(
     }
     case ConfigurableUiActionId.SetToolbarOpacity: {
       return { ...state, toolbarOpacity: action.payload };
+    }
+    case ConfigurableUiActionId.SetPreviewFeatures: {
+      return {
+        ...state,
+        previewFeatures: trimToKnownFeaturesOnly(action.payload),
+      };
     }
   }
   return outState;

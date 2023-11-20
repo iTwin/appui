@@ -14,8 +14,9 @@ import "./classes.scss";
 
 import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
-import { getClassName, UiError } from "@itwin/appui-abstract";
+import { UiError } from "@itwin/appui-abstract";
 import { IconWebComponent } from "./utils/IconWebComponent";
+import { getObjectClassName } from "./utils/getObjectClassName";
 // cSpell:ignore colorthemes colorvariables
 
 /**
@@ -103,7 +104,7 @@ export class UiCore {
 
   /** @internal */
   public static loggerCategory(obj: any): string {
-    const className = getClassName(obj);
+    const className = getObjectClassName(obj);
     const category = UiCore.packageName + (className ? `.${className}` : "");
     return category;
   }

@@ -59,27 +59,28 @@ function TsLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** @internal */
-export function WidgetPanelsToolSettings() {
-  const renderDocked = useLayout((state) => {
+/**
+ * Hook that returns true if the tool settings should be rendered docked.
+ * @internal */
+export function useShouldRenderDockedToolSettings() {
+  return useLayout((state) => {
     const toolSettings = state.toolSettings;
     if (!toolSettings) return false;
     if (toolSettings.type === "widget") return false;
     return !toolSettings.hidden;
   });
-  if (!renderDocked) return null;
+}
+
+/** @internal */
+export function WidgetPanelsToolSettings() {
+  if (!useShouldRenderDockedToolSettings()) return null;
   return <ToolSettingsDockedContent />;
 }
 
 /** @internal */
 export function ToolSettingsDockedContent() {
   const settings = useHorizontalToolSettingNodes();
-  const [forceRefreshKey, setForceRefreshKey] = React.useState(Date.now());
-  React.useEffect(() => {
-    // We cant work with the content of the settings, but we can force refresh when
-    // the array is different.
-    setForceRefreshKey(Date.now());
-  }, [settings]);
+  const forceRefreshKey = useRefreshKey(settings);
   // for the overflow to work properly each setting in the DockedToolSettings should be wrapped by a DockedToolSetting component
   return (
     <DockedToolSettings
@@ -101,6 +102,10 @@ export function ToolSettingsDockedContent() {
 
 /** @internal */
 export function useHorizontalToolSettingNodes() {
+  React.useEffect(() => {
+    UiFramework.frontstages.activeToolInformation?.toolUiProvider?.reloadPropertiesFromTool();
+  }, []);
+
   const [settings, setSettings] = React.useState(
     InternalFrontstageManager.activeToolSettingsProvider
       ?.horizontalToolSettingNodes
@@ -165,6 +170,9 @@ export function ToolSettingsGrid({ settings }: ToolSettingsGridProps) {
 
 /** @internal */
 export function useToolSettingsNode() {
+  React.useEffect(() => {
+    UiFramework.frontstages.activeToolInformation?.toolUiProvider?.reloadPropertiesFromTool();
+  }, []);
   const [settings, setSettings] = React.useState(
     InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode
   );
@@ -215,6 +223,8 @@ export function ToolSettingsContent() {
 export function ToolSettingsWidgetContent() {
   const floatingToolSettingsContainerRef = React.useRef<HTMLDivElement>(null);
   const node = useToolSettingsNode();
+  const forceRefreshKey = useRefreshKey(node);
+
   // if no tool settings hide the floating widgets tab
   React.useEffect(() => {
     // istanbul ignore else
@@ -241,8 +251,24 @@ export function ToolSettingsWidgetContent() {
       data-toolsettings-provider={providerId}
       className="uifw-floating-toolsettings-container"
       ref={floatingToolSettingsContainerRef}
+      key={forceRefreshKey}
     >
       <ScrollableWidgetContent>{node}</ScrollableWidgetContent>
     </div>
   );
+}
+
+/**
+ * Hook that returns a key that can be used to force refresh the tool settings.
+ * @param toolSettingNodes Nodes that are used to determine if the tool settings should be refreshed.
+ * @returns a new key if the dependency changes.
+ */
+function useRefreshKey(toolSettingNodes: any) {
+  const [forceRefreshKey, setForceRefreshKey] = React.useState(Date.now());
+  React.useEffect(() => {
+    // We cant work with the content of the settings, but we can force refresh when
+    // the array is different.
+    setForceRefreshKey(Date.now());
+  }, [toolSettingNodes]);
+  return forceRefreshKey;
 }

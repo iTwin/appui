@@ -5,8 +5,8 @@
 import { fireEvent, render } from "@testing-library/react";
 import * as sinon from "sinon";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { CompassMode, IModelApp, NoRenderApp } from "@itwin/core-frontend";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { TestUtils } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
@@ -49,7 +49,7 @@ describe("AccuDrawDialog", () => {
     );
 
     component.baseElement.dispatchEvent(
-      new KeyboardEvent("keyup", { key: SpecialKey.Escape })
+      new KeyboardEvent("keyup", { key: Key.Escape })
     );
     spy.calledOnce.should.true;
 

@@ -9,15 +9,17 @@
 import "./IconComponent.scss";
 import * as React from "react";
 import classnames from "classnames";
-import {
-  ConditionalStringValue,
-  IconSpecUtilities,
-} from "@itwin/appui-abstract";
+import { ConditionalStringValue } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
 import { ConditionalIconItem } from "./ConditionalIconItem";
 
 /** Prototype for an IconSpec which can be a string, ReactNode or ConditionalStringValue.
+ * Strings are expected to be one of the following:
+ *  - Created by `IconSpecUtilities.createWebComponentIconSpec` in appui-abstract (deprecated).
+ *  - A URL to a SVG file (must end with ".svg").
+ *  - A dataURI with MimeTypes `image/svg+xml` (ensure valid dataURI encoding) or `image/svg+xml;base64`;
+ *  - Anything else will be treated as a class name and be directly added to the `class` attribute.
  * @public
  */
 export type IconSpec =
@@ -36,6 +38,15 @@ export interface IconProps extends CommonProps {
   iconSpec?: IconSpec;
 }
 
+/** Get the SVG Source from an svg-loader IconSpec */
+function getWebComponentSource(iconSpec: string): string | undefined {
+  if (iconSpec.startsWith("webSvg:") && iconSpec.length > 7) {
+    return iconSpec.slice(7);
+  }
+
+  return undefined;
+}
+
 /** Icon Functional component displays an icon based on an [[IconSpec]].
  * @public
  */
@@ -49,10 +60,17 @@ export function Icon(props: IconProps) {
       : undefined;
 
   if (iconString) {
-    const webComponentString =
-      IconSpecUtilities.getWebComponentSource(iconString);
-    if (webComponentString) {
-      const svgLoader = `<svg-loader src="${webComponentString}"></svg-loader>`;
+    const webComponentString = getWebComponentSource(iconString);
+
+    if (
+      iconString.startsWith("data:") ||
+      iconString.endsWith(".svg") ||
+      webComponentString
+    ) {
+      const definitiveIconString = webComponentString
+        ? webComponentString
+        : iconString;
+      const svgLoader = `<svg-loader src="${definitiveIconString}"></svg-loader>`;
       const svgDiv = `<div>${svgLoader}</div>`;
       // the esm build of dompurify has a default import but the cjs build does not
       // if there is a default export, use it (likely esm), otherwise use the namespace
@@ -61,7 +79,7 @@ export function Icon(props: IconProps) {
 
       const sanitizerConfig = {
         ALLOWED_TAGS: ["svg-loader"],
-        ADD_URI_SAFE_ATTR: webComponentString.startsWith("data:")
+        ADD_URI_SAFE_ATTR: definitiveIconString.startsWith("data:")
           ? ["src"]
           : [],
       };

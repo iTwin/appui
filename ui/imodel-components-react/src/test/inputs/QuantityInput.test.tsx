@@ -5,10 +5,10 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import { QuantityInput } from "../../imodel-components-react/inputs/QuantityInput";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { TestUtils } from "../TestUtils";
 
 describe("QuantityInput", () => {
@@ -51,7 +51,7 @@ describe("QuantityInput", () => {
     const input = wrapper.getByTestId("components-parsed-input");
     fireEvent.change(input, { target: { value: "2.5" } });
     expect(spyOnChange).not.to.have.been.called;
-    fireEvent.keyDown(input, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input, { key: Key.Enter });
     expect(spyOnChange).to.have.been.called;
   });
 
@@ -120,11 +120,11 @@ describe("QuantityInput", () => {
     ) as HTMLInputElement;
     const initialValue = input.value;
     fireEvent.change(input, { target: { value: "2.5" } });
-    fireEvent.keyDown(input, { key: SpecialKey.Escape });
+    fireEvent.keyDown(input, { key: Key.Escape });
     expect(spyOnChange).not.to.have.been.called; // value did not change after ESC was pressed
     expect(initialValue).to.eq(input.value);
     fireEvent.change(input, { target: { value: "3.5" } });
-    fireEvent.keyDown(input, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input, { key: Key.Enter });
     expect(spyOnChange).to.have.been.called;
     expect(input.value).to.eq("3.5 m");
 
@@ -168,7 +168,7 @@ describe("QuantityInput", () => {
       expect(input.classList.contains("components-parsed-input-has-error")).to
         .be.true;
     });
-    fireEvent.keyDown(input, { key: SpecialKey.Escape });
+    fireEvent.keyDown(input, { key: Key.Escape });
     expect(spyOnChange).not.to.have.been.called; // value did not change after ESC was pressed
     const currentValue = input.value;
     expect(input.classList.contains("components-parsed-input-has-error")).to.be

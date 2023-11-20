@@ -12,7 +12,6 @@ import {
   RealityDataAccessClient,
   RealityDataClientOptions,
 } from "@itwin/reality-data-client";
-import { getClassName } from "@itwin/appui-abstract";
 import {
   ActionsUnion,
   AppNotificationManager,
@@ -73,6 +72,7 @@ import {
   MobileApp,
   MobileAppOpts,
 } from "@itwin/core-mobile/lib/cjs/MobileFrontend";
+import { getObjectClassName } from "@itwin/core-react";
 import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
 // import { DefaultMapFeatureInfoTool, MapLayersUI } from "@itwin/map-layers";
@@ -99,6 +99,7 @@ import {
   InspectUiItemInfoToolProvider,
   MessageUiItemsProvider,
   PopoutWindowsFrontstage,
+  PreviewFeaturesToggleProvider,
   SynchronizedFloatingViewportStage,
   WidgetApiStage,
 } from "@itwin/appui-test-providers";
@@ -345,6 +346,7 @@ export class SampleAppIModelApp {
         AppUiTestProviders.localizationNamespace
       )
     );
+    UiItemsManager.register(new PreviewFeaturesToggleProvider());
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
@@ -358,7 +360,7 @@ export class SampleAppIModelApp {
   }
 
   public static loggerCategory(obj: any): string {
-    const className = getClassName(obj);
+    const className = getObjectClassName(obj);
     const category = `appui-test-app.${className}`;
     return category;
   }

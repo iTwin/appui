@@ -42,16 +42,15 @@ import type { DialogRow } from '@itwin/appui-abstract';
 import type { Direction } from '@itwin/components-react';
 import type { DisplayStyle3dState } from '@itwin/core-frontend';
 import type { EmphasizeElementsProps } from '@itwin/core-common';
-import type { FunctionKey } from '@itwin/appui-abstract';
 import type { GroupButton } from '@itwin/appui-abstract';
 import type { IconProps } from '@itwin/core-react';
 import type { IconSpec } from '@itwin/core-react';
 import type { Id64String } from '@itwin/core-bentley';
-import type { IMatch } from '@itwin/appui-abstract';
 import type { IModelConnection } from '@itwin/core-frontend';
 import { InferableComponentEnhancerWithProps } from 'react-redux';
 import type { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
+import type { Key } from 'ts-key-enum';
 import type { LayoutFragmentProps } from '@itwin/appui-abstract';
 import type { LayoutStore } from '@itwin/appui-layout-react';
 import type { Localization } from '@itwin/core-common';
@@ -97,7 +96,6 @@ import { Size } from '@itwin/core-react';
 import type { SizeProps } from '@itwin/core-react';
 import { SnapMode } from '@itwin/core-frontend';
 import type { SolarDataProvider } from '@itwin/imodel-components-react';
-import type { SpecialKey } from '@itwin/appui-abstract';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
 import type { StringGetter } from '@itwin/appui-abstract';
@@ -899,6 +897,8 @@ export enum ConfigurableUiActionId {
     // (undocumented)
     SetDragInteraction = "configurableui:set-drag-interaction",
     // (undocumented)
+    SetPreviewFeatures = "configurableui:set-preview-features",
+    // (undocumented)
     SetShowWidgetIcon = "configurableui:set-show-widget-icon",
     // (undocumented)
     SetSnapMode = "configurableui:set_snapmode",
@@ -919,7 +919,7 @@ export enum ConfigurableUiActionId {
 // @public
 export const ConfigurableUiActions: {
     setSnapMode: (snapMode: number) => ActionWithPayload<ConfigurableUiActionId.SetSnapMode, number>;
-    setTheme: (theme: ThemeId) => ActionWithPayload<ConfigurableUiActionId.SetTheme, "inherit" | "dark" | "light" | "SYSTEM_PREFERRED" | "high-contrast-light" | "high-contrast-dark" | DeepReadonlyObject<string & {}>>;
+    setTheme: (theme: string) => ActionWithPayload<ConfigurableUiActionId.SetTheme, string>;
     setToolPrompt: (toolPrompt: string) => ActionWithPayload<ConfigurableUiActionId.SetToolPrompt, string>;
     setWidgetOpacity: (opacity: number) => ActionWithPayload<ConfigurableUiActionId.SetWidgetOpacity, number>;
     setDragInteraction: (dragInteraction: boolean) => ActionWithPayload<ConfigurableUiActionId.SetDragInteraction, boolean>;
@@ -929,6 +929,11 @@ export const ConfigurableUiActions: {
     setAnimateToolSettings: (animateToolSettings: boolean) => ActionWithPayload<ConfigurableUiActionId.AnimateToolSettings, boolean>;
     setUseToolAsToolSettingsLabel: (useToolAsToolSettingsLabel: boolean) => ActionWithPayload<ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>;
     setToolbarOpacity: (opacity: number) => ActionWithPayload<ConfigurableUiActionId.SetToolbarOpacity, number>;
+    setPreviewFeatures: (features: {
+        [featureName: string]: any;
+    }) => ActionWithPayload<ConfigurableUiActionId.SetPreviewFeatures, DeepReadonlyObject<    {
+    [featureName: string]: any;
+    }>>;
 };
 
 // @public
@@ -997,12 +1002,14 @@ export interface ConfigurableUiState {
     animateToolSettings: boolean;
     // (undocumented)
     autoCollapseUnpinnedPanels: boolean;
+    // @beta (undocumented)
+    previewFeatures?: PreviewFeatures;
     // (undocumented)
     showWidgetIcon: boolean;
     // (undocumented)
     snapMode: number;
     // (undocumented)
-    theme: ThemeId;
+    theme: string;
     // (undocumented)
     toolbarOpacity: number;
     // (undocumented)
@@ -2043,7 +2050,9 @@ export interface FrameworkKeyboardShortcuts {
 export const FrameworkReducer: (state: CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
-}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, "inherit" | "dark" | "light" | "SYSTEM_PREFERRED" | "high-contrast-light" | "high-contrast-dark" | DeepReadonlyObject<string & {}>>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
+}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetPreviewFeatures, DeepReadonlyObject<    {
+[featureName: string]: any;
+}>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
 }>;
@@ -2830,7 +2839,7 @@ export interface KeyboardShortcutProps extends ItemProps {
     isCtrlKeyRequired?: boolean;
     isShiftKeyRequired?: boolean;
     item?: ActionButtonItemDef;
-    key: string | FunctionKey | SpecialKey;
+    key: string | Key;
     shortcuts?: KeyboardShortcutProps[];
 }
 
@@ -3498,6 +3507,12 @@ export interface PresentationSelectionScope {
     id: string;
     // (undocumented)
     label: string;
+}
+
+// @beta
+export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
+    // (undocumented)
+    [featureName: string]: any;
 }
 
 // @public
@@ -4844,6 +4859,8 @@ export class UiFramework {
     static openCursorMenu(menuData: CursorMenuData | undefined): void;
     // @internal (undocumented)
     static get packageName(): string;
+    // @beta
+    static get previewFeatures(): PreviewFeatures;
     static registerUserSettingsProvider(entry: UserSettingsProvider): boolean;
     // (undocumented)
     static setAccudrawSnapMode(snapMode: SnapMode): void;
@@ -4866,6 +4883,8 @@ export class UiFramework {
     static setIModelConnection(iModelConnection: IModelConnection | undefined, immediateSync?: boolean): void;
     // (undocumented)
     static setIsUiVisible(visible: boolean): void;
+    // @beta
+    static setPreviewFeatures(features: PreviewFeatures): void;
     // (undocumented)
     static setShowWidgetIcon(value: boolean): void;
     static get settingsManager(): SettingsManager;
@@ -5081,6 +5100,9 @@ export interface UseSelectionSetSizeArgs {
     // (undocumented)
     iModel: IModelConnection | undefined;
 }
+
+// @internal
+export function useShouldRenderDockedToolSettings(): boolean;
 
 // @beta
 export function useSolarDataProvider(viewport: ScreenViewport | undefined): SolarDataProvider | undefined;

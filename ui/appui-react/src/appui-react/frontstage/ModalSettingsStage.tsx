@@ -8,10 +8,7 @@
 
 import "./ModalSettingsStage.scss";
 import * as React from "react";
-import {
-  ConditionalBooleanValue,
-  IconSpecUtilities,
-} from "@itwin/appui-abstract";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import settingsIconSvg from "@bentley/icons-generic/icons/settings.svg";
 import {
   IModelApp,
@@ -127,7 +124,7 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
         ),
       UiFramework.translate("settings.settingsStageLabel"),
       undefined,
-      IconSpecUtilities.createWebComponentIconSpec(settingsIconSvg),
+      settingsIconSvg,
       { isHidden: SettingsModalFrontstage.noSettingsAvailable() }
     );
   }

@@ -6,10 +6,11 @@
 import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
+import { Key } from "ts-key-enum";
 import { fireEvent, render } from "@testing-library/react";
 import { ColorByName } from "@itwin/core-common";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
-import { SpecialKey, StandardEditorNames } from "@itwin/appui-abstract";
+import { StandardEditorNames } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
 import {
   EditorContainer,
@@ -116,7 +117,7 @@ describe("<ColorEditor />", () => {
     const pickerButton = wrapper.getByTestId("components-colorpicker-button");
     expect(pickerButton).not.to.be.null;
 
-    fireEvent.keyDown(pickerButton, { key: SpecialKey.Enter });
+    fireEvent.keyDown(pickerButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.calledOnce).to.be.false;
 

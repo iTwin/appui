@@ -27,7 +27,7 @@ describe("PopoutToggle", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    container.should.matchSnapshot();
   });
 
   it("should dispatch PANEL_TOGGLE_PINNED", () => {

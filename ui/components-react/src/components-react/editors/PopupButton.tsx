@@ -9,7 +9,8 @@
 import "./PopupButton.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { RelativePosition, SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
+import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonDivProps, CommonProps } from "@itwin/core-react";
 import { Div, Icon, Popup, UiCore } from "@itwin/core-react";
 import { Button } from "@itwin/itwinui-react";
@@ -104,9 +105,9 @@ export class PopupButton extends React.PureComponent<
   private _handleKeyDown = (event: React.KeyboardEvent) => {
     // istanbul ignore else
     if (
-      (event.key === SpecialKey.ArrowDown ||
-        event.key === SpecialKey.Space ||
-        event.key === SpecialKey.Enter) &&
+      (event.key === Key.ArrowDown ||
+        event.key === " " ||
+        event.key === Key.Enter) &&
       !this.state.showPopup
     ) {
       event.preventDefault();

@@ -13,9 +13,10 @@ import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
-import { getClassName, UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
+import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
+import { getObjectClassName } from "@itwin/core-react";
 import { UiIModelComponents } from "@itwin/imodel-components-react";
 import { BackstageManager } from "./backstage/BackstageManager";
 import { InternalChildWindowManager } from "./childwindow/InternalChildWindowManager";
@@ -64,6 +65,7 @@ import {
   SyncUiEventDispatcher,
   SyncUiEventId,
 } from "./syncui/SyncUiEventDispatcher";
+import type { PreviewFeatures } from "./preview/PreviewFeatures";
 
 // cSpell:ignore Mobi
 
@@ -434,7 +436,7 @@ export class UiFramework {
 
   /** @internal */
   public static loggerCategory(obj: any): string {
-    const className = getClassName(obj);
+    const className = getObjectClassName(obj);
     const category =
       UiFramework.packageName + (className ? `.${className}` : "");
     return category;
@@ -861,5 +863,29 @@ export class UiFramework {
   public static get isContextMenuOpen(): boolean {
     const contextMenu = document.querySelector("div.core-context-menu-opened");
     return contextMenu !== null && contextMenu !== undefined;
+  }
+
+  /**
+   * Set which preview features are enabled. These features are not yet ready for production use nor have
+   * a proper API defined yet.
+   * The available set of features are defined in the [[PreviewFeatures]] interface.
+   * @param features Set of feature to enable.
+   * @beta
+   */
+  public static setPreviewFeatures(features: PreviewFeatures) {
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetPreviewFeatures,
+      features
+    );
+  }
+
+  /**
+   * Get which preview features are enabled. These features are not yet ready for production use.
+   * @beta
+   */
+  public static get previewFeatures(): PreviewFeatures {
+    return (
+      UiFramework.frameworkState?.configurableUiState.previewFeatures ?? {}
+    );
   }
 }

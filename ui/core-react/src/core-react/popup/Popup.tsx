@@ -10,7 +10,8 @@ import "./Popup.scss";
 import classnames from "classnames";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { RelativePosition, SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
+import { RelativePosition } from "@itwin/appui-abstract";
 import { FocusTrap } from "../focustrap/FocusTrap";
 import type { CommonProps } from "../utils/Props";
 
@@ -267,10 +268,10 @@ export class Popup extends React.Component<PopupProps, PopupState> {
   private _handleKeyboard = (event: KeyboardEvent): void => {
     if (this.props.isPinned) return;
 
-    if (event.key === SpecialKey.Escape || event.key === SpecialKey.Enter) {
+    if (event.key === Key.Escape || event.key === Key.Enter) {
       const closeOnEnter =
         this.props.closeOnEnter !== undefined ? this.props.closeOnEnter : true;
-      if (event.key === SpecialKey.Enter) {
+      if (event.key === Key.Enter) {
         if (closeOnEnter) this._onClose(true);
         else this.props.onEnter && this.props.onEnter();
       } else {

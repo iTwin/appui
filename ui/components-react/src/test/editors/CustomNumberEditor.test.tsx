@@ -7,12 +7,13 @@ import { expect } from "chai";
 import React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { Key } from "ts-key-enum";
 import type {
   IconEditorParams,
   InputEditorSizeParams,
   PrimitiveValue,
 } from "@itwin/appui-abstract";
-import { PropertyEditorParamTypes, SpecialKey } from "@itwin/appui-abstract";
+import { PropertyEditorParamTypes } from "@itwin/appui-abstract";
 import { CustomNumberEditor } from "../../components-react/editors/CustomNumberEditor";
 import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
@@ -103,12 +104,12 @@ describe("<CustomNumberEditor />", () => {
     await TestUtils.flushAsyncOperations();
 
     // resetToOriginalValue
-    fireEvent.keyDown(inputField, { key: SpecialKey.Escape });
+    fireEvent.keyDown(inputField, { key: Key.Escape });
     expect(inputField.value).to.be.equal(displayVal);
     expect(spyOnCancel).not.to.be.called;
 
     // since value is same as original, cancel
-    fireEvent.keyDown(inputField, { key: SpecialKey.Escape });
+    fireEvent.keyDown(inputField, { key: Key.Escape });
     expect(inputField.value).to.be.equal(displayVal);
     expect(spyOnCancel).to.be.calledOnce;
 
@@ -126,7 +127,7 @@ describe("<CustomNumberEditor />", () => {
     await TestUtils.flushAsyncOperations();
 
     // resetToLastValue
-    fireEvent.keyDown(inputField, { key: SpecialKey.Escape });
+    fireEvent.keyDown(inputField, { key: Key.Escape });
     expect(inputField.value).to.be.equal(newDisplayValue);
   });
 
@@ -325,7 +326,7 @@ describe("<CustomNumberEditor />", () => {
     const inputNode = wrapper.queryByTestId(testId) as HTMLInputElement;
     expect(inputNode).not.to.be.null;
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.calledOnce).to.be.false;
 

@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import {
   IModelApp,
   NotifyMessageDetails,
@@ -17,7 +18,6 @@ import {
   useActiveFrontstageDef,
   WidgetState,
 } from "@itwin/appui-react";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { NumberInput, Rectangle, RectangleProps } from "@itwin/core-react";
 import { Button, Input, Select, SelectOption } from "@itwin/itwinui-react";
 import {
@@ -473,11 +473,11 @@ function PanelControls({ location }: { location: StagePanelLocation }) {
         onBlur={handleSubmitValue}
         onKeyDown={(e) => {
           switch (e.key) {
-            case SpecialKey.Enter: {
+            case Key.Enter: {
               handleSubmitValue();
               break;
             }
-            case SpecialKey.Escape: {
+            case Key.Escape: {
               setSizeValue("");
               break;
             }

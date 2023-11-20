@@ -59,12 +59,18 @@ steps:
     displayName: rush cover
     workingDirectory: ${{ parameters.workingDir }}
     condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
+    env:
+      CI: true
+      BUILD_SOURCES_DIRECTORY: $(Build.SourcesDirectory)
 
   # MacOS and Windows agents work without any virtual display
   - script: node common/scripts/install-run-rush.js cover --verbose
     displayName: rush cover
     workingDirectory: ${{ parameters.workingDir }}
     condition: and(succeeded(), ne(variables['Agent.OS'], 'Linux'))
+    env:
+      CI: true
+      BUILD_SOURCES_DIRECTORY: $(Build.SourcesDirectory)
 
   # Install Playwright browsers and dependencies
   - script: npx playwright install --with-deps

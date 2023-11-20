@@ -9,8 +9,8 @@
 import "./HueSlider.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { HSVColor } from "@itwin/core-common";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 
@@ -199,25 +199,19 @@ export function HueSlider({
     (evt: React.KeyboardEvent<HTMLDivElement>) => {
       let newHue: number | undefined;
       const hueValue = hsv.h;
-      if (
-        evt.key === SpecialKey.ArrowLeft ||
-        evt.key === SpecialKey.ArrowDown
-      ) {
+      if (evt.key === Key.ArrowLeft || evt.key === Key.ArrowDown) {
         newHue = hueValue - (evt.ctrlKey ? 10 : 1);
-      } else if (
-        evt.key === SpecialKey.ArrowRight ||
-        evt.key === SpecialKey.ArrowUp
-      ) {
+      } else if (evt.key === Key.ArrowRight || evt.key === Key.ArrowUp) {
         newHue = hueValue + (evt.ctrlKey ? 10 : 1);
-      } else if (evt.key === SpecialKey.PageDown) {
+      } else if (evt.key === Key.PageDown) {
         newHue = hueValue - (evt.ctrlKey ? 180 : 60);
-      } else if (evt.key === SpecialKey.PageUp) {
+      } else if (evt.key === Key.PageUp) {
         newHue = hueValue + (evt.ctrlKey ? 180 : 60);
-      } else if (evt.key === SpecialKey.Home) {
+      } else if (evt.key === Key.Home) {
         newHue = 0;
       } else {
         // istanbul ignore else
-        if (evt.key === SpecialKey.End) {
+        if (evt.key === Key.End) {
           newHue = 359;
         }
       }

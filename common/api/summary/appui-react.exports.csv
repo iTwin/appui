@@ -358,6 +358,7 @@ beta;PositionPopup
 beta;PositionPopupContent(props: CommonDivProps): JSX.Element
 beta;PositionPopupProps 
 public;PresentationSelectionScope
+beta;PreviewFeatures 
 public;PropsHelper
 public;ProviderItem
 beta;QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems, }: QuantityFormatterSettingsOptions): JSX.Element
@@ -564,6 +565,7 @@ internal;useSaveFrontstageSettings(frontstageDef: FrontstageDef, store: LayoutSt
 public;useScheduleAnimationDataProvider(viewport: ScreenViewport | undefined): ScheduleAnimationTimelineDataProvider | undefined
 beta;useSelectionSetSize(args: UseSelectionSetSizeArgs): number
 beta;UseSelectionSetSizeArgs
+internal;useShouldRenderDockedToolSettings(): boolean
 beta;useSolarDataProvider(viewport: ScreenViewport | undefined): SolarDataProvider | undefined
 public;useSpecificWidgetDef(widgetId: string): WidgetDef | undefined
 internal;useStatusBarEntry(): DockedStatusBarEntryContextArg

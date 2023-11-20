@@ -6,7 +6,6 @@ import * as React from "react";
 import { IModelApp, IModelConnection, ViewState } from "@itwin/core-frontend";
 import {
   ContentLayoutProps,
-  IconSpecUtilities,
   StandardContentLayouts,
 } from "@itwin/appui-abstract";
 import {
@@ -231,7 +230,7 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
         IModelApp.localization.getLocalizedString(
           "SampleApp:backstage.iModelStage"
         ),
-        IconSpecUtilities.createWebComponentIconSpec(stageIconSvg)
+        stageIconSvg
       ),
       SettingsModalFrontstage.getBackstageActionItem(400, 10),
       ComponentExamplesModalFrontstage.getBackstageActionItem(400, 20),

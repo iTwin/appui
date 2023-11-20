@@ -167,6 +167,7 @@ internal;PopoutWidgetLocation
 internal;PopoutWidgetSendBackAction
 internal;PopoutWidgetsState
 internal;PopoutWidgetState
+internal;PreviewFeaturesProvider: ({ children, ...props }: PreviewFeaturesProviderProps) => JSX.Element
 internal;removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;removeTabFromWidget(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;ResizeAction
@@ -261,6 +262,7 @@ internal;useMode(widgetId: string): "fit" | "fill" | "minimized"
 internal;usePanelsAutoCollapse
 internal;UsePanelTargetArgs
 internal;usePointerCaptor: 
+internal;usePreviewFeatures: () => KnownPreviewFeatures &
 internal;useResizeGrip: 
 internal;useSendBackHomeState():
 internal;useTabInteractions

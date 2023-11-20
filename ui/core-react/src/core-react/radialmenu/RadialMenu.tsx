@@ -9,7 +9,7 @@
 import "./RadialMenu.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
 import { Point } from "../utils/Point";
@@ -165,8 +165,7 @@ export class RadialMenu extends React.Component<
   }
 
   private _handleKeyUp = (event: KeyboardEvent) => {
-    if (event.key === SpecialKey.Escape && this.props.onEsc)
-      this.props.onEsc(event);
+    if (event.key === Key.Escape && this.props.onEsc) this.props.onEsc(event);
   };
 
   private _handleClick = (event: MouseEvent) => {

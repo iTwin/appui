@@ -8,7 +8,7 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { Provider } from "react-redux";
 import { render, screen } from "@testing-library/react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import TestUtils from "../TestUtils";
 import { ConfigurableUiContent } from "../../appui-react/configurableui/ConfigurableUiContent";
 import { FrameworkToolAdmin } from "../../appui-react/tools/FrameworkToolAdmin";
@@ -38,7 +38,7 @@ describe("ConfigurableUiContent", () => {
     expect(await toolAdmin.processShortcutKey(keyEvent, true)).to.be.true;
     keyEvent = new KeyboardEvent("keyup", { key: "a" });
     expect(await toolAdmin.processShortcutKey(keyEvent, false)).to.be.false;
-    keyEvent = new KeyboardEvent("keydown", { key: SpecialKey.Escape });
+    keyEvent = new KeyboardEvent("keydown", { key: Key.Escape });
     expect(await toolAdmin.processShortcutKey(keyEvent, true)).to.be.false;
   });
 

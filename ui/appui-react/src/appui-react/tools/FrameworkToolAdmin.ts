@@ -6,8 +6,8 @@
  * @module Tools
  */
 
+import { Key } from "ts-key-enum";
 import { ToolAdmin } from "@itwin/core-frontend";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
 
 /** UiFramework implementation of ToolAdmin.
@@ -31,10 +31,7 @@ export class FrameworkToolAdmin extends ToolAdmin {
     let handled = false;
 
     if (wentDown && !UiFramework.isContextMenuOpen) {
-      if (
-        UiFramework.keyboardShortcuts.isFocusOnHome &&
-        e.key !== SpecialKey.Escape
-      ) {
+      if (UiFramework.keyboardShortcuts.isFocusOnHome && e.key !== Key.Escape) {
         UiFramework.keyboardShortcuts.processKey(
           e.key,
           e.altKey,

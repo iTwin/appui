@@ -11,7 +11,6 @@ import { IModelApp, Tool } from "@itwin/core-frontend";
 import { SampleModalDialog } from "../ui/dialogs/SampleModalDialog";
 import {
   ConditionalBooleanValue,
-  IconSpecUtilities,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import { AppUiTestProviders } from "../AppUiTestProviders";
@@ -63,13 +62,11 @@ export class OpenCustomDialogTool extends Tool {
       groupPriority,
       isHidden,
     };
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
-      `${this.iconSpec}`
-    );
+
     return ToolbarItemUtilities.createActionButton(
       OpenCustomDialogTool.toolId,
       itemPriority,
-      iconSpec,
+      this.iconSpec,
       OpenCustomDialogTool.flyover,
       async () => {
         await IModelApp.tools.run(OpenCustomDialogTool.toolId);

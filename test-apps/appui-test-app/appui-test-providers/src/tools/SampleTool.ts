@@ -23,7 +23,6 @@ import {
   DialogItem,
   DialogItemValue,
   DialogPropertySyncItem,
-  IconSpecUtilities,
   InputEditorSizeParams,
   PropertyDescription,
   PropertyEditorParamTypes,
@@ -443,6 +442,22 @@ export class SampleTool extends PrimitiveTool {
     );
   }
 
+  public override async onKeyTransition(
+    down: boolean,
+    ev: KeyboardEvent
+  ): Promise<EventHandled> {
+    if (down && ev.key === "q") {
+      this._stateValue.value = ev.key.concat(
+        (this._stateValue.value as string) ?? ""
+      );
+      this.syncToolSettingsProperties([
+        { propertyName: SampleTool._stateName, value: this._stateValue },
+      ]);
+    }
+
+    return EventHandled.Yes;
+  }
+
   public override async onDataButtonDown(
     ev: BeButtonEvent
   ): Promise<EventHandled> {
@@ -592,7 +607,7 @@ export class SampleTool extends PrimitiveTool {
       editorPosition: { rowPriority: 10, columnIndex: 2 },
     });
     toolSettings.push({
-      value: this._stateValue,
+      value: { ...this._stateValue },
       property: SampleTool._getStateDescription(),
       editorPosition: { rowPriority: 10, columnIndex: 4 },
     });
@@ -708,14 +723,11 @@ export class SampleTool extends PrimitiveTool {
     groupPriority?: number
   ) {
     const overrides = undefined !== groupPriority ? { groupPriority } : {};
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
-      this.iconSpec
-    );
 
     return ToolbarItemUtilities.createActionButton(
       SampleTool.toolId,
       itemPriority,
-      iconSpec,
+      this.iconSpec,
       SampleTool.flyover,
       async () => {
         await IModelApp.tools.run(SampleTool.toolId);

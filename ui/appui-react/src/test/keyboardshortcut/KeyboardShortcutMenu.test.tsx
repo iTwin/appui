@@ -5,10 +5,10 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
+import { Key } from "ts-key-enum";
 import type { KeyboardShortcutProps } from "../../appui-react";
 import { CommandItemDef, KeyboardShortcutMenu } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
-import { FunctionKey } from "@itwin/appui-abstract";
 import { UiFramework } from "../../appui-react/UiFramework";
 import { render, screen, waitFor } from "@testing-library/react";
 
@@ -46,7 +46,7 @@ describe("KeyboardShortcutMenu", () => {
         ],
       },
       {
-        key: FunctionKey.F7,
+        key: Key.F7,
         item: testCommand,
       },
       {
