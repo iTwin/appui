@@ -1021,6 +1021,7 @@ export function useSaveFrontstageSettings(
   store: LayoutStore
 ) {
   const uiSettingsStorage = useUiStateStorageHandler();
+  const pendingSave = React.useRef(() => {});
   const saveSetting = React.useMemo(() => {
     const debounced = debounce(
       async (frontstage: FrontstageDef, state: NineZoneState) => {
@@ -1045,6 +1046,7 @@ export function useSaveFrontstageSettings(
       debounced(frontstage, state);
     };
     save.cancel = debounced.cancel;
+    pendingSave.current = debounced.immediate;
     return save;
   }, [uiSettingsStorage]);
   React.useEffect(() => {
@@ -1061,6 +1063,11 @@ export function useSaveFrontstageSettings(
       saveSetting(frontstageDef, store.getState());
     });
   }, [saveSetting, frontstageDef, store]);
+  React.useEffect(() => {
+    return () => {
+      pendingSave.current();
+    };
+  }, [frontstageDef]);
 }
 
 /** @internal */
@@ -1079,16 +1086,29 @@ function debounce<T extends (...args: any[]) => any>(
   duration: number
 ) {
   let timeout: number | undefined;
+  let handler: () => any | undefined;
   const debounced = (...args: Parameters<T>) => {
-    const handler = () => {
+    handler = () => {
       timeout = undefined;
       return func(...args);
     };
     window.clearTimeout(timeout);
     timeout = window.setTimeout(handler, duration);
   };
+  /**
+   * Will cancel the timeout without running the function.
+   */
   debounced.cancel = () => {
     window.clearTimeout(timeout);
+    timeout = undefined;
+  };
+  /**
+   * If not already ran, will run the function immediately and remove the timeout.
+   */
+  debounced.immediate = () => {
+    if (timeout === undefined) return;
+    debounced.cancel();
+    handler?.();
   };
   return debounced;
 }
