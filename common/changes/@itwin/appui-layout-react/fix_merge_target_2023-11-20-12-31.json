@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-layout-react",
-      "comment": "There will be no target on dragged widget itself",
+      "comment": "Fixed an issue where drop target is being displayed in a dragged floating widget.",
       "type": "none"
     }
   ],
