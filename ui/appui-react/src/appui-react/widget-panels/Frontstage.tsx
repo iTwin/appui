@@ -1091,7 +1091,7 @@ export function useSaveFrontstageSettings(
     return () => {
       pendingSave.current();
     };
-  });
+  }, [frontstageDef]);
 }
 
 /** @internal */
