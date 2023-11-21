@@ -39,7 +39,6 @@ export function addDemoIModelToolbarItem(preview: Preview): Preview {
           // Array of plain string values or MenuItem shape (see below)
           items: [
             { title: "No iModel", value: "no" },
-            { title: "Blank iModel", value: "blank" },
             ...demoIModels.map((model) => ({
               title: model.label,
               value: model.name,

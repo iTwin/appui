@@ -48,12 +48,15 @@ export interface AppUiStoryProps {
   frontstageProviders?: FrontstageProvider[] | (() => FrontstageProvider[]);
 }
 
+let cleanup: Promise<void>;
+
 export function AppUiStory(props: AppUiStoryProps) {
   const demoIModel = useDemoIModel();
 
   const [initialized, setInitialized] = React.useState(false);
   React.useEffect(() => {
     void (async function () {
+      await cleanup;
       await IModelApp.startup({
         toolAdmin: new FrameworkToolAdmin(),
         hubAccess: new FrontendIModelsAccess(
@@ -85,7 +88,7 @@ export function AppUiStory(props: AppUiStoryProps) {
 
       const frontstageProviders = getFrontstageProviders(
         props.frontstageProviders
-      ) ?? [createFrontstageProvider()];
+      );
       for (const provider of frontstageProviders) {
         UiFramework.frontstages.addFrontstageProvider(provider);
       }
@@ -95,14 +98,16 @@ export function AppUiStory(props: AppUiStoryProps) {
       setInitialized(true);
     })();
     return () => {
-      void UiFramework.frontstages.setActiveFrontstageDef(undefined);
-      UiFramework.frontstages.clearFrontstageProviders();
-      for (const provider of props.itemProviders ?? []) {
-        UiItemsManager.unregister(provider.id);
-      }
-      UiFramework.getIModelConnection()?.close();
-      UiFramework.terminate();
-      void IModelApp.shutdown();
+      cleanup = (async () => {
+        await UiFramework.frontstages.setActiveFrontstageDef(undefined);
+        UiFramework.frontstages.clearFrontstageProviders();
+        for (const provider of props.itemProviders ?? []) {
+          UiItemsManager.unregister(provider.id);
+        }
+        UiFramework.getIModelConnection()?.close();
+        UiFramework.terminate();
+        await IModelApp.shutdown();
+      })();
       setInitialized(false);
     };
   }, [props]);
@@ -114,10 +119,10 @@ function Initialized(props: AppUiStoryProps) {
   React.useEffect(() => {
     const frontstageProviders = getFrontstageProviders(
       props.frontstageProviders
-    ) ?? [createFrontstageProvider()];
-    const defaultFrontstage = frontstageProviders[0];
-    defaultFrontstage &&
-      void UiFramework.frontstages.setActiveFrontstage(defaultFrontstage.id);
+    );
+    const defaultProvider = frontstageProviders[0];
+    defaultProvider &&
+      void UiFramework.frontstages.setActiveFrontstage(defaultProvider.id);
   }, []);
   return (
     <>
@@ -152,7 +157,7 @@ export function Page() {
 function getFrontstageProviders(
   frontstageProviders: AppUiStoryProps["frontstageProviders"]
 ) {
-  if (!frontstageProviders) return undefined;
+  if (!frontstageProviders) return [createFrontstageProvider()];
   if (Array.isArray(frontstageProviders)) return frontstageProviders;
   return frontstageProviders();
 }
