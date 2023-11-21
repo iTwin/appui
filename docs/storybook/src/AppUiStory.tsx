@@ -37,6 +37,8 @@ import { createFrontstageProvider } from "./Utils";
 import { DemoIModel, useDemoIModel } from "../.storybook/addons/DemoIModel";
 
 export interface AppUiStoryProps {
+  appBackstage?: React.ReactNode;
+  children?: React.ReactNode;
   onInitialize?: () => Promise<void>;
   itemProviders?: UiItemsProvider[];
   layout?: "fullscreen";
@@ -114,11 +116,16 @@ function Initialized(props: AppUiStoryProps) {
     void UiFramework.frontstages.setActiveFrontstage("main-frontstage");
   }, []);
   return (
-    <ConfigurableUiContent
-      style={{
-        height: props.layout === "fullscreen" ? "100vh" : "calc(100vh - 2rem)",
-      }}
-    />
+    <>
+      {props.children}
+      <ConfigurableUiContent
+        style={{
+          height:
+            props.layout === "fullscreen" ? "100vh" : "calc(100vh - 2rem)",
+        }}
+        appBackstage={props.appBackstage}
+      />
+    </>
   );
 }
 

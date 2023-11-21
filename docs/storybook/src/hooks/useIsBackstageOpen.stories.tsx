@@ -2,33 +2,26 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
   BackstageComposer,
-  ConfigurableUiContent,
   IModelViewportControl,
-  StageUsage,
-  StandardFrontstageProvider,
   UiFramework,
   useBackstageManager,
   useIsBackstageOpen,
 } from "@itwin/appui-react";
-import { IModelApp } from "@itwin/core-frontend";
 import { AppUiDecorator } from "../AppUiDecorator";
+import { AppUiStory } from "../AppUiStory";
+import { createFrontstageProvider } from "../Utils";
 
-function Demo() {
-  const [initialized, setInitialized] = React.useState(false);
-  React.useEffect(() => {
-    void (async function () {
-      await IModelApp.startup();
-      await UiFramework.initialize(undefined);
-      UiFramework.frontstages.addFrontstageProvider(
-        new StandardFrontstageProvider({
-          id: "main-frontstage",
-          usage: StageUsage.Private,
+function HookStory() {
+  return (
+    <AppUiStory
+      appBackstage={<BackstageComposer />}
+      frontstageProviders={() => [
+        createFrontstageProvider({
           contentGroupProps: {
             id: "ViewportContentGroup",
             layout: StandardContentLayouts.singleView,
@@ -49,43 +42,32 @@ function Demo() {
               }}
             />
           ),
-          hideStatusBar: true,
-          hideToolSettings: true,
-          hideNavigationAid: true,
-        })
-      );
-      void UiFramework.frontstages.setActiveFrontstage("main-frontstage");
-      setInitialized(true);
-    })();
-  }, []);
-  if (!initialized) return null;
-  return <Initialized />;
+        }),
+      ]}
+    >
+      <Initialized />
+    </AppUiStory>
+  );
 }
 
 function Initialized() {
   const manager = useBackstageManager();
   const isOpen = useIsBackstageOpen(manager);
   return (
-    <>
-      <pre>
-        <code>isOpen: {String(isOpen)}</code>
-      </pre>
-      <ConfigurableUiContent
-        style={{ height: 300 }}
-        appBackstage={<BackstageComposer />}
-      />
-    </>
+    <pre>
+      <code>isOpen: {String(isOpen)}</code>
+    </pre>
   );
 }
 
 const meta: Meta = {
   title: "Hooks/useIsBackstageOpen",
-  component: Demo,
+  component: HookStory,
   decorators: [AppUiDecorator],
-} satisfies Meta<typeof Demo>;
+} satisfies Meta<typeof HookStory>;
 
 export default meta;
 
-type Story = StoryObj<typeof Demo>;
+type Story = StoryObj<typeof HookStory>;
 
 export const Basic: Story = {};
