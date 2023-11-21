@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
+import { Provider } from "react-redux";
 import {
   Controls,
   Description,
@@ -14,6 +15,8 @@ import {
   ConfigurableUiContent,
   FrameworkToolAdmin,
   FrontstageProvider,
+  StateManager,
+  ThemeManager,
   UiFramework,
   UiItemsManager,
   UiItemsProvider,
@@ -89,11 +92,6 @@ export function AppUiStory(props: AppUiStoryProps) {
       for (const provider of props.itemProviders ?? []) {
         UiItemsManager.register(provider);
       }
-      const defaultFrontstage = frontstageProviders[0];
-      defaultFrontstage &&
-        (await UiFramework.frontstages.setActiveFrontstage(
-          defaultFrontstage.id
-        ));
       setInitialized(true);
     })();
     return () => {
@@ -105,6 +103,7 @@ export function AppUiStory(props: AppUiStoryProps) {
       UiFramework.getIModelConnection()?.close();
       UiFramework.terminate();
       void IModelApp.shutdown();
+      setInitialized(false);
     };
   }, [props]);
   if (!initialized) return null;
@@ -113,18 +112,27 @@ export function AppUiStory(props: AppUiStoryProps) {
 
 function Initialized(props: AppUiStoryProps) {
   React.useEffect(() => {
-    void UiFramework.frontstages.setActiveFrontstage("main-frontstage");
+    const frontstageProviders = getFrontstageProviders(
+      props.frontstageProviders
+    ) ?? [createFrontstageProvider()];
+    const defaultFrontstage = frontstageProviders[0];
+    defaultFrontstage &&
+      void UiFramework.frontstages.setActiveFrontstage(defaultFrontstage.id);
   }, []);
   return (
     <>
-      {props.children}
-      <ConfigurableUiContent
-        style={{
-          height:
-            props.layout === "fullscreen" ? "100vh" : "calc(100vh - 2rem)",
-        }}
-        appBackstage={props.appBackstage}
-      />
+      <Provider store={StateManager.store}>
+        <ThemeManager>
+          {props.children}
+          <ConfigurableUiContent
+            style={{
+              height:
+                props.layout === "fullscreen" ? "100vh" : "calc(100vh - 2rem)",
+            }}
+            appBackstage={props.appBackstage}
+          />
+        </ThemeManager>
+      </Provider>
     </>
   );
 }
@@ -155,7 +163,7 @@ class DemoAuthClient implements AuthorizationClient {
   public async getAccessToken(): Promise<string> {
     this.accessToken ??= (async () => {
       const response = await fetch(
-        "https://prod-imodeldeveloperservices-eus.azurewebsites.net/api/v0/sampleShowcaseUser/devUser"
+        "https://connect-itwinjscodesandbox.bentley.com/api/userToken"
       );
       const result = await response.json();
       setTimeout(

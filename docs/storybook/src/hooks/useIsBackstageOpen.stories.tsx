@@ -12,7 +12,6 @@ import {
   useBackstageManager,
   useIsBackstageOpen,
 } from "@itwin/appui-react";
-import { AppUiDecorator } from "../AppUiDecorator";
 import { AppUiStory } from "../AppUiStory";
 import { createFrontstageProvider } from "../Utils";
 
@@ -29,7 +28,6 @@ function HookStory() {
               {
                 id: "ViewportContent",
                 classId: IModelViewportControl,
-                applicationData: {},
               },
             ],
           },
@@ -63,7 +61,6 @@ function Initialized() {
 const meta: Meta = {
   title: "Hooks/useIsBackstageOpen",
   component: HookStory,
-  decorators: [AppUiDecorator],
 } satisfies Meta<typeof HookStory>;
 
 export default meta;

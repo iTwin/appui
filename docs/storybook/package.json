@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build:storybook": "npm run copy:webfont && cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" storybook build",
-    "start": "npm run copy:webfont && storybook dev -p 6006",
+    "start": "npm run copy:webfont && storybook dev -p 3000",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "copy:webfont": "cpx ./node_modules/@bentley/icons-generic-webfont/dist/**/* ./lib/webfont",
     "build": "",
