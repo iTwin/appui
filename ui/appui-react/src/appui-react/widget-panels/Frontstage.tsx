@@ -1075,6 +1075,11 @@ export function useSaveFrontstageSettings(
   }, [uiSettingsStorage]);
   React.useEffect(() => {
     return () => {
+      pendingSave.current();
+    };
+  }, [frontstageDef]);
+  React.useEffect(() => {
+    return () => {
       saveSetting.cancel();
     };
   }, [saveSetting]);
@@ -1087,11 +1092,6 @@ export function useSaveFrontstageSettings(
       saveSetting(frontstageDef, store.getState());
     });
   }, [saveSetting, frontstageDef, store]);
-  React.useEffect(() => {
-    return () => {
-      pendingSave.current();
-    };
-  }, [frontstageDef]);
 }
 
 /** @internal */
