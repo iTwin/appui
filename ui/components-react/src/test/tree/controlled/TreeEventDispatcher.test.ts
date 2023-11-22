@@ -55,6 +55,9 @@ describe("TreeEventDispatcher", () => {
     onCheckboxStateChanged: sinon.fake() as SinonSpy<
       Required<TreeEvents>["onCheckboxStateChanged"]
     >,
+    onNodeDoubleClick: sinon.fake() as SinonSpy<
+      Required<TreeEvents>["onNodeDoubleClick"]
+    >,
   };
 
   beforeEach(() => {
@@ -65,6 +68,7 @@ describe("TreeEventDispatcher", () => {
     treeEvents.onDelayedNodeClick.resetHistory();
     treeEvents.onNodeEditorActivated.resetHistory();
     treeEvents.onCheckboxStateChanged.resetHistory();
+    treeEvents.onNodeDoubleClick.resetHistory();
   });
 
   function setupTreeEventDispatcher(
@@ -789,6 +793,42 @@ describe("TreeEventDispatcher", () => {
     );
     dispatcher.onNodeCollapsed("A");
     expect(treeEvents.onNodeCollapsed).to.be.calledOnceWith({ nodeId: "A" });
+  });
+
+  describe("double-click", () => {
+    it("calls onNodeDoubleClicked when node is double-clicked", () => {
+      const { dispatcher } = setupTreeEventDispatcher(
+        SelectionMode.Extended,
+        (model) => {
+          model.setChildren(
+            undefined,
+            [createTreeNodeInput("A", { isSelected: true })],
+            0
+          );
+        }
+      );
+
+      dispatcher.onNodeClicked("A", { detail: 2 } as any);
+      expect(treeEvents.onNodeDoubleClick).to.be.called;
+      expect(treeEvents.onSelectionReplaced).to.not.be.called;
+    });
+
+    it("calls onNodeDoubleClicked when node is double-clicked and also marks the node as selected if it wasn't before", () => {
+      const { dispatcher } = setupTreeEventDispatcher(
+        SelectionMode.Extended,
+        (model) => {
+          model.setChildren(
+            undefined,
+            [createTreeNodeInput("A", { isSelected: false })],
+            0
+          );
+        }
+      );
+
+      dispatcher.onNodeClicked("A", { detail: 2 } as any);
+      expect(treeEvents.onNodeDoubleClick).to.be.called;
+      expect(treeEvents.onSelectionReplaced).to.be.called;
+    });
   });
 
   describe("keyboard navigation", () => {
