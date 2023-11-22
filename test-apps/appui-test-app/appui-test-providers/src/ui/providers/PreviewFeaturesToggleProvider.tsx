@@ -22,7 +22,9 @@ const featureList = [
 ];
 function PreviewFeatureList() {
   const [activeFeatureList, setActiveFeatureList] = React.useState<string[]>(
-    Object.keys(UiFramework.previewFeatures)
+    Object.keys(UiFramework.previewFeatures).filter(
+      (key) => UiFramework.previewFeatures[key]
+    )
   );
 
   React.useEffect(() => {

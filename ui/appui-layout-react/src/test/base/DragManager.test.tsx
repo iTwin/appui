@@ -241,8 +241,7 @@ describe("useDraggedItem", () => {
     });
 
     act(() => {
-      dragManager.draggedItem!.item.id = "abc";
-      dragManager.handleDragUpdate();
+      dragManager.handleDragUpdate({ type: "tab", id: "abc" });
     });
     result.current!.should.eql({
       type: "tab",

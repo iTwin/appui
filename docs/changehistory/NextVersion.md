@@ -101,6 +101,7 @@ Table of contents:
 - Hidden widget will now float to `defaultSize` and `defaultPosition` of `canFloat` property when set to floating.
 - Fixed an issue with tool settings not being refreshed from tool when floating/docking tool settings.
 - Fixed an issue where frontstage state changes would be lost when it is closed too soon after the change.
+- Fixed an issue where drop target is being displayed in a dragged floating widget.
 
 ## @itwin/imodel-components-react
 
