@@ -46,17 +46,17 @@ export interface AppUiStoryProps {
   itemProviders?: UiItemsProvider[];
   layout?: "fullscreen";
   frontstageProviders?: FrontstageProvider[] | (() => FrontstageProvider[]);
+  demoIModel?: boolean;
 }
 
-let cleanup: Promise<void>;
-
 export function AppUiStory(props: AppUiStoryProps) {
-  const demoIModel = useDemoIModel();
-
+  let demoIModel = useStoryDemoIModel(props);
   const [initialized, setInitialized] = React.useState(false);
+
   React.useEffect(() => {
-    void (async function () {
-      await cleanup;
+    let ignore = false;
+
+    const startup = async () => {
       await IModelApp.startup({
         toolAdmin: new FrameworkToolAdmin(),
         hubAccess: new FrontendIModelsAccess(
@@ -69,6 +69,7 @@ export function AppUiStory(props: AppUiStoryProps) {
         authorizationClient: new DemoAuthClient(),
       });
       await UiFramework.initialize(undefined);
+
       BentleyCloudRpcManager.initializeClient(
         {
           info: {
@@ -95,20 +96,27 @@ export function AppUiStory(props: AppUiStoryProps) {
       for (const provider of props.itemProviders ?? []) {
         UiItemsManager.register(provider);
       }
+
+      if (ignore) return;
       setInitialized(true);
-    })();
+    };
+
+    const shutdown = async () => {
+      await UiFramework.getIModelConnection()?.close();
+      await UiFramework.frontstages.setActiveFrontstageDef(undefined);
+      UiFramework.frontstages.clearFrontstageProviders();
+      for (const provider of props.itemProviders ?? []) {
+        UiItemsManager.unregister(provider.id);
+      }
+      UiFramework.terminate();
+      await IModelApp.shutdown();
+    };
+
+    const cleanup = appInitializer.initialize(startup, shutdown);
     return () => {
-      cleanup = (async () => {
-        await UiFramework.frontstages.setActiveFrontstageDef(undefined);
-        UiFramework.frontstages.clearFrontstageProviders();
-        for (const provider of props.itemProviders ?? []) {
-          UiItemsManager.unregister(provider.id);
-        }
-        UiFramework.getIModelConnection()?.close();
-        UiFramework.terminate();
-        await IModelApp.shutdown();
-      })();
+      ignore = true;
       setInitialized(false);
+      cleanup();
     };
   }, [props]);
   if (!initialized) return null;
@@ -197,4 +205,70 @@ export async function openIModel({
 async function getViewState(iModelConnection: IModelConnection) {
   const viewCreator = new ViewCreator3d(iModelConnection);
   return viewCreator.createDefaultView();
+}
+
+const appInitializer = (() => {
+  let latestStartup: () => Promise<void>;
+  let initializer:
+    | {
+        cleanup: () => Promise<void>;
+        startup: () => Promise<void>;
+      }
+    | undefined;
+  return {
+    initialize: (
+      startup: () => Promise<void>,
+      shutdown: () => Promise<void>
+    ) => {
+      latestStartup = startup;
+      let ignore = false;
+
+      void (async () => {
+        // Run existing cleanup.
+        if (initializer) {
+          await initializer.cleanup();
+        }
+
+        // Initializer cleanup called.
+        if (ignore) return;
+        // Run latest initializer only.
+        if (startup !== latestStartup) return;
+
+        let startupPromise: Promise<void> | undefined;
+        let shutdownPromise: Promise<void> | undefined;
+        initializer = {
+          cleanup: async () => {
+            // Shutdown is already running.
+            if (shutdownPromise) {
+              await shutdownPromise;
+              return;
+            }
+
+            // Wait for startup before running the shutdown.
+            await startupPromise;
+            shutdownPromise = shutdown();
+            await shutdownPromise;
+          },
+          startup,
+        };
+
+        startupPromise = startup();
+        await startupPromise;
+      })();
+      return () => {
+        ignore = true;
+        if (initializer?.startup !== startup) return;
+        void initializer.cleanup();
+      };
+    },
+  };
+})();
+
+function useStoryDemoIModel(props: AppUiStoryProps) {
+  let demoIModel = useDemoIModel();
+  if (typeof props.demoIModel === "boolean") {
+    return props.demoIModel ? demoIModel : undefined;
+  }
+
+  return undefined;
 }

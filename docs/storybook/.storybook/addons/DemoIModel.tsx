@@ -33,10 +33,8 @@ export function addDemoIModelToolbarItem(preview: Preview): Preview {
         description: "Global iModel for components",
         defaultValue: undefined,
         toolbar: {
-          // The label to show for this toolbar item
-          title: "Demo IModel",
+          title: "Demo iModel",
           icon: "doclist",
-          // Array of plain string values or MenuItem shape (see below)
           items: [
             { title: "No iModel", value: "no" },
             ...demoIModels.map((model) => ({
@@ -44,7 +42,6 @@ export function addDemoIModelToolbarItem(preview: Preview): Preview {
               value: model.name,
             })),
           ] as Storybook.MenuItem[],
-          // Change title based on selected value
           dynamicTitle: true,
         },
       },
@@ -52,9 +49,6 @@ export function addDemoIModelToolbarItem(preview: Preview): Preview {
     decorators: [...(preview.decorators ?? []), withDemoIModel],
   };
 }
-
-// https://github.com/storybookjs/storybook/issues/14617
-// https://github.com/storybookjs/storybook/blob/next/code/addons/toolbars/src/types.ts
 
 const withDemoIModel: Decorator = (Story, context) => {
   const demoIModel = getDemoIModel(context.globals.iModel);

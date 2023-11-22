@@ -42,6 +42,7 @@ function HookStory() {
           ),
         }),
       ]}
+      demoIModel={true}
     >
       <Initialized />
     </AppUiStory>
