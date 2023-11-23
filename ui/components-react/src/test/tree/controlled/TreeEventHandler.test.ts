@@ -177,11 +177,4 @@ describe("TreeEventHandler", () => {
       expect(spy).to.not.be.called;
     });
   });
-
-  // currently the tested function has an empty body, it does nothing. Therefore, this is only for coverage.
-  describe("onNodeDoubleClick", () => {
-    it("calls onNodeDoubleClick", () => {
-      eventHandler.onNodeDoubleClick({ nodeId: testNode.id });
-    });
-  });
 });
