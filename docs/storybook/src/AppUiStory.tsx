@@ -50,7 +50,7 @@ export interface AppUiStoryProps {
 }
 
 export function AppUiStory(props: AppUiStoryProps) {
-  let demoIModel = useStoryDemoIModel(props);
+  const demoIModel = useStoryDemoIModel(props);
   const [initialized, setInitialized] = React.useState(false);
 
   React.useEffect(() => {
@@ -118,7 +118,7 @@ export function AppUiStory(props: AppUiStoryProps) {
       setInitialized(false);
       cleanup();
     };
-  }, [props]);
+  }, [props, demoIModel]);
   if (!initialized) return null;
   return <Initialized {...props} />;
 }
@@ -131,7 +131,7 @@ function Initialized(props: AppUiStoryProps) {
     const defaultProvider = frontstageProviders[0];
     defaultProvider &&
       void UiFramework.frontstages.setActiveFrontstage(defaultProvider.id);
-  }, []);
+  }, [props.frontstageProviders]);
   return (
     <>
       <Provider store={StateManager.store}>
@@ -189,7 +189,7 @@ class DemoAuthClient implements AuthorizationClient {
   }
 }
 
-export async function openIModel({
+async function openIModel({
   iTwinId,
   iModelId,
 }: Pick<DemoIModel, "iTwinId" | "iModelId">) {
@@ -234,7 +234,6 @@ const appInitializer = (() => {
         // Run latest initializer only.
         if (startup !== latestStartup) return;
 
-        let startupPromise: Promise<void> | undefined;
         let shutdownPromise: Promise<void> | undefined;
         initializer = {
           cleanup: async () => {
@@ -252,7 +251,7 @@ const appInitializer = (() => {
           startup,
         };
 
-        startupPromise = startup();
+        const startupPromise = startup();
         await startupPromise;
       })();
       return () => {
@@ -265,7 +264,7 @@ const appInitializer = (() => {
 })();
 
 function useStoryDemoIModel(props: AppUiStoryProps) {
-  let demoIModel = useDemoIModel();
+  const demoIModel = useDemoIModel();
   if (typeof props.demoIModel === "boolean") {
     return props.demoIModel ? demoIModel : undefined;
   }
