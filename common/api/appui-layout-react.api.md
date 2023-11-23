@@ -242,7 +242,7 @@ export class DragManager {
     // (undocumented)
     handleDragStart({ item, info }: HandleDragStartArgs): void;
     // (undocumented)
-    handleDragUpdate(): void;
+    handleDragUpdate(item: DragItem): void;
     // (undocumented)
     handleTargetChanged(target: DropTargetState | undefined): void;
     // (undocumented)
