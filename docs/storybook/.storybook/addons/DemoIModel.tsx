@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
-import type { Decorator, Preview } from "@storybook/react";
+import type { Decorator } from "@storybook/react";
 
 export namespace Storybook {
   export interface MenuItem {
@@ -24,33 +24,7 @@ const DemoIModelContext = React.createContext<DemoIModel | undefined>(
   undefined
 );
 
-export function addDemoIModelToolbarItem(preview: Preview): Preview {
-  return {
-    ...preview,
-    globalTypes: {
-      ...preview.globalTypes,
-      iModel: {
-        description: "Global iModel for components",
-        defaultValue: undefined,
-        toolbar: {
-          title: "Demo iModel",
-          icon: "doclist",
-          items: [
-            { title: "No iModel", value: "no" },
-            ...demoIModels.map((model) => ({
-              title: model.label,
-              value: model.name,
-            })),
-          ] as Storybook.MenuItem[],
-          dynamicTitle: true,
-        },
-      },
-    },
-    decorators: [...(preview.decorators ?? []), withDemoIModel],
-  };
-}
-
-const withDemoIModel: Decorator = (Story, context) => {
+export const withDemoIModel: Decorator = (Story, context) => {
   const demoIModel = getDemoIModel(context.globals.iModel);
   return (
     <DemoIModelContext.Provider value={demoIModel}>
@@ -132,3 +106,20 @@ export const demoIModels: DemoIModel[] = [
     iModelId: "62d521ca-0b45-4a65-9f48-9fc9b5e87100",
   },
 ];
+
+export const demoIModelGlobalType = {
+  description: "Global iModel for components",
+  defaultValue: undefined,
+  toolbar: {
+    title: "Demo iModel",
+    icon: "doclist",
+    items: [
+      { title: "No iModel", value: "no" },
+      ...demoIModels.map<Storybook.MenuItem>((model) => ({
+        title: model.label,
+        value: model.name,
+      })),
+    ],
+    dynamicTitle: true,
+  },
+};
