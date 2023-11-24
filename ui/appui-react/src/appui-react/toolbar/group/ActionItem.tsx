@@ -8,13 +8,10 @@
 
 import "./ActionItem.scss";
 import * as React from "react";
-import {
-  ConditionalBooleanValue,
-  ConditionalStringValue,
-} from "@itwin/appui-abstract";
 import { BadgeUtilities, type CommonProps, Icon } from "@itwin/core-react";
 import { IconButton } from "@itwin/itwinui-react";
 import type { ToolbarActionItem } from "../ToolbarItem";
+import { useConditionalValue } from "../../hooks/useConditionalValue";
 
 /** @internal */
 export interface ActionItemProps extends CommonProps {
@@ -24,9 +21,10 @@ export interface ActionItemProps extends CommonProps {
 /** @internal */
 export function ActionItem(props: ActionItemProps) {
   const { item } = props;
-  const label = ConditionalStringValue.getValue(item.label); // TODO: useConditionalStringValue
-  const description = ConditionalStringValue.getValue(item.description);
-  const isDisabled = ConditionalBooleanValue.getValue(item.isDisabled);
+  const label = useConditionalValue(item.label);
+  const description = useConditionalValue(item.description);
+  const isDisabled = useConditionalValue(item.isDisabled);
+  const iconSpec = useConditionalValue(item.icon);
   return (
     <IconButton
       className={props.className}
@@ -42,7 +40,7 @@ export function ActionItem(props: ActionItemProps) {
       style={props.style}
       onClick={() => item.execute()}
     >
-      <Icon iconSpec={item.icon} />
+      <Icon iconSpec={iconSpec} />
       <Badge badge={item.badge} />
     </IconButton>
   );

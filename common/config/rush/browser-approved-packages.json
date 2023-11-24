@@ -519,6 +519,10 @@
       "allowedCategories": [ "frontend", "internal", "tools" ]
     },
     {
+      "name": "use-sync-external-store",
+      "allowedCategories": [ "frontend" ]
+    },
+    {
       "name": "vite",
       "allowedCategories": [ "internal" ]
     },

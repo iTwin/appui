@@ -629,6 +629,7 @@ importers:
       '@types/rimraf': ^2.0.2
       '@types/sinon': ^10.0.15
       '@types/sinon-chai': ^3.2.0
+      '@types/use-sync-external-store': ^0.0.6
       chai: ^4.3.10
       chai-as-promised: ^7
       chai-jest-snapshot: ^2.0.0
@@ -660,6 +661,7 @@ importers:
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ^5.0.2
+      use-sync-external-store: ^1.2.0
       zustand: ^4.4.1
     dependencies:
       '@bentley/icons-generic': 1.0.34
@@ -674,6 +676,7 @@ importers:
       react-error-boundary: 4.0.3_react@17.0.2
       rxjs: 7.8.1
       ts-key-enum: 2.0.12
+      use-sync-external-store: 1.2.0_react@17.0.2
       zustand: 4.4.1_b4b4c799a5a2f4488606d88d938fa77d
     devDependencies:
       '@itwin/appui-abstract': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
@@ -709,6 +712,7 @@ importers:
       '@types/rimraf': 2.0.5
       '@types/sinon': 10.0.15
       '@types/sinon-chai': 3.2.9
+      '@types/use-sync-external-store': 0.0.6
       chai: 4.3.10
       chai-as-promised: 7.1.1_chai@4.3.10
       chai-jest-snapshot: 2.0.0_chai@4.3.10
@@ -8736,6 +8740,10 @@ packages:
 
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
+    dev: true
+
+  /@types/use-sync-external-store/0.0.6:
+    resolution: {integrity: sha512-zFDAD+tlpf2r4asuHEj0XH6pY6i0g5NeAHPn+15wk3BV6JA69eERFXC1gyGThDkVa1zCyKr5jox1+2LbV/AMLg==}
     dev: true
 
   /@types/ws/8.5.4:

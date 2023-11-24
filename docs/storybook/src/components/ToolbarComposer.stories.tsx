@@ -5,7 +5,11 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import type { Meta, StoryObj } from "@storybook/react";
-import { BadgeType, ConditionalStringValue } from "@itwin/appui-abstract";
+import {
+  BadgeType,
+  ConditionalBooleanValue,
+  ConditionalStringValue,
+} from "@itwin/appui-abstract";
 import {
   CommandItemDef,
   SyncUiEventDispatcher,
@@ -96,20 +100,24 @@ export const Basic: Story = {
         100,
         <Svg2D />,
         "Item 1",
-        action("Item 1")
+        () => {
+          bump();
+          action("Item 1")();
+        }
       ),
       ToolbarItemUtilities.createActionItem(
         "item2",
         100,
-        <Svg3D />,
+        new ConditionalIconItem(
+          () => (i % 2 === 0 ? <Svg3D /> : <Svg2D />),
+          ["bump"]
+        ),
         new ConditionalStringValue(() => `Item 2 (${i})`, ["bump"]),
-        () => {
-          bump();
-          action("Item 2");
-        },
+        action("Item 2"),
         {
+          isDisabled: new ConditionalBooleanValue(() => i % 2 === 1, ["bump"]),
           description: new ConditionalStringValue(
-            () => `Conditional item (${i}).`,
+            () => `Conditional item. Click 'Item 1' to toggle. (${i}).`,
             ["bump"]
           ),
         }
@@ -133,7 +141,6 @@ export const Basic: Story = {
         }),
         {
           badgeType: BadgeType.New,
-          isDisabled: true,
           ...createAbstractReactIcon(),
         }
       ),
@@ -143,11 +150,12 @@ export const Basic: Story = {
           iconSpec: <SvgAirplane />,
           label: "Item 5",
           execute: action("Item 5"),
-          badgeType: BadgeType.None,
+          badgeType: BadgeType.TechnicalPreview,
         }),
         {
-          badgeType: BadgeType.None,
           description: "No badge, conditional icon overrides.",
+          badgeType: BadgeType.None,
+          isDisabled: true,
           ...createAbstractConditionalIcon(),
         }
       ),
