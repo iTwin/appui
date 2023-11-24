@@ -19,6 +19,10 @@ const featureList = [
     id: "enableMaximizedFloatingWidget",
     label: "Enable maximized floating widgets",
   },
+  {
+    id: "changeActiveTabAfterDragDrop",
+    label: "Change active tab after drag & drop",
+  },
 ];
 function PreviewFeatureList() {
   const [activeFeatureList, setActiveFeatureList] = React.useState<string[]>(
@@ -30,6 +34,9 @@ function PreviewFeatureList() {
       contentAlwaysMaxSize: activeFeatureList.includes("contentAlwaysMaxSize"),
       enableMaximizedFloatingWidget: activeFeatureList.includes(
         "enableMaximizedFloatingWidget"
+      ),
+      changeActiveTabAfterDragDrop: activeFeatureList.includes(
+        "changeActiveTabAfterDragDrop"
       ),
     });
   }, [activeFeatureList]);

@@ -24,6 +24,7 @@ import { WidgetTabs } from "./Tabs";
 import { WidgetIdContext } from "./Widget";
 import { useDoubleClick } from "../widget-panels/Grip";
 import { useFloatingWidgetId } from "./FloatingWidget";
+import { usePreviewFeatures } from "../preview/PreviewFeatures";
 
 /** @internal */
 export interface WidgetTabBarProps {
@@ -57,6 +58,8 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
     },
     [dispatch, floatingWidgetId]
   );
+
+  const { changeActiveTabAfterDragDrop } = usePreviewFeatures();
   const onDragEnd = React.useCallback<
     NonNullable<UseDragWidgetArgs["onDragEnd"]>
   >(
@@ -67,9 +70,15 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
           type: "WIDGET_DRAG_END",
           floatingWidgetId,
           target,
+          isActiveTabPreview: changeActiveTabAfterDragDrop,
         });
     },
-    [dispatch, floatingWidgetId, handleActionAreaClick]
+    [
+      dispatch,
+      floatingWidgetId,
+      handleActionAreaClick,
+      changeActiveTabAfterDragDrop,
+    ]
   );
   const handleWidgetDragStart = useDragWidget({
     widgetId,

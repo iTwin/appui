@@ -86,6 +86,8 @@ Table of contents:
 
 - `enableMaximizedFloatingWidget` feature preview. When enabled, floating widgets can be maximized to fill the entire screen. In this mode the widgets can still be popped out, or restored to their original size.
 
+- `changeActiveTabAfterDragDrop` feature preview. When enabled, whenever a widget or tab is dropped somewhere, it becomes the active tab of the receiving container.
+
 ### Changes
 
 - `AppNotificationManager` no longer requires `StatusBar` to be rendered in the active frontstage to show messages.

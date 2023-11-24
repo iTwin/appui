@@ -158,6 +158,7 @@ describe("WidgetTitleBar", () => {
         side: "right",
         type: "panel",
       },
+      isActiveTabPreview: undefined,
     });
   });
 

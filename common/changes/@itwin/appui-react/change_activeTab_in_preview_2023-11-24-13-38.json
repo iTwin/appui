@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Added new item in preview features dropdown list",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

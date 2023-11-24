@@ -10,19 +10,16 @@ import { useSelector } from "react-redux";
 import type { FrameworkRootState } from "../redux/StateManager";
 import { UiFramework } from "../UiFramework";
 
-/**
- * List of known preview features.
- */
+/** List of known preview features. */
 interface KnownPreviewFeatures {
-  /**
-   * If true, the panels and tool settings will always be rendered over the content.
+  /** If true, the panels and tool settings will always be rendered over the content.
    * The content will never change size.
    */
   contentAlwaysMaxSize: boolean;
-  /**
-   * If true, the floating widget will have a "maximize" button.
-   */
+  /** If true, the floating widget will have a "maximize" button. */
   enableMaximizedFloatingWidget: boolean;
+  /** If true, the active tab will change after widget drag interaction. */
+  changeActiveTabAfterDragDrop: boolean;
 }
 
 /**
@@ -32,6 +29,7 @@ interface KnownPreviewFeatures {
 const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   contentAlwaysMaxSize: undefined,
   enableMaximizedFloatingWidget: undefined,
+  changeActiveTabAfterDragDrop: undefined,
 };
 
 /**

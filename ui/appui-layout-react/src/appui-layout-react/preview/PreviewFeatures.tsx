@@ -11,6 +11,7 @@ import * as React from "react";
 interface KnownPreviewFeatures {
   contentAlwaysMaxSize?: boolean;
   enableMaximizedFloatingWidget?: boolean;
+  changeActiveTabAfterDragDrop?: boolean;
 }
 
 /**
@@ -19,6 +20,7 @@ interface KnownPreviewFeatures {
 interface PreviewFeatureState {
   tested?: boolean;
   maximizedWidget?: string;
+  activeTab?: boolean;
 }
 
 /**
@@ -31,6 +33,9 @@ type PreviewActions =
   | {
       type: "SET_MAXIMIZED_WIDGET";
       id: string | undefined;
+    }
+  | {
+      type: "SET_NEW_ACTIVE_TAB";
     };
 
 /**
@@ -68,6 +73,11 @@ function previewReducer(state: PreviewFeatureState, action: PreviewActions) {
       return {
         ...state,
         maximizedWidget: action.id,
+      };
+    case "SET_NEW_ACTIVE_TAB":
+      return {
+        ...state,
+        actionTab: true,
       };
     default:
       return state;

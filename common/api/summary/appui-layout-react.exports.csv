@@ -51,6 +51,7 @@ internal;DragProvider(props: DragProviderProps): JSX.Element
 internal;DragProviderProps
 internal;DragStartArgs
 internal;DropTargetState = TabDragDropTargetState | WidgetDragDropTargetState
+internal;DropWidgetActiveTabPreviewReducer(state: NineZoneState, action: NineZoneAction): NineZoneState
 internal;Ellipsis(props: CommonProps): JSX.Element
 internal;eqlOverflown(prev: readonly string[] | undefined, value: readonly string[]): boolean
 internal;ExpandableButton 

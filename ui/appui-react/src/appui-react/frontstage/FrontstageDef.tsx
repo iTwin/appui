@@ -25,6 +25,7 @@ import type {
   PanelSide,
 } from "@itwin/appui-layout-react";
 import {
+  DropWidgetActiveTabPreviewReducer,
   getTabLocation,
   getWidgetLocation,
   isFloatingTabLocation,
@@ -318,7 +319,14 @@ export class FrontstageDef {
 
       const state = this.nineZoneState;
       if (!state) return;
-      this.nineZoneState = NineZoneStateReducer(state, action);
+
+      if (
+        (action.type === "WIDGET_TAB_DRAG_END" ||
+          action.type === "WIDGET_DRAG_END") &&
+        action.isActiveTabPreview
+      ) {
+        this.nineZoneState = DropWidgetActiveTabPreviewReducer(state, action);
+      } else this.nineZoneState = NineZoneStateReducer(state, action);
     });
   }
 

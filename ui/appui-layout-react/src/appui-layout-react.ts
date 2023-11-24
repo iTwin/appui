@@ -40,6 +40,7 @@ export * from "./appui-layout-react/popup/Tooltip";
 
 export * from "./appui-layout-react/preview/PreviewFeatures";
 
+export * from "./appui-layout-react/state/DropWidgetActiveTabPreviewReducer";
 export * from "./appui-layout-react/state/DropTargetState";
 export * from "./appui-layout-react/state/NineZoneAction";
 export * from "./appui-layout-react/state/NineZoneState";

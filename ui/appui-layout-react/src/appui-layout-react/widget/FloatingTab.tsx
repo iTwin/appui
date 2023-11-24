@@ -17,6 +17,7 @@ import {
   ShowWidgetIconContext,
 } from "../base/NineZone";
 import { useLayout } from "../base/LayoutStore";
+import { usePreviewFeatures } from "../preview/PreviewFeatures";
 
 /** Component that displays a floating tab.
  * @internal
@@ -49,6 +50,8 @@ export function FloatingTab() {
     },
     [dispatch, id]
   );
+
+  const { changeActiveTabAfterDragDrop } = usePreviewFeatures();
   const onDragEnd = React.useCallback<NonNullable<UseDragTabArgs["onDragEnd"]>>(
     (target) => {
       id &&
@@ -56,9 +59,10 @@ export function FloatingTab() {
           type: "WIDGET_TAB_DRAG_END",
           id,
           target,
+          isActiveTabPreview: changeActiveTabAfterDragDrop,
         });
     },
-    [dispatch, id]
+    [dispatch, id, changeActiveTabAfterDragDrop]
   );
   useDragTab({
     tabId: id || "",
