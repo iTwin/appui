@@ -5,9 +5,10 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import type { Meta, StoryObj } from "@storybook/react";
-import { BadgeType } from "@itwin/appui-abstract";
+import { BadgeType, ConditionalStringValue } from "@itwin/appui-abstract";
 import {
   CommandItemDef,
+  SyncUiEventDispatcher,
   ToolbarComposer,
   ToolbarHelper,
   ToolbarItemUtilities,
@@ -81,6 +82,12 @@ function createAbstractConditionalIcon() {
   };
 }
 
+let i = 10;
+function bump() {
+  i++;
+  SyncUiEventDispatcher.dispatchSyncUiEvent("bump");
+}
+
 export const Basic: Story = {
   args: {
     items: [
@@ -95,8 +102,17 @@ export const Basic: Story = {
         "item2",
         100,
         <Svg3D />,
-        "Item 2",
-        action("Item 2")
+        new ConditionalStringValue(() => `Item 2 (${i})`, ["bump"]),
+        () => {
+          bump();
+          action("Item 2");
+        },
+        {
+          description: new ConditionalStringValue(
+            () => `Conditional item (${i}).`,
+            ["bump"]
+          ),
+        }
       ),
       ToolbarHelper.createToolbarItemFromItemDef(
         125,
