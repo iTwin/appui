@@ -18,6 +18,7 @@ import { InternalToolbarComponent as CR_Toolbar } from "@itwin/components-react"
 import type { ToolbarItem } from "./ToolbarItem";
 import { toUIAToolbarItem } from "./toUIAToolbarItem";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
+import { usePreviewFeatures } from "../preview/PreviewFeatures";
 
 /**
  * Properties of [[Toolbar.enableOverflow]] component.
@@ -54,6 +55,18 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
  * @beta
  */
 export function Toolbar(props: ToolbarProps) {
+  const previewFeatures = usePreviewFeatures();
+  if (previewFeatures.newToolbars) {
+    return <NewToolbar {...props} />;
+  }
+  return <OriginalToolbar {...props} />;
+}
+
+function NewToolbar(_props: ToolbarProps) {
+  return <>WIP</>;
+}
+
+function OriginalToolbar(props: ToolbarProps) {
   const { items, ...other } = props;
   const uiaItems = React.useMemo(() => {
     return items.map((item) => toUIAToolbarItem(item));

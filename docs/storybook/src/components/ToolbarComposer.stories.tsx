@@ -2,16 +2,18 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { BadgeType } from "@itwin/appui-abstract";
 import {
   CommandItemDef,
+  ToolbarComposer,
   ToolbarHelper,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
   UiFramework,
-} from "@itwin/appui-react";
+} from "@itwin/appui-react/src/appui-react";
 import { ConditionalIconItem, IconHelper } from "@itwin/core-react";
 import {
   Svg2D,
@@ -21,15 +23,35 @@ import {
   SvgClipboard,
   SvgExport,
 } from "@itwin/itwinui-icons-react";
-import { ToolbarComposer } from "@itwin/appui-react/src/appui-react/toolbar/ToolbarComposer";
 
 UiFramework.initialize(undefined);
+
+type PropsWithArgs = React.ComponentProps<typeof ToolbarComposer> & {
+  newToolbars: boolean;
+};
 
 const meta = {
   title: "Components/ToolbarComposer",
   component: ToolbarComposer,
   tags: ["autodocs"],
-} satisfies Meta<typeof ToolbarComposer>;
+  args: {
+    newToolbars: false,
+  },
+  argTypes: {
+    newToolbars: {
+      description: "Enables `newToolbars` preview feature.",
+    },
+  },
+  render: (props) => {
+    const { newToolbars, ...other } = props;
+    React.useEffect(() => {
+      UiFramework.setPreviewFeatures({
+        newToolbars,
+      });
+    }, [newToolbars]);
+    return <ToolbarComposer {...other} />;
+  },
+} satisfies Meta<PropsWithArgs>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

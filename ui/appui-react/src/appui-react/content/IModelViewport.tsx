@@ -70,7 +70,9 @@ export function ViewOverlayHost({
   userSuppliedOverlay,
 }: ViewOverlayHostProps) {
   const displayViewOverlay = useSelector((state: FrameworkState) => {
-    const frameworkState = (state as any)[UiFramework.frameworkStateKey];
+    const frameworkState: FrameworkState = (state as any)[
+      UiFramework.frameworkStateKey
+    ];
     return frameworkState
       ? frameworkState.configurableUiState.viewOverlayDisplay
       : true;
