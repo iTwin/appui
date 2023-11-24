@@ -581,6 +581,12 @@ export function isWidgetDropTargetState(state: DropTargetState): state is Widget
 // @internal (undocumented)
 export function isWindowDropTargetState(state: WidgetDragDropTargetState): state is WindowDropTargetState;
 
+// @internal
+export interface KnownPreviewLayoutFeatures {
+    contentAlwaysMaxSize: boolean;
+    enableMaximizedFloatingWidget: boolean;
+}
+
 // @internal (undocumented)
 export type LayoutState = NineZoneState;
 
@@ -1011,9 +1017,6 @@ export interface PopoutWidgetState {
 }
 
 // @internal
-export const PreviewFeaturesProvider: ({ children, ...props }: PreviewFeaturesProviderProps) => JSX.Element;
-
-// @internal
 export function removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
 
 // @internal
@@ -1090,6 +1093,9 @@ export interface SectionDropTargetState {
 
 // @internal (undocumented)
 export function SendBack(): JSX.Element;
+
+// @internal
+export function setPreviewLayoutFeatures(features: Partial<KnownPreviewLayoutFeatures>): void;
 
 // @internal (undocumented)
 export const ShowWidgetIconContext: React_2.Context<boolean>;
@@ -1568,10 +1574,7 @@ export interface UsePanelTargetArgs {
 export const usePointerCaptor: <T extends HTMLElement>(onPointerDown?: ((args: PointerCaptorArgs, e: PointerCaptorEvent) => void) | undefined, onPointerMove?: ((args: PointerCaptorArgs, e: PointerCaptorEvent) => void) | undefined, onPointerUp?: ((e: PointerCaptorEvent) => void) | undefined) => (instance: T | null) => void;
 
 // @internal
-export const usePreviewFeatures: () => KnownPreviewFeatures & {
-    previewState: PreviewFeatureState;
-    previewDispatch: React_2.Dispatch<PreviewActions>;
-};
+export const usePreviewFeatures: () => Partial<KnownPreviewLayoutFeatures>;
 
 // @internal (undocumented)
 export const useResizeGrip: <T extends HTMLElement>() => [(instance: T | null) => void, boolean, boolean];

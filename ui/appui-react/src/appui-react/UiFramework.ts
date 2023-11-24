@@ -69,6 +69,7 @@ import {
   type PreviewFeatures,
   usePreviewFeaturesStore,
 } from "./preview/PreviewFeatures";
+import { setPreviewLayoutFeatures } from "@itwin/appui-layout-react";
 
 // cSpell:ignore Mobi
 
@@ -208,6 +209,7 @@ export class UiFramework {
     UserSettingsProvider
   > = new Map<string, UserSettingsProvider>();
   private static _childWindowManager = new InternalChildWindowManager();
+  private static _unregisterPreviewLayoutFeaturesHandler: () => void = () => {};
   public static useDefaultPopoutUrl = false;
 
   /** Registers class that will be informed when the UserSettingsStorage location has been set or changed. This allows
@@ -305,11 +307,17 @@ export class UiFramework {
 
     InternalConfigurableUiManager.initialize();
 
+    UiFramework._unregisterPreviewLayoutFeaturesHandler =
+      usePreviewFeaturesStore.subscribe((state) => {
+        setPreviewLayoutFeatures(state.previewFeatures);
+      });
+
     return frameworkNamespace;
   }
 
   /** Un-registers the UiFramework internationalization service namespace */
   public static terminate() {
+    UiFramework._unregisterPreviewLayoutFeaturesHandler();
     UiFramework._store = undefined;
     UiFramework._frameworkStateKeyInStore = "frameworkState";
     if (StateManager.isInitialized(true)) StateManager.clearStore();

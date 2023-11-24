@@ -51,6 +51,7 @@ import { InferableComponentEnhancerWithProps } from 'react-redux';
 import type { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
 import type { Key } from 'ts-key-enum';
+import type { KnownPreviewLayoutFeatures } from '@itwin/appui-layout-react';
 import type { LayoutFragmentProps } from '@itwin/appui-abstract';
 import type { LayoutStore } from '@itwin/appui-layout-react';
 import type { Localization } from '@itwin/core-common';

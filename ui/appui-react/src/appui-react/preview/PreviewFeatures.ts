@@ -6,16 +6,13 @@
  * @module Utilities
  */
 
+import type { KnownPreviewLayoutFeatures } from "@itwin/appui-layout-react";
 import { create } from "zustand";
 
 /** List of known preview features. */
-interface KnownPreviewFeatures {
-  /** If true, the panels and tool settings will always be rendered over the content.
-   * The content will never change size.
-   */
-  contentAlwaysMaxSize: boolean;
-  /** If true, the floating widget will have a "maximize" button. */
-  enableMaximizedFloatingWidget: boolean;
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface KnownPreviewFeatures extends KnownPreviewLayoutFeatures {
+  // Add preview features not in appui-layout-react here.
 }
 
 /** Object used trim to only known features at runtime.
@@ -76,7 +73,9 @@ interface PreviewFeaturesState {
 }
 
 /** Preview features store used by `UiFramework.previewFeatures` and `UiFramework.setPreviewFeatures()` APIs to manage the preview features.
- * Use `usePreviewFeatures` hook to access the preview features set.
+ * Use `usePreviewFeatures` hook to access the preview features set from a react component.
+ * Use `usePreviewFeaturesStore.getState().previewFeatures` to access the preview features set from a non-react component.
+ * Use `usePreviewFeaturesStore.subscribe()` to subscribe to changes to the preview features set from a non-react component.
  * @internal
  */
 export const usePreviewFeaturesStore = create<PreviewFeaturesState>((set) => {

@@ -42,7 +42,6 @@ import {
   isPanelTabLocation,
   NineZone,
   NineZoneStateReducer,
-  PreviewFeaturesProvider,
   removeTab,
   useLayout,
   WidgetPanels,
@@ -101,7 +100,7 @@ function WidgetPanelsFrontstageComponent() {
     "preview-contentAlwaysMaxSize-topPanelActive";
 
   return (
-    <PreviewFeaturesProvider {...previewFeatures}>
+    <>
       <WidgetPanelsToolSettings />
       <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
         <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
@@ -118,7 +117,7 @@ function WidgetPanelsFrontstageComponent() {
         <WidgetPanelsStatusBar />
         <FloatingWidgets />
       </ToolbarPopupAutoHideContext.Provider>
-    </PreviewFeaturesProvider>
+    </>
   );
 }
 

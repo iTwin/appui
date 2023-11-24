@@ -13,22 +13,30 @@ import {
   SvgWindowMaximize,
   SvgWindowMinimize,
 } from "@itwin/itwinui-icons-react";
-import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import { useFloatingWidgetId } from "./FloatingWidget";
+import { create } from "zustand";
+
+/** Maximized widget preview feature state.
+ * @internal */
+// istanbul ignore next (preview)
+export const usePreviewMaximizedWidgetStore = create<{
+  maximizedWidget: string | undefined;
+  setMaximizedWidget: (id: string | undefined) => void;
+}>((set) => ({
+  maximizedWidget: undefined,
+  setMaximizedWidget: (id) => set({ maximizedWidget: id }),
+}));
 
 /** @internal */
 // istanbul ignore next (preview)
 export function PreviewMaximizeToggle() {
-  const {
-    enableMaximizedFloatingWidget: previewEnableMaximizedFloatingWidget,
-    previewState,
-    previewDispatch,
-  } = usePreviewFeatures();
+  const { maximizedWidget, setMaximizedWidget } =
+    usePreviewMaximizedWidgetStore();
+
   const floatingWidgetId = useFloatingWidgetId();
 
   const { id, title, iconSpec } =
-    previewState.maximizedWidget === floatingWidgetId &&
-    previewEnableMaximizedFloatingWidget
+    maximizedWidget === floatingWidgetId
       ? {
           id: undefined,
           title: "Restore",
@@ -45,10 +53,7 @@ export function PreviewMaximizeToggle() {
       // Reusing for simplification
       className="nz-widget-popoutToggle"
       onClick={() => {
-        previewDispatch({
-          type: "SET_MAXIMIZED_WIDGET",
-          id,
-        });
+        setMaximizedWidget(id);
       }}
       title={title}
     >

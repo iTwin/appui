@@ -6,96 +6,43 @@
  * @module Utilities
  */
 
-import * as React from "react";
+import { create } from "zustand";
 
-interface KnownPreviewFeatures {
-  contentAlwaysMaxSize?: boolean;
-  enableMaximizedFloatingWidget?: boolean;
-}
-
-/**
- * Internal state for preview features that must not be saved to local storage.
- */
-interface PreviewFeatureState {
-  tested?: boolean;
-  maximizedWidget?: string;
-}
-
-/**
- * Actions for preview features.
- */
-type PreviewActions =
-  | {
-      type: "TEST_ACTION";
-    }
-  | {
-      type: "SET_MAXIMIZED_WIDGET";
-      id: string | undefined;
-    };
-
-/**
- * Context containing all configuration for preview features.
- */
-const PreviewFeaturesContext = React.createContext<
-  KnownPreviewFeatures & {
-    previewState: PreviewFeatureState;
-    previewDispatch: React.Dispatch<PreviewActions>;
-  }
->({ previewState: {}, previewDispatch: () => {} });
-
-/**
- * Properties of `PreviewFeaturesProvider`.
+/** Preview features known to layout package.
  * @internal
  */
-interface PreviewFeaturesProviderProps extends KnownPreviewFeatures {
-  children?: React.ReactNode;
-  [key: string]: any;
+export interface KnownPreviewLayoutFeatures {
+  /** If true, the panels and tool settings will always be rendered over the content.
+   * The content will never change size.
+   */
+  contentAlwaysMaxSize: boolean;
+  /** If true, the floating widget will have a "maximize" button. */
+  enableMaximizedFloatingWidget: boolean;
 }
 
 /**
- * Using reducer to facilitate move between preview and ninezoneReducer.
- */
-// istanbul ignore next (preview)
-function previewReducer(state: PreviewFeatureState, action: PreviewActions) {
-  switch (action.type) {
-    // Keep for testing purposes
-    case "TEST_ACTION":
-      return {
-        ...state,
-        tested: true,
-      };
-    case "SET_MAXIMIZED_WIDGET":
-      return {
-        ...state,
-        maximizedWidget: action.id,
-      };
-    default:
-      return state;
-  }
-}
-
-/**
- * Use to configure preview features
+ * Preview feature store
  * @internal
  */
-export const PreviewFeaturesProvider = ({
-  children,
-  ...props
-}: PreviewFeaturesProviderProps) => {
-  const [previewState, previewDispatch] = React.useReducer(previewReducer, {});
-  return (
-    <PreviewFeaturesContext.Provider
-      value={{ ...props, previewState, previewDispatch }}
-    >
-      {children}
-    </PreviewFeaturesContext.Provider>
-  );
-};
+const usePreviewLayoutFeaturesStore = create<{
+  features: Partial<KnownPreviewLayoutFeatures>;
+}>(() => ({
+  features: {},
+}));
+
+/** Used to set preview features in layout package.
+ * @internal
+ */
+export function setPreviewLayoutFeatures(
+  features: Partial<KnownPreviewLayoutFeatures>
+) {
+  usePreviewLayoutFeaturesStore.setState({ features });
+}
 
 /**
- * Use preview feature context
+ * Hook to retrieve active preview features within layout package.
  * @internal
  */
 export const usePreviewFeatures = () => {
-  return React.useContext(PreviewFeaturesContext);
+  return usePreviewLayoutFeaturesStore((state) => state.features);
 };

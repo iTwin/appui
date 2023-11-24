@@ -40,6 +40,7 @@ import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import type { XAndY } from "../state/internal/NineZoneStateHelpers";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
+import { usePreviewMaximizedWidgetStore } from "./PreviewMaximizeToggle";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle =
@@ -94,11 +95,13 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   );
   const dragged = useIsDraggedItem(item);
   const ref = useHandleAutoSize(dragged);
-  const { enableMaximizedFloatingWidget, previewState: previewState } =
-    usePreviewFeatures();
+  const { enableMaximizedFloatingWidget } = usePreviewFeatures();
+  const maximizedWidget = usePreviewMaximizedWidgetStore(
+    (state) => state.maximizedWidget
+  );
   // istanbul ignore next (preview)
   const previewMaximizedWidgetSectionsClass =
-    previewState.maximizedWidget === id &&
+    maximizedWidget === id &&
     enableMaximizedFloatingWidget &&
     "preview-enableMaximizedFloatingWidget-maximized";
 
@@ -203,8 +206,11 @@ function useHandleAutoSize(dragged: boolean) {
   const userSized = useLayout(
     (state) => state.floatingWidgets.byId[id].userSized
   );
-  const { previewState } = usePreviewFeatures();
-  const maximized = previewState.maximizedWidget === id;
+  const { enableMaximizedFloatingWidget } = usePreviewFeatures();
+  const maximizedWidget = usePreviewMaximizedWidgetStore(
+    (state) => state.maximizedWidget
+  );
+  const maximized = enableMaximizedFloatingWidget && maximizedWidget === id;
 
   const updatePosition = React.useRef(true);
   const ref = React.useRef<HTMLDivElement>(null);
