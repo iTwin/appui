@@ -10,15 +10,18 @@ import * as React from "react";
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
 import type {
-  Direction,
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
 } from "@itwin/components-react";
-import { InternalToolbarComponent as CR_Toolbar } from "@itwin/components-react";
+import {
+  InternalToolbarComponent as CR_Toolbar,
+  Direction,
+} from "@itwin/components-react";
 import type { ToolbarItem } from "./ToolbarItem";
 import { toUIAToolbarItem } from "./toUIAToolbarItem";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
+import { ToolGroup } from "./group/ToolGroup";
 
 /**
  * Properties of [[Toolbar.enableOverflow]] component.
@@ -62,8 +65,15 @@ export function Toolbar(props: ToolbarProps) {
   return <OriginalToolbar {...props} />;
 }
 
-function NewToolbar(_props: ToolbarProps) {
-  return <>WIP</>;
+function NewToolbar(props: ToolbarProps) {
+  const isVertical =
+    props.expandsTo === Direction.Left || props.expandsTo === Direction.Right;
+  return (
+    <ToolGroup.Toolbar
+      orientation={isVertical ? "vertical" : "horizontal"}
+      items={props.items}
+    />
+  );
 }
 
 function OriginalToolbar(props: ToolbarProps) {

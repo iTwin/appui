@@ -16,6 +16,8 @@ interface KnownPreviewFeatures {
   contentAlwaysMaxSize: boolean;
   /** If true, the floating widget will have a "maximize" button. */
   enableMaximizedFloatingWidget: boolean;
+  /** If true, the [[Toolbar]] component will display an iTwinUI based button group toolbar. */
+  newToolbars: boolean;
 }
 
 /** Object used trim to only known features at runtime.
@@ -24,7 +26,7 @@ interface KnownPreviewFeatures {
 const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   contentAlwaysMaxSize: undefined,
   enableMaximizedFloatingWidget: undefined,
-  ...{ newToolbars: undefined }, // Hidden feature used in storybook only (to avoid trimming).
+  newToolbars: undefined,
 };
 
 /** List of preview features that can be enabled/disabled.
