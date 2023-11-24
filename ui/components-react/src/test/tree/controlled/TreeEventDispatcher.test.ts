@@ -813,7 +813,7 @@ describe("TreeEventDispatcher", () => {
       expect(treeEvents.onSelectionReplaced).to.not.be.called;
     });
 
-    it("calls onNodeDoubleClicked when node is double-clicked and also marks the node as selected if it wasn't before", () => {
+    it("calls onNodeDoubleClicked and onSelectionReplaced when a node that is not selected is double-clicked", () => {
       const { dispatcher } = setupTreeEventDispatcher(
         SelectionMode.Extended,
         (model) => {
