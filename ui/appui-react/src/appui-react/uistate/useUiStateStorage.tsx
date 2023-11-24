@@ -34,7 +34,16 @@ export interface UiSettingsProviderProps {
   children?: React.ReactNode;
 }
 
-/** Allows to provide a custom [[UiStateStorage]] implementation to persist UI settings.
+/** Allows to provide a custom [[UiStateStorage]] implementation to persist UI settings
+ * through [[UiFramework.setUiStateStorage]].
+ *
+ * This component should wrap the [[ConfigurableUiContent]].
+ *
+ * ```tsx
+ *  <UiStateStorageHandler>
+ *    <ConfigurableUiContent />
+ *  </UiStateStorageHandler>
+ * ```
  * @public
  */
 export function UiStateStorageHandler(props: UiSettingsProviderProps) {
