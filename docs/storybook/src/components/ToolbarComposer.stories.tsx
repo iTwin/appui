@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
+import { action } from "@storybook/addon-actions";
 import type { Meta, StoryObj } from "@storybook/react";
 import { BadgeType } from "@itwin/appui-abstract";
 import {
@@ -88,36 +89,31 @@ export const Basic: Story = {
         100,
         <Svg2D />,
         "Item 1",
-        () => undefined
+        action("Item 1")
       ),
       ToolbarItemUtilities.createActionItem(
         "item2",
         100,
         <Svg3D />,
         "Item 2",
-        () => undefined
+        action("Item 2")
       ),
       ToolbarHelper.createToolbarItemFromItemDef(
         125,
         new CommandItemDef({
           iconSpec: <SvgActivity />,
-          execute: () => undefined,
-          label: "Badge(TP)-executes(HI!) overrides",
-          badgeType: BadgeType.New,
-        }),
-        {
+          label: "Item 3",
+          execute: action("Item 3"),
+          description: "TechnicalPreview badge.",
           badgeType: BadgeType.TechnicalPreview,
-          execute() {
-            alert("Hi!");
-          },
-        }
+        })
       ),
       ToolbarHelper.createToolbarItemFromItemDef(
         127,
         new CommandItemDef({
           iconSpec: <SvgClipboard />,
-          execute: () => undefined,
-          label: "Badge(New)-Disabled-reactIcon(export) overrides",
+          label: "Item 4",
+          execute: action("Item 4"),
         }),
         {
           badgeType: BadgeType.New,
@@ -129,13 +125,13 @@ export const Basic: Story = {
         130,
         new CommandItemDef({
           iconSpec: <SvgAirplane />,
-          execute: () => undefined,
-          label: "Item 3",
-          badgeType: BadgeType.New,
+          label: "Item 5",
+          execute: action("Item 5"),
+          badgeType: BadgeType.None,
         }),
         {
           badgeType: BadgeType.None,
-          label: "Badge(None)-label-conditionalIcon(export) overrides",
+          description: "No badge, conditional icon overrides.",
           ...createAbstractConditionalIcon(),
         }
       ),
@@ -143,24 +139,20 @@ export const Basic: Story = {
         [
           new CommandItemDef({
             iconSpec: <SvgActivity />,
-            execute: () => undefined,
-            label: "Array 1 (TechP override)",
+            label: "Item 6",
+            execute: action("Item 6"),
             badgeType: BadgeType.New,
           }),
           new CommandItemDef({
             iconSpec: <SvgClipboard />,
-            execute: () => undefined,
-            label: "Array 2 (TechP override)",
-          }),
-          new CommandItemDef({
-            iconSpec: <SvgAirplane />,
-            execute: () => undefined,
-            label: "Array 3 (TechP override)",
+            label: "Item 7",
+            execute: action("Item 7"),
           }),
         ],
         200,
         {
           badgeType: BadgeType.TechnicalPreview,
+          description: "TechnicalPreview badge override.",
         }
       ),
     ],
