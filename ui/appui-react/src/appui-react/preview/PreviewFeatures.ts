@@ -24,7 +24,7 @@ interface KnownPreviewFeatures {
 const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   contentAlwaysMaxSize: undefined,
   enableMaximizedFloatingWidget: undefined,
-  ...{ newToolbars: undefined },
+  ...{ newToolbars: undefined }, // Hidden feature used in storybook only (to avoid trimming).
 };
 
 /** List of preview features that can be enabled/disabled.
@@ -75,7 +75,10 @@ interface PreviewFeaturesState {
   setPreviewFeatures: (previewFeatures: PreviewFeatures) => void;
 }
 
-/** @internal */
+/** Preview features store used by `UiFramework.previewFeatures` and `UiFramework.setPreviewFeatures()` APIs to manage the preview features.
+ * Use `usePreviewFeatures` hook to access the preview features set.
+ * @internal
+ */
 export const usePreviewFeaturesStore = create<PreviewFeaturesState>((set) => {
   return {
     previewFeatures: {},
@@ -86,7 +89,7 @@ export const usePreviewFeaturesStore = create<PreviewFeaturesState>((set) => {
   };
 });
 
-/** Hook to access the preview features set in the Redux store.
+/** Hook to access the preview features set.
  * @internal
  */
 export function usePreviewFeatures() {
