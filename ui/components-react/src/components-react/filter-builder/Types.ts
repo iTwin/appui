@@ -3,38 +3,41 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module FilterBuilder
+ * @module PropertyFilterBuilder
  */
 
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
-import type { FilterRuleGroupOperator, FilterRuleOperator } from "./Operators";
+import type {
+  PropertyFilterRuleGroupOperator,
+  PropertyFilterRuleOperator,
+} from "./Operators";
 
 /**
  * Type that describes property filter.
  * @beta
  */
-export type Filter = FilterRule | FilterRuleGroup;
+export type PropertyFilter = PropertyFilterRule | PropertyFilterRuleGroup;
 
 /**
  * Data structure that describes group of filter rules.
  * @beta
  */
-export interface FilterRuleGroup {
+export interface PropertyFilterRuleGroup {
   /** Operator that should join rules in this group. */
-  operator: FilterRuleGroupOperator;
+  operator: PropertyFilterRuleGroupOperator;
   /** Rules in this group. */
-  rules: Array<Filter>;
+  rules: Array<PropertyFilter>;
 }
 
 /**
  * Data structure that describes single filter rule.
  * @beta
  */
-export interface FilterRule {
+export interface PropertyFilterRule {
   /** Property used in this rule. */
   property: PropertyDescription;
   /** Operator that should be used to compare property value. */
-  operator: FilterRuleOperator;
+  operator: PropertyFilterRuleOperator;
   /** Value that property should be compared to. */
   value?: PropertyValue;
 }
@@ -43,6 +46,8 @@ export interface FilterRule {
  * Function that checks if supplied filter is rule group.
  * @beta
  */
-export function isFilterRuleGroup(filter: Filter): filter is FilterRuleGroup {
+export function isPropertyFilterRuleGroup(
+  filter: PropertyFilter
+): filter is PropertyFilterRuleGroup {
   return (filter as any).rules !== undefined;
 }

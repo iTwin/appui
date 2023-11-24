@@ -7,7 +7,7 @@ import cx from "classnames";
 import { Flex, type FlexProps, IconButton } from "@itwin/itwinui-react";
 import { SvgAdd, SvgDelete } from "@itwin/itwinui-icons-react";
 
-interface FilterBuilderToolbarProps {
+interface PropertyFilterBuilderToolbarProps {
   size?: "small" | "large";
   onAddChild?: () => void;
   onDelete?: () => void;
@@ -16,8 +16,8 @@ interface FilterBuilderToolbarProps {
 /** Toolbar displaying the "add" and "delete" row buttons in the filter builder
  * @beta
  */
-export const FilterBuilderToolbar = (
-  props: FlexProps & FilterBuilderToolbarProps
+export const PropertyFilterBuilderToolbar = (
+  props: FlexProps & PropertyFilterBuilderToolbarProps
 ) => {
   const { className, size, onAddChild, onDelete, ...rest } = props;
 

@@ -194,14 +194,6 @@ export class BooleanTypeConverter extends TypeConverter {
     sortCompare(a: Primitives.Boolean, b: Primitives.Boolean, _ignoreCase?: boolean): number;
 }
 
-// @beta
-export interface BuildFilterOptions {
-    ignoreErrors?: boolean;
-}
-
-// @internal (undocumented)
-export function buildPropertyFilter(groupItem: PropertyFilterBuilderRuleGroupItem): PropertyFilter | undefined;
-
 // @public
 export interface CategorizedPropertyItem extends FlatGridItemBase {
     // (undocumented)
@@ -370,7 +362,7 @@ export namespace ConvertedPrimitives {
 export function convertPrimitiveRecordToString(record: PropertyRecord): string | Promise<string>;
 
 // @internal (undocumented)
-export function createFilter(groupItem: FilterBuilderRuleGroupItem): Filter | undefined;
+export function createFilter(groupItem: PropertyFilterBuilderRuleGroupItem): PropertyFilter | undefined;
 
 // @alpha
 export class CustomNumberEditor extends React_2.PureComponent<PropertyEditorProps, CustomNumberEditorState> implements TypeEditor {
@@ -544,9 +536,6 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
 
 // @public
 export const DEFAULT_LINKS_HANDLER: LinkElementsInfo;
-
-// @beta
-export function defaultFilterBuilderRuleValidator(item: FilterBuilderRule): string | undefined;
 
 // @beta
 export function defaultPropertyFilterBuilderRuleValidator(item: PropertyFilterBuilderRule): string | undefined;
@@ -728,103 +717,6 @@ export interface FavoritePropertyListProps {
     propertyValueRendererManager?: PropertyValueRendererManager;
 }
 
-// @beta
-export type Filter = FilterRule | FilterRuleGroup;
-
-// @beta
-export function FilterBuilder(props: FilterBuilderProps): JSX.Element;
-
-// @beta
-export class FilterBuilderActions {
-    constructor(setState: (setter: (prevState: FilterBuilderState) => FilterBuilderState) => void);
-    addItem(path: string[]): void;
-    removeItem(path: string[]): void;
-    setRuleErrorMessages(ruleIdsAndErrorMessages: Map<string, string>): void;
-    setRuleGroupOperator(path: string[], operator: FilterRuleGroupOperator): void;
-    setRuleOperator(path: string[], operator: FilterRuleOperator): void;
-    setRuleProperty(path: string[], property?: PropertyDescription): void;
-    setRuleValue(path: string[], value: PropertyValue): void;
-}
-
-// @beta
-export const FilterBuilderLogicalOperator: (props: Omit<React_3.HTMLProps<HTMLDivElement>, "size"> & FilterBuilderLogicalOperatorProps) => JSX.Element;
-
-// @beta
-export interface FilterBuilderProps extends Omit<FilterBuilderRendererProps, "actions" | "rootGroup">, UseFilterBuilderProps {
-    onFilterChanged: (filter?: Filter) => void;
-}
-
-// @beta
-export function FilterBuilderRenderer(props: FilterBuilderRendererProps): JSX.Element;
-
-// @beta
-export interface FilterBuilderRendererProps {
-    actions: FilterBuilderActions;
-    isDisabled?: boolean;
-    onRulePropertySelected?: (property: PropertyDescription) => void;
-    properties: PropertyDescription[];
-    propertyRenderer?: (name: string) => React_2.ReactNode;
-    rootGroup: FilterBuilderRuleGroup;
-    ruleOperatorRenderer?: (props: FilterBuilderRuleOperatorProps) => React_2.ReactNode;
-    ruleValueRenderer?: (props: FilterBuilderRuleValueRendererProps) => React_2.ReactNode;
-}
-
-// @beta
-export interface FilterBuilderRule {
-    errorMessage?: string;
-    groupId: string;
-    id: string;
-    operator?: FilterRuleOperator;
-    property?: PropertyDescription;
-    value?: PropertyValue;
-}
-
-// @beta
-export interface FilterBuilderRuleGroup {
-    groupId?: string;
-    id: string;
-    items: FilterBuilderRuleGroupItem[];
-    operator: FilterRuleGroupOperator;
-}
-
-// @beta
-export type FilterBuilderRuleGroupItem = FilterBuilderRuleGroup | FilterBuilderRule;
-
-// @internal
-export function FilterBuilderRuleOperator(props: FilterBuilderRuleOperatorProps): JSX.Element;
-
-// @beta
-export interface FilterBuilderRuleOperatorProps {
-    onChange: (operator: FilterRuleOperator) => void;
-    operator?: FilterRuleOperator;
-    property: PropertyDescription;
-    size?: "small" | "large";
-}
-
-// @beta
-export function FilterBuilderRuleValue(props: FilterBuilderRuleValueProps): JSX.Element;
-
-// @beta
-export interface FilterBuilderRuleValueProps {
-    onChange: (value: PropertyValue) => void;
-    property: PropertyDescription;
-    size?: "small" | "large";
-    value?: PropertyValue;
-}
-
-// @beta
-export interface FilterBuilderRuleValueRendererProps extends FilterBuilderRuleValueProps {
-    operator: FilterRuleOperator;
-}
-
-// @beta
-export interface FilterBuilderState {
-    rootGroup: FilterBuilderRuleGroup;
-}
-
-// @beta
-export const FilterBuilderToolbar: (props: FlexProps & FilterBuilderToolbarProps) => JSX.Element;
-
 // @public
 export interface FilteredPropertyData extends PropertyData {
     filteredTypes?: FilteredType[];
@@ -882,53 +774,6 @@ export class FilteringPropertyDataProvider implements IPropertyDataProvider, IDi
 // @beta
 export interface FilterOptions {
     ignoreErrors?: boolean;
-}
-
-// @beta
-export interface FilterRule {
-    operator: FilterRuleOperator;
-    property: PropertyDescription;
-    value?: PropertyValue;
-}
-
-// @beta
-export interface FilterRuleGroup {
-    operator: FilterRuleGroupOperator;
-    rules: Array<Filter>;
-}
-
-// @beta
-export enum FilterRuleGroupOperator {
-    // (undocumented)
-    And = 0,
-    // (undocumented)
-    Or = 1
-}
-
-// @beta
-export enum FilterRuleOperator {
-    // (undocumented)
-    Greater = 4,
-    // (undocumented)
-    GreaterOrEqual = 5,
-    // (undocumented)
-    IsEqual = 2,
-    // (undocumented)
-    IsFalse = 1,
-    // (undocumented)
-    IsNotEqual = 3,
-    // (undocumented)
-    IsNotNull = 10,
-    // (undocumented)
-    IsNull = 9,
-    // (undocumented)
-    IsTrue = 0,
-    // (undocumented)
-    Less = 6,
-    // (undocumented)
-    LessOrEqual = 7,
-    // (undocumented)
-    Like = 8
 }
 
 // @public
@@ -991,12 +836,6 @@ export function formatInputDate(inputDate: Date, timeDisplay?: TimeDisplay, cust
 
 // @public
 export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T>;
-
-// @beta
-export function getFilterOperatorLabel(operator: FilterRuleOperator): string;
-
-// @beta
-export function getFilterOperators(property: PropertyDescription): FilterRuleOperator[];
 
 // @beta
 export function getPropertyFilterOperatorLabel(operator: PropertyFilterRuleOperator): string;
@@ -1383,12 +1222,6 @@ export interface IPropertyValueRenderer {
 export function isCustomToolbarItem(item: ToolbarItem): item is CustomToolbarItem;
 
 // @beta
-export function isFilterBuilderRuleGroup(item: FilterBuilderRuleGroupItem): item is FilterBuilderRuleGroup;
-
-// @beta
-export function isFilterRuleGroup(filter: Filter): filter is FilterRuleGroup;
-
-// @beta
 export function isPropertyFilterBuilderRuleGroup(item: PropertyFilterBuilderRuleGroupItem): item is PropertyFilterBuilderRuleGroup;
 
 // @beta
@@ -1414,9 +1247,6 @@ export function isTreeModelNodePlaceholder(obj: TreeModelNodeType | undefined): 
 
 // @public
 export function isTreeModelRootNode(obj: TreeModelNodeType | undefined): obj is TreeModelRootNode;
-
-// @beta
-export function isUnaryFilterOperator(operator: FilterRuleOperator): boolean;
 
 // @beta
 export function isUnaryPropertyFilterOperator(operator: PropertyFilterRuleOperator): boolean;
@@ -2228,7 +2058,7 @@ export function PropertyFilterBuilder(props: PropertyFilterBuilderProps): JSX.El
 // @beta
 export class PropertyFilterBuilderActions {
     constructor(setState: (setter: (prevState: PropertyFilterBuilderState) => PropertyFilterBuilderState) => void);
-    addItem(path: string[], itemType: "RULE_GROUP" | "RULE"): void;
+    addItem(path: string[]): void;
     removeItem(path: string[]): void;
     setRuleErrorMessages(ruleIdsAndErrorMessages: Map<string, string>): void;
     setRuleGroupOperator(path: string[], operator: PropertyFilterRuleGroupOperator): void;
@@ -2236,6 +2066,9 @@ export class PropertyFilterBuilderActions {
     setRuleProperty(path: string[], property?: PropertyDescription): void;
     setRuleValue(path: string[], value: PropertyValue): void;
 }
+
+// @beta
+export const PropertyFilterBuilderLogicalOperator: (props: Omit<React_3.HTMLProps<HTMLDivElement>, "size"> & PropertyFilterBuilderLogicalOperatorProps) => JSX.Element;
 
 // @beta
 export interface PropertyFilterBuilderProps extends Omit<PropertyFilterBuilderRendererProps, "actions" | "rootGroup">, UsePropertyFilterBuilderProps {
@@ -2253,6 +2086,7 @@ export interface PropertyFilterBuilderRendererProps {
     properties: PropertyDescription[];
     propertyRenderer?: (name: string) => React_2.ReactNode;
     rootGroup: PropertyFilterBuilderRuleGroup;
+    // @deprecated
     ruleGroupDepthLimit?: number;
     ruleOperatorRenderer?: (props: PropertyFilterBuilderRuleOperatorProps) => React_2.ReactNode;
     ruleValueRenderer?: (props: PropertyFilterBuilderRuleValueRendererProps) => React_2.ReactNode;
@@ -2287,6 +2121,7 @@ export interface PropertyFilterBuilderRuleOperatorProps {
     onChange: (operator: PropertyFilterRuleOperator) => void;
     operator?: PropertyFilterRuleOperator;
     property: PropertyDescription;
+    size?: "small" | "large";
 }
 
 // @beta
@@ -2296,6 +2131,7 @@ export function PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleV
 export interface PropertyFilterBuilderRuleValueProps {
     onChange: (value: PropertyValue) => void;
     property: PropertyDescription;
+    size?: "small" | "large";
     value?: PropertyValue;
 }
 
@@ -2308,6 +2144,9 @@ export interface PropertyFilterBuilderRuleValueRendererProps extends PropertyFil
 export interface PropertyFilterBuilderState {
     rootGroup: PropertyFilterBuilderRuleGroup;
 }
+
+// @beta
+export const PropertyFilterBuilderToolbar: (props: FlexProps & PropertyFilterBuilderToolbarProps) => JSX.Element;
 
 // @public
 export class PropertyFilterChangeEvent extends BeEvent<PropertyFilterChangesListener> {
@@ -3703,22 +3542,6 @@ export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (
     inProgress: boolean;
 };
 
-// @beta
-export function useFilterBuilder(props?: UseFilterBuilderProps): UseFilterBuilderResult;
-
-// @beta
-export interface UseFilterBuilderProps {
-    initialFilter?: Filter;
-    ruleValidator?: (rule: FilterBuilderRule) => string | undefined;
-}
-
-// @beta
-export interface UseFilterBuilderResult {
-    actions: FilterBuilderActions;
-    buildFilter: (options?: FilterOptions) => Filter | undefined;
-    rootGroup: FilterBuilderRuleGroup;
-}
-
 // @public
 export function usePagedTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataProvider: TDataProvider, pageSize: number, modelSource: TreeModelSource): PagedTreeNodeLoader<TDataProvider>;
 
@@ -3742,7 +3565,7 @@ export interface UsePropertyFilterBuilderProps {
 // @beta
 export interface UsePropertyFilterBuilderResult {
     actions: PropertyFilterBuilderActions;
-    buildFilter: (options?: BuildFilterOptions) => PropertyFilter | undefined;
+    buildFilter: (options?: FilterOptions) => PropertyFilter | undefined;
     rootGroup: PropertyFilterBuilderRuleGroup;
 }
 

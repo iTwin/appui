@@ -5,23 +5,23 @@
 
 import { expect } from "chai";
 import {
-  FilterRuleGroupOperator,
-  FilterRuleOperator,
+  PropertyFilterRuleGroupOperator,
+  PropertyFilterRuleOperator,
 } from "../../components-react/filter-builder/Operators";
-import { isFilterRuleGroup } from "../../components-react/filter-builder/Types";
+import { isPropertyFilterRuleGroup } from "../../components-react/filter-builder/Types";
 
-describe("isFilterRuleGroup", () => {
+describe("isPropertyFilterRuleGroup", () => {
   it("returns correct values", () => {
     expect(
-      isFilterRuleGroup({
-        operator: FilterRuleGroupOperator.And,
+      isPropertyFilterRuleGroup({
+        operator: PropertyFilterRuleGroupOperator.And,
         rules: [],
       })
     ).to.be.true;
     expect(
-      isFilterRuleGroup({
+      isPropertyFilterRuleGroup({
         property: { name: "prop", displayLabel: "Prop", typename: "string" },
-        operator: FilterRuleOperator.IsNull,
+        operator: PropertyFilterRuleOperator.IsNull,
       })
     ).to.be.false;
   });

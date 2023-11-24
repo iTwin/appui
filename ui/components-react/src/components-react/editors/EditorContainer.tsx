@@ -47,7 +47,7 @@ export interface PropertyEditorProps extends CommonProps {
    * @internal
    */
   shouldCommitOnChange?: boolean;
-  /** Size to render the component */
+  /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
   size?: "small" | "large";
 }
 
@@ -73,7 +73,7 @@ export interface EditorContainerProps extends CommonProps {
    * @internal
    */
   shouldCommitOnChange?: boolean;
-  /** Size to render the component */
+  /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
   size?: "small" | "large";
 }
 

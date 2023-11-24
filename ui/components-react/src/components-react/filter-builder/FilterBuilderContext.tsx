@@ -3,47 +3,49 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module FilterBuilder
+ * @module PropertyFilterBuilder
  */
 
 import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
-import type { FilterBuilderActions } from "./FilterBuilderState";
-import type { FilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
-import type { FilterBuilderRuleValueRendererProps } from "./FilterBuilderRuleValue";
+import type { PropertyFilterBuilderActions } from "./FilterBuilderState";
+import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
+import type { PropertyFilterBuilderRuleValueRendererProps } from "./FilterBuilderRuleValue";
 
 /**
- * Data structure that describes [[FilterBuilderContext]] value.
+ * Data structure that describes [[PropertyFilterBuilderContext]] value.
  * @internal
  */
-export interface FilterBuilderContextProps {
-  /** Actions for modifying [[FilterBuilder]] state. */
-  actions: FilterBuilderActions;
+export interface PropertyFilterBuilderContextProps {
+  /** Actions for modifying [[PropertyFilterBuilder]] state. */
+  actions: PropertyFilterBuilderActions;
   /** List of available properties. */
   properties: PropertyDescription[];
   /** Callback to invoke when property is selected in any rule. */
   onRulePropertySelected?: (property: PropertyDescription) => void;
+  /** Specifies how deep rule groups can be nested. */
+  ruleGroupDepthLimit?: number;
 }
 
 /**
- * Context used to store data for rules and rule groups rendered inside [[FilterBuilder]] component.
+ * Context used to store data for rules and rule groups rendered inside [[PropertyFilterBuilder]] component.
  * @internal
  */
-export const FilterBuilderContext =
-  React.createContext<FilterBuilderContextProps>(null!);
+export const PropertyFilterBuilderContext =
+  React.createContext<PropertyFilterBuilderContextProps>(null!);
 
 /**
- * Data structure that describes [[FilterBuilderRuleRenderingContext]] value.
+ * Data structure that describes [[PropertyFilterBuilderRuleRenderingContext]] value.
  * @internal
  */
-export interface FilterBuilderRuleRenderingContextProps {
+export interface PropertyFilterBuilderRuleRenderingContextProps {
   /** Custom renderer for operator selector in rule. */
   ruleOperatorRenderer?: (
-    props: FilterBuilderRuleOperatorProps
+    props: PropertyFilterBuilderRuleOperatorProps
   ) => React.ReactNode;
   /** Custom renderer for value input in rule. */
   ruleValueRenderer?: (
-    props: FilterBuilderRuleValueRendererProps
+    props: PropertyFilterBuilderRuleValueRendererProps
   ) => React.ReactNode;
   /** Custom renderer for property selector in rule. */
   propertyRenderer?: (name: string) => React.ReactNode;
@@ -52,11 +54,11 @@ export interface FilterBuilderRuleRenderingContextProps {
 }
 
 /**
- * Context for rendering rules and rule groups inside [[FilterBuilder]] component.
+ * Context for rendering rules and rule groups inside [[PropertyFilterBuilder]] component.
  * @internal
  */
-export const FilterBuilderRuleRenderingContext =
-  React.createContext<FilterBuilderRuleRenderingContextProps>({});
+export const PropertyFilterBuilderRuleRenderingContext =
+  React.createContext<PropertyFilterBuilderRuleRenderingContextProps>({});
 
 /**
  * Data structure that describes value of [[ActiveRuleGroupContext]].
@@ -78,7 +80,7 @@ export interface ActiveRuleGroupContextProps {
 }
 
 /**
- * Context for tracking and storing active rule group in [[FilterBuilder]].
+ * Context for tracking and storing active rule group in [[PropertyFilterBuilder]].
  * Group is considered active if it is focused or hovered.
  * @internal
  */

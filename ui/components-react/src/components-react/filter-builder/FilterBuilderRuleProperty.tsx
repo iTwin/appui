@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module FilterBuilder
+ * @module PropertyFilterBuilder
  */
 
 import * as React from "react";
@@ -14,10 +14,10 @@ import { ComboBox, MenuItem } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
 
 /**
- * Props for [[FilterBuilderRuleProperty]] component.
+ * Props for [[PropertyFilterBuilderRuleProperty]] component.
  * @internal
  */
-export interface FilterBuilderRulePropertyProps {
+export interface PropertyFilterBuilderRulePropertyProps {
   /** List of available properties. */
   properties: PropertyDescription[];
   /** Currently selected property. */
@@ -28,16 +28,16 @@ export interface FilterBuilderRulePropertyProps {
   propertyRenderer?: (name: string) => React.ReactNode;
   /** Specifies whether selector should be disabled or not. */
   isDisabled?: boolean;
-  /** Size to render the component */
+  /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
   size?: "small" | "large";
 }
 
 /**
- * Component that renders [[FilterBuilderRuleRenderer]] property selector.
+ * Component that renders [[PropertyFilterBuilderRuleRenderer]] property selector.
  * @internal
  */
-export function FilterBuilderRuleProperty(
-  props: FilterBuilderRulePropertyProps
+export function PropertyFilterBuilderRuleProperty(
+  props: PropertyFilterBuilderRulePropertyProps
 ) {
   const {
     selectedProperty,
@@ -96,7 +96,9 @@ export function FilterBuilderRuleProperty(
         onChange={onPropertyChanged}
         value={selectedProperty?.name}
         inputProps={{
-          placeholder: UiComponents.translate("filterBuilder.chooseProperty"),
+          placeholder: UiComponents.translate(
+            "PropertyFilterBuilder.chooseProperty"
+          ),
           disabled: isDisabled,
           size: props.size,
         }}

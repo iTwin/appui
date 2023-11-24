@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module FilterBuilder
+ * @module PropertyFilterBuilder
  */
 
 import * as React from "react";
@@ -11,38 +11,40 @@ import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "../editors/EditorContainer";
 import { EditorContainer } from "../editors/EditorContainer";
-import type { FilterRuleOperator } from "./Operators";
+import type { PropertyFilterRuleOperator } from "./Operators";
 
 /**
- * Props for [[FilterBuilderRuleValue]] component.
+ * Props for [[PropertyFilterBuilderRuleValue]] component.
  * @beta
  */
-export interface FilterBuilderRuleValueProps {
+export interface PropertyFilterBuilderRuleValueProps {
   /** Currently entered value. */
   value?: PropertyValue;
   /** Property used in rule to which this value will be compared to. */
   property: PropertyDescription;
   /** Callback that is invoked when value changes. */
   onChange: (value: PropertyValue) => void;
-  /** Determines size to render the component */
+  /** Determines size to render the component. If undefined, defaults to iTwinUI "medium" size. */
   size?: "small" | "large";
 }
 
 /**
- * Props for custom [[FilterBuilderRuleValue]] renderer.
+ * Props for custom [[PropertyFilterBuilderRuleValue]] renderer.
  * @beta
  */
-export interface FilterBuilderRuleValueRendererProps
-  extends FilterBuilderRuleValueProps {
+export interface PropertyFilterBuilderRuleValueRendererProps
+  extends PropertyFilterBuilderRuleValueProps {
   /** Current operator. */
-  operator: FilterRuleOperator;
+  operator: PropertyFilterRuleOperator;
 }
 
 /**
- * Component that renders [[FilterBuilderRuleRenderer]] value input.
+ * Component that renders [[PropertyFilterBuilderRuleRenderer]] value input.
  * @beta
  */
-export function FilterBuilderRuleValue(props: FilterBuilderRuleValueProps) {
+export function PropertyFilterBuilderRuleValue(
+  props: PropertyFilterBuilderRuleValueProps
+) {
   const { value, property, onChange, size } = props;
 
   const propertyRecord = React.useMemo(() => {

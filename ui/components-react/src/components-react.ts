@@ -83,13 +83,6 @@ export * from "./components-react/filter-builder/Types";
 export * from "./components-react/filter-builder/FilterBuilderLogicalOperator";
 export * from "./components-react/filter-builder/FilterBuilderToolbar";
 
-export * from "./components-react/filter-builder-deprecated/FilterBuilder";
-export * from "./components-react/filter-builder-deprecated/FilterBuilderRuleOperator";
-export * from "./components-react/filter-builder-deprecated/FilterBuilderState";
-export * from "./components-react/filter-builder-deprecated/FilterBuilderRuleValue";
-export * from "./components-react/filter-builder-deprecated/Operators";
-export * from "./components-react/filter-builder-deprecated/Types";
-
 export * from "./components-react/properties/renderers/label/NonPrimitivePropertyLabelRenderer";
 export * from "./components-react/properties/renderers/label/PrimitivePropertyLabelRenderer";
 export * from "./components-react/properties/renderers/label/PropertyLabelRenderer";

@@ -53,7 +53,7 @@ export interface PopupButtonProps extends CommonProps {
   onClose?: () => void;
   /** Listens for Enter key in popup */
   onEnter?: () => void;
-  /** Size to render the component */
+  /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
   size?: "small" | "large";
 }
 

@@ -9,18 +9,18 @@ import sinon from "sinon";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
 import { fireEvent } from "@testing-library/react";
-import type { FilterBuilderRuleRendererProps } from "../../components-react/filter-builder/FilterBuilderRule";
-import { FilterBuilderRuleRenderer } from "../../components-react/filter-builder/FilterBuilderRule";
-import type { FilterBuilderRuleOperatorProps } from "../../components-react/filter-builder/FilterBuilderRuleOperator";
-import type { FilterBuilderRuleValueProps } from "../../components-react/filter-builder/FilterBuilderRuleValue";
-import { FilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
-import { FilterRuleOperator } from "../../components-react/filter-builder/Operators";
+import type { PropertyFilterBuilderRuleRendererProps } from "../../components-react/filter-builder/FilterBuilderRule";
+import { PropertyFilterBuilderRuleRenderer } from "../../components-react/filter-builder/FilterBuilderRule";
+import type { PropertyFilterBuilderRuleOperatorProps } from "../../components-react/filter-builder/FilterBuilderRuleOperator";
+import type { PropertyFilterBuilderRuleValueProps } from "../../components-react/filter-builder/FilterBuilderRuleValue";
+import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
+import { PropertyFilterRuleOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";
 import { UiComponents } from "../../components-react";
 
-describe("FilterBuilderRuleRenderer", () => {
-  const defaultProps: FilterBuilderRuleRendererProps = {
+describe("PropertyFilterBuilderRuleRenderer", () => {
+  const defaultProps: PropertyFilterBuilderRuleRendererProps = {
     path: [],
     rule: { id: "id", groupId: "groupId" },
     onAddRule: () => {},
@@ -42,7 +42,7 @@ describe("FilterBuilderRuleRenderer", () => {
   describe("rule operator", () => {
     it("does not render operator if rule property is undefined", () => {
       const { container } = renderWithContext(
-        <FilterBuilderRuleRenderer {...defaultProps} />
+        <PropertyFilterBuilderRuleRenderer {...defaultProps} />
       );
 
       const operatorContainer =
@@ -52,7 +52,7 @@ describe("FilterBuilderRuleRenderer", () => {
 
     it("renders operator if rule property is defined", () => {
       const { container } = renderWithContext(
-        <FilterBuilderRuleRenderer
+        <PropertyFilterBuilderRuleRenderer
           {...defaultProps}
           rule={{ ...defaultProps.rule, property: defaultProperty }}
         />
@@ -65,7 +65,7 @@ describe("FilterBuilderRuleRenderer", () => {
 
     it("operator defaults to `contains` if rule property is string", () => {
       const { container } = renderWithContext(
-        <FilterBuilderRuleRenderer
+        <PropertyFilterBuilderRuleRenderer
           {...defaultProps}
           rule={{
             ...defaultProps.rule,
@@ -87,7 +87,7 @@ describe("FilterBuilderRuleRenderer", () => {
 
     it("operator defaults to `contains` if rule property is text", () => {
       const { container } = renderWithContext(
-        <FilterBuilderRuleRenderer
+        <PropertyFilterBuilderRuleRenderer
           {...defaultProps}
           rule={{
             ...defaultProps.rule,
@@ -107,7 +107,7 @@ describe("FilterBuilderRuleRenderer", () => {
     it("renders operator using provided renderer", () => {
       const spy = sinon.spy();
       renderWithContext(
-        <FilterBuilderRuleRenderer
+        <PropertyFilterBuilderRuleRenderer
           {...defaultProps}
           rule={{ ...defaultProps.rule, property: defaultProperty }}
         />,
@@ -122,7 +122,7 @@ describe("FilterBuilderRuleRenderer", () => {
   describe("rule value", () => {
     it("does not render value if rule property is undefined", () => {
       const { container } = renderWithContext(
-        <FilterBuilderRuleRenderer {...defaultProps} />
+        <PropertyFilterBuilderRuleRenderer {...defaultProps} />
       );
 
       const valueContainer =
@@ -132,7 +132,7 @@ describe("FilterBuilderRuleRenderer", () => {
 
     it("does not render value if rule operator is undefined", () => {
       const { container } = renderWithContext(
-        <FilterBuilderRuleRenderer
+        <PropertyFilterBuilderRuleRenderer
           {...defaultProps}
           rule={{ ...defaultProps.rule, property: defaultProperty }}
         />
@@ -145,12 +145,12 @@ describe("FilterBuilderRuleRenderer", () => {
 
     it("renders value when value and operator defined", () => {
       const { container } = renderWithContext(
-        <FilterBuilderRuleRenderer
+        <PropertyFilterBuilderRuleRenderer
           {...defaultProps}
           rule={{
             ...defaultProps.rule,
             property: defaultProperty,
-            operator: FilterRuleOperator.IsEqual,
+            operator: PropertyFilterRuleOperator.IsEqual,
           }}
         />
       );
@@ -164,12 +164,12 @@ describe("FilterBuilderRuleRenderer", () => {
     it("renders operator using provided renderer", () => {
       const spy = sinon.spy();
       renderWithContext(
-        <FilterBuilderRuleRenderer
+        <PropertyFilterBuilderRuleRenderer
           {...defaultProps}
           rule={{
             ...defaultProps.rule,
             property: defaultProperty,
-            operator: FilterRuleOperator.IsEqual,
+            operator: PropertyFilterRuleOperator.IsEqual,
           }}
         />,
         {},
@@ -182,12 +182,12 @@ describe("FilterBuilderRuleRenderer", () => {
     it("renders error message", () => {
       const errorMessage = "This is an error";
       const { queryByText } = renderWithContext(
-        <FilterBuilderRuleRenderer
+        <PropertyFilterBuilderRuleRenderer
           {...defaultProps}
           rule={{
             ...defaultProps.rule,
             property: defaultProperty,
-            operator: FilterRuleOperator.IsEqual,
+            operator: PropertyFilterRuleOperator.IsEqual,
             errorMessage,
           }}
         />
@@ -199,10 +199,10 @@ describe("FilterBuilderRuleRenderer", () => {
 
   describe("rule property", () => {
     it("renders with property renderer", () => {
-      const actions = new FilterBuilderActions(sinon.spy());
+      const actions = new PropertyFilterBuilderActions(sinon.spy());
       const propertyRendererSpy = sinon.spy();
       const { container } = renderWithContext(
-        <FilterBuilderRuleRenderer {...defaultProps} />,
+        <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
         { actions, properties: [defaultProperty] },
         { propertyRenderer: propertyRendererSpy }
       );
@@ -217,9 +217,9 @@ describe("FilterBuilderRuleRenderer", () => {
     });
 
     it("opens property selector menu", () => {
-      const actions = new FilterBuilderActions(sinon.spy());
+      const actions = new PropertyFilterBuilderActions(sinon.spy());
       const { container, queryByText } = renderWithContext(
-        <FilterBuilderRuleRenderer {...defaultProps} />,
+        <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
         { actions, properties: [defaultProperty] }
       );
 
@@ -233,9 +233,9 @@ describe("FilterBuilderRuleRenderer", () => {
     });
 
     it("does not open property selector menu when property selection is disabled", () => {
-      const actions = new FilterBuilderActions(sinon.spy());
+      const actions = new PropertyFilterBuilderActions(sinon.spy());
       const { container, queryByText } = renderWithContext(
-        <FilterBuilderRuleRenderer {...defaultProps} />,
+        <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
         { actions, properties: [defaultProperty] },
         { isDisabled: true }
       );
@@ -251,9 +251,9 @@ describe("FilterBuilderRuleRenderer", () => {
   });
 
   it("dispatches property change when property is selected", () => {
-    const actions = new FilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
     const { container, getByText } = renderWithContext(
-      <FilterBuilderRuleRenderer {...defaultProps} />,
+      <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
       { actions, properties: [defaultProperty] }
     );
     const setRulePropertySpy = sinon.stub(actions, "setRuleProperty");
@@ -271,15 +271,15 @@ describe("FilterBuilderRuleRenderer", () => {
   });
 
   it("dispatches property change with undefined property when selected property is not in properties list", () => {
-    const actions = new FilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
     const setRulePropertySpy = sinon.stub(actions, "setRuleProperty");
     renderWithContext(
-      <FilterBuilderRuleRenderer
+      <PropertyFilterBuilderRuleRenderer
         {...defaultProps}
         rule={{
           ...defaultProps.rule,
           property: defaultProperty,
-          operator: FilterRuleOperator.IsEqual,
+          operator: PropertyFilterRuleOperator.IsEqual,
         }}
       />,
       { actions, properties: [] }
@@ -294,7 +294,7 @@ describe("FilterBuilderRuleRenderer", () => {
   it("invokes onRulePropertySelected callback when property is selected", () => {
     const spy = sinon.spy();
     const { container, getByText } = renderWithContext(
-      <FilterBuilderRuleRenderer {...defaultProps} />,
+      <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
       { properties: [defaultProperty], onRulePropertySelected: spy }
     );
 
@@ -308,9 +308,9 @@ describe("FilterBuilderRuleRenderer", () => {
   });
 
   it("dispatches remove rule action", () => {
-    const actions = new FilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
     const { container } = renderWithContext(
-      <FilterBuilderRuleRenderer {...defaultProps} />,
+      <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
       { actions }
     );
     const removeItemSpy = sinon.stub(actions, "removeItem");
@@ -322,15 +322,15 @@ describe("FilterBuilderRuleRenderer", () => {
   });
 
   it("dispatches operator change when operator is changed", () => {
-    const actions = new FilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
     const operatorRendererSpy = sinon.spy();
     renderWithContext(
-      <FilterBuilderRuleRenderer
+      <PropertyFilterBuilderRuleRenderer
         {...defaultProps}
         rule={{
           ...defaultProps.rule,
           property: defaultProperty,
-          operator: FilterRuleOperator.IsEqual,
+          operator: PropertyFilterRuleOperator.IsEqual,
         }}
       />,
       { actions },
@@ -340,8 +340,8 @@ describe("FilterBuilderRuleRenderer", () => {
 
     expect(operatorRendererSpy).to.be.calledOnce;
     const operatorRendererProps = operatorRendererSpy.firstCall
-      .args[0] as FilterBuilderRuleOperatorProps;
-    const newOperator = FilterRuleOperator.IsNotNull;
+      .args[0] as PropertyFilterBuilderRuleOperatorProps;
+    const newOperator = PropertyFilterRuleOperator.IsNotNull;
     operatorRendererProps.onChange(newOperator);
 
     expect(setRuleOperatorSpy).to.be.calledOnceWith(
@@ -351,15 +351,15 @@ describe("FilterBuilderRuleRenderer", () => {
   });
 
   it("dispatches value change when value is changed", () => {
-    const actions = new FilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
     const valueRendererSpy = sinon.spy();
     renderWithContext(
-      <FilterBuilderRuleRenderer
+      <PropertyFilterBuilderRuleRenderer
         {...defaultProps}
         rule={{
           ...defaultProps.rule,
           property: defaultProperty,
-          operator: FilterRuleOperator.IsEqual,
+          operator: PropertyFilterRuleOperator.IsEqual,
         }}
       />,
       { actions },
@@ -369,7 +369,7 @@ describe("FilterBuilderRuleRenderer", () => {
 
     expect(valueRendererSpy).to.be.calledOnce;
     const valueRendererProps = valueRendererSpy.firstCall
-      .args[0] as FilterBuilderRuleValueProps;
+      .args[0] as PropertyFilterBuilderRuleValueProps;
     const newValue: PropertyValue = {
       valueFormat: PropertyValueFormat.Primitive,
     };

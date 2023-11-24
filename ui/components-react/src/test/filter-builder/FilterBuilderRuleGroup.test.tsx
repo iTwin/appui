@@ -5,18 +5,16 @@
 
 import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import type { PropertyDescription } from "@itwin/appui-abstract";
-import type { FilterBuilderRuleGroupRendererProps } from "../../components-react/filter-builder/FilterBuilderRuleGroup";
-import { FilterBuilderRuleGroupRenderer } from "../../components-react/filter-builder/FilterBuilderRuleGroup";
-import type { FilterBuilderRuleGroup } from "../../components-react/filter-builder/FilterBuilderState";
-import { FilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
-import { FilterRuleGroupOperator } from "../../components-react/filter-builder/Operators";
+import type { PropertyFilterBuilderRuleGroupRendererProps } from "../../components-react/filter-builder/FilterBuilderRuleGroup";
+import { PropertyFilterBuilderRuleGroupRenderer } from "../../components-react/filter-builder/FilterBuilderRuleGroup";
+import type { PropertyFilterBuilderRuleGroup } from "../../components-react/filter-builder/FilterBuilderState";
+import { PropertyFilterRuleGroupOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";
 
-describe("FilterBuilderRuleGroupRenderer", () => {
-  const rootGroup: FilterBuilderRuleGroup = {
+describe("PropertyFilterBuilderRuleGroupRenderer", () => {
+  const rootGroup: PropertyFilterBuilderRuleGroup = {
     id: "id",
     items: [
       {
@@ -28,9 +26,9 @@ describe("FilterBuilderRuleGroupRenderer", () => {
         groupId: "id",
       },
     ],
-    operator: FilterRuleGroupOperator.And,
+    operator: PropertyFilterRuleGroupOperator.And,
   };
-  const defaultProps: FilterBuilderRuleGroupRendererProps = {
+  const defaultProps: PropertyFilterBuilderRuleGroupRendererProps = {
     group: rootGroup,
     path: [],
   };
@@ -45,7 +43,7 @@ describe("FilterBuilderRuleGroupRenderer", () => {
 
   it("does not render remove button for root group", () => {
     const { queryByTestId } = renderWithContext(
-      <FilterBuilderRuleGroupRenderer {...defaultProps} />
+      <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />
     );
 
     expect(queryByTestId("rule-group-remove")).to.be.null;
@@ -53,19 +51,19 @@ describe("FilterBuilderRuleGroupRenderer", () => {
 
   it("does not render operator selector if only one rule is in group", () => {
     const { queryByText } = renderWithContext(
-      <FilterBuilderRuleGroupRenderer
+      <PropertyFilterBuilderRuleGroupRenderer
         {...defaultProps}
         group={{
           id: "id",
           items: [{ id: "childId", groupId: "id" }],
-          operator: FilterRuleGroupOperator.And,
+          operator: PropertyFilterRuleGroupOperator.And,
         }}
       />
     );
     expect(
       queryByText(
         TestUtils.i18n.getLocalizedString(
-          "Components:filterBuilder.operators.and"
+          "Components:PropertyFilterBuilder.operators.and"
         )
       )
     ).to.be.null;
@@ -78,11 +76,11 @@ describe("FilterBuilderRuleGroupRenderer", () => {
       typename: "int",
     };
     const { getByDisplayValue } = renderWithContext(
-      <FilterBuilderRuleGroupRenderer
+      <PropertyFilterBuilderRuleGroupRenderer
         {...defaultProps}
         group={{
           id: "id",
-          operator: FilterRuleGroupOperator.And,
+          operator: PropertyFilterRuleGroupOperator.And,
           items: [
             {
               id: "childId",

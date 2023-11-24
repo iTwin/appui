@@ -9,22 +9,18 @@ import type { PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import type {
-  FilterBuilderRule,
-  FilterBuilderRuleGroup,
-  FilterBuilderRuleGroupItem,
-} from "../../components-react/filter-builder/FilterBuilderState";
-import { useFilterBuilder } from "../../components-react/filter-builder/FilterBuilderState";
+import type { PropertyFilterBuilderRule } from "../../components-react/filter-builder/FilterBuilderState";
+import { usePropertyFilterBuilder } from "../../components-react/filter-builder/FilterBuilderState";
 import {
-  FilterRuleGroupOperator,
-  FilterRuleOperator,
+  PropertyFilterRuleGroupOperator,
+  PropertyFilterRuleOperator,
 } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 import { UiComponents } from "../../components-react/UiComponents";
 
 chai.use(chaiSubset);
 
-describe("useFilterBuilder", () => {
+describe("usePropertyFilterBuilder", () => {
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
@@ -46,10 +42,10 @@ describe("useFilterBuilder", () => {
   };
 
   it("initializes group with one empty rule", () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { rootGroup } = result.current;
     expect(rootGroup).to.containSubset({
-      operator: FilterRuleGroupOperator.And,
+      operator: PropertyFilterRuleGroupOperator.And,
       items: [
         {
           groupId: rootGroup.id,
@@ -59,7 +55,7 @@ describe("useFilterBuilder", () => {
   });
 
   it("adds rule to root group", () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions } = result.current;
     actions.addItem([]);
 
@@ -72,7 +68,7 @@ describe("useFilterBuilder", () => {
   });
 
   it("does not change state if parent group is not found when adding item", () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { rootGroup, actions } = result.current;
     actions.addItem(["invalidParent"]);
 
@@ -81,7 +77,7 @@ describe("useFilterBuilder", () => {
   });
 
   it("removes rule from root group", () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions } = result.current;
     actions.addItem([]);
 
@@ -99,7 +95,7 @@ describe("useFilterBuilder", () => {
   });
 
   it("does not change state if parent group is not found when removing item", () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
     actions.removeItem(["invalidParent", rootGroup.items[0].id]);
 
@@ -108,7 +104,7 @@ describe("useFilterBuilder", () => {
   });
 
   it("does not change state when removing non existing item", () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
     actions.removeItem(["invalidItem"]);
 
@@ -117,17 +113,17 @@ describe("useFilterBuilder", () => {
   });
 
   it("sets root group operator", async () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
-    expect(rootGroup.operator).to.be.eq(FilterRuleGroupOperator.And);
-    actions.setRuleGroupOperator([], FilterRuleGroupOperator.Or);
+    expect(rootGroup.operator).to.be.eq(PropertyFilterRuleGroupOperator.And);
+    actions.setRuleGroupOperator([], PropertyFilterRuleGroupOperator.Or);
 
     await waitFor(() => {
       rootGroup = result.current.rootGroup;
       expect(rootGroup).to.containSubset({
-        operator: FilterRuleGroupOperator.Or,
+        operator: PropertyFilterRuleGroupOperator.Or,
         items: [
           {
             groupId: rootGroup.id,
@@ -138,16 +134,19 @@ describe("useFilterBuilder", () => {
   });
 
   it("does not change state when setting non existing group operator", () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
-    actions.setRuleGroupOperator(["invalidGroup"], FilterRuleGroupOperator.Or);
+    actions.setRuleGroupOperator(
+      ["invalidGroup"],
+      PropertyFilterRuleGroupOperator.Or
+    );
 
     const { rootGroup: newRootGroup } = result.current;
     expect(rootGroup).to.be.eq(newRootGroup);
   });
 
   it("sets rule property", async () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
@@ -167,7 +166,7 @@ describe("useFilterBuilder", () => {
   });
 
   it("does not change state when setting non existing rule property", () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
 
     actions.setRuleProperty(["invalidRule"], property);
@@ -177,13 +176,13 @@ describe("useFilterBuilder", () => {
   });
 
   it("sets rule operator", async () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
     actions.setRuleOperator(
       [rootGroup.items[0].id],
-      FilterRuleOperator.IsEqual
+      PropertyFilterRuleOperator.IsEqual
     );
 
     await waitFor(() => {
@@ -192,7 +191,7 @@ describe("useFilterBuilder", () => {
         items: [
           {
             groupId: rootGroup.id,
-            operator: FilterRuleOperator.IsEqual,
+            operator: PropertyFilterRuleOperator.IsEqual,
           },
         ],
       });
@@ -200,18 +199,21 @@ describe("useFilterBuilder", () => {
   });
 
   it("resets rule value if new operator does not need value", async () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
     actions.setRuleValue([rootGroup.items[0].id], value);
     await waitFor(() => {
       rootGroup = result.current.rootGroup;
-      const rule = rootGroup.items[0] as FilterBuilderRule;
+      const rule = rootGroup.items[0] as PropertyFilterBuilderRule;
       expect(rule.value).to.be.deep.eq(value);
     });
 
-    actions.setRuleOperator([rootGroup.items[0].id], FilterRuleOperator.IsNull);
+    actions.setRuleOperator(
+      [rootGroup.items[0].id],
+      PropertyFilterRuleOperator.IsNull
+    );
 
     await waitFor(() => {
       rootGroup = result.current.rootGroup;
@@ -219,7 +221,7 @@ describe("useFilterBuilder", () => {
         items: [
           {
             groupId: rootGroup.id,
-            operator: FilterRuleOperator.IsNull,
+            operator: PropertyFilterRuleOperator.IsNull,
             value: undefined,
           },
         ],
@@ -229,35 +231,39 @@ describe("useFilterBuilder", () => {
 
   it("resets rule value if new operator is `IsEqual` and previous operator was `Less`", () => {
     const { result } = renderHook(() =>
-      useFilterBuilder({
+      usePropertyFilterBuilder({
         initialFilter: {
           value,
           property,
-          operator: FilterRuleOperator.IsEqual,
+          operator: PropertyFilterRuleOperator.IsEqual,
         },
       })
     );
     const { actions } = result.current;
     let { rootGroup } = result.current;
     actions.setRuleValue([rootGroup.items[0].id], value);
-    expect((rootGroup.items[0] as FilterBuilderRule).value).to.be.deep.eq(
-      value
-    );
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
 
-    actions.setRuleOperator([rootGroup.items[0].id], FilterRuleOperator.Less);
+    actions.setRuleOperator(
+      [rootGroup.items[0].id],
+      PropertyFilterRuleOperator.Less
+    );
 
     rootGroup = result.current.rootGroup;
 
-    expect((rootGroup.items[0] as FilterBuilderRule).value).to.be.undefined;
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).value).to.be
+      .undefined;
   });
 
   it("resets rule value if new operator is `Less` and previous operator was `IsNotEqual``", () => {
     const { result } = renderHook(() =>
-      useFilterBuilder({
+      usePropertyFilterBuilder({
         initialFilter: {
           value,
           property,
-          operator: FilterRuleOperator.Less,
+          operator: PropertyFilterRuleOperator.Less,
         },
       })
     );
@@ -265,27 +271,28 @@ describe("useFilterBuilder", () => {
     let { rootGroup } = result.current;
     actions.setRuleValue([rootGroup.items[0].id], value);
 
-    expect((rootGroup.items[0] as FilterBuilderRule).value).to.be.deep.eq(
-      value
-    );
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
 
     actions.setRuleOperator(
       [rootGroup.items[0].id],
-      FilterRuleOperator.IsNotEqual
+      PropertyFilterRuleOperator.IsNotEqual
     );
 
     rootGroup = result.current.rootGroup;
 
-    expect((rootGroup.items[0] as FilterBuilderRule).value).to.be.undefined;
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).value).to.be
+      .undefined;
   });
 
   it("does not reset rule value when new operator is the same as the previous", () => {
     const { result } = renderHook(() =>
-      useFilterBuilder({
+      usePropertyFilterBuilder({
         initialFilter: {
           value,
           property,
-          operator: FilterRuleOperator.Like,
+          operator: PropertyFilterRuleOperator.Like,
         },
       })
     );
@@ -293,26 +300,29 @@ describe("useFilterBuilder", () => {
     let { rootGroup } = result.current;
     actions.setRuleValue([rootGroup.items[0].id], value);
 
-    expect((rootGroup.items[0] as FilterBuilderRule).value).to.be.deep.eq(
-      value
-    );
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
 
-    actions.setRuleOperator([rootGroup.items[0].id], FilterRuleOperator.Like);
+    actions.setRuleOperator(
+      [rootGroup.items[0].id],
+      PropertyFilterRuleOperator.Like
+    );
 
     rootGroup = result.current.rootGroup;
 
-    expect((rootGroup.items[0] as FilterBuilderRule).value).to.be.deep.eq(
-      value
-    );
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
   });
 
   it("does not reset rule value when new operator changes from `IsEqual` to `IsNotEqual`", () => {
     const { result } = renderHook(() =>
-      useFilterBuilder({
+      usePropertyFilterBuilder({
         initialFilter: {
           value,
           property,
-          operator: FilterRuleOperator.IsEqual,
+          operator: PropertyFilterRuleOperator.IsEqual,
         },
       })
     );
@@ -320,29 +330,29 @@ describe("useFilterBuilder", () => {
     let { rootGroup } = result.current;
     actions.setRuleValue([rootGroup.items[0].id], value);
 
-    expect((rootGroup.items[0] as FilterBuilderRule).value).to.be.deep.eq(
-      value
-    );
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
 
     actions.setRuleOperator(
       [rootGroup.items[0].id],
-      FilterRuleOperator.IsNotEqual
+      PropertyFilterRuleOperator.IsNotEqual
     );
 
     rootGroup = result.current.rootGroup;
 
-    expect((rootGroup.items[0] as FilterBuilderRule).value).to.be.deep.eq(
-      value
-    );
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
   });
 
   it("does not reset rule value when new operator changes from `Less` to `Greater`", () => {
     const { result } = renderHook(() =>
-      useFilterBuilder({
+      usePropertyFilterBuilder({
         initialFilter: {
           value,
           property,
-          operator: FilterRuleOperator.Less,
+          operator: PropertyFilterRuleOperator.Less,
         },
       })
     );
@@ -350,34 +360,37 @@ describe("useFilterBuilder", () => {
     let { rootGroup } = result.current;
     actions.setRuleValue([rootGroup.items[0].id], value);
 
-    expect((rootGroup.items[0] as FilterBuilderRule).value).to.be.deep.eq(
-      value
-    );
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
 
     actions.setRuleOperator(
       [rootGroup.items[0].id],
-      FilterRuleOperator.Greater
+      PropertyFilterRuleOperator.Greater
     );
 
     rootGroup = result.current.rootGroup;
 
-    expect((rootGroup.items[0] as FilterBuilderRule).value).to.be.deep.eq(
-      value
-    );
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(value);
   });
 
   it("does not change state when setting non existing rule operator", () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
 
-    actions.setRuleOperator(["invalidRule"], FilterRuleOperator.IsEqual);
+    actions.setRuleOperator(
+      ["invalidRule"],
+      PropertyFilterRuleOperator.IsEqual
+    );
 
     const { rootGroup: newRootGroup } = result.current;
     expect(rootGroup).to.be.eq(newRootGroup);
   });
 
   it("sets rule value", async () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
@@ -397,7 +410,7 @@ describe("useFilterBuilder", () => {
   });
 
   it("does not change state when setting non existing rule value", () => {
-    const { result } = renderHook(() => useFilterBuilder());
+    const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
 
     actions.setRuleValue(["invalidRule"], value);
@@ -410,10 +423,10 @@ describe("useFilterBuilder", () => {
     describe("defaultRuleValidator", () => {
       it("returns undefined and sets rule error message to `Value is empty` if item has a property but value is undefined", () => {
         const { result } = renderHook(() =>
-          useFilterBuilder({
+          usePropertyFilterBuilder({
             initialFilter: {
               property,
-              operator: FilterRuleOperator.Like,
+              operator: PropertyFilterRuleOperator.Like,
             },
           })
         );
@@ -422,8 +435,12 @@ describe("useFilterBuilder", () => {
         const buildFilterResult = buildFilter();
 
         const { rootGroup } = result.current;
-        expect((rootGroup.items[0] as FilterBuilderRule).errorMessage).to.be.eq(
-          UiComponents.translate("filterBuilder.errorMessages.emptyValue")
+        expect(
+          (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+        ).to.be.eq(
+          UiComponents.translate(
+            "PropertyFilterBuilder.errorMessages.emptyValue"
+          )
         );
 
         expect(buildFilterResult).to.be.undefined;
@@ -431,10 +448,10 @@ describe("useFilterBuilder", () => {
 
       it("returns undefined and sets rule error message to `Value is empty` if item`s value is empty string", () => {
         const { result } = renderHook(() =>
-          useFilterBuilder({
+          usePropertyFilterBuilder({
             initialFilter: {
               property,
-              operator: FilterRuleOperator.IsEqual,
+              operator: PropertyFilterRuleOperator.IsEqual,
               value: { valueFormat: PropertyValueFormat.Primitive, value: "" },
             },
           })
@@ -444,8 +461,12 @@ describe("useFilterBuilder", () => {
         const buildFilterResult = buildFilter();
 
         const { rootGroup } = result.current;
-        expect((rootGroup.items[0] as FilterBuilderRule).errorMessage).to.be.eq(
-          UiComponents.translate("filterBuilder.errorMessages.emptyValue")
+        expect(
+          (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+        ).to.be.eq(
+          UiComponents.translate(
+            "PropertyFilterBuilder.errorMessages.emptyValue"
+          )
         );
 
         expect(buildFilterResult).to.be.undefined;
@@ -453,10 +474,10 @@ describe("useFilterBuilder", () => {
 
       it("returns property filter and doesn't set error message if operator is unary.", () => {
         const { result } = renderHook(() =>
-          useFilterBuilder({
+          usePropertyFilterBuilder({
             initialFilter: {
               property,
-              operator: FilterRuleOperator.IsFalse,
+              operator: PropertyFilterRuleOperator.IsFalse,
             },
           })
         );
@@ -465,22 +486,22 @@ describe("useFilterBuilder", () => {
         const buildFilterResult = buildFilter();
 
         const { rootGroup } = result.current;
-        expect((rootGroup.items[0] as FilterBuilderRule).errorMessage).to.be
-          .undefined;
+        expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage)
+          .to.be.undefined;
 
         expect(buildFilterResult).to.deep.equal({
           property,
-          operator: FilterRuleOperator.IsFalse,
+          operator: PropertyFilterRuleOperator.IsFalse,
           value: undefined,
         });
       });
 
       it("returns property filter and doesn't set error message if filter is valid.", () => {
         const { result } = renderHook(() =>
-          useFilterBuilder({
+          usePropertyFilterBuilder({
             initialFilter: {
               property,
-              operator: FilterRuleOperator.IsEqual,
+              operator: PropertyFilterRuleOperator.IsEqual,
               value: {
                 valueFormat: PropertyValueFormat.Primitive,
                 value: "value",
@@ -494,12 +515,12 @@ describe("useFilterBuilder", () => {
         const buildFilterResult = buildFilter();
 
         const { rootGroup } = result.current;
-        expect((rootGroup.items[0] as FilterBuilderRule).errorMessage).to.be
-          .undefined;
+        expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage)
+          .to.be.undefined;
 
         expect(buildFilterResult).to.deep.equal({
           property,
-          operator: FilterRuleOperator.IsEqual,
+          operator: PropertyFilterRuleOperator.IsEqual,
           value: {
             valueFormat: PropertyValueFormat.Primitive,
             value: "value",
@@ -512,7 +533,7 @@ describe("useFilterBuilder", () => {
     it("uses custom validator", () => {
       const customErrorMessage = "My custom error";
       const { result } = renderHook(() =>
-        useFilterBuilder({ ruleValidator: () => customErrorMessage })
+        usePropertyFilterBuilder({ ruleValidator: () => customErrorMessage })
       );
       const { buildFilter } = result.current;
 
@@ -520,15 +541,15 @@ describe("useFilterBuilder", () => {
 
       const { rootGroup } = result.current;
 
-      expect((rootGroup.items[0] as FilterBuilderRule).errorMessage).to.be.eq(
-        customErrorMessage
-      );
+      expect(
+        (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+      ).to.be.eq(customErrorMessage);
     });
 
     it("does not save errors if options specify to ignore them", () => {
       const errorMessage = "My error";
       const { result } = renderHook(() =>
-        useFilterBuilder({ ruleValidator: () => errorMessage })
+        usePropertyFilterBuilder({ ruleValidator: () => errorMessage })
       );
       const { buildFilter } = result.current;
 
@@ -536,8 +557,8 @@ describe("useFilterBuilder", () => {
 
       const { rootGroup } = result.current;
 
-      expect((rootGroup.items[0] as FilterBuilderRule).errorMessage).to.be
-        .undefined;
+      expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage).to
+        .be.undefined;
     });
   });
 });

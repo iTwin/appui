@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module FilterBuilder
+ * @module PropertyFilterBuilder
  */
 
 import "./FilterBuilderRule.scss";
@@ -14,47 +14,48 @@ import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { SvgStatusError } from "@itwin/itwinui-icons-react";
 import { Flex } from "@itwin/itwinui-react";
 import {
-  FilterBuilderContext,
-  FilterBuilderRuleRenderingContext,
+  PropertyFilterBuilderContext,
+  PropertyFilterBuilderRuleRenderingContext,
 } from "./FilterBuilderContext";
-import { FilterBuilderRuleOperator } from "./FilterBuilderRuleOperator";
-import { FilterBuilderRuleProperty } from "./FilterBuilderRuleProperty";
-import { FilterBuilderRuleValue } from "./FilterBuilderRuleValue";
-import type { FilterBuilderRule } from "./FilterBuilderState";
-import type { FilterRuleOperator } from "./Operators";
-import { isUnaryFilterOperator } from "./Operators";
-import { FilterBuilderToolbar } from "./FilterBuilderToolbar";
+import { PropertyFilterBuilderRuleOperator } from "./FilterBuilderRuleOperator";
+import { PropertyFilterBuilderRuleProperty } from "./FilterBuilderRuleProperty";
+import { PropertyFilterBuilderRuleValue } from "./FilterBuilderRuleValue";
+import type { PropertyFilterBuilderRule } from "./FilterBuilderState";
+import type { PropertyFilterRuleOperator } from "./Operators";
+import { isUnaryPropertyFilterOperator } from "./Operators";
+import { PropertyFilterBuilderToolbar } from "./FilterBuilderToolbar";
 
 /**
- * Props for [[FilterBuilderRuleRenderer]] component.
+ * Props for [[PropertyFilterBuilderRuleRenderer]] component.
  * @internal
  */
-export interface FilterBuilderRuleRendererProps {
-  /** Path from [[FilterBuilder]] root to this rule. */
+export interface PropertyFilterBuilderRuleRendererProps {
+  /** Path from [[PropertyFilterBuilder]] root to this rule. */
   path: string[];
   /** Rule to render. */
-  rule: FilterBuilderRule;
+  rule: PropertyFilterBuilderRule;
   /** Function to add rule to group */
   onAddRule: () => void;
   size?: "small" | "large";
 }
 
 /**
- * Component that renders single rule in [[FilterBuilder]] component.
+ * Component that renders single rule in [[PropertyFilterBuilder]] component.
  * @internal
  */
-export function FilterBuilderRuleRenderer(
-  props: FilterBuilderRuleRendererProps
+export function PropertyFilterBuilderRuleRenderer(
+  props: PropertyFilterBuilderRuleRendererProps
 ) {
   const { path, rule, onAddRule, size } = props;
-  const { properties, actions, onRulePropertySelected } =
-    React.useContext(FilterBuilderContext);
+  const { properties, actions, onRulePropertySelected } = React.useContext(
+    PropertyFilterBuilderContext
+  );
   const {
     ruleOperatorRenderer,
     ruleValueRenderer,
     propertyRenderer,
     isDisabled,
-  } = React.useContext(FilterBuilderRuleRenderingContext);
+  } = React.useContext(PropertyFilterBuilderRuleRenderingContext);
   const { property, operator, value } = rule;
 
   const onSelectedPropertyChanged = React.useCallback(
@@ -69,7 +70,7 @@ export function FilterBuilderRuleRenderer(
   );
 
   const onRuleOperatorChange = React.useCallback(
-    (newOperator: FilterRuleOperator) => {
+    (newOperator: PropertyFilterRuleOperator) => {
       actions.setRuleOperator(path, newOperator);
     },
     [path, actions]
@@ -93,7 +94,7 @@ export function FilterBuilderRuleRenderer(
           onChange: onRuleOperatorChange,
         });
       return (
-        <FilterBuilderRuleOperator
+        <PropertyFilterBuilderRuleOperator
           property={prop}
           onChange={onRuleOperatorChange}
           operator={operator}
@@ -105,7 +106,7 @@ export function FilterBuilderRuleRenderer(
   );
 
   const valueRenderer = React.useCallback(
-    (prop: PropertyDescription, op: FilterRuleOperator) => {
+    (prop: PropertyDescription, op: PropertyFilterRuleOperator) => {
       if (ruleValueRenderer)
         return ruleValueRenderer({
           property: prop,
@@ -114,7 +115,7 @@ export function FilterBuilderRuleRenderer(
           operator: op,
         });
       return (
-        <FilterBuilderRuleValue
+        <PropertyFilterBuilderRuleValue
           property={prop}
           onChange={onRuleValueChange}
           value={value}
@@ -129,7 +130,7 @@ export function FilterBuilderRuleRenderer(
     <div className="fb-component-row">
       <Flex gap="0px">
         <Flex className="fb-row-container">
-          <FilterBuilderRuleProperty
+          <PropertyFilterBuilderRuleProperty
             properties={properties}
             selectedProperty={rule.property}
             onSelectedPropertyChanged={onSelectedPropertyChanged}
@@ -140,7 +141,7 @@ export function FilterBuilderRuleRenderer(
           {property !== undefined ? operatorRenderer(property) : null}
           {property !== undefined &&
           operator !== undefined &&
-          !isUnaryFilterOperator(operator) ? (
+          !isUnaryPropertyFilterOperator(operator) ? (
             <div style={{ display: "flex" }}>
               <div className="fb-property-value fb-row-value">
                 {valueRenderer(property, operator)}
@@ -153,7 +154,7 @@ export function FilterBuilderRuleRenderer(
               ) : null}
             </div>
           ) : null}
-          <FilterBuilderToolbar
+          <PropertyFilterBuilderToolbar
             className="fb-row-toolbar"
             onAddChild={() => onAddRule()}
             onDelete={removeRule}

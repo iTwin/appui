@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module FilterBuilder
+ * @module PropertyFilterBuilder
  */
 
 import "./FilterBuilderRuleGroup.scss";
@@ -14,39 +14,39 @@ import { SvgDelete } from "@itwin/itwinui-icons-react";
 import { Flex, IconButton } from "@itwin/itwinui-react";
 import {
   ActiveRuleGroupContext,
-  FilterBuilderContext,
+  PropertyFilterBuilderContext,
 } from "./FilterBuilderContext";
-import { FilterBuilderRuleRenderer } from "./FilterBuilderRule";
+import { PropertyFilterBuilderRuleRenderer } from "./FilterBuilderRule";
 import type {
-  FilterBuilderRuleGroup,
-  FilterBuilderRuleGroupItem,
+  PropertyFilterBuilderRuleGroup,
+  PropertyFilterBuilderRuleGroupItem,
 } from "./FilterBuilderState";
-import { isFilterBuilderRuleGroup } from "./FilterBuilderState";
-import { FilterRuleGroupOperator } from "./Operators";
-import { FilterBuilderLogicalOperator } from "./FilterBuilderLogicalOperator";
+import { isPropertyFilterBuilderRuleGroup } from "./FilterBuilderState";
+import { PropertyFilterRuleGroupOperator } from "./Operators";
+import { PropertyFilterBuilderLogicalOperator } from "./FilterBuilderLogicalOperator";
 
 /**
- * Props for [[FilterBuilderRuleGroupRenderer]] component.
+ * Props for [[PropertyFilterBuilderRuleGroupRenderer]] component.
  * @internal
  */
-export interface FilterBuilderRuleGroupRendererProps {
-  /** Path from [[FilterBuilder]] root to this rule group. */
+export interface PropertyFilterBuilderRuleGroupRendererProps {
+  /** Path from [[PropertyFilterBuilder]] root to this rule group. */
   path: string[];
   /** Rule group to render. */
-  group: FilterBuilderRuleGroup;
-  /** Size to render components. If undefined, will use iui default size */
+  group: PropertyFilterBuilderRuleGroup;
+  /** Size to render components. If undefined, defaults to iTwinUI "medium" size. */
   size?: "small" | "large";
 }
 
 /**
- * Component that renders group of rules in [[FilterBuilder]] component.
+ * Component that renders group of rules in [[PropertyFilterBuilder]] component.
  * @internal
  */
-export function FilterBuilderRuleGroupRenderer(
-  props: FilterBuilderRuleGroupRendererProps
+export function PropertyFilterBuilderRuleGroupRenderer(
+  props: PropertyFilterBuilderRuleGroupRendererProps
 ) {
   const { path, group, size } = props;
-  const { actions } = React.useContext(FilterBuilderContext);
+  const { actions } = React.useContext(PropertyFilterBuilderContext);
   const { onNewRuleAdded, groupRef } = useRulePropertyFocus(group.items.length);
 
   const handleAddRule = () => {
@@ -56,7 +56,7 @@ export function FilterBuilderRuleGroupRenderer(
   const removeGroup = () => actions.removeItem(path);
 
   const onOperatorChange = React.useCallback(
-    (operator: FilterRuleGroupOperator) => {
+    (operator: PropertyFilterRuleGroupOperator) => {
       actions.setRuleGroupOperator(path, operator);
     },
     [path, actions]
@@ -81,7 +81,7 @@ export function FilterBuilderRuleGroupRenderer(
       {...eventHandlers}
     >
       {showOperator ? (
-        <FilterBuilderRuleGroupOperator
+        <PropertyFilterBuilderRuleGroupOperator
           operator={group.operator}
           onChange={onOperatorChange}
         />
@@ -89,7 +89,7 @@ export function FilterBuilderRuleGroupRenderer(
       <div className="fb-wrapper">
         {group.items.map((item) => (
           <Flex className="fb-row" key={item.id}>
-            <FilterBuilderGroupOrRule
+            <PropertyFilterBuilderGroupOrRule
               path={path}
               item={item}
               onAddRule={handleAddRule}
@@ -115,70 +115,77 @@ export function FilterBuilderRuleGroupRenderer(
 }
 
 /**
- * Props for [[FilterBuilderRuleGroupOperator]] component.
+ * Props for [[PropertyFilterBuilderRuleGroupOperator]] component.
  * @internal
  */
-export interface FilterBuilderRuleGroupOperatorProps {
+export interface PropertyFilterBuilderRuleGroupOperatorProps {
   /** Currently selected operator. */
-  operator: FilterRuleGroupOperator;
+  operator: PropertyFilterRuleGroupOperator;
   /** Callback that is invoked when selected operator changes. */
-  onChange: (operator: FilterRuleGroupOperator) => void;
-  /** Size to render component */
+  onChange: (operator: PropertyFilterRuleGroupOperator) => void;
+  /** Size to render component. If undefined, defaults to iTwinUI "medium" size. */
   size?: "small" | "large";
 }
 
 /**
- * Component that renders [[FilterBuilderRuleGroup]] operator selector.
+ * Component that renders [[PropertyFilterBuilderRuleGroup]] operator selector.
  * @internal
  */
-export function FilterBuilderRuleGroupOperator(
-  props: FilterBuilderRuleGroupOperatorProps
+export function PropertyFilterBuilderRuleGroupOperator(
+  props: PropertyFilterBuilderRuleGroupOperatorProps
 ) {
   const { operator, size } = props;
 
   return (
     <Flex.Item flex="0" alignSelf="stretch">
-      <FilterBuilderLogicalOperator
+      <PropertyFilterBuilderLogicalOperator
         className="fb-group-operator"
-        operator={operator === FilterRuleGroupOperator.And ? "And" : "Or"}
+        operator={
+          operator === PropertyFilterRuleGroupOperator.And ? "And" : "Or"
+        }
         isLinkDisabled={true}
         size={size}
       />
     </Flex.Item>
   );
 }
-interface FilterBuilderGroupOrRuleProps {
+interface PropertyFilterBuilderGroupOrRuleProps {
   path: string[];
-  item: FilterBuilderRuleGroupItem;
+  item: PropertyFilterBuilderRuleGroupItem;
   onAddRule: () => void;
   size?: "small" | "large";
 }
 
-const FilterBuilderGroupOrRule = React.memo(function FilterBuilderGroupOrRule({
-  path,
-  item,
-  onAddRule,
-  size,
-}: FilterBuilderGroupOrRuleProps) {
-  const itemPath = [...path, item.id];
+const PropertyFilterBuilderGroupOrRule = React.memo(
+  function PropertyFilterBuilderGroupOrRule({
+    path,
+    item,
+    onAddRule,
+    size,
+  }: PropertyFilterBuilderGroupOrRuleProps) {
+    const itemPath = [...path, item.id];
 
-  if (isFilterBuilderRuleGroup(item))
+    if (isPropertyFilterBuilderRuleGroup(item))
+      return (
+        <div className="fb-criteria fb-group-criteria fb-criteria-container">
+          <PropertyFilterBuilderRuleGroupRenderer
+            path={itemPath}
+            group={item}
+          />
+        </div>
+      );
     return (
-      <div className="fb-criteria fb-group-criteria fb-criteria-container">
-        <FilterBuilderRuleGroupRenderer path={itemPath} group={item} />
+      <div className="fb-criteria fb-group-criteria">
+        <PropertyFilterBuilderRuleRenderer
+          path={itemPath}
+          rule={item}
+          onAddRule={onAddRule}
+          size={size}
+        />
       </div>
     );
-  return (
-    <div className="fb-criteria fb-group-criteria">
-      <FilterBuilderRuleRenderer
-        path={itemPath}
-        rule={item}
-        onAddRule={onAddRule}
-        size={size}
-      />
-    </div>
-  );
-});
+  }
+);
 
 const useRulePropertyFocus = (currentGroupItemsLength: number) => {
   const previousGroupItemsLength = React.useRef<number>(0);

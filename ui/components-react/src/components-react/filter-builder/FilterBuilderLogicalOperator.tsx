@@ -9,7 +9,7 @@ import "./FilterBuilderLogicalOperator.scss";
 
 type Operator = "And" | "Or";
 
-interface FilterBuilderLogicalOperatorProps {
+interface PropertyFilterBuilderLogicalOperatorProps {
   size?: "small" | "large";
   isLinkDisabled?: boolean;
   operator?: Operator;
@@ -19,9 +19,9 @@ interface FilterBuilderLogicalOperatorProps {
 /** Component to render the operator inside of the filter builder
  * @beta
  */
-export const FilterBuilderLogicalOperator = (
+export const PropertyFilterBuilderLogicalOperator = (
   props: Omit<React.HTMLProps<HTMLDivElement>, "size"> &
-    FilterBuilderLogicalOperatorProps
+    PropertyFilterBuilderLogicalOperatorProps
 ) => {
   const {
     className,

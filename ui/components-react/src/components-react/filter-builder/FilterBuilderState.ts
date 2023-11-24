@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module FilterBuilder
+ * @module PropertyFilterBuilder
  */
 
 import type { Draft } from "immer";
@@ -12,48 +12,51 @@ import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { Guid } from "@itwin/core-bentley";
-import { FilterRuleOperator } from "./Operators";
-import { FilterRuleGroupOperator, isUnaryFilterOperator } from "./Operators";
-import type { Filter, FilterRule } from "./Types";
-import { isFilterRuleGroup } from "./Types";
+import { PropertyFilterRuleOperator } from "./Operators";
+import {
+  isUnaryPropertyFilterOperator,
+  PropertyFilterRuleGroupOperator,
+} from "./Operators";
+import type { PropertyFilter, PropertyFilterRule } from "./Types";
+import { isPropertyFilterRuleGroup } from "./Types";
 import { UiComponents } from "../UiComponents";
 /**
- * Data structure that describes [[FilterBuilder]] component state.
+ * Data structure that describes [[PropertyFilterBuilder]] component state.
  * @beta
  */
-export interface FilterBuilderState {
-  /** Root group of rules in [[FilterBuilder]] component. */
-  rootGroup: FilterBuilderRuleGroup;
+export interface PropertyFilterBuilderState {
+  /** Root group of rules in [[PropertyFilterBuilder]] component. */
+  rootGroup: PropertyFilterBuilderRuleGroup;
 }
 
 /**
- * Type that describes [[FilterBuilder]] component group item.
+ * Type that describes [[PropertyFilterBuilder]] component group item.
  * @beta
  */
-export type FilterBuilderRuleGroupItem =
-  | FilterBuilderRuleGroup
-  | FilterBuilderRule;
+export type PropertyFilterBuilderRuleGroupItem =
+  | PropertyFilterBuilderRuleGroup
+  | PropertyFilterBuilderRule;
 
 /**
- * Data structure that describes [[FilterBuilder]] component rule group.
+ * Data structure that describes [[PropertyFilterBuilder]] component rule group.
  * @beta
  */
-export interface FilterBuilderRuleGroup {
+export interface PropertyFilterBuilderRuleGroup {
   /** Id of this rule group. */
   id: string;
   /** Id of rule group that this group is nested in. */
   groupId?: string;
   /** Operator that should join items in this group. */
-  operator: FilterRuleGroupOperator;
+  operator: PropertyFilterRuleGroupOperator;
   /** Items in this group. */
-  items: FilterBuilderRuleGroupItem[];
+  items: PropertyFilterBuilderRuleGroupItem[];
 }
 
 /**
- * Data structure that describes [[FilterBuilder]] component single rule.
+ * Data structure that describes [[PropertyFilterBuilder]] component single rule.
  * @beta
  */
-export interface FilterBuilderRule {
+export interface PropertyFilterBuilderRule {
   /** Id of this rule. */
   id: string;
   /** Id of rule group that this rule is nested in. */
@@ -61,7 +64,7 @@ export interface FilterBuilderRule {
   /** Property used in this rule. */
   property?: PropertyDescription;
   /** Operator that should be used to compare property value. */
-  operator?: FilterRuleOperator;
+  operator?: PropertyFilterRuleOperator;
   /** Value that property should be compared to. */
   value?: PropertyValue;
   /** Error message of this rule. */
@@ -69,17 +72,21 @@ export interface FilterBuilderRule {
 }
 
 /**
- * Actions for controlling [[PropertyFilterBuilder]] component state.
+ * Actions for controlling [[PropertyPropertyFilterBuilder]] component state.
  * @beta
  */
-export class FilterBuilderActions {
+export class PropertyFilterBuilderActions {
   constructor(
     private setState: (
-      setter: (prevState: FilterBuilderState) => FilterBuilderState
+      setter: (
+        prevState: PropertyFilterBuilderState
+      ) => PropertyFilterBuilderState
     ) => void
   ) {}
 
-  private updateState(updater: (state: Draft<FilterBuilderState>) => void) {
+  private updateState(
+    updater: (state: Draft<PropertyFilterBuilderState>) => void
+  ) {
     this.setState(produce(updater));
   }
 
@@ -96,7 +103,7 @@ export class FilterBuilderActions {
   /** Removes item specified by path. */
   public removeItem(path: string[]) {
     function removeItemFromGroup(
-      state: Draft<FilterBuilderState>,
+      state: Draft<PropertyFilterBuilderState>,
       pathToItem: string[]
     ) {
       const pathToParent = pathToItem.slice(0, -1);
@@ -122,7 +129,7 @@ export class FilterBuilderActions {
   /** Sets operator of rule group specified by the path. */
   public setRuleGroupOperator(
     path: string[],
-    operator: FilterRuleGroupOperator
+    operator: PropertyFilterRuleGroupOperator
   ) {
     this.updateState((state) => {
       const group = findRuleGroup(state.rootGroup, path);
@@ -143,11 +150,11 @@ export class FilterBuilderActions {
   }
 
   /** Sets operator of rule specified by the path. */
-  public setRuleOperator(path: string[], operator: FilterRuleOperator) {
+  public setRuleOperator(path: string[], operator: PropertyFilterRuleOperator) {
     this.updateState((state) => {
       const rule = findRule(state.rootGroup, path);
       if (!rule) return;
-      if (isUnaryFilterOperator(operator)) rule.value = undefined;
+      if (isUnaryPropertyFilterOperator(operator)) rule.value = undefined;
       if (
         operator !== rule.operator &&
         !areOperatorsSimilar(operator, rule.operator)
@@ -173,8 +180,8 @@ export class FilterBuilderActions {
    */
   public setRuleErrorMessages(ruleIdsAndErrorMessages: Map<string, string>) {
     this.updateState((state) => {
-      const setErrorMessages = (item: FilterBuilderRuleGroupItem) => {
-        if (isFilterBuilderRuleGroup(item)) {
+      const setErrorMessages = (item: PropertyFilterBuilderRuleGroupItem) => {
+        if (isPropertyFilterBuilderRuleGroup(item)) {
           item.items.forEach((itm) => {
             setErrorMessages(itm);
           });
@@ -189,28 +196,28 @@ export class FilterBuilderActions {
 }
 
 /**
- * Function to check if supplied [[FilterBuilderRuleGroupItem]] is [FilterBuilderRuleGroup]].
+ * Function to check if supplied [[PropertyFilterBuilderRuleGroupItem]] is [PropertyFilterBuilderRuleGroup]].
  * @beta
  */
-export function isFilterBuilderRuleGroup(
-  item: FilterBuilderRuleGroupItem
-): item is FilterBuilderRuleGroup {
+export function isPropertyFilterBuilderRuleGroup(
+  item: PropertyFilterBuilderRuleGroupItem
+): item is PropertyFilterBuilderRuleGroup {
   return (item as any).items !== undefined;
 }
 
 /**
- * Props for [[useFilterBuilder]]
+ * Props for [[usePropertyFilterBuilder]]
  * @beta
  */
-export interface UseFilterBuilderProps {
-  /** Initial filter for [[FilterBuilder]] */
-  initialFilter?: Filter;
-  /** Custom rule validator to be used when [[UseFilterBuilderResult.buildFilter]] is invoked. Should return error message or `undefined`, if rule is valid. */
-  ruleValidator?: (rule: FilterBuilderRule) => string | undefined;
+export interface UsePropertyFilterBuilderProps {
+  /** Initial filter for [[PropertyFilterBuilder]] */
+  initialFilter?: PropertyFilter;
+  /** Custom rule validator to be used when [[UsePropertyFilterBuilderResult.buildFilter]] is invoked. Should return error message or `undefined`, if rule is valid. */
+  ruleValidator?: (rule: PropertyFilterBuilderRule) => string | undefined;
 }
 
 /**
- * Options for [[UseFilterBuilderResult.buildFilter]].
+ * Options for [[UsePropertyFilterBuilderResult.buildFilter]].
  * @beta
  */
 export interface FilterOptions {
@@ -222,41 +229,43 @@ export interface FilterOptions {
 }
 
 /**
- * Type for [[usePropertyFilterBuilder]] return object.
+ * Type for [[usePropertyPropertyFilterBuilder]] return object.
  * @beta
  */
-export interface UseFilterBuilderResult {
-  /** Root group of the [[FilterBuilder]]. */
-  rootGroup: FilterBuilderRuleGroup;
-  /** Actions for manipulating [[FilterBuilder]] state. */
-  actions: FilterBuilderActions;
+export interface UsePropertyFilterBuilderResult {
+  /** Root group of the [[PropertyFilterBuilder]]. */
+  rootGroup: PropertyFilterBuilderRuleGroup;
+  /** Actions for manipulating [[PropertyFilterBuilder]] state. */
+  actions: PropertyFilterBuilderActions;
   /**
-   * Validates and builds [[Filter]] based on current state. It uses [[defaultFilterBuilderRuleValidator]] or
-   * custom validator provided through [[UseFilterBuilderProps]] to validate each rule.
-   * @returns [[Filter]] if all rules are valid, `undefined` otherwise.
+   * Validates and builds [[PropertyFilter]] based on current state. It uses [[defaultPropertyFilterBuilderRuleValidator]] or
+   * custom validator provided through [[UsePropertyFilterBuilderProps]] to validate each rule.
+   * @returns [[PropertyFilter]] if all rules are valid, `undefined` otherwise.
    */
-  buildFilter: (options?: FilterOptions) => Filter | undefined;
+  buildFilter: (options?: FilterOptions) => PropertyFilter | undefined;
 }
 
 /**
- * Custom hook that creates state for [[PropertyFilterBuilder]] component. It creates empty state or initializes
+ * Custom hook that creates state for [[PropertyPropertyFilterBuilder]] component. It creates empty state or initializes
  * state from supplied initial filter.
  * @beta
  */
-export function useFilterBuilder(
-  props?: UseFilterBuilderProps
-): UseFilterBuilderResult {
+export function usePropertyFilterBuilder(
+  props?: UsePropertyFilterBuilderProps
+): UsePropertyFilterBuilderResult {
   const { initialFilter, ruleValidator } = props ?? {
     initialFilter: undefined,
     ruleValidator: undefined,
   };
-  const [state, setState] = React.useState<FilterBuilderState>(
+  const [state, setState] = React.useState<PropertyFilterBuilderState>(
     initialFilter
       ? convertFilterToState(initialFilter)
       : { rootGroup: createEmptyRuleGroup() }
   );
 
-  const [actions] = React.useState(() => new FilterBuilderActions(setState));
+  const [actions] = React.useState(
+    () => new PropertyFilterBuilderActions(setState)
+  );
 
   const buildFilter = React.useCallback(
     (options?: FilterOptions) => {
@@ -273,20 +282,20 @@ export function useFilterBuilder(
 }
 
 function validateRules(
-  rule: FilterBuilderRuleGroupItem,
-  ruleValidator?: (item: FilterBuilderRule) => string | undefined
+  rule: PropertyFilterBuilderRuleGroupItem,
+  ruleValidator?: (item: PropertyFilterBuilderRule) => string | undefined
 ) {
   const ruleIdsAndErrorMessages = new Map<string, string>();
 
-  const validateRulesInner = (item: FilterBuilderRuleGroupItem) => {
-    if (isFilterBuilderRuleGroup(item)) {
+  const validateRulesInner = (item: PropertyFilterBuilderRuleGroupItem) => {
+    if (isPropertyFilterBuilderRuleGroup(item)) {
       item.items.forEach((itm) => {
         validateRulesInner(itm);
       });
     } else {
       const errorMessage = ruleValidator
         ? ruleValidator(item)
-        : defaultFilterBuilderRuleValidator(item);
+        : defaultPropertyFilterBuilderRuleValidator(item);
       if (errorMessage) ruleIdsAndErrorMessages.set(item.id, errorMessage);
     }
   };
@@ -300,41 +309,45 @@ function validateRules(
  * Default rule validator.
  * @beta
  */
-export function defaultFilterBuilderRuleValidator(
-  item: FilterBuilderRule
+export function defaultPropertyFilterBuilderRuleValidator(
+  item: PropertyFilterBuilderRule
 ): string | undefined {
   if (
     item.property === undefined ||
     item.operator === undefined ||
-    isUnaryFilterOperator(item.operator)
+    isUnaryPropertyFilterOperator(item.operator)
   ) {
     return undefined;
   }
   if (item.value === undefined) {
-    return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
+    return UiComponents.translate(
+      "PropertyFilterBuilder.errorMessages.emptyValue"
+    );
   }
   if (
     item.value.valueFormat === PropertyValueFormat.Primitive &&
     (item.value.value === undefined || item.value.value === "")
   ) {
-    return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
+    return UiComponents.translate(
+      "PropertyFilterBuilder.errorMessages.emptyValue"
+    );
   }
   return undefined;
 }
 
 /** @internal */
 export function createFilter(
-  groupItem: FilterBuilderRuleGroupItem
-): Filter | undefined {
-  if (isFilterBuilderRuleGroup(groupItem))
+  groupItem: PropertyFilterBuilderRuleGroupItem
+): PropertyFilter | undefined {
+  if (isPropertyFilterBuilderRuleGroup(groupItem))
     return buildFilterFromRuleGroup(groupItem);
   return buildFilterFromRule(groupItem);
 }
 
 function buildFilterFromRuleGroup(
-  rootGroup: FilterBuilderRuleGroup
-): Filter | undefined {
-  const rules = new Array<Filter>();
+  rootGroup: PropertyFilterBuilderRuleGroup
+): PropertyFilter | undefined {
+  const rules = new Array<PropertyFilter>();
   for (const item of rootGroup.items) {
     const rule = createFilter(item);
     if (rule) rules.push(rule);
@@ -350,12 +363,14 @@ function buildFilterFromRuleGroup(
   };
 }
 
-function buildFilterFromRule(rule: FilterBuilderRule): Filter | undefined {
+function buildFilterFromRule(
+  rule: PropertyFilterBuilderRule
+): PropertyFilter | undefined {
   const { property, operator, value } = rule;
   if (!property || operator === undefined) return undefined;
 
   if (
-    !isUnaryFilterOperator(operator) &&
+    !isUnaryPropertyFilterOperator(operator) &&
     (!value ||
       value.valueFormat !== PropertyValueFormat.Primitive ||
       value.value === undefined)
@@ -365,57 +380,61 @@ function buildFilterFromRule(rule: FilterBuilderRule): Filter | undefined {
   return { property, operator, value };
 }
 
-function createEmptyRule(groupId: string): FilterBuilderRule {
+function createEmptyRule(groupId: string): PropertyFilterBuilderRule {
   return {
     id: Guid.createValue(),
     groupId,
   };
 }
 
-function createEmptyRuleGroup(groupId?: string): FilterBuilderRuleGroup {
+function createEmptyRuleGroup(
+  groupId?: string
+): PropertyFilterBuilderRuleGroup {
   const id = Guid.createValue();
   return {
     id,
     groupId,
-    operator: FilterRuleGroupOperator.And,
+    operator: PropertyFilterRuleGroupOperator.And,
     items: [createEmptyRule(id)],
   };
 }
 
 function findRuleGroup(
-  rootGroup: FilterBuilderRuleGroup,
+  rootGroup: PropertyFilterBuilderRuleGroup,
   path: string[]
-): FilterBuilderRuleGroup | undefined {
+): PropertyFilterBuilderRuleGroup | undefined {
   if (path.length === 0) return rootGroup;
 
   const [currentItemId, ...rest] = path;
   const currentItem = rootGroup.items.find((item) => item.id === currentItemId);
-  if (!currentItem || !isFilterBuilderRuleGroup(currentItem)) return undefined;
+  if (!currentItem || !isPropertyFilterBuilderRuleGroup(currentItem))
+    return undefined;
 
   return findRuleGroup(currentItem, rest);
 }
 
 function findRule(
-  rootGroup: FilterBuilderRuleGroup,
+  rootGroup: PropertyFilterBuilderRuleGroup,
   path: string[]
-): FilterBuilderRule | undefined {
+): PropertyFilterBuilderRule | undefined {
   if (path.length === 0) return undefined;
 
   const [currentItemId, ...rest] = path;
   const currentItem = rootGroup.items.find((item) => item.id === currentItemId);
   if (!currentItem) return undefined;
 
-  if (isFilterBuilderRuleGroup(currentItem)) return findRule(currentItem, rest);
+  if (isPropertyFilterBuilderRuleGroup(currentItem))
+    return findRule(currentItem, rest);
 
   return currentItem;
 }
 
 function getRuleGroupItem(
-  filter: Filter,
+  filter: PropertyFilter,
   parentId: string
-): FilterBuilderRuleGroupItem {
+): PropertyFilterBuilderRuleGroupItem {
   const id = Guid.createValue();
-  if (isFilterRuleGroup(filter))
+  if (isPropertyFilterRuleGroup(filter))
     return {
       id,
       groupId: parentId,
@@ -425,7 +444,7 @@ function getRuleGroupItem(
   return getRuleItem(filter, id);
 }
 
-function getRuleItem(filter: FilterRule, parentId: string) {
+function getRuleItem(filter: PropertyFilterRule, parentId: string) {
   return {
     id: Guid.createValue(),
     groupId: parentId,
@@ -435,9 +454,11 @@ function getRuleItem(filter: FilterRule, parentId: string) {
   };
 }
 
-function convertFilterToState(filter: Filter): FilterBuilderState {
+function convertFilterToState(
+  filter: PropertyFilter
+): PropertyFilterBuilderState {
   const id = Guid.createValue();
-  if (isFilterRuleGroup(filter)) {
+  if (isPropertyFilterRuleGroup(filter)) {
     return {
       rootGroup: {
         id,
@@ -449,15 +470,15 @@ function convertFilterToState(filter: Filter): FilterBuilderState {
   return {
     rootGroup: {
       id,
-      operator: FilterRuleGroupOperator.And,
+      operator: PropertyFilterRuleGroupOperator.And,
       items: [getRuleItem(filter, id)],
     },
   };
 }
 
 function areOperatorsSimilar(
-  firstOperator?: FilterRuleOperator,
-  secondOperator?: FilterRuleOperator
+  firstOperator?: PropertyFilterRuleOperator,
+  secondOperator?: PropertyFilterRuleOperator
 ) {
   return (
     (isOperatorEqualOrIsNotEqual(firstOperator) &&
@@ -467,18 +488,18 @@ function areOperatorsSimilar(
   );
 }
 
-function isOperatorEqualOrIsNotEqual(operator?: FilterRuleOperator) {
+function isOperatorEqualOrIsNotEqual(operator?: PropertyFilterRuleOperator) {
   return (
-    operator === FilterRuleOperator.IsEqual ||
-    operator === FilterRuleOperator.IsNotEqual
+    operator === PropertyFilterRuleOperator.IsEqual ||
+    operator === PropertyFilterRuleOperator.IsNotEqual
   );
 }
 
-function isInequalityOperator(operator?: FilterRuleOperator) {
+function isInequalityOperator(operator?: PropertyFilterRuleOperator) {
   return (
-    operator === FilterRuleOperator.Less ||
-    operator === FilterRuleOperator.LessOrEqual ||
-    operator === FilterRuleOperator.Greater ||
-    operator === FilterRuleOperator.GreaterOrEqual
+    operator === PropertyFilterRuleOperator.Less ||
+    operator === PropertyFilterRuleOperator.LessOrEqual ||
+    operator === PropertyFilterRuleOperator.Greater ||
+    operator === PropertyFilterRuleOperator.GreaterOrEqual
   );
 }

@@ -3,42 +3,45 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module FilterBuilder
+ * @module PropertyFilterBuilder
  */
 
 import * as React from "react";
 import "./FilterBuilderCondition.scss";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { Select } from "@itwin/itwinui-react";
-import type { FilterRuleOperator } from "./Operators";
-import { getFilterOperatorLabel, getFilterOperators } from "./Operators";
+import type { PropertyFilterRuleOperator } from "./Operators";
+import {
+  getPropertyFilterOperatorLabel,
+  getPropertyFilterOperators,
+} from "./Operators";
 
 /**
- * Props for [[FilterBuilderRuleOperator]] component.
+ * Props for [[PropertyFilterBuilderRuleOperator]] component.
  * @beta
  */
-export interface FilterBuilderRuleOperatorProps {
+export interface PropertyFilterBuilderRuleOperatorProps {
   /** Currently selected operator. */
-  operator?: FilterRuleOperator;
+  operator?: PropertyFilterRuleOperator;
   /** Property used in rule for which this operator will be used. */
   property: PropertyDescription;
   /** Callback that is invoked when selected operator changes. */
-  onChange: (operator: FilterRuleOperator) => void;
-  /** Size to render the component */
+  onChange: (operator: PropertyFilterRuleOperator) => void;
+  /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
   size?: "small" | "large";
 }
 
 /**
- * Component that renders [[FilterBuilderRuleRenderer]] operator selector.
+ * Component that renders [[PropertyFilterBuilderRuleRenderer]] operator selector.
  * @internal
  */
-export function FilterBuilderRuleOperator(
-  props: FilterBuilderRuleOperatorProps
+export function PropertyFilterBuilderRuleOperator(
+  props: PropertyFilterBuilderRuleOperatorProps
 ) {
   const { operator, property, onChange, size } = props;
 
   const availableOperators = React.useMemo(
-    () => getFilterOperators(property),
+    () => getPropertyFilterOperators(property),
     [property]
   );
   const selectedOperator =
@@ -52,7 +55,7 @@ export function FilterBuilderRuleOperator(
     () =>
       availableOperators.map((op) => ({
         value: op,
-        label: getFilterOperatorLabel(op),
+        label: getPropertyFilterOperatorLabel(op),
       })),
     [availableOperators]
   );
