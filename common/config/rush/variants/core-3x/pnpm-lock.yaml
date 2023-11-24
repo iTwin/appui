@@ -658,6 +658,7 @@ importers:
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~5.0.2
+      zustand: ^4.4.1
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons': 1.16.0
@@ -671,6 +672,7 @@ importers:
       react-error-boundary: 4.0.3_react@17.0.2
       rxjs: 7.8.1
       ts-key-enum: 2.0.12
+      zustand: 4.4.1_b4b4c799a5a2f4488606d88d938fa77d
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/appui-layout-react': link:../appui-layout-react
