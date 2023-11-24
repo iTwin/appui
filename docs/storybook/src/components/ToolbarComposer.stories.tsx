@@ -30,9 +30,18 @@ type PropsWithArgs = React.ComponentProps<typeof ToolbarComposer> & {
   newToolbars: boolean;
 };
 
+function StoryComponent(props: PropsWithArgs) {
+  const { newToolbars, ...other } = props;
+  React.useEffect(() => {
+    UiFramework.setPreviewFeatures({
+      newToolbars,
+    });
+  }, [newToolbars]);
+  return <ToolbarComposer {...other} />;
+}
+
 const meta = {
   title: "Components/ToolbarComposer",
-  component: ToolbarComposer,
   tags: ["autodocs"],
   args: {
     newToolbars: false,
@@ -43,13 +52,7 @@ const meta = {
     },
   },
   render: (props) => {
-    const { newToolbars, ...other } = props;
-    React.useEffect(() => {
-      UiFramework.setPreviewFeatures({
-        newToolbars,
-      });
-    }, [newToolbars]);
-    return <ToolbarComposer {...other} />;
+    return <StoryComponent {...props} />;
   },
 } satisfies Meta<PropsWithArgs>;
 
