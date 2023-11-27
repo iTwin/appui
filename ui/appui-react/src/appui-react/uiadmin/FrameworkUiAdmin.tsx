@@ -55,7 +55,15 @@ export interface KeyinEntry {
   isHistory?: boolean;
 }
 
-/** The UiAdmin controls various UI components and is callable from IModelApp.uiAdmin in the core-frontend package.
+/** Subclass of `UiAdmin` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
+ *
+ * This implementation uses themed react components that blends in AppUI look and feel.
+ *
+ * ```ts
+ * await IModelApp.startup({
+ *   uiAdmin: new FrameworkUiAdmin()
+ * });
+ * ```
  * @public
  */
 export class FrameworkUiAdmin extends UiAdmin {
