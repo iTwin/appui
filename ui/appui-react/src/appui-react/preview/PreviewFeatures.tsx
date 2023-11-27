@@ -6,7 +6,11 @@
  * @module Utilities
  */
 
-import type { KnownPreviewLayoutFeatures } from "@itwin/appui-layout-react";
+import {
+  type KnownPreviewLayoutFeatures,
+  setPreviewLayoutFeatures,
+} from "@itwin/appui-layout-react";
+import * as React from "react";
 import { create } from "zustand";
 
 /** List of known preview features. */
@@ -39,7 +43,7 @@ export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
  * @returns object containing only known features
  * @internal
  */
-export function trimToKnownFeaturesOnly(previewFeatures: PreviewFeatures) {
+function trimToKnownFeaturesOnly(previewFeatures: PreviewFeatures) {
   const knownFeatureKeys = Object.keys(knownFeaturesObject);
   const [knownFeatures, unknownFeatures] = Object.entries(
     previewFeatures
@@ -78,7 +82,7 @@ interface PreviewFeaturesState {
  * Use `usePreviewFeaturesStore.subscribe()` to subscribe to changes to the preview features set from a non-react component.
  * @internal
  */
-export const usePreviewFeaturesStore = create<PreviewFeaturesState>((set) => {
+const usePreviewFeaturesStore = create<PreviewFeaturesState>((set) => {
   return {
     previewFeatures: {},
     setPreviewFeatures: (newPreviewFeatures: PreviewFeatures) => {
@@ -93,4 +97,51 @@ export const usePreviewFeaturesStore = create<PreviewFeaturesState>((set) => {
  */
 export function usePreviewFeatures() {
   return usePreviewFeaturesStore((state) => state.previewFeatures);
+}
+
+/** Props for PreviewFeaturesProvider.
+ * @beta
+ */
+export interface PreviewFeaturesProviderProps {
+  children?: React.ReactNode;
+  features?: PreviewFeatures;
+}
+
+/** Set which preview features are enabled. These features are not yet ready for production use nor have
+ * a proper API defined yet.
+ * The available set of features are defined in the [[PreviewFeatures]] interface.
+ *
+ * This component should wrap the Provider component.
+ *
+ * ```tsx
+ * <PreviewFeaturesProvider features={{ enableMaximizedFloatingWidget: true }}>
+ *   <Provider store={UiFramework.store}>
+ *    [...]
+ *     <ConfigurableUIContent />
+ *    [/...]
+ *   </Provider>
+ * </PreviewFeaturesProvider>
+ * @beta
+ */
+export function PreviewFeaturesProvider({
+  children,
+  features,
+}: PreviewFeaturesProviderProps) {
+  const setPreviewFeatures = usePreviewFeaturesStore(
+    (state) => state.setPreviewFeatures
+  );
+  React.useEffect(() => {
+    setPreviewFeatures(features ?? {});
+    setPreviewLayoutFeatures(features ?? {});
+  }, [features, setPreviewFeatures]);
+
+  // Clear preview features when unmounting.
+  React.useEffect(
+    () => () => {
+      setPreviewFeatures({});
+      setPreviewLayoutFeatures({});
+    },
+    [setPreviewFeatures]
+  );
+  return <>{children}</>;
 }
