@@ -10,9 +10,9 @@ import {
   StandardTypeNames,
 } from "@itwin/appui-abstract";
 import {
-  FilterRuleGroupOperator,
-  Filter,
-  FilterRuleOperator,
+  PropertyFilterRuleGroupOperator,
+  PropertyFilter,
+  PropertyFilterRuleOperator,
 } from "@itwin/components-react";
 import { AppUiDecorator } from "../AppUiDecorator";
 import { FilterBuilderStory } from "./FilterBuilder";
@@ -82,19 +82,19 @@ function createProperties(): PropertyDescription[] {
   ];
 }
 
-function createInitialFilter(): Filter {
+function createInitialFilter(): PropertyFilter {
   const properties = createProperties();
   return {
-    operator: FilterRuleGroupOperator.Or,
+    operator: PropertyFilterRuleGroupOperator.Or,
     rules: [
       {
         property: properties[1],
-        operator: FilterRuleOperator.Less,
+        operator: PropertyFilterRuleOperator.Less,
         value: { valueFormat: PropertyValueFormat.Primitive, value: 123 },
       },
       {
         property: properties[0],
-        operator: FilterRuleOperator.Like,
+        operator: PropertyFilterRuleOperator.Like,
       },
     ],
   };
