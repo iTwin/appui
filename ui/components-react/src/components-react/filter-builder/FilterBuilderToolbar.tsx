@@ -6,6 +6,7 @@ import React from "react";
 import cx from "classnames";
 import { Flex, type FlexProps, IconButton } from "@itwin/itwinui-react";
 import { SvgAdd, SvgDelete } from "@itwin/itwinui-icons-react";
+import { UiComponents } from "../UiComponents";
 
 interface PropertyFilterBuilderToolbarProps {
   size?: "small" | "large";
@@ -31,7 +32,7 @@ export const PropertyFilterBuilderToolbar = (
       <IconButton
         size={size}
         data-testid="fb-add-rule-button"
-        label="Add"
+        label={UiComponents.translate("PropertyFilterBuilder.add")}
         styleType="borderless"
         onClick={() => onAddChild?.()}
       >
@@ -40,7 +41,7 @@ export const PropertyFilterBuilderToolbar = (
       <IconButton
         size={size}
         data-testid="fb-remove-rule-button"
-        label="Delete"
+        label={UiComponents.translate("PropertyFilterBuilder.delete")}
         styleType="borderless"
         onClick={() => onDelete?.()}
       >

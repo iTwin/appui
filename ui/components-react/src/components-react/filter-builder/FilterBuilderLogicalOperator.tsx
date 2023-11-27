@@ -6,6 +6,7 @@ import React from "react";
 import cx from "classnames";
 import { Anchor } from "@itwin/itwinui-react";
 import "./FilterBuilderLogicalOperator.scss";
+import { UiComponents } from "../UiComponents";
 
 type Operator = "And" | "Or";
 
@@ -41,7 +42,7 @@ export const PropertyFilterBuilderLogicalOperator = (
       {...rest}
     >
       {undefined === operator ? (
-        <span>Group</span>
+        <span>{UiComponents.translate("PropertyFilterBuilder.group")}</span>
       ) : isLinkDisabled ? (
         <span>{operator}</span>
       ) : (
