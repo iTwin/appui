@@ -318,6 +318,7 @@ export class UiFramework {
   /** Un-registers the UiFramework internationalization service namespace */
   public static terminate() {
     UiFramework._unregisterPreviewLayoutFeaturesHandler();
+    setPreviewLayoutFeatures({});
     UiFramework._store = undefined;
     UiFramework._frameworkStateKeyInStore = "frameworkState";
     if (StateManager.isInitialized(true)) StateManager.clearStore();
