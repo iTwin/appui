@@ -15,7 +15,6 @@ import {
   ConfigurableUiContent,
   FrameworkToolAdmin,
   FrontstageProvider,
-  StateManager,
   ThemeManager,
   UiFramework,
   UiItemsManager,
@@ -36,6 +35,7 @@ import {
 } from "@itwin/core-frontend";
 import { FrontendIModelsAccess } from "@itwin/imodels-access-frontend";
 import { IModelsClient } from "@itwin/imodels-client-authoring";
+import { ProgressLinear } from "@itwin/itwinui-react";
 import { createFrontstageProvider } from "./Utils";
 import { DemoIModel, useDemoIModel } from "../.storybook/addons/DemoIModel";
 
@@ -119,7 +119,8 @@ export function AppUiStory(props: AppUiStoryProps) {
       cleanup();
     };
   }, [props, demoIModel]);
-  if (!initialized) return null;
+  if (!initialized)
+    return <ProgressLinear indeterminate labels={["Getting things ready!"]} />;
   return <Initialized {...props} />;
 }
 
@@ -134,7 +135,7 @@ function Initialized(props: AppUiStoryProps) {
   }, [props.frontstageProviders]);
   return (
     <>
-      <Provider store={StateManager.store}>
+      <Provider store={UiFramework.store}>
         <ThemeManager>
           {props.children}
           <ConfigurableUiContent
