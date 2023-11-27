@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import { UiFramework } from "@itwin/appui-react";
 import {
-  FilterBuilderProps,
-  FilterBuilderRenderer,
-  useFilterBuilder,
+  PropertyFilterBuilderProps,
+  PropertyFilterBuilderRenderer,
+  usePropertyFilterBuilder,
 } from "@itwin/components-react";
 import { IModelApp } from "@itwin/core-frontend";
 import React from "react";
@@ -20,7 +20,7 @@ export function FilterBuilderStory(props: FilterBuilderComponentProps) {
 }
 
 type FilterBuilderComponentProps = Pick<
-  FilterBuilderProps,
+  PropertyFilterBuilderProps,
   "properties" | "initialFilter"
 >;
 
@@ -28,11 +28,11 @@ function FilterBuilderComponent({
   initialFilter,
   ...props
 }: FilterBuilderComponentProps) {
-  const { rootGroup, actions } = useFilterBuilder({ initialFilter });
+  const { rootGroup, actions } = usePropertyFilterBuilder({ initialFilter });
 
   return (
     <div style={{ padding: "10px" }}>
-      <FilterBuilderRenderer
+      <PropertyFilterBuilderRenderer
         {...props}
         actions={actions}
         rootGroup={rootGroup}
