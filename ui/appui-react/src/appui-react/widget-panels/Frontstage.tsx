@@ -82,6 +82,7 @@ import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import classNames from "classnames";
+import type { FrameworkState } from "../redux/FrameworkState";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -214,22 +215,30 @@ export function ActiveFrontstageDefProvider({
   const labels = useLabels();
   const uiIsVisible = useUiVisibility();
   const showWidgetIcon = useSelector((state: FrameworkRootState) => {
-    const frameworkState = (state as any)[UiFramework.frameworkStateKey];
+    const frameworkState: FrameworkState = (state as any)[
+      UiFramework.frameworkStateKey
+    ];
     return !!frameworkState.configurableUiState.showWidgetIcon;
   });
   const autoCollapseUnpinnedPanels = useSelector(
     (state: FrameworkRootState) => {
-      const frameworkState = (state as any)[UiFramework.frameworkStateKey];
+      const frameworkState: FrameworkState = (state as any)[
+        UiFramework.frameworkStateKey
+      ];
       return !!frameworkState.configurableUiState.autoCollapseUnpinnedPanels;
     }
   );
   const animateToolSettings = useSelector((state: FrameworkRootState) => {
-    const frameworkState = (state as any)[UiFramework.frameworkStateKey];
+    const frameworkState: FrameworkState = (state as any)[
+      UiFramework.frameworkStateKey
+    ];
     return !!frameworkState.configurableUiState.animateToolSettings;
   });
   const useToolAsToolSettingsLabel = useSelector(
     (state: FrameworkRootState) => {
-      const frameworkState = (state as any)[UiFramework.frameworkStateKey];
+      const frameworkState: FrameworkState = (state as any)[
+        UiFramework.frameworkStateKey
+      ];
       return !!frameworkState.configurableUiState.useToolAsToolSettingsLabel;
     }
   );
@@ -1075,6 +1084,11 @@ export function useSaveFrontstageSettings(
   }, [uiSettingsStorage]);
   React.useEffect(() => {
     return () => {
+      pendingSave.current();
+    };
+  }, [frontstageDef]);
+  React.useEffect(() => {
+    return () => {
       saveSetting.cancel();
     };
   }, [saveSetting]);
@@ -1087,11 +1101,6 @@ export function useSaveFrontstageSettings(
       saveSetting(frontstageDef, store.getState());
     });
   }, [saveSetting, frontstageDef, store]);
-  React.useEffect(() => {
-    return () => {
-      pendingSave.current();
-    };
-  }, [frontstageDef]);
 }
 
 /** @internal */

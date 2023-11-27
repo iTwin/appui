@@ -132,12 +132,14 @@ export function useDragWidget(args: UseDragWidgetArgs) {
     };
   }, [widgetId]);
   const handleDragStart = React.useCallback<DragEventHandler>(
-    (item, info) => {
+    (_item, info) => {
       onDragStart &&
         onDragStart(
           (id) => {
-            item.id = id;
-            dragManager.handleDragUpdate();
+            dragManager.handleDragUpdate({
+              type: "widget",
+              id,
+            });
           },
           info.initialPointerPosition,
           info.pointerPosition
@@ -704,10 +706,11 @@ export class DragManager {
     );
   }
 
-  public handleDragUpdate() {
+  public handleDragUpdate(item: DragItem) {
     // istanbul ignore next
     if (!this._dragged) return;
 
+    this._dragged.item = item;
     this._onDragUpdateEmitter.raiseEvent(
       this._dragged.item,
       this._dragged.info,

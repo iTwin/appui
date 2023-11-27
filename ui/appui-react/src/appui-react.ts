@@ -116,7 +116,7 @@ export * from "./appui-react/popup/PopupManager";
 export * from "./appui-react/popup/PositionPopup";
 export * from "./appui-react/popup/ToolbarPopup";
 
-export { PreviewFeatures } from "./appui-react/preview/PreviewFeatures";
+export type { PreviewFeatures } from "./appui-react/preview/PreviewFeatures";
 
 export * from "./appui-react/redux/SessionState";
 export * from "./appui-react/redux/StateManager";

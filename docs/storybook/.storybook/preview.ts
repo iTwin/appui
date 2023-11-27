@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Preview } from "@storybook/react";
+import { withDemoIModel, demoIModelGlobalType } from "./addons/DemoIModel";
 
 const preview: Preview = {
   parameters: {
@@ -14,6 +15,10 @@ const preview: Preview = {
       },
     },
   },
+  globalTypes: {
+    iModel: demoIModelGlobalType,
+  },
+  decorators: [withDemoIModel],
 };
 
 export default preview;

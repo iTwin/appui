@@ -65,7 +65,10 @@ import {
   SyncUiEventDispatcher,
   SyncUiEventId,
 } from "./syncui/SyncUiEventDispatcher";
-import type { PreviewFeatures } from "./preview/PreviewFeatures";
+import {
+  type PreviewFeatures,
+  usePreviewFeaturesStore,
+} from "./preview/PreviewFeatures";
 
 // cSpell:ignore Mobi
 
@@ -99,8 +102,7 @@ export interface TrackingTime {
   endTime: Date;
 }
 
-/**
- * Manages the Redux store, localization service and iModel, Project and Login services for the ui-framework package.
+/** Main entry point to configure and interact with the features provided by the AppUi-react package.
  * @public
  */
 export class UiFramework {
@@ -865,27 +867,20 @@ export class UiFramework {
     return contextMenu !== null && contextMenu !== undefined;
   }
 
-  /**
-   * Set which preview features are enabled. These features are not yet ready for production use nor have
+  /** Set which preview features are enabled. These features are not yet ready for production use nor have
    * a proper API defined yet.
    * The available set of features are defined in the [[PreviewFeatures]] interface.
    * @param features Set of feature to enable.
    * @beta
    */
   public static setPreviewFeatures(features: PreviewFeatures) {
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetPreviewFeatures,
-      features
-    );
+    return usePreviewFeaturesStore.getState().setPreviewFeatures(features);
   }
 
-  /**
-   * Get which preview features are enabled. These features are not yet ready for production use.
+  /** Get which preview features are enabled. These features are not yet ready for production use.
    * @beta
    */
   public static get previewFeatures(): PreviewFeatures {
-    return (
-      UiFramework.frameworkState?.configurableUiState.previewFeatures ?? {}
-    );
+    return usePreviewFeaturesStore.getState().previewFeatures;
   }
 }

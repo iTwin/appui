@@ -27,9 +27,15 @@ import { UiFramework } from "../UiFramework";
 import { MessageManager } from "./MessageManager";
 import { PointerMessage } from "./Pointer";
 
-/**
- * The AppNotificationManager class is a subclass of NotificationManager in @itwin/core-frontend.
- * This implementation uses the iTwin.js UI library to display alerts, messages, prompts and tooltips.
+/** Subclass of `NotificationManager` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
+ *
+ * This implementation uses themed react components to display alerts, messages, prompts and tooltips.
+ *
+ * ```ts
+ * await IModelApp.startup({
+ *   notifications: new AppNotificationManager()
+ * });
+ * ```
  * @public
  */
 export class AppNotificationManager extends NotificationManager {
