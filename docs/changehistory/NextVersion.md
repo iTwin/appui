@@ -90,6 +90,7 @@ Table of contents:
 
 - `AppNotificationManager` no longer requires `StatusBar` to be rendered in the active frontstage to show messages.
 - Popout widgets will now popout to `preferredFloatingWidgetSize`. Will popout to container size if `preferredFloatingWidgetSize` is not set.
+- Popout widgets will now contain a `WidgetContentContainer` instead of a DOM Node. This enables widgets to save work when popped out or sent back.
 
 ### Fixes
 
