@@ -220,7 +220,7 @@ test.describe("popout widget", () => {
       WidgetState.Floating
     );
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
-    expect(mountCount).toBe(2);
+    expect(mountCount).toBe(1);
     expect(unMountCount).toBe(1);
   });
 });
