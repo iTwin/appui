@@ -3138,6 +3138,7 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
     onCheckboxStateChanged({ stateChanges, }: TreeCheckboxStateChangeEventArgs): Subscription | undefined;
     onDelayedNodeClick({ nodeId }: TreeNodeEventArgs): void;
     onNodeCollapsed({ nodeId }: TreeNodeEventArgs): void;
+    onNodeDoubleClick(_: TreeNodeEventArgs): void;
     onNodeEditorActivated({ nodeId }: TreeNodeEventArgs): void;
     onNodeExpanded({ nodeId }: TreeNodeEventArgs): void;
     onSelectionModified({ modifications, }: TreeSelectionModificationEventArgs): Subscription | undefined;
