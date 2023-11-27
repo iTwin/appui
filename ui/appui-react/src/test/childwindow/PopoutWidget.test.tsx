@@ -13,7 +13,7 @@ import {
   createNineZoneState,
   NineZone,
 } from "@itwin/appui-layout-react";
-//
+
 describe("PopoutWidget", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
