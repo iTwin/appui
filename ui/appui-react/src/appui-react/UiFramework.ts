@@ -102,8 +102,7 @@ export interface TrackingTime {
   endTime: Date;
 }
 
-/**
- * Manages the Redux store, localization service and iModel, Project and Login services for the ui-framework package.
+/** Main entry point to configure and interact with the features provided by the AppUi-react package.
  * @public
  */
 export class UiFramework {
