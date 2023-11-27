@@ -4,6 +4,8 @@ Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
   - [Additions](#additions)
+    - [UiItemsProvider improvements](#uiitemsprovider-improvements)
+    - [Preview features](#preview-features)
   - [Changes](#changes)
   - [Fixes](#fixes)
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
@@ -11,6 +13,7 @@ Table of contents:
 - [@itwin/components-react](#itwincomponents-react)
   - [Fixes](#fixes-2)
 - [@itwin/core-react](#itwincore-react)
+  - [Changes](#changes-1)
   - [Fixes](#fixes-3)
 
 ## @itwin/appui-react
@@ -114,6 +117,7 @@ Table of contents:
 ### Fixes
 
 - Fixed `useAsyncValue` hook to work in React 18 strict mode.
+- Fixed `MultiLineTextPropertyValueRenderer` to support Navigation and Double `PropertyRecords`.
 
 ## @itwin/core-react
 
