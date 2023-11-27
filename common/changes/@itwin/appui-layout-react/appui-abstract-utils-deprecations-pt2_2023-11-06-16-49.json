@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-layout-react",
+      "comment": "No longer consume SpecialKey from appui-abstract; use icon path directly instead of IconSpecUtilities",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-layout-react"
+}

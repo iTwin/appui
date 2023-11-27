@@ -9,8 +9,9 @@
 import "./Dialog.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
-import { DialogButtonType, SpecialKey } from "@itwin/appui-abstract";
+import { DialogButtonType } from "@itwin/appui-abstract";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
 import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
@@ -377,11 +378,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   }
 
   private _handleKeyUp = (event: KeyboardEvent) => {
-    if (
-      event.key === SpecialKey.Escape &&
-      this.props.opened &&
-      this.props.onEscape
-    ) {
+    if (event.key === Key.Escape && this.props.opened && this.props.onEscape) {
       this.props.onEscape();
     }
   };

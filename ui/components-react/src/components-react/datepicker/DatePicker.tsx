@@ -8,11 +8,10 @@
 
 import * as React from "react";
 import classnames from "classnames";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import { UiComponents } from "../UiComponents";
 import { Icon } from "@itwin/core-react";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
-
 import "./DatePicker.scss";
 
 function isSameDay(a: Date, b: Date) {
@@ -227,7 +226,7 @@ export function DatePicker(props: DatePickerProps) {
 
   const handleCalendarKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLUListElement>) => {
-      if (event.key === SpecialKey.ArrowDown) {
+      if (event.key === Key.ArrowDown) {
         const focusedDayIndex = days.findIndex((day) =>
           isSameDay(day, focusedDay)
         );
@@ -235,7 +234,7 @@ export function DatePicker(props: DatePickerProps) {
         else setFocusedDay(days[focusedDayIndex + 7]);
         event.preventDefault();
       }
-      if (event.key === SpecialKey.ArrowUp) {
+      if (event.key === Key.ArrowUp) {
         const focusedDayIndex = days.findIndex((day) =>
           isSameDay(day, focusedDay)
         );
@@ -244,7 +243,7 @@ export function DatePicker(props: DatePickerProps) {
         else setFocusedDay(days[focusedDayIndex - 7]);
         event.preventDefault();
       }
-      if (event.key === SpecialKey.ArrowLeft) {
+      if (event.key === Key.ArrowLeft) {
         const focusedDayIndex = days.findIndex((day) =>
           isSameDay(day, focusedDay)
         );
@@ -252,7 +251,7 @@ export function DatePicker(props: DatePickerProps) {
         if (focusedDayIndex - 1 >= 0) setFocusedDay(days[focusedDayIndex - 1]);
         event.preventDefault();
       }
-      if (event.key === SpecialKey.ArrowRight) {
+      if (event.key === Key.ArrowRight) {
         const focusedDayIndex = days.findIndex((day) =>
           isSameDay(day, focusedDay)
         );
@@ -260,7 +259,7 @@ export function DatePicker(props: DatePickerProps) {
         if (focusedDayIndex + 1 <= 41) setFocusedDay(days[focusedDayIndex + 1]);
         event.preventDefault();
       }
-      if (event.key === SpecialKey.Enter || event.key === SpecialKey.Space) {
+      if (event.key === Key.Enter || event.key === " ") {
         handleOnDayChange(focusedDay)(); // NB: immediately call returned handler function
         event.preventDefault();
       }

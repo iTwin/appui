@@ -6,11 +6,11 @@
  * @module Tools
  */
 
+import { Key } from "ts-key-enum";
 import { ToolAdmin } from "@itwin/core-frontend";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
 
-/** UiFramework implementation of ToolAdmin.
+/** Subclass of `ToolAdmin` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
  *
  * Enable processing of shortcut keys registered to
  * [[UiFramework.keyboardShortcuts]] when focus is set to Home.
@@ -31,10 +31,7 @@ export class FrameworkToolAdmin extends ToolAdmin {
     let handled = false;
 
     if (wentDown && !UiFramework.isContextMenuOpen) {
-      if (
-        UiFramework.keyboardShortcuts.isFocusOnHome &&
-        e.key !== SpecialKey.Escape
-      ) {
+      if (UiFramework.keyboardShortcuts.isFocusOnHome && e.key !== Key.Escape) {
         UiFramework.keyboardShortcuts.processKey(
           e.key,
           e.altKey,

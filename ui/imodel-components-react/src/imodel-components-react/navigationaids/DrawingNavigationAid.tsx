@@ -10,6 +10,7 @@ import "./DrawingNavigationAid.scss";
 import classnames from "classnames";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { Key } from "ts-key-enum";
 import {
   Constant,
   Geometry,
@@ -26,7 +27,6 @@ import type {
   ViewState,
 } from "@itwin/core-frontend";
 import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
@@ -597,7 +597,7 @@ export class DrawingNavigationAid extends React.Component<
 
   private _handleKeyUp = (event: React.KeyboardEvent) => {
     // istanbul ignore else
-    if (event.key === SpecialKey.Escape && this.state.mode === MapMode.Opened) {
+    if (event.key === Key.Escape && this.state.mode === MapMode.Opened) {
       this._closeLargeMap();
     }
   };

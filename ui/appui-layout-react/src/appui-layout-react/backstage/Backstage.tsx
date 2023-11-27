@@ -9,7 +9,7 @@
 import "./Backstage.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
 import type { SafeAreaInsets } from "../base/SafeAreaInsets";
 import { SafeAreaInsetsHelpers } from "../base/SafeAreaInsets";
@@ -93,7 +93,7 @@ export class Backstage extends React.PureComponent<BackstageProps> {
   };
 
   private _onEsc = (event: KeyboardEvent): void => {
-    if (this.props.isOpen && event.key === SpecialKey.Escape) {
+    if (this.props.isOpen && event.key === Key.Escape) {
       this._onClose();
     }
   };

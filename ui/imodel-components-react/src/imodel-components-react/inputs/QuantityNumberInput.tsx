@@ -9,8 +9,8 @@
 import "./QuantityNumberInput.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { Icon } from "@itwin/core-react";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type {
   QuantityFormatsChangedArgs,
   QuantityTypeArg,
@@ -384,16 +384,16 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
-      if (event.key === SpecialKey.Enter) {
+      if (event.key === Key.Enter) {
         updateValueFromString(event.currentTarget.value);
         event.preventDefault();
-      } else if (event.key === SpecialKey.Escape) {
+      } else if (event.key === Key.Escape) {
         setFormattedValue(formatValue(rawValueRef.current));
         event.preventDefault();
-      } else if (event.key === SpecialKey.ArrowDown) {
+      } else if (event.key === Key.ArrowDown) {
         applyStep(false);
         event.preventDefault();
-      } else if (event.key === SpecialKey.ArrowUp) {
+      } else if (event.key === Key.ArrowUp) {
         applyStep(true);
         event.preventDefault();
       }

@@ -82,6 +82,7 @@ import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import classNames from "classnames";
+import type { FrameworkState } from "../redux/FrameworkState";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -214,22 +215,30 @@ export function ActiveFrontstageDefProvider({
   const labels = useLabels();
   const uiIsVisible = useUiVisibility();
   const showWidgetIcon = useSelector((state: FrameworkRootState) => {
-    const frameworkState = (state as any)[UiFramework.frameworkStateKey];
+    const frameworkState: FrameworkState = (state as any)[
+      UiFramework.frameworkStateKey
+    ];
     return !!frameworkState.configurableUiState.showWidgetIcon;
   });
   const autoCollapseUnpinnedPanels = useSelector(
     (state: FrameworkRootState) => {
-      const frameworkState = (state as any)[UiFramework.frameworkStateKey];
+      const frameworkState: FrameworkState = (state as any)[
+        UiFramework.frameworkStateKey
+      ];
       return !!frameworkState.configurableUiState.autoCollapseUnpinnedPanels;
     }
   );
   const animateToolSettings = useSelector((state: FrameworkRootState) => {
-    const frameworkState = (state as any)[UiFramework.frameworkStateKey];
+    const frameworkState: FrameworkState = (state as any)[
+      UiFramework.frameworkStateKey
+    ];
     return !!frameworkState.configurableUiState.animateToolSettings;
   });
   const useToolAsToolSettingsLabel = useSelector(
     (state: FrameworkRootState) => {
-      const frameworkState = (state as any)[UiFramework.frameworkStateKey];
+      const frameworkState: FrameworkState = (state as any)[
+        UiFramework.frameworkStateKey
+      ];
       return !!frameworkState.configurableUiState.useToolAsToolSettingsLabel;
     }
   );
@@ -1045,6 +1054,7 @@ export function useSaveFrontstageSettings(
   store: LayoutStore
 ) {
   const uiSettingsStorage = useUiStateStorageHandler();
+  const pendingSave = React.useRef(() => {});
   const saveSetting = React.useMemo(() => {
     const debounced = debounce(
       async (frontstage: FrontstageDef, state: NineZoneState) => {
@@ -1069,8 +1079,14 @@ export function useSaveFrontstageSettings(
       debounced(frontstage, state);
     };
     save.cancel = debounced.cancel;
+    pendingSave.current = debounced.immediate;
     return save;
   }, [uiSettingsStorage]);
+  React.useEffect(() => {
+    return () => {
+      pendingSave.current();
+    };
+  }, [frontstageDef]);
   React.useEffect(() => {
     return () => {
       saveSetting.cancel();
@@ -1103,16 +1119,29 @@ function debounce<T extends (...args: any[]) => any>(
   duration: number
 ) {
   let timeout: number | undefined;
+  let handler: () => any | undefined;
   const debounced = (...args: Parameters<T>) => {
-    const handler = () => {
+    handler = () => {
       timeout = undefined;
       return func(...args);
     };
     window.clearTimeout(timeout);
     timeout = window.setTimeout(handler, duration);
   };
+  /**
+   * Will cancel the timeout without running the function.
+   */
   debounced.cancel = () => {
     window.clearTimeout(timeout);
+    timeout = undefined;
+  };
+  /**
+   * If not already ran, will run the function immediately and remove the timeout.
+   */
+  debounced.immediate = () => {
+    if (timeout === undefined) return;
+    debounced.cancel();
+    handler?.();
   };
   return debounced;
 }

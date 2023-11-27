@@ -7,6 +7,7 @@ import { expect } from "chai";
 import { fireEvent, render, screen } from "@testing-library/react";
 import sinon from "sinon";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type {
   BasePropertyEditorParams,
   InputEditorSizeParams,
@@ -14,7 +15,6 @@ import type {
 } from "@itwin/appui-abstract";
 import {
   PropertyEditorParamTypes,
-  SpecialKey,
   StandardEditorNames,
 } from "@itwin/appui-abstract";
 import { NumericInputEditor } from "../../components-react/editors/NumericInputEditor";
@@ -198,7 +198,7 @@ describe("<NumericInputEditor />", () => {
     const inputNode = wrapper.container.querySelector("input");
     expect(inputNode).not.to.be.null;
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.calledOnce).to.be.true;
   });
@@ -261,11 +261,11 @@ describe("<NumericInputEditor />", () => {
     const inputNode = renderedComponent.container.querySelector("input");
     expect(inputNode).not.to.be.null;
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.called).to.be.false;
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Escape });
+    fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCancel.calledOnce).to.be.true;
 

@@ -9,7 +9,8 @@
 import "./ContextMenu.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { ConditionalBooleanValue, SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
 import { ContextMenuDirection } from "./ContextMenuDirection";
@@ -468,7 +469,7 @@ export class ContextMenu extends React.PureComponent<
       }
     }
 
-    if (event.key === SpecialKey.ArrowLeft) {
+    if (event.key === Key.ArrowLeft) {
       event.stopPropagation();
       if (this.props.parentMenu && this.props.parentSubmenu) {
         this.props.parentSubmenu.close();
@@ -477,20 +478,20 @@ export class ContextMenu extends React.PureComponent<
       if (this.props.onEsc) this.props.onEsc(event);
     }
 
-    if (event.key === SpecialKey.Escape) {
+    if (event.key === Key.Escape) {
       // istanbul ignore else
       if (this.props.onEsc) this.props.onEsc(event);
     }
 
     if (
-      (event.key === SpecialKey.Enter || event.key === SpecialKey.ArrowRight) &&
+      (event.key === Key.Enter || event.key === Key.ArrowRight) &&
       this._selectedElement
     ) {
       event.stopPropagation();
 
       // istanbul ignore else
       if (
-        event.key === SpecialKey.Enter ||
+        event.key === Key.Enter ||
         /* istanbul ignore next */ this._selectedElement instanceof
           ContextSubMenu
       ) {
@@ -500,19 +501,16 @@ export class ContextMenu extends React.PureComponent<
     }
 
     let { selectedIndex } = this.state;
-    if (
-      event.key === SpecialKey.ArrowUp ||
-      event.key === SpecialKey.ArrowDown
-    ) {
+    if (event.key === Key.ArrowUp || event.key === Key.ArrowDown) {
       event.stopPropagation();
       if (selectedIndex === -1) {
         selectedIndex = 0;
       } else {
-        if (event.key === SpecialKey.ArrowUp) {
+        if (event.key === Key.ArrowUp) {
           if (this.state.selectedIndex === 0) selectedIndex = this._length - 1;
           else selectedIndex--;
         }
-        if (event.key === SpecialKey.ArrowDown) {
+        if (event.key === Key.ArrowDown) {
           if (this.state.selectedIndex === this._length - 1) selectedIndex = 0;
           else selectedIndex++;
         }

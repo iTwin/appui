@@ -3,7 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { getClassName, UiError } from "@itwin/appui-abstract";
+import { UiError } from "@itwin/appui-abstract";
+import { getObjectClassName } from "@itwin/core-react";
 import { UiComponents } from "../UiComponents";
 import React from "react";
 
@@ -24,7 +25,7 @@ export function createContextWithMandatoryProvider<T>(
     if (value === undefined) {
       throw new UiError(
         UiComponents.loggerCategory(ConsumingComponent),
-        `'${getClassName(
+        `'${getObjectClassName(
           ConsumingComponent
         )}' expects to be wrapped by a '${contextName}' provider.`
       );

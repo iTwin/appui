@@ -14,7 +14,6 @@ import type {
   AbstractToolbarProps,
   DialogLayoutDataProvider,
   DialogProps,
-  IMatch,
   OnCancelFunc,
   OnItemExecutedFunc,
   OnNumberCommitFunc,
@@ -27,6 +26,7 @@ import { RelativePosition, UiAdmin } from "@itwin/appui-abstract";
 import { AccuDrawPopupManager } from "../accudraw/AccuDrawPopupManager";
 import { CursorInformation } from "../cursor/CursorInformation";
 import { PopupManager } from "../popup/PopupManager";
+import type { IMatch } from "../utils/matchesWords";
 import type { CursorMenuData } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
 import { UiDataProvidedDialog } from "../dialog/UiDataProvidedDialog";
@@ -55,7 +55,15 @@ export interface KeyinEntry {
   isHistory?: boolean;
 }
 
-/** The UiAdmin controls various UI components and is callable from IModelApp.uiAdmin in the core-frontend package.
+/** Subclass of `UiAdmin` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
+ *
+ * This implementation uses themed react components that blends in AppUI look and feel.
+ *
+ * ```ts
+ * await IModelApp.startup({
+ *   uiAdmin: new FrameworkUiAdmin()
+ * });
+ * ```
  * @public
  */
 export class FrameworkUiAdmin extends UiAdmin {

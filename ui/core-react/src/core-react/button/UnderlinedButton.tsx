@@ -9,7 +9,7 @@
 import "./UnderlinedButton.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 
 /** Properties for the [[UnderlinedButton]] React component
  * @public
@@ -36,8 +36,8 @@ export function UnderlinedButton(props: UnderlinedButtonProps) {
       const key = event.key;
 
       switch (key) {
-        case SpecialKey.Enter:
-        case SpecialKey.Space:
+        case Key.Enter:
+        case " ":
           props.onActivate && props.onActivate();
           break;
       }

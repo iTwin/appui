@@ -7,8 +7,8 @@ import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
 import { fireEvent, render, waitFor } from "@testing-library/react";
+import { Key } from "ts-key-enum";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { EnumButtonGroupEditor } from "../../components-react/editors/EnumButtonGroupEditor";
@@ -161,7 +161,7 @@ describe("<EnumButtonGroupEditor />", () => {
       .be.null;
     const greenButton = renderedComponent.getByTestId("Green");
 
-    fireEvent.keyDown(greenButton, { key: SpecialKey.Enter });
+    fireEvent.keyDown(greenButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.calledOnce).to.be.false;
 

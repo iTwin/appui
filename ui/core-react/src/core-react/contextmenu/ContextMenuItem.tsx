@@ -8,8 +8,9 @@
 
 import * as React from "react";
 import classnames from "classnames";
+import { Key } from "ts-key-enum";
 import type { BadgeType } from "@itwin/appui-abstract";
-import { ConditionalBooleanValue, SpecialKey } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props";
 import type { ContextMenu } from "./ContextMenu";
 import { BadgeUtilities } from "../badge/BadgeUtilities";
@@ -208,7 +209,7 @@ export class ContextMenuItem extends React.PureComponent<
   private _handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
     const isDisabled = ConditionalBooleanValue.getValue(this.props.disabled);
     if (
-      event.key === SpecialKey.Enter &&
+      event.key === Key.Enter &&
       this.props.onSelect !== undefined &&
       !isDisabled
     ) {

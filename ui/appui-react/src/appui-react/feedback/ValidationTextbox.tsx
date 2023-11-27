@@ -9,7 +9,7 @@
 import "./ValidationTextbox.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
 import { MessageManager } from "../messages/MessageManager";
 import { Input } from "@itwin/itwinui-react";
@@ -166,11 +166,11 @@ export class ValidationTextbox extends React.PureComponent<
     this.processValidateText(event.target as HTMLInputElement);
 
     switch (event.key) {
-      case SpecialKey.Escape:
+      case Key.Escape:
         // istanbul ignore else
         if (this.props.onEscPressed) this.props.onEscPressed();
         break;
-      case SpecialKey.Enter:
+      case Key.Enter:
         // istanbul ignore else
         if (this.props.onEnterPressed) this.props.onEnterPressed();
         break;

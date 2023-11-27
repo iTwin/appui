@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
+import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { ContentDialog, UiFramework } from "@itwin/appui-react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import * as React from "react";
@@ -12,8 +12,7 @@ import panoramaconSvg from "@bentley/icons-generic/icons/panorama.svg";
 export class OpenSynchronizedViewTool extends Tool {
   private static _counter = 0;
   public static override toolId = "OpenViewDialog";
-  public static override iconSpec =
-    IconSpecUtilities.createWebComponentIconSpec(panoramaconSvg);
+  public static override iconSpec = panoramaconSvg;
   public static get dialogId(): string {
     return `ui-test-app:popup-view-dialog-${OpenSynchronizedViewTool._counter}`;
   }

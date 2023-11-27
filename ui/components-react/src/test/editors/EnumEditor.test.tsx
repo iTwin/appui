@@ -7,7 +7,7 @@ import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { EnumEditor } from "../../components-react/editors/EnumEditor";
 import TestUtils, {
@@ -76,7 +76,7 @@ describe("<EnumEditor />", () => {
     const selectNode = wrapper.getByTestId("components-select-editor");
     expect(selectNode).not.to.be.null;
 
-    fireEvent.keyDown(selectNode, { key: SpecialKey.Escape });
+    fireEvent.keyDown(selectNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.called).to.be.false;
   });
@@ -118,7 +118,7 @@ describe("<EnumEditor />", () => {
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.called).to.be.false;
 
-    fireEvent.keyDown(selectNode, { key: SpecialKey.Escape });
+    fireEvent.keyDown(selectNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCancel.called).to.be.true;
 
@@ -142,7 +142,7 @@ describe("<EnumEditor />", () => {
     const selectNode = wrapper.getByTestId("components-select-editor");
     expect(selectNode).not.to.be.null;
 
-    fireEvent.keyDown(selectNode, { key: SpecialKey.PageDown });
+    fireEvent.keyDown(selectNode, { key: Key.PageDown });
     await TestUtils.flushAsyncOperations();
     expect(spyParent.called).to.be.true;
   });

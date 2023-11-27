@@ -9,8 +9,9 @@
 import "./WeightPickerButton.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { ColorDef } from "@itwin/core-common";
-import { RelativePosition, SpecialKey } from "@itwin/appui-abstract";
+import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { ElementResizeObserver, Popup } from "@itwin/core-react";
 import { LineWeightSwatch } from "./Swatch";
@@ -138,7 +139,7 @@ export class WeightPickerButton extends React.PureComponent<
   }
 
   private _handleKeyDown = (event: React.KeyboardEvent<any>) => {
-    if (event.key === SpecialKey.Enter) {
+    if (event.key === Key.Enter) {
       event.preventDefault();
       event.stopPropagation();
       const weightButton = document.activeElement as HTMLElement;
@@ -161,10 +162,10 @@ export class WeightPickerButton extends React.PureComponent<
       this._closePopup();
     } else {
       switch (event.key) {
-        case SpecialKey.ArrowDown:
+        case Key.ArrowDown:
           this.moveFocusInPopup(false, event);
           break;
-        case SpecialKey.ArrowUp:
+        case Key.ArrowUp:
           this.moveFocusInPopup(true, event);
           break;
       }

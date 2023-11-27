@@ -9,8 +9,8 @@
 import "./SaturationPicker.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { ColorDef, HSVColor } from "@itwin/core-common";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 
@@ -187,23 +187,23 @@ export function SaturationPicker({
     (evt: React.KeyboardEvent<HTMLDivElement>) => {
       const h = hsv.h;
       let { s, v } = { ...hsv };
-      if (evt.key === SpecialKey.ArrowLeft) {
+      if (evt.key === Key.ArrowLeft) {
         s -= evt.ctrlKey ? 10 : 1;
-      } else if (evt.key === SpecialKey.ArrowDown) {
+      } else if (evt.key === Key.ArrowDown) {
         v -= evt.ctrlKey ? 10 : 1;
-      } else if (evt.key === SpecialKey.ArrowRight) {
+      } else if (evt.key === Key.ArrowRight) {
         s += evt.ctrlKey ? 10 : 1;
-      } else if (evt.key === SpecialKey.ArrowUp) {
+      } else if (evt.key === Key.ArrowUp) {
         v += evt.ctrlKey ? 10 : 1;
-      } else if (evt.key === SpecialKey.PageDown) {
+      } else if (evt.key === Key.PageDown) {
         v = 0;
-      } else if (evt.key === SpecialKey.PageUp) {
+      } else if (evt.key === Key.PageUp) {
         v = 100;
-      } else if (evt.key === SpecialKey.Home) {
+      } else if (evt.key === Key.Home) {
         s = 0;
       } else {
         // istanbul ignore else
-        if (evt.key === SpecialKey.End) {
+        if (evt.key === Key.End) {
           s = 100;
         }
       }

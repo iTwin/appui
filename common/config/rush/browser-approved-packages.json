@@ -499,6 +499,10 @@
       "allowedCategories": [ "tools" ]
     },
     {
+      "name": "ts-key-enum",
+      "allowedCategories": [ "frontend", "internal" ]
+    },
+    {
       "name": "ts-node",
       "allowedCategories": [ "frontend", "tools" ]
     },

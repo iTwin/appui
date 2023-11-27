@@ -9,11 +9,11 @@
 import "./SignIn.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { CommonProps } from "@itwin/core-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { Button } from "@itwin/itwinui-react";
 import { ProcessDetector } from "@itwin/core-bentley";
+import { Key } from "ts-key-enum";
 
 // cspell:ignore signingin
 
@@ -85,8 +85,8 @@ export class SignIn extends React.PureComponent<SignInProps, SignInState> {
     const key = event.key;
 
     switch (key) {
-      case SpecialKey.Enter:
-      case SpecialKey.Space:
+      case Key.Enter:
+      case " ":
         onActivate && onActivate();
         break;
     }

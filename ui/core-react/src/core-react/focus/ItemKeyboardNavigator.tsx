@@ -6,7 +6,7 @@
  * @module Focus
  */
 
-import { isArrowKey, SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import { Orientation } from "../enums/Orientation";
 
 /** Cross-Axis Arrow Key Callback
@@ -29,10 +29,10 @@ export class ItemKeyboardNavigator {
     public onActivateItem: (index: number) => void
   ) {
     this._direction = new Map<string, number>([
-      [SpecialKey.ArrowLeft, -1],
-      [SpecialKey.ArrowUp, -1],
-      [SpecialKey.ArrowRight, 1],
-      [SpecialKey.ArrowDown, 1],
+      [Key.ArrowLeft, -1],
+      [Key.ArrowUp, -1],
+      [Key.ArrowRight, 1],
+      [Key.ArrowDown, 1],
     ]);
   }
 
@@ -73,12 +73,12 @@ export class ItemKeyboardNavigator {
     const key = event.key;
 
     switch (key) {
-      case SpecialKey.Home:
+      case Key.Home:
         event.preventDefault();
         // Activate first item
         this.focusFirstItem();
         break;
-      case SpecialKey.End:
+      case Key.End:
         event.preventDefault();
         // Activate last item
         this.focusLastItem();
@@ -86,13 +86,13 @@ export class ItemKeyboardNavigator {
 
       // Up and down are in keydown
       // because we need to prevent page scroll >:)
-      case SpecialKey.ArrowUp:
-      case SpecialKey.ArrowDown:
+      case Key.ArrowUp:
+      case Key.ArrowDown:
         this.determineOrientation(event, index);
         break;
 
-      case SpecialKey.Enter:
-      case SpecialKey.Space:
+      case Key.Enter:
+      case " ":
         this.activateItem(index);
         break;
     }
@@ -103,8 +103,8 @@ export class ItemKeyboardNavigator {
     const key = event.key;
 
     switch (key) {
-      case SpecialKey.ArrowLeft:
-      case SpecialKey.ArrowRight:
+      case Key.ArrowLeft:
+      case Key.ArrowRight:
         this.determineOrientation(event, index);
         break;
     }
@@ -132,23 +132,23 @@ export class ItemKeyboardNavigator {
     let proceed = false;
 
     if (vertical) {
-      if (key === SpecialKey.ArrowUp || key === SpecialKey.ArrowDown) {
+      if (key === Key.ArrowUp || key === Key.ArrowDown) {
         event.preventDefault();
         proceed = true;
       } else if (
         this.crossAxisArrowKeyHandler &&
-        (key === SpecialKey.ArrowLeft || key === SpecialKey.ArrowRight)
+        (key === Key.ArrowLeft || key === Key.ArrowRight)
       ) {
-        this.crossAxisArrowKeyHandler(key === SpecialKey.ArrowRight);
+        this.crossAxisArrowKeyHandler(key === Key.ArrowRight);
       }
     } else {
-      if (key === SpecialKey.ArrowLeft || key === SpecialKey.ArrowRight) {
+      if (key === Key.ArrowLeft || key === Key.ArrowRight) {
         proceed = true;
       } else if (
         this.crossAxisArrowKeyHandler &&
-        (key === SpecialKey.ArrowUp || key === SpecialKey.ArrowDown)
+        (key === Key.ArrowUp || key === Key.ArrowDown)
       ) {
-        this.crossAxisArrowKeyHandler(key === SpecialKey.ArrowDown);
+        this.crossAxisArrowKeyHandler(key === Key.ArrowDown);
       }
     }
 
@@ -176,10 +176,7 @@ export class ItemKeyboardNavigator {
       } else {
         // istanbul ignore else
         if (this._allowWrap) {
-          if (
-            pressed === SpecialKey.ArrowLeft ||
-            pressed === SpecialKey.ArrowUp
-          ) {
+          if (pressed === Key.ArrowLeft || pressed === Key.ArrowUp) {
             this.focusLastItem();
           } else {
             this.focusFirstItem();
@@ -200,9 +197,18 @@ export class ItemKeyboardNavigator {
 export function isNavigationKey(key: string): boolean {
   return (
     isArrowKey(key) ||
-    key === SpecialKey.Home ||
-    key === SpecialKey.End ||
-    key === SpecialKey.Space ||
-    key === SpecialKey.Enter
+    key === Key.Home ||
+    key === Key.End ||
+    key === " " ||
+    key === Key.Enter
+  );
+}
+
+function isArrowKey(key: string): boolean {
+  return (
+    key === Key.ArrowLeft ||
+    key === Key.ArrowRight ||
+    key === Key.ArrowUp ||
+    key === Key.ArrowDown
   );
 }

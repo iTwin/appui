@@ -19,6 +19,8 @@ importers:
       '@itwin/core-orbitgt': ^3.7.0
       '@itwin/core-quantity': ^3.7.0
       '@itwin/core-react': workspace:*
+      '@itwin/imodels-access-frontend': ^3.0.0
+      '@itwin/imodels-client-authoring': ^3.0.0
       '@itwin/itwinui-icons-react': ^2.1.0
       '@itwin/itwinui-react': ^2.11.11
       '@originjs/vite-plugin-commonjs': ~1.0.3
@@ -63,6 +65,8 @@ importers:
       '@itwin/core-orbitgt': 3.7.0
       '@itwin/core-quantity': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/core-react': link:../../ui/core-react
+      '@itwin/imodels-access-frontend': 3.0.0_941d9911bd9c694174c145172ae404c8
+      '@itwin/imodels-client-authoring': 3.0.0
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 2.11.11_react-dom@17.0.2+react@17.0.2
       react: 17.0.2
@@ -134,6 +138,7 @@ importers:
       react: ^17.0.0
       react-dom: ^17.0.0
       rimraf: ^3.0.2
+      ts-key-enum: ~2.0.12
       typescript: ~5.0.2
     dependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
@@ -156,6 +161,7 @@ importers:
       classnames: 2.3.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+      ts-key-enum: 2.0.12
     devDependencies:
       '@itwin/build-tools': 3.7.4
       '@itwin/eslint-plugin': 4.0.0-dev.45_eslint@8.44.0+typescript@5.0.2
@@ -237,6 +243,7 @@ importers:
       react-redux: ^7.2.2
       redux: ^4.1.0
       rimraf: ^3.0.2
+      ts-key-enum: ~2.0.12
       typescript: ~5.0.2
       webpack: ^5.76.0
     dependencies:
@@ -285,6 +292,7 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
       redux: 4.2.1
+      ts-key-enum: 2.0.12
     devDependencies:
       '@axe-core/react': 4.3.1
       '@bentley/react-scripts': 5.0.4_react@17.0.2+typescript@5.0.2
@@ -370,6 +378,7 @@ importers:
       redux: ^4.1.0
       rimraf: ^3.0.2
       serve: ^14.1.2
+      ts-key-enum: ~2.0.12
       typescript: ~5.0.2
       webpack: ^5.76.0
     dependencies:
@@ -410,6 +419,7 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
       redux: 4.2.1
+      ts-key-enum: 2.0.12
     devDependencies:
       '@axe-core/react': 4.3.1
       '@bentley/react-scripts': 5.0.4_react@17.0.2+typescript@5.0.2
@@ -524,6 +534,7 @@ importers:
       rimraf: ^3.0.2
       sinon: ^15.2.0
       sinon-chai: ^3.2.0
+      ts-key-enum: ~2.0.12
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~5.0.2
@@ -535,6 +546,7 @@ importers:
       immer: 9.0.6
       lodash: 4.17.21
       react-transition-group: 4.4.5_react-dom@17.0.2+react@17.0.2
+      ts-key-enum: 2.0.12
       zustand: 4.4.1_b4b4c799a5a2f4488606d88d938fa77d
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
@@ -646,9 +658,11 @@ importers:
       rxjs: ^7.8.1
       sinon: ^15.2.0
       sinon-chai: ^3.2.0
+      ts-key-enum: ~2.0.12
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~5.0.2
+      zustand: ^4.4.1
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons': 1.16.0
@@ -661,6 +675,8 @@ importers:
       lodash: 4.17.21
       react-error-boundary: 4.0.3_react@17.0.2
       rxjs: 7.8.1
+      ts-key-enum: 2.0.12
+      zustand: 4.4.1_b4b4c799a5a2f4488606d88d938fa77d
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/appui-layout-react': link:../appui-layout-react
@@ -783,6 +799,7 @@ importers:
       shortid: ~2.2.15
       sinon: ^15.2.0
       sinon-chai: ^3.2.0
+      ts-key-enum: ~2.0.12
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~5.0.2
@@ -800,6 +817,7 @@ importers:
       react-window: 1.8.9_react-dom@17.0.2+react@17.0.2
       rxjs: 7.8.1
       shortid: 2.2.16
+      ts-key-enum: 2.0.12
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/build-tools': 3.7.4
@@ -902,6 +920,7 @@ importers:
       rimraf: ^3.0.2
       sinon: ^15.2.0
       sinon-chai: ^3.2.0
+      ts-key-enum: ~2.0.12
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~5.0.2
@@ -915,6 +934,7 @@ importers:
       lodash: 4.17.21
       react-autosuggest: 10.1.0_react@17.0.2
       resize-observer-polyfill: 1.5.1
+      ts-key-enum: 2.0.12
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/build-tools': 3.7.4
@@ -1012,6 +1032,7 @@ importers:
       rimraf: ^3.0.2
       sinon: ^15.2.0
       sinon-chai: ^3.2.0
+      ts-key-enum: ~2.0.12
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~5.0.2
@@ -1021,6 +1042,7 @@ importers:
       '@itwin/itwinui-react': 2.11.11_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 2.0.0
       classnames: 2.3.1
+      ts-key-enum: 2.0.12
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/build-tools': 3.7.4
@@ -5306,7 +5328,7 @@ packages:
     dependencies:
       '@itwin/core-bentley': 3.7.0
       '@itwin/core-common': 3.7.0_d3cf7b747b827c7a0a662ddd00c672b6
-      '@itwin/core-frontend': 3.7.0_1dc9172c9d17e84a30e74526225b8add
+      '@itwin/core-frontend': 3.7.0_be3a269a91e7505de9f0319af0616d71
       '@itwin/imodels-client-management': 3.0.0
     transitivePeerDependencies:
       - debug
@@ -20769,6 +20791,10 @@ packages:
       typescript: 5.0.2
       yargs-parser: 21.1.1
     dev: true
+
+  /ts-key-enum/2.0.12:
+    resolution: {integrity: sha512-Ety4IvKMaeG34AyXMp5r11XiVZNDRL+XWxXbVVJjLvq2vxKRttEANBE7Za1bxCAZRdH2/sZT6jFyyTWxXz28hw==}
+    dev: false
 
   /ts-node/10.9.1_9a41dbaa370b60afede472b47d9ffeeb:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}

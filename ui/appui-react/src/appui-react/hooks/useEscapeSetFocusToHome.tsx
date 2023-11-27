@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import { UiFramework } from "../UiFramework";
 
 /** Keyboard Event handler to set focus to Home on Escape key
@@ -15,7 +15,7 @@ import { UiFramework } from "../UiFramework";
  */
 export function onEscapeSetFocusToHome(e: React.KeyboardEvent): void {
   // istanbul ignore else
-  if (e.key === SpecialKey.Escape) {
+  if (e.key === Key.Escape) {
     UiFramework.keyboardShortcuts.setFocusToHome();
   }
 }

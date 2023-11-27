@@ -19,8 +19,14 @@ import { PinToggle } from "./PinToggle";
 import { PopoutToggle } from "./PopoutToggle";
 import { useLayout } from "../base/LayoutStore";
 import { useFloatingWidgetId, useWidgetAllowedToDock } from "./FloatingWidget";
+import { usePreviewFeatures } from "../preview/PreviewFeatures";
+import { PreviewMaximizeToggle } from "./PreviewMaximizeToggle";
 /** @internal */
 export function TabBarButtons() {
+  const {
+    enableMaximizedFloatingWidget: previewEnableMaximizedFloatingWidget,
+    previewState,
+  } = usePreviewFeatures();
   const isToolSettings = useIsToolSettingsTab();
   const floatingWidgetId = useFloatingWidgetId();
   const canBeDocked = useWidgetAllowedToDock();
@@ -31,10 +37,22 @@ export function TabBarButtons() {
     const tab = state.tabs[tabId];
     return tab.canPopout;
   });
+  // istanbul ignore next (preview)
+  const isMaximized =
+    previewState.maximizedWidget === floatingWidgetId &&
+    previewEnableMaximizedFloatingWidget;
   return (
     <div className="nz-widget-tabBarButtons">
       {canPopout && <PopoutToggle />}
-      {floatingWidgetId && !isToolSettings && canBeDocked && <SendBack />}
+      {
+        // istanbul ignore next (preview)
+        previewEnableMaximizedFloatingWidget &&
+          !isToolSettings &&
+          floatingWidgetId && <PreviewMaximizeToggle />
+      }
+      {!isMaximized && floatingWidgetId && !isToolSettings && canBeDocked && (
+        <SendBack />
+      )}
       {isToolSettings && <Dock />}
       {isMainPanelWidget && <PinToggle />}
     </div>

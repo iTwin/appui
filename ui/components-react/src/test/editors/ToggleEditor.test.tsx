@@ -7,7 +7,7 @@ import { expect } from "chai";
 import { fireEvent, render, screen } from "@testing-library/react";
 import * as React from "react";
 import sinon from "sinon";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { ToggleEditor } from "../../components-react/editors/ToggleEditor";
 import TestUtils, { MineDataController, userEvent } from "../TestUtils";
@@ -103,7 +103,7 @@ describe("<ToggleEditor />", () => {
     const inputNode = wrapper.container.querySelector("input");
     expect(inputNode).not.to.be.null;
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.calledOnce).to.be.false;
 

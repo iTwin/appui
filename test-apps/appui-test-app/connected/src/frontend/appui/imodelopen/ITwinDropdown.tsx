@@ -5,7 +5,8 @@
 import "./ITwinDropdown.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { RelativePosition, SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
+import { RelativePosition } from "@itwin/appui-abstract";
 import { Popup } from "@itwin/core-react";
 import { ITwin } from "@itwin/itwins-client";
 
@@ -50,8 +51,8 @@ export class ITwinDropdown extends React.Component<
     const key = event.key;
 
     switch (key) {
-      case SpecialKey.Enter:
-      case SpecialKey.Space:
+      case Key.Enter:
+      case " ":
         this.closeDropdown();
         this.props.onITwinClicked(iTwin);
         break;
@@ -62,8 +63,8 @@ export class ITwinDropdown extends React.Component<
     const key = event.key;
 
     switch (key) {
-      case SpecialKey.Enter:
-      case SpecialKey.Space:
+      case Key.Enter:
+      case " ":
         this.setState((prevState) => ({
           isDropdownOpen: !prevState.isDropdownOpen,
         }));
