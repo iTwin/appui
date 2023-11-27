@@ -164,16 +164,24 @@ class ThemeManagerComponent extends React.Component<ThemeManagerProps> {
   }
 }
 
-/**
- * ThemeManager handles setting color themes. Note that this component will
+/** ThemeManager handles setting color themes and element opacity management. Note that this component will
  * affect the entire application by setting the data-theme attribute to the html element.
  * It also sets an iTwinUI `ThemeProvider` element locally, so all elements
  * within the AppUI tree will have the same theme, and should be using iTwinUI 2.x or later.
- * A ColorTheme enum values will configure iTwinUI `ThemeProvider` accordingly.
+ * A `ColorTheme` enum values will configure iTwinUI `ThemeProvider` accordingly.
  * Any other string will only apply the `data-theme` attribute to the `html` element
  * and `ThemeProvider` theme will be set to `inherit`, in this case the application is
  * responsible for setting the theme by overriding iTwinUI css variables.
- * This React component is Redux connected.
+ *
+ * This React component is Redux connected and should wrap [[ConfigurableUiContent]].
+ *
+ * ```tsx
+ * <Provider store={UiFramework.store}>
+ *   <ThemeManager>
+ *     <ConfigurableUiContent />
+ *   </ThemeManager>
+ * </Provider>
+ * ```
  * @public
  */
 export const ThemeManager = connect(mapStateToProps)(ThemeManagerComponent);
