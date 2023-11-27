@@ -220,7 +220,9 @@ test.describe("popout widget", () => {
       WidgetState.Floating
     );
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
+    // Due to the change to Popouts where `WidgetContentContainer` is displayed instead of a React Node. The actual widget is no longer unmounted
+    // and is simply sent to a different `WidgetContentContainer`. That's why the unmount count was changed to 0 here. TODO: Delete this test?
     expect(mountCount).toBe(1);
-    expect(unMountCount).toBe(1);
+    expect(unMountCount).toBe(0);
   });
 });
