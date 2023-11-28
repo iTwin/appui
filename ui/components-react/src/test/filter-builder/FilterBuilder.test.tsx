@@ -15,7 +15,7 @@ import type {
   PropertyFilterBuilderRule,
   PropertyFilterBuilderRuleGroup,
 } from "../../components-react/filter-builder/FilterBuilderState";
-import { createFilter } from "../../components-react/filter-builder/FilterBuilderState";
+import { buildPropertyFilter } from "../../components-react/filter-builder/FilterBuilderState";
 import {
   PropertyFilterRuleGroupOperator,
   PropertyFilterRuleOperator,
@@ -141,7 +141,7 @@ describe("PropertyFilterBuilder", () => {
     );
   });
 
-  describe("createFilter", () => {
+  describe("buildPropertyFilter", () => {
     const defaultRule: PropertyFilterBuilderRule = {
       id: "rule",
       groupId: "rootGroup",
@@ -158,7 +158,7 @@ describe("PropertyFilterBuilder", () => {
         ...defaultRule,
         property: undefined,
       };
-      expect(createFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).to.be.undefined;
     });
 
     it("returns undefined when rule does not have operator", () => {
@@ -166,7 +166,7 @@ describe("PropertyFilterBuilder", () => {
         ...defaultRule,
         operator: undefined,
       };
-      expect(createFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).to.be.undefined;
     });
 
     it("returns undefined when rule does not have value and operator requires value", () => {
@@ -174,7 +174,7 @@ describe("PropertyFilterBuilder", () => {
         ...defaultRule,
         value: undefined,
       };
-      expect(createFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).to.be.undefined;
     });
 
     it("returns undefined when rule has non primitive value", () => {
@@ -186,7 +186,7 @@ describe("PropertyFilterBuilder", () => {
           itemsTypeName: "arrayType",
         },
       };
-      expect(createFilter(rule)).to.be.undefined;
+      expect(buildPropertyFilter(rule)).to.be.undefined;
     });
 
     it("returns undefined when group has no rules", () => {
@@ -195,7 +195,7 @@ describe("PropertyFilterBuilder", () => {
         operator: PropertyFilterRuleGroupOperator.And,
         items: [],
       };
-      expect(createFilter(ruleGroup)).to.be.undefined;
+      expect(buildPropertyFilter(ruleGroup)).to.be.undefined;
     });
 
     it("returns single filter condition when group has one rule", () => {
@@ -204,7 +204,7 @@ describe("PropertyFilterBuilder", () => {
         operator: PropertyFilterRuleGroupOperator.And,
         items: [defaultRule],
       };
-      expect(createFilter(ruleGroup)).to.containSubset({
+      expect(buildPropertyFilter(ruleGroup)).to.containSubset({
         operator: defaultRule.operator,
         property: defaultRule.property,
         value: defaultRule.value,
@@ -222,7 +222,7 @@ describe("PropertyFilterBuilder", () => {
           { ...defaultRule, value: undefined },
         ],
       };
-      expect(createFilter(ruleGroup)).to.containSubset({
+      expect(buildPropertyFilter(ruleGroup)).to.containSubset({
         operator: defaultRule.operator,
         property: defaultRule.property,
         value: defaultRule.value,
@@ -235,7 +235,7 @@ describe("PropertyFilterBuilder", () => {
         operator: PropertyFilterRuleGroupOperator.Or,
         items: [defaultRule, defaultRule],
       };
-      const filter = createFilter(ruleGroup);
+      const filter = buildPropertyFilter(ruleGroup);
       const expectedFilter = {
         operator: ruleGroup.operator,
         rules: [

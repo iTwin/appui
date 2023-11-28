@@ -80,3 +80,8 @@
     visibility: hidden;
   }
 }
+
+.fb-property-value {
+  display: flex;
+  flex-direction: column;
+}

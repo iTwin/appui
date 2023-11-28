@@ -21,7 +21,10 @@ import {
 import { PropertyFilterBuilderRuleGroupRenderer } from "./FilterBuilderRuleGroup";
 import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
 import type { PropertyFilterBuilderRuleValueRendererProps } from "./FilterBuilderRuleValue";
-import { createFilter, usePropertyFilterBuilder } from "./FilterBuilderState";
+import {
+  buildPropertyFilter,
+  usePropertyFilterBuilder,
+} from "./FilterBuilderState";
 import type { PropertyFilter } from "./Types";
 import type {
   PropertyFilterBuilderActions,
@@ -52,7 +55,10 @@ export function PropertyFilterBuilder(props: PropertyFilterBuilderProps) {
   });
 
   const firstRender = React.useRef(true);
-  const filter = React.useMemo(() => createFilter(rootGroup), [rootGroup]);
+  const filter = React.useMemo(
+    () => buildPropertyFilter(rootGroup),
+    [rootGroup]
+  );
   React.useEffect(() => {
     if (!firstRender.current) onFilterChanged(filter);
     firstRender.current = false;
@@ -91,7 +97,7 @@ export interface PropertyFilterBuilderRendererProps {
   /** Custom renderer for property selector in rule. */
   propertyRenderer?: (name: string) => React.ReactNode;
   /** Specifies how deep rule groups can be nested.
-   * @deprecated in 4.7.2. Nesting is no longer supported moving forward.
+   * @deprecated in 4.7.0. Nesting is no longer supported moving forward.
    */
   ruleGroupDepthLimit?: number;
   /** Specifies whether component is disabled or not. */

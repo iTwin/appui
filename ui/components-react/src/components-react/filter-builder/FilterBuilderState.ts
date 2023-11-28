@@ -72,7 +72,7 @@ export interface PropertyFilterBuilderRule {
 }
 
 /**
- * Actions for controlling [[PropertyPropertyFilterBuilder]] component state.
+ * Actions for controlling [[PropertyFilterBuilder]] component state.
  * @beta
  */
 export class PropertyFilterBuilderActions {
@@ -196,7 +196,7 @@ export class PropertyFilterBuilderActions {
 }
 
 /**
- * Function to check if supplied [[PropertyFilterBuilderRuleGroupItem]] is [PropertyFilterBuilderRuleGroup]].
+ * Function to check if supplied [[PropertyFilterBuilderRuleGroupItem]] is [[PropertyFilterBuilderRuleGroup]].
  * @beta
  */
 export function isPropertyFilterBuilderRuleGroup(
@@ -220,7 +220,7 @@ export interface UsePropertyFilterBuilderProps {
  * Options for [[UsePropertyFilterBuilderResult.buildFilter]].
  * @beta
  */
-export interface FilterOptions {
+export interface BuildFilterOptions {
   /**
    * Specifies whether errors encountered while validating filter rules should be ignored and not persisted in state.
    * This is useful in case component needs to get filter matching rule validator but does not want to show errors in UI.
@@ -229,7 +229,7 @@ export interface FilterOptions {
 }
 
 /**
- * Type for [[usePropertyPropertyFilterBuilder]] return object.
+ * Type for [[usePropertyFilterBuilder]] return object.
  * @beta
  */
 export interface UsePropertyFilterBuilderResult {
@@ -242,11 +242,11 @@ export interface UsePropertyFilterBuilderResult {
    * custom validator provided through [[UsePropertyFilterBuilderProps]] to validate each rule.
    * @returns [[PropertyFilter]] if all rules are valid, `undefined` otherwise.
    */
-  buildFilter: (options?: FilterOptions) => PropertyFilter | undefined;
+  buildFilter: (options?: BuildFilterOptions) => PropertyFilter | undefined;
 }
 
 /**
- * Custom hook that creates state for [[PropertyPropertyFilterBuilder]] component. It creates empty state or initializes
+ * Custom hook that creates state for [[PropertyFilterBuilder]] component. It creates empty state or initializes
  * state from supplied initial filter.
  * @beta
  */
@@ -268,13 +268,15 @@ export function usePropertyFilterBuilder(
   );
 
   const buildFilter = React.useCallback(
-    (options?: FilterOptions) => {
+    (options?: BuildFilterOptions) => {
       const ruleErrors = validateRules(state.rootGroup, ruleValidator);
       if (!options?.ignoreErrors) {
         actions.setRuleErrorMessages(ruleErrors);
       }
 
-      return ruleErrors.size === 0 ? createFilter(state.rootGroup) : undefined;
+      return ruleErrors.size === 0
+        ? buildPropertyFilter(state.rootGroup)
+        : undefined;
     },
     [state.rootGroup, actions, ruleValidator]
   );
@@ -332,20 +334,20 @@ export function defaultPropertyFilterBuilderRuleValidator(
 }
 
 /** @internal */
-export function createFilter(
+export function buildPropertyFilter(
   groupItem: PropertyFilterBuilderRuleGroupItem
 ): PropertyFilter | undefined {
   if (isPropertyFilterBuilderRuleGroup(groupItem))
-    return buildFilterFromRuleGroup(groupItem);
-  return buildFilterFromRule(groupItem);
+    return buildPropertyFilterFromRuleGroup(groupItem);
+  return buildPropertyFilterFromRule(groupItem);
 }
 
-function buildFilterFromRuleGroup(
+function buildPropertyFilterFromRuleGroup(
   rootGroup: PropertyFilterBuilderRuleGroup
 ): PropertyFilter | undefined {
   const rules = new Array<PropertyFilter>();
   for (const item of rootGroup.items) {
-    const rule = createFilter(item);
+    const rule = buildPropertyFilter(item);
     if (rule) rules.push(rule);
   }
 
@@ -359,7 +361,7 @@ function buildFilterFromRuleGroup(
   };
 }
 
-function buildFilterFromRule(
+function buildPropertyFilterFromRule(
   rule: PropertyFilterBuilderRule
 ): PropertyFilter | undefined {
   const { property, operator, value } = rule;
