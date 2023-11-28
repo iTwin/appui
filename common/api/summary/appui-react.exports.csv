@@ -359,6 +359,8 @@ beta;PositionPopupContent(props: CommonDivProps): JSX.Element
 beta;PositionPopupProps 
 public;PresentationSelectionScope
 beta;PreviewFeatures 
+beta;PreviewFeaturesProvider({ children, features, }: PreviewFeaturesProviderProps): JSX.Element
+beta;PreviewFeaturesProviderProps
 public;PropsHelper
 public;ProviderItem
 beta;QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems, }: QuantityFormatterSettingsOptions): JSX.Element

@@ -6,16 +6,14 @@
  * @module Utilities
  */
 
+import { type KnownPreviewLayoutFeatures } from "@itwin/appui-layout-react";
+import * as React from "react";
 import { create } from "zustand";
 
 /** List of known preview features. */
-interface KnownPreviewFeatures {
-  /** If true, the panels and tool settings will always be rendered over the content.
-   * The content will never change size.
-   */
-  contentAlwaysMaxSize: boolean;
-  /** If true, the floating widget will have a "maximize" button. */
-  enableMaximizedFloatingWidget: boolean;
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface KnownPreviewFeatures extends KnownPreviewLayoutFeatures {
+  // Add preview features not in appui-layout-react here.
 }
 
 /** Object used trim to only known features at runtime.
@@ -42,7 +40,7 @@ export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
  * @returns object containing only known features
  * @internal
  */
-export function trimToKnownFeaturesOnly(previewFeatures: PreviewFeatures) {
+function trimToKnownFeaturesOnly(previewFeatures: PreviewFeatures) {
   const knownFeatureKeys = Object.keys(knownFeaturesObject);
   const [knownFeatures, unknownFeatures] = Object.entries(
     previewFeatures
@@ -76,10 +74,12 @@ interface PreviewFeaturesState {
 }
 
 /** Preview features store used by `UiFramework.previewFeatures` and `UiFramework.setPreviewFeatures()` APIs to manage the preview features.
- * Use `usePreviewFeatures` hook to access the preview features set.
+ * Use `usePreviewFeatures` hook to access the preview features set from a react component.
+ * Use `usePreviewFeaturesStore.getState().previewFeatures` to access the preview features set from a non-react component.
+ * Use `usePreviewFeaturesStore.subscribe()` to subscribe to changes to the preview features set from a non-react component.
  * @internal
  */
-export const usePreviewFeaturesStore = create<PreviewFeaturesState>((set) => {
+const usePreviewFeaturesStore = create<PreviewFeaturesState>((set) => {
   return {
     previewFeatures: {},
     setPreviewFeatures: (newPreviewFeatures: PreviewFeatures) => {
@@ -94,4 +94,49 @@ export const usePreviewFeaturesStore = create<PreviewFeaturesState>((set) => {
  */
 export function usePreviewFeatures() {
   return usePreviewFeaturesStore((state) => state.previewFeatures);
+}
+
+/** Props for PreviewFeaturesProvider.
+ * @beta
+ */
+export interface PreviewFeaturesProviderProps {
+  children?: React.ReactNode;
+  features?: PreviewFeatures;
+}
+
+/** Set which preview features are enabled. These features are not yet ready for production use nor have
+ * a proper API defined yet.
+ * The available set of features are defined in the [[PreviewFeatures]] interface.
+ *
+ * This component should wrap the Provider component.
+ *
+ * ```tsx
+ * <PreviewFeaturesProvider features={{ enableMaximizedFloatingWidget: true }}>
+ *   <Provider store={UiFramework.store}>
+ *    [...]
+ *     <ConfigurableUIContent />
+ *    [/...]
+ *   </Provider>
+ * </PreviewFeaturesProvider>
+ * @beta
+ */
+export function PreviewFeaturesProvider({
+  children,
+  features,
+}: PreviewFeaturesProviderProps) {
+  const setPreviewFeatures = usePreviewFeaturesStore(
+    (state) => state.setPreviewFeatures
+  );
+  React.useEffect(() => {
+    setPreviewFeatures(features ?? {});
+  }, [features, setPreviewFeatures]);
+
+  // Clear preview features when unmounting.
+  React.useEffect(
+    () => () => {
+      setPreviewFeatures({});
+    },
+    [setPreviewFeatures]
+  );
+  return <>{children}</>;
 }
