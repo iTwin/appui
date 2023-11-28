@@ -47,7 +47,6 @@ import { useLayout, useLayoutStore } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import { Key } from "ts-key-enum";
-import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import { usePreviewMaximizedWidget } from "./PreviewMaximizeToggle";
 
 /** @internal */
