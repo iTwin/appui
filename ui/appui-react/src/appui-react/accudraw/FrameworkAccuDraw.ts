@@ -107,7 +107,15 @@ export class AccuDrawGrabInputFocusEvent extends BeUiEvent<{}> {}
  * @beta */
 export class AccuDrawUiSettingsChangedEvent extends BeUiEvent<{}> {}
 
-/** Implementation of AccuDraw that sends events for UI and status changes
+/** Subclass of `AccuDraw` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
+ *
+ * This implementation will generate the required events for the AppUI provided UI to update correctly.
+ *
+ * ```ts
+ * await IModelApp.startup({
+ *   accuDraw: new FrameworkAccuDraw()
+ * });
+ * ```
  * @beta
  */
 export class FrameworkAccuDraw
