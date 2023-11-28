@@ -824,17 +824,19 @@ const SampleAppViewer2 = () => {
   }, []);
 
   return (
-    <Provider store={SampleAppIModelApp.store}>
-      <ThemeManager>
-        <SafeAreaContext.Provider value={SafeAreaInsets.All}>
-          <AppDragInteraction>
-            <UiStateStorageHandler>
-              <ConfigurableUiContent appBackstage={<BackstageComposer />} />
-            </UiStateStorageHandler>
-          </AppDragInteraction>
-        </SafeAreaContext.Provider>
-      </ThemeManager>
-    </Provider>
+    <PreviewFeaturesToggleProvider.ReactProvider>
+      <Provider store={SampleAppIModelApp.store}>
+        <ThemeManager>
+          <SafeAreaContext.Provider value={SafeAreaInsets.All}>
+            <AppDragInteraction>
+              <UiStateStorageHandler>
+                <ConfigurableUiContent appBackstage={<BackstageComposer />} />
+              </UiStateStorageHandler>
+            </AppDragInteraction>
+          </SafeAreaContext.Provider>
+        </ThemeManager>
+      </Provider>
+    </PreviewFeaturesToggleProvider.ReactProvider>
   );
 };
 
