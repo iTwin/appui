@@ -7,6 +7,6 @@
   flex-direction: column;
 
   > span {
-    font-size: 11px;
+    font-size: var(--iui-size-s);
   }
 }

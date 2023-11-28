@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import "./FilterBuilderCondition.scss";
+import "./FilterBuilderRuleOperation.scss";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { Select } from "@itwin/itwinui-react";
 import type { PropertyFilterRuleOperator } from "./Operators";

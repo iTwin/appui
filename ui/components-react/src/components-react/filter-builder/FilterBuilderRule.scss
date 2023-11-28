@@ -5,12 +5,11 @@
 .fb-row {
   --background-color: var(--iui-color-background);
   --border-color: var(--iui-color-border);
-  --drag-handle-width: 20px;
-  --operator-width: 80px;
+  --drag-handle-width: 1.25rem;
+  --operator-width: 5rem;
   --property-name-width: 25%;
-  --condition-width: 10rem;
-  --toolbar-width: 100px;
-  --border-radius: 4px;
+  //--condition-width: 10rem;
+  --toolbar-width: 6.25rem;
   border: 1px solid var(--iui-color-border);
 
   display: block;
@@ -18,9 +17,6 @@
 
   > div {
     background: var(--background-color);
-    // border: 1px solid var(--border-color);
-    // border-radius: var(--border-radius);
-    // padding-right: var(--iui-size-xs);
     align-items: stretch;
     overflow: hidden;
   }
@@ -66,7 +62,7 @@
 
   .fb-row-value {
     flex: 1;
-    width: 15rem;
+    //width: 15rem;
   }
 
   .fb-row-toolbar {

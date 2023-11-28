@@ -3,20 +3,20 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 .fb-component {
-  --fb-drag-handle-width: 20px;
-  --fb-operator-width: 75px;
-  --divider-height: 10px;
-  --divider-width: 4px;
+  --fb-drag-handle-width: 1.25rem;
+  --fb-operator-width: 4.5rem;
+  --divider-height: var(--iui-size-s);
+  --divider-width: var(--iui-size-2xs);
   --divider-background-color: var(--iui-color-border-subtle);
 
   // set the CSS var for the width of the logical operator (if size=small)
   [data-iui-size="small"] {
-    --fb-operator-width: 65px;
+    --fb-operator-width: 4rem;
   }
 
   [data-iui-size="large"] {
-    --fb-operator-width: 80px;
-    --fb-drag-handle-width: 25px;
+    --fb-operator-width: 5rem;
+    --fb-drag-handle-width: 1.5rem;
   }
 
   // set the width of the drag handle
@@ -51,7 +51,7 @@
       }
 
       &:nth-last-child(1 of .fb-component-indent) > div {
-        border-radius: 0 0 4px 4px;
+        border-radius: 0 0 var(--iui-border-radius-1) var(--iui-border-radius-1);
       }
     }
   }
@@ -126,7 +126,7 @@
   }
 
   .fb-wrapper {
-    border-right: "1px solid var(--iui-color-border)";
-    border-radius: "4px";
+    border-right: 1px solid var(--iui-color-border);
+    border-radius: var(--iui-border-radius-1);
   }
 }

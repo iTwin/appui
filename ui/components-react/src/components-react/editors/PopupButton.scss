@@ -10,11 +10,11 @@
 
 .components-popup-button {
   min-width: 100%;
-  min-height: 28px;
+  min-height: 1.75rem;
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: $buic-background-control;
+  background-color: var(--iui-color-background);
   border: 1px solid var(--iui-color-border-foreground);
   border-radius: var(--iui-border-radius-1);
   box-shadow: $buic-inputs-boxshadow 0px 1px 1px inset;
@@ -31,8 +31,8 @@
     flex-grow: 1;
     max-width: calc(100% - var(--iui-size-l));
     overflow-x: hidden;
-    padding: 0 4px;
-    margin-left: var(--iui-size-xs);
+    padding: 0 var(--iui-size-2xs);
+    margin-inline-start: var(--iui-size-xs);
 
     &.components-popup-button-placeholder {
       color: var(--iui-color-text-disabled);
@@ -45,8 +45,8 @@
     height: var(--iui-size-l);
 
     > .components-popup-button-arrow-icon {
-      transition: transform 0.2s;
-      margin-right: 3px;
+      transition: transform var(--iui-duration);
+      margin-inline-end: var(--iui-size-2xs);
 
       &:hover {
         color: var(--iui-color-text-accent);
@@ -75,7 +75,7 @@
 
   &:focus,
   &.components-popup-expanded {
-    border-color: $buic-foreground-focus;
+    border-color: var(--iui-color-border);
     outline: 0px;
     box-shadow: $uicore-inputs-focus-boxshadow;
 
@@ -102,18 +102,18 @@
 }
 
 .components-editor-popup-content {
-  padding: 4px 8px;
+  padding: var(--iui-size-2xs) var(--iui-size-xs);
 }
 
 .components-popup-bottom-buttons {
   display: flex;
   justify-content: flex-end;
-  margin-top: 4px;
+  margin-block-start: var(--iui-size-2xs);
 
   > .components-popup-large-button {
-    width: 70px;
-    font-size: 20px;
-    margin-left: 6px;
+    width: 4.5rem;
+    font-size: 1.25rem;
+    margin-inline-start: var(--iui-size-xs);
   }
 
   > .components-popup-cancel-button {
