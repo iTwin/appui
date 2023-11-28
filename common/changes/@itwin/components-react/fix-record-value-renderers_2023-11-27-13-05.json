@@ -2,8 +2,8 @@
   "changes": [
     {
       "packageName": "@itwin/components-react",
-      "comment": "Fix bug where multiline value renderer would not support navigation properties.",
-      "type": "none"
+      "comment": "Fix bug where multiline value renderer would not support certain properties.",
+      "type": "patch"
     }
   ],
   "packageName": "@itwin/components-react"
