@@ -6,10 +6,7 @@
  * @module Utilities
  */
 
-import {
-  type KnownPreviewLayoutFeatures,
-  setPreviewLayoutFeatures,
-} from "@itwin/appui-layout-react";
+import { type KnownPreviewLayoutFeatures } from "@itwin/appui-layout-react";
 import * as React from "react";
 import { create } from "zustand";
 
@@ -132,14 +129,12 @@ export function PreviewFeaturesProvider({
   );
   React.useEffect(() => {
     setPreviewFeatures(features ?? {});
-    setPreviewLayoutFeatures(features ?? {});
   }, [features, setPreviewFeatures]);
 
   // Clear preview features when unmounting.
   React.useEffect(
     () => () => {
       setPreviewFeatures({});
-      setPreviewLayoutFeatures({});
     },
     [setPreviewFeatures]
   );

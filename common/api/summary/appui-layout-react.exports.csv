@@ -168,6 +168,10 @@ internal;PopoutWidgetLocation
 internal;PopoutWidgetSendBackAction
 internal;PopoutWidgetsState
 internal;PopoutWidgetState
+internal;PreviewLayoutFeaturesProvider: ({ children, ...props }: PreviewFeaturesProviderProps) => JSX.Element
+internal;PreviewMaximizedWidgetFeatureProvider({ enabled, children, }: PreviewMaximizedWidgetFeatureProviderProps): JSX.Element
+internal;PreviewMaximizedWidgetFeatureProviderProps
+internal;PreviewMaximizeToggle(): JSX.Element
 internal;removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;removeTabFromWidget(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;ResizeAction
@@ -179,7 +183,6 @@ internal;ScrollableWidgetContent(props: ScrollableWidgetContentProps): JSX.Eleme
 internal;ScrollableWidgetContentProps
 internal;SectionDropTargetState
 internal;SendBack(): JSX.Element
-internal;setPreviewLayoutFeatures(features: Partial
 internal;ShowWidgetIconContext: React_2.Context
 internal;sideToCursorType(side: PanelSide): CursorType
 internal;Snap 
@@ -264,6 +267,7 @@ internal;usePanelsAutoCollapse
 internal;UsePanelTargetArgs
 internal;usePointerCaptor: 
 internal;usePreviewFeatures: () => Partial
+internal;usePreviewMaximizedWidget(): MaximizedWidgetState
 internal;useResizeGrip: 
 internal;useSendBackHomeState():
 internal;useTabInteractions

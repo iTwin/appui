@@ -6,7 +6,7 @@
  * @module Utilities
  */
 
-import { create } from "zustand";
+import * as React from "react";
 
 /** Preview features known to layout package.
  * @internal
@@ -20,29 +20,41 @@ export interface KnownPreviewLayoutFeatures {
   enableMaximizedFloatingWidget: boolean;
 }
 
-/**
- * Preview feature store
- * @internal
- */
-const usePreviewLayoutFeaturesStore = create<{
-  features: Partial<KnownPreviewLayoutFeatures>;
-}>(() => ({
-  features: {},
-}));
+type PreviewFeaturesState = Partial<KnownPreviewLayoutFeatures>;
 
-/** Used to set preview features in layout package.
+/**
+ * Context containing all configuration for preview features.
+ */
+const PreviewFeaturesContext = React.createContext<PreviewFeaturesState>({});
+
+/**
+ * Properties of `PreviewFeaturesProvider`.
  * @internal
  */
-export function setPreviewLayoutFeatures(
-  features: Partial<KnownPreviewLayoutFeatures>
-) {
-  usePreviewLayoutFeaturesStore.setState({ features });
+interface PreviewFeaturesProviderProps extends PreviewFeaturesState {
+  children?: React.ReactNode;
+  [key: string]: any;
 }
 
 /**
- * Hook to retrieve active preview features within layout package.
+ * Use to configure preview features
+ * @internal
+ */
+export const PreviewLayoutFeaturesProvider = ({
+  children,
+  ...props
+}: PreviewFeaturesProviderProps) => {
+  return (
+    <PreviewFeaturesContext.Provider value={props}>
+      {children}
+    </PreviewFeaturesContext.Provider>
+  );
+};
+
+/**
+ * Use preview feature context
  * @internal
  */
 export const usePreviewFeatures = () => {
-  return usePreviewLayoutFeaturesStore((state) => state.features);
+  return React.useContext(PreviewFeaturesContext);
 };

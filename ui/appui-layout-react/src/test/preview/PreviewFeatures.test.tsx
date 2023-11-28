@@ -2,26 +2,35 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import * as React from "react";
 import {
-  setPreviewLayoutFeatures,
+  PreviewLayoutFeaturesProvider,
   usePreviewFeatures,
 } from "../../appui-layout-react";
+import { render } from "@testing-library/react";
 import { expect } from "chai";
-import { renderHook } from "@testing-library/react-hooks";
-import { act } from "react-dom/test-utils";
 
 describe("PreviewFeatures", () => {
-  it("should set preview features", () => {
-    const { result } = renderHook(() => usePreviewFeatures());
-    expect(result.current).to.be.empty;
-    act(() => {
-      setPreviewLayoutFeatures({ enableMaximizedFloatingWidget: true });
+  it("should expose all props as context values", () => {
+    const testContext: { renderedContext: any } = {
+      renderedContext: null,
+    };
+    function TestComponent() {
+      testContext.renderedContext = usePreviewFeatures();
+      return <div>Rendered</div>;
+    }
+    render(
+      <PreviewLayoutFeaturesProvider
+        contentAlwaysMaxSize
+        randomProp={"randomValue"}
+      >
+        <TestComponent />
+      </PreviewLayoutFeaturesProvider>
+    );
+
+    expect(testContext.renderedContext).to.deep.equal({
+      contentAlwaysMaxSize: true,
+      randomProp: "randomValue",
     });
-    expect(result.current).to.be.deep.equal({
-      enableMaximizedFloatingWidget: true,
-    });
-  });
-  afterEach(() => {
-    setPreviewLayoutFeatures({});
   });
 });

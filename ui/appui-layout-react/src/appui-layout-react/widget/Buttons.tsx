@@ -19,19 +19,14 @@ import { PinToggle } from "./PinToggle";
 import { PopoutToggle } from "./PopoutToggle";
 import { useLayout } from "../base/LayoutStore";
 import { useFloatingWidgetId, useWidgetAllowedToDock } from "./FloatingWidget";
-import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import {
   PreviewMaximizeToggle,
-  usePreviewMaximizedWidgetStore,
+  usePreviewMaximizedWidget,
 } from "./PreviewMaximizeToggle";
 /** @internal */
 export function TabBarButtons() {
-  const {
-    enableMaximizedFloatingWidget: previewEnableMaximizedFloatingWidget,
-  } = usePreviewFeatures();
-  const maximizedWidget = usePreviewMaximizedWidgetStore(
-    (state) => state.maximizedWidget
-  );
+  const { enabled: previewEnableMaximizedFloatingWidget, maximizedWidget } =
+    usePreviewMaximizedWidget();
   const isToolSettings = useIsToolSettingsTab();
   const floatingWidgetId = useFloatingWidgetId();
   const canBeDocked = useWidgetAllowedToDock();

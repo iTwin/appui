@@ -1017,6 +1017,23 @@ export interface PopoutWidgetState {
 }
 
 // @internal
+export const PreviewLayoutFeaturesProvider: ({ children, ...props }: PreviewFeaturesProviderProps) => JSX.Element;
+
+// @internal
+export function PreviewMaximizedWidgetFeatureProvider({ enabled, children, }: PreviewMaximizedWidgetFeatureProviderProps): JSX.Element;
+
+// @internal
+export interface PreviewMaximizedWidgetFeatureProviderProps {
+    // (undocumented)
+    children?: React_2.ReactNode;
+    // (undocumented)
+    enabled?: boolean;
+}
+
+// @internal (undocumented)
+export function PreviewMaximizeToggle(): JSX.Element;
+
+// @internal
 export function removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
 
 // @internal
@@ -1093,9 +1110,6 @@ export interface SectionDropTargetState {
 
 // @internal (undocumented)
 export function SendBack(): JSX.Element;
-
-// @internal
-export function setPreviewLayoutFeatures(features: Partial<KnownPreviewLayoutFeatures>): void;
 
 // @internal (undocumented)
 export const ShowWidgetIconContext: React_2.Context<boolean>;
@@ -1575,6 +1589,9 @@ export const usePointerCaptor: <T extends HTMLElement>(onPointerDown?: ((args: P
 
 // @internal
 export const usePreviewFeatures: () => Partial<KnownPreviewLayoutFeatures>;
+
+// @internal
+export function usePreviewMaximizedWidget(): MaximizedWidgetState;
 
 // @internal (undocumented)
 export const useResizeGrip: <T extends HTMLElement>() => [(instance: T | null) => void, boolean, boolean];
