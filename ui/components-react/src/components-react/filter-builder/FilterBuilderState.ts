@@ -320,17 +320,13 @@ export function defaultPropertyFilterBuilderRuleValidator(
     return undefined;
   }
   if (item.value === undefined) {
-    return UiComponents.translate(
-      "PropertyFilterBuilder.errorMessages.emptyValue"
-    );
+    return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
   }
   if (
     item.value.valueFormat === PropertyValueFormat.Primitive &&
     (item.value.value === undefined || item.value.value === "")
   ) {
-    return UiComponents.translate(
-      "PropertyFilterBuilder.errorMessages.emptyValue"
-    );
+    return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
   }
   return undefined;
 }

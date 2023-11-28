@@ -63,7 +63,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     expect(
       queryByText(
         TestUtils.i18n.getLocalizedString(
-          "Components:PropertyFilterBuilder.operators.and"
+          "Components:filterBuilder.operators.and"
         )
       )
     ).to.be.null;

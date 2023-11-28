@@ -10,10 +10,18 @@ import { UiComponents } from "../UiComponents";
 
 type Operator = "And" | "Or";
 
+/**
+ * Props for [[PropertyFilterBuilderLogicalOperator]] component.
+ * @internal
+ */
 interface PropertyFilterBuilderLogicalOperatorProps {
+  /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
   size?: "small" | "large";
+  /** Allows toggling of operator by clicking operator text. */
   isLinkDisabled?: boolean;
+  /** Operator to combine FilterBuilderRules. Must be either "And" or "Or". */
   operator?: Operator;
+  /** Callback that is invoked when operator changes. */
   onOperatorChange?: (operator: Operator) => void;
 }
 
@@ -42,7 +50,7 @@ export const PropertyFilterBuilderLogicalOperator = (
       {...rest}
     >
       {undefined === operator ? (
-        <span>{UiComponents.translate("PropertyFilterBuilder.group")}</span>
+        <span>{UiComponents.translate("filterBuilder.group")}</span>
       ) : isLinkDisabled ? (
         <span>{operator}</span>
       ) : (

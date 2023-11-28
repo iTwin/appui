@@ -96,9 +96,7 @@ export function PropertyFilterBuilderRuleProperty(
         onChange={onPropertyChanged}
         value={selectedProperty?.name}
         inputProps={{
-          placeholder: UiComponents.translate(
-            "PropertyFilterBuilder.chooseProperty"
-          ),
+          placeholder: UiComponents.translate("filterBuilder.chooseProperty"),
           disabled: isDisabled,
           size: props.size,
         }}

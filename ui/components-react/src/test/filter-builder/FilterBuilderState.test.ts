@@ -438,9 +438,7 @@ describe("usePropertyFilterBuilder", () => {
         expect(
           (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
         ).to.be.eq(
-          UiComponents.translate(
-            "PropertyFilterBuilder.errorMessages.emptyValue"
-          )
+          UiComponents.translate("filterBuilder.errorMessages.emptyValue")
         );
 
         expect(buildFilterResult).to.be.undefined;
@@ -464,9 +462,7 @@ describe("usePropertyFilterBuilder", () => {
         expect(
           (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
         ).to.be.eq(
-          UiComponents.translate(
-            "PropertyFilterBuilder.errorMessages.emptyValue"
-          )
+          UiComponents.translate("filterBuilder.errorMessages.emptyValue")
         );
 
         expect(buildFilterResult).to.be.undefined;
