@@ -3,7 +3,7 @@
     {
       "packageName": "@itwin/components-react",
       "comment": "Fix bug where multiline value renderer would not support certain properties.",
-      "type": "none"
+      "type": "patch"
     }
   ],
   "packageName": "@itwin/components-react"
