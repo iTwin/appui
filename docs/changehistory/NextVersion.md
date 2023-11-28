@@ -11,6 +11,7 @@ Table of contents:
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Fixes](#fixes-1)
 - [@itwin/components-react](#itwincomponents-react)
+  - [Additions](#additions-1)
   - [Fixes](#fixes-2)
 - [@itwin/core-react](#itwincore-react)
   - [Changes](#changes-1)
@@ -113,6 +114,10 @@ Table of contents:
 - Remove unneeded `changeView` call when mounting `ViewportComponent`.
 
 ## @itwin/components-react
+
+### Additions
+
+- Added `onNodeDoubleClicked` to `TreeEvents` and added an empty body implementation of it in `TreeEventHandler`.
 
 ### Fixes
 
