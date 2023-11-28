@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import {
+  PreviewFeatures,
   PreviewFeaturesProvider,
   StatusBarItem,
   StatusBarSection,
@@ -86,14 +87,10 @@ export class PreviewFeaturesToggleProvider implements UiItemsProvider {
     return (
       <PreviewFeatureListContext.Provider value={activeFeatureList}>
         <PreviewFeaturesProvider
-          features={{
-            contentAlwaysMaxSize: activeFeatureList[0].includes(
-              "contentAlwaysMaxSize"
-            ),
-            enableMaximizedFloatingWidget: activeFeatureList[0].includes(
-              "enableMaximizedFloatingWidget"
-            ),
-          }}
+          features={featureList.reduce<PreviewFeatures>((features, { id }) => {
+            features[id] = activeFeatureList[0].includes(id);
+            return features;
+          }, {})}
         >
           {props.children}
         </PreviewFeaturesProvider>
