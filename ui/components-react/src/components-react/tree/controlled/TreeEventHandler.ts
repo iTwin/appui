@@ -138,6 +138,9 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
     this.activateEditor(nodeId);
   }
 
+  /** This method is declared here to be overridden by classes that extend TreeEventHandler */
+  public onNodeDoubleClick(_: TreeNodeEventArgs) {}
+
   /** Activates node editing if editing parameters are supplied and node is editable. */
   public onNodeEditorActivated({ nodeId }: TreeNodeEventArgs) {
     this.activateEditor(nodeId);
