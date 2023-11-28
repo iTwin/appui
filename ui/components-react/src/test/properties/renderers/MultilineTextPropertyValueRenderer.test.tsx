@@ -55,7 +55,7 @@ describe("MultilineTextPropertyValueRenderer", () => {
       const record =
         TestUtils.createMultilineTextPropertyRecord(propertyRecord);
 
-      it("renders property records", () => {
+      it(`renders ${propertyRecord.property.typename} property record`, () => {
         const { getByText } = render(<>{renderer.render(record)}</>);
         expect(getByText(expectedValue)).to.be.not.null;
       });
