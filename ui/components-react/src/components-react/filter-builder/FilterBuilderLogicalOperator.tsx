@@ -18,11 +18,11 @@ export interface PropertyFilterBuilderLogicalOperatorProps {
   /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
   size?: "small" | "large";
   /** Allows toggling of operator by clicking operator text. */
-  isLinkDisabled?: boolean;
+  isDisabled?: boolean;
   /** Operator to combine FilterBuilderRules. Must be either "And" or "Or". */
-  operator?: Operator;
+  operator: Operator;
   /** Callback that is invoked when operator changes. */
-  onOperatorChange?: (operator: Operator) => void;
+  onOperatorChange: (operator: Operator) => void;
 }
 
 /** Component to render the operator inside of the filter builder
@@ -32,14 +32,8 @@ export const PropertyFilterBuilderLogicalOperator = (
   props: Omit<React.HTMLProps<HTMLDivElement>, "size"> &
     PropertyFilterBuilderLogicalOperatorProps
 ) => {
-  const {
-    className,
-    size,
-    isLinkDisabled,
-    operator,
-    onOperatorChange,
-    ...rest
-  } = props;
+  const { className, size, isDisabled, operator, onOperatorChange, ...rest } =
+    props;
 
   const toggle = () => (operator === "And" ? "Or" : "And");
 
@@ -51,7 +45,7 @@ export const PropertyFilterBuilderLogicalOperator = (
     >
       {undefined === operator ? (
         <span>{UiComponents.translate("filterBuilder.group")}</span>
-      ) : isLinkDisabled ? (
+      ) : isDisabled ? (
         <span>{operator}</span>
       ) : (
         <Anchor onClick={() => onOperatorChange?.(toggle())}>{operator}</Anchor>

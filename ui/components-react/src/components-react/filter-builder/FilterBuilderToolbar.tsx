@@ -15,9 +15,9 @@ interface PropertyFilterBuilderToolbarProps {
   /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
   size?: "small" | "large";
   /** Function to add child of current group. */
-  onAddChild?: () => void;
+  onAddChild: () => void;
   /** Function to remove child from current group. */
-  onDelete?: () => void;
+  onDelete: () => void;
 }
 
 /** Toolbar displaying the "add" and "delete" row buttons in the filter builder
