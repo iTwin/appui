@@ -42,7 +42,8 @@ import {
   isPanelTabLocation,
   NineZone,
   NineZoneStateReducer,
-  PreviewFeaturesProvider,
+  PreviewLayoutFeaturesProvider,
+  PreviewMaximizedWidgetFeatureProvider,
   removeTab,
   useLayout,
   WidgetPanels,
@@ -101,24 +102,28 @@ function WidgetPanelsFrontstageComponent() {
     "preview-contentAlwaysMaxSize-topPanelActive";
 
   return (
-    <PreviewFeaturesProvider {...previewFeatures}>
-      <WidgetPanelsToolSettings />
-      <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
-        <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
-        <WidgetPanels
-          className={classNames(
-            "uifw-widgetPanels",
-            previewContentAlwaysMaxSizeDockedClass,
-            previewContentAlwaysMaxSizeTopPanelClass
-          )}
-          centerContent={<WidgetPanelsToolbars />}
-        >
-          <WidgetPanelsFrontstageContent />
-        </WidgetPanels>
-        <WidgetPanelsStatusBar />
-        <FloatingWidgets />
-      </ToolbarPopupAutoHideContext.Provider>
-    </PreviewFeaturesProvider>
+    <PreviewLayoutFeaturesProvider {...previewFeatures}>
+      <PreviewMaximizedWidgetFeatureProvider
+        enabled={previewFeatures.enableMaximizedFloatingWidget}
+      >
+        <WidgetPanelsToolSettings />
+        <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
+          <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
+          <WidgetPanels
+            className={classNames(
+              "uifw-widgetPanels",
+              previewContentAlwaysMaxSizeDockedClass,
+              previewContentAlwaysMaxSizeTopPanelClass
+            )}
+            centerContent={<WidgetPanelsToolbars />}
+          >
+            <WidgetPanelsFrontstageContent />
+          </WidgetPanels>
+          <WidgetPanelsStatusBar />
+          <FloatingWidgets />
+        </ToolbarPopupAutoHideContext.Provider>
+      </PreviewMaximizedWidgetFeatureProvider>
+    </PreviewLayoutFeaturesProvider>
   );
 }
 

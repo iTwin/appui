@@ -158,10 +158,11 @@ export class TestUtils {
     return property;
   }
 
-  public static createMultilineTextPropertyRecord(name: string, value: string) {
-    const record = TestUtils.createPrimitiveStringProperty(name, value);
-    record.property.renderer = { name: "multiline" };
-    return record;
+  public static createMultilineTextPropertyRecord(
+    propertyRecord: PropertyRecord
+  ) {
+    propertyRecord.property.renderer = { name: "multiline" };
+    return propertyRecord;
   }
 
   public static createArrayProperty(

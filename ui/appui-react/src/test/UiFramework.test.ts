@@ -173,18 +173,6 @@ describe("UiFramework localStorage Wrapper", () => {
       TestUtils.terminateUiFramework();
     });
 
-    it("PreviewFeatures", async () => {
-      await TestUtils.initializeUiFramework();
-      UiFramework.setPreviewFeatures({
-        contentAlwaysMaxSize: true,
-        randomContent: "randomValue",
-      });
-      expect(UiFramework.previewFeatures).to.be.eql({
-        contentAlwaysMaxSize: true,
-      });
-      TestUtils.terminateUiFramework();
-    });
-
     it("ActiveIModelId", async () => {
       await TestUtils.initializeUiFramework();
       const testValue = "Test";
@@ -260,16 +248,6 @@ describe("UiFramework localStorage Wrapper", () => {
 
       // try again when store is not defined
       expect(UiFramework.useDragInteraction).to.eql(false);
-    });
-
-    it("should set known preview features only", () => {
-      UiFramework.setPreviewFeatures({
-        contentAlwaysMaxSize: true,
-        randomFeature: "random",
-      });
-      expect(UiFramework.previewFeatures).to.be.eql({
-        contentAlwaysMaxSize: true,
-      });
     });
   });
 
