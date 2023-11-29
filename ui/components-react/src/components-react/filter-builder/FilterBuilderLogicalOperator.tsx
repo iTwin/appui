@@ -12,9 +12,9 @@ type Operator = "And" | "Or";
 
 /**
  * Props for [[PropertyFilterBuilderLogicalOperator]] component.
- * @internal
+ * @beta
  */
-interface PropertyFilterBuilderLogicalOperatorProps {
+export interface PropertyFilterBuilderLogicalOperatorProps {
   /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
   size?: "small" | "large";
   /** Allows toggling of operator by clicking operator text. */
