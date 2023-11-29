@@ -3,8 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
-import cx from "classnames";
-import { Flex, type FlexProps, IconButton } from "@itwin/itwinui-react";
+import { Flex, IconButton } from "@itwin/itwinui-react";
 import { SvgAdd, SvgDelete } from "@itwin/itwinui-icons-react";
 import { UiComponents } from "../UiComponents";
 
@@ -25,13 +24,13 @@ interface PropertyFilterBuilderToolbarProps {
  * @beta
  */
 export const PropertyFilterBuilderToolbar = (
-  props: FlexProps & PropertyFilterBuilderToolbarProps
+  props: PropertyFilterBuilderToolbarProps
 ) => {
-  const { className, size, onAddChild, onDelete, ...rest } = props;
+  const { size, onAddChild, onDelete, ...rest } = props;
 
   return (
     <Flex
-      className={cx("fb-toolbar", className)}
+      className={"fb-toolbar fb-row-toolbar"}
       gap="0"
       justifyContent="flex-end"
       {...rest}

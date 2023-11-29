@@ -155,7 +155,6 @@ export function PropertyFilterBuilderRuleRenderer(
             </div>
           ) : null}
           <PropertyFilterBuilderToolbar
-            className="fb-row-toolbar"
             onAddChild={() => onAddRule()}
             onDelete={removeRule}
             size={size}
