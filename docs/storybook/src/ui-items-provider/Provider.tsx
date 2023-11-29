@@ -2,13 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-// __PUBLISH_EXTRACT_START__ AppUI.UiItemsProvider.Register.Imports
-import { UiItemsManager } from "@itwin/appui-react";
-// __PUBLISH_EXTRACT_END__
-import { provider } from "./Provider";
+// __PUBLISH_EXTRACT_START__ AppUI.UiItemsProvider.Provider
+import { UiItemsProvider } from "@itwin/appui-react";
 
-export async function registerUiItemsProvider() {
-  // __PUBLISH_EXTRACT_START__ AppUI.UiItemsProvider.Register
-  UiItemsManager.register(provider);
-  // __PUBLISH_EXTRACT_END__
-}
+const provider: UiItemsProvider = {
+  id: "example:Provider",
+  getWidgets: () => [],
+  getToolbarItems: () => [],
+};
+// __PUBLISH_EXTRACT_END__
+
+export { provider };

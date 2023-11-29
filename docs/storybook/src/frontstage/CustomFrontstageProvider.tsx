@@ -14,7 +14,7 @@ import {
   ReactContentControlOptions,
 } from "../ReactContentControl";
 
-export class CustomFrontstageProvider extends FrontstageProvider {
+class CustomFrontstageProvider extends FrontstageProvider {
   public override get id(): string {
     return "example:CustomFrontstage";
   }
@@ -41,3 +41,5 @@ export class CustomFrontstageProvider extends FrontstageProvider {
   }
 }
 // __PUBLISH_EXTRACT_END__
+
+export { CustomFrontstageProvider };
