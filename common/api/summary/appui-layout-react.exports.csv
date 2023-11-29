@@ -111,6 +111,7 @@ internal;isTabDropTargetState(state: DropTargetState): state is TabDropTargetSta
 internal;isWidgetDragDropTargetState(state: DropTargetState): state is WidgetDragDropTargetState
 internal;isWidgetDropTargetState(state: DropTargetState): state is WidgetDropTargetState
 internal;isWindowDropTargetState(state: WidgetDragDropTargetState): state is WindowDropTargetState
+internal;KnownPreviewLayoutFeatures
 internal;LayoutState = NineZoneState
 internal;LayoutStore = StoreApi
 internal;LayoutStoreContext: React_2.Context
@@ -167,7 +168,10 @@ internal;PopoutWidgetLocation
 internal;PopoutWidgetSendBackAction
 internal;PopoutWidgetsState
 internal;PopoutWidgetState
-internal;PreviewFeaturesProvider: ({ children, ...props }: PreviewFeaturesProviderProps) => JSX.Element
+internal;PreviewLayoutFeaturesProvider: ({ children, ...props }: PreviewFeaturesProviderProps) => JSX.Element
+internal;PreviewMaximizedWidgetFeatureProvider({ enabled, children, }: PreviewMaximizedWidgetFeatureProviderProps): JSX.Element
+internal;PreviewMaximizedWidgetFeatureProviderProps
+internal;PreviewMaximizeToggle(): JSX.Element
 internal;removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;removeTabFromWidget(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;ResizeAction
@@ -262,7 +266,8 @@ internal;useMode(widgetId: string): "fit" | "fill" | "minimized"
 internal;usePanelsAutoCollapse
 internal;UsePanelTargetArgs
 internal;usePointerCaptor: 
-internal;usePreviewFeatures: () => KnownPreviewFeatures &
+internal;usePreviewFeatures: () => Partial
+internal;usePreviewMaximizedWidget(): MaximizedWidgetState
 internal;useResizeGrip: 
 internal;useSendBackHomeState():
 internal;useTabInteractions

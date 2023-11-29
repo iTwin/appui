@@ -47,7 +47,7 @@ import { useLayout, useLayoutStore } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import { Key } from "ts-key-enum";
-import { usePreviewFeatures } from "../preview/PreviewFeatures";
+import { usePreviewMaximizedWidget } from "./PreviewMaximizeToggle";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -120,12 +120,13 @@ function WidgetTabComponent(props: WidgetTabProps) {
     (state) => getWidgetState(state, widgetId).minimized
   );
 
-  const { enableMaximizedFloatingWidget, previewState } = usePreviewFeatures();
+  const { enabled: enableMaximizedFloatingWidget, maximizedWidget } =
+    usePreviewMaximizedWidget();
   const floatingWidgetId = useFloatingWidgetId();
   // istanbul ignore next (preview)
   const maximized =
     !!floatingWidgetId &&
-    previewState.maximizedWidget === floatingWidgetId &&
+    maximizedWidget === floatingWidgetId &&
     enableMaximizedFloatingWidget;
 
   const resizeObserverRef = useResizeObserver<HTMLDivElement>(

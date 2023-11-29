@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { toaster } from "@itwin/itwinui-react";
-import { usePreviewFeaturesStore } from "../appui-react/preview/PreviewFeatures";
 
 afterEach(() => {
   // Undo DOM manipulations made by iTwinUI-React components
@@ -14,9 +13,4 @@ afterEach(() => {
   // it looses reference of container ot render in
   // eslint-disable-next-line @typescript-eslint/dot-notation
   toaster["isInitialized"] = false;
-});
-
-const initialPreviewFeaturesState = usePreviewFeaturesStore.getState();
-afterEach(() => {
-  usePreviewFeaturesStore.setState(initialPreviewFeaturesState, true);
 });
