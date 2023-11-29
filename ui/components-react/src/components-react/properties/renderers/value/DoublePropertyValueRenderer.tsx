@@ -7,14 +7,14 @@
  */
 
 import * as React from "react";
-import type { PrimitiveValue, PropertyRecord } from "@itwin/appui-abstract";
+import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
-import { TypeConverterManager } from "../../../converters/TypeConverterManager";
 import type {
   IPropertyValueRenderer,
   PropertyValueRendererContext,
 } from "../../ValueRendererManager";
 import { PrimitivePropertyValueRendererImpl } from "./PrimitivePropertyValueRenderer";
+import { convertRecordToString } from "./Common";
 
 /** Default Double Property Renderer
  * @public
@@ -41,15 +41,4 @@ export class DoublePropertyValueRenderer implements IPropertyValueRenderer {
       />
     );
   }
-}
-
-function convertRecordToString(
-  record: PropertyRecord
-): string | Promise<string> {
-  const primitive = record.value as PrimitiveValue;
-  if (primitive.displayValue) return primitive.displayValue;
-  return TypeConverterManager.getConverter(
-    record.property.typename,
-    record.property.converter?.name
-  ).convertPropertyToString(record.property, primitive.value);
 }
