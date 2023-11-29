@@ -11,6 +11,7 @@ importers:
       '@itwin/appui-abstract': 4.0.0-dev.104
       '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
+      '@itwin/build-tools': 4.0.0-dev.87
       '@itwin/components-react': workspace:*
       '@itwin/core-bentley': 4.0.0-dev.104
       '@itwin/core-common': 4.0.0-dev.104
@@ -73,6 +74,7 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
     devDependencies:
+      '@itwin/build-tools': 4.0.0-dev.87
       '@originjs/vite-plugin-commonjs': 1.0.3
       '@storybook/addon-essentials': 7.4.6_54d6c303e86b1ed39f97a7d48627e275
       '@storybook/addon-interactions': 7.4.6_54d6c303e86b1ed39f97a7d48627e275
@@ -1506,7 +1508,7 @@ packages:
       '@babel/helper-validator-option': 7.22.5
       browserslist: 4.21.5
       lru-cache: 5.1.1
-      semver: 6.3.0
+      semver: 6.3.1
     dev: true
 
   /@babel/helper-compilation-targets/7.22.5_@babel+core@7.22.5:
@@ -1520,7 +1522,7 @@ packages:
       '@babel/helper-validator-option': 7.22.5
       browserslist: 4.21.5
       lru-cache: 5.1.1
-      semver: 6.3.0
+      semver: 6.3.1
     dev: true
 
   /@babel/helper-create-class-features-plugin/7.21.0_@babel+core@7.21.3:
@@ -9163,7 +9165,7 @@ packages:
       '@typescript-eslint/typescript-estree': 5.59.11_typescript@5.0.2
       eslint: 8.44.0
       eslint-scope: 5.1.1
-      semver: 7.3.8
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
       - typescript
