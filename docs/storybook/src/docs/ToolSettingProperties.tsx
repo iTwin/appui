@@ -4,11 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 // __PUBLISH_EXTRACT_START__ AppUI.ToolSettings.SupplyProperties
 import { DialogItem } from "@itwin/appui-abstract";
-import {
-  IModelApp,
-  InteractiveTool,
-  PrimitiveTool,
-} from "@itwin/core-frontend";
+import { IModelApp, InteractiveTool } from "@itwin/core-frontend";
 
 export class CustomTool extends InteractiveTool /*PrimitiveTool*/ {
   public static override toolId = "example:CustomTool";
