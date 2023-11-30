@@ -231,20 +231,6 @@ export class UiFramework {
     store: Store<any> | undefined,
     frameworkStateKey?: string
   ): Promise<void> {
-    return this.initializeEx(store, frameworkStateKey);
-  }
-
-  /**
-   * Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore.
-   * @param store The single Redux store created by the host application. If this is `undefined` then it is assumed that the [[StateManager]] is being used to provide the Redux store.
-   * @param frameworkStateKey The name of the key used by the app when adding the UiFramework state into the Redux store. If not defined "frameworkState" is assumed. This value is ignored if [[StateManager]] is being used. The StateManager use "frameworkState".
-   *
-   * @internal
-   */
-  public static async initializeEx(
-    store: Store<any> | undefined,
-    frameworkStateKey?: string
-  ): Promise<void> {
     if (UiFramework._initialized) {
       Logger.logInfo(
         UiFramework.loggerCategory(UiFramework),
