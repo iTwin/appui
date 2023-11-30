@@ -217,7 +217,10 @@ export class TimelineComponent extends React.Component<
       this._setDuration(
         this.props.initialDuration
           ? this.props.initialDuration
-          : /* istanbul ignore next */ 0
+          : /* istanbul ignore next */ 0,
+        this.props.totalDuration !== prevProps.totalDuration
+          ? this.props.totalDuration
+          : undefined
       );
     }
 
@@ -308,9 +311,9 @@ export class TimelineComponent extends React.Component<
   };
 
   // set the current duration, which will call the OnChange callback
-  private _setDuration = (currentDuration: number) => {
+  private _setDuration = (currentDuration: number, updatedTotal?: number) => {
     const actualDuration = Math.min(
-      this.state.totalDuration,
+      updatedTotal ?? this.state.totalDuration,
       Math.max(currentDuration, 0)
     );
 
@@ -319,7 +322,8 @@ export class TimelineComponent extends React.Component<
     if (!this._unmounted) this.setState({ currentDuration: actualDuration });
     // istanbul ignore else
     if (this.props.onChange) {
-      const fraction = actualDuration / this.state.totalDuration;
+      const fraction =
+        actualDuration / (updatedTotal ?? this.state.totalDuration);
       this.props.onChange(fraction);
     }
   };

@@ -107,6 +107,7 @@ import { ComponentGenerator } from "@itwin/appui-react/lib/cjs/appui-react/uipro
 import { UnitSystemKey } from "@itwin/core-quantity";
 import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";
 import { TreeWidgetComponent } from "../widgets/TreeWidget";
+import { TimelineComponent } from "@itwin/imodel-components-react";
 
 class TestContentControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -1255,6 +1256,32 @@ export class ComponentExamplesProvider {
     };
   }
 
+  private static get timelineSample(): ComponentExampleCategory {
+    function TestTimeline() {
+      const [time, setTime] = React.useState<number>(1000);
+      return (
+        <>
+          <div>
+            <Button onClick={() => setTime(1000)}>Set to 1 second</Button>
+            <Button onClick={() => setTime(5000)}>Set to 5 seconds</Button>
+            <Button onClick={() => setTime(10000)}>Set to 10 seconds</Button>
+          </div>
+          <TimelineComponent totalDuration={time} initialDuration={time} />
+        </>
+      );
+    }
+    return {
+      title: "Timeline",
+      examples: [
+        createComponentExample(
+          "Timeline",
+          "Timeline component from imodel-components-react",
+          <TestTimeline />
+        ),
+      ],
+    };
+  }
+
   private static get toolbarSample(): ComponentExampleCategory {
     const testItemEventId = "test-event";
     const visibleState = { visible: false };
@@ -1461,6 +1488,7 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.popupSample,
       ComponentExamplesProvider.settingsSample,
       ComponentExamplesProvider.statusBarSample,
+      ComponentExamplesProvider.timelineSample,
       ComponentExamplesProvider.toolbarSample,
       ComponentExamplesProvider.treeSample,
       ComponentExamplesProvider.uiProviderSample,
