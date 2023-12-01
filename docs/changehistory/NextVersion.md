@@ -123,6 +123,7 @@ Table of contents:
 ### Fixes
 
 - Fixed `useAsyncValue` hook to work in React 18 strict mode.
+- Fixed `MultiLineTextPropertyValueRenderer` to support Navigation and Double `PropertyRecords`.
 
 ## @itwin/core-react
 
