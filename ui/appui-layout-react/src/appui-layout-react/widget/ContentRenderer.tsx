@@ -20,6 +20,7 @@ import {
   WidgetContentManagerContext,
 } from "./ContentManager";
 import { useLayout } from "../base/LayoutStore";
+import { ThemeProvider } from "@itwin/itwinui-react";
 
 /** @internal */
 export function WidgetContentRenderers() {
@@ -77,13 +78,17 @@ export function WidgetContentRenderer(props: WidgetContentRendererProps) {
       }
     };
   }, [renderTo, widgetContentManager, props.tabId]);
+  // TODO: If problems are found when using theme options such as high contrast
+  // in a separate window. That will need to be added here.
   return ReactDOM.createPortal(
     <div
       style={{ height: "100%", width: "100%" }}
       id={`content-container:${props.tabId}`}
     >
       <TabIdContext.Provider value={props.tabId}>
-        {props.children}
+        <ThemeProvider style={{ height: "100%" }}>
+          {props.children}
+        </ThemeProvider>
       </TabIdContext.Provider>
     </div>,
     container.current
