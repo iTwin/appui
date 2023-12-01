@@ -155,6 +155,7 @@ export function PropertyFilterBuilderRenderer(
             <PropertyFilterBuilderRuleGroupRenderer
               path={ROOT_GROUP_PATH}
               group={rootGroup}
+              size={"small"}
             />
           </Flex>
         </ActiveRuleGroupContext.Provider>

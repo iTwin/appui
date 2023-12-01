@@ -84,6 +84,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
         <PropertyFilterBuilderRuleGroupOperator
           operator={group.operator}
           onChange={onOperatorChange}
+          size={size}
         />
       ) : null}
       <div className="fb-wrapper">
