@@ -12,9 +12,7 @@ const provider: UiItemsProvider = {
       "example:BackstageItem",
       100,
       100,
-      () => {
-        console.log("Clicked!");
-      },
+      () => {},
       "My custom backstage item"
     ),
   ],

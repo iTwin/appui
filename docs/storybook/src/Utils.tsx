@@ -8,10 +8,7 @@ import {
   StandardFrontstageProps,
   StandardFrontstageProvider,
 } from "@itwin/appui-react";
-import {
-  ReactContentControl,
-  ReactContentControlOptions,
-} from "./ReactContentControl";
+import { createContentControl } from "./createContentControl";
 
 export function createFrontstageProvider(
   overrides?: Partial<StandardFrontstageProps>
@@ -26,21 +23,18 @@ export function createFrontstageProvider(
       contents: [
         {
           id: "Content",
-          classId: ReactContentControl,
-          applicationData: {
-            node: (
-              <h1
-                style={{
-                  display: "flex",
-                  height: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                Content
-              </h1>
-            ),
-          } satisfies ReactContentControlOptions,
+          classId: createContentControl(
+            <h1
+              style={{
+                display: "flex",
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              Content
+            </h1>
+          ),
         },
       ],
     },

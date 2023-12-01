@@ -26,8 +26,6 @@ import { Range3d } from "@itwin/core-geometry";
 import { AppUiDecorator } from "../AppUiDecorator";
 import { Page } from "../AppUiStory";
 import { FrontstageStory } from "./Frontstage";
-import { activateCustomFrontstage } from "./activateCustomFrontstage";
-import { registerStandardFrontstage } from "./registerStandardFrontstage";
 import { CustomTool } from "../docs/ToolSettingProperties";
 import { createFrontstageProvider, removeProperty } from "../Utils";
 import { VirtualCursorElement, createCursorEvents } from "../VirtualCursor";
@@ -431,27 +429,6 @@ export const ToolSettings: Story = {
 
       IModelApp.tools.register(CustomTool, UiFramework.localizationNamespace);
       IModelApp.tools.run(CustomTool.toolId);
-    },
-  },
-};
-
-export const CustomFrontstage: Story = {
-  args: {
-    frontstageProviders: [],
-    onInitialized: () => {
-      activateCustomFrontstage();
-    },
-  },
-};
-
-export const StandardFrontstage: Story = {
-  args: {
-    frontstageProviders: [],
-    onInitialized: async () => {
-      registerStandardFrontstage();
-      void UiFramework.frontstages.setActiveFrontstage(
-        "example:StandardFrontstage"
-      );
     },
   },
 };

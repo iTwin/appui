@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import * as React from "react";
 // __PUBLISH_EXTRACT_START__ AppUI.StandardFrontstageProvider.Imports
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
@@ -9,11 +10,11 @@ import {
   StandardFrontstageProvider,
   UiFramework,
 } from "@itwin/appui-react";
+// __PUBLISH_EXTRACT_END__
 import {
   ReactContentControl,
   ReactContentControlOptions,
-} from "../ReactContentControl";
-// __PUBLISH_EXTRACT_END__
+} from "../content/ReactContentControl";
 
 export async function registerStandardFrontstage() {
   // __PUBLISH_EXTRACT_START__ AppUI.StandardFrontstageProvider

@@ -2,24 +2,30 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-// __PUBLISH_EXTRACT_START__ AppUI.UiItemsProvider.StatusBarItems
+// __PUBLISH_EXTRACT_START__ AppUI.UiItemsProvider.ToolbarItems
 import {
-  StatusBarItemUtilities,
-  StatusBarSection,
+  ToolbarItemUtilities,
+  ToolbarOrientation,
+  ToolbarUsage,
   UiItemsProvider,
 } from "@itwin/appui-react";
 
 const provider: UiItemsProvider = {
   id: "example:Provider",
-  getStatusBarItems: () => [
-    StatusBarItemUtilities.createActionItem(
-      "example:StatusBarItem",
-      StatusBarSection.Center,
+  getToolbarItems: () => [
+    ToolbarItemUtilities.createActionItem(
+      "example:ToolbarItem",
       100,
       "icon-placeholder",
-      "My custom status bar item",
-      () => {
-        console.log("Clicked!");
+      "My custom toolbar item",
+      () => {},
+      {
+        layouts: {
+          standard: {
+            orientation: ToolbarOrientation.Horizontal,
+            usage: ToolbarUsage.ContentManipulation,
+          },
+        },
       }
     ),
   ],

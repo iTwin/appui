@@ -94,12 +94,12 @@ import {
   AppUiTestProviders,
   ContentLayoutStage,
   CustomContentFrontstage,
-  CustomFrontstageProvider,
   FloatingWidgetsUiItemsProvider,
   InspectUiItemInfoToolProvider,
   MessageUiItemsProvider,
   PopoutWindowsFrontstage,
   PreviewFeaturesToggleProvider,
+  registerCustomFrontstage,
   SynchronizedFloatingViewportStage,
   WidgetApiStage,
 } from "@itwin/appui-test-providers";
@@ -350,7 +350,7 @@ export class SampleAppIModelApp {
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
-    CustomFrontstageProvider.register(AppUiTestProviders.localizationNamespace);
+    registerCustomFrontstage();
     SynchronizedFloatingViewportStage.register(
       AppUiTestProviders.localizationNamespace
     );
