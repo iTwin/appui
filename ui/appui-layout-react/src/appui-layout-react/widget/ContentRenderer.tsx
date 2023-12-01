@@ -78,15 +78,13 @@ export function WidgetContentRenderer(props: WidgetContentRendererProps) {
       }
     };
   }, [renderTo, widgetContentManager, props.tabId]);
-  // TODO: If problems are found when using theme options such as high contrast
-  // in a separate window. That will need to be added here.
   return ReactDOM.createPortal(
     <div
       style={{ height: "100%", width: "100%" }}
       id={`content-container:${props.tabId}`}
     >
       <TabIdContext.Provider value={props.tabId}>
-        <ThemeProvider style={{ height: "100%" }}>
+        <ThemeProvider style={{ height: "100%" }} theme="inherit">
           {props.children}
         </ThemeProvider>
       </TabIdContext.Provider>
