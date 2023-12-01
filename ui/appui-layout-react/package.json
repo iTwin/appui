@@ -51,7 +51,6 @@
     "NOTE: All tools used by scripts in this package must be listed as devDependencies"
   ],
   "devDependencies": {
-    "@itwin/itwinui-react": "^2.11.11",
     "@itwin/appui-abstract": "^3.7.0",
     "@itwin/build-tools": "^3.7.0",
     "@itwin/core-bentley": "^3.7.0",

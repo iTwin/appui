@@ -20,7 +20,6 @@ import {
   WidgetContentManagerContext,
 } from "./ContentManager";
 import { useLayout } from "../base/LayoutStore";
-import { ThemeProvider } from "@itwin/itwinui-react";
 
 /** @internal */
 export function WidgetContentRenderers() {
@@ -84,9 +83,7 @@ export function WidgetContentRenderer(props: WidgetContentRendererProps) {
       id={`content-container:${props.tabId}`}
     >
       <TabIdContext.Provider value={props.tabId}>
-        <ThemeProvider style={{ height: "100%" }} theme="inherit">
-          {props.children}
-        </ThemeProvider>
+        {props.children}
       </TabIdContext.Provider>
     </div>,
     container.current
