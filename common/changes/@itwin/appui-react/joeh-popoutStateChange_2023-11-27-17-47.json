@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Popout widgets will now contain a ContentContainer instead of a DOM node. This enables work to be saved when a widget is popped out.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
