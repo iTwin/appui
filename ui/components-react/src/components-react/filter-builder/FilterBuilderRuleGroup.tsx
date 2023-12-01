@@ -135,15 +135,17 @@ export function PropertyFilterBuilderRuleGroupOperator(
   props: PropertyFilterBuilderRuleGroupOperatorProps
 ) {
   const { operator, size } = props;
+  const [op, setOp] = React.useState(operator);
 
   return (
     <Flex.Item flex="0" alignSelf="stretch">
       <PropertyFilterBuilderLogicalOperator
         className="fb-group-operator"
-        operator={
-          operator === PropertyFilterRuleGroupOperator.And ? "And" : "Or"
-        }
-        isLinkDisabled={true}
+        operator={op}
+        onOperatorChange={(value: PropertyFilterRuleGroupOperator) => {
+          setOp(value);
+        }}
+        isDisabled={true}
         size={size}
       />
     </Flex.Item>

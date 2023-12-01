@@ -7,8 +7,7 @@ import cx from "classnames";
 import { Anchor } from "@itwin/itwinui-react";
 import "./FilterBuilderLogicalOperator.scss";
 import { UiComponents } from "../UiComponents";
-
-type Operator = "And" | "Or";
+import { PropertyFilterRuleGroupOperator } from "./Operators";
 
 /**
  * Props for [[PropertyFilterBuilderLogicalOperator]] component.
@@ -20,9 +19,9 @@ export interface PropertyFilterBuilderLogicalOperatorProps {
   /** Allows toggling of operator by clicking operator text. */
   isDisabled?: boolean;
   /** Operator to combine FilterBuilderRules. Must be either "And" or "Or". */
-  operator: Operator;
+  operator: PropertyFilterRuleGroupOperator;
   /** Callback that is invoked when operator changes. */
-  onOperatorChange: (operator: Operator) => void;
+  onOperatorChange: (operator: PropertyFilterRuleGroupOperator) => void;
 }
 
 /** Component to render the operator inside of the filter builder
@@ -35,7 +34,10 @@ export const PropertyFilterBuilderLogicalOperator = (
   const { className, size, isDisabled, operator, onOperatorChange, ...rest } =
     props;
 
-  const toggle = () => (operator === "And" ? "Or" : "And");
+  const toggle = () =>
+    operator === PropertyFilterRuleGroupOperator.And
+      ? PropertyFilterRuleGroupOperator.Or
+      : PropertyFilterRuleGroupOperator.And;
 
   return (
     <div
@@ -46,9 +48,13 @@ export const PropertyFilterBuilderLogicalOperator = (
       {undefined === operator ? (
         <span>{UiComponents.translate("filterBuilder.group")}</span>
       ) : isDisabled ? (
-        <span>{operator}</span>
+        <span>
+          {operator === PropertyFilterRuleGroupOperator.And ? "And" : "Or"}
+        </span>
       ) : (
-        <Anchor onClick={() => onOperatorChange?.(toggle())}>{operator}</Anchor>
+        <Anchor onClick={() => onOperatorChange(toggle())}>
+          {operator === PropertyFilterRuleGroupOperator.And ? "And" : "Or"}
+        </Anchor>
       )}
     </div>
   );
