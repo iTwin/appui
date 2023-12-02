@@ -157,13 +157,13 @@ describe("dialog", () => {
       <Dialog style={{color:"red"}} />
       `,
       `
-      import { Dialog } from \"@itwin/itwinui-react\";
+      import { Dialog } from "@itwin/itwinui-react";
       <Dialog
         preventDocumentScroll={true}
         closeOnEsc={false}
         style={{
-          zIndex: \"var(--uicore-z-index-dialog)\",
-          color:\"red\",
+          zIndex: "var(--uicore-z-index-dialog)",
+          color:"red",
         }}>
         <Dialog.Backdrop />
         <Dialog.Main>
@@ -179,7 +179,7 @@ describe("dialog", () => {
       <Dialog style={{zIndex:9000}} />
       `,
       `
-      import { Dialog } from \"@itwin/itwinui-react\";
+      import { Dialog } from "@itwin/itwinui-react";
       <Dialog preventDocumentScroll={true} closeOnEsc={false} style={{zIndex:9000}}>
         <Dialog.Backdrop />
         <Dialog.Main>
@@ -190,14 +190,14 @@ describe("dialog", () => {
       "should not append existing style object"
     );
   });
-
-  describe("TitleBar", () => {
-    defineInlineTest(
-      `
+  describe("Main", () => {
+    describe("TitleBar", () => {
+      defineInlineTest(
+        `
       import { Dialog } from "@itwin/core-react";
       <Dialog title="MyTitle" titleStyle={props.style} />
       `,
-      `
+        `
       import { Dialog } from "@itwin/itwinui-react";
       <Dialog
         preventDocumentScroll={true}
@@ -211,14 +211,14 @@ describe("dialog", () => {
         </Dialog.Main>
       </Dialog>
       `,
-      "should move attributes to TitleBar"
-    );
-    defineInlineTest(
-      `
+        "should move attributes to TitleBar"
+      );
+      defineInlineTest(
+        `
       import { Dialog } from "@itwin/core-react";
       <Dialog hideHeader />
       `,
-      `
+        `
       import { Dialog } from "@itwin/itwinui-react";
       <Dialog
         preventDocumentScroll={true}
@@ -229,14 +229,14 @@ describe("dialog", () => {
         <Dialog.Backdrop />
       </Dialog>
       `,
-      "should not add TitleBar expression when hideHeader value is null"
-    );
-    defineInlineTest(
-      `
+        "should not add TitleBar expression when hideHeader value is null"
+      );
+      defineInlineTest(
+        `
       import { Dialog } from "@itwin/core-react";
       <Dialog hideHeader={true} />
       `,
-      `
+        `
       import { Dialog } from "@itwin/itwinui-react";
       <Dialog
         preventDocumentScroll={true}
@@ -247,14 +247,14 @@ describe("dialog", () => {
         <Dialog.Backdrop />
       </Dialog>
       `,
-      "should not add TitleBar expression when hideHeader value is true"
-    );
-    defineInlineTest(
-      `
+        "should not add TitleBar expression when hideHeader value is true"
+      );
+      defineInlineTest(
+        `
       import { Dialog } from "@itwin/core-react";
       <Dialog hideHeader={getHideHeaderValue(this)} />
       `,
-      `
+        `
       import { Dialog } from "@itwin/itwinui-react";
       <Dialog
         preventDocumentScroll={true}
@@ -268,14 +268,14 @@ describe("dialog", () => {
         </Dialog.Main>
       </Dialog>
       `,
-      "should add logical expression (&&) with negated hideHeader value and TitleBar"
-    );
-    defineInlineTest(
-      `
+        "should add logical expression (&&) with negated hideHeader value and TitleBar"
+      );
+      defineInlineTest(
+        `
       import { Dialog } from "@itwin/core-react";
       <Dialog hideHeader={false} />
       `,
-      `
+        `
       import { Dialog } from "@itwin/itwinui-react";
       <Dialog
         preventDocumentScroll={true}
@@ -289,14 +289,14 @@ describe("dialog", () => {
         </Dialog.Main>
       </Dialog>
       `,
-      "should not add hideHeader in TitleBar expression when hideHeader value is false"
-    );
-    defineInlineTest(
-      `
+        "should not add hideHeader in TitleBar expression when hideHeader value is false"
+      );
+      defineInlineTest(
+        `
       import { Dialog } from "@itwin/core-react";
       <Dialog hideHeader={hideHeaderVal} header={headerVal} />
       `,
-      `
+        `
       import { Dialog } from "@itwin/itwinui-react";
       <Dialog
         preventDocumentScroll={true}
@@ -310,14 +310,14 @@ describe("dialog", () => {
         </Dialog.Main>
       </Dialog>
       `,
-      "should add nested logical expressions with negated hideHeader value, header value and TitleBar"
-    );
-    defineInlineTest(
-      `
+        "should add nested logical expressions with negated hideHeader value, header value and TitleBar"
+      );
+      defineInlineTest(
+        `
       import { Dialog } from "@itwin/core-react";
       <Dialog header={headerVal} />
       `,
-      `
+        `
       import { Dialog } from "@itwin/itwinui-react";
       <Dialog
         preventDocumentScroll={true}
@@ -331,14 +331,14 @@ describe("dialog", () => {
         </Dialog.Main>
       </Dialog>
       `,
-      "should add logical expression (||) with header value and TitleBar"
-    );
-    defineInlineTest(
-      `
+        "should add logical expression (||) with header value and TitleBar"
+      );
+      defineInlineTest(
+        `
       import { Dialog } from "@itwin/core-react";
       <Dialog header={<h>Header</h>} />
       `,
-      `
+        `
       import { Dialog } from "@itwin/itwinui-react";
       <Dialog
         preventDocumentScroll={true}
@@ -352,29 +352,223 @@ describe("dialog", () => {
         </Dialog.Main>
       </Dialog>
       `,
-      "should add only header as TitleBar expression"
-    );
-  });
+        "should add only header as TitleBar expression"
+      );
+    });
 
-  /*describe("", () => {
+    describe("Content", () => {
+      defineInlineTest(
+        `
+      import { Dialog } from "@itwin/core-react";
+      <Dialog>{"Example"}</Dialog>
+      `,
+        `
+      import { Dialog } from "@itwin/itwinui-react";
+      <Dialog
+        preventDocumentScroll={true}
+        style={{
+          zIndex: "var(--uicore-z-index-dialog)",
+        }}
+        closeOnEsc={false}>
+        <Dialog.Backdrop />
+        <Dialog.Main>
+          <Dialog.TitleBar />
+          <Dialog.Content>{"Example"}</Dialog.Content>
+        </Dialog.Main>
+      </Dialog>
+      `,
+        "should add Content element with Dialog child elements"
+      );
+      defineInlineTest(
+        `
+      import { Dialog } from "@itwin/core-react";
+      <Dialog contentStyle={{top: 5}}/>
+      `,
+        `
+      import { Dialog } from "@itwin/itwinui-react";
+      <Dialog
+        preventDocumentScroll={true}
+        style={{
+          zIndex: "var(--uicore-z-index-dialog)",
+        }}
+        closeOnEsc={false}>
+        <Dialog.Backdrop />
+        <Dialog.Main>
+          <Dialog.TitleBar />
+          <Dialog.Content style={{top: 5}}></Dialog.Content>
+        </Dialog.Main>
+      </Dialog>
+      `,
+        "should add Content element with style"
+      );
+      defineInlineTest(
+        `
+      import { Dialog } from "@itwin/core-react";
+      <Dialog contentClassName="dialogContentClassName"/>
+      `,
+        `
+      import { Dialog } from "@itwin/itwinui-react";
+      <Dialog
+        preventDocumentScroll={true}
+        style={{
+          zIndex: "var(--uicore-z-index-dialog)",
+        }}
+        closeOnEsc={false}>
+        <Dialog.Backdrop />
+        <Dialog.Main>
+          <Dialog.TitleBar />
+          <Dialog.Content className="dialogContentClassName"></Dialog.Content>
+        </Dialog.Main>
+      </Dialog>
+      `,
+        "should add Content element with className"
+      );
+    });
+
+    describe("ButtonBar", () => {
+      defineInlineTest(
+        `
+      import { Dialog } from "@itwin/core-react";
+      <Dialog footer={myFooter} />
+      `,
+        `
+      import { Dialog } from "@itwin/itwinui-react";
+      <Dialog
+        preventDocumentScroll={true}
+        style={{
+          zIndex: "var(--uicore-z-index-dialog)",
+        }}
+        closeOnEsc={false}>
+        <Dialog.Backdrop />
+        <Dialog.Main>
+          <Dialog.TitleBar />
+          {myFooter}
+        </Dialog.Main>
+      </Dialog>
+      `,
+        "should add footer expression"
+      );
+      defineInlineTest(
+        `
+      import { Dialog } from "@itwin/core-react";
+      <Dialog footer={<Button>ClickMe</Button>} />
+      `,
+        `
+      import { Dialog } from "@itwin/itwinui-react";
+      <Dialog
+        preventDocumentScroll={true}
+        style={{
+          zIndex: "var(--uicore-z-index-dialog)",
+        }}
+        closeOnEsc={false}>
+        <Dialog.Backdrop />
+        <Dialog.Main>
+          <Dialog.TitleBar />
+          <Button>ClickMe</Button>
+        </Dialog.Main>
+      </Dialog>
+      `,
+        "should add footer element"
+      );
+
+      defineInlineTest(
+        `
+      import { Dialog } from "@itwin/core-react";
+      <Dialog footerStyle={{top: 5}} />
+      `,
+        `
+      import { Dialog } from "@itwin/itwinui-react";
+      <Dialog
+        preventDocumentScroll={true}
+        style={{
+          zIndex: "var(--uicore-z-index-dialog)",
+        }}
+        closeOnEsc={false}>
+        <Dialog.Backdrop />
+        <Dialog.Main>
+          <Dialog.TitleBar />
+          <Dialog.ButtonBar style={{top: 5}}> </Dialog.ButtonBar>
+        </Dialog.Main>
+      </Dialog>
+      `,
+        "should add ButtonBar when footerStyle has a value"
+      );
+      defineInlineTest(
+        `
+      import { Dialog } from "@itwin/core-react";
+      <Dialog buttonCluster={buttons} />
+      `,
+        `
+      import { parseButtonCluster } from "@itwin/core-react";
+      import { Dialog } from "@itwin/itwinui-react";
+      <Dialog
+        preventDocumentScroll={true}
+        style={{
+          zIndex: "var(--uicore-z-index-dialog)",
+        }}
+        closeOnEsc={false}>
+        <Dialog.Backdrop />
+        <Dialog.Main>
+          <Dialog.TitleBar />
+          <Dialog.ButtonBar>
+            {parseButtonCluster(buttons)}
+          </Dialog.ButtonBar>
+        </Dialog.Main>
+      </Dialog>
+      `,
+        "should add ButtonBar with parse function when buttonCluster has an identifier value"
+      );
+      defineInlineTest(
+        `
+      import { Dialog } from "@itwin/core-react";
+      <Dialog buttonCluster={[buttonDef1, ...buttonDef2]} />
+      `,
+        `
+      import { parseButtonCluster } from "@itwin/core-react";
+      import { Dialog } from "@itwin/itwinui-react";
+      <Dialog
+        preventDocumentScroll={true}
+        style={{
+          zIndex: "var(--uicore-z-index-dialog)",
+        }}
+        closeOnEsc={false}>
+        <Dialog.Backdrop />
+        <Dialog.Main>
+          <Dialog.TitleBar />
+          <Dialog.ButtonBar>
+            {parseButtonCluster([buttonDef1, ...buttonDef2])}
+          </Dialog.ButtonBar>
+        </Dialog.Main>
+      </Dialog>
+      `,
+        "should add ButtonBar with parse function when buttonCluster has an array expression value"
+      );
+    });
+  });
+  describe("DivWithOutsideClick", () => {
     defineInlineTest(
       `
-      import { Dialog } from "@itwin/core-react";
-      `,
+    import { Dialog } from "@itwin/core-react";
+    <Dialog onOutsideClick={closeDialog} />
+    `,
       `
-      `,
-      "should "
+    import { DivWithOutsideClick } from "@itwin/core-react";
+    import { Dialog } from "@itwin/itwinui-react";
+    <Dialog
+      preventDocumentScroll={true}
+      style={{
+        zIndex: "var(--uicore-z-index-dialog)",
+      }}
+      closeOnEsc={false}>
+      <Dialog.Backdrop />
+      <DivWithOutsideClick onOutsideClick={closeDialog}>
+        <Dialog.Main>
+          <Dialog.TitleBar />
+        </Dialog.Main>
+      </DivWithOutsideClick>
+    </Dialog>
+    `,
+      "should add ButtonBar with parse function when buttonCluster has an array expression value"
     );
   });
-
-  describe("", () => {
-    defineInlineTest(
-      `
-      import { Dialog } from "@itwin/core-react";
-      `,
-      `
-      `,
-      "should "
-    );
-  });*/
 });
