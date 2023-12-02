@@ -12,7 +12,6 @@ import {
   RealityDataAccessClient,
   RealityDataClientOptions,
 } from "@itwin/reality-data-client";
-import { getClassName } from "@itwin/appui-abstract";
 import {
   ActionsUnion,
   AppNotificationManager,
@@ -73,6 +72,7 @@ import {
   MobileApp,
   MobileAppOpts,
 } from "@itwin/core-mobile/lib/cjs/MobileFrontend";
+import { getObjectClassName } from "@itwin/core-react";
 import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
 // import { DefaultMapFeatureInfoTool, MapLayersUI } from "@itwin/map-layers";
@@ -99,6 +99,7 @@ import {
   InspectUiItemInfoToolProvider,
   MessageUiItemsProvider,
   PopoutWindowsFrontstage,
+  PreviewFeaturesToggleProvider,
   SynchronizedFloatingViewportStage,
   WidgetApiStage,
 } from "@itwin/appui-test-providers";
@@ -345,6 +346,7 @@ export class SampleAppIModelApp {
         AppUiTestProviders.localizationNamespace
       )
     );
+    UiItemsManager.register(new PreviewFeaturesToggleProvider());
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
@@ -358,7 +360,7 @@ export class SampleAppIModelApp {
   }
 
   public static loggerCategory(obj: any): string {
-    const className = getClassName(obj);
+    const className = getObjectClassName(obj);
     const category = `appui-test-app.${className}`;
     return category;
   }
@@ -434,6 +436,15 @@ export class SampleAppIModelApp {
 
   public static isEnvVarOn(envVar: string): boolean {
     return process.env[envVar] === "1" || process.env[envVar] === "true";
+  }
+
+  public static getSnapshotPath(): string | undefined {
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    const snapshotPath = params.get("snapshotPath");
+    return snapshotPath
+      ? decodeURIComponent(snapshotPath)
+      : process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
   }
 
   public static setTestProperty(value: string, immediateSync = false) {
@@ -568,19 +579,21 @@ const SampleAppViewer = () => {
   useHandleURLParams();
 
   return (
-    <Provider store={SampleAppIModelApp.store}>
-      <ThemeManager>
-        <SafeAreaContext.Provider value={SafeAreaInsets.All}>
-          <AppDragInteraction>
-            <UiStateStorageHandler>
-              <ApplicationLayoutProvider>
-                <AppViewerContent />
-              </ApplicationLayoutProvider>
-            </UiStateStorageHandler>
-          </AppDragInteraction>
-        </SafeAreaContext.Provider>
-      </ThemeManager>
-    </Provider>
+    <PreviewFeaturesToggleProvider.ReactProvider>
+      <Provider store={SampleAppIModelApp.store}>
+        <ThemeManager>
+          <SafeAreaContext.Provider value={SafeAreaInsets.All}>
+            <AppDragInteraction>
+              <UiStateStorageHandler>
+                <ApplicationLayoutProvider>
+                  <AppViewerContent />
+                </ApplicationLayoutProvider>
+              </UiStateStorageHandler>
+            </AppDragInteraction>
+          </SafeAreaContext.Provider>
+        </ThemeManager>
+      </Provider>
+    </PreviewFeaturesToggleProvider.ReactProvider>
   );
 };
 
@@ -626,7 +639,7 @@ async function main() {
   SampleAppIModelApp.testAppConfiguration.fullSnapshotPath =
     process.env.IMJS_UITESTAPP_SNAPSHOT_FULLPATH;
   SampleAppIModelApp.testAppConfiguration.snapshotPath =
-    process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
+    SampleAppIModelApp.getSnapshotPath();
   SampleAppIModelApp.testAppConfiguration.bingMapsKey =
     process.env.IMJS_BING_MAPS_KEY;
   SampleAppIModelApp.testAppConfiguration.mapBoxKey =

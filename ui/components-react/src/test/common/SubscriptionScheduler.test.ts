@@ -3,17 +3,18 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import type { Observable } from "rxjs/internal/Observable";
-import { concat } from "rxjs/internal/observable/concat";
-import { defer } from "rxjs/internal/observable/defer";
-import { from } from "rxjs/internal/observable/from";
-import { throwError } from "rxjs/internal/observable/throwError";
-import { tap } from "rxjs/internal/operators/tap";
-import { scheduled } from "rxjs/internal/scheduled/scheduled";
-import { asapScheduler } from "rxjs/internal/scheduler/asap";
-import { asyncScheduler } from "rxjs/internal/scheduler/async";
-import { queueScheduler } from "rxjs/internal/scheduler/queue";
-import type { ObservableInput, SchedulerLike } from "rxjs/internal/types";
+import type { Observable, ObservableInput, SchedulerLike } from "rxjs";
+import {
+  asapScheduler,
+  asyncScheduler,
+  concat,
+  defer,
+  from,
+  queueScheduler,
+  scheduled,
+  tap,
+  throwError,
+} from "rxjs";
 import sinon from "sinon";
 import {
   scheduleSubscription,
@@ -165,7 +166,7 @@ describe("SubscriptionScheduler", () => {
         it("notifies subscribers about error in source observable", async () => {
           const error = new Error("TestError");
           const source = createScheduledObservable(
-            throwError(error),
+            throwError(() => error),
             scheduler
           );
           const errorSpy = sinon.spy();
@@ -182,7 +183,7 @@ describe("SubscriptionScheduler", () => {
         it("schedules the following observable when the previous one emits error", async () => {
           const error = new Error("TestError");
           const firstSource = createScheduledObservable(
-            throwError(error),
+            throwError(() => error),
             scheduler
           );
           const secondSource = createScheduledObservable(sequence, scheduler);

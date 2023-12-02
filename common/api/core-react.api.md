@@ -15,11 +15,9 @@ import { ConditionalStringValue } from '@itwin/appui-abstract';
 import { default as default_2 } from 'resize-observer-polyfill';
 import type { DialogButtonDef } from '@itwin/appui-abstract';
 import type { IDisposable } from '@itwin/core-bentley';
-import type { IMatch } from '@itwin/appui-abstract';
 import type { InputProps as InputProps_2 } from '@itwin/itwinui-react';
 import type { Localization } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
-import type { PointProps } from '@itwin/appui-abstract';
 import type { ProgressRadialProps } from '@itwin/itwinui-react';
 import * as React_2 from 'react';
 import * as ReactAutosuggest from 'react-autosuggest';
@@ -421,8 +419,6 @@ export class Dialog extends React_2.Component<DialogProps, DialogState> {
     handleRefSet: (containerDiv: HTMLDivElement | null) => void;
     // (undocumented)
     render(): React_2.ReactElement;
-    // @internal (undocumented)
-    readonly state: Readonly<DialogState>;
 }
 
 // @public
@@ -682,6 +678,9 @@ export function getCssVariableAsNumber(variableName: string, htmlElement?: HTMLE
 
 // @internal
 export const getDisplayName: (component: React_2.ComponentType<any>) => string;
+
+// @internal
+export const getObjectClassName: (obj: any) => string;
 
 // @internal
 export const getToolbarBackdropFilter: (filterBlur: number) => string;
@@ -1043,8 +1042,9 @@ export interface MessageBoxProps extends CommonProps {
 // @public
 export class MessageContainer extends React_2.PureComponent<MessageContainerProps> {
     static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec;
+    static getIconClassName(severity: MessageSeverity): string;
     // @deprecated
-    static getIconClassName(severity: MessageSeverity, _hollow?: boolean): string;
+    static getIconClassName(severity: MessageSeverity, hollow?: boolean): string;
     // (undocumented)
     render(): React_2.ReactElement;
 }

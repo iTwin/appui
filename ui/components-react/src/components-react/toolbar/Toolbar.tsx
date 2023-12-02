@@ -26,7 +26,7 @@ import { InternalToolbarComponent } from "./InternalToolbarComponent";
  */
 // eslint-disable-next-line deprecation/deprecation
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
-  /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
+  /** Describes to which direction the popup panels are expanded, also defines the orientation of the toolbar (Top/Bottom will create an horizontal toolbar, Left/Right will create a vertical toolbar). Defaults to: [[Direction.Bottom]] */
   expandsTo?: Direction;
   /** Definitions for items of the toolbar. Items are expected to be already sorted by group and item. */
   items: CommonToolbarItem[];

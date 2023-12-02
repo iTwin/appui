@@ -116,11 +116,19 @@ jobs:
       - bash: "git add ."
         displayName: Git add
 
-      - bash: |
-          echo Committing version bump $(getVersion.version)...
+      - ${{ if eq(parameters.BumpType, 'releaseCandidate') }}:
+          - bash: |
+              echo Committing version bump $(getVersion.version)...
 
-          git commit -m "$(getVersion.version)" --author="imodeljs-admin <imodeljs-admin@users.noreply.github.com>"
-        displayName: Commit version bump
+              git commit -m "Prep to branch to $(getVersion.version)" --author="imodeljs-admin <imodeljs-admin@users.noreply.github.com>"
+            displayName: Commit version bump
+
+      - ${{ if ne(parameters.BumpType, 'releaseCandidate') }}:
+          - bash: |
+              echo Committing version bump $(getVersion.version)...
+
+              git commit -m "$(getVersion.version)" --author="imodeljs-admin <imodeljs-admin@users.noreply.github.com>"
+            displayName: Commit version bump
 
       - ${{ if or(eq(parameters.BumpType, 'minor'), eq(parameters.BumpType, 'patch')) }}:
           - bash: 'git tag -a release/$(getVersion.version) -m "v$(getVersion.version)"'

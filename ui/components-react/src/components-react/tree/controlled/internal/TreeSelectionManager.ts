@@ -6,8 +6,8 @@
  * @module Tree
  */
 
-import { take } from "rxjs/internal/operators/take";
-import { Subject } from "rxjs/internal/Subject";
+import type { Observable } from "rxjs";
+import { Subject } from "rxjs";
 import { BeUiEvent } from "@itwin/core-bentley";
 import type {
   MultiSelectionHandler,
@@ -15,7 +15,6 @@ import type {
 } from "../../../common/selection/SelectionHandler";
 import { SelectionHandler } from "../../../common/selection/SelectionHandler";
 import type { SelectionMode } from "../../../common/selection/SelectionModes";
-import type { Observable } from "../Observable";
 import type { TreeActions } from "../TreeActions";
 import type { TreeModelNode, VisibleTreeNodes } from "../TreeModel";
 import { isTreeModelNode } from "../TreeModel";
@@ -68,7 +67,7 @@ export class TreeSelectionManager
   private _dragSelectionOperation?: Subject<SelectionModificationEvent>;
   private _itemHandlers: Array<Array<SingleSelectionHandler<string>>>;
 
-  private _getVisibleNodes: (() => VisibleTreeNodes) | undefined;
+  private _getVisibleNodes: () => VisibleTreeNodes;
 
   public onSelectionChanged = new BeUiEvent<SelectionModificationEvent>();
   public onSelectionReplaced = new BeUiEvent<SelectionReplacementEvent>();
@@ -76,7 +75,7 @@ export class TreeSelectionManager
 
   constructor(
     selectionMode: SelectionMode,
-    getVisibleNodes?: () => VisibleTreeNodes
+    getVisibleNodes: () => VisibleTreeNodes
   ) {
     this._getVisibleNodes = getVisibleNodes;
 
@@ -129,13 +128,8 @@ export class TreeSelectionManager
       {
         get(_target, prop) {
           if (prop === "length") {
-            return _this._getVisibleNodes === undefined
-              ? 0
-              : _this._getVisibleNodes().getNumNodes();
+            return _this._getVisibleNodes().getNumNodes();
           }
-
-          // istanbul ignore next
-          if (_this._getVisibleNodes === undefined) return undefined;
 
           const index: number = +(prop as string);
           const node = _this.getVisibleNodeAtIndex(
@@ -158,10 +152,6 @@ export class TreeSelectionManager
         ? nodes.getAtIndex(index)
         : /* istanbul ignore next */ undefined;
     return isTreeModelNode(foundNode) ? foundNode : undefined;
-  }
-
-  public setVisibleNodes(visibleNodes: (() => VisibleTreeNodes) | undefined) {
-    this._getVisibleNodes = visibleNodes;
   }
 
   public onNodeClicked(nodeId: string, event: React.MouseEvent) {
@@ -190,11 +180,8 @@ export class TreeSelectionManager
       { once: true }
     );
     this._dragSelectionOperation = new Subject();
-    this._dragSelectionOperation.pipe(take(1)).subscribe((value) => {
-      this.onDragSelection.emit({
-        selectionChanges: this._dragSelectionOperation!,
-      });
-      this._dragSelectionOperation!.next(value);
+    this.onDragSelection.emit({
+      selectionChanges: this._dragSelectionOperation,
     });
   }
 
@@ -230,7 +217,7 @@ export class TreeSelectionManager
       select: () => {},
       deselect: () => {},
       isSelected: () => {
-        if (deselectedAll || this._getVisibleNodes === undefined) {
+        if (deselectedAll) {
           return false;
         }
 
@@ -256,98 +243,64 @@ export class TreeSelectionManager
     actions: TreeActions,
     isKeyDown: boolean
   ) => {
-    if (isNavigationKey(e.key)) {
-      // istanbul ignore next
-      if (!this._getVisibleNodes) return;
-
-      const processedNodeId = this._selectionHandler.processedItem;
-
-      const isExpandable = (node: TreeModelNode): boolean =>
-        !node.isLoading && node.numChildren !== 0;
-      const isEditing = (node: TreeModelNode): boolean =>
-        node.editingInfo !== undefined;
-
-      // istanbul ignore else
-      if (this._getVisibleNodes && isIndividualSelection(processedNodeId)) {
-        const processedNode = this._getVisibleNodes()
-          .getModel()
-          .getNode(processedNodeId);
-        // istanbul ignore next
-        if (processedNode && isEditing(processedNode)) return;
-      }
-
-      const handleKeyboardSelectItem = (index: number) => {
-        // istanbul ignore else
-        if (this._getVisibleNodes) {
-          const node = this.getVisibleNodeAtIndex(
-            this._getVisibleNodes(),
-            index
-          );
-          // istanbul ignore else
-          if (node) {
-            // istanbul ignore next
-            if (isEditing(node)) return;
-
-            const selectionFunc =
-              this._selectionHandler.createSelectionFunction(
-                ...this.createSelectionHandlers(node.id)
-              );
-            selectionFunc(e.shiftKey, e.ctrlKey);
-          }
-        }
-      };
-      const handleKeyboardActivateItem = (_index: number) => {
-        // istanbul ignore else
-        if (this._getVisibleNodes && isIndividualSelection(processedNodeId)) {
-          const node = this._getVisibleNodes()
-            .getModel()
-            .getNode(processedNodeId);
-          // istanbul ignore else
-          if (node) {
-            if (isExpandable(node)) {
-              if (!node.isExpanded) actions.onNodeExpanded(node.id);
-              else actions.onNodeCollapsed(node.id);
-            } else {
-              actions.onNodeEditorActivated(node.id);
-            }
-          }
-        }
-      };
-      const handleCrossAxisArrowKey = (forward: boolean) => {
-        // istanbul ignore else
-        if (this._getVisibleNodes && isIndividualSelection(processedNodeId)) {
-          const node = this._getVisibleNodes()
-            .getModel()
-            .getNode(processedNodeId);
-          // istanbul ignore else
-          if (node) {
-            if (isExpandable(node)) {
-              if (forward && !node.isExpanded) actions.onNodeExpanded(node.id);
-              else if (!forward && node.isExpanded)
-                actions.onNodeCollapsed(node.id);
-            }
-          }
-        }
-      };
-
-      // istanbul ignore else
-      if (isIndividualSelection(processedNodeId)) {
-        const itemKeyboardNavigator = new ItemKeyboardNavigator(
-          handleKeyboardSelectItem,
-          handleKeyboardActivateItem
-        );
-        itemKeyboardNavigator.orientation = Orientation.Vertical;
-        itemKeyboardNavigator.crossAxisArrowKeyHandler =
-          handleCrossAxisArrowKey;
-        itemKeyboardNavigator.allowWrap = false;
-        itemKeyboardNavigator.itemCount = this._getVisibleNodes().getNumNodes();
-
-        const index = this._getVisibleNodes().getIndexOfNode(processedNodeId);
-        isKeyDown
-          ? itemKeyboardNavigator.handleKeyDownEvent(e, index)
-          : itemKeyboardNavigator.handleKeyUpEvent(e, index);
-      }
+    const processedNodeId = this._selectionHandler.processedItem;
+    if (!isNavigationKey(e.key) || !isIndividualSelection(processedNodeId)) {
+      return;
     }
+
+    const isExpandable = (node: TreeModelNode): boolean =>
+      !node.isLoading && node.numChildren !== 0;
+    const isEditing = (node: TreeModelNode): boolean =>
+      node.editingInfo !== undefined;
+
+    const processedNode = this._getVisibleNodes()
+      .getModel()
+      .getNode(processedNodeId);
+
+    // istanbul ignore if
+    if (!processedNode || isEditing(processedNode)) return;
+
+    const handleKeyboardSelectItem = (index: number) => {
+      const node = this.getVisibleNodeAtIndex(this._getVisibleNodes(), index);
+      // istanbul ignore if
+      if (!node || isEditing(node)) return;
+
+      const selectionFunc = this._selectionHandler.createSelectionFunction(
+        ...this.createSelectionHandlers(node.id)
+      );
+      selectionFunc(e.shiftKey, e.ctrlKey);
+    };
+    const handleKeyboardActivateItem = (_index: number) => {
+      if (isExpandable(processedNode)) {
+        if (!processedNode.isExpanded) actions.onNodeExpanded(processedNode.id);
+        else actions.onNodeCollapsed(processedNode.id);
+      } else {
+        actions.onNodeEditorActivated(processedNode.id);
+      }
+    };
+    const handleCrossAxisArrowKey = (forward: boolean) => {
+      if (!isExpandable(processedNode)) return;
+
+      if (forward && !processedNode.isExpanded)
+        actions.onNodeExpanded(processedNode.id);
+      else if (!forward && processedNode.isExpanded)
+        actions.onNodeCollapsed(processedNode.id);
+    };
+
+    const itemKeyboardNavigator = new ItemKeyboardNavigator(
+      handleKeyboardSelectItem,
+      handleKeyboardActivateItem
+    );
+    itemKeyboardNavigator.orientation = Orientation.Vertical;
+    itemKeyboardNavigator.crossAxisArrowKeyHandler = handleCrossAxisArrowKey;
+    itemKeyboardNavigator.allowWrap = false;
+    itemKeyboardNavigator.itemCount = this._getVisibleNodes().getNumNodes();
+
+    const processedNodeIndex =
+      this._getVisibleNodes().getIndexOfNode(processedNodeId);
+    isKeyDown
+      ? itemKeyboardNavigator.handleKeyDownEvent(e, processedNodeIndex)
+      : itemKeyboardNavigator.handleKeyUpEvent(e, processedNodeIndex);
   };
 }
 

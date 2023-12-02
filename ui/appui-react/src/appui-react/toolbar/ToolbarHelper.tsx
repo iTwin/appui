@@ -28,53 +28,55 @@ import type {
 } from "./ToolbarItem";
 import { isToolbarActionItem, isToolbarGroupItem } from "./ToolbarItem";
 
-/** Helper functions for defining an ToolbarComposer.
+/**
+ * Common implementation for `constructChildToolbarItems` and `createToolbarItemsFromItemDefs`.
+ * @param itemDefs List of itemDefs to convert.
+ * @param allowCustom false if we are building children and don't support custom items.
+ * @param startingItemPriority defaults to 10.
+ * @param overrides Single override to apply to each itemDefs.
+ * @returns ToolbarItem[] or (ToolbarActionItem | ToolbarGroupItem) if allowCustom is false.
+ */
+function constructToolbarItemArray<T extends boolean>(
+  itemDefs: AnyItemDef[],
+  allowCustom: T,
+  startingItemPriority = 10,
+  overrides?: Partial<CommonToolbarItem>
+) {
+  let priority = startingItemPriority;
+  const items = [];
+  for (const itemDef of itemDefs) {
+    const item = ToolbarHelper.createToolbarItemFromItemDef(
+      priority,
+      itemDef,
+      overrides
+    );
+    priority = priority + 10;
+    if (allowCustom || isToolbarActionItem(item) || isToolbarGroupItem(item))
+      items.push(item);
+  }
+  return items as T extends true
+    ? Array<ToolbarItem>
+    : Array<ToolbarActionItem | ToolbarGroupItem>;
+}
+
+/** Helper functions for defining a Toolbar items used in `Toolbar`, `ToolbarComposer` and `UiItemsProvider`.
  * @public
  */
 export class ToolbarHelper {
-  /** Construct CustomToolbarItem definitions given a CustomItemDef. */
+  /** Construct ToolbarCustomItem definitions given a CustomItemDef. */
   public static createCustomDefinitionToolbarItem(
     itemPriority: number,
     itemDef: CustomItemDef,
     overrides?: Partial<CustomButtonDefinition>
   ): ToolbarCustomItem {
-    const isHidden = itemDef.isHidden;
-    const isDisabled = itemDef.isDisabled;
-    const internalData = new Map<string, any>(); // used to store ReactNode if iconSpec hold a ReactNode
-    const icon = IconHelper.getIconData(itemDef.iconSpec, internalData);
-    const label = this.getStringOrConditionalString(itemDef.rawLabel);
-    const badgeType = itemDef.badgeType;
-
-    // istanbul ignore else
-    return {
-      id: itemDef.id,
-      itemPriority,
-      icon,
-      label,
-      isCustom: true,
-      isHidden,
-      isDisabled,
-      internalData,
-      badgeType,
-      panelContent: itemDef.popupPanelNode,
-      ...overrides,
-    };
+    return this.createToolbarItemFromItemDef(itemPriority, itemDef, overrides);
   }
 
-  /** Construct ActionButton and GroupButton definitions given an array to ItemDefs. */
+  /** Construct ToolbarActionItem and ToolbarGroupItem definitions given an array of ItemDefs. */
   public static constructChildToolbarItems(
     itemDefs: AnyItemDef[]
   ): Array<ToolbarActionItem | ToolbarGroupItem> {
-    let count = 10;
-    const items: Array<ToolbarActionItem | ToolbarGroupItem> = [];
-    for (const itemDef of itemDefs) {
-      const item = this.createToolbarItemFromItemDef(count, itemDef);
-      count = count + 10;
-      // istanbul ignore else
-      if (isToolbarActionItem(item) || isToolbarGroupItem(item))
-        items.push(item);
-    }
-    return items;
+    return constructToolbarItemArray(itemDefs, false);
   }
 
   private static getStringOrConditionalString(
@@ -101,81 +103,61 @@ export class ToolbarHelper {
     itemDef: AnyItemDef,
     overrides?: Partial<CommonToolbarItem>
   ): ToolbarItem {
-    const isHidden = itemDef.isHidden;
-    const isDisabled = itemDef.isDisabled;
-    const icon = itemDef.iconSpec;
-    const label = this.getStringOrConditionalString(itemDef.rawLabel);
-    const badge = itemDef.badgeType;
+    const { badgeType, icon, internalData, ...itemOverrides } = overrides ?? {};
+    const itemBase: ToolbarItem = {
+      id: itemDef.id,
+      itemPriority,
+      isActive: itemDef.isActive,
+      isHidden: itemDef.isHidden,
+      isDisabled: itemDef.isDisabled,
+      icon:
+        internalData?.get(IconHelper.reactIconKey) ??
+        internalData?.get(IconHelper.conditionalIconItemKey) ??
+        icon ??
+        itemDef.iconSpec,
+      label: this.getStringOrConditionalString(itemDef.rawLabel),
+      badge: badgeType ?? itemDef.badgeType,
+    };
 
     // istanbul ignore else
-    if (itemDef instanceof CommandItemDef) {
+    if (itemDef instanceof CommandItemDef || itemDef instanceof ToolItemDef) {
       return {
-        id: itemDef.id,
-        itemPriority,
-        icon,
-        label,
-        isHidden,
-        isDisabled,
-        isActive: itemDef.isActive,
+        ...itemBase,
         execute: itemDef.execute,
-        badge,
-        ...overrides,
+        ...itemOverrides,
       };
     } else if (itemDef instanceof CustomItemDef) {
-      return ToolbarHelper.createCustomDefinitionToolbarItem(
-        itemPriority,
-        itemDef,
-        overrides
-      );
-    } else if (itemDef instanceof GroupItemDef) {
-      const children: Array<ToolbarActionItem | ToolbarGroupItem> =
-        this.constructChildToolbarItems(itemDef.items);
       return {
-        id: itemDef.id,
-        itemPriority,
-        icon,
-        label,
-        panelLabel: itemDef.panelLabel,
-        isHidden,
-        isDisabled,
-        items: children,
-        isActive: false,
-        badge,
-        ...overrides,
+        ...itemBase,
+        panelContent: itemDef.popupPanelNode,
+        ...itemOverrides,
       };
-    } else if (itemDef instanceof ToolItemDef) {
+    } else if (itemDef instanceof GroupItemDef) {
       return {
-        id: itemDef.id,
-        itemPriority,
-        icon,
-        label,
-        isHidden,
-        isDisabled,
-        isActive: itemDef.isActive,
-        execute: itemDef.execute,
-        badge,
-        ...overrides,
+        ...itemBase,
+        panelLabel: itemDef.panelLabel,
+        items: this.constructChildToolbarItems(itemDef.items),
+        isActive: false,
+        ...itemOverrides,
       };
     } else {
       throw new Error(`Invalid Item type encountered, item id=${itemDef.id}`);
     }
   }
 
+  /**
+   * Helper method to creates a generic toolbar item entry list.
+   */
   public static createToolbarItemsFromItemDefs(
     itemDefs: AnyItemDef[],
     startingItemPriority = 10,
     overrides?: Partial<CommonToolbarItem>
   ): ToolbarItem[] {
-    let itemPriority = startingItemPriority;
-    const items = itemDefs.map((itemDef: AnyItemDef) => {
-      const item = ToolbarHelper.createToolbarItemFromItemDef(
-        itemPriority,
-        itemDef,
-        overrides
-      );
-      itemPriority = itemPriority + 10;
-      return item;
-    });
-    return items;
+    return constructToolbarItemArray(
+      itemDefs,
+      true,
+      startingItemPriority,
+      overrides
+    );
   }
 }

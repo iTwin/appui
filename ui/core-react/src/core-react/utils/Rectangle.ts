@@ -6,8 +6,8 @@
  * @module Utilities
  */
 
-import type { PointProps } from "@itwin/appui-abstract";
 import { Point } from "./Point";
+import type { PointProps } from "./PointProps";
 import type { SizeProps } from "./Size";
 import { Size } from "./Size";
 import { UiGeometry } from "./UiGeometry";

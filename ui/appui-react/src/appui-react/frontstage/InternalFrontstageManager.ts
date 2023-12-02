@@ -27,11 +27,7 @@ import {
   PanelStateChangedEvent,
 } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
-import type {
-  WidgetChangedEventArgs,
-  WidgetDef,
-  WidgetEventArgs,
-} from "../widgets/WidgetDef";
+import type { WidgetDef } from "../widgets/WidgetDef";
 import { WidgetStateChangedEvent } from "../widgets/WidgetDef";
 import { ToolInformation } from "../toolsettings/ToolInformation";
 import type { ToolUiProvider } from "../toolsettings/ToolUiProvider";
@@ -249,16 +245,6 @@ export class InternalFrontstageManager {
     new WidgetStateChangedEvent();
 
   /** @internal */
-  public static readonly onWidgetLabelChangedEvent =
-    new UiEvent<WidgetChangedEventArgs>();
-
-  /** @internal */
-  public static readonly onWidgetShowEvent = new UiEvent<WidgetEventArgs>();
-
-  /** @internal */
-  public static readonly onWidgetExpandEvent = new UiEvent<WidgetEventArgs>();
-
-  /** @internal */
   public static readonly onWidgetDefsUpdatedEvent = new UiEvent<void>();
 
   /** @internal */
@@ -267,6 +253,10 @@ export class InternalFrontstageManager {
 
   /** @internal */
   public static readonly onFrontstageRestoreLayoutEvent =
+    new UiEvent<FrontstageEventArgs>();
+
+  /** @internal */
+  public static readonly onFrontstageWidgetsChangedEvent =
     new UiEvent<FrontstageEventArgs>();
 
   /** Get panel state changed event.

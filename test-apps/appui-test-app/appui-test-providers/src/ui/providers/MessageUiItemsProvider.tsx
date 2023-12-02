@@ -116,7 +116,7 @@ export class MessageUiItemsProvider implements UiItemsProvider {
               () => {
                 IModelApp.notifications.outputMessage(
                   new NotifyMessageDetails(
-                    OutputMessagePriority.Info,
+                    OutputMessagePriority.Fatal,
                     "Alert message",
                     undefined,
                     OutputMessageType.Alert

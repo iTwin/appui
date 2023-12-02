@@ -21,7 +21,6 @@ import {
   ToolAssistanceImage,
   ToolAssistanceInputMethod,
 } from "@itwin/core-frontend";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import type {
   CommonProps,
   UiStateStorage,
@@ -644,9 +643,7 @@ export class ToolAssistanceField extends React.Component<
       }
     } else if (typeof instruction.image === "string") {
       if (instruction.image.length > 0) {
-        const svgSource = IconSpecUtilities.getWebComponentSource(
-          instruction.image
-        );
+        const svgSource = getWebComponentSource(instruction.image);
         const className =
           svgSource !== undefined
             ? "uifw-toolassistance-svg"
@@ -754,12 +751,12 @@ export class ToolAssistanceField extends React.Component<
             : "uifw-toolassistance-svg-wide";
           break;
       }
-      const iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgImage);
+
       image = (
         <div className={className}>
           {svgImage && (
             // istanbul ignore next
-            <Icon iconSpec={iconSpec} />
+            <Icon iconSpec={svgImage} />
           )}
         </div>
       );
@@ -839,4 +836,12 @@ export class ToolAssistanceField extends React.Component<
       </div>
     );
   }
+}
+
+function getWebComponentSource(iconSpec: string): string | undefined {
+  if (iconSpec.startsWith("webSvg:") && iconSpec.length > 7) {
+    return iconSpec.slice(7);
+  }
+
+  return undefined;
 }

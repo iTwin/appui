@@ -66,8 +66,7 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
         preferredFloatingWidgetSize: tab.preferredFloatingWidgetSize,
         userSized:
           tab.userSized ||
-          (tab.isFloatingStateWindowResizable &&
-            !!tab.preferredFloatingWidgetSize),
+          (tab.isFloatingWidgetResizable && !!tab.preferredFloatingWidgetSize),
       };
     }, true);
     const elementRef = React.useRef<HTMLDivElement>(null);

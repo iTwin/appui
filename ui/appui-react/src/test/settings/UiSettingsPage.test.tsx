@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import {
   getUiSettingsManagerEntry,
   UiSettingsPage,
@@ -66,26 +66,9 @@ describe("UiSettingsPage", () => {
     wrapper.unmount();
   });
 
-  // function getSelectBySpanTitle(titleSpan: HTMLElement) {
-  //   const settingsItemDiv = titleSpan.parentElement?.parentElement;
-  //   expect(settingsItemDiv).not.to.be.undefined;
-  //   return settingsItemDiv!.querySelector("select");
-  // }
-
   it("renders set theme", async () => {
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
-
-    // const themeSpan = wrapper.getByText("settings.uiSettingsPage.themeTitle");
-    // const themeSelect = getSelectBySpanTitle(themeSpan);
-    // expect(themeSelect).not.to.be.null;
-    // await TestUtils.flushAsyncOperations();
-    // fireEvent.change(themeSelect!, { target: { value: "dark" } });
-    // await TestUtils.flushAsyncOperations();
-    // expect(themeSelect!.value).to.be.eq("dark");
-    // fireEvent.change(themeSelect!, { target: { value: "light" } });
-    // await TestUtils.flushAsyncOperations();
-    // expect(themeSelect!.value).to.be.eq("light");
 
     const selectButton = wrapper.getByTestId("select-theme");
     selectChangeValueByText(
@@ -102,6 +85,20 @@ describe("UiSettingsPage", () => {
     );
     await TestUtils.flushAsyncOperations();
     expect(UiFramework.getColorTheme()).to.eq(ColorTheme.Light);
+    selectChangeValueByText(
+      selectButton,
+      "settings.uiSettingsPage.lightHighContrast",
+      handleError
+    );
+    await TestUtils.flushAsyncOperations();
+    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.HighContrastLight);
+    selectChangeValueByText(
+      selectButton,
+      "settings.uiSettingsPage.darkHighContrast",
+      handleError
+    );
+    await TestUtils.flushAsyncOperations();
+    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.HighContrastDark);
 
     wrapper.unmount();
   });
@@ -114,7 +111,7 @@ describe("UiSettingsPage", () => {
     const thumb =
       wrapper.container.ownerDocument.querySelector(".iui-slider-thumb");
     expect(thumb).to.exist;
-    fireEvent.keyDown(thumb!, { key: SpecialKey.ArrowRight });
+    fireEvent.keyDown(thumb!, { key: Key.ArrowRight });
     await TestUtils.flushAsyncOperations();
     let widgetOpacity = UiFramework.getWidgetOpacity();
     expect(widgetOpacity).greaterThanOrEqual(0.9);
@@ -133,8 +130,8 @@ describe("UiSettingsPage", () => {
     const thumb =
       wrapper.container.ownerDocument.querySelectorAll(".iui-slider-thumb");
     expect(thumb[0]).to.exist;
-    fireEvent.keyDown(thumb[0]!, { key: SpecialKey.ArrowRight });
-    fireEvent.keyUp(thumb[0]!, { key: SpecialKey.ArrowRight });
+    fireEvent.keyDown(thumb[0]!, { key: Key.ArrowRight });
+    fireEvent.keyUp(thumb[0]!, { key: Key.ArrowRight });
     await TestUtils.flushAsyncOperations();
     let toolbarOpacity = UiFramework.getToolbarOpacity();
     expect(toolbarOpacity).greaterThan(0.5);

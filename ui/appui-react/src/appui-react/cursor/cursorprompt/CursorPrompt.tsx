@@ -9,7 +9,7 @@
 import "./CursorPrompt.scss";
 import * as React from "react";
 import type { ToolAssistanceInstruction } from "@itwin/core-frontend";
-import type { PointProps } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { Icon, Point, Timer } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
@@ -35,7 +35,7 @@ export class CursorPrompt {
   public display(
     toolIconSpec: string,
     instruction: ToolAssistanceInstruction,
-    offset: PointProps = { x: 20, y: 20 },
+    offset: XAndY = { x: 20, y: 20 },
     relativePosition: RelativePosition = RelativePosition.BottomRight
   ) {
     if (!instruction.text) {

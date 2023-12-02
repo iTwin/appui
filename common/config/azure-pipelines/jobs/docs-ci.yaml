@@ -2,12 +2,19 @@ trigger:
   branches:
     include:
       - master
+      - release/*
 
 pr:
   drafts: false
   branches:
     include:
       - master
+
+parameters:
+  - name: tagDocs
+    displayName: Tag Docs
+    type: boolean
+    default: false
 
 resources:
   repositories:
@@ -76,7 +83,7 @@ stages:
 
   - stage: Tag_Docs
     dependsOn: Validate_Docs
-    condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'Manual))
+    condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'Manual'))
     jobs:
       - job:
         displayName: Tag build
@@ -97,6 +104,12 @@ stages:
                 Write-Host '##vso[task.setvariable variable=ShouldTag;]False'
               }
             displayName: Tag if major/minor/patch version bump
+
+          - powershell: |
+              Write-Host Tagging docs explicitly...
+              Write-Host '##vso[task.setvariable variable=ShouldTag;]True'
+            condition: and(succeeded(), eq('${{ parameters.tagDocs }}', true))
+            displayName: Tag if 'tagDocs' is true
 
           - task: tagBuildOrRelease@0
             inputs:

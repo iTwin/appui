@@ -26,6 +26,7 @@
   --buic-background-3: var(--iui-color-background-backdrop);
   --buic-background-4: var(--iui-color-background-backdrop-hover);
   --buic-background-5: var(--iui-color-background-disabled);
+  --buic-background-editable: var(--iui-color-background);
   --buic-background-primary: var(--iui-color-background-accent);
   --buic-background-tooltip: hsl(var(--iui-color-background-hsl) / 0.9);
   --buic-background-scrollbar: hsl(
@@ -128,4 +129,11 @@
   // Color variables
   --buic-row-selection: var(--iui-color-background-accent-muted);
   --buic-row-hover: var(--iui-color-background-hover);
+
+  /* Unused gradient variables, left for backwards compatibility */
+  --buic-button-gradient1: rgba(var(--iui-color-foreground-body-invert-rgb), 0);
+  --buic-button-gradient2: rgba(
+    var(--iui-color-foreground-body-invert-rgb),
+    0.25
+  );
 }

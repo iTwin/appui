@@ -97,7 +97,9 @@ describe("WidgetPanelProvider", () => {
 
   it("should render with top spanned", () => {
     let state = createNineZoneState();
-    state = updatePanelState(state, "top", { span: true });
+    state = updatePanelState(state, "top", (draft) => {
+      draft.span = true;
+    });
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
@@ -110,7 +112,9 @@ describe("WidgetPanelProvider", () => {
 
   it("should render with span bottom", () => {
     let state = createNineZoneState();
-    state = updatePanelState(state, "bottom", { span: true });
+    state = updatePanelState(state, "bottom", (draft) => {
+      draft.span = true;
+    });
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(

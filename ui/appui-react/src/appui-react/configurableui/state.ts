@@ -9,6 +9,7 @@
 import { SnapMode } from "@itwin/core-frontend";
 import type { ActionsUnion } from "../redux/redux-ts";
 import { createAction } from "../redux/redux-ts";
+import type { ThemeId } from "../theme/ThemeManager";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
   TOOLBAR_OPACITY_DEFAULT,
@@ -74,7 +75,10 @@ export const ConfigurableUiActions = {
   setSnapMode: (snapMode: number) =>
     createAction(ConfigurableUiActionId.SetSnapMode, snapMode),
   setTheme:
-    // istanbul ignore next
+    /**
+     * Use `UiFramework.setColorTheme` instead which is conveniently typed with available theme union.
+     * @param theme ThemeId
+     */
     (theme: string) => createAction(ConfigurableUiActionId.SetTheme, theme),
   setToolPrompt:
     // istanbul ignore next
@@ -136,7 +140,7 @@ export function ConfigurableUiReducer(
       return { ...state, toolPrompt: action.payload };
     }
     case ConfigurableUiActionId.SetTheme: {
-      return { ...state, theme: action.payload };
+      return { ...state, theme: action.payload as ThemeId }; // Need to cast because of the (string & {}) trick.
     }
     case ConfigurableUiActionId.SetWidgetOpacity: {
       return { ...state, widgetOpacity: action.payload };

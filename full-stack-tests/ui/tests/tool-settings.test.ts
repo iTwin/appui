@@ -113,13 +113,12 @@ test.describe("tool settings", () => {
     await expect(widgetToolSettings).toBeVisible();
   });
 
-  test("should ignore WidgetState.Closed if tool settings is hidden", async ({
+  test("should ignore WidgetState.Closed if tool settings is docked", async ({
     page,
   }) => {
     const dockedToolSettings = page.getByText("does not have tool settings.");
     const widgetToolSettings = tabLocator(page, "Tool Settings");
 
-    await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Floating);
     await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Hidden);
     await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Closed);
     await expect(dockedToolSettings).not.toBeVisible();
@@ -169,5 +168,74 @@ test.describe("tool settings", () => {
 
     await expect(widgetToolSettings).toBeVisible();
     await expect(dockedToolSettingsHandle).not.toBeVisible();
+  });
+
+  test("should support dynamic tool settings", async ({ page }) => {
+    const toolButton = page.getByTitle("Tool With Dynamic Settings");
+    await toolButton.click();
+
+    const initialState = page.getByText("Undefined", { exact: true });
+    const californiaState = page.getByText("California", { exact: true });
+    const alabamaState = page.getByText("Alabama", { exact: true });
+    const californiaCity = page.getByText("Los Angeles", { exact: true });
+    const alabamaCity = page.getByText("Birmingham", { exact: true });
+
+    await expect(initialState).toBeVisible();
+    // Open state dropdown list;
+    await initialState.click();
+
+    // Pick state item in dropdown;
+    await californiaState.click();
+
+    // Check that we are currently displaying the correct city in he second picker
+    await expect(californiaCity).toBeVisible();
+    await expect(alabamaCity).not.toBeVisible();
+
+    // Open state dropdown list;
+    await californiaState.click();
+
+    // Pick state item in dropdown;
+    await alabamaState.click();
+
+    // Check that we are currently displaying the correct city in he second picker
+    await expect(alabamaCity).toBeVisible();
+    await expect(californiaCity).not.toBeVisible();
+  });
+
+  test("should display tool updated tool settings when switching widget/docked mode", async ({
+    page,
+  }) => {
+    const toolButton = page.getByTitle("Sample Tool");
+    await toolButton.click();
+
+    const widgetToolSettings = tabLocator(page, "Tool Settings");
+    const defaultStateField = page.locator("[value='PA']");
+    await expect(defaultStateField).toBeVisible();
+
+    // Test undocking after initial edit of tool settings by the tool.
+    await page.type(".nz-widgetPanels-appContent", "q");
+
+    const updatedStateField = page.locator("[value='qPA']");
+    await expect(widgetToolSettings).not.toBeVisible();
+    await expect(updatedStateField).toBeVisible();
+    await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Floating);
+    await expect(widgetToolSettings).toBeVisible();
+    await expect(updatedStateField).toBeVisible();
+
+    // Type something at the end of the state field to simulate user editing the tool settings.
+    await updatedStateField.focus();
+    await updatedStateField.press("End"); // type("type in field") only would add to the start of the filed, we want to validate the "e" wasn't added by the tool behavior.
+    await updatedStateField.type("type in field");
+    await page.locator("[value='qPAtype in field']").blur();
+
+    // Test docking back after second edit of tool settings by the tool.
+    await page.type(".nz-widgetPanels-appContent", "q");
+
+    const finalStateField = page.locator("[value='qqPAtype in field']");
+    await expect(widgetToolSettings).toBeVisible();
+    await expect(finalStateField).toBeVisible();
+    await page.getByTitle("Dock to top").click();
+    await expect(widgetToolSettings).not.toBeVisible();
+    await expect(finalStateField).toBeVisible();
   });
 });

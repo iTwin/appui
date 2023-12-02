@@ -11,6 +11,7 @@ import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
 import { render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
+import userEvent from "@testing-library/user-event";
 import { SelectionMode } from "../../../../components-react/common/selection/SelectionModes";
 import type { ControlledTreeProps } from "../../../../components-react/tree/controlled/component/ControlledTree";
 import {
@@ -32,12 +33,11 @@ import * as useElementsScrollStorageModule from "../../../../components-react/co
 
 describe("ControlledTree", () => {
   const nodeLoaderMock = moq.Mock.ofType<ITreeNodeLoader>();
-  const treeEventsMock = moq.Mock.ofType<TreeEvents>();
   const treeModelMock = moq.Mock.ofType<TreeModel>();
   const defaultProps: ControlledTreeProps = {
     model: treeModelMock.object,
     nodeLoader: nodeLoaderMock.object,
-    eventsHandler: treeEventsMock.object,
+    eventsHandler: {} as TreeEvents,
     selectionMode: SelectionMode.Single,
     width: 200,
     height: 200,
@@ -68,7 +68,7 @@ describe("ControlledTree", () => {
       description: "Test Node Description",
       isExpanded: false,
       isLoading: false,
-      numChildren: 0,
+      numChildren: undefined,
       isSelected: false,
       parentId: undefined,
       item: {
@@ -230,6 +230,25 @@ describe("ControlledTree", () => {
     render(<ControlledTree {...defaultProps} noDataRenderer={spy} />);
 
     expect(spy).to.be.called;
+  });
+
+  it("selects node", async () => {
+    const user = userEvent.setup();
+    mockVisibleNode();
+    const treeEvents = {
+      onSelectionReplaced: sinon.fake<
+        Parameters<Required<TreeEvents>["onSelectionReplaced"]>,
+        ReturnType<Required<TreeEvents>["onSelectionReplaced"]>
+      >(),
+    };
+    const { getByRole } = render(
+      <ControlledTree {...defaultProps} eventsHandler={treeEvents} />
+    );
+
+    const treeNode = getByRole("treeitem");
+    await user.click(treeNode);
+
+    expect(treeEvents.onSelectionReplaced).to.be.called;
   });
 });
 

@@ -1,6 +1,71 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Mon, 17 Jul 2023 10:16:20 GMT and should not be manually modified.
+This log was last generated on Wed, 25 Oct 2023 09:39:22 GMT and should not be manually modified.
+
+## 4.6.3
+Wed, 25 Oct 2023 09:39:22 GMT
+
+### Updates
+
+- Fix an issue where a hidden widget state change event is emitted when a widget tab is dragged.
+- Correctly enable `isFloatingStateSupported` for every widget unless it is disabled explicitly.
+- Correctly enable `isResizable` flag for every floating widget unless it is disabled explicitly.
+
+## 4.6.2
+Tue, 17 Oct 2023 19:16:23 GMT
+
+### Updates
+
+- Unmount childWindowManager whenever window is closed
+
+## 4.6.1
+Thu, 12 Oct 2023 16:59:20 GMT
+
+### Updates
+
+- Fix an issue where `onWidgetStateChangedEvent` is not emitted for a hidden widget.
+
+## 4.6.0
+Wed, 04 Oct 2023 18:05:34 GMT
+
+### Updates
+
+- Disable user select when dragging or resizing a widget.
+- Correctly configure `resizable` flag of a floating widget after docking and undocking.
+- Fixed tool settings widget so that can set to dockings not allowed
+- Fix message center messages icon colors based on message severity.
+- Fix an issue with closing tool settings dropdown when main UI hides.
+- React to core/appui-abstract deprecations
+
+## 4.5.1
+Fri, 08 Sep 2023 16:10:53 GMT
+
+### Updates
+
+- Fix an issue with `useSpecificWidgetDef` to correctly return re-created WidgetDef.
+
+## 4.5.0
+Wed, 06 Sep 2023 17:29:22 GMT
+
+### Updates
+
+- Refresh the EmptyToolSettingsEntry when the active tool changes. (#442)
+- Improved `Toolbar` and `ToolbarWithOverflow` documentation regarding orientation.
+- `ToolbarHelper`: Fix `badgeType` override.
+- Bump `rxjs` dependency to `7.8.1`.
+
+## 4.4.0
+Tue, 15 Aug 2023 18:02:09 GMT
+
+### Updates
+
+- Fix `clearHideIsolateEmphasizeElements` and `hideElements` button display when view changes happen outside AppUI's API.
+- Added `BlankConnection` event handling to `SyncUiEventDispatcher`.
+- Fixed store initialization when iModelConnection is set.
+- Fixed store reset when iModelConnection is cleared.
+- Remove obsolete ninezone term from API doc comments.
+- Fixed openCursorMenu so that it works in React 18 Strict Mode
+- `Toolbar` now correctly handles `Conditional` properties and support `enableOverflow` prop.
 
 ## 4.3.0
 Mon, 17 Jul 2023 10:16:20 GMT

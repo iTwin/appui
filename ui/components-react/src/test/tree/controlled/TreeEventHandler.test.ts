@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import type { Subject } from "rxjs/internal/Subject";
+import type { Subject } from "rxjs";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { CheckBoxState } from "@itwin/core-react";
@@ -175,6 +175,12 @@ describe("TreeEventHandler", () => {
       const spy = sinon.spy(modelMutator, "activateEditing");
       eventHandler.onNodeEditorActivated({ nodeId: testNode.id });
       expect(spy).to.not.be.called;
+    });
+  });
+
+  describe("onNodeDoubleClick", () => {
+    it("calls onNodeDoubleClick", () => {
+      eventHandler.onNodeDoubleClick({ nodeId: testNode.id });
     });
   });
 });

@@ -1,6 +1,49 @@
 # Change Log - @itwin/appui-layout-react
 
-This log was last generated on Mon, 17 Jul 2023 10:16:20 GMT and should not be manually modified.
+This log was last generated on Wed, 25 Oct 2023 09:39:22 GMT and should not be manually modified.
+
+## 4.6.3
+Wed, 25 Oct 2023 09:39:22 GMT
+
+_Version update only_
+
+## 4.6.2
+Tue, 17 Oct 2023 19:16:23 GMT
+
+_Version update only_
+
+## 4.6.1
+Thu, 12 Oct 2023 16:59:20 GMT
+
+_Version update only_
+
+## 4.6.0
+Wed, 04 Oct 2023 18:05:34 GMT
+
+### Updates
+
+- Fix `zustand` deprecation warning by replacing `useStore` with `useStoreWithEqualityFn`.
+- Can set widget to no docking allowed
+- Fix auto collapsing panels grips flickering in some cases.
+- Fix MessageCenter messages overflowing behavior.
+- React to core/appui-abstract deprecations
+
+## 4.5.1
+Fri, 08 Sep 2023 16:10:53 GMT
+
+_Version update only_
+
+## 4.5.0
+Wed, 06 Sep 2023 17:29:22 GMT
+
+_Version update only_
+
+## 4.4.0
+Tue, 15 Aug 2023 18:02:09 GMT
+
+### Updates
+
+- Fix unintentional removal of tool settings while removing widgets.
 
 ## 4.3.0
 Mon, 17 Jul 2023 10:16:20 GMT

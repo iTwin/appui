@@ -748,8 +748,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           records: {
             [rootCategory.name]: [
               TestUtils.createMultilineTextPropertyRecord(
-                "testProperty",
-                "Test"
+                TestUtils.createPrimitiveStringProperty("testProperty", "test")
               ),
             ],
           },

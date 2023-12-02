@@ -14,8 +14,7 @@ import type {
   ListOnItemsRenderedProps,
 } from "react-window";
 import { areEqual, VariableSizeList } from "react-window";
-import { concat } from "rxjs/internal/observable/concat";
-import { timer } from "rxjs/internal/observable/timer";
+import { concat, timer } from "rxjs";
 import { assert } from "@itwin/core-bentley";
 import { Tree as CoreTree, TreeNodePlaceholder } from "@itwin/core-react";
 import { createContextWithMandatoryProvider } from "../../../common/UseContextWithMandatoryProvider";
@@ -35,6 +34,7 @@ import {
 import type { ITreeNodeLoader } from "../TreeNodeLoader";
 import type { TreeNodeRendererProps } from "./TreeNodeRenderer";
 import { TreeNodeRenderer } from "./TreeNodeRenderer";
+import { toRxjsObservable } from "../Observable";
 
 const NODE_LOAD_DELAY = 500;
 
@@ -383,7 +383,7 @@ function useNodeLoading(
 
       const subscription = concat(
         timer(NODE_LOAD_DELAY),
-        nodeLoader.loadNode(parentNode, node.childIndex)
+        toRxjsObservable(nodeLoader.loadNode(parentNode, node.childIndex))
       ).subscribe();
       return () => subscription.unsubscribe();
     },

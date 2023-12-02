@@ -6,6 +6,7 @@ import { test, expect, Page } from "@playwright/test";
 import assert from "assert";
 import {
   activeTabLocator,
+  dragTab,
   expectSavedFrontstageState,
   expectTabInPanelSection,
   floatingWidgetLocator,
@@ -156,7 +157,7 @@ test.describe("widget state", () => {
 
     // Wait for "FW-1" state to be saved before reloading.
     await expectSavedFrontstageState(context, (state) => {
-      return !!state.widgets.find((w) => w.id === "FW-1");
+      return state.nineZone.savedTabs.allIds.indexOf("FW-1") >= 0;
     });
 
     await page.reload();
@@ -175,7 +176,7 @@ test.describe("widget state", () => {
 
     await setWidgetState(page, "WT-2", WidgetState.Hidden);
     await expectSavedFrontstageState(context, (state) => {
-      return !!state.widgets.find((w) => w.id === "WT-2");
+      return state.nineZone.savedTabs.allIds.indexOf("WT-2") >= 0;
     });
 
     await openFrontstage(page, "appui-test-app:main-stage");
@@ -195,19 +196,12 @@ test.describe("widget state", () => {
     await expectTabInPanelSection(tab1, "top", 0);
 
     // Drag from top start to top end.
-    const bounds2 = (await tab2.boundingBox())!;
-    await tab1.dispatchEvent("mousedown", { clientX: 0, clientY: 0 });
-    await tab1.dispatchEvent("mousemove", { clientX: 20, clientY: 20 });
-    await body.dispatchEvent("mousemove", {
-      clientX: bounds2.x,
-      clientY: bounds2.y,
-    });
-    await body.dispatchEvent("mouseup");
+    await dragTab(tab1, tab2);
     await expectTabInPanelSection(tab1, "top", 1);
 
     await setWidgetState(page, "WT-A", WidgetState.Hidden);
     await expectSavedFrontstageState(context, (state) => {
-      return !!state.widgets.find((w) => w.id === "WT-A");
+      return state.nineZone.savedTabs.allIds.indexOf("WT-A") >= 0;
     });
     await page.reload();
 
@@ -288,14 +282,11 @@ test.describe("widget state", () => {
     await expect(widget).toHaveCount(2);
   });
 
-  test("should float a widget that is hidden by default", async ({
-    context,
-    page,
-  }) => {
+  test("should float a widget that is hidden by default", async ({ page }) => {
     const tab = tabLocator(page, "FW-H1");
     await expect(tab).toBeHidden();
 
-    setWidgetState(page, "FW-H1", WidgetState.Floating);
+    await setWidgetState(page, "FW-H1", WidgetState.Floating);
     await expect(tab).toBeVisible();
   });
 });

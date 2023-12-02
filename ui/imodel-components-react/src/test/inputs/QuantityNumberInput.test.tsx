@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import type { QuantityTypeArg } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
+import { Key } from "ts-key-enum";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -442,12 +442,12 @@ describe("<QuantityNumberInput />", () => {
     );
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
-    fireEvent.keyDown(input!, { key: SpecialKey.ArrowUp });
+    fireEvent.keyDown(input!, { key: Key.ArrowUp });
     spyMethod.calledOnce.should.true;
     expect(value).to.eq(0.25 * metersPerFoot);
 
     spyMethod.resetHistory();
-    fireEvent.keyDown(input!, { key: SpecialKey.ArrowDown });
+    fireEvent.keyDown(input!, { key: Key.ArrowDown });
     spyMethod.calledOnce.should.true;
     expect(value).to.eq(0);
     spyKeyDown.calledTwice.should.true;
@@ -471,7 +471,7 @@ describe("<QuantityNumberInput />", () => {
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "22.3" } });
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     spyMethod.calledOnce.should.true;
     expect(value).to.eq(22.3 * metersPerFoot);
   });
@@ -494,7 +494,7 @@ describe("<QuantityNumberInput />", () => {
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "42in" } });
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     spyMethod.calledOnce.should.true;
     expect(value).to.eq(3.5 * metersPerFoot);
   });
@@ -550,7 +550,7 @@ describe("<QuantityNumberInput />", () => {
     const originalValue = (input as HTMLInputElement).value;
     fireEvent.change(input!, { target: { value: "22.3" } });
     expect((input as HTMLInputElement).value).to.eq("22.3");
-    fireEvent.keyDown(input!, { key: SpecialKey.Escape });
+    fireEvent.keyDown(input!, { key: Key.Escape });
     spyMethod.notCalled.should.be.true;
     expect((input as HTMLInputElement).value).to.eq(originalValue);
 
@@ -585,7 +585,7 @@ describe("<QuantityNumberInput />", () => {
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "abc" } });
     expect((input as HTMLInputElement).value).to.eq("abc");
-    fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+    fireEvent.keyDown(input!, { key: Key.Enter });
     spyMethod.calledOnce.should.be.false; // value was invalid so previous value restore and no callback
     expect((input as HTMLInputElement).value).to.eq("3.2808");
   });
@@ -647,7 +647,7 @@ describe("<QuantityNumberInput />", () => {
 
       fireEvent.change(input!, { target: { value: "2" } });
       expect((input as HTMLInputElement).value).to.eq("2");
-      fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+      fireEvent.keyDown(input!, { key: Key.Enter });
       spyMethod.calledOnce.should.be.true;
       expect((input as HTMLInputElement).value).to.eq("2.00");
     });
@@ -712,7 +712,7 @@ describe("<QuantityNumberInput />", () => {
 
       fireEvent.change(input!, { target: { value: "2" } });
       expect((input as HTMLInputElement).value).to.eq("2");
-      fireEvent.keyDown(input!, { key: SpecialKey.Enter });
+      fireEvent.keyDown(input!, { key: Key.Enter });
       spyMethod.calledOnce.should.be.true;
       expect((input as HTMLInputElement).value.slice(0, 2)).to.eq("2.");
 

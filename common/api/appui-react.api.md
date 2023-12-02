@@ -42,17 +42,16 @@ import type { DialogRow } from '@itwin/appui-abstract';
 import type { Direction } from '@itwin/components-react';
 import type { DisplayStyle3dState } from '@itwin/core-frontend';
 import type { EmphasizeElementsProps } from '@itwin/core-common';
-import type { FloatingWidgetState } from '@itwin/appui-layout-react';
-import type { FunctionKey } from '@itwin/appui-abstract';
 import type { GroupButton } from '@itwin/appui-abstract';
 import type { IconProps } from '@itwin/core-react';
 import type { IconSpec } from '@itwin/core-react';
 import type { Id64String } from '@itwin/core-bentley';
-import type { IMatch } from '@itwin/appui-abstract';
 import type { IModelConnection } from '@itwin/core-frontend';
 import { InferableComponentEnhancerWithProps } from 'react-redux';
 import type { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
+import type { Key } from 'ts-key-enum';
+import { KnownPreviewLayoutFeatures } from '@itwin/appui-layout-react';
 import type { LayoutFragmentProps } from '@itwin/appui-abstract';
 import type { LayoutStore } from '@itwin/appui-layout-react';
 import type { Localization } from '@itwin/core-common';
@@ -62,8 +61,7 @@ import { MessageBoxType } from '@itwin/core-frontend';
 import { MessageBoxValue } from '@itwin/core-frontend';
 import { MessageSeverity } from '@itwin/appui-abstract';
 import type { MessageType } from '@itwin/core-react';
-import type { NineZoneAction } from '@itwin/appui-layout-react';
-import type { NineZoneDispatch } from '@itwin/appui-layout-react';
+import { NineZoneDispatch } from '@itwin/appui-layout-react';
 import type { NineZoneLabels } from '@itwin/appui-layout-react';
 import type { NineZoneState } from '@itwin/appui-layout-react';
 import type { NoChildrenProps } from '@itwin/core-react';
@@ -83,7 +81,6 @@ import type { PanelSide } from '@itwin/appui-layout-react';
 import type { PlaybackSettings } from '@itwin/imodel-components-react';
 import { Point } from '@itwin/core-react';
 import type { Point2d } from '@itwin/core-geometry';
-import type { PointProps } from '@itwin/appui-abstract';
 import type { PopupProps } from '@itwin/core-react';
 import type { Primitives } from '@itwin/appui-abstract';
 import type { PropertyDescription } from '@itwin/appui-abstract';
@@ -91,7 +88,6 @@ import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyUpdatedArgs } from '@itwin/components-react';
 import type { QuantityTypeArg } from '@itwin/core-frontend';
 import * as React_2 from 'react';
-import type { Rectangle } from '@itwin/core-react';
 import type { RectangleProps } from '@itwin/core-react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import type { ScreenViewport } from '@itwin/core-frontend';
@@ -101,7 +97,6 @@ import { Size } from '@itwin/core-react';
 import type { SizeProps } from '@itwin/core-react';
 import { SnapMode } from '@itwin/core-frontend';
 import type { SolarDataProvider } from '@itwin/imodel-components-react';
-import type { SpecialKey } from '@itwin/appui-abstract';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
 import type { StringGetter } from '@itwin/appui-abstract';
@@ -123,7 +118,6 @@ import { UiStateEntry } from '@itwin/core-react';
 import type { UiStateStorage } from '@itwin/core-react';
 import type { UiStateStorageResult } from '@itwin/core-react';
 import { UiStateStorageStatus } from '@itwin/core-react';
-import type { UiSyncEvent } from '@itwin/appui-abstract';
 import type { UnitSystemKey } from '@itwin/core-quantity';
 import type { ViewFlagProps } from '@itwin/core-common';
 import type { Viewport } from '@itwin/core-frontend';
@@ -446,7 +440,7 @@ export class AppUiSettings implements UserSettingsProvider {
     // (undocumented)
     autoCollapseUnpinnedPanels: UiStateEntry<boolean>;
     // (undocumented)
-    colorTheme: UiStateEntry<string>;
+    colorTheme: UiStateEntry<ThemeId>;
     // (undocumented)
     dragInteraction: UiStateEntry<boolean>;
     // (undocumented)
@@ -728,15 +722,12 @@ export type CalculatorPropsProps = Pick<CalculatorProps, "engine">;
 
 // @public
 export interface CanFloatWidgetOptions {
-    // (undocumented)
     readonly containerId?: string;
     // (undocumented)
-    readonly defaultPosition?: PointProps;
+    readonly defaultPosition?: XAndY;
     // (undocumented)
     readonly defaultSize?: SizeProps;
-    // (undocumented)
     readonly hideWithUi?: boolean;
-    // (undocumented)
     readonly isResizable?: boolean;
 }
 
@@ -800,10 +791,12 @@ export function clearKeyinPaletteHistory(): void;
 
 // @public
 export enum ColorTheme {
-    // (undocumented)
     Dark = "dark",
-    // (undocumented)
-    Light = "light"
+    HighContrastDark = "high-contrast-dark",
+    HighContrastLight = "high-contrast-light",
+    Inherit = "inherit",
+    Light = "light",
+    System = "SYSTEM_PREFERRED"
 }
 
 // @public
@@ -869,6 +862,8 @@ export interface CommonToolbarItem {
     readonly isDisabled?: boolean | ConditionalBooleanValue;
     readonly isHidden?: boolean | ConditionalBooleanValue;
     readonly itemPriority: number;
+    // @alpha
+    readonly layouts?: ToolbarItemLayouts;
 }
 
 // @public
@@ -1311,12 +1306,12 @@ export class CursorInformation {
     // @internal
     static clearCursorDirections(): void;
     static get cursorDirection(): CursorDirection;
-    static get cursorPosition(): PointProps;
-    static set cursorPosition(pt: PointProps);
+    static get cursorPosition(): XAndY;
+    static set cursorPosition(pt: XAndY);
     static get cursorX(): number;
     static get cursorY(): number;
     static getRelativePositionFromCursorDirection(cursorDirection: CursorDirection): RelativePosition;
-    static handleMouseMove(point: PointProps): void;
+    static handleMouseMove(point: XAndY): void;
     static readonly onCursorUpdatedEvent: CursorUpdatedEvent;
 }
 
@@ -1341,7 +1336,7 @@ export class CursorPopup extends React_2.Component<CursorPopupProps, CursorPopup
     // @internal (undocumented)
     static fadeOutTime: number;
     // @internal (undocumented)
-    static getPopupRect(pt: PointProps, offset: PointProps, popupSize: SizeProps | undefined, relativePosition: RelativePosition): RectangleProps;
+    static getPopupRect(pt: XAndY, offset: XAndY, popupSize: SizeProps | undefined, relativePosition: RelativePosition): RectangleProps;
     // @internal (undocumented)
     render(): JSX.Element;
 }
@@ -1370,13 +1365,13 @@ export class CursorPopupManager {
     static readonly onCursorPopupsChangedEvent: CursorPopupsChangedEvent;
     // @internal (undocumented)
     static readonly onCursorPopupUpdatePositionEvent: CursorPopupUpdatePositionEvent;
-    static open(id: string, content: React_2.ReactNode, pt: PointProps, offset: PointProps, relativePosition: RelativePosition, priority?: number, options?: CursorPopupOptions): void;
+    static open(id: string, content: React_2.ReactNode, pt: XAndY, offset: XAndY, relativePosition: RelativePosition, priority?: number, options?: CursorPopupOptions): void;
     // (undocumented)
     static get popupCount(): number;
     // (undocumented)
     static get popups(): CursorPopupInfo[];
-    static update(id: string, content: React_2.ReactNode, pt: PointProps, offset: PointProps, relativePosition: RelativePosition, priority?: number): void;
-    static updatePosition(pt: PointProps): void;
+    static update(id: string, content: React_2.ReactNode, pt: XAndY, offset: XAndY, relativePosition: RelativePosition, priority?: number): void;
+    static updatePosition(pt: XAndY): void;
 }
 
 // @alpha
@@ -1406,10 +1401,10 @@ export interface CursorPopupProps extends CommonProps {
     // (undocumented)
     id: string;
     // (undocumented)
-    offset: PointProps;
+    offset: XAndY;
     onSizeKnown?: (size: SizeProps) => void;
     // (undocumented)
-    pt: PointProps;
+    pt: XAndY;
     // (undocumented)
     relativePosition: RelativePosition;
     // (undocumented)
@@ -1444,7 +1439,7 @@ export class CursorPopupUpdatePositionEvent extends UiEvent<CursorPopupUpdatePos
 // @internal
 export interface CursorPopupUpdatePositionEventArgs {
     // (undocumented)
-    pt: PointProps;
+    pt: XAndY;
 }
 
 // @internal (undocumented)
@@ -1452,7 +1447,7 @@ export class CursorPrompt {
     constructor(timeOut: number, fadeOut: boolean);
     close(fadeOut: boolean): void;
     // (undocumented)
-    display(toolIconSpec: string, instruction: ToolAssistanceInstruction, offset?: PointProps, relativePosition?: RelativePosition): void;
+    display(toolIconSpec: string, instruction: ToolAssistanceInstruction, offset?: XAndY, relativePosition?: RelativePosition): void;
 }
 
 // @public
@@ -1464,9 +1459,9 @@ export interface CursorUpdatedEventArgs {
     // (undocumented)
     direction: CursorDirection;
     // (undocumented)
-    newPt: PointProps;
+    newPt: XAndY;
     // (undocumented)
-    oldPt: PointProps;
+    oldPt: XAndY;
 }
 
 // @public
@@ -2074,9 +2069,6 @@ export interface FrameworkState {
     sessionState: SessionState;
 }
 
-// @internal (undocumented)
-export function FrameworkStateReducer(state: NineZoneState, action: NineZoneAction, frontstageDef: FrontstageDef): NineZoneState;
-
 // @alpha
 export class FrameworkToolAdmin extends ToolAdmin {
     processShortcutKey(e: KeyboardEvent, wentDown: boolean): Promise<boolean>;
@@ -2212,17 +2204,19 @@ export class FrontstageDef {
     // (undocumented)
     get contentManipulation(): WidgetDef | undefined;
     static create(provider: FrontstageProvider): Promise<FrontstageDef>;
-    // @internal
-    dockPopoutWidgetContainer(widgetContainerId: string): void;
+    // @internal (undocumented)
+    get dispatch(): NineZoneDispatch;
     // @beta
     dockWidgetContainer(widgetId: string): void;
+    // @internal (undocumented)
+    dockWidgetContainerByContainerId(widgetContainerId: string): void;
     // (undocumented)
     dropFloatingContentControl(contentControl?: ContentControl): void;
     findWidgetDef(id: string): WidgetDef | undefined;
     // (undocumented)
     get floatingContentControls(): ContentControl[] | undefined;
     // @beta
-    floatWidget(widgetId: string, point?: PointProps, size?: SizeProps): void;
+    floatWidget(widgetId: string, position?: XAndY, size?: SizeProps): void;
     // (undocumented)
     get frontstageProvider(): FrontstageProvider | undefined;
     // (undocumented)
@@ -2231,8 +2225,6 @@ export class FrontstageDef {
     getFloatingWidgetContainerIdByWidgetId(widgetId: string): string | undefined;
     // (undocumented)
     getFloatingWidgetContainerIds(): string[];
-    // @internal
-    getPanelCurrentState(panelDef: StagePanelDef): [StagePanelState, number, boolean];
     // @beta
     getStagePanelDef(location: StagePanelLocation): StagePanelDef | undefined;
     // @internal
@@ -2264,20 +2256,17 @@ export class FrontstageDef {
     onFrontstageReady(): void;
     protected _onFrontstageReady(): void;
     // @internal
-    openPopoutWidgetContainer(state: NineZoneState, widgetContainerId: string): void;
+    openPopoutWidgetContainer(widgetContainerId: string, oldState: NineZoneState | undefined): boolean;
     // @beta
     get panelDefs(): StagePanelDef[];
     // @beta
-    popoutWidget(widgetId: string, point?: PointProps, size?: SizeProps): void;
-    // @beta (undocumented)
+    popoutWidget(widgetId: string, position?: XAndY, size?: SizeProps): void;
+    // @beta
     restoreLayout(): void;
     // (undocumented)
     get rightPanel(): StagePanelDef | undefined;
     // @internal (undocumented)
     saveChildWindowSizeAndPosition(childWindowId: string, childWindow: Window): void;
-    // @internal (undocumented)
-    get savedWidgetDefs(): SavedWidgets | undefined;
-    set savedWidgetDefs(widgets: SavedWidgets | undefined);
     setActiveContent(): Promise<boolean>;
     setActiveView(newContent: ContentControl, oldContent?: ContentControl): void;
     setActiveViewFromViewport(viewport: ScreenViewport): boolean;
@@ -2360,6 +2349,9 @@ export function getListPanel(props: ListPickerProps): React_2.ReactNode;
 
 // @internal (undocumented)
 export function getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray<WidgetDef>;
+
+// @internal (undocumented)
+export function getPanelState(state: NineZoneState, side: PanelSide): StagePanelState.Minimized | StagePanelState.Open;
 
 // @beta
 export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial<QuantityFormatterSettingsOptions>): SettingsTabEntry;
@@ -2575,7 +2567,7 @@ export interface InitialAppUiSettings {
     // @alpha (undocumented)
     autoCollapseUnpinnedPanels?: boolean;
     // (undocumented)
-    colorTheme: string;
+    colorTheme: ThemeId;
     // (undocumented)
     dragInteraction: boolean;
     // (undocumented)
@@ -2837,7 +2829,7 @@ export interface KeyboardShortcutProps extends ItemProps {
     isCtrlKeyRequired?: boolean;
     isShiftKeyRequired?: boolean;
     item?: ActionButtonItemDef;
-    key: string | FunctionKey | SpecialKey;
+    key: string | Key;
     shortcuts?: KeyboardShortcutProps[];
 }
 
@@ -2995,7 +2987,7 @@ export interface MenuButtonPopupProps extends PopupPropsBase {
 // @alpha (undocumented)
 export interface MenuButtonProps extends SquareButtonProps {
     onSizeKnown?: (size: SizeProps) => void;
-    point: PointProps;
+    point: XAndY;
 }
 
 // @alpha
@@ -3057,7 +3049,6 @@ export class MessageManager {
         close: () => void;
     } | undefined;
     static endActivityMessage(isCompleted: boolean): boolean;
-    // @deprecated
     static getIconClassName(details: NotifyMessageDetailsType): string;
     static getIconSpecFromDetails(details: NotifyMessageDetailsType): IconSpec;
     static getIconType(details: NotifyMessageDetailsType): MessageBoxIconType;
@@ -3497,7 +3488,7 @@ export function PositionPopupContent(props: CommonDivProps): JSX.Element;
 export interface PositionPopupProps extends CommonProps {
     children?: React_2.ReactNode;
     onSizeKnown?: (size: SizeProps) => void;
-    point: PointProps;
+    point: XAndY;
 }
 
 // @public
@@ -3506,6 +3497,23 @@ export interface PresentationSelectionScope {
     id: string;
     // (undocumented)
     label: string;
+}
+
+// @beta
+export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
+    // (undocumented)
+    [featureName: string]: any;
+}
+
+// @beta
+export function PreviewFeaturesProvider({ children, features, }: PreviewFeaturesProviderProps): JSX.Element;
+
+// @beta
+export interface PreviewFeaturesProviderProps {
+    // (undocumented)
+    children?: React_2.ReactNode;
+    // (undocumented)
+    features?: PreviewFeatures;
 }
 
 // @public
@@ -3588,9 +3596,6 @@ export class ReducerRegistry {
 // @beta
 export const ReducerRegistryInstance: ReducerRegistry;
 
-// @internal
-export function removeMissingWidgets(frontstageDef: FrontstageDef, state: NineZoneState): NineZoneState;
-
 // @public
 export class RestoreAllFrontstagesTool extends Tool {
     // (undocumented)
@@ -3644,19 +3649,6 @@ export enum SafeAreaInsets {
     // (undocumented)
     Top = 8
 }
-
-// @internal
-export interface SavedWidget {
-    // (undocumented)
-    readonly id: WidgetDef["id"];
-    // (undocumented)
-    readonly popoutBounds?: RectangleProps;
-    // (undocumented)
-    readonly tabLocation?: TabLocation;
-}
-
-// @internal (undocumented)
-export type SavedWidgets = ReadonlyArray<SavedWidget>;
 
 // @public
 export class ScheduleAnimationTimelineDataProvider extends BaseTimelineDataProvider {
@@ -3732,7 +3724,7 @@ export enum SelectionScope {
 }
 
 // @public
-export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "availableSelectionScopes" | "activeSelectionScope">>;
+export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, CommonProps>;
 
 // @public
 export interface SessionState {
@@ -3835,9 +3827,6 @@ export function SessionStateReducer(state: SessionState | undefined, action: Ses
 // @internal (undocumented)
 export const setPanelPinned: (nineZone: NineZoneState, side: PanelSide, pinned: boolean) => NineZoneState;
 
-// @internal (undocumented)
-export const setPanelSize: (nineZone: NineZoneState, side: PanelSide, size: number | undefined) => NineZoneState;
-
 // @beta
 export class SettingsModalFrontstage implements ModalFrontstageInfo {
     constructor(initialSettingsTabId?: string | undefined);
@@ -3856,12 +3845,6 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
     // (undocumented)
     title: string;
 }
-
-// @internal (undocumented)
-export function setWidgetLabel(state: NineZoneState, id: TabState["id"], label: string): NineZoneState;
-
-// @internal (undocumented)
-export function setWidgetState(state: NineZoneState, widgetDef: WidgetDef, widgetState: WidgetState): NineZoneState;
 
 // @alpha
 export class SheetCard extends React_2.Component<SheetCardProps, SheetCardState> {
@@ -4021,12 +4004,16 @@ export class StagePanelDef extends WidgetHost {
     // @internal (undocumented)
     getPanelSectionDef(section: StagePanelSection): StagePanelSectionDef;
     // @internal (undocumented)
+    handlePanelStateChanged(panelState: StagePanelState): void;
+    // @internal (undocumented)
+    handlePinnedChanged(pinned: boolean): void;
+    // @internal (undocumented)
+    handleSizeChanged(size: number | undefined): void;
+    // @internal (undocumented)
+    get initialConfig(): StagePanelConfig | undefined;
+    // @internal (undocumented)
     initializeFromConfig(config: StagePanelConfig | undefined, location: StagePanelLocation): void;
     get location(): StagePanelLocation;
-    // @internal (undocumented)
-    get maxSizeSpec(): StagePanelMaxSizeSpec | undefined;
-    // @internal (undocumented)
-    get minSize(): number | undefined;
     get panelState(): StagePanelState;
     set panelState(panelState: StagePanelState);
     get pinned(): boolean;
@@ -4157,6 +4144,18 @@ export class StandardFrontstageProvider extends FrontstageProvider {
     get id(): string;
 }
 
+// @alpha
+export interface StandardLayoutToolbarItem {
+    readonly orientation: ToolbarOrientation;
+    readonly usage: ToolbarUsage;
+}
+
+// @alpha
+export interface StandardLayoutWidget {
+    readonly location: StagePanelLocation;
+    readonly section: StagePanelSection;
+}
+
 // @public
 export class StandardMessageBox extends React_2.PureComponent<StandardMessageBoxProps, StandardMessageBoxState> {
     constructor(props: StandardMessageBoxProps);
@@ -4240,16 +4239,10 @@ export class StateManager {
 export type StateType<R extends Reducer<any, any>> = DeepReadonly<ReturnType<R>>;
 
 // @internal (undocumented)
-export const stateVersion = 14;
+export const stateVersion = 16;
 
 // @public
-export class StatusBar extends React_2.Component<StatusBarProps, StatusBarState> {
-    // @internal
-    constructor(props: StatusBarProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
+export class StatusBar extends React_2.Component<StatusBarProps> {
     // (undocumented)
     render(): React_2.ReactNode;
 }
@@ -4478,19 +4471,8 @@ export enum SyncUiEventId {
 // @public
 export const SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED";
 
-// @internal (undocumented)
-export interface TabLocation {
-    // (undocumented)
-    floatingWidget?: FloatingWidgetState;
-    // (undocumented)
-    side: PanelSide;
-    // (undocumented)
-    tabIndex: number;
-    // (undocumented)
-    widgetId: string;
-    // (undocumented)
-    widgetIndex: number;
-}
+// @public
+export type ThemeId = `${ColorTheme}` | (string & {});
 
 // @public
 export const ThemeManager: ConnectedComponent<typeof ThemeManagerComponent, Omit_3<React_2.ClassAttributes<ThemeManagerComponent> & ThemeManagerProps, "theme" | "widgetOpacity" | "toolbarOpacity">>;
@@ -4607,7 +4589,6 @@ export class ToolbarHelper {
     static constructChildToolbarItems(itemDefs: AnyItemDef[]): Array<ToolbarActionItem | ToolbarGroupItem>;
     static createCustomDefinitionToolbarItem(itemPriority: number, itemDef: CustomItemDef, overrides?: Partial<CustomButtonDefinition>): ToolbarCustomItem;
     static createToolbarItemFromItemDef(itemPriority: number, itemDef: AnyItemDef, overrides?: Partial<CommonToolbarItem_2>): ToolbarItem;
-    // (undocumented)
     static createToolbarItemsFromItemDefs(itemDefs: AnyItemDef[], startingItemPriority?: number, overrides?: Partial<CommonToolbarItem_2>): ToolbarItem[];
     // (undocumented)
     static getIconReactNode(item: ActionButton | GroupButton): React_2.ReactNode;
@@ -4615,6 +4596,11 @@ export class ToolbarHelper {
 
 // @public
 export type ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomItem;
+
+// @alpha
+export interface ToolbarItemLayouts {
+    readonly standard?: StandardLayoutToolbarItem;
+}
 
 // @beta
 export namespace ToolbarItemUtilities {
@@ -4671,7 +4657,7 @@ export enum ToolbarUsage {
     ViewNavigation = 1
 }
 
-// @beta @deprecated
+// @beta
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element;
 
 // @beta
@@ -4832,12 +4818,10 @@ export class UiFramework {
     static getAccudrawSnapMode(): SnapMode;
     // (undocumented)
     static getActiveIModelId(): string;
-    // (undocumented)
     static getActiveSelectionScope(): string;
-    // (undocumented)
     static getAvailableSelectionScopes(): PresentationSelectionScope[];
     // (undocumented)
-    static getColorTheme(): string;
+    static getColorTheme(): ThemeId;
     // (undocumented)
     static getCursorMenuData(): CursorMenuData | undefined;
     // (undocumented)
@@ -4858,8 +4842,6 @@ export class UiFramework {
     static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler;
     static initialize(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void>;
     static get initialized(): boolean;
-    // @internal
-    static initializeEx(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void>;
     static initializeStateFromUserSettingsProviders(immediateSync?: boolean): Promise<void>;
     // @alpha
     static get isContextMenuOpen(): boolean;
@@ -4881,13 +4863,11 @@ export class UiFramework {
     static setAccudrawSnapMode(snapMode: SnapMode): void;
     // (undocumented)
     static setActiveIModelId(iModelId: string): void;
-    // (undocumented)
     static setActiveSelectionScope(selectionScopeId: string): void;
     // (undocumented)
     static setAnimateToolSettings(value: boolean): void;
     static setAutoCollapseUnpinnedPanels(value: boolean): void;
-    // (undocumented)
-    static setColorTheme(theme: string): void;
+    static setColorTheme(theme: ThemeId): void;
     // (undocumented)
     static setDefaultIModelViewportControlId(iModelViewportControlId: string, immediateSync?: boolean): void;
     // (undocumented)
@@ -4945,10 +4925,20 @@ export class UiItemsManager {
     static register(uiProvider: UiItemsProvider, overrides?: UiItemsProviderOverrides): void;
     static get registeredProviderIds(): string[];
     static unregister(providerId: string): void;
+    // @internal
+    static useAbstractAdapter(useAbstractAdapter: boolean): void;
 }
 
 // @public
 export interface UiItemsProvider {
+    // @alpha
+    readonly getBackstageItems?: () => ReadonlyArray<BackstageItem>;
+    // @alpha
+    readonly getStatusBarItems?: () => ReadonlyArray<StatusBarItem>;
+    // @alpha
+    readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
+    // @alpha
+    readonly getWidgets?: () => ReadonlyArray<Widget>;
     readonly id: string;
     readonly onUnregister?: () => void;
     readonly provideBackstageItems?: () => ReadonlyArray<BackstageItem>;
@@ -4982,6 +4972,16 @@ export const UiStateStorageContext: React_2.Context<UiStateStorage>;
 export function UiStateStorageHandler(props: UiSettingsProviderProps): JSX.Element;
 
 // @public
+export class UiSyncEvent extends BeUiEvent<UiSyncEventArgs> {
+}
+
+// @public
+export interface UiSyncEventArgs {
+    // (undocumented)
+    eventIds: Set<string>;
+}
+
+// @public
 export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {
 }
 
@@ -5007,7 +5007,7 @@ export interface UnitSystemSelectorProps {
 // @internal (undocumented)
 export function useActiveContentControlId(): string | undefined;
 
-// @public (undocumented)
+// @public
 export function useActiveFrontstageDef(): FrontstageDef | undefined;
 
 // @public
@@ -5067,7 +5067,7 @@ export function useItemsManager(frontstageDef: FrontstageDef): void;
 export function useLabels(): NineZoneLabels;
 
 // @internal (undocumented)
-export function useLayoutStore(): readonly [LayoutStore, FrontstageDef | undefined];
+export function useLayoutStore(frontstageDef: FrontstageDef | undefined): LayoutStore;
 
 // @internal (undocumented)
 export function useNineZoneDispatch(frontstageDef: FrontstageDef): NineZoneDispatch;
@@ -5095,6 +5095,9 @@ export interface UseSelectionSetSizeArgs {
     // (undocumented)
     iModel: IModelConnection | undefined;
 }
+
+// @internal
+export function useShouldRenderDockedToolSettings(): boolean;
 
 // @beta
 export function useSolarDataProvider(viewport: ScreenViewport | undefined): SolarDataProvider | undefined;
@@ -5296,7 +5299,6 @@ export interface Widget {
     readonly canFloat?: boolean | CanFloatWidgetOptions;
     readonly canPopout?: boolean;
     readonly content?: React.ReactNode;
-    // (undocumented)
     readonly defaultState?: WidgetState;
     // (undocumented)
     readonly icon?: IconSpec;
@@ -5304,6 +5306,8 @@ export interface Widget {
     readonly id: string;
     // (undocumented)
     readonly label?: string | ConditionalStringValue;
+    // @alpha
+    readonly layouts?: WidgetLayouts;
     // (undocumented)
     readonly priority?: number;
     // (undocumented)
@@ -5365,20 +5369,20 @@ export class WidgetDef {
     // @internal (undocumented)
     static create(config: WidgetConfig, type?: WidgetType): WidgetDef;
     // @internal (undocumented)
-    get defaultFloatingPosition(): PointProps | undefined;
-    set defaultFloatingPosition(position: PointProps | undefined);
+    get defaultFloatingPosition(): XAndY | undefined;
+    set defaultFloatingPosition(position: XAndY | undefined);
     // @internal (undocumented)
     get defaultFloatingSize(): SizeProps | undefined;
     set defaultFloatingSize(size: SizeProps | undefined);
     // @internal (undocumented)
     get defaultState(): WidgetState;
-    // @internal (undocumented)
-    get defaultTabLocation(): TabLocation;
     expand(): void;
     // (undocumented)
     get floatingContainerId(): string | undefined;
     // (undocumented)
     getWidgetControl(type: ConfigurableUiControlType): WidgetControl | undefined;
+    // @internal (undocumented)
+    handleWidgetStateChanged(newState: WidgetState): void;
     set hideWithUiWhenFloating(hide: boolean | undefined);
     // (undocumented)
     get hideWithUiWhenFloating(): boolean;
@@ -5406,9 +5410,6 @@ export class WidgetDef {
     get label(): string;
     // (undocumented)
     onWidgetStateChanged(): void;
-    // @internal (undocumented)
-    get popoutBounds(): Rectangle | undefined;
-    set popoutBounds(bounds: Rectangle | undefined);
     // @alpha (undocumented)
     get preferredPanelSize(): "fit-content" | undefined;
     // (undocumented)
@@ -5422,7 +5423,7 @@ export class WidgetDef {
     setCanPopout(value: boolean | undefined): void;
     // (undocumented)
     setFloatingContainerId(value: string | undefined): void;
-    setLabel(v: string | ConditionalStringValue | StringGetter): void;
+    setLabel(labelSpec: string | ConditionalStringValue | StringGetter): void;
     setTooltip(v: string | ConditionalStringValue | StringGetter): void;
     // (undocumented)
     setWidgetState(newState: WidgetState): void;
@@ -5431,9 +5432,6 @@ export class WidgetDef {
     get state(): WidgetState;
     // (undocumented)
     get stateChanged(): boolean;
-    // @internal (undocumented)
-    get tabLocation(): TabLocation | undefined;
-    set tabLocation(tabLocation: TabLocation | undefined);
     get tooltip(): string;
     // (undocumented)
     get widgetControl(): WidgetControl | undefined;
@@ -5474,6 +5472,11 @@ export interface WidgetInfo {
     widgetDef: WidgetDef;
 }
 
+// @alpha
+export interface WidgetLayouts {
+    readonly standard?: StandardLayoutWidget;
+}
+
 // @beta
 export class WidgetManager {
     addWidgetDef(widgetDef: WidgetDef, stageId: string | undefined, stageUsage: string | undefined, location: StagePanelLocation, section?: StagePanelSection): boolean;
@@ -5505,8 +5508,6 @@ export interface WidgetPanelsFrontstageState {
     nineZone: SavedNineZoneState;
     stateVersion: number;
     version: number;
-    // (undocumented)
-    widgets: SavedWidgets;
 }
 
 // @internal (undocumented)

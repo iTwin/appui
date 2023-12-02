@@ -7,9 +7,7 @@
  */
 
 import type { Primitives } from "@itwin/appui-abstract";
-import { StandardTypeNames } from "@itwin/appui-abstract";
 import { TypeConverter } from "./TypeConverter";
-import { TypeConverterManager } from "./TypeConverterManager";
 
 /** Operators for string types
  * @public
@@ -157,15 +155,6 @@ export class StringTypeConverter
   }
 }
 
-TypeConverterManager.registerConverter(
-  StandardTypeNames.Text,
-  StringTypeConverter
-);
-TypeConverterManager.registerConverter(
-  StandardTypeNames.String,
-  StringTypeConverter
-);
-TypeConverterManager.registerConverter(
-  StandardTypeNames.URL,
-  StringTypeConverter
-);
+/*
+NOTE: As this is the default type converter, it's registrations are directly in TypeConverterManager file.
+*/

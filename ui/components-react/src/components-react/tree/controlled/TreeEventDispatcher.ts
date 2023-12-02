@@ -6,28 +6,26 @@
  * @module Tree
  */
 
-import type { Observable } from "rxjs/internal/Observable";
-import { concat } from "rxjs/internal/observable/concat";
-import { defer } from "rxjs/internal/observable/defer";
-import { EMPTY } from "rxjs/internal/observable/empty";
-import { from } from "rxjs/internal/observable/from";
-import { generate } from "rxjs/internal/observable/generate";
-import { merge } from "rxjs/internal/observable/merge";
-import { of } from "rxjs/internal/observable/of";
-import { zip } from "rxjs/internal/observable/zip";
-import { concatAll } from "rxjs/internal/operators/concatAll";
-import { concatMap } from "rxjs/internal/operators/concatMap";
-import { defaultIfEmpty } from "rxjs/internal/operators/defaultIfEmpty";
-import { distinctUntilChanged } from "rxjs/internal/operators/distinctUntilChanged";
-import { filter } from "rxjs/internal/operators/filter";
-import { finalize } from "rxjs/internal/operators/finalize";
-import { map } from "rxjs/internal/operators/map";
-import { mergeAll } from "rxjs/internal/operators/mergeAll";
-import { publishReplay } from "rxjs/internal/operators/publishReplay";
-import { refCount } from "rxjs/internal/operators/refCount";
-import { subscribeOn } from "rxjs/internal/operators/subscribeOn";
-import { toArray } from "rxjs/internal/operators/toArray";
-import { asapScheduler } from "rxjs/internal/scheduler/asap";
+import type { Observable } from "rxjs";
+import {
+  asapScheduler,
+  concat,
+  concatAll,
+  concatMap,
+  defer,
+  distinctUntilChanged,
+  EMPTY,
+  filter,
+  finalize,
+  from,
+  map,
+  merge,
+  mergeAll,
+  of,
+  shareReplay,
+  subscribeOn,
+  toArray,
+} from "rxjs";
 import type { CheckBoxState } from "@itwin/core-react";
 import type { SelectionMode } from "../../common/selection/SelectionModes";
 import type { TreeNodeItem } from "../TreeDataProvider";
@@ -48,6 +46,7 @@ import type {
 } from "./TreeModel";
 import { isTreeModelNode } from "./TreeModel";
 import type { ITreeNodeLoader } from "./TreeNodeLoader";
+import { toRxjsObservable } from "./Observable";
 
 /**
  * Default event dispatcher that emits tree events according performed actions.
@@ -57,7 +56,7 @@ import type { ITreeNodeLoader } from "./TreeNodeLoader";
 export class TreeEventDispatcher implements TreeActions {
   private _treeEvents: TreeEvents;
   private _nodeLoader: ITreeNodeLoader;
-  private _getVisibleNodes: (() => VisibleTreeNodes) | undefined;
+  private _getVisibleNodes: () => VisibleTreeNodes;
 
   private _selectionManager: TreeSelectionManager;
 
@@ -72,7 +71,7 @@ export class TreeEventDispatcher implements TreeActions {
     treeEvents: TreeEvents,
     nodeLoader: ITreeNodeLoader,
     selectionMode: SelectionMode,
-    getVisibleNodes?: () => VisibleTreeNodes
+    getVisibleNodes: () => VisibleTreeNodes
   ) {
     this._treeEvents = treeEvents;
     this._nodeLoader = nodeLoader;
@@ -85,9 +84,9 @@ export class TreeEventDispatcher implements TreeActions {
 
     this._selectionManager.onDragSelection.addListener(
       ({ selectionChanges }) => {
-        const modifications = from(selectionChanges).pipe(
+        const modifications = selectionChanges.pipe(
           map(({ selectedNodes, deselectedNodes }) =>
-            from(this.collectSelectionChanges(selectedNodes, [])).pipe(
+            this.collectSelectionChanges(selectedNodes, []).pipe(
               concatMap(({ selectedNodeItems }) => from(selectedNodeItems)),
               toArray(),
               map((collectedIds) => ({
@@ -97,8 +96,9 @@ export class TreeEventDispatcher implements TreeActions {
             )
           ),
           concatAll(),
-          publishReplay(),
-          refCount()
+          shareReplay({
+            refCount: true,
+          })
         );
 
         /* istanbul ignore else */
@@ -119,8 +119,9 @@ export class TreeEventDispatcher implements TreeActions {
           finalize(() => {
             this._activeSelections.delete(modifications);
           }),
-          publishReplay(),
-          refCount()
+          shareReplay({
+            refCount: true,
+          })
         );
 
         /* istanbul ignore else */
@@ -141,8 +142,9 @@ export class TreeEventDispatcher implements TreeActions {
           finalize(() => {
             this._activeSelections.delete(replacements);
           }),
-          publishReplay(),
-          refCount()
+          shareReplay({
+            refCount: true,
+          })
         );
 
         /* istanbul ignore else */
@@ -152,14 +154,7 @@ export class TreeEventDispatcher implements TreeActions {
     );
   }
 
-  public setVisibleNodes(visibleNodes: () => VisibleTreeNodes) {
-    this._getVisibleNodes = visibleNodes;
-    this._selectionManager.setVisibleNodes(visibleNodes);
-  }
-
   public onNodeCheckboxClicked(nodeId: string, newState: CheckBoxState) {
-    if (this._getVisibleNodes === undefined) return;
-
     const visibleNodes = this._getVisibleNodes();
     const clickedNode = visibleNodes.getModel().getNode(nodeId);
     if (clickedNode === undefined) return;
@@ -186,7 +181,11 @@ export class TreeEventDispatcher implements TreeActions {
           selectedNodeItems.map((item) => ({ nodeItem: item, newState }))
         )
       )
-    ).pipe(publishReplay(), refCount());
+    ).pipe(
+      shareReplay({
+        refCount: true,
+      })
+    );
 
     /* istanbul ignore else */
     if (this._treeEvents.onCheckboxStateChanged !== undefined)
@@ -209,11 +208,20 @@ export class TreeEventDispatcher implements TreeActions {
     nodeId: string,
     event: React.MouseEvent<Element, MouseEvent>
   ) {
-    const node = this._getVisibleNodes
-      ? this._getVisibleNodes().getModel().getNode(nodeId)
-      : undefined;
-    const isNodeSelected = node ? node.isSelected : false;
-    this._selectionManager.onNodeClicked(nodeId, event);
+    const node = this._getVisibleNodes().getModel().getNode(nodeId);
+    const isNodeSelected = node && node.isSelected;
+
+    if (
+      event.detail === 2 &&
+      this._treeEvents.onNodeDoubleClick !== undefined
+    ) {
+      this._treeEvents.onNodeDoubleClick({ nodeId });
+
+      // trigger onNodeClicked as to not lose highlight of the node when double clicking.
+      !isNodeSelected && this._selectionManager.onNodeClicked(nodeId, event);
+    } else {
+      this._selectionManager.onNodeClicked(nodeId, event);
+    }
 
     // if clicked node was already selected fire delayed click event
     if (isNodeSelected && this._treeEvents.onDelayedNodeClick !== undefined) {
@@ -230,9 +238,7 @@ export class TreeEventDispatcher implements TreeActions {
   }
 
   public onNodeEditorActivated(nodeId: string) {
-    const node = this._getVisibleNodes
-      ? this._getVisibleNodes().getModel().getNode(nodeId)
-      : /* istanbul ignore next */ undefined;
+    const node = this._getVisibleNodes().getModel().getNode(nodeId);
     const isNodeSelected = node ? node.isSelected : false;
 
     // if node was already selected, fire onNodeEditorActivated event
@@ -261,21 +267,13 @@ export class TreeEventDispatcher implements TreeActions {
   }> {
     const deselectedItems = this.collectNodeItems(deselection);
     if (isRangeSelection(selection)) {
-      return zip(
-        this.collectNodesBetween(selection.from, selection.to).pipe(
-          defaultIfEmpty([] as TreeNodeItem[])
-        ),
-        // Without a scheduler `generate` would block the main thread indefinitely
-        generate({
-          initialState: deselectedItems,
-          iterate: () => [],
-          scheduler: asapScheduler,
+      return this.collectNodesBetween(selection.from, selection.to).pipe(
+        map((selectedNodeItems, index) => {
+          return {
+            selectedNodeItems,
+            deselectedNodeItems: index === 0 ? deselectedItems : [],
+          };
         })
-      ).pipe(
-        map(([selectedNodeItems, deselectedNodeItems]) => ({
-          selectedNodeItems,
-          deselectedNodeItems,
-        }))
       );
     }
 
@@ -298,10 +296,12 @@ export class TreeEventDispatcher implements TreeActions {
     const loadedSelectedNodes = from(
       nodesToLoad.map((node) => {
         const parentNode = node.parentId
-          ? this._getVisibleNodes!().getModel().getNode(node.parentId)
-          : this._getVisibleNodes!().getModel().getRootNode();
+          ? this._getVisibleNodes().getModel().getNode(node.parentId)
+          : this._getVisibleNodes().getModel().getRootNode();
         return parentNode
-          ? this._nodeLoader.loadNode(parentNode, node.childIndex)
+          ? toRxjsObservable(
+              this._nodeLoader.loadNode(parentNode, node.childIndex)
+            )
           : /* istanbul ignore next */ EMPTY;
       })
     ).pipe(
@@ -336,10 +336,6 @@ export class TreeEventDispatcher implements TreeActions {
     nodeId2: string
   ): Iterable<TreeModelNode | TreeModelNodePlaceholder> {
     let firstNodeFound = false;
-    if (this._getVisibleNodes === undefined) {
-      return;
-    }
-
     for (const node of this._getVisibleNodes()) {
       if (firstNodeFound) {
         yield node;
@@ -365,10 +361,6 @@ export class TreeEventDispatcher implements TreeActions {
 
   private collectNodeItems(nodeIds: string[]): TreeNodeItem[] {
     const items: TreeNodeItem[] = [];
-    if (this._getVisibleNodes === undefined) {
-      return items;
-    }
-
     for (const nodeId of nodeIds) {
       const node = this._getVisibleNodes().getModel().getNode(nodeId);
       // istanbul ignore else

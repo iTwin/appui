@@ -1,6 +1,6 @@
 {
   "name": "@itwin/core-react",
-  "version": "4.4.0-dev.0",
+  "version": "4.8.0-dev.0",
   "description": "iTwin.js UI core components",
   "main": "lib/cjs/core-react.js",
   "module": "lib/esm/core-react.js",
@@ -58,7 +58,6 @@
     "@itwin/build-tools": "^3.7.0",
     "@itwin/core-bentley": "^3.7.0",
     "@itwin/core-common": "^3.7.0",
-    "@itwin/core-geometry": "^3.7.0",
     "@itwin/core-i18n": "^3.7.0",
     "@itwin/eslint-plugin": "^4.0.0-dev.45",
     "@testing-library/dom": "^8.11.2",
@@ -76,7 +75,7 @@
     "@types/react-dom": "^17.0.0",
     "@types/sinon": "^10.0.15",
     "@types/sinon-chai": "^3.2.0",
-    "chai": "^4.1.2",
+    "chai": "^4.3.10",
     "chai-as-promised": "^7",
     "cpx2": "^3.0.0",
     "eslint": "^8.44.0",
@@ -104,14 +103,15 @@
   ],
   "dependencies": {
     "@bentley/icons-generic": "^1.0.34",
-    "@itwin/itwinui-react": "^2.11.6",
+    "@itwin/itwinui-react": "^2.11.11",
     "@itwin/itwinui-variables": "^2.0.0",
     "@itwin/itwinui-icons-react": "^2.1.0",
     "classnames": "2.3.1",
     "dompurify": "^2.0.12",
     "lodash": "^4.17.10",
     "react-autosuggest": "^10.1.0",
-    "resize-observer-polyfill": "1.5.1"
+    "resize-observer-polyfill": "1.5.1",
+    "ts-key-enum": "~2.0.12"
   },
   "nyc": {
     "extends": "./node_modules/@itwin/build-tools/.nycrc",

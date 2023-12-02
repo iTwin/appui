@@ -17,13 +17,13 @@ import { updatePanelState } from "../../appui-layout-react/state/internal/PanelS
 describe("WidgetPanelExpanders", () => {
   it("should render", () => {
     let state = createNineZoneState();
-    state = updatePanelState(state, "left", {
-      pinned: false,
-      collapsed: true,
+    state = updatePanelState(state, "left", (draft) => {
+      draft.pinned = false;
+      draft.collapsed = true;
     });
-    state = updatePanelState(state, "bottom", {
-      pinned: false,
-      collapsed: true,
+    state = updatePanelState(state, "bottom", (draft) => {
+      draft.pinned = false;
+      draft.collapsed = true;
     });
     const { container } = render(
       <TestNineZoneProvider defaultState={state}>

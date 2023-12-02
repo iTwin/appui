@@ -15,7 +15,6 @@ import type {
   SelectedViewportChangedArgs,
 } from "@itwin/core-frontend";
 import { CompassMode, IModelApp, ItemField } from "@itwin/core-frontend";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import type { CommonProps, IconSpec, UiStateStorage } from "@itwin/core-react";
 import { Orientation } from "@itwin/core-react";
 import { getCSSColorFromDef } from "@itwin/imodel-components-react";
@@ -28,7 +27,6 @@ import type {
 } from "./FrameworkAccuDraw";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
 import type { AccuDrawUiSettings } from "./AccuDrawUiSettings";
-
 import angleIconSvg from "./angle.svg";
 import distanceIconSvg from "./distance.svg";
 import { UiFramework } from "../UiFramework";
@@ -55,10 +53,6 @@ function determineShowZ(vp?: ScreenViewport): boolean {
 const defaultXLabel = "X";
 const defaultYLabel = "Y";
 const defaultZLabel = "Z";
-const defaultAngleIcon =
-  IconSpecUtilities.createWebComponentIconSpec(angleIconSvg);
-const defaultDistanceIcon =
-  IconSpecUtilities.createWebComponentIconSpec(distanceIconSvg);
 
 /** AccuDraw Ui Field Container displays [[AccuDrawInputField]] for each field
  * @beta */
@@ -99,10 +93,10 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   const [yIcon, setYIcon] = React.useState<IconSpec | undefined>(undefined);
   const [zIcon, setZIcon] = React.useState<IconSpec | undefined>(undefined);
   const [angleIcon, setAngleIcon] = React.useState<IconSpec | undefined>(
-    defaultAngleIcon
+    angleIconSvg
   );
   const [distanceIcon, setDistanceIcon] = React.useState<IconSpec | undefined>(
-    defaultDistanceIcon
+    distanceIconSvg
   );
   const [xStyle, setXStyle] = React.useState<React.CSSProperties | undefined>(
     undefined
@@ -356,12 +350,12 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
       setAngleIcon(
         settings && settings.angleIcon !== undefined
           ? settings.angleIcon
-          : defaultAngleIcon
+          : angleIconSvg
       );
       setDistanceIcon(
         settings && settings.distanceIcon !== undefined
           ? settings.distanceIcon
-          : defaultDistanceIcon
+          : distanceIconSvg
       );
     };
 

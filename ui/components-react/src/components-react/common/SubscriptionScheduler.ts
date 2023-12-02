@@ -6,21 +6,22 @@
  * @module Common
  */
 
-import type { Observable } from "rxjs/internal/Observable";
-import type { ConnectableObservable } from "rxjs/internal/observable/ConnectableObservable";
-import { defer } from "rxjs/internal/observable/defer";
-import { EMPTY } from "rxjs/internal/observable/empty";
-import { iif } from "rxjs/internal/observable/iif";
-import { finalize } from "rxjs/internal/operators/finalize";
-import { mergeMap } from "rxjs/internal/operators/mergeMap";
-import { observeOn } from "rxjs/internal/operators/observeOn";
-import { onErrorResumeNext } from "rxjs/internal/operators/onErrorResumeNext";
-import { publish } from "rxjs/internal/operators/publish";
-import { refCount } from "rxjs/internal/operators/refCount";
-import { subscribeOn } from "rxjs/internal/operators/subscribeOn";
-import { asapScheduler } from "rxjs/internal/scheduler/asap";
-import { queueScheduler } from "rxjs/internal/scheduler/queue";
-import { Subject } from "rxjs/internal/Subject";
+import type { Connectable, Observable } from "rxjs";
+import {
+  asapScheduler,
+  connectable,
+  defer,
+  EMPTY,
+  finalize,
+  iif,
+  mergeMap,
+  observeOn,
+  onErrorResumeNextWith,
+  queueScheduler,
+  Subject,
+  subscribeOn,
+  tap,
+} from "rxjs";
 
 const MAX_CONCURRENT_SUBSCRIPTIONS = 1;
 
@@ -34,7 +35,7 @@ const MAX_CONCURRENT_SUBSCRIPTIONS = 1;
  * @internal
  */
 export class SubscriptionScheduler<T> {
-  private _scheduler = new Subject<ConnectableObservable<T>>();
+  private _scheduler = new Subject<Connectable<T>>();
 
   constructor() {
     this._scheduler
@@ -42,15 +43,19 @@ export class SubscriptionScheduler<T> {
         mergeMap(
           (sourceObservable) =>
             sourceObservable.pipe(
-              // Connect the observable
-              refCount(),
+              // connect source observable when scheduler subscribes
+              tap({
+                subscribe: () => {
+                  sourceObservable.connect();
+                },
+              }),
               // Guard against stack overflow when a lot of observables are scheduled. Without this operation `mergeMap`
               // will process each observable that is present in the pipeline recursively.
               observeOn(queueScheduler),
               // Delay the connection until another event loop task
               subscribeOn(asapScheduler),
               // Ignore errors in this pipeline without suppressing them for other subscribers
-              onErrorResumeNext()
+              onErrorResumeNextWith()
             ),
           MAX_CONCURRENT_SUBSCRIPTIONS
         )
@@ -72,9 +77,13 @@ export class SubscriptionScheduler<T> {
     return defer(() => {
       let unsubscribed = false;
       // Do not subscribe to source observable if it was unsubscribed from before being processed by the scheduler
-      const connectableObservable = iif(() => unsubscribed, EMPTY, source).pipe(
-        publish()
-      ) as ConnectableObservable<T>;
+      const connectableObservable = connectable(
+        iif(() => unsubscribed, EMPTY, source),
+        {
+          connector: () => new Subject<T>(),
+          resetOnDisconnect: false,
+        }
+      );
       this._scheduler.next(connectableObservable);
       return connectableObservable.pipe(finalize(() => (unsubscribed = true)));
     });

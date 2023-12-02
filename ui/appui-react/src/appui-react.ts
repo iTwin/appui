@@ -116,6 +116,12 @@ export * from "./appui-react/popup/PopupManager";
 export * from "./appui-react/popup/PositionPopup";
 export * from "./appui-react/popup/ToolbarPopup";
 
+export {
+  PreviewFeatures,
+  PreviewFeaturesProvider,
+  PreviewFeaturesProviderProps,
+} from "./appui-react/preview/PreviewFeatures";
+
 export * from "./appui-react/redux/SessionState";
 export * from "./appui-react/redux/StateManager";
 export * from "./appui-react/redux/FrameworkState";
@@ -177,6 +183,7 @@ export * from "./appui-react/statusfields/ViewAttributes";
 export * from "./appui-react/statusfields/toolassistance/ToolAssistanceField";
 
 export * from "./appui-react/syncui/SyncUiEventDispatcher";
+export * from "./appui-react/syncui/UiSyncEvent";
 
 export * from "./appui-react/theme/ThemeManager";
 

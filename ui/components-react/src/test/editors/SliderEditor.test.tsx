@@ -7,13 +7,13 @@ import { expect } from "chai";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import sinon from "sinon";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type {
   BasePropertyEditorParams,
   SliderEditorParams,
 } from "@itwin/appui-abstract";
 import {
   PropertyEditorParamTypes,
-  SpecialKey,
   StandardEditorNames,
 } from "@itwin/appui-abstract";
 import { SliderEditor } from "../../components-react/editors/SliderEditor";
@@ -658,7 +658,7 @@ describe("<SliderEditor />", () => {
     const thumb =
       component.container.ownerDocument.querySelector(".iui-slider-thumb");
     expect(thumb).to.exist;
-    fireEvent.keyDown(thumb!, { key: SpecialKey.ArrowRight });
+    fireEvent.keyDown(thumb!, { key: Key.ArrowRight });
     await TestUtils.flushAsyncOperations();
     expect(
       component.container.ownerDocument.querySelector(".iui-tooltip")
@@ -692,7 +692,7 @@ describe("<SliderEditor />", () => {
     );
     expect(popupButton).not.to.be.null;
 
-    fireEvent.keyDown(popupButton, { key: SpecialKey.Enter });
+    fireEvent.keyDown(popupButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.called).to.be.false;
 

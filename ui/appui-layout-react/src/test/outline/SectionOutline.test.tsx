@@ -44,7 +44,10 @@ describe("SectionOutline", () => {
   it("should render visible", () => {
     const dragManager = React.createRef<DragManager>();
     let state = createNineZoneState();
-    state = updatePanelState(state, "left", { size: 200, splitterPercent: 40 });
+    state = updatePanelState(state, "left", (draft) => {
+      draft.size = 200;
+      draft.splitterPercent = 40;
+    });
     state = addTab(state, "t1");
     const { container } = render(<SectionOutline sectionIndex={0} />, {
       wrapper: (props) => (

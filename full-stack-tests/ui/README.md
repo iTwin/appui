@@ -2,6 +2,14 @@
 
 This package contains end-to-end tests of iTwin.js UI framework.
 
+## Initialization
+
+Browsers need to be installed for playwright to work correctly before the tests can be run.
+
+```sh
+npx playwright install
+```
+
 ## Running the tests
 
 The tests are running against a test application which needs to be started before running the tests.
@@ -14,5 +22,6 @@ npm run start:webserver
 ```
 
 2. Run the tests: `npx playwright test`
+   - To update component snapshots for visual testing: `npx playwright test --update-snapshots`
 
 _Suggested:_ use a VSCode extension `ms-playwright.playwright` to run the tests.

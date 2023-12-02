@@ -38,6 +38,8 @@ export * from "./appui-layout-react/footer/Popup";
 
 export * from "./appui-layout-react/popup/Tooltip";
 
+export * from "./appui-layout-react/preview/PreviewFeatures";
+
 export * from "./appui-layout-react/state/DropTargetState";
 export * from "./appui-layout-react/state/NineZoneAction";
 export * from "./appui-layout-react/state/NineZoneState";
@@ -70,6 +72,7 @@ export * from "./appui-layout-react/widget/Overflow";
 export * from "./appui-layout-react/widget/PanelWidget";
 export * from "./appui-layout-react/widget/PinToggle";
 export * from "./appui-layout-react/widget/PopoutToggle";
+export * from "./appui-layout-react/widget/PreviewMaximizeToggle";
 export * from "./appui-layout-react/widget/SendBack";
 export * from "./appui-layout-react/widget/Tab";
 export * from "./appui-layout-react/widget/TabBar";

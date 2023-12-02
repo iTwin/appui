@@ -6,8 +6,7 @@
  * @module Tree
  */
 
-import { takeUntil } from "rxjs/internal/operators/takeUntil";
-import { Subject } from "rxjs/internal/Subject";
+import { Subject, takeUntil } from "rxjs";
 import type { IDisposable } from "@itwin/core-bentley";
 import { TreeModelMutator } from "./internal/TreeModelMutator";
 import type { Subscription } from "./Observable";
@@ -55,8 +54,8 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
   private _modelMutator: TreeModelMutator;
   private _editingParams?: TreeEditingParams;
 
-  private _disposed = new Subject();
-  private _selectionReplaced = new Subject();
+  private _disposed = new Subject<void>();
+  private _selectionReplaced = new Subject<void>();
 
   constructor(params: TreeEventHandlerParams) {
     this._modelMutator = new TreeModelMutator(
@@ -138,6 +137,9 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
   public onDelayedNodeClick({ nodeId }: TreeNodeEventArgs) {
     this.activateEditor(nodeId);
   }
+
+  /** This method is declared here to be overridden by classes that extend TreeEventHandler */
+  public onNodeDoubleClick(_: TreeNodeEventArgs) {}
 
   /** Activates node editing if editing parameters are supplied and node is editable. */
   public onNodeEditorActivated({ nodeId }: TreeNodeEventArgs) {

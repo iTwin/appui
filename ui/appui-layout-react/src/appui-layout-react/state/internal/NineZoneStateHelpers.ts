@@ -7,19 +7,25 @@
  */
 
 import type { Draft } from "immer";
-import { produce } from "immer";
-import type { PointProps } from "@itwin/appui-abstract";
+import type { RectangleProps, SizeProps } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react";
 import type { NineZoneState } from "../NineZoneState";
 import type {
   FloatingWidgetHomeState,
   FloatingWidgetState,
 } from "../WidgetState";
-import type { RectangleProps, SizeProps } from "@itwin/core-react";
-import { Rectangle } from "@itwin/core-react";
 import {
   getWidgetState,
   updateFloatingWidgetState,
 } from "./WidgetStateHelpers";
+
+/** Same as XAndY from core-geometry, but reproduced here to avoid a breaking peer dependency change.
+ * @internal
+ */
+export interface XAndY {
+  readonly x: number;
+  readonly y: number;
+}
 
 /** @internal */
 export const category = "appui-layout-react:layout";
@@ -53,7 +59,7 @@ export function setRectangleProps(
 }
 
 /** @internal */
-export function setPointProps(props: Draft<PointProps>, point: PointProps) {
+export function setPointProps(props: Draft<XAndY>, point: XAndY) {
   props.x = point.x;
   props.y = point.y;
 }
@@ -72,15 +78,37 @@ type KeysOfType<T, Type> = {
 export function initSizeProps<
   T,
   K extends KeysOfType<T, SizeProps | undefined>
->(obj: T, key: K, size: SizeProps) {
-  if (obj[key]) {
+>(obj: T, key: K, size: SizeProps | undefined) {
+  if (obj[key] && size) {
     setSizeProps(obj[key] as unknown as SizeProps, size);
     return;
   }
-  (obj[key] as unknown as SizeProps) = {
-    height: size.height,
-    width: size.width,
-  };
+  (obj[key] as unknown as SizeProps | undefined) = size
+    ? {
+        height: size.height,
+        width: size.width,
+      }
+    : undefined;
+}
+
+/** @internal */
+export function initRectangleProps<
+  T,
+  K extends KeysOfType<T, RectangleProps | undefined>
+>(obj: T, key: K, rectangle: T[K]) {
+  const rect = rectangle as unknown as RectangleProps | undefined;
+  if (obj[key] && rect) {
+    setRectangleProps(obj[key] as unknown as RectangleProps, rect);
+    return;
+  }
+  (obj[key] as unknown as RectangleProps | undefined) = rect
+    ? {
+        bottom: rect.bottom,
+        left: rect.left,
+        right: rect.right,
+        top: rect.top,
+      }
+    : undefined;
 }
 
 /** @internal */
@@ -107,51 +135,5 @@ export function updateHomeOfToolSettingsWidget(
 
   return updateFloatingWidgetState(state, id, {
     home,
-  });
-}
-
-/** @internal */
-export function convertFloatingWidgetContainerToPopout(
-  state: NineZoneState,
-  widgetContainerId: string
-): NineZoneState {
-  const widget = getWidgetState(state, widgetContainerId);
-  // istanbul ignore next
-  if (widget.tabs.length !== 1) {
-    // currently only support popping out a floating widget container if it has a single tab
-    return state;
-  }
-  return produce(state, (draft) => {
-    const floatingWidget = state.floatingWidgets.byId[widgetContainerId];
-    const bounds = floatingWidget.bounds;
-    const home = floatingWidget.home;
-    const id = floatingWidget.id;
-    // remove the floating entry
-    delete draft.floatingWidgets.byId[widgetContainerId];
-    const idIndex = draft.floatingWidgets.allIds.indexOf(widgetContainerId);
-    draft.floatingWidgets.allIds.splice(idIndex, 1);
-    // insert popout entry
-    draft.popoutWidgets.byId[widgetContainerId] = { bounds, id, home };
-    draft.popoutWidgets.allIds.push(widgetContainerId);
-  });
-}
-
-/** @internal */
-export function convertPopoutWidgetContainerToFloating(
-  state: NineZoneState,
-  widgetContainerId: string
-): NineZoneState {
-  return produce(state, (draft) => {
-    const popoutWidget = state.popoutWidgets.byId[widgetContainerId];
-    const bounds = popoutWidget.bounds;
-    const home = popoutWidget.home;
-    const id = popoutWidget.id;
-    // remove the floating entry
-    delete draft.popoutWidgets.byId[widgetContainerId];
-    const idIndex = draft.popoutWidgets.allIds.indexOf(widgetContainerId);
-    draft.popoutWidgets.allIds.splice(idIndex, 1);
-    // insert popout entry
-    draft.floatingWidgets.byId[widgetContainerId] = { bounds, id, home };
-    draft.floatingWidgets.allIds.push(widgetContainerId);
   });
 }

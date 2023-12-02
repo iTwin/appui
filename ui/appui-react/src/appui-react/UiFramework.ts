@@ -13,9 +13,10 @@ import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
-import { getClassName, UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
+import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
+import { getObjectClassName } from "@itwin/core-react";
 import { UiIModelComponents } from "@itwin/imodel-components-react";
 import { BackstageManager } from "./backstage/BackstageManager";
 import { InternalChildWindowManager } from "./childwindow/InternalChildWindowManager";
@@ -30,6 +31,7 @@ import { SessionStateActionId } from "./redux/SessionState";
 import { StateManager } from "./redux/StateManager";
 import type { HideIsolateEmphasizeActionHandler } from "./selection/HideIsolateEmphasizeManager";
 import { HideIsolateEmphasizeManager } from "./selection/HideIsolateEmphasizeManager";
+import type { ThemeId } from "./theme/ThemeManager";
 import {
   SYSTEM_PREFERRED_COLOR_THEME,
   TOOLBAR_OPACITY_DEFAULT,
@@ -96,8 +98,7 @@ export interface TrackingTime {
   endTime: Date;
 }
 
-/**
- * Manages the Redux store, localization service and iModel, Project and Login services for the ui-framework package.
+/** Main entry point to configure and interact with the features provided by the AppUi-react package.
  * @public
  */
 export class UiFramework {
@@ -168,6 +169,11 @@ export class UiFramework {
 
   /**
    * Manages global keyboard shortcuts
+   *
+   * Note: This only manages the list of available shortcuts registered with it. It does not listens to the actual
+   * keyboard events. In order for these shortcuts to be called upon a keyboard event, the application can
+   * override the `IModelApp.toolAdmin` and assign it [[FrameworkToolAdmin]] or create an event listener
+   * and call `UiFramework.keyboardShortcuts.processKey`.
    * @public
    */
   public static get keyboardShortcuts(): FrameworkKeyboardShortcuts {
@@ -222,20 +228,6 @@ export class UiFramework {
    * @param frameworkStateKey The name of the key used by the app when adding the UiFramework state into the Redux store. If not defined "frameworkState" is assumed. This value is ignored if [[StateManager]] is being used. The StateManager use "frameworkState".
    */
   public static async initialize(
-    store: Store<any> | undefined,
-    frameworkStateKey?: string
-  ): Promise<void> {
-    return this.initializeEx(store, frameworkStateKey);
-  }
-
-  /**
-   * Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore.
-   * @param store The single Redux store created by the host application. If this is `undefined` then it is assumed that the [[StateManager]] is being used to provide the Redux store.
-   * @param frameworkStateKey The name of the key used by the app when adding the UiFramework state into the Redux store. If not defined "frameworkState" is assumed. This value is ignored if [[StateManager]] is being used. The StateManager use "frameworkState".
-   *
-   * @internal
-   */
-  public static async initializeEx(
     store: Store<any> | undefined,
     frameworkStateKey?: string
   ): Promise<void> {
@@ -428,7 +420,7 @@ export class UiFramework {
 
   /** @internal */
   public static loggerCategory(obj: any): string {
-    const className = getClassName(obj);
+    const className = getObjectClassName(obj);
     const category =
       UiFramework.packageName + (className ? `.${className}` : "");
     return category;
@@ -458,12 +450,22 @@ export class UiFramework {
       : /* istanbul ignore next */ SnapMode.NearestKeypoint;
   }
 
+  /**
+   * Returns the stored active selection scope id.
+   */
   public static getActiveSelectionScope(): string {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.activeSelectionScope
       : /* istanbul ignore next */ "element";
   }
 
+  /**
+   * This method stores the active selection scope to the supplied scope id, and triggers
+   * a `SessionStateActionId.SetSelectionScope` event in the `SyncUiEventDispatcher`.
+   * Note: As of 4.0, this method *does not change* the active selection scope in the `Presentation.selection.scopes.activeScope` property.
+   * This event should be listened to and the change should typically be applied to
+   * `Presentation.selection.scopes.activeScope` property from the `@itwin/presentation-frontend` package.
+   */
   public static setActiveSelectionScope(selectionScopeId: string): void {
     // istanbul ignore else
     if (UiFramework.frameworkState) {
@@ -648,7 +650,12 @@ export class UiFramework {
       : /* istanbul ignore next */ undefined;
   }
 
-  /** @public */
+  /**
+   * Returns the stored list of available selection scopes. This list should be set by the application
+   * by dispatching the `setAvailableSelectionScopes` action.
+   * The value for this action typically come from `Presentation.selection.scopes.getSelectionScopes()`
+   * method found in the `@itwin/presentation-frontend` package.
+   * @public */
   public static getAvailableSelectionScopes(): PresentationSelectionScope[] {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.availableSelectionScopes
@@ -667,7 +674,10 @@ export class UiFramework {
     }
   }
 
-  public static setColorTheme(theme: string) {
+  /**
+   * Set the theme value used by the [[ThemeManager]] component.
+   */
+  public static setColorTheme(theme: ThemeId) {
     if (UiFramework.getColorTheme() === theme) return;
 
     UiFramework.dispatchActionToStore(
@@ -677,13 +687,13 @@ export class UiFramework {
     );
   }
 
-  public static getColorTheme(): string {
+  public static getColorTheme(): ThemeId {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState.theme
       : /* istanbul ignore next */ SYSTEM_PREFERRED_COLOR_THEME;
   }
 
-  /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified. Used by UI 2.0 and later.
+  /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified.
    * @param opacity a value between 0 and 1. The default value is 0.5. IT IS NOT ADVISED TO USE A VALUE BELOW 0.2
    * @public
    */

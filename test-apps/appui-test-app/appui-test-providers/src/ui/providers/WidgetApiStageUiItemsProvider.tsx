@@ -29,6 +29,10 @@ import {
 } from "../widgets/LayoutWidget";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { SetWidgetStateTool } from "../../tools/UiLayoutTools";
+import {
+  RegisterUiProviderTool,
+  UnregisterUiProviderTool,
+} from "../../tools/RegisterUiProviderTool";
 
 /**
  * WidgetApiStageUiItemsProvider provides widget in the bottom panel that can exercise the Widget API on Widgets in the other panels.
@@ -44,6 +48,23 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
       { stageIds: [WidgetApiStage.stageId] }
     );
     SetWidgetStateTool.register(localizationNamespace);
+    RegisterUiProviderTool.register(localizationNamespace);
+    UnregisterUiProviderTool.register(localizationNamespace);
+
+    RegisterUiProviderTool.providers.push({
+      id: "W1-provider",
+      provideWidgets: (_stageId, _stageUsage, location, section) => {
+        if (location !== StagePanelLocation.Right) return [];
+        if (section !== StagePanelSection.Start) return [];
+        return [
+          {
+            id: "W1",
+            content: <>W1 widget content</>,
+            label: "W1",
+          },
+        ];
+      },
+    });
   }
 
   constructor(_localizationNamespace: string) {

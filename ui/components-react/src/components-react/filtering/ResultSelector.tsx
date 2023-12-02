@@ -9,7 +9,7 @@
 import "./ResultSelector.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { UiComponents } from "../UiComponents";
@@ -114,7 +114,7 @@ export class ResultSelector extends React.PureComponent<
   };
 
   private _onSelectedResultKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === SpecialKey.Enter) this._onSelectedResultConfirmed();
+    if (event.key === Key.Enter) this._onSelectedResultConfirmed();
   };
 
   /** @internal */

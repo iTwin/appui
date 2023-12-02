@@ -59,23 +59,35 @@ function TsLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * Hook that returns true if the tool settings should be rendered docked.
+ * @internal */
+export function useShouldRenderDockedToolSettings() {
+  return useLayout((state) => {
+    const toolSettings = state.toolSettings;
+    if (!toolSettings) return false;
+    if (toolSettings.type === "widget") return false;
+    return !toolSettings.hidden;
+  });
+}
+
 /** @internal */
 export function WidgetPanelsToolSettings() {
-  const toolSettingsType = useLayout((state) => state.toolSettings?.type);
-  if (!toolSettingsType || toolSettingsType === "widget") return null;
+  if (!useShouldRenderDockedToolSettings()) return null;
   return <ToolSettingsDockedContent />;
 }
 
 /** @internal */
 export function ToolSettingsDockedContent() {
   const settings = useHorizontalToolSettingNodes();
+  const forceRefreshKey = useRefreshKey(settings);
   // for the overflow to work properly each setting in the DockedToolSettings should be wrapped by a DockedToolSetting component
   return (
     <DockedToolSettings
       itemId={
         InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ?? "none"
       }
-      key={Date.now()}
+      key={forceRefreshKey}
     >
       {settings &&
         settings.map((entry, index) => (
@@ -90,19 +102,26 @@ export function ToolSettingsDockedContent() {
 
 /** @internal */
 export function useHorizontalToolSettingNodes() {
+  React.useEffect(() => {
+    UiFramework.frontstages.activeToolInformation?.toolUiProvider?.reloadPropertiesFromTool();
+  }, []);
+
   const [settings, setSettings] = React.useState(
     InternalFrontstageManager.activeToolSettingsProvider
       ?.horizontalToolSettingNodes
   );
-  const [emptySettings] = React.useState(() => [EmptyToolSettingsEntry()]);
+  const [emptySettings, setEmptySettings] = React.useState(() => [
+    EmptyToolSettingsEntry(),
+  ]);
   React.useEffect(() => {
     return UiFramework.frontstages.onToolActivatedEvent.addListener(() => {
       const nodes =
         InternalFrontstageManager.activeToolSettingsProvider
           ?.horizontalToolSettingNodes;
       setSettings(nodes);
+      setEmptySettings([EmptyToolSettingsEntry()]);
     });
-  }, [setSettings]);
+  }, [setSettings, setEmptySettings]);
 
   React.useEffect(() => {
     return UiFramework.frontstages.onToolSettingsReloadEvent.addListener(() => {
@@ -110,15 +129,15 @@ export function useHorizontalToolSettingNodes() {
         InternalFrontstageManager.activeToolSettingsProvider
           ?.horizontalToolSettingNodes;
       setSettings(nodes);
+      setEmptySettings([EmptyToolSettingsEntry()]);
     });
-  }, [setSettings]);
+  }, [setSettings, setEmptySettings]);
 
   if (!settings || settings.length === 0) return emptySettings;
   return settings;
 }
 
 /** Defines the ToolSettingsEntry entries that are used to populate a grid layout of ToolSetting properties.
- * Used only when the "Use UI 2.0" setting is true
  * @internal
  */
 export interface ToolSettingsGridProps {
@@ -151,6 +170,9 @@ export function ToolSettingsGrid({ settings }: ToolSettingsGridProps) {
 
 /** @internal */
 export function useToolSettingsNode() {
+  React.useEffect(() => {
+    UiFramework.frontstages.activeToolInformation?.toolUiProvider?.reloadPropertiesFromTool();
+  }, []);
   const [settings, setSettings] = React.useState(
     InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode
   );
@@ -201,6 +223,8 @@ export function ToolSettingsContent() {
 export function ToolSettingsWidgetContent() {
   const floatingToolSettingsContainerRef = React.useRef<HTMLDivElement>(null);
   const node = useToolSettingsNode();
+  const forceRefreshKey = useRefreshKey(node);
+
   // if no tool settings hide the floating widgets tab
   React.useEffect(() => {
     // istanbul ignore else
@@ -227,8 +251,24 @@ export function ToolSettingsWidgetContent() {
       data-toolsettings-provider={providerId}
       className="uifw-floating-toolsettings-container"
       ref={floatingToolSettingsContainerRef}
+      key={forceRefreshKey}
     >
       <ScrollableWidgetContent>{node}</ScrollableWidgetContent>
     </div>
   );
+}
+
+/**
+ * Hook that returns a key that can be used to force refresh the tool settings.
+ * @param toolSettingNodes Nodes that are used to determine if the tool settings should be refreshed.
+ * @returns a new key if the dependency changes.
+ */
+function useRefreshKey(toolSettingNodes: any) {
+  const [forceRefreshKey, setForceRefreshKey] = React.useState(Date.now());
+  React.useEffect(() => {
+    // We cant work with the content of the settings, but we can force refresh when
+    // the array is different.
+    setForceRefreshKey(Date.now());
+  }, [toolSettingNodes]);
+  return forceRefreshKey;
 }

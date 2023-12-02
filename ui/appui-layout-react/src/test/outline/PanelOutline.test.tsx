@@ -53,7 +53,9 @@ describe("PanelOutline", () => {
 
   it("should render spanned horizontal outline", () => {
     let state = createNineZoneState();
-    state = updatePanelState(state, "bottom", { span: true });
+    state = updatePanelState(state, "bottom", (draft) => {
+      draft.span = true;
+    });
     const { container } = render(<PanelOutline />, {
       wrapper: (props) => (
         <Wrapper defaultState={state} side="bottom" {...props} />

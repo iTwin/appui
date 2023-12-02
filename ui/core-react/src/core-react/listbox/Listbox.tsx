@@ -4,10 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
+import { Key } from "ts-key-enum";
 
 import "./Listbox.scss";
 import { Guid } from "@itwin/core-bentley";
-import { SpecialKey } from "@itwin/appui-abstract";
 
 /** Ideas borrowed from  https://reacttraining.com/reach-ui/listbox */
 
@@ -97,7 +97,7 @@ function processKeyboardNavigation(
   let newIndex = itemIndex >= 0 ? itemIndex : 0;
 
   // Note: In aria example Page Up/Down just moves up or down by one item. See https://www.w3.org/TR/wai-aria-practices-1.1/examples/listbox/js/listbox.js
-  if (key === SpecialKey.ArrowDown || key === SpecialKey.PageDown) {
+  if (key === Key.ArrowDown || key === Key.PageDown) {
     for (let i = itemIndex + 1; i < optionValues.length; i++) {
       if (!optionValues[i].disabled) {
         newIndex = i;
@@ -105,7 +105,7 @@ function processKeyboardNavigation(
       }
     }
     keyProcessed = true;
-  } else if (key === SpecialKey.ArrowUp || key === SpecialKey.PageUp) {
+  } else if (key === Key.ArrowUp || key === Key.PageUp) {
     for (let i = itemIndex - 1; i >= 0; i--) {
       if (!optionValues[i].disabled) {
         newIndex = i;
@@ -113,7 +113,7 @@ function processKeyboardNavigation(
       }
     }
     keyProcessed = true;
-  } else if (key === SpecialKey.Home) {
+  } else if (key === Key.Home) {
     for (let i = 0; i < optionValues.length; i++) {
       if (!optionValues[i].disabled) {
         newIndex = i;
@@ -121,7 +121,7 @@ function processKeyboardNavigation(
       }
     }
     keyProcessed = true;
-  } else if (key === SpecialKey.End) {
+  } else if (key === Key.End) {
     for (let i = optionValues.length - 1; i >= 0; i--) {
       if (!optionValues[i].disabled) {
         newIndex = i;
@@ -231,7 +231,7 @@ export function Listbox(props: ListboxProps) {
               (optionValue) => optionValue.value === focusValue
             );
 
-      if (event.key === SpecialKey.Space) {
+      if (event.key === " ") {
         event.preventDefault();
         // istanbul ignore else
         if (focusValue)

@@ -23,7 +23,7 @@ class ExampleStagesBackstageItemsProvider implements UiItemsProvider {
         20,
         "Simple viewport",
         undefined,
-        `svg:${stageIconSvg}`
+        stageIconSvg
       ),
       BackstageItemUtilities.createStageLauncher(
         "example:CustomFrontstage",
@@ -31,7 +31,7 @@ class ExampleStagesBackstageItemsProvider implements UiItemsProvider {
         30,
         "Simple custom frontstage",
         undefined,
-        `svg:${stageIconSvg}`
+        stageIconSvg
       ),
     ];
   }

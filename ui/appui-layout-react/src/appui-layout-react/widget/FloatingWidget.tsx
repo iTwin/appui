@@ -9,7 +9,6 @@
 import "./FloatingWidget.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { PointProps } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
 import {
   Point,
@@ -39,6 +38,8 @@ import { WidgetTarget } from "../target/WidgetTarget";
 import { WidgetOutline } from "../outline/WidgetOutline";
 import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
+import type { XAndY } from "../state/internal/NineZoneStateHelpers";
+import { usePreviewMaximizedWidget } from "./PreviewMaximizeToggle";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle =
@@ -93,12 +94,21 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   );
   const dragged = useIsDraggedItem(item);
   const ref = useHandleAutoSize(dragged);
+  const { enabled: enableMaximizedFloatingWidget, maximizedWidget } =
+    usePreviewMaximizedWidget();
+  // istanbul ignore next (preview)
+  const previewMaximizedWidgetSectionsClass =
+    maximizedWidget === id &&
+    enableMaximizedFloatingWidget &&
+    "preview-enableMaximizedFloatingWidget-maximized";
+
   const className = classnames(
     "nz-widget-floatingWidget",
     dragged && "nz-dragged",
     isToolSettingsTab && "nz-floating-toolSettings",
     minimized && "nz-minimized",
-    hideFloatingWidget && "nz-hidden"
+    hideFloatingWidget && "nz-hidden",
+    previewMaximizedWidgetSectionsClass
   );
   const style = React.useMemo(() => {
     const boundsRect = Rectangle.create(bounds);
@@ -169,10 +179,7 @@ function useFloatingWidgetState() {
 
     const toolSettingsTabId = state.toolSettings?.tabId;
     const isToolSettingsTab = widget.tabs[0] === toolSettingsTabId;
-    const resizable =
-      (undefined === widget.isFloatingStateWindowResizable ||
-        widget.isFloatingStateWindowResizable) &&
-      !isToolSettingsTab;
+    const resizable = !!floatingWidget.resizable && !isToolSettingsTab;
     const autoSized = singleTab && !userSized;
     return {
       autoSized,
@@ -196,6 +203,9 @@ function useHandleAutoSize(dragged: boolean) {
   const userSized = useLayout(
     (state) => state.floatingWidgets.byId[id].userSized
   );
+  const { enabled: enableMaximizedFloatingWidget, maximizedWidget } =
+    usePreviewMaximizedWidget();
+  const maximized = enableMaximizedFloatingWidget && maximizedWidget === id;
 
   const updatePosition = React.useRef(true);
   const ref = React.useRef<HTMLDivElement>(null);
@@ -203,6 +213,8 @@ function useHandleAutoSize(dragged: boolean) {
   React.useLayoutEffect(() => {
     if (!updatePosition.current) return;
     if (!dragged) return;
+    // istanbul ignore next (preview)
+    if (maximized) return;
     if (!dragManager.draggedItem) return;
     if (!ref.current) return;
 
@@ -232,10 +244,12 @@ function useHandleAutoSize(dragged: boolean) {
       userSized: true,
     });
     updatePosition.current = false;
-  }, [dragged, dragManager, dispatch, id, measureNz]);
+  }, [dragged, dragManager, dispatch, id, measureNz, maximized]);
   const handleResize = React.useCallback(() => {
     if (!ref.current) return;
     if (dragged) return;
+    // istanbul ignore next (preview)
+    if (maximized) return;
     if (userSized) return;
 
     let bounds = Rectangle.create(ref.current.getBoundingClientRect());
@@ -249,7 +263,7 @@ function useHandleAutoSize(dragged: boolean) {
       id,
       bounds,
     });
-  }, [dispatch, dragged, id, userSized, measureNz]);
+  }, [dispatch, dragged, id, userSized, measureNz, maximized]);
   const roRef = useResizeObserver(handleResize);
   const refs = useRefs(ref, roRef);
   return refs;
@@ -317,10 +331,7 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
 }
 
 /** @internal */
-export function getResizeBy(
-  handle: FloatingWidgetResizeHandle,
-  offset: PointProps
-) {
+export function getResizeBy(handle: FloatingWidgetResizeHandle, offset: XAndY) {
   switch (handle) {
     case "left":
       return new Rectangle(-offset.x);
@@ -350,5 +361,20 @@ export function useFloatingWidgetId(): FloatingWidgetState["id"] | undefined {
     if (!floatingWidget) return undefined;
 
     return widgetId;
+  });
+}
+
+/** @internal */
+export function useWidgetAllowedToDock(): boolean {
+  const id = useFloatingWidgetId();
+  return useLayout((state) => {
+    if (id) {
+      const widget = getWidgetState(state, id);
+      const activeTab = state.tabs[widget.activeTabId];
+      if (activeTab.allowedPanelTargets?.length === 0) {
+        return false;
+      }
+    }
+    return true;
   });
 }

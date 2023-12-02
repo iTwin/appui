@@ -14,7 +14,6 @@ import { UiFramework } from "../UiFramework";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import snapModeKeypoint from "@bentley/icons-generic/icons/snaps.svg";
 import snapModeIntersection from "@bentley/icons-generic/icons/snaps-intersection.svg";
 import snapModeCenter from "@bentley/icons-generic/icons/snaps-center.svg";
@@ -39,29 +38,28 @@ interface SnapModeFieldEntry {
 }
 
 function getIconFromIconName(iconName: string): IconSpec {
-  let iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeKeypoint);
+  let iconSpec = snapModeKeypoint;
   switch (iconName) {
     case "snaps":
-      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeKeypoint);
+      iconSpec = snapModeKeypoint;
       break;
     case "snaps-intersection":
-      iconSpec =
-        IconSpecUtilities.createWebComponentIconSpec(snapModeIntersection);
+      iconSpec = snapModeIntersection;
       break;
     case "snaps-center":
-      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeCenter);
+      iconSpec = snapModeCenter;
       break;
     case "snaps-nearest":
-      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeNearest);
+      iconSpec = snapModeNearest;
       break;
     case "snaps-origin":
-      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeOrigin);
+      iconSpec = snapModeOrigin;
       break;
     case "snaps-midpoint":
-      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeMidpoint);
+      iconSpec = snapModeMidpoint;
       break;
     case "snaps-bisector":
-      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeBisector);
+      iconSpec = snapModeBisector;
       break;
   }
   return iconSpec;

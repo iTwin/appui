@@ -7,8 +7,8 @@
  */
 
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { FormatterSpec } from "@itwin/core-quantity";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
@@ -56,7 +56,7 @@ export function FormatSample(props: FormatSampleProps) {
   const handleKeyDown = React.useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
-      if (e.key === SpecialKey.Enter) {
+      if (e.key === Key.Enter) {
         let newValue = Number.parseFloat(sampleValue);
         if (Number.isNaN(newValue)) newValue = 0;
         setMagnitude(newValue);

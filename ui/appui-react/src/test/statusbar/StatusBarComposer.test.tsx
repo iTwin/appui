@@ -132,7 +132,7 @@ describe("StatusBarComposer", () => {
     await IModelApp.shutdown();
   });
 
-  describe("StatusBarComposer Enzyme-Testing", () => {
+  describe("StatusBarComposer", () => {
     it("StatusBarComposer should be instantiated", () => {
       render(
         <StatusBar>

@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import type { UiSyncEventArgs } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { GlobalContextMenu } from "@itwin/core-react"; // ContextSubMenu,
 import { SessionStateActionId } from "../../redux/SessionState";
@@ -16,6 +15,7 @@ import { MenuItemHelpers } from "../../shared/MenuItem";
 import { SyncUiEventDispatcher } from "../../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../../UiFramework";
 import { Logger } from "@itwin/core-bentley";
+import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
 
 /** State for [[CursorPopupMenu]] component
  * @alpha
@@ -35,7 +35,7 @@ export class CursorPopupMenu extends React.PureComponent<
   CommonProps,
   CursorPopupMenuState
 > {
-  private _componentUnmounting = false; // used to ensure _handleSyncUiEvent callback is not processed after componentWillUnmount is called
+  private _isMounted = false; // used to ensure _handleSyncUiEvent callback is not processed after componentWillUnmount is called
   private _hostChildWindowId?: string;
 
   /** @internal */
@@ -48,7 +48,7 @@ export class CursorPopupMenu extends React.PureComponent<
 
   private _handleSyncUiEvent = (args: UiSyncEventArgs): void => {
     /* istanbul ignore next */
-    if (this._componentUnmounting) return;
+    if (!this._isMounted) return;
 
     /* istanbul ignore else */
     if (
@@ -71,11 +71,12 @@ export class CursorPopupMenu extends React.PureComponent<
   };
 
   public override componentDidMount() {
+    this._isMounted = true;
     SyncUiEventDispatcher.onSyncUiEvent.addListener(this._handleSyncUiEvent);
   }
 
   public override componentWillUnmount() {
-    this._componentUnmounting = true;
+    this._isMounted = false;
     SyncUiEventDispatcher.onSyncUiEvent.removeListener(this._handleSyncUiEvent);
   }
 

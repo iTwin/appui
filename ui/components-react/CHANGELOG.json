@@ -2,6 +2,90 @@
   "name": "@itwin/components-react",
   "entries": [
     {
+      "version": "4.6.3",
+      "tag": "@itwin/components-react_v4.6.3",
+      "date": "Wed, 25 Oct 2023 09:39:22 GMT",
+      "comments": {}
+    },
+    {
+      "version": "4.6.2",
+      "tag": "@itwin/components-react_v4.6.2",
+      "date": "Tue, 17 Oct 2023 19:16:23 GMT",
+      "comments": {}
+    },
+    {
+      "version": "4.6.1",
+      "tag": "@itwin/components-react_v4.6.1",
+      "date": "Thu, 12 Oct 2023 16:59:20 GMT",
+      "comments": {}
+    },
+    {
+      "version": "4.6.0",
+      "tag": "@itwin/components-react_v4.6.0",
+      "date": "Wed, 04 Oct 2023 18:05:34 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix `useTreeModel` missing tree model changes that happen after render until `useTreeModel` subscribes to `TreeModelSource.onModelChanged` event."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.5.1",
+      "tag": "@itwin/components-react_v4.5.1",
+      "date": "Fri, 08 Sep 2023 16:10:53 GMT",
+      "comments": {}
+    },
+    {
+      "version": "4.5.0",
+      "tag": "@itwin/components-react_v4.5.0",
+      "date": "Wed, 06 Sep 2023 17:29:22 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "`usePropertyFilterBuilder`: Added ability to build filter without showing errors."
+          },
+          {
+            "comment": "Fixed `TreeNodeLoader` adding loaded nodes to model when `loadNode` observable is unsubscribed before nodes request is completed."
+          },
+          {
+            "comment": "Remove `require` call in `TypeConverterManager`."
+          },
+          {
+            "comment": "Improved `Toolbar` and `ToolbarWithOverflow` documentation regarding orientation."
+          },
+          {
+            "comment": "Bump `rxjs` dependency to `7.8.1`."
+          },
+          {
+            "comment": "`ControlledTree`: Fixed range selection over nodes that are not loaded causing browser to hang."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.4.0",
+      "tag": "@itwin/components-react_v4.4.0",
+      "date": "Tue, 15 Aug 2023 18:02:09 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Add `PropertyFilterBuilderRenderer`, `PropertyFilterBuilderRendererProps`, `defaultPropertyFilterBuilderRuleValidator`, `UsePropertyFilterBuilderProps`, `UsePropertyFilterBuilderResult`, `usePropertyFilterBuilder`, marked as beta. Promote `isPropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRule`, `PropertyFilterBuilderRuleGroup`, `PropertyFilterBuilderRuleGroupItem`, `PropertyFilterBuilderState` to beta."
+          },
+          {
+            "comment": "`PropertyFilterBuilder`: clear rule values when operator changes."
+          },
+          {
+            "comment": "`PropertyFilterBuilder`: Fix bug where user can't change rule group operator."
+          },
+          {
+            "comment": "Promote `PropertyFilterBuilderRuleOperatorProps`, `PropertyFilterBuilderRuleValueProps`, `PropertyFilterBuilderRuleValue` to beta, create interface `PropertyFilterBuilderRuleValueRendererProps` which extends `PropertyFilterBuilderRuleValueProps`, pass `PropertyFilterRuleOperator` to custom `PropertyFilterBuilderRuleValue` renderer."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.3.0",
       "tag": "@itwin/components-react_v4.3.0",
       "date": "Mon, 17 Jul 2023 10:16:20 GMT",

@@ -8,7 +8,7 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
 import { Checkbox } from "@itwin/itwinui-react";
 import type { FormatProps, ShowSignOption } from "@itwin/core-quantity";
@@ -213,7 +213,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
   const handleKeyUpOnLink = React.useCallback(
     (e: React.KeyboardEvent<HTMLAnchorElement>) => {
       // istanbul ignore else
-      if (e.key === SpecialKey.Enter || e.key === SpecialKey.Space) {
+      if (e.key === Key.Enter || e.key === " ") {
         onShowHideOptions(!showOptions);
         e.preventDefault();
       }

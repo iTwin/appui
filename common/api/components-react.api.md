@@ -28,7 +28,7 @@ import type { Localization } from '@itwin/core-common';
 import type { MessageSeverity } from '@itwin/appui-abstract';
 import type { NoChildrenProps } from '@itwin/core-react';
 import type { NodeCheckboxRenderer } from '@itwin/core-react';
-import { Observable as Observable_2 } from 'rxjs/internal/Observable';
+import { Observable as Observable_2 } from 'rxjs';
 import type { OnItemExecutedFunc } from '@itwin/appui-abstract';
 import { Orientation } from '@itwin/core-react';
 import type { ParseResults } from '@itwin/appui-abstract';
@@ -190,6 +190,11 @@ export class BooleanTypeConverter extends TypeConverter {
     static sl10nTrue: string;
     // (undocumented)
     sortCompare(a: Primitives.Boolean, b: Primitives.Boolean, _ignoreCase?: boolean): number;
+}
+
+// @beta
+export interface BuildFilterOptions {
+    ignoreErrors?: boolean;
 }
 
 // @internal (undocumented)
@@ -3103,7 +3108,7 @@ export interface TreeEditingParams {
 
 // @internal
 export class TreeEventDispatcher implements TreeActions {
-    constructor(treeEvents: TreeEvents, nodeLoader: ITreeNodeLoader, selectionMode: SelectionMode_2, getVisibleNodes?: () => VisibleTreeNodes);
+    constructor(treeEvents: TreeEvents, nodeLoader: ITreeNodeLoader, selectionMode: SelectionMode_2, getVisibleNodes: () => VisibleTreeNodes);
     // (undocumented)
     onNodeCheckboxClicked(nodeId: string, newState: CheckBoxState): void;
     // (undocumented)
@@ -3122,8 +3127,6 @@ export class TreeEventDispatcher implements TreeActions {
     onTreeKeyDown(event: React.KeyboardEvent): void;
     // (undocumented)
     onTreeKeyUp(event: React.KeyboardEvent): void;
-    // (undocumented)
-    setVisibleNodes(visibleNodes: () => VisibleTreeNodes): void;
 }
 
 // @public
@@ -3135,6 +3138,7 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
     onCheckboxStateChanged({ stateChanges, }: TreeCheckboxStateChangeEventArgs): Subscription | undefined;
     onDelayedNodeClick({ nodeId }: TreeNodeEventArgs): void;
     onNodeCollapsed({ nodeId }: TreeNodeEventArgs): void;
+    onNodeDoubleClick(_: TreeNodeEventArgs): void;
     onNodeEditorActivated({ nodeId }: TreeNodeEventArgs): void;
     onNodeExpanded({ nodeId }: TreeNodeEventArgs): void;
     onSelectionModified({ modifications, }: TreeSelectionModificationEventArgs): Subscription | undefined;
@@ -3154,6 +3158,7 @@ export interface TreeEvents {
     onCheckboxStateChanged?(event: TreeCheckboxStateChangeEventArgs): Subscription | undefined;
     onDelayedNodeClick?(event: TreeNodeEventArgs): void;
     onNodeCollapsed?(event: TreeNodeEventArgs): void;
+    onNodeDoubleClick?(event: TreeNodeEventArgs): void;
     onNodeEditorActivated?(event: TreeNodeEventArgs): void;
     onNodeExpanded?(event: TreeNodeEventArgs): void;
     onSelectionModified?(event: TreeSelectionModificationEventArgs): Subscription | undefined;
@@ -3536,11 +3541,7 @@ export function usePropertyData(props: {
 };
 
 // @beta
-export function usePropertyFilterBuilder(props?: UsePropertyFilterBuilderProps): {
-    rootGroup: PropertyFilterBuilderRuleGroup;
-    actions: PropertyFilterBuilderActions;
-    buildFilter: () => PropertyFilter | undefined;
-};
+export function usePropertyFilterBuilder(props?: UsePropertyFilterBuilderProps): UsePropertyFilterBuilderResult;
 
 // @beta
 export interface UsePropertyFilterBuilderProps {
@@ -3551,7 +3552,7 @@ export interface UsePropertyFilterBuilderProps {
 // @beta
 export interface UsePropertyFilterBuilderResult {
     actions: PropertyFilterBuilderActions;
-    buildFilter: () => PropertyFilter | undefined;
+    buildFilter: (options?: BuildFilterOptions) => PropertyFilter | undefined;
     rootGroup: PropertyFilterBuilderRuleGroup;
 }
 

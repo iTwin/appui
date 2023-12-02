@@ -24,6 +24,7 @@ import type {
   FrameworkChildWindows,
   OpenChildWindowInfo,
 } from "../framework/FrameworkChildWindows";
+import { createLayoutStore, NineZone } from "@itwin/appui-layout-react";
 
 const childHtml = `<!DOCTYPE html>
 <html>
@@ -63,19 +64,20 @@ export type CreateRoot = Parameters<FrameworkChildWindows["useCreateRoot"]>[0];
 export class InternalChildWindowManager implements FrameworkChildWindows {
   private _openChildWindows: OpenChildWindowInfo[] = [];
   private _createRoot?: CreateRoot;
+  private _roots: { [childwindowId: string]: any } = {};
 
   public get openChildWindows() {
     return this._openChildWindows;
   }
 
   /**
-   * When using React18, the `createRoot` function must be provided in order to render Popout content with React18.
+   * When using React 18, the `createRoot` function must be provided in order to render Popout content with React 18.
    * Do not call if using React 17 or before.
    *
    * Note: The type of the function is intentionally simplified here.
    *
    * @param createRootFn Function imported from `import { createRoot } from "react-dom/client";`
-   * @beta Will be removed once the transition to react 18 is complete.
+   * @beta Will be removed once the transition to React 18 is complete.
    */
   // istanbul ignore next: Result of this assignment is only visible in `open`, which is not tested.
   public useCreateRoot(createRootFn: CreateRoot): void {
@@ -92,8 +94,17 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     element: React.FunctionComponentElement<any>,
     container: Element | DocumentFragment
   ) {
+    // If createRoot is passed in for React 18 we have to render differently
+    // than without it. React 17 vs React 18. We need to save the root to
+    // unmount it.
     if (this._createRoot) {
-      this._createRoot(container).render(element);
+      const childWindowId = UiFramework.childWindows.findId(
+        container.ownerDocument.defaultView
+      );
+      if (childWindowId) {
+        this._roots[childWindowId] = this._createRoot(container);
+        this._roots[childWindowId].render(element);
+      }
     } else {
       ReactDOM.render(element, container);
     }
@@ -150,19 +161,26 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         setTimeout(() => {
           this.render(
             <Provider store={UiFramework.store}>
-              <UiStateStorageHandler>
-                <ThemeManager>
-                  <div className="uifw-child-window-container-host">
-                    <PopupRenderer />
-                    <ModalDialogRenderer />
-                    <ModelessDialogRenderer />
-                    <CursorPopupMenu />
-                    <div className="uifw-child-window-container nz-widget-widget">
-                      {content}
+              <NineZone
+                dispatch={() => {}}
+                layout={createLayoutStore(
+                  UiFramework.frontstages.activeFrontstageDef?.nineZoneState
+                )}
+              >
+                <UiStateStorageHandler>
+                  <ThemeManager>
+                    <div className="uifw-child-window-container-host">
+                      <PopupRenderer />
+                      <ModalDialogRenderer />
+                      <ModelessDialogRenderer />
+                      <CursorPopupMenu />
+                      <div className="uifw-child-window-container nz-widget-widget">
+                        {content}
+                      </div>
                     </div>
-                  </div>
-                </ThemeManager>
-              </UiStateStorageHandler>
+                  </ThemeManager>
+                </UiStateStorageHandler>
+              </NineZone>
             </Provider>,
             reactConnectionDiv
           );
@@ -176,6 +194,16 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
           childWindowId,
           childWindow
         );
+        // UnmountComponentAtNode is deprecated in React 18, so if they are
+        // using React 18 and passing in a createRoot function, unmount()
+        // will be used
+        if (this._roots[childWindowId]) {
+          this._roots[childWindowId].unmount();
+        } else ReactDOM.unmountComponentAtNode(reactConnectionDiv);
+
+        // We need to unmount the child window content before we close it because
+        // it is docked in this function and the widget will disappear if we
+        // unmount after docked.
         this.close(childWindowId, false);
       });
     }
@@ -208,7 +236,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     } else {
       // call the following to convert popout to docked widget
       const frontStageDef = UiFramework.frontstages.activeFrontstageDef;
-      frontStageDef && frontStageDef.dockPopoutWidgetContainer(childWindowId);
+      frontStageDef &&
+        frontStageDef.dockWidgetContainerByContainerId(childWindowId);
     }
     return true;
   };

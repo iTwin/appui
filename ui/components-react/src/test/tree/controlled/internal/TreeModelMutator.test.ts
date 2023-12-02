@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { EMPTY } from "rxjs/internal/observable/empty";
+import { EMPTY } from "rxjs";
 import sinon from "sinon";
 import * as moq from "typemoq";
 import { CheckBoxState } from "@itwin/core-react";

@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import {
   IModelApp,
   NotifyMessageDetails,
@@ -17,7 +18,6 @@ import {
   useActiveFrontstageDef,
   WidgetState,
 } from "@itwin/appui-react";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { NumberInput, Rectangle, RectangleProps } from "@itwin/core-react";
 import { Button, Input, Select, SelectOption } from "@itwin/itwinui-react";
 import {
@@ -247,13 +247,12 @@ function WidgetInfo({ id }: { id: string }) {
     setIsPopout(frontstageDef ? frontstageDef.isPopoutWidget(id) : false);
 
     return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
-      (e: any) => {
-        if (e.frontstageDef === frontstageDef) {
-          setIsFloating(
-            frontstageDef ? frontstageDef.isFloatingWidget(id) : false
-          );
-          setIsPopout(frontstageDef ? frontstageDef.isPopoutWidget(id) : false);
-        }
+      (e) => {
+        if (e.frontstageDef !== (frontstageDef as any)) return;
+        setIsFloating(
+          frontstageDef ? frontstageDef.isFloatingWidget(id) : false
+        );
+        setIsPopout(frontstageDef ? frontstageDef.isPopoutWidget(id) : false);
       }
     );
   }, [frontstageDef, id]);
@@ -474,11 +473,11 @@ function PanelControls({ location }: { location: StagePanelLocation }) {
         onBlur={handleSubmitValue}
         onKeyDown={(e) => {
           switch (e.key) {
-            case SpecialKey.Enter: {
+            case Key.Enter: {
               handleSubmitValue();
               break;
             }
-            case SpecialKey.Escape: {
+            case Key.Escape: {
               setSizeValue("");
               break;
             }
@@ -693,8 +692,8 @@ export function FloatingLayoutInfo() {
   );
   React.useEffect(() => {
     return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
-      (e: any) => {
-        if (e.frontstageDef !== frontstageDef) return;
+      (e) => {
+        if (e.frontstageDef !== (frontstageDef as any)) return;
 
         const allIds = frontstageDef
           ? frontstageDef.getFloatingWidgetContainerIds()

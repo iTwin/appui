@@ -5,7 +5,12 @@
 import "./IModelOpen.scss";
 import "./Common.scss";
 import * as React from "react";
-import { Project as ITwin, ProjectsAccessClient } from "@itwin/projects-client";
+import {
+  ITwin,
+  ITwinsAccessClient,
+  ITwinsAPIResponse,
+  ITwinSubClass,
+} from "@itwin/itwins-client";
 import { IModelApp } from "@itwin/core-frontend";
 import { BasicIModelInfo, IModelInfo } from "../ExternalIModel";
 import { ITwinDropdown } from "./ITwinDropdown";
@@ -38,11 +43,14 @@ export function IModelOpen(props: IModelOpenProps) {
 
   React.useEffect(() => {
     async function fetchProjects() {
-      const client = new ProjectsAccessClient();
+      const client: ITwinsAccessClient = new ITwinsAccessClient();
       try {
-        const iTwins = await client.getAll(accessToken, {
-          pagination: { skip: 0, top: 30 },
-        });
+        const iTwinsResponse: ITwinsAPIResponse<ITwin[]> =
+          await client.queryAsync(accessToken, ITwinSubClass.Project, {
+            skip: 0,
+            top: 30,
+          });
+        const iTwins: ITwin[] = iTwinsResponse.data!;
         setRecentITwins(iTwins);
         if (iTwins.length) setCurrentITwin(iTwins[0]);
       } catch {}
@@ -59,7 +67,7 @@ export function IModelOpen(props: IModelOpenProps) {
       currentITwin &&
         props.onIModelSelected &&
         props.onIModelSelected({
-          iTwinId: currentITwin.id,
+          iTwinId: currentITwin.id ?? "",
           id: iModel.id,
           name: iModel.name ?? "unknown",
         });

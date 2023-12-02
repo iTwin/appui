@@ -8,10 +8,10 @@
 
 import * as React from "react";
 import classnames from "classnames";
+import { Key } from "ts-key-enum";
 import { Input } from "@itwin/itwinui-react";
 import type { CommonProps } from "@itwin/core-react";
 import type { ParseResults } from "@itwin/appui-abstract";
-import { SpecialKey } from "@itwin/appui-abstract";
 import "./ParsedInput.scss";
 
 /** Props for [[ParsedInput]] control
@@ -122,11 +122,11 @@ const ForwardRefParsedInput = React.forwardRef<
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
-      if (event.key === SpecialKey.Enter) {
+      if (event.key === Key.Enter) {
         updateValueFromString(event.currentTarget.value);
         event.preventDefault();
       }
-      if (event.key === SpecialKey.Escape) {
+      if (event.key === Key.Escape) {
         setFormattedValue(formatValue(currentValueRef.current));
         setHasBadInput(false);
         event.preventDefault();

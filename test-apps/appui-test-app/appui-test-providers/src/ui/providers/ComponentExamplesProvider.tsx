@@ -47,6 +47,7 @@ import {
   PositionPopup,
   PositionPopupContent,
   QuantityFormatSettingsPage,
+  ReactNotifyMessageDetails,
   SectionsStatusField,
   SplitPane,
   StandardMessageBox,
@@ -76,6 +77,7 @@ import {
   ViewAttributesStatusField,
 } from "@itwin/appui-react";
 import {
+  IModelApp,
   MessageBoxIconType,
   MessageBoxType,
   NotifyMessageDetails,
@@ -103,7 +105,9 @@ import { StatusBarDialogTitleBar } from "@itwin/appui-react/lib/cjs/appui-react/
 import { StatusBarDialogTitleBarButton } from "@itwin/appui-react/lib/cjs/appui-react/statusbar/dialog/Button";
 import { ComponentGenerator } from "@itwin/appui-react/lib/cjs/appui-react/uiprovider/ComponentGenerator";
 import { UnitSystemKey } from "@itwin/core-quantity";
-import { Button } from "@itwin/itwinui-react";
+import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";
+import { TreeWidgetComponent } from "../widgets/TreeWidget";
+import { TimelineComponent } from "@itwin/imodel-components-react";
 
 class TestContentControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -786,6 +790,9 @@ export class ComponentExamplesProvider {
       OutputMessageType.InputField
     );
 
+    const htmlMsg = document.createElement("div");
+    htmlMsg.innerHTML = "This is a sticky HTML message. A div containing text.";
+
     return {
       title: "Notification",
       examples: [
@@ -825,11 +832,6 @@ export class ComponentExamplesProvider {
           </Button>
         ),
         createComponentExample(
-          "Message Center Field",
-          undefined,
-          <MessageCenterField />
-        ),
-        createComponentExample(
           "Pointer Message",
           undefined,
           <Button
@@ -854,6 +856,127 @@ export class ComponentExamplesProvider {
           <StatusBar>
             <ToolAssistanceField />
           </StatusBar>
+        ),
+        createComponentExample(
+          "Message Center Field",
+          undefined,
+          <div>
+            <MessageCenterField />
+            <DropdownMenu
+              menuItems={(close) => [
+                <MenuItem
+                  key="icons"
+                  onClick={() => {
+                    MessageManager.clearMessages();
+                    MessageManager.addToMessageCenter(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Success,
+                        "success"
+                      )
+                    );
+                    MessageManager.addToMessageCenter(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Info,
+                        "info"
+                      )
+                    );
+                    MessageManager.addToMessageCenter(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Warning,
+                        "warning"
+                      )
+                    );
+                    MessageManager.addToMessageCenter(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Fatal,
+                        "fatal"
+                      )
+                    );
+                    MessageManager.addToMessageCenter(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Error,
+                        "error"
+                      )
+                    );
+                    close();
+                  }}
+                >
+                  ...with severity icons
+                </MenuItem>,
+                <MenuItem
+                  key="overflow"
+                  onClick={() => {
+                    MessageManager.clearMessages();
+                    MessageManager.addToMessageCenter(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Success,
+                        "Long message that is properly cut in multiple elements with enough space to allow correct word wrap."
+                      )
+                    );
+                    MessageManager.addToMessageCenter(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Error,
+                        "Long message with breaking url: http://invalid.bentley.com/with/some/long/url/that/will/not/typically/wrap/as/expected/and/cause/layout/issue"
+                      )
+                    );
+                    close();
+                  }}
+                >
+                  ...with overflowing content
+                </MenuItem>,
+                <MenuItem
+                  key="fancy"
+                  onClick={() => {
+                    MessageManager.clearMessages();
+                    IModelApp.notifications.outputMessage(
+                      new NotifyMessageDetails(
+                        OutputMessagePriority.Info,
+                        htmlMsg,
+                        "This section however is only a string, which should automatically wraps because I expect it to be too long.",
+                        OutputMessageType.Sticky
+                      )
+                    );
+                    MessageManager.outputMessage(
+                      new ReactNotifyMessageDetails(
+                        OutputMessagePriority.Info,
+                        {
+                          reactNode: (
+                            <div>
+                              This is a sticky React message, encapsulated in
+                              `div` tags.
+                            </div>
+                          ),
+                        },
+                        {
+                          reactNode: (
+                            <span>
+                              This is a detailed React message, encapsulated in
+                              `span` tags. It is also very long, so it should
+                              wrap.
+                            </span>
+                          ),
+                        },
+                        OutputMessageType.Sticky
+                      )
+                    );
+                    close();
+                  }}
+                >
+                  ...with HTML and React messages
+                </MenuItem>,
+              ]}
+            >
+              <Button>Fill message center</Button>
+            </DropdownMenu>
+            <Button
+              id="message-center-clear-button"
+              onClick={() => {
+                MessageManager.clearMessages();
+              }}
+            >
+              Clear message center
+            </Button>
+          </div>
         ),
       ],
     };
@@ -1133,6 +1256,32 @@ export class ComponentExamplesProvider {
     };
   }
 
+  private static get timelineSample(): ComponentExampleCategory {
+    function TestTimeline() {
+      const [time, setTime] = React.useState<number>(1000);
+      return (
+        <>
+          <div>
+            <Button onClick={() => setTime(1000)}>Set to 1 second</Button>
+            <Button onClick={() => setTime(5000)}>Set to 5 seconds</Button>
+            <Button onClick={() => setTime(10000)}>Set to 10 seconds</Button>
+          </div>
+          <TimelineComponent totalDuration={time} initialDuration={time} />
+        </>
+      );
+    }
+    return {
+      title: "Timeline",
+      examples: [
+        createComponentExample(
+          "Timeline",
+          "Timeline component from imodel-components-react",
+          <TestTimeline />
+        ),
+      ],
+    };
+  }
+
   private static get toolbarSample(): ComponentExampleCategory {
     const testItemEventId = "test-event";
     const visibleState = { visible: false };
@@ -1277,6 +1426,19 @@ export class ComponentExamplesProvider {
     };
   }
 
+  private static get treeSample(): ComponentExampleCategory {
+    return {
+      title: "Controlled Tree Widget",
+      examples: [
+        createComponentExample(
+          "Controlled Tree Widget",
+          undefined,
+          <TreeWidgetComponent />
+        ),
+      ],
+    };
+  }
+
   private static get uiProviderSample(): ComponentExampleCategory {
     const testUiLayoutDataProvider = new TestUiDataProvider();
     const componentGenerator = new ComponentGenerator(testUiLayoutDataProvider);
@@ -1326,7 +1488,9 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.popupSample,
       ComponentExamplesProvider.settingsSample,
       ComponentExamplesProvider.statusBarSample,
+      ComponentExamplesProvider.timelineSample,
       ComponentExamplesProvider.toolbarSample,
+      ComponentExamplesProvider.treeSample,
       ComponentExamplesProvider.uiProviderSample,
       ComponentExamplesProvider.widgetSample,
     ];

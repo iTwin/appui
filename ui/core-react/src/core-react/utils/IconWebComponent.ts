@@ -23,7 +23,7 @@ const cache = new Map<string, Promise<any>>();
 
 /**
  * Parse 'data:' uri to retrieve the Svg component within it.
- * @param src data:image/svg+xml;base64
+ * @param src data:image/svg+xml;base64 or data:image/svg+xml
  * @param element Element for logging purpose.
  * @returns HTMLElement (svg)
  */
@@ -31,18 +31,28 @@ function parseSvgFromDataUri(src: string, element: any) {
   const dataUriParts = src.split(",");
 
   if (
-    dataUriParts.length !== 2 ||
-    "data:image/svg+xml;base64" !== dataUriParts[0]
+    (dataUriParts.length !== 2 &&
+      "data:image/svg+xml;base64" === dataUriParts[0]) ||
+    ("data:image/svg+xml;base64" !== dataUriParts[0] &&
+      "data:image/svg+xml" !== dataUriParts[0])
   ) {
     Logger.logError(UiCore.loggerCategory(element), "Unable to load icon.");
+    return;
+  }
+
+  let rawSvg = "";
+  if ("data:image/svg+xml;base64" === dataUriParts[0]) {
+    rawSvg = Buffer.from(dataUriParts[1], "base64").toString("utf8");
+  } else {
+    // `,` is valid character in data when not in base64, rebuild the data correctly
+    rawSvg = decodeURIComponent(dataUriParts.slice(1).join(","));
   }
 
   // the esm build of dompurify has a default import but the cjs build does not
   // if there is a default export, use it (likely esm), otherwise use the namespace
   // istanbul ignore next
   const sanitizer = DOMPurify ?? DOMPurifyNS;
-  // eslint-disable-next-line deprecation/deprecation
-  const sanitizedSvg = sanitizer.sanitize(atob(dataUriParts[1]));
+  const sanitizedSvg = sanitizer.sanitize(rawSvg);
 
   const parsedSvg = new window.DOMParser().parseFromString(
     sanitizedSvg,

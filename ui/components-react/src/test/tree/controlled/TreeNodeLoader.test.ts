@@ -4,28 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as faker from "faker";
-import type { Observable as RxjsObservable } from "rxjs/internal/Observable";
-import { defer } from "rxjs/internal/observable/defer";
-import { from as rxjsFrom } from "rxjs/internal/observable/from";
+import { defer, from as rxjsFrom } from "rxjs";
 import sinon from "sinon";
-import * as moq from "typemoq";
 import { PropertyRecord } from "@itwin/appui-abstract";
-import type {
-  Observable,
-  Observer,
-} from "../../../components-react/tree/controlled/Observable";
-import type {
-  MutableTreeModelNode,
-  TreeModelNode,
-  TreeModelNodeInput,
-  TreeModelRootNode,
-  TreeNodeItemData,
-} from "../../../components-react/tree/controlled/TreeModel";
+import { EmptyLocalization } from "@itwin/core-common";
+import { toRxjsObservable } from "../../../components-react/tree/controlled/Observable";
+import { MutableTreeModel } from "../../../components-react/tree/controlled/TreeModel";
 import { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource";
-import type {
-  LoadedNodeHierarchy,
-  TreeNodeLoadResult,
-} from "../../../components-react/tree/controlled/TreeNodeLoader";
 import {
   AbstractTreeNodeLoader,
   handleLoadedNodeHierarchy,
@@ -33,166 +18,132 @@ import {
   TreeDataSource,
   TreeNodeLoader,
 } from "../../../components-react/tree/controlled/TreeNodeLoader";
-import type {
-  ImmediatelyLoadedTreeNodeItem,
-  ITreeDataProvider,
-  TreeDataProvider,
-  TreeDataProviderRaw,
-  TreeNodeItem,
-} from "../../../components-react/tree/TreeDataProvider";
+import { UiComponents } from "../../../components-react/UiComponents";
 import { extractSequence } from "../../common/ObservableTestHelpers";
 import { ResolvablePromise } from "../../test-helpers/misc";
 import {
-  createRandomMutableTreeModelNode,
   createRandomTreeNodeItem,
   createRandomTreeNodeItems,
+  createTreeNodeInput,
 } from "./TreeHelpers";
 
-/* eslint-disable @typescript-eslint/promise-function-async */
-
-const mockDataProvider = (
-  dataProviderMock: moq.IMock<ITreeDataProvider>,
-  pageSize: number
-) => {
-  const rootWithChildren = createRandomMutableTreeModelNode();
-  rootWithChildren.item.autoExpand = false;
-
-  const rootNodeItems: TreeNodeItemData[] = [
-    rootWithChildren.item,
-    ...createRandomTreeNodeItems(pageSize * 2 - 1, undefined, false),
-  ];
-  const firstRootPage = rootNodeItems.slice(0, pageSize);
-  const secondRootPage = rootNodeItems.slice(pageSize, pageSize);
-
-  // disable children autoExpand to avoid mocking grandchildren load
-  const childItems = createRandomTreeNodeItems(
-    pageSize,
-    rootWithChildren.id,
-    false
-  );
-  childItems.forEach((item) => (item.autoExpand = false));
-
-  // mock tree hierarchy
-  dataProviderMock
-    .setup((x) => x.getNodesCount(undefined))
-    .returns(async () => rootNodeItems.length);
-  dataProviderMock
-    .setup((x) => x.getNodesCount(rootWithChildren.item))
-    .returns(async () => childItems.length);
-
-  for (let i = 1; i < rootNodeItems.length; i++) {
-    // disable autoExpand to avoid mocking children load
-    rootNodeItems[i].autoExpand = false;
-    const childCount = rootNodeItems[i].children
-      ? rootNodeItems[i].children!.length
-      : 0;
-    dataProviderMock
-      .setup((x) => x.getNodesCount(rootNodeItems[i]))
-      .returns(async () => childCount);
-  }
-
-  for (const item of childItems)
-    dataProviderMock.setup((x) => x.getNodesCount(item)).returns(async () => 0);
-
-  dataProviderMock
-    .setup((x) => x.getNodes(undefined, undefined))
-    .returns(async () => rootNodeItems);
-  dataProviderMock
-    .setup((x) => x.getNodes(undefined, { start: 0, size: pageSize }))
-    .returns(async () => firstRootPage);
-  dataProviderMock
-    .setup((x) => x.getNodes(undefined, { start: pageSize, size: pageSize }))
-    .returns(async () => secondRootPage);
-
-  return {
-    rootWithChildren,
-    rootNodeItems,
-    firstRootPage,
-    secondRootPage,
-    childItems,
-  };
-};
+import type { Observable as RxjsObservable } from "rxjs";
+import type {
+  LoadedNodeHierarchy,
+  TreeNodeLoadResult,
+} from "../../../components-react/tree/controlled/TreeNodeLoader";
+import type {
+  Observable,
+  Observer,
+} from "../../../components-react/tree/controlled/Observable";
+import type {
+  TreeModelNode,
+  TreeModelNodeInput,
+  TreeModelRootNode,
+  TreeNodeItemData,
+} from "../../../components-react/tree/controlled/TreeModel";
+import type {
+  DelayLoadedTreeNodeItem,
+  ImmediatelyLoadedTreeNodeItem,
+  ITreeDataProvider,
+  TreeDataProviderRaw,
+} from "../../../components-react/tree/TreeDataProvider";
 
 const extractLoadedNodeIds = async (obs: Observable<TreeNodeLoadResult>) => {
-  const loadResult = await extractSequence(rxjsFrom(obs));
+  const loadResult = await extractSequence(toRxjsObservable(obs));
   if (loadResult.length === 0) return [];
   return loadResult[0]!.loadedNodes.map((item) => item.id);
 };
 
-const itemIds = (items: TreeNodeItem[]) => items.map((item) => item.id);
+function createTestTreeNodeItem(
+  item: Partial<DelayLoadedTreeNodeItem> & { id: string }
+): DelayLoadedTreeNodeItem {
+  return {
+    label: PropertyRecord.fromString(item.id),
+    ...item,
+  };
+}
 
 describe("TreeNodeLoader", () => {
-  const dataProviderMock = moq.Mock.ofType<ITreeDataProvider>();
-  const modelSourceMock = moq.Mock.ofType<TreeModelSource>();
-  let treeNodeLoader: TreeNodeLoader<TreeDataProvider>;
+  const dataProviderStub = {
+    getNodes: sinon.stub<
+      Parameters<ITreeDataProvider["getNodes"]>,
+      ReturnType<ITreeDataProvider["getNodes"]>
+    >(),
+    getNodesCount: sinon.stub<
+      Parameters<ITreeDataProvider["getNodesCount"]>,
+      ReturnType<ITreeDataProvider["getNodesCount"]>
+    >(),
+  };
+
+  function setupTreeNodeLoader(setupModel: (model: MutableTreeModel) => void) {
+    const model = new MutableTreeModel();
+    setupModel(model);
+    return new TreeNodeLoader(dataProviderStub, new TreeModelSource(model));
+  }
+
+  before(async () => {
+    // needed to enable `immer` patches
+    await UiComponents.initialize(new EmptyLocalization());
+  });
+
+  after(() => {
+    UiComponents.terminate();
+  });
 
   beforeEach(() => {
-    dataProviderMock.reset();
-    modelSourceMock.reset();
-
-    treeNodeLoader = new TreeNodeLoader(
-      dataProviderMock.object,
-      modelSourceMock.object
-    );
-  });
-
-  describe("getDataProvider", () => {
-    it("returns data provider", () => {
-      expect(treeNodeLoader.dataProvider).to.be.eq(dataProviderMock.object);
-    });
-  });
-
-  describe("modelSource", () => {
-    it("returns model source", () => {
-      expect(treeNodeLoader.modelSource).to.be.eq(modelSourceMock.object);
-    });
+    dataProviderStub.getNodes.reset();
+    dataProviderStub.getNodesCount.reset();
   });
 
   describe("loadNode", () => {
-    const treeRootNode: TreeModelRootNode = {
-      depth: -1,
-      id: undefined,
-      numChildren: undefined,
-    };
-    let rootNodes: TreeNodeItemData[];
-    let rootWithChildren: MutableTreeModelNode;
-    let childNodes: TreeNodeItemData[];
-
-    beforeEach(() => {
-      const mockedItems = mockDataProvider(dataProviderMock, 2);
-      rootNodes = mockedItems.rootNodeItems;
-      rootWithChildren = mockedItems.rootWithChildren;
-      childNodes = mockedItems.childItems;
-    });
-
     it("loads all root nodes", async () => {
-      const loadResultObs = treeNodeLoader.loadNode(treeRootNode);
+      dataProviderStub.getNodes.resolves([
+        createTestTreeNodeItem({ id: "A" }),
+        createTestTreeNodeItem({ id: "B" }),
+      ]);
+      dataProviderStub.getNodesCount.resolves(2);
+
+      const nodeLoader = setupTreeNodeLoader(() => {});
+
+      const loadResultObs = nodeLoader.loadNode(
+        nodeLoader.modelSource.getModel().getRootNode()
+      );
       const loadedIds = await extractLoadedNodeIds(loadResultObs);
-      expect(loadedIds).to.be.deep.eq(itemIds(rootNodes));
+      expect(loadedIds).to.be.deep.eq(["A", "B"]);
     });
 
     it("loads all children for node", async () => {
-      rootWithChildren.isLoading = false;
+      dataProviderStub.getNodes.callsFake(async (parent) => {
+        return parent?.id === "A"
+          ? [
+              createTestTreeNodeItem({ id: "A-1" }),
+              createTestTreeNodeItem({ id: "A-2" }),
+            ]
+          : [];
+      });
+      dataProviderStub.getNodesCount.callsFake(async (parent) =>
+        parent?.id === "A" ? 2 : 0
+      );
+      const nodeLoader = setupTreeNodeLoader((model) => {
+        model.setChildren(undefined, [createTreeNodeInput("A")], 0);
+      });
 
-      dataProviderMock
-        .setup((x) => x.getNodesCount(rootWithChildren.item))
-        .returns(async () => childNodes.length);
-      dataProviderMock
-        .setup((x) => x.getNodes(rootWithChildren.item, moq.It.isAny()))
-        .returns(async () => childNodes);
-
-      const loadResultObs = treeNodeLoader.loadNode(rootWithChildren);
+      const loadResultObs = nodeLoader.loadNode(
+        nodeLoader.modelSource.getModel().getNode("A")!
+      );
       const loadedIds = await extractLoadedNodeIds(loadResultObs);
-      expect(loadedIds).to.be.deep.eq(itemIds(childNodes));
+      expect(loadedIds).to.be.deep.eq(["A-1", "A-2"]);
     });
 
     it("reuses existing request from data provider", async () => {
       const dataProvider = sinon.fake(
         () => new ResolvablePromise<ImmediatelyLoadedTreeNodeItem[]>()
       );
-      treeNodeLoader = new TreeNodeLoader(dataProvider, modelSourceMock.object);
-      treeNodeLoader.loadNode(treeRootNode).subscribe();
-      treeNodeLoader.loadNode(treeRootNode).subscribe();
+      const modelSource = new TreeModelSource();
+      const nodeLoader = new TreeNodeLoader(dataProvider, modelSource);
+      nodeLoader.loadNode(modelSource.getModel().getRootNode()).subscribe();
+      nodeLoader.loadNode(modelSource.getModel().getRootNode()).subscribe();
       // Node loader will invoke dataProvider in another microtask
       await Promise.resolve();
       await dataProvider.firstCall.returnValue.resolve([]);
@@ -203,18 +154,46 @@ describe("TreeNodeLoader", () => {
       const dataProvider = sinon.fake(
         () => new ResolvablePromise<ImmediatelyLoadedTreeNodeItem[]>()
       );
-      treeNodeLoader = new TreeNodeLoader(dataProvider, modelSourceMock.object);
-      const subscription = treeNodeLoader.loadNode(treeRootNode).subscribe();
+      const modelSource = new TreeModelSource();
+      const nodeLoader = new TreeNodeLoader(dataProvider, modelSource);
+      const subscription = nodeLoader
+        .loadNode(modelSource.getModel().getRootNode())
+        .subscribe();
       await Promise.resolve();
       expect(dataProvider).to.have.been.calledOnce;
       subscription.unsubscribe();
       // The first subscription no longer has any subscribers, so the initial load operation has been cancelled
 
-      treeNodeLoader.loadNode(treeRootNode).subscribe();
+      nodeLoader.loadNode(modelSource.getModel().getRootNode()).subscribe();
       // Finalise the first node load to allow SubscriptionScheduler to move onto next observable. As a bonus, after the
       // await, the second subscription will have already propagated to the node loader.
       await dataProvider.firstCall.returnValue.resolve([]);
       expect(dataProvider).to.have.been.calledTwice;
+    });
+
+    it("does not put stale nodes into model after cancellation", async () => {
+      const nodesPromise = new ResolvablePromise<
+        ImmediatelyLoadedTreeNodeItem[]
+      >();
+      const dataProvider = sinon.fake(() => nodesPromise);
+      const modelSource = new TreeModelSource();
+      const nodeLoader = new TreeNodeLoader(dataProvider, modelSource);
+
+      const subscription = nodeLoader
+        .loadNode(modelSource.getModel().getRootNode())
+        .subscribe();
+      await Promise.resolve();
+      expect(dataProvider).to.have.been.calledOnce;
+      subscription.unsubscribe();
+
+      // resolve nodes promise
+      await nodesPromise.resolve([
+        createTestTreeNodeItem({ id: "A" }),
+        createTestTreeNodeItem({ id: "B" }),
+      ]);
+
+      expect(modelSource.getModel().getNode("A")).to.be.undefined;
+      expect(modelSource.getModel().getNode("B")).to.be.undefined;
     });
 
     describe("using raw data provider", () => {
@@ -231,11 +210,13 @@ describe("TreeNodeLoader", () => {
       ];
 
       it("loads all immediately loaded nodes", async () => {
-        treeNodeLoader = new TreeNodeLoader(
+        const nodeLaoder = new TreeNodeLoader(
           nodesProvider,
-          modelSourceMock.object
+          new TreeModelSource()
         );
-        const loadObs = treeNodeLoader.loadNode(treeRootNode);
+        const loadObs = nodeLaoder.loadNode(
+          nodeLaoder.modelSource.getModel().getRootNode()
+        );
         const loadedIds = await extractLoadedNodeIds(loadObs);
         expect(loadedIds).to.be.deep.eq(["1", "1-1", "1-2", "2"]);
       });
@@ -244,118 +225,176 @@ describe("TreeNodeLoader", () => {
 });
 
 describe("PagedTreeNodeLoader", () => {
-  const dataProviderMock = moq.Mock.ofType<ITreeDataProvider>();
-  const modelSourceMock = moq.Mock.ofType<TreeModelSource>();
+  const dataProviderStub = {
+    getNodes: sinon.stub<
+      Parameters<ITreeDataProvider["getNodes"]>,
+      ReturnType<ITreeDataProvider["getNodes"]>
+    >(),
+    getNodesCount: sinon.stub<
+      Parameters<ITreeDataProvider["getNodesCount"]>,
+      ReturnType<ITreeDataProvider["getNodesCount"]>
+    >(),
+  };
 
-  let pagedTreeNodeLoader: PagedTreeNodeLoader<TreeDataProvider>;
-
-  const pageSize = 2;
-
-  beforeEach(() => {
-    dataProviderMock.reset();
-    modelSourceMock.reset();
-
-    pagedTreeNodeLoader = new PagedTreeNodeLoader(
-      dataProviderMock.object,
-      modelSourceMock.object,
+  function setupTreeNodeLoader(
+    setupModel: (model: MutableTreeModel) => void,
+    pageSize: number
+  ) {
+    const model = new MutableTreeModel();
+    setupModel(model);
+    return new PagedTreeNodeLoader(
+      dataProviderStub,
+      new TreeModelSource(model),
       pageSize
     );
+  }
+
+  before(async () => {
+    // needed to enable `immer` patches
+    await UiComponents.initialize(new EmptyLocalization());
+  });
+
+  after(() => {
+    UiComponents.terminate();
+  });
+
+  beforeEach(() => {
+    dataProviderStub.getNodes.reset();
+    dataProviderStub.getNodesCount.reset();
   });
 
   describe("[get] pageSize", () => {
     it("returns page size", () => {
-      expect(pagedTreeNodeLoader.pageSize).to.be.eq(pageSize);
+      const nodeLoader = setupTreeNodeLoader(() => {}, 2);
+      expect(nodeLoader.pageSize).to.be.eq(2);
     });
   });
 
   describe("[get] dataProvider", () => {
     it("return data provider", () => {
-      expect(pagedTreeNodeLoader.dataProvider).to.be.eq(
-        dataProviderMock.object
-      );
-    });
-  });
-
-  describe("modelSource", () => {
-    it("returns model source", () => {
-      expect(pagedTreeNodeLoader.modelSource).to.be.eq(modelSourceMock.object);
+      const nodeLoader = setupTreeNodeLoader(() => {}, 2);
+      expect(nodeLoader.dataProvider).to.be.eq(dataProviderStub);
     });
   });
 
   describe("loadNode", () => {
-    const treeRootNode: TreeModelRootNode = {
-      depth: -1,
-      id: undefined,
-      numChildren: undefined,
-    };
-
-    let rootWithChildren: MutableTreeModelNode;
-
-    let firstRootPage: TreeNodeItemData[];
-    let secondRootPage: TreeNodeItemData[];
-
-    let childItems: TreeNodeItemData[];
-
-    beforeEach(() => {
-      const mockedItems = mockDataProvider(dataProviderMock, pageSize);
-      rootWithChildren = mockedItems.rootWithChildren;
-      firstRootPage = mockedItems.firstRootPage;
-      secondRootPage = mockedItems.secondRootPage;
-      childItems = mockedItems.childItems;
-    });
-
     it("loads root nodes page when asking for first node", async () => {
-      const loadResultObs = pagedTreeNodeLoader.loadNode(treeRootNode, 0);
+      const rootNodes = [
+        createTestTreeNodeItem({ id: "A" }),
+        createTestTreeNodeItem({ id: "B" }),
+        createTestTreeNodeItem({ id: "C" }),
+        createTestTreeNodeItem({ id: "D" }),
+      ];
+      dataProviderStub.getNodesCount.resolves(4);
+      dataProviderStub.getNodes.callsFake(async (_parent, pageOptions) =>
+        pageOptions?.start === 0 ? rootNodes.slice(0, 2) : rootNodes.slice(2)
+      );
+
+      const nodeLoader = setupTreeNodeLoader(() => {}, 2);
+
+      const loadResultObs = nodeLoader.loadNode(
+        nodeLoader.modelSource.getModel().getRootNode(),
+        0
+      );
       const loadedIds = await extractLoadedNodeIds(loadResultObs);
-      expect(loadedIds).to.be.deep.eq(itemIds(firstRootPage));
+      expect(loadedIds).to.be.deep.eq(["A", "B"]);
     });
 
     it("loads child nodes page when asking for first child", async () => {
-      rootWithChildren.isLoading = false;
+      const childNodes = [
+        createTestTreeNodeItem({ id: "A-1" }),
+        createTestTreeNodeItem({ id: "A-2" }),
+        createTestTreeNodeItem({ id: "A-3" }),
+        createTestTreeNodeItem({ id: "A-4" }),
+      ];
+      dataProviderStub.getNodesCount.callsFake(async () => 4);
+      dataProviderStub.getNodes.callsFake(async (_parent, pageOptions) =>
+        pageOptions?.start === 0 ? childNodes.slice(0, 2) : childNodes.slice(2)
+      );
 
-      dataProviderMock
-        .setup((x) => x.getNodesCount(rootWithChildren.item))
-        .returns(async () => childItems.length);
-      dataProviderMock
-        .setup((x) => x.getNodes(rootWithChildren.item, moq.It.isAny()))
-        .returns(async () => childItems);
+      const nodeLoader = setupTreeNodeLoader((model) => {
+        model.setChildren(undefined, [createTreeNodeInput("A")], 0);
+      }, 2);
 
-      const loadResultObs = pagedTreeNodeLoader.loadNode(rootWithChildren, 0);
+      const loadResultObs = nodeLoader.loadNode(
+        nodeLoader.modelSource.getModel().getNode("A")!,
+        0
+      );
+
       const loadedIds = await extractLoadedNodeIds(loadResultObs);
-      expect(loadedIds).to.be.deep.eq(itemIds(childItems));
+      expect(loadedIds).to.be.deep.eq(["A-1", "A-2"]);
     });
 
     it("loads children of auto expanded node", async () => {
-      rootWithChildren.item.autoExpand = true;
-
-      dataProviderMock
-        .setup((x) => x.getNodesCount(rootWithChildren.item))
-        .returns(async () => childItems.length);
-      dataProviderMock
-        .setup((x) => x.getNodes(rootWithChildren.item, moq.It.isAny()))
-        .returns(async () => childItems);
-
-      const loadResultObs = pagedTreeNodeLoader.loadNode(treeRootNode, 0);
-      const loadedIds = await extractLoadedNodeIds(loadResultObs);
-      const expectedNodeIds = [
-        rootWithChildren.id,
-        ...itemIds(childItems),
-        ...itemIds(firstRootPage.slice(1)),
+      const rootNodes = [
+        createTestTreeNodeItem({ id: "A", autoExpand: true }),
+        createTestTreeNodeItem({ id: "B" }),
       ];
-      expect(loadedIds).to.be.deep.eq(expectedNodeIds);
+      const childNodes = [
+        createTestTreeNodeItem({ id: "A-1" }),
+        createTestTreeNodeItem({ id: "A-2" }),
+        createTestTreeNodeItem({ id: "A-3" }),
+        createTestTreeNodeItem({ id: "A-4" }),
+      ];
+      dataProviderStub.getNodesCount.callsFake(async (parent) =>
+        parent?.id === "A" ? 4 : 2
+      );
+      dataProviderStub.getNodes.callsFake(async (parent, pageOptions) => {
+        if (parent?.id !== "A") {
+          return rootNodes;
+        }
+        return pageOptions?.start === 0
+          ? childNodes.slice(0, 2)
+          : childNodes.slice(2);
+      });
+
+      const nodeLoader = setupTreeNodeLoader(() => {}, 2);
+
+      const loadResultObs = nodeLoader.loadNode(
+        nodeLoader.modelSource.getModel().getRootNode(),
+        0
+      );
+      const loadedIds = await extractLoadedNodeIds(loadResultObs);
+      expect(loadedIds).to.be.deep.eq(["A", "A-1", "A-2", "B"]);
+    });
+
+    it("loads two pages of root nodes", async () => {
+      const rootNodes = [
+        createTestTreeNodeItem({ id: "A" }),
+        createTestTreeNodeItem({ id: "B" }),
+        createTestTreeNodeItem({ id: "C" }),
+        createTestTreeNodeItem({ id: "D" }),
+      ];
+      dataProviderStub.getNodesCount.resolves(4);
+      dataProviderStub.getNodes.callsFake(async (_parent, pageOptions) =>
+        pageOptions?.start === 0 ? rootNodes.slice(0, 2) : rootNodes.slice(2)
+      );
+
+      const nodeLoader = setupTreeNodeLoader(() => {}, 2);
+
+      const pageOne = nodeLoader.loadNode(
+        nodeLoader.modelSource.getModel().getRootNode(),
+        0
+      );
+      const pageOneLoadedIds = await extractLoadedNodeIds(pageOne);
+      expect(pageOneLoadedIds).to.be.deep.eq(["A", "B"]);
+
+      const pageTwo = nodeLoader.loadNode(
+        nodeLoader.modelSource.getModel().getRootNode(),
+        2
+      );
+      const pageTwoLoadedIds = await extractLoadedNodeIds(pageTwo);
+      expect(pageTwoLoadedIds).to.be.deep.eq(["C", "D"]);
     });
 
     it("reuses existing page request from data provider", async () => {
       const dataProvider = sinon.fake(
         () => new ResolvablePromise<ImmediatelyLoadedTreeNodeItem[]>()
       );
-      pagedTreeNodeLoader = new PagedTreeNodeLoader(
-        dataProvider,
-        modelSourceMock.object,
-        pageSize
-      );
-      pagedTreeNodeLoader.loadNode(treeRootNode, 0).subscribe();
-      pagedTreeNodeLoader.loadNode(treeRootNode, 1).subscribe();
+      const modelSource = new TreeModelSource();
+      const nodeLoader = new PagedTreeNodeLoader(dataProvider, modelSource, 5);
+      nodeLoader.loadNode(modelSource.getModel().getRootNode(), 0).subscribe();
+      nodeLoader.loadNode(modelSource.getModel().getRootNode(), 1).subscribe();
       // Node loader will invoke dataProvider in another microtask
       await Promise.resolve();
       await dataProvider.firstCall.returnValue.resolve([]);
@@ -366,20 +405,17 @@ describe("PagedTreeNodeLoader", () => {
       const dataProvider = sinon.fake(
         () => new ResolvablePromise<ImmediatelyLoadedTreeNodeItem[]>()
       );
-      pagedTreeNodeLoader = new PagedTreeNodeLoader(
-        dataProvider,
-        modelSourceMock.object,
-        pageSize
-      );
-      const subscription = pagedTreeNodeLoader
-        .loadNode(treeRootNode, 0)
+      const modelSource = new TreeModelSource();
+      const nodeLoader = new PagedTreeNodeLoader(dataProvider, modelSource, 5);
+      const subscription = nodeLoader
+        .loadNode(modelSource.getModel().getRootNode(), 0)
         .subscribe();
       await Promise.resolve();
       expect(dataProvider).to.have.been.calledOnce;
       subscription.unsubscribe();
       // The first subscription no longer has any subscribers, so the initial load operation has been cancelled
 
-      pagedTreeNodeLoader.loadNode(treeRootNode, 0).subscribe();
+      nodeLoader.loadNode(modelSource.getModel().getRootNode(), 0).subscribe();
       // Finalise the first node load to allow SubscriptionScheduler to move onto next observable. As a bonus, after the
       // await, the second subscription will have already propagated to the node loader.
       await dataProvider.firstCall.returnValue.resolve([]);
@@ -390,14 +426,11 @@ describe("PagedTreeNodeLoader", () => {
       const dataProvider = sinon.fake(
         () => new ResolvablePromise<ImmediatelyLoadedTreeNodeItem[]>()
       );
-      pagedTreeNodeLoader = new PagedTreeNodeLoader(
-        dataProvider,
-        modelSourceMock.object,
-        pageSize
-      );
+      const modelSource = new TreeModelSource();
+      const nodeLoader = new PagedTreeNodeLoader(dataProvider, modelSource, 5);
 
-      pagedTreeNodeLoader.loadNode(treeRootNode, 0).subscribe();
-      pagedTreeNodeLoader.loadNode(treeRootNode, pageSize).subscribe();
+      nodeLoader.loadNode(modelSource.getModel().getRootNode(), 0).subscribe();
+      nodeLoader.loadNode(modelSource.getModel().getRootNode(), 5).subscribe();
 
       await Promise.resolve();
       expect(dataProvider).to.have.been.calledOnce;
@@ -406,14 +439,29 @@ describe("PagedTreeNodeLoader", () => {
       expect(dataProvider).to.have.been.calledTwice;
     });
 
-    it("loads two pages of root nodes", async () => {
-      const pageOne = pagedTreeNodeLoader.loadNode(treeRootNode, 0);
-      const pageTwo = pagedTreeNodeLoader.loadNode(treeRootNode, pageSize);
+    it("does not put stale nodes into model after cancellation", async () => {
+      const nodesPromise = new ResolvablePromise<
+        ImmediatelyLoadedTreeNodeItem[]
+      >();
+      const dataProvider = sinon.fake(() => nodesPromise);
+      const modelSource = new TreeModelSource();
+      const nodeLoader = new PagedTreeNodeLoader(dataProvider, modelSource, 5);
 
-      const pageOneLoadedIds = await extractLoadedNodeIds(pageOne);
-      const pageTwoLoadedIds = await extractLoadedNodeIds(pageTwo);
-      expect(pageOneLoadedIds).to.be.deep.eq(itemIds(firstRootPage));
-      expect(pageTwoLoadedIds).to.be.deep.eq(itemIds(secondRootPage));
+      const subscription = nodeLoader
+        .loadNode(modelSource.getModel().getRootNode(), 0)
+        .subscribe();
+      await Promise.resolve();
+      expect(dataProvider).to.have.been.calledOnce;
+      subscription.unsubscribe();
+
+      // resolve nodes promise
+      await nodesPromise.resolve([
+        createTestTreeNodeItem({ id: "A" }),
+        createTestTreeNodeItem({ id: "B" }),
+      ]);
+
+      expect(modelSource.getModel().getNode("A")).to.be.undefined;
+      expect(modelSource.getModel().getNode("B")).to.be.undefined;
     });
 
     describe("using raw data provider", () => {
@@ -430,12 +478,16 @@ describe("PagedTreeNodeLoader", () => {
       ];
 
       it("loads all immediately loaded nodes", async () => {
-        pagedTreeNodeLoader = new PagedTreeNodeLoader(
+        const modelSource = new TreeModelSource();
+        const nodeLoader = new PagedTreeNodeLoader(
           nodesProvider,
-          modelSourceMock.object,
-          pageSize
+          modelSource,
+          5
         );
-        const loadObs = pagedTreeNodeLoader.loadNode(treeRootNode, 0);
+        const loadObs = nodeLoader.loadNode(
+          modelSource.getModel().getRootNode(),
+          0
+        );
         const loadedIds = await extractLoadedNodeIds(loadObs);
         expect(loadedIds).to.be.deep.eq(["1", "1-1", "1-2", "2"]);
       });
@@ -444,6 +496,15 @@ describe("PagedTreeNodeLoader", () => {
 });
 
 describe("AbstractTreeNodeLoader", () => {
+  before(async () => {
+    // needed to enable `immer` patches
+    await UiComponents.initialize(new EmptyLocalization());
+  });
+
+  after(() => {
+    UiComponents.terminate();
+  });
+
   describe("loadNode", () => {
     it("accepts non-rxjs observables", async () => {
       const modelSource = new TreeModelSource();
@@ -472,13 +533,12 @@ describe("AbstractTreeNodeLoader", () => {
       });
       nodeLoader
         .loadNode(modelSource.getModel().getRootNode(), 0)
-        .subscribe({ complete: () => promise.resolve() });
+        .subscribe({ complete: async () => promise.resolve() });
       await promise;
     });
 
     it("allows one active load at a time", async () => {
       const modelSource = new TreeModelSource();
-      sinon.stub(modelSource, "modifyModel");
       const dataProvider = sinon.fake(
         () => new ResolvablePromise<LoadedNodeHierarchy>()
       );
@@ -500,6 +560,38 @@ describe("AbstractTreeNodeLoader", () => {
       };
       await dataProvider.firstCall.returnValue.resolve(hierarchy);
       expect(dataProvider).to.have.been.calledTwice;
+    });
+
+    it("does not put stale nodes into model after cancellation", async () => {
+      const modelSource = new TreeModelSource();
+      const nodesPromise = new ResolvablePromise<LoadedNodeHierarchy>();
+      const dataProvider = sinon.fake(() => nodesPromise);
+      const nodeLoader = createCustomTreeNodeLoader(modelSource, () =>
+        defer(() => rxjsFrom<Promise<LoadedNodeHierarchy>>(dataProvider()))
+      );
+      const subscription = nodeLoader
+        .loadNode(modelSource.getModel().getRootNode(), 0)
+        .subscribe();
+
+      await Promise.resolve();
+      expect(dataProvider).to.have.been.calledOnce;
+
+      // unsubscribe before completing promise
+      subscription.unsubscribe();
+
+      const hierarchy: LoadedNodeHierarchy = {
+        parentId: undefined,
+        offset: 0,
+        numChildren: 1,
+        hierarchyItems: [
+          {
+            item: createTestTreeNodeItem({ id: "A" }),
+          },
+        ],
+      };
+      await nodesPromise.resolve(hierarchy);
+
+      expect(nodeLoader.modelSource.getModel().getNode("A")).to.be.undefined;
     });
 
     function createCustomTreeNodeLoader(

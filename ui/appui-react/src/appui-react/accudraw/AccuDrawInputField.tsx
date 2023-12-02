@@ -9,10 +9,10 @@
 import "./AccuDrawInputField.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import type { ItemField } from "@itwin/core-frontend";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
 import { Icon, useRefs } from "@itwin/core-react";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { Input } from "@itwin/itwinui-react";
 import type {
   AccuDrawSetFieldFocusEventArgs,
@@ -140,10 +140,10 @@ const ForwardRefAccuDrawInput = React.forwardRef<
   const handleKeyDown = React.useCallback(
     (e: React.KeyboardEvent) => {
       switch (e.key) {
-        case SpecialKey.Escape:
+        case Key.Escape:
           onEscPressed && onEscPressed();
           return;
-        case SpecialKey.Enter:
+        case Key.Enter:
           onEnterPressed && onEnterPressed();
           return;
       }

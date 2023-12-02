@@ -6,8 +6,8 @@
 import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
+import { Key } from "ts-key-enum";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
-import { SpecialKey } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
 import {
   EditorContainer,
@@ -121,7 +121,7 @@ describe("<WeightEditor />", () => {
     );
     expect(button).to.exist;
 
-    fireEvent.keyDown(button, { key: SpecialKey.Enter });
+    fireEvent.keyDown(button, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.called).to.be.false;
 

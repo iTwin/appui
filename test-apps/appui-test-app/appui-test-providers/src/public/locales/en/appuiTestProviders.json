@@ -56,6 +56,23 @@
         "Pink": "Pink"
       }
     },
+    "uiItemsProvidersTest-ToolWithDynamicSettings": {
+      "keyin": "Tool With Dynamic Settings",
+      "description": "Demo Tool With Dynamic Settings",
+      "flyover": "Tool with Dynamic Settings",
+      "Prompts": {
+        "GetPoint": "Enter point/Reset to Exit",
+        "State": "State",
+        "City": "City"
+      },
+      "State": {
+        "None": "Undefined",
+        "Alabama": "Alabama",
+        "California": "California",
+        "Pennsylvania": "Pennsylvania",
+        "NewYork": "New York"
+      }
+    },
     "uiItemsProvidersTest-GenericLocateTool": {
       "keyin": "state generic tool",
       "description": "Generic Tool from Provider",
@@ -64,6 +81,15 @@
         "identifyElement": "Identify Element",
         "identifyPosition": "Identify Position"
       }
+    },
+    "SetWidgetStateTool": {
+      "keyin": "widget setstate"
+    },
+    "RegisterUiProviderTool": {
+      "keyin": "uiprovider register"
+    },
+    "UnregisterUiProviderTool": {
+      "keyin": "uiprovider unregister"
     }
   }
 }

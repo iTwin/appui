@@ -18,7 +18,9 @@ describe("usePanelsAutoCollapse", () => {
   it("should collapse unpinned panels", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
-    state = updatePanelState(state, "right", { pinned: false });
+    state = updatePanelState(state, "right", (draft) => {
+      draft.pinned = false;
+    });
     const { result } = renderHook(
       () => usePanelsAutoCollapse(),
       withWrapperAndProps(TestNineZoneProvider, {
@@ -38,10 +40,12 @@ describe("usePanelsAutoCollapse", () => {
     });
   });
 
-  it("should auto collapse unpinned panels", async () => {
+  it("should auto collapse unpinned panels", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
-    state = updatePanelState(state, "left", { pinned: false });
+    state = updatePanelState(state, "left", (draft) => {
+      draft.pinned = false;
+    });
     const { result } = renderHook(
       () => usePanelsAutoCollapse(),
       withWrapperAndProps(TestNineZoneProvider, {

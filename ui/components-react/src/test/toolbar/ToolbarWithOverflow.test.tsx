@@ -6,16 +6,13 @@
 import { expect } from "chai";
 import React from "react";
 import * as sinon from "sinon";
+import { Key } from "ts-key-enum";
 import type {
   ActionButton,
   CommonToolbarItem,
   GroupButton,
 } from "@itwin/appui-abstract";
-import {
-  BadgeType,
-  SpecialKey,
-  ToolbarItemUtilities,
-} from "@itwin/appui-abstract";
+import { BadgeType, ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import type { CustomToolbarItem } from "../../components-react/toolbar/InternalToolbarComponent";
 import {
@@ -787,7 +784,7 @@ describe("<ToolbarWithOverflow />", () => {
       const popupPanel = renderedComponent.queryByTestId("popup-panel");
       expect(popupPanel).not.to.be.null;
       popupPanel!.dispatchEvent(
-        createBubbledEvent("keydown", { key: SpecialKey.Escape /* <Esc> */ })
+        createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
       );
       onKeyDownSpy.calledOnce.should.true;
     });
@@ -2841,7 +2838,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(actionButton).not.to.be.null;
       fireEvent.click(actionButton!);
       actionButton!.dispatchEvent(
-        createBubbledEvent("keydown", { key: SpecialKey.Escape /* <Esc> */ })
+        createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
       );
       onKeyDownSpy.calledOnce.should.true;
     });

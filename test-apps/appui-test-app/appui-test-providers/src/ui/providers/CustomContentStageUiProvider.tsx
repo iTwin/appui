@@ -6,7 +6,6 @@ import * as React from "react";
 import {
   BadgeType,
   ConditionalBooleanValue,
-  IconSpecUtilities,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import {
@@ -81,9 +80,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
       const customActionButton = ToolbarItemUtilities.createActionButton(
         "custom-action-button",
         -1,
-        IconSpecUtilities.createWebComponentIconSpec(
-          visibilitySemiTransparentSvg
-        ),
+        visibilitySemiTransparentSvg,
         "Custom Action Button",
         (): void => {
           IModelApp.notifications.outputMessage(

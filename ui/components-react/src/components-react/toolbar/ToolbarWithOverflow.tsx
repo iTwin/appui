@@ -25,7 +25,7 @@ import { InternalToolbarComponent } from "./InternalToolbarComponent";
  * @deprecated in 4.0. Use [ToolbarWithOverflowProps]($appui-react) instead.
  */
 export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
-  /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
+  /** Describes to which direction the popup panels are expanded, also defines the orientation of the toolbar (Top/Bottom will create an horizontal toolbar, Left/Right will create a vertical toolbar). Defaults to: [[Direction.Bottom]] */
   expandsTo?: Direction;
   /** Describes to which direction the overflow popup panels are expanded. Defaults to: [[Direction.Right]] */
   overflowExpandsTo?: Direction;

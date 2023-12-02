@@ -7,46 +7,32 @@
  */
 
 import * as React from "react";
-import { from } from "rxjs/internal/observable/from";
-import { takeUntil } from "rxjs/internal/operators/takeUntil";
-import { Subject } from "rxjs/internal/Subject";
-import { isPromiseLike, useEffectSkipFirst } from "@itwin/core-react";
+import { from } from "rxjs";
+import { isPromiseLike } from "@itwin/core-react";
 
 /**
  * Custom hook for working with possibly async values.
  * @public
  */
 export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined {
-  const cancelled = React.useMemo(() => new Subject<void>(), []);
-  // cancel any pending promises on unmount
-  React.useEffect(() => () => cancelled.next(), [cancelled]);
-
   const [result, setResult] = React.useState(() => {
     if (isPromiseLike(value)) {
-      from(value)
-        .pipe(takeUntil(cancelled))
-        .subscribe({ next: (resolvedValue) => setResult(resolvedValue) });
       return undefined;
     }
     return value;
   });
 
-  useEffectSkipFirst(() => {
-    const updateValue = (newValue: T) => {
-      cancelled.next();
-      setResult(newValue);
-    };
-
+  React.useEffect(() => {
     if (isPromiseLike(value)) {
-      const subscription = from(value)
-        .pipe(takeUntil(cancelled))
-        .subscribe({ next: (resolvedValue) => updateValue(resolvedValue) });
+      const subscription = from(value).subscribe({
+        next: (resolvedValue) => setResult(resolvedValue),
+      });
       return () => subscription.unsubscribe();
     }
 
-    updateValue(value);
-    return undefined;
-  }, [value, cancelled]);
+    setResult(value);
+    return;
+  }, [value]);
 
   return result;
 }

@@ -5,10 +5,10 @@
 
 import { Id64String, Logger } from "@itwin/core-bentley";
 import {
-  Project as ITwin,
-  ProjectsAccessClient,
-  ProjectsSearchableProperty,
-} from "@itwin/projects-client";
+  ITwin,
+  ITwinsAccessClient,
+  ITwinsAPIResponse,
+} from "@itwin/itwins-client";
 import { IModelsClient } from "@itwin/imodels-client-management";
 import { AccessTokenAdapter } from "@itwin/imodels-access-frontend";
 import {
@@ -65,25 +65,17 @@ export class ExternalIModel {
       throw new Error(
         "An iTwin name or id is required to construct an External iModel"
       );
-    } else if (!args.iTwinId && args.iTwinName) {
-      const iTwinClient = new ProjectsAccessClient();
-      const iTwinList: ITwin[] = await iTwinClient.getAll(accessToken, {
-        search: {
-          searchString: args.iTwinName,
-          propertyName: ProjectsSearchableProperty.Name,
-          exactMatch: true,
-        },
-      });
+    } else if (args.iTwinId) {
+      const iTwinClient = new ITwinsAccessClient();
+      const iTwinsResponse: ITwinsAPIResponse<ITwin> =
+        await iTwinClient.getAsync(accessToken, args.iTwinId);
 
-      if (iTwinList.length === 0)
-        throw new Error(`iTwin ${args.iTwinName} was not found for the user.`);
-      else if (iTwinList.length > 1)
-        throw new Error(
-          `Multiple iTwins named ${args.iTwinName} were found for the user.`
-        );
+      const actualiTwin = iTwinsResponse.data!;
+      if (!actualiTwin)
+        throw new Error(`ITwin ${args.iTwinId} was not found for the user.`);
 
       // note: iTwinName is set in createArgs
-      createArgs.iTwinId = iTwinList[0].id;
+      createArgs.iTwinId = actualiTwin.id;
     }
 
     if (!args.iModelId && !args.iModelName) {

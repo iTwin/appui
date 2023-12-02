@@ -70,7 +70,9 @@ export function ViewOverlayHost({
   userSuppliedOverlay,
 }: ViewOverlayHostProps) {
   const displayViewOverlay = useSelector((state: FrameworkState) => {
-    const frameworkState = (state as any)[UiFramework.frameworkStateKey];
+    const frameworkState: FrameworkState = (state as any)[
+      UiFramework.frameworkStateKey
+    ];
     return frameworkState
       ? frameworkState.configurableUiState.viewOverlayDisplay
       : true;
@@ -102,7 +104,9 @@ export class IModelViewportControl extends ViewportContentControl {
     info: ConfigurableCreateInfo,
     protected _options: IModelViewportControlOptions
   ) {
+    _options = _options ?? {};
     super(info, _options);
+    this._options = _options;
 
     if (_options.featureOptions) this._featureOptions = _options.featureOptions;
     this._alwaysUseSuppliedViewState =

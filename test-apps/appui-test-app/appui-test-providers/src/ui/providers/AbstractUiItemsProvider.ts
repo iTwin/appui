@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { IconSpecUtilities } from "@itwin/appui-abstract";
 import {
   StageUsage,
   StatusBarItem,
@@ -20,9 +19,11 @@ import { IModelApp } from "@itwin/core-frontend";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { OpenAbstractDialogTool } from "../../tools/OpenAbstractModalDialogTool";
 import statusFieldSvg from "../icons/StatusField.svg";
+import { ToolWithDynamicSettings } from "../../tools/ToolWithDynamicSettings";
 
 export interface AbstractUiItemsProviderProps {
   sampleTool?: { itemPriority?: number; groupPriority?: number };
+  dynamicTool?: { itemPriority?: number; groupPriority?: number };
   openAbstractDialogTool?: { itemPriority?: number; groupPriority?: number };
   unitsStatusBarItem?: { itemPriority?: number; section?: StatusBarSection };
 }
@@ -43,6 +44,7 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
     // register tools that will be returned via this provider
     OpenAbstractDialogTool.register(localizationNamespace);
     SampleTool.register(localizationNamespace);
+    ToolWithDynamicSettings.register(localizationNamespace);
   }
 
   public provideToolbarItems(
@@ -61,6 +63,10 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
         SampleTool.getActionButtonDef(
           this.props?.sampleTool?.itemPriority ?? 1000,
           this.props?.sampleTool?.groupPriority
+        ),
+        ToolWithDynamicSettings.getActionButtonDef(
+          this.props?.dynamicTool?.itemPriority ?? 1001,
+          this.props?.dynamicTool?.groupPriority
         ),
       ];
     }
@@ -85,8 +91,6 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
     _stageId: string,
     stageUsage: string
   ): StatusBarItem[] {
-    const unitsIcon =
-      IconSpecUtilities.createWebComponentIconSpec(statusFieldSvg);
     const statusBarItems: StatusBarItem[] = [];
     if (stageUsage === StageUsage.General) {
       statusBarItems.push(
@@ -95,7 +99,7 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
           "AppUiTestProviders:UnitsStatusBarItem",
           this.props?.unitsStatusBarItem?.section ?? StatusBarSection.Center,
           this.props?.unitsStatusBarItem?.itemPriority ?? 100,
-          unitsIcon,
+          statusFieldSvg,
           AppUiTestProviders.translate("StatusBar.UnitsFlyover"),
           () => {
             IModelApp.uiAdmin.openDialog(

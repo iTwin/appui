@@ -6,7 +6,7 @@
  * @module Tree
  */
 
-import { EMPTY } from "rxjs/internal/observable/empty";
+import { EMPTY } from "rxjs";
 import type { TreeNodeItem } from "../../TreeDataProvider";
 import type { Observable } from "../Observable";
 import type { CheckboxStateChange } from "../TreeEvents";

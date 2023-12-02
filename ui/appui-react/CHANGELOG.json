@@ -2,6 +2,138 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.6.3",
+      "tag": "@itwin/appui-react_v4.6.3",
+      "date": "Wed, 25 Oct 2023 09:39:22 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix an issue where a hidden widget state change event is emitted when a widget tab is dragged."
+          },
+          {
+            "comment": "Correctly enable `isFloatingStateSupported` for every widget unless it is disabled explicitly."
+          },
+          {
+            "comment": "Correctly enable `isResizable` flag for every floating widget unless it is disabled explicitly."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.6.2",
+      "tag": "@itwin/appui-react_v4.6.2",
+      "date": "Tue, 17 Oct 2023 19:16:23 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Unmount childWindowManager whenever window is closed"
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.6.1",
+      "tag": "@itwin/appui-react_v4.6.1",
+      "date": "Thu, 12 Oct 2023 16:59:20 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix an issue where `onWidgetStateChangedEvent` is not emitted for a hidden widget."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.6.0",
+      "tag": "@itwin/appui-react_v4.6.0",
+      "date": "Wed, 04 Oct 2023 18:05:34 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Disable user select when dragging or resizing a widget."
+          },
+          {
+            "comment": "Correctly configure `resizable` flag of a floating widget after docking and undocking."
+          },
+          {
+            "comment": "Fixed tool settings widget so that can set to dockings not allowed"
+          },
+          {
+            "comment": "Fix message center messages icon colors based on message severity."
+          },
+          {
+            "comment": "Fix an issue with closing tool settings dropdown when main UI hides."
+          },
+          {
+            "comment": "React to core/appui-abstract deprecations"
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.5.1",
+      "tag": "@itwin/appui-react_v4.5.1",
+      "date": "Fri, 08 Sep 2023 16:10:53 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix an issue with `useSpecificWidgetDef` to correctly return re-created WidgetDef."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.5.0",
+      "tag": "@itwin/appui-react_v4.5.0",
+      "date": "Wed, 06 Sep 2023 17:29:22 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Refresh the EmptyToolSettingsEntry when the active tool changes. (#442)"
+          },
+          {
+            "comment": "Improved `Toolbar` and `ToolbarWithOverflow` documentation regarding orientation."
+          },
+          {
+            "comment": "`ToolbarHelper`: Fix `badgeType` override."
+          },
+          {
+            "comment": "Bump `rxjs` dependency to `7.8.1`."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.4.0",
+      "tag": "@itwin/appui-react_v4.4.0",
+      "date": "Tue, 15 Aug 2023 18:02:09 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix `clearHideIsolateEmphasizeElements` and `hideElements` button display when view changes happen outside AppUI's API."
+          },
+          {
+            "comment": "Added `BlankConnection` event handling to `SyncUiEventDispatcher`."
+          },
+          {
+            "comment": "Fixed store initialization when iModelConnection is set."
+          },
+          {
+            "comment": "Fixed store reset when iModelConnection is cleared."
+          },
+          {
+            "comment": "Remove obsolete ninezone term from API doc comments."
+          },
+          {
+            "comment": "Fixed openCursorMenu so that it works in React 18 Strict Mode"
+          },
+          {
+            "comment": "`Toolbar` now correctly handles `Conditional` properties and support `enableOverflow` prop."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.3.0",
       "tag": "@itwin/appui-react_v4.3.0",
       "date": "Mon, 17 Jul 2023 10:16:20 GMT",

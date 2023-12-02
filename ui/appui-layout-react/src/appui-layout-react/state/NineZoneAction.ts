@@ -6,7 +6,6 @@
  * @module Base
  */
 
-import type { PointProps } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import type { HorizontalPanelSide, PanelSide } from "../widget-panels/Panel";
 import type { TabState } from "./TabState";
@@ -19,6 +18,8 @@ import type {
   TabDragDropTargetState,
   WidgetDragDropTargetState,
 } from "./DropTargetState";
+import type { PanelState } from "./PanelState";
+import type { XAndY } from "./internal/NineZoneStateHelpers";
 
 /** @internal */
 export interface ResizeAction {
@@ -40,10 +41,17 @@ export interface PanelSetCollapsedAction {
 }
 
 /** @internal */
+export interface PanelSetPinnedAction {
+  readonly type: "PANEL_SET_PINNED";
+  readonly side: PanelSide;
+  readonly pinned: boolean;
+}
+
+/** @internal */
 export interface PanelSetSizeAction {
   readonly type: "PANEL_SET_SIZE";
   readonly side: PanelSide;
-  readonly size: number;
+  readonly size: PanelState["size"];
 }
 
 /** @internal */
@@ -130,7 +138,7 @@ export interface PanelWidgetDragStartAction {
 /** @internal */
 export interface WidgetDragAction {
   readonly type: "WIDGET_DRAG";
-  readonly dragBy: PointProps;
+  readonly dragBy: XAndY;
   readonly floatingWidgetId: FloatingWidgetState["id"];
 }
 
@@ -159,26 +167,20 @@ export interface WidgetTabDoubleClickAction {
 }
 
 /** @internal */
-export interface WidgetTabPopoutAction {
-  readonly type: "WIDGET_TAB_POPOUT";
-  readonly id: WidgetState["activeTabId"];
-}
-
-/** @internal */
 export interface WidgetTabDragStartAction {
   readonly type: "WIDGET_TAB_DRAG_START";
   readonly side: PanelSide | undefined;
   readonly widgetId: WidgetState["id"];
   readonly floatingWidgetId: FloatingWidgetState["id"] | undefined;
   readonly id: TabState["id"];
-  readonly position: PointProps;
+  readonly position: XAndY;
   readonly userSized?: boolean;
 }
 
 /** @internal */
 export interface WidgetTabDragAction {
   readonly type: "WIDGET_TAB_DRAG";
-  readonly dragBy: PointProps;
+  readonly dragBy: XAndY;
 }
 
 /** @internal */
@@ -186,6 +188,66 @@ export interface WidgetTabDragEndAction {
   readonly type: "WIDGET_TAB_DRAG_END";
   readonly id: TabState["id"];
   readonly target: TabDragDropTargetState;
+}
+
+/** @internal */
+export interface WidgetTabCloseAction {
+  readonly type: "WIDGET_TAB_CLOSE";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
+export interface WidgetTabFloatAction {
+  readonly type: "WIDGET_TAB_FLOAT";
+  readonly id: TabState["id"];
+  readonly position?: XAndY;
+  readonly size?: SizeProps;
+}
+
+/** @internal */
+export interface WidgetTabHideAction {
+  readonly type: "WIDGET_TAB_HIDE";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
+export interface WidgetTabSetLabelAction {
+  readonly type: "WIDGET_TAB_SET_LABEL";
+  readonly id: TabState["id"];
+  readonly label: TabState["label"];
+}
+
+/** @internal */
+export interface WidgetTabOpenAction {
+  readonly type: "WIDGET_TAB_OPEN";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
+export interface WidgetTabPopoutAction {
+  readonly type: "WIDGET_TAB_POPOUT";
+  readonly id: TabState["id"];
+  readonly position?: XAndY;
+  readonly size?: SizeProps;
+}
+
+/** @internal */
+export interface WidgetTabSetPopoutBoundsAction {
+  readonly type: "WIDGET_TAB_SET_POPOUT_BOUNDS";
+  readonly id: TabState["id"];
+  readonly bounds: RectangleProps | undefined;
+}
+
+/** @internal */
+export interface WidgetTabShowAction {
+  readonly type: "WIDGET_TAB_SHOW";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
+export interface WidgetTabExpandAction {
+  readonly type: "WIDGET_TAB_EXPAND";
+  readonly id: TabState["id"];
 }
 
 /** @internal */
@@ -204,6 +266,7 @@ export type NineZoneAction =
   | ResizeAction
   | PanelToggleCollapsedAction
   | PanelSetCollapsedAction
+  | PanelSetPinnedAction
   | PanelSetSizeAction
   | PanelSetSplitterPercentAction
   | PanelToggleSpanAction
@@ -225,5 +288,13 @@ export type NineZoneAction =
   | WidgetTabDragAction
   | WidgetTabDragEndAction
   | WidgetTabPopoutAction
+  | WidgetTabCloseAction
+  | WidgetTabFloatAction
+  | WidgetTabHideAction
+  | WidgetTabOpenAction
+  | WidgetTabSetLabelAction
+  | WidgetTabSetPopoutBoundsAction
+  | WidgetTabShowAction
+  | WidgetTabExpandAction
   | ToolSettingsDragStartAction
   | ToolSettingsDockAction;

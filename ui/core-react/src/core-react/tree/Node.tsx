@@ -140,15 +140,16 @@ export class TreeNode extends React.Component<TreeNodeProps> {
       <div className="core-tree-node-icon">{this.props.icon}</div>
     ) : undefined;
 
-    const toggle =
-      this.props.isLoading || this.props.isLeaf ? undefined : (
-        <ExpansionToggle
-          className="expansion-toggle"
-          data-testid={this.createSubComponentTestId("expansion-toggle")}
-          onClick={this._onClickExpansionToggle}
-          isExpanded={this.props.isExpanded}
-        />
-      );
+    const toggle = this.props.isLoading ? undefined : this.props.isLeaf ? (
+      <div />
+    ) : (
+      <ExpansionToggle
+        className="expansion-toggle"
+        data-testid={this.createSubComponentTestId("expansion-toggle")}
+        onClick={this._onClickExpansionToggle}
+        isExpanded={this.props.isExpanded}
+      />
+    );
 
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events

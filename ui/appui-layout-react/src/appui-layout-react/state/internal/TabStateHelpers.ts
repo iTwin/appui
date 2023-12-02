@@ -6,11 +6,13 @@
  * @module Base
  */
 
-import produce from "immer";
+import produce, { castDraft } from "immer";
 import { UiError } from "@itwin/appui-abstract";
 import type { NineZoneState } from "../NineZoneState";
 import type { DraggedTabState, TabState } from "../TabState";
-import { category } from "./NineZoneStateHelpers";
+import { category, initSizeProps } from "./NineZoneStateHelpers";
+import type { SavedTabState } from "../SavedTabState";
+import type { WritableDraft } from "immer/dist/internal";
 
 /** @internal */
 export function createTabState(
@@ -51,9 +53,39 @@ export function updateTabState(
 
   return produce(state, (draft) => {
     const tab = draft.tabs[id];
-    draft.tabs[id] = {
+    const { preferredFloatingWidgetSize, ...other } = args;
+    draft.tabs[id] = castDraft({
       ...tab,
-      ...args,
-    };
+      ...other,
+    });
+    if (preferredFloatingWidgetSize)
+      initSizeProps(
+        draft.tabs[id],
+        "preferredFloatingWidgetSize",
+        preferredFloatingWidgetSize
+      );
+  });
+}
+
+/** @internal */
+export function updateSavedTabState(
+  state: NineZoneState,
+  id: TabState["id"],
+  update: (draft: WritableDraft<SavedTabState>) => void
+) {
+  return produce(state, (draft) => {
+    const allIds = draft.savedTabs.allIds;
+    const byId = draft.savedTabs.byId;
+    let tab = byId[id];
+    if (!tab) {
+      allIds.push(id);
+      tab = byId[id] = { id };
+    } else {
+      const index = allIds.indexOf(id);
+      allIds.splice(index, 1);
+      allIds.push(id);
+    }
+
+    update(tab);
   });
 }
