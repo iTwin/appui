@@ -47,8 +47,8 @@ export interface PropertyEditorProps extends CommonProps {
    * @internal
    */
   shouldCommitOnChange?: boolean;
-  /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
-  size?: "small" | "large";
+  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
+  size?: "medium" | "large";
 }
 
 /** [[EditorContainer]] React component properties
@@ -73,8 +73,8 @@ export interface EditorContainerProps extends CommonProps {
    * @internal
    */
   shouldCommitOnChange?: boolean;
-  /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
-  size?: "small" | "large";
+  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
+  size?: "medium" | "large";
 }
 
 /** @internal */

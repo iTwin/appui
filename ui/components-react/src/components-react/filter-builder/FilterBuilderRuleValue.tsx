@@ -24,8 +24,8 @@ export interface PropertyFilterBuilderRuleValueProps {
   property: PropertyDescription;
   /** Callback that is invoked when value changes. */
   onChange: (value: PropertyValue) => void;
-  /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
-  size?: "small" | "large";
+  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
+  size?: "medium" | "large";
 }
 
 /**

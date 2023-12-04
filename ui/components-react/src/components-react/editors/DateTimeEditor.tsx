@@ -46,7 +46,7 @@ interface DateTimeEditorState {
 /** @internal */
 interface DateTimeEditorProps extends PropertyEditorProps {
   showTime?: boolean;
-  size?: "small" | "large";
+  size?: "medium" | "large";
 }
 
 /** DateTimeEditor React component that is a property editor for selection of date and time.

@@ -27,8 +27,8 @@ export interface PropertyFilterBuilderRuleOperatorProps {
   property: PropertyDescription;
   /** Callback that is invoked when selected operator changes. */
   onChange: (operator: PropertyFilterRuleOperator) => void;
-  /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
-  size?: "small" | "large";
+  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
+  size?: "medium" | "large";
 }
 
 /**
@@ -66,7 +66,7 @@ export function PropertyFilterBuilderRuleOperator(
         options={availableOptions}
         value={selectedOperator}
         onChange={onChange}
-        size={size}
+        size={!size ? "small" : size === "medium" ? undefined : "large"}
       />
     </div>
   );

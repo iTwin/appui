@@ -15,7 +15,7 @@ import { PropertyFilterRuleGroupOperator } from "./Operators";
  */
 export interface PropertyFilterBuilderLogicalOperatorProps {
   /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
-  size?: "small" | "large";
+  size?: "medium" | "large";
   /** Allows toggling of operator by clicking operator text. */
   isDisabled?: boolean;
   /** Operator to combine FilterBuilderRules. Must be either "And" or "Or". */

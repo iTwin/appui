@@ -203,7 +203,13 @@ export class EnumEditor
           options={this.state.options}
           setFocus={this.props.setFocus}
           aria-label={this._ariaLabel}
-          size={this.props.size}
+          size={
+            !this.props.size
+              ? "small"
+              : this.props.size === "medium"
+              ? undefined
+              : "large"
+          }
         />
       </div>
     );

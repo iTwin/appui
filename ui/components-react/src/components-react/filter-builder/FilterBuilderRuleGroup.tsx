@@ -35,7 +35,7 @@ export interface PropertyFilterBuilderRuleGroupRendererProps {
   /** Rule group to render. */
   group: PropertyFilterBuilderRuleGroup;
   /** Size to render components. If undefined, defaults to iTwinUI "medium" size. */
-  size?: "small" | "large";
+  size?: "medium" | "large";
 }
 
 /**
@@ -125,7 +125,7 @@ export interface PropertyFilterBuilderRuleGroupOperatorProps {
   /** Callback that is invoked when selected operator changes. */
   onChange: (operator: PropertyFilterRuleGroupOperator) => void;
   /** Size to render component. If undefined, defaults to iTwinUI "medium" size. */
-  size?: "small" | "large";
+  size?: "medium" | "large";
 }
 
 /**
@@ -156,7 +156,7 @@ interface PropertyFilterBuilderGroupOrRuleProps {
   path: string[];
   item: PropertyFilterBuilderRuleGroupItem;
   onAddRule: () => void;
-  size?: "small" | "large";
+  size?: "medium" | "large";
 }
 
 const PropertyFilterBuilderGroupOrRule = React.memo(

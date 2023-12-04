@@ -53,8 +53,8 @@ export interface PopupButtonProps extends CommonProps {
   onClose?: () => void;
   /** Listens for Enter key in popup */
   onEnter?: () => void;
-  /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
-  size?: "small" | "large";
+  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
+  size?: "medium" | "large";
 }
 
 /** @internal */
@@ -127,11 +127,11 @@ export class PopupButton extends React.PureComponent<
     const classNames = classnames(
       "components-popup-button",
       this.state.showPopup && "components-popup-expanded",
-      this.props.size === "small"
-        ? "components-popup-button-small"
+      this.props.size === "medium"
+        ? "components-popup-button-medium"
         : this.props.size === "large"
         ? "components-popup-button-large"
-        : "components-popup-button-medium"
+        : "components-popup-button-small"
     );
 
     const valueClassNames = classnames(

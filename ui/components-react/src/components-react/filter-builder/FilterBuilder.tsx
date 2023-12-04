@@ -102,6 +102,8 @@ export interface PropertyFilterBuilderRendererProps {
   ruleGroupDepthLimit?: number;
   /** Specifies whether component is disabled or not. */
   isDisabled?: boolean;
+  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
+  size?: "medium" | "large";
 }
 
 const ROOT_GROUP_PATH: string[] = [];
@@ -122,6 +124,7 @@ export function PropertyFilterBuilderRenderer(
     ruleValueRenderer,
     propertyRenderer,
     isDisabled,
+    size,
   } = props;
   const rootRef = React.useRef<HTMLDivElement>(null);
 
@@ -155,7 +158,7 @@ export function PropertyFilterBuilderRenderer(
             <PropertyFilterBuilderRuleGroupRenderer
               path={ROOT_GROUP_PATH}
               group={rootGroup}
-              size={"small"}
+              size={size}
             />
           </Flex>
         </ActiveRuleGroupContext.Provider>

@@ -13,7 +13,7 @@ import { UiComponents } from "../UiComponents";
  */
 interface PropertyFilterBuilderToolbarProps {
   /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
-  size?: "small" | "large";
+  size?: "medium" | "large";
   /** Function to add child of current group. */
   onAddChild: () => void;
   /** Function to remove child from current group. */
@@ -36,7 +36,7 @@ export const PropertyFilterBuilderToolbar = (
       {...rest}
     >
       <IconButton
-        size={size}
+        size={!size ? "small" : size === "medium" ? undefined : "large"}
         data-testid="fb-add-rule-button"
         label={UiComponents.translate("filterBuilder.add")}
         styleType="borderless"
@@ -45,7 +45,7 @@ export const PropertyFilterBuilderToolbar = (
         <SvgAdd />
       </IconButton>
       <IconButton
-        size={size}
+        size={!size ? "small" : size === "medium" ? undefined : "large"}
         data-testid="fb-remove-rule-button"
         label={UiComponents.translate("filterBuilder.delete")}
         styleType="borderless"

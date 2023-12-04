@@ -620,7 +620,7 @@ export interface EditorContainerProps extends CommonProps {
     setFocus?: boolean;
     // @internal
     shouldCommitOnChange?: boolean;
-    size?: "small" | "large";
+    size?: "medium" | "large";;
     title?: string;
 }
 
@@ -2046,7 +2046,7 @@ export interface PropertyEditorProps extends CommonProps {
     setFocus?: boolean;
     // @internal
     shouldCommitOnChange?: boolean;
-    size?: "small" | "large";
+    size?: "medium" | "large";;
 }
 
 // @beta
@@ -2121,7 +2121,7 @@ export interface PropertyFilterBuilderRuleOperatorProps {
     onChange: (operator: PropertyFilterRuleOperator) => void;
     operator?: PropertyFilterRuleOperator;
     property: PropertyDescription;
-    size?: "small" | "large";
+    size?: "medium" | "large";;
 }
 
 // @beta
@@ -2131,7 +2131,7 @@ export function PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleV
 export interface PropertyFilterBuilderRuleValueProps {
     onChange: (value: PropertyValue) => void;
     property: PropertyDescription;
-    size?: "small" | "large";
+    size?: "medium" | "large";;
     value?: PropertyValue;
 }
 
@@ -2868,7 +2868,7 @@ export interface TimeFieldProps {
     // (undocumented)
     readOnly?: boolean;
     // (undocumented)
-    size?: "small" | "large";
+    size?: "medium" | "large";;
     // (undocumented)
     time: TimeSpec;
     // (undocumented)

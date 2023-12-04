@@ -28,8 +28,8 @@ export interface PropertyFilterBuilderRulePropertyProps {
   propertyRenderer?: (name: string) => React.ReactNode;
   /** Specifies whether selector should be disabled or not. */
   isDisabled?: boolean;
-  /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
-  size?: "small" | "large";
+  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
+  size?: "medium" | "large";
 }
 
 /**
@@ -98,7 +98,11 @@ export function PropertyFilterBuilderRuleProperty(
         inputProps={{
           placeholder: UiComponents.translate("filterBuilder.chooseProperty"),
           disabled: isDisabled,
-          size: props.size,
+          size: !props.size
+            ? "small"
+            : props.size === "medium"
+            ? undefined
+            : "large",
         }}
         itemRenderer={itemRenderer}
         enableVirtualization={true}

@@ -772,7 +772,7 @@ export interface IconInputProps extends Omit<InputProps, "size"> {
     containerClassName?: string;
     icon: React_2.ReactNode;
     ref?: React_2.Ref<HTMLInputElement>;
-    size?: "small" | "large";
+    size?: "medium" | "large";;
 }
 
 // @public
