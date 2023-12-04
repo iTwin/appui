@@ -1,6 +1,16 @@
 # Change Log - @itwin/appui-layout-react
 
-This log was last generated on Wed, 25 Oct 2023 09:39:22 GMT and should not be manually modified.
+This log was last generated on Fri, 01 Dec 2023 20:01:16 GMT and should not be manually modified.
+
+## 4.7.0
+Fri, 01 Dec 2023 20:01:16 GMT
+
+### Updates
+
+- No longer consume SpecialKey from appui-abstract; use icon path directly instead of IconSpecUtilities
+- Fixed an issue where drop target is being displayed in a dragged floating widget.
+- disable text selection when resizing a stage panel
+- Remove remaining UI 2.0 mention in docs
 
 ## 4.6.3
 Wed, 25 Oct 2023 09:39:22 GMT

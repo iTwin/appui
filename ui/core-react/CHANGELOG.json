@@ -2,6 +2,24 @@
   "name": "@itwin/core-react",
   "entries": [
     {
+      "version": "4.7.0",
+      "tag": "@itwin/core-react_v4.7.0",
+      "date": "Fri, 01 Dec 2023 20:01:16 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "No longer consume deprecated appui-abstract types: getObjectClassName, SpecialKey, isArrowKey, IMatch; use icon path directly instead of IconSpecUtilities"
+          },
+          {
+            "comment": "Fixed `useDisposable` hook to work in React 18 strict mode."
+          },
+          {
+            "comment": "Add high contrast themes support and simplify unused css variables"
+          }
+        ]
+      }
+    },
+    {
       "version": "4.6.3",
       "tag": "@itwin/core-react_v4.6.3",
       "date": "Wed, 25 Oct 2023 09:39:22 GMT",
