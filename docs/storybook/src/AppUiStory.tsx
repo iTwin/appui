@@ -47,6 +47,7 @@ export interface AppUiStoryProps {
   itemProviders?: UiItemsProvider[];
   layout?: "fullscreen";
   onInitialize?: () => Promise<void>;
+  onFrontstageActivated?: () => void;
 }
 
 export function AppUiStory(props: AppUiStoryProps) {
@@ -130,12 +131,20 @@ export function AppUiStory(props: AppUiStoryProps) {
 
 function Initialized(props: AppUiStoryProps) {
   React.useEffect(() => {
+    let ignore = false;
     const frontstageProviders = getFrontstageProviders(
       props.frontstageProviders
     );
     const defaultProvider = frontstageProviders[0];
-    defaultProvider &&
-      void UiFramework.frontstages.setActiveFrontstage(defaultProvider.id);
+    (async function () {
+      if (!defaultProvider) return;
+      await UiFramework.frontstages.setActiveFrontstage(defaultProvider.id);
+      if (ignore) return;
+      props.onFrontstageActivated?.();
+    })();
+    return () => {
+      ignore = true;
+    };
   }, [props.frontstageProviders]);
   return (
     <>

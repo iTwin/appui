@@ -4,26 +4,36 @@
  *--------------------------------------------------------------------------------------------*/
 // __PUBLISH_EXTRACT_START__ AppUI.ToolSettings.SupplyProperties
 import { DialogItem } from "@itwin/appui-abstract";
-import { IModelApp, InteractiveTool } from "@itwin/core-frontend";
+import { PrimitiveTool } from "@itwin/core-frontend";
 
-export class CustomTool extends InteractiveTool /*PrimitiveTool*/ {
+export class CustomTool extends PrimitiveTool {
   public static override toolId = "example:CustomTool";
 
-  // public override requireWriteableTarget() {
-  //   return false;
-  // }
+  public override requireWriteableTarget() {
+    return false;
+  }
 
-  // public override onRestartTool(): Promise<void> {
-  //   return this.exitTool();
-  // }
-
-  // TODO: InteractiveTool
-  public override exitTool(): Promise<void> {
-    return IModelApp.toolAdmin.startDefaultTool();
+  public override onRestartTool() {
+    return this.exitTool();
   }
 
   public override supplyToolSettingsProperties(): DialogItem[] | undefined {
-    throw new Error("Method not implemented.");
+    return [
+      {
+        property: {
+          displayLabel: "My Property",
+          name: "myProperty",
+          typename: "string",
+        },
+        value: {
+          displayValue: "My Value",
+        },
+        editorPosition: {
+          columnIndex: 0,
+          rowPriority: 0,
+        },
+      },
+    ];
   }
 }
 // __PUBLISH_EXTRACT_END__
