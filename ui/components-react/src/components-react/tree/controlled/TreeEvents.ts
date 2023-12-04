@@ -29,12 +29,12 @@ export interface TreeEvents {
   onNodeExpanded?(event: TreeNodeEventArgs): void;
   /** Called when tree node is collapsed. */
   onNodeCollapsed?(event: TreeNodeEventArgs): void;
-
   /** Called when selected tree node is clicked. */
   onDelayedNodeClick?(event: TreeNodeEventArgs): void;
+  /** Called when a tree node is double-clicked */
+  onNodeDoubleClick?(event: TreeNodeEventArgs): void;
   /** Called when selected tree node editor is activated. */
   onNodeEditorActivated?(event: TreeNodeEventArgs): void;
-
   /**
    * Called when tree selection is modified.
    * If Subscription is returned it can be used to stop event handling by calling `unsubscribe()`.

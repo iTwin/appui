@@ -1,6 +1,6 @@
 {
   "name": "@itwin/appui-layout-react",
-  "version": "4.7.0-dev.0",
+  "version": "4.8.0-dev.0",
   "description": "iTwin.js Nine-zone React UI components",
   "main": "lib/cjs/appui-layout-react.js",
   "module": "lib/esm/appui-layout-react.js",
@@ -42,7 +42,7 @@
   "peerDependencies": {
     "@itwin/appui-abstract": "^3.7.0 || ^4.0.0",
     "@itwin/core-bentley": "^3.7.0 || ^4.0.0",
-    "@itwin/core-react": "workspace:^4.7.0-dev.0",
+    "@itwin/core-react": "workspace:^4.8.0-dev.0",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0"
   },

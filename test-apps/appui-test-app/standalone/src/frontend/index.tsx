@@ -579,19 +579,21 @@ const SampleAppViewer = () => {
   useHandleURLParams();
 
   return (
-    <Provider store={SampleAppIModelApp.store}>
-      <ThemeManager>
-        <SafeAreaContext.Provider value={SafeAreaInsets.All}>
-          <AppDragInteraction>
-            <UiStateStorageHandler>
-              <ApplicationLayoutProvider>
-                <AppViewerContent />
-              </ApplicationLayoutProvider>
-            </UiStateStorageHandler>
-          </AppDragInteraction>
-        </SafeAreaContext.Provider>
-      </ThemeManager>
-    </Provider>
+    <PreviewFeaturesToggleProvider.ReactProvider>
+      <Provider store={SampleAppIModelApp.store}>
+        <ThemeManager>
+          <SafeAreaContext.Provider value={SafeAreaInsets.All}>
+            <AppDragInteraction>
+              <UiStateStorageHandler>
+                <ApplicationLayoutProvider>
+                  <AppViewerContent />
+                </ApplicationLayoutProvider>
+              </UiStateStorageHandler>
+            </AppDragInteraction>
+          </SafeAreaContext.Provider>
+        </ThemeManager>
+      </Provider>
+    </PreviewFeaturesToggleProvider.ReactProvider>
   );
 };
 

@@ -65,10 +65,6 @@ import {
   SyncUiEventDispatcher,
   SyncUiEventId,
 } from "./syncui/SyncUiEventDispatcher";
-import {
-  type PreviewFeatures,
-  usePreviewFeaturesStore,
-} from "./preview/PreviewFeatures";
 
 // cSpell:ignore Mobi
 
@@ -232,20 +228,6 @@ export class UiFramework {
    * @param frameworkStateKey The name of the key used by the app when adding the UiFramework state into the Redux store. If not defined "frameworkState" is assumed. This value is ignored if [[StateManager]] is being used. The StateManager use "frameworkState".
    */
   public static async initialize(
-    store: Store<any> | undefined,
-    frameworkStateKey?: string
-  ): Promise<void> {
-    return this.initializeEx(store, frameworkStateKey);
-  }
-
-  /**
-   * Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore.
-   * @param store The single Redux store created by the host application. If this is `undefined` then it is assumed that the [[StateManager]] is being used to provide the Redux store.
-   * @param frameworkStateKey The name of the key used by the app when adding the UiFramework state into the Redux store. If not defined "frameworkState" is assumed. This value is ignored if [[StateManager]] is being used. The StateManager use "frameworkState".
-   *
-   * @internal
-   */
-  public static async initializeEx(
     store: Store<any> | undefined,
     frameworkStateKey?: string
   ): Promise<void> {
@@ -865,22 +847,5 @@ export class UiFramework {
   public static get isContextMenuOpen(): boolean {
     const contextMenu = document.querySelector("div.core-context-menu-opened");
     return contextMenu !== null && contextMenu !== undefined;
-  }
-
-  /** Set which preview features are enabled. These features are not yet ready for production use nor have
-   * a proper API defined yet.
-   * The available set of features are defined in the [[PreviewFeatures]] interface.
-   * @param features Set of feature to enable.
-   * @beta
-   */
-  public static setPreviewFeatures(features: PreviewFeatures) {
-    return usePreviewFeaturesStore.getState().setPreviewFeatures(features);
-  }
-
-  /** Get which preview features are enabled. These features are not yet ready for production use.
-   * @beta
-   */
-  public static get previewFeatures(): PreviewFeatures {
-    return usePreviewFeaturesStore.getState().previewFeatures;
   }
 }

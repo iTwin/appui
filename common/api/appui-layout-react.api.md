@@ -581,6 +581,12 @@ export function isWidgetDropTargetState(state: DropTargetState): state is Widget
 // @internal (undocumented)
 export function isWindowDropTargetState(state: WidgetDragDropTargetState): state is WindowDropTargetState;
 
+// @internal
+export interface KnownPreviewLayoutFeatures {
+    contentAlwaysMaxSize: boolean;
+    enableMaximizedFloatingWidget: boolean;
+}
+
 // @internal (undocumented)
 export type LayoutState = NineZoneState;
 
@@ -1011,7 +1017,21 @@ export interface PopoutWidgetState {
 }
 
 // @internal
-export const PreviewFeaturesProvider: ({ children, ...props }: PreviewFeaturesProviderProps) => JSX.Element;
+export const PreviewLayoutFeaturesProvider: ({ children, ...props }: PreviewFeaturesProviderProps) => JSX.Element;
+
+// @internal
+export function PreviewMaximizedWidgetFeatureProvider({ enabled, children, }: PreviewMaximizedWidgetFeatureProviderProps): JSX.Element;
+
+// @internal
+export interface PreviewMaximizedWidgetFeatureProviderProps {
+    // (undocumented)
+    children?: React_2.ReactNode;
+    // (undocumented)
+    enabled?: boolean;
+}
+
+// @internal (undocumented)
+export function PreviewMaximizeToggle(): JSX.Element;
 
 // @internal
 export function removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
@@ -1568,10 +1588,10 @@ export interface UsePanelTargetArgs {
 export const usePointerCaptor: <T extends HTMLElement>(onPointerDown?: ((args: PointerCaptorArgs, e: PointerCaptorEvent) => void) | undefined, onPointerMove?: ((args: PointerCaptorArgs, e: PointerCaptorEvent) => void) | undefined, onPointerUp?: ((e: PointerCaptorEvent) => void) | undefined) => (instance: T | null) => void;
 
 // @internal
-export const usePreviewFeatures: () => KnownPreviewFeatures & {
-    previewState: PreviewFeatureState;
-    previewDispatch: React_2.Dispatch<PreviewActions>;
-};
+export const usePreviewFeatures: () => Partial<KnownPreviewLayoutFeatures>;
+
+// @internal
+export function usePreviewMaximizedWidget(): MaximizedWidgetState;
 
 // @internal (undocumented)
 export const useResizeGrip: <T extends HTMLElement>() => [(instance: T | null) => void, boolean, boolean];

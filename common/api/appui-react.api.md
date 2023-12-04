@@ -51,6 +51,7 @@ import { InferableComponentEnhancerWithProps } from 'react-redux';
 import type { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
 import type { Key } from 'ts-key-enum';
+import { KnownPreviewLayoutFeatures } from '@itwin/appui-layout-react';
 import type { LayoutFragmentProps } from '@itwin/appui-abstract';
 import type { LayoutStore } from '@itwin/appui-layout-react';
 import type { Localization } from '@itwin/core-common';
@@ -3504,6 +3505,17 @@ export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
     [featureName: string]: any;
 }
 
+// @beta
+export function PreviewFeaturesProvider({ children, features, }: PreviewFeaturesProviderProps): JSX.Element;
+
+// @beta
+export interface PreviewFeaturesProviderProps {
+    // (undocumented)
+    children?: React_2.ReactNode;
+    // (undocumented)
+    features?: PreviewFeatures;
+}
+
 // @public
 export class PropsHelper {
     // @deprecated (undocumented)
@@ -4830,8 +4842,6 @@ export class UiFramework {
     static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler;
     static initialize(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void>;
     static get initialized(): boolean;
-    // @internal
-    static initializeEx(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void>;
     static initializeStateFromUserSettingsProviders(immediateSync?: boolean): Promise<void>;
     // @alpha
     static get isContextMenuOpen(): boolean;
@@ -4848,8 +4858,6 @@ export class UiFramework {
     static openCursorMenu(menuData: CursorMenuData | undefined): void;
     // @internal (undocumented)
     static get packageName(): string;
-    // @beta
-    static get previewFeatures(): PreviewFeatures;
     static registerUserSettingsProvider(entry: UserSettingsProvider): boolean;
     // (undocumented)
     static setAccudrawSnapMode(snapMode: SnapMode): void;
@@ -4872,8 +4880,6 @@ export class UiFramework {
     static setIModelConnection(iModelConnection: IModelConnection | undefined, immediateSync?: boolean): void;
     // (undocumented)
     static setIsUiVisible(visible: boolean): void;
-    // @beta
-    static setPreviewFeatures(features: PreviewFeatures): void;
     // (undocumented)
     static setShowWidgetIcon(value: boolean): void;
     static get settingsManager(): SettingsManager;
