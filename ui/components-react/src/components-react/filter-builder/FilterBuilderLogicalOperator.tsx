@@ -45,15 +45,17 @@ export const PropertyFilterBuilderLogicalOperator = (
       data-iui-size={size}
       {...rest}
     >
-      {undefined === operator ? (
-        <span>{UiComponents.translate("filterBuilder.group")}</span>
-      ) : isDisabled ? (
+      {isDisabled ? (
         <span>
-          {operator === PropertyFilterRuleGroupOperator.And ? "And" : "Or"}
+          {operator === PropertyFilterRuleGroupOperator.And
+            ? UiComponents.translate("filterBuilder.operators.and")
+            : UiComponents.translate("filterBuilder.operators.or")}
         </span>
       ) : (
         <Anchor onClick={() => onOperatorChange(toggle())}>
-          {operator === PropertyFilterRuleGroupOperator.And ? "And" : "Or"}
+          {operator === PropertyFilterRuleGroupOperator.And
+            ? UiComponents.translate("filterBuilder.operators.and")
+            : UiComponents.translate("filterBuilder.operators.or")}
         </Anchor>
       )}
     </div>
