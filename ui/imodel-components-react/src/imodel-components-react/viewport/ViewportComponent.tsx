@@ -26,7 +26,10 @@ import {
   ToolSettings,
 } from "@itwin/core-frontend";
 
-import type { CommonProps } from "@itwin/core-react";
+import {
+  type CommonProps,
+  ResizableContainerObserver,
+} from "@itwin/core-react";
 import type {
   CubeRotationChangeEventArgs,
   DrawingViewportChangeEventArgs,
@@ -96,6 +99,8 @@ export function ViewportComponent(props: ViewportProps) {
   const isMounted = React.useRef(false);
   const viewClassFullName = React.useRef("");
   const viewId = React.useRef("0");
+  const [isLargeEnoughForInitialRender, setIsLargeEnoughForInitialRender] =
+    React.useState(false);
 
   // istanbul ignore next
   const handleViewChanged = (vp: Viewport) => {
@@ -340,6 +345,7 @@ export function ViewportComponent(props: ViewportProps) {
     const viewManager = viewManagerRef.current;
     // istanbul ignore next
     if (
+      isLargeEnoughForInitialRender &&
       parentDiv &&
       initialViewState &&
       (initialViewState?.iModel.isOpen || initialViewState?.iModel.isBlank)
@@ -364,7 +370,7 @@ export function ViewportComponent(props: ViewportProps) {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [controlId, initialViewState, viewportRef]);
+  }, [controlId, initialViewState, viewportRef, isLargeEnoughForInitialRender]);
 
   const handleContextMenu = React.useCallback(
     (e: React.MouseEvent) => {
@@ -388,16 +394,21 @@ export function ViewportComponent(props: ViewportProps) {
 
   return (
     <div style={parentDivStyle} data-item-id={controlId}>
-      <>
-        <div
-          ref={viewportDiv}
-          data-testid="viewport-component"
-          className={className}
-          style={viewportDivStyle}
-          onContextMenu={handleContextMenu}
+      {!isLargeEnoughForInitialRender && (
+        <ResizableContainerObserver
+          onResize={(w, h) =>
+            setIsLargeEnoughForInitialRender(![w, h].includes(0))
+          }
         />
-        {viewOverlay}
-      </>
+      )}
+      <div
+        ref={viewportDiv}
+        data-testid="viewport-component"
+        className={className}
+        style={viewportDivStyle}
+        onContextMenu={handleContextMenu}
+      />
+      {viewOverlay}
     </div>
   );
 }
