@@ -128,6 +128,7 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
         canFloat: {
           containerId: "appui-test-providers:viewport-widget",
         },
+        canPopout: true,
         content: <ViewportWidgetComponent />,
       });
     }

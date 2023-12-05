@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/imodel-components-react",
-      "comment": "Remove additional `changeView` call on `ViewportComponent` mount.",
+      "comment": "`ViewportComponent` will now wait to have positive space before creating iTwin.js viewport.",
       "type": "none"
     }
   ],
