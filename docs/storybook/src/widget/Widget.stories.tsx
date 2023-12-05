@@ -7,7 +7,7 @@ import { BadgeType } from "@itwin/appui-abstract";
 import { WidgetState } from "@itwin/appui-react";
 import { AppUiDecorator } from "../AppUiDecorator";
 import { Page } from "../AppUiStory";
-import { WidgetStory } from "./Widget";
+import { StoryWidget, WidgetStory } from "./Widget";
 
 const meta = {
   title: "Widget/Widget",
@@ -22,7 +22,7 @@ const meta = {
   args: {
     id: "w1",
     label: "Widget 1",
-    content: <>Widget 1 content </>,
+    content: <StoryWidget id="w1" />,
   },
 } satisfies Meta<typeof WidgetStory>;
 
@@ -30,6 +30,12 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+export const Unloaded: Story = {
+  args: {
+    defaultState: WidgetState.Unloaded,
+  },
+};
 
 export const Floating: Story = {
   args: {

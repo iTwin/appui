@@ -2,8 +2,26 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { UiItemsProvider, Widget } from "@itwin/appui-react";
+import React from "react";
+import { action } from "@storybook/addon-actions";
+import {
+  StagePanelState,
+  UiItemsProvider,
+  Widget,
+  WidgetState,
+} from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
+import { createFrontstageProvider } from "../Utils";
+
+export function StoryWidget({ id }: { id: string }) {
+  React.useEffect(() => {
+    action(`Widget ${id} mounted`)();
+    return () => {
+      action(`Widget ${id} unmounted`)();
+    };
+  });
+  return <>Widget {id} content </>;
+}
 
 function createProvider(props: Widget): UiItemsProvider {
   return {
@@ -12,7 +30,8 @@ function createProvider(props: Widget): UiItemsProvider {
       const widget2: Widget = {
         id: "w2",
         label: "Widget 2",
-        content: <>Widget 2 content </>,
+        content: <StoryWidget id="w2" />,
+        defaultState: WidgetState.Open,
       };
       return [props, widget2];
     },
@@ -22,5 +41,18 @@ function createProvider(props: Widget): UiItemsProvider {
 /** [Widget](https://www.itwinjs.org/reference/appui-react/widget/widget) interface allows you to configure the widget. */
 export function WidgetStory(props: Widget) {
   const provider = createProvider(props);
-  return <AppUiStory itemProviders={[provider]} {...props} />;
+  return (
+    <AppUiStory
+      frontstageProviders={[
+        createFrontstageProvider({
+          leftPanelProps: {
+            defaultState: StagePanelState.Open,
+            pinned: true,
+          },
+        }),
+      ]}
+      itemProviders={[provider]}
+      {...props}
+    />
+  );
 }
