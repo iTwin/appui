@@ -50,7 +50,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
   const { onNewRuleAdded, groupRef } = useRulePropertyFocus(group.items.length);
 
   const handleAddRule = () => {
-    actions.addItem(path);
+    actions.addItem(path, "RULE");
     onNewRuleAdded();
   };
   const removeGroup = () => actions.removeItem(path);

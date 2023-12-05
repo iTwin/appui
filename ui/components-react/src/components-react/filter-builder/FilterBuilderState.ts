@@ -91,11 +91,14 @@ export class PropertyFilterBuilderActions {
   }
 
   /** Adds new rule or group of rules to the group specified by path. */
-  public addItem(path: string[]) {
+  public addItem(path: string[], itemType: "RULE_GROUP" | "RULE") {
     this.updateState((state) => {
       const parentGroup = findRuleGroup(state.rootGroup, path);
       if (!parentGroup) return;
-      const item = createEmptyRule(parentGroup.id);
+      const item =
+        itemType === "RULE_GROUP"
+          ? createEmptyRuleGroup(parentGroup.id)
+          : createEmptyRule(parentGroup.id);
       parentGroup.items.push(item);
     });
   }

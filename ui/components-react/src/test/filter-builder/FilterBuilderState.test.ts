@@ -57,7 +57,7 @@ describe("usePropertyFilterBuilder", () => {
   it("adds rule to root group", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions } = result.current;
-    actions.addItem([]);
+    actions.addItem([], "RULE");
 
     const { rootGroup } = result.current;
     expect(rootGroup.items).to.have.lengthOf(2);
@@ -70,7 +70,7 @@ describe("usePropertyFilterBuilder", () => {
   it("does not change state if parent group is not found when adding item", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { rootGroup, actions } = result.current;
-    actions.addItem(["invalidParent"]);
+    actions.addItem(["invalidParent"], "RULE");
 
     const { rootGroup: newRootGroup } = result.current;
     expect(rootGroup).to.be.eq(newRootGroup);
@@ -79,7 +79,7 @@ describe("usePropertyFilterBuilder", () => {
   it("removes rule from root group", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions } = result.current;
-    actions.addItem([]);
+    actions.addItem([], "RULE");
 
     let { rootGroup } = result.current;
 
