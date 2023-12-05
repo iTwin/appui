@@ -79,7 +79,7 @@ export class InternalContentViewManager {
       }
       floatingControls.forEach((contentControl: ContentControl) => {
         const node = contentControl.reactNode;
-        const key = (node as React.ReactElement<any>).key as string;
+        const key = (node as React.ReactElement<any>)?.key as string;
         const nodeId = key && key.split("::", 1)[0];
         if (nodeId === controlId) control = contentControl;
       });
