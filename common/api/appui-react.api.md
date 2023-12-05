@@ -2069,7 +2069,7 @@ export interface FrameworkState {
     sessionState: SessionState;
 }
 
-// @alpha
+// @beta
 export class FrameworkToolAdmin extends ToolAdmin {
     processShortcutKey(e: KeyboardEvent, wentDown: boolean): Promise<boolean>;
 }
