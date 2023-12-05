@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Now support `null` Content (allow delay rendering on specific cases)",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
