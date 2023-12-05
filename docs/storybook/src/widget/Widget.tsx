@@ -31,7 +31,6 @@ function createProvider(props: Widget): UiItemsProvider {
         id: "w2",
         label: "Widget 2",
         content: <StoryWidget id="w2" />,
-        defaultState: WidgetState.Open,
       };
       return [props, widget2];
     },

@@ -13,6 +13,7 @@ Table of contents:
 ### Changes
 
 - Promoted `FrameworkToolAdmin` to _beta_. #618
+- Correctly handle `WidgetState.Unloaded` and keep widget content unmounted when widget is unloaded. #617
 
 ## @itwin/components-react
 
