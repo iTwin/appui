@@ -603,9 +603,8 @@ function hideWidgets(
     }
     if (widgetDef.defaultState === WidgetState.Unloaded) {
       state = NineZoneStateReducer(state, {
-        type: "WIDGET_TAB_SET_LOADED",
+        type: "WIDGET_TAB_UNLOAD",
         id: widgetDef.id,
-        loaded: false,
       });
     }
   }

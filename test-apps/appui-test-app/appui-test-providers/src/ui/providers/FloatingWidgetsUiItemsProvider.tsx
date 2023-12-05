@@ -96,7 +96,9 @@ export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
           containerId: "appui-test-providers:PopoutMountUnmountWidget",
           defaultPosition: { x: 101, y: 200 },
         },
-        content: <LogLifecycleWidget id="PopoutMountUnmountWidget" />,
+        content: (
+          <LogLifecycleWidget id="appui-test-providers:PopoutMountUnmountWidget" />
+        ),
         canPopout: true,
         allowedPanels: [StagePanelLocation.Left],
       });

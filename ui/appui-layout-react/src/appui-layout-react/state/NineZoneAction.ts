@@ -218,13 +218,6 @@ export interface WidgetTabSetLabelAction {
 }
 
 /** @internal */
-export interface WidgetTabSetLoadedAction {
-  readonly type: "WIDGET_TAB_SET_LOADED";
-  readonly id: TabState["id"];
-  readonly loaded: boolean;
-}
-
-/** @internal */
 export interface WidgetTabOpenAction {
   readonly type: "WIDGET_TAB_OPEN";
   readonly id: TabState["id"];
@@ -254,6 +247,12 @@ export interface WidgetTabShowAction {
 /** @internal */
 export interface WidgetTabExpandAction {
   readonly type: "WIDGET_TAB_EXPAND";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
+export interface WidgetTabUnloadAction {
+  readonly type: "WIDGET_TAB_UNLOAD";
   readonly id: TabState["id"];
 }
 
@@ -290,19 +289,19 @@ export type NineZoneAction =
   | WidgetDragAction
   | WidgetDragEndAction
   | WidgetTabClickAction
+  | WidgetTabCloseAction
   | WidgetTabDoubleClickAction
   | WidgetTabDragStartAction
   | WidgetTabDragAction
   | WidgetTabDragEndAction
-  | WidgetTabPopoutAction
-  | WidgetTabCloseAction
+  | WidgetTabExpandAction
   | WidgetTabFloatAction
   | WidgetTabHideAction
   | WidgetTabOpenAction
+  | WidgetTabPopoutAction
   | WidgetTabSetLabelAction
-  | WidgetTabSetLoadedAction
   | WidgetTabSetPopoutBoundsAction
   | WidgetTabShowAction
-  | WidgetTabExpandAction
+  | WidgetTabUnloadAction
   | ToolSettingsDragStartAction
   | ToolSettingsDockAction;

@@ -583,16 +583,9 @@ export function NineZoneStateReducer(
     case "WIDGET_TAB_HIDE": {
       return hideTab(state, action.id);
     }
-
     case "WIDGET_TAB_SET_LABEL": {
       return updateTabState(state, action.id, {
         label: action.label,
-      });
-    }
-    case "WIDGET_TAB_SET_LOADED": {
-      state = hideTab(state, action.id);
-      return updateTabState(state, action.id, {
-        unloaded: !action.loaded,
       });
     }
     case "WIDGET_TAB_OPEN": {
@@ -699,6 +692,12 @@ export function NineZoneStateReducer(
     case "WIDGET_TAB_SHOW": {
       return showWidgetTab(state, action.id);
     }
+    case "WIDGET_TAB_UNLOAD": {
+      state = hideTab(state, action.id);
+      return updateTabState(state, action.id, {
+        unloaded: true,
+      });
+    }
     case "WIDGET_TAB_EXPAND": {
       state = showWidgetTab(state, action.id);
       const location = getTabLocation(state, action.id);
@@ -803,6 +802,9 @@ function unhideTab(state: NineZoneState, id: TabState["id"]) {
     location = getTabLocation(state, id);
     assert(!!location);
   }
+  state = updateTabState(state, id, {
+    unloaded: false,
+  });
   return [state, location] as const;
 }
 
@@ -814,6 +816,10 @@ function hideTab(state: NineZoneState, id: TabState["id"]) {
     if (isToolSettings && draft.toolSettings.type === "docked") {
       draft.toolSettings.hidden = true;
     }
+  });
+
+  state = updateTabState(state, id, {
+    unloaded: false,
   });
 
   const location = getTabLocation(state, id);
