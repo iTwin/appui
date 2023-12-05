@@ -22,7 +22,7 @@ import type {
   PropertyFilterBuilderRuleGroupItem,
 } from "./FilterBuilderState";
 import { isPropertyFilterBuilderRuleGroup } from "./FilterBuilderState";
-import { PropertyFilterRuleGroupOperator } from "./Operators";
+import type { PropertyFilterRuleGroupOperator } from "./Operators";
 import { PropertyFilterBuilderLogicalOperator } from "./FilterBuilderLogicalOperator";
 
 /**
