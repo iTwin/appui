@@ -581,49 +581,18 @@ export function NineZoneStateReducer(
       });
     }
     case "WIDGET_TAB_HIDE": {
-      const { id } = action;
-      state = produce(state, (draft) => {
-        if (!draft.toolSettings) return;
-
-        const isToolSettings = draft.toolSettings.tabId === id;
-        if (isToolSettings && draft.toolSettings.type === "docked") {
-          draft.toolSettings.hidden = true;
-        }
-      });
-
-      const location = getTabLocation(state, id);
-      if (!location) return state;
-
-      const widgetId = location.widgetId;
-      const tabIndex = state.widgets[widgetId].tabs.indexOf(id);
-      if (isFloatingTabLocation(location)) {
-        const floatingWidget = state.floatingWidgets.byId[widgetId];
-        // widgetDef.setFloatingContainerId(location.floatingWidgetId);
-        state = updateSavedTabState(state, id, (draft) => {
-          draft.home = {
-            widgetId,
-            tabIndex,
-            floatingWidget,
-          };
-        });
-      } else if (isPanelTabLocation(location)) {
-        const side = location.side;
-        const widgetIndex = state.panels[side].widgets.indexOf(widgetId);
-        state = updateSavedTabState(state, id, (draft) => {
-          draft.home = {
-            widgetId,
-            side,
-            widgetIndex,
-            tabIndex,
-          };
-        });
-      }
-
-      return removeTabFromWidget(state, id);
+      return hideTab(state, action.id);
     }
+
     case "WIDGET_TAB_SET_LABEL": {
       return updateTabState(state, action.id, {
         label: action.label,
+      });
+    }
+    case "WIDGET_TAB_SET_LOADED": {
+      state = hideTab(state, action.id);
+      return updateTabState(state, action.id, {
+        unloaded: !action.loaded,
       });
     }
     case "WIDGET_TAB_OPEN": {
@@ -835,4 +804,45 @@ function unhideTab(state: NineZoneState, id: TabState["id"]) {
     assert(!!location);
   }
   return [state, location] as const;
+}
+
+function hideTab(state: NineZoneState, id: TabState["id"]) {
+  state = produce(state, (draft) => {
+    if (!draft.toolSettings) return;
+
+    const isToolSettings = draft.toolSettings.tabId === id;
+    if (isToolSettings && draft.toolSettings.type === "docked") {
+      draft.toolSettings.hidden = true;
+    }
+  });
+
+  const location = getTabLocation(state, id);
+  if (!location) return state;
+
+  const widgetId = location.widgetId;
+  const tabIndex = state.widgets[widgetId].tabs.indexOf(id);
+  if (isFloatingTabLocation(location)) {
+    const floatingWidget = state.floatingWidgets.byId[widgetId];
+    // widgetDef.setFloatingContainerId(location.floatingWidgetId);
+    state = updateSavedTabState(state, id, (draft) => {
+      draft.home = {
+        widgetId,
+        tabIndex,
+        floatingWidget,
+      };
+    });
+  } else if (isPanelTabLocation(location)) {
+    const side = location.side;
+    const widgetIndex = state.panels[side].widgets.indexOf(widgetId);
+    state = updateSavedTabState(state, id, (draft) => {
+      draft.home = {
+        widgetId,
+        side,
+        widgetIndex,
+        tabIndex,
+      };
+    });
+  }
+
+  return removeTabFromWidget(state, id);
 }

@@ -218,6 +218,13 @@ export interface WidgetTabSetLabelAction {
 }
 
 /** @internal */
+export interface WidgetTabSetLoadedAction {
+  readonly type: "WIDGET_TAB_SET_LOADED";
+  readonly id: TabState["id"];
+  readonly loaded: boolean;
+}
+
+/** @internal */
 export interface WidgetTabOpenAction {
   readonly type: "WIDGET_TAB_OPEN";
   readonly id: TabState["id"];
@@ -293,6 +300,7 @@ export type NineZoneAction =
   | WidgetTabHideAction
   | WidgetTabOpenAction
   | WidgetTabSetLabelAction
+  | WidgetTabSetLoadedAction
   | WidgetTabSetPopoutBoundsAction
   | WidgetTabShowAction
   | WidgetTabExpandAction
