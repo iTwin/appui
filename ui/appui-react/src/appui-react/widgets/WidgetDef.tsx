@@ -431,6 +431,13 @@ export class WidgetDef {
         });
         break;
       }
+      case WidgetState.Unloaded: {
+        frontstageDef.dispatch({
+          type: "WIDGET_TAB_UNLOAD",
+          id: this.id,
+        });
+        break;
+      }
     }
   }
 

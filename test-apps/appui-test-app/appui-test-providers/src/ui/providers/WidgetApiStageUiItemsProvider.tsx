@@ -86,7 +86,7 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         icon: "icon-app-1",
         canPopout: true,
         defaultState: WidgetState.Open,
-        content: <h2>Left WL-A</h2>,
+        content: <LogLifecycleWidget id="WL-A" />,
         canFloat: {
           hideWithUi: true,
         },
