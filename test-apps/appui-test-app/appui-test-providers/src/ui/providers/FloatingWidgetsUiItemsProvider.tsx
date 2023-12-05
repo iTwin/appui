@@ -12,11 +12,9 @@ import {
   Widget,
   WidgetState,
 } from "@itwin/appui-react";
-import { PopoutMountUnmountWidgetComponent } from "../widgets/PopoutMountUnmountWidget";
+import { LogLifecycleWidget } from "../widgets/LogLifecycleWidget";
 
-/**
- * Test UiItemsProvider that provide FloatingWidgets in any General usage stage.
- */
+/** Test UiItemsProvider that provide FloatingWidgets in any General usage stage. */
 export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
   public static providerId = "appui-test-providers:FloatingWidgetsUiProvider";
   public readonly id = FloatingWidgetsUiItemsProvider.providerId;
@@ -98,7 +96,7 @@ export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
           containerId: "appui-test-providers:PopoutMountUnmountWidget",
           defaultPosition: { x: 101, y: 200 },
         },
-        content: <PopoutMountUnmountWidgetComponent />,
+        content: <LogLifecycleWidget id="PopoutMountUnmountWidget" />,
         canPopout: true,
         allowedPanels: [StagePanelLocation.Left],
       });

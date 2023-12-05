@@ -196,8 +196,9 @@ test.describe("popout widget", () => {
     let mountCount = 0;
     let unMountCount = 0;
     page.on("console", (msg) => {
-      if (msg.text() === "POPOUT COMPONENT MOUNT") mountCount++;
-      if (msg.text() === "POPOUT COMPONENT UNMOUNT") unMountCount++;
+      if (msg.text() === "Widget PopoutMountUnmountWidget mount") mountCount++;
+      if (msg.text() === "Widget PopoutMountUnmountWidget unmount")
+        unMountCount++;
     });
     const widget = floatingWidgetLocator({
       page,

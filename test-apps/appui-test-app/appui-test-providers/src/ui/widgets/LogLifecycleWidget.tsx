@@ -4,15 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 
-export function PopoutMountUnmountWidgetComponent() {
+export function LogLifecycleWidget({ id }: { id: string }) {
   React.useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log("POPOUT COMPONENT MOUNT");
+    console.log(`Widget ${id} mount`); // eslint-disable-line no-console
     return () => {
       // eslint-disable-next-line no-console
-      console.log("POPOUT COMPONENT UNMOUNT");
+      console.log(`Widget ${id} unmount`); // eslint-disable-line no-console
     };
-  }, []);
-
-  return <div>Mount Unmount Widget</div>;
+  }, [id]);
+  return <div>Widget {id} content</div>;
 }
