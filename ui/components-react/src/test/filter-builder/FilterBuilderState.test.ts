@@ -254,6 +254,54 @@ describe("usePropertyFilterBuilder", () => {
     });
   });
 
+  it("resets operator when property is changed.", async () => {
+    const { result } = renderHook(() => usePropertyFilterBuilder());
+    const { actions } = result.current;
+    let { rootGroup } = result.current;
+
+    actions.setRuleProperty([rootGroup.items[0].id], property);
+    actions.setRuleOperator(
+      [rootGroup.items[0].id],
+      PropertyFilterRuleOperator.IsNull
+    );
+
+    // confirm that operator has changed
+    await waitFor(() => {
+      rootGroup = result.current.rootGroup;
+      expect(rootGroup).to.containSubset({
+        items: [
+          {
+            groupId: rootGroup.id,
+            property,
+            operator: PropertyFilterRuleOperator.IsNull,
+          },
+        ],
+      });
+    });
+
+    // change property
+    const property2 = {
+      name: "testName",
+      displayLabel: "testLabel",
+      typename: "testTypename",
+    };
+    actions.setRuleProperty([rootGroup.items[0].id], property2);
+
+    // assert that operator is reset
+    await waitFor(() => {
+      rootGroup = result.current.rootGroup;
+      expect(rootGroup).to.containSubset({
+        items: [
+          {
+            groupId: rootGroup.id,
+            property,
+            operator: undefined,
+          },
+        ],
+      });
+    });
+  });
+
   it("does not change state when setting non existing rule property", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
