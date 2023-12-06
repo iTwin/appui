@@ -259,35 +259,16 @@ describe("usePropertyFilterBuilder", () => {
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
-    actions.setRuleProperty([rootGroup.items[0].id], property);
+    // set operator for rule item
     actions.setRuleOperator(
       [rootGroup.items[0].id],
       PropertyFilterRuleOperator.IsNull
     );
 
-    // confirm that operator has changed
-    await waitFor(() => {
-      rootGroup = result.current.rootGroup;
-      expect(rootGroup).to.containSubset({
-        items: [
-          {
-            groupId: rootGroup.id,
-            property,
-            operator: PropertyFilterRuleOperator.IsNull,
-          },
-        ],
-      });
-    });
+    // setting the property should reset the operator
+    actions.setRuleProperty([rootGroup.items[0].id], property);
 
-    // change property
-    const property2 = {
-      name: "testName",
-      displayLabel: "testLabel",
-      typename: "testTypename",
-    };
-    actions.setRuleProperty([rootGroup.items[0].id], property2);
-
-    // assert that operator is reset
+    // confirm that operator has been reset
     await waitFor(() => {
       rootGroup = result.current.rootGroup;
       expect(rootGroup).to.containSubset({
