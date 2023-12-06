@@ -4,12 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import {
-  StagePanelState,
-  UiItemsProvider,
-  Widget,
-  WidgetState,
-} from "@itwin/appui-react";
+import { StagePanelState, UiItemsProvider, Widget } from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
 import { createFrontstageProvider } from "../Utils";
 
