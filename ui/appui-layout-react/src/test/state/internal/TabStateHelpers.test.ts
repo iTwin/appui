@@ -12,16 +12,17 @@ import { expect } from "chai";
 describe("updateTabState", () => {
   it("should throw if tab does not exist", () => {
     const state = createNineZoneState();
-    (() => updateTabState(state, "t1", { iconSpec: "test" })).should.throw(
-      "Tab does not exist"
-    );
+    (() =>
+      updateTabState(state, "t1", (draft) => {
+        draft.iconSpec = "test";
+      })).should.throw("Tab does not exist");
   });
 
   it("should update `preferredFloatingWidgetSize`", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
-    const newState = updateTabState(state, "t1", {
-      preferredFloatingWidgetSize: { height: 100, width: 200 },
+    const newState = updateTabState(state, "t1", (draft) => {
+      draft.preferredFloatingWidgetSize = { height: 100, width: 200 };
     });
     expect(newState.tabs.t1.preferredFloatingWidgetSize).to.eql({
       height: 100,

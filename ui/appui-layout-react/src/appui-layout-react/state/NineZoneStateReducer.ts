@@ -39,6 +39,7 @@ import {
 } from "./internal/TabStateHelpers";
 import {
   initRectangleProps,
+  initSizeProps,
   isToolSettingsFloatingWidget,
   setPointProps,
   setSizeProps,
@@ -299,9 +300,9 @@ export function NineZoneStateReducer(
       const tab = state.tabs[widget.activeTabId];
       if (tab.isFloatingWidgetResizable) {
         const size = newBounds.getSize();
-        state = updateTabState(state, widget.activeTabId, {
-          preferredFloatingWidgetSize: size,
-          userSized: true,
+        state = updateTabState(state, widget.activeTabId, (draft) => {
+          initSizeProps(draft, "preferredFloatingWidgetSize", size);
+          draft.userSized = true;
         });
       }
 
@@ -584,8 +585,8 @@ export function NineZoneStateReducer(
       return hideTab(state, action.id);
     }
     case "WIDGET_TAB_SET_LABEL": {
-      return updateTabState(state, action.id, {
-        label: action.label,
+      return updateTabState(state, action.id, (draft) => {
+        draft.label = action.label;
       });
     }
     case "WIDGET_TAB_OPEN": {
@@ -639,8 +640,8 @@ export function NineZoneStateReducer(
         const panel = state.panels[location.side];
         const widgetIndex = panel.widgets.indexOf(location.widgetId);
 
-        state = updateTabState(state, id, {
-          preferredFloatingWidgetSize: preferredSize,
+        state = updateTabState(state, id, (draft) => {
+          initSizeProps(draft, "preferredFloatingWidgetSize", preferredSize);
         });
         state = removeTabFromWidget(state, id);
         state = addFloatingWidget(state, id, [id], {
@@ -694,8 +695,8 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_UNLOAD": {
       state = hideTab(state, action.id);
-      return updateTabState(state, action.id, {
-        unloaded: true,
+      return updateTabState(state, action.id, (draft) => {
+        draft.unloaded = true;
       });
     }
     case "WIDGET_TAB_EXPAND": {
@@ -802,8 +803,8 @@ function unhideTab(state: NineZoneState, id: TabState["id"]) {
     location = getTabLocation(state, id);
     assert(!!location);
   }
-  state = updateTabState(state, id, {
-    unloaded: false,
+  state = updateTabState(state, id, (draft) => {
+    draft.unloaded = false;
   });
   return [state, location] as const;
 }
@@ -818,8 +819,8 @@ function hideTab(state: NineZoneState, id: TabState["id"]) {
     }
   });
 
-  state = updateTabState(state, id, {
-    unloaded: false,
+  state = updateTabState(state, id, (draft) => {
+    draft.unloaded = false;
   });
 
   const location = getTabLocation(state, id);
