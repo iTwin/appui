@@ -519,6 +519,10 @@
       "allowedCategories": [ "frontend", "internal", "tools" ]
     },
     {
+      "name": "upath",
+      "allowedCategories": [ "frontend" ]
+    },
+    {
       "name": "vite",
       "allowedCategories": [ "internal" ]
     },
