@@ -23,7 +23,7 @@ export class LabelPropertyDataFilterer extends PropertyRecordDataFiltererBase {
 
   public constructor(filterText: string = "") {
     super();
-    this._filterText = filterText;
+    this._filterText = filterText.toLowerCase().trim();
   }
 
   public get filterText(): string {
