@@ -25,6 +25,7 @@ import type {
   OpenChildWindowInfo,
 } from "../framework/FrameworkChildWindows";
 import { createLayoutStore, NineZone } from "@itwin/appui-layout-react";
+import type { ChildWindow } from "./ChildWindowConfig";
 
 const childHtml = `<!DOCTYPE html>
 <html>
@@ -141,12 +142,25 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
 
   // istanbul ignore next: Used in `open` which is not tested.
   private renderChildWindowContents(
-    childWindow: Window,
+    childWindow: ChildWindow,
     childWindowId: string,
     content: React.ReactNode,
     title: string
   ) {
     childWindow.document.title = title;
+    if (childWindow.expectedHeight && childWindow.expectedWidth) {
+      childWindow.deltaWidth =
+        childWindow.expectedWidth -
+        (childWindow.currentBrowser === "chromium based edge"
+          ? childWindow.outerWidth
+          : childWindow.innerWidth);
+      childWindow.deltaHeight =
+        childWindow.expectedHeight -
+        (childWindow.currentBrowser === "chromium based edge"
+          ? childWindow.outerHeight
+          : childWindow.innerHeight);
+    }
+
     const reactConnectionDiv = childWindow.document.getElementById("root");
     if (reactConnectionDiv) {
       // set openChildWindows now so components can use it when they mount
@@ -257,6 +271,25 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     return outLocation;
   }
 
+  // This is needed due to the differences in how browsers calculate the
+  // inner vs outer width of windows. Calculations are different between
+  // browsers. We are starting with some of the mainly used browsers but can
+  // add more if issues arise with others.
+  private findBrowser(agent: string): string {
+    switch (true) {
+      case agent.indexOf("edge") > -1:
+        return "edge";
+      case agent.indexOf("firefox") > -1:
+        return "firefox";
+      case agent.indexOf("edg/") > -1:
+        return "chromium based edge";
+      case agent.indexOf("chrome") > -1:
+        return "chrome";
+      default:
+        return "other";
+    }
+  }
+
   /**
    * Open a new child window.
    * @param childWindowId Id to assign to the newly created window.
@@ -285,12 +318,19 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
 
     location = this.adjustWidowLocation(location);
     const url = useDefaultPopoutUrl ? "/iTwinPopup.html" : "";
-    const childWindow = window.open(
+    const childWindow: ChildWindow | null = window.open(
       url,
       "",
       `width=${location.width},height=${location.height},left=${location.left},top=${location.top},menubar=no,resizable=yes,scrollbars=no,status=no,location=no`
     );
     if (!childWindow) return false;
+    childWindow.expectedHeight = location.height;
+    childWindow.expectedWidth = location.width;
+
+    childWindow.currentBrowser = this.findBrowser(
+      navigator.userAgent.toLowerCase()
+    );
+
     if (0 === url.length) {
       childWindow.document.write(childHtml);
       this.renderChildWindowContents(

@@ -47,7 +47,7 @@ import type { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
 import type { ChildWindowLocationProps } from "../framework/FrameworkChildWindows";
 import { PopoutWidget } from "../childwindow/PopoutWidget";
-import { BentleyStatus, ProcessDetector } from "@itwin/core-bentley";
+import { BentleyStatus } from "@itwin/core-bentley";
 import type { FrontstageConfig } from "./FrontstageConfig";
 import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import type { WidgetConfig } from "../widgets/WidgetConfig";
@@ -57,6 +57,7 @@ import { WidgetState } from "../widgets/WidgetState";
 import { InternalFrontstageManager } from "./InternalFrontstageManager";
 import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager";
 import type { XAndY } from "@itwin/core-geometry";
+import type { ChildWindow } from "../childwindow/ChildWindowConfig";
 
 /** @internal */
 export interface FrontstageEventArgs {
@@ -898,7 +899,7 @@ export class FrontstageDef {
   /** @internal */
   public saveChildWindowSizeAndPosition(
     childWindowId: string,
-    childWindow: Window
+    childWindow: ChildWindow
   ) {
     const state = this.nineZoneState;
     if (!state) return;
@@ -911,11 +912,21 @@ export class FrontstageDef {
     const widgetDef = this.findWidgetDef(tabId);
     if (!widgetDef) return;
 
-    const adjustmentWidth = ProcessDetector.isElectronAppFrontend ? 16 : 0;
-    const adjustmentHeight = ProcessDetector.isElectronAppFrontend ? 39 : 0;
+    let width =
+      childWindow.currentBrowser === "chromium based edge"
+        ? childWindow.outerWidth
+        : childWindow.innerWidth;
+    let height =
+      childWindow.currentBrowser === "chromium based edge"
+        ? childWindow.outerHeight
+        : childWindow.innerHeight;
+    if (childWindow.deltaHeight && childWindow.deltaWidth) {
+      height = height + childWindow.deltaHeight;
+      width = width + childWindow.deltaWidth;
+      if (height < 1) height = 100;
+      if (width < 1) width = 100;
+    }
 
-    const width = childWindow.innerWidth + adjustmentWidth;
-    const height = childWindow.innerHeight + adjustmentHeight;
     const bounds = Rectangle.createFromSize({ width, height }).offset({
       x: childWindow.screenX,
       y: childWindow.screenY,
