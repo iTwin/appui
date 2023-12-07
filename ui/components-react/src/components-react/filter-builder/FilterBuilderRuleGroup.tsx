@@ -10,12 +10,8 @@ import "./FilterBuilderRuleGroup.scss";
 import "./FilterBuilderLogicalOperator.scss";
 import "./FilterBuilder.scss";
 import * as React from "react";
-import { SvgDelete } from "@itwin/itwinui-icons-react";
-import { Flex, IconButton } from "@itwin/itwinui-react";
-import {
-  ActiveRuleGroupContext,
-  PropertyFilterBuilderContext,
-} from "./FilterBuilderContext";
+import { Flex } from "@itwin/itwinui-react";
+import { PropertyFilterBuilderContext } from "./FilterBuilderContext";
 import { PropertyFilterBuilderRuleRenderer } from "./FilterBuilderRule";
 import type {
   PropertyFilterBuilderRuleGroup,
@@ -61,10 +57,6 @@ export function PropertyFilterBuilderRuleGroupRenderer(
     [path, actions]
   );
 
-  const { focusedElement, hoveredElement, ...eventHandlers } = React.useContext(
-    ActiveRuleGroupContext
-  );
-
   const showOperator = group.items.length > 1;
 
   return (
@@ -73,11 +65,6 @@ export function PropertyFilterBuilderRuleGroupRenderer(
       style={{ alignSelf: "flex-start" }}
       className="fb-group fb-group-criteria fb-criteria-container"
       gap="0px"
-      data-isactive={
-        groupRef.current === focusedElement ||
-        groupRef.current === hoveredElement
-      }
-      {...eventHandlers}
     >
       {showOperator ? (
         <PropertyFilterBuilderRuleGroupOperator
