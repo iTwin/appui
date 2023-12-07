@@ -10,26 +10,33 @@ import type { PanelSide } from "../widget-panels/Panel";
 import type { FloatingWidgetState, WidgetState } from "./WidgetState";
 
 /** @internal */
-export interface FloatingWidgetTabHomeState {
+export interface FloatingWidgetRestoreState {
   widgetId: WidgetState["id"];
-  tabIndex: number;
   floatingWidget: FloatingWidgetState;
 }
 
 /** @internal */
-export interface PanelWidgetTabHomeState {
-  side: PanelSide;
+export interface PanelWidgetRestoreState {
   widgetId: WidgetState["id"];
+  side: PanelSide;
   widgetIndex: number;
-  tabIndex: number;
 }
 
 /** @internal */
-export type TabHomeState = FloatingWidgetTabHomeState | PanelWidgetTabHomeState;
+export type WidgetRestoreState =
+  | FloatingWidgetRestoreState
+  | PanelWidgetRestoreState;
 
 /** @internal */
-export function isFloatingWidgetTabHomeState(
-  home: TabHomeState
-): home is FloatingWidgetTabHomeState {
-  return "floatingWidget" in home;
+export function isFloatingWidgetRestoreState(
+  state: WidgetRestoreState
+): state is FloatingWidgetRestoreState {
+  return "floatingWidget" in state;
+}
+
+/** @internal */
+export function isPanelWidgetRestoreState(
+  state: WidgetRestoreState
+): state is PanelWidgetRestoreState {
+  return "side" in state;
 }

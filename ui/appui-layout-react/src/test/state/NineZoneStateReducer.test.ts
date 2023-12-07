@@ -333,7 +333,7 @@ describe("NineZoneStateReducer", () => {
         state = addFloatingWidget(state, "fw2", ["t2"], {
           home: {
             side: "bottom",
-            widgetId: undefined,
+            widgetId: "",
             widgetIndex: 0,
           },
         });
@@ -481,7 +481,7 @@ describe("NineZoneStateReducer", () => {
       state = addFloatingWidget(state, "fw1", ["t2", "t3"], {
         home: {
           side: "left",
-          widgetId: undefined,
+          widgetId: "",
           widgetIndex: 1,
         },
       });
@@ -507,7 +507,7 @@ describe("NineZoneStateReducer", () => {
       state = addFloatingWidget(state, "fw1", ["t2", "t3"], {
         home: {
           side: "left",
-          widgetId: undefined,
+          widgetId: "",
           widgetIndex: 0,
         },
       });
@@ -557,7 +557,7 @@ describe("NineZoneStateReducer", () => {
       state = addFloatingWidget(state, "fw1", ["fwt1", "fwt2"], {
         home: {
           side: "left",
-          widgetId: undefined,
+          widgetId: "",
           widgetIndex: 1,
         },
       });
@@ -579,14 +579,14 @@ describe("NineZoneStateReducer", () => {
       state = addFloatingWidget(state, "fw1", ["t1"], {
         home: {
           side: "left",
-          widgetId: undefined,
+          widgetId: "",
           widgetIndex: 0,
         },
       });
       state = addFloatingWidget(state, "fw2", ["t2"], {
         home: {
           side: "left",
-          widgetId: undefined,
+          widgetId: "",
           widgetIndex: 0,
         },
       });
@@ -610,7 +610,7 @@ describe("NineZoneStateReducer", () => {
       state = addFloatingWidget(state, "fw1", ["ft1"], {
         home: {
           side: "left",
-          widgetId: undefined,
+          widgetId: "",
           widgetIndex: 0,
         },
       });
@@ -1229,7 +1229,7 @@ describe("NineZoneStateReducer", () => {
             position: new Point(100, 200).toProps(),
             home: {
               side: "bottom",
-              widgetId: undefined,
+              widgetId: "",
               widgetIndex: 0,
             },
           });
@@ -2059,7 +2059,7 @@ describe("NineZoneStateReducer", () => {
       state = addPopoutWidget(state, "fw1", ["t2"], {
         home: {
           side: "left",
-          widgetId: undefined,
+          widgetId: "",
           widgetIndex: 0,
         },
       });
@@ -2081,7 +2081,7 @@ describe("NineZoneStateReducer", () => {
       state = addPopoutWidget(state, "fw1", ["t2"], {
         home: {
           side: "left",
-          widgetId: undefined,
+          widgetId: "",
           widgetIndex: 1,
         },
       });
@@ -2104,7 +2104,7 @@ describe("NineZoneStateReducer", () => {
       state = addPopoutWidget(state, "fw1", ["t2"], {
         home: {
           side: "left",
-          widgetId: undefined,
+          widgetId: "",
           widgetIndex: 0,
         },
       });
@@ -2151,7 +2151,7 @@ describe("NineZoneStateReducer", () => {
       state = addPopoutWidget(state, "fw1", ["fwt1"], {
         home: {
           side: "left",
-          widgetId: undefined,
+          widgetId: "",
           widgetIndex: 1,
         },
       });

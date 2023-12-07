@@ -17,7 +17,6 @@ import type { UiStateStorageResult } from "@itwin/core-react";
 import { Rectangle, UiStateStorageStatus } from "@itwin/core-react";
 import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
 import type {
-  FloatingWidgetHomeState,
   LayoutStore,
   NineZoneLabels,
   NineZoneState,
@@ -391,11 +390,6 @@ export function appendWidgets(
         ? widgetDef.floatingContainerId
         : getUniqueId();
       const widgetContainerId = getWidgetId(location, section);
-      const home: FloatingWidgetHomeState = {
-        side,
-        widgetId: widgetContainerId,
-        widgetIndex: 0,
-      };
       const preferredPosition = widgetDef.defaultFloatingPosition;
 
       if (floatingContainerId in state.widgets) {
@@ -418,7 +412,11 @@ export function appendWidgets(
 
         state = addFloatingWidget(state, floatingContainerId, [widgetDef.id], {
           bounds: containedBounds.toProps(),
-          home,
+          home: {
+            widgetId: widgetContainerId,
+            side,
+            widgetIndex: 0,
+          },
           userSized,
         });
       }

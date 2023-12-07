@@ -22,7 +22,6 @@ import {
 } from "./DropTargetState";
 import { getWidgetPanelSectionId, insertPanelWidget } from "./PanelState";
 import type { NineZoneState } from "./NineZoneState";
-import type { FloatingWidgetHomeState } from "./WidgetState";
 import {
   addFloatingWidget,
   addPopoutWidget,
@@ -65,6 +64,10 @@ import {
   isPopoutTabLocation,
 } from "./TabLocation";
 import { getUniqueId } from "../base/NineZone";
+import {
+  isPanelWidgetRestoreState,
+  type PanelWidgetRestoreState,
+} from "./WidgetRestoreState";
 
 /** @internal */
 export function NineZoneStateReducer(
@@ -163,7 +166,7 @@ export function NineZoneStateReducer(
           id: action.newFloatingWidgetId,
           home: {
             side: action.side,
-            widgetId: undefined,
+            widgetId: "",
             widgetIndex,
           },
         },
@@ -417,7 +420,7 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_DRAG_START": {
       const tabId = action.id;
-      let home: FloatingWidgetHomeState;
+      let home: PanelWidgetRestoreState;
       if (action.floatingWidgetId) {
         const floatingWidget =
           state.floatingWidgets.byId[action.floatingWidgetId];
@@ -559,7 +562,7 @@ export function NineZoneStateReducer(
       if (position) preferredBounds = preferredBounds.setPosition(position);
 
       const popoutWidgetId = getUniqueId();
-      let home: FloatingWidgetHomeState | undefined;
+      let home: PanelWidgetRestoreState | undefined;
       if (location && isPanelTabLocation(location)) {
         const panel = state.panels[location.side];
         const widgetIndex = panel.widgets.indexOf(location.widgetId);
@@ -602,8 +605,8 @@ export function NineZoneStateReducer(
         state = updateSavedTabState(state, id, (draft) => {
           draft.home = {
             widgetId,
-            tabIndex,
             floatingWidget,
+            tabIndex,
           };
         });
       } else if (isPanelTabLocation(location)) {
@@ -705,7 +708,7 @@ export function NineZoneStateReducer(
           [id],
           {
             bounds,
-            home,
+            home: isPanelWidgetRestoreState(home) ? home : undefined,
           },
           widget
         );
