@@ -74,7 +74,7 @@ export class WidgetDef {
   private _tooltip: string | ConditionalStringValue | StringGetter = "";
   private _widgetReactNode: React.ReactNode;
   private _widgetControl!: WidgetControl;
-  private _defaultState: WidgetState = WidgetState.Unloaded;
+  private _defaultState: WidgetState = WidgetState.Closed;
   private _id: string;
   private _classId: string | ConfigurableUiControlConstructor | undefined =
     undefined;
@@ -431,6 +431,13 @@ export class WidgetDef {
         });
         break;
       }
+      case WidgetState.Unloaded: {
+        frontstageDef.dispatch({
+          type: "WIDGET_TAB_UNLOAD",
+          id: this.id,
+        });
+        break;
+      }
     }
   }
 
@@ -465,7 +472,9 @@ export class WidgetDef {
   }
 
   public get isVisible(): boolean {
-    return WidgetState.Hidden !== this.state;
+    return (
+      WidgetState.Hidden !== this.state && WidgetState.Unloaded !== this.state
+    );
   }
 
   public get activeState(): WidgetState {

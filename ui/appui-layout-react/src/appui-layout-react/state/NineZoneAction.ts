@@ -251,6 +251,12 @@ export interface WidgetTabExpandAction {
 }
 
 /** @internal */
+export interface WidgetTabUnloadAction {
+  readonly type: "WIDGET_TAB_UNLOAD";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
 export interface ToolSettingsDragStartAction {
   readonly type: "TOOL_SETTINGS_DRAG_START";
   readonly newFloatingWidgetId: FloatingWidgetState["id"];
@@ -283,18 +289,19 @@ export type NineZoneAction =
   | WidgetDragAction
   | WidgetDragEndAction
   | WidgetTabClickAction
+  | WidgetTabCloseAction
   | WidgetTabDoubleClickAction
   | WidgetTabDragStartAction
   | WidgetTabDragAction
   | WidgetTabDragEndAction
-  | WidgetTabPopoutAction
-  | WidgetTabCloseAction
+  | WidgetTabExpandAction
   | WidgetTabFloatAction
   | WidgetTabHideAction
   | WidgetTabOpenAction
+  | WidgetTabPopoutAction
   | WidgetTabSetLabelAction
   | WidgetTabSetPopoutBoundsAction
   | WidgetTabShowAction
-  | WidgetTabExpandAction
+  | WidgetTabUnloadAction
   | ToolSettingsDragStartAction
   | ToolSettingsDockAction;

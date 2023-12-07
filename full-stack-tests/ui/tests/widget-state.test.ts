@@ -14,6 +14,7 @@ import {
   panelLocator,
   setWidgetState,
   tabLocator,
+  trackWidgetLifecycle,
   widgetLocator,
   WidgetState,
 } from "./Utils";
@@ -192,7 +193,6 @@ test.describe("widget state", () => {
   }) => {
     const tab1 = tabLocator(page, "WT-A");
     const tab2 = tabLocator(page, "WT-2");
-    const body = page.locator("body");
     await expectTabInPanelSection(tab1, "top", 0);
 
     // Drag from top start to top end.
@@ -288,5 +288,61 @@ test.describe("widget state", () => {
 
     await setWidgetState(page, "FW-H1", WidgetState.Floating);
     await expect(tab).toBeVisible();
+  });
+
+  test("should not mount unloaded widget", async ({ page }) => {
+    const widgetLifecycle = trackWidgetLifecycle(page, "WL-B");
+    const tab = tabLocator(page, "WL-B");
+    await expect(tab).toBeHidden();
+
+    expect(widgetLifecycle.mountCount).toBe(0);
+    expect(widgetLifecycle.unMountCount).toBe(0);
+  });
+
+  test("should mount unloaded widget on open", async ({ page }) => {
+    const widgetLifecycle = trackWidgetLifecycle(page, "WL-B");
+    await setWidgetState(page, "WL-B", WidgetState.Open);
+
+    expect(widgetLifecycle.mountCount).toBe(1);
+    expect(widgetLifecycle.unMountCount).toBe(0);
+  });
+
+  test("should mount unloaded widget on close", async ({ page }) => {
+    const widgetLifecycle = trackWidgetLifecycle(page, "WL-B");
+    await setWidgetState(page, "WL-B", WidgetState.Closed);
+
+    expect(widgetLifecycle.mountCount).toBe(1);
+    expect(widgetLifecycle.unMountCount).toBe(0);
+  });
+
+  test("should mount unloaded widget on float", async ({ page }) => {
+    const widgetLifecycle = trackWidgetLifecycle(page, "WL-B");
+    await setWidgetState(page, "WL-B", WidgetState.Floating);
+
+    expect(widgetLifecycle.mountCount).toBe(1);
+    expect(widgetLifecycle.unMountCount).toBe(0);
+  });
+
+  test("should unmount and hide widget when unloading", async ({ page }) => {
+    const widgetLifecycle = trackWidgetLifecycle(page, "WL-A");
+    const tab = tabLocator(page, "WL-A");
+    await expect(tab).toBeVisible();
+    expect(widgetLifecycle.mountCount).toBe(1);
+    expect(widgetLifecycle.unMountCount).toBe(0);
+
+    await setWidgetState(page, "WL-A", WidgetState.Unloaded);
+    await expect(tab).not.toBeVisible();
+    expect(widgetLifecycle.mountCount).toBe(1);
+    expect(widgetLifecycle.unMountCount).toBe(1);
+  });
+
+  test("should mount and unmount unloaded widget", async ({ page }) => {
+    const widgetLifecycle = trackWidgetLifecycle(page, "WL-B");
+    const tab = tabLocator(page, "WL-B");
+    await setWidgetState(page, "WL-B", WidgetState.Open);
+    await setWidgetState(page, "WL-B", WidgetState.Unloaded);
+    await expect(tab).toBeHidden();
+    expect(widgetLifecycle.mountCount).toBe(1);
+    expect(widgetLifecycle.unMountCount).toBe(1);
   });
 });

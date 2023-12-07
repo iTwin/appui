@@ -33,6 +33,7 @@ import {
   RegisterUiProviderTool,
   UnregisterUiProviderTool,
 } from "../../tools/RegisterUiProviderTool";
+import { LogLifecycleWidget } from "../widgets/LogLifecycleWidget";
 
 /**
  * WidgetApiStageUiItemsProvider provides widget in the bottom panel that can exercise the Widget API on Widgets in the other panels.
@@ -85,11 +86,18 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         icon: "icon-app-1",
         canPopout: true,
         defaultState: WidgetState.Open,
-        content: <h2>Left WL-A</h2>,
+        content: <LogLifecycleWidget id="WL-A" />,
         canFloat: {
           hideWithUi: true,
         },
         allowedPanels: [StagePanelLocation.Left, StagePanelLocation.Right],
+      });
+      widgets.push({
+        id: "WL-B",
+        label: "WL-B",
+        icon: "icon-app-2",
+        defaultState: WidgetState.Unloaded,
+        content: <LogLifecycleWidget id="WL-B" />,
       });
     } else if (section === StagePanelSection.End) {
       widgets.push({

@@ -6,11 +6,11 @@
  * @module Base
  */
 
-import produce, { castDraft } from "immer";
+import produce from "immer";
 import { UiError } from "@itwin/appui-abstract";
 import type { NineZoneState } from "../NineZoneState";
 import type { DraggedTabState, TabState } from "../TabState";
-import { category, initSizeProps } from "./NineZoneStateHelpers";
+import { category } from "./NineZoneStateHelpers";
 import type { SavedTabState } from "../SavedTabState";
 import type { WritableDraft } from "immer/dist/internal";
 
@@ -23,6 +23,7 @@ export function createTabState(
     label: "",
     ...args,
     id,
+    unloaded: false,
   };
 }
 
@@ -47,23 +48,13 @@ export function createDraggedTabState(
 export function updateTabState(
   state: NineZoneState,
   id: TabState["id"],
-  args: Partial<TabState>
+  update: (draft: WritableDraft<TabState>) => void
 ) {
   if (!(id in state.tabs)) throw new UiError(category, "Tab does not exist");
 
   return produce(state, (draft) => {
     const tab = draft.tabs[id];
-    const { preferredFloatingWidgetSize, ...other } = args;
-    draft.tabs[id] = castDraft({
-      ...tab,
-      ...other,
-    });
-    if (preferredFloatingWidgetSize)
-      initSizeProps(
-        draft.tabs[id],
-        "preferredFloatingWidgetSize",
-        preferredFloatingWidgetSize
-      );
+    update(tab);
   });
 }
 
