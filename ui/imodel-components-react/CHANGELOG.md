@@ -1,6 +1,13 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Fri, 01 Dec 2023 20:01:16 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Dec 2023 19:40:17 GMT and should not be manually modified.
+
+## 4.7.1
+Thu, 07 Dec 2023 19:40:17 GMT
+
+### Updates
+
+- `ViewportComponent` will now wait to have positive space before creating iTwin.js viewport.
 
 ## 4.7.0
 Fri, 01 Dec 2023 20:01:16 GMT
