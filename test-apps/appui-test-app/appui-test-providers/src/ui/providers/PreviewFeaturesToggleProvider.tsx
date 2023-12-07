@@ -33,6 +33,7 @@ function PreviewFeatureList() {
       enableMaximizedFloatingWidget: activeFeatureList.includes(
         "enableMaximizedFloatingWidget"
       ),
+      newToolbars: true,
     });
   }, [activeFeatureList]);
 
