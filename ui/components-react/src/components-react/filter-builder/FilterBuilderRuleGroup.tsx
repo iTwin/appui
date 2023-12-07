@@ -53,7 +53,6 @@ export function PropertyFilterBuilderRuleGroupRenderer(
     actions.addItem(path, "RULE");
     onNewRuleAdded();
   };
-  const removeGroup = () => actions.removeItem(path);
 
   const onOperatorChange = React.useCallback(
     (operator: PropertyFilterRuleGroupOperator) => {
@@ -98,18 +97,6 @@ export function PropertyFilterBuilderRuleGroupRenderer(
             />
           </Flex>
         ))}
-      </div>
-      <div className="rule-group-remove-action">
-        {group.groupId !== undefined && (
-          <IconButton
-            data-testid="rule-group-remove"
-            onClick={removeGroup}
-            styleType="borderless"
-            size="small"
-          >
-            <SvgDelete />
-          </IconButton>
-        )}
       </div>
     </Flex>
   );
