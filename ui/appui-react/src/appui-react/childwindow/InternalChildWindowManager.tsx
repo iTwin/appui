@@ -138,7 +138,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       (openWindow) => openWindow.window === contentWindow
     );
     return childWindow?.childWindowId;
-  } //
+  }
 
   // istanbul ignore next: Used in `open` which is not tested.
   private renderChildWindowContents(
