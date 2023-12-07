@@ -437,7 +437,7 @@ public;StandardStatusbarItemsProvider
 beta;StandardStatusbarUiItemsProvider 
 public;StateManager
 public;StateType
-internal;stateVersion = 16
+internal;stateVersion = 17
 public;StatusBar 
 public;StatusBar
 public;StatusBarActionItem 

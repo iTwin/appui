@@ -62,7 +62,6 @@ internal;floatingWidgetBringToFront(state: NineZoneState, floatingWidgetId: Floa
 internal;FloatingWidgetBringToFrontAction
 internal;FloatingWidgetClearUserSizedAction
 internal;FloatingWidgetDropTargetState
-internal;FloatingWidgetHomeState
 internal;FloatingWidgetLocation
 internal;FloatingWidgetNodeContext: React_2.Context
 internal;FloatingWidgetProps

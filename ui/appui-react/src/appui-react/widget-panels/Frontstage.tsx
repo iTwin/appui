@@ -745,7 +745,7 @@ export function initializePanel(
 }
 
 /** @internal */
-export const stateVersion = 16; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
+export const stateVersion = 17; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
 
 /** @internal */
 export function initializeNineZoneState(
