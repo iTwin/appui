@@ -147,6 +147,7 @@ export class PropertyFilterBuilderActions {
       const rule = findRule(state.rootGroup, path);
       if (!rule) return;
       rule.property = property;
+      rule.operator = undefined;
       rule.value = undefined;
       rule.errorMessage = undefined;
     });
