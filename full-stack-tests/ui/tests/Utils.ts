@@ -54,6 +54,10 @@ export function backstageItemLocator(page: Page, label: string) {
   return page.getByText(label, { exact: true });
 }
 
+export function popoutButtonLocator(widget: Locator) {
+  return widget.locator('[title="Pop out active widget tab"]');
+}
+
 type PanelLocatorArgs = { page: Page; side: PanelSide } | { tab: Locator };
 
 export function panelLocator(args: PanelLocatorArgs) {
@@ -94,6 +98,16 @@ export function outlineLocator(args: OutlineLocatorArgs | WidgetLocatorArgs) {
     widget.locator(".nz-outline-widgetOutline"),
     widget.locator(".nz-outline-tabOutline"),
   ];
+}
+
+export function panelSectionLocator(
+  page: Page,
+  side: PanelSide,
+  sectionId: 0 | 1,
+  options?: { has?: Locator }
+) {
+  const panel = panelLocator({ side, page });
+  return panel.locator(`.nz-panel-section-${sectionId}`, options);
 }
 
 export interface SavedFrontstageState {

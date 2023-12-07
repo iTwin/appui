@@ -9,6 +9,8 @@ import {
   expectSavedFrontstageState,
   floatingWidgetLocator,
   openFrontstage,
+  panelSectionLocator,
+  popoutButtonLocator,
   setWidgetState,
   tabLocator,
   widgetLocator,
@@ -26,7 +28,7 @@ test.describe("popout widget", () => {
       id: "appui-test-providers:ViewAttributesWidget",
     });
     const tab = tabLocator(page, "View Attributes");
-    const popoutButton = widget.locator('[title="Pop out active widget tab"]');
+    const popoutButton = popoutButtonLocator(widget);
     await expect(tab).toBeVisible();
 
     const [popoutPage] = await Promise.all([
@@ -45,7 +47,7 @@ test.describe("popout widget", () => {
       id: "appui-test-providers:ViewAttributesWidget",
     });
     const tab = tabLocator(page, "View Attributes");
-    const popoutButton = widget.locator('[title="Pop out active widget tab"]');
+    const popoutButton = popoutButtonLocator(widget);
     await expect(tab).toBeVisible();
 
     const [popoutPage] = await Promise.all([
@@ -61,7 +63,7 @@ test.describe("popout widget", () => {
   }) => {
     const tab = tabLocator(page, "View Attributes");
     const widget = widgetLocator({ tab });
-    const popoutButton = widget.locator('[title="Pop out active widget tab"]');
+    const popoutButton = popoutButtonLocator(widget);
 
     // Popout the widget w/ default size.
     let [popoutPage] = await Promise.all([
@@ -80,10 +82,35 @@ test.describe("popout widget", () => {
     await expect(floatingWidget).toBeVisible();
   });
 
+  test("should dock a popout widget (after frontstage change)", async ({
+    context,
+    page,
+  }) => {
+    const tab = tabLocator(page, "WT-2");
+    const widget = widgetLocator({ tab });
+    const popoutButton = popoutButtonLocator(widget);
+
+    // Popout the widget w/ default size.
+    let [popoutPage] = await Promise.all([
+      context.waitForEvent("page"),
+      popoutButton.click(),
+    ]);
+    expect(popoutPage.isClosed()).toBe(false);
+
+    await openFrontstage(page, "appui-test-app:main-stage");
+    expect(popoutPage.isClosed()).toBe(true);
+
+    await openFrontstage(page, "appui-test-providers:WidgetApi");
+    expect(popoutPage.isClosed()).toBe(true);
+
+    const locator = panelSectionLocator(page, "top", 1, { has: tab });
+    await expect(locator).toBeVisible();
+  });
+
   test("should maintain popout widget bounds", async ({ context, page }) => {
     const tab = tabLocator(page, "View Attributes");
     const widget = widgetLocator({ tab });
-    const popoutButton = widget.locator('[title="Pop out active widget tab"]');
+    const popoutButton = popoutButtonLocator(widget);
 
     // Popout the widget w/ default size.
     let [popoutPage] = await Promise.all([
@@ -125,7 +152,7 @@ test.describe("popout widget", () => {
   }) => {
     const tab = tabLocator(page, "View Attributes");
     const widget = widgetLocator({ tab });
-    const popoutButton = widget.locator('[title="Pop out active widget tab"]');
+    const popoutButton = popoutButtonLocator(widget);
 
     // Popout the widget w/ default size.
     let [popoutPage] = await Promise.all([
@@ -173,7 +200,7 @@ test.describe("popout widget", () => {
       page,
       id: "appui-test-providers:ViewAttributesWidget",
     });
-    const popoutButton = widget.locator('[title="Pop out active widget tab"]');
+    const popoutButton = popoutButtonLocator(widget);
 
     const [popoutPage] = await Promise.all([
       context.waitForEvent("page"),
@@ -203,7 +230,7 @@ test.describe("popout widget", () => {
       page,
       id: "appui-test-providers:PopoutMountUnmountWidget",
     });
-    const popoutButton = widget.locator('[title="Pop out active widget tab"]');
+    const popoutButton = popoutButtonLocator(widget);
 
     const [popoutPage] = await Promise.all([
       context.waitForEvent("page"),
