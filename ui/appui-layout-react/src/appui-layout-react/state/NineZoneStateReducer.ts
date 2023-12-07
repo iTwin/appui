@@ -421,7 +421,7 @@ export function NineZoneStateReducer(
       // Add a new floating widget.
       return addFloatingWidget(
         state,
-        widget.id,
+        home.widgetId,
         widget.tabs,
         home.floatingWidget
       );
@@ -699,7 +699,9 @@ export function NineZoneStateReducer(
           [id],
           {
             bounds,
-            home: isPanelWidgetRestoreState(home) ? home : undefined,
+            home: isPanelWidgetRestoreState(home)
+              ? home
+              : home.floatingWidget.home,
           },
           widget
         );
