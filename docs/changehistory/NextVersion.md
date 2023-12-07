@@ -6,8 +6,8 @@ Table of contents:
   - [Changes](#changes)
   - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
+  - [Changes](#changes-1)
   - [Fixes](#fixes-1)
-  - [Improvements](#improvements)
 
 ## @itwin/appui-react
 
@@ -21,10 +21,10 @@ Table of contents:
 
 ## @itwin/components-react
 
+### Changes
+
+- Reset to default operator when property of a rule item is changed in `FilterBuilderState`.
+
 ### Fixes
 
 - Fixed data filterers to work with uppercase letters after using the constructor.
-
-### Improvements
-
-- Reset to default operator when property of a rule item is changed in `FilterBuilderState`.
