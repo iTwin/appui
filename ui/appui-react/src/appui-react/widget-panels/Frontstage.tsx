@@ -459,16 +459,15 @@ export function appendWidgets(
 }
 
 function processPopoutWidgets(state: NineZoneState): NineZoneState {
-  // Electron reopens popout windows
+  // Electron reopens popout windows w/o user interaction.
   if (ProcessDetector.isElectronAppFrontend) {
     return state;
   }
 
-  for (const popoutWidgetId of state.popoutWidgets.allIds) {
-    const widget = state.widgets[popoutWidgetId];
-    const id = widget.tabs[0];
+  // Restore popout widgets to main window.
+  for (const id of state.popoutWidgets.allIds) {
     state = NineZoneStateReducer(state, {
-      type: "WIDGET_TAB_FLOAT",
+      type: "POPOUT_WIDGET_SEND_BACK",
       id,
     });
   }
@@ -1019,6 +1018,7 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
   }, [uiStateStorage]);
   React.useEffect(() => {
     async function fetchFrontstageState() {
+      // Switching to previously initialized frontstage.
       if (frontstageDef.nineZoneState) {
         frontstageDef.nineZoneState = processPopoutWidgets(
           frontstageDef.nineZoneState
