@@ -27,6 +27,7 @@ import {
 } from "../WidgetLocation";
 import {
   category,
+  initSizeProps,
   setRectangleProps,
   toRectangleProps,
 } from "./NineZoneStateHelpers";
@@ -287,8 +288,12 @@ export function setWidgetActiveTabId(
     const preferredFloatingWidgetSize = Rectangle.create(
       floatingWidget.bounds
     ).getSize();
-    state = updateTabState(state, activeTab.id, {
-      preferredFloatingWidgetSize,
+    state = updateTabState(state, activeTab.id, (draft) => {
+      initSizeProps(
+        draft,
+        "preferredFloatingWidgetSize",
+        preferredFloatingWidgetSize
+      );
     });
   }
   return state;

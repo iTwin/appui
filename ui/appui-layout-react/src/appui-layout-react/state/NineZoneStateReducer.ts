@@ -39,6 +39,7 @@ import {
 } from "./internal/TabStateHelpers";
 import {
   initRectangleProps,
+  initSizeProps,
   isToolSettingsFloatingWidget,
   setPointProps,
   setSizeProps,
@@ -303,9 +304,9 @@ export function NineZoneStateReducer(
       const tab = state.tabs[widget.activeTabId];
       if (tab.isFloatingWidgetResizable) {
         const size = newBounds.getSize();
-        state = updateTabState(state, widget.activeTabId, {
-          preferredFloatingWidgetSize: size,
-          userSized: true,
+        state = updateTabState(state, widget.activeTabId, (draft) => {
+          initSizeProps(draft, "preferredFloatingWidgetSize", size);
+          draft.userSized = true;
         });
       }
 
@@ -602,49 +603,11 @@ export function NineZoneStateReducer(
       });
     }
     case "WIDGET_TAB_HIDE": {
-      const { id } = action;
-      state = produce(state, (draft) => {
-        if (!draft.toolSettings) return;
-
-        const isToolSettings = draft.toolSettings.tabId === id;
-        if (isToolSettings && draft.toolSettings.type === "docked") {
-          draft.toolSettings.hidden = true;
-        }
-      });
-
-      const location = getTabLocation(state, id);
-      if (!location) return state;
-
-      const widgetId = location.widgetId;
-      const tabIndex = state.widgets[widgetId].tabs.indexOf(id);
-      if (isFloatingTabLocation(location)) {
-        const floatingWidget = state.floatingWidgets.byId[widgetId];
-        // widgetDef.setFloatingContainerId(location.floatingWidgetId);
-        state = updateSavedTabState(state, id, (draft) => {
-          draft.home = {
-            widgetId,
-            floatingWidget,
-            tabIndex,
-          };
-        });
-      } else if (isPanelTabLocation(location)) {
-        const side = location.side;
-        const widgetIndex = state.panels[side].widgets.indexOf(widgetId);
-        state = updateSavedTabState(state, id, (draft) => {
-          draft.home = {
-            widgetId,
-            side,
-            widgetIndex,
-            tabIndex,
-          };
-        });
-      }
-
-      return removeTabFromWidget(state, id);
+      return hideTab(state, action.id);
     }
     case "WIDGET_TAB_SET_LABEL": {
-      return updateTabState(state, action.id, {
-        label: action.label,
+      return updateTabState(state, action.id, (draft) => {
+        draft.label = action.label;
       });
     }
     case "WIDGET_TAB_OPEN": {
@@ -698,8 +661,8 @@ export function NineZoneStateReducer(
         const panel = state.panels[location.side];
         const widgetIndex = panel.widgets.indexOf(location.widgetId);
 
-        state = updateTabState(state, id, {
-          preferredFloatingWidgetSize: preferredSize,
+        state = updateTabState(state, id, (draft) => {
+          initSizeProps(draft, "preferredFloatingWidgetSize", preferredSize);
         });
         state = removeTabFromWidget(state, id);
         state = addFloatingWidget(state, id, [id], {
@@ -750,6 +713,12 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_SHOW": {
       return showWidgetTab(state, action.id);
+    }
+    case "WIDGET_TAB_UNLOAD": {
+      state = hideTab(state, action.id);
+      return updateTabState(state, action.id, (draft) => {
+        draft.unloaded = true;
+      });
     }
     case "WIDGET_TAB_EXPAND": {
       state = showWidgetTab(state, action.id);
@@ -855,5 +824,53 @@ function unhideTab(state: NineZoneState, id: TabState["id"]) {
     location = getTabLocation(state, id);
     assert(!!location);
   }
+  state = updateTabState(state, id, (draft) => {
+    draft.unloaded = false;
+  });
   return [state, location] as const;
+}
+
+function hideTab(state: NineZoneState, id: TabState["id"]) {
+  state = produce(state, (draft) => {
+    if (!draft.toolSettings) return;
+
+    const isToolSettings = draft.toolSettings.tabId === id;
+    if (isToolSettings && draft.toolSettings.type === "docked") {
+      draft.toolSettings.hidden = true;
+    }
+  });
+
+  state = updateTabState(state, id, (draft) => {
+    draft.unloaded = false;
+  });
+
+  const location = getTabLocation(state, id);
+  if (!location) return state;
+
+  const widgetId = location.widgetId;
+  const tabIndex = state.widgets[widgetId].tabs.indexOf(id);
+  if (isFloatingTabLocation(location)) {
+    const floatingWidget = state.floatingWidgets.byId[widgetId];
+    // widgetDef.setFloatingContainerId(location.floatingWidgetId);
+    state = updateSavedTabState(state, id, (draft) => {
+      draft.home = {
+        widgetId,
+        tabIndex,
+        floatingWidget,
+      };
+    });
+  } else if (isPanelTabLocation(location)) {
+    const side = location.side;
+    const widgetIndex = state.panels[side].widgets.indexOf(widgetId);
+    state = updateSavedTabState(state, id, (draft) => {
+      draft.home = {
+        widgetId,
+        side,
+        widgetIndex,
+        tabIndex,
+      };
+    });
+  }
+
+  return removeTabFromWidget(state, id);
 }

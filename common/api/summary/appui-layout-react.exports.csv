@@ -127,7 +127,7 @@ internal;MessageCenterTabProps
 internal;NavigationArea(props: NavigationAreaProps): JSX.Element
 internal;NavigationAreaProps 
 internal;NineZone(props: NineZoneProps): JSX.Element
-internal;NineZoneAction = ResizeAction | PanelToggleCollapsedAction | PanelSetCollapsedAction | PanelSetPinnedAction | PanelSetSizeAction | PanelSetSplitterPercentAction | PanelToggleSpanAction | PanelTogglePinnedAction | PanelInitializeAction | FloatingWidgetResizeAction | FloatingWidgetSetBoundsAction | FloatingWidgetBringToFrontAction | FloatingWidgetSendBackAction | FloatingWidgetClearUserSizedAction | FloatingWidgetSetUserSizedAction | PopoutWidgetSendBackAction | PanelWidgetDragStartAction | WidgetDragAction | WidgetDragEndAction | WidgetTabClickAction | WidgetTabDoubleClickAction | WidgetTabDragStartAction | WidgetTabDragAction | WidgetTabDragEndAction | WidgetTabPopoutAction | WidgetTabCloseAction | WidgetTabFloatAction | WidgetTabHideAction | WidgetTabOpenAction | WidgetTabSetLabelAction | WidgetTabSetPopoutBoundsAction | WidgetTabShowAction | WidgetTabExpandAction | ToolSettingsDragStartAction | ToolSettingsDockAction
+internal;NineZoneAction = ResizeAction | PanelToggleCollapsedAction | PanelSetCollapsedAction | PanelSetPinnedAction | PanelSetSizeAction | PanelSetSplitterPercentAction | PanelToggleSpanAction | PanelTogglePinnedAction | PanelInitializeAction | FloatingWidgetResizeAction | FloatingWidgetSetBoundsAction | FloatingWidgetBringToFrontAction | FloatingWidgetSendBackAction | FloatingWidgetClearUserSizedAction | FloatingWidgetSetUserSizedAction | PopoutWidgetSendBackAction | PanelWidgetDragStartAction | WidgetDragAction | WidgetDragEndAction | WidgetTabClickAction | WidgetTabCloseAction | WidgetTabDoubleClickAction | WidgetTabDragStartAction | WidgetTabDragAction | WidgetTabDragEndAction | WidgetTabExpandAction | WidgetTabFloatAction | WidgetTabHideAction | WidgetTabOpenAction | WidgetTabPopoutAction | WidgetTabSetLabelAction | WidgetTabSetPopoutBoundsAction | WidgetTabShowAction | WidgetTabUnloadAction | ToolSettingsDragStartAction | ToolSettingsDockAction
 internal;NineZoneDispatch = (action: NineZoneAction) => void
 internal;NineZoneDispatchContext: React_2.Context
 internal;NineZoneLabels
@@ -344,5 +344,6 @@ internal;WidgetTabsEntryProvider(props: WidgetTabsEntryContextProviderProps): JS
 internal;WidgetTabSetLabelAction
 internal;WidgetTabSetPopoutBoundsAction
 internal;WidgetTabShowAction
+internal;WidgetTabUnloadAction
 internal;WidgetToolSettingsState
 internal;WindowDropTargetState

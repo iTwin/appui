@@ -190,6 +190,7 @@ export enum WidgetState {
   Closed = 1,
   Hidden = 2,
   Floating = 3,
+  Unloaded = 4,
 }
 
 export async function setWidgetState(
@@ -220,4 +221,16 @@ export async function openComponentExamples(
   await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
   await page.locator(".nz-toolbar-button-button").click();
   await page.getByRole("menuitem", { name: "Component Examples" }).click();
+}
+
+export function trackWidgetLifecycle(page: Page, widgetId: string) {
+  const lifecycle = {
+    mountCount: 0,
+    unMountCount: 0,
+  };
+  page.on("console", (msg) => {
+    if (msg.text() === `Widget ${widgetId} mount`) lifecycle.mountCount++;
+    if (msg.text() === `Widget ${widgetId} unmount`) lifecycle.unMountCount++;
+  });
+  return lifecycle;
 }

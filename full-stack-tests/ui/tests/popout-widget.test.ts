@@ -13,6 +13,7 @@ import {
   popoutButtonLocator,
   setWidgetState,
   tabLocator,
+  trackWidgetLifecycle,
   widgetLocator,
 } from "./Utils";
 
@@ -220,15 +221,11 @@ test.describe("popout widget", () => {
     context,
     page,
   }) => {
-    let mountCount = 0;
-    let unMountCount = 0;
-    page.on("console", (msg) => {
-      if (msg.text() === "POPOUT COMPONENT MOUNT") mountCount++;
-      if (msg.text() === "POPOUT COMPONENT UNMOUNT") unMountCount++;
-    });
+    const id = "appui-test-providers:PopoutMountUnmountWidget";
+    const widgetLifecycle = trackWidgetLifecycle(page, id);
     const widget = floatingWidgetLocator({
       page,
-      id: "appui-test-providers:PopoutMountUnmountWidget",
+      id,
     });
     const popoutButton = popoutButtonLocator(widget);
 
@@ -241,15 +238,11 @@ test.describe("popout widget", () => {
 
     popoutPage.close();
 
-    await setWidgetState(
-      page,
-      "appui-test-providers:PopoutMountUnmountWidget",
-      WidgetState.Floating
-    );
+    await setWidgetState(page, id, WidgetState.Floating);
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
     // Due to the change to Popouts where `WidgetContentContainer` is displayed instead of a React Node. The actual widget is no longer unmounted
     // and is simply sent to a different `WidgetContentContainer`. That's why the unmount count was changed to 0 here.
-    expect(mountCount).toBe(1);
-    expect(unMountCount).toBe(0);
+    expect(widgetLifecycle.mountCount).toBe(1);
+    expect(widgetLifecycle.unMountCount).toBe(0);
   });
 });

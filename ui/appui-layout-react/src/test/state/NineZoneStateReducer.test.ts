@@ -1927,6 +1927,21 @@ describe("NineZoneStateReducer", () => {
     });
   });
 
+  describe("WIDGET_TAB_UNLOAD", () => {
+    it("should hide a tab and set `unloaded` flag to `true`", () => {
+      let state = createNineZoneState();
+      state = addTab(state, "t1");
+      state = addPanelWidget(state, "left", "w1", ["t1"]);
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_UNLOAD",
+        id: "t1",
+      });
+      expect(newState.panels.left.widgets).lengthOf(0);
+      expect(newState.tabs.t1.unloaded).to.true;
+    });
+  });
+
   describe("WIDGET_TAB_EXPAND", () => {
     it("should expand a panel section", () => {
       let state = createNineZoneState();

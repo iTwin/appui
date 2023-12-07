@@ -598,6 +598,12 @@ function hideWidgets(
         id: widgetDef.id,
       });
     }
+    if (widgetDef.defaultState === WidgetState.Unloaded) {
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_UNLOAD",
+        id: widgetDef.id,
+      });
+    }
   }
 
   return state;
