@@ -20,7 +20,7 @@ import { UiFramework } from "../UiFramework";
  *   toolAdmin: new FrameworkToolAdmin()
  * });
  * ```
- * @alpha
+ * @beta
  */
 export class FrameworkToolAdmin extends ToolAdmin {
   /** Process shortcut key events */
