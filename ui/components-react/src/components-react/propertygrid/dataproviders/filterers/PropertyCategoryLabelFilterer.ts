@@ -29,6 +29,7 @@ export class PropertyCategoryLabelFilterer extends PropertyCategoryDataFiltererB
   public get filterText(): string {
     return this._filterText;
   }
+
   public set filterText(value: string) {
     const lowerValue = value.toLowerCase().trim();
     if (lowerValue !== this.filterText) {
