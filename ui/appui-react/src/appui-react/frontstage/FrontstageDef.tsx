@@ -922,10 +922,12 @@ export class FrontstageDef {
       childWindow.currentBrowser === "chromium based edge"
         ? childWindow.outerHeight
         : childWindow.innerHeight;
-    if (childWindow.deltaHeight && childWindow.deltaWidth) {
+    if (childWindow.deltaHeight) {
       height = height + childWindow.deltaHeight;
-      width = width + childWindow.deltaWidth;
       if (height < 1) height = 100;
+    }
+    if (childWindow.deltaWidth) {
+      width = width + childWindow.deltaWidth;
       if (width < 1) width = 100;
     }
 
