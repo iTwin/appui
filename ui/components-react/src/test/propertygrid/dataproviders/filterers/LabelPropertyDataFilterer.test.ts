@@ -216,6 +216,20 @@ describe("LabelPropertyDataFilterer", () => {
         filteredTypes: [FilteredType.Label],
       });
     });
+
+    it("Should match if case of letters does not match", async () => {
+      const filterer = new LabelPropertyDataFilterer("sTrUcT");
+      const record = TestUtils.createStructProperty("StructsTSt");
+
+      const matchResult = await filterer.recordMatchesFilter(record);
+      expect(matchResult).to.deep.eq({
+        matchesFilter: true,
+        shouldForceIncludeDescendants: true,
+        shouldExpandNodeParents: true,
+        matchesCount: 1,
+        filteredTypes: [FilteredType.Label],
+      });
+    });
   });
 
   describe("raising `onFilterChanged` event", () => {

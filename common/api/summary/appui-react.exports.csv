@@ -204,7 +204,7 @@ public;FrameworkReducer: (state: CombinedReducerState
 beta;FrameworkRootState
 beta;FrameworkStackedDialog
 public;FrameworkState
-alpha;FrameworkToolAdmin 
+beta;FrameworkToolAdmin 
 public;FrameworkToolSettings
 public;FrameworkUiAdmin 
 public;FrameworkVisibility
