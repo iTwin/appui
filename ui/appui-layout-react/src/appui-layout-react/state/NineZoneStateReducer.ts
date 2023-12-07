@@ -353,8 +353,9 @@ export function NineZoneStateReducer(
 
       const sectionIndex = sendBackHomeState.sectionIndex ?? 0;
       const home = state.floatingWidgets.byId[action.id].home;
-      const destinationWidgetId =
-        home.widgetId ?? getWidgetPanelSectionId(home.side, sectionIndex);
+      const destinationWidgetId = home.widgetId
+        ? home.widgetId
+        : getWidgetPanelSectionId(home.side, sectionIndex);
 
       // Add tabs to a new panel widget.
       state = removeWidget(state, widget.id);
@@ -379,7 +380,12 @@ export function NineZoneStateReducer(
         existingWidget = state.widgets[home.widgetId];
       } else if (isPanelWidgetRestoreState(home)) {
         const panel = state.panels[home.side];
-        if (panel.widgets.length >= panel.maxWidgetCount) {
+        const panelSectionId = getWidgetPanelSectionId(
+          home.side,
+          home.widgetIndex
+        );
+        existingWidget = state.widgets[panelSectionId];
+        if (!existingWidget && panel.widgets.length >= panel.maxWidgetCount) {
           const sectionIndex = Math.min(
             panel.maxWidgetCount - 1,
             home.widgetIndex
@@ -399,12 +405,16 @@ export function NineZoneStateReducer(
 
       // Insert a new panel section.
       if (isPanelWidgetRestoreState(home)) {
+        const sectionId = home.widgetId
+          ? home.widgetId
+          : getWidgetPanelSectionId(home.side, home.widgetIndex);
+        const sectionIndex = sectionId.endsWith("End") ? 1 : 0;
         return insertPanelWidget(
           state,
           home.side,
-          widget.id,
+          sectionId,
           [...widget.tabs],
-          home.widgetIndex
+          sectionIndex
         );
       }
 

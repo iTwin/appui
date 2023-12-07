@@ -352,7 +352,7 @@ describe("NineZoneStateReducer", () => {
         );
         newState.floatingWidgets.byId.fw1.home.should.eql({
           side: "bottom",
-          widgetId: undefined,
+          widgetId: "",
           widgetIndex: 0,
         });
       });
@@ -1250,7 +1250,7 @@ describe("NineZoneStateReducer", () => {
         );
         newState.floatingWidgets.byId.fw1.home.should.eql({
           side: "bottom",
-          widgetId: undefined,
+          widgetId: "",
           widgetIndex: 0,
         });
       });
@@ -1597,9 +1597,8 @@ describe("NineZoneStateReducer", () => {
       const popoutWidgetId = newState.popoutWidgets.allIds[0];
       const popoutWidget = newState.popoutWidgets.byId[popoutWidgetId];
       expect(popoutWidget.home).to.eql({
-        side: "bottom",
-        widgetId: "w2",
-        widgetIndex: 0,
+        widgetId: "w1",
+        floatingWidget: state.floatingWidgets.byId.w1,
       });
     });
 
@@ -1616,7 +1615,7 @@ describe("NineZoneStateReducer", () => {
       const popoutWidget = newState.popoutWidgets.byId[popoutWidgetId];
       expect(popoutWidget.home).to.eql({
         side: "left",
-        widgetId: undefined,
+        widgetId: "",
         widgetIndex: 0,
       });
     });
@@ -2086,7 +2085,7 @@ describe("NineZoneStateReducer", () => {
       newState.panels.left.widgets.should.eql(["leftStart"]);
       newState.widgets.leftStart.tabs.should.eql(["t1", "t2"]);
       should().not.exist(newState.popoutWidgets.byId.fw1);
-      newState.popoutWidgets.allIds.indexOf("fw1").should.eq(-1);
+      newState.popoutWidgets.allIds.should.not.contain("fw1");
     });
 
     it("should send back to proper end panel section via index widgetId is undefined", () => {
@@ -2109,7 +2108,7 @@ describe("NineZoneStateReducer", () => {
       newState.widgets.leftStart.tabs.should.eql(["t1"]);
       newState.widgets.leftEnd.tabs.should.eql(["t2"]);
       should().not.exist(newState.popoutWidgets.byId.fw1);
-      newState.popoutWidgets.allIds.indexOf("fw1").should.eq(-1);
+      newState.popoutWidgets.allIds.should.not.contain("fw1");
     });
 
     it("should send back to proper start panel section via index widgetId is undefined", () => {
@@ -2132,7 +2131,7 @@ describe("NineZoneStateReducer", () => {
       newState.widgets.leftEnd.tabs.should.eql(["t1"]);
       newState.widgets.leftStart.tabs.should.eql(["t2"]);
       should().not.exist(newState.popoutWidgets.byId.fw1);
-      newState.popoutWidgets.allIds.indexOf("fw1").should.eq(-1);
+      newState.popoutWidgets.allIds.should.not.contain("fw1");
     });
 
     it("should send back to a newly created widget container if the container no longer exists because all widget tabs were popped out", () => {
@@ -2179,7 +2178,7 @@ describe("NineZoneStateReducer", () => {
       newState.widgets.leftStart.tabs.should.eql(["t1", "t2", "t3"]);
       newState.widgets.leftEnd.tabs.should.eql(["fwt1"]);
       should().not.exist(newState.popoutWidgets.byId.fw1);
-      newState.popoutWidgets.allIds.indexOf("fw1").should.eq(-1);
+      newState.popoutWidgets.allIds.should.not.contain("fw1");
       should().not.exist(newState.widgets.fw1);
     });
   });
