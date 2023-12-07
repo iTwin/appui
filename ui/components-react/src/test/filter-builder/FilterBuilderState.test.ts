@@ -254,6 +254,35 @@ describe("usePropertyFilterBuilder", () => {
     });
   });
 
+  it("resets operator when property is changed.", async () => {
+    const { result } = renderHook(() => usePropertyFilterBuilder());
+    const { actions } = result.current;
+    let { rootGroup } = result.current;
+
+    // set operator for rule item
+    actions.setRuleOperator(
+      [rootGroup.items[0].id],
+      PropertyFilterRuleOperator.IsNull
+    );
+
+    // setting the property should reset the operator
+    actions.setRuleProperty([rootGroup.items[0].id], property);
+
+    // confirm that operator has been reset
+    await waitFor(() => {
+      rootGroup = result.current.rootGroup;
+      expect(rootGroup).to.containSubset({
+        items: [
+          {
+            groupId: rootGroup.id,
+            property,
+            operator: undefined,
+          },
+        ],
+      });
+    });
+  });
+
   it("does not change state when setting non existing rule property", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
