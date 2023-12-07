@@ -55,17 +55,10 @@ export interface FloatingWidgetsState {
 }
 
 /** @internal */
-export interface PopoutWidgetHomeState {
-  readonly widgetIndex: number;
-  readonly widgetId: WidgetState["id"] | undefined;
-  readonly side: PanelSide;
-}
-
-/** @internal */
 export interface PopoutWidgetState {
   readonly bounds: RectangleProps;
   readonly id: WidgetState["id"];
-  readonly home: PanelWidgetRestoreState;
+  readonly home: WidgetRestoreState;
 }
 
 /** @internal */
