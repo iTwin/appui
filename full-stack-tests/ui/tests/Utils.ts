@@ -163,15 +163,12 @@ export async function expectTabInPanelSection(
   message?: string
 ) {
   const page = tab.page();
-  const panel = panelLocator({ tab });
-  const section = page.locator(`.nz-panel-section-${sectionId}`, { has: tab });
-  await expect(
-    panel,
-    `expected tab to be in panel '${side}' ${message}`
-  ).toHaveClass(new RegExp(`nz-${side}`));
+  const section = panelSectionLocator(page, side, sectionId, {
+    has: tab,
+  });
   await expect(
     section,
-    `expected tab to be in section '${sectionId}' ${message}`
+    `expected tab to be in panel '${side}' section '${sectionId}' ${message}`
   ).toBeVisible();
 }
 
