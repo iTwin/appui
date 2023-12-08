@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { test, expect } from "@playwright/test";
+import { test, expect, Locator, BrowserContext } from "@playwright/test";
 import assert from "assert";
 import {
   WidgetState,
@@ -29,13 +29,9 @@ test.describe("popout widget", () => {
       id: "appui-test-providers:ViewAttributesWidget",
     });
     const tab = tabLocator(page, "View Attributes");
-    const popoutButton = popoutButtonLocator(widget);
     await expect(tab).toBeVisible();
 
-    const [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    const popoutPage = await popoutWidget(context, widget);
     await expect(popoutPage).toHaveTitle(/View Attributes/);
 
     await expect(tab).not.toBeVisible();
@@ -48,13 +44,9 @@ test.describe("popout widget", () => {
       id: "appui-test-providers:ViewAttributesWidget",
     });
     const tab = tabLocator(page, "View Attributes");
-    const popoutButton = popoutButtonLocator(widget);
     await expect(tab).toBeVisible();
 
-    const [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    const popoutPage = await popoutWidget(context, widget);
     await expect(popoutPage.locator("body")).toHaveScreenshot();
   });
 
@@ -64,12 +56,8 @@ test.describe("popout widget", () => {
   }) => {
     const tab = tabLocator(page, "View Attributes");
     const widget = widgetLocator({ tab });
-    const popoutButton = popoutButtonLocator(widget);
 
-    let [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    const popoutPage = await popoutWidget(context, widget);
     expect(popoutPage.isClosed()).toBe(false);
 
     await openFrontstage(page, "appui-test-app:main-stage");
@@ -88,12 +76,8 @@ test.describe("popout widget", () => {
   }) => {
     const tab = tabLocator(page, "WT-2");
     const widget = widgetLocator({ tab });
-    const popoutButton = popoutButtonLocator(widget);
 
-    let [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    const popoutPage = await popoutWidget(context, widget);
     expect(popoutPage.isClosed()).toBe(false);
 
     await openFrontstage(page, "appui-test-app:main-stage");
@@ -109,13 +93,9 @@ test.describe("popout widget", () => {
   test("should maintain popout widget bounds", async ({ context, page }) => {
     const tab = tabLocator(page, "View Attributes");
     const widget = widgetLocator({ tab });
-    const popoutButton = popoutButtonLocator(widget);
 
     // Popout the widget w/ default size.
-    let [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    let popoutPage = await popoutWidget(context, widget);
     await expect(popoutPage).toHaveTitle(/View Attributes/);
 
     expect(popoutPage.viewportSize()).toEqual({
@@ -134,10 +114,7 @@ test.describe("popout widget", () => {
     await tab.click();
     await expect(tab).toHaveClass(/nz-active/);
 
-    [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    popoutPage = await popoutWidget(context, widget);
     expect(popoutPage.viewportSize()).toEqual({
       height: 400,
       width: 300,
@@ -150,12 +127,8 @@ test.describe("popout widget", () => {
   }) => {
     const tab = tabLocator(page, "View Attributes");
     const widget = widgetLocator({ tab });
-    const popoutButton = popoutButtonLocator(widget);
 
-    let [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    let popoutPage = await popoutWidget(context, widget);
     await expect(popoutPage).toHaveTitle(/View Attributes/);
 
     // Update widget size and close the popout.
@@ -174,10 +147,7 @@ test.describe("popout widget", () => {
 
     await page.reload();
 
-    [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    popoutPage = await popoutWidget(context, widget);
     expect(popoutPage.viewportSize()).toEqual({
       height: 400,
       width: 300,
@@ -192,12 +162,8 @@ test.describe("popout widget", () => {
       page,
       id: "appui-test-providers:ViewAttributesWidget",
     });
-    const popoutButton = popoutButtonLocator(widget);
 
-    const [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    const popoutPage = await popoutWidget(context, widget);
     await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
     expect(popoutPage.isClosed()).toBe(false);
 
@@ -219,12 +185,8 @@ test.describe("popout widget", () => {
       page,
       id,
     });
-    const popoutButton = popoutButtonLocator(widget);
 
-    const [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    const popoutPage = await popoutWidget(context, widget);
     expect(popoutPage.isClosed()).toBe(false);
 
     await popoutPage.close();
@@ -233,3 +195,12 @@ test.describe("popout widget", () => {
     expect(widgetLifecycle.unMountCount).toBe(0);
   });
 });
+
+async function popoutWidget(context: BrowserContext, widget: Locator) {
+  const popoutButton = popoutButtonLocator(widget);
+  const [popoutPage] = await Promise.all([
+    context.waitForEvent("page"),
+    popoutButton.click(),
+  ]);
+  return popoutPage;
+}
