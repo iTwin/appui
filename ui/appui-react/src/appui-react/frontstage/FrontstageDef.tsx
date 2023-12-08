@@ -914,14 +914,12 @@ export class FrontstageDef {
     const widgetDef = this.findWidgetDef(tabId);
     if (!widgetDef) return;
 
-    let width =
-      childWindow.currentBrowser === "chromium based edge"
-        ? childWindow.outerWidth
-        : childWindow.innerWidth;
-    let height =
-      childWindow.currentBrowser === "chromium based edge"
-        ? childWindow.outerHeight
-        : childWindow.innerHeight;
+    let width = childWindow.shouldUseOuterSized
+      ? childWindow.outerWidth
+      : childWindow.innerWidth;
+    let height = childWindow.shouldUseOuterSized
+      ? childWindow.outerHeight
+      : childWindow.innerHeight;
     if (childWindow.deltaHeight) {
       height = height + childWindow.deltaHeight;
       if (height < 1) height = 100;

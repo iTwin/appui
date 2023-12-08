@@ -151,12 +151,12 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     if (childWindow.expectedHeight && childWindow.expectedWidth) {
       childWindow.deltaWidth =
         childWindow.expectedWidth -
-        (childWindow.currentBrowser === "chromium based edge"
+        (childWindow.shouldUseOuterSized
           ? childWindow.outerWidth
           : childWindow.innerWidth);
       childWindow.deltaHeight =
         childWindow.expectedHeight -
-        (childWindow.currentBrowser === "chromium based edge"
+        (childWindow.shouldUseOuterSized
           ? childWindow.outerHeight
           : childWindow.innerHeight);
     }
@@ -271,25 +271,6 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     return outLocation;
   }
 
-  // This is needed due to the differences in how browsers calculate the
-  // inner vs outer width of windows. Calculations are different between
-  // browsers. We are starting with some of the mainly used browsers but can
-  // add more if issues arise with others.
-  private findBrowser(agent: string): string {
-    switch (true) {
-      case agent.indexOf("edge") > -1:
-        return "edge";
-      case agent.indexOf("firefox") > -1:
-        return "firefox";
-      case agent.indexOf("edg/") > -1:
-        return "chromium based edge";
-      case agent.indexOf("chrome") > -1:
-        return "chrome";
-      default:
-        return "other";
-    }
-  }
-
   /**
    * Open a new child window.
    * @param childWindowId Id to assign to the newly created window.
@@ -327,9 +308,9 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     childWindow.expectedHeight = location.height;
     childWindow.expectedWidth = location.width;
 
-    childWindow.currentBrowser = this.findBrowser(
-      navigator.userAgent.toLowerCase()
-    );
+    // Edge needs to use outer size
+    childWindow.shouldUseOuterSized =
+      navigator.userAgent.toLowerCase().indexOf("edg/") > -1;
 
     if (0 === url.length) {
       childWindow.document.write(childHtml);

@@ -15,6 +15,6 @@ export interface ChildWindow extends Window {
   deltaWidth?: number;
   /** Difference between height child window actually opened to as compared to expected */
   deltaHeight?: number;
-  /** Current browser being used */
-  currentBrowser?: string;
+  /** If outer size should be used for calculations instead of inner size */
+  shouldUseOuterSized?: boolean;
 }
