@@ -98,7 +98,7 @@ Object {
         },
         "home": Object {
           "side": "left",
-          "widgetId": undefined,
+          "widgetId": "",
           "widgetIndex": 0,
         },
         "id": "w1",
