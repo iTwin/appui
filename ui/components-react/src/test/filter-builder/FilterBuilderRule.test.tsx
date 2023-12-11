@@ -23,7 +23,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
   const defaultProps: PropertyFilterBuilderRuleRendererProps = {
     path: [],
     rule: { id: "id", groupId: "groupId" },
-    onAddRule: () => {},
+    onRuleAdded: () => {},
   };
   const defaultProperty: PropertyDescription = {
     displayLabel: "Prop",

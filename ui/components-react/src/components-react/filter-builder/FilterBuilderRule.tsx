@@ -34,7 +34,7 @@ export interface PropertyFilterBuilderRuleRendererProps {
   /** Rule to render. */
   rule: PropertyFilterBuilderRule;
   /** Function to add rule to group */
-  onAddRule: () => void;
+  onRuleAdded: () => void;
   /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
   size?: "medium" | "large";
 }
@@ -46,7 +46,7 @@ export interface PropertyFilterBuilderRuleRendererProps {
 export function PropertyFilterBuilderRuleRenderer(
   props: PropertyFilterBuilderRuleRendererProps
 ) {
-  const { path, rule, onAddRule, size } = props;
+  const { path, rule, onRuleAdded, size } = props;
   const { properties, actions, onRulePropertySelected } = React.useContext(
     PropertyFilterBuilderContext
   );
@@ -84,6 +84,10 @@ export function PropertyFilterBuilderRuleRenderer(
   );
 
   const removeRule = () => actions.removeItem(path);
+  const handleRuleAdded = () => {
+    actions.addItem([], "RULE");
+    onRuleAdded();
+  };
 
   const operatorRenderer = React.useCallback(
     (prop: PropertyDescription) => {
@@ -155,7 +159,7 @@ export function PropertyFilterBuilderRuleRenderer(
             </div>
           ) : null}
           <PropertyFilterBuilderToolbar
-            onAddChild={() => onAddRule()}
+            onAddChild={() => handleRuleAdded()}
             onDelete={removeRule}
             size={size}
           />

@@ -43,12 +43,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
 ) {
   const { path, group, size } = props;
   const { actions } = React.useContext(PropertyFilterBuilderContext);
-  const { onNewRuleAdded, groupRef } = useRulePropertyFocus(group.items.length);
-
-  const handleAddRule = () => {
-    actions.addItem(path, "RULE");
-    onNewRuleAdded();
-  };
+  const { onRuleAdded, groupRef } = useRulePropertyFocus(group.items.length);
 
   const onOperatorChange = React.useCallback(
     (operator: PropertyFilterRuleGroupOperator) => {
@@ -79,7 +74,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
             <PropertyFilterBuilderGroupOrRule
               path={path}
               item={item}
-              onAddRule={handleAddRule}
+              onRuleAdded={onRuleAdded}
               size={size}
             />
           </Flex>
@@ -129,7 +124,7 @@ export function PropertyFilterBuilderRuleGroupOperator(
 interface PropertyFilterBuilderGroupOrRuleProps {
   path: string[];
   item: PropertyFilterBuilderRuleGroupItem;
-  onAddRule: () => void;
+  onRuleAdded: () => void;
   size?: "medium" | "large";
 }
 
@@ -137,7 +132,7 @@ const PropertyFilterBuilderGroupOrRule = React.memo(
   function PropertyFilterBuilderGroupOrRule({
     path,
     item,
-    onAddRule,
+    onRuleAdded,
     size,
   }: PropertyFilterBuilderGroupOrRuleProps) {
     const itemPath = [...path, item.id];
@@ -156,7 +151,7 @@ const PropertyFilterBuilderGroupOrRule = React.memo(
         <PropertyFilterBuilderRuleRenderer
           path={itemPath}
           rule={item}
-          onAddRule={onAddRule}
+          onRuleAdded={onRuleAdded}
           size={size}
         />
       </div>
@@ -184,5 +179,5 @@ const useRulePropertyFocus = (currentGroupItemsLength: number) => {
     previousGroupItemsLength.current = currentGroupItemsLength;
   }, [currentGroupItemsLength]);
 
-  return { onNewRuleAdded: () => (isNewRuleAdded.current = true), groupRef };
+  return { onRuleAdded: () => (isNewRuleAdded.current = true), groupRef };
 };
