@@ -52,6 +52,7 @@ interface WidgetContentRendererProps {
 /** @internal */
 export function WidgetContentRenderer(props: WidgetContentRendererProps) {
   const renderTo = useContainersStore((state) => state.containers[props.tabId]);
+  const unloaded = useLayout((state) => !!state.tabs[props.tabId].unloaded);
   const widgetContentManager = React.useContext(WidgetContentManagerContext);
   const container = React.useRef<HTMLDivElement>(undefined!);
   if (!container.current) {
@@ -83,7 +84,7 @@ export function WidgetContentRenderer(props: WidgetContentRendererProps) {
       id={`content-container:${props.tabId}`}
     >
       <TabIdContext.Provider value={props.tabId}>
-        {props.children}
+        {unloaded ? null : props.children}
       </TabIdContext.Provider>
     </div>,
     container.current
