@@ -280,7 +280,7 @@
     },
     "errorMessage": {
       "unknownError": "Something went wrong...",
-      "widgetPopoutFail": "Widget Failed To Popout"
+      "widgetPopoutFail": "Widget failed to popout, ensure you allow popout for this site."
     }
   },
   "statusBar": {
