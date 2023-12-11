@@ -131,14 +131,8 @@ export class PropertyFilterBuilderActions {
 
   /** Removes all items from root group. */
   public removeAllItems() {
-    const removeAllRootItems = (state: Draft<PropertyFilterBuilderState>) => {
-      state.rootGroup.items.forEach((item) => {
-        this.removeItem([item.id]);
-      });
-    };
-
     this.updateState((state) => {
-      removeAllRootItems(state);
+      state.rootGroup = createEmptyRuleGroup();
     });
   }
 
