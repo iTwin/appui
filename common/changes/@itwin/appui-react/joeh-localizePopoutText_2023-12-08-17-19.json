@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Localize popout error text",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
