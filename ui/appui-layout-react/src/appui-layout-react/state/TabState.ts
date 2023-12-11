@@ -47,6 +47,7 @@ export interface TabState {
   readonly userSized?: boolean;
   readonly isFloatingWidgetResizable?: boolean;
   readonly hideWithUiWhenFloating?: boolean;
+  readonly unloaded?: boolean;
 }
 
 /** @internal */
