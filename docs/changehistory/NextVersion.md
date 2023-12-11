@@ -6,6 +6,7 @@ Table of contents:
   - [Changes](#changes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Improvements](#improvements)
+  - [Additions](#additions)
 
 ## @itwin/appui-react
 
@@ -18,3 +19,7 @@ Table of contents:
 ### Improvements
 
 - Reset to default operator when property of a rule item is changed in `FilterBuilderState`.
+
+### Additions
+
+- Add `removeAllItems` function which will clear all items in the filter state.
