@@ -25,6 +25,7 @@ import type {
   PanelSide,
 } from "@itwin/appui-layout-react";
 import {
+  createNineZoneState,
   getTabLocation,
   getWidgetLocation,
   isFloatingTabLocation,
@@ -281,6 +282,8 @@ export class FrontstageDef {
   public get nineZoneState(): NineZoneState | undefined {
     return this._nineZoneState;
   }
+
+  /** @internal */
   public set nineZoneState(state: NineZoneState | undefined) {
     if (this._nineZoneState === state) return;
 

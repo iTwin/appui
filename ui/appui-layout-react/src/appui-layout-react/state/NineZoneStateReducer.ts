@@ -77,6 +77,9 @@ export function NineZoneStateReducer(
   action: NineZoneAction
 ): NineZoneState {
   switch (action.type) {
+    case "INITIALIZE": {
+      return action.state;
+    }
     case "RESIZE": {
       state = produce(state, (draft) => {
         setSizeProps(draft.size, action.size);

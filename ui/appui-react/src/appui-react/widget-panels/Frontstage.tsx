@@ -176,7 +176,6 @@ export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
 /** @internal */
 export function WidgetPanelsFrontstage() {
   const frontstageDef = useActiveFrontstageDef();
-  const layout = useLayoutStore(frontstageDef);
 
   React.useEffect(() => {
     const triggerWidowCloseProcessing = () => {
@@ -189,12 +188,7 @@ export function WidgetPanelsFrontstage() {
   }, [frontstageDef]);
 
   if (!frontstageDef) return null;
-  return (
-    <ActiveFrontstageDefProvider
-      frontstageDef={frontstageDef}
-      layout={layout}
-    />
-  );
+  return <ActiveFrontstageDefProvider frontstageDef={frontstageDef} />;
 }
 
 const defaultNineZone = createNineZoneState();
@@ -202,16 +196,15 @@ const tabElement = <WidgetPanelsTab />;
 const floatingWidgetElement = <FloatingWidget />;
 
 interface ActiveFrontstageDefProviderProps {
-  layout: LayoutStore;
   frontstageDef: FrontstageDef;
 }
 
 /** @internal */
 export function ActiveFrontstageDefProvider({
   frontstageDef,
-  layout,
 }: ActiveFrontstageDefProviderProps) {
   const dispatch = useNineZoneDispatch(frontstageDef);
+  const layout = useLayoutStore(frontstageDef);
   useUpdateNineZoneSize(frontstageDef);
   useSavedFrontstageState(frontstageDef);
   useSaveFrontstageSettings(frontstageDef, layout);
@@ -1030,28 +1023,33 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
         return;
       }
 
-      const id = frontstageDef.id;
-      const version = frontstageDef.version;
-      const settingResult = await uiStateStorageRef.current.getSetting(
-        FRONTSTAGE_SETTINGS_NAMESPACE,
-        getFrontstageStateSettingName(id)
-      );
-      if (!isMountedRef.current) return;
+      // const id = frontstageDef.id;
+      // const version = frontstageDef.version;
+      // const settingResult = await uiStateStorageRef.current.getSetting(
+      //   FRONTSTAGE_SETTINGS_NAMESPACE,
+      //   getFrontstageStateSettingName(id)
+      // );
+      // if (!isMountedRef.current) return;
 
-      if (isFrontstageStateSettingResult(settingResult)) {
-        const setting = settingResult.setting;
-        if (
-          setting.version === version &&
-          setting.stateVersion === stateVersion
-        ) {
-          frontstageDef.nineZoneState = restoreNineZoneState(
-            frontstageDef,
-            setting.nineZone
-          );
-          return;
-        }
-      }
-      frontstageDef.nineZoneState = initializeNineZoneState(frontstageDef);
+      // if (isFrontstageStateSettingResult(settingResult)) {
+      //   const setting = settingResult.setting;
+      //   if (
+      //     setting.version === version &&
+      //     setting.stateVersion === stateVersion
+      //   ) {
+      //     frontstageDef.nineZoneState = restoreNineZoneState(
+      //       frontstageDef,
+      //       setting.nineZone
+      //     );
+      //     return;
+      //   }
+      // }
+      const state = initializeNineZoneState(frontstageDef);
+      frontstageDef.nineZoneState = defaultNineZone;
+      frontstageDef.dispatch({
+        type: "INITIALIZE",
+        state,
+      });
     }
     void fetchFrontstageState();
   }, [frontstageDef]);

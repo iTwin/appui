@@ -255,17 +255,17 @@ describe("Frontstage local storage wrapper", () => {
   const localStorageMock = storageMock();
 
   before(async () => {
-    await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
+    await TestUtils.initializeUiFramework();
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
   });
 
   after(async () => {
-    Object.defineProperty(window, "localStorage", localStorageToRestore);
-    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
+    await IModelApp.shutdown();
+    Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
 
   describe("WidgetPanelsFrontstage", () => {
@@ -391,10 +391,7 @@ describe("Frontstage local storage wrapper", () => {
         const frontstageDef = new FrontstageDef();
         const { container } = render(
           <Provider store={TestUtils.store}>
-            <ActiveFrontstageDefProvider
-              frontstageDef={frontstageDef}
-              layout={createLayoutStore()}
-            />
+            <ActiveFrontstageDefProvider frontstageDef={frontstageDef} />
           </Provider>
         );
         expect(container).to.satisfy(
@@ -422,25 +419,19 @@ describe("Frontstage local storage wrapper", () => {
         });
         frontstageDef.nineZoneState = state;
 
-        const newFrontstageDef = new FrontstageDef();
-
         const { container, rerender } = render(
           <Provider store={TestUtils.store}>
-            <ActiveFrontstageDefProvider
-              frontstageDef={frontstageDef}
-              layout={createLayoutStore(state)}
-            />
+            <ActiveFrontstageDefProvider frontstageDef={frontstageDef} />
           </Provider>
         );
         expect(
           container.querySelector(".nz-outline-panelOutline.nz-hidden.nz-left")
         ).satisfy(styleMatch({ width: "482px" }));
+
+        const newFrontstageDef = new FrontstageDef();
         rerender(
           <Provider store={TestUtils.store}>
-            <ActiveFrontstageDefProvider
-              frontstageDef={newFrontstageDef}
-              layout={createLayoutStore()}
-            />
+            <ActiveFrontstageDefProvider frontstageDef={newFrontstageDef} />
           </Provider>
         );
         expect(

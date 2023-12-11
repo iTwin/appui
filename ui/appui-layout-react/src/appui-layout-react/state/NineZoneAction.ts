@@ -20,6 +20,13 @@ import type {
 } from "./DropTargetState";
 import type { PanelState } from "./PanelState";
 import type { XAndY } from "./internal/NineZoneStateHelpers";
+import type { NineZoneState } from "./NineZoneState";
+
+/** @internal */
+export interface InitializeAction {
+  readonly type: "INITIALIZE";
+  readonly state: NineZoneState;
+}
 
 /** @internal */
 export interface ResizeAction {
@@ -269,6 +276,7 @@ export interface ToolSettingsDockAction {
 
 /** @internal */
 export type NineZoneAction =
+  | InitializeAction
   | ResizeAction
   | PanelToggleCollapsedAction
   | PanelSetCollapsedAction
