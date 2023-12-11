@@ -666,6 +666,7 @@ importers:
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~5.0.2
+      upath: ^2.0.1
       zustand: ^4.4.1
     dependencies:
       '@bentley/icons-generic': 1.0.34
@@ -740,6 +741,7 @@ importers:
       ts-node: 10.9.1_9a41dbaa370b60afede472b47d9ffeeb
       typemoq: 2.1.0
       typescript: 5.0.2
+      upath: 2.0.1
 
   ../../ui/components-react:
     specifiers:
