@@ -18,14 +18,13 @@ import {
 } from "@itwin/core-frontend";
 import { UiError } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
-import { Rectangle, Size } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react";
 import type {
   NineZoneDispatch,
   NineZoneState,
   PanelSide,
 } from "@itwin/appui-layout-react";
 import {
-  createNineZoneState,
   getTabLocation,
   getWidgetLocation,
   isFloatingTabLocation,
@@ -33,7 +32,6 @@ import {
   isPanelTabLocation,
   isPopoutTabLocation,
   isPopoutWidgetLocation,
-  NineZoneStateReducer,
   panelSides,
 } from "@itwin/appui-layout-react";
 import type { ContentControl } from "../content/ContentControl";
@@ -99,6 +97,7 @@ export class FrontstageDef {
   private _floatingContentControls?: ContentControl[];
   private _toolAdminDefaultToolId?: string;
   private _dispatch?: NineZoneDispatch;
+  private _batching = false;
 
   public get id(): string {
     return this._id;
@@ -289,6 +288,9 @@ export class FrontstageDef {
 
     const oldState = this._nineZoneState;
     this._nineZoneState = state;
+
+    if (this._batching) return;
+
     const popoutResult = this.handlePopouts(oldState);
     if (oldState) {
       this.triggerStateChangeEvents(oldState);
@@ -315,15 +317,27 @@ export class FrontstageDef {
 
   /** @internal */
   public get dispatch(): NineZoneDispatch {
-    return (this._dispatch ??= (action) => {
-      if (action.type === "RESIZE") {
-        InternalFrontstageManager.nineZoneSize = Size.create(action.size);
-      }
+    return (this._dispatch ??= () => {});
+  }
 
-      const state = this.nineZoneState;
-      if (!state) return;
-      this.nineZoneState = NineZoneStateReducer(state, action);
-    });
+  /** @internal */
+  public set dispatch(dispatch: NineZoneDispatch) {
+    this._dispatch = dispatch;
+  }
+
+  /** Dispatch multiple actions inside `fn`, but trigger events once.
+   * @internal
+   */
+  public batch(fn: () => void): void {
+    const initialState = this._nineZoneState;
+
+    this._batching = true;
+    fn();
+    this._batching = false;
+
+    const updatedState = this._nineZoneState;
+    this._nineZoneState = initialState;
+    this.nineZoneState = updatedState;
   }
 
   /** @internal */

@@ -12,12 +12,14 @@ import "./Frontstage.scss";
 import produce from "immer";
 import * as React from "react";
 import { unstable_batchedUpdates } from "react-dom";
-import { Logger, ProcessDetector } from "@itwin/core-bentley";
+import { assert, Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { UiStateStorageResult } from "@itwin/core-react";
-import { Rectangle, UiStateStorageStatus } from "@itwin/core-react";
+import { Rectangle, Size, UiStateStorageStatus } from "@itwin/core-react";
 import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
 import type {
   LayoutStore,
+  NineZoneAction,
+  NineZoneDispatch,
   NineZoneLabels,
   NineZoneState,
   PanelSide,
@@ -51,6 +53,7 @@ import {
   type FrontstageDef,
   useActiveFrontstageDef,
 } from "../frontstage/FrontstageDef";
+import type { StagePanelDef } from "../stagepanels/StagePanelDef";
 import { StagePanelState, toPanelSide } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
@@ -170,7 +173,19 @@ export function useUpdateNineZoneSize(frontstageDef: FrontstageDef) {
 
 /** @internal */
 export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
-  return React.useMemo(() => frontstageDef.dispatch, [frontstageDef]);
+  const reducer = React.useMemo(() => NineZoneStateReducer, []);
+  return React.useCallback<NineZoneDispatch>(
+    (action) => {
+      if (action.type === "RESIZE") {
+        InternalFrontstageManager.nineZoneSize = Size.create(action.size);
+      }
+
+      const state = frontstageDef.nineZoneState;
+      if (!state) return;
+      frontstageDef.nineZoneState = reducer(state, action);
+    },
+    [frontstageDef, reducer]
+  );
 }
 
 /** @internal */
@@ -204,6 +219,7 @@ export function ActiveFrontstageDefProvider({
   frontstageDef,
 }: ActiveFrontstageDefProviderProps) {
   const dispatch = useNineZoneDispatch(frontstageDef);
+  frontstageDef.dispatch = dispatch;
   const layout = useLayoutStore(frontstageDef);
   useUpdateNineZoneSize(frontstageDef);
   useSavedFrontstageState(frontstageDef);
@@ -747,65 +763,72 @@ export function initializePanel(
 export const stateVersion = 17; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
 
 /** @internal */
-export function initializeNineZoneState(
-  frontstageDef: FrontstageDef
-): NineZoneState {
-  let nineZone = defaultNineZone;
-  nineZone = produce(nineZone, (stateDraft) => {
-    // istanbul ignore next
-    if (!InternalFrontstageManager.nineZoneSize) return;
-    stateDraft.size = {
-      height: InternalFrontstageManager.nineZoneSize.height,
-      width: InternalFrontstageManager.nineZoneSize.width,
-    };
-  });
+export function initializeNineZoneState(frontstageDef: FrontstageDef) {
+  assert(!frontstageDef.nineZoneState);
+  frontstageDef.nineZoneState = defaultNineZone;
 
-  nineZone = initializePanel(nineZone, frontstageDef, StagePanelLocation.Left);
-  nineZone = initializePanel(nineZone, frontstageDef, StagePanelLocation.Right);
-  nineZone = initializePanel(nineZone, frontstageDef, StagePanelLocation.Top);
-  nineZone = initializePanel(
-    nineZone,
-    frontstageDef,
-    StagePanelLocation.Bottom
-  );
-  nineZone = produce(nineZone, (draft) => {
-    for (const [, panel] of Object.entries(draft.panels)) {
-      const expanded = panel.widgets.find(
-        (widgetId) => draft.widgets[widgetId].minimized === false
-      );
-      const firstWidget =
-        panel.widgets.length > 0 ? draft.widgets[panel.widgets[0]] : undefined;
-      // istanbul ignore next
-      if (!expanded && firstWidget) {
-        firstWidget.minimized = false;
+  frontstageDef.batch(() => {
+    const size = InternalFrontstageManager.nineZoneSize;
+    size &&
+      frontstageDef.dispatch({
+        type: "RESIZE",
+        size,
+      });
+
+    let nineZone = frontstageDef.nineZoneState!;
+    nineZone = initializePanel(
+      nineZone,
+      frontstageDef,
+      StagePanelLocation.Left
+    );
+    nineZone = initializePanel(
+      nineZone,
+      frontstageDef,
+      StagePanelLocation.Right
+    );
+    nineZone = initializePanel(nineZone, frontstageDef, StagePanelLocation.Top);
+    nineZone = initializePanel(
+      nineZone,
+      frontstageDef,
+      StagePanelLocation.Bottom
+    );
+    nineZone = produce(nineZone, (draft) => {
+      for (const [, panel] of Object.entries(draft.panels)) {
+        const expanded = panel.widgets.find(
+          (widgetId) => draft.widgets[widgetId].minimized === false
+        );
+        const firstWidget =
+          panel.widgets.length > 0
+            ? draft.widgets[panel.widgets[0]]
+            : undefined;
+        // istanbul ignore next
+        if (!expanded && firstWidget) {
+          firstWidget.minimized = false;
+        }
       }
+      draft.panels.left.collapsed = isPanelCollapsed(frontstageDef.leftPanel);
+      draft.panels.right.collapsed = isPanelCollapsed(frontstageDef.rightPanel);
+      draft.panels.top.collapsed = isPanelCollapsed(frontstageDef.topPanel);
+      draft.panels.bottom.collapsed = isPanelCollapsed(
+        frontstageDef.bottomPanel
+      );
+    });
+
+    nineZone = addMissingWidgets(frontstageDef, nineZone);
+
+    const toolSettingsWidgetDef = frontstageDef.toolSettings;
+    if (toolSettingsWidgetDef) {
+      const toolSettingsTabId = toolSettingsWidgetDef.id;
+      nineZone = addDockedToolSettings(nineZone, toolSettingsTabId);
     }
-    draft.panels.left.collapsed = isPanelCollapsed(
-      frontstageDef.leftPanel?.panelState
-    );
-    draft.panels.right.collapsed = isPanelCollapsed(
-      frontstageDef.rightPanel?.panelState
-    );
-    draft.panels.top.collapsed = isPanelCollapsed(
-      frontstageDef.topPanel?.panelState
-    );
-    draft.panels.bottom.collapsed = isPanelCollapsed(
-      frontstageDef.bottomPanel?.panelState
-    );
+
+    nineZone = hideWidgets(nineZone, frontstageDef);
+    nineZone = processPopoutWidgets(nineZone);
+
+    frontstageDef.dispatch({ type: "INITIALIZE", state: nineZone });
   });
 
-  nineZone = addMissingWidgets(frontstageDef, nineZone);
-
-  const toolSettingsWidgetDef = frontstageDef.toolSettings;
-  if (toolSettingsWidgetDef) {
-    const toolSettingsTabId = toolSettingsWidgetDef.id;
-    nineZone = addDockedToolSettings(nineZone, toolSettingsTabId);
-  }
-
-  nineZone = hideWidgets(nineZone, frontstageDef);
-  nineZone = processPopoutWidgets(nineZone);
-
-  return nineZone;
+  return frontstageDef.nineZoneState;
 }
 
 /** Converts from saved NineZoneState to NineZoneState.
@@ -931,9 +954,8 @@ export function packNineZoneState(state: NineZoneState): SavedNineZoneState {
   return packed;
 }
 
-/** @internal */
-export function isPanelCollapsed(panelState: StagePanelState | undefined) {
-  return panelState !== StagePanelState.Open;
+function isPanelCollapsed(panelDef: StagePanelDef | undefined) {
+  return panelDef?.panelState !== StagePanelState.Open;
 }
 
 /** FrontstageState is saved in UiStateStorage.
@@ -1044,12 +1066,7 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
       //     return;
       //   }
       // }
-      const state = initializeNineZoneState(frontstageDef);
-      frontstageDef.nineZoneState = defaultNineZone;
-      frontstageDef.dispatch({
-        type: "INITIALIZE",
-        state,
-      });
+      initializeNineZoneState(frontstageDef);
     }
     void fetchFrontstageState();
   }, [frontstageDef]);
