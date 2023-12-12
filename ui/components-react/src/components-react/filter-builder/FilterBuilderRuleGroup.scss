@@ -39,10 +39,6 @@
   .fb-logical-operator:not(.fb-group-operator) {
     border: 0;
   }
-  .fb-group-header {
-    border: 1px solid var(--border-color);
-    border-top-right-radius: var(--border-radius);
-  }
   .fb-group-criteria {
     .fb-criteria-container:not(:first-child) {
       overflow: hidden;
@@ -68,42 +64,11 @@
     }
   }
 
-  // create divider pseudo element
-  .fb-group-divider {
-    position: relative;
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 50%;
-      bottom: calc(var(--divider-height) * -1);
-      transform: translateX(-50%);
-      width: var(--divider-width);
-      background-color: var(--divider-background-color);
-    }
-  }
-
-  // do not show divider for the last group (if used in query builder)
-  &:last-of-type .fb-group-divider {
-    display: none;
-  }
-
   // indent nested children
   .fb-group-criteria .fb-critiera-container {
     margin-left: calc(
       var(--level) * calc(var(--fb-operator-width) + 1px)
     ); // 1 pixel border
-  }
-
-  // remove "add" buttons in the header and for all but the last row
-  .fb-group-header button:first-child,
-  .fb-group-criteria
-    .fb-criteria-container
-    .iui-flex-item
-    .fb-row:not(:last-child)
-    button:first-child {
-    visibility: hidden;
   }
 }
 

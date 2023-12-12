@@ -5,7 +5,6 @@
 .fb-row {
   --background-color: var(--iui-color-background);
   --border-color: var(--iui-color-border);
-  --drag-handle-width: 1.25rem;
   --operator-width: 5rem;
   --property-name-width: 25%;
   --condition-width: 10rem;
@@ -29,18 +28,6 @@
 
   &[data-iui-size="small"] .fb-row-container {
     padding-block: var(--iui-size-2xs);
-  }
-
-  .fb-row-drag-handle {
-    width: var(--drag-handle-width);
-    border-right: 1px solid var(--border-color);
-    box-sizing: border-box;
-  }
-
-  &:not(.fb-row-drag-enabled) {
-    .fb-row-drag-handle {
-      display: none;
-    }
   }
 
   .fb-row-container {
@@ -72,6 +59,7 @@
 }
 
 .fb-row:not(:last-child) {
+  //only show buttons on last row to prevent visual clutter
   .iui-button:first-child {
     visibility: hidden;
   }
