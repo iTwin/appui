@@ -118,6 +118,7 @@ export interface PreviewFeaturesProviderProps {
  *    [/...]
  *   </Provider>
  * </PreviewFeaturesProvider>
+ * ```
  * @beta
  */
 export function PreviewFeaturesProvider({
