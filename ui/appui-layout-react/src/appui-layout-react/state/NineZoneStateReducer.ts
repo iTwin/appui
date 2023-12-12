@@ -10,7 +10,7 @@ import { produce } from "immer";
 import { Point, Rectangle } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
 import type { TabState } from "./TabState";
-import { addRemovedTab, removeTabFromWidget } from "./TabState";
+import { addRemovedTab, addTab, removeTabFromWidget } from "./TabState";
 import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation";
 import type { NineZoneAction } from "./NineZoneAction";
 import {
@@ -20,7 +20,11 @@ import {
   isWidgetDropTargetState,
   isWindowDropTargetState,
 } from "./DropTargetState";
-import { getWidgetPanelSectionId, insertPanelWidget } from "./PanelState";
+import {
+  addPanelWidget,
+  getWidgetPanelSectionId,
+  insertPanelWidget,
+} from "./PanelState";
 import type { NineZoneState } from "./NineZoneState";
 import type { PopoutWidgetState, WidgetState } from "./WidgetState";
 import {
@@ -126,6 +130,21 @@ export function NineZoneStateReducer(
         draft.size = size;
       });
     }
+    case "PANEL_SET_MIN_SIZE": {
+      return updatePanelState(state, action.side, (draft) => {
+        draft.minSize = action.minSize;
+      });
+    }
+    case "PANEL_SET_MAX_SIZE": {
+      return updatePanelState(state, action.side, (draft) => {
+        draft.maxSize = action.maxSize;
+      });
+    }
+    case "PANEL_SET_RESIZABLE": {
+      return updatePanelState(state, action.side, (draft) => {
+        draft.resizable = action.resizable;
+      });
+    }
     case "PANEL_SET_SPLITTER_VALUE": {
       const splitterPercent = Math.min(Math.max(action.percent, 0), 100);
       return updatePanelState(state, action.side, (draft) => {
@@ -179,6 +198,15 @@ export function NineZoneStateReducer(
           ...widget,
           minimized: false,
         }
+      );
+    }
+    case "PANEL_WIDGET_ADD": {
+      return addPanelWidget(
+        state,
+        action.side,
+        action.id,
+        action.tabs,
+        action.overrides
       );
     }
     case "WIDGET_DRAG": {
@@ -264,6 +292,11 @@ export function NineZoneStateReducer(
         });
       }
       return state;
+    }
+    case "WIDGET_SET_MINIMIZED": {
+      return updateWidgetState(state, action.id, {
+        minimized: action.minimized,
+      });
     }
     case "FLOATING_WIDGET_RESIZE": {
       const { resizeBy } = action;
@@ -749,6 +782,9 @@ export function NineZoneStateReducer(
         });
       }
       return state;
+    }
+    case "WIDGET_TAB_ADD": {
+      return addTab(state, action.id, action.overrides);
     }
     case "TOOL_SETTINGS_DRAG_START": {
       if (!state.toolSettings) return state;

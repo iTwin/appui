@@ -32,6 +32,7 @@ import {
   isPanelTabLocation,
   isPopoutTabLocation,
   isPopoutWidgetLocation,
+  NineZoneStateReducer,
   panelSides,
 } from "@itwin/appui-layout-react";
 import type { ContentControl } from "../content/ContentControl";
@@ -317,7 +318,11 @@ export class FrontstageDef {
 
   /** @internal */
   public get dispatch(): NineZoneDispatch {
-    return (this._dispatch ??= () => {});
+    return (this._dispatch ??= (action) => {
+      const state = this.nineZoneState;
+      if (!state) return;
+      this.nineZoneState = NineZoneStateReducer(state, action);
+    });
   }
 
   /** @internal */

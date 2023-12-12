@@ -62,6 +62,27 @@ export interface PanelSetSizeAction {
 }
 
 /** @internal */
+export interface PanelSetMinSizeAction {
+  readonly type: "PANEL_SET_MIN_SIZE";
+  readonly side: PanelSide;
+  readonly minSize: PanelState["minSize"];
+}
+
+/** @internal */
+export interface PanelSetMaxSizeAction {
+  readonly type: "PANEL_SET_MAX_SIZE";
+  readonly side: PanelSide;
+  readonly maxSize: PanelState["maxSize"];
+}
+
+/** @internal */
+export interface PanelSetResizableAction {
+  readonly type: "PANEL_SET_RESIZABLE";
+  readonly side: PanelSide;
+  readonly resizable: PanelState["resizable"];
+}
+
+/** @internal */
 export interface PanelSetSplitterPercentAction {
   readonly type: "PANEL_SET_SPLITTER_VALUE";
   readonly side: PanelSide;
@@ -143,6 +164,15 @@ export interface PanelWidgetDragStartAction {
 }
 
 /** @internal */
+export interface PanelWidgetAddAction {
+  readonly type: "PANEL_WIDGET_ADD";
+  readonly side: PanelSide;
+  readonly id: WidgetState["id"];
+  readonly tabs: WidgetState["tabs"];
+  readonly overrides?: Partial<WidgetState>;
+}
+
+/** @internal */
 export interface WidgetDragAction {
   readonly type: "WIDGET_DRAG";
   readonly dragBy: XAndY;
@@ -154,6 +184,13 @@ export interface WidgetDragEndAction {
   readonly type: "WIDGET_DRAG_END";
   readonly floatingWidgetId: FloatingWidgetState["id"];
   readonly target: WidgetDragDropTargetState;
+}
+
+/** @internal */
+export interface WidgetSetMinimizedAction {
+  readonly type: "WIDGET_SET_MINIMIZED";
+  readonly id: WidgetState["id"];
+  readonly minimized: WidgetState["minimized"];
 }
 
 /** @internal */
@@ -264,6 +301,13 @@ export interface WidgetTabUnloadAction {
 }
 
 /** @internal */
+export interface WidgetTabAddAction {
+  readonly type: "WIDGET_TAB_ADD";
+  readonly id: TabState["id"];
+  readonly overrides?: Partial<TabState>;
+}
+
+/** @internal */
 export interface ToolSettingsDragStartAction {
   readonly type: "TOOL_SETTINGS_DRAG_START";
   readonly newFloatingWidgetId: FloatingWidgetState["id"];
@@ -282,6 +326,9 @@ export type NineZoneAction =
   | PanelSetCollapsedAction
   | PanelSetPinnedAction
   | PanelSetSizeAction
+  | PanelSetMinSizeAction
+  | PanelSetMaxSizeAction
+  | PanelSetResizableAction
   | PanelSetSplitterPercentAction
   | PanelToggleSpanAction
   | PanelTogglePinnedAction
@@ -294,8 +341,10 @@ export type NineZoneAction =
   | FloatingWidgetSetUserSizedAction
   | PopoutWidgetSendBackAction
   | PanelWidgetDragStartAction
+  | PanelWidgetAddAction
   | WidgetDragAction
   | WidgetDragEndAction
+  | WidgetSetMinimizedAction
   | WidgetTabClickAction
   | WidgetTabCloseAction
   | WidgetTabDoubleClickAction
@@ -311,5 +360,6 @@ export type NineZoneAction =
   | WidgetTabSetPopoutBoundsAction
   | WidgetTabShowAction
   | WidgetTabUnloadAction
+  | WidgetTabAddAction
   | ToolSettingsDragStartAction
   | ToolSettingsDockAction;
