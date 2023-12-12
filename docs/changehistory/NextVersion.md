@@ -3,6 +3,7 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Fixes](#fixes)
   - [Changes](#changes)
   - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
@@ -11,6 +12,10 @@ Table of contents:
   - [Additions](#additions)
 
 ## @itwin/appui-react
+
+### Fixes
+
+- Localize popout error message text.
 
 ### Changes
 

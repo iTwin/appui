@@ -297,7 +297,7 @@ export class FrontstageDef {
       IModelApp.notifications.outputMessage(
         new NotifyMessageDetails(
           OutputMessagePriority.Error,
-          "Widget Failed To Popout",
+          UiFramework.translate("widget.errorMessage.widgetPopoutFail"),
           undefined,
           OutputMessageType.Toast
         )
