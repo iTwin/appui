@@ -699,6 +699,7 @@ export class FrontstageDef {
     for (const panelDef of this.panelDefs) {
       panelDef.size = panelDef.defaultSize;
       panelDef.panelState = panelDef.defaultState;
+      panelDef.pinned = panelDef.initialConfig?.pinned ?? true;
     }
     for (const widgetDef of this.widgetDefs) {
       widgetDef.setWidgetState(widgetDef.defaultState);
