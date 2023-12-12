@@ -6,9 +6,10 @@ Table of contents:
   - [Changes](#changes)
   - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
+  - [Additions](#additions)
   - [Changes](#changes-1)
   - [Fixes](#fixes-1)
-
+  
 ## @itwin/appui-react
 
 ### Changes
@@ -18,9 +19,14 @@ Table of contents:
 
 ### Fixes
 
+- Localize popout error message text.
 - Correctly dock a closed popout widget to the panel section from which the widget was popped out. #621
 
 ## @itwin/components-react
+
+### Additions
+
+- Add `removeAllItems` function which will clear all items in the filter state.
 
 ### Changes
 

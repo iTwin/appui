@@ -2,8 +2,8 @@
   "changes": [
     {
       "packageName": "@itwin/components-react",
-      "comment": "Set filterText to lowercase in constructors of filterers.",
-      "type": "none"
+      "comment": "Add ability to remove all items in PropertyFilterBuilderActions.",
+      "type": "patch"
     }
   ],
   "packageName": "@itwin/components-react"

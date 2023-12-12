@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Now support `null` Content (allow delay rendering on specific cases)",
+      "comment": "Localize popout error text",
       "type": "none"
     }
   ],
