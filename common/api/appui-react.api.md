@@ -2266,7 +2266,7 @@ export class FrontstageDef {
     // (undocumented)
     get rightPanel(): StagePanelDef | undefined;
     // @internal (undocumented)
-    saveChildWindowSizeAndPosition(childWindowId: string, childWindow: Window): void;
+    saveChildWindowSizeAndPosition(childWindowId: string, childWindow: ChildWindow): void;
     setActiveContent(): Promise<boolean>;
     setActiveView(newContent: ContentControl, oldContent?: ContentControl): void;
     setActiveViewFromViewport(viewport: ScreenViewport): boolean;

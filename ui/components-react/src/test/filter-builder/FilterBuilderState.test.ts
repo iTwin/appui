@@ -155,6 +155,25 @@ describe("usePropertyFilterBuilder", () => {
     });
   });
 
+  it("removes all rules from root group", () => {
+    const { result } = renderHook(() => usePropertyFilterBuilder());
+    const { actions } = result.current;
+    let { rootGroup } = result.current;
+
+    actions.addItem([], "RULE");
+    actions.addItem([], "RULE_GROUP");
+
+    rootGroup = result.current.rootGroup;
+    expect(rootGroup.items).to.have.lengthOf(3);
+    actions.removeAllItems();
+
+    rootGroup = result.current.rootGroup;
+    expect(rootGroup.items).to.have.lengthOf(1);
+    expect(rootGroup).to.containSubset({
+      items: [{ groupId: rootGroup.id }],
+    });
+  });
+
   it("clears rule instead of removing it when only one rule is left in the rule group", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions } = result.current;

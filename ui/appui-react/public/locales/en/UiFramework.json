@@ -279,7 +279,8 @@
       "popoutActiveTab": "Pop out active widget tab"
     },
     "errorMessage": {
-      "unknownError": "Something went wrong..."
+      "unknownError": "Something went wrong...",
+      "widgetPopoutFail": "Widget failed to popout, ensure you allow popout for this site."
     }
   },
   "statusBar": {
