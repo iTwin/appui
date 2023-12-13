@@ -10,7 +10,12 @@ import { produce } from "immer";
 import { Point, Rectangle } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
 import type { TabState } from "./TabState";
-import { addRemovedTab, addTab, removeTabFromWidget } from "./TabState";
+import {
+  addRemovedTab,
+  addTab,
+  addTabToWidget,
+  removeTabFromWidget,
+} from "./TabState";
 import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation";
 import type { NineZoneAction } from "./NineZoneAction";
 import {
@@ -815,6 +820,76 @@ export function NineZoneStateReducer(
         assert(!!draft.toolSettings);
         draft.toolSettings.type = "docked";
       });
+    }
+    case "WIDGET_DEF_ADD": {
+      state = addTab(state, action.id, action.overrides);
+
+      const savedTab = state.savedTabs.byId[action.id];
+      if (savedTab) {
+        // Restore to saved state.
+        return addRemovedTab(state, action.id);
+      }
+
+      if (action.location === "floating") {
+        // Add to a floating widget.
+
+        if (action.floatingWidget.id in state.widgets) {
+          // Add to an existing floating widget.
+          state = addTabToWidget(state, action.id, action.floatingWidget.id);
+        } else {
+          const size = action.overrides?.preferredFloatingWidgetSize ?? {
+            height: 200,
+            width: 300,
+          };
+          const position = action.floatingWidget.preferredPosition ?? {
+            x: (state.size.width - size.width) / 2,
+            y: (state.size.height - size.height) / 2,
+          };
+          const nzBounds = Rectangle.createFromSize(state.size);
+          const bounds = Rectangle.createFromSize(size).offset(position);
+          const containedBounds = bounds.containIn(nzBounds);
+
+          const userSized = !!action.overrides?.preferredFloatingWidgetSize;
+          state = addFloatingWidget(
+            state,
+            action.floatingWidget.id,
+            [action.id],
+            {
+              bounds: containedBounds.toProps(),
+              home: {
+                side: action.panelSection.side,
+                widgetId: action.panelSection.id,
+                widgetIndex: 0,
+              },
+              userSized,
+            }
+          );
+        }
+      } else {
+        // Add to a panel section.
+        const side = action.panelSection.side;
+        if (action.panelSection.id in state.widgets) {
+          // Add to an existing panel section.
+          state = addTabToWidget(state, action.id, action.panelSection.id);
+        } else {
+          const panel = state.panels[side];
+          if (panel.widgets.length < panel.maxWidgetCount) {
+            // Add to a new panel section.
+            state = addPanelWidget(state, side, action.panelSection.id, [
+              action.id,
+            ]);
+          } else {
+            // Can't add additional sections, add to an existing one.
+            const sectionIndex = Math.min(
+              action.panelSection.index,
+              panel.widgets.length - 1
+            );
+            const existingSectionId = panel.widgets[sectionIndex];
+            state = addTabToWidget(state, action.id, existingSectionId);
+          }
+        }
+      }
+      return state;
     }
   }
   return state;

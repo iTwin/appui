@@ -33,16 +33,14 @@ import type {
 } from "../../appui-react";
 import {
   ActiveFrontstageDefProvider,
-  addMissingWidgets,
   addPanelSectionWidgets,
-  addPanelWidgets,
-  appendWidgets,
   expandWidget,
   FrontstageDef,
   FrontstageProvider,
-  getWidgetId,
+  getPanelSectionId,
   initializeNineZoneState,
   initializePanel,
+  initializePanelWidgets,
   isFrontstageStateSettingResult,
   ModalFrontstageComposer,
   packNineZoneState,
@@ -919,7 +917,7 @@ describe("Frontstage local storage wrapper", () => {
       });
     });
 
-    describe("addPanelWidgets", () => {
+    describe("initializePanelWidgets", () => {
       it("should add widgets from panel zones", () => {
         const frontstageDef = new FrontstageDef();
         frontstageDef.nineZoneState = createNineZoneState();
@@ -932,7 +930,7 @@ describe("Frontstage local storage wrapper", () => {
           StagePanelLocation.Left
         );
         sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
-        addPanelWidgets(frontstageDef, StagePanelLocation.Left);
+        initializePanelWidgets(frontstageDef, StagePanelLocation.Left);
         const sut = frontstageDef.nineZoneState;
         sut.panels.left.widgets[0].should.eq("leftStart");
       });
@@ -949,7 +947,7 @@ describe("Frontstage local storage wrapper", () => {
           StagePanelLocation.Left
         );
         sinon.stub(frontstageDef, "leftPanel").get(() => panelDef);
-        addPanelWidgets(frontstageDef, StagePanelLocation.Left);
+        initializePanelWidgets(frontstageDef, StagePanelLocation.Left);
         state.panels.left.widgets[0].should.eq("leftEnd");
         state.widgets.leftEnd.tabs.should.eql(["w1"]);
       });
@@ -966,7 +964,7 @@ describe("Frontstage local storage wrapper", () => {
           StagePanelLocation.Right
         );
         sinon.stub(frontstageDef, "rightPanel").get(() => panelDef);
-        addPanelWidgets(frontstageDef, StagePanelLocation.Right);
+        initializePanelWidgets(frontstageDef, StagePanelLocation.Right);
         const sut = frontstageDef.nineZoneState;
         sut.panels.right.widgets[0].should.eq("rightEnd");
         sut.widgets.rightEnd.tabs.should.eql(["w1"]);
@@ -984,7 +982,7 @@ describe("Frontstage local storage wrapper", () => {
           StagePanelLocation.Left
         );
         sinon.stub(frontstageDef, "topPanel").get(() => panelDef);
-        addPanelWidgets(frontstageDef, StagePanelLocation.Top);
+        initializePanelWidgets(frontstageDef, StagePanelLocation.Top);
         const sut = frontstageDef.nineZoneState;
         sut.panels.top.widgets[0].should.eq("topStart");
         sut.widgets.topStart.tabs.should.eql(["w1"]);
@@ -1002,7 +1000,7 @@ describe("Frontstage local storage wrapper", () => {
           StagePanelLocation.Bottom
         );
         sinon.stub(frontstageDef, "bottomPanel").get(() => panelDef);
-        addPanelWidgets(frontstageDef, StagePanelLocation.Bottom);
+        initializePanelWidgets(frontstageDef, StagePanelLocation.Bottom);
         const sut = frontstageDef.nineZoneState;
         sut.panels.bottom.widgets[0].should.eq("bottomStart");
         sut.widgets.bottomStart.tabs.should.eql(["w1"]);
@@ -1066,55 +1064,61 @@ describe("Frontstage local storage wrapper", () => {
       });
     });
 
-    describe("getWidgetId", () => {
+    describe("getPanelSectionId", () => {
       it("should return 'leftStart'", () => {
-        getWidgetId(StagePanelLocation.Left, StagePanelSection.Start).should.eq(
-          "leftStart"
-        );
+        getPanelSectionId(
+          StagePanelLocation.Left,
+          StagePanelSection.Start
+        ).should.eq("leftStart");
       });
 
       it("should return 'leftEnd'", () => {
-        getWidgetId(StagePanelLocation.Left, StagePanelSection.End).should.eq(
-          "leftEnd"
-        );
+        getPanelSectionId(
+          StagePanelLocation.Left,
+          StagePanelSection.End
+        ).should.eq("leftEnd");
       });
 
       it("should return 'rightStart'", () => {
-        getWidgetId(
+        getPanelSectionId(
           StagePanelLocation.Right,
           StagePanelSection.Start
         ).should.eq("rightStart");
       });
 
       it("should return 'rightEnd'", () => {
-        getWidgetId(StagePanelLocation.Right, StagePanelSection.End).should.eq(
-          "rightEnd"
-        );
+        getPanelSectionId(
+          StagePanelLocation.Right,
+          StagePanelSection.End
+        ).should.eq("rightEnd");
       });
 
       it("should return 'topStart'", () => {
-        getWidgetId(StagePanelLocation.Top, StagePanelSection.Start).should.eq(
-          "topStart"
-        );
+        getPanelSectionId(
+          StagePanelLocation.Top,
+          StagePanelSection.Start
+        ).should.eq("topStart");
       });
 
       it("should return 'topEnd'", () => {
-        getWidgetId(StagePanelLocation.Top, StagePanelSection.End).should.eq(
-          "topEnd"
-        );
+        getPanelSectionId(
+          StagePanelLocation.Top,
+          StagePanelSection.End
+        ).should.eq("topEnd");
       });
 
       it("should return 'bottomStart'", () => {
-        getWidgetId(
+        getPanelSectionId(
           StagePanelLocation.Bottom,
           StagePanelSection.Start
         ).should.eq("bottomStart");
       });
 
       it("should return 'bottomEnd'", () => {
-        getWidgetId(StagePanelLocation.Bottom, StagePanelSection.End).should.eq(
-          "bottomEnd"
-        );
+        getPanelSectionId(
+          StagePanelLocation.Bottom,
+          StagePanelSection.End
+        ).should.eq("bottomEnd");
       });
     });
 
@@ -1328,7 +1332,7 @@ describe("Frontstage local storage wrapper", () => {
         });
       });
     });
-
+    /*
     describe("addMissingWidgets", () => {
       it("should add leftPanel widgets", () => {
         let state = createNineZoneState();
@@ -1496,7 +1500,7 @@ describe("Frontstage local storage wrapper", () => {
         );
         expect(newState.widgets.w2.tabs).to.eql(["t2", "t3"]);
       });
-    });
+    });*/
 
     describe("dynamic widgets", () => {
       stubRaf();

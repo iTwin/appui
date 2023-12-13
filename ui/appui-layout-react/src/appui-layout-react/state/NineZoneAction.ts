@@ -319,6 +319,23 @@ export interface ToolSettingsDockAction {
 }
 
 /** @internal */
+export interface WidgetDefAddAction {
+  readonly type: "WIDGET_DEF_ADD";
+  readonly id: TabState["id"];
+  readonly overrides?: Partial<TabState>;
+  readonly location: "panel" | "floating";
+  readonly floatingWidget: {
+    readonly id: FloatingWidgetState["id"];
+    readonly preferredPosition?: XAndY;
+  };
+  readonly panelSection: {
+    readonly id: WidgetState["id"];
+    readonly index: number;
+    readonly side: PanelSide;
+  };
+}
+
+/** @internal */
 export type NineZoneAction =
   | InitializeAction
   | ResizeAction
@@ -362,4 +379,5 @@ export type NineZoneAction =
   | WidgetTabUnloadAction
   | WidgetTabAddAction
   | ToolSettingsDragStartAction
-  | ToolSettingsDockAction;
+  | ToolSettingsDockAction
+  | WidgetDefAddAction;
