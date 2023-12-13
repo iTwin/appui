@@ -398,7 +398,7 @@ export class WidgetDef {
   public setWidgetState(newState: WidgetState): void {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     const state = frontstageDef?.nineZoneState;
-    if (!state) return;
+    if (!state || this.isStatusBar) return;
     if (!frontstageDef.findWidgetDef(this.id)) return;
 
     switch (newState) {

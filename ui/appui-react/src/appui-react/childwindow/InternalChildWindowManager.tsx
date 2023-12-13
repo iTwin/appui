@@ -25,6 +25,7 @@ import type {
   OpenChildWindowInfo,
 } from "../framework/FrameworkChildWindows";
 import { createLayoutStore, NineZone } from "@itwin/appui-layout-react";
+import type { ChildWindow } from "./ChildWindowConfig";
 
 const childHtml = `<!DOCTYPE html>
 <html>
@@ -141,12 +142,25 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
 
   // istanbul ignore next: Used in `open` which is not tested.
   private renderChildWindowContents(
-    childWindow: Window,
+    childWindow: ChildWindow,
     childWindowId: string,
     content: React.ReactNode,
     title: string
   ) {
     childWindow.document.title = title;
+    if (childWindow.expectedHeight && childWindow.expectedWidth) {
+      childWindow.deltaWidth =
+        childWindow.expectedWidth -
+        (childWindow.shouldUseOuterSized
+          ? childWindow.outerWidth
+          : childWindow.innerWidth);
+      childWindow.deltaHeight =
+        childWindow.expectedHeight -
+        (childWindow.shouldUseOuterSized
+          ? childWindow.outerHeight
+          : childWindow.innerHeight);
+    }
+
     const reactConnectionDiv = childWindow.document.getElementById("root");
     if (reactConnectionDiv) {
       // set openChildWindows now so components can use it when they mount
@@ -285,12 +299,19 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
 
     location = this.adjustWidowLocation(location);
     const url = useDefaultPopoutUrl ? "/iTwinPopup.html" : "";
-    const childWindow = window.open(
+    const childWindow: ChildWindow | null = window.open(
       url,
       "",
       `width=${location.width},height=${location.height},left=${location.left},top=${location.top},menubar=no,resizable=yes,scrollbars=no,status=no,location=no`
     );
     if (!childWindow) return false;
+    childWindow.expectedHeight = location.height;
+    childWindow.expectedWidth = location.width;
+
+    // Edge needs to use outer size
+    childWindow.shouldUseOuterSized =
+      navigator.userAgent.toLowerCase().indexOf("edg/") > -1;
+
     if (0 === url.length) {
       childWindow.document.write(childHtml);
       this.renderChildWindowContents(

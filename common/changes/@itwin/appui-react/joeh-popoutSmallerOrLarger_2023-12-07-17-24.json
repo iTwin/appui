@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fixed bug where popouts would get incrementally smaller or larger each time opened",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
