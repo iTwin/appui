@@ -383,11 +383,11 @@ export function addPanelSectionWidgetDefs(
 
 function processPopoutWidgets(frontstageDef: FrontstageDef) {
   // Electron reopens popout windows w/o user interaction.
-  assert(!!frontstageDef.nineZoneState);
   if (ProcessDetector.isElectronAppFrontend) {
     return;
   }
 
+  assert(!!frontstageDef.nineZoneState);
   const state = frontstageDef.nineZoneState;
   for (const id of state.popoutWidgets.allIds) {
     frontstageDef.dispatch({
@@ -637,9 +637,10 @@ export const stateVersion = 17; // this needs to be bumped when NineZoneState is
 /** @internal */
 export function initializeNineZoneState(frontstageDef: FrontstageDef) {
   assert(!frontstageDef.nineZoneState);
-  frontstageDef.nineZoneState = defaultNineZone;
 
   frontstageDef.batch(() => {
+    frontstageDef.nineZoneState = defaultNineZone;
+
     const size = InternalFrontstageManager.nineZoneSize;
     size &&
       frontstageDef.dispatch({
@@ -654,8 +655,6 @@ export function initializeNineZoneState(frontstageDef: FrontstageDef) {
     initializePanel(frontstageDef, StagePanelLocation.Top);
     initializePanel(frontstageDef, StagePanelLocation.Bottom);
   });
-
-  return frontstageDef.nineZoneState;
 }
 
 /** Converts from saved NineZoneState to NineZoneState.
@@ -666,7 +665,7 @@ export function initializeNineZoneState(frontstageDef: FrontstageDef) {
 export function restoreNineZoneState(
   frontstageDef: FrontstageDef,
   saved: SavedNineZoneState
-): NineZoneState {
+) {
   let state: NineZoneState = {
     ...saved,
     tabs: {},
@@ -739,24 +738,27 @@ export function restoreNineZoneState(
     return;
   });
 
-  if (
-    InternalFrontstageManager.nineZoneSize &&
-    (0 !== InternalFrontstageManager.nineZoneSize.height ||
-      0 !== InternalFrontstageManager.nineZoneSize.width)
-  ) {
-    frontstageDef.dispatch({
-      type: "RESIZE",
-      size: {
-        height: InternalFrontstageManager.nineZoneSize.height,
-        width: InternalFrontstageManager.nineZoneSize.width,
-      },
-    });
-  }
+  frontstageDef.batch(() => {
+    frontstageDef.nineZoneState = state;
 
-  addFrontstageWidgetDefs(frontstageDef);
-  hideWidgetDefs(frontstageDef);
-  processPopoutWidgets(frontstageDef);
-  return state;
+    if (
+      InternalFrontstageManager.nineZoneSize &&
+      (0 !== InternalFrontstageManager.nineZoneSize.height ||
+        0 !== InternalFrontstageManager.nineZoneSize.width)
+    ) {
+      frontstageDef.dispatch({
+        type: "RESIZE",
+        size: {
+          height: InternalFrontstageManager.nineZoneSize.height,
+          width: InternalFrontstageManager.nineZoneSize.width,
+        },
+      });
+    }
+
+    addFrontstageWidgetDefs(frontstageDef);
+    hideWidgetDefs(frontstageDef);
+    processPopoutWidgets(frontstageDef);
+  });
 }
 
 /** Prepares NineZoneState to be saved.
@@ -870,27 +872,24 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
         return;
       }
 
-      // const id = frontstageDef.id;
-      // const version = frontstageDef.version;
-      // const settingResult = await uiStateStorageRef.current.getSetting(
-      //   FRONTSTAGE_SETTINGS_NAMESPACE,
-      //   getFrontstageStateSettingName(id)
-      // );
-      // if (!isMountedRef.current) return;
+      const id = frontstageDef.id;
+      const version = frontstageDef.version;
+      const settingResult = await uiStateStorageRef.current.getSetting(
+        FRONTSTAGE_SETTINGS_NAMESPACE,
+        getFrontstageStateSettingName(id)
+      );
+      if (!isMountedRef.current) return;
 
-      // if (isFrontstageStateSettingResult(settingResult)) {
-      //   const setting = settingResult.setting;
-      //   if (
-      //     setting.version === version &&
-      //     setting.stateVersion === stateVersion
-      //   ) {
-      //     frontstageDef.nineZoneState = restoreNineZoneState(
-      //       frontstageDef,
-      //       setting.nineZone
-      //     );
-      //     return;
-      //   }
-      // }
+      if (isFrontstageStateSettingResult(settingResult)) {
+        const setting = settingResult.setting;
+        if (
+          setting.version === version &&
+          setting.stateVersion === stateVersion
+        ) {
+          restoreNineZoneState(frontstageDef, setting.nineZone);
+          return;
+        }
+      }
       initializeNineZoneState(frontstageDef);
     }
     void fetchFrontstageState();
@@ -1010,11 +1009,11 @@ export function useFrontstageManager(
           getFrontstageStateSettingName(args.frontstageDef.id)
         );
         if (frontstageDef.id === args.frontstageDef.id) {
-          args.frontstageDef.nineZoneState =
-            initializeNineZoneState(frontstageDef);
-        } else {
-          args.frontstageDef.nineZoneState = undefined;
+          initializeNineZoneState(frontstageDef);
+          return;
         }
+
+        args.frontstageDef.nineZoneState = undefined;
       }
     );
   }, [uiSettingsStorage, frontstageDef]);

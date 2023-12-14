@@ -204,7 +204,7 @@ describe("FrontstageDef", () => {
         },
       },
     });
-    def.nineZoneState = initializeNineZoneState(def);
+    initializeNineZoneState(def);
     sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
 
     const spy = sinon.spy();
@@ -530,7 +530,7 @@ describe("FrontstageDef", () => {
           },
         },
       });
-      def.nineZoneState = initializeNineZoneState(def);
+      initializeNineZoneState(def);
 
       const dispatch = sinon.stub();
       sinon.stub(def, "dispatch").get(() => dispatch);
@@ -557,7 +557,7 @@ describe("FrontstageDef", () => {
           },
         },
       });
-      def.nineZoneState = initializeNineZoneState(def);
+      initializeNineZoneState(def);
 
       const dispatch = sinon.stub();
       sinon.stub(def, "dispatch").get(() => dispatch);
@@ -620,11 +620,11 @@ describe("FrontstageDef", () => {
           },
         },
       });
-      frontstageDef.nineZoneState = initializeNineZoneState(frontstageDef);
+      initializeNineZoneState(frontstageDef);
       frontstageDef.popoutWidget("t1");
 
       const spy = sinon.spy(window, "open");
-      const popoutWidgets = frontstageDef.nineZoneState.popoutWidgets;
+      const popoutWidgets = frontstageDef.nineZoneState!.popoutWidgets;
       const popoutWidget = popoutWidgets.byId[popoutWidgets.allIds[0]];
       frontstageDef.openPopoutWidgetContainer(
         popoutWidget.id,
@@ -645,11 +645,11 @@ describe("FrontstageDef", () => {
           },
         },
       });
-      frontstageDef.nineZoneState = initializeNineZoneState(frontstageDef);
+      initializeNineZoneState(frontstageDef);
       frontstageDef.popoutWidget("t1");
 
       frontstageDef.dockWidgetContainer("t1");
-      expect(frontstageDef.nineZoneState.popoutWidgets.allIds).lengthOf(0);
+      expect(frontstageDef.nineZoneState!.popoutWidgets.allIds).lengthOf(0);
     });
 
     it("should dock floating widget", async () => {
@@ -662,13 +662,14 @@ describe("FrontstageDef", () => {
           },
         },
       });
-      frontstageDef.nineZoneState = initializeNineZoneState(frontstageDef);
+      initializeNineZoneState(frontstageDef);
       frontstageDef.floatWidget("t1");
 
-      const floatingWidgets = frontstageDef.nineZoneState.floatingWidgets;
+      const sut = frontstageDef.nineZoneState!;
+      const floatingWidgets = sut.floatingWidgets;
       const floatingWidget = floatingWidgets.byId[floatingWidgets.allIds[0]];
       frontstageDef.dockWidgetContainer(floatingWidget.id);
-      expect(frontstageDef.nineZoneState.floatingWidgets.allIds).lengthOf(0);
+      expect(frontstageDef.nineZoneState!.floatingWidgets.allIds).lengthOf(0);
     });
   });
 
@@ -689,8 +690,8 @@ describe("FrontstageDef", () => {
           },
         },
       });
+      initializeNineZoneState(frontstageDef);
 
-      frontstageDef.nineZoneState = initializeNineZoneState(frontstageDef);
       frontstageDef.dispatch({
         type: "RESIZE",
         size: {
@@ -698,7 +699,6 @@ describe("FrontstageDef", () => {
           width: 1000,
         },
       });
-
       frontstageDef.setFloatingWidgetContainerBounds("fw1", {
         top: 55,
         left: 105,
@@ -706,9 +706,8 @@ describe("FrontstageDef", () => {
         right: 255,
       });
 
-      expect(
-        frontstageDef.nineZoneState.floatingWidgets.byId.fw1.bounds
-      ).to.eql({
+      const sut = frontstageDef.nineZoneState!;
+      expect(sut.floatingWidgets.byId.fw1.bounds).to.eql({
         top: 55,
         left: 105,
         bottom: 155,
