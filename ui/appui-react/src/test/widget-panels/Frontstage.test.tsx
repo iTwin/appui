@@ -33,14 +33,12 @@ import type {
 } from "../../appui-react";
 import {
   ActiveFrontstageDefProvider,
-  addPanelSectionWidgets,
   expandWidget,
   FrontstageDef,
   FrontstageProvider,
   getPanelSectionId,
   initializeNineZoneState,
   initializePanel,
-  initializePanelWidgets,
   isFrontstageStateSettingResult,
   ModalFrontstageComposer,
   packNineZoneState,
@@ -917,6 +915,7 @@ describe("Frontstage local storage wrapper", () => {
       });
     });
 
+    /*
     describe("initializePanelWidgets", () => {
       it("should add widgets from panel zones", () => {
         const frontstageDef = new FrontstageDef();
@@ -1006,7 +1005,7 @@ describe("Frontstage local storage wrapper", () => {
         sut.widgets.bottomStart.tabs.should.eql(["w1"]);
       });
     });
-
+*/
     describe("initializePanel", () => {
       it("should initialize max size", () => {
         const frontstageDef = new FrontstageDef();
@@ -1034,7 +1033,7 @@ describe("Frontstage local storage wrapper", () => {
         sut.panels.left.minSize.should.eq(50);
       });
     });
-
+    /*
     describe("addPanelSectionWidgets", () => {
       it("should use widget label", () => {
         const frontstageDef = new FrontstageDef();
@@ -1063,7 +1062,7 @@ describe("Frontstage local storage wrapper", () => {
         sut.widgets.leftStart.activeTabId.should.eq("w1");
       });
     });
-
+*/
     describe("getPanelSectionId", () => {
       it("should return 'leftStart'", () => {
         getPanelSectionId(

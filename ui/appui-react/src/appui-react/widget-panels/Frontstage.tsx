@@ -21,7 +21,6 @@ import type {
   NineZoneDispatch,
   NineZoneLabels,
   NineZoneState,
-  PanelSide,
   TabState,
 } from "@itwin/appui-layout-react";
 import {
@@ -317,43 +316,6 @@ function toTabArgs(widget: WidgetDef) {
   return args satisfies Pick<TabState, keyof typeof args>;
 }
 
-/** @internal */
-export function addPanelSectionWidgets(
-  frontstageDef: FrontstageDef,
-  widgets: ReadonlyArray<WidgetDef>,
-  side: PanelSide,
-  sectionId: PanelSectionId
-) {
-  const visibleWidgets = widgets.filter(
-    (w) => w.isVisible && w.defaultState !== WidgetState.Floating
-  );
-  if (visibleWidgets.length === 0) return;
-  // TODO: this is never hit
-
-  for (const widget of visibleWidgets) {
-    frontstageDef.dispatch({
-      type: "WIDGET_TAB_ADD",
-      id: widget.id,
-      overrides: toTabArgs(widget),
-    });
-  }
-
-  const tabs = visibleWidgets.map((widget) => widget.id);
-  const activeWidget = visibleWidgets.find((widget) => widget.isActive);
-  const activeTabId = activeWidget ? activeWidget.id : tabs[0];
-  const minimized = false;
-  frontstageDef.dispatch({
-    type: "PANEL_WIDGET_ADD",
-    side,
-    id: sectionId,
-    tabs,
-    overrides: {
-      activeTabId,
-      minimized,
-    },
-  });
-}
-
 function addWidgetDef(
   frontstageDef: FrontstageDef,
   widgetDef: WidgetDef,
@@ -405,7 +367,6 @@ export function addPanelSectionWidgetDefs(
   if (!panelDef) return;
   const sectionDef = panelDef.getPanelSectionDef(section);
   const widgetDefs = determineNewWidgets(frontstageDef, sectionDef.widgetDefs);
-
   for (const widgetDef of widgetDefs) {
     addWidgetDef(frontstageDef, widgetDef, location, section);
   }
@@ -431,7 +392,6 @@ function processPopoutWidgets(frontstageDef: FrontstageDef) {
  * @internal
  */
 export function addFrontstageWidgetDefs(frontstageDef: FrontstageDef) {
-  assert(!!frontstageDef.nineZoneState);
   addPanelSectionWidgetDefs(
     frontstageDef,
     StagePanelLocation.Left,
@@ -476,21 +436,17 @@ export function addFrontstageWidgetDefs(frontstageDef: FrontstageDef) {
     StagePanelSection.End
   );
 
-  let state = frontstageDef.nineZoneState;
-  if (frontstageDef.toolSettings) {
-    const newToolSettingsWidgets = determineNewWidgets(frontstageDef, [
-      frontstageDef.toolSettings,
-    ]);
-    for (const newToolSettingsWidget of newToolSettingsWidgets) {
-      state = addTab(
-        state,
-        newToolSettingsWidget.id,
-        toTabArgs(newToolSettingsWidget)
-      );
-    }
+  const toolSettingsWidgetDefs = determineNewWidgets(
+    frontstageDef,
+    frontstageDef.toolSettings ? [frontstageDef.toolSettings] : undefined
+  );
+  for (const toolSettingsWidgetDef of toolSettingsWidgetDefs) {
+    frontstageDef.dispatch({
+      type: "WIDGET_DEF_ADD_TOOL_SETTINGS",
+      id: toolSettingsWidgetDef.id,
+      overrides: toTabArgs(toolSettingsWidgetDef),
+    });
   }
-
-  return state;
 }
 
 /** Hide widgets with `Hidden` or `Unloaded` defaultState. */
@@ -537,22 +493,19 @@ function hideWidgetDef(frontstageDef: FrontstageDef, widgetDef: WidgetDef) {
 /** Removes NineZoneState widgets that are missing in frontstageDef.
  * @internal
  */
-function removeMissingWidgets(
-  frontstageDef: FrontstageDef,
-  state: NineZoneState
-): NineZoneState {
+function removeMissingWidgets(frontstageDef: FrontstageDef) {
+  const state = frontstageDef.nineZoneState;
+  if (!state) return;
   const toolSettingsTabId = state.toolSettings?.tabId;
   for (const [, tab] of Object.entries(state.tabs)) {
     if (tab.id === toolSettingsTabId) continue;
     const widgetDef = frontstageDef.findWidgetDef(tab.id);
     if (widgetDef) continue;
     frontstageDef.dispatch({
-      type: "WIDGET_TAB_HIDE",
+      type: "WIDGET_TAB_REMOVE",
       id: tab.id,
     });
-    state = removeTab(state, tab.id);
   }
-  return state;
 }
 
 function getWidgetLabel(label: string) {
@@ -606,40 +559,6 @@ export function getPanelSectionWidgets(
 }
 
 /** @internal */
-export function initializePanelWidgets(
-  frontstageDef: FrontstageDef,
-  location: StagePanelLocation
-) {
-  const side = toPanelSide(location);
-
-  const start = getPanelSectionId(location, StagePanelSection.Start);
-  const startWidgets = getPanelSectionWidgets(
-    frontstageDef,
-    location,
-    StagePanelSection.Start
-  );
-  addPanelSectionWidgets(
-    frontstageDef,
-    determineNewWidgets(frontstageDef, startWidgets),
-    side,
-    start
-  );
-
-  const end = getPanelSectionId(location, StagePanelSection.End);
-  const endWidgets = getPanelSectionWidgets(
-    frontstageDef,
-    location,
-    StagePanelSection.End
-  );
-  addPanelSectionWidgets(
-    frontstageDef,
-    determineNewWidgets(frontstageDef, endWidgets),
-    side,
-    end
-  );
-}
-
-/** @internal */
 export function isFrontstageStateSettingResult(
   settingsResult: UiStateStorageResult
 ): settingsResult is {
@@ -657,7 +576,6 @@ export function initializePanel(
 ) {
   const side = toPanelSide(location);
 
-  initializePanelWidgets(frontstageDef, location);
   const panelDef = frontstageDef.getStagePanelDef(location);
   if (!panelDef) return;
 
@@ -738,21 +656,10 @@ export function initializeNineZoneState(frontstageDef: FrontstageDef) {
 
     addFrontstageWidgetDefs(frontstageDef);
 
-    const nineZone = frontstageDef.nineZoneState!;
     initializePanel(frontstageDef, StagePanelLocation.Left);
     initializePanel(frontstageDef, StagePanelLocation.Right);
     initializePanel(frontstageDef, StagePanelLocation.Top);
     initializePanel(frontstageDef, StagePanelLocation.Bottom);
-
-    // const toolSettingsWidgetDef = frontstageDef.toolSettings;
-    // if (toolSettingsWidgetDef) {
-    //   const toolSettingsTabId = toolSettingsWidgetDef.id;
-    //   nineZone = addDockedToolSettings(nineZone, toolSettingsTabId);
-    // }
-
-    // hideWidgets(frontstageDef);
-
-    frontstageDef.dispatch({ type: "INITIALIZE", state: nineZone });
   });
 
   return frontstageDef.nineZoneState;
@@ -853,7 +760,7 @@ export function restoreNineZoneState(
     });
   }
 
-  state = addFrontstageWidgetDefs(frontstageDef);
+  addFrontstageWidgetDefs(frontstageDef);
   hideWidgetDefs(frontstageDef);
   processPopoutWidgets(frontstageDef);
   return state;
@@ -1162,19 +1069,17 @@ export function useFrontstageManager(
   }, [frontstageDef, useToolAsToolSettingsLabel, defaultLabel]);
 }
 
-/** @internal */
-// istanbul ignore next
-export function useItemsManager(frontstageDef: FrontstageDef) {
-  const refreshNineZoneState = (def: FrontstageDef) => {
-    // Fired for both registered/unregistered. Update definitions and remove/add missing widgets.
-    def.updateWidgetDefs();
-    let state = def.nineZoneState;
-    if (!state) return;
-    state = addFrontstageWidgetDefs(def);
-    state = removeMissingWidgets(def, state);
-    def.nineZoneState = state;
-  };
+function refreshNineZoneState(frontstageDef: FrontstageDef) {
+  // Fired for both registered/unregistered. Update definitions and remove/add missing widgets.
+  frontstageDef.updateWidgetDefs();
+  frontstageDef.batch(() => {
+    addFrontstageWidgetDefs(frontstageDef);
+    removeMissingWidgets(frontstageDef);
+  });
+}
 
+/** @internal */
+export function useItemsManager(frontstageDef: FrontstageDef) {
   React.useEffect(() => {
     // Need to refresh anytime frontstageDef changes because uiItemsProvider may have added something to
     // another stage before it was possibly unloaded in this stage.

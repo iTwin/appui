@@ -20,13 +20,6 @@ import type {
 } from "./DropTargetState";
 import type { PanelState } from "./PanelState";
 import type { XAndY } from "./internal/NineZoneStateHelpers";
-import type { NineZoneState } from "./NineZoneState";
-
-/** @internal */
-export interface InitializeAction {
-  readonly type: "INITIALIZE";
-  readonly state: NineZoneState;
-}
 
 /** @internal */
 export interface ResizeAction {
@@ -255,6 +248,12 @@ export interface WidgetTabHideAction {
 }
 
 /** @internal */
+export interface WidgetTabRemoveAction {
+  readonly type: "WIDGET_TAB_REMOVE";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
 export interface WidgetTabSetLabelAction {
   readonly type: "WIDGET_TAB_SET_LABEL";
   readonly id: TabState["id"];
@@ -323,7 +322,7 @@ export interface WidgetDefAddAction {
   readonly type: "WIDGET_DEF_ADD";
   readonly id: TabState["id"];
   readonly overrides?: Partial<TabState>;
-  readonly location: "panel" | "floating";
+  readonly location: "panel" | "floating" | "toolSettings";
   readonly floatingWidget: {
     readonly id: FloatingWidgetState["id"];
     readonly preferredPosition?: XAndY;
@@ -336,8 +335,14 @@ export interface WidgetDefAddAction {
 }
 
 /** @internal */
+export interface WidgetDefAddToolSettingsAction {
+  readonly type: "WIDGET_DEF_ADD_TOOL_SETTINGS";
+  readonly id: TabState["id"];
+  readonly overrides?: Partial<TabState>;
+}
+
+/** @internal */
 export type NineZoneAction =
-  | InitializeAction
   | ResizeAction
   | PanelToggleCollapsedAction
   | PanelSetCollapsedAction
@@ -371,6 +376,7 @@ export type NineZoneAction =
   | WidgetTabExpandAction
   | WidgetTabFloatAction
   | WidgetTabHideAction
+  | WidgetTabRemoveAction
   | WidgetTabOpenAction
   | WidgetTabPopoutAction
   | WidgetTabSetLabelAction
@@ -380,4 +386,5 @@ export type NineZoneAction =
   | WidgetTabAddAction
   | ToolSettingsDragStartAction
   | ToolSettingsDockAction
-  | WidgetDefAddAction;
+  | WidgetDefAddAction
+  | WidgetDefAddToolSettingsAction;

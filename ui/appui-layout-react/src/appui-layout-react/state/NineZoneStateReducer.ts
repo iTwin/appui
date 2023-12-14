@@ -14,6 +14,7 @@ import {
   addRemovedTab,
   addTab,
   addTabToWidget,
+  removeTab,
   removeTabFromWidget,
 } from "./TabState";
 import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation";
@@ -79,6 +80,7 @@ import {
   isPanelWidgetRestoreState,
   type PanelWidgetRestoreState,
 } from "./WidgetRestoreState";
+import { addDockedToolSettings } from "./ToolSettingsState";
 
 /** @internal */
 export function NineZoneStateReducer(
@@ -86,9 +88,6 @@ export function NineZoneStateReducer(
   action: NineZoneAction
 ): NineZoneState {
   switch (action.type) {
-    case "INITIALIZE": {
-      return action.state;
-    }
     case "RESIZE": {
       state = produce(state, (draft) => {
         setSizeProps(draft.size, action.size);
@@ -657,6 +656,12 @@ export function NineZoneStateReducer(
     case "WIDGET_TAB_HIDE": {
       return hideTab(state, action.id);
     }
+    case "WIDGET_TAB_REMOVE": {
+      // Save tab state.
+      state = hideTab(state, action.id);
+      // Remove tab.
+      return removeTab(state, action.id);
+    }
     case "WIDGET_TAB_SET_LABEL": {
       return updateTabState(state, action.id, (draft) => {
         draft.label = action.label;
@@ -890,6 +895,10 @@ export function NineZoneStateReducer(
         }
       }
       return state;
+    }
+    case "WIDGET_DEF_ADD_TOOL_SETTINGS": {
+      state = addTab(state, action.id, action.overrides);
+      return addDockedToolSettings(state, action.id);
     }
   }
   return state;
