@@ -150,8 +150,7 @@ export function useLayoutStore(frontstageDef: FrontstageDef | undefined) {
 export function useUpdateNineZoneSize(frontstageDef: FrontstageDef) {
   React.useEffect(() => {
     const size = InternalFrontstageManager.nineZoneSize;
-    const state = frontstageDef.nineZoneState;
-    if (!size || !state) return;
+    if (!size) return;
     frontstageDef.dispatch({
       type: "RESIZE",
       size: {
@@ -162,9 +161,19 @@ export function useUpdateNineZoneSize(frontstageDef: FrontstageDef) {
   }, [frontstageDef]);
 }
 
+const log =
+  (reducer: typeof NineZoneStateReducer): typeof NineZoneStateReducer =>
+  (state, action) => {
+    Logger.logTrace("appui-react:reducer", `action ${action.type}`, () => ({
+      action,
+      state,
+    }));
+    return reducer(state, action);
+  };
+
 /** @internal */
 export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
-  const reducer = React.useMemo(() => NineZoneStateReducer, []);
+  const reducer = React.useMemo(() => log(NineZoneStateReducer), []);
   return React.useCallback<NineZoneDispatch>(
     (action) => {
       if (action.type === "RESIZE") {
@@ -620,22 +629,6 @@ export function initializePanel(
     side,
     collapsed: isPanelCollapsed(panelDef),
   });
-
-  // TODO: handle in reducer.
-  const state = frontstageDef.nineZoneState!;
-  const panel = state.panels[side];
-  const expandedSection = panel.widgets.find(
-    (widgetId) => state.widgets[widgetId].minimized === false
-  );
-  const firstWidgetId = panel.widgets.length > 0 ? panel.widgets[0] : undefined;
-  if (!expandedSection && firstWidgetId) {
-    // Esnure at least one panel section is not minimized.
-    frontstageDef.dispatch({
-      type: "WIDGET_SET_MINIMIZED",
-      id: firstWidgetId,
-      minimized: false,
-    });
-  }
 }
 
 /** @internal */
