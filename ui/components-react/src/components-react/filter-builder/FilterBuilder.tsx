@@ -13,10 +13,8 @@ import type {
   PropertyFilterBuilderRuleRenderingContextProps,
 } from "./FilterBuilderContext";
 import {
-  ActiveRuleGroupContext,
   PropertyFilterBuilderContext,
   PropertyFilterBuilderRuleRenderingContext,
-  useActiveRuleGroupContextProps,
 } from "./FilterBuilderContext";
 import { PropertyFilterBuilderRuleGroupRenderer } from "./FilterBuilderRuleGroup";
 import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
@@ -151,17 +149,13 @@ export function PropertyFilterBuilderRenderer(
       value={renderingContextValue}
     >
       <PropertyFilterBuilderContext.Provider value={contextValue}>
-        <ActiveRuleGroupContext.Provider
-          value={useActiveRuleGroupContextProps(rootRef)}
-        >
-          <Flex style={{ flexDirection: "column" }}>
-            <PropertyFilterBuilderRuleGroupRenderer
-              path={ROOT_GROUP_PATH}
-              group={rootGroup}
-              size={size}
-            />
-          </Flex>
-        </ActiveRuleGroupContext.Provider>
+        <Flex style={{ flexDirection: "column" }}>
+          <PropertyFilterBuilderRuleGroupRenderer
+            path={ROOT_GROUP_PATH}
+            group={rootGroup}
+            size={size}
+          />
+        </Flex>
       </PropertyFilterBuilderContext.Provider>
     </PropertyFilterBuilderRuleRenderingContext.Provider>
   );
