@@ -28,6 +28,7 @@ export function ActionItem(props: ActionItemProps) {
   return (
     <IconButton
       className={props.className}
+      styleType="borderless"
       disabled={isDisabled}
       isActive={item.isActive}
       label={
