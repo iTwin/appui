@@ -385,6 +385,8 @@ export function NineZoneStateReducer(
           home.widgetIndex
         );
         existingWidget = state.widgets[panelSectionId];
+
+        // Can not add additional sections, add to an existing one.
         if (!existingWidget && panel.widgets.length >= panel.maxWidgetCount) {
           const sectionIndex = Math.min(
             panel.maxWidgetCount - 1,
@@ -408,13 +410,12 @@ export function NineZoneStateReducer(
         const sectionId = home.widgetId
           ? home.widgetId
           : getWidgetPanelSectionId(home.side, home.widgetIndex);
-        const sectionIndex = sectionId.endsWith("End") ? 1 : 0;
         return insertPanelWidget(
           state,
           home.side,
           sectionId,
           [...widget.tabs],
-          sectionIndex
+          home.widgetIndex
         );
       }
 

@@ -2254,6 +2254,25 @@ describe("NineZoneStateReducer", () => {
       newState.widgets.w2.tabs.should.eql(["t2", "t3"]);
     });
 
+    it("should send back to new panel section (by section index)", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2"]);
+      state = addPanelWidget(state, "left", "w1", ["t1"]);
+      state = addPopoutWidget(state, "pw1", ["t2"], {
+        home: {
+          widgetId: "w2",
+          side: "left",
+          widgetIndex: 1,
+        },
+      });
+      const newState = NineZoneStateReducer(state, {
+        type: "POPOUT_WIDGET_SEND_BACK",
+        id: "pw1",
+      });
+
+      newState.panels.left.widgets.should.eql(["w1", "w2"]);
+    });
+
     it("should send back to new floating widget", () => {
       let state = createNineZoneState();
       state = addTabs(state, ["t1"]);
