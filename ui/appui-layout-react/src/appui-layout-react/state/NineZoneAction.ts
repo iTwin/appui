@@ -307,6 +307,13 @@ export interface WidgetTabAddAction {
 }
 
 /** @internal */
+export interface WidgetTabUpdateAction {
+  readonly type: "WIDGET_TAB_UPDATE";
+  readonly id: TabState["id"];
+  readonly overrides?: Partial<TabState>;
+}
+
+/** @internal */
 export interface ToolSettingsDragStartAction {
   readonly type: "TOOL_SETTINGS_DRAG_START";
   readonly newFloatingWidgetId: FloatingWidgetState["id"];
@@ -384,6 +391,7 @@ export type NineZoneAction =
   | WidgetTabShowAction
   | WidgetTabUnloadAction
   | WidgetTabAddAction
+  | WidgetTabUpdateAction
   | ToolSettingsDragStartAction
   | ToolSettingsDockAction
   | WidgetDefAddAction

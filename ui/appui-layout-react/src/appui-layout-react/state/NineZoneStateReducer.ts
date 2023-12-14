@@ -796,6 +796,13 @@ export function NineZoneStateReducer(
     case "WIDGET_TAB_ADD": {
       return addTab(state, action.id, action.overrides);
     }
+    case "WIDGET_TAB_UPDATE": {
+      return updateTabState(state, action.id, (draft) => {
+        for (const [key, val] of Object.entries(action.overrides ?? {})) {
+          (draft as any)[key] = val;
+        }
+      });
+    }
     case "TOOL_SETTINGS_DRAG_START": {
       if (!state.toolSettings) return state;
       if (state.toolSettings.type === "widget") return state;

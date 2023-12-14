@@ -24,21 +24,15 @@ import type {
   TabState,
 } from "@itwin/appui-layout-react";
 import {
-  addTab,
   createLayoutStore,
   createNineZoneState,
-  floatingWidgetBringToFront,
   FloatingWidgets,
-  getTabLocation,
   getUniqueId,
   getWidgetPanelSectionId,
-  isFloatingTabLocation,
-  isPanelTabLocation,
   NineZone,
   NineZoneStateReducer,
   PreviewLayoutFeaturesProvider,
   PreviewMaximizedWidgetFeatureProvider,
-  removeTab,
   useLayout,
   WidgetPanels,
 } from "@itwin/appui-layout-react";
@@ -664,82 +658,76 @@ export function initializeNineZoneState(frontstageDef: FrontstageDef) {
  */
 export function restoreNineZoneState(
   frontstageDef: FrontstageDef,
-  saved: SavedNineZoneState
+  packed: NineZoneState
 ) {
-  let state: NineZoneState = {
-    ...saved,
-    tabs: {},
-  };
-
-  for (const [, tab] of Object.entries(saved.tabs)) {
-    // Re-add the placeholder tab in order to correctly remove it from the state if WidgetDef is not found.
-    state = addTab(state, tab.id);
-
-    const widgetDef = frontstageDef.findWidgetDef(tab.id);
-    if (!widgetDef) {
-      Logger.logInfo(
-        UiFramework.loggerCategory(restoreNineZoneState),
-        "WidgetDef is not found for saved tab.",
-        () => ({
-          frontstageId: frontstageDef.id,
-          tabId: tab.id,
-        })
-      );
-      state = removeTab(state, tab.id);
-      continue;
-    }
-    state = produce(state, (draft) => {
-      draft.tabs[tab.id] = {
-        ...tab,
-        ...toTabArgs(widgetDef),
-        preferredFloatingWidgetSize: tab.preferredFloatingWidgetSize,
-        preferredPanelWidgetSize: tab.preferredPanelWidgetSize,
-      };
-    });
-  }
-  state = produce(state, (draft) => {
-    // remove center panel section if one is found in left or right panels
-    const oldLeftMiddleIndex = saved.panels.left.widgets.findIndex(
-      (value) => value === "leftMiddle"
-    );
-    // istanbul ignore next
-    if (-1 !== oldLeftMiddleIndex) {
-      draft.panels.left.widgets = saved.panels.left.widgets.filter(
-        (value) => value !== "leftMiddle"
-      );
-      if ("leftEnd" in draft.widgets) {
-        draft.widgets.leftMiddle.tabs.forEach((tab) =>
-          draft.widgets.leftEnd.tabs.push(tab)
-        );
-      } else {
-        draft.widgets.leftEnd = { ...draft.widgets.leftMiddle };
-        delete draft.widgets.leftMiddle;
-      }
-    }
-
-    const oldRightMiddleIndex = saved.panels.right.widgets.findIndex(
-      (value) => value === "rightMiddle"
-    );
-    // istanbul ignore next
-    if (-1 !== oldRightMiddleIndex) {
-      draft.panels.right.widgets = saved.panels.right.widgets.filter(
-        (value) => value !== "rightMiddle"
-      );
-      if ("rightEnd" in draft.widgets) {
-        draft.widgets.rightMiddle.tabs.forEach((tab) =>
-          draft.widgets.rightEnd.tabs.push(tab)
-        );
-      } else {
-        draft.widgets.rightEnd = { ...draft.widgets.rightMiddle };
-        delete draft.widgets.rightMiddle;
-      }
-    }
-
-    return;
-  });
-
   frontstageDef.batch(() => {
-    frontstageDef.nineZoneState = state;
+    frontstageDef.nineZoneState = packed;
+
+    for (const [, tab] of Object.entries(packed.tabs)) {
+      const widgetDef = frontstageDef.findWidgetDef(tab.id);
+      if (!widgetDef) {
+        Logger.logInfo(
+          UiFramework.loggerCategory(restoreNineZoneState),
+          "WidgetDef is not found for saved tab.",
+          {
+            frontstageId: frontstageDef.id,
+            tabId: tab.id,
+          }
+        );
+        frontstageDef.dispatch({ type: "WIDGET_TAB_REMOVE", id: tab.id });
+        continue;
+      }
+
+      frontstageDef.dispatch({
+        type: "WIDGET_TAB_UPDATE",
+        id: tab.id,
+        overrides: toTabArgs(widgetDef),
+      });
+    }
+
+    frontstageDef.nineZoneState = produce(
+      frontstageDef.nineZoneState,
+      (draft) => {
+        // remove center panel section if one is found in left or right panels
+        const oldLeftMiddleIndex = packed.panels.left.widgets.findIndex(
+          (value) => value === "leftMiddle"
+        );
+        // istanbul ignore next
+        if (-1 !== oldLeftMiddleIndex) {
+          draft.panels.left.widgets = packed.panels.left.widgets.filter(
+            (value) => value !== "leftMiddle"
+          );
+          if ("leftEnd" in draft.widgets) {
+            draft.widgets.leftMiddle.tabs.forEach((tab) =>
+              draft.widgets.leftEnd.tabs.push(tab)
+            );
+          } else {
+            draft.widgets.leftEnd = { ...draft.widgets.leftMiddle };
+            delete draft.widgets.leftMiddle;
+          }
+        }
+
+        const oldRightMiddleIndex = packed.panels.right.widgets.findIndex(
+          (value) => value === "rightMiddle"
+        );
+        // istanbul ignore next
+        if (-1 !== oldRightMiddleIndex) {
+          draft.panels.right.widgets = packed.panels.right.widgets.filter(
+            (value) => value !== "rightMiddle"
+          );
+          if ("rightEnd" in draft.widgets) {
+            draft.widgets.rightMiddle.tabs.forEach((tab) =>
+              draft.widgets.rightEnd.tabs.push(tab)
+            );
+          } else {
+            draft.widgets.rightEnd = { ...draft.widgets.rightMiddle };
+            delete draft.widgets.rightMiddle;
+          }
+        }
+
+        return;
+      }
+    );
 
     if (
       InternalFrontstageManager.nineZoneSize &&
@@ -766,18 +754,12 @@ export function restoreNineZoneState(
  * @note Removes tab labels and iconSpec.
  * @internal
  */
-export function packNineZoneState(state: NineZoneState): SavedNineZoneState {
-  let packed: SavedNineZoneState = {
-    ...state,
-    tabs: {},
-  };
+export function packNineZoneState(state: NineZoneState): NineZoneState {
+  let packed = state;
   packed = produce(packed, (draft) => {
-    for (const [, tab] of Object.entries(state.tabs)) {
-      draft.tabs[tab.id] = {
-        id: tab.id,
-        preferredFloatingWidgetSize: tab.preferredFloatingWidgetSize,
-        userSized: tab.userSized,
-      };
+    for (const [, tab] of Object.entries(draft.tabs)) {
+      tab.label = "";
+      delete tab.iconSpec;
     }
   });
   return packed;
@@ -791,26 +773,12 @@ function isPanelCollapsed(panelDef: StagePanelDef | undefined) {
  * @internal
  */
 export interface WidgetPanelsFrontstageState {
-  nineZone: SavedNineZoneState;
+  nineZone: NineZoneState;
   id: FrontstageDef["id"];
   /** Frontstage version used to create the frontstage state. Allows to invalidate the layout from the frontstage. */
   version: number;
   /** Platform provided frontstage version. Allows to invalidate the layout from the platform. */
   stateVersion: number;
-}
-
-// We don't save tab labels or if widget is allowed to "pop-out".
-type SavedTabState = Omit<
-  TabState,
-  "label" | "canPopout" | "isFloatingStateWindowResizable" | "iconSpec"
->;
-
-interface SavedTabsState {
-  readonly [id: string]: SavedTabState;
-}
-
-interface SavedNineZoneState extends Omit<NineZoneState, "tabs"> {
-  readonly tabs: SavedTabsState;
 }
 
 /** @internal */

@@ -13,7 +13,6 @@ import { act, renderHook } from "@testing-library/react-hooks";
 import { BentleyError, Logger } from "@itwin/core-bentley";
 import type { UiStateStorageResult } from "@itwin/core-react";
 import { Size, UiStateStorageStatus } from "@itwin/core-react";
-import type { NineZoneState } from "@itwin/appui-layout-react";
 import {
   addFloatingWidget,
   addPanelWidget,
@@ -69,28 +68,8 @@ import TestUtils, {
 } from "../TestUtils";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
-function createSavedNineZoneState(args?: Partial<NineZoneState>) {
-  return {
-    ...createNineZoneState(args),
-    tabs: {},
-  };
-}
-
-type SavedNineZoneState = ReturnType<typeof packNineZoneState>;
-type SavedTabState = SavedNineZoneState["tabs"][0];
-
-function createSavedTabState(
-  id: SavedTabState["id"],
-  args?: Partial<SavedTabState>
-): SavedTabState {
-  return {
-    id,
-    ...args,
-  };
-}
-
 function createFrontstageState(
-  nineZone = createSavedNineZoneState()
+  nineZone = createNineZoneState()
 ): WidgetPanelsFrontstageState {
   return {
     id: "frontstage1",
@@ -1145,13 +1124,9 @@ describe("Frontstage local storage wrapper", () => {
       it("should log info if widgetDef is not found", () => {
         const spy = sinon.spy(Logger, "logInfo");
         const frontstageDef = new FrontstageDef();
-        const savedState = {
-          ...createSavedNineZoneState(),
-          tabs: {
-            t1: createSavedTabState("t1"),
-          },
-        };
-        restoreNineZoneState(frontstageDef, savedState);
+        let state = createNineZoneState();
+        state = addTab(state, "t1");
+        restoreNineZoneState(frontstageDef, state);
         spy.calledOnce.should.true;
         (
           BentleyError.getMetaData(spy.firstCall.args[2]) as any
@@ -1171,19 +1146,12 @@ describe("Frontstage local storage wrapper", () => {
         let state = createNineZoneState();
         state = addTab(state, "t1", { label: "t1" });
         state = addTab(state, "t2", { label: "t2" });
-        state = addTab(state, "t3", { label: "t3" });
+        state = addTab(state, "t3", {
+          label: "t3",
+          preferredFloatingWidgetSize: { width: 444, height: 555 },
+        });
         state = addPanelWidget(state, "left", "w1", ["t1", "t2"]);
-        const savedState = {
-          ...createSavedNineZoneState(state),
-          tabs: {
-            t1: createSavedTabState("t1"),
-            t2: createSavedTabState("t2"),
-            t3: createSavedTabState("t3", {
-              preferredFloatingWidgetSize: { width: 444, height: 555 },
-            }),
-          },
-        };
-        restoreNineZoneState(frontstageDef, savedState);
+        restoreNineZoneState(frontstageDef, state);
 
         const sut = frontstageDef.nineZoneState!;
         sut.widgets.w1.tabs.should.eql(["t2"]);
@@ -1195,13 +1163,9 @@ describe("Frontstage local storage wrapper", () => {
         const frontstageDef = new FrontstageDef();
         const widgetDef = new WidgetDef();
         sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef);
-        const savedState = {
-          ...createSavedNineZoneState(),
-          tabs: {
-            t1: createSavedTabState("t1"),
-          },
-        };
-        restoreNineZoneState(frontstageDef, savedState);
+        let state = createNineZoneState();
+        state = addTab(state, "t1");
+        restoreNineZoneState(frontstageDef, state);
 
         const sut = frontstageDef.nineZoneState!;
         sut.should.matchSnapshot();
@@ -1212,18 +1176,14 @@ describe("Frontstage local storage wrapper", () => {
           .stub(InternalFrontstageManager, "nineZoneSize")
           .get(() => new Size(10, 20));
         const frontstageDef = new FrontstageDef();
-        const savedState = {
-          ...createSavedNineZoneState({
-            size: {
-              width: 1,
-              height: 2,
-            },
-          }),
-          tabs: {
-            t1: createSavedTabState("t1"),
+        let state = createNineZoneState({
+          size: {
+            width: 1,
+            height: 2,
           },
-        };
-        restoreNineZoneState(frontstageDef, savedState);
+        });
+        state = addTab(state, "t1");
+        restoreNineZoneState(frontstageDef, state);
 
         const sut = frontstageDef.nineZoneState!;
         sut.size.should.eql({ width: 10, height: 20 });
@@ -1231,18 +1191,14 @@ describe("Frontstage local storage wrapper", () => {
 
       it("should not RESIZE", () => {
         const frontstageDef = new FrontstageDef();
-        const savedState = {
-          ...createSavedNineZoneState({
-            size: {
-              width: 1,
-              height: 2,
-            },
-          }),
-          tabs: {
-            t1: createSavedTabState("t1"),
+        let state = createNineZoneState({
+          size: {
+            width: 1,
+            height: 2,
           },
-        };
-        restoreNineZoneState(frontstageDef, savedState);
+        });
+        state = addTab(state, "t1");
+        restoreNineZoneState(frontstageDef, state);
 
         const sut = frontstageDef.nineZoneState!;
         sut.size.should.eql({ width: 1, height: 2 });
