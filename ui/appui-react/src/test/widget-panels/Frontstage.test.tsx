@@ -33,7 +33,6 @@ import type {
 } from "../../appui-react";
 import {
   ActiveFrontstageDefProvider,
-  expandWidget,
   FrontstageDef,
   FrontstageProvider,
   getPanelSectionId,
@@ -43,7 +42,6 @@ import {
   ModalFrontstageComposer,
   packNineZoneState,
   restoreNineZoneState,
-  showWidget,
   StagePanelDef,
   StagePanelLocation,
   StagePanelSection,
@@ -1140,43 +1138,6 @@ describe("Frontstage local storage wrapper", () => {
         isFrontstageStateSettingResult({
           status: UiStateStorageStatus.UnknownError,
         }).should.false;
-      });
-    });
-
-    describe("showWidget ", () => {
-      it("should not update if tab is not found", () => {
-        const nineZone = createNineZoneState();
-        const sut = showWidget(nineZone, "t1");
-        sut.should.eq(nineZone);
-      });
-
-      it("should bring floating widget to front", () => {
-        let nineZone = createNineZoneState();
-        nineZone = addTab(nineZone, "t1");
-        nineZone = addTab(nineZone, "t2");
-        nineZone = addFloatingWidget(nineZone, "w1", ["t1"]);
-        nineZone = addFloatingWidget(nineZone, "w2", ["t2"]);
-        const sut = showWidget(nineZone, "t1");
-        sut.floatingWidgets.allIds[0].should.eq("w2");
-        sut.floatingWidgets.allIds[1].should.eq("w1");
-      });
-    });
-
-    describe("expandWidget ", () => {
-      it("should not update if tab is not found", () => {
-        const nineZone = createNineZoneState();
-        const sut = expandWidget(nineZone, "t1");
-        sut.should.eq(nineZone);
-      });
-
-      it("should expand floating widget", () => {
-        let nineZone = createNineZoneState();
-        nineZone = addTab(nineZone, "t1");
-        nineZone = addFloatingWidget(nineZone, "w1", ["t1"], undefined, {
-          minimized: true,
-        });
-        const sut = expandWidget(nineZone, "t1");
-        sut.widgets.w1.minimized.should.false;
       });
     });
 

@@ -814,43 +814,6 @@ interface SavedNineZoneState extends Omit<NineZoneState, "tabs"> {
 }
 
 /** @internal */
-export function showWidget(state: NineZoneState, id: TabState["id"]) {
-  const location = getTabLocation(state, id);
-  if (!location) return state;
-  state = produce(state, (draft) => {
-    const widget = draft.widgets[location.widgetId];
-    widget.activeTabId = id;
-    widget.minimized = false;
-    if (isPanelTabLocation(location)) {
-      const panel = draft.panels[location.side];
-      panel.collapsed = false;
-    }
-  });
-  if (isFloatingTabLocation(location)) {
-    state = floatingWidgetBringToFront(state, location.floatingWidgetId);
-  }
-  return state;
-}
-
-/** @internal */
-export function expandWidget(state: NineZoneState, id: TabState["id"]) {
-  const location = getTabLocation(state, id);
-  if (!location) return state;
-
-  return produce(state, (draft) => {
-    const widget = draft.widgets[location.widgetId];
-    if (isPanelTabLocation(location)) {
-      const panel = draft.panels[location.side];
-      panel.splitterPercent =
-        panel.widgets.findIndex((wId) => wId === location.widgetId) === 0
-          ? 100
-          : 0;
-    }
-    widget.minimized = false;
-  });
-}
-
-/** @internal */
 export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
   const uiStateStorage = useUiStateStorageHandler();
   const uiStateStorageRef = React.useRef(uiStateStorage);
