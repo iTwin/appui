@@ -130,7 +130,7 @@ export function createFloatingWidgetState(
   return {
     home: {
       side: "left",
-      widgetId: undefined,
+      widgetId: "",
       widgetIndex: 0,
     },
     ...args,
@@ -149,7 +149,7 @@ export function createPopoutWidgetState(
     ? args.home
     : {
         side: "left",
-        widgetId: undefined,
+        widgetId: "",
         widgetIndex: 0,
       };
   return {

@@ -12,6 +12,8 @@ Table of contents:
 
 ## @itwin/appui-react
 
+## @itwin/appui-react
+
 ### Changes
 
 - Promoted `FrameworkToolAdmin` to _beta_. [#618](https://github.com/iTwin/appui/pull/618)
@@ -22,6 +24,11 @@ Table of contents:
 - Localize popout error message text. [#628](https://github.com/iTwin/appui/pull/628)
 - Fixed popout widgets getting incrementally smaller or larger each time popped out. [#622](https://github.com/iTwin/appui/pull/622)
 - Fixed "RestoreAllFrontstagesTool" missing "pinned" state. [#633](https://github.com/iTwin/appui/pull/633)
+
+### Fixes
+
+- Localize popout error message text.
+- Correctly dock a closed popout widget to the panel section from which the widget was popped out. #621
 
 ## @itwin/components-react
 

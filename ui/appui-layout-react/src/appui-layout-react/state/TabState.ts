@@ -11,11 +11,7 @@ import { UiError } from "@itwin/appui-abstract";
 import { type IconSpec, Rectangle, type SizeProps } from "@itwin/core-react";
 import type { PanelSide } from "../widget-panels/Panel";
 import type { NineZoneState } from "./NineZoneState";
-import {
-  addFloatingWidget,
-  type FloatingWidgetHomeState,
-  type WidgetState,
-} from "./WidgetState";
+import { addFloatingWidget, type WidgetState } from "./WidgetState";
 import { getTabLocation } from "./TabLocation";
 import { category, type XAndY } from "./internal/NineZoneStateHelpers";
 import { createTabState } from "./internal/TabStateHelpers";
@@ -26,12 +22,13 @@ import {
   setWidgetActiveTabId,
   updateWidgetState,
 } from "./internal/WidgetStateHelpers";
-import {
-  isFloatingWidgetTabHomeState,
-  type TabHomeState,
-} from "./TabHomeState";
 import { insertPanelWidget } from "./PanelState";
 import { getUniqueId } from "../base/NineZone";
+import {
+  isFloatingWidgetRestoreState,
+  type PanelWidgetRestoreState,
+} from "./WidgetRestoreState";
+import type { TabHomeState } from "./SavedTabState";
 
 /** `WidgetDef` is equivalent structure in `appui-react`.
  * @internal
@@ -59,7 +56,7 @@ export interface TabsState {
 export interface DraggedTabState {
   readonly tabId: TabState["id"];
   readonly position: XAndY;
-  readonly home: FloatingWidgetHomeState;
+  readonly home: PanelWidgetRestoreState;
 }
 
 /** Adds a new `tab`.
@@ -189,7 +186,7 @@ export function addRemovedTab(
 
   const savedTab = state.savedTabs.byId[tabId];
   const home = savedTab?.home || defaultHomeState;
-  const { widgetId, tabIndex } = home;
+  const { tabIndex, widgetId } = home;
 
   // Add to an existing widget (by widget id).
   if (widgetId in state.widgets) {
@@ -197,13 +194,13 @@ export function addRemovedTab(
   }
 
   // Add to a floating widget.
-  if (isFloatingWidgetTabHomeState(home)) {
+  if (isFloatingWidgetRestoreState(home)) {
     // Add to a new floating widget.
     const nzBounds = Rectangle.createFromSize(state.size);
     const bounds = Rectangle.create(home.floatingWidget.bounds).containIn(
       nzBounds
     );
-    return addFloatingWidget(state, home.widgetId, [tabId], {
+    return addFloatingWidget(state, widgetId, [tabId], {
       ...home.floatingWidget,
       bounds: bounds.toProps(),
     });

@@ -35,7 +35,7 @@ export function createDraggedTabState(
   return {
     home: {
       side: "left",
-      widgetId: undefined,
+      widgetId: "",
       widgetIndex: 0,
     },
     position: { x: 0, y: 0 },

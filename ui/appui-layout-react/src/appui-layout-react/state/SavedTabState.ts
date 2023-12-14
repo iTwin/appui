@@ -7,8 +7,13 @@
  */
 
 import type { RectangleProps } from "@itwin/core-react";
-import type { TabHomeState } from "./TabHomeState";
 import type { TabState } from "./TabState";
+import type { WidgetRestoreState } from "./WidgetRestoreState";
+
+/** @internal */
+export type TabHomeState = WidgetRestoreState & {
+  tabIndex: number;
+};
 
 /** @internal */
 export interface SavedTabState {
