@@ -102,6 +102,8 @@ export interface PropertyFilterBuilderRendererProps {
   isDisabled?: boolean;
   /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
   size?: "medium" | "large";
+  /** Controls whether the group operator is toggle-able. */
+  isOperatorToggleDisabled?: boolean;
 }
 
 const ROOT_GROUP_PATH: string[] = [];
@@ -123,8 +125,8 @@ export function PropertyFilterBuilderRenderer(
     propertyRenderer,
     isDisabled,
     size,
+    isOperatorToggleDisabled,
   } = props;
-  const rootRef = React.useRef<HTMLDivElement>(null);
 
   const contextValue = React.useMemo<PropertyFilterBuilderContextProps>(
     () => ({
@@ -154,6 +156,7 @@ export function PropertyFilterBuilderRenderer(
             path={ROOT_GROUP_PATH}
             group={rootGroup}
             size={size}
+            isOperatorToggleDisabled={isOperatorToggleDisabled}
           />
         </Flex>
       </PropertyFilterBuilderContext.Provider>

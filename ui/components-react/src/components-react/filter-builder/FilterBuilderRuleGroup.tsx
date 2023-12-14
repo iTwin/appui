@@ -32,6 +32,8 @@ export interface PropertyFilterBuilderRuleGroupRendererProps {
   group: PropertyFilterBuilderRuleGroup;
   /** Size to render components. If undefined, defaults to iTwinUI "medium" size. */
   size?: "medium" | "large";
+  /** Controls whether the group operator is toggle-able. */
+  isOperatorToggleDisabled?: boolean;
 }
 
 /**
@@ -41,7 +43,7 @@ export interface PropertyFilterBuilderRuleGroupRendererProps {
 export function PropertyFilterBuilderRuleGroupRenderer(
   props: PropertyFilterBuilderRuleGroupRendererProps
 ) {
-  const { path, group, size } = props;
+  const { path, group, size, isOperatorToggleDisabled } = props;
   const { actions } = React.useContext(PropertyFilterBuilderContext);
   const { onRuleAdded, groupRef } = useRulePropertyFocus(group.items.length);
 
@@ -66,6 +68,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
           operator={group.operator}
           onChange={onOperatorChange}
           size={size}
+          isOperatorToggleDisabled={isOperatorToggleDisabled}
         />
       ) : null}
       <div className="fb-wrapper">
@@ -95,6 +98,8 @@ export interface PropertyFilterBuilderRuleGroupOperatorProps {
   onChange: (operator: PropertyFilterRuleGroupOperator) => void;
   /** Size to render component. If undefined, defaults to iTwinUI "medium" size. */
   size?: "medium" | "large";
+  /** Controls whether the group operator is toggle-able. */
+  isOperatorToggleDisabled?: boolean;
 }
 
 /**
@@ -104,7 +109,7 @@ export interface PropertyFilterBuilderRuleGroupOperatorProps {
 export function PropertyFilterBuilderRuleGroupOperator(
   props: PropertyFilterBuilderRuleGroupOperatorProps
 ) {
-  const { operator, size } = props;
+  const { operator, size, isOperatorToggleDisabled } = props;
   const [op, setOp] = React.useState(operator);
 
   return (
@@ -115,7 +120,7 @@ export function PropertyFilterBuilderRuleGroupOperator(
         onOperatorChange={(value: PropertyFilterRuleGroupOperator) => {
           setOp(value);
         }}
-        isDisabled={true}
+        isDisabled={isOperatorToggleDisabled}
         size={size}
       />
     </Flex.Item>

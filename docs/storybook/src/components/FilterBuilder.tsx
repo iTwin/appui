@@ -36,6 +36,7 @@ function FilterBuilderComponent({
         {...props}
         actions={actions}
         rootGroup={rootGroup}
+        isOperatorToggleDisabled={true}
       />
     </div>
   );
