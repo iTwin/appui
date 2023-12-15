@@ -26,6 +26,7 @@ import {
   StagePanelDef,
   StagePanelLocation,
   StagePanelSection,
+  StagePanelState,
   UiFramework,
   UiItemsManager,
   useSpecificWidgetDef,
@@ -712,6 +713,56 @@ describe("FrontstageDef", () => {
         left: 105,
         bottom: 155,
         right: 255,
+      });
+    });
+  });
+
+  describe("batch", () => {
+    it("should emit events once for multiple actions", async () => {
+      const spy =
+        sinon.stub<
+          Parameters<
+            typeof UiFramework.frontstages.onPanelStateChangedEvent.addListener
+          >[0]
+        >();
+      const frontstageDef = new FrontstageDef();
+      await frontstageDef.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        leftPanel: {},
+      });
+      const state = createNineZoneState();
+      frontstageDef.nineZoneState = state;
+
+      UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
+      frontstageDef.batch(() => {
+        frontstageDef.dispatch({
+          type: "PANEL_SET_COLLAPSED",
+          side: "left",
+          collapsed: true,
+        });
+        expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.true;
+        sinon.assert.notCalled(spy);
+
+        frontstageDef.dispatch({
+          type: "PANEL_SET_COLLAPSED",
+          side: "left",
+          collapsed: false,
+        });
+        expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.false;
+        sinon.assert.notCalled(spy);
+
+        frontstageDef.dispatch({
+          type: "PANEL_SET_COLLAPSED",
+          side: "left",
+          collapsed: true,
+        });
+        expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.true;
+        sinon.assert.notCalled(spy);
+      });
+
+      sinon.assert.calledOnceWithExactly(spy, {
+        panelDef: frontstageDef.leftPanel!,
+        panelState: StagePanelState.Minimized,
       });
     });
   });
