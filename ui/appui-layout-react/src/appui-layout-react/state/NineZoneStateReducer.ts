@@ -24,7 +24,7 @@ import type { NineZoneState } from "./NineZoneState";
 import type { PopoutWidgetState, WidgetState } from "./WidgetState";
 import {
   addPanelWidget,
-  getPanelMaxSize,
+  getPanelSize,
   insertPanelWidget,
   updatePanelState,
 } from "./internal/PanelStateHelpers";
@@ -96,11 +96,14 @@ export function NineZoneStateReducer(
         });
       }
       for (const side of panelSides) {
-        const panel = state.panels[side];
-        if (!panel.size) continue;
-        const maxSize = getPanelMaxSize(side, state.size, panel.maxSize);
-        const size = Math.min(Math.max(panel.size, panel.minSize), maxSize);
         state = updatePanelState(state, side, (draft) => {
+          const size = getPanelSize(
+            draft.size,
+            side,
+            draft.minSize,
+            draft.maxSize,
+            state.size
+          );
           draft.size = size;
         });
       }
@@ -120,22 +123,42 @@ export function NineZoneStateReducer(
       const { side, size: preferredSize } = action;
 
       return updatePanelState(state, side, (draft) => {
-        let size = preferredSize;
-        if (size !== undefined) {
-          const maxSize = getPanelMaxSize(side, state.size, draft.maxSize);
-          size = Math.min(Math.max(size, draft.minSize), maxSize);
-        }
+        const size = getPanelSize(
+          preferredSize,
+          draft.side,
+          draft.minSize,
+          draft.maxSize,
+          state.size
+        );
         draft.size = size;
       });
     }
     case "PANEL_SET_MIN_SIZE": {
       return updatePanelState(state, action.side, (draft) => {
+        const size = getPanelSize(
+          draft.size,
+          draft.side,
+          action.minSize,
+          draft.maxSize,
+          state.size
+        );
+
         draft.minSize = action.minSize;
+        draft.size = size;
       });
     }
     case "PANEL_SET_MAX_SIZE": {
       return updatePanelState(state, action.side, (draft) => {
+        const size = getPanelSize(
+          draft.size,
+          draft.side,
+          draft.minSize,
+          action.maxSize,
+          state.size
+        );
+
         draft.maxSize = action.maxSize;
+        draft.size = size;
       });
     }
     case "PANEL_SET_RESIZABLE": {
@@ -167,8 +190,13 @@ export function NineZoneStateReducer(
     }
     case "PANEL_INITIALIZE": {
       return updatePanelState(state, action.side, (draft) => {
-        const maxSize = getPanelMaxSize(draft.side, state.size, draft.maxSize);
-        const size = Math.min(Math.max(action.size, draft.minSize), maxSize);
+        const size = getPanelSize(
+          draft.size,
+          draft.side,
+          draft.minSize,
+          draft.maxSize,
+          state.size
+        );
         draft.size = size;
       });
     }
@@ -759,10 +787,9 @@ export function NineZoneStateReducer(
       return state;
     }
     case "WIDGET_TAB_SET_POPOUT_BOUNDS": {
-      state = updateSavedTabState(state, action.id, (draft) => {
+      return updateSavedTabState(state, action.id, (draft) => {
         initRectangleProps(draft, "popoutBounds", action.bounds);
       });
-      return state;
     }
     case "WIDGET_TAB_SHOW": {
       return showWidgetTab(state, action.id);

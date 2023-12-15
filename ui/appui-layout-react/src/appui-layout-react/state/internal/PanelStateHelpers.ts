@@ -21,6 +21,7 @@ import type {
   HorizontalPanelState,
   PanelMaxSizeState,
   PanelsState,
+  PanelState,
   VerticalPanelState,
 } from "../PanelState";
 import type { WidgetState } from "../WidgetState";
@@ -103,6 +104,20 @@ export function getPanelMaxSize(
   }
   const size = isHorizontalPanelSide(side) ? appSize.height : appSize.width;
   return (maxSize.percentage / 100) * size;
+}
+
+/** @internal */
+export function getPanelSize(
+  preferredSize: number | undefined,
+  side: PanelSide,
+  minSize: PanelState["minSize"],
+  maxSizeSpec: PanelState["maxSize"],
+  appSize: SizeProps
+) {
+  if (preferredSize === undefined) return undefined;
+
+  const maxSize = getPanelMaxSize(side, appSize, maxSizeSpec);
+  return Math.min(Math.max(preferredSize, minSize), maxSize);
 }
 
 /** @internal */
