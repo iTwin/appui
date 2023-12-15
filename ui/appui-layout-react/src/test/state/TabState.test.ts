@@ -3,23 +3,27 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { expect, should } from "chai";
+import { createNineZoneState } from "../../appui-layout-react";
+import { addTabs, handleMetaData } from "../Utils";
 import {
-  addDockedToolSettings,
-  addFloatingWidget,
-  addPanelWidget,
-  addPopoutWidget,
   addRemovedTab,
   addTab,
   addTabToWidget,
-  addWidgetToolSettings,
-  createNineZoneState,
   insertTabToWidget,
   removeTab,
   removeTabFromWidget,
-} from "../../appui-layout-react";
-import { addTabs, handleMetaData } from "../Utils";
-import { updateSavedTabState } from "../../appui-layout-react/state/internal/TabStateHelpers";
-import { createFloatingWidgetState } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
+  updateSavedTabState,
+} from "../../appui-layout-react/state/internal/TabStateHelpers";
+import {
+  addFloatingWidget,
+  addPopoutWidget,
+  createFloatingWidgetState,
+} from "../../appui-layout-react/state/internal/WidgetStateHelpers";
+import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import {
+  addDockedToolSettings,
+  addWidgetToolSettings,
+} from "../../appui-layout-react/state/internal/ToolSettingsStateHelpers";
 
 describe("addTab", () => {
   it("should add a tab", () => {

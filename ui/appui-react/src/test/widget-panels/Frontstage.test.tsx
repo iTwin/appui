@@ -14,15 +14,10 @@ import { BentleyError, Logger } from "@itwin/core-bentley";
 import type { UiStateStorageResult } from "@itwin/core-react";
 import { Size, UiStateStorageStatus } from "@itwin/core-react";
 import {
-  addFloatingWidget,
-  addPanelWidget,
-  addTab,
-  addWidgetToolSettings,
   createLayoutStore,
   createNineZoneState,
   getUniqueId,
 } from "@itwin/appui-layout-react";
-import { createDraggedTabState } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/state/internal/TabStateHelpers";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type {
   FrontstageConfig,
@@ -62,7 +57,12 @@ import {
   WidgetState,
 } from "../../appui-react";
 import TestUtils, {
+  addFloatingWidget,
+  addPanelWidget,
+  addTab,
+  addWidgetToolSettings,
   childStructure,
+  createDraggedTabState,
   storageMock,
   stubRaf,
   styleMatch,

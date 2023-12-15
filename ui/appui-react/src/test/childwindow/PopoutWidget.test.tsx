@@ -5,10 +5,8 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import { PopoutWidget } from "../../appui-react/childwindow/PopoutWidget";
-import TestUtils from "../TestUtils";
+import TestUtils, { addFloatingWidget, addTab } from "../TestUtils";
 import {
-  addFloatingWidget,
-  addTab,
   createLayoutStore,
   createNineZoneState,
   NineZone,

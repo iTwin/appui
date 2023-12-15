@@ -5,13 +5,7 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import produce from "immer";
-import {
-  addFloatingWidget,
-  addPanelWidget,
-  addPopoutWidget,
-  addTab,
-  createNineZoneState,
-} from "@itwin/appui-layout-react";
+import { createNineZoneState } from "@itwin/appui-layout-react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { act, renderHook } from "@testing-library/react-hooks";
 import type {
@@ -33,7 +27,13 @@ import {
   WidgetDef,
   WidgetState,
 } from "../../appui-react";
-import TestUtils, { storageMock } from "../TestUtils";
+import TestUtils, {
+  addFloatingWidget,
+  addPanelWidget,
+  addPopoutWidget,
+  addTab,
+  storageMock,
+} from "../TestUtils";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
 class BadLayoutFrontstage extends FrontstageProvider {

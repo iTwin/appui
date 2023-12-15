@@ -3,13 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
+import { createNineZoneState } from "../../appui-layout-react";
+import { addTabs, handleMetaData } from "../Utils";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
 import {
   addFloatingWidget,
   addPopoutWidget,
-  addTab,
-  createNineZoneState,
-} from "../../appui-layout-react";
-import { addTabs, handleMetaData } from "../Utils";
+} from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 
 describe("addFloatingWidget", () => {
   it("should throw if floating widget is already added", () => {

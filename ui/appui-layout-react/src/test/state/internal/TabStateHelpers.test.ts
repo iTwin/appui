@@ -2,12 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { expect } from "chai";
+import { createNineZoneState } from "../../../appui-layout-react";
 import {
+  addTab,
   updateSavedTabState,
   updateTabState,
 } from "../../../appui-layout-react/state/internal/TabStateHelpers";
-import { addTab, createNineZoneState } from "../../../appui-layout-react";
-import { expect } from "chai";
 
 describe("updateTabState", () => {
   it("should throw if tab does not exist", () => {

@@ -4,12 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 import {
   createNineZoneState,
-  insertPanelWidget,
   isHorizontalPanelState,
 } from "../../appui-layout-react";
 import {
   createHorizontalPanelState,
   createVerticalPanelState,
+  insertPanelWidget,
 } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 import { addTabs, handleMetaData } from "../Utils";
 

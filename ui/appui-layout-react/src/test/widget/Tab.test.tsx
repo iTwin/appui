@@ -8,9 +8,6 @@ import { Rectangle } from "@itwin/core-react";
 import { act, fireEvent, render } from "@testing-library/react";
 import type { NineZoneDispatch } from "../../appui-layout-react";
 import {
-  addFloatingWidget,
-  addPanelWidget,
-  addTab,
   createNineZoneState,
   PanelSideContext,
   ShowWidgetIconContext,
@@ -24,6 +21,9 @@ import {
 import { TestNineZoneProvider } from "../Providers";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { Key } from "ts-key-enum";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { addFloatingWidget } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 
 describe("WidgetTab", () => {
   it("should render active", () => {

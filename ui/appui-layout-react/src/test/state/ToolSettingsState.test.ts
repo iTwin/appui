@@ -3,14 +3,14 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
+import { createNineZoneState } from "../../appui-layout-react";
+import { handleMetaData } from "../Utils";
+import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
 import {
   addDockedToolSettings,
-  addPanelWidget,
-  addTab,
   addWidgetToolSettings,
-  createNineZoneState,
-} from "../../appui-layout-react";
-import { handleMetaData } from "../Utils";
+} from "../../appui-layout-react/state/internal/ToolSettingsStateHelpers";
 
 describe("addDockedToolSettings", () => {
   it("should add docked tool settings", () => {

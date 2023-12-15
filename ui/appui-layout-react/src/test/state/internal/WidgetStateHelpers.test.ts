@@ -3,13 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
+import { createNineZoneState } from "../../../appui-layout-react";
 import {
   addFloatingWidget,
-  addPanelWidget,
-  addTab,
-  createNineZoneState,
-} from "../../../appui-layout-react";
-import {
   addWidgetState,
   createWidgetState,
   getNewFloatingWidgetBounds,
@@ -23,6 +19,8 @@ import {
   updateWidgetState,
 } from "../../../appui-layout-react/state/internal/WidgetStateHelpers";
 import { addTabs, handleMetaData } from "../../Utils";
+import { addPanelWidget } from "../../../appui-layout-react/state/internal/PanelStateHelpers";
+import { addTab } from "../../../appui-layout-react/state/internal/TabStateHelpers";
 
 describe("createWidgetState", () => {
   it("should throw w/o tabs", () => {

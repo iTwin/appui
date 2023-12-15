@@ -6,8 +6,6 @@ import { render } from "@testing-library/react";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  addPanelWidget,
-  addTab,
   createNineZoneState,
   PanelSideContext,
   ShowWidgetIconContext,
@@ -16,6 +14,8 @@ import {
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";
+import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
 
 describe("WidgetTabs", () => {
   it("should render", () => {

@@ -14,8 +14,6 @@ import type {
   WidgetContentManagerContextArgs,
 } from "../../appui-layout-react";
 import {
-  addFloatingWidget,
-  addTab,
   createLayoutStore,
   createNineZoneState,
   TabIdContext,
@@ -25,6 +23,8 @@ import {
   WidgetContentRenderer,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { addFloatingWidget } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 
 describe("WidgetContentRenderer", () => {
   const wrapper = (props: React.PropsWithChildren<{}>) => (

@@ -7,21 +7,29 @@ import { produce } from "immer";
 import { Point, Rectangle } from "@itwin/core-react";
 import type { NineZoneAction } from "../../appui-layout-react";
 import {
-  addDockedToolSettings,
-  addFloatingWidget,
-  addPanelWidget,
-  addPopoutWidget,
-  addTab,
-  addWidgetToolSettings,
   createNineZoneState,
   NineZoneStateReducer,
 } from "../../appui-layout-react";
 import { addTabs } from "../Utils";
-import { createDraggedTabState } from "../../appui-layout-react/state/internal/TabStateHelpers";
-import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import {
+  addTab,
+  createDraggedTabState,
+} from "../../appui-layout-react/state/internal/TabStateHelpers";
+import {
+  addPanelWidget,
+  updatePanelState,
+} from "../../appui-layout-react/state/internal/PanelStateHelpers";
 import { assert } from "@itwin/core-bentley";
 import { stub } from "sinon";
-import { createFloatingWidgetState } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
+import {
+  addFloatingWidget,
+  addPopoutWidget,
+  createFloatingWidgetState,
+} from "../../appui-layout-react/state/internal/WidgetStateHelpers";
+import {
+  addDockedToolSettings,
+  addWidgetToolSettings,
+} from "../../appui-layout-react/state/internal/ToolSettingsStateHelpers";
 
 describe("NineZoneStateReducer", () => {
   it("should not update for unhandled action", () => {

@@ -10,13 +10,6 @@ import { produce } from "immer";
 import { Point, Rectangle } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
 import type { TabState } from "./TabState";
-import {
-  addRemovedTab,
-  addTab,
-  addTabToWidget,
-  removeTab,
-  removeTabFromWidget,
-} from "./TabState";
 import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation";
 import type { NineZoneAction } from "./NineZoneAction";
 import {
@@ -26,24 +19,22 @@ import {
   isWidgetDropTargetState,
   isWindowDropTargetState,
 } from "./DropTargetState";
-import {
-  addPanelWidget,
-  getWidgetPanelSectionId,
-  insertPanelWidget,
-} from "./PanelState";
+import { getWidgetPanelSectionId } from "./PanelState";
 import type { NineZoneState } from "./NineZoneState";
 import type { PopoutWidgetState, WidgetState } from "./WidgetState";
 import {
-  addFloatingWidget,
-  addPopoutWidget,
-  floatingWidgetBringToFront,
-} from "./WidgetState";
-import {
+  addPanelWidget,
   getPanelMaxSize,
+  insertPanelWidget,
   updatePanelState,
 } from "./internal/PanelStateHelpers";
 import {
+  addRemovedTab,
+  addTab,
+  addTabToWidget,
   createDraggedTabState,
+  removeTab,
+  removeTabFromWidget,
   updateSavedTabState,
   updateTabState,
 } from "./internal/TabStateHelpers";
@@ -56,7 +47,10 @@ import {
   updateHomeOfToolSettingsWidget,
 } from "./internal/NineZoneStateHelpers";
 import {
+  addFloatingWidget,
+  addPopoutWidget,
   addWidgetState,
+  floatingWidgetBringToFront,
   getWidgetState,
   removeFloatingWidget,
   removePanelWidget,
@@ -80,7 +74,7 @@ import {
   isPanelWidgetRestoreState,
   type PanelWidgetRestoreState,
 } from "./WidgetRestoreState";
-import { addDockedToolSettings } from "./ToolSettingsState";
+import { addDockedToolSettings } from "./internal/ToolSettingsStateHelpers";
 
 /** @internal */
 export function NineZoneStateReducer(
