@@ -109,16 +109,15 @@ export interface PropertyFilterBuilderRuleGroupOperatorProps {
 export function PropertyFilterBuilderRuleGroupOperator(
   props: PropertyFilterBuilderRuleGroupOperatorProps
 ) {
-  const { operator, size, isOperatorToggleDisabled } = props;
-  const [op, setOp] = React.useState(operator);
+  const { operator, size, isOperatorToggleDisabled, onChange } = props;
 
   return (
     <Flex.Item flex="0" alignSelf="stretch">
       <PropertyFilterBuilderLogicalOperator
         className="fb-group-operator"
-        operator={op}
+        operator={operator}
         onOperatorChange={(value: PropertyFilterRuleGroupOperator) => {
-          setOp(value);
+          onChange(value);
         }}
         isDisabled={isOperatorToggleDisabled}
         size={size}
