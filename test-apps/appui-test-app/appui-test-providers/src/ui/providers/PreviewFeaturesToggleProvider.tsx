@@ -19,6 +19,10 @@ const featureList = [
     id: "enableMaximizedFloatingWidget",
     label: "Enable maximized floating widgets",
   },
+  {
+    id: "newToolbars",
+    label: "Enable new toolbars",
+  },
 ];
 function PreviewFeatureList() {
   const [activeFeatureList, setActiveFeatureList] = React.useState<string[]>(
@@ -33,7 +37,7 @@ function PreviewFeatureList() {
       enableMaximizedFloatingWidget: activeFeatureList.includes(
         "enableMaximizedFloatingWidget"
       ),
-      newToolbars: true,
+      newToolbars: activeFeatureList.includes("newToolbars"),
     });
   }, [activeFeatureList]);
 
