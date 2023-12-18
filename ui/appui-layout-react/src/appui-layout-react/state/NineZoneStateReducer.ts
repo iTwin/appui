@@ -191,7 +191,7 @@ export function NineZoneStateReducer(
     case "PANEL_INITIALIZE": {
       return updatePanelState(state, action.side, (draft) => {
         const size = getPanelSize(
-          draft.size,
+          action.size,
           draft.side,
           draft.minSize,
           draft.maxSize,
@@ -224,15 +224,6 @@ export function NineZoneStateReducer(
           ...widget,
           minimized: false,
         }
-      );
-    }
-    case "PANEL_WIDGET_ADD": {
-      return addPanelWidget(
-        state,
-        action.side,
-        action.id,
-        action.tabs,
-        action.overrides
       );
     }
     case "WIDGET_DRAG": {
@@ -318,11 +309,6 @@ export function NineZoneStateReducer(
         });
       }
       return state;
-    }
-    case "WIDGET_SET_MINIMIZED": {
-      return updateWidgetState(state, action.id, {
-        minimized: action.minimized,
-      });
     }
     case "FLOATING_WIDGET_RESIZE": {
       const { resizeBy } = action;
@@ -814,12 +800,9 @@ export function NineZoneStateReducer(
       }
       return state;
     }
-    case "WIDGET_TAB_ADD": {
-      return addTab(state, action.id, action.overrides);
-    }
     case "WIDGET_TAB_UPDATE": {
       return updateTabState(state, action.id, (draft) => {
-        for (const [key, val] of Object.entries(action.overrides ?? {})) {
+        for (const [key, val] of Object.entries(action.overrides)) {
           (draft as any)[key] = val;
         }
       });

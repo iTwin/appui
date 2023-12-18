@@ -157,15 +157,6 @@ export interface PanelWidgetDragStartAction {
 }
 
 /** @internal */
-export interface PanelWidgetAddAction {
-  readonly type: "PANEL_WIDGET_ADD";
-  readonly side: PanelSide;
-  readonly id: WidgetState["id"];
-  readonly tabs: WidgetState["tabs"];
-  readonly overrides?: Partial<WidgetState>;
-}
-
-/** @internal */
 export interface WidgetDragAction {
   readonly type: "WIDGET_DRAG";
   readonly dragBy: XAndY;
@@ -177,13 +168,6 @@ export interface WidgetDragEndAction {
   readonly type: "WIDGET_DRAG_END";
   readonly floatingWidgetId: FloatingWidgetState["id"];
   readonly target: WidgetDragDropTargetState;
-}
-
-/** @internal */
-export interface WidgetSetMinimizedAction {
-  readonly type: "WIDGET_SET_MINIMIZED";
-  readonly id: WidgetState["id"];
-  readonly minimized: WidgetState["minimized"];
 }
 
 /** @internal */
@@ -300,17 +284,10 @@ export interface WidgetTabUnloadAction {
 }
 
 /** @internal */
-export interface WidgetTabAddAction {
-  readonly type: "WIDGET_TAB_ADD";
-  readonly id: TabState["id"];
-  readonly overrides?: Partial<TabState>;
-}
-
-/** @internal */
 export interface WidgetTabUpdateAction {
   readonly type: "WIDGET_TAB_UPDATE";
   readonly id: TabState["id"];
-  readonly overrides?: Partial<TabState>;
+  readonly overrides: Partial<TabState>;
 }
 
 /** @internal */
@@ -370,10 +347,8 @@ export type NineZoneAction =
   | FloatingWidgetSetUserSizedAction
   | PopoutWidgetSendBackAction
   | PanelWidgetDragStartAction
-  | PanelWidgetAddAction
   | WidgetDragAction
   | WidgetDragEndAction
-  | WidgetSetMinimizedAction
   | WidgetTabClickAction
   | WidgetTabCloseAction
   | WidgetTabDoubleClickAction
@@ -390,7 +365,6 @@ export type NineZoneAction =
   | WidgetTabSetPopoutBoundsAction
   | WidgetTabShowAction
   | WidgetTabUnloadAction
-  | WidgetTabAddAction
   | WidgetTabUpdateAction
   | ToolSettingsDragStartAction
   | ToolSettingsDockAction
