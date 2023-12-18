@@ -282,8 +282,6 @@ export class FrontstageDef {
   public get nineZoneState(): NineZoneState | undefined {
     return this._nineZoneState;
   }
-
-  /** @internal */
   public set nineZoneState(state: NineZoneState | undefined) {
     if (this._nineZoneState === state) return;
 
@@ -324,8 +322,6 @@ export class FrontstageDef {
       this.nineZoneState = NineZoneStateReducer(state, action);
     });
   }
-
-  /** @internal */
   public set dispatch(dispatch: NineZoneDispatch) {
     this._dispatch = dispatch;
   }

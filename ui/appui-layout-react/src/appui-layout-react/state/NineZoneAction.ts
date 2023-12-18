@@ -306,7 +306,7 @@ export interface WidgetDefAddAction {
   readonly type: "WIDGET_DEF_ADD";
   readonly id: TabState["id"];
   readonly overrides?: Partial<TabState>;
-  readonly location: "panel" | "floating" | "toolSettings";
+  readonly location: "panel" | "floating";
   readonly floatingWidget: {
     readonly id: FloatingWidgetState["id"];
     readonly preferredPosition?: XAndY;
