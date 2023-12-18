@@ -6,17 +6,7 @@
  * @module Base
  */
 
-import { UiError } from "@itwin/appui-abstract";
 import type { RectangleProps } from "@itwin/core-react";
-import produce from "immer";
-import { category } from "./internal/NineZoneStateHelpers";
-import {
-  addWidgetState,
-  createFloatingWidgetState,
-  createPopoutWidgetState,
-  getNewFloatingWidgetBounds,
-} from "./internal/WidgetStateHelpers";
-import type { NineZoneState } from "./NineZoneState";
 import type { TabState } from "./TabState";
 import type {
   PanelWidgetRestoreState,
