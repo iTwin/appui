@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/components-react",
+      "comment": "Ensure correct initial property orientation in `PropertyGrid`",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@itwin/components-react"
+}
