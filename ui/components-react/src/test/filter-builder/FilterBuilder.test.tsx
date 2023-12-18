@@ -66,8 +66,8 @@ describe("PropertyFilterBuilder", () => {
     });
   });
 
-  it("renders PropertyFilterBuilder with single rule correctly", async () => {
-    const PropertyFilter: PropertyFilter = {
+  it("renders propertyFilterBuilder with single rule correctly", async () => {
+    const propertyFilter: PropertyFilter = {
       property: property1,
       operator: PropertyFilterRuleOperator.IsNull,
       value: undefined,
@@ -77,7 +77,7 @@ describe("PropertyFilterBuilder", () => {
       <PropertyFilterBuilder
         properties={[property1]}
         onFilterChanged={() => {}}
-        initialFilter={PropertyFilter}
+        initialFilter={propertyFilter}
       />
     );
 
@@ -87,8 +87,8 @@ describe("PropertyFilterBuilder", () => {
     expect(rule1).to.not.be.null;
   });
 
-  it("renders PropertyFilterBuilder with multiple rules correctly", async () => {
-    const PropertyFilter: PropertyFilter = {
+  it("renders propertyFilterBuilder with multiple rules correctly", async () => {
+    const propertyFilter: PropertyFilter = {
       operator: PropertyFilterRuleGroupOperator.And,
       rules: [
         {
@@ -112,7 +112,7 @@ describe("PropertyFilterBuilder", () => {
       <PropertyFilterBuilder
         properties={[property1, property2]}
         onFilterChanged={() => {}}
-        initialFilter={PropertyFilter}
+        initialFilter={propertyFilter}
       />
     );
 

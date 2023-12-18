@@ -9,7 +9,11 @@ import type { PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import type { PropertyFilterBuilderRule } from "../../components-react/filter-builder/FilterBuilderState";
+import type {
+  PropertyFilterBuilderRule,
+  PropertyFilterBuilderRuleGroup,
+  PropertyFilterBuilderRuleGroupItem,
+} from "../../components-react/filter-builder/FilterBuilderState";
 import { usePropertyFilterBuilder } from "../../components-react/filter-builder/FilterBuilderState";
 import {
   PropertyFilterRuleGroupOperator,
@@ -67,10 +71,67 @@ describe("usePropertyFilterBuilder", () => {
     ).to.be.true;
   });
 
+  it("adds rule to nested group", async () => {
+    const { result } = renderHook(() => usePropertyFilterBuilder());
+    const { actions } = result.current;
+    actions.addItem([], "RULE_GROUP");
+
+    let nestedGroup: PropertyFilterBuilderRuleGroupItem | undefined;
+
+    await waitFor(() => {
+      nestedGroup = result.current.rootGroup.items[1];
+      expect(nestedGroup).to.not.be.undefined;
+    });
+
+    actions.addItem([], "RULE");
+
+    const rootGroup = result.current.rootGroup;
+    expect(rootGroup).to.containSubset({
+      operator: PropertyFilterRuleGroupOperator.And,
+      items: [
+        {
+          groupId: rootGroup.id,
+        },
+        {
+          groupId: rootGroup.id,
+          operator: PropertyFilterRuleGroupOperator.And,
+          items: [
+            {
+              groupId: nestedGroup!.id,
+            },
+          ],
+        },
+      ],
+    });
+  });
+
+  it("adds rule group to root group", async () => {
+    const { result } = renderHook(() => usePropertyFilterBuilder());
+    const { actions } = result.current;
+    actions.addItem([], "RULE_GROUP");
+
+    await waitFor(() => {
+      const { rootGroup } = result.current;
+      expect(rootGroup).to.containSubset({
+        operator: PropertyFilterRuleGroupOperator.And,
+        items: [
+          {
+            groupId: rootGroup.id,
+          },
+          {
+            groupId: rootGroup.id,
+            operator: PropertyFilterRuleGroupOperator.And,
+            items: [],
+          },
+        ],
+      });
+    });
+  });
+
   it("does not change state if parent group is not found when adding item", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { rootGroup, actions } = result.current;
-    actions.addItem(["invalidParent"], "RULE");
+    actions.addItem(["invalidParent"], "RULE_GROUP");
 
     const { rootGroup: newRootGroup } = result.current;
     expect(rootGroup).to.be.eq(newRootGroup);
@@ -91,6 +152,34 @@ describe("usePropertyFilterBuilder", () => {
     expect(rootGroup.items).to.have.lengthOf(1);
     expect(rootGroup).to.containSubset({
       items: [{ groupId: rootGroup.id }],
+    });
+  });
+
+  it("clears rule instead of removing it when only one rule is left in the rule group", () => {
+    const { result } = renderHook(() => usePropertyFilterBuilder());
+    const { actions } = result.current;
+
+    let { rootGroup } = result.current;
+    expect(rootGroup.items).to.have.lengthOf(1);
+    actions.setRuleOperator(
+      [rootGroup.items[0].id],
+      PropertyFilterRuleOperator.IsTrue
+    );
+    actions.setRuleValue([rootGroup.items[0].id], {
+      valueFormat: PropertyValueFormat.Primitive,
+    });
+    actions.setRuleProperty([rootGroup.items[0].id], property);
+
+    rootGroup = result.current.rootGroup;
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).property).to.be.eq(
+      property
+    );
+    actions.removeItem([rootGroup.items[0].id]);
+
+    rootGroup = result.current.rootGroup;
+    expect(result.current.rootGroup).to.containSubset({
+      operator: PropertyFilterRuleGroupOperator.And,
+      items: [{ operator: undefined, value: undefined, property: undefined }],
     });
   });
 
@@ -419,6 +508,37 @@ describe("usePropertyFilterBuilder", () => {
     expect(rootGroup).to.be.eq(newRootGroup);
   });
 
+  it("does not change state when trying to set property on rule group", () => {
+    const { result } = renderHook(() => usePropertyFilterBuilder());
+    const { actions, rootGroup } = result.current;
+
+    actions.setRuleProperty([], property);
+
+    const { rootGroup: newRootGroup } = result.current;
+    expect(rootGroup).to.be.eq(newRootGroup);
+  });
+
+  it("sets rule error message", () => {
+    const { result } = renderHook(() => usePropertyFilterBuilder());
+    const { actions } = result.current;
+    let { rootGroup } = result.current;
+
+    actions.addItem([], "RULE");
+
+    actions.setRuleErrorMessages(
+      new Map([[rootGroup.items[0].id, "error message"]])
+    );
+
+    rootGroup = result.current.rootGroup;
+
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+    ).to.be.eq("error message");
+
+    expect((rootGroup.items[1] as PropertyFilterBuilderRule).errorMessage).to.be
+      .undefined;
+  });
+
   describe("buildFilter", () => {
     describe("defaultRuleValidator", () => {
       it("returns undefined and sets rule error message to `Value is empty` if item has a property but value is undefined", () => {
@@ -555,6 +675,95 @@ describe("usePropertyFilterBuilder", () => {
 
       expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage).to
         .be.undefined;
+    });
+  });
+
+  describe("rule group", () => {
+    async function getStateWithNestedRule() {
+      const { result } = renderHook(() => usePropertyFilterBuilder());
+      const { actions } = result.current;
+
+      const getNestingRule = () =>
+        result.current.rootGroup.items[1] as PropertyFilterBuilderRuleGroup;
+      const getNestedRule = () =>
+        getNestingRule().items[0] as PropertyFilterBuilderRule;
+      const getNestedRulePath = () => [getNestingRule().id, getNestedRule().id];
+
+      actions.addItem([], "RULE_GROUP");
+      await waitFor(() => {
+        expect(getNestingRule()).to.not.be.undefined;
+        expect(getNestedRule()).to.not.be.undefined;
+      });
+
+      return { result, getNestingRule, getNestedRule, getNestedRulePath };
+    }
+
+    describe("nested rule", () => {
+      it("sets property", async () => {
+        const { result, getNestingRule, getNestedRule, getNestedRulePath } =
+          await getStateWithNestedRule();
+        const { actions } = result.current;
+
+        actions.setRuleProperty(getNestedRulePath(), property);
+
+        await waitFor(() => {
+          const rule = getNestedRule();
+          expect(rule).to.containSubset({
+            groupId: getNestingRule().id,
+            property,
+          });
+        });
+      });
+
+      it("sets operator", async () => {
+        const { result, getNestingRule, getNestedRule, getNestedRulePath } =
+          await getStateWithNestedRule();
+        const { actions } = result.current;
+
+        actions.setRuleOperator(
+          getNestedRulePath(),
+          PropertyFilterRuleOperator.IsEqual
+        );
+
+        await waitFor(() => {
+          const rule = getNestedRule();
+          expect(rule).to.containSubset({
+            groupId: getNestingRule().id,
+            operator: PropertyFilterRuleOperator.IsEqual,
+          });
+        });
+      });
+
+      it("sets value", async () => {
+        const { result, getNestingRule, getNestedRule, getNestedRulePath } =
+          await getStateWithNestedRule();
+        const { actions } = result.current;
+
+        actions.setRuleValue(getNestedRulePath(), value);
+
+        await waitFor(() => {
+          const rule = getNestedRule();
+          expect(rule).to.containSubset({
+            groupId: getNestingRule().id,
+            value,
+          });
+        });
+      });
+    });
+
+    it("adds and removes rule", async () => {
+      const { result, getNestingRule } = await getStateWithNestedRule();
+      const { actions } = result.current;
+
+      actions.addItem([getNestingRule().id], "RULE");
+      await waitFor(() => {
+        expect(getNestingRule().items).to.have.lengthOf(2);
+      });
+
+      actions.removeItem([getNestingRule().id, getNestingRule().items[1].id]);
+      await waitFor(() => {
+        expect(getNestingRule().items).to.have.lengthOf(1);
+      });
     });
   });
 });

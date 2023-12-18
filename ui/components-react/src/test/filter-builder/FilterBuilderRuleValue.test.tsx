@@ -12,7 +12,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { PropertyFilterBuilderRuleValue } from "../../components-react/filter-builder/FilterBuilderRuleValue";
 import TestUtils, { userEvent } from "../TestUtils";
 
-describe("FilterBuilderRuleValue", () => {
+describe("PropertyFilterBuilderRuleValue", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
