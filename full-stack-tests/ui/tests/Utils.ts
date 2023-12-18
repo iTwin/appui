@@ -211,6 +211,27 @@ export async function dragTab(tab: Locator, target: Locator) {
   await body.dispatchEvent("mouseup");
 }
 
+export async function dragWidget(
+  widget: Locator,
+  options?: Parameters<Locator["dragTo"]>[1]
+) {
+  const page = widget.page();
+  const titleBarHandle = titleBarHandleLocator(widget);
+  const titleBarButtons = widget.locator(".nz-widget-tabBarButtons");
+  const frontstage = frontstageLocator(page);
+
+  // Widget tabs or title bar buttons overlay the handle. Make sure we drag the handle.
+  const handleBounds = (await titleBarHandle.boundingBox())!;
+  const buttonBounds = (await titleBarButtons.boundingBox())!;
+  await titleBarHandle.dragTo(frontstage, {
+    sourcePosition: {
+      x: handleBounds.width - buttonBounds.width - 5,
+      y: 5,
+    },
+    ...options,
+  });
+}
+
 export async function openComponentExamples(
   page: Page,
   baseURL: string | undefined
