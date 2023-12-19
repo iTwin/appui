@@ -48,7 +48,11 @@ describe("PropertyFilterBuilder", () => {
   it("call onFilterChanged with filter after new rule is setup", async () => {
     const spy = sinon.spy();
     const { container, getByText, getByDisplayValue } = render(
-      <PropertyFilterBuilder properties={[property1]} onFilterChanged={spy} />
+      <PropertyFilterBuilder
+        properties={[property1]}
+        onFilterChanged={spy}
+        size="large"
+      />
     );
     const propertySelector = container.querySelector<HTMLInputElement>(
       ".fb-row-name .iui-input"
@@ -78,6 +82,7 @@ describe("PropertyFilterBuilder", () => {
         properties={[property1]}
         onFilterChanged={() => {}}
         initialFilter={propertyFilter}
+        size="medium"
       />
     );
 

@@ -26,7 +26,7 @@ describe("<EnumEditor />", () => {
   stubScrollIntoView();
 
   it("render without record", () => {
-    render(<EnumEditor style={{ width: 400 }} />);
+    render(<EnumEditor style={{ width: 400 }} size="medium" />);
     expect(screen.getByTestId("components-select-editor")).to.satisfy(
       styleMatch({ width: "400px" })
     );
@@ -34,7 +34,7 @@ describe("<EnumEditor />", () => {
 
   it("uses record value", async () => {
     const record = TestUtils.createEnumProperty("Test", 0);
-    render(<EnumEditor propertyRecord={record} />);
+    render(<EnumEditor propertyRecord={record} size="large" />);
 
     await waitFor(() => expect(screen.getByText("Yellow")).to.exist);
   });

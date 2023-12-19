@@ -116,15 +116,106 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
 
     selector?.click();
 
+    expect(
+      await findByText(
+        TestUtils.i18n.getLocalizedString(
+          "Components:filterBuilder.operators.and"
+        )
+      )
+    ).to.not.be.null;
+
     expect(setRuleGroupOperatorSpy).to.be.calledWith(
       defaultProps.path,
       PropertyFilterRuleGroupOperator.Or
     );
-    const op = await findByText(
-      TestUtils.i18n.getLocalizedString(
-        "Components:filterBuilder.operators.and"
-      )
+  });
+
+  it("Toggles operator 'Or' to 'And'", async () => {
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    rootGroup.operator = PropertyFilterRuleGroupOperator.Or;
+    const props: PropertyFilterBuilderRuleGroupRendererProps = {
+      group: rootGroup,
+      path: [],
+      isOperatorToggleDisabled: false,
+    };
+    const { container, findByText } = renderWithContext(
+      <PropertyFilterBuilderRuleGroupRenderer {...props} />,
+      { actions }
     );
-    expect(op).to.not.be.null;
+    const setRuleGroupOperatorSpy = sinon.stub(actions, "setRuleGroupOperator");
+
+    const selector = container.querySelector<HTMLAnchorElement>(
+      ".fb-group-operator .iui-anchor"
+    );
+    expect(selector).to.not.be.null;
+
+    selector?.click();
+
+    expect(
+      await findByText(
+        TestUtils.i18n.getLocalizedString(
+          "Components:filterBuilder.operators.or"
+        )
+      )
+    ).to.not.be.null;
+
+    expect(setRuleGroupOperatorSpy).to.be.calledWith(
+      defaultProps.path,
+      PropertyFilterRuleGroupOperator.And
+    );
+  });
+
+  it("'Or' Operator should not be clickable if toggled disabled", async () => {
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    rootGroup.operator = PropertyFilterRuleGroupOperator.Or;
+    const props: PropertyFilterBuilderRuleGroupRendererProps = {
+      group: rootGroup,
+      path: [],
+      isOperatorToggleDisabled: true,
+    };
+    const { container, findByText } = renderWithContext(
+      <PropertyFilterBuilderRuleGroupRenderer {...props} />,
+      { actions }
+    );
+
+    expect(
+      findByText(
+        TestUtils.i18n.getLocalizedString(
+          "Components:filterBuilder.operators.or"
+        )
+      )
+    ).to.not.be.null;
+
+    const selector = container.querySelector<HTMLAnchorElement>(
+      ".fb-group-operator .iui-anchor"
+    );
+    expect(selector).to.be.null;
+  });
+
+  it("'And' Operator should not be clickable if toggled disabled", async () => {
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    rootGroup.operator = PropertyFilterRuleGroupOperator.And;
+    const props: PropertyFilterBuilderRuleGroupRendererProps = {
+      group: rootGroup,
+      path: [],
+      isOperatorToggleDisabled: true,
+    };
+    const { container, findByText } = renderWithContext(
+      <PropertyFilterBuilderRuleGroupRenderer {...props} />,
+      { actions }
+    );
+
+    expect(
+      findByText(
+        TestUtils.i18n.getLocalizedString(
+          "Components:filterBuilder.operators.and"
+        )
+      )
+    ).to.not.be.null;
+
+    const selector = container.querySelector<HTMLAnchorElement>(
+      ".fb-group-operator .iui-anchor"
+    );
+    expect(selector).to.be.null;
   });
 });
