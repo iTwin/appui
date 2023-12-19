@@ -27,6 +27,7 @@ import {
 } from "../WidgetLocation";
 import {
   category,
+  initSizeProps,
   setRectangleProps,
   toRectangleProps,
 } from "./NineZoneStateHelpers";
@@ -129,7 +130,7 @@ export function createFloatingWidgetState(
   return {
     home: {
       side: "left",
-      widgetId: undefined,
+      widgetId: "",
       widgetIndex: 0,
     },
     ...args,
@@ -148,7 +149,7 @@ export function createPopoutWidgetState(
     ? args.home
     : {
         side: "left",
-        widgetId: undefined,
+        widgetId: "",
         widgetIndex: 0,
       };
   return {
@@ -287,8 +288,12 @@ export function setWidgetActiveTabId(
     const preferredFloatingWidgetSize = Rectangle.create(
       floatingWidget.bounds
     ).getSize();
-    state = updateTabState(state, activeTab.id, {
-      preferredFloatingWidgetSize,
+    state = updateTabState(state, activeTab.id, (draft) => {
+      initSizeProps(
+        draft,
+        "preferredFloatingWidgetSize",
+        preferredFloatingWidgetSize
+      );
     });
   }
   return state;

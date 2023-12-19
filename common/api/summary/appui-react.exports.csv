@@ -204,7 +204,7 @@ public;FrameworkReducer: (state: CombinedReducerState
 beta;FrameworkRootState
 beta;FrameworkStackedDialog
 public;FrameworkState
-alpha;FrameworkToolAdmin 
+beta;FrameworkToolAdmin 
 public;FrameworkToolSettings
 public;FrameworkUiAdmin 
 public;FrameworkVisibility
@@ -437,7 +437,7 @@ public;StandardStatusbarItemsProvider
 beta;StandardStatusbarUiItemsProvider 
 public;StateManager
 public;StateType
-internal;stateVersion = 16
+internal;stateVersion = 17
 public;StatusBar 
 public;StatusBar
 public;StatusBarActionItem 

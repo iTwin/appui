@@ -47,6 +47,7 @@ For incremental builds, the `rush build` command can be used to only build packa
 1. Make source code changes on a new Git branch
    - Each packages supports `npm start` command to enter build in watch mode for easy validation along the `test-apps`.
 2. Ensure unit tests pass when run locally: `rush cover`
+   - Each packages will generate a detailed coverage HTML report which can be accessed in `ui/[package]/lib/cjs/test/coverage/lcov-report/index.html`.
 3. Ensure integration tests pass when run locally: See [the related Readme](./full-stack-tests/ui/README.md)
 4. Ensure linting passes when run locally: `rush lint` / `rush lint:fix`
 5. Ensure prettier passes when run locally: `rush prettier` / `rush prettier:fix`

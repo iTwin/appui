@@ -145,7 +145,7 @@ describe("useHidden", () => {
     state = addFloatingWidget(state, "w1", ["t1"], {
       home: {
         widgetIndex: 0,
-        widgetId: undefined,
+        widgetId: "",
         side: "left",
       },
     });
@@ -164,7 +164,7 @@ describe("useHidden", () => {
     state = addFloatingWidget(state, "w1", ["t1"], {
       home: {
         widgetIndex: 0,
-        widgetId: undefined,
+        widgetId: "",
         side: "right",
       },
     });

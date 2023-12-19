@@ -129,6 +129,13 @@ export class PropertyFilterBuilderActions {
     });
   }
 
+  /** Removes all items from root group. */
+  public removeAllItems() {
+    this.updateState((state) => {
+      state.rootGroup = createEmptyRuleGroup();
+    });
+  }
+
   /** Sets operator of rule group specified by the path. */
   public setRuleGroupOperator(
     path: string[],
@@ -147,6 +154,7 @@ export class PropertyFilterBuilderActions {
       const rule = findRule(state.rootGroup, path);
       if (!rule) return;
       rule.property = property;
+      rule.operator = undefined;
       rule.value = undefined;
       rule.errorMessage = undefined;
     });

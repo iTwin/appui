@@ -24,6 +24,7 @@ importers:
       '@itwin/itwinui-icons-react': ^2.1.0
       '@itwin/itwinui-react': ^2.11.11
       '@originjs/vite-plugin-commonjs': ~1.0.3
+      '@storybook/addon-actions': ^7.4.6
       '@storybook/addon-essentials': ^7.4.6
       '@storybook/addon-interactions': ^7.4.6
       '@storybook/addon-links': ^7.4.6
@@ -74,6 +75,7 @@ importers:
       react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
     devDependencies:
       '@originjs/vite-plugin-commonjs': 1.0.3
+      '@storybook/addon-actions': 7.4.6_54d6c303e86b1ed39f97a7d48627e275
       '@storybook/addon-essentials': 7.4.6_54d6c303e86b1ed39f97a7d48627e275
       '@storybook/addon-interactions': 7.4.6_54d6c303e86b1ed39f97a7d48627e275
       '@storybook/addon-links': 7.4.6_react-dom@17.0.2+react@17.0.2
@@ -538,6 +540,7 @@ importers:
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~5.0.2
+      upath: ^2.0.1
       zustand: ^4.4.1
     dependencies:
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
@@ -589,6 +592,7 @@ importers:
       ts-node: 10.9.1_9a41dbaa370b60afede472b47d9ffeeb
       typemoq: 2.1.0
       typescript: 5.0.2
+      upath: 2.0.1
 
   ../../ui/appui-react:
     specifiers:
@@ -21118,6 +21122,11 @@ packages:
 
   /upath/1.2.0:
     resolution: {integrity: sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==}
+    engines: {node: '>=4'}
+    dev: true
+
+  /upath/2.0.1:
+    resolution: {integrity: sha512-1uEe95xksV1O0CYKXo8vQvN1JEbtJp7lb7C5U9HMsIp6IVwntkH/oNUzyVNQSd4S1sYk2FpSSW44FqMc8qee5w==}
     engines: {node: '>=4'}
     dev: true
 

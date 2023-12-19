@@ -2069,7 +2069,7 @@ export interface FrameworkState {
     sessionState: SessionState;
 }
 
-// @alpha
+// @beta
 export class FrameworkToolAdmin extends ToolAdmin {
     processShortcutKey(e: KeyboardEvent, wentDown: boolean): Promise<boolean>;
 }
@@ -2266,7 +2266,7 @@ export class FrontstageDef {
     // (undocumented)
     get rightPanel(): StagePanelDef | undefined;
     // @internal (undocumented)
-    saveChildWindowSizeAndPosition(childWindowId: string, childWindow: Window): void;
+    saveChildWindowSizeAndPosition(childWindowId: string, childWindow: ChildWindow): void;
     setActiveContent(): Promise<boolean>;
     setActiveView(newContent: ContentControl, oldContent?: ContentControl): void;
     setActiveViewFromViewport(viewport: ScreenViewport): boolean;
@@ -4239,7 +4239,7 @@ export class StateManager {
 export type StateType<R extends Reducer<any, any>> = DeepReadonly<ReturnType<R>>;
 
 // @internal (undocumented)
-export const stateVersion = 16;
+export const stateVersion = 17;
 
 // @public
 export class StatusBar extends React_2.Component<StatusBarProps> {

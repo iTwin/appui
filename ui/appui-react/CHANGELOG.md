@@ -1,6 +1,13 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Fri, 01 Dec 2023 20:01:16 GMT and should not be manually modified.
+This log was last generated on Thu, 07 Dec 2023 19:40:17 GMT and should not be manually modified.
+
+## 4.7.1
+Thu, 07 Dec 2023 19:40:17 GMT
+
+### Updates
+
+- Now support `null` Content (allow delay rendering on specific cases)
 
 ## 4.7.0
 Fri, 01 Dec 2023 20:01:16 GMT

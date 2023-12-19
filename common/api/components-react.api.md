@@ -2058,7 +2058,7 @@ export function PropertyFilterBuilder(props: PropertyFilterBuilderProps): JSX.El
 // @beta
 export class PropertyFilterBuilderActions {
     constructor(setState: (setter: (prevState: PropertyFilterBuilderState) => PropertyFilterBuilderState) => void);
-    addItem(path: string[]): void;
+    addItem(path: string[], itemType: "RULE_GROUP" | "RULE"): void;
     removeItem(path: string[]): void;
     setRuleErrorMessages(ruleIdsAndErrorMessages: Map<string, string>): void;
     setRuleGroupOperator(path: string[], operator: PropertyFilterRuleGroupOperator): void;

@@ -155,6 +155,25 @@ describe("usePropertyFilterBuilder", () => {
     });
   });
 
+  it("removes all rules from root group", () => {
+    const { result } = renderHook(() => usePropertyFilterBuilder());
+    const { actions } = result.current;
+    let { rootGroup } = result.current;
+
+    actions.addItem([], "RULE");
+    actions.addItem([], "RULE_GROUP");
+
+    rootGroup = result.current.rootGroup;
+    expect(rootGroup.items).to.have.lengthOf(3);
+    actions.removeAllItems();
+
+    rootGroup = result.current.rootGroup;
+    expect(rootGroup.items).to.have.lengthOf(1);
+    expect(rootGroup).to.containSubset({
+      items: [{ groupId: rootGroup.id }],
+    });
+  });
+
   it("clears rule instead of removing it when only one rule is left in the rule group", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions } = result.current;
@@ -248,6 +267,35 @@ describe("usePropertyFilterBuilder", () => {
           {
             groupId: rootGroup.id,
             property,
+          },
+        ],
+      });
+    });
+  });
+
+  it("resets operator when property is changed.", async () => {
+    const { result } = renderHook(() => usePropertyFilterBuilder());
+    const { actions } = result.current;
+    let { rootGroup } = result.current;
+
+    // set operator for rule item
+    actions.setRuleOperator(
+      [rootGroup.items[0].id],
+      PropertyFilterRuleOperator.IsNull
+    );
+
+    // setting the property should reset the operator
+    actions.setRuleProperty([rootGroup.items[0].id], property);
+
+    // confirm that operator has been reset
+    await waitFor(() => {
+      rootGroup = result.current.rootGroup;
+      expect(rootGroup).to.containSubset({
+        items: [
+          {
+            groupId: rootGroup.id,
+            property,
+            operator: undefined,
           },
         ],
       });
