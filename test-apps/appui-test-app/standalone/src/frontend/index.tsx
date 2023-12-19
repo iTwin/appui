@@ -443,7 +443,7 @@ export class SampleAppIModelApp {
     const url = new URL(window.location.href);
     const params = new URLSearchParams(url.search);
     const snapshotPath = params.get("snapshotPath");
-    return snapshotPath
+    return snapshotPath !== null
       ? decodeURIComponent(snapshotPath)
       : process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
   }
