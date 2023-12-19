@@ -5,12 +5,11 @@ Table of contents:
 - [@itwin/appui-react](#itwinappui-react)
   - [Changes](#changes)
   - [Fixes](#fixes)
+  - [Fixes](#fixes-1)
 - [@itwin/components-react](#itwincomponents-react)
   - [Additions](#additions)
   - [Changes](#changes-1)
-  - [Fixes](#fixes-1)
-
-## @itwin/appui-react
+  - [Fixes](#fixes-2)
 
 ## @itwin/appui-react
 
@@ -43,3 +42,4 @@ Table of contents:
 ### Fixes
 
 - Fixed data filterers to work with uppercase letters after using the constructor. [#620](https://github.com/iTwin/appui/pull/620)
+- Ensure correct initial property orientation in `VirtualizedPropertyGrid`.
