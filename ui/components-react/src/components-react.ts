@@ -232,3 +232,11 @@ export * from "./components-react/tree/controlled/internal/SparseTree";
  * @docs-group-description PropertyFilterBuilder
  * Classes and components for working with PropertyFilterBuilder.
  */
+/**
+ * @docs-group-description FilterBuilderLogicalOperator
+ * Operator used in the PropertyFilterBuilder. Supports 'And' or 'Or'.
+ */
+/**
+ * @docs-group-description FilterBuilderToolbar
+ * Functions and components that provide a toolbar for the PropertyFilterBuilder.
+ */
