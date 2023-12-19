@@ -22,7 +22,7 @@ import {
 } from "./DropTargetState";
 import { getWidgetPanelSectionId, insertPanelWidget } from "./PanelState";
 import type { NineZoneState } from "./NineZoneState";
-import type { FloatingWidgetHomeState } from "./WidgetState";
+import type { PopoutWidgetState, WidgetState } from "./WidgetState";
 import {
   addFloatingWidget,
   addPopoutWidget,
@@ -66,6 +66,10 @@ import {
   isPopoutTabLocation,
 } from "./TabLocation";
 import { getUniqueId } from "../base/NineZone";
+import {
+  isPanelWidgetRestoreState,
+  type PanelWidgetRestoreState,
+} from "./WidgetRestoreState";
 
 /** @internal */
 export function NineZoneStateReducer(
@@ -164,7 +168,7 @@ export function NineZoneStateReducer(
           id: action.newFloatingWidgetId,
           home: {
             side: action.side,
-            widgetId: undefined,
+            widgetId: "",
             widgetIndex,
           },
         },
@@ -349,8 +353,9 @@ export function NineZoneStateReducer(
 
       const sectionIndex = sendBackHomeState.sectionIndex ?? 0;
       const home = state.floatingWidgets.byId[action.id].home;
-      const destinationWidgetId =
-        home.widgetId ?? getWidgetPanelSectionId(home.side, sectionIndex);
+      const destinationWidgetId = home.widgetId
+        ? home.widgetId
+        : getWidgetPanelSectionId(home.side, sectionIndex);
 
       // Add tabs to a new panel widget.
       state = removeWidget(state, widget.id);
@@ -366,37 +371,61 @@ export function NineZoneStateReducer(
       const popoutWidget = state.popoutWidgets.byId[action.id];
       const widget = getWidgetState(state, action.id);
       const home = popoutWidget.home;
-      const panel = state.panels[home.side];
-      let widgetPanelSectionId = home.widgetId;
-      let homeWidgetPanelSection;
-      if (widgetPanelSectionId) {
-        homeWidgetPanelSection = state.widgets[widgetPanelSectionId];
-      } else {
-        widgetPanelSectionId = getWidgetPanelSectionId(
-          panel.side,
+
+      state = removeWidget(state, widget.id);
+
+      // Determine existing widget.
+      let existingWidget: WidgetState | undefined;
+      if (home.widgetId in state.widgets) {
+        existingWidget = state.widgets[home.widgetId];
+      } else if (isPanelWidgetRestoreState(home)) {
+        const panel = state.panels[home.side];
+        const panelSectionId = getWidgetPanelSectionId(
+          home.side,
           home.widgetIndex
         );
-        homeWidgetPanelSection = state.widgets[widgetPanelSectionId];
+        existingWidget = state.widgets[panelSectionId];
+
+        // Can not add additional sections, add to an existing one.
+        if (!existingWidget && panel.widgets.length >= panel.maxWidgetCount) {
+          const sectionIndex = Math.min(
+            panel.maxWidgetCount - 1,
+            home.widgetIndex
+          );
+          const sectionId = panel.widgets[sectionIndex];
+          existingWidget = state.widgets[sectionId];
+        }
       }
 
-      state = removeWidget(state, popoutWidget.id);
-      if (homeWidgetPanelSection) {
-        const tabs = [...homeWidgetPanelSection.tabs, ...widget.tabs];
-        state = updateWidgetState(state, homeWidgetPanelSection.id, {
+      // Add to an existing widget.
+      if (existingWidget) {
+        const tabs = [...existingWidget.tabs, ...widget.tabs];
+        return updateWidgetState(state, existingWidget.id, {
           tabs,
         });
-      } else {
-        // if widget panel section was removed because it was empty insert it
-        const sectionIndex = widgetPanelSectionId.endsWith("End") ? 1 : 0;
-        state = insertPanelWidget(
+      }
+
+      // Insert a new panel section.
+      if (isPanelWidgetRestoreState(home)) {
+        const sectionId = home.widgetId
+          ? home.widgetId
+          : getWidgetPanelSectionId(home.side, home.widgetIndex);
+        return insertPanelWidget(
           state,
-          panel.side,
-          widgetPanelSectionId,
+          home.side,
+          sectionId,
           [...widget.tabs],
-          sectionIndex
+          home.widgetIndex
         );
       }
-      return state;
+
+      // Add a new floating widget.
+      return addFloatingWidget(
+        state,
+        home.widgetId,
+        widget.tabs,
+        home.floatingWidget
+      );
     }
     case "WIDGET_TAB_CLICK": {
       const { id, widgetId } = action;
@@ -418,7 +447,7 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_DRAG_START": {
       const tabId = action.id;
-      let home: FloatingWidgetHomeState;
+      let home: PanelWidgetRestoreState;
       if (action.floatingWidgetId) {
         const floatingWidget =
           state.floatingWidgets.byId[action.floatingWidgetId];
@@ -560,7 +589,7 @@ export function NineZoneStateReducer(
       if (position) preferredBounds = preferredBounds.setPosition(position);
 
       const popoutWidgetId = getUniqueId();
-      let home: FloatingWidgetHomeState | undefined;
+      let home: PopoutWidgetState["home"] | undefined;
       if (location && isPanelTabLocation(location)) {
         const panel = state.panels[location.side];
         const widgetIndex = panel.widgets.indexOf(location.widgetId);
@@ -572,7 +601,10 @@ export function NineZoneStateReducer(
       } else if (location && isFloatingTabLocation(location)) {
         const floatingWidget =
           state.floatingWidgets.byId[location.floatingWidgetId];
-        home = floatingWidget.home;
+        home = {
+          widgetId: floatingWidget.id,
+          floatingWidget,
+        };
       }
 
       state = removeTabFromWidget(state, id);
@@ -668,7 +700,9 @@ export function NineZoneStateReducer(
           [id],
           {
             bounds,
-            home,
+            home: isPanelWidgetRestoreState(home)
+              ? home
+              : home.floatingWidget.home,
           },
           widget
         );

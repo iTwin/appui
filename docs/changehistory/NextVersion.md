@@ -5,10 +5,11 @@ Table of contents:
 - [@itwin/appui-react](#itwinappui-react)
   - [Changes](#changes)
   - [Fixes](#fixes)
+  - [Fixes](#fixes-1)
 - [@itwin/components-react](#itwincomponents-react)
   - [Additions](#additions)
   - [Changes](#changes-1)
-  - [Fixes](#fixes-1)
+  - [Fixes](#fixes-2)
 
 ## @itwin/appui-react
 
@@ -23,6 +24,11 @@ Table of contents:
 - Fixed popout widgets getting incrementally smaller or larger each time popped out. [#622](https://github.com/iTwin/appui/pull/622)
 - Fixed "RestoreAllFrontstagesTool" missing "pinned" state. [#633](https://github.com/iTwin/appui/pull/633)
 
+### Fixes
+
+- Localize popout error message text.
+- Correctly dock a closed popout widget to the panel section from which the widget was popped out. #621
+
 ## @itwin/components-react
 
 ### Additions
@@ -36,3 +42,4 @@ Table of contents:
 ### Fixes
 
 - Fixed data filterers to work with uppercase letters after using the constructor. [#620](https://github.com/iTwin/appui/pull/620)
+- Ensure correct initial property orientation in `VirtualizedPropertyGrid`.

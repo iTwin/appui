@@ -589,6 +589,25 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         .to.be.not.null;
     });
 
+    it("chooses correct orientation on first render if undefined", async () => {
+      const { container } = render(
+        <VirtualizedPropertyGridWithDataProvider
+          {...defaultProps}
+          horizontalOrientationMinWidth={500}
+          orientation={undefined}
+          isOrientationFixed={false}
+          width={499}
+        />
+      );
+
+      await waitFor(
+        () =>
+          expect(
+            container.querySelector(".components-property-record--vertical")
+          ).to.be.not.null
+      );
+    });
+
     describe("custom category renderers", () => {
       interface SetupDataProviderArgs {
         expandCustomCategory: boolean;

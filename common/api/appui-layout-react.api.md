@@ -218,7 +218,7 @@ export const DraggedResizeHandleContext: React_2.Context<FloatingWidgetResizeHan
 // @internal (undocumented)
 export interface DraggedTabState {
     // (undocumented)
-    readonly home: FloatingWidgetHomeState;
+    readonly home: PanelWidgetRestoreState;
     // (undocumented)
     readonly position: XAndY;
     // (undocumented)
@@ -343,16 +343,6 @@ export interface FloatingWidgetDropTargetState {
 }
 
 // @internal (undocumented)
-export interface FloatingWidgetHomeState {
-    // (undocumented)
-    readonly side: PanelSide;
-    // (undocumented)
-    readonly widgetId: WidgetState["id"] | undefined;
-    // (undocumented)
-    readonly widgetIndex: number;
-}
-
-// @internal (undocumented)
 export interface FloatingWidgetLocation {
     // (undocumented)
     floatingWidgetId: FloatingWidgetState["id"];
@@ -437,7 +427,7 @@ export interface FloatingWidgetState {
     // (undocumented)
     readonly bounds: RectangleProps;
     // (undocumented)
-    readonly home: FloatingWidgetHomeState;
+    readonly home: PanelWidgetRestoreState;
     // (undocumented)
     readonly id: WidgetState["id"];
     // (undocumented)
@@ -1011,7 +1001,7 @@ export interface PopoutWidgetState {
     // (undocumented)
     readonly bounds: RectangleProps;
     // (undocumented)
-    readonly home: FloatingWidgetHomeState;
+    readonly home: WidgetRestoreState;
     // (undocumented)
     readonly id: WidgetState["id"];
 }

@@ -10,10 +10,7 @@ import type { Draft } from "immer";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Rectangle } from "@itwin/core-react";
 import type { NineZoneState } from "../NineZoneState";
-import type {
-  FloatingWidgetHomeState,
-  FloatingWidgetState,
-} from "../WidgetState";
+import type { FloatingWidgetState } from "../WidgetState";
 import {
   getWidgetState,
   updateFloatingWidgetState,
@@ -129,7 +126,7 @@ export function isToolSettingsFloatingWidget(
 export function updateHomeOfToolSettingsWidget(
   state: NineZoneState,
   id: FloatingWidgetState["id"],
-  home: FloatingWidgetHomeState
+  home: FloatingWidgetState["home"]
 ): NineZoneState {
   if (!isToolSettingsFloatingWidget(state, id)) return state;
 

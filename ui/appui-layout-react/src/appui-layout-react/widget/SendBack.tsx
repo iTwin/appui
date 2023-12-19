@@ -31,8 +31,9 @@ export function getSendBackHomeState(
   const floatingWidget = state.floatingWidgets.byId[widgetId];
   const home = floatingWidget.home;
   const panel = state.panels[home.side];
-  const destinationWidgetId =
-    home.widgetId ?? getWidgetPanelSectionId(panel.side, home.widgetIndex);
+  const destinationWidgetId = home.widgetId
+    ? home.widgetId
+    : getWidgetPanelSectionId(panel.side, home.widgetIndex);
 
   let destinationWidget = state.widgets[destinationWidgetId];
 
