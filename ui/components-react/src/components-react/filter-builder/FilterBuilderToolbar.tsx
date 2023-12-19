@@ -26,21 +26,20 @@ interface PropertyFilterBuilderToolbarProps {
 export const PropertyFilterBuilderToolbar = (
   props: PropertyFilterBuilderToolbarProps
 ) => {
-  const { size, onAddChild, onDelete, ...rest } = props;
+  const { size, onAddChild, onDelete } = props;
 
   return (
     <Flex
       className={"fb-toolbar fb-row-toolbar"}
       gap="0"
       justifyContent="flex-end"
-      {...rest}
     >
       <IconButton
         size={!size ? "small" : size === "medium" ? undefined : "large"}
         data-testid="fb-add-rule-button"
         label={UiComponents.translate("filterBuilder.add")}
         styleType="borderless"
-        onClick={() => onAddChild?.()}
+        onClick={onAddChild}
       >
         <SvgAdd />
       </IconButton>
@@ -49,7 +48,7 @@ export const PropertyFilterBuilderToolbar = (
         data-testid="fb-remove-rule-button"
         label={UiComponents.translate("filterBuilder.delete")}
         styleType="borderless"
-        onClick={() => onDelete?.()}
+        onClick={onDelete}
       >
         <SvgDelete />
       </IconButton>

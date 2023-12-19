@@ -159,7 +159,7 @@ export function PropertyFilterBuilderRuleRenderer(
             </div>
           ) : null}
           <PropertyFilterBuilderToolbar
-            onAddChild={() => handleRuleAdded()}
+            onAddChild={handleRuleAdded}
             onDelete={removeRule}
             size={size}
           />

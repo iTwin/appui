@@ -35,7 +35,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
   const defaultProps: PropertyFilterBuilderRuleGroupRendererProps = {
     group: rootGroup,
     path: [],
-    isOperatorToggleDisabled: false,
+    isGroupOperatorDisabled: false,
   };
 
   beforeEach(async () => {
@@ -136,7 +136,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     const props: PropertyFilterBuilderRuleGroupRendererProps = {
       group: rootGroup,
       path: [],
-      isOperatorToggleDisabled: false,
+      isGroupOperatorDisabled: false,
     };
     const { container, findByText } = renderWithContext(
       <PropertyFilterBuilderRuleGroupRenderer {...props} />,
@@ -171,7 +171,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     const props: PropertyFilterBuilderRuleGroupRendererProps = {
       group: rootGroup,
       path: [],
-      isOperatorToggleDisabled: true,
+      isGroupOperatorDisabled: true,
     };
     const { container, findByText } = renderWithContext(
       <PropertyFilterBuilderRuleGroupRenderer {...props} />,
@@ -198,7 +198,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     const props: PropertyFilterBuilderRuleGroupRendererProps = {
       group: rootGroup,
       path: [],
-      isOperatorToggleDisabled: true,
+      isGroupOperatorDisabled: true,
     };
     const { container, findByText } = renderWithContext(
       <PropertyFilterBuilderRuleGroupRenderer {...props} />,

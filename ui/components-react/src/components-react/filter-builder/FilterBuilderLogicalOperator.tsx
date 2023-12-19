@@ -39,6 +39,11 @@ export const PropertyFilterBuilderLogicalOperator = (
       ? PropertyFilterRuleGroupOperator.Or
       : PropertyFilterRuleGroupOperator.And;
 
+  const operatorDisplayText =
+    operator === PropertyFilterRuleGroupOperator.And
+      ? UiComponents.translate("filterBuilder.operators.and")
+      : UiComponents.translate("filterBuilder.operators.or");
+
   return (
     <div
       className={cx("fb-logical-operator", className)}
@@ -46,16 +51,10 @@ export const PropertyFilterBuilderLogicalOperator = (
       {...rest}
     >
       {isDisabled ? (
-        <span>
-          {operator === PropertyFilterRuleGroupOperator.And
-            ? UiComponents.translate("filterBuilder.operators.and")
-            : UiComponents.translate("filterBuilder.operators.or")}
-        </span>
+        <span>{operatorDisplayText}</span>
       ) : (
         <Anchor onClick={() => onOperatorChange(toggle())}>
-          {operator === PropertyFilterRuleGroupOperator.And
-            ? UiComponents.translate("filterBuilder.operators.and")
-            : UiComponents.translate("filterBuilder.operators.or")}
+          {operatorDisplayText}
         </Anchor>
       )}
     </div>

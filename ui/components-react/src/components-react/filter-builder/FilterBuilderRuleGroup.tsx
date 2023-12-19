@@ -33,7 +33,7 @@ export interface PropertyFilterBuilderRuleGroupRendererProps {
   /** Size to render components. If undefined, defaults to iTwinUI "medium" size. */
   size?: "medium" | "large";
   /** Controls whether the group operator is toggle-able. */
-  isOperatorToggleDisabled?: boolean;
+  isGroupOperatorDisabled?: boolean;
 }
 
 /**
@@ -43,7 +43,7 @@ export interface PropertyFilterBuilderRuleGroupRendererProps {
 export function PropertyFilterBuilderRuleGroupRenderer(
   props: PropertyFilterBuilderRuleGroupRendererProps
 ) {
-  const { path, group, size, isOperatorToggleDisabled } = props;
+  const { path, group, size, isGroupOperatorDisabled } = props;
   const { actions } = React.useContext(PropertyFilterBuilderContext);
   const { onRuleAdded, groupRef } = useRulePropertyFocus(group.items.length);
 
@@ -68,7 +68,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
           operator={group.operator}
           onChange={onOperatorChange}
           size={size}
-          isOperatorToggleDisabled={isOperatorToggleDisabled}
+          isGroupOperatorDisabled={isGroupOperatorDisabled}
         />
       ) : null}
       <div className="fb-wrapper">
@@ -99,7 +99,7 @@ export interface PropertyFilterBuilderRuleGroupOperatorProps {
   /** Size to render component. If undefined, defaults to iTwinUI "medium" size. */
   size?: "medium" | "large";
   /** Controls whether the group operator is toggle-able. */
-  isOperatorToggleDisabled?: boolean;
+  isGroupOperatorDisabled?: boolean;
 }
 
 /**
@@ -109,17 +109,15 @@ export interface PropertyFilterBuilderRuleGroupOperatorProps {
 export function PropertyFilterBuilderRuleGroupOperator(
   props: PropertyFilterBuilderRuleGroupOperatorProps
 ) {
-  const { operator, size, isOperatorToggleDisabled, onChange } = props;
+  const { operator, size, isGroupOperatorDisabled, onChange } = props;
 
   return (
     <Flex.Item flex="0" alignSelf="stretch">
       <PropertyFilterBuilderLogicalOperator
         className="fb-group-operator"
         operator={operator}
-        onOperatorChange={(value: PropertyFilterRuleGroupOperator) => {
-          onChange(value);
-        }}
-        isDisabled={isOperatorToggleDisabled}
+        onOperatorChange={onChange}
+        isDisabled={isGroupOperatorDisabled}
         size={size}
       />
     </Flex.Item>
