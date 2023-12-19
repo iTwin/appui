@@ -16,6 +16,8 @@ public;BasicPropertyEditor
 public;BooleanEditor 
 public;BooleanPropertyEditor 
 public;BooleanTypeConverter 
+beta;BuildFilterOptions
+internal;buildPropertyFilter(groupItem: PropertyFilterBuilderRuleGroupItem): PropertyFilter | undefined
 public;CategorizedPropertyItem 
 public;CategorizedPropertyTypes = FlatGridItemType.Array | FlatGridItemType.Primitive | FlatGridItemType.Struct
 public;CategoryRecordsDict
@@ -35,7 +37,6 @@ public;ControlledTree(props: ControlledTreeProps): JSX.Element
 public;ControlledTreeProps 
 public;ConvertedPrimitives
 internal;convertPrimitiveRecordToString(record: PropertyRecord): string | Promise
-internal;createFilter(groupItem: PropertyFilterBuilderRuleGroupItem): PropertyFilter | undefined
 alpha;CustomNumberEditor 
 alpha;CustomNumberPropertyEditor 
 public;CustomToolbarItem 
@@ -79,7 +80,6 @@ public;FilteringInput
 public;FilteringInputProps 
 public;FilteringInputStatus
 public;FilteringPropertyDataProvider 
-beta;FilterOptions
 public;FlatGridItem = CategorizedPropertyItem | GridCategoryItem
 public;FlatGridItemBase
 public;FlatGridItemType
@@ -233,6 +233,7 @@ beta;PropertyFilter = PropertyFilterRule | PropertyFilterRuleGroup
 beta;PropertyFilterBuilder(props: PropertyFilterBuilderProps): JSX.Element
 beta;PropertyFilterBuilderActions
 beta;PropertyFilterBuilderLogicalOperator: (props: Omit
+beta;PropertyFilterBuilderLogicalOperatorProps
 beta;PropertyFilterBuilderProps 
 beta;PropertyFilterBuilderRenderer(props: PropertyFilterBuilderRendererProps): JSX.Element
 beta;PropertyFilterBuilderRendererProps
@@ -245,7 +246,7 @@ beta;PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueProps):
 beta;PropertyFilterBuilderRuleValueProps
 beta;PropertyFilterBuilderRuleValueRendererProps 
 beta;PropertyFilterBuilderState
-beta;PropertyFilterBuilderToolbar: (props: FlexProps & PropertyFilterBuilderToolbarProps) => JSX.Element
+beta;PropertyFilterBuilderToolbar: (props: PropertyFilterBuilderToolbarProps) => JSX.Element
 public;PropertyFilterChangeEvent 
 public;PropertyFilterChangesListener = () => void
 beta;PropertyFilterRule

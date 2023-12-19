@@ -18,7 +18,6 @@ import type { CustomButtonDefinition } from '@itwin/appui-abstract';
 import type { DateFormatter } from '@itwin/appui-abstract';
 import type { DisplayMessageType } from '@itwin/appui-abstract';
 import type { EnumerationChoice } from '@itwin/appui-abstract';
-import { FlexProps } from '@itwin/itwinui-react';
 import type { GroupButton } from '@itwin/appui-abstract';
 import type { IconDefinition } from '@itwin/appui-abstract';
 import type { Id64String } from '@itwin/core-bentley';
@@ -194,6 +193,14 @@ export class BooleanTypeConverter extends TypeConverter {
     sortCompare(a: Primitives.Boolean, b: Primitives.Boolean, _ignoreCase?: boolean): number;
 }
 
+// @beta
+export interface BuildFilterOptions {
+    ignoreErrors?: boolean;
+}
+
+// @internal (undocumented)
+export function buildPropertyFilter(groupItem: PropertyFilterBuilderRuleGroupItem): PropertyFilter | undefined;
+
 // @public
 export interface CategorizedPropertyItem extends FlatGridItemBase {
     // (undocumented)
@@ -360,9 +367,6 @@ export namespace ConvertedPrimitives {
 
 // @internal
 export function convertPrimitiveRecordToString(record: PropertyRecord): string | Promise<string>;
-
-// @internal (undocumented)
-export function createFilter(groupItem: PropertyFilterBuilderRuleGroupItem): PropertyFilter | undefined;
 
 // @alpha
 export class CustomNumberEditor extends React_2.PureComponent<PropertyEditorProps, CustomNumberEditorState> implements TypeEditor {
@@ -620,7 +624,7 @@ export interface EditorContainerProps extends CommonProps {
     setFocus?: boolean;
     // @internal
     shouldCommitOnChange?: boolean;
-    size?: "medium" | "large";;
+    size?: "medium" | "large";
     title?: string;
 }
 
@@ -769,11 +773,6 @@ export class FilteringPropertyDataProvider implements IPropertyDataProvider, IDi
     getData(): Promise<FilteredPropertyData>;
     // (undocumented)
     onDataChanged: PropertyDataChangeEvent;
-}
-
-// @beta
-export interface FilterOptions {
-    ignoreErrors?: boolean;
 }
 
 // @public
@@ -2046,7 +2045,7 @@ export interface PropertyEditorProps extends CommonProps {
     setFocus?: boolean;
     // @internal
     shouldCommitOnChange?: boolean;
-    size?: "medium" | "large";;
+    size?: "medium" | "large";
 }
 
 // @beta
@@ -2059,6 +2058,7 @@ export function PropertyFilterBuilder(props: PropertyFilterBuilderProps): JSX.El
 export class PropertyFilterBuilderActions {
     constructor(setState: (setter: (prevState: PropertyFilterBuilderState) => PropertyFilterBuilderState) => void);
     addItem(path: string[], itemType: "RULE_GROUP" | "RULE"): void;
+    removeAllItems(): void;
     removeItem(path: string[]): void;
     setRuleErrorMessages(ruleIdsAndErrorMessages: Map<string, string>): void;
     setRuleGroupOperator(path: string[], operator: PropertyFilterRuleGroupOperator): void;
@@ -2069,6 +2069,14 @@ export class PropertyFilterBuilderActions {
 
 // @beta
 export const PropertyFilterBuilderLogicalOperator: (props: Omit<React_3.HTMLProps<HTMLDivElement>, "size"> & PropertyFilterBuilderLogicalOperatorProps) => JSX.Element;
+
+// @beta
+export interface PropertyFilterBuilderLogicalOperatorProps {
+    isDisabled?: boolean;
+    onOperatorChange: (operator: PropertyFilterRuleGroupOperator) => void;
+    operator: PropertyFilterRuleGroupOperator;
+    size?: "medium" | "large";
+}
 
 // @beta
 export interface PropertyFilterBuilderProps extends Omit<PropertyFilterBuilderRendererProps, "actions" | "rootGroup">, UsePropertyFilterBuilderProps {
@@ -2082,6 +2090,7 @@ export function PropertyFilterBuilderRenderer(props: PropertyFilterBuilderRender
 export interface PropertyFilterBuilderRendererProps {
     actions: PropertyFilterBuilderActions;
     isDisabled?: boolean;
+    isGroupOperatorDisabled?: boolean;
     onRulePropertySelected?: (property: PropertyDescription) => void;
     properties: PropertyDescription[];
     propertyRenderer?: (name: string) => React_2.ReactNode;
@@ -2090,6 +2099,7 @@ export interface PropertyFilterBuilderRendererProps {
     ruleGroupDepthLimit?: number;
     ruleOperatorRenderer?: (props: PropertyFilterBuilderRuleOperatorProps) => React_2.ReactNode;
     ruleValueRenderer?: (props: PropertyFilterBuilderRuleValueRendererProps) => React_2.ReactNode;
+    size?: "medium" | "large";
 }
 
 // @beta
@@ -2121,7 +2131,7 @@ export interface PropertyFilterBuilderRuleOperatorProps {
     onChange: (operator: PropertyFilterRuleOperator) => void;
     operator?: PropertyFilterRuleOperator;
     property: PropertyDescription;
-    size?: "medium" | "large";;
+    size?: "medium" | "large";
 }
 
 // @beta
@@ -2131,7 +2141,7 @@ export function PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleV
 export interface PropertyFilterBuilderRuleValueProps {
     onChange: (value: PropertyValue) => void;
     property: PropertyDescription;
-    size?: "medium" | "large";;
+    size?: "medium" | "large";
     value?: PropertyValue;
 }
 
@@ -2146,7 +2156,7 @@ export interface PropertyFilterBuilderState {
 }
 
 // @beta
-export const PropertyFilterBuilderToolbar: (props: FlexProps & PropertyFilterBuilderToolbarProps) => JSX.Element;
+export const PropertyFilterBuilderToolbar: (props: PropertyFilterBuilderToolbarProps) => JSX.Element;
 
 // @public
 export class PropertyFilterChangeEvent extends BeEvent<PropertyFilterChangesListener> {
@@ -2868,7 +2878,7 @@ export interface TimeFieldProps {
     // (undocumented)
     readOnly?: boolean;
     // (undocumented)
-    size?: "medium" | "large";;
+    size?: "medium" | "large";
     // (undocumented)
     time: TimeSpec;
     // (undocumented)
@@ -3567,7 +3577,7 @@ export interface UsePropertyFilterBuilderProps {
 // @beta
 export interface UsePropertyFilterBuilderResult {
     actions: PropertyFilterBuilderActions;
-    buildFilter: (options?: FilterOptions) => PropertyFilter | undefined;
+    buildFilter: (options?: BuildFilterOptions) => PropertyFilter | undefined;
     rootGroup: PropertyFilterBuilderRuleGroup;
 }
 
