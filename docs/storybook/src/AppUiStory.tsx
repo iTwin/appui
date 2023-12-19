@@ -130,22 +130,21 @@ export function AppUiStory(props: AppUiStoryProps) {
 }
 
 function Initialized(props: AppUiStoryProps) {
+  const { frontstageProviders, onFrontstageActivated } = props;
   React.useEffect(() => {
     let ignore = false;
-    const frontstageProviders = getFrontstageProviders(
-      props.frontstageProviders
-    );
-    const defaultProvider = frontstageProviders[0];
+    const providers = getFrontstageProviders(frontstageProviders);
+    const defaultProvider = providers[0];
     (async function () {
       if (!defaultProvider) return;
       await UiFramework.frontstages.setActiveFrontstage(defaultProvider.id);
       if (ignore) return;
-      props.onFrontstageActivated?.();
+      onFrontstageActivated?.();
     })();
     return () => {
       ignore = true;
     };
-  }, [props.frontstageProviders]);
+  }, [frontstageProviders, onFrontstageActivated]);
   return (
     <>
       <Provider store={UiFramework.store}>
