@@ -67,6 +67,7 @@ export function addTab(
   id: TabState["id"],
   tabArgs?: Partial<TabState>
 ): NineZoneState {
+  // eslint-disable-next-line deprecation/deprecation
   if (id in state.tabs) throw new UiError(category, "Tab already exists");
   const tab = {
     ...createTabState(id),
@@ -98,12 +99,14 @@ export function insertTabToWidget(
   tabIndex: number
 ): NineZoneState {
   if (!(tabId in state.tabs))
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(category, "Tab does not exist", undefined, () => ({
       tabId,
     }));
   assertWidgetState(state, widgetId);
   const location = getTabLocation(state, tabId);
   if (location)
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(
       category,
       "Tab is already in a widget",
@@ -153,6 +156,7 @@ export function removeTab(
   state: NineZoneState,
   tabId: TabState["id"]
 ): NineZoneState {
+  // eslint-disable-next-line deprecation/deprecation
   if (!(tabId in state.tabs)) throw new UiError(category, "Tab does not exist");
 
   state = removeTabFromWidget(state, tabId);
@@ -180,6 +184,7 @@ export function addRemovedTab(
   tabId: TabState["id"]
 ): NineZoneState {
   if (!(tabId in state.tabs))
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(category, "Tab does not exist", undefined, () => ({
       tabId,
     }));

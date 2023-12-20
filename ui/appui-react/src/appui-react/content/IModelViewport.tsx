@@ -168,6 +168,7 @@ export class IModelViewportControl extends ViewportContentControl {
       if (typeof this._viewState === "function") viewState = this._viewState();
       else viewState = this._viewState;
     } else
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
         "No ViewState could be determined"

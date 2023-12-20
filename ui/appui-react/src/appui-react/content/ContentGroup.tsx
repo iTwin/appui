@@ -142,6 +142,7 @@ export class ContentGroup {
           contentControl.getType() !== ConfigurableUiControlType.Content &&
           contentControl.getType() !== ConfigurableUiControlType.Viewport
         ) {
+          // eslint-disable-next-line deprecation/deprecation
           throw new UiError(
             UiFramework.loggerCategory(this),
             `getContentControl error: '${usedClassId}' is NOT a ContentControl or ViewportContentControl`
@@ -247,6 +248,7 @@ export class ContentGroup {
           );
           if (classId !== undefined) content.classId = classId;
           else
+          // eslint-disable-next-line deprecation/deprecation
             throw new UiError(
               UiFramework.loggerCategory(this),
               `toJSON: ContentControl at index ${index} is NOT registered with a string id`

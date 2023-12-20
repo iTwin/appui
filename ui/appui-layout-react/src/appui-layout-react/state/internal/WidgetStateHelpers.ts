@@ -41,6 +41,7 @@ export function createWidgetState(
   args?: Partial<WidgetState>
 ): WidgetState {
   if (tabs.length === 0)
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(category, "Widget must contain tabs");
   return {
     activeTabId: tabs[0],
@@ -73,17 +74,20 @@ export function addWidgetState(
   tabs: WidgetState["tabs"],
   args?: Partial<WidgetState>
 ) {
+  // eslint-disable-next-line deprecation/deprecation
   if (id in state.widgets) throw new UiError(category, "Widget already exists");
 
   const widget = createWidgetState(id, tabs, args);
   for (const tabId of widget.tabs) {
     if (!(tabId in state.tabs))
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(category, "Tab does not exist", undefined, () => ({
         tabId,
       }));
 
     const location = getTabLocation(state, tabId);
     if (location)
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         category,
         "Tab is already in a widget",
@@ -102,6 +106,7 @@ export function removeWidget(
   id: WidgetState["id"]
 ): NineZoneState {
   const location = getWidgetLocation(state, id);
+  // eslint-disable-next-line deprecation/deprecation
   if (!location) throw new UiError(category, "Widget not found");
 
   if (isFloatingWidgetLocation(location))
@@ -167,6 +172,7 @@ export function updateFloatingWidgetState(
   args: Partial<FloatingWidgetState>
 ) {
   if (!(id in state.floatingWidgets.byId))
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(category, "Floating widget does not exist");
 
   return produce(state, (draft) => {
@@ -188,6 +194,7 @@ export function removeFloatingWidget(
   id: FloatingWidgetState["id"]
 ): NineZoneState {
   if (!(id in state.floatingWidgets.byId))
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(category, "Floating widget does not exist");
 
   state = produce(state, (draft) => {
@@ -206,6 +213,7 @@ export function removePopoutWidget(
   id: PopoutWidgetState["id"]
 ) {
   if (!(id in state.popoutWidgets.byId))
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(category, "Popout widget does not exist");
 
   state = produce(state, (draft) => {
@@ -223,6 +231,7 @@ export function removePanelWidget(
   location?: PanelWidgetLocation
 ): NineZoneState {
   location = location || findPanelWidget(state, id);
+  // eslint-disable-next-line deprecation/deprecation
   if (!location) throw new UiError(category, "Panel widget not found");
 
   state = updatePanelState(state, location.side, (draft) => {
@@ -254,6 +263,7 @@ function findPanelWidget(state: NineZoneState, id: WidgetState["id"]) {
 /** @internal */
 export function assertWidgetState(state: NineZoneState, id: WidgetState["id"]) {
   if (!(id in state.widgets))
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(category, "Widget does not exist", undefined, () => ({
       id,
     }));
@@ -276,6 +286,7 @@ export function setWidgetActiveTabId(
 ): NineZoneState {
   const widget = getWidgetState(state, widgetId);
   if (!widget.tabs.includes(tabId))
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(category, "Tab is not in a widget");
 
   state = updateWidgetState(state, widgetId, {

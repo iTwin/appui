@@ -152,6 +152,7 @@ export class ImageRenderer {
 
       default:
         const unhandledSourceType: never = loadedImage.sourceType; // Compile time check that all cases are handled
+        // eslint-disable-next-line deprecation/deprecation
         throw new UiError(
           UiComponents.loggerCategory(this),
           `Can't handle sourceType: "${unhandledSourceType}"`

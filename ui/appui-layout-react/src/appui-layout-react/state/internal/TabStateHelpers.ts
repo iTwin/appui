@@ -50,6 +50,7 @@ export function updateTabState(
   id: TabState["id"],
   update: (draft: WritableDraft<TabState>) => void
 ) {
+  // eslint-disable-next-line deprecation/deprecation
   if (!(id in state.tabs)) throw new UiError(category, "Tab does not exist");
 
   return produce(state, (draft) => {

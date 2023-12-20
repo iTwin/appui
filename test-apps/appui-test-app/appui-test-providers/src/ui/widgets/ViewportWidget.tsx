@@ -35,6 +35,7 @@ export function ViewportWidgetComponent() {
     async function setupView() {
       if (undefined === viewState && activeIModelConnection) {
         const defaultViewId =
+          // eslint-disable-next-line deprecation/deprecation
           await activeIModelConnection?.views?.queryDefaultViewId();
         if (defaultViewId && Id64.isValidId64(defaultViewId)) {
           const newViewState = await activeIModelConnection?.views.load(
