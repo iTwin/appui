@@ -249,7 +249,8 @@ describe("FrameworkUiAdmin", () => {
         wrapper.container
       )
     ).to.be.true;
-    expect(uiAdmin.showContextMenu(menuItemProps, { x: 150, y: 250 })).to.be.true;
+    expect(uiAdmin.showContextMenu(menuItemProps, { x: 150, y: 250 })).to.be
+      .true;
   });
 
   it("showToolbar should return true", () => {

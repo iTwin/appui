@@ -216,7 +216,8 @@ describe("ImageRenderer", () => {
     }
 
     it("throws when provided image source is not supported", () => {
-      expect(() => imageRenderer.render({ sourceType: "random-type" } as any)
+      expect(
+        () => imageRenderer.render({ sourceType: "random-type" } as any)
         // eslint-disable-next-line deprecation/deprecation
       ).to.throw(UiError);
     });

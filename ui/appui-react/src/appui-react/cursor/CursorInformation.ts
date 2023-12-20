@@ -48,7 +48,7 @@ export interface CursorUpdatedEventArgs {
  * @public
  */
 // eslint-disable-next-line deprecation/deprecation
-export class CursorUpdatedEvent extends UiEvent<CursorUpdatedEventArgs> { }
+export class CursorUpdatedEvent extends UiEvent<CursorUpdatedEventArgs> {}
 
 /** Cursor Information class
  * @public

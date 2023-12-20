@@ -14,7 +14,9 @@ import { useConditionalSynchedItems } from "../../components-react/toolbar/useCo
 import { ConditionalIconItem } from "@itwin/core-react";
 import { BeUiEvent } from "@itwin/core-bentley";
 
-interface BeUiEventProps { eventIds: Set<string> }
+interface BeUiEventProps {
+  eventIds: Set<string>;
+}
 
 describe("useConditionalSynchedItems", () => {
   it("Should support no Conditionals in items and return provided items", () => {
