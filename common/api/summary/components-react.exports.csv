@@ -232,7 +232,7 @@ public;PropertyEditorProps
 beta;PropertyFilter = PropertyFilterRule | PropertyFilterRuleGroup
 beta;PropertyFilterBuilder(props: PropertyFilterBuilderProps): JSX.Element
 beta;PropertyFilterBuilderActions
-beta;PropertyFilterBuilderLogicalOperator: (props: Omit
+beta;PropertyFilterBuilderLogicalOperator: (props: PropertyFilterBuilderLogicalOperatorProps) => JSX.Element
 beta;PropertyFilterBuilderLogicalOperatorProps
 beta;PropertyFilterBuilderProps 
 beta;PropertyFilterBuilderRenderer(props: PropertyFilterBuilderRendererProps): JSX.Element

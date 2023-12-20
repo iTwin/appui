@@ -38,7 +38,6 @@ import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyValue } from '@itwin/appui-abstract';
 import type { RatioChangeResult } from '@itwin/core-react';
 import * as React_2 from 'react';
-import { default as React_3 } from 'react';
 import { ReactNode } from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import type { SelectOption } from '@itwin/itwinui-react';
@@ -2068,10 +2067,11 @@ export class PropertyFilterBuilderActions {
 }
 
 // @beta
-export const PropertyFilterBuilderLogicalOperator: (props: Omit<React_3.HTMLProps<HTMLDivElement>, "size"> & PropertyFilterBuilderLogicalOperatorProps) => JSX.Element;
+export const PropertyFilterBuilderLogicalOperator: (props: PropertyFilterBuilderLogicalOperatorProps) => JSX.Element;
 
 // @beta
 export interface PropertyFilterBuilderLogicalOperatorProps {
+    className?: string;
     isDisabled?: boolean;
     onOperatorChange: (operator: PropertyFilterRuleGroupOperator) => void;
     operator: PropertyFilterRuleGroupOperator;
