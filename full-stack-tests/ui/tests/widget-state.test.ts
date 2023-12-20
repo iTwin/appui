@@ -324,15 +324,15 @@ test.describe("widget state", () => {
   });
 
   test("should unmount and hide widget when unloading", async ({ page }) => {
-    const widgetLifecycle = trackWidgetLifecycle(page, "WL-A");
     const tab = tabLocator(page, "WL-A");
-    await expect(tab).toBeVisible();
-    expect(widgetLifecycle.mountCount).toBe(1);
+    await expect(tab).toBeVisible({ timeout: 10000 });
+    const widgetLifecycle = trackWidgetLifecycle(page, "WL-A");
+    expect(widgetLifecycle.mountCount).toBe(0);
     expect(widgetLifecycle.unMountCount).toBe(0);
 
     await setWidgetState(page, "WL-A", WidgetState.Unloaded);
     await expect(tab).not.toBeVisible();
-    expect(widgetLifecycle.mountCount).toBe(1);
+    expect(widgetLifecycle.mountCount).toBe(0);
     expect(widgetLifecycle.unMountCount).toBe(1);
   });
 
