@@ -132,6 +132,16 @@ export interface SavedFrontstageState {
     };
     savedTabs: {
       allIds: string[];
+      byId: {
+        [id in string]: {
+          popoutBounds: {
+            bottom: number;
+            left: number;
+            right: number;
+            top: number;
+          };
+        };
+      };
     };
   };
 }
@@ -205,8 +215,8 @@ export async function dragTab(tab: Locator, target: Locator) {
   await tab.dispatchEvent("mousemove", { clientX: 20, clientY: 20 });
   const bounds = (await target.boundingBox())!;
   await body.dispatchEvent("mousemove", {
-    clientX: bounds.x,
-    clientY: bounds.y,
+    clientX: bounds.x + bounds.width / 2,
+    clientY: bounds.y + bounds.height / 2,
   });
   await body.dispatchEvent("mouseup");
 }
