@@ -24,7 +24,9 @@ export function ActionItem(props: ActionItemProps) {
   const label = useConditionalValue(item.label);
   const description = useConditionalValue(item.description);
   const isDisabled = useConditionalValue(item.isDisabled);
+  const isHidden = useConditionalValue(item.isHidden);
   const iconSpec = useConditionalValue(item.icon);
+  if (isHidden) return null;
   return (
     <IconButton
       className={props.className}
