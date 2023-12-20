@@ -94,6 +94,7 @@ import {
   AppUiTestProviders,
   ContentLayoutStage,
   CustomContentFrontstage,
+  CustomStageUiItemsProvider,
   FloatingWidgetsUiItemsProvider,
   InspectUiItemInfoToolProvider,
   MessageUiItemsProvider,
@@ -332,7 +333,7 @@ export class SampleAppIModelApp {
     // register the localized strings for the package and set up that contains the sample UiItems providers
     await AppUiTestProviders.initializeLocalizationAndState();
 
-    // initialize UI Item providers
+    // Register item providers
     UiItemsManager.register(
       new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace)
     );
@@ -347,14 +348,18 @@ export class SampleAppIModelApp {
       )
     );
     UiItemsManager.register(new PreviewFeaturesToggleProvider());
-    CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
-    WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
-    ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
+    UiItemsManager.register(new CustomStageUiItemsProvider());
+
+    // Register frontstages
+    CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace);
+    WidgetApiStage.register(AppUiTestProviders.localizationNamespace);
+    ContentLayoutStage.register(AppUiTestProviders.localizationNamespace);
     registerCustomFrontstage();
     SynchronizedFloatingViewportStage.register(
       AppUiTestProviders.localizationNamespace
     );
-    PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
+    PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
+
     // try starting up event loop if not yet started so key-in palette can be opened
     IModelApp.startEventLoop();
   }
