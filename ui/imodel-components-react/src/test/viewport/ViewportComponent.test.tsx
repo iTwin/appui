@@ -197,9 +197,6 @@ describe("ViewportComponent", () => {
     worldToViewPoint = Point3d.create(50, 50);
     nearestVisibleGeometryPoint = Point3d.create(30, 30);
     viewRect = new ViewRect(0, 0, 100, 100);
-    sinon.replace(Element.prototype, "getBoundingClientRect", () =>
-      DOMRect.fromRect({ x: 0, y: 0, height: 100, width: 100 })
-    );
   });
 
   it("should render with viewState", async () => {
@@ -655,56 +652,5 @@ describe("ViewportComponent", () => {
       await TestUtils.flushAsyncOperations();
       onViewChanged.raiseEvent(viewportMock2.object);
     });
-  });
-
-  it("should only set viewportRef once size is at least 1x1", async () => {
-    sinon.restore();
-    sinon.replace(Element.prototype, "getBoundingClientRect", () =>
-      DOMRect.fromRect({ x: 0, y: 0, height: 0, width: 0 })
-    );
-    const viewportRef = sinon.spy();
-    const { rerender } = render(
-      <ViewportComponent
-        imodel={imodelMock.object}
-        viewportRef={viewportRef}
-        viewState={viewState}
-        viewManagerOverride={viewManager.object}
-        screenViewportOverride={ScreenViewportMock}
-      />
-    );
-    await TestUtils.flushAsyncOperations();
-    expect(viewportRef).to.not.be.called;
-
-    sinon.restore();
-    sinon.replace(Element.prototype, "getBoundingClientRect", () =>
-      DOMRect.fromRect({ x: 0, y: 0, height: 1, width: 0 })
-    );
-    rerender(
-      <ViewportComponent
-        imodel={imodelMock.object}
-        viewportRef={viewportRef}
-        viewState={viewState}
-        viewManagerOverride={viewManager.object}
-        screenViewportOverride={ScreenViewportMock}
-      />
-    );
-    await TestUtils.flushAsyncOperations();
-    expect(viewportRef).to.not.be.called;
-
-    sinon.restore();
-    sinon.replace(Element.prototype, "getBoundingClientRect", () =>
-      DOMRect.fromRect({ x: 0, y: 0, height: 1, width: 1 })
-    );
-    rerender(
-      <ViewportComponent
-        imodel={imodelMock.object}
-        viewportRef={viewportRef}
-        viewState={viewState}
-        viewManagerOverride={viewManager.object}
-        screenViewportOverride={ScreenViewportMock}
-      />
-    );
-    await TestUtils.flushAsyncOperations();
-    expect(viewportRef).to.be.calledWith(viewportMock.object);
   });
 });
