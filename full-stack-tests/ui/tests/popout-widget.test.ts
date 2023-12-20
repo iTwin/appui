@@ -141,7 +141,10 @@ test.describe("popout widget", () => {
     await expectSavedFrontstageState(context, (state) => {
       return (
         state.nineZone.widgets["appui-test-providers:ViewAttributesWidget"]
-          ?.activeTabId === "appui-test-providers:ViewAttributesWidget"
+          ?.activeTabId === "appui-test-providers:ViewAttributesWidget" &&
+        !!state.nineZone.savedTabs.byId[
+          "appui-test-providers:ViewAttributesWidget"
+        ]
       );
     });
 
