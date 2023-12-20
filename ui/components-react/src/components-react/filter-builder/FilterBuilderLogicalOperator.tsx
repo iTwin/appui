@@ -22,6 +22,8 @@ export interface PropertyFilterBuilderLogicalOperatorProps {
   operator: PropertyFilterRuleGroupOperator;
   /** Callback that is invoked when operator changes. */
   onOperatorChange: (operator: PropertyFilterRuleGroupOperator) => void;
+  /** Classname to specify CSS styling */
+  className?: string;
 }
 
 /** Component to render the operator inside of the filter builder
@@ -30,8 +32,7 @@ export interface PropertyFilterBuilderLogicalOperatorProps {
 export const PropertyFilterBuilderLogicalOperator = (
   props: PropertyFilterBuilderLogicalOperatorProps
 ) => {
-  const { className, size, isDisabled, operator, onOperatorChange, ...rest } =
-    props;
+  const { size, isDisabled, operator, onOperatorChange, className } = props;
 
   const toggle = () =>
     operator === PropertyFilterRuleGroupOperator.And
@@ -44,11 +45,7 @@ export const PropertyFilterBuilderLogicalOperator = (
       : UiComponents.translate("filterBuilder.operators.or");
 
   return (
-    <div
-      className={cx("fb-logical-operator", className)}
-      data-iui-size={size}
-      {...rest}
-    >
+    <div className={cx("fb-logical-operator", className)} data-iui-size={size}>
       {isDisabled ? (
         <span>{operatorDisplayText}</span>
       ) : (
