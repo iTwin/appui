@@ -63,23 +63,51 @@ test.describe("popout widget", () => {
     const widget = widgetLocator({ tab });
     const popoutButton = widget.locator('[title="Pop out active widget tab"]');
 
+<<<<<<< HEAD
     // Popout the widget w/ default size.
     let [popoutPage] = await Promise.all([
       context.waitForEvent("page"),
       popoutButton.click(),
     ]);
     expect(popoutPage.isClosed()).toBe(false);
+=======
+    const popoutPage = await popoutWidget(context, widget);
+    await expect.poll(async () => popoutPage.isClosed()).toBe(false);
+>>>>>>> 082d2ac6f (Revert popout reparenting (#640))
 
     await openFrontstage(page, "appui-test-app:main-stage");
-    expect(popoutPage.isClosed()).toBe(true);
+    await expect.poll(async () => popoutPage.isClosed()).toBe(true);
 
     await openFrontstage(page, "appui-test-providers:WidgetApi");
-    expect(popoutPage.isClosed()).toBe(true);
+    await expect.poll(async () => popoutPage.isClosed()).toBe(true);
 
     const floatingWidget = floatingWidgetLocator({ tab });
     await expect(floatingWidget).toBeVisible();
   });
 
+<<<<<<< HEAD
+=======
+  test("should dock a popout widget (after frontstage change)", async ({
+    context,
+    page,
+  }) => {
+    const tab = tabLocator(page, "WT-2");
+    const widget = widgetLocator({ tab });
+
+    const popoutPage = await popoutWidget(context, widget);
+    await expect.poll(async () => popoutPage.isClosed()).toBe(false);
+
+    await openFrontstage(page, "appui-test-app:main-stage");
+    await expect.poll(async () => popoutPage.isClosed()).toBe(true);
+
+    await openFrontstage(page, "appui-test-providers:WidgetApi");
+    await expect.poll(async () => popoutPage.isClosed()).toBe(true);
+
+    const locator = panelSectionLocator(page, "top", 1, { has: tab });
+    await expect(locator).toBeVisible();
+  });
+
+>>>>>>> 082d2ac6f (Revert popout reparenting (#640))
   test("should maintain popout widget bounds", async ({ context, page }) => {
     const tab = tabLocator(page, "View Attributes");
     const widget = widgetLocator({ tab });
@@ -180,7 +208,7 @@ test.describe("popout widget", () => {
       popoutButton.click(),
     ]);
     await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
-    expect(popoutPage.isClosed()).toBe(false);
+    await expect.poll(async () => popoutPage.isClosed()).toBe(false);
 
     await setWidgetState(
       page,
@@ -189,7 +217,12 @@ test.describe("popout widget", () => {
     );
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
   });
+<<<<<<< HEAD
   test("should render popout, mount content to WidgetContainer, and then set widget to floating", async ({
+=======
+
+  test("should unmount when popped out widget is closed", async ({
+>>>>>>> 082d2ac6f (Revert popout reparenting (#640))
     context,
     page,
   }) => {
@@ -203,6 +236,7 @@ test.describe("popout widget", () => {
       page,
       id: "appui-test-providers:PopoutMountUnmountWidget",
     });
+<<<<<<< HEAD
     const popoutButton = widget.locator('[title="Pop out active widget tab"]');
 
     const [popoutPage] = await Promise.all([
@@ -211,9 +245,16 @@ test.describe("popout widget", () => {
     ]);
     await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
     expect(popoutPage.isClosed()).toBe(false);
+=======
+    await expect(widget).toBeVisible();
+    const widgetLifecycle = trackWidgetLifecycle(page, id);
+    const popoutPage = await popoutWidget(context, widget);
+    await expect.poll(async () => popoutPage.isClosed()).toBe(false);
+>>>>>>> 082d2ac6f (Revert popout reparenting (#640))
 
     popoutPage.close();
 
+<<<<<<< HEAD
     await setWidgetState(
       page,
       "appui-test-providers:PopoutMountUnmountWidget",
@@ -226,3 +267,19 @@ test.describe("popout widget", () => {
     expect(unMountCount).toBe(0);
   });
 });
+=======
+    await expect.poll(async () => widgetLifecycle.mountCount).toBe(1);
+    await expect.poll(async () => widgetLifecycle.unMountCount).toBe(1);
+  });
+});
+
+async function popoutWidget(context: BrowserContext, widget: Locator) {
+  const popoutButton = popoutButtonLocator(widget);
+  const [popoutPage] = await Promise.all([
+    context.waitForEvent("page"),
+    popoutButton.click(),
+  ]);
+  await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
+  return popoutPage;
+}
+>>>>>>> 082d2ac6f (Revert popout reparenting (#640))
