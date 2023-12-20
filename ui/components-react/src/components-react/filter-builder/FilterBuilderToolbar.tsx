@@ -6,7 +6,9 @@ import React from "react";
 import { Flex, IconButton } from "@itwin/itwinui-react";
 import { SvgAdd, SvgDelete } from "@itwin/itwinui-icons-react";
 import { UiComponents } from "../UiComponents";
-
+/** @packageDocumentation
+ * @module PropertyFilterBuilder
+ */
 /**
  * Props for [[PropertyFilterBuilderToolbar]] component.
  * @internal

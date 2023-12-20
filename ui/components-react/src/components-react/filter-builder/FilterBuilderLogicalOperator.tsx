@@ -9,6 +9,10 @@ import "./FilterBuilderLogicalOperator.scss";
 import { UiComponents } from "../UiComponents";
 import { PropertyFilterRuleGroupOperator } from "./Operators";
 
+/** @packageDocumentation
+ * @module PropertyFilterBuilder
+ */
+
 /**
  * Props for [[PropertyFilterBuilderLogicalOperator]] component.
  * @beta
