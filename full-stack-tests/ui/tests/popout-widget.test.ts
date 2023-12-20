@@ -141,7 +141,10 @@ test.describe("popout widget", () => {
     await expectSavedFrontstageState(context, (state) => {
       return (
         state.nineZone.widgets["appui-test-providers:ViewAttributesWidget"]
-          ?.activeTabId === "appui-test-providers:ViewAttributesWidget"
+          ?.activeTabId === "appui-test-providers:ViewAttributesWidget" &&
+        !!state.nineZone.savedTabs.byId[
+          "appui-test-providers:ViewAttributesWidget"
+        ]
       );
     });
 
@@ -180,18 +183,18 @@ test.describe("popout widget", () => {
     page,
   }) => {
     const id = "appui-test-providers:PopoutMountUnmountWidget";
-    const widgetLifecycle = trackWidgetLifecycle(page, id);
     const widget = floatingWidgetLocator({
       page,
       id,
     });
-
+    await expect(widget).toBeVisible();
+    const widgetLifecycle = trackWidgetLifecycle(page, id);
     const popoutPage = await popoutWidget(context, widget);
     expect(popoutPage.isClosed()).toBe(false);
 
     await popoutPage.close();
 
-    expect(widgetLifecycle.mountCount).toBe(1);
+    expect(widgetLifecycle.mountCount).toBe(0);
     expect(widgetLifecycle.unMountCount).toBe(0);
   });
 });
