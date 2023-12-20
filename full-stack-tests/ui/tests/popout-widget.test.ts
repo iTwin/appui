@@ -202,5 +202,6 @@ async function popoutWidget(context: BrowserContext, widget: Locator) {
     context.waitForEvent("page"),
     popoutButton.click(),
   ]);
+  await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
   return popoutPage;
 }
