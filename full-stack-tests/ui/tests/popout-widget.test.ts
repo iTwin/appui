@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { test, expect } from "@playwright/test";
+import { test, expect, Locator, BrowserContext } from "@playwright/test";
 import assert from "assert";
 import {
   WidgetState,
@@ -29,10 +29,7 @@ test.describe("popout widget", () => {
     const popoutButton = widget.locator('[title="Pop out active widget tab"]');
     await expect(tab).toBeVisible();
 
-    const [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    const popoutPage = await popoutWidget(context, popoutButton);
     await expect(popoutPage).toHaveTitle(/View Attributes/);
 
     await expect(tab).not.toBeVisible();
@@ -48,10 +45,7 @@ test.describe("popout widget", () => {
     const popoutButton = widget.locator('[title="Pop out active widget tab"]');
     await expect(tab).toBeVisible();
 
-    const [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    const popoutPage = await popoutWidget(context, popoutButton);
     await expect(popoutPage.locator("body")).toHaveScreenshot();
   });
 
@@ -63,17 +57,9 @@ test.describe("popout widget", () => {
     const widget = widgetLocator({ tab });
     const popoutButton = widget.locator('[title="Pop out active widget tab"]');
 
-<<<<<<< HEAD
     // Popout the widget w/ default size.
-    let [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    let popoutPage = await popoutWidget(context, popoutButton);
     expect(popoutPage.isClosed()).toBe(false);
-=======
-    const popoutPage = await popoutWidget(context, widget);
-    await expect.poll(async () => popoutPage.isClosed()).toBe(false);
->>>>>>> 082d2ac6f (Revert popout reparenting (#640))
 
     await openFrontstage(page, "appui-test-app:main-stage");
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
@@ -85,39 +71,13 @@ test.describe("popout widget", () => {
     await expect(floatingWidget).toBeVisible();
   });
 
-<<<<<<< HEAD
-=======
-  test("should dock a popout widget (after frontstage change)", async ({
-    context,
-    page,
-  }) => {
-    const tab = tabLocator(page, "WT-2");
-    const widget = widgetLocator({ tab });
-
-    const popoutPage = await popoutWidget(context, widget);
-    await expect.poll(async () => popoutPage.isClosed()).toBe(false);
-
-    await openFrontstage(page, "appui-test-app:main-stage");
-    await expect.poll(async () => popoutPage.isClosed()).toBe(true);
-
-    await openFrontstage(page, "appui-test-providers:WidgetApi");
-    await expect.poll(async () => popoutPage.isClosed()).toBe(true);
-
-    const locator = panelSectionLocator(page, "top", 1, { has: tab });
-    await expect(locator).toBeVisible();
-  });
-
->>>>>>> 082d2ac6f (Revert popout reparenting (#640))
   test("should maintain popout widget bounds", async ({ context, page }) => {
     const tab = tabLocator(page, "View Attributes");
     const widget = widgetLocator({ tab });
     const popoutButton = widget.locator('[title="Pop out active widget tab"]');
 
     // Popout the widget w/ default size.
-    let [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    let popoutPage = await popoutWidget(context, popoutButton);
     await expect(popoutPage).toHaveTitle(/View Attributes/);
 
     expect(popoutPage.viewportSize()).toEqual({
@@ -137,10 +97,7 @@ test.describe("popout widget", () => {
     await expect(tab).toHaveClass(/nz-active/);
 
     // Popout the widget.
-    [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    popoutPage = await popoutWidget(context, popoutButton);
     expect(popoutPage.viewportSize()).toEqual({
       height: 400,
       width: 300,
@@ -156,10 +113,7 @@ test.describe("popout widget", () => {
     const popoutButton = widget.locator('[title="Pop out active widget tab"]');
 
     // Popout the widget w/ default size.
-    let [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    let popoutPage = await popoutWidget(context, popoutButton);
     await expect(popoutPage).toHaveTitle(/View Attributes/);
 
     // Update widget size and close the popout.
@@ -183,10 +137,7 @@ test.describe("popout widget", () => {
     await page.reload();
 
     // Popout the widget.
-    [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
+    popoutPage = await popoutWidget(context, popoutButton);
     expect(popoutPage.viewportSize()).toEqual({
       height: 400,
       width: 300,
@@ -203,11 +154,7 @@ test.describe("popout widget", () => {
     });
     const popoutButton = widget.locator('[title="Pop out active widget tab"]');
 
-    const [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
-    await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
+    const popoutPage = await popoutWidget(context, popoutButton);
     await expect.poll(async () => popoutPage.isClosed()).toBe(false);
 
     await setWidgetState(
@@ -217,12 +164,8 @@ test.describe("popout widget", () => {
     );
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
   });
-<<<<<<< HEAD
-  test("should render popout, mount content to WidgetContainer, and then set widget to floating", async ({
-=======
 
   test("should unmount when popped out widget is closed", async ({
->>>>>>> 082d2ac6f (Revert popout reparenting (#640))
     context,
     page,
   }) => {
@@ -236,45 +179,25 @@ test.describe("popout widget", () => {
       page,
       id: "appui-test-providers:PopoutMountUnmountWidget",
     });
-<<<<<<< HEAD
     const popoutButton = widget.locator('[title="Pop out active widget tab"]');
 
-    const [popoutPage] = await Promise.all([
-      context.waitForEvent("page"),
-      popoutButton.click(),
-    ]);
-    await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
+    const popoutPage = await popoutWidget(context, popoutButton);
     expect(popoutPage.isClosed()).toBe(false);
-=======
-    await expect(widget).toBeVisible();
-    const widgetLifecycle = trackWidgetLifecycle(page, id);
-    const popoutPage = await popoutWidget(context, widget);
-    await expect.poll(async () => popoutPage.isClosed()).toBe(false);
->>>>>>> 082d2ac6f (Revert popout reparenting (#640))
 
     popoutPage.close();
 
-<<<<<<< HEAD
     await setWidgetState(
       page,
       "appui-test-providers:PopoutMountUnmountWidget",
       WidgetState.Floating
     );
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
-    // Due to the change to Popouts where `WidgetContentContainer` is displayed instead of a React Node. The actual widget is no longer unmounted
-    // and is simply sent to a different `WidgetContentContainer`. That's why the unmount count was changed to 0 here.
-    expect(mountCount).toBe(1);
-    expect(unMountCount).toBe(0);
-  });
-});
-=======
-    await expect.poll(async () => widgetLifecycle.mountCount).toBe(1);
-    await expect.poll(async () => widgetLifecycle.unMountCount).toBe(1);
+    await expect.poll(async () => mountCount).toBe(2);
+    await expect.poll(async () => unMountCount).toBe(1);
   });
 });
 
-async function popoutWidget(context: BrowserContext, widget: Locator) {
-  const popoutButton = popoutButtonLocator(widget);
+async function popoutWidget(context: BrowserContext, popoutButton: Locator) {
   const [popoutPage] = await Promise.all([
     context.waitForEvent("page"),
     popoutButton.click(),
@@ -282,4 +205,3 @@ async function popoutWidget(context: BrowserContext, widget: Locator) {
   await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
   return popoutPage;
 }
->>>>>>> 082d2ac6f (Revert popout reparenting (#640))
