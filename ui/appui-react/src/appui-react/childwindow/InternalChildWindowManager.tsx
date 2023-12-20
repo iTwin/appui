@@ -24,11 +24,6 @@ import type {
   FrameworkChildWindows,
   OpenChildWindowInfo,
 } from "../framework/FrameworkChildWindows";
-<<<<<<< HEAD
-import { createLayoutStore, NineZone } from "@itwin/appui-layout-react";
-=======
-import type { ChildWindow } from "./ChildWindowConfig";
->>>>>>> 082d2ac6f (Revert popout reparenting (#640))
 
 const childHtml = `<!DOCTYPE html>
 <html>
