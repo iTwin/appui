@@ -200,6 +200,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
           childWindowId,
           childWindow
         );
+        // Trigger first so popout can be converted back to main window widget
         this.close(childWindowId, false);
         // UnmountComponentAtNode is deprecated in React 18, so if they are
         // using React 18 and passing in a createRoot function, unmount()
