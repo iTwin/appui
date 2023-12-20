@@ -28,8 +28,7 @@ export interface PropertyFilterBuilderLogicalOperatorProps {
  * @beta
  */
 export const PropertyFilterBuilderLogicalOperator = (
-  props: Omit<React.HTMLProps<HTMLDivElement>, "size"> &
-    PropertyFilterBuilderLogicalOperatorProps
+  props: PropertyFilterBuilderLogicalOperatorProps
 ) => {
   const { className, size, isDisabled, operator, onOperatorChange, ...rest } =
     props;
