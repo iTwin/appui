@@ -2,6 +2,18 @@
   "name": "@itwin/imodel-components-react",
   "entries": [
     {
+      "version": "4.7.2",
+      "tag": "@itwin/imodel-components-react_v4.7.2",
+      "date": "Wed, 20 Dec 2023 23:11:37 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Revert Viewport creation delay from 0x0."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.7.1",
       "tag": "@itwin/imodel-components-react_v4.7.1",
       "date": "Thu, 07 Dec 2023 19:40:17 GMT",
