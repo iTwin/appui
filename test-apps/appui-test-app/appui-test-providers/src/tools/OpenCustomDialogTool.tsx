@@ -23,7 +23,7 @@ import { UiFramework } from "@itwin/appui-react";
  * all registered tools).
  */
 export class OpenCustomDialogTool extends Tool {
-  public static override toolId = "appuiTestProviders-OpenCustomDialogTool";
+  public static override toolId = "appuiTestProviders-OpenCustomDialogTool"; //
   public static override iconSpec = connectedQuerySvg;
 
   // istanbul ignore next
