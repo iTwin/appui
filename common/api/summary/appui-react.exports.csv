@@ -477,6 +477,7 @@ public;SyncUiEventId
 public;SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED"
 public;ThemeId = `${ColorTheme}` | (string & {})
 public;ThemeManager: ConnectedComponent
+alpha;ThisWidget
 public;TileLoadingIndicator 
 public;ToolActivatedEvent 
 public;ToolActivatedEventArgs
@@ -571,6 +572,7 @@ internal;useShouldRenderDockedToolSettings(): boolean
 beta;useSolarDataProvider(viewport: ScreenViewport | undefined): SolarDataProvider | undefined
 public;useSpecificWidgetDef(widgetId: string): WidgetDef | undefined
 internal;useStatusBarEntry(): DockedStatusBarEntryContextArg
+alpha;useThisWidget(): ThisWidget
 internal;useToolSettingsNode(): string | number | boolean | {} | React_2.ReactElement
 beta;useTransientState(onSave?: () => void, onRestore?: () => void): void
 public;useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]

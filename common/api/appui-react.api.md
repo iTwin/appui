@@ -1865,7 +1865,7 @@ export interface FrameworkChildWindows {
     closeAll(): void;
     find(childWindowId: string | undefined): OpenChildWindowInfo | undefined;
     findId(contentWindow: Window | undefined | null): string | undefined;
-    open(childWindowId: string, title: string, content: React.ReactNode, location: ChildWindowLocationProps, useDefaultPopoutUrl?: boolean): boolean;
+    open(childWindowId: string, title: string, content: React.ReactNode, location: ChildWindowLocationProps, tabId: string, useDefaultPopoutUrl?: boolean): boolean;
     readonly openChildWindows: OpenChildWindowInfo[];
     // @beta
     useCreateRoot(createRootFn: CreateRoot): void;
@@ -4477,6 +4477,16 @@ export type ThemeId = `${ColorTheme}` | (string & {});
 // @public
 export const ThemeManager: ConnectedComponent<typeof ThemeManagerComponent, Omit_3<React_2.ClassAttributes<ThemeManagerComponent> & ThemeManagerProps, "theme" | "widgetOpacity" | "toolbarOpacity">>;
 
+// @alpha
+export interface ThisWidget {
+    // (undocumented)
+    setState(state: Exclude<WidgetState, WidgetState.Floating>): void;
+    // (undocumented)
+    state: WidgetState;
+    // (undocumented)
+    widgetLocation: "docked" | "floating" | "popout";
+}
+
 // @public
 export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, TileLoadingIndicatorState> {
     constructor(props: CommonProps);
@@ -5107,6 +5117,9 @@ export function useSpecificWidgetDef(widgetId: string): WidgetDef | undefined;
 
 // @internal (undocumented)
 export function useStatusBarEntry(): DockedStatusBarEntryContextArg;
+
+// @alpha
+export function useThisWidget(): ThisWidget;
 
 // @internal (undocumented)
 export function useToolSettingsNode(): string | number | boolean | {} | React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>> | Iterable<React_2.ReactNode> | React_2.ReactPortal | null | undefined;

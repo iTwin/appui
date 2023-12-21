@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Created useThisWidget hook to convey widget information",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
