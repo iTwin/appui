@@ -7,7 +7,6 @@
  */
 
 import "./FilterBuilderRule.scss";
-import "./FilterBuilder.scss";
 import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { SvgStatusError } from "@itwin/itwinui-icons-react";
