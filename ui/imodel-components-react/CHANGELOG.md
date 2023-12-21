@@ -1,6 +1,13 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Thu, 07 Dec 2023 19:40:17 GMT and should not be manually modified.
+This log was last generated on Thu, 21 Dec 2023 14:08:43 GMT and should not be manually modified.
+
+## 4.8.0
+Thu, 21 Dec 2023 14:08:43 GMT
+
+### Updates
+
+- Revert Viewport creaction delay from 0x0.
 
 ## 4.7.1
 Thu, 07 Dec 2023 19:40:17 GMT

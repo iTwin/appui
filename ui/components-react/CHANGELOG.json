@@ -2,6 +2,21 @@
   "name": "@itwin/components-react",
   "entries": [
     {
+      "version": "4.8.0",
+      "tag": "@itwin/components-react_v4.8.0",
+      "date": "Thu, 21 Dec 2023 14:08:42 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add ability to remove all items in PropertyFilterBuilderActions."
+          },
+          {
+            "comment": "Ensure correct initial property orientation in `PropertyGrid`"
+          }
+        ]
+      }
+    },
+    {
       "version": "4.7.1",
       "tag": "@itwin/components-react_v4.7.1",
       "date": "Thu, 07 Dec 2023 19:40:17 GMT",
