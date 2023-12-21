@@ -36,9 +36,6 @@
     border-color: var(--border-color);
     border-width: 1px 0 1px 1px;
   }
-  .fb-logical-operator:not(.fb-group-operator) {
-    border: 0;
-  }
   .fb-group-criteria {
     .fb-criteria-container:not(:first-child) {
       overflow: hidden;
@@ -63,22 +60,4 @@
       }
     }
   }
-
-  // indent nested children
-  .fb-group-criteria .fb-critiera-container {
-    margin-left: calc(
-      var(--level) * calc(var(--fb-operator-width) + 1px)
-    ); // 1 pixel border
-  }
-}
-
-.fb-add-row-button {
-  margin-top: var(--iui-size-s);
-  min-height: var(--iui-size-l);
-  padding: var(--iui-size-xs);
-  align-self: flex-start;
-}
-
-.fb-rule-group {
-  flex-direction: column;
 }

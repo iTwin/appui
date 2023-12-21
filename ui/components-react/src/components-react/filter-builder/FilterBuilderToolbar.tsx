@@ -38,6 +38,7 @@ export const PropertyFilterBuilderToolbar = (
     >
       <IconButton
         size={!size ? "small" : size === "medium" ? undefined : "large"}
+        className="fb-add-rule-button"
         data-testid="fb-add-rule-button"
         label={UiComponents.translate("filterBuilder.add")}
         styleType="borderless"
@@ -47,6 +48,7 @@ export const PropertyFilterBuilderToolbar = (
       </IconButton>
       <IconButton
         size={!size ? "small" : size === "medium" ? undefined : "large"}
+        className="fb-remove-rule-button"
         data-testid="fb-remove-rule-button"
         label={UiComponents.translate("filterBuilder.delete")}
         styleType="borderless"

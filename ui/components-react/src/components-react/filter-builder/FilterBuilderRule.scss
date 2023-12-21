@@ -34,11 +34,6 @@
     flex: 1;
   }
 
-  .fb-row-operator {
-    width: var(--operator-width);
-    border-right: 1px solid var(--border-color);
-  }
-
   .fb-row-name {
     width: var(--property-name-width);
   }
@@ -60,7 +55,7 @@
 
 .fb-row:not(:last-child) {
   //only show buttons on last row to prevent visual clutter
-  .iui-button:first-child {
+  .fb-add-rule-button:first-child {
     visibility: hidden;
   }
 }

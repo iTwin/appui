@@ -48,7 +48,7 @@ export const PropertyFilterBuilderLogicalOperator = (
       : UiComponents.translate("filterBuilder.operators.or");
 
   return (
-    <div className={cx("fb-logical-operator", className)} data-iui-size={size}>
+    <div className={cx("fb-logical-operator", className)}>
       {isDisabled ? (
         <span>{operatorDisplayText}</span>
       ) : (
