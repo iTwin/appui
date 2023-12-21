@@ -253,12 +253,12 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         content: <LayoutControls />,
       });
       widgets.push({
-        id: "appui-test-providers:UseThisWidgetHookWidget1",
-        label: "Use This Widget Hook1",
+        id: "appui-test-providers:UseThisWidgetHookWidget",
+        label: "Use This Widget Hook",
         icon: "icon-window-settings",
         defaultState: WidgetState.Open,
         canFloat: {
-          containerId: "appui-test-providers:UseThisWidgetHookWidget1",
+          containerId: "appui-test-providers:UseThisWidgetHookWidget",
         },
         content: <UseThisWidgetHookWidget />,
         canPopout: true,
