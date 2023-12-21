@@ -25,6 +25,7 @@ import type {
   OpenChildWindowInfo,
 } from "../framework/FrameworkChildWindows";
 import type { ChildWindow } from "./ChildWindowConfig";
+import { TabIdContext } from "@itwin/appui-layout-react";
 
 const childHtml = `<!DOCTYPE html>
 <html>
@@ -144,7 +145,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     childWindow: ChildWindow,
     childWindowId: string,
     content: React.ReactNode,
-    title: string
+    title: string,
+    tabId: string
   ) {
     childWindow.document.title = title;
     if (childWindow.expectedHeight && childWindow.expectedWidth) {
@@ -174,19 +176,21 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         setTimeout(() => {
           this.render(
             <Provider store={UiFramework.store}>
-              <UiStateStorageHandler>
-                <ThemeManager>
-                  <div className="uifw-child-window-container-host">
-                    <PopupRenderer />
-                    <ModalDialogRenderer />
-                    <ModelessDialogRenderer />
-                    <CursorPopupMenu />
-                    <div className="uifw-child-window-container nz-widget-widget">
-                      {content}
+              <TabIdContext.Provider value={tabId}>
+                <UiStateStorageHandler>
+                  <ThemeManager>
+                    <div className="uifw-child-window-container-host">
+                      <PopupRenderer />
+                      <ModalDialogRenderer />
+                      <ModelessDialogRenderer />
+                      <CursorPopupMenu />
+                      <div className="uifw-child-window-container nz-widget-widget">
+                        {content}
+                      </div>
                     </div>
-                  </div>
-                </ThemeManager>
-              </UiStateStorageHandler>
+                  </ThemeManager>
+                </UiStateStorageHandler>
+              </TabIdContext.Provider>
             </Provider>,
             reactConnectionDiv
           );
@@ -275,6 +279,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     title: string,
     content: React.ReactNode,
     location: ChildWindowLocationProps,
+    tabId: string,
     useDefaultPopoutUrl?: boolean
   ) {
     // first check to see if content is already open in child window
@@ -307,7 +312,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         childWindow,
         childWindowId,
         content,
-        title
+        title,
+        tabId
       );
     } else {
       childWindow.addEventListener(
@@ -317,7 +323,8 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
             childWindow,
             childWindowId,
             content,
-            title
+            title,
+            tabId
           );
         },
         false

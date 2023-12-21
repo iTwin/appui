@@ -88,6 +88,7 @@ export interface FrameworkChildWindows {
     title: string,
     content: React.ReactNode,
     location: ChildWindowLocationProps,
+    tabId: string,
     useDefaultPopoutUrl?: boolean
   ): boolean;
 }
