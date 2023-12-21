@@ -7,7 +7,7 @@ Wed, 20 Dec 2023 23:11:37 GMT
 
 ### Updates
 
-- Revert Viewport creaction delay from 0x0.
+- Revert Viewport creation delay from 0x0.
 
 ## 4.7.1
 Thu, 07 Dec 2023 19:40:17 GMT
