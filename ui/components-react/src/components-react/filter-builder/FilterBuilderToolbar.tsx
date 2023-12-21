@@ -2,13 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+/** @packageDocumentation
+ * @module PropertyFilterBuilder
+ */
 import React from "react";
 import { Flex, IconButton } from "@itwin/itwinui-react";
 import { SvgAdd, SvgDelete } from "@itwin/itwinui-icons-react";
 import { UiComponents } from "../UiComponents";
-/** @packageDocumentation
- * @module PropertyFilterBuilder
- */
 /**
  * Props for [[PropertyFilterBuilderToolbar]] component.
  * @internal
