@@ -80,6 +80,7 @@ export interface FrameworkChildWindows {
    * @param title Title to display on the window.
    * @param content ReactNode to be rendered in the window.
    * @param location Position and size information
+   * @param tabId of widget being displayed in new window
    * @param useDefaultPopoutUrl use "/iTwinPopup.html" as the window Url, "" otherwise.
    * @returns true if the window is opened successfully.
    */
