@@ -33,13 +33,7 @@ export function ActionItem(props: ActionItemProps) {
       styleType="borderless"
       disabled={isDisabled}
       isActive={item.isActive}
-      label={
-        <>
-          {label}
-          <br />
-          {description}
-        </>
-      }
+      label={<ItemLabel label={label} description={description} />}
       style={props.style}
       onClick={() => item.execute()}
     >
@@ -53,5 +47,21 @@ function Badge({ badge }: Pick<ToolbarActionItem, "badge">) {
   const badgeRenderer = BadgeUtilities.getComponentForBadgeType(badge);
   return (
     <div className="uifw-toolbar-group-actionItem_badge">{badgeRenderer}</div>
+  );
+}
+
+interface ItemLabelProps {
+  label?: string;
+  description?: string;
+}
+
+/** @internal */
+export function ItemLabel({ label, description }: ItemLabelProps) {
+  return (
+    <>
+      {label}
+      <br />
+      {description}
+    </>
   );
 }
