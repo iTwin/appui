@@ -95,7 +95,7 @@ export interface PropertyFilterBuilderRendererProps {
   /** Custom renderer for property selector in rule. */
   propertyRenderer?: (name: string) => React.ReactNode;
   /** Specifies how deep rule groups can be nested.
-   * @deprecated in 4.8.0. Nesting is no longer supported moving forward.
+   * @deprecated in 4.9.0. Nesting is no longer supported moving forward.
    */
   ruleGroupDepthLimit?: number;
   /** Specifies whether component is disabled or not. */
