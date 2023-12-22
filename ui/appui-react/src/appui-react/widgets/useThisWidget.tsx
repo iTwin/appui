@@ -4,12 +4,19 @@
  *--------------------------------------------------------------------------------------------*/
 
 import React from "react";
-import { getTabLocation, TabIdContext } from "@itwin/appui-layout-react";
+import {
+  getTabLocation,
+  isFloatingTabLocation,
+  isPanelTabLocation,
+  isPopoutTabLocation,
+  TabIdContext,
+} from "@itwin/appui-layout-react";
 import { assert } from "@itwin/core-bentley";
+import type { FrontstageDef } from "../frontstage/FrontstageDef";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import type { WidgetState } from "./WidgetState";
+import { useWidgetDef } from "../widget-panels/Content";
 
 /** Interface to be used with the useThisWidget hook. Holds information
  * about the Widget such as the state and location. Also contains a function to set WidgetState.
@@ -32,42 +39,17 @@ export function useThisWidget(): ThisWidget {
 
   const frontstage = useActiveFrontstageDef();
 
-  const [widgetDef, setWidgetDef] = React.useState(() =>
-    frontstage?.findWidgetDef(tabId)
-  );
+  assert(!!frontstage);
+
+  const widgetDef = useWidgetDef();
 
   assert(!!widgetDef);
 
   const [widgetLocation, setWidgetLocation] = React.useState<
     "docked" | "floating" | "popout"
-  >(findLocation(tabId, true));
+  >(findLocation(tabId, frontstage));
 
   const [state, setState] = React.useState(widgetDef.state);
-
-  function findLocation(locationTabId: string, initial: boolean): any {
-    let tabLocation;
-    if (frontstage?.nineZoneState)
-      tabLocation = getTabLocation(frontstage.nineZoneState, locationTabId);
-
-    if (tabLocation) {
-      if ("floatingWidgetId" in tabLocation) {
-        if (initial) return "floating";
-        return setWidgetLocation("floating");
-      }
-
-      if ("popoutWidgetId" in tabLocation) {
-        if (initial) return "popout";
-        return setWidgetLocation("popout");
-      }
-
-      if ("side" in tabLocation) {
-        if (initial) return "docked";
-        return setWidgetLocation("docked");
-      }
-    }
-
-    return "docked";
-  }
 
   React.useEffect(() => {
     return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
@@ -80,16 +62,9 @@ export function useThisWidget(): ThisWidget {
   React.useEffect(() => {
     return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
       () => {
-        findLocation(tabId, false);
+        setWidgetLocation(findLocation(tabId, frontstage));
       }
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [frontstage, tabId]);
-
-  React.useEffect(() => {
-    return UiItemsManager.onUiProviderRegisteredEvent.addListener(() => {
-      setWidgetDef(frontstage?.findWidgetDef(tabId));
-    });
   }, [frontstage, tabId]);
 
   function setWidgetState(
@@ -99,4 +74,26 @@ export function useThisWidget(): ThisWidget {
   }
 
   return { state, widgetLocation, setState: setWidgetState };
+}
+
+function findLocation(locationTabId: string, frontstage: FrontstageDef) {
+  let tabLocation;
+  if (frontstage?.nineZoneState)
+    tabLocation = getTabLocation(frontstage.nineZoneState, locationTabId);
+
+  if (tabLocation) {
+    if (isFloatingTabLocation(tabLocation)) {
+      return "floating";
+    }
+
+    if (isPopoutTabLocation(tabLocation)) {
+      return "popout";
+    }
+
+    if (isPanelTabLocation(tabLocation)) {
+      return "docked";
+    }
+  }
+
+  return "docked";
 }
