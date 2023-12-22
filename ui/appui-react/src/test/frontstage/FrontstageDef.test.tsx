@@ -82,13 +82,13 @@ describe("FrontstageDef", () => {
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
-    await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
+    await TestUtils.initializeUiFramework();
   });
 
   after(async () => {
-    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
+    await IModelApp.shutdown();
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
 
@@ -370,7 +370,7 @@ describe("FrontstageDef", () => {
   });
 
   describe("getWidgetCurrentState", () => {
-    it("should show WidgetState as closed in panel size is undefined", () => {
+    it("should return `Closed` if panel size is undefined", () => {
       const frontstageDef = new FrontstageDef();
       sinon.stub(frontstageDef, "isReady").get(() => true);
 
@@ -415,7 +415,7 @@ describe("FrontstageDef", () => {
       );
     });
 
-    it("should show WidgetState as closed in panel size is 0", () => {
+    it("should return `Closed` if panel size is 0", () => {
       const frontstageDef = new FrontstageDef();
       sinon.stub(frontstageDef, "isReady").get(() => true);
 
@@ -462,7 +462,7 @@ describe("FrontstageDef", () => {
       );
     });
 
-    it("should show WidgetState as closed in panel is collapsed", () => {
+    it("should return `Closed` if panel is collapsed", () => {
       const frontstageDef = new FrontstageDef();
       sinon.stub(frontstageDef, "isReady").get(() => true);
 
@@ -491,6 +491,26 @@ describe("FrontstageDef", () => {
         .returns(widgetDef);
       expect(frontstageDef.getWidgetCurrentState(widgetDef)).to.be.eql(
         WidgetState.Closed
+      );
+    });
+
+    it("should return `Unloaded` if tab is not loaded", () => {
+      const frontstageDef = new FrontstageDef();
+
+      let nineZoneState = createNineZoneState();
+      nineZoneState = addTab(nineZoneState, "t1", { unloaded: true });
+      nineZoneState = addPanelWidget(nineZoneState, "left", "start", ["t1"]);
+      frontstageDef.nineZoneState = nineZoneState;
+      const widgetDef = WidgetDef.create({
+        id: "t1",
+      });
+
+      sinon
+        .stub(frontstageDef, "findWidgetDef")
+        .withArgs("t1")
+        .returns(widgetDef);
+      expect(frontstageDef.getWidgetCurrentState(widgetDef)).to.be.eql(
+        WidgetState.Unloaded
       );
     });
   });

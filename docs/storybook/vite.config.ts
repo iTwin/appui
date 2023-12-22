@@ -18,6 +18,14 @@ function fixedViteCommonjs(options: Options) {
   return plugin;
 }
 
+const localeDirs = [
+  "./node_modules/@itwin/appui-react/lib/public/locales",
+  "./node_modules/@itwin/appui-react/node_modules/@itwin/imodel-components-react/lib/public/locales",
+  "./node_modules/@itwin/core-react/lib/public/locales",
+  "./node_modules/@itwin/core-frontend/lib/public/locales",
+  "./node_modules/@itwin/components-react/lib/public/locales",
+];
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -27,14 +35,14 @@ export default defineConfig({
     }),
     viteStaticCopy({
       targets: [
-        {
-          src: "./node_modules/@itwin/core-react/lib/public/locales",
+        ...localeDirs.map((dir) => ({
+          src: dir,
           dest: ".",
-        },
-        {
-          src: "./node_modules/@itwin/components-react/lib/public/locales",
-          dest: ".",
-        },
+        })),
+        ...localeDirs.map((dir) => ({
+          src: `${dir}/en/**`,
+          dest: "./locales/en-US",
+        })),
       ],
     }),
   ],

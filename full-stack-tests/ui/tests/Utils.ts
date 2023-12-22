@@ -54,6 +54,10 @@ export function backstageItemLocator(page: Page, label: string) {
   return page.getByText(label, { exact: true });
 }
 
+export function popoutButtonLocator(widget: Locator) {
+  return widget.locator('[title="Pop out active widget tab"]');
+}
+
 type PanelLocatorArgs = { page: Page; side: PanelSide } | { tab: Locator };
 
 export function panelLocator(args: PanelLocatorArgs) {
@@ -96,6 +100,16 @@ export function outlineLocator(args: OutlineLocatorArgs | WidgetLocatorArgs) {
   ];
 }
 
+export function panelSectionLocator(
+  page: Page,
+  side: PanelSide,
+  sectionId: 0 | 1,
+  options?: { has?: Locator }
+) {
+  const panel = panelLocator({ side, page });
+  return panel.locator(`.nz-panel-section-${sectionId}`, options);
+}
+
 export interface SavedFrontstageState {
   nineZone: {
     floatingWidgets: {
@@ -118,6 +132,16 @@ export interface SavedFrontstageState {
     };
     savedTabs: {
       allIds: string[];
+      byId: {
+        [id in string]: {
+          popoutBounds: {
+            bottom: number;
+            left: number;
+            right: number;
+            top: number;
+          };
+        };
+      };
     };
   };
 }
@@ -149,15 +173,12 @@ export async function expectTabInPanelSection(
   message?: string
 ) {
   const page = tab.page();
-  const panel = panelLocator({ tab });
-  const section = page.locator(`.nz-panel-section-${sectionId}`, { has: tab });
-  await expect(
-    panel,
-    `expected tab to be in panel '${side}' ${message}`
-  ).toHaveClass(new RegExp(`nz-${side}`));
+  const section = panelSectionLocator(page, side, sectionId, {
+    has: tab,
+  });
   await expect(
     section,
-    `expected tab to be in section '${sectionId}' ${message}`
+    `expected tab to be in panel '${side}' section '${sectionId}' ${message}`
   ).toBeVisible();
 }
 
@@ -176,6 +197,7 @@ export enum WidgetState {
   Closed = 1,
   Hidden = 2,
   Floating = 3,
+  Unloaded = 4,
 }
 
 export async function setWidgetState(
@@ -193,8 +215,8 @@ export async function dragTab(tab: Locator, target: Locator) {
   await tab.dispatchEvent("mousemove", { clientX: 20, clientY: 20 });
   const bounds = (await target.boundingBox())!;
   await body.dispatchEvent("mousemove", {
-    clientX: bounds.x,
-    clientY: bounds.y,
+    clientX: bounds.x + bounds.width / 2,
+    clientY: bounds.y + bounds.height / 2,
   });
   await body.dispatchEvent("mouseup");
 }
@@ -206,4 +228,16 @@ export async function openComponentExamples(
   await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
   await page.locator(".nz-toolbar-button-button").click();
   await page.getByRole("menuitem", { name: "Component Examples" }).click();
+}
+
+export function trackWidgetLifecycle(page: Page, widgetId: string) {
+  const lifecycle = {
+    mountCount: 0,
+    unMountCount: 0,
+  };
+  page.on("console", (msg) => {
+    if (msg.text() === `Widget ${widgetId} mount`) lifecycle.mountCount++;
+    if (msg.text() === `Widget ${widgetId} unmount`) lifecycle.unMountCount++;
+  });
+  return lifecycle;
 }

@@ -2,6 +2,45 @@
   "name": "@itwin/appui-layout-react",
   "entries": [
     {
+      "version": "4.8.0",
+      "tag": "@itwin/appui-layout-react_v4.8.0",
+      "date": "Thu, 21 Dec 2023 14:08:42 GMT",
+      "comments": {}
+    },
+    {
+      "version": "4.7.2",
+      "tag": "@itwin/appui-layout-react_v4.7.2",
+      "date": "Wed, 20 Dec 2023 23:11:36 GMT",
+      "comments": {}
+    },
+    {
+      "version": "4.7.1",
+      "tag": "@itwin/appui-layout-react_v4.7.1",
+      "date": "Thu, 07 Dec 2023 19:40:17 GMT",
+      "comments": {}
+    },
+    {
+      "version": "4.7.0",
+      "tag": "@itwin/appui-layout-react_v4.7.0",
+      "date": "Fri, 01 Dec 2023 20:01:16 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "No longer consume SpecialKey from appui-abstract; use icon path directly instead of IconSpecUtilities"
+          },
+          {
+            "comment": "Fixed an issue where drop target is being displayed in a dragged floating widget."
+          },
+          {
+            "comment": "disable text selection when resizing a stage panel"
+          },
+          {
+            "comment": "Remove remaining UI 2.0 mention in docs"
+          }
+        ]
+      }
+    },
+    {
       "version": "4.6.3",
       "tag": "@itwin/appui-layout-react_v4.6.3",
       "date": "Wed, 25 Oct 2023 09:39:22 GMT",

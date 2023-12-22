@@ -9,7 +9,6 @@
 import { UiError } from "@itwin/appui-abstract";
 import type { RectangleProps } from "@itwin/core-react";
 import produce from "immer";
-import type { PanelSide } from "../widget-panels/Panel";
 import { category } from "./internal/NineZoneStateHelpers";
 import {
   addWidgetState,
@@ -19,6 +18,10 @@ import {
 } from "./internal/WidgetStateHelpers";
 import type { NineZoneState } from "./NineZoneState";
 import type { TabState } from "./TabState";
+import type {
+  PanelWidgetRestoreState,
+  WidgetRestoreState,
+} from "./WidgetRestoreState";
 
 /** State of a stacked widget, which can contain multiple tabs. I.e. in a panel section or a floating widget.
  * @internal
@@ -36,17 +39,10 @@ export interface WidgetsState {
 }
 
 /** @internal */
-export interface FloatingWidgetHomeState {
-  readonly widgetIndex: number;
-  readonly widgetId: WidgetState["id"] | undefined;
-  readonly side: PanelSide;
-}
-
-/** @internal */
 export interface FloatingWidgetState {
   readonly id: WidgetState["id"];
   readonly bounds: RectangleProps;
-  readonly home: FloatingWidgetHomeState;
+  readonly home: PanelWidgetRestoreState;
   readonly userSized?: boolean;
   readonly resizable?: boolean;
 }
@@ -61,8 +57,7 @@ export interface FloatingWidgetsState {
 export interface PopoutWidgetState {
   readonly bounds: RectangleProps;
   readonly id: WidgetState["id"];
-  // TODO: popout widget home could also be a floating widget.
-  readonly home: FloatingWidgetHomeState;
+  readonly home: WidgetRestoreState;
 }
 
 /** @internal */

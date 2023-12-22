@@ -1,6 +1,46 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Wed, 25 Oct 2023 09:39:22 GMT and should not be manually modified.
+This log was last generated on Thu, 21 Dec 2023 14:08:42 GMT and should not be manually modified.
+
+## 4.8.0
+Thu, 21 Dec 2023 14:08:42 GMT
+
+### Patches
+
+- Add ability to remove all items in PropertyFilterBuilderActions.
+- Ensure correct initial property orientation in `PropertyGrid`
+
+## 4.7.2
+Wed, 20 Dec 2023 23:11:37 GMT
+
+_Version update only_
+
+## 4.7.1
+Thu, 07 Dec 2023 19:40:17 GMT
+
+### Minor changes
+
+- Reset operator when property of rule item is changed in FilterBuilderState.
+
+### Updates
+
+- Set filterText to lowercase in constructors of filterers.
+
+## 4.7.0
+Fri, 01 Dec 2023 20:01:16 GMT
+
+### Minor changes
+
+- Add support for double-clicking tree nodes.
+
+### Patches
+
+- Fix bug where multiline value renderer would not support certain properties.
+
+### Updates
+
+- No longer consume deprecated appui-abstract types: getObjectClassName, SpecialKey; use icon path directly instead of IconSpecUtilities
+- Fixed `useAsyncValue` hook to work in React 18 strict mode.
 
 ## 4.6.3
 Wed, 25 Oct 2023 09:39:22 GMT

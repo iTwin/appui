@@ -204,7 +204,7 @@ public;FrameworkReducer: (state: CombinedReducerState
 beta;FrameworkRootState
 beta;FrameworkStackedDialog
 public;FrameworkState
-alpha;FrameworkToolAdmin 
+beta;FrameworkToolAdmin 
 public;FrameworkToolSettings
 public;FrameworkUiAdmin 
 public;FrameworkVisibility
@@ -359,6 +359,8 @@ beta;PositionPopupContent(props: CommonDivProps): JSX.Element
 beta;PositionPopupProps 
 public;PresentationSelectionScope
 beta;PreviewFeatures 
+beta;PreviewFeaturesProvider({ children, features, }: PreviewFeaturesProviderProps): JSX.Element
+beta;PreviewFeaturesProviderProps
 public;PropsHelper
 public;ProviderItem
 beta;QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems, }: QuantityFormatterSettingsOptions): JSX.Element
@@ -435,7 +437,7 @@ public;StandardStatusbarItemsProvider
 beta;StandardStatusbarUiItemsProvider 
 public;StateManager
 public;StateType
-internal;stateVersion = 16
+internal;stateVersion = 17
 public;StatusBar 
 public;StatusBar
 public;StatusBarActionItem 

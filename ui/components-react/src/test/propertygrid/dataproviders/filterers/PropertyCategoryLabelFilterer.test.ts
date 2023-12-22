@@ -174,6 +174,25 @@ describe("PropertyCategoryLabelFilterer", () => {
         filteredTypes: [FilteredType.Category],
       });
     });
+
+    it("Should match if case of letters does not match", async () => {
+      const filterer = new PropertyCategoryLabelFilterer("DiSpLaY");
+      const category = {
+        name: "Cat",
+        label: "displaySomefilteredNaMe",
+        expand: true,
+        childCategories: [],
+      };
+
+      const matchResult = await filterer.categoryMatchesFilter(category);
+      expect(matchResult).to.deep.eq({
+        matchesFilter: true,
+        shouldForceIncludeDescendants: true,
+        shouldExpandNodeParents: true,
+        matchesCount: 1,
+        filteredTypes: [FilteredType.Category],
+      });
+    });
   });
 
   describe("raising `onFilterChanged` event", () => {

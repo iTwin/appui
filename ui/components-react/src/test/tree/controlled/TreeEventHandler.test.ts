@@ -177,4 +177,10 @@ describe("TreeEventHandler", () => {
       expect(spy).to.not.be.called;
     });
   });
+
+  describe("onNodeDoubleClick", () => {
+    it("calls onNodeDoubleClick", () => {
+      eventHandler.onNodeDoubleClick({ nodeId: testNode.id });
+    });
+  });
 });

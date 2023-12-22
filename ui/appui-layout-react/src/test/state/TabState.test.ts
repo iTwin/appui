@@ -169,8 +169,8 @@ describe("addRemovedTab", () => {
       draft.home = {
         widgetId: "w1",
         side: "left",
-        tabIndex: 0,
         widgetIndex: 0,
+        tabIndex: 0,
       };
     });
 
@@ -183,9 +183,9 @@ describe("addRemovedTab", () => {
     state = addTabs(state, ["t1"]);
     state = updateSavedTabState(state, "t1", (draft) => {
       draft.home = {
+        widgetId: "w1",
         floatingWidget: createFloatingWidgetState("w1"),
         tabIndex: 0,
-        widgetId: "w1",
       };
     });
 

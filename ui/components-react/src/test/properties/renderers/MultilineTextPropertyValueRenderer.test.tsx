@@ -11,6 +11,7 @@ import {
   MultilineTextRenderer,
 } from "../../../components-react/properties/renderers/value/MultilineTextPropertyValueRenderer";
 import TestUtils, { styleMatch } from "../../TestUtils";
+import { Id64 } from "@itwin/core-bentley";
 
 describe("MultilineTextPropertyValueRenderer", () => {
   const renderer = new MultilineTextPropertyValueRenderer();
@@ -18,8 +19,7 @@ describe("MultilineTextPropertyValueRenderer", () => {
   describe("canRender", () => {
     it("can render when record is value primitive and renderer name is multiline", () => {
       const record = TestUtils.createMultilineTextPropertyRecord(
-        "test",
-        "test"
+        TestUtils.createPrimitiveStringProperty("test", "test")
       );
       expect(renderer.canRender(record)).to.be.true;
     });
@@ -31,14 +31,40 @@ describe("MultilineTextPropertyValueRenderer", () => {
   });
 
   describe("render", () => {
-    const record = TestUtils.createMultilineTextPropertyRecord("test", "test");
+    [
+      {
+        propertyRecord: TestUtils.createNavigationProperty(
+          "test",
+          {
+            className: "",
+            id: Id64.fromUint32Pair(1, 0),
+          },
+          "test"
+        ),
+        expectedValue: "test",
+      },
+      {
+        propertyRecord: TestUtils.createPrimitiveDoubleProperty("test", 0),
+        expectedValue: "0",
+      },
+      {
+        propertyRecord: TestUtils.createPrimitiveStringProperty("test", "test"),
+        expectedValue: "test",
+      },
+    ].forEach(({ propertyRecord, expectedValue }) => {
+      const record =
+        TestUtils.createMultilineTextPropertyRecord(propertyRecord);
 
-    it("renders property record", () => {
-      const { getByText } = render(<>{renderer.render(record)}</>);
-      expect(getByText("test")).to.be.not.null;
+      it(`renders ${propertyRecord.property.typename} property record`, () => {
+        const { getByText } = render(<>{renderer.render(record)}</>);
+        expect(getByText(expectedValue)).to.be.not.null;
+      });
     });
 
     it("forwards context to props", () => {
+      const record = TestUtils.createMultilineTextPropertyRecord(
+        TestUtils.createPrimitiveStringProperty("test", "test")
+      );
       render(<>{renderer.render(record, { style: { color: "red" } })}</>);
       expect(screen.getByTitle("test")).to.satisfy(
         styleMatch({ color: "red" })

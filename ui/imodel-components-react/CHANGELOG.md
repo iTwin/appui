@@ -1,6 +1,34 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Wed, 25 Oct 2023 09:39:22 GMT and should not be manually modified.
+This log was last generated on Thu, 21 Dec 2023 14:08:43 GMT and should not be manually modified.
+
+## 4.8.0
+Thu, 21 Dec 2023 14:08:43 GMT
+
+_Version update only_
+
+## 4.7.2
+Wed, 20 Dec 2023 23:11:37 GMT
+
+### Updates
+
+- Revert Viewport creation delay from 0x0.
+
+## 4.7.1
+Thu, 07 Dec 2023 19:40:17 GMT
+
+### Updates
+
+- `ViewportComponent` will now wait to have positive space before creating iTwin.js viewport.
+
+## 4.7.0
+Fri, 01 Dec 2023 20:01:16 GMT
+
+### Updates
+
+- No longer consume deprecated appui-abstract types: getObjectClassName, SpecialKey
+- Fix `TimelineComponent` `initialDuration` and `totalDuration` update timing issue.
+- Remove additional `changeView` call on `ViewportComponent` mount.
 
 ## 4.6.3
 Wed, 25 Oct 2023 09:39:22 GMT

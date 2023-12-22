@@ -388,16 +388,14 @@ export function ViewportComponent(props: ViewportProps) {
 
   return (
     <div style={parentDivStyle} data-item-id={controlId}>
-      <>
-        <div
-          ref={viewportDiv}
-          data-testid="viewport-component"
-          className={className}
-          style={viewportDivStyle}
-          onContextMenu={handleContextMenu}
-        />
-        {viewOverlay}
-      </>
+      <div
+        ref={viewportDiv}
+        data-testid="viewport-component"
+        className={className}
+        style={viewportDivStyle}
+        onContextMenu={handleContextMenu}
+      />
+      {viewOverlay}
     </div>
   );
 }

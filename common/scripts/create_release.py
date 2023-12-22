@@ -70,7 +70,7 @@ def createRelease(tag):
     for commit in commits[::-1]:
       f.write("- {0}\n".format(getCommitMessage(commit)))
     f.write("\n")
-    f.write("**Full changelog:** [{0}...{1}](https://github.com/iTwin/itwinjs-core/compare/{2}...{3})\n".format(previousVer, currentVer, previousTag, tag))
+    f.write("**Full changelog:** [{0}...{1}](https://github.com/iTwin/appui/compare/{2}...{3})\n".format(previousVer, currentVer, previousTag, tag))
     f.close()
 
   else:

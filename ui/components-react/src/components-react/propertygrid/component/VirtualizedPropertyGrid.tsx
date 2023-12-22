@@ -167,7 +167,14 @@ export class VirtualizedPropertyGrid extends React.Component<
     super(props);
     this.state = {
       gridItems: [],
-      orientation: props.orientation ?? Orientation.Horizontal,
+      orientation:
+        props.orientation ??
+        PropertyGridCommons.getCurrentOrientation(
+          props.width,
+          undefined,
+          props.isOrientationFixed,
+          props.horizontalOrientationMinWidth
+        ),
       dynamicNodeHeights: new Map(),
       resetIndex: 0,
     };

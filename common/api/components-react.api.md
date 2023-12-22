@@ -2055,6 +2055,7 @@ export function PropertyFilterBuilder(props: PropertyFilterBuilderProps): JSX.El
 export class PropertyFilterBuilderActions {
     constructor(setState: (setter: (prevState: PropertyFilterBuilderState) => PropertyFilterBuilderState) => void);
     addItem(path: string[], itemType: "RULE_GROUP" | "RULE"): void;
+    removeAllItems(): void;
     removeItem(path: string[]): void;
     setRuleErrorMessages(ruleIdsAndErrorMessages: Map<string, string>): void;
     setRuleGroupOperator(path: string[], operator: PropertyFilterRuleGroupOperator): void;
@@ -3138,6 +3139,7 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
     onCheckboxStateChanged({ stateChanges, }: TreeCheckboxStateChangeEventArgs): Subscription | undefined;
     onDelayedNodeClick({ nodeId }: TreeNodeEventArgs): void;
     onNodeCollapsed({ nodeId }: TreeNodeEventArgs): void;
+    onNodeDoubleClick(_: TreeNodeEventArgs): void;
     onNodeEditorActivated({ nodeId }: TreeNodeEventArgs): void;
     onNodeExpanded({ nodeId }: TreeNodeEventArgs): void;
     onSelectionModified({ modifications, }: TreeSelectionModificationEventArgs): Subscription | undefined;
@@ -3157,6 +3159,7 @@ export interface TreeEvents {
     onCheckboxStateChanged?(event: TreeCheckboxStateChangeEventArgs): Subscription | undefined;
     onDelayedNodeClick?(event: TreeNodeEventArgs): void;
     onNodeCollapsed?(event: TreeNodeEventArgs): void;
+    onNodeDoubleClick?(event: TreeNodeEventArgs): void;
     onNodeEditorActivated?(event: TreeNodeEventArgs): void;
     onNodeExpanded?(event: TreeNodeEventArgs): void;
     onSelectionModified?(event: TreeSelectionModificationEventArgs): Subscription | undefined;

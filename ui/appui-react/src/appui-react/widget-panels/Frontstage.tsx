@@ -17,7 +17,6 @@ import type { UiStateStorageResult } from "@itwin/core-react";
 import { Rectangle, UiStateStorageStatus } from "@itwin/core-react";
 import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
 import type {
-  FloatingWidgetHomeState,
   LayoutStore,
   NineZoneLabels,
   NineZoneState,
@@ -42,7 +41,8 @@ import {
   isPanelTabLocation,
   NineZone,
   NineZoneStateReducer,
-  PreviewFeaturesProvider,
+  PreviewLayoutFeaturesProvider,
+  PreviewMaximizedWidgetFeatureProvider,
   removeTab,
   useLayout,
   WidgetPanels,
@@ -101,24 +101,28 @@ function WidgetPanelsFrontstageComponent() {
     "preview-contentAlwaysMaxSize-topPanelActive";
 
   return (
-    <PreviewFeaturesProvider {...previewFeatures}>
-      <WidgetPanelsToolSettings />
-      <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
-        <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
-        <WidgetPanels
-          className={classNames(
-            "uifw-widgetPanels",
-            previewContentAlwaysMaxSizeDockedClass,
-            previewContentAlwaysMaxSizeTopPanelClass
-          )}
-          centerContent={<WidgetPanelsToolbars />}
-        >
-          <WidgetPanelsFrontstageContent />
-        </WidgetPanels>
-        <WidgetPanelsStatusBar />
-        <FloatingWidgets />
-      </ToolbarPopupAutoHideContext.Provider>
-    </PreviewFeaturesProvider>
+    <PreviewLayoutFeaturesProvider {...previewFeatures}>
+      <PreviewMaximizedWidgetFeatureProvider
+        enabled={previewFeatures.enableMaximizedFloatingWidget}
+      >
+        <WidgetPanelsToolSettings />
+        <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
+          <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
+          <WidgetPanels
+            className={classNames(
+              "uifw-widgetPanels",
+              previewContentAlwaysMaxSizeDockedClass,
+              previewContentAlwaysMaxSizeTopPanelClass
+            )}
+            centerContent={<WidgetPanelsToolbars />}
+          >
+            <WidgetPanelsFrontstageContent />
+          </WidgetPanels>
+          <WidgetPanelsStatusBar />
+          <FloatingWidgets />
+        </ToolbarPopupAutoHideContext.Provider>
+      </PreviewMaximizedWidgetFeatureProvider>
+    </PreviewLayoutFeaturesProvider>
   );
 }
 
@@ -386,11 +390,6 @@ export function appendWidgets(
         ? widgetDef.floatingContainerId
         : getUniqueId();
       const widgetContainerId = getWidgetId(location, section);
-      const home: FloatingWidgetHomeState = {
-        side,
-        widgetId: widgetContainerId,
-        widgetIndex: 0,
-      };
       const preferredPosition = widgetDef.defaultFloatingPosition;
 
       if (floatingContainerId in state.widgets) {
@@ -413,7 +412,11 @@ export function appendWidgets(
 
         state = addFloatingWidget(state, floatingContainerId, [widgetDef.id], {
           bounds: containedBounds.toProps(),
-          home,
+          home: {
+            widgetId: widgetContainerId,
+            side,
+            widgetIndex: 0,
+          },
           userSized,
         });
       }
@@ -454,16 +457,15 @@ export function appendWidgets(
 }
 
 function processPopoutWidgets(state: NineZoneState): NineZoneState {
-  // Electron reopens popout windows
+  // Electron reopens popout windows w/o user interaction.
   if (ProcessDetector.isElectronAppFrontend) {
     return state;
   }
 
-  for (const popoutWidgetId of state.popoutWidgets.allIds) {
-    const widget = state.widgets[popoutWidgetId];
-    const id = widget.tabs[0];
+  // Restore popout widgets to main window.
+  for (const id of state.popoutWidgets.allIds) {
     state = NineZoneStateReducer(state, {
-      type: "WIDGET_TAB_FLOAT",
+      type: "POPOUT_WIDGET_SEND_BACK",
       id,
     });
   }
@@ -593,6 +595,12 @@ function hideWidgets(
     if (widgetDef.defaultState === WidgetState.Hidden) {
       state = NineZoneStateReducer(state, {
         type: "WIDGET_TAB_HIDE",
+        id: widgetDef.id,
+      });
+    }
+    if (widgetDef.defaultState === WidgetState.Unloaded) {
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_UNLOAD",
         id: widgetDef.id,
       });
     }
@@ -743,7 +751,7 @@ export function initializePanel(
 }
 
 /** @internal */
-export const stateVersion = 16; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
+export const stateVersion = 17; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
 
 /** @internal */
 export function initializeNineZoneState(
@@ -1014,6 +1022,7 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
   }, [uiStateStorage]);
   React.useEffect(() => {
     async function fetchFrontstageState() {
+      // Switching to previously initialized frontstage.
       if (frontstageDef.nineZoneState) {
         frontstageDef.nineZoneState = processPopoutWidgets(
           frontstageDef.nineZoneState

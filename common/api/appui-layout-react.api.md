@@ -218,7 +218,7 @@ export const DraggedResizeHandleContext: React_2.Context<FloatingWidgetResizeHan
 // @internal (undocumented)
 export interface DraggedTabState {
     // (undocumented)
-    readonly home: FloatingWidgetHomeState;
+    readonly home: PanelWidgetRestoreState;
     // (undocumented)
     readonly position: XAndY;
     // (undocumented)
@@ -343,16 +343,6 @@ export interface FloatingWidgetDropTargetState {
 }
 
 // @internal (undocumented)
-export interface FloatingWidgetHomeState {
-    // (undocumented)
-    readonly side: PanelSide;
-    // (undocumented)
-    readonly widgetId: WidgetState["id"] | undefined;
-    // (undocumented)
-    readonly widgetIndex: number;
-}
-
-// @internal (undocumented)
 export interface FloatingWidgetLocation {
     // (undocumented)
     floatingWidgetId: FloatingWidgetState["id"];
@@ -437,7 +427,7 @@ export interface FloatingWidgetState {
     // (undocumented)
     readonly bounds: RectangleProps;
     // (undocumented)
-    readonly home: FloatingWidgetHomeState;
+    readonly home: PanelWidgetRestoreState;
     // (undocumented)
     readonly id: WidgetState["id"];
     // (undocumented)
@@ -581,6 +571,12 @@ export function isWidgetDropTargetState(state: DropTargetState): state is Widget
 // @internal (undocumented)
 export function isWindowDropTargetState(state: WidgetDragDropTargetState): state is WindowDropTargetState;
 
+// @internal
+export interface KnownPreviewLayoutFeatures {
+    contentAlwaysMaxSize: boolean;
+    enableMaximizedFloatingWidget: boolean;
+}
+
 // @internal (undocumented)
 export type LayoutState = NineZoneState;
 
@@ -668,7 +664,7 @@ export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
 export function NineZone(props: NineZoneProps): JSX.Element;
 
 // @internal (undocumented)
-export type NineZoneAction = ResizeAction | PanelToggleCollapsedAction | PanelSetCollapsedAction | PanelSetPinnedAction | PanelSetSizeAction | PanelSetSplitterPercentAction | PanelToggleSpanAction | PanelTogglePinnedAction | PanelInitializeAction | FloatingWidgetResizeAction | FloatingWidgetSetBoundsAction | FloatingWidgetBringToFrontAction | FloatingWidgetSendBackAction | FloatingWidgetClearUserSizedAction | FloatingWidgetSetUserSizedAction | PopoutWidgetSendBackAction | PanelWidgetDragStartAction | WidgetDragAction | WidgetDragEndAction | WidgetTabClickAction | WidgetTabDoubleClickAction | WidgetTabDragStartAction | WidgetTabDragAction | WidgetTabDragEndAction | WidgetTabPopoutAction | WidgetTabCloseAction | WidgetTabFloatAction | WidgetTabHideAction | WidgetTabOpenAction | WidgetTabSetLabelAction | WidgetTabSetPopoutBoundsAction | WidgetTabShowAction | WidgetTabExpandAction | ToolSettingsDragStartAction | ToolSettingsDockAction;
+export type NineZoneAction = ResizeAction | PanelToggleCollapsedAction | PanelSetCollapsedAction | PanelSetPinnedAction | PanelSetSizeAction | PanelSetSplitterPercentAction | PanelToggleSpanAction | PanelTogglePinnedAction | PanelInitializeAction | FloatingWidgetResizeAction | FloatingWidgetSetBoundsAction | FloatingWidgetBringToFrontAction | FloatingWidgetSendBackAction | FloatingWidgetClearUserSizedAction | FloatingWidgetSetUserSizedAction | PopoutWidgetSendBackAction | PanelWidgetDragStartAction | WidgetDragAction | WidgetDragEndAction | WidgetTabClickAction | WidgetTabCloseAction | WidgetTabDoubleClickAction | WidgetTabDragStartAction | WidgetTabDragAction | WidgetTabDragEndAction | WidgetTabExpandAction | WidgetTabFloatAction | WidgetTabHideAction | WidgetTabOpenAction | WidgetTabPopoutAction | WidgetTabSetLabelAction | WidgetTabSetPopoutBoundsAction | WidgetTabShowAction | WidgetTabUnloadAction | ToolSettingsDragStartAction | ToolSettingsDockAction;
 
 // @internal (undocumented)
 export type NineZoneDispatch = (action: NineZoneAction) => void;
@@ -1005,13 +1001,27 @@ export interface PopoutWidgetState {
     // (undocumented)
     readonly bounds: RectangleProps;
     // (undocumented)
-    readonly home: FloatingWidgetHomeState;
+    readonly home: WidgetRestoreState;
     // (undocumented)
     readonly id: WidgetState["id"];
 }
 
 // @internal
-export const PreviewFeaturesProvider: ({ children, ...props }: PreviewFeaturesProviderProps) => JSX.Element;
+export const PreviewLayoutFeaturesProvider: ({ children, ...props }: PreviewFeaturesProviderProps) => JSX.Element;
+
+// @internal
+export function PreviewMaximizedWidgetFeatureProvider({ enabled, children, }: PreviewMaximizedWidgetFeatureProviderProps): JSX.Element;
+
+// @internal
+export interface PreviewMaximizedWidgetFeatureProviderProps {
+    // (undocumented)
+    children?: React_2.ReactNode;
+    // (undocumented)
+    enabled?: boolean;
+}
+
+// @internal (undocumented)
+export function PreviewMaximizeToggle(): JSX.Element;
 
 // @internal
 export function removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
@@ -1207,6 +1217,8 @@ export interface TabState {
     readonly preferredFloatingWidgetSize?: SizeProps;
     // (undocumented)
     readonly preferredPanelWidgetSize?: "fit-content";
+    // (undocumented)
+    readonly unloaded?: boolean;
     // (undocumented)
     readonly userSized?: boolean;
 }
@@ -1568,10 +1580,10 @@ export interface UsePanelTargetArgs {
 export const usePointerCaptor: <T extends HTMLElement>(onPointerDown?: ((args: PointerCaptorArgs, e: PointerCaptorEvent) => void) | undefined, onPointerMove?: ((args: PointerCaptorArgs, e: PointerCaptorEvent) => void) | undefined, onPointerUp?: ((e: PointerCaptorEvent) => void) | undefined) => (instance: T | null) => void;
 
 // @internal
-export const usePreviewFeatures: () => KnownPreviewFeatures & {
-    previewState: PreviewFeatureState;
-    previewDispatch: React_2.Dispatch<PreviewActions>;
-};
+export const usePreviewFeatures: () => Partial<KnownPreviewLayoutFeatures>;
+
+// @internal
+export function usePreviewMaximizedWidget(): MaximizedWidgetState;
 
 // @internal (undocumented)
 export const useResizeGrip: <T extends HTMLElement>() => [(instance: T | null) => void, boolean, boolean];
@@ -2069,6 +2081,14 @@ export interface WidgetTabShowAction {
     readonly id: TabState["id"];
     // (undocumented)
     readonly type: "WIDGET_TAB_SHOW";
+}
+
+// @internal (undocumented)
+export interface WidgetTabUnloadAction {
+    // (undocumented)
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly type: "WIDGET_TAB_UNLOAD";
 }
 
 // @internal (undocumented)

@@ -10,9 +10,8 @@
 import * as React from "react";
 import { useLayoutEffect, useRef, useState } from "react";
 import { assert } from "@itwin/core-bentley";
-import type { PrimitiveValue, PropertyRecord } from "@itwin/appui-abstract";
-import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
-import { TypeConverterManager } from "../../../converters/TypeConverterManager";
+import type { PropertyRecord } from "@itwin/appui-abstract";
+import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { UiComponents } from "../../../UiComponents";
 import type {
   IPropertyValueRenderer,
@@ -20,6 +19,7 @@ import type {
 } from "../../ValueRendererManager";
 import { useRenderedStringValue } from "./PrimitivePropertyValueRenderer";
 import classnames from "classnames";
+import { convertRecordToString } from "./Common";
 
 /** @internal */
 export class MultilineTextPropertyValueRenderer
@@ -134,14 +134,3 @@ export const MultilineTextRenderer: React.FC<MultilineTextRendererProps> = (
     </div>
   );
 };
-
-function convertRecordToString(
-  record: PropertyRecord
-): string | Promise<string> {
-  return TypeConverterManager.getConverter(
-    StandardTypeNames.Text
-  ).convertPropertyToString(
-    record.property,
-    (record.value as PrimitiveValue).value
-  );
-}

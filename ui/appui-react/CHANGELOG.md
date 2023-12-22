@@ -1,6 +1,58 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Wed, 25 Oct 2023 09:39:22 GMT and should not be manually modified.
+This log was last generated on Thu, 21 Dec 2023 14:08:42 GMT and should not be manually modified.
+
+## 4.8.0
+Thu, 21 Dec 2023 14:08:42 GMT
+
+### Updates
+
+- Dock back to panel section when popout widget is closed.
+- Keep widget content unmounted while widget state is set to WidgetState.Unloaded.
+- Localize popout error text
+- Fixed bug where popouts would get incrementally smaller or larger each time opened
+- Promote `FrameworkToolAdmin` to *beta*.
+- Fix `RestoreLayout` tool.
+
+## 4.7.2
+Wed, 20 Dec 2023 23:11:37 GMT
+
+### Updates
+
+- Revert Popout reparenting strategy.
+
+## 4.7.1
+Thu, 07 Dec 2023 19:40:17 GMT
+
+### Updates
+
+- Now support `null` Content (allow delay rendering on specific cases)
+
+## 4.7.0
+Fri, 01 Dec 2023 20:01:16 GMT
+
+### Updates
+
+- No longer use deprecated appui-abstract types: getObjectClassName, KeyboardKey, SpecialKey, matches; use icon path directly instead of IconSpecUtilities
+- Add alternative provider methods to UiItemsProvider.
+- Hidden widget will now open to default position and size of CanFloat property when set to floating
+- Widgets no longer disappear when popped out and window.open fails
+- Popout widgets will now contain a ContentContainer instead of a DOM node. This enables work to be saved when a widget is popped out.
+- Popout widgets will now popout to preferredFloatingWidgetSize. Will popout to container size if preferredFloatingWidgetSize is not set
+- `AppNotificationManager` no longer requires `StatusBar` to be displayed to show messages.
+- Fix error when `HTMLElement` used in `NotifyMessageDetails` messages.
+- Fixed an issue where frontstage state changes would be lost when it is closed too soon after the change.
+- Added PreviewFeatures and penelsAlwaysOverContent first preview
+- Added `enableMaximizedFloatingWidget` preview features
+- Fix frontstage settings save.
+- Update active selection scope related documentation.
+- Improve keyboard shortcuts related documentation.
+- Provide union type values for Theme so IDE can suggest values.
+- Add High contrast theme support and clarify ThemeManager scope
+- Remove remaining UI 2.0 mention in docs
+- Remove unneeded `changeView` call on `FloatingViewportComponent`
+- Refresh tool setting values when undocking
+- Fixed reference error in case `applicationData` is not provided for `IModelViewportControl`.
 
 ## 4.6.3
 Wed, 25 Oct 2023 09:39:22 GMT
