@@ -67,11 +67,12 @@ export function useThisWidget(): ThisWidget {
     );
   }, [frontstage, tabId]);
 
-  function setWidgetState(
-    widgetState: Omit<WidgetState, WidgetState.Floating>
-  ) {
-    widgetDef?.setWidgetState(widgetState as WidgetState);
-  }
+  const setWidgetState = React.useCallback(
+    (widgetState: Omit<WidgetState, WidgetState.Floating>) => {
+      widgetDef?.setWidgetState(widgetState as WidgetState);
+    },
+    [widgetDef]
+  );
 
   return { state, widgetLocation, setState: setWidgetState };
 }
