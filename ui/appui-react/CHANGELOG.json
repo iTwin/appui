@@ -2,6 +2,33 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.8.0",
+      "tag": "@itwin/appui-react_v4.8.0",
+      "date": "Thu, 21 Dec 2023 14:08:42 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Dock back to panel section when popout widget is closed."
+          },
+          {
+            "comment": "Keep widget content unmounted while widget state is set to WidgetState.Unloaded."
+          },
+          {
+            "comment": "Localize popout error text"
+          },
+          {
+            "comment": "Fixed bug where popouts would get incrementally smaller or larger each time opened"
+          },
+          {
+            "comment": "Promote `FrameworkToolAdmin` to *beta*."
+          },
+          {
+            "comment": "Fix `RestoreLayout` tool."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.7.2",
       "tag": "@itwin/appui-react_v4.7.2",
       "date": "Wed, 20 Dec 2023 23:11:37 GMT",
