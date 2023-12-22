@@ -7,7 +7,7 @@
  */
 
 /**
- * iTwinUI components default to the size "medium" is the size isn't specied.
+ * iTwinUI components default to the size "medium" is the size isn't specified.
  * We're using the "small" size for the default size of our components if the size isn't specified so we need to consolidate the two.
  * @param size size of the component
  * @returns string representing the iTwinUI size of the component
