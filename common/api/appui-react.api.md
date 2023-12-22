@@ -4477,16 +4477,6 @@ export type ThemeId = `${ColorTheme}` | (string & {});
 // @public
 export const ThemeManager: ConnectedComponent<typeof ThemeManagerComponent, Omit_3<React_2.ClassAttributes<ThemeManagerComponent> & ThemeManagerProps, "theme" | "widgetOpacity" | "toolbarOpacity">>;
 
-// @alpha
-export interface ThisWidget {
-    // (undocumented)
-    setState(state: Exclude<WidgetState, WidgetState.Floating>): void;
-    // (undocumented)
-    state: WidgetState;
-    // (undocumented)
-    widgetLocation: "docked" | "floating" | "popout";
-}
-
 // @public
 export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, TileLoadingIndicatorState> {
     constructor(props: CommonProps);
@@ -5118,9 +5108,6 @@ export function useSpecificWidgetDef(widgetId: string): WidgetDef | undefined;
 // @internal (undocumented)
 export function useStatusBarEntry(): DockedStatusBarEntryContextArg;
 
-// @alpha
-export function useThisWidget(): ThisWidget;
-
 // @internal (undocumented)
 export function useToolSettingsNode(): string | number | boolean | {} | React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>> | Iterable<React_2.ReactNode> | React_2.ReactPortal | null | undefined;
 
@@ -5144,6 +5131,13 @@ export function useUiVisibility(): boolean;
 
 // @internal
 export function useUpdateNineZoneSize(frontstageDef: FrontstageDef): void;
+
+// @alpha
+export function useWidget(): {
+    state: WidgetState;
+    widgetLocation: "floating" | "docked" | "popout";
+    setState: (widgetState: Omit<WidgetState, WidgetState.Floating>) => void;
+};
 
 // @internal (undocumented)
 export function useWidgetDef(): WidgetDef | undefined;

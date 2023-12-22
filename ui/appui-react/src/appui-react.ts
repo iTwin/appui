@@ -256,7 +256,7 @@ export * from "./appui-react/widgets/WidgetDef";
 export * from "./appui-react/widgets/WidgetHost";
 export * from "./appui-react/widgets/WidgetManager";
 export * from "./appui-react/widgets/WidgetState";
-export * from "./appui-react/widgets/useThisWidget";
+export * from "./appui-react/widgets/useWidget";
 
 export * from "./appui-react/toolsettings/ToolInformation";
 export * from "./appui-react/toolsettings/ToolUiProvider";

@@ -9,4 +9,4 @@ Table of contents:
 
 ### Additions
 
-- `useThisWidget` hook to convey widget state and location.
+- `useWidget` hook to convey widget state and location.

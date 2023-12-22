@@ -18,22 +18,12 @@ import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManag
 import type { WidgetState } from "./WidgetState";
 import { useWidgetDef } from "../widget-panels/Content";
 
-/** Interface to be used with the useThisWidget hook. Holds information
- * about the Widget such as the state and location. Also contains a function to set WidgetState.
- * @alpha
- */
-export interface ThisWidget {
-  widgetLocation: "docked" | "floating" | "popout";
-  setState(state: Exclude<WidgetState, WidgetState.Floating>): void;
-  state: WidgetState;
-}
-
 /** Hook that returns information about the Widget in the current context.
  * @returns ThisWidget interface that contains the WidgetLocation, WidgetState, and
  * the ability to set the state of the widget.
  * @alpha
  */
-export function useThisWidget(): ThisWidget {
+export function useWidget() {
   const tabId = React.useContext(TabIdContext);
   assert(!!tabId);
 
@@ -74,7 +64,20 @@ export function useThisWidget(): ThisWidget {
     [widgetDef]
   );
 
-  return { state, widgetLocation, setState: setWidgetState };
+  return {
+    /**
+     *  State of the Widget
+     */ state,
+    /**
+     * Where the widget is located ("docked" | "popout" | "floating").
+     */
+    widgetLocation,
+    /**
+     * Set widget to different state
+     * @param WidgetState that you want to set the widget to.
+     */
+    setState: setWidgetState,
+  };
 }
 
 function findLocation(locationTabId: string, frontstage: FrontstageDef) {

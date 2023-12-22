@@ -3,11 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { useThisWidget, WidgetState } from "@itwin/appui-react";
+import { useWidget, WidgetState } from "@itwin/appui-react";
 import { Button } from "@itwin/itwinui-react";
 
 export function UseThisWidgetHookWidget() {
-  const thisWidget = useThisWidget();
+  const thisWidget = useWidget();
   const thisWidgetText = JSON.stringify(thisWidget);
 
   return (
