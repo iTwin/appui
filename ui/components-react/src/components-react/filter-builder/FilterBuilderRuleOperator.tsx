@@ -15,6 +15,7 @@ import {
   getPropertyFilterOperatorLabel,
   getPropertyFilterOperators,
 } from "./Operators";
+import { getiTwinUISize } from "../common/iuiUtils";
 
 /**
  * Props for [[PropertyFilterBuilderRuleOperator]] component.
@@ -66,7 +67,7 @@ export function PropertyFilterBuilderRuleOperator(
         options={availableOptions}
         value={selectedOperator}
         onChange={onChange}
-        size={!size ? "small" : size === "medium" ? undefined : "large"}
+        size={getiTwinUISize(props.size)}
       />
     </div>
   );

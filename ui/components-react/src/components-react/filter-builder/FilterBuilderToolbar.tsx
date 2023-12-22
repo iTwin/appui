@@ -9,6 +9,7 @@ import React from "react";
 import { Flex, IconButton } from "@itwin/itwinui-react";
 import { SvgAdd, SvgDelete } from "@itwin/itwinui-icons-react";
 import { UiComponents } from "../UiComponents";
+import { getiTwinUISize } from "../common/iuiUtils";
 /**
  * Props for [[PropertyFilterBuilderToolbar]] component.
  * @internal
@@ -37,7 +38,7 @@ export const PropertyFilterBuilderToolbar = (
       justifyContent="flex-end"
     >
       <IconButton
-        size={!size ? "small" : size === "medium" ? undefined : "large"}
+        size={getiTwinUISize(size)}
         className="fb-add-rule-button"
         data-testid="fb-add-rule-button"
         label={UiComponents.translate("filterBuilder.add")}
@@ -47,7 +48,7 @@ export const PropertyFilterBuilderToolbar = (
         <SvgAdd />
       </IconButton>
       <IconButton
-        size={!size ? "small" : size === "medium" ? undefined : "large"}
+        size={getiTwinUISize(size)}
         className="fb-remove-rule-button"
         data-testid="fb-remove-rule-button"
         label={UiComponents.translate("filterBuilder.delete")}

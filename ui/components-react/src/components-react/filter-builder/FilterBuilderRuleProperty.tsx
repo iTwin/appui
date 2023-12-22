@@ -12,6 +12,7 @@ import type { PropertyDescription } from "@itwin/appui-abstract";
 import type { ComboBoxProps, SelectOption } from "@itwin/itwinui-react";
 import { ComboBox, MenuItem } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
+import { getiTwinUISize } from "../common/iuiUtils";
 
 /**
  * Props for [[PropertyFilterBuilderRuleProperty]] component.
@@ -98,11 +99,7 @@ export function PropertyFilterBuilderRuleProperty(
         inputProps={{
           placeholder: UiComponents.translate("filterBuilder.chooseProperty"),
           disabled: isDisabled,
-          size: !props.size
-            ? "small"
-            : props.size === "medium"
-            ? undefined
-            : "large",
+          size: getiTwinUISize(props.size),
         }}
         itemRenderer={itemRenderer}
         enableVirtualization={true}

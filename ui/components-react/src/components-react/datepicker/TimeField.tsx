@@ -12,6 +12,7 @@ import { Input } from "@itwin/itwinui-react";
 import type { TimeDisplay } from "@itwin/appui-abstract";
 import { UiComponents } from "../UiComponents";
 import "./TimeField.scss";
+import { getiTwinUISize } from "../common/iuiUtils";
 
 /** Interface used to hold 24 hour time in
  * hours, minutes, and seconds.
@@ -363,7 +364,7 @@ export function TimeField({
         onChange={handleHoursChange}
         value={hoursText}
         disabled={readOnly}
-        size={!size ? "small" : size === "medium" ? undefined : "large"}
+        size={getiTwinUISize(size)}
       />
       <span className="component-time-separator">:</span>
       <Input
@@ -373,7 +374,7 @@ export function TimeField({
         onChange={handleMinutesChange}
         value={minutesText}
         disabled={readOnly}
-        size={!size ? "small" : size === "medium" ? undefined : "large"}
+        size={getiTwinUISize(size)}
       />
       {showSeconds && (
         <>
@@ -385,7 +386,7 @@ export function TimeField({
             onChange={handleSecondsChange}
             value={secondsText}
             disabled={readOnly}
-            size={!size ? "small" : size === "medium" ? undefined : "large"}
+            size={getiTwinUISize(size)}
           />
         </>
       )}
@@ -397,7 +398,7 @@ export function TimeField({
           onChange={handleDayPeriodChange}
           value={dayPeriodText}
           disabled={readOnly}
-          size={!size ? "small" : size === "medium" ? undefined : "large"}
+          size={getiTwinUISize(size)}
         />
       )}
     </div>
