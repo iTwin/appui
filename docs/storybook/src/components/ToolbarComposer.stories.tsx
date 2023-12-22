@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import React from "react";
 import { action } from "@storybook/addon-actions";
 import type { Meta, StoryObj } from "@storybook/react";
 import {
@@ -13,7 +12,6 @@ import {
 import {
   CommandItemDef,
   SyncUiEventDispatcher,
-  ToolbarComposer,
   ToolbarHelper,
   ToolbarItemUtilities,
   ToolbarOrientation,
@@ -26,102 +24,60 @@ import {
   Svg3D,
   SvgActivity,
   SvgAirplane,
+  SvgAndroid,
   SvgClipboard,
   SvgExport,
 } from "@itwin/itwinui-icons-react";
+import { StoryComponent } from "./ToolbarComposer";
 
 UiFramework.initialize(undefined);
 
-type PropsWithArgs = React.ComponentProps<typeof ToolbarComposer> & {
-  newToolbars: boolean;
-};
-
-function StoryComponent(props: PropsWithArgs) {
-  const { newToolbars, ...other } = props;
-  React.useEffect(() => {
-    UiFramework.setPreviewFeatures({
-      newToolbars,
-    });
-  }, [newToolbars]);
-  return <ToolbarComposer {...other} />;
-}
-
 const meta = {
   title: "Components/ToolbarComposer",
+  component: StoryComponent,
   tags: ["autodocs"],
   args: {
     newToolbars: false,
+    orientation: ToolbarOrientation.Horizontal,
+    usage: ToolbarUsage.ContentManipulation,
   },
-  argTypes: {
-    newToolbars: {
-      description: "Enables `newToolbars` preview feature.",
-    },
-  },
-  render: (props) => {
-    return <StoryComponent {...props} />;
-  },
-} satisfies Meta<PropsWithArgs>;
+} satisfies Meta<typeof StoryComponent>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-function createAbstractReactIcon() {
-  const internalData = new Map();
-  const icon = IconHelper.getIconData(<SvgExport />, internalData);
-  return {
-    internalData,
-    icon,
-  };
-}
-
-function createAbstractConditionalIcon() {
-  const internalData = new Map();
-  const icon = IconHelper.getIconData(
-    new ConditionalIconItem(() => <SvgExport />, [], <SvgExport />),
-    internalData
-  );
-  return {
-    internalData,
-    icon,
-  };
-}
-
-let i = 10;
-function bump() {
-  i++;
-  SyncUiEventDispatcher.dispatchSyncUiEvent("bump");
-}
+const { getVal, bump } = createBumpEvent();
+const items = createItems();
 
 export const Basic: Story = {
   args: {
     items: [
-      ToolbarItemUtilities.createActionItem(
-        "item1",
-        100,
-        <Svg2D />,
-        "Item 1",
-        () => {
+      {
+        ...items.action1,
+        execute: () => {
           bump();
-          action("Item 1")();
-        }
-      ),
-      ToolbarItemUtilities.createActionItem(
-        "item2",
-        100,
-        new ConditionalIconItem(
-          () => (i % 2 === 0 ? <Svg3D /> : <Svg2D />),
+          items.action1.execute();
+        },
+      },
+      {
+        ...items.action2,
+        icon: new ConditionalIconItem(
+          () => (getVal() % 2 === 0 ? <Svg3D /> : <Svg2D />),
           ["bump"]
         ),
-        new ConditionalStringValue(() => `Item 2 (${i})`, ["bump"]),
-        action("Item 2"),
-        {
-          isDisabled: new ConditionalBooleanValue(() => i % 2 === 1, ["bump"]),
-          description: new ConditionalStringValue(
-            () => `Conditional item. Click 'Item 1' to toggle. (${i}).`,
-            ["bump"]
-          ),
-        }
-      ),
+        label: new ConditionalStringValue(
+          () => `Item 2 (${getVal()})`,
+          ["bump"]
+        ),
+        isDisabled: new ConditionalBooleanValue(
+          () => getVal() % 2 === 1,
+          ["bump"]
+        ),
+        description: new ConditionalStringValue(
+          () => `Conditional item. Click 'Item 1' to toggle. (${getVal()}).`,
+          ["bump"]
+        ),
+      },
       ToolbarHelper.createToolbarItemFromItemDef(
         125,
         new CommandItemDef({
@@ -180,7 +136,124 @@ export const Basic: Story = {
         }
       ),
     ],
-    orientation: ToolbarOrientation.Horizontal,
-    usage: ToolbarUsage.ContentManipulation,
   },
 };
+
+export const GroupItem: Story = {
+  args: {
+    items: [items.group1, items.group2, items.group3],
+  },
+};
+
+function createAbstractReactIcon() {
+  const internalData = new Map();
+  const icon = IconHelper.getIconData(<SvgExport />, internalData);
+  return {
+    internalData,
+    icon,
+  };
+}
+
+function createAbstractConditionalIcon() {
+  const internalData = new Map();
+  const icon = IconHelper.getIconData(
+    new ConditionalIconItem(() => <SvgExport />, [], <SvgExport />),
+    internalData
+  );
+  return {
+    internalData,
+    icon,
+  };
+}
+
+function createItems() {
+  const action1 = ToolbarItemUtilities.createActionItem(
+    "item1",
+    100,
+    <Svg2D />,
+    "Item 1",
+    action("Item 1")
+  );
+  const action2 = ToolbarItemUtilities.createActionItem(
+    "item2",
+    200,
+    <Svg3D />,
+    "Item 2",
+    action("Item 2")
+  );
+  const action3 = ToolbarItemUtilities.createActionItem(
+    "item3",
+    300,
+    <SvgAndroid />,
+    "Item 3",
+    action("Item 3")
+  );
+
+  const group1 = ToolbarItemUtilities.createGroupItem(
+    "group1",
+    100,
+    <SvgActivity />,
+    "Group 1",
+    [action1, action2]
+  );
+
+  const group2_2 = ToolbarItemUtilities.createGroupItem(
+    "group2_2",
+    100,
+    <SvgAirplane />,
+    "Group 2_2",
+    [action2]
+  );
+  const group2_1 = ToolbarItemUtilities.createGroupItem(
+    "group2_1",
+    100,
+    <SvgAndroid />,
+    "Group 2_1",
+    [action1, group2_2]
+  );
+  const group2 = ToolbarItemUtilities.createGroupItem(
+    "group2",
+    100,
+    <SvgClipboard />,
+    "Group 2",
+    [action1, action2, group2_1]
+  );
+
+  const group3 = ToolbarItemUtilities.createGroupItem(
+    "group3",
+    100,
+    <SvgExport />,
+    "Group 3",
+    Array.from({ length: 10 }, (_, i) => {
+      const item = [action1, action2, action3][i % 3];
+      return {
+        ...item,
+        itemPriority: i,
+      };
+    })
+  );
+
+  return {
+    action1,
+    action2,
+    action3,
+    /** Group item. */
+    group1,
+    /** Group item with nested groups. */
+    group2,
+    /** Group item with multiple columns. */
+    group3,
+  };
+}
+
+function createBumpEvent() {
+  let i = 10;
+  const bump = () => {
+    i++;
+    SyncUiEventDispatcher.dispatchSyncUiEvent("bump");
+  };
+  return {
+    getVal: () => i,
+    bump,
+  };
+}
