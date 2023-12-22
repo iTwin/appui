@@ -44,8 +44,7 @@ export class OpenPopoutDialogTool extends Tool {
       "DialogPopout",
       "Dialog Popout",
       <PopoutDialog />,
-      location,
-      this.toolId
+      location
     );
     return true;
   }

@@ -1865,7 +1865,7 @@ export interface FrameworkChildWindows {
     closeAll(): void;
     find(childWindowId: string | undefined): OpenChildWindowInfo | undefined;
     findId(contentWindow: Window | undefined | null): string | undefined;
-    open(childWindowId: string, title: string, content: React.ReactNode, location: ChildWindowLocationProps, tabId: string, useDefaultPopoutUrl?: boolean): boolean;
+    open(childWindowId: string, title: string, content: React.ReactNode, location: ChildWindowLocationProps, useDefaultPopoutUrl?: boolean): boolean;
     readonly openChildWindows: OpenChildWindowInfo[];
     // @beta
     useCreateRoot(createRootFn: CreateRoot): void;

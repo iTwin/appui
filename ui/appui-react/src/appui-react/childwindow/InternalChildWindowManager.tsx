@@ -145,8 +145,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     childWindow: ChildWindow,
     childWindowId: string,
     content: React.ReactNode,
-    title: string,
-    tabId: string
+    title: string
   ) {
     childWindow.document.title = title;
     if (childWindow.expectedHeight && childWindow.expectedWidth) {
@@ -163,13 +162,14 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     }
 
     const reactConnectionDiv = childWindow.document.getElementById("root");
-    if (reactConnectionDiv) {
+    if (reactConnectionDiv && content && React.isValidElement(content)) {
       // set openChildWindows now so components can use it when they mount
       this._openChildWindows.push({
         childWindowId,
         window: childWindow,
         parentWindow: window,
       });
+      const tabId = content.props.widgetDef.id as string;
 
       setTimeout(() => {
         copyStyles(childWindow.document);
@@ -279,7 +279,6 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     title: string,
     content: React.ReactNode,
     location: ChildWindowLocationProps,
-    tabId: string,
     useDefaultPopoutUrl?: boolean
   ) {
     // first check to see if content is already open in child window
@@ -312,8 +311,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         childWindow,
         childWindowId,
         content,
-        title,
-        tabId
+        title
       );
     } else {
       childWindow.addEventListener(
@@ -323,8 +321,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
             childWindow,
             childWindowId,
             content,
-            title,
-            tabId
+            title
           );
         },
         false

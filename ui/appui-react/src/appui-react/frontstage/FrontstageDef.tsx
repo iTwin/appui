@@ -858,7 +858,6 @@ export class FrontstageDef {
       widgetDef.label,
       popoutContent,
       position,
-      tabId,
       UiFramework.useDefaultPopoutUrl
     );
 

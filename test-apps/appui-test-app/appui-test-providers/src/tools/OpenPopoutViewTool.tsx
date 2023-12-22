@@ -43,8 +43,7 @@ export class OpenPopoutViewTool extends Tool {
         contentId="appui-test-app:popout-test"
         showViewPicker={true}
       />,
-      location,
-      this.toolId
+      location
     );
   }
 
