@@ -17,7 +17,7 @@ import {
   ToolbarOrientation,
   ToolbarUsage,
   UiFramework,
-} from "@itwin/appui-react/src/appui-react";
+} from "@itwin/appui-react";
 import { ConditionalIconItem, IconHelper } from "@itwin/core-react";
 import {
   Svg2D,
