@@ -29,7 +29,7 @@ export interface PropertyFilterBuilderRuleGroupRendererProps {
   path: string[];
   /** Rule group to render. */
   group: PropertyFilterBuilderRuleGroup;
-  /** Size to render components. If undefined, defaults to iTwinUI "medium" size. */
+  /** Size to render components. If undefined, defaults to iTwinUI "small" size. */
   size?: "medium" | "large";
   /** Controls whether the group operator is toggle-able. */
   isGroupOperatorDisabled?: boolean;
@@ -95,7 +95,7 @@ export interface PropertyFilterBuilderRuleGroupOperatorProps {
   operator: PropertyFilterRuleGroupOperator;
   /** Callback that is invoked when selected operator changes. */
   onChange: (operator: PropertyFilterRuleGroupOperator) => void;
-  /** Size to render component. If undefined, defaults to iTwinUI "medium" size. */
+  /** Size to render component. If undefined, defaults to iTwinUI "small" size. */
   size?: "medium" | "large";
   /** Controls whether the group operator is toggle-able. */
   isGroupOperatorDisabled?: boolean;

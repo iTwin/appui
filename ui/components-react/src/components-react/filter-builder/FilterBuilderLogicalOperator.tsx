@@ -17,7 +17,7 @@ import { PropertyFilterRuleGroupOperator } from "./Operators";
  * @beta
  */
 export interface PropertyFilterBuilderLogicalOperatorProps {
-  /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
+  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
   size?: "medium" | "large";
   /** Allows toggling of operator by clicking operator text. */
   isDisabled?: boolean;

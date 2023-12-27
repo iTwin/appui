@@ -15,7 +15,7 @@ import { getiTwinUISize } from "../common/iuiUtils";
  * @internal
  */
 interface PropertyFilterBuilderToolbarProps {
-  /** Size to render the component. If undefined, defaults to iTwinUI "medium" size. */
+  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
   size?: "medium" | "large";
   /** Function to add child of current group. */
   onAddChild: () => void;
