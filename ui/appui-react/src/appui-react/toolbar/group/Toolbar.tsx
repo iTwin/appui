@@ -9,7 +9,11 @@
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import type { ToolbarItem } from "../ToolbarItem";
-import { isToolbarActionItem, isToolbarGroupItem } from "../ToolbarItem";
+import {
+  isToolbarActionItem,
+  isToolbarCustomItem,
+  isToolbarGroupItem,
+} from "../ToolbarItem";
 import { ToolGroup } from "./ToolGroup";
 
 /** @internal */
@@ -28,6 +32,9 @@ export function Toolbar(props: ToolbarProps) {
         }
         if (isToolbarGroupItem(item)) {
           return <ToolGroup.GroupItem key={item.id} item={item} />;
+        }
+        if (isToolbarCustomItem(item)) {
+          return <ToolGroup.CustomItem key={item.id} item={item} />;
         }
         return null;
       })}

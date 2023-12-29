@@ -12,8 +12,8 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { ButtonGroup } from "@itwin/itwinui-react";
 import { ActionItem } from "./ActionItem";
-import { Toolbar } from "./Toolbar";
 import { GroupItem } from "./GroupItem";
+import { CustomItem } from "./CustomItem";
 
 /** @internal */
 export interface ToolGroupProps extends CommonProps {
@@ -35,6 +35,6 @@ export function ToolGroup(props: ToolGroupProps) {
   );
 }
 
-ToolGroup.Toolbar = Toolbar;
 ToolGroup.ActionItem = ActionItem;
 ToolGroup.GroupItem = GroupItem;
+ToolGroup.CustomItem = CustomItem;

@@ -145,6 +145,34 @@ export const GroupItem: Story = {
   },
 };
 
+export const CustomItem: Story = {
+  args: {
+    items: [
+      ToolbarItemUtilities.createCustomItem(
+        "custom1",
+        100,
+        <Svg2D />,
+        "Custom 1",
+        <div>Custom panel content 1</div>
+      ),
+      ToolbarItemUtilities.createCustomItem(
+        "custom2",
+        100,
+        <Svg3D />,
+        "Custom 2",
+        <div>Custom panel content 2</div>
+      ),
+      ToolbarItemUtilities.createCustomItem(
+        "custom3",
+        100,
+        <SvgActivity />,
+        "Custom 3",
+        <div>Custom panel content 3</div>
+      ),
+    ],
+  },
+};
+
 function createAbstractReactIcon() {
   const internalData = new Map();
   const icon = IconHelper.getIconData(<SvgExport />, internalData);

@@ -22,6 +22,7 @@ import { isToolbarGroupItem, type ToolbarGroupItem } from "../ToolbarItem";
 import { useConditionalValue } from "../../hooks/useConditionalValue";
 import { ItemLabel } from "./ActionItem";
 import { SvgProgressBackward } from "@itwin/itwinui-icons-react";
+import { ExpandIndicator } from "./ExpandIndicator";
 
 /** @internal */
 export interface GroupItemProps extends CommonProps {
@@ -67,7 +68,7 @@ export function GroupItem(props: GroupItemProps) {
         style={props.style}
       >
         <Icon iconSpec={iconSpec} />
-        <div className="uifw-toolbar-group-groupItem_indicator">{">"}</div>
+        <ExpandIndicator />
       </IconButton>
     </DropdownMenu>
   );

@@ -21,7 +21,7 @@ import type { ToolbarItem } from "./ToolbarItem";
 import { toUIAToolbarItem } from "./toUIAToolbarItem";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
-import { ToolGroup } from "./group/ToolGroup";
+import { Toolbar as ToolGroupToolbar } from "./group/Toolbar";
 
 /**
  * Properties of [[Toolbar.enableOverflow]] component.
@@ -69,7 +69,7 @@ function NewToolbar(props: ToolbarProps) {
   const isVertical =
     props.expandsTo === Direction.Left || props.expandsTo === Direction.Right;
   return (
-    <ToolGroup.Toolbar
+    <ToolGroupToolbar
       orientation={isVertical ? "vertical" : "horizontal"}
       items={props.items}
     />
