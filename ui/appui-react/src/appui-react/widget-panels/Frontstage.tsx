@@ -471,15 +471,9 @@ function getWidgetLabel(label: string) {
   return label === "" ? "Widget" : label;
 }
 
-type PanelSectionId =
-  | "leftStart"
-  | "leftEnd"
-  | "rightStart"
-  | "rightEnd"
-  | "topStart"
-  | "topEnd"
-  | "bottomStart"
-  | "bottomEnd";
+type PanelSectionId = `${Lowercase<
+  keyof typeof StagePanelLocation
+>}${keyof typeof StagePanelSection}`;
 
 /** @internal */
 export function getPanelSectionId(
