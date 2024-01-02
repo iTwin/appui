@@ -856,7 +856,10 @@ export class FrontstageDef {
     if (!widgetDef) return false;
 
     const popoutContent = (
-      <PopoutWidget widgetContainerId={widgetContainerId} />
+      <PopoutWidget
+        widgetContainerId={widgetContainerId}
+        widgetDef={widgetDef}
+      />
     );
 
     const popoutWidget = state.popoutWidgets.byId[location.popoutWidgetId];

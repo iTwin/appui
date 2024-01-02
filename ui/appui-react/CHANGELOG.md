@@ -1,6 +1,25 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Thu, 07 Dec 2023 19:40:17 GMT and should not be manually modified.
+This log was last generated on Thu, 21 Dec 2023 14:08:42 GMT and should not be manually modified.
+
+## 4.8.0
+Thu, 21 Dec 2023 14:08:42 GMT
+
+### Updates
+
+- Dock back to panel section when popout widget is closed.
+- Keep widget content unmounted while widget state is set to WidgetState.Unloaded.
+- Localize popout error text
+- Fixed bug where popouts would get incrementally smaller or larger each time opened
+- Promote `FrameworkToolAdmin` to *beta*.
+- Fix `RestoreLayout` tool.
+
+## 4.7.2
+Wed, 20 Dec 2023 23:11:37 GMT
+
+### Updates
+
+- Revert Popout reparenting strategy.
 
 ## 4.7.1
 Thu, 07 Dec 2023 19:40:17 GMT

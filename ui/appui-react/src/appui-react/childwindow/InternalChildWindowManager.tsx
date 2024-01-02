@@ -24,7 +24,6 @@ import type {
   FrameworkChildWindows,
   OpenChildWindowInfo,
 } from "../framework/FrameworkChildWindows";
-import { createLayoutStore, NineZone } from "@itwin/appui-layout-react";
 import type { ChildWindow } from "./ChildWindowConfig";
 
 const childHtml = `<!DOCTYPE html>
@@ -175,26 +174,19 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         setTimeout(() => {
           this.render(
             <Provider store={UiFramework.store}>
-              <NineZone
-                dispatch={() => {}}
-                layout={createLayoutStore(
-                  UiFramework.frontstages.activeFrontstageDef?.nineZoneState
-                )}
-              >
-                <UiStateStorageHandler>
-                  <ThemeManager>
-                    <div className="uifw-child-window-container-host">
-                      <PopupRenderer />
-                      <ModalDialogRenderer />
-                      <ModelessDialogRenderer />
-                      <CursorPopupMenu />
-                      <div className="uifw-child-window-container nz-widget-widget">
-                        {content}
-                      </div>
+              <UiStateStorageHandler>
+                <ThemeManager>
+                  <div className="uifw-child-window-container-host">
+                    <PopupRenderer />
+                    <ModalDialogRenderer />
+                    <ModelessDialogRenderer />
+                    <CursorPopupMenu />
+                    <div className="uifw-child-window-container nz-widget-widget">
+                      {content}
                     </div>
-                  </ThemeManager>
-                </UiStateStorageHandler>
-              </NineZone>
+                  </div>
+                </ThemeManager>
+              </UiStateStorageHandler>
             </Provider>,
             reactConnectionDiv
           );
@@ -208,17 +200,14 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
           childWindowId,
           childWindow
         );
+        // Trigger first so popout can be converted back to main window widget
+        this.close(childWindowId, false);
         // UnmountComponentAtNode is deprecated in React 18, so if they are
         // using React 18 and passing in a createRoot function, unmount()
         // will be used
         if (this._roots[childWindowId]) {
           this._roots[childWindowId].unmount();
         } else ReactDOM.unmountComponentAtNode(reactConnectionDiv);
-
-        // We need to unmount the child window content before we close it because
-        // it is docked in this function and the widget will disappear if we
-        // unmount after docked.
-        this.close(childWindowId, false);
       });
     }
   }
