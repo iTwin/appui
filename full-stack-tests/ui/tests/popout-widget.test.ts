@@ -58,13 +58,13 @@ test.describe("popout widget", () => {
     const widget = widgetLocator({ tab });
 
     const popoutPage = await popoutWidget(context, widget);
-    expect(popoutPage.isClosed()).toBe(false);
+    await expect.poll(async () => popoutPage.isClosed()).toBe(false);
 
     await openFrontstage(page, "appui-test-app:main-stage");
-    expect(popoutPage.isClosed()).toBe(true);
+    await expect.poll(async () => popoutPage.isClosed()).toBe(true);
 
     await openFrontstage(page, "appui-test-providers:WidgetApi");
-    expect(popoutPage.isClosed()).toBe(true);
+    await expect.poll(async () => popoutPage.isClosed()).toBe(true);
 
     const floatingWidget = floatingWidgetLocator({ tab });
     await expect(floatingWidget).toBeVisible();
@@ -78,13 +78,13 @@ test.describe("popout widget", () => {
     const widget = widgetLocator({ tab });
 
     const popoutPage = await popoutWidget(context, widget);
-    expect(popoutPage.isClosed()).toBe(false);
+    await expect.poll(async () => popoutPage.isClosed()).toBe(false);
 
     await openFrontstage(page, "appui-test-app:main-stage");
-    expect(popoutPage.isClosed()).toBe(true);
+    await expect.poll(async () => popoutPage.isClosed()).toBe(true);
 
     await openFrontstage(page, "appui-test-providers:WidgetApi");
-    expect(popoutPage.isClosed()).toBe(true);
+    await expect.poll(async () => popoutPage.isClosed()).toBe(true);
 
     const locator = panelSectionLocator(page, "top", 1, { has: tab });
     await expect(locator).toBeVisible();
@@ -141,7 +141,10 @@ test.describe("popout widget", () => {
     await expectSavedFrontstageState(context, (state) => {
       return (
         state.nineZone.widgets["appui-test-providers:ViewAttributesWidget"]
-          ?.activeTabId === "appui-test-providers:ViewAttributesWidget"
+          ?.activeTabId === "appui-test-providers:ViewAttributesWidget" &&
+        !!state.nineZone.savedTabs.byId[
+          "appui-test-providers:ViewAttributesWidget"
+        ]
       );
     });
 
@@ -165,7 +168,7 @@ test.describe("popout widget", () => {
 
     const popoutPage = await popoutWidget(context, widget);
     await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
-    expect(popoutPage.isClosed()).toBe(false);
+    await expect.poll(async () => popoutPage.isClosed()).toBe(false);
 
     await setWidgetState(
       page,
@@ -175,24 +178,24 @@ test.describe("popout widget", () => {
     await expect.poll(async () => popoutPage.isClosed()).toBe(true);
   });
 
-  test("should not unmount when widget is popped out", async ({
+  test("should unmount when popped out widget is closed", async ({
     context,
     page,
   }) => {
     const id = "appui-test-providers:PopoutMountUnmountWidget";
-    const widgetLifecycle = trackWidgetLifecycle(page, id);
     const widget = floatingWidgetLocator({
       page,
       id,
     });
-
+    await expect(widget).toBeVisible();
+    const widgetLifecycle = trackWidgetLifecycle(page, id);
     const popoutPage = await popoutWidget(context, widget);
-    expect(popoutPage.isClosed()).toBe(false);
+    await expect.poll(async () => popoutPage.isClosed()).toBe(false);
 
     await popoutPage.close();
 
-    expect(widgetLifecycle.mountCount).toBe(1);
-    expect(widgetLifecycle.unMountCount).toBe(0);
+    await expect.poll(async () => widgetLifecycle.mountCount).toBe(1);
+    await expect.poll(async () => widgetLifecycle.unMountCount).toBe(1);
   });
 });
 
@@ -202,5 +205,6 @@ async function popoutWidget(context: BrowserContext, widget: Locator) {
     context.waitForEvent("page"),
     popoutButton.click(),
   ]);
+  await popoutPage.waitForLoadState(); // TODO: childWindow is only added after 'load' event
   return popoutPage;
 }
