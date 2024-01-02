@@ -480,24 +480,9 @@ export function getPanelSectionId(
   location: StagePanelLocation,
   section: StagePanelSection
 ): PanelSectionId {
-  switch (location) {
-    case StagePanelLocation.Left: {
-      if (section === StagePanelSection.Start) return "leftStart";
-      return "leftEnd";
-    }
-    case StagePanelLocation.Right: {
-      if (section === StagePanelSection.Start) return "rightStart";
-      return "rightEnd";
-    }
-    case StagePanelLocation.Top: {
-      if (section === StagePanelSection.Start) return "topStart";
-      return "topEnd";
-    }
-    case StagePanelLocation.Bottom: {
-      if (section === StagePanelSection.Start) return "bottomStart";
-      return "bottomEnd";
-    }
-  }
+  return `${StagePanelLocation[location].toLowerCase()}${
+    StagePanelSection[section]
+  }` as PanelSectionId;
 }
 
 /** @internal */
