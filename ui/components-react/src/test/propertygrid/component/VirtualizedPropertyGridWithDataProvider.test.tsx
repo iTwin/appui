@@ -131,6 +131,36 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         .to.be.not.null;
     });
 
+    it("renders loader on subsequent selections that take longer than 150 ms", async () => {
+      const { container, findByText } = render(
+        <VirtualizedPropertyGridWithDataProvider {...defaultProps} />
+      );
+
+      // assert that initial property grid is loaded
+      await waitFor(async () => findByText("Group 1"));
+      await waitFor(
+        async () =>
+          expect(container.querySelector(".virtualized-grid-node")).to.be.not
+            .null
+      );
+
+      // stub getData with a method that can be manually resolved
+      const getDataResult = new ResolvablePromise<PropertyData>();
+      dataProvider.getData = async () => getDataResult;
+
+      dataProvider.onDataChanged.raiseEvent();
+
+      // do not resolve the getData promise until a loader is displayed
+      await waitFor(
+        async () =>
+          expect(
+            container.querySelector(
+              ".components-virtualized-property-grid-loader"
+            )
+          ).to.be.not.null
+      );
+    });
+
     it("renders PropertyCategoryBlocks correctly", async () => {
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider {...defaultProps} />

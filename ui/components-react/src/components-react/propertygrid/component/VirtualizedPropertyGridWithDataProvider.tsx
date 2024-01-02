@@ -7,12 +7,12 @@
  * @module PropertyGrid
  */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DelayedSpinner } from "../../common/DelayedSpinner";
 import {
   usePropertyGridEventHandler,
   usePropertyGridModel,
-  usePropertyGridModelSource,
+  useTrackedPropertyGridModelSource,
 } from "../internal/PropertyGridHooks";
 import type { PropertyCategoryRendererManager } from "../PropertyCategoryRendererManager";
 import type { IPropertyDataProvider } from "../PropertyDataProvider";
@@ -47,25 +47,35 @@ export interface VirtualizedPropertyGridWithDataProviderProps
 export function VirtualizedPropertyGridWithDataProvider(
   props: VirtualizedPropertyGridWithDataProviderProps
 ) {
-  const modelSource = usePropertyGridModelSource({
+  const [showSpinner, setShowSpinner] = useState(false);
+
+  const { modelSource, inProgress } = useTrackedPropertyGridModelSource({
     dataProvider: props.dataProvider,
   });
+
   const model = usePropertyGridModel({ modelSource });
   const eventHandler = usePropertyGridEventHandler({ modelSource });
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowSpinner(inProgress);
+    }, 150);
 
-  if (!model) {
-    return (
-      <div className="components-virtualized-property-grid-loader">
-        <DelayedSpinner size="large" />
-      </div>
-    );
-  }
+    return () => clearTimeout(timeout);
+  }, [inProgress, model]);
 
   return (
-    <VirtualizedPropertyGrid
-      {...props}
-      model={model}
-      eventHandler={eventHandler}
-    />
+    <>
+      {showSpinner || !model ? (
+        <div className="components-virtualized-property-grid-loader">
+          <DelayedSpinner size="large" />
+        </div>
+      ) : (
+        <VirtualizedPropertyGrid
+          {...props}
+          model={model}
+          eventHandler={eventHandler}
+        />
+      )}
+    </>
   );
 }

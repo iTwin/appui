@@ -46,6 +46,7 @@ export function usePropertyData(props: {
  * Custom hook that creates a [[PropertyGridModelSource]] and subscribes it to data updates from the data provider.
  * @throws if/when `IPropertyDataProvider.getData()` promise is rejected. The error is thrown in the React's render loop, so it can be caught using an error boundary.
  * @public
+ * @deprecated in 4.9.0. Use useTrackedPropertyGridModelSource instead.
  */
 export function usePropertyGridModelSource(props: {
   dataProvider: IPropertyDataProvider;
@@ -65,6 +66,31 @@ export function usePropertyGridModelSource(props: {
   }, [modelSource, propertyData]);
 
   return modelSource;
+}
+
+/**
+ * Custom hook that creates a [[PropertyGridModelSource]] and subscribes it to data updates from the data provider while also providing information on data update progress.
+ * @throws if/when `IPropertyDataProvider.getData()` promise is rejected. The error is thrown in the React's render loop, so it can be caught using an error boundary.
+ * @public
+ */
+export function useTrackedPropertyGridModelSource(props: {
+  dataProvider: IPropertyDataProvider;
+}) {
+  const { value: propertyData, inProgress } = usePropertyData(props);
+  const { dataProvider } = { ...props };
+
+  // Model source needs to be recreated if data provider changes
+  const modelSource = useMemo(
+    () => new PropertyGridModelSource(new MutableGridItemFactory()),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [dataProvider]
+  );
+
+  useEffect(() => {
+    if (propertyData) modelSource.setPropertyData(propertyData);
+  }, [modelSource, propertyData]);
+
+  return { modelSource, inProgress };
 }
 
 /**
