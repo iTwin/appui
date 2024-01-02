@@ -19,6 +19,7 @@ import {
   SvgChevronDown,
   SvgRemove,
 } from "@itwin/itwinui-icons-react";
+import { getiTwinUISize } from "../common/iuiUtils";
 
 /** Properties for [[PopupButton]] component
  * @alpha
@@ -198,6 +199,8 @@ export function PopupContent(props: CommonDivProps) {
 export interface OkCancelProps {
   onOk: (event: React.MouseEvent) => void;
   onCancel: (event: React.MouseEvent) => void;
+  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
+  size?: "medium" | "large";
 }
 
 /** OK/Cancel Buttons
@@ -215,6 +218,7 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         styleType="cta"
         title={UiCore.translate("dialog.ok")}
         onClick={props.onOk}
+        size={getiTwinUISize(props.size)}
       >
         <Icon iconSpec={<SvgCheckmark />} />
       </Button>
@@ -226,6 +230,7 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         data-testid="components-popup-cancel-button"
         title={UiCore.translate("dialog.cancel")}
         onClick={props.onCancel}
+        size={getiTwinUISize(props.size)}
       >
         <Icon iconSpec={<SvgRemove />} />
       </Button>

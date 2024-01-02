@@ -19,6 +19,7 @@ import {
   PropertyEditorManager,
 } from "./PropertyEditorManager";
 import { UiComponents } from "../UiComponents";
+import { getiTwinUISize } from "../common/iuiUtils";
 
 /** @internal */
 interface EnumEditorState {
@@ -203,13 +204,7 @@ export class EnumEditor
           options={this.state.options}
           setFocus={this.props.setFocus}
           aria-label={this._ariaLabel}
-          size={
-            !this.props.size
-              ? "small"
-              : this.props.size === "medium"
-              ? undefined
-              : "large"
-          }
+          size={getiTwinUISize(this.props.size)}
         />
       </div>
     );

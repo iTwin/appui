@@ -30,6 +30,8 @@ import {
   PropertyEditorManager,
 } from "./PropertyEditorManager";
 import svgPlaceholder from "@bentley/icons-generic/icons/placeholder.svg";
+import { Button } from "@itwin/itwinui-react";
+import { getiTwinUISize } from "../common/iuiUtils";
 
 // cspell:ignore buttongroup enumbuttongroup
 
@@ -200,12 +202,13 @@ export class EnumButtonGroupEditor
 
     const className = classnames(
       "components-enumbuttongroup-button",
+      this.getSizeClassname(this.props.size),
       isDisabled && "nz-is-disabled",
       isActive && "nz-is-active"
     );
 
     return (
-      <button
+      <Button
         ref={(ref: HTMLButtonElement | null) =>
           ref && this._btnRefs.set(choiceValue, ref)
         }
@@ -214,10 +217,22 @@ export class EnumButtonGroupEditor
         title={choice.label}
         key={choice.label}
         onClick={() => this._handleButtonClick(index)}
+        size={getiTwinUISize(this.props.size)}
       >
         <Icon iconSpec={this.state.enumIcons[index].iconSpec} />
-      </button>
+      </Button>
     );
+  }
+
+  private getSizeClassname(size: string | undefined) {
+    switch (size) {
+      case "large":
+        return "components-enumbuttongroup-large";
+      case undefined:
+        return "components-enumbuttongroup-small";
+      default:
+        return "components-enumbuttongroup-medium     ";
+    }
   }
 
   /** @internal */
@@ -226,6 +241,7 @@ export class EnumButtonGroupEditor
       <div
         className={classnames(
           "components-enumbuttongroup-editor",
+          this.getSizeClassname(this.props.size),
           this.props.className
         )}
         style={this.props.style}

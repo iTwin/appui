@@ -232,6 +232,7 @@ export class TextareaEditor
           closeOnEnter={false}
           setFocus={this.props.setFocus}
           focusTarget=".iui-input"
+          size={this.props.size}
         >
           <PopupContent>
             <Textarea
@@ -241,6 +242,7 @@ export class TextareaEditor
             <PopupOkCancelButtons
               onOk={this._handleOk}
               onCancel={this._handleCancel}
+              size={this.props.size}
             />
           </PopupContent>
         </PopupButton>
