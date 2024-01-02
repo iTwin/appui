@@ -714,14 +714,8 @@ describe("FrontstageDef", () => {
     });
   });
 
-  describe("batch", () => {
-    it("should emit events once for multiple actions", async () => {
-      const spy =
-        sinon.stub<
-          Parameters<
-            typeof UiFramework.frontstages.onPanelStateChangedEvent.addListener
-          >[0]
-        >();
+  describe("dispatch", () => {
+    it("should emit events after each action", async () => {
       const frontstageDef = new FrontstageDef();
       await frontstageDef.initializeFromConfig({
         ...defaultFrontstageConfig,
@@ -730,7 +724,57 @@ describe("FrontstageDef", () => {
       const state = createNineZoneState();
       frontstageDef.nineZoneState = state;
 
+      const spy =
+        sinon.stub<
+          Parameters<
+            typeof UiFramework.frontstages.onPanelStateChangedEvent.addListener
+          >[0]
+        >();
       UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
+
+      frontstageDef.dispatch({
+        type: "PANEL_SET_COLLAPSED",
+        side: "left",
+        collapsed: true,
+      });
+      expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.true;
+      sinon.assert.calledOnceWithExactly(spy, {
+        panelDef: frontstageDef.leftPanel!,
+        panelState: StagePanelState.Minimized,
+      });
+
+      frontstageDef.dispatch({
+        type: "PANEL_SET_COLLAPSED",
+        side: "left",
+        collapsed: false,
+      });
+      expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.false;
+      sinon.assert.calledTwice(spy);
+      sinon.assert.calledWithExactly(spy.getCall(1), {
+        panelDef: frontstageDef.leftPanel!,
+        panelState: StagePanelState.Open,
+      });
+    });
+  });
+
+  describe("batch", () => {
+    it("should emit events once for multiple actions", async () => {
+      const frontstageDef = new FrontstageDef();
+      await frontstageDef.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        leftPanel: {},
+      });
+      const state = createNineZoneState();
+      frontstageDef.nineZoneState = state;
+
+      const spy =
+        sinon.stub<
+          Parameters<
+            typeof UiFramework.frontstages.onPanelStateChangedEvent.addListener
+          >[0]
+        >();
+      UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
+
       frontstageDef.batch(() => {
         frontstageDef.dispatch({
           type: "PANEL_SET_COLLAPSED",
