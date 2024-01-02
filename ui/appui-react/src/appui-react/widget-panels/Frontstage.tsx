@@ -428,18 +428,7 @@ function hideWidgetDefs(frontstageDef: FrontstageDef) {
     const widgetDef = frontstageDef.findWidgetDef(tab.id);
     if (!widgetDef) continue;
 
-    if (widgetDef.defaultState === WidgetState.Hidden) {
-      frontstageDef.dispatch({
-        type: "WIDGET_TAB_HIDE",
-        id: widgetDef.id,
-      });
-    }
-    if (widgetDef.defaultState === WidgetState.Unloaded) {
-      frontstageDef.dispatch({
-        type: "WIDGET_TAB_UNLOAD",
-        id: widgetDef.id,
-      });
-    }
+    hideWidgetDef(frontstageDef, widgetDef);
   }
 }
 
