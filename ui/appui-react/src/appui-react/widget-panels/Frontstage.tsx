@@ -395,48 +395,15 @@ function processPopoutWidgets(frontstageDef: FrontstageDef) {
  * @internal
  */
 export function addFrontstageWidgetDefs(frontstageDef: FrontstageDef) {
-  addPanelSectionWidgetDefs(
-    frontstageDef,
+  [
     StagePanelLocation.Left,
-    StagePanelSection.Start
-  );
-  addPanelSectionWidgetDefs(
-    frontstageDef,
-    StagePanelLocation.Left,
-    StagePanelSection.End
-  );
-
-  addPanelSectionWidgetDefs(
-    frontstageDef,
     StagePanelLocation.Right,
-    StagePanelSection.Start
-  );
-  addPanelSectionWidgetDefs(
-    frontstageDef,
-    StagePanelLocation.Right,
-    StagePanelSection.End
-  );
-
-  addPanelSectionWidgetDefs(
-    frontstageDef,
     StagePanelLocation.Top,
-    StagePanelSection.Start
-  );
-  addPanelSectionWidgetDefs(
-    frontstageDef,
-    StagePanelLocation.Top,
-    StagePanelSection.End
-  );
-
-  addPanelSectionWidgetDefs(
-    frontstageDef,
     StagePanelLocation.Bottom,
-    StagePanelSection.Start
-  );
-  addPanelSectionWidgetDefs(
-    frontstageDef,
-    StagePanelLocation.Bottom,
-    StagePanelSection.End
+  ].forEach((location) =>
+    [StagePanelSection.Start, StagePanelSection.End].forEach((section) =>
+      addPanelSectionWidgetDefs(frontstageDef, location, section)
+    )
   );
 
   const toolSettingsWidgetDefs = determineNewWidgets(
