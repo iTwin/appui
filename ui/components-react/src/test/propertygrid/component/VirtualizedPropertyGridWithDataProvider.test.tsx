@@ -150,7 +150,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       dataProvider.onDataChanged.raiseEvent();
 
-      // do not resolve the getData promise until a loader is displayed
+      // do not resolve the getData promise until the loader is displayed
       await waitFor(
         async () =>
           expect(
