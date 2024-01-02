@@ -109,49 +109,46 @@ describe("FrontstageDef", () => {
     ).to.be.rejectedWith(Error);
   });
 
-  it("should be able to determine if widget is visible", async () => {
-    let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
+  it("should determine if widget is visible", async () => {
+    let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addTab(state, "t2");
     state = addTab(state, "t3");
-    state = addTab(state, "t4");
-    state = addTab(state, "t5");
-    state = addPopoutWidget(state, "fw1", ["t1"]);
+    state = addPopoutWidget(state, "pw1", ["t1"]);
     state = addPanelWidget(state, "right", "rightMiddle", ["t2"]);
-    state = addPanelWidget(state, "right", "rightEnd", ["t3"]);
-    state = addFloatingWidget(state, "fw2", ["t4"]);
+    state = addFloatingWidget(state, "fw1", ["t3"]);
 
     const frontstageDef = new FrontstageDef();
     frontstageDef.nineZoneState = state;
-    const fw1Visible = frontstageDef.isWidgetDisplayed("t1");
-    expect(fw1Visible).to.be.true;
+
+    const t1 = WidgetDef.create({
+      id: "t1",
+      defaultState: WidgetState.Open,
+    });
 
     const t2 = WidgetDef.create({
       id: "t2",
-      defaultState: WidgetState.Open,
+      defaultState: WidgetState.Hidden,
     });
 
     const t3 = WidgetDef.create({
       id: "t3",
-      defaultState: WidgetState.Hidden,
-    });
-
-    const t4 = WidgetDef.create({
-      id: "t4",
       defaultState: WidgetState.Floating,
     });
 
-    const findWidgetDefGetter = sinon.stub(frontstageDef, "findWidgetDef");
-    findWidgetDefGetter.onFirstCall().returns(t2);
-    findWidgetDefGetter.returns(t3);
+    sinon.stub(frontstageDef, "findWidgetDef").callsFake((id) => {
+      if (id === "t1") return t1;
+      if (id === "t2") return t2;
+      if (id === "t3") return t3;
+      return undefined;
+    });
 
-    const rightMiddleVisible = frontstageDef.isWidgetDisplayed("t2");
-    expect(rightMiddleVisible).to.be.true;
-    const rightEndVisible = frontstageDef.isWidgetDisplayed("t3");
-    expect(rightEndVisible).to.be.false;
-    const floatingWidgetVisible = frontstageDef.isWidgetDisplayed("t4");
-    expect(floatingWidgetVisible).to.be.true;
-    expect(frontstageDef.getWidgetCurrentState(t4)).to.eql(
+    sinon.stub();
+
+    expect(frontstageDef.isWidgetDisplayed("t1")).to.be.true;
+    expect(frontstageDef.isWidgetDisplayed("t2")).to.be.false;
+    expect(frontstageDef.isWidgetDisplayed("t3")).to.be.true;
+    expect(frontstageDef.getWidgetCurrentState(t3)).to.eql(
       WidgetState.Floating
     );
   });
