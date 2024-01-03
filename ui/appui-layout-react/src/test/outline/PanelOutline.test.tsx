@@ -8,8 +8,6 @@ import * as React from "react";
 
 import type { DragManager, PanelSide } from "../../appui-layout-react";
 import {
-  addFloatingWidget,
-  addTab,
   createNineZoneState,
   PanelSideContext,
   useActiveSendBackWidgetIdStore,
@@ -20,6 +18,8 @@ import {
 } from "../../appui-layout-react/outline/PanelOutline";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 import type { TestNineZoneProviderProps } from "../Providers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { addFloatingWidget } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 import { createDragStartArgs, TestNineZoneProvider } from "../Providers";
 
 describe("PanelOutline", () => {

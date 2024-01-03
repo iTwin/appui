@@ -14,9 +14,6 @@ import type {
   VerticalPanelSide,
 } from "../../appui-layout-react";
 import {
-  addDockedToolSettings,
-  addPanelWidget,
-  addTab,
   createNineZoneState,
   PanelSideContext,
   PanelWidget,
@@ -26,8 +23,13 @@ import {
 import type { TestNineZoneProviderProps } from "../Providers";
 import { TestNineZoneProvider } from "../Providers";
 import { addTabs, withWrapperAndProps } from "../Utils";
-import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import {
+  addPanelWidget,
+  updatePanelState,
+} from "../../appui-layout-react/state/internal/PanelStateHelpers";
 import * as NineZoneModule from "../../appui-layout-react/base/NineZone";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { addDockedToolSettings } from "../../appui-layout-react/state/internal/ToolSettingsStateHelpers";
 
 interface ProviderProps extends TestNineZoneProviderProps {
   side?: PanelSide;

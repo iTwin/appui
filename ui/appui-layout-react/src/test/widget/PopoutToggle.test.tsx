@@ -7,13 +7,13 @@ import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
 import type { NineZoneDispatch } from "../../appui-layout-react";
 import {
-  addPanelWidget,
-  addTab,
   createNineZoneState,
   PopoutToggle,
   WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
+import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
 
 describe("PopoutToggle", () => {
   it("should render", () => {

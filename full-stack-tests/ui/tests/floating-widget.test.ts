@@ -5,12 +5,12 @@
 import { expect, Page, test } from "@playwright/test";
 import assert from "assert";
 import {
+  dragWidget,
   expectSavedFrontstageState,
   floatingWidgetLocator,
   frontstageLocator,
   outlineLocator,
   panelLocator,
-  runKeyin,
   setWidgetState,
   tabLocator,
   titleBarHandleLocator,
@@ -27,13 +27,11 @@ test.describe("floating widget", () => {
   test("should float a panel section", async ({ page }) => {
     const tab = tabLocator(page, "WL-1");
     const widget = widgetLocator({ tab });
-    const titleBarHandle = titleBarHandleLocator(widget);
-    const frontstage = frontstageLocator(page);
     const floatingWidget = floatingWidgetLocator({ tab });
 
     await expect(floatingWidget).not.toBeVisible();
 
-    await titleBarHandle.dragTo(frontstage, {
+    await dragWidget(widget, {
       targetPosition: {
         x: 300,
         y: 200,
@@ -66,11 +64,9 @@ test.describe("floating widget", () => {
   }) => {
     const tab = tabLocator(page, "WL-1");
     const widget = widgetLocator({ tab });
-    const titleBarHandle = titleBarHandleLocator(widget);
-    const frontstage = frontstageLocator(page);
     const floatingWidget = floatingWidgetLocator({ tab });
 
-    await titleBarHandle.dragTo(frontstage, {
+    await dragWidget(widget, {
       targetPosition: {
         x: 300,
         y: 200,
