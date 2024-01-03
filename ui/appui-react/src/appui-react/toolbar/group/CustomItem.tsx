@@ -7,17 +7,13 @@
  */
 
 import * as React from "react";
-import { type CommonProps, Icon } from "@itwin/core-react";
+import { type CommonProps } from "@itwin/core-react";
 import type { DropdownButton } from "@itwin/itwinui-react";
-import {
-  DropdownMenu,
-  IconButton,
-  MenuExtraContent,
-} from "@itwin/itwinui-react";
+import { DropdownMenu, MenuExtraContent } from "@itwin/itwinui-react";
 import type { ToolbarCustomItem } from "../ToolbarItem";
 import { useConditionalValue } from "../../hooks/useConditionalValue";
-import { ItemLabel } from "./ActionItem";
 import { ExpandIndicator } from "./ExpandIndicator";
+import { Item } from "./Item";
 
 /** @internal */
 export interface CustomItemProps extends CommonProps {
@@ -27,11 +23,8 @@ export interface CustomItemProps extends CommonProps {
 /** @internal */
 export function CustomItem(props: CustomItemProps) {
   const { item } = props;
-  const label = useConditionalValue(item.label);
-  const description = useConditionalValue(item.description);
   const isDisabled = useConditionalValue(item.isDisabled);
   const isHidden = useConditionalValue(item.isHidden);
-  const iconSpec = useConditionalValue(item.icon);
 
   const menuItems = React.useCallback<
     React.ComponentProps<typeof DropdownButton>["menuItems"]
@@ -50,17 +43,9 @@ export function CustomItem(props: CustomItemProps) {
       style={props.style}
       menuItems={menuItems}
     >
-      <IconButton
-        className={props.className}
-        styleType="borderless"
-        disabled={isDisabled}
-        isActive={item.isActive}
-        label={<ItemLabel label={label} description={description} />}
-        style={props.style}
-      >
-        <Icon iconSpec={iconSpec} />
+      <Item item={item}>
         <ExpandIndicator />
-      </IconButton>
+      </Item>
     </DropdownMenu>
   );
 }

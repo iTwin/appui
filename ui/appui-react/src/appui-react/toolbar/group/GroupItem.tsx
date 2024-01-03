@@ -9,6 +9,7 @@
 import "./GroupItem.scss";
 import * as React from "react";
 import { type CommonProps, Icon } from "@itwin/core-react";
+import { SvgProgressBackward } from "@itwin/itwinui-icons-react";
 import type { DropdownButton } from "@itwin/itwinui-react";
 import {
   DropdownMenu,
@@ -20,9 +21,8 @@ import {
 } from "@itwin/itwinui-react";
 import { isToolbarGroupItem, type ToolbarGroupItem } from "../ToolbarItem";
 import { useConditionalValue } from "../../hooks/useConditionalValue";
-import { ItemLabel } from "./ActionItem";
-import { SvgProgressBackward } from "@itwin/itwinui-icons-react";
 import { ExpandIndicator } from "./ExpandIndicator";
+import { Item } from "./Item";
 
 /** @internal */
 export interface GroupItemProps extends CommonProps {
@@ -32,11 +32,8 @@ export interface GroupItemProps extends CommonProps {
 /** @internal */
 export function GroupItem(props: GroupItemProps) {
   const { item } = props;
-  const label = useConditionalValue(item.label);
-  const description = useConditionalValue(item.description);
   const isDisabled = useConditionalValue(item.isDisabled);
   const isHidden = useConditionalValue(item.isHidden);
-  const iconSpec = useConditionalValue(item.icon);
 
   const menuItems = React.useCallback<
     React.ComponentProps<typeof DropdownButton>["menuItems"]
@@ -59,17 +56,9 @@ export function GroupItem(props: GroupItemProps) {
       style={props.style}
       menuItems={menuItems}
     >
-      <IconButton
-        className={props.className}
-        styleType="borderless"
-        disabled={isDisabled}
-        isActive={item.isActive}
-        label={<ItemLabel label={label} description={description} />}
-        style={props.style}
-      >
-        <Icon iconSpec={iconSpec} />
+      <Item item={item}>
         <ExpandIndicator />
-      </IconButton>
+      </Item>
     </DropdownMenu>
   );
 }
