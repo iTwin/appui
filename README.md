@@ -79,7 +79,7 @@ The repository is set up to allow 2 different ways of testing changes with manua
 
 ### Test apps
 
-In the `test-apps` folder there are a 2 apps that can be used to test changes to the packages in this repository. Each app is a standalone app that can be run with `npm start` from the app's folder.
+In the `test-apps` folder there are 2 apps that can be used to test changes to the packages in this repository. Each app is a standalone app that can be run with `npm start` from the app's folder.
 
 Most of the features should be the same in both apps as they are both being configured by the `appui-test-providers` package, new features should be added through this package.
 
