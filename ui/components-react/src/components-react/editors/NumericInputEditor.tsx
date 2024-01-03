@@ -27,6 +27,7 @@ import {
   PropertyEditorBase,
   PropertyEditorManager,
 } from "./PropertyEditorManager";
+import { getiTwinUISize } from "../common/iuiUtils";
 
 /** @internal */
 interface NumericInputEditorState {
@@ -222,6 +223,7 @@ export class NumericInputEditor
         onChange={this._updateValue}
         setFocus={this.props.setFocus && !this.state.isDisabled}
         isControlled={this.props.shouldCommitOnChange}
+        size={getiTwinUISize(this.props.size)}
       />
     );
   }

@@ -195,6 +195,7 @@ export class IconEditor
           readonly={this.state.readonly}
           onIconChange={this._onIconChange}
           data-testid="components-icon-editor"
+          size={this.props.size}
         />
       </div>
     );

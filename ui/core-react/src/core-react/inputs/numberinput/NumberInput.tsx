@@ -85,6 +85,7 @@ const ForwardRefNumberInput = React.forwardRef<
     showTouchButtons,
     containerStyle,
     isControlled,
+    size,
     ...otherProps
   } = props;
   const currentValueRef = React.useRef(value);
@@ -285,6 +286,8 @@ const ForwardRefNumberInput = React.forwardRef<
   const caretUp = showTouchButtons ? <SvgCaretUp /> : <SvgCaretUpSmall />;
   const caretDown = showTouchButtons ? <SvgCaretDown /> : <SvgCaretDownSmall />;
 
+  console.log("size is ", size);
+
   return (
     <div className={containerClasses} style={containerStyle}>
       <Input
@@ -294,7 +297,7 @@ const ForwardRefNumberInput = React.forwardRef<
         onKeyDown={handleKeyDown}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        size="small"
+        size={size}
         {...otherProps}
       />
       <div

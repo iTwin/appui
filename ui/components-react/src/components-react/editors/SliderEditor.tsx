@@ -335,6 +335,7 @@ export class SliderEditor
           onEnter={this._handleEnter}
           setFocus={this.props.setFocus}
           focusTarget=".core-slider-handle"
+          size={this.props.size}
         >
           <PopupContent>
             {popupContent}
