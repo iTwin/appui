@@ -169,31 +169,52 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         window: childWindow,
         parentWindow: window,
       });
-      const tabId = content.props.widgetDef.id as string;
+      let element: React.FunctionComponentElement<any>;
+      if (content.props.widgetDef.id) {
+        const tabId = content.props.widgetDef.id as string;
+        element = (
+          <Provider store={UiFramework.store}>
+            <TabIdContext.Provider value={tabId}>
+              <UiStateStorageHandler>
+                <ThemeManager>
+                  <div className="uifw-child-window-container-host">
+                    <PopupRenderer />
+                    <ModalDialogRenderer />
+                    <ModelessDialogRenderer />
+                    <CursorPopupMenu />
+                    <div className="uifw-child-window-container nz-widget-widget">
+                      {content}
+                    </div>
+                  </div>
+                </ThemeManager>
+              </UiStateStorageHandler>
+            </TabIdContext.Provider>
+          </Provider>
+        );
+      } else {
+        element = (
+          <Provider store={UiFramework.store}>
+            <UiStateStorageHandler>
+              <ThemeManager>
+                <div className="uifw-child-window-container-host">
+                  <PopupRenderer />
+                  <ModalDialogRenderer />
+                  <ModelessDialogRenderer />
+                  <CursorPopupMenu />
+                  <div className="uifw-child-window-container nz-widget-widget">
+                    {content}
+                  </div>
+                </div>
+              </ThemeManager>
+            </UiStateStorageHandler>
+          </Provider>
+        );
+      }
 
       setTimeout(() => {
         copyStyles(childWindow.document);
         setTimeout(() => {
-          this.render(
-            <Provider store={UiFramework.store}>
-              <TabIdContext.Provider value={tabId}>
-                <UiStateStorageHandler>
-                  <ThemeManager>
-                    <div className="uifw-child-window-container-host">
-                      <PopupRenderer />
-                      <ModalDialogRenderer />
-                      <ModelessDialogRenderer />
-                      <CursorPopupMenu />
-                      <div className="uifw-child-window-container nz-widget-widget">
-                        {content}
-                      </div>
-                    </div>
-                  </ThemeManager>
-                </UiStateStorageHandler>
-              </TabIdContext.Provider>
-            </Provider>,
-            reactConnectionDiv
-          );
+          this.render(element, reactConnectionDiv);
         });
       });
 
