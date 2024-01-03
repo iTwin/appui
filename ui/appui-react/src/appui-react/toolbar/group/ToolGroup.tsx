@@ -10,7 +10,7 @@ import "./ToolGroup.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { ButtonGroup } from "@itwin/itwinui-react";
+import { ButtonGroup, Surface } from "@itwin/itwinui-react";
 import { ActionItem } from "./ActionItem";
 import { GroupItem } from "./GroupItem";
 import { CustomItem } from "./CustomItem";
@@ -26,18 +26,19 @@ export interface ToolGroupProps extends CommonProps {
 export function ToolGroup(props: ToolGroupProps) {
   const className = classnames("uifw-toolbar-group-toolGroup", props.className);
   return (
-    <ButtonGroup
-      className={className}
-      orientation={props.orientation}
-      style={props.style}
-      overflowButton={(overflowStart) => {
-        const children = React.Children.toArray(props.children);
-        const overflowChildren = children.slice(overflowStart - 1);
-        return <OverflowButton>{overflowChildren}</OverflowButton>;
-      }}
-    >
-      {props.children}
-    </ButtonGroup>
+    <Surface className={className}>
+      <ButtonGroup
+        orientation={props.orientation}
+        style={props.style}
+        overflowButton={(overflowStart) => {
+          const children = React.Children.toArray(props.children);
+          const overflowChildren = children.slice(overflowStart - 1);
+          return <OverflowButton>{overflowChildren}</OverflowButton>;
+        }}
+      >
+        {props.children}
+      </ButtonGroup>
+    </Surface>
   );
 }
 
