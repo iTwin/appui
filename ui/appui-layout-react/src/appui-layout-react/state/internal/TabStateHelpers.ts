@@ -6,13 +6,27 @@
  * @module Base
  */
 
-import produce from "immer";
+import produce, { castDraft } from "immer";
 import { UiError } from "@itwin/appui-abstract";
 import type { NineZoneState } from "../NineZoneState";
 import type { DraggedTabState, TabState } from "../TabState";
 import { category } from "./NineZoneStateHelpers";
-import type { SavedTabState } from "../SavedTabState";
+import type { SavedTabState, TabHomeState } from "../SavedTabState";
 import type { WritableDraft } from "immer/dist/internal";
+import { getTabLocation } from "../TabLocation";
+import {
+  addFloatingWidget,
+  assertWidgetState,
+  getWidgetState,
+  removeWidget,
+  setWidgetActiveTabId,
+  updateWidgetState,
+} from "./WidgetStateHelpers";
+import type { WidgetState } from "../WidgetState";
+import { isFloatingWidgetRestoreState } from "../WidgetRestoreState";
+import { Rectangle } from "@itwin/core-react";
+import { getUniqueId } from "../../base/NineZone";
+import { insertPanelWidget } from "./PanelStateHelpers";
 
 /** @internal */
 export function createTabState(
@@ -80,4 +94,172 @@ export function updateSavedTabState(
 
     update(tab);
   });
+}
+
+/** Adds a new `tab`.
+ * @internal
+ */
+export function addTab(
+  state: NineZoneState,
+  id: TabState["id"],
+  tabArgs?: Partial<TabState>
+): NineZoneState {
+  if (id in state.tabs) throw new UiError(category, "Tab already exists");
+  const tab = {
+    ...createTabState(id),
+    ...tabArgs,
+  };
+  return produce(state, (stateDraft) => {
+    stateDraft.tabs[id] = castDraft(tab);
+  });
+}
+
+/** Adds an existing `tab` to a specified `widget`.
+ * @internal
+ */
+export function addTabToWidget(
+  state: NineZoneState,
+  tabId: TabState["id"],
+  widgetId: WidgetState["id"]
+): NineZoneState {
+  return insertTabToWidget(state, tabId, widgetId, Infinity);
+}
+
+/** Inserts an existing `tab` to a specified `widget` at a specified `tabIndex`.
+ * @internal
+ */
+export function insertTabToWidget(
+  state: NineZoneState,
+  tabId: TabState["id"],
+  widgetId: WidgetState["id"],
+  tabIndex: number
+): NineZoneState {
+  if (!(tabId in state.tabs))
+    throw new UiError(category, "Tab does not exist", undefined, () => ({
+      tabId,
+    }));
+  assertWidgetState(state, widgetId);
+  const location = getTabLocation(state, tabId);
+  if (location)
+    throw new UiError(
+      category,
+      "Tab is already in a widget",
+      undefined,
+      () => ({ tabId, widgetId: location.widgetId })
+    );
+
+  return produce(state, (draft) => {
+    const widget = getWidgetState(draft, widgetId);
+    widget.tabs.splice(tabIndex, 0, tabId);
+  });
+}
+
+/** Removes tab from the UI, but keeps the tab state.
+ * @internal
+ */
+export function removeTabFromWidget(
+  state: NineZoneState,
+  tabId: TabState["id"]
+): NineZoneState {
+  const location = getTabLocation(state, tabId);
+  if (!location) return state;
+
+  const widgetId = location.widgetId;
+  const widget = getWidgetState(state, widgetId);
+  const tabs = [...widget.tabs];
+  const tabIndex = tabs.indexOf(tabId);
+  tabs.splice(tabIndex, 1);
+
+  if (tabs.length === 0) {
+    return removeWidget(state, widgetId);
+  }
+
+  if (tabId === widget.activeTabId) {
+    state = setWidgetActiveTabId(state, widget.id, tabs[0]);
+  }
+
+  return updateWidgetState(state, widgetId, {
+    tabs,
+  });
+}
+
+/** Removes tab from the UI and deletes the tab state.
+ * @internal
+ */
+export function removeTab(
+  state: NineZoneState,
+  tabId: TabState["id"]
+): NineZoneState {
+  if (!(tabId in state.tabs)) throw new UiError(category, "Tab does not exist");
+
+  state = removeTabFromWidget(state, tabId);
+  return produce(state, (draft) => {
+    delete draft.tabs[tabId];
+
+    if (draft.toolSettings?.tabId === tabId) {
+      draft.toolSettings = undefined;
+    }
+  });
+}
+
+const defaultHomeState: TabHomeState = {
+  side: "left",
+  widgetId: "",
+  widgetIndex: 0,
+  tabIndex: 0,
+};
+
+/** Adds removed tab to the UI.
+ * @internal
+ */
+export function addRemovedTab(
+  state: NineZoneState,
+  tabId: TabState["id"]
+): NineZoneState {
+  if (!(tabId in state.tabs))
+    throw new UiError(category, "Tab does not exist", undefined, () => ({
+      tabId,
+    }));
+
+  const savedTab = state.savedTabs.byId[tabId];
+  const home = savedTab?.home || defaultHomeState;
+  const { tabIndex, widgetId } = home;
+
+  // Add to an existing widget (by widget id).
+  if (widgetId in state.widgets) {
+    return insertTabToWidget(state, tabId, widgetId, tabIndex);
+  }
+
+  // Add to a floating widget.
+  if (isFloatingWidgetRestoreState(home)) {
+    // Add to a new floating widget.
+    const nzBounds = Rectangle.createFromSize(state.size);
+    const bounds = Rectangle.create(home.floatingWidget.bounds).containIn(
+      nzBounds
+    );
+    return addFloatingWidget(state, widgetId, [tabId], {
+      ...home.floatingWidget,
+      bounds: bounds.toProps(),
+    });
+  }
+
+  // Add to a panel section.
+  const panel = state.panels[home.side];
+
+  // Add to existing panel section.
+  if (panel.widgets.length >= panel.maxWidgetCount) {
+    const sectionIndex = Math.min(panel.maxWidgetCount - 1, home.widgetIndex);
+    const sectionId = panel.widgets[sectionIndex];
+    return insertTabToWidget(state, tabId, sectionId, home.tabIndex);
+  }
+
+  // Create a new panel section.
+  const newSectionId = getUniqueId();
+  return insertPanelWidget(
+    state,
+    panel.side,
+    newSectionId,
+    [tabId],
+    home.widgetIndex
+  );
 }

@@ -29,8 +29,7 @@ export class ImageRenderer {
     // istanbul ignore next
     if (!match) return "";
 
-    // eslint-disable-next-line deprecation/deprecation
-    return btoa(
+    return window.btoa(
       match
         .map((a) => {
           return String.fromCharCode(parseInt(a, 16));
@@ -66,8 +65,7 @@ export class ImageRenderer {
       return "";
     }
 
-    // eslint-disable-next-line deprecation/deprecation
-    const svgAsBase64 = btoa(svg);
+    const svgAsBase64 = window.btoa(svg);
     return `data:image/svg+xml;base64,${svgAsBase64}`;
   }
 

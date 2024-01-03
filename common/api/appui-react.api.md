@@ -61,7 +61,7 @@ import { MessageBoxType } from '@itwin/core-frontend';
 import { MessageBoxValue } from '@itwin/core-frontend';
 import { MessageSeverity } from '@itwin/appui-abstract';
 import type { MessageType } from '@itwin/core-react';
-import { NineZoneDispatch } from '@itwin/appui-layout-react';
+import type { NineZoneDispatch } from '@itwin/appui-layout-react';
 import type { NineZoneLabels } from '@itwin/appui-layout-react';
 import type { NineZoneState } from '@itwin/appui-layout-react';
 import type { NoChildrenProps } from '@itwin/core-react';
@@ -100,7 +100,6 @@ import type { SolarDataProvider } from '@itwin/imodel-components-react';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
 import type { StringGetter } from '@itwin/appui-abstract';
-import type { TabState } from '@itwin/appui-layout-react';
 import type { ToasterSettings } from '@itwin/itwinui-react/cjs/core/Toast/Toaster';
 import type { ToastOptions } from '@itwin/itwinui-react';
 import { Tool } from '@itwin/core-frontend';
@@ -354,7 +353,7 @@ export interface ActiveContentChangedEventArgs {
 }
 
 // @internal (undocumented)
-export function ActiveFrontstageDefProvider({ frontstageDef, layout, }: ActiveFrontstageDefProviderProps): JSX.Element;
+export function ActiveFrontstageDefProvider({ frontstageDef, }: ActiveFrontstageDefProviderProps): JSX.Element;
 
 // @public
 export function ActivityCenterField(props: CommonProps): JSX.Element | null;
@@ -376,13 +375,10 @@ export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArg
 }
 
 // @internal
-export function addMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState;
+export function addFrontstageWidgetDefs(frontstageDef: FrontstageDef): void;
 
-// @internal (undocumented)
-export function addPanelWidgets(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState;
-
-// @internal (undocumented)
-export function addWidgets(state: NineZoneState, widgets: ReadonlyArray<WidgetDef>, side: PanelSide, widgetId: WidgetId): NineZoneState;
+// @internal
+export function addPanelSectionWidgetDefs(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): void;
 
 // @public
 export interface AllowedUiItemsProviderOverrides {
@@ -407,9 +403,6 @@ export type AnyItemDef = GroupItemDef | CommandItemDef | ToolItemDef | ActionBut
 
 // @public
 export type AnyToolbarItemDef = AnyItemDef | CustomItemDef;
-
-// @internal (undocumented)
-export function appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray<WidgetDef>, location: StagePanelLocation, section: StagePanelSection): NineZoneState;
 
 // @public
 export class AppNotificationManager extends NotificationManager {
@@ -1748,9 +1741,6 @@ export interface ExpandableSectionProps extends CommonProps {
     title?: string;
 }
 
-// @internal (undocumented)
-export function expandWidget(state: NineZoneState, id: TabState["id"]): NineZoneState;
-
 // @public
 export interface ExtensibleToolbarProps {
     // (undocumented)
@@ -2192,6 +2182,8 @@ export interface FrontstageDeactivatedEventArgs {
 export class FrontstageDef {
     // (undocumented)
     addFloatingContentControl(contentControl?: ContentControl): void;
+    // @internal
+    batch(fn: () => void): void;
     // (undocumented)
     get bottomPanel(): StagePanelDef | undefined;
     get contentControls(): ContentControl[];
@@ -2206,6 +2198,7 @@ export class FrontstageDef {
     static create(provider: FrontstageProvider): Promise<FrontstageDef>;
     // @internal (undocumented)
     get dispatch(): NineZoneDispatch;
+    set dispatch(dispatch: NineZoneDispatch);
     // @beta
     dockWidgetContainer(widgetId: string): void;
     // @internal (undocumented)
@@ -2348,6 +2341,9 @@ export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue;
 export function getListPanel(props: ListPickerProps): React_2.ReactNode;
 
 // @internal (undocumented)
+export function getPanelSectionId(location: StagePanelLocation, section: StagePanelSection): PanelSectionId;
+
+// @internal (undocumented)
 export function getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray<WidgetDef>;
 
 // @internal (undocumented)
@@ -2361,9 +2357,6 @@ export function getSelectionContextSyncEventIds(): string[];
 
 // @beta
 export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry;
-
-// @internal (undocumented)
-export function getWidgetId(location: StagePanelLocation, section: StagePanelSection): WidgetId;
 
 // @internal (undocumented)
 export type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
@@ -2581,10 +2574,10 @@ export interface InitialAppUiSettings {
 }
 
 // @internal (undocumented)
-export function initializeNineZoneState(frontstageDef: FrontstageDef): NineZoneState;
+export function initializeNineZoneState(frontstageDef: FrontstageDef): void;
 
 // @internal (undocumented)
-export function initializePanel(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState;
+export function initializePanel(frontstageDef: FrontstageDef, location: StagePanelLocation): void;
 
 // @beta (undocumented)
 export class InputEditorCommitHandler {
@@ -2665,9 +2658,6 @@ export function isFrontstageStateSettingResult(settingsResult: UiStateStorageRes
 
 // @beta
 export function isNoSelectionActive(): boolean;
-
-// @internal (undocumented)
-export function isPanelCollapsed(panelState: StagePanelState | undefined): boolean;
 
 // @internal
 export const isReactContent: (content: PopupContentType) => content is ReactContent;
@@ -3296,7 +3286,7 @@ export interface OverflowToolbarOptions {
 }
 
 // @internal
-export function packNineZoneState(state: NineZoneState): SavedNineZoneState;
+export function packNineZoneState(state: NineZoneState): NineZoneState;
 
 // @public
 export interface PanelPinnedChangedEventArgs {
@@ -3623,7 +3613,7 @@ export class RestoreFrontstageLayoutTool extends Tool {
 }
 
 // @internal
-export function restoreNineZoneState(frontstageDef: FrontstageDef, saved: SavedNineZoneState): NineZoneState;
+export function restoreNineZoneState(frontstageDef: FrontstageDef, packed: NineZoneState): void;
 
 // @internal (undocumented)
 export interface RotationData {
@@ -3909,9 +3899,6 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
     // (undocumented)
     title: string;
 }
-
-// @internal (undocumented)
-export function showWidget(state: NineZoneState, id: TabState["id"]): NineZoneState;
 
 // @public
 export const SnapModeField: ConnectedComponent<typeof SnapModeFieldComponent, Omit_3<SnapModeFieldProps, "snapMode">>;
@@ -5505,7 +5492,7 @@ export interface WidgetPanelsFrontstageState {
     // (undocumented)
     id: FrontstageDef["id"];
     // (undocumented)
-    nineZone: SavedNineZoneState;
+    nineZone: NineZoneState;
     stateVersion: number;
     version: number;
 }

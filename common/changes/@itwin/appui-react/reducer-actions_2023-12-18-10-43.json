@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Keep widget content unmounted while widget state is set to WidgetState.Unloaded.",
+      "comment": "",
       "type": "none"
     }
   ],

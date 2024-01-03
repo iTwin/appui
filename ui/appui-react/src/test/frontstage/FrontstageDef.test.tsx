@@ -5,13 +5,7 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import produce from "immer";
-import {
-  addFloatingWidget,
-  addPanelWidget,
-  addPopoutWidget,
-  addTab,
-  createNineZoneState,
-} from "@itwin/appui-layout-react";
+import { createNineZoneState } from "@itwin/appui-layout-react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { act, renderHook } from "@testing-library/react-hooks";
 import type {
@@ -26,13 +20,20 @@ import {
   StagePanelDef,
   StagePanelLocation,
   StagePanelSection,
+  StagePanelState,
   UiFramework,
   UiItemsManager,
   useSpecificWidgetDef,
   WidgetDef,
   WidgetState,
 } from "../../appui-react";
-import TestUtils, { storageMock } from "../TestUtils";
+import TestUtils, {
+  addFloatingWidget,
+  addPanelWidget,
+  addPopoutWidget,
+  addTab,
+  storageMock,
+} from "../TestUtils";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
 class BadLayoutFrontstage extends FrontstageProvider {
@@ -108,49 +109,46 @@ describe("FrontstageDef", () => {
     ).to.be.rejectedWith(Error);
   });
 
-  it("should be able to determine if widget is visible", async () => {
-    let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
+  it("should determine if widget is visible", async () => {
+    let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addTab(state, "t2");
     state = addTab(state, "t3");
-    state = addTab(state, "t4");
-    state = addTab(state, "t5");
-    state = addPopoutWidget(state, "fw1", ["t1"]);
+    state = addPopoutWidget(state, "pw1", ["t1"]);
     state = addPanelWidget(state, "right", "rightMiddle", ["t2"]);
-    state = addPanelWidget(state, "right", "rightEnd", ["t3"]);
-    state = addFloatingWidget(state, "fw2", ["t4"]);
+    state = addFloatingWidget(state, "fw1", ["t3"]);
 
     const frontstageDef = new FrontstageDef();
     frontstageDef.nineZoneState = state;
-    const fw1Visible = frontstageDef.isWidgetDisplayed("t1");
-    expect(fw1Visible).to.be.true;
+
+    const t1 = WidgetDef.create({
+      id: "t1",
+      defaultState: WidgetState.Open,
+    });
 
     const t2 = WidgetDef.create({
       id: "t2",
-      defaultState: WidgetState.Open,
+      defaultState: WidgetState.Hidden,
     });
 
     const t3 = WidgetDef.create({
       id: "t3",
-      defaultState: WidgetState.Hidden,
-    });
-
-    const t4 = WidgetDef.create({
-      id: "t4",
       defaultState: WidgetState.Floating,
     });
 
-    const findWidgetDefGetter = sinon.stub(frontstageDef, "findWidgetDef");
-    findWidgetDefGetter.onFirstCall().returns(t2);
-    findWidgetDefGetter.returns(t3);
+    sinon.stub(frontstageDef, "findWidgetDef").callsFake((id) => {
+      if (id === "t1") return t1;
+      if (id === "t2") return t2;
+      if (id === "t3") return t3;
+      return undefined;
+    });
 
-    const rightMiddleVisible = frontstageDef.isWidgetDisplayed("t2");
-    expect(rightMiddleVisible).to.be.true;
-    const rightEndVisible = frontstageDef.isWidgetDisplayed("t3");
-    expect(rightEndVisible).to.be.false;
-    const floatingWidgetVisible = frontstageDef.isWidgetDisplayed("t4");
-    expect(floatingWidgetVisible).to.be.true;
-    expect(frontstageDef.getWidgetCurrentState(t4)).to.eql(
+    sinon.stub();
+
+    expect(frontstageDef.isWidgetDisplayed("t1")).to.be.true;
+    expect(frontstageDef.isWidgetDisplayed("t2")).to.be.false;
+    expect(frontstageDef.isWidgetDisplayed("t3")).to.be.true;
+    expect(frontstageDef.getWidgetCurrentState(t3)).to.eql(
       WidgetState.Floating
     );
   });
@@ -204,7 +202,7 @@ describe("FrontstageDef", () => {
         },
       },
     });
-    def.nineZoneState = initializeNineZoneState(def);
+    initializeNineZoneState(def);
     sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
 
     const spy = sinon.spy();
@@ -530,7 +528,7 @@ describe("FrontstageDef", () => {
           },
         },
       });
-      def.nineZoneState = initializeNineZoneState(def);
+      initializeNineZoneState(def);
 
       const dispatch = sinon.stub();
       sinon.stub(def, "dispatch").get(() => dispatch);
@@ -557,7 +555,7 @@ describe("FrontstageDef", () => {
           },
         },
       });
-      def.nineZoneState = initializeNineZoneState(def);
+      initializeNineZoneState(def);
 
       const dispatch = sinon.stub();
       sinon.stub(def, "dispatch").get(() => dispatch);
@@ -620,11 +618,11 @@ describe("FrontstageDef", () => {
           },
         },
       });
-      frontstageDef.nineZoneState = initializeNineZoneState(frontstageDef);
+      initializeNineZoneState(frontstageDef);
       frontstageDef.popoutWidget("t1");
 
       const spy = sinon.spy(window, "open");
-      const popoutWidgets = frontstageDef.nineZoneState.popoutWidgets;
+      const popoutWidgets = frontstageDef.nineZoneState!.popoutWidgets;
       const popoutWidget = popoutWidgets.byId[popoutWidgets.allIds[0]];
       frontstageDef.openPopoutWidgetContainer(
         popoutWidget.id,
@@ -645,11 +643,11 @@ describe("FrontstageDef", () => {
           },
         },
       });
-      frontstageDef.nineZoneState = initializeNineZoneState(frontstageDef);
+      initializeNineZoneState(frontstageDef);
       frontstageDef.popoutWidget("t1");
 
       frontstageDef.dockWidgetContainer("t1");
-      expect(frontstageDef.nineZoneState.popoutWidgets.allIds).lengthOf(0);
+      expect(frontstageDef.nineZoneState!.popoutWidgets.allIds).lengthOf(0);
     });
 
     it("should dock floating widget", async () => {
@@ -662,13 +660,14 @@ describe("FrontstageDef", () => {
           },
         },
       });
-      frontstageDef.nineZoneState = initializeNineZoneState(frontstageDef);
+      initializeNineZoneState(frontstageDef);
       frontstageDef.floatWidget("t1");
 
-      const floatingWidgets = frontstageDef.nineZoneState.floatingWidgets;
+      const sut = frontstageDef.nineZoneState!;
+      const floatingWidgets = sut.floatingWidgets;
       const floatingWidget = floatingWidgets.byId[floatingWidgets.allIds[0]];
       frontstageDef.dockWidgetContainer(floatingWidget.id);
-      expect(frontstageDef.nineZoneState.floatingWidgets.allIds).lengthOf(0);
+      expect(frontstageDef.nineZoneState!.floatingWidgets.allIds).lengthOf(0);
     });
   });
 
@@ -689,8 +688,8 @@ describe("FrontstageDef", () => {
           },
         },
       });
+      initializeNineZoneState(frontstageDef);
 
-      frontstageDef.nineZoneState = initializeNineZoneState(frontstageDef);
       frontstageDef.dispatch({
         type: "RESIZE",
         size: {
@@ -698,7 +697,6 @@ describe("FrontstageDef", () => {
           width: 1000,
         },
       });
-
       frontstageDef.setFloatingWidgetContainerBounds("fw1", {
         top: 55,
         left: 105,
@@ -706,13 +704,106 @@ describe("FrontstageDef", () => {
         right: 255,
       });
 
-      expect(
-        frontstageDef.nineZoneState.floatingWidgets.byId.fw1.bounds
-      ).to.eql({
+      const sut = frontstageDef.nineZoneState!;
+      expect(sut.floatingWidgets.byId.fw1.bounds).to.eql({
         top: 55,
         left: 105,
         bottom: 155,
         right: 255,
+      });
+    });
+  });
+
+  describe("dispatch", () => {
+    it("should emit events after each action", async () => {
+      const frontstageDef = new FrontstageDef();
+      await frontstageDef.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        leftPanel: {},
+      });
+      const state = createNineZoneState();
+      frontstageDef.nineZoneState = state;
+
+      const spy =
+        sinon.stub<
+          Parameters<
+            typeof UiFramework.frontstages.onPanelStateChangedEvent.addListener
+          >[0]
+        >();
+      UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
+
+      frontstageDef.dispatch({
+        type: "PANEL_SET_COLLAPSED",
+        side: "left",
+        collapsed: true,
+      });
+      expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.true;
+      sinon.assert.calledOnceWithExactly(spy, {
+        panelDef: frontstageDef.leftPanel!,
+        panelState: StagePanelState.Minimized,
+      });
+
+      frontstageDef.dispatch({
+        type: "PANEL_SET_COLLAPSED",
+        side: "left",
+        collapsed: false,
+      });
+      expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.false;
+      sinon.assert.calledTwice(spy);
+      sinon.assert.calledWithExactly(spy.getCall(1), {
+        panelDef: frontstageDef.leftPanel!,
+        panelState: StagePanelState.Open,
+      });
+    });
+  });
+
+  describe("batch", () => {
+    it("should emit events once for multiple actions", async () => {
+      const frontstageDef = new FrontstageDef();
+      await frontstageDef.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        leftPanel: {},
+      });
+      const state = createNineZoneState();
+      frontstageDef.nineZoneState = state;
+
+      const spy =
+        sinon.stub<
+          Parameters<
+            typeof UiFramework.frontstages.onPanelStateChangedEvent.addListener
+          >[0]
+        >();
+      UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
+
+      frontstageDef.batch(() => {
+        frontstageDef.dispatch({
+          type: "PANEL_SET_COLLAPSED",
+          side: "left",
+          collapsed: true,
+        });
+        expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.true;
+        sinon.assert.notCalled(spy);
+
+        frontstageDef.dispatch({
+          type: "PANEL_SET_COLLAPSED",
+          side: "left",
+          collapsed: false,
+        });
+        expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.false;
+        sinon.assert.notCalled(spy);
+
+        frontstageDef.dispatch({
+          type: "PANEL_SET_COLLAPSED",
+          side: "left",
+          collapsed: true,
+        });
+        expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.true;
+        sinon.assert.notCalled(spy);
+      });
+
+      sinon.assert.calledOnceWithExactly(spy, {
+        panelDef: frontstageDef.leftPanel!,
+        panelState: StagePanelState.Minimized,
       });
     });
   });

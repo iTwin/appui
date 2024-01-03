@@ -8,6 +8,7 @@
 
 import produce from "immer";
 import type { WritableDraft } from "immer/dist/types/types-external";
+import { UiError } from "@itwin/appui-abstract";
 import type { SizeProps } from "@itwin/core-react";
 import {
   type HorizontalPanelSide,
@@ -20,8 +21,12 @@ import type {
   HorizontalPanelState,
   PanelMaxSizeState,
   PanelsState,
+  PanelState,
   VerticalPanelState,
 } from "../PanelState";
+import type { WidgetState } from "../WidgetState";
+import { category } from "./NineZoneStateHelpers";
+import { addWidgetState } from "./WidgetStateHelpers";
 
 function createPanelState(side: PanelSide) {
   return {
@@ -99,4 +104,52 @@ export function getPanelMaxSize(
   }
   const size = isHorizontalPanelSide(side) ? appSize.height : appSize.width;
   return (maxSize.percentage / 100) * size;
+}
+
+/** @internal */
+export function getPanelSize(
+  preferredSize: number | undefined,
+  side: PanelSide,
+  minSize: PanelState["minSize"],
+  maxSizeSpec: PanelState["maxSize"],
+  appSize: SizeProps
+) {
+  if (preferredSize === undefined) return undefined;
+
+  const maxSize = getPanelMaxSize(side, appSize, maxSizeSpec);
+  return Math.min(Math.max(preferredSize, minSize), maxSize);
+}
+
+/** @internal */
+export function addPanelWidget(
+  state: NineZoneState,
+  side: PanelSide,
+  id: WidgetState["id"],
+  tabs: WidgetState["tabs"],
+  widgetArgs?: Partial<WidgetState>
+): NineZoneState {
+  return insertPanelWidget(state, side, id, tabs, Infinity, widgetArgs);
+}
+
+/** @internal */
+export function insertPanelWidget(
+  state: NineZoneState,
+  side: PanelSide,
+  id: WidgetState["id"],
+  tabs: WidgetState["tabs"],
+  sectionIndex: number,
+  widgetArgs?: Partial<WidgetState>
+): NineZoneState {
+  const panel = state.panels[side];
+  const maxWidgetCount = panel.maxWidgetCount;
+  if (panel.widgets.length >= maxWidgetCount)
+    throw new UiError(category, "Max widget count exceeded", undefined, () => ({
+      maxWidgetCount,
+    }));
+
+  state = addWidgetState(state, id, tabs, widgetArgs);
+  return produce(state, (draft) => {
+    const widgets = draft.panels[side].widgets;
+    widgets.splice(sectionIndex, 0, id);
+  });
 }

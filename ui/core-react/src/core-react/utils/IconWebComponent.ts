@@ -42,7 +42,7 @@ function parseSvgFromDataUri(src: string, element: any) {
 
   let rawSvg = "";
   if ("data:image/svg+xml;base64" === dataUriParts[0]) {
-    rawSvg = Buffer.from(dataUriParts[1], "base64").toString("utf8");
+    rawSvg = window.atob(dataUriParts[1]);
   } else {
     // `,` is valid character in data when not in base64, rebuild the data correctly
     rawSvg = decodeURIComponent(dataUriParts.slice(1).join(","));
