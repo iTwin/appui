@@ -19,7 +19,7 @@ import type { WidgetState } from "./WidgetState";
 import { useWidgetDef } from "../widget-panels/Content";
 
 /** Hook that returns information about the Widget in the current context.
- * @returns ThisWidget interface that contains the WidgetLocation, WidgetState, and
+ * @returns object that contains the WidgetLocation, WidgetState, and
  * the ability to set the state of the widget.
  * @alpha
  */
