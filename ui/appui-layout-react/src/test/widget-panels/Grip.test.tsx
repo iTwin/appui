@@ -14,8 +14,6 @@ import type {
   PanelSide,
 } from "../../appui-layout-react";
 import {
-  addPanelWidget,
-  addTab,
   createNineZoneState,
   PanelSideContext,
   useResizeGrip,
@@ -24,8 +22,12 @@ import {
 } from "../../appui-layout-react";
 import type { TestNineZoneProviderProps } from "../Providers";
 import { createDragInfo, TestNineZoneProvider } from "../Providers";
-import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import {
+  addPanelWidget,
+  updatePanelState,
+} from "../../appui-layout-react/state/internal/PanelStateHelpers";
 import { withWrapperAndProps } from "../Utils";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
 
 describe("WidgetPanelGrip", () => {
   const wrapper = (props: any) => (

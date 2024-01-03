@@ -5,15 +5,12 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import type { WidgetState } from "../../appui-layout-react";
-import {
-  addPanelWidget,
-  addTab,
-  createNineZoneState,
-  WidgetIdContext,
-} from "../../appui-layout-react";
+import { createNineZoneState, WidgetIdContext } from "../../appui-layout-react";
 import { TitleBarTarget } from "../../appui-layout-react/target/TitleBarTarget";
 import type { TestNineZoneProviderProps } from "../Providers";
 import { TestNineZoneProvider } from "../Providers";
+import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
 
 interface WrapperProps extends TestNineZoneProviderProps {
   widgetId: WidgetState["id"];

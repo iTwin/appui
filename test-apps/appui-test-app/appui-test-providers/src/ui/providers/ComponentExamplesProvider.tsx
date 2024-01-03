@@ -408,7 +408,7 @@ export class ComponentExamplesProvider {
         createComponentExample(
           "Configurable Ui Content",
           undefined,
-          <ConfigurableUiContent />
+          <ConfigurableUiContent style={{ height: 563 }} />
         ),
       ],
     };

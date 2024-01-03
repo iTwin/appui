@@ -6,17 +6,12 @@
  * @module Base
  */
 
-import { UiError } from "@itwin/appui-abstract";
-import produce from "immer";
 import type {
   HorizontalPanelSide,
   PanelSide,
   VerticalPanelSide,
 } from "../widget-panels/Panel";
 import { isHorizontalPanelSide } from "../widget-panels/Panel";
-import { category } from "./internal/NineZoneStateHelpers";
-import { addWidgetState } from "./internal/WidgetStateHelpers";
-import type { NineZoneState } from "./NineZoneState";
 import type { WidgetState } from "./WidgetState";
 
 /** @internal */
@@ -69,38 +64,4 @@ export function getWidgetPanelSectionId(
   panelSectionIndex: number
 ) {
   return 0 === panelSectionIndex ? `${side}Start` : `${side}End`;
-}
-
-/** @internal */
-export function addPanelWidget(
-  state: NineZoneState,
-  side: PanelSide,
-  id: WidgetState["id"],
-  tabs: WidgetState["tabs"],
-  widgetArgs?: Partial<WidgetState>
-): NineZoneState {
-  return insertPanelWidget(state, side, id, tabs, Infinity, widgetArgs);
-}
-
-/** @internal */
-export function insertPanelWidget(
-  state: NineZoneState,
-  side: PanelSide,
-  id: WidgetState["id"],
-  tabs: WidgetState["tabs"],
-  sectionIndex: number,
-  widgetArgs?: Partial<WidgetState>
-): NineZoneState {
-  const panel = state.panels[side];
-  const maxWidgetCount = panel.maxWidgetCount;
-  if (panel.widgets.length >= maxWidgetCount)
-    throw new UiError(category, "Max widget count exceeded", undefined, () => ({
-      maxWidgetCount,
-    }));
-
-  state = addWidgetState(state, id, tabs, widgetArgs);
-  return produce(state, (draft) => {
-    const widgets = draft.panels[side].widgets;
-    widgets.splice(sectionIndex, 0, id);
-  });
 }

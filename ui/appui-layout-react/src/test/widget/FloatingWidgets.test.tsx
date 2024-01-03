@@ -4,13 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
-import {
-  addFloatingWidget,
-  addTab,
-  createNineZoneState,
-  FloatingWidgets,
-} from "../../appui-layout-react";
+import { createNineZoneState, FloatingWidgets } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { addFloatingWidget } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 
 describe("FloatingWidgets", () => {
   it("should render", () => {
