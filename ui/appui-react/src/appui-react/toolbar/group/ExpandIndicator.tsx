@@ -7,5 +7,5 @@ import * as React from "react";
 
 /** @internal */
 export function ExpandIndicator() {
-  return <div className="uifw-toolbar-group-expandIndicator">{">"}</div>;
+  return <div className="uifw-toolbar-group-expandIndicator" />;
 }
