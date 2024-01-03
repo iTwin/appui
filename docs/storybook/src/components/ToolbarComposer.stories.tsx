@@ -49,7 +49,7 @@ type Story = StoryObj<typeof meta>;
 const { getVal, bump } = createBumpEvent();
 const items = createItems();
 
-export const Basic: Story = {
+export const ActionItem: Story = {
   args: {
     items: [
       {
@@ -84,8 +84,6 @@ export const Basic: Story = {
           iconSpec: <SvgActivity />,
           label: "Item 3",
           execute: action("Item 3"),
-          description: "TechnicalPreview badge.",
-          badgeType: BadgeType.TechnicalPreview,
         })
       ),
       ToolbarHelper.createToolbarItemFromItemDef(
@@ -96,7 +94,6 @@ export const Basic: Story = {
           execute: action("Item 4"),
         }),
         {
-          badgeType: BadgeType.New,
           ...createAbstractReactIcon(),
         }
       ),
@@ -106,11 +103,9 @@ export const Basic: Story = {
           iconSpec: <SvgAirplane />,
           label: "Item 5",
           execute: action("Item 5"),
-          badgeType: BadgeType.TechnicalPreview,
         }),
         {
-          description: "No badge, conditional icon overrides.",
-          badgeType: BadgeType.None,
+          description: "Conditional icon overrides.",
           isDisabled: true,
           ...createAbstractConditionalIcon(),
         }
@@ -121,7 +116,6 @@ export const Basic: Story = {
             iconSpec: <SvgActivity />,
             label: "Item 6",
             execute: action("Item 6"),
-            badgeType: BadgeType.New,
           }),
           new CommandItemDef({
             iconSpec: <SvgClipboard />,
@@ -129,11 +123,7 @@ export const Basic: Story = {
             execute: action("Item 7"),
           }),
         ],
-        200,
-        {
-          badgeType: BadgeType.TechnicalPreview,
-          description: "TechnicalPreview badge override.",
-        }
+        200
       ),
     ],
   },
@@ -147,28 +137,49 @@ export const GroupItem: Story = {
 
 export const CustomItem: Story = {
   args: {
+    items: [items.custom1, items.custom2, items.custom3],
+  },
+};
+
+export const Badge: Story = {
+  args: {
     items: [
-      ToolbarItemUtilities.createCustomItem(
-        "custom1",
-        100,
-        <Svg2D />,
-        "Custom 1",
-        <div>Custom panel content 1</div>
-      ),
-      ToolbarItemUtilities.createCustomItem(
-        "custom2",
-        100,
-        <Svg3D />,
-        "Custom 2",
-        <div>Custom panel content 2</div>
-      ),
-      ToolbarItemUtilities.createCustomItem(
-        "custom3",
-        100,
-        <SvgActivity />,
-        "Custom 3",
-        <div>Custom panel content 3</div>
-      ),
+      {
+        ...items.action1,
+        description: "TechnicalPreview badge",
+        badge: BadgeType.TechnicalPreview,
+      },
+      {
+        ...items.group1,
+        description: "TechnicalPreview badge",
+        badge: BadgeType.TechnicalPreview,
+      },
+      {
+        ...items.custom1,
+        description: "TechnicalPreview badge",
+        badge: BadgeType.TechnicalPreview,
+      },
+      {
+        ...items.action2,
+        description: "New badge",
+        badge: BadgeType.New,
+      },
+      {
+        ...items.group2,
+        description: "New badge",
+        badge: BadgeType.New,
+      },
+
+      {
+        ...items.custom2,
+        description: "New badge",
+        badge: BadgeType.New,
+      },
+      {
+        ...items.action3,
+        description: "No badge",
+        badge: BadgeType.None,
+      },
     ],
   },
 };
@@ -204,14 +215,14 @@ function createItems() {
   );
   const action2 = ToolbarItemUtilities.createActionItem(
     "item2",
-    200,
+    100,
     <Svg3D />,
     "Item 2",
     action("Item 2")
   );
   const action3 = ToolbarItemUtilities.createActionItem(
     "item3",
-    300,
+    100,
     <SvgAndroid />,
     "Item 3",
     action("Item 3")
@@ -262,6 +273,28 @@ function createItems() {
     })
   );
 
+  const custom1 = ToolbarItemUtilities.createCustomItem(
+    "custom1",
+    100,
+    <Svg2D />,
+    "Custom 1",
+    <div>Custom panel content 1</div>
+  );
+  const custom2 = ToolbarItemUtilities.createCustomItem(
+    "custom2",
+    100,
+    <Svg3D />,
+    "Custom 2",
+    <div>Custom panel content 2</div>
+  );
+  const custom3 = ToolbarItemUtilities.createCustomItem(
+    "custom3",
+    100,
+    <SvgActivity />,
+    "Custom 3",
+    <div>Custom panel content 3</div>
+  );
+
   return {
     action1,
     action2,
@@ -272,6 +305,9 @@ function createItems() {
     group2,
     /** Group item with multiple columns. */
     group3,
+    custom1,
+    custom2,
+    custom3,
   };
 }
 
