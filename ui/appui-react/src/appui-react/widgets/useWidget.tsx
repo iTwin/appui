@@ -65,15 +65,11 @@ export function useWidget() {
   );
 
   return {
-    /**
-     *  State of the Widget
-     */ state,
-    /**
-     * Where the widget is located ("docked" | "popout" | "floating").
-     */
+    /** State of the Widget */
+    state,
+    /** Where the widget is located ("docked" | "popout" | "floating"). */
     widgetLocation,
-    /**
-     * Set widget to different state
+    /** Set widget to different state
      * @param WidgetState that you want to set the widget to.
      */
     setState: setWidgetState,
