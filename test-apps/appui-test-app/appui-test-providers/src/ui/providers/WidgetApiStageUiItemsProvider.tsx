@@ -34,7 +34,7 @@ import {
   UnregisterUiProviderTool,
 } from "../../tools/RegisterUiProviderTool";
 import { LogLifecycleWidget } from "../widgets/LogLifecycleWidget";
-import { UseThisWidgetHookWidget } from "../widgets/useWidgetHookWidget";
+import { UseWidgetHookWidget } from "../widgets/useWidgetHookWidget";
 
 /**
  * WidgetApiStageUiItemsProvider provides widget in the bottom panel that can exercise the Widget API on Widgets in the other panels.
@@ -253,14 +253,14 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         content: <LayoutControls />,
       });
       widgets.push({
-        id: "appui-test-providers:UseThisWidgetHookWidget",
-        label: "Use This Widget Hook",
+        id: "appui-test-providers:UseWidgetHookWidget",
+        label: "Use Widget Hook",
         icon: "icon-window-settings",
         defaultState: WidgetState.Open,
         canFloat: {
-          containerId: "appui-test-providers:UseThisWidgetHookWidget",
+          containerId: "appui-test-providers:UseWidgetHookWidget",
         },
-        content: <UseThisWidgetHookWidget />,
+        content: <UseWidgetHookWidget />,
         canPopout: true,
         allowedPanels: [StagePanelLocation.Left, StagePanelLocation.Right],
       });

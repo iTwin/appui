@@ -79,7 +79,6 @@ export function useWidget() {
 function findLocation(locationTabId: string, frontstage: FrontstageDef) {
   assert(!!frontstage.nineZoneState);
   const tabLocation = getTabLocation(frontstage.nineZoneState, locationTabId);
-  assert(!!tabLocation);
 
   if (tabLocation) {
     if (isFloatingTabLocation(tabLocation)) {
@@ -95,5 +94,5 @@ function findLocation(locationTabId: string, frontstage: FrontstageDef) {
     }
   }
 
-  return "docked";
+  return "floating";
 }

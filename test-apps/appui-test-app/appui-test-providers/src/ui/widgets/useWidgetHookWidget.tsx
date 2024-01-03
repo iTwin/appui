@@ -6,9 +6,9 @@ import * as React from "react";
 import { useWidget, WidgetState } from "@itwin/appui-react";
 import { Button } from "@itwin/itwinui-react";
 
-export function UseThisWidgetHookWidget() {
-  const thisWidget = useWidget();
-  const thisWidgetText = JSON.stringify(thisWidget);
+export function UseWidgetHookWidget() {
+  const useWidgetHook = useWidget();
+  const useWidgetText = JSON.stringify(useWidgetHook);
 
   return (
     <div
@@ -27,18 +27,18 @@ export function UseThisWidgetHookWidget() {
           alignItems: "center",
         }}
       >
-        {thisWidgetText}
+        {useWidgetText}
       </div>
-      <Button onClick={() => thisWidget.setState(WidgetState.Closed)}>
+      <Button onClick={() => useWidgetHook.setState(WidgetState.Closed)}>
         Set Closed
       </Button>
-      <Button onClick={() => thisWidget.setState(WidgetState.Open)}>
+      <Button onClick={() => useWidgetHook.setState(WidgetState.Open)}>
         Set Open
       </Button>
-      <Button onClick={() => thisWidget.setState(WidgetState.Hidden)}>
+      <Button onClick={() => useWidgetHook.setState(WidgetState.Hidden)}>
         Set Hidden
       </Button>
-      <Button onClick={() => thisWidget.setState(WidgetState.Unloaded)}>
+      <Button onClick={() => useWidgetHook.setState(WidgetState.Unloaded)}>
         Set Unloaded
       </Button>
     </div>
