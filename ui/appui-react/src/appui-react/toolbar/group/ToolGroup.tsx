@@ -14,6 +14,7 @@ import { ButtonGroup } from "@itwin/itwinui-react";
 import { ActionItem } from "./ActionItem";
 import { GroupItem } from "./GroupItem";
 import { CustomItem } from "./CustomItem";
+import { OverflowButton } from "./OverflowButton";
 
 /** @internal */
 export interface ToolGroupProps extends CommonProps {
@@ -29,6 +30,11 @@ export function ToolGroup(props: ToolGroupProps) {
       className={className}
       orientation={props.orientation}
       style={props.style}
+      overflowButton={(overflowStart) => {
+        const children = React.Children.toArray(props.children);
+        const overflowChildren = children.slice(overflowStart - 1);
+        return <OverflowButton>{overflowChildren}</OverflowButton>;
+      }}
     >
       {props.children}
     </ButtonGroup>

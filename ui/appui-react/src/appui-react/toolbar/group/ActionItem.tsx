@@ -12,6 +12,7 @@ import { BadgeUtilities, type CommonProps, Icon } from "@itwin/core-react";
 import { IconButton } from "@itwin/itwinui-react";
 import type { ToolbarActionItem } from "../ToolbarItem";
 import { useConditionalValue } from "../../hooks/useConditionalValue";
+import { ToolGroupOverflowContext } from "./OverflowButton";
 
 /** @internal */
 export interface ActionItemProps extends CommonProps {
@@ -26,6 +27,8 @@ export function ActionItem(props: ActionItemProps) {
   const isDisabled = useConditionalValue(item.isDisabled);
   const isHidden = useConditionalValue(item.isHidden);
   const iconSpec = useConditionalValue(item.icon);
+  const toolGroupOverflow = React.useContext(ToolGroupOverflowContext);
+
   if (isHidden) return null;
   return (
     <IconButton
@@ -35,7 +38,10 @@ export function ActionItem(props: ActionItemProps) {
       isActive={item.isActive}
       label={<ItemLabel label={label} description={description} />}
       style={props.style}
-      onClick={() => item.execute()}
+      onClick={() => {
+        toolGroupOverflow?.close();
+        item.execute();
+      }}
     >
       <Icon iconSpec={iconSpec} />
       <Badge badge={item.badge} />
