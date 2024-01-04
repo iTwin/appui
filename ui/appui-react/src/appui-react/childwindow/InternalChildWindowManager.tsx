@@ -170,7 +170,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
         parentWindow: window,
       });
       let element: React.FunctionComponentElement<any>;
-      if (content.props.widgetDef.id) {
+      if (content.props.widgetDef) {
         const tabId = content.props.widgetDef.id as string;
         element = (
           <Provider store={UiFramework.store}>
