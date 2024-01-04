@@ -10,7 +10,9 @@ import "./LoadingSpinner.scss";
 import * as React from "react";
 import { ProgressRadial } from "@itwin/itwinui-react";
 
-type ProgressRadialProps = React.ComponentPropsWithoutRef<typeof ProgressRadial>;
+type ProgressRadialProps = React.ComponentPropsWithoutRef<
+  typeof ProgressRadial
+>;
 
 /** Type for ProgressRadialProps.size
  * @public

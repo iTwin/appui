@@ -34,7 +34,7 @@ function PreviewFeatureList() {
   }
 
   return (
-    (<DropdownButton
+    <DropdownButton
       size="small"
       menuItems={() =>
         featureList.map(({ id: feature, label }) => (
@@ -61,7 +61,7 @@ function PreviewFeatureList() {
       }
     >
       <BetaBadge />
-    </DropdownButton>)
+    </DropdownButton>
   );
 }
 

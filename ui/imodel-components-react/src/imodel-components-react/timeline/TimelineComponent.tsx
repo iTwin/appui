@@ -465,7 +465,7 @@ export class TimelineComponent extends React.Component<
       <span />
     );
     return (
-      (<MenuItem
+      <MenuItem
         key={index}
         startIcon={icon}
         onClick={() => {
@@ -474,7 +474,7 @@ export class TimelineComponent extends React.Component<
         }}
       >
         {label}
-      </MenuItem>)
+      </MenuItem>
     );
   }
 

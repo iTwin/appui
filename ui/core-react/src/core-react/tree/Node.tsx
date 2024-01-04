@@ -153,7 +153,7 @@ export class TreeNode extends React.Component<TreeNodeProps> {
 
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      (<div
+      <div
         className={className}
         style={this.props.style}
         data-testid={this.props["data-testid"]}
@@ -180,7 +180,7 @@ export class TreeNode extends React.Component<TreeNodeProps> {
           {this.props.label}
         </div>
         {this.props.children}
-      </div>)
+      </div>
     );
   }
 

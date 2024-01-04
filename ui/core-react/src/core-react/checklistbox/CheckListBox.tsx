@@ -38,7 +38,7 @@ export class CheckListBoxItem extends React.PureComponent<CheckListBoxItemProps>
       this.props.className
     );
     return (
-      (<li>
+      <li>
         <Checkbox
           checked={this.props.checked}
           disabled={this.props.disabled}
@@ -48,9 +48,10 @@ export class CheckListBoxItem extends React.PureComponent<CheckListBoxItemProps>
           data-testid="core-chk-listboxitem-checkbox"
           wrapperProps={{
             className: className,
-            style: this.props.style
-          }} />
-      </li>)
+            style: this.props.style,
+          }}
+        />
+      </li>
     );
   }
 }
