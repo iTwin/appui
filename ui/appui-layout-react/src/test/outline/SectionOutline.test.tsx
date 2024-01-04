@@ -6,7 +6,6 @@ import * as React from "react";
 import { act, render } from "@testing-library/react";
 import type { DragManager } from "../../appui-layout-react";
 import {
-  addTab,
   createNineZoneState,
   PanelSideContext,
 } from "../../appui-layout-react";
@@ -15,6 +14,7 @@ import { createDragInfo, TestNineZoneProvider } from "../Providers";
 import { SectionOutline } from "../../appui-layout-react/outline/SectionOutline";
 import { expect } from "chai";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
 
 function Wrapper({
   children,

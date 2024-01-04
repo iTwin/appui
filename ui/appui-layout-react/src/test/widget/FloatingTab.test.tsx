@@ -9,14 +9,16 @@ import { Point } from "@itwin/core-react";
 import { act, fireEvent, render } from "@testing-library/react";
 import type { DragManager, NineZoneDispatch } from "../../appui-layout-react";
 import {
-  addPanelWidget,
-  addTab,
   createNineZoneState,
   FloatingTab,
   ShowWidgetIconContext,
 } from "../../appui-layout-react";
 import { createDragInfo, TestNineZoneProvider } from "../Providers";
-import { createDraggedTabState } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import {
+  addTab,
+  createDraggedTabState,
+} from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 
 describe("FloatingTab", () => {
   it("should render", async () => {

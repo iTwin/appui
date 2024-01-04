@@ -5,8 +5,6 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import {
-  addPanelWidget,
-  addTab,
   createNineZoneState,
   PanelSideContext,
 } from "../../appui-layout-react";
@@ -14,7 +12,11 @@ import { PanelTargets } from "../../appui-layout-react/target/PanelTargets";
 import type { TestNineZoneProviderProps } from "../Providers";
 import { TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";
-import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import {
+  addPanelWidget,
+  updatePanelState,
+} from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
 
 function Wrapper(props: React.PropsWithChildren<TestNineZoneProviderProps>) {
   const { children, ...other } = props;

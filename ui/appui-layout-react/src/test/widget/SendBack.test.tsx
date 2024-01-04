@@ -7,8 +7,6 @@ import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
 import type { NineZoneDispatch } from "../../appui-layout-react";
 import {
-  addFloatingWidget,
-  addTab,
   createNineZoneState,
   SendBack,
   useActiveSendBackWidgetIdStore,
@@ -16,6 +14,8 @@ import {
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { expect } from "chai";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { addFloatingWidget } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 
 describe("SendBack", () => {
   it("should render", () => {
