@@ -28,8 +28,8 @@ import {
   FormatType,
   Parser,
 } from "@itwin/core-quantity";
-import type { InputProps } from "@itwin/itwinui-react";
 import { Input } from "@itwin/itwinui-react";
+type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 import {
   SvgCaretDown,
   SvgCaretDownSmall,

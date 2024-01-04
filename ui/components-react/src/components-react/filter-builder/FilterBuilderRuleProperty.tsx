@@ -8,8 +8,9 @@
 
 import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
-import type { ComboBoxProps, SelectOption } from "@itwin/itwinui-react";
+import type { SelectOption } from "@itwin/itwinui-react";
 import { ComboBox, MenuItem } from "@itwin/itwinui-react";
+type ComboBoxProps = React.ComponentPropsWithoutRef<typeof ComboBox>;
 import { UiComponents } from "../UiComponents";
 
 /**

@@ -10,8 +10,9 @@ import "./SquareButton.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { Omit } from "@itwin/core-react";
-import type { ButtonProps } from "@itwin/itwinui-react";
 import { Button } from "@itwin/itwinui-react";
+
+type ButtonProps = React.ComponentPropsWithoutRef<typeof Button>;
 
 /** @alpha */
 export interface SquareButtonProps // eslint-disable-line @typescript-eslint/no-empty-interface

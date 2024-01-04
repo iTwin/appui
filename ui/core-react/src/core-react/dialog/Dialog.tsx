@@ -18,7 +18,7 @@ import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
 import { Dialog as BaseDialog } from "@itwin/itwinui-react";
 import { Button } from "@itwin/itwinui-react";
-import type { ButtonProps } from "@itwin/itwinui-react";
+type ButtonProps = React.ComponentPropsWithoutRef<typeof Button>;
 
 // cspell:ignore focustrap
 

@@ -465,16 +465,16 @@ export class TimelineComponent extends React.Component<
       <span />
     );
     return (
-      <MenuItem
+      (<MenuItem
         key={index}
-        icon={icon}
+        startIcon={icon}
         onClick={() => {
           this._onSetTotalDuration(item.timelineDuration);
           close();
         }}
       >
         {label}
-      </MenuItem>
+      </MenuItem>)
     );
   }
 
@@ -517,7 +517,7 @@ export class TimelineComponent extends React.Component<
               this._onRepeatChanged();
               close();
             }}
-            icon={icon}
+            startIcon={icon}
           >
             {this._repeatLabel}
           </MenuItem>

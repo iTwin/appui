@@ -22,8 +22,8 @@ import {
   StandardEditorNames,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import type { TextareaProps } from "@itwin/itwinui-react";
 import { Textarea } from "@itwin/itwinui-react";
+type TextareaProps = React.ComponentPropsWithoutRef<typeof Textarea>;
 import { TypeConverterManager } from "../converters/TypeConverterManager";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
 import {

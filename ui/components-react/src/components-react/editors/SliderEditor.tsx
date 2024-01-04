@@ -21,8 +21,8 @@ import {
   StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { Icon } from "@itwin/core-react";
-import type { TooltipProps } from "@itwin/itwinui-react";
-import { Slider } from "@itwin/itwinui-react";
+import { Slider, Tooltip } from "@itwin/itwinui-react";
+type TooltipProps = React.ComponentPropsWithoutRef<typeof Tooltip>;
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
 import {
   PropertyEditorBase,

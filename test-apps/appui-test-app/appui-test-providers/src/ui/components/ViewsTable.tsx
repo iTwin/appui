@@ -7,7 +7,7 @@ import * as React from "react";
 import { Table } from "@itwin/itwinui-react";
 import { useActiveIModelConnection } from "@itwin/appui-react";
 import { getViewDefinitions } from "./ViewDefinitionSelector";
-import type { Column } from "react-table";
+import type { Column } from "@itwin/itwinui-react/react-table";
 interface ViewDataItem {
   id: string;
   class: string;

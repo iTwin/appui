@@ -9,7 +9,7 @@
 import * as React from "react";
 import type { ReactMessage } from "@itwin/core-react";
 import { UiCore } from "@itwin/core-react";
-import { ProgressLinear, Text, toaster } from "@itwin/itwinui-react";
+import { ProgressLinear, Text, useToaster } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
 import type { ActivityMessageEventArgs } from "../messages/MessageManager";
 import { MessageManager } from "../messages/MessageManager";
@@ -29,6 +29,7 @@ function useActivityMessage({
   dismissActivityMessage,
   cancelActivityMessage,
 }: UseActivityMessageProps) {
+  const toaster = useToaster();
   const [cancelLabel] = React.useState(UiCore.translate("dialog.cancel"));
   const recentToast = React.useRef<{ close: () => void } | undefined>();
   React.useEffect(() => {

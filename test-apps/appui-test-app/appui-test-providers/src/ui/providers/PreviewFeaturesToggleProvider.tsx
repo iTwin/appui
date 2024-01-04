@@ -34,14 +34,14 @@ function PreviewFeatureList() {
   }
 
   return (
-    <DropdownButton
+    (<DropdownButton
       size="small"
       menuItems={() =>
         featureList.map(({ id: feature, label }) => (
           <MenuItem
             key={feature}
             sublabel={feature}
-            badge={
+            endIcon={
               <Checkbox
                 checked={activeFeatureList.includes(feature)}
                 readOnly
@@ -61,7 +61,7 @@ function PreviewFeatureList() {
       }
     >
       <BetaBadge />
-    </DropdownButton>
+    </DropdownButton>)
   );
 }
 

@@ -21,8 +21,8 @@ import {
   PropertyValueFormat,
 } from "@itwin/appui-abstract";
 import { Icon, IconInput } from "@itwin/core-react";
-import type { InputProps } from "@itwin/itwinui-react";
 import { Input } from "@itwin/itwinui-react";
+type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 import { TypeConverterManager } from "../converters/TypeConverterManager";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
 import { UiComponents } from "../UiComponents";

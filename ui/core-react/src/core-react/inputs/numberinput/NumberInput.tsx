@@ -10,8 +10,8 @@ import "./NumberInput.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import type { InputProps } from "@itwin/itwinui-react";
 import { Input } from "@itwin/itwinui-react";
+type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 import { Icon } from "../../icons/IconComponent";
 import {
   SvgCaretDown,

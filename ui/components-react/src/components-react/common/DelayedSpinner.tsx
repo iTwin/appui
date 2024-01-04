@@ -7,8 +7,9 @@
  */
 
 import * as React from "react";
-import type { ProgressRadialProps } from "@itwin/itwinui-react";
 import { ProgressRadial } from "@itwin/itwinui-react";
+
+type ProgressRadialProps = React.ComponentPropsWithoutRef<typeof ProgressRadial>;
 
 /** Type for ProgressRadialProps.size */
 type RadialSizeType = ProgressRadialProps["size"];

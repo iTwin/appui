@@ -9,8 +9,8 @@
 import "./Node.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CheckboxProps } from "@itwin/itwinui-react";
 import { Checkbox, ProgressRadial } from "@itwin/itwinui-react";
+type CheckboxProps = React.ComponentPropsWithoutRef<typeof Checkbox>;
 import { CheckBoxState } from "../enums/CheckBoxState";
 import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
@@ -153,7 +153,7 @@ export class TreeNode extends React.Component<TreeNodeProps> {
 
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      <div
+      (<div
         className={className}
         style={this.props.style}
         data-testid={this.props["data-testid"]}
@@ -180,7 +180,7 @@ export class TreeNode extends React.Component<TreeNodeProps> {
           {this.props.label}
         </div>
         {this.props.children}
-      </div>
+      </div>)
     );
   }
 

@@ -38,8 +38,8 @@ import type {
   NotifyMessageType,
 } from "./ReactNotifyMessageDetails";
 import { StatusMessageManager } from "./StatusMessageManager";
-import type { ToastOptions } from "@itwin/itwinui-react";
-import { Text, toaster } from "@itwin/itwinui-react";
+import type { ToastOptions, useToaster } from "@itwin/itwinui-react";
+import { Text } from "@itwin/itwinui-react";
 import type { ToasterSettings } from "@itwin/itwinui-react/cjs/core/Toast/Toaster";
 import {
   SvgInfo,
