@@ -21,7 +21,6 @@ import {
   PropertyEditorManager,
 } from "./PropertyEditorManager";
 import { ToggleSwitch } from "@itwin/itwinui-react";
-import { getiTwinUISize } from "../common/iuiUtils";
 
 /** @internal */
 interface ToggleEditorState {

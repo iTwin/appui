@@ -286,8 +286,6 @@ const ForwardRefNumberInput = React.forwardRef<
   const caretUp = showTouchButtons ? <SvgCaretUp /> : <SvgCaretUpSmall />;
   const caretDown = showTouchButtons ? <SvgCaretDown /> : <SvgCaretDownSmall />;
 
-  console.log("size is ", size);
-
   return (
     <div className={containerClasses} style={containerStyle}>
       <Input
