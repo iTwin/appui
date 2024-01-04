@@ -131,7 +131,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         .to.be.not.null;
     });
 
-    it("renders loader on subsequent selections that take longer than 150 ms", async () => {
+    it("renders loader on subsequent selections that take longer to load", async () => {
       const { container, findByText } = render(
         <VirtualizedPropertyGridWithDataProvider {...defaultProps} />
       );
@@ -157,7 +157,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
             container.querySelector(
               ".components-virtualized-property-grid-loader"
             )
-          ).to.be.not.null
+          ).to.be.not.null,
+        { timeout: 500 }
       );
     });
 

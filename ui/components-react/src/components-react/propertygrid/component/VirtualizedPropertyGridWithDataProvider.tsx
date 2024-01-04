@@ -56,9 +56,15 @@ export function VirtualizedPropertyGridWithDataProvider(
   const model = usePropertyGridModel({ modelSource });
   const eventHandler = usePropertyGridEventHandler({ modelSource });
   useEffect(() => {
+    if (!inProgress) {
+      setShowSpinner(inProgress);
+      return;
+    }
+
+    // only set a timeout when inProgress is set to `true`
     const timeout = setTimeout(() => {
       setShowSpinner(inProgress);
-    }, 150);
+    }, 250);
 
     return () => clearTimeout(timeout);
   }, [inProgress, model]);
