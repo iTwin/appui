@@ -1,8 +1,8 @@
-# AppUI Test App
+# AppUI Standalone Test App
 
 ## About this Application
 
-The application contained within this directory provides a test environment for developers working on react based AppUI functionality of iTwin.js. It is `not` intended to serve as an example or template for the design of "real" iTwin.js applications.
+The application contained within this directory provides a test environment for developers working on react based AppUI functionality of iTwin.js and only allow access to local files. It is `not` intended to serve as an example or template for the design of "real" iTwin.js applications.
 
 ## Getting Started
 
