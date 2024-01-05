@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import classnames from "classnames";
 import { Key } from "ts-key-enum";
 import { Input } from "@itwin/itwinui-react";
 import type { TimeDisplay } from "@itwin/appui-abstract";
@@ -355,7 +356,7 @@ export function TimeField({
   return (
     <div data-testid="components-time-input" className="components-time">
       <Input
-        className="components-time-input"
+        className={classnames("components-time-input", "components-input")}
         onKeyDown={handleHoursOnKeyDown}
         onBlur={handleHoursOnBlur}
         onChange={handleHoursChange}
@@ -365,7 +366,7 @@ export function TimeField({
       />
       <span className="component-time-separator">:</span>
       <Input
-        className="components-time-input"
+        className={classnames("components-time-input", "components-input")}
         onKeyDown={handleMinutesOnKeyDown}
         onBlur={handleMinutesOnBlur}
         onChange={handleMinutesChange}
@@ -377,7 +378,7 @@ export function TimeField({
         <>
           <span className="component-time-separator">:</span>
           <Input
-            className="components-time-input"
+            className={classnames("components-time-input", "components-input")}
             onKeyDown={handleSecondsOnKeyDown}
             onBlur={handleSecondsOnBlur}
             onChange={handleSecondsChange}
@@ -389,7 +390,10 @@ export function TimeField({
       )}
       {dayPeriodText && (
         <Input
-          className="components-time-period-input"
+          className={classnames(
+            "components-time-period-input",
+            "components-input"
+          )}
           onKeyDown={handleDayPeriodOnKeyDown}
           onBlur={handleDayPeriodOnBlur}
           onChange={handleDayPeriodChange}
