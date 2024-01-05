@@ -180,9 +180,7 @@ function WidgetSelect({
     <Select
       options={options}
       value={id}
-      onChange={(value) => {
-        onChange(value);
-      }}
+      onChange={onChange as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
       size="small"
     />
   );
@@ -660,9 +658,7 @@ function FloatingWidgetSelect({
     <Select
       options={options}
       value={id}
-      onChange={(value) => {
-        onChange && onChange(value);
-      }}
+      onChange={onChange as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
       size="small"
     />
   );

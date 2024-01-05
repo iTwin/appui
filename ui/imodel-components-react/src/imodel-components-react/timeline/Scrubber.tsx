@@ -352,11 +352,9 @@ export function Scrubber(props: ScrubberProps) {
       tooltipProps={tooltipProps}
       thumbProps={thumbProps}
       tickLabels={tickLabel}
-      railContainerProps={{
-        onPointerEnter: handlePointerEnter,
-        onPointerMove: handlePointerMove,
-        onPointerLeave: handlePointerLeave,
-      }}
+      onPointerEnter={handlePointerEnter}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
     />
   );
 }

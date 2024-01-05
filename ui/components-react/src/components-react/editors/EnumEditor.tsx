@@ -198,10 +198,15 @@ export class EnumEditor
           className={className}
           style={this.props.style ? this.props.style : minWidthStyle}
           value={selectValue}
-          onChange={this._updateSelectValue}
+          onChange={this._updateSelectValue as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
           data-testid="components-select-editor"
           options={this.state.options}
-          setFocus={this.props.setFocus}
+          triggerProps={{
+            ref: (el) => {
+              if (!this.props.setFocus) return;
+              el?.focus();
+            },
+          }}
           aria-label={this._ariaLabel}
           size="small"
         />

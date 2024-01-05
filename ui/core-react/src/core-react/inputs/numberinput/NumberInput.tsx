@@ -11,7 +11,6 @@ import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { Input } from "@itwin/itwinui-react";
-type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 import { Icon } from "../../icons/IconComponent";
 import {
   SvgCaretDown,
@@ -19,6 +18,8 @@ import {
   SvgCaretUp,
   SvgCaretUpSmall,
 } from "@itwin/itwinui-icons-react";
+
+type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
 /** Step function prototype for [[NumberInput]] component
  * @public

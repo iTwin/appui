@@ -185,11 +185,9 @@ function Timeline(props: TimelineProps) {
         tooltipProps={tooltipProps}
         thumbProps={thumbProps}
         tickLabels={tickLabel}
-        railContainerProps={{
-          onPointerEnter: handlePointerEnter,
-          onPointerMove: handlePointerMove,
-          onPointerLeave: handlePointerLeave,
-        }}
+        onPointerEnter={handlePointerEnter}
+        onPointerMove={handlePointerMove}
+        onPointerLeave={handlePointerLeave}
       />
       <Tooltip content={sunSetFormat}>
         <span className="sunset">&#x263D;</span>

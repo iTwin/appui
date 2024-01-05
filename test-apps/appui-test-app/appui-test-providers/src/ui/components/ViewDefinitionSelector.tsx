@@ -49,7 +49,7 @@ export default function ViewDefinitionSelector(
   return (
     <div>
       <Select
-        onChange={props.onViewDefinitionSelected}
+        onChange={props.onViewDefinitionSelected as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
         value={props.selectedViewDefinition}
         options={selectOptions}
         size="small"

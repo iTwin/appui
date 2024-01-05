@@ -182,7 +182,7 @@ export function UnitDescr(props: UnitDescrProps) {
         options={unitOptions}
         data-testid={`unit-${currentUnit.name}`}
         value={`${currentUnit.name}:${currentUnit.label}`}
-        onChange={handleOnUnitChange}
+        onChange={handleOnUnitChange as any}
         disabled={readonly}
         size="small"
       />

@@ -34,7 +34,7 @@ function useActivityMessage({
   const recentToast = React.useRef<{ close: () => void } | undefined>();
   React.useEffect(() => {
     toaster.setSettings({ placement: "bottom" });
-  }, []);
+  }, [toaster]);
 
   React.useEffect(() => {
     if (activityMessageInfo?.restored) {
@@ -61,6 +61,7 @@ function useActivityMessage({
     cancelActivityMessage,
     cancelLabel,
     dismissActivityMessage,
+    toaster,
   ]);
 }
 

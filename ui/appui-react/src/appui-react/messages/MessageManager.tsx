@@ -26,7 +26,7 @@ import {
 } from "@itwin/core-frontend";
 import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
-import { MessageContainer, MessageRenderer } from "@itwin/core-react";
+import { MessageContainer } from "@itwin/core-react";
 import { ConfigurableUiActionId } from "../configurableui/state";
 import { StandardMessageBox } from "../dialog/StandardMessageBox";
 import { ElementTooltip } from "../feedback/ElementTooltip";
@@ -38,8 +38,6 @@ import type {
   NotifyMessageType,
 } from "./ReactNotifyMessageDetails";
 import { StatusMessageManager } from "./StatusMessageManager";
-import type { ToastOptions, useToaster } from "@itwin/itwinui-react";
-import { Text } from "@itwin/itwinui-react";
 import type { ToasterSettings } from "@itwin/itwinui-react/cjs/core/Toast/Toaster";
 import {
   SvgInfo,
@@ -223,7 +221,8 @@ export class MessageManager {
     this._messages.splice(0);
     this._activeMessageManager.initialize();
 
-    toaster.closeAll(); // Because https://github.com/iTwin/iTwinUI/issues/1604
+    // TODO: iTwinUI 3.x
+    // toaster.closeAll(); // Because https://github.com/iTwin/iTwinUI/issues/1604
     this._toastCloseCallbacks.splice(0);
 
     this.onMessagesUpdatedEvent.emit({});
@@ -306,51 +305,55 @@ export class MessageManager {
    */
   public static displayMessage(
     message: NotifyMessageDetailsType,
-    options?: ToastOptions,
-    settings?: ToasterSettings
+    _options?: /* ToastOptions */ any,
+    _settings?: ToasterSettings
   ) {
+    // TODO: iTwinUI 3.x
     if (
       message.msgType !== OutputMessageType.Sticky &&
       message.msgType !== OutputMessageType.Toast
     ) {
-      return;
+      return undefined;
     }
-    const toastOptions: ToastOptions = {
-      hasCloseButton: true,
-      duration: message.displayTime.milliseconds,
-      type:
-        message.msgType === OutputMessageType.Sticky
-          ? "persisting"
-          : "temporary",
-      animateOutTo: this.animateOutToElement,
-      ...options,
+    return {
+      close: () => {},
     };
-    toaster.setSettings({
-      placement: "bottom",
-      order: "ascending",
-      ...settings,
-    });
-    const content = (
-      <>
-        <MessageRenderer message={message.briefMessage} />
-        {message.detailedMessage && (
-          <Text variant="small">
-            <MessageRenderer message={message.detailedMessage} />
-          </Text>
-        )}
-      </>
-    );
-    switch (message.priority) {
-      case OutputMessagePriority.Warning:
-        return toaster.warning(content, toastOptions);
-      case OutputMessagePriority.Info:
-        return toaster.informational(content, toastOptions);
-      case OutputMessagePriority.Error:
-      case OutputMessagePriority.Fatal:
-        return toaster.negative(content, toastOptions);
-      default:
-        return toaster.positive(content, toastOptions);
-    }
+    // const toastOptions: ToastOptions = {
+    //   hasCloseButton: true,
+    //   duration: message.displayTime.milliseconds,
+    //   type:
+    //     message.msgType === OutputMessageType.Sticky
+    //       ? "persisting"
+    //       : "temporary",
+    //   animateOutTo: this.animateOutToElement,
+    //   ...options,
+    // };
+    // toaster.setSettings({
+    //   placement: "bottom",
+    //   order: "ascending",
+    //   ...settings,
+    // });
+    // const content = (
+    //   <>
+    //     <MessageRenderer message={message.briefMessage} />
+    //     {message.detailedMessage && (
+    //       <Text variant="small">
+    //         <MessageRenderer message={message.detailedMessage} />
+    //       </Text>
+    //     )}
+    //   </>
+    // );
+    // switch (message.priority) {
+    //   case OutputMessagePriority.Warning:
+    //     return toaster.warning(content, toastOptions);
+    //   case OutputMessagePriority.Info:
+    //     return toaster.informational(content, toastOptions);
+    //   case OutputMessagePriority.Error:
+    //   case OutputMessagePriority.Fatal:
+    //     return toaster.negative(content, toastOptions);
+    //   default:
+    //     return toaster.positive(content, toastOptions);
+    // }
   }
 
   /** Output a message and/or alert to the user.

@@ -60,7 +60,7 @@ function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
         className="uifw-statusFields-selectionScope-selector"
         value={props.activeSelectionScope}
         options={options}
-        onChange={updateSelectValue}
+        onChange={updateSelectValue as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
         data-testid="components-selectionScope-selector"
         title={toolTip}
         size="small"

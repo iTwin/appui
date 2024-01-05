@@ -178,7 +178,7 @@ export function PropertyFilterBuilderRuleGroupOperator(
       <Select
         options={options}
         value={operator}
-        onChange={onChange}
+        onChange={onChange as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
         size="small"
       />
     </div>

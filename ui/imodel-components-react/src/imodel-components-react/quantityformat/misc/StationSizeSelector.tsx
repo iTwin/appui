@@ -49,7 +49,7 @@ export function StationSizeSelector(props: StationSizeSelectorProps) {
       options={separatorOptions.current}
       disabled={disabled}
       value={value}
-      onChange={handleOnChange}
+      onChange={handleOnChange as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
       size="small"
       {...otherProps}
     />

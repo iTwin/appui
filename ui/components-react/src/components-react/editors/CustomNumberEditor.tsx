@@ -363,7 +363,7 @@ export class CustomNumberEditor
       onChange: this._updateInputValue,
       onBlur: this.props.onBlur,
       onFocus: this._onFocus,
-      setFocus: this.shouldSetFocus(),
+      autoFocus: this.shouldSetFocus(),
       onKeyDown: this._onKeyPress,
     };
 

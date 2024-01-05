@@ -543,37 +543,37 @@ export class TimelineComponent extends React.Component<
       <DropdownMenu
         menuItems={createMenuItemNodes}
         placement="top-start"
-        popperOptions={{
-          modifiers: [
-            {
-              name: "hide", // When the timeline is no longer visible, hide the popper.
-            },
-            {
-              name: "preventOverflow",
-              options: {
-                altAxis: true, // Allow the popper to go below the reference element and use as much space as needed.
-              },
-            },
-            {
-              name: "computeStyles",
-              options: {
-                roundOffsets: ({ x, y }: { x: number; y: number }) => ({
-                  x,
-                  y: Math.max(y, 0), // Ensure that the top of the popper will not go over the top of the document.
-                }),
-              },
-            },
-            {
-              name: "setPopperClass", // Ensure we target only THIS popper with a class
-              enabled: true,
-              phase: "beforeWrite",
-              fn({ state }) {
-                state.attributes.popper.class =
-                  "timeline-component-max-sized-scrolling-menu";
-              },
-            },
-          ],
-        }}
+        // popperOptions={{ // TODO: iTwinUI 3.x
+        //   modifiers: [
+        //     {
+        //       name: "hide", // When the timeline is no longer visible, hide the popper.
+        //     },
+        //     {
+        //       name: "preventOverflow",
+        //       options: {
+        //         altAxis: true, // Allow the popper to go below the reference element and use as much space as needed.
+        //       },
+        //     },
+        //     {
+        //       name: "computeStyles",
+        //       options: {
+        //         roundOffsets: ({ x, y }: { x: number; y: number }) => ({
+        //           x,
+        //           y: Math.max(y, 0), // Ensure that the top of the popper will not go over the top of the document.
+        //         }),
+        //       },
+        //     },
+        //     {
+        //       name: "setPopperClass", // Ensure we target only THIS popper with a class
+        //       enabled: true,
+        //       phase: "beforeWrite",
+        //       fn({ state }) {
+        //         state.attributes.popper.class =
+        //           "timeline-component-max-sized-scrolling-menu";
+        //       },
+        //     },
+        //   ],
+        // }}
       >
         <span
           data-testid="timeline-settings"

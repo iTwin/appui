@@ -66,7 +66,7 @@ export function ThousandsSelector(props: ThousandsSelectorProps) {
       options={separatorOptions}
       disabled={disabled}
       value={separator}
-      onChange={handleOnChange}
+      onChange={handleOnChange as any}
       size="small"
       {...otherProps}
     />

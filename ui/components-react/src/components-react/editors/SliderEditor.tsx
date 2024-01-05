@@ -21,14 +21,16 @@ import {
   StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { Icon } from "@itwin/core-react";
-import { Slider, Tooltip } from "@itwin/itwinui-react";
-type TooltipProps = React.ComponentPropsWithoutRef<typeof Tooltip>;
+import type { Tooltip } from "@itwin/itwinui-react";
+import { Slider } from "@itwin/itwinui-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
 import {
   PropertyEditorBase,
   PropertyEditorManager,
 } from "./PropertyEditorManager";
 import { PopupButton, PopupContent, PopupOkCancelButtons } from "./PopupButton";
+
+type TooltipProps = React.ComponentPropsWithoutRef<typeof Tooltip>;
 
 /** @internal */
 interface SliderEditorState {

@@ -315,7 +315,7 @@ export function UiSettingsPage() {
           >
             <Select
               value={currentTheme}
-              onChange={onThemeChange}
+              onChange={onThemeChange as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
               options={themeOptions}
               data-testid="select-theme"
               size="small"

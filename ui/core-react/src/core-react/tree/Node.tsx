@@ -10,11 +10,12 @@ import "./Node.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Checkbox, ProgressRadial } from "@itwin/itwinui-react";
-type CheckboxProps = React.ComponentPropsWithoutRef<typeof Checkbox>;
 import { CheckBoxState } from "../enums/CheckBoxState";
 import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
 import { ExpansionToggle } from "./ExpansionToggle";
+
+type CheckboxProps = React.ComponentPropsWithoutRef<typeof Checkbox>;
 
 /** Props for node Checkbox renderer
  * @public

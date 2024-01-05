@@ -68,7 +68,7 @@ export function ControlledSelectableContent(
       <div className="components-selectable-content-header">
         {options.length > 0 && (
           <Select
-            onChange={onContentIdSelected}
+            onChange={onContentIdSelected as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
             size="small"
             className="components-selectable-content-selector"
             aria-label={props.selectAriaLabel}

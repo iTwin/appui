@@ -47,7 +47,7 @@ export class CheckListBoxItem extends React.PureComponent<CheckListBoxItemProps>
           onChange={this.props.onChange}
           data-testid="core-chk-listboxitem-checkbox"
           wrapperProps={{
-            className: className,
+            className,
             style: this.props.style,
           }}
         />

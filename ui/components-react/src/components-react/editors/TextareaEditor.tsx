@@ -23,7 +23,6 @@ import {
   StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { Textarea } from "@itwin/itwinui-react";
-type TextareaProps = React.ComponentPropsWithoutRef<typeof Textarea>;
 import { TypeConverterManager } from "../converters/TypeConverterManager";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
 import {
@@ -32,6 +31,8 @@ import {
 } from "./PropertyEditorManager";
 import { PopupButton, PopupContent, PopupOkCancelButtons } from "./PopupButton";
 import { UiComponents } from "../UiComponents";
+
+type TextareaProps = React.ComponentPropsWithoutRef<typeof Textarea>;
 
 /** @internal */
 interface TextareaEditorState {
@@ -220,7 +221,7 @@ export class TextareaEditor
       maxLength: this.state.maxLength,
       value: this.state.inputValue,
       onChange: this._updateTextareaValue,
-      setFocus: this.props.setFocus && !this.state.isDisabled,
+      autoFocus: this.props.setFocus && !this.state.isDisabled,
     };
 
     textareaProps["aria-label"] = this._ariaLabel;
