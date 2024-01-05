@@ -127,7 +127,10 @@ export class TileLoadingIndicator extends React.PureComponent<
     return (
       <div className={classes} style={this.props.style}>
         <span>{this.state.label}</span>
-        <ProgressLinear value={this.state.progress} />
+        <ProgressLinear
+          className="uifw-progress-indicator"
+          value={this.state.progress}
+        />
       </div>
     );
   }
