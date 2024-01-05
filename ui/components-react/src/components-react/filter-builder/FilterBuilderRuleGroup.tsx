@@ -110,6 +110,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
         </div>
         <div className="rule-group-actions">
           <Button
+            className="rule-group-button"
             key="add-rule-button"
             data-testid="rule-group-add-rule"
             onClick={() => handleAddRule("RULE")}
@@ -121,6 +122,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
           </Button>
           {allowToAddGroup && (
             <Button
+              className="rule-group-button"
               key="add-rule-group-button"
               data-testid="rule-group-add-rule-group"
               onClick={() => handleAddRule("RULE_GROUP")}

@@ -206,6 +206,7 @@ export class EnumEditor
               if (!this.props.setFocus) return;
               el?.focus();
             },
+            className: "components-button",
           }}
           aria-label={this._ariaLabel}
           size="small"
