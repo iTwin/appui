@@ -157,6 +157,7 @@ class ThemeManagerComponent extends React.Component<ThemeManagerProps> {
         theme={theme ?? "inherit"}
         themeOptions={{ highContrast }}
         data-root-container={"iui-root-id"}
+        includeCss={true}
       >
         {this.props.children}
       </ThemeProvider>
