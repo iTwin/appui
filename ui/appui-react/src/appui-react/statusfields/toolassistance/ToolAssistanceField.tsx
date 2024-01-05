@@ -404,13 +404,22 @@ export class ToolAssistanceField extends React.Component<
       dialogContent = (
         <div>
           {this.state.showMouseTouchTabs && (
-            <Tabs
-              orientation="horizontal"
-              tabsClassName="uifw-toolAssistance-tabs"
-              labels={[mouseLabel, touchLabel]}
-              activeIndex={this.state.mouseTouchTabIndex}
-              onTabSelected={this._handleMouseTouchTab}
-            />
+            <Tabs.Wrapper
+              type="pill"
+              value={String(this.state.mouseTouchTabIndex)}
+            >
+              <Tabs.TabList className="uifw-toolAssistance-tabs">
+                {[mouseLabel, touchLabel].map((label, index) => (
+                  <Tabs.Tab
+                    key={index}
+                    className="uifw-tab"
+                    value={String(index)}
+                    label={label}
+                    onClick={async () => this._handleMouseTouchTab(index)}
+                  />
+                ))}
+              </Tabs.TabList>
+            </Tabs.Wrapper>
           )}
 
           <div className="uifw-toolAssistance-content">
