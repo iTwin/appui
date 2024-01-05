@@ -38,13 +38,18 @@ import type {
   NotifyMessageType,
 } from "./ReactNotifyMessageDetails";
 import { StatusMessageManager } from "./StatusMessageManager";
-import type { ToasterSettings } from "@itwin/itwinui-react/cjs/core/Toast/Toaster";
 import {
   SvgInfo,
   SvgStatusError,
   SvgStatusSuccess,
   SvgStatusWarning,
 } from "@itwin/itwinui-icons-react";
+import type { useToaster } from "@itwin/itwinui-react";
+import { BeUiEvent } from "@itwin/core-bentley";
+
+type Toaster = ReturnType<typeof useToaster>;
+type ToasterSettings = Parameters<Toaster["setSettings"]>;
+type ToastOptions = Parameters<Toaster["positive"]>[1];
 
 class MessageBoxCallbacks {
   constructor(
@@ -200,6 +205,15 @@ export class MessageManager {
   public static readonly onOpenMessageCenterEvent =
     new OpenMessageCenterEvent();
 
+  /** @internal */
+  public static readonly onDisplayMessage = new BeUiEvent<{
+    message: NotifyMessageDetailsType;
+    options?: ToastOptions;
+    settings?: ToasterSettings;
+    animateOutToElement?: HTMLElement;
+    close?: () => void;
+  }>();
+
   /** The ToolAssistanceChangedEvent is fired when a tool calls IModelApp.notifications.setToolAssistance().
    * @public
    */
@@ -221,8 +235,6 @@ export class MessageManager {
     this._messages.splice(0);
     this._activeMessageManager.initialize();
 
-    // TODO: iTwinUI 3.x
-    // toaster.closeAll(); // Because https://github.com/iTwin/iTwinUI/issues/1604
     this._toastCloseCallbacks.splice(0);
 
     this.onMessagesUpdatedEvent.emit({});
@@ -282,12 +294,10 @@ export class MessageManager {
       : [element, ...this._animateOutToElement];
   }
 
-  /**
-   * Handles disconnected element modal frontstages, revert to last still displayed.
-   */
-  private static get animateOutToElement(): HTMLElement | null {
+  /** Handles disconnected element modal frontstages, revert to last still displayed. */
+  private static get animateOutToElement(): HTMLElement | undefined {
     if (this._animateOutToElement.length === 0) {
-      return null;
+      return undefined;
     }
     if (this._animateOutToElement[0]?.isConnected) {
       return this._animateOutToElement[0];
@@ -305,55 +315,30 @@ export class MessageManager {
    */
   public static displayMessage(
     message: NotifyMessageDetailsType,
-    _options?: /* ToastOptions */ any,
-    _settings?: ToasterSettings
+    options?: ToastOptions,
+    settings?: ToasterSettings
   ) {
-    // TODO: iTwinUI 3.x
     if (
       message.msgType !== OutputMessageType.Sticky &&
       message.msgType !== OutputMessageType.Toast
     ) {
       return undefined;
     }
-    return {
-      close: () => {},
+
+    const args: Parameters<
+      (typeof MessageManager.onDisplayMessage)["emit"]
+    >[0] = {
+      message,
+      options,
+      settings,
+      animateOutToElement: this.animateOutToElement,
     };
-    // const toastOptions: ToastOptions = {
-    //   hasCloseButton: true,
-    //   duration: message.displayTime.milliseconds,
-    //   type:
-    //     message.msgType === OutputMessageType.Sticky
-    //       ? "persisting"
-    //       : "temporary",
-    //   animateOutTo: this.animateOutToElement,
-    //   ...options,
-    // };
-    // toaster.setSettings({
-    //   placement: "bottom",
-    //   order: "ascending",
-    //   ...settings,
-    // });
-    // const content = (
-    //   <>
-    //     <MessageRenderer message={message.briefMessage} />
-    //     {message.detailedMessage && (
-    //       <Text variant="small">
-    //         <MessageRenderer message={message.detailedMessage} />
-    //       </Text>
-    //     )}
-    //   </>
-    // );
-    // switch (message.priority) {
-    //   case OutputMessagePriority.Warning:
-    //     return toaster.warning(content, toastOptions);
-    //   case OutputMessagePriority.Info:
-    //     return toaster.informational(content, toastOptions);
-    //   case OutputMessagePriority.Error:
-    //   case OutputMessagePriority.Fatal:
-    //     return toaster.negative(content, toastOptions);
-    //   default:
-    //     return toaster.positive(content, toastOptions);
-    // }
+    this.onDisplayMessage.emit(args);
+    return {
+      close: () => {
+        args.close?.();
+      },
+    };
   }
 
   /** Output a message and/or alert to the user.
@@ -393,6 +378,7 @@ export class MessageManager {
       (msg) => !this._toastCloseCallbacks.find((m) => m.id === msg.id)
     );
     messagesToAdd.forEach((msg) => {
+      // eslint-disable-next-line deprecation/deprecation
       const displayedMessage = MessageManager.displayMessage(
         msg.messageDetails,
         {

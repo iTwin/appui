@@ -22,9 +22,9 @@ import {
 } from "@itwin/core-frontend";
 import { AppNotificationManager, MessageManager } from "../../appui-react";
 import TestUtils from "../TestUtils";
-import { ActivityMessageRenderer } from "../../appui-react/messages/ActivityMessage";
+import { MessageRenderer } from "../../appui-react/messages/MessageRenderer";
 
-describe("ActivityMessageRenderer", () => {
+describe("MessageRenderer", () => {
   let notifications: AppNotificationManager;
 
   before(async () => {
@@ -39,8 +39,8 @@ describe("ActivityMessageRenderer", () => {
     TestUtils.terminateUiFramework();
   });
 
-  it("ActivityMessageRenderer should render an Activity message", async () => {
-    render(<ActivityMessageRenderer />);
+  it("should render an activity message", async () => {
+    render(<MessageRenderer />);
 
     const details = new ActivityMessageDetails(true, true, false);
     notifications.setupActivityMessage(details);
@@ -57,8 +57,8 @@ describe("ActivityMessageRenderer", () => {
     await waitForElementToBeRemoved(screen.queryByText("Message text"));
   });
 
-  it("Activity message should be canceled", async () => {
-    render(<ActivityMessageRenderer />);
+  it("should cancel an activity message", async () => {
+    render(<MessageRenderer />);
 
     const details = new ActivityMessageDetails(true, true, true);
     notifications.setupActivityMessage(details);
@@ -75,8 +75,8 @@ describe("ActivityMessageRenderer", () => {
     await waitForElementToBeRemoved(screen.queryByText("Message text"));
   });
 
-  it("Activity message should be dismissed", async () => {
-    render(<ActivityMessageRenderer />);
+  it("should dismiss an activity message", async () => {
+    render(<MessageRenderer />);
 
     const details = new ActivityMessageDetails(true, true, true);
     notifications.setupActivityMessage(details);
@@ -93,8 +93,8 @@ describe("ActivityMessageRenderer", () => {
     await waitForElementToBeRemoved(screen.queryByText("Message text"));
   });
 
-  it("Should render Toast, Sticky & Activity messages", async () => {
-    render(<ActivityMessageRenderer />);
+  it("should render toast, sticky & activity messages", async () => {
+    render(<MessageRenderer />);
 
     const details1 = new NotifyMessageDetails(
       OutputMessagePriority.Warning,
