@@ -89,7 +89,7 @@ export function FormatSample(props: FormatSampleProps) {
       <span className="components-inline">
         <Input
           data-testid="format-sample-input"
-          className={"components-quantity-persistence-input"}
+          className="components-quantity-persistence-input"
           value={sampleValue}
           onChange={handleOnValueChange}
           onKeyDown={handleKeyDown}
