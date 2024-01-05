@@ -28,6 +28,7 @@ import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
+import { getTabLocation, isPopoutTabLocation } from "@itwin/appui-layout-react";
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -541,10 +542,18 @@ export class WidgetDef {
     if (!state) return;
     if (!frontstageDef.findWidgetDef(this.id)) return;
 
-    frontstageDef.dispatch({
-      type: "WIDGET_TAB_SHOW",
-      id: this.id,
-    });
+    const tabLocation = getTabLocation(state, this.id);
+    if (tabLocation && isPopoutTabLocation(tabLocation)) {
+      const testWindow = UiFramework.childWindows.find(
+        tabLocation.popoutWidgetId
+      );
+      if (testWindow) testWindow.window.focus();
+    } else {
+      frontstageDef.dispatch({
+        type: "WIDGET_TAB_SHOW",
+        id: this.id,
+      });
+    }
   }
 
   /** Opens the widget and expands it to fill full size of the stage panel.
