@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import "./Editors.css";
 import type { Meta, StoryObj } from "@storybook/react";
 import { EditorExampleComponent } from "@itwin/appui-test-providers/lib/esm/ui/components/EditorExampleComponent";
 import { AppUiStory } from "../AppUiStory";
