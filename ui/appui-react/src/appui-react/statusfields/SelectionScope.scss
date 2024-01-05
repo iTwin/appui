@@ -26,9 +26,7 @@
 
   > .uifw-statusFields-selectionScope-selector {
     min-width: 140px;
-    &.iui-select[data-iui-size="small"] {
-      width: auto;
-    }
+    width: auto;
 
     @include for-tablet-portrait-down {
       font-size: $font-size-medium;
