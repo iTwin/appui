@@ -47,6 +47,8 @@ export interface AppUiStoryProps {
   layout?: "fullscreen";
   frontstageProviders?: FrontstageProvider[] | (() => FrontstageProvider[]);
   demoIModel?: boolean;
+  /** Only display provided children, otherwise, add ConfigurableUIContent component below children. Defaults to false; */
+  displayChildrenOnly?: boolean;
 }
 
 export function AppUiStory(props: AppUiStoryProps) {
@@ -138,13 +140,17 @@ function Initialized(props: AppUiStoryProps) {
       <Provider store={UiFramework.store}>
         <ThemeManager>
           {props.children}
-          <ConfigurableUiContent
-            style={{
-              height:
-                props.layout === "fullscreen" ? "100vh" : "calc(100vh - 2rem)",
-            }}
-            appBackstage={props.appBackstage}
-          />
+          {!props.displayChildrenOnly && (
+            <ConfigurableUiContent
+              style={{
+                height:
+                  props.layout === "fullscreen"
+                    ? "100vh"
+                    : "calc(100vh - 2rem)",
+              }}
+              appBackstage={props.appBackstage}
+            />
+          )}
         </ThemeManager>
       </Provider>
     </>
