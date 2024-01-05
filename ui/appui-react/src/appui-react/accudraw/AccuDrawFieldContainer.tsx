@@ -32,7 +32,8 @@ import distanceIconSvg from "./distance.svg";
 import { UiFramework } from "../UiFramework";
 
 /** Properties for [[AccuDrawFieldContainer]] component
- * @beta */
+ * @beta
+ */
 export interface AccuDrawFieldContainerProps extends CommonProps {
   /** Orientation of the fields */
   orientation: Orientation;
@@ -55,7 +56,8 @@ const defaultYLabel = "Y";
 const defaultZLabel = "Z";
 
 /** AccuDraw Ui Field Container displays [[AccuDrawInputField]] for each field
- * @beta */
+ * @beta
+ */
 export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   const {
     className,
@@ -374,9 +376,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
 
   const classNames = classnames(
     "uifw-accudraw-field-container",
-    orientation === Orientation.Vertical
-      ? "uifw-accudraw-field-container-vertical"
-      : "uifw-accudraw-field-container-horizontal",
+    orientation === Orientation.Vertical ? "uifw-vertical" : "uifw-horizontal",
     className
   );
 
