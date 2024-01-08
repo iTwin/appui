@@ -48,7 +48,6 @@ export function VirtualizedPropertyGridWithDataProvider(
   props: VirtualizedPropertyGridWithDataProviderProps
 ) {
   const [showSpinner, setShowSpinner] = useState(false);
-
   const { modelSource, inProgress } = useTrackedPropertyGridModelSource({
     dataProvider: props.dataProvider,
   });

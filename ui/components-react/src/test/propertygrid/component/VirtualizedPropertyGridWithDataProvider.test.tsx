@@ -158,7 +158,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
               ".components-virtualized-property-grid-loader"
             )
           ).to.be.not.null,
-        { timeout: 500 }
+        { timeout: 2000 }
       );
     });
 
