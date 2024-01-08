@@ -108,6 +108,7 @@ import { UnitSystemKey } from "@itwin/core-quantity";
 import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";
 import { TreeWidgetComponent } from "../widgets/TreeWidget";
 import { TimelineComponent } from "@itwin/imodel-components-react";
+import { EditorExampleComponent } from "../components/EditorExampleComponent";
 
 class TestContentControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -730,6 +731,19 @@ export class ComponentExamplesProvider {
           >
             Open UiDataProvided Dialog
           </Button>
+        ),
+      ],
+    };
+  }
+
+  private static get editorSample(): ComponentExampleCategory {
+    return {
+      title: "Editor",
+      examples: [
+        createComponentExample(
+          "Editor Example",
+          undefined,
+          <EditorExampleComponent />
         ),
       ],
     };
@@ -1481,6 +1495,7 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.contentViewSample,
       ComponentExamplesProvider.cursorSample,
       ComponentExamplesProvider.dialogSample,
+      ComponentExamplesProvider.editorSample,
       ComponentExamplesProvider.frontstageSample,
       ComponentExamplesProvider.keyboardShortcutSample,
       ComponentExamplesProvider.notificationSample,
