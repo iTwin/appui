@@ -56,6 +56,7 @@ export class TextareaEditor
   private _isMounted = false;
   private _ariaLabel = UiComponents.translate("editor.textarea");
   private _divElement = React.createRef<HTMLDivElement>();
+  private _textAreaElement = React.createRef<HTMLTextAreaElement>();
 
   /** @internal */
   public override readonly state: Readonly<TextareaEditorState> = {
@@ -232,12 +233,13 @@ export class TextareaEditor
           label={this.state.inputValue}
           closeOnEnter={false}
           setFocus={this.props.setFocus}
-          focusTarget=".iui-input"
+          focusTarget={this._textAreaElement}
         >
           <PopupContent>
             <Textarea
               {...textareaProps}
               data-testid="components-textarea-editor"
+              ref={this._textAreaElement}
             />
             <PopupOkCancelButtons
               onOk={this._handleOk}
