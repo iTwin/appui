@@ -4,12 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 
 import type { Meta, StoryObj } from "@storybook/react";
+import { PropertyRecord } from "@itwin/appui-abstract";
 import {
   PropertyDataChangeEvent,
   VirtualizedPropertyGridWithDataProvider,
 } from "@itwin/components-react/src/components-react";
 import { AppUiDecorator } from "../AppUiDecorator";
-import { PropertyRecord } from "@itwin/appui-abstract";
 
 const meta = {
   title: "Components/PropertyGrid",

@@ -72,6 +72,7 @@ const ForwardRefNumberInput = React.forwardRef<
 >(function ForwardRefNumberInput(props, ref) {
   const {
     containerClassName,
+    className,
     value,
     min,
     max,
@@ -296,6 +297,7 @@ const ForwardRefNumberInput = React.forwardRef<
         onFocus={handleFocus}
         onBlur={handleBlur}
         size="small"
+        className={classnames("core-input", className)}
         {...otherProps}
       />
       <div

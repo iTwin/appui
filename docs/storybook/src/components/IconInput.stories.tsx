@@ -3,26 +3,22 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
-import { ExpandableList } from "@itwin/core-react/src/core-react/expandable/ExpandableList";
-import { ExpandableBlock } from "@itwin/itwinui-react";
+import { IconInput } from "@itwin/core-react/src/core-react/inputs/iconinput/IconInput";
+import { Svg2D } from "@itwin/itwinui-icons-react";
 import { AppUiDecorator } from "../AppUiDecorator";
 
 const meta = {
-  title: "Components/ExpandableList",
-  component: ExpandableList,
+  title: "Components/Inputs/IconInput",
+  component: IconInput,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],
-} satisfies Meta<typeof ExpandableList>;
+} satisfies Meta<typeof IconInput>;
 
 export default meta;
-type Story = StoryObj<typeof ExpandableList>;
+type Story = StoryObj<typeof IconInput>;
 
 export const Basic: Story = {
   args: {
-    children: [
-      <ExpandableBlock title="Block 1">Content 1</ExpandableBlock>,
-      <ExpandableBlock title="Block 2">Content 2</ExpandableBlock>,
-      <ExpandableBlock title="Block 3">Content 3</ExpandableBlock>,
-    ],
+    icon: <Svg2D />,
   },
 };
