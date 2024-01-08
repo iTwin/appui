@@ -173,7 +173,11 @@ export class TreeNode extends React.Component<TreeNodeProps> {
           data-testid={this.createSubComponentTestId("contents")}
         >
           {this.props.isLoading && (
-            <ProgressRadial size="x-small" indeterminate />
+            <ProgressRadial
+              size="x-small"
+              indeterminate
+              className="core-progress-indicator"
+            />
           )}
           {toggle}
           {checkbox}
