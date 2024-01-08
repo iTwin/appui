@@ -14,6 +14,7 @@
     grid-column-gap: var(--iui-size-m);
     width: calc(100% - var(--iui-size-s));
 
+    // TODO: iTwinUI 3.x
     .iui-input-container.iui-with-message {
       .rule-value {
         grid-area: inputs;
