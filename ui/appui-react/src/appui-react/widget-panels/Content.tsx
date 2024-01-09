@@ -46,7 +46,7 @@ export function WidgetContent() {
     // istanbul ignore next
     widget?.restoreTransientState();
   }, [widget]);
-  useTransientState(onSave, onRestore);
+  useTransientState(onSave, onRestore); //
   const providerId =
     widget?.initialConfig && isProviderItem(widget?.initialConfig)
       ? widget?.initialConfig.providerId
