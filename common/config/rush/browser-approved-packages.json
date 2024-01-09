@@ -159,10 +159,6 @@
       "allowedCategories": [ "internal" ]
     },
     {
-      "name": "@itwin/itwinui-icons",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
       "name": "@itwin/itwinui-icons-react",
       "allowedCategories": [ "frontend", "internal" ]
     },
