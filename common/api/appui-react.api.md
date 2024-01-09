@@ -20,7 +20,7 @@ import type { BeButtonEvent } from '@itwin/core-frontend';
 import type { BeDuration } from '@itwin/core-bentley';
 import { BeEvent } from '@itwin/core-bentley';
 import { BeUiEvent } from '@itwin/core-bentley';
-import type { ButtonProps } from '@itwin/itwinui-react';
+import { Button } from '@itwin/itwinui-react';
 import { ColorDef } from '@itwin/core-common';
 import type { CommandHandler } from '@itwin/appui-abstract';
 import type { CommonBackstageItem as CommonBackstageItem_2 } from '@itwin/appui-abstract';
@@ -100,8 +100,7 @@ import type { SolarDataProvider } from '@itwin/imodel-components-react';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
 import type { StringGetter } from '@itwin/appui-abstract';
-import type { ToasterSettings } from '@itwin/itwinui-react/cjs/core/Toast/Toaster';
-import type { ToastOptions } from '@itwin/itwinui-react';
+import { ToasterSettings } from '@itwin/itwinui-react/cjs/core/Toast/Toaster';
 import { Tool } from '@itwin/core-frontend';
 import { ToolAdmin } from '@itwin/core-frontend';
 import type { ToolAssistanceInstruction } from '@itwin/core-frontend';
@@ -118,6 +117,7 @@ import type { UiStateStorage } from '@itwin/core-react';
 import type { UiStateStorageResult } from '@itwin/core-react';
 import { UiStateStorageStatus } from '@itwin/core-react';
 import type { UnitSystemKey } from '@itwin/core-quantity';
+import type { useToaster } from '@itwin/itwinui-react';
 import type { ViewFlagProps } from '@itwin/core-common';
 import type { Viewport } from '@itwin/core-frontend';
 import { ViewportComponent } from '@itwin/imodel-components-react';
@@ -3035,7 +3035,7 @@ export class MessageManager {
     // @internal (undocumented)
     static closeAllMessages(): void;
     static displayInputFieldMessage(target: HTMLElement, messageText: NotifyMessageType, detailedMessage?: NotifyMessageType, priority?: OutputMessagePriority): void;
-    static displayMessage(message: NotifyMessageDetailsType, options?: ToastOptions, settings?: ToasterSettings): {
+    static displayMessage(message: NotifyMessageDetailsType, options?: ToastOptions, settings?: ToasterSettings_2): {
         close: () => void;
     } | undefined;
     static endActivityMessage(isCompleted: boolean): boolean;
@@ -3049,6 +3049,14 @@ export class MessageManager {
     static get messages(): Readonly<NotifyMessageDetailsType[]>;
     static readonly onActivityMessageCancelledEvent: ActivityMessageCancelledEvent;
     static readonly onActivityMessageUpdatedEvent: ActivityMessageUpdatedEvent;
+    // @internal (undocumented)
+    static readonly onDisplayMessage: BeUiEvent<{
+        message: NotifyMessageDetailsType;
+        options?: ToastOptions;
+        settings?: [settings: Partial<ToasterSettings>] | undefined;
+        animateOutToElement?: HTMLElement | undefined;
+        close?: (() => void) | undefined;
+    }>;
     // (undocumented)
     static readonly onInputFieldMessageAddedEvent: InputFieldMessageAddedEvent;
     // (undocumented)

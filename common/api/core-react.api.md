@@ -8,17 +8,17 @@
 
 import { BadgeType } from '@itwin/appui-abstract';
 import { BeUiEvent } from '@itwin/core-bentley';
-import type { ButtonProps } from '@itwin/itwinui-react';
-import type { CheckboxProps } from '@itwin/itwinui-react';
+import { Button } from '@itwin/itwinui-react';
+import { Checkbox } from '@itwin/itwinui-react';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
 import { ConditionalStringValue } from '@itwin/appui-abstract';
 import { default as default_2 } from 'resize-observer-polyfill';
 import type { DialogButtonDef } from '@itwin/appui-abstract';
 import type { IDisposable } from '@itwin/core-bentley';
-import type { InputProps as InputProps_2 } from '@itwin/itwinui-react';
+import { Input } from '@itwin/itwinui-react';
 import type { Localization } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
-import type { ProgressRadialProps } from '@itwin/itwinui-react';
+import { ProgressRadial } from '@itwin/itwinui-react';
 import * as React_2 from 'react';
 import * as ReactAutosuggest from 'react-autosuggest';
 import { RelativePosition } from '@itwin/appui-abstract';
