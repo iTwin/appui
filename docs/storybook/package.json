@@ -19,6 +19,7 @@
     "@itwin/appui-abstract": "^3.7.0",
     "@itwin/appui-react": "workspace:*",
     "@itwin/appui-layout-react": "workspace:*",
+    "@itwin/appui-test-providers": "workspace:*",
     "@itwin/components-react": "workspace:*",
     "@itwin/core-bentley": "^3.7.0",
     "@itwin/core-common": "^3.7.0",
