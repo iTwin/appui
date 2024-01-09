@@ -19,7 +19,7 @@ import {
   SelectionMode,
 } from "@itwin/components-react";
 import { IModelApp } from "@itwin/core-frontend";
-import { AppUiDecorator } from "../AppUiDecorator";
+import { AppUiDecorator } from "../Decorators";
 
 const meta = {
   title: "Components/ControlledTree",

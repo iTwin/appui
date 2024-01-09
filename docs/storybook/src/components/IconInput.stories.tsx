@@ -5,7 +5,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { IconInput } from "@itwin/core-react/src/core-react/inputs/iconinput/IconInput";
 import { Svg2D } from "@itwin/itwinui-icons-react";
-import { AppUiDecorator } from "../AppUiDecorator";
+import { AppUiDecorator } from "../Decorators";
 
 const meta = {
   title: "Components/Inputs/IconInput",

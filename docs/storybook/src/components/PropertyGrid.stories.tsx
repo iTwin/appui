@@ -9,7 +9,7 @@ import {
   PropertyDataChangeEvent,
   VirtualizedPropertyGridWithDataProvider,
 } from "@itwin/components-react/src/components-react";
-import { AppUiDecorator } from "../AppUiDecorator";
+import { AppUiDecorator } from "../Decorators";
 
 const meta = {
   title: "Components/PropertyGrid",

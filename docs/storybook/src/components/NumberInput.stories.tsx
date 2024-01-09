@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import { NumberInput } from "@itwin/core-react/src/core-react/inputs/numberinput/NumberInput";
-import { AppUiDecorator } from "../AppUiDecorator";
+import { AppUiDecorator } from "../Decorators";
 
 const meta = {
   title: "Components/Inputs/NumberInput",

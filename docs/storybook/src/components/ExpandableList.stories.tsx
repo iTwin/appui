@@ -5,7 +5,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ExpandableList } from "@itwin/core-react/src/core-react/expandable/ExpandableList";
 import { ExpandableBlock } from "@itwin/itwinui-react";
-import { AppUiDecorator } from "../AppUiDecorator";
+import { AppUiDecorator } from "../Decorators";
 
 const meta = {
   title: "Components/ExpandableList",

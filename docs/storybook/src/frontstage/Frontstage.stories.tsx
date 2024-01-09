@@ -10,7 +10,7 @@ import {
   StagePanelState,
   WidgetState,
 } from "@itwin/appui-react";
-import { AppUiDecorator } from "../AppUiDecorator";
+import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { FrontstageStory } from "./Frontstage";
 import { removeProperty, createFrontstageProvider } from "../Utils";

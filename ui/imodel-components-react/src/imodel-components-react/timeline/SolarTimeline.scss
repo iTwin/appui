@@ -7,10 +7,6 @@
 $top-position: 6px;
 $bottom-position: 4px;
 
-.solar-slider.solar-timeline > .iui-slider-container {
-  height: 28px;
-}
-
 .solar-timeline-wrapper {
   box-sizing: border-box;
   background: var(--iui-color-background);
@@ -69,14 +65,11 @@ $bottom-position: 4px;
       color: var(--iui-color-text);
       font-size: var(--iui-font-size-1);
       cursor: pointer;
+      gap: 6px;
 
       &:focus-visible {
         outline: 1px solid var(--iui-color-border-accent);
         outline-offset: -1px;
-      }
-
-      > span:nth-child(2) {
-        margin: 0 6px;
       }
 
       > .icon-calendar {
@@ -125,12 +118,18 @@ $bottom-position: 4px;
     }
   }
 
-  .solar-slider {
+  .solar-timeline {
     position: relative;
     display: flex;
     box-sizing: border-box;
     align-items: center;
     flex: 1;
+
+    .solar-slider {
+      height: 28px;
+      width: 100%;
+      position: relative;
+    }
 
     .rail-outer {
       position: absolute;
@@ -246,10 +245,6 @@ $bottom-position: 4px;
 .solar-timeline-wrapper .solar-timeline-expanded {
   display: none;
   margin-bottom: 8px;
-}
-
-.solar-timeline-wrapper .solar-timeline {
-  display: flex;
 }
 
 .solar-timeline-wrapper.expanded {

@@ -5,7 +5,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { BadgeType } from "@itwin/appui-abstract";
 import { WidgetState } from "@itwin/appui-react";
-import { AppUiDecorator } from "../AppUiDecorator";
+import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { StoryWidget, WidgetStory } from "./Widget";
 

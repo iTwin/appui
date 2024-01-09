@@ -30,6 +30,7 @@
     "@itwin/core-react": "workspace:*",
     "@itwin/imodels-access-frontend": "^3.0.0",
     "@itwin/imodels-client-authoring": "^3.0.0",
+    "@itwin/imodel-components-react": "workspace:*",
     "@itwin/itwinui-icons-react": "^2.8.0",
     "@itwin/itwinui-react": "^3.2.1",
     "react": "^17.0.0",

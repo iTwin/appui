@@ -5,7 +5,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { InputLabel } from "@itwin/core-react/src/core-react/inputs/InputLabel";
 import { Input } from "@itwin/itwinui-react";
-import { AppUiDecorator } from "../AppUiDecorator";
+import { AppUiDecorator } from "../Decorators";
 import { InputStatus } from "@itwin/core-react";
 
 const meta = {
