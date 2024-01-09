@@ -118,7 +118,7 @@ importers:
       '@itwin/appui-abstract': 4.0.0-dev.104
       '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^4.3.3
       '@itwin/components-react': workspace:*
       '@itwin/core-bentley': 4.0.0-dev.104
       '@itwin/core-common': 4.0.0-dev.104
@@ -171,7 +171,7 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       ts-key-enum: 2.0.12
     devDependencies:
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': 4.3.3
       '@itwin/eslint-plugin': 4.0.0-dev.45_eslint@8.44.0+typescript@5.0.2
       '@types/react': 17.0.53
       '@types/react-redux': 7.1.25
@@ -194,7 +194,7 @@ importers:
       '@itwin/appui-react': workspace:*
       '@itwin/appui-test-providers': workspace:*
       '@itwin/browser-authorization': ^0.6.2
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^4.3.3
       '@itwin/components-react': workspace:*
       '@itwin/core-backend': 4.0.0-dev.104
       '@itwin/core-bentley': 4.0.0-dev.104
@@ -304,7 +304,7 @@ importers:
     devDependencies:
       '@axe-core/react': 4.3.1
       '@bentley/react-scripts': 5.0.4_react@17.0.2+typescript@5.0.2
-      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
+      '@itwin/build-tools': 4.3.3_@types+node@18.11.5
       '@itwin/eslint-plugin': 4.0.0-dev.45_eslint@8.44.0+typescript@5.0.2
       '@itwin/itwins-client': 1.2.0
       '@types/node': 18.11.5
@@ -336,7 +336,7 @@ importers:
       '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
       '@itwin/appui-test-providers': workspace:*
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^4.3.3
       '@itwin/components-react': workspace:*
       '@itwin/core-backend': 4.0.0-dev.104
       '@itwin/core-bentley': 4.0.0-dev.104
@@ -431,7 +431,7 @@ importers:
     devDependencies:
       '@axe-core/react': 4.3.1
       '@bentley/react-scripts': 5.0.4_react@17.0.2+typescript@5.0.2
-      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
+      '@itwin/build-tools': 4.3.3_@types+node@18.11.5
       '@itwin/eslint-plugin': 4.0.0-dev.45_eslint@8.44.0+typescript@5.0.2
       '@types/node': 18.11.5
       '@types/react': 17.0.53
@@ -488,19 +488,19 @@ importers:
 
   ../../tools/internal:
     specifiers:
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^4.3.3
       mocha: ^10.0.0
       yargs: ^17.6.2
     dependencies:
       yargs: 17.7.1
     devDependencies:
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': 4.3.3
       mocha: 10.2.0
 
   ../../ui/appui-layout-react:
     specifiers:
       '@itwin/appui-abstract': 4.0.0-dev.104
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^4.3.3
       '@itwin/core-bentley': 4.0.0-dev.104
       '@itwin/core-react': workspace:*
       '@itwin/eslint-plugin': ^4.0.0-dev.45
@@ -559,7 +559,7 @@ importers:
       zustand: 4.4.1_b4b4c799a5a2f4488606d88d938fa77d
     devDependencies:
       '@itwin/appui-abstract': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
-      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
+      '@itwin/build-tools': 4.3.3_@types+node@18.11.5
       '@itwin/core-bentley': 4.0.0-dev.104
       '@itwin/core-react': link:../core-react
       '@itwin/eslint-plugin': 4.0.0-dev.45_eslint@8.44.0+typescript@5.0.2
@@ -605,7 +605,7 @@ importers:
       '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': 4.0.0-dev.104
       '@itwin/appui-layout-react': workspace:*
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^4.3.3
       '@itwin/components-react': workspace:*
       '@itwin/core-bentley': 4.0.0-dev.104
       '@itwin/core-common': 4.0.0-dev.104
@@ -689,7 +689,7 @@ importers:
     devDependencies:
       '@itwin/appui-abstract': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
       '@itwin/appui-layout-react': link:../appui-layout-react
-      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
+      '@itwin/build-tools': 4.3.3_@types+node@18.11.5
       '@itwin/components-react': link:../components-react
       '@itwin/core-bentley': 4.0.0-dev.104
       '@itwin/core-common': 4.0.0-dev.104_c72f88b30eea222f53b29a24736a0d13
@@ -751,7 +751,7 @@ importers:
     specifiers:
       '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': 4.0.0-dev.104
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^4.3.3
       '@itwin/core-bentley': 4.0.0-dev.104
       '@itwin/core-common': 4.0.0-dev.104
       '@itwin/core-geometry': 4.0.0-dev.104
@@ -830,7 +830,7 @@ importers:
       ts-key-enum: 2.0.12
     devDependencies:
       '@itwin/appui-abstract': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
-      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
+      '@itwin/build-tools': 4.3.3_@types+node@18.11.5
       '@itwin/core-bentley': 4.0.0-dev.104
       '@itwin/core-common': 4.0.0-dev.104_c72f88b30eea222f53b29a24736a0d13
       '@itwin/core-geometry': 4.0.0-dev.104
@@ -884,7 +884,7 @@ importers:
     specifiers:
       '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': 4.0.0-dev.104
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^4.3.3
       '@itwin/core-bentley': 4.0.0-dev.104
       '@itwin/core-common': 4.0.0-dev.104
       '@itwin/core-i18n': 4.0.0-dev.104
@@ -947,7 +947,7 @@ importers:
       ts-key-enum: 2.0.12
     devDependencies:
       '@itwin/appui-abstract': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
-      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
+      '@itwin/build-tools': 4.3.3_@types+node@18.11.5
       '@itwin/core-bentley': 4.0.0-dev.104
       '@itwin/core-common': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
       '@itwin/core-i18n': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
@@ -993,7 +993,7 @@ importers:
     specifiers:
       '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': 4.0.0-dev.104
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^4.3.3
       '@itwin/components-react': workspace:*
       '@itwin/core-bentley': 4.0.0-dev.104
       '@itwin/core-common': 4.0.0-dev.104
@@ -1055,7 +1055,7 @@ importers:
       ts-key-enum: 2.0.12
     devDependencies:
       '@itwin/appui-abstract': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
-      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
+      '@itwin/build-tools': 4.3.3_@types+node@18.11.5
       '@itwin/components-react': link:../components-react
       '@itwin/core-bentley': 4.0.0-dev.104
       '@itwin/core-common': 4.0.0-dev.104_c72f88b30eea222f53b29a24736a0d13
@@ -4849,11 +4849,11 @@ packages:
       oidc-client-ts: 2.2.2
     dev: false
 
-  /@itwin/build-tools/4.0.0-dev.87:
-    resolution: {integrity: sha512-O1ZJeycHnbzXwwSbMZ1ljdHPPFcNdLs1mFAK0vEBo7hxxD1DkC+uqDBi7wzjzU4vw+Qg0sie3/U2EP5XEiUNDg==}
+  /@itwin/build-tools/4.3.3:
+    resolution: {integrity: sha512-puHB5iXiGT+Q6IZdLImLqyL7Ed7bN0cwwnBMe2YaH/j5syLO3UEgbVM1OJHizygS17VlJmp94568VtNOL+NkRA==}
     hasBin: true
     dependencies:
-      '@microsoft/api-extractor': 7.34.4
+      '@microsoft/api-extractor': 7.36.4
       chalk: 3.0.0
       cpx2: 3.0.2
       cross-spawn: 7.0.3
@@ -4873,11 +4873,11 @@ packages:
       - supports-color
     dev: true
 
-  /@itwin/build-tools/4.0.0-dev.87_@types+node@18.11.5:
-    resolution: {integrity: sha512-O1ZJeycHnbzXwwSbMZ1ljdHPPFcNdLs1mFAK0vEBo7hxxD1DkC+uqDBi7wzjzU4vw+Qg0sie3/U2EP5XEiUNDg==}
+  /@itwin/build-tools/4.3.3_@types+node@18.11.5:
+    resolution: {integrity: sha512-puHB5iXiGT+Q6IZdLImLqyL7Ed7bN0cwwnBMe2YaH/j5syLO3UEgbVM1OJHizygS17VlJmp94568VtNOL+NkRA==}
     hasBin: true
     dependencies:
-      '@microsoft/api-extractor': 7.34.4_@types+node@18.11.5
+      '@microsoft/api-extractor': 7.36.4_@types+node@18.11.5
       chalk: 3.0.0
       cpx2: 3.0.2
       cross-spawn: 7.0.3
@@ -6086,60 +6086,60 @@ packages:
       react: 17.0.2
     dev: true
 
-  /@microsoft/api-extractor-model/7.26.4:
-    resolution: {integrity: sha512-PDCgCzXDo+SLY5bsfl4bS7hxaeEtnXj7XtuzEE+BtALp7B5mK/NrS2kHWU69pohgsRmEALycQdaQPXoyT2i5MQ==}
+  /@microsoft/api-extractor-model/7.27.6:
+    resolution: {integrity: sha512-eiCnlayyum1f7fS2nA9pfIod5VCNR1G+Tq84V/ijDrKrOFVa598BLw145nCsGDMoFenV6ajNi2PR5WCwpAxW6Q==}
     dependencies:
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.55.2
+      '@rushstack/node-core-library': 3.59.7
     transitivePeerDependencies:
       - '@types/node'
     dev: true
 
-  /@microsoft/api-extractor-model/7.26.4_@types+node@18.11.5:
-    resolution: {integrity: sha512-PDCgCzXDo+SLY5bsfl4bS7hxaeEtnXj7XtuzEE+BtALp7B5mK/NrS2kHWU69pohgsRmEALycQdaQPXoyT2i5MQ==}
+  /@microsoft/api-extractor-model/7.27.6_@types+node@18.11.5:
+    resolution: {integrity: sha512-eiCnlayyum1f7fS2nA9pfIod5VCNR1G+Tq84V/ijDrKrOFVa598BLw145nCsGDMoFenV6ajNi2PR5WCwpAxW6Q==}
     dependencies:
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.55.2_@types+node@18.11.5
+      '@rushstack/node-core-library': 3.59.7_@types+node@18.11.5
     transitivePeerDependencies:
       - '@types/node'
     dev: true
 
-  /@microsoft/api-extractor/7.34.4:
-    resolution: {integrity: sha512-HOdcci2nT40ejhwPC3Xja9G+WSJmWhCUKKryRfQYsmE9cD+pxmBaKBKCbuS9jUcl6bLLb4Gz+h7xEN5r0QiXnQ==}
+  /@microsoft/api-extractor/7.36.4:
+    resolution: {integrity: sha512-21UECq8C/8CpHT23yiqTBQ10egKUacIpxkPyYR7hdswo/M5yTWdBvbq+77YC9uPKQJOUfOD1FImBQ1DzpsdeQQ==}
     hasBin: true
     dependencies:
-      '@microsoft/api-extractor-model': 7.26.4
+      '@microsoft/api-extractor-model': 7.27.6
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.55.2
-      '@rushstack/rig-package': 0.3.18
-      '@rushstack/ts-command-line': 4.13.2
+      '@rushstack/node-core-library': 3.59.7
+      '@rushstack/rig-package': 0.4.1
+      '@rushstack/ts-command-line': 4.15.2
       colors: 1.2.5
       lodash: 4.17.21
       resolve: 1.22.1
-      semver: 7.3.8
+      semver: 7.5.4
       source-map: 0.6.1
       typescript: 5.0.2
     transitivePeerDependencies:
       - '@types/node'
     dev: true
 
-  /@microsoft/api-extractor/7.34.4_@types+node@18.11.5:
-    resolution: {integrity: sha512-HOdcci2nT40ejhwPC3Xja9G+WSJmWhCUKKryRfQYsmE9cD+pxmBaKBKCbuS9jUcl6bLLb4Gz+h7xEN5r0QiXnQ==}
+  /@microsoft/api-extractor/7.36.4_@types+node@18.11.5:
+    resolution: {integrity: sha512-21UECq8C/8CpHT23yiqTBQ10egKUacIpxkPyYR7hdswo/M5yTWdBvbq+77YC9uPKQJOUfOD1FImBQ1DzpsdeQQ==}
     hasBin: true
     dependencies:
-      '@microsoft/api-extractor-model': 7.26.4_@types+node@18.11.5
+      '@microsoft/api-extractor-model': 7.27.6_@types+node@18.11.5
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.55.2_@types+node@18.11.5
-      '@rushstack/rig-package': 0.3.18
-      '@rushstack/ts-command-line': 4.13.2
+      '@rushstack/node-core-library': 3.59.7_@types+node@18.11.5
+      '@rushstack/rig-package': 0.4.1
+      '@rushstack/ts-command-line': 4.15.2
       colors: 1.2.5
       lodash: 4.17.21
       resolve: 1.22.1
-      semver: 7.3.8
+      semver: 7.5.4
       source-map: 0.6.1
       typescript: 5.0.2
     transitivePeerDependencies:
@@ -6963,8 +6963,8 @@ packages:
     resolution: {integrity: sha512-IthPJsJR85GhOkp3Hvp8zFOPK5ynKn6STyHa/WZpioK7E1aYDiBzpqQPrngc14DszIUkIrdd3k9Iu0XSzlP/1w==}
     dev: true
 
-  /@rushstack/node-core-library/3.55.2:
-    resolution: {integrity: sha512-SaLe/x/Q/uBVdNFK5V1xXvsVps0y7h1sN7aSJllQyFbugyOaxhNRF25bwEDnicARNEjJw0pk0lYnJQ9Kr6ev0A==}
+  /@rushstack/node-core-library/3.59.7:
+    resolution: {integrity: sha512-ln1Drq0h+Hwa1JVA65x5mlSgUrBa1uHL+V89FqVWQgXd1vVIMhrtqtWGQrhTnFHxru5ppX+FY39VWELF/FjQCw==}
     peerDependencies:
       '@types/node': '*'
     peerDependenciesMeta:
@@ -6976,12 +6976,12 @@ packages:
       import-lazy: 4.0.0
       jju: 1.4.0
       resolve: 1.22.1
-      semver: 7.3.8
+      semver: 7.5.4
       z-schema: 5.0.5
     dev: true
 
-  /@rushstack/node-core-library/3.55.2_@types+node@18.11.5:
-    resolution: {integrity: sha512-SaLe/x/Q/uBVdNFK5V1xXvsVps0y7h1sN7aSJllQyFbugyOaxhNRF25bwEDnicARNEjJw0pk0lYnJQ9Kr6ev0A==}
+  /@rushstack/node-core-library/3.59.7_@types+node@18.11.5:
+    resolution: {integrity: sha512-ln1Drq0h+Hwa1JVA65x5mlSgUrBa1uHL+V89FqVWQgXd1vVIMhrtqtWGQrhTnFHxru5ppX+FY39VWELF/FjQCw==}
     peerDependencies:
       '@types/node': '*'
     peerDependenciesMeta:
@@ -6994,19 +6994,19 @@ packages:
       import-lazy: 4.0.0
       jju: 1.4.0
       resolve: 1.22.1
-      semver: 7.3.8
+      semver: 7.5.4
       z-schema: 5.0.5
     dev: true
 
-  /@rushstack/rig-package/0.3.18:
-    resolution: {integrity: sha512-SGEwNTwNq9bI3pkdd01yCaH+gAsHqs0uxfGvtw9b0LJXH52qooWXnrFTRRLG1aL9pf+M2CARdrA9HLHJys3jiQ==}
+  /@rushstack/rig-package/0.4.1:
+    resolution: {integrity: sha512-AGRwpqlXNSp9LhUSz4HKI9xCluqQDt/obsQFdv/NYIekF3pTTPzc+HbQsIsjVjYnJ3DcmxOREVMhvrMEjpiq6g==}
     dependencies:
       resolve: 1.22.1
       strip-json-comments: 3.1.1
     dev: true
 
-  /@rushstack/ts-command-line/4.13.2:
-    resolution: {integrity: sha512-bCU8qoL9HyWiciltfzg7GqdfODUeda/JpI0602kbN5YH22rzTxyqYvv7aRLENCM7XCQ1VRs7nMkEqgJUOU8Sag==}
+  /@rushstack/ts-command-line/4.15.2:
+    resolution: {integrity: sha512-5+C2uoJY8b+odcZD6coEe2XNC4ZjGB4vCMESbqW/8DHRWC/qIHfANdmN9F1wz/lAgxz72i7xRoVtPY2j7e4gpQ==}
     dependencies:
       '@types/argparse': 1.0.38
       argparse: 1.0.10
@@ -10952,7 +10952,7 @@ packages:
     dev: true
 
   /concat-map/0.0.1:
-    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
 
   /concat-stream/1.6.2:
     resolution: {integrity: sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==}

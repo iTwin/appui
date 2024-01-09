@@ -33,7 +33,7 @@ const forcedDep = {};
     "4.0.0-dev.104",
   ],
   [["@itwin/map-layers"], "5.0.0-dev.2"],
-  [["@itwin/build-tools"], "4.0.0-dev.87"],
+  [["@itwin/build-tools"], "^4.3.3"],
   [["electron"], "^23.0.0"],
   [["typedoc"], "0.23.28"],
   [["typescript"], "^5.0.2"],
