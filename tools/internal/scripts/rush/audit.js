@@ -56,6 +56,7 @@ const rushCommonDir = path.join(__dirname, "../../../../common/");
     "GHSA-9c47-m6qq-7p4h", // https://github.com/advisories/GHSA-9c47-m6qq-7p4h appui-test-app>@bentley/react-scripts>@babel/core>json5 appui-test-providers>@itwin/eslint-plugin>eslint-import-resolver-typescript>tsconfig-paths>json5
     "GHSA-rc47-6667-2j5j", // https://github.com/advisories/GHSA-rc47-6667-2j5j appui-test-app>electron>@electron/get>got>cacheable-request>http-cache-semantics
     "GHSA-776f-qx25-q3cc", // https://github.com/advisories/GHSA-776f-qx25-q3cc appui-test-app>@itwin/core-frontend>@itwin/object-storage-azure>@azure/storage-blob>@azure/core-http>xml2js
+    "GHSA-jchw-25xp-jwwc", // https://github.com/advisories/GHSA-jchw-25xp-jwwc docs>storybook>@itwin/core-common>@itwin/object-storage-core>axios>follow-redirects
   ];
 
   let shouldFailBuild = false;
