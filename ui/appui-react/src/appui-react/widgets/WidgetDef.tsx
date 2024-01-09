@@ -559,6 +559,6 @@ export class WidgetDef {
     frontstageDef.dispatch({
       type: "WIDGET_TAB_EXPAND",
       id: this.id,
-    }); //
+    });
   }
 }
