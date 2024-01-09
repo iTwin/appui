@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Update show() function to work with popouts",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
