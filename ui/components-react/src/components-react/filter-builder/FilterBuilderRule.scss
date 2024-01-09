@@ -11,6 +11,10 @@
   --toolbar-width: 6.25rem;
   border: 1px solid var(--iui-color-border);
 
+  &:not(:first-child) {
+    border-top: none;
+  }
+
   display: block;
   position: relative;
 
@@ -24,10 +28,6 @@
     padding-block: var(--iui-size-xs);
     padding-inline: var(--iui-size-m);
     gap: var(--iui-size-m);
-  }
-
-  &[data-iui-size="small"] .fb-row-container {
-    padding-block: var(--iui-size-2xs);
   }
 
   .fb-row-container {

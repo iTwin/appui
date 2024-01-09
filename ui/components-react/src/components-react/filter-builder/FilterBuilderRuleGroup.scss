@@ -4,10 +4,15 @@
  *--------------------------------------------------------------------------------------------*/
 .fb-group {
   --border-color: var(--iui-color-border);
-  --fb-operator-width: 4.5rem;
+  --fb-operator-width: 7rem;
   --divider-width: var(--iui-size-2xs);
   --divider-background-color: var(--iui-color-border-subtle);
   --border-radius: var(--iui-border-radius-1);
+  width: 100%;
+
+  .fb-wrapper {
+    width: 100%;
+  }
 
   // grid areas
   .fb-group-operator {

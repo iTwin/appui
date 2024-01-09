@@ -145,10 +145,8 @@ export function PropertyFilterBuilderRuleRenderer(
           {property !== undefined &&
           operator !== undefined &&
           !isUnaryPropertyFilterOperator(operator) ? (
-            <div style={{ display: "flex" }}>
-              <div className="fb-property-value fb-row-value">
-                {valueRenderer(property, operator)}
-              </div>
+            <div className="fb-property-value fb-row-value">
+              {valueRenderer(property, operator)}
               {rule.errorMessage ? (
                 <>
                   <SvgStatusError className="iui-input-icon" />
