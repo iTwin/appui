@@ -5127,6 +5127,13 @@ export function useUiVisibility(): boolean;
 // @internal
 export function useUpdateNineZoneSize(frontstageDef: FrontstageDef): void;
 
+// @alpha
+export function useWidget(): {
+    state: WidgetState;
+    widgetLocation: "floating" | "docked" | "popout";
+    setState: (widgetState: Omit<WidgetState, WidgetState.Floating>) => void;
+};
+
 // @internal (undocumented)
 export function useWidgetDef(): WidgetDef | undefined;
 
