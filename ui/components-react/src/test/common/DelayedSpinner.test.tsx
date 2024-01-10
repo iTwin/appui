@@ -5,7 +5,6 @@
 
 import * as React from "react";
 import { expect } from "chai";
-import sinon from "sinon";
 import { render, waitFor } from "@testing-library/react";
 import { DelayedSpinner } from "../../components-react/common/DelayedSpinner";
 
@@ -17,17 +16,13 @@ describe("<DelayedSpinner />", () => {
   });
 
   it("renders spinner with delay", async () => {
-    const clock = sinon.useFakeTimers({ now: Date.now() });
-    const delay = 100;
-    const { container } = render(<DelayedSpinner delay={delay} />);
+    const { container } = render(<DelayedSpinner delay={100} />);
     expect(container.children.length).to.be.eq(0);
     expect(container.querySelector(".iui-large")).to.be.null;
-
-    clock.tick(delay);
-
     await waitFor(() => expect(container.children.length).to.be.eq(1));
-    expect(container.querySelector(".iui-large")).to.not.be.null;
-    clock.restore();
+    await waitFor(
+      () => expect(container.querySelector(".iui-large")).to.not.be.null
+    );
   });
 
   it("renders spinner with specified size", () => {
