@@ -72,7 +72,7 @@ export class GlobalContextMenu extends React.PureComponent<
         // istanbul ignore next
         (
           parentDocument.body.querySelector(
-            '[data-root-container="iui-root-id"]'
+            '[data-root-container="appui-root-id"]'
           ) ?? parentDocument.body
         ).appendChild(rt);
       }
@@ -101,7 +101,7 @@ export class GlobalContextMenu extends React.PureComponent<
             </div>,
             // istanbul ignore next
             this.state.parentDocument.body.querySelector(
-              '[data-root-container="iui-root-id"]'
+              '[data-root-container="appui-root-id"]'
             ) ?? this.state.parentDocument.body
           )}
       </div>

@@ -630,7 +630,7 @@ export class Popup extends React.Component<PopupProps, PopupState> {
       </div>,
       // istanbul ignore next
       this.state.parentDocument.body.querySelector(
-        '[data-root-container="iui-root-id"]'
+        '[data-root-container="appui-root-id"]'
       ) ?? this.state.parentDocument.body
     );
   }

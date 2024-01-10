@@ -21,7 +21,7 @@
   &.preview-contentAlwaysMaxSize {
     z-index: 1;
     position: absolute;
-    // iui toast cause box-sizing to be border-box, so we need to override it.
+    // iTwinUI toast cause box-sizing to be border-box, so we need to override it.
     box-sizing: content-box;
   }
 }
