@@ -67,14 +67,14 @@ export function VirtualizedPropertyGridWithDataProvider(
   );
 }
 
-interface DelayedStateRendererProps {
+interface DelayedLoaderRendererProps {
   shouldRenderLoader: boolean;
 }
 
 function DelayedLoaderRenderer({
   children,
   shouldRenderLoader,
-}: React.PropsWithChildren<DelayedStateRendererProps>) {
+}: React.PropsWithChildren<DelayedLoaderRendererProps>) {
   const [showSpinner, setShowSpinner] = useState(shouldRenderLoader);
   useEffect(() => {
     if (!shouldRenderLoader) {
