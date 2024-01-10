@@ -85,6 +85,9 @@ global.DOMMatrix = class DOMMatrix {
   }
 };
 
+// Prevent iTwinUI from dynamically loading CSS.
+global.jest = {};
+
 // setup chai
 const chai = require("chai");
 chai.should();
