@@ -26,12 +26,11 @@ import {
 } from "@itwin/core-frontend";
 import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
-import { MessageContainer } from "@itwin/core-react";
+import { MessageContainer, MessageRenderer } from "@itwin/core-react";
 import { ConfigurableUiActionId } from "../configurableui/state";
 import { StandardMessageBox } from "../dialog/StandardMessageBox";
 import { ElementTooltip } from "../feedback/ElementTooltip";
 import { UiFramework } from "../UiFramework";
-import { MessageSpan } from "./MessageSpan";
 import { PointerMessage } from "./Pointer";
 import type {
   NotifyMessageDetailsType,
@@ -652,7 +651,7 @@ export class MessageManager {
           onFulfilled,
           onRejected
         );
-        const messageElement = <MessageSpan message={message} />;
+        const messageElement = <MessageRenderer message={message} useSpan />;
         UiFramework.dialogs.modal.open(
           this.standardMessageBox(
             mbType,
@@ -674,10 +673,10 @@ export class MessageManager {
     const iconType = this.getIconType(messageDetails);
     const content = (
       <>
-        <MessageSpan message={messageDetails.briefMessage} />
+        <MessageRenderer message={messageDetails.briefMessage} useSpan />
         {messageDetails.detailedMessage && (
           <p>
-            <MessageSpan message={messageDetails.detailedMessage} />
+            <MessageRenderer message={messageDetails.detailedMessage} useSpan />
           </p>
         )}
       </>

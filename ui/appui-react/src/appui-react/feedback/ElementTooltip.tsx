@@ -12,12 +12,11 @@ import type { XAndY } from "@itwin/core-geometry";
 import type { ToolTipOptions } from "@itwin/core-frontend";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { CommonProps, Point, SizeProps } from "@itwin/core-react";
-import { Rectangle } from "@itwin/core-react";
+import { MessageRenderer, Rectangle } from "@itwin/core-react";
 import {
   offsetAndContainInContainer,
   Tooltip,
 } from "@itwin/appui-layout-react";
-import { MessageDiv } from "../messages/MessageSpan";
 import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
 
 /** [[ElementTooltip]] State.
@@ -130,9 +129,6 @@ export class ElementTooltip extends React.Component<
     if (!this.state.isVisible) return null;
 
     const className = classnames("uifw-element-tooltip", this.props.className);
-
-    const messageNode = <MessageDiv message={this.state.message} />;
-
     return (
       <div className="uifw-element-tooltip-container">
         <Tooltip
@@ -141,7 +137,7 @@ export class ElementTooltip extends React.Component<
           position={this.state.position}
           onSizeChanged={this._handleSizeChanged}
         >
-          {messageNode}
+          <MessageRenderer message={this.state.message} />
         </Tooltip>
       </div>
     );

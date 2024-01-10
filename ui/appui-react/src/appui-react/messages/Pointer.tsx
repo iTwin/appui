@@ -17,13 +17,18 @@ import {
   UiEvent,
 } from "@itwin/appui-abstract";
 import type { CommonProps, SizeProps } from "@itwin/core-react";
-import { Icon, MessageContainer, Point, Rectangle } from "@itwin/core-react";
+import {
+  Icon,
+  MessageContainer,
+  MessageRenderer,
+  Point,
+  Rectangle,
+} from "@itwin/core-react";
 import {
   offsetAndContainInContainer,
   Tooltip,
 } from "@itwin/appui-layout-react";
 import { MessageManager } from "./MessageManager";
-import { MessageDiv, MessageSpan } from "./MessageSpan";
 import type {
   NotifyMessageDetailsType,
   NotifyMessageType,
@@ -171,12 +176,13 @@ export class PointerMessage extends React.Component<
             </span>
           )}
           <span className="uifw-pointer-message-text">
-            <MessageSpan
+            <MessageRenderer
               className="uifw-pointer-message-brief"
               message={this.state.message}
+              useSpan
             />
             {this.state.detailedMessage && (
-              <MessageDiv
+              <MessageRenderer
                 className="uifw-pointer-message-detailed"
                 message={this.state.detailedMessage}
               />

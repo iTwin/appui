@@ -102,7 +102,7 @@ export class MessageUiItemsProvider implements UiItemsProvider {
                   new NotifyMessageDetails(
                     OutputMessagePriority.Info,
                     "Sticky message",
-                    undefined,
+                    "Additional message details",
                     OutputMessageType.Sticky
                   )
                 );
