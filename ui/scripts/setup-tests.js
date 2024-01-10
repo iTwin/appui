@@ -44,6 +44,7 @@ require("jsdom-global")();
 window.Date = Date;
 document.elementFromPoint = () => null;
 window.HTMLElement.prototype.scrollIntoView = () => {};
+window.HTMLElement.prototype.scrollTo = () => {};
 
 // Fill in more missing functions left out by jsdom or mocha
 performance = window.performance;

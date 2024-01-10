@@ -24,16 +24,12 @@ export class SquareButton extends React.PureComponent<SquareButtonProps> {
     const { className, style, ...buttonProps } = this.props;
 
     const buttonClassNames = classnames("uifw-square-button", className);
-    const buttonStyle: React.CSSProperties = {
-      ...style,
-    };
-
     return (
       <Button
         {...buttonProps}
         size="small"
         className={buttonClassNames}
-        style={buttonStyle}
+        style={style}
       />
     );
   }

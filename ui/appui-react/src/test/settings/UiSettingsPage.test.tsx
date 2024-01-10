@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import { fireEvent, render } from "@testing-library/react";
+import { act, fireEvent, render } from "@testing-library/react";
 import { Key } from "ts-key-enum";
 import {
   getUiSettingsManagerEntry,
@@ -18,28 +18,17 @@ import TestUtils, {
 } from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
 import { ColorTheme } from "../../appui-react/theme/ThemeManager";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 
 describe("UiSettingsPage", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(
     window,
     "localStorage"
   )!;
-  let localStorageMock = storageMock();
-
-  before(async () => {
-    await NoRenderApp.startup();
-  });
-
-  after(async () => {
-    await IModelApp.shutdown();
-  });
+  let localStorageMock: ReturnType<typeof storageMock>;
 
   beforeEach(async () => {
     // create a new mock each run so there are no "stored values"
     localStorageMock = storageMock();
-    await TestUtils.initializeUiFramework();
-    await TestUtils.flushAsyncOperations();
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
@@ -104,44 +93,32 @@ describe("UiSettingsPage", () => {
   });
 
   it("renders set widget opacity", async () => {
-    await TestUtils.flushAsyncOperations();
-
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
-    const thumb =
-      wrapper.container.ownerDocument.querySelector(".iui-slider-thumb");
-    expect(thumb).to.exist;
-    fireEvent.keyDown(thumb!, { key: Key.ArrowRight });
-    await TestUtils.flushAsyncOperations();
-    let widgetOpacity = UiFramework.getWidgetOpacity();
-    expect(widgetOpacity).greaterThanOrEqual(0.9);
-    await TestUtils.flushAsyncOperations();
-    // trigger sync event processing
-    UiFramework.setWidgetOpacity(0.5);
-    await TestUtils.flushAsyncOperations();
-    widgetOpacity = UiFramework.getWidgetOpacity();
-    expect(widgetOpacity).equals(0.5);
-    wrapper.unmount();
+    const thumb = wrapper.getAllByRole("slider")[1];
+
+    expect(UiFramework.getWidgetOpacity()).to.eq(0.9);
+    expect(thumb.getAttribute("aria-valuenow")).to.eq("0.9");
+
+    act(() => {
+      UiFramework.setWidgetOpacity(0.5);
+    });
+    expect(UiFramework.getWidgetOpacity()).equals(0.5);
+    expect(thumb.getAttribute("aria-valuenow")).to.eq("0.5");
   });
 
   it("renders  set toolbar opacity", async () => {
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
-    const thumb =
-      wrapper.container.ownerDocument.querySelectorAll(".iui-slider-thumb");
-    expect(thumb[0]).to.exist;
-    fireEvent.keyDown(thumb[0]!, { key: Key.ArrowRight });
-    fireEvent.keyUp(thumb[0]!, { key: Key.ArrowRight });
-    await TestUtils.flushAsyncOperations();
-    let toolbarOpacity = UiFramework.getToolbarOpacity();
-    expect(toolbarOpacity).greaterThan(0.5);
-    await TestUtils.flushAsyncOperations();
-    // trigger sync event processing
-    UiFramework.setToolbarOpacity(0.9);
-    await TestUtils.flushAsyncOperations();
-    toolbarOpacity = UiFramework.getToolbarOpacity();
-    expect(toolbarOpacity).equals(0.9);
-    wrapper.unmount();
+    const thumb = wrapper.getAllByRole("slider")[0];
+
+    // Default
+    expect(UiFramework.getToolbarOpacity()).to.eq(0.5);
+    expect(thumb.getAttribute("aria-valuenow")).to.eq("0.5");
+
+    act(() => {
+      UiFramework.setToolbarOpacity(0.9);
+    });
+    expect(UiFramework.getToolbarOpacity()).to.eq(0.9);
+    expect(thumb.getAttribute("aria-valuenow")).to.eq("0.9");
   });
 
   it("renders toggle auto-hide", async () => {
