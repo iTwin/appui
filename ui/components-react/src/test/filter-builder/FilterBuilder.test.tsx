@@ -46,18 +46,18 @@ describe("PropertyFilterBuilder", () => {
   });
 
   it("call onFilterChanged with filter after new rule is setup", async () => {
+    const user = userEvent.setup();
     const spy = sinon.spy();
-    const { container, getByText, getByDisplayValue } = render(
+    const { getByText, getByPlaceholderText } = render(
       <PropertyFilterBuilder properties={[property1]} onFilterChanged={spy} />
     );
-    const propertySelector = container.querySelector<HTMLInputElement>(
-      ".rule-property .iui-input"
+    const propSelector = getByPlaceholderText(
+      TestUtils.i18n.getLocalizedString(
+        "Components:filterBuilder.chooseProperty"
+      )
     );
-    expect(propertySelector).to.not.be.null;
-    propertySelector?.focus();
-    fireEvent.click(getByText("Prop1"));
-    // wait until property is selected
-    await waitFor(() => getByDisplayValue("Prop1"));
+    await user.click(propSelector);
+    await user.click(getByText("Prop1"));
 
     expect(spy).to.be.calledOnceWith({
       property: property1,

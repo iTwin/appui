@@ -10,7 +10,7 @@ import "./FilterBuilderRule.scss";
 import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { SvgDelete, SvgStatusError } from "@itwin/itwinui-icons-react";
-import { IconButton } from "@itwin/itwinui-react";
+import { IconButton, InputGrid, StatusMessage } from "@itwin/itwinui-react";
 import {
   PropertyFilterBuilderContext,
   PropertyFilterBuilderRuleRenderingContext,
@@ -140,21 +140,14 @@ export function PropertyFilterBuilderRuleRenderer(
         {property !== undefined &&
         operator !== undefined &&
         !isUnaryPropertyFilterOperator(operator) ? (
-          <div
-            className={`iui-input-container iui-with-message ${
-              rule.errorMessage ? "iui-negative" : null
-            }`}
-          >
-            <div className="rule-value">
-              {valueRenderer(property, operator)}
-            </div>
+          <InputGrid>
+            {valueRenderer(property, operator)}
             {rule.errorMessage ? (
-              <>
-                <SvgStatusError className="iui-input-icon" />
-                <div className="iui-message">{rule.errorMessage}</div>
-              </>
+              <StatusMessage startIcon={<SvgStatusError />} status="negative">
+                {rule.errorMessage}
+              </StatusMessage>
             ) : null}
-          </div>
+          </InputGrid>
         ) : null}
       </div>
     </div>

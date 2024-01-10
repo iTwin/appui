@@ -12,7 +12,7 @@ import { PropertyFilterBuilderRuleGroupRenderer } from "../../components-react/f
 import type { PropertyFilterBuilderRuleGroup } from "../../components-react/filter-builder/FilterBuilderState";
 import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
 import { PropertyFilterRuleGroupOperator } from "../../components-react/filter-builder/Operators";
-import TestUtils from "../TestUtils";
+import TestUtils, { userEvent } from "../TestUtils";
 import { renderWithContext } from "./Common";
 
 describe("PropertyFilterBuilderRuleGroupRenderer", () => {
@@ -221,27 +221,25 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
   });
 
   it("dispatches operator change event when operator is selected", async () => {
+    const user = userEvent.setup();
     const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const { container, findByText } = renderWithContext(
+    const { getByText, findByText } = renderWithContext(
       <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />,
       { actions }
     );
     const setRuleGroupOperatorSpy = sinon.stub(actions, "setRuleGroupOperator");
 
-    const selector = container.querySelector<HTMLInputElement>(
-      ".rule-group-operator .iui-select-button"
-    );
-    expect(selector).to.not.be.null;
-
-    selector?.click();
-
-    (
-      await findByText(
-        TestUtils.i18n.getLocalizedString(
-          "Components:filterBuilder.operators.or"
-        )
+    const selector = getByText(
+      TestUtils.i18n.getLocalizedString(
+        "Components:filterBuilder.operators.and"
       )
-    ).click();
+    );
+    await user.click(selector);
+
+    const option = await findByText(
+      TestUtils.i18n.getLocalizedString("Components:filterBuilder.operators.or")
+    );
+    await user.click(option);
 
     expect(setRuleGroupOperatorSpy).to.be.calledOnceWith(
       defaultProps.path,

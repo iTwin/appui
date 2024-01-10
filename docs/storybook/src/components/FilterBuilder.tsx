@@ -9,6 +9,7 @@ import {
   usePropertyFilterBuilder,
 } from "@itwin/components-react";
 import { IModelApp } from "@itwin/core-frontend";
+import { Button } from "@itwin/itwinui-react";
 import React from "react";
 
 export function FilterBuilderStory(props: FilterBuilderComponentProps) {
@@ -28,7 +29,9 @@ function FilterBuilderComponent({
   initialFilter,
   ...props
 }: FilterBuilderComponentProps) {
-  const { rootGroup, actions } = usePropertyFilterBuilder({ initialFilter });
+  const { rootGroup, actions, buildFilter } = usePropertyFilterBuilder({
+    initialFilter,
+  });
 
   return (
     <div style={{ padding: "10px" }}>
@@ -37,6 +40,7 @@ function FilterBuilderComponent({
         actions={actions}
         rootGroup={rootGroup}
       />
+      <Button onClick={() => buildFilter()}>Validate</Button>
     </div>
   );
 }

@@ -15,7 +15,7 @@ import type { PropertyFilterBuilderRuleOperatorProps } from "../../components-re
 import type { PropertyFilterBuilderRuleValueProps } from "../../components-react/filter-builder/FilterBuilderRuleValue";
 import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
 import { PropertyFilterRuleOperator } from "../../components-react/filter-builder/Operators";
-import TestUtils from "../TestUtils";
+import TestUtils, { userEvent } from "../TestUtils";
 import { renderWithContext } from "./Common";
 import { UiComponents } from "../../components-react";
 
@@ -133,13 +133,18 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       const { container } = renderWithContext(
         <PropertyFilterBuilderRuleRenderer
           {...defaultProps}
-          rule={{ ...defaultProps.rule, property: defaultProperty }}
+          rule={{
+            ...defaultProps.rule,
+            property: defaultProperty,
+            operator: undefined,
+          }}
         />
       );
 
-      const valueContainer =
-        container.querySelector<HTMLDivElement>(".rule-value");
-      expect(valueContainer).to.be.null;
+      const valueInput = container.querySelector<HTMLDivElement>(
+        ".components-editor-container input"
+      );
+      expect(valueInput).to.be.null;
     });
 
     it("renders value when value and operator defined", () => {
@@ -154,10 +159,10 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         />
       );
 
-      const valueContainer =
-        container.querySelector<HTMLDivElement>(".rule-value");
-      expect(valueContainer).to.not.be.null;
-      expect(valueContainer!.hasChildNodes()).to.be.true;
+      const valueInput = container.querySelector<HTMLDivElement>(
+        ".components-editor-container input"
+      );
+      expect(valueInput).to.not.be.null;
     });
 
     it("renders operator using provided renderer", () => {
@@ -197,76 +202,65 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
   });
 
   describe("rule property", () => {
-    it("renders with property renderer", () => {
+    it("renders with property renderer", async () => {
+      const user = userEvent.setup();
       const actions = new PropertyFilterBuilderActions(sinon.spy());
       const propertyRendererSpy = sinon.spy();
-      const { container } = renderWithContext(
+      const { getByPlaceholderText } = renderWithContext(
         <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
         { actions, properties: [defaultProperty] },
         { propertyRenderer: propertyRendererSpy }
       );
 
       // open property selector menu
-      const selector = container.querySelector<HTMLInputElement>(
-        ".rule-property input"
+      const propSelector = getByPlaceholderText(
+        TestUtils.i18n.getLocalizedString(
+          "Components:filterBuilder.chooseProperty"
+        )
       );
-      expect(selector).to.not.be.null;
-      fireEvent.focus(selector!);
+      await user.click(propSelector);
 
       expect(propertyRendererSpy).to.be.calledWith(defaultProperty.name);
     });
 
-    it("opens property selector menu", () => {
+    it("does not open property selector menu when property selection is disabled", async () => {
+      const user = userEvent.setup();
       const actions = new PropertyFilterBuilderActions(sinon.spy());
-      const { container, queryByText } = renderWithContext(
-        <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
-        { actions, properties: [defaultProperty] }
-      );
-
-      // open property selector
-      const selector = container.querySelector<HTMLInputElement>(
-        ".rule-property input"
-      );
-      expect(selector).to.not.be.null;
-      fireEvent.focus(selector!);
-
-      expect(queryByText(defaultProperty.displayLabel)).to.not.be.null;
-    });
-
-    it("does not open property selector menu when property selection is disabled", () => {
-      const actions = new PropertyFilterBuilderActions(sinon.spy());
-      const { container, queryByText } = renderWithContext(
+      const { getByPlaceholderText, queryByText } = renderWithContext(
         <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
         { actions, properties: [defaultProperty] },
         { isDisabled: true }
       );
 
       // attempt to open property selector
-      const selector = container.querySelector<HTMLInputElement>(
-        ".rule-property input"
+      const propSelector = getByPlaceholderText(
+        TestUtils.i18n.getLocalizedString(
+          "Components:filterBuilder.chooseProperty"
+        )
       );
-      expect(selector).to.not.be.null;
-      fireEvent.focus(selector!);
+      await user.click(propSelector);
 
       expect(queryByText(defaultProperty.displayLabel)).to.be.null;
     });
   });
 
-  it("dispatches property change when property is selected", () => {
+  it("dispatches property change when property is selected", async () => {
+    const user = userEvent.setup();
     const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const { container, getByText } = renderWithContext(
+    const { getByPlaceholderText, getByText } = renderWithContext(
       <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
       { actions, properties: [defaultProperty] }
     );
     const setRulePropertySpy = sinon.stub(actions, "setRuleProperty");
 
-    const selector = container.querySelector<HTMLInputElement>(
-      ".rule-property input"
+    const propSelector = getByPlaceholderText(
+      TestUtils.i18n.getLocalizedString(
+        "Components:filterBuilder.chooseProperty"
+      )
     );
-    expect(selector).to.not.be.null;
-    fireEvent.focus(selector!);
+    await user.click(propSelector);
 
-    fireEvent.click(getByText(defaultProperty.displayLabel));
+    await user.click(getByText(defaultProperty.displayLabel));
     expect(setRulePropertySpy).to.be.calledOnceWith(
       defaultProps.path,
       defaultProperty
@@ -294,20 +288,22 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     );
   });
 
-  it("invokes onRulePropertySelected callback when property is selected", () => {
+  it("invokes onRulePropertySelected callback when property is selected", async () => {
+    const user = userEvent.setup();
     const spy = sinon.spy();
-    const { container, getByText } = renderWithContext(
+    const { getByPlaceholderText, getByText } = renderWithContext(
       <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
       { properties: [defaultProperty], onRulePropertySelected: spy }
     );
 
-    const selector = container.querySelector<HTMLInputElement>(
-      ".rule-property input"
+    const propSelector = getByPlaceholderText(
+      TestUtils.i18n.getLocalizedString(
+        "Components:filterBuilder.chooseProperty"
+      )
     );
-    expect(selector).to.not.be.null;
-    fireEvent.focus(selector!);
+    await user.click(propSelector);
 
-    fireEvent.click(getByText(defaultProperty.displayLabel));
+    await user.click(getByText(defaultProperty.displayLabel));
     expect(spy).to.be.calledOnceWith(defaultProperty);
   });
 
