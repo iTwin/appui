@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import { OutputMessagePriority } from "@itwin/core-frontend";
 import {
   FooterPopup,
   MessageCenter,
@@ -15,12 +14,13 @@ import {
   MessageCenterMessage,
   MessageCenterTab,
 } from "@itwin/appui-layout-react";
+import { OutputMessagePriority } from "@itwin/core-frontend";
+import type { CommonProps } from "@itwin/core-react";
+import { Icon, MessageRenderer } from "@itwin/core-react";
+import { Text } from "@itwin/itwinui-react";
 import { MessageManager } from "../messages/MessageManager";
-import { MessageDiv, MessageSpan } from "../messages/MessageSpan";
 import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
 import { UiFramework } from "../UiFramework";
-import type { CommonProps } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
 
 /** Enum for the [[MessageCenterField]] active tab
  * @internal
@@ -201,12 +201,11 @@ export class MessageCenterField extends React.Component<
             key={index.toString()}
             icon={<Icon iconSpec={iconSpec} className={iconClassName} />}
           >
-            <MessageSpan message={message} />
+            <MessageRenderer message={message} useSpan />
             {details.detailedMessage && (
-              <MessageDiv
-                className="iui-text-small"
-                message={details.detailedMessage}
-              />
+              <Text variant="small">
+                <MessageRenderer message={details.detailedMessage} />
+              </Text>
             )}
           </MessageCenterMessage>
         );
