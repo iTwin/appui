@@ -10,7 +10,6 @@ import { produce } from "immer";
 import { Point, Rectangle } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
 import type { TabState } from "./TabState";
-import { addRemovedTab, removeTabFromWidget } from "./TabState";
 import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation";
 import type { NineZoneAction } from "./NineZoneAction";
 import {
@@ -20,32 +19,38 @@ import {
   isWidgetDropTargetState,
   isWindowDropTargetState,
 } from "./DropTargetState";
-import { getWidgetPanelSectionId, insertPanelWidget } from "./PanelState";
+import { getWidgetPanelSectionId } from "./PanelState";
 import type { NineZoneState } from "./NineZoneState";
-import type { FloatingWidgetHomeState } from "./WidgetState";
+import type { PopoutWidgetState, WidgetState } from "./WidgetState";
 import {
-  addFloatingWidget,
-  addPopoutWidget,
-  floatingWidgetBringToFront,
-} from "./WidgetState";
-import {
-  getPanelMaxSize,
+  addPanelWidget,
+  getPanelSize,
+  insertPanelWidget,
   updatePanelState,
 } from "./internal/PanelStateHelpers";
 import {
+  addRemovedTab,
+  addTab,
+  addTabToWidget,
   createDraggedTabState,
+  removeTab,
+  removeTabFromWidget,
   updateSavedTabState,
   updateTabState,
 } from "./internal/TabStateHelpers";
 import {
   initRectangleProps,
+  initSizeProps,
   isToolSettingsFloatingWidget,
   setPointProps,
   setSizeProps,
   updateHomeOfToolSettingsWidget,
 } from "./internal/NineZoneStateHelpers";
 import {
+  addFloatingWidget,
+  addPopoutWidget,
   addWidgetState,
+  floatingWidgetBringToFront,
   getWidgetState,
   removeFloatingWidget,
   removePanelWidget,
@@ -65,6 +70,11 @@ import {
   isPopoutTabLocation,
 } from "./TabLocation";
 import { getUniqueId } from "../base/NineZone";
+import {
+  isPanelWidgetRestoreState,
+  type PanelWidgetRestoreState,
+} from "./WidgetRestoreState";
+import { addDockedToolSettings } from "./internal/ToolSettingsStateHelpers";
 
 /** @internal */
 export function NineZoneStateReducer(
@@ -86,11 +96,14 @@ export function NineZoneStateReducer(
         });
       }
       for (const side of panelSides) {
-        const panel = state.panels[side];
-        if (!panel.size) continue;
-        const maxSize = getPanelMaxSize(side, state.size, panel.maxSize);
-        const size = Math.min(Math.max(panel.size, panel.minSize), maxSize);
         state = updatePanelState(state, side, (draft) => {
+          const size = getPanelSize(
+            draft.size,
+            side,
+            draft.minSize,
+            draft.maxSize,
+            state.size
+          );
           draft.size = size;
         });
       }
@@ -110,12 +123,47 @@ export function NineZoneStateReducer(
       const { side, size: preferredSize } = action;
 
       return updatePanelState(state, side, (draft) => {
-        let size = preferredSize;
-        if (size !== undefined) {
-          const maxSize = getPanelMaxSize(side, state.size, draft.maxSize);
-          size = Math.min(Math.max(size, draft.minSize), maxSize);
-        }
+        const size = getPanelSize(
+          preferredSize,
+          draft.side,
+          draft.minSize,
+          draft.maxSize,
+          state.size
+        );
         draft.size = size;
+      });
+    }
+    case "PANEL_SET_MIN_SIZE": {
+      return updatePanelState(state, action.side, (draft) => {
+        const size = getPanelSize(
+          draft.size,
+          draft.side,
+          action.minSize,
+          draft.maxSize,
+          state.size
+        );
+
+        draft.minSize = action.minSize;
+        draft.size = size;
+      });
+    }
+    case "PANEL_SET_MAX_SIZE": {
+      return updatePanelState(state, action.side, (draft) => {
+        const size = getPanelSize(
+          draft.size,
+          draft.side,
+          draft.minSize,
+          action.maxSize,
+          state.size
+        );
+
+        draft.maxSize = action.maxSize;
+        draft.size = size;
+      });
+    }
+    case "PANEL_SET_RESIZABLE": {
+      return updatePanelState(state, action.side, (draft) => {
+        draft.resizable = action.resizable;
       });
     }
     case "PANEL_SET_SPLITTER_VALUE": {
@@ -142,8 +190,13 @@ export function NineZoneStateReducer(
     }
     case "PANEL_INITIALIZE": {
       return updatePanelState(state, action.side, (draft) => {
-        const maxSize = getPanelMaxSize(draft.side, state.size, draft.maxSize);
-        const size = Math.min(Math.max(action.size, draft.minSize), maxSize);
+        const size = getPanelSize(
+          action.size,
+          draft.side,
+          draft.minSize,
+          draft.maxSize,
+          state.size
+        );
         draft.size = size;
       });
     }
@@ -163,7 +216,7 @@ export function NineZoneStateReducer(
           id: action.newFloatingWidgetId,
           home: {
             side: action.side,
-            widgetId: undefined,
+            widgetId: "",
             widgetIndex,
           },
         },
@@ -299,9 +352,9 @@ export function NineZoneStateReducer(
       const tab = state.tabs[widget.activeTabId];
       if (tab.isFloatingWidgetResizable) {
         const size = newBounds.getSize();
-        state = updateTabState(state, widget.activeTabId, {
-          preferredFloatingWidgetSize: size,
-          userSized: true,
+        state = updateTabState(state, widget.activeTabId, (draft) => {
+          initSizeProps(draft, "preferredFloatingWidgetSize", size);
+          draft.userSized = true;
         });
       }
 
@@ -348,8 +401,9 @@ export function NineZoneStateReducer(
 
       const sectionIndex = sendBackHomeState.sectionIndex ?? 0;
       const home = state.floatingWidgets.byId[action.id].home;
-      const destinationWidgetId =
-        home.widgetId ?? getWidgetPanelSectionId(home.side, sectionIndex);
+      const destinationWidgetId = home.widgetId
+        ? home.widgetId
+        : getWidgetPanelSectionId(home.side, sectionIndex);
 
       // Add tabs to a new panel widget.
       state = removeWidget(state, widget.id);
@@ -365,37 +419,61 @@ export function NineZoneStateReducer(
       const popoutWidget = state.popoutWidgets.byId[action.id];
       const widget = getWidgetState(state, action.id);
       const home = popoutWidget.home;
-      const panel = state.panels[home.side];
-      let widgetPanelSectionId = home.widgetId;
-      let homeWidgetPanelSection;
-      if (widgetPanelSectionId) {
-        homeWidgetPanelSection = state.widgets[widgetPanelSectionId];
-      } else {
-        widgetPanelSectionId = getWidgetPanelSectionId(
-          panel.side,
+
+      state = removeWidget(state, widget.id);
+
+      // Determine existing widget.
+      let existingWidget: WidgetState | undefined;
+      if (home.widgetId in state.widgets) {
+        existingWidget = state.widgets[home.widgetId];
+      } else if (isPanelWidgetRestoreState(home)) {
+        const panel = state.panels[home.side];
+        const panelSectionId = getWidgetPanelSectionId(
+          home.side,
           home.widgetIndex
         );
-        homeWidgetPanelSection = state.widgets[widgetPanelSectionId];
+        existingWidget = state.widgets[panelSectionId];
+
+        // Can not add additional sections, add to an existing one.
+        if (!existingWidget && panel.widgets.length >= panel.maxWidgetCount) {
+          const sectionIndex = Math.min(
+            panel.maxWidgetCount - 1,
+            home.widgetIndex
+          );
+          const sectionId = panel.widgets[sectionIndex];
+          existingWidget = state.widgets[sectionId];
+        }
       }
 
-      state = removeWidget(state, popoutWidget.id);
-      if (homeWidgetPanelSection) {
-        const tabs = [...homeWidgetPanelSection.tabs, ...widget.tabs];
-        state = updateWidgetState(state, homeWidgetPanelSection.id, {
+      // Add to an existing widget.
+      if (existingWidget) {
+        const tabs = [...existingWidget.tabs, ...widget.tabs];
+        return updateWidgetState(state, existingWidget.id, {
           tabs,
         });
-      } else {
-        // if widget panel section was removed because it was empty insert it
-        const sectionIndex = widgetPanelSectionId.endsWith("End") ? 1 : 0;
-        state = insertPanelWidget(
+      }
+
+      // Insert a new panel section.
+      if (isPanelWidgetRestoreState(home)) {
+        const sectionId = home.widgetId
+          ? home.widgetId
+          : getWidgetPanelSectionId(home.side, home.widgetIndex);
+        return insertPanelWidget(
           state,
-          panel.side,
-          widgetPanelSectionId,
+          home.side,
+          sectionId,
           [...widget.tabs],
-          sectionIndex
+          home.widgetIndex
         );
       }
-      return state;
+
+      // Add a new floating widget.
+      return addFloatingWidget(
+        state,
+        home.widgetId,
+        widget.tabs,
+        home.floatingWidget
+      );
     }
     case "WIDGET_TAB_CLICK": {
       const { id, widgetId } = action;
@@ -417,7 +495,7 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_DRAG_START": {
       const tabId = action.id;
-      let home: FloatingWidgetHomeState;
+      let home: PanelWidgetRestoreState;
       if (action.floatingWidgetId) {
         const floatingWidget =
           state.floatingWidgets.byId[action.floatingWidgetId];
@@ -559,7 +637,7 @@ export function NineZoneStateReducer(
       if (position) preferredBounds = preferredBounds.setPosition(position);
 
       const popoutWidgetId = getUniqueId();
-      let home: FloatingWidgetHomeState | undefined;
+      let home: PopoutWidgetState["home"] | undefined;
       if (location && isPanelTabLocation(location)) {
         const panel = state.panels[location.side];
         const widgetIndex = panel.widgets.indexOf(location.widgetId);
@@ -571,7 +649,10 @@ export function NineZoneStateReducer(
       } else if (location && isFloatingTabLocation(location)) {
         const floatingWidget =
           state.floatingWidgets.byId[location.floatingWidgetId];
-        home = floatingWidget.home;
+        home = {
+          widgetId: floatingWidget.id,
+          floatingWidget,
+        };
       }
 
       state = removeTabFromWidget(state, id);
@@ -581,49 +662,17 @@ export function NineZoneStateReducer(
       });
     }
     case "WIDGET_TAB_HIDE": {
-      const { id } = action;
-      state = produce(state, (draft) => {
-        if (!draft.toolSettings) return;
-
-        const isToolSettings = draft.toolSettings.tabId === id;
-        if (isToolSettings && draft.toolSettings.type === "docked") {
-          draft.toolSettings.hidden = true;
-        }
-      });
-
-      const location = getTabLocation(state, id);
-      if (!location) return state;
-
-      const widgetId = location.widgetId;
-      const tabIndex = state.widgets[widgetId].tabs.indexOf(id);
-      if (isFloatingTabLocation(location)) {
-        const floatingWidget = state.floatingWidgets.byId[widgetId];
-        // widgetDef.setFloatingContainerId(location.floatingWidgetId);
-        state = updateSavedTabState(state, id, (draft) => {
-          draft.home = {
-            widgetId,
-            tabIndex,
-            floatingWidget,
-          };
-        });
-      } else if (isPanelTabLocation(location)) {
-        const side = location.side;
-        const widgetIndex = state.panels[side].widgets.indexOf(widgetId);
-        state = updateSavedTabState(state, id, (draft) => {
-          draft.home = {
-            widgetId,
-            side,
-            widgetIndex,
-            tabIndex,
-          };
-        });
-      }
-
-      return removeTabFromWidget(state, id);
+      return hideTab(state, action.id);
+    }
+    case "WIDGET_TAB_REMOVE": {
+      // Save tab state.
+      state = hideTab(state, action.id);
+      // Remove tab.
+      return removeTab(state, action.id);
     }
     case "WIDGET_TAB_SET_LABEL": {
-      return updateTabState(state, action.id, {
-        label: action.label,
+      return updateTabState(state, action.id, (draft) => {
+        draft.label = action.label;
       });
     }
     case "WIDGET_TAB_OPEN": {
@@ -677,8 +726,8 @@ export function NineZoneStateReducer(
         const panel = state.panels[location.side];
         const widgetIndex = panel.widgets.indexOf(location.widgetId);
 
-        state = updateTabState(state, id, {
-          preferredFloatingWidgetSize: preferredSize,
+        state = updateTabState(state, id, (draft) => {
+          initSizeProps(draft, "preferredFloatingWidgetSize", preferredSize);
         });
         state = removeTabFromWidget(state, id);
         state = addFloatingWidget(state, id, [id], {
@@ -705,7 +754,9 @@ export function NineZoneStateReducer(
           [id],
           {
             bounds,
-            home,
+            home: isPanelWidgetRestoreState(home)
+              ? home
+              : home.floatingWidget.home,
           },
           widget
         );
@@ -722,13 +773,18 @@ export function NineZoneStateReducer(
       return state;
     }
     case "WIDGET_TAB_SET_POPOUT_BOUNDS": {
-      state = updateSavedTabState(state, action.id, (draft) => {
+      return updateSavedTabState(state, action.id, (draft) => {
         initRectangleProps(draft, "popoutBounds", action.bounds);
       });
-      return state;
     }
     case "WIDGET_TAB_SHOW": {
       return showWidgetTab(state, action.id);
+    }
+    case "WIDGET_TAB_UNLOAD": {
+      state = hideTab(state, action.id);
+      return updateTabState(state, action.id, (draft) => {
+        draft.unloaded = true;
+      });
     }
     case "WIDGET_TAB_EXPAND": {
       state = showWidgetTab(state, action.id);
@@ -743,6 +799,13 @@ export function NineZoneStateReducer(
         });
       }
       return state;
+    }
+    case "WIDGET_TAB_UPDATE": {
+      return updateTabState(state, action.id, (draft) => {
+        for (const [key, val] of Object.entries(action.overrides)) {
+          (draft as any)[key] = val;
+        }
+      });
     }
     case "TOOL_SETTINGS_DRAG_START": {
       if (!state.toolSettings) return state;
@@ -773,6 +836,71 @@ export function NineZoneStateReducer(
         assert(!!draft.toolSettings);
         draft.toolSettings.type = "docked";
       });
+    }
+    case "WIDGET_DEF_ADD": {
+      state = addTab(state, action.id, action.overrides);
+
+      const savedTab = state.savedTabs.byId[action.id];
+      if (savedTab) {
+        // Restore to saved state.
+        return addRemovedTab(state, action.id);
+      }
+
+      // Add to a floating widget.
+      if (action.location === "floating") {
+        // Add to an existing floating widget.
+        if (action.floatingWidget.id in state.widgets) {
+          return addTabToWidget(state, action.id, action.floatingWidget.id);
+        }
+
+        const size = action.overrides?.preferredFloatingWidgetSize ?? {
+          height: 200,
+          width: 300,
+        };
+        const position = action.floatingWidget.preferredPosition ?? {
+          x: (state.size.width - size.width) / 2,
+          y: (state.size.height - size.height) / 2,
+        };
+        const nzBounds = Rectangle.createFromSize(state.size);
+        const bounds = Rectangle.createFromSize(size).offset(position);
+        const containedBounds = bounds.containIn(nzBounds);
+
+        const userSized = !!action.overrides?.preferredFloatingWidgetSize;
+        return addFloatingWidget(state, action.floatingWidget.id, [action.id], {
+          bounds: containedBounds.toProps(),
+          home: {
+            side: action.panelSection.side,
+            widgetId: action.panelSection.id,
+            widgetIndex: 0,
+          },
+          userSized,
+        });
+      }
+
+      // Add to a panel section.
+      const side = action.panelSection.side;
+      // Add to an existing panel section.
+      if (action.panelSection.id in state.widgets) {
+        return addTabToWidget(state, action.id, action.panelSection.id);
+      }
+
+      const panel = state.panels[side];
+      // Add to a new panel section.
+      if (panel.widgets.length < panel.maxWidgetCount) {
+        return addPanelWidget(state, side, action.panelSection.id, [action.id]);
+      }
+
+      // Can't add additional sections, add to an existing one.
+      const sectionIndex = Math.min(
+        action.panelSection.index,
+        panel.widgets.length - 1
+      );
+      const existingSectionId = panel.widgets[sectionIndex];
+      return addTabToWidget(state, action.id, existingSectionId);
+    }
+    case "WIDGET_DEF_ADD_TOOL_SETTINGS": {
+      state = addTab(state, action.id, action.overrides);
+      return addDockedToolSettings(state, action.id);
     }
   }
   return state;
@@ -834,5 +962,53 @@ function unhideTab(state: NineZoneState, id: TabState["id"]) {
     location = getTabLocation(state, id);
     assert(!!location);
   }
+  state = updateTabState(state, id, (draft) => {
+    draft.unloaded = false;
+  });
   return [state, location] as const;
+}
+
+function hideTab(state: NineZoneState, id: TabState["id"]) {
+  state = produce(state, (draft) => {
+    if (!draft.toolSettings) return;
+
+    const isToolSettings = draft.toolSettings.tabId === id;
+    if (isToolSettings && draft.toolSettings.type === "docked") {
+      draft.toolSettings.hidden = true;
+    }
+  });
+
+  state = updateTabState(state, id, (draft) => {
+    draft.unloaded = false;
+  });
+
+  const location = getTabLocation(state, id);
+  if (!location) return state;
+
+  const widgetId = location.widgetId;
+  const tabIndex = state.widgets[widgetId].tabs.indexOf(id);
+  if (isFloatingTabLocation(location)) {
+    const floatingWidget = state.floatingWidgets.byId[widgetId];
+    // widgetDef.setFloatingContainerId(location.floatingWidgetId);
+    state = updateSavedTabState(state, id, (draft) => {
+      draft.home = {
+        widgetId,
+        tabIndex,
+        floatingWidget,
+      };
+    });
+  } else if (isPanelTabLocation(location)) {
+    const side = location.side;
+    const widgetIndex = state.panels[side].widgets.indexOf(widgetId);
+    state = updateSavedTabState(state, id, (draft) => {
+      draft.home = {
+        widgetId,
+        side,
+        widgetIndex,
+        tabIndex,
+      };
+    });
+  }
+
+  return removeTabFromWidget(state, id);
 }

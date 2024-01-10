@@ -14,8 +14,6 @@ import {
 } from "../../appui-react";
 import { render, screen } from "@testing-library/react";
 import {
-  addPanelWidget,
-  addTab,
   createLayoutStore,
   createNineZoneState,
   NineZone,
@@ -24,7 +22,7 @@ import {
   WidgetIdContext,
 } from "@itwin/appui-layout-react";
 import { expect } from "chai";
-import { selectorMatches } from "../TestUtils";
+import { addPanelWidget, addTab, selectorMatches } from "../TestUtils";
 
 describe("WidgetPanelsTab", () => {
   it("should render", () => {

@@ -9,9 +9,6 @@ import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import type { NineZoneDispatch } from "../../appui-layout-react";
 import {
-  addFloatingWidget,
-  addTab,
-  addWidgetToolSettings,
   createLayoutStore,
   createNineZoneState,
   FloatingWidgetProvider,
@@ -21,6 +18,9 @@ import {
   WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { addWidgetToolSettings } from "../../appui-layout-react/state/internal/ToolSettingsStateHelpers";
+import { addFloatingWidget } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 
 describe("FloatingWidget", () => {
   it("should render", () => {

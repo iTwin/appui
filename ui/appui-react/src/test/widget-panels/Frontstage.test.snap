@@ -98,7 +98,7 @@ Object {
         },
         "home": Object {
           "side": "left",
-          "widgetId": undefined,
+          "widgetId": "",
           "widgetIndex": 0,
         },
         "id": "w1",
@@ -177,13 +177,13 @@ Object {
   "tabs": Object {
     "t1": Object {
       "id": "t1",
-      "preferredFloatingWidgetSize": undefined,
-      "userSized": undefined,
+      "label": "",
+      "unloaded": false,
     },
     "t2": Object {
       "id": "t2",
-      "preferredFloatingWidgetSize": undefined,
-      "userSized": undefined,
+      "label": "",
+      "unloaded": false,
     },
   },
   "toolSettings": undefined,
@@ -293,6 +293,7 @@ Object {
       "label": "Widget",
       "preferredFloatingWidgetSize": undefined,
       "preferredPanelWidgetSize": undefined,
+      "unloaded": false,
     },
   },
   "toolSettings": undefined,

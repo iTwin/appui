@@ -45,8 +45,9 @@ For incremental builds, the `rush build` command can be used to only build packa
 ## Source Code Edit Workflow
 
 1. Make source code changes on a new Git branch
-   - Each packages supports `npm start` command to enter build in watch mode for easy validation along the `test-apps`.
+   - Each packages supports `npm start` command to enter build in watch mode for easy validation along the `test-apps` or `storybook` (see [Testing options](#testing-options)).
 2. Ensure unit tests pass when run locally: `rush cover`
+   - Each packages will generate a detailed coverage HTML report which can be accessed in `ui/[package]/lib/cjs/test/coverage/lcov-report/index.html`.
 3. Ensure integration tests pass when run locally: See [the related Readme](./full-stack-tests/ui/README.md)
 4. Ensure linting passes when run locally: `rush lint` / `rush lint:fix`
 5. Ensure prettier passes when run locally: `rush prettier` / `rush prettier:fix`
@@ -71,6 +72,32 @@ Only use `rushchange.bat` if none of the changes require a changelog entry.
 > Note: The CI build will break if changes are pushed without running `rush change` and `rush extract-api` (if the API was changed). The fix will be to complete steps 6 through 11.
 
 Here is a sample [changelog](https://github.com/microsoft/rushstack/blob/master/apps/rush/CHANGELOG.md) to demonstrate the level of detail expected.
+
+## Testing options
+
+The repository is set up to allow 2 different ways of testing changes with manual interactions.
+
+### Test apps
+
+In the `test-apps` folder there are 2 apps that can be used to test changes to the packages in this repository. Each app is a standalone app that can be run with `npm start` from the app's folder.
+
+Most of the features should be the same in both apps as they are both being configured by the `appui-test-providers` package, new features should be added through this package.
+
+The apps are:
+
+- `standalone`: This app is working only on the current machine and do not require log in, it is useful for testing with `.bim` files that you are on your machine. [See Readme for more info](./test-apps/appui-test-app/standalone/README.md)
+
+- `connected`: This app is working with the iTwin Platform and requires log in, it is useful for testing with iModels that are on the iTwin Platform. [See Readme for more info](./test-apps/appui-test-app/connected/README.md)
+
+> Note: `standalone` is used by the [full stack tests](./full-stack-tests/ui/README.md).
+
+### Storybook
+
+In the `docs/storybook` folder, there is a [storybook](https://storybook.js.org/) that can be used to test changes to the packages in this repository. The storybook can be run with `npm start` from the folder and will be accessible at `http://localhost:3000/`.
+
+Storybook is deployed with each PR build and can be accessed through the **Storybook preview** link in the PR checks. (Direct link: `https://itwin.github.io/appui/[PR_NUMBER]`) So a feature with a story facilitate PR reviews.
+
+It is also deployed with master and can be accessed through this URL: <https://itwin.github.io/appui/storybook>
 
 ## Updating dependencies/devDependencies on packages within the monorepo
 

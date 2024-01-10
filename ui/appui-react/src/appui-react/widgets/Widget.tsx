@@ -42,7 +42,7 @@ export interface Widget {
    * It is not possible to disable the floating of a widget if `allowedPanels` is an empty array.
    */
   readonly canFloat?: boolean | CanFloatWidgetOptions;
-  /** Defaults to `Floating` if widget is not allowed to dock to any panels. */
+  /** Defaults to `Floating` if widget is not allowed to dock to any panels. Otherwise defaults to `Closed`. */
   readonly defaultState?: WidgetState;
   /** Content of the Widget. */
   readonly content?: React.ReactNode;

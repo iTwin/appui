@@ -5,14 +5,11 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import type { NineZoneState, WidgetState } from "../../appui-layout-react";
-import {
-  addFloatingWidget,
-  addTab,
-  createNineZoneState,
-  WidgetIdContext,
-} from "../../appui-layout-react";
+import { createNineZoneState, WidgetIdContext } from "../../appui-layout-react";
 import { WidgetTarget } from "../../appui-layout-react/target/WidgetTarget";
 import { TestNineZoneProvider } from "../Providers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { addFloatingWidget } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 
 interface WrapperProps {
   defaultState: NineZoneState;

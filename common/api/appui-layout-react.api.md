@@ -8,7 +8,7 @@
 
 import { BeEvent } from '@itwin/core-bentley';
 import type { CommonProps } from '@itwin/core-react';
-import { IconSpec } from '@itwin/core-react';
+import type { IconSpec } from '@itwin/core-react';
 import type { NoChildrenProps } from '@itwin/core-react';
 import type { OmitChildrenProp } from '@itwin/core-react';
 import { Point } from '@itwin/core-react';
@@ -16,33 +16,9 @@ import type { PopupProps } from '@itwin/core-react';
 import * as React_2 from 'react';
 import { Rectangle } from '@itwin/core-react';
 import type { RectangleProps } from '@itwin/core-react';
-import { SizeProps } from '@itwin/core-react';
+import type { SizeProps } from '@itwin/core-react';
 import { StoreApi } from 'zustand';
 import { UseBoundStore } from 'zustand';
-
-// @internal
-export function addDockedToolSettings(state: NineZoneState, tabId: TabState["id"], hidden?: boolean): NineZoneState;
-
-// @internal (undocumented)
-export function addFloatingWidget(state: NineZoneState, id: FloatingWidgetState["id"], tabs: WidgetState["tabs"], floatingWidgetArgs?: Partial<FloatingWidgetState>, widgetArgs?: Partial<WidgetState>): NineZoneState;
-
-// @internal (undocumented)
-export function addPanelWidget(state: NineZoneState, side: PanelSide, id: WidgetState["id"], tabs: WidgetState["tabs"], widgetArgs?: Partial<WidgetState>): NineZoneState;
-
-// @internal (undocumented)
-export function addPopoutWidget(state: NineZoneState, id: PopoutWidgetState["id"], tabs: WidgetState["tabs"], popoutWidgetArgs?: Partial<PopoutWidgetState>, widgetArgs?: Partial<WidgetState>): NineZoneState;
-
-// @internal
-export function addRemovedTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
-
-// @internal
-export function addTab(state: NineZoneState, id: TabState["id"], tabArgs?: Partial<TabState>): NineZoneState;
-
-// @internal
-export function addTabToWidget(state: NineZoneState, tabId: TabState["id"], widgetId: WidgetState["id"]): NineZoneState;
-
-// @internal
-export function addWidgetToolSettings(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
 
 // @internal (undocumented)
 export const AnimateDockedToolSettingsContext: React_2.Context<boolean>;
@@ -218,7 +194,7 @@ export const DraggedResizeHandleContext: React_2.Context<FloatingWidgetResizeHan
 // @internal (undocumented)
 export interface DraggedTabState {
     // (undocumented)
-    readonly home: FloatingWidgetHomeState;
+    readonly home: PanelWidgetRestoreState;
     // (undocumented)
     readonly position: XAndY;
     // (undocumented)
@@ -242,7 +218,7 @@ export class DragManager {
     // (undocumented)
     handleDragStart({ item, info }: HandleDragStartArgs): void;
     // (undocumented)
-    handleDragUpdate(): void;
+    handleDragUpdate(item: DragItem): void;
     // (undocumented)
     handleTargetChanged(target: DropTargetState | undefined): void;
     // (undocumented)
@@ -317,9 +293,6 @@ export interface FloatingTabLocation {
 export function FloatingWidget(props: FloatingWidgetProps): JSX.Element;
 
 // @internal (undocumented)
-export function floatingWidgetBringToFront(state: NineZoneState, floatingWidgetId: FloatingWidgetState["id"]): NineZoneState;
-
-// @internal (undocumented)
 export interface FloatingWidgetBringToFrontAction {
     // (undocumented)
     readonly id: FloatingWidgetState["id"];
@@ -343,16 +316,6 @@ export interface FloatingWidgetDropTargetState {
     readonly size: SizeProps;
     // (undocumented)
     readonly type: "floatingWidget";
-}
-
-// @internal (undocumented)
-export interface FloatingWidgetHomeState {
-    // (undocumented)
-    readonly side: PanelSide;
-    // (undocumented)
-    readonly widgetId: WidgetState["id"] | undefined;
-    // (undocumented)
-    readonly widgetIndex: number;
 }
 
 // @internal (undocumented)
@@ -440,7 +403,7 @@ export interface FloatingWidgetState {
     // (undocumented)
     readonly bounds: RectangleProps;
     // (undocumented)
-    readonly home: FloatingWidgetHomeState;
+    readonly home: PanelWidgetRestoreState;
     // (undocumented)
     readonly id: WidgetState["id"];
     // (undocumented)
@@ -534,12 +497,6 @@ export interface HorizontalPanelState extends PanelState {
 export const IconOnlyOnWidgetTabContext: React_2.Context<boolean>;
 
 // @internal (undocumented)
-export function insertPanelWidget(state: NineZoneState, side: PanelSide, id: WidgetState["id"], tabs: WidgetState["tabs"], sectionIndex: number, widgetArgs?: Partial<WidgetState>): NineZoneState;
-
-// @internal
-export function insertTabToWidget(state: NineZoneState, tabId: TabState["id"], widgetId: WidgetState["id"], tabIndex: number): NineZoneState;
-
-// @internal (undocumented)
 export function isFloatingTabLocation(location: TabLocation): location is FloatingTabLocation;
 
 // @internal (undocumented)
@@ -583,6 +540,12 @@ export function isWidgetDropTargetState(state: DropTargetState): state is Widget
 
 // @internal (undocumented)
 export function isWindowDropTargetState(state: WidgetDragDropTargetState): state is WindowDropTargetState;
+
+// @internal
+export interface KnownPreviewLayoutFeatures {
+    contentAlwaysMaxSize: boolean;
+    enableMaximizedFloatingWidget: boolean;
+}
 
 // @internal (undocumented)
 export type LayoutState = NineZoneState;
@@ -671,7 +634,7 @@ export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
 export function NineZone(props: NineZoneProps): JSX.Element;
 
 // @internal (undocumented)
-export type NineZoneAction = ResizeAction | PanelToggleCollapsedAction | PanelSetCollapsedAction | PanelSetPinnedAction | PanelSetSizeAction | PanelSetSplitterPercentAction | PanelToggleSpanAction | PanelTogglePinnedAction | PanelInitializeAction | FloatingWidgetResizeAction | FloatingWidgetSetBoundsAction | FloatingWidgetBringToFrontAction | FloatingWidgetSendBackAction | FloatingWidgetClearUserSizedAction | FloatingWidgetSetUserSizedAction | PopoutWidgetSendBackAction | PanelWidgetDragStartAction | WidgetDragAction | WidgetDragEndAction | WidgetTabClickAction | WidgetTabDoubleClickAction | WidgetTabDragStartAction | WidgetTabDragAction | WidgetTabDragEndAction | WidgetTabPopoutAction | WidgetTabCloseAction | WidgetTabFloatAction | WidgetTabHideAction | WidgetTabOpenAction | WidgetTabSetLabelAction | WidgetTabSetPopoutBoundsAction | WidgetTabShowAction | WidgetTabExpandAction | ToolSettingsDragStartAction | ToolSettingsDockAction;
+export type NineZoneAction = ResizeAction | PanelToggleCollapsedAction | PanelSetCollapsedAction | PanelSetPinnedAction | PanelSetSizeAction | PanelSetMinSizeAction | PanelSetMaxSizeAction | PanelSetResizableAction | PanelSetSplitterPercentAction | PanelToggleSpanAction | PanelTogglePinnedAction | PanelInitializeAction | FloatingWidgetResizeAction | FloatingWidgetSetBoundsAction | FloatingWidgetBringToFrontAction | FloatingWidgetSendBackAction | FloatingWidgetClearUserSizedAction | FloatingWidgetSetUserSizedAction | PopoutWidgetSendBackAction | PanelWidgetDragStartAction | WidgetDragAction | WidgetDragEndAction | WidgetTabClickAction | WidgetTabCloseAction | WidgetTabDoubleClickAction | WidgetTabDragStartAction | WidgetTabDragAction | WidgetTabDragEndAction | WidgetTabExpandAction | WidgetTabFloatAction | WidgetTabHideAction | WidgetTabRemoveAction | WidgetTabOpenAction | WidgetTabPopoutAction | WidgetTabSetLabelAction | WidgetTabSetPopoutBoundsAction | WidgetTabShowAction | WidgetTabUnloadAction | WidgetTabUpdateAction | ToolSettingsDragStartAction | ToolSettingsDockAction | WidgetDefAddAction | WidgetDefAddToolSettingsAction;
 
 // @internal (undocumented)
 export type NineZoneDispatch = (action: NineZoneAction) => void;
@@ -808,6 +771,26 @@ export interface PanelSetCollapsedAction {
 }
 
 // @internal (undocumented)
+export interface PanelSetMaxSizeAction {
+    // (undocumented)
+    readonly maxSize: PanelState["maxSize"];
+    // (undocumented)
+    readonly side: PanelSide;
+    // (undocumented)
+    readonly type: "PANEL_SET_MAX_SIZE";
+}
+
+// @internal (undocumented)
+export interface PanelSetMinSizeAction {
+    // (undocumented)
+    readonly minSize: PanelState["minSize"];
+    // (undocumented)
+    readonly side: PanelSide;
+    // (undocumented)
+    readonly type: "PANEL_SET_MIN_SIZE";
+}
+
+// @internal (undocumented)
 export interface PanelSetPinnedAction {
     // (undocumented)
     readonly pinned: boolean;
@@ -815,6 +798,16 @@ export interface PanelSetPinnedAction {
     readonly side: PanelSide;
     // (undocumented)
     readonly type: "PANEL_SET_PINNED";
+}
+
+// @internal (undocumented)
+export interface PanelSetResizableAction {
+    // (undocumented)
+    readonly resizable: PanelState["resizable"];
+    // (undocumented)
+    readonly side: PanelSide;
+    // (undocumented)
+    readonly type: "PANEL_SET_RESIZABLE";
 }
 
 // @internal (undocumented)
@@ -1008,19 +1001,27 @@ export interface PopoutWidgetState {
     // (undocumented)
     readonly bounds: RectangleProps;
     // (undocumented)
-    readonly home: FloatingWidgetHomeState;
+    readonly home: WidgetRestoreState;
     // (undocumented)
     readonly id: WidgetState["id"];
 }
 
 // @internal
-export const PreviewFeaturesProvider: ({ children, ...props }: PreviewFeaturesProviderProps) => JSX.Element;
+export const PreviewLayoutFeaturesProvider: ({ children, ...props }: PreviewFeaturesProviderProps) => JSX.Element;
 
 // @internal
-export function removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
+export function PreviewMaximizedWidgetFeatureProvider({ enabled, children, }: PreviewMaximizedWidgetFeatureProviderProps): JSX.Element;
 
 // @internal
-export function removeTabFromWidget(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
+export interface PreviewMaximizedWidgetFeatureProviderProps {
+    // (undocumented)
+    children?: React_2.ReactNode;
+    // (undocumented)
+    enabled?: boolean;
+}
+
+// @internal (undocumented)
+export function PreviewMaximizeToggle(): JSX.Element;
 
 // @internal (undocumented)
 export interface ResizeAction {
@@ -1210,6 +1211,8 @@ export interface TabState {
     readonly preferredFloatingWidgetSize?: SizeProps;
     // (undocumented)
     readonly preferredPanelWidgetSize?: "fit-content";
+    // (undocumented)
+    readonly unloaded?: boolean;
     // (undocumented)
     readonly userSized?: boolean;
 }
@@ -1571,10 +1574,10 @@ export interface UsePanelTargetArgs {
 export const usePointerCaptor: <T extends HTMLElement>(onPointerDown?: ((args: PointerCaptorArgs, e: PointerCaptorEvent) => void) | undefined, onPointerMove?: ((args: PointerCaptorArgs, e: PointerCaptorEvent) => void) | undefined, onPointerUp?: ((e: PointerCaptorEvent) => void) | undefined) => (instance: T | null) => void;
 
 // @internal
-export const usePreviewFeatures: () => KnownPreviewFeatures & {
-    previewState: PreviewFeatureState;
-    previewDispatch: React_2.Dispatch<PreviewActions>;
-};
+export const usePreviewFeatures: () => Partial<KnownPreviewLayoutFeatures>;
+
+// @internal
+export function usePreviewMaximizedWidget(): MaximizedWidgetState;
 
 // @internal (undocumented)
 export const useResizeGrip: <T extends HTMLElement>() => [(instance: T | null) => void, boolean, boolean];
@@ -1703,6 +1706,39 @@ export const WidgetContext: React_2.Context<WidgetContextArgs>;
 export interface WidgetContextArgs {
     // (undocumented)
     measure: () => Rectangle;
+}
+
+// @internal (undocumented)
+export interface WidgetDefAddAction {
+    // (undocumented)
+    readonly floatingWidget: {
+        readonly id: FloatingWidgetState["id"];
+        readonly preferredPosition?: XAndY;
+    };
+    // (undocumented)
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly location: "panel" | "floating";
+    // (undocumented)
+    readonly overrides?: Partial<TabState>;
+    // (undocumented)
+    readonly panelSection: {
+        readonly id: WidgetState["id"];
+        readonly index: number;
+        readonly side: PanelSide;
+    };
+    // (undocumented)
+    readonly type: "WIDGET_DEF_ADD";
+}
+
+// @internal (undocumented)
+export interface WidgetDefAddToolSettingsAction {
+    // (undocumented)
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly overrides?: Partial<TabState>;
+    // (undocumented)
+    readonly type: "WIDGET_DEF_ADD_TOOL_SETTINGS";
 }
 
 // @internal (undocumented)
@@ -2030,6 +2066,14 @@ export interface WidgetTabProviderProps extends TabPositionContextArgs {
 }
 
 // @internal (undocumented)
+export interface WidgetTabRemoveAction {
+    // (undocumented)
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly type: "WIDGET_TAB_REMOVE";
+}
+
+// @internal (undocumented)
 export function WidgetTabs(): JSX.Element;
 
 // @internal (undocumented)
@@ -2076,6 +2120,24 @@ export interface WidgetTabShowAction {
     readonly id: TabState["id"];
     // (undocumented)
     readonly type: "WIDGET_TAB_SHOW";
+}
+
+// @internal (undocumented)
+export interface WidgetTabUnloadAction {
+    // (undocumented)
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly type: "WIDGET_TAB_UNLOAD";
+}
+
+// @internal (undocumented)
+export interface WidgetTabUpdateAction {
+    // (undocumented)
+    readonly id: TabState["id"];
+    // (undocumented)
+    readonly overrides: Partial<TabState>;
+    // (undocumented)
+    readonly type: "WIDGET_TAB_UPDATE";
 }
 
 // @internal (undocumented)

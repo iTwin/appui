@@ -19,9 +19,12 @@ importers:
       '@itwin/core-orbitgt': ^3.7.0
       '@itwin/core-quantity': ^3.7.0
       '@itwin/core-react': workspace:*
+      '@itwin/imodels-access-frontend': ^3.0.0
+      '@itwin/imodels-client-authoring': ^3.0.0
       '@itwin/itwinui-icons-react': ^2.1.0
       '@itwin/itwinui-react': ^2.11.11
       '@originjs/vite-plugin-commonjs': ~1.0.3
+      '@storybook/addon-actions': ^7.4.6
       '@storybook/addon-essentials': ^7.4.6
       '@storybook/addon-interactions': ^7.4.6
       '@storybook/addon-links': ^7.4.6
@@ -63,6 +66,8 @@ importers:
       '@itwin/core-orbitgt': 3.7.0
       '@itwin/core-quantity': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/core-react': link:../../ui/core-react
+      '@itwin/imodels-access-frontend': 3.0.0_941d9911bd9c694174c145172ae404c8
+      '@itwin/imodels-client-authoring': 3.0.0
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 2.11.11_react-dom@17.0.2+react@17.0.2
       react: 17.0.2
@@ -70,6 +75,7 @@ importers:
       react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
     devDependencies:
       '@originjs/vite-plugin-commonjs': 1.0.3
+      '@storybook/addon-actions': 7.4.6_54d6c303e86b1ed39f97a7d48627e275
       '@storybook/addon-essentials': 7.4.6_54d6c303e86b1ed39f97a7d48627e275
       '@storybook/addon-interactions': 7.4.6_54d6c303e86b1ed39f97a7d48627e275
       '@storybook/addon-links': 7.4.6_react-dom@17.0.2+react@17.0.2
@@ -534,6 +540,7 @@ importers:
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~5.0.2
+      upath: ^2.0.1
       zustand: ^4.4.1
     dependencies:
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
@@ -585,6 +592,7 @@ importers:
       ts-node: 10.9.1_9a41dbaa370b60afede472b47d9ffeeb
       typemoq: 2.1.0
       typescript: 5.0.2
+      upath: 2.0.1
 
   ../../ui/appui-react:
     specifiers:
@@ -658,6 +666,8 @@ importers:
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~5.0.2
+      upath: ^2.0.1
+      zustand: ^4.4.1
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons': 1.16.0
@@ -671,6 +681,7 @@ importers:
       react-error-boundary: 4.0.3_react@17.0.2
       rxjs: 7.8.1
       ts-key-enum: 2.0.12
+      zustand: 4.4.1_b4b4c799a5a2f4488606d88d938fa77d
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/appui-layout-react': link:../appui-layout-react
@@ -730,6 +741,7 @@ importers:
       ts-node: 10.9.1_9a41dbaa370b60afede472b47d9ffeeb
       typemoq: 2.1.0
       typescript: 5.0.2
+      upath: 2.0.1
 
   ../../ui/components-react:
     specifiers:
@@ -5322,7 +5334,7 @@ packages:
     dependencies:
       '@itwin/core-bentley': 3.7.0
       '@itwin/core-common': 3.7.0_d3cf7b747b827c7a0a662ddd00c672b6
-      '@itwin/core-frontend': 3.7.0_1dc9172c9d17e84a30e74526225b8add
+      '@itwin/core-frontend': 3.7.0_be3a269a91e7505de9f0319af0616d71
       '@itwin/imodels-client-management': 3.0.0
     transitivePeerDependencies:
       - debug
@@ -21112,6 +21124,11 @@ packages:
 
   /upath/1.2.0:
     resolution: {integrity: sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==}
+    engines: {node: '>=4'}
+    dev: true
+
+  /upath/2.0.1:
+    resolution: {integrity: sha512-1uEe95xksV1O0CYKXo8vQvN1JEbtJp7lb7C5U9HMsIp6IVwntkH/oNUzyVNQSd4S1sYk2FpSSW44FqMc8qee5w==}
     engines: {node: '>=4'}
     dev: true
 

@@ -51,6 +51,7 @@ import { InferableComponentEnhancerWithProps } from 'react-redux';
 import type { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
 import type { Key } from 'ts-key-enum';
+import { KnownPreviewLayoutFeatures } from '@itwin/appui-layout-react';
 import type { LayoutFragmentProps } from '@itwin/appui-abstract';
 import type { LayoutStore } from '@itwin/appui-layout-react';
 import type { Localization } from '@itwin/core-common';
@@ -60,7 +61,7 @@ import { MessageBoxType } from '@itwin/core-frontend';
 import { MessageBoxValue } from '@itwin/core-frontend';
 import { MessageSeverity } from '@itwin/appui-abstract';
 import type { MessageType } from '@itwin/core-react';
-import { NineZoneDispatch } from '@itwin/appui-layout-react';
+import type { NineZoneDispatch } from '@itwin/appui-layout-react';
 import type { NineZoneLabels } from '@itwin/appui-layout-react';
 import type { NineZoneState } from '@itwin/appui-layout-react';
 import type { NoChildrenProps } from '@itwin/core-react';
@@ -99,7 +100,6 @@ import type { SolarDataProvider } from '@itwin/imodel-components-react';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
 import type { StringGetter } from '@itwin/appui-abstract';
-import type { TabState } from '@itwin/appui-layout-react';
 import type { ToasterSettings } from '@itwin/itwinui-react/cjs/core/Toast/Toaster';
 import type { ToastOptions } from '@itwin/itwinui-react';
 import { Tool } from '@itwin/core-frontend';
@@ -353,7 +353,7 @@ export interface ActiveContentChangedEventArgs {
 }
 
 // @internal (undocumented)
-export function ActiveFrontstageDefProvider({ frontstageDef, layout, }: ActiveFrontstageDefProviderProps): JSX.Element;
+export function ActiveFrontstageDefProvider({ frontstageDef, }: ActiveFrontstageDefProviderProps): JSX.Element;
 
 // @public
 export function ActivityCenterField(props: CommonProps): JSX.Element | null;
@@ -375,13 +375,10 @@ export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArg
 }
 
 // @internal
-export function addMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState;
+export function addFrontstageWidgetDefs(frontstageDef: FrontstageDef): void;
 
-// @internal (undocumented)
-export function addPanelWidgets(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState;
-
-// @internal (undocumented)
-export function addWidgets(state: NineZoneState, widgets: ReadonlyArray<WidgetDef>, side: PanelSide, widgetId: WidgetId): NineZoneState;
+// @internal
+export function addPanelSectionWidgetDefs(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): void;
 
 // @public
 export interface AllowedUiItemsProviderOverrides {
@@ -406,9 +403,6 @@ export type AnyItemDef = GroupItemDef | CommandItemDef | ToolItemDef | ActionBut
 
 // @public
 export type AnyToolbarItemDef = AnyItemDef | CustomItemDef;
-
-// @internal (undocumented)
-export function appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray<WidgetDef>, location: StagePanelLocation, section: StagePanelSection): NineZoneState;
 
 // @public
 export class AppNotificationManager extends NotificationManager {
@@ -897,8 +891,6 @@ export enum ConfigurableUiActionId {
     // (undocumented)
     SetDragInteraction = "configurableui:set-drag-interaction",
     // (undocumented)
-    SetPreviewFeatures = "configurableui:set-preview-features",
-    // (undocumented)
     SetShowWidgetIcon = "configurableui:set-show-widget-icon",
     // (undocumented)
     SetSnapMode = "configurableui:set_snapmode",
@@ -929,11 +921,6 @@ export const ConfigurableUiActions: {
     setAnimateToolSettings: (animateToolSettings: boolean) => ActionWithPayload<ConfigurableUiActionId.AnimateToolSettings, boolean>;
     setUseToolAsToolSettingsLabel: (useToolAsToolSettingsLabel: boolean) => ActionWithPayload<ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>;
     setToolbarOpacity: (opacity: number) => ActionWithPayload<ConfigurableUiActionId.SetToolbarOpacity, number>;
-    setPreviewFeatures: (features: {
-        [featureName: string]: any;
-    }) => ActionWithPayload<ConfigurableUiActionId.SetPreviewFeatures, DeepReadonlyObject<    {
-    [featureName: string]: any;
-    }>>;
 };
 
 // @public
@@ -1002,8 +989,6 @@ export interface ConfigurableUiState {
     animateToolSettings: boolean;
     // (undocumented)
     autoCollapseUnpinnedPanels: boolean;
-    // @beta (undocumented)
-    previewFeatures?: PreviewFeatures;
     // (undocumented)
     showWidgetIcon: boolean;
     // (undocumented)
@@ -1756,9 +1741,6 @@ export interface ExpandableSectionProps extends CommonProps {
     title?: string;
 }
 
-// @internal (undocumented)
-export function expandWidget(state: NineZoneState, id: TabState["id"]): NineZoneState;
-
 // @public
 export interface ExtensibleToolbarProps {
     // (undocumented)
@@ -2050,9 +2032,7 @@ export interface FrameworkKeyboardShortcuts {
 export const FrameworkReducer: (state: CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
-}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetPreviewFeatures, DeepReadonlyObject<    {
-[featureName: string]: any;
-}>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
+}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
 }>;
@@ -2079,7 +2059,7 @@ export interface FrameworkState {
     sessionState: SessionState;
 }
 
-// @alpha
+// @beta
 export class FrameworkToolAdmin extends ToolAdmin {
     processShortcutKey(e: KeyboardEvent, wentDown: boolean): Promise<boolean>;
 }
@@ -2202,6 +2182,8 @@ export interface FrontstageDeactivatedEventArgs {
 export class FrontstageDef {
     // (undocumented)
     addFloatingContentControl(contentControl?: ContentControl): void;
+    // @internal
+    batch(fn: () => void): void;
     // (undocumented)
     get bottomPanel(): StagePanelDef | undefined;
     get contentControls(): ContentControl[];
@@ -2216,6 +2198,7 @@ export class FrontstageDef {
     static create(provider: FrontstageProvider): Promise<FrontstageDef>;
     // @internal (undocumented)
     get dispatch(): NineZoneDispatch;
+    set dispatch(dispatch: NineZoneDispatch);
     // @beta
     dockWidgetContainer(widgetId: string): void;
     // @internal (undocumented)
@@ -2276,7 +2259,7 @@ export class FrontstageDef {
     // (undocumented)
     get rightPanel(): StagePanelDef | undefined;
     // @internal (undocumented)
-    saveChildWindowSizeAndPosition(childWindowId: string, childWindow: Window): void;
+    saveChildWindowSizeAndPosition(childWindowId: string, childWindow: ChildWindow): void;
     setActiveContent(): Promise<boolean>;
     setActiveView(newContent: ContentControl, oldContent?: ContentControl): void;
     setActiveViewFromViewport(viewport: ScreenViewport): boolean;
@@ -2358,6 +2341,9 @@ export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue;
 export function getListPanel(props: ListPickerProps): React_2.ReactNode;
 
 // @internal (undocumented)
+export function getPanelSectionId(location: StagePanelLocation, section: StagePanelSection): PanelSectionId;
+
+// @internal (undocumented)
 export function getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray<WidgetDef>;
 
 // @internal (undocumented)
@@ -2371,9 +2357,6 @@ export function getSelectionContextSyncEventIds(): string[];
 
 // @beta
 export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry;
-
-// @internal (undocumented)
-export function getWidgetId(location: StagePanelLocation, section: StagePanelSection): WidgetId;
 
 // @internal (undocumented)
 export type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
@@ -2591,10 +2574,10 @@ export interface InitialAppUiSettings {
 }
 
 // @internal (undocumented)
-export function initializeNineZoneState(frontstageDef: FrontstageDef): NineZoneState;
+export function initializeNineZoneState(frontstageDef: FrontstageDef): void;
 
 // @internal (undocumented)
-export function initializePanel(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState;
+export function initializePanel(frontstageDef: FrontstageDef, location: StagePanelLocation): void;
 
 // @beta (undocumented)
 export class InputEditorCommitHandler {
@@ -2675,9 +2658,6 @@ export function isFrontstageStateSettingResult(settingsResult: UiStateStorageRes
 
 // @beta
 export function isNoSelectionActive(): boolean;
-
-// @internal (undocumented)
-export function isPanelCollapsed(panelState: StagePanelState | undefined): boolean;
 
 // @internal
 export const isReactContent: (content: PopupContentType) => content is ReactContent;
@@ -3306,7 +3286,7 @@ export interface OverflowToolbarOptions {
 }
 
 // @internal
-export function packNineZoneState(state: NineZoneState): SavedNineZoneState;
+export function packNineZoneState(state: NineZoneState): NineZoneState;
 
 // @public
 export interface PanelPinnedChangedEventArgs {
@@ -3515,6 +3495,17 @@ export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
     [featureName: string]: any;
 }
 
+// @beta
+export function PreviewFeaturesProvider({ children, features, }: PreviewFeaturesProviderProps): JSX.Element;
+
+// @beta
+export interface PreviewFeaturesProviderProps {
+    // (undocumented)
+    children?: React_2.ReactNode;
+    // (undocumented)
+    features?: PreviewFeatures;
+}
+
 // @public
 export class PropsHelper {
     // @deprecated (undocumented)
@@ -3622,7 +3613,7 @@ export class RestoreFrontstageLayoutTool extends Tool {
 }
 
 // @internal
-export function restoreNineZoneState(frontstageDef: FrontstageDef, saved: SavedNineZoneState): NineZoneState;
+export function restoreNineZoneState(frontstageDef: FrontstageDef, packed: NineZoneState): void;
 
 // @internal (undocumented)
 export interface RotationData {
@@ -3908,9 +3899,6 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
     // (undocumented)
     title: string;
 }
-
-// @internal (undocumented)
-export function showWidget(state: NineZoneState, id: TabState["id"]): NineZoneState;
 
 // @public
 export const SnapModeField: ConnectedComponent<typeof SnapModeFieldComponent, Omit_3<SnapModeFieldProps, "snapMode">>;
@@ -4238,7 +4226,7 @@ export class StateManager {
 export type StateType<R extends Reducer<any, any>> = DeepReadonly<ReturnType<R>>;
 
 // @internal (undocumented)
-export const stateVersion = 16;
+export const stateVersion = 17;
 
 // @public
 export class StatusBar extends React_2.Component<StatusBarProps> {
@@ -4841,8 +4829,6 @@ export class UiFramework {
     static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler;
     static initialize(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void>;
     static get initialized(): boolean;
-    // @internal
-    static initializeEx(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void>;
     static initializeStateFromUserSettingsProviders(immediateSync?: boolean): Promise<void>;
     // @alpha
     static get isContextMenuOpen(): boolean;
@@ -4859,8 +4845,6 @@ export class UiFramework {
     static openCursorMenu(menuData: CursorMenuData | undefined): void;
     // @internal (undocumented)
     static get packageName(): string;
-    // @beta
-    static get previewFeatures(): PreviewFeatures;
     static registerUserSettingsProvider(entry: UserSettingsProvider): boolean;
     // (undocumented)
     static setAccudrawSnapMode(snapMode: SnapMode): void;
@@ -4883,8 +4867,6 @@ export class UiFramework {
     static setIModelConnection(iModelConnection: IModelConnection | undefined, immediateSync?: boolean): void;
     // (undocumented)
     static setIsUiVisible(visible: boolean): void;
-    // @beta
-    static setPreviewFeatures(features: PreviewFeatures): void;
     // (undocumented)
     static setShowWidgetIcon(value: boolean): void;
     static get settingsManager(): SettingsManager;
@@ -5510,7 +5492,7 @@ export interface WidgetPanelsFrontstageState {
     // (undocumented)
     id: FrontstageDef["id"];
     // (undocumented)
-    nineZone: SavedNineZoneState;
+    nineZone: NineZoneState;
     stateVersion: number;
     version: number;
 }

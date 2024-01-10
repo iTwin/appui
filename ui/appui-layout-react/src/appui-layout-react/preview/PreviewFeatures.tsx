@@ -8,95 +8,45 @@
 
 import * as React from "react";
 
-interface KnownPreviewFeatures {
-  contentAlwaysMaxSize?: boolean;
-  enableMaximizedFloatingWidget?: boolean;
+/** Preview features known to layout package.
+ * @internal
+ */
+export interface KnownPreviewLayoutFeatures {
+  /** If true, the panels and tool settings will always be rendered over the content.
+   * The content will never change size.
+   */
+  contentAlwaysMaxSize: boolean;
+  /** If true, the floating widget will have a "maximize" button. */
+  enableMaximizedFloatingWidget: boolean;
   changeActiveTabAfterDragDrop?: boolean;
 }
 
-/**
- * Internal state for preview features that must not be saved to local storage.
- */
-interface PreviewFeatureState {
-  tested?: boolean;
-  maximizedWidget?: string;
-  activeTab?: boolean;
-}
-
-/**
- * Actions for preview features.
- */
-type PreviewActions =
-  | {
-      type: "TEST_ACTION";
-    }
-  | {
-      type: "SET_MAXIMIZED_WIDGET";
-      id: string | undefined;
-    }
-  | {
-      type: "SET_NEW_ACTIVE_TAB";
-    };
+type PreviewFeaturesState = Partial<KnownPreviewLayoutFeatures>;
 
 /**
  * Context containing all configuration for preview features.
  */
-const PreviewFeaturesContext = React.createContext<
-  KnownPreviewFeatures & {
-    previewState: PreviewFeatureState;
-    previewDispatch: React.Dispatch<PreviewActions>;
-  }
->({ previewState: {}, previewDispatch: () => {} });
+const PreviewFeaturesContext = React.createContext<PreviewFeaturesState>({});
 
 /**
  * Properties of `PreviewFeaturesProvider`.
  * @internal
  */
-interface PreviewFeaturesProviderProps extends KnownPreviewFeatures {
+interface PreviewFeaturesProviderProps extends PreviewFeaturesState {
   children?: React.ReactNode;
   [key: string]: any;
-}
-
-/**
- * Using reducer to facilitate move between preview and ninezoneReducer.
- */
-// istanbul ignore next (preview)
-function previewReducer(state: PreviewFeatureState, action: PreviewActions) {
-  switch (action.type) {
-    // Keep for testing purposes
-    case "TEST_ACTION":
-      return {
-        ...state,
-        tested: true,
-      };
-    case "SET_MAXIMIZED_WIDGET":
-      return {
-        ...state,
-        maximizedWidget: action.id,
-      };
-    case "SET_NEW_ACTIVE_TAB":
-      return {
-        ...state,
-        actionTab: true,
-      };
-    default:
-      return state;
-  }
 }
 
 /**
  * Use to configure preview features
  * @internal
  */
-export const PreviewFeaturesProvider = ({
+export const PreviewLayoutFeaturesProvider = ({
   children,
   ...props
 }: PreviewFeaturesProviderProps) => {
-  const [previewState, previewDispatch] = React.useReducer(previewReducer, {});
   return (
-    <PreviewFeaturesContext.Provider
-      value={{ ...props, previewState, previewDispatch }}
-    >
+    <PreviewFeaturesContext.Provider value={props}>
       {children}
     </PreviewFeaturesContext.Provider>
   );

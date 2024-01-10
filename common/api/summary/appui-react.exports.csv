@@ -28,19 +28,17 @@ public;ActionTypes
 public;ActionWithPayload
 public;ActiveContentChangedEvent 
 public;ActiveContentChangedEventArgs
-internal;ActiveFrontstageDefProvider({ frontstageDef, layout, }: ActiveFrontstageDefProviderProps): JSX.Element
+internal;ActiveFrontstageDefProvider({ frontstageDef, }: ActiveFrontstageDefProviderProps): JSX.Element
 public;ActivityCenterField(props: CommonProps): JSX.Element | null
 public;ActivityMessageCancelledEvent 
 public;ActivityMessageEventArgs
 public;ActivityMessageUpdatedEvent 
-internal;addMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState
-internal;addPanelWidgets(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState
-internal;addWidgets(state: NineZoneState, widgets: ReadonlyArray
+internal;addFrontstageWidgetDefs(frontstageDef: FrontstageDef): void
+internal;addPanelSectionWidgetDefs(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): void
 public;AllowedUiItemsProviderOverrides
 public;AnalysisAnimationTimelineDataProvider 
 public;AnyItemDef = GroupItemDef | CommandItemDef | ToolItemDef | ActionButtonItemDef
 public;AnyToolbarItemDef = AnyItemDef | CustomItemDef
-internal;appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray
 public;AppNotificationManager 
 public;AppUiSettings 
 beta;areNoFeatureOverridesActive(): boolean
@@ -179,7 +177,6 @@ public;ElementTooltipChangedEventArgs
 public;EmphasizeElementsChangedArgs
 beta;ExpandableSection 
 beta;ExpandableSectionProps 
-internal;expandWidget(state: NineZoneState, id: TabState["id"]): NineZoneState
 public;ExtensibleToolbarProps
 beta;featureOverridesActiveStateFunc(state: Readonly
 beta;FloatingContentControl 
@@ -204,7 +201,7 @@ public;FrameworkReducer: (state: CombinedReducerState
 beta;FrameworkRootState
 beta;FrameworkStackedDialog
 public;FrameworkState
-alpha;FrameworkToolAdmin 
+beta;FrameworkToolAdmin 
 public;FrameworkToolSettings
 public;FrameworkUiAdmin 
 public;FrameworkVisibility
@@ -227,12 +224,12 @@ internal;getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState
 beta;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue
 beta;getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue
 beta;getListPanel(props: ListPickerProps): React_2.ReactNode
+internal;getPanelSectionId(location: StagePanelLocation, section: StagePanelSection): PanelSectionId
 internal;getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray
 internal;getPanelState(state: NineZoneState, side: PanelSide): StagePanelState.Minimized | StagePanelState.Open
 beta;getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial
 beta;getSelectionContextSyncEventIds(): string[]
 beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry
-internal;getWidgetId(location: StagePanelLocation, section: StagePanelSection): WidgetId
 internal;GroupedItems = ReadonlyArray
 public;GroupItemDef 
 public;GroupItemProps 
@@ -246,8 +243,8 @@ beta;IModelConnectedViewSelector: ConnectedComponent
 public;IModelViewportControl 
 public;IModelViewportControlOptions
 public;InitialAppUiSettings
-internal;initializeNineZoneState(frontstageDef: FrontstageDef): NineZoneState
-internal;initializePanel(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState
+internal;initializeNineZoneState(frontstageDef: FrontstageDef): void
+internal;initializePanel(frontstageDef: FrontstageDef, location: StagePanelLocation): void
 beta;InputEditorCommitHandler
 alpha;InputEditorPopup 
 beta;InputEditorPopupProps 
@@ -260,7 +257,6 @@ public;isBackstageActionItem(item: BackstageItem): item is BackstageActionItem
 public;isBackstageStageLauncher(item: BackstageItem): item is BackstageStageLauncher
 internal;isFrontstageStateSettingResult(settingsResult: UiStateStorageResult): settingsResult is
 beta;isNoSelectionActive(): boolean
-internal;isPanelCollapsed(panelState: StagePanelState | undefined): boolean
 internal;isReactContent: (content: PopupContentType) => content is ReactContent
 internal;isReactNotifyMessageDetails: (details: any) => details is ReactNotifyMessageDetails
 public;isStatusBarActionItem(item: StatusBarItem): item is StatusBarActionItem
@@ -337,7 +333,7 @@ public;NotifyMessageType = MessageType
 public;OpenChildWindowInfo
 public;OpenMessageCenterEvent 
 beta;OverflowToolbarOptions
-internal;packNineZoneState(state: NineZoneState): SavedNineZoneState
+internal;packNineZoneState(state: NineZoneState): NineZoneState
 public;PanelPinnedChangedEventArgs
 internal;PanelSizeChangedEvent 
 internal;PanelSizeChangedEventArgs
@@ -359,6 +355,8 @@ beta;PositionPopupContent(props: CommonDivProps): JSX.Element
 beta;PositionPopupProps 
 public;PresentationSelectionScope
 beta;PreviewFeatures 
+beta;PreviewFeaturesProvider({ children, features, }: PreviewFeaturesProviderProps): JSX.Element
+beta;PreviewFeaturesProviderProps
 public;PropsHelper
 public;ProviderItem
 beta;QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems, }: QuantityFormatterSettingsOptions): JSX.Element
@@ -372,7 +370,7 @@ beta;ReducerRegistry
 beta;ReducerRegistryInstance: ReducerRegistry
 public;RestoreAllFrontstagesTool 
 public;RestoreFrontstageLayoutTool 
-internal;restoreNineZoneState(frontstageDef: FrontstageDef, saved: SavedNineZoneState): NineZoneState
+internal;restoreNineZoneState(frontstageDef: FrontstageDef, packed: NineZoneState): void
 internal;RotationData
 public;SafeAreaContext: React_2.Context
 public;SafeAreaInsets
@@ -402,7 +400,6 @@ alpha;SheetNavigationAid
 alpha;SheetNavigationAidControl 
 alpha;SheetNavigationProps 
 alpha;SheetsModalFrontstage 
-internal;showWidget(state: NineZoneState, id: TabState["id"]): NineZoneState
 public;SnapModeField: ConnectedComponent
 alpha;SolarTimelineDataProvider 
 public;SplitPane(props: SplitPaneProps): JSX.Element
@@ -435,7 +432,7 @@ public;StandardStatusbarItemsProvider
 beta;StandardStatusbarUiItemsProvider 
 public;StateManager
 public;StateType
-internal;stateVersion = 16
+internal;stateVersion = 17
 public;StatusBar 
 public;StatusBar
 public;StatusBarActionItem 

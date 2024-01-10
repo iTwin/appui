@@ -198,6 +198,23 @@ describe("DisplayValuePropertyDataFilterer", () => {
         filteredTypes: [FilteredType.Value],
       });
     });
+
+    it("Should match if case of letters does not match", async () => {
+      const filterer = new DisplayValuePropertyDataFilterer("sOmE");
+      const record = TestUtils.createPrimitiveStringProperty(
+        "Property",
+        "Value",
+        "DisplaySomeFilteredName"
+      );
+
+      const matchResult = await filterer.recordMatchesFilter(record);
+      expect(matchResult).to.deep.eq({
+        matchesFilter: true,
+        shouldExpandNodeParents: true,
+        matchesCount: 1,
+        filteredTypes: [FilteredType.Value],
+      });
+    });
   });
 
   describe("raising `onFilterChanged` event", () => {

@@ -55,6 +55,27 @@ export interface PanelSetSizeAction {
 }
 
 /** @internal */
+export interface PanelSetMinSizeAction {
+  readonly type: "PANEL_SET_MIN_SIZE";
+  readonly side: PanelSide;
+  readonly minSize: PanelState["minSize"];
+}
+
+/** @internal */
+export interface PanelSetMaxSizeAction {
+  readonly type: "PANEL_SET_MAX_SIZE";
+  readonly side: PanelSide;
+  readonly maxSize: PanelState["maxSize"];
+}
+
+/** @internal */
+export interface PanelSetResizableAction {
+  readonly type: "PANEL_SET_RESIZABLE";
+  readonly side: PanelSide;
+  readonly resizable: PanelState["resizable"];
+}
+
+/** @internal */
 export interface PanelSetSplitterPercentAction {
   readonly type: "PANEL_SET_SPLITTER_VALUE";
   readonly side: PanelSide;
@@ -213,6 +234,12 @@ export interface WidgetTabHideAction {
 }
 
 /** @internal */
+export interface WidgetTabRemoveAction {
+  readonly type: "WIDGET_TAB_REMOVE";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
 export interface WidgetTabSetLabelAction {
   readonly type: "WIDGET_TAB_SET_LABEL";
   readonly id: TabState["id"];
@@ -253,6 +280,19 @@ export interface WidgetTabExpandAction {
 }
 
 /** @internal */
+export interface WidgetTabUnloadAction {
+  readonly type: "WIDGET_TAB_UNLOAD";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
+export interface WidgetTabUpdateAction {
+  readonly type: "WIDGET_TAB_UPDATE";
+  readonly id: TabState["id"];
+  readonly overrides: Partial<TabState>;
+}
+
+/** @internal */
 export interface ToolSettingsDragStartAction {
   readonly type: "TOOL_SETTINGS_DRAG_START";
   readonly newFloatingWidgetId: FloatingWidgetState["id"];
@@ -264,12 +304,39 @@ export interface ToolSettingsDockAction {
 }
 
 /** @internal */
+export interface WidgetDefAddAction {
+  readonly type: "WIDGET_DEF_ADD";
+  readonly id: TabState["id"];
+  readonly overrides?: Partial<TabState>;
+  readonly location: "panel" | "floating";
+  readonly floatingWidget: {
+    readonly id: FloatingWidgetState["id"];
+    readonly preferredPosition?: XAndY;
+  };
+  readonly panelSection: {
+    readonly id: WidgetState["id"];
+    readonly index: number;
+    readonly side: PanelSide;
+  };
+}
+
+/** @internal */
+export interface WidgetDefAddToolSettingsAction {
+  readonly type: "WIDGET_DEF_ADD_TOOL_SETTINGS";
+  readonly id: TabState["id"];
+  readonly overrides?: Partial<TabState>;
+}
+
+/** @internal */
 export type NineZoneAction =
   | ResizeAction
   | PanelToggleCollapsedAction
   | PanelSetCollapsedAction
   | PanelSetPinnedAction
   | PanelSetSizeAction
+  | PanelSetMinSizeAction
+  | PanelSetMaxSizeAction
+  | PanelSetResizableAction
   | PanelSetSplitterPercentAction
   | PanelToggleSpanAction
   | PanelTogglePinnedAction
@@ -285,18 +352,23 @@ export type NineZoneAction =
   | WidgetDragAction
   | WidgetDragEndAction
   | WidgetTabClickAction
+  | WidgetTabCloseAction
   | WidgetTabDoubleClickAction
   | WidgetTabDragStartAction
   | WidgetTabDragAction
   | WidgetTabDragEndAction
-  | WidgetTabPopoutAction
-  | WidgetTabCloseAction
+  | WidgetTabExpandAction
   | WidgetTabFloatAction
   | WidgetTabHideAction
+  | WidgetTabRemoveAction
   | WidgetTabOpenAction
+  | WidgetTabPopoutAction
   | WidgetTabSetLabelAction
   | WidgetTabSetPopoutBoundsAction
   | WidgetTabShowAction
-  | WidgetTabExpandAction
+  | WidgetTabUnloadAction
+  | WidgetTabUpdateAction
   | ToolSettingsDragStartAction
-  | ToolSettingsDockAction;
+  | ToolSettingsDockAction
+  | WidgetDefAddAction
+  | WidgetDefAddToolSettingsAction;

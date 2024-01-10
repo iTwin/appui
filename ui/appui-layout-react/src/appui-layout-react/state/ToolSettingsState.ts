@@ -6,12 +6,7 @@
  * @module Base
  */
 
-import produce from "immer";
-import { UiError } from "@itwin/appui-abstract";
-import { getTabLocation } from "./TabLocation";
-import { type TabState } from "./TabState";
-import { category } from "./internal/NineZoneStateHelpers";
-import type { NineZoneState } from "./NineZoneState";
+import type { TabState } from "./TabState";
 
 /** @internal */
 export interface DockedToolSettingsState {
@@ -30,62 +25,3 @@ export interface WidgetToolSettingsState {
 export type ToolSettingsState =
   | DockedToolSettingsState
   | WidgetToolSettingsState;
-
-/** Adds a docked tool settings.
- * @internal
- */
-export function addDockedToolSettings(
-  state: NineZoneState,
-  tabId: TabState["id"],
-  hidden = false
-): NineZoneState {
-  if (state.toolSettings)
-    throw new UiError(category, "Tool settings already exist");
-  if (!(tabId in state.tabs))
-    throw new UiError(category, "Tab does not exist", undefined, () => ({
-      tabId,
-    }));
-  const location = getTabLocation(state, tabId);
-  if (location)
-    throw new UiError(
-      category,
-      "Tab is already in a widget",
-      undefined,
-      () => ({ tabId, widgetId: location.widgetId })
-    );
-
-  return produce(state, (stateDraft) => {
-    stateDraft.toolSettings = {
-      tabId,
-      type: "docked",
-      hidden,
-    };
-  });
-}
-
-/** Adds a widget tool settings.
- * @internal
- */
-export function addWidgetToolSettings(
-  state: NineZoneState,
-  tabId: TabState["id"]
-): NineZoneState {
-  if (state.toolSettings)
-    throw new UiError(category, "Tool settings already exist");
-  if (!(tabId in state.tabs))
-    throw new UiError(category, "Tab does not exist", undefined, () => ({
-      tabId,
-    }));
-  const location = getTabLocation(state, tabId);
-  if (!location)
-    throw new UiError(category, "Tab is not in a widget", undefined, () => ({
-      tabId,
-    }));
-
-  return produce(state, (stateDraft) => {
-    stateDraft.toolSettings = {
-      tabId,
-      type: "widget",
-    };
-  });
-}

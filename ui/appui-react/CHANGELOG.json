@@ -2,6 +2,126 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.8.0",
+      "tag": "@itwin/appui-react_v4.8.0",
+      "date": "Thu, 21 Dec 2023 14:08:42 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Dock back to panel section when popout widget is closed."
+          },
+          {
+            "comment": "Keep widget content unmounted while widget state is set to WidgetState.Unloaded."
+          },
+          {
+            "comment": "Localize popout error text"
+          },
+          {
+            "comment": "Fixed bug where popouts would get incrementally smaller or larger each time opened"
+          },
+          {
+            "comment": "Promote `FrameworkToolAdmin` to *beta*."
+          },
+          {
+            "comment": "Fix `RestoreLayout` tool."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.7.2",
+      "tag": "@itwin/appui-react_v4.7.2",
+      "date": "Wed, 20 Dec 2023 23:11:37 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Revert Popout reparenting strategy."
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.7.1",
+      "tag": "@itwin/appui-react_v4.7.1",
+      "date": "Thu, 07 Dec 2023 19:40:17 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Now support `null` Content (allow delay rendering on specific cases)"
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.7.0",
+      "tag": "@itwin/appui-react_v4.7.0",
+      "date": "Fri, 01 Dec 2023 20:01:16 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "No longer use deprecated appui-abstract types: getObjectClassName, KeyboardKey, SpecialKey, matches; use icon path directly instead of IconSpecUtilities"
+          },
+          {
+            "comment": "Add alternative provider methods to UiItemsProvider."
+          },
+          {
+            "comment": "Hidden widget will now open to default position and size of CanFloat property when set to floating"
+          },
+          {
+            "comment": "Widgets no longer disappear when popped out and window.open fails"
+          },
+          {
+            "comment": "Popout widgets will now contain a ContentContainer instead of a DOM node. This enables work to be saved when a widget is popped out."
+          },
+          {
+            "comment": "Popout widgets will now popout to preferredFloatingWidgetSize. Will popout to container size if preferredFloatingWidgetSize is not set"
+          },
+          {
+            "comment": "`AppNotificationManager` no longer requires `StatusBar` to be displayed to show messages."
+          },
+          {
+            "comment": "Fix error when `HTMLElement` used in `NotifyMessageDetails` messages."
+          },
+          {
+            "comment": "Fixed an issue where frontstage state changes would be lost when it is closed too soon after the change."
+          },
+          {
+            "comment": "Added PreviewFeatures and penelsAlwaysOverContent first preview"
+          },
+          {
+            "comment": "Added `enableMaximizedFloatingWidget` preview features"
+          },
+          {
+            "comment": "Fix frontstage settings save."
+          },
+          {
+            "comment": "Update active selection scope related documentation."
+          },
+          {
+            "comment": "Improve keyboard shortcuts related documentation."
+          },
+          {
+            "comment": "Provide union type values for Theme so IDE can suggest values."
+          },
+          {
+            "comment": "Add High contrast theme support and clarify ThemeManager scope"
+          },
+          {
+            "comment": "Remove remaining UI 2.0 mention in docs"
+          },
+          {
+            "comment": "Remove unneeded `changeView` call on `FloatingViewportComponent`"
+          },
+          {
+            "comment": "Refresh tool setting values when undocking"
+          },
+          {
+            "comment": "Fixed reference error in case `applicationData` is not provided for `IModelViewportControl`."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.6.3",
       "tag": "@itwin/appui-react_v4.6.3",
       "date": "Wed, 25 Oct 2023 09:39:22 GMT",

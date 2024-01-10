@@ -46,6 +46,7 @@ import {
   assert,
   Id64String,
   Logger,
+  LoggingMetaData,
   LogLevel,
   ProcessDetector,
   UnexpectedErrors,
@@ -442,7 +443,7 @@ export class SampleAppIModelApp {
     const url = new URL(window.location.href);
     const params = new URLSearchParams(url.search);
     const snapshotPath = params.get("snapshotPath");
-    return snapshotPath
+    return snapshotPath !== null
       ? decodeURIComponent(snapshotPath)
       : process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
   }
@@ -579,19 +580,21 @@ const SampleAppViewer = () => {
   useHandleURLParams();
 
   return (
-    <Provider store={SampleAppIModelApp.store}>
-      <ThemeManager>
-        <SafeAreaContext.Provider value={SafeAreaInsets.All}>
-          <AppDragInteraction>
-            <UiStateStorageHandler>
-              <ApplicationLayoutProvider>
-                <AppViewerContent />
-              </ApplicationLayoutProvider>
-            </UiStateStorageHandler>
-          </AppDragInteraction>
-        </SafeAreaContext.Provider>
-      </ThemeManager>
-    </Provider>
+    <PreviewFeaturesToggleProvider.ReactProvider>
+      <Provider store={SampleAppIModelApp.store}>
+        <ThemeManager>
+          <SafeAreaContext.Provider value={SafeAreaInsets.All}>
+            <AppDragInteraction>
+              <UiStateStorageHandler>
+                <ApplicationLayoutProvider>
+                  <AppViewerContent />
+                </ApplicationLayoutProvider>
+              </UiStateStorageHandler>
+            </AppDragInteraction>
+          </SafeAreaContext.Provider>
+        </ThemeManager>
+      </Provider>
+    </PreviewFeaturesToggleProvider.ReactProvider>
   );
 };
 
@@ -618,13 +621,30 @@ window.addEventListener("beforeunload", async () => {
   await SampleAppIModelApp.closeCurrentIModel();
 });
 
+// Similar to `Logger.initializeToConsole`, but doesn't stringify meta-data.
+function initializeToConsole() {
+  const logConsole =
+    (level: string) =>
+    (category: string, message: string, metaData: LoggingMetaData) => {
+      const metaObj = Logger.getMetaData(metaData);
+      console.log(`${level} | ${category} | ${message}`, metaObj); // eslint-disable-line no-console
+    };
+
+  Logger.initialize(
+    logConsole("Error"),
+    logConsole("Warning"),
+    logConsole("Info"),
+    logConsole("Trace")
+  );
+}
+
 // main entry point.
 async function main() {
   // Popout widget content is loaded by main window, avoid app-reinitialization.
   if (window.location.href.endsWith("iTwinPopup")) return;
 
   // initialize logging
-  Logger.initializeToConsole();
+  initializeToConsole();
   Logger.setLevelDefault(LogLevel.Warning);
   Logger.setLevel(loggerCategory, LogLevel.Info);
   Logger.setLevel("ViewportComponent", LogLevel.Info);

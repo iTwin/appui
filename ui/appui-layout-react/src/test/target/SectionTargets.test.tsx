@@ -5,14 +5,14 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import {
-  addPanelWidget,
-  addTab,
   createNineZoneState,
   PanelSideContext,
 } from "../../appui-layout-react";
 import type { TestNineZoneProviderProps } from "../Providers";
 import { TestNineZoneProvider } from "../Providers";
 import { SectionTargets } from "../../appui-layout-react/target/SectionTargets";
+import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
 
 function Wrapper({
   children,

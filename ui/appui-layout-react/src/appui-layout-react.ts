@@ -73,6 +73,7 @@ export * from "./appui-layout-react/widget/Overflow";
 export * from "./appui-layout-react/widget/PanelWidget";
 export * from "./appui-layout-react/widget/PinToggle";
 export * from "./appui-layout-react/widget/PopoutToggle";
+export * from "./appui-layout-react/widget/PreviewMaximizeToggle";
 export * from "./appui-layout-react/widget/SendBack";
 export * from "./appui-layout-react/widget/Tab";
 export * from "./appui-layout-react/widget/TabBar";
