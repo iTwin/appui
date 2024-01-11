@@ -89,6 +89,7 @@ test("should resize (single panel)", async ({ baseURL, page }) => {
 });
 
 async function getPanelSize(panel: Locator) {
+  await panel.scrollIntoViewIfNeeded(); // wait for https://playwright.dev/docs/actionability#stable
   const panelBounds = (await panel.boundingBox())!;
   return panelBounds.width;
 }
