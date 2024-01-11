@@ -89,7 +89,7 @@ export const useResizeGrip = <T extends HTMLElement>(): [
   const relativePosition = React.useRef(new Point());
   const layoutStore = useLayoutStore();
   const panelStateRef = React.useRef(layoutStore.getState().panels[side]);
-  React.useEffect(
+  React.useLayoutEffect(
     () =>
       layoutStore.subscribe((state) => {
         panelStateRef.current = state.panels[side];
