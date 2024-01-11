@@ -133,14 +133,14 @@ export class StagePanelDef extends WidgetHost {
 
   /** Indicates whether the panel is resizable. */
   public get resizable(): boolean {
-    return this._initialConfig?.resizable ?? true;
+    return this.defaultResizable;
   }
 
   /** Indicates whether the panel is pinned. */
   public get pinned(): boolean {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     const state = frontstageDef?.nineZoneState;
-    if (!state) return this.initialConfig?.pinned ?? true;
+    if (!state) return this.defaultPinned;
 
     const side = toPanelSide(this.location);
     const panel = state.panels[side];
@@ -211,6 +211,16 @@ export class StagePanelDef extends WidgetHost {
   /** @internal */
   public get defaultSize() {
     return this._initialConfig?.size;
+  }
+
+  /** @internal */
+  public get defaultPinned() {
+    return this._initialConfig?.pinned ?? true;
+  }
+
+  /** @internal */
+  public get defaultResizable() {
+    return this._initialConfig?.resizable ?? true;
   }
 
   /** Gets the list of Widgets. */

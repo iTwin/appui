@@ -517,7 +517,7 @@ export function initializePanel(
   const panelDef = frontstageDef.getStagePanelDef(location);
   if (!panelDef) return;
 
-  const size = panelDef.size;
+  const size = panelDef.defaultSize;
   size !== undefined &&
     frontstageDef.dispatch({
       type: "PANEL_SET_SIZE",
@@ -528,13 +528,13 @@ export function initializePanel(
   frontstageDef.dispatch({
     type: "PANEL_SET_PINNED",
     side,
-    pinned: panelDef.pinned,
+    pinned: panelDef.defaultPinned,
   });
 
   frontstageDef.dispatch({
     type: "PANEL_SET_RESIZABLE",
     side,
-    resizable: panelDef.resizable,
+    resizable: panelDef.defaultResizable,
   });
 
   const minSize = panelDef.initialConfig?.minSize;
@@ -553,10 +553,11 @@ export function initializePanel(
       maxSize,
     });
 
+  const collapsed = panelDef.defaultState !== StagePanelState.Open;
   frontstageDef.dispatch({
     type: "PANEL_SET_COLLAPSED",
     side,
-    collapsed: isPanelCollapsed(panelDef),
+    collapsed,
   });
 }
 
@@ -698,10 +699,6 @@ export function packNineZoneState(state: NineZoneState): NineZoneState {
     }
   });
   return packed;
-}
-
-function isPanelCollapsed(panelDef: StagePanelDef | undefined) {
-  return panelDef?.panelState !== StagePanelState.Open;
 }
 
 /** FrontstageState is saved in UiStateStorage.

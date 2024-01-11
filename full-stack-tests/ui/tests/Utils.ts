@@ -200,6 +200,13 @@ export enum WidgetState {
   Unloaded = 4,
 }
 
+export enum StagePanelState {
+  Off = 0,
+  Minimized,
+  Open,
+  Popup,
+}
+
 export async function setWidgetState(
   page: Page,
   widgetId: string,

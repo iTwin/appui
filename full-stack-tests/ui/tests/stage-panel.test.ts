@@ -4,9 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 import { Locator, expect, test } from "@playwright/test";
 import assert from "assert";
-import { panelLocator, tabLocator, widgetLocator } from "./Utils";
+import {
+  StagePanelState,
+  panelLocator,
+  tabLocator,
+  widgetLocator,
+} from "./Utils";
 
-test.describe("stage panel", () => {
+test.describe("WidgetApi", () => {
   test.beforeEach(async ({ page, baseURL }) => {
     assert(baseURL);
     await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
@@ -30,9 +35,6 @@ test.describe("stage panel", () => {
   });
 
   test("should resize", async ({ baseURL, page }) => {
-    assert(baseURL);
-    await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
-
     const panel = panelLocator({ page, side: "right" });
     const handle = handleLocator(panel);
 
@@ -58,15 +60,57 @@ test.describe("stage panel", () => {
   });
 });
 
-test("should resize (single panel)", async ({ baseURL, page }) => {
+test("should initialize defaults", async ({ baseURL, page }) => {
+  assert(baseURL);
+  await page.goto(`${baseURL}?frontstage=appui-test-providers:TestFrontstage`);
+
+  const panel = panelLocator({ page, side: "left" });
+  await expect(panel).toBeVisible();
+  expect(await getPanelSize(panel)).toBe(200);
+});
+
+test("should initialize size", async ({ baseURL, page }) => {
   assert(baseURL);
   await page.goto(
-    `${baseURL}?frontstage=appui-test-providers:CustomFrontstage`
+    `${baseURL}?frontstage=appui-test-providers:TestFrontstage&size=500`
+  );
+
+  const panel = panelLocator({ page, side: "left" });
+  await expect(panel).toBeVisible();
+  expect(await getPanelSize(panel)).toBe(500);
+});
+
+test("should initialize minimized", async ({ baseURL, page }) => {
+  assert(baseURL);
+  await page.goto(
+    `${baseURL}?frontstage=appui-test-providers:TestFrontstage&defaultState=${StagePanelState.Minimized}`
+  );
+
+  const panel = panelLocator({ page, side: "left" });
+  const handle = panel.locator(".nz-line-grip");
+  await expect(handle).toBeVisible();
+  expect(await getPanelSize(panel)).toBe(0);
+});
+
+test("should initialize resizable", async ({ baseURL, page }) => {
+  assert(baseURL);
+  await page.goto(
+    `${baseURL}?frontstage=appui-test-providers:TestFrontstage&resizable=0`
   );
 
   const panel = panelLocator({ page, side: "left" });
   const handle = handleLocator(panel);
+  await expect(handle).not.toBeVisible();
+});
 
+test("should resize (single panel)", async ({ baseURL, page }) => {
+  assert(baseURL);
+  await page.goto(`${baseURL}?frontstage=appui-test-providers:TestFrontstage`);
+
+  const panel = panelLocator({ page, side: "left" });
+  const handle = handleLocator(panel);
+
+  await expect(handle).toBeVisible();
   expect(await getPanelSize(panel)).toBe(200);
 
   const panelBounds = (await panel.boundingBox())!;
