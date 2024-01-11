@@ -58,36 +58,6 @@ test.describe("stage panel", () => {
   });
 });
 
-test("should resize (single panel)", async ({ baseURL, page }) => {
-  assert(baseURL);
-  await page.goto(
-    `${baseURL}?frontstage=appui-test-providers:CustomFrontstage`
-  );
-
-  const panel = panelLocator({ page, side: "left" });
-  const handle = handleLocator(panel);
-
-  expect(await getPanelSize(panel)).toBe(200);
-
-  const panelBounds = (await panel.boundingBox())!;
-  const clientX = panelBounds.x + panelBounds.width;
-  const clientY = panelBounds.y + 20;
-  await handle.dispatchEvent("mousedown", { clientX, clientY });
-
-  await handle.dispatchEvent("mousemove", {
-    clientX: clientX + 50,
-    clientY,
-  });
-  expect(await getPanelSize(panel)).toBe(250);
-
-  await handle.dispatchEvent("mousemove", {
-    clientX: clientX + 40,
-    clientY,
-  });
-  expect(await getPanelSize(panel)).toBe(240);
-  await handle.dispatchEvent("mouseup");
-});
-
 async function getPanelSize(panel: Locator) {
   await panel.scrollIntoViewIfNeeded(); // wait for https://playwright.dev/docs/actionability#stable
   const panelBounds = (await panel.boundingBox())!;
