@@ -25,12 +25,9 @@
   }
 
   .fb-row-container {
-    padding-block: var(--iui-size-xs);
+    padding-block: var(--iui-size-s);
     padding-inline: var(--iui-size-m);
-    gap: var(--iui-size-m);
-  }
-
-  .fb-row-container {
+    gap: var(--iui-size-s);
     flex: 1;
   }
 
