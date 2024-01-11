@@ -23,12 +23,14 @@ import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
 import type { WidgetControl } from "./WidgetControl";
 import type { IconSpec, SizeProps } from "@itwin/core-react";
-import { IconHelper } from "@itwin/core-react";
+import { IconHelper, Rectangle } from "@itwin/core-react";
 import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 import { getTabLocation, isPopoutTabLocation } from "@itwin/appui-layout-react";
+import type { ChildWindowLocationProps } from "../framework/FrameworkChildWindows";
+import { PopoutWidget } from "../childwindow/PopoutWidget";
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -547,7 +549,32 @@ export class WidgetDef {
       const testWindow = UiFramework.childWindows.find(
         tabLocation.popoutWidgetId
       );
-      if (testWindow) testWindow.window.focus();
+      if (testWindow) {
+        // We have to check if Safari is the browser being used. Safari has security
+        // measures that do not allow you to change focus to another tab programmatically.
+        // Therefore the only and recommended way around this at the moment, is to close
+        // and then open the tab again. This remounts the popout so it is not ideal. Thats
+        // why this is not being done for all browsers.
+        // Apple support docs: https://discussions.apple.com/thread/251676767?sortBy=best
+        const isSafari =
+          navigator.userAgent.toLowerCase().indexOf("safari/") > -1;
+
+        if (isSafari) {
+          frontstageDef.dispatch({
+            type: "POPOUT_WIDGET_SEND_BACK",
+            id: tabLocation.popoutWidgetId,
+          });
+
+          const widget = state.widgets[tabLocation.widgetId];
+
+          frontstageDef.dispatch({
+            type: "WIDGET_TAB_POPOUT",
+            id: widget.activeTabId,
+          });
+        } else {
+          testWindow.window.focus();
+        }
+      }
     } else {
       frontstageDef.dispatch({
         type: "WIDGET_TAB_SHOW",
