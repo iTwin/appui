@@ -38,8 +38,7 @@ import {
 } from "@itwin/appui-layout-react";
 import type { FrontstageDef } from "../frontstage/FrontstageDef";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
-import type { StagePanelDef } from "../stagepanels/StagePanelDef";
-import { StagePanelState, toPanelSide } from "../stagepanels/StagePanelDef";
+import { toPanelSide } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
 import type { WidgetDef } from "../widgets/WidgetDef";
@@ -71,6 +70,7 @@ import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import classNames from "classnames";
 import type { FrameworkState } from "../redux/FrameworkState";
+import { StagePanelState } from "../stagepanels/StagePanelState";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();

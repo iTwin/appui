@@ -9,16 +9,7 @@
 // cSpell:ignore popout
 
 import * as React from "react";
-import type { ScreenViewport } from "@itwin/core-frontend";
-import {
-  IModelApp,
-  NotifyMessageDetails,
-  OutputMessagePriority,
-  OutputMessageType,
-} from "@itwin/core-frontend";
 import { UiError } from "@itwin/appui-abstract";
-import type { RectangleProps, SizeProps } from "@itwin/core-react";
-import { Rectangle } from "@itwin/core-react";
 import type {
   NineZoneDispatch,
   NineZoneState,
@@ -35,11 +26,22 @@ import {
   NineZoneStateReducer,
   panelSides,
 } from "@itwin/appui-layout-react";
+import { BentleyStatus } from "@itwin/core-bentley";
+import type { ScreenViewport } from "@itwin/core-frontend";
+import {
+  IModelApp,
+  NotifyMessageDetails,
+  OutputMessagePriority,
+  OutputMessageType,
+} from "@itwin/core-frontend";
+import type { XAndY } from "@itwin/core-geometry";
+import type { RectangleProps, SizeProps } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react";
 import type { ContentControl } from "../content/ContentControl";
 import type { ContentGroup } from "../content/ContentGroup";
 import { ContentGroupProvider } from "../content/ContentGroup";
 import type { ContentLayoutDef } from "../content/ContentLayout";
-import { StagePanelDef, StagePanelState } from "../stagepanels/StagePanelDef";
+import { StagePanelDef } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import type { WidgetControl } from "../widgets/WidgetControl";
 import { WidgetDef, WidgetType } from "../widgets/WidgetDef";
@@ -47,7 +49,6 @@ import type { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
 import type { ChildWindowLocationProps } from "../framework/FrameworkChildWindows";
 import { PopoutWidget } from "../childwindow/PopoutWidget";
-import { BentleyStatus } from "@itwin/core-bentley";
 import type { FrontstageConfig } from "./FrontstageConfig";
 import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import type { WidgetConfig } from "../widgets/WidgetConfig";
@@ -56,8 +57,8 @@ import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { WidgetState } from "../widgets/WidgetState";
 import { InternalFrontstageManager } from "./InternalFrontstageManager";
 import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager";
-import type { XAndY } from "@itwin/core-geometry";
 import type { ChildWindow } from "../childwindow/ChildWindowConfig";
+import { StagePanelState } from "../stagepanels/StagePanelState";
 
 /** @internal */
 export interface FrontstageEventArgs {

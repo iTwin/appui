@@ -34,7 +34,7 @@ test.describe("WidgetApi", () => {
     await expect(pinned).toHaveText("pinned=true");
   });
 
-  test("should resize", async ({ baseURL, page }) => {
+  test("should resize", async ({ page }) => {
     const panel = panelLocator({ page, side: "right" });
     const handle = handleLocator(panel);
 

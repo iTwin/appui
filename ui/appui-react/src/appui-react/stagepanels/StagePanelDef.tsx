@@ -20,16 +20,7 @@ import { StagePanelLocation } from "./StagePanelLocation";
 import { StagePanelSection } from "./StagePanelSection";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { UiFramework } from "../UiFramework";
-
-/** Enum for StagePanel state.
- * @public
- */
-export enum StagePanelState {
-  Off,
-  Minimized,
-  Open,
-  Popup,
-}
+import { StagePanelState } from "./StagePanelState";
 
 /** Panel state changed event args interface.
  * @public
