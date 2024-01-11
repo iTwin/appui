@@ -256,7 +256,7 @@ test.describe("floating widget send back outline", () => {
     const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
 
     const panel = panelLocator({ page, side: "left" });
-    const outline = outlineLocator({ panel, sectionIndex: 0 });
+    const outline = outlineLocator({ panel, sectionId: 0 });
 
     await expect(outline).not.toBeVisible();
     await sendBackButton.hover();
@@ -283,7 +283,7 @@ test.describe("floating widget send back outline", () => {
     await setWidgetState(page, "WL-3", WidgetState.Hidden);
 
     const panel = panelLocator({ page, side: "left" });
-    const outline = outlineLocator({ panel, sectionIndex: 1 });
+    const outline = outlineLocator({ panel, sectionId: 1 });
 
     await expect(outline).not.toBeVisible();
     await sendBackButton.hover();
