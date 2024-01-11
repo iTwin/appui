@@ -272,7 +272,7 @@ export class FrontstageDef {
 
     for (const popoutId of popoutsToOpen) {
       const result = this.openPopoutWidgetContainer(popoutId, oldState);
-      if (!result) return result; //
+      if (!result) return result;
     }
 
     return true;
