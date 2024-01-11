@@ -23,14 +23,12 @@ import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
 import type { WidgetControl } from "./WidgetControl";
 import type { IconSpec, SizeProps } from "@itwin/core-react";
-import { IconHelper, Rectangle } from "@itwin/core-react";
+import { IconHelper } from "@itwin/core-react";
 import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 import { getTabLocation, isPopoutTabLocation } from "@itwin/appui-layout-react";
-import type { ChildWindowLocationProps } from "../framework/FrameworkChildWindows";
-import { PopoutWidget } from "../childwindow/PopoutWidget";
 
 /** Widget State Changed Event Args interface.
  * @public
