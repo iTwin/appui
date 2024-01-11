@@ -146,45 +146,54 @@ function ActivityMessageContent({
 function useDisplayMessage() {
   const toaster = useToaster();
   React.useEffect(() => {
-    return MessageManager.onDisplayMessage.addListener(
-      ({ message, options, settings, animateOutToElement }) => {
-        const toastOptions: typeof options = {
-          hasCloseButton: true,
-          duration: message.displayTime.milliseconds,
-          type:
-            message.msgType === OutputMessageType.Sticky
-              ? "persisting"
-              : "temporary",
-          animateOutTo: animateOutToElement,
-          ...options,
-        };
-        toaster.setSettings({
-          placement: "bottom",
-          order: "ascending",
-          ...settings,
-        });
-        const content = (
-          <>
-            <CoreMessageRenderer message={message.briefMessage} />
-            {message.detailedMessage && (
-              <Text variant="small">
-                <CoreMessageRenderer message={message.detailedMessage} />
-              </Text>
-            )}
-          </>
-        );
-        switch (message.priority) {
-          case OutputMessagePriority.Warning:
-            return toaster.warning(content, toastOptions);
-          case OutputMessagePriority.Info:
-            return toaster.informational(content, toastOptions);
-          case OutputMessagePriority.Error:
-          case OutputMessagePriority.Fatal:
-            return toaster.negative(content, toastOptions);
-          default:
-            return toaster.positive(content, toastOptions);
+    return MessageManager.onDisplayMessage.addListener((args) => {
+      const { message, options, settings, animateOutToElement } = args;
+      const toastOptions: typeof options = {
+        hasCloseButton: true,
+        duration: message.displayTime.milliseconds,
+        type:
+          message.msgType === OutputMessageType.Sticky
+            ? "persisting"
+            : "temporary",
+        animateOutTo: animateOutToElement,
+        ...options,
+      };
+      toaster.setSettings({
+        placement: "bottom",
+        order: "ascending",
+        ...settings,
+      });
+      const content = (
+        <>
+          <CoreMessageRenderer message={message.briefMessage} />
+          {message.detailedMessage && (
+            <Text variant="small">
+              <CoreMessageRenderer message={message.detailedMessage} />
+            </Text>
+          )}
+        </>
+      );
+
+      let toast;
+      switch (message.priority) {
+        case OutputMessagePriority.Warning: {
+          toast = toaster.warning(content, toastOptions);
+          break;
         }
+        case OutputMessagePriority.Info: {
+          toast = toaster.informational(content, toastOptions);
+          break;
+        }
+        case OutputMessagePriority.Error:
+        case OutputMessagePriority.Fatal: {
+          toast = toaster.negative(content, toastOptions);
+          break;
+        }
+        default:
+          toast = toaster.positive(content, toastOptions);
       }
-    );
+
+      args.close = toast.close;
+    });
   }, [toaster]);
 }

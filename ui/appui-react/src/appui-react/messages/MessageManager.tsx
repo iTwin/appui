@@ -234,6 +234,7 @@ export class MessageManager {
     this._messages.splice(0);
     this._activeMessageManager.initialize();
 
+    this._toastCloseCallbacks.forEach(({ close }) => close());
     this._toastCloseCallbacks.splice(0);
 
     this.onMessagesUpdatedEvent.emit({});
