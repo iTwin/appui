@@ -3,6 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { BrowserContext, expect, Locator, Page } from "@playwright/test";
+import type { PanelSide } from "../../../ui/appui-layout-react";
+import { WidgetState } from "../../../ui/appui-react/src/appui-react/widgets/WidgetState";
+import { StagePanelState } from "../../../ui/appui-react/src/appui-react/stagepanels/StagePanelState";
+
+export { StagePanelState, WidgetState, PanelSide };
+
+export type SectionId = 0 | 1;
 
 export async function runKeyin(page: Page, keyin: string) {
   const ui = page.locator("#uifw-configurableui-wrapper");
@@ -12,8 +19,6 @@ export async function runKeyin(page: Page, keyin: string) {
   await input.fill(keyin);
   await input.press("Enter");
 }
-
-type PanelSide = "left" | "right" | "top" | "bottom";
 
 type FloatingWidgetLocatorArgs = { page: Page; id: string } | { tab: Locator };
 
@@ -77,7 +82,7 @@ export function frontstageLocator(page: Page) {
 
 type OutlineLocatorArgs =
   | { page: Page; side: PanelSide }
-  | { panel: Locator; sectionIndex: 0 | 1 };
+  | { panel: Locator; sectionId: SectionId };
 
 export function outlineLocator(args: OutlineLocatorArgs): Locator;
 export function outlineLocator(args: WidgetLocatorArgs): Locator[];
@@ -87,9 +92,9 @@ export function outlineLocator(args: OutlineLocatorArgs | WidgetLocatorArgs) {
     return args.page.locator(`.nz-outline-panelOutline.nz-${args.side}`);
   }
 
-  if ("sectionIndex" in args) {
+  if ("sectionId" in args) {
     return args.panel.locator(
-      `.nz-outline-sectionOutline.nz-${args.sectionIndex}`
+      `.nz-outline-sectionOutline.nz-${args.sectionId}`
     );
   }
 
@@ -103,7 +108,7 @@ export function outlineLocator(args: OutlineLocatorArgs | WidgetLocatorArgs) {
 export function panelSectionLocator(
   page: Page,
   side: PanelSide,
-  sectionId: 0 | 1,
+  sectionId: SectionId,
   options?: { has?: Locator }
 ) {
   const panel = panelLocator({ side, page });
@@ -169,7 +174,7 @@ export async function expectSavedFrontstageState<
 export async function expectTabInPanelSection(
   tab: Locator,
   side: PanelSide,
-  sectionId: 0 | 1,
+  sectionId: SectionId,
   message?: string
 ) {
   const page = tab.page();
@@ -190,14 +195,6 @@ export async function openFrontstage(page: Page, frontstageId: string) {
     `[data-item-type="backstage-item"][data-item-id="${frontstageId}"]`
   );
   await backstageItem.click();
-}
-
-export enum WidgetState {
-  Open = 0,
-  Closed = 1,
-  Hidden = 2,
-  Floating = 3,
-  Unloaded = 4,
 }
 
 export async function setWidgetState(
