@@ -23,9 +23,8 @@ import {
 } from "@itwin/appui-abstract";
 import { UiDataProvidedDialog } from "../../appui-react";
 
-const sandbox = sinon.createSandbox();
-const spyCancel = sandbox.spy();
-const spyOK = sandbox.spy();
+const spyCancel = sinon.spy();
+const spyOK = sinon.spy();
 
 class TestUiDataProvider extends DialogLayoutDataProvider {
   public currentPageIndex = 0;
@@ -151,7 +150,8 @@ class TestUiDataProvider extends DialogLayoutDataProvider {
 
 describe("UiDataProvidedDialog", () => {
   afterEach(() => {
-    sandbox.restore();
+    spyCancel.resetHistory();
+    spyOK.resetHistory();
   });
 
   describe("Modal Dialog", () => {

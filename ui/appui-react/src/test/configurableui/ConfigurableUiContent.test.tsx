@@ -13,7 +13,11 @@ import TestUtils from "../TestUtils";
 import { ConfigurableUiContent } from "../../appui-react/configurableui/ConfigurableUiContent";
 import { FrameworkToolAdmin } from "../../appui-react/tools/FrameworkToolAdmin";
 import userEvent from "@testing-library/user-event";
-import { CursorInformation, UiFramework } from "../../appui-react";
+import {
+  CursorInformation,
+  ThemeManager,
+  UiFramework,
+} from "../../appui-react";
 
 describe("ConfigurableUiContent", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -21,14 +25,12 @@ describe("ConfigurableUiContent", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
-    await TestUtils.initializeUiFramework(true);
-  });
-
   it("key presses should be handled", async () => {
     render(
       <Provider store={TestUtils.store}>
-        <ConfigurableUiContent />
+        <ThemeManager>
+          <ConfigurableUiContent />
+        </ThemeManager>
       </Provider>
     );
     expect(UiFramework.keyboardShortcuts.isFocusOnHome).to.be.true;
@@ -48,7 +50,9 @@ describe("ConfigurableUiContent", () => {
       CursorInformation.onCursorUpdatedEvent.addListener(spy);
     render(
       <Provider store={TestUtils.store}>
-        <ConfigurableUiContent />
+        <ThemeManager>
+          <ConfigurableUiContent />
+        </ThemeManager>
       </Provider>
     );
 
@@ -66,10 +70,5 @@ describe("ConfigurableUiContent", () => {
     );
 
     removeListener();
-  });
-
-  after(() => {
-    // clear out the framework key
-    TestUtils.terminateUiFramework();
   });
 });

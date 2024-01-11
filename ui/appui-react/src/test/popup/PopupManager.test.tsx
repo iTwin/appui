@@ -734,7 +734,7 @@ describe("PopupManager", () => {
         ).to.eq(1);
       });
       const inputNode = wrapper.container.querySelector("input");
-      expect(inputNode).not.to.null;
+      expect(inputNode).not.to.be.null;
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
       expect(spyCancel.calledOnce).to.be.true;

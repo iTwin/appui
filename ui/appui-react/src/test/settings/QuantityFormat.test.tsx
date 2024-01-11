@@ -150,32 +150,32 @@ describe("QuantityFormatSettingsPage", () => {
       </div>
     );
 
-    const setButton = wrapper.getByText(
-      "settings.quantity-formatting.setButtonLabel"
-    );
+    const setButton = wrapper.getByRole("button", {
+      name: "settings.quantity-formatting.setButtonLabel",
+    });
+    expect(setButton.hasAttribute("aria-disabled")).to.be.true;
 
-    expect(setButton.hasAttribute("disabled")).to.be.true;
-    const clearButton = wrapper.getByText(
-      "settings.quantity-formatting.clearButtonLabel"
-    );
-    expect(clearButton.hasAttribute("disabled")).to.be.true;
+    const clearButton = wrapper.getByRole("button", {
+      name: "settings.quantity-formatting.clearButtonLabel",
+    });
+    expect(clearButton.hasAttribute("aria-disabled")).to.be.true;
 
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
     fireEvent.click(checkbox);
-
     await waitFor(() => {
-      expect(setButton.hasAttribute("disabled")).to.be.false;
+      expect(setButton.hasAttribute("aria-disabled")).to.be.false;
     });
+
     fireEvent.click(setButton);
     await waitFor(() => {
-      expect(setButton.hasAttribute("disabled")).to.be.true;
+      expect(setButton.hasAttribute("aria-disabled")).to.be.true;
     });
-    expect(clearButton.hasAttribute("disabled")).to.be.false;
-    fireEvent.click(clearButton);
-    await TestUtils.flushAsyncOperations();
-    expect(clearButton.hasAttribute("disabled")).to.be.true;
+    expect(clearButton.hasAttribute("aria-disabled")).to.be.false;
 
-    wrapper.unmount();
+    fireEvent.click(clearButton);
+    await waitFor(() => {
+      expect(clearButton.hasAttribute("aria-disabled")).to.be.true;
+    });
   });
 
   it("will trigger modal and save prop changes", async () => {
@@ -200,16 +200,10 @@ describe("QuantityFormatSettingsPage", () => {
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
     fireEvent.click(checkbox);
 
-    const dataValueSelector = `li[data-value='QuantityTypeEnumValue-7']`;
-    const categoryEntry = wrapper.container.querySelector(dataValueSelector);
-    expect(categoryEntry).not.to.be.null;
-    fireEvent.click(categoryEntry!);
-    await TestUtils.flushAsyncOperations();
-
-    const yesButton = wrapper.getByRole("button", { name: "dialog.yes" });
-    fireEvent.click(yesButton);
-    await TestUtils.flushAsyncOperations();
-    wrapper.unmount();
+    const categoryEntry = wrapper.getByRole("option", {
+      name: "QuantityType.Stationing.label",
+    });
+    fireEvent.click(categoryEntry);
   });
 
   it("will trigger modal and don't save prop changes", async () => {

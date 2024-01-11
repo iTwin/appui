@@ -91,7 +91,7 @@ describe(`ToolAssistanceField`, () => {
       screen.getByTitle(/Hello World!.*toolAssistance\.moreInfo/)
     );
 
-    expect(screen.queryByText("toolAssistance.promptAtCursor")).to.null;
+    expect(screen.queryByText("toolAssistance.promptAtCursor")).to.be.null;
   });
 
   it("passing isNew:true should use newDot", async () => {

@@ -15,68 +15,61 @@ import {
 import {
   ActivityMessageDetails,
   ActivityMessageEndReason,
-  NoRenderApp,
   NotifyMessageDetails,
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
 import { AppNotificationManager, MessageManager } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { MessageRenderer } from "../../appui-react/messages/MessageRenderer";
+import { ThemeProvider } from "@itwin/itwinui-react";
 
 describe("MessageRenderer", () => {
   let notifications: AppNotificationManager;
 
-  before(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
-
+  beforeEach(async () => {
     notifications = new AppNotificationManager();
     MessageManager.clearMessages();
   });
 
-  after(async () => {
-    TestUtils.terminateUiFramework();
+  afterEach(() => {
+    MessageManager.clearMessages();
   });
 
   it("should render an activity message", async () => {
-    render(<MessageRenderer />);
+    render(<MessageRenderer />, { wrapper: ThemeProvider });
 
-    const details = new ActivityMessageDetails(true, true, false);
-    notifications.setupActivityMessage(details);
+    notifications.setupActivityMessage(
+      new ActivityMessageDetails(true, true, false)
+    );
     act(() => {
       notifications.outputActivityMessage("Message text", 50);
     });
-    await waitFor(() => {
-      expect(screen.getByText("Message text")).to.be.not.null;
-    });
+    screen.getByText("Message text");
 
     act(() => {
       notifications.endActivityMessage(ActivityMessageEndReason.Completed);
     });
-    await waitForElementToBeRemoved(screen.queryByText("Message text"));
+    expect(screen.queryByText("Message text")).to.be.null;
   });
 
   it("should cancel an activity message", async () => {
-    render(<MessageRenderer />);
+    render(<MessageRenderer />, { wrapper: ThemeProvider });
 
-    const details = new ActivityMessageDetails(true, true, true);
-    notifications.setupActivityMessage(details);
+    notifications.setupActivityMessage(
+      new ActivityMessageDetails(true, true, true)
+    );
     act(() => {
       notifications.outputActivityMessage("Message text", 50);
     });
-    await waitFor(() => {
-      expect(screen.getByText("Message text")).to.be.not.null;
-    });
+    screen.getByText("Message text");
 
     const cancelLink = await screen.findByText("dialog.cancel");
     fireEvent.click(cancelLink);
-
-    await waitForElementToBeRemoved(screen.queryByText("Message text"));
+    expect(screen.queryByText("Message text")).to.be.null;
   });
 
   it("should dismiss an activity message", async () => {
-    render(<MessageRenderer />);
+    render(<MessageRenderer />, { wrapper: ThemeProvider });
 
     const details = new ActivityMessageDetails(true, true, true);
     notifications.setupActivityMessage(details);
@@ -84,9 +77,7 @@ describe("MessageRenderer", () => {
     act(() => {
       notifications.outputActivityMessage("Message text", 50);
     });
-    await waitFor(() => {
-      expect(screen.getByText("Message text")).to.be.not.null;
-    });
+    screen.getByText("Message text");
 
     const closeButton = screen.getByRole("button", { name: "Close" });
     fireEvent.click(closeButton);
@@ -94,43 +85,37 @@ describe("MessageRenderer", () => {
   });
 
   it("should render toast, sticky & activity messages", async () => {
-    render(<MessageRenderer />);
+    render(<MessageRenderer />, { wrapper: ThemeProvider });
 
-    const details1 = new NotifyMessageDetails(
-      OutputMessagePriority.Warning,
-      "A brief message.",
-      "A detailed message."
+    notifications.setupActivityMessage(
+      new ActivityMessageDetails(true, true, true)
     );
-    const details2 = new NotifyMessageDetails(
-      OutputMessagePriority.None,
-      "A brief sticky message.",
-      "A detailed message.",
-      OutputMessageType.Sticky
-    );
-    const details3 = new ActivityMessageDetails(true, true, true);
-    notifications.setupActivityMessage(details3);
     act(() => {
-      notifications.outputMessage(details1);
-      notifications.outputMessage(details2);
+      notifications.outputMessage(
+        new NotifyMessageDetails(
+          OutputMessagePriority.Warning,
+          "A brief message.",
+          "A detailed message."
+        )
+      );
+      notifications.outputMessage(
+        new NotifyMessageDetails(
+          OutputMessagePriority.None,
+          "A brief sticky message.",
+          "A detailed message.",
+          OutputMessageType.Sticky
+        )
+      );
       notifications.outputActivityMessage("Message text", 50);
     });
-    await waitFor(() => {
-      expect(screen.getByText("A brief message.")).to.be.not.null;
-    });
-    await waitFor(() => {
-      expect(screen.getByText("A brief sticky message.")).to.be.not.null;
-    });
-    await waitFor(() => {
-      expect(screen.getByText("Message text")).to.be.not.null;
-    });
+    screen.getByText("A brief message.");
+    screen.getByText("A brief sticky message.");
+    screen.getByText("Message text");
+
     act(() => {
       notifications.endActivityMessage(ActivityMessageEndReason.Completed);
-    });
-    act(() => {
       MessageManager.closeAllMessages();
     });
-    await waitForElementToBeRemoved(
-      screen.queryByText("A brief sticky message.")
-    );
+    expect(screen.queryByText("A brief sticky message.")).to.be.null;
   });
 });
