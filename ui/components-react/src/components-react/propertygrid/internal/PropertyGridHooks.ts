@@ -46,7 +46,7 @@ export function usePropertyData(props: {
  * Custom hook that creates a [[PropertyGridModelSource]] and subscribes it to data updates from the data provider.
  * @throws if/when `IPropertyDataProvider.getData()` promise is rejected. The error is thrown in the React's render loop, so it can be caught using an error boundary.
  * @public
- * @deprecated in 4.9.0. Use useTrackedPropertyGridModelSource instead.
+ * @deprecated in 4.9.0. Use `useTrackedPropertyGridModelSource` instead.
  */
 export function usePropertyGridModelSource(props: {
   dataProvider: IPropertyDataProvider;
