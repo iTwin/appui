@@ -4,18 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import { act, fireEvent, render } from "@testing-library/react";
-import { Key } from "ts-key-enum";
+import { act, fireEvent, render, within } from "@testing-library/react";
 import {
   getUiSettingsManagerEntry,
   UiSettingsPage,
 } from "../../appui-react/settings/ui/UiSettingsPage";
-import TestUtils, {
-  handleError,
-  selectChangeValueByText,
-  storageMock,
-  stubScrollIntoView,
-} from "../TestUtils";
+import TestUtils, { storageMock, waitForPosition } from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
 import { ColorTheme } from "../../appui-react/theme/ThemeManager";
 
@@ -35,11 +29,8 @@ describe("UiSettingsPage", () => {
   });
 
   afterEach(() => {
-    TestUtils.terminateUiFramework();
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
-
-  stubScrollIntoView();
 
   function getInputBySpanTitle(titleSpan: HTMLElement) {
     const settingsItemDiv = titleSpan.parentElement?.parentElement;
@@ -57,39 +48,39 @@ describe("UiSettingsPage", () => {
 
   it("renders set theme", async () => {
     const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
+    const openMenu = async () => {
+      const selectButton = within(
+        wrapper.getByTestId("select-theme")
+      ).getByRole("combobox");
+      fireEvent.click(selectButton);
+      await waitForPosition();
+    };
+    const menu = () =>
+      within(
+        wrapper.getAllByRole("listbox").find((element) => {
+          return within(element).queryByText("settings.uiSettingsPage.dark");
+        })!
+      );
 
-    const selectButton = wrapper.getByTestId("select-theme");
-    selectChangeValueByText(
-      selectButton,
-      "settings.uiSettingsPage.dark",
-      handleError
-    );
-    await TestUtils.flushAsyncOperations();
+    await openMenu();
+    fireEvent.click(menu().getByText("settings.uiSettingsPage.dark"));
     expect(UiFramework.getColorTheme()).to.eq(ColorTheme.Dark);
-    selectChangeValueByText(
-      selectButton,
-      "settings.uiSettingsPage.light",
-      handleError
-    );
-    await TestUtils.flushAsyncOperations();
-    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.Light);
-    selectChangeValueByText(
-      selectButton,
-      "settings.uiSettingsPage.lightHighContrast",
-      handleError
-    );
-    await TestUtils.flushAsyncOperations();
-    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.HighContrastLight);
-    selectChangeValueByText(
-      selectButton,
-      "settings.uiSettingsPage.darkHighContrast",
-      handleError
-    );
-    await TestUtils.flushAsyncOperations();
-    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.HighContrastDark);
 
-    wrapper.unmount();
+    await openMenu();
+    fireEvent.click(menu().getByText("settings.uiSettingsPage.light"));
+    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.Light);
+
+    await openMenu();
+    fireEvent.click(
+      menu().getByText("settings.uiSettingsPage.lightHighContrast")
+    );
+    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.HighContrastLight);
+
+    await openMenu();
+    fireEvent.click(
+      menu().getByText("settings.uiSettingsPage.darkHighContrast")
+    );
+    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.HighContrastDark);
   });
 
   it("renders set widget opacity", async () => {

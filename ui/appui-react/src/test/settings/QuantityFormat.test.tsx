@@ -5,32 +5,23 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import type { QuantityTypeKey } from "@itwin/core-frontend";
-import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
-import TestUtils, {
-  getButtonWithText,
-  handleError,
-  selectChangeValueByText,
-  stubScrollIntoView,
-} from "../TestUtils";
+import { IModelApp, QuantityType } from "@itwin/core-frontend";
+import type { FormatProps, UnitSystemKey } from "@itwin/core-quantity";
+import TestUtils, { stubScrollIntoView } from "../TestUtils";
 import { getQuantityFormatsSettingsManagerEntry } from "../../appui-react/settings/quantityformatting/QuantityFormat";
 import { ModalDialogRenderer } from "../../appui-react/dialog/ModalDialogManager";
-import type { FormatProps, UnitSystemKey } from "@itwin/core-quantity";
 import { UiFramework } from "../../appui-react/UiFramework";
 
 describe("QuantityFormatSettingsPage", () => {
   const sandbox = sinon.createSandbox();
-
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  after(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
-  });
 
   beforeEach(async () => {
     await IModelApp.quantityFormatter.reinitializeFormatAndParsingsMaps(
@@ -49,59 +40,43 @@ describe("QuantityFormatSettingsPage", () => {
     const settingsEntry = getQuantityFormatsSettingsManagerEntry(10);
     expect(settingsEntry.itemPriority).to.eql(10);
 
-    const unitSystemSpy = sandbox.spy(
-      IModelApp.quantityFormatter,
-      "setActiveUnitSystem"
-    );
+    const spy = sandbox.spy(IModelApp.quantityFormatter, "setActiveUnitSystem");
 
     const wrapper = render(settingsEntry.page);
 
-    const selectButton = wrapper.getByTestId("unitSystemSelector");
+    const comboBox = within(
+      wrapper.getByTestId("unitSystemSelector")
+    ).getByRole("combobox");
 
-    // initial unit system value should be imperial so no change expected for initial change.
-    selectChangeValueByText(
-      selectButton,
-      "presentationUnitSystem.BritishImperial",
-      handleError
+    const menu = () =>
+      wrapper.getAllByRole("listbox").find((element) => {
+        return within(element).queryByText(
+          "presentationUnitSystem.BritishImperial"
+        );
+      })!;
+
+    // Initial value is Imperial - no change expected.
+    fireEvent.click(comboBox);
+    fireEvent.click(
+      within(menu()).getByText("presentationUnitSystem.BritishImperial")
     );
-    expect(unitSystemSpy).to.be.callCount(0);
+    sinon.assert.callCount(spy, 0);
 
-    selectChangeValueByText(
-      selectButton,
-      "presentationUnitSystem.Metric",
-      handleError
+    fireEvent.click(comboBox);
+    fireEvent.click(within(menu()).getByText("presentationUnitSystem.Metric"));
+    sinon.assert.callCount(spy, 1);
+
+    fireEvent.click(comboBox);
+    fireEvent.click(
+      within(menu()).getByText("presentationUnitSystem.USCustomary")
     );
-    expect(unitSystemSpy).to.be.callCount(1);
-    unitSystemSpy.resetHistory();
-    await TestUtils.flushAsyncOperations();
+    sinon.assert.callCount(spy, 2);
 
-    selectChangeValueByText(
-      selectButton,
-      "presentationUnitSystem.USCustomary",
-      handleError
+    fireEvent.click(comboBox);
+    fireEvent.click(
+      within(menu()).getByText("presentationUnitSystem.USSurvey")
     );
-    expect(unitSystemSpy).to.be.callCount(1);
-    unitSystemSpy.resetHistory();
-    await TestUtils.flushAsyncOperations();
-
-    selectChangeValueByText(
-      selectButton,
-      "presentationUnitSystem.USSurvey",
-      handleError
-    );
-    expect(unitSystemSpy).to.be.callCount(1);
-    unitSystemSpy.resetHistory();
-    await TestUtils.flushAsyncOperations();
-
-    selectChangeValueByText(
-      selectButton,
-      "presentationUnitSystem.BritishImperial",
-      handleError
-    );
-    expect(unitSystemSpy).to.be.callCount(1);
-    await TestUtils.flushAsyncOperations();
-
-    wrapper.unmount();
+    sinon.assert.callCount(spy, 3);
   });
 
   it("will listen for external unit system changes", async () => {
@@ -175,33 +150,30 @@ describe("QuantityFormatSettingsPage", () => {
       </div>
     );
 
-    const setButton = getButtonWithText(
-      wrapper.container,
-      "settings.quantity-formatting.setButtonLabel",
-      handleError
+    const setButton = wrapper.getByText(
+      "settings.quantity-formatting.setButtonLabel"
     );
-    expect(setButton!.hasAttribute("disabled")).to.be.true;
-    const clearButton = getButtonWithText(
-      wrapper.container,
-      "settings.quantity-formatting.clearButtonLabel",
-      handleError
+
+    expect(setButton.hasAttribute("disabled")).to.be.true;
+    const clearButton = wrapper.getByText(
+      "settings.quantity-formatting.clearButtonLabel"
     );
-    expect(clearButton!.hasAttribute("disabled")).to.be.true;
+    expect(clearButton.hasAttribute("disabled")).to.be.true;
 
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
     fireEvent.click(checkbox);
 
     await waitFor(() => {
-      expect(setButton!.hasAttribute("disabled")).to.be.false;
+      expect(setButton.hasAttribute("disabled")).to.be.false;
     });
-    fireEvent.click(setButton!);
+    fireEvent.click(setButton);
     await waitFor(() => {
-      expect(setButton!.hasAttribute("disabled")).to.be.true;
+      expect(setButton.hasAttribute("disabled")).to.be.true;
     });
-    expect(clearButton!.hasAttribute("disabled")).to.be.false;
-    fireEvent.click(clearButton!);
+    expect(clearButton.hasAttribute("disabled")).to.be.false;
+    fireEvent.click(clearButton);
     await TestUtils.flushAsyncOperations();
-    expect(clearButton!.hasAttribute("disabled")).to.be.true;
+    expect(clearButton.hasAttribute("disabled")).to.be.true;
 
     wrapper.unmount();
   });
@@ -225,26 +197,8 @@ describe("QuantityFormatSettingsPage", () => {
       </div>
     );
 
-    const setButton = getButtonWithText(
-      wrapper.container,
-      "settings.quantity-formatting.setButtonLabel",
-      handleError
-    );
-    expect(setButton!.hasAttribute("disabled")).to.be.true;
-    const clearButton = getButtonWithText(
-      wrapper.container,
-      "settings.quantity-formatting.clearButtonLabel",
-      handleError
-    );
-    expect(clearButton!.hasAttribute("disabled")).to.be.true;
-
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
     fireEvent.click(checkbox);
-    await TestUtils.flushAsyncOperations();
-
-    await waitFor(() => {
-      expect(setButton!.hasAttribute("disabled")).to.be.false;
-    });
 
     const dataValueSelector = `li[data-value='QuantityTypeEnumValue-7']`;
     const categoryEntry = wrapper.container.querySelector(dataValueSelector);
@@ -277,25 +231,9 @@ describe("QuantityFormatSettingsPage", () => {
       </div>
     );
 
-    const setButton = getButtonWithText(
-      wrapper.container,
-      "settings.quantity-formatting.setButtonLabel",
-      handleError
-    );
-    expect(setButton!.hasAttribute("disabled")).to.be.true;
-    const clearButton = getButtonWithText(
-      wrapper.container,
-      "settings.quantity-formatting.clearButtonLabel",
-      handleError
-    );
-    expect(clearButton!.hasAttribute("disabled")).to.be.true;
-    await TestUtils.flushAsyncOperations();
-
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
     fireEvent.click(checkbox);
     await TestUtils.flushAsyncOperations();
-
-    expect(setButton!.hasAttribute("disabled")).to.be.false;
 
     const dataValueSelector = `li[data-value='QuantityTypeEnumValue-7']`;
     const categoryEntry = wrapper.container.querySelector(dataValueSelector);
@@ -329,20 +267,6 @@ describe("QuantityFormatSettingsPage", () => {
       </div>
     );
 
-    const setButton = getButtonWithText(
-      wrapper.container,
-      "settings.quantity-formatting.setButtonLabel",
-      handleError
-    );
-    expect(setButton!.hasAttribute("disabled")).to.be.true;
-    const clearButton = getButtonWithText(
-      wrapper.container,
-      "settings.quantity-formatting.clearButtonLabel",
-      handleError
-    );
-    expect(clearButton!.hasAttribute("disabled")).to.be.true;
-    await TestUtils.flushAsyncOperations();
-
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
     const addListenerSpy = sinon.spy(
       UiFramework.settingsManager.onProcessSettingsTabActivation,
@@ -350,8 +274,6 @@ describe("QuantityFormatSettingsPage", () => {
     );
     fireEvent.click(checkbox);
     await TestUtils.flushAsyncOperations();
-
-    expect(setButton!.hasAttribute("disabled")).to.be.false;
 
     // Wait that the handler have been updated, otherwise it compares with the previous version...
     // Visual change already have been processed but scope didnt upddate.
