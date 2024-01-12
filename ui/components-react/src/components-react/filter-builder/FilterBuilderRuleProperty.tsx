@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import "./FilterBuilderRuleProperty.scss";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import type { ComboBoxProps, SelectOption } from "@itwin/itwinui-react";
 import { ComboBox, MenuItem } from "@itwin/itwinui-react";
@@ -91,7 +90,7 @@ export function PropertyFilterBuilderRuleProperty(
   );
 
   return (
-    <div className="fb-property-name fb-row-name">
+    <div className="fb-property-name">
       <ComboBox
         options={selectOptions}
         onChange={onPropertyChanged}

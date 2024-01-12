@@ -131,36 +131,34 @@ export function PropertyFilterBuilderRuleRenderer(
 
   return (
     <div className="fb-component-row">
-      <Flex gap="0px">
-        <Flex className="fb-row-container">
-          <PropertyFilterBuilderRuleProperty
-            properties={properties}
-            selectedProperty={rule.property}
-            onSelectedPropertyChanged={onSelectedPropertyChanged}
-            propertyRenderer={propertyRenderer}
-            isDisabled={isDisabled}
-            size={size}
-          />
-          {property !== undefined ? operatorRenderer(property) : null}
-          {property !== undefined &&
-          operator !== undefined &&
-          !isUnaryPropertyFilterOperator(operator) ? (
-            <div className="fb-property-value fb-row-value">
-              {valueRenderer(property, operator)}
-              {rule.errorMessage ? (
-                <>
-                  <SvgStatusError className="iui-input-icon" />
-                  <div className="iui-message">{rule.errorMessage}</div>
-                </>
-              ) : null}
-            </div>
-          ) : null}
-          <PropertyFilterBuilderToolbar
-            onAddChild={handleRuleAdded}
-            onDelete={removeRule}
-            size={size}
-          />
-        </Flex>
+      <Flex className="fb-row-container">
+        <PropertyFilterBuilderRuleProperty
+          properties={properties}
+          selectedProperty={rule.property}
+          onSelectedPropertyChanged={onSelectedPropertyChanged}
+          propertyRenderer={propertyRenderer}
+          isDisabled={isDisabled}
+          size={size}
+        />
+        {property !== undefined ? operatorRenderer(property) : null}
+        {property !== undefined &&
+        operator !== undefined &&
+        !isUnaryPropertyFilterOperator(operator) ? (
+          <div className="fb-property-value">
+            {valueRenderer(property, operator)}
+            {rule.errorMessage ? (
+              <>
+                <SvgStatusError className="iui-input-icon" />
+                <div className="iui-message">{rule.errorMessage}</div>
+              </>
+            ) : null}
+          </div>
+        ) : null}
+        <PropertyFilterBuilderToolbar
+          onAddChild={handleRuleAdded}
+          onDelete={removeRule}
+          size={size}
+        />
       </Flex>
     </div>
   );

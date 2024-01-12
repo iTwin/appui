@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import "./FilterBuilderRuleOperation.scss";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { Select } from "@itwin/itwinui-react";
 import type { PropertyFilterRuleOperator } from "./Operators";
@@ -62,7 +61,7 @@ export function PropertyFilterBuilderRuleOperator(
   );
 
   return (
-    <div className="fb-condition fb-row-condition">
+    <div className="fb-row-condition">
       <Select
         options={availableOptions}
         value={selectedOperator}

@@ -59,7 +59,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
     <Flex
       ref={groupRef}
       style={{ alignSelf: "flex-start" }}
-      className="fb-group fb-group-criteria fb-criteria-container"
+      className="fb-group"
       gap="0px"
     >
       {showOperator ? (
@@ -72,14 +72,14 @@ export function PropertyFilterBuilderRuleGroupRenderer(
       ) : null}
       <div className="fb-wrapper">
         {group.items.map((item) => (
-          <Flex className="fb-row" key={item.id}>
+          <div className="fb-row" key={item.id}>
             <PropertyFilterBuilderGroupOrRule
               path={path}
               item={item}
               onRuleAdded={onRuleAdded}
               size={size}
             />
-          </Flex>
+          </div>
         ))}
       </div>
     </Flex>
@@ -111,7 +111,7 @@ export function PropertyFilterBuilderRuleGroupOperator(
   const { operator, size, isGroupOperatorDisabled, onChange } = props;
 
   return (
-    <Flex.Item flex="0" alignSelf="stretch">
+    <Flex.Item alignSelf="stretch">
       <PropertyFilterBuilderLogicalOperator
         className="fb-group-operator"
         operator={operator}
@@ -140,22 +140,15 @@ const PropertyFilterBuilderGroupOrRule = React.memo(
 
     if (isPropertyFilterBuilderRuleGroup(item))
       return (
-        <div className="fb-criteria fb-group-criteria fb-criteria-container">
-          <PropertyFilterBuilderRuleGroupRenderer
-            path={itemPath}
-            group={item}
-          />
-        </div>
+        <PropertyFilterBuilderRuleGroupRenderer path={itemPath} group={item} />
       );
     return (
-      <div className="fb-criteria fb-group-criteria">
-        <PropertyFilterBuilderRuleRenderer
-          path={itemPath}
-          rule={item}
-          onRuleAdded={onRuleAdded}
-          size={size}
-        />
-      </div>
+      <PropertyFilterBuilderRuleRenderer
+        path={itemPath}
+        rule={item}
+        onRuleAdded={onRuleAdded}
+        size={size}
+      />
     );
   }
 );
@@ -172,7 +165,7 @@ const useRulePropertyFocus = (currentGroupItemsLength: number) => {
     ) {
       const ruleProperties =
         groupRef.current.querySelectorAll<HTMLInputElement>(
-          ".fb-row-name input"
+          ".fb-property-name input"
         );
       ruleProperties[ruleProperties.length - 1].focus();
       isNewRuleAdded.current = false;

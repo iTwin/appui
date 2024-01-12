@@ -29,7 +29,6 @@ import type {
   PropertyFilterBuilderRuleGroup,
   UsePropertyFilterBuilderProps,
 } from "./FilterBuilderState";
-import { Flex } from "@itwin/itwinui-react";
 
 /**
  * Props for [[PropertyFilterBuilder]] component.
@@ -151,14 +150,12 @@ export function PropertyFilterBuilderRenderer(
       value={renderingContextValue}
     >
       <PropertyFilterBuilderContext.Provider value={contextValue}>
-        <Flex style={{ flexDirection: "column" }}>
-          <PropertyFilterBuilderRuleGroupRenderer
-            path={ROOT_GROUP_PATH}
-            group={rootGroup}
-            size={size}
-            isGroupOperatorDisabled={isGroupOperatorDisabled}
-          />
-        </Flex>
+        <PropertyFilterBuilderRuleGroupRenderer
+          path={ROOT_GROUP_PATH}
+          group={rootGroup}
+          size={size}
+          isGroupOperatorDisabled={isGroupOperatorDisabled}
+        />
       </PropertyFilterBuilderContext.Provider>
     </PropertyFilterBuilderRuleRenderingContext.Provider>
   );
