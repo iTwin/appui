@@ -66,7 +66,7 @@ export function PropertyFilterBuilderRuleOperator(
         options={availableOptions}
         value={selectedOperator}
         onChange={onChange}
-        size={getiTwinUISize(props.size)}
+        size={getiTwinUISize(size)}
       />
     </div>
   );
