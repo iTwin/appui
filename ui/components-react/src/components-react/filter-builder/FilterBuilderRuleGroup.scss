@@ -7,7 +7,6 @@
   --fb-operator-width: 110px;
   --divider-width: var(--iui-size-2xs);
   --divider-background-color: var(--iui-color-border-subtle);
-  width: 100%;
 
   .fb-wrapper {
     width: 100%;
@@ -15,6 +14,10 @@
 
   .fb-logical-operator {
     width: var(--fb-operator-width);
+  }
+
+  .fb-logical-operator-large {
+    font-size: var(--iui-font-size-3);
   }
 
   .fb-group-operator {
