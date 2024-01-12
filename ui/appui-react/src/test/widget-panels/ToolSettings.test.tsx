@@ -4,10 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import { Rectangle } from "@itwin/core-react";
 import {
-  addDockedToolSettings,
-  addFloatingWidget,
-  addTab,
-  addWidgetToolSettings,
   createLayoutStore,
   createNineZoneState,
   DragManager,
@@ -34,7 +30,13 @@ import {
 } from "../../appui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 import { expect } from "chai";
-import { childStructure } from "../TestUtils";
+import {
+  addDockedToolSettings,
+  addFloatingWidget,
+  addTab,
+  addWidgetToolSettings,
+  childStructure,
+} from "../TestUtils";
 
 describe("WidgetPanelsToolSettings", () => {
   it("should not render w/o tool settings top center zone", () => {

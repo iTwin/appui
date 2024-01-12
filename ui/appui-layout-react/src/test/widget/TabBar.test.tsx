@@ -8,9 +8,6 @@ import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import type { NineZoneDispatch } from "../../appui-layout-react";
 import {
-  addFloatingWidget,
-  addPanelWidget,
-  addTab,
   createNineZoneState,
   FloatingWidgetProvider,
   TabIdContext,
@@ -22,6 +19,9 @@ import { TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";
 import { TabTarget } from "../../appui-layout-react/target/TabTarget";
 import { PanelTarget } from "../../appui-layout-react/target/PanelTarget";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { addFloatingWidget } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
+import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 
 describe("WidgetTitleBar", () => {
   it("should dispatch WIDGET_DRAG_END", () => {

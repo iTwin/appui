@@ -9,8 +9,6 @@ import { fireEvent, render, waitFor } from "@testing-library/react";
 import { act } from "@testing-library/react-hooks";
 import type { DragManager, NineZoneDispatch } from "../../appui-layout-react";
 import {
-  addPanelWidget,
-  addTab,
   createLayoutStore,
   createNineZoneState,
   DraggedPanelSideContext,
@@ -18,7 +16,11 @@ import {
 } from "../../appui-layout-react";
 import { createDragInfo, TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";
-import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import {
+  addPanelWidget,
+  updatePanelState,
+} from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
 
 describe("WidgetPanelProvider", () => {
   it("should render vertical", () => {

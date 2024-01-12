@@ -6,8 +6,6 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import {
-  addPanelWidget,
-  addTab,
   createLayoutStore,
   createNineZoneState,
   NineZoneProvider,
@@ -20,7 +18,7 @@ import {
   WidgetContent,
   WidgetDef,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
+import TestUtils, { addPanelWidget, addTab } from "../TestUtils";
 
 describe("WidgetContent", () => {
   before(async () => {

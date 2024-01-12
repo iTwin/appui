@@ -12,11 +12,11 @@ import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
 import { FrontstageProvider } from "./FrontstageProvider";
 import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer";
 import { ViewToolWidgetComposer } from "../widgets/ViewToolWidgetComposer";
-import { StagePanelState } from "../stagepanels/StagePanelDef";
 import type { FrontstageConfig } from "./FrontstageConfig";
 import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import type { StageUsage } from "./StageUsage";
 import { StatusBarComposer } from "../statusbar/StatusBarComposer";
+import { StagePanelState } from "../stagepanels/StagePanelState";
 
 /** Properties of a [[WidgetPanelProps]] component
  * @public

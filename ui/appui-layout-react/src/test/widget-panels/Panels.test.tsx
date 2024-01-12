@@ -4,14 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import {
-  addPanelWidget,
-  addTab,
-  addWidgetToolSettings,
-  createNineZoneState,
-  WidgetPanels,
-} from "../../appui-layout-react";
+import { createNineZoneState, WidgetPanels } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
+import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { addWidgetToolSettings } from "../../appui-layout-react/state/internal/ToolSettingsStateHelpers";
 
 describe("WidgetPanels", () => {
   it("should render", () => {

@@ -5,15 +5,13 @@
 import * as React from "react";
 import { renderHook } from "@testing-library/react-hooks";
 import {
-  addPanelWidget,
-  addTab,
   createLayoutStore,
   createNineZoneState,
   NineZone,
   TabIdContext,
 } from "@itwin/appui-layout-react";
 import { useWidgetDirection } from "../../appui-react";
-import TestUtils from "../TestUtils";
+import TestUtils, { addPanelWidget, addTab } from "../TestUtils";
 import { Provider } from "react-redux";
 
 describe("useWidgetDirection", () => {

@@ -10,10 +10,10 @@ import { prettyDOM } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { NineZoneState, TabState } from "../appui-layout-react";
 import {
-  addTab,
   useActiveSendBackWidgetIdStore,
   useContainersStore,
 } from "../appui-layout-react";
+import { addTab } from "../appui-layout-react/state/internal/TabStateHelpers";
 
 export { userEvent };
 
