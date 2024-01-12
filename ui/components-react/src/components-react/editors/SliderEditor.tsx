@@ -310,6 +310,9 @@ export class SliderEditor
       minWidth: `${minSize}px`,
     };
 
+    const tickProps = {
+      "data-testid": "components-tick",
+    } as React.ComponentProps<"span">;
     const popupContent = (
       <Slider
         className="components-slider-editor-slider"
@@ -325,6 +328,7 @@ export class SliderEditor
         maxLabel={this.state.maxLabel}
         tooltipProps={this.tooltipProps}
         tickLabels={this.state.tickLabels}
+        tickProps={tickProps}
         onChange={this._handleChange}
       />
     );

@@ -16,6 +16,7 @@ import {
   getByTitle,
   render,
   waitFor,
+  within,
 } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import type { HighlightingComponentProps } from "../../../components-react/common/HighlightingComponentProps";
@@ -192,9 +193,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
     });
 
     it("renders PropertyCategoryBlock as collapsed when it gets clicked", async () => {
-      const { container } = render(
+      const component = render(
         <VirtualizedPropertyGridWithDataProvider {...defaultProps} />
       );
+      const { container } = component;
 
       await waitFor(() => {
         const categoryChild = container.querySelector(
@@ -203,9 +205,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         expect(categoryChild, "Category child is not rendered").to.not.be.null;
       });
 
-      const categoryBlocks = container.querySelectorAll(
-        ".virtualized-grid-node-category .iui-header"
-      );
+      const categoryBlocks = Array.from<HTMLElement>(
+        container.querySelectorAll(".virtualized-grid-node-category")
+      ).map((el) => within(el).getByRole("button"));
       expect(categoryBlocks.length, "Wrong amount of categories").to.be.equal(
         2
       );
@@ -697,22 +699,24 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           expandCustomCategory: false,
         });
 
-        const { baseElement, findByText } = render(
+        const component = render(
           <VirtualizedPropertyGridWithDataProvider
             {...defaultProps}
             dataProvider={dataProvider}
           />
         );
 
-        const category = await findByText("test_category");
-        expect(baseElement.querySelector(".iui-expanded")).to.not.exist;
-        const node = baseElement.querySelector(
+        const category = await component.findByText("test_category");
+        expect(component.queryByText("Custom renderer")).to.be.null;
+
+        const node = component.baseElement.querySelector(
           ".virtualized-grid-node"
         ) as HTMLElement;
         expect(node.style.height).to.be.equal("42px");
 
         fireEvent.click(category);
-        expect(baseElement.querySelector(".iui-expanded")).to.exist;
+
+        component.getByText("Custom renderer");
         expect(node.style.height).to.be.equal("547px");
       });
 

@@ -46,7 +46,13 @@ export function DelayedSpinner(props: DelayedSpinnerProps) {
 
   if (diff < delay) return null;
 
-  return <ProgressRadial indeterminate size={props.size ?? "large"} />;
+  return (
+    <ProgressRadial
+      data-testid="components-delayed-spinner"
+      indeterminate
+      size={props.size ?? "large"}
+    />
+  );
 }
 
 const useForceUpdate = () => {
