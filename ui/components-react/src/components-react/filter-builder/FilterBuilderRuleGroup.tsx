@@ -7,7 +7,6 @@
  */
 
 import "./FilterBuilderRuleGroup.scss";
-import "./FilterBuilderLogicalOperator.scss";
 import * as React from "react";
 import { Flex } from "@itwin/itwinui-react";
 import { PropertyFilterBuilderContext } from "./FilterBuilderContext";

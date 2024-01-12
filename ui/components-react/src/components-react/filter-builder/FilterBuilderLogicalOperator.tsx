@@ -8,7 +8,6 @@
 import React from "react";
 import cx from "classnames";
 import { Anchor } from "@itwin/itwinui-react";
-import "./FilterBuilderLogicalOperator.scss";
 import { UiComponents } from "../UiComponents";
 import { PropertyFilterRuleGroupOperator } from "./Operators";
 
