@@ -55,7 +55,7 @@ describe("PropertyFilterBuilder", () => {
       />
     );
     const propertySelector = container.querySelector<HTMLInputElement>(
-      ".fb-row-name .iui-input"
+      ".fb-property-name .iui-input"
     );
     expect(propertySelector).to.not.be.null;
     propertySelector?.focus();
@@ -86,7 +86,7 @@ describe("PropertyFilterBuilder", () => {
       />
     );
 
-    const rules = container.querySelectorAll(".fb-row-name");
+    const rules = container.querySelectorAll(".fb-property-name");
     expect(rules.length).to.be.eq(1);
     const rule1 = queryByDisplayValue(property1.displayLabel);
     expect(rule1).to.not.be.null;
@@ -121,7 +121,7 @@ describe("PropertyFilterBuilder", () => {
       />
     );
 
-    const rules = container.querySelectorAll(".fb-row-name");
+    const rules = container.querySelectorAll(".fb-property-name");
     expect(rules.length).to.be.eq(2);
     const rule1 = queryByDisplayValue(property1.displayLabel);
     expect(rule1).to.not.be.null;
@@ -140,7 +140,7 @@ describe("PropertyFilterBuilder", () => {
     await waitFor(
       () =>
         expect(
-          container.querySelectorAll(".fb-row-name input")[1] ===
+          container.querySelectorAll(".fb-property-name input")[1] ===
             container.ownerDocument.activeElement
         ).to.be.true
     );

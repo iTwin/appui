@@ -126,7 +126,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       );
 
       const valueContainer =
-        container.querySelector<HTMLDivElement>(".fb-row-value");
+        container.querySelector<HTMLDivElement>(".fb-property-value");
       expect(valueContainer).to.be.null;
     });
 
@@ -139,7 +139,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       );
 
       const valueContainer =
-        container.querySelector<HTMLDivElement>(".fb-row-value");
+        container.querySelector<HTMLDivElement>(".fb-property-value");
       expect(valueContainer).to.be.null;
     });
 
@@ -156,7 +156,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       );
 
       const valueContainer =
-        container.querySelector<HTMLDivElement>(".fb-row-value");
+        container.querySelector<HTMLDivElement>(".fb-property-value");
       expect(valueContainer).to.not.be.null;
       expect(valueContainer!.hasChildNodes()).to.be.true;
     });
@@ -208,8 +208,9 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       );
 
       // open property selector menu
-      const selector =
-        container.querySelector<HTMLInputElement>(".fb-row-name input");
+      const selector = container.querySelector<HTMLInputElement>(
+        ".fb-property-name input"
+      );
       expect(selector).to.not.be.null;
       fireEvent.focus(selector!);
 
@@ -224,8 +225,9 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       );
 
       // open property selector
-      const selector =
-        container.querySelector<HTMLInputElement>(".fb-row-name input");
+      const selector = container.querySelector<HTMLInputElement>(
+        ".fb-property-name input"
+      );
       expect(selector).to.not.be.null;
       fireEvent.focus(selector!);
 
@@ -241,8 +243,9 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       );
 
       // attempt to open property selector
-      const selector =
-        container.querySelector<HTMLInputElement>(".fb-row-name input");
+      const selector = container.querySelector<HTMLInputElement>(
+        ".fb-property-name input"
+      );
       expect(selector).to.not.be.null;
       fireEvent.focus(selector!);
 
@@ -258,8 +261,9 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     );
     const setRulePropertySpy = sinon.stub(actions, "setRuleProperty");
 
-    const selector =
-      container.querySelector<HTMLInputElement>(".fb-row-name input");
+    const selector = container.querySelector<HTMLInputElement>(
+      ".fb-property-name input"
+    );
     expect(selector).to.not.be.null;
     fireEvent.focus(selector!);
 
@@ -298,8 +302,9 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       { properties: [defaultProperty], onRulePropertySelected: spy }
     );
 
-    const selector =
-      container.querySelector<HTMLInputElement>(".fb-row-name input");
+    const selector = container.querySelector<HTMLInputElement>(
+      ".fb-property-name input"
+    );
     expect(selector).to.not.be.null;
     fireEvent.focus(selector!);
 
