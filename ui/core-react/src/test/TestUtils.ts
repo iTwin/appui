@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { fireEvent } from "@testing-library/react";
-import { expect } from "chai";
 import { ITwinLocalization } from "@itwin/core-i18n";
 import { UiCore } from "../core-react/UiCore";
 
@@ -59,53 +57,6 @@ export const storageMock = () => {
     },
   };
 };
-
-/**
- * Select component change value using text of menu item to find item
- */
-export const selectChangeValueByText = (
-  select: HTMLElement,
-  label: string,
-  onError?: (msg: string) => void
-): void => {
-  fireEvent.click(select.querySelector(".iui-select-button") as HTMLElement);
-  const tippy = select.ownerDocument.querySelector(
-    "[data-tippy-root]"
-  ) as HTMLElement;
-  const menu = tippy.querySelector(".iui-menu") as HTMLUListElement;
-  if (!menu) onError && onError(`Couldn't find menu`);
-  expect(menu).to.exist;
-
-  const menuItems = menu.querySelectorAll("li span.iui-content");
-  if (menuItems.length <= 0) onError && onError("Couldn't find any menu items");
-  expect(menuItems.length).to.be.greaterThan(0);
-
-  const menuItem = [...menuItems].find((span) => span.textContent === label);
-  if (!menuItem)
-    onError && onError(`Couldn't find menu item with '${label}' label`);
-  expect(menuItem).to.not.be.undefined;
-
-  fireEvent.click(menuItem!);
-};
-
-/** Handle an error when attempting to get an element */
-export function handleError(msg: string) {
-  console.log(msg); // eslint-disable-line no-console
-}
-
-/** Stubs scrollIntoView. */
-export function stubScrollIntoView() {
-  const originalScrollIntoView = window.HTMLElement.prototype.scrollIntoView;
-  const scrollIntoViewMock = function () {};
-
-  beforeEach(() => {
-    window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
-  });
-
-  afterEach(() => {
-    window.HTMLElement.prototype.scrollIntoView = originalScrollIntoView;
-  });
-}
 
 /**
  * Extracts e.classList.values() and return as an array for expect.
