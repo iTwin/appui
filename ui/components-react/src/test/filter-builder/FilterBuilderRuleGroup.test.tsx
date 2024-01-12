@@ -63,6 +63,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
           items: [{ id: "childId", groupId: "id" }],
           operator: PropertyFilterRuleGroupOperator.And,
         }}
+        size="medium"
       />
     );
     expect(
@@ -104,7 +105,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
   it("dispatches operator change event when operator is selected", async () => {
     const actions = new PropertyFilterBuilderActions(sinon.spy());
     const { container, findByText } = renderWithContext(
-      <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />,
+      <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} size="large" />,
       { actions }
     );
     const setRuleGroupOperatorSpy = sinon.stub(actions, "setRuleGroupOperator");
