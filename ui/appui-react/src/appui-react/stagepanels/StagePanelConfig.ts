@@ -7,7 +7,7 @@
  */
 
 import type { WidgetConfig } from "../widgets/WidgetConfig";
-import type { StagePanelState as StagePanelState } from "./StagePanelDef";
+import type { StagePanelState } from "./StagePanelState";
 
 /** Configuration from which a stage panel is created.
  * @public

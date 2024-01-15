@@ -3993,6 +3993,10 @@ export class StagePanelDef extends WidgetHost {
     // @internal (undocumented)
     static create(config: StagePanelConfig, location: StagePanelLocation): StagePanelDef;
     // @internal (undocumented)
+    get defaultPinned(): boolean;
+    // @internal (undocumented)
+    get defaultResizable(): boolean;
+    // @internal (undocumented)
     get defaultSize(): number | undefined;
     // @internal (undocumented)
     get defaultState(): StagePanelState;

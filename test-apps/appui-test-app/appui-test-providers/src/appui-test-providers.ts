@@ -16,6 +16,7 @@ export * from "./ui/frontstages/CustomContent";
 export * from "./ui/frontstages/CustomFrontstageProvider";
 export * from "./ui/frontstages/PopoutWindowsFrontstage";
 export * from "./ui/frontstages/SynchronizedFloatingViewport";
+export * from "./ui/frontstages/TestFrontstageProvider";
 export * from "./ui/frontstages/WidgetApiStage";
 
 export * from "./ui/ApplicationLayout";
