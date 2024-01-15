@@ -32,7 +32,7 @@ import {
 import type { AsyncValueProcessingResult } from "@itwin/components-react";
 import { DataControllerBase } from "@itwin/components-react";
 import { UiIModelComponents } from "../imodel-components-react/UiIModelComponents";
-import { prettyDOM } from "@testing-library/react";
+import { act, prettyDOM } from "@testing-library/react";
 import { expect } from "chai";
 
 // cSpell:ignore buttongroup
@@ -540,5 +540,26 @@ export function styleMatch(style: Partial<CSSStyleDeclaration>) {
     return true;
   };
 }
+
+/** https://floating-ui.com/docs/react#testing */
+export async function waitForPosition() {
+  return act(async () => {});
+}
+
+/** Simplified type for `sinon.SinonSpy`.
+ * @internal
+ */
+export type SinonSpy<T extends (...args: any) => any> = sinon.SinonSpy<
+  Parameters<T>,
+  ReturnType<T>
+>;
+
+/** Simplified type for `sinon.SinonSpy` for a React component.
+ * @internal
+ */
+export type ComponentSpy<
+  T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>,
+  K extends keyof React.ComponentProps<T>
+> = SinonSpy<React.ComponentProps<T>[K]>;
 
 export default TestUtils;
