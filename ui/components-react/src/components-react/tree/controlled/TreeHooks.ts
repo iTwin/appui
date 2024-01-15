@@ -86,7 +86,7 @@ export function useTreeModelSource(dataProvider: TreeDataProvider) {
  * be used for that purpose based on whether the input is a factory function or params object.
  *
  * @public
- * @deprecated in 4.9.0. This hooks does not work correctly in React 18. Use [[useControlledTreeEventsHandler]] instead.
+ * @deprecated in 4.9.0. This hook does not work correctly in React 18 Strict mode. Use [[useControlledTreeEventsHandler]] instead.
  */
 export function useTreeEventsHandler<TEventsHandler extends TreeEventHandler>(
   factoryOrParams: (() => TEventsHandler) | TreeEventHandlerParams
@@ -100,13 +100,13 @@ export function useTreeEventsHandler<TEventsHandler extends TreeEventHandler>(
 }
 
 /**
- * Custom hook which creates and takes care of disposing a TreeEventsHandler. The input is either a factory method
- * for a custom `TreeEventHandler` implementation or parameters for the default implementation.
+ * Custom hook which creates and takes care of disposing a [[TreeEventHandler]]. The input is either a factory method
+ * for a custom [[TreeEventHandler]] implementation or parameters for the default implementation.
  *
  * @note Caller must ensure `factoryOrParams` changes only when a new handler needs to be created. `useCallback` or `useMemo` can
  * be used for that purpose based on whether the input is a factory function or params object.
  *
- * @returns `undefined` on first render and valid TreeEventsHandler on all subsequent renders.
+ * @returns `undefined` on first render and a valid [[TreeEventHandler]] on all subsequent renders.
  * @public
  */
 export function useControlledTreeEventsHandler<

@@ -13,7 +13,7 @@ import type { IDisposable } from "@itwin/core-bentley";
  * A custom hook which creates a disposable object and manages its disposal on unmount
  * or factory method change.
  * @public
- * @deprecated in 4.9.0. This hook is not compatible with React 18. Use [[useOptionalDisposable]] or `useState` + `useEffect` for
+ * @deprecated in 4.9.0. This hook is not compatible with React 18 Strict mode. Use [[useOptionalDisposable]] or `useState` + `useEffect` for
  * creating and disposing disposable resources.
  */
 export function useDisposable<TDisposable extends IDisposable>(
