@@ -168,7 +168,6 @@ export interface WidgetDragEndAction {
   readonly type: "WIDGET_DRAG_END";
   readonly floatingWidgetId: FloatingWidgetState["id"];
   readonly target: WidgetDragDropTargetState;
-  readonly isActiveTabPreview: boolean | undefined;
 }
 
 /** @internal */
@@ -210,7 +209,6 @@ export interface WidgetTabDragEndAction {
   readonly type: "WIDGET_TAB_DRAG_END";
   readonly id: TabState["id"];
   readonly target: TabDragDropTargetState;
-  readonly isActiveTabPreview: boolean | undefined;
 }
 
 /** @internal */

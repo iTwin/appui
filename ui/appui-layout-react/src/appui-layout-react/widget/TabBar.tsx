@@ -59,7 +59,6 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
     [dispatch, floatingWidgetId]
   );
 
-  const { changeActiveTabAfterDragDrop } = usePreviewFeatures();
   const onDragEnd = React.useCallback<
     NonNullable<UseDragWidgetArgs["onDragEnd"]>
   >(
@@ -70,15 +69,9 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
           type: "WIDGET_DRAG_END",
           floatingWidgetId,
           target,
-          isActiveTabPreview: changeActiveTabAfterDragDrop,
         });
     },
-    [
-      dispatch,
-      floatingWidgetId,
-      handleActionAreaClick,
-      changeActiveTabAfterDragDrop,
-    ]
+    [dispatch, floatingWidgetId, handleActionAreaClick]
   );
   const handleWidgetDragStart = useDragWidget({
     widgetId,

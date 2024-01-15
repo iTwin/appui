@@ -116,6 +116,9 @@ export function CenterContent(): JSX.Element;
 // @internal (undocumented)
 export const CenterContentNodeContext: React_2.Context<React_2.ReactNode>;
 
+// @internal
+export const changeActiveTabAfterDragDrop: (reducer: typeof NineZoneStateReducer) => typeof NineZoneStateReducer;
+
 // @internal (undocumented)
 export const ContentNodeContext: React_2.Context<React_2.ReactNode>;
 
@@ -257,9 +260,6 @@ export interface DragStartArgs {
 
 // @internal (undocumented)
 export type DropTargetState = TabDragDropTargetState | WidgetDragDropTargetState;
-
-// @internal (undocumented)
-export function DropWidgetActiveTabPreviewReducer(state: NineZoneState, action: NineZoneAction): NineZoneState;
 
 // @internal
 export function Ellipsis(props: CommonProps): JSX.Element;
@@ -543,6 +543,8 @@ export function isWindowDropTargetState(state: WidgetDragDropTargetState): state
 
 // @internal
 export interface KnownPreviewLayoutFeatures {
+    // (undocumented)
+    changeActiveTabAfterDragDrop?: boolean;
     contentAlwaysMaxSize: boolean;
     enableMaximizedFloatingWidget: boolean;
 }
@@ -1759,8 +1761,6 @@ export interface WidgetDragEndAction {
     // (undocumented)
     readonly floatingWidgetId: FloatingWidgetState["id"];
     // (undocumented)
-    readonly isActiveTabPreview: boolean | undefined;
-    // (undocumented)
     readonly target: WidgetDragDropTargetState;
     // (undocumented)
     readonly type: "WIDGET_DRAG_END";
@@ -1974,8 +1974,6 @@ export interface WidgetTabDragAction {
 export interface WidgetTabDragEndAction {
     // (undocumented)
     readonly id: TabState["id"];
-    // (undocumented)
-    readonly isActiveTabPreview: boolean | undefined;
     // (undocumented)
     readonly target: TabDragDropTargetState;
     // (undocumented)

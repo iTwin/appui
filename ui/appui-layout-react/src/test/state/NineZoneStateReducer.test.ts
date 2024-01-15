@@ -360,7 +360,6 @@ describe("NineZoneStateReducer", () => {
           target: {
             type: "window",
           },
-          isActiveTabPreview: false,
         });
         (!!newState.floatingWidgets.byId.fw1).should.true;
       });
@@ -395,7 +394,6 @@ describe("NineZoneStateReducer", () => {
           target: {
             type: "window",
           },
-          isActiveTabPreview: false,
         });
         newState.floatingWidgets.byId.w1.bounds.should.eql({
           left: 1800,
@@ -420,7 +418,6 @@ describe("NineZoneStateReducer", () => {
             tabIndex: 1,
             widgetId: "w1",
           },
-          isActiveTabPreview: false,
         });
         newState.widgets.w1.tabs.should.eql(["t1", "fwt1", "t2", "t3"]);
       });
@@ -445,7 +442,6 @@ describe("NineZoneStateReducer", () => {
             tabIndex: 0,
             widgetId: "fw1",
           },
-          isActiveTabPreview: false,
         });
         newState.floatingWidgets.byId.fw1.home.should.not.eq(
           state.floatingWidgets.byId.fw1.home
@@ -474,7 +470,6 @@ describe("NineZoneStateReducer", () => {
             side: "left",
             sectionIndex: 1,
           },
-          isActiveTabPreview: false,
         });
         newState.panels.left.widgets.should.eql(["w1", "newId", "w2"]);
       });
@@ -494,7 +489,6 @@ describe("NineZoneStateReducer", () => {
             type: "widget",
             widgetId: "w2",
           },
-          isActiveTabPreview: false,
         });
         newState.widgets.w2.tabs.should.eql(["t2", "fwt1"]);
       });
@@ -511,7 +505,6 @@ describe("NineZoneStateReducer", () => {
             type: "widget",
             widgetId: "fw2",
           },
-          isActiveTabPreview: false,
         });
         newState.widgets.fw2.tabs.should.eql(["fwt2", "fwt1"]);
       });
@@ -530,7 +523,6 @@ describe("NineZoneStateReducer", () => {
             newWidgetId: "leftStart",
             side: "left",
           },
-          isActiveTabPreview: false,
         });
         newState.panels.left.widgets.should.eql(["leftStart"]);
       });
@@ -1330,7 +1322,6 @@ describe("NineZoneStateReducer", () => {
             tabIndex: 1,
             widgetId: "leftStart",
           },
-          isActiveTabPreview: false,
         });
         newState.widgets.leftStart.tabs.should.eql(["t1", "dt", "t2"]);
       });
@@ -1352,7 +1343,6 @@ describe("NineZoneStateReducer", () => {
             tabIndex: 1,
             widgetId: "leftEnd",
           },
-          isActiveTabPreview: false,
         });
         newState.widgets.leftEnd.tabs.should.eql(["t1", "dt", "t2"]);
       });
@@ -1380,7 +1370,6 @@ describe("NineZoneStateReducer", () => {
             tabIndex: 0,
             widgetId: "fw1",
           },
-          isActiveTabPreview: false,
         });
         newState.floatingWidgets.byId.fw1.home.should.not.eq(
           state.floatingWidgets.byId.fw1.home
@@ -1412,7 +1401,6 @@ describe("NineZoneStateReducer", () => {
             side: "left",
             sectionIndex: 1,
           },
-          isActiveTabPreview: false,
         });
         newState.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
       });
@@ -1435,7 +1423,6 @@ describe("NineZoneStateReducer", () => {
             side: "left",
             sectionIndex: 1,
           },
-          isActiveTabPreview: false,
         });
         newState.panels.left.widgets.should.eql(["leftStart", "nw1"]);
       });
@@ -1458,7 +1445,6 @@ describe("NineZoneStateReducer", () => {
             side: "left",
             sectionIndex: 0,
           },
-          isActiveTabPreview: false,
         });
         newState.panels.left.widgets.should.eql(["nw1", "leftEnd"]);
       });
@@ -1481,7 +1467,6 @@ describe("NineZoneStateReducer", () => {
             type: "widget",
             widgetId: "leftEnd",
           },
-          isActiveTabPreview: false,
         });
         newState.panels.left.widgets.should.eql(["leftEnd"]);
       });
@@ -1502,7 +1487,6 @@ describe("NineZoneStateReducer", () => {
             type: "widget",
             widgetId: "leftStart",
           },
-          isActiveTabPreview: false,
         });
         newState.panels.left.widgets.should.eql(["leftStart"]);
       });
@@ -1523,7 +1507,6 @@ describe("NineZoneStateReducer", () => {
             type: "widget",
             widgetId: "fw1",
           },
-          isActiveTabPreview: false,
         });
         newState.widgets.fw1.tabs.should.eql(["fwt1", "dt"]);
       });
@@ -1546,7 +1529,6 @@ describe("NineZoneStateReducer", () => {
             newWidgetId: "newId",
             side: "left",
           },
-          isActiveTabPreview: false,
         });
         newState.panels.left.widgets.should.eql(["newId"]);
       });
@@ -1572,7 +1554,6 @@ describe("NineZoneStateReducer", () => {
               width: 200,
             },
           },
-          isActiveTabPreview: false,
         });
         (!!newState.floatingWidgets.byId.newId).should.true;
       });

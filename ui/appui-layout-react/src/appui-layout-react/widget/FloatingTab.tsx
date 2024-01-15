@@ -51,7 +51,6 @@ export function FloatingTab() {
     [dispatch, id]
   );
 
-  const { changeActiveTabAfterDragDrop } = usePreviewFeatures();
   const onDragEnd = React.useCallback<NonNullable<UseDragTabArgs["onDragEnd"]>>(
     (target) => {
       id &&
@@ -59,10 +58,9 @@ export function FloatingTab() {
           type: "WIDGET_TAB_DRAG_END",
           id,
           target,
-          isActiveTabPreview: changeActiveTabAfterDragDrop,
         });
     },
-    [dispatch, id, changeActiveTabAfterDragDrop]
+    [dispatch, id]
   );
   useDragTab({
     tabId: id || "",

@@ -24,6 +24,7 @@ import type {
   TabState,
 } from "@itwin/appui-layout-react";
 import {
+  changeActiveTabAfterDragDrop,
   createLayoutStore,
   createNineZoneState,
   FloatingWidgets,
@@ -167,7 +168,17 @@ const log =
 
 /** @internal */
 export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
-  const reducer = React.useMemo(() => log(NineZoneStateReducer), []);
+  const features = usePreviewFeatures();
+
+  const reducer = React.useMemo(() => {
+    let nineZoneStateReducer = log(NineZoneStateReducer);
+
+    nineZoneStateReducer = features.changeActiveTabAfterDragDrop
+      ? changeActiveTabAfterDragDrop(nineZoneStateReducer)
+      : nineZoneStateReducer;
+    return nineZoneStateReducer;
+  }, [features.changeActiveTabAfterDragDrop]);
+
   return React.useCallback<NineZoneDispatch>(
     (action) => {
       if (action.type === "RESIZE") {
