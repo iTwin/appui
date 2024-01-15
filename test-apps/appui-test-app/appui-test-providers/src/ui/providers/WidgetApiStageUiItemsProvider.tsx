@@ -35,6 +35,7 @@ import {
 } from "../../tools/RegisterUiProviderTool";
 import { LogLifecycleWidget } from "../widgets/LogLifecycleWidget";
 import { UseWidgetHookWidget } from "../widgets/useWidgetHookWidget";
+import { ITwinUIv2Widget } from "../widgets/ITwinUIv2Widget";
 
 /**
  * WidgetApiStageUiItemsProvider provides widget in the bottom panel that can exercise the Widget API on Widgets in the other panels.
@@ -263,6 +264,13 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         content: <UseWidgetHookWidget />,
         canPopout: true,
         allowedPanels: [StagePanelLocation.Left, StagePanelLocation.Right],
+      });
+      widgets.push({
+        id: "appui-test-providers:iTwinUIv2",
+        label: "iTwinUI v2",
+        icon: "icon-app-2",
+        canPopout: true,
+        content: <ITwinUIv2Widget />,
       });
     }
     return widgets;
