@@ -3518,6 +3518,9 @@ export class UrlPropertyValueRenderer implements IPropertyValueRenderer {
 export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined;
 
 // @public
+export function useControlledTreeEventsHandler<TEventsHandler extends TreeEventHandler>(factoryOrParams: (() => TEventsHandler) | TreeEventHandlerParams): TreeEventHandler | undefined;
+
+// @public
 export function useControlledTreeLayoutStorage<T extends Element>(): {
     ref: React_2.Ref<T>;
     persist: () => void;
@@ -3590,7 +3593,7 @@ export function useToolbarWithOverflowDirectionContext(): ToolbarOverflowContext
 // @internal (undocumented)
 export function useToolItemEntryContext(): ToolbarItemContextArgs;
 
-// @public
+// @public @deprecated
 export function useTreeEventsHandler<TEventsHandler extends TreeEventHandler>(factoryOrParams: (() => TEventsHandler) | TreeEventHandlerParams): TreeEventHandler;
 
 // @public

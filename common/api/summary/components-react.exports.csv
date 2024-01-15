@@ -393,6 +393,7 @@ public;UiComponents
 public;Unsubscribable
 public;UrlPropertyValueRenderer 
 public;useAsyncValue
+public;useControlledTreeEventsHandler
 public;useControlledTreeLayoutStorage
 beta;useDebouncedAsyncValue
 public;usePagedTreeNodeLoader
@@ -409,6 +410,7 @@ public;useToolbarPopupContext(): ToolbarPopupContextProps
 internal;useToolbarWithOverflowDirectionContext(): ToolbarOverflowContextProps
 internal;useToolItemEntryContext(): ToolbarItemContextArgs
 public;useTreeEventsHandler
+deprecated;useTreeEventsHandler
 public;useTreeModel(modelSource: TreeModelSource): TreeModel
 public;useTreeModelSource(dataProvider: TreeDataProvider): TreeModelSource
 public;useTreeNodeLoader
