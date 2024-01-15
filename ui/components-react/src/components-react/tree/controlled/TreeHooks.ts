@@ -7,7 +7,7 @@
  */
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useDisposable } from "@itwin/core-react";
+import { useDisposable, useOptionalDisposable } from "@itwin/core-react";
 import type { TreeDataProvider } from "../TreeDataProvider";
 import type { TreeEventHandlerParams } from "./TreeEventHandler";
 import { TreeEventHandler } from "./TreeEventHandler";
@@ -86,6 +86,7 @@ export function useTreeModelSource(dataProvider: TreeDataProvider) {
  * be used for that purpose based on whether the input is a factory function or params object.
  *
  * @public
+ * @deprecated in 4.9.0. This hooks does not work correctly in React 18. Use [[useControlledTreeEventsHandler]] instead.
  */
 export function useTreeEventsHandler<TEventsHandler extends TreeEventHandler>(
   factoryOrParams: (() => TEventsHandler) | TreeEventHandlerParams
@@ -94,5 +95,26 @@ export function useTreeEventsHandler<TEventsHandler extends TreeEventHandler>(
     if (typeof factoryOrParams === "function") return factoryOrParams();
     return new TreeEventHandler(factoryOrParams);
   }, [factoryOrParams]);
+  // eslint-disable-next-line deprecation/deprecation
   return useDisposable(factory);
+}
+
+/**
+ * Custom hook which creates and takes care of disposing a TreeEventsHandler. The input is either a factory method
+ * for a custom `TreeEventHandler` implementation or parameters for the default implementation.
+ *
+ * @note Caller must ensure `factoryOrParams` changes only when a new handler needs to be created. `useCallback` or `useMemo` can
+ * be used for that purpose based on whether the input is a factory function or params object.
+ *
+ * @returns `undefined` on first render and valid TreeEventsHandler on all subsequent renders.
+ * @public
+ */
+export function useControlledTreeEventsHandler<
+  TEventsHandler extends TreeEventHandler
+>(factoryOrParams: (() => TEventsHandler) | TreeEventHandlerParams) {
+  const factory = useCallback((): TreeEventHandler => {
+    if (typeof factoryOrParams === "function") return factoryOrParams();
+    return new TreeEventHandler(factoryOrParams);
+  }, [factoryOrParams]);
+  return useOptionalDisposable(factory);
 }
