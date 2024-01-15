@@ -17,7 +17,6 @@ import {
   ShowWidgetIconContext,
 } from "../base/NineZone";
 import { useLayout } from "../base/LayoutStore";
-import { usePreviewFeatures } from "../preview/PreviewFeatures";
 
 /** Component that displays a floating tab.
  * @internal

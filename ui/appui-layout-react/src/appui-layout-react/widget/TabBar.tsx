@@ -24,7 +24,6 @@ import { WidgetTabs } from "./Tabs";
 import { WidgetIdContext } from "./Widget";
 import { useDoubleClick } from "../widget-panels/Grip";
 import { useFloatingWidgetId } from "./FloatingWidget";
-import { usePreviewFeatures } from "../preview/PreviewFeatures";
 
 /** @internal */
 export interface WidgetTabBarProps {

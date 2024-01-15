@@ -3,11 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { assert } from "@itwin/core-bentley";
-import {
+import type {
   NineZoneState,
   NineZoneStateReducer,
-  getTabLocation,
 } from "../../appui-layout-react";
+import { getTabLocation } from "./TabLocation";
 import {
   getWidgetState,
   setWidgetActiveTabId,
@@ -37,7 +37,7 @@ export const changeActiveTabAfterDragDrop =
   };
 
 function getWidgetByTabId(state: NineZoneState, draggedWidgetTabId: string) {
-  let location = getTabLocation(state, draggedWidgetTabId);
+  const location = getTabLocation(state, draggedWidgetTabId);
   assert(!!location);
 
   const widget = state.widgets[location.widgetId];

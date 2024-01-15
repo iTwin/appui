@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { assert, expect, should } from "chai";
 import { produce } from "immer";
 import { Point, Rectangle } from "@itwin/core-react";
 import type { NineZoneAction } from "../../appui-layout-react";
@@ -45,10 +44,12 @@ describe("changeActiveTabAfterDragDrop", () => {
           },
         } as NineZoneAction;
 
-        const wrappedReducer = changeActiveTabAfterDragDrop((state, action) => {
-          state = NineZoneStateReducer(state, action);
-          return state;
-        });
+        const wrappedReducer = changeActiveTabAfterDragDrop(
+          (nzState, nzAction) => {
+            state = NineZoneStateReducer(nzState, nzAction);
+            return state;
+          }
+        );
         const newState = wrappedReducer(state, action);
         (!!newState.floatingWidgets.byId.fw1).should.true;
         newState.widgets.fw1.activeTabId.should.eql("t1");
@@ -72,8 +73,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -104,8 +105,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -134,8 +135,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -161,8 +162,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -190,8 +191,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -226,8 +227,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -258,8 +259,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -293,8 +294,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -326,8 +327,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -359,8 +360,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -392,8 +393,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -423,8 +424,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -454,8 +455,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -487,8 +488,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -523,8 +524,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           } as NineZoneAction;
 
           const wrappedReducer = changeActiveTabAfterDragDrop(
-            (state, action) => {
-              state = NineZoneStateReducer(state, action);
+            (nzState, nzAction) => {
+              state = NineZoneStateReducer(nzState, nzAction);
               return state;
             }
           );
@@ -552,10 +553,12 @@ describe("changeActiveTabAfterDragDrop", () => {
           floatingWidgetId: "fw1",
         } as NineZoneAction;
 
-        const wrappedReducer = changeActiveTabAfterDragDrop((state, action) => {
-          state = NineZoneStateReducer(state, action);
-          return state;
-        });
+        const wrappedReducer = changeActiveTabAfterDragDrop(
+          (nzState, nzAction) => {
+            state = NineZoneStateReducer(nzState, nzAction);
+            return state;
+          }
+        );
         const newState = wrappedReducer(state, action);
         newState.floatingWidgets.byId.fw1.bounds.should.eql({
           left: 10,
