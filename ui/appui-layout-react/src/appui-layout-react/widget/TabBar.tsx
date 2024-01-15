@@ -57,7 +57,6 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
     },
     [dispatch, floatingWidgetId]
   );
-
   const onDragEnd = React.useCallback<
     NonNullable<UseDragWidgetArgs["onDragEnd"]>
   >(

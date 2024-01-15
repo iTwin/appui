@@ -319,7 +319,6 @@ export class FrontstageDef {
     return (this._dispatch ??= (action) => {
       const state = this.nineZoneState;
       if (!state) return;
-
       this.nineZoneState = NineZoneStateReducer(state, action);
     });
   }

@@ -49,7 +49,6 @@ export function FloatingTab() {
     },
     [dispatch, id]
   );
-
   const onDragEnd = React.useCallback<NonNullable<UseDragTabArgs["onDragEnd"]>>(
     (target) => {
       id &&
