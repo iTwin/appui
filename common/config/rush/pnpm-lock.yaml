@@ -1048,6 +1048,7 @@ importers:
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ^5.0.2
+      upath: ^2.0.1
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons-react': 2.8.0_react-dom@17.0.2+react@17.0.2
@@ -1105,6 +1106,7 @@ importers:
       ts-node: 10.9.1_9a41dbaa370b60afede472b47d9ffeeb
       typemoq: 2.1.0
       typescript: 5.0.2
+      upath: 2.0.1
 
 packages:
 
