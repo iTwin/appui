@@ -14,9 +14,14 @@ import * as React from "react";
 export interface KnownPreviewLayoutFeatures {
   /** If true, the panels and tool settings will always be rendered over the content.
    * The content will never change size.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/672
    */
   contentAlwaysMaxSize: boolean;
-  /** If true, the floating widget will have a "maximize" button. */
+  /** If true, the floating widget will have a "maximize" button.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
+   */
   enableMaximizedFloatingWidget: boolean;
 }
 
