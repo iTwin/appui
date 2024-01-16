@@ -3,7 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { Button, DropdownMenu, IconButton, MenuItem, Text } from "@itwin/itwinui-react-v2";
+import {
+  Button,
+  DropdownMenu,
+  IconButton,
+  MenuItem,
+  Text,
+} from "@itwin/itwinui-react-v2";
 import { SvgMore } from "@itwin/itwinui-icons-react";
 
 /** @internal */
