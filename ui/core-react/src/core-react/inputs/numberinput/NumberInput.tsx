@@ -31,7 +31,7 @@ export type StepFunctionProp =
  * @public
  */
 export interface NumberInputProps
-  extends Omit<InputProps, "min" | "max" | "step" | "onChange"> {
+  extends Omit<InputProps, "min" | "max" | "step" | "onChange" | "size"> {
   /** Numeric value, set to `undefined` to show placeholder text */
   value?: number;
   /** CSS class name for the NumberInput component container div */
@@ -63,6 +63,7 @@ export interface NumberInputProps
    * @internal
    */
   isControlled?: boolean;
+  size?: "small" | "medium" | "large";
 }
 
 const ForwardRefNumberInput = React.forwardRef<
@@ -286,6 +287,13 @@ const ForwardRefNumberInput = React.forwardRef<
   const caretUp = showTouchButtons ? <SvgCaretUp /> : <SvgCaretUpSmall />;
   const caretDown = showTouchButtons ? <SvgCaretDown /> : <SvgCaretDownSmall />;
 
+  const inputSize =
+    size === "small" || size === undefined
+      ? "small"
+      : size === "medium"
+      ? undefined
+      : "large";
+
   return (
     <div className={containerClasses} style={containerStyle}>
       <Input
@@ -295,7 +303,7 @@ const ForwardRefNumberInput = React.forwardRef<
         onKeyDown={handleKeyDown}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        size={size}
+        size={inputSize}
         {...otherProps}
       />
       <div

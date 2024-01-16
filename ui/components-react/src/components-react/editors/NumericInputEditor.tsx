@@ -223,7 +223,7 @@ export class NumericInputEditor
         onChange={this._updateValue}
         setFocus={this.props.setFocus && !this.state.isDisabled}
         isControlled={this.props.shouldCommitOnChange}
-        size={getiTwinUISize(this.props.size)}
+        size={this.props.size}
       />
     );
   }
