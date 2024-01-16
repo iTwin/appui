@@ -16,7 +16,7 @@ import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
 import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
-import { Dialog as BaseDialog, ThemeProvider } from "@itwin/itwinui-react";
+import { Dialog as BaseDialog } from "@itwin/itwinui-react";
 import { Button } from "@itwin/itwinui-react";
 
 type ButtonProps = React.ComponentPropsWithoutRef<typeof Button>;
@@ -115,15 +115,10 @@ export interface DialogProps
   contentStyle?: React.CSSProperties;
 }
 
-/** @internal */
-interface DialogState {
-  portalContainer?: HTMLDivElement;
-}
-
 /** Dialog React component with optional resizing and dragging functionality
  * @public
  */
-export class Dialog extends React.Component<DialogProps, DialogState> {
+export class Dialog extends React.Component<DialogProps> {
   private _parentDocument = document;
   public static defaultProps: Partial<DialogProps> = {
     maxWidth: "100%",
@@ -138,8 +133,6 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
 
   constructor(props: DialogProps) {
     super(props);
-
-    this.state = {};
   }
 
   public override componentWillUnmount(): void {
@@ -241,48 +234,41 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         data-testid="core-dialog-root"
         {...props}
       >
-        <ThemeProvider portalContainer={this.state.portalContainer}>
-          {modal && <BaseDialog.Backdrop style={backgroundStyle} />}
-          <DivWithOutsideClick onOutsideClick={onOutsideClick}>
-            <BaseDialog.Main
-              className={classnames(
-                "core-dialog-main",
-                alignment && this.getCSSClassNameFromAlignment(alignment)
-              )}
-              data-testid="core-dialog-container"
-              style={dialogBaseContainerStyle}
-              onPointerDown={this._handleContainerPointerDown}
-              ref={this._handleRef}
+        {modal && <BaseDialog.Backdrop style={backgroundStyle} />}
+        <DivWithOutsideClick onOutsideClick={onOutsideClick}>
+          <BaseDialog.Main
+            className={classnames(
+              "core-dialog-main",
+              alignment && this.getCSSClassNameFromAlignment(alignment)
+            )}
+            data-testid="core-dialog-container"
+            style={dialogBaseContainerStyle}
+            onPointerDown={this._handleContainerPointerDown}
+          >
+            {!hideHeader &&
+              (header || (
+                <BaseDialog.TitleBar
+                  titleText={title}
+                  style={titleStyle}
+                  data-testid="core-dialog-head"
+                />
+              ))}
+            <BaseDialog.Content
+              className={contentClassName}
+              style={{ padding: inset ? undefined : 0, ...contentStyle }}
             >
-              {!hideHeader &&
-                (header || (
-                  <BaseDialog.TitleBar
-                    titleText={title}
-                    style={titleStyle}
-                    data-testid="core-dialog-head"
-                  />
-                ))}
-              <BaseDialog.Content
-                className={contentClassName}
-                style={{ padding: inset ? undefined : 0, ...contentStyle }}
-              >
-                {this.props.children}
-              </BaseDialog.Content>
-              {footer || (
-                <BaseDialog.ButtonBar style={footerStyle}>
-                  {buttons}
-                </BaseDialog.ButtonBar>
-              )}
-            </BaseDialog.Main>
-          </DivWithOutsideClick>
-        </ThemeProvider>
+              {this.props.children}
+            </BaseDialog.Content>
+            {footer || (
+              <BaseDialog.ButtonBar style={footerStyle}>
+                {buttons}
+              </BaseDialog.ButtonBar>
+            )}
+          </BaseDialog.Main>
+        </DivWithOutsideClick>
       </BaseDialog>
     );
   }
-
-  private _handleRef = (el: HTMLDivElement | null) => {
-    this.setState({ portalContainer: el ?? undefined });
-  };
 
   private getCSSClassNameFromAlignment(alignment: DialogAlignment): string {
     switch (alignment) {

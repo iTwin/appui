@@ -6,10 +6,11 @@
  * @module ConfigurableUi
  */
 
-import "./configurableui.scss";
+import "./ConfigurableUiContent.scss";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { Point } from "@itwin/core-react";
+import { ThemeProvider } from "@itwin/itwinui-react";
 import { CursorInformation } from "../cursor/CursorInformation";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu";
 import { CursorPopupRenderer } from "../cursor/cursorpopup/CursorPopupManager";
@@ -45,6 +46,9 @@ export interface ConfigurableUiContentProps extends CommonProps {
  * @public
  */
 export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
+  const [portalContainer, setPortalContainer] = React.useState<
+    HTMLElement | undefined
+  >();
   React.useEffect(() => {
     UiFramework.keyboardShortcuts.setFocusToHome();
   }, []);
@@ -71,19 +75,28 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
       style={props.style}
       onMouseMove={handleMouseMove}
     >
-      {props.appBackstage}
-      <WidgetPanelsFrontstage />
-      <ContentDialogRenderer />
-      <ModelessDialogRenderer />
-      <ModalDialogRenderer />
-      <ElementTooltip />
-      <PointerMessage />
-      <KeyboardShortcutMenu />
-      <InputFieldMessage />
-      <CursorPopupMenu />
-      <CursorPopupRenderer />
-      <PopupRenderer />
-      <MessageRenderer />
+      <ThemeProvider
+        style={{ height: "100%" }}
+        portalContainer={portalContainer}
+      >
+        {props.appBackstage}
+        <WidgetPanelsFrontstage />
+        <ContentDialogRenderer />
+        <ModelessDialogRenderer />
+        <ModalDialogRenderer />
+        <ElementTooltip />
+        <PointerMessage />
+        <KeyboardShortcutMenu />
+        <InputFieldMessage />
+        <CursorPopupMenu />
+        <CursorPopupRenderer />
+        <PopupRenderer />
+        <MessageRenderer />
+      </ThemeProvider>
+      <div
+        style={{ position: "relative", zIndex: 99999 }}
+        ref={(instance) => setPortalContainer(instance ?? undefined)}
+      />
     </main>
   );
 }
