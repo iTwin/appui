@@ -3,8 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type * as sinon from "sinon";
-import { expect } from "chai";
-import { fireEvent, waitFor } from "@testing-library/react";
+import { waitFor } from "@testing-library/react";
 
 /** Options for waitForSpy test helper function */
 export interface WaitForSpyOptions {
