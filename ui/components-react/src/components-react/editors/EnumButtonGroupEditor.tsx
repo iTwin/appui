@@ -231,7 +231,7 @@ export class EnumButtonGroupEditor
       case undefined:
         return "components-enumbuttongroup-small";
       default:
-        return "components-enumbuttongroup-medium     ";
+        return "components-enumbuttongroup-medium";
     }
   }
 

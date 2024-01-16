@@ -159,13 +159,6 @@ export class ToggleEditor
         onChange={this._updateToggleValue}
         data-testid="components-toggle-editor"
         setFocus={this.props.setFocus}
-        size={
-          this.props.size === "large"
-            ? undefined
-            : this.props.size === "medium"
-            ? "default"
-            : this.props.size
-        }
       />
     );
   }
