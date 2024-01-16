@@ -14,6 +14,16 @@
 
   .fb-logical-operator {
     width: var(--fb-operator-width);
+    height: 100%;
+    text-align: center;
+    background-color: var(--iui-color-background-hover);
+    user-select: none;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    font-size: var(--iui-font-size-2);
+    font-weight: var(--iui-font-weight-semibold);
+    padding-block: var(--iui-size-s);
   }
 
   .fb-logical-operator-large {
