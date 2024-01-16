@@ -19,14 +19,6 @@ import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelSta
 import { addFloatingWidget } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 
 describe("changeActiveTabAfterDragDrop", () => {
-  it("should not update for unhandled action", () => {
-    const state = createNineZoneState();
-    const newState = NineZoneStateReducer(state, {
-      type: "UNKNOWN",
-    } as unknown as NineZoneAction);
-    newState.should.eq(state);
-  });
-
   describe("WIDGET_DRAG_END", () => {
     describe("no target", () => {
       it("should not remove floating widget", () => {
@@ -44,13 +36,10 @@ describe("changeActiveTabAfterDragDrop", () => {
           },
         } as NineZoneAction;
 
-        const wrappedReducer = changeActiveTabAfterDragDrop(
-          (nzState, nzAction) => {
-            state = NineZoneStateReducer(nzState, nzAction);
-            return state;
-          }
-        );
+        const wrappedReducer =
+          changeActiveTabAfterDragDrop(NineZoneStateReducer);
         const newState = wrappedReducer(state, action);
+
         (!!newState.floatingWidgets.byId.fw1).should.true;
         newState.widgets.fw1.activeTabId.should.eql("t1");
       });
@@ -72,12 +61,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           newState.widgets.w1.tabs.should.eql(["t1", "fwt1", "t2", "t3"]);
@@ -104,12 +89,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           newState.panels.left.widgets.should.eql(["w1", "newId", "w2"]);
@@ -134,12 +115,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           newState.widgets.w2.tabs.should.eql(["t2", "fwt1"]);
@@ -161,12 +138,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           newState.widgets.fw2.tabs.should.eql(["fwt2", "fwt1"]);
@@ -190,12 +163,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           newState.panels.left.widgets.should.eql(["leftStart"]);
@@ -226,12 +195,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           newState.widgets.leftStart.tabs.should.eql(["t1", "dt", "t2"]);
@@ -258,12 +223,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           newState.widgets.leftEnd.tabs.should.eql(["t1", "dt", "t2"]);
@@ -293,12 +254,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           newState.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
@@ -326,12 +283,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           newState.panels.left.widgets.should.eql(["leftStart", "nw1"]);
@@ -359,12 +312,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           newState.panels.left.widgets.should.eql(["nw1", "leftEnd"]);
@@ -392,12 +341,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           newState.panels.left.widgets.should.eql(["leftEnd"]);
@@ -423,12 +368,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           newState.panels.left.widgets.should.eql(["leftStart"]);
@@ -454,12 +395,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           newState.widgets.fw1.tabs.should.eql(["fwt1", "dt"]);
@@ -487,12 +424,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           newState.panels.left.widgets.should.eql(["newId"]);
@@ -523,12 +456,8 @@ describe("changeActiveTabAfterDragDrop", () => {
             },
           } as NineZoneAction;
 
-          const wrappedReducer = changeActiveTabAfterDragDrop(
-            (nzState, nzAction) => {
-              state = NineZoneStateReducer(nzState, nzAction);
-              return state;
-            }
-          );
+          const wrappedReducer =
+            changeActiveTabAfterDragDrop(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
           (!!newState.floatingWidgets.byId.newId).should.true;
@@ -553,12 +482,8 @@ describe("changeActiveTabAfterDragDrop", () => {
           floatingWidgetId: "fw1",
         } as NineZoneAction;
 
-        const wrappedReducer = changeActiveTabAfterDragDrop(
-          (nzState, nzAction) => {
-            state = NineZoneStateReducer(nzState, nzAction);
-            return state;
-          }
-        );
+        const wrappedReducer =
+          changeActiveTabAfterDragDrop(NineZoneStateReducer);
         const newState = wrappedReducer(state, action);
         newState.floatingWidgets.byId.fw1.bounds.should.eql({
           left: 10,

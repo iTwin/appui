@@ -18,6 +18,10 @@ export interface KnownPreviewLayoutFeatures {
   contentAlwaysMaxSize: boolean;
   /** If true, the floating widget will have a "maximize" button. */
   enableMaximizedFloatingWidget: boolean;
+  /** If true, a tab, or the active tab of a group of wiget will become active when dropping them in a container.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/679
+   */
   changeActiveTabAfterDragDrop?: boolean;
 }
 
