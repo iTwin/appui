@@ -55,7 +55,7 @@ export function useOptionalDisposable<TDisposable extends IDisposable>(
     const disposable = createDisposable();
     setValue(disposable);
     return () => {
-      disposable?.dispose();
+      disposable && disposable.dispose();
     };
   }, [createDisposable]);
 
