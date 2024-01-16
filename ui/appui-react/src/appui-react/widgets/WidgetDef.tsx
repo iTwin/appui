@@ -29,6 +29,12 @@ import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 import { getTabLocation, isPopoutTabLocation } from "@itwin/appui-layout-react";
+import {
+  IModelApp,
+  NotifyMessageDetails,
+  OutputMessagePriority,
+  OutputMessageType,
+} from "@itwin/core-frontend";
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -551,24 +557,42 @@ export class WidgetDef {
         // We have to check if Safari is the browser being used. Safari has security
         // measures that do not allow you to change focus to another tab programmatically.
         // Therefore the only and recommended way around this at the moment, is to close
-        // and then open the tab again. This remounts the popout so it is not ideal. Thats
-        // why this is not being done for all browsers.
+        // and then open the tab again. This remounts the popout. Thats why this will not be done,
+        // because we don't want the state of the widget to be lost. Instead a toast will
+        // be displayed that informs the user that safari cannot focus the popout.
         // Apple support docs: https://discussions.apple.com/thread/251676767?sortBy=best
         const isSafari =
           navigator.userAgent.toLowerCase().indexOf("safari/") > -1;
 
-        if (isSafari) {
-          frontstageDef.dispatch({
-            type: "POPOUT_WIDGET_SEND_BACK",
-            id: tabLocation.popoutWidgetId,
-          });
+        if (
+          isSafari &&
+          window.localStorage.getItem("hideSafariPopoutFocusMessage") !== "true"
+        ) {
+          const focusFailCheckbox = document.createElement("div");
 
-          const widget = state.widgets[tabLocation.widgetId];
-
-          frontstageDef.dispatch({
-            type: "WIDGET_TAB_POPOUT",
-            id: widget.activeTabId,
+          focusFailCheckbox.innerHTML = `<input type='checkbox' id='doNotShowAgain' name='doNotShowAgain'/> <label for='doNotShowAgain'>Do not show again</label>`;
+          const checkbox = document.querySelector("#doNotShowAgain");
+          checkbox?.addEventListener("change", function () {
+            const checkboxValue = document.querySelector(
+              "#doNotShowAgain:checked"
+            );
+            if (checkboxValue) {
+              window.localStorage.setItem(
+                "hideSafariPopoutFocusMessage",
+                "true"
+              );
+            }
           });
+          IModelApp.notifications.outputMessage(
+            new NotifyMessageDetails(
+              OutputMessagePriority.Error,
+              UiFramework.translate(
+                "widget.errorMessage.popoutSafariFocusFail"
+              ),
+              focusFailCheckbox,
+              OutputMessageType.Toast
+            )
+          );
         } else {
           testWindow.window.focus();
         }

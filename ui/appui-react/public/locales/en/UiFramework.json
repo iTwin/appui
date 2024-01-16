@@ -280,7 +280,8 @@
     },
     "errorMessage": {
       "unknownError": "Something went wrong...",
-      "widgetPopoutFail": "Widget failed to popout, ensure you allow popout for this site."
+      "widgetPopoutFail": "Widget failed to popout, ensure you allow popout for this site.",
+      "popoutSafariFocusFail": "Popout focus restricted by Safari"
     }
   },
   "statusBar": {
