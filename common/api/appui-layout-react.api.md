@@ -543,7 +543,6 @@ export function isWindowDropTargetState(state: WidgetDragDropTargetState): state
 
 // @internal
 export interface KnownPreviewLayoutFeatures {
-    // (undocumented)
     changeActiveTabAfterDragDrop?: boolean;
     contentAlwaysMaxSize: boolean;
     enableMaximizedFloatingWidget: boolean;
