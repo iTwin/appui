@@ -114,7 +114,6 @@
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-redux": "^7.2.2",
-    "react-test-renderer": "^17.0.0",
     "redux": "^4.1.0",
     "rimraf": "^3.0.2",
     "sinon": "^15.2.0",
@@ -148,8 +147,7 @@
     "require": [
       "ignore-styles",
       "jsdom-global/register",
-      "source-map-support/register",
-      "ts-node/register"
+      "source-map-support/register"
     ],
     "check-coverage": true,
     "statements": 90,

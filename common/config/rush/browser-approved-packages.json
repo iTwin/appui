@@ -447,10 +447,6 @@
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
-      "name": "react-test-renderer",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
       "name": "react-transition-group",
       "allowedCategories": [ "frontend" ]
     },
