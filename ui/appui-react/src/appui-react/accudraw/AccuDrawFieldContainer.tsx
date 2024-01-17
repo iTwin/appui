@@ -75,12 +75,22 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   const angleInputRef = React.useRef<HTMLInputElement>(null);
   const distanceInputRef = React.useRef<HTMLInputElement>(null);
   const focusField = React.useRef<ItemField | undefined>(undefined);
-  const [mode, setMode] = React.useState(CompassMode.Rectangular);
-  const [xLock, setXLock] = React.useState(false);
-  const [yLock, setYLock] = React.useState(false);
-  const [zLock, setZLock] = React.useState(false);
-  const [angleLock, setAngleLock] = React.useState(false);
-  const [distanceLock, setDistanceLock] = React.useState(false);
+  const [mode, setMode] = React.useState(() => IModelApp.accuDraw.compassMode);
+  const [xLock, setXLock] = React.useState(() =>
+    IModelApp.accuDraw.getFieldLock(ItemField.X_Item)
+  );
+  const [yLock, setYLock] = React.useState(() =>
+    IModelApp.accuDraw.getFieldLock(ItemField.Y_Item)
+  );
+  const [zLock, setZLock] = React.useState(() =>
+    IModelApp.accuDraw.getFieldLock(ItemField.Z_Item)
+  );
+  const [angleLock, setAngleLock] = React.useState(() =>
+    IModelApp.accuDraw.getFieldLock(ItemField.ANGLE_Item)
+  );
+  const [distanceLock, setDistanceLock] = React.useState(() =>
+    IModelApp.accuDraw.getFieldLock(ItemField.DIST_Item)
+  );
   const [showZ, setShowZ] = React.useState(true);
   const [xLabel, setXLabel] = React.useState<string | undefined>(defaultXLabel);
   const [yLabel, setYLabel] = React.useState<string | undefined>(defaultYLabel);
@@ -139,13 +149,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   };
 
   React.useEffect(() => {
-    setXLock(IModelApp.accuDraw.getFieldLock(ItemField.X_Item));
-    setYLock(IModelApp.accuDraw.getFieldLock(ItemField.Y_Item));
-    setZLock(IModelApp.accuDraw.getFieldLock(ItemField.Z_Item));
-    setAngleLock(IModelApp.accuDraw.getFieldLock(ItemField.ANGLE_Item));
-    setDistanceLock(IModelApp.accuDraw.getFieldLock(ItemField.DIST_Item));
-
-    const handleSetFieldLock = (args: AccuDrawSetFieldLockEventArgs) => {
+    return FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener((args) => {
       switch (args.field) {
         case ItemField.X_Item:
           setXLock(args.lock);
@@ -163,10 +167,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
           setDistanceLock(args.lock);
           break;
       }
-    };
-    return FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener(
-      handleSetFieldLock
-    );
+    });
   }, []);
 
   const setFocusToField = React.useCallback((field: ItemField) => {
@@ -180,34 +181,25 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   }, []);
 
   React.useEffect(() => {
-    const handleSetFieldFocus = (args: AccuDrawSetFieldFocusEventArgs) => {
-      focusField.current = args.field;
-      setFocusToField(focusField.current);
-    };
     return FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(
-      handleSetFieldFocus
+      (args) => {
+        focusField.current = args.field;
+        setFocusToField(focusField.current);
+      }
     );
   }, [setFocusToField]);
 
   React.useEffect(() => {
-    const handleGrabInputFocus = () => {
-      // istanbul ignore else
+    return FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(() => {
       if (focusField.current) setFocusToField(focusField.current);
-    };
-    return FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(
-      handleGrabInputFocus
-    );
+    });
   }, [setFocusToField]);
 
   React.useEffect(() => {
-    setMode(IModelApp.accuDraw.compassMode);
-
-    const handleSetMode = (args: AccuDrawSetCompassModeEventArgs) => {
-      setMode(args.mode);
-    };
-
     return FrameworkAccuDraw.onAccuDrawSetCompassModeEvent.addListener(
-      handleSetMode
+      (args) => {
+        setMode(args.mode);
+      }
     );
   }, []);
 

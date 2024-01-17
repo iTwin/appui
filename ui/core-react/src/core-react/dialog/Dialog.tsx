@@ -259,11 +259,12 @@ export class Dialog extends React.Component<DialogProps> {
             >
               {this.props.children}
             </BaseDialog.Content>
-            {footer || (
-              <BaseDialog.ButtonBar style={footerStyle}>
-                {buttons}
-              </BaseDialog.ButtonBar>
-            )}
+            {footer ||
+              (buttons && (
+                <BaseDialog.ButtonBar style={footerStyle}>
+                  {buttons}
+                </BaseDialog.ButtonBar>
+              ))}
           </BaseDialog.Main>
         </DivWithOutsideClick>
       </BaseDialog>
