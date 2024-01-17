@@ -5,6 +5,7 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
+import { act } from "react-dom/test-utils";
 import {
   fireEvent,
   render,
@@ -100,17 +101,18 @@ describe("QuantityInput", () => {
         enableMinimumProperties
       />
     );
-    await TestUtils.flushAsyncOperations();
-    const spanElement = component.getByTestId(
-      "format-sample-formatted"
-    ) as HTMLSpanElement;
     await waitFor(() => {
-      expect(spanElement.textContent).to.be.eql(`405'-0 1/4"`);
+      component.getByText(`405'-0 1/4"`);
     });
-    await IModelApp.quantityFormatter.setOverrideFormat(
-      QuantityType.Length,
-      overrideLengthFormat
-    );
+
+    await act(async () => {
+      await IModelApp.quantityFormatter.setOverrideFormat(
+        QuantityType.Length,
+        overrideLengthFormat
+      );
+    });
+
+    // TODO: potential issue - explicit rerender needed.
     component.rerender(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -119,9 +121,15 @@ describe("QuantityInput", () => {
         enableMinimumProperties
       />
     );
-    await TestUtils.flushAsyncOperations();
-    expect(spanElement.textContent).to.be.eql("4860.2362 in");
-    await IModelApp.quantityFormatter.clearOverrideFormats(QuantityType.Length);
+    await waitFor(() => {
+      component.getByText("4860.2362 in");
+    });
+
+    await act(async () => {
+      await IModelApp.quantityFormatter.clearOverrideFormats(
+        QuantityType.Length
+      );
+    });
   });
 
   it("should handle onFormatChange UOM separator", async () => {
@@ -305,21 +313,15 @@ describe("QuantityInput", () => {
         enableMinimumProperties
       />
     );
-    fireEvent.click(component.getByTestId("quantityFormat-more"));
-    await TestUtils.flushAsyncOperations();
-
-    fireEvent.click(component.getByTestId("quantityFormat-less"));
-    await TestUtils.flushAsyncOperations();
-
-    fireEvent.keyUp(component.getByTestId("quantityFormat-more"), {
+    fireEvent.click(component.getByText("QuantityFormat.labels.moreLabel"));
+    fireEvent.click(component.getByText("QuantityFormat.labels.lessLabel"));
+    fireEvent.keyUp(component.getByText("QuantityFormat.labels.moreLabel"), {
       key: Key.Enter,
     });
-    await TestUtils.flushAsyncOperations();
-
-    fireEvent.keyUp(component.getByTestId("quantityFormat-less"), {
+    fireEvent.keyUp(component.getByText("QuantityFormat.labels.lessLabel"), {
       key: " ",
     });
-    await TestUtils.flushAsyncOperations();
+    await waitForPosition();
   });
 
   it("should handle onFormatChange when changing sign option", async () => {

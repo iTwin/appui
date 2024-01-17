@@ -204,9 +204,10 @@ describe("useHorizontalToolSettingNodes", () => {
       UiFramework.frontstages.onToolSettingsReloadEvent,
       "removeListener"
     );
-    const sut = renderHook(() => useHorizontalToolSettingNodes());
-    UiFramework.frontstages.onToolSettingsReloadEvent.emit();
-    sut.unmount();
+    renderHook(() => useHorizontalToolSettingNodes());
+    act(() => {
+      UiFramework.frontstages.onToolSettingsReloadEvent.emit();
+    });
     addListenerSpy.calledOnce.should.true;
     removeListenerSpy.calledOnce.should.true;
   });

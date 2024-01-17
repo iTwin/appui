@@ -7,7 +7,7 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { Rectangle } from "@itwin/core-react";
 import { fireEvent, render } from "@testing-library/react";
-import { renderHook } from "@testing-library/react-hooks";
+import { act, renderHook } from "@testing-library/react-hooks";
 import type {
   DragManager,
   NineZoneDispatch,
@@ -398,8 +398,10 @@ describe("useResizeGrip", () => {
     );
     const element = document.createElement("div");
     result.current[0](element);
-    fireEvent.mouseDown(element, { clientX: 200 });
-    fireEvent.mouseMove(document, { clientX: 50 });
+    act(() => {
+      fireEvent.mouseDown(element, { clientX: 200 });
+      fireEvent.mouseMove(document, { clientX: 50 });
+    });
     sinon.assert.callCount(dispatch, 2);
     sinon.assert.calledWithExactly(dispatch, {
       type: "PANEL_SET_COLLAPSED",
@@ -429,8 +431,10 @@ describe("useResizeGrip", () => {
     );
     const element = document.createElement("div");
     result.current[0](element);
-    fireEvent.mouseDown(element);
-    fireEvent.mouseMove(document, { clientX: 50 });
+    act(() => {
+      fireEvent.mouseDown(element);
+      fireEvent.mouseMove(document, { clientX: 50 });
+    });
     sinon.assert.notCalled(dispatch);
   });
 });
