@@ -20,9 +20,6 @@ if (commonjsGlobal.MessageChannel) delete commonjsGlobal.MessageChannel;
 
 const path = require("path");
 const upath = require("upath");
-const sinon = require("sinon");
-const rtl = require("@testing-library/react");
-const rhtl = require("@testing-library/react-hooks");
 
 // Don't ignore svgs or imports will return 'undefined'
 // We need a path to correctly test svg icons.
@@ -104,6 +101,10 @@ try {
   chai.use(require("chai-string"));
 } catch (e) {}
 
+const sinon = require("sinon");
+const rtl = require("@testing-library/react");
+const rhtl = require("@testing-library/react-hooks");
+
 before(function () {
   if (chaiJestSnapshot) {
     chaiJestSnapshot.resetSnapshotRegistry();
@@ -141,6 +142,7 @@ beforeEach(function () {
   // Prevent iTwinUI from dynamically loading CSS to avoid: TypeError: Unknown file extension ".css" ERR_UNKNOWN_FILE_EXTENSION
   sinon
     .stub(CSSStyleDeclaration.prototype, "getPropertyValue")
+    .callThrough()
     .withArgs("--_iui-v3-loaded")
     .returns("yes");
 });
