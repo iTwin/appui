@@ -72,7 +72,6 @@ describe("FrontstageManager", () => {
     await InternalFrontstageManager.setActiveFrontstageDef(undefined);
     expect(InternalFrontstageManager.findWidget("xyz")).to.be.undefined;
   });
-
   it("setActiveFrontstage should set active frontstage", async () => {
     const frontstageProvider = new TestFrontstage();
     InternalFrontstageManager.addFrontstageProvider(frontstageProvider);
@@ -83,14 +82,12 @@ describe("FrontstageManager", () => {
     );
 
     expect(frontstageDef).to.not.be.undefined;
-    if (frontstageDef) {
-      expect(InternalFrontstageManager.hasFrontstage(frontstageDef.id)).to.be
-        .true;
-      await InternalFrontstageManager.setActiveFrontstage(frontstageDef.id);
-      expect(InternalFrontstageManager.activeFrontstageId).to.eq(
-        frontstageDef.id
-      );
-    }
+    expect(InternalFrontstageManager.hasFrontstage(frontstageDef!.id)).to.be
+      .true;
+    await InternalFrontstageManager.setActiveFrontstage(frontstageDef!.id);
+    expect(InternalFrontstageManager.activeFrontstageId).to.eq(
+      frontstageDef!.id
+    );
   });
 
   it("getFronstageDef should return active frontstage when no id provided", async () => {
@@ -245,7 +242,6 @@ describe("FrontstageManager", () => {
     expect(stubbedWidget.setWidgetState).to.calledWithExactly(
       WidgetState.Closed
     );
-    sinon.restore();
   });
 
   it("findWidget returns undefined on invalid id", () => {
@@ -395,7 +391,6 @@ describe("FrontstageManager", () => {
       );
 
       fakeTimers.tick(200);
-      fakeTimers.restore();
 
       divContainer.dispatchEvent(
         new MouseEvent("mousemove", {
