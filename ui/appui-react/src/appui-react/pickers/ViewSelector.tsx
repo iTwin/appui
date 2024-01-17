@@ -36,6 +36,7 @@ export interface ViewSelectorChangedEventArgs {
 /** ViewSelector Changed Event class.
  * @beta
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ViewSelectorChangedEvent extends UiEvent<ViewSelectorChangedEventArgs> {}
 
 /** Properties for the [[ViewSelector]] component
@@ -88,6 +89,7 @@ interface ViewSelectorShowUpdateEventArgs {
 
 /** ViewSelector Show Update Event class.
  */
+// eslint-disable-next-line deprecation/deprecation
 class ViewSelectorShowUpdateEvent extends UiEvent<ViewSelectorShowUpdateEventArgs> {}
 
 /** View Selector React component
