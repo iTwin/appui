@@ -47,6 +47,7 @@ export interface CardSelectedEventArgs {
 /** Class for CardSelectedEvent
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export class CardSelectedEvent extends UiEvent<CardSelectedEventArgs> {}
 
 /** Modal frontstage displaying sheet information in cards.

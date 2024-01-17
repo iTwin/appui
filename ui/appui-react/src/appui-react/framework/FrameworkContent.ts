@@ -25,6 +25,7 @@ export interface MouseDownChangedEventArgs {
 /** Mouse Down Changed Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> {}
 
 /** [[ActiveContentChangedEvent]] Args interface.
@@ -40,6 +41,7 @@ export interface ActiveContentChangedEventArgs {
 /** Active Content Changed Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ActiveContentChangedEvent extends UiEvent<ActiveContentChangedEventArgs> {}
 
 /** Content Dialog Changed Event class.
@@ -73,6 +75,7 @@ export interface FrameworkContent {
 
   /** Fires when floating contents are added or removed */
 
+  // eslint-disable-next-line deprecation/deprecation
   readonly onAvailableContentChangedEvent: UiEvent<{ contentId: string }>;
 
   /** Gets the active content as a React.ReactNode. */

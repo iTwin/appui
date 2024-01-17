@@ -40,6 +40,7 @@ export interface WidgetStateChangedEventArgs {
 /** Widget State Changed Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class WidgetStateChangedEvent extends UiEvent<WidgetStateChangedEventArgs> {}
 
 /** @internal */
@@ -351,6 +352,7 @@ export class WidgetDef {
       // istanbul ignore else
       if (this._widgetControl) {
         if (this._widgetControl.getType() !== type) {
+          // eslint-disable-next-line deprecation/deprecation
           throw new UiError(
             UiFramework.loggerCategory(this),
             `getWidgetControl: '${usedClassId}' is NOT a ${type}; it is a ${this._widgetControl.getType()}`

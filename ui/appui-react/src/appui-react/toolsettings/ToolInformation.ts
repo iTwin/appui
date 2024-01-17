@@ -42,6 +42,7 @@ export class ToolInformation {
       // istanbul ignore else
       if (provider) {
         if (provider.getType() !== ConfigurableUiControlType.ToolUiProvider) {
+          // eslint-disable-next-line deprecation/deprecation
           throw new UiError(
             UiFramework.loggerCategory(this),
             `toolUiProvider: toolId '${this.toolId}' is registered to a control that is NOT a ToolUiProvider`

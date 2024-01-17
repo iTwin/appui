@@ -372,6 +372,7 @@ export class FrontstageDef {
 
     // istanbul ignore next
     if (!this._contentGroup)
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
         `onActivated: Content Group not defined`
