@@ -575,6 +575,7 @@ deprecated;useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolba
 public;useUiStateStorageHandler(): UiStateStorage
 internal;useUiVisibility(): boolean
 internal;useUpdateNineZoneSize(frontstageDef: FrontstageDef): void
+alpha;useWidget():
 internal;useWidgetDef(): WidgetDef | undefined
 alpha;useWidgetDirection(): "horizontal" | "vertical"
 alpha;ValidationTextbox 

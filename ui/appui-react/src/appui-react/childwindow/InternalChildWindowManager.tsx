@@ -25,6 +25,7 @@ import type {
   OpenChildWindowInfo,
 } from "../framework/FrameworkChildWindows";
 import type { ChildWindow } from "./ChildWindowConfig";
+import { TabIdContext } from "@itwin/appui-layout-react";
 
 const childHtml = `<!DOCTYPE html>
 <html>
@@ -161,19 +162,19 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     }
 
     const reactConnectionDiv = childWindow.document.getElementById("root");
-    if (reactConnectionDiv) {
+    if (reactConnectionDiv && content && React.isValidElement(content)) {
       // set openChildWindows now so components can use it when they mount
       this._openChildWindows.push({
         childWindowId,
         window: childWindow,
         parentWindow: window,
       });
-
-      setTimeout(() => {
-        copyStyles(childWindow.document);
-        setTimeout(() => {
-          this.render(
-            <Provider store={UiFramework.store}>
+      let element: React.FunctionComponentElement<any>;
+      if (content.props.widgetDef) {
+        const tabId = content.props.widgetDef.id as string;
+        element = (
+          <Provider store={UiFramework.store}>
+            <TabIdContext.Provider value={tabId}>
               <UiStateStorageHandler>
                 <ThemeManager>
                   <div className="uifw-child-window-container-host">
@@ -187,9 +188,33 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
                   </div>
                 </ThemeManager>
               </UiStateStorageHandler>
-            </Provider>,
-            reactConnectionDiv
-          );
+            </TabIdContext.Provider>
+          </Provider>
+        );
+      } else {
+        element = (
+          <Provider store={UiFramework.store}>
+            <UiStateStorageHandler>
+              <ThemeManager>
+                <div className="uifw-child-window-container-host">
+                  <PopupRenderer />
+                  <ModalDialogRenderer />
+                  <ModelessDialogRenderer />
+                  <CursorPopupMenu />
+                  <div className="uifw-child-window-container nz-widget-widget">
+                    {content}
+                  </div>
+                </div>
+              </ThemeManager>
+            </UiStateStorageHandler>
+          </Provider>
+        );
+      }
+
+      setTimeout(() => {
+        copyStyles(childWindow.document);
+        setTimeout(() => {
+          this.render(element, reactConnectionDiv);
         });
       });
 

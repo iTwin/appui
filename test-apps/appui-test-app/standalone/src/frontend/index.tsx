@@ -102,6 +102,7 @@ import {
   PopoutWindowsFrontstage,
   PreviewFeaturesToggleProvider,
   SynchronizedFloatingViewportStage,
+  TestFrontstageProvider,
   WidgetApiStage,
 } from "@itwin/appui-test-providers";
 import { useHandleURLParams } from "./UrlParams";
@@ -352,6 +353,7 @@ export class SampleAppIModelApp {
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     CustomFrontstageProvider.register(AppUiTestProviders.localizationNamespace);
+    UiFramework.frontstages.addFrontstageProvider(new TestFrontstageProvider());
     SynchronizedFloatingViewportStage.register(
       AppUiTestProviders.localizationNamespace
     );

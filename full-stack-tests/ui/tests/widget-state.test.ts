@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { test, expect, Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import assert from "assert";
 import {
   activeTabLocator,
