@@ -130,11 +130,13 @@ describe("PropertyFilterBuilder", () => {
   });
 
   it("focus new rule property after adding new rule", async () => {
-    const { container, getByTestId } = render(
+    const { container } = render(
       <PropertyFilterBuilder properties={[]} onFilterChanged={() => {}} />
     );
 
-    const addRuleButton = getByTestId("fb-add-rule-button");
+    const addRuleButton = container.querySelector(
+      ".fb-add-rule-button"
+    ) as HTMLElement;
     addRuleButton.click();
 
     await waitFor(
