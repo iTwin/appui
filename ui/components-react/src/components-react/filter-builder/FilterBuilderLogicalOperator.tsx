@@ -53,7 +53,10 @@ export const PropertyFilterBuilderLogicalOperator = (
       {isDisabled ? (
         <span>{operatorDisplayText}</span>
       ) : (
-        <Anchor onClick={() => onOperatorChange(toggle())}>
+        <Anchor
+          className="fb-logical-operator-toggle"
+          onClick={() => onOperatorChange(toggle())}
+        >
           {operatorDisplayText}
         </Anchor>
       )}

@@ -111,7 +111,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     const setRuleGroupOperatorSpy = sinon.stub(actions, "setRuleGroupOperator");
 
     const selector = container.querySelector<HTMLAnchorElement>(
-      ".fb-group-operator .iui-anchor"
+      ".fb-group-operator .fb-logical-operator-toggle"
     );
     expect(selector).to.not.be.null;
 
@@ -146,7 +146,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     const setRuleGroupOperatorSpy = sinon.stub(actions, "setRuleGroupOperator");
 
     const selector = container.querySelector<HTMLAnchorElement>(
-      ".fb-group-operator .iui-anchor"
+      ".fb-group-operator .fb-logical-operator-toggle"
     );
     expect(selector).to.not.be.null;
 
@@ -187,7 +187,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     ).to.not.be.null;
 
     const selector = container.querySelector<HTMLAnchorElement>(
-      ".fb-group-operator .iui-anchor"
+      ".fb-group-operator .fb-logical-operator-toggle"
     );
     expect(selector).to.be.null;
   });
@@ -214,7 +214,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     ).to.not.be.null;
 
     const selector = container.querySelector<HTMLAnchorElement>(
-      ".fb-group-operator .iui-anchor"
+      ".fb-group-operator .fb-logical-operator-toggle"
     );
     expect(selector).to.be.null;
   });
