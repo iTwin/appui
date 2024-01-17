@@ -564,7 +564,11 @@ export class WidgetDef {
         const isSafari =
           navigator.userAgent.toLowerCase().indexOf("safari/") > -1;
 
+        const isChrome =
+          navigator.userAgent.toLowerCase().indexOf("chrome") > -1;
+
         if (
+          !isChrome &&
           isSafari &&
           window.localStorage.getItem("hideSafariPopoutFocusMessage") !== "true"
         ) {
