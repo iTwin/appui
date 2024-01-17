@@ -19,8 +19,10 @@ const commonjsGlobal =
 if (commonjsGlobal.MessageChannel) delete commonjsGlobal.MessageChannel;
 
 const path = require("path");
-const os = require("os");
 const upath = require("upath");
+const sinon = require("sinon");
+const rtl = require("@testing-library/react");
+const rhtl = require("@testing-library/react-hooks");
 
 // Don't ignore svgs or imports will return 'undefined'
 // We need a path to correctly test svg icons.
@@ -86,9 +88,6 @@ global.DOMMatrix = class DOMMatrix {
   }
 };
 
-// Prevent iTwinUI from dynamically loading CSS.
-global.jest = {};
-
 // setup chai
 const chai = require("chai");
 chai.should();
@@ -138,23 +137,16 @@ beforeEach(function () {
     chaiJestSnapshot.setFilename(snapPath);
     chaiJestSnapshot.setTestName(currentTest.fullTitle());
   }
+
+  // Prevent iTwinUI from dynamically loading CSS to avoid: TypeError: Unknown file extension ".css" ERR_UNKNOWN_FILE_EXTENSION
+  sinon
+    .stub(CSSStyleDeclaration.prototype, "getPropertyValue")
+    .withArgs("--_iui-v3-loaded")
+    .returns("yes");
 });
 
-let rhtl;
-try {
-  rhtl = require("@testing-library/react-hooks");
-} catch (e) {}
-
 afterEach(async () => {
-  try {
-    const rtl = require("@testing-library/react");
-    rtl.cleanup();
-  } catch (e) {}
-  if (rhtl) {
-    await rhtl.cleanup();
-  }
-  try {
-    const sinon = require("sinon");
-    sinon.restore();
-  } catch (e) {}
+  rtl.cleanup();
+  await rhtl.cleanup();
+  sinon.restore();
 });
