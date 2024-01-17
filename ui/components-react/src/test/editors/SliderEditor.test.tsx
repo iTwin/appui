@@ -123,9 +123,13 @@ describe("<SliderEditor />", () => {
 
     await theUserTo.click(screen.getByTestId("components-popup-button"));
 
+    // Close slider tooltip.
     await theUserTo.keyboard("{Escape}");
 
-    expect(spyOnCancel.calledOnce).to.be.true;
+    // Close editor popup.
+    await theUserTo.keyboard("{Escape}");
+
+    expect(spyOnCancel).to.be.calledOnce;
   });
 
   it("renders editor for 'number' type and 'slider' editor using SliderEditor", () => {

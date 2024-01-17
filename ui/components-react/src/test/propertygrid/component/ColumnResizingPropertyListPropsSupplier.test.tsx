@@ -33,6 +33,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
     records = [
       TestUtils.createPrimitiveStringProperty("CADID", "0000 0005 00E0 02D8"),
     ];
+    userEvent.setup;
   });
 
   afterEach(() => {

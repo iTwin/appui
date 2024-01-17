@@ -79,10 +79,6 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
     };
   });
 
-  afterEach(() => {
-    sinon.restore();
-  });
-
   describe("rendering", () => {
     it("renders correctly horizontally", async () => {
       const { container } = render(

@@ -145,6 +145,16 @@ beforeEach(function () {
     .callThrough()
     .withArgs("--_iui-v3-loaded")
     .returns("yes");
+
+  sinon
+    .stub(console, "error")
+    .callThrough()
+    .withArgs(
+      "iTwinUI components must be used within a tree wrapped in a ThemeProvider."
+    )
+    .callsFake(() => {
+      // Ignore this error.
+    });
 });
 
 afterEach(async () => {

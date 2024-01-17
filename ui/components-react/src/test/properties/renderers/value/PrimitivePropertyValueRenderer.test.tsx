@@ -27,10 +27,6 @@ class AsyncValuesTypeConverter extends TypeConverter {
 }
 
 describe("PrimitivePropertyValueRenderer", () => {
-  afterEach(() => {
-    sinon.restore();
-  });
-
   describe("render", () => {
     it("renders primitive property", () => {
       const renderer = new PrimitivePropertyValueRenderer();

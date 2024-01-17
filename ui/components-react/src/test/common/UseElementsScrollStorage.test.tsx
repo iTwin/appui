@@ -42,10 +42,6 @@ describe("useElementsScrollStorage", () => {
     );
   });
 
-  afterEach(() => {
-    sinon.restore();
-  });
-
   it("persists and restores scroll state", () => {
     const ref = React.createRef<TestComponentAttributes>();
     const { getByText } = render(<TestComponent ref={ref} />);
