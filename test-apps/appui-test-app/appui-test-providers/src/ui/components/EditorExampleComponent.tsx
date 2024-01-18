@@ -30,12 +30,12 @@ import {
 } from "@itwin/itwinui-react";
 import { SvgDetails } from "@itwin/itwinui-icons-react";
 
-/** List of render sizes
- *  when merging to #576, remove this comment and use below instead.
- * ["small", "medium", "large"] as ("small" | "medium" | "large")[]
- * Don't forget to add back the size prop to EditorContainer below.
- */
-const availableSizes = ["default"];
+/** List of render sizes */
+const availableSizes = ["small", "medium", "large"] as (
+  | "small"
+  | "medium"
+  | "large"
+)[];
 
 /** Create a property record to test, allowing editors to be defined. */
 function createPropertyRecord(
@@ -220,7 +220,7 @@ export function EditorExampleComponent() {
                     propertyRecord={record}
                     onCommit={() => undefined}
                     onCancel={() => undefined}
-                    // Use when merging #576 size={localSize === "small" ? undefined : localSize}
+                    size={localSize === "small" ? undefined : localSize}
                   />
                 </Flex.Item>
               ))}

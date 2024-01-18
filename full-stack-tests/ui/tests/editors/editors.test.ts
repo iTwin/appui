@@ -8,6 +8,9 @@ import { openComponentExamples } from "../Utils";
 function editorId(id: string) {
   return `#${id.replace(/[^A-Za-z]/g, "")}`;
 }
+function sizedLocator(id: string, position: number) {
+  return `${editorId(id)} > div > :nth-child(${position + 1})`;
+}
 
 const testIds = [
   "Primitive:string:Default",
@@ -28,13 +31,16 @@ const testIds = [
   "Primitive:enum:enum-buttongroup ",
   "Primitive:enum:enum-buttongroup[UiAbstract-ButtonGroupData] ",
 ];
+const sizes = ["default", "medium", "large"];
 for (const id of testIds) {
-  test(`Editor ${id} default visual`, async ({ page, baseURL }) => {
-    await openComponentExamples(page, baseURL);
+  for (let i = 0; i < sizes.length; i++) {
+    test(`Editor ${id} ${sizes[i]} visual`, async ({ page, baseURL }) => {
+      await openComponentExamples(page, baseURL);
 
-    await page.getByRole("button", { name: "Editor", exact: true }).click();
+      await page.getByRole("button", { name: "Editor", exact: true }).click();
 
-    const editors = page.locator(editorId(id)).first();
-    await expect(editors).toHaveScreenshot();
-  });
+      const editors = page.locator(sizedLocator(id, i)).first();
+      await expect(editors).toHaveScreenshot();
+    });
+  }
 }
