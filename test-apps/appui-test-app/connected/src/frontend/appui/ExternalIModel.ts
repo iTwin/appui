@@ -152,6 +152,7 @@ export class ExternalIModel {
   private async getFirstViewDefinitionId(
     imodel: IModelConnection
   ): Promise<Id64String> {
+    // eslint-disable-next-line deprecation/deprecation
     const defaultViewId = await imodel.views.queryDefaultViewId();
     if (defaultViewId) return defaultViewId;
 

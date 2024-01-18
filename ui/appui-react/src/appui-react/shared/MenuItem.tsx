@@ -52,6 +52,7 @@ export class MenuItem extends ItemDefBase {
         this._submenu.push(childItem);
       });
     } else {
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
         `Either 'item' or 'submenu' must be specified for '${props.id}'.`

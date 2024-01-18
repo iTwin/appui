@@ -7,12 +7,11 @@
  * @module PropertyGrid
  */
 
-import React from "react";
-import { DelayedSpinner } from "../../common/DelayedSpinner";
+import React, { useEffect, useState } from "react";
 import {
   usePropertyGridEventHandler,
   usePropertyGridModel,
-  usePropertyGridModelSource,
+  useTrackedPropertyGridModelSource,
 } from "../internal/PropertyGridHooks";
 import type { PropertyCategoryRendererManager } from "../PropertyCategoryRendererManager";
 import type { IPropertyDataProvider } from "../PropertyDataProvider";
@@ -21,6 +20,7 @@ import type {
   PropertyGridContentHighlightProps,
 } from "./PropertyGridCommons";
 import { VirtualizedPropertyGrid } from "./VirtualizedPropertyGrid";
+import { ProgressRadial } from "@itwin/itwinui-react";
 
 /** Properties for [[VirtualizedPropertyGridWithDataProvider]] React component
  * @public
@@ -47,25 +47,54 @@ export interface VirtualizedPropertyGridWithDataProviderProps
 export function VirtualizedPropertyGridWithDataProvider(
   props: VirtualizedPropertyGridWithDataProviderProps
 ) {
-  const modelSource = usePropertyGridModelSource({
+  const { modelSource, inProgress } = useTrackedPropertyGridModelSource({
     dataProvider: props.dataProvider,
   });
+
   const model = usePropertyGridModel({ modelSource });
   const eventHandler = usePropertyGridEventHandler({ modelSource });
 
-  if (!model) {
-    return (
-      <div className="components-virtualized-property-grid-loader">
-        <DelayedSpinner size="large" />
-      </div>
-    );
-  }
-
   return (
-    <VirtualizedPropertyGrid
-      {...props}
-      model={model}
-      eventHandler={eventHandler}
-    />
+    <DelayedLoaderRenderer shouldRenderLoader={inProgress || !model}>
+      {model && (
+        <VirtualizedPropertyGrid
+          {...props}
+          model={model}
+          eventHandler={eventHandler}
+        />
+      )}
+    </DelayedLoaderRenderer>
+  );
+}
+
+interface DelayedLoaderRendererProps {
+  shouldRenderLoader: boolean;
+}
+
+function DelayedLoaderRenderer({
+  children,
+  shouldRenderLoader,
+}: React.PropsWithChildren<DelayedLoaderRendererProps>) {
+  const [showSpinner, setShowSpinner] = useState(shouldRenderLoader);
+  useEffect(() => {
+    if (!shouldRenderLoader) {
+      setShowSpinner(shouldRenderLoader);
+      return;
+    }
+
+    // only set a timeout when shouldRenderLoader is set to `true`
+    const timeout = setTimeout(() => {
+      setShowSpinner(shouldRenderLoader);
+    }, 250);
+
+    return () => clearTimeout(timeout);
+  }, [shouldRenderLoader]);
+
+  return !showSpinner ? (
+    <>{children}</>
+  ) : (
+    <div className="components-virtualized-property-grid-loader">
+      <ProgressRadial indeterminate size={"large"} />
+    </div>
   );
 }
