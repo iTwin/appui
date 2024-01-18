@@ -8,7 +8,7 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import type { UiSyncEventArgs } from "@itwin/appui-abstract";
+import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 import {
   ConditionalBooleanValue,
   ConditionalStringValue,

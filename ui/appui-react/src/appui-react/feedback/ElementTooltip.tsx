@@ -43,6 +43,7 @@ export interface ElementTooltipChangedEventArgs {
 /** ElementTooltip Changed Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ElementTooltipChangedEvent extends UiEvent<ElementTooltipChangedEventArgs> {}
 
 /** ElementTooltip React component.
