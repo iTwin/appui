@@ -131,6 +131,7 @@ importers:
       '@itwin/imodel-components-react': workspace:*
       '@itwin/itwinui-icons-react': ^2.8.0
       '@itwin/itwinui-react': ^3.2.1
+      '@itwin/itwinui-react-v2': npm:@itwin/itwinui-react@^2.11.11
       '@itwin/itwinui-variables': ^3.0.0
       '@itwin/webgl-compatibility': ^3.7.0
       '@reduxjs/toolkit': ^1.5.0
@@ -163,6 +164,7 @@ importers:
       '@itwin/imodel-components-react': link:../../../ui/imodel-components-react
       '@itwin/itwinui-icons-react': 2.8.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 3.2.3_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-react-v2': /@itwin/itwinui-react/2.12.20_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 3.0.0
       '@itwin/webgl-compatibility': 3.7.0
       '@reduxjs/toolkit': 1.9.3_react@17.0.2
@@ -621,6 +623,7 @@ importers:
       '@itwin/itwinui-icons-react': ^2.8.0
       '@itwin/itwinui-illustrations-react': ^2.0.1
       '@itwin/itwinui-react': ^3.2.1
+      '@itwin/itwinui-react-v2': npm:@itwin/itwinui-react@^2.11.11
       '@itwin/itwinui-variables': ^3.0.0
       '@itwin/webgl-compatibility': ^3.7.0
       '@testing-library/dom': ^8.11.2
@@ -661,7 +664,6 @@ importers:
       react-dom: ^17.0.0
       react-error-boundary: 4.0.3
       react-redux: ^7.2.2
-      react-test-renderer: ^17.0.0
       redux: ^4.1.0
       rimraf: ^3.0.2
       rxjs: ^7.8.1
@@ -678,6 +680,7 @@ importers:
       '@itwin/itwinui-icons-react': 2.8.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-illustrations-react': 2.0.1_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 3.2.3_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-react-v2': /@itwin/itwinui-react/2.12.20_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 3.0.0
       classnames: 2.3.1
       immer: 9.0.6
@@ -705,7 +708,7 @@ importers:
       '@itwin/webgl-compatibility': 3.7.0
       '@testing-library/dom': 8.20.0
       '@testing-library/react': 12.1.5_react-dom@17.0.2+react@17.0.2
-      '@testing-library/react-hooks': 7.0.2_fc2bb8a5b006d3f25c5f84ea777e678d
+      '@testing-library/react-hooks': 7.0.2_react-dom@17.0.2+react@17.0.2
       '@testing-library/user-event': 14.4.3_@testing-library+dom@8.20.0
       '@types/chai': 4.3.1
       '@types/chai-as-promised': 7.1.5
@@ -737,7 +740,6 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
-      react-test-renderer: 17.0.2_react@17.0.2
       redux: 4.2.1
       rimraf: 3.0.2
       sinon: 15.2.0
@@ -813,6 +815,7 @@ importers:
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~5.0.2
+      upath: ^2.0.1
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons-react': 2.8.0_react-dom@17.0.2+react@17.0.2
@@ -879,6 +882,7 @@ importers:
       ts-node: 10.9.1_9a41dbaa370b60afede472b47d9ffeeb
       typemoq: 2.1.0
       typescript: 5.0.2
+      upath: 2.0.1
 
   ../../ui/core-react:
     specifiers:
@@ -925,7 +929,6 @@ importers:
       react: ^17.0.0
       react-autosuggest: ^10.1.0
       react-dom: ^17.0.0
-      react-test-renderer: ^17.0.0
       resize-observer-polyfill: 1.5.1
       rimraf: ^3.0.2
       sinon: ^15.2.0
@@ -934,6 +937,7 @@ importers:
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~5.0.2
+      upath: ^2.0.1
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons-react': 2.8.0_react-dom@17.0.2+react@17.0.2
@@ -954,7 +958,7 @@ importers:
       '@itwin/eslint-plugin': 4.0.0-dev.45_eslint@8.44.0+typescript@5.0.2
       '@testing-library/dom': 8.20.0
       '@testing-library/react': 12.1.5_react-dom@17.0.2+react@17.0.2
-      '@testing-library/react-hooks': 7.0.2_fc2bb8a5b006d3f25c5f84ea777e678d
+      '@testing-library/react-hooks': 7.0.2_react-dom@17.0.2+react@17.0.2
       '@testing-library/user-event': 14.4.3_@testing-library+dom@8.20.0
       '@types/chai': 4.3.1
       '@types/chai-as-promised': 7.1.5
@@ -981,13 +985,13 @@ importers:
       raf: 3.4.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-test-renderer: 17.0.2_react@17.0.2
       rimraf: 3.0.2
       sinon: 15.2.0
       sinon-chai: 3.7.0_chai@4.3.10+sinon@15.2.0
       ts-node: 10.9.1_9a41dbaa370b60afede472b47d9ffeeb
       typemoq: 2.1.0
       typescript: 5.0.2
+      upath: 2.0.1
 
   ../../ui/imodel-components-react:
     specifiers:
@@ -1038,7 +1042,6 @@ importers:
       raf: ^3.4.0
       react: ^17.0.0
       react-dom: ^17.0.0
-      react-test-renderer: ^17.0.0
       rimraf: ^3.0.2
       sinon: ^15.2.0
       sinon-chai: ^3.2.0
@@ -1046,6 +1049,7 @@ importers:
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~5.0.2
+      upath: ^2.0.1
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons-react': 2.8.0_react-dom@17.0.2+react@17.0.2
@@ -1068,7 +1072,7 @@ importers:
       '@itwin/webgl-compatibility': 3.7.0
       '@testing-library/dom': 8.20.0
       '@testing-library/react': 12.1.5_react-dom@17.0.2+react@17.0.2
-      '@testing-library/react-hooks': 7.0.2_fc2bb8a5b006d3f25c5f84ea777e678d
+      '@testing-library/react-hooks': 7.0.2_react-dom@17.0.2+react@17.0.2
       '@testing-library/user-event': 14.4.3_@testing-library+dom@8.20.0
       '@types/chai': 4.3.1
       '@types/chai-as-promised': 7.1.5
@@ -1096,13 +1100,13 @@ importers:
       raf: 3.4.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-test-renderer: 17.0.2_react@17.0.2
       rimraf: 3.0.2
       sinon: 15.2.0
       sinon-chai: 3.7.0_chai@4.3.10+sinon@15.2.0
       ts-node: 10.9.1_9a41dbaa370b60afede472b47d9ffeeb
       typemoq: 2.1.0
       typescript: 5.0.2
+      upath: 2.0.1
 
 packages:
 
@@ -5496,6 +5500,23 @@ packages:
       tippy.js: 6.3.7
     dev: false
 
+  /@itwin/itwinui-react/2.12.20_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-ksZ8rSRHGLjmtcW1jdCUgsj31CmbiEE9C6VsDgleYTF1470NpavNoG+frvJ6TxosisuzW8Ovcrn7QANFAF5lDA==}
+    peerDependencies:
+      react: '>=16.8.6 < 19.0.0'
+      react-dom: '>=16.8.6 < 19.0.0'
+    dependencies:
+      '@itwin/itwinui-illustrations-react': 2.1.0_react-dom@17.0.2+react@17.0.2
+      '@tippyjs/react': 4.2.6_react-dom@17.0.2+react@17.0.2
+      '@types/react-table': 7.7.14
+      classnames: 2.3.1
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-table: 7.8.0_react@17.0.2
+      react-transition-group: 4.4.5_react-dom@17.0.2+react@17.0.2
+      tippy.js: 6.3.7
+    dev: false
+
   /@itwin/itwinui-react/3.2.3_react-dom@17.0.2+react@17.0.2:
     resolution: {integrity: sha512-yWDRAygx9qDK8TMJzIex6h+uvRAKZORx5x+kQFn4XY1dHJRIudBQkYkXopPnlu8EXR1gpoip0PfFO9Kia2HbdQ==}
     peerDependencies:
@@ -8237,29 +8258,6 @@ packages:
       dom-accessibility-api: 0.5.16
       lz-string: 1.5.0
       pretty-format: 27.5.1
-    dev: true
-
-  /@testing-library/react-hooks/7.0.2_fc2bb8a5b006d3f25c5f84ea777e678d:
-    resolution: {integrity: sha512-dYxpz8u9m4q1TuzfcUApqi8iFfR6R0FaMbr2hjZJy1uC8z+bO/K4v8Gs9eogGKYQop7QsrBTFkv/BCF7MzD2Cg==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-      react-test-renderer: '>=16.9.0'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-test-renderer:
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.21.0
-      '@types/react': 17.0.53
-      '@types/react-dom': 17.0.19
-      '@types/react-test-renderer': 18.0.0
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      react-error-boundary: 3.1.4_react@17.0.2
-      react-test-renderer: 17.0.2_react@17.0.2
     dev: true
 
   /@testing-library/react-hooks/7.0.2_react-dom@17.0.2+react@17.0.2:
@@ -18941,16 +18939,6 @@ packages:
       use-sidecar: 1.1.2_3fca2d117ed5000ffcc776ee7c4bce58
     dev: true
 
-  /react-shallow-renderer/16.15.0_react@17.0.2:
-    resolution: {integrity: sha512-oScf2FqQ9LFVQgA73vr86xl2NaOIX73rh+YFqcOp68CWj56tSfgtGKrEbyhCj0rSijyG9M1CYprTh39fBi5hzA==}
-    peerDependencies:
-      react: ^16.0.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      object-assign: 4.1.1
-      react: 17.0.2
-      react-is: 17.0.2
-    dev: true
-
   /react-style-singleton/2.2.1_3fca2d117ed5000ffcc776ee7c4bce58:
     resolution: {integrity: sha512-ZWj0fHEMyWkHzKYUr2Bs/4zU6XLmq9HsgBURm7g5pAVfyn49DgUiNgY2d4lXRlYSiCif9YBGpQleewkcqddc7g==}
     engines: {node: '>=10'}
@@ -18975,18 +18963,6 @@ packages:
     dependencies:
       react: 17.0.2
     dev: false
-
-  /react-test-renderer/17.0.2_react@17.0.2:
-    resolution: {integrity: sha512-yaQ9cB89c17PUb0x6UfWRs7kQCorVdHlutU1boVPEsB8IDZH6n9tHxMacc3y0JoXOJUsZb/t/Mb8FUWMKaM7iQ==}
-    peerDependencies:
-      react: 17.0.2
-    dependencies:
-      object-assign: 4.1.1
-      react: 17.0.2
-      react-is: 17.0.2
-      react-shallow-renderer: 16.15.0_react@17.0.2
-      scheduler: 0.20.2
-    dev: true
 
   /react-themeable/1.1.0:
     resolution: {integrity: sha512-kl5tQ8K+r9IdQXZd8WLa+xxYN04lLnJXRVhHfdgwsUJr/SlKJxIejoc9z9obEkx1mdqbTw1ry43fxEUwyD9u7w==}
