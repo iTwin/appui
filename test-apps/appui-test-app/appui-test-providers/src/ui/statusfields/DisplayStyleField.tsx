@@ -139,7 +139,7 @@ export function DisplayStyleField(props: CommonProps) {
       <Select
         options={styleEntries}
         value={displayStyleId}
-        onChange={handleDisplayStyleSelected as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
+        onChange={handleDisplayStyleSelected}
         title={tooltip}
         aria-label={label}
         className="uifw-statusFields-displayStyle-selector"

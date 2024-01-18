@@ -78,7 +78,7 @@ export function UnitSystemSelector(props: UnitSystemSelectorProps) {
         data-testid="unitSystemSelector"
         value={unitSystemKey}
         options={displayUnitSystems}
-        onChange={handleUnitSystemSelected as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
+        onChange={handleUnitSystemSelected}
         size="small"
       />
     </div>

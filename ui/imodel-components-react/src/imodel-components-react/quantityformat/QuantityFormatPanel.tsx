@@ -78,7 +78,7 @@ function createSelectFormatPropEditor(
         options={options}
         size={"small"}
         onChange={(newValue) => {
-          const newProps = setString(inProps, newValue as any); // TODO: https://github.com/iTwin/iTwinUI/issues/1767
+          const newProps = setString(inProps, newValue);
           fireFormatChange(newProps);
         }}
       />

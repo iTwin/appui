@@ -65,7 +65,7 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
     <Select
       options={formatOptions.current}
       value={type}
-      onChange={handleOnChange as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
+      onChange={handleOnChange}
       size="small"
       {...otherProps}
     />

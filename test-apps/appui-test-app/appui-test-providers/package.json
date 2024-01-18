@@ -58,7 +58,7 @@
     "@itwin/appui-react": "workspace:*",
     "@itwin/appui-layout-react": "workspace:*",
     "@itwin/imodel-components-react": "workspace:*",
-    "@itwin/itwinui-react": "^3.2.1",
+    "@itwin/itwinui-react": "^3.2.4",
     "@itwin/itwinui-react-v2": "npm:@itwin/itwinui-react@^2.11.11",
     "@itwin/itwinui-icons-react": "^2.8.0",
     "@itwin/itwinui-variables": "^3.0.0",

@@ -62,7 +62,7 @@ export function SignOptionSelector(props: SignOptionSelectorProps) {
     <Select
       options={options.current}
       value={signOption}
-      onChange={handleOnChange as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
+      onChange={handleOnChange}
       size="small"
       {...otherProps}
     />

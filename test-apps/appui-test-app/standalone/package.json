@@ -91,7 +91,7 @@
     "@itwin/frontend-devtools": "^3.7.0",
     "@itwin/hypermodeling-frontend": "^3.7.0",
     "@itwin/imodel-components-react": "workspace:*",
-    "@itwin/itwinui-react": "^3.2.1",
+    "@itwin/itwinui-react": "^3.2.4",
     "@itwin/itwinui-variables": "^3.0.0",
     "@itwin/itwinui-icons-react": "^2.8.0",
     "@itwin/map-layers": "^3.7.0",

@@ -24,7 +24,7 @@ importers:
       '@itwin/imodels-access-frontend': ^3.0.0
       '@itwin/imodels-client-authoring': ^3.0.0
       '@itwin/itwinui-icons-react': ^2.8.0
-      '@itwin/itwinui-react': ^3.2.1
+      '@itwin/itwinui-react': ^3.2.4
       '@originjs/vite-plugin-commonjs': ~1.0.3
       '@storybook/addon-actions': ^7.4.6
       '@storybook/addon-essentials': ^7.4.6
@@ -73,7 +73,7 @@ importers:
       '@itwin/imodels-access-frontend': 3.0.0_c241bdb4b0088af2ef0f0f9823d9ac47
       '@itwin/imodels-client-authoring': 3.0.0
       '@itwin/itwinui-icons-react': 2.8.0_react-dom@17.0.2+react@17.0.2
-      '@itwin/itwinui-react': 3.2.3_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-react': 3.2.4_react-dom@17.0.2+react@17.0.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
@@ -130,7 +130,7 @@ importers:
       '@itwin/eslint-plugin': ^4.0.0-dev.45
       '@itwin/imodel-components-react': workspace:*
       '@itwin/itwinui-icons-react': ^2.8.0
-      '@itwin/itwinui-react': ^3.2.1
+      '@itwin/itwinui-react': ^3.2.4
       '@itwin/itwinui-react-v2': npm:@itwin/itwinui-react@^2.11.11
       '@itwin/itwinui-variables': ^3.0.0
       '@itwin/webgl-compatibility': 4.0.0-dev.104
@@ -163,7 +163,7 @@ importers:
       '@itwin/core-react': link:../../../ui/core-react
       '@itwin/imodel-components-react': link:../../../ui/imodel-components-react
       '@itwin/itwinui-icons-react': 2.8.0_react-dom@17.0.2+react@17.0.2
-      '@itwin/itwinui-react': 3.2.3_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-react': 3.2.4_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react-v2': /@itwin/itwinui-react/2.11.11_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 3.0.0
       '@itwin/webgl-compatibility': 4.0.0-dev.104
@@ -225,7 +225,7 @@ importers:
       '@itwin/imodels-client-management': ^3.0.0
       '@itwin/itwins-client': ^1.2.0
       '@itwin/itwinui-icons-react': ^2.8.0
-      '@itwin/itwinui-react': ^3.2.1
+      '@itwin/itwinui-react': ^3.2.4
       '@itwin/itwinui-variables': ^3.0.0
       '@itwin/map-layers': 5.0.0-dev.2
       '@itwin/map-layers-auth': 4.0.0-dev.104
@@ -290,7 +290,7 @@ importers:
       '@itwin/imodels-client-authoring': 3.0.0
       '@itwin/imodels-client-management': 3.0.0
       '@itwin/itwinui-icons-react': 2.8.0_react-dom@17.0.2+react@17.0.2
-      '@itwin/itwinui-react': 3.2.3_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-react': 3.2.4_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 3.0.0
       '@itwin/map-layers': 5.0.0-dev.2_4918c240b02a98eb143f402273cca58a
       '@itwin/map-layers-auth': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
@@ -360,7 +360,7 @@ importers:
       '@itwin/hypermodeling-frontend': 4.0.0-dev.104
       '@itwin/imodel-components-react': workspace:*
       '@itwin/itwinui-icons-react': ^2.8.0
-      '@itwin/itwinui-react': ^3.2.1
+      '@itwin/itwinui-react': ^3.2.4
       '@itwin/itwinui-variables': ^3.0.0
       '@itwin/map-layers': 5.0.0-dev.2
       '@itwin/presentation-common': 4.0.0-dev.104
@@ -418,7 +418,7 @@ importers:
       '@itwin/hypermodeling-frontend': 4.0.0-dev.104_0659a7ed82ebfe3f66b3eef64a222941
       '@itwin/imodel-components-react': link:../../../ui/imodel-components-react
       '@itwin/itwinui-icons-react': 2.8.0_react-dom@17.0.2+react@17.0.2
-      '@itwin/itwinui-react': 3.2.3_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-react': 3.2.4_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 3.0.0
       '@itwin/map-layers': 5.0.0-dev.2_4918c240b02a98eb143f402273cca58a
       '@itwin/presentation-common': 4.0.0-dev.104_df39f20db1a71310d8fbd5893ac58669
@@ -622,7 +622,7 @@ importers:
       '@itwin/imodel-components-react': workspace:*
       '@itwin/itwinui-icons-react': ^2.8.0
       '@itwin/itwinui-illustrations-react': ^2.0.1
-      '@itwin/itwinui-react': ^3.2.1
+      '@itwin/itwinui-react': ^3.2.4
       '@itwin/itwinui-react-v2': npm:@itwin/itwinui-react@^2.11.11
       '@itwin/itwinui-variables': ^3.0.0
       '@itwin/webgl-compatibility': 4.0.0-dev.104
@@ -679,7 +679,7 @@ importers:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons-react': 2.8.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-illustrations-react': 2.0.1_react-dom@17.0.2+react@17.0.2
-      '@itwin/itwinui-react': 3.2.3_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-react': 3.2.4_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react-v2': /@itwin/itwinui-react/2.11.11_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 3.0.0
       classnames: 2.3.1
@@ -761,7 +761,7 @@ importers:
       '@itwin/core-react': workspace:*
       '@itwin/eslint-plugin': ^4.0.0-dev.45
       '@itwin/itwinui-icons-react': ^2.8.0
-      '@itwin/itwinui-react': ^3.2.1
+      '@itwin/itwinui-react': ^3.2.4
       '@itwin/itwinui-variables': ^3.0.0
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
@@ -819,7 +819,7 @@ importers:
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons-react': 2.8.0_react-dom@17.0.2+react@17.0.2
-      '@itwin/itwinui-react': 3.2.3_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-react': 3.2.4_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 3.0.0
       '@types/shortid': 0.0.29
       classnames: 2.3.1
@@ -894,7 +894,7 @@ importers:
       '@itwin/core-i18n': 4.0.0-dev.104
       '@itwin/eslint-plugin': ^4.0.0-dev.45
       '@itwin/itwinui-icons-react': ^2.8.0
-      '@itwin/itwinui-react': ^3.2.1
+      '@itwin/itwinui-react': ^3.2.4
       '@itwin/itwinui-variables': ^3.0.0
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
@@ -941,7 +941,7 @@ importers:
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons-react': 2.8.0_react-dom@17.0.2+react@17.0.2
-      '@itwin/itwinui-react': 3.2.3_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-react': 3.2.4_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 3.0.0
       classnames: 2.3.1
       dompurify: 2.4.5
@@ -1008,7 +1008,7 @@ importers:
       '@itwin/core-react': workspace:*
       '@itwin/eslint-plugin': ^4.0.0-dev.45
       '@itwin/itwinui-icons-react': ^2.8.0
-      '@itwin/itwinui-react': ^3.2.1
+      '@itwin/itwinui-react': ^3.2.4
       '@itwin/itwinui-variables': ^3.0.0
       '@itwin/webgl-compatibility': 4.0.0-dev.104
       '@testing-library/dom': ^8.11.2
@@ -1053,7 +1053,7 @@ importers:
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons-react': 2.8.0_react-dom@17.0.2+react@17.0.2
-      '@itwin/itwinui-react': 3.2.3_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-react': 3.2.4_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 3.0.0
       classnames: 2.3.1
       ts-key-enum: 2.0.12
@@ -5439,8 +5439,8 @@ packages:
       tippy.js: 6.3.7
     dev: false
 
-  /@itwin/itwinui-react/3.2.3_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-yWDRAygx9qDK8TMJzIex6h+uvRAKZORx5x+kQFn4XY1dHJRIudBQkYkXopPnlu8EXR1gpoip0PfFO9Kia2HbdQ==}
+  /@itwin/itwinui-react/3.2.4_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-j4g/UjKVfFLgWEEclZIUw9ywe/v9Lz9jkAv1AkGzWD6elNF9yNOiKHly5fz37XumWpAm0ceUyoOrlxVknI6VUQ==}
     peerDependencies:
       react: '>= 17.0.0 < 19.0.0'
       react-dom: '>=17.0.0 < 19.0.0'

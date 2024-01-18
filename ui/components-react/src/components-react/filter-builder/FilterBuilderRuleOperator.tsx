@@ -62,7 +62,7 @@ export function PropertyFilterBuilderRuleOperator(
       <Select
         options={availableOptions}
         value={selectedOperator}
-        onChange={onChange as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
+        onChange={onChange}
         size="small"
       />
     </div>

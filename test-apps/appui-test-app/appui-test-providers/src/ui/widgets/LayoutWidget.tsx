@@ -177,12 +177,7 @@ function WidgetSelect({
     setOptions(newOptions);
   }, [frontstageDef]);
   return (
-    <Select
-      options={options}
-      value={id}
-      onChange={onChange as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
-      size="small"
-    />
+    <Select options={options} value={id} onChange={onChange} size="small" />
   );
 }
 
@@ -655,12 +650,7 @@ function FloatingWidgetSelect({
   }, [allIds]);
 
   return (
-    <Select
-      options={options}
-      value={id}
-      onChange={onChange as any} // TODO: https://github.com/iTwin/iTwinUI/issues/1767
-      size="small"
-    />
+    <Select options={options} value={id} onChange={onChange} size="small" />
   );
 }
 
