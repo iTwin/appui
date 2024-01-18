@@ -26,7 +26,6 @@ describe("<DelayedSpinner />", () => {
   });
 
   it("renders spinner with delay", async () => {
-    const clock = sinon.useFakeTimers({ now: Date.now() });
     const delay = 100;
     const component = render(<DelayedSpinner delay={delay} />);
     expect(component.queryByTestId("components-delayed-spinner")).to.be.null;
