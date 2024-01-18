@@ -6,9 +6,9 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
+  act,
   fireEvent,
   render,
-  screen,
   waitFor,
   within,
 } from "@testing-library/react";
@@ -267,7 +267,6 @@ describe("QuantityFormatSettingsPage", () => {
       "addListener"
     );
     fireEvent.click(checkbox);
-    await TestUtils.flushAsyncOperations();
 
     // Wait that the handler have been updated, otherwise it compares with the previous version...
     // Visual change already have been processed but scope didnt upddate.
@@ -275,15 +274,14 @@ describe("QuantityFormatSettingsPage", () => {
       expect(addListenerSpy).to.have.been.called;
     });
 
-    UiFramework.settingsManager.onProcessSettingsTabActivation.emit({
-      requestedSettingsTabId: "unknown",
-      tabSelectionFunc: () => {},
+    act(() => {
+      UiFramework.settingsManager.onProcessSettingsTabActivation.emit({
+        requestedSettingsTabId: "unknown",
+        tabSelectionFunc: () => {},
+      });
     });
 
-    await screen.findByText(/dialog\.no/);
     const noButton = wrapper.getByRole("button", { name: "dialog.no" });
     fireEvent.click(noButton);
-
-    wrapper.unmount();
   });
 });

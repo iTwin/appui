@@ -9,11 +9,9 @@ import * as sinon from "sinon";
 import {
   ActivityMessageDetails,
   ActivityMessageEndReason,
-  IModelApp,
   MessageBoxIconType,
   MessageBoxType,
   MessageBoxValue,
-  NoRenderApp,
   NotifyMessageDetails,
   OutputMessageAlert,
   OutputMessagePriority,
@@ -26,26 +24,16 @@ import {
   ModalDialogRenderer,
   UiFramework,
 } from "../../appui-react";
-import TestUtils, { userEvent } from "../TestUtils";
+import { userEvent, waitForPosition } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 
 describe("AppNotificationManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-  });
-
   let notifications: AppNotificationManager;
 
   beforeEach(() => {
     notifications = new AppNotificationManager();
+    // sinon.stub(IModelApp, "notifications")
     theUserTo = userEvent.setup();
   });
 
@@ -154,13 +142,12 @@ describe("AppNotificationManager", () => {
       "Message string",
       MessageBoxIconType.Information
     );
+    await waitForPosition();
 
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spyMethod).to.be.calledOnce;
     expect(UiFramework.dialogs.modal.count).to.eq(1);
 
-    await theUserTo.click(
-      await screen.findByRole("button", { name: "dialog.ok" })
-    );
+    await theUserTo.click(screen.getByRole("button", { name: "dialog.ok" }));
     expect(UiFramework.dialogs.modal.count).to.eq(0);
 
     const boxValue = await boxResult;

@@ -47,6 +47,8 @@ const propertyDescriptorToRestore = Object.getOwnPropertyDescriptor(
 )!;
 
 describe("FrontstageManager", () => {
+  const sandbox = sinon.createSandbox();
+
   beforeEach(async () => {
     Object.defineProperty(window, "sessionStorage", {
       get: () => mySessionStorage,
@@ -62,6 +64,7 @@ describe("FrontstageManager", () => {
       "sessionStorage",
       propertyDescriptorToRestore
     );
+    sandbox.restore();
   });
 
   it("initialized should return true", () => {
@@ -345,7 +348,7 @@ describe("FrontstageManager", () => {
     });
 
     it("mouse moves should be handled for frontstage tracking", async () => {
-      const fakeTimers = sinon.useFakeTimers();
+      const fakeTimers = sandbox.useFakeTimers();
       render(
         <Provider store={TestUtils.store}>
           <ThemeManager>

@@ -20,11 +20,6 @@ import { Orientation } from "@itwin/core-react";
 import { getCSSColorFromDef } from "@itwin/imodel-components-react";
 
 import { AccuDrawInputField } from "./AccuDrawInputField";
-import type {
-  AccuDrawSetCompassModeEventArgs,
-  AccuDrawSetFieldFocusEventArgs,
-  AccuDrawSetFieldLockEventArgs,
-} from "./FrameworkAccuDraw";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
 import type { AccuDrawUiSettings } from "./AccuDrawUiSettings";
 import angleIconSvg from "./angle.svg";
