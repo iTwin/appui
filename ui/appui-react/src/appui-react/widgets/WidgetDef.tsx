@@ -6,7 +6,7 @@
  * @module Widget
  */
 
-import type * as React from "react";
+import * as React from "react";
 import type {
   BadgeType,
   ConditionalStringValue,
@@ -29,12 +29,9 @@ import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 import { getTabLocation, isPopoutTabLocation } from "@itwin/appui-layout-react";
-import {
-  IModelApp,
-  NotifyMessageDetails,
-  OutputMessagePriority,
-  OutputMessageType,
-} from "@itwin/core-frontend";
+import { OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
+import { MessageManager } from "../messages/MessageManager";
+import { ReactNotifyMessageDetails } from "../messages/ReactNotifyMessageDetails";
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -574,29 +571,46 @@ export class WidgetDef {
           isSafari &&
           window.localStorage.getItem("hideSafariPopoutFocusMessage") !== "true"
         ) {
-          const focusFailCheckbox = document.createElement("div");
+          const checkbox = (
+            <div>
+              <input
+                type="checkbox"
+                id="doNotShowAgain"
+                name="doNotShowAgain"
+                onChange={() => {
+                  if (
+                    window.localStorage.getItem(
+                      "hideSafariPopoutFocusMessage"
+                    ) !== "true"
+                  ) {
+                    window.localStorage.setItem(
+                      "hideSafariPopoutFocusMessage",
+                      "true"
+                    );
+                  } else {
+                    window.localStorage.setItem(
+                      "hideSafariPopoutFocusMessage",
+                      "false"
+                    );
+                  }
+                }}
+              />
+              <label htmlFor="doNotShowAgain">Do not show again</label>
+            </div>
+          );
 
-          focusFailCheckbox.innerHTML = `<input type='checkbox' id='doNotShowAgain' name='doNotShowAgain'/> <label for='doNotShowAgain'>Do not show again</label>`;
-          const checkbox = document.querySelector("#doNotShowAgain");
-          checkbox?.addEventListener("change", function () {
-            const checkboxValue = document.querySelector(
-              "#doNotShowAgain:checked"
-            );
-            if (checkboxValue) {
-              window.localStorage.setItem(
-                "hideSafariPopoutFocusMessage",
-                "true"
-              );
-            }
-          });
-          IModelApp.notifications.outputMessage(
-            new NotifyMessageDetails(
+          MessageManager.outputMessage(
+            new ReactNotifyMessageDetails(
               OutputMessagePriority.Error,
-              UiFramework.translate(
-                "widget.errorMessage.popoutSafariFocusFail"
-              ),
-              focusFailCheckbox,
-              OutputMessageType.Toast
+              {
+                reactNode: UiFramework.translate(
+                  "widget.errorMessage.popoutSafariFocusFail"
+                ),
+              },
+              {
+                reactNode: checkbox,
+              },
+              OutputMessageType.Sticky
             )
           );
         } else {
