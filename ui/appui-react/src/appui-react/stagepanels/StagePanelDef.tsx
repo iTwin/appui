@@ -20,16 +20,7 @@ import { StagePanelLocation } from "./StagePanelLocation";
 import { StagePanelSection } from "./StagePanelSection";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { UiFramework } from "../UiFramework";
-
-/** Enum for StagePanel state.
- * @public
- */
-export enum StagePanelState {
-  Off,
-  Minimized,
-  Open,
-  Popup,
-}
+import { StagePanelState } from "./StagePanelState";
 
 /** Panel state changed event args interface.
  * @public
@@ -42,6 +33,7 @@ export interface PanelStateChangedEventArgs {
 /** Panel state changed event class.
  * @beta
  */
+// eslint-disable-next-line deprecation/deprecation
 export class PanelStateChangedEvent extends UiEvent<PanelStateChangedEventArgs> {}
 
 /** @internal */
@@ -51,6 +43,7 @@ export interface PanelSizeChangedEventArgs {
 }
 
 /** @internal */
+// eslint-disable-next-line deprecation/deprecation
 export class PanelSizeChangedEvent extends UiEvent<PanelSizeChangedEventArgs> {}
 
 /** Panel pinned changed event args interface.
@@ -133,14 +126,14 @@ export class StagePanelDef extends WidgetHost {
 
   /** Indicates whether the panel is resizable. */
   public get resizable(): boolean {
-    return this._initialConfig?.resizable ?? true;
+    return this.defaultResizable;
   }
 
   /** Indicates whether the panel is pinned. */
   public get pinned(): boolean {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     const state = frontstageDef?.nineZoneState;
-    if (!state) return this.initialConfig?.pinned ?? true;
+    if (!state) return this.defaultPinned;
 
     const side = toPanelSide(this.location);
     const panel = state.panels[side];
@@ -211,6 +204,16 @@ export class StagePanelDef extends WidgetHost {
   /** @internal */
   public get defaultSize() {
     return this._initialConfig?.size;
+  }
+
+  /** @internal */
+  public get defaultPinned() {
+    return this._initialConfig?.pinned ?? true;
+  }
+
+  /** @internal */
+  public get defaultResizable() {
+    return this._initialConfig?.resizable ?? true;
   }
 
   /** Gets the list of Widgets. */

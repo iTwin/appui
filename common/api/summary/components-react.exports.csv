@@ -403,11 +403,13 @@ beta;UsePropertyFilterBuilderResult
 public;usePropertyGridEventHandler(props:
 public;usePropertyGridModel(props:
 public;usePropertyGridModelSource(props:
+deprecated;usePropertyGridModelSource(props:
 internal;useRenderedStringValue(record: PropertyRecord, stringValueCalculator: (record: PropertyRecord) => string | Promise
 public;useToolbarPopupAutoHideContext(): boolean
 public;useToolbarPopupContext(): ToolbarPopupContextProps
 internal;useToolbarWithOverflowDirectionContext(): ToolbarOverflowContextProps
 internal;useToolItemEntryContext(): ToolbarItemContextArgs
+public;useTrackedPropertyGridModelSource(props:
 public;useTreeEventsHandler
 public;useTreeModel(modelSource: TreeModelSource): TreeModel
 public;useTreeModelSource(dataProvider: TreeDataProvider): TreeModelSource

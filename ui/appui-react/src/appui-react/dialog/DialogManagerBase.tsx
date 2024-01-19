@@ -23,6 +23,7 @@ export interface DialogChangedEventArgs {
 /** Dialog Changed Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> {}
 
 /** Information maintained by a Dialog Manager about a dialog

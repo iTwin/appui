@@ -67,6 +67,7 @@ export interface PointerMessageChangedEventArgs {
 /** Pointer Message Changed Event emitted by the [[PointerMessage]] component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class PointerMessageChangedEvent extends UiEvent<PointerMessageChangedEventArgs> {}
 
 /** [[PointerMessagePositionChangedEvent]] arguments.
@@ -80,6 +81,7 @@ interface PointerMessagePositionChangedEventArgs {
 /** Pointer Message Position Changed Event emitted by the [[PointerMessage]] component
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 class PointerMessagePositionChangedEvent extends UiEvent<PointerMessagePositionChangedEventArgs> {}
 
 /** Pointer message pops up near pointer when attempting an invalid interaction.

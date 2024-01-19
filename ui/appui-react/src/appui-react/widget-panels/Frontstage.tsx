@@ -39,8 +39,7 @@ import {
 } from "@itwin/appui-layout-react";
 import type { FrontstageDef } from "../frontstage/FrontstageDef";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
-import type { StagePanelDef } from "../stagepanels/StagePanelDef";
-import { StagePanelState, toPanelSide } from "../stagepanels/StagePanelDef";
+import { toPanelSide } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
 import type { WidgetDef } from "../widgets/WidgetDef";
@@ -72,6 +71,7 @@ import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import classNames from "classnames";
 import type { FrameworkState } from "../redux/FrameworkState";
+import { StagePanelState } from "../stagepanels/StagePanelState";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -528,7 +528,7 @@ export function initializePanel(
   const panelDef = frontstageDef.getStagePanelDef(location);
   if (!panelDef) return;
 
-  const size = panelDef.size;
+  const size = panelDef.defaultSize;
   size !== undefined &&
     frontstageDef.dispatch({
       type: "PANEL_SET_SIZE",
@@ -539,13 +539,13 @@ export function initializePanel(
   frontstageDef.dispatch({
     type: "PANEL_SET_PINNED",
     side,
-    pinned: panelDef.pinned,
+    pinned: panelDef.defaultPinned,
   });
 
   frontstageDef.dispatch({
     type: "PANEL_SET_RESIZABLE",
     side,
-    resizable: panelDef.resizable,
+    resizable: panelDef.defaultResizable,
   });
 
   const minSize = panelDef.initialConfig?.minSize;
@@ -564,10 +564,11 @@ export function initializePanel(
       maxSize,
     });
 
+  const collapsed = panelDef.defaultState !== StagePanelState.Open;
   frontstageDef.dispatch({
     type: "PANEL_SET_COLLAPSED",
     side,
-    collapsed: isPanelCollapsed(panelDef),
+    collapsed,
   });
 }
 
@@ -709,10 +710,6 @@ export function packNineZoneState(state: NineZoneState): NineZoneState {
     }
   });
   return packed;
-}
-
-function isPanelCollapsed(panelDef: StagePanelDef | undefined) {
-  return panelDef?.panelState !== StagePanelState.Open;
 }
 
 /** FrontstageState is saved in UiStateStorage.

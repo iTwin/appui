@@ -11,6 +11,7 @@ importers:
       '@itwin/appui-abstract': 4.0.0-dev.104
       '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
+      '@itwin/appui-test-providers': workspace:*
       '@itwin/components-react': workspace:*
       '@itwin/core-bentley': 4.0.0-dev.104
       '@itwin/core-common': 4.0.0-dev.104
@@ -58,6 +59,7 @@ importers:
       '@itwin/appui-abstract': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
       '@itwin/appui-layout-react': link:../../ui/appui-layout-react
       '@itwin/appui-react': link:../../ui/appui-react
+      '@itwin/appui-test-providers': link:../../test-apps/appui-test-app/appui-test-providers
       '@itwin/components-react': link:../../ui/components-react
       '@itwin/core-bentley': 4.0.0-dev.104
       '@itwin/core-common': 4.0.0-dev.104_c72f88b30eea222f53b29a24736a0d13
@@ -110,6 +112,7 @@ importers:
 
   ../../test-apps/appui-test-app/appui-test-providers:
     specifiers:
+      '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': 4.0.0-dev.104
       '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
@@ -143,6 +146,7 @@ importers:
       ts-key-enum: ~2.0.12
       typescript: ^5.0.2
     dependencies:
+      '@bentley/icons-generic': 1.0.34
       '@itwin/appui-abstract': 4.0.0-dev.104_be9786c2146472f5e05bafea59511dc9
       '@itwin/appui-layout-react': link:../../../ui/appui-layout-react
       '@itwin/appui-react': link:../../../ui/appui-react

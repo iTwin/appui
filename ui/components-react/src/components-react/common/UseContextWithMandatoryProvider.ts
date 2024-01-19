@@ -23,6 +23,7 @@ export function createContextWithMandatoryProvider<T>(
     const value = React.useContext(context);
     /* istanbul ignore if */
     if (value === undefined) {
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiComponents.loggerCategory(ConsumingComponent),
         `'${getObjectClassName(

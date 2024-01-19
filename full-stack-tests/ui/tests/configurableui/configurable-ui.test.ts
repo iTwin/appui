@@ -15,5 +15,7 @@ test("configurable ui test", async ({ page, baseURL }) => {
   const configurableUi = page
     .locator(".component-examples-items > div:nth-child(3) > div:nth-child(2)")
     .first();
-  await expect(configurableUi).toHaveScreenshot();
+  await expect(configurableUi).toHaveScreenshot({
+    mask: [page.locator(".component-examples-categories")],
+  });
 });

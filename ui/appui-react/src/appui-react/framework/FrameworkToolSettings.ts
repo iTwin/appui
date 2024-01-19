@@ -20,6 +20,7 @@ export interface SyncToolSettingsPropertiesEventArgs {
 /** Sync Tool Settings Properties Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class SyncToolSettingsPropertiesEvent extends UiEvent<SyncToolSettingsPropertiesEventArgs> {}
 
 /**
@@ -58,6 +59,7 @@ export interface FrameworkToolSettings {
 
   /** Get ToolSettings Properties sync event. */
   readonly onSyncToolSettingsProperties: SyncToolSettingsPropertiesEvent;
+  // eslint-disable-next-line deprecation/deprecation
   readonly onReloadToolSettingsProperties: UiEvent<void>;
 
   /** Gets the Id of the active tool. If a tool is not active, blank is returned.

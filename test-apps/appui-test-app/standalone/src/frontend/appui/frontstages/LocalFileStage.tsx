@@ -55,6 +55,7 @@ async function getDefaultViewId(
     }
   }
 
+  // eslint-disable-next-line deprecation/deprecation
   const viewId = await iModelConnection.views.queryDefaultViewId();
   const params: ViewQueryParams = {};
   params.from = SpatialViewState.classFullName;

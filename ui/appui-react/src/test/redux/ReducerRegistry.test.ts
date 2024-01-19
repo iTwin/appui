@@ -131,6 +131,7 @@ describe("ReducerRegistry", () => {
     ExtensionStateManager.initialize();
     let keys = Object.keys(ReducerRegistryInstance.getReducers());
     expect(keys.length).to.be.equal(1);
+    // eslint-disable-next-line deprecation/deprecation
     expect(() => ExtensionStateManager.initialize()).to.throw(UiError);
     keys = Object.keys(ReducerRegistryInstance.getReducers());
     expect(keys.length).to.be.equal(1);

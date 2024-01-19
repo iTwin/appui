@@ -29,6 +29,7 @@ export interface KeyboardShortcutMenuState {
 /** KeyboardShortcut Menu Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class KeyboardShortcutMenuEvent extends UiEvent<KeyboardShortcutMenuState> {}
 
 /** React component that displays a context menu at the cursor containing keyboard shortcuts.

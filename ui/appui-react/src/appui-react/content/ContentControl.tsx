@@ -31,6 +31,7 @@ export interface ContentControlActivatedEventArgs {
 /** ContentControl Activated Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ContentControlActivatedEvent extends UiEvent<ContentControlActivatedEventArgs> {}
 
 /** Interface to be implemented when the ContentControl supports ViewSelector changes

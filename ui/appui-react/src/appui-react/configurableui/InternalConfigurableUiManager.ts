@@ -131,6 +131,7 @@ export class InternalConfigurableUiManager {
     constructor: ConfigurableUiControlConstructor
   ): void {
     if (this._registeredControls.get(classId) !== undefined) {
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
         `registerControl: classId '${classId}' already registered`
@@ -190,6 +191,7 @@ export class InternalConfigurableUiManager {
     );
     const constructor = this._registeredControls.get(info.classId);
     if (!constructor) {
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
         `createControl: classId '${classId}' not registered`

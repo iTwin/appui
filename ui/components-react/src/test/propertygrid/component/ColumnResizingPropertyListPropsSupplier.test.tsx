@@ -9,21 +9,24 @@ import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { ColumnResizingPropertyListPropsSupplier } from "../../../components-react/propertygrid/component/ColumnResizingPropertyListPropsSupplier";
 import { PropertyList } from "../../../components-react/propertygrid/component/PropertyList";
-import TestUtils, { styleMatch, userEvent } from "../../TestUtils";
+import { userEvent } from "../../TestUtils";
+import TestUtils, { styleMatch } from "../../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("ColumnResizingPropertyListPropsSupplier", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   let clock: sinon.SinonFakeTimers;
   let records: PropertyRecord[];
-
   const throttleMs = 16;
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
 
+  before(() => {
+    clock = sinon.useFakeTimers(Date.now());
+  });
+
   beforeEach(() => {
-    clock = sinon.useFakeTimers({ now: Date.now() });
     theUserTo = userEvent.setup({
       advanceTimers: (delay) => {
         clock.tick(delay);
@@ -35,7 +38,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
     ];
   });
 
-  afterEach(() => {
+  after(() => {
     clock.restore();
   });
 
