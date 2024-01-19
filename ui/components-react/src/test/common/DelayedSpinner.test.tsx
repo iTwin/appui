@@ -22,8 +22,12 @@ describe("<DelayedSpinner />", () => {
   });
 
   it("renders spinner with delay", () => {
-    const clock = sandbox.useFakeTimers(Date.now());
-
+    const clock = sandbox.useFakeTimers({
+      now: Date.now(),
+      // TODO: VirtualizedPropertyGridWithDataProvider tests fail without time increment.
+      shouldAdvanceTime: true,
+      advanceTimeDelta: 1,
+    });
     const component = render(<DelayedSpinner delay={100} />);
     expect(component.queryByTestId("components-delayed-spinner")).to.be.null;
 
