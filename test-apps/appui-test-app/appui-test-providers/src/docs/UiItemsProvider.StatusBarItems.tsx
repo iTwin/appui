@@ -2,6 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import * as React from "react";
+import { SvgPlaceholder as SvgIcon } from "@itwin/itwinui-icons-react";
 // __PUBLISH_EXTRACT_START__ AppUI.UiItemsProvider.StatusBarItems
 import {
   StatusBarItemUtilities,
@@ -16,7 +18,7 @@ const provider: UiItemsProvider = {
       "example:StatusBarItem",
       StatusBarSection.Center,
       100,
-      "icon-placeholder",
+      <SvgIcon />,
       "My custom status bar item",
       () => {}
     ),
