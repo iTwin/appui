@@ -403,7 +403,7 @@ export enum Corner {
 export type CrossAxisArrowKeyFunc = (forward: boolean) => void;
 
 // @public
-export class Dialog extends React_2.Component<DialogProps, DialogState> {
+export class Dialog extends React_2.Component<DialogProps> {
     constructor(props: DialogProps);
     // (undocumented)
     componentDidMount(): void;
