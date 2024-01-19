@@ -19,7 +19,7 @@ import type { IDisposable } from "@itwin/core-bentley";
 export function useDisposable<TDisposable extends IDisposable>(
   createDisposable: () => TDisposable
 ): TDisposable {
-  const [value, setValue] = useState(createDisposable());
+  const [value, setValue] = useState(() => createDisposable());
   // need to capture initial disposable created during render loop in order to dispose later
   const prevValue = useRef(value);
   const useInitialValue = useRef(true);
