@@ -118,7 +118,9 @@ export abstract class HideIsolateEmphasizeActionHandler {
   /**
    * Function run when `HideSelectedElementsModel` tool button is pressed
    */
-  public abstract processIsolateSelected(clearSelection = true): Promise<void>;
+  public abstract processIsolateSelected(
+    clearSelection?: boolean
+  ): Promise<void>;
 
   /**
    * Function run when `HideSelectedElementsModel` tool button is pressed
