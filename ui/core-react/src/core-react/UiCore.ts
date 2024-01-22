@@ -68,6 +68,7 @@ export class UiCore {
   public static get localization(): Localization {
     // istanbul ignore else
     if (!UiCore._localization)
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiCore.loggerCategory(this),
         "localization: UiCore.initialize has not been called. Unable to return Localization object."

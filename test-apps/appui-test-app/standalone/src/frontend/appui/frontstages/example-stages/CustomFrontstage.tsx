@@ -12,7 +12,6 @@ import {
   ContentToolWidgetComposer,
   FrontstageConfig,
   FrontstageProvider,
-  UiFramework,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
@@ -74,7 +73,3 @@ export class CustomFrontstageProvider extends FrontstageProvider {
   }
 }
 // __PUBLISH_EXTRACT_END__
-
-export function registerCustomFrontstage(): void {
-  UiFramework.frontstages.addFrontstageProvider(new CustomFrontstageProvider());
-}

@@ -88,6 +88,7 @@ export interface UiVisibilityEventArgs {
 /** UiVisibility Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {}
 
 /** TrackingTime time argument used by our feature tracking manager as an option argument to the TelemetryClient
@@ -109,6 +110,7 @@ export class UiFramework {
   public static get backstage(): FrameworkBackstage {
     // istanbul ignore next
     if (!UiFramework._backstageManager)
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
         UiFramework._complaint
@@ -344,6 +346,7 @@ export class UiFramework {
 
     // istanbul ignore else
     if (!StateManager.isInitialized(true))
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
         `Error trying to access redux store before either store or StateManager has been initialized.`
@@ -359,6 +362,7 @@ export class UiFramework {
   public static get localization(): Localization {
     // istanbul ignore next
     if (!IModelApp.localization)
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
         `IModelApp.localization has not been defined.`
@@ -375,6 +379,7 @@ export class UiFramework {
   public static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler {
     // istanbul ignore next
     if (!UiFramework._hideIsolateEmphasizeActionHandler)
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
         UiFramework._complaint
@@ -397,6 +402,7 @@ export class UiFramework {
   public static get widgetManager(): WidgetManager {
     // istanbul ignore next
     if (!UiFramework._widgetManager)
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
         UiFramework._complaint

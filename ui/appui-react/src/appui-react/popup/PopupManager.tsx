@@ -57,6 +57,7 @@ export interface PopupsChangedEventArgs {
 /** Popups Changed Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class PopupsChangedEvent extends UiEvent<PopupsChangedEventArgs> {}
 
 /** Props for each popup managed by the PopupManager

@@ -9,10 +9,14 @@ import { renderHook } from "@testing-library/react-hooks";
 import {
   ConditionalBooleanValue,
   ConditionalStringValue,
-  UiSyncEvent,
 } from "@itwin/appui-abstract";
 import { useConditionalSynchedItems } from "../../components-react/toolbar/useConditionalSynchedItems";
 import { ConditionalIconItem } from "@itwin/core-react";
+import { BeUiEvent } from "@itwin/core-bentley";
+
+interface BeUiEventProps {
+  eventIds: Set<string>;
+}
 
 describe("useConditionalSynchedItems", () => {
   it("Should support no Conditionals in items and return provided items", () => {
@@ -32,7 +36,7 @@ describe("useConditionalSynchedItems", () => {
       },
       { id: "Btn8" },
     ];
-    const event = new UiSyncEvent();
+    const event = new BeUiEvent<BeUiEventProps>();
     const { result } = renderHook(() => {
       return useConditionalSynchedItems(items, event);
     });
@@ -52,7 +56,7 @@ describe("useConditionalSynchedItems", () => {
         ),
       },
     ];
-    const event = new UiSyncEvent();
+    const event = new BeUiEvent<BeUiEventProps>();
     const { result } = renderHook(() => {
       return useConditionalSynchedItems(items, event);
     });
@@ -70,7 +74,7 @@ describe("useConditionalSynchedItems", () => {
         ),
       },
     ];
-    const event = new UiSyncEvent();
+    const event = new BeUiEvent<BeUiEventProps>();
     const { result } = renderHook(() => {
       return useConditionalSynchedItems(items, event);
     });
@@ -90,7 +94,7 @@ describe("useConditionalSynchedItems", () => {
         ),
       },
     ];
-    const event = new UiSyncEvent();
+    const event = new BeUiEvent<BeUiEventProps>();
     const { result } = renderHook(() => {
       return useConditionalSynchedItems(items, event);
     });
@@ -113,7 +117,7 @@ describe("useConditionalSynchedItems", () => {
         ),
       },
     ];
-    const event = new UiSyncEvent();
+    const event = new BeUiEvent<BeUiEventProps>();
     const { result } = renderHook(() => {
       return useConditionalSynchedItems(items, event);
     });
@@ -144,7 +148,7 @@ describe("useConditionalSynchedItems", () => {
         ),
       },
     ];
-    const event = new UiSyncEvent();
+    const event = new BeUiEvent<BeUiEventProps>();
     const { result } = renderHook(() => {
       return useConditionalSynchedItems(items, event);
     });
@@ -192,7 +196,7 @@ describe("useConditionalSynchedItems", () => {
         ],
       },
     ];
-    const event = new UiSyncEvent();
+    const event = new BeUiEvent<BeUiEventProps>();
     const { result } = renderHook(() => {
       return useConditionalSynchedItems(items, event);
     });
@@ -252,7 +256,7 @@ describe("useConditionalSynchedItems", () => {
         stringValue: new ConditionalStringValue(() => "value", ["event"]),
       },
     ];
-    const event = new UiSyncEvent();
+    const event = new BeUiEvent<BeUiEventProps>();
     const spy = sinon.spy(event, "removeListener");
     const { unmount } = renderHook(() => {
       return useConditionalSynchedItems(items, event);

@@ -26,6 +26,7 @@ export interface NavigationAidActivatedEventArgs {
 /** NavigationAid Activated Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class NavigationAidActivatedEvent extends UiEvent<NavigationAidActivatedEventArgs> {}
 
 /** The base class for Navigation Aid controls.

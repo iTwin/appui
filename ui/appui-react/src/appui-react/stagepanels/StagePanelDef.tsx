@@ -33,6 +33,7 @@ export interface PanelStateChangedEventArgs {
 /** Panel state changed event class.
  * @beta
  */
+// eslint-disable-next-line deprecation/deprecation
 export class PanelStateChangedEvent extends UiEvent<PanelStateChangedEventArgs> {}
 
 /** @internal */
@@ -42,6 +43,7 @@ export interface PanelSizeChangedEventArgs {
 }
 
 /** @internal */
+// eslint-disable-next-line deprecation/deprecation
 export class PanelSizeChangedEvent extends UiEvent<PanelSizeChangedEventArgs> {}
 
 /** Panel pinned changed event args interface.
