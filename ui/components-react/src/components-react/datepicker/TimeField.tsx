@@ -361,7 +361,7 @@ export function TimeField({
         onChange={handleHoursChange}
         value={hoursText}
         disabled={readOnly}
-        size={"small"}
+        size="small"
       />
       <span className="component-time-separator">:</span>
       <Input
@@ -371,7 +371,7 @@ export function TimeField({
         onChange={handleMinutesChange}
         value={minutesText}
         disabled={readOnly}
-        size={"small"}
+        size="small"
       />
       {showSeconds && (
         <>
@@ -383,7 +383,7 @@ export function TimeField({
             onChange={handleSecondsChange}
             value={secondsText}
             disabled={readOnly}
-            size={"small"}
+            size="small"
           />
         </>
       )}
@@ -395,7 +395,7 @@ export function TimeField({
           onChange={handleDayPeriodChange}
           value={dayPeriodText}
           disabled={readOnly}
-          size={"small"}
+          size="small"
         />
       )}
     </div>
