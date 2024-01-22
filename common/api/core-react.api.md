@@ -1108,7 +1108,7 @@ export type NodeCheckboxRenderProps = Omit_2<CheckboxProps, "onChange" | "onClic
 export const NumberInput: (props: NumberInputProps) => React_2.ReactElement | null;
 
 // @public
-export interface NumberInputProps extends Omit<InputProps_2, "min" | "max" | "step" | "onChange" | "size"> {
+export interface NumberInputProps extends Omit<InputProps_2, "min" | "max" | "step" | "onChange"> {
     containerClassName?: string;
     containerStyle?: React_2.CSSProperties;
     format?: (num: number | null | undefined, formattedValue: string) => string;
@@ -1121,8 +1121,6 @@ export interface NumberInputProps extends Omit<InputProps_2, "min" | "max" | "st
     precision?: number;
     ref?: React_2.Ref<HTMLInputElement>;
     showTouchButtons?: boolean;
-    // (undocumented)
-    size?: "small" | "medium" | "large";
     snap?: boolean;
     step?: StepFunctionProp;
     value?: number;
