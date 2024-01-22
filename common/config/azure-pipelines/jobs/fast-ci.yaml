@@ -3,6 +3,7 @@
 trigger:
   - master
   - release/*
+  - itwinui-3x-pre
 
 variables:
   - group: Rush Build Cache SAS Token
