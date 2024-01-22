@@ -32,6 +32,7 @@ export interface FrontstageActivatedEventArgs {
 /** Frontstage Activated Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> {}
 
 /** Frontstage Deactivated Event Args interface.
@@ -54,6 +55,7 @@ export interface FrontstageDeactivatedEventArgs {
 /** Frontstage Deactivated Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> {}
 
 /** Frontstage Ready Event Args interface.
@@ -66,6 +68,7 @@ export interface FrontstageReadyEventArgs {
 /** Frontstage Ready Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> {}
 
 /** Modal Frontstage Changed Event Args interface.
@@ -78,6 +81,7 @@ export interface ModalFrontstageChangedEventArgs {
 /** Modal Frontstage Stack Changed Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> {}
 
 /** Modal Frontstage Closed Event Args interface.
@@ -102,6 +106,7 @@ export interface ModalFrontstageClosedEventArgs {
  * any unsaved data.
  * @alpha
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> {}
 
 /** Modal Frontstage RequestedClose Event Args interface.
@@ -117,6 +122,7 @@ export interface ModalFrontstageRequestedCloseEventArgs {
 /** Modal Frontstage Closed Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> {}
 
 /** Tool Activated Event Args interface.
@@ -129,6 +135,7 @@ export interface ToolActivatedEventArgs {
 /** Tool Activated Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> {}
 
 /** Tool Icon Changed Event Args interface.
@@ -141,6 +148,7 @@ export interface ToolIconChangedEventArgs {
 /** Tool Icon Changed Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {}
 
 /** Modal Frontstage information interface.
@@ -196,6 +204,7 @@ export interface FrameworkFrontstages {
   readonly onToolActivatedEvent: ToolActivatedEvent;
 
   /** Get ToolSetting Reload event. */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onToolSettingsReloadEvent: UiEvent<void>;
 
   /** Get Tool Icon Changed event. */
@@ -221,6 +230,7 @@ export interface FrameworkFrontstages {
   /** Get panel pinned changed event.
    * @alpha
    */
+  // eslint-disable-next-line deprecation/deprecation
   readonly onPanelPinnedChangedEvent: UiEvent<PanelPinnedChangedEventArgs>;
 
   /** Clears the Frontstage map.

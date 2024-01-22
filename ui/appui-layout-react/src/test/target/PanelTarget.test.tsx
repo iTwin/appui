@@ -4,16 +4,18 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  addPanelWidget,
-  addTab,
   createNineZoneState,
   DraggedWidgetIdContext,
   PanelSideContext,
 } from "../../appui-layout-react";
 import { renderHook } from "@testing-library/react-hooks";
 import { TestNineZoneProvider } from "../Providers";
-import { createDraggedTabState } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import {
+  addTab,
+  createDraggedTabState,
+} from "../../appui-layout-react/state/internal/TabStateHelpers";
 import { useAllowedPanelTarget } from "../../appui-layout-react/target/useAllowedPanelTarget";
+import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 
 describe("useAllowedPanelTarget", () => {
   it("should return `true`", () => {

@@ -3567,7 +3567,7 @@ export function usePropertyGridModel(props: {
     modelSource: IPropertyGridModelSource;
 }): IPropertyGridModel | undefined;
 
-// @public
+// @public @deprecated
 export function usePropertyGridModelSource(props: {
     dataProvider: IPropertyDataProvider;
 }): PropertyGridModelSource;
@@ -3589,6 +3589,14 @@ export function useToolbarWithOverflowDirectionContext(): ToolbarOverflowContext
 
 // @internal (undocumented)
 export function useToolItemEntryContext(): ToolbarItemContextArgs;
+
+// @public
+export function useTrackedPropertyGridModelSource(props: {
+    dataProvider: IPropertyDataProvider;
+}): {
+    modelSource: PropertyGridModelSource;
+    inProgress: boolean;
+};
 
 // @public
 export function useTreeEventsHandler<TEventsHandler extends TreeEventHandler>(factoryOrParams: (() => TEventsHandler) | TreeEventHandlerParams): TreeEventHandler;

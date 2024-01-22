@@ -8,30 +8,26 @@
 
 import "./PopoutWidget.scss";
 import * as React from "react";
-import {
-  WidgetContentContainer,
-  WidgetProvider,
-} from "@itwin/appui-layout-react";
+import type { WidgetDef } from "../widgets/WidgetDef";
 
 interface PopoutWidgetProps {
   widgetContainerId: string;
+  widgetDef: WidgetDef;
 }
 
 /** Component used to wrap a widget for use in a child window.
  * @internal
  */
-export function PopoutWidget({ widgetContainerId }: PopoutWidgetProps) {
-  const content = React.useMemo(
-    () => <WidgetContentContainer></WidgetContentContainer>,
-    []
-  );
-
+export function PopoutWidget({
+  widgetContainerId,
+  widgetDef,
+}: PopoutWidgetProps) {
   return (
     <div
       className="uifw-popout-widget-filled-container"
       data-widget-id={widgetContainerId}
     >
-      <WidgetProvider id={widgetContainerId}>{content}</WidgetProvider>
+      {widgetDef.reactNode}
     </div>
   );
 }

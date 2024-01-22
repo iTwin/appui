@@ -6,8 +6,6 @@ import * as React from "react";
 import { render } from "@testing-library/react";
 import type { WidgetState } from "../../appui-layout-react";
 import {
-  addPanelWidget,
-  addTab,
   createNineZoneState,
   DraggedWidgetIdContext,
   WidgetIdContext,
@@ -17,7 +15,11 @@ import { TestNineZoneProvider } from "../Providers";
 import { TabTarget } from "../../appui-layout-react/target/TabTarget";
 import { renderHook } from "@testing-library/react-hooks";
 import { useAllowedWidgetTarget } from "../../appui-layout-react/target/useAllowedWidgetTarget";
-import { createDraggedTabState } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import {
+  addTab,
+  createDraggedTabState,
+} from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 
 interface WrapperProps extends TestNineZoneProviderProps {
   widgetId: WidgetState["id"];

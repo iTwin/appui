@@ -28,6 +28,7 @@ export interface DrawingViewportChangeEventArgs {
 /** Drawing View Change event
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class DrawingViewportChangeEvent extends UiEvent<DrawingViewportChangeEventArgs> {}
 
 /** Arguments for [[CubeRotationChangeEvent]]
@@ -42,6 +43,7 @@ export interface CubeRotationChangeEventArgs {
 /** 3d Cube Rotation Change event
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class CubeRotationChangeEvent extends UiEvent<CubeRotationChangeEventArgs> {}
 
 /** Arguments for [[StandardRotationChangeEvent]]
@@ -54,6 +56,7 @@ export interface StandardRotationChangeEventArgs {
 /** Standard Rotation Change event
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class StandardRotationChangeEvent extends UiEvent<StandardRotationChangeEventArgs> {}
 
 /** Arguments for [[ViewRotationChangeEvent]]
@@ -67,6 +70,7 @@ export interface ViewRotationChangeEventArgs {
 /** View Rotation Change event
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ViewRotationChangeEvent extends UiEvent<ViewRotationChangeEventArgs> {}
 
 /** Arguments for [[ViewClassFullNameChangedEvent]]
@@ -81,6 +85,7 @@ export interface ViewClassFullNameChangedEventArgs {
 /** View Class Full Name Change event
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ViewClassFullNameChangedEvent extends UiEvent<ViewClassFullNameChangedEventArgs> {}
 
 /** Arguments for [[ViewIdChangedEvent]]
@@ -95,6 +100,7 @@ export interface ViewIdChangedEventArgs {
 /** View Id Change event
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ViewIdChangedEvent extends UiEvent<ViewIdChangedEventArgs> {}
 
 /** Viewport Rotation events and methods

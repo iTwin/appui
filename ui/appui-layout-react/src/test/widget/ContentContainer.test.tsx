@@ -10,14 +10,14 @@ import type {
   WidgetContentManagerContextArgs,
 } from "../../appui-layout-react";
 import {
-  addPanelWidget,
-  addTab,
   createNineZoneState,
   WidgetContentContainer,
   WidgetContentManagerContext,
   WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
+import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
 
 describe("WidgetContentContainer ", () => {
   it("should render minimized", () => {

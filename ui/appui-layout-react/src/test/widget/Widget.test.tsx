@@ -7,13 +7,13 @@ import * as React from "react";
 import * as sinon from "sinon";
 import type { NineZoneDispatch } from "../../appui-layout-react";
 import {
-  addFloatingWidget,
-  addTab,
   createNineZoneState,
   Widget,
   WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { addFloatingWidget } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 
 describe("Widget", () => {
   it("should dispatch FLOATING_WIDGET_BRING_TO_FRONT", () => {

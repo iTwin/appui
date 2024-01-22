@@ -2,26 +2,38 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect, should } from "chai";
+import { assert, expect, should } from "chai";
 import { produce } from "immer";
 import { Point, Rectangle } from "@itwin/core-react";
-import type { NineZoneAction } from "../../appui-layout-react";
+import type {
+  NineZoneAction,
+  WidgetDefAddAction,
+} from "../../appui-layout-react";
 import {
-  addDockedToolSettings,
-  addFloatingWidget,
-  addPanelWidget,
-  addPopoutWidget,
-  addTab,
-  addWidgetToolSettings,
   createNineZoneState,
+  getUniqueId,
   NineZoneStateReducer,
 } from "../../appui-layout-react";
 import { addTabs } from "../Utils";
-import { createDraggedTabState } from "../../appui-layout-react/state/internal/TabStateHelpers";
-import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
-import { assert } from "@itwin/core-bentley";
+import {
+  addTab,
+  createDraggedTabState,
+  updateSavedTabState,
+} from "../../appui-layout-react/state/internal/TabStateHelpers";
+import {
+  addPanelWidget,
+  updatePanelState,
+} from "../../appui-layout-react/state/internal/PanelStateHelpers";
 import { stub } from "sinon";
-import { createFloatingWidgetState } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
+import {
+  addFloatingWidget,
+  addPopoutWidget,
+  createFloatingWidgetState,
+} from "../../appui-layout-react/state/internal/WidgetStateHelpers";
+import {
+  addDockedToolSettings,
+  addWidgetToolSettings,
+} from "../../appui-layout-react/state/internal/ToolSettingsStateHelpers";
 
 describe("NineZoneStateReducer", () => {
   it("should not update for unhandled action", () => {
@@ -126,7 +138,6 @@ describe("NineZoneStateReducer", () => {
         size: 400,
       });
       expect(newState.panels.left.size).to.eq(400);
-      Number(400).should.eq(newState.panels.left.size);
     });
 
     it("should reset panel size", () => {
@@ -140,6 +151,78 @@ describe("NineZoneStateReducer", () => {
     });
   });
 
+  describe("PANEL_SET_MIN_SIZE", () => {
+    it("should set", () => {
+      let state = createNineZoneState();
+      state = updatePanelState(state, "left", (draft) => {
+        draft.minSize = 100;
+        draft.size = 200;
+        draft.maxSize = 400;
+      });
+
+      const newState = NineZoneStateReducer(state, {
+        type: "PANEL_SET_MIN_SIZE",
+        side: "left",
+        minSize: 50,
+      });
+      expect(newState.panels.left.minSize).to.eq(50);
+      expect(newState.panels.left.size).to.eq(200);
+    });
+
+    it("should update size", () => {
+      let state = createNineZoneState();
+      state = updatePanelState(state, "left", (draft) => {
+        draft.minSize = 100;
+        draft.size = 200;
+        draft.maxSize = 400;
+      });
+
+      const newState = NineZoneStateReducer(state, {
+        type: "PANEL_SET_MIN_SIZE",
+        side: "left",
+        minSize: 300,
+      });
+      expect(newState.panels.left.minSize).to.eq(300);
+      expect(newState.panels.left.size).to.eq(300);
+    });
+  });
+
+  describe("PANEL_SET_MAX_SIZE", () => {
+    it("should set", () => {
+      let state = createNineZoneState();
+      state = updatePanelState(state, "left", (draft) => {
+        draft.minSize = 100;
+        draft.size = 200;
+        draft.maxSize = 600;
+      });
+
+      const newState = NineZoneStateReducer(state, {
+        type: "PANEL_SET_MAX_SIZE",
+        side: "left",
+        maxSize: 800,
+      });
+      expect(newState.panels.left.size).to.eq(200);
+      expect(newState.panels.left.maxSize).to.eq(800);
+    });
+
+    it("should update size", () => {
+      let state = createNineZoneState();
+      state = updatePanelState(state, "left", (draft) => {
+        draft.minSize = 100;
+        draft.size = 200;
+        draft.maxSize = 400;
+      });
+
+      const newState = NineZoneStateReducer(state, {
+        type: "PANEL_SET_MAX_SIZE",
+        side: "left",
+        maxSize: 150,
+      });
+      expect(newState.panels.left.size).to.eq(150);
+      expect(newState.panels.left.maxSize).to.eq(150);
+    });
+  });
+
   describe("PANEL_SET_SPLITTER_VALUE", () => {
     it("should set panel split percent", () => {
       const state = createNineZoneState();
@@ -148,7 +231,19 @@ describe("NineZoneStateReducer", () => {
         side: "left",
         percent: 40,
       });
-      Number(40).should.eq(newState.panels.left.splitterPercent);
+      expect(newState.panels.left.splitterPercent).to.eq(40);
+    });
+  });
+
+  describe("PANEL_SET_RESIZABLE", () => {
+    it("should set", () => {
+      const state = createNineZoneState();
+      const newState = NineZoneStateReducer(state, {
+        type: "PANEL_SET_RESIZABLE",
+        side: "left",
+        resizable: false,
+      });
+      expect(newState.panels.left.resizable).to.false;
     });
   });
 
@@ -1794,6 +1889,29 @@ describe("NineZoneStateReducer", () => {
     });
   });
 
+  describe("WIDGET_TAB_REMOVE", () => {
+    it("should save state and remove the tab", () => {
+      let state = createNineZoneState();
+      state = addTab(state, "t1");
+      state = addPanelWidget(state, "right", "w1", ["t1"]);
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_REMOVE",
+        id: "t1",
+      });
+      expect(newState.savedTabs.byId.t1).to.eql({
+        id: "t1",
+        home: {
+          side: "right",
+          tabIndex: 0,
+          widgetId: "w1",
+          widgetIndex: 0,
+        },
+      });
+      expect(newState.tabs.t1).to.not.exist;
+    });
+  });
+
   describe("WIDGET_TAB_SET_LABEL", () => {
     it("should update label", () => {
       let state = createNineZoneState();
@@ -1969,6 +2087,22 @@ describe("NineZoneStateReducer", () => {
       });
       expect(newState.panels.left.widgets).lengthOf(0);
       expect(newState.tabs.t1.unloaded).to.true;
+    });
+  });
+
+  describe("WIDGET_TAB_UPDATE", () => {
+    it("should update `label`", () => {
+      let state = createNineZoneState();
+      state = addTab(state, "t1");
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_UPDATE",
+        id: "t1",
+        overrides: {
+          label: "test",
+        },
+      });
+      expect(newState.tabs.t1.label).to.eq("test");
     });
   });
 
@@ -2305,6 +2439,179 @@ describe("NineZoneStateReducer", () => {
       });
 
       newState.floatingWidgets.allIds.should.contain("fw1");
+    });
+  });
+
+  describe("WIDGET_DEF_ADD", () => {
+    const defaultArgs: Pick<
+      WidgetDefAddAction,
+      "floatingWidget" | "location" | "panelSection"
+    > = {
+      floatingWidget: {
+        id: getUniqueId(),
+      },
+      location: "panel",
+      panelSection: {
+        side: "left",
+        id: "",
+        index: 0,
+      },
+    };
+
+    it("should restore saved tab", () => {
+      let state = createNineZoneState();
+      state = updateSavedTabState(state, "t1", (draft) => {
+        draft.home = {
+          side: "bottom",
+          widgetId: "",
+          widgetIndex: 0,
+          tabIndex: 0,
+        };
+      });
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_DEF_ADD",
+        ...defaultArgs,
+        id: "t1",
+      });
+      expect(newState.panels.bottom.widgets).lengthOf(1);
+    });
+
+    it("should add to an existing panel section", () => {
+      let state = createNineZoneState();
+      state = addTab(state, "t1");
+      state = addPanelWidget(state, "right", "w1", ["t1"]);
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_DEF_ADD",
+        ...defaultArgs,
+        id: "t2",
+        location: "panel",
+        panelSection: {
+          id: "w1",
+          side: "left",
+          index: 0,
+        },
+      });
+      expect(newState.panels.left.widgets).lengthOf(0);
+      expect(newState.widgets.w1.tabs).to.eql(["t1", "t2"]);
+    });
+
+    it("should add to an existing panel section (maxWidgetCount)", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2"]);
+      state = addPanelWidget(state, "right", "w1", ["t1"]);
+      state = addPanelWidget(state, "right", "w2", ["t2"]);
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_DEF_ADD",
+        ...defaultArgs,
+        id: "t3",
+        location: "panel",
+        panelSection: {
+          id: "w3",
+          side: "right",
+          index: 1,
+        },
+      });
+      expect(newState.panels.right.widgets).eql(["w1", "w2"]);
+      expect(newState.widgets.w2.tabs).to.eql(["t2", "t3"]);
+    });
+
+    it("should add to an existing floating widget", () => {
+      let state = createNineZoneState();
+      state = addTab(state, "t1");
+      state = addFloatingWidget(state, "w1", ["t1"]);
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_DEF_ADD",
+        ...defaultArgs,
+        id: "t2",
+        location: "floating",
+        floatingWidget: {
+          id: "w1",
+        },
+      });
+      expect(newState.floatingWidgets.allIds).to.eql(["w1"]);
+      expect(newState.widgets.w1.tabs).to.eql(["t1", "t2"]);
+    });
+
+    it("should add to a new panel section", () => {
+      const state = createNineZoneState();
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_DEF_ADD",
+        ...defaultArgs,
+        id: "t1",
+        location: "panel",
+        panelSection: {
+          id: "w1",
+          index: 0,
+          side: "right",
+        },
+      });
+      expect(newState.panels.right.widgets).to.eql(["w1"]);
+      expect(newState.widgets.w1.tabs).to.eql(["t1"]);
+    });
+
+    it("should add to a new floating widget", () => {
+      const state = createNineZoneState();
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_DEF_ADD",
+        ...defaultArgs,
+        id: "t1",
+        location: "floating",
+        floatingWidget: {
+          id: "w1",
+        },
+      });
+      expect(newState.floatingWidgets.allIds).to.eql(["w1"]);
+      expect(newState.widgets.w1.tabs).to.eql(["t1"]);
+    });
+
+    it("should add to a new floating widget (w/ preferred position & size)", () => {
+      const state = createNineZoneState();
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_DEF_ADD",
+        ...defaultArgs,
+        id: "t1",
+        location: "floating",
+        floatingWidget: {
+          id: "w1",
+          preferredPosition: {
+            x: 300,
+            y: 500,
+          },
+        },
+        overrides: {
+          preferredFloatingWidgetSize: {
+            height: 123,
+            width: 456,
+          },
+        },
+      });
+      expect(newState.floatingWidgets.allIds).to.eql(["w1"]);
+      expect(newState.widgets.w1.tabs).to.eql(["t1"]);
+      expect(newState.floatingWidgets.byId.w1.userSized).to.true;
+    });
+  });
+
+  describe("WIDGET_DEF_ADD_TOOL_SETTINGS", () => {
+    it("should add docked tool settings tab", () => {
+      let state = createNineZoneState();
+      state = updateSavedTabState(state, "t1", (draft) => {
+        draft.home = {
+          side: "bottom",
+          widgetId: "",
+          widgetIndex: 0,
+          tabIndex: 0,
+        };
+      });
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_DEF_ADD_TOOL_SETTINGS",
+        id: "t1",
+      });
+      expect(newState.tabs.t1).to.exist;
+      expect(newState.toolSettings).to.eql({
+        type: "docked",
+        tabId: "t1",
+        hidden: false,
+      });
     });
   });
 });

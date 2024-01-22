@@ -10,7 +10,6 @@ import { produce } from "immer";
 import { Point, Rectangle } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
 import type { TabState } from "./TabState";
-import { addRemovedTab, removeTabFromWidget } from "./TabState";
 import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation";
 import type { NineZoneAction } from "./NineZoneAction";
 import {
@@ -20,20 +19,22 @@ import {
   isWidgetDropTargetState,
   isWindowDropTargetState,
 } from "./DropTargetState";
-import { getWidgetPanelSectionId, insertPanelWidget } from "./PanelState";
+import { getWidgetPanelSectionId } from "./PanelState";
 import type { NineZoneState } from "./NineZoneState";
 import type { PopoutWidgetState, WidgetState } from "./WidgetState";
 import {
-  addFloatingWidget,
-  addPopoutWidget,
-  floatingWidgetBringToFront,
-} from "./WidgetState";
-import {
-  getPanelMaxSize,
+  addPanelWidget,
+  getPanelSize,
+  insertPanelWidget,
   updatePanelState,
 } from "./internal/PanelStateHelpers";
 import {
+  addRemovedTab,
+  addTab,
+  addTabToWidget,
   createDraggedTabState,
+  removeTab,
+  removeTabFromWidget,
   updateSavedTabState,
   updateTabState,
 } from "./internal/TabStateHelpers";
@@ -46,7 +47,10 @@ import {
   updateHomeOfToolSettingsWidget,
 } from "./internal/NineZoneStateHelpers";
 import {
+  addFloatingWidget,
+  addPopoutWidget,
   addWidgetState,
+  floatingWidgetBringToFront,
   getWidgetState,
   removeFloatingWidget,
   removePanelWidget,
@@ -70,6 +74,7 @@ import {
   isPanelWidgetRestoreState,
   type PanelWidgetRestoreState,
 } from "./WidgetRestoreState";
+import { addDockedToolSettings } from "./internal/ToolSettingsStateHelpers";
 
 /** @internal */
 export function NineZoneStateReducer(
@@ -91,11 +96,14 @@ export function NineZoneStateReducer(
         });
       }
       for (const side of panelSides) {
-        const panel = state.panels[side];
-        if (!panel.size) continue;
-        const maxSize = getPanelMaxSize(side, state.size, panel.maxSize);
-        const size = Math.min(Math.max(panel.size, panel.minSize), maxSize);
         state = updatePanelState(state, side, (draft) => {
+          const size = getPanelSize(
+            draft.size,
+            side,
+            draft.minSize,
+            draft.maxSize,
+            state.size
+          );
           draft.size = size;
         });
       }
@@ -115,12 +123,47 @@ export function NineZoneStateReducer(
       const { side, size: preferredSize } = action;
 
       return updatePanelState(state, side, (draft) => {
-        let size = preferredSize;
-        if (size !== undefined) {
-          const maxSize = getPanelMaxSize(side, state.size, draft.maxSize);
-          size = Math.min(Math.max(size, draft.minSize), maxSize);
-        }
+        const size = getPanelSize(
+          preferredSize,
+          draft.side,
+          draft.minSize,
+          draft.maxSize,
+          state.size
+        );
         draft.size = size;
+      });
+    }
+    case "PANEL_SET_MIN_SIZE": {
+      return updatePanelState(state, action.side, (draft) => {
+        const size = getPanelSize(
+          draft.size,
+          draft.side,
+          action.minSize,
+          draft.maxSize,
+          state.size
+        );
+
+        draft.minSize = action.minSize;
+        draft.size = size;
+      });
+    }
+    case "PANEL_SET_MAX_SIZE": {
+      return updatePanelState(state, action.side, (draft) => {
+        const size = getPanelSize(
+          draft.size,
+          draft.side,
+          draft.minSize,
+          action.maxSize,
+          state.size
+        );
+
+        draft.maxSize = action.maxSize;
+        draft.size = size;
+      });
+    }
+    case "PANEL_SET_RESIZABLE": {
+      return updatePanelState(state, action.side, (draft) => {
+        draft.resizable = action.resizable;
       });
     }
     case "PANEL_SET_SPLITTER_VALUE": {
@@ -147,8 +190,13 @@ export function NineZoneStateReducer(
     }
     case "PANEL_INITIALIZE": {
       return updatePanelState(state, action.side, (draft) => {
-        const maxSize = getPanelMaxSize(draft.side, state.size, draft.maxSize);
-        const size = Math.min(Math.max(action.size, draft.minSize), maxSize);
+        const size = getPanelSize(
+          action.size,
+          draft.side,
+          draft.minSize,
+          draft.maxSize,
+          state.size
+        );
         draft.size = size;
       });
     }
@@ -616,6 +664,12 @@ export function NineZoneStateReducer(
     case "WIDGET_TAB_HIDE": {
       return hideTab(state, action.id);
     }
+    case "WIDGET_TAB_REMOVE": {
+      // Save tab state.
+      state = hideTab(state, action.id);
+      // Remove tab.
+      return removeTab(state, action.id);
+    }
     case "WIDGET_TAB_SET_LABEL": {
       return updateTabState(state, action.id, (draft) => {
         draft.label = action.label;
@@ -719,10 +773,9 @@ export function NineZoneStateReducer(
       return state;
     }
     case "WIDGET_TAB_SET_POPOUT_BOUNDS": {
-      state = updateSavedTabState(state, action.id, (draft) => {
+      return updateSavedTabState(state, action.id, (draft) => {
         initRectangleProps(draft, "popoutBounds", action.bounds);
       });
-      return state;
     }
     case "WIDGET_TAB_SHOW": {
       return showWidgetTab(state, action.id);
@@ -746,6 +799,13 @@ export function NineZoneStateReducer(
         });
       }
       return state;
+    }
+    case "WIDGET_TAB_UPDATE": {
+      return updateTabState(state, action.id, (draft) => {
+        for (const [key, val] of Object.entries(action.overrides)) {
+          (draft as any)[key] = val;
+        }
+      });
     }
     case "TOOL_SETTINGS_DRAG_START": {
       if (!state.toolSettings) return state;
@@ -776,6 +836,71 @@ export function NineZoneStateReducer(
         assert(!!draft.toolSettings);
         draft.toolSettings.type = "docked";
       });
+    }
+    case "WIDGET_DEF_ADD": {
+      state = addTab(state, action.id, action.overrides);
+
+      const savedTab = state.savedTabs.byId[action.id];
+      if (savedTab) {
+        // Restore to saved state.
+        return addRemovedTab(state, action.id);
+      }
+
+      // Add to a floating widget.
+      if (action.location === "floating") {
+        // Add to an existing floating widget.
+        if (action.floatingWidget.id in state.widgets) {
+          return addTabToWidget(state, action.id, action.floatingWidget.id);
+        }
+
+        const size = action.overrides?.preferredFloatingWidgetSize ?? {
+          height: 200,
+          width: 300,
+        };
+        const position = action.floatingWidget.preferredPosition ?? {
+          x: (state.size.width - size.width) / 2,
+          y: (state.size.height - size.height) / 2,
+        };
+        const nzBounds = Rectangle.createFromSize(state.size);
+        const bounds = Rectangle.createFromSize(size).offset(position);
+        const containedBounds = bounds.containIn(nzBounds);
+
+        const userSized = !!action.overrides?.preferredFloatingWidgetSize;
+        return addFloatingWidget(state, action.floatingWidget.id, [action.id], {
+          bounds: containedBounds.toProps(),
+          home: {
+            side: action.panelSection.side,
+            widgetId: action.panelSection.id,
+            widgetIndex: 0,
+          },
+          userSized,
+        });
+      }
+
+      // Add to a panel section.
+      const side = action.panelSection.side;
+      // Add to an existing panel section.
+      if (action.panelSection.id in state.widgets) {
+        return addTabToWidget(state, action.id, action.panelSection.id);
+      }
+
+      const panel = state.panels[side];
+      // Add to a new panel section.
+      if (panel.widgets.length < panel.maxWidgetCount) {
+        return addPanelWidget(state, side, action.panelSection.id, [action.id]);
+      }
+
+      // Can't add additional sections, add to an existing one.
+      const sectionIndex = Math.min(
+        action.panelSection.index,
+        panel.widgets.length - 1
+      );
+      const existingSectionId = panel.widgets[sectionIndex];
+      return addTabToWidget(state, action.id, existingSectionId);
+    }
+    case "WIDGET_DEF_ADD_TOOL_SETTINGS": {
+      state = addTab(state, action.id, action.overrides);
+      return addDockedToolSettings(state, action.id);
     }
   }
   return state;

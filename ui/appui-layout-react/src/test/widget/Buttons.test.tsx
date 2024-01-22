@@ -6,16 +6,16 @@ import * as React from "react";
 import { expect } from "chai";
 import { render } from "@testing-library/react";
 import {
-  addFloatingWidget,
-  addPanelWidget,
-  addTab,
-  addWidgetToolSettings,
   createNineZoneState,
   PanelSideContext,
   TabBarButtons,
   WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
+import { addPanelWidget } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { addTab } from "../../appui-layout-react/state/internal/TabStateHelpers";
+import { addWidgetToolSettings } from "../../appui-layout-react/state/internal/ToolSettingsStateHelpers";
+import { addFloatingWidget } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 
 describe("TabBarButtons", () => {
   it("should render SendBack button in a floating widget", () => {

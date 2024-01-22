@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "ignore appui-abstract eslint deprecation m",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

@@ -154,6 +154,7 @@ export class InternalToolSettingsManager {
   /** Get ToolSettings Properties sync event. */
   public static readonly onSyncToolSettingsProperties =
     new SyncToolSettingsPropertiesEvent();
+  // eslint-disable-next-line deprecation/deprecation
   public static readonly onReloadToolSettingsProperties = new UiEvent<void>();
 
   /** Gets the Id of the active tool. If a tool is not active, blank is returned.
