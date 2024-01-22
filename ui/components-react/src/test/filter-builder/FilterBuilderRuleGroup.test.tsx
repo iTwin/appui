@@ -193,7 +193,6 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
 
   it("'And' Operator should not be clickable if toggled disabled", async () => {
     const actions = new PropertyFilterBuilderActions(sinon.spy());
-    rootGroup.operator = PropertyFilterRuleGroupOperator.And;
     const props: PropertyFilterBuilderRuleGroupRendererProps = {
       group: rootGroup,
       path: [],
