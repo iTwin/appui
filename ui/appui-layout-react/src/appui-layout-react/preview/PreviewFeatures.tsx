@@ -23,6 +23,8 @@ export interface KnownPreviewLayoutFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
    */
   enableMaximizedFloatingWidget: boolean;
+  /** If true, the end user of the layout can control widget visibility. */
+  controlWidgetVisibility: boolean;
 }
 
 type PreviewFeaturesState = Partial<KnownPreviewLayoutFeatures>;

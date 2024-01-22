@@ -24,6 +24,10 @@ const featureList = [
     id: "enableMaximizedFloatingWidget",
     label: "Enable maximized floating widgets",
   },
+  {
+    id: "controlWidgetVisibility",
+    label: "Adds controls to hide/show widgets",
+  },
 ];
 function PreviewFeatureList() {
   const [activeFeatureList, setActiveFeatureList] =

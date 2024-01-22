@@ -23,6 +23,9 @@ import {
   PreviewMaximizeToggle,
   usePreviewMaximizedWidget,
 } from "./PreviewMaximizeToggle";
+import { usePreviewFeatures } from "../preview/PreviewFeatures";
+import { MenuButton } from "../preview/widget-visibility/MenuButton";
+
 /** @internal */
 export function TabBarButtons() {
   const { enabled: previewEnableMaximizedFloatingWidget, maximizedWidget } =
@@ -30,6 +33,7 @@ export function TabBarButtons() {
   const isToolSettings = useIsToolSettingsTab();
   const floatingWidgetId = useFloatingWidgetId();
   const canBeDocked = useWidgetAllowedToDock();
+  const { controlWidgetVisibility } = usePreviewFeatures();
 
   const isMainPanelWidget = useIsMainPanelWidget();
   const tabId = useActiveTabId();
@@ -55,6 +59,7 @@ export function TabBarButtons() {
       )}
       {isToolSettings && <Dock />}
       {isMainPanelWidget && <PinToggle />}
+      {controlWidgetVisibility && <MenuButton />}
     </div>
   );
 }

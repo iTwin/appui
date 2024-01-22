@@ -22,6 +22,7 @@ interface KnownPreviewFeatures extends KnownPreviewLayoutFeatures {
 const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   contentAlwaysMaxSize: undefined,
   enableMaximizedFloatingWidget: undefined,
+  controlWidgetVisibility: undefined,
   ...{ newToolbars: undefined }, // Hidden feature used in storybook only (to avoid trimming).
 };
 
