@@ -51,16 +51,15 @@ describe("<TimeField />", () => {
     const renderedComponent = render(
       <TimeField
         time={zeroTime}
-        timeDisplay={TimeDisplay.H12MSC}
+        timeDisplay={TimeDisplay.H12MC}
         readOnly={true}
       />
     );
     const inputs = renderedComponent.container.querySelectorAll("input");
-    expect(inputs.length).to.eq(4);
+    expect(inputs.length).to.eq(3);
     expect(inputs[0].value).to.eq("12");
     expect(inputs[1].value).to.eq("15");
-    expect(inputs[2].value).to.eq("58");
-    expect(inputs[3].value).to.eq("timepicker.day-period-am");
+    expect(inputs[2].value).to.eq("timepicker.day-period-am");
     expect(inputs[0].disabled);
     expect(inputs[1].disabled);
     expect(inputs[2].disabled);
@@ -70,16 +69,15 @@ describe("<TimeField />", () => {
     const renderedComponent = render(
       <TimeField
         time={amTime}
-        timeDisplay={TimeDisplay.H12MSC}
+        timeDisplay={TimeDisplay.H12MC}
         readOnly={true}
       />
     );
     const inputs = renderedComponent.container.querySelectorAll("input");
-    expect(inputs.length).to.eq(4);
+    expect(inputs.length).to.eq(3);
     expect(inputs[0].value).to.eq("09");
     expect(inputs[1].value).to.eq("15");
-    expect(inputs[2].value).to.eq("58");
-    expect(inputs[3].value).to.eq("timepicker.day-period-am");
+    expect(inputs[2].value).to.eq("timepicker.day-period-am");
     expect(inputs[0].disabled);
     expect(inputs[1].disabled);
     expect(inputs[2].disabled);

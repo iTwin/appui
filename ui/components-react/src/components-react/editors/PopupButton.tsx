@@ -208,7 +208,6 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         styleType="cta"
         title={UiCore.translate("dialog.ok")}
         onClick={props.onOk}
-        size={"small"}
       >
         <Icon iconSpec={<SvgCheckmark />} />
       </Button>
@@ -220,7 +219,6 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         data-testid="components-popup-cancel-button"
         title={UiCore.translate("dialog.cancel")}
         onClick={props.onCancel}
-        size={"small"}
       >
         <Icon iconSpec={<SvgRemove />} />
       </Button>

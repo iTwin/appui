@@ -30,7 +30,6 @@ import {
   PropertyEditorManager,
 } from "./PropertyEditorManager";
 import svgPlaceholder from "@bentley/icons-generic/icons/placeholder.svg";
-import { Button } from "@itwin/itwinui-react";
 
 // cspell:ignore buttongroup enumbuttongroup
 
@@ -206,7 +205,7 @@ export class EnumButtonGroupEditor
     );
 
     return (
-      <Button
+      <button
         ref={(ref: HTMLButtonElement | null) =>
           ref && this._btnRefs.set(choiceValue, ref)
         }
@@ -215,10 +214,9 @@ export class EnumButtonGroupEditor
         title={choice.label}
         key={choice.label}
         onClick={() => this._handleButtonClick(index)}
-        size={"small"}
       >
         <Icon iconSpec={this.state.enumIcons[index].iconSpec} />
-      </Button>
+      </button>
     );
   }
 

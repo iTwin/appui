@@ -48,7 +48,6 @@ describe("<NumberInput - React Testing Library />", () => {
         step={undefined}
         onChange={handleChange}
         disabled
-        size="medium"
       />
     );
     const disabledWrapper = wrapper.container.querySelector(
@@ -81,12 +80,7 @@ describe("<NumberInput - React Testing Library />", () => {
     expect(input.value).to.eq("1");
 
     wrapper.rerender(
-      <NumberInput
-        value={5}
-        step={undefined}
-        onChange={handleChange}
-        size="large"
-      />
+      <NumberInput value={5} step={undefined} onChange={handleChange} />
     );
     expect(input.value).to.eq("5");
 

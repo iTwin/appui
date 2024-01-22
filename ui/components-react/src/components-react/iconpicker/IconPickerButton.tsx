@@ -13,7 +13,6 @@ import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon, Popup } from "@itwin/core-react";
 import { SvgChevronDown } from "@itwin/itwinui-icons-react";
-import { Button } from "@itwin/itwinui-react";
 
 /** Properties for the [[IconItem]] React component
  * @internal
@@ -51,15 +50,14 @@ class IconItem extends React.PureComponent<IconItemProps> {
     const classes = classnames("components-icon-swatch", this.props.className);
 
     return (
-      <Button
+      <button
         {...otherProps}
         className={classes}
         style={this.props.style}
         onClick={handleClick}
-        size={"small"}
       >
         <Icon iconSpec={icon} />
-      </Button>
+      </button>
     );
   }
 }
@@ -167,14 +165,13 @@ export class IconPickerButton extends React.PureComponent<
 
     return (
       <>
-        <Button
+        <button
           data-testid="components-iconpicker-button"
           onClick={this._togglePopup}
           className={buttonClassNames}
           style={buttonStyle}
           disabled={this.props.disabled}
           ref={this._target}
-          size={"small"}
         >
           <Icon
             className="iconpicker-button-sprite"
@@ -184,7 +181,7 @@ export class IconPickerButton extends React.PureComponent<
             {" "}
             <Icon iconSpec={<SvgChevronDown />} />{" "}
           </span>
-        </Button>
+        </button>
         <Popup
           className="components-iconpicker-popup"
           isOpen={this.state.showPopup}

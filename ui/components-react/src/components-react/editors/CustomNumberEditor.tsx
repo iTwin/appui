@@ -375,7 +375,6 @@ export class CustomNumberEditor
           ref={this._inputElement}
           icon={icon}
           data-testid="components-customnumber-editor"
-          size={"small"}
         />
       );
     } else {
@@ -385,7 +384,7 @@ export class CustomNumberEditor
           {...inputProps}
           ref={this._inputElement}
           data-testid="components-customnumber-editor"
-          size={"small"}
+          size="small"
         />
       );
     }
