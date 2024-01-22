@@ -5425,7 +5425,7 @@ export class WidgetDef {
     setTooltip(v: string | ConditionalStringValue | StringGetter): void;
     // (undocumented)
     setWidgetState(newState: WidgetState): void;
-    show(): void;
+    show(): Promise<void>;
     // (undocumented)
     get state(): WidgetState;
     // (undocumented)
