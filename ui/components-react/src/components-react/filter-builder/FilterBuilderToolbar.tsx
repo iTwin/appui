@@ -9,14 +9,11 @@ import React from "react";
 import { Flex, IconButton } from "@itwin/itwinui-react";
 import { SvgAdd, SvgDelete } from "@itwin/itwinui-icons-react";
 import { UiComponents } from "../UiComponents";
-import { getiTwinUISize } from "../common/iuiUtils";
 /**
  * Props for [[PropertyFilterBuilderToolbar]] component.
  * @internal
  */
 interface PropertyFilterBuilderToolbarProps {
-  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
-  size?: "medium" | "large";
   /** Function to add child of current group. */
   onAddChild: () => void;
   /** Function to remove child from current group. */
@@ -29,7 +26,7 @@ interface PropertyFilterBuilderToolbarProps {
 export const PropertyFilterBuilderToolbar = (
   props: PropertyFilterBuilderToolbarProps
 ) => {
-  const { size, onAddChild, onDelete } = props;
+  const { onAddChild, onDelete } = props;
 
   return (
     <Flex
@@ -38,7 +35,7 @@ export const PropertyFilterBuilderToolbar = (
       justifyContent="flex-end"
     >
       <IconButton
-        size={getiTwinUISize(size)}
+        size={"small"}
         className="fb-add-rule-button"
         label={UiComponents.translate("filterBuilder.add")}
         styleType="borderless"
@@ -47,7 +44,7 @@ export const PropertyFilterBuilderToolbar = (
         <SvgAdd />
       </IconButton>
       <IconButton
-        size={getiTwinUISize(size)}
+        size={"small"}
         className="fb-remove-rule-button"
         label={UiComponents.translate("filterBuilder.delete")}
         styleType="borderless"

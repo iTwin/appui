@@ -34,8 +34,6 @@ export interface PropertyFilterBuilderRuleRendererProps {
   rule: PropertyFilterBuilderRule;
   /** Function to add rule to group */
   onRuleAdded: () => void;
-  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
-  size?: "medium" | "large";
 }
 
 /**
@@ -45,7 +43,7 @@ export interface PropertyFilterBuilderRuleRendererProps {
 export function PropertyFilterBuilderRuleRenderer(
   props: PropertyFilterBuilderRuleRendererProps
 ) {
-  const { path, rule, onRuleAdded, size } = props;
+  const { path, rule, onRuleAdded } = props;
   const { properties, actions, onRulePropertySelected } = React.useContext(
     PropertyFilterBuilderContext
   );
@@ -101,11 +99,10 @@ export function PropertyFilterBuilderRuleRenderer(
           property={prop}
           onChange={onRuleOperatorChange}
           operator={operator}
-          size={size}
         />
       );
     },
-    [operator, ruleOperatorRenderer, onRuleOperatorChange, size]
+    [operator, ruleOperatorRenderer, onRuleOperatorChange]
   );
 
   const valueRenderer = React.useCallback(
@@ -122,11 +119,10 @@ export function PropertyFilterBuilderRuleRenderer(
           property={prop}
           onChange={onRuleValueChange}
           value={value}
-          size={size}
         />
       );
     },
-    [value, ruleValueRenderer, onRuleValueChange, size]
+    [value, ruleValueRenderer, onRuleValueChange]
   );
 
   return (
@@ -138,7 +134,6 @@ export function PropertyFilterBuilderRuleRenderer(
           onSelectedPropertyChanged={onSelectedPropertyChanged}
           propertyRenderer={propertyRenderer}
           isDisabled={isDisabled}
-          size={size}
         />
         {property !== undefined ? operatorRenderer(property) : null}
         {property !== undefined &&
@@ -157,7 +152,6 @@ export function PropertyFilterBuilderRuleRenderer(
         <PropertyFilterBuilderToolbar
           onAddChild={handleRuleAdded}
           onDelete={removeRule}
-          size={size}
         />
       </Flex>
     </div>

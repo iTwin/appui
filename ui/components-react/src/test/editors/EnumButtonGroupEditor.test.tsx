@@ -82,11 +82,7 @@ describe("<EnumButtonGroupEditor />", () => {
     }
 
     const renderedComponent = render(
-      <EnumButtonGroupEditor
-        propertyRecord={record}
-        onCommit={handleCommit}
-        size="medium"
-      />
+      <EnumButtonGroupEditor propertyRecord={record} onCommit={handleCommit} />
     );
     expect(await waitFor(() => renderedComponent.getByTestId("Green"))).not.to
       .be.null;
@@ -116,7 +112,7 @@ describe("<EnumButtonGroupEditor />", () => {
     );
     TestUtils.toggleBlueEnumValueEnabled();
     renderedComponent.rerender(
-      <EnumButtonGroupEditor propertyRecord={record} size="large" />
+      <EnumButtonGroupEditor propertyRecord={record} />
     );
     await waitFor(() => renderedComponent.getByTestId("Blue"));
     expect(blueButton.classList.contains("nz-is-disabled")).to.be.equal(

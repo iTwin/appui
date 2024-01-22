@@ -16,8 +16,6 @@ import { PropertyFilterRuleGroupOperator } from "./Operators";
  * @beta
  */
 export interface PropertyFilterBuilderLogicalOperatorProps {
-  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
-  size?: "medium" | "large";
   /** Allows toggling of operator by clicking operator text. */
   isDisabled?: boolean;
   /** Operator to combine FilterBuilderRules. Must be either "And" or "Or". */
@@ -34,7 +32,7 @@ export interface PropertyFilterBuilderLogicalOperatorProps {
 export const PropertyFilterBuilderLogicalOperator = (
   props: PropertyFilterBuilderLogicalOperatorProps
 ) => {
-  const { size, isDisabled, operator, onOperatorChange, className } = props;
+  const { isDisabled, operator, onOperatorChange, className } = props;
 
   const toggle = () =>
     operator === PropertyFilterRuleGroupOperator.And
@@ -46,10 +44,8 @@ export const PropertyFilterBuilderLogicalOperator = (
       ? UiComponents.translate("filterBuilder.operators.and")
       : UiComponents.translate("filterBuilder.operators.or");
 
-  const sizeClass = size === "large" ? "fb-logical-operator-large" : "";
-
   return (
-    <div className={cx("fb-logical-operator", className, sizeClass)}>
+    <div className={cx("fb-logical-operator", className)}>
       {isDisabled ? (
         <span>{operatorDisplayText}</span>
       ) : (

@@ -40,7 +40,6 @@ import {
   PropertyEditorBase,
   PropertyEditorManager,
 } from "./PropertyEditorManager";
-import { getiTwinUISize } from "../common/iuiUtils";
 
 /** @internal */
 interface CustomNumberEditorState {
@@ -376,7 +375,7 @@ export class CustomNumberEditor
           ref={this._inputElement}
           icon={icon}
           data-testid="components-customnumber-editor"
-          size={getiTwinUISize(this.props.size)}
+          size={"small"}
         />
       );
     } else {
@@ -386,7 +385,7 @@ export class CustomNumberEditor
           {...inputProps}
           ref={this._inputElement}
           data-testid="components-customnumber-editor"
-          size={getiTwinUISize(this.props.size)}
+          size={"small"}
         />
       );
     }

@@ -12,7 +12,6 @@ import { Input } from "@itwin/itwinui-react";
 import type { TimeDisplay } from "@itwin/appui-abstract";
 import { UiComponents } from "../UiComponents";
 import "./TimeField.scss";
-import { getiTwinUISize } from "../common/iuiUtils";
 
 /** Interface used to hold 24 hour time in
  * hours, minutes, and seconds.
@@ -32,7 +31,6 @@ export interface TimeFieldProps {
   timeDisplay: TimeDisplay;
   onTimeChange?: (time: TimeSpec) => void;
   readOnly?: boolean;
-  size?: "medium" | "large";
 }
 
 function getValidInt(
@@ -66,7 +64,6 @@ export function TimeField({
   timeDisplay,
   readOnly,
   onTimeChange,
-  size,
 }: TimeFieldProps) {
   const initialDateRef = React.useRef(time);
   const amLabelRef = React.useRef(
@@ -364,7 +361,7 @@ export function TimeField({
         onChange={handleHoursChange}
         value={hoursText}
         disabled={readOnly}
-        size={getiTwinUISize(size)}
+        size={"small"}
       />
       <span className="component-time-separator">:</span>
       <Input
@@ -374,7 +371,7 @@ export function TimeField({
         onChange={handleMinutesChange}
         value={minutesText}
         disabled={readOnly}
-        size={getiTwinUISize(size)}
+        size={"small"}
       />
       {showSeconds && (
         <>
@@ -386,7 +383,7 @@ export function TimeField({
             onChange={handleSecondsChange}
             value={secondsText}
             disabled={readOnly}
-            size={getiTwinUISize(size)}
+            size={"small"}
           />
         </>
       )}
@@ -398,7 +395,7 @@ export function TimeField({
           onChange={handleDayPeriodChange}
           value={dayPeriodText}
           disabled={readOnly}
-          size={getiTwinUISize(size)}
+          size={"small"}
         />
       )}
     </div>

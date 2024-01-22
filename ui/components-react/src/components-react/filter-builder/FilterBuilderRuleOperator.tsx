@@ -14,7 +14,6 @@ import {
   getPropertyFilterOperatorLabel,
   getPropertyFilterOperators,
 } from "./Operators";
-import { getiTwinUISize } from "../common/iuiUtils";
 
 /**
  * Props for [[PropertyFilterBuilderRuleOperator]] component.
@@ -27,8 +26,6 @@ export interface PropertyFilterBuilderRuleOperatorProps {
   property: PropertyDescription;
   /** Callback that is invoked when selected operator changes. */
   onChange: (operator: PropertyFilterRuleOperator) => void;
-  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
-  size?: "medium" | "large";
 }
 
 /**
@@ -38,7 +35,7 @@ export interface PropertyFilterBuilderRuleOperatorProps {
 export function PropertyFilterBuilderRuleOperator(
   props: PropertyFilterBuilderRuleOperatorProps
 ) {
-  const { operator, property, onChange, size } = props;
+  const { operator, property, onChange } = props;
 
   const availableOperators = React.useMemo(
     () => getPropertyFilterOperators(property),
@@ -66,7 +63,7 @@ export function PropertyFilterBuilderRuleOperator(
         options={availableOptions}
         value={selectedOperator}
         onChange={onChange}
-        size={getiTwinUISize(size)}
+        size={"small"}
       />
     </div>
   );

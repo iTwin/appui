@@ -14,7 +14,6 @@ import type { CommonProps } from "@itwin/core-react";
 import { Icon, Popup } from "@itwin/core-react";
 import { SvgChevronDown } from "@itwin/itwinui-icons-react";
 import { Button } from "@itwin/itwinui-react";
-import { getiTwinUISize } from "../common/iuiUtils";
 
 /** Properties for the [[IconItem]] React component
  * @internal
@@ -26,8 +25,6 @@ interface IconItemProps
   icon: string;
   /** function to run when user selects icon */
   onClick?: () => void;
-  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
-  size?: "medium" | "large";
 }
 
 /** IconItem Functional component
@@ -44,7 +41,6 @@ class IconItem extends React.PureComponent<IconItemProps> {
     const {
       onClick,
       icon, // do not pass on item specific props
-      size,
       ...otherProps
     } = this.props;
 
@@ -60,7 +56,7 @@ class IconItem extends React.PureComponent<IconItemProps> {
         className={classes}
         style={this.props.style}
         onClick={handleClick}
-        size={getiTwinUISize(size)}
+        size={"small"}
       >
         <Icon iconSpec={icon} />
       </Button>
@@ -89,8 +85,6 @@ export interface IconPickerProps
   dropDownTitle?: string;
   /** Number of columns */
   numColumns: number;
-  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
-  size?: "medium" | "large";
 }
 
 /** @internal */
@@ -180,7 +174,7 @@ export class IconPickerButton extends React.PureComponent<
           style={buttonStyle}
           disabled={this.props.disabled}
           ref={this._target}
-          size={getiTwinUISize(this.props.size)}
+          size={"small"}
         >
           <Icon
             className="iconpicker-button-sprite"

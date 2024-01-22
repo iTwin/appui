@@ -11,7 +11,6 @@ import type { PropertyDescription } from "@itwin/appui-abstract";
 import type { ComboBoxProps, SelectOption } from "@itwin/itwinui-react";
 import { ComboBox, MenuItem } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
-import { getiTwinUISize } from "../common/iuiUtils";
 
 /**
  * Props for [[PropertyFilterBuilderRuleProperty]] component.
@@ -28,8 +27,6 @@ export interface PropertyFilterBuilderRulePropertyProps {
   propertyRenderer?: (name: string) => React.ReactNode;
   /** Specifies whether selector should be disabled or not. */
   isDisabled?: boolean;
-  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
-  size?: "medium" | "large";
 }
 
 /**
@@ -98,7 +95,7 @@ export function PropertyFilterBuilderRuleProperty(
         inputProps={{
           placeholder: UiComponents.translate("filterBuilder.chooseProperty"),
           disabled: isDisabled,
-          size: getiTwinUISize(props.size),
+          size: "small",
         }}
         itemRenderer={itemRenderer}
         enableVirtualization={true}

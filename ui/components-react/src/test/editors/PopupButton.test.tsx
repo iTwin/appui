@@ -19,12 +19,7 @@ describe("<PopupButton />", () => {
 
   it("renders correctly with showArrow and showShadow", async () => {
     render(
-      <PopupButton
-        label="Hello"
-        showArrow={true}
-        showShadow={true}
-        size="medium"
-      >
+      <PopupButton label="Hello" showArrow={true} showShadow={true}>
         <div>Hello World</div>
       </PopupButton>
     );
@@ -38,7 +33,7 @@ describe("<PopupButton />", () => {
 
   it("renders correctly with moveFocus", async () => {
     render(
-      <PopupButton label="Hello" moveFocus={false} size="large">
+      <PopupButton label="Hello" moveFocus={false}>
         <button data-testid={"focused-button"} />
       </PopupButton>
     );

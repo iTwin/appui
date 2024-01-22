@@ -99,8 +99,6 @@ export interface PropertyFilterBuilderRendererProps {
   ruleGroupDepthLimit?: number;
   /** Specifies whether component is disabled or not. */
   isDisabled?: boolean;
-  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
-  size?: "medium" | "large";
   /** Controls whether the group operator is toggle-able. */
   isGroupOperatorDisabled?: boolean;
 }
@@ -123,7 +121,6 @@ export function PropertyFilterBuilderRenderer(
     ruleValueRenderer,
     propertyRenderer,
     isDisabled,
-    size,
     isGroupOperatorDisabled,
   } = props;
 
@@ -153,7 +150,6 @@ export function PropertyFilterBuilderRenderer(
         <PropertyFilterBuilderRuleGroupRenderer
           path={ROOT_GROUP_PATH}
           group={rootGroup}
-          size={size}
           isGroupOperatorDisabled={isGroupOperatorDisabled}
         />
       </PropertyFilterBuilderContext.Provider>

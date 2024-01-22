@@ -51,7 +51,7 @@ describe("<TextEditor />", () => {
   });
 
   it("renders correctly with style and no record", () => {
-    render(<TextEditor style={{ color: "red" }} size="medium" />);
+    render(<TextEditor style={{ color: "red" }} />);
 
     expect(screen.getByRole("textbox"))
       .to.satisfy(styleMatch({ color: "red" }))
@@ -60,7 +60,7 @@ describe("<TextEditor />", () => {
 
   it("getValue returns proper value after componentDidMount & setState", async () => {
     const record = TestUtils.createPrimitiveStringProperty("Test", "MyValue");
-    render(<TextEditor propertyRecord={record} size="large" />);
+    render(<TextEditor propertyRecord={record} />);
 
     await waitFor(() =>
       expect(screen.getByRole("textbox")).to.have.property("value", "MyValue")

@@ -51,18 +51,6 @@ $components-enumbuttongroup-editor-space-between-toolbar-items: 1px;
   }
 }
 
-.components-enumbuttongroup-large {
-  height: var(--iui-component-height-large);
-}
-
-.components-enumbuttongroup-medium {
-  height: var(--iui-component-height);
-}
-
-.components-enumbuttongroup-small {
-  height: var(--iui-component-height-small);
-}
-
 .components-enumbuttongroup-button {
   border-width: 0;
   background-color: var(--iui-color-background);

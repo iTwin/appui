@@ -223,13 +223,7 @@ export class TextEditor
           {...inputProps}
           ref={this._inputElement}
           data-testid="components-text-editor"
-          size={
-            !this.props.size
-              ? "small"
-              : this.props.size === "medium"
-              ? undefined
-              : "large"
-          }
+          size={"small"}
         />
       );
     }

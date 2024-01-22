@@ -26,7 +26,7 @@ describe("<ToggleEditor />", () => {
 
   it("record set correct value", async () => {
     const record = TestUtils.createBooleanProperty("Test", true, "toggle");
-    render(<ToggleEditor propertyRecord={record} size="large" />);
+    render(<ToggleEditor propertyRecord={record} />);
 
     expect(screen.getByRole("switch")).to.have.property("checked", true);
   });
@@ -34,7 +34,7 @@ describe("<ToggleEditor />", () => {
   it("isDisabled is set by the property record", async () => {
     const record = TestUtils.createBooleanProperty("Test", false, "toggle");
     record.isDisabled = true;
-    render(<ToggleEditor propertyRecord={record} size="medium" />);
+    render(<ToggleEditor propertyRecord={record} />);
 
     expect(screen.getByRole("switch")).to.have.property("disabled", true);
   });

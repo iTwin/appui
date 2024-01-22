@@ -58,20 +58,6 @@
     }
   }
 
-  &.components-popup-button-small {
-    height: var(--iui-component-height-small);
-    font-size: var(--iui-font-size-1);
-  }
-
-  &.components-popup-button-medium {
-    height: var(--iui-component-height);
-  }
-
-  &.components-popup-button-large {
-    height: var(--iui-component-height-large);
-    font-size: var(--iui-font-size-2);
-  }
-
   &:focus,
   &.components-popup-expanded {
     border-color: var(--iui-color-border);

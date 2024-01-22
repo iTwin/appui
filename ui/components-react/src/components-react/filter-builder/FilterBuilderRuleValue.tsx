@@ -24,8 +24,6 @@ export interface PropertyFilterBuilderRuleValueProps {
   property: PropertyDescription;
   /** Callback that is invoked when value changes. */
   onChange: (value: PropertyValue) => void;
-  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
-  size?: "medium" | "large";
 }
 
 /**
@@ -45,7 +43,7 @@ export interface PropertyFilterBuilderRuleValueRendererProps
 export function PropertyFilterBuilderRuleValue(
   props: PropertyFilterBuilderRuleValueProps
 ) {
-  const { value, property, onChange, size } = props;
+  const { value, property, onChange } = props;
 
   const propertyRecord = React.useMemo(() => {
     return new PropertyRecord(
@@ -68,7 +66,6 @@ export function PropertyFilterBuilderRuleValue(
       onCommit={onValueChange}
       setFocus={false}
       shouldCommitOnChange={false}
-      size={size}
     />
   );
 }

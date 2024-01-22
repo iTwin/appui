@@ -53,7 +53,6 @@ describe("<TimeField />", () => {
         time={zeroTime}
         timeDisplay={TimeDisplay.H12MSC}
         readOnly={true}
-        size="medium"
       />
     );
     const inputs = renderedComponent.container.querySelectorAll("input");
@@ -73,7 +72,6 @@ describe("<TimeField />", () => {
         time={amTime}
         timeDisplay={TimeDisplay.H12MSC}
         readOnly={true}
-        size="large"
       />
     );
     const inputs = renderedComponent.container.querySelectorAll("input");

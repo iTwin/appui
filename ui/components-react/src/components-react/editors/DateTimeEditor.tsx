@@ -46,7 +46,6 @@ interface DateTimeEditorState {
 /** @internal */
 interface DateTimeEditorProps extends PropertyEditorProps {
   showTime?: boolean;
-  size?: "medium" | "large";
 }
 
 /** DateTimeEditor React component that is a property editor for selection of date and time.
@@ -327,7 +326,6 @@ export class DateTimeEditor
           onClose={this._handleClose}
           onEnter={this._handleEnter}
           setFocus={this.props.setFocus}
-          size={this.props.size}
         >
           <PopupContent>
             <>
@@ -349,7 +347,6 @@ export class DateTimeEditor
                       time={timeSpec}
                       timeDisplay={this.state.timeDisplay}
                       onTimeChange={this._handleTimeChange}
-                      size={this.props.size}
                     />
                   </div>
                 )}

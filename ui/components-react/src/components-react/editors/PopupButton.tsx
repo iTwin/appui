@@ -19,7 +19,6 @@ import {
   SvgChevronDown,
   SvgRemove,
 } from "@itwin/itwinui-icons-react";
-import { getiTwinUISize } from "../common/iuiUtils";
 
 /** Properties for [[PopupButton]] component
  * @alpha
@@ -54,8 +53,6 @@ export interface PopupButtonProps extends CommonProps {
   onClose?: () => void;
   /** Listens for Enter key in popup */
   onEnter?: () => void;
-  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
-  size?: "medium" | "large";
 }
 
 /** @internal */
@@ -127,12 +124,7 @@ export class PopupButton extends React.PureComponent<
 
     const classNames = classnames(
       "components-popup-button",
-      this.state.showPopup && "components-popup-expanded",
-      this.props.size === "medium"
-        ? "components-popup-button-medium"
-        : this.props.size === "large"
-        ? "components-popup-button-large"
-        : "components-popup-button-small"
+      this.state.showPopup && "components-popup-expanded"
     );
 
     const valueClassNames = classnames(
@@ -199,8 +191,6 @@ export function PopupContent(props: CommonDivProps) {
 export interface OkCancelProps {
   onOk: (event: React.MouseEvent) => void;
   onCancel: (event: React.MouseEvent) => void;
-  /** Size to render the component. If undefined, defaults to iTwinUI "small" size. */
-  size?: "medium" | "large";
 }
 
 /** OK/Cancel Buttons
@@ -218,7 +208,7 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         styleType="cta"
         title={UiCore.translate("dialog.ok")}
         onClick={props.onOk}
-        size={getiTwinUISize(props.size)}
+        size={"small"}
       >
         <Icon iconSpec={<SvgCheckmark />} />
       </Button>
@@ -230,7 +220,7 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         data-testid="components-popup-cancel-button"
         title={UiCore.translate("dialog.cancel")}
         onClick={props.onCancel}
-        size={getiTwinUISize(props.size)}
+        size={"small"}
       >
         <Icon iconSpec={<SvgRemove />} />
       </Button>

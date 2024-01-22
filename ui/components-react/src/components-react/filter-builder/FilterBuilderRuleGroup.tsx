@@ -28,8 +28,6 @@ export interface PropertyFilterBuilderRuleGroupRendererProps {
   path: string[];
   /** Rule group to render. */
   group: PropertyFilterBuilderRuleGroup;
-  /** Size to render components. If undefined, defaults to iTwinUI "small" size. */
-  size?: "medium" | "large";
   /** Controls whether the group operator is toggle-able. */
   isGroupOperatorDisabled?: boolean;
 }
@@ -41,7 +39,7 @@ export interface PropertyFilterBuilderRuleGroupRendererProps {
 export function PropertyFilterBuilderRuleGroupRenderer(
   props: PropertyFilterBuilderRuleGroupRendererProps
 ) {
-  const { path, group, size, isGroupOperatorDisabled } = props;
+  const { path, group, isGroupOperatorDisabled } = props;
   const { actions } = React.useContext(PropertyFilterBuilderContext);
   const { onRuleAdded, groupRef } = useRulePropertyFocus(group.items.length);
 
@@ -65,7 +63,6 @@ export function PropertyFilterBuilderRuleGroupRenderer(
         <PropertyFilterBuilderRuleGroupOperator
           operator={group.operator}
           onChange={onOperatorChange}
-          size={size}
           isGroupOperatorDisabled={isGroupOperatorDisabled}
         />
       ) : null}
@@ -76,7 +73,6 @@ export function PropertyFilterBuilderRuleGroupRenderer(
               path={path}
               item={item}
               onRuleAdded={onRuleAdded}
-              size={size}
             />
           </div>
         ))}
@@ -94,8 +90,6 @@ export interface PropertyFilterBuilderRuleGroupOperatorProps {
   operator: PropertyFilterRuleGroupOperator;
   /** Callback that is invoked when selected operator changes. */
   onChange: (operator: PropertyFilterRuleGroupOperator) => void;
-  /** Size to render component. If undefined, defaults to iTwinUI "small" size. */
-  size?: "medium" | "large";
   /** Controls whether the group operator is toggle-able. */
   isGroupOperatorDisabled?: boolean;
 }
@@ -107,7 +101,7 @@ export interface PropertyFilterBuilderRuleGroupOperatorProps {
 export function PropertyFilterBuilderRuleGroupOperator(
   props: PropertyFilterBuilderRuleGroupOperatorProps
 ) {
-  const { operator, size, isGroupOperatorDisabled, onChange } = props;
+  const { operator, isGroupOperatorDisabled, onChange } = props;
 
   return (
     <Flex.Item alignSelf="stretch">
@@ -116,7 +110,6 @@ export function PropertyFilterBuilderRuleGroupOperator(
         operator={operator}
         onOperatorChange={onChange}
         isDisabled={isGroupOperatorDisabled}
-        size={size}
       />
     </Flex.Item>
   );
@@ -125,7 +118,6 @@ interface PropertyFilterBuilderGroupOrRuleProps {
   path: string[];
   item: PropertyFilterBuilderRuleGroupItem;
   onRuleAdded: () => void;
-  size?: "medium" | "large";
 }
 
 const PropertyFilterBuilderGroupOrRule = React.memo(
@@ -133,7 +125,6 @@ const PropertyFilterBuilderGroupOrRule = React.memo(
     path,
     item,
     onRuleAdded,
-    size,
   }: PropertyFilterBuilderGroupOrRuleProps) {
     const itemPath = [...path, item.id];
 
@@ -146,7 +137,6 @@ const PropertyFilterBuilderGroupOrRule = React.memo(
         path={itemPath}
         rule={item}
         onRuleAdded={onRuleAdded}
-        size={size}
       />
     );
   }
