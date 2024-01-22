@@ -541,7 +541,7 @@ export class WidgetDef {
    * I.e. opens the stage panel or brings the floating widget to front of the screen.
    * @public
    */
-  public show() {
+  public async show() {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     const state = frontstageDef?.nineZoneState;
     if (!state) return;
@@ -566,36 +566,41 @@ export class WidgetDef {
         const isChrome =
           navigator.userAgent.toLowerCase().indexOf("chrome") > -1;
 
-        if (
-          !isChrome &&
-          isSafari &&
-          window.localStorage.getItem("hideSafariPopoutFocusMessage") !== "true"
-        ) {
+        const hideFocusFail = await UiFramework.getUiStateStorage().getSetting(
+          "popoutFocus",
+          "hidePopoutFocusFail"
+        );
+        if (!isChrome && isSafari && hideFocusFail.setting !== true) {
           const checkbox = (
             <div>
               <input
                 type="checkbox"
                 id="doNotShowAgain"
                 name="doNotShowAgain"
-                onChange={() => {
-                  if (
-                    window.localStorage.getItem(
-                      "hideSafariPopoutFocusMessage"
-                    ) !== "true"
-                  ) {
-                    window.localStorage.setItem(
-                      "hideSafariPopoutFocusMessage",
-                      "true"
+                onChange={async () => {
+                  const focusFailValue =
+                    await UiFramework.getUiStateStorage().getSetting(
+                      "popoutFocus",
+                      "hidePopoutFocusFail"
+                    );
+                  if (focusFailValue.setting !== true) {
+                    await UiFramework.getUiStateStorage().saveSetting(
+                      "popoutFocus",
+                      "hidePopoutFocusFail",
+                      true
                     );
                   } else {
-                    window.localStorage.setItem(
-                      "hideSafariPopoutFocusMessage",
-                      "false"
+                    await UiFramework.getUiStateStorage().saveSetting(
+                      "popoutFocus",
+                      "hidePopoutFocusFail",
+                      false
                     );
                   }
                 }}
               />
-              <label htmlFor="doNotShowAgain">Do not show again</label>
+              <label htmlFor="doNotShowAgain">
+                {UiFramework.translate("general.doNotShowAgain")}
+              </label>
             </div>
           );
 
@@ -603,8 +608,12 @@ export class WidgetDef {
             new ReactNotifyMessageDetails(
               OutputMessagePriority.Error,
               {
-                reactNode: UiFramework.translate(
-                  "widget.errorMessage.popoutSafariFocusFail"
+                reactNode: UiFramework.localization.getLocalizedString(
+                  "widget.errorMessage.popoutFocusFail",
+                  {
+                    widgetLabel: this.label,
+                    ns: UiFramework.localizationNamespace,
+                  }
                 ),
               },
               {
