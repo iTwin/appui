@@ -313,7 +313,7 @@ public;TableStructValueRenderer
 public;TextareaEditor 
 public;TextareaPropertyEditor 
 public;TextEditor 
-internal;TimeField({ time, timeDisplay, readOnly, onTimeChange, size, }: TimeFieldProps): JSX.Element
+internal;TimeField({ time, timeDisplay, readOnly, onTimeChange, }: TimeFieldProps): JSX.Element
 internal;TimeFieldProps
 internal;TimeSpec
 internal;Title(props: TitleProps): JSX.Element

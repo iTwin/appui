@@ -623,7 +623,6 @@ export interface EditorContainerProps extends CommonProps {
     setFocus?: boolean;
     // @internal
     shouldCommitOnChange?: boolean;
-    size?: "medium" | "large";
     title?: string;
 }
 
@@ -2044,7 +2043,6 @@ export interface PropertyEditorProps extends CommonProps {
     setFocus?: boolean;
     // @internal
     shouldCommitOnChange?: boolean;
-    size?: "medium" | "large";
 }
 
 // @beta
@@ -2075,7 +2073,6 @@ export interface PropertyFilterBuilderLogicalOperatorProps {
     isDisabled?: boolean;
     onOperatorChange: (operator: PropertyFilterRuleGroupOperator) => void;
     operator: PropertyFilterRuleGroupOperator;
-    size?: "medium" | "large";
 }
 
 // @beta
@@ -2099,7 +2096,6 @@ export interface PropertyFilterBuilderRendererProps {
     ruleGroupDepthLimit?: number;
     ruleOperatorRenderer?: (props: PropertyFilterBuilderRuleOperatorProps) => React_2.ReactNode;
     ruleValueRenderer?: (props: PropertyFilterBuilderRuleValueRendererProps) => React_2.ReactNode;
-    size?: "medium" | "large";
 }
 
 // @beta
@@ -2131,7 +2127,6 @@ export interface PropertyFilterBuilderRuleOperatorProps {
     onChange: (operator: PropertyFilterRuleOperator) => void;
     operator?: PropertyFilterRuleOperator;
     property: PropertyDescription;
-    size?: "medium" | "large";
 }
 
 // @beta
@@ -2141,7 +2136,6 @@ export function PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleV
 export interface PropertyFilterBuilderRuleValueProps {
     onChange: (value: PropertyValue) => void;
     property: PropertyDescription;
-    size?: "medium" | "large";
     value?: PropertyValue;
 }
 
@@ -2869,7 +2863,7 @@ export class TextEditor extends React_2.PureComponent<PropertyEditorProps, TextE
 }
 
 // @internal
-export function TimeField({ time, timeDisplay, readOnly, onTimeChange, size, }: TimeFieldProps): JSX.Element;
+export function TimeField({ time, timeDisplay, readOnly, onTimeChange, }: TimeFieldProps): JSX.Element;
 
 // @internal
 export interface TimeFieldProps {
@@ -2877,8 +2871,6 @@ export interface TimeFieldProps {
     onTimeChange?: (time: TimeSpec) => void;
     // (undocumented)
     readOnly?: boolean;
-    // (undocumented)
-    size?: "medium" | "large";
     // (undocumented)
     time: TimeSpec;
     // (undocumented)
