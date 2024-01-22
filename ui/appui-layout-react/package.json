@@ -98,8 +98,9 @@
     "NOTE: core-frontend should remain UI technology agnostic, so no react/angular dependencies are allowed"
   ],
   "dependencies": {
-    "@itwin/itwinui-variables": "^2.0.0",
     "@itwin/itwinui-icons-react": "^2.1.0",
+    "@itwin/itwinui-react": "^2.11.11",
+    "@itwin/itwinui-variables": "^2.0.0",
     "classnames": "2.3.1",
     "immer": "9.0.6",
     "lodash": "^4.17.10",

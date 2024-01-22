@@ -505,6 +505,7 @@ importers:
       '@itwin/core-react': workspace:*
       '@itwin/eslint-plugin': ^4.0.0-dev.45
       '@itwin/itwinui-icons-react': ^2.1.0
+      '@itwin/itwinui-react': ^2.11.11
       '@itwin/itwinui-variables': ^2.0.0
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
@@ -550,6 +551,7 @@ importers:
       zustand: ^4.4.1
     dependencies:
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-react': 2.11.11_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 2.0.0
       classnames: 2.3.1
       immer: 9.0.6
