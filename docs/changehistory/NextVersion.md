@@ -15,6 +15,10 @@ Table of contents:
 
 ## @itwin/appui-react
 
+### Improvements
+
+- Add ability not to clear selection on `HideIsolateEmphasizeActionHandler.processIsolateSelected`
+
 ### Additions
 
 - `useWidget` hook to convey widget state and location.
