@@ -13,8 +13,8 @@ import {
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { FrontstageStory } from "./Frontstage";
-import { removeProperty, createFrontstageProvider } from "../Utils";
-import { createCursorEvents, VirtualCursorElement } from "../VirtualCursor";
+import { createFrontstageProvider, removeProperty } from "../Utils";
+import { VirtualCursorElement, createCursorEvents } from "../VirtualCursor";
 
 const meta = {
   title: "Frontstage/FrontstageProvider",

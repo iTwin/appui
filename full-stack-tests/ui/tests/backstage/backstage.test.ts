@@ -16,8 +16,7 @@ test("backstage test with snapshotPath", async ({ page, baseURL }) => {
   await page.getByRole("button", { name: "Open Backstage" }).click();
 
   const backstage = page.getByRole("menu").filter({
-    hasText:
-      "View iModelReview iModelSimple viewportSimple custom frontstageCustom Contentfro",
+    hasText: "View iModelReview iModelSimple viewport",
   });
   await expect(backstage).toHaveScreenshot();
 });
@@ -34,8 +33,7 @@ test("backstage test without snapshotPath", async ({ page, baseURL }) => {
   await page.getByRole("button", { name: "Open Backstage" }).click();
 
   const backstage = page.getByRole("menu").filter({
-    hasText:
-      "View iModelReview iModelSimple viewportSimple custom frontstageCustom Contentfro",
+    hasText: "View iModelReview iModelSimple viewport",
   });
   await expect(backstage).toHaveScreenshot();
 });
