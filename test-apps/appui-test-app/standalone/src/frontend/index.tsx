@@ -95,12 +95,13 @@ import {
   AppUiTestProviders,
   ContentLayoutStage,
   CustomContentFrontstage,
-  CustomFrontstageProvider,
+  CustomStageUiItemsProvider,
   FloatingWidgetsUiItemsProvider,
   InspectUiItemInfoToolProvider,
   MessageUiItemsProvider,
   PopoutWindowsFrontstage,
   PreviewFeaturesToggleProvider,
+  registerCustomFrontstage,
   SynchronizedFloatingViewportStage,
   TestFrontstageProvider,
   WidgetApiStage,
@@ -334,7 +335,7 @@ export class SampleAppIModelApp {
     // register the localized strings for the package and set up that contains the sample UiItems providers
     await AppUiTestProviders.initializeLocalizationAndState();
 
-    // initialize UI Item providers
+    // Register item providers
     UiItemsManager.register(
       new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace)
     );
@@ -349,16 +350,20 @@ export class SampleAppIModelApp {
       )
     );
     UiItemsManager.register(new PreviewFeaturesToggleProvider());
-    CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
-    WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
-    ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
-    CustomFrontstageProvider.register(AppUiTestProviders.localizationNamespace);
+    UiItemsManager.register(new CustomStageUiItemsProvider());
+
+    // Register frontstages
+    CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace);
+    WidgetApiStage.register(AppUiTestProviders.localizationNamespace);
+    ContentLayoutStage.register(AppUiTestProviders.localizationNamespace);
     UiFramework.frontstages.addFrontstageProvider(new TestFrontstageProvider());
+    registerCustomFrontstage();
     SynchronizedFloatingViewportStage.register(
       AppUiTestProviders.localizationNamespace
     );
-    PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
-    // try starting up event loop if not yet started so key-in palette can be opened
+    PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
+
+    // TODO: should not be required. Start event loop to open key-in palette.
     IModelApp.startEventLoop();
   }
 

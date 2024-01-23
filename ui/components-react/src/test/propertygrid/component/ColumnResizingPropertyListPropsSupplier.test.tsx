@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { ColumnResizingPropertyListPropsSupplier } from "../../../components-react/propertygrid/component/ColumnResizingPropertyListPropsSupplier";
@@ -15,31 +14,19 @@ import { render, screen, waitFor } from "@testing-library/react";
 
 describe("ColumnResizingPropertyListPropsSupplier", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  let clock: sinon.SinonFakeTimers;
   let records: PropertyRecord[];
   const throttleMs = 16;
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
 
-  before(() => {
-    clock = sinon.useFakeTimers(Date.now());
-  });
-
   beforeEach(() => {
     theUserTo = userEvent.setup({
-      advanceTimers: (delay) => {
-        clock.tick(delay);
-      },
       delay: throttleMs,
     });
     records = [
       TestUtils.createPrimitiveStringProperty("CADID", "0000 0005 00E0 02D8"),
     ];
-  });
-
-  after(() => {
-    clock.restore();
   });
 
   describe("ratio between label and value when width below minimum column size", () => {

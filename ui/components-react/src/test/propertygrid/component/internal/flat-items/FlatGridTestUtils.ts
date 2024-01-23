@@ -282,25 +282,23 @@ export class FlatGridTestUtils {
   }
 
   private static replaceMockGridItemProperties(
-    mockItem: IMutableFlatGridItem,
+    mockItem: sinon.SinonStubbedInstance<IMutableFlatGridItem>,
     type: FlatGridItemType,
     selectionKey: string,
     isExpanded?: boolean
   ) {
     Object.assign(mockItem, { key: shortid.generate() });
-    sinon.replaceGetter(mockItem, "type", () => type);
+    sinon.stub(mockItem, "type").get(() => type);
     if (isExpanded !== undefined)
-      sinon.replaceGetter(mockItem, "isExpanded", () => isExpanded);
+      sinon.stub(mockItem, "isExpanded").get(() => isExpanded);
 
-    sinon.replaceGetter(mockItem, "selectionKey", () => selectionKey);
-
-    const getChildrenStub = sinon.stub().returns([]);
-    sinon.replace(mockItem, "getChildren", getChildrenStub);
+    sinon.stub(mockItem, "selectionKey").get(() => selectionKey);
+    mockItem.getChildren.returns([]);
   }
 
   public static createMockGridCategory(name: string, isExpanded?: boolean) {
     const gridCategory = sinon.createStubInstance(MutableGridCategory);
-    sinon.replaceGetter(gridCategory, "name", () => name);
+    sinon.stub(gridCategory, "name").get(() => name);
 
     this.replaceMockGridItemProperties(
       gridCategory,

@@ -8,7 +8,6 @@ import {
   UiItemsManager,
   UiItemsProvider,
 } from "@itwin/appui-react";
-import { registerCustomFrontstage } from "./CustomFrontstage";
 import stageIconSvg from "../imodeljs.svg?sprite";
 import { registerViewportFrontstage } from "./ViewportFrontstage";
 
@@ -25,20 +24,11 @@ class ExampleStagesBackstageItemsProvider implements UiItemsProvider {
         undefined,
         stageIconSvg
       ),
-      BackstageItemUtilities.createStageLauncher(
-        "example:CustomFrontstage",
-        100,
-        30,
-        "Simple custom frontstage",
-        undefined,
-        stageIconSvg
-      ),
     ];
   }
 }
 
 export function registerExampleFrontstages(): void {
-  registerCustomFrontstage();
   registerViewportFrontstage();
 }
 

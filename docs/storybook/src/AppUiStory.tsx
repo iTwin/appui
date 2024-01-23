@@ -42,11 +42,12 @@ import { DemoIModel, useDemoIModel } from "../.storybook/addons/DemoIModel";
 export interface AppUiStoryProps {
   appBackstage?: React.ReactNode;
   children?: React.ReactNode;
-  onInitialize?: () => Promise<void>;
+  demoIModel?: boolean;
+  frontstageProviders?: FrontstageProvider[] | (() => FrontstageProvider[]);
   itemProviders?: UiItemsProvider[];
   layout?: "fullscreen";
-  frontstageProviders?: FrontstageProvider[] | (() => FrontstageProvider[]);
-  demoIModel?: boolean;
+  onInitialize?: () => Promise<void>;
+  onFrontstageActivated?: () => void;
   /** Only display provided children, otherwise, add ConfigurableUIContent component below children. Defaults to false; */
   displayChildrenOnly?: boolean;
 }
@@ -89,6 +90,10 @@ export function AppUiStory(props: AppUiStoryProps) {
       demoIModel && (await openIModel(demoIModel));
       await props.onInitialize?.();
 
+      for (const provider of props.itemProviders ?? []) {
+        UiItemsManager.register(provider);
+      }
+
       const frontstageProviders = getFrontstageProviders(
         props.frontstageProviders
       );
@@ -127,14 +132,21 @@ export function AppUiStory(props: AppUiStoryProps) {
 }
 
 function Initialized(props: AppUiStoryProps) {
+  const { frontstageProviders, onFrontstageActivated } = props;
   React.useEffect(() => {
-    const frontstageProviders = getFrontstageProviders(
-      props.frontstageProviders
-    );
-    const defaultProvider = frontstageProviders[0];
-    defaultProvider &&
-      void UiFramework.frontstages.setActiveFrontstage(defaultProvider.id);
-  }, [props.frontstageProviders]);
+    let ignore = false;
+    const providers = getFrontstageProviders(frontstageProviders);
+    const defaultProvider = providers[0];
+    (async function () {
+      if (!defaultProvider) return;
+      await UiFramework.frontstages.setActiveFrontstage(defaultProvider.id);
+      if (ignore) return;
+      onFrontstageActivated?.();
+    })();
+    return () => {
+      ignore = true;
+    };
+  }, [frontstageProviders, onFrontstageActivated]);
   return (
     <>
       <Provider store={UiFramework.store}>
