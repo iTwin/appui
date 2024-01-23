@@ -519,7 +519,7 @@ importers:
       '@types/react': ^17.0.37
       '@types/react-dom': ^17.0.0
       '@types/react-transition-group': ^4.4.4
-      '@types/sinon': ^10.0.15
+      '@types/sinon': ^17.0.3
       chai: ^4.3.10
       chai-as-promised: ^7
       chai-jest-snapshot: ^2.0.0
@@ -540,7 +540,7 @@ importers:
       react-dom: ^17.0.0
       react-transition-group: ^4.4.2
       rimraf: ^3.0.2
-      sinon: ^15.2.0
+      sinon: ^17.0.1
       sinon-chai: ^3.2.0
       ts-key-enum: ~2.0.12
       ts-node: ^10.8.2
@@ -576,7 +576,7 @@ importers:
       '@types/react': 17.0.53
       '@types/react-dom': 17.0.19
       '@types/react-transition-group': 4.4.5
-      '@types/sinon': 10.0.15
+      '@types/sinon': 17.0.3
       chai: 4.3.10
       chai-as-promised: 7.1.1_chai@4.3.10
       chai-jest-snapshot: 2.0.0_chai@4.3.10
@@ -593,8 +593,8 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       rimraf: 3.0.2
-      sinon: 15.2.0
-      sinon-chai: 3.7.0_chai@4.3.10+sinon@15.2.0
+      sinon: 17.0.1
+      sinon-chai: 3.7.0_chai@4.3.10+sinon@17.0.1
       ts-node: 10.9.1_9a41dbaa370b60afede472b47d9ffeeb
       typemoq: 2.1.0
       typescript: 5.0.2
@@ -639,7 +639,7 @@ importers:
       '@types/react-dom': ^17.0.0
       '@types/react-redux': ^7.1.18
       '@types/rimraf': ^2.0.2
-      '@types/sinon': ^10.0.15
+      '@types/sinon': ^17.0.3
       '@types/sinon-chai': ^3.2.0
       chai: ^4.3.10
       chai-as-promised: ^7
@@ -666,7 +666,7 @@ importers:
       redux: ^4.1.0
       rimraf: ^3.0.2
       rxjs: ^7.8.1
-      sinon: ^15.2.0
+      sinon: ^17.0.1
       sinon-chai: ^3.2.0
       ts-key-enum: ~2.0.12
       ts-node: ^10.8.2
@@ -720,7 +720,7 @@ importers:
       '@types/react-dom': 17.0.19
       '@types/react-redux': 7.1.25
       '@types/rimraf': 2.0.5
-      '@types/sinon': 10.0.15
+      '@types/sinon': 17.0.3
       '@types/sinon-chai': 3.2.9
       chai: 4.3.10
       chai-as-promised: 7.1.1_chai@4.3.10
@@ -742,8 +742,8 @@ importers:
       react-test-renderer: 17.0.2_react@17.0.2
       redux: 4.2.1
       rimraf: 3.0.2
-      sinon: 15.2.0
-      sinon-chai: 3.7.0_chai@4.3.10+sinon@15.2.0
+      sinon: 17.0.1
+      sinon-chai: 3.7.0_chai@4.3.10+sinon@17.0.1
       ts-node: 10.9.1_9a41dbaa370b60afede472b47d9ffeeb
       typemoq: 2.1.0
       typescript: 5.0.2
@@ -781,7 +781,7 @@ importers:
       '@types/react-highlight-words': ^0.16.1
       '@types/react-window': ^1.8.2
       '@types/shortid': ~0.0.29
-      '@types/sinon': ^10.0.15
+      '@types/sinon': ^17.0.3
       '@types/sinon-chai': ^3.2.0
       chai: ^4.3.10
       chai-as-promised: ^7
@@ -809,7 +809,7 @@ importers:
       rimraf: ^3.0.2
       rxjs: ^7.8.1
       shortid: ~2.2.15
-      sinon: ^15.2.0
+      sinon: ^17.0.1
       sinon-chai: ^3.2.0
       ts-key-enum: ~2.0.12
       ts-node: ^10.8.2
@@ -856,7 +856,7 @@ importers:
       '@types/react-dom': 17.0.19
       '@types/react-highlight-words': 0.16.4
       '@types/react-window': 1.8.5
-      '@types/sinon': 10.0.15
+      '@types/sinon': 17.0.3
       '@types/sinon-chai': 3.2.9
       chai: 4.3.10
       chai-as-promised: 7.1.1_chai@4.3.10
@@ -876,8 +876,8 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       rimraf: 3.0.2
-      sinon: 15.2.0
-      sinon-chai: 3.7.0_chai@4.3.10+sinon@15.2.0
+      sinon: 17.0.1
+      sinon-chai: 3.7.0_chai@4.3.10+sinon@17.0.1
       ts-node: 10.9.1_9a41dbaa370b60afede472b47d9ffeeb
       typemoq: 2.1.0
       typescript: 5.0.2
@@ -907,7 +907,7 @@ importers:
       '@types/react': ^17.0.37
       '@types/react-autosuggest': 10.1.2
       '@types/react-dom': ^17.0.0
-      '@types/sinon': ^10.0.15
+      '@types/sinon': ^17.0.3
       '@types/sinon-chai': ^3.2.0
       chai: ^4.3.10
       chai-as-promised: ^7
@@ -930,7 +930,7 @@ importers:
       react-test-renderer: ^17.0.0
       resize-observer-polyfill: 1.5.1
       rimraf: ^3.0.2
-      sinon: ^15.2.0
+      sinon: ^17.0.1
       sinon-chai: ^3.2.0
       ts-key-enum: ~2.0.12
       ts-node: ^10.8.2
@@ -967,7 +967,7 @@ importers:
       '@types/react': 17.0.53
       '@types/react-autosuggest': 10.1.2
       '@types/react-dom': 17.0.19
-      '@types/sinon': 10.0.15
+      '@types/sinon': 17.0.3
       '@types/sinon-chai': 3.2.9
       chai: 4.3.10
       chai-as-promised: 7.1.1_chai@4.3.10
@@ -985,8 +985,8 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-test-renderer: 17.0.2_react@17.0.2
       rimraf: 3.0.2
-      sinon: 15.2.0
-      sinon-chai: 3.7.0_chai@4.3.10+sinon@15.2.0
+      sinon: 17.0.1
+      sinon-chai: 3.7.0_chai@4.3.10+sinon@17.0.1
       ts-node: 10.9.1_9a41dbaa370b60afede472b47d9ffeeb
       typemoq: 2.1.0
       typescript: 5.0.2
@@ -1021,7 +1021,7 @@ importers:
       '@types/node': 18.11.5
       '@types/react': ^17.0.37
       '@types/react-dom': ^17.0.0
-      '@types/sinon': ^10.0.15
+      '@types/sinon': ^17.0.3
       '@types/sinon-chai': ^3.2.0
       chai: ^4.3.10
       chai-as-promised: ^7
@@ -1042,7 +1042,7 @@ importers:
       react-dom: ^17.0.0
       react-test-renderer: ^17.0.0
       rimraf: ^3.0.2
-      sinon: ^15.2.0
+      sinon: ^17.0.1
       sinon-chai: ^3.2.0
       ts-key-enum: ~2.0.12
       ts-node: ^10.8.2
@@ -1080,7 +1080,7 @@ importers:
       '@types/node': 18.11.5
       '@types/react': 17.0.53
       '@types/react-dom': 17.0.19
-      '@types/sinon': 10.0.15
+      '@types/sinon': 17.0.3
       '@types/sinon-chai': 3.2.9
       chai: 4.3.10
       chai-as-promised: 7.1.1_chai@4.3.10
@@ -1100,8 +1100,8 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-test-renderer: 17.0.2_react@17.0.2
       rimraf: 3.0.2
-      sinon: 15.2.0
-      sinon-chai: 3.7.0_chai@4.3.10+sinon@15.2.0
+      sinon: 17.0.1
+      sinon-chai: 3.7.0_chai@4.3.10+sinon@17.0.1
       ts-node: 10.9.1_9a41dbaa370b60afede472b47d9ffeeb
       typemoq: 2.1.0
       typescript: 5.0.2
@@ -6814,8 +6814,8 @@ packages:
       '@sinonjs/commons': 2.0.0
     dev: true
 
-  /@sinonjs/fake-timers/10.3.0:
-    resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
+  /@sinonjs/fake-timers/11.2.2:
+    resolution: {integrity: sha512-G2piCSxQ7oWOxwGSAyFHfPIsyeJGXYtc6mFbnFA+kRXkiEnTl8c/8jul2S329iFBnDI9HGoeWWAZvuvOkZccgw==}
     dependencies:
       '@sinonjs/commons': 3.0.0
     dev: true
@@ -8514,11 +8514,11 @@ packages:
     resolution: {integrity: sha512-/19t63pFYU0ikrdbXKBWj9PCdnKyTd0Qkz0X91Ta081cYsq90OxYdcWwK/dwEoDa6dtXgj2HJfmzgq+QZTHdmQ==}
     dependencies:
       '@types/chai': 4.3.1
-      '@types/sinon': 10.0.15
+      '@types/sinon': 17.0.3
     dev: true
 
-  /@types/sinon/10.0.15:
-    resolution: {integrity: sha512-3lrFNQG0Kr2LDzvjyjB6AMJk4ge+8iYhQfdnSwIwlG88FUOV43kPcQqDZkDa/h3WSZy6i8Fr0BSjfQtB1B3xuQ==}
+  /@types/sinon/17.0.3:
+    resolution: {integrity: sha512-j3uovdn8ewky9kRBG19bOwaZbexJu/XjtkHyjvUgt4xfPFz18dcORIMqnYh66Fx3Powhcr85NT5+er3+oViapw==}
     dependencies:
       '@types/sinonjs__fake-timers': 8.1.2
     dev: true
@@ -14388,10 +14388,6 @@ packages:
     dependencies:
       is-docker: 2.2.1
 
-  /isarray/0.0.1:
-    resolution: {integrity: sha512-D2S+3GLxWH+uhrNEcoh/fnmYeP8E8/zHl644d/jdA0g2uyXvy3sb0qxotE+ne0LtccHknQzWwZEzhak7oJ0COQ==}
-    dev: true
-
   /isarray/1.0.0:
     resolution: {integrity: sha512-VLghIWNM6ELQzo7zwmcg0NmTVyWKYjvIeM83yjp0wRDTmUnrM678fQbcKBo6n2CJEF0szoG//ytg+TKla89ALQ==}
     dev: true
@@ -15772,8 +15768,8 @@ packages:
       object.assign: 4.1.4
     dev: true
 
-  /just-extend/4.2.1:
-    resolution: {integrity: sha512-g3UB796vUFIY90VIv/WX3L2c8CS2MdWUww3CNrYmqza1Fg0DURc2K/O4YrnklBdQarSJ/y8JnJYDGc+1iumQjg==}
+  /just-extend/6.2.0:
+    resolution: {integrity: sha512-cYofQu2Xpom82S6qD778jBDpwvvy39s1l/hrYij2u9AMdQcGRpaBu6kY4mVhuno5kJVi1DAz4aiphA2WI1/OAw==}
     dev: true
 
   /jwt-decode/3.1.2:
@@ -16522,14 +16518,14 @@ packages:
   /nice-try/1.0.5:
     resolution: {integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==}
 
-  /nise/5.1.4:
-    resolution: {integrity: sha512-8+Ib8rRJ4L0o3kfmyVCL7gzrohyDe0cMFTBa2d364yIrEGMEoetznKJx899YxjybU6bL9SQkYPSBBs1gyYs8Xg==}
+  /nise/5.1.7:
+    resolution: {integrity: sha512-wWtNUhkT7k58uvWTB/Gy26eA/EJKtPZFVAhEilN5UYVmmGRYOURbejRUyKm0Uu9XVEW7K5nBOZfR8VMB4QR2RQ==}
     dependencies:
-      '@sinonjs/commons': 2.0.0
-      '@sinonjs/fake-timers': 10.3.0
+      '@sinonjs/commons': 3.0.0
+      '@sinonjs/fake-timers': 11.2.2
       '@sinonjs/text-encoding': 0.7.2
-      just-extend: 4.2.1
-      path-to-regexp: 1.8.0
+      just-extend: 6.2.0
+      path-to-regexp: 6.2.1
     dev: true
 
   /no-case/3.0.4:
@@ -17094,14 +17090,12 @@ packages:
   /path-to-regexp/0.1.7:
     resolution: {integrity: sha512-5DFkuoqlv1uYQKxy8omFBeJPQcdoE07Kv2sferDCrAq1ohOU+MSDswDIbnx3YAM60qIOnYa53wBhXW0EbMonrQ==}
 
-  /path-to-regexp/1.8.0:
-    resolution: {integrity: sha512-n43JRhlUKUAlibEJhPeir1ncUID16QnEjNpwzNdO3Lm4ywrBpBZ5oLD0I6br9evr1Y9JTqwRtAh7JLoOzAQdVA==}
-    dependencies:
-      isarray: 0.0.1
-    dev: true
-
   /path-to-regexp/2.2.1:
     resolution: {integrity: sha512-gu9bD6Ta5bwGrrU8muHzVOBFFREpp2iRkVfhBJahwJ6p6Xw20SjT0MxLnwkjOibQmGSYhiUnf2FLe7k+jcFmGQ==}
+    dev: true
+
+  /path-to-regexp/6.2.1:
+    resolution: {integrity: sha512-JLyh7xT1kizaEvcaXOQwOc2/Yhw6KZOvPf1S8401UyLk86CU79LN3vl7ztXGm/pZ+YjoyAJ4rxmHwbkBXJX+yw==}
     dev: true
 
   /path-type/3.0.0:
@@ -19514,24 +19508,24 @@ packages:
       semver: 7.5.4
     dev: true
 
-  /sinon-chai/3.7.0_chai@4.3.10+sinon@15.2.0:
+  /sinon-chai/3.7.0_chai@4.3.10+sinon@17.0.1:
     resolution: {integrity: sha512-mf5NURdUaSdnatJx3uhoBOrY9dtL19fiOtAdT1Azxg3+lNJFiuN0uzaU3xX1LeAfL17kHQhTAJgpsfhbMJMY2g==}
     peerDependencies:
       chai: ^4.0.0
       sinon: '>=4.0.0'
     dependencies:
       chai: 4.3.10
-      sinon: 15.2.0
+      sinon: 17.0.1
     dev: true
 
-  /sinon/15.2.0:
-    resolution: {integrity: sha512-nPS85arNqwBXaIsFCkolHjGIkFo+Oxu9vbgmBJizLAhqe6P2o3Qmj3KCUoRkfhHtvgDhZdWD3risLHAUJ8npjw==}
+  /sinon/17.0.1:
+    resolution: {integrity: sha512-wmwE19Lie0MLT+ZYNpDymasPHUKTaZHUH/pKEubRXIzySv9Atnlw+BUMGCzWgV7b7wO+Hw6f1TEOr0IUnmU8/g==}
     dependencies:
       '@sinonjs/commons': 3.0.0
-      '@sinonjs/fake-timers': 10.3.0
+      '@sinonjs/fake-timers': 11.2.2
       '@sinonjs/samsam': 8.0.0
       diff: 5.1.0
-      nise: 5.1.4
+      nise: 5.1.7
       supports-color: 7.2.0
     dev: true
 
