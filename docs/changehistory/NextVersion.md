@@ -9,6 +9,11 @@ Table of contents:
 
 ## @itwin/components-react
 
+## Changes
+
+- Updated UI for the `FilterBuilder` component.
+- Deprecated support for nested rule groups.
+
 ### Improvements
 
 - Show loading spinner in subsequent loads if delay threshold is reached `VirtualizedPropertyGrid.`
