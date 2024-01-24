@@ -75,15 +75,18 @@ export const usePointerCaptor = <T extends HTMLElement>(
         isDown.current && dragManager.handleDragEnd();
         isDown.current = false;
         touchTarget = null;
-        if (e.target instanceof HTMLElement) {
-          e.target.removeEventListener("touchmove", targetTouchMove);
-          e.target.removeEventListener("touchend", touchEnd);
+        if (e.target instanceof Element) {
+          e.target.removeEventListener(
+            "touchmove",
+            targetTouchMove as EventListener
+          );
+          e.target.removeEventListener("touchend", touchEnd as EventListener);
         }
         document.removeEventListener("touchmove", documentTouchMove);
         document.removeEventListener("touchend", documentTouchEnd);
       };
       const documentTouchEnd = (e: TouchEvent) => {
-        // Do not handle document touch move if it was handled by target handler.
+        // Do not handle document touch end if it was handled by target handler.
         if (touchTarget === e.target) return;
         touchEnd(e);
       };
@@ -92,11 +95,15 @@ export const usePointerCaptor = <T extends HTMLElement>(
         if (e.touches.length !== 1) return;
         touchTarget = e.target;
         // In case of implicit pointer capture attach to event target.
-        if (e.target instanceof HTMLElement) {
-          e.target.addEventListener("touchmove", targetTouchMove);
-          e.target.addEventListener("touchend", touchEnd);
+        if (e.target instanceof Element) {
+          e.target.addEventListener(
+            "touchmove",
+            targetTouchMove as EventListener
+          );
+          e.target.addEventListener("touchend", touchEnd as EventListener);
         }
-        // Add to document in case the target looses capture (i.e. is removed)
+
+        // Add to document in case the target loses capture (i.e. is removed)
         document.addEventListener("touchmove", documentTouchMove);
         document.addEventListener("touchend", documentTouchEnd);
         onPointerDown && onPointerDown(e.touches[0], e);
