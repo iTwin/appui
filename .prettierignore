@@ -7,6 +7,7 @@ build
 common/api
 common/changes
 common/config/rush
+common/scripts/install-run-rush-pnpm.js
 common/scripts/install-run-rush.js
 common/scripts/install-run-rushx.js
 common/scripts/install-run.js
