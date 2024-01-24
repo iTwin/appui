@@ -1,0 +1,1 @@
+Invoking: rimraf lib build .rush/temp/package-deps*.json 
