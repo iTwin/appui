@@ -32,6 +32,7 @@ import { getTabLocation, isPopoutTabLocation } from "@itwin/appui-layout-react";
 import { OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import { MessageManager } from "../messages/MessageManager";
 import { ReactNotifyMessageDetails } from "../messages/ReactNotifyMessageDetails";
+import type { UiStateStorageResult } from "@itwin/core-react";
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -569,7 +570,7 @@ export class WidgetDef {
         if (!isChrome && isSafari) {
           void UiFramework.getUiStateStorage()
             .getSetting("popoutFocus", "hidePopoutFocusFail")
-            .then((hideFocusFail: { setting: boolean }) => {
+            .then((hideFocusFail: UiStateStorageResult) => {
               if (hideFocusFail.setting !== true) {
                 const checkbox = (
                   <div>
