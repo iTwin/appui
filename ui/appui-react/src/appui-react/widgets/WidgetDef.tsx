@@ -541,7 +541,7 @@ export class WidgetDef {
    * I.e. opens the stage panel or brings the floating widget to front of the screen.
    * @public
    */
-  public async show() {
+  public show() {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     const state = frontstageDef?.nineZoneState;
     if (!state) return;
@@ -566,62 +566,64 @@ export class WidgetDef {
         const isChrome =
           navigator.userAgent.toLowerCase().indexOf("chrome") > -1;
 
-        const hideFocusFail = await UiFramework.getUiStateStorage().getSetting(
-          "popoutFocus",
-          "hidePopoutFocusFail"
-        );
-        if (!isChrome && isSafari && hideFocusFail.setting !== true) {
-          const checkbox = (
-            <div>
-              <input
-                type="checkbox"
-                id="doNotShowAgain"
-                name="doNotShowAgain"
-                onChange={async () => {
-                  const focusFailValue =
-                    await UiFramework.getUiStateStorage().getSetting(
-                      "popoutFocus",
-                      "hidePopoutFocusFail"
-                    );
-                  if (focusFailValue.setting !== true) {
-                    await UiFramework.getUiStateStorage().saveSetting(
-                      "popoutFocus",
-                      "hidePopoutFocusFail",
-                      true
-                    );
-                  } else {
-                    await UiFramework.getUiStateStorage().saveSetting(
-                      "popoutFocus",
-                      "hidePopoutFocusFail",
-                      false
-                    );
-                  }
-                }}
-              />
-              <label htmlFor="doNotShowAgain">
-                {UiFramework.translate("general.doNotShowAgain")}
-              </label>
-            </div>
-          );
+        if (!isChrome && isSafari) {
+          void UiFramework.getUiStateStorage()
+            .getSetting("popoutFocus", "hidePopoutFocusFail")
+            .then((hideFocusFail: { setting: boolean }) => {
+              if (hideFocusFail.setting !== true) {
+                const checkbox = (
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="doNotShowAgain"
+                      name="doNotShowAgain"
+                      onChange={async () => {
+                        const focusFailValue =
+                          await UiFramework.getUiStateStorage().getSetting(
+                            "popoutFocus",
+                            "hidePopoutFocusFail"
+                          );
+                        if (focusFailValue.setting !== true) {
+                          await UiFramework.getUiStateStorage().saveSetting(
+                            "popoutFocus",
+                            "hidePopoutFocusFail",
+                            true
+                          );
+                        } else {
+                          await UiFramework.getUiStateStorage().saveSetting(
+                            "popoutFocus",
+                            "hidePopoutFocusFail",
+                            false
+                          );
+                        }
+                      }}
+                    />
+                    <label htmlFor="doNotShowAgain">
+                      {UiFramework.translate("general.doNotShowAgain")}
+                    </label>
+                  </div>
+                );
 
-          MessageManager.outputMessage(
-            new ReactNotifyMessageDetails(
-              OutputMessagePriority.Error,
-              {
-                reactNode: UiFramework.localization.getLocalizedString(
-                  "widget.errorMessage.popoutFocusFail",
-                  {
-                    widgetLabel: this.label,
-                    ns: UiFramework.localizationNamespace,
-                  }
-                ),
-              },
-              {
-                reactNode: checkbox,
-              },
-              OutputMessageType.Sticky
-            )
-          );
+                MessageManager.outputMessage(
+                  new ReactNotifyMessageDetails(
+                    OutputMessagePriority.Error,
+                    {
+                      reactNode: UiFramework.localization.getLocalizedString(
+                        "widget.errorMessage.popoutFocusFail",
+                        {
+                          widgetLabel: this.label,
+                          ns: UiFramework.localizationNamespace,
+                        }
+                      ),
+                    },
+                    {
+                      reactNode: checkbox,
+                    },
+                    OutputMessageType.Sticky
+                  )
+                );
+              }
+            });
         } else {
           testWindow.window.focus();
         }

@@ -530,7 +530,7 @@ function WidgetControls({ id }: { id: string }) {
           onClick={async () => {
             const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
             const widgetDef = frontstageDef?.findWidgetDef(id);
-            await widgetDef?.show();
+            widgetDef?.show();
           }}
         >
           Show
