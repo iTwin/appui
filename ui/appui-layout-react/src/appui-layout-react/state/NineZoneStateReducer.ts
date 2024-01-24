@@ -494,6 +494,7 @@ export function NineZoneStateReducer(
       });
     }
     case "WIDGET_TAB_DRAG_START": {
+      assert(!state.draggedTab);
       const tabId = action.id;
       let home: PanelWidgetRestoreState;
       if (action.floatingWidgetId) {
