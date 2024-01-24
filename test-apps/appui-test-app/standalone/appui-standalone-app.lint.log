@@ -1,2 +1,0 @@
-Invoking: eslint -f visualstudio "./src/**/*.{ts,tsx}" 1>&2 
-no problems

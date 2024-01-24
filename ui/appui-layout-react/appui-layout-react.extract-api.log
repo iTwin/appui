@@ -1,9 +1,0 @@
-Invoking: betools extract-api --entry=appui-layout-react 
-Running command:
-node "D:\appui\common\temp\node_modules\.pnpm\@itwin+build-tools@4.0.0-dev.87_@types+node@18.11.5\node_modules\@itwin\build-tools\scripts\extract-api.js" --entry appui-layout-react
-
-api-extractor 7.34.4  - https://api-extractor.com/
-
-Analysis will use the bundled TypeScript version 5.0.2
-
-API Extractor completed successfully
