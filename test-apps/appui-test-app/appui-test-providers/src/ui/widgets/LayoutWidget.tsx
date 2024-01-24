@@ -527,7 +527,7 @@ function WidgetControls({ id }: { id: string }) {
       <span>Widget actions</span>
       <div style={{ display: "flex", gap: "12px" }}>
         <Button
-          onClick={async () => {
+          onClick={() => {
             const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
             const widgetDef = frontstageDef?.findWidgetDef(id);
             widgetDef?.show();
