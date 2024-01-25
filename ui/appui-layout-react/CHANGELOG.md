@@ -1,6 +1,20 @@
 # Change Log - @itwin/appui-layout-react
 
-This log was last generated on Thu, 21 Dec 2023 14:08:42 GMT and should not be manually modified.
+This log was last generated on Wed, 24 Jan 2024 12:37:03 GMT and should not be manually modified.
+
+## 4.8.2
+Wed, 24 Jan 2024 12:37:03 GMT
+
+### Updates
+
+- Fix touch issue when dragging a widget with SVG icon.
+
+## 4.8.1
+Thu, 11 Jan 2024 13:05:42 GMT
+
+### Updates
+
+- Fix an issue that caused a panel to become unresizable.
 
 ## 4.8.0
 Thu, 21 Dec 2023 14:08:42 GMT
