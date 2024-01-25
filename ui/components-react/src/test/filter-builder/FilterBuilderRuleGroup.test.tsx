@@ -169,10 +169,8 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
 
   it("'Or' Operator should not be clickable if toggle disabled", async () => {
     const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const rootGroupCopy = Object.create(rootGroup);
-    rootGroupCopy.operator = PropertyFilterRuleGroupOperator.Or;
     const props: PropertyFilterBuilderRuleGroupRendererProps = {
-      group: rootGroupCopy,
+      group: { ...rootGroup, operator: PropertyFilterRuleGroupOperator.Or  },
       path: [],
       isGroupOperatorDisabled: true,
     };
