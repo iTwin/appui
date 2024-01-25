@@ -132,7 +132,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
 
   it("Toggles operator 'Or' to 'And'", async () => {
     const actions = new PropertyFilterBuilderActions(sinon.spy());
-    //make shallow copy to avoid altering rootGroup that is used in other tests
+    // make shallow copy to avoid altering rootGroup that is used in other tests
     const rootGroupCopy = Object.create(rootGroup);
     rootGroupCopy.operator = PropertyFilterRuleGroupOperator.Or;
     const props: PropertyFilterBuilderRuleGroupRendererProps = {
