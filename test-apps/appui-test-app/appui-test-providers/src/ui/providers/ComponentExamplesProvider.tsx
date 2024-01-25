@@ -101,8 +101,8 @@ import {
   StandardContentLayouts,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import { StatusBarDialogTitleBar } from "@itwin/appui-react/lib/cjs/appui-react/statusbar/dialog/TitleBar";
-import { StatusBarDialogTitleBarButton } from "@itwin/appui-react/lib/cjs/appui-react/statusbar/dialog/Button";
+import { StatusBarDialogTitleBar } from "@itwin/appui-react/lib/esm/appui-react/statusbar/dialog/TitleBar";
+import { StatusBarDialogTitleBarButton } from "@itwin/appui-react/lib/esm/appui-react/statusbar/dialog/Button";
 import { ComponentGenerator } from "@itwin/appui-react/lib/cjs/appui-react/uiprovider/ComponentGenerator";
 import { UnitSystemKey } from "@itwin/core-quantity";
 import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";

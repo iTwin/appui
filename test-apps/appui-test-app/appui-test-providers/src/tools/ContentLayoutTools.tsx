@@ -24,7 +24,7 @@ import { IModelApp, IModelConnection, Tool } from "@itwin/core-frontend";
 import {
   ConditionalIconItem,
   LocalStateStorage,
-} from "@itwin/core-react/lib/cjs/core-react";
+} from "@itwin/core-react/lib/esm/core-react";
 import { SvgWindow, SvgWindowSplitVertical } from "@itwin/itwinui-icons-react";
 
 import layoutRestoreIconSvg from "@bentley/icons-generic/icons/download.svg";
