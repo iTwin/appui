@@ -44,7 +44,6 @@ import {
   UiStateStorageHandler,
 } from "@itwin/appui-react";
 import {
-  assert,
   Id64String,
   Logger,
   LoggingMetaData,
