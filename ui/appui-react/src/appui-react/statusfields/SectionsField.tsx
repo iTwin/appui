@@ -6,10 +6,7 @@
  * @module StatusBar
  */
 
-import "./SectionsField.scss";
-import classnames from "classnames";
-import * as React from "react";
-import { Dialog, FooterPopup, TitleBar } from "@itwin/appui-layout-react";
+import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
 import type { ClipEventType, Viewport } from "@itwin/core-frontend";
 import {
   IModelApp,
@@ -19,10 +16,15 @@ import {
 } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
 import { Button, ToggleSwitch } from "@itwin/itwinui-react";
-import { useActiveViewport } from "../hooks/useActiveViewport";
+import classnames from "classnames";
+import * as React from "react";
 import { UiFramework } from "../UiFramework";
+import { useActiveViewport } from "../hooks/useActiveViewport";
+import { FooterPopup } from "../layout/footer/Popup";
+import { Dialog } from "../layout/footer/dialog/Dialog";
+import { TitleBar } from "../layout/footer/dialog/TitleBar";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
-import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
+import "./SectionsField.scss";
 
 /** Sections Status Field Props
  * @beta

@@ -9,7 +9,6 @@ importers:
     specifiers:
       '@bentley/icons-generic-webfont': ^1.0.34
       '@itwin/appui-abstract': ^3.7.0
-      '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
       '@itwin/appui-test-providers': workspace:*
       '@itwin/build-tools': ^3.7.0
@@ -58,7 +57,6 @@ importers:
     dependencies:
       '@bentley/icons-generic-webfont': 1.0.34
       '@itwin/appui-abstract': 3.8.0_@itwin+core-bentley@3.8.0
-      '@itwin/appui-layout-react': link:../../ui/appui-layout-react
       '@itwin/appui-react': link:../../ui/appui-react
       '@itwin/appui-test-providers': link:../../test-apps/appui-test-app/appui-test-providers
       '@itwin/components-react': link:../../ui/components-react
@@ -116,7 +114,6 @@ importers:
     specifiers:
       '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': ^3.7.0
-      '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
       '@itwin/build-tools': ^3.7.0
       '@itwin/components-react': workspace:*
@@ -150,7 +147,6 @@ importers:
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/appui-abstract': 3.8.0_@itwin+core-bentley@3.8.0
-      '@itwin/appui-layout-react': link:../../../ui/appui-layout-react
       '@itwin/appui-react': link:../../../ui/appui-react
       '@itwin/components-react': link:../../../ui/components-react
       '@itwin/core-bentley': 3.8.0
@@ -190,7 +186,6 @@ importers:
       '@bentley/icons-generic-webfont': ^1.0.34
       '@bentley/react-scripts': ^5.0.3
       '@itwin/appui-abstract': ^3.7.0
-      '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
       '@itwin/appui-test-providers': workspace:*
       '@itwin/browser-authorization': ^0.6.2
@@ -258,7 +253,6 @@ importers:
       '@bentley/icons-generic': 1.0.34
       '@bentley/icons-generic-webfont': 1.0.34
       '@itwin/appui-abstract': 3.8.0_@itwin+core-bentley@3.8.0
-      '@itwin/appui-layout-react': link:../../../ui/appui-layout-react
       '@itwin/appui-react': link:../../../ui/appui-react
       '@itwin/appui-test-providers': link:../appui-test-providers
       '@itwin/browser-authorization': 0.6.2_@itwin+core-bentley@3.8.0
@@ -333,7 +327,6 @@ importers:
       '@bentley/icons-generic-webfont': ^1.0.34
       '@bentley/react-scripts': ^5.0.3
       '@itwin/appui-abstract': ^3.7.0
-      '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
       '@itwin/appui-test-providers': workspace:*
       '@itwin/build-tools': ^3.7.0
@@ -393,7 +386,6 @@ importers:
       '@bentley/icons-generic': 1.0.34
       '@bentley/icons-generic-webfont': 1.0.34
       '@itwin/appui-abstract': 3.8.0_@itwin+core-bentley@3.8.0
-      '@itwin/appui-layout-react': link:../../../ui/appui-layout-react
       '@itwin/appui-react': link:../../../ui/appui-react
       '@itwin/appui-test-providers': link:../appui-test-providers
       '@itwin/components-react': link:../../../ui/components-react
@@ -497,114 +489,10 @@ importers:
       '@itwin/build-tools': 3.7.4
       mocha: 10.2.0
 
-  ../../ui/appui-layout-react:
-    specifiers:
-      '@itwin/appui-abstract': ^3.7.0
-      '@itwin/build-tools': ^3.7.0
-      '@itwin/core-bentley': ^3.7.0
-      '@itwin/core-react': workspace:*
-      '@itwin/eslint-plugin': ^4.0.0-dev.45
-      '@itwin/itwinui-icons-react': ^2.1.0
-      '@itwin/itwinui-variables': ^2.0.0
-      '@testing-library/dom': ^8.11.2
-      '@testing-library/react': ^12.0.0
-      '@testing-library/react-hooks': ^7.0.2
-      '@testing-library/user-event': ^14.4.2
-      '@types/chai': 4.3.1
-      '@types/chai-as-promised': ^7
-      '@types/chai-jest-snapshot': ^1.3.0
-      '@types/lodash': ^4.14.0
-      '@types/mocha': ^8.2.2
-      '@types/node': 18.11.5
-      '@types/react': ^17.0.37
-      '@types/react-dom': ^17.0.0
-      '@types/react-transition-group': ^4.4.4
-      '@types/sinon': ^17.0.3
-      chai: ^4.3.10
-      chai-as-promised: ^7
-      chai-jest-snapshot: ^2.0.0
-      classnames: 2.3.1
-      cpx2: ^3.0.0
-      eslint: ^8.44.0
-      eslint-config-prettier: ~8.8.0
-      ignore-styles: ^5.0.1
-      immer: 9.0.6
-      jsdom: ^19.0.0
-      jsdom-global: 3.0.2
-      lodash: ^4.17.10
-      mocha: ^10.0.0
-      npm-run-all: ^4.1.5
-      nyc: ^15.1.0
-      raf: ^3.4.0
-      react: ^17.0.0
-      react-dom: ^17.0.0
-      react-transition-group: ^4.4.2
-      rimraf: ^3.0.2
-      sinon: ^17.0.1
-      sinon-chai: ^3.2.0
-      ts-key-enum: ~2.0.12
-      ts-node: ^10.8.2
-      typemoq: ^2.1.0
-      typescript: ~5.0.2
-      upath: ^2.0.1
-      zustand: ^4.4.1
-    dependencies:
-      '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
-      '@itwin/itwinui-variables': 2.0.0
-      classnames: 2.3.1
-      immer: 9.0.6
-      lodash: 4.17.21
-      react-transition-group: 4.4.5_react-dom@17.0.2+react@17.0.2
-      ts-key-enum: 2.0.12
-      zustand: 4.4.1_b4b4c799a5a2f4488606d88d938fa77d
-    devDependencies:
-      '@itwin/appui-abstract': 3.8.0_@itwin+core-bentley@3.8.0
-      '@itwin/build-tools': 3.7.4
-      '@itwin/core-bentley': 3.8.0
-      '@itwin/core-react': link:../core-react
-      '@itwin/eslint-plugin': 4.0.0-dev.45_eslint@8.44.0+typescript@5.0.2
-      '@testing-library/dom': 8.20.0
-      '@testing-library/react': 12.1.5_react-dom@17.0.2+react@17.0.2
-      '@testing-library/react-hooks': 7.0.2_react-dom@17.0.2+react@17.0.2
-      '@testing-library/user-event': 14.4.3_@testing-library+dom@8.20.0
-      '@types/chai': 4.3.1
-      '@types/chai-as-promised': 7.1.5
-      '@types/chai-jest-snapshot': 1.3.6
-      '@types/lodash': 4.14.191
-      '@types/mocha': 8.2.3
-      '@types/node': 18.11.5
-      '@types/react': 17.0.53
-      '@types/react-dom': 17.0.19
-      '@types/react-transition-group': 4.4.5
-      '@types/sinon': 17.0.3
-      chai: 4.3.10
-      chai-as-promised: 7.1.1_chai@4.3.10
-      chai-jest-snapshot: 2.0.0_chai@4.3.10
-      cpx2: 3.0.2
-      eslint: 8.44.0
-      eslint-config-prettier: 8.8.0_eslint@8.44.0
-      ignore-styles: 5.0.1
-      jsdom: 19.0.0
-      jsdom-global: 3.0.2_jsdom@19.0.0
-      mocha: 10.2.0
-      npm-run-all: 4.1.5
-      nyc: 15.1.0
-      raf: 3.4.1
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      rimraf: 3.0.2
-      sinon: 17.0.1
-      sinon-chai: 3.7.0_chai@4.3.10+sinon@17.0.1
-      ts-node: 10.9.1_9a41dbaa370b60afede472b47d9ffeeb
-      typemoq: 2.1.0
-      typescript: 5.0.2
-      upath: 2.0.1
-
   ../../ui/appui-react:
     specifiers:
       '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': ^3.7.0
-      '@itwin/appui-layout-react': workspace:*
       '@itwin/build-tools': ^3.7.0
       '@itwin/components-react': workspace:*
       '@itwin/core-bentley': ^3.7.0
@@ -638,6 +526,7 @@ importers:
       '@types/react': ^17.0.37
       '@types/react-dom': ^17.0.0
       '@types/react-redux': ^7.1.18
+      '@types/react-transition-group': ^4.4.4
       '@types/rimraf': ^2.0.2
       '@types/sinon': ^17.0.3
       '@types/sinon-chai': ^3.2.0
@@ -663,6 +552,7 @@ importers:
       react-error-boundary: 4.0.3
       react-redux: ^7.2.2
       react-test-renderer: ^17.0.0
+      react-transition-group: ^4.4.2
       redux: ^4.1.0
       rimraf: ^3.0.2
       rxjs: ^7.8.1
@@ -685,12 +575,12 @@ importers:
       immer: 9.0.6
       lodash: 4.17.21
       react-error-boundary: 4.0.3_react@17.0.2
+      react-transition-group: 4.4.5_react-dom@17.0.2+react@17.0.2
       rxjs: 7.8.1
       ts-key-enum: 2.0.12
       zustand: 4.4.1_b4b4c799a5a2f4488606d88d938fa77d
     devDependencies:
       '@itwin/appui-abstract': 3.8.0_@itwin+core-bentley@3.8.0
-      '@itwin/appui-layout-react': link:../appui-layout-react
       '@itwin/build-tools': 3.7.4
       '@itwin/components-react': link:../components-react
       '@itwin/core-bentley': 3.8.0
@@ -719,6 +609,7 @@ importers:
       '@types/react': 17.0.53
       '@types/react-dom': 17.0.19
       '@types/react-redux': 7.1.25
+      '@types/react-transition-group': 4.4.5
       '@types/rimraf': 2.0.5
       '@types/sinon': 17.0.3
       '@types/sinon-chai': 3.2.9
@@ -5293,6 +5184,7 @@ packages:
     resolution: {integrity: sha512-FfRXCWWmkkHtfo2wqrJe3yPZhk7pUgCgYcc81YSxbKotpQIdkJc/5j5MQ57+age8+AQ64wSKJKAZVb3FMYe+Kw==}
     peerDependencies:
       '@itwin/appui-abstract': ^3.8.0
+      '@itwin/appui-layout-react': ^3.8.0
       '@itwin/core-bentley': ^3.8.0
       '@itwin/core-common': ^3.8.0
       '@itwin/core-frontend': ^3.8.0

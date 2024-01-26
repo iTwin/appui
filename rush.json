@@ -80,12 +80,6 @@
       "versionPolicyName": "prerelease-monorepo-lockStep"
     },
     {
-      "packageName": "@itwin/appui-layout-react",
-      "projectFolder": "ui/appui-layout-react",
-      "reviewCategory": "frontend",
-      "versionPolicyName": "prerelease-monorepo-lockStep"
-    },
-    {
       "packageName": "@itwin/appui-react",
       "projectFolder": "ui/appui-react",
       "reviewCategory": "frontend",

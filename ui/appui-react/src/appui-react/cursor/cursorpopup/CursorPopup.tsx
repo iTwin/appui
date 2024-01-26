@@ -6,11 +6,8 @@
  * @module Cursor
  */
 
-import "./CursorPopup.scss";
-import * as React from "react";
-import classnames from "classnames";
-import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import type {
   CommonDivProps,
   CommonProps,
@@ -18,7 +15,10 @@ import type {
   SizeProps,
 } from "@itwin/core-react";
 import { Div, Size } from "@itwin/core-react";
-import { TitleBar } from "@itwin/appui-layout-react";
+import classnames from "classnames";
+import * as React from "react";
+import { TitleBar } from "../../layout/footer/dialog/TitleBar";
+import "./CursorPopup.scss";
 import type { CursorPopupFadeOutEventArgs } from "./CursorPopupManager";
 import { CursorPopupManager } from "./CursorPopupManager";
 

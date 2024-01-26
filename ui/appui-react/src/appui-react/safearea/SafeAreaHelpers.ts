@@ -6,7 +6,7 @@
  * @module Utilities
  */
 
-import type { SafeAreaInsets as LayoutSafeAreaInsets } from "@itwin/appui-layout-react";
+import type { SafeAreaInsets as LayoutSafeAreaInsets } from "../layout/base/SafeAreaInsets";
 import type { SafeAreaInsets } from "./SafeAreaInsets";
 
 /** @internal */

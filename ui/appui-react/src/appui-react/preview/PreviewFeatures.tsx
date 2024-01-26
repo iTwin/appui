@@ -6,14 +6,14 @@
  * @module Utilities
  */
 
-import { type KnownPreviewLayoutFeatures } from "@itwin/appui-layout-react";
 import * as React from "react";
 import { create } from "zustand";
+import type { KnownPreviewLayoutFeatures } from "../layout/preview/PreviewFeatures";
 
 /** List of known preview features. */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface KnownPreviewFeatures extends KnownPreviewLayoutFeatures {
-  // Add preview features not in appui-layout-react here.
+  // Add preview features not in layout here.
 }
 
 /** Object used trim to only known features at runtime.

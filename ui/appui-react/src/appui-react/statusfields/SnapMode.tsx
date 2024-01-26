@@ -6,21 +6,22 @@
  * @module StatusBar
  */
 
-import * as React from "react";
-import { connect } from "react-redux";
-import { SnapMode } from "@itwin/core-frontend";
-import { Snap, SnapModePanel } from "@itwin/appui-layout-react";
-import { UiFramework } from "../UiFramework";
-import type { CommonProps, IconSpec } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
-import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
-import snapModeKeypoint from "@bentley/icons-generic/icons/snaps.svg";
-import snapModeIntersection from "@bentley/icons-generic/icons/snaps-intersection.svg";
+import snapModeBisector from "@bentley/icons-generic/icons/snaps-bisector.svg";
 import snapModeCenter from "@bentley/icons-generic/icons/snaps-center.svg";
+import snapModeIntersection from "@bentley/icons-generic/icons/snaps-intersection.svg";
+import snapModeMidpoint from "@bentley/icons-generic/icons/snaps-midpoint.svg";
 import snapModeNearest from "@bentley/icons-generic/icons/snaps-nearest.svg";
 import snapModeOrigin from "@bentley/icons-generic/icons/snaps-origin.svg";
-import snapModeMidpoint from "@bentley/icons-generic/icons/snaps-midpoint.svg";
-import snapModeBisector from "@bentley/icons-generic/icons/snaps-bisector.svg";
+import snapModeKeypoint from "@bentley/icons-generic/icons/snaps.svg";
+import { SnapMode } from "@itwin/core-frontend";
+import type { CommonProps, IconSpec } from "@itwin/core-react";
+import { Icon } from "@itwin/core-react";
+import * as React from "react";
+import { connect } from "react-redux";
+import { UiFramework } from "../UiFramework";
+import { SnapModePanel } from "../layout/footer/snap-mode/Panel";
+import { Snap } from "../layout/footer/snap-mode/Snap";
+import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 
 // cSpell:ignore multione
 
