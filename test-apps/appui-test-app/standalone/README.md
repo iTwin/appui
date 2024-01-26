@@ -72,4 +72,4 @@ To set the environment variables, either set them directly within the terminal y
 _Optionally_ used to load an application in a specific configuration:
 
 - `frontstage` - opens a frontstage by specified frontstage id, uses a blank connection. I.e. <http://localhost:3000/?frontstage=appui-test-providers:WidgetApi>
-- `mode` - specifies application mode: `app`, `portal`. I.e. <http://localhost:3000/?mode=portal>
+- `mode` - specifies application mode: `portal` | `header`. I.e. <http://localhost:3000/?mode=header>

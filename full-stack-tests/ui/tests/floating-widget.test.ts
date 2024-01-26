@@ -115,13 +115,13 @@ test.describe("floating widget", () => {
     expect(bounds.y).toEqual(initialBounds.y + 30);
   });
 
-  test("should drag a floating widget (in 'portal/header' mode)", async ({
+  test("should drag a floating widget (in 'header' mode)", async ({
     page,
     baseURL,
   }) => {
     assert(baseURL);
     await page.goto(
-      `${baseURL}?frontstage=appui-test-providers:WidgetApi&mode=portal`
+      `${baseURL}?frontstage=appui-test-providers:WidgetApi&mode=header`
     );
 
     const tab = tabLocator(page, "FW-1");

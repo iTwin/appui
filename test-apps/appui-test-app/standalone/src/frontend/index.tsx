@@ -606,13 +606,28 @@ function AppViewerContent() {
       style={{
         display: "grid",
         height: "100%",
-        gridAutoRows: mode === "portal" ? "80px 1fr" : "0 1fr",
+        gridAutoRows: mode === "header" ? "80px 1fr" : "0 1fr",
       }}
     >
-      <h2>Portal Header</h2>
+      <h2>App Header</h2>
       <ConfigurableUiContent appBackstage={<BackstageComposer />} />
     </div>
   );
+}
+
+function App() {
+  const mode = getUrlParam("mode");
+  if (mode === "portal") {
+    return (
+      <div className="app-portal">
+        <div className="app-header">Header</div>
+        <div className="app-viewer">
+          <SampleAppViewer />
+        </div>
+      </div>
+    );
+  }
+  return <SampleAppViewer />;
 }
 
 // If we are using a browser, close the current iModel before leaving
@@ -714,7 +729,7 @@ async function main() {
 
   ReactDOM.render(
     <React.StrictMode>
-      <SampleAppViewer />
+      <App />
     </React.StrictMode>,
     document.getElementById("root") as HTMLElement
   );
