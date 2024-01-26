@@ -14,6 +14,7 @@ import { Key } from "ts-key-enum";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { FocusTrap } from "../focustrap/FocusTrap";
 import type { CommonProps } from "../utils/Props";
+import { Rectangle } from "../utils/Rectangle";
 
 // cSpell:ignore focustrap focusable alertdialog
 
@@ -388,7 +389,12 @@ export class Popup extends React.Component<PopupProps, PopupState> {
     const scrollY = activeWindow.scrollY;
     const scrollX = activeWindow.scrollX;
 
-    const targetRect = target.getBoundingClientRect();
+    const container = this.getContainer();
+    const containerBounds = container.getBoundingClientRect();
+    const targetRect = Rectangle.create(target.getBoundingClientRect()).offset({
+      x: -containerBounds.left,
+      y: -containerBounds.top,
+    });
 
     const { popupWidth, popupHeight } = this._getPopupDimensions();
 
@@ -396,7 +402,10 @@ export class Popup extends React.Component<PopupProps, PopupState> {
       case RelativePosition.Top:
         point.y = scrollY + targetRect.top - popupHeight - offset - offsetArrow;
         point.x =
-          scrollX + targetRect.left + targetRect.width / 2 - popupWidth / 2;
+          scrollX +
+          targetRect.left +
+          targetRect.getWidth() / 2 -
+          popupWidth / 2;
         break;
 
       case RelativePosition.TopLeft:
@@ -412,7 +421,10 @@ export class Popup extends React.Component<PopupProps, PopupState> {
       case RelativePosition.Bottom:
         point.y = scrollY + targetRect.bottom + offset + offsetArrow;
         point.x =
-          scrollX + targetRect.left + targetRect.width / 2 - popupWidth / 2;
+          scrollX +
+          targetRect.left +
+          targetRect.getWidth() / 2 -
+          popupWidth / 2;
         break;
 
       case RelativePosition.BottomLeft:
@@ -427,7 +439,10 @@ export class Popup extends React.Component<PopupProps, PopupState> {
 
       case RelativePosition.Left:
         point.y =
-          scrollY + targetRect.top + targetRect.height / 2 - popupHeight / 2;
+          scrollY +
+          targetRect.top +
+          targetRect.getHeight() / 2 -
+          popupHeight / 2;
         point.x = scrollX + targetRect.left - popupWidth - offset - offsetArrow;
         break;
 
@@ -438,7 +453,10 @@ export class Popup extends React.Component<PopupProps, PopupState> {
 
       case RelativePosition.Right:
         point.y =
-          scrollY + targetRect.top + targetRect.height / 2 - popupHeight / 2;
+          scrollY +
+          targetRect.top +
+          targetRect.getHeight() / 2 -
+          popupHeight / 2;
         point.x = scrollX + targetRect.right + offset + offsetArrow;
         break;
 
@@ -628,7 +646,12 @@ export class Popup extends React.Component<PopupProps, PopupState> {
           {this.props.children}
         </FocusTrap>
       </div>,
-      // istanbul ignore next
+      this.getContainer()
+    );
+  }
+
+  private getContainer() {
+    return (
       this.state.parentDocument.body.querySelector(
         '[data-root-container="iui-root-id"]'
       ) ?? this.state.parentDocument.body
