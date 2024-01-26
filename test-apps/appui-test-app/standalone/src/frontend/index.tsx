@@ -5,6 +5,7 @@
 import "./index.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import classnames from "classnames";
 import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
 import reactAxe from "@axe-core/react";
@@ -617,9 +618,14 @@ function AppViewerContent() {
 
 function App() {
   const mode = getUrlParam("mode");
-  if (mode === "portal") {
+  if (mode === "portal" || mode === "portal-overflow") {
     return (
-      <div className="app-portal">
+      <div
+        className={classnames(
+          "app-portal",
+          mode === "portal-overflow" && "app-overflow"
+        )}
+      >
         <div className="app-header">Header</div>
         <div className="app-viewer">
           <SampleAppViewer />

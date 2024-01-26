@@ -20,6 +20,15 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
+
+  &.app-overflow {
+    display: block;
+    overflow: auto;
+
+    .app-viewer {
+      height: 100vh;
+    }
+  }
 }
 
 .app-header {
@@ -28,6 +37,5 @@ body {
 }
 
 .app-viewer {
-  position: relative;
   height: 100%;
 }
