@@ -18,9 +18,4 @@ Table of contents:
 ### Additions
 
 - `useWidget` hook to convey widget state and location.
-
-## @itwin/appui-layout-react
-
-### Changes
-
-- A preview feature to activate a dragged widget tab whenever it is dropped in the receiving container.
+- `activateDroppedTab` preview feature to activate a dragged widget tab whenever it is dropped in the receiving container. #601
