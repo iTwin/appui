@@ -115,16 +115,19 @@ test.describe("floating widget", () => {
     expect(bounds.y).toEqual(initialBounds.y + 30);
   });
 
-  test("should drag a floating widget (in 'portal/header' mode)", async ({
+  test("should drag a floating widget (in 'header' mode)", async ({
     page,
+    baseURL,
   }) => {
+    assert(baseURL);
+    await page.goto(
+      `${baseURL}?frontstage=appui-test-providers:WidgetApi&mode=header`
+    );
+
     const tab = tabLocator(page, "FW-1");
     const widget = widgetLocator({ tab });
     const titleBarHandle = titleBarHandleLocator(widget);
     const body = page.locator("body");
-
-    const setPortalMode = page.locator(`text=setMode("portal")`);
-    await setPortalMode.click();
 
     const initialBounds = (await widget.boundingBox())!;
     await titleBarHandle.dispatchEvent("mousedown", {

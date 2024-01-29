@@ -15,3 +15,27 @@ body {
 .red-text {
   color: var(--iui-color-text-negative);
 }
+
+.app-portal {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &.app-overflow {
+    display: block;
+    overflow: auto;
+
+    .app-viewer {
+      height: 100vh;
+    }
+  }
+}
+
+.app-header {
+  background: #ccc;
+  height: 60px;
+}
+
+.app-viewer {
+  height: 100%;
+}
