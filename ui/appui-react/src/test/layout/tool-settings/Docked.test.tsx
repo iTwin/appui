@@ -44,7 +44,7 @@ describe("DockedToolSettings", () => {
       .callsFake(function (this: HTMLElement) {
         if (this.classList.contains("nz-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
-        } else if (queryByText(this, /Entry [0-9]$/)) {
+        } else if (this.classList.contains("nz-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
@@ -68,7 +68,7 @@ describe("DockedToolSettings", () => {
       .callsFake(function (this: HTMLElement) {
         if (this.classList.contains("nz-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
-        } else if (queryByText(this, /Entry [0-9]$/)) {
+        } else if (this.classList.contains("nz-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
@@ -98,7 +98,7 @@ describe("DockedToolSettings", () => {
       .callsFake(function (this: HTMLElement) {
         if (this.classList.contains("nz-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
-        } else if (queryByText(this, /Entry [0-9]$/)) {
+        } else if (this.classList.contains("nz-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
@@ -133,7 +133,7 @@ describe("DockedToolSettings", () => {
       .callsFake(function (this: HTMLElement) {
         if (this.classList.contains("nz-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
-        } else if (queryByText(this, /Entry [0-9]$/)) {
+        } else if (this.classList.contains("nz-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
@@ -176,7 +176,7 @@ describe("DockedToolSettings", () => {
       .callsFake(function (this: HTMLElement) {
         if (this.classList.contains("nz-toolSettings-docked")) {
           return DOMRect.fromRect({ width });
-        } else if (queryByText(this, /Entry [0-9]$/)) {
+        } else if (this.classList.contains("nz-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
@@ -234,7 +234,7 @@ describe("DockedToolSettings", () => {
       .callsFake(function (this: HTMLElement) {
         if (this.classList.contains("nz-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
-        } else if (queryByText(this, /Entry [0-9]$/)) {
+        } else if (this.classList.contains("nz-toolSettings-setting")) {
           return DOMRect.fromRect({ width });
         }
         return new DOMRect();

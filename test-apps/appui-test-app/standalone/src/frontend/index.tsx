@@ -5,6 +5,7 @@
 import "./index.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import classnames from "classnames";
 import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
 import reactAxe from "@axe-core/react";
@@ -43,7 +44,6 @@ import {
   UiStateStorageHandler,
 } from "@itwin/appui-react";
 import {
-  assert,
   Id64String,
   Logger,
   LoggingMetaData,
@@ -90,8 +90,6 @@ import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTa
 // import { ECSchemaRpcLocater } from "@itwin/ecschema-rpcinterface-common";
 import {
   AbstractUiItemsProvider,
-  ApplicationLayoutContext,
-  ApplicationLayoutProvider,
   AppUiTestProviders,
   ContentLayoutStage,
   CustomContentFrontstage,
@@ -106,7 +104,7 @@ import {
   TestFrontstageProvider,
   WidgetApiStage,
 } from "@itwin/appui-test-providers";
-import { useHandleURLParams } from "./UrlParams";
+import { getUrlParam, useHandleURLParams } from "./UrlParams";
 import {
   addExampleFrontstagesToBackstage,
   registerExampleFrontstages,
@@ -447,10 +445,8 @@ export class SampleAppIModelApp {
   }
 
   public static getSnapshotPath(): string | undefined {
-    const url = new URL(window.location.href);
-    const params = new URLSearchParams(url.search);
-    const snapshotPath = params.get("snapshotPath");
-    return snapshotPath !== null
+    const snapshotPath = getUrlParam("snapshotPath");
+    return snapshotPath !== undefined
       ? decodeURIComponent(snapshotPath)
       : process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
   }
@@ -593,9 +589,7 @@ const SampleAppViewer = () => {
           <SafeAreaContext.Provider value={SafeAreaInsets.All}>
             <AppDragInteraction>
               <UiStateStorageHandler>
-                <ApplicationLayoutProvider>
-                  <AppViewerContent />
-                </ApplicationLayoutProvider>
+                <AppViewerContent />
               </UiStateStorageHandler>
             </AppDragInteraction>
           </SafeAreaContext.Provider>
@@ -606,21 +600,39 @@ const SampleAppViewer = () => {
 };
 
 function AppViewerContent() {
-  const applicationLayout = React.useContext(ApplicationLayoutContext);
-  assert(!!applicationLayout, "ApplicationLayoutProvider is required");
-  const isPortal = applicationLayout.mode === "portal";
+  const mode = getUrlParam("mode");
   return (
     <div
       style={{
         display: "grid",
         height: "100%",
-        gridAutoRows: isPortal ? "80px 1fr" : "0 1fr",
+        gridAutoRows: mode === "header" ? "80px 1fr" : "0 1fr",
       }}
     >
-      <h2>Portal Header</h2>
+      <h2>App Header</h2>
       <ConfigurableUiContent appBackstage={<BackstageComposer />} />
     </div>
   );
+}
+
+function App() {
+  const mode = getUrlParam("mode");
+  if (mode === "portal" || mode === "portal-overflow") {
+    return (
+      <div
+        className={classnames(
+          "app-portal",
+          mode === "portal-overflow" && "app-overflow"
+        )}
+      >
+        <div className="app-header">Header</div>
+        <div className="app-viewer">
+          <SampleAppViewer />
+        </div>
+      </div>
+    );
+  }
+  return <SampleAppViewer />;
 }
 
 // If we are using a browser, close the current iModel before leaving
@@ -722,7 +734,7 @@ async function main() {
 
   ReactDOM.render(
     <React.StrictMode>
-      <SampleAppViewer />
+      <App />
     </React.StrictMode>,
     document.getElementById("root") as HTMLElement
   );
