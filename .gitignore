@@ -57,5 +57,4 @@ common/api/summary/summary.exports.csv
 debug.log
 
 # Codemod specific
-test
-test/*
+junit.xml
