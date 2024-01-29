@@ -6,8 +6,8 @@ import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import { BackstageItem } from "../../../appui-react/layout/backstage/Item";
-import { SafeAreaInsets } from "../../../appui-react/layout/base/SafeAreaInsets";
 import { childStructure, selectorMatches, styleMatch } from "../Utils";
+import { SafeAreaInsets } from "../../../appui-react";
 
 describe("<Item />", () => {
   it("renders correctly", () => {

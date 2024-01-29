@@ -12,7 +12,6 @@ import * as React from "react";
 import { UiFramework } from "../UiFramework";
 import { Footer } from "../layout/footer/Footer";
 import { SafeAreaContext } from "../safearea/SafeAreaContext";
-import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
 import { StatusBarField } from "./Field";
 import { StatusBarPopup } from "./Popup";
 import "./StatusBar.scss";
@@ -39,7 +38,7 @@ export class StatusBar extends React.Component<StatusBarProps> {
           <Footer
             className={this.props.className}
             onMouseEnter={UiFramework.visibility.handleWidgetMouseEnter}
-            safeAreaInsets={toLayoutSafeAreaInsets(safeAreaInsets)}
+            safeAreaInsets={safeAreaInsets}
             style={this.props.style}
           >
             {this.props.widgetControl?.getReactNode?.() ?? null}

@@ -5,16 +5,7 @@
 /** @packageDocumentation
  * @module Utilities
  */
-
-/** Describes available safe area insets.
- * @internal
- */
-export enum SafeAreaInsets {
-  Bottom = 1 << 0,
-  Left = 1 << 1,
-  Right = 1 << 2,
-  Top = 1 << 3,
-}
+import { SafeAreaInsets } from "../../safearea/SafeAreaInsets";
 
 /** @internal */
 export class SafeAreaInsetsHelpers {

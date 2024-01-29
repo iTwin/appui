@@ -8,8 +8,8 @@ import * as React from "react";
 import * as sinon from "sinon";
 import type { BackstageProps } from "../../../appui-react/layout/backstage/Backstage";
 import { Backstage } from "../../../appui-react/layout/backstage/Backstage";
-import { SafeAreaInsets } from "../../../appui-react/layout/base/SafeAreaInsets";
 import { selectorMatches, userEvent } from "../Utils";
+import { SafeAreaInsets } from "../../../appui-react";
 
 describe("<Backstage />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

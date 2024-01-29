@@ -6,13 +6,13 @@
  * @module Backstage
  */
 
-import "./Backstage.scss";
+import type { CommonProps } from "@itwin/core-react";
 import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import type { CommonProps } from "@itwin/core-react";
-import type { SafeAreaInsets } from "../base/SafeAreaInsets";
+import type { SafeAreaInsets } from "../../safearea/SafeAreaInsets";
 import { SafeAreaInsetsHelpers } from "../base/SafeAreaInsets";
+import "./Backstage.scss";
 
 /** Properties of [[Backstage]] component.
  * @internal

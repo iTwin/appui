@@ -5,9 +5,9 @@
 import { render } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
-import { SafeAreaInsets } from "../../../appui-react/layout/base/SafeAreaInsets";
 import { Footer } from "../../../appui-react/layout/footer/Footer";
 import { childStructure, selectorMatches } from "../Utils";
+import { SafeAreaInsets } from "../../../appui-react";
 
 describe("<Footer />", () => {
   it("renders correctly", () => {
