@@ -437,15 +437,8 @@ export class SampleAppIModelApp {
   }
 
   public static getSnapshotPath(): string | undefined {
-<<<<<<< HEAD
-    const url = new URL(window.location.href);
-    const params = new URLSearchParams(url.search);
-    const snapshotPath = params.get("snapshotPath");
-    return snapshotPath
-=======
     const snapshotPath = getUrlParam("snapshotPath");
     return snapshotPath !== undefined
->>>>>>> ffdbf34f4 (Fix popup positioning when an ascendant node is a positioned element (#696))
       ? decodeURIComponent(snapshotPath)
       : process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
   }
