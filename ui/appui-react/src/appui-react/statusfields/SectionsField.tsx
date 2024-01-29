@@ -20,10 +20,9 @@ import classnames from "classnames";
 import * as React from "react";
 import { UiFramework } from "../UiFramework";
 import { useActiveViewport } from "../hooks/useActiveViewport";
-import { FooterPopup } from "../layout/footer/Popup";
-import { Dialog } from "../layout/footer/dialog/Dialog";
-import { TitleBar } from "../layout/footer/dialog/TitleBar";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
+import { StatusBar } from "../statusbar/StatusBar";
+import { StatusBarDialog } from "../statusbar/dialog/Dialog";
 import "./SectionsField.scss";
 
 /** Sections Status Field Props
@@ -117,12 +116,14 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
               onClick={() => setPopupOpen(!isPopupOpen)}
             />
           </div>
-          <FooterPopup
+          <StatusBar.Popup
             target={targetDiv.current}
             onClose={() => setPopupOpen(false)}
             isOpen={isPopupOpen}
           >
-            <Dialog titleBar={<TitleBar title={toolTip} />}>
+            <StatusBarDialog
+              titleBar={<StatusBarDialog.TitleBar title={toolTip} />}
+            >
               <div className="uifw-sections-footer-contents">
                 <Button onClick={handleClear}>{clearLabel}</Button>
                 <div className="uifw-uifw-sections-toggle-container">
@@ -136,8 +137,8 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
                   />
                 </div>
               </div>
-            </Dialog>
-          </FooterPopup>
+            </StatusBarDialog>
+          </StatusBar.Popup>
         </>
       )}
     </div>

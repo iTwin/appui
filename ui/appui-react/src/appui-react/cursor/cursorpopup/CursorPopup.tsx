@@ -17,7 +17,7 @@ import type {
 import { Div, Size } from "@itwin/core-react";
 import classnames from "classnames";
 import * as React from "react";
-import { TitleBar } from "../../layout/footer/dialog/TitleBar";
+import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
 import "./CursorPopup.scss";
 import type { CursorPopupFadeOutEventArgs } from "./CursorPopupManager";
 import { CursorPopupManager } from "./CursorPopupManager";
@@ -209,7 +209,7 @@ export class CursorPopup extends React.Component<
         style={positioningStyle}
       >
         {this.props.title && (
-          <TitleBar
+          <StatusBarDialog.TitleBar
             title={this.props.title}
             className="uifw-cursorpopup-title"
           />

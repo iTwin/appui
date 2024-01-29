@@ -43,12 +43,12 @@ import { UiStateStorageContext } from "../../uistate/useUiStateStorage";
 import "./ToolAssistanceField.scss";
 
 import { SvgClose, SvgPin } from "@itwin/itwinui-icons-react";
-import { FooterPopup } from "../../layout/footer/Popup";
 import { ToolAssistanceDialog } from "../../layout/footer/tool-assistance/Dialog";
 import { ToolAssistance } from "../../layout/footer/tool-assistance/Indicator";
 import { ToolAssistanceInstruction as NZ_ToolAssistanceInstruction } from "../../layout/footer/tool-assistance/Instruction";
 import { ToolAssistanceItem } from "../../layout/footer/tool-assistance/Item";
 import { ToolAssistanceSeparator } from "../../layout/footer/tool-assistance/Separator";
+import { StatusBar } from "../../statusbar/StatusBar";
 import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
 import acceptPointIcon from "./accept-point.svg";
 import cursorClickIcon from "./cursor-click.svg";
@@ -501,7 +501,7 @@ export class ToolAssistanceField extends React.Component<
             {prompt}
           </ToolAssistance>
         </div>
-        <FooterPopup
+        <StatusBar.Popup
           isOpen={this.state.isOpen}
           onClose={this._handleClose}
           onOutsideClick={this._handleOutsideClick}
@@ -533,7 +533,7 @@ export class ToolAssistanceField extends React.Component<
           >
             {dialogContent}
           </ToolAssistanceDialog>
-        </FooterPopup>
+        </StatusBar.Popup>
       </>
     );
   }

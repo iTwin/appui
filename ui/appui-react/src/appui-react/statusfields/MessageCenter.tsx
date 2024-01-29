@@ -11,7 +11,6 @@ import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import * as React from "react";
 import { UiFramework } from "../UiFramework";
-import { FooterPopup } from "../layout/footer/Popup";
 import { MessageCenterDialog } from "../layout/footer/message-center/Dialog";
 import { MessageCenter } from "../layout/footer/message-center/Indicator";
 import { MessageCenterMessage } from "../layout/footer/message-center/Message";
@@ -19,6 +18,7 @@ import { MessageCenterTab } from "../layout/footer/message-center/Tab";
 import { MessageManager } from "../messages/MessageManager";
 import { MessageDiv, MessageSpan } from "../messages/MessageSpan";
 import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
+import { StatusBar } from "../statusbar/StatusBar";
 
 /** Enum for the [[MessageCenterField]] active tab
  * @internal
@@ -114,7 +114,7 @@ export class MessageCenterField extends React.Component<
             {this.state.messageCount.toString()}
           </MessageCenter>
         </div>
-        <FooterPopup
+        <StatusBar.Popup
           isOpen={this.state.isOpen}
           onClose={this._handleClose}
           onOutsideClick={this._handleOutsideClick}
@@ -150,7 +150,7 @@ export class MessageCenterField extends React.Component<
           >
             {this.getMessages()}
           </MessageCenterDialog>
-        </FooterPopup>
+        </StatusBar.Popup>
       </>
     );
 
