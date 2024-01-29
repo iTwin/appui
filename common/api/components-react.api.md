@@ -2066,6 +2066,17 @@ export class PropertyFilterBuilderActions {
 }
 
 // @beta
+export const PropertyFilterBuilderLogicalOperator: (props: PropertyFilterBuilderLogicalOperatorProps) => React_2.JSX.Element;
+
+// @beta
+export interface PropertyFilterBuilderLogicalOperatorProps {
+    className?: string;
+    isDisabled?: boolean;
+    onOperatorChange: (operator: PropertyFilterRuleGroupOperator) => void;
+    operator: PropertyFilterRuleGroupOperator;
+}
+
+// @beta
 export interface PropertyFilterBuilderProps extends Omit<PropertyFilterBuilderRendererProps, "actions" | "rootGroup">, UsePropertyFilterBuilderProps {
     onFilterChanged: (filter?: PropertyFilter) => void;
 }
@@ -2077,10 +2088,12 @@ export function PropertyFilterBuilderRenderer(props: PropertyFilterBuilderRender
 export interface PropertyFilterBuilderRendererProps {
     actions: PropertyFilterBuilderActions;
     isDisabled?: boolean;
+    isGroupOperatorDisabled?: boolean;
     onRulePropertySelected?: (property: PropertyDescription) => void;
     properties: PropertyDescription[];
     propertyRenderer?: (name: string) => React_3.ReactNode;
     rootGroup: PropertyFilterBuilderRuleGroup;
+    // @deprecated
     ruleGroupDepthLimit?: number;
     ruleOperatorRenderer?: (props: PropertyFilterBuilderRuleOperatorProps) => React_3.ReactNode;
     ruleValueRenderer?: (props: PropertyFilterBuilderRuleValueRendererProps) => React_3.ReactNode;
@@ -2136,6 +2149,9 @@ export interface PropertyFilterBuilderRuleValueRendererProps extends PropertyFil
 export interface PropertyFilterBuilderState {
     rootGroup: PropertyFilterBuilderRuleGroup;
 }
+
+// @beta
+export const PropertyFilterBuilderToolbar: (props: PropertyFilterBuilderToolbarProps) => React_2.JSX.Element;
 
 // @public
 export class PropertyFilterChangeEvent extends BeEvent<PropertyFilterChangesListener> {
