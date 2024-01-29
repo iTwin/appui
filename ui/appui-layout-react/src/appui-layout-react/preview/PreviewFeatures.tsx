@@ -27,7 +27,7 @@ export interface KnownPreviewLayoutFeatures {
    *
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/679
    */
-  changeActiveTabAfterDragDrop?: boolean;
+  activateDroppedTab?: boolean;
 }
 
 type PreviewFeaturesState = Partial<KnownPreviewLayoutFeatures>;

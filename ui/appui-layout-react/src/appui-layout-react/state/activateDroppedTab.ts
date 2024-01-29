@@ -15,7 +15,7 @@ import {
 
 /** Changes widget active tab after drag & drop
  * @internal */
-export const changeActiveTabAfterDragDrop =
+export const activateDroppedTab =
   (reducer: typeof NineZoneStateReducer): typeof NineZoneStateReducer =>
   (state, action) => {
     if (action.type === "WIDGET_TAB_DRAG_END") {

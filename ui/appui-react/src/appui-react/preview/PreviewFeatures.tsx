@@ -20,7 +20,7 @@ interface KnownPreviewFeatures extends KnownPreviewLayoutFeatures {
  * @internal
  */
 const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
-  changeActiveTabAfterDragDrop: undefined,
+  activateDroppedTab: undefined,
   contentAlwaysMaxSize: undefined,
   enableMaximizedFloatingWidget: undefined,
   ...{ newToolbars: undefined }, // Hidden feature used in storybook only (to avoid trimming).
