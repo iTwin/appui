@@ -97,6 +97,18 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
     CursorPopupManager.clearPopups();
   };
 
+  React.useEffect(() => {
+    // TODO: quick fix to display footer popup over a modal frontstage.
+    const style = document.createElement("style");
+    style.textContent = `.nz-footer-popup {
+      z-index: 16000;
+    }`;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   return (
     <div className="component-examples">
       <div className="component-examples-categories">
