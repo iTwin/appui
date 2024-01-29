@@ -101,8 +101,6 @@ import {
   StandardContentLayouts,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import { StatusBarDialogTitleBar } from "@itwin/appui-react/lib/esm/appui-react/statusbar/dialog/TitleBar";
-import { StatusBarDialogTitleBarButton } from "@itwin/appui-react/lib/esm/appui-react/statusbar/dialog/Button";
 import { ComponentGenerator } from "@itwin/appui-react/lib/cjs/appui-react/uiprovider/ComponentGenerator";
 import { UnitSystemKey } from "@itwin/core-quantity";
 import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";
@@ -1193,19 +1191,19 @@ export class ComponentExamplesProvider {
           <StatusBarDialog
             titleBar={<StatusBarDialog.TitleBar title="StatusBarDialogTitle" />}
           >
-            <StatusBarDialogTitleBarButton title="button" onClick={() => {}} />
+            <StatusBarDialog.TitleBarButton title="button" onClick={() => {}} />
           </StatusBarDialog>
         ),
         createComponentExample(
           "Status Bar Dialog Title Bar",
           undefined,
-          <StatusBarDialogTitleBar title="Status Bar Dialog Title" />
+          <StatusBarDialog.TitleBar title="Status Bar Dialog Title" />
         ),
         createComponentExample(
           "Status Bar Dialog Title Bar Button",
           undefined,
           <StatusBar>
-            <StatusBarDialogTitleBarButton
+            <StatusBarDialog.TitleBarButton
               title="Button Title"
               onClick={() => {}}
             />

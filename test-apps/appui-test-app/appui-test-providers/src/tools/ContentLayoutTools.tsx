@@ -21,10 +21,7 @@ import {
   UiFramework,
 } from "@itwin/appui-react";
 import { IModelApp, IModelConnection, Tool } from "@itwin/core-frontend";
-import {
-  ConditionalIconItem,
-  LocalStateStorage,
-} from "@itwin/core-react/lib/esm/core-react";
+import { ConditionalIconItem, LocalStateStorage } from "@itwin/core-react";
 import { SvgWindow, SvgWindowSplitVertical } from "@itwin/itwinui-icons-react";
 
 import layoutRestoreIconSvg from "@bentley/icons-generic/icons/download.svg";
