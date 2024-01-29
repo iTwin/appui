@@ -4,6 +4,7 @@ Table of contents:
 
 - [@itwin/components-react](#itwincomponents-react)
   - [Improvements](#improvements)
+  - [Changes](#changes)
 - [@itwin/appui-react](#itwinappui-react)
   - [Additions](#additions)
 
