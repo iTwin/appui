@@ -98,11 +98,13 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
   };
 
   React.useEffect(() => {
-    // TODO: quick fix to display footer popup over a modal frontstage.
+    // TODO: quick fix to display popups over a modal frontstage.
     const style = document.createElement("style");
-    style.textContent = `.nz-footer-popup {
+    style.textContent = `
+    .nz-footer-popup, .components-toolbar-popupItem_popupItemPopup {
       z-index: 16000;
-    }`;
+    }
+    `;
     document.head.appendChild(style);
     return () => {
       document.head.removeChild(style);
