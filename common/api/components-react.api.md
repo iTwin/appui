@@ -2066,7 +2066,7 @@ export class PropertyFilterBuilderActions {
 }
 
 // @beta
-export const PropertyFilterBuilderLogicalOperator: (props: PropertyFilterBuilderLogicalOperatorProps) => JSX.Element;
+export const PropertyFilterBuilderLogicalOperator: (props: PropertyFilterBuilderLogicalOperatorProps) => React_2.JSX.Element;
 
 // @beta
 export interface PropertyFilterBuilderLogicalOperatorProps {
@@ -2151,7 +2151,7 @@ export interface PropertyFilterBuilderState {
 }
 
 // @beta
-export const PropertyFilterBuilderToolbar: (props: PropertyFilterBuilderToolbarProps) => JSX.Element;
+export const PropertyFilterBuilderToolbar: (props: PropertyFilterBuilderToolbarProps) => React_2.JSX.Element;
 
 // @public
 export class PropertyFilterChangeEvent extends BeEvent<PropertyFilterChangesListener> {

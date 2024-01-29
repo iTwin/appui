@@ -232,7 +232,7 @@ public;PropertyEditorProps
 beta;PropertyFilter = PropertyFilterRule | PropertyFilterRuleGroup
 beta;PropertyFilterBuilder(props: PropertyFilterBuilderProps): React_3.JSX.Element
 beta;PropertyFilterBuilderActions
-beta;PropertyFilterBuilderLogicalOperator: (props: PropertyFilterBuilderLogicalOperatorProps) => JSX.Element
+beta;PropertyFilterBuilderLogicalOperator: (props: PropertyFilterBuilderLogicalOperatorProps) => React_2.JSX.Element
 beta;PropertyFilterBuilderLogicalOperatorProps
 beta;PropertyFilterBuilderProps 
 beta;PropertyFilterBuilderRenderer(props: PropertyFilterBuilderRendererProps): React_3.JSX.Element
@@ -246,7 +246,7 @@ beta;PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueProps):
 beta;PropertyFilterBuilderRuleValueProps
 beta;PropertyFilterBuilderRuleValueRendererProps 
 beta;PropertyFilterBuilderState
-beta;PropertyFilterBuilderToolbar: (props: PropertyFilterBuilderToolbarProps) => JSX.Element
+beta;PropertyFilterBuilderToolbar: (props: PropertyFilterBuilderToolbarProps) => React_2.JSX.Element
 public;PropertyFilterChangeEvent 
 public;PropertyFilterChangesListener = () => void
 beta;PropertyFilterRule
