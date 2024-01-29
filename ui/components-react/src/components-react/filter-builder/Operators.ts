@@ -22,25 +22,26 @@ export enum PropertyFilterRuleGroupOperator {
  * Operators for comparing property value in [[PropertyFilterRule]].
  * @beta
  */
-export type PropertyFilterRuleOperator =
-  | "is-true"
-  | "is-false"
-  | "is-equal"
-  | "is-not-equal"
-  | "greater"
-  | "greater-or-equal"
-  | "less"
-  | "less-or-equal"
-  | "like"
-  | "is-null"
-  | "is-not-null";
+export enum PropertyFilterRuleOperator {
+  IsTrue = "is-true",
+  IsFalse = "is-false",
+  IsEqual = "is-equal",
+  IsNotEqual = "is-not-equal",
+  Greater = "greater",
+  GreaterOrEqual = "greater-or-equal",
+  Less = "less",
+  LessOrEqual = "less-or-equal",
+  Like = "like",
+  IsNull = "is-null",
+  IsNotNull = "is-not-null",
+}
 
 /**
  * Operators supported by [[usePropertyFilterBuilder]] when building filter rules.
  * @beta
  */
 export type PropertyFilterBuilderRuleOperator =
-  | PropertyFilterRuleOperator
+  | `${PropertyFilterRuleOperator}`
   | "between"
   | "not-between";
 
@@ -118,7 +119,7 @@ export function isUnaryPropertyFilterBuilderOperator(
  * @beta
  */
 export function isUnaryPropertyFilterOperator(
-  operator: PropertyFilterRuleOperator
+  operator: `${PropertyFilterRuleOperator}`
 ) {
   switch (operator) {
     case "is-true":

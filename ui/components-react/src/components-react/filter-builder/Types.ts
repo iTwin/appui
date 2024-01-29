@@ -37,7 +37,7 @@ export interface PropertyFilterRule {
   /** Property used in this rule. */
   property: PropertyDescription;
   /** Operator that should be used to compare property value. */
-  operator: PropertyFilterRuleOperator;
+  operator: `${PropertyFilterRuleOperator}`;
   /** Value that property should be compared to. */
   value?: PropertyValue;
 }
