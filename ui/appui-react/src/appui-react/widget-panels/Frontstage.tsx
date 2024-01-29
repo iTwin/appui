@@ -27,7 +27,6 @@ import type { LayoutStore } from "../layout/base/LayoutStore";
 import { createLayoutStore, useLayout } from "../layout/base/LayoutStore";
 import type { NineZoneDispatch, NineZoneLabels } from "../layout/base/NineZone";
 import { getUniqueId, NineZone } from "../layout/base/NineZone";
-import { PreviewLayoutFeaturesProvider } from "../layout/preview/PreviewFeatures";
 import type { NineZoneState } from "../layout/state/NineZoneState";
 import { createNineZoneState } from "../layout/state/NineZoneState";
 import { NineZoneStateReducer } from "../layout/state/NineZoneStateReducer";
@@ -82,28 +81,26 @@ function WidgetPanelsFrontstageComponent() {
     "preview-contentAlwaysMaxSize-topPanelActive";
 
   return (
-    <PreviewLayoutFeaturesProvider {...previewFeatures}>
-      <PreviewMaximizedWidgetFeatureProvider
-        enabled={previewFeatures.enableMaximizedFloatingWidget}
-      >
-        <WidgetPanelsToolSettings />
-        <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
-          <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
-          <WidgetPanels
-            className={classNames(
-              "uifw-widgetPanels",
-              previewContentAlwaysMaxSizeDockedClass,
-              previewContentAlwaysMaxSizeTopPanelClass
-            )}
-            centerContent={<WidgetPanelsToolbars />}
-          >
-            <WidgetPanelsFrontstageContent />
-          </WidgetPanels>
-          <WidgetPanelsStatusBar />
-          <FloatingWidgets />
-        </ToolbarPopupAutoHideContext.Provider>
-      </PreviewMaximizedWidgetFeatureProvider>
-    </PreviewLayoutFeaturesProvider>
+    <PreviewMaximizedWidgetFeatureProvider
+      enabled={previewFeatures.enableMaximizedFloatingWidget}
+    >
+      <WidgetPanelsToolSettings />
+      <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
+        <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
+        <WidgetPanels
+          className={classNames(
+            "uifw-widgetPanels",
+            previewContentAlwaysMaxSizeDockedClass,
+            previewContentAlwaysMaxSizeTopPanelClass
+          )}
+          centerContent={<WidgetPanelsToolbars />}
+        >
+          <WidgetPanelsFrontstageContent />
+        </WidgetPanels>
+        <WidgetPanelsStatusBar />
+        <FloatingWidgets />
+      </ToolbarPopupAutoHideContext.Provider>
+    </PreviewMaximizedWidgetFeatureProvider>
   );
 }
 

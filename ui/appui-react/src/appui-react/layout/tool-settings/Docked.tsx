@@ -6,18 +6,18 @@
  * @module ToolSettings
  */
 
-import "./Docked.scss";
-import classnames from "classnames";
-import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
 import { useRefs, useResizeObserver } from "@itwin/core-react";
+import classnames from "classnames";
+import * as React from "react";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { usePreviewFeatures } from "../../preview/PreviewFeatures";
+import { AnimateDockedToolSettingsContext } from "../base/NineZone";
+import "./Docked.scss";
 import { DockedToolSettingsHandle } from "./Handle";
 import { DockedToolSettingsOverflow } from "./Overflow";
 import { ToolSettingsOverflowPanel } from "./Panel";
-import { AnimateDockedToolSettingsContext } from "../base/NineZone";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { usePreviewFeatures } from "../preview/PreviewFeatures";
 
 /** @internal */
 export function onOverflowLabelAndEditorResize() {}

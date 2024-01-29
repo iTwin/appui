@@ -8,12 +8,21 @@
 
 import * as React from "react";
 import { create } from "zustand";
-import type { KnownPreviewLayoutFeatures } from "../layout/preview/PreviewFeatures";
 
 /** List of known preview features. */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface KnownPreviewFeatures extends KnownPreviewLayoutFeatures {
-  // Add preview features not in layout here.
+interface KnownPreviewFeatures {
+  /** If true, the panels and tool settings will always be rendered over the content.
+   * The content will never change size.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/672
+   */
+  contentAlwaysMaxSize: boolean;
+  /** If true, the floating widget will have a "maximize" button.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
+   */
+  enableMaximizedFloatingWidget: boolean;
 }
 
 /** Object used trim to only known features at runtime.

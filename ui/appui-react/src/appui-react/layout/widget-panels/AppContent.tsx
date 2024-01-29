@@ -16,7 +16,7 @@ import { ContentNodeContext } from "./Panels";
 import { panelSides } from "./Panel";
 import { useRefEffect, useRefs } from "@itwin/core-react";
 import { useLayout, useLayoutStore } from "../base/LayoutStore";
-import { usePreviewFeatures } from "../preview/PreviewFeatures";
+import { usePreviewFeatures } from "../../preview/PreviewFeatures";
 
 /** Main app content (i.e. viewport) that will change bounds based on panel pinned settings.
  * @internal
