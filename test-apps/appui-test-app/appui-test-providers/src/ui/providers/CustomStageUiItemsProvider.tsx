@@ -11,7 +11,6 @@ import {
 } from "@itwin/appui-react";
 import { WidgetApiStage } from "../frontstages/WidgetApiStage";
 import { SetWidgetStateTool } from "../../tools/UiLayoutTools";
-import { CustomFrontstageProvider } from "../frontstages/CustomFrontstageProvider";
 
 export class CustomStageUiItemsProvider implements UiItemsProvider {
   public static providerId = "appui-test-providers:custom-stage";
@@ -31,7 +30,7 @@ export class CustomStageUiItemsProvider implements UiItemsProvider {
   public provideBackstageItems(): BackstageItem[] {
     return [
       BackstageItemUtilities.createStageLauncher(
-        CustomFrontstageProvider.stageId,
+        "example:CustomFrontstage",
         300,
         2,
         "Custom Frontstage",
