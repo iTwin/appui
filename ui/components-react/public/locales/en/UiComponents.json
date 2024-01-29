@@ -132,11 +132,14 @@
       "isNull": "Is Null",
       "isNotNull": "Is Not Null",
       "and": "And",
-      "or": "Or"
+      "or": "Or",
+      "between": "Between",
+      "notBetween": "Not Between"
     },
     "chooseProperty": "Choose property",
     "errorMessages": {
-      "emptyValue": "Value is required"
+      "emptyValue": "Value is required",
+      "invalidRange": "Invalid range"
     }
   }
 }

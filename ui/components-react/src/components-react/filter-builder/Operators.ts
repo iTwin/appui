@@ -8,7 +8,6 @@
 
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { StandardTypeNames } from "@itwin/appui-abstract";
-import { UiComponents } from "../UiComponents";
 
 /**
  * Logical operator for joining rules.
@@ -20,49 +19,52 @@ export enum PropertyFilterRuleGroupOperator {
 }
 
 /**
- * Operators for comparing property value in rule.
+ * Operators for comparing property value in [[PropertyFilterRule]].
  * @beta
  */
-export enum PropertyFilterRuleOperator {
-  IsTrue,
-  IsFalse,
+export type PropertyFilterRuleOperator =
+  | "is-true"
+  | "is-false"
+  | "is-equal"
+  | "is-not-equal"
+  | "greater"
+  | "greater-or-equal"
+  | "less"
+  | "less-or-equal"
+  | "like"
+  | "is-null"
+  | "is-not-null";
 
-  IsEqual,
-  IsNotEqual,
-
-  Greater,
-  GreaterOrEqual,
-  Less,
-  LessOrEqual,
-
-  Like,
-
-  IsNull,
-  IsNotNull,
-}
+/**
+ * Operators supported by [[usePropertyFilterBuilder]] when building filter rules.
+ * @beta
+ */
+export type PropertyFilterBuilderRuleOperator =
+  | PropertyFilterRuleOperator
+  | "between"
+  | "not-between";
 
 /**
  * Function that returns set of available operator based on property type.
  * @beta
  */
-export function getPropertyFilterOperators(property: PropertyDescription) {
+export function getPropertyFilterBuilderOperators(
+  property: PropertyDescription
+): PropertyFilterBuilderRuleOperator[] {
   const typename = property.typename;
 
   if (
     typename === StandardTypeNames.Bool ||
     typename === StandardTypeNames.Boolean
   ) {
-    return [
-      PropertyFilterRuleOperator.IsTrue,
-      PropertyFilterRuleOperator.IsFalse,
-    ];
+    return ["is-true", "is-false"];
   }
 
-  const operators = [
-    PropertyFilterRuleOperator.IsEqual,
-    PropertyFilterRuleOperator.IsNotEqual,
-    PropertyFilterRuleOperator.IsNull,
-    PropertyFilterRuleOperator.IsNotNull,
+  const operators: PropertyFilterBuilderRuleOperator[] = [
+    "is-equal",
+    "is-not-equal",
+    "is-null",
+    "is-not-null",
   ];
 
   if (
@@ -78,10 +80,12 @@ export function getPropertyFilterOperators(property: PropertyDescription) {
   ) {
     return [
       ...operators,
-      PropertyFilterRuleOperator.Greater,
-      PropertyFilterRuleOperator.GreaterOrEqual,
-      PropertyFilterRuleOperator.Less,
-      PropertyFilterRuleOperator.LessOrEqual,
+      "greater",
+      "greater-or-equal",
+      "less",
+      "less-or-equal",
+      "between",
+      "not-between",
     ];
   }
 
@@ -89,58 +93,38 @@ export function getPropertyFilterOperators(property: PropertyDescription) {
     typename === StandardTypeNames.String ||
     typename === StandardTypeNames.Text
   ) {
-    return [PropertyFilterRuleOperator.Like, ...operators];
+    return ["like", ...operators];
   }
 
   return operators;
 }
 
-/* istanbul ignore next */
 /**
- * Function that returns display label for rule operator.
+ * Function that checks if supplied [[PropertyFilterBuilderRuleOperator]] operator is unary.
  * @beta
  */
-export function getPropertyFilterOperatorLabel(
-  operator: PropertyFilterRuleOperator
+export function isUnaryPropertyFilterBuilderOperator(
+  operator: PropertyFilterBuilderRuleOperator
 ) {
-  switch (operator) {
-    case PropertyFilterRuleOperator.IsTrue:
-      return UiComponents.translate("filterBuilder.operators.isTrue");
-    case PropertyFilterRuleOperator.IsFalse:
-      return UiComponents.translate("filterBuilder.operators.isFalse");
-    case PropertyFilterRuleOperator.IsEqual:
-      return UiComponents.translate("filterBuilder.operators.equal");
-    case PropertyFilterRuleOperator.IsNotEqual:
-      return UiComponents.translate("filterBuilder.operators.notEqual");
-    case PropertyFilterRuleOperator.Greater:
-      return ">";
-    case PropertyFilterRuleOperator.GreaterOrEqual:
-      return ">=";
-    case PropertyFilterRuleOperator.Less:
-      return "<";
-    case PropertyFilterRuleOperator.LessOrEqual:
-      return "<=";
-    case PropertyFilterRuleOperator.Like:
-      return UiComponents.translate("filterBuilder.operators.contains");
-    case PropertyFilterRuleOperator.IsNull:
-      return UiComponents.translate("filterBuilder.operators.isNull");
-    case PropertyFilterRuleOperator.IsNotNull:
-      return UiComponents.translate("filterBuilder.operators.isNotNull");
-  }
+  return (
+    operator !== "between" &&
+    operator !== "not-between" &&
+    isUnaryPropertyFilterOperator(operator)
+  );
 }
 
 /**
- * Function that checks if supplied operator is unary.
+ * Function that checks if supplied [[PropertyFilterRuleOperator]] operator is unary.
  * @beta
  */
 export function isUnaryPropertyFilterOperator(
   operator: PropertyFilterRuleOperator
 ) {
   switch (operator) {
-    case PropertyFilterRuleOperator.IsTrue:
-    case PropertyFilterRuleOperator.IsFalse:
-    case PropertyFilterRuleOperator.IsNull:
-    case PropertyFilterRuleOperator.IsNotNull:
+    case "is-true":
+    case "is-false":
+    case "is-null":
+    case "is-not-null":
       return true;
   }
   return false;

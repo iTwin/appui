@@ -16,10 +16,7 @@ import type {
   PropertyFilterBuilderRuleGroup,
 } from "../../components-react/filter-builder/FilterBuilderState";
 import { buildPropertyFilter } from "../../components-react/filter-builder/FilterBuilderState";
-import {
-  PropertyFilterRuleGroupOperator,
-  PropertyFilterRuleOperator,
-} from "../../components-react/filter-builder/Operators";
+import { PropertyFilterRuleGroupOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils, { userEvent } from "../TestUtils";
 import type { PropertyFilter } from "../../components-react/filter-builder/Types";
 
@@ -61,7 +58,7 @@ describe("PropertyFilterBuilder", () => {
 
     expect(spy).to.be.calledOnceWith({
       property: property1,
-      operator: 0,
+      operator: "is-true",
       value: undefined,
     });
   });
@@ -69,7 +66,7 @@ describe("PropertyFilterBuilder", () => {
   it("renders propertyFilterBuilder with single rule correctly", async () => {
     const propertyFilter: PropertyFilter = {
       property: property1,
-      operator: PropertyFilterRuleOperator.IsNull,
+      operator: "is-null",
       value: undefined,
     };
 
@@ -96,12 +93,12 @@ describe("PropertyFilterBuilder", () => {
           rules: [
             {
               property: property1,
-              operator: PropertyFilterRuleOperator.IsTrue,
+              operator: "is-true",
               value: undefined,
             },
             {
               property: property2,
-              operator: PropertyFilterRuleOperator.IsNull,
+              operator: "is-null",
               value: undefined,
             },
           ],
@@ -222,7 +219,7 @@ describe("PropertyFilterBuilder", () => {
       id: "rule",
       groupId: "rootGroup",
       property: { name: "prop", displayLabel: "Prop", typename: "string" },
-      operator: PropertyFilterRuleOperator.IsEqual,
+      operator: "is-equal",
       value: {
         valueFormat: PropertyValueFormat.Primitive,
         value: "test string",

@@ -15,12 +15,14 @@ import {
   PropertyFilterBuilderContext,
   PropertyFilterBuilderRuleRenderingContext,
 } from "./FilterBuilderContext";
-import { PropertyFilterBuilderRuleOperator } from "./FilterBuilderRuleOperator";
+import { PropertyFilterBuilderRuleOperatorRenderer } from "./FilterBuilderRuleOperator";
 import { PropertyFilterBuilderRuleProperty } from "./FilterBuilderRuleProperty";
 import { PropertyFilterBuilderRuleValue } from "./FilterBuilderRuleValue";
 import type { PropertyFilterBuilderRule } from "./FilterBuilderState";
-import type { PropertyFilterRuleOperator } from "./Operators";
-import { isUnaryPropertyFilterOperator } from "./Operators";
+import {
+  isUnaryPropertyFilterBuilderOperator,
+  type PropertyFilterBuilderRuleOperator,
+} from "./Operators";
 
 /**
  * Props for [[PropertyFilterBuilderRuleRenderer]] component.
@@ -65,7 +67,7 @@ export function PropertyFilterBuilderRuleRenderer(
   );
 
   const onRuleOperatorChange = React.useCallback(
-    (newOperator: PropertyFilterRuleOperator) => {
+    (newOperator: PropertyFilterBuilderRuleOperator) => {
       actions.setRuleOperator(path, newOperator);
     },
     [path, actions]
@@ -89,7 +91,7 @@ export function PropertyFilterBuilderRuleRenderer(
           onChange: onRuleOperatorChange,
         });
       return (
-        <PropertyFilterBuilderRuleOperator
+        <PropertyFilterBuilderRuleOperatorRenderer
           property={prop}
           onChange={onRuleOperatorChange}
           operator={operator}
@@ -100,7 +102,7 @@ export function PropertyFilterBuilderRuleRenderer(
   );
 
   const valueRenderer = React.useCallback(
-    (prop: PropertyDescription, op: PropertyFilterRuleOperator) => {
+    (prop: PropertyDescription, op: PropertyFilterBuilderRuleOperator) => {
       if (ruleValueRenderer)
         return ruleValueRenderer({
           property: prop,
@@ -113,6 +115,7 @@ export function PropertyFilterBuilderRuleRenderer(
           property={prop}
           onChange={onRuleValueChange}
           value={value}
+          operator={op}
         />
       );
     },
@@ -139,7 +142,7 @@ export function PropertyFilterBuilderRuleRenderer(
         {property !== undefined ? operatorRenderer(property) : null}
         {property !== undefined &&
         operator !== undefined &&
-        !isUnaryPropertyFilterOperator(operator) ? (
+        !isUnaryPropertyFilterBuilderOperator(operator) ? (
           <div
             className={`iui-input-container iui-with-message ${
               rule.errorMessage ? "iui-negative" : null

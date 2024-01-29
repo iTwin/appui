@@ -14,7 +14,6 @@ import { PropertyFilterBuilderRuleRenderer } from "../../components-react/filter
 import type { PropertyFilterBuilderRuleOperatorProps } from "../../components-react/filter-builder/FilterBuilderRuleOperator";
 import type { PropertyFilterBuilderRuleValueProps } from "../../components-react/filter-builder/FilterBuilderRuleValue";
 import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
-import { PropertyFilterRuleOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";
 import { UiComponents } from "../../components-react";
@@ -149,7 +148,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
           rule={{
             ...defaultProps.rule,
             property: defaultProperty,
-            operator: PropertyFilterRuleOperator.IsEqual,
+            operator: "is-equal",
           }}
         />
       );
@@ -168,7 +167,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
           rule={{
             ...defaultProps.rule,
             property: defaultProperty,
-            operator: PropertyFilterRuleOperator.IsEqual,
+            operator: "is-equal",
           }}
         />,
         {},
@@ -186,7 +185,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
           rule={{
             ...defaultProps.rule,
             property: defaultProperty,
-            operator: PropertyFilterRuleOperator.IsEqual,
+            operator: "is-equal",
             errorMessage,
           }}
         />
@@ -282,7 +281,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         rule={{
           ...defaultProps.rule,
           property: defaultProperty,
-          operator: PropertyFilterRuleOperator.IsEqual,
+          operator: "is-equal",
         }}
       />,
       { actions, properties: [] }
@@ -350,7 +349,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         rule={{
           ...defaultProps.rule,
           property: defaultProperty,
-          operator: PropertyFilterRuleOperator.IsEqual,
+          operator: "is-equal",
         }}
       />,
       { actions },
@@ -361,7 +360,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     expect(operatorRendererSpy).to.be.calledOnce;
     const operatorRendererProps = operatorRendererSpy.firstCall
       .args[0] as PropertyFilterBuilderRuleOperatorProps;
-    const newOperator = PropertyFilterRuleOperator.IsNotNull;
+    const newOperator = "is-not-null";
     operatorRendererProps.onChange(newOperator);
 
     expect(setRuleOperatorSpy).to.be.calledOnceWith(
@@ -379,7 +378,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         rule={{
           ...defaultProps.rule,
           property: defaultProperty,
-          operator: PropertyFilterRuleOperator.IsEqual,
+          operator: "is-equal",
         }}
       />,
       { actions },

@@ -5,7 +5,7 @@
 
 import chai, { expect } from "chai";
 import chaiSubset from "chai-subset";
-import type { PropertyValue } from "@itwin/appui-abstract";
+import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
@@ -14,13 +14,16 @@ import type {
   PropertyFilterBuilderRuleGroup,
   PropertyFilterBuilderRuleGroupItem,
 } from "../../components-react/filter-builder/FilterBuilderState";
-import { usePropertyFilterBuilder } from "../../components-react/filter-builder/FilterBuilderState";
 import {
-  PropertyFilterRuleGroupOperator,
-  PropertyFilterRuleOperator,
-} from "../../components-react/filter-builder/Operators";
+  buildPropertyFilter,
+  isPropertyFilterBuilderRuleGroup,
+  usePropertyFilterBuilder,
+} from "../../components-react/filter-builder/FilterBuilderState";
+import { PropertyFilterRuleGroupOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 import { UiComponents } from "../../components-react/UiComponents";
+import type { PropertyFilter } from "../../components-react/filter-builder/Types";
+import { PropertyFilterBuilderRuleRangeValue } from "../../components-react";
 
 chai.use(chaiSubset);
 
@@ -180,10 +183,7 @@ describe("usePropertyFilterBuilder", () => {
 
     let { rootGroup } = result.current;
     expect(rootGroup.items).to.have.lengthOf(1);
-    actions.setRuleOperator(
-      [rootGroup.items[0].id],
-      PropertyFilterRuleOperator.IsTrue
-    );
+    actions.setRuleOperator([rootGroup.items[0].id], "is-true");
     actions.setRuleValue([rootGroup.items[0].id], {
       valueFormat: PropertyValueFormat.Primitive,
     });
@@ -279,10 +279,7 @@ describe("usePropertyFilterBuilder", () => {
     let { rootGroup } = result.current;
 
     // set operator for rule item
-    actions.setRuleOperator(
-      [rootGroup.items[0].id],
-      PropertyFilterRuleOperator.IsNull
-    );
+    actions.setRuleOperator([rootGroup.items[0].id], "is-null");
 
     // setting the property should reset the operator
     actions.setRuleProperty([rootGroup.items[0].id], property);
@@ -317,10 +314,7 @@ describe("usePropertyFilterBuilder", () => {
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
-    actions.setRuleOperator(
-      [rootGroup.items[0].id],
-      PropertyFilterRuleOperator.IsEqual
-    );
+    actions.setRuleOperator([rootGroup.items[0].id], "is-equal");
 
     await waitFor(() => {
       rootGroup = result.current.rootGroup;
@@ -328,7 +322,7 @@ describe("usePropertyFilterBuilder", () => {
         items: [
           {
             groupId: rootGroup.id,
-            operator: PropertyFilterRuleOperator.IsEqual,
+            operator: "is-equal",
           },
         ],
       });
@@ -347,10 +341,7 @@ describe("usePropertyFilterBuilder", () => {
       expect(rule.value).to.be.deep.eq(value);
     });
 
-    actions.setRuleOperator(
-      [rootGroup.items[0].id],
-      PropertyFilterRuleOperator.IsNull
-    );
+    actions.setRuleOperator([rootGroup.items[0].id], "is-null");
 
     await waitFor(() => {
       rootGroup = result.current.rootGroup;
@@ -358,7 +349,7 @@ describe("usePropertyFilterBuilder", () => {
         items: [
           {
             groupId: rootGroup.id,
-            operator: PropertyFilterRuleOperator.IsNull,
+            operator: "is-null",
             value: undefined,
           },
         ],
@@ -372,7 +363,7 @@ describe("usePropertyFilterBuilder", () => {
         initialFilter: {
           value,
           property,
-          operator: PropertyFilterRuleOperator.IsEqual,
+          operator: "is-equal",
         },
       })
     );
@@ -383,10 +374,7 @@ describe("usePropertyFilterBuilder", () => {
       (rootGroup.items[0] as PropertyFilterBuilderRule).value
     ).to.be.deep.eq(value);
 
-    actions.setRuleOperator(
-      [rootGroup.items[0].id],
-      PropertyFilterRuleOperator.Less
-    );
+    actions.setRuleOperator([rootGroup.items[0].id], "less");
 
     rootGroup = result.current.rootGroup;
 
@@ -400,7 +388,7 @@ describe("usePropertyFilterBuilder", () => {
         initialFilter: {
           value,
           property,
-          operator: PropertyFilterRuleOperator.Less,
+          operator: "less",
         },
       })
     );
@@ -412,10 +400,7 @@ describe("usePropertyFilterBuilder", () => {
       (rootGroup.items[0] as PropertyFilterBuilderRule).value
     ).to.be.deep.eq(value);
 
-    actions.setRuleOperator(
-      [rootGroup.items[0].id],
-      PropertyFilterRuleOperator.IsNotEqual
-    );
+    actions.setRuleOperator([rootGroup.items[0].id], "is-not-equal");
 
     rootGroup = result.current.rootGroup;
 
@@ -429,7 +414,7 @@ describe("usePropertyFilterBuilder", () => {
         initialFilter: {
           value,
           property,
-          operator: PropertyFilterRuleOperator.Like,
+          operator: "like",
         },
       })
     );
@@ -441,10 +426,7 @@ describe("usePropertyFilterBuilder", () => {
       (rootGroup.items[0] as PropertyFilterBuilderRule).value
     ).to.be.deep.eq(value);
 
-    actions.setRuleOperator(
-      [rootGroup.items[0].id],
-      PropertyFilterRuleOperator.Like
-    );
+    actions.setRuleOperator([rootGroup.items[0].id], "like");
 
     rootGroup = result.current.rootGroup;
 
@@ -459,7 +441,7 @@ describe("usePropertyFilterBuilder", () => {
         initialFilter: {
           value,
           property,
-          operator: PropertyFilterRuleOperator.IsEqual,
+          operator: "is-equal",
         },
       })
     );
@@ -471,10 +453,7 @@ describe("usePropertyFilterBuilder", () => {
       (rootGroup.items[0] as PropertyFilterBuilderRule).value
     ).to.be.deep.eq(value);
 
-    actions.setRuleOperator(
-      [rootGroup.items[0].id],
-      PropertyFilterRuleOperator.IsNotEqual
-    );
+    actions.setRuleOperator([rootGroup.items[0].id], "is-not-equal");
 
     rootGroup = result.current.rootGroup;
 
@@ -489,7 +468,7 @@ describe("usePropertyFilterBuilder", () => {
         initialFilter: {
           value,
           property,
-          operator: PropertyFilterRuleOperator.Less,
+          operator: "less",
         },
       })
     );
@@ -501,10 +480,7 @@ describe("usePropertyFilterBuilder", () => {
       (rootGroup.items[0] as PropertyFilterBuilderRule).value
     ).to.be.deep.eq(value);
 
-    actions.setRuleOperator(
-      [rootGroup.items[0].id],
-      PropertyFilterRuleOperator.Greater
-    );
+    actions.setRuleOperator([rootGroup.items[0].id], "greater");
 
     rootGroup = result.current.rootGroup;
 
@@ -513,14 +489,46 @@ describe("usePropertyFilterBuilder", () => {
     ).to.be.deep.eq(value);
   });
 
+  it("does not reset rule value when operator changes from `Between` to `Not Between`", () => {
+    const { result } = renderHook(() =>
+      usePropertyFilterBuilder({
+        initialFilter: createRangeFilter(
+          property,
+          "between",
+          {
+            valueFormat: PropertyValueFormat.Primitive,
+            value: 1,
+          },
+          {
+            valueFormat: PropertyValueFormat.Primitive,
+            value: 2,
+          }
+        ),
+      })
+    );
+
+    const { actions } = result.current;
+    let { rootGroup } = result.current;
+
+    const initialValue = (rootGroup.items[0] as PropertyFilterBuilderRule)
+      .value;
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).operator).to.be.eq(
+      "between"
+    );
+    expect(initialValue).to.not.be.undefined;
+    actions.setRuleOperator([rootGroup.items[0].id], "not-between");
+
+    rootGroup = result.current.rootGroup;
+    expect(
+      (rootGroup.items[0] as PropertyFilterBuilderRule).value
+    ).to.be.deep.eq(initialValue);
+  });
+
   it("does not change state when setting non existing rule operator", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
 
-    actions.setRuleOperator(
-      ["invalidRule"],
-      PropertyFilterRuleOperator.IsEqual
-    );
+    actions.setRuleOperator(["invalidRule"], "is-equal");
 
     const { rootGroup: newRootGroup } = result.current;
     expect(rootGroup).to.be.eq(newRootGroup);
@@ -594,7 +602,7 @@ describe("usePropertyFilterBuilder", () => {
           usePropertyFilterBuilder({
             initialFilter: {
               property,
-              operator: PropertyFilterRuleOperator.Like,
+              operator: "like",
             },
           })
         );
@@ -617,7 +625,7 @@ describe("usePropertyFilterBuilder", () => {
           usePropertyFilterBuilder({
             initialFilter: {
               property,
-              operator: PropertyFilterRuleOperator.IsEqual,
+              operator: "is-equal",
               value: { valueFormat: PropertyValueFormat.Primitive, value: "" },
             },
           })
@@ -641,7 +649,7 @@ describe("usePropertyFilterBuilder", () => {
           usePropertyFilterBuilder({
             initialFilter: {
               property,
-              operator: PropertyFilterRuleOperator.IsFalse,
+              operator: "is-false",
             },
           })
         );
@@ -655,7 +663,7 @@ describe("usePropertyFilterBuilder", () => {
 
         expect(buildFilterResult).to.deep.equal({
           property,
-          operator: PropertyFilterRuleOperator.IsFalse,
+          operator: "is-false",
           value: undefined,
         });
       });
@@ -665,7 +673,7 @@ describe("usePropertyFilterBuilder", () => {
           usePropertyFilterBuilder({
             initialFilter: {
               property,
-              operator: PropertyFilterRuleOperator.IsEqual,
+              operator: "is-equal",
               value: {
                 valueFormat: PropertyValueFormat.Primitive,
                 value: "value",
@@ -684,12 +692,158 @@ describe("usePropertyFilterBuilder", () => {
 
         expect(buildFilterResult).to.deep.equal({
           property,
-          operator: PropertyFilterRuleOperator.IsEqual,
+          operator: "is-equal",
           value: {
             valueFormat: PropertyValueFormat.Primitive,
             value: "value",
             displayValue: "value",
           },
+        });
+      });
+
+      describe("range value", () => {
+        it("returns undefined and sets rule error message to `Value is empty` if item`s range `from` value is empty", () => {
+          const { result } = renderHook(() =>
+            usePropertyFilterBuilder({
+              initialFilter: createRangeFilter(
+                property,
+                "between",
+                {
+                  valueFormat: PropertyValueFormat.Primitive,
+                },
+                {
+                  valueFormat: PropertyValueFormat.Primitive,
+                  value: 2,
+                }
+              ),
+            })
+          );
+          const { buildFilter } = result.current;
+
+          const buildFilterResult = buildFilter();
+          expect(buildFilterResult).to.be.undefined;
+
+          const { rootGroup } = result.current;
+          expect(
+            (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+          ).to.be.eq(
+            UiComponents.translate("filterBuilder.errorMessages.emptyValue")
+          );
+        });
+
+        it("returns undefined and sets rule error message to `Value is empty` if item`s range `to` value is empty", () => {
+          const { result } = renderHook(() =>
+            usePropertyFilterBuilder({
+              initialFilter: createRangeFilter(
+                property,
+                "between",
+                {
+                  valueFormat: PropertyValueFormat.Primitive,
+                  value: 1,
+                },
+                {
+                  valueFormat: PropertyValueFormat.Primitive,
+                }
+              ),
+            })
+          );
+          const { buildFilter } = result.current;
+
+          const buildFilterResult = buildFilter();
+          expect(buildFilterResult).to.be.undefined;
+
+          const { rootGroup } = result.current;
+          expect(
+            (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+          ).to.be.eq(
+            UiComponents.translate("filterBuilder.errorMessages.emptyValue")
+          );
+        });
+
+        it("returns undefined and sets rule error message to `Invalid range` if item`s range is not valid", () => {
+          const { result } = renderHook(() =>
+            usePropertyFilterBuilder({
+              initialFilter: createRangeFilter(
+                property,
+                "between",
+                {
+                  valueFormat: PropertyValueFormat.Primitive,
+                  value: 2,
+                },
+                {
+                  valueFormat: PropertyValueFormat.Primitive,
+                  value: 1,
+                }
+              ),
+            })
+          );
+          const { buildFilter } = result.current;
+
+          const buildFilterResult = buildFilter();
+          expect(buildFilterResult).to.be.undefined;
+
+          const { rootGroup } = result.current;
+          expect(
+            (rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage
+          ).to.be.eq(
+            UiComponents.translate("filterBuilder.errorMessages.invalidRange")
+          );
+        });
+
+        it("returns property filter with `Between` rule when value is valid", () => {
+          const initialFilter = createRangeFilter(
+            property,
+            "between",
+            {
+              valueFormat: PropertyValueFormat.Primitive,
+              value: 1,
+            },
+            {
+              valueFormat: PropertyValueFormat.Primitive,
+              value: 2,
+            }
+          );
+          const { result } = renderHook(() =>
+            usePropertyFilterBuilder({
+              initialFilter,
+            })
+          );
+          const { buildFilter } = result.current;
+
+          const buildFilterResult = buildFilter();
+          expect(buildFilterResult).to.not.be.eq(initialFilter);
+
+          const { rootGroup } = result.current;
+          expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage)
+            .to.be.undefined;
+        });
+
+        it("returns property filter with `Not Between` rule when value is valid", () => {
+          const initialFilter = createRangeFilter(
+            property,
+            "not-between",
+            {
+              valueFormat: PropertyValueFormat.Primitive,
+              value: 1,
+            },
+            {
+              valueFormat: PropertyValueFormat.Primitive,
+              value: 2,
+            }
+          );
+          const { result } = renderHook(() =>
+            usePropertyFilterBuilder({
+              initialFilter,
+            })
+          );
+          const { buildFilter } = result.current;
+
+          const buildFilterResult = buildFilter();
+          expect(buildFilterResult).to.not.be.eq(initialFilter);
+
+          const { rootGroup } = result.current;
+          expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage)
+            .to.be.undefined;
         });
       });
     });
@@ -723,6 +877,212 @@ describe("usePropertyFilterBuilder", () => {
 
       expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage).to
         .be.undefined;
+    });
+  });
+
+  describe("range rule", () => {
+    it("converts `>=` and `<=` rules into `Between` rule", () => {
+      const { result } = renderHook(() =>
+        usePropertyFilterBuilder({
+          initialFilter: {
+            operator: PropertyFilterRuleGroupOperator.And,
+            rules: [
+              {
+                operator: PropertyFilterRuleGroupOperator.And,
+                rules: [
+                  {
+                    operator: "greater-or-equal",
+                    property,
+                    value: {
+                      valueFormat: PropertyValueFormat.Primitive,
+                      value: 1,
+                    },
+                  },
+                  {
+                    operator: "less-or-equal",
+                    property,
+                    value: {
+                      valueFormat: PropertyValueFormat.Primitive,
+                      value: 2,
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        })
+      );
+
+      const { rootGroup } = result.current;
+      expect(rootGroup.items.length).to.be.eq(1);
+      const rule = rootGroup.items[0];
+      expect(isPropertyFilterBuilderRuleGroup(rule)).to.be.false;
+      expect((rule as PropertyFilterBuilderRule).operator).to.be.eq("between");
+    });
+
+    it("converts `<` and `>` rules into `Not Between` rule", () => {
+      const { result } = renderHook(() =>
+        usePropertyFilterBuilder({
+          initialFilter: {
+            operator: PropertyFilterRuleGroupOperator.And,
+            rules: [
+              {
+                operator: PropertyFilterRuleGroupOperator.Or,
+                rules: [
+                  {
+                    operator: "less",
+                    property,
+                    value: {
+                      valueFormat: PropertyValueFormat.Primitive,
+                      value: 1,
+                    },
+                  },
+                  {
+                    operator: "greater",
+                    property,
+                    value: {
+                      valueFormat: PropertyValueFormat.Primitive,
+                      value: 2,
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        })
+      );
+
+      const { rootGroup } = result.current;
+      expect(rootGroup.items.length).to.be.eq(1);
+      const rule = rootGroup.items[0];
+      expect(isPropertyFilterBuilderRuleGroup(rule)).to.be.false;
+      expect((rule as PropertyFilterBuilderRule).operator).to.be.eq(
+        "not-between"
+      );
+    });
+
+    it("does not convert `>` and `<` rules into `Between` rule", () => {
+      const { result } = renderHook(() =>
+        usePropertyFilterBuilder({
+          initialFilter: {
+            operator: PropertyFilterRuleGroupOperator.And,
+            rules: [
+              {
+                operator: PropertyFilterRuleGroupOperator.And,
+                rules: [
+                  {
+                    operator: "greater",
+                    property,
+                    value: {
+                      valueFormat: PropertyValueFormat.Primitive,
+                      value: 1,
+                    },
+                  },
+                  {
+                    operator: "less",
+                    property,
+                    value: {
+                      valueFormat: PropertyValueFormat.Primitive,
+                      value: 2,
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        })
+      );
+
+      const { rootGroup } = result.current;
+      const group = rootGroup.items[0];
+      expect(isPropertyFilterBuilderRuleGroup(group)).to.be.true;
+      expect((group as PropertyFilterBuilderRuleGroup).items.length).to.be.eq(
+        2
+      );
+    });
+
+    it("does not convert `<=` and `>=` rules into `Not Between` rule", () => {
+      const { result } = renderHook(() =>
+        usePropertyFilterBuilder({
+          initialFilter: {
+            operator: PropertyFilterRuleGroupOperator.And,
+            rules: [
+              {
+                operator: PropertyFilterRuleGroupOperator.Or,
+                rules: [
+                  {
+                    operator: "less-or-equal",
+                    property,
+                    value: {
+                      valueFormat: PropertyValueFormat.Primitive,
+                      value: 1,
+                    },
+                  },
+                  {
+                    operator: "greater-or-equal",
+                    property,
+                    value: {
+                      valueFormat: PropertyValueFormat.Primitive,
+                      value: 2,
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        })
+      );
+
+      const { rootGroup } = result.current;
+      const group = rootGroup.items[0];
+      expect(isPropertyFilterBuilderRuleGroup(group)).to.be.true;
+      expect((group as PropertyFilterBuilderRuleGroup).items.length).to.be.eq(
+        2
+      );
+    });
+
+    it("does not convert `>=` and `<=` rules into `Between` rule if there is more rules", () => {
+      const { result } = renderHook(() =>
+        usePropertyFilterBuilder({
+          initialFilter: {
+            operator: PropertyFilterRuleGroupOperator.And,
+            rules: [
+              {
+                operator: PropertyFilterRuleGroupOperator.And,
+                rules: [
+                  {
+                    operator: "greater-or-equal",
+                    property,
+                    value: {
+                      valueFormat: PropertyValueFormat.Primitive,
+                      value: 1,
+                    },
+                  },
+                  {
+                    operator: "less-or-equal",
+                    property,
+                    value: {
+                      valueFormat: PropertyValueFormat.Primitive,
+                      value: 2,
+                    },
+                  },
+                  {
+                    operator: "is-not-null",
+                    property,
+                  },
+                ],
+              },
+            ],
+          },
+        })
+      );
+
+      const { rootGroup } = result.current;
+      const group = rootGroup.items[0];
+      expect(isPropertyFilterBuilderRuleGroup(group)).to.be.true;
+      expect((group as PropertyFilterBuilderRuleGroup).items.length).to.be.eq(
+        3
+      );
     });
   });
 
@@ -768,16 +1128,13 @@ describe("usePropertyFilterBuilder", () => {
           await getStateWithNestedRule();
         const { actions } = result.current;
 
-        actions.setRuleOperator(
-          getNestedRulePath(),
-          PropertyFilterRuleOperator.IsEqual
-        );
+        actions.setRuleOperator(getNestedRulePath(), "is-equal");
 
         await waitFor(() => {
           const rule = getNestedRule();
           expect(rule).to.containSubset({
             groupId: getNestingRule().id,
-            operator: PropertyFilterRuleOperator.IsEqual,
+            operator: "is-equal",
           });
         });
       });
@@ -815,3 +1172,86 @@ describe("usePropertyFilterBuilder", () => {
     });
   });
 });
+
+describe("buildFilter", () => {
+  const property = {
+    name: "testName",
+    displayLabel: "testLabel",
+    typename: "testTypename",
+  };
+
+  it("returns undefined if `Between` rule value is invalid", () => {
+    const filter: PropertyFilterBuilderRuleGroup = {
+      id: "1",
+      operator: PropertyFilterRuleGroupOperator.And,
+      items: [
+        {
+          id: "2",
+          groupId: "1",
+          property,
+          operator: "between",
+          value: {
+            valueFormat: PropertyValueFormat.Primitive,
+            value: 123,
+          },
+        },
+      ],
+    };
+
+    const buildFilterResult = buildPropertyFilter(filter);
+    expect(buildFilterResult).to.be.undefined;
+  });
+
+  it("returns undefined if `Between` rule value has empty range end", () => {
+    const filter: PropertyFilterBuilderRuleGroup = {
+      id: "1",
+      operator: PropertyFilterRuleGroupOperator.And,
+      items: [
+        {
+          id: "2",
+          groupId: "1",
+          property,
+          operator: "between",
+          value: PropertyFilterBuilderRuleRangeValue.serialize({
+            from: { valueFormat: PropertyValueFormat.Primitive, value: 1 },
+            to: { valueFormat: PropertyValueFormat.Primitive },
+          }),
+        },
+      ],
+    };
+
+    const buildFilterResult = buildPropertyFilter(filter);
+    expect(buildFilterResult).to.be.undefined;
+  });
+});
+
+function createRangeFilter(
+  property: PropertyDescription,
+  operator: "between" | "not-between",
+  fromValue?: PropertyValue,
+  toValue?: PropertyValue
+): PropertyFilter {
+  return {
+    operator: PropertyFilterRuleGroupOperator.And,
+    rules: [
+      {
+        operator:
+          operator === "between"
+            ? PropertyFilterRuleGroupOperator.And
+            : PropertyFilterRuleGroupOperator.Or,
+        rules: [
+          {
+            value: fromValue,
+            property,
+            operator: operator === "between" ? "greater-or-equal" : "less",
+          },
+          {
+            value: toValue,
+            property,
+            operator: operator === "between" ? "less-or-equal" : "greater",
+          },
+        ],
+      },
+    ],
+  };
+}

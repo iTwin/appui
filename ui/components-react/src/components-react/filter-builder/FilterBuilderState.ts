@@ -12,14 +12,21 @@ import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { Guid } from "@itwin/core-bentley";
-import { PropertyFilterRuleOperator } from "./Operators";
+import type { PropertyFilterBuilderRuleOperator } from "./Operators";
 import {
+  isUnaryPropertyFilterBuilderOperator,
   isUnaryPropertyFilterOperator,
   PropertyFilterRuleGroupOperator,
 } from "./Operators";
-import type { PropertyFilter, PropertyFilterRule } from "./Types";
+import type {
+  PropertyFilter,
+  PropertyFilterRule,
+  PropertyFilterRuleGroup,
+} from "./Types";
 import { isPropertyFilterRuleGroup } from "./Types";
 import { UiComponents } from "../UiComponents";
+import { PropertyFilterBuilderRuleRangeValue } from "./FilterBuilderRangeValue";
+
 /**
  * Data structure that describes [[PropertyFilterBuilder]] component state.
  * @beta
@@ -64,11 +71,21 @@ export interface PropertyFilterBuilderRule {
   /** Property used in this rule. */
   property?: PropertyDescription;
   /** Operator that should be used to compare property value. */
-  operator?: PropertyFilterRuleOperator;
+  operator?: PropertyFilterBuilderRuleOperator;
   /** Value that property should be compared to. */
   value?: PropertyValue;
   /** Error message of this rule. */
   errorMessage?: string;
+}
+
+/**
+ * Function to check if supplied [[PropertyFilterBuilderRuleGroupItem]] is [[PropertyFilterBuilderRuleGroup]].
+ * @beta
+ */
+export function isPropertyFilterBuilderRuleGroup(
+  item: PropertyFilterBuilderRuleGroupItem
+): item is PropertyFilterBuilderRuleGroup {
+  return (item as any).items !== undefined;
 }
 
 /**
@@ -111,12 +128,17 @@ export class PropertyFilterBuilderActions {
     ) {
       const pathToParent = pathToItem.slice(0, -1);
       const parentGroup = findRuleGroup(state.rootGroup, pathToParent);
-      if (!parentGroup) return;
+      if (!parentGroup) {
+        return;
+      }
+
       const itemId = pathToItem[pathToItem.length - 1];
       const itemIndex = parentGroup.items.findIndex(
         (item) => item.id === itemId
       );
-      if (itemIndex === -1) return;
+      if (itemIndex === -1) {
+        return;
+      }
       if (parentGroup.items.length === 1) {
         parentGroup.items[0] = createEmptyRule(parentGroup.id);
         return;
@@ -143,7 +165,9 @@ export class PropertyFilterBuilderActions {
   ) {
     this.updateState((state) => {
       const group = findRuleGroup(state.rootGroup, path);
-      if (!group) return;
+      if (!group) {
+        return;
+      }
       group.operator = operator;
     });
   }
@@ -152,7 +176,9 @@ export class PropertyFilterBuilderActions {
   public setRuleProperty(path: string[], property?: PropertyDescription) {
     this.updateState((state) => {
       const rule = findRule(state.rootGroup, path);
-      if (!rule) return;
+      if (!rule) {
+        return;
+      }
       rule.property = property;
       rule.operator = undefined;
       rule.value = undefined;
@@ -161,11 +187,18 @@ export class PropertyFilterBuilderActions {
   }
 
   /** Sets operator of rule specified by the path. */
-  public setRuleOperator(path: string[], operator: PropertyFilterRuleOperator) {
+  public setRuleOperator(
+    path: string[],
+    operator: PropertyFilterBuilderRuleOperator
+  ) {
     this.updateState((state) => {
       const rule = findRule(state.rootGroup, path);
-      if (!rule) return;
-      if (isUnaryPropertyFilterOperator(operator)) rule.value = undefined;
+      if (!rule) {
+        return;
+      }
+      if (isUnaryPropertyFilterBuilderOperator(operator)) {
+        rule.value = undefined;
+      }
       if (
         operator !== rule.operator &&
         !areOperatorsSimilar(operator, rule.operator)
@@ -180,7 +213,9 @@ export class PropertyFilterBuilderActions {
   public setRuleValue(path: string[], value: PropertyValue) {
     this.updateState((state) => {
       const rule = findRule(state.rootGroup, path);
-      if (!rule) return;
+      if (!rule) {
+        return;
+      }
       rule.value = value;
     });
   }
@@ -204,16 +239,6 @@ export class PropertyFilterBuilderActions {
       setErrorMessages(state.rootGroup);
     });
   }
-}
-
-/**
- * Function to check if supplied [[PropertyFilterBuilderRuleGroupItem]] is [[PropertyFilterBuilderRuleGroup]].
- * @beta
- */
-export function isPropertyFilterBuilderRuleGroup(
-  item: PropertyFilterBuilderRuleGroupItem
-): item is PropertyFilterBuilderRuleGroup {
-  return (item as any).items !== undefined;
 }
 
 /**
@@ -328,18 +353,26 @@ export function defaultPropertyFilterBuilderRuleValidator(
   if (
     item.property === undefined ||
     item.operator === undefined ||
-    isUnaryPropertyFilterOperator(item.operator)
+    isUnaryPropertyFilterBuilderOperator(item.operator)
   ) {
     return undefined;
   }
-  if (item.value === undefined) {
+  if (item.operator === "between" || item.operator === "not-between") {
+    return rangeRuleValidator(item.value);
+  }
+  if (isEmptyValue(item.value)) {
     return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
   }
-  if (
-    item.value.valueFormat === PropertyValueFormat.Primitive &&
-    (item.value.value === undefined || item.value.value === "")
-  ) {
+  return undefined;
+}
+
+function rangeRuleValidator(value?: PropertyValue) {
+  const range = PropertyFilterBuilderRuleRangeValue.parse(value);
+  if (isEmptyValue(range.from) || isEmptyValue(range.to)) {
     return UiComponents.translate("filterBuilder.errorMessages.emptyValue");
+  }
+  if (!PropertyFilterBuilderRuleRangeValue.isRangeValid(range)) {
+    return UiComponents.translate("filterBuilder.errorMessages.invalidRange");
   }
   return undefined;
 }
@@ -364,7 +397,9 @@ function buildPropertyFilterFromRuleGroup(
 
   if (rules.length === 0) return undefined;
 
-  if (rules.length === 1) return rules[0];
+  if (rules.length === 1 && !isPropertyFilterRuleGroup(rules[0])) {
+    return rules[0];
+  }
 
   return {
     operator: rootGroup.operator,
@@ -376,17 +411,63 @@ function buildPropertyFilterFromRule(
   rule: PropertyFilterBuilderRule
 ): PropertyFilter | undefined {
   const { property, operator, value } = rule;
-  if (!property || operator === undefined) return undefined;
-
-  if (
-    !isUnaryPropertyFilterOperator(operator) &&
-    (!value ||
-      value.valueFormat !== PropertyValueFormat.Primitive ||
-      value.value === undefined)
-  )
+  if (!property || operator === undefined) {
     return undefined;
+  }
+
+  if (operator === "between" || operator === "not-between") {
+    return buildPropertyFilterFromRangeRule({
+      ...rule,
+      property,
+      operator,
+      value,
+    });
+  }
+
+  if (!isUnaryPropertyFilterOperator(operator) && isEmptyValue(value)) {
+    return undefined;
+  }
 
   return { property, operator, value };
+}
+
+function buildPropertyFilterFromRangeRule(
+  rule: PropertyFilterBuilderRule & {
+    property: PropertyDescription;
+    operator: "between" | "not-between";
+  }
+): PropertyFilter | undefined {
+  const { property, operator, value } = rule;
+  if (
+    value?.valueFormat !== PropertyValueFormat.Primitive ||
+    typeof value.value !== "string"
+  ) {
+    return undefined;
+  }
+
+  const { to, from } = PropertyFilterBuilderRuleRangeValue.parse(value);
+  if (isEmptyValue(to) || isEmptyValue(from)) {
+    return undefined;
+  }
+
+  return {
+    operator:
+      operator === "between"
+        ? PropertyFilterRuleGroupOperator.And
+        : PropertyFilterRuleGroupOperator.Or,
+    rules: [
+      {
+        property,
+        operator: operator === "between" ? "greater-or-equal" : "less",
+        value: from,
+      },
+      {
+        property,
+        operator: operator === "between" ? "less-or-equal" : "greater",
+        value: to,
+      },
+    ],
+  };
 }
 
 function createEmptyRule(groupId: string): PropertyFilterBuilderRule {
@@ -437,19 +518,23 @@ function findRule(
 
   return currentItem;
 }
-
 function getRuleGroupItem(
   filter: PropertyFilter,
   parentId: string
 ): PropertyFilterBuilderRuleGroupItem {
   const id = Guid.createValue();
-  if (isPropertyFilterRuleGroup(filter))
-    return {
-      id,
-      groupId: parentId,
-      operator: filter.operator,
-      items: filter.rules.map((rule) => getRuleGroupItem(rule, id)),
-    };
+  if (isPropertyFilterRuleGroup(filter)) {
+    const rangeRule = getRangeRuleItems(filter, parentId);
+
+    return rangeRule
+      ? rangeRule
+      : {
+          id,
+          groupId: parentId,
+          operator: filter.operator,
+          items: filter.rules.map((rule) => getRuleGroupItem(rule, id)),
+        };
+  }
   return getRuleItem(filter, id);
 }
 
@@ -461,6 +546,62 @@ function getRuleItem(filter: PropertyFilterRule, parentId: string) {
     operator: filter.operator,
     value: filter.value,
   };
+}
+
+function getRangeRuleItems(
+  group: PropertyFilterRuleGroup,
+  parentId: string
+): PropertyFilterBuilderRuleGroupItem | undefined {
+  if (group.rules.length !== 2) {
+    return undefined;
+  }
+
+  const [from, to] = group.rules;
+  if (
+    isPropertyFilterRuleGroup(from) ||
+    from.value === undefined ||
+    isPropertyFilterRuleGroup(to) ||
+    to.value === undefined ||
+    from.property.name !== to.property.name
+  ) {
+    return undefined;
+  }
+
+  if (
+    from.operator === "greater-or-equal" &&
+    to.operator === "less-or-equal" &&
+    group.operator === PropertyFilterRuleGroupOperator.And
+  ) {
+    return {
+      id: Guid.createValue(),
+      groupId: parentId,
+      operator: "between",
+      property: from.property,
+      value: PropertyFilterBuilderRuleRangeValue.serialize({
+        from: from.value,
+        to: to.value,
+      }),
+    };
+  }
+
+  if (
+    from.operator === "less" &&
+    to.operator === "greater" &&
+    group.operator === PropertyFilterRuleGroupOperator.Or
+  ) {
+    return {
+      id: Guid.createValue(),
+      groupId: parentId,
+      operator: "not-between",
+      property: from.property,
+      value: PropertyFilterBuilderRuleRangeValue.serialize({
+        from: from.value,
+        to: to.value,
+      }),
+    };
+  }
+
+  return undefined;
 }
 
 function convertFilterToState(
@@ -485,30 +626,42 @@ function convertFilterToState(
   };
 }
 
+function isEmptyValue(value?: PropertyValue) {
+  return (
+    value?.valueFormat !== PropertyValueFormat.Primitive ||
+    value.value === undefined ||
+    value.value === ""
+  );
+}
+
 function areOperatorsSimilar(
-  firstOperator?: PropertyFilterRuleOperator,
-  secondOperator?: PropertyFilterRuleOperator
+  firstOperator?: PropertyFilterBuilderRuleOperator,
+  secondOperator?: PropertyFilterBuilderRuleOperator
 ) {
   return (
     (isOperatorEqualOrIsNotEqual(firstOperator) &&
       isOperatorEqualOrIsNotEqual(secondOperator)) ||
     (isInequalityOperator(firstOperator) &&
-      isInequalityOperator(secondOperator))
+      isInequalityOperator(secondOperator)) ||
+    (isRangeOperator(firstOperator) && isRangeOperator(secondOperator))
   );
 }
 
-function isOperatorEqualOrIsNotEqual(operator?: PropertyFilterRuleOperator) {
+function isOperatorEqualOrIsNotEqual(
+  operator?: PropertyFilterBuilderRuleOperator
+) {
+  return operator === "is-equal" || operator === "is-not-equal";
+}
+
+function isInequalityOperator(operator?: PropertyFilterBuilderRuleOperator) {
   return (
-    operator === PropertyFilterRuleOperator.IsEqual ||
-    operator === PropertyFilterRuleOperator.IsNotEqual
+    operator === "less" ||
+    operator === "less-or-equal" ||
+    operator === "greater" ||
+    operator === "greater-or-equal"
   );
 }
 
-function isInequalityOperator(operator?: PropertyFilterRuleOperator) {
-  return (
-    operator === PropertyFilterRuleOperator.Less ||
-    operator === PropertyFilterRuleOperator.LessOrEqual ||
-    operator === PropertyFilterRuleOperator.Greater ||
-    operator === PropertyFilterRuleOperator.GreaterOrEqual
-  );
+function isRangeOperator(operator?: PropertyFilterBuilderRuleOperator) {
+  return operator === "between" || operator === "not-between";
 }
