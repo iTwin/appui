@@ -90,7 +90,7 @@ steps:
   - script: npm run test
     displayName: run Codemod Tests
     workingDirectory: "tools/codemod"
-    condition: succeeded()
+    condition: and(succeeded(), ne(variables['Agent.OS'], 'Linux'))
 
   - script: node common/scripts/install-run-rush.js docs
     displayName: rush docs

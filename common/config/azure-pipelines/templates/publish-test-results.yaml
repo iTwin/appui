@@ -122,4 +122,4 @@ steps:
       testResultsFiles: "tools/codemod/test/codemod_test_results.xml"
       testRunTitle: "AppUI Codemod Tests - ${{ parameters.NodeVersion }}"
       searchFolder: ${{ parameters.workingDir }}
-    condition: succeededOrFailed()
+    condition: and(succeededOrFailed(), ne(variables['Agent.OS'], 'Linux'))
