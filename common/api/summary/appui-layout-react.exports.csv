@@ -1,5 +1,6 @@
 sep=;
 Release Tag;API Item
+internal;activateDroppedTab: (reducer: typeof NineZoneStateReducer) => typeof NineZoneStateReducer
 internal;AnimateDockedToolSettingsContext: React_2.Context
 internal;AppButton 
 internal;AppButtonProps 

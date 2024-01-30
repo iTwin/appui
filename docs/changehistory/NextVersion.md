@@ -24,3 +24,4 @@ Table of contents:
 ### Additions
 
 - `useWidget` hook to convey widget state and location.
+- `activateDroppedTab` preview feature to activate a dragged widget tab whenever it is dropped in the receiving container. #601

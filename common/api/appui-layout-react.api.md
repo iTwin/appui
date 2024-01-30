@@ -18,6 +18,9 @@ import type { SizeProps } from '@itwin/core-react';
 import { StoreApi } from 'zustand';
 import { UseBoundStore } from 'zustand';
 
+// @internal
+export const activateDroppedTab: (reducer: typeof NineZoneStateReducer) => typeof NineZoneStateReducer;
+
 // @internal (undocumented)
 export const AnimateDockedToolSettingsContext: React_2.Context<boolean>;
 
@@ -538,6 +541,7 @@ export function isWindowDropTargetState(state: WidgetDragDropTargetState): state
 
 // @internal
 export interface KnownPreviewLayoutFeatures {
+    activateDroppedTab?: boolean;
     contentAlwaysMaxSize: boolean;
     enableMaximizedFloatingWidget: boolean;
 }
