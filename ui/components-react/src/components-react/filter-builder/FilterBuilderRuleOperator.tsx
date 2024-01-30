@@ -58,12 +58,12 @@ export function PropertyFilterBuilderRuleOperator(
   );
 
   return (
-    <div className="rule-operator">
+    <div className="fb-row-condition">
       <Select
         options={availableOptions}
         value={selectedOperator}
         onChange={onChange}
-        size="small"
+        size={"small"}
       />
     </div>
   );

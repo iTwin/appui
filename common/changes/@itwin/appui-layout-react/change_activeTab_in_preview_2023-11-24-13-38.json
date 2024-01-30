@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-layout-react",
-      "comment": "Fix an issue that caused a panel to become unresizable.",
+      "comment": "",
       "type": "none"
     }
   ],

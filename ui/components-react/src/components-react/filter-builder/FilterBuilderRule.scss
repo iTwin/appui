@@ -2,44 +2,54 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+.fb-row {
+  --background-color: var(--iui-color-background);
+  --border-color: var(--iui-color-border);
+  --operator-width: 5rem;
+  --property-name-width: 25%;
+  --condition-width: 10rem;
+  --toolbar-width: 6.25rem;
+  border: 1px solid var(--iui-color-border);
+  display: block;
+  position: relative;
 
-.rule {
-  display: grid;
-  grid-template-columns: min-content auto;
-  padding: 3px 0;
-
-  .rule-condition {
-    display: grid;
-    grid-template-columns: minmax(auto, 500px) 150px minmax(auto, 100%);
-    grid-column-gap: var(--iui-size-m);
-    width: calc(100% - var(--iui-size-s));
-
-    .iui-input-container.iui-with-message {
-      .rule-value {
-        grid-area: inputs;
-      }
+  &:not(:last-child) {
+    //only show buttons on last row to prevent visual clutter
+    .fb-add-rule-button:first-child {
+      visibility: hidden;
     }
   }
 
-  .rule-remove-action {
-    padding-right: var(--iui-size-s);
-    visibility: hidden;
+  &:not(:first-child) {
+    border-top: none;
   }
 
-  &:focus-within .rule-remove-action,
-  &:hover .rule-remove-action {
-    visibility: visible;
-  }
-}
-
-.rule-group-items > .rule {
-  padding-bottom: 14px;
-
-  &:first-child {
-    padding-top: 14px;
+  > div {
+    background: var(--background-color);
+    align-items: stretch;
+    overflow: hidden;
   }
 
-  &:only-child {
-    padding-top: 3px;
+  .fb-row-container {
+    padding-block: var(--iui-size-s);
+    padding-inline: var(--iui-size-m);
+    gap: var(--iui-size-s);
+    flex: 1;
+  }
+
+  .fb-row-condition {
+    width: var(--condition-width);
+  }
+
+  .fb-property-value {
+    flex: 1;
+    width: 15rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fb-row-toolbar {
+    width: var(--toolbar-width);
+    margin-left: auto;
   }
 }
