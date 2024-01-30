@@ -44,7 +44,8 @@ export namespace PropertyFilterBuilderRuleRangeValue {
   }
 
   /**
-   *
+   * Checks if [[PropertyFilterBuilderRuleRangeValue]] has valid range.
+   * @beta
    */
   export function isRangeValid({
     from,

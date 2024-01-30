@@ -50,7 +50,7 @@ export function PropertyFilterBuilderRuleOperatorRenderer(
     () =>
       availableOperators.map((op) => ({
         value: op,
-        label: getPropertyOperatorLabel(op),
+        label: getPropertyFilterBuilderOperatorLabel(op),
       })),
     [availableOperators]
   );
@@ -72,7 +72,9 @@ export function PropertyFilterBuilderRuleOperatorRenderer(
  * @beta
  */
 /* istanbul ignore next */
-function getPropertyOperatorLabel(operator: PropertyFilterBuilderRuleOperator) {
+function getPropertyFilterBuilderOperatorLabel(
+  operator: PropertyFilterBuilderRuleOperator
+) {
   switch (operator) {
     case "is-true":
       return UiComponents.translate("filterBuilder.operators.isTrue");
