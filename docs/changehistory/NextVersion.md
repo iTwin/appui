@@ -25,11 +25,11 @@ Table of contents:
 
 ### Additions
 
-- Added `useControlledTreeEventsHandler` to replace now deprecated `useTreeEventsHandler`.
+- Added `useControlledTreeEventsHandler` to replace now deprecated `useTreeEventsHandler`. [#676](https://github.com/iTwin/appui/pull/676)
 
 ### Deprecations
 
-- Deprecated `useTreeEventsHandler` hook because it does not work correctly in React 18 Strict mode. `useControlledTreeEventsHandler` should be used instead.
+- Deprecated `useTreeEventsHandler` hook because it does not work correctly in React 18 Strict mode. `useControlledTreeEventsHandler` should be used instead. [#676](https://github.com/iTwin/appui/pull/676)
 
 ## @itwin/appui-react
 
