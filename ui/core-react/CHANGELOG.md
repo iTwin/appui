@@ -1,6 +1,14 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Wed, 24 Jan 2024 12:37:04 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Jan 2024 09:04:27 GMT and should not be manually modified.
+
+## 4.8.3
+Tue, 30 Jan 2024 09:04:27 GMT
+
+### Updates
+
+- Fix erroneous `Buffer` use in `IconWebComponent`.
+- Position popup relative to popup container.
 
 ## 4.8.2
 Wed, 24 Jan 2024 12:37:04 GMT

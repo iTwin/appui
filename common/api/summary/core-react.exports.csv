@@ -211,6 +211,7 @@ public;UnderlinedButton(props: UnderlinedButtonProps): React_2.JSX.Element
 public;UnderlinedButtonProps
 beta;useCrossOriginPopup(visible: boolean, url: string | undefined, title: string, width: number, height: number, onClose: () => void): void
 public;useDisposable
+deprecated;useDisposable
 public;useEffectSkipFirst(callback: () => (void | (() => void | undefined)) | void, deps?: any[]): void
 internal;useEventListener(eventName: string, handler: (event: Event) => void, element: HTMLElement | Document | undefined): void
 beta;useInterval(callback: (...args: any[]) => void, delay: number | undefined): void
