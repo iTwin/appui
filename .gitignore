@@ -54,3 +54,6 @@ test-results
 .env.*.local
 
 common/api/summary/summary.exports.csv
+
+# Codemod specific
+junit.xml
