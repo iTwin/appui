@@ -1855,7 +1855,7 @@ export interface UnderlinedButtonProps {
 // @beta
 export function useCrossOriginPopup(visible: boolean, url: string | undefined, title: string, width: number, height: number, onClose: () => void): void;
 
-// @public
+// @public @deprecated
 export function useDisposable<TDisposable extends IDisposable>(createDisposable: () => TDisposable): TDisposable;
 
 // @public

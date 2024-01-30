@@ -3535,6 +3535,9 @@ export class UrlPropertyValueRenderer implements IPropertyValueRenderer {
 export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined;
 
 // @public
+export function useControlledTreeEventsHandler<TEventsHandler extends TreeEventHandler>(factoryOrParams: (() => TEventsHandler) | TreeEventHandlerParams): TreeEventHandler | undefined;
+
+// @public
 export function useControlledTreeLayoutStorage<T extends Element>(): {
     ref: React_3.Ref<T>;
     persist: () => void;
@@ -3615,7 +3618,7 @@ export function useTrackedPropertyGridModelSource(props: {
     inProgress: boolean;
 };
 
-// @public
+// @public @deprecated
 export function useTreeEventsHandler<TEventsHandler extends TreeEventHandler>(factoryOrParams: (() => TEventsHandler) | TreeEventHandlerParams): TreeEventHandler;
 
 // @public
