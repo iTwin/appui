@@ -23,12 +23,18 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
    */
   enableMaximizedFloatingWidget: boolean;
+  /** If true, a tab, or the active tab of a group of widget will become active when dropped in a container.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/679
+   */
+  activateDroppedTab: boolean;
 }
 
 /** Object used trim to only known features at runtime.
  * @internal
  */
 const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
+  activateDroppedTab: undefined,
   contentAlwaysMaxSize: undefined,
   enableMaximizedFloatingWidget: undefined,
   ...{ newToolbars: undefined }, // Hidden feature used in storybook only (to avoid trimming).

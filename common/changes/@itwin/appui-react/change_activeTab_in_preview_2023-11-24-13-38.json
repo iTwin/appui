@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Position root container element.",
+      "comment": "Added a preview feature to activate a dragged widget tab whenever it is dropped in the receiving container.",
       "type": "none"
     }
   ],

@@ -367,6 +367,10 @@
       "allowedCategories": [ "tools" ]
     },
     {
+      "name": "jest-junit",
+      "allowedCategories": [ "tools" ]
+    },
+    {
       "name": "jscodeshift",
       "allowedCategories": [ "tools" ]
     },

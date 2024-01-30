@@ -24,6 +24,10 @@ const featureList = [
     id: "enableMaximizedFloatingWidget",
     label: "Enable maximized floating widgets",
   },
+  {
+    id: "activateDroppedTab",
+    label: "Change active tab after drag & drop",
+  },
 ];
 function PreviewFeatureList() {
   const [activeFeatureList, setActiveFeatureList] =

@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Fix erroneous `Buffer` use in `IconWebComponent`.",
+      "comment": "Deprecated `useDisposable` hook.",
       "type": "none"
     }
   ],

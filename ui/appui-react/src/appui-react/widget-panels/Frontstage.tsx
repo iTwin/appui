@@ -27,6 +27,7 @@ import type { LayoutStore } from "../layout/base/LayoutStore";
 import { createLayoutStore, useLayout } from "../layout/base/LayoutStore";
 import type { NineZoneDispatch, NineZoneLabels } from "../layout/base/NineZone";
 import { getUniqueId, NineZone } from "../layout/base/NineZone";
+import { activateDroppedTab } from "../layout/state/activateDroppedTab";
 import type { NineZoneState } from "../layout/state/NineZoneState";
 import { createNineZoneState } from "../layout/state/NineZoneState";
 import { NineZoneStateReducer } from "../layout/state/NineZoneStateReducer";
@@ -157,7 +158,17 @@ const log =
 
 /** @internal */
 export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
-  const reducer = React.useMemo(() => log(NineZoneStateReducer), []);
+  const features = usePreviewFeatures();
+
+  const reducer = React.useMemo(() => {
+    let nineZoneStateReducer = log(NineZoneStateReducer);
+
+    nineZoneStateReducer = features.activateDroppedTab
+      ? activateDroppedTab(nineZoneStateReducer)
+      : nineZoneStateReducer;
+    return nineZoneStateReducer;
+  }, [features.activateDroppedTab]);
+
   return React.useCallback<NineZoneDispatch>(
     (action) => {
       if (action.type === "RESIZE") {

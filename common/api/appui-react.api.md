@@ -2438,7 +2438,7 @@ export abstract class HideIsolateEmphasizeActionHandler {
     abstract processHideSelected(): Promise<void>;
     abstract processHideSelectedElementsCategory(): Promise<void>;
     abstract processHideSelectedElementsModel(): Promise<void>;
-    abstract processIsolateSelected(): Promise<void>;
+    abstract processIsolateSelected(clearSelection?: boolean): Promise<void>;
     abstract processIsolateSelectedElementsCategory(): Promise<void>;
     abstract processIsolateSelectedElementsModel(): Promise<void>;
 }
@@ -2471,7 +2471,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
     processHideSelected(): Promise<void>;
     processHideSelectedElementsCategory(): Promise<void>;
     processHideSelectedElementsModel(): Promise<void>;
-    processIsolateSelected(): Promise<void>;
+    processIsolateSelected(clearSelection?: boolean): Promise<void>;
     processIsolateSelectedElementsCategory(): Promise<void>;
     processIsolateSelectedElementsModel(): Promise<void>;
     static updateCategoryOverride(vp: Viewport, ids: string[]): void;
