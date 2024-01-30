@@ -42,4 +42,4 @@ Table of contents:
 
 ### Deprecations
 
-- Deprecated `useDisposable` hook because it does not work correctly in React 18 Strict mode. `useOptionalDisposable` or `useState` + `useEffect` should be used instead to manage disposable resources.
+- Deprecated `useDisposable` hook because it does not work correctly in React 18 Strict mode. `useOptionalDisposable` or `useState` + `useEffect` should be used instead to manage disposable resources. [#676](https://github.com/iTwin/appui/pull/676)
