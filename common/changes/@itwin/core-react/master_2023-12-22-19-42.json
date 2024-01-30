@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Fix erroneous `Buffer` use in `IconWebComponent`.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}
