@@ -3,6 +3,7 @@
 Table of contents:
 
 - [@itwin/components-react](#itwincomponents-react)
+  - [Changes](#changes)
   - [Improvements](#improvements)
   - [Additions](#additions)
   - [Deprecations](#deprecations)
@@ -12,6 +13,11 @@ Table of contents:
   - [Deprecations](#deprecations)
 
 ## @itwin/components-react
+
+## Changes
+
+- Updated UI for the `FilterBuilder` component.
+- Deprecated support for nested rule groups.
 
 ### Improvements
 
@@ -30,6 +36,7 @@ Table of contents:
 ### Additions
 
 - `useWidget` hook to convey widget state and location.
+- `activateDroppedTab` preview feature to activate a dragged widget tab whenever it is dropped in the receiving container. #601
 
 ## @itwin/core-react
 

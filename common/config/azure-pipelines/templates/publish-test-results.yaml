@@ -112,3 +112,14 @@ steps:
       pathToPublish: '$(Build.Repository.LocalPath)\full-stack-tests\ui\playwright-report'
       artifactName: "playwright-report_$(Build.BuildId)"
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Windows_NT'))
+
+  #-------
+  # Codemod Tests
+  #-------
+  - task: PublishTestResults@2
+    displayName: "Publish Codemod Test Results"
+    inputs:
+      testResultsFiles: "tools/codemod/test/codemod_test_results.xml"
+      testRunTitle: "AppUI Codemod Tests - ${{ parameters.NodeVersion }}"
+      searchFolder: ${{ parameters.workingDir }}
+    condition: and(succeededOrFailed(), ne(variables['Agent.OS'], 'Linux'))
