@@ -30,6 +30,7 @@ Table of contents:
 
 - `useTrackedPropertyGridModelSource` hook to create a `PropertyGridModelSource` and track changes in the data provider while also providing information on the data update progress. #660
 - `useControlledTreeEventsHandler` which should be used as a replacement to now deprecated `useTreeEventsHandler`. #676
+- `clearSelection` argument in `HideIsolateEmphasizeActionHandler.processIsolateSelected()` to control whether the selection is cleared. #682
 - `PropertyFilterBuilderLogicalOperator` component and `PropertyFilterBuilderLogicalOperatorProps` to render the logical operator inside of the filter builder. #686
 - `PropertyFilterBuilderToolbar` component to display the action buttons in the filter builder. #686
 - `isGroupOperatorDisabled` property of `PropertyFilterBuilderRendererProps` to control whether the group operator is toggle-able. #686

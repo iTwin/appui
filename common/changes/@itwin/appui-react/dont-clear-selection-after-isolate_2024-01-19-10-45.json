@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Add ability to not clear selection after isolate op",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
