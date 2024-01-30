@@ -6,7 +6,6 @@ Table of contents:
   - [Improvements](#improvements)
   - [Changes](#changes)
 - [@itwin/appui-react](#itwinappui-react)
-  - [Improvements](#improvements-1)
   - [Additions](#additions)
 
 ## @itwin/components-react
@@ -22,11 +21,8 @@ Table of contents:
 
 ## @itwin/appui-react
 
-### Improvements
-
-- Add ability not to clear selection on `HideIsolateEmphasizeActionHandler.processIsolateSelected`
-
 ### Additions
 
 - `useWidget` hook to convey widget state and location.
 - `activateDroppedTab` preview feature to activate a dragged widget tab whenever it is dropped in the receiving container. #601
+- `clearSelection` argument in `HideIsolateEmphasizeActionHandler.processIsolateSelected()` to control whether the selection is cleared. #682
