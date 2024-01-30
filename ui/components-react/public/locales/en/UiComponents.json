@@ -126,17 +126,17 @@
     "add": "Add",
     "delete": "Delete",
     "operators": {
-      "isTrue": "Is True",
-      "isFalse": "Is False",
+      "isTrue": "Is true",
+      "isFalse": "Is false",
       "equal": "Equal",
-      "notEqual": "Not Equal",
+      "notEqual": "Not equal",
       "contains": "Contains",
-      "isNull": "Is Null",
-      "isNotNull": "Is Not Null",
+      "isNull": "Is null",
+      "isNotNull": "Is not null",
       "and": "And",
       "or": "Or",
       "between": "Between",
-      "notBetween": "Not Between"
+      "notBetween": "Not between"
     },
     "chooseProperty": "Choose property",
     "errorMessages": {

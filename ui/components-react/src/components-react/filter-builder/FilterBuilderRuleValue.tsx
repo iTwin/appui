@@ -135,7 +135,9 @@ function FilterBuilderRuleRangeValueRenderer({
           shouldCommitOnChange={false}
         />
       </Flex.Item>
-      <Text>{UiComponents.translate("filterBuilder.operators.and")}</Text>
+      <Text>
+        {UiComponents.translate("filterBuilder.operators.and").toLowerCase()}
+      </Text>
       <Flex.Item>
         <EditorContainer
           propertyRecord={to}
