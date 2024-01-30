@@ -4,10 +4,16 @@ Table of contents:
 
 - [@itwin/components-react](#itwincomponents-react)
   - [Improvements](#improvements)
+  - [Changes](#changes)
 - [@itwin/appui-react](#itwinappui-react)
   - [Additions](#additions)
 
 ## @itwin/components-react
+
+## Changes
+
+- Updated UI for the `FilterBuilder` component.
+- Deprecated support for nested rule groups.
 
 ### Improvements
 
