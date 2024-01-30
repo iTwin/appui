@@ -38,7 +38,7 @@ Table of contents:
 
 ### FilterBuilder changes
 
-Added support for `Between` and `Not between` operators in `PropertyFilterBuilder`. This required to make some breaking changes to `@beta` APIs of `PropertyFilterBuilder`. These changes include internal components of `PropertyFilterBuilder` (`PropertyFilterBuilderRuleOperator`, `PropertyFilterBuilderRuleValue` and `PropertyFilterBuilderActions`) that are exposed to allow customizing `PropertyFilterBuilder` component. If `PropertyFilterBuilder` is used without any customizations these changes should not break anything.
+Added support for `Between` and `Not between` operators in `PropertyFilterBuilder`. This required to make some breaking changes to `@beta` APIs of `PropertyFilterBuilder`. These changes include internal components of `PropertyFilterBuilder` (`PropertyFilterBuilderRuleValue` and `PropertyFilterBuilderActions`) that are exposed to allow customizing `PropertyFilterBuilder` component. If `PropertyFilterBuilder` is used without any customizations these changes should not break anything.
 
 - Updated UI of the `FilterBuilder` component. #686
 - Updated `PropertyFilterRule.operator` property type to support setting it using `PropertyFilterRuleOperator` enum or string value.
@@ -46,7 +46,7 @@ Added support for `Between` and `Not between` operators in `PropertyFilterBuilde
 - Changed `PropertyFilterBuilderRule.operator` type from `PropertyFilterRuleOperator` to `PropertyFilterBuilderRuleOperator`.
 - Renamed `getPropertyFilterOperators` to `getPropertyFilterBuilderOperators`.
 - Renamed `getPropertyOperatorLabel` to `getPropertyFilterBuilderOperatorLabel`.
-- Renamed `PropertyFilterBuilderRuleOperator` component to `PropertyFilterBuilderRuleOperatorRenderer` and `PropertyFilterBuilderRuleOperatorProps` to `PropertyFilterBuilderRuleOperatorRendererProps`.
+- Renamed `PropertyFilterBuilderRuleOperatorProps` to `PropertyFilterBuilderRuleOperatorRendererProps`.
 - Added `PropertyFilterBuilderRuleOperator` type that has `between` and `not-between` value in addition to `PropertyFilterRuleOperator` values.
 - Added `isUnaryPropertyFilterBuilderOperator` for checking if `PropertyFilterBuilderRuleOperator` is unary.
 - Added `PropertyFilterBuilderRuleRangeValue`. It is used to specify value for `Between` and `Not between` operator in `PropertyFilterBuilder`.

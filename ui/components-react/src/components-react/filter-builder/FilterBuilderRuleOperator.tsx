@@ -67,12 +67,12 @@ export function PropertyFilterBuilderRuleOperatorRenderer(
   );
 }
 
+/* istanbul ignore next */
 /**
  * Function that returns display label for [[PropertyFilterBuilderRuleOperator]].
  * @beta
  */
-/* istanbul ignore next */
-function getPropertyFilterBuilderOperatorLabel(
+export function getPropertyFilterBuilderOperatorLabel(
   operator: PropertyFilterBuilderRuleOperator
 ) {
   switch (operator) {

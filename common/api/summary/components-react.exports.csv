@@ -86,8 +86,8 @@ public;FlatGridItemType
 public;FloatTypeConverter 
 internal;formatInputDate(inputDate: Date, timeDisplay?: TimeDisplay, customFormatter?: DateFormatter, alternateDateFormat?: AlternateDateFormats): string | undefined
 public;from
-beta;getPropertyFilterOperatorLabel(operator: PropertyFilterRuleOperator): string
-beta;getPropertyFilterOperators(property: PropertyDescription): PropertyFilterRuleOperator[]
+beta;getPropertyFilterBuilderOperatorLabel(operator: PropertyFilterBuilderRuleOperator): string
+beta;getPropertyFilterBuilderOperators(property: PropertyDescription): PropertyFilterBuilderRuleOperator[]
 internal;getPropertyKey(propertyCategory: PropertyCategory, propertyRecord: PropertyRecord): string
 internal;getToolbarDirection: (expandsTo: Direction) => OrthogonalDirection
 public;getVisibleDescendants(model: TreeModel, parentNode: TreeModelNode | TreeModelRootNode, result?: Array
@@ -141,7 +141,8 @@ public;isTreeDataProviderRaw: (provider: TreeDataProvider) => provider is TreeDa
 public;isTreeModelNode(obj: TreeModelNodeType | undefined): obj is TreeModelNode
 public;isTreeModelNodePlaceholder(obj: TreeModelNodeType | undefined): obj is TreeModelNodePlaceholder
 public;isTreeModelRootNode(obj: TreeModelNodeType | undefined): obj is TreeModelRootNode
-beta;isUnaryPropertyFilterOperator(operator: PropertyFilterRuleOperator): boolean
+beta;isUnaryPropertyFilterBuilderOperator(operator: PropertyFilterBuilderRuleOperator): boolean
+beta;isUnaryPropertyFilterOperator(operator: `${PropertyFilterRuleOperator}`): boolean
 public;ItemColorOverrides
 public;ItemStyle
 public;ItemStyleProvider:
@@ -240,9 +241,12 @@ beta;PropertyFilterBuilderRendererProps
 beta;PropertyFilterBuilderRule
 beta;PropertyFilterBuilderRuleGroup
 beta;PropertyFilterBuilderRuleGroupItem = PropertyFilterBuilderRuleGroup | PropertyFilterBuilderRule
-internal;PropertyFilterBuilderRuleOperator(props: PropertyFilterBuilderRuleOperatorProps): React_3.JSX.Element
+beta;PropertyFilterBuilderRuleOperator = `${PropertyFilterRuleOperator}` | "between" | "not-between"
 beta;PropertyFilterBuilderRuleOperatorProps
-beta;PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueProps): React_3.JSX.Element
+internal;PropertyFilterBuilderRuleOperatorRenderer(props: PropertyFilterBuilderRuleOperatorProps): React_3.JSX.Element
+beta;PropertyFilterBuilderRuleRangeValue
+beta;PropertyFilterBuilderRuleRangeValue
+beta;PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueRendererProps): React_3.JSX.Element
 beta;PropertyFilterBuilderRuleValueProps
 beta;PropertyFilterBuilderRuleValueRendererProps 
 beta;PropertyFilterBuilderState
