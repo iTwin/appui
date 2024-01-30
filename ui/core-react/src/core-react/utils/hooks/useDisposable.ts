@@ -13,11 +13,31 @@ import type { IDisposable } from "@itwin/core-bentley";
  * A custom hook which creates a disposable object and manages its disposal on unmount
  * or factory method change.
  * @public
+ * @deprecated in 4.9.0. This hook is not compatible with React 18 Strict mode. Use [[useOptionalDisposable]] or `useState` + `useEffect` for
+ * creating and disposing disposable resources.
  */
 export function useDisposable<TDisposable extends IDisposable>(
   createDisposable: () => TDisposable
 ): TDisposable {
-  return useOptionalDisposable(createDisposable)!;
+  const [value, setValue] = useState(() => createDisposable());
+  // need to capture initial disposable created during render loop in order to dispose later
+  const prevValue = useRef(value);
+  const useInitialValue = useRef(true);
+
+  useEffect(() => {
+    // do not create new disposable on initial render. It was created during render loop.
+    if (!useInitialValue.current) {
+      prevValue.current = createDisposable();
+      setValue(prevValue.current);
+    }
+
+    useInitialValue.current = false;
+    return () => {
+      prevValue.current.dispose();
+    };
+  }, [createDisposable]);
+
+  return value;
 }
 
 /**
@@ -29,20 +49,13 @@ export function useDisposable<TDisposable extends IDisposable>(
 export function useOptionalDisposable<TDisposable extends IDisposable>(
   createDisposable: () => TDisposable | undefined
 ): TDisposable | undefined {
-  const [value, setValue] = useState(() => createDisposable());
-  const initialValue = useRef(true);
+  const [value, setValue] = useState<TDisposable | undefined>();
 
   useEffect(() => {
-    if (!initialValue.current) {
-      setValue(createDisposable());
-    }
-
-    initialValue.current = false;
+    const disposable = createDisposable();
+    setValue(disposable);
     return () => {
-      setValue((prev) => {
-        prev && prev.dispose();
-        return prev;
-      });
+      disposable && disposable.dispose();
     };
   }, [createDisposable]);
 

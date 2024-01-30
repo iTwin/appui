@@ -3,10 +3,14 @@
 Table of contents:
 
 - [@itwin/components-react](#itwincomponents-react)
-  - [Improvements](#improvements)
   - [Changes](#changes)
+  - [Improvements](#improvements)
+  - [Additions](#additions)
+  - [Deprecations](#deprecations)
 - [@itwin/appui-react](#itwinappui-react)
   - [Additions](#additions)
+- [@itwin/core-react](#itwincore-react)
+  - [Deprecations](#deprecations)
 
 ## @itwin/components-react
 
@@ -19,6 +23,14 @@ Table of contents:
 
 - Show loading spinner in subsequent loads if delay threshold is reached `VirtualizedPropertyGrid.`
 
+### Additions
+
+- Added `useControlledTreeEventsHandler` to replace now deprecated `useTreeEventsHandler`. [#676](https://github.com/iTwin/appui/pull/676)
+
+### Deprecations
+
+- Deprecated `useTreeEventsHandler` hook because it does not work correctly in React 18 Strict mode. `useControlledTreeEventsHandler` should be used instead. [#676](https://github.com/iTwin/appui/pull/676)
+
 ## @itwin/appui-react
 
 ### Additions
@@ -26,3 +38,9 @@ Table of contents:
 - `useWidget` hook to convey widget state and location.
 - `activateDroppedTab` preview feature to activate a dragged widget tab whenever it is dropped in the receiving container. #601
 - `clearSelection` argument in `HideIsolateEmphasizeActionHandler.processIsolateSelected()` to control whether the selection is cleared. #682
+
+## @itwin/core-react
+
+### Deprecations
+
+- Deprecated `useDisposable` hook because it does not work correctly in React 18 Strict mode. `useOptionalDisposable` or `useState` + `useEffect` should be used instead to manage disposable resources. [#676](https://github.com/iTwin/appui/pull/676)
