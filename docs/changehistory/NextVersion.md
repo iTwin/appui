@@ -37,6 +37,7 @@ Table of contents:
 
 - `useWidget` hook to convey widget state and location.
 - `activateDroppedTab` preview feature to activate a dragged widget tab whenever it is dropped in the receiving container. #601
+- `clearSelection` argument in `HideIsolateEmphasizeActionHandler.processIsolateSelected()` to control whether the selection is cleared. #682
 
 ## @itwin/core-react
 

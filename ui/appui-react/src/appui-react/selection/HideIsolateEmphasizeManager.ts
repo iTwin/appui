@@ -118,7 +118,9 @@ export abstract class HideIsolateEmphasizeActionHandler {
   /**
    * Function run when `HideSelectedElementsModel` tool button is pressed
    */
-  public abstract processIsolateSelected(): Promise<void>;
+  public abstract processIsolateSelected(
+    clearSelection?: boolean
+  ): Promise<void>;
 
   /**
    * Function run when `HideSelectedElementsModel` tool button is pressed
@@ -564,7 +566,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
   /**
    * Function that is run when `IsolateSelected` tool button is pressed
    */
-  public async processIsolateSelected(): Promise<void> {
+  public async processIsolateSelected(clearSelection = true): Promise<void> {
     const vp = IModelApp.viewManager.selectedView;
     if (!vp) return;
     HideIsolateEmphasizeManager.isolateSelected(vp);
@@ -577,6 +579,8 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
+
+    if (!clearSelection) return;
 
     // clear out selection now that any callbacks have processed
     const selection = vp.view.iModel.selectionSet;
