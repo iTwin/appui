@@ -81,6 +81,8 @@ export * from "./components-react/filter-builder/FilterBuilderRuleValue";
 export * from "./components-react/filter-builder/FilterBuilderRangeValue";
 export * from "./components-react/filter-builder/Operators";
 export * from "./components-react/filter-builder/Types";
+export * from "./components-react/filter-builder/FilterBuilderLogicalOperator";
+export * from "./components-react/filter-builder/FilterBuilderToolbar";
 
 export * from "./components-react/properties/renderers/label/NonPrimitivePropertyLabelRenderer";
 export * from "./components-react/properties/renderers/label/PrimitivePropertyLabelRenderer";

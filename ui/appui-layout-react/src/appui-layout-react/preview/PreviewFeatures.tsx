@@ -23,6 +23,11 @@ export interface KnownPreviewLayoutFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
    */
   enableMaximizedFloatingWidget: boolean;
+  /** If true, a tab, or the active tab of a group of widget will become active when dropped in a container.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/679
+   */
+  activateDroppedTab?: boolean;
 }
 
 type PreviewFeaturesState = Partial<KnownPreviewLayoutFeatures>;

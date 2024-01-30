@@ -37,7 +37,8 @@ import type { PropertyDescription } from '@itwin/appui-abstract';
 import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyValue } from '@itwin/appui-abstract';
 import type { RatioChangeResult } from '@itwin/core-react';
-import * as React_2 from 'react';
+import { default as React_2 } from 'react';
+import * as React_3 from 'react';
 import { ReactNode } from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import type { SelectOption } from '@itwin/itwinui-react';
@@ -62,9 +63,9 @@ export abstract class AbstractTreeNodeLoaderWithProvider<TDataProvider extends T
 }
 
 // @public
-export class ActionButtonList extends React_2.PureComponent<ActionButtonListProps> {
+export class ActionButtonList extends React_3.PureComponent<ActionButtonListProps> {
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
@@ -76,7 +77,7 @@ export interface ActionButtonListProps {
 }
 
 // @public
-export type ActionButtonRenderer = (props: ActionButtonRendererProps) => React_2.ReactNode;
+export type ActionButtonRenderer = (props: ActionButtonRendererProps) => React_3.ReactNode;
 
 // @public
 export interface ActionButtonRendererProps {
@@ -98,7 +99,7 @@ export function adjustDateToTimezone(inDateTime: Date, utcOffset: number): Date;
 // @public
 export class ArrayPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_2.ReactNode;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
 }
 
 // @public
@@ -143,11 +144,11 @@ export abstract class BasePointTypeConverter extends TypeConverter {
 // @public
 export class BasicPropertyEditor extends PropertyEditorBase {
     // (undocumented)
-    get reactNode(): React_2.ReactNode;
+    get reactNode(): React_3.ReactNode;
 }
 
 // @public
-export class BooleanEditor extends React_2.PureComponent<PropertyEditorProps, BooleanEditorState> implements TypeEditor {
+export class BooleanEditor extends React_3.PureComponent<PropertyEditorProps, BooleanEditorState> implements TypeEditor {
     // @internal (undocumented)
     componentDidMount(): void;
     // @internal (undocumented)
@@ -161,7 +162,7 @@ export class BooleanEditor extends React_2.PureComponent<PropertyEditorProps, Bo
     // (undocumented)
     get htmlElement(): HTMLElement | null;
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
     // @internal (undocumented)
     readonly state: Readonly<BooleanEditorState>;
 }
@@ -171,7 +172,7 @@ export class BooleanPropertyEditor extends PropertyEditorBase {
     // (undocumented)
     get containerHandlesBlur(): boolean;
     // (undocumented)
-    get reactNode(): React_2.ReactNode;
+    get reactNode(): React_3.ReactNode;
 }
 
 // @public
@@ -242,11 +243,11 @@ export interface CheckboxStateChange {
 }
 
 // @internal
-export function Columns(props: ColumnsProps): JSX.Element;
+export function Columns(props: ColumnsProps): React_3.JSX.Element;
 
 // @internal
 export interface ColumnsProps extends CommonProps {
-    children?: React_2.ReactNode;
+    children?: React_3.ReactNode;
 }
 
 // @public
@@ -312,7 +313,7 @@ export class CompositeTypeConverter extends TypeConverter {
 export function computeVisibleNodes(model: TreeModel): VisibleTreeNodes;
 
 // @public
-export function ControlledSelectableContent(props: ControlledSelectableContentProps): JSX.Element;
+export function ControlledSelectableContent(props: ControlledSelectableContentProps): React_3.JSX.Element;
 
 // @public
 export interface ControlledSelectableContentProps {
@@ -329,7 +330,7 @@ export interface ControlledSelectableContentProps {
 }
 
 // @public
-export function ControlledTree(props: ControlledTreeProps): JSX.Element;
+export function ControlledTree(props: ControlledTreeProps): React_3.JSX.Element;
 
 // @public
 export interface ControlledTreeProps extends CommonProps {
@@ -338,13 +339,13 @@ export interface ControlledTreeProps extends CommonProps {
     height: number;
     iconsEnabled?: boolean;
     model: TreeModel;
-    noDataRenderer?: () => React_2.ReactElement;
+    noDataRenderer?: () => React_3.ReactElement;
     nodeHighlightingProps?: HighlightableTreeProps;
     nodeLoader: ITreeNodeLoader;
     onItemsRendered?: (items: RenderedItemsRange) => void;
     selectionMode: SelectionMode_2;
-    spinnerRenderer?: () => React_2.ReactElement;
-    treeRenderer?: (props: TreeRendererProps) => React_2.ReactElement;
+    spinnerRenderer?: () => React_3.ReactElement;
+    treeRenderer?: (props: TreeRendererProps) => React_3.ReactElement;
     width: number;
 }
 
@@ -368,7 +369,7 @@ export namespace ConvertedPrimitives {
 export function convertPrimitiveRecordToString(record: PropertyRecord): string | Promise<string>;
 
 // @alpha
-export class CustomNumberEditor extends React_2.PureComponent<PropertyEditorProps, CustomNumberEditorState> implements TypeEditor {
+export class CustomNumberEditor extends React_3.PureComponent<PropertyEditorProps, CustomNumberEditorState> implements TypeEditor {
     // @internal (undocumented)
     componentDidMount(): void;
     // @internal (undocumented)
@@ -382,7 +383,7 @@ export class CustomNumberEditor extends React_2.PureComponent<PropertyEditorProp
     // (undocumented)
     get htmlElement(): HTMLElement | null;
     // @internal (undocumented)
-    render(): React_2.ReactNode;
+    render(): React_3.ReactNode;
     // @internal (undocumented)
     readonly state: Readonly<CustomNumberEditorState>;
 }
@@ -392,13 +393,13 @@ export class CustomNumberPropertyEditor extends PropertyEditorBase {
     // (undocumented)
     get containerHandlesEscape(): boolean;
     // (undocumented)
-    get reactNode(): React_2.ReactNode;
+    get reactNode(): React_3.ReactNode;
 }
 
 // @public @deprecated
 export interface CustomToolbarItem extends CustomButtonDefinition {
     keepContentsLoaded?: boolean;
-    panelContentNode?: React_2.ReactNode;
+    panelContentNode?: React_3.ReactNode;
 }
 
 // @public
@@ -418,7 +419,7 @@ export abstract class DataControllerBase implements DataController {
 }
 
 // @internal
-export function DateField({ initialDate, onDateChange, readOnly, dateFormatter, timeDisplay, style, className, }: DateFieldProps): JSX.Element;
+export function DateField({ initialDate, onDateChange, readOnly, dateFormatter, timeDisplay, style, className, }: DateFieldProps): React_3.JSX.Element;
 
 // @internal
 export interface DateFieldProps extends CommonProps {
@@ -438,10 +439,10 @@ export interface DateFormatOptions {
 }
 
 // @alpha
-export function DatePicker(props: DatePickerProps): JSX.Element;
+export function DatePicker(props: DatePickerProps): React_3.JSX.Element;
 
 // @alpha
-export function DatePickerPopupButton({ displayEditField, timeDisplay, selected, onDateChange, dateFormatter, buttonToolTip, fieldStyle, fieldClassName, style, }: DatePickerPopupButtonProps): JSX.Element;
+export function DatePickerPopupButton({ displayEditField, timeDisplay, selected, onDateChange, dateFormatter, buttonToolTip, fieldStyle, fieldClassName, style, }: DatePickerPopupButtonProps): React_3.JSX.Element;
 
 // @alpha
 export interface DatePickerPopupButtonProps extends CommonProps {
@@ -450,7 +451,7 @@ export interface DatePickerPopupButtonProps extends CommonProps {
     dateFormatter?: DateFormatter;
     displayEditField?: boolean;
     fieldClassName?: string;
-    fieldStyle?: React_2.CSSProperties;
+    fieldStyle?: React_3.CSSProperties;
     onDateChange?: (day: Date) => void;
     selected: Date;
     // (undocumented)
@@ -465,7 +466,7 @@ export interface DatePickerProps {
 }
 
 // @internal
-export class DateTimeEditor extends React_2.PureComponent<DateTimeEditorProps, DateTimeEditorState> implements TypeEditor {
+export class DateTimeEditor extends React_3.PureComponent<DateTimeEditorProps, DateTimeEditorState> implements TypeEditor {
     // (undocumented)
     componentDidMount(): void;
     // (undocumented)
@@ -481,7 +482,7 @@ export class DateTimeEditor extends React_2.PureComponent<DateTimeEditorProps, D
     // (undocumented)
     processDateChange(typeConverter: TypeConverter, newValue: Date): Promise<void>;
     // (undocumented)
-    render(): React_2.ReactNode;
+    render(): React_3.ReactNode;
     // (undocumented)
     readonly state: Readonly<DateTimeEditorState>;
 }
@@ -491,7 +492,7 @@ export class DateTimePropertyEditor extends PropertyEditorBase {
     // (undocumented)
     get containerHandlesTab(): boolean;
     // (undocumented)
-    get reactNode(): React_2.ReactNode;
+    get reactNode(): React_3.ReactNode;
 }
 
 // @public
@@ -588,7 +589,7 @@ export class DisplayValuePropertyDataFilterer extends PropertyRecordDataFilterer
 // @public
 export class DoublePropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): JSX.Element;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.JSX.Element;
 }
 
 // @internal (undocumented)
@@ -608,9 +609,9 @@ export interface EditableTreeDataProvider extends ITreeDataProvider {
 }
 
 // @public
-export class EditorContainer extends React_2.PureComponent<EditorContainerProps> {
+export class EditorContainer extends React_3.PureComponent<EditorContainerProps> {
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
@@ -627,7 +628,7 @@ export interface EditorContainerProps extends CommonProps {
 }
 
 // @public
-export class EnumButtonGroupEditor extends React_2.Component<PropertyEditorProps, EnumButtonGroupEditorState> implements TypeEditor {
+export class EnumButtonGroupEditor extends React_3.Component<PropertyEditorProps, EnumButtonGroupEditorState> implements TypeEditor {
     // @internal (undocumented)
     componentDidMount(): void;
     // @internal (undocumented)
@@ -639,13 +640,13 @@ export class EnumButtonGroupEditor extends React_2.Component<PropertyEditorProps
     // (undocumented)
     get htmlElement(): HTMLElement | null;
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
     // @internal (undocumented)
     readonly state: Readonly<EnumButtonGroupEditorState>;
 }
 
 // @public
-export class EnumEditor extends React_2.PureComponent<PropertyEditorProps, EnumEditorState> implements TypeEditor {
+export class EnumEditor extends React_3.PureComponent<PropertyEditorProps, EnumEditorState> implements TypeEditor {
     // @internal (undocumented)
     componentDidMount(): void;
     // @internal (undocumented)
@@ -659,7 +660,7 @@ export class EnumEditor extends React_2.PureComponent<PropertyEditorProps, EnumE
     // (undocumented)
     get htmlElement(): HTMLElement | null;
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
     // @internal (undocumented)
     readonly state: Readonly<EnumEditorState>;
 }
@@ -667,7 +668,7 @@ export class EnumEditor extends React_2.PureComponent<PropertyEditorProps, EnumE
 // @public
 export class EnumPropertyButtonGroupEditor extends PropertyEditorBase {
     // (undocumented)
-    get reactNode(): React_2.ReactNode;
+    get reactNode(): React_3.ReactNode;
 }
 
 // @public
@@ -677,7 +678,7 @@ export class EnumPropertyEditor extends PropertyEditorBase {
     // (undocumented)
     get containerStopsKeydownPropagation(): boolean;
     // (undocumented)
-    get reactNode(): React_2.ReactNode;
+    get reactNode(): React_3.ReactNode;
 }
 
 // @public
@@ -707,7 +708,7 @@ export class FavoritePropertiesRenderer {
 }
 
 // @alpha
-export function FavoritePropertyList(props: FavoritePropertyListProps): JSX.Element | null;
+export function FavoritePropertyList(props: FavoritePropertyListProps): React_3.JSX.Element | null;
 
 // @alpha
 export interface FavoritePropertyListProps {
@@ -737,12 +738,12 @@ export enum FilteredType {
 }
 
 // @public
-export class FilteringInput extends React_2.PureComponent<FilteringInputProps, FilteringInputState> {
+export class FilteringInput extends React_3.PureComponent<FilteringInputProps, FilteringInputState> {
     constructor(props: FilteringInputProps);
     // @internal (undocumented)
     componentDidUpdate(prevProps: FilteringInputProps): void;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
@@ -860,28 +861,28 @@ export interface GridCategoryItem extends FlatGridItemBase {
 }
 
 // @internal
-export function GroupColumn(props: GroupColumnProps): JSX.Element;
+export function GroupColumn(props: GroupColumnProps): React_3.JSX.Element;
 
 // @internal
 export interface GroupColumnProps extends CommonProps {
-    children?: React_2.ReactNode;
+    children?: React_3.ReactNode;
 }
 
 // @internal
-export function GroupTool(props: GroupToolProps): JSX.Element;
+export function GroupTool(props: GroupToolProps): React_3.JSX.Element;
 
 // @internal
 export interface GroupToolProps extends CommonProps {
-    badge?: React_2.ReactNode;
-    children?: React_2.ReactNode;
-    icon?: React_2.ReactNode;
+    badge?: React_3.ReactNode;
+    children?: React_3.ReactNode;
+    icon?: React_3.ReactNode;
     isActive?: boolean;
     isDisabled?: boolean;
     isFocused?: boolean;
     item: GroupButton | ActionButton;
     label?: string;
     onClick?: (item: GroupButton | ActionButton) => void;
-    onKeyDown?: (e: React_2.KeyboardEvent) => void;
+    onKeyDown?: (e: React_3.KeyboardEvent) => void;
     onPointerUp?: (item: GroupButton | ActionButton) => void;
 }
 
@@ -921,7 +922,7 @@ export interface HighlightableTreeProps {
 }
 
 // @public
-export function HighlightedText(props: HighlightedTextProps): JSX.Element;
+export function HighlightedText(props: HighlightedTextProps): React_2.JSX.Element;
 
 // @public
 export interface HighlightedTextProps {
@@ -968,11 +969,11 @@ export class HighlightingEngine {
         id?: string;
     }): boolean | undefined;
     // (undocumented)
-    static renderNodeLabel(text: string, props: HighlightableTreeNodeProps): React_2.ReactNode;
+    static renderNodeLabel(text: string, props: HighlightableTreeNodeProps): React_3.ReactNode;
 }
 
 // @alpha
-export class IconEditor extends React_2.PureComponent<PropertyEditorProps, IconEditorState> implements TypeEditor {
+export class IconEditor extends React_3.PureComponent<PropertyEditorProps, IconEditorState> implements TypeEditor {
     constructor(props: PropertyEditorProps);
     // @internal (undocumented)
     componentDidMount(): void;
@@ -987,13 +988,13 @@ export class IconEditor extends React_2.PureComponent<PropertyEditorProps, IconE
     // (undocumented)
     get htmlElement(): HTMLElement | null;
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @alpha
 export class IconPropertyEditor extends PropertyEditorBase {
     // (undocumented)
-    get reactNode(): React_2.ReactNode;
+    get reactNode(): React_3.ReactNode;
 }
 
 // @public
@@ -1006,7 +1007,7 @@ type Image_2 = LoadedImage | LoadedBinaryImage;
 export { Image_2 as Image }
 
 // @public
-export class ImageCheckBoxEditor extends React_2.PureComponent<PropertyEditorProps, ImageCheckBoxEditorState> implements TypeEditor {
+export class ImageCheckBoxEditor extends React_3.PureComponent<PropertyEditorProps, ImageCheckBoxEditorState> implements TypeEditor {
     // @internal (undocumented)
     componentDidMount(): void;
     // @internal (undocumented)
@@ -1020,7 +1021,7 @@ export class ImageCheckBoxEditor extends React_2.PureComponent<PropertyEditorPro
     // (undocumented)
     get htmlElement(): HTMLElement | null;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
     // @internal (undocumented)
     readonly state: Readonly<ImageCheckBoxEditorState>;
 }
@@ -1028,7 +1029,7 @@ export class ImageCheckBoxEditor extends React_2.PureComponent<PropertyEditorPro
 // @public
 export class ImageCheckBoxPropertyEditor extends PropertyEditorBase {
     // (undocumented)
-    get reactNode(): React_2.ReactNode;
+    get reactNode(): React_3.ReactNode;
 }
 
 // @public
@@ -1125,7 +1126,7 @@ export interface IMutablePropertyGridModel {
 }
 
 // @internal
-export function InternalToolbarComponent(props: InternalToolbarComponentProps): JSX.Element;
+export function InternalToolbarComponent(props: InternalToolbarComponentProps): React_3.JSX.Element;
 
 // @internal
 export interface InternalToolbarComponentProps extends CommonProps, NoChildrenProps {
@@ -1135,7 +1136,7 @@ export interface InternalToolbarComponentProps extends CommonProps, NoChildrenPr
     expandsTo?: Direction;
     items: CommonToolbarItem[];
     onItemExecuted?: OnItemExecutedFunc;
-    onKeyDown?: (e: React_2.KeyboardEvent) => void;
+    onKeyDown?: (e: React_3.KeyboardEvent) => void;
     panelAlignment?: ToolbarPanelAlignment;
     syncUiEvent?: BeEvent<(args: {
         eventIds: Set<string>;
@@ -1212,7 +1213,7 @@ export interface IPropertyGridModelSource {
 // @public
 export interface IPropertyValueRenderer {
     canRender: (record: PropertyRecord, context?: PropertyValueRendererContext) => boolean;
-    render: (record: PropertyRecord, context?: PropertyValueRendererContext) => React_2.ReactNode;
+    render: (record: PropertyRecord, context?: PropertyValueRendererContext) => React_3.ReactNode;
 }
 
 // @internal
@@ -1313,12 +1314,12 @@ export interface LessGreaterOperatorProcessor {
 }
 
 // @public
-export function LinksRenderer(props: LinksRendererProps): JSX.Element;
+export function LinksRenderer(props: LinksRendererProps): React_3.JSX.Element;
 
 // @public
 export interface LinksRendererProps {
     // (undocumented)
-    highlighter?: (text: string) => React_2.ReactNode;
+    highlighter?: (text: string) => React_3.ReactNode;
     // (undocumented)
     links?: LinkElementsInfo;
     // (undocumented)
@@ -1373,11 +1374,11 @@ export class MultilineTextPropertyValueRenderer implements IPropertyValueRendere
     // (undocumented)
     canRender(record: PropertyRecord): boolean;
     // (undocumented)
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_2.ReactNode;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
 }
 
 // @internal (undocumented)
-export const MultilineTextRenderer: React_2.FC<MultilineTextRendererProps>;
+export const MultilineTextRenderer: React_3.FC<MultilineTextRendererProps>;
 
 // @internal
 export interface MultiSelectionHandler<TItem> {
@@ -1603,7 +1604,7 @@ export class NavigationPropertyTypeConverter extends TypeConverter {
 // @public
 export class NavigationPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): JSX.Element;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.JSX.Element;
 }
 
 // @public
@@ -1626,9 +1627,9 @@ interface Node_2 {
 export { Node_2 as Node }
 
 // @public
-export class NonPrimitivePropertyLabelRenderer extends React_2.PureComponent<NonPrimitivePropertyLabelRendererProps> {
+export class NonPrimitivePropertyLabelRenderer extends React_3.PureComponent<NonPrimitivePropertyLabelRendererProps> {
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
@@ -1642,10 +1643,10 @@ export interface NonPrimitivePropertyLabelRendererProps extends PrimitivePropert
 }
 
 // @public
-export class NonPrimitivePropertyRenderer extends React_2.Component<NonPrimitivePropertyRendererProps, NonPrimitivePropertyRendererState> {
+export class NonPrimitivePropertyRenderer extends React_3.Component<NonPrimitivePropertyRendererProps, NonPrimitivePropertyRendererState> {
     constructor(props: NonPrimitivePropertyRendererProps);
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
     // @internal (undocumented)
     readonly state: NonPrimitivePropertyRendererState;
 }
@@ -1662,7 +1663,7 @@ export interface NullableOperatorProcessor {
 }
 
 // @public
-export class NumericInputEditor extends React_2.PureComponent<PropertyEditorProps, NumericInputEditorState> implements TypeEditor {
+export class NumericInputEditor extends React_3.PureComponent<PropertyEditorProps, NumericInputEditorState> implements TypeEditor {
     // @internal (undocumented)
     componentDidMount(): void;
     // @internal (undocumented)
@@ -1676,7 +1677,7 @@ export class NumericInputEditor extends React_2.PureComponent<PropertyEditorProp
     // (undocumented)
     get htmlElement(): HTMLElement | null;
     // @internal (undocumented)
-    render(): React_2.ReactNode;
+    render(): React_3.ReactNode;
     // @internal (undocumented)
     readonly state: Readonly<NumericInputEditorState>;
 }
@@ -1686,7 +1687,7 @@ export class NumericInputPropertyEditor extends PropertyEditorBase {
     // (undocumented)
     get containerHandlesEnter(): boolean;
     // (undocumented)
-    get reactNode(): React_2.ReactNode;
+    get reactNode(): React_3.ReactNode;
 }
 
 // @public
@@ -1763,17 +1764,17 @@ export interface PageOptions {
 }
 
 // @internal
-export function Panel(props: PanelProps): JSX.Element;
+export function Panel(props: PanelProps): React_3.JSX.Element;
 
 // @internal
 export interface PanelProps extends CommonProps {
-    children?: React_2.ReactNode;
+    children?: React_3.ReactNode;
     // (undocumented)
-    onKeyDown?: (e: React_2.KeyboardEvent) => void;
+    onKeyDown?: (e: React_3.KeyboardEvent) => void;
 }
 
 // @public
-export const ParsedInput: (props: ParsedInputProps) => React_2.ReactElement | null;
+export const ParsedInput: (props: ParsedInputProps) => React_3.ReactElement | null;
 
 // @public
 export interface ParsedInputProps extends CommonProps {
@@ -1782,7 +1783,7 @@ export interface ParsedInputProps extends CommonProps {
     onChange?: (newValue: number) => void;
     parseString: (stringValue: string) => ParseResults;
     readonly?: boolean;
-    ref?: React_2.Ref<HTMLInputElement>;
+    ref?: React_3.Ref<HTMLInputElement>;
 }
 
 // @public
@@ -1804,20 +1805,20 @@ export class Point3dTypeConverter extends BasePointTypeConverter {
 }
 
 // @public
-export function PopupItem(props: PopupItemProps): JSX.Element;
+export function PopupItem(props: PopupItemProps): React_3.JSX.Element;
 
 // @internal (undocumented)
-export function PopupItemPopup(props: PopupItemPopupProps): JSX.Element;
+export function PopupItemPopup(props: PopupItemPopupProps): React_3.JSX.Element;
 
 // @public
 export interface PopupItemProps extends ToolbarButtonItemProps {
     hideIndicator?: boolean;
     keepContentsMounted?: boolean;
-    panel?: React_2.ReactNode;
+    panel?: React_3.ReactNode;
 }
 
 // @public
-export function PopupItemWithDrag(props: PopupItemWithDragProps): JSX.Element;
+export function PopupItemWithDrag(props: PopupItemWithDragProps): React_3.JSX.Element;
 
 // @public
 export interface PopupItemWithDragProps extends ToolbarButtonItemProps {
@@ -1825,9 +1826,9 @@ export interface PopupItemWithDragProps extends ToolbarButtonItemProps {
 }
 
 // @public
-export class PrimitivePropertyLabelRenderer extends React_2.PureComponent<PrimitivePropertyLabelRendererProps> {
+export class PrimitivePropertyLabelRenderer extends React_3.PureComponent<PrimitivePropertyLabelRendererProps> {
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
@@ -1837,27 +1838,27 @@ export interface PrimitivePropertyLabelRendererProps extends PropertyLabelRender
 }
 
 // @public
-export class PrimitivePropertyRenderer extends React_2.Component<PrimitiveRendererProps> {
+export class PrimitivePropertyRenderer extends React_3.Component<PrimitiveRendererProps> {
     constructor(props: PrimitiveRendererProps);
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
 export class PrimitivePropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): JSX.Element;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.JSX.Element;
 }
 
 // @internal (undocumented)
-export function PrimitivePropertyValueRendererImpl(props: PrimitivePropertyValueRendererImplProps): JSX.Element;
+export function PrimitivePropertyValueRendererImpl(props: PrimitivePropertyValueRendererImplProps): React_3.JSX.Element;
 
 // @public
 export interface PrimitiveRendererProps extends SharedRendererProps {
     highlight?: HighlightingComponentProps;
     indentation?: number;
-    valueElement?: React_2.ReactNode;
-    valueElementRenderer?: () => React_2.ReactNode;
+    valueElement?: React_3.ReactNode;
+    valueElementRenderer?: () => React_3.ReactNode;
 }
 
 // @public
@@ -1877,16 +1878,16 @@ export interface PropertyCategory {
 }
 
 // @public
-export class PropertyCategoryBlock extends React_2.Component<PropertyCategoryBlockProps> {
+export class PropertyCategoryBlock extends React_3.Component<PropertyCategoryBlockProps> {
     constructor(props: PropertyCategoryBlockProps);
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
 export interface PropertyCategoryBlockProps extends CommonProps {
     category: PropertyCategory;
-    children?: React_2.ReactNode;
+    children?: React_3.ReactNode;
     highlight?: HighlightingComponentProps;
     onExpansionToggled?: (categoryName: string) => void;
 }
@@ -1910,14 +1911,14 @@ export class PropertyCategoryLabelFilterer extends PropertyCategoryDataFiltererB
 }
 
 // @public
-export type PropertyCategoryRenderer = (categoryItem: GridCategoryItem) => React_2.ComponentType<PropertyCategoryRendererProps> | undefined;
+export type PropertyCategoryRenderer = (categoryItem: GridCategoryItem) => React_3.ComponentType<PropertyCategoryRendererProps> | undefined;
 
 // @public
 export class PropertyCategoryRendererManager {
     addRenderer(rendererName: string, categoryRenderer: PropertyCategoryRenderer, override?: boolean): void;
     // (undocumented)
     static defaultManager: PropertyCategoryRendererManager;
-    getCategoryComponent(categoryItem: GridCategoryItem): React_2.ComponentType<PropertyCategoryRendererProps> | undefined;
+    getCategoryComponent(categoryItem: GridCategoryItem): React_3.ComponentType<PropertyCategoryRendererProps> | undefined;
     removeRenderer(rendererName: string): void;
 }
 
@@ -1985,7 +1986,7 @@ export interface PropertyDataFilterResult {
 // @public
 export interface PropertyDialogState {
     // (undocumented)
-    content: React_2.ReactNode;
+    content: React_3.ReactNode;
     // (undocumented)
     title: string;
 }
@@ -2015,7 +2016,7 @@ export abstract class PropertyEditorBase implements DataController {
     // (undocumented)
     customDataController: DataController | undefined;
     // (undocumented)
-    abstract get reactNode(): React_2.ReactNode;
+    abstract get reactNode(): React_3.ReactNode;
     // (undocumented)
     validateValue(newValue: PropertyValue, record: PropertyRecord): Promise<AsyncValueProcessingResult>;
 }
@@ -2036,7 +2037,7 @@ export class PropertyEditorManager {
 
 // @public
 export interface PropertyEditorProps extends CommonProps {
-    onBlur?: (event: React_2.FocusEvent) => void;
+    onBlur?: (event: React_3.FocusEvent) => void;
     onCancel?: () => void;
     onCommit?: (args: PropertyUpdatedArgs) => void;
     propertyRecord?: PropertyRecord;
@@ -2049,7 +2050,7 @@ export interface PropertyEditorProps extends CommonProps {
 export type PropertyFilter = PropertyFilterRule | PropertyFilterRuleGroup;
 
 // @beta
-export function PropertyFilterBuilder(props: PropertyFilterBuilderProps): JSX.Element;
+export function PropertyFilterBuilder(props: PropertyFilterBuilderProps): React_3.JSX.Element;
 
 // @beta
 export class PropertyFilterBuilderActions {
@@ -2065,24 +2066,37 @@ export class PropertyFilterBuilderActions {
 }
 
 // @beta
+export const PropertyFilterBuilderLogicalOperator: (props: PropertyFilterBuilderLogicalOperatorProps) => React_2.JSX.Element;
+
+// @beta
+export interface PropertyFilterBuilderLogicalOperatorProps {
+    className?: string;
+    isDisabled?: boolean;
+    onOperatorChange: (operator: PropertyFilterRuleGroupOperator) => void;
+    operator: PropertyFilterRuleGroupOperator;
+}
+
+// @beta
 export interface PropertyFilterBuilderProps extends Omit<PropertyFilterBuilderRendererProps, "actions" | "rootGroup">, UsePropertyFilterBuilderProps {
     onFilterChanged: (filter?: PropertyFilter) => void;
 }
 
 // @beta
-export function PropertyFilterBuilderRenderer(props: PropertyFilterBuilderRendererProps): JSX.Element;
+export function PropertyFilterBuilderRenderer(props: PropertyFilterBuilderRendererProps): React_3.JSX.Element;
 
 // @beta
 export interface PropertyFilterBuilderRendererProps {
     actions: PropertyFilterBuilderActions;
     isDisabled?: boolean;
+    isGroupOperatorDisabled?: boolean;
     onRulePropertySelected?: (property: PropertyDescription) => void;
     properties: PropertyDescription[];
-    propertyRenderer?: (name: string) => React_2.ReactNode;
+    propertyRenderer?: (name: string) => React_3.ReactNode;
     rootGroup: PropertyFilterBuilderRuleGroup;
+    // @deprecated
     ruleGroupDepthLimit?: number;
-    ruleOperatorRenderer?: (props: PropertyFilterBuilderRuleOperatorProps) => React_2.ReactNode;
-    ruleValueRenderer?: (props: PropertyFilterBuilderRuleValueRendererProps) => React_2.ReactNode;
+    ruleOperatorRenderer?: (props: PropertyFilterBuilderRuleOperatorProps) => React_3.ReactNode;
+    ruleValueRenderer?: (props: PropertyFilterBuilderRuleValueRendererProps) => React_3.ReactNode;
 }
 
 // @beta
@@ -2107,7 +2121,7 @@ export interface PropertyFilterBuilderRuleGroup {
 export type PropertyFilterBuilderRuleGroupItem = PropertyFilterBuilderRuleGroup | PropertyFilterBuilderRule;
 
 // @internal
-export function PropertyFilterBuilderRuleOperator(props: PropertyFilterBuilderRuleOperatorProps): JSX.Element;
+export function PropertyFilterBuilderRuleOperator(props: PropertyFilterBuilderRuleOperatorProps): React_3.JSX.Element;
 
 // @beta
 export interface PropertyFilterBuilderRuleOperatorProps {
@@ -2117,7 +2131,7 @@ export interface PropertyFilterBuilderRuleOperatorProps {
 }
 
 // @beta
-export function PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueProps): JSX.Element;
+export function PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueProps): React_3.JSX.Element;
 
 // @beta
 export interface PropertyFilterBuilderRuleValueProps {
@@ -2135,6 +2149,9 @@ export interface PropertyFilterBuilderRuleValueRendererProps extends PropertyFil
 export interface PropertyFilterBuilderState {
     rootGroup: PropertyFilterBuilderRuleGroup;
 }
+
+// @beta
+export const PropertyFilterBuilderToolbar: (props: PropertyFilterBuilderToolbarProps) => React_2.JSX.Element;
 
 // @public
 export class PropertyFilterChangeEvent extends BeEvent<PropertyFilterChangesListener> {
@@ -2222,15 +2239,15 @@ export class PropertyGridEventHandler {
 export type PropertyGridEventsRelatedProps = Pick<PropertyListProps, "onPropertyClicked" | "onPropertyRightClicked" | "onPropertyContextMenu" | "onEditCommit" | "onEditCancel" | "selectedPropertyKey" | "editingPropertyKey"> & Pick<CommonPropertyGridProps, "isPropertySelectionOnRightClickEnabled" | "isPropertyEditingEnabled"> & Required<Pick<CommonPropertyGridProps, "isPropertyHoverEnabled" | "isPropertySelectionEnabled">>;
 
 // @internal
-export class PropertyGridEventsRelatedPropsSupplier extends React_2.Component<PropertyGridEventsRelatedPropsSupplierProps, PropertyGridEventsRelatedPropsSupplierState> {
+export class PropertyGridEventsRelatedPropsSupplier extends React_3.Component<PropertyGridEventsRelatedPropsSupplierProps, PropertyGridEventsRelatedPropsSupplierState> {
     constructor(props: PropertyGridEventsRelatedPropsSupplierProps);
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @internal
 export type PropertyGridEventsRelatedPropsSupplierProps = Pick<CommonPropertyGridProps, "onPropertyContextMenu" | "isPropertySelectionOnRightClickEnabled" | "isPropertySelectionOnRightClickEnabled" | "onPropertySelectionChanged" | "isPropertyEditingEnabled" | "onPropertyUpdated"> & Required<Pick<CommonPropertyGridProps, "isPropertyHoverEnabled" | "isPropertySelectionEnabled">> & {
-    children: (context: PropertyGridEventsRelatedProps) => React_2.ReactNode;
+    children: (context: PropertyGridEventsRelatedProps) => React_3.ReactNode;
 };
 
 // @internal
@@ -2248,7 +2265,7 @@ export interface PropertyGridInternalContext {
     // (undocumented)
     onItemHeightChanged: (index: number, key: string, height: number) => void;
     // (undocumented)
-    style?: React_2.CSSProperties;
+    style?: React_3.CSSProperties;
 }
 
 // @public
@@ -2269,24 +2286,24 @@ export class PropertyGridModelSource implements IPropertyGridModelSource {
 }
 
 // @internal (undocumented)
-export class PropertyLabelRenderer extends React_2.PureComponent<PropertyLabelRendererProps> {
-    static getStyle(offset?: number): React_2.CSSProperties;
+export class PropertyLabelRenderer extends React_3.PureComponent<PropertyLabelRendererProps> {
+    static getStyle(offset?: number): React_3.CSSProperties;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
 export interface PropertyLabelRendererProps {
-    children: string | React_2.ReactElement;
+    children: string | React_3.ReactElement;
     renderColon?: boolean;
     tooltip?: string;
 }
 
 // @public
-export class PropertyList extends React_2.Component<PropertyListProps> {
+export class PropertyList extends React_3.Component<PropertyListProps> {
     constructor(props: PropertyListProps);
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
@@ -2312,7 +2329,7 @@ export interface PropertyListProps extends CommonProps {
     // (undocumented)
     onPropertyClicked?: (property: PropertyRecord, key?: string) => void;
     // (undocumented)
-    onPropertyContextMenu?: (property: PropertyRecord, e: React_2.MouseEvent) => void;
+    onPropertyContextMenu?: (property: PropertyRecord, e: React_3.MouseEvent) => void;
     // (undocumented)
     onPropertyRightClicked?: (property: PropertyRecord, key?: string) => void;
     onResizeHandleDragChanged?: (isDragStarted: boolean) => void;
@@ -2332,7 +2349,7 @@ export interface PropertyListProps extends CommonProps {
 // @public
 export interface PropertyPopupState {
     // (undocumented)
-    content: React_2.ReactNode;
+    content: React_3.ReactNode;
     // (undocumented)
     fixedPosition: {
         top: number;
@@ -2347,7 +2364,7 @@ export abstract class PropertyRecordDataFiltererBase extends PropertyDataFiltere
 }
 
 // @public
-export class PropertyRenderer extends React_2.Component<PropertyRendererProps, PropertyRendererState> {
+export class PropertyRenderer extends React_3.Component<PropertyRendererProps, PropertyRendererState> {
     constructor(props: PropertyRendererProps);
     // @internal (undocumented)
     componentDidMount(): void;
@@ -2356,7 +2373,7 @@ export class PropertyRenderer extends React_2.Component<PropertyRendererProps, P
     // (undocumented)
     static getLabelOffset(indentation?: number, orientation?: Orientation, width?: number, columnRatio?: number, minColumnLabelWidth?: number): number;
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
     // @internal (undocumented)
     readonly state: Readonly<PropertyRendererState>;
     updateDisplayValueAsEditor(props: PropertyRendererProps): void;
@@ -2381,7 +2398,7 @@ export interface PropertyUpdatedArgs {
 // @public
 export interface PropertyValueRendererContext {
     containerType?: string;
-    defaultValue?: React_2.ReactNode;
+    defaultValue?: React_3.ReactNode;
     isExpanded?: boolean;
     onDialogOpen?: (dialogState: PropertyDialogState) => void;
     onExpansionToggled?: () => void;
@@ -2389,8 +2406,8 @@ export interface PropertyValueRendererContext {
     onPopupHide?: () => void;
     onPopupShow?: (popupState: PropertyPopupState) => void;
     orientation?: Orientation;
-    style?: React_2.CSSProperties;
-    textHighlighter?: (text: string) => React_2.ReactNode;
+    style?: React_3.CSSProperties;
+    textHighlighter?: (text: string) => React_3.ReactNode;
 }
 
 // @public
@@ -2408,22 +2425,22 @@ export class PropertyValueRendererManager {
     // (undocumented)
     protected _propertyRenderers: Map<string, IPropertyValueRenderer>;
     registerRenderer(rendererType: string, propertyRenderer: IPropertyValueRenderer, overwrite?: boolean): void;
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_2.ReactNode;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
     unregisterRenderer(rendererType: string): void;
 }
 
 // @public
-export class PropertyView extends React_2.Component<PropertyViewProps, PropertyViewState> {
+export class PropertyView extends React_3.Component<PropertyViewProps, PropertyViewState> {
     constructor(props: PropertyViewProps);
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
 export interface PropertyViewProps extends SharedRendererProps {
-    labelElement: React_2.ReactNode;
-    valueElement?: React_2.ReactNode;
-    valueElementRenderer?: () => React_2.ReactNode;
+    labelElement: React_3.ReactNode;
+    valueElement?: React_3.ReactNode;
+    valueElementRenderer?: () => React_3.ReactNode;
 }
 
 // @public
@@ -2439,10 +2456,10 @@ export interface RenderedItemsRange {
 }
 
 // @public
-export const renderLinks: (text: string, links: LinkElementsInfo, highlight?: ((text: string) => React_2.ReactNode) | undefined) => React_2.ReactNode;
+export const renderLinks: (text: string, links: LinkElementsInfo, highlight?: ((text: string) => React_3.ReactNode) | undefined) => React_3.ReactNode;
 
 // @public
-export class ResultSelector extends React_2.PureComponent<ResultSelectorProps, ResultSelectorState> {
+export class ResultSelector extends React_3.PureComponent<ResultSelectorProps, ResultSelectorState> {
     // @internal
     constructor(props: ResultSelectorProps);
     // @internal (undocumented)
@@ -2450,7 +2467,7 @@ export class ResultSelector extends React_2.PureComponent<ResultSelectorProps, R
     // @internal (undocumented)
     componentDidUpdate(prevProps: ResultSelectorProps): void;
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
@@ -2460,7 +2477,7 @@ export interface ResultSelectorProps extends CommonProps {
 }
 
 // @public
-export function SelectableContent(props: SelectableContentProps): JSX.Element;
+export function SelectableContent(props: SelectableContentProps): React_3.JSX.Element;
 
 // @public
 export interface SelectableContentDefinition {
@@ -2469,7 +2486,7 @@ export interface SelectableContentDefinition {
     // (undocumented)
     label: string;
     // (undocumented)
-    render: () => React_2.ReactNode;
+    render: () => React_3.ReactNode;
 }
 
 // @public
@@ -2535,7 +2552,7 @@ export interface SharedRendererProps {
     isSelected?: boolean;
     onClick?: (property: PropertyRecord, key?: string) => void;
     onColumnRatioChanged?: (ratio: number) => void | RatioChangeResult;
-    onContextMenu?: (property: PropertyRecord, e: React_2.MouseEvent) => void;
+    onContextMenu?: (property: PropertyRecord, e: React_3.MouseEvent) => void;
     onResizeHandleDragChanged?: (isDragStarted: boolean) => void;
     onResizeHandleHoverChanged?: (isHovered: boolean) => void;
     onRightClick?: (property: PropertyRecord, key?: string) => void;
@@ -2555,7 +2572,7 @@ export class ShortDateTimePropertyEditor extends PropertyEditorBase {
     // (undocumented)
     get containerHandlesTab(): boolean;
     // (undocumented)
-    get reactNode(): React_2.ReactNode;
+    get reactNode(): React_3.ReactNode;
 }
 
 // @public
@@ -2615,7 +2632,7 @@ export interface SingleSelectionHandler<TItem> {
 }
 
 // @public
-export class SliderEditor extends React_2.PureComponent<PropertyEditorProps, SliderEditorState> implements TypeEditor {
+export class SliderEditor extends React_3.PureComponent<PropertyEditorProps, SliderEditorState> implements TypeEditor {
     // @internal (undocumented)
     componentDidMount(): void;
     // @internal (undocumented)
@@ -2629,7 +2646,7 @@ export class SliderEditor extends React_2.PureComponent<PropertyEditorProps, Sli
     // (undocumented)
     get htmlElement(): HTMLElement | null;
     // @internal (undocumented)
-    render(): React_2.ReactNode;
+    render(): React_3.ReactNode;
     // @internal (undocumented)
     readonly state: Readonly<SliderEditorState>;
 }
@@ -2637,7 +2654,7 @@ export class SliderEditor extends React_2.PureComponent<PropertyEditorProps, Sli
 // @public
 export class SliderPropertyEditor extends PropertyEditorBase {
     // (undocumented)
-    get reactNode(): React_2.ReactNode;
+    get reactNode(): React_3.ReactNode;
 }
 
 // @public
@@ -2731,7 +2748,7 @@ export class StringTypeConverter extends TypeConverter implements StringOperator
 // @public
 export class StructPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_2.ReactNode;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
 }
 
 // @public
@@ -2759,21 +2776,21 @@ export interface Subscription extends Unsubscribable {
 }
 
 // @public
-export class TableArrayValueRenderer extends React_2.PureComponent<TableSpecificValueRendererProps> {
+export class TableArrayValueRenderer extends React_3.PureComponent<TableSpecificValueRendererProps> {
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
-export class TableNonPrimitiveValueRenderer extends React_2.PureComponent<TableNonPrimitiveValueRendererProps> {
+export class TableNonPrimitiveValueRenderer extends React_3.PureComponent<TableNonPrimitiveValueRendererProps> {
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
 export interface TableNonPrimitiveValueRendererProps extends SharedTableNonPrimitiveValueRendererProps {
     buttonLabel: string;
-    dialogContents: React_2.ReactNode;
+    dialogContents: React_3.ReactNode;
     dialogTitle: string;
 }
 
@@ -2789,13 +2806,13 @@ export interface TableSpecificValueRendererProps extends SharedTableNonPrimitive
 }
 
 // @public
-export class TableStructValueRenderer extends React_2.PureComponent<TableSpecificValueRendererProps> {
+export class TableStructValueRenderer extends React_3.PureComponent<TableSpecificValueRendererProps> {
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
-export class TextareaEditor extends React_2.PureComponent<PropertyEditorProps, TextareaEditorState> implements TypeEditor {
+export class TextareaEditor extends React_3.PureComponent<PropertyEditorProps, TextareaEditorState> implements TypeEditor {
     // @internal (undocumented)
     componentDidMount(): void;
     // @internal (undocumented)
@@ -2809,7 +2826,7 @@ export class TextareaEditor extends React_2.PureComponent<PropertyEditorProps, T
     // (undocumented)
     get htmlElement(): HTMLElement | null;
     // @internal (undocumented)
-    render(): React_2.ReactNode;
+    render(): React_3.ReactNode;
     // @internal (undocumented)
     readonly state: Readonly<TextareaEditorState>;
 }
@@ -2823,11 +2840,11 @@ export class TextareaPropertyEditor extends PropertyEditorBase {
     // (undocumented)
     get containerHandlesTab(): boolean;
     // (undocumented)
-    get reactNode(): React_2.ReactNode;
+    get reactNode(): React_3.ReactNode;
 }
 
 // @public
-export class TextEditor extends React_2.PureComponent<PropertyEditorProps, TextEditorState> implements TypeEditor {
+export class TextEditor extends React_3.PureComponent<PropertyEditorProps, TextEditorState> implements TypeEditor {
     // @internal (undocumented)
     componentDidMount(): void;
     // @internal (undocumented)
@@ -2841,13 +2858,13 @@ export class TextEditor extends React_2.PureComponent<PropertyEditorProps, TextE
     // (undocumented)
     get htmlElement(): HTMLElement | null;
     // @internal (undocumented)
-    render(): React_2.ReactNode;
+    render(): React_3.ReactNode;
     // @internal (undocumented)
     readonly state: Readonly<TextEditorState>;
 }
 
 // @internal
-export function TimeField({ time, timeDisplay, readOnly, onTimeChange, }: TimeFieldProps): JSX.Element;
+export function TimeField({ time, timeDisplay, readOnly, onTimeChange, }: TimeFieldProps): React_3.JSX.Element;
 
 // @internal
 export interface TimeFieldProps {
@@ -2872,18 +2889,18 @@ export interface TimeSpec {
 }
 
 // @internal
-export function Title(props: TitleProps): JSX.Element;
+export function Title(props: TitleProps): React_3.JSX.Element;
 
 // @internal
 export interface TitleProps extends CommonProps {
-    children?: React_2.ReactNode;
+    children?: React_3.ReactNode;
 }
 
 // @public
 export const toDateString: (date: Date, timeZoneOffset?: number, formatOptions?: DateFormatOptions) => string;
 
 // @public
-export class ToggleEditor extends React_2.PureComponent<PropertyEditorProps, ToggleEditorState> implements TypeEditor {
+export class ToggleEditor extends React_3.PureComponent<PropertyEditorProps, ToggleEditorState> implements TypeEditor {
     // @internal (undocumented)
     componentDidMount(): void;
     // @internal (undocumented)
@@ -2897,7 +2914,7 @@ export class ToggleEditor extends React_2.PureComponent<PropertyEditorProps, Tog
     // (undocumented)
     get htmlElement(): HTMLElement | null;
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
     // @internal (undocumented)
     readonly state: Readonly<ToggleEditorState>;
 }
@@ -2907,26 +2924,26 @@ export class TogglePropertyEditor extends PropertyEditorBase {
     // (undocumented)
     get containerHandlesBlur(): boolean;
     // (undocumented)
-    get reactNode(): React_2.ReactNode;
+    get reactNode(): React_3.ReactNode;
 }
 
 // @public @deprecated
-export function Toolbar(props: ToolbarProps): JSX.Element;
+export function Toolbar(props: ToolbarProps): React_3.JSX.Element;
 
 // @public
-export const ToolbarButtonItem: React_2.MemoExoticComponent<React_2.FC<ToolbarButtonItemProps>>;
+export const ToolbarButtonItem: React_3.MemoExoticComponent<React_3.FC<ToolbarButtonItemProps>>;
 
 // @public
 export interface ToolbarButtonItemProps extends CommonProps {
     addGroupSeparator?: boolean;
-    badge?: React_2.ReactNode;
+    badge?: React_3.ReactNode;
     groupPriority?: number;
-    icon?: React_2.ReactNode;
+    icon?: React_3.ReactNode;
     isActive?: boolean;
     isDisabled?: boolean;
     itemPriority?: number;
     onClick?: () => void;
-    onKeyDown?: (e: React_2.KeyboardEvent) => void;
+    onKeyDown?: (e: React_3.KeyboardEvent) => void;
     providerId?: string;
     title: string;
 }
@@ -2938,10 +2955,10 @@ export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem;
 export function ToolbarItemComponent({ item, addGroupSeparator, }: {
     item: ToolbarItem;
     addGroupSeparator: boolean;
-}): JSX.Element | null;
+}): React_3.JSX.Element | null;
 
 // @internal
-export const ToolbarItemContext: React_2.Context<ToolbarItemContextArgs>;
+export const ToolbarItemContext: React_3.Context<ToolbarItemContextArgs>;
 
 // @internal
 export interface ToolbarItemContextArgs {
@@ -2969,7 +2986,7 @@ export interface ToolbarOverflowContextProps {
     // (undocumented)
     readonly onItemExecuted: OnItemExecutedFunc;
     // (undocumented)
-    readonly onKeyDown: (e: React_2.KeyboardEvent) => void;
+    readonly onKeyDown: (e: React_3.KeyboardEvent) => void;
     // (undocumented)
     readonly onPopupPanelOpenClose: (isOpening: boolean) => void;
     // (undocumented)
@@ -3005,10 +3022,10 @@ export class ToolbarPanelAlignmentHelpers {
 }
 
 // @public
-export const ToolbarPopupAutoHideContext: React_2.Context<boolean>;
+export const ToolbarPopupAutoHideContext: React_3.Context<boolean>;
 
 // @public
-export const ToolbarPopupContext: React_2.Context<ToolbarPopupContextProps>;
+export const ToolbarPopupContext: React_3.Context<ToolbarPopupContextProps>;
 
 // @public (undocumented)
 export interface ToolbarPopupContextProps {
@@ -3023,24 +3040,24 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
     expandsTo?: Direction;
     items: CommonToolbarItem[];
     onItemExecuted?: OnItemExecutedFunc;
-    onKeyDown?: (e: React_2.KeyboardEvent) => void;
+    onKeyDown?: (e: React_3.KeyboardEvent) => void;
     panelAlignment?: ToolbarPanelAlignment;
     toolbarOpacitySetting?: ToolbarOpacitySetting;
     useDragInteraction?: boolean;
 }
 
 // @public @deprecated
-export function ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element;
+export function ToolbarWithOverflow(props: ToolbarWithOverflowProps): React_3.JSX.Element;
 
 // @internal
-export const ToolbarWithOverflowDirectionContext: React_2.Context<ToolbarOverflowContextProps>;
+export const ToolbarWithOverflowDirectionContext: React_3.Context<ToolbarOverflowContextProps>;
 
 // @public @deprecated
 export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
     expandsTo?: Direction;
     items: CommonToolbarItem[];
     onItemExecuted?: OnItemExecutedFunc;
-    onKeyDown?: (e: React_2.KeyboardEvent) => void;
+    onKeyDown?: (e: React_3.KeyboardEvent) => void;
     overflowExpandsTo?: Direction;
     panelAlignment?: ToolbarPanelAlignment;
     toolbarOpacitySetting?: ToolbarOpacitySetting;
@@ -3288,7 +3305,7 @@ export class TreeModelSource {
 }
 
 // @public
-export function TreeNodeContent(props: TreeNodeContentProps): JSX.Element;
+export function TreeNodeContent(props: TreeNodeContentProps): React_3.JSX.Element;
 
 // @public
 export interface TreeNodeContentProps extends CommonProps {
@@ -3300,7 +3317,7 @@ export interface TreeNodeContentProps extends CommonProps {
 }
 
 // @public
-export function TreeNodeEditor(props: TreeNodeEditorProps): JSX.Element;
+export function TreeNodeEditor(props: TreeNodeEditorProps): React_3.JSX.Element;
 
 // @public
 export interface TreeNodeEditorProps {
@@ -3309,11 +3326,11 @@ export interface TreeNodeEditorProps {
     node: TreeModelNode;
     onCancel: () => void;
     onCommit: (node: TreeModelNode, newValue: string) => void;
-    style?: React_2.CSSProperties;
+    style?: React_3.CSSProperties;
 }
 
 // @public
-export type TreeNodeEditorRenderer = (props: TreeNodeEditorProps) => React_2.ReactNode;
+export type TreeNodeEditorRenderer = (props: TreeNodeEditorProps) => React_3.ReactNode;
 
 // @public
 export interface TreeNodeEventArgs {
@@ -3321,7 +3338,7 @@ export interface TreeNodeEventArgs {
 }
 
 // @public
-export function TreeNodeIcon(props: TreeNodeIconProps): JSX.Element | null;
+export function TreeNodeIcon(props: TreeNodeIconProps): React_3.JSX.Element | null;
 
 // @public
 export interface TreeNodeIconProps {
@@ -3378,27 +3395,27 @@ export interface TreeNodeLoadResult {
 }
 
 // @public
-export const TreeNodeRenderer: React_2.NamedExoticComponent<TreeNodeRendererProps>;
+export const TreeNodeRenderer: React_3.NamedExoticComponent<TreeNodeRendererProps>;
 
 // @public
 export interface TreeNodeRendererProps extends CommonProps {
     checkboxRenderer?: NodeCheckboxRenderer;
-    children?: React_2.ReactNode;
+    children?: React_3.ReactNode;
     descriptionEnabled?: boolean;
     imageLoader?: ITreeImageLoader;
     node: TreeModelNode;
     nodeEditorRenderer?: TreeNodeEditorRenderer;
     nodeHighlightProps?: HighlightableTreeNodeProps;
-    onContextMenu?: (e: React_2.MouseEvent, node: TreeModelNode) => void;
+    onContextMenu?: (e: React_3.MouseEvent, node: TreeModelNode) => void;
     // @internal
     onLabelRendered?: (node: TreeModelNode) => void;
     treeActions: TreeActions;
 }
 
 // @public
-export class TreeRenderer extends React_2.Component<TreeRendererProps> implements TreeRendererAttributes {
+export class TreeRenderer extends React_3.Component<TreeRendererProps> implements TreeRendererAttributes {
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
     // (undocumented)
     scrollToNode(nodeId: string, alignment?: Alignment): void;
 }
@@ -3415,7 +3432,7 @@ export interface TreeRendererProps {
     nodeHighlightingProps?: HighlightableTreeProps;
     // (undocumented)
     nodeLoader: ITreeNodeLoader;
-    nodeRenderer?: (props: TreeNodeRendererProps) => React_2.ReactNode;
+    nodeRenderer?: (props: TreeNodeRendererProps) => React_3.ReactNode;
     onItemsRendered?: (renderedItems: RenderedItemsRange) => void;
     // @internal
     onNodeEditorClosed?: () => void;
@@ -3511,7 +3528,7 @@ export interface Unsubscribable {
 // @public
 export class UrlPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): JSX.Element;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.JSX.Element;
 }
 
 // @public
@@ -3519,7 +3536,7 @@ export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined;
 
 // @public
 export function useControlledTreeLayoutStorage<T extends Element>(): {
-    ref: React_2.Ref<T>;
+    ref: React_3.Ref<T>;
     persist: () => void;
     restore: () => void;
 };
@@ -3575,7 +3592,7 @@ export function usePropertyGridModelSource(props: {
 // @internal (undocumented)
 export function useRenderedStringValue(record: PropertyRecord, stringValueCalculator: (record: PropertyRecord) => string | Promise<string>, context?: PropertyValueRendererContext, linksHandler?: LinkElementsInfo): {
     stringValue?: string;
-    element: React_2.ReactNode;
+    element: React_3.ReactNode;
 };
 
 // @public
@@ -3612,13 +3629,13 @@ export function useTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataPr
 
 // @public
 export function useVirtualizedPropertyGridLayoutStorage<T extends Element>(): {
-    ref: React_2.Ref<T>;
+    ref: React_3.Ref<T>;
     persist: () => void;
     restore: () => void;
 };
 
 // @public
-export class VirtualizedPropertyGrid extends React_2.Component<VirtualizedPropertyGridProps, VirtualizedPropertyGridState> {
+export class VirtualizedPropertyGrid extends React_3.Component<VirtualizedPropertyGridProps, VirtualizedPropertyGridState> {
     // @internal
     constructor(props: VirtualizedPropertyGridProps);
     // @internal (undocumented)
@@ -3626,7 +3643,7 @@ export class VirtualizedPropertyGrid extends React_2.Component<VirtualizedProper
     // @internal (undocumented)
     static getDerivedStateFromProps(props: VirtualizedPropertyGridProps, state: VirtualizedPropertyGridState): VirtualizedPropertyGridState | null;
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_3.JSX.Element;
 }
 
 // @public
@@ -3664,7 +3681,7 @@ export interface VirtualizedPropertyGridContext {
     // (undocumented)
     onPropertyClicked?: (property: PropertyRecord, key?: string) => void;
     // (undocumented)
-    onPropertyContextMenu?: (property: PropertyRecord, e: React_2.MouseEvent) => void;
+    onPropertyContextMenu?: (property: PropertyRecord, e: React_3.MouseEvent) => void;
     // (undocumented)
     onPropertyRightClicked?: (property: PropertyRecord, key?: string) => void;
     // (undocumented)
@@ -3693,7 +3710,7 @@ export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
 }
 
 // @public
-export function VirtualizedPropertyGridWithDataProvider(props: VirtualizedPropertyGridWithDataProviderProps): JSX.Element;
+export function VirtualizedPropertyGridWithDataProvider(props: VirtualizedPropertyGridWithDataProviderProps): React_2.JSX.Element;
 
 // @public
 export interface VirtualizedPropertyGridWithDataProviderProps extends CommonPropertyGridProps {
@@ -3719,10 +3736,10 @@ export interface VisibleTreeNodes extends Iterable<TreeModelNode | TreeModelNode
 }
 
 // @public
-export const withContextStyle: (node: React_2.ReactNode, context?: PropertyValueRendererContext) => React_2.ReactNode;
+export const withContextStyle: (node: React_3.ReactNode, context?: PropertyValueRendererContext) => React_3.ReactNode;
 
 // @public
-export const withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: ((text: string) => React_2.ReactNode) | undefined) => React_2.ReactNode;
+export const withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: ((text: string) => React_3.ReactNode) | undefined) => React_3.ReactNode;
 
 // (No @packageDocumentation comment for this package)
 

@@ -29,7 +29,6 @@ type Story = StoryObj<typeof FilterBuilderStory>;
 export const Basic: Story = {
   args: {
     properties: createProperties(),
-    ruleGroupDepthLimit: 3,
   },
 };
 
@@ -37,7 +36,6 @@ export const WithInitialFilter: Story = {
   args: {
     initialFilter: createInitialFilter(),
     properties: createProperties(),
-    ruleGroupDepthLimit: 3,
   },
 };
 
