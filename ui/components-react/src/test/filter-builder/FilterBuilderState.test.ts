@@ -807,7 +807,24 @@ describe("usePropertyFilterBuilder", () => {
           const { buildFilter } = result.current;
 
           const buildFilterResult = buildFilter();
-          expect(buildFilterResult).to.not.be.eq(initialFilter);
+          expect(buildFilterResult).to.containSubset({
+            operator: "and",
+            rules: [
+              {
+                operator: "and",
+                rules: [
+                  {
+                    property,
+                    operator: "greater-or-equal",
+                  },
+                  {
+                    property,
+                    operator: "less-or-equal",
+                  },
+                ],
+              },
+            ],
+          });
 
           const { rootGroup } = result.current;
           expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage)
@@ -835,7 +852,24 @@ describe("usePropertyFilterBuilder", () => {
           const { buildFilter } = result.current;
 
           const buildFilterResult = buildFilter();
-          expect(buildFilterResult).to.not.be.eq(initialFilter);
+          expect(buildFilterResult).to.containSubset({
+            operator: "and",
+            rules: [
+              {
+                operator: "or",
+                rules: [
+                  {
+                    property,
+                    operator: "less",
+                  },
+                  {
+                    property,
+                    operator: "greater",
+                  },
+                ],
+              },
+            ],
+          });
 
           const { rootGroup } = result.current;
           expect((rootGroup.items[0] as PropertyFilterBuilderRule).errorMessage)
