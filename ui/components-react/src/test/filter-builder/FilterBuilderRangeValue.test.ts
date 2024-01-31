@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import type { PrimitiveValue, PropertyValue } from "@itwin/appui-abstract";
+import type { PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { PropertyFilterBuilderRuleRangeValue } from "../../components-react";
 import { expect } from "chai";
@@ -22,9 +22,7 @@ describe("PropertyFilterBuilderRuleRangeValue", () => {
         displayValue: "456",
       },
     };
-    const serialized = PropertyFilterBuilderRuleRangeValue.serialize(
-      value
-    ) as PrimitiveValue;
+    const serialized = PropertyFilterBuilderRuleRangeValue.serialize(value);
     expect(serialized.value as string).to.be.eq(JSON.stringify(value));
   });
 

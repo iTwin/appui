@@ -14,8 +14,8 @@ import { StandardTypeNames } from "@itwin/appui-abstract";
  * @beta
  */
 export enum PropertyFilterRuleGroupOperator {
-  And,
-  Or,
+  And = "and",
+  Or = "or",
 }
 
 /**

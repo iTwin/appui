@@ -24,7 +24,7 @@ export type PropertyFilter = PropertyFilterRule | PropertyFilterRuleGroup;
  */
 export interface PropertyFilterRuleGroup {
   /** Operator that should join rules in this group. */
-  operator: PropertyFilterRuleGroupOperator;
+  operator: `${PropertyFilterRuleGroupOperator}`;
   /** Rules in this group. */
   rules: Array<PropertyFilter>;
 }

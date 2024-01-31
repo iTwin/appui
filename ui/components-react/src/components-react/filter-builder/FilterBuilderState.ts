@@ -12,11 +12,13 @@ import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { Guid } from "@itwin/core-bentley";
-import type { PropertyFilterBuilderRuleOperator } from "./Operators";
+import type {
+  PropertyFilterBuilderRuleOperator,
+  PropertyFilterRuleGroupOperator,
+} from "./Operators";
 import {
   isUnaryPropertyFilterBuilderOperator,
   isUnaryPropertyFilterOperator,
-  PropertyFilterRuleGroupOperator,
 } from "./Operators";
 import type {
   PropertyFilter,
@@ -54,7 +56,7 @@ export interface PropertyFilterBuilderRuleGroup {
   /** Id of rule group that this group is nested in. */
   groupId?: string;
   /** Operator that should join items in this group. */
-  operator: PropertyFilterRuleGroupOperator;
+  operator: `${PropertyFilterRuleGroupOperator}`;
   /** Items in this group. */
   items: PropertyFilterBuilderRuleGroupItem[];
 }
@@ -161,7 +163,7 @@ export class PropertyFilterBuilderActions {
   /** Sets operator of rule group specified by the path. */
   public setRuleGroupOperator(
     path: string[],
-    operator: PropertyFilterRuleGroupOperator
+    operator: `${PropertyFilterRuleGroupOperator}`
   ) {
     this.updateState((state) => {
       const group = findRuleGroup(state.rootGroup, path);
@@ -451,10 +453,7 @@ function buildPropertyFilterFromRangeRule(
   }
 
   return {
-    operator:
-      operator === "between"
-        ? PropertyFilterRuleGroupOperator.And
-        : PropertyFilterRuleGroupOperator.Or,
+    operator: operator === "between" ? "and" : "or",
     rules: [
       {
         property,
@@ -484,7 +483,7 @@ function createEmptyRuleGroup(
   return {
     id,
     groupId,
-    operator: PropertyFilterRuleGroupOperator.And,
+    operator: "and",
     items: [createEmptyRule(id)],
   };
 }
@@ -570,7 +569,7 @@ function getRangeRuleItems(
   if (
     from.operator === "greater-or-equal" &&
     to.operator === "less-or-equal" &&
-    group.operator === PropertyFilterRuleGroupOperator.And
+    group.operator === "and"
   ) {
     return {
       id: Guid.createValue(),
@@ -587,7 +586,7 @@ function getRangeRuleItems(
   if (
     from.operator === "less" &&
     to.operator === "greater" &&
-    group.operator === PropertyFilterRuleGroupOperator.Or
+    group.operator === "or"
   ) {
     return {
       id: Guid.createValue(),

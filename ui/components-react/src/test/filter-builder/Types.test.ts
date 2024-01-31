@@ -4,14 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { PropertyFilterRuleGroupOperator } from "../../components-react/filter-builder/Operators";
 import { isPropertyFilterRuleGroup } from "../../components-react/filter-builder/Types";
 
 describe("isPropertyFilterRuleGroup", () => {
   it("returns correct values", () => {
     expect(
       isPropertyFilterRuleGroup({
-        operator: PropertyFilterRuleGroupOperator.And,
+        operator: "and",
         rules: [],
       })
     ).to.be.true;

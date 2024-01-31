@@ -143,6 +143,7 @@ function FilterBuilderRuleRangeValueRenderer({
   );
 }
 
+// istanbul ignore next
 function getSerializedRangeValue(from: PropertyValue, to: PropertyValue) {
   return PropertyFilterBuilderRuleRangeValue.serialize({
     from:

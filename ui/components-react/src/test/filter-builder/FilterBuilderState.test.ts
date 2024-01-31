@@ -19,7 +19,6 @@ import {
   isPropertyFilterBuilderRuleGroup,
   usePropertyFilterBuilder,
 } from "../../components-react/filter-builder/FilterBuilderState";
-import { PropertyFilterRuleGroupOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 import { UiComponents } from "../../components-react/UiComponents";
 import type { PropertyFilter } from "../../components-react/filter-builder/Types";
@@ -52,7 +51,7 @@ describe("usePropertyFilterBuilder", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { rootGroup } = result.current;
     expect(rootGroup).to.containSubset({
-      operator: PropertyFilterRuleGroupOperator.And,
+      operator: "and",
       items: [
         {
           groupId: rootGroup.id,
@@ -90,14 +89,14 @@ describe("usePropertyFilterBuilder", () => {
 
     const rootGroup = result.current.rootGroup;
     expect(rootGroup).to.containSubset({
-      operator: PropertyFilterRuleGroupOperator.And,
+      operator: "and",
       items: [
         {
           groupId: rootGroup.id,
         },
         {
           groupId: rootGroup.id,
-          operator: PropertyFilterRuleGroupOperator.And,
+          operator: "and",
           items: [
             {
               groupId: nestedGroup!.id,
@@ -116,14 +115,14 @@ describe("usePropertyFilterBuilder", () => {
     await waitFor(() => {
       const { rootGroup } = result.current;
       expect(rootGroup).to.containSubset({
-        operator: PropertyFilterRuleGroupOperator.And,
+        operator: "and",
         items: [
           {
             groupId: rootGroup.id,
           },
           {
             groupId: rootGroup.id,
-            operator: PropertyFilterRuleGroupOperator.And,
+            operator: "and",
             items: [],
           },
         ],
@@ -197,7 +196,7 @@ describe("usePropertyFilterBuilder", () => {
 
     rootGroup = result.current.rootGroup;
     expect(result.current.rootGroup).to.containSubset({
-      operator: PropertyFilterRuleGroupOperator.And,
+      operator: "and",
       items: [{ operator: undefined, value: undefined, property: undefined }],
     });
   });
@@ -225,13 +224,13 @@ describe("usePropertyFilterBuilder", () => {
     const { actions } = result.current;
     let { rootGroup } = result.current;
 
-    expect(rootGroup.operator).to.be.eq(PropertyFilterRuleGroupOperator.And);
-    actions.setRuleGroupOperator([], PropertyFilterRuleGroupOperator.Or);
+    expect(rootGroup.operator).to.be.eq("and");
+    actions.setRuleGroupOperator([], "or");
 
     await waitFor(() => {
       rootGroup = result.current.rootGroup;
       expect(rootGroup).to.containSubset({
-        operator: PropertyFilterRuleGroupOperator.Or,
+        operator: "or",
         items: [
           {
             groupId: rootGroup.id,
@@ -244,10 +243,7 @@ describe("usePropertyFilterBuilder", () => {
   it("does not change state when setting non existing group operator", () => {
     const { result } = renderHook(() => usePropertyFilterBuilder());
     const { actions, rootGroup } = result.current;
-    actions.setRuleGroupOperator(
-      ["invalidGroup"],
-      PropertyFilterRuleGroupOperator.Or
-    );
+    actions.setRuleGroupOperator(["invalidGroup"], "or");
 
     const { rootGroup: newRootGroup } = result.current;
     expect(rootGroup).to.be.eq(newRootGroup);
@@ -885,10 +881,10 @@ describe("usePropertyFilterBuilder", () => {
       const { result } = renderHook(() =>
         usePropertyFilterBuilder({
           initialFilter: {
-            operator: PropertyFilterRuleGroupOperator.And,
+            operator: "and",
             rules: [
               {
-                operator: PropertyFilterRuleGroupOperator.And,
+                operator: "and",
                 rules: [
                   {
                     operator: "greater-or-equal",
@@ -924,10 +920,10 @@ describe("usePropertyFilterBuilder", () => {
       const { result } = renderHook(() =>
         usePropertyFilterBuilder({
           initialFilter: {
-            operator: PropertyFilterRuleGroupOperator.And,
+            operator: "and",
             rules: [
               {
-                operator: PropertyFilterRuleGroupOperator.Or,
+                operator: "or",
                 rules: [
                   {
                     operator: "less",
@@ -965,10 +961,10 @@ describe("usePropertyFilterBuilder", () => {
       const { result } = renderHook(() =>
         usePropertyFilterBuilder({
           initialFilter: {
-            operator: PropertyFilterRuleGroupOperator.And,
+            operator: "and",
             rules: [
               {
-                operator: PropertyFilterRuleGroupOperator.And,
+                operator: "and",
                 rules: [
                   {
                     operator: "greater",
@@ -1005,10 +1001,10 @@ describe("usePropertyFilterBuilder", () => {
       const { result } = renderHook(() =>
         usePropertyFilterBuilder({
           initialFilter: {
-            operator: PropertyFilterRuleGroupOperator.And,
+            operator: "and",
             rules: [
               {
-                operator: PropertyFilterRuleGroupOperator.Or,
+                operator: "or",
                 rules: [
                   {
                     operator: "less-or-equal",
@@ -1045,10 +1041,10 @@ describe("usePropertyFilterBuilder", () => {
       const { result } = renderHook(() =>
         usePropertyFilterBuilder({
           initialFilter: {
-            operator: PropertyFilterRuleGroupOperator.And,
+            operator: "and",
             rules: [
               {
-                operator: PropertyFilterRuleGroupOperator.And,
+                operator: "and",
                 rules: [
                   {
                     operator: "greater-or-equal",
@@ -1183,7 +1179,7 @@ describe("buildFilter", () => {
   it("returns undefined if `Between` rule value is invalid", () => {
     const filter: PropertyFilterBuilderRuleGroup = {
       id: "1",
-      operator: PropertyFilterRuleGroupOperator.And,
+      operator: "and",
       items: [
         {
           id: "2",
@@ -1205,7 +1201,7 @@ describe("buildFilter", () => {
   it("returns undefined if `Between` rule value has empty range end", () => {
     const filter: PropertyFilterBuilderRuleGroup = {
       id: "1",
-      operator: PropertyFilterRuleGroupOperator.And,
+      operator: "and",
       items: [
         {
           id: "2",
@@ -1232,13 +1228,10 @@ function createRangeFilter(
   toValue?: PropertyValue
 ): PropertyFilter {
   return {
-    operator: PropertyFilterRuleGroupOperator.And,
+    operator: "and",
     rules: [
       {
-        operator:
-          operator === "between"
-            ? PropertyFilterRuleGroupOperator.And
-            : PropertyFilterRuleGroupOperator.Or,
+        operator: operator === "between" ? "and" : "or",
         rules: [
           {
             value: fromValue,

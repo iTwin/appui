@@ -43,6 +43,7 @@ Added support for `Between` and `Not between` operators in `PropertyFilterBuilde
 
 - Updated UI of the `FilterBuilder` component. #686
 - Updated `PropertyFilterRule.operator` property type to support setting it using `PropertyFilterRuleOperator` enum or string value.
+- Updated `PropertyFilterRuleGroup.operator` property type to support setting it using `PropertyFilterRuleGroupOperator` enum or string value.
 - Changed `PropertyFilterBuilderRuleValue` component props to `PropertyFilterBuilderRuleValueRendererProps` in order to have access to rule operator when rendering value input.
 - Changed `PropertyFilterBuilderRule.operator` type from `PropertyFilterRuleOperator` to `PropertyFilterBuilderRuleOperator`.
 - Renamed `getPropertyFilterOperators` to `getPropertyFilterBuilderOperators`.
