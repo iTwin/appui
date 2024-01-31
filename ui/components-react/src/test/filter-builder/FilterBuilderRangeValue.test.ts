@@ -115,9 +115,38 @@ describe("PropertyFilterBuilderRuleRangeValue", () => {
     ).to.be.false;
   });
 
-  it("isRangeValid returns correct result for dates", () => {
+  it("`isRangeValid` returns correct result for date object", () => {
     const fromDate = new Date("2024-01-01");
     const toDate = new Date("2024-01-05");
+    expect(
+      PropertyFilterBuilderRuleRangeValue.isRangeValid({
+        from: { valueFormat: PropertyValueFormat.Primitive, value: fromDate },
+        to: { valueFormat: PropertyValueFormat.Primitive, value: toDate },
+      })
+    ).to.be.true;
+    expect(
+      PropertyFilterBuilderRuleRangeValue.isRangeValid({
+        from: { valueFormat: PropertyValueFormat.Primitive, value: toDate },
+        to: { valueFormat: PropertyValueFormat.Primitive, value: fromDate },
+      })
+    ).to.be.false;
+    expect(
+      PropertyFilterBuilderRuleRangeValue.isRangeValid({
+        from: { valueFormat: PropertyValueFormat.Primitive, value: "invalid" },
+        to: { valueFormat: PropertyValueFormat.Primitive, value: toDate },
+      })
+    ).to.be.false;
+    expect(
+      PropertyFilterBuilderRuleRangeValue.isRangeValid({
+        from: { valueFormat: PropertyValueFormat.Primitive, value: fromDate },
+        to: { valueFormat: PropertyValueFormat.Primitive, value: "invalid" },
+      })
+    ).to.be.false;
+  });
+
+  it("`isRangeValid` returns correct result for dateTime string", () => {
+    const fromDate = "2024-01-05T12:00:00Z";
+    const toDate = "2024-01-05T13:00:00Z";
     expect(
       PropertyFilterBuilderRuleRangeValue.isRangeValid({
         from: { valueFormat: PropertyValueFormat.Primitive, value: fromDate },
