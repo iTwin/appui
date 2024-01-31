@@ -23,10 +23,6 @@
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
-      "name": "@itwin/appui-layout-react",
-      "allowedCategories": [ "frontend", "internal" ]
-    },
-    {
       "name": "@itwin/appui-react",
       "allowedCategories": [ "internal" ]
     },

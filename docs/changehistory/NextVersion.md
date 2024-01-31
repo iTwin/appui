@@ -4,10 +4,11 @@ Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
   - [Additions](#additions)
+  - [Changes](#changes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Deprecations](#deprecations)
   - [Additions](#additions-1)
-  - [Changes](#changes)
+  - [Changes](#changes-1)
 - [@itwin/core-react](#itwincore-react)
   - [Deprecations](#deprecations-1)
 
@@ -17,6 +18,12 @@ Table of contents:
 
 - `activateDroppedTab` preview feature to activate a dragged widget tab whenever it is dropped in the receiving container. #601
 - `useWidget` hook to convey widget state and location. #655
+
+### Changes
+
+- The package no longer depends on `@itwin/appui-layout-react` and have been removed from `peerDependencies`. Since the `4.0.0` release, this package only contained _internal_ components and the content of the package have been moved to `@itwin/appui-react` to reduce application maintenance of maintaining the locksteps packages. #697
+
+  `@itwin/appui-layout-react` will no longer be published as a separate package.
 
 ## @itwin/components-react
 

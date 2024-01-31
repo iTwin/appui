@@ -6,17 +6,19 @@
  * @module StatusBar
  */
 
-import classnames from "classnames";
-import * as React from "react";
-import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 import {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { useRefs, useResizeObserver } from "@itwin/core-react";
-import { eqlOverflown } from "@itwin/appui-layout-react";
+import classnames from "classnames";
+import * as React from "react";
+import { eqlOverflown } from "../layout/tool-settings/Docked";
+import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
+import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
+import { isProviderItem } from "../ui-items-provider/isProviderItem";
 import { StatusBarOverflow } from "./Overflow";
 import { StatusBarOverflowPanel } from "./OverflowPanel";
 import {
@@ -36,11 +38,9 @@ import {
   isStatusBarLabelItem,
   StatusBarSection,
 } from "./StatusBarItem";
+import { StatusBarItemsManager } from "./StatusBarItemsManager";
 import { useDefaultStatusBarItems } from "./useDefaultStatusBarItems";
 import { useUiItemsProviderStatusBarItems } from "./useUiItemsProviderStatusBarItems";
-import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
-import { StatusBarItemsManager } from "./StatusBarItemsManager";
-import { isProviderItem } from "../ui-items-provider/isProviderItem";
 
 /** Private  function to generate a value that will allow the proper order to be maintained when items are placed in overflow panel */
 function getCombinedSectionItemPriority(item: StatusBarItem) {

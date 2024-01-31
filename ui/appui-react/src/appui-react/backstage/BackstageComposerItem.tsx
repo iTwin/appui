@@ -6,24 +6,24 @@
  * @module Backstage
  */
 
-import * as React from "react";
-import { Logger } from "@itwin/core-bentley";
 import {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
+import { Logger } from "@itwin/core-bentley";
 import { BadgeUtilities, Icon } from "@itwin/core-react";
-import { BackstageItem as NZ_BackstageItem } from "@itwin/appui-layout-react";
-import { useBackstageManager } from "./BackstageManager";
+import * as React from "react";
 import { UiFramework } from "../UiFramework";
 import { useActiveFrontstageId } from "../frontstage/FrontstageDef";
+import { BackstageItem as NZ_BackstageItem } from "../layout/backstage/Item";
+import { isProviderItem } from "../ui-items-provider/isProviderItem";
 import type {
   BackstageActionItem,
   BackstageItem,
   BackstageStageLauncher,
 } from "./BackstageItem";
 import { isBackstageStageLauncher } from "./BackstageItem";
-import { isProviderItem } from "../ui-items-provider/isProviderItem";
+import { useBackstageManager } from "./BackstageManager";
 
 /** @internal */
 export interface BackstageComposerActionItemProps {

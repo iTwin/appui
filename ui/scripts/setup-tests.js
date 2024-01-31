@@ -31,7 +31,7 @@ require("ignore-styles").default(
   (module, filename) => {
     if (filename.endsWith(".svg")) {
       const newPath = upath.normalize(
-        filename.replace(process.cwd(), "/ui/appui-layout-react")
+        filename.replace(process.cwd(), "/ui/appui-react")
       );
       module.exports = { default: newPath };
     }
