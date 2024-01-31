@@ -18,12 +18,15 @@ Table of contents:
 
 - `activateDroppedTab` preview feature to activate a dragged widget tab whenever it is dropped in the receiving container. #601
 - `useWidget` hook to convey widget state and location. #655
+- `horizontalPanelAlignment` preview feature: Horizontal panels will now have "align" button that allow the panel to be aligned to the left, center or right of the view, along with original justify behavior where the panel take the full width of the view. #PRTBD
 
 ### Changes
 
 - The package no longer depends on `@itwin/appui-layout-react` and have been removed from `peerDependencies`. Since the `4.0.0` release, this package only contained _internal_ components and the content of the package have been moved to `@itwin/appui-react` to reduce application maintenance of maintaining the locksteps packages. #697
 
   `@itwin/appui-layout-react` will no longer be published as a separate package.
+
+- Widget panels now use uniform iTwinUI borderless button for the pin, popout, docks and other buttons. #PRTBD
 
 ## @itwin/components-react
 

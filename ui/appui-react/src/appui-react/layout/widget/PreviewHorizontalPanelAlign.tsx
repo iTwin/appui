@@ -6,15 +6,18 @@
  * @module Widget
  */
 
-import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { HorizontalAlignment } from "@itwin/core-react";
-import type { HorizontalPanelSide, PanelSide } from "../widget-panels/Panel";
+import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";
+import * as React from "react";
 import {
   isHorizontalPanelSide,
   PanelSideContext,
 } from "../widget-panels/Panel";
-import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";
+import type {
+  HorizontalPanelSide,
+  PanelSide,
+} from "../widget-panels/PanelTypes";
 
 /** default value used when not provided or disabled */
 const defaultAlignments = {
