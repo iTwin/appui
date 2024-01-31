@@ -8,41 +8,49 @@
 
 // cSpell:ignore popout
 
-import "./Frontstage.scss";
+import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
+import { assert, Logger, ProcessDetector } from "@itwin/core-bentley";
+import { IModelApp } from "@itwin/core-frontend";
+import type { UiStateStorageResult } from "@itwin/core-react";
+import { Size, UiStateStorageStatus } from "@itwin/core-react";
+import classNames from "classnames";
 import produce from "immer";
 import * as React from "react";
 import { unstable_batchedUpdates } from "react-dom";
-import { assert, Logger, ProcessDetector } from "@itwin/core-bentley";
-import type { UiStateStorageResult } from "@itwin/core-react";
-import { Size, UiStateStorageStatus } from "@itwin/core-react";
-import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
-import type {
-  LayoutStore,
-  NineZoneDispatch,
-  NineZoneLabels,
-  NineZoneState,
-  TabState,
-} from "@itwin/appui-layout-react";
-import {
-  createLayoutStore,
-  createNineZoneState,
-  FloatingWidgets,
-  getUniqueId,
-  getWidgetPanelSectionId,
-  NineZone,
-  NineZoneStateReducer,
-  PreviewLayoutFeaturesProvider,
-  PreviewMaximizedWidgetFeatureProvider,
-  useLayout,
-  WidgetPanels,
-} from "@itwin/appui-layout-react";
+import { useSelector } from "react-redux";
 import type { FrontstageDef } from "../frontstage/FrontstageDef";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
+import { useEscapeSetFocusToHome } from "../hooks/useEscapeSetFocusToHome";
+import { useUiVisibility } from "../hooks/useUiVisibility";
+import type { LayoutStore } from "../layout/base/LayoutStore";
+import { createLayoutStore, useLayout } from "../layout/base/LayoutStore";
+import type { NineZoneDispatch, NineZoneLabels } from "../layout/base/NineZone";
+import { getUniqueId, NineZone } from "../layout/base/NineZone";
+import { activateDroppedTab } from "../layout/state/activateDroppedTab";
+import type { NineZoneState } from "../layout/state/NineZoneState";
+import { createNineZoneState } from "../layout/state/NineZoneState";
+import { NineZoneStateReducer } from "../layout/state/NineZoneStateReducer";
+import { getWidgetPanelSectionId } from "../layout/state/PanelState";
+import type { TabState } from "../layout/state/TabState";
+import { WidgetPanels } from "../layout/widget-panels/Panels";
+import { FloatingWidgets } from "../layout/widget/FloatingWidgets";
+import { PreviewMaximizedWidgetFeatureProvider } from "../layout/widget/PreviewMaximizeToggle";
+import { usePreviewFeatures } from "../preview/PreviewFeatures";
+import type { FrameworkState } from "../redux/FrameworkState";
+import type { FrameworkRootState } from "../redux/StateManager";
 import { toPanelSide } from "../stagepanels/StagePanelDef";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
+import { StagePanelSection } from "../stagepanels/StagePanelSection";
+import { StagePanelState } from "../stagepanels/StagePanelState";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import { UiFramework } from "../UiFramework";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
 import type { WidgetDef } from "../widgets/WidgetDef";
+import { WidgetState } from "../widgets/WidgetState";
 import { WidgetContent } from "./Content";
+import { FloatingWidget } from "./FloatingWidget";
+import "./Frontstage.scss";
 import { WidgetPanelsFrontstageContent } from "./FrontstageContent";
 import {
   ModalFrontstageComposer,
@@ -56,21 +64,6 @@ import {
   useShouldRenderDockedToolSettings,
   WidgetPanelsToolSettings,
 } from "./ToolSettings";
-import { useEscapeSetFocusToHome } from "../hooks/useEscapeSetFocusToHome";
-import type { FrameworkRootState } from "../redux/StateManager";
-import { useSelector } from "react-redux";
-import { useUiVisibility } from "../hooks/useUiVisibility";
-import { IModelApp } from "@itwin/core-frontend";
-import { FloatingWidget } from "./FloatingWidget";
-import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import { WidgetState } from "../widgets/WidgetState";
-import { StagePanelSection } from "../stagepanels/StagePanelSection";
-import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
-import { usePreviewFeatures } from "../preview/PreviewFeatures";
-import classNames from "classnames";
-import type { FrameworkState } from "../redux/FrameworkState";
-import { StagePanelState } from "../stagepanels/StagePanelState";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -89,28 +82,26 @@ function WidgetPanelsFrontstageComponent() {
     "preview-contentAlwaysMaxSize-topPanelActive";
 
   return (
-    <PreviewLayoutFeaturesProvider {...previewFeatures}>
-      <PreviewMaximizedWidgetFeatureProvider
-        enabled={previewFeatures.enableMaximizedFloatingWidget}
-      >
-        <WidgetPanelsToolSettings />
-        <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
-          <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
-          <WidgetPanels
-            className={classNames(
-              "uifw-widgetPanels",
-              previewContentAlwaysMaxSizeDockedClass,
-              previewContentAlwaysMaxSizeTopPanelClass
-            )}
-            centerContent={<WidgetPanelsToolbars />}
-          >
-            <WidgetPanelsFrontstageContent />
-          </WidgetPanels>
-          <WidgetPanelsStatusBar />
-          <FloatingWidgets />
-        </ToolbarPopupAutoHideContext.Provider>
-      </PreviewMaximizedWidgetFeatureProvider>
-    </PreviewLayoutFeaturesProvider>
+    <PreviewMaximizedWidgetFeatureProvider
+      enabled={previewFeatures.enableMaximizedFloatingWidget}
+    >
+      <WidgetPanelsToolSettings />
+      <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
+        <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
+        <WidgetPanels
+          className={classNames(
+            "uifw-widgetPanels",
+            previewContentAlwaysMaxSizeDockedClass,
+            previewContentAlwaysMaxSizeTopPanelClass
+          )}
+          centerContent={<WidgetPanelsToolbars />}
+        >
+          <WidgetPanelsFrontstageContent />
+        </WidgetPanels>
+        <WidgetPanelsStatusBar />
+        <FloatingWidgets />
+      </ToolbarPopupAutoHideContext.Provider>
+    </PreviewMaximizedWidgetFeatureProvider>
   );
 }
 
@@ -167,7 +158,17 @@ const log =
 
 /** @internal */
 export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
-  const reducer = React.useMemo(() => log(NineZoneStateReducer), []);
+  const features = usePreviewFeatures();
+
+  const reducer = React.useMemo(() => {
+    let nineZoneStateReducer = log(NineZoneStateReducer);
+
+    nineZoneStateReducer = features.activateDroppedTab
+      ? activateDroppedTab(nineZoneStateReducer)
+      : nineZoneStateReducer;
+    return nineZoneStateReducer;
+  }, [features.activateDroppedTab]);
+
   return React.useCallback<NineZoneDispatch>(
     (action) => {
       if (action.type === "RESIZE") {

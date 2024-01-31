@@ -123,6 +123,8 @@
   "filterBuilder": {
     "rule": "Rule",
     "ruleGroup": "Rule Group",
+    "add": "Add",
+    "delete": "Delete",
     "operators": {
       "isTrue": "Is True",
       "isFalse": "Is False",

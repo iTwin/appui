@@ -6,14 +6,14 @@
  * @module Widget
  */
 
-import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import {
   useProximityToMouse,
   WidgetElementSet,
   WidgetOpacityContext,
 } from "@itwin/core-react";
-import { ToolsArea } from "@itwin/appui-layout-react";
+import * as React from "react";
+import { ToolsArea } from "../layout/widget/ToolsArea";
 import { UiFramework } from "../UiFramework";
 
 /** Properties for the [[ToolbarComposer]] React components

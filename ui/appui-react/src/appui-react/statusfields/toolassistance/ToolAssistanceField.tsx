@@ -6,9 +6,6 @@
  * @module Notification
  */
 
-import "./ToolAssistanceField.scss";
-import classnames from "classnames";
-import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
 import type {
   ToolAssistanceInstruction,
@@ -34,22 +31,25 @@ import {
   UiStateEntry,
   UiStateStorageStatus,
 } from "@itwin/core-react";
-import {
-  FooterPopup,
-  ToolAssistanceInstruction as NZ_ToolAssistanceInstruction,
-  ToolAssistance,
-  ToolAssistanceDialog,
-  ToolAssistanceItem,
-  ToolAssistanceSeparator,
-} from "@itwin/appui-layout-react";
 import { Tabs, ToggleSwitch } from "@itwin/itwinui-react";
+import classnames from "classnames";
+import * as React from "react";
+import { UiFramework } from "../../UiFramework";
 import { CursorPrompt } from "../../cursor/cursorprompt/CursorPrompt";
 import type { ToolIconChangedEventArgs } from "../../framework/FrameworkFrontstages";
 import type { ToolAssistanceChangedEventArgs } from "../../messages/MessageManager";
 import { MessageManager } from "../../messages/MessageManager";
-import { UiFramework } from "../../UiFramework";
 import { UiStateStorageContext } from "../../uistate/useUiStateStorage";
+import "./ToolAssistanceField.scss";
 
+import { SvgClose, SvgPin } from "@itwin/itwinui-icons-react";
+import { ToolAssistanceDialog } from "../../layout/footer/tool-assistance/Dialog";
+import { ToolAssistance } from "../../layout/footer/tool-assistance/Indicator";
+import { ToolAssistanceInstruction as NZ_ToolAssistanceInstruction } from "../../layout/footer/tool-assistance/Instruction";
+import { ToolAssistanceItem } from "../../layout/footer/tool-assistance/Item";
+import { ToolAssistanceSeparator } from "../../layout/footer/tool-assistance/Separator";
+import { StatusBar } from "../../statusbar/StatusBar";
+import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
 import acceptPointIcon from "./accept-point.svg";
 import cursorClickIcon from "./cursor-click.svg";
 import oneTouchDragIcon from "./gesture-one-finger-drag.svg";
@@ -66,8 +66,6 @@ import clickMouseWheelDragIcon from "./mouse-click-wheel-drag.svg";
 import mouseWheelClickIcon from "./mouse-click-wheel.svg";
 import touchCursorDragIcon from "./touch-cursor-pan.svg";
 import touchCursorTapIcon from "./touch-cursor-point.svg";
-import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
-import { SvgClose, SvgPin } from "@itwin/itwinui-icons-react";
 
 // cSpell:ignore cursorprompt
 
@@ -503,7 +501,7 @@ export class ToolAssistanceField extends React.Component<
             {prompt}
           </ToolAssistance>
         </div>
-        <FooterPopup
+        <StatusBar.Popup
           isOpen={this.state.isOpen}
           onClose={this._handleClose}
           onOutsideClick={this._handleOutsideClick}
@@ -535,7 +533,7 @@ export class ToolAssistanceField extends React.Component<
           >
             {dialogContent}
           </ToolAssistanceDialog>
-        </FooterPopup>
+        </StatusBar.Popup>
       </>
     );
   }

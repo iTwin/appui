@@ -12,6 +12,7 @@ import type {
   TreeEventHandlerParams,
 } from "../../../components-react/tree/controlled/TreeEventHandler";
 import {
+  useControlledTreeEventsHandler,
   usePagedTreeNodeLoader,
   useTreeEventsHandler,
   useTreeModel,
@@ -348,6 +349,7 @@ describe("useTreeEventsHandler", () => {
     const factory = sinon.mock().returns(handler);
     const { result, unmount } = renderHook(
       (props: { factory: () => TreeEventHandler }) =>
+        // eslint-disable-next-line deprecation/deprecation
         useTreeEventsHandler(props.factory),
       { initialProps: { factory } }
     );
@@ -363,6 +365,7 @@ describe("useTreeEventsHandler", () => {
     const modelSourceMock = moq.Mock.ofType<TreeModelSource>();
     const { result, unmount } = renderHook(
       (props: { params: TreeEventHandlerParams }) =>
+        // eslint-disable-next-line deprecation/deprecation
         useTreeEventsHandler(props.params),
       {
         initialProps: {
@@ -378,5 +381,48 @@ describe("useTreeEventsHandler", () => {
     expect(disposeSpy).to.not.be.called;
     unmount();
     expect(disposeSpy).to.be.calledOnce;
+  });
+});
+
+describe("useControlledTreeEventsHandler", () => {
+  it("creates and disposes events handler using factory function", async () => {
+    const disposeSpy = sinon.spy();
+    const handler = { dispose: disposeSpy };
+    const factory = sinon.mock().returns(handler);
+    const { result, unmount } = renderHook(
+      (props: { factory: () => TreeEventHandler }) =>
+        useControlledTreeEventsHandler(props.factory),
+      { initialProps: { factory } }
+    );
+
+    await waitFor(() => {
+      expect(factory).to.be.calledOnce;
+      expect(result.current).to.eq(handler);
+    });
+    unmount();
+
+    await waitFor(() => expect(disposeSpy).to.be.called);
+  });
+
+  it("creates and disposes events handler using event handler params", async () => {
+    const nodeLoaderMock = moq.Mock.ofType<ITreeNodeLoader>();
+    const modelSourceMock = moq.Mock.ofType<TreeModelSource>();
+    const { result, unmount } = renderHook(
+      (props: { params: TreeEventHandlerParams }) =>
+        useControlledTreeEventsHandler(props.params),
+      {
+        initialProps: {
+          params: {
+            nodeLoader: nodeLoaderMock.object,
+            modelSource: modelSourceMock.object,
+          },
+        },
+      }
+    );
+    await waitFor(() => expect(result.current).to.not.be.undefined);
+    const disposeSpy = sinon.spy(result.current!, "dispose");
+    unmount();
+
+    await waitFor(() => expect(disposeSpy).to.be.called);
   });
 });

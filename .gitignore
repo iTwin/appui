@@ -21,6 +21,7 @@ package-deps.json
 *.build.log
 *.build.error.log
 common/autoinstallers/*/.npmrc
+*.log
 
 # pnpm
 .pnpm-debug.log
@@ -54,4 +55,5 @@ test-results
 
 common/api/summary/summary.exports.csv
 
-debug.log
+# Codemod specific
+junit.xml

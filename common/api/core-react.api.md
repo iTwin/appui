@@ -130,13 +130,13 @@ export class BadgeUtilities {
 }
 
 // @internal
-export function BetaBadge(props: CommonProps): JSX.Element;
+export function BetaBadge(props: CommonProps): React_2.JSX.Element;
 
 // @public
-export function BlockText(props: TextProps): JSX.Element;
+export function BlockText(props: TextProps): React_2.JSX.Element;
 
 // @public @deprecated
-export function BodyText(props: TextProps): JSX.Element;
+export function BodyText(props: TextProps): React_2.JSX.Element;
 
 // @internal
 export const calculateBackdropFilterBlur: (proximityScale: number) => number;
@@ -151,7 +151,7 @@ export const calculateProximityScale: (proximity: number, snap?: boolean, thresh
 export const calculateToolbarOpacity: (proximityScale: number) => number;
 
 // @public
-export function Centered(props: CommonDivProps): JSX.Element;
+export function Centered(props: CommonDivProps): React_2.JSX.Element;
 
 // @public
 export interface CheckBoxInfo {
@@ -180,13 +180,13 @@ export class CheckListBox extends React_2.PureComponent<CommonProps & {
     children?: React_2.ReactNode;
 }> {
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.JSX.Element;
 }
 
 // @public
 export class CheckListBoxItem extends React_2.PureComponent<CheckListBoxItemProps> {
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.JSX.Element;
 }
 
 // @public
@@ -199,7 +199,7 @@ export interface CheckListBoxItemProps extends CommonProps {
 }
 
 // @public
-export function CheckListBoxSeparator(): JSX.Element;
+export function CheckListBoxSeparator(): React_2.JSX.Element;
 
 // @internal
 export class Circle {
@@ -478,10 +478,10 @@ export interface DialogProps extends Omit_2<React_2.AllHTMLAttributes<HTMLDivEle
 }
 
 // @public
-export function DisabledText(props: TextProps): JSX.Element;
+export function DisabledText(props: TextProps): React_2.JSX.Element;
 
 // @public
-export function Div(props: DivProps): JSX.Element;
+export function Div(props: DivProps): React_2.JSX.Element;
 
 // @public
 export interface DivProps extends CommonDivProps {
@@ -502,7 +502,7 @@ export const DivWithOutsideClick: {
         getParentDocument(): Document;
         componentDidMount(): void;
         componentWillUnmount(): void;
-        render(): JSX.Element;
+        render(): React_2.JSX.Element;
         context: any;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<CommonDivProps & WithOnOutsideClickProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
@@ -536,7 +536,7 @@ export const DivWithOutsideClick: {
         getParentDocument(): Document;
         componentDidMount(): void;
         componentWillUnmount(): void;
-        render(): JSX.Element;
+        render(): React_2.JSX.Element;
         context: any;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<CommonDivProps & WithOnOutsideClickProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
@@ -568,7 +568,7 @@ export function ElementResizeObserver({ watchedElement, render, }: {
 }): React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>>;
 
 // @public
-export const ElementSeparator: (props: ElementSeparatorProps) => JSX.Element;
+export const ElementSeparator: (props: ElementSeparatorProps) => React_2.JSX.Element;
 
 // @public
 export interface ElementSeparatorProps extends CommonProps {
@@ -608,7 +608,7 @@ export interface ExpandableListProps extends CommonProps {
 // @public
 export class ExpansionToggle extends React_2.PureComponent<ExpansionToggleProps> {
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.JSX.Element;
 }
 
 // @public
@@ -622,10 +622,10 @@ export interface ExpansionToggleProps extends CommonProps {
 }
 
 // @public
-export function FillCentered(props: CommonDivProps): JSX.Element;
+export function FillCentered(props: CommonDivProps): React_2.JSX.Element;
 
 // @alpha
-export function FilteredText(props: FilteredTextProps): JSX.Element;
+export function FilteredText(props: FilteredTextProps): React_2.JSX.Element;
 
 // @alpha
 export interface FilteredTextProps extends CommonProps {
@@ -639,13 +639,13 @@ export interface FilteredTextProps extends CommonProps {
 export const flattenChildren: (children: React_2.ReactNode) => React_2.ReactNode;
 
 // @public
-export function FlexWrapContainer(props: CommonDivProps): JSX.Element;
+export function FlexWrapContainer(props: CommonDivProps): React_2.JSX.Element;
 
 // @internal
 export function focusIntoContainer(focusContainer: HTMLDivElement, initialFocusElement?: React_2.RefObject<HTMLElement> | string): boolean;
 
 // @internal
-export function FocusTrap(props: FocusTrapProps): JSX.Element | null;
+export function FocusTrap(props: FocusTrapProps): React_2.JSX.Element | null;
 
 // @internal
 export interface FocusTrapProps extends React_2.AllHTMLAttributes<any> {
@@ -656,7 +656,7 @@ export interface FocusTrapProps extends React_2.AllHTMLAttributes<any> {
 }
 
 // @public
-export function Gap(props: GapProps): JSX.Element;
+export function Gap(props: GapProps): React_2.JSX.Element;
 
 // @public
 export interface GapProps extends CommonProps {
@@ -752,7 +752,7 @@ export enum HorizontalAlignment {
 }
 
 // @public
-export function Icon(props: IconProps): JSX.Element | null;
+export function Icon(props: IconProps): React_2.JSX.Element | null;
 
 // @public
 export class IconHelper {
@@ -786,7 +786,7 @@ export type IconSpec = string | ConditionalStringValue | React_2.ReactNode | Con
 // @public
 export class ImageCheckBox extends React_2.PureComponent<ImageCheckBoxProps> {
     // @internal (undocumented)
-    render(): JSX.Element;
+    render(): React_2.JSX.Element;
 }
 
 // @public
@@ -878,7 +878,7 @@ export class Line {
 }
 
 // @alpha
-export function Listbox(props: ListboxProps): JSX.Element;
+export function Listbox(props: ListboxProps): React_2.JSX.Element;
 
 // @alpha
 export const ListboxContext: React_2.Context<ListboxContextProps>;
@@ -898,7 +898,7 @@ export interface ListboxContextProps {
 }
 
 // @alpha
-export function ListboxItem(props: ListboxItemProps): JSX.Element;
+export function ListboxItem(props: ListboxItemProps): React_2.JSX.Element;
 
 // @alpha
 export interface ListboxItemProps extends React_2.DetailedHTMLProps<React_2.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement> {
@@ -928,7 +928,7 @@ export class LoadingBar extends React_2.PureComponent<LoadingBarProps> {
     // (undocumented)
     static defaultProps: Partial<LoadingBarProps>;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.JSX.Element;
 }
 
 // @public
@@ -943,7 +943,7 @@ export class LoadingPrompt extends React_2.PureComponent<LoadingPromptProps> {
     // (undocumented)
     static defaultProps: Partial<LoadingPromptProps>;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.JSX.Element;
 }
 
 // @public
@@ -965,7 +965,7 @@ export class LoadingSpinner extends React_2.PureComponent<LoadingSpinnerProps> {
     // (undocumented)
     static defaultProps: Partial<LoadingSpinnerProps>;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.JSX.Element;
 }
 
 // @public
@@ -980,7 +980,7 @@ export class LoadingStatus extends React_2.PureComponent<LoadingStatusProps> {
     // (undocumented)
     static defaultProps: Partial<LoadingStatusProps>;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.JSX.Element;
 }
 
 // @public
@@ -1064,7 +1064,7 @@ export interface MessagedComponentProps {
 }
 
 // @public
-export function MessageRenderer(props: MessageRendererProps): JSX.Element | null;
+export function MessageRenderer(props: MessageRendererProps): React_2.JSX.Element | null;
 
 // @public
 export interface MessageRendererProps extends ClassNameProps {
@@ -1076,10 +1076,10 @@ export interface MessageRendererProps extends ClassNameProps {
 export type MessageType = string | HTMLElement | ReactMessage;
 
 // @public @deprecated
-export function MutedText(props: TextProps): JSX.Element;
+export function MutedText(props: TextProps): React_2.JSX.Element;
 
 // @internal
-export function NewBadge(props: CommonProps): JSX.Element;
+export function NewBadge(props: CommonProps): React_2.JSX.Element;
 
 // @public
 export interface NoChildrenProps {
@@ -1194,7 +1194,7 @@ export class Popup extends React_2.Component<PopupProps, PopupState> {
 }
 
 // @public
-export function PopupContextMenu(props: PopupContextMenuProps): JSX.Element;
+export function PopupContextMenu(props: PopupContextMenuProps): React_2.JSX.Element;
 
 // @public
 export interface PopupContextMenuProps extends CommonProps {
@@ -1425,7 +1425,7 @@ export interface RenderPropsArgs {
 export function ResizableContainerObserver({ onResize, children, }: {
     onResize: (width: number, height: number) => void;
     children?: React_2.ReactNode;
-}): JSX.Element;
+}): React_2.JSX.Element;
 
 // @internal (undocumented)
 const ResizeObserver_2: ResizeObserverType;
@@ -1442,7 +1442,7 @@ export class ScrollPositionMaintainer implements IDisposable {
 }
 
 // @public
-export function ScrollView(props: CommonDivProps): JSX.Element;
+export function ScrollView(props: CommonDivProps): React_2.JSX.Element;
 
 // @public
 export class SearchBox extends React_2.Component<SearchBoxProps, SearchBoxState> {
@@ -1469,7 +1469,7 @@ export interface SearchBoxProps extends CommonProps {
 }
 
 // @public
-export const SettingsContainer: ({ tabs, onSettingsTabSelected, currentSettingsTab, settingsManager, showHeader, }: SettingsContainerProps) => JSX.Element;
+export const SettingsContainer: ({ tabs, onSettingsTabSelected, currentSettingsTab, settingsManager, showHeader, }: SettingsContainerProps) => React_2.JSX.Element;
 
 // @public (undocumented)
 export interface SettingsContainerProps {
@@ -1576,7 +1576,7 @@ export enum SortDirection {
 export type StepFunctionProp = number | ((direction: string) => number | undefined);
 
 // @public @deprecated
-export function StyledText(props: StyledTextProps): JSX.Element;
+export function StyledText(props: StyledTextProps): React_2.JSX.Element;
 
 // @public
 export interface StyledTextProps extends TextProps {
@@ -1586,7 +1586,7 @@ export interface StyledTextProps extends TextProps {
 // @public
 export class SvgPath extends React_2.PureComponent<SvgPathProps> {
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.JSX.Element;
 }
 
 // @public
@@ -1666,7 +1666,7 @@ export class Tree extends React_2.PureComponent<TreeProps> {
     // (undocumented)
     getElementsByClassName(className: string): Element[];
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.JSX.Element;
     // (undocumented)
     scrollToElement(element: Element): void;
     // (undocumented)
@@ -1676,7 +1676,7 @@ export class Tree extends React_2.PureComponent<TreeProps> {
 // @public
 export class TreeBranch extends React_2.PureComponent<TreeBranchProps> {
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.JSX.Element;
 }
 
 // @public
@@ -1688,13 +1688,13 @@ export interface TreeBranchProps extends CommonProps {
 export class TreeNode extends React_2.Component<TreeNodeProps> {
     constructor(props: TreeNodeProps);
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.JSX.Element;
 }
 
 // @public
 export class TreeNodePlaceholder extends React_2.PureComponent<TreeNodePlaceholderProps> {
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.JSX.Element;
 }
 
 // @public
@@ -1841,7 +1841,7 @@ export enum UiStateStorageStatus {
 }
 
 // @public
-export function UnderlinedButton(props: UnderlinedButtonProps): JSX.Element;
+export function UnderlinedButton(props: UnderlinedButtonProps): React_2.JSX.Element;
 
 // @public
 export interface UnderlinedButtonProps {
@@ -1855,7 +1855,7 @@ export interface UnderlinedButtonProps {
 // @beta
 export function useCrossOriginPopup(visible: boolean, url: string | undefined, title: string, width: number, height: number, onClose: () => void): void;
 
-// @public
+// @public @deprecated
 export function useDisposable<TDisposable extends IDisposable>(createDisposable: () => TDisposable): TDisposable;
 
 // @public
@@ -1915,10 +1915,10 @@ export enum VerticalAlignment {
 }
 
 // @public
-export function VerticalTabs(props: TabsProps): JSX.Element;
+export function VerticalTabs(props: TabsProps): React_2.JSX.Element;
 
 // @public
-export function WebFontIcon(props: WebFontIconProps): JSX.Element;
+export function WebFontIcon(props: WebFontIconProps): React_2.JSX.Element;
 
 // @public
 export interface WebFontIconProps extends CommonProps {
@@ -1951,7 +1951,7 @@ export const withIsPressed: <ComponentProps extends {}>(Component: React_2.Compo
         handleOnPointerUp: () => void;
         handleOnMouseLeave: () => void;
         changeIsPressed: (isPressed: boolean) => void;
-        render(): JSX.Element;
+        render(): React_2.JSX.Element;
         context: any;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<ComponentProps & WithIsPressedProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
@@ -1980,7 +1980,7 @@ export const withIsPressed: <ComponentProps extends {}>(Component: React_2.Compo
         handleOnPointerUp: () => void;
         handleOnMouseLeave: () => void;
         changeIsPressed: (isPressed: boolean) => void;
-        render(): JSX.Element;
+        render(): React_2.JSX.Element;
         context: any;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<ComponentProps & WithIsPressedProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
@@ -2027,7 +2027,7 @@ export const withOnOutsideClick: <ComponentProps extends {}>(Component: React_2.
         getParentDocument(): Document;
         componentDidMount(): void;
         componentWillUnmount(): void;
-        render(): JSX.Element;
+        render(): React_2.JSX.Element;
         context: any;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<ComponentProps & WithOnOutsideClickProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
@@ -2061,7 +2061,7 @@ export const withOnOutsideClick: <ComponentProps extends {}>(Component: React_2.
         getParentDocument(): Document;
         componentDidMount(): void;
         componentWillUnmount(): void;
-        render(): JSX.Element;
+        render(): React_2.JSX.Element;
         context: any;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<ComponentProps & WithOnOutsideClickProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
@@ -2099,7 +2099,7 @@ export const withTimeout: <ComponentProps extends {}>(Component: React_2.Compone
         componentDidMount(): void;
         componentDidUpdate(_prevProps: Readonly<ComponentProps & WithTimeoutProps>): void;
         componentWillUnmount(): void;
-        render(): JSX.Element;
+        render(): React_2.JSX.Element;
         startTimer(timeout: number): void;
         context: any;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<ComponentProps & WithTimeoutProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
@@ -2126,7 +2126,7 @@ export const withTimeout: <ComponentProps extends {}>(Component: React_2.Compone
         componentDidMount(): void;
         componentDidUpdate(_prevProps: Readonly<ComponentProps & WithTimeoutProps>): void;
         componentWillUnmount(): void;
-        render(): JSX.Element;
+        render(): React_2.JSX.Element;
         startTimer(timeout: number): void;
         context: any;
         setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<ComponentProps & WithTimeoutProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
