@@ -6,14 +6,12 @@
  * @module Widget
  */
 
-import * as React from "react";
-import {
-  getTabLocation,
-  isHorizontalPanelSide,
-  TabIdContext,
-  useLayout,
-} from "@itwin/appui-layout-react";
 import { assert } from "@itwin/core-bentley";
+import * as React from "react";
+import { useLayout } from "../layout/base/LayoutStore";
+import { getTabLocation } from "../layout/state/TabLocation";
+import { isHorizontalPanelSide } from "../layout/widget-panels/Panel";
+import { TabIdContext } from "../layout/widget/ContentRenderer";
 
 /** Returns widget direction.
  * I.e. "horizontal" when widget is in bottom/top stage panel.

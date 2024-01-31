@@ -70,7 +70,6 @@
     "@bentley/icons-generic": "^1.0.34",
     "@bentley/icons-generic-webfont": "^1.0.34",
     "@itwin/appui-abstract": "^3.7.0",
-    "@itwin/appui-layout-react": "workspace:*",
     "@itwin/appui-react": "workspace:*",
     "@itwin/components-react": "workspace:*",
     "@itwin/core-backend": "^3.7.0",

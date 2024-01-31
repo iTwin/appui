@@ -16,9 +16,6 @@ importers:
       '@itwin/appui-abstract':
         specifier: ^3.7.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
-      '@itwin/appui-layout-react':
-        specifier: workspace:*
-        version: link:../../ui/appui-layout-react
       '@itwin/appui-react':
         specifier: workspace:*
         version: link:../../ui/appui-react
@@ -170,9 +167,6 @@ importers:
       '@itwin/appui-abstract':
         specifier: ^3.7.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
-      '@itwin/appui-layout-react':
-        specifier: workspace:*
-        version: link:../../../ui/appui-layout-react
       '@itwin/appui-react':
         specifier: workspace:*
         version: link:../../../ui/appui-react
@@ -276,9 +270,6 @@ importers:
       '@itwin/appui-abstract':
         specifier: ^3.7.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
-      '@itwin/appui-layout-react':
-        specifier: workspace:*
-        version: link:../../../ui/appui-layout-react
       '@itwin/appui-react':
         specifier: workspace:*
         version: link:../../../ui/appui-react
@@ -374,7 +365,7 @@ importers:
         version: 2.1.2
       '@itwin/map-layers':
         specifier: ^3.7.0
-        version: 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/appui-layout-react@..+ui+appui-layout-react)(@itwin/appui-react@..+ui+appui-react)(@itwin/components-react@..+ui+components-react)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/core-react@..+ui+core-react)(@itwin/imodel-components-react@..+ui+imodel-components-react)(react-dom@17.0.2)(react@17.0.2)
+        version: 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/appui-react@..+ui+appui-react)(@itwin/components-react@..+ui+components-react)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/core-react@..+ui+core-react)(@itwin/imodel-components-react@..+ui+imodel-components-react)(react-dom@17.0.2)(react@17.0.2)
       '@itwin/map-layers-auth':
         specifier: ^3.7.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
@@ -487,9 +478,6 @@ importers:
       '@itwin/appui-abstract':
         specifier: ^3.7.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
-      '@itwin/appui-layout-react':
-        specifier: workspace:*
-        version: link:../../../ui/appui-layout-react
       '@itwin/appui-react':
         specifier: workspace:*
         version: link:../../../ui/appui-react
@@ -564,7 +552,7 @@ importers:
         version: 2.1.2
       '@itwin/map-layers':
         specifier: ^3.7.0
-        version: 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/appui-layout-react@..+ui+appui-layout-react)(@itwin/appui-react@..+ui+appui-react)(@itwin/components-react@..+ui+components-react)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/core-react@..+ui+core-react)(@itwin/imodel-components-react@..+ui+imodel-components-react)(react-dom@17.0.2)(react@17.0.2)
+        version: 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/appui-react@..+ui+appui-react)(@itwin/components-react@..+ui+components-react)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/core-react@..+ui+core-react)(@itwin/imodel-components-react@..+ui+imodel-components-react)(react-dom@17.0.2)(react@17.0.2)
       '@itwin/presentation-common':
         specifier: ^3.7.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-quantity@3.8.0)
@@ -725,157 +713,6 @@ importers:
         specifier: ^10.0.0
         version: 10.2.0
 
-  ../../ui/appui-layout-react:
-    dependencies:
-      '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
-        version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
-      '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
-      classnames:
-        specifier: 2.3.1
-        version: 2.3.1
-      immer:
-        specifier: 9.0.6
-        version: 9.0.6
-      lodash:
-        specifier: ^4.17.10
-        version: 4.17.21
-      react-transition-group:
-        specifier: ^4.4.2
-        version: 4.4.5(react-dom@17.0.2)(react@17.0.2)
-      ts-key-enum:
-        specifier: ~2.0.12
-        version: 2.0.12
-      zustand:
-        specifier: ^4.4.1
-        version: 4.5.0(@types/react@17.0.75)(immer@9.0.6)(react@17.0.2)
-    devDependencies:
-      '@itwin/appui-abstract':
-        specifier: ^3.7.0
-        version: 3.8.0(@itwin/core-bentley@3.8.0)
-      '@itwin/build-tools':
-        specifier: ^3.7.0
-        version: 3.8.0
-      '@itwin/core-bentley':
-        specifier: ^3.7.0
-        version: 3.8.0
-      '@itwin/core-react':
-        specifier: workspace:*
-        version: link:../core-react
-      '@itwin/eslint-plugin':
-        specifier: ^4.0.0-dev.45
-        version: 4.0.0-dev.48(eslint@8.56.0)(typescript@5.0.4)
-      '@testing-library/dom':
-        specifier: ^8.11.2
-        version: 8.20.1
-      '@testing-library/react':
-        specifier: ^12.0.0
-        version: 12.1.5(react-dom@17.0.2)(react@17.0.2)
-      '@testing-library/react-hooks':
-        specifier: ^7.0.2
-        version: 7.0.2(react-dom@17.0.2)(react-test-renderer@17.0.2)(react@17.0.2)
-      '@testing-library/user-event':
-        specifier: ^14.4.2
-        version: 14.5.2(@testing-library/dom@8.20.1)
-      '@types/chai':
-        specifier: 4.3.1
-        version: 4.3.1
-      '@types/chai-as-promised':
-        specifier: ^7
-        version: 7.1.8
-      '@types/chai-jest-snapshot':
-        specifier: ^1.3.0
-        version: 1.3.8
-      '@types/lodash':
-        specifier: ^4.14.0
-        version: 4.14.202
-      '@types/mocha':
-        specifier: ^8.2.2
-        version: 8.2.3
-      '@types/node':
-        specifier: 18.11.5
-        version: 18.11.5
-      '@types/react':
-        specifier: ^17.0.37
-        version: 17.0.75
-      '@types/react-dom':
-        specifier: ^17.0.0
-        version: 17.0.25
-      '@types/react-transition-group':
-        specifier: ^4.4.4
-        version: 4.4.10
-      '@types/sinon':
-        specifier: ^17.0.3
-        version: 17.0.3
-      chai:
-        specifier: ^4.3.10
-        version: 4.4.1
-      chai-as-promised:
-        specifier: ^7
-        version: 7.1.1(chai@4.4.1)
-      chai-jest-snapshot:
-        specifier: ^2.0.0
-        version: 2.0.0(chai@4.4.1)
-      cpx2:
-        specifier: ^3.0.0
-        version: 3.0.2
-      eslint:
-        specifier: ^8.44.0
-        version: 8.56.0
-      eslint-config-prettier:
-        specifier: ~8.8.0
-        version: 8.8.0(eslint@8.56.0)
-      ignore-styles:
-        specifier: ^5.0.1
-        version: 5.0.1
-      jsdom:
-        specifier: ^19.0.0
-        version: 19.0.0
-      jsdom-global:
-        specifier: 3.0.2
-        version: 3.0.2(jsdom@19.0.0)
-      mocha:
-        specifier: ^10.0.0
-        version: 10.2.0
-      npm-run-all:
-        specifier: ^4.1.5
-        version: 4.1.5
-      nyc:
-        specifier: ^15.1.0
-        version: 15.1.0
-      raf:
-        specifier: ^3.4.0
-        version: 3.4.1
-      react:
-        specifier: ^17.0.0
-        version: 17.0.2
-      react-dom:
-        specifier: ^17.0.0
-        version: 17.0.2(react@17.0.2)
-      rimraf:
-        specifier: ^3.0.2
-        version: 3.0.2
-      sinon:
-        specifier: ^17.0.1
-        version: 17.0.1
-      sinon-chai:
-        specifier: ^3.2.0
-        version: 3.7.0(chai@4.4.1)(sinon@17.0.1)
-      ts-node:
-        specifier: ^10.8.2
-        version: 10.9.2(@types/node@18.11.5)(typescript@5.0.4)
-      typemoq:
-        specifier: ^2.1.0
-        version: 2.1.0
-      typescript:
-        specifier: ~5.0.2
-        version: 5.0.4
-      upath:
-        specifier: ^2.0.1
-        version: 2.0.1
-
   ../../ui/appui-react:
     dependencies:
       '@bentley/icons-generic':
@@ -908,6 +745,9 @@ importers:
       react-error-boundary:
         specifier: 4.0.3
         version: 4.0.3(react@17.0.2)
+      react-transition-group:
+        specifier: ^4.4.2
+        version: 4.4.5(react-dom@17.0.2)(react@17.0.2)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.1
@@ -921,9 +761,6 @@ importers:
       '@itwin/appui-abstract':
         specifier: ^3.7.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
-      '@itwin/appui-layout-react':
-        specifier: workspace:*
-        version: link:../appui-layout-react
       '@itwin/build-tools':
         specifier: ^3.7.0
         version: 3.8.0
@@ -1008,6 +845,9 @@ importers:
       '@types/react-redux':
         specifier: ^7.1.18
         version: 7.1.33
+      '@types/react-transition-group':
+        specifier: ^4.4.4
+        version: 4.4.10
       '@types/rimraf':
         specifier: ^2.0.2
         version: 2.0.5
@@ -1291,6 +1131,9 @@ importers:
       typescript:
         specifier: ~5.0.2
         version: 5.0.4
+      upath:
+        specifier: ^2.0.1
+        version: 2.0.1
 
   ../../ui/core-react:
     dependencies:
@@ -4494,7 +4337,7 @@ packages:
       '@itwin/core-bentley': 3.8.0
     dev: false
 
-  /@itwin/map-layers@3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/appui-layout-react@..+ui+appui-layout-react)(@itwin/appui-react@..+ui+appui-react)(@itwin/components-react@..+ui+components-react)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/core-react@..+ui+core-react)(@itwin/imodel-components-react@..+ui+imodel-components-react)(react-dom@17.0.2)(react@17.0.2):
+  /@itwin/map-layers@3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/appui-react@..+ui+appui-react)(@itwin/components-react@..+ui+components-react)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/core-react@..+ui+core-react)(@itwin/imodel-components-react@..+ui+imodel-components-react)(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-FfRXCWWmkkHtfo2wqrJe3yPZhk7pUgCgYcc81YSxbKotpQIdkJc/5j5MQ57+age8+AQ64wSKJKAZVb3FMYe+Kw==}
     peerDependencies:
       '@itwin/appui-abstract': ^3.8.0
@@ -4512,7 +4355,6 @@ packages:
       react-dom: ^17.0.0
     dependencies:
       '@itwin/appui-abstract': 3.8.0(@itwin/core-bentley@3.8.0)
-      '@itwin/appui-layout-react': link:../../ui/appui-layout-react
       '@itwin/appui-react': link:../../ui/appui-react
       '@itwin/components-react': link:../../ui/components-react
       '@itwin/core-bentley': 3.8.0
