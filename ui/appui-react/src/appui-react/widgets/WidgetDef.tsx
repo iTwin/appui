@@ -28,11 +28,14 @@ import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
-import { getTabLocation, isPopoutTabLocation } from "@itwin/appui-layout-react";
 import { OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import { MessageManager } from "../messages/MessageManager";
 import { ReactNotifyMessageDetails } from "../messages/ReactNotifyMessageDetails";
 import type { UiStateStorageResult } from "@itwin/core-react";
+import {
+  getTabLocation,
+  isPopoutTabLocation,
+} from "../layout/state/TabLocation";
 
 /** Widget State Changed Event Args interface.
  * @public
