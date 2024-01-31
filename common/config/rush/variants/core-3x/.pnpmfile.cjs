@@ -13,7 +13,6 @@ function readPackage(pkg) {
   // Note that these dependencies are only ever allowed for testing purposes and should not be the
   // dependency of any published packages.
   else if (pkg.name == "@itwin/map-layers") {
-    pkg.dependencies["@itwin/appui-layout-react"] = "workspace:*";
     pkg.dependencies["@itwin/appui-react"] = "workspace:*";
     pkg.dependencies["@itwin/components-react"] = "workspace:*";
     pkg.dependencies["@itwin/core-react"] = "workspace:*";

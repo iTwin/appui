@@ -57,13 +57,13 @@ const testArray: DefaultStatusbarItems[] = [
 describe("StandardStatusbarUiItemsProvider", () => {
   // avoid problems due to no real localization resources by return dummy values for englishKeyin and keyin properties.
   before(async () => {
-    await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
+    await TestUtils.initializeUiFramework();
   });
 
   after(async () => {
-    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
+    await IModelApp.shutdown();
     sinon.reset();
   });
 

@@ -6,17 +6,16 @@
  * @module StatusBar
  */
 
-import "./StatusBar.scss";
-import * as React from "react";
 import type { CommonDivProps, CommonProps } from "@itwin/core-react";
 import { Div } from "@itwin/core-react";
-import { Footer } from "@itwin/appui-layout-react";
-import { SafeAreaContext } from "../safearea/SafeAreaContext";
-import type { StatusBarWidgetControl } from "./StatusBarWidgetControl";
-import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
+import * as React from "react";
 import { UiFramework } from "../UiFramework";
+import { Footer } from "../layout/footer/Footer";
+import { SafeAreaContext } from "../safearea/SafeAreaContext";
 import { StatusBarField } from "./Field";
 import { StatusBarPopup } from "./Popup";
+import "./StatusBar.scss";
+import type { StatusBarWidgetControl } from "./StatusBarWidgetControl";
 
 // cspell:ignore safearea
 
@@ -39,7 +38,7 @@ export class StatusBar extends React.Component<StatusBarProps> {
           <Footer
             className={this.props.className}
             onMouseEnter={UiFramework.visibility.handleWidgetMouseEnter}
-            safeAreaInsets={toLayoutSafeAreaInsets(safeAreaInsets)}
+            safeAreaInsets={safeAreaInsets}
             style={this.props.style}
           >
             {this.props.widgetControl?.getReactNode?.() ?? null}

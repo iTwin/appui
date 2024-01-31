@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { getUniqueId } from "@itwin/appui-layout-react";
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { UiFramework } from "../../appui-react";
@@ -14,6 +13,7 @@ import type {
 import { ContentGroup } from "../../appui-react/content/ContentGroup";
 import { InternalContentLayoutManager } from "../../appui-react/content/InternalContentLayoutManager";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+import { getUniqueId } from "../../appui-react/layout/base/NineZone";
 
 describe("ContentLayoutManager", () => {
   before(async () => {

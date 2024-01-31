@@ -7,25 +7,25 @@
  * @module ChildWindowManager
  */
 
-import "./InternalChildWindowManager.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { copyStyles } from "./CopyStyles";
 import { Provider } from "react-redux";
-import { UiStateStorageHandler } from "../uistate/useUiStateStorage";
-import { PopupRenderer } from "../popup/PopupManager";
-import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager";
-import { ModalDialogRenderer } from "../dialog/ModalDialogManager";
-import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu";
-import { ThemeManager } from "../theme/ThemeManager";
 import { UiFramework } from "../UiFramework";
+import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu";
+import { ModalDialogRenderer } from "../dialog/ModalDialogManager";
+import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager";
 import type {
   ChildWindowLocationProps,
   FrameworkChildWindows,
   OpenChildWindowInfo,
 } from "../framework/FrameworkChildWindows";
+import { TabIdContext } from "../layout/widget/ContentRenderer";
+import { PopupRenderer } from "../popup/PopupManager";
+import { ThemeManager } from "../theme/ThemeManager";
+import { UiStateStorageHandler } from "../uistate/useUiStateStorage";
 import type { ChildWindow } from "./ChildWindowConfig";
-import { TabIdContext } from "@itwin/appui-layout-react";
+import { copyStyles } from "./CopyStyles";
+import "./InternalChildWindowManager.scss";
 
 const childHtml = `<!DOCTYPE html>
 <html>
