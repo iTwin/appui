@@ -23,6 +23,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   activateDroppedTab: undefined,
   contentAlwaysMaxSize: undefined,
   enableMaximizedFloatingWidget: undefined,
+  horizontalPanelAlignment: undefined,
   ...{ newToolbars: undefined }, // Hidden feature used in storybook only (to avoid trimming).
 };
 

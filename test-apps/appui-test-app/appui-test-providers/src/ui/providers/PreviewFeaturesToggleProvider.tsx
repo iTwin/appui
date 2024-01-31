@@ -28,6 +28,10 @@ const featureList = [
     id: "activateDroppedTab",
     label: "Change active tab after drag & drop",
   },
+  {
+    id: "horizontalPanelAlignment",
+    label: "Horizontal panel alignment",
+  },
 ];
 function PreviewFeatureList() {
   const [activeFeatureList, setActiveFeatureList] =

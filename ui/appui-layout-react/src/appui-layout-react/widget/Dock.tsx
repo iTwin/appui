@@ -6,17 +6,20 @@
  * @module Widget
  */
 
-import "./Dock.scss";
 import * as React from "react";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
+import { Button } from "@itwin/itwinui-react";
+import { SvgDockTop } from "@itwin/itwinui-icons-react";
 
 /** @internal */
 export function Dock() {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const title = useLabel("dockToolSettingsTitle");
   return (
-    <button
+    <Button
       className="nz-widget-dock"
+      styleType="borderless"
+      size="small"
       onClick={() => {
         dispatch({
           type: "TOOL_SETTINGS_DOCK",
@@ -24,7 +27,7 @@ export function Dock() {
       }}
       title={title}
     >
-      <i />
-    </button>
+      <SvgDockTop />
+    </Button>
   );
 }

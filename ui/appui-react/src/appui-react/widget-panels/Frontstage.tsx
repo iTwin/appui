@@ -32,6 +32,7 @@ import {
   getWidgetPanelSectionId,
   NineZone,
   NineZoneStateReducer,
+  PreviewHorizontalPanelAlignFeatureProvider,
   PreviewLayoutFeaturesProvider,
   PreviewMaximizedWidgetFeatureProvider,
   useLayout,
@@ -94,22 +95,26 @@ function WidgetPanelsFrontstageComponent() {
       <PreviewMaximizedWidgetFeatureProvider
         enabled={previewFeatures.enableMaximizedFloatingWidget}
       >
-        <WidgetPanelsToolSettings />
-        <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
-          <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
-          <WidgetPanels
-            className={classNames(
-              "uifw-widgetPanels",
-              previewContentAlwaysMaxSizeDockedClass,
-              previewContentAlwaysMaxSizeTopPanelClass
-            )}
-            centerContent={<WidgetPanelsToolbars />}
-          >
-            <WidgetPanelsFrontstageContent />
-          </WidgetPanels>
-          <WidgetPanelsStatusBar />
-          <FloatingWidgets />
-        </ToolbarPopupAutoHideContext.Provider>
+        <PreviewHorizontalPanelAlignFeatureProvider
+          enabled={previewFeatures.horizontalPanelAlignment}
+        >
+          <WidgetPanelsToolSettings />
+          <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
+            <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
+            <WidgetPanels
+              className={classNames(
+                "uifw-widgetPanels",
+                previewContentAlwaysMaxSizeDockedClass,
+                previewContentAlwaysMaxSizeTopPanelClass
+              )}
+              centerContent={<WidgetPanelsToolbars />}
+            >
+              <WidgetPanelsFrontstageContent />
+            </WidgetPanels>
+            <WidgetPanelsStatusBar />
+            <FloatingWidgets />
+          </ToolbarPopupAutoHideContext.Provider>
+        </PreviewHorizontalPanelAlignFeatureProvider>
       </PreviewMaximizedWidgetFeatureProvider>
     </PreviewLayoutFeaturesProvider>
   );
@@ -577,8 +582,6 @@ export const stateVersion = 17; // this needs to be bumped when NineZoneState is
 
 /** @internal */
 export function initializeNineZoneState(frontstageDef: FrontstageDef) {
-  assert(!frontstageDef.nineZoneState);
-
   frontstageDef.batch(() => {
     frontstageDef.nineZoneState = defaultNineZone;
 

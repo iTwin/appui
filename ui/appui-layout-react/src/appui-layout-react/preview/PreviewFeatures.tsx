@@ -28,6 +28,11 @@ export interface KnownPreviewLayoutFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/679
    */
   activateDroppedTab?: boolean;
+  /** If true, the horizontal panels will have an additional "Align" button.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/
+   */
+  horizontalPanelAlignment: boolean;
 }
 
 type PreviewFeaturesState = Partial<KnownPreviewLayoutFeatures>;

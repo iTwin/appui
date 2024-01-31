@@ -54,9 +54,23 @@ exports[`FloatingWidget should render 1`] = `
       class="nz-widget-tabBarButtons"
     >
       <button
-        class="nz-widget-sendBack nz-left"
+        class="iui-button nz-widget-sendBack"
+        data-iui-size="small"
+        data-iui-variant="borderless"
+        type="button"
       >
-        <i />
+        <span>
+          <svg
+            fill="var(--iui-color-icon-muted, currentColor)"
+            height="1rem"
+            viewBox="0 0 16 16"
+            width="1rem"
+          >
+            <path
+              d="M0 2v12h16V2zm15 11H5V3h10z"
+            />
+          </svg>
+        </span>
       </button>
     </div>
   </div>
@@ -134,9 +148,23 @@ exports[`FloatingWidget should render dragged 1`] = `
       class="nz-widget-tabBarButtons"
     >
       <button
-        class="nz-widget-sendBack nz-left"
+        class="iui-button nz-widget-sendBack"
+        data-iui-size="small"
+        data-iui-variant="borderless"
+        type="button"
       >
-        <i />
+        <span>
+          <svg
+            fill="var(--iui-color-icon-muted, currentColor)"
+            height="1rem"
+            viewBox="0 0 16 16"
+            width="1rem"
+          >
+            <path
+              d="M0 2v12h16V2zm15 11H5V3h10z"
+            />
+          </svg>
+        </span>
       </button>
     </div>
   </div>
@@ -214,9 +242,23 @@ exports[`FloatingWidget should render hidden when hideWithUiWhenFloating is true
       class="nz-widget-tabBarButtons"
     >
       <button
-        class="nz-widget-sendBack nz-left"
+        class="iui-button nz-widget-sendBack"
+        data-iui-size="small"
+        data-iui-variant="borderless"
+        type="button"
       >
-        <i />
+        <span>
+          <svg
+            fill="var(--iui-color-icon-muted, currentColor)"
+            height="1rem"
+            viewBox="0 0 16 16"
+            width="1rem"
+          >
+            <path
+              d="M0 2v12h16V2zm15 11H5V3h10z"
+            />
+          </svg>
+        </span>
       </button>
     </div>
   </div>
@@ -294,9 +336,23 @@ exports[`FloatingWidget should render minimized 1`] = `
       class="nz-widget-tabBarButtons"
     >
       <button
-        class="nz-widget-sendBack nz-left"
+        class="iui-button nz-widget-sendBack"
+        data-iui-size="small"
+        data-iui-variant="borderless"
+        type="button"
       >
-        <i />
+        <span>
+          <svg
+            fill="var(--iui-color-icon-muted, currentColor)"
+            height="1rem"
+            viewBox="0 0 16 16"
+            width="1rem"
+          >
+            <path
+              d="M0 2v12h16V2zm15 11H5V3h10z"
+            />
+          </svg>
+        </span>
       </button>
     </div>
   </div>

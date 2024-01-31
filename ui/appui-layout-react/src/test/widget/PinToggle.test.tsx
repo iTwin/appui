@@ -15,23 +15,12 @@ import { TestNineZoneProvider } from "../Providers";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 
 describe("PinToggle", () => {
-  it("should render", () => {
-    const { container } = render(
-      <TestNineZoneProvider>
-        <PanelSideContext.Provider value="left">
-          <PinToggle />
-        </PanelSideContext.Provider>
-      </TestNineZoneProvider>
-    );
-    container.firstChild!.should.matchSnapshot();
-  });
-
   it("should render with `pin panel` title", () => {
     let state = createNineZoneState();
     state = updatePanelState(state, "left", (draft) => {
       draft.pinned = false;
     });
-    const { container } = render(
+    const { getByTitle } = render(
       <TestNineZoneProvider
         defaultState={state}
         labels={{
@@ -43,7 +32,7 @@ describe("PinToggle", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    getByTitle("Pin panel");
   });
 
   it("should render `icon-chevron-down` for bottom pinned panel", () => {

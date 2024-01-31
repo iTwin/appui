@@ -45,6 +45,11 @@ window.Date = Date;
 document.elementFromPoint = () => null;
 window.HTMLElement.prototype.scrollIntoView = () => {};
 
+// Remove wall of text because of jsdom missing css features: https://github.com/jsdom/jsdom/issues/2005#issuecomment-1381649538
+const HTMLStyleElementImpl =
+  require("jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl").implementation;
+HTMLStyleElementImpl.prototype._updateAStyleBlock = () => {};
+
 // Fill in more missing functions left out by jsdom or mocha
 performance = window.performance;
 
