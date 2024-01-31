@@ -8,7 +8,7 @@ Table of contents:
   - [Deprecations](#deprecations)
   - [Additions](#additions-1)
   - [Changes](#changes)
-  - [FilterBuilder changes](#filterbuilder-changes)
+    - [FilterBuilder](#filterbuilder)
 - [@itwin/core-react](#itwincore-react)
   - [Deprecations](#deprecations-1)
 
@@ -32,11 +32,12 @@ Table of contents:
 - `useTrackedPropertyGridModelSource` hook to create a `PropertyGridModelSource` and track changes in the data provider while also providing information on the data update progress. #660
 - `useControlledTreeEventsHandler` which should be used as a replacement to now deprecated `useTreeEventsHandler`. #676
 - `clearSelection` argument in `HideIsolateEmphasizeActionHandler.processIsolateSelected()` to control whether the selection is cleared. #682
-- `PropertyFilterBuilderLogicalOperator` component and `PropertyFilterBuilderLogicalOperatorProps` to render the logical operator inside of the filter builder. #686
-- `PropertyFilterBuilderToolbar` component to display the action buttons in the filter builder. #686
-- `isGroupOperatorDisabled` property of `PropertyFilterBuilderRendererProps` to control whether the group operator is toggle-able. #686
 
-### FilterBuilder changes
+### Changes
+
+- Show loading spinner in subsequent loads if delay threshold is reached in `VirtualizedPropertyGrid.`. #660
+
+#### FilterBuilder
 
 Added support for `Between` and `Not between` operators in `PropertyFilterBuilder`. This required to make some breaking changes to `@beta` APIs of `PropertyFilterBuilder`. These changes include internal components of `PropertyFilterBuilder` (`PropertyFilterBuilderRuleValue` and `PropertyFilterBuilderActions`) that are exposed to allow customizing `PropertyFilterBuilder` component. If `PropertyFilterBuilder` is used without any customizations these changes should not break anything.
 
@@ -50,10 +51,9 @@ Added support for `Between` and `Not between` operators in `PropertyFilterBuilde
 - Added `PropertyFilterBuilderRuleOperator` type that has `between` and `not-between` value in addition to `PropertyFilterRuleOperator` values.
 - Added `isUnaryPropertyFilterBuilderOperator` for checking if `PropertyFilterBuilderRuleOperator` is unary.
 - Added `PropertyFilterBuilderRuleRangeValue`. It is used to specify value for `Between` and `Not between` operator in `PropertyFilterBuilder`.
-
-### Changes
-
-- Show loading spinner in subsequent loads if delay threshold is reached in `VirtualizedPropertyGrid.`. #660
+- Added `PropertyFilterBuilderLogicalOperator` component and `PropertyFilterBuilderLogicalOperatorProps` to render the logical operator inside of the filter builder. #686
+- Added `PropertyFilterBuilderToolbar` component to display the action buttons in the filter builder. #686
+- Added `isGroupOperatorDisabled` property of `PropertyFilterBuilderRendererProps` to control whether the group operator is toggle-able. #686
 
 ## @itwin/core-react
 
