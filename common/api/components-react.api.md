@@ -33,6 +33,7 @@ import type { OnItemExecutedFunc } from '@itwin/appui-abstract';
 import { Orientation } from '@itwin/core-react';
 import type { ParseResults } from '@itwin/appui-abstract';
 import type { Primitives } from '@itwin/appui-abstract';
+import type { PrimitiveValue } from '@itwin/appui-abstract';
 import { PropertyDescription } from '@itwin/appui-abstract';
 import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyValue } from '@itwin/appui-abstract';
@@ -2062,7 +2063,7 @@ export class PropertyFilterBuilderActions {
     removeAllItems(): void;
     removeItem(path: string[]): void;
     setRuleErrorMessages(ruleIdsAndErrorMessages: Map<string, string>): void;
-    setRuleGroupOperator(path: string[], operator: PropertyFilterRuleGroupOperator): void;
+    setRuleGroupOperator(path: string[], operator: `${PropertyFilterRuleGroupOperator}`): void;
     setRuleOperator(path: string[], operator: PropertyFilterBuilderRuleOperator): void;
     setRuleProperty(path: string[], property?: PropertyDescription): void;
     setRuleValue(path: string[], value: PropertyValue): void;
@@ -2075,8 +2076,8 @@ export const PropertyFilterBuilderLogicalOperator: (props: PropertyFilterBuilder
 export interface PropertyFilterBuilderLogicalOperatorProps {
     className?: string;
     isDisabled?: boolean;
-    onOperatorChange: (operator: PropertyFilterRuleGroupOperator) => void;
-    operator: PropertyFilterRuleGroupOperator;
+    onOperatorChange: (operator: `${PropertyFilterRuleGroupOperator}`) => void;
+    operator: `${PropertyFilterRuleGroupOperator}`;
 }
 
 // @beta
@@ -2117,7 +2118,7 @@ export interface PropertyFilterBuilderRuleGroup {
     groupId?: string;
     id: string;
     items: PropertyFilterBuilderRuleGroupItem[];
-    operator: PropertyFilterRuleGroupOperator;
+    operator: `${PropertyFilterRuleGroupOperator}`;
 }
 
 // @beta
@@ -2139,16 +2140,16 @@ export function PropertyFilterBuilderRuleOperatorRenderer(props: PropertyFilterB
 // @beta
 export interface PropertyFilterBuilderRuleRangeValue {
     // (undocumented)
-    from: PropertyValue;
+    from: PrimitiveValue;
     // (undocumented)
-    to: PropertyValue;
+    to: PrimitiveValue;
 }
 
 // @beta (undocumented)
 export namespace PropertyFilterBuilderRuleRangeValue {
     export function isRangeValid({ from, to, }: PropertyFilterBuilderRuleRangeValue): boolean;
     export function parse(val?: PropertyValue): PropertyFilterBuilderRuleRangeValue;
-    export function serialize(val: PropertyFilterBuilderRuleRangeValue): PropertyValue;
+    export function serialize(val: PropertyFilterBuilderRuleRangeValue): PrimitiveValue;
 }
 
 // @beta
@@ -2190,16 +2191,16 @@ export interface PropertyFilterRule {
 
 // @beta
 export interface PropertyFilterRuleGroup {
-    operator: PropertyFilterRuleGroupOperator;
+    operator: `${PropertyFilterRuleGroupOperator}`;
     rules: Array<PropertyFilter>;
 }
 
 // @beta
 export enum PropertyFilterRuleGroupOperator {
     // (undocumented)
-    And = 0,
+    And = "and",
     // (undocumented)
-    Or = 1
+    Or = "or"
 }
 
 // @beta
