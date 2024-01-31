@@ -100,22 +100,14 @@ function FilterBuilderRuleRangeValueRenderer({
 
   const handleFromValue = React.useCallback(
     ({ newValue }: PropertyUpdatedArgs) => {
-      const serializedValue = PropertyFilterBuilderRuleRangeValue.serialize({
-        from: newValue,
-        to: to.value,
-      });
-      onChange(serializedValue);
+      onChange(getSerializedRangeValue(newValue, to.value));
     },
     [onChange, to]
   );
 
   const handleToValue = React.useCallback(
     ({ newValue }: PropertyUpdatedArgs) => {
-      const serializedValue = PropertyFilterBuilderRuleRangeValue.serialize({
-        from: from.value,
-        to: newValue,
-      });
-      onChange(serializedValue);
+      onChange(getSerializedRangeValue(from.value, newValue));
     },
     [onChange, from]
   );
@@ -149,4 +141,17 @@ function FilterBuilderRuleRangeValueRenderer({
       </Flex.Item>
     </Flex>
   );
+}
+
+function getSerializedRangeValue(from: PropertyValue, to: PropertyValue) {
+  return PropertyFilterBuilderRuleRangeValue.serialize({
+    from:
+      from.valueFormat === PropertyValueFormat.Primitive
+        ? from
+        : { valueFormat: PropertyValueFormat.Primitive },
+    to:
+      to.valueFormat === PropertyValueFormat.Primitive
+        ? to
+        : { valueFormat: PropertyValueFormat.Primitive },
+  });
 }

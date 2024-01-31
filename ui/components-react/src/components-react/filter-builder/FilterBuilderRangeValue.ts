@@ -14,8 +14,8 @@ import { PropertyValueFormat } from "@itwin/appui-abstract";
  * @beta
  */
 export interface PropertyFilterBuilderRuleRangeValue {
-  from: PropertyValue;
-  to: PropertyValue;
+  from: PrimitiveValue;
+  to: PrimitiveValue;
 }
 
 /** @beta */
@@ -31,12 +31,12 @@ export namespace PropertyFilterBuilderRuleRangeValue {
   }
 
   /**
-   * Serializes [[PropertyFilterBuilderRuleRangeValue]] into [[PropertyValue]].
+   * Serializes [[PropertyFilterBuilderRuleRangeValue]] into [[PrimitiveValue]].
    * @beta
    */
   export function serialize(
     val: PropertyFilterBuilderRuleRangeValue
-  ): PropertyValue {
+  ): PrimitiveValue {
     return {
       valueFormat: PropertyValueFormat.Primitive,
       value: JSON.stringify(val),
@@ -64,21 +64,15 @@ export namespace PropertyFilterBuilderRuleRangeValue {
 }
 
 function isNumericValue(
-  value: PropertyValue
+  value: PrimitiveValue
 ): value is PrimitiveValue & { value: number } {
-  return (
-    value.valueFormat === PropertyValueFormat.Primitive &&
-    typeof value.value === "number"
-  );
+  return typeof value.value === "number";
 }
 
 function isDateValue(
-  value: PropertyValue
+  value: PrimitiveValue
 ): value is PrimitiveValue & { value: string | Date } {
-  return (
-    value.valueFormat === PropertyValueFormat.Primitive &&
-    (typeof value.value === "string" || value.value instanceof Date)
-  );
+  return typeof value.value === "string" || value.value instanceof Date;
 }
 
 function parseRangeValue(

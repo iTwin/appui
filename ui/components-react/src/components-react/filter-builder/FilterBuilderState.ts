@@ -559,9 +559,9 @@ function getRangeRuleItems(
   const [from, to] = group.rules;
   if (
     isPropertyFilterRuleGroup(from) ||
-    from.value === undefined ||
+    from.value?.valueFormat !== PropertyValueFormat.Primitive ||
     isPropertyFilterRuleGroup(to) ||
-    to.value === undefined ||
+    to.value?.valueFormat !== PropertyValueFormat.Primitive ||
     from.property.name !== to.property.name
   ) {
     return undefined;
@@ -620,7 +620,7 @@ function convertFilterToState(
   return {
     rootGroup: {
       id,
-      operator: PropertyFilterRuleGroupOperator.And,
+      operator: "and",
       items: [getRuleItem(filter, id)],
     },
   };
