@@ -30,7 +30,7 @@ interface KnownPreviewFeatures {
   activateDroppedTab: boolean;
   /** If true, the horizontal panels will have an additional "Align" button.
    *
-   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/706
    */
   horizontalPanelAlignment: boolean;
 }
