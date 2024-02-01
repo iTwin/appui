@@ -10,7 +10,7 @@ import "./FilterBuilderRule.scss";
 import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { SvgStatusError } from "@itwin/itwinui-icons-react";
-import { Flex } from "@itwin/itwinui-react";
+import { Flex, Text } from "@itwin/itwinui-react";
 import {
   PropertyFilterBuilderContext,
   PropertyFilterBuilderRuleRenderingContext,
@@ -130,7 +130,7 @@ export function PropertyFilterBuilderRuleRenderer(
 
   return (
     <div className="fb-component-row">
-      <Flex className="fb-row-container">
+      <Flex className="fb-row-container" gap="s" alignItems="flex-start">
         <PropertyFilterBuilderRuleProperty
           properties={properties}
           selectedProperty={rule.property}
@@ -145,10 +145,10 @@ export function PropertyFilterBuilderRuleRenderer(
           <div className="fb-property-value">
             {valueRenderer(property, operator)}
             {rule.errorMessage ? (
-              <>
-                <SvgStatusError className="iui-input-icon" />
-                <div className="iui-message">{rule.errorMessage}</div>
-              </>
+              <Flex>
+                <SvgStatusError />
+                <Text>{rule.errorMessage}</Text>
+              </Flex>
             ) : null}
           </div>
         ) : null}
