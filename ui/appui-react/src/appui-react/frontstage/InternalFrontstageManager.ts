@@ -218,11 +218,13 @@ export class InternalFrontstageManager {
   public static readonly onToolActivatedEvent = new ToolActivatedEvent();
 
   /** Get ToolSetting Reload event. */
+  // eslint-disable-next-line deprecation/deprecation
   public static readonly onToolSettingsReloadEvent = new UiEvent<void>();
 
   /** Get Tool Panel Opened event.
    * @internal
    */
+  // eslint-disable-next-line deprecation/deprecation
   public static readonly onToolPanelOpenedEvent = new UiEvent<void>();
 
   /** Get Tool Icon Changed event. */
@@ -245,18 +247,22 @@ export class InternalFrontstageManager {
     new WidgetStateChangedEvent();
 
   /** @internal */
+  // eslint-disable-next-line deprecation/deprecation
   public static readonly onWidgetDefsUpdatedEvent = new UiEvent<void>();
 
   /** @internal */
   public static readonly onFrontstageNineZoneStateChangedEvent =
+    // eslint-disable-next-line deprecation/deprecation
     new UiEvent<FrontstageNineZoneStateChangedEventArgs>();
 
   /** @internal */
   public static readonly onFrontstageRestoreLayoutEvent =
+    // eslint-disable-next-line deprecation/deprecation
     new UiEvent<FrontstageEventArgs>();
 
   /** @internal */
   public static readonly onFrontstageWidgetsChangedEvent =
+    // eslint-disable-next-line deprecation/deprecation
     new UiEvent<FrontstageEventArgs>();
 
   /** Get panel state changed event.
@@ -269,6 +275,7 @@ export class InternalFrontstageManager {
    * @alpha
    */
   public static readonly onPanelPinnedChangedEvent =
+    // eslint-disable-next-line deprecation/deprecation
     new UiEvent<PanelPinnedChangedEventArgs>();
 
   /** @internal */

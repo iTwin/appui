@@ -5,22 +5,20 @@
 /** @packageDocumentation
  * @module Widget
  */
-import * as React from "react";
-import {
-  ScrollableWidgetContent,
-  TabIdContext,
-} from "@itwin/appui-layout-react";
-import type { WidgetDef } from "../widgets/WidgetDef";
-import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
-import { useTransientState } from "./useTransientState";
 import { assert } from "@itwin/core-bentley";
-import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
-import { isProviderItem } from "../ui-items-provider/isProviderItem";
-import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import { ErrorBoundary } from "react-error-boundary";
 import { SvgError } from "@itwin/itwinui-illustrations-react";
 import { NonIdealState } from "@itwin/itwinui-react";
+import * as React from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { UiFramework } from "../UiFramework";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
+import { ScrollableWidgetContent } from "../layout/widget/Content";
+import { TabIdContext } from "../layout/widget/ContentRenderer";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
+import { isProviderItem } from "../ui-items-provider/isProviderItem";
+import type { WidgetDef } from "../widgets/WidgetDef";
+import { useTransientState } from "./useTransientState";
 
 function WidgetFallback() {
   const errorMessage = UiFramework.translate(

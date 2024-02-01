@@ -2,9 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { BadgeType } from "@itwin/appui-abstract";
+import { render, screen } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { BadgeType } from "@itwin/appui-abstract";
 import {
   FrontstageDef,
   getBadgeClassName,
@@ -12,18 +14,14 @@ import {
   WidgetDef,
   WidgetPanelsTab,
 } from "../../appui-react";
-import { render, screen } from "@testing-library/react";
-import {
-  addPanelWidget,
-  addTab,
-  createLayoutStore,
-  createNineZoneState,
-  NineZone,
-  TabIdContext,
-  TabPositionContext,
-  WidgetIdContext,
-} from "@itwin/appui-layout-react";
-import { expect } from "chai";
+import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore";
+import { NineZone } from "../../appui-react/layout/base/NineZone";
+import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
+import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
+import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
+import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer";
+import { TabPositionContext } from "../../appui-react/layout/widget/Tab";
+import { WidgetIdContext } from "../../appui-react/layout/widget/Widget";
 import { selectorMatches } from "../TestUtils";
 
 describe("WidgetPanelsTab", () => {

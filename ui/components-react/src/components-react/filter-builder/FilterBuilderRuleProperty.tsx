@@ -87,7 +87,7 @@ export function PropertyFilterBuilderRuleProperty(
   );
 
   return (
-    <div className="rule-property">
+    <div className="fb-property-name">
       <ComboBox
         options={selectOptions}
         onChange={onPropertyChanged}

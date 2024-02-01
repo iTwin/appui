@@ -6,9 +6,6 @@
  * @module Popup
  */
 
-import * as React from "react";
-import { Logger } from "@itwin/core-bentley";
-import type { XAndY } from "@itwin/core-geometry";
 import type {
   AbstractToolbarProps,
   DialogLayoutDataProvider,
@@ -25,9 +22,12 @@ import {
   PropertyValueFormat,
   UiEvent,
 } from "@itwin/appui-abstract";
+import { Logger } from "@itwin/core-bentley";
+import type { XAndY } from "@itwin/core-geometry";
 import type { Point, SizeProps } from "@itwin/core-react";
 import { Orientation, Rectangle } from "@itwin/core-react";
-import { offsetAndContainInContainer } from "@itwin/appui-layout-react";
+import * as React from "react";
+import { offsetAndContainInContainer } from "../layout/popup/Tooltip";
 import type { KeyinEntry } from "../uiadmin/FrameworkUiAdmin";
 import { UiFramework } from "../UiFramework";
 import { CardPopup } from "./CardPopup";
@@ -57,6 +57,7 @@ export interface PopupsChangedEventArgs {
 /** Popups Changed Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class PopupsChangedEvent extends UiEvent<PopupsChangedEventArgs> {}
 
 /** Props for each popup managed by the PopupManager

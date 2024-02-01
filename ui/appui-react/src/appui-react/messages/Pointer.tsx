@@ -6,24 +6,21 @@
  * @module Notification
  */
 
-import "./Pointer.scss";
-import classnames from "classnames";
-import * as React from "react";
-import type { XAndY } from "@itwin/core-geometry";
-import { OutputMessagePriority } from "@itwin/core-frontend";
 import {
   MessageSeverity,
   RelativePosition,
   UiEvent,
 } from "@itwin/appui-abstract";
+import { OutputMessagePriority } from "@itwin/core-frontend";
+import type { XAndY } from "@itwin/core-geometry";
 import type { CommonProps, SizeProps } from "@itwin/core-react";
 import { Icon, MessageContainer, Point, Rectangle } from "@itwin/core-react";
-import {
-  offsetAndContainInContainer,
-  Tooltip,
-} from "@itwin/appui-layout-react";
+import classnames from "classnames";
+import * as React from "react";
+import { offsetAndContainInContainer, Tooltip } from "../layout/popup/Tooltip";
 import { MessageManager } from "./MessageManager";
 import { MessageDiv, MessageSpan } from "./MessageSpan";
+import "./Pointer.scss";
 import type {
   NotifyMessageDetailsType,
   NotifyMessageType,
@@ -67,6 +64,7 @@ export interface PointerMessageChangedEventArgs {
 /** Pointer Message Changed Event emitted by the [[PointerMessage]] component
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class PointerMessageChangedEvent extends UiEvent<PointerMessageChangedEventArgs> {}
 
 /** [[PointerMessagePositionChangedEvent]] arguments.
@@ -80,6 +78,7 @@ interface PointerMessagePositionChangedEventArgs {
 /** Pointer Message Position Changed Event emitted by the [[PointerMessage]] component
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 class PointerMessagePositionChangedEvent extends UiEvent<PointerMessagePositionChangedEventArgs> {}
 
 /** Pointer message pops up near pointer when attempting an invalid interaction.

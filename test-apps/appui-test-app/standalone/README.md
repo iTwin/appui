@@ -1,8 +1,8 @@
-# AppUI Test App
+# AppUI Standalone Test App
 
 ## About this Application
 
-The application contained within this directory provides a test environment for developers working on react based AppUI functionality of iTwin.js. It is `not` intended to serve as an example or template for the design of "real" iTwin.js applications.
+The application contained within this directory provides a test environment for developers working on react based AppUI functionality of iTwin.js and only allow access to local files. It is `not` intended to serve as an example or template for the design of "real" iTwin.js applications.
 
 ## Getting Started
 
@@ -72,3 +72,4 @@ To set the environment variables, either set them directly within the terminal y
 _Optionally_ used to load an application in a specific configuration:
 
 - `frontstage` - opens a frontstage by specified frontstage id, uses a blank connection. I.e. <http://localhost:3000/?frontstage=appui-test-providers:WidgetApi>
+- `mode` - specifies application mode: `portal` | `portal-overflow` | `header`. I.e. <http://localhost:3000/?mode=header>

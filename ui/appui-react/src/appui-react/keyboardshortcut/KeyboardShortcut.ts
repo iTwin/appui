@@ -93,6 +93,7 @@ export class KeyboardShortcut extends ItemDefBase {
         this._shortcuts.registerKey(shortcut.keyMapKey, shortcut);
       });
     } else {
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiFramework.loggerCategory(this),
         `Either 'item' or 'shortcuts' must be specified for '${props.key}' key.`

@@ -48,6 +48,7 @@ export class InternalContentViewManager {
 
   /** Fires when floating contents are added or removed */
 
+  // eslint-disable-next-line deprecation/deprecation
   public static readonly onAvailableContentChangedEvent = new UiEvent<{
     contentId: string;
   }>();

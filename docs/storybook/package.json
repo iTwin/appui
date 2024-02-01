@@ -11,14 +11,14 @@
     "build": "",
     "clean": "",
     "cover": "",
-    "docs": "",
+    "docs": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../generated-docs/extract",
     "test": ""
   },
   "dependencies": {
     "@bentley/icons-generic-webfont": "^1.0.34",
     "@itwin/appui-abstract": "^3.7.0",
     "@itwin/appui-react": "workspace:*",
-    "@itwin/appui-layout-react": "workspace:*",
+    "@itwin/appui-test-providers": "workspace:*",
     "@itwin/components-react": "workspace:*",
     "@itwin/core-bentley": "^3.7.0",
     "@itwin/core-common": "^3.7.0",
@@ -61,7 +61,8 @@
     "prop-types": "^15.8.1",
     "storybook": "^7.4.6",
     "typescript": "~5.0.2",
-    "vite": "^4.3.9",
-    "vite-plugin-static-copy": "^0.17.0"
+    "vite": "^4.5.2",
+    "vite-plugin-static-copy": "^0.17.0",
+    "@itwin/build-tools": "^3.7.0"
   }
 }

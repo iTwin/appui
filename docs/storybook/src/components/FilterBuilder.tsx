@@ -21,7 +21,7 @@ export function FilterBuilderStory(props: FilterBuilderComponentProps) {
 
 type FilterBuilderComponentProps = Pick<
   PropertyFilterBuilderProps,
-  "properties" | "ruleGroupDepthLimit" | "initialFilter"
+  "properties" | "initialFilter"
 >;
 
 function FilterBuilderComponent({
@@ -36,6 +36,7 @@ function FilterBuilderComponent({
         {...props}
         actions={actions}
         rootGroup={rootGroup}
+        isGroupOperatorDisabled={true}
       />
     </div>
   );

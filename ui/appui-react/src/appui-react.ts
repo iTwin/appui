@@ -157,6 +157,7 @@ export * from "./appui-react/stagepanels/StagePanelConfig";
 export * from "./appui-react/stagepanels/StagePanelDef";
 export * from "./appui-react/stagepanels/StagePanelLocation";
 export * from "./appui-react/stagepanels/StagePanelSection";
+export * from "./appui-react/stagepanels/StagePanelState";
 
 export * from "./appui-react/statusbar/dialog/Dialog";
 export * from "./appui-react/statusbar/Indicator";
@@ -256,6 +257,7 @@ export * from "./appui-react/widgets/WidgetDef";
 export * from "./appui-react/widgets/WidgetHost";
 export * from "./appui-react/widgets/WidgetManager";
 export * from "./appui-react/widgets/WidgetState";
+export * from "./appui-react/widgets/useWidget";
 
 export * from "./appui-react/toolsettings/ToolInformation";
 export * from "./appui-react/toolsettings/ToolUiProvider";

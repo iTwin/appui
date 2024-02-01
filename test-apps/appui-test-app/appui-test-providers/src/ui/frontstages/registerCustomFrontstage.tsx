@@ -1,0 +1,14 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+// __PUBLISH_EXTRACT_START__ AppUI.Frontstage.Register.Imports
+import { UiFramework } from "@itwin/appui-react";
+// __PUBLISH_EXTRACT_END__
+import { CustomFrontstageProvider } from "./CustomFrontstageProvider";
+
+export function registerCustomFrontstage() {
+  // __PUBLISH_EXTRACT_START__ AppUI.Frontstage.Register
+  UiFramework.frontstages.addFrontstageProvider(new CustomFrontstageProvider());
+  // __PUBLISH_EXTRACT_END__
+}

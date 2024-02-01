@@ -6,17 +6,14 @@
  * @module Notification
  */
 
-import classnames from "classnames";
-import * as React from "react";
-import type { XAndY } from "@itwin/core-geometry";
-import type { ToolTipOptions } from "@itwin/core-frontend";
 import { UiEvent } from "@itwin/appui-abstract";
+import type { ToolTipOptions } from "@itwin/core-frontend";
+import type { XAndY } from "@itwin/core-geometry";
 import type { CommonProps, Point, SizeProps } from "@itwin/core-react";
 import { Rectangle } from "@itwin/core-react";
-import {
-  offsetAndContainInContainer,
-  Tooltip,
-} from "@itwin/appui-layout-react";
+import classnames from "classnames";
+import * as React from "react";
+import { offsetAndContainInContainer, Tooltip } from "../layout/popup/Tooltip";
 import { MessageDiv } from "../messages/MessageSpan";
 import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
 
@@ -44,6 +41,7 @@ export interface ElementTooltipChangedEventArgs {
 /** ElementTooltip Changed Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ElementTooltipChangedEvent extends UiEvent<ElementTooltipChangedEventArgs> {}
 
 /** ElementTooltip React component.

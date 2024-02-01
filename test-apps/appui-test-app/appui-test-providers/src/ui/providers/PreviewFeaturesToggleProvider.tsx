@@ -25,6 +25,10 @@ const featureList = [
     label: "Enable maximized floating widgets",
   },
   {
+    id: "activateDroppedTab",
+    label: "Change active tab after drag & drop",
+  },
+  {
     id: "newToolbars",
     label: "Enable new toolbars",
   },

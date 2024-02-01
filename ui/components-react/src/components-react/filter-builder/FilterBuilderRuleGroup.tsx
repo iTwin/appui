@@ -8,21 +8,16 @@
 
 import "./FilterBuilderRuleGroup.scss";
 import * as React from "react";
-import { SvgAdd, SvgDelete } from "@itwin/itwinui-icons-react";
-import type { SelectOption } from "@itwin/itwinui-react";
-import { Button, IconButton, Select } from "@itwin/itwinui-react";
-import { UiComponents } from "../UiComponents";
-import {
-  ActiveRuleGroupContext,
-  PropertyFilterBuilderContext,
-} from "./FilterBuilderContext";
+import { Flex } from "@itwin/itwinui-react";
+import { PropertyFilterBuilderContext } from "./FilterBuilderContext";
 import { PropertyFilterBuilderRuleRenderer } from "./FilterBuilderRule";
 import type {
   PropertyFilterBuilderRuleGroup,
   PropertyFilterBuilderRuleGroupItem,
 } from "./FilterBuilderState";
 import { isPropertyFilterBuilderRuleGroup } from "./FilterBuilderState";
-import { PropertyFilterRuleGroupOperator } from "./Operators";
+import type { PropertyFilterRuleGroupOperator } from "./Operators";
+import { PropertyFilterBuilderLogicalOperator } from "./FilterBuilderLogicalOperator";
 
 /**
  * Props for [[PropertyFilterBuilderRuleGroupRenderer]] component.
@@ -33,6 +28,8 @@ export interface PropertyFilterBuilderRuleGroupRendererProps {
   path: string[];
   /** Rule group to render. */
   group: PropertyFilterBuilderRuleGroup;
+  /** Controls whether the group operator is toggle-able. */
+  isGroupOperatorDisabled?: boolean;
 }
 
 /**
@@ -42,17 +39,9 @@ export interface PropertyFilterBuilderRuleGroupRendererProps {
 export function PropertyFilterBuilderRuleGroupRenderer(
   props: PropertyFilterBuilderRuleGroupRendererProps
 ) {
-  const { path, group } = props;
-  const { actions, ruleGroupDepthLimit } = React.useContext(
-    PropertyFilterBuilderContext
-  );
-  const { onNewRuleAdded, groupRef } = useRulePropertyFocus(group.items.length);
-
-  const handleAddRule = (ruleType: "RULE" | "RULE_GROUP") => {
-    actions.addItem(path, ruleType);
-    onNewRuleAdded();
-  };
-  const removeGroup = () => actions.removeItem(path);
+  const { path, group, isGroupOperatorDisabled } = props;
+  const { actions } = React.useContext(PropertyFilterBuilderContext);
+  const { onRuleAdded, groupRef } = useRulePropertyFocus(group.items.length);
 
   const onOperatorChange = React.useCallback(
     (operator: PropertyFilterRuleGroupOperator) => {
@@ -61,79 +50,34 @@ export function PropertyFilterBuilderRuleGroupRenderer(
     [path, actions]
   );
 
-  const allowToAddGroup =
-    ruleGroupDepthLimit === undefined || path.length < ruleGroupDepthLimit;
-  const { focusedElement, hoveredElement, ...eventHandlers } = React.useContext(
-    ActiveRuleGroupContext
-  );
-
   const showOperator = group.items.length > 1;
 
   return (
-    <div
+    <Flex
       ref={groupRef}
-      className="rule-group"
-      data-isactive={
-        groupRef.current === focusedElement ||
-        groupRef.current === hoveredElement
-      }
-      {...eventHandlers}
+      style={{ alignSelf: "flex-start" }}
+      className="fb-group"
+      gap="0px"
     >
-      <div className="rule-group-remove-action">
-        {group.groupId !== undefined && (
-          <IconButton
-            data-testid="rule-group-remove"
-            onClick={removeGroup}
-            styleType="borderless"
-            size="small"
-          >
-            <SvgDelete />
-          </IconButton>
-        )}
-      </div>
-      <div className="rule-group-content">
-        {showOperator ? (
-          <PropertyFilterBuilderRuleGroupOperator
-            operator={group.operator}
-            onChange={onOperatorChange}
-          />
-        ) : null}
-        <div className="rule-group-items">
-          {group.items.map((item) => (
+      {showOperator ? (
+        <PropertyFilterBuilderRuleGroupOperator
+          operator={group.operator}
+          onChange={onOperatorChange}
+          isGroupOperatorDisabled={isGroupOperatorDisabled}
+        />
+      ) : null}
+      <div className="fb-wrapper">
+        {group.items.map((item) => (
+          <div className="fb-row" key={item.id}>
             <PropertyFilterBuilderGroupOrRule
-              key={item.id}
               path={path}
               item={item}
-              isRemovable={group.items.length > 1}
+              onRuleAdded={onRuleAdded}
             />
-          ))}
-        </div>
-        <div className="rule-group-actions">
-          <Button
-            key="add-rule-button"
-            data-testid="rule-group-add-rule"
-            onClick={() => handleAddRule("RULE")}
-            styleType="borderless"
-            size="small"
-            startIcon={<SvgAdd />}
-          >
-            {UiComponents.translate("filterBuilder.rule")}
-          </Button>
-          {allowToAddGroup && (
-            <Button
-              key="add-rule-group-button"
-              data-testid="rule-group-add-rule-group"
-              onClick={() => handleAddRule("RULE_GROUP")}
-              styleType="borderless"
-              size="small"
-              startIcon={<SvgAdd />}
-            >
-              {UiComponents.translate("filterBuilder.ruleGroup")}
-            </Button>
-          )}
-        </div>
+          </div>
+        ))}
       </div>
-    </div>
+    </Flex>
   );
 }
 
@@ -146,6 +90,8 @@ export interface PropertyFilterBuilderRuleGroupOperatorProps {
   operator: PropertyFilterRuleGroupOperator;
   /** Callback that is invoked when selected operator changes. */
   onChange: (operator: PropertyFilterRuleGroupOperator) => void;
+  /** Controls whether the group operator is toggle-able. */
+  isGroupOperatorDisabled?: boolean;
 }
 
 /**
@@ -155,46 +101,30 @@ export interface PropertyFilterBuilderRuleGroupOperatorProps {
 export function PropertyFilterBuilderRuleGroupOperator(
   props: PropertyFilterBuilderRuleGroupOperatorProps
 ) {
-  const { operator, onChange } = props;
-
-  const options = React.useMemo<
-    Array<SelectOption<PropertyFilterRuleGroupOperator>>
-  >(
-    () => [
-      {
-        value: PropertyFilterRuleGroupOperator.And,
-        label: UiComponents.translate("filterBuilder.operators.and"),
-      },
-      {
-        value: PropertyFilterRuleGroupOperator.Or,
-        label: UiComponents.translate("filterBuilder.operators.or"),
-      },
-    ],
-    []
-  );
+  const { operator, isGroupOperatorDisabled, onChange } = props;
 
   return (
-    <div className="rule-group-operator">
-      <Select
-        options={options}
-        value={operator}
-        onChange={onChange}
-        size="small"
+    <Flex.Item alignSelf="stretch">
+      <PropertyFilterBuilderLogicalOperator
+        className="fb-group-operator"
+        operator={operator}
+        onOperatorChange={onChange}
+        isDisabled={isGroupOperatorDisabled}
       />
-    </div>
+    </Flex.Item>
   );
 }
 interface PropertyFilterBuilderGroupOrRuleProps {
   path: string[];
   item: PropertyFilterBuilderRuleGroupItem;
-  isRemovable?: boolean;
+  onRuleAdded: () => void;
 }
 
 const PropertyFilterBuilderGroupOrRule = React.memo(
   function PropertyFilterBuilderGroupOrRule({
     path,
     item,
-    isRemovable,
+    onRuleAdded,
   }: PropertyFilterBuilderGroupOrRuleProps) {
     const itemPath = [...path, item.id];
 
@@ -206,7 +136,7 @@ const PropertyFilterBuilderGroupOrRule = React.memo(
       <PropertyFilterBuilderRuleRenderer
         path={itemPath}
         rule={item}
-        isRemovable={isRemovable}
+        onRuleAdded={onRuleAdded}
       />
     );
   }
@@ -224,7 +154,7 @@ const useRulePropertyFocus = (currentGroupItemsLength: number) => {
     ) {
       const ruleProperties =
         groupRef.current.querySelectorAll<HTMLInputElement>(
-          ".rule-property input"
+          ".fb-property-name input"
         );
       ruleProperties[ruleProperties.length - 1].focus();
       isNewRuleAdded.current = false;
@@ -232,5 +162,5 @@ const useRulePropertyFocus = (currentGroupItemsLength: number) => {
     previousGroupItemsLength.current = currentGroupItemsLength;
   }, [currentGroupItemsLength]);
 
-  return { onNewRuleAdded: () => (isNewRuleAdded.current = true), groupRef };
+  return { onRuleAdded: () => (isNewRuleAdded.current = true), groupRef };
 };

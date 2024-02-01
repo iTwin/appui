@@ -36,7 +36,7 @@ const forcedDep = {};
   [["@itwin/build-tools"], "4.0.0-dev.87"],
   [["electron"], "^23.0.0"],
   [["typedoc"], "0.23.28"],
-  [["typescript"], "^5.0.2"],
+  [["typescript"], "~5.0.2"],
   [["typedoc-plugin-merge-modules"], "^4.0.1"],
 
   // Build an object with keys with the above
@@ -55,7 +55,6 @@ function readPackage(pkg) {
   // Note that these dependencies are only ever allowed for testing purposes and should not be the
   // dependency of any published packages.
   if (pkg.name == "@itwin/map-layers") {
-    pkg.dependencies["@itwin/appui-layout-react"] = "workspace:*";
     pkg.dependencies["@itwin/appui-react"] = "workspace:*";
     pkg.dependencies["@itwin/components-react"] = "workspace:*";
     pkg.dependencies["@itwin/core-react"] = "workspace:*";
