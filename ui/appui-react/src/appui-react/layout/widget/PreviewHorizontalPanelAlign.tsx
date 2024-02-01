@@ -93,12 +93,10 @@ function SvgSide(props: React.SVGProps<SVGSVGElement>) {
       width="1rem"
       height="1rem"
       viewBox="0 0 16 16"
+      fill="var(--iui-color-icon-muted, currentColor)"
       {...props}
     >
-      <path
-        fill="var(--iui-color-icon-muted, currentColor)"
-        d="m1 2l1-1h12l1 1v12l-1 1H2l-1-1zm1 0v8h8V2zm9 0v12h3V2z"
-      />
+      <path d="M0 2v12h16V2H0Zm11 7H1V3h10v6Zm4 4h-3V3h3v10Z" />
     </svg>
   );
 }
@@ -110,12 +108,10 @@ function SvgJustify(props: React.SVGProps<SVGSVGElement>) {
       width="1rem"
       height="1rem"
       viewBox="0 0 16 16"
+      fill="var(--iui-color-icon-muted, currentColor)"
       {...props}
     >
-      <path
-        fill="var(--iui-color-icon-muted, currentColor)"
-        d="M2 1L1 2v12l1 1h12l1-1V2l-1-1zm0 9V2h2v8zm3 0V2h6v8zm7 0V2h2v8z"
-      />
+      <path d="M0 2v12h16V2H0Zm4 7H1V3h3v6Zm1 0V3h6v6H5Zm10 0h-3V3h3v6Z" />
     </svg>
   );
 }
@@ -127,12 +123,10 @@ function SvgCenter(props: React.SVGProps<SVGSVGElement>) {
       width="1rem"
       height="1rem"
       viewBox="0 0 16 16"
+      fill="var(--iui-color-icon-muted, currentColor)"
       {...props}
     >
-      <path
-        fill="var(--iui-color-icon-muted, currentColor)"
-        d="M2 1L1 2v12l1 1h12l1-1V2l-1-1zm0 13V2h2v12zm3-4V2h6v8zm7-8h2v12h-2z"
-      />
+      <path d="M0 2v12h16V2H0Zm4 11H1V3h3v10Zm1-4V3h6v6H5Zm10 4h-3V3h3v10Z" />
     </svg>
   );
 }
