@@ -41,6 +41,9 @@ const meta = {
     orientation: ToolbarOrientation.Horizontal,
     usage: ToolbarUsage.ContentManipulation,
   },
+  parameters: {
+    layout: "centered",
+  },
 } satisfies Meta<typeof StoryComponent>;
 
 export default meta;

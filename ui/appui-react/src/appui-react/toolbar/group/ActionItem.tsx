@@ -13,7 +13,7 @@ import { ToolGroupOverflowContext } from "./OverflowButton";
 import { Item } from "./Item";
 
 /** @internal */
-export interface ActionItemProps extends CommonProps {
+interface ActionItemProps extends CommonProps {
   item: ToolbarActionItem;
 }
 

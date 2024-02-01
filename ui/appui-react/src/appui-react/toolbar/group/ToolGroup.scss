@@ -13,6 +13,11 @@
     backdrop-filter: blur(5px);
   }
 
+  // TODO: needed to overflow, but background color fills the container.
+  &.uifw-vertical {
+    height: 100%;
+  }
+
   &:hover,
   &:focus-within {
     border-color: var(--iui-color-border-foreground-hover);

@@ -23,9 +23,10 @@ import { isToolbarGroupItem, type ToolbarGroupItem } from "../ToolbarItem";
 import { useConditionalValue } from "../../hooks/useConditionalValue";
 import { ExpandIndicator } from "./ExpandIndicator";
 import { Item } from "./Item";
+import { ToolbarContext } from "./Toolbar";
 
 /** @internal */
-export interface GroupItemProps extends CommonProps {
+interface GroupItemProps extends CommonProps {
   item: ToolbarGroupItem;
 }
 
@@ -34,6 +35,7 @@ export function GroupItem(props: GroupItemProps) {
   const { item } = props;
   const isDisabled = useConditionalValue(item.isDisabled);
   const isHidden = useConditionalValue(item.isHidden);
+  const placement = usePlacement();
 
   const menuItems = React.useCallback<
     React.ComponentProps<typeof DropdownButton>["menuItems"]
@@ -48,6 +50,7 @@ export function GroupItem(props: GroupItemProps) {
     [item]
   );
   if (isHidden) return null;
+
   return (
     // TODO: replace with `Popover` when available.
     <DropdownMenu
@@ -55,12 +58,21 @@ export function GroupItem(props: GroupItemProps) {
       disabled={isDisabled}
       style={props.style}
       menuItems={menuItems}
+      placement={placement}
     >
       <Item item={item}>
         <ExpandIndicator />
       </Item>
     </DropdownMenu>
   );
+}
+
+/** @internal */
+export function usePlacement() {
+  const context = React.useContext(ToolbarContext);
+  if (!context) return undefined;
+
+  return `${context.expandsTo}-${context.panelAlignment}` as const;
 }
 
 interface MenuProps {

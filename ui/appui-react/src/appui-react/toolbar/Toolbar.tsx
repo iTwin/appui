@@ -9,13 +9,11 @@
 import * as React from "react";
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import type {
-  ToolbarOpacitySetting,
-  ToolbarPanelAlignment,
-} from "@itwin/components-react";
+import type { ToolbarOpacitySetting } from "@itwin/components-react";
 import {
   InternalToolbarComponent as CR_Toolbar,
   Direction,
+  ToolbarPanelAlignment,
 } from "@itwin/components-react";
 import type { ToolbarItem } from "./ToolbarItem";
 import { toUIAToolbarItem } from "./toUIAToolbarItem";
@@ -66,11 +64,12 @@ export function Toolbar(props: ToolbarProps) {
 }
 
 function NewToolbar(props: ToolbarProps) {
-  const isVertical =
-    props.expandsTo === Direction.Left || props.expandsTo === Direction.Right;
+  const expandsTo = toDirection(props.expandsTo);
+  const panelAlignment = toPanelAlignment(props.panelAlignment);
   return (
     <ToolGroupToolbar
-      orientation={isVertical ? "vertical" : "horizontal"}
+      expandsTo={expandsTo}
+      panelAlignment={panelAlignment}
       items={props.items}
     />
   );
@@ -88,4 +87,28 @@ function OriginalToolbar(props: ToolbarProps) {
       {...other}
     />
   );
+}
+
+function toDirection(direction: ToolbarProps["expandsTo"]) {
+  switch (direction) {
+    case Direction.Bottom:
+      return "bottom";
+    case Direction.Left:
+      return "left";
+    case Direction.Right:
+      return "right";
+    case Direction.Top:
+      return "top";
+  }
+  return undefined;
+}
+
+function toPanelAlignment(alignment: ToolbarProps["panelAlignment"]) {
+  switch (alignment) {
+    case ToolbarPanelAlignment.End:
+      return "end";
+    case ToolbarPanelAlignment.Start:
+      return "start";
+  }
+  return undefined;
 }

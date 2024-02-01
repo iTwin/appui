@@ -17,14 +17,18 @@ import { CustomItem } from "./CustomItem";
 import { OverflowButton } from "./OverflowButton";
 
 /** @internal */
-export interface ToolGroupProps extends CommonProps {
+interface ToolGroupProps extends CommonProps {
   orientation?: "horizontal" | "vertical";
   children?: React.ReactNode;
 }
 
 /** @internal */
 export function ToolGroup(props: ToolGroupProps) {
-  const className = classnames("uifw-toolbar-group-toolGroup", props.className);
+  const className = classnames(
+    "uifw-toolbar-group-toolGroup",
+    `uifw-${props.orientation}`,
+    props.className
+  );
   return (
     <Surface className={className}>
       <ButtonGroup

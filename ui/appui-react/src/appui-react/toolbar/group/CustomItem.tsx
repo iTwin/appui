@@ -14,9 +14,10 @@ import type { ToolbarCustomItem } from "../ToolbarItem";
 import { useConditionalValue } from "../../hooks/useConditionalValue";
 import { ExpandIndicator } from "./ExpandIndicator";
 import { Item } from "./Item";
+import { usePlacement } from "./GroupItem";
 
 /** @internal */
-export interface CustomItemProps extends CommonProps {
+interface CustomItemProps extends CommonProps {
   item: ToolbarCustomItem;
 }
 
@@ -25,6 +26,7 @@ export function CustomItem(props: CustomItemProps) {
   const { item } = props;
   const isDisabled = useConditionalValue(item.isDisabled);
   const isHidden = useConditionalValue(item.isHidden);
+  const placement = usePlacement();
 
   const menuItems = React.useCallback<
     React.ComponentProps<typeof DropdownButton>["menuItems"]
@@ -42,6 +44,7 @@ export function CustomItem(props: CustomItemProps) {
       disabled={isDisabled}
       style={props.style}
       menuItems={menuItems}
+      placement={placement}
     >
       <Item item={item}>
         <ExpandIndicator />
