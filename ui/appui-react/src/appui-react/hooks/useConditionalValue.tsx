@@ -6,7 +6,7 @@
  * @module Utilities
  */
 
-import React from "react";
+import * as React from "react";
 import { useSyncExternalStore } from "use-sync-external-store/shim";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 
