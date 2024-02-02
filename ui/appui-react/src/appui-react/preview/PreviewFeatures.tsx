@@ -10,7 +10,6 @@ import * as React from "react";
 import { create } from "zustand";
 
 /** List of known preview features. */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface KnownPreviewFeatures {
   /** If true, the panels and tool settings will always be rendered over the content.
    * The content will never change size.
@@ -33,6 +32,8 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/706
    */
   horizontalPanelAlignment: boolean;
+  /** If enabled, a dropdown menu will be rendered for widgets that exceed the specified threshold of title bar buttons. */
+  widgetActionDropdown: { threshold: number };
 }
 
 /** Object used trim to only known features at runtime.
@@ -43,6 +44,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   contentAlwaysMaxSize: undefined,
   enableMaximizedFloatingWidget: undefined,
   horizontalPanelAlignment: undefined,
+  widgetActionDropdown: undefined,
   ...{ newToolbars: undefined }, // Hidden feature used in storybook only (to avoid trimming).
 };
 
