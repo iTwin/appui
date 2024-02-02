@@ -90,6 +90,7 @@ import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTa
 // import { ECSchemaRpcLocater } from "@itwin/ecschema-rpcinterface-common";
 import {
   AbstractUiItemsProvider,
+  AppPreviewFeatures,
   AppUiTestProviders,
   ContentLayoutStage,
   CustomContentFrontstage,
@@ -98,7 +99,7 @@ import {
   InspectUiItemInfoToolProvider,
   MessageUiItemsProvider,
   PopoutWindowsFrontstage,
-  PreviewFeaturesToggleProvider,
+  previewFeaturesToggleProvider,
   registerCustomFrontstage,
   SynchronizedFloatingViewportStage,
   TestFrontstageProvider,
@@ -347,7 +348,7 @@ export class SampleAppIModelApp {
         AppUiTestProviders.localizationNamespace
       )
     );
-    UiItemsManager.register(new PreviewFeaturesToggleProvider());
+    UiItemsManager.register(previewFeaturesToggleProvider);
     UiItemsManager.register(new CustomStageUiItemsProvider());
 
     // Register frontstages
@@ -583,7 +584,7 @@ const SampleAppViewer = () => {
   useHandleURLParams();
 
   return (
-    <PreviewFeaturesToggleProvider.ReactProvider>
+    <AppPreviewFeatures>
       <Provider store={SampleAppIModelApp.store}>
         <ThemeManager>
           <SafeAreaContext.Provider value={SafeAreaInsets.All}>
@@ -595,7 +596,7 @@ const SampleAppViewer = () => {
           </SafeAreaContext.Provider>
         </ThemeManager>
       </Provider>
-    </PreviewFeaturesToggleProvider.ReactProvider>
+    </AppPreviewFeatures>
   );
 };
 
