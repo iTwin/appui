@@ -14,57 +14,51 @@ import {
   PanelSideContext,
 } from "../widget-panels/Panel";
 import { Dock } from "./Dock";
-import { useFloatingWidgetId, useWidgetAllowedToDock } from "./FloatingWidget";
 import { PinToggle } from "./PinToggle";
-import { PopoutToggle } from "./PopoutToggle";
-import { PreviewHorizontalPanelAlignButton } from "./PreviewHorizontalPanelAlign";
+import { PopoutToggle, usePopoutToggle } from "./PopoutToggle";
+import {
+  PreviewHorizontalPanelAlignButton,
+  useHorizontalPanelAlignButton,
+} from "./PreviewHorizontalPanelAlign";
 import {
   PreviewMaximizeToggle,
-  usePreviewMaximizedWidget,
+  useMaximizeToggle,
 } from "./PreviewMaximizeToggle";
-import { SendBack } from "./SendBack";
-import { useActiveTabId, WidgetIdContext } from "./Widget";
+import { SendBack, useSendBack } from "./SendBack";
+import { WidgetIdContext } from "./Widget";
+import { usePreviewFeatures } from "../../preview/PreviewFeatures";
+import { MoreButton } from "../../preview/widget-action-dropdown/MoreButton";
+import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
+
 /** @internal */
 export function TabBarButtons() {
-  const { enabled: previewEnableMaximizedFloatingWidget, maximizedWidget } =
-    usePreviewMaximizedWidget();
   const isToolSettings = useIsToolSettingsTab();
-  const floatingWidgetId = useFloatingWidgetId();
-  const canBeDocked = useWidgetAllowedToDock();
-
   const isMainPanelWidget = useIsMainPanelWidget();
-  const tabId = useActiveTabId();
-  const canPopout = useLayout((state) => {
-    const tab = state.tabs[tabId];
-    return tab.canPopout;
-  });
-  // istanbul ignore next (preview)
-  const isMaximized =
-    maximizedWidget === floatingWidgetId &&
-    previewEnableMaximizedFloatingWidget;
-  return (
-    <div className="nz-widget-tabBarButtons">
-      {canPopout && <PopoutToggle />}
-      {
-        // istanbul ignore next (preview)
-        previewEnableMaximizedFloatingWidget &&
-          !isToolSettings &&
-          floatingWidgetId && <PreviewMaximizeToggle />
-      }
-      {!isMaximized && floatingWidgetId && !isToolSettings && canBeDocked && (
-        <SendBack />
-      )}
-      {isToolSettings && <Dock />}
-      {isMainPanelWidget && <PreviewHorizontalPanelAlignButton />}
-      {isMainPanelWidget && <PinToggle />}
-    </div>
-  );
-}
 
-function useIsToolSettingsTab() {
-  const activeTabId = useActiveTabId();
-  const toolSettingsTabId = useLayout((state) => state.toolSettings?.tabId);
-  return activeTabId === toolSettingsTabId;
+  const popoutToggle = usePopoutToggle();
+  const maximizeToggle = useMaximizeToggle();
+  const sendBack = useSendBack();
+  const dock = isToolSettings;
+  const horizontalPanelAlignButton = useHorizontalPanelAlignButton();
+  const pinToggle = isMainPanelWidget;
+
+  const buttons = [
+    ...(popoutToggle ? [<PopoutToggle key="popout" />] : []),
+    ...(maximizeToggle ? [<PreviewMaximizeToggle key="maximize" />] : []),
+    ...(sendBack ? [<SendBack key="sendBack" />] : []),
+    ...(dock ? [<Dock key="dock" />] : []),
+    ...(horizontalPanelAlignButton
+      ? [<PreviewHorizontalPanelAlignButton key="horizontalAlign" />]
+      : []),
+    ...(pinToggle ? [<PinToggle key="pin" />] : []),
+  ];
+
+  const { widgetActionDropdown } = usePreviewFeatures();
+  const threshold = widgetActionDropdown?.threshold ?? Infinity;
+  if (buttons.length > threshold) {
+    return <MoreButton>{buttons}</MoreButton>;
+  }
+  return <div className="nz-widget-tabBarButtons">{buttons}</div>;
 }
 
 /** @internal */

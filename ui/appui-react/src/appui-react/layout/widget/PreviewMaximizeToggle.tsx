@@ -13,10 +13,11 @@ import {
 } from "@itwin/itwinui-icons-react";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { Button } from "@itwin/itwinui-react";
+import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
 
 /** Maximized widget preview feature state.
- * @internal */
-// istanbul ignore next (preview)
+ * @internal
+ */
 export function usePreviewMaximizedWidget() {
   return React.useContext(MaximizedWidgetContext);
 }
@@ -36,7 +37,6 @@ interface MaximizedWidgetState {
 }
 
 /** Context containing configuration and state for preview maximized widget feature. */
-// istanbul ignore next (preview)
 const MaximizedWidgetContext = React.createContext<MaximizedWidgetState>({
   enabled: false,
   maximizedWidget: undefined,
@@ -46,7 +46,6 @@ const MaximizedWidgetContext = React.createContext<MaximizedWidgetState>({
 /** Preview maximized widget feature provider.
  * @internal
  */
-// istanbul ignore next (preview)
 export function PreviewMaximizedWidgetFeatureProvider({
   enabled,
   children,
@@ -64,10 +63,8 @@ export function PreviewMaximizedWidgetFeatureProvider({
 }
 
 /** @internal */
-// istanbul ignore next (preview)
 export function PreviewMaximizeToggle() {
   const { maximizedWidget, setMaximizedWidget } = usePreviewMaximizedWidget();
-
   const floatingWidgetId = useFloatingWidgetId();
 
   const { id, title, iconSpec } =
@@ -95,4 +92,13 @@ export function PreviewMaximizeToggle() {
       {iconSpec}
     </Button>
   );
+}
+
+/** @internal */
+export function useMaximizeToggle() {
+  const { enabled } = usePreviewMaximizedWidget();
+  const isToolSettings = useIsToolSettingsTab();
+  const floatingWidgetId = useFloatingWidgetId();
+
+  return !!(enabled && !isToolSettings && floatingWidgetId);
 }

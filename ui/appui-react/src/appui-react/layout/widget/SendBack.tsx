@@ -11,7 +11,7 @@ import { create } from "zustand";
 import { assert } from "@itwin/core-bentley";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { useLayout } from "../base/LayoutStore";
-import { useFloatingWidgetId } from "./FloatingWidget";
+import { useFloatingWidgetId, useWidgetAllowedToDock } from "./FloatingWidget";
 import type { WidgetState } from "../state/WidgetState";
 import { getWidgetPanelSectionId } from "../state/PanelState";
 import type { NineZoneState } from "../state/NineZoneState";
@@ -23,6 +23,8 @@ import {
   SvgDockTop,
 } from "@itwin/itwinui-icons-react";
 import type { PanelWidgetRestoreState } from "../state/WidgetRestoreState";
+import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
+import { usePreviewMaximizedWidget } from "./PreviewMaximizeToggle";
 
 /** @internal */
 export const useActiveSendBackWidgetIdStore = create<
@@ -136,4 +138,15 @@ export function SendBack() {
       {homeIcon}
     </Button>
   );
+}
+
+/** @internal */
+export function useSendBack() {
+  const { enabled, maximizedWidget } = usePreviewMaximizedWidget();
+  const isToolSettings = useIsToolSettingsTab();
+  const floatingWidgetId = useFloatingWidgetId();
+  const canBeDocked = useWidgetAllowedToDock();
+
+  const isMaximized = maximizedWidget === floatingWidgetId && enabled;
+  return !!(!isMaximized && floatingWidgetId && !isToolSettings && canBeDocked);
 }

@@ -18,6 +18,7 @@ import type {
   HorizontalPanelSide,
   PanelSide,
 } from "../widget-panels/PanelTypes";
+import { useIsMainPanelWidget } from "./Buttons";
 
 /** default value used when not provided or disabled */
 const defaultAlignments = {
@@ -149,10 +150,9 @@ function capitalize(s: string) {
 export function PreviewHorizontalPanelAlignButton() {
   const side = React.useContext(PanelSideContext);
   assert(!!side);
-  const { enabled, alignments, setAlignment } =
-    usePreviewHorizontalPanelAlign();
+  assert(isHorizontalPanelSide(side));
+  const { alignments, setAlignment } = usePreviewHorizontalPanelAlign();
 
-  if (!enabled || !isHorizontalPanelSide(side)) return null;
   return (
     <DropdownMenu
       menuItems={(close) =>
@@ -182,5 +182,19 @@ export function PreviewHorizontalPanelAlignButton() {
         {getIcon(side, alignments[side])}
       </Button>
     </DropdownMenu>
+  );
+}
+
+/** @internal */
+export function useHorizontalPanelAlignButton() {
+  const side = React.useContext(PanelSideContext);
+  const { enabled } = usePreviewHorizontalPanelAlign();
+  const isMainPanelWidget = useIsMainPanelWidget();
+
+  return !!(
+    enabled &&
+    side &&
+    isHorizontalPanelSide(side) &&
+    isMainPanelWidget
   );
 }
