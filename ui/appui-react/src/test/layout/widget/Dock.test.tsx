@@ -10,11 +10,6 @@ import { NineZoneDispatchContext } from "../../../appui-react/layout/base/NineZo
 import { Dock } from "../../../appui-react/layout/widget/Dock";
 
 describe("Dock", () => {
-  it("should render", () => {
-    const { container } = render(<Dock />);
-    container.firstChild!.should.matchSnapshot();
-  });
-
   it("should dispatch TOOL_SETTINGS_DOCK", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     const { container } = render(

@@ -65,21 +65,23 @@ exports[`WidgetPanelProvider should render captured 1`] = `
             class="nz-widget-tabBarButtons"
           >
             <button
-              class="nz-widget-pinToggle nz-is-pinned"
+              class="iui-button nz-widget-pinToggle nz-is-pinned"
+              data-iui-size="small"
+              data-iui-variant="borderless"
+              type="button"
             >
-              <i
-                class="icon core-svg-icon"
-              >
+              <span>
                 <svg
+                  fill="var(--iui-color-icon-muted, currentColor)"
+                  height="1rem"
                   viewBox="0 0 16 16"
-                  xmlns="http://www.w3.org/2000/svg"
+                  width="1rem"
                 >
                   <path
-                    d="m10.49945 0c-.89279.7175-1.46555 1.81691-1.46555 3.05141 0 .09677.00757.19162.01448.28665l-2.24802 2.24802c-.34734-.07958-.70741-.12562-1.0789-.12562-1.48385 0-2.80984.67183-3.69366 1.72668l2.94083 2.94083-4.96863 4.96864v.90339h.90339l4.96865-4.96865 2.94083 2.94083c1.05486-.88382 1.72668-2.20981 1.72668-3.69366 0-.37149-.04604-.73156-.12562-1.0789l2.24802-2.24802c.09502.00691.18988.01448.28665.01448 1.2345 0 2.33391-.57276 3.05141-1.46555z"
-                    fill-rule="evenodd"
+                    d="M10.5 0a3.905 3.905 0 00-1.466 3.051c0 .097.007.192.014.287L6.8 5.586a4.806 4.806 0 00-4.773 1.601l2.942 2.941L0 15.097V16h.903l4.969-4.969 2.94 2.941A4.806 4.806 0 0010.415 9.2l2.248-2.248c.095.007.19.014.287.014A3.905 3.905 0 0016 5.501z"
                   />
                 </svg>
-              </i>
+              </span>
             </button>
           </div>
         </div>
@@ -218,21 +220,23 @@ exports[`WidgetPanelProvider should render collapsed 1`] = `
             class="nz-widget-tabBarButtons"
           >
             <button
-              class="nz-widget-pinToggle nz-is-pinned"
+              class="iui-button nz-widget-pinToggle nz-is-pinned"
+              data-iui-size="small"
+              data-iui-variant="borderless"
+              type="button"
             >
-              <i
-                class="icon core-svg-icon"
-              >
+              <span>
                 <svg
+                  fill="var(--iui-color-icon-muted, currentColor)"
+                  height="1rem"
                   viewBox="0 0 16 16"
-                  xmlns="http://www.w3.org/2000/svg"
+                  width="1rem"
                 >
                   <path
-                    d="m10.49945 0c-.89279.7175-1.46555 1.81691-1.46555 3.05141 0 .09677.00757.19162.01448.28665l-2.24802 2.24802c-.34734-.07958-.70741-.12562-1.0789-.12562-1.48385 0-2.80984.67183-3.69366 1.72668l2.94083 2.94083-4.96863 4.96864v.90339h.90339l4.96865-4.96865 2.94083 2.94083c1.05486-.88382 1.72668-2.20981 1.72668-3.69366 0-.37149-.04604-.73156-.12562-1.0789l2.24802-2.24802c.09502.00691.18988.01448.28665.01448 1.2345 0 2.33391-.57276 3.05141-1.46555z"
-                    fill-rule="evenodd"
+                    d="M10.5 0a3.905 3.905 0 00-1.466 3.051c0 .097.007.192.014.287L6.8 5.586a4.806 4.806 0 00-4.773 1.601l2.942 2.941L0 15.097V16h.903l4.969-4.969 2.94 2.941A4.806 4.806 0 0010.415 9.2l2.248-2.248c.095.007.19.014.287.014A3.905 3.905 0 0016 5.501z"
                   />
                 </svg>
-              </i>
+              </span>
             </button>
           </div>
         </div>
@@ -338,21 +342,23 @@ exports[`WidgetPanelProvider should render horizontal 1`] = `
             class="nz-widget-tabBarButtons"
           >
             <button
-              class="nz-widget-pinToggle nz-is-pinned"
+              class="iui-button nz-widget-pinToggle nz-is-pinned"
+              data-iui-size="small"
+              data-iui-variant="borderless"
+              type="button"
             >
-              <i
-                class="icon core-svg-icon"
-              >
+              <span>
                 <svg
+                  fill="var(--iui-color-icon-muted, currentColor)"
+                  height="1rem"
                   viewBox="0 0 16 16"
-                  xmlns="http://www.w3.org/2000/svg"
+                  width="1rem"
                 >
                   <path
-                    d="m10.49945 0c-.89279.7175-1.46555 1.81691-1.46555 3.05141 0 .09677.00757.19162.01448.28665l-2.24802 2.24802c-.34734-.07958-.70741-.12562-1.0789-.12562-1.48385 0-2.80984.67183-3.69366 1.72668l2.94083 2.94083-4.96863 4.96864v.90339h.90339l4.96865-4.96865 2.94083 2.94083c1.05486-.88382 1.72668-2.20981 1.72668-3.69366 0-.37149-.04604-.73156-.12562-1.0789l2.24802-2.24802c.09502.00691.18988.01448.28665.01448 1.2345 0 2.33391-.57276 3.05141-1.46555z"
-                    fill-rule="evenodd"
+                    d="M10.5 0a3.905 3.905 0 00-1.466 3.051c0 .097.007.192.014.287L6.8 5.586a4.806 4.806 0 00-4.773 1.601l2.942 2.941L0 15.097V16h.903l4.969-4.969 2.94 2.941A4.806 4.806 0 0010.415 9.2l2.248-2.248c.095.007.19.014.287.014A3.905 3.905 0 0016 5.501z"
                   />
                 </svg>
-              </i>
+              </span>
             </button>
           </div>
         </div>
@@ -489,21 +495,23 @@ exports[`WidgetPanelProvider should render multiple widgets 1`] = `
             class="nz-widget-tabBarButtons"
           >
             <button
-              class="nz-widget-pinToggle nz-is-pinned"
+              class="iui-button nz-widget-pinToggle nz-is-pinned"
+              data-iui-size="small"
+              data-iui-variant="borderless"
+              type="button"
             >
-              <i
-                class="icon core-svg-icon"
-              >
+              <span>
                 <svg
+                  fill="var(--iui-color-icon-muted, currentColor)"
+                  height="1rem"
                   viewBox="0 0 16 16"
-                  xmlns="http://www.w3.org/2000/svg"
+                  width="1rem"
                 >
                   <path
-                    d="m10.49945 0c-.89279.7175-1.46555 1.81691-1.46555 3.05141 0 .09677.00757.19162.01448.28665l-2.24802 2.24802c-.34734-.07958-.70741-.12562-1.0789-.12562-1.48385 0-2.80984.67183-3.69366 1.72668l2.94083 2.94083-4.96863 4.96864v.90339h.90339l4.96865-4.96865 2.94083 2.94083c1.05486-.88382 1.72668-2.20981 1.72668-3.69366 0-.37149-.04604-.73156-.12562-1.0789l2.24802-2.24802c.09502.00691.18988.01448.28665.01448 1.2345 0 2.33391-.57276 3.05141-1.46555z"
-                    fill-rule="evenodd"
+                    d="M10.5 0a3.905 3.905 0 00-1.466 3.051c0 .097.007.192.014.287L6.8 5.586a4.806 4.806 0 00-4.773 1.601l2.942 2.941L0 15.097V16h.903l4.969-4.969 2.94 2.941A4.806 4.806 0 0010.415 9.2l2.248-2.248c.095.007.19.014.287.014A3.905 3.905 0 0016 5.501z"
                   />
                 </svg>
-              </i>
+              </span>
             </button>
           </div>
         </div>
@@ -689,21 +697,23 @@ exports[`WidgetPanelProvider should render spanned 1`] = `
             class="nz-widget-tabBarButtons"
           >
             <button
-              class="nz-widget-pinToggle nz-is-pinned"
+              class="iui-button nz-widget-pinToggle nz-is-pinned"
+              data-iui-size="small"
+              data-iui-variant="borderless"
+              type="button"
             >
-              <i
-                class="icon core-svg-icon"
-              >
+              <span>
                 <svg
+                  fill="var(--iui-color-icon-muted, currentColor)"
+                  height="1rem"
                   viewBox="0 0 16 16"
-                  xmlns="http://www.w3.org/2000/svg"
+                  width="1rem"
                 >
                   <path
-                    d="m10.49945 0c-.89279.7175-1.46555 1.81691-1.46555 3.05141 0 .09677.00757.19162.01448.28665l-2.24802 2.24802c-.34734-.07958-.70741-.12562-1.0789-.12562-1.48385 0-2.80984.67183-3.69366 1.72668l2.94083 2.94083-4.96863 4.96864v.90339h.90339l4.96865-4.96865 2.94083 2.94083c1.05486-.88382 1.72668-2.20981 1.72668-3.69366 0-.37149-.04604-.73156-.12562-1.0789l2.24802-2.24802c.09502.00691.18988.01448.28665.01448 1.2345 0 2.33391-.57276 3.05141-1.46555z"
-                    fill-rule="evenodd"
+                    d="M10.5 0a3.905 3.905 0 00-1.466 3.051c0 .097.007.192.014.287L6.8 5.586a4.806 4.806 0 00-4.773 1.601l2.942 2.941L0 15.097V16h.903l4.969-4.969 2.94 2.941A4.806 4.806 0 0010.415 9.2l2.248-2.248c.095.007.19.014.287.014A3.905 3.905 0 0016 5.501z"
                   />
                 </svg>
-              </i>
+              </span>
             </button>
           </div>
         </div>
@@ -842,21 +852,23 @@ exports[`WidgetPanelProvider should render vertical 1`] = `
             class="nz-widget-tabBarButtons"
           >
             <button
-              class="nz-widget-pinToggle nz-is-pinned"
+              class="iui-button nz-widget-pinToggle nz-is-pinned"
+              data-iui-size="small"
+              data-iui-variant="borderless"
+              type="button"
             >
-              <i
-                class="icon core-svg-icon"
-              >
+              <span>
                 <svg
+                  fill="var(--iui-color-icon-muted, currentColor)"
+                  height="1rem"
                   viewBox="0 0 16 16"
-                  xmlns="http://www.w3.org/2000/svg"
+                  width="1rem"
                 >
                   <path
-                    d="m10.49945 0c-.89279.7175-1.46555 1.81691-1.46555 3.05141 0 .09677.00757.19162.01448.28665l-2.24802 2.24802c-.34734-.07958-.70741-.12562-1.0789-.12562-1.48385 0-2.80984.67183-3.69366 1.72668l2.94083 2.94083-4.96863 4.96864v.90339h.90339l4.96865-4.96865 2.94083 2.94083c1.05486-.88382 1.72668-2.20981 1.72668-3.69366 0-.37149-.04604-.73156-.12562-1.0789l2.24802-2.24802c.09502.00691.18988.01448.28665.01448 1.2345 0 2.33391-.57276 3.05141-1.46555z"
-                    fill-rule="evenodd"
+                    d="M10.5 0a3.905 3.905 0 00-1.466 3.051c0 .097.007.192.014.287L6.8 5.586a4.806 4.806 0 00-4.773 1.601l2.942 2.941L0 15.097V16h.903l4.969-4.969 2.94 2.941A4.806 4.806 0 0010.415 9.2l2.248-2.248c.095.007.19.014.287.014A3.905 3.905 0 0016 5.501z"
                   />
                 </svg>
-              </i>
+              </span>
             </button>
           </div>
         </div>
@@ -995,21 +1007,23 @@ exports[`WidgetPanelProvider should render with span bottom 1`] = `
             class="nz-widget-tabBarButtons"
           >
             <button
-              class="nz-widget-pinToggle nz-is-pinned"
+              class="iui-button nz-widget-pinToggle nz-is-pinned"
+              data-iui-size="small"
+              data-iui-variant="borderless"
+              type="button"
             >
-              <i
-                class="icon core-svg-icon"
-              >
+              <span>
                 <svg
+                  fill="var(--iui-color-icon-muted, currentColor)"
+                  height="1rem"
                   viewBox="0 0 16 16"
-                  xmlns="http://www.w3.org/2000/svg"
+                  width="1rem"
                 >
                   <path
-                    d="m10.49945 0c-.89279.7175-1.46555 1.81691-1.46555 3.05141 0 .09677.00757.19162.01448.28665l-2.24802 2.24802c-.34734-.07958-.70741-.12562-1.0789-.12562-1.48385 0-2.80984.67183-3.69366 1.72668l2.94083 2.94083-4.96863 4.96864v.90339h.90339l4.96865-4.96865 2.94083 2.94083c1.05486-.88382 1.72668-2.20981 1.72668-3.69366 0-.37149-.04604-.73156-.12562-1.0789l2.24802-2.24802c.09502.00691.18988.01448.28665.01448 1.2345 0 2.33391-.57276 3.05141-1.46555z"
-                    fill-rule="evenodd"
+                    d="M10.5 0a3.905 3.905 0 00-1.466 3.051c0 .097.007.192.014.287L6.8 5.586a4.806 4.806 0 00-4.773 1.601l2.942 2.941L0 15.097V16h.903l4.969-4.969 2.94 2.941A4.806 4.806 0 0010.415 9.2l2.248-2.248c.095.007.19.014.287.014A3.905 3.905 0 0016 5.501z"
                   />
                 </svg>
-              </i>
+              </span>
             </button>
           </div>
         </div>
@@ -1148,21 +1162,23 @@ exports[`WidgetPanelProvider should render with top spanned 1`] = `
             class="nz-widget-tabBarButtons"
           >
             <button
-              class="nz-widget-pinToggle nz-is-pinned"
+              class="iui-button nz-widget-pinToggle nz-is-pinned"
+              data-iui-size="small"
+              data-iui-variant="borderless"
+              type="button"
             >
-              <i
-                class="icon core-svg-icon"
-              >
+              <span>
                 <svg
+                  fill="var(--iui-color-icon-muted, currentColor)"
+                  height="1rem"
                   viewBox="0 0 16 16"
-                  xmlns="http://www.w3.org/2000/svg"
+                  width="1rem"
                 >
                   <path
-                    d="m10.49945 0c-.89279.7175-1.46555 1.81691-1.46555 3.05141 0 .09677.00757.19162.01448.28665l-2.24802 2.24802c-.34734-.07958-.70741-.12562-1.0789-.12562-1.48385 0-2.80984.67183-3.69366 1.72668l2.94083 2.94083-4.96863 4.96864v.90339h.90339l4.96865-4.96865 2.94083 2.94083c1.05486-.88382 1.72668-2.20981 1.72668-3.69366 0-.37149-.04604-.73156-.12562-1.0789l2.24802-2.24802c.09502.00691.18988.01448.28665.01448 1.2345 0 2.33391-.57276 3.05141-1.46555z"
-                    fill-rule="evenodd"
+                    d="M10.5 0a3.905 3.905 0 00-1.466 3.051c0 .097.007.192.014.287L6.8 5.586a4.806 4.806 0 00-4.773 1.601l2.942 2.941L0 15.097V16h.903l4.969-4.969 2.94 2.941A4.806 4.806 0 0010.415 9.2l2.248-2.248c.095.007.19.014.287.014A3.905 3.905 0 0016 5.501z"
                   />
                 </svg>
-              </i>
+              </span>
             </button>
           </div>
         </div>

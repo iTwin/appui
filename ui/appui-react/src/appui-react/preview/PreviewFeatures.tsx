@@ -28,6 +28,11 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/679
    */
   activateDroppedTab: boolean;
+  /** If true, the horizontal panels will have an additional "Align" button.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/706
+   */
+  horizontalPanelAlignment: boolean;
 }
 
 /** Object used trim to only known features at runtime.
@@ -37,6 +42,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   activateDroppedTab: undefined,
   contentAlwaysMaxSize: undefined,
   enableMaximizedFloatingWidget: undefined,
+  horizontalPanelAlignment: undefined,
   ...{ newToolbars: undefined }, // Hidden feature used in storybook only (to avoid trimming).
 };
 

@@ -6,14 +6,13 @@
  * @module Widget
  */
 
-import "./PopoutToggle.scss";
 import * as React from "react";
-import { Icon } from "@itwin/core-react";
 import {
   SvgWindowMaximize,
   SvgWindowMinimize,
 } from "@itwin/itwinui-icons-react";
 import { useFloatingWidgetId } from "./FloatingWidget";
+import { Button } from "@itwin/itwinui-react";
 
 /** Maximized widget preview feature state.
  * @internal */
@@ -85,15 +84,15 @@ export function PreviewMaximizeToggle() {
         };
 
   return (
-    <button
-      // Reusing for simplification
-      className="nz-widget-popoutToggle"
+    <Button
+      styleType="borderless"
+      size="small"
       onClick={() => {
         setMaximizedWidget(id);
       }}
       title={title}
     >
-      <Icon iconSpec={iconSpec} />
-    </button>
+      {iconSpec}
+    </Button>
   );
 }

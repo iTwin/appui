@@ -14,20 +14,6 @@ import { WidgetIdContext } from "../../../appui-react/layout/widget/Widget";
 import { TestNineZoneProvider } from "../Providers";
 
 describe("PopoutToggle", () => {
-  it("should render", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "t1");
-    state = addPanelWidget(state, "left", "w1", ["t1"]);
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state}>
-        <WidgetIdContext.Provider value="w1">
-          <PopoutToggle />
-        </WidgetIdContext.Provider>
-      </TestNineZoneProvider>
-    );
-    container.should.matchSnapshot();
-  });
-
   it("should dispatch PANEL_TOGGLE_PINNED", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();

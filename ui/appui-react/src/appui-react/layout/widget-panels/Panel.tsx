@@ -18,6 +18,7 @@ import { SectionOutline } from "../outline/SectionOutline";
 import { isHorizontalPanelState } from "../state/PanelState";
 import { PanelTargets } from "../target/PanelTargets";
 import { SectionTargets } from "../target/SectionTargets";
+import { usePreviewHorizontalPanelAlign } from "../widget/PreviewHorizontalPanelAlign";
 import { WidgetPanelGrip } from "./Grip";
 import "./Panel.scss";
 import { PanelSections } from "./PanelSections";
@@ -59,6 +60,19 @@ export function WidgetPanel() {
   const side = React.useContext(PanelSideContext);
   const draggedPanelSide = React.useContext(DraggedPanelSideContext);
   assert(!!side);
+  const { enabled: previewHorizontalPanelAlignmentEnabled, alignments } =
+    usePreviewHorizontalPanelAlign();
+
+  const previewHorizontalPanelAlignAttributes = React.useMemo(
+    () =>
+      previewHorizontalPanelAlignmentEnabled
+        ? {
+            "data-preview-horizontal-panel-align-top": alignments.top,
+            "data-preview-horizontal-panel-align-bottom": alignments.bottom,
+          }
+        : {},
+    [alignments.bottom, alignments.top, previewHorizontalPanelAlignmentEnabled]
+  );
 
   const spanTop = useLayout((state) => state.panels.top.span);
   const spanBottom = useLayout((state) => state.panels.bottom.span);
@@ -137,6 +151,7 @@ export function WidgetPanel() {
         ref={ref}
         style={style}
         onTransitionEnd={handleTransitionEnd}
+        {...previewHorizontalPanelAlignAttributes}
       >
         <div className="nz-content" style={contentStyle}>
           {singleSection && <SectionOutline sectionIndex={0} />}

@@ -6,23 +6,24 @@
  * @module Widget
  */
 
-import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { SendBack } from "./SendBack";
-import { useActiveTabId, WidgetIdContext } from "./Widget";
-import { Dock } from "./Dock";
+import * as React from "react";
+import { useLayout } from "../base/LayoutStore";
 import {
   isHorizontalPanelSide,
   PanelSideContext,
 } from "../widget-panels/Panel";
+import { Dock } from "./Dock";
+import { useFloatingWidgetId, useWidgetAllowedToDock } from "./FloatingWidget";
 import { PinToggle } from "./PinToggle";
 import { PopoutToggle } from "./PopoutToggle";
-import { useLayout } from "../base/LayoutStore";
-import { useFloatingWidgetId, useWidgetAllowedToDock } from "./FloatingWidget";
+import { PreviewHorizontalPanelAlignButton } from "./PreviewHorizontalPanelAlign";
 import {
   PreviewMaximizeToggle,
   usePreviewMaximizedWidget,
 } from "./PreviewMaximizeToggle";
+import { SendBack } from "./SendBack";
+import { useActiveTabId, WidgetIdContext } from "./Widget";
 /** @internal */
 export function TabBarButtons() {
   const { enabled: previewEnableMaximizedFloatingWidget, maximizedWidget } =
@@ -54,6 +55,7 @@ export function TabBarButtons() {
         <SendBack />
       )}
       {isToolSettings && <Dock />}
+      {isMainPanelWidget && <PreviewHorizontalPanelAlignButton />}
       {isMainPanelWidget && <PinToggle />}
     </div>
   );
