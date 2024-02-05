@@ -14,6 +14,17 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+    options: {
+      storySort: {
+        order: [
+          "Components",
+          "Frontstage",
+          "Widget",
+          "Hooks",
+          "Preview Features",
+        ],
+      },
+    },
   },
   globalTypes: {
     iModel: demoIModelGlobalType,
