@@ -1131,6 +1131,9 @@ importers:
       typescript:
         specifier: ~5.0.2
         version: 5.0.4
+      upath:
+        specifier: ^2.0.1
+        version: 2.0.1
 
   ../../ui/core-react:
     dependencies:

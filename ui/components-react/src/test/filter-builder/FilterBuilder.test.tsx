@@ -16,10 +16,6 @@ import type {
   PropertyFilterBuilderRuleGroup,
 } from "../../components-react/filter-builder/FilterBuilderState";
 import { buildPropertyFilter } from "../../components-react/filter-builder/FilterBuilderState";
-import {
-  PropertyFilterRuleGroupOperator,
-  PropertyFilterRuleOperator,
-} from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 import type { PropertyFilter } from "../../components-react/filter-builder/Types";
 
@@ -61,7 +57,7 @@ describe("PropertyFilterBuilder", () => {
 
     expect(spy).to.be.calledOnceWith({
       property: property1,
-      operator: 0,
+      operator: "is-true",
       value: undefined,
     });
   });
@@ -69,7 +65,7 @@ describe("PropertyFilterBuilder", () => {
   it("renders propertyFilterBuilder with single rule correctly", async () => {
     const propertyFilter: PropertyFilter = {
       property: property1,
-      operator: PropertyFilterRuleOperator.IsNull,
+      operator: "is-null",
       value: undefined,
     };
 
@@ -89,19 +85,19 @@ describe("PropertyFilterBuilder", () => {
 
   it("renders propertyFilterBuilder with multiple rules correctly", async () => {
     const propertyFilter: PropertyFilter = {
-      operator: PropertyFilterRuleGroupOperator.And,
+      operator: "and",
       rules: [
         {
-          operator: PropertyFilterRuleGroupOperator.And,
+          operator: "and",
           rules: [
             {
               property: property1,
-              operator: PropertyFilterRuleOperator.IsTrue,
+              operator: "is-true",
               value: undefined,
             },
             {
               property: property2,
-              operator: PropertyFilterRuleOperator.IsNull,
+              operator: "is-null",
               value: undefined,
             },
           ],
@@ -148,7 +144,7 @@ describe("PropertyFilterBuilder", () => {
       id: "rule",
       groupId: "rootGroup",
       property: { name: "prop", displayLabel: "Prop", typename: "string" },
-      operator: PropertyFilterRuleOperator.IsEqual,
+      operator: "is-equal",
       value: {
         valueFormat: PropertyValueFormat.Primitive,
         value: "test string",
@@ -194,7 +190,7 @@ describe("PropertyFilterBuilder", () => {
     it("returns undefined when group has no rules", () => {
       const ruleGroup: PropertyFilterBuilderRuleGroup = {
         id: "rootGroup",
-        operator: PropertyFilterRuleGroupOperator.And,
+        operator: "and",
         items: [],
       };
       expect(buildPropertyFilter(ruleGroup)).to.be.undefined;
@@ -203,7 +199,7 @@ describe("PropertyFilterBuilder", () => {
     it("returns single filter condition when group has one rule", () => {
       const ruleGroup: PropertyFilterBuilderRuleGroup = {
         id: "rootGroup",
-        operator: PropertyFilterRuleGroupOperator.And,
+        operator: "and",
         items: [defaultRule],
       };
       expect(buildPropertyFilter(ruleGroup)).to.containSubset({
@@ -216,7 +212,7 @@ describe("PropertyFilterBuilder", () => {
     it("returns filter condition when group has at least one rule and others rules are empty", () => {
       const ruleGroup: PropertyFilterBuilderRuleGroup = {
         id: "rootGroup",
-        operator: PropertyFilterRuleGroupOperator.And,
+        operator: "and",
         items: [
           defaultRule,
           { ...defaultRule, operator: undefined },
@@ -234,7 +230,7 @@ describe("PropertyFilterBuilder", () => {
     it("returns filter conditions group when group has multiple rules", () => {
       const ruleGroup: PropertyFilterBuilderRuleGroup = {
         id: "rootGroup",
-        operator: PropertyFilterRuleGroupOperator.Or,
+        operator: "or",
         items: [defaultRule, defaultRule],
       };
       const filter = buildPropertyFilter(ruleGroup);
