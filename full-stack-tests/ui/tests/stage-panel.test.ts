@@ -19,7 +19,7 @@ test.describe("WidgetApi", () => {
 
   test("should toggle pin state", async ({ page }) => {
     const panel = panelLocator({ page, side: "right" });
-    const pinToggle = panel.locator(".nz-widget-pinToggle");
+    const pinToggle = panel.getByTitle("Unpin widget panel");
 
     const layoutInfoTab = tabLocator(page, "Layout Info");
     await layoutInfoTab.click();

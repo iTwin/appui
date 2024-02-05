@@ -51,15 +51,18 @@ exports[`FloatingWidget should render 1`] = `
       </div>
     </div>
     <div
-      class="nz-widget-tabBarButtons"
+      class="nz-widget-buttons"
     >
       <button
-        class="iui-button nz-widget-sendBack"
+        class="iui-button"
         data-iui-size="small"
         data-iui-variant="borderless"
         type="button"
       >
-        <span>
+        <span
+          aria-hidden="true"
+          class="iui-button-icon"
+        >
           <svg
             fill="var(--iui-color-icon-muted, currentColor)"
             height="1rem"
@@ -145,15 +148,18 @@ exports[`FloatingWidget should render dragged 1`] = `
       </div>
     </div>
     <div
-      class="nz-widget-tabBarButtons"
+      class="nz-widget-buttons"
     >
       <button
-        class="iui-button nz-widget-sendBack"
+        class="iui-button"
         data-iui-size="small"
         data-iui-variant="borderless"
         type="button"
       >
-        <span>
+        <span
+          aria-hidden="true"
+          class="iui-button-icon"
+        >
           <svg
             fill="var(--iui-color-icon-muted, currentColor)"
             height="1rem"
@@ -239,15 +245,18 @@ exports[`FloatingWidget should render hidden when hideWithUiWhenFloating is true
       </div>
     </div>
     <div
-      class="nz-widget-tabBarButtons"
+      class="nz-widget-buttons"
     >
       <button
-        class="iui-button nz-widget-sendBack"
+        class="iui-button"
         data-iui-size="small"
         data-iui-variant="borderless"
         type="button"
       >
-        <span>
+        <span
+          aria-hidden="true"
+          class="iui-button-icon"
+        >
           <svg
             fill="var(--iui-color-icon-muted, currentColor)"
             height="1rem"
@@ -333,15 +342,18 @@ exports[`FloatingWidget should render minimized 1`] = `
       </div>
     </div>
     <div
-      class="nz-widget-tabBarButtons"
+      class="nz-widget-buttons"
     >
       <button
-        class="iui-button nz-widget-sendBack"
+        class="iui-button"
         data-iui-size="small"
         data-iui-variant="borderless"
         type="button"
       >
-        <span>
+        <span
+          aria-hidden="true"
+          class="iui-button-icon"
+        >
           <svg
             fill="var(--iui-color-icon-muted, currentColor)"
             height="1rem"
