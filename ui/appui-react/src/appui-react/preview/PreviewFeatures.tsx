@@ -32,7 +32,10 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/706
    */
   horizontalPanelAlignment: boolean;
-  /** If enabled, a dropdown menu will be rendered for widgets that exceed the specified threshold of title bar buttons. */
+  /** If enabled, a dropdown menu will be rendered for widgets that exceed the specified threshold of title bar buttons.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/723
+   */
   widgetActionDropdown: { threshold: number };
 }
 
