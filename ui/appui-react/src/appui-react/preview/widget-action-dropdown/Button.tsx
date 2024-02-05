@@ -13,7 +13,7 @@ import { TabBarButton } from "../../layout/widget/Button";
 
 interface ActionButtonProps {
   title?: string;
-  icon: React.ReactNode;
+  icon: React.JSX.Element;
   onClick?: () => void;
   menuProps?: React.ComponentProps<typeof MenuItem>;
   buttonProps?: React.ComponentProps<typeof TabBarButton>;
@@ -24,11 +24,7 @@ export function ActionButton(props: ActionButtonProps) {
   const dropdownContext = React.useContext(WidgetActionDropdownContext);
   if (dropdownContext !== undefined) {
     return (
-      <MenuItem
-        icon={<>{props.icon}</>}
-        onClick={props.onClick}
-        {...props.menuProps}
-      >
+      <MenuItem icon={props.icon} onClick={props.onClick} {...props.menuProps}>
         {props.title}
       </MenuItem>
     );
