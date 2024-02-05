@@ -7,10 +7,13 @@
  */
 
 import * as React from "react";
+import { assert } from "@itwin/core-bentley";
 import { SvgMoreVertical } from "@itwin/itwinui-icons-react";
 import { DropdownMenu } from "@itwin/itwinui-react";
 import { TabBarButton } from "../../layout/widget/Button";
 import { usePreviewFeatures } from "../PreviewFeatures";
+import { useLayout } from "../../layout/base/LayoutStore";
+import { PanelSideContext } from "../../layout/widget-panels/Panel";
 
 /** @internal */
 export function MoreButton(props: React.PropsWithChildren<{}>) {
@@ -19,6 +22,7 @@ export function MoreButton(props: React.PropsWithChildren<{}>) {
       placement="bottom-end"
       menuItems={(onClose) => [
         <WidgetActionDropdownContext.Provider key={0} value={{ onClose }}>
+          <CloseOnPanelCollapse />
           {props.children}
         </WidgetActionDropdownContext.Provider>,
       ]}
@@ -39,6 +43,22 @@ export const WidgetActionDropdownContext = React.createContext<
     }
 >(undefined);
 
+function CloseOnPanelCollapse() {
+  const context = React.useContext(WidgetActionDropdownContext);
+  assert(!!context);
+  const side = React.useContext(PanelSideContext);
+
+  const { onClose } = context;
+  const collapsed = useLayout((state) => {
+    if (!side) return false;
+    return state.panels[side].collapsed;
+  });
+  React.useEffect(() => {
+    if (collapsed) onClose();
+  }, [collapsed, onClose]);
+  return null;
+}
+
 const order = [
   "pin",
   "maximize",
@@ -57,5 +77,5 @@ export function useDropdownFeatures(buttons: string[]) {
   const sorted = [...buttons].sort(
     (a, b) => order.indexOf(a) - order.indexOf(b)
   );
-  return [sorted, isDropdown] as const;
+  return [sorted, true] as const;
 }
