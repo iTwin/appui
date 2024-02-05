@@ -10,17 +10,19 @@ import "./FilterBuilderRule.scss";
 import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { SvgStatusError } from "@itwin/itwinui-icons-react";
-import { Flex } from "@itwin/itwinui-react";
+import { Flex, Text } from "@itwin/itwinui-react";
 import {
   PropertyFilterBuilderContext,
   PropertyFilterBuilderRuleRenderingContext,
 } from "./FilterBuilderContext";
-import { PropertyFilterBuilderRuleOperator } from "./FilterBuilderRuleOperator";
+import { PropertyFilterBuilderRuleOperatorRenderer } from "./FilterBuilderRuleOperator";
 import { PropertyFilterBuilderRuleProperty } from "./FilterBuilderRuleProperty";
 import { PropertyFilterBuilderRuleValue } from "./FilterBuilderRuleValue";
 import type { PropertyFilterBuilderRule } from "./FilterBuilderState";
-import type { PropertyFilterRuleOperator } from "./Operators";
-import { isUnaryPropertyFilterOperator } from "./Operators";
+import {
+  isUnaryPropertyFilterBuilderOperator,
+  type PropertyFilterBuilderRuleOperator,
+} from "./Operators";
 import { PropertyFilterBuilderToolbar } from "./FilterBuilderToolbar";
 
 /**
@@ -67,7 +69,7 @@ export function PropertyFilterBuilderRuleRenderer(
   );
 
   const onRuleOperatorChange = React.useCallback(
-    (newOperator: PropertyFilterRuleOperator) => {
+    (newOperator: PropertyFilterBuilderRuleOperator) => {
       actions.setRuleOperator(path, newOperator);
     },
     [path, actions]
@@ -95,7 +97,7 @@ export function PropertyFilterBuilderRuleRenderer(
           onChange: onRuleOperatorChange,
         });
       return (
-        <PropertyFilterBuilderRuleOperator
+        <PropertyFilterBuilderRuleOperatorRenderer
           property={prop}
           onChange={onRuleOperatorChange}
           operator={operator}
@@ -106,7 +108,7 @@ export function PropertyFilterBuilderRuleRenderer(
   );
 
   const valueRenderer = React.useCallback(
-    (prop: PropertyDescription, op: PropertyFilterRuleOperator) => {
+    (prop: PropertyDescription, op: PropertyFilterBuilderRuleOperator) => {
       if (ruleValueRenderer)
         return ruleValueRenderer({
           property: prop,
@@ -119,6 +121,7 @@ export function PropertyFilterBuilderRuleRenderer(
           property={prop}
           onChange={onRuleValueChange}
           value={value}
+          operator={op}
         />
       );
     },
@@ -127,7 +130,7 @@ export function PropertyFilterBuilderRuleRenderer(
 
   return (
     <div className="fb-component-row">
-      <Flex className="fb-row-container">
+      <Flex className="fb-row-container" gap="s" alignItems="flex-start">
         <PropertyFilterBuilderRuleProperty
           properties={properties}
           selectedProperty={rule.property}
@@ -138,14 +141,14 @@ export function PropertyFilterBuilderRuleRenderer(
         {property !== undefined ? operatorRenderer(property) : null}
         {property !== undefined &&
         operator !== undefined &&
-        !isUnaryPropertyFilterOperator(operator) ? (
+        !isUnaryPropertyFilterBuilderOperator(operator) ? (
           <div className="fb-property-value">
             {valueRenderer(property, operator)}
             {rule.errorMessage ? (
-              <>
-                <SvgStatusError className="iui-input-icon" />
-                <div className="iui-message">{rule.errorMessage}</div>
-              </>
+              <Flex>
+                <SvgStatusError />
+                <Text>{rule.errorMessage}</Text>
+              </Flex>
             ) : null}
           </div>
         ) : null}

@@ -12,7 +12,6 @@ import {
 import {
   PropertyFilterRuleGroupOperator,
   PropertyFilter,
-  PropertyFilterRuleOperator,
 } from "@itwin/components-react";
 import { AppUiDecorator } from "../AppUiDecorator";
 import { FilterBuilderStory } from "./FilterBuilder";
@@ -89,12 +88,12 @@ function createInitialFilter(): PropertyFilter {
     rules: [
       {
         property: properties[1],
-        operator: PropertyFilterRuleOperator.Less,
+        operator: "less",
         value: { valueFormat: PropertyValueFormat.Primitive, value: 123 },
       },
       {
         property: properties[0],
-        operator: PropertyFilterRuleOperator.Like,
+        operator: "like",
       },
     ],
   };

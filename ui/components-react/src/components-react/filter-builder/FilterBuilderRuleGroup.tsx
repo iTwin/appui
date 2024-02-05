@@ -44,7 +44,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
   const { onRuleAdded, groupRef } = useRulePropertyFocus(group.items.length);
 
   const onOperatorChange = React.useCallback(
-    (operator: PropertyFilterRuleGroupOperator) => {
+    (operator: `${PropertyFilterRuleGroupOperator}`) => {
       actions.setRuleGroupOperator(path, operator);
     },
     [path, actions]
@@ -87,9 +87,9 @@ export function PropertyFilterBuilderRuleGroupRenderer(
  */
 export interface PropertyFilterBuilderRuleGroupOperatorProps {
   /** Currently selected operator. */
-  operator: PropertyFilterRuleGroupOperator;
+  operator: `${PropertyFilterRuleGroupOperator}`;
   /** Callback that is invoked when selected operator changes. */
-  onChange: (operator: PropertyFilterRuleGroupOperator) => void;
+  onChange: (operator: `${PropertyFilterRuleGroupOperator}`) => void;
   /** Controls whether the group operator is toggle-able. */
   isGroupOperatorDisabled?: boolean;
 }
