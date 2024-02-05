@@ -441,7 +441,8 @@ function buildPropertyFilterFromRangeRule(
 ): PropertyFilter | undefined {
   const { property, operator, value } = rule;
   if (
-    value?.valueFormat !== PropertyValueFormat.Primitive ||
+    !value ||
+    value.valueFormat !== PropertyValueFormat.Primitive ||
     typeof value.value !== "string"
   ) {
     return undefined;
@@ -558,9 +559,11 @@ function getRangeRuleItems(
   const [from, to] = group.rules;
   if (
     isPropertyFilterRuleGroup(from) ||
-    from.value?.valueFormat !== PropertyValueFormat.Primitive ||
+    !from.value ||
+    from.value.valueFormat !== PropertyValueFormat.Primitive ||
     isPropertyFilterRuleGroup(to) ||
-    to.value?.valueFormat !== PropertyValueFormat.Primitive ||
+    !to.value ||
+    to.value.valueFormat !== PropertyValueFormat.Primitive ||
     from.property.name !== to.property.name
   ) {
     return undefined;

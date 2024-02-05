@@ -79,7 +79,8 @@ function parseRangeValue(
   val?: PropertyValue
 ): PropertyFilterBuilderRuleRangeValue {
   if (
-    val?.valueFormat !== PropertyValueFormat.Primitive ||
+    !val ||
+    val.valueFormat !== PropertyValueFormat.Primitive ||
     typeof val.value !== "string"
   ) {
     return {
