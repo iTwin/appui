@@ -156,7 +156,7 @@ export function PreviewHorizontalPanelAlignButton() {
   const { alignments, setAlignment } = usePreviewHorizontalPanelAlign();
   const title = "Align panel";
 
-  const getMenuItems = (onClose: () => void) =>
+  const getMenuItems = (onClose?: () => void) =>
     [
       HorizontalAlignment.Justify,
       HorizontalAlignment.Center,
@@ -182,7 +182,7 @@ export function PreviewHorizontalPanelAlignButton() {
     return (
       <MenuItem
         icon={getIcon(side, alignments[side])}
-        subMenuItems={getMenuItems(dropdownContext.onClose)}
+        subMenuItems={getMenuItems()}
       >
         {title}
       </MenuItem>
