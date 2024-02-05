@@ -8,7 +8,8 @@
 
 import * as React from "react";
 import { SvgMoreVertical } from "@itwin/itwinui-icons-react";
-import { DropdownMenu, IconButton } from "@itwin/itwinui-react";
+import { DropdownMenu } from "@itwin/itwinui-react";
+import { TabBarButton } from "../../layout/widget/Button";
 
 /** @internal */
 export function MoreButton(props: React.PropsWithChildren<{}>) {
@@ -20,10 +21,11 @@ export function MoreButton(props: React.PropsWithChildren<{}>) {
           {props.children}
         </WidgetActionDropdownContext.Provider>,
       ]}
+      offset={[0, 2]}
     >
-      <IconButton size="small" styleType="borderless" aria-label="More actions">
+      <TabBarButton label="More actions" style={{ marginInline: "0.25em" }}>
         <SvgMoreVertical />
-      </IconButton>
+      </TabBarButton>
     </DropdownMenu>
   );
 }

@@ -6,8 +6,8 @@
  * @module Widget
  */
 
-import { assert } from "@itwin/core-bentley";
 import * as React from "react";
+import { assert } from "@itwin/core-bentley";
 import { useLayout } from "../base/LayoutStore";
 import {
   isHorizontalPanelSide,
@@ -29,6 +29,7 @@ import { WidgetIdContext } from "./Widget";
 import { usePreviewFeatures } from "../../preview/PreviewFeatures";
 import { MoreButton } from "../../preview/widget-action-dropdown/MoreButton";
 import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
+import "./Buttons.scss";
 
 /** @internal */
 export function TabBarButtons() {
@@ -55,10 +56,12 @@ export function TabBarButtons() {
 
   const { widgetActionDropdown } = usePreviewFeatures();
   const threshold = widgetActionDropdown?.threshold ?? Infinity;
-  if (buttons.length > threshold) {
-    return <MoreButton>{buttons.reverse()}</MoreButton>;
-  }
-  return <div className="nz-widget-tabBarButtons">{buttons}</div>;
+  const isDropdown = buttons.length > threshold;
+  return (
+    <div className="nz-widget-buttons">
+      {isDropdown ? <MoreButton>{buttons.reverse()}</MoreButton> : buttons}
+    </div>
+  );
 }
 
 /** @internal */
