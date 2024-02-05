@@ -6,8 +6,6 @@
  * @module Widget
  */
 
-import "./SendBack.scss";
-import classnames from "classnames";
 import * as React from "react";
 import { create } from "zustand";
 import { assert } from "@itwin/core-bentley";
@@ -17,6 +15,14 @@ import { useFloatingWidgetId } from "./FloatingWidget";
 import type { WidgetState } from "../state/WidgetState";
 import { getWidgetPanelSectionId } from "../state/PanelState";
 import type { NineZoneState } from "../state/NineZoneState";
+import { Button } from "@itwin/itwinui-react";
+import {
+  SvgDockBottom,
+  SvgDockLeft,
+  SvgDockRight,
+  SvgDockTop,
+} from "@itwin/itwinui-icons-react";
+import type { PanelWidgetRestoreState } from "../state/WidgetRestoreState";
 
 /** @internal */
 export const useActiveSendBackWidgetIdStore = create<
@@ -72,20 +78,34 @@ export function useSendBackHomeState() {
   );
 }
 
+function getHomeIcon(home: PanelWidgetRestoreState) {
+  return home.side === "left" ? (
+    <SvgDockLeft />
+  ) : home.side === "right" ? (
+    <SvgDockRight />
+  ) : home.side === "top" ? (
+    <SvgDockTop />
+  ) : (
+    <SvgDockBottom />
+  );
+}
+
 /** @internal */
 export function SendBack() {
   const id = useFloatingWidgetId();
   assert(!!id);
   const home = useLayout((state) => state.floatingWidgets.byId[id].home);
+  const homeIcon = getHomeIcon(home);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const title = useLabel("sendWidgetHomeTitle");
-  const className = classnames("nz-widget-sendBack", `nz-${home.side}`);
   const setActiveWidgetId = (newId: WidgetState["id"] | undefined) =>
     useActiveSendBackWidgetIdStore.setState(newId);
 
   return (
-    <button
-      className={className}
+    <Button
+      className="nz-widget-sendBack"
+      styleType="borderless"
+      size="small"
       onClick={() => {
         setActiveWidgetId(undefined);
         dispatch({
@@ -113,7 +133,7 @@ export function SendBack() {
       }
       title={title}
     >
-      <i />
-    </button>
+      {homeIcon}
+    </Button>
   );
 }

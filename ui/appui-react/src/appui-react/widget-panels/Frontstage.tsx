@@ -35,6 +35,7 @@ import { getWidgetPanelSectionId } from "../layout/state/PanelState";
 import type { TabState } from "../layout/state/TabState";
 import { WidgetPanels } from "../layout/widget-panels/Panels";
 import { FloatingWidgets } from "../layout/widget/FloatingWidgets";
+import { PreviewHorizontalPanelAlignFeatureProvider } from "../layout/widget/PreviewHorizontalPanelAlign";
 import { PreviewMaximizedWidgetFeatureProvider } from "../layout/widget/PreviewMaximizeToggle";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import type { FrameworkState } from "../redux/FrameworkState";
@@ -85,22 +86,26 @@ function WidgetPanelsFrontstageComponent() {
     <PreviewMaximizedWidgetFeatureProvider
       enabled={previewFeatures.enableMaximizedFloatingWidget}
     >
-      <WidgetPanelsToolSettings />
-      <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
-        <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
-        <WidgetPanels
-          className={classNames(
-            "uifw-widgetPanels",
-            previewContentAlwaysMaxSizeDockedClass,
-            previewContentAlwaysMaxSizeTopPanelClass
-          )}
-          centerContent={<WidgetPanelsToolbars />}
-        >
-          <WidgetPanelsFrontstageContent />
-        </WidgetPanels>
-        <WidgetPanelsStatusBar />
-        <FloatingWidgets />
-      </ToolbarPopupAutoHideContext.Provider>
+      <PreviewHorizontalPanelAlignFeatureProvider
+        enabled={previewFeatures.horizontalPanelAlignment}
+      >
+        <WidgetPanelsToolSettings />
+        <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
+          <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
+          <WidgetPanels
+            className={classNames(
+              "uifw-widgetPanels",
+              previewContentAlwaysMaxSizeDockedClass,
+              previewContentAlwaysMaxSizeTopPanelClass
+            )}
+            centerContent={<WidgetPanelsToolbars />}
+          >
+            <WidgetPanelsFrontstageContent />
+          </WidgetPanels>
+          <WidgetPanelsStatusBar />
+          <FloatingWidgets />
+        </ToolbarPopupAutoHideContext.Provider>
+      </PreviewHorizontalPanelAlignFeatureProvider>
     </PreviewMaximizedWidgetFeatureProvider>
   );
 }
@@ -567,8 +572,6 @@ export const stateVersion = 17; // this needs to be bumped when NineZoneState is
 
 /** @internal */
 export function initializeNineZoneState(frontstageDef: FrontstageDef) {
-  assert(!frontstageDef.nineZoneState);
-
   frontstageDef.batch(() => {
     frontstageDef.nineZoneState = defaultNineZone;
 

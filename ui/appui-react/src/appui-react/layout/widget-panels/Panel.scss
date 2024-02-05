@@ -76,6 +76,23 @@
   &.nz-left {
     grid-column: 1/2;
 
+    &[data-preview-horizontal-panel-align-top="right"],
+    &[data-preview-horizontal-panel-align-top="center"] {
+      grid-row-start: 1;
+    }
+    &[data-preview-horizontal-panel-align-top="left"],
+    &[data-preview-horizontal-panel-align-top="justify"] {
+      grid-row-start: 2;
+    }
+    &[data-preview-horizontal-panel-align-bottom="right"],
+    &[data-preview-horizontal-panel-align-bottom="center"] {
+      grid-row-end: 4;
+    }
+    &[data-preview-horizontal-panel-align-bottom="left"],
+    &[data-preview-horizontal-panel-align-bottom="justify"] {
+      grid-row-end: 3;
+    }
+
     > .nz-grip-container {
       left: 0;
 
@@ -111,6 +128,23 @@
 
   &.nz-right {
     grid-column: 3/4;
+
+    &[data-preview-horizontal-panel-align-top="right"],
+    &[data-preview-horizontal-panel-align-top="justify"] {
+      grid-row-start: 2;
+    }
+    &[data-preview-horizontal-panel-align-top="left"],
+    &[data-preview-horizontal-panel-align-top="center"] {
+      grid-row-start: 1;
+    }
+    &[data-preview-horizontal-panel-align-bottom="right"],
+    &[data-preview-horizontal-panel-align-bottom="justify"] {
+      grid-row-end: 3;
+    }
+    &[data-preview-horizontal-panel-align-bottom="left"],
+    &[data-preview-horizontal-panel-align-bottom="center"] {
+      grid-row-end: 4;
+    }
 
     > .nz-grip-container {
       right: 0;
@@ -194,6 +228,23 @@
       grid-column: 2/3;
     }
 
+    &[data-preview-horizontal-panel-align-top="left"],
+    &[data-preview-horizontal-panel-align-top="justify"] {
+      grid-column-start: 1;
+    }
+    &[data-preview-horizontal-panel-align-top="right"],
+    &[data-preview-horizontal-panel-align-top="center"] {
+      grid-column-start: 2;
+    }
+    &[data-preview-horizontal-panel-align-top="right"],
+    &[data-preview-horizontal-panel-align-top="justify"] {
+      grid-column-end: 4;
+    }
+    &[data-preview-horizontal-panel-align-top="left"],
+    &[data-preview-horizontal-panel-align-top="center"] {
+      grid-column-end: 3;
+    }
+
     &.nz-collapsed {
       &.nz-captured {
         &:not(.nz-transition) {
@@ -229,6 +280,23 @@
 
     &:not(.nz-span) {
       grid-column: 2/3;
+    }
+
+    &[data-preview-horizontal-panel-align-bottom="left"],
+    &[data-preview-horizontal-panel-align-bottom="justify"] {
+      grid-column-start: 1;
+    }
+    &[data-preview-horizontal-panel-align-bottom="right"],
+    &[data-preview-horizontal-panel-align-bottom="center"] {
+      grid-column-start: 2;
+    }
+    &[data-preview-horizontal-panel-align-bottom="right"],
+    &[data-preview-horizontal-panel-align-bottom="justify"] {
+      grid-column-end: 4;
+    }
+    &[data-preview-horizontal-panel-align-bottom="left"],
+    &[data-preview-horizontal-panel-align-bottom="center"] {
+      grid-column-end: 3;
     }
 
     &.nz-collapsed {
