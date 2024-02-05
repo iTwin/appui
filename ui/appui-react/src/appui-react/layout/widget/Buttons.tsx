@@ -26,13 +26,45 @@ import {
 } from "./PreviewMaximizeToggle";
 import { SendBack, useSendBack } from "./SendBack";
 import { WidgetIdContext } from "./Widget";
-import { usePreviewFeatures } from "../../preview/PreviewFeatures";
-import { MoreButton } from "../../preview/widget-action-dropdown/MoreButton";
+import {
+  MoreButton,
+  useDropdownFeatures,
+} from "../../preview/widget-action-dropdown/MoreButton";
 import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
 import "./Buttons.scss";
 
 /** @internal */
 export function TabBarButtons() {
+  const features = useWidgetFeatures();
+  const [sortedFeatures, isDropdown] = useDropdownFeatures(features);
+
+  const buttons = sortedFeatures.map((feature) => {
+    switch (feature) {
+      case "popout":
+        return <PopoutToggle key="popout" />;
+      case "maximize":
+        return <PreviewMaximizeToggle key="maximize" />;
+      case "sendBack":
+        return <SendBack key="sendBack" />;
+      case "dock":
+        return <Dock key="dock" />;
+      case "horizontalAlign":
+        return <PreviewHorizontalPanelAlignButton key="horizontalAlign" />;
+      case "pin":
+        return <PinToggle key="pin" />;
+    }
+    return undefined;
+  });
+
+  return (
+    <div className="nz-widget-buttons">
+      {isDropdown ? <MoreButton>{buttons}</MoreButton> : buttons}
+    </div>
+  );
+}
+
+/** @internal */
+export function useWidgetFeatures() {
   const isToolSettings = useIsToolSettingsTab();
   const isMainPanelWidget = useIsMainPanelWidget();
 
@@ -43,25 +75,14 @@ export function TabBarButtons() {
   const horizontalPanelAlignButton = useHorizontalPanelAlignButton();
   const pinToggle = isMainPanelWidget;
 
-  const buttons = [
-    ...(popoutToggle ? [<PopoutToggle key="popout" />] : []),
-    ...(maximizeToggle ? [<PreviewMaximizeToggle key="maximize" />] : []),
-    ...(sendBack ? [<SendBack key="sendBack" />] : []),
-    ...(dock ? [<Dock key="dock" />] : []),
-    ...(horizontalPanelAlignButton
-      ? [<PreviewHorizontalPanelAlignButton key="horizontalAlign" />]
-      : []),
-    ...(pinToggle ? [<PinToggle key="pin" />] : []),
+  return [
+    ...(popoutToggle ? (["popout"] as const) : []),
+    ...(maximizeToggle ? (["maximize"] as const) : []),
+    ...(sendBack ? (["sendBack"] as const) : []),
+    ...(dock ? (["dock"] as const) : []),
+    ...(horizontalPanelAlignButton ? (["horizontalAlign"] as const) : []),
+    ...(pinToggle ? (["pin"] as const) : []),
   ];
-
-  const { widgetActionDropdown } = usePreviewFeatures();
-  const threshold = widgetActionDropdown?.threshold ?? Infinity;
-  const isDropdown = buttons.length > threshold;
-  return (
-    <div className="nz-widget-buttons">
-      {isDropdown ? <MoreButton>{buttons.reverse()}</MoreButton> : buttons}
-    </div>
-  );
 }
 
 /** @internal */
