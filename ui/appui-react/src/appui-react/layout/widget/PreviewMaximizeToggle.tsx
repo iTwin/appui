@@ -12,8 +12,8 @@ import {
   SvgWindowMinimize,
 } from "@itwin/itwinui-icons-react";
 import { useFloatingWidgetId } from "./FloatingWidget";
-import { Button } from "@itwin/itwinui-react";
 import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
+import { ActionButton } from "../../preview/widget-action-dropdown/Button";
 
 /** Maximized widget preview feature state.
  * @internal
@@ -81,16 +81,13 @@ export function PreviewMaximizeToggle() {
         };
 
   return (
-    <Button
-      styleType="borderless"
-      size="small"
+    <ActionButton
+      icon={iconSpec}
+      title={title}
       onClick={() => {
         setMaximizedWidget(id);
       }}
-      title={title}
-    >
-      {iconSpec}
-    </Button>
+    />
   );
 }
 

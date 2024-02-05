@@ -8,19 +8,18 @@
 
 import * as React from "react";
 import { SvgMoreVertical } from "@itwin/itwinui-icons-react";
-import { DropdownMenu, IconButton, MenuItem } from "@itwin/itwinui-react";
+import { DropdownMenu, IconButton } from "@itwin/itwinui-react";
 
 /** @internal */
 export function MoreButton(props: React.PropsWithChildren<{}>) {
   return (
     <DropdownMenu
       placement="bottom-end"
-      menuItems={(_close) => {
-        const children = React.Children.toArray(props.children);
-        return children.map((child, index) => {
-          return <MenuItem key={index}>{child}</MenuItem>;
-        });
-      }}
+      menuItems={(onClose) => [
+        <WidgetActionDropdownContext.Provider key={0} value={{ onClose }}>
+          {props.children}
+        </WidgetActionDropdownContext.Provider>,
+      ]}
     >
       <IconButton size="small" styleType="borderless" aria-label="More actions">
         <SvgMoreVertical />
@@ -28,3 +27,11 @@ export function MoreButton(props: React.PropsWithChildren<{}>) {
     </DropdownMenu>
   );
 }
+
+/** @internal */
+export const WidgetActionDropdownContext = React.createContext<
+  | undefined
+  | {
+      onClose: () => void;
+    }
+>(undefined);

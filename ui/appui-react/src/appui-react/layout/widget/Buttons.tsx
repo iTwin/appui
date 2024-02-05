@@ -56,7 +56,7 @@ export function TabBarButtons() {
   const { widgetActionDropdown } = usePreviewFeatures();
   const threshold = widgetActionDropdown?.threshold ?? Infinity;
   if (buttons.length > threshold) {
-    return <MoreButton>{buttons}</MoreButton>;
+    return <MoreButton>{buttons.reverse()}</MoreButton>;
   }
   return <div className="nz-widget-tabBarButtons">{buttons}</div>;
 }

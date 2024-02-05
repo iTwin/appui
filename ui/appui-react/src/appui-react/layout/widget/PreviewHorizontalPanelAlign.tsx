@@ -6,10 +6,10 @@
  * @module Widget
  */
 
+import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { HorizontalAlignment } from "@itwin/core-react";
-import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";
-import * as React from "react";
+import { DropdownMenu, MenuItem } from "@itwin/itwinui-react";
 import {
   isHorizontalPanelSide,
   PanelSideContext,
@@ -19,8 +19,10 @@ import type {
   PanelSide,
 } from "../widget-panels/PanelTypes";
 import { useIsMainPanelWidget } from "./Buttons";
+import { WidgetActionDropdownContext } from "../../preview/widget-action-dropdown/MoreButton";
+import { TabBarButton } from "./Button";
 
-/** default value used when not provided or disabled */
+/** Default value used when not provided or disabled. */
 const defaultAlignments = {
   top: HorizontalAlignment.Justify,
   bottom: HorizontalAlignment.Justify,
@@ -152,35 +154,45 @@ export function PreviewHorizontalPanelAlignButton() {
   assert(!!side);
   assert(isHorizontalPanelSide(side));
   const { alignments, setAlignment } = usePreviewHorizontalPanelAlign();
+  const title = "Align panel";
 
+  const getMenuItems = (onClose: () => void) =>
+    [
+      HorizontalAlignment.Justify,
+      HorizontalAlignment.Center,
+      HorizontalAlignment.Left,
+      HorizontalAlignment.Right,
+    ].map((align) => {
+      return (
+        <MenuItem
+          key={align}
+          onClick={() => {
+            setAlignment(side, align);
+            onClose?.();
+          }}
+          icon={getIcon(side, align)}
+          isSelected={alignments[side] === align}
+        >
+          {capitalize(align)}
+        </MenuItem>
+      );
+    });
+  const dropdownContext = React.useContext(WidgetActionDropdownContext);
+  if (dropdownContext !== undefined) {
+    return (
+      <MenuItem
+        icon={getIcon(side, alignments[side])}
+        subMenuItems={getMenuItems(dropdownContext.onClose)}
+      >
+        {title}
+      </MenuItem>
+    );
+  }
   return (
-    <DropdownMenu
-      menuItems={(close) =>
-        [
-          HorizontalAlignment.Justify,
-          HorizontalAlignment.Center,
-          HorizontalAlignment.Left,
-          HorizontalAlignment.Right,
-        ].map((align) => {
-          return (
-            <MenuItem
-              key={align}
-              onClick={() => {
-                setAlignment(side, align);
-                close();
-              }}
-              icon={getIcon(side, align)}
-              isSelected={alignments[side] === align}
-            >
-              {capitalize(align)}
-            </MenuItem>
-          );
-        })
-      }
-    >
-      <Button size="small" styleType="borderless" title={"Align panel"}>
+    <DropdownMenu menuItems={(close) => getMenuItems(close)}>
+      <TabBarButton title={title}>
         {getIcon(side, alignments[side])}
-      </Button>
+      </TabBarButton>
     </DropdownMenu>
   );
 }

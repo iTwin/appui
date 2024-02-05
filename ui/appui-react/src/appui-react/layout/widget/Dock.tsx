@@ -7,27 +7,23 @@
  */
 
 import * as React from "react";
-import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
-import { Button } from "@itwin/itwinui-react";
 import { SvgDockTop } from "@itwin/itwinui-icons-react";
+import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
+import { ActionButton } from "../../preview/widget-action-dropdown/Button";
 
 /** @internal */
 export function Dock() {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const title = useLabel("dockToolSettingsTitle");
   return (
-    <Button
-      className="nz-widget-dock"
-      styleType="borderless"
-      size="small"
+    <ActionButton
+      icon={<SvgDockTop />}
+      title={title}
       onClick={() => {
         dispatch({
           type: "TOOL_SETTINGS_DOCK",
         });
       }}
-      title={title}
-    >
-      <SvgDockTop />
-    </Button>
+    />
   );
 }
