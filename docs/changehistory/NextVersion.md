@@ -18,7 +18,8 @@ Table of contents:
 
 - `activateDroppedTab` preview feature to activate a dragged widget tab whenever it is dropped in the receiving container. #601
 - `useWidget` hook to convey widget state and location. #655
-- `horizontalPanelAlignment` preview feature: Horizontal panels will now have "align" button that allow the panel to be aligned to the left, center or right of the view, along with original justify behavior where the panel take the full width of the view. #705
+- `horizontalPanelAlignment` preview feature to add an "align" button to horizontal panels that allow the panel to be aligned to the left, center or right of the view, along with original justify behavior where the panel might take the full width of the view. #705
+- `widgetActionDropdown` preview feature to add a dropdown menu to the widget title bar when specified threshold of buttons is exceeded.
 
 ### Changes
 
