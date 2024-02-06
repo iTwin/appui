@@ -2,12 +2,15 @@
 
 exports[`SendBack should render 1`] = `
 <button
-  class="iui-button nz-widget-sendBack"
+  class="iui-button"
   data-iui-size="small"
   data-iui-variant="borderless"
   type="button"
 >
-  <span>
+  <span
+    aria-hidden="true"
+    class="iui-button-icon"
+  >
     <svg
       fill="var(--iui-color-icon-muted, currentColor)"
       height="1rem"

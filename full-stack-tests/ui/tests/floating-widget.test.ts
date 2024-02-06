@@ -217,7 +217,7 @@ test.describe("floating widget send back outline", () => {
   test("should show a widget (with tab) outline", async ({ page }) => {
     const tab = tabLocator(page, "FW-1");
     const floatingWidget = floatingWidgetLocator({ tab });
-    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+    const sendBackButton = floatingWidget.getByTitle("Send to panel");
 
     const destTab = tabLocator(page, "WL-A");
     const [widgetOutline, tabOutline] = outlineLocator({ tab: destTab });
@@ -240,7 +240,7 @@ test.describe("floating widget send back outline", () => {
 
     const tab = tabLocator(page, "FW-1");
     const floatingWidget = floatingWidgetLocator({ tab });
-    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+    const sendBackButton = floatingWidget.getByTitle("Send to panel");
 
     const outline = outlineLocator({ page, side: "left" });
 
@@ -256,7 +256,7 @@ test.describe("floating widget send back outline", () => {
 
     const tab = tabLocator(page, "FW-1");
     const floatingWidget = floatingWidgetLocator({ tab });
-    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+    const sendBackButton = floatingWidget.getByTitle("Send to panel");
 
     const panel = panelLocator({ page, side: "left" });
     const outline = outlineLocator({ panel, sectionId: 0 });
@@ -280,7 +280,7 @@ test.describe("floating widget send back outline", () => {
     });
 
     const floatingWidget = floatingWidgetLocator({ tab });
-    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+    const sendBackButton = floatingWidget.getByTitle("Send to panel");
 
     await setWidgetState(page, "WL-2", WidgetState.Hidden);
     await setWidgetState(page, "WL-3", WidgetState.Hidden);

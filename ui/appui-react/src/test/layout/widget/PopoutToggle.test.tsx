@@ -19,16 +19,20 @@ describe("PopoutToggle", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
+    const component = render(
+      <TestNineZoneProvider
+        defaultState={state}
+        dispatch={dispatch}
+        labels={{
+          popoutActiveTab: "Popout",
+        }}
+      >
         <WidgetIdContext.Provider value="w1">
           <PopoutToggle />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    const button = container.getElementsByClassName(
-      "nz-widget-popoutToggle"
-    )[0];
+    const button = component.getByTitle("Popout");
     fireEvent.click(button);
 
     sinon.assert.calledOnceWithExactly(dispatch, {

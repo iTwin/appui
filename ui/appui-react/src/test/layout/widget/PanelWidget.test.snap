@@ -49,15 +49,18 @@ exports[`PanelWidget should render 1`] = `
       </div>
     </div>
     <div
-      class="nz-widget-tabBarButtons"
+      class="nz-widget-buttons"
     >
       <button
-        class="iui-button nz-widget-pinToggle nz-is-pinned"
+        class="iui-button"
         data-iui-size="small"
         data-iui-variant="borderless"
         type="button"
       >
-        <span>
+        <span
+          aria-hidden="true"
+          class="iui-button-icon"
+        >
           <svg
             fill="var(--iui-color-icon-muted, currentColor)"
             height="1rem"
@@ -134,7 +137,7 @@ exports[`PanelWidget should render horizontal with fit-content 1`] = `
       </div>
     </div>
     <div
-      class="nz-widget-tabBarButtons"
+      class="nz-widget-buttons"
     />
   </div>
   <div
@@ -206,15 +209,18 @@ exports[`PanelWidget should render minimized 1`] = `
       </div>
     </div>
     <div
-      class="nz-widget-tabBarButtons"
+      class="nz-widget-buttons"
     >
       <button
-        class="iui-button nz-widget-pinToggle nz-is-pinned"
+        class="iui-button"
         data-iui-size="small"
         data-iui-variant="borderless"
         type="button"
       >
-        <span>
+        <span
+          aria-hidden="true"
+          class="iui-button-icon"
+        >
           <svg
             fill="var(--iui-color-icon-muted, currentColor)"
             height="1rem"
@@ -291,15 +297,18 @@ exports[`PanelWidget should render with fit-content 1`] = `
       </div>
     </div>
     <div
-      class="nz-widget-tabBarButtons"
+      class="nz-widget-buttons"
     >
       <button
-        class="iui-button nz-widget-pinToggle nz-is-pinned"
+        class="iui-button"
         data-iui-size="small"
         data-iui-variant="borderless"
         type="button"
       >
-        <span>
+        <span
+          aria-hidden="true"
+          class="iui-button-icon"
+        >
           <svg
             fill="var(--iui-color-icon-muted, currentColor)"
             height="1rem"

@@ -9,20 +9,21 @@
 import * as React from "react";
 import { create } from "zustand";
 import { assert } from "@itwin/core-bentley";
-import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
-import { useLayout } from "../base/LayoutStore";
-import { useFloatingWidgetId } from "./FloatingWidget";
-import type { WidgetState } from "../state/WidgetState";
-import { getWidgetPanelSectionId } from "../state/PanelState";
-import type { NineZoneState } from "../state/NineZoneState";
-import { Button } from "@itwin/itwinui-react";
 import {
   SvgDockBottom,
   SvgDockLeft,
   SvgDockRight,
   SvgDockTop,
 } from "@itwin/itwinui-icons-react";
-import type { PanelWidgetRestoreState } from "../state/WidgetRestoreState";
+import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
+import { useLayout } from "../base/LayoutStore";
+import { useFloatingWidgetId, useWidgetAllowedToDock } from "./FloatingWidget";
+import type { WidgetState } from "../state/WidgetState";
+import { getWidgetPanelSectionId } from "../state/PanelState";
+import type { NineZoneState } from "../state/NineZoneState";
+import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
+import { usePreviewMaximizedWidget } from "./PreviewMaximizeToggle";
+import { ActionButton } from "../../preview/widget-action-dropdown/Button";
 
 /** @internal */
 export const useActiveSendBackWidgetIdStore = create<
@@ -78,7 +79,10 @@ export function useSendBackHomeState() {
   );
 }
 
-function getHomeIcon(home: PanelWidgetRestoreState) {
+function Icon() {
+  const id = useFloatingWidgetId();
+  assert(!!id);
+  const home = useLayout((state) => state.floatingWidgets.byId[id].home);
   return home.side === "left" ? (
     <SvgDockLeft />
   ) : home.side === "right" ? (
@@ -94,46 +98,50 @@ function getHomeIcon(home: PanelWidgetRestoreState) {
 export function SendBack() {
   const id = useFloatingWidgetId();
   assert(!!id);
-  const home = useLayout((state) => state.floatingWidgets.byId[id].home);
-  const homeIcon = getHomeIcon(home);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const title = useLabel("sendWidgetHomeTitle");
   const setActiveWidgetId = (newId: WidgetState["id"] | undefined) =>
     useActiveSendBackWidgetIdStore.setState(newId);
 
+  const onClick = () => {
+    setActiveWidgetId(undefined);
+    dispatch({
+      type: "FLOATING_WIDGET_SEND_BACK",
+      id,
+    });
+  };
+  const onMouseOver = () => {
+    setActiveWidgetId(id);
+  };
+  const onFocus = () => {
+    setActiveWidgetId(id);
+  };
+  const onMouseOut = () => {
+    setActiveWidgetId(undefined);
+  };
+  const onBlur = () => {
+    setActiveWidgetId(undefined);
+  };
+  const eventHandlers = { onMouseOver, onFocus, onMouseOut, onBlur };
   return (
-    <Button
-      className="nz-widget-sendBack"
-      styleType="borderless"
-      size="small"
-      onClick={() => {
-        setActiveWidgetId(undefined);
-        dispatch({
-          type: "FLOATING_WIDGET_SEND_BACK",
-          id,
-        });
-      }}
-      onMouseOver={() => {
-        setActiveWidgetId(id);
-      }}
-      onFocus={
-        // istanbul ignore next
-        () => {
-          setActiveWidgetId(id);
-        }
-      }
-      onMouseOut={() => {
-        setActiveWidgetId(undefined);
-      }}
-      onBlur={
-        // istanbul ignore next
-        () => {
-          setActiveWidgetId(undefined);
-        }
-      }
+    <ActionButton
+      icon={<Icon />}
       title={title}
-    >
-      {homeIcon}
-    </Button>
+      onClick={onClick}
+      buttonProps={eventHandlers}
+      // TODO: can not pass down event handlers due to iTwinUI type issues.
+      menuProps={eventHandlers as any}
+    />
   );
+}
+
+/** @internal */
+export function useSendBack() {
+  const { enabled, maximizedWidget } = usePreviewMaximizedWidget();
+  const isToolSettings = useIsToolSettingsTab();
+  const floatingWidgetId = useFloatingWidgetId();
+  const canBeDocked = useWidgetAllowedToDock();
+
+  const isMaximized = maximizedWidget === floatingWidgetId && enabled;
+  return !!(!isMaximized && floatingWidgetId && !isToolSettings && canBeDocked);
 }

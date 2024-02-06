@@ -6,13 +6,12 @@
  * @module Widget
  */
 
-// cSpell:ignore popout
-
 import * as React from "react";
+import { SvgWindowPopout } from "@itwin/itwinui-icons-react";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { useActiveTabId } from "./Widget";
-import { Button } from "@itwin/itwinui-react";
-import { SvgWindowPopout } from "@itwin/itwinui-icons-react";
+import { useLayout } from "../base/LayoutStore";
+import { ActionButton } from "../../preview/widget-action-dropdown/Button";
 
 /** @internal */
 export function PopoutToggle() {
@@ -21,19 +20,24 @@ export function PopoutToggle() {
   const popoutTitle = useLabel("popoutActiveTab");
 
   return (
-    <Button
-      className="nz-widget-popoutToggle"
-      styleType="borderless"
-      size="small"
+    <ActionButton
+      icon={<SvgWindowPopout />}
+      title={popoutTitle}
       onClick={() => {
         dispatch({
           id: activeTabId,
           type: "WIDGET_TAB_POPOUT",
         });
       }}
-      title={popoutTitle}
-    >
-      <SvgWindowPopout />
-    </Button>
+    />
   );
+}
+
+/** @internal */
+export function usePopoutToggle() {
+  const tabId = useActiveTabId();
+  return useLayout((state) => {
+    const tab = state.tabs[tabId];
+    return !!tab.canPopout;
+  });
 }

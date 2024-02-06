@@ -7,13 +7,12 @@
  */
 
 import * as React from "react";
-import classnames from "classnames";
 import { assert } from "@itwin/core-bentley";
+import { SvgPin, SvgPinHollow } from "@itwin/itwinui-icons-react";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { PanelSideContext } from "../widget-panels/Panel";
 import { useLayout } from "../base/LayoutStore";
-import { Button } from "@itwin/itwinui-react";
-import { SvgPin, SvgPinHollow } from "@itwin/itwinui-icons-react";
+import { ActionButton } from "../../preview/widget-action-dropdown/Button";
 
 /** @internal */
 export function PinToggle() {
@@ -24,25 +23,16 @@ export function PinToggle() {
   const unpinPanelTitle = useLabel("unpinPanelTitle");
   const pinned = useLayout((state) => state.panels[side].pinned);
 
-  const className = classnames(
-    "nz-widget-pinToggle",
-    pinned ? "nz-is-pinned" : "nz-is-unpinned"
-  );
-
   return (
-    <Button
-      className={className}
-      styleType="borderless"
-      size="small"
+    <ActionButton
+      icon={pinned ? <SvgPin /> : <SvgPinHollow />}
+      title={pinned ? unpinPanelTitle : pinPanelTitle}
       onClick={() => {
         dispatch({
           side,
           type: "PANEL_TOGGLE_PINNED",
         });
       }}
-      title={pinned ? unpinPanelTitle : pinPanelTitle}
-    >
-      {pinned ? <SvgPin /> : <SvgPinHollow />}
-    </Button>
+    />
   );
 }

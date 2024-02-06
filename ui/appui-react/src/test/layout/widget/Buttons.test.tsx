@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
@@ -21,31 +20,33 @@ describe("TabBarButtons", () => {
     state = addTab(state, "t1", { label: "t1-label" });
     state = addFloatingWidget(state, "fw1", ["t1"]);
     const wrapper = render(
-      <TestNineZoneProvider defaultState={state}>
+      <TestNineZoneProvider
+        defaultState={state}
+        labels={{ sendWidgetHomeTitle: "Send back" }}
+      >
         <WidgetIdContext.Provider value="fw1">
           <TabBarButtons />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    expect(wrapper.container.querySelector("button.nz-widget-sendBack")).to.not
-      .be.null;
+    wrapper.getByTitle("Send back");
   });
 
-  it("should render Popout button in a floating widget that canPopout ", () => {
+  it("should render PopoutToggle in a floating widget that canPopout ", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "t1-label", canPopout: true });
     state = addFloatingWidget(state, "fw1", ["t1"]);
     const wrapper = render(
-      <TestNineZoneProvider defaultState={state}>
+      <TestNineZoneProvider
+        defaultState={state}
+        labels={{ popoutActiveTab: "Popout" }}
+      >
         <WidgetIdContext.Provider value="fw1">
           <TabBarButtons />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    expect(wrapper.container.querySelector("button.nz-widget-sendBack")).to.not
-      .be.null;
-    expect(wrapper.container.querySelector("button.nz-widget-popoutToggle")).to
-      .not.be.null;
+    wrapper.getByTitle("Popout");
   });
 
   it("should render Dock button in floating ToolSettings", () => {
@@ -54,22 +55,29 @@ describe("TabBarButtons", () => {
     state = addFloatingWidget(state, "fw1", ["ts"]);
     state = addWidgetToolSettings(state, "ts");
     const wrapper = render(
-      <TestNineZoneProvider defaultState={state}>
+      <TestNineZoneProvider
+        defaultState={state}
+        labels={{
+          dockToolSettingsTitle: "Dock",
+        }}
+      >
         <WidgetIdContext.Provider value="fw1">
           <TabBarButtons />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    expect(wrapper.container.querySelector("button.nz-widget-dock")).to.not.be
-      .null;
+    wrapper.getByTitle("Dock");
   });
 
-  it("should render Pin button in main panel widget", () => {
+  it("should render PinToggle in main panel widget", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "t1-label", canPopout: false });
     state = addPanelWidget(state, "left", "w1", ["t1"], { activeTabId: "t1" });
     const wrapper = render(
-      <TestNineZoneProvider defaultState={state}>
+      <TestNineZoneProvider
+        defaultState={state}
+        labels={{ unpinPanelTitle: "Unpin panel" }}
+      >
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
             <TabBarButtons />
@@ -77,16 +85,18 @@ describe("TabBarButtons", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    expect(wrapper.container.querySelector("button.nz-widget-pinToggle")).to.not
-      .be.null;
+    wrapper.getByTitle("Unpin panel");
   });
 
-  it("should render Popout and Pin buttons in main panel widget that canPopout ", () => {
+  it("should render PopoutToggle in main panel widget that canPopout", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "t1-label", canPopout: true });
     state = addPanelWidget(state, "left", "w1", ["t1"], { activeTabId: "t1" });
     const wrapper = render(
-      <TestNineZoneProvider defaultState={state}>
+      <TestNineZoneProvider
+        defaultState={state}
+        labels={{ popoutActiveTab: "Popout widget" }}
+      >
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
             <TabBarButtons />
@@ -94,10 +104,7 @@ describe("TabBarButtons", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    expect(wrapper.container.querySelector("button.nz-widget-popoutToggle")).to
-      .not.be.null;
-    expect(wrapper.container.querySelector("button.nz-widget-pinToggle")).to.not
-      .be.null;
+    wrapper.getByTitle("Popout widget");
   });
 
   it("should render popout button", () => {
@@ -105,7 +112,10 @@ describe("TabBarButtons", () => {
     state = addTab(state, "t1", { label: "t1-label", canPopout: true });
     state = addPanelWidget(state, "left", "w1", ["t1"], { activeTabId: "t1" });
     const wrapper = render(
-      <TestNineZoneProvider defaultState={state}>
+      <TestNineZoneProvider
+        defaultState={state}
+        labels={{ popoutActiveTab: "Popout" }}
+      >
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
             <TabBarButtons />
@@ -113,7 +123,6 @@ describe("TabBarButtons", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    expect(wrapper.container.querySelector("button.nz-widget-popoutToggle")).to
-      .not.be.null;
+    wrapper.getByTitle("Popout");
   });
 });

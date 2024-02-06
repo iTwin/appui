@@ -224,7 +224,7 @@ export async function dragWidget(
 ) {
   const page = widget.page();
   const titleBarHandle = titleBarHandleLocator(widget);
-  const titleBarButtons = widget.locator(".nz-widget-tabBarButtons");
+  const titleBarButtons = widget.locator(".nz-widget-buttons");
   const frontstage = frontstageLocator(page);
 
   // Widget tabs or title bar buttons overlay the handle. Make sure we drag the handle.
