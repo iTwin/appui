@@ -2,6 +2,18 @@
   "name": "@itwin/imodel-components-react",
   "entries": [
     {
+      "version": "4.9.0",
+      "tag": "@itwin/imodel-components-react_v4.9.0",
+      "date": "Tue, 06 Feb 2024 08:56:40 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "ignore appui-abstract eslint deprecation m"
+          }
+        ]
+      }
+    },
+    {
       "version": "4.8.3",
       "tag": "@itwin/imodel-components-react_v4.8.3",
       "date": "Tue, 30 Jan 2024 09:04:27 GMT",
