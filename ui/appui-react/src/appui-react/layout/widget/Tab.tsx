@@ -9,6 +9,7 @@
 import "./Tab.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
 import {
@@ -46,8 +47,7 @@ import { WidgetOverflowContext } from "./Overflow";
 import { useLayout, useLayoutStore } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
-import { Key } from "ts-key-enum";
-import { usePreviewMaximizedWidget } from "./PreviewMaximizeToggle";
+import { useMaximizedWidget } from "../../preview/enable-maximized-widget/MaximizedWidget";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -121,7 +121,7 @@ function WidgetTabComponent(props: WidgetTabProps) {
   );
 
   const { enabled: enableMaximizedFloatingWidget, maximizedWidget } =
-    usePreviewMaximizedWidget();
+    useMaximizedWidget();
   const floatingWidgetId = useFloatingWidgetId();
   // istanbul ignore next (preview)
   const maximized =

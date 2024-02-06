@@ -39,7 +39,7 @@ import { WidgetOutline } from "../outline/WidgetOutline";
 import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import type { XAndY } from "../state/internal/NineZoneStateHelpers";
-import { usePreviewMaximizedWidget } from "./PreviewMaximizeToggle";
+import { useMaximizedWidget } from "../../preview/enable-maximized-widget/MaximizedWidget";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle =
@@ -95,7 +95,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   const dragged = useIsDraggedItem(item);
   const ref = useHandleAutoSize(dragged);
   const { enabled: enableMaximizedFloatingWidget, maximizedWidget } =
-    usePreviewMaximizedWidget();
+    useMaximizedWidget();
   // istanbul ignore next (preview)
   const previewMaximizedWidgetSectionsClass =
     maximizedWidget === id &&
@@ -204,7 +204,7 @@ function useHandleAutoSize(dragged: boolean) {
     (state) => state.floatingWidgets.byId[id].userSized
   );
   const { enabled: enableMaximizedFloatingWidget, maximizedWidget } =
-    usePreviewMaximizedWidget();
+    useMaximizedWidget();
   const maximized = enableMaximizedFloatingWidget && maximizedWidget === id;
 
   const updatePosition = React.useRef(true);

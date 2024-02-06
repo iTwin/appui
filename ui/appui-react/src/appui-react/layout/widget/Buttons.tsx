@@ -6,6 +6,7 @@
  * @module Widget
  */
 
+import "./Buttons.scss";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { useLayout } from "../base/LayoutStore";
@@ -20,10 +21,6 @@ import {
   PreviewHorizontalPanelAlignButton,
   useHorizontalPanelAlignButton,
 } from "./PreviewHorizontalPanelAlign";
-import {
-  PreviewMaximizeToggle,
-  useMaximizeToggle,
-} from "./PreviewMaximizeToggle";
 import { SendBack, useSendBack } from "./SendBack";
 import { WidgetIdContext } from "./Widget";
 import {
@@ -31,7 +28,10 @@ import {
   useDropdownFeatures,
 } from "../../preview/widget-action-dropdown/MoreButton";
 import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
-import "./Buttons.scss";
+import {
+  MaximizeToggle,
+  useMaximizeToggle,
+} from "../../preview/enable-maximized-widget/MaximizeToggle";
 
 /** @internal */
 export function TabBarButtons() {
@@ -43,7 +43,7 @@ export function TabBarButtons() {
       case "popout":
         return <PopoutToggle key="popout" />;
       case "maximize":
-        return <PreviewMaximizeToggle key="maximize" />;
+        return <MaximizeToggle key="maximize" />;
       case "sendBack":
         return <SendBack key="sendBack" />;
       case "dock":

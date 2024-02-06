@@ -36,7 +36,6 @@ import type { TabState } from "../layout/state/TabState";
 import { WidgetPanels } from "../layout/widget-panels/Panels";
 import { FloatingWidgets } from "../layout/widget/FloatingWidgets";
 import { PreviewHorizontalPanelAlignFeatureProvider } from "../layout/widget/PreviewHorizontalPanelAlign";
-import { PreviewMaximizedWidgetFeatureProvider } from "../layout/widget/PreviewMaximizeToggle";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import type { FrameworkState } from "../redux/FrameworkState";
 import type { FrameworkRootState } from "../redux/StateManager";
@@ -65,6 +64,7 @@ import {
   useShouldRenderDockedToolSettings,
   WidgetPanelsToolSettings,
 } from "./ToolSettings";
+import { MaximizedWidgetProvider } from "../preview/enable-maximized-widget/MaximizedWidget";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -83,7 +83,7 @@ function WidgetPanelsFrontstageComponent() {
     "preview-contentAlwaysMaxSize-topPanelActive";
 
   return (
-    <PreviewMaximizedWidgetFeatureProvider
+    <MaximizedWidgetProvider
       enabled={previewFeatures.enableMaximizedFloatingWidget}
     >
       <PreviewHorizontalPanelAlignFeatureProvider
@@ -106,7 +106,7 @@ function WidgetPanelsFrontstageComponent() {
           <FloatingWidgets />
         </ToolbarPopupAutoHideContext.Provider>
       </PreviewHorizontalPanelAlignFeatureProvider>
-    </PreviewMaximizedWidgetFeatureProvider>
+    </MaximizedWidgetProvider>
   );
 }
 
