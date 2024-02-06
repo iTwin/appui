@@ -14,22 +14,22 @@ import {
 import { useMaximizedWidget } from "./MaximizedWidget";
 import { ActionButton } from "../widget-action-dropdown/Button";
 import { useIsToolSettingsTab } from "../../layout/widget/useIsToolSettingsTab";
-import { useFloatingWidgetId } from "../../layout/widget/FloatingWidget";
+import { WidgetIdContext } from "../../layout/widget/Widget";
 
 /** @internal */
 export function MaximizeToggle() {
+  const widgetId = React.useContext(WidgetIdContext);
   const { maximizedWidget, setMaximizedWidget } = useMaximizedWidget();
-  const floatingWidgetId = useFloatingWidgetId();
 
   const { id, title, iconSpec } =
-    maximizedWidget === floatingWidgetId
+    maximizedWidget === widgetId
       ? {
           id: undefined,
           title: "Restore",
           iconSpec: <SvgWindowMinimize />,
         }
       : {
-          id: floatingWidgetId,
+          id: widgetId,
           title: "Maximize",
           iconSpec: <SvgWindowMaximize />,
         };
@@ -49,7 +49,6 @@ export function MaximizeToggle() {
 export function useMaximizeToggle() {
   const { enabled } = useMaximizedWidget();
   const isToolSettings = useIsToolSettingsTab();
-  const floatingWidgetId = useFloatingWidgetId();
 
-  return !!(enabled && !isToolSettings && floatingWidgetId);
+  return !!enabled && !isToolSettings;
 }
