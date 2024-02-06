@@ -2,6 +2,32 @@
   "name": "@itwin/components-react",
   "entries": [
     {
+      "version": "4.9.0",
+      "tag": "@itwin/components-react_v4.9.0",
+      "date": "Tue, 06 Feb 2024 08:56:40 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "ignore appui-abstract eslint deprecation m"
+          },
+          {
+            "comment": "`PropertyFilterBuilder`: Added `Between` and `Not between` operators."
+          },
+          {
+            "comment": "Added `useControlledTreeEventsHandler` hook that replaces now deprecated `useTreeEventsHandler`."
+          },
+          {
+            "comment": "Polish UI for FilterBuilder"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Show loading spinner in subsequent loads if delay threshold is reached VirtualizedPropertyGrid"
+          }
+        ]
+      }
+    },
+    {
       "version": "4.8.3",
       "tag": "@itwin/components-react_v4.8.3",
       "date": "Tue, 30 Jan 2024 09:04:27 GMT",
