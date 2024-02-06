@@ -1,6 +1,20 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Tue, 30 Jan 2024 09:04:27 GMT and should not be manually modified.
+This log was last generated on Tue, 06 Feb 2024 08:56:40 GMT and should not be manually modified.
+
+## 4.9.0
+Tue, 06 Feb 2024 08:56:40 GMT
+
+### Updates
+
+- ignore appui-abstract eslint deprecation m
+- Added a preview feature to activate a dragged widget tab whenever it is dropped in the receiving container.
+- Add ability to not clear selection after isolate op
+- Created useWidget hook to convey widget information
+- Add `widgetActionDropdown` preview feature to render drop down menu in the widget title bar.
+- Removed appui-layout-react mentions from Readme.md
+- Added `horizontalPanelAlignment` preview feature.
+- Updated buttons on widget panels.
 
 ## 4.8.3
 Tue, 30 Jan 2024 09:04:27 GMT

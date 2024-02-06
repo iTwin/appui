@@ -1,6 +1,13 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Tue, 30 Jan 2024 09:04:27 GMT and should not be manually modified.
+This log was last generated on Tue, 06 Feb 2024 08:56:40 GMT and should not be manually modified.
+
+## 4.9.0
+Tue, 06 Feb 2024 08:56:40 GMT
+
+### Updates
+
+- ignore appui-abstract eslint deprecation m
 
 ## 4.8.3
 Tue, 30 Jan 2024 09:04:27 GMT
