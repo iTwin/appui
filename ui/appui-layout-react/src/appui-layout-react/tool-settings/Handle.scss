@@ -6,9 +6,12 @@
 .nz-toolSettings-handle {
   height: var(--_xyz-tool-settings-docked-height);
   width: var(--_xyz-tool-settings-docked-height);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   cursor: grab;
   flex-shrink: 0;
+
+  &:active {
+    cursor: grabbing;
+  }
 }
