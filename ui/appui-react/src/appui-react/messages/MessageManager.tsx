@@ -106,41 +106,49 @@ export interface ToolAssistanceChangedEventArgs {
 /** Message Added Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class MessageAddedEvent extends UiEvent<MessageAddedEventArgs> {}
 
 /** Messages Updated Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class MessagesUpdatedEvent extends UiEvent<{}> {}
 
 /** Activity Message Added Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArgs> {}
 
 /** Activity Message Cancelled Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ActivityMessageCancelledEvent extends UiEvent<{}> {}
 
 /** Input Field Message Added Event class
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class InputFieldMessageAddedEvent extends UiEvent<InputFieldMessageEventArgs> {}
 
 /** Input Field Message Removed Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class InputFieldMessageRemovedEvent extends UiEvent<{}> {}
 
 /** Open Message Center Event class.
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class OpenMessageCenterEvent extends UiEvent<{}> {}
 
 /** Tool Assistance Changed event class
  * @public
  */
+// eslint-disable-next-line deprecation/deprecation
 export class ToolAssistanceChangedEvent extends UiEvent<ToolAssistanceChangedEventArgs> {}
 
 /**

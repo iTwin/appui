@@ -1,6 +1,35 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Thu, 21 Dec 2023 14:08:42 GMT and should not be manually modified.
+This log was last generated on Tue, 06 Feb 2024 08:56:40 GMT and should not be manually modified.
+
+## 4.9.0
+Tue, 06 Feb 2024 08:56:40 GMT
+
+### Patches
+
+- Show loading spinner in subsequent loads if delay threshold is reached VirtualizedPropertyGrid
+
+### Updates
+
+- ignore appui-abstract eslint deprecation m
+- `PropertyFilterBuilder`: Added `Between` and `Not between` operators.
+- Added `useControlledTreeEventsHandler` hook that replaces now deprecated `useTreeEventsHandler`.
+- Polish UI for FilterBuilder
+
+## 4.8.3
+Tue, 30 Jan 2024 09:04:27 GMT
+
+_Version update only_
+
+## 4.8.2
+Wed, 24 Jan 2024 12:37:03 GMT
+
+_Version update only_
+
+## 4.8.1
+Thu, 11 Jan 2024 13:05:42 GMT
+
+_Version update only_
 
 ## 4.8.0
 Thu, 21 Dec 2023 14:08:42 GMT

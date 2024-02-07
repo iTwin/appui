@@ -42,7 +42,7 @@ function parseSvgFromDataUri(src: string, element: any) {
 
   let rawSvg = "";
   if ("data:image/svg+xml;base64" === dataUriParts[0]) {
-    rawSvg = Buffer.from(dataUriParts[1], "base64").toString("utf8");
+    rawSvg = window.atob(dataUriParts[1]);
   } else {
     // `,` is valid character in data when not in base64, rebuild the data correctly
     rawSvg = decodeURIComponent(dataUriParts.slice(1).join(","));
@@ -60,6 +60,7 @@ function parseSvgFromDataUri(src: string, element: any) {
   );
   const errorNode = parsedSvg.querySelector("parsererror");
   if (errorNode || "svg" !== parsedSvg.documentElement.nodeName.toLowerCase()) {
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(UiCore.loggerCategory(element), "Unable to load icon.");
   }
 
@@ -77,10 +78,12 @@ async function fetchSvg(src: string, element: any) {
     Logger.logError(UiCore.loggerCategory(element), "Unable to load icon.");
   });
   if (!response || !response.ok) {
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(UiCore.loggerCategory(element), "Unable to load icon.");
   }
   const str = await response.text();
   if (str === undefined) {
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(UiCore.loggerCategory(element), "Unable to load icon.");
   }
   const data = new window.DOMParser().parseFromString(str, "text/xml");

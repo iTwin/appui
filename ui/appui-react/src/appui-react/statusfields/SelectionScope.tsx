@@ -6,16 +6,16 @@
  * @module StatusBar
  */
 
-import "./SelectionScope.scss";
+import type { CommonProps } from "@itwin/core-react";
+import { Select } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
 import type { ConnectedComponent } from "react-redux";
 import { connect } from "react-redux";
-import { FooterIndicator } from "@itwin/appui-layout-react";
-import { Select } from "@itwin/itwinui-react";
-import type { PresentationSelectionScope } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
-import type { CommonProps } from "@itwin/core-react";
+import { FooterIndicator } from "../layout/footer/Indicator";
+import type { PresentationSelectionScope } from "../redux/SessionState";
+import "./SelectionScope.scss";
 
 /** Defines properties supported by the SelectionScopeField Component.
  * @public

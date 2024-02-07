@@ -5,6 +5,7 @@
 import "./index.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import classnames from "classnames";
 import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
 import reactAxe from "@axe-core/react";
@@ -43,9 +44,9 @@ import {
   UiStateStorageHandler,
 } from "@itwin/appui-react";
 import {
-  assert,
   Id64String,
   Logger,
+  LoggingMetaData,
   LogLevel,
   ProcessDetector,
   UnexpectedErrors,
@@ -89,21 +90,22 @@ import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTa
 // import { ECSchemaRpcLocater } from "@itwin/ecschema-rpcinterface-common";
 import {
   AbstractUiItemsProvider,
-  ApplicationLayoutContext,
-  ApplicationLayoutProvider,
+  AppPreviewFeatures,
   AppUiTestProviders,
   ContentLayoutStage,
   CustomContentFrontstage,
-  CustomFrontstageProvider,
+  CustomStageUiItemsProvider,
   FloatingWidgetsUiItemsProvider,
   InspectUiItemInfoToolProvider,
   MessageUiItemsProvider,
   PopoutWindowsFrontstage,
-  PreviewFeaturesToggleProvider,
+  previewFeaturesToggleProvider,
+  registerCustomFrontstage,
   SynchronizedFloatingViewportStage,
+  TestFrontstageProvider,
   WidgetApiStage,
 } from "@itwin/appui-test-providers";
-import { useHandleURLParams } from "./UrlParams";
+import { getUrlParam, useHandleURLParams } from "./UrlParams";
 import {
   addExampleFrontstagesToBackstage,
   registerExampleFrontstages,
@@ -332,7 +334,7 @@ export class SampleAppIModelApp {
     // register the localized strings for the package and set up that contains the sample UiItems providers
     await AppUiTestProviders.initializeLocalizationAndState();
 
-    // initialize UI Item providers
+    // Register item providers
     UiItemsManager.register(
       new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace)
     );
@@ -346,16 +348,21 @@ export class SampleAppIModelApp {
         AppUiTestProviders.localizationNamespace
       )
     );
-    UiItemsManager.register(new PreviewFeaturesToggleProvider());
-    CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
-    WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
-    ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
-    CustomFrontstageProvider.register(AppUiTestProviders.localizationNamespace);
+    UiItemsManager.register(previewFeaturesToggleProvider);
+    UiItemsManager.register(new CustomStageUiItemsProvider());
+
+    // Register frontstages
+    CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace);
+    WidgetApiStage.register(AppUiTestProviders.localizationNamespace);
+    ContentLayoutStage.register(AppUiTestProviders.localizationNamespace);
+    UiFramework.frontstages.addFrontstageProvider(new TestFrontstageProvider());
+    registerCustomFrontstage();
     SynchronizedFloatingViewportStage.register(
       AppUiTestProviders.localizationNamespace
     );
-    PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
-    // try starting up event loop if not yet started so key-in palette can be opened
+    PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
+
+    // TODO: should not be required. Start event loop to open key-in palette.
     IModelApp.startEventLoop();
   }
 
@@ -439,10 +446,8 @@ export class SampleAppIModelApp {
   }
 
   public static getSnapshotPath(): string | undefined {
-    const url = new URL(window.location.href);
-    const params = new URLSearchParams(url.search);
-    const snapshotPath = params.get("snapshotPath");
-    return snapshotPath
+    const snapshotPath = getUrlParam("snapshotPath");
+    return snapshotPath !== undefined
       ? decodeURIComponent(snapshotPath)
       : process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
   }
@@ -579,40 +584,56 @@ const SampleAppViewer = () => {
   useHandleURLParams();
 
   return (
-    <PreviewFeaturesToggleProvider.ReactProvider>
+    <AppPreviewFeatures>
       <Provider store={SampleAppIModelApp.store}>
         <ThemeManager>
           <SafeAreaContext.Provider value={SafeAreaInsets.All}>
             <AppDragInteraction>
               <UiStateStorageHandler>
-                <ApplicationLayoutProvider>
-                  <AppViewerContent />
-                </ApplicationLayoutProvider>
+                <AppViewerContent />
               </UiStateStorageHandler>
             </AppDragInteraction>
           </SafeAreaContext.Provider>
         </ThemeManager>
       </Provider>
-    </PreviewFeaturesToggleProvider.ReactProvider>
+    </AppPreviewFeatures>
   );
 };
 
 function AppViewerContent() {
-  const applicationLayout = React.useContext(ApplicationLayoutContext);
-  assert(!!applicationLayout, "ApplicationLayoutProvider is required");
-  const isPortal = applicationLayout.mode === "portal";
+  const mode = getUrlParam("mode");
   return (
     <div
       style={{
         display: "grid",
         height: "100%",
-        gridAutoRows: isPortal ? "80px 1fr" : "0 1fr",
+        gridAutoRows: mode === "header" ? "80px 1fr" : "0 1fr",
       }}
     >
-      <h2>Portal Header</h2>
+      <h2>App Header</h2>
       <ConfigurableUiContent appBackstage={<BackstageComposer />} />
     </div>
   );
+}
+
+function App() {
+  const mode = getUrlParam("mode");
+  if (mode === "portal" || mode === "portal-overflow") {
+    return (
+      <div
+        className={classnames(
+          "app-portal",
+          mode === "portal-overflow" && "app-overflow"
+        )}
+      >
+        <div className="app-header">Header</div>
+        <div className="app-viewer">
+          <SampleAppViewer />
+        </div>
+      </div>
+    );
+  }
+  return <SampleAppViewer />;
 }
 
 // If we are using a browser, close the current iModel before leaving
@@ -620,13 +641,30 @@ window.addEventListener("beforeunload", async () => {
   await SampleAppIModelApp.closeCurrentIModel();
 });
 
+// Similar to `Logger.initializeToConsole`, but doesn't stringify meta-data.
+function initializeToConsole() {
+  const logConsole =
+    (level: string) =>
+    (category: string, message: string, metaData: LoggingMetaData) => {
+      const metaObj = Logger.getMetaData(metaData);
+      console.log(`${level} | ${category} | ${message}`, metaObj); // eslint-disable-line no-console
+    };
+
+  Logger.initialize(
+    logConsole("Error"),
+    logConsole("Warning"),
+    logConsole("Info"),
+    logConsole("Trace")
+  );
+}
+
 // main entry point.
 async function main() {
   // Popout widget content is loaded by main window, avoid app-reinitialization.
   if (window.location.href.endsWith("iTwinPopup")) return;
 
   // initialize logging
-  Logger.initializeToConsole();
+  initializeToConsole();
   Logger.setLevelDefault(LogLevel.Warning);
   Logger.setLevel(loggerCategory, LogLevel.Info);
   Logger.setLevel("ViewportComponent", LogLevel.Info);
@@ -697,7 +735,7 @@ async function main() {
 
   ReactDOM.render(
     <React.StrictMode>
-      <SampleAppViewer />
+      <App />
     </React.StrictMode>,
     document.getElementById("root") as HTMLElement
   );

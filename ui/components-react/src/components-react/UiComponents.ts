@@ -66,6 +66,7 @@ export class UiComponents {
    */
   public static get localization(): Localization {
     if (!UiComponents._localization)
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         UiComponents.loggerCategory(this),
         "_localization: UiComponents.initialize has not been called. Unable to return Localization object."

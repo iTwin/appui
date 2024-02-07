@@ -2,19 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as React from "react";
 import { renderHook } from "@testing-library/react-hooks";
-import {
-  addPanelWidget,
-  addTab,
-  createLayoutStore,
-  createNineZoneState,
-  NineZone,
-  TabIdContext,
-} from "@itwin/appui-layout-react";
-import { useWidgetDirection } from "../../appui-react";
-import TestUtils from "../TestUtils";
+import * as React from "react";
 import { Provider } from "react-redux";
+import { useWidgetDirection } from "../../appui-react";
+import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore";
+import { NineZone } from "../../appui-react/layout/base/NineZone";
+import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
+import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
+import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
+import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer";
+import TestUtils from "../TestUtils";
 
 describe("useWidgetDirection", () => {
   before(async () => {

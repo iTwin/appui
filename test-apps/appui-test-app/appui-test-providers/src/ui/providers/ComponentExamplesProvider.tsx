@@ -101,13 +101,12 @@ import {
   StandardContentLayouts,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import { StatusBarDialogTitleBar } from "@itwin/appui-react/lib/cjs/appui-react/statusbar/dialog/TitleBar";
-import { StatusBarDialogTitleBarButton } from "@itwin/appui-react/lib/cjs/appui-react/statusbar/dialog/Button";
 import { ComponentGenerator } from "@itwin/appui-react/lib/cjs/appui-react/uiprovider/ComponentGenerator";
 import { UnitSystemKey } from "@itwin/core-quantity";
 import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";
 import { TreeWidgetComponent } from "../widgets/TreeWidget";
 import { TimelineComponent } from "@itwin/imodel-components-react";
+import { EditorExampleComponent } from "../components/EditorExampleComponent";
 
 class TestContentControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -408,7 +407,7 @@ export class ComponentExamplesProvider {
         createComponentExample(
           "Configurable Ui Content",
           undefined,
-          <ConfigurableUiContent />
+          <ConfigurableUiContent style={{ height: 563 }} />
         ),
       ],
     };
@@ -730,6 +729,19 @@ export class ComponentExamplesProvider {
           >
             Open UiDataProvided Dialog
           </Button>
+        ),
+      ],
+    };
+  }
+
+  private static get editorSample(): ComponentExampleCategory {
+    return {
+      title: "Editor",
+      examples: [
+        createComponentExample(
+          "Editor Example",
+          undefined,
+          <EditorExampleComponent />
         ),
       ],
     };
@@ -1179,19 +1191,19 @@ export class ComponentExamplesProvider {
           <StatusBarDialog
             titleBar={<StatusBarDialog.TitleBar title="StatusBarDialogTitle" />}
           >
-            <StatusBarDialogTitleBarButton title="button" onClick={() => {}} />
+            <StatusBarDialog.TitleBarButton title="button" onClick={() => {}} />
           </StatusBarDialog>
         ),
         createComponentExample(
           "Status Bar Dialog Title Bar",
           undefined,
-          <StatusBarDialogTitleBar title="Status Bar Dialog Title" />
+          <StatusBarDialog.TitleBar title="Status Bar Dialog Title" />
         ),
         createComponentExample(
           "Status Bar Dialog Title Bar Button",
           undefined,
           <StatusBar>
-            <StatusBarDialogTitleBarButton
+            <StatusBarDialog.TitleBarButton
               title="Button Title"
               onClick={() => {}}
             />
@@ -1481,6 +1493,7 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.contentViewSample,
       ComponentExamplesProvider.cursorSample,
       ComponentExamplesProvider.dialogSample,
+      ComponentExamplesProvider.editorSample,
       ComponentExamplesProvider.frontstageSample,
       ComponentExamplesProvider.keyboardShortcutSample,
       ComponentExamplesProvider.notificationSample,

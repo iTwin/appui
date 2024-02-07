@@ -39,6 +39,7 @@ export interface CursorPopupUpdatePositionEventArgs {
 /** CursorPopup Update Position Event class.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export class CursorPopupUpdatePositionEvent extends UiEvent<CursorPopupUpdatePositionEventArgs> {}
 
 /** CursorPopup FadeOut Event Args interface.
@@ -51,6 +52,7 @@ export interface CursorPopupFadeOutEventArgs {
 /** CursorPopup FadeOut Event class.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 export class CursorPopupFadeOutEvent extends UiEvent<CursorPopupFadeOutEventArgs> {}
 
 /** Information maintained by CursorPopupManager about a CursorPopup
@@ -71,6 +73,7 @@ interface CursorPopupInfo {
 /** Cursor Popups Changed Event class.
  * @internal
  */
+// eslint-disable-next-line deprecation/deprecation
 class CursorPopupsChangedEvent extends UiEvent<{}> {}
 
 /** CursorPopup component

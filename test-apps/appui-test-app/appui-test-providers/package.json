@@ -14,7 +14,7 @@
     "build:esm": "tsc 1>&2 --module ES2020 --outDir lib/esm",
     "clean": "rimraf lib .rush/temp/package-deps*.json",
     "cover": "",
-    "docs": "",
+    "docs": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../../generated-docs/extract",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "pseudo:cjs": "betools pseudolocalize --englishDir=./src/public/locales/en --out=./lib/cjs/public/locales/en-PSEUDO",
     "pseudo:esm": "betools pseudolocalize --englishDir=./src/public/locales/en --out=./lib/esm/public/locales/en-PSEUDO",
@@ -45,6 +45,7 @@
     "eslint-config-prettier": "~8.8.0"
   },
   "dependencies": {
+    "@bentley/icons-generic": "^1.0.34",
     "@itwin/core-bentley": "^3.7.0",
     "@itwin/core-geometry": "^3.7.0",
     "@itwin/core-common": "^3.7.0",
@@ -55,7 +56,6 @@
     "@itwin/components-react": "workspace:*",
     "@itwin/core-react": "workspace:*",
     "@itwin/appui-react": "workspace:*",
-    "@itwin/appui-layout-react": "workspace:*",
     "@itwin/imodel-components-react": "workspace:*",
     "@itwin/itwinui-react": "^2.11.11",
     "@itwin/itwinui-icons-react": "^2.1.0",

@@ -4,7 +4,7 @@ public;class AbstractTreeNodeLoader
 public;class AbstractTreeNodeLoaderWithProvider
 public;ActionButtonList 
 public;ActionButtonListProps
-public;ActionButtonRenderer = (props: ActionButtonRendererProps) => React_2.ReactNode
+public;ActionButtonRenderer = (props: ActionButtonRendererProps) => React_3.ReactNode
 public;ActionButtonRendererProps
 public;ActiveMatchInfo
 public;adjustDateToTimezone(inDateTime: Date, utcOffset: number): Date
@@ -23,7 +23,7 @@ public;CategorizedPropertyTypes = FlatGridItemType.Array | FlatGridItemType.Prim
 public;CategoryRecordsDict
 public;CheckBoxInfo
 public;CheckboxStateChange
-internal;Columns(props: ColumnsProps): JSX.Element
+internal;Columns(props: ColumnsProps): React_3.JSX.Element
 internal;ColumnsProps 
 public;CommonPropertyGridProps 
 public;CompletionObserver
@@ -31,9 +31,9 @@ public;CompositeFilterType
 public;CompositePropertyDataFilterer 
 public;CompositeTypeConverter 
 public;computeVisibleNodes(model: TreeModel): VisibleTreeNodes
-public;ControlledSelectableContent(props: ControlledSelectableContentProps): JSX.Element
+public;ControlledSelectableContent(props: ControlledSelectableContentProps): React_3.JSX.Element
 public;ControlledSelectableContentProps
-public;ControlledTree(props: ControlledTreeProps): JSX.Element
+public;ControlledTree(props: ControlledTreeProps): React_3.JSX.Element
 public;ControlledTreeProps 
 public;ConvertedPrimitives
 internal;convertPrimitiveRecordToString(record: PropertyRecord): string | Promise
@@ -43,11 +43,11 @@ public;CustomToolbarItem
 deprecated;CustomToolbarItem 
 public;DataController
 public;class DataControllerBase 
-internal;DateField({ initialDate, onDateChange, readOnly, dateFormatter, timeDisplay, style, className, }: DateFieldProps): JSX.Element
+internal;DateField({ initialDate, onDateChange, readOnly, dateFormatter, timeDisplay, style, className, }: DateFieldProps): React_3.JSX.Element
 internal;DateFieldProps 
 public;DateFormatOptions
-alpha;DatePicker(props: DatePickerProps): JSX.Element
-alpha;DatePickerPopupButton({ displayEditField, timeDisplay, selected, onDateChange, dateFormatter, buttonToolTip, fieldStyle, fieldClassName, style, }: DatePickerPopupButtonProps): JSX.Element
+alpha;DatePicker(props: DatePickerProps): React_3.JSX.Element
+alpha;DatePickerPopupButton({ displayEditField, timeDisplay, selected, onDateChange, dateFormatter, buttonToolTip, fieldStyle, fieldClassName, style, }: DatePickerPopupButtonProps): React_3.JSX.Element
 alpha;DatePickerPopupButtonProps 
 alpha;DatePickerProps
 internal;DateTimeEditor 
@@ -72,7 +72,7 @@ public;EnumPropertyEditor
 public;EnumTypeConverter 
 public;ErrorObserver
 public;FavoritePropertiesRenderer
-alpha;FavoritePropertyList(props: FavoritePropertyListProps): JSX.Element | null
+alpha;FavoritePropertyList(props: FavoritePropertyListProps): React_3.JSX.Element | null
 alpha;FavoritePropertyListProps
 public;FilteredPropertyData 
 public;FilteredType
@@ -86,15 +86,15 @@ public;FlatGridItemType
 public;FloatTypeConverter 
 internal;formatInputDate(inputDate: Date, timeDisplay?: TimeDisplay, customFormatter?: DateFormatter, alternateDateFormat?: AlternateDateFormats): string | undefined
 public;from
-beta;getPropertyFilterOperatorLabel(operator: PropertyFilterRuleOperator): string
-beta;getPropertyFilterOperators(property: PropertyDescription): PropertyFilterRuleOperator[]
+beta;getPropertyFilterBuilderOperatorLabel(operator: PropertyFilterBuilderRuleOperator): string
+beta;getPropertyFilterBuilderOperators(property: PropertyDescription): PropertyFilterBuilderRuleOperator[]
 internal;getPropertyKey(propertyCategory: PropertyCategory, propertyRecord: PropertyRecord): string
 internal;getToolbarDirection: (expandsTo: Direction) => OrthogonalDirection
 public;getVisibleDescendants(model: TreeModel, parentNode: TreeModelNode | TreeModelRootNode, result?: Array
 public;GridCategoryItem 
-internal;GroupColumn(props: GroupColumnProps): JSX.Element
+internal;GroupColumn(props: GroupColumnProps): React_3.JSX.Element
 internal;GroupColumnProps 
-internal;GroupTool(props: GroupToolProps): JSX.Element
+internal;GroupTool(props: GroupToolProps): React_3.JSX.Element
 internal;GroupToolProps 
 internal;handleLoadedNodeHierarchy(modelSource: TreeModelSource, loadedHierarchy: LoadedNodeHierarchy): void
 public;hasChildren: (node: TreeNodeItem) => boolean
@@ -102,7 +102,7 @@ public;hasSelectionModeFlag: (selectionMode: SelectionMode_2, flag: SelectionMod
 public;HexadecimalTypeConverter 
 public;HighlightableTreeNodeProps
 public;HighlightableTreeProps
-public;HighlightedText(props: HighlightedTextProps): JSX.Element
+public;HighlightedText(props: HighlightedTextProps): React_2.JSX.Element
 public;HighlightedTextProps
 public;HighlightInfo
 public;HighlightingComponentProps
@@ -121,7 +121,7 @@ public;IMutableFlatPropertyGridItem
 public;IMutableGridCategoryItem 
 public;IMutableGridItemFactory
 public;IMutablePropertyGridModel
-internal;InternalToolbarComponent(props: InternalToolbarComponentProps): JSX.Element
+internal;InternalToolbarComponent(props: InternalToolbarComponentProps): React_3.JSX.Element
 internal;InternalToolbarComponentProps 
 alpha;IntlFormatter 
 public;IntTypeConverter 
@@ -141,7 +141,8 @@ public;isTreeDataProviderRaw: (provider: TreeDataProvider) => provider is TreeDa
 public;isTreeModelNode(obj: TreeModelNodeType | undefined): obj is TreeModelNode
 public;isTreeModelNodePlaceholder(obj: TreeModelNodeType | undefined): obj is TreeModelNodePlaceholder
 public;isTreeModelRootNode(obj: TreeModelNodeType | undefined): obj is TreeModelRootNode
-beta;isUnaryPropertyFilterOperator(operator: PropertyFilterRuleOperator): boolean
+beta;isUnaryPropertyFilterBuilderOperator(operator: PropertyFilterBuilderRuleOperator): boolean
+beta;isUnaryPropertyFilterOperator(operator: `${PropertyFilterRuleOperator}`): boolean
 public;ItemColorOverrides
 public;ItemStyle
 public;ItemStyleProvider:
@@ -151,7 +152,7 @@ public;ITreeNodeLoader
 public;ITreeNodeLoaderWithProvider
 public;LabelPropertyDataFilterer 
 public;LessGreaterOperatorProcessor
-public;LinksRenderer(props: LinksRendererProps): JSX.Element
+public;LinksRenderer(props: LinksRendererProps): React_3.JSX.Element
 public;LinksRendererProps
 public;LoadedBinaryImage 
 public;LoadedImage
@@ -159,7 +160,7 @@ public;LoadedNodeHierarchy
 public;LoadedNodeHierarchyItem
 public;MergedPropertyValueRenderer 
 internal;MultilineTextPropertyValueRenderer 
-internal;MultilineTextRenderer: React_2.FC
+internal;MultilineTextRenderer: React_3.FC
 internal;MultiSelectionHandler
 public;MutableCategorizedArrayProperty 
 public;MutableCategorizedPrimitiveProperty 
@@ -193,29 +194,29 @@ alpha;OrthogonalDirection
 internal;OrthogonalDirectionHelpers
 public;PagedTreeNodeLoader
 public;PageOptions
-internal;Panel(props: PanelProps): JSX.Element
+internal;Panel(props: PanelProps): React_3.JSX.Element
 internal;PanelProps 
-public;ParsedInput: (props: ParsedInputProps) => React_2.ReactElement | null
+public;ParsedInput: (props: ParsedInputProps) => React_3.ReactElement | null
 public;ParsedInputProps 
 public;Point2dTypeConverter 
 public;Point3dTypeConverter 
-public;PopupItem(props: PopupItemProps): JSX.Element
-internal;PopupItemPopup(props: PopupItemPopupProps): JSX.Element
+public;PopupItem(props: PopupItemProps): React_3.JSX.Element
+internal;PopupItemPopup(props: PopupItemPopupProps): React_3.JSX.Element
 public;PopupItemProps 
-public;PopupItemWithDrag(props: PopupItemWithDragProps): JSX.Element
+public;PopupItemWithDrag(props: PopupItemWithDragProps): React_3.JSX.Element
 public;PopupItemWithDragProps 
 public;PrimitivePropertyLabelRenderer 
 public;PrimitivePropertyLabelRendererProps 
 public;PrimitivePropertyRenderer 
 public;PrimitivePropertyValueRenderer 
-internal;PrimitivePropertyValueRendererImpl(props: PrimitivePropertyValueRendererImplProps): JSX.Element
+internal;PrimitivePropertyValueRendererImpl(props: PrimitivePropertyValueRendererImplProps): React_3.JSX.Element
 public;PrimitiveRendererProps 
 public;PropertyCategory
 public;PropertyCategoryBlock 
 public;PropertyCategoryBlockProps 
 public;class PropertyCategoryDataFiltererBase 
 public;PropertyCategoryLabelFilterer 
-public;PropertyCategoryRenderer = (categoryItem: GridCategoryItem) => React_2.ComponentType
+public;PropertyCategoryRenderer = (categoryItem: GridCategoryItem) => React_3.ComponentType
 public;PropertyCategoryRendererManager
 public;PropertyCategoryRendererProps
 public;PropertyContainerType
@@ -230,20 +231,26 @@ public;class PropertyEditorBase
 public;PropertyEditorManager
 public;PropertyEditorProps 
 beta;PropertyFilter = PropertyFilterRule | PropertyFilterRuleGroup
-beta;PropertyFilterBuilder(props: PropertyFilterBuilderProps): JSX.Element
+beta;PropertyFilterBuilder(props: PropertyFilterBuilderProps): React_3.JSX.Element
 beta;PropertyFilterBuilderActions
+beta;PropertyFilterBuilderLogicalOperator: (props: PropertyFilterBuilderLogicalOperatorProps) => React_2.JSX.Element
+beta;PropertyFilterBuilderLogicalOperatorProps
 beta;PropertyFilterBuilderProps 
-beta;PropertyFilterBuilderRenderer(props: PropertyFilterBuilderRendererProps): JSX.Element
+beta;PropertyFilterBuilderRenderer(props: PropertyFilterBuilderRendererProps): React_3.JSX.Element
 beta;PropertyFilterBuilderRendererProps
 beta;PropertyFilterBuilderRule
 beta;PropertyFilterBuilderRuleGroup
 beta;PropertyFilterBuilderRuleGroupItem = PropertyFilterBuilderRuleGroup | PropertyFilterBuilderRule
-internal;PropertyFilterBuilderRuleOperator(props: PropertyFilterBuilderRuleOperatorProps): JSX.Element
+beta;PropertyFilterBuilderRuleOperator = `${PropertyFilterRuleOperator}` | "between" | "not-between"
 beta;PropertyFilterBuilderRuleOperatorProps
-beta;PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueProps): JSX.Element
+internal;PropertyFilterBuilderRuleOperatorRenderer(props: PropertyFilterBuilderRuleOperatorProps): React_3.JSX.Element
+beta;PropertyFilterBuilderRuleRangeValue
+beta;PropertyFilterBuilderRuleRangeValue
+beta;PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueRendererProps): React_3.JSX.Element
 beta;PropertyFilterBuilderRuleValueProps
 beta;PropertyFilterBuilderRuleValueRendererProps 
 beta;PropertyFilterBuilderState
+beta;PropertyFilterBuilderToolbar: (props: PropertyFilterBuilderToolbarProps) => React_2.JSX.Element
 public;PropertyFilterChangeEvent 
 public;PropertyFilterChangesListener = () => void
 beta;PropertyFilterRule
@@ -275,10 +282,10 @@ public;PropertyValueRendererManager
 public;PropertyView 
 public;PropertyViewProps 
 public;RenderedItemsRange
-public;renderLinks: (text: string, links: LinkElementsInfo, highlight?: ((text: string) => React_2.ReactNode) | undefined) => React_2.ReactNode
+public;renderLinks: (text: string, links: LinkElementsInfo, highlight?: ((text: string) => React_3.ReactNode) | undefined) => React_3.ReactNode
 public;ResultSelector 
 public;ResultSelectorProps 
-public;SelectableContent(props: SelectableContentProps): JSX.Element
+public;SelectableContent(props: SelectableContentProps): React_3.JSX.Element
 public;SelectableContentDefinition
 public;SelectableContentProps
 internal;SelectionHandler
@@ -310,35 +317,35 @@ public;TableStructValueRenderer
 public;TextareaEditor 
 public;TextareaPropertyEditor 
 public;TextEditor 
-internal;TimeField({ time, timeDisplay, readOnly, onTimeChange, }: TimeFieldProps): JSX.Element
+internal;TimeField({ time, timeDisplay, readOnly, onTimeChange, }: TimeFieldProps): React_3.JSX.Element
 internal;TimeFieldProps
 internal;TimeSpec
-internal;Title(props: TitleProps): JSX.Element
+internal;Title(props: TitleProps): React_3.JSX.Element
 internal;TitleProps 
 public;toDateString: (date: Date, timeZoneOffset?: number, formatOptions?: DateFormatOptions) => string
 public;ToggleEditor 
 public;TogglePropertyEditor 
-public;Toolbar(props: ToolbarProps): JSX.Element
-deprecated;Toolbar(props: ToolbarProps): JSX.Element
-public;ToolbarButtonItem: React_2.MemoExoticComponent
+public;Toolbar(props: ToolbarProps): React_3.JSX.Element
+deprecated;Toolbar(props: ToolbarProps): React_3.JSX.Element
+public;ToolbarButtonItem: React_3.MemoExoticComponent
 public;ToolbarButtonItemProps 
 public;ToolbarItem = ActionButton | GroupButton | CustomToolbarItem
 deprecated;ToolbarItem = ActionButton | GroupButton | CustomToolbarItem
 internal;ToolbarItemComponent({ item, addGroupSeparator, }:
-internal;ToolbarItemContext: React_2.Context
+internal;ToolbarItemContext: React_3.Context
 internal;ToolbarItemContextArgs
 public;ToolbarOpacitySetting
 internal;ToolbarOverflowContextProps
 public;ToolbarPanelAlignment
 internal;ToolbarPanelAlignmentHelpers
-public;ToolbarPopupAutoHideContext: React_2.Context
-public;ToolbarPopupContext: React_2.Context
+public;ToolbarPopupAutoHideContext: React_3.Context
+public;ToolbarPopupContext: React_3.Context
 public;ToolbarPopupContextProps
 public;ToolbarProps 
 deprecated;ToolbarProps 
-public;ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element
-deprecated;ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element
-internal;ToolbarWithOverflowDirectionContext: React_2.Context
+public;ToolbarWithOverflow(props: ToolbarWithOverflowProps): React_3.JSX.Element
+deprecated;ToolbarWithOverflow(props: ToolbarWithOverflowProps): React_3.JSX.Element
+internal;ToolbarWithOverflowDirectionContext: React_3.Context
 public;ToolbarWithOverflowProps 
 deprecated;ToolbarWithOverflowProps 
 internal;toRxjsObservable
@@ -366,19 +373,19 @@ public;TreeModelNodePlaceholder
 public;TreeModelNodeType = TreeModelNode | TreeModelNodePlaceholder | TreeModelRootNode
 public;TreeModelRootNode
 public;TreeModelSource
-public;TreeNodeContent(props: TreeNodeContentProps): JSX.Element
+public;TreeNodeContent(props: TreeNodeContentProps): React_3.JSX.Element
 public;TreeNodeContentProps 
-public;TreeNodeEditor(props: TreeNodeEditorProps): JSX.Element
+public;TreeNodeEditor(props: TreeNodeEditorProps): React_3.JSX.Element
 public;TreeNodeEditorProps
-public;TreeNodeEditorRenderer = (props: TreeNodeEditorProps) => React_2.ReactNode
+public;TreeNodeEditorRenderer = (props: TreeNodeEditorProps) => React_3.ReactNode
 public;TreeNodeEventArgs
-public;TreeNodeIcon(props: TreeNodeIconProps): JSX.Element | null
+public;TreeNodeIcon(props: TreeNodeIconProps): React_3.JSX.Element | null
 public;TreeNodeIconProps
 public;TreeNodeItem
 public;TreeNodeItemData = ImmediatelyLoadedTreeNodeItem & DelayLoadedTreeNodeItem
 public;TreeNodeLoader
 public;TreeNodeLoadResult
-public;TreeNodeRenderer: React_2.NamedExoticComponent
+public;TreeNodeRenderer: React_3.NamedExoticComponent
 public;TreeNodeRendererProps 
 public;TreeRenderer 
 public;TreeRendererAttributes
@@ -393,6 +400,7 @@ public;UiComponents
 public;Unsubscribable
 public;UrlPropertyValueRenderer 
 public;useAsyncValue
+public;useControlledTreeEventsHandler
 public;useControlledTreeLayoutStorage
 beta;useDebouncedAsyncValue
 public;usePagedTreeNodeLoader
@@ -403,12 +411,15 @@ beta;UsePropertyFilterBuilderResult
 public;usePropertyGridEventHandler(props:
 public;usePropertyGridModel(props:
 public;usePropertyGridModelSource(props:
+deprecated;usePropertyGridModelSource(props:
 internal;useRenderedStringValue(record: PropertyRecord, stringValueCalculator: (record: PropertyRecord) => string | Promise
 public;useToolbarPopupAutoHideContext(): boolean
 public;useToolbarPopupContext(): ToolbarPopupContextProps
 internal;useToolbarWithOverflowDirectionContext(): ToolbarOverflowContextProps
 internal;useToolItemEntryContext(): ToolbarItemContextArgs
+public;useTrackedPropertyGridModelSource(props:
 public;useTreeEventsHandler
+deprecated;useTreeEventsHandler
 public;useTreeModel(modelSource: TreeModelSource): TreeModel
 public;useTreeModelSource(dataProvider: TreeDataProvider): TreeModelSource
 public;useTreeNodeLoader
@@ -416,8 +427,8 @@ public;useVirtualizedPropertyGridLayoutStorage
 public;VirtualizedPropertyGrid 
 public;VirtualizedPropertyGridContext
 public;VirtualizedPropertyGridProps 
-public;VirtualizedPropertyGridWithDataProvider(props: VirtualizedPropertyGridWithDataProviderProps): JSX.Element
+public;VirtualizedPropertyGridWithDataProvider(props: VirtualizedPropertyGridWithDataProviderProps): React_2.JSX.Element
 public;VirtualizedPropertyGridWithDataProviderProps 
 public;VisibleTreeNodes 
-public;withContextStyle: (node: React_2.ReactNode, context?: PropertyValueRendererContext) => React_2.ReactNode
-public;withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: ((text: string) => React_2.ReactNode) | undefined) => React_2.ReactNode
+public;withContextStyle: (node: React_3.ReactNode, context?: PropertyValueRendererContext) => React_3.ReactNode
+public;withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: ((text: string) => React_3.ReactNode) | undefined) => React_3.ReactNode

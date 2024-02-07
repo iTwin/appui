@@ -102,13 +102,14 @@ import { IModelOpenFrontstage } from "./appui/frontstages/IModelOpenFrontstage";
 import { SignInFrontstage } from "./appui/frontstages/SignInFrontstage";
 import {
   AbstractUiItemsProvider,
+  AppPreviewFeatures,
   AppUiTestProviders,
   ContentLayoutStage,
   CustomContentFrontstage,
   FloatingWidgetsUiItemsProvider,
   InspectUiItemInfoToolProvider,
   PopoutWindowsFrontstage,
-  PreviewFeaturesToggleProvider,
+  previewFeaturesToggleProvider,
   SynchronizedFloatingViewportStage,
   WidgetApiStage,
 } from "@itwin/appui-test-providers";
@@ -386,7 +387,7 @@ export class SampleAppIModelApp {
         AppUiTestProviders.localizationNamespace
       )
     );
-    UiItemsManager.register(new PreviewFeaturesToggleProvider());
+    UiItemsManager.register(previewFeaturesToggleProvider);
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
@@ -824,7 +825,7 @@ const SampleAppViewer2 = () => {
   }, []);
 
   return (
-    <PreviewFeaturesToggleProvider.ReactProvider>
+    <AppPreviewFeatures>
       <Provider store={SampleAppIModelApp.store}>
         <ThemeManager>
           <SafeAreaContext.Provider value={SafeAreaInsets.All}>
@@ -836,7 +837,7 @@ const SampleAppViewer2 = () => {
           </SafeAreaContext.Provider>
         </ThemeManager>
       </Provider>
-    </PreviewFeaturesToggleProvider.ReactProvider>
+    </AppPreviewFeatures>
   );
 };
 

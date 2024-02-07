@@ -6,17 +6,15 @@
  * @module ToolSettings
  */
 
-import "./ToolSettings.scss";
-import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
-import {
-  DockedToolSetting,
-  DockedToolSettings,
-  ScrollableWidgetContent,
-  useLayout,
-} from "@itwin/appui-layout-react";
+import * as React from "react";
 import { UiFramework } from "../UiFramework";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
+import { useLayout } from "../layout/base/LayoutStore";
+import { DockedToolSettings } from "../layout/tool-settings/Docked";
+import { DockedToolSetting } from "../layout/tool-settings/Setting";
+import { ScrollableWidgetContent } from "../layout/widget/Content";
+import "./ToolSettings.scss";
 
 /** Defines a ToolSettings property entry.
  * @public

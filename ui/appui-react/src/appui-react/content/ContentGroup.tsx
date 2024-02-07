@@ -142,6 +142,7 @@ export class ContentGroup {
           contentControl.getType() !== ConfigurableUiControlType.Content &&
           contentControl.getType() !== ConfigurableUiControlType.Viewport
         ) {
+          // eslint-disable-next-line deprecation/deprecation
           throw new UiError(
             UiFramework.loggerCategory(this),
             `getContentControl error: '${usedClassId}' is NOT a ContentControl or ViewportContentControl`
@@ -246,6 +247,7 @@ export class ContentGroup {
             content.classId
           );
           if (classId !== undefined) content.classId = classId;
+          // eslint-disable-next-line deprecation/deprecation
           else
             throw new UiError(
               UiFramework.loggerCategory(this),

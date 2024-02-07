@@ -245,13 +245,12 @@ describe("FrameworkUiAdmin", () => {
     expect(
       uiAdmin.showContextMenu(
         menuItemProps,
-        uiAdmin.createXAndY(150, 250),
+        { x: 150, y: 250 },
         wrapper.container
       )
     ).to.be.true;
-    expect(
-      uiAdmin.showContextMenu(menuItemProps, uiAdmin.createXAndY(150, 250))
-    ).to.be.true;
+    expect(uiAdmin.showContextMenu(menuItemProps, { x: 150, y: 250 })).to.be
+      .true;
   });
 
   it("showToolbar should return true", () => {
@@ -289,8 +288,8 @@ describe("FrameworkUiAdmin", () => {
     expect(
       uiAdmin.showToolbar(
         toolbarProps,
-        uiAdmin.createXAndY(150, 250),
-        uiAdmin.createXAndY(8, 8),
+        { x: 150, y: 250 },
+        { x: 8, y: 8 },
         spySelect,
         spyCancel,
         RelativePosition.BottomRight,
@@ -301,8 +300,8 @@ describe("FrameworkUiAdmin", () => {
     expect(
       uiAdmin.showToolbar(
         toolbarProps,
-        uiAdmin.createXAndY(150, 250),
-        uiAdmin.createXAndY(8, 8),
+        { x: 150, y: 250 },
+        { x: 8, y: 8 },
         spySelect,
         spyCancel
       )
@@ -334,17 +333,12 @@ describe("FrameworkUiAdmin", () => {
       uiAdmin.showMenuButton(
         "test",
         menuItemProps,
-        uiAdmin.createXAndY(150, 250),
+        { x: 150, y: 250 },
         wrapper.container
       )
     ).to.be.true;
-    expect(
-      uiAdmin.showMenuButton(
-        "test",
-        menuItemProps,
-        uiAdmin.createXAndY(150, 250)
-      )
-    ).to.be.true;
+    expect(uiAdmin.showMenuButton("test", menuItemProps, { x: 150, y: 250 })).to
+      .be.true;
     expect(uiAdmin.hideMenuButton("test")).to.be.true;
   });
 
@@ -366,7 +360,7 @@ describe("FrameworkUiAdmin", () => {
       uiAdmin.showCalculator(
         100,
         "icon-placeholder",
-        uiAdmin.createXAndY(150, 250),
+        { x: 150, y: 250 },
         spyCommit,
         spyCancel,
         wrapper.container
@@ -377,7 +371,7 @@ describe("FrameworkUiAdmin", () => {
       uiAdmin.showCalculator(
         100,
         "icon-placeholder",
-        uiAdmin.createXAndY(150, 250),
+        { x: 150, y: 250 },
         spyCommit,
         spyCancel
       )
@@ -393,7 +387,7 @@ describe("FrameworkUiAdmin", () => {
     expect(
       uiAdmin.showAngleEditor(
         100,
-        uiAdmin.createXAndY(150, 250),
+        { x: 150, y: 250 },
         spyCommit,
         spyCancel,
         wrapper.container
@@ -401,12 +395,7 @@ describe("FrameworkUiAdmin", () => {
     ).to.be.true;
     document = wrapper.container.ownerDocument;
     expect(
-      uiAdmin.showAngleEditor(
-        100,
-        uiAdmin.createXAndY(150, 250),
-        spyCommit,
-        spyCancel
-      )
+      uiAdmin.showAngleEditor(100, { x: 150, y: 250 }, spyCommit, spyCancel)
     ).to.be.true;
     expect(uiAdmin.hideInputEditor()).to.be.true;
   });
@@ -419,7 +408,7 @@ describe("FrameworkUiAdmin", () => {
     expect(
       uiAdmin.showLengthEditor(
         100,
-        uiAdmin.createXAndY(150, 250),
+        { x: 150, y: 250 },
         spyCommit,
         spyCancel,
         wrapper.container
@@ -427,12 +416,7 @@ describe("FrameworkUiAdmin", () => {
     ).to.be.true;
     document = wrapper.container.ownerDocument;
     expect(
-      uiAdmin.showLengthEditor(
-        100,
-        uiAdmin.createXAndY(150, 250),
-        spyCommit,
-        spyCancel
-      )
+      uiAdmin.showLengthEditor(100, { x: 150, y: 250 }, spyCommit, spyCancel)
     ).to.be.true;
     expect(uiAdmin.hideInputEditor()).to.be.true;
   });
@@ -445,7 +429,7 @@ describe("FrameworkUiAdmin", () => {
     expect(
       uiAdmin.showHeightEditor(
         100,
-        uiAdmin.createXAndY(150, 250),
+        { x: 150, y: 250 },
         spyCommit,
         spyCancel,
         wrapper.container
@@ -453,12 +437,7 @@ describe("FrameworkUiAdmin", () => {
     ).to.be.true;
     document = wrapper.container.ownerDocument;
     expect(
-      uiAdmin.showHeightEditor(
-        100,
-        uiAdmin.createXAndY(150, 250),
-        spyCommit,
-        spyCancel
-      )
+      uiAdmin.showHeightEditor(100, { x: 150, y: 250 }, spyCommit, spyCancel)
     ).to.be.true;
     expect(uiAdmin.hideInputEditor()).to.be.true;
   });
@@ -477,7 +456,7 @@ describe("FrameworkUiAdmin", () => {
       uiAdmin.showInputEditor(
         100,
         propertyDescription,
-        uiAdmin.createXAndY(150, 250),
+        { x: 150, y: 250 },
         spyCommit,
         spyCancel,
         wrapper.container
@@ -488,7 +467,7 @@ describe("FrameworkUiAdmin", () => {
       uiAdmin.showInputEditor(
         100,
         propertyDescription,
-        uiAdmin.createXAndY(150, 250),
+        { x: 150, y: 250 },
         spyCommit,
         spyCancel
       )
@@ -506,8 +485,8 @@ describe("FrameworkUiAdmin", () => {
     expect(
       uiAdmin.showHTMLElement(
         display.documentElement,
-        uiAdmin.createXAndY(150, 250),
-        uiAdmin.createXAndY(8, 8),
+        { x: 150, y: 250 },
+        { x: 8, y: 8 },
         spyCancel,
         RelativePosition.BottomRight,
         wrapper.container
@@ -517,8 +496,8 @@ describe("FrameworkUiAdmin", () => {
     expect(
       uiAdmin.showHTMLElement(
         display.documentElement,
-        uiAdmin.createXAndY(150, 250),
-        uiAdmin.createXAndY(8, 8),
+        { x: 150, y: 250 },
+        { x: 8, y: 8 },
         spyCancel,
         RelativePosition.BottomRight
       )
@@ -526,8 +505,8 @@ describe("FrameworkUiAdmin", () => {
     expect(
       uiAdmin.showHTMLElement(
         display.documentElement,
-        uiAdmin.createXAndY(150, 250),
-        uiAdmin.createXAndY(8, 8),
+        { x: 150, y: 250 },
+        { x: 8, y: 8 },
         spyCancel
       )
     ).to.be.true;
@@ -573,8 +552,8 @@ describe("FrameworkUiAdmin", () => {
         content.documentElement,
         "Title",
         toolbarProps,
-        uiAdmin.createXAndY(150, 250),
-        uiAdmin.createXAndY(8, 8),
+        { x: 150, y: 250 },
+        { x: 8, y: 8 },
         spySelect,
         spyCancel,
         RelativePosition.BottomRight,
@@ -587,8 +566,8 @@ describe("FrameworkUiAdmin", () => {
         content.documentElement,
         "Title",
         toolbarProps,
-        uiAdmin.createXAndY(150, 250),
-        uiAdmin.createXAndY(8, 8),
+        { x: 150, y: 250 },
+        { x: 8, y: 8 },
         spySelect,
         spyCancel,
         RelativePosition.BottomRight
@@ -599,8 +578,8 @@ describe("FrameworkUiAdmin", () => {
         content.documentElement,
         "Title",
         toolbarProps,
-        uiAdmin.createXAndY(150, 250),
-        uiAdmin.createXAndY(8, 8),
+        { x: 150, y: 250 },
+        { x: 8, y: 8 },
         spySelect,
         spyCancel
       )
@@ -646,8 +625,8 @@ describe("FrameworkUiAdmin", () => {
         content,
         "Title",
         toolbarProps,
-        uiAdmin.createXAndY(150, 250),
-        uiAdmin.createXAndY(8, 8),
+        { x: 150, y: 250 },
+        { x: 8, y: 8 },
         spySelect,
         spyCancel,
         RelativePosition.BottomRight,
@@ -660,8 +639,8 @@ describe("FrameworkUiAdmin", () => {
         content,
         "Title",
         toolbarProps,
-        uiAdmin.createXAndY(150, 250),
-        uiAdmin.createXAndY(8, 8),
+        { x: 150, y: 250 },
+        { x: 8, y: 8 },
         spySelect,
         spyCancel,
         RelativePosition.BottomRight
@@ -672,8 +651,8 @@ describe("FrameworkUiAdmin", () => {
         content,
         "Title",
         toolbarProps,
-        uiAdmin.createXAndY(150, 250),
-        uiAdmin.createXAndY(8, 8),
+        { x: 150, y: 250 },
+        { x: 8, y: 8 },
         spySelect,
         spyCancel
       )
@@ -691,8 +670,8 @@ describe("FrameworkUiAdmin", () => {
     expect(
       uiAdmin.openToolSettingsPopup(
         uiDataProvider,
-        uiAdmin.createXAndY(150, 250),
-        uiAdmin.createXAndY(8, 8),
+        { x: 150, y: 250 },
+        { x: 8, y: 8 },
         spyCancel,
         RelativePosition.BottomRight,
         wrapper.container
@@ -702,8 +681,8 @@ describe("FrameworkUiAdmin", () => {
     expect(
       uiAdmin.openToolSettingsPopup(
         uiDataProvider,
-        uiAdmin.createXAndY(150, 250),
-        uiAdmin.createXAndY(8, 8),
+        { x: 150, y: 250 },
+        { x: 8, y: 8 },
         spyCancel,
         RelativePosition.BottomRight
       )
@@ -711,8 +690,8 @@ describe("FrameworkUiAdmin", () => {
     expect(
       uiAdmin.openToolSettingsPopup(
         uiDataProvider,
-        uiAdmin.createXAndY(150, 250),
-        uiAdmin.createXAndY(8, 8),
+        { x: 150, y: 250 },
+        { x: 8, y: 8 },
         spyCancel
       )
     ).to.be.true;

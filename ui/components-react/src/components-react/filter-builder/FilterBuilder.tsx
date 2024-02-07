@@ -13,10 +13,8 @@ import type {
   PropertyFilterBuilderRuleRenderingContextProps,
 } from "./FilterBuilderContext";
 import {
-  ActiveRuleGroupContext,
   PropertyFilterBuilderContext,
   PropertyFilterBuilderRuleRenderingContext,
-  useActiveRuleGroupContextProps,
 } from "./FilterBuilderContext";
 import { PropertyFilterBuilderRuleGroupRenderer } from "./FilterBuilderRuleGroup";
 import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
@@ -95,10 +93,14 @@ export interface PropertyFilterBuilderRendererProps {
   ) => React.ReactNode;
   /** Custom renderer for property selector in rule. */
   propertyRenderer?: (name: string) => React.ReactNode;
-  /** Specifies how deep rule groups can be nested. */
+  /** Specifies how deep rule groups can be nested.
+   * @deprecated in 4.9.0. Nesting is no longer supported moving forward.
+   */
   ruleGroupDepthLimit?: number;
   /** Specifies whether component is disabled or not. */
   isDisabled?: boolean;
+  /** Controls whether the group operator is toggle-able. */
+  isGroupOperatorDisabled?: boolean;
 }
 
 const ROOT_GROUP_PATH: string[] = [];
@@ -117,20 +119,18 @@ export function PropertyFilterBuilderRenderer(
     onRulePropertySelected,
     ruleOperatorRenderer,
     ruleValueRenderer,
-    ruleGroupDepthLimit,
     propertyRenderer,
     isDisabled,
+    isGroupOperatorDisabled,
   } = props;
-  const rootRef = React.useRef<HTMLDivElement>(null);
 
   const contextValue = React.useMemo<PropertyFilterBuilderContextProps>(
     () => ({
       actions,
       properties,
       onRulePropertySelected,
-      ruleGroupDepthLimit,
     }),
-    [actions, properties, onRulePropertySelected, ruleGroupDepthLimit]
+    [actions, properties, onRulePropertySelected]
   );
   const renderingContextValue =
     React.useMemo<PropertyFilterBuilderRuleRenderingContextProps>(
@@ -147,16 +147,11 @@ export function PropertyFilterBuilderRenderer(
       value={renderingContextValue}
     >
       <PropertyFilterBuilderContext.Provider value={contextValue}>
-        <ActiveRuleGroupContext.Provider
-          value={useActiveRuleGroupContextProps(rootRef)}
-        >
-          <div ref={rootRef} className="filter-builder">
-            <PropertyFilterBuilderRuleGroupRenderer
-              path={ROOT_GROUP_PATH}
-              group={rootGroup}
-            />
-          </div>
-        </ActiveRuleGroupContext.Provider>
+        <PropertyFilterBuilderRuleGroupRenderer
+          path={ROOT_GROUP_PATH}
+          group={rootGroup}
+          isGroupOperatorDisabled={isGroupOperatorDisabled}
+        />
       </PropertyFilterBuilderContext.Provider>
     </PropertyFilterBuilderRuleRenderingContext.Provider>
   );

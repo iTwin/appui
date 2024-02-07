@@ -6,17 +6,17 @@
  * @module Dialog
  */
 
-import * as React from "react";
-import { Dialog } from "@itwin/core-react";
 import type {
   DialogButtonDef,
   DialogLayoutDataProvider,
 } from "@itwin/appui-abstract";
 import { DialogButtonType } from "@itwin/appui-abstract";
-import { getUniqueId } from "@itwin/appui-layout-react";
-import { DefaultDialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
-import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
+import { Dialog } from "@itwin/core-react";
+import * as React from "react";
 import { UiFramework } from "../UiFramework";
+import { getUniqueId } from "../layout/base/NineZone";
+import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
+import { DefaultDialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
 
 /** Props for [[UiDataProvidedDialog]] component.
  * @public

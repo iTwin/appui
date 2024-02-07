@@ -103,6 +103,7 @@ export class StateManager {
     if (StateManager.isInitialized()) {
       return StateManager._singletonStore!;
     } else {
+      // eslint-disable-next-line deprecation/deprecation
       throw new UiError(
         StateManager._LOG_CATEGORY,
         `Redux Store has not been initialized`

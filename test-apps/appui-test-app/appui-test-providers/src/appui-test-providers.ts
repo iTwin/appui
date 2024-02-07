@@ -5,6 +5,7 @@
 export * from "./AppUiTestProviders";
 
 export * from "./ui/providers/AbstractUiItemsProvider";
+export * from "./ui/providers/CustomStageUiItemsProvider";
 export * from "./ui/providers/InspectUiItemInfoToolProvider";
 export * from "./ui/providers/FloatingWidgetsUiItemsProvider";
 export * from "./ui/providers/MessageUiItemsProvider";
@@ -15,7 +16,7 @@ export * from "./ui/frontstages/ContentLayout";
 export * from "./ui/frontstages/CustomContent";
 export * from "./ui/frontstages/CustomFrontstageProvider";
 export * from "./ui/frontstages/PopoutWindowsFrontstage";
+export * from "./ui/frontstages/registerCustomFrontstage";
 export * from "./ui/frontstages/SynchronizedFloatingViewport";
+export * from "./ui/frontstages/TestFrontstageProvider";
 export * from "./ui/frontstages/WidgetApiStage";
-
-export * from "./ui/ApplicationLayout";

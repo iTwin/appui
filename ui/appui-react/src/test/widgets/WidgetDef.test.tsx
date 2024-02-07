@@ -159,7 +159,7 @@ describe("WidgetDef", () => {
           },
         },
       });
-      def.nineZoneState = initializeNineZoneState(def);
+      initializeNineZoneState(def);
       sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
 
       const spy = sinon.spy();
@@ -188,7 +188,7 @@ describe("WidgetDef", () => {
           },
         },
       });
-      def.nineZoneState = initializeNineZoneState(def);
+      initializeNineZoneState(def);
       sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
 
       const spy = sinon.spy();

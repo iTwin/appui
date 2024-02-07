@@ -14,7 +14,6 @@ import { PropertyFilterBuilderRuleRenderer } from "../../components-react/filter
 import type { PropertyFilterBuilderRuleOperatorProps } from "../../components-react/filter-builder/FilterBuilderRuleOperator";
 import type { PropertyFilterBuilderRuleValueProps } from "../../components-react/filter-builder/FilterBuilderRuleValue";
 import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
-import { PropertyFilterRuleOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";
 import { UiComponents } from "../../components-react";
@@ -23,6 +22,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
   const defaultProps: PropertyFilterBuilderRuleRendererProps = {
     path: [],
     rule: { id: "id", groupId: "groupId" },
+    onRuleAdded: () => {},
   };
   const defaultProperty: PropertyDescription = {
     displayLabel: "Prop",
@@ -45,7 +45,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       );
 
       const operatorContainer =
-        container.querySelector<HTMLDivElement>(".rule-operator");
+        container.querySelector<HTMLDivElement>(".fb-row-condition");
       expect(operatorContainer).to.be.null;
     });
 
@@ -58,7 +58,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       );
 
       const operatorContainer =
-        container.querySelector<HTMLDivElement>(".rule-operator");
+        container.querySelector<HTMLDivElement>(".fb-row-condition");
       expect(operatorContainer).to.not.be.null;
     });
 
@@ -77,7 +77,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       );
 
       const operatorSpan = container.querySelector<HTMLSpanElement>(
-        ".rule-operator span"
+        ".fb-row-condition span"
       );
       expect(operatorSpan?.innerHTML).to.be.eq(
         UiComponents.translate("filterBuilder.operators.contains")
@@ -96,7 +96,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       );
 
       const operatorSpan = container.querySelector<HTMLSpanElement>(
-        ".rule-operator span"
+        ".fb-row-condition span"
       );
       expect(operatorSpan?.innerHTML).to.be.eq(
         UiComponents.translate("filterBuilder.operators.contains")
@@ -125,7 +125,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       );
 
       const valueContainer =
-        container.querySelector<HTMLDivElement>(".rule-value");
+        container.querySelector<HTMLDivElement>(".fb-property-value");
       expect(valueContainer).to.be.null;
     });
 
@@ -138,7 +138,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       );
 
       const valueContainer =
-        container.querySelector<HTMLDivElement>(".rule-value");
+        container.querySelector<HTMLDivElement>(".fb-property-value");
       expect(valueContainer).to.be.null;
     });
 
@@ -149,13 +149,13 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
           rule={{
             ...defaultProps.rule,
             property: defaultProperty,
-            operator: PropertyFilterRuleOperator.IsEqual,
+            operator: "is-equal",
           }}
         />
       );
 
       const valueContainer =
-        container.querySelector<HTMLDivElement>(".rule-value");
+        container.querySelector<HTMLDivElement>(".fb-property-value");
       expect(valueContainer).to.not.be.null;
       expect(valueContainer!.hasChildNodes()).to.be.true;
     });
@@ -168,7 +168,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
           rule={{
             ...defaultProps.rule,
             property: defaultProperty,
-            operator: PropertyFilterRuleOperator.IsEqual,
+            operator: "is-equal",
           }}
         />,
         {},
@@ -186,7 +186,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
           rule={{
             ...defaultProps.rule,
             property: defaultProperty,
-            operator: PropertyFilterRuleOperator.IsEqual,
+            operator: "is-equal",
             errorMessage,
           }}
         />
@@ -208,7 +208,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
       // open property selector menu
       const selector = container.querySelector<HTMLInputElement>(
-        ".rule-property input"
+        ".fb-property-name input"
       );
       expect(selector).to.not.be.null;
       fireEvent.focus(selector!);
@@ -225,7 +225,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
       // open property selector
       const selector = container.querySelector<HTMLInputElement>(
-        ".rule-property input"
+        ".fb-property-name input"
       );
       expect(selector).to.not.be.null;
       fireEvent.focus(selector!);
@@ -243,7 +243,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
       // attempt to open property selector
       const selector = container.querySelector<HTMLInputElement>(
-        ".rule-property input"
+        ".fb-property-name input"
       );
       expect(selector).to.not.be.null;
       fireEvent.focus(selector!);
@@ -261,7 +261,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     const setRulePropertySpy = sinon.stub(actions, "setRuleProperty");
 
     const selector = container.querySelector<HTMLInputElement>(
-      ".rule-property input"
+      ".fb-property-name input"
     );
     expect(selector).to.not.be.null;
     fireEvent.focus(selector!);
@@ -282,7 +282,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         rule={{
           ...defaultProps.rule,
           property: defaultProperty,
-          operator: PropertyFilterRuleOperator.IsEqual,
+          operator: "is-equal",
         }}
       />,
       { actions, properties: [] }
@@ -302,7 +302,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     );
 
     const selector = container.querySelector<HTMLInputElement>(
-      ".rule-property input"
+      ".fb-property-name input"
     );
     expect(selector).to.not.be.null;
     fireEvent.focus(selector!);
@@ -314,31 +314,15 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
   it("dispatches remove rule action", () => {
     const actions = new PropertyFilterBuilderActions(sinon.spy());
     const { container } = renderWithContext(
-      <PropertyFilterBuilderRuleRenderer
-        {...defaultProps}
-        isRemovable={true}
-      />,
+      <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
       { actions }
     );
     const removeItemSpy = sinon.stub(actions, "removeItem");
 
-    const button = container.querySelector(
-      ".rule-remove-action"
-    )?.firstElementChild;
+    const button = container.querySelector(".fb-toolbar")?.childNodes[1];
     expect(button).to.not.be.null;
     fireEvent.click(button!);
     expect(removeItemSpy).to.be.calledOnceWith(defaultProps.path);
-  });
-
-  it("does not render remove rule buttom when there is only one rule in the rule group", () => {
-    const { container } = renderWithContext(
-      <PropertyFilterBuilderRuleRenderer
-        {...defaultProps}
-        isRemovable={false}
-      />
-    );
-    expect(container.querySelector(".rule-remove-action")?.firstElementChild).to
-      .be.null;
   });
 
   it("dispatches operator change when operator is changed", () => {
@@ -350,7 +334,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         rule={{
           ...defaultProps.rule,
           property: defaultProperty,
-          operator: PropertyFilterRuleOperator.IsEqual,
+          operator: "is-equal",
         }}
       />,
       { actions },
@@ -361,7 +345,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     expect(operatorRendererSpy).to.be.calledOnce;
     const operatorRendererProps = operatorRendererSpy.firstCall
       .args[0] as PropertyFilterBuilderRuleOperatorProps;
-    const newOperator = PropertyFilterRuleOperator.IsNotNull;
+    const newOperator = "is-not-null";
     operatorRendererProps.onChange(newOperator);
 
     expect(setRuleOperatorSpy).to.be.calledOnceWith(
@@ -379,7 +363,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         rule={{
           ...defaultProps.rule,
           property: defaultProperty,
-          operator: PropertyFilterRuleOperator.IsEqual,
+          operator: "is-equal",
         }}
       />,
       { actions },
