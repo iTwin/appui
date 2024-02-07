@@ -4,14 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 
 .nz-toolSettings-docked {
-  --_xyz-tool-settings-docked-height: var(--iui-component-height);
+  --_uifw-tool-settings-docked-height: var(--iui-component-height);
 
-  height: var(--_xyz-tool-settings-docked-height);
+  height: var(--_uifw-tool-settings-docked-height);
   width: 100%;
   display: flex;
   gap: var(--iui-size-m);
   position: relative;
-  background: var(--iui-color-background);
+  background-color: var(--iui-color-background);
   border-block-end: 1px solid var(--iui-color-border);
 
   > .nz-container {

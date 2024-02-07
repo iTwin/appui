@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 
 .nz-toolSettings-handle {
-  height: var(--_xyz-tool-settings-docked-height);
-  width: var(--_xyz-tool-settings-docked-height);
+  height: var(--_uifw-tool-settings-docked-height);
+  width: var(--_uifw-tool-settings-docked-height);
   display: grid;
   place-items: center;
   cursor: grab;
