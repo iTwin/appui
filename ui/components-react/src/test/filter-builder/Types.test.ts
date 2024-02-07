@@ -4,24 +4,20 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import {
-  PropertyFilterRuleGroupOperator,
-  PropertyFilterRuleOperator,
-} from "../../components-react/filter-builder/Operators";
 import { isPropertyFilterRuleGroup } from "../../components-react/filter-builder/Types";
 
 describe("isPropertyFilterRuleGroup", () => {
   it("returns correct values", () => {
     expect(
       isPropertyFilterRuleGroup({
-        operator: PropertyFilterRuleGroupOperator.And,
+        operator: "and",
         rules: [],
       })
     ).to.be.true;
     expect(
       isPropertyFilterRuleGroup({
         property: { name: "prop", displayLabel: "Prop", typename: "string" },
-        operator: PropertyFilterRuleOperator.IsNull,
+        operator: "is-null",
       })
     ).to.be.false;
   });

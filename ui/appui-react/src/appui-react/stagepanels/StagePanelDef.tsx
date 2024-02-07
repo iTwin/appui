@@ -6,10 +6,13 @@
  * @module Frontstage
  */
 
+import { UiEvent } from "@itwin/appui-abstract";
 import type { Draft } from "immer";
 import produce from "immer";
-import { UiEvent } from "@itwin/appui-abstract";
-import type { NineZoneState, PanelSide } from "@itwin/appui-layout-react";
+import { UiFramework } from "../UiFramework";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
+import type { NineZoneState } from "../layout/state/NineZoneState";
+import type { PanelSide } from "../layout/widget-panels/PanelTypes";
 import { WidgetDef } from "../widgets/WidgetDef";
 import { WidgetHost } from "../widgets/WidgetHost";
 import type {
@@ -18,8 +21,6 @@ import type {
 } from "./StagePanelConfig";
 import { StagePanelLocation } from "./StagePanelLocation";
 import { StagePanelSection } from "./StagePanelSection";
-import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import { UiFramework } from "../UiFramework";
 import { StagePanelState } from "./StagePanelState";
 
 /** Panel state changed event args interface.

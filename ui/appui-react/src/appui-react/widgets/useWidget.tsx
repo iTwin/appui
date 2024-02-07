@@ -3,20 +3,20 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import React from "react";
+import { assert } from "@itwin/core-bentley";
+import * as React from "react";
+import type { FrontstageDef } from "../frontstage/FrontstageDef";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import {
   getTabLocation,
   isFloatingTabLocation,
   isPanelTabLocation,
   isPopoutTabLocation,
-  TabIdContext,
-} from "@itwin/appui-layout-react";
-import { assert } from "@itwin/core-bentley";
-import type { FrontstageDef } from "../frontstage/FrontstageDef";
-import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
-import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import type { WidgetState } from "./WidgetState";
+} from "../layout/state/TabLocation";
+import { TabIdContext } from "../layout/widget/ContentRenderer";
 import { useWidgetDef } from "../widget-panels/Content";
+import type { WidgetState } from "./WidgetState";
 
 /** Hook that returns information about the Widget in the current context.
  * @returns object that contains the WidgetLocation, WidgetState, and

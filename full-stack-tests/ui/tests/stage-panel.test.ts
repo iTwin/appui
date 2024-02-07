@@ -19,7 +19,6 @@ test.describe("WidgetApi", () => {
 
   test("should toggle pin state", async ({ page }) => {
     const panel = panelLocator({ page, side: "right" });
-    const pinToggle = panel.locator(".nz-widget-pinToggle");
 
     const layoutInfoTab = tabLocator(page, "Layout Info");
     await layoutInfoTab.click();
@@ -27,10 +26,12 @@ test.describe("WidgetApi", () => {
     const pinned = layoutInfoWidget.getByText("pinned=");
     await expect(pinned).toHaveText("pinned=true");
 
-    await pinToggle.click();
+    const unpinButton = panel.getByTitle("Unpin widget panel");
+    await unpinButton.click();
     await expect(pinned).toHaveText("pinned=false");
 
-    await pinToggle.click();
+    const pinButton = panel.getByTitle("Pin widget panel");
+    await pinButton.click();
     await expect(pinned).toHaveText("pinned=true");
   });
 

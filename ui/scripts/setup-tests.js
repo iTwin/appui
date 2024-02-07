@@ -30,7 +30,7 @@ require("ignore-styles").default(
   (module, filename) => {
     if (filename.endsWith(".svg")) {
       const newPath = upath.normalize(
-        filename.replace(process.cwd(), "/ui/appui-layout-react")
+        filename.replace(process.cwd(), "/ui/appui-react")
       );
       module.exports = { default: newPath };
     }
@@ -44,6 +44,11 @@ window.Date = Date;
 document.elementFromPoint = () => null;
 window.HTMLElement.prototype.scrollIntoView = () => {};
 window.HTMLElement.prototype.scrollTo = () => {};
+
+// Remove wall of text because of jsdom missing css features: https://github.com/jsdom/jsdom/issues/2005#issuecomment-1381649538
+const HTMLStyleElementImpl =
+  require("jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl").implementation;
+HTMLStyleElementImpl.prototype._updateAStyleBlock = () => {};
 
 // Fill in more missing functions left out by jsdom or mocha
 performance = window.performance;

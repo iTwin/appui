@@ -5,15 +5,16 @@
 
 import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import type { PropertyFilterBuilderRuleGroupRendererProps } from "../../components-react/filter-builder/FilterBuilderRuleGroup";
 import { PropertyFilterBuilderRuleGroupRenderer } from "../../components-react/filter-builder/FilterBuilderRuleGroup";
-import type { PropertyFilterBuilderRuleGroup } from "../../components-react/filter-builder/FilterBuilderState";
-import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
-import { PropertyFilterRuleGroupOperator } from "../../components-react/filter-builder/Operators";
-import TestUtils, { userEvent } from "../TestUtils";
+import {
+  PropertyFilterBuilderActions,
+  type PropertyFilterBuilderRuleGroup,
+} from "../../components-react/filter-builder/FilterBuilderState";
+import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";
+import sinon from "sinon";
 
 describe("PropertyFilterBuilderRuleGroupRenderer", () => {
   const rootGroup: PropertyFilterBuilderRuleGroup = {
@@ -28,11 +29,12 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
         groupId: "id",
       },
     ],
-    operator: PropertyFilterRuleGroupOperator.And,
+    operator: "and",
   };
   const defaultProps: PropertyFilterBuilderRuleGroupRendererProps = {
     group: rootGroup,
     path: [],
+    isGroupOperatorDisabled: false,
   };
 
   beforeEach(async () => {
@@ -51,38 +53,6 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     expect(queryByTestId("rule-group-remove")).to.be.null;
   });
 
-  it("renders remove button for non root group", () => {
-    const { getByTestId } = renderWithContext(
-      <PropertyFilterBuilderRuleGroupRenderer
-        {...defaultProps}
-        group={{
-          id: "id",
-          groupId: "parentId",
-          items: [],
-          operator: PropertyFilterRuleGroupOperator.And,
-        }}
-      />
-    );
-    getByTestId("rule-group-remove");
-  });
-
-  it("does not render add group button if depth limit is reached", () => {
-    const { queryByTestId } = renderWithContext(
-      <PropertyFilterBuilderRuleGroupRenderer
-        {...defaultProps}
-        path={["parentId", "id"]}
-        group={{
-          id: "id",
-          groupId: "parentId",
-          items: [],
-          operator: PropertyFilterRuleGroupOperator.And,
-        }}
-      />,
-      { ruleGroupDepthLimit: 1 }
-    );
-    expect(queryByTestId("rule-group-add-rule-group")).to.be.null;
-  });
-
   it("does not render operator selector if only one rule is in group", () => {
     const { queryByText } = renderWithContext(
       <PropertyFilterBuilderRuleGroupRenderer
@@ -90,7 +60,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
         group={{
           id: "id",
           items: [{ id: "childId", groupId: "id" }],
-          operator: PropertyFilterRuleGroupOperator.And,
+          operator: "and",
         }}
       />
     );
@@ -114,7 +84,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
         {...defaultProps}
         group={{
           id: "id",
-          operator: PropertyFilterRuleGroupOperator.And,
+          operator: "and",
           items: [
             {
               id: "childId",
@@ -130,120 +100,112 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     getByDisplayValue("Prop");
   });
 
-  it("renders child rule group", () => {
-    const property: PropertyDescription = {
-      displayLabel: "Prop",
-      name: "prop",
-      typename: "int",
-    };
-    const { getByText } = renderWithContext(
-      <PropertyFilterBuilderRuleGroupRenderer
-        {...defaultProps}
-        group={{
-          id: "id",
-          operator: PropertyFilterRuleGroupOperator.And,
-          items: [
-            {
-              id: "childId",
-              groupId: "id",
-              operator: PropertyFilterRuleGroupOperator.Or,
-              items: [
-                {
-                  id: "grandChildId1",
-                  groupId: "childId",
-                  property,
-                },
-                {
-                  id: "grandChildId2",
-                  groupId: "childId",
-                  property,
-                },
-              ],
-            },
-          ],
-        }}
-      />
-    );
-
-    getByText(
-      TestUtils.i18n.getLocalizedString("Components:filterBuilder.operators.or")
-    );
-  });
-
-  it("dispatches add rule event when button is clicked", () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const { getByTestId } = renderWithContext(
-      <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />,
-      { actions }
-    );
-    const addItemSpy = sinon.stub(actions, "addItem");
-
-    const addRuleButton = getByTestId("rule-group-add-rule");
-    addRuleButton.click();
-
-    expect(addItemSpy).to.be.calledOnceWith(defaultProps.path, "RULE");
-  });
-
-  it("dispatches add rule group event when button is clicked", () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const { getByTestId } = renderWithContext(
-      <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />,
-      { actions }
-    );
-    const addItemSpy = sinon.stub(actions, "addItem");
-
-    const addRuleGroupButton = getByTestId("rule-group-add-rule-group");
-    addRuleGroupButton.click();
-
-    expect(addItemSpy).to.be.calledOnceWith(defaultProps.path, "RULE_GROUP");
-  });
-
-  it("dispatches remove item event when button is clicked", () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const { getByTestId } = renderWithContext(
-      <PropertyFilterBuilderRuleGroupRenderer
-        {...defaultProps}
-        group={{
-          id: "id",
-          groupId: "parentGroupId",
-          operator: PropertyFilterRuleGroupOperator.And,
-          items: [],
-        }}
-      />,
-      { actions }
-    );
-    const removeItemSpy = sinon.stub(actions, "removeItem");
-
-    const removeButton = getByTestId("rule-group-remove");
-    removeButton.click();
-
-    expect(removeItemSpy).to.be.calledOnceWith(defaultProps.path);
-  });
-
   it("dispatches operator change event when operator is selected", async () => {
-    const user = userEvent.setup();
     const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const { getByText, findByText } = renderWithContext(
+    const { container, findByText } = renderWithContext(
       <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />,
       { actions }
     );
     const setRuleGroupOperatorSpy = sinon.stub(actions, "setRuleGroupOperator");
 
-    const selector = getByText(
-      TestUtils.i18n.getLocalizedString(
-        "Components:filterBuilder.operators.and"
+    const selector = container.querySelector<HTMLAnchorElement>(
+      ".fb-group-operator .fb-logical-operator-toggle"
+    );
+    expect(selector).to.not.be.null;
+
+    selector?.click();
+
+    expect(
+      await findByText(
+        TestUtils.i18n.getLocalizedString(
+          "Components:filterBuilder.operators.and"
+        )
       )
-    );
-    await user.click(selector);
+    ).to.not.be.null;
 
-    const option = await findByText(
-      TestUtils.i18n.getLocalizedString("Components:filterBuilder.operators.or")
-    );
-    await user.click(option);
+    expect(setRuleGroupOperatorSpy).to.be.calledWith(defaultProps.path, "or");
+  });
 
-    expect(setRuleGroupOperatorSpy).to.be.calledOnceWith(
-      defaultProps.path,
-      PropertyFilterRuleGroupOperator.Or
+  it("Toggles operator 'Or' to 'And'", async () => {
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const props: PropertyFilterBuilderRuleGroupRendererProps = {
+      group: { ...rootGroup, operator: "or" },
+      path: [],
+      isGroupOperatorDisabled: false,
+    };
+    const { container, findByText } = renderWithContext(
+      <PropertyFilterBuilderRuleGroupRenderer {...props} />,
+      { actions }
     );
+    const setRuleGroupOperatorSpy = sinon.stub(actions, "setRuleGroupOperator");
+
+    const selector = container.querySelector<HTMLAnchorElement>(
+      ".fb-group-operator .fb-logical-operator-toggle"
+    );
+    expect(selector).to.not.be.null;
+
+    selector?.click();
+
+    expect(
+      await findByText(
+        TestUtils.i18n.getLocalizedString(
+          "Components:filterBuilder.operators.or"
+        )
+      )
+    ).to.not.be.null;
+
+    expect(setRuleGroupOperatorSpy).to.be.calledWith(defaultProps.path, "and");
+  });
+
+  it("'Or' Operator should not be clickable if toggle disabled", async () => {
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const props: PropertyFilterBuilderRuleGroupRendererProps = {
+      group: { ...rootGroup, operator: "or" },
+      path: [],
+      isGroupOperatorDisabled: true,
+    };
+    const { container, findByText } = renderWithContext(
+      <PropertyFilterBuilderRuleGroupRenderer {...props} />,
+      { actions }
+    );
+
+    expect(
+      findByText(
+        TestUtils.i18n.getLocalizedString(
+          "Components:filterBuilder.operators.or"
+        )
+      )
+    ).to.not.be.null;
+
+    const selector = container.querySelector<HTMLAnchorElement>(
+      ".fb-group-operator .fb-logical-operator-toggle"
+    );
+    expect(selector).to.be.null;
+  });
+
+  it("'And' Operator should not be clickable if toggled disabled", async () => {
+    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const props: PropertyFilterBuilderRuleGroupRendererProps = {
+      group: rootGroup,
+      path: [],
+      isGroupOperatorDisabled: true,
+    };
+    const { container, findByText } = renderWithContext(
+      <PropertyFilterBuilderRuleGroupRenderer {...props} />,
+      { actions }
+    );
+
+    expect(
+      findByText(
+        TestUtils.i18n.getLocalizedString(
+          "Components:filterBuilder.operators.and"
+        )
+      )
+    ).to.not.be.null;
+
+    const selector = container.querySelector<HTMLAnchorElement>(
+      ".fb-group-operator .fb-logical-operator-toggle"
+    );
+    expect(selector).to.be.null;
   });
 });

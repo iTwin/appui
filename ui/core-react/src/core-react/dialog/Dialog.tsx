@@ -6,18 +6,17 @@
  * @module Dialog
  */
 
-import "./Dialog.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { DialogButtonType } from "@itwin/appui-abstract";
+import { Dialog as BaseDialog, Button } from "@itwin/itwinui-react";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
 import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
-import { Dialog as BaseDialog } from "@itwin/itwinui-react";
-import { Button } from "@itwin/itwinui-react";
+import "./Dialog.scss";
 
 type ButtonProps = React.ComponentPropsWithoutRef<typeof Button>;
 

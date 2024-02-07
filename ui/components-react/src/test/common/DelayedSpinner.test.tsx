@@ -5,35 +5,20 @@
 
 import * as React from "react";
 import { expect } from "chai";
-import * as sinon from "sinon";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { DelayedSpinner } from "../../components-react/common/DelayedSpinner";
 
 describe("<DelayedSpinner />", () => {
-  const sandbox = sinon.createSandbox();
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
   it("renders spinner without delay", () => {
     const component = render(<DelayedSpinner delay={0} />);
     component.getByTestId("components-delayed-spinner");
   });
 
-  it("renders spinner with delay", () => {
-    const clock = sandbox.useFakeTimers({
-      now: Date.now(),
-      // TODO: VirtualizedPropertyGridWithDataProvider tests fail without time increment.
-      shouldAdvanceTime: true,
-      advanceTimeDelta: 1,
-    });
+  it("renders spinner with delay", async () => {
     const component = render(<DelayedSpinner delay={100} />);
     expect(component.queryByTestId("components-delayed-spinner")).to.be.null;
 
-    clock.tick(100);
-
-    component.getByTestId("components-delayed-spinner");
+    await waitFor(() => component.getByTestId("components-delayed-spinner"));
   });
 
   it("renders spinner with specified size", () => {

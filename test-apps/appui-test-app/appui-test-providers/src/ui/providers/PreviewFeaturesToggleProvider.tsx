@@ -2,57 +2,74 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
+import * as React from "react";
 import {
   PreviewFeatures,
   PreviewFeaturesProvider,
-  StatusBarItem,
   StatusBarSection,
   UiItemsProvider,
 } from "@itwin/appui-react";
 import { BetaBadge } from "@itwin/core-react";
 import { Checkbox, DropdownButton, MenuItem } from "@itwin/itwinui-react";
-import * as React from "react";
 
-const PreviewFeatureListContext = React.createContext<
-  [string[], React.Dispatch<React.SetStateAction<string[]>>] | undefined
+const PreviewFeaturesContext = React.createContext<
+  | [PreviewFeatures, React.Dispatch<React.SetStateAction<PreviewFeatures>>]
+  | undefined
 >(undefined);
 
-const featureList = [
-  { id: "contentAlwaysMaxSize", label: "Content is always maximum size" },
-  {
-    id: "enableMaximizedFloatingWidget",
+type AvailableFeatures = {
+  [K in keyof PreviewFeatures]: { label: string; value?: PreviewFeatures[K] };
+};
+
+const availableFeatures: AvailableFeatures = {
+  contentAlwaysMaxSize: {
+    label: "Content is always maximum size",
+  },
+  enableMaximizedFloatingWidget: {
     label: "Enable maximized floating widgets",
   },
-];
-function PreviewFeatureList() {
-  const [activeFeatureList, setActiveFeatureList] =
-    React.useContext(PreviewFeatureListContext) ?? [];
+  activateDroppedTab: {
+    label: "Change active tab after drag & drop",
+  },
+  horizontalPanelAlignment: {
+    label: "Horizontal panel alignment",
+  },
+  widgetActionDropdown: {
+    label: "Render dropdown menu when widget title bar has more than 2 buttons",
+    value: { threshold: 2 },
+  },
+};
 
-  if (!activeFeatureList || !setActiveFeatureList) {
+function PreviewFeatureList() {
+  const context = React.useContext(PreviewFeaturesContext);
+
+  if (!context) {
     return null;
   }
 
+  const [features, setFeatures] = context;
+  const availableFeatureEntries = Object.entries(availableFeatures);
   return (
     <DropdownButton
       size="small"
       menuItems={() =>
-        featureList.map(({ id: feature, label }) => (
+        availableFeatureEntries.map(([feature, { label, value }]) => (
           <MenuItem
             key={feature}
             sublabel={feature}
-            endIcon={
-              <Checkbox
-                checked={activeFeatureList.includes(feature)}
-                readOnly
-              />
-            }
+            endIcon={<Checkbox checked={feature in features} readOnly />}
             onClick={() => {
-              setActiveFeatureList((prev) =>
-                prev.includes(feature)
-                  ? prev.filter((item) => item !== feature)
-                  : [...prev, feature]
-              );
+              setFeatures((prev) => {
+                if (Object.keys(prev).includes(feature)) {
+                  const { [feature]: _, ...rest } = prev;
+                  return rest;
+                }
+
+                return {
+                  ...prev,
+                  [feature]: value === undefined ? true : value,
+                };
+              });
             }}
           >
             {label}
@@ -65,36 +82,25 @@ function PreviewFeatureList() {
   );
 }
 
-/**
- */
-export class PreviewFeaturesToggleProvider implements UiItemsProvider {
-  public readonly id = "appui-test-providers:PreviewFeaturesToggleProvider";
+export const previewFeaturesToggleProvider: UiItemsProvider = {
+  id: "appui-test-providers:PreviewFeaturesToggleProvider",
+  getStatusBarItems: () => [
+    {
+      content: <PreviewFeatureList />,
+      section: StatusBarSection.Right,
+      id: `${previewFeaturesToggleProvider.id}:StatusBarItem`,
+      itemPriority: Infinity,
+    },
+  ],
+};
 
-  public getStatusBarItems(): readonly StatusBarItem[] {
-    return [
-      {
-        content: <PreviewFeatureList />,
-        section: StatusBarSection.Right,
-        id: `${this.id}:StatusBarItem`,
-        itemPriority: Infinity,
-      },
-    ];
-  }
-
-  public static ReactProvider = (props: { children?: React.ReactNode }) => {
-    const activeFeatureList = React.useState<string[]>([]);
-
-    return (
-      <PreviewFeatureListContext.Provider value={activeFeatureList}>
-        <PreviewFeaturesProvider
-          features={featureList.reduce<PreviewFeatures>((features, { id }) => {
-            features[id] = activeFeatureList[0].includes(id);
-            return features;
-          }, {})}
-        >
-          {props.children}
-        </PreviewFeaturesProvider>
-      </PreviewFeatureListContext.Provider>
-    );
-  };
+export function AppPreviewFeatures(props: React.PropsWithChildren<{}>) {
+  const [features, setFeatures] = React.useState<PreviewFeatures>({});
+  return (
+    <PreviewFeaturesContext.Provider value={[features, setFeatures]}>
+      <PreviewFeaturesProvider features={features}>
+        {props.children}
+      </PreviewFeaturesProvider>
+    </PreviewFeaturesContext.Provider>
+  );
 }

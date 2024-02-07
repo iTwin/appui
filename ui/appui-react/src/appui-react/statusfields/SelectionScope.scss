@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
-@import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/footer/variables";
+@import "../layout/footer/variables";
 
 .uifw-statusFields-selectionScope {
   $font-size-medium: var(--iui-font-size-0);

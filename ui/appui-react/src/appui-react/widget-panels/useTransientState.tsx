@@ -6,14 +6,18 @@
  * @module Widget
  */
 
-import { useTransientState as useTransientStateImpl } from "@itwin/appui-layout-react";
+import { assert } from "@itwin/core-bentley";
+import * as React from "react";
+import {
+  TabIdContext,
+  useTabTransientState,
+} from "../layout/widget/ContentRenderer";
 
 /** Hook that allows to save and restore transient DOM state (i.e. scroll offset) of a widget.
  * @beta
  */
-export function useTransientState(
-  onSave?: () => void,
-  onRestore?: () => void
-): void {
-  useTransientStateImpl(onSave, onRestore);
+export function useTransientState(onSave?: () => void, onRestore?: () => void) {
+  const tabId = React.useContext(TabIdContext);
+  assert(!!tabId);
+  return useTabTransientState(tabId, onSave, onRestore);
 }
