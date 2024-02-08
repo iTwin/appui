@@ -1,6 +1,6 @@
 ---
 name: Ask a question
-description: Please use [the community forum ](https://github.com/iTwin/appui/issues) for general questions about using iTwin.js AppUI.
+about: Please use [the community forum ](https://github.com/iTwin/appui/issues) for general questions about using iTwin.js AppUI.
 title: ""
 labels: ""
 assignees: ""
