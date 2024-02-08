@@ -4,8 +4,6 @@
 
 ```ts
 
-/// <reference types="react" />
-
 import { BadgeType } from '@itwin/appui-abstract';
 import { BeUiEvent } from '@itwin/core-bentley';
 import { Button } from '@itwin/itwinui-react';
