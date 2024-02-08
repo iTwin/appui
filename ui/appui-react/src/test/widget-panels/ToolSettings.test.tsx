@@ -36,9 +36,20 @@ import {
   addWidgetToolSettings,
 } from "../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
 import { addFloatingWidget } from "../../appui-react/layout/state/internal/WidgetStateHelpers";
-import { childStructure } from "../TestUtils";
+import TestUtils, { childStructure } from "../TestUtils";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 
 describe("WidgetPanelsToolSettings", () => {
+  beforeEach(async () => {
+    await NoRenderApp.startup();
+    await TestUtils.initializeUiFramework();
+  });
+
+  afterEach(async () => {
+    TestUtils.terminateUiFramework();
+    await IModelApp.shutdown();
+  });
+
   it("should not render w/o tool settings top center zone", () => {
     sinon
       .stub(UiFramework.frontstages, "activeFrontstageDef")
@@ -68,7 +79,7 @@ describe("WidgetPanelsToolSettings", () => {
     let state = createNineZoneState();
     state = addTab(state, "ts");
     state = addDockedToolSettings(state, "ts");
-    const { container } = render(
+    const sut = render(
       <NineZoneProvider
         dispatch={sinon.spy()}
         layout={createLayoutStore(state)}
@@ -77,7 +88,7 @@ describe("WidgetPanelsToolSettings", () => {
         <WidgetPanelsToolSettings />
       </NineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    sut.getByText(/tools.noToolSettingsStart/);
   });
 });
 
@@ -102,13 +113,12 @@ describe("ToolSettingsDockedContent", () => {
     sinon
       .stub(activeToolSettingsProvider, "horizontalToolSettingNodes")
       .get(() => horizontalToolSettingNodes);
-    const { container } = render(
+    const sut = render(
       <DragManagerContext.Provider value={new DragManager()}>
         <ToolSettingsDockedContent />
       </DragManagerContext.Provider>
     );
-    container.firstChild!.should.matchSnapshot();
-    UiFramework.frontstages.onToolSettingsReloadEvent.emit();
+    sut.getByText("Date");
   });
 });
 

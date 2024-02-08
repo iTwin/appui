@@ -2,10 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as ResizeObserverModule from "@itwin/core-react/lib/cjs/core-react/utils/hooks/ResizeObserverPolyfill";
-import { act, fireEvent, queryByText, render } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
+import * as ResizeObserverModule from "@itwin/core-react/lib/cjs/core-react/utils/hooks/ResizeObserverPolyfill";
+import { act, fireEvent, queryByText, render } from "@testing-library/react";
 import {
   DockedToolSettings,
   eqlOverflown,
@@ -13,19 +14,24 @@ import {
   onOverflowLabelAndEditorResize,
 } from "../../../appui-react/layout/tool-settings/Docked";
 import { DockedToolSetting } from "../../../appui-react/layout/tool-settings/Setting";
-import { DragManagerProvider } from "../Providers";
+import { DragManagerProvider, TestNineZoneProvider } from "../Providers";
 import { flushAsyncOperations, ResizeObserverMock } from "../Utils";
 
 describe("DockedToolSettings", () => {
   it("should render w/o entries", () => {
-    const { container } = render(<DockedToolSettings />, {
-      wrapper: DragManagerProvider,
+    const sut = render(<DockedToolSettings />, {
+      wrapper: (props) => (
+        <TestNineZoneProvider
+          labels={{ toolSettingsHandleTitle: "Undock" }}
+          {...props}
+        />
+      ),
     });
-    container.firstChild!.should.matchSnapshot();
+    sut.getByTitle("Undock");
   });
 
   it("should render", () => {
-    const { container } = render(
+    const sut = render(
       <DockedToolSettings>
         <div>Entry 1</div>
         <>Entry 2</>
@@ -35,7 +41,10 @@ describe("DockedToolSettings", () => {
         wrapper: DragManagerProvider,
       }
     );
-    container.firstChild!.should.matchSnapshot();
+    sut.getByText("Entry 1");
+    sut.getByText("Entry 2");
+    sut.getByText("Entry 3");
+    sut.getByText("Entry 4");
   });
 
   it("should render overflow button", () => {
@@ -49,17 +58,19 @@ describe("DockedToolSettings", () => {
         }
         return new DOMRect();
       });
-    const { container } = render(
+    const sut = render(
       <DockedToolSettings>
-        <>Entry 1</>
-        <>Entry 2</>
-        <>Entry 3</>
+        <DockedToolSetting>Entry 1</DockedToolSetting>
+        <DockedToolSetting>Entry 2</DockedToolSetting>
+        <DockedToolSetting>Entry 3</DockedToolSetting>
       </DockedToolSettings>,
       {
         wrapper: DragManagerProvider,
       }
     );
-    container.firstChild!.should.matchSnapshot();
+    sut.getByText("Entry 1");
+    sut.getByText("Entry 2");
+    expect(sut.queryByText("Entry 3")).to.not.exist;
   });
 
   it("should render overflown entries", () => {
@@ -73,11 +84,11 @@ describe("DockedToolSettings", () => {
         }
         return new DOMRect();
       });
-    const { container } = render(
+    const sut = render(
       <DockedToolSettings>
-        <>Entry 1</>
-        <>Entry 2</>
-        <>Entry 3</>
+        <DockedToolSetting>Entry 1</DockedToolSetting>
+        <DockedToolSetting>Entry 2</DockedToolSetting>
+        <DockedToolSetting>Entry 3</DockedToolSetting>
       </DockedToolSettings>,
       {
         wrapper: DragManagerProvider,
@@ -89,7 +100,9 @@ describe("DockedToolSettings", () => {
         document.getElementsByClassName("nz-toolSettings-overflow")[0]
       );
     });
-    container.firstChild!.should.matchSnapshot();
+    sut.getByText("Entry 1");
+    sut.getByText("Entry 2");
+    sut.getByText("Entry 3");
   });
 
   it("should render panel container", () => {
@@ -103,11 +116,9 @@ describe("DockedToolSettings", () => {
         }
         return new DOMRect();
       });
-    render(
+    const sut = render(
       <DockedToolSettings
-        panelContainer={(props) => (
-          <div className="panel-container">{props.children}</div>
-        )}
+        panelContainer={(props) => <div>Overflow:{props.children}</div>}
       >
         <DockedToolSetting>Entry 1</DockedToolSetting>
         <DockedToolSetting>Entry 2</DockedToolSetting>
@@ -123,8 +134,9 @@ describe("DockedToolSettings", () => {
         document.getElementsByClassName("nz-toolSettings-overflow")[0]
       );
     });
-    const panel = document.getElementsByClassName("nz-toolSettings-panel")[0];
-    panel.should.matchSnapshot();
+    sut.getByText("Entry 1");
+    sut.getByText("Entry 2");
+    sut.getByText("Overflow:Entry 3");
   });
 
   it("should close overflow panel on outside click", () => {
@@ -138,7 +150,7 @@ describe("DockedToolSettings", () => {
         }
         return new DOMRect();
       });
-    render(
+    const sut = render(
       <DockedToolSettings>
         <DockedToolSetting>Entry 1</DockedToolSetting>
         <DockedToolSetting>Entry 2</DockedToolSetting>
@@ -164,9 +176,7 @@ describe("DockedToolSettings", () => {
       fireEvent.pointerUp(document);
     });
 
-    document
-      .getElementsByClassName("nz-toolSettings-panel")
-      .length.should.eq(0);
+    expect(sut.queryByText("Entry 3")).to.not.exist;
   });
 
   it("should recalculate overflow on resize", async () => {
@@ -196,7 +206,7 @@ describe("DockedToolSettings", () => {
         }
       });
 
-    const { queryAllByText } = render(
+    const sut = render(
       <DockedToolSettings>
         <DockedToolSetting>Entry 1</DockedToolSetting>
         <DockedToolSetting>Entry 2</DockedToolSetting>
@@ -207,7 +217,8 @@ describe("DockedToolSettings", () => {
       }
     );
 
-    queryAllByText(/Entry [0-9]$/).length.should.eq(2);
+    sut.getByText("Entry 1");
+    sut.getByText("Entry 2");
 
     act(() => {
       width = 50;
@@ -224,7 +235,8 @@ describe("DockedToolSettings", () => {
 
     await flushAsyncOperations();
 
-    queryAllByText(/Entry [0-9]$/).length.should.eq(1);
+    sut.getByText("Entry 1");
+    expect(sut.queryByText("Entry 2")).to.not.exist;
   });
 
   it("should recalculate overflow on entry resize", async () => {
@@ -258,7 +270,7 @@ describe("DockedToolSettings", () => {
         }
       });
 
-    const { queryAllByText } = render(
+    const sut = render(
       <DockedToolSettings>
         <DockedToolSetting>Entry 1</DockedToolSetting>
         <DockedToolSetting>Entry 2</DockedToolSetting>
@@ -269,7 +281,8 @@ describe("DockedToolSettings", () => {
       }
     );
 
-    queryAllByText(/Entry [0-9]$/).length.should.eq(2);
+    sut.getByText("Entry 1");
+    sut.getByText("Entry 2");
 
     act(() => {
       width = 100;
@@ -286,7 +299,8 @@ describe("DockedToolSettings", () => {
 
     await flushAsyncOperations();
 
-    queryAllByText(/Entry [0-9]$/).length.should.eq(1);
+    sut.getByText("Entry 1");
+    expect(sut.queryByText("Entry 2")).to.not.exist;
   });
 });
 
