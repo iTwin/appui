@@ -214,7 +214,7 @@ importers:
         version: 3.8.0
       '@reduxjs/toolkit':
         specifier: ^1.5.0
-        version: 1.9.7(react@17.0.2)
+        version: 1.9.7(react-redux@7.2.9)(react@17.0.2)
       classnames:
         specifier: 2.3.1
         version: 2.3.1
@@ -224,6 +224,9 @@ importers:
       react-dom:
         specifier: ^17.0.0
         version: 17.0.2(react@17.0.2)
+      react-redux:
+        specifier: ^7.2.2
+        version: 7.2.9(react-dom@17.0.2)(react@17.0.2)
       ts-key-enum:
         specifier: ~2.0.12
         version: 2.0.12
@@ -5751,7 +5754,7 @@ packages:
       '@babel/runtime': 7.23.8
     dev: true
 
-  /@reduxjs/toolkit@1.9.7(react@17.0.2):
+  /@reduxjs/toolkit@1.9.7(react-redux@7.2.9)(react@17.0.2):
     resolution: {integrity: sha512-t7v8ZPxhhKgOKtU+uyJT13lu4vL7az5aFi4IdoDs/eS548edn2M8Ik9h8fxgvMjGoAUVFSt6ZC1P5cWmQ014QQ==}
     peerDependencies:
       react: ^16.9.0 || ^17.0.0 || ^18
@@ -5764,6 +5767,7 @@ packages:
     dependencies:
       immer: 9.0.21
       react: 17.0.2
+      react-redux: 7.2.9(react-dom@17.0.2)(react@17.0.2)
       redux: 4.2.1
       redux-thunk: 2.4.2(redux@4.2.1)
       reselect: 4.1.8
@@ -17680,7 +17684,7 @@ packages:
     dependencies:
       object-assign: 4.1.1
       react: 17.0.2
-      react-is: 17.0.2
+      react-is: 18.2.0
     dev: true
 
   /react-style-singleton@2.2.1(@types/react@17.0.75)(react@17.0.2):
