@@ -211,7 +211,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         ".fb-property-name input"
       );
       expect(selector).to.not.be.null;
-      fireEvent.focus(selector!);
+      fireEvent.click(selector!);
 
       expect(propertyRendererSpy).to.be.calledWith(defaultProperty.name);
     });
@@ -228,14 +228,14 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         ".fb-property-name input"
       );
       expect(selector).to.not.be.null;
-      fireEvent.focus(selector!);
+      fireEvent.click(selector!);
 
       expect(queryByText(defaultProperty.displayLabel)).to.not.be.null;
     });
 
     it("does not open property selector menu when property selection is disabled", () => {
       const actions = new PropertyFilterBuilderActions(sinon.spy());
-      const { container, queryByText } = renderWithContext(
+      const { container, queryByText, debug } = renderWithContext(
         <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
         { actions, properties: [defaultProperty] },
         { isDisabled: true }
@@ -246,8 +246,9 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         ".fb-property-name input"
       );
       expect(selector).to.not.be.null;
-      fireEvent.focus(selector!);
+      fireEvent.click(selector!);
 
+      debug();
       expect(queryByText(defaultProperty.displayLabel)).to.be.null;
     });
   });
@@ -264,7 +265,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       ".fb-property-name input"
     );
     expect(selector).to.not.be.null;
-    fireEvent.focus(selector!);
+    fireEvent.click(selector!);
 
     fireEvent.click(getByText(defaultProperty.displayLabel));
     expect(setRulePropertySpy).to.be.calledOnceWith(
@@ -305,7 +306,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       ".fb-property-name input"
     );
     expect(selector).to.not.be.null;
-    fireEvent.focus(selector!);
+    fireEvent.click(selector!);
 
     fireEvent.click(getByText(defaultProperty.displayLabel));
     expect(spy).to.be.calledOnceWith(defaultProperty);
