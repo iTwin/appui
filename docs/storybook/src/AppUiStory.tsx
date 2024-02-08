@@ -27,22 +27,18 @@ import {
   IModelTileRpcInterface,
   SnapshotIModelRpcInterface,
 } from "@itwin/core-common";
-import {
-  CheckpointConnection,
-  IModelApp,
-  IModelConnection,
-  ViewCreator3d,
-} from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import { FrontendIModelsAccess } from "@itwin/imodels-access-frontend";
 import { IModelsClient } from "@itwin/imodels-client-authoring";
 import { ProgressLinear } from "@itwin/itwinui-react";
 import { createFrontstageProvider } from "./Utils";
 import { DemoIModel, useDemoIModel } from "../.storybook/addons/DemoIModel";
+import { openDemoIModel } from "./openDemoIModel";
 
 export interface AppUiStoryProps {
   appBackstage?: React.ReactNode;
   children?: React.ReactNode;
-  demoIModel?: boolean;
+  demoIModel?: boolean | { default: DemoIModel };
   frontstageProviders?: FrontstageProvider[] | (() => FrontstageProvider[]);
   itemProviders?: UiItemsProvider[];
   layout?: "fullscreen";
@@ -87,7 +83,7 @@ export function AppUiStory(props: AppUiStoryProps) {
           SnapshotIModelRpcInterface,
         ]
       );
-      demoIModel && (await openIModel(demoIModel));
+      demoIModel && (await openDemoIModel(demoIModel));
       await props.onInitialize?.();
 
       for (const provider of props.itemProviders ?? []) {
@@ -208,24 +204,6 @@ class DemoAuthClient implements AuthorizationClient {
   }
 }
 
-async function openIModel({
-  iTwinId,
-  iModelId,
-}: Pick<DemoIModel, "iTwinId" | "iModelId">) {
-  const iModelConnection = await CheckpointConnection.openRemote(
-    iTwinId,
-    iModelId
-  );
-  UiFramework.setIModelConnection(iModelConnection, true);
-  const viewState = await getViewState(iModelConnection);
-  UiFramework.setDefaultViewState(viewState, true);
-}
-
-async function getViewState(iModelConnection: IModelConnection) {
-  const viewCreator = new ViewCreator3d(iModelConnection);
-  return viewCreator.createDefaultView();
-}
-
 const appInitializer = (() => {
   let latestStartup: () => Promise<void>;
   let initializer:
@@ -284,9 +262,11 @@ const appInitializer = (() => {
 
 function useStoryDemoIModel(props: AppUiStoryProps) {
   const demoIModel = useDemoIModel();
-  if (typeof props.demoIModel === "boolean") {
-    return props.demoIModel ? demoIModel : undefined;
+  if (!props.demoIModel) return undefined;
+
+  if (props.demoIModel === true) {
+    return demoIModel;
   }
 
-  return undefined;
+  return demoIModel ?? props.demoIModel?.default;
 }
