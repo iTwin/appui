@@ -235,7 +235,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
     it("does not open property selector menu when property selection is disabled", () => {
       const actions = new PropertyFilterBuilderActions(sinon.spy());
-      const { container, queryByText, debug } = renderWithContext(
+      const { container, queryByText } = renderWithContext(
         <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
         { actions, properties: [defaultProperty] },
         { isDisabled: true }
@@ -248,7 +248,6 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       expect(selector).to.not.be.null;
       fireEvent.click(selector!);
 
-      debug();
       expect(queryByText(defaultProperty.displayLabel)).to.be.null;
     });
   });

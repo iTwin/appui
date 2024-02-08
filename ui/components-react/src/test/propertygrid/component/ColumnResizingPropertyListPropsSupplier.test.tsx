@@ -27,7 +27,6 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
     records = [
       TestUtils.createPrimitiveStringProperty("CADID", "0000 0005 00E0 02D8"),
     ];
-    userEvent.setup;
   });
 
   describe("ratio between label and value when width below minimum column size", () => {
