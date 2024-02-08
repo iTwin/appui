@@ -83,7 +83,7 @@ export function DockedToolSettings(props: DockedToolSettingsProps) {
   const onResize = React.useCallback(() => {
     let gapSize = 0;
     if (ref.current) {
-      gapSize = getCssVariableAsNumber("gap", ref.current);
+      gapSize = getGapVariable(ref.current);
       handleGapResize(gapSize);
     }
     width.current !== undefined &&
@@ -464,4 +464,10 @@ export function eqlOverflown(
     if (p !== v) return false;
   }
   return true;
+}
+
+function getGapVariable(htmlElement: HTMLElement) {
+  const gap = getCssVariableAsNumber("gap", htmlElement);
+  if (isNaN(gap)) return 0;
+  return gap;
 }

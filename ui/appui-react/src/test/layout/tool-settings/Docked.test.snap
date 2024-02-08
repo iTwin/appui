@@ -34,25 +34,27 @@ exports[`DockedToolSettings should render 1`] = `
       Entry 4
     </span>
   </div>
-  <div
-    class="nz-toolSettings-overflow"
-    role="button"
-    tabindex="-1"
+  <button
+    class="iui-button nz-toolSettings-overflow"
+    data-iui-variant="borderless"
+    type="button"
   >
-    <div
-      class="nz-base-ellipsis"
+    <span
+      aria-hidden="true"
+      class="iui-button-icon"
     >
-      <div
-        class="nz-dot"
-      />
-      <div
-        class="nz-dot"
-      />
-      <div
-        class="nz-dot"
-      />
-    </div>
-  </div>
+      <svg
+        fill="var(--iui-color-icon-muted, currentColor)"
+        height="1rem"
+        viewBox="0 0 16 16"
+        width="1rem"
+      >
+        <path
+          d="M4 8a2 2 0 11-2-2 2 2 0 012 2zm4-2a2 2 0 102 2 2 2 0 00-2-2zm6 0a2 2 0 102 2 2 2 0 00-2-2z"
+        />
+      </svg>
+    </span>
+  </button>
 </div>
 `;
 
@@ -83,25 +85,27 @@ exports[`DockedToolSettings should render overflow button 1`] = `
   <div>
     Entry 3
   </div>
-  <div
-    class="nz-toolSettings-overflow"
-    role="button"
-    tabindex="-1"
+  <button
+    class="iui-button nz-toolSettings-overflow"
+    data-iui-variant="borderless"
+    type="button"
   >
-    <div
-      class="nz-base-ellipsis"
+    <span
+      aria-hidden="true"
+      class="iui-button-icon"
     >
-      <div
-        class="nz-dot"
-      />
-      <div
-        class="nz-dot"
-      />
-      <div
-        class="nz-dot"
-      />
-    </div>
-  </div>
+      <svg
+        fill="var(--iui-color-icon-muted, currentColor)"
+        height="1rem"
+        viewBox="0 0 16 16"
+        width="1rem"
+      >
+        <path
+          d="M4 8a2 2 0 11-2-2 2 2 0 012 2zm4-2a2 2 0 102 2 2 2 0 00-2-2zm6 0a2 2 0 102 2 2 2 0 00-2-2z"
+        />
+      </svg>
+    </span>
+  </button>
 </div>
 `;
 
@@ -132,25 +136,27 @@ exports[`DockedToolSettings should render overflown entries 1`] = `
   <div>
     Entry 3
   </div>
-  <div
-    class="nz-toolSettings-overflow"
-    role="button"
-    tabindex="-1"
+  <button
+    class="iui-button nz-toolSettings-overflow"
+    data-iui-variant="borderless"
+    type="button"
   >
-    <div
-      class="nz-base-ellipsis"
+    <span
+      aria-hidden="true"
+      class="iui-button-icon"
     >
-      <div
-        class="nz-dot"
-      />
-      <div
-        class="nz-dot"
-      />
-      <div
-        class="nz-dot"
-      />
-    </div>
-  </div>
+      <svg
+        fill="var(--iui-color-icon-muted, currentColor)"
+        height="1rem"
+        viewBox="0 0 16 16"
+        width="1rem"
+      >
+        <path
+          d="M4 8a2 2 0 11-2-2 2 2 0 012 2zm4-2a2 2 0 102 2 2 2 0 00-2-2zm6 0a2 2 0 102 2 2 2 0 00-2-2z"
+        />
+      </svg>
+    </span>
+  </button>
 </div>
 `;
 
