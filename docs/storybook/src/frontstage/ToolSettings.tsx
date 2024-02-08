@@ -8,5 +8,11 @@ import { AppUiStory, AppUiStoryProps } from "../AppUiStory";
 export function ToolSettingsStory(
   props: Pick<AppUiStoryProps, "frontstageProviders" | "onFrontstageActivated">
 ) {
-  return <AppUiStory layout="fullscreen" demoIModel={true} {...props} />;
+  return (
+    <AppUiStory
+      layout="fullscreen"
+      demoIModel={{ default: "blank" }}
+      {...props}
+    />
+  );
 }
