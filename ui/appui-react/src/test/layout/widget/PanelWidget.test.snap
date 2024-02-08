@@ -52,14 +52,14 @@ exports[`PanelWidget should render 1`] = `
       class="nz-widget-buttons"
     >
       <button
-        class="iui-button"
+        class="_iui3-button-base _iui3-button"
         data-iui-size="small"
         data-iui-variant="borderless"
         type="button"
       >
         <span
           aria-hidden="true"
-          class="iui-button-icon"
+          class="_iui3-button-icon"
         >
           <svg
             fill="var(--iui-color-icon-muted, currentColor)"
@@ -212,14 +212,14 @@ exports[`PanelWidget should render minimized 1`] = `
       class="nz-widget-buttons"
     >
       <button
-        class="iui-button"
+        class="_iui3-button-base _iui3-button"
         data-iui-size="small"
         data-iui-variant="borderless"
         type="button"
       >
         <span
           aria-hidden="true"
-          class="iui-button-icon"
+          class="_iui3-button-icon"
         >
           <svg
             fill="var(--iui-color-icon-muted, currentColor)"
@@ -300,14 +300,14 @@ exports[`PanelWidget should render with fit-content 1`] = `
       class="nz-widget-buttons"
     >
       <button
-        class="iui-button"
+        class="_iui3-button-base _iui3-button"
         data-iui-size="small"
         data-iui-variant="borderless"
         type="button"
       >
         <span
           aria-hidden="true"
-          class="iui-button-icon"
+          class="_iui3-button-icon"
         >
           <svg
             fill="var(--iui-color-icon-muted, currentColor)"

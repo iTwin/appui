@@ -65,14 +65,14 @@ exports[`WidgetPanelProvider should render captured 1`] = `
             class="nz-widget-buttons"
           >
             <button
-              class="iui-button"
+              class="_iui3-button-base _iui3-button"
               data-iui-size="small"
               data-iui-variant="borderless"
               type="button"
             >
               <span
                 aria-hidden="true"
-                class="iui-button-icon"
+                class="_iui3-button-icon"
               >
                 <svg
                   fill="var(--iui-color-icon-muted, currentColor)"
@@ -223,14 +223,14 @@ exports[`WidgetPanelProvider should render collapsed 1`] = `
             class="nz-widget-buttons"
           >
             <button
-              class="iui-button"
+              class="_iui3-button-base _iui3-button"
               data-iui-size="small"
               data-iui-variant="borderless"
               type="button"
             >
               <span
                 aria-hidden="true"
-                class="iui-button-icon"
+                class="_iui3-button-icon"
               >
                 <svg
                   fill="var(--iui-color-icon-muted, currentColor)"
@@ -348,14 +348,14 @@ exports[`WidgetPanelProvider should render horizontal 1`] = `
             class="nz-widget-buttons"
           >
             <button
-              class="iui-button"
+              class="_iui3-button-base _iui3-button"
               data-iui-size="small"
               data-iui-variant="borderless"
               type="button"
             >
               <span
                 aria-hidden="true"
-                class="iui-button-icon"
+                class="_iui3-button-icon"
               >
                 <svg
                   fill="var(--iui-color-icon-muted, currentColor)"
@@ -504,14 +504,14 @@ exports[`WidgetPanelProvider should render multiple widgets 1`] = `
             class="nz-widget-buttons"
           >
             <button
-              class="iui-button"
+              class="_iui3-button-base _iui3-button"
               data-iui-size="small"
               data-iui-variant="borderless"
               type="button"
             >
               <span
                 aria-hidden="true"
-                class="iui-button-icon"
+                class="_iui3-button-icon"
               >
                 <svg
                   fill="var(--iui-color-icon-muted, currentColor)"
@@ -709,14 +709,14 @@ exports[`WidgetPanelProvider should render spanned 1`] = `
             class="nz-widget-buttons"
           >
             <button
-              class="iui-button"
+              class="_iui3-button-base _iui3-button"
               data-iui-size="small"
               data-iui-variant="borderless"
               type="button"
             >
               <span
                 aria-hidden="true"
-                class="iui-button-icon"
+                class="_iui3-button-icon"
               >
                 <svg
                   fill="var(--iui-color-icon-muted, currentColor)"
@@ -867,14 +867,14 @@ exports[`WidgetPanelProvider should render vertical 1`] = `
             class="nz-widget-buttons"
           >
             <button
-              class="iui-button"
+              class="_iui3-button-base _iui3-button"
               data-iui-size="small"
               data-iui-variant="borderless"
               type="button"
             >
               <span
                 aria-hidden="true"
-                class="iui-button-icon"
+                class="_iui3-button-icon"
               >
                 <svg
                   fill="var(--iui-color-icon-muted, currentColor)"
@@ -1025,14 +1025,14 @@ exports[`WidgetPanelProvider should render with span bottom 1`] = `
             class="nz-widget-buttons"
           >
             <button
-              class="iui-button"
+              class="_iui3-button-base _iui3-button"
               data-iui-size="small"
               data-iui-variant="borderless"
               type="button"
             >
               <span
                 aria-hidden="true"
-                class="iui-button-icon"
+                class="_iui3-button-icon"
               >
                 <svg
                   fill="var(--iui-color-icon-muted, currentColor)"
@@ -1183,14 +1183,14 @@ exports[`WidgetPanelProvider should render with top spanned 1`] = `
             class="nz-widget-buttons"
           >
             <button
-              class="iui-button"
+              class="_iui3-button-base _iui3-button"
               data-iui-size="small"
               data-iui-variant="borderless"
               type="button"
             >
               <span
                 aria-hidden="true"
-                class="iui-button-icon"
+                class="_iui3-button-icon"
               >
                 <svg
                   fill="var(--iui-color-icon-muted, currentColor)"
