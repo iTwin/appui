@@ -38,7 +38,6 @@ export const DockedToolSettingsOverflow = React.forwardRef<
   const moreToolSettingsTitle = useLabel("moreToolSettingsTitle");
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
     <IconButton
       className={className}
       onClick={props.onClick}
