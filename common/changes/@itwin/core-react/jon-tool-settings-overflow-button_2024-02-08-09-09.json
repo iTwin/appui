@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Fix a potential maximum update depth error caused by useResizeObserver.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

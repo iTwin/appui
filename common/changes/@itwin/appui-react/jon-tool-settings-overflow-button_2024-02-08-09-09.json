@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Enhance tool settings styling.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

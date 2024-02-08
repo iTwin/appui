@@ -19,6 +19,7 @@ import {
 } from "../base/NineZone";
 import { useDrag } from "../widget/TabBar";
 import { SvgDragHandleVertical } from "@itwin/itwinui-icons-react";
+import { Icon } from "@itwin/itwinui-react";
 
 /** Properties of [[DockedToolSettingsHandle]] component.
  * @internal
@@ -55,7 +56,9 @@ export function DockedToolSettingsHandle(props: DockedToolSettingsHandleProps) {
 
   return (
     <div className={className} ref={refs} style={props.style} title={title}>
-      <SvgDragHandleVertical />
+      <Icon size="large">
+        <SvgDragHandleVertical />
+      </Icon>
     </div>
   );
 }
