@@ -144,13 +144,6 @@ beforeEach(function () {
     chaiJestSnapshot.setTestName(currentTest.fullTitle());
   }
 
-  // Prevent iTwinUI from dynamically loading CSS to avoid: TypeError: Unknown file extension ".css" ERR_UNKNOWN_FILE_EXTENSION
-  sinon
-    .stub(CSSStyleDeclaration.prototype, "getPropertyValue")
-    .callThrough()
-    .withArgs("--_iui-v3-loaded")
-    .returns("yes");
-
   sinon
     .stub(console, "error")
     .callThrough()
