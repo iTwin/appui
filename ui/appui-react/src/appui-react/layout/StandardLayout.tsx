@@ -35,9 +35,9 @@ export function StandardLayout(props: StandardLayoutProps) {
     >
       <div className="nz-appContent">{props.children}</div>
       <div className="nz-centerContent">{props.centerContent}</div>
-      <div className="nz-topPanel">{props.topPanel}</div>
       <div className="nz-leftPanel">{props.leftPanel}</div>
       <div className="nz-rightPanel">{props.rightPanel}</div>
+      <div className="nz-topPanel">{props.topPanel}</div>
       <div className="nz-bottomPanel">{props.bottomPanel}</div>
       <div className="nz-toolSettings">{props.toolSettings}</div>
       <div className="nz-statusBar">{props.statusBar}</div>

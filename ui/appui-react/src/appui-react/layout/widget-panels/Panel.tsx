@@ -48,9 +48,11 @@ export function WidgetPanelProvider({ side }: WidgetPanelProviderProps) {
   );
   return (
     <PanelSideContext.Provider value={side}>
-      {hasWidgets && <WidgetPanel />}
-      <PanelTargets />
-      <PanelOutline />
+      <div className="nz-widgetPanels_panelContainer">
+        {hasWidgets && <WidgetPanel />}
+        <PanelTargets />
+        <PanelOutline />
+      </div>
     </PanelSideContext.Provider>
   );
 }
