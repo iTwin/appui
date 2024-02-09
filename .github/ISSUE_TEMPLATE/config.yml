@@ -1,8 +1,6 @@
 blank_issues_enabled: false
 contact_links:
-  - name: iTwin.js AppUI
+  - name: Ask a question ❓
     url: https://github.com/iTwin/appui/discussions
     about: |
-      Please use the community forum for asking questions about how to use iTwin.js and best practices.
-
-      The core iTwin.js team actively monitors the forum and we love seeing what people are working on!
+      Please use the discussions page for asking questions about how to use AppUI and best practices.
