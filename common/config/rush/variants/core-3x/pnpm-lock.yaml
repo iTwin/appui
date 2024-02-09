@@ -246,9 +246,6 @@ importers:
       '@types/react-redux':
         specifier: ^7.1.18
         version: 7.1.33
-      '@types/react-table':
-        specifier: ^7.7.0
-        version: 7.7.19
       cpx2:
         specifier: ^3.0.0
         version: 3.0.2
@@ -7385,6 +7382,7 @@ packages:
     resolution: {integrity: sha512-47jMa1Pai7ily6BXJCW33IL5ghqmCWs2VM9s+h1D4mCaK5P4uNkZOW3RMMg8MCXBvAJ0v9+sPqKjhid0PaJPQA==}
     dependencies:
       '@types/react': 17.0.75
+    dev: false
 
   /@types/react-test-renderer@18.0.7:
     resolution: {integrity: sha512-1+ANPOWc6rB3IkSnElhjv6VLlKg2dSv/OWClUyZimbLsQyBn8Js9Vtdsi3UICJ2rIQ3k2la06dkB+C92QfhKmg==}
