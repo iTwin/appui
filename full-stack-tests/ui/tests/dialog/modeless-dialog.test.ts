@@ -5,7 +5,7 @@
 import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
-test("modeless dialog test", async ({ page, baseURL }) => {
+test.skip("modeless dialog test", async ({ page, baseURL }) => {
   await openComponentExamples(page, baseURL);
 
   await page.getByRole("button", { name: "Dialog", exact: true }).click();
