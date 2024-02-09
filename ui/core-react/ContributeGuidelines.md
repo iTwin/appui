@@ -37,8 +37,8 @@ In order to maintain consistency in the iTwin.js UI source code, please abide by
   ```
 
 - Use the theme colors (e.g. $buic-text-color, $buic-background-control, $buic-background-widget, etc.). These are located in `appui/ui/core-react/src/core-react/style/themecolors.scss`. Please do **not** use $uicore-text-color, $uicore-black, $uicore-white, $uicore-gray\*, etc.)
-- Include an appropriate prefix on CSS class names to prevent class name clashes (e.g. `uifw-` in appui-react, `core-` in core-react, `components-` in components-react, `nz-` in appui-layout-react)
-- Add an export for the component to the barrel file of the package (e.g. appui-react.ts, components-react.ts, core-react.ts, appui-layout-react.ts). Example:
+- Include an appropriate prefix on CSS class names to prevent class name clashes (e.g. `uifw-` in appui-react, `core-` in core-react, `components-` in components-react)
+- Add an export for the component to the barrel file of the package (e.g. appui-react.ts, components-react.ts, core-react.ts). Example:
 
 ```typescript
 export * from "./core-react/badge/Badge";
@@ -62,7 +62,6 @@ buttonText = UiCore.translate("dialog.ok");
 
 - Run `npm run extract-api` to update the `*api.md` file for the package
 - Write unit tests for the new component or class. The tests should cover as many code statements, branches, functions and lines as possible (100% is the goal). To run the tests, run `npm run test` or `rush test`. To run coverage, run `npm run cover`. To see the coverage report, open the report from one of the following directories in your browser:
-  - appui/ui/appui-layout-react/lib/test/coverage/lcov-report/index.html
   - appui/ui/appui-react/lib/test/coverage/lcov-report/index.html
   - appui/ui/components-react/lib/test/coverage/lcov-report/index.html
   - appui/ui/core-react/lib/test/coverage/lcov-report/index.html

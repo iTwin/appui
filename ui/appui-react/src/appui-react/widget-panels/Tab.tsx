@@ -6,12 +6,12 @@
  * @module Widget
  */
 
-import "./Tab.scss";
-import * as React from "react";
-import { WidgetTab } from "@itwin/appui-layout-react";
-import { useWidgetDef } from "./Content";
-import { BadgeUtilities } from "@itwin/core-react";
 import { BadgeType } from "@itwin/appui-abstract";
+import { BadgeUtilities } from "@itwin/core-react";
+import * as React from "react";
+import { WidgetTab } from "../layout/widget/Tab";
+import { useWidgetDef } from "./Content";
+import "./Tab.scss";
 
 /** @internal */
 export function WidgetPanelsTab() {

@@ -19,6 +19,14 @@ import {
   WidgetState,
 } from "@itwin/appui-react";
 import {
+  SvgTextAlignCenter,
+  SvgTextAlignJustify,
+  SvgTextAlignLeft,
+  SvgTextAlignRight,
+  SvgUser,
+  SvgUsers,
+} from "@itwin/itwinui-icons-react";
+import {
   getToggleCustomOverlayCommandItemDef,
   WidgetApiStage,
 } from "../frontstages/WidgetApiStage";
@@ -136,7 +144,7 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
       widgets.push({
         id: "WR-A",
         label: "WR-A",
-        icon: "icon-text-align-text-align-left",
+        icon: <SvgTextAlignLeft />,
         canPopout: true,
         defaultState: WidgetState.Open,
         content: <h2>Right WR-A</h2>,
@@ -145,7 +153,7 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
       widgets.push({
         id: "WR-B",
         label: "WR-B",
-        icon: "icon-text-align-text-align-right",
+        icon: <SvgTextAlignRight />,
         canPopout: true,
         defaultState: WidgetState.Hidden,
         content: <h2>Right WR-B</h2>,
@@ -154,14 +162,14 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
       widgets.push({
         id: "WR-1",
         label: "WR-1",
-        icon: "icon-text-align-text-align-center",
+        icon: <SvgTextAlignCenter />,
         canPopout: false,
         content: <h2>Right WR-1</h2>,
       });
       widgets.push({
         id: "WR-2",
         label: "WR-2",
-        icon: "icon-text-align-text-align-justify",
+        icon: <SvgTextAlignJustify />,
         defaultState: WidgetState.Open,
         canPopout: true,
         content: <h2>Right WR-2</h2>,
@@ -170,14 +178,14 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
       widgets.push({
         id: "WR-3",
         label: "WR-3",
-        icon: "icon-user",
+        icon: <SvgUser />,
         canPopout: true,
         content: <h2>Right WR-3</h2>,
       });
       widgets.push({
         id: "WR-4",
         label: "WR-4",
-        icon: "icon-users",
+        icon: <SvgUsers />,
         canPopout: true,
         defaultState: WidgetState.Open,
         content: <h2>Right WR-4</h2>,

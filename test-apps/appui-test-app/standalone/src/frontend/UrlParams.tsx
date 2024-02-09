@@ -8,11 +8,11 @@ import { UiFramework } from "@itwin/appui-react";
 import { openBlankConnection } from "./appui/BlankConnection";
 
 export function useHandleURLParams() {
-  const [frontstageId, setFrontstageId] = React.useState<string | null>(null);
+  const [frontstageId, setFrontstageId] = React.useState<string | undefined>(
+    undefined
+  );
   React.useEffect(() => {
-    const queryString = window.location.search;
-    const params = new URLSearchParams(queryString);
-    setFrontstageId(params.get("frontstage"));
+    setFrontstageId(getUrlParam("frontstage"));
   }, []);
   React.useEffect(() => {
     if (!frontstageId) return;
@@ -26,4 +26,11 @@ export function useHandleURLParams() {
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
     })();
   }, [frontstageId]);
+}
+
+export function getUrlParam(name: string) {
+  const url = new URL(window.location.href);
+  const params = new URLSearchParams(url.search);
+  const param = params.get(name);
+  return param === null ? undefined : param;
 }

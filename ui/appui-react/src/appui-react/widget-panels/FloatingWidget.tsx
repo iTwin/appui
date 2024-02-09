@@ -7,8 +7,8 @@
  */
 
 import * as React from "react";
-import { FloatingWidget as FloatingWidgetComponent } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
+import { FloatingWidget as FloatingWidgetComponent } from "../layout/widget/FloatingWidget";
 
 /** @internal */
 export function FloatingWidget() {

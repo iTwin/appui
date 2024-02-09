@@ -6,9 +6,9 @@
  * @module StatusBar
  */
 
-import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { TitleBarButton } from "@itwin/appui-layout-react";
+import * as React from "react";
+import { TitleBarButton } from "../../layout/footer/dialog/Button";
 
 /** Properties of [[StatusBarDialogTitleBarButton]] component.
  * @beta

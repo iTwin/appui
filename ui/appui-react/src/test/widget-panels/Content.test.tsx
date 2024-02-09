@@ -2,23 +2,23 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { Rectangle } from "@itwin/core-react";
+import { render } from "@testing-library/react";
 import * as React from "react";
 import * as sinon from "sinon";
-import { render } from "@testing-library/react";
-import {
-  createLayoutStore,
-  createNineZoneState,
-  NineZoneProvider,
-  WidgetIdContext,
-} from "@itwin/appui-layout-react";
-import { Rectangle } from "@itwin/core-react";
 import {
   FrontstageDef,
   UiFramework,
   WidgetContent,
   WidgetDef,
 } from "../../appui-react";
-import TestUtils, { addPanelWidget, addTab } from "../TestUtils";
+import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore";
+import { NineZoneProvider } from "../../appui-react/layout/base/NineZone";
+import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
+import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
+import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
+import { WidgetIdContext } from "../../appui-react/layout/widget/Widget";
+import TestUtils from "../TestUtils";
 
 describe("WidgetContent", () => {
   before(async () => {

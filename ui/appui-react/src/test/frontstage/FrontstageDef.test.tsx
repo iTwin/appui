@@ -2,12 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
-import produce from "immer";
-import { createNineZoneState } from "@itwin/appui-layout-react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { act, renderHook } from "@testing-library/react-hooks";
+import { expect } from "chai";
+import produce from "immer";
+import * as sinon from "sinon";
 import type {
   FrontstageConfig,
   UiItemsProvider,
@@ -27,14 +26,15 @@ import {
   WidgetDef,
   WidgetState,
 } from "../../appui-react";
-import TestUtils, {
-  addFloatingWidget,
-  addPanelWidget,
-  addPopoutWidget,
-  addTab,
-  storageMock,
-} from "../TestUtils";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
+import TestUtils, { storageMock } from "../TestUtils";
+import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
+import {
+  addFloatingWidget,
+  addPopoutWidget,
+} from "../../appui-react/layout/state/internal/WidgetStateHelpers";
+import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
 
 class BadLayoutFrontstage extends FrontstageProvider {
   public static stageId = "BadLayout";

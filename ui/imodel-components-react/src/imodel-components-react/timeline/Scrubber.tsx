@@ -113,9 +113,8 @@ function markDateInTimelineRange(
   }
   return false;
 }
-/**
- * @internal
- */
+
+/** @internal */
 export function RailMarkers({
   showToolTip,
   percent,

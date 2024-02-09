@@ -86,6 +86,12 @@ steps:
       CI: true
     condition: and(succeeded(), eq(variables['Agent.OS'], 'Windows_NT'))
 
+  # Run codemod tests
+  - script: npm run test
+    displayName: run Codemod Tests
+    workingDirectory: "tools/codemod"
+    condition: and(succeeded(), ne(variables['Agent.OS'], 'Linux'))
+
   - script: node common/scripts/install-run-rush.js docs
     displayName: rush docs
     workingDirectory: ${{ parameters.workingDir }}

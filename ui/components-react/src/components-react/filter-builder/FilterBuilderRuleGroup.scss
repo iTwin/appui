@@ -2,67 +2,33 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+.fb-group {
+  --border-color: var(--iui-color-border);
+  --fb-operator-width: 110px;
+  --divider-width: var(--iui-size-2xs);
+  --divider-background-color: var(--iui-color-border-subtle);
 
-.filter-builder > .rule-group {
-  & > .rule-group-content {
-    border-left: 0;
-    padding-left: 0;
+  .fb-wrapper {
+    width: 100%;
   }
 
-  & > .rule-group-remove-action {
-    padding-right: 0;
-  }
-}
-
-.rule-group {
-  display: grid;
-  grid-template-columns: min-content auto;
-  padding: 11px 0;
-
-  &[data-isactive="true"] > .rule-group-remove-action {
-    visibility: visible;
-  }
-
-  &[data-isactive="true"] > .rule-group-content {
-    border-color: var(--iui-color-border-foreground-hover);
-  }
-
-  &[data-isactive="false"]
-    > .rule-group-content
-    > .rule-group-actions
-    .rule-group-button {
-    color: var(--iui-color-icon);
-  }
-
-  .rule-group-remove-action {
-    padding: 3px var(--iui-size-s) 3px 0;
-    visibility: hidden;
-  }
-
-  .rule-group-content {
-    padding-left: var(--iui-size-s);
-    border-left: 1px solid;
+  .fb-logical-operator {
+    width: var(--fb-operator-width);
+    height: 100%;
+    text-align: center;
+    background-color: var(--iui-color-background-hover);
+    user-select: none;
+    display: grid;
+    place-items: center;
     box-sizing: border-box;
-    border-color: var(--iui-color-border-subtle);
-
-    .rule-group-operator {
-      padding: 3px 0;
-      width: max-content;
-    }
-
-    .rule-group-actions {
-      padding: 3px 0;
-      display: grid;
-      grid-template-columns: min-content min-content;
-      gap: 8px;
-    }
+    font-size: var(--iui-font-size-2);
+    font-weight: var(--iui-font-weight-semibold);
+    padding-block: var(--iui-size-s);
   }
-}
 
-.rule-group-items > .rule-group {
-  padding-bottom: 22px;
-
-  &:last-child {
-    padding-bottom: 11px;
+  .fb-group-operator {
+    border-style: solid;
+    border-color: var(--border-color);
+    border-width: 1px 0 1px 1px;
   }
 }

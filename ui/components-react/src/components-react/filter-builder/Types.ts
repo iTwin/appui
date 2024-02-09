@@ -24,7 +24,7 @@ export type PropertyFilter = PropertyFilterRule | PropertyFilterRuleGroup;
  */
 export interface PropertyFilterRuleGroup {
   /** Operator that should join rules in this group. */
-  operator: PropertyFilterRuleGroupOperator;
+  operator: `${PropertyFilterRuleGroupOperator}`;
   /** Rules in this group. */
   rules: Array<PropertyFilter>;
 }
@@ -37,7 +37,7 @@ export interface PropertyFilterRule {
   /** Property used in this rule. */
   property: PropertyDescription;
   /** Operator that should be used to compare property value. */
-  operator: PropertyFilterRuleOperator;
+  operator: `${PropertyFilterRuleOperator}`;
   /** Value that property should be compared to. */
   value?: PropertyValue;
 }

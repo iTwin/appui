@@ -6,10 +6,7 @@
  * @module Widget
  */
 
-import * as React from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
-import type { ViewClassFullNameChangedEventArgs } from "@itwin/imodel-components-react";
-import { ViewportComponentEvents } from "@itwin/imodel-components-react";
 import type { CommonProps } from "@itwin/core-react";
 import {
   useProximityToMouse,
@@ -17,11 +14,14 @@ import {
   WidgetElementSet,
   WidgetOpacityContext,
 } from "@itwin/core-react";
-import { NavigationArea } from "@itwin/appui-layout-react";
+import type { ViewClassFullNameChangedEventArgs } from "@itwin/imodel-components-react";
+import { ViewportComponentEvents } from "@itwin/imodel-components-react";
+import * as React from "react";
 import type {
   ContentControl,
   ContentControlActivatedEventArgs,
 } from "../content/ContentControl";
+import { NavigationArea } from "../layout/widget/NavigationArea";
 import type { NavigationAidControl } from "../navigationaids/NavigationAidControl";
 import { UiFramework } from "../UiFramework";
 

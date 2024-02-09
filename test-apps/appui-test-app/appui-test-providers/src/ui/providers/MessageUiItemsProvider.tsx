@@ -30,12 +30,12 @@ export class MessageUiItemsProvider implements UiItemsProvider {
     _stageId: string,
     stageUsage: string,
     usage: ToolbarUsage,
-    orientatipn: ToolbarOrientation
+    orientation: ToolbarOrientation
   ): ToolbarItem[] {
     if (
       stageUsage === StageUsage.General &&
       usage === ToolbarUsage.ContentManipulation &&
-      orientatipn === ToolbarOrientation.Vertical
+      orientation === ToolbarOrientation.Vertical
     ) {
       return [
         ToolbarItemUtilities.createGroupItem(

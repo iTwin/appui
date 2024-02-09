@@ -23,10 +23,6 @@
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
-      "name": "@itwin/appui-layout-react",
-      "allowedCategories": [ "frontend", "internal" ]
-    },
-    {
       "name": "@itwin/appui-react",
       "allowedCategories": [ "internal" ]
     },
@@ -364,6 +360,10 @@
     },
     {
       "name": "jest",
+      "allowedCategories": [ "tools" ]
+    },
+    {
+      "name": "jest-junit",
       "allowedCategories": [ "tools" ]
     },
     {

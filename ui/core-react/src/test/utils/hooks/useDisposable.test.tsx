@@ -6,7 +6,10 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import type { IDisposable } from "@itwin/core-bentley";
 import { renderHook } from "@testing-library/react-hooks";
-import { useDisposable } from "../../../core-react/utils/hooks/useDisposable";
+import {
+  useDisposable,
+  useOptionalDisposable,
+} from "../../../core-react/utils/hooks/useDisposable";
 
 describe("useDisposable", () => {
   let disposeSpy: sinon.SinonSpy<any, any[]>;
@@ -20,6 +23,7 @@ describe("useDisposable", () => {
   it("creates disposable and disposes it on unmount", () => {
     const { result, unmount } = renderHook(
       (props: { createDisposable: () => IDisposable }) =>
+        // eslint-disable-next-line deprecation/deprecation
         useDisposable(props.createDisposable),
       { initialProps: { createDisposable } }
     );
@@ -32,7 +36,48 @@ describe("useDisposable", () => {
   it("disposes old disposable when creating new one", () => {
     const { result, rerender } = renderHook(
       (props: { createDisposable: () => IDisposable }) =>
+        // eslint-disable-next-line deprecation/deprecation
         useDisposable(props.createDisposable),
+      { initialProps: { createDisposable } }
+    );
+    expect(result.current).to.not.be.undefined;
+
+    const oldDisposable = result.current;
+    const newDisposeSpy = sinon.spy();
+    const createNewDisposable = () => ({ dispose: newDisposeSpy });
+    rerender({ createDisposable: createNewDisposable });
+
+    expect(oldDisposable).to.not.be.eq(result.current);
+    expect(disposeSpy).to.be.calledOnce;
+    expect(newDisposeSpy).to.not.be.called;
+  });
+});
+
+describe("useOptionalDisposable", () => {
+  let disposeSpy: sinon.SinonSpy<any, any[]>;
+  let createDisposable: () => IDisposable;
+
+  beforeEach(() => {
+    disposeSpy = sinon.spy();
+    createDisposable = () => ({ dispose: disposeSpy });
+  });
+
+  it("creates disposable and disposes it on unmount", () => {
+    const { result, unmount } = renderHook(
+      (props: { createDisposable: () => IDisposable }) =>
+        useOptionalDisposable(props.createDisposable),
+      { initialProps: { createDisposable } }
+    );
+    expect(result.current).to.not.be.undefined;
+
+    unmount();
+    expect(disposeSpy).to.be.calledOnce;
+  });
+
+  it("disposes old disposable when creating new one", () => {
+    const { result, rerender } = renderHook(
+      (props: { createDisposable: () => IDisposable }) =>
+        useOptionalDisposable(props.createDisposable),
       { initialProps: { createDisposable } }
     );
     expect(result.current).to.not.be.undefined;

@@ -6,6 +6,7 @@
  * @module State
  */
 
+import "./ThemeManager.scss";
 import * as React from "react";
 import { connect } from "react-redux";
 import type { ThemeType } from "@itwin/itwinui-react";
@@ -154,7 +155,7 @@ class ThemeManagerComponent extends React.Component<ThemeManagerProps> {
 
     return (
       <ThemeProvider
-        style={{ height: "100%" }}
+        className="uifw-root"
         theme={theme ?? "inherit"}
         themeOptions={{ highContrast }}
         data-root-container="appui-root-id"

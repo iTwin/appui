@@ -6,126 +6,110 @@
 import chai, { expect } from "chai";
 import chaiSubset from "chai-subset";
 import {
-  getPropertyFilterOperators,
+  getPropertyFilterBuilderOperators,
   isUnaryPropertyFilterOperator,
-  PropertyFilterRuleOperator,
 } from "../../components-react/filter-builder/Operators";
 
 chai.use(chaiSubset);
 
-describe("getPropertyFilterOperators", () => {
+describe("getPropertyFilterBuilderOperators", () => {
   it("returns operators by type", () => {
     expect(
-      getPropertyFilterOperators({
+      getPropertyFilterBuilderOperators({
         name: "prop",
         displayLabel: "Prop",
         typename: "boolean",
       })
-    ).to.containSubset([
-      PropertyFilterRuleOperator.IsTrue,
-      PropertyFilterRuleOperator.IsFalse,
-    ]);
+    ).to.be.deep.eq(["is-true", "is-false"]);
     expect(
-      getPropertyFilterOperators({
+      getPropertyFilterBuilderOperators({
         name: "prop",
         displayLabel: "Prop",
         typename: "string",
       })
-    ).to.containSubset([
-      PropertyFilterRuleOperator.IsEqual,
-      PropertyFilterRuleOperator.IsNotEqual,
-      PropertyFilterRuleOperator.IsNull,
-      PropertyFilterRuleOperator.IsNotNull,
-      PropertyFilterRuleOperator.Like,
+    ).to.be.deep.eq([
+      "like",
+      "is-equal",
+      "is-not-equal",
+      "is-null",
+      "is-not-null",
     ]);
     expect(
-      getPropertyFilterOperators({
+      getPropertyFilterBuilderOperators({
         name: "prop",
         displayLabel: "Prop",
         typename: "int",
       })
-    ).to.containSubset([
-      PropertyFilterRuleOperator.IsEqual,
-      PropertyFilterRuleOperator.IsNotEqual,
-      PropertyFilterRuleOperator.IsNull,
-      PropertyFilterRuleOperator.IsNotNull,
-      PropertyFilterRuleOperator.Greater,
-      PropertyFilterRuleOperator.GreaterOrEqual,
-      PropertyFilterRuleOperator.Less,
-      PropertyFilterRuleOperator.LessOrEqual,
+    ).to.be.deep.eq([
+      "is-equal",
+      "is-not-equal",
+      "is-null",
+      "is-not-null",
+      "greater",
+      "greater-or-equal",
+      "less",
+      "less-or-equal",
+      "between",
+      "not-between",
     ]);
     expect(
-      getPropertyFilterOperators({
+      getPropertyFilterBuilderOperators({
         name: "prop",
         displayLabel: "Prop",
         typename: "double",
       })
-    ).to.containSubset([
-      PropertyFilterRuleOperator.IsEqual,
-      PropertyFilterRuleOperator.IsNotEqual,
-      PropertyFilterRuleOperator.IsNull,
-      PropertyFilterRuleOperator.IsNotNull,
-      PropertyFilterRuleOperator.Greater,
-      PropertyFilterRuleOperator.GreaterOrEqual,
-      PropertyFilterRuleOperator.Less,
-      PropertyFilterRuleOperator.LessOrEqual,
+    ).to.be.deep.eq([
+      "is-equal",
+      "is-not-equal",
+      "is-null",
+      "is-not-null",
+      "greater",
+      "greater-or-equal",
+      "less",
+      "less-or-equal",
+      "between",
+      "not-between",
     ]);
     expect(
-      getPropertyFilterOperators({
+      getPropertyFilterBuilderOperators({
         name: "prop",
         displayLabel: "Prop",
         typename: "dateTime",
       })
-    ).to.containSubset([
-      PropertyFilterRuleOperator.IsEqual,
-      PropertyFilterRuleOperator.IsNotEqual,
-      PropertyFilterRuleOperator.IsNull,
-      PropertyFilterRuleOperator.IsNotNull,
-      PropertyFilterRuleOperator.Greater,
-      PropertyFilterRuleOperator.GreaterOrEqual,
-      PropertyFilterRuleOperator.Less,
-      PropertyFilterRuleOperator.LessOrEqual,
+    ).to.be.deep.eq([
+      "is-equal",
+      "is-not-equal",
+      "is-null",
+      "is-not-null",
+      "greater",
+      "greater-or-equal",
+      "less",
+      "less-or-equal",
+      "between",
+      "not-between",
     ]);
     expect(
-      getPropertyFilterOperators({
+      getPropertyFilterBuilderOperators({
         name: "prop",
         displayLabel: "Prop",
         typename: "otherType",
       })
-    ).to.containSubset([
-      PropertyFilterRuleOperator.IsEqual,
-      PropertyFilterRuleOperator.IsNotEqual,
-      PropertyFilterRuleOperator.IsNull,
-      PropertyFilterRuleOperator.IsNotNull,
-    ]);
+    ).to.be.deep.eq(["is-equal", "is-not-equal", "is-null", "is-not-null"]);
   });
 });
 
 describe("isUnaryPropertyFilterOperator", () => {
   it("returns correct values", () => {
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.IsTrue)).to
-      .be.true;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.IsFalse)).to
-      .be.true;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.IsNull)).to
-      .be.true;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.IsNotNull))
-      .to.be.true;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.IsEqual)).to
-      .be.false;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.IsNotEqual))
-      .to.be.false;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.Greater)).to
-      .be.false;
-    expect(
-      isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.GreaterOrEqual)
-    ).to.be.false;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.Less)).to.be
-      .false;
-    expect(
-      isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.LessOrEqual)
-    ).to.be.false;
-    expect(isUnaryPropertyFilterOperator(PropertyFilterRuleOperator.Like)).to.be
-      .false;
+    expect(isUnaryPropertyFilterOperator("is-true")).to.be.true;
+    expect(isUnaryPropertyFilterOperator("is-false")).to.be.true;
+    expect(isUnaryPropertyFilterOperator("is-null")).to.be.true;
+    expect(isUnaryPropertyFilterOperator("is-not-null")).to.be.true;
+    expect(isUnaryPropertyFilterOperator("is-equal")).to.be.false;
+    expect(isUnaryPropertyFilterOperator("is-not-equal")).to.be.false;
+    expect(isUnaryPropertyFilterOperator("greater")).to.be.false;
+    expect(isUnaryPropertyFilterOperator("greater-or-equal")).to.be.false;
+    expect(isUnaryPropertyFilterOperator("less")).to.be.false;
+    expect(isUnaryPropertyFilterOperator("less-or-equal")).to.be.false;
+    expect(isUnaryPropertyFilterOperator("like")).to.be.false;
   });
 });

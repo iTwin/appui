@@ -6,22 +6,48 @@
  * @module Utilities
  */
 
-import { type KnownPreviewLayoutFeatures } from "@itwin/appui-layout-react";
 import * as React from "react";
 import { create } from "zustand";
 
 /** List of known preview features. */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface KnownPreviewFeatures extends KnownPreviewLayoutFeatures {
-  // Add preview features not in appui-layout-react here.
+interface KnownPreviewFeatures {
+  /** If true, the panels and tool settings will always be rendered over the content.
+   * The content will never change size.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/672
+   */
+  contentAlwaysMaxSize: boolean;
+  /** If true, the floating widget will have a "maximize" button.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
+   */
+  enableMaximizedFloatingWidget: boolean;
+  /** If true, a tab, or the active tab of a group of widget will become active when dropped in a container.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/679
+   */
+  activateDroppedTab: boolean;
+  /** If true, the horizontal panels will have an additional "Align" button.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/706
+   */
+  horizontalPanelAlignment: boolean;
+  /** If enabled, a dropdown menu will be rendered for widgets that exceed the specified threshold of title bar buttons.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/723
+   */
+  widgetActionDropdown: { threshold: number };
 }
 
 /** Object used trim to only known features at runtime.
  * @internal
  */
 const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
+  activateDroppedTab: undefined,
   contentAlwaysMaxSize: undefined,
   enableMaximizedFloatingWidget: undefined,
+  horizontalPanelAlignment: undefined,
+  widgetActionDropdown: undefined,
   ...{ newToolbars: undefined }, // Hidden feature used in storybook only (to avoid trimming).
 };
 

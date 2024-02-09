@@ -94,7 +94,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
         <MessageRenderer />
       </ThemeProvider>
       <div
-        style={{ position: "relative", zIndex: 99999 }}
+        className="uifw-configurableui-portalContainer"
         ref={(instance) => setPortalContainer(instance ?? undefined)}
       />
     </main>

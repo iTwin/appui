@@ -6,25 +6,22 @@
  * @module Backstage
  */
 
-import * as React from "react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import type { CommonProps } from "@itwin/core-react";
-import {
-  BackstageSeparator,
-  Backstage as NZ_Backstage,
-} from "@itwin/appui-layout-react";
+import * as React from "react";
+import { Backstage as NZ_Backstage } from "../layout/backstage/Backstage";
+import { BackstageSeparator } from "../layout/backstage/Separator";
 import { SafeAreaContext } from "../safearea/SafeAreaContext";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { BackstageComposerItem } from "./BackstageComposerItem";
+import { isBackstageStageLauncher } from "./BackstageItem";
+import { BackstageItemsManager } from "./BackstageItemsManager";
 import { useBackstageManager, useIsBackstageOpen } from "./BackstageManager";
 import { useDefaultBackstageItems } from "./useDefaultBackstageItems";
 import { useUiItemsProviderBackstageItems } from "./useUiItemsProviderBackstageItems";
-import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
-import type { BackstageItem } from "./BackstageItem";
-import { isBackstageStageLauncher } from "./BackstageItem";
-import { BackstageItemsManager } from "./BackstageItemsManager";
-import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
 
+import type { CommonProps } from "@itwin/core-react";
+import type { UiSyncEventArgs } from "../syncui/UiSyncEvent";
+import type { BackstageItem } from "./BackstageItem";
 // cSpell:ignore safearea
 
 /** Private function to set up sync event monitoring of backstage items */
@@ -193,7 +190,7 @@ export function BackstageComposer(props: BackstageComposerProps) {
       header={props.header}
       isOpen={isOpen}
       onClose={handleClose}
-      safeAreaInsets={toLayoutSafeAreaInsets(safeAreaInsets)}
+      safeAreaInsets={safeAreaInsets}
       showOverlay={props.showOverlay}
       style={props.style}
     >

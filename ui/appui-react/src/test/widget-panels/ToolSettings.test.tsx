@@ -3,15 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { Rectangle } from "@itwin/core-react";
-import {
-  createLayoutStore,
-  createNineZoneState,
-  DragManager,
-  DragManagerContext,
-  NineZoneProvider,
-} from "@itwin/appui-layout-react";
 import { render, screen } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
+import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import type { ToolSettingsEntry } from "../../appui-react";
@@ -29,14 +23,20 @@ import {
   WidgetPanelsToolSettings,
 } from "../../appui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
-import { expect } from "chai";
+import {
+  DragManager,
+  DragManagerContext,
+} from "../../appui-react/layout/base/DragManager";
+import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore";
+import { NineZoneProvider } from "../../appui-react/layout/base/NineZone";
+import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
+import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
 import {
   addDockedToolSettings,
-  addFloatingWidget,
-  addTab,
   addWidgetToolSettings,
-  childStructure,
-} from "../TestUtils";
+} from "../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
+import { addFloatingWidget } from "../../appui-react/layout/state/internal/WidgetStateHelpers";
+import { childStructure } from "../TestUtils";
 
 describe("WidgetPanelsToolSettings", () => {
   it("should not render w/o tool settings top center zone", () => {

@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { BrowserContext, expect, Locator, Page } from "@playwright/test";
-import type { PanelSide } from "../../../ui/appui-layout-react";
+import { PanelSide } from "../../../ui/appui-react/src/appui-react/layout/widget-panels/PanelTypes";
 import { WidgetState } from "../../../ui/appui-react/src/appui-react/widgets/WidgetState";
 import { StagePanelState } from "../../../ui/appui-react/src/appui-react/stagepanels/StagePanelState";
 
@@ -224,7 +224,7 @@ export async function dragWidget(
 ) {
   const page = widget.page();
   const titleBarHandle = titleBarHandleLocator(widget);
-  const titleBarButtons = widget.locator(".nz-widget-tabBarButtons");
+  const titleBarButtons = widget.locator(".nz-widget-buttons");
   const frontstage = frontstageLocator(page);
 
   // Widget tabs or title bar buttons overlay the handle. Make sure we drag the handle.

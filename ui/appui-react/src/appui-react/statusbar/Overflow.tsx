@@ -6,13 +6,13 @@
  * @module StatusBar
  */
 
-import "./Overflow.scss";
-import classnames from "classnames";
-import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { useRefs, useResizeObserver } from "@itwin/core-react";
-import { Ellipsis } from "@itwin/appui-layout-react";
+import classnames from "classnames";
+import * as React from "react";
 import { UiFramework } from "../UiFramework";
+import { Ellipsis } from "../layout/base/Ellipsis";
+import "./Overflow.scss";
 
 /** Properties of [[StatusBarOverflow]] component.
  * @internal

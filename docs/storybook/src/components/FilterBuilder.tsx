@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { UiFramework } from "@itwin/appui-react";
 import {
   PropertyFilterBuilderProps,
@@ -22,7 +23,7 @@ export function FilterBuilderStory(props: FilterBuilderComponentProps) {
 
 type FilterBuilderComponentProps = Pick<
   PropertyFilterBuilderProps,
-  "properties" | "ruleGroupDepthLimit" | "initialFilter"
+  "properties" | "initialFilter"
 >;
 
 function FilterBuilderComponent({
@@ -31,7 +32,20 @@ function FilterBuilderComponent({
 }: FilterBuilderComponentProps) {
   const { rootGroup, actions, buildFilter } = usePropertyFilterBuilder({
     initialFilter,
+    ruleValidator: ({ value }) => {
+      if (
+        value?.valueFormat === PropertyValueFormat.Primitive &&
+        value.value === "invalid"
+      ) {
+        return "Invalid Value";
+      }
+      return undefined;
+    },
   });
+
+  React.useEffect(() => {
+    console.log(buildFilter());
+  }, [buildFilter]);
 
   return (
     <div style={{ padding: "10px" }}>

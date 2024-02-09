@@ -6,35 +6,33 @@
  * @module NavigationAids
  */
 
-import "./StandardRotationNavigationAid.scss";
-import classnames from "classnames";
-import * as React from "react";
-import { StandardViewId } from "@itwin/core-frontend";
+import svgCubeFacesBottom from "@bentley/icons-generic/icons/cube-faces/bottom.svg";
+import svgCubeFacesFront from "@bentley/icons-generic/icons/cube-faces/front.svg";
+import svgCubeFacesIsoLeft from "@bentley/icons-generic/icons/cube-faces/iso-left.svg";
+import svgCubeFacesIsoRight from "@bentley/icons-generic/icons/cube-faces/iso-right.svg";
+import svgCubeFacesLeft from "@bentley/icons-generic/icons/cube-faces/left.svg";
+import svgCubeFacesRear from "@bentley/icons-generic/icons/cube-faces/rear.svg";
+import svgCubeFacesRight from "@bentley/icons-generic/icons/cube-faces/right.svg";
+import svgCubeFacesTop from "@bentley/icons-generic/icons/cube-faces/top.svg";
 import { RelativePosition, ToolbarItemUtilities } from "@itwin/appui-abstract";
-import { ViewportComponentEvents } from "@itwin/imodel-components-react";
-import type { CommonProps, IconSpec } from "@itwin/core-react";
-import { Icon, Popup } from "@itwin/core-react";
-import {
-  ExpandableButton as NZ_Expandable,
-  ToolbarIcon as NZ_Icon,
-} from "@itwin/appui-layout-react";
-import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
-import { UiFramework } from "../UiFramework";
-import { NavigationAidControl } from "./NavigationAidControl";
 import {
   Columns,
   GroupColumn,
   GroupTool,
   Panel,
 } from "@itwin/components-react";
-import svgCubeFacesTop from "@bentley/icons-generic/icons/cube-faces/top.svg";
-import svgCubeFacesBottom from "@bentley/icons-generic/icons/cube-faces/bottom.svg";
-import svgCubeFacesLeft from "@bentley/icons-generic/icons/cube-faces/left.svg";
-import svgCubeFacesRight from "@bentley/icons-generic/icons/cube-faces/right.svg";
-import svgCubeFacesFront from "@bentley/icons-generic/icons/cube-faces/front.svg";
-import svgCubeFacesRear from "@bentley/icons-generic/icons/cube-faces/rear.svg";
-import svgCubeFacesIsoLeft from "@bentley/icons-generic/icons/cube-faces/iso-left.svg";
-import svgCubeFacesIsoRight from "@bentley/icons-generic/icons/cube-faces/iso-right.svg";
+import { StandardViewId } from "@itwin/core-frontend";
+import type { CommonProps, IconSpec } from "@itwin/core-react";
+import { Icon, Popup } from "@itwin/core-react";
+import { ViewportComponentEvents } from "@itwin/imodel-components-react";
+import classnames from "classnames";
+import * as React from "react";
+import { UiFramework } from "../UiFramework";
+import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
+import { ExpandableButton as NZ_Expandable } from "../layout/widget/tools/button/Expandable";
+import { ToolbarIcon as NZ_Icon } from "../layout/widget/tools/button/Icon";
+import { NavigationAidControl } from "./NavigationAidControl";
+import "./StandardRotationNavigationAid.scss";
 
 /** A 3D Standard Rotation Navigation Aid control.
  * @alpha

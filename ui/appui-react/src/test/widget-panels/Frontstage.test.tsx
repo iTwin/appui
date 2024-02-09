@@ -2,23 +2,18 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import { Provider } from "react-redux";
-import * as React from "react";
-import * as sinon from "sinon";
-import * as moq from "typemoq";
-import produce from "immer";
-import { render, screen } from "@testing-library/react";
-import { act, renderHook } from "@testing-library/react-hooks";
 import { BentleyError, Logger } from "@itwin/core-bentley";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { UiStateStorageResult } from "@itwin/core-react";
 import { Size, UiStateStorageStatus } from "@itwin/core-react";
-import {
-  createLayoutStore,
-  createNineZoneState,
-  getUniqueId,
-} from "@itwin/appui-layout-react";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import { render, screen } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react-hooks";
+import { expect } from "chai";
+import produce from "immer";
+import * as React from "react";
+import { Provider } from "react-redux";
+import * as sinon from "sinon";
+import * as moq from "typemoq";
 import type {
   FrontstageConfig,
   UiItemsProvider,
@@ -56,19 +51,24 @@ import {
   WidgetPanelsFrontstage,
   WidgetState,
 } from "../../appui-react";
-import TestUtils, {
-  addFloatingWidget,
-  addPanelWidget,
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+import { createLayoutStore } from "../../appui-react/layout/base/LayoutStore";
+import { getUniqueId } from "../../appui-react/layout/base/NineZone";
+import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState";
+import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
+import {
   addTab,
-  addWidgetToolSettings,
-  childStructure,
   createDraggedTabState,
+} from "../../appui-react/layout/state/internal/TabStateHelpers";
+import { addWidgetToolSettings } from "../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
+import { addFloatingWidget } from "../../appui-react/layout/state/internal/WidgetStateHelpers";
+import TestUtils, {
+  childStructure,
   storageMock,
   stubRaf,
   styleMatch,
   UiStateStorageStub,
 } from "../TestUtils";
-import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test";
 
 function createFrontstageState(

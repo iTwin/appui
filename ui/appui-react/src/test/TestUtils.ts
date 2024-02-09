@@ -38,19 +38,6 @@ import {
 } from "../appui-react";
 import { TestContentControl } from "./frontstage/FrontstageTestUtils";
 import userEvent from "@testing-library/user-event";
-export { addPanelWidget } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/state/internal/PanelStateHelpers";
-export {
-  addTab,
-  createDraggedTabState,
-} from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/state/internal/TabStateHelpers";
-export {
-  addDockedToolSettings,
-  addWidgetToolSettings,
-} from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/state/internal/ToolSettingsStateHelpers";
-export {
-  addFloatingWidget,
-  addPopoutWidget,
-} from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/state/internal/WidgetStateHelpers";
 export { userEvent };
 
 interface SampleAppState {

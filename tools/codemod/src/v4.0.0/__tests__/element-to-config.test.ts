@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { defineTest } from "jscodeshift/src/testUtils";
-import { defaultOptions, createDefineInlineTest } from "../../utils/testUtils";
+import { defaultOptions, createDefineInlineTest } from "../../utils/TestUtils";
 import transformer from "../element-to-config";
 
 const defineInlineTest = createDefineInlineTest(transformer);

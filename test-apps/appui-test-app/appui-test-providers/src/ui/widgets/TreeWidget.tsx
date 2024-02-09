@@ -10,7 +10,7 @@ import {
   SelectionMode,
   SimpleTreeDataProvider,
   SimpleTreeDataProviderHierarchy,
-  useTreeEventsHandler,
+  useControlledTreeEventsHandler,
   useTreeModel,
   useTreeModelSource,
   useTreeNodeLoader,
@@ -76,13 +76,17 @@ export function TreeWidgetComponent() {
 
   const nodeLoader = useTreeNodeLoader(dataProvider, modelSource);
 
-  const eventsHandler = useTreeEventsHandler(
+  const eventsHandler = useControlledTreeEventsHandler(
     React.useMemo(
       () => ({ modelSource, nodeLoader }),
       [modelSource, nodeLoader]
     )
   );
   const treeModel = useTreeModel(modelSource);
+
+  if (!eventsHandler) {
+    return null;
+  }
 
   const defaultProps: ControlledTreeProps = {
     model: treeModel,

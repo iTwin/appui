@@ -24,9 +24,9 @@ jobs:
           git config --local user.name imodeljs-admin
 
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 18.16.0
+          node-version: 18
 
       - name: Rush install
         run: node common/scripts/install-run-rush.js install

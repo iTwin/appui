@@ -18,10 +18,11 @@
 }
 
 .components-timeline-rail-marker-container {
-  width: 100%;
   position: absolute;
+  width: 100%;
+  top: 0;
 
-  div.components-timeline-tooltip {
+  .components-timeline-tooltip {
     @include uicore-z-index(tooltip);
     position: absolute;
     top: -8px;

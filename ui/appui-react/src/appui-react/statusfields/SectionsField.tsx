@@ -6,10 +6,7 @@
  * @module StatusBar
  */
 
-import "./SectionsField.scss";
-import classnames from "classnames";
-import * as React from "react";
-import { Dialog, FooterPopup, TitleBar } from "@itwin/appui-layout-react";
+import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
 import type { ClipEventType, Viewport } from "@itwin/core-frontend";
 import {
   IModelApp,
@@ -19,10 +16,14 @@ import {
 } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
 import { Button, ToggleSwitch } from "@itwin/itwinui-react";
-import { useActiveViewport } from "../hooks/useActiveViewport";
+import classnames from "classnames";
+import * as React from "react";
 import { UiFramework } from "../UiFramework";
+import { useActiveViewport } from "../hooks/useActiveViewport";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
-import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
+import { StatusBar } from "../statusbar/StatusBar";
+import { StatusBarDialog } from "../statusbar/dialog/Dialog";
+import "./SectionsField.scss";
 
 /** Sections Status Field Props
  * @beta
@@ -115,12 +116,14 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
               onClick={() => setPopupOpen(!isPopupOpen)}
             />
           </div>
-          <FooterPopup
+          <StatusBar.Popup
             target={targetDiv.current}
             onClose={() => setPopupOpen(false)}
             isOpen={isPopupOpen}
           >
-            <Dialog titleBar={<TitleBar title={toolTip} />}>
+            <StatusBarDialog
+              titleBar={<StatusBarDialog.TitleBar title={toolTip} />}
+            >
               <div className="uifw-sections-footer-contents">
                 <Button onClick={handleClear}>{clearLabel}</Button>
                 <div className="uifw-uifw-sections-toggle-container">
@@ -134,8 +137,8 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
                   />
                 </div>
               </div>
-            </Dialog>
-          </FooterPopup>
+            </StatusBarDialog>
+          </StatusBar.Popup>
         </>
       )}
     </div>

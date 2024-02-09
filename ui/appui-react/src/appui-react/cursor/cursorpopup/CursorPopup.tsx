@@ -6,11 +6,8 @@
  * @module Cursor
  */
 
-import "./CursorPopup.scss";
-import * as React from "react";
-import classnames from "classnames";
-import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition } from "@itwin/appui-abstract";
+import type { XAndY } from "@itwin/core-geometry";
 import type {
   CommonDivProps,
   CommonProps,
@@ -18,7 +15,10 @@ import type {
   SizeProps,
 } from "@itwin/core-react";
 import { Div, Size } from "@itwin/core-react";
-import { TitleBar } from "@itwin/appui-layout-react";
+import classnames from "classnames";
+import * as React from "react";
+import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
+import "./CursorPopup.scss";
 import type { CursorPopupFadeOutEventArgs } from "./CursorPopupManager";
 import { CursorPopupManager } from "./CursorPopupManager";
 
@@ -209,7 +209,7 @@ export class CursorPopup extends React.Component<
         style={positioningStyle}
       >
         {this.props.title && (
-          <TitleBar
+          <StatusBarDialog.TitleBar
             title={this.props.title}
             className="uifw-cursorpopup-title"
           />

@@ -934,10 +934,12 @@ export class FaceCell extends React.Component<FaceCellProps> {
     );
 
     return (
-      <div // eslint-disable-line jsx-a11y/mouse-events-have-key-events
+      <div
         onMouseDown={this._handleMouseDown}
         onMouseUp={this._handleMouseUp}
+        // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
         onMouseOver={this._handleMouseOver}
+        // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
         onMouseOut={this._handleMouseOut}
         onTouchStart={this._handleTouchStart}
         onTouchEnd={this._handleTouchEnd}

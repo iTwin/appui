@@ -9,13 +9,13 @@
 import "./Pointer.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { XAndY } from "@itwin/core-geometry";
-import { OutputMessagePriority } from "@itwin/core-frontend";
 import {
   MessageSeverity,
   RelativePosition,
   UiEvent,
 } from "@itwin/appui-abstract";
+import { OutputMessagePriority } from "@itwin/core-frontend";
+import type { XAndY } from "@itwin/core-geometry";
 import type { CommonProps, SizeProps } from "@itwin/core-react";
 import {
   Icon,
@@ -24,10 +24,7 @@ import {
   Point,
   Rectangle,
 } from "@itwin/core-react";
-import {
-  offsetAndContainInContainer,
-  Tooltip,
-} from "@itwin/appui-layout-react";
+import { offsetAndContainInContainer, Tooltip } from "../layout/popup/Tooltip";
 import { MessageManager } from "./MessageManager";
 import type {
   NotifyMessageDetailsType,

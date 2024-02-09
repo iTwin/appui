@@ -6,12 +6,12 @@
  * @module Widget
  */
 
-import * as React from "react";
 import widgetIconSvg from "@bentley/icons-generic/icons/home.svg";
 import type { IconSpec } from "@itwin/core-react";
 import { Icon, useWidgetOpacityContext } from "@itwin/core-react";
-import { AppButton } from "@itwin/appui-layout-react";
+import * as React from "react";
 import { UiFramework } from "../UiFramework";
+import { AppButton } from "../layout/widget/tools/button/App";
 
 /**
  * Properties for the [[BackstageAppButton]] React component

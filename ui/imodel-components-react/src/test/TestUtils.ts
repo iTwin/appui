@@ -558,7 +558,9 @@ export type SinonSpy<T extends (...args: any) => any> = sinon.SinonSpy<
  * @internal
  */
 export type ComponentSpy<
-  T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>,
+  T extends
+    | keyof React.JSX.IntrinsicElements
+    | React.JSXElementConstructor<any>,
   K extends keyof React.ComponentProps<T>
 > = SinonSpy<React.ComponentProps<T>[K]>;
 

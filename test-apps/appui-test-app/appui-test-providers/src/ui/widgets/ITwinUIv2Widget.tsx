@@ -5,9 +5,11 @@
 import * as React from "react";
 import {
   Button,
+  Checkbox,
   DropdownMenu,
   IconButton,
   MenuItem,
+  Radio,
   Text,
 } from "@itwin/itwinui-react-v2";
 import { SvgMore } from "@itwin/itwinui-icons-react";
@@ -25,6 +27,8 @@ export function ITwinUIv2Widget() {
       >
         {count}++
       </Button>
+      <Checkbox label="Checkbox" />
+      <Radio label="Radio" />
       <DropdownMenu
         menuItems={(close) => [
           <MenuItem key={1} onClick={close}>

@@ -86,24 +86,6 @@
       ],
       "outputCapture": "std"
     },
-    {
-      "name": "[UI] Tests: AppUi Layout React",
-      "presentation": {
-        "group": "4_UI"
-      },
-      "cwd": "${workspaceFolder}/ui/appui-layout-react",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/ui/appui-layout-react/node_modules/mocha/bin/_mocha",
-      "args": [
-        "--config",
-        "../.mocharc.json",
-        "--no-timeouts",
-        "lib/cjs/test/**/*.test.js"
-      ],
-      "outFiles": ["${workspaceFolder}/ui/*/lib/**/*.js"],
-      "outputCapture": "std"
-    },
     // TEST APPS
     {
       /* PARTIAL */ "name": "[BACKEND] appui-test-app/standalone (chrome)",

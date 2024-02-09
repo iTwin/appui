@@ -115,16 +115,19 @@ test.describe("floating widget", () => {
     expect(bounds.y).toEqual(initialBounds.y + 30);
   });
 
-  test("should drag a floating widget (in 'portal/header' mode)", async ({
+  test("should drag a floating widget (in 'header' mode)", async ({
     page,
+    baseURL,
   }) => {
+    assert(baseURL);
+    await page.goto(
+      `${baseURL}?frontstage=appui-test-providers:WidgetApi&mode=header`
+    );
+
     const tab = tabLocator(page, "FW-1");
     const widget = widgetLocator({ tab });
     const titleBarHandle = titleBarHandleLocator(widget);
     const body = page.locator("body");
-
-    const setPortalMode = page.locator(`text=setMode("portal")`);
-    await setPortalMode.click();
 
     const initialBounds = (await widget.boundingBox())!;
     await titleBarHandle.dispatchEvent("mousedown", {
@@ -214,7 +217,7 @@ test.describe("floating widget send back outline", () => {
   test("should show a widget (with tab) outline", async ({ page }) => {
     const tab = tabLocator(page, "FW-1");
     const floatingWidget = floatingWidgetLocator({ tab });
-    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+    const sendBackButton = floatingWidget.getByTitle("Send to panel");
 
     const destTab = tabLocator(page, "WL-A");
     const [widgetOutline, tabOutline] = outlineLocator({ tab: destTab });
@@ -237,7 +240,7 @@ test.describe("floating widget send back outline", () => {
 
     const tab = tabLocator(page, "FW-1");
     const floatingWidget = floatingWidgetLocator({ tab });
-    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+    const sendBackButton = floatingWidget.getByTitle("Send to panel");
 
     const outline = outlineLocator({ page, side: "left" });
 
@@ -253,7 +256,7 @@ test.describe("floating widget send back outline", () => {
 
     const tab = tabLocator(page, "FW-1");
     const floatingWidget = floatingWidgetLocator({ tab });
-    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+    const sendBackButton = floatingWidget.getByTitle("Send to panel");
 
     const panel = panelLocator({ page, side: "left" });
     const outline = outlineLocator({ panel, sectionId: 0 });
@@ -277,7 +280,7 @@ test.describe("floating widget send back outline", () => {
     });
 
     const floatingWidget = floatingWidgetLocator({ tab });
-    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+    const sendBackButton = floatingWidget.getByTitle("Send to panel");
 
     await setWidgetState(page, "WL-2", WidgetState.Hidden);
     await setWidgetState(page, "WL-3", WidgetState.Hidden);

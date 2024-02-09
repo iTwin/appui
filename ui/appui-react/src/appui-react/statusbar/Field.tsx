@@ -6,11 +6,11 @@
  * @module StatusBar
  */
 
-import "./Field.scss";
+import type { CommonProps } from "@itwin/core-react";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
-import { FooterIndicator } from "@itwin/appui-layout-react";
+import { FooterIndicator } from "../layout/footer/Indicator";
+import "./Field.scss";
 
 /** Properties of [[StatusBarField]] component.
  * @beta
