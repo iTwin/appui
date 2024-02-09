@@ -11,7 +11,7 @@ import * as React from "react";
 import { WidgetPanelsContent } from "./Content";
 import { CenterContentNodeContext } from "./Panels";
 
-/** Component that displays center content (i.e. toolbars). Content is allways bound by widget panels (panel pinned setting is ignored).
+/** Component that displays center content (i.e. toolbars). Content is always bound by widget panels (panel pinned setting is ignored).
  * @internal
  */
 export function CenterContent() {

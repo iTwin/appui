@@ -1,0 +1,57 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+
+.nz-standardLayout {
+  position: relative;
+  height: 100%;
+  background-color: $buic-background-widget-panel;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
+  grid-template-rows:
+    minmax(0, auto) minmax(0, auto) 1fr minmax(0, auto)
+    minmax(0, auto);
+  grid-template-areas:
+    "ts ts ts"
+    "tp tp tp"
+    "lp cc rp"
+    "bp bp bp"
+    "sb sb sb";
+
+  > .nz-appContent {
+    grid-row: 1 / -1;
+    grid-column: 1 / -1;
+  }
+
+  > .nz-toolSettings {
+    grid-area: ts;
+  }
+
+  > .nz-topPanel {
+    grid-area: tp;
+  }
+
+  > .nz-leftPanel {
+    grid-area: lp;
+  }
+
+  > .nz-centerContent {
+    grid-area: cc;
+  }
+
+  > .nz-rightPanel {
+    grid-area: rp;
+  }
+
+  > .nz-bottomPanel {
+    grid-area: bp;
+  }
+
+  > .nz-statusBar {
+    grid-area: sb;
+  }
+}
