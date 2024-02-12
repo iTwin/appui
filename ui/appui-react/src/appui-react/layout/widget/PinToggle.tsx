@@ -14,7 +14,7 @@ import { PanelSideContext } from "../widget-panels/Panel";
 import { useLayout } from "../base/LayoutStore";
 import { ActionButton } from "../../preview/widget-action-dropdown/Button";
 import { useIsMainPanelWidget } from "./useIsMainPanelWidget";
-import { useMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
+import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 /** @internal */
 export function PinToggle() {
@@ -42,6 +42,6 @@ export function PinToggle() {
 /** @internal */
 export function usePinToggle() {
   const isMainPanelWidget = useIsMainPanelWidget();
-  const maximizedWidget = useMaximizedWidget();
+  const maximizedWidget = useIsMaximizedWidget();
   return isMainPanelWidget && !maximizedWidget;
 }

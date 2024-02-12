@@ -23,7 +23,7 @@ import { getWidgetPanelSectionId } from "../state/PanelState";
 import type { NineZoneState } from "../state/NineZoneState";
 import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
 import { ActionButton } from "../../preview/widget-action-dropdown/Button";
-import { useMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
+import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 /** @internal */
 export const useActiveSendBackWidgetIdStore = create<
@@ -137,7 +137,7 @@ export function SendBack() {
 
 /** @internal */
 export function useSendBack() {
-  const maximizedWidget = useMaximizedWidget();
+  const maximizedWidget = useIsMaximizedWidget();
   const isToolSettings = useIsToolSettingsTab();
   const floatingWidgetId = useFloatingWidgetId();
   const canBeDocked = useWidgetAllowedToDock();

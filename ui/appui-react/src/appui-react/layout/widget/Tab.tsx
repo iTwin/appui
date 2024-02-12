@@ -47,7 +47,7 @@ import { WidgetOverflowContext } from "./Overflow";
 import { useLayout, useLayoutStore } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
-import { useMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
+import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -120,7 +120,7 @@ function WidgetTabComponent(props: WidgetTabProps) {
     (state) => getWidgetState(state, widgetId).minimized
   );
 
-  const maximizedWidget = useMaximizedWidget();
+  const maximizedWidget = useIsMaximizedWidget();
 
   const resizeObserverRef = useResizeObserver<HTMLDivElement>(
     widgetTabsEntryContext?.onResize
