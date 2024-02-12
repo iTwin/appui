@@ -11,7 +11,8 @@ import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { useRefs, useResizeObserver } from "@itwin/core-react";
-import { Ellipsis } from "../base/Ellipsis";
+import { IconButton } from "@itwin/itwinui-react";
+import { SvgMore } from "@itwin/itwinui-icons-react";
 import { useLabel } from "../base/NineZone";
 
 /** Properties of [[ToolSettingsOverflow]] component.
@@ -37,17 +38,15 @@ export const DockedToolSettingsOverflow = React.forwardRef<
   const moreToolSettingsTitle = useLabel("moreToolSettingsTitle");
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-    <div
+    <IconButton
       className={className}
       onClick={props.onClick}
       ref={refs}
       style={props.style}
-      role="button"
-      tabIndex={-1}
-      title={moreToolSettingsTitle}
+      styleType="borderless"
+      label={moreToolSettingsTitle}
     >
-      <Ellipsis />
-    </div>
+      <SvgMore />
+    </IconButton>
   );
 });

@@ -6,17 +6,6 @@
   height: 100%;
   white-space: nowrap;
   display: flex;
+  gap: var(--iui-size-xs);
   align-items: center;
-
-  &:not(.nz-overflown) {
-    &:before {
-      content: "";
-      padding-left: 1em;
-    }
-
-    &:after {
-      content: "";
-      padding-right: 1em;
-    }
-  }
 }
