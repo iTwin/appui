@@ -6,14 +6,11 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
-
-import type { IModelAppOptions } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, Tool } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import type { KeyinEntry } from "../../appui-react";
+import type { Keyin } from "../../appui-react/keyins/Keyins";
 import {
   clearKeyinPaletteHistory,
-  FrameworkUiAdmin,
   KeyinPalettePanel,
   UiFramework,
 } from "../../appui-react";
@@ -47,8 +44,7 @@ describe("<KeyinPalettePanel>", () => {
 
     await TestUtils.initializeUiFramework();
     // use mock renderer so standards tools are registered.
-    const opts: IModelAppOptions = { uiAdmin: new FrameworkUiAdmin() };
-    await NoRenderApp.startup(opts);
+    await NoRenderApp.startup();
   });
 
   after(async () => {
@@ -88,7 +84,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("Renders", async () => {
-    const keyins: KeyinEntry[] = [
+    const keyins: Keyin.KeyinEntry[] = [
       { value: "test a" },
       { value: "test b" },
       { value: "keyin one" },
@@ -106,7 +102,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("handles key presses in select input ", async () => {
-    const keyins: KeyinEntry[] = [
+    const keyins: Keyin.KeyinEntry[] = [
       { value: "test a" },
       { value: "test b" },
       { value: "keyin one" },
@@ -132,7 +128,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("handles ctrl+key presses in select input ", async () => {
-    const keyins: KeyinEntry[] = [
+    const keyins: Keyin.KeyinEntry[] = [
       { value: "test a" },
       { value: "test b" },
       { value: "keyin one" },
@@ -162,7 +158,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("Handles keyboard running selection", async () => {
-    const keyins: KeyinEntry[] = [
+    const keyins: Keyin.KeyinEntry[] = [
       { value: "keyin one" },
       { value: "keyin two" },
     ];
@@ -181,7 +177,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("Handles keyboard updating input after CTRL + selection", async () => {
-    const keyins: KeyinEntry[] = [
+    const keyins: Keyin.KeyinEntry[] = [
       { value: "keyin one" },
       { value: "keyin two" },
     ];
@@ -201,7 +197,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("Handles listbox click processing", async () => {
-    const keyins: KeyinEntry[] = [
+    const keyins: Keyin.KeyinEntry[] = [
       { value: "test a" },
       { value: "test b" },
       { value: "keyin one" },
@@ -226,7 +222,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("Handles listbox CTRL+click processing", async () => {
-    const keyins: KeyinEntry[] = [
+    const keyins: Keyin.KeyinEntry[] = [
       { value: "test a" },
       { value: "test b" },
       { value: "keyin one" },
@@ -281,7 +277,7 @@ describe("<KeyinPalettePanel>", () => {
           ["history1", "history2", "bogus"]
         );
       }
-      const keyins: KeyinEntry[] = [
+      const keyins: Keyin.KeyinEntry[] = [
         { value: "keyin one" },
         { value: "keyin two" },
       ];
@@ -307,7 +303,7 @@ describe("<KeyinPalettePanel>", () => {
           ["history1", "history2", "bogus"]
         );
       }
-      const keyins: KeyinEntry[] = [
+      const keyins: Keyin.KeyinEntry[] = [
         { value: "keyin one" },
         { value: "keyin two" },
       ];
@@ -343,7 +339,7 @@ describe("<KeyinPalettePanel>", () => {
           ["history1", "history2", "bogus"]
         );
       }
-      const keyins: KeyinEntry[] = [
+      const keyins: Keyin.KeyinEntry[] = [
         { value: "keyin one" },
         { value: "keyin two" },
       ];
@@ -375,7 +371,7 @@ describe("<KeyinPalettePanel>", () => {
     });
 
     it("Handles keyboard running selection", async () => {
-      const keyins: KeyinEntry[] = [
+      const keyins: Keyin.KeyinEntry[] = [
         { value: "keyin one" },
         { value: "keyin two" },
       ];
@@ -402,7 +398,7 @@ describe("<KeyinPalettePanel>", () => {
           ["history1", "history2", "bogus"]
         );
       }
-      const keyins: KeyinEntry[] = [
+      const keyins: Keyin.KeyinEntry[] = [
         { value: "keyin one" },
         { value: "keyin two" },
       ];
@@ -433,7 +429,7 @@ describe("<KeyinPalettePanel>", () => {
           ["history1", "history2", "bogus"]
         );
       }
-      const keyins: KeyinEntry[] = [
+      const keyins: Keyin.KeyinEntry[] = [
         { value: "keyin one" },
         { value: "keyin two" },
       ];

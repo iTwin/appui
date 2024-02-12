@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import { IModelApp } from "@itwin/core-frontend";
 import { AbstractMenuItemProps } from "@itwin/appui-abstract";
 import {
   FloatingViewportContent,
@@ -95,11 +94,8 @@ export function PopupTestView({
   const handleContextMenu = React.useCallback(
     (e: React.MouseEvent): boolean => {
       e.preventDefault();
-      IModelApp.uiAdmin.showContextMenu(
-        menuItems,
-        { x: e.pageX, y: e.pageY },
-        (e.target as HTMLElement).ownerDocument.body
-      );
+      UiFramework.openContextMenu(menuItems, { x: e.pageX, y: e.pageY });
+
       return false;
     },
     [menuItems]

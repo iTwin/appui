@@ -28,7 +28,7 @@ import { UiFramework } from "../UiFramework";
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
 import { ClearKeyinPaletteHistoryTool } from "../tools/KeyinPaletteTools";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
-import type { KeyinEntry } from "../uiadmin/FrameworkUiAdmin";
+import type { Keyin } from "../keyins/Keyins";
 import { Input } from "@itwin/itwinui-react";
 import { matchesWords } from "../utils/matchesWords";
 
@@ -48,7 +48,7 @@ export function clearKeyinPaletteHistory() {
 }
 
 interface KeyinPalettePanelProps {
-  keyins: KeyinEntry[];
+  keyins: Keyin.KeyinEntry[];
   onKeyinExecuted?: OnItemExecutedFunc;
   historyLength?: number;
 }
@@ -261,11 +261,11 @@ export function KeyinPalettePanel({
   );
 
   const filteredKeyins = React.useMemo(() => {
-    const filteredHistory: KeyinEntry[] = [];
+    const filteredHistory: Keyin.KeyinEntry[] = [];
     if (undefined === currentKeyin || 0 === currentKeyin.length) {
       return allKeyins;
     } else {
-      const newKeyinSet: KeyinEntry[] = [];
+      const newKeyinSet: Keyin.KeyinEntry[] = [];
       allKeyins.forEach((value) => {
         if (value.value.length >= currentKeyin.length) {
           // Force contiguous searches if key-in is over 60 characters long for performance.
@@ -285,7 +285,7 @@ export function KeyinPalettePanel({
               if (
                 -1 ===
                 filteredHistory.findIndex(
-                  (historyEntry: KeyinEntry) =>
+                  (historyEntry: Keyin.KeyinEntry) =>
                     historyEntry.value === value.value
                 )
               )

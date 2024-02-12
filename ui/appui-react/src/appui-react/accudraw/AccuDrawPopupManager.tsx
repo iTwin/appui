@@ -124,6 +124,34 @@ export class AccuDrawPopupManager {
     );
   }
 
+  // @internal
+  public static showDimensionEditor(
+    dimension: "Height" | "Length",
+    el: HTMLElement,
+    pt: XAndY,
+    value: number,
+    onCommit: OnNumberCommitFunc,
+    onCancel: OnCancelFunc
+  ) {
+    if (dimension === "Height") {
+      return AccuDrawPopupManager.showHeightEditor(
+        el,
+        pt,
+        value,
+        onCommit,
+        onCancel
+      );
+    }
+
+    return AccuDrawPopupManager.showLengthEditor(
+      el,
+      pt,
+      value,
+      onCommit,
+      onCancel
+    );
+  }
+
   public static showLengthEditor(
     el: HTMLElement,
     pt: XAndY,

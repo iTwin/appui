@@ -12,7 +12,6 @@ import { TestUtils } from "../TestUtils";
 import type { IModelAppOptions } from "@itwin/core-frontend";
 import { IModelApp, ItemField, NoRenderApp } from "@itwin/core-frontend";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
-import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import { UiFramework } from "../../appui-react";
 
 // cspell:ignore uiadmin
@@ -37,7 +36,6 @@ describe("AccuDrawInputField", () => {
 
     const opts: IModelAppOptions = {};
     opts.accuDraw = new FrameworkAccuDraw();
-    opts.uiAdmin = new FrameworkUiAdmin();
     await NoRenderApp.startup(opts);
   });
 

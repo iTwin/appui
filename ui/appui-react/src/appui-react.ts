@@ -92,6 +92,8 @@ export * from "./appui-react/hooks/useUiVisibility";
 export * from "./appui-react/keyboardshortcut/KeyboardShortcut";
 export * from "./appui-react/keyboardshortcut/KeyboardShortcutMenu";
 
+export * from "./appui-react/keyins/Keyins"
+
 export * from "./appui-react/messages/AppNotificationManager";
 export * from "./appui-react/messages/InputField";
 export * from "./appui-react/messages/MessageManager";

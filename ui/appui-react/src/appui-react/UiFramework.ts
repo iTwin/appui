@@ -13,7 +13,8 @@ import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
-import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
+import type { AbstractMenuItemProps, AbstractToolbarProps, DialogLayoutDataProvider, DialogProps, OnCancelFunc, OnItemExecutedFunc, OnNumberCommitFunc, OnValueCommitFunc, PropertyDescription, PropertyRecord } from "@itwin/appui-abstract";
+import { RelativePosition, UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
 import { getObjectClassName } from "@itwin/core-react";
@@ -65,6 +66,23 @@ import {
   SyncUiEventDispatcher,
   SyncUiEventId,
 } from "./syncui/SyncUiEventDispatcher";
+import type { XAndY } from "@itwin/core-geometry";
+import type { ReactContent, ShowComponentOptions } from "./popup/PopupManager";
+import { PopupManager } from "./popup/PopupManager";
+import { AccuDrawPopupManager } from "./accudraw/AccuDrawPopupManager";
+import { UiDataProvidedDialog } from "./dialog/UiDataProvidedDialog";
+import type { ReactElement } from "react";
+import { createElement } from "react";
+import type { DialogInfo } from "./dialog/DialogManagerBase";
+
+interface ShowInputEditorOptions {
+  location: XAndY;
+  anchorElement?: HTMLElement;
+  initialValue: number;
+  propertyDescription: PropertyDescription;
+  onCommit: OnValueCommitFunc;
+  onCancel: OnCancelFunc;
+}
 
 // cSpell:ignore Mobi
 
@@ -89,7 +107,7 @@ export interface UiVisibilityEventArgs {
  * @public
  */
 // eslint-disable-next-line deprecation/deprecation
-export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {}
+export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> { }
 
 /** TrackingTime time argument used by our feature tracking manager as an option argument to the TelemetryClient
  * @internal
@@ -206,6 +224,7 @@ export class UiFramework {
   > = new Map<string, UserSettingsProvider>();
   private static _childWindowManager = new InternalChildWindowManager();
   public static useDefaultPopoutUrl = false;
+  private static readonly CONTEXT_MENU_OFFSET = -8;
 
   /** Registers class that will be informed when the UserSettingsStorage location has been set or changed. This allows
    * classes to load any previously saved settings from the new storage location. Common storage locations are the browser's
@@ -483,7 +502,7 @@ export class UiFramework {
       if (-1 !== foundIndex) {
         const scope =
           UiFramework.frameworkState.sessionState.availableSelectionScopes[
-            foundIndex
+          foundIndex
           ];
         UiFramework.dispatchActionToStore(
           SessionStateActionId.SetSelectionScope,
@@ -491,6 +510,39 @@ export class UiFramework {
         );
       }
     }
+  }
+
+  /** Show a context menu at a particular location.
+   * @param items Properties of the menu items to display.
+   * @param location Location of the context menu, relative to the origin of anchorElement or the overall window.
+   * @param anchorElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
+   * @return true if the menu was displayed, false if the menu could not be displayed.
+   */
+  public static openContextMenu(items: AbstractMenuItemProps[],
+    location: XAndY,
+    anchorElement?: HTMLElement): boolean {
+
+    let position = location;
+    let childWindowId: string | undefined;
+
+    if (anchorElement) {
+      const anchorOffset = anchorElement.getBoundingClientRect();
+
+      position = {
+        x: anchorOffset.left + location.x,
+        y: anchorOffset.top + location.y,
+      };
+
+      childWindowId = UiFramework.childWindows.findId(
+        anchorElement.ownerDocument.defaultView
+      );
+    }
+
+    position = { x: position.x + UiFramework.CONTEXT_MENU_OFFSET, y: position.y + UiFramework.CONTEXT_MENU_OFFSET };
+    const cursorMenu: CursorMenuData = { position, items, childWindowId };
+    UiFramework.openCursorMenu(cursorMenu);
+
+    return true;
   }
 
   /** @public */
@@ -666,7 +718,7 @@ export class UiFramework {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.availableSelectionScopes
       : /* istanbul ignore next */
-        [{ id: "element", label: "Element" } as PresentationSelectionScope];
+      [{ id: "element", label: "Element" } as PresentationSelectionScope];
   }
 
   public static getIsUiVisible() {
@@ -777,7 +829,7 @@ export class UiFramework {
   public static get useToolAsToolSettingsLabel(): boolean {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState
-          .useToolAsToolSettingsLabel
+        .useToolAsToolSettingsLabel
       : /* istanbul ignore next */ false;
   }
   public static setUseToolAsToolSettingsLabel(value: boolean) {
@@ -795,7 +847,7 @@ export class UiFramework {
   public static get autoCollapseUnpinnedPanels(): boolean {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState
-          .autoCollapseUnpinnedPanels
+        .autoCollapseUnpinnedPanels
       : /* istanbul ignore next */ false;
   }
 
@@ -853,5 +905,355 @@ export class UiFramework {
   public static get isContextMenuOpen(): boolean {
     const contextMenu = document.querySelector("div.core-context-menu-opened");
     return contextMenu !== null && contextMenu !== undefined;
+  }
+
+  /** Show a Card containing content, a title and a toolbar at a particular location.
+   * @param content The React component or HTMLElement of the content to display
+   * @param title Title to display at the top of the card.
+   * @param toolbarProps Properties of the Toolbar to display.
+   * @param location Location of the Card, relative to the origin of anchorElement or the window.
+   * @param offset Offset of the Card from the location.
+   * @param onItemExecuted Function invoked after a Toolbar item is executed
+   * @param onCancel Function invoked when the Escape key is pressed or a click occurs outside the Card
+   * @param relativePosition Position relative to the given location. Defaults to TopRight.
+   * @param anchorElement The HTMLElement that anchors the Card. If undefined, the location is relative to the overall window.
+   * @return true if the Card was displayed, false if the Card could not be displayed.
+   */
+  public static showCard(
+    content: ReactContent,
+    title: string | PropertyRecord | undefined,
+    toolbarProps: AbstractToolbarProps | undefined,
+    location: XAndY,
+    offset: XAndY,
+    onItemExecuted: OnItemExecutedFunc,
+    onCancel: OnCancelFunc,
+    relativePosition?: RelativePosition,
+    anchorElement?: HTMLElement
+  ): boolean {
+    const el = this.resolveHtmlElement(anchorElement);
+
+    // istanbul ignore if
+    if (relativePosition === undefined)
+      relativePosition = RelativePosition.TopRight;
+
+    return PopupManager.showCard(
+      content,
+      title,
+      toolbarProps,
+      el,
+      location,
+      offset,
+      onItemExecuted,
+      onCancel,
+      relativePosition
+    );
+  }
+
+  /**
+   * Hides a Card displayed with {@link showCard}
+   */
+  public static hideCard() {
+    PopupManager.hideCard();
+  }
+
+  /** Opens a Tool Settings Ui popup at a particular location.
+   * @param dataProvider The DialogLayoutDataProvider for the tool settings popup dialog.
+   * @param location Location of the tool settings, relative to the origin of anchorElement or the window
+   * @param offset Offset of the tool settings from the location
+   * @param onCancel Function invoked when the Escape key is pressed or a click occurs outside the tool settings
+   * @param relativePosition Position relative to the given location. Defaults to TopRight.
+   * @param anchorElement The HTMLElement that anchors the tool settings. If undefined, the location is relative to the overall window.
+   * @return true if the tool settings were displayed, false if the tool settings could not be displayed.
+   */
+  public static openToolSettingsPopup(
+    dataProvider: DialogLayoutDataProvider,
+    location: XAndY,
+    offset: XAndY,
+    onCancel: OnCancelFunc,
+    relativePosition?: RelativePosition,
+    anchorElement?: HTMLElement
+  ): boolean {
+    const el = this.resolveHtmlElement(anchorElement);
+
+    if (relativePosition === undefined)
+      relativePosition = RelativePosition.TopRight;
+
+    return PopupManager.openToolSettings(
+      dataProvider,
+      el,
+      location,
+      offset,
+      onCancel,
+      relativePosition
+    );
+  }
+
+  /**
+   * Closes the Tool Settings Ui popup.
+   */
+  public static closeToolSettingsPopup() {
+    PopupManager.closeToolSettings();
+  }
+
+  /** Show a Toolbar at a particular location.
+   * @param toolbarProps Properties of the Toolbar to display.
+   * @param location Location of the Toolbar, relative to the origin of anchorElement or the overall window.
+   * @param offset Offset of the Toolbar from the location.
+   * @param onItemExecuted Function invoked after a Toolbar item is executed
+   * @param onCancel Function invoked when the Escape key is pressed or a click occurs outside the Toolbar
+   * @param relativePosition Position relative to the given location. Defaults to TopRight.
+   * @param anchorElement The HTMLElement that anchors the Toolbar. If undefined, the location is relative to the overall window.
+   * @return true if the Toolbar was displayed, false if the Toolbar could not be displayed.
+   */
+  public static showToolbar(
+    toolbarProps: AbstractToolbarProps,
+    location: XAndY,
+    offset: XAndY,
+    onItemExecuted: OnItemExecutedFunc,
+    onCancel: OnCancelFunc,
+    relativePosition?: RelativePosition,
+    anchorElement?: HTMLElement
+  ): boolean {
+    if (relativePosition === undefined)
+      relativePosition = RelativePosition.TopRight;
+
+    const el = UiFramework.resolveHtmlElement(anchorElement)
+    return PopupManager.showToolbar(
+      toolbarProps,
+      el,
+      location,
+      offset,
+      onItemExecuted,
+      onCancel,
+      relativePosition
+    );
+  }
+
+  /** Hides a toolbar displayed via {@link showToolbar} */
+  public static hideToolbar() {
+    return PopupManager.hideToolbar()
+  }
+
+  /** Show a menu button at a particular location. A menu button opens a context menu.
+   * @param id Id of the menu button. Multiple menu buttons may be displayed.
+   * @param menuItemsProps Properties of the menu items to display.
+   * @param location Location of the context menu, relative to the origin of anchorElement or the window.
+   * @param anchorElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
+   * @return true if the menu was displayed, false if the menu could not be displayed.
+   */
+  public static showMenuButton(
+    id: string,
+    menuItemsProps: AbstractMenuItemProps[],
+    location: XAndY,
+    anchorElement?: HTMLElement
+  ): boolean {
+    const el = this.resolveHtmlElement(anchorElement);
+
+    return AccuDrawPopupManager.showMenuButton(
+      id,
+      el,
+      location,
+      menuItemsProps
+    );
+  }
+
+  /** Hides a menu button.
+  * @param id Id of the menu button. Multiple menu buttons may be displayed.
+  * @return true if the menu was hidden, false if the menu could not be hidden.
+  */
+  public static hideMenuButton(id: string) {
+    return AccuDrawPopupManager.hideMenuButton(id);
+  }
+  /** Show a calculator at a particular location.
+   * @param initialValue Value initially displayed in the calculator.
+   * @param resultIcon Icon displayed to the left of the value.
+   * @param location Location of the calculator, relative to the origin of anchorElement or the window.
+   * @param onOk Function called when the OK button or the Enter key is pressed.
+   * @param onCancel Function called when the Cancel button or the Escape key  is pressed.
+   * @param anchorElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
+   * @return true if the menu was displayed, false if the menu could not be displayed.
+   */
+  public static showCalculator(
+    initialValue: number,
+    resultIcon: string,
+    location: XAndY,
+    onOk: OnNumberCommitFunc,
+    onCancel: OnCancelFunc,
+    anchorElement?: HTMLElement
+  ): boolean {
+    const el = this.resolveHtmlElement(anchorElement);
+
+    return AccuDrawPopupManager.showCalculator(
+      el,
+      location,
+      initialValue,
+      resultIcon,
+      onOk,
+      onCancel,
+    );
+  }
+
+  /** Hides the calculator. */
+  public static hideCalculator(): boolean {
+    return AccuDrawPopupManager.hideCalculator();
+  }
+
+
+  /** Show a React Element at a particular location.
+   * @param component The ReactElement to display
+   * @param options {@link: ShowComponentOptions}
+   */
+  public static showComponent(component: ReactElement, options?: Partial<ShowComponentOptions>): boolean {
+    if (!options)
+      options = {}
+
+    const { anchorRef } = options;
+    let {
+      location,
+      offset,
+      onCancel,
+      relativePosition,
+    } = options;
+
+    if (!location) location = { x: 0, y: 0 };
+    if (!offset) offset = { x: 0, y: 0 };
+    if (!relativePosition) relativePosition = RelativePosition.TopRight
+    if (!onCancel) onCancel = UiFramework.hideComponent;
+
+    return PopupManager.showComponent(
+      component,
+      {
+        location,
+        offset,
+        onCancel,
+        relativePosition,
+        anchorRef
+      },
+    );
+  }
+
+
+  /**
+   * Hides the Component previously shown with {@link showComponent}
+   */
+  public static hideComponent(): boolean {
+    return PopupManager.hideComponent();
+  }
+
+  /** Show an input editor for an angle value at a particular location.
+   * @param initialValue Value initially displayed in the editor.
+   * @param location Location of the editor, relative to the origin of anchorElement or the window.
+   * @param onCommit Function called when the OK button or the Enter key is pressed.
+   * @param onCancel Function called when the Cancel button or the Escape key  is pressed.
+   * @param anchorElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
+   * @return true if the editor was displayed, false if the editor could not be displayed.
+   */
+  public static showAngleEditor(
+    initialValue: number,
+    location: XAndY,
+    onCommit: OnNumberCommitFunc,
+    onCancel: OnCancelFunc,
+    anchorElement?: HTMLElement
+  ): boolean {
+    const el = this.resolveHtmlElement(anchorElement);
+
+    return AccuDrawPopupManager.showAngleEditor(
+      el,
+      location,
+      initialValue,
+      onCommit,
+      onCancel
+    );
+  }
+
+  /** Show an input editor for a length value at a particular location.
+   * @param ShowInputEditorOptions Options detailed below for the input editor
+   * @param ShowInputEditorOptions.anchorElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
+   * @param ShowInputEditorOptions.propertyDescription Description of the primitive value property
+   * @param ShowInputEditorOptions.initialValue Value initially displayed in the editor.
+   * @param ShowInputEditorOptions.location Location of the editor, relative to the origin of anchorElement or the window.
+   * @param ShowInputEditorOptions.onCommit Function called when the OK button or the Enter key is pressed.
+   * @param ShowInputEditorOptions.onCancel Function called when the Cancel button or the Escape key is pressed.
+   * @return true if the editor was displayed, false if the editor could not be displayed.
+   */
+  public static showInputEditor({
+    anchorElement, initialValue, location, onCancel, onCommit, propertyDescription
+  }: ShowInputEditorOptions): boolean {
+    const el = this.resolveHtmlElement(anchorElement);
+    PopupManager.showInputEditor(el, location, initialValue, propertyDescription, onCommit, onCancel)
+    return true
+  }
+
+  /** Show an input editor for a length value at a particular location.
+   * @param dimension Dimension determining which editor to display.
+   * @param initialValue Value initially displayed in the editor.
+   * @param location Location of the editor, relative to the origin of anchorElement or the window.
+   * @param onCommit Function called when the OK button or the Enter key is pressed.
+   * @param onCancel Function called when the Cancel button or the Escape key  is pressed.
+   * @param anchorElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
+   * @return true if the editor was displayed, false if the editor could not be displayed.
+   */
+  public static showDimensionEditor(dimension: "Height" | "Length", initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, anchorElement: HTMLElement) {
+    const el = this.resolveHtmlElement(anchorElement);
+    return AccuDrawPopupManager.showDimensionEditor(dimension, el, location, initialValue, onCommit, onCancel);
+  }
+
+  /** Hides the input editor. */
+  public static hideInputEditor(): boolean {
+    return PopupManager.hideInputEditor()
+  }
+
+  /** Opens a Dialog and automatically populates it using the properties defined by the UiDataProvider.
+   * @param uiDataProvider The UiDataProvider for the tool settings
+   * @param title Specify title for dialog.
+   * @param isModal Specify if the dialog is opened as a modal or modeless.
+   * @param id Id of the dialog that is used to close it.
+   * @param optionalProps Optional props for Dialog construction.
+   * @return true if the tool settings were displayed, false if the tool settings could not be displayed.
+   */
+  public static openDialog(
+    uiDataProvider: DialogLayoutDataProvider,
+    title: string,
+    isModal: boolean,
+    id: string,
+    optionalProps?: DialogProps
+  ): boolean {
+    const dialog = createElement(UiDataProvidedDialog, { uiDataProvider, title, isModal, id, ...optionalProps });
+    const modalType = isModal ? "modal" : "modeless";
+    UiFramework.dialogs[modalType].open(dialog, id);
+    return true;
+  }
+
+
+  /** Closes the Dialog with the specified dialogId.
+  * @param dialogId Id of the dialog to close.
+  */
+  public static closeDialog(dialogId: string): boolean {
+    const findFn = (info: DialogInfo) => info.id === dialogId;
+    // istanbul ignore else
+    if (
+      UiFramework.dialogs.modeless.dialogs.findIndex(findFn)
+    ) {
+      UiFramework.dialogs.modeless.close(dialogId);
+      return true;
+    }
+
+    // istanbul ignore else
+    if (
+      UiFramework.dialogs.modal.dialogs.findIndex(findFn)
+    ) {
+      UiFramework.dialogs.modal.close();
+      return true;
+    }
+
+    // istanbul ignore next
+    return false;
+  }
+
+  private static resolveHtmlElement(
+    htmlElement?: HTMLElement
+  ): HTMLElement {
+    const el = htmlElement ?? UiFramework.controls.getWrapperElement();
+    return el
   }
 }

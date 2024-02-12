@@ -27,8 +27,9 @@ import type { XAndY } from "@itwin/core-geometry";
 import type { Point, SizeProps } from "@itwin/core-react";
 import { Orientation, Rectangle } from "@itwin/core-react";
 import * as React from "react";
+import type { ReactElement } from "react";
 import { offsetAndContainInContainer } from "../layout/popup/Tooltip";
-import type { KeyinEntry } from "../uiadmin/FrameworkUiAdmin";
+import type { Keyin } from "../keyins/Keyins";
 import { UiFramework } from "../UiFramework";
 import { CardPopup } from "./CardPopup";
 import { HTMLElementPopup } from "./HTMLElementPopup";
@@ -36,6 +37,7 @@ import { InputEditorCommitHandler, InputEditorPopup } from "./InputEditorPopup";
 import { KeyinPalettePopup } from "./KeyinPalettePopup";
 import { ToolbarPopup } from "./ToolbarPopup";
 import { ToolSettingsPopup } from "./ToolSettingsPopup";
+import { ComponentPopup } from "./ComponentPopup";
 
 // cSpell:ignore uiadmin
 
@@ -47,6 +49,17 @@ export interface PopupInfo {
   pt: XAndY;
   component: React.ReactNode;
   parentDocument: Document;
+}
+
+/**
+ * @internal
+ */
+export interface ShowComponentOptions {
+  onCancel: OnCancelFunc;
+  location: XAndY;
+  offset: XAndY;
+  relativePosition: RelativePosition;
+  anchorRef?: React.RefObject<HTMLElement>;
 }
 
 /** @public */
@@ -223,7 +236,7 @@ export class PopupManager {
   }
 
   public static showKeyinPalette(
-    keyins: KeyinEntry[],
+    keyins: Keyin.KeyinEntry[],
     el: HTMLElement,
     onItemExecuted?: OnItemExecutedFunc,
     onCancel?: OnCancelFunc
@@ -296,6 +309,8 @@ export class PopupManager {
     return PopupManager.removePopup(PopupManager._toolbarId);
   }
 
+  // Should this class be internal?
+  // @deprecated in 4.10.x. Use {@link PopupManager.showComponent} instead.
   public static showHTMLElement(
     displayElement: HTMLElement,
     el: HTMLElement,
@@ -306,6 +321,7 @@ export class PopupManager {
   ): boolean {
     const id = PopupManager._htmlElementId;
     const component = (
+      // eslint-disable-next-line deprecation/deprecation
       <HTMLElementPopup
         id={id}
         el={el}
@@ -329,7 +345,48 @@ export class PopupManager {
     return true;
   }
 
+  // @deprecated in 4.10.x. Use {@link PopupManager.hideComponent} instead.
   public static hideHTMLElement(): boolean {
+    return PopupManager.removePopup(PopupManager._htmlElementId);
+  }
+
+  /**
+   * Displays a React component as a popup.
+   * @param displayElement The React component to display.
+   * @param options {@link ShowComponentOptions} for displaying the component.
+   */
+  public static showComponent(
+    displayElement: ReactElement,
+    options: ShowComponentOptions
+  ): boolean {
+    const { onCancel, location, offset, relativePosition, anchorRef } = options;
+    const id = PopupManager._htmlElementId;
+
+    const component = (
+      <ComponentPopup
+        id={id}
+        anchorRef={anchorRef}
+        pt={location}
+        offset={offset}
+        Component={displayElement}
+        relativePosition={relativePosition}
+        orientation={Orientation.Horizontal}
+        onCancel={onCancel}
+      />
+    );
+
+    const popupInfo: PopupInfo = {
+      id,
+      pt: location,
+      component,
+      parentDocument: anchorRef?.current?.ownerDocument ?? document,
+    };
+    PopupManager.addOrUpdatePopup(popupInfo);
+
+    return true;
+  }
+
+  public static hideComponent(): boolean {
     return PopupManager.removePopup(PopupManager._htmlElementId);
   }
 

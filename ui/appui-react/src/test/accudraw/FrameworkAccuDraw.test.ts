@@ -17,10 +17,7 @@ import {
 import TestUtils, { storageMock } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import { UiFramework } from "../../appui-react/UiFramework";
-
-// cspell:ignore dont uiadmin
 
 describe("FrameworkAccuDraw localStorage Wrapper", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(
@@ -45,7 +42,6 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
 
       const opts: IModelAppOptions = {};
       opts.accuDraw = new FrameworkAccuDraw();
-      opts.uiAdmin = new FrameworkUiAdmin();
       await NoRenderApp.startup(opts);
     });
 

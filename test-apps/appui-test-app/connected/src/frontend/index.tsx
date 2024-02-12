@@ -336,7 +336,9 @@ export class SampleAppIModelApp {
     await UiFramework.initialize(undefined, undefined);
 
     IModelApp.toolAdmin.defaultToolId = SelectionTool.toolId;
-    IModelApp.uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
+
+    // No longer necessary, but useful to test legacy behavior until uiAdmin is completely removed:
+    // IModelApp.uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
 
     // store name of this registered control in Redux store so it can be access by extensions
     UiFramework.setDefaultIModelViewportControlId(IModelViewportControl.id);
@@ -911,6 +913,7 @@ async function main() {
       accuSnap: new SampleAppAccuSnap(),
       toolAdmin: new FrameworkToolAdmin(),
       notifications: new AppNotificationManager(),
+      // eslint-disable-next-line deprecation/deprecation
       uiAdmin: new FrameworkUiAdmin(),
       accuDraw: new FrameworkAccuDraw(),
       realityDataAccess: new RealityDataAccessClient(realityDataClientOptions),

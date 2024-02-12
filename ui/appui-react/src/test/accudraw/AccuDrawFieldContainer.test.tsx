@@ -19,7 +19,6 @@ import { Orientation } from "@itwin/core-react";
 import TestUtils, { selectAllBeforeType, userEvent } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { AccuDrawFieldContainer } from "../../appui-react/accudraw/AccuDrawFieldContainer";
-import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import type { AccuDrawUiSettings } from "../../appui-react/accudraw/AccuDrawUiSettings";
 import { UiFramework } from "../../appui-react";
 
@@ -48,7 +47,6 @@ describe("AccuDrawFieldContainer", () => {
 
     const opts: IModelAppOptions = {};
     opts.accuDraw = new FrameworkAccuDraw();
-    opts.uiAdmin = new FrameworkUiAdmin();
     await NoRenderApp.startup(opts);
   });
 

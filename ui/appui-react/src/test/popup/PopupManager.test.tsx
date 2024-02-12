@@ -6,7 +6,6 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
-import type { IModelAppOptions } from "@itwin/core-frontend";
 import {
   IModelApp,
   LengthDescription,
@@ -36,10 +35,9 @@ import {
 } from "../../appui-react/popup/PopupManager";
 import type { MenuItemProps } from "../../appui-react/shared/MenuItem";
 import TestUtils, { storageMock } from "../TestUtils";
-import type { KeyinEntry } from "../../appui-react/uiadmin/FrameworkUiAdmin";
-import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { Button } from "@itwin/itwinui-react";
+import type { Keyin } from "../../appui-react/keyins/Keyins";
 const myLocalStorage = storageMock();
 function requestNextAnimation() {}
 
@@ -66,8 +64,7 @@ describe("PopupManager", () => {
 
     await TestUtils.initializeUiFramework();
     // use mock renderer so standards tools are registered.
-    const opts: IModelAppOptions = { uiAdmin: new FrameworkUiAdmin() };
-    await NoRenderApp.startup(opts);
+    await NoRenderApp.startup();
   });
 
   after(async () => {
@@ -732,7 +729,7 @@ describe("PopupManager", () => {
 
     it("PopupRenderer should render Keyin Palette", async () => {
       const wrapper = render(<PopupRenderer />);
-      const keyins: KeyinEntry[] = [
+      const keyins: Keyin.KeyinEntry[] = [
         { value: "keyin one" },
         { value: "keyin two" },
       ];

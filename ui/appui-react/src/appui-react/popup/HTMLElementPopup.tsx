@@ -31,6 +31,7 @@ interface HTMLElementPopupState {
 
 /** Popup component for HTMLElement
  * @alpha
+ * @deprecated in 4.10.x. Though this is alpha, the main interface to using it is not.
  */
 export class HTMLElementPopup extends React.PureComponent<
   HTMLElementPopupProps,

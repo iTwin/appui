@@ -13,14 +13,15 @@ import type { SizeProps } from "@itwin/core-react";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
 import { PositionPopup } from "./PositionPopup";
 import { KeyinPalettePanel } from "./KeyinPalettePanel";
-import type { KeyinEntry } from "../uiadmin/FrameworkUiAdmin";
+import type { Keyin } from "../keyins/Keyins";
+import { WrapperContext } from "../configurableui/ConfigurableUiContent";
 
 /** Props defining KeyinPalettePopup component
  * @public */
 export interface KeyinPalettePopupProps {
   id: string;
-  el: HTMLElement;
-  keyins: KeyinEntry[];
+  el?: HTMLElement;
+  keyins: Keyin.KeyinEntry[];
   onCancel?: OnCancelFunc;
   onItemExecuted?: OnItemExecutedFunc;
 }
@@ -35,6 +36,9 @@ export function KeyinPalettePopup({
   onCancel,
   onItemExecuted,
 }: KeyinPalettePopupProps) {
+  const wrapper = React.useContext(WrapperContext);
+  el = el ?? wrapper;
+
   const [popupSize, setPopupSize] = React.useState(new Size(-1, -1));
 
   const onSizeKnown = React.useCallback(

@@ -11,11 +11,11 @@ import {
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
+  UiFramework,
   UiItemsProvider,
 } from "@itwin/appui-react";
 import { SampleTool } from "../../tools/SampleTool";
 import { UnitsPopupUiDataProvider } from "../dialogs/UnitsPopup";
-import { IModelApp } from "@itwin/core-frontend";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { OpenAbstractDialogTool } from "../../tools/OpenAbstractModalDialogTool";
 import statusFieldSvg from "../icons/StatusField.svg";
@@ -102,7 +102,7 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
           statusFieldSvg,
           AppUiTestProviders.translate("StatusBar.UnitsFlyover"),
           () => {
-            IModelApp.uiAdmin.openDialog(
+            UiFramework.openDialog(
               new UnitsPopupUiDataProvider(),
               AppUiTestProviders.translate("StatusBar.Units"),
               true,
