@@ -12,6 +12,7 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { useLayout } from "./base/LayoutStore";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
+import { usePanelsAutoCollapse } from "./widget-panels/AppContent";
 
 interface StandardLayoutProps extends CommonProps {
   /** Main content area of the application (i.e. viewport) that will change bounds based on panel pinned state. */
@@ -31,10 +32,13 @@ interface StandardLayoutProps extends CommonProps {
  */
 export function StandardLayout(props: StandardLayoutProps) {
   const pinned = usePinned();
+  const appContentRef = usePanelsAutoCollapse<HTMLDivElement>();
   const className = classnames("nz-standardLayout", pinned, props.className);
   return (
     <div className={className} style={props.style}>
-      <div className="nz-appContent">{props.children}</div>
+      <div className="nz-appContent" ref={appContentRef}>
+        {props.children}
+      </div>
       <div className="nz-centerContent">{props.centerContent}</div>
       <div className="nz-leftPanel">{props.leftPanel}</div>
       <div className="nz-rightPanel">{props.rightPanel}</div>
