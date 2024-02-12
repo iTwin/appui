@@ -12,7 +12,6 @@ import {
   SvgWindowMinimize,
 } from "@itwin/itwinui-icons-react";
 import { ActionButton } from "../widget-action-dropdown/Button";
-import { useIsToolSettingsTab } from "../../layout/widget/useIsToolSettingsTab";
 import { WidgetIdContext } from "../../layout/widget/Widget";
 import { MaximizedWidgetContext } from "./MaximizedWidget";
 
@@ -50,7 +49,6 @@ export function MaximizeToggle() {
 /** @internal */
 export function useMaximizeToggle() {
   const { enabled } = React.useContext(MaximizedWidgetContext);
-  const isToolSettings = useIsToolSettingsTab();
 
-  return !!enabled && !isToolSettings;
+  return !!enabled;
 }

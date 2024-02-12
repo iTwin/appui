@@ -21,7 +21,6 @@ import type { WidgetState } from "../../layout/state/WidgetState";
 export function useMaximizedWidget() {
   const widgetId = React.useContext(WidgetIdContext);
   const maximizedWidgetId = useMaximizedWidgetId();
-
   if (maximizedWidgetId === undefined) return false;
 
   return widgetId === maximizedWidgetId;

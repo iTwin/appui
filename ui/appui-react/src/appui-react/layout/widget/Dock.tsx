@@ -10,6 +10,8 @@ import * as React from "react";
 import { SvgDockTop } from "@itwin/itwinui-icons-react";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { ActionButton } from "../../preview/widget-action-dropdown/Button";
+import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
+import { useMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 /** @internal */
 export function Dock() {
@@ -26,4 +28,11 @@ export function Dock() {
       }}
     />
   );
+}
+
+/** @internal */
+export function useDock() {
+  const isToolSettings = useIsToolSettingsTab();
+  const maximizedWidget = useMaximizedWidget();
+  return isToolSettings && !maximizedWidget;
 }

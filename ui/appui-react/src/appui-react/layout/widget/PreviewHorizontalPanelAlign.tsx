@@ -18,9 +18,9 @@ import type {
   HorizontalPanelSide,
   PanelSide,
 } from "../widget-panels/PanelTypes";
-import { useIsMainPanelWidget } from "./Buttons";
 import { WidgetActionDropdownContext } from "../../preview/widget-action-dropdown/MoreButton";
 import { TabBarButton } from "./Button";
+import { useIsMainPanelWidget } from "./useIsMainPanelWidget";
 
 /** Default value used when not provided or disabled. */
 const defaultAlignments = {
