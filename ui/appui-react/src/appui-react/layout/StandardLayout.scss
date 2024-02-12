@@ -25,6 +25,9 @@
   > .nz-appContent {
     grid-row: 1 / -1;
     grid-column: 1 / -1;
+
+    // TODO: clean-up #uifw-contentlayout-div
+    position: relative;
   }
 
   > .nz-toolSettings {
@@ -53,5 +56,29 @@
 
   > .nz-statusBar {
     grid-area: sb;
+  }
+
+  &.nz-pinned-left {
+    > .nz-appContent {
+      grid-column-start: 2;
+    }
+  }
+
+  &.nz-pinned-right {
+    > .nz-appContent {
+      grid-column-end: -2;
+    }
+  }
+
+  &.nz-pinned-top {
+    > .nz-appContent {
+      grid-row-start: 3;
+    }
+  }
+
+  &.nz-pinned-bottom {
+    > .nz-appContent {
+      grid-row-end: -3;
+    }
   }
 }

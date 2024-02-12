@@ -6,6 +6,7 @@
  * @module WidgetPanels
  */
 
+import "./Panel.scss";
 import { assert } from "@itwin/core-bentley";
 import type { RectangleProps } from "@itwin/core-react";
 import { useRefs } from "@itwin/core-react";
@@ -20,7 +21,6 @@ import { PanelTargets } from "../target/PanelTargets";
 import { SectionTargets } from "../target/SectionTargets";
 import { usePreviewHorizontalPanelAlign } from "../widget/PreviewHorizontalPanelAlign";
 import { WidgetPanelGrip } from "./Grip";
-import "./Panel.scss";
 import { PanelSections } from "./PanelSections";
 import type {
   BottomPanelSide,
