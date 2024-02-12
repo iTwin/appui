@@ -47,7 +47,7 @@ import { WidgetOverflowContext } from "./Overflow";
 import { useLayout, useLayoutStore } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
-import { useMaximizedWidget } from "../../preview/enable-maximized-widget/MaximizedWidget";
+import { useMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -120,19 +120,12 @@ function WidgetTabComponent(props: WidgetTabProps) {
     (state) => getWidgetState(state, widgetId).minimized
   );
 
-  const { enabled: enableMaximizedFloatingWidget, maximizedWidget } =
-    useMaximizedWidget();
-  const floatingWidgetId = useFloatingWidgetId();
-  // istanbul ignore next (preview)
-  const maximized =
-    !!floatingWidgetId &&
-    maximizedWidget === floatingWidgetId &&
-    enableMaximizedFloatingWidget;
+  const maximizedWidget = useMaximizedWidget();
 
   const resizeObserverRef = useResizeObserver<HTMLDivElement>(
     widgetTabsEntryContext?.onResize
   );
-  const pointerCaptorRef = useTabInteractions({ clickOnly: maximized });
+  const pointerCaptorRef = useTabInteractions({ clickOnly: maximizedWidget });
   const refs = useRefs<HTMLDivElement>(resizeObserverRef, pointerCaptorRef);
 
   const active = activeTabId === id;

@@ -8,25 +8,22 @@
 
 import * as React from "react";
 
-/** Maximized widget feature state.
- * @internal
- */
-export function useMaximizedWidget() {
-  return React.useContext(MaximizedWidgetContext);
-}
-
 interface MaximizedWidgetState {
   enabled: boolean | undefined;
   maximizedWidget: string | undefined;
   setMaximizedWidget: (id: string | undefined) => void;
 }
 
-/** Context containing configuration and state for maximized widget feature. */
-const MaximizedWidgetContext = React.createContext<MaximizedWidgetState>({
-  enabled: false,
-  maximizedWidget: undefined,
-  setMaximizedWidget: () => {},
-});
+/** Context containing configuration and state for maximized widget feature.
+ * @internal
+ */
+export const MaximizedWidgetContext = React.createContext<MaximizedWidgetState>(
+  {
+    enabled: false,
+    maximizedWidget: undefined,
+    setMaximizedWidget: () => {},
+  }
+);
 
 interface MaximizedWidgetProviderProps {
   enabled?: boolean;
