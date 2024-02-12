@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@import "../../preview/enable-maximized-widget/maximizedWidget";
 @import "variables";
 
 .nz-widgetPanels-panel {
@@ -325,6 +326,8 @@
       width: 100%;
     }
   }
+
+  @include preview-maximized-panel;
 }
 
 .nz-widgetPanels_panelContainer {

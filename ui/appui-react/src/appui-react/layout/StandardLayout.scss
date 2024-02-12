@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@import "../preview/enable-maximized-widget/maximizedWidget";
 
 .nz-standardLayout {
   position: relative;
@@ -81,4 +82,6 @@
       grid-row-end: -3;
     }
   }
+
+  @include preview-maximized-widget-layout;
 }

@@ -1,0 +1,35 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+@import "~@itwin/core-react/lib/cjs/core-react/z-index";
+
+@mixin preview-maximized-widget-layout {
+  > .nz-leftPanel,
+  > .nz-rightPanel,
+  > .nz-topPanel,
+  > .nz-bottomPanel {
+    &.preview-maximized-panel {
+      grid-row: 1 / -1;
+      grid-column: 1 / -1;
+
+      z-index: uicore-get-z-index(dragged-widget) + 1;
+    }
+  }
+}
+
+@mixin preview-maximized-panel {
+  &.preview-maximized-panel {
+    height: 100%;
+  }
+}
+
+@mixin preview-maximized-sibling {
+  &.preview-maximized-section {
+    flex: 1;
+  }
+
+  &.preview-maximized-section-sibling {
+    display: none;
+  }
+}

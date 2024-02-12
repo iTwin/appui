@@ -14,6 +14,11 @@ import { NineZoneDispatchContext } from "../base/NineZone";
 import { PanelWidget } from "../widget/PanelWidget";
 import { useLayout } from "../base/LayoutStore";
 import { isHorizontalPanelSide, PanelSideContext } from "./Panel";
+import type { WidgetState } from "../state/WidgetState";
+import {
+  useIsMaximizedPanel,
+  useMaximizedSection,
+} from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 // istanbul ignore next
 function PanelSplitter() {
@@ -127,54 +132,74 @@ export function PanelSections() {
   const side = React.useContext(PanelSideContext);
   assert(!!side);
 
-  const panel = useLayout((state) => {
-    const p = state.panels[side];
-    return {
-      splitterPercent: p.splitterPercent,
-      widgets: p.widgets,
-    };
-  }, true);
+  const widgets = useLayout((state) => {
+    return state.panels[side].widgets;
+  });
 
-  const isHorizontal = isHorizontalPanelSide(side);
-
-  const splitterControlledPanelStyle = React.useMemo(() => {
-    // istanbul ignore next
-    const splitterPercent = panel.splitterPercent ?? 50;
-    if (isHorizontal) {
-      return {
-        width: `${splitterPercent}%`,
-      };
-    }
-    return {
-      height: `${splitterPercent}%`,
-    };
-  }, [isHorizontal, panel.splitterPercent]);
-
-  /* istanbul ignore next */
   return (
     <>
-      {panel.widgets.map((widgetId, index, array) => {
-        const last = index === array.length - 1;
-
-        const sectionClassName = classnames(
-          `nz-panel-section-${index}`,
-          isHorizontal
-            ? "nz-widgetPanels-horizontal"
-            : "nz-widgetPanels-vertical",
-          last && 0 === index && "nz-panel-section-full-size"
-        );
-
-        const panelStyle =
-          index === 0 && array.length > 1
-            ? splitterControlledPanelStyle
-            : undefined;
+      {widgets.map((widgetId, index, array) => {
         return (
-          <div key={widgetId} className={sectionClassName} style={panelStyle}>
-            <PanelWidget widgetId={widgetId} />
-            {!last && 0 === index && <PanelSplitter />}
-          </div>
+          <PanelSection
+            key={widgetId}
+            widgetId={widgetId}
+            index={index}
+            sectionLength={array.length}
+          />
         );
       })}
     </>
   );
+}
+
+interface PanelSectionProps {
+  widgetId: WidgetState["id"];
+  index: number;
+  sectionLength: number;
+}
+
+function PanelSection({ widgetId, index, sectionLength }: PanelSectionProps) {
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
+
+  const splitterPercent = useLayout((state) => {
+    return state.panels[side].splitterPercent ?? 50;
+  });
+
+  const maximizedSection = useMaximizedSection(widgetId);
+  const isMaximizedPanel = useIsMaximizedPanel();
+
+  const isHorizontal = isHorizontalPanelSide(side);
+
+  const last = index === sectionLength - 1;
+  const className = classnames(
+    "nz-widgetPanels-panelSections_section",
+    `nz-panel-section-${index}`,
+    isHorizontal ? "nz-widgetPanels-horizontal" : "nz-widgetPanels-vertical",
+    last && 0 === index && "nz-panel-section-full-size",
+    maximizedSection
+  );
+
+  const hasSplitter = !last && 0 === index;
+  const panelStyle =
+    hasSplitter && !isMaximizedPanel
+      ? getSplitterStyle(isHorizontal, splitterPercent)
+      : undefined;
+  return (
+    <div className={className} style={panelStyle}>
+      <PanelWidget widgetId={widgetId} />
+      {hasSplitter && <PanelSplitter />}
+    </div>
+  );
+}
+
+function getSplitterStyle(isHorizontal: boolean, splitterPercent: number) {
+  if (isHorizontal) {
+    return {
+      width: `${splitterPercent}%`,
+    } as const;
+  }
+  return {
+    height: `${splitterPercent}%`,
+  } as const;
 }

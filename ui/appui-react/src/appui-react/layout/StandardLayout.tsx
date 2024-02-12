@@ -13,6 +13,7 @@ import type { CommonProps } from "@itwin/core-react";
 import { useLayout } from "./base/LayoutStore";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import { usePanelsAutoCollapse } from "./widget-panels/AppContent";
+import { useMaximizedWidgetLayout } from "../preview/enable-maximized-widget/useMaximizedWidget";
 
 interface StandardLayoutProps extends CommonProps {
   /** Main content area of the application (i.e. viewport) that will change bounds based on panel pinned state. */
@@ -32,6 +33,7 @@ interface StandardLayoutProps extends CommonProps {
  */
 export function StandardLayout(props: StandardLayoutProps) {
   const pinned = usePinned();
+  const maximizedWidget = useMaximizedWidgetLayout();
   const appContentRef = usePanelsAutoCollapse<HTMLDivElement>();
   const className = classnames("nz-standardLayout", pinned, props.className);
   return (
@@ -40,10 +42,18 @@ export function StandardLayout(props: StandardLayoutProps) {
         {props.children}
       </div>
       <div className="nz-centerContent">{props.centerContent}</div>
-      <div className="nz-leftPanel">{props.leftPanel}</div>
-      <div className="nz-rightPanel">{props.rightPanel}</div>
-      <div className="nz-topPanel">{props.topPanel}</div>
-      <div className="nz-bottomPanel">{props.bottomPanel}</div>
+      <div className={classnames("nz-leftPanel", maximizedWidget.left)}>
+        {props.leftPanel}
+      </div>
+      <div className={classnames("nz-rightPanel", maximizedWidget.right)}>
+        {props.rightPanel}
+      </div>
+      <div className={classnames("nz-topPanel", maximizedWidget.top)}>
+        {props.topPanel}
+      </div>
+      <div className={classnames("nz-bottomPanel", maximizedWidget.bottom)}>
+        {props.bottomPanel}
+      </div>
       <div className="nz-toolSettings">{props.toolSettings}</div>
       <div className="nz-statusBar">{props.statusBar}</div>
     </div>

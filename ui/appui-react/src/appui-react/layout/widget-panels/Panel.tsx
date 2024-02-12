@@ -31,6 +31,7 @@ import type {
   TopPanelSide,
 } from "./PanelTypes";
 import { useAnimatePanel } from "./useAnimatePanel";
+import { useMaximizedPanel } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 /** Properties of [[WidgetPanelProvider]] component.
  * @internal
@@ -64,6 +65,7 @@ export function WidgetPanel() {
   assert(!!side);
   const { enabled: previewHorizontalPanelAlignmentEnabled, alignments } =
     usePreviewHorizontalPanelAlign();
+  const maximizedPanel = useMaximizedPanel();
 
   const previewHorizontalPanelAlignAttributes = React.useMemo(
     () =>
@@ -138,24 +140,24 @@ export function WidgetPanel() {
     panel.span && "nz-span",
     spanTop && "nz-span-top",
     spanBottom && "nz-span-bottom",
-    transition && `nz-${transition}`
+    transition && `nz-${transition}`,
+    maximizedPanel
   );
 
   const singleSection = panel.widgets.length === 1;
   const showSectionTargets = singleSection && !panel.collapsed;
   const ref = useRefs(elementRef, panelRef);
 
-  /* istanbul ignore next */
   return (
     <WidgetPanelContext.Provider value={widgetPanel}>
       <div
         className={className}
         ref={ref}
-        style={style}
+        style={maximizedPanel ? {} : style}
         onTransitionEnd={handleTransitionEnd}
         {...previewHorizontalPanelAlignAttributes}
       >
-        <div className="nz-content" style={contentStyle}>
+        <div className="nz-content" style={maximizedPanel ? {} : contentStyle}>
           {singleSection && <SectionOutline sectionIndex={0} />}
           <PanelSections />
           {singleSection && <SectionOutline sectionIndex={1} />}
