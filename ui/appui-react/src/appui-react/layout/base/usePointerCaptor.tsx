@@ -31,7 +31,8 @@ export const usePointerCaptor = <T extends HTMLElement>(
   const isDown = React.useRef(false);
   React.useEffect(() => {
     const mouseMove = (e: MouseEvent) => {
-      isDown.current && onPointerMove && onPointerMove(e, e);
+      if (e.buttons !== 2)
+        isDown.current && onPointerMove && onPointerMove(e, e);
     };
     document.addEventListener("mousemove", mouseMove);
     return () => {
