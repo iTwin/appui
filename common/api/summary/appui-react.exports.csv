@@ -204,6 +204,7 @@ public;FrameworkState
 beta;FrameworkToolAdmin 
 public;FrameworkToolSettings
 public;FrameworkUiAdmin 
+deprecated;FrameworkUiAdmin 
 public;FrameworkVisibility
 internal;FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings"
 public;FrontstageActivatedEvent 
@@ -223,6 +224,7 @@ beta;getFeatureOverrideSyncEventIds(): string[]
 internal;getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]): string
 beta;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue
 beta;getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue
+internal;getKeyinsFromToolList(toolList: ToolList, localizedKeyinPreference?: Keyin.KeyinFieldLocalization): Keyin.KeyinEntry[]
 beta;getListPanel(props: ListPickerProps): React_2.ReactNode
 internal;getPanelSectionId(location: StagePanelLocation, section: StagePanelSection): PanelSectionId
 internal;getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray
@@ -237,6 +239,7 @@ public;HideIsolateEmphasizeAction
 public;class HideIsolateEmphasizeActionHandler
 public;HideIsolateEmphasizeManager 
 alpha;HTMLElementPopup 
+deprecated;HTMLElementPopup 
 alpha;HTMLElementPopupProps 
 public;IModelConnectedViewport: ConnectedComponent
 beta;IModelConnectedViewSelector: ConnectedComponent
@@ -275,8 +278,12 @@ public;KeyboardShortcutMenu
 public;KeyboardShortcutMenuEvent 
 public;KeyboardShortcutMenuState
 public;KeyboardShortcutProps 
+public;Keyin
+internal;KeyinFieldLocalization
 public;KeyinEntry
+deprecated;KeyinEntry
 public;KeyinFieldLocalization
+deprecated;KeyinFieldLocalization
 internal;KeyinPalettePanel({ keyins, onKeyinExecuted, historyLength: allowedHistoryLength, }: KeyinPalettePanelProps): React_2.JSX.Element
 public;KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted, }: KeyinPalettePopupProps): React_2.JSX.Element
 public;KeyinPalettePopupProps
@@ -400,6 +407,7 @@ alpha;SheetNavigationAid
 alpha;SheetNavigationAidControl 
 alpha;SheetNavigationProps 
 alpha;SheetsModalFrontstage 
+public;ShowComponentOptions
 public;SnapModeField: ConnectedComponent
 alpha;SolarTimelineDataProvider 
 public;SplitPane(props: SplitPaneProps): React_2.JSX.Element
@@ -620,3 +628,4 @@ public;WidgetState
 public;WidgetStateChangedEvent 
 public;WidgetStateChangedEventArgs
 public;WidgetType
+public;WrapperContext: React_2.Context
