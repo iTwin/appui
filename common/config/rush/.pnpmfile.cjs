@@ -26,13 +26,11 @@ const forcedDep = {};
       "@itwin/express-server",
       "@itwin/frontend-devtools",
       "@itwin/hypermodeling-frontend",
-      "@itwin/map-layers-auth",
       "@itwin/presentation-common",
       "@itwin/webgl-compatibility",
     ],
     "4.0.0-dev.104",
   ],
-  [["@itwin/map-layers"], "5.0.0-dev.2"],
   [["@itwin/build-tools"], "4.0.0-dev.87"],
   [["electron"], "^23.0.0"],
   [["typedoc"], "0.23.28"],
@@ -49,18 +47,6 @@ const forcedDep = {};
 });
 
 function readPackage(pkg) {
-  // Hacky mess: For external packages to this monorepo that have peer dependencies on packages
-  // in this repo, we need to do some magic in order to get the peerDeps to point to a correct
-  // version of the packages. Update the pkg.json real dependency list to
-  // Note that these dependencies are only ever allowed for testing purposes and should not be the
-  // dependency of any published packages.
-  if (pkg.name == "@itwin/map-layers") {
-    pkg.dependencies["@itwin/appui-react"] = "workspace:*";
-    pkg.dependencies["@itwin/components-react"] = "workspace:*";
-    pkg.dependencies["@itwin/core-react"] = "workspace:*";
-    pkg.dependencies["@itwin/imodel-components-react"] = "workspace:*";
-  }
-
   for (const dep of Object.keys(forcedDep)) {
     if (pkg.dependencies?.[dep]) {
       pkg.dependencies[dep] = forcedDep[dep];
