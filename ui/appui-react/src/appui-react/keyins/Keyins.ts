@@ -5,6 +5,7 @@
 import type { ToolList } from "@itwin/core-frontend";
 import type { IMatch } from "../utils/matchesWords";
 
+/** @public */
 export namespace Keyin {
   /**
    * Defines a keyin entry to show/filter in UI

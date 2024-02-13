@@ -75,15 +75,12 @@ export class FrameworkUiAdmin extends UiAdmin {
     Keyin.KeyinFieldLocalization.NonLocalized;
 
   /**
-   * @deprecated in 4.10.x. Use {@link Keyin.localizedKeyinPreference} instead.
+   * @deprecated in 4.10.x. Gathering and filtering of keyins is now left up to the user.
    */
   public get localizedKeyinPreference(): Keyin.KeyinFieldLocalization {
     return this._localizedKeyinPreference;
   }
 
-  /**
-   * @deprecated in 4.10.x. Use {@link Keyin.localizedKeyinPreference} instead.
-   */
   public set localizedKeyinPreference(
     preference: Keyin.KeyinFieldLocalization
   ) {
@@ -98,14 +95,14 @@ export class FrameworkUiAdmin extends UiAdmin {
   }
 
   /** Determines if focus is set to Home
-   * @deprecated in 4.10.x. Please use {@link UiFramework.keyboardShortcuts.isFocusOnHome}
+   * @deprecated in 4.10.x. Please use {@link UiFramework.keyboardShortcuts().isFocusOnHome}
    */
   public override get isFocusOnHome(): boolean {
     return UiFramework.keyboardShortcuts.isFocusOnHome;
   }
 
   /** Sets focus to Home
-   * @deprecated in 4.10.x. Please use {@link UiFramework.keyboardShortcuts.setFocusToHome}
+   * @deprecated in 4.10.x. Please use {@link UiFramework.keyboardShortcuts().setFocusToHome}
    */
   public override setFocusToHome(): void {
     UiFramework.keyboardShortcuts.setFocusToHome();
@@ -156,7 +153,7 @@ export class FrameworkUiAdmin extends UiAdmin {
   }
 
   /**
-   * @deprecated in 4.10.x. Construct your own {@link: Keyin.KeyinEntry[]} via {@link IModelApp.tools.getToolList}.
+   * @deprecated in 4.10.x. Construct your own {@link: Keyin.KeyinEntry[]} via {@link @itwin/core-frontend#IModelApp.tools.getToolList}.
    */
   public getKeyins(): Keyin.KeyinEntry[] {
     const tools = IModelApp.tools.getToolList();
@@ -184,7 +181,7 @@ export class FrameworkUiAdmin extends UiAdmin {
 
   /**
    * Hides the Key-in Palette.
-   * @deprecated in 4.10.x. Use {@link UiFramework.hideKeyinPalette}
+   * @deprecated in 4.10.x. Use {@link UiFramework.hideComponent}
    */
   public override hideKeyinPalette(): boolean {
     if (!this.featureFlags.allowKeyinPalette) return false;

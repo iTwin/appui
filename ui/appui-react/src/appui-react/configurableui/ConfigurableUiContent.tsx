@@ -43,6 +43,7 @@ export interface ConfigurableUiContentProps extends CommonProps {
 
 /**
  * Allows children to get the bounds or other properties of the wrapper element.
+ * @public
  */
 export const WrapperContext = React.createContext<HTMLElement>(document.body);
 

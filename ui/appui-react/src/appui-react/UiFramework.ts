@@ -950,7 +950,7 @@ export class UiFramework {
   }
 
   /**
-   * Hides a Card displayed with {@link showCard}
+   * Hides a Card displayed with {@link UiFramework.showCard}
    */
   public static hideCard() {
     PopupManager.hideCard();
@@ -1029,7 +1029,7 @@ export class UiFramework {
     );
   }
 
-  /** Hides a toolbar displayed via {@link showToolbar} */
+  /** Hides a toolbar displayed via {@link UiFramework.showToolbar} */
   public static hideToolbar() {
     return PopupManager.hideToolbar()
   }
@@ -1134,7 +1134,7 @@ export class UiFramework {
 
 
   /**
-   * Hides the Component previously shown with {@link showComponent}
+   * Hides the Component previously shown with {@link UiFramework.showComponent}
    */
   public static hideComponent(): boolean {
     return PopupManager.hideComponent();

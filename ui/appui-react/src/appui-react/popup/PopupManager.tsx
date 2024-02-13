@@ -52,7 +52,7 @@ export interface PopupInfo {
 }
 
 /**
- * @internal
+ * @public
  */
 export interface ShowComponentOptions {
   onCancel: OnCancelFunc;
