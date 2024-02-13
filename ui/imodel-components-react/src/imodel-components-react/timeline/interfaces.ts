@@ -8,7 +8,6 @@
 
 import type { ColorDef } from "@itwin/core-common";
 import type { ScreenViewport } from "@itwin/core-frontend";
-import type { GenericUiEventArgs } from "@itwin/appui-abstract";
 
 /** The timeline scale.
  * @public
@@ -85,7 +84,8 @@ export enum TimelinePausePlayAction {
 /** Args for event to pause or play the timeline component
  * @public
  */
-export interface TimelinePausePlayArgs extends GenericUiEventArgs {
+export interface TimelinePausePlayArgs {
+  uiComponentId: string
   timelineAction: TimelinePausePlayAction;
 }
 /** Interface for a timeline data provider class

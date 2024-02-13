@@ -21,7 +21,10 @@ import type {
 } from "../../imodel-components-react/timeline/interfaces";
 import { TimelinePausePlayAction } from "../../imodel-components-react/timeline/interfaces";
 import type { TimelineMenuItemProps } from "../../imodel-components-react/timeline/TimelineComponent";
-import { TimelineComponent } from "../../imodel-components-react/timeline/TimelineComponent";
+import {
+  emitTimelineControlEvent,
+  TimelineComponent,
+} from "../../imodel-components-react/timeline/TimelineComponent";
 import { TestUtils } from "../TestUtils";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import userEvent from "@testing-library/user-event";
@@ -549,6 +552,47 @@ describe("<TimelineComponent showDuration={true} />", () => {
       uiComponentId: "TestTimeline",
       timelineAction: TimelinePausePlayAction.Play,
     };
+    emitTimelineControlEvent(args);
+
+    // React18 is scheduling setStates,
+    // Wait for the playing to effectively start, otherwise "Pause" event wouldn't do anything.
+    await waitFor(() => {
+      expect(screen.getAllByTitle("timeline.pause")).lengthOf(2);
+    });
+
+    args.timelineAction = TimelinePausePlayAction.Pause;
+    emitTimelineControlEvent(args);
+    args.timelineAction = TimelinePausePlayAction.Toggle;
+    emitTimelineControlEvent(args);
+    expect(spyOnPlayPause.calledThrice).to.be.true;
+    emitTimelineControlEvent({
+      uiComponentId: "TestTimeline",
+    } as TimelinePausePlayArgs);
+    // onPlayPause should not be called again, since the args don't include an action
+    expect(spyOnPlayPause.calledThrice).to.be.true;
+  });
+
+  it("deprecated UiAdmin.sendUiEvent forwards to TimelineEvent", async () => {
+    fakeTimers = sinon.useFakeTimers();
+    const dataProvider = new TestTimelineDataProvider();
+    const spyOnPlayPause = sinon.spy();
+    render(
+      <TimelineComponent
+        initialDuration={dataProvider.initialDuration}
+        totalDuration={dataProvider.duration}
+        minimized={true}
+        showDuration={true}
+        onChange={dataProvider.onAnimationFractionChanged}
+        onJump={dataProvider.onJump}
+        onPlayPause={spyOnPlayPause}
+        componentId={"TestTimeline"}
+      />
+    );
+
+    const args: TimelinePausePlayArgs = {
+      uiComponentId: "TestTimeline",
+      timelineAction: TimelinePausePlayAction.Play,
+    };
     UiAdmin.sendUiEvent(args);
 
     // React18 is scheduling setStates,
@@ -566,6 +610,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     // onPlayPause should not be called again, since the args don't include an action
     expect(spyOnPlayPause.calledThrice).to.be.true;
   });
+
   it("re-render on repeat change", () => {
     const dataProvider = new TestTimelineDataProvider();
     const renderedComponent = render(

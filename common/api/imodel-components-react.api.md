@@ -10,7 +10,6 @@ import type { CommonProps } from '@itwin/core-react';
 import type { DateFormatOptions } from '@itwin/components-react';
 import type { FormatProps } from '@itwin/core-quantity';
 import { FormatterSpec } from '@itwin/core-quantity';
-import type { GenericUiEventArgs } from '@itwin/appui-abstract';
 import { HSVColor } from '@itwin/core-common';
 import type { Id64String } from '@itwin/core-bentley';
 import type { IModelConnection } from '@itwin/core-frontend';
@@ -439,6 +438,9 @@ export interface DrawingViewportChangeEventArgs {
     // (undocumented)
     rotation: Matrix3d;
 }
+
+// @public
+export function emitTimelineControlEvent({ uiComponentId, timelineAction, }: TimelinePausePlayArgs): void;
 
 // @public
 export enum Face {
@@ -933,9 +935,11 @@ export enum TimelinePausePlayAction {
 }
 
 // @public
-export interface TimelinePausePlayArgs extends GenericUiEventArgs {
+export interface TimelinePausePlayArgs {
     // (undocumented)
     timelineAction: TimelinePausePlayAction;
+    // (undocumented)
+    uiComponentId: string;
 }
 
 // @public
