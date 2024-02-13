@@ -12,8 +12,8 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { useLayout } from "./base/LayoutStore";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
-import { usePanelsAutoCollapse } from "./widget-panels/AppContent";
 import { useMaximizedWidgetLayout } from "../preview/enable-maximized-widget/useMaximizedWidget";
+import { usePanelsAutoCollapse } from "./widget-panels/usePanelsAutoCollapse";
 
 interface StandardLayoutProps extends CommonProps {
   /** Main content area of the application (i.e. viewport) that will change bounds based on panel pinned state. */

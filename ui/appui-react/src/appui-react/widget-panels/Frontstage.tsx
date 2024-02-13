@@ -23,7 +23,7 @@ import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManag
 import { useEscapeSetFocusToHome } from "../hooks/useEscapeSetFocusToHome";
 import { useUiVisibility } from "../hooks/useUiVisibility";
 import type { LayoutStore } from "../layout/base/LayoutStore";
-import { createLayoutStore, useLayout } from "../layout/base/LayoutStore";
+import { createLayoutStore } from "../layout/base/LayoutStore";
 import type { NineZoneDispatch, NineZoneLabels } from "../layout/base/NineZone";
 import { getUniqueId, NineZone } from "../layout/base/NineZone";
 import { activateDroppedTab } from "../layout/state/activateDroppedTab";
@@ -57,11 +57,7 @@ import {
 import { WidgetPanelsStatusBar } from "./StatusBar";
 import { WidgetPanelsTab } from "./Tab";
 import { WidgetPanelsToolbars } from "./Toolbars";
-import {
-  ToolSettingsContent,
-  useShouldRenderDockedToolSettings,
-  WidgetPanelsToolSettings,
-} from "./ToolSettings";
+import { ToolSettingsContent, WidgetPanelsToolSettings } from "./ToolSettings";
 import { MaximizedWidgetProvider } from "../preview/enable-maximized-widget/MaximizedWidget";
 import { StandardLayout } from "../layout/StandardLayout";
 import { WidgetPanelProvider } from "../layout/widget-panels/Panel";
@@ -74,17 +70,6 @@ function WidgetPanelsFrontstageComponent() {
   const uiIsVisible = useUiVisibility();
   const previewFeatures = usePreviewFeatures();
   useCursor();
-
-  const previewContentAlwaysMaxSizeDockedClass =
-    useShouldRenderDockedToolSettings() &&
-    previewFeatures.contentAlwaysMaxSize &&
-    "preview-contentAlwaysMaxSize-toolSettingsDocked";
-  const previewContentAlwaysMaxSizeTopPanelClass =
-    useLayout((state) => {
-      return state.panels.top.widgets.length > 0;
-    }) &&
-    previewFeatures.contentAlwaysMaxSize &&
-    "preview-contentAlwaysMaxSize-topPanelActive";
 
   return (
     <MaximizedWidgetProvider
