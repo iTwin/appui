@@ -61,7 +61,7 @@
     "eslint-plugin-react-refresh": "^0.3.4",
     "eslint-plugin-storybook": "^0.6.15",
     "prop-types": "^15.8.1",
-    "storybook": "^7.4.6",
+    "storybook": "^7.6.14",
     "typescript": "~5.0.2",
     "vite": "^4.5.2",
     "vite-plugin-static-copy": "^0.17.0",
