@@ -12,6 +12,11 @@ Table of contents:
 ### Changes
 
 - Update styling of tool settings components. #658
+- Disable widget dragging with right-click. #730
+
+### Fixes
+
+- Fix the issue when right-click + left-click starts a widget drag interaction. #730
 
 ## @itwin/components-react
 
