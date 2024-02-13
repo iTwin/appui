@@ -17,7 +17,6 @@ const forcedDep = {};
       "@itwin/core-quantity",
       "@itwin/core-telemetry",
       "@itwin/core-webpack-tools",
-      "@itwin/ecschema-metadata",
       "@itwin/ecschema-rpcinterface-common",
       "@itwin/ecschema-rpcinterface-impl",
       "@itwin/editor-frontend",

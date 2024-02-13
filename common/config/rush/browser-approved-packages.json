@@ -91,10 +91,6 @@
       "allowedCategories": [ "frontend" ]
     },
     {
-      "name": "@itwin/ecschema-metadata",
-      "allowedCategories": [ "frontend", "internal" ]
-    },
-    {
       "name": "@itwin/ecschema-rpcinterface-common",
       "allowedCategories": [ "internal" ]
     },

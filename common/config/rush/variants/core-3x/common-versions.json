@@ -16,7 +16,6 @@
     "@itwin/core-quantity": "^3.7.0",
     "@itwin/core-telemetry": "^3.7.0",
     "@itwin/core-webpack-tools": "^3.7.0",
-    "@itwin/ecschema-metadata": "^3.7.0",
     "@itwin/ecschema-rpcinterface-common": "^3.7.0",
     "@itwin/ecschema-rpcinterface-impl": "^3.7.0",
     "@itwin/editor-frontend": "^3.7.0",
