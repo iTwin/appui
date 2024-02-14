@@ -218,6 +218,7 @@ export class MessageManager {
     options?: ToastOptions;
     settings?: ToasterSettings;
     animateOutToElement?: HTMLElement;
+    // This is set by toast renderer to expose close function.
     close?: () => void;
   }>();
 
@@ -386,7 +387,6 @@ export class MessageManager {
       (msg) => !this._toastCloseCallbacks.find((m) => m.id === msg.id)
     );
     messagesToAdd.forEach((msg) => {
-      // eslint-disable-next-line deprecation/deprecation
       const displayedMessage = MessageManager.displayMessage(
         msg.messageDetails,
         {
