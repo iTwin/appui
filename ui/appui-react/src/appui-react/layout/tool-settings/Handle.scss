@@ -4,20 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 
 .nz-toolSettings-handle {
-  $dot-size: 0.25em;
-  $dot-gap: $dot-size;
-
-  height: 100%;
-  width: 2em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  height: var(--_uifw-tool-settings-docked-height);
+  width: var(--_uifw-tool-settings-docked-height);
+  display: grid;
+  place-items: center;
   cursor: grab;
   flex-shrink: 0;
 
-  svg {
-    width: 2em;
-    height: 2em;
+  &:active {
+    cursor: grabbing;
   }
 }

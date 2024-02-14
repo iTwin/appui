@@ -101,7 +101,7 @@ import {
   StandardContentLayouts,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import { ComponentGenerator } from "@itwin/appui-react/lib/cjs/appui-react/uiprovider/ComponentGenerator";
+import { ComponentGenerator } from "@itwin/appui-react/lib/esm/appui-react/uiprovider/ComponentGenerator";
 import { UnitSystemKey } from "@itwin/core-quantity";
 import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";
 import { TreeWidgetComponent } from "../widgets/TreeWidget";
@@ -1453,7 +1453,7 @@ export class ComponentExamplesProvider {
 
   private static get uiProviderSample(): ComponentExampleCategory {
     const testUiLayoutDataProvider = new TestUiDataProvider();
-    const componentGenerator = new ComponentGenerator(testUiLayoutDataProvider);
+    const componentGenerator = new ComponentGenerator(testUiLayoutDataProvider); // TODO: internal types should not be used in public types
 
     return {
       title: "UiProvider",
@@ -1461,7 +1461,9 @@ export class ComponentExamplesProvider {
         createComponentExample(
           "Tool Settings Grid Container",
           undefined,
-          <ToolSettingsGridContainer componentGenerator={componentGenerator} />
+          <ToolSettingsGridContainer
+            componentGenerator={componentGenerator as any}
+          />
         ),
       ],
     };

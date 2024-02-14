@@ -74,7 +74,7 @@ test.describe("tool settings", () => {
   });
 
   test("should hide/show (widget tool settings)", async ({ page }) => {
-    const dockedToolSettingsHandle = page.getByTitle("Undock tool settings");
+    const dockedToolSettingsHandle = page.getByTitle("Drag to undock");
     const widgetToolSettings = tabLocator(page, "Tool Settings");
 
     // Float docked tool settings.
@@ -140,7 +140,7 @@ test.describe("tool settings", () => {
     context,
     page,
   }) => {
-    const dockedToolSettingsHandle = page.getByTitle("Undock tool settings");
+    const dockedToolSettingsHandle = page.getByTitle("Drag to undock");
     const widgetToolSettings = tabLocator(page, "Tool Settings");
 
     // Float docked tool settings.

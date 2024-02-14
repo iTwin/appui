@@ -274,7 +274,7 @@
       "pinPanel": "Pin widget panel",
       "sendHome": "Send to panel",
       "resizeGrip": "Resize widget panel",
-      "toolSettingsHandle": "Undock tool settings",
+      "toolSettingsHandle": "Drag to undock",
       "unpinPanel": "Unpin widget panel",
       "popoutActiveTab": "Pop out active widget tab"
     },

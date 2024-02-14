@@ -1,1 +1,6 @@
 blank_issues_enabled: false
+contact_links:
+  - name: Ask a question ❓
+    url: https://github.com/iTwin/appui/discussions
+    about: |
+      Please use the discussions page for asking questions about how to use AppUI and best practices.

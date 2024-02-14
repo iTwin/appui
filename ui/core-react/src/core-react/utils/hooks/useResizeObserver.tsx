@@ -16,7 +16,7 @@ import { useRefs } from "./useRefs";
 export function useResizeObserver<T extends Element>(
   onResize?: (width: number, height: number) => void
 ) {
-  const [bounds, setBounds] = React.useState({ width: 0, height: 0 });
+  const bounds = React.useRef({ width: 0, height: 0 });
   const resizeObserver = React.useRef<ResizeObserver | null>(null);
   const rafRef = React.useRef(0); // set to non-zero when requestAnimationFrame processing is active
   const isMountedRef = React.useRef(false);
@@ -50,13 +50,14 @@ export function useResizeObserver<T extends Element>(
       // istanbul ignore else
       if (
         isMountedRef.current &&
-        (bounds.width !== newBounds.width || bounds.height !== newBounds.height)
+        (bounds.current.width !== newBounds.width ||
+          bounds.current.height !== newBounds.height)
       ) {
-        setBounds(newBounds);
+        bounds.current = newBounds;
         onResize && onResize(newBounds.width, newBounds.height);
       }
     },
-    [onResize, bounds.height, bounds.width]
+    [onResize]
   );
 
   const handleResize = React.useCallback(
@@ -102,7 +103,7 @@ export function useResizeObserver<T extends Element>(
         resizeObserver.current.observe(instance);
         const newBounds = instance.getBoundingClientRect();
         onResize && onResize(newBounds.width, newBounds.height);
-        setBounds(newBounds);
+        bounds.current = newBounds;
       }
 
       return () => {
@@ -122,13 +123,14 @@ export function useResizeObserver<T extends Element>(
       // istanbul ignore if
       if (
         newBounds &&
-        (bounds.width !== newBounds.width || bounds.height !== newBounds.height)
+        (bounds.current.width !== newBounds.width ||
+          bounds.current.height !== newBounds.height)
       ) {
-        setBounds(newBounds);
+        bounds.current = newBounds;
         onResize && onResize(newBounds.width, newBounds.height);
       }
     },
-    [bounds.height, bounds.width, onResize]
+    [onResize]
   );
 
   const ref = useRefs(handleRef, observerRef);

@@ -15,8 +15,11 @@ export namespace Storybook {
   }
 }
 
-const getDemoIModel = (name: string) => {
-  const model = demoIModels.find((model) => model.name === name);
+const getDemoIModel = (name: string): DemoIModel | undefined => {
+  if (name === "blank") {
+    return "blank";
+  }
+  const model = remoteIModels.find((model) => model.name === name);
   return model;
 };
 
@@ -37,14 +40,16 @@ export function useDemoIModel() {
   return React.useContext(DemoIModelContext);
 }
 
-export interface DemoIModel {
+export interface RemoteIModel {
   name: string;
   label: string;
   iTwinId: string;
   iModelId: string;
 }
 
-export const demoIModels: DemoIModel[] = [
+export type DemoIModel = RemoteIModel | "blank";
+
+export const remoteIModels: RemoteIModel[] = [
   {
     name: "metrostation",
     label: "Metrostation",
@@ -114,8 +119,15 @@ export const demoIModelGlobalType = {
     title: "Demo iModel",
     icon: "doclist",
     items: [
-      { title: "No iModel", value: "no" },
-      ...demoIModels.map<Storybook.MenuItem>((model) => ({
+      {
+        title: "Reset",
+        type: "reset",
+      },
+      {
+        title: "Blank iModel",
+        value: "blank",
+      },
+      ...remoteIModels.map<Storybook.MenuItem>((model) => ({
         title: model.label,
         value: model.name,
       })),

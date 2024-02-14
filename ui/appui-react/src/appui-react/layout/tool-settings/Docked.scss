@@ -4,13 +4,15 @@
  *--------------------------------------------------------------------------------------------*/
 
 .nz-toolSettings-docked {
-  height: 2.5em;
-  width: 100%;
+  --_uifw-tool-settings-docked-height: var(--iui-component-height);
 
+  height: var(--_uifw-tool-settings-docked-height);
+  width: 100%;
   display: flex;
+  gap: var(--iui-size-m);
   position: relative;
-  background: var(--iui-color-background);
-  border: 1px solid var(--iui-color-border);
+  background-color: var(--iui-color-background);
+  border-block-end: 1px solid var(--iui-color-border);
 
   > .nz-container {
     display: flex;
@@ -29,20 +31,19 @@
 .nz-toolSettings-docked_container {
   display: grid;
   grid-template-columns: auto 1fr;
-  row-gap: 4px;
-  column-gap: 4px;
+  gap: var(--iui-size-2xs);
   align-items: flex-start;
 }
 
 .toolsettings-appear {
-  opacity: 0.1;
-  transition: opacity 150ms ease-in-out;
+  opacity: var(--iui-opacity-6);
+  transition: opacity var(--iui-duration-1) ease-in-out;
   transform: translateY(-100%);
-}
 
-.toolsettings-appear-active {
-  opacity: 0.7;
-  transition: opacity 150ms ease-in-out;
-  transform: translateY(0);
-  transition: transform 400ms ease-out;
+  &-active {
+    opacity: var(--iui-opacity-2);
+    transform: translateY(0);
+    transition: opacity var(--iui-duration-1) ease-in-out,
+      transform var(--iui-duration-2) ease-out;
+  }
 }
