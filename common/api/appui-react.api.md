@@ -3405,7 +3405,7 @@ export interface PopupInfo {
     // (undocumented)
     id: string;
     // (undocumented)
-    parentDocument: Document;
+    parentDocument?: Document;
     // (undocumented)
     pt: XAndY;
 }
@@ -3454,7 +3454,7 @@ export class PopupManager {
     // (undocumented)
     static showInputEditor(el: HTMLElement, pt: XAndY, value: Primitives.Value, propertyDescription: PropertyDescription, onCommit: OnValueCommitFunc, onCancel: OnCancelFunc): boolean;
     // (undocumented)
-    static showKeyinPalette(keyins: KeyinEntry[], el: HTMLElement, onItemExecuted?: OnItemExecutedFunc, onCancel?: OnCancelFunc): boolean;
+    static showKeyinPalette(keyins: KeyinEntry[], el?: HTMLElement, onItemExecuted?: OnItemExecutedFunc, onCancel?: OnCancelFunc): boolean;
     // (undocumented)
     static showToolbar(toolbarProps: AbstractToolbarProps, el: HTMLElement, pt: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition: RelativePosition): boolean;
 }
@@ -3477,9 +3477,13 @@ export class PopupRenderer extends React_2.Component<{}, PopupRendererState> {
     componentDidMount(): void;
     // (undocumented)
     componentWillUnmount(): void;
+    // @internal (undocumented)
+    context: React_2.ContextType<typeof WrapperContext>;
+    // @internal (undocumented)
+    static contextType: React_2.Context<HTMLElement>;
     // (undocumented)
     render(): React_2.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: PopupRendererState;
 }
 
@@ -3927,20 +3931,6 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
     get content(): React_2.ReactNode;
     // (undocumented)
     title: string;
-}
-
-// @public (undocumented)
-export interface ShowComponentOptions {
-    // (undocumented)
-    anchorRef?: React_2.RefObject<HTMLElement>;
-    // (undocumented)
-    location: XAndY;
-    // (undocumented)
-    offset: XAndY;
-    // (undocumented)
-    onCancel: () => void;
-    // (undocumented)
-    relativePosition: RelativePosition;
 }
 
 // @public
@@ -4840,7 +4830,7 @@ export class UiFramework {
     // (undocumented)
     static closeCursorMenu(): void;
     static closeDialog(dialogId: string): boolean;
-    static closeToolSettingsPopup(): void;
+    static closeToolSettingsPopup(): boolean;
     static get content(): FrameworkContent;
     static get controls(): FrameworkControls;
     static get dialogs(): FrameworkDialogs;
@@ -4875,11 +4865,12 @@ export class UiFramework {
     // (undocumented)
     static getWidgetOpacity(): number;
     static hideCalculator(): boolean;
-    static hideCard(): void;
+    static hideCard(): boolean;
     static hideComponent(): boolean;
     static hideInputEditor(): boolean;
     // (undocumented)
     static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler;
+    static hideKeyinPalette(): boolean;
     static hideMenuButton(id: string): boolean;
     static hideToolbar(): boolean;
     static initialize(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void>;
@@ -4940,10 +4931,11 @@ export class UiFramework {
     static setWidgetOpacity(opacity: number): void;
     static showAngleEditor(initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, anchorElement?: HTMLElement): boolean;
     static showCalculator(initialValue: number, resultIcon: string, location: XAndY, onOk: OnNumberCommitFunc, onCancel: OnCancelFunc, anchorElement?: HTMLElement): boolean;
-    static showCard(content: ReactContent, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
-    static showComponent(component: ReactElement, options?: Partial<ShowComponentOptions>): boolean;
-    static showDimensionEditor(dimension: "Height" | "Length", initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, anchorElement: HTMLElement): boolean;
+    static showCard(content: React.ReactNode, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
+    static showComponent(...params: OptionalShowComponentParams): boolean;
+    static showDimensionEditor(dimension: "Height" | "Length", initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, anchorElement?: HTMLElement): boolean;
     static showInputEditor({ anchorElement, initialValue, location, onCancel, onCommit, propertyDescription }: ShowInputEditorOptions): boolean;
+    static showKeyinPalette(keyinEntries: KeyinEntry[], htmlElement?: HTMLElement): boolean;
     static showMenuButton(id: string, menuItemsProps: AbstractMenuItemProps[], location: XAndY, anchorElement?: HTMLElement): boolean;
     static showToolbar(toolbarProps: AbstractToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
     // (undocumented)
@@ -5632,7 +5624,7 @@ export enum WidgetType {
     ToolSettings = 3
 }
 
-// @public
+// @internal
 export const WrapperContext: React_2.Context<HTMLElement>;
 
 // (No @packageDocumentation comment for this package)

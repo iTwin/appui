@@ -13,7 +13,7 @@ import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
-import type { AbstractMenuItemProps, AbstractToolbarProps, DialogLayoutDataProvider, DialogProps, OnCancelFunc, OnItemExecutedFunc, OnNumberCommitFunc, OnValueCommitFunc, PropertyDescription, PropertyRecord } from "@itwin/appui-abstract";
+import type { AbstractMenuItemProps, AbstractToolbarProps, DialogLayoutDataProvider, DialogProps, OnCancelFunc, OnItemExecutedFunc, OnNumberCommitFunc, OnValueCommitFunc, Primitives, PropertyDescription, PropertyRecord } from "@itwin/appui-abstract";
 import { RelativePosition, UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
@@ -67,18 +67,17 @@ import {
   SyncUiEventId,
 } from "./syncui/SyncUiEventDispatcher";
 import type { XAndY } from "@itwin/core-geometry";
-import type { ReactContent, ShowComponentOptions } from "./popup/PopupManager";
 import { PopupManager } from "./popup/PopupManager";
 import { AccuDrawPopupManager } from "./accudraw/AccuDrawPopupManager";
 import { UiDataProvidedDialog } from "./dialog/UiDataProvidedDialog";
-import type { ReactElement } from "react";
 import { createElement } from "react";
 import type { DialogInfo } from "./dialog/DialogManagerBase";
+import type { KeyinEntry } from "./keyins/Keyins";
 
 interface ShowInputEditorOptions {
   location: XAndY;
   anchorElement?: HTMLElement;
-  initialValue: number;
+  initialValue: Primitives.Value; // need strategy for replacing (appui-abstract)
   propertyDescription: PropertyDescription;
   onCommit: OnValueCommitFunc;
   onCancel: OnCancelFunc;
@@ -116,6 +115,10 @@ export interface TrackingTime {
   startTime: Date;
   endTime: Date;
 }
+
+type fn = typeof PopupManager.showComponent;
+type ShowComponentParams = Parameters<fn>;
+type OptionalShowComponentParams = [ShowComponentParams[0], Partial<ShowComponentParams[1]>?];
 
 /** Main entry point to configure and interact with the features provided by the AppUi-react package.
  * @public
@@ -920,7 +923,7 @@ export class UiFramework {
    * @return true if the Card was displayed, false if the Card could not be displayed.
    */
   public static showCard(
-    content: ReactContent,
+    content: React.ReactNode,
     title: string | PropertyRecord | undefined,
     toolbarProps: AbstractToolbarProps | undefined,
     location: XAndY,
@@ -937,7 +940,7 @@ export class UiFramework {
       relativePosition = RelativePosition.TopRight;
 
     return PopupManager.showCard(
-      content,
+      { reactNode: content },
       title,
       toolbarProps,
       el,
@@ -953,7 +956,7 @@ export class UiFramework {
    * Hides a Card displayed with {@link UiFramework.showCard}
    */
   public static hideCard() {
-    PopupManager.hideCard();
+    return PopupManager.hideCard();
   }
 
   /** Opens a Tool Settings Ui popup at a particular location.
@@ -992,7 +995,7 @@ export class UiFramework {
    * Closes the Tool Settings Ui popup.
    */
   public static closeToolSettingsPopup() {
-    PopupManager.closeToolSettings();
+    return PopupManager.closeToolSettings();
   }
 
   /** Show a Toolbar at a particular location.
@@ -1098,13 +1101,14 @@ export class UiFramework {
 
   /** Show a React Element at a particular location.
    * @param component The ReactElement to display
-   * @param options {@link ShowComponentOptions}
+   * @param options - Optional {@link: ShowComponentParams}
    */
-  public static showComponent(component: ReactElement, options?: Partial<ShowComponentOptions>): boolean {
-    if (!options)
-      options = {}
 
+  public static showComponent(...params: OptionalShowComponentParams): boolean {
+    const options: typeof params[1] = params[1] || {};
+    const component = params[0]
     const { anchorRef } = options;
+
     let {
       location,
       offset,
@@ -1190,7 +1194,7 @@ export class UiFramework {
    * @param anchorElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the editor was displayed, false if the editor could not be displayed.
    */
-  public static showDimensionEditor(dimension: "Height" | "Length", initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, anchorElement: HTMLElement) {
+  public static showDimensionEditor(dimension: "Height" | "Length", initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, anchorElement?: HTMLElement) {
     const el = this.resolveHtmlElement(anchorElement);
     return AccuDrawPopupManager.showDimensionEditor(dimension, el, location, initialValue, onCommit, onCancel);
   }
@@ -1245,6 +1249,20 @@ export class UiFramework {
 
     // istanbul ignore next
     return false;
+  }
+
+  /** Show the Key-in Palette to display key-in from all registered Tools.
+   * @param keyinEntries A list of KeyinEntry to display in the palette. These can be gathered and filtered from iModelApp.tools.getToolList()
+   * @param htmlElement The HTMLElement that anchors the Popup. If undefined, the location is relative to the overall window.
+   * @return true if the Command Palette was displayed, false if it could not be displayed.
+   */
+  public static showKeyinPalette(keyinEntries: KeyinEntry[], htmlElement?: HTMLElement): boolean {
+    return PopupManager.showKeyinPalette(keyinEntries, htmlElement);
+  }
+
+  /** Hides the Key-in Palette. */
+  public static hideKeyinPalette(): boolean {
+    return PopupManager.hideKeyinPalette();
   }
 
   private static resolveHtmlElement(

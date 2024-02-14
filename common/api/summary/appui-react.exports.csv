@@ -403,7 +403,6 @@ alpha;SheetNavigationAid
 alpha;SheetNavigationAidControl 
 alpha;SheetNavigationProps 
 alpha;SheetsModalFrontstage 
-public;ShowComponentOptions
 public;SnapModeField: ConnectedComponent
 alpha;SolarTimelineDataProvider 
 public;SplitPane(props: SplitPaneProps): React_2.JSX.Element
@@ -624,4 +623,4 @@ public;WidgetState
 public;WidgetStateChangedEvent 
 public;WidgetStateChangedEventArgs
 public;WidgetType
-public;WrapperContext: React_2.Context
+internal;WrapperContext: React_2.Context

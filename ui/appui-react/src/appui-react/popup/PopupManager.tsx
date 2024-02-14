@@ -38,6 +38,7 @@ import { KeyinPalettePopup } from "./KeyinPalettePopup";
 import { ToolbarPopup } from "./ToolbarPopup";
 import { ToolSettingsPopup } from "./ToolSettingsPopup";
 import { ComponentPopup } from "./ComponentPopup";
+import { WrapperContext } from "../configurableui/ConfigurableUiContent";
 
 // cSpell:ignore uiadmin
 
@@ -48,13 +49,11 @@ export interface PopupInfo {
   id: string;
   pt: XAndY;
   component: React.ReactNode;
-  parentDocument: Document;
+  parentDocument?: Document;
 }
 
-/**
- * @public
- */
-export interface ShowComponentOptions {
+/** @internal */
+interface ShowComponentOptions {
   onCancel: () => void;
   location: XAndY;
   offset: XAndY;
@@ -237,18 +236,19 @@ export class PopupManager {
 
   public static showKeyinPalette(
     keyins: KeyinEntry[],
-    el: HTMLElement,
+    el?: HTMLElement,
     onItemExecuted?: OnItemExecutedFunc,
     onCancel?: OnCancelFunc
   ): boolean {
     const id = PopupManager._keyPalettePopupId;
+    const cancelFn = onCancel ?? (() => PopupManager.hideKeyinPalette());
     const component = (
       <KeyinPalettePopup
         keyins={keyins}
         id={id}
         el={el}
-        onCancel={onCancel}
         onItemExecuted={onItemExecuted}
+        onCancel={cancelFn}
       />
     );
 
@@ -259,7 +259,7 @@ export class PopupManager {
       id,
       pt,
       component,
-      parentDocument: el.ownerDocument,
+      parentDocument: el?.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -353,7 +353,7 @@ export class PopupManager {
   /**
    * Displays a React component as a popup.
    * @param displayElement The React component to display.
-   * @param options {@link ShowComponentOptions} for displaying the component.
+   * @param options for displaying the component.
    */
   public static showComponent(
     displayElement: ReactElement,
@@ -379,7 +379,7 @@ export class PopupManager {
       id,
       pt: location,
       component,
-      parentDocument: anchorRef?.current?.ownerDocument ?? document,
+      parentDocument: anchorRef?.current?.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -508,6 +508,10 @@ interface PopupRendererState {
  */
 export class PopupRenderer extends React.Component<{}, PopupRendererState> {
   /** @internal */
+  public static override contextType = WrapperContext;
+  /** @internal */
+  public declare context: React.ContextType<typeof WrapperContext>;
+
   public override readonly state: PopupRendererState = {
     parentDocument: null,
     popups: PopupManager.popups,
@@ -533,7 +537,6 @@ export class PopupRenderer extends React.Component<{}, PopupRendererState> {
 
   public override render(): React.ReactNode {
     if (PopupManager.popupCount <= 0) return null;
-
     return (
       <div
         className="appui-react-popup-render-container"
@@ -541,7 +544,11 @@ export class PopupRenderer extends React.Component<{}, PopupRendererState> {
       >
         {this.state.parentDocument &&
           this.state.popups
-            .filter((info) => info.parentDocument === this.state.parentDocument)
+            .filter(
+              (info) =>
+                (info.parentDocument ?? this.context.ownerDocument) ===
+                this.state.parentDocument
+            )
             .map((popupInfo: PopupInfo) => {
               return (
                 <React.Fragment key={popupInfo.id}>
