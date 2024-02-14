@@ -21,10 +21,7 @@ import type {
 } from "../../imodel-components-react/timeline/interfaces";
 import { TimelinePausePlayAction } from "../../imodel-components-react/timeline/interfaces";
 import type { TimelineMenuItemProps } from "../../imodel-components-react/timeline/TimelineComponent";
-import {
-  emitTimelineControlEvent,
-  TimelineComponent,
-} from "../../imodel-components-react/timeline/TimelineComponent";
+import { TimelineComponent } from "../../imodel-components-react/timeline/TimelineComponent";
 import { TestUtils } from "../TestUtils";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import userEvent from "@testing-library/user-event";
@@ -531,48 +528,35 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
   });
-  it("onPlayPause called for TimerPausePlay event", async () => {
+  it("Timeline can be controlled through play/pause props", async () => {
     fakeTimers = sinon.useFakeTimers();
     const dataProvider = new TestTimelineDataProvider();
     const spyOnPlayPause = sinon.spy();
-    render(
-      <TimelineComponent
-        initialDuration={dataProvider.initialDuration}
-        totalDuration={dataProvider.duration}
-        minimized={true}
-        showDuration={true}
-        onChange={dataProvider.onAnimationFractionChanged}
-        onJump={dataProvider.onJump}
-        onPlayPause={spyOnPlayPause}
-        componentId={"TestTimeline"}
-      />
-    );
-
-    const args: TimelinePausePlayArgs = {
-      uiComponentId: "TestTimeline",
-      timelineAction: TimelinePausePlayAction.Play,
+    const initialProps = {
+      initialDuration: dataProvider.initialDuration,
+      totalDuration: dataProvider.duration,
+      minimized: true,
+      showDuration: true,
+      onChange: dataProvider.onAnimationFractionChanged,
+      onJump: dataProvider.onJump,
+      onPlayPause: spyOnPlayPause,
+      isPlaying: false,
+      componentId: "TestTimeline",
     };
-    emitTimelineControlEvent(args);
 
-    // React18 is scheduling setStates,
-    // Wait for the playing to effectively start, otherwise "Pause" event wouldn't do anything.
-    await waitFor(() => {
-      expect(screen.getAllByTitle("timeline.pause")).lengthOf(2);
-    });
+    const { rerender } = render(<TimelineComponent {...initialProps} />); // initial render
+    rerender(<TimelineComponent {...initialProps} isPlaying={true} />); // start playing
+    expect(screen.getAllByTitle("timeline.pause").length).to.eq(2);
 
-    args.timelineAction = TimelinePausePlayAction.Pause;
-    emitTimelineControlEvent(args);
-    args.timelineAction = TimelinePausePlayAction.Toggle;
-    emitTimelineControlEvent(args);
+    rerender(<TimelineComponent {...initialProps} isPlaying={false} />); // trigger pause
+    rerender(<TimelineComponent {...initialProps} isPlaying={true} />); // trigger play
     expect(spyOnPlayPause.calledThrice).to.be.true;
-    emitTimelineControlEvent({
-      uiComponentId: "TestTimeline",
-    } as TimelinePausePlayArgs);
-    // onPlayPause should not be called again, since the args don't include an action
-    expect(spyOnPlayPause.calledThrice).to.be.true;
+
+    rerender(<TimelineComponent {...initialProps} isPlaying={true} />); // do nothing (already playing)
+    expect(spyOnPlayPause.calledThrice).to.be.true; // onPlayPause should not be called again
   });
 
-  it("deprecated UiAdmin.sendUiEvent forwards to TimelineEvent", async () => {
+  it("deprecated UiAdmin.sendUiEvent ", async () => {
     fakeTimers = sinon.useFakeTimers();
     const dataProvider = new TestTimelineDataProvider();
     const spyOnPlayPause = sinon.spy();

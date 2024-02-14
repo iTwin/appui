@@ -13,7 +13,6 @@ import {
   toTimeString,
   UiComponents,
 } from "@itwin/components-react";
-import { BeUiEvent } from "@itwin/core-bentley";
 import { Icon } from "@itwin/core-react";
 import {
   SvgCaretLeft,
@@ -114,6 +113,8 @@ export interface TimelineComponentProps {
   dateFormatOptions?: DateFormatOptions;
   /** Options used to format time string. If not defined it will user browser default locale settings. */
   timeFormatOptions?: DateFormatOptions;
+  /** Used to control the play/pause state of the Timeline. */
+  isPlaying?: boolean;
 }
 /** @internal */
 interface TimelineComponentState {
@@ -164,7 +165,7 @@ export class TimelineComponent extends React.Component<
     super(props);
 
     this.state = {
-      isPlaying: false,
+      isPlaying: !!props.isPlaying,
       minimized: true,
       currentDuration: props.initialDuration
         ? props.initialDuration
@@ -181,16 +182,7 @@ export class TimelineComponent extends React.Component<
     // istanbul ignore else
     if (this.props.componentId) {
       // can't handle an event if we have no id
-
-      // Delegate in case someone is emitting from the deprecated UiAdmin.sendUiEvent
-      // To be removed once UiAdmin is removed (v6.x) or deemed appropriate.
-      this._removeDeprecatedUiAdminListener =
-        UiAdmin.onGenericUiEvent.addListener(
-          this._handleDeprecatedTimelinePausePlayEvent
-        );
-
-      // until we release a new version..
-      this._removeListener = addTimelineControlsListener(
+      this._removeListener = UiAdmin.onGenericUiEvent.addListener(
         this._handleTimelinePausePlayEvent
       );
     }
@@ -217,7 +209,8 @@ export class TimelineComponent extends React.Component<
       nextProps.startDate !== this.props.startDate ||
       nextProps.endDate !== this.props.endDate ||
       nextProps.initialDuration !== this.props.initialDuration ||
-      nextProps.repeat !== this.props.repeat
+      nextProps.repeat !== this.props.repeat ||
+      nextProps.isPlaying !== this.props.isPlaying
     )
       result = true;
 
@@ -246,17 +239,12 @@ export class TimelineComponent extends React.Component<
     if (this.props.totalDuration !== prevProps.totalDuration) {
       this._onSetTotalDuration(this.props.totalDuration);
     }
-  }
 
-  /**
-   * Forwards event from deprecated uiAdmin event.
-   * Remove once iModelApp.uiAdmin is removed (v6.x)
-   */
-  private _handleDeprecatedTimelinePausePlayEvent = (
-    args: GenericUiEventArgs
-  ): void => {
-    this._handleTimelinePausePlayEvent(args);
-  };
+    if (this.props.isPlaying !== prevProps.isPlaying) {
+      if (this.props.isPlaying) this._onPlay();
+      else this._onPause();
+    }
+  }
 
   private _handleTimelinePausePlayEvent = (args: GenericUiEventArgs): void => {
     const timelineArgs = args as TimelinePausePlayArgs;
@@ -728,36 +716,4 @@ export class TimelineComponent extends React.Component<
       </div>
     );
   }
-}
-
-/**
- * Event used to control the TimelineComponent.
- * Use this event instead of the deprecated {@link @itwin/fronend-core#UiAdmin.onGenericUiEvent}
- * Do not use this and UiAdmin.onGenericUiEvent at the same time.
- * @public
- */
-class TimelineEvent extends BeUiEvent<TimelinePausePlayArgs> {}
-const timelineControlsEvent = new TimelineEvent();
-
-/**
- * Add a listener to the TimelineComponent event.
- */
-function addTimelineControlsListener(
-  handler: (args: TimelinePausePlayArgs) => void
-) {
-  return timelineControlsEvent.addListener(handler);
-}
-
-/**
- * Emit an event intended to control a TimelineComponent's play/pause state.
- * @public
- */
-export function emitTimelineControlEvent({
-  uiComponentId,
-  timelineAction,
-}: TimelinePausePlayArgs) {
-  timelineControlsEvent.emit({
-    uiComponentId,
-    timelineAction,
-  });
 }

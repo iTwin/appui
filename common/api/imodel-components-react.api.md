@@ -440,9 +440,6 @@ export interface DrawingViewportChangeEventArgs {
 }
 
 // @public
-export function emitTimelineControlEvent({ uiComponentId, timelineAction, }: TimelinePausePlayArgs): void;
-
-// @public
 export enum Face {
     // (undocumented)
     Back = "back",
@@ -869,6 +866,7 @@ export interface TimelineComponentProps {
     endDate?: Date;
     includeRepeat?: boolean;
     initialDuration?: number;
+    isPlaying?: boolean;
     markDate?: TimelineDateMarkerProps;
     minimized?: boolean;
     onChange?: (duration: number) => void;

@@ -34,7 +34,6 @@ internal;DrawingNavigationCanvas
 internal;DrawingNavigationCanvasProps
 public;DrawingViewportChangeEvent 
 public;DrawingViewportChangeEventArgs
-public;emitTimelineControlEvent({ uiComponentId, timelineAction, }: TimelinePausePlayArgs): void
 public;Face
 internal;FaceCell 
 internal;FaceCellProps 
