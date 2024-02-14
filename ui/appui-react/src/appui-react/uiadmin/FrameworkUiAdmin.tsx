@@ -153,7 +153,7 @@ export class FrameworkUiAdmin extends UiAdmin {
   }
 
   /**
-   * @deprecated in 4.10.x. Construct your own {@link: Keyin.KeyinEntry[]} via {@link @itwin/core-frontend#IModelApp.tools.getToolList}.
+   * @deprecated in 4.10.x. Construct your own {@link Keyin.KeyinEntry[]} via {@link @itwin/core-frontend#IModelApp.tools.getToolList}.
    */
   public getKeyins(): Keyin.KeyinEntry[] {
     const tools = IModelApp.tools.getToolList();
