@@ -8,7 +8,7 @@ import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { IModelApp, NoRenderApp, Tool } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import type { Keyin } from "../../appui-react/keyins/Keyins";
+import type { KeyinEntry } from "../../appui-react/keyins/Keyins";
 import {
   clearKeyinPaletteHistory,
   KeyinPalettePanel,
@@ -84,7 +84,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("Renders", async () => {
-    const keyins: Keyin.KeyinEntry[] = [
+    const keyins: KeyinEntry[] = [
       { value: "test a" },
       { value: "test b" },
       { value: "keyin one" },
@@ -102,7 +102,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("handles key presses in select input ", async () => {
-    const keyins: Keyin.KeyinEntry[] = [
+    const keyins: KeyinEntry[] = [
       { value: "test a" },
       { value: "test b" },
       { value: "keyin one" },
@@ -128,7 +128,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("handles ctrl+key presses in select input ", async () => {
-    const keyins: Keyin.KeyinEntry[] = [
+    const keyins: KeyinEntry[] = [
       { value: "test a" },
       { value: "test b" },
       { value: "keyin one" },
@@ -158,7 +158,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("Handles keyboard running selection", async () => {
-    const keyins: Keyin.KeyinEntry[] = [
+    const keyins: KeyinEntry[] = [
       { value: "keyin one" },
       { value: "keyin two" },
     ];
@@ -177,7 +177,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("Handles keyboard updating input after CTRL + selection", async () => {
-    const keyins: Keyin.KeyinEntry[] = [
+    const keyins: KeyinEntry[] = [
       { value: "keyin one" },
       { value: "keyin two" },
     ];
@@ -197,7 +197,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("Handles listbox click processing", async () => {
-    const keyins: Keyin.KeyinEntry[] = [
+    const keyins: KeyinEntry[] = [
       { value: "test a" },
       { value: "test b" },
       { value: "keyin one" },
@@ -222,7 +222,7 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("Handles listbox CTRL+click processing", async () => {
-    const keyins: Keyin.KeyinEntry[] = [
+    const keyins: KeyinEntry[] = [
       { value: "test a" },
       { value: "test b" },
       { value: "keyin one" },
@@ -277,7 +277,7 @@ describe("<KeyinPalettePanel>", () => {
           ["history1", "history2", "bogus"]
         );
       }
-      const keyins: Keyin.KeyinEntry[] = [
+      const keyins: KeyinEntry[] = [
         { value: "keyin one" },
         { value: "keyin two" },
       ];
@@ -303,7 +303,7 @@ describe("<KeyinPalettePanel>", () => {
           ["history1", "history2", "bogus"]
         );
       }
-      const keyins: Keyin.KeyinEntry[] = [
+      const keyins: KeyinEntry[] = [
         { value: "keyin one" },
         { value: "keyin two" },
       ];
@@ -339,7 +339,7 @@ describe("<KeyinPalettePanel>", () => {
           ["history1", "history2", "bogus"]
         );
       }
-      const keyins: Keyin.KeyinEntry[] = [
+      const keyins: KeyinEntry[] = [
         { value: "keyin one" },
         { value: "keyin two" },
       ];
@@ -371,7 +371,7 @@ describe("<KeyinPalettePanel>", () => {
     });
 
     it("Handles keyboard running selection", async () => {
-      const keyins: Keyin.KeyinEntry[] = [
+      const keyins: KeyinEntry[] = [
         { value: "keyin one" },
         { value: "keyin two" },
       ];
@@ -398,7 +398,7 @@ describe("<KeyinPalettePanel>", () => {
           ["history1", "history2", "bogus"]
         );
       }
-      const keyins: Keyin.KeyinEntry[] = [
+      const keyins: KeyinEntry[] = [
         { value: "keyin one" },
         { value: "keyin two" },
       ];
@@ -429,7 +429,7 @@ describe("<KeyinPalettePanel>", () => {
           ["history1", "history2", "bogus"]
         );
       }
-      const keyins: Keyin.KeyinEntry[] = [
+      const keyins: KeyinEntry[] = [
         { value: "keyin one" },
         { value: "keyin two" },
       ];

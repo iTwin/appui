@@ -2088,7 +2088,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     // @deprecated
     get cursorPosition(): XAndY;
     // @deprecated (undocumented)
-    getKeyins(): Keyin.KeyinEntry[];
+    getKeyins(): KeyinEntry[];
     // @deprecated
     hideCalculator(): boolean;
     // @deprecated
@@ -2106,8 +2106,8 @@ export class FrameworkUiAdmin extends UiAdmin {
     // @deprecated
     get isFocusOnHome(): boolean;
     // @deprecated (undocumented)
-    get localizedKeyinPreference(): Keyin.KeyinFieldLocalization;
-    set localizedKeyinPreference(preference: Keyin.KeyinFieldLocalization);
+    get localizedKeyinPreference(): KeyinFieldLocalization;
+    set localizedKeyinPreference(preference: KeyinFieldLocalization);
     // @deprecated
     openDialog(uiDataProvider: DialogLayoutDataProvider, title: string, isModal: boolean, id: string, optionalProps?: DialogProps): boolean;
     // @deprecated
@@ -2361,7 +2361,7 @@ export function getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue;
 export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue;
 
 // @internal
-export function getKeyinsFromToolList(toolList: ToolList, localizedKeyinPreference?: Keyin.KeyinFieldLocalization): Keyin.KeyinEntry[];
+export function getKeyinsFromToolList(toolList: ToolList, localizedKeyinPreference?: KeyinFieldLocalization): KeyinEntry[];
 
 // @beta (undocumented)
 export function getListPanel(props: ListPickerProps): React_2.ReactNode;
@@ -2849,29 +2849,14 @@ export interface KeyboardShortcutProps extends ItemProps {
     shortcuts?: KeyboardShortcutProps[];
 }
 
-// @public (undocumented)
-export namespace Keyin {
-    export interface KeyinEntry {
-        isHistory?: boolean;
-        matches?: IMatch[];
-        value: string;
-    }
-    // @internal
-    export enum KeyinFieldLocalization {
-        Both = 2,
-        Localized = 1,
-        NonLocalized = 0
-    }
-}
-
-// @public @deprecated
+// @public
 export interface KeyinEntry {
     isHistory?: boolean;
     matches?: IMatch[];
     value: string;
 }
 
-// @public @deprecated
+// @public
 export enum KeyinFieldLocalization {
     Both = 2,
     Localized = 1,
@@ -2891,7 +2876,7 @@ export interface KeyinPalettePopupProps {
     // (undocumented)
     id: string;
     // (undocumented)
-    keyins: Keyin.KeyinEntry[];
+    keyins: KeyinEntry[];
     // (undocumented)
     onCancel?: OnCancelFunc;
     // (undocumented)
@@ -3469,7 +3454,7 @@ export class PopupManager {
     // (undocumented)
     static showInputEditor(el: HTMLElement, pt: XAndY, value: Primitives.Value, propertyDescription: PropertyDescription, onCommit: OnValueCommitFunc, onCancel: OnCancelFunc): boolean;
     // (undocumented)
-    static showKeyinPalette(keyins: Keyin.KeyinEntry[], el: HTMLElement, onItemExecuted?: OnItemExecutedFunc, onCancel?: OnCancelFunc): boolean;
+    static showKeyinPalette(keyins: KeyinEntry[], el: HTMLElement, onItemExecuted?: OnItemExecutedFunc, onCancel?: OnCancelFunc): boolean;
     // (undocumented)
     static showToolbar(toolbarProps: AbstractToolbarProps, el: HTMLElement, pt: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition: RelativePosition): boolean;
 }

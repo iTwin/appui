@@ -37,7 +37,7 @@ import type { MenuItemProps } from "../../appui-react/shared/MenuItem";
 import TestUtils, { storageMock } from "../TestUtils";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { Button } from "@itwin/itwinui-react";
-import type { Keyin } from "../../appui-react/keyins/Keyins";
+import type { KeyinEntry } from "../../appui-react/keyins/Keyins";
 const myLocalStorage = storageMock();
 function requestNextAnimation() {}
 
@@ -729,7 +729,7 @@ describe("PopupManager", () => {
 
     it("PopupRenderer should render Keyin Palette", async () => {
       const wrapper = render(<PopupRenderer />);
-      const keyins: Keyin.KeyinEntry[] = [
+      const keyins: KeyinEntry[] = [
         { value: "keyin one" },
         { value: "keyin two" },
       ];

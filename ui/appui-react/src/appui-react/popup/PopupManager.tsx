@@ -29,7 +29,7 @@ import { Orientation, Rectangle } from "@itwin/core-react";
 import * as React from "react";
 import type { ReactElement } from "react";
 import { offsetAndContainInContainer } from "../layout/popup/Tooltip";
-import type { Keyin } from "../keyins/Keyins";
+import type { KeyinEntry } from "../keyins/Keyins";
 import { UiFramework } from "../UiFramework";
 import { CardPopup } from "./CardPopup";
 import { HTMLElementPopup } from "./HTMLElementPopup";
@@ -55,7 +55,7 @@ export interface PopupInfo {
  * @public
  */
 export interface ShowComponentOptions {
-  onCancel: OnCancelFunc;
+  onCancel: () => void;
   location: XAndY;
   offset: XAndY;
   relativePosition: RelativePosition;
@@ -236,7 +236,7 @@ export class PopupManager {
   }
 
   public static showKeyinPalette(
-    keyins: Keyin.KeyinEntry[],
+    keyins: KeyinEntry[],
     el: HTMLElement,
     onItemExecuted?: OnItemExecutedFunc,
     onCancel?: OnCancelFunc

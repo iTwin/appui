@@ -26,37 +26,14 @@ import { RelativePosition, UiAdmin } from "@itwin/appui-abstract";
 import { AccuDrawPopupManager } from "../accudraw/AccuDrawPopupManager";
 import { CursorInformation } from "../cursor/CursorInformation";
 import { PopupManager } from "../popup/PopupManager";
-import type { IMatch } from "../utils/matchesWords";
 import type { CursorMenuData } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
 import { UiDataProvidedDialog } from "../dialog/UiDataProvidedDialog";
-import { getKeyinsFromToolList, Keyin } from "../keyins/Keyins"; // Using star import to avoid conflicts with deprecated types
-
-/** Controls whether localized and/or non-localized key-in strings appear in a KeyinField's auto-completion list.
- * @public
- * @deprecated in 4.10.x. Please use {@link Keyin.KeyinFieldLocalization} instead.
- */
-export enum KeyinFieldLocalization {
-  /** Include only non-localized key-in strings. */
-  NonLocalized,
-  /** Include only localized key-in strings. */
-  Localized,
-  /** Include localized and non-localized strings for each key-in. */
-  Both,
-}
-
-/** Defines a keyin entry to show/filter in UI
- * @public
- * @deprecated in 4.10.x. Please use {@link Keyin.KeyinEntry} instead.
- */
-export interface KeyinEntry {
-  /** string that matched a filter string */
-  value: string;
-  /** define array of start and end positions of filter matches. */
-  matches?: IMatch[];
-  /** true if entry was loaded from key-in history */
-  isHistory?: boolean;
-}
+import type { KeyinEntry } from "../keyins/Keyins";
+import {
+  getKeyinsFromToolList,
+  KeyinFieldLocalization,
+} from "../keyins/Keyins";
 
 /** Subclass of `UiAdmin` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
  *
@@ -71,19 +48,17 @@ export interface KeyinEntry {
  * @deprecated in 4.10.x. Use various fields from [[UiFramework]] instead. Please see individual deprecation notices for more info.
  */
 export class FrameworkUiAdmin extends UiAdmin {
-  private _localizedKeyinPreference: Keyin.KeyinFieldLocalization =
-    Keyin.KeyinFieldLocalization.NonLocalized;
+  private _localizedKeyinPreference: KeyinFieldLocalization =
+    KeyinFieldLocalization.NonLocalized;
 
   /**
    * @deprecated in 4.10.x. Gathering and filtering of keyins is now left up to the user.
    */
-  public get localizedKeyinPreference(): Keyin.KeyinFieldLocalization {
+  public get localizedKeyinPreference(): KeyinFieldLocalization {
     return this._localizedKeyinPreference;
   }
 
-  public set localizedKeyinPreference(
-    preference: Keyin.KeyinFieldLocalization
-  ) {
+  public set localizedKeyinPreference(preference: KeyinFieldLocalization) {
     this._localizedKeyinPreference = preference;
   }
 
@@ -153,9 +128,9 @@ export class FrameworkUiAdmin extends UiAdmin {
   }
 
   /**
-   * @deprecated in 4.10.x. Construct your own {@link Keyin.KeyinEntry[]} via {@link @itwin/core-frontend#IModelApp.tools.getToolList}.
+   * @deprecated in 4.10.x. Construct your own {@link KeyinEntry[]} via {@link @itwin/core-frontend#IModelApp.tools.getToolList}.
    */
-  public getKeyins(): Keyin.KeyinEntry[] {
+  public getKeyins(): KeyinEntry[] {
     const tools = IModelApp.tools.getToolList();
     return getKeyinsFromToolList(tools);
   }

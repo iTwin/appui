@@ -224,7 +224,7 @@ beta;getFeatureOverrideSyncEventIds(): string[]
 internal;getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]): string
 beta;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue
 beta;getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue
-internal;getKeyinsFromToolList(toolList: ToolList, localizedKeyinPreference?: Keyin.KeyinFieldLocalization): Keyin.KeyinEntry[]
+internal;getKeyinsFromToolList(toolList: ToolList, localizedKeyinPreference?: KeyinFieldLocalization): KeyinEntry[]
 beta;getListPanel(props: ListPickerProps): React_2.ReactNode
 internal;getPanelSectionId(location: StagePanelLocation, section: StagePanelSection): PanelSectionId
 internal;getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray
@@ -278,12 +278,8 @@ public;KeyboardShortcutMenu
 public;KeyboardShortcutMenuEvent 
 public;KeyboardShortcutMenuState
 public;KeyboardShortcutProps 
-public;Keyin
-internal;KeyinFieldLocalization
 public;KeyinEntry
-deprecated;KeyinEntry
 public;KeyinFieldLocalization
-deprecated;KeyinFieldLocalization
 internal;KeyinPalettePanel({ keyins, onKeyinExecuted, historyLength: allowedHistoryLength, }: KeyinPalettePanelProps): React_2.JSX.Element
 public;KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted, }: KeyinPalettePopupProps): React_2.JSX.Element
 public;KeyinPalettePopupProps
