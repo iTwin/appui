@@ -113,7 +113,7 @@ export interface TimelineComponentProps {
   dateFormatOptions?: DateFormatOptions;
   /** Options used to format time string. If not defined it will user browser default locale settings. */
   timeFormatOptions?: DateFormatOptions;
-  /** Used to control the play/pause state of the Timeline. */
+  /** Used to control the play/pause state of the Timeline. Replaces the deprecated method of UiAdmin.sendUiEvent. Note, these two tactics are mutually exclusive - please use one or the other.*/
   isPlaying?: boolean;
 }
 /** @internal */
