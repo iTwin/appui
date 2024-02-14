@@ -33,7 +33,6 @@ describe("AppNotificationManager", () => {
 
   beforeEach(() => {
     notifications = new AppNotificationManager();
-    // sinon.stub(IModelApp, "notifications")
     theUserTo = userEvent.setup();
   });
 
