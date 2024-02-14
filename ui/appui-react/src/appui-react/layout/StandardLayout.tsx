@@ -12,8 +12,10 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { useLayout } from "./base/LayoutStore";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
-import { useMaximizedWidgetLayout } from "../preview/enable-maximized-widget/useMaximizedWidget";
+import { useMaximizedPanelLayout } from "../preview/enable-maximized-widget/useMaximizedWidget";
 import { usePanelsAutoCollapse } from "./widget-panels/usePanelsAutoCollapse";
+import { useHorizontalPanelAlignment } from "../preview/horizontal-panel-alignment/useHorizontalPanelAlignment";
+import type { PanelSide } from "./widget-panels/PanelTypes";
 
 interface StandardLayoutProps extends CommonProps {
   /** Main content area of the application (i.e. viewport) that will change bounds based on panel pinned state. */
@@ -33,7 +35,6 @@ interface StandardLayoutProps extends CommonProps {
  */
 export function StandardLayout(props: StandardLayoutProps) {
   const pinned = usePinned();
-  const maximizedWidget = useMaximizedWidgetLayout();
   const appContentRef = usePanelsAutoCollapse<HTMLDivElement>();
   const className = classnames("nz-standardLayout", pinned, props.className);
   return (
@@ -42,20 +43,31 @@ export function StandardLayout(props: StandardLayoutProps) {
         {props.children}
       </div>
       <div className="nz-centerContent">{props.centerContent}</div>
-      <div className={classnames("nz-leftPanel", maximizedWidget.left)}>
-        {props.leftPanel}
-      </div>
-      <div className={classnames("nz-rightPanel", maximizedWidget.right)}>
-        {props.rightPanel}
-      </div>
-      <div className={classnames("nz-topPanel", maximizedWidget.top)}>
-        {props.topPanel}
-      </div>
-      <div className={classnames("nz-bottomPanel", maximizedWidget.bottom)}>
-        {props.bottomPanel}
-      </div>
+      <Panel side="left">{props.leftPanel}</Panel>
+      <Panel side="right">{props.rightPanel}</Panel>
+      <Panel side="top">{props.topPanel}</Panel>
+      <Panel side="bottom">{props.bottomPanel}</Panel>
       <div className="nz-toolSettings">{props.toolSettings}</div>
       <div className="nz-statusBar">{props.statusBar}</div>
+    </div>
+  );
+}
+
+interface PanelProps {
+  side: PanelSide;
+}
+
+function Panel({ children, side }: React.PropsWithChildren<PanelProps>) {
+  const maximizedWidget = useMaximizedPanelLayout(side);
+  const horizontalAlignment = useHorizontalPanelAlignment(side);
+  const className = classnames(
+    `nz-${side}Panel`,
+    maximizedWidget,
+    horizontalAlignment.classNames
+  );
+  return (
+    <div className={className} {...horizontalAlignment.attributes}>
+      {children}
     </div>
   );
 }

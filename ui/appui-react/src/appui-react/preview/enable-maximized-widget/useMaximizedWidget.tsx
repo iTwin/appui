@@ -14,8 +14,8 @@ import {
   getWidgetLocation,
   isPanelWidgetLocation,
 } from "../../layout/state/WidgetLocation";
-import { PanelSideContext } from "../../layout/widget-panels/Panel";
 import type { WidgetState } from "../../layout/state/WidgetState";
+import type { PanelSide } from "../../layout/widget-panels/PanelTypes";
 
 /** @internal */
 export function useIsMaximizedWidget() {
@@ -27,28 +27,17 @@ export function useIsMaximizedWidget() {
 }
 
 /** @internal */
-export function useIsMaximizedPanel() {
-  const side = React.useContext(PanelSideContext);
-  const location = useMaximizedPanelWidgetLocation();
-  return location?.side === side;
-}
-
-/** @internal */
-export function useMaximizedWidgetLayout() {
+export function useMaximizedPanelLayout(side: PanelSide) {
   const location = useMaximizedPanelWidgetLocation();
   return {
-    left: location?.side === "left" && "preview-maximized-panel",
-    right: location?.side === "right" && "preview-maximized-panel",
-    top: location?.side === "top" && "preview-maximized-panel",
-    bottom: location?.side === "bottom" && "preview-maximized-panel",
-  } as const;
+    "preview-maximized-panel": location?.side === side,
+  };
 }
 
 /** @internal */
-export function useMaximizedPanel() {
-  const isMaximized = useIsMaximizedPanel();
+export function useMaximizedPanel(side: PanelSide) {
+  const isMaximized = useIsMaximizedPanel(side);
   if (!isMaximized) return undefined;
-
   return {
     "preview-maximized-panel": isMaximized,
   };
@@ -63,6 +52,11 @@ export function useMaximizedSection(widgetId: WidgetState["id"]) {
     "preview-maximized-section": location.widgetId === widgetId,
     "preview-maximized-section-sibling": location.widgetId !== widgetId,
   };
+}
+
+function useIsMaximizedPanel(side: PanelSide) {
+  const location = useMaximizedPanelWidgetLocation();
+  return location?.side === side;
 }
 
 function useMaximizedPanelWidgetLocation() {

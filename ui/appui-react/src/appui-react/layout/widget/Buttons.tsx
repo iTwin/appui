@@ -14,13 +14,12 @@ import { PopoutToggle, usePopoutToggle } from "./PopoutToggle";
 import {
   PreviewHorizontalPanelAlignButton,
   useHorizontalPanelAlignButton,
-} from "./PreviewHorizontalPanelAlign";
+} from "../../preview/horizontal-panel-alignment/PreviewHorizontalPanelAlign";
 import { SendBack, useSendBack } from "./SendBack";
 import {
   MoreButton,
   useDropdownFeatures,
 } from "../../preview/widget-action-dropdown/MoreButton";
-import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
 import {
   MaximizeToggle,
   useMaximizeToggle,

@@ -16,7 +16,7 @@ import { useLayout } from "../base/LayoutStore";
 import { isHorizontalPanelSide, PanelSideContext } from "./Panel";
 import type { WidgetState } from "../state/WidgetState";
 import {
-  useIsMaximizedPanel,
+  useMaximizedPanel,
   useMaximizedSection,
 } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
@@ -167,7 +167,7 @@ function PanelSection({ widgetId, index, sectionLength }: PanelSectionProps) {
   });
 
   const maximizedSection = useMaximizedSection(widgetId);
-  const isMaximizedPanel = useIsMaximizedPanel();
+  const isMaximizedPanel = !!useMaximizedPanel(side);
 
   const isHorizontal = isHorizontalPanelSide(side);
 

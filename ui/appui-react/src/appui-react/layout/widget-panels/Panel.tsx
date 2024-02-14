@@ -19,7 +19,6 @@ import { SectionOutline } from "../outline/SectionOutline";
 import { isHorizontalPanelState } from "../state/PanelState";
 import { PanelTargets } from "../target/PanelTargets";
 import { SectionTargets } from "../target/SectionTargets";
-import { usePreviewHorizontalPanelAlign } from "../widget/PreviewHorizontalPanelAlign";
 import { WidgetPanelGrip } from "./Grip";
 import { PanelSections } from "./PanelSections";
 import type {
@@ -63,20 +62,7 @@ export function WidgetPanel() {
   const side = React.useContext(PanelSideContext);
   const draggedPanelSide = React.useContext(DraggedPanelSideContext);
   assert(!!side);
-  const { enabled: previewHorizontalPanelAlignmentEnabled, alignments } =
-    usePreviewHorizontalPanelAlign();
-  const maximizedPanel = useMaximizedPanel();
-
-  const previewHorizontalPanelAlignAttributes = React.useMemo(
-    () =>
-      previewHorizontalPanelAlignmentEnabled
-        ? {
-            "data-preview-horizontal-panel-align-top": alignments.top,
-            "data-preview-horizontal-panel-align-bottom": alignments.bottom,
-          }
-        : {},
-    [alignments.bottom, alignments.top, previewHorizontalPanelAlignmentEnabled]
-  );
+  const maximizedPanel = useMaximizedPanel(side);
 
   const spanTop = useLayout((state) => state.panels.top.span);
   const spanBottom = useLayout((state) => state.panels.bottom.span);
@@ -155,7 +141,6 @@ export function WidgetPanel() {
         ref={ref}
         style={maximizedPanel ? {} : style}
         onTransitionEnd={handleTransitionEnd}
-        {...previewHorizontalPanelAlignAttributes}
       >
         <div className="nz-content" style={maximizedPanel ? {} : contentStyle}>
           {singleSection && <SectionOutline sectionIndex={0} />}

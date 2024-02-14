@@ -33,7 +33,7 @@ import { NineZoneStateReducer } from "../layout/state/NineZoneStateReducer";
 import { getWidgetPanelSectionId } from "../layout/state/PanelState";
 import type { TabState } from "../layout/state/TabState";
 import { FloatingWidgets } from "../layout/widget/FloatingWidgets";
-import { PreviewHorizontalPanelAlignFeatureProvider } from "../layout/widget/PreviewHorizontalPanelAlign";
+import { PreviewHorizontalPanelAlignFeatureProvider } from "../preview/horizontal-panel-alignment/PreviewHorizontalPanelAlign";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import type { FrameworkState } from "../redux/FrameworkState";
 import type { FrameworkRootState } from "../redux/StateManager";
