@@ -1101,7 +1101,7 @@ export class UiFramework {
 
   /** Show a React Element at a particular location.
    * @param component The ReactElement to display
-   * @param options {@link: ShowComponentOptions}
+   * @param options {@link ShowComponentOptions}
    */
   public static showComponent(component: ReactElement, options?: Partial<ShowComponentOptions>): boolean {
     if (!options)
