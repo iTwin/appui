@@ -3953,7 +3953,7 @@ export interface ShowComponentOptions {
     // (undocumented)
     offset: XAndY;
     // (undocumented)
-    onCancel: OnCancelFunc;
+    onCancel: () => void;
     // (undocumented)
     relativePosition: RelativePosition;
 }
