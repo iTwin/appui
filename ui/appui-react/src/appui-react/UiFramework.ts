@@ -1011,12 +1011,9 @@ export class UiFramework {
     offset: XAndY,
     onItemExecuted: OnItemExecutedFunc,
     onCancel: OnCancelFunc,
-    relativePosition?: RelativePosition,
+    relativePosition: RelativePosition = RelativePosition.TopRight,
     anchorElement?: HTMLElement
   ): boolean {
-    if (relativePosition === undefined)
-      relativePosition = RelativePosition.TopRight;
-
     const el = UiFramework.resolveHtmlElement(anchorElement)
     return PopupManager.showToolbar(
       toolbarProps,
