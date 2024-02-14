@@ -92,7 +92,7 @@
     },
     {
       "name": "@itwin/ecschema-metadata",
-      "allowedCategories": [ "frontend", "internal" ]
+      "allowedCategories": [ "frontend" ]
     },
     {
       "name": "@itwin/ecschema-rpcinterface-common",
@@ -173,14 +173,6 @@
     {
       "name": "@itwin/itwinui-variables",
       "allowedCategories": [ "frontend", "internal" ]
-    },
-    {
-      "name": "@itwin/map-layers",
-      "allowedCategories": [ "internal" ]
-    },
-    {
-      "name": "@itwin/map-layers-auth",
-      "allowedCategories": [ "internal" ]
     },
     {
       "name": "@itwin/presentation-common",

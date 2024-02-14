@@ -371,6 +371,7 @@ export function addFloatingWidget(
   widgetArgs?: Partial<WidgetState>
 ): NineZoneState {
   if (id in state.floatingWidgets.byId)
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(category, "Floating widget already exists");
 
   state = addWidgetState(state, id, tabs, widgetArgs);
@@ -404,6 +405,7 @@ export function addPopoutWidget(
   widgetArgs?: Partial<WidgetState>
 ): NineZoneState {
   if (tabs.length !== 1)
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(
       category,
       "Popout widget should contain one tab only",

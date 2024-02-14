@@ -22,13 +22,16 @@ export function addDockedToolSettings(
   hidden = false
 ): NineZoneState {
   if (state.toolSettings)
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(category, "Tool settings already exist");
   if (!(tabId in state.tabs))
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(category, "Tab does not exist", undefined, () => ({
       tabId,
     }));
   const location = getTabLocation(state, tabId);
   if (location)
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(
       category,
       "Tab is already in a widget",
@@ -53,13 +56,16 @@ export function addWidgetToolSettings(
   tabId: TabState["id"]
 ): NineZoneState {
   if (state.toolSettings)
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(category, "Tool settings already exist");
   if (!(tabId in state.tabs))
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(category, "Tab does not exist", undefined, () => ({
       tabId,
     }));
   const location = getTabLocation(state, tabId);
   if (!location)
+    // eslint-disable-next-line deprecation/deprecation
     throw new UiError(category, "Tab is not in a widget", undefined, () => ({
       tabId,
     }));

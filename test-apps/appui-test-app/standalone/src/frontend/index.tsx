@@ -76,8 +76,6 @@ import {
 import { getObjectClassName } from "@itwin/core-react";
 import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
-// import { DefaultMapFeatureInfoTool, MapLayersUI } from "@itwin/map-layers";
-// import { SchemaUnitProvider } from "@itwin/ecschema-metadata";
 import { getSupportedRpcs } from "../common/rpcs";
 import {
   loggerCategory,
@@ -87,7 +85,6 @@ import { AppUi } from "./appui/AppUi";
 import { LocalFileOpenFrontstage } from "./appui/frontstages/LocalFileStage";
 import { MainFrontstage } from "./appui/frontstages/MainFrontstage";
 import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTabsProvider";
-// import { ECSchemaRpcLocater } from "@itwin/ecschema-rpcinterface-common";
 import {
   AbstractUiItemsProvider,
   AppPreviewFeatures,
