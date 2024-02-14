@@ -13,10 +13,8 @@ import type { OnCancelFunc, RelativePosition } from "@itwin/appui-abstract";
 import { useEffect, useState } from "react";
 import { WrapperContext } from "../configurableui/ConfigurableUiContent";
 
-/**
- *
- */
-export interface ComponentPopupProps extends Omit<PopupPropsBase, "el"> {
+// Props used for the ComponentPopup.
+interface ComponentPopupProps extends Omit<PopupPropsBase, "el"> {
   Component: React.ReactElement;
   relativePosition: RelativePosition;
   orientation: Orientation;
@@ -25,7 +23,8 @@ export interface ComponentPopupProps extends Omit<PopupPropsBase, "el"> {
 }
 
 /**
- * @alpha
+ * Displays a React Component inside a popup. The user-facing API is the {@link PopupManager} and should be used instead of this component.
+ * @internal
  */
 export const ComponentPopup: React.FC<ComponentPopupProps> = ({
   pt,
