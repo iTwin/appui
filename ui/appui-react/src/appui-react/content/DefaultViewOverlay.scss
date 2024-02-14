@@ -10,20 +10,19 @@ $uifw-view-overlay-indent: calc(var(--iui-size-l) * 2);
 
 .uifw-view-overlay {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: calc(100% - #{$uifw-view-overlay-indent} * 2);
-  height: auto;
+  width: calc(
+    100% - #{$uifw-view-overlay-indent} * 2
+  ); // TODO: Change this to: ( [ viewport padding ] + [ toolbar width ] + [ padding from toolbars ] * 2 ) - 100%
   position: absolute;
-  bottom: var(--iui-size-s);
-  left: $uifw-view-overlay-indent;
-  right: $uifw-view-overlay-indent;
+  inset: auto 0 var(--iui-size-s) 0;
+  margin-inline: auto;
   pointer-events: none;
   @include uicore-z-index(view-overlay);
-}
 
-$widget-transparency: 0.9;
+  // background-color: red;
+}
 
 .uifw-animation-overlay {
   display: flex;
@@ -31,16 +30,17 @@ $widget-transparency: 0.9;
   align-items: center;
   width: 80%;
   max-width: 1000px;
-  height: auto;
-  background: var(--iui-color-background);
+  background-color: Hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2));
+  -webkit-backdrop-filter: saturate(1.8) blur(20px);
+  backdrop-filter: saturate(1.8) blur(20px);
   border: 1px solid var(--iui-color-border);
   border-radius: var(--iui-border-radius-1);
-  // overflow: hidden;
-  opacity: $widget-transparency;
-  transition: opacity var(--iui-duration-1) ease;
+  transition: background-color var(--iui-duration-1) ease;
   pointer-events: auto;
 
   &:hover {
-    opacity: 1;
+    background-color: Hsl(
+      var(--iui-color-background-hsl) / var(--iui-opacity-1)
+    );
   }
 }

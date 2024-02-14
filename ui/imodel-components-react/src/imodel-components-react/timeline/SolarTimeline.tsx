@@ -12,7 +12,14 @@
 import "./SolarTimeline.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { Slider, Text, Tooltip } from "@itwin/itwinui-react";
+import {
+  Button,
+  IconButton,
+  Select,
+  Slider,
+  Text,
+  Tooltip,
+} from "@itwin/itwinui-react";
 
 import type { HSVColor } from "@itwin/core-common";
 import { ColorByName, ColorDef } from "@itwin/core-common";
@@ -30,7 +37,6 @@ import { HueSlider } from "../color/HueSlider";
 import { SaturationPicker } from "../color/SaturationPicker";
 import { ColorSwatch } from "../color/Swatch";
 import type { SolarDataProvider } from "./interfaces";
-import { PlayButton } from "./PlayerButton";
 import { SpeedTimeline } from "./SpeedTimeline";
 import {
   CustomThumb,
@@ -39,7 +45,14 @@ import {
   useFocusedThumb,
 } from "./Scrubber";
 import { UiIModelComponents } from "../UiIModelComponents";
-import { SvgCalendar, SvgLoop, SvgSettings } from "@itwin/itwinui-icons-react";
+import {
+  SvgCalendar,
+  SvgLoop,
+  SvgMoon,
+  SvgPlay,
+  SvgSettings,
+  SvgSun,
+} from "@itwin/itwinui-icons-react";
 
 // cSpell:ignore millisec solarsettings showticks shadowcolor solartimeline datepicker millisecs
 
@@ -168,22 +181,18 @@ function Timeline(props: TimelineProps) {
   const sunSetFormat = formatTime(dayStartMs + sunSetOffsetMs);
   return (
     <div className={className}>
-      <Tooltip content={sunRiseFormat}>
-        <span className="sunrise">&#x2600;</span>
-      </Tooltip>
       <Slider
         ref={sliderRef}
         className={className}
         step={millisecPerMinute}
         min={sunRiseOffsetMs}
         max={sunSetOffsetMs}
-        minLabel=""
-        maxLabel=""
+        minLabel={<SvgSun />}
+        maxLabel={<SvgMoon />}
         onUpdate={onUpdate}
         onChange={onChange}
         values={[currentTimeOffsetMs]}
         tooltipProps={tooltipProps}
-        thumbProps={thumbProps}
         tickLabels={tickLabel}
         railContainerProps={{
           onPointerEnter: handlePointerEnter,
@@ -191,9 +200,6 @@ function Timeline(props: TimelineProps) {
           onPointerLeave: handlePointerLeave,
         }}
       />
-      <Tooltip content={sunSetFormat}>
-        <span className="sunset">&#x263D;</span>
-      </Tooltip>
     </div>
   );
 }
@@ -635,27 +641,27 @@ export class SolarTimeline extends React.PureComponent<
     return (
       <div className={"solar-timeline-wrapper"}>
         <div className="header">
-          <PlayButton
-            tooltip={this._playLabel}
-            className="play-button"
+          <IconButton
+            styleType="borderless"
+            label={this._playLabel}
             isPlaying={this.state.isPlaying}
             onPlay={this._onPlay}
             onPause={this._onPause}
-          />
-          <button
+          >
+            <SvgPlay />
+          </IconButton>
+
+          <Button
+            styleType="borderless"
+            startIcon={<SvgCalendar />}
             data-testid="solar-date-time-button"
             title={this._dateTimeLabel}
-            className="current-date"
             ref={(element) => (this._datePicker = element)}
             onClick={this._onOpenDayPicker}
           >
-            <span>{formattedDate}</span>
-            <span>/</span>
-            <span>{formattedTime}</span>
-            <span className="icon">
-              <Icon iconSpec={<SvgCalendar />} />
-            </span>
-          </button>
+            {formattedDate} @ {formattedTime}
+          </Button>
+
           <Popup
             style={{ border: "none" }}
             offset={11}
@@ -689,6 +695,7 @@ export class SolarTimeline extends React.PureComponent<
               </div>
             </div>
           </Popup>
+
           <Timeline
             className="solar-timeline"
             dayStartMs={dataProvider.dayStartMs}
@@ -700,39 +707,37 @@ export class SolarTimeline extends React.PureComponent<
             formatTime={this._formatTime}
             isPlaying={this.state.isPlaying}
           />
-          <div className="speed-container">
-            <span title={this._speedLabel}>{speed}x</span>
-            <SpeedTimeline
-              className="speed"
-              onChange={this._onSpeedChange}
-              speed={this.state.speed}
-            />
-          </div>
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-          <span
-            title={this._loopLabel}
-            className={classnames(
-              "icon",
-              !loop && "no-loop-playback",
-              loop && "loop-playback"
-            )}
+
+          <select className="xyz" name="speed" id="speed">
+            <option value="1x" selected>
+              1x
+            </option>
+            <option value="2x">2x</option>
+            <option value="3x">3x</option>
+            <option value="4x">4x</option>
+            <option value="5x">5x</option>
+            <option value="6x">6x</option>
+          </select>
+
+          <IconButton
+            styleType="borderless"
+            label={this._loopLabel}
             onClick={this._onToggleLoop}
-            role="button"
-            tabIndex={-1}
+            isActive={loop}
           >
-            <Icon iconSpec={<SvgLoop />} />
-          </span>
-          <button
+            <SvgLoop />
+          </IconButton>
+
+          <IconButton
+            styleType="borderless"
             data-testid="shadow-settings-button"
-            title={this._settingLabel}
-            className="shadow-settings-button"
+            label={this._settingLabel}
             ref={(element) => (this._settings = element)}
             onClick={this._onOpenSettingsPopup}
           >
-            <span className="icon">
-              <Icon iconSpec={<SvgSettings />} />
-            </span>
-          </button>
+            <SvgSettings />
+          </IconButton>
+
           <Popup
             className="shadow-settings-popup"
             target={this._settings}

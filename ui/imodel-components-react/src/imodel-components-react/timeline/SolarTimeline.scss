@@ -11,14 +11,15 @@ $bottom-position: 4px;
   height: 28px;
 }
 
+// TODO: Can we get rid of this wrapper?
 .solar-timeline-wrapper {
   box-sizing: border-box;
-  background: var(--iui-color-background);
+  // background: pink;
   width: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
-  padding: 8px 16px;
+  // padding: 8px 16px;
   color: var(--iui-color-text);
   font-size: var(--iui-font-size-1);
 
@@ -26,14 +27,6 @@ $bottom-position: 4px;
     display: flex;
     align-items: center;
     position: relative;
-
-    > .play-button {
-      width: 26px;
-      height: 26px;
-      background: inherit;
-      border: none;
-      font-size: 20px;
-    }
 
     > .shadow-settings-button {
       display: flex;
@@ -54,34 +47,6 @@ $bottom-position: 4px;
       &:focus-visible {
         outline: 1px solid var(--iui-color-border-accent);
         outline-offset: -1px;
-      }
-    }
-
-    > .current-date {
-      min-width: 175px;
-      margin-left: 8px;
-      margin-right: 4px;
-      background: inherit;
-      padding: 3px 4px;
-      border: none;
-      display: flex;
-      align-items: center;
-      color: var(--iui-color-text);
-      font-size: var(--iui-font-size-1);
-      cursor: pointer;
-
-      &:focus-visible {
-        outline: 1px solid var(--iui-color-border-accent);
-        outline-offset: -1px;
-      }
-
-      > span:nth-child(2) {
-        margin: 0 6px;
-      }
-
-      > .icon-calendar {
-        flex-grow: 1;
-        margin-left: auto;
       }
     }
 
@@ -126,107 +91,8 @@ $bottom-position: 4px;
   }
 
   .solar-slider {
-    position: relative;
-    display: flex;
-    box-sizing: border-box;
-    align-items: center;
-    flex: 1;
-
-    .rail-outer {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 100%;
-      height: 20px;
-      cursor: pointer;
-    }
-
-    .rail-inner,
-    .rail-solar {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 4px;
-      pointer-events: none;
-    }
-
-    .rail-inner {
-      width: 100%;
-      background: var(--iui-color-background-backdrop);
-    }
-
-    .rail-solar {
-      background: var(--iui-color-background-accent);
-      z-index: 1;
-    }
-
-    .rail-tooltip {
-      position: absolute;
-      margin-left: -11px;
-      top: 0;
-      transform: translateY(-50%);
-      z-index: 1;
-    }
-
-    .solar-handle {
-      position: absolute;
-      top: 50%;
-      z-index: 4;
-      width: 38px;
-      height: 20px;
-      border-radius: var(--iui-border-radius-1);
-      border: 1px solid $buic-background-5;
-      background-image: linear-gradient(
-          to bottom,
-          $buic-background-3,
-          $buic-background-3
-        ),
-        linear-gradient(to bottom, $buic-background-1, $buic-background-1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
-      transform: translate(-50%, -50%);
-      cursor: pointer;
-
-      > div {
-        width: 1px;
-        height: 10px;
-        opacity: 0.25;
-        margin: 0 1px;
-        background-color: var(--iui-color-text);
-      }
-    }
-
-    .tick-mark {
-      position: absolute;
-      bottom: calc(#{$bottom-position} + 15px);
-      width: 1px;
-      height: 5px;
-      background: rgb(200, 200, 200);
-    }
-
-    .tick-label {
-      position: absolute;
-      bottom: $bottom-position;
-      font-size: 10px;
-      text-align: center;
-    }
-
-    .sunrise,
-    .sunset {
-      font-size: 22px;
-      cursor: default;
-    }
-
-    .sunset {
-      margin: 0px 16px 2px 24px;
-    }
-
-    .sunrise {
-      color: var(--iui-color-icon-warning);
-      margin: 0 24px 0 8px;
-    }
+    flex: 1; // TODO: Can we remove this class?
+    margin-inline: var(--iui-size-2xs);
   }
 }
 
@@ -355,5 +221,31 @@ $bottom-position: 4px;
     border-style: solid;
     border-color: rgba(0, 0, 0, var(--iui-opacity-3)) transparent transparent
       transparent;
+  }
+}
+
+.xyz {
+  all: unset;
+  display: flex;
+  align-items: center;
+  height: var(--iui-component-height);
+  padding-inline: var(--iui-size-xs);
+  box-sizing: border-box;
+  border-radius: var(--iui-border-radius-1);
+  border: 1px solid transparent;
+  color: var(--iui-color-text);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--iui-duration-1) ease-out,
+    border-color var(--iui-duration-1) ease-out;
+
+  &:hover {
+    color: var(--iui-color-text-hover);
+    background-color: var(--iui-color-background-transparent-hover);
+  }
+
+  &:focus-visible {
+    outline: 1px solid var(--iui-color-border-accent);
+    outline-offset: -1px;
   }
 }
