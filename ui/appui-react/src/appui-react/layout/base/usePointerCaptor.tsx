@@ -31,8 +31,7 @@ export const usePointerCaptor = <T extends HTMLElement>(
   const isDown = React.useRef(false);
   React.useEffect(() => {
     const mouseMove = (e: MouseEvent) => {
-      if (e.buttons !== 2)
-        isDown.current && onPointerMove && onPointerMove(e, e);
+      isDown.current && onPointerMove && onPointerMove(e, e);
     };
     document.addEventListener("mousemove", mouseMove);
     return () => {
@@ -53,8 +52,10 @@ export const usePointerCaptor = <T extends HTMLElement>(
     (instance: T | null) => {
       let touchTarget: EventTarget | null = null;
       const mouseDown = (e: MouseEvent) => {
-        onPointerDown && onPointerDown(e, e);
-        isDown.current = true;
+        if (e.buttons === 1) {
+          onPointerDown && onPointerDown(e, e);
+          isDown.current = true;
+        }
       };
       const touchMove = (e: TouchEvent) => {
         if (e.touches.length !== 1) return;

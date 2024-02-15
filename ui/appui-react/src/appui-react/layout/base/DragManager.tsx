@@ -531,7 +531,7 @@ export function DragProvider(props: DragProviderProps) {
   const dragManager = React.useRef(new DragManager());
   React.useEffect(() => {
     const mouseMove = (e: MouseEvent) => {
-      if (e.buttons !== 2) dragManager.current.handleDrag(e.clientX, e.clientY);
+      dragManager.current.handleDrag(e.clientX, e.clientY);
     };
     document.addEventListener("mousemove", mouseMove);
     return () => {
