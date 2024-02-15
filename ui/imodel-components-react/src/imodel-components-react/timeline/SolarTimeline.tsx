@@ -644,7 +644,7 @@ export class SolarTimeline extends React.PureComponent<
           <IconButton
             styleType="borderless"
             label={this._playLabel}
-            isPlaying={this.state.isPlaying}
+            // isPlaying={this.state.isPlaying} // TODO: icon and label should change based on `isPlaying` prop.
             onPlay={this._onPlay}
             onPause={this._onPause}
           >
