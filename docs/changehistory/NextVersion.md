@@ -18,7 +18,7 @@ Table of contents:
 
 ### Additions
 
-- `ControlledTree`: add ability to select multiple nodes using `CMD` key + mouse click.
+- `ControlledTree`: add ability to select multiple nodes using `CMD` key + mouse click. [#734](https://github.com/iTwin/appui/pull/734)
 
 ### Fixes
 
