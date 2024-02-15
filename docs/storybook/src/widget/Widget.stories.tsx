@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
-import { BadgeType } from "@itwin/appui-abstract";
+import { BadgeType } from "@itwin/appui-react";
 import { WidgetState } from "@itwin/appui-react";
 import { AppUiDecorator } from "../AppUiDecorator";
 import { Page } from "../AppUiStory";

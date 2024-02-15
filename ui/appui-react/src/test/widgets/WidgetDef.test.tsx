@@ -5,10 +5,10 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { BadgeType } from "@itwin/appui-abstract";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { SvgList } from "@itwin/itwinui-icons-react";
 import {
+  BadgeType,
   FrontstageDef,
   initializeNineZoneState,
   UiFramework,

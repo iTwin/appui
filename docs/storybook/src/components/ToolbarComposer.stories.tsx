@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { BadgeType } from "@itwin/appui-abstract";
+import { BadgeType } from "@itwin/appui-react";
 import {
   CommandItemDef,
   ToolbarComposer,

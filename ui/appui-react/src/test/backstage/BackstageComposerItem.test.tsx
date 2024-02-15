@@ -12,6 +12,7 @@ import {
   BackstageComposerActionItem,
   BackstageComposerItem,
   BackstageComposerStageLauncher,
+  BadgeType,
   UiFramework,
 } from "../../appui-react";
 import TestUtils, {
@@ -21,7 +22,6 @@ import TestUtils, {
 } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
-import { BadgeType } from "@itwin/appui-abstract";
 
 /** @internal */
 export const getActionItem = (

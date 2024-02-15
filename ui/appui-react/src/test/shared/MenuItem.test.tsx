@@ -5,9 +5,9 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { BadgeType } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import type { MenuItemProps } from "../../appui-react/shared/MenuItem";
+import { BadgeType } from "../../appui-react/shared/BadgeType";
 import { MenuItem, MenuItemHelpers } from "../../appui-react/shared/MenuItem";
 import TestUtils, { childStructure, selectorMatches } from "../TestUtils";
 

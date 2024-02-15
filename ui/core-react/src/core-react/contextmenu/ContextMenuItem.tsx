@@ -9,10 +9,10 @@
 import * as React from "react";
 import classnames from "classnames";
 import { Key } from "ts-key-enum";
-import type { BadgeType } from "@itwin/appui-abstract";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props";
 import type { ContextMenu } from "./ContextMenu";
+import type { BadgeType } from "../badge/BadgeUtilities";
 import { BadgeUtilities } from "../badge/BadgeUtilities";
 import { TildeFinder } from "./TildeFinder";
 import type { IconSpec } from "../icons/IconComponent";

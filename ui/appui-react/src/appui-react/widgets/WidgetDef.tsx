@@ -8,7 +8,6 @@
 
 import type * as React from "react";
 import type {
-  BadgeType,
   ConditionalStringValue,
   StringGetter,
 } from "@itwin/appui-abstract";
@@ -25,6 +24,7 @@ import type { WidgetControl } from "./WidgetControl";
 import type { IconSpec, SizeProps } from "@itwin/core-react";
 import { IconHelper } from "@itwin/core-react";
 import type { WidgetConfig } from "./WidgetConfig";
+import type { BadgeType } from "../shared/BadgeType";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";

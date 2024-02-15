@@ -3,8 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { BadgeType } from "@itwin/appui-abstract";
-import { CommandItemDef, GroupItemDef } from "../../appui-react";
+import { BadgeType, CommandItemDef, GroupItemDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 const tool1 = new CommandItemDef({

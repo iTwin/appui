@@ -21,7 +21,6 @@ import type {
   PropertyDescription,
 } from "@itwin/appui-abstract";
 import {
-  BadgeType,
   DialogLayoutDataProvider,
   PropertyChangeStatus,
   RelativePosition,
@@ -38,6 +37,7 @@ import TestUtils, { storageMock } from "../TestUtils";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { Button } from "@itwin/itwinui-react";
 import type { KeyinEntry } from "../../appui-react/keyins/Keyins";
+import { BadgeType } from "../../appui-react/shared/BadgeType";
 const myLocalStorage = storageMock();
 function requestNextAnimation() {}
 

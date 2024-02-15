@@ -7,11 +7,22 @@
  */
 
 import * as React from "react";
-import { BadgeType } from "@itwin/appui-abstract";
 import { BetaBadge } from "./BetaBadge";
 import { NewBadge } from "./NewBadge";
 
-/** Converts BetaType to Badge React component
+/** Specifies type of badge, if any, that should be overlaid on UI component.
+ * @internal
+ */
+export enum BadgeType {
+  /** No badge. */
+  None = 0,
+  /** Standard Technical Preview badge. */
+  TechnicalPreview = 1,
+  /** Standard New Feature badge. */
+  New = 2,
+}
+
+/** Converts BadgeType to Badge React component
  * @internal
  */
 export class BadgeUtilities {

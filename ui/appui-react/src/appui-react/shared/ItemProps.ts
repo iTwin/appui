@@ -7,13 +7,13 @@
  */
 
 import type {
-  BadgeType,
   CommandHandler,
   ConditionalBooleanValue,
   ConditionalStringValue,
   StringGetter,
 } from "@itwin/appui-abstract";
 import type { IconProps, IconSpec } from "@itwin/core-react";
+import type { BadgeType } from "./BadgeType";
 
 /** Definition that specifies properties shared between many ConfigurableUi components.
  * @public

@@ -28,6 +28,8 @@ export * from "./appui-react/backstage/BackstageManager";
 export * from "./appui-react/backstage/useDefaultBackstageItems";
 export * from "./appui-react/backstage/useUiItemsProviderBackstageItems";
 
+export * from "./appui-react/shared/BadgeType"
+
 export * from "./appui-react/configurableui/ConfigurableUiContent";
 export * from "./appui-react/configurableui/ConfigurableUiControl";
 export * from "./appui-react/configurableui/state";

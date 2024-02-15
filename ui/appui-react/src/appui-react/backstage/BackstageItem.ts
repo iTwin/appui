@@ -7,11 +7,11 @@
  */
 
 import type {
-  BadgeType,
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
+import type { BadgeType } from "../shared/BadgeType";
 
 /** Describes the data needed to insert a button into the backstage menu.
  * @public

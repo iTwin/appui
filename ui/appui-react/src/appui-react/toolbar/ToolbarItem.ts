@@ -7,11 +7,11 @@
  */
 
 import type {
-  BadgeType,
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
+import type { BadgeType } from "../shared/BadgeType";
 
 /** Used to specify the usage of the toolbar which determine the toolbar position.
  * @public

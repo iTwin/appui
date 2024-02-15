@@ -6,11 +6,11 @@
  * @module Widget
  */
 
-import { BadgeType } from "@itwin/appui-abstract";
 import { BadgeUtilities } from "@itwin/core-react";
 import * as React from "react";
 import { WidgetTab } from "../layout/widget/Tab";
 import { useWidgetDef } from "./Content";
+import { BadgeType } from "../shared/BadgeType";
 import "./Tab.scss";
 
 /** @internal */
