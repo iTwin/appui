@@ -290,6 +290,8 @@ beta;ListPickerItem
 beta;ListPickerItemProps 
 beta;ListPickerProps
 beta;ListPickerPropsExtended 
+internal;mapRelativePositionToPlacement(input?: Placement | RelativePosition_2): Placement
+internal;mapToRelativePosition(input: Placement | RelativePosition_2): RelativePosition_2
 alpha;MenuButton 
 alpha;MenuButtonPopup 
 alpha;MenuButtonPopupProps 
@@ -342,6 +344,8 @@ internal;PanelSizeChangedEvent
 internal;PanelSizeChangedEventArgs
 beta;PanelStateChangedEvent 
 public;PanelStateChangedEventArgs
+public;Placement = Side | Corner
+internal;PlacementOrRelativePosition = Placement | RelativePosition_2
 public;PointerMessage 
 public;PointerMessageChangedEvent 
 public;PointerMessageChangedEventArgs

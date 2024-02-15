@@ -1328,7 +1328,7 @@ export class CursorPopup extends React_2.Component<CursorPopupProps, CursorPopup
     // @internal (undocumented)
     static fadeOutTime: number;
     // @internal (undocumented)
-    static getPopupRect(pt: XAndY, offset: XAndY, popupSize: SizeProps | undefined, relativePosition: RelativePosition): RectangleProps;
+    static getPopupRect(pt: XAndY, offset: XAndY, popupSize: SizeProps | undefined, relativePosition: RelativePosition | Placement): RectangleProps;
     // @internal (undocumented)
     render(): React_2.JSX.Element;
 }
@@ -2977,6 +2977,12 @@ export interface ListPickerPropsExtended extends ListPickerProps {
     invertFunc?: () => void;
 }
 
+// @internal
+export function mapRelativePositionToPlacement(input?: Placement | RelativePosition_2): Placement;
+
+// @internal
+export function mapToRelativePosition(input: Placement | RelativePosition_2): RelativePosition_2;
+
 // @alpha (undocumented)
 export class MenuButton extends React_2.PureComponent<MenuButtonProps, MenuButtonState> {
     constructor(props: MenuButtonProps);
@@ -3345,6 +3351,12 @@ export interface PanelStateChangedEventArgs {
     // (undocumented)
     panelState: StagePanelState;
 }
+
+// @public
+export type Placement = Side | Corner;
+
+// @internal
+export type PlacementOrRelativePosition = Placement | RelativePosition_2;
 
 // @public
 export class PointerMessage extends React_2.Component<PointerMessageProps, PointerMessageState> {
@@ -4891,7 +4903,7 @@ export class UiFramework {
     // (undocumented)
     static openCursorMenu(menuData: CursorMenuData | undefined): void;
     static openDialog(uiDataProvider: DialogLayoutDataProvider, title: string, isModal: boolean, id: string, optionalProps?: DialogProps): boolean;
-    static openToolSettingsPopup(dataProvider: DialogLayoutDataProvider, location: XAndY, offset: XAndY, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
+    static openToolSettingsPopup(dataProvider: DialogLayoutDataProvider, location: XAndY, offset: XAndY, onCancel: () => void, placement?: Placement, anchorElement?: HTMLElement): boolean;
     // @internal (undocumented)
     static get packageName(): string;
     static registerUserSettingsProvider(entry: UserSettingsProvider): boolean;
@@ -4929,15 +4941,15 @@ export class UiFramework {
     static setViewOverlayDisplay(display: boolean): void;
     // (undocumented)
     static setWidgetOpacity(opacity: number): void;
-    static showAngleEditor(initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, anchorElement?: HTMLElement): boolean;
-    static showCalculator(initialValue: number, resultIcon: string, location: XAndY, onOk: OnNumberCommitFunc, onCancel: OnCancelFunc, anchorElement?: HTMLElement): boolean;
-    static showCard(content: React.ReactNode, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
+    static showAngleEditor(initialValue: number, location: XAndY, onCommit: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement): boolean;
+    static showCalculator(initialValue: number, resultIcon: string, location: XAndY, onOk: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement): boolean;
+    static showCard(content: React.ReactNode, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined, location: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, placement?: Placement, anchorElement?: HTMLElement): boolean;
     static showComponent(...params: OptionalShowComponentParams): boolean;
-    static showDimensionEditor(dimension: "Height" | "Length", initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, anchorElement?: HTMLElement): boolean;
+    static showDimensionEditor(dimension: "Height" | "Length", initialValue: number, location: XAndY, onCommit: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement): boolean;
     static showInputEditor({ anchorElement, initialValue, location, onCancel, onCommit, propertyDescription }: ShowInputEditorOptions): boolean;
     static showKeyinPalette(keyinEntries: KeyinEntry[], htmlElement?: HTMLElement): boolean;
     static showMenuButton(id: string, menuItemsProps: AbstractMenuItemProps[], location: XAndY, anchorElement?: HTMLElement): boolean;
-    static showToolbar(toolbarProps: AbstractToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
+    static showToolbar(toolbarProps: AbstractToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, placement?: Placement, anchorElement?: HTMLElement): boolean;
     // (undocumented)
     static get showWidgetIcon(): boolean;
     static get store(): Store<any>;

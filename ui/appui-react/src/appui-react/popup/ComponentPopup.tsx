@@ -9,16 +9,16 @@ import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
 import type { PopupPropsBase } from "./PopupManager";
 import { PopupManager } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
-import type { OnCancelFunc, RelativePosition } from "@itwin/appui-abstract";
 import { useEffect, useState } from "react";
 import { WrapperContext } from "../configurableui/ConfigurableUiContent";
+import type { Placement } from "../utils/Placement";
 
 // Props used for the ComponentPopup.
 interface ComponentPopupProps extends Omit<PopupPropsBase, "el"> {
   Component: React.ReactElement;
-  relativePosition: RelativePosition;
+  placement: Placement;
   orientation: Orientation;
-  onCancel: OnCancelFunc;
+  onCancel: () => void;
   anchorRef?: React.RefObject<HTMLElement>;
 }
 
@@ -30,7 +30,7 @@ export const ComponentPopup: React.FC<ComponentPopupProps> = ({
   pt,
   Component,
   offset,
-  relativePosition,
+  placement,
   id,
   onCancel,
   anchorRef,
@@ -52,12 +52,7 @@ export const ComponentPopup: React.FC<ComponentPopupProps> = ({
     size
   );
 
-  const popupRect = CursorPopup.getPopupRect(
-    point,
-    offset,
-    size,
-    relativePosition
-  );
+  const popupRect = CursorPopup.getPopupRect(point, offset, size, placement);
   point = new Point(popupRect.left, popupRect.top);
 
   const handleSizeKnown = (newSize: SizeProps) => {

@@ -13,8 +13,8 @@ import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
-import type { AbstractMenuItemProps, AbstractToolbarProps, DialogLayoutDataProvider, DialogProps, OnCancelFunc, OnItemExecutedFunc, OnNumberCommitFunc, OnValueCommitFunc, Primitives, PropertyDescription, PropertyRecord } from "@itwin/appui-abstract";
-import { RelativePosition, UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
+import type { AbstractMenuItemProps, AbstractToolbarProps, DialogLayoutDataProvider, DialogProps, Primitives, PropertyDescription, PropertyRecord } from "@itwin/appui-abstract";
+import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
 import { getObjectClassName } from "@itwin/core-react";
@@ -73,14 +73,15 @@ import { UiDataProvidedDialog } from "./dialog/UiDataProvidedDialog";
 import { createElement } from "react";
 import type { DialogInfo } from "./dialog/DialogManagerBase";
 import type { KeyinEntry } from "./keyins/Keyins";
+import { mapToRelativePosition, type Placement } from "./utils/Placement";
 
 interface ShowInputEditorOptions {
   location: XAndY;
   anchorElement?: HTMLElement;
   initialValue: Primitives.Value; // need strategy for replacing (appui-abstract)
   propertyDescription: PropertyDescription;
-  onCommit: OnValueCommitFunc;
-  onCancel: OnCancelFunc;
+  onCommit: (value: Primitives.Value) => void;
+  onCancel: () => void;
 }
 
 // cSpell:ignore Mobi
@@ -918,7 +919,7 @@ export class UiFramework {
    * @param offset Offset of the Card from the location.
    * @param onItemExecuted Function invoked after a Toolbar item is executed
    * @param onCancel Function invoked when the Escape key is pressed or a click occurs outside the Card
-   * @param relativePosition Position relative to the given location. Defaults to TopRight.
+   * @param relativePosition {@link Placement} relative to the given location. Defaults to TopRight.
    * @param anchorElement The HTMLElement that anchors the Card. If undefined, the location is relative to the overall window.
    * @return true if the Card was displayed, false if the Card could not be displayed.
    */
@@ -928,17 +929,14 @@ export class UiFramework {
     toolbarProps: AbstractToolbarProps | undefined,
     location: XAndY,
     offset: XAndY,
-    onItemExecuted: OnItemExecutedFunc,
-    onCancel: OnCancelFunc,
-    relativePosition?: RelativePosition,
+    onItemExecuted: (item: any) => void,
+    onCancel: () => void,
+    placement: Placement = "TopRight",
     anchorElement?: HTMLElement
   ): boolean {
     const el = this.resolveHtmlElement(anchorElement);
 
-    // istanbul ignore if
-    if (relativePosition === undefined)
-      relativePosition = RelativePosition.TopRight;
-
+    const relativePosition = mapToRelativePosition(placement);
     return PopupManager.showCard(
       { reactNode: content },
       title,
@@ -972,14 +970,12 @@ export class UiFramework {
     dataProvider: DialogLayoutDataProvider,
     location: XAndY,
     offset: XAndY,
-    onCancel: OnCancelFunc,
-    relativePosition?: RelativePosition,
+    onCancel: () => void,
+    placement: Placement = "TopRight",
     anchorElement?: HTMLElement
   ): boolean {
     const el = this.resolveHtmlElement(anchorElement);
-
-    if (relativePosition === undefined)
-      relativePosition = RelativePosition.TopRight;
+    const relativePosition = mapToRelativePosition(placement);
 
     return PopupManager.openToolSettings(
       dataProvider,
@@ -987,7 +983,7 @@ export class UiFramework {
       location,
       offset,
       onCancel,
-      relativePosition
+      relativePosition,
     );
   }
 
@@ -1012,12 +1008,14 @@ export class UiFramework {
     toolbarProps: AbstractToolbarProps,
     location: XAndY,
     offset: XAndY,
-    onItemExecuted: OnItemExecutedFunc,
-    onCancel: OnCancelFunc,
-    relativePosition: RelativePosition = RelativePosition.TopRight,
+    onItemExecuted: (item: any) => void,
+    onCancel: () => void,
+    placement: Placement = "TopRight",
     anchorElement?: HTMLElement
   ): boolean {
     const el = UiFramework.resolveHtmlElement(anchorElement)
+    const relativePosition = mapToRelativePosition(placement);
+
     return PopupManager.showToolbar(
       toolbarProps,
       el,
@@ -1077,8 +1075,8 @@ export class UiFramework {
     initialValue: number,
     resultIcon: string,
     location: XAndY,
-    onOk: OnNumberCommitFunc,
-    onCancel: OnCancelFunc,
+    onOk: (value: number) => void,
+    onCancel: () => void,
     anchorElement?: HTMLElement
   ): boolean {
     const el = this.resolveHtmlElement(anchorElement);
@@ -1107,18 +1105,18 @@ export class UiFramework {
   public static showComponent(...params: OptionalShowComponentParams): boolean {
     const options: typeof params[1] = params[1] || {};
     const component = params[0]
-    const { anchorRef } = options;
+    const { anchorRef, id } = options;
 
     let {
       location,
       offset,
       onCancel,
-      relativePosition,
+      placement,
     } = options;
 
     if (!location) location = { x: 0, y: 0 };
     if (!offset) offset = { x: 0, y: 0 };
-    if (!relativePosition) relativePosition = RelativePosition.TopRight
+    if (!placement) placement = "TopRight"
     if (!onCancel) onCancel = UiFramework.hideComponent;
 
     return PopupManager.showComponent(
@@ -1127,8 +1125,9 @@ export class UiFramework {
         location,
         offset,
         onCancel,
-        relativePosition,
-        anchorRef
+        placement,
+        anchorRef,
+        id
       },
     );
   }
@@ -1152,8 +1151,8 @@ export class UiFramework {
   public static showAngleEditor(
     initialValue: number,
     location: XAndY,
-    onCommit: OnNumberCommitFunc,
-    onCancel: OnCancelFunc,
+    onCommit: (value: number) => void,
+    onCancel: () => void,
     anchorElement?: HTMLElement
   ): boolean {
     const el = this.resolveHtmlElement(anchorElement);
@@ -1194,7 +1193,7 @@ export class UiFramework {
    * @param anchorElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the editor was displayed, false if the editor could not be displayed.
    */
-  public static showDimensionEditor(dimension: "Height" | "Length", initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, anchorElement?: HTMLElement) {
+  public static showDimensionEditor(dimension: "Height" | "Length", initialValue: number, location: XAndY, onCommit: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement) {
     const el = this.resolveHtmlElement(anchorElement);
     return AccuDrawPopupManager.showDimensionEditor(dimension, el, location, initialValue, onCommit, onCancel);
   }

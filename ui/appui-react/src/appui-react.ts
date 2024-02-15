@@ -110,6 +110,8 @@ export * from "./appui-react/navigationaids/StandardRotationNavigationAid";
 export * from "./appui-react/pickers/ListPicker";
 export * from "./appui-react/pickers/ViewSelector";
 
+export * from "./appui-react/utils/Placement";
+
 export * from "./appui-react/popup/KeyinPalettePanel";
 export * from "./appui-react/popup/KeyinPalettePopup";
 export * from "./appui-react/popup/HTMLElementPopup";

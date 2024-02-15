@@ -31,6 +31,7 @@ import {
   getKeyinsFromToolList,
   KeyinFieldLocalization,
 } from "../keyins/Keyins";
+import { mapRelativePositionToPlacement } from "../utils/Placement";
 
 /** Subclass of `UiAdmin` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
  *
@@ -147,13 +148,15 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     htmlElement?: HTMLElement
   ): boolean {
+    const placement = mapRelativePositionToPlacement(relativePosition);
+
     return UiFramework.showToolbar(
       toolbarProps,
       location,
       offset,
       onItemExecuted,
       onCancel,
-      relativePosition,
+      placement,
       htmlElement
     );
   }
@@ -409,6 +412,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     anchorElement?: HTMLElement
   ): boolean {
+    const placement = mapRelativePositionToPlacement(relativePosition);
     return UiFramework.showCard(
       content,
       title,
@@ -417,7 +421,7 @@ export class FrameworkUiAdmin extends UiAdmin {
       offset,
       onItemExecuted,
       onCancel,
-      relativePosition,
+      placement,
       anchorElement
     );
   }
@@ -446,6 +450,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     anchorElement?: HTMLElement
   ): boolean {
+    const placement = mapRelativePositionToPlacement(relativePosition);
     return UiFramework.showCard(
       content,
       title,
@@ -454,7 +459,7 @@ export class FrameworkUiAdmin extends UiAdmin {
       offset,
       onItemExecuted,
       onCancel,
-      relativePosition,
+      placement,
       anchorElement
     );
   }
@@ -486,12 +491,13 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     anchorElement?: HTMLElement
   ): boolean {
+    const placement = mapRelativePositionToPlacement(relativePosition);
     return UiFramework.openToolSettingsPopup(
       dataProvider,
       location,
       offset,
       onCancel,
-      relativePosition,
+      placement,
       anchorElement
     );
   }

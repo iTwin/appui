@@ -39,6 +39,7 @@ import { ToolbarPopup } from "./ToolbarPopup";
 import { ToolSettingsPopup } from "./ToolSettingsPopup";
 import { ComponentPopup } from "./ComponentPopup";
 import { WrapperContext } from "../configurableui/ConfigurableUiContent";
+import type { Placement } from "../utils/Placement";
 
 // cSpell:ignore uiadmin
 
@@ -57,8 +58,9 @@ interface ShowComponentOptions {
   onCancel: () => void;
   location: XAndY;
   offset: XAndY;
-  relativePosition: RelativePosition;
+  placement: Placement;
   anchorRef?: React.RefObject<HTMLElement>;
+  id?: string;
 }
 
 /** @public */
@@ -359,24 +361,24 @@ export class PopupManager {
     displayElement: ReactElement,
     options: ShowComponentOptions
   ): boolean {
-    const { onCancel, location, offset, relativePosition, anchorRef } = options;
-    const id = PopupManager._htmlElementId;
+    const { onCancel, location, offset, placement, anchorRef, id } = options;
+    const _id = PopupManager._htmlElementId;
 
     const component = (
       <ComponentPopup
-        id={id}
+        id={id ?? _id}
         anchorRef={anchorRef}
         pt={location}
         offset={offset}
         Component={displayElement}
-        relativePosition={relativePosition}
+        placement={placement}
         orientation={Orientation.Horizontal}
         onCancel={onCancel}
       />
     );
 
     const popupInfo: PopupInfo = {
-      id,
+      id: id ?? _id,
       pt: location,
       component,
       parentDocument: anchorRef?.current?.ownerDocument,
