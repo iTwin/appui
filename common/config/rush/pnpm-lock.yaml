@@ -46,6 +46,9 @@ importers:
       '@itwin/core-react':
         specifier: workspace:*
         version: link:../../ui/core-react
+      '@itwin/imodel-components-react':
+        specifier: workspace:*
+        version: link:../../ui/imodel-components-react
       '@itwin/imodels-access-frontend':
         specifier: ^3.0.0
         version: 3.1.1(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)
