@@ -20,10 +20,10 @@ function fixedViteCommonjs(options: Options) {
 
 const localeDirs = [
   "./node_modules/@itwin/appui-react/lib/public/locales",
-  "./node_modules/@itwin/appui-react/node_modules/@itwin/imodel-components-react/lib/public/locales",
   "./node_modules/@itwin/core-react/lib/public/locales",
   "./node_modules/@itwin/core-frontend/lib/public/locales",
   "./node_modules/@itwin/components-react/lib/public/locales",
+  "./node_modules/@itwin/imodel-components-react/lib/public/locales",
 ];
 
 // https://vitejs.dev/config/
