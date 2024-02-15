@@ -4,32 +4,23 @@
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 
-@mixin preview-maximized-widget-layout {
-  > .nz-leftPanel,
-  > .nz-rightPanel,
-  > .nz-topPanel,
-  > .nz-bottomPanel {
-    &.preview-maximized-panel {
-      grid-row: 1 / -1;
-      grid-column: 1 / -1;
+@layer appui.preview.enable-maximized-widget {
+  .preview-maximized-panel-layout {
+    grid-row: 1 / -1;
+    grid-column: 1 / -1;
 
-      z-index: uicore-get-z-index(dragged-widget) + 1;
-    }
+    z-index: uicore-get-z-index(dragged-widget) + 1;
   }
-}
 
-@mixin preview-maximized-panel {
-  &.preview-maximized-panel {
+  .preview-maximized-panel {
     height: 100%;
   }
-}
 
-@mixin preview-maximized-sibling {
-  &.preview-maximized-section {
+  .preview-maximized-section {
     flex: 1;
   }
 
-  &.preview-maximized-section-sibling {
+  .preview-maximized-section-sibling {
     display: none;
   }
 }

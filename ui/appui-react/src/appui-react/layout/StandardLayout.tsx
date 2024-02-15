@@ -61,7 +61,7 @@ function Panel({ children, side }: React.PropsWithChildren<PanelProps>) {
   const maximizedWidget = useMaximizedPanelLayout(side);
   const horizontalAlignment = useHorizontalPanelAlignment(side);
   const className = classnames(
-    `nz-${side}Panel`,
+    `nz-standardLayout_${side}Panel`,
     maximizedWidget,
     horizontalAlignment.classNames
   );

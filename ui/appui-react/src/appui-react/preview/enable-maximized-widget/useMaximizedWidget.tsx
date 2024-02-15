@@ -6,6 +6,7 @@
  * @module Widget
  */
 
+import "./useMaximizedWidget.scss";
 import * as React from "react";
 import { WidgetIdContext } from "../../layout/widget/Widget";
 import { MaximizedWidgetContext } from "./MaximizedWidget";
@@ -31,7 +32,7 @@ export function useIsMaximizedWidget() {
 export function useMaximizedPanelLayout(side: PanelSide) {
   const location = useMaximizedPanelWidgetLocation();
   return {
-    "preview-maximized-panel": location?.side === side,
+    "preview-maximized-panel-layout": location?.side === side,
   };
 }
 

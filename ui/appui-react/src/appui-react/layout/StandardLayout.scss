@@ -3,91 +3,90 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "../preview/enable-maximized-widget/maximizedWidget";
 
-.nz-standardLayout {
-  position: relative;
-  height: 100%;
-  background-color: $buic-background-widget-panel;
-  overflow: hidden;
-
-  display: grid;
-  grid-template-columns:
-    [lp-start] minmax(0, auto) [lp-end] 1fr [rp-start] minmax(0, auto)
-    [rp-end];
-  grid-template-rows:
-    minmax(0, auto) [ts-end] minmax(0, auto) [tp-end] 1fr [bp-start] minmax(
-      0,
-      auto
-    )
-    [bp-end]
-    minmax(0, auto);
-  grid-template-areas:
-    "ts ts ts"
-    "tp tp tp"
-    "lp cc rp"
-    "bp bp bp"
-    "sb sb sb";
-
-  > .nz-appContent {
-    grid-row: 1 / -1;
-    grid-column: 1 / -1;
-
-    // TODO: clean-up #uifw-contentlayout-div
+@layer appui.component {
+  .nz-standardLayout {
     position: relative;
+    height: 100%;
+    background-color: $buic-background-widget-panel;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns:
+      [lp-start] minmax(0, auto) [lp-end] 1fr [rp-start] minmax(0, auto)
+      [rp-end];
+    grid-template-rows:
+      minmax(0, auto) [ts-end] minmax(0, auto) [tp-end] 1fr [bp-start] minmax(
+        0,
+        auto
+      )
+      [bp-end]
+      minmax(0, auto);
+    grid-template-areas:
+      "ts ts ts"
+      "tp tp tp"
+      "lp cc rp"
+      "bp bp bp"
+      "sb sb sb";
+
+    > .nz-appContent {
+      grid-row: 1 / -1;
+      grid-column: 1 / -1;
+
+      // TODO: clean-up #uifw-contentlayout-div
+      position: relative;
+    }
+
+    > .nz-toolSettings {
+      grid-area: ts;
+    }
+
+    > .nz-centerContent {
+      grid-area: cc;
+    }
+
+    > .nz-statusBar {
+      grid-area: sb;
+    }
+
+    &.nz-pinned-left {
+      > .nz-appContent {
+        grid-column-start: 2;
+      }
+    }
+
+    &.nz-pinned-right {
+      > .nz-appContent {
+        grid-column-end: -2;
+      }
+    }
+
+    &.nz-pinned-top {
+      > .nz-appContent {
+        grid-row-start: tp-end;
+      }
+    }
+
+    &.nz-pinned-bottom {
+      > .nz-appContent {
+        grid-row-end: bp-start;
+      }
+    }
   }
 
-  > .nz-toolSettings {
-    grid-area: ts;
-  }
-
-  > .nz-topPanel {
+  .nz-standardLayout_topPanel {
     grid-area: tp;
   }
 
-  > .nz-leftPanel {
+  .nz-standardLayout_leftPanel {
     grid-area: lp;
   }
 
-  > .nz-centerContent {
-    grid-area: cc;
-  }
-
-  > .nz-rightPanel {
+  .nz-standardLayout_rightPanel {
     grid-area: rp;
   }
 
-  > .nz-bottomPanel {
+  .nz-standardLayout_bottomPanel {
     grid-area: bp;
   }
-
-  > .nz-statusBar {
-    grid-area: sb;
-  }
-
-  &.nz-pinned-left {
-    > .nz-appContent {
-      grid-column-start: 2;
-    }
-  }
-
-  &.nz-pinned-right {
-    > .nz-appContent {
-      grid-column-end: -2;
-    }
-  }
-
-  &.nz-pinned-top {
-    > .nz-appContent {
-      grid-row-start: tp-end;
-    }
-  }
-
-  &.nz-pinned-bottom {
-    > .nz-appContent {
-      grid-row-end: bp-start;
-    }
-  }
-
-  @include preview-maximized-widget-layout;
 }
