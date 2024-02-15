@@ -72,9 +72,7 @@ function WidgetPanelsFrontstageComponent() {
   useCursor();
 
   return (
-    <MaximizedWidgetProvider
-      enabled={previewFeatures.enableMaximizedFloatingWidget}
-    >
+    <MaximizedWidgetProvider>
       <PreviewHorizontalPanelAlignFeatureProvider
         enabled={previewFeatures.horizontalPanelAlignment}
       >

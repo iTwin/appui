@@ -16,6 +16,7 @@ import {
 } from "../../layout/state/WidgetLocation";
 import type { WidgetState } from "../../layout/state/WidgetState";
 import type { PanelSide } from "../../layout/widget-panels/PanelTypes";
+import { usePreviewFeatures } from "../PreviewFeatures";
 
 /** @internal */
 export function useIsMaximizedWidget() {
@@ -80,7 +81,10 @@ function useMaximizedWidgetLocation() {
 }
 
 function useMaximizedWidgetId() {
-  const { enabled, maximizedWidget } = React.useContext(MaximizedWidgetContext);
+  const { maximizedWidget } = React.useContext(MaximizedWidgetContext);
+  const preview = usePreviewFeatures();
+  const enabled =
+    preview.enableMaximizedFloatingWidget || preview.enableMaximizedPanelWidget;
   if (!enabled) return undefined;
 
   return maximizedWidget;

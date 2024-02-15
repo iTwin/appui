@@ -139,13 +139,8 @@ export function SendBack() {
 export function useSendBack() {
   const maximizedWidget = useIsMaximizedWidget();
   const isToolSettings = useIsToolSettingsTab();
-  const floatingWidgetId = useFloatingWidgetId();
+  const isFloatingWidget = !!useFloatingWidgetId();
   const canBeDocked = useWidgetAllowedToDock();
 
-  return !!(
-    !maximizedWidget &&
-    floatingWidgetId &&
-    !isToolSettings &&
-    canBeDocked
-  );
+  return !maximizedWidget && isFloatingWidget && !isToolSettings && canBeDocked;
 }

@@ -14,6 +14,9 @@ import {
 import { ActionButton } from "../widget-action-dropdown/Button";
 import { WidgetIdContext } from "../../layout/widget/Widget";
 import { MaximizedWidgetContext } from "./MaximizedWidget";
+import { usePreviewFeatures } from "../PreviewFeatures";
+import { useFloatingWidgetId } from "../../layout/widget/FloatingWidget";
+import { usePanelWidgetId } from "../../layout/widget/usePanelWidgetId";
 
 /** @internal */
 export function MaximizeToggle() {
@@ -48,7 +51,12 @@ export function MaximizeToggle() {
 
 /** @internal */
 export function useMaximizeToggle() {
-  const { enabled } = React.useContext(MaximizedWidgetContext);
+  const { enableMaximizedFloatingWidget, enableMaximizedPanelWidget } =
+    usePreviewFeatures();
+  const floatingWidgetId = useFloatingWidgetId();
+  const panelWidgetId = usePanelWidgetId();
 
-  return !!enabled;
+  if (enableMaximizedFloatingWidget && floatingWidgetId) return true;
+  if (enableMaximizedPanelWidget && panelWidgetId) return true;
+  return false;
 }

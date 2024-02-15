@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import { assert } from "@itwin/core-bentley";
 import { useLayout } from "../base/LayoutStore";
 import {
   isHorizontalPanelSide,
@@ -16,16 +15,23 @@ import {
 import { WidgetIdContext } from "./Widget";
 
 /** @internal */
-export function useIsMainPanelWidget() {
+export function usePanelWidgetId() {
+  const side = React.useContext(PanelSideContext);
+  const widgetId = React.useContext(WidgetIdContext);
+  if (!side || widgetId === undefined) return undefined;
+  return widgetId;
+}
+
+/** @internal */
+export function useMainPanelWidgetId() {
   const side = React.useContext(PanelSideContext);
   const widgetId = React.useContext(WidgetIdContext);
   return useLayout((state) => {
-    const widgets = side ? state.panels[side].widgets : undefined;
-    if (!widgets) return false;
-    assert(!!side);
+    if (!side) return undefined;
+    const widgets = state.panels[side].widgets;
     const mainWidget = isHorizontalPanelSide(side)
       ? widgets[widgets.length - 1]
       : widgets[0];
-    return mainWidget === widgetId;
+    return mainWidget === widgetId ? widgetId : undefined;
   });
 }

@@ -9,7 +9,6 @@
 import * as React from "react";
 
 interface MaximizedWidgetState {
-  enabled: boolean | undefined;
   maximizedWidget: string | undefined;
   setMaximizedWidget: (id: string | undefined) => void;
 }
@@ -19,30 +18,23 @@ interface MaximizedWidgetState {
  */
 export const MaximizedWidgetContext = React.createContext<MaximizedWidgetState>(
   {
-    enabled: false,
     maximizedWidget: undefined,
     setMaximizedWidget: () => {},
   }
 );
 
-interface MaximizedWidgetProviderProps {
-  enabled?: boolean;
-  children?: React.ReactNode;
-}
-
 /** Maximized widget feature provider.
  * @internal
  */
 export function MaximizedWidgetProvider({
-  enabled,
   children,
-}: MaximizedWidgetProviderProps) {
+}: React.PropsWithChildren<{}>) {
   const [maximizedWidget, setMaximizedWidget] = React.useState<
     string | undefined
   >(undefined);
   return (
     <MaximizedWidgetContext.Provider
-      value={{ enabled, maximizedWidget, setMaximizedWidget }}
+      value={{ maximizedWidget, setMaximizedWidget }}
     >
       {children}
     </MaximizedWidgetContext.Provider>

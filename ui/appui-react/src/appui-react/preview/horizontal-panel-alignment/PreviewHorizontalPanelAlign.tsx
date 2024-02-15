@@ -20,7 +20,7 @@ import type {
 } from "../../layout/widget-panels/PanelTypes";
 import { WidgetActionDropdownContext } from "../widget-action-dropdown/MoreButton";
 import { TabBarButton } from "../../layout/widget/Button";
-import { useIsMainPanelWidget } from "../../layout/widget/useIsMainPanelWidget";
+import { useMainPanelWidgetId } from "../../layout/widget/usePanelWidgetId";
 
 /** Default value used when not provided or disabled. */
 const defaultAlignments = {
@@ -197,12 +197,9 @@ export function PreviewHorizontalPanelAlignButton() {
 export function useHorizontalPanelAlignButton() {
   const side = React.useContext(PanelSideContext);
   const { enabled } = React.useContext(HorizontalPanelAlignContext);
-  const isMainPanelWidget = useIsMainPanelWidget();
+  const isMainPanelWidget = !!useMainPanelWidgetId();
 
-  return !!(
-    enabled &&
-    side &&
-    isHorizontalPanelSide(side) &&
-    isMainPanelWidget
-  );
+  if (!side) return false;
+  const isHorizontalPanel = isHorizontalPanelSide(side);
+  return enabled && isHorizontalPanel && isMainPanelWidget;
 }
