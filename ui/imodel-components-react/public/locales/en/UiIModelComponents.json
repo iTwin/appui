@@ -16,10 +16,10 @@
     "play": "Play",
     "settings": "Settings",
     "speed": "Speed",
-    "dateTime": "Set Date/Time"
+    "dateTime": "Set date & time"
   },
   "solarsettings": {
-    "shadowcolor": "Shadow Color"
+    "shadowcolor": "Shadow color"
   },
   "errors": {
     "unable-to-parse-quantity": "Unable to parse string into quantity"
