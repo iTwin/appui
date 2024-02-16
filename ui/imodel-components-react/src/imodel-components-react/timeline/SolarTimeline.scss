@@ -11,115 +11,43 @@ $bottom-position: 4px;
   height: 28px;
 }
 
-// TODO: Can we get rid of this wrapper?
 .solar-timeline-wrapper {
-  box-sizing: border-box;
-  // background: pink;
   width: 100%;
-  display: flex;
-  flex-direction: column;
   position: relative;
-  // padding: 8px 16px;
-  color: var(--iui-color-text);
-  font-size: var(--iui-font-size-1);
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: "solar-timeline-start solar-timeline solar-timeline-end";
 
-  > .header {
-    display: flex;
-    align-items: center;
-    position: relative;
+  @media only screen and (max-width: 768px) {
+    grid-template-areas: "solar-timeline solar-timeline" "solar-timeline-start solar-timeline-end";
+  }
 
-    > .shadow-settings-button {
-      display: flex;
-      align-items: center;
-      color: var(--iui-color-icon);
-      width: 26px;
-      height: 26px;
-      background: inherit;
-      border: none;
-      font-size: 16px;
-      margin-left: 6px;
-      cursor: pointer;
-
-      &:hover {
-        color: var(--iui-color-icon-hover);
-      }
-
-      &:focus-visible {
-        outline: 1px solid var(--iui-color-border-accent);
-        outline-offset: -1px;
-      }
-    }
-
-    > .speed-container {
-      display: flex;
-      align-items: center;
-      margin-left: auto;
-      cursor: pointer;
-
-      > .speed {
-        margin-left: 12px;
-        width: 0;
-        opacity: 0;
-        transition: all 0.2s linear;
-        margin-right: 10px;
-      }
-    }
-
-    > .loop-playback {
-      color: var(--iui-color-icon-accent);
-      font-size: 16px;
-      cursor: pointer;
-
-      &:focus {
-        outline: none;
-      }
-    }
-
-    > .no-loop-playback {
-      color: var(--iui-color-icon);
-      font-size: 16px;
-      cursor: pointer;
-
-      &:hover {
-        color: var(--iui-color-icon-hover);
-      }
-
-      &:focus {
-        outline: none;
-      }
+  @media only screen and (max-width: 490px) {
+    .solar-timeline-date-time {
+      display: none;
     }
   }
 
   .solar-slider {
-    flex: 1; // TODO: Can we remove this class?
+    grid-area: solar-timeline;
     margin-inline: var(--iui-size-2xs);
   }
-}
 
-.solar-timeline-wrapper > .header > .speed-container:hover > .speed {
-  opacity: 1;
-  width: 80px;
-}
+  .solar-timeline-start,
+  .solar-timeline-end {
+    display: flex;
+    align-items: center;
+  }
 
-.solar-timeline-wrapper.expanded .header .expanded-icon {
-  transform: rotate(180deg);
-}
+  .solar-timeline-start {
+    grid-area: solar-timeline-start;
+  }
 
-.solar-timeline-wrapper.expanded > .header > .current-date {
-  margin-left: 70px;
-}
-
-.solar-timeline-wrapper .solar-timeline-expanded {
-  display: none;
-  margin-bottom: 8px;
-}
-
-.solar-timeline-wrapper .solar-timeline {
-  display: flex;
-}
-
-.solar-timeline-wrapper.expanded {
-  height: 100px;
+  .solar-timeline-end {
+    grid-area: solar-timeline-end;
+    justify-content: flex-end;
+  }
 }
 
 .shadow-settings-color-top {
@@ -187,14 +115,6 @@ $bottom-position: 4px;
     grid-column-gap: 2px;
     border-top: 1px solid var(--iui-color-border-subtle);
   }
-}
-
-.sunrise-tip {
-  position: absolute;
-  top: -8px;
-  display: inline-block;
-  border-bottom: 1px dotted rgba(0, 0, 0, var(--iui-opacity-3));
-  font-size: 14px;
 }
 
 .solar-tooltip-text {

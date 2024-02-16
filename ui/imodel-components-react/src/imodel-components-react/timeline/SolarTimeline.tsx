@@ -12,20 +12,13 @@
 import "./SolarTimeline.scss";
 import classnames from "classnames";
 import * as React from "react";
-import {
-  Button,
-  IconButton,
-  Select,
-  Slider,
-  Text,
-  Tooltip,
-} from "@itwin/itwinui-react";
+import { Button, IconButton, Slider, Text } from "@itwin/itwinui-react";
 
 import type { HSVColor } from "@itwin/core-common";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { RelativePosition, TimeDisplay } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
-import { Icon, Popup } from "@itwin/core-react";
+import { Popup } from "@itwin/core-react";
 import type { TimeSpec } from "@itwin/components-react";
 import {
   adjustDateToTimezone,
@@ -37,7 +30,6 @@ import { HueSlider } from "../color/HueSlider";
 import { SaturationPicker } from "../color/SaturationPicker";
 import { ColorSwatch } from "../color/Swatch";
 import type { SolarDataProvider } from "./interfaces";
-import { SpeedTimeline } from "./SpeedTimeline";
 import {
   CustomThumb,
   getPercentageOfRectangle,
@@ -640,7 +632,7 @@ export class SolarTimeline extends React.PureComponent<
 
     return (
       <div className={"solar-timeline-wrapper"}>
-        <div className="header">
+        <div className="solar-timeline-start">
           <IconButton
             styleType="borderless"
             label={this._playLabel}
@@ -659,7 +651,9 @@ export class SolarTimeline extends React.PureComponent<
             ref={(element) => (this._datePicker = element)}
             onClick={this._onOpenDayPicker}
           >
-            {formattedDate} @ {formattedTime}
+            <span className="solar-timeline-date-time">
+              {formattedDate} @ {formattedTime}
+            </span>
           </Button>
 
           <Popup
@@ -695,19 +689,21 @@ export class SolarTimeline extends React.PureComponent<
               </div>
             </div>
           </Popup>
+        </div>
 
-          <Timeline
-            className="solar-timeline"
-            dayStartMs={dataProvider.dayStartMs}
-            sunSetOffsetMs={sunSetOffsetMs}
-            sunRiseOffsetMs={sunRiseOffsetMs}
-            currentTimeOffsetMs={currentTimeOffsetMs}
-            onChange={this._onChange}
-            onUpdate={this._onUpdate}
-            formatTime={this._formatTime}
-            isPlaying={this.state.isPlaying}
-          />
+        <Timeline
+          className="solar-timeline"
+          dayStartMs={dataProvider.dayStartMs}
+          sunSetOffsetMs={sunSetOffsetMs}
+          sunRiseOffsetMs={sunRiseOffsetMs}
+          currentTimeOffsetMs={currentTimeOffsetMs}
+          onChange={this._onChange}
+          onUpdate={this._onUpdate}
+          formatTime={this._formatTime}
+          isPlaying={this.state.isPlaying}
+        />
 
+        <div className="solar-timeline-end">
           <select className="xyz" name="speed" id="speed">
             <option value="1x" selected>
               1x
