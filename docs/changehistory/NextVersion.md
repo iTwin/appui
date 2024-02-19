@@ -18,3 +18,4 @@ Table of contents:
 ### Fixes
 
 - Fix a potential maximum update depth error caused by useResizeObserver. #658
+- `ControlledTree`: add ability to select multiple nodes using `CMD` key + mouse click. [#734](https://github.com/iTwin/appui/pull/734)

@@ -99,6 +99,7 @@ describe("TreeSelectionManager", () => {
       );
       eventMock.setup((x) => x.shiftKey).returns(() => false);
       eventMock.setup((x) => x.ctrlKey).returns(() => false);
+      eventMock.setup((x) => x.metaKey).returns(() => false);
       extendedSelectionManager.onNodeClicked(node.id, eventMock.object);
       expect(spy).to.be.calledOnce;
       expect(spy).to.be.calledWithExactly({
@@ -115,6 +116,7 @@ describe("TreeSelectionManager", () => {
       );
       eventMock.setup((x) => x.shiftKey).returns(() => false);
       eventMock.setup((x) => x.ctrlKey).returns(() => true);
+      eventMock.setup((x) => x.metaKey).returns(() => false);
       extendedSelectionManager.onNodeClicked(node.id, eventMock.object);
       expect(spy).to.be.calledOnce;
       expect(spy).to.be.calledWithExactly({
@@ -132,6 +134,7 @@ describe("TreeSelectionManager", () => {
       );
       eventMock.setup((x) => x.shiftKey).returns(() => false);
       eventMock.setup((x) => x.ctrlKey).returns(() => true);
+      eventMock.setup((x) => x.metaKey).returns(() => false);
       extendedSelectionManager.onNodeClicked(nodes[0].id, eventMock.object);
       extendedSelectionManager.onNodeClicked(nodes[1].id, eventMock.object);
       expect(spy).to.be.calledTwice;
@@ -154,6 +157,7 @@ describe("TreeSelectionManager", () => {
       );
       eventMock.setup((x) => x.shiftKey).returns(() => true);
       eventMock.setup((x) => x.ctrlKey).returns(() => false);
+      eventMock.setup((x) => x.metaKey).returns(() => false);
       extendedSelectionManager.onNodeClicked(nodes[0].id, eventMock.object);
       extendedSelectionManager.onNodeClicked(nodes[1].id, eventMock.object);
       expect(spy).to.be.calledTwice;
@@ -174,6 +178,7 @@ describe("TreeSelectionManager", () => {
       );
       eventMock.setup((x) => x.shiftKey).returns(() => true);
       eventMock.setup((x) => x.ctrlKey).returns(() => true);
+      eventMock.setup((x) => x.metaKey).returns(() => false);
       extendedSelectionManager.onNodeClicked(nodes[0].id, eventMock.object);
       extendedSelectionManager.onNodeClicked(nodes[1].id, eventMock.object);
       expect(spy).to.be.calledTwice;
@@ -183,6 +188,29 @@ describe("TreeSelectionManager", () => {
       });
       expect(spy.secondCall).to.be.calledWithExactly({
         selectedNodes: { from: nodes[0].id, to: nodes[1].id },
+        deselectedNodes: [],
+      });
+    });
+
+    it("cmd selects nodes", () => {
+      const nodes = [createTreeModelNode(), createTreeModelNode()];
+      setupModelWithNodes(nodes);
+      const spy = sinon.spy(
+        extendedSelectionManager.onSelectionChanged,
+        "emit"
+      );
+      eventMock.setup((x) => x.shiftKey).returns(() => false);
+      eventMock.setup((x) => x.ctrlKey).returns(() => false);
+      eventMock.setup((x) => x.metaKey).returns(() => true);
+      extendedSelectionManager.onNodeClicked(nodes[0].id, eventMock.object);
+      extendedSelectionManager.onNodeClicked(nodes[1].id, eventMock.object);
+      expect(spy).to.be.calledTwice;
+      expect(spy.firstCall).to.be.calledWithExactly({
+        selectedNodes: [nodes[0].id],
+        deselectedNodes: [],
+      });
+      expect(spy.secondCall).to.be.calledWithExactly({
+        selectedNodes: [nodes[1].id],
         deselectedNodes: [],
       });
     });
