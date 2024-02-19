@@ -26,6 +26,15 @@ import {
 } from "../../preview/enable-maximized-widget/MaximizeToggle";
 
 /** @internal */
+export type WidgetFeature =
+  | "popout"
+  | "maximize"
+  | "sendBack"
+  | "dock"
+  | "horizontalAlign"
+  | "pin";
+
+/** @internal */
 export function TabBarButtons() {
   const features = useWidgetFeatures();
   const [sortedFeatures, isDropdown] = useDropdownFeatures(features);
@@ -56,7 +65,7 @@ export function TabBarButtons() {
 }
 
 /** @internal */
-export function useWidgetFeatures() {
+export function useWidgetFeatures(): WidgetFeature[] {
   const popoutToggle = usePopoutToggle();
   const maximizeToggle = useMaximizeToggle();
   const sendBack = useSendBack();
