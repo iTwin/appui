@@ -180,11 +180,10 @@ function PanelSection({ widgetId, index, sectionLength }: PanelSectionProps) {
     maximizedSection
   );
 
-  const hasSplitter = !last && 0 === index;
-  const panelStyle =
-    hasSplitter && !isMaximizedPanel
-      ? getSplitterStyle(isHorizontal, splitterPercent)
-      : undefined;
+  const hasSplitter = !last && 0 === index && !isMaximizedPanel;
+  const panelStyle = hasSplitter
+    ? getSplitterStyle(isHorizontal, splitterPercent)
+    : undefined;
   return (
     <div className={className} style={panelStyle}>
       <PanelWidget widgetId={widgetId} />

@@ -42,7 +42,6 @@ import type { XAndY } from "../state/internal/NineZoneStateHelpers";
 import {
   useIsMaximizedWidget,
   useMaximizedFloatingWidget,
-  useMaximizedFloatingWidgetHandle,
 } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
@@ -319,12 +318,12 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   const pointerCaptorRef = usePointerCaptor(handlePointerDown);
   const ref = React.useRef<HTMLDivElement>(null);
   const refs = useRefs(ref, pointerCaptorRef);
-  const maximized = useMaximizedFloatingWidgetHandle();
+  const isMaximized = useIsMaximizedWidget();
   const className = classnames(
     "nz-widget-floatingWidget_handle",
-    `nz-${handle}`,
-    maximized
+    `nz-${handle}`
   );
+  if (isMaximized) return null;
   return <div className={className} ref={refs} />;
 }
 
