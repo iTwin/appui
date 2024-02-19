@@ -82,7 +82,6 @@ import {
   MobileApp,
   MobileAppOpts,
 } from "@itwin/core-mobile/lib/cjs/MobileFrontend";
-// import { SchemaUnitProvider } from "@itwin/ecschema-metadata";
 import { IModelsClient } from "@itwin/imodels-client-management";
 import {
   AccessTokenAdapter,
