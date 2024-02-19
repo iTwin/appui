@@ -39,7 +39,11 @@ import { WidgetOutline } from "../outline/WidgetOutline";
 import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import type { XAndY } from "../state/internal/NineZoneStateHelpers";
-import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
+import {
+  useIsMaximizedWidget,
+  useMaximizedFloatingWidget,
+  useMaximizedFloatingWidgetHandle,
+} from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle =
@@ -94,10 +98,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   );
   const dragged = useIsDraggedItem(item);
   const ref = useHandleAutoSize(dragged);
-  const maximizedWidget = useIsMaximizedWidget();
-  // istanbul ignore next (preview)
-  const previewMaximizedWidgetSectionsClass =
-    maximizedWidget && "preview-enableMaximizedFloatingWidget-maximized";
+  const maximizedWidget = useMaximizedFloatingWidget();
 
   const className = classnames(
     "nz-widget-floatingWidget",
@@ -105,13 +106,12 @@ export function FloatingWidget(props: FloatingWidgetProps) {
     isToolSettingsTab && "nz-floating-toolSettings",
     minimized && "nz-minimized",
     hideFloatingWidget && "nz-hidden",
-    previewMaximizedWidgetSectionsClass
+    maximizedWidget.classNames
   );
   const style = React.useMemo(() => {
     const boundsRect = Rectangle.create(bounds);
     const { height, width } = boundsRect.getSize();
     const position = boundsRect.topLeft();
-    // istanbul ignore next
     return {
       transform: `translate(${position.x}px, ${position.y}px)`,
       height: minimized || autoSized ? undefined : height,
@@ -150,7 +150,10 @@ export function FloatingWidget(props: FloatingWidgetProps) {
     <Widget
       className={className}
       widgetId={id}
-      style={style}
+      style={{
+        ...style,
+        ...maximizedWidget.style,
+      }}
       ref={ref}
       onMouseEnter={props.onMouseEnter}
       onMouseLeave={props.onMouseLeave}
@@ -316,9 +319,11 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   const pointerCaptorRef = usePointerCaptor(handlePointerDown);
   const ref = React.useRef<HTMLDivElement>(null);
   const refs = useRefs(ref, pointerCaptorRef);
+  const maximized = useMaximizedFloatingWidgetHandle();
   const className = classnames(
     "nz-widget-floatingWidget_handle",
-    `nz-${handle}`
+    `nz-${handle}`,
+    maximized
   );
   return <div className={className} ref={refs} />;
 }

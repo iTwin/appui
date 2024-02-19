@@ -23,4 +23,18 @@
   .preview-maximized-section-sibling {
     display: none;
   }
+
+  .preview-maximized-floatingWidget {
+    opacity: 1;
+    border-radius: unset;
+    inset: 0;
+  }
+
+  .preview-maximized-floatingWidget-handle {
+    visibility: hidden;
+  }
+
+  .preview-maximized-widget-tabBar {
+    pointer-events: none;
+  }
 }

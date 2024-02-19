@@ -90,3 +90,40 @@ function useMaximizedWidgetId() {
 
   return maximizedWidget;
 }
+
+/** @internal */
+export function useMaximizedFloatingWidget() {
+  const isMaximizedWidget = useIsMaximizedWidget();
+  if (!isMaximizedWidget)
+    return {
+      style: {},
+      classNames: {},
+    };
+
+  return {
+    style: {
+      transform: "unset",
+      height: "unset",
+      width: "unset",
+      "max-height": "unset",
+      "max-width": "unset",
+    },
+    classNames: { "preview-maximized-floatingWidget": true },
+  };
+}
+
+/** @internal */
+export function useMaximizedFloatingWidgetHandle() {
+  const isMaximizedWidget = useIsMaximizedWidget();
+  return {
+    "preview-maximized-floatingWidget-handle": isMaximizedWidget,
+  };
+}
+
+/** @internal */
+export function useMaximizedWidgetTabBarHandle() {
+  const isMaximizedWidget = useIsMaximizedWidget();
+  return {
+    "preview-maximized-widget-tabBar": isMaximizedWidget,
+  };
+}
