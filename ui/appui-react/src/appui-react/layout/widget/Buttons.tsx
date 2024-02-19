@@ -24,6 +24,7 @@ import {
   MaximizeToggle,
   useMaximizeToggle,
 } from "../../preview/enable-maximized-widget/MaximizeToggle";
+import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 /** @internal */
 export type WidgetFeature =
@@ -73,6 +74,10 @@ export function useWidgetFeatures(): WidgetFeature[] {
   const horizontalPanelAlignButton = useHorizontalPanelAlignButton();
   const pinToggle = usePinToggle();
 
+  const isMaximizedWidget = useIsMaximizedWidget();
+  if (isMaximizedWidget && maximizeToggle) {
+    return ["maximize"];
+  }
   return [
     ...(popoutToggle ? (["popout"] as const) : []),
     ...(maximizeToggle ? (["maximize"] as const) : []),
