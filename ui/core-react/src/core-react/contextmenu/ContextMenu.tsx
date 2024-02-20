@@ -484,7 +484,8 @@ export class ContextMenu extends React.PureComponent<
     }
 
     if (
-      (event.key === Key.Enter.valueOf() || event.key === Key.ArrowRight.valueOf()) &&
+      (event.key === Key.Enter.valueOf() ||
+        event.key === Key.ArrowRight.valueOf()) &&
       this._selectedElement
     ) {
       event.stopPropagation();
@@ -501,7 +502,10 @@ export class ContextMenu extends React.PureComponent<
     }
 
     let { selectedIndex } = this.state;
-    if (event.key === Key.ArrowUp.valueOf() || event.key === Key.ArrowDown.valueOf()) {
+    if (
+      event.key === Key.ArrowUp.valueOf() ||
+      event.key === Key.ArrowDown.valueOf()
+    ) {
       event.stopPropagation();
       if (selectedIndex === -1) {
         selectedIndex = 0;

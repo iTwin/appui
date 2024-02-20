@@ -210,7 +210,10 @@ export function TimeField({
   const handleHoursOnKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
-      if (event.key === Key.ArrowDown.valueOf() || event.key === Key.ArrowUp.valueOf()) {
+      if (
+        event.key === Key.ArrowDown.valueOf() ||
+        event.key === Key.ArrowUp.valueOf()
+      ) {
         let newHours = hours + (event.key === Key.ArrowDown.valueOf() ? -1 : 1);
         if (newHours < 0) newHours = 24;
         if (newHours > 24 || (newHours > 23 && minutes + seconds > 0))
@@ -258,7 +261,10 @@ export function TimeField({
         setMinutesText(newMinutes.toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, minutes: newMinutes });
         event.preventDefault();
-      } else if (event.key === Key.Home.valueOf() || event.key === Key.End.valueOf()) {
+      } else if (
+        event.key === Key.Home.valueOf() ||
+        event.key === Key.End.valueOf()
+      ) {
         const newMinutes = event.key === Key.Home.valueOf() ? 0 : 59;
         setMinutesText(newMinutes.toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, minutes: newMinutes });
@@ -286,7 +292,10 @@ export function TimeField({
         setSecondsText(newSeconds.toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, seconds: newSeconds });
         event.preventDefault();
-      } else if (event.key === Key.Home.valueOf() || event.key === Key.End.valueOf()) {
+      } else if (
+        event.key === Key.Home.valueOf() ||
+        event.key === Key.End.valueOf()
+      ) {
         const newSeconds = event.key === Key.Home.valueOf() ? 0 : 59;
         setSecondsText(newSeconds.toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, seconds: newSeconds });

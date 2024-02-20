@@ -165,7 +165,8 @@ export class RadialMenu extends React.Component<
   }
 
   private _handleKeyUp = (event: KeyboardEvent) => {
-    if (event.key === Key.Escape.valueOf() && this.props.onEsc) this.props.onEsc(event);
+    if (event.key === Key.Escape.valueOf() && this.props.onEsc)
+      this.props.onEsc(event);
   };
 
   private _handleClick = (event: MouseEvent) => {

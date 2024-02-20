@@ -31,7 +31,10 @@ export class FrameworkToolAdmin extends ToolAdmin {
     let handled = false;
 
     if (wentDown && !UiFramework.isContextMenuOpen) {
-      if (UiFramework.keyboardShortcuts.isFocusOnHome && e.key !== Key.Escape.valueOf()) {
+      if (
+        UiFramework.keyboardShortcuts.isFocusOnHome &&
+        e.key !== Key.Escape.valueOf()
+      ) {
         UiFramework.keyboardShortcuts.processKey(
           e.key,
           e.altKey,

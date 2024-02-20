@@ -176,7 +176,10 @@ export class ItemKeyboardNavigator {
       } else {
         // istanbul ignore else
         if (this._allowWrap) {
-          if (pressed === Key.ArrowLeft.valueOf() || pressed === Key.ArrowUp.valueOf()) {
+          if (
+            pressed === Key.ArrowLeft.valueOf() ||
+            pressed === Key.ArrowUp.valueOf()
+          ) {
             this.focusLastItem();
           } else {
             this.focusFirstItem();

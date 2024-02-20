@@ -310,12 +310,18 @@ export function KeyinPalettePanel({
         } else {
           if (currentKeyin) await submitKeyin(currentKeyin);
         }
-      } else if (Key.Tab.valueOf() === event.key && 1 === filteredKeyins.length) {
+      } else if (
+        Key.Tab.valueOf() === event.key &&
+        1 === filteredKeyins.length
+      ) {
         event.preventDefault();
         event.stopPropagation();
         updateKeyin(filteredKeyins[0].value);
       } else {
-        if (event.key === Key.ArrowDown.valueOf() && filteredKeyins.length > 0) {
+        if (
+          event.key === Key.ArrowDown.valueOf() &&
+          filteredKeyins.length > 0
+        ) {
           event.preventDefault();
           event.stopPropagation();
           // istanbul ignore else

@@ -138,9 +138,15 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
 
   private _onKeyDown = (evt: React.KeyboardEvent<HTMLDivElement>) => {
     let newTransparency: number | undefined;
-    if (evt.key === Key.ArrowLeft.valueOf() || evt.key === Key.ArrowDown.valueOf()) {
+    if (
+      evt.key === Key.ArrowLeft.valueOf() ||
+      evt.key === Key.ArrowDown.valueOf()
+    ) {
       newTransparency = this.props.alpha - (evt.ctrlKey ? 0.1 : 0.05);
-    } else if (evt.key === Key.ArrowRight.valueOf() || evt.key === Key.ArrowUp.valueOf()) {
+    } else if (
+      evt.key === Key.ArrowRight.valueOf() ||
+      evt.key === Key.ArrowUp.valueOf()
+    ) {
       newTransparency = this.props.alpha + (evt.ctrlKey ? 0.1 : 0.05);
     } else if (evt.key === Key.PageDown.valueOf()) {
       newTransparency = this.props.alpha - (evt.ctrlKey ? 0.5 : 0.25);

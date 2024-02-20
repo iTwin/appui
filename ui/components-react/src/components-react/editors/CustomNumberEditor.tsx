@@ -239,7 +239,8 @@ export class CustomNumberEditor
     ) {
       this._formatParams = record.property.editor.params.find(
         (param: PropertyEditorParams) =>
-          param.type === PropertyEditorParamTypes.CustomFormattedNumber.valueOf()
+          param.type ===
+          PropertyEditorParamTypes.CustomFormattedNumber.valueOf()
       ) as CustomFormattedNumberParams;
     }
 
