@@ -58,6 +58,7 @@ beta;BackstageItemUtilities
 public;BackstageManager
 public;BackstageStageLauncher 
 public;BackstageToggledArgs
+public;BadgeType
 public;BaseItemState
 public;BaseUiItemsProvider 
 public;BasicNavigationWidget(props: BasicNavigationWidgetProps): React_2.JSX.Element
@@ -290,8 +291,8 @@ beta;ListPickerItem
 beta;ListPickerItemProps 
 beta;ListPickerProps
 beta;ListPickerPropsExtended 
-internal;mapRelativePositionToPlacement(input?: Placement | RelativePosition_2): Placement
-internal;mapToRelativePosition(input: Placement | RelativePosition_2): RelativePosition_2
+internal;mapToPlacement(input?: Placement | RelativePosition): Placement
+internal;mapToRelativePosition(input: Placement | RelativePosition): RelativePosition
 alpha;MenuButton 
 alpha;MenuButtonPopup 
 alpha;MenuButtonPopupProps 
@@ -344,8 +345,8 @@ internal;PanelSizeChangedEvent
 internal;PanelSizeChangedEventArgs
 beta;PanelStateChangedEvent 
 public;PanelStateChangedEventArgs
-public;Placement = Side | Corner
-internal;PlacementOrRelativePosition = Placement | RelativePosition_2
+public;Placement = Side | `${Side}-${Alignment}`
+internal;PlacementOrRelativePosition = Placement | RelativePosition
 public;PointerMessage 
 public;PointerMessageChangedEvent 
 public;PointerMessageChangedEventArgs

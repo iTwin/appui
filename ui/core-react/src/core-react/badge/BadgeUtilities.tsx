@@ -11,7 +11,7 @@ import { BetaBadge } from "./BetaBadge";
 import { NewBadge } from "./NewBadge";
 
 /** Specifies type of badge, if any, that should be overlaid on UI component.
- * @internal
+ * @public
  */
 export enum BadgeType {
   /** No badge. */

@@ -6,7 +6,6 @@
 
 /// <reference types="react" />
 
-import { BadgeType } from '@itwin/appui-abstract';
 import { BeUiEvent } from '@itwin/core-bentley';
 import type { ButtonProps } from '@itwin/itwinui-react';
 import type { CheckboxProps } from '@itwin/itwinui-react';
@@ -122,6 +121,13 @@ export class Badge extends React_2.PureComponent<BadgeProps> {
 export interface BadgeProps extends CommonProps {
     // (undocumented)
     svg: any;
+}
+
+// @public
+export enum BadgeType {
+    New = 2,
+    None = 0,
+    TechnicalPreview = 1
 }
 
 // @internal

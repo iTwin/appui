@@ -13,7 +13,6 @@ import { AccuDraw } from '@itwin/core-frontend';
 import type { ActionButton } from '@itwin/appui-abstract';
 import { ActivityMessageDetails } from '@itwin/core-frontend';
 import { ActivityMessageEndReason } from '@itwin/core-frontend';
-import { BadgeType } from '@itwin/appui-abstract';
 import { BaseSolarDataProvider } from '@itwin/imodel-components-react';
 import { BaseTimelineDataProvider } from '@itwin/imodel-components-react';
 import type { BeButtonEvent } from '@itwin/core-frontend';
@@ -542,6 +541,13 @@ export interface BackstageStageLauncher extends CommonBackstageItem {
 export interface BackstageToggledArgs {
     // (undocumented)
     readonly isOpen: boolean;
+}
+
+// @public
+export enum BadgeType {
+    New = 2,
+    None = 0,
+    TechnicalPreview = 1
 }
 
 // @public
@@ -1398,7 +1404,7 @@ export interface CursorPopupProps extends CommonProps {
     // (undocumented)
     pt: XAndY;
     // (undocumented)
-    relativePosition: RelativePosition;
+    relativePosition: RelativePosition | Placement;
     // (undocumented)
     shadow?: boolean;
     // (undocumented)
@@ -2978,10 +2984,10 @@ export interface ListPickerPropsExtended extends ListPickerProps {
 }
 
 // @internal
-export function mapRelativePositionToPlacement(input?: Placement | RelativePosition_2): Placement;
+export function mapToPlacement(input?: Placement | RelativePosition): Placement;
 
 // @internal
-export function mapToRelativePosition(input: Placement | RelativePosition_2): RelativePosition_2;
+export function mapToRelativePosition(input: Placement | RelativePosition): RelativePosition;
 
 // @alpha (undocumented)
 export class MenuButton extends React_2.PureComponent<MenuButtonProps, MenuButtonState> {
@@ -3353,10 +3359,10 @@ export interface PanelStateChangedEventArgs {
 }
 
 // @public
-export type Placement = Side | Corner;
+export type Placement = Side | `${Side}-${Alignment}`;
 
 // @internal
-export type PlacementOrRelativePosition = Placement | RelativePosition_2;
+export type PlacementOrRelativePosition = Placement | RelativePosition;
 
 // @public
 export class PointerMessage extends React_2.Component<PointerMessageProps, PointerMessageState> {
@@ -3438,7 +3444,7 @@ export class PopupManager {
     // (undocumented)
     static hideCard(): boolean;
     // (undocumented)
-    static hideComponent(): boolean;
+    static hideComponent(id?: string): boolean;
     // (undocumented)
     static hideHTMLElement(): boolean;
     // (undocumented)
@@ -4878,7 +4884,7 @@ export class UiFramework {
     static getWidgetOpacity(): number;
     static hideCalculator(): boolean;
     static hideCard(): boolean;
-    static hideComponent(): boolean;
+    static hideComponent(id?: string): boolean;
     static hideInputEditor(): boolean;
     // (undocumented)
     static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler;
@@ -4903,7 +4909,7 @@ export class UiFramework {
     // (undocumented)
     static openCursorMenu(menuData: CursorMenuData | undefined): void;
     static openDialog(uiDataProvider: DialogLayoutDataProvider, title: string, isModal: boolean, id: string, optionalProps?: DialogProps): boolean;
-    static openToolSettingsPopup(dataProvider: DialogLayoutDataProvider, location: XAndY, offset: XAndY, onCancel: () => void, placement?: Placement, anchorElement?: HTMLElement): boolean;
+    static openToolSettingsPopup(dataProvider: DialogLayoutDataProvider, location: XAndY, offset: XAndY, onCancel: () => void, placement?: Placement | RelativePosition, anchorElement?: HTMLElement): boolean;
     // @internal (undocumented)
     static get packageName(): string;
     static registerUserSettingsProvider(entry: UserSettingsProvider): boolean;
