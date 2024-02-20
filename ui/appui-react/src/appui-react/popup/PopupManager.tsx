@@ -389,8 +389,8 @@ export class PopupManager {
     return true;
   }
 
-  public static hideComponent(): boolean {
-    return PopupManager.removePopup(PopupManager._htmlElementId);
+  public static hideComponent(id?: string): boolean {
+    return PopupManager.removePopup(id ?? PopupManager._htmlElementId);
   }
 
   public static showCard(

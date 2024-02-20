@@ -52,13 +52,7 @@ export const ComponentPopup: React.FC<ComponentPopupProps> = ({
     size
   );
 
-  const relativePosition = mapToRelativePosition(placement);
-  const popupRect = CursorPopup.getPopupRect(
-    point,
-    offset,
-    size,
-    relativePosition
-  );
+  const popupRect = CursorPopup.getPopupRect(point, offset, size, placement);
   point = new Point(popupRect.left, popupRect.top);
 
   const handleSizeKnown = (newSize: SizeProps) => {

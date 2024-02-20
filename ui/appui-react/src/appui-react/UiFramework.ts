@@ -13,7 +13,7 @@ import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
-import type { AbstractMenuItemProps, AbstractToolbarProps, DialogLayoutDataProvider, DialogProps, Primitives, PropertyDescription, PropertyRecord } from "@itwin/appui-abstract";
+import type { AbstractMenuItemProps, AbstractToolbarProps, DialogLayoutDataProvider, DialogProps, Primitives, PropertyDescription, PropertyRecord, RelativePosition } from "@itwin/appui-abstract";
 import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
@@ -971,7 +971,7 @@ export class UiFramework {
     location: XAndY,
     offset: XAndY,
     onCancel: () => void,
-    placement: Placement = "top-end",
+    placement: Placement | RelativePosition = "top-end",
     anchorElement?: HTMLElement
   ): boolean {
     const el = this.resolveHtmlElement(anchorElement);
@@ -1117,7 +1117,7 @@ export class UiFramework {
     if (!location) location = { x: 0, y: 0 };
     if (!offset) offset = { x: 0, y: 0 };
     if (!placement) placement = "top-end"
-    if (!onCancel) onCancel = UiFramework.hideComponent;
+    if (!onCancel) onCancel = () => UiFramework.hideComponent(id);
 
     return PopupManager.showComponent(
       component,
@@ -1136,8 +1136,8 @@ export class UiFramework {
   /**
    * Hides the Component previously shown with {@link UiFramework.showComponent}
    */
-  public static hideComponent(): boolean {
-    return PopupManager.hideComponent();
+  public static hideComponent(id?: string): boolean {
+    return PopupManager.hideComponent(id);
   }
 
   /** Show an input editor for an angle value at a particular location.

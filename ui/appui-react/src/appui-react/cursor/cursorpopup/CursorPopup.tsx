@@ -116,20 +116,20 @@ export class CursorPopup extends React.Component<
 
       switch (mainPlacement) {
         case "top":
-          popupRect.left = pt.x - popupSize.width / 2;
+          popupRect.left = pt.x - popupSize.width / 2 - offset.x;
           popupRect.top = pt.y - offset.y + popupSize.height;
           break;
         case "left":
           popupRect.left = pt.x - popupSize.width - offset.x;
-          popupRect.top = pt.y + popupSize.height / 2;
+          popupRect.top = pt.y + popupSize.height / 2 - offset.y;
           break;
         case "right":
-          popupRect.left = pt.x + offset.x;
-          popupRect.top = pt.y + popupSize.height / 2;
+          popupRect.left = pt.x - offset.x;
+          popupRect.top = pt.y + popupSize.height / 2 - offset.y;
           break;
         case "bottom":
-          popupRect.left = pt.x - popupSize.width / 2;
-          popupRect.top = pt.y + offset.y;
+          popupRect.left = pt.x - popupSize.width / 2 - offset.x;
+          popupRect.top = pt.y - offset.y;
           break;
       }
 
@@ -137,23 +137,23 @@ export class CursorPopup extends React.Component<
         switch (mainPlacement) {
           case "top":
           case "bottom":
-            popupRect.left = pt.x;
+            popupRect.left = pt.x - offset.x;
 
             break;
           case "left":
           case "right":
-            popupRect.top = pt.y;
+            popupRect.top = pt.y - offset.y;
             break;
         }
       } else if (subPlacement === "end") {
         switch (mainPlacement) {
           case "top":
           case "bottom":
-            popupRect.left = pt.x - popupSize.width;
+            popupRect.left = pt.x - popupSize.width - offset.x;
             break;
           case "left":
           case "right":
-            popupRect.top = popupSize.height + pt.y;
+            popupRect.top = popupSize.height + pt.y - offset.y;
             break;
         }
       }

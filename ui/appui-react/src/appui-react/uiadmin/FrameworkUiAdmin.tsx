@@ -31,7 +31,7 @@ import {
   getKeyinsFromToolList,
   KeyinFieldLocalization,
 } from "../keyins/Keyins";
-import { mapRelativePositionToPlacement } from "../utils/Placement";
+import { mapToPlacement } from "../utils/Placement";
 
 /** Subclass of `UiAdmin` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
  *
@@ -148,7 +148,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     htmlElement?: HTMLElement
   ): boolean {
-    const placement = mapRelativePositionToPlacement(relativePosition);
+    const placement = mapToPlacement(relativePosition);
 
     return UiFramework.showToolbar(
       toolbarProps,
@@ -412,7 +412,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     anchorElement?: HTMLElement
   ): boolean {
-    const placement = mapRelativePositionToPlacement(relativePosition);
+    const placement = mapToPlacement(relativePosition);
     return UiFramework.showCard(
       content,
       title,
@@ -450,7 +450,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     anchorElement?: HTMLElement
   ): boolean {
-    const placement = mapRelativePositionToPlacement(relativePosition);
+    const placement = mapToPlacement(relativePosition);
     return UiFramework.showCard(
       content,
       title,
@@ -491,7 +491,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     anchorElement?: HTMLElement
   ): boolean {
-    const placement = mapRelativePositionToPlacement(relativePosition);
+    const placement = mapToPlacement(relativePosition);
     return UiFramework.openToolSettingsPopup(
       dataProvider,
       location,

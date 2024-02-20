@@ -31,7 +31,7 @@ export type PlacementOrRelativePosition = Placement | RelativePosition;
  */
 export function mapToRelativePosition(input: Placement | RelativePosition): RelativePosition {
   if (typeof input === 'string')
-    return RelativePosition[input as keyof typeof RelativePosition];
+    return placementToRelativePositionMap[input];
 
   return input;
 }
@@ -41,11 +41,39 @@ export function mapToRelativePosition(input: Placement | RelativePosition): Rela
  * Should most likely be removed N+1 major versions after RelativePosition's deprecation.
  * @internal
  */
-export function mapRelativePositionToPlacement(input?: Placement | RelativePosition): Placement {
+export function mapToPlacement(input?: Placement | RelativePosition): Placement {
   if (!input) return "top-end";
 
   if (typeof input === 'string')
     return input;
 
-  return RelativePosition[input] as Placement;
+  return relativePositionToPlacementMap[input];
+}
+
+const placementToRelativePositionMap: { [key in Placement]: RelativePosition } = {
+  "left": RelativePosition.Left,
+  "top": RelativePosition.Top,
+  "right": RelativePosition.Right,
+  "bottom": RelativePosition.Bottom,
+  "left-start": RelativePosition.LeftTop,
+  "left-end": RelativePosition.Left,
+  "right-start": RelativePosition.RightTop,
+  "right-end": RelativePosition.Right,
+  "top-start": RelativePosition.TopLeft,
+  "top-end": RelativePosition.TopRight,
+  "bottom-start": RelativePosition.BottomLeft,
+  "bottom-end": RelativePosition.BottomRight,
+}
+
+const relativePositionToPlacementMap: { [key in RelativePosition]: Placement } = {
+  [RelativePosition.Left]: "left",
+  [RelativePosition.Top]: "top",
+  [RelativePosition.Right]: "right",
+  [RelativePosition.Bottom]: "bottom",
+  [RelativePosition.LeftTop]: "left-start",
+  [RelativePosition.RightTop]: "right-start",
+  [RelativePosition.TopLeft]: "top-start",
+  [RelativePosition.TopRight]: "top-end",
+  [RelativePosition.BottomLeft]: "bottom-start",
+  [RelativePosition.BottomRight]: "bottom-end",
 }
