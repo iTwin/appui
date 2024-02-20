@@ -11,7 +11,7 @@ import { PopupManager } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
 import { useEffect, useState } from "react";
 import { WrapperContext } from "../configurableui/ConfigurableUiContent";
-import type { Placement } from "../utils/Placement";
+import { mapToRelativePosition, type Placement } from "../utils/Placement";
 
 // Props used for the ComponentPopup.
 interface ComponentPopupProps extends Omit<PopupPropsBase, "el"> {
@@ -28,12 +28,12 @@ interface ComponentPopupProps extends Omit<PopupPropsBase, "el"> {
  */
 export const ComponentPopup: React.FC<ComponentPopupProps> = ({
   pt,
-  Component,
+  children,
   offset,
   placement,
   id,
   onCancel,
-  anchorRef,
+  anchor,
 }) => {
   const wrapper = React.useContext(WrapperContext);
   const [size, setSize] = useState<Size>(new Size(-1, -1));
@@ -46,13 +46,19 @@ export const ComponentPopup: React.FC<ComponentPopupProps> = ({
   }, [size]);
 
   let point = PopupManager.getPopupPosition(
-    anchorRef?.current ?? wrapper,
+    anchor ?? wrapper,
     pt,
     new Point(),
     size
   );
 
-  const popupRect = CursorPopup.getPopupRect(point, offset, size, placement);
+  const relativePosition = mapToRelativePosition(placement);
+  const popupRect = CursorPopup.getPopupRect(
+    point,
+    offset,
+    size,
+    relativePosition
+  );
   point = new Point(popupRect.left, popupRect.top);
 
   const handleSizeKnown = (newSize: SizeProps) => {
@@ -67,7 +73,7 @@ export const ComponentPopup: React.FC<ComponentPopupProps> = ({
       onSizeKnown={handleSizeKnown}
     >
       <DivWithOutsideClick onOutsideClick={onCancel}>
-        {Component}
+        {children}
       </DivWithOutsideClick>
     </PositionPopup>
   );

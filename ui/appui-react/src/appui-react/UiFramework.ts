@@ -931,7 +931,7 @@ export class UiFramework {
     offset: XAndY,
     onItemExecuted: (item: any) => void,
     onCancel: () => void,
-    placement: Placement = "TopRight",
+    placement: Placement = "top-end",
     anchorElement?: HTMLElement
   ): boolean {
     const el = this.resolveHtmlElement(anchorElement);
@@ -971,7 +971,7 @@ export class UiFramework {
     location: XAndY,
     offset: XAndY,
     onCancel: () => void,
-    placement: Placement = "TopRight",
+    placement: Placement = "top-end",
     anchorElement?: HTMLElement
   ): boolean {
     const el = this.resolveHtmlElement(anchorElement);
@@ -1010,7 +1010,7 @@ export class UiFramework {
     offset: XAndY,
     onItemExecuted: (item: any) => void,
     onCancel: () => void,
-    placement: Placement = "TopRight",
+    placement: Placement = "top-end",
     anchorElement?: HTMLElement
   ): boolean {
     const el = UiFramework.resolveHtmlElement(anchorElement)
@@ -1116,7 +1116,7 @@ export class UiFramework {
 
     if (!location) location = { x: 0, y: 0 };
     if (!offset) offset = { x: 0, y: 0 };
-    if (!placement) placement = "TopRight"
+    if (!placement) placement = "top-end"
     if (!onCancel) onCancel = UiFramework.hideComponent;
 
     return PopupManager.showComponent(

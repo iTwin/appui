@@ -367,14 +367,15 @@ export class PopupManager {
     const component = (
       <ComponentPopup
         id={id ?? _id}
-        anchorRef={anchorRef}
+        anchor={anchorRef?.current ?? undefined}
         pt={location}
         offset={offset}
-        Component={displayElement}
         placement={placement}
         orientation={Orientation.Horizontal}
         onCancel={onCancel}
-      />
+      >
+        {displayElement}
+      </ComponentPopup>
     );
 
     const popupInfo: PopupInfo = {

@@ -1,32 +1,21 @@
+import { RelativePosition } from "@itwin/appui-abstract";
+
 /*---------------------------------------------------------------------------------------------
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-type Side = "Left" | "Top" | "Right" | "Bottom";
-type Corner = "TopLeft" | "TopRight" | "BottomLeft" | "BottomRight" | "RightTop" | "LeftTop"
+/**
+ * Identifies which side of a target an element should be placed.
+ * Without an {@link Alignment}, the element center will be placed at the center of the target.
+ */
+type Side = "left" | "top" | "right" | "bottom";
+type Alignment = "start" | "end"
 
 /**
  * Identifies the placement of a given element.
  * @public
  */
-export type Placement = Side | Corner;
-
-/**
- * Copy of appui-abstract's RelativePosition for use in below utilities.
- * Should be removed N+1 major versions after the deprecation.
- */
-enum RelativePosition {
-  Left = 0,
-  Top = 1,
-  Right = 2,
-  Bottom = 3,
-  TopLeft = 4,
-  TopRight = 5,
-  BottomLeft = 6,
-  BottomRight = 7,
-  RightTop = 8,
-  LeftTop = 9
-}
+export type Placement = Side | `${Side}-${Alignment}`
 
 /**
  * Union type used for transition away from appui-abstract.
@@ -53,7 +42,7 @@ export function mapToRelativePosition(input: Placement | RelativePosition): Rela
  * @internal
  */
 export function mapRelativePositionToPlacement(input?: Placement | RelativePosition): Placement {
-  if (!input) return "TopRight";
+  if (!input) return "top-end";
 
   if (typeof input === 'string')
     return input;

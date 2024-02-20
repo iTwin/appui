@@ -6,7 +6,7 @@
  * @module Cursor
  */
 
-import type { RelativePosition } from "@itwin/appui-abstract";
+import { RelativePosition } from "@itwin/appui-abstract";
 import type { XAndY } from "@itwin/core-geometry";
 import type {
   CommonDivProps,
@@ -21,10 +21,7 @@ import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
 import "./CursorPopup.scss";
 import type { CursorPopupFadeOutEventArgs } from "./CursorPopupManager";
 import { CursorPopupManager } from "./CursorPopupManager";
-import {
-  mapRelativePositionToPlacement,
-  type Placement,
-} from "../../utils/Placement";
+import type { Placement } from "../../utils/Placement";
 
 /** Properties for the [[CursorPopup]] React component
  * @public
@@ -34,7 +31,7 @@ export interface CursorPopupProps extends CommonProps {
   content: React.ReactNode;
   pt: XAndY;
   offset: XAndY;
-  relativePosition: RelativePosition;
+  relativePosition: RelativePosition | Placement;
   title?: string;
   shadow?: boolean;
   /** Function called when size is known. */
@@ -111,60 +108,109 @@ export class CursorPopup extends React.Component<
     relativePosition: RelativePosition | Placement
   ): RectangleProps {
     const popupRect = { top: 0, left: 0, right: 0, bottom: 0 };
-
     if (popupSize === undefined) return popupRect;
 
-    const _relativePosition = mapRelativePositionToPlacement(relativePosition);
+    if (typeof relativePosition === "string") {
+      const placement = relativePosition.split("-");
+      const [mainPlacement, subPlacement] = placement;
 
-    switch (_relativePosition) {
-      case "Top":
-        popupRect.bottom = pt.y - offset.y;
-        popupRect.left = pt.x - popupSize.width / 2;
-        popupRect.top = popupRect.bottom - popupSize.height;
-        popupRect.right = popupRect.left + popupSize.width;
-        break;
-      case "Left":
-        popupRect.right = pt.x - offset.x;
-        popupRect.top = pt.y - popupSize.height / 2;
-        popupRect.left = popupRect.right - popupSize.width;
-        popupRect.bottom = popupRect.top + popupSize.height;
-        break;
-      case "Right":
-        popupRect.left = pt.x + offset.x;
-        popupRect.top = pt.y - popupSize.height / 2;
-        popupRect.right = popupRect.left + popupSize.width;
-        popupRect.bottom = popupRect.top + popupSize.height;
-        break;
-      case "Bottom":
-        popupRect.top = pt.y + offset.y;
-        popupRect.left = pt.x - popupSize.width / 2;
-        popupRect.bottom = popupRect.top + popupSize.height;
-        popupRect.right = popupRect.left + popupSize.width;
-        break;
-      case "TopLeft":
-        popupRect.bottom = pt.y - offset.y;
-        popupRect.right = pt.x - offset.x;
-        popupRect.top = popupRect.bottom - popupSize.height;
-        popupRect.left = popupRect.right - popupSize.width;
-        break;
-      case "TopRight":
-        popupRect.bottom = pt.y - offset.y;
-        popupRect.left = pt.x + offset.x;
-        popupRect.top = popupRect.bottom - popupSize.height;
-        popupRect.right = popupRect.left + popupSize.width;
-        break;
-      case "BottomLeft":
-        popupRect.top = pt.y + offset.y;
-        popupRect.right = pt.x - offset.x;
-        popupRect.bottom = popupRect.top + popupSize.height;
-        popupRect.left = popupRect.right - popupSize.width;
-        break;
-      case "BottomRight":
-        popupRect.top = pt.y + offset.y;
-        popupRect.left = pt.x + offset.x;
-        popupRect.bottom = popupRect.top + popupSize.height;
-        popupRect.right = popupRect.left + popupSize.width;
-        break;
+      switch (mainPlacement) {
+        case "top":
+          popupRect.left = pt.x - popupSize.width / 2;
+          popupRect.top = pt.y - offset.y + popupSize.height;
+          break;
+        case "left":
+          popupRect.left = pt.x - popupSize.width - offset.x;
+          popupRect.top = pt.y + popupSize.height / 2;
+          break;
+        case "right":
+          popupRect.left = pt.x + offset.x;
+          popupRect.top = pt.y + popupSize.height / 2;
+          break;
+        case "bottom":
+          popupRect.left = pt.x - popupSize.width / 2;
+          popupRect.top = pt.y + offset.y;
+          break;
+      }
+
+      if (subPlacement === "start") {
+        switch (mainPlacement) {
+          case "top":
+          case "bottom":
+            popupRect.left = pt.x;
+
+            break;
+          case "left":
+          case "right":
+            popupRect.top = pt.y;
+            break;
+        }
+      } else if (subPlacement === "end") {
+        switch (mainPlacement) {
+          case "top":
+          case "bottom":
+            popupRect.left = pt.x - popupSize.width;
+            break;
+          case "left":
+          case "right":
+            popupRect.top = popupSize.height + pt.y;
+            break;
+        }
+      }
+
+      popupRect.right = popupRect.left + popupSize.width;
+      popupRect.bottom = popupRect.top + popupSize.height;
+    } else {
+      switch (relativePosition) {
+        case RelativePosition.Top:
+          popupRect.bottom = pt.y - offset.y;
+          popupRect.left = pt.x - popupSize.width / 2;
+          popupRect.top = popupRect.bottom - popupSize.height;
+          popupRect.right = popupRect.left + popupSize.width;
+          break;
+        case RelativePosition.Left:
+          popupRect.right = pt.x - offset.x;
+          popupRect.top = pt.y - popupSize.height / 2;
+          popupRect.left = popupRect.right - popupSize.width;
+          popupRect.bottom = popupRect.top + popupSize.height;
+          break;
+        case RelativePosition.Right:
+          popupRect.left = pt.x + offset.x;
+          popupRect.top = pt.y - popupSize.height / 2;
+          popupRect.right = popupRect.left + popupSize.width;
+          popupRect.bottom = popupRect.top + popupSize.height;
+          break;
+        case RelativePosition.Bottom:
+          popupRect.top = pt.y + offset.y;
+          popupRect.left = pt.x - popupSize.width / 2;
+          popupRect.bottom = popupRect.top + popupSize.height;
+          popupRect.right = popupRect.left + popupSize.width;
+          break;
+        case RelativePosition.TopLeft:
+          popupRect.bottom = pt.y - offset.y;
+          popupRect.right = pt.x - offset.x;
+          popupRect.top = popupRect.bottom - popupSize.height;
+          popupRect.left = popupRect.right - popupSize.width;
+          break;
+        case RelativePosition.TopRight:
+          popupRect.bottom = pt.y - offset.y;
+          popupRect.left = pt.x + offset.x;
+          popupRect.top = popupRect.bottom - popupSize.height;
+          popupRect.right = popupRect.left + popupSize.width;
+          break;
+        case RelativePosition.BottomLeft:
+          popupRect.top = pt.y + offset.y;
+          popupRect.right = pt.x - offset.x;
+          popupRect.bottom = popupRect.top + popupSize.height;
+          popupRect.left = popupRect.right - popupSize.width;
+          break;
+        case RelativePosition.BottomRight:
+          popupRect.top = pt.y + offset.y;
+          popupRect.left = pt.x + offset.x;
+          popupRect.bottom = popupRect.top + popupSize.height;
+          popupRect.right = popupRect.left + popupSize.width;
+          break;
+      }
     }
 
     return popupRect;
