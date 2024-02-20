@@ -15,11 +15,11 @@ import type { Placement } from "../utils/Placement";
 
 // Props used for the ComponentPopup.
 interface ComponentPopupProps extends Omit<PopupPropsBase, "el"> {
-  Component: React.ReactElement;
+  children?: React.ReactNode;
   placement: Placement;
   orientation: Orientation;
   onCancel: () => void;
-  anchorRef?: React.RefObject<HTMLElement>;
+  anchor?: HTMLElement;
 }
 
 /**
