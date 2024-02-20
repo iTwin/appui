@@ -43,7 +43,7 @@
     "@axe-core/react": "4.3.1",
     "@bentley/react-scripts": "^5.0.3",
     "@itwin/build-tools": "^3.7.0 || ^4.0.0",
-    "@itwin/eslint-plugin": "^4.0.0-dev.45",
+    "@itwin/eslint-plugin": "^4.0.0-dev.52",
     "@itwin/itwins-client": "^1.2.0",
     "@types/node": "18.11.5",
     "@types/react": "^17.0.37",

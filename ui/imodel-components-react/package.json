@@ -68,7 +68,7 @@
     "@itwin/core-orbitgt": "^3.7.0 || ^4.0.0",
     "@itwin/core-quantity": "^3.7.0 || ^4.0.0",
     "@itwin/core-react": "workspace:*",
-    "@itwin/eslint-plugin": "^4.0.0-dev.45",
+    "@itwin/eslint-plugin": "^4.0.0-dev.52",
     "@itwin/webgl-compatibility": "^3.7.0 || ^4.0.0",
     "@testing-library/dom": "^8.11.2",
     "@testing-library/react": "^12.0.0",
