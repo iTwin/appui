@@ -199,19 +199,19 @@ export function HueSlider({
     (evt: React.KeyboardEvent<HTMLDivElement>) => {
       let newHue: number | undefined;
       const hueValue = hsv.h;
-      if (evt.key === Key.ArrowLeft || evt.key === Key.ArrowDown) {
+      if (evt.key === Key.ArrowLeft.valueOf() || evt.key === Key.ArrowDown.valueOf()) {
         newHue = hueValue - (evt.ctrlKey ? 10 : 1);
-      } else if (evt.key === Key.ArrowRight || evt.key === Key.ArrowUp) {
+      } else if (evt.key === Key.ArrowRight.valueOf() || evt.key === Key.ArrowUp.valueOf()) {
         newHue = hueValue + (evt.ctrlKey ? 10 : 1);
-      } else if (evt.key === Key.PageDown) {
+      } else if (evt.key === Key.PageDown.valueOf()) {
         newHue = hueValue - (evt.ctrlKey ? 180 : 60);
-      } else if (evt.key === Key.PageUp) {
+      } else if (evt.key === Key.PageUp.valueOf()) {
         newHue = hueValue + (evt.ctrlKey ? 180 : 60);
-      } else if (evt.key === Key.Home) {
+      } else if (evt.key === Key.Home.valueOf()) {
         newHue = 0;
       } else {
         // istanbul ignore else
-        if (evt.key === Key.End) {
+        if (evt.key === Key.End.valueOf()) {
           newHue = 359;
         }
       }

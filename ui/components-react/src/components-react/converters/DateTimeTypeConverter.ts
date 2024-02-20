@@ -49,7 +49,7 @@ export abstract class DateTimeTypeConverterBase
     }
 
     // istanbul ignore next
-    return value.toString();
+    return value.toString(); // eslint-disable-line @typescript-eslint/no-base-to-string
   }
 
   public static isValidTimeDisplay(type: TimeDisplay): boolean {

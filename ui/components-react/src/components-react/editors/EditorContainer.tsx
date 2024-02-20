@@ -152,13 +152,13 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
 
   private _handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
-      case Key.Escape:
+      case Key.Escape.valueOf():
         this.onPressEscape(e);
         break;
-      case Key.Enter:
+      case Key.Enter.valueOf():
         this.onPressEnter(e);
         break;
-      case Key.Tab:
+      case Key.Tab.valueOf():
         this.onPressTab(e);
         break;
       default:

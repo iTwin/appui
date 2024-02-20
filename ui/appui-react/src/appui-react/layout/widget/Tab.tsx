@@ -357,7 +357,7 @@ export function useTabInteractions<T extends HTMLElement>({
       clickCount.current = 0;
     });
     const keydown = (e: KeyboardEvent) => {
-      if (e.key === " " || e.key === Key.Enter) {
+      if (e.key === " " || e.key === Key.Enter.valueOf()) {
         handleClick();
       }
     };

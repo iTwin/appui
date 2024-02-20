@@ -150,7 +150,7 @@ export class TextEditor
     ) {
       const editorSizeParams = record.property.editor.params.find(
         (param: PropertyEditorParams) =>
-          param.type === PropertyEditorParamTypes.InputEditorSize
+          param.type === PropertyEditorParamTypes.InputEditorSize.valueOf()
       ) as InputEditorSizeParams;
       if (editorSizeParams) {
         // istanbul ignore else
@@ -161,7 +161,7 @@ export class TextEditor
 
       const iconParams = record.property.editor.params.find(
         (param: PropertyEditorParams) =>
-          param.type === PropertyEditorParamTypes.Icon
+          param.type === PropertyEditorParamTypes.Icon.valueOf()
       ) as IconEditorParams;
       if (iconParams) {
         iconSpec = iconParams.definition.iconSpec;

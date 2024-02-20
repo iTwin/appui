@@ -103,9 +103,9 @@ export class PopupButton extends React.PureComponent<
   private _handleKeyDown = (event: React.KeyboardEvent) => {
     // istanbul ignore else
     if (
-      (event.key === Key.ArrowDown ||
+      (event.key === Key.ArrowDown.valueOf() ||
         event.key === " " ||
-        event.key === Key.Enter) &&
+        event.key === Key.Enter.valueOf()) &&
       !this.state.showPopup
     ) {
       event.preventDefault();

@@ -469,7 +469,7 @@ export class ContextMenu extends React.PureComponent<
       }
     }
 
-    if (event.key === Key.ArrowLeft) {
+    if (event.key === Key.ArrowLeft.valueOf()) {
       event.stopPropagation();
       if (this.props.parentMenu && this.props.parentSubmenu) {
         this.props.parentSubmenu.close();
@@ -478,20 +478,20 @@ export class ContextMenu extends React.PureComponent<
       if (this.props.onEsc) this.props.onEsc(event);
     }
 
-    if (event.key === Key.Escape) {
+    if (event.key === Key.Escape.valueOf()) {
       // istanbul ignore else
       if (this.props.onEsc) this.props.onEsc(event);
     }
 
     if (
-      (event.key === Key.Enter || event.key === Key.ArrowRight) &&
+      (event.key === Key.Enter.valueOf() || event.key === Key.ArrowRight.valueOf()) &&
       this._selectedElement
     ) {
       event.stopPropagation();
 
       // istanbul ignore else
       if (
-        event.key === Key.Enter ||
+        event.key === Key.Enter.valueOf() ||
         /* istanbul ignore next */ this._selectedElement instanceof
           ContextSubMenu
       ) {
@@ -501,16 +501,16 @@ export class ContextMenu extends React.PureComponent<
     }
 
     let { selectedIndex } = this.state;
-    if (event.key === Key.ArrowUp || event.key === Key.ArrowDown) {
+    if (event.key === Key.ArrowUp.valueOf() || event.key === Key.ArrowDown.valueOf()) {
       event.stopPropagation();
       if (selectedIndex === -1) {
         selectedIndex = 0;
       } else {
-        if (event.key === Key.ArrowUp) {
+        if (event.key === Key.ArrowUp.valueOf()) {
           if (this.state.selectedIndex === 0) selectedIndex = this._length - 1;
           else selectedIndex--;
         }
-        if (event.key === Key.ArrowDown) {
+        if (event.key === Key.ArrowDown.valueOf()) {
           if (this.state.selectedIndex === this._length - 1) selectedIndex = 0;
           else selectedIndex++;
         }
