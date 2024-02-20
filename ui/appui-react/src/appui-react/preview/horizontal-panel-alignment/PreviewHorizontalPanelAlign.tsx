@@ -21,6 +21,7 @@ import type {
 import { WidgetActionDropdownContext } from "../widget-action-dropdown/MoreButton";
 import { TabBarButton } from "../../layout/widget/Button";
 import { useMainPanelWidgetId } from "../../layout/widget/usePanelWidgetId";
+import { useIsMaximizedWidget } from "../enable-maximized-widget/useMaximizedWidget";
 
 /** Default value used when not provided or disabled. */
 const defaultAlignments = {
@@ -198,8 +199,11 @@ export function useHorizontalPanelAlignButton() {
   const side = React.useContext(PanelSideContext);
   const { enabled } = React.useContext(HorizontalPanelAlignContext);
   const isMainPanelWidget = !!useMainPanelWidgetId();
+  const isMaximizedWidget = useIsMaximizedWidget();
 
   if (!side) return false;
   const isHorizontalPanel = isHorizontalPanelSide(side);
-  return enabled && isHorizontalPanel && isMainPanelWidget;
+  return (
+    enabled && isHorizontalPanel && isMainPanelWidget && !isMaximizedWidget
+  );
 }

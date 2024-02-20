@@ -73,11 +73,6 @@ export function useWidgetFeatures(): WidgetFeature[] {
   const dock = useDock();
   const horizontalPanelAlignButton = useHorizontalPanelAlignButton();
   const pinToggle = usePinToggle();
-
-  const isMaximizedWidget = useIsMaximizedWidget();
-  if (isMaximizedWidget && maximizeToggle) {
-    return ["maximize"];
-  }
   return [
     ...(popoutToggle ? (["popout"] as const) : []),
     ...(maximizeToggle ? (["maximize"] as const) : []),

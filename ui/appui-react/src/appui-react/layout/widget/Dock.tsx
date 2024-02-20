@@ -33,6 +33,6 @@ export function Dock() {
 /** @internal */
 export function useDock() {
   const isToolSettings = useIsToolSettingsTab();
-  const maximizedWidget = useIsMaximizedWidget();
-  return isToolSettings && !maximizedWidget;
+  const isMaximizedWidget = useIsMaximizedWidget();
+  return isToolSettings && !isMaximizedWidget;
 }
