@@ -22,7 +22,10 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
    */
   enableMaximizedFloatingWidget: boolean;
-  /** If true, the panel widget will have a "maximize" button. Use `enableMaximizedFloatingWidget` to enable the feature for floating widgets. */
+  /** If true, the panel widget will have a "maximize" button. Use `enableMaximizedFloatingWidget` to enable the feature for floating widgets.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
+   */
   enableMaximizedPanelWidget: boolean;
   /** If true, a tab, or the active tab of a group of widget will become active when dropped in a container.
    *
