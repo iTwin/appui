@@ -46,6 +46,9 @@ importers:
       '@itwin/core-react':
         specifier: workspace:*
         version: link:../../ui/core-react
+      '@itwin/imodel-components-react':
+        specifier: workspace:*
+        version: link:../../ui/imodel-components-react
       '@itwin/imodels-access-frontend':
         specifier: ^3.0.0
         version: 3.1.1(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)
@@ -53,11 +56,11 @@ importers:
         specifier: ^3.0.0
         version: 3.1.0
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
       react:
         specifier: ^17.0.0
         version: 17.0.2
@@ -144,8 +147,8 @@ importers:
         specifier: ^15.8.1
         version: 15.8.1
       storybook:
-        specifier: ^7.4.6
-        version: 7.6.10
+        specifier: ^7.6.14
+        version: 7.6.17
       typescript:
         specifier: ~5.0.2
         version: 5.0.4
@@ -201,14 +204,17 @@ importers:
         specifier: workspace:*
         version: link:../../../ui/imodel-components-react
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
+      '@itwin/itwinui-react-v2':
+        specifier: npm:@itwin/itwinui-react@^2.11.11
+        version: /@itwin/itwinui-react@2.12.20(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
+        specifier: ^3.0.0
+        version: 3.1.0
       '@itwin/webgl-compatibility':
         specifier: ^3.7.0 || ^4.0.0
         version: 4.4.0
@@ -243,9 +249,6 @@ importers:
       '@types/react-redux':
         specifier: ^7.1.18
         version: 7.1.33
-      '@types/react-table':
-        specifier: ^7.7.0
-        version: 7.7.19
       cpx2:
         specifier: ^3.0.0
         version: 3.0.2
@@ -358,14 +361,14 @@ importers:
         specifier: ^3.0.0
         version: 3.1.0
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
+        specifier: ^3.0.0
+        version: 3.1.0
       '@itwin/presentation-common':
         specifier: ^3.7.0 || ^4.0.0
         version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-quantity@4.4.0)
@@ -536,14 +539,14 @@ importers:
         specifier: workspace:*
         version: link:../../../ui/imodel-components-react
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
+        specifier: ^3.0.0
+        version: 3.1.0
       '@itwin/presentation-common':
         specifier: ^3.7.0 || ^4.0.0
         version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-quantity@4.4.0)
@@ -709,21 +712,21 @@ importers:
       '@bentley/icons-generic':
         specifier: ^1.0.34
         version: 1.0.34
-      '@itwin/itwinui-icons':
-        specifier: ^1.14.0
-        version: 1.16.0
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-illustrations-react':
         specifier: ^2.0.1
         version: 2.1.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
+      '@itwin/itwinui-react-v2':
+        specifier: npm:@itwin/itwinui-react@^2.11.11
+        version: /@itwin/itwinui-react@2.12.20(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
+        specifier: ^3.0.0
+        version: 3.1.0
       classnames:
         specifier: 2.3.1
         version: 2.3.1
@@ -802,7 +805,7 @@ importers:
         version: 12.1.5(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/react-hooks':
         specifier: ^7.0.2
-        version: 7.0.2(react-dom@17.0.2)(react-test-renderer@17.0.2)(react@17.0.2)
+        version: 7.0.2(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/user-event':
         specifier: ^14.4.2
         version: 14.5.2(@testing-library/dom@8.20.1)
@@ -899,9 +902,6 @@ importers:
       react-redux:
         specifier: ^7.2.2
         version: 7.2.9(react-dom@17.0.2)(react@17.0.2)
-      react-test-renderer:
-        specifier: ^17.0.0
-        version: 17.0.2(react@17.0.2)
       redux:
         specifier: ^4.1.0
         version: 4.2.1
@@ -933,14 +933,14 @@ importers:
         specifier: ^1.0.34
         version: 1.0.34
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
+        specifier: ^3.0.0
+        version: 3.1.0
       '@types/shortid':
         specifier: ~0.0.29
         version: 0.0.32
@@ -1004,7 +1004,7 @@ importers:
         version: 12.1.5(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/react-hooks':
         specifier: ^7.0.2
-        version: 7.0.2(react-dom@17.0.2)(react-test-renderer@17.0.2)(react@17.0.2)
+        version: 7.0.2(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/user-event':
         specifier: ^14.4.2
         version: 14.5.2(@testing-library/dom@8.20.1)
@@ -1132,14 +1132,14 @@ importers:
         specifier: ^1.0.34
         version: 1.0.34
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
+        specifier: ^3.0.0
+        version: 3.1.0
       classnames:
         specifier: 2.3.1
         version: 2.3.1
@@ -1185,7 +1185,7 @@ importers:
         version: 12.1.5(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/react-hooks':
         specifier: ^7.0.2
-        version: 7.0.2(react-dom@17.0.2)(react-test-renderer@17.0.2)(react@17.0.2)
+        version: 7.0.2(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/user-event':
         specifier: ^14.4.2
         version: 14.5.2(@testing-library/dom@8.20.1)
@@ -1264,9 +1264,6 @@ importers:
       react-dom:
         specifier: ^17.0.0
         version: 17.0.2(react@17.0.2)
-      react-test-renderer:
-        specifier: ^17.0.0
-        version: 17.0.2(react@17.0.2)
       rimraf:
         specifier: ^3.0.2
         version: 3.0.2
@@ -1285,6 +1282,9 @@ importers:
       typescript:
         specifier: ~5.0.2
         version: 5.0.4
+      upath:
+        specifier: ^2.0.1
+        version: 2.0.1
 
   ../../ui/imodel-components-react:
     dependencies:
@@ -1292,14 +1292,14 @@ importers:
         specifier: ^1.0.34
         version: 1.0.34
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
+        specifier: ^3.0.0
+        version: 3.1.0
       classnames:
         specifier: 2.3.1
         version: 2.3.1
@@ -1351,7 +1351,7 @@ importers:
         version: 12.1.5(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/react-hooks':
         specifier: ^7.0.2
-        version: 7.0.2(react-dom@17.0.2)(react-test-renderer@17.0.2)(react@17.0.2)
+        version: 7.0.2(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/user-event':
         specifier: ^14.4.2
         version: 14.5.2(@testing-library/dom@8.20.1)
@@ -1433,9 +1433,6 @@ importers:
       react-dom:
         specifier: ^17.0.0
         version: 17.0.2(react@17.0.2)
-      react-test-renderer:
-        specifier: ^17.0.0
-        version: 17.0.2(react@17.0.2)
       rimraf:
         specifier: ^3.0.2
         version: 3.0.2
@@ -1454,6 +1451,9 @@ importers:
       typescript:
         specifier: ~5.0.2
         version: 5.0.4
+      upath:
+        specifier: ^2.0.1
+        version: 2.0.1
 
 packages:
 
@@ -3658,7 +3658,6 @@ packages:
     resolution: {integrity: sha512-O0WKDOo0yhJuugCx6trZQj5jVJ9yR0ystG2JaNAemYUWce+pmM6WUEFIibnWyEJKdrDxhm75NoSRME35FNaM/Q==}
     dependencies:
       '@floating-ui/utils': 0.2.1
-    dev: true
 
   /@floating-ui/dom@1.5.4:
     resolution: {integrity: sha512-jByEsHIY+eEdCjnTVu+E3ephzTOzkQ8hgUfGwos+bg7NlH33Zc5uO+QHz1mrQUOgIKKDD1RtS201P9NvAfq3XQ==}
@@ -3666,6 +3665,13 @@ packages:
       '@floating-ui/core': 1.5.3
       '@floating-ui/utils': 0.2.1
     dev: true
+
+  /@floating-ui/dom@1.6.3:
+    resolution: {integrity: sha512-RnDthu3mzPlQ31Ss/BTwQ1zjzIhr3lk1gZB1OC56h/1vEtaXkESrOqL5fQVMfXpwGtRwX+YsZBdyHtJMQnkArw==}
+    dependencies:
+      '@floating-ui/core': 1.5.3
+      '@floating-ui/utils': 0.2.1
+    dev: false
 
   /@floating-ui/react-dom@2.0.6(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-IB8aCRFxr8nFkdYZgH+Otd9EVQPJoynxeFRGTB8voPoZMRWo8XjYuCRgpI1btvuKY69XMiLnW+ym7zoBHM90Rw==}
@@ -3678,9 +3684,32 @@ packages:
       react-dom: 17.0.2(react@17.0.2)
     dev: true
 
+  /@floating-ui/react-dom@2.0.8(react-dom@17.0.2)(react@17.0.2):
+    resolution: {integrity: sha512-HOdqOt3R3OGeTKidaLvJKcgg75S6tibQ3Tif4eyd91QnIJWr0NLvoXFpJA/j8HqkFSL68GDca9AuyWEHlhyClw==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@floating-ui/dom': 1.6.3
+      react: 17.0.2
+      react-dom: 17.0.2(react@17.0.2)
+    dev: false
+
+  /@floating-ui/react@0.26.9(react-dom@17.0.2)(react@17.0.2):
+    resolution: {integrity: sha512-p86wynZJVEkEq2BBjY/8p2g3biQ6TlgT4o/3KgFKyTWoJLU1GZ8wpctwRqtkEl2tseYA+kw7dBAIDFcednfI5w==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@floating-ui/react-dom': 2.0.8(react-dom@17.0.2)(react@17.0.2)
+      '@floating-ui/utils': 0.2.1
+      react: 17.0.2
+      react-dom: 17.0.2(react@17.0.2)
+      tabbable: 6.2.0
+    dev: false
+
   /@floating-ui/utils@0.2.1:
     resolution: {integrity: sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==}
-    dev: true
 
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -4221,10 +4250,6 @@ packages:
       react-dom: 17.0.2(react@17.0.2)
     dev: false
 
-  /@itwin/itwinui-icons@1.16.0:
-    resolution: {integrity: sha512-m3s28MitTRtCo7hAIjMB7787KGsjvPhxN9QucmTaKXxDJLahb51fqq4YXgZBpyLw39tbAMETXmbdEdzN6HnK4w==}
-    dev: false
-
   /@itwin/itwinui-illustrations-react@2.1.0(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-5JR2A3mZy0d0qwwHpveSG3fsXLheJkO6a0GoWb8NQWw5edNZMRynJg0l3hVw3CHMgaaCGbUoKC77MuG0jWDzuA==}
     peerDependencies:
@@ -4252,8 +4277,24 @@ packages:
       tippy.js: 6.3.7
     dev: false
 
-  /@itwin/itwinui-variables@2.1.2:
-    resolution: {integrity: sha512-bwaoiqJdPvMCEhccXh5jE/uF83IoHaHofURZV62t9BEhKXW0LF+iaAwCPC+G4Sttgs6tUtqEGsPqj5RnbdipsQ==}
+  /@itwin/itwinui-react@3.5.0(react-dom@17.0.2)(react@17.0.2):
+    resolution: {integrity: sha512-Xtdq8e4OzQiN0wGa9MRn92tdgp3jk7ITIMlV2hcFoZs16p6pBJVChhpX0ayA6wSDauT6cLg+0dK9K+24TEdQYw==}
+    peerDependencies:
+      react: '>= 17.0.0 < 19.0.0'
+      react-dom: '>=17.0.0 < 19.0.0'
+    dependencies:
+      '@floating-ui/react': 0.26.9(react-dom@17.0.2)(react@17.0.2)
+      '@itwin/itwinui-illustrations-react': 2.1.0(react-dom@17.0.2)(react@17.0.2)
+      classnames: 2.5.1
+      react: 17.0.2
+      react-dom: 17.0.2(react@17.0.2)
+      react-table: 7.8.0(react@17.0.2)
+      react-transition-group: 4.4.5(react-dom@17.0.2)(react@17.0.2)
+      tslib: 2.6.2
+    dev: false
+
+  /@itwin/itwinui-variables@3.1.0:
+    resolution: {integrity: sha512-CHCS+hkaO4c0SUT1Lgi23Gpy8d/fZZKXCyd907c+a5wf8JAOtFQbuCa566YJS+08QDP11Jr+mzDDAMF1Yhk3yg==}
     dev: false
 
   /@itwin/object-storage-azure@1.6.0:
@@ -6008,13 +6049,13 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/builder-manager@7.6.10:
-    resolution: {integrity: sha512-f+YrjZwohGzvfDtH8BHzqM3xW0p4vjjg9u7uzRorqUiNIAAKHpfNrZ/WvwPlPYmrpAHt4xX/nXRJae4rFSygPw==}
+  /@storybook/builder-manager@7.6.17:
+    resolution: {integrity: sha512-Sj8hcDYiPCCMfeLzus37czl0zdrAxAz4IyYam2jBjVymrIrcDAFyL1OCZvnq33ft179QYQWhUs9qwzVmlR/ZWg==}
     dependencies:
       '@fal-works/esbuild-plugin-global-externals': 2.1.2
-      '@storybook/core-common': 7.6.10
-      '@storybook/manager': 7.6.10
-      '@storybook/node-logger': 7.6.10
+      '@storybook/core-common': 7.6.17
+      '@storybook/manager': 7.6.17
+      '@storybook/node-logger': 7.6.17
       '@types/ejs': 3.1.5
       '@types/find-cache-dir': 3.2.1
       '@yarnpkg/esbuild-plugin-pnp': 3.0.0-rc.15(esbuild@0.18.20)
@@ -6081,22 +6122,33 @@ packages:
       tiny-invariant: 1.3.1
     dev: true
 
-  /@storybook/cli@7.6.10:
-    resolution: {integrity: sha512-pK1MEseMm73OMO2OVoSz79QWX8ymxgIGM8IeZTCo9gImiVRChMNDFYcv8yPWkjuyesY8c15CoO48aR7pdA1OjQ==}
+  /@storybook/channels@7.6.17:
+    resolution: {integrity: sha512-GFG40pzaSxk1hUr/J/TMqW5AFDDPUSu+HkeE/oqSWJbOodBOLJzHN6CReJS6y1DjYSZLNFt1jftPWZZInG/XUA==}
+    dependencies:
+      '@storybook/client-logger': 7.6.17
+      '@storybook/core-events': 7.6.17
+      '@storybook/global': 5.0.0
+      qs: 6.11.2
+      telejson: 7.2.0
+      tiny-invariant: 1.3.1
+    dev: true
+
+  /@storybook/cli@7.6.17:
+    resolution: {integrity: sha512-1sCo+nCqyR+nKfTcEidVu8XzNoECC7Y1l+uW38/r7s2f/TdDorXaIGAVrpjbSaXSoQpx5DxYJVaKCcQuOgqwcA==}
     hasBin: true
     dependencies:
       '@babel/core': 7.23.7
       '@babel/preset-env': 7.23.8(@babel/core@7.23.7)
       '@babel/types': 7.23.6
       '@ndelangen/get-tarball': 3.0.9
-      '@storybook/codemod': 7.6.10
-      '@storybook/core-common': 7.6.10
-      '@storybook/core-events': 7.6.10
-      '@storybook/core-server': 7.6.10
-      '@storybook/csf-tools': 7.6.10
-      '@storybook/node-logger': 7.6.10
-      '@storybook/telemetry': 7.6.10
-      '@storybook/types': 7.6.10
+      '@storybook/codemod': 7.6.17
+      '@storybook/core-common': 7.6.17
+      '@storybook/core-events': 7.6.17
+      '@storybook/core-server': 7.6.17
+      '@storybook/csf-tools': 7.6.17
+      '@storybook/node-logger': 7.6.17
+      '@storybook/telemetry': 7.6.17
+      '@storybook/types': 7.6.17
       '@types/semver': 7.5.6
       '@yarnpkg/fslib': 2.10.3
       '@yarnpkg/libzip': 2.3.0
@@ -6120,7 +6172,7 @@ packages:
       prompts: 2.4.2
       puppeteer-core: 2.1.1
       read-pkg-up: 7.0.1
-      semver: 7.5.4
+      semver: 7.6.0
       strip-json-comments: 3.1.1
       tempy: 1.0.1
       ts-dedent: 2.2.0
@@ -6138,16 +6190,22 @@ packages:
       '@storybook/global': 5.0.0
     dev: true
 
-  /@storybook/codemod@7.6.10:
-    resolution: {integrity: sha512-pzFR0nocBb94vN9QCJLC3C3dP734ZigqyPmd0ZCDj9Xce2ytfHK3v1lKB6TZWzKAZT8zztauECYxrbo4LVuagw==}
+  /@storybook/client-logger@7.6.17:
+    resolution: {integrity: sha512-6WBYqixAXNAXlSaBWwgljWpAu10tPRBJrcFvx2gPUne58EeMM20Gi/iHYBz2kMCY+JLAgeIH7ZxInqwO8vDwiQ==}
+    dependencies:
+      '@storybook/global': 5.0.0
+    dev: true
+
+  /@storybook/codemod@7.6.17:
+    resolution: {integrity: sha512-JuTmf2u3C4fCnjO7o3dqRgrq3ozNYfWlrRP8xuIdvT7niMap7a396hJtSKqS10FxCgKFcMAOsRgrCalH1dWxUg==}
     dependencies:
       '@babel/core': 7.23.7
       '@babel/preset-env': 7.23.8(@babel/core@7.23.7)
       '@babel/types': 7.23.6
       '@storybook/csf': 0.1.2
-      '@storybook/csf-tools': 7.6.10
-      '@storybook/node-logger': 7.6.10
-      '@storybook/types': 7.6.10
+      '@storybook/csf-tools': 7.6.17
+      '@storybook/node-logger': 7.6.17
+      '@storybook/types': 7.6.17
       '@types/cross-spawn': 6.0.6
       cross-spawn: 7.0.3
       globby: 11.1.0
@@ -6220,30 +6278,67 @@ packages:
       - supports-color
     dev: true
 
+  /@storybook/core-common@7.6.17:
+    resolution: {integrity: sha512-me2TP3Q9/qzqCLoDHUSsUF+VS1MHxfHbTVF6vAz0D/COTxzsxLpu9TxTbzJoBCxse6XRb6wWI1RgF1mIcjic7g==}
+    dependencies:
+      '@storybook/core-events': 7.6.17
+      '@storybook/node-logger': 7.6.17
+      '@storybook/types': 7.6.17
+      '@types/find-cache-dir': 3.2.1
+      '@types/node': 18.11.5
+      '@types/node-fetch': 2.6.11
+      '@types/pretty-hrtime': 1.0.3
+      chalk: 4.1.2
+      esbuild: 0.18.20
+      esbuild-register: 3.5.0(esbuild@0.18.20)
+      file-system-cache: 2.3.0
+      find-cache-dir: 3.3.2
+      find-up: 5.0.0
+      fs-extra: 11.2.0
+      glob: 10.2.7
+      handlebars: 4.7.8
+      lazy-universal-dotenv: 4.0.0
+      node-fetch: 2.7.0
+      picomatch: 2.3.1
+      pkg-dir: 5.0.0
+      pretty-hrtime: 1.0.3
+      resolve-from: 5.0.0
+      ts-dedent: 2.2.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: true
+
   /@storybook/core-events@7.6.10:
     resolution: {integrity: sha512-yccDH67KoROrdZbRKwxgTswFMAco5nlCyxszCDASCLygGSV2Q2e+YuywrhchQl3U6joiWi3Ps1qWu56NeNafag==}
     dependencies:
       ts-dedent: 2.2.0
     dev: true
 
-  /@storybook/core-server@7.6.10:
-    resolution: {integrity: sha512-2icnqJkn3vwq0eJPP0rNaHd7IOvxYf5q4lSVl2AWTxo/Ae19KhokI6j/2vvS2XQJMGQszwshlIwrZUNsj5p0yw==}
+  /@storybook/core-events@7.6.17:
+    resolution: {integrity: sha512-AriWMCm/k1cxlv10f+jZ1wavThTRpLaN3kY019kHWbYT9XgaSuLU67G7GPr3cGnJ6HuA6uhbzu8qtqVCd6OfXA==}
+    dependencies:
+      ts-dedent: 2.2.0
+    dev: true
+
+  /@storybook/core-server@7.6.17:
+    resolution: {integrity: sha512-KWGhTTaL1Q14FolcoKKZgytlPJUbH6sbJ1Ptj/84EYWFewcnEgVs0Zlnh1VStRZg+Rd1WC1V4yVd/bbDzxrvQA==}
     dependencies:
       '@aw-web-design/x-default-browser': 1.4.126
       '@discoveryjs/json-ext': 0.5.7
-      '@storybook/builder-manager': 7.6.10
-      '@storybook/channels': 7.6.10
-      '@storybook/core-common': 7.6.10
-      '@storybook/core-events': 7.6.10
+      '@storybook/builder-manager': 7.6.17
+      '@storybook/channels': 7.6.17
+      '@storybook/core-common': 7.6.17
+      '@storybook/core-events': 7.6.17
       '@storybook/csf': 0.1.2
-      '@storybook/csf-tools': 7.6.10
+      '@storybook/csf-tools': 7.6.17
       '@storybook/docs-mdx': 0.1.0
       '@storybook/global': 5.0.0
-      '@storybook/manager': 7.6.10
-      '@storybook/node-logger': 7.6.10
-      '@storybook/preview-api': 7.6.10
-      '@storybook/telemetry': 7.6.10
-      '@storybook/types': 7.6.10
+      '@storybook/manager': 7.6.17
+      '@storybook/node-logger': 7.6.17
+      '@storybook/preview-api': 7.6.17
+      '@storybook/telemetry': 7.6.17
+      '@storybook/types': 7.6.17
       '@types/detect-port': 1.3.5
       '@types/node': 18.11.5
       '@types/pretty-hrtime': 1.0.3
@@ -6262,7 +6357,7 @@ packages:
       pretty-hrtime: 1.0.3
       prompts: 2.4.2
       read-pkg-up: 7.0.1
-      semver: 7.5.4
+      semver: 7.6.0
       telejson: 7.2.0
       tiny-invariant: 1.3.1
       ts-dedent: 2.2.0
@@ -6295,6 +6390,22 @@ packages:
       '@babel/types': 7.23.6
       '@storybook/csf': 0.1.2
       '@storybook/types': 7.6.10
+      fs-extra: 11.2.0
+      recast: 0.23.4
+      ts-dedent: 2.2.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@storybook/csf-tools@7.6.17:
+    resolution: {integrity: sha512-dAQtam0EBPeTJYcQPLxXgz4L9JFqD+HWbLFG9CmNIhMMjticrB0mpk1EFIS6vPXk/VsVWpBgMLD7dZlD6YMKcQ==}
+    dependencies:
+      '@babel/generator': 7.23.6
+      '@babel/parser': 7.23.6
+      '@babel/traverse': 7.23.7
+      '@babel/types': 7.23.6
+      '@storybook/csf': 0.1.2
+      '@storybook/types': 7.6.17
       fs-extra: 11.2.0
       recast: 0.23.4
       ts-dedent: 2.2.0
@@ -6359,8 +6470,8 @@ packages:
       - react-dom
     dev: true
 
-  /@storybook/manager@7.6.10:
-    resolution: {integrity: sha512-Co3sLCbNYY6O4iH2ggmRDLCPWLj03JE5s/DOG8OVoXc6vBwTc/Qgiyrsxxp6BHQnPpM0mxL6aKAxE3UjsW/Nog==}
+  /@storybook/manager@7.6.17:
+    resolution: {integrity: sha512-A1LDDIqMpwRzq/dqkbbiza0QI04o4ZHCl2a3UMDZUV/+QLc2nsr2DAaLk4CVL4/cIc5zGqmIcaOTvprx2YKVBw==}
     dev: true
 
   /@storybook/mdx2-csf@1.1.0:
@@ -6369,6 +6480,10 @@ packages:
 
   /@storybook/node-logger@7.6.10:
     resolution: {integrity: sha512-ZBuqrv4bjJzKXyfRGFkVIi+z6ekn6rOPoQao4KmsfLNQAUUsEdR8Baw/zMnnU417zw5dSEaZdpuwx75SCQAeOA==}
+    dev: true
+
+  /@storybook/node-logger@7.6.17:
+    resolution: {integrity: sha512-w59MQuXhhUNrUVmVkXhMwIg2nvFWjdDczLTwYLorhfsE36CWeUOY5QCZWQy0Qf/h+jz8Uo7Evy64qn18v9C4wA==}
     dev: true
 
   /@storybook/postinstall@7.6.10:
@@ -6384,6 +6499,25 @@ packages:
       '@storybook/csf': 0.1.2
       '@storybook/global': 5.0.0
       '@storybook/types': 7.6.10
+      '@types/qs': 6.9.11
+      dequal: 2.0.3
+      lodash: 4.17.21
+      memoizerific: 1.11.3
+      qs: 6.11.2
+      synchronous-promise: 2.0.17
+      ts-dedent: 2.2.0
+      util-deprecate: 1.0.2
+    dev: true
+
+  /@storybook/preview-api@7.6.17:
+    resolution: {integrity: sha512-wLfDdI9RWo1f2zzFe54yRhg+2YWyxLZvqdZnSQ45mTs4/7xXV5Wfbv3QNTtcdw8tT3U5KRTrN1mTfTCiRJc0Kw==}
+    dependencies:
+      '@storybook/channels': 7.6.17
+      '@storybook/client-logger': 7.6.17
+      '@storybook/core-events': 7.6.17
+      '@storybook/csf': 0.1.2
+      '@storybook/global': 5.0.0
+      '@storybook/types': 7.6.17
       '@types/qs': 6.9.11
       dequal: 2.0.3
       lodash: 4.17.21
@@ -6483,12 +6617,12 @@ packages:
       qs: 6.11.2
     dev: true
 
-  /@storybook/telemetry@7.6.10:
-    resolution: {integrity: sha512-p3mOSUtIyy2tF1z6pQXxNh1JzYFcAm97nUgkwLzF07GfEdVAPM+ftRSLFbD93zVvLEkmLTlsTiiKaDvOY/lQWg==}
+  /@storybook/telemetry@7.6.17:
+    resolution: {integrity: sha512-WOcOAmmengYnGInH98Px44F47DSpLyk20BM+Z/IIQDzfttGOLlxNqBBG1XTEhNRn+AYuk4aZ2JEed2lCjVIxcA==}
     dependencies:
-      '@storybook/client-logger': 7.6.10
-      '@storybook/core-common': 7.6.10
-      '@storybook/csf-tools': 7.6.10
+      '@storybook/client-logger': 7.6.17
+      '@storybook/core-common': 7.6.17
+      '@storybook/csf-tools': 7.6.17
       chalk: 4.1.2
       detect-package-manager: 2.0.1
       fetch-retry: 5.0.6
@@ -6525,6 +6659,15 @@ packages:
     resolution: {integrity: sha512-hcS2HloJblaMpCAj2axgGV+53kgSRYPT0a1PG1IHsZaYQILfHSMmBqM8XzXXYTsgf9250kz3dqFX1l0n3EqMlQ==}
     dependencies:
       '@storybook/channels': 7.6.10
+      '@types/babel__core': 7.20.5
+      '@types/express': 4.17.21
+      file-system-cache: 2.3.0
+    dev: true
+
+  /@storybook/types@7.6.17:
+    resolution: {integrity: sha512-GRY0xEJQ0PrL7DY2qCNUdIfUOE0Gsue6N+GBJw9ku1IUDFLJRDOF+4Dx2BvYcVCPI5XPqdWKlEyZdMdKjiQN7Q==}
+    dependencies:
+      '@storybook/channels': 7.6.17
       '@types/babel__core': 7.20.5
       '@types/express': 4.17.21
       file-system-cache: 2.3.0
@@ -6726,7 +6869,7 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
-  /@testing-library/react-hooks@7.0.2(react-dom@17.0.2)(react-test-renderer@17.0.2)(react@17.0.2):
+  /@testing-library/react-hooks@7.0.2(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-dYxpz8u9m4q1TuzfcUApqi8iFfR6R0FaMbr2hjZJy1uC8z+bO/K4v8Gs9eogGKYQop7QsrBTFkv/BCF7MzD2Cg==}
     engines: {node: '>=12'}
     peerDependencies:
@@ -6746,7 +6889,6 @@ packages:
       react: 17.0.2
       react-dom: 17.0.2(react@17.0.2)
       react-error-boundary: 3.1.4(react@17.0.2)
-      react-test-renderer: 17.0.2(react@17.0.2)
     dev: true
 
   /@testing-library/react@12.1.5(react-dom@17.0.2)(react@17.0.2):
@@ -7213,6 +7355,7 @@ packages:
     resolution: {integrity: sha512-47jMa1Pai7ily6BXJCW33IL5ghqmCWs2VM9s+h1D4mCaK5P4uNkZOW3RMMg8MCXBvAJ0v9+sPqKjhid0PaJPQA==}
     dependencies:
       '@types/react': 17.0.75
+    dev: false
 
   /@types/react-test-renderer@18.0.7:
     resolution: {integrity: sha512-1+ANPOWc6rB3IkSnElhjv6VLlKg2dSv/OWClUyZimbLsQyBn8Js9Vtdsi3UICJ2rIQ3k2la06dkB+C92QfhKmg==}
@@ -9258,6 +9401,10 @@ packages:
 
   /classnames@2.3.1:
     resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
+    dev: false
+
+  /classnames@2.5.1:
+    resolution: {integrity: sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==}
     dev: false
 
   /clean-css@5.3.3:
@@ -17584,16 +17731,6 @@ packages:
       use-sidecar: 1.1.2(@types/react@17.0.75)(react@17.0.2)
     dev: true
 
-  /react-shallow-renderer@16.15.0(react@17.0.2):
-    resolution: {integrity: sha512-oScf2FqQ9LFVQgA73vr86xl2NaOIX73rh+YFqcOp68CWj56tSfgtGKrEbyhCj0rSijyG9M1CYprTh39fBi5hzA==}
-    peerDependencies:
-      react: ^16.0.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      object-assign: 4.1.1
-      react: 17.0.2
-      react-is: 18.2.0
-    dev: true
-
   /react-style-singleton@2.2.1(@types/react@17.0.75)(react@17.0.2):
     resolution: {integrity: sha512-ZWj0fHEMyWkHzKYUr2Bs/4zU6XLmq9HsgBURm7g5pAVfyn49DgUiNgY2d4lXRlYSiCif9YBGpQleewkcqddc7g==}
     engines: {node: '>=10'}
@@ -17618,18 +17755,6 @@ packages:
     dependencies:
       react: 17.0.2
     dev: false
-
-  /react-test-renderer@17.0.2(react@17.0.2):
-    resolution: {integrity: sha512-yaQ9cB89c17PUb0x6UfWRs7kQCorVdHlutU1boVPEsB8IDZH6n9tHxMacc3y0JoXOJUsZb/t/Mb8FUWMKaM7iQ==}
-    peerDependencies:
-      react: 17.0.2
-    dependencies:
-      object-assign: 4.1.1
-      react: 17.0.2
-      react-is: 17.0.2
-      react-shallow-renderer: 16.15.0(react@17.0.2)
-      scheduler: 0.20.2
-    dev: true
 
   /react-themeable@1.1.0:
     resolution: {integrity: sha512-kl5tQ8K+r9IdQXZd8WLa+xxYN04lLnJXRVhHfdgwsUJr/SlKJxIejoc9z9obEkx1mdqbTw1ry43fxEUwyD9u7w==}
@@ -18829,11 +18954,11 @@ packages:
     resolution: {integrity: sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==}
     dev: true
 
-  /storybook@7.6.10:
-    resolution: {integrity: sha512-ypFeGhQTUBBfqSUVZYh7wS5ghn3O2wILCiQc4459SeUpvUn+skcqw/TlrwGSoF5EWjDA7gtRrWDxO3mnlPt5Cw==}
+  /storybook@7.6.17:
+    resolution: {integrity: sha512-8+EIo91bwmeFWPg1eysrxXlhIYv3OsXrznTr4+4Eq0NikqAoq6oBhtlN5K2RGS2lBVF537eN+9jTCNbR+WrzDA==}
     hasBin: true
     dependencies:
-      '@storybook/cli': 7.6.10
+      '@storybook/cli': 7.6.17
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -19199,6 +19324,10 @@ packages:
   /synchronous-promise@2.0.17:
     resolution: {integrity: sha512-AsS729u2RHUfEra9xJrE39peJcc2stq2+poBXX8bcM08Y6g9j/i/PUzwNQqkaJde7Ntg1TO7bSREbR5sdosQ+g==}
     dev: true
+
+  /tabbable@6.2.0:
+    resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
+    dev: false
 
   /tailwindcss@3.4.1:
     resolution: {integrity: sha512-qAYmXRfk3ENzuPBakNK0SRrUDipP8NQnEY6772uDhflcQz5EhRdD7JNZxyrFHVQNCwULPBn6FNPp9brpO7ctcA==}
