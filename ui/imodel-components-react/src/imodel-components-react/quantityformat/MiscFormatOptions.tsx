@@ -213,7 +213,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
   const handleKeyUpOnLink = React.useCallback(
     (e: React.KeyboardEvent<HTMLAnchorElement>) => {
       // istanbul ignore else
-      if (e.key === Key.Enter || e.key === " ") {
+      if (e.key === Key.Enter.valueOf() || e.key === " ") {
         onShowHideOptions(!showOptions);
         e.preventDefault();
       }

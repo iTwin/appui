@@ -140,10 +140,10 @@ const ForwardRefAccuDrawInput = React.forwardRef<
   const handleKeyDown = React.useCallback(
     (e: React.KeyboardEvent) => {
       switch (e.key) {
-        case Key.Escape:
+        case Key.Escape.valueOf():
           onEscPressed && onEscPressed();
           return;
-        case Key.Enter:
+        case Key.Enter.valueOf():
           onEnterPressed && onEnterPressed();
           return;
       }

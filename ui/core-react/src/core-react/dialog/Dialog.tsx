@@ -369,7 +369,11 @@ export class Dialog extends React.Component<DialogProps> {
   }
 
   private _handleKeyUp = (event: KeyboardEvent) => {
-    if (event.key === Key.Escape && this.props.opened && this.props.onEscape) {
+    if (
+      event.key === Key.Escape.valueOf() &&
+      this.props.opened &&
+      this.props.onEscape
+    ) {
       this.props.onEscape();
     }
   };

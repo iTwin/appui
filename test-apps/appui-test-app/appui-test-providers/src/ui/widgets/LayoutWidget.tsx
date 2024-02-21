@@ -445,11 +445,11 @@ function PanelControls({ location }: { location: StagePanelLocation }) {
         onBlur={handleSubmitValue}
         onKeyDown={(e) => {
           switch (e.key) {
-            case Key.Enter: {
+            case Key.Enter.valueOf(): {
               handleSubmitValue();
               break;
             }
-            case Key.Escape: {
+            case Key.Escape.valueOf(): {
               setSizeValue("");
               break;
             }

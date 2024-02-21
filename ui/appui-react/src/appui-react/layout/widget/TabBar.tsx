@@ -24,6 +24,7 @@ import { WidgetTabs } from "./Tabs";
 import { WidgetIdContext } from "./Widget";
 import { useDoubleClick } from "../widget-panels/Grip";
 import { useFloatingWidgetId } from "./FloatingWidget";
+import { useMaximizedWidgetTabBarHandle } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 /** @internal */
 export interface WidgetTabBarProps {
@@ -101,14 +102,15 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
     handleTouchStart,
     handleDoubleClick
   );
+  const maximizedWidgetHandle = useMaximizedWidgetTabBarHandle();
   const className = classnames(
     "nz-widget-tabBar",
     props.separator && "nz-separator"
   );
-
+  const handleClassName = classnames("nz-handle", maximizedWidgetHandle);
   return (
     <div ref={containerRef} className={className}>
-      <div className="nz-handle" ref={ref} />
+      <div className={handleClassName} ref={ref} />
       <WidgetTabs />
       <TabBarButtons />
     </div>

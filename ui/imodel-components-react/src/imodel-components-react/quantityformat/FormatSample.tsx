@@ -56,7 +56,7 @@ export function FormatSample(props: FormatSampleProps) {
   const handleKeyDown = React.useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
-      if (e.key === Key.Enter) {
+      if (e.key === Key.Enter.valueOf()) {
         let newValue = Number.parseFloat(sampleValue);
         if (Number.isNaN(newValue)) newValue = 0;
         setMagnitude(newValue);

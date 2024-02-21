@@ -48,6 +48,7 @@ export function ActivityCenterField(props: CommonProps) {
   if (!isVisible || !isPercentageValid) return null;
 
   const moreDetails = UiFramework.translate("activityCenter.moreDetails");
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   const tooltip = `${message}-${moreDetails}`;
 
   return (

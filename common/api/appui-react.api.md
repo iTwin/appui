@@ -3732,9 +3732,9 @@ export interface SessionState {
     // (undocumented)
     defaultViewId: string | undefined;
     // (undocumented)
-    defaultViewState: any | undefined;
+    defaultViewState: any;
     // (undocumented)
-    iModelConnection: any | undefined;
+    iModelConnection: any;
     // (undocumented)
     iModelId: string;
     // (undocumented)
@@ -5358,7 +5358,7 @@ export class WidgetDef {
     get allowedPanelTargets(): ReadonlyArray<StagePanelLocation> | undefined;
     set allowedPanelTargets(targets: ReadonlyArray<StagePanelLocation> | undefined);
     // (undocumented)
-    get applicationData(): any | undefined;
+    get applicationData(): any;
     // (undocumented)
     get badgeType(): BadgeType | undefined;
     // (undocumented)

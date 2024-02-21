@@ -158,7 +158,7 @@ export class TreeSelectionManager
     const selectionFunc = this._selectionHandler.createSelectionFunction(
       ...this.createSelectionHandlers(nodeId)
     );
-    selectionFunc(event.shiftKey, event.ctrlKey);
+    selectionFunc(event.shiftKey, event.ctrlKey || event.metaKey);
   }
 
   public onNodeMouseDown(nodeId: string) {

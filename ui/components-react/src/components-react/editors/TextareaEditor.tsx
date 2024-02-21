@@ -150,7 +150,7 @@ export class TextareaEditor
     ) {
       const editorSizeParams = record.property.editor.params.find(
         (param: PropertyEditorParams) =>
-          param.type === PropertyEditorParamTypes.InputEditorSize
+          param.type === PropertyEditorParamTypes.InputEditorSize.valueOf()
       ) as InputEditorSizeParams;
       if (editorSizeParams) {
         // istanbul ignore else
@@ -161,7 +161,7 @@ export class TextareaEditor
 
       const multilineParams = record.property.editor.params.find(
         (param: PropertyEditorParams) =>
-          param.type === PropertyEditorParamTypes.MultilineText
+          param.type === PropertyEditorParamTypes.MultilineText.valueOf()
       ) as MultilineTextEditorParams;
       if (multilineParams) {
         rows = multilineParams.rows;

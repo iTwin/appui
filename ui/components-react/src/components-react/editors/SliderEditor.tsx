@@ -170,7 +170,7 @@ export class SliderEditor
     ) {
       const sliderParams = record.property.editor.params.find(
         (param: PropertyEditorParams) =>
-          param.type === PropertyEditorParamTypes.Slider
+          param.type === PropertyEditorParamTypes.Slider.valueOf()
       ) as SliderEditorParams;
       // istanbul ignore else
       if (sliderParams) {

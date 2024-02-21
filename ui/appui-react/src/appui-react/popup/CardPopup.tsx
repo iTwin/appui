@@ -75,7 +75,7 @@ export class CardPopup extends React.PureComponent<
 
   private _handleKeyDown = (event: React.KeyboardEvent): void => {
     switch (event.key) {
-      case Key.Escape:
+      case Key.Escape.valueOf():
         this._cancel();
         break;
     }

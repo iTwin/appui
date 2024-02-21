@@ -55,8 +55,8 @@ export function getPropertyFilterBuilderOperators(
   const typename = property.typename;
 
   if (
-    typename === StandardTypeNames.Bool ||
-    typename === StandardTypeNames.Boolean
+    typename === StandardTypeNames.Bool.valueOf() ||
+    typename === StandardTypeNames.Boolean.valueOf()
   ) {
     return ["is-true", "is-false"];
   }
@@ -69,15 +69,15 @@ export function getPropertyFilterBuilderOperators(
   ];
 
   if (
-    typename === StandardTypeNames.Number ||
-    typename === StandardTypeNames.Int ||
-    typename === StandardTypeNames.Integer ||
-    typename === StandardTypeNames.Double ||
-    typename === StandardTypeNames.Float ||
-    typename === StandardTypeNames.Hex ||
-    typename === StandardTypeNames.Hexadecimal ||
-    typename === StandardTypeNames.ShortDate ||
-    typename === StandardTypeNames.DateTime
+    typename === StandardTypeNames.Number.valueOf() ||
+    typename === StandardTypeNames.Int.valueOf() ||
+    typename === StandardTypeNames.Integer.valueOf() ||
+    typename === StandardTypeNames.Double.valueOf() ||
+    typename === StandardTypeNames.Float.valueOf() ||
+    typename === StandardTypeNames.Hex.valueOf() ||
+    typename === StandardTypeNames.Hexadecimal.valueOf() ||
+    typename === StandardTypeNames.ShortDate.valueOf() ||
+    typename === StandardTypeNames.DateTime.valueOf()
   ) {
     return [
       ...operators,
@@ -91,8 +91,8 @@ export function getPropertyFilterBuilderOperators(
   }
 
   if (
-    typename === StandardTypeNames.String ||
-    typename === StandardTypeNames.Text
+    typename === StandardTypeNames.String.valueOf() ||
+    typename === StandardTypeNames.Text.valueOf()
   ) {
     return ["like", ...operators];
   }

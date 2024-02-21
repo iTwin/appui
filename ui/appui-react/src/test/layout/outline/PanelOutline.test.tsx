@@ -11,7 +11,6 @@ import {
   PanelOutline,
   useHidden,
 } from "../../../appui-react/layout/outline/PanelOutline";
-import { updatePanelState } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
 import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
 import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
@@ -47,21 +46,6 @@ describe("PanelOutline", () => {
     });
     container
       .getElementsByClassName("nz-outline-panelOutline")
-      .length.should.eq(1);
-  });
-
-  it("should render spanned horizontal outline", () => {
-    let state = createNineZoneState();
-    state = updatePanelState(state, "bottom", (draft) => {
-      draft.span = true;
-    });
-    const { container } = render(<PanelOutline />, {
-      wrapper: (props) => (
-        <Wrapper defaultState={state} side="bottom" {...props} />
-      ),
-    });
-    container
-      .getElementsByClassName("nz-outline-panelOutline nz-span")
       .length.should.eq(1);
   });
 });

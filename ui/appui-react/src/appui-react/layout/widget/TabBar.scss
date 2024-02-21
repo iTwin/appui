@@ -4,27 +4,25 @@
  *--------------------------------------------------------------------------------------------*/
 @import "variables";
 
-.nz-widget-tabBar {
-  background: var(--iui-color-background-backdrop);
-  display: flex;
-  border-radius: $nz-widget-tab-border-radius $nz-widget-tab-border-radius 0 0;
-  flex: 0 0 auto;
-  position: relative;
-  height: $nz-widget-tab-height;
+@layer appui.component {
+  .nz-widget-tabBar {
+    background: var(--iui-color-background-backdrop);
+    display: flex;
+    border-radius: $nz-widget-tab-border-radius $nz-widget-tab-border-radius 0 0;
+    flex: 0 0 auto;
+    position: relative;
+    height: $nz-widget-tab-height;
 
-  &.nz-separator {
-    border-bottom: 1px solid var(--iui-color-border);
-  }
+    &.nz-separator {
+      border-bottom: 1px solid var(--iui-color-border);
+    }
 
-  > .nz-handle {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    cursor: auto;
-    user-select: none;
-
-    .preview-enableMaximizedFloatingWidget-maximized & {
-      pointer-events: none;
+    > .nz-handle {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      cursor: auto;
+      user-select: none;
     }
   }
 }

@@ -58,7 +58,7 @@ describe("StatusBarComposer", () => {
         [TestUiProvider.uiSyncEventId]
       );
 
-      if (stageUsage === StageUsage.General) {
+      if (stageUsage === StageUsage.General.valueOf()) {
         statusBarItems.push(
           StatusBarItemUtilities.createActionItem(
             "ExtensionTest:StatusBarItem1",

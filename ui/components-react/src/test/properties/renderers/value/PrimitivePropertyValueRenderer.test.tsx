@@ -22,6 +22,7 @@ class AsyncValuesTypeConverter extends TypeConverter {
     return 0;
   }
   public override async convertToString(value?: Primitives.Value) {
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     return value ? value.toString() : "";
   }
 }

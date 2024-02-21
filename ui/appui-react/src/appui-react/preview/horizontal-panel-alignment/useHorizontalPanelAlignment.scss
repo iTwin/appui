@@ -1,0 +1,49 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+@layer appui.preview.horizontal-panel-alignment {
+  .preview-left {
+    &[data-preview-horizontal-panel-align-top="right"],
+    &[data-preview-horizontal-panel-align-top="center"] {
+      grid-row-start: ts-end;
+    }
+    &[data-preview-horizontal-panel-align-bottom="right"],
+    &[data-preview-horizontal-panel-align-bottom="center"] {
+      grid-row-end: bp-end;
+    }
+  }
+
+  .preview-right {
+    &[data-preview-horizontal-panel-align-top="left"],
+    &[data-preview-horizontal-panel-align-top="center"] {
+      grid-row-start: ts-end;
+    }
+    &[data-preview-horizontal-panel-align-bottom="left"],
+    &[data-preview-horizontal-panel-align-bottom="center"] {
+      grid-row-end: bp-end;
+    }
+  }
+
+  .preview-top {
+    &[data-preview-horizontal-panel-align-top="right"],
+    &[data-preview-horizontal-panel-align-top="center"] {
+      grid-column-start: lp-end;
+    }
+    &[data-preview-horizontal-panel-align-top="left"],
+    &[data-preview-horizontal-panel-align-top="center"] {
+      grid-column-end: rp-start;
+    }
+  }
+
+  .preview-bottom {
+    &[data-preview-horizontal-panel-align-bottom="right"],
+    &[data-preview-horizontal-panel-align-bottom="center"] {
+      grid-column-start: lp-end;
+    }
+    &[data-preview-horizontal-panel-align-bottom="left"],
+    &[data-preview-horizontal-panel-align-bottom="center"] {
+      grid-column-end: rp-start;
+    }
+  }
+}

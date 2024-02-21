@@ -157,7 +157,7 @@ export class NumericInputEditor
     ) {
       const editorSizeParams = record.property.editor.params.find(
         (param: PropertyEditorParams) =>
-          param.type === PropertyEditorParamTypes.InputEditorSize
+          param.type === PropertyEditorParamTypes.InputEditorSize.valueOf()
       ) as InputEditorSizeParams;
       if (editorSizeParams) {
         // istanbul ignore else
@@ -168,7 +168,7 @@ export class NumericInputEditor
 
       const rangeParams = record.property.editor.params.find(
         (param: PropertyEditorParams) =>
-          param.type === PropertyEditorParamTypes.Range
+          param.type === PropertyEditorParamTypes.Range.valueOf()
       ) as RangeEditorParams;
       if (rangeParams) {
         min = rangeParams.minimum;

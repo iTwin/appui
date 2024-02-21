@@ -269,10 +269,13 @@ export class Popup extends React.Component<PopupProps, PopupState> {
   private _handleKeyboard = (event: KeyboardEvent): void => {
     if (this.props.isPinned) return;
 
-    if (event.key === Key.Escape || event.key === Key.Enter) {
+    if (
+      event.key === Key.Escape.valueOf() ||
+      event.key === Key.Enter.valueOf()
+    ) {
       const closeOnEnter =
         this.props.closeOnEnter !== undefined ? this.props.closeOnEnter : true;
-      if (event.key === Key.Enter) {
+      if (event.key === Key.Enter.valueOf()) {
         if (closeOnEnter) this._onClose(true);
         else this.props.onEnter && this.props.onEnter();
       } else {

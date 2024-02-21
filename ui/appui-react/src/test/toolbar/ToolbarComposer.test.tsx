@@ -123,7 +123,7 @@ describe("<ToolbarComposer  />", async () => {
       toolbarOrientation: ToolbarOrientation
     ): ToolbarItem[] {
       if (
-        stageUsage === StageUsage.General &&
+        stageUsage === StageUsage.General.valueOf() &&
         toolbarUsage === ToolbarUsage.ContentManipulation &&
         toolbarOrientation === ToolbarOrientation.Horizontal
       ) {

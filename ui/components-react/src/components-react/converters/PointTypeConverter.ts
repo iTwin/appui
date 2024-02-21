@@ -44,10 +44,12 @@ export abstract class BasePointTypeConverter extends TypeConverter {
     let components = new Array<string | Promise<string>>();
     if (Array.isArray(value)) {
       if (value.length === 0) return "";
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       components = (value as Array<string | number>).map(
         (c): string | Promise<string> => this.formatValue(c)
       );
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       components = [this.formatValue(value.x), this.formatValue(value.y)];
       if (undefined !== (value as any).z)
         components.push(this.formatValue((value as any).z));

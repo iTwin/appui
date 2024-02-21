@@ -240,7 +240,8 @@ export class CustomNumberEditor
     ) {
       this._formatParams = record.property.editor.params.find(
         (param: PropertyEditorParams) =>
-          param.type === PropertyEditorParamTypes.CustomFormattedNumber
+          param.type ===
+          PropertyEditorParamTypes.CustomFormattedNumber.valueOf()
       ) as CustomFormattedNumberParams;
     }
 
@@ -270,7 +271,7 @@ export class CustomNumberEditor
     ) {
       const editorSizeParams = record.property.editor.params.find(
         (param: PropertyEditorParams) =>
-          param.type === PropertyEditorParamTypes.InputEditorSize
+          param.type === PropertyEditorParamTypes.InputEditorSize.valueOf()
       ) as InputEditorSizeParams;
       // istanbul ignore else
       if (editorSizeParams) {
@@ -282,7 +283,7 @@ export class CustomNumberEditor
 
       const iconParams = record.property.editor.params.find(
         (param: PropertyEditorParams) =>
-          param.type === PropertyEditorParamTypes.Icon
+          param.type === PropertyEditorParamTypes.Icon.valueOf()
       ) as IconEditorParams;
       if (iconParams) {
         iconSpec = iconParams.definition.iconSpec;
@@ -309,7 +310,7 @@ export class CustomNumberEditor
 
   private _onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     // istanbul ignore else
-    if (e.key === Key.Escape) {
+    if (e.key === Key.Escape.valueOf()) {
       const initialDisplayValue =
         (this._lastValidValue &&
           (this._lastValidValue as PrimitiveValue).displayValue) ??
@@ -325,7 +326,7 @@ export class CustomNumberEditor
     }
 
     // istanbul ignore else
-    if (e.key !== Key.Enter) {
+    if (e.key !== Key.Enter.valueOf()) {
       UiAdmin.messagePresenter.closeInputFieldMessage();
     }
   };

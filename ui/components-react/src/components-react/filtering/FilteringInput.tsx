@@ -122,7 +122,7 @@ export class FilteringInput extends React.PureComponent<
   };
 
   private _onFilterKeyDown = (e: React.KeyboardEvent<HTMLElement>): void => {
-    if (e.key !== Key.Enter) return;
+    if (e.key !== Key.Enter.valueOf()) return;
 
     if (!this.state.searchText) return;
 
