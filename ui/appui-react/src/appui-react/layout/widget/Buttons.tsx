@@ -24,7 +24,6 @@ import {
   MaximizeToggle,
   useMaximizeToggle,
 } from "../../preview/enable-maximized-widget/MaximizeToggle";
-import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 /** @internal */
 export type WidgetFeature =

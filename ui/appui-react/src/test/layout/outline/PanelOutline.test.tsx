@@ -11,7 +11,6 @@ import {
   PanelOutline,
   useHidden,
 } from "../../../appui-react/layout/outline/PanelOutline";
-import { updatePanelState } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
 import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
 import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";

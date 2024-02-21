@@ -63,7 +63,6 @@ import {
 import { addWidgetToolSettings } from "../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
 import { addFloatingWidget } from "../../appui-react/layout/state/internal/WidgetStateHelpers";
 import TestUtils, {
-  childStructure,
   storageMock,
   stubRaf,
   styleMatch,
