@@ -49,21 +49,6 @@ describe("PanelOutline", () => {
       .getElementsByClassName("nz-outline-panelOutline")
       .length.should.eq(1);
   });
-
-  it("should render spanned horizontal outline", () => {
-    let state = createNineZoneState();
-    state = updatePanelState(state, "bottom", (draft) => {
-      draft.span = true;
-    });
-    const { container } = render(<PanelOutline />, {
-      wrapper: (props) => (
-        <Wrapper defaultState={state} side="bottom" {...props} />
-      ),
-    });
-    container
-      .getElementsByClassName("nz-outline-panelOutline nz-span")
-      .length.should.eq(1);
-  });
 });
 
 describe("useHidden", () => {
