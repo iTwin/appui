@@ -103,7 +103,7 @@ export function IModelOpen(props: IModelOpenProps) {
             {currentITwin && (
               <IModelGrid
                 accessToken={accessToken}
-                projectId={currentITwin.id}
+                iTwinId={currentITwin.id}
                 onThumbnailClick={onImodelSelect}
                 apiOverrides={{ serverEnvironmentPrefix: serverPrefix }}
               />
