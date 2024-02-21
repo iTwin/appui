@@ -213,7 +213,7 @@ test.describe("tool settings", () => {
     await expect(defaultStateField).toBeVisible();
 
     // Test undocking after initial edit of tool settings by the tool.
-    await page.type(".nz-widgetPanels-appContent", "q");
+    await page.type(".nz-appContent", "q");
 
     const updatedStateField = page.locator("[value='qPA']");
     await expect(widgetToolSettings).not.toBeVisible();
@@ -229,7 +229,7 @@ test.describe("tool settings", () => {
     await page.locator("[value='qPAtype in field']").blur();
 
     // Test docking back after second edit of tool settings by the tool.
-    await page.type(".nz-widgetPanels-appContent", "q");
+    await page.type(".nz-appContent", "q");
 
     const finalStateField = page.locator("[value='qqPAtype in field']");
     await expect(widgetToolSettings).toBeVisible();

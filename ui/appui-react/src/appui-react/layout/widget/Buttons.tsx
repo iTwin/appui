@@ -6,32 +6,33 @@
  * @module Widget
  */
 
+import "./Buttons.scss";
 import * as React from "react";
-import { assert } from "@itwin/core-bentley";
-import { useLayout } from "../base/LayoutStore";
-import {
-  isHorizontalPanelSide,
-  PanelSideContext,
-} from "../widget-panels/Panel";
-import { Dock } from "./Dock";
-import { PinToggle } from "./PinToggle";
+import { Dock, useDock } from "./Dock";
+import { PinToggle, usePinToggle } from "./PinToggle";
 import { PopoutToggle, usePopoutToggle } from "./PopoutToggle";
 import {
   PreviewHorizontalPanelAlignButton,
   useHorizontalPanelAlignButton,
-} from "./PreviewHorizontalPanelAlign";
-import {
-  PreviewMaximizeToggle,
-  useMaximizeToggle,
-} from "./PreviewMaximizeToggle";
+} from "../../preview/horizontal-panel-alignment/PreviewHorizontalPanelAlign";
 import { SendBack, useSendBack } from "./SendBack";
-import { WidgetIdContext } from "./Widget";
 import {
   MoreButton,
   useDropdownFeatures,
 } from "../../preview/widget-action-dropdown/MoreButton";
-import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
-import "./Buttons.scss";
+import {
+  MaximizeToggle,
+  useMaximizeToggle,
+} from "../../preview/enable-maximized-widget/MaximizeToggle";
+
+/** @internal */
+export type WidgetFeature =
+  | "popout"
+  | "maximize"
+  | "sendBack"
+  | "dock"
+  | "horizontalAlign"
+  | "pin";
 
 /** @internal */
 export function TabBarButtons() {
@@ -43,7 +44,7 @@ export function TabBarButtons() {
       case "popout":
         return <PopoutToggle key="popout" />;
       case "maximize":
-        return <PreviewMaximizeToggle key="maximize" />;
+        return <MaximizeToggle key="maximize" />;
       case "sendBack":
         return <SendBack key="sendBack" />;
       case "dock":
@@ -64,17 +65,13 @@ export function TabBarButtons() {
 }
 
 /** @internal */
-export function useWidgetFeatures() {
-  const isToolSettings = useIsToolSettingsTab();
-  const isMainPanelWidget = useIsMainPanelWidget();
-
+export function useWidgetFeatures(): WidgetFeature[] {
   const popoutToggle = usePopoutToggle();
   const maximizeToggle = useMaximizeToggle();
   const sendBack = useSendBack();
-  const dock = isToolSettings;
+  const dock = useDock();
   const horizontalPanelAlignButton = useHorizontalPanelAlignButton();
-  const pinToggle = isMainPanelWidget;
-
+  const pinToggle = usePinToggle();
   return [
     ...(popoutToggle ? (["popout"] as const) : []),
     ...(maximizeToggle ? (["maximize"] as const) : []),
@@ -83,19 +80,4 @@ export function useWidgetFeatures() {
     ...(horizontalPanelAlignButton ? (["horizontalAlign"] as const) : []),
     ...(pinToggle ? (["pin"] as const) : []),
   ];
-}
-
-/** @internal */
-export function useIsMainPanelWidget() {
-  const side = React.useContext(PanelSideContext);
-  const widgetId = React.useContext(WidgetIdContext);
-  return useLayout((state) => {
-    const widgets = side ? state.panels[side].widgets : undefined;
-    if (!widgets) return false;
-    assert(!!side);
-    const mainWidget = isHorizontalPanelSide(side)
-      ? widgets[widgets.length - 1]
-      : widgets[0];
-    return mainWidget === widgetId;
-  });
 }

@@ -6,135 +6,122 @@
 @import "../widgetopacity";
 @import "variables";
 
-.nz-widget-floatingWidget {
-  position: absolute;
-  border: 1px solid $buic-background-5;
-  border-radius: var(--iui-border-radius-1);
-  min-width: 200px;
-  min-height: 120px;
-  transition: opacity var(--iui-duration-2) ease;
+@layer appui.component {
+  .nz-widget-floatingWidget {
+    position: absolute;
+    border: 1px solid $buic-background-5;
+    border-radius: var(--iui-border-radius-1);
+    min-width: 200px;
+    min-height: 120px;
+    transition: opacity var(--iui-duration-2) ease;
 
-  &.nz-floating-toolSettings {
-    min-height: 60px;
-  }
+    &.nz-floating-toolSettings {
+      min-height: 60px;
+    }
 
-  @include uicore-z-index(dragged-widget);
-  @include nz-widget-opacity;
+    @include uicore-z-index(dragged-widget);
+    @include nz-widget-opacity;
 
-  &.nz-minimized {
-    flex-grow: 0;
+    &.nz-minimized {
+      flex-grow: 0;
 
-    > .nz-content {
-      width: 0;
+      > .nz-content {
+        width: 0;
+      }
+    }
+
+    &.nz-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &.nz-dragged {
+      pointer-events: none;
+      opacity: $nz-dragged-widget-opacity;
+
+      @include uicore-z-index(drag-preview);
+    }
+
+    &.nz-minimized {
+      min-height: 30px;
+
+      .nz-widget-floatingWidget_handle {
+        visibility: hidden;
+      }
     }
   }
 
-  &.nz-hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
+  .nz-widget-floatingWidget_handle {
+    $size: 0.5em;
+    $cornerSize: 1em;
 
-  &.nz-dragged {
-    pointer-events: none;
-    opacity: $nz-dragged-widget-opacity;
+    position: absolute;
+    user-select: none;
 
-    @include uicore-z-index(drag-preview);
-  }
-
-  &.nz-minimized {
-    min-height: 30px;
-
-    .nz-widget-floatingWidget_handle {
-      visibility: hidden;
+    &.nz-left,
+    &.nz-right {
+      height: 100%;
+      width: $size;
+      cursor: ew-resize;
     }
-  }
 
-  &.preview-enableMaximizedFloatingWidget-maximized {
-    transform: unset !important;
-    height: unset !important;
-    width: unset !important;
-    max-height: unset !important;
-    max-width: unset !important;
-    opacity: 1 !important;
-    border-radius: unset !important;
-    inset: 0;
-
-    .nz-widget-floatingWidget_handle {
-      visibility: hidden;
+    &.nz-top,
+    &.nz-bottom {
+      width: 100%;
+      height: $size;
+      cursor: ns-resize;
     }
-  }
-}
 
-.nz-widget-floatingWidget_handle {
-  $size: 0.5em;
-  $cornerSize: 1em;
+    &.nz-left {
+      left: -$size * 0.5;
+      top: 0;
+    }
 
-  position: absolute;
-  user-select: none;
+    &.nz-right {
+      right: -$size * 0.5;
+      top: 0;
+    }
 
-  &.nz-left,
-  &.nz-right {
-    height: 100%;
-    width: $size;
-    cursor: ew-resize;
-  }
+    &.nz-top {
+      left: 0;
+      top: -$size * 0.5;
+    }
 
-  &.nz-top,
-  &.nz-bottom {
-    width: 100%;
-    height: $size;
-    cursor: ns-resize;
-  }
+    &.nz-bottom {
+      left: 0;
+      bottom: -$size * 0.5;
+    }
 
-  &.nz-left {
-    left: -$size * 0.5;
-    top: 0;
-  }
+    &.nz-topLeft,
+    &.nz-topRight,
+    &.nz-bottomLeft,
+    &.nz-bottomRight {
+      height: $cornerSize;
+      width: $cornerSize;
+    }
 
-  &.nz-right {
-    right: -$size * 0.5;
-    top: 0;
-  }
+    &.nz-topLeft {
+      left: -$cornerSize * 0.3333;
+      top: -$cornerSize * 0.3333;
+      cursor: nwse-resize;
+    }
 
-  &.nz-top {
-    left: 0;
-    top: -$size * 0.5;
-  }
+    &.nz-topRight {
+      right: -$cornerSize * 0.3333;
+      top: -$cornerSize * 0.3333;
+      cursor: nesw-resize;
+    }
 
-  &.nz-bottom {
-    left: 0;
-    bottom: -$size * 0.5;
-  }
+    &.nz-bottomLeft {
+      left: -$cornerSize * 0.3333;
+      bottom: -$cornerSize * 0.3333;
+      cursor: nesw-resize;
+    }
 
-  &.nz-topLeft,
-  &.nz-topRight,
-  &.nz-bottomLeft,
-  &.nz-bottomRight {
-    height: $cornerSize;
-    width: $cornerSize;
-  }
-
-  &.nz-topLeft {
-    left: -$cornerSize * 0.3333;
-    top: -$cornerSize * 0.3333;
-    cursor: nwse-resize;
-  }
-
-  &.nz-topRight {
-    right: -$cornerSize * 0.3333;
-    top: -$cornerSize * 0.3333;
-    cursor: nesw-resize;
-  }
-
-  &.nz-bottomLeft {
-    left: -$cornerSize * 0.3333;
-    bottom: -$cornerSize * 0.3333;
-    cursor: nesw-resize;
-  }
-
-  &.nz-bottomRight {
-    right: -$cornerSize * 0.3333;
-    bottom: -$cornerSize * 0.3333;
-    cursor: nwse-resize;
+    &.nz-bottomRight {
+      right: -$cornerSize * 0.3333;
+      bottom: -$cornerSize * 0.3333;
+      cursor: nwse-resize;
+    }
   }
 }

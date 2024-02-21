@@ -90,7 +90,10 @@ export function addTabs(
   args?: Partial<TabState> | undefined
 ) {
   for (const id of ids) {
-    state = addTab(state, id, args);
+    state = addTab(state, id, {
+      label: id,
+      ...args,
+    });
   }
   return state;
 }

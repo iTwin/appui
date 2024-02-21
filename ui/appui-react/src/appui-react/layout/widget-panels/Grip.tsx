@@ -23,6 +23,7 @@ import {
 import type { PointerCaptorArgs } from "../base/usePointerCaptor";
 import { usePointerCaptor } from "../base/usePointerCaptor";
 import { useLayout, useLayoutStore } from "../base/LayoutStore";
+import { useMaximizedPanel } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 /** Resize grip of [[WidgetPanel]] component.
  * @internal
@@ -47,6 +48,8 @@ export function WidgetPanelGrip(props: CommonProps) {
     props.className
   );
   const resizeGripTitle = useLabel("resizeGripTitle");
+  const isMaximizedPanel = !!useMaximizedPanel(side);
+  if (isMaximizedPanel) return null;
   return (
     <div className={className} title={resizeGripTitle} style={props.style}>
       <div className="nz-line-grip">

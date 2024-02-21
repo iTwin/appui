@@ -13,7 +13,6 @@ import { assert, Logger, ProcessDetector } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
 import type { UiStateStorageResult } from "@itwin/core-react";
 import { Size, UiStateStorageStatus } from "@itwin/core-react";
-import classNames from "classnames";
 import produce from "immer";
 import * as React from "react";
 import { unstable_batchedUpdates } from "react-dom";
@@ -24,7 +23,7 @@ import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManag
 import { useEscapeSetFocusToHome } from "../hooks/useEscapeSetFocusToHome";
 import { useUiVisibility } from "../hooks/useUiVisibility";
 import type { LayoutStore } from "../layout/base/LayoutStore";
-import { createLayoutStore, useLayout } from "../layout/base/LayoutStore";
+import { createLayoutStore } from "../layout/base/LayoutStore";
 import type { NineZoneDispatch, NineZoneLabels } from "../layout/base/NineZone";
 import { getUniqueId, NineZone } from "../layout/base/NineZone";
 import { activateDroppedTab } from "../layout/state/activateDroppedTab";
@@ -33,10 +32,8 @@ import { createNineZoneState } from "../layout/state/NineZoneState";
 import { NineZoneStateReducer } from "../layout/state/NineZoneStateReducer";
 import { getWidgetPanelSectionId } from "../layout/state/PanelState";
 import type { TabState } from "../layout/state/TabState";
-import { WidgetPanels } from "../layout/widget-panels/Panels";
 import { FloatingWidgets } from "../layout/widget/FloatingWidgets";
-import { PreviewHorizontalPanelAlignFeatureProvider } from "../layout/widget/PreviewHorizontalPanelAlign";
-import { PreviewMaximizedWidgetFeatureProvider } from "../layout/widget/PreviewMaximizeToggle";
+import { PreviewHorizontalPanelAlignFeatureProvider } from "../preview/horizontal-panel-alignment/PreviewHorizontalPanelAlign";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
 import type { FrameworkState } from "../redux/FrameworkState";
 import type { FrameworkRootState } from "../redux/StateManager";
@@ -60,53 +57,48 @@ import {
 import { WidgetPanelsStatusBar } from "./StatusBar";
 import { WidgetPanelsTab } from "./Tab";
 import { WidgetPanelsToolbars } from "./Toolbars";
-import {
-  ToolSettingsContent,
-  useShouldRenderDockedToolSettings,
-  WidgetPanelsToolSettings,
-} from "./ToolSettings";
+import { ToolSettingsContent, WidgetPanelsToolSettings } from "./ToolSettings";
+import { MaximizedWidgetProvider } from "../preview/enable-maximized-widget/MaximizedWidget";
+import { StandardLayout } from "../layout/StandardLayout";
+import { WidgetPanelProvider } from "../layout/widget-panels/Panel";
+import { WidgetContentRenderers } from "../layout/widget/ContentRenderer";
+import { useCursor } from "../layout/widget-panels/CursorOverlay";
+import { WidgetPanelExpanders } from "../layout/widget-panels/Expander";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
   const uiIsVisible = useUiVisibility();
   const previewFeatures = usePreviewFeatures();
-
-  const previewContentAlwaysMaxSizeDockedClass =
-    useShouldRenderDockedToolSettings() &&
-    previewFeatures.contentAlwaysMaxSize &&
-    "preview-contentAlwaysMaxSize-toolSettingsDocked";
-  const previewContentAlwaysMaxSizeTopPanelClass =
-    useLayout((state) => {
-      return state.panels.top.widgets.length > 0;
-    }) &&
-    previewFeatures.contentAlwaysMaxSize &&
-    "preview-contentAlwaysMaxSize-topPanelActive";
+  useCursor();
 
   return (
-    <PreviewMaximizedWidgetFeatureProvider
-      enabled={previewFeatures.enableMaximizedFloatingWidget}
-    >
+    <MaximizedWidgetProvider>
       <PreviewHorizontalPanelAlignFeatureProvider
         enabled={previewFeatures.horizontalPanelAlignment}
       >
-        <WidgetPanelsToolSettings />
         <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
           <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
-          <WidgetPanels
-            className={classNames(
-              "uifw-widgetPanels",
-              previewContentAlwaysMaxSizeDockedClass,
-              previewContentAlwaysMaxSizeTopPanelClass
-            )}
-            centerContent={<WidgetPanelsToolbars />}
+          <StandardLayout
+            centerContent={
+              <>
+                <WidgetPanelsToolbars />
+                <WidgetPanelExpanders />
+              </>
+            }
+            toolSettings={<WidgetPanelsToolSettings />}
+            statusBar={<WidgetPanelsStatusBar />}
+            topPanel={<WidgetPanelProvider side="top" />}
+            leftPanel={<WidgetPanelProvider side="left" />}
+            rightPanel={<WidgetPanelProvider side="right" />}
+            bottomPanel={<WidgetPanelProvider side="bottom" />}
           >
             <WidgetPanelsFrontstageContent />
-          </WidgetPanels>
-          <WidgetPanelsStatusBar />
+          </StandardLayout>
+          <WidgetContentRenderers />
           <FloatingWidgets />
         </ToolbarPopupAutoHideContext.Provider>
       </PreviewHorizontalPanelAlignFeatureProvider>
-    </PreviewMaximizedWidgetFeatureProvider>
+    </MaximizedWidgetProvider>
   );
 }
 

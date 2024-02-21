@@ -7,49 +7,13 @@
  */
 
 import * as React from "react";
+import { useRefEffect, useRefs } from "@itwin/core-react";
 import {
   AutoCollapseUnpinnedPanelsContext,
   NineZoneDispatchContext,
 } from "../base/NineZone";
-import { WidgetPanelsContent } from "./Content";
-import { ContentNodeContext } from "./Panels";
 import { panelSides } from "./Panel";
-import { useRefEffect, useRefs } from "@itwin/core-react";
-import { useLayout, useLayoutStore } from "../base/LayoutStore";
-import { usePreviewFeatures } from "../../preview/PreviewFeatures";
-
-/** Main app content (i.e. viewport) that will change bounds based on panel pinned settings.
- * @internal
- */
-export function AppContent() {
-  const { contentAlwaysMaxSize } = usePreviewFeatures();
-  const { pinnedLeft, pinnedRight, pinnedTop, pinnedBottom } = useLayout(
-    (state) => {
-      const panels = state.panels;
-      return {
-        pinnedLeft: panels.left.pinned,
-        pinnedRight: panels.right.pinned,
-        pinnedTop: panels.top.pinned,
-        pinnedBottom: panels.bottom.pinned,
-      };
-    },
-    true
-  );
-  const content = React.useContext(ContentNodeContext);
-  const ref = usePanelsAutoCollapse<HTMLDivElement>();
-  return (
-    <WidgetPanelsContent
-      className="nz-widgetPanels-appContent"
-      ref={ref}
-      pinnedLeft={pinnedLeft && !contentAlwaysMaxSize}
-      pinnedRight={pinnedRight && !contentAlwaysMaxSize}
-      pinnedTop={pinnedTop && !contentAlwaysMaxSize}
-      pinnedBottom={pinnedBottom && !contentAlwaysMaxSize}
-    >
-      {content}
-    </WidgetPanelsContent>
-  );
-}
+import { useLayoutStore } from "../base/LayoutStore";
 
 /** @internal */
 export function usePanelsAutoCollapse<T extends Element>(): React.Ref<T> {
@@ -60,7 +24,6 @@ export function usePanelsAutoCollapse<T extends Element>(): React.Ref<T> {
     AutoCollapseUnpinnedPanelsContext
   );
 
-  // istanbul ignore next
   React.useEffect(
     () =>
       layoutStore.subscribe((state) => {
