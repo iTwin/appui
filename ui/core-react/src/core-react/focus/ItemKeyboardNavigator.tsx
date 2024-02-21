@@ -73,12 +73,12 @@ export class ItemKeyboardNavigator {
     const key = event.key;
 
     switch (key) {
-      case Key.Home:
+      case Key.Home.valueOf():
         event.preventDefault();
         // Activate first item
         this.focusFirstItem();
         break;
-      case Key.End:
+      case Key.End.valueOf():
         event.preventDefault();
         // Activate last item
         this.focusLastItem();
@@ -86,12 +86,12 @@ export class ItemKeyboardNavigator {
 
       // Up and down are in keydown
       // because we need to prevent page scroll >:)
-      case Key.ArrowUp:
-      case Key.ArrowDown:
+      case Key.ArrowUp.valueOf():
+      case Key.ArrowDown.valueOf():
         this.determineOrientation(event, index);
         break;
 
-      case Key.Enter:
+      case Key.Enter.valueOf():
       case " ":
         this.activateItem(index);
         break;
@@ -103,8 +103,8 @@ export class ItemKeyboardNavigator {
     const key = event.key;
 
     switch (key) {
-      case Key.ArrowLeft:
-      case Key.ArrowRight:
+      case Key.ArrowLeft.valueOf():
+      case Key.ArrowRight.valueOf():
         this.determineOrientation(event, index);
         break;
     }
@@ -132,23 +132,23 @@ export class ItemKeyboardNavigator {
     let proceed = false;
 
     if (vertical) {
-      if (key === Key.ArrowUp || key === Key.ArrowDown) {
+      if (key === Key.ArrowUp.valueOf() || key === Key.ArrowDown.valueOf()) {
         event.preventDefault();
         proceed = true;
       } else if (
         this.crossAxisArrowKeyHandler &&
-        (key === Key.ArrowLeft || key === Key.ArrowRight)
+        (key === Key.ArrowLeft.valueOf() || key === Key.ArrowRight.valueOf())
       ) {
-        this.crossAxisArrowKeyHandler(key === Key.ArrowRight);
+        this.crossAxisArrowKeyHandler(key === Key.ArrowRight.valueOf());
       }
     } else {
-      if (key === Key.ArrowLeft || key === Key.ArrowRight) {
+      if (key === Key.ArrowLeft.valueOf() || key === Key.ArrowRight.valueOf()) {
         proceed = true;
       } else if (
         this.crossAxisArrowKeyHandler &&
-        (key === Key.ArrowUp || key === Key.ArrowDown)
+        (key === Key.ArrowUp.valueOf() || key === Key.ArrowDown.valueOf())
       ) {
-        this.crossAxisArrowKeyHandler(key === Key.ArrowDown);
+        this.crossAxisArrowKeyHandler(key === Key.ArrowDown.valueOf());
       }
     }
 
@@ -176,7 +176,10 @@ export class ItemKeyboardNavigator {
       } else {
         // istanbul ignore else
         if (this._allowWrap) {
-          if (pressed === Key.ArrowLeft || pressed === Key.ArrowUp) {
+          if (
+            pressed === Key.ArrowLeft.valueOf() ||
+            pressed === Key.ArrowUp.valueOf()
+          ) {
             this.focusLastItem();
           } else {
             this.focusFirstItem();
@@ -197,18 +200,18 @@ export class ItemKeyboardNavigator {
 export function isNavigationKey(key: string): boolean {
   return (
     isArrowKey(key) ||
-    key === Key.Home ||
-    key === Key.End ||
+    key === Key.Home.valueOf() ||
+    key === Key.End.valueOf() ||
     key === " " ||
-    key === Key.Enter
+    key === Key.Enter.valueOf()
   );
 }
 
 function isArrowKey(key: string): boolean {
   return (
-    key === Key.ArrowLeft ||
-    key === Key.ArrowRight ||
-    key === Key.ArrowUp ||
-    key === Key.ArrowDown
+    key === Key.ArrowLeft.valueOf() ||
+    key === Key.ArrowRight.valueOf() ||
+    key === Key.ArrowUp.valueOf() ||
+    key === Key.ArrowDown.valueOf()
   );
 }

@@ -122,11 +122,11 @@ const ForwardRefParsedInput = React.forwardRef<
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
-      if (event.key === Key.Enter) {
+      if (event.key === Key.Enter.valueOf()) {
         updateValueFromString(event.currentTarget.value);
         event.preventDefault();
       }
-      if (event.key === Key.Escape) {
+      if (event.key === Key.Escape.valueOf()) {
         setFormattedValue(formatValue(currentValueRef.current));
         setHasBadInput(false);
         event.preventDefault();

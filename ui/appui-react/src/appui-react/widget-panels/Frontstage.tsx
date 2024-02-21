@@ -826,7 +826,7 @@ function debounce<T extends (...args: any[]) => any>(
   duration: number
 ) {
   let timeout: number | undefined;
-  let handler: () => any | undefined;
+  let handler: () => any;
   const debounced = (...args: Parameters<T>) => {
     handler = () => {
       timeout = undefined;

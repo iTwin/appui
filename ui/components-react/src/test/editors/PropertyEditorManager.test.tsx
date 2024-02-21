@@ -270,7 +270,7 @@ describe("PropertyEditorManager", () => {
       super.applyEditorParams(property, record);
       if (property.editor && property.editor.params) {
         property.editor.params.forEach((params: PropertyEditorParams) => {
-          if (params.type === PropertyEditorParamTypes.Icon) {
+          if (params.type === PropertyEditorParamTypes.Icon.valueOf()) {
             if ((params as IconEditorParams).definition.iconSpec === "cool")
               (record as any).iconParamsWorked = true;
           }

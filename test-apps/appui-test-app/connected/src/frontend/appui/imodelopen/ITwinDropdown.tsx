@@ -51,7 +51,7 @@ export class ITwinDropdown extends React.Component<
     const key = event.key;
 
     switch (key) {
-      case Key.Enter:
+      case Key.Enter.valueOf():
       case " ":
         this.closeDropdown();
         this.props.onITwinClicked(iTwin);
@@ -63,7 +63,7 @@ export class ITwinDropdown extends React.Component<
     const key = event.key;
 
     switch (key) {
-      case Key.Enter:
+      case Key.Enter.valueOf():
       case " ":
         this.setState((prevState) => ({
           isDropdownOpen: !prevState.isDropdownOpen,

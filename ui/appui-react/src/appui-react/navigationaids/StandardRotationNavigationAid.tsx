@@ -185,7 +185,7 @@ export class StandardRotationNavigationAid extends React.Component<
                   key={itemIndex.toString()}
                   label={item.label}
                   icon={<Icon iconSpec={item.iconsSpec} />}
-                  isActive={this.state.selected === itemIndex}
+                  isActive={this.state.selected.valueOf() === itemIndex}
                   onClick={() => this._handleListItemClicked(itemIndex)}
                   item={ToolbarItemUtilities.createActionButton(
                     "",

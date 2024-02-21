@@ -85,7 +85,7 @@ export class SignIn extends React.PureComponent<SignInProps, SignInState> {
     const key = event.key;
 
     switch (key) {
-      case Key.Enter:
+      case Key.Enter.valueOf():
       case " ":
         onActivate && onActivate();
         break;

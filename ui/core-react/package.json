@@ -59,7 +59,7 @@
     "@itwin/core-bentley": "^3.7.0 || ^4.0.0",
     "@itwin/core-common": "^3.7.0 || ^4.0.0",
     "@itwin/core-i18n": "^3.7.0 || ^4.0.0",
-    "@itwin/eslint-plugin": "^4.0.0-dev.45",
+    "@itwin/eslint-plugin": "^4.0.0-dev.52",
     "@testing-library/dom": "^8.11.2",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.2",

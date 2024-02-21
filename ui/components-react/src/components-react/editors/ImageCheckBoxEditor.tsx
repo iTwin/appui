@@ -127,7 +127,7 @@ export class ImageCheckBoxEditor
     ) {
       const imageCheckBoxParams = propertyRecord.property.editor.params.find(
         (param: PropertyEditorParams) =>
-          param.type === PropertyEditorParamTypes.CheckBoxImages
+          param.type === PropertyEditorParamTypes.CheckBoxImages.valueOf()
       ) as ImageCheckBoxParams;
       // istanbul ignore else
       if (imageCheckBoxParams) {

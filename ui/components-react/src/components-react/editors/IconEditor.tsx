@@ -47,7 +47,7 @@ export class IconEditor
   extends React.PureComponent<PropertyEditorProps, IconEditorState>
   implements TypeEditor
 {
-  private _control: any | null = null;
+  private _control: any = null;
   private _isMounted = false;
   private _divElement = React.createRef<HTMLDivElement>();
 
@@ -69,7 +69,7 @@ export class IconEditor
     ) {
       const iconParams = record.property.editor.params.find(
         (param: PropertyEditorParams) =>
-          param.type === PropertyEditorParamTypes.IconListData
+          param.type === PropertyEditorParamTypes.IconListData.valueOf()
       ) as IconListEditorParams;
       // istanbul ignore else
       if (iconParams) {

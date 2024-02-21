@@ -33,7 +33,7 @@
   "license": "MIT",
   "devDependencies": {
     "@itwin/build-tools": "^3.7.0 || ^4.0.0",
-    "@itwin/eslint-plugin": "^4.0.0-dev.45",
+    "@itwin/eslint-plugin": "^4.0.0-dev.52",
     "@types/react": "^17.0.37",
     "@types/react-redux": "^7.1.18",
     "@types/react-table": "^7.7.0",

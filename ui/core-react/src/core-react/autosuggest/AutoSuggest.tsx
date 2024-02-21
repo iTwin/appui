@@ -232,15 +232,15 @@ export class AutoSuggest extends React.PureComponent<
 
   private _handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     switch (e.key) {
-      case Key.Enter:
+      case Key.Enter.valueOf():
         // istanbul ignore else
         if (this.props.onPressEnter) this.props.onPressEnter(e);
         break;
-      case Key.Escape:
+      case Key.Escape.valueOf():
         // istanbul ignore else
         if (this.props.onPressEscape) this.props.onPressEscape(e);
         break;
-      case Key.Tab:
+      case Key.Tab.valueOf():
         // istanbul ignore else
         if (this.props.onPressTab) this.props.onPressTab(e);
         break;
