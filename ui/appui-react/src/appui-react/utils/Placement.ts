@@ -1,9 +1,9 @@
-import { RelativePosition } from "@itwin/appui-abstract";
-
 /*---------------------------------------------------------------------------------------------
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+ import { RelativePosition } from "@itwin/appui-abstract";
+
 /**
  * Identifies which side of a target an element should be placed.
  * Without an {@link Alignment}, the element center will be placed at the center of the target.
