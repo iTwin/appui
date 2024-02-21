@@ -419,7 +419,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
       const sectionItems = statusBarItems
         .filter(
           (item) =>
-            (item.section as number) === section &&
+            item.section.valueOf() === section.valueOf() &&
             !isItemInOverflow(item.id, overflown) &&
             !ConditionalBooleanValue.getValue(item.isHidden)
         )

@@ -60,8 +60,8 @@ export interface SessionState {
   iModelId: string;
   defaultIModelViewportControlId: string | undefined;
   defaultViewId: string | undefined;
-  defaultViewState: any | undefined;
-  iModelConnection: any | undefined;
+  defaultViewState: any;
+  iModelConnection: any;
   cursorMenuData: CursorMenuData | undefined;
 }
 

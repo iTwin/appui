@@ -384,16 +384,16 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
-      if (event.key === Key.Enter) {
+      if (event.key === Key.Enter.valueOf()) {
         updateValueFromString(event.currentTarget.value);
         event.preventDefault();
-      } else if (event.key === Key.Escape) {
+      } else if (event.key === Key.Escape.valueOf()) {
         setFormattedValue(formatValue(rawValueRef.current));
         event.preventDefault();
-      } else if (event.key === Key.ArrowDown) {
+      } else if (event.key === Key.ArrowDown.valueOf()) {
         applyStep(false);
         event.preventDefault();
-      } else if (event.key === Key.ArrowUp) {
+      } else if (event.key === Key.ArrowUp.valueOf()) {
         applyStep(true);
         event.preventDefault();
       }

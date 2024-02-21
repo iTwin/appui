@@ -75,7 +75,7 @@
     "@itwin/core-react": "workspace:*",
     "@itwin/core-telemetry": "^3.7.0 || ^4.0.0",
     "@itwin/ecschema-metadata": "^3.7.0 || ^4.0.0",
-    "@itwin/eslint-plugin": "^4.0.0-dev.45",
+    "@itwin/eslint-plugin": "^4.0.0-dev.52",
     "@itwin/imodel-components-react": "workspace:*",
     "@itwin/webgl-compatibility": "^3.7.0 || ^4.0.0",
     "@testing-library/dom": "^8.11.2",

@@ -130,8 +130,8 @@ describe("UiSettingsPage", () => {
     const thumb =
       wrapper.container.ownerDocument.querySelectorAll(".iui-slider-thumb");
     expect(thumb[0]).to.exist;
-    fireEvent.keyDown(thumb[0]!, { key: Key.ArrowRight });
-    fireEvent.keyUp(thumb[0]!, { key: Key.ArrowRight });
+    fireEvent.keyDown(thumb[0], { key: Key.ArrowRight });
+    fireEvent.keyUp(thumb[0], { key: Key.ArrowRight });
     await TestUtils.flushAsyncOperations();
     let toolbarOpacity = UiFramework.getToolbarOpacity();
     expect(toolbarOpacity).greaterThan(0.5);

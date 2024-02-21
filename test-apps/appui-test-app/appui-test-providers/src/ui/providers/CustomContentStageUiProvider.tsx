@@ -158,7 +158,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
   ): ReadonlyArray<Widget> {
     const widgets: Widget[] = [];
     if (
-      stageUsage === StageUsage.General &&
+      stageUsage === StageUsage.General.valueOf() &&
       location === StagePanelLocation.Right &&
       section === StagePanelSection.Start
     ) {

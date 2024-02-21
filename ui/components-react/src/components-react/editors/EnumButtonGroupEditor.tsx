@@ -141,7 +141,7 @@ export class EnumButtonGroupEditor
         ) {
           const bgParams = propertyRecord.property.editor.params.find(
             (param: PropertyEditorParams) =>
-              param.type === PropertyEditorParamTypes.ButtonGroupData
+              param.type === PropertyEditorParamTypes.ButtonGroupData.valueOf()
           ) as ButtonGroupEditorParams;
           // istanbul ignore else
           if (bgParams) {
