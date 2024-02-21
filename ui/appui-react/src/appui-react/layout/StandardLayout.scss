@@ -43,6 +43,8 @@
 
     > .nz-centerContent {
       grid-area: cc;
+
+      pointer-events: none;
     }
 
     > .nz-statusBar {
