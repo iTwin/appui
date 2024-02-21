@@ -33,6 +33,8 @@ export function WidgetContentContainer(props: WidgetContentContainerProps) {
   }, true);
   const ref = React.useCallback(
     (instance: HTMLDivElement) => {
+      if (!widgetContentManager) return;
+
       widgetContentManager.setContainer(activeTabId, instance);
     },
     [widgetContentManager, activeTabId]
