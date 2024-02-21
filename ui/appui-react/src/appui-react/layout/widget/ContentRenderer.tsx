@@ -59,6 +59,8 @@ export function WidgetContentRenderer(props: WidgetContentRendererProps) {
     container.current.classList.add("nz-widget-contentRenderer");
   }
   React.useLayoutEffect(() => {
+    if (!widgetContentManager) return;
+
     const parent = renderTo;
     if (parent) {
       while (parent.firstChild) {
@@ -104,11 +106,15 @@ export function useTabTransientState(
 ) {
   const widgetContentManager = React.useContext(WidgetContentManagerContext);
   React.useEffect(() => {
+    if (!widgetContentManager) return;
+
     return widgetContentManager.onSaveTransientState.addListener((id) => {
       tabId === id && onSave && onSave();
     });
   }, [widgetContentManager, onSave, tabId]);
   React.useEffect(() => {
+    if (!widgetContentManager) return;
+
     return widgetContentManager.onRestoreTransientState.addListener((id) => {
       tabId === id && onRestore && onRestore();
     });
