@@ -5,8 +5,9 @@ Table of contents:
 - [@itwin/appui-react](#itwinappui-react)
   - [Additions](#additions)
   - [Changes](#changes)
-- [@itwin/components-react](#itwincomponents-react)
   - [Fixes](#fixes)
+- [@itwin/components-react](#itwincomponents-react)
+  - [Fixes](#fixes-1)
 
 ## @itwin/appui-react
 
@@ -17,6 +18,10 @@ Table of contents:
 ### Changes
 
 - Update styling of tool settings components. #658
+
+### Fixes
+
+- Fixed null property access when `useTransientState` is used in a popout widget.
 
 ## @itwin/components-react
 
