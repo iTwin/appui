@@ -13,14 +13,15 @@ import { DropdownMenu, MenuItem } from "@itwin/itwinui-react";
 import {
   isHorizontalPanelSide,
   PanelSideContext,
-} from "../widget-panels/Panel";
+} from "../../layout/widget-panels/Panel";
 import type {
   HorizontalPanelSide,
   PanelSide,
-} from "../widget-panels/PanelTypes";
-import { useIsMainPanelWidget } from "./Buttons";
-import { WidgetActionDropdownContext } from "../../preview/widget-action-dropdown/MoreButton";
-import { TabBarButton } from "./Button";
+} from "../../layout/widget-panels/PanelTypes";
+import { WidgetActionDropdownContext } from "../widget-action-dropdown/MoreButton";
+import { TabBarButton } from "../../layout/widget/Button";
+import { useMainPanelWidgetId } from "../../layout/widget/usePanelWidgetId";
+import { useIsMaximizedWidget } from "../enable-maximized-widget/useMaximizedWidget";
 
 /** Default value used when not provided or disabled. */
 const defaultAlignments = {
@@ -28,7 +29,8 @@ const defaultAlignments = {
   bottom: HorizontalAlignment.Justify,
 };
 
-const HorizontalPanelAlignContext = React.createContext<{
+/** @internal */
+export const HorizontalPanelAlignContext = React.createContext<{
   enabled: boolean;
   alignments: {
     [side in HorizontalPanelSide]: HorizontalAlignment;
@@ -42,13 +44,6 @@ const HorizontalPanelAlignContext = React.createContext<{
   alignments: defaultAlignments,
   setAlignment: () => {},
 });
-
-/** Horizontal panel alignment preview feature state.
- * @internal
- */
-export function usePreviewHorizontalPanelAlign() {
-  return React.useContext(HorizontalPanelAlignContext);
-}
 
 /** Preview horizontal panel alignment feature provider.
  * @internal
@@ -153,7 +148,9 @@ export function PreviewHorizontalPanelAlignButton() {
   const side = React.useContext(PanelSideContext);
   assert(!!side);
   assert(isHorizontalPanelSide(side));
-  const { alignments, setAlignment } = usePreviewHorizontalPanelAlign();
+  const { alignments, setAlignment } = React.useContext(
+    HorizontalPanelAlignContext
+  );
   const title = "Align panel";
 
   const getMenuItems = (onClose?: () => void) =>
@@ -200,13 +197,13 @@ export function PreviewHorizontalPanelAlignButton() {
 /** @internal */
 export function useHorizontalPanelAlignButton() {
   const side = React.useContext(PanelSideContext);
-  const { enabled } = usePreviewHorizontalPanelAlign();
-  const isMainPanelWidget = useIsMainPanelWidget();
+  const { enabled } = React.useContext(HorizontalPanelAlignContext);
+  const isMainPanelWidget = !!useMainPanelWidgetId();
+  const isMaximizedWidget = useIsMaximizedWidget();
 
-  return !!(
-    enabled &&
-    side &&
-    isHorizontalPanelSide(side) &&
-    isMainPanelWidget
+  if (!side) return false;
+  const isHorizontalPanel = isHorizontalPanelSide(side);
+  return (
+    enabled && isHorizontalPanel && isMainPanelWidget && !isMaximizedWidget
   );
 }

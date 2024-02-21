@@ -2,15 +2,15 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import * as sinon from "sinon";
 import { fireEvent } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import * as sinon from "sinon";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import { updatePanelState } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import { usePanelsAutoCollapse } from "../../../appui-react/layout/widget-panels/AppContent";
 import { setRefValue, TestNineZoneProvider } from "../Providers";
 import { withWrapperAndProps } from "../Utils";
+import { usePanelsAutoCollapse } from "../../../appui-react/layout/widget-panels/usePanelsAutoCollapse";
 
 describe("usePanelsAutoCollapse", () => {
   it("should collapse unpinned panels", () => {

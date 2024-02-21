@@ -3,11 +3,16 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Additions](#additions)
   - [Changes](#changes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Fixes](#fixes)
 
 ## @itwin/appui-react
+
+### Additions
+
+- `enableMaximizedPanelWidget` preview feature. When enabled, panel widgets can be maximized by the user to fill the root container of AppUI. This feature is similar to the existing `enableMaximizedFloatingWidget` but for panel widgets. #736
 
 ### Changes
 

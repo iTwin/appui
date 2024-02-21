@@ -39,7 +39,10 @@ import { WidgetOutline } from "../outline/WidgetOutline";
 import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import type { XAndY } from "../state/internal/NineZoneStateHelpers";
-import { usePreviewMaximizedWidget } from "./PreviewMaximizeToggle";
+import {
+  useIsMaximizedWidget,
+  useMaximizedFloatingWidget,
+} from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle =
@@ -94,13 +97,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   );
   const dragged = useIsDraggedItem(item);
   const ref = useHandleAutoSize(dragged);
-  const { enabled: enableMaximizedFloatingWidget, maximizedWidget } =
-    usePreviewMaximizedWidget();
-  // istanbul ignore next (preview)
-  const previewMaximizedWidgetSectionsClass =
-    maximizedWidget === id &&
-    enableMaximizedFloatingWidget &&
-    "preview-enableMaximizedFloatingWidget-maximized";
+  const maximizedWidget = useMaximizedFloatingWidget();
 
   const className = classnames(
     "nz-widget-floatingWidget",
@@ -108,13 +105,12 @@ export function FloatingWidget(props: FloatingWidgetProps) {
     isToolSettingsTab && "nz-floating-toolSettings",
     minimized && "nz-minimized",
     hideFloatingWidget && "nz-hidden",
-    previewMaximizedWidgetSectionsClass
+    maximizedWidget.classNames
   );
   const style = React.useMemo(() => {
     const boundsRect = Rectangle.create(bounds);
     const { height, width } = boundsRect.getSize();
     const position = boundsRect.topLeft();
-    // istanbul ignore next
     return {
       transform: `translate(${position.x}px, ${position.y}px)`,
       height: minimized || autoSized ? undefined : height,
@@ -153,7 +149,10 @@ export function FloatingWidget(props: FloatingWidgetProps) {
     <Widget
       className={className}
       widgetId={id}
-      style={style}
+      style={{
+        ...style,
+        ...maximizedWidget.style,
+      }}
       ref={ref}
       onMouseEnter={props.onMouseEnter}
       onMouseLeave={props.onMouseLeave}
@@ -203,9 +202,7 @@ function useHandleAutoSize(dragged: boolean) {
   const userSized = useLayout(
     (state) => state.floatingWidgets.byId[id].userSized
   );
-  const { enabled: enableMaximizedFloatingWidget, maximizedWidget } =
-    usePreviewMaximizedWidget();
-  const maximized = enableMaximizedFloatingWidget && maximizedWidget === id;
+  const maximizedWidget = useIsMaximizedWidget();
 
   const updatePosition = React.useRef(true);
   const ref = React.useRef<HTMLDivElement>(null);
@@ -213,8 +210,7 @@ function useHandleAutoSize(dragged: boolean) {
   React.useLayoutEffect(() => {
     if (!updatePosition.current) return;
     if (!dragged) return;
-    // istanbul ignore next (preview)
-    if (maximized) return;
+    if (maximizedWidget) return;
     if (!dragManager.draggedItem) return;
     if (!ref.current) return;
 
@@ -244,12 +240,11 @@ function useHandleAutoSize(dragged: boolean) {
       userSized: true,
     });
     updatePosition.current = false;
-  }, [dragged, dragManager, dispatch, id, measureNz, maximized]);
+  }, [dragged, dragManager, dispatch, id, measureNz, maximizedWidget]);
   const handleResize = React.useCallback(() => {
     if (!ref.current) return;
     if (dragged) return;
-    // istanbul ignore next (preview)
-    if (maximized) return;
+    if (maximizedWidget) return;
     if (userSized) return;
 
     let bounds = Rectangle.create(ref.current.getBoundingClientRect());
@@ -263,7 +258,7 @@ function useHandleAutoSize(dragged: boolean) {
       id,
       bounds,
     });
-  }, [dispatch, dragged, id, userSized, measureNz, maximized]);
+  }, [dispatch, dragged, id, userSized, measureNz, maximizedWidget]);
   const roRef = useResizeObserver(handleResize);
   const refs = useRefs(ref, roRef);
   return refs;
@@ -323,10 +318,12 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   const pointerCaptorRef = usePointerCaptor(handlePointerDown);
   const ref = React.useRef<HTMLDivElement>(null);
   const refs = useRefs(ref, pointerCaptorRef);
+  const isMaximized = useIsMaximizedWidget();
   const className = classnames(
     "nz-widget-floatingWidget_handle",
     `nz-${handle}`
   );
+  if (isMaximized) return null;
   return <div className={className} ref={refs} />;
 }
 
