@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "eprecate FrameworkUiAdmin; introduce Placement, a replacement for ",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
