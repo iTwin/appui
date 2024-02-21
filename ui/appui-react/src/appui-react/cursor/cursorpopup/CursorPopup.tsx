@@ -31,7 +31,9 @@ export interface CursorPopupProps extends CommonProps {
   content: React.ReactNode;
   pt: XAndY;
   offset: XAndY;
-  relativePosition: RelativePosition | Placement;
+  /** @deprecated in 4.10.0. Use `placement` instead. */
+  relativePosition: RelativePosition;
+  placement?: Placement;
   title?: string;
   shadow?: boolean;
   /** Function called when size is known. */
