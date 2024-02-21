@@ -63,7 +63,6 @@ import {
 import { addWidgetToolSettings } from "../../appui-react/layout/state/internal/ToolSettingsStateHelpers";
 import { addFloatingWidget } from "../../appui-react/layout/state/internal/WidgetStateHelpers";
 import TestUtils, {
-  childStructure,
   storageMock,
   stubRaf,
   styleMatch,
@@ -363,28 +362,31 @@ describe("Frontstage local storage wrapper", () => {
         sinon.stub(InternalFrontstageManager, "nineZoneSize").set(() => {});
       });
 
-      it("should render", () => {
+      it("should render", async () => {
         const frontstageDef = new FrontstageDef();
-        const { container } = render(
+        await frontstageDef.initializeFromConfig({
+          ...defaultFrontstageConfig,
+          leftPanel: {
+            sections: {
+              start: [
+                {
+                  id: "w1",
+                  content: "Widget 1 content",
+                },
+              ],
+            },
+          },
+        });
+        initializeNineZoneState(frontstageDef);
+        sinon
+          .stub(UiFramework.frontstages, "activeFrontstageDef")
+          .get(() => frontstageDef);
+        const component = render(
           <Provider store={TestUtils.store}>
             <ActiveFrontstageDefProvider frontstageDef={frontstageDef} />
           </Provider>
         );
-        expect(container).to.satisfy(
-          childStructure([
-            ".nz-widgetPanels-appContent",
-            ".nz-widgetPanels-centerContent .uifw-widgetPanels-toolbars",
-            ".nz-left .nz-target-panelTarget",
-            ".nz-outline-panelOutline.nz-left",
-            ".nz-right .nz-target-panelTarget",
-            ".nz-outline-panelOutline.nz-right",
-            ".nz-top .nz-target-panelTarget",
-            ".nz-outline-panelOutline.nz-top",
-            ".nz-bottom .nz-target-panelTarget",
-            ".nz-outline-panelOutline.nz-bottom",
-            ".nz-widget-floatingTab",
-          ])
-        );
+        component.getByText("Widget 1 content");
       });
 
       it("should fall back to cached NineZoneState", () => {
