@@ -21,7 +21,7 @@ Table of contents:
 
 ### Fixes
 
-- Fixed null property access when `useTransientState` is used in a popout widget.
+- Fixed null property access when `useTransientState` is used in a popout widget. [#740](https://github.com/iTwin/appui/pull/740)
 
 ## @itwin/components-react
 
