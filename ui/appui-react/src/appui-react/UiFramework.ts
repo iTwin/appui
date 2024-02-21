@@ -920,7 +920,7 @@ export class UiFramework {
    * @param offset Offset of the Card from the location.
    * @param onItemExecuted Function invoked after a Toolbar item is executed
    * @param onCancel Function invoked when the Escape key is pressed or a click occurs outside the Card
-   * @param relativePosition {@link Placement} relative to the given location. Defaults to TopRight.
+   * @param placement {@link Placement} relative to the given location. Defaults to top-end.
    * @param anchorElement The HTMLElement that anchors the Card. If undefined, the location is relative to the overall window.
    * @return true if the Card was displayed, false if the Card could not be displayed.
    */
@@ -963,7 +963,7 @@ export class UiFramework {
    * @param location Location of the tool settings, relative to the origin of anchorElement or the window
    * @param offset Offset of the tool settings from the location
    * @param onCancel Function invoked when the Escape key is pressed or a click occurs outside the tool settings
-   * @param relativePosition Position relative to the given location. Defaults to TopRight.
+   * @param placement {@link Placement} relative to the given location. Defaults to top-end.
    * @param anchorElement The HTMLElement that anchors the tool settings. If undefined, the location is relative to the overall window.
    * @return true if the tool settings were displayed, false if the tool settings could not be displayed.
    */
@@ -972,7 +972,7 @@ export class UiFramework {
     location: XAndY,
     offset: XAndY,
     onCancel: () => void,
-    placement: Placement | RelativePosition = "top-end",
+    placement: Placement = "top-end",
     anchorElement?: HTMLElement
   ): boolean {
     const el = this.resolveHtmlElement(anchorElement);
@@ -1001,7 +1001,7 @@ export class UiFramework {
    * @param offset Offset of the Toolbar from the location.
    * @param onItemExecuted Function invoked after a Toolbar item is executed
    * @param onCancel Function invoked when the Escape key is pressed or a click occurs outside the Toolbar
-   * @param relativePosition Position relative to the given location. Defaults to TopRight.
+   * @param placement {@link Placement} relative to the given location. Defaults to top-end.
    * @param anchorElement The HTMLElement that anchors the Toolbar. If undefined, the location is relative to the overall window.
    * @return true if the Toolbar was displayed, false if the Toolbar could not be displayed.
    */
