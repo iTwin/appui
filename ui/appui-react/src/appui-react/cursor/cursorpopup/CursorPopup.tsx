@@ -21,24 +21,29 @@ import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
 import "./CursorPopup.scss";
 import type { CursorPopupFadeOutEventArgs } from "./CursorPopupManager";
 import { CursorPopupManager } from "./CursorPopupManager";
-import type { Placement } from "../../utils/Placement";
+import { type Placement } from "../../utils/Placement";
+import type { RequireAtLeastOne } from "@itwin/core-bentley";
 
 /** Properties for the [[CursorPopup]] React component
  * @public
  */
-export interface CursorPopupProps extends CommonProps {
+export type CursorPopupProps = {
   id: string;
   content: React.ReactNode;
   pt: XAndY;
   offset: XAndY;
   /** @deprecated in 4.10.0. Use `placement` instead. */
-  relativePosition: RelativePosition;
+  relativePosition?: RelativePosition;
   placement?: Placement;
   title?: string;
   shadow?: boolean;
   /** Function called when size is known. */
   onSizeKnown?: (size: SizeProps) => void;
-}
+} & CommonProps &
+  RequireAtLeastOne<{
+    placement?: Placement;
+    relativePosition?: RelativePosition;
+  }>;
 
 /** Enum for showing CursorPopup
  * @internal - unit testing
@@ -126,12 +131,12 @@ export class CursorPopup extends React.Component<
           popupRect.top = pt.y + popupSize.height / 2 - offset.y;
           break;
         case "right":
-          popupRect.left = pt.x - offset.x;
+          popupRect.left = pt.x + offset.x;
           popupRect.top = pt.y + popupSize.height / 2 - offset.y;
           break;
         case "bottom":
           popupRect.left = pt.x - popupSize.width / 2 - offset.x;
-          popupRect.top = pt.y - offset.y;
+          popupRect.top = pt.y + offset.y;
           break;
       }
 
@@ -241,7 +246,8 @@ export class CursorPopup extends React.Component<
       this.props.pt,
       this.props.offset,
       this.state.size,
-      this.props.relativePosition
+      // eslint-disable-next-line deprecation/deprecation
+      this.props.placement || this.props.relativePosition
     );
 
     const positioningStyle: React.CSSProperties = {

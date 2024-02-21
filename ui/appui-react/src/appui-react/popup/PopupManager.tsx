@@ -59,7 +59,7 @@ interface ShowComponentOptions {
   location: XAndY;
   offset: XAndY;
   placement: Placement;
-  anchorRef?: React.RefObject<HTMLElement>;
+  anchor?: HTMLElement;
   id?: string;
 }
 
@@ -361,13 +361,13 @@ export class PopupManager {
     displayElement: ReactElement,
     options: ShowComponentOptions
   ): boolean {
-    const { onCancel, location, offset, placement, anchorRef, id } = options;
+    const { onCancel, location, offset, placement, anchor, id } = options;
     const _id = PopupManager._htmlElementId;
 
     const component = (
       <ComponentPopup
         id={id ?? _id}
-        anchor={anchorRef?.current ?? undefined}
+        anchor={anchor ?? undefined}
         pt={location}
         offset={offset}
         placement={placement}
@@ -382,7 +382,7 @@ export class PopupManager {
       id: id ?? _id,
       pt: location,
       component,
-      parentDocument: anchorRef?.current?.ownerDocument,
+      parentDocument: anchor?.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 

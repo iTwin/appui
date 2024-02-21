@@ -70,6 +70,7 @@ import type { XAndY } from "@itwin/core-geometry";
 import { PopupManager } from "./popup/PopupManager";
 import { AccuDrawPopupManager } from "./accudraw/AccuDrawPopupManager";
 import { UiDataProvidedDialog } from "./dialog/UiDataProvidedDialog";
+import type { RefObject } from "react";
 import { createElement } from "react";
 import type { DialogInfo } from "./dialog/DialogManagerBase";
 import type { KeyinEntry } from "./keyins/Keyins";
@@ -118,8 +119,8 @@ export interface TrackingTime {
 }
 
 type fn = typeof PopupManager.showComponent;
-type ShowComponentParams = Parameters<fn>;
-type OptionalShowComponentParams = [ShowComponentParams[0], Partial<ShowComponentParams[1]>?];
+type ShowComponentParams = Parameters<fn>
+type OptionalShowComponentParams = [ShowComponentParams[0], Partial<Exclude<ShowComponentParams[1], "anchor"> & { anchorRef?: RefObject<HTMLElement> }>?];
 
 /** Main entry point to configure and interact with the features provided by the AppUi-react package.
  * @public
@@ -1126,7 +1127,7 @@ export class UiFramework {
         offset,
         onCancel,
         placement,
-        anchorRef,
+        anchor: anchorRef?.current ?? undefined,
         id
       },
     );

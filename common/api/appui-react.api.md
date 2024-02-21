@@ -83,7 +83,9 @@ import type { QuantityTypeArg } from '@itwin/core-frontend';
 import * as React_2 from 'react';
 import type { ReactElement } from 'react';
 import type { RectangleProps } from '@itwin/core-react';
+import type { RefObject } from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
+import type { RequireAtLeastOne } from '@itwin/core-bentley';
 import type { ScreenViewport } from '@itwin/core-frontend';
 import { SettingsManager } from '@itwin/core-react';
 import type { SettingsTabEntry } from '@itwin/core-react';
@@ -1393,23 +1395,20 @@ export interface CursorPopupOptions {
 }
 
 // @public
-export interface CursorPopupProps extends CommonProps {
-    // (undocumented)
-    content: React_2.ReactNode;
-    // (undocumented)
+export type CursorPopupProps = {
     id: string;
-    // (undocumented)
-    offset: XAndY;
-    onSizeKnown?: (size: SizeProps) => void;
-    // (undocumented)
+    content: React_2.ReactNode;
     pt: XAndY;
-    // (undocumented)
-    relativePosition: RelativePosition | Placement;
-    // (undocumented)
-    shadow?: boolean;
-    // (undocumented)
+    offset: XAndY;
+    relativePosition?: RelativePosition;
+    placement?: Placement;
     title?: string;
-}
+    shadow?: boolean;
+    onSizeKnown?: (size: SizeProps) => void;
+} & CommonProps & RequireAtLeastOne<{
+    placement?: Placement;
+    relativePosition?: RelativePosition;
+}>;
 
 // @public
 export class CursorPopupRenderer extends React_2.Component<any, CursorPopupRendererState> {
