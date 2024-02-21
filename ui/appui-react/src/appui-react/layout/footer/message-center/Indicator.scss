@@ -46,37 +46,6 @@
       align-items: center;
       margin-left: 8px;
 
-      > .nz-balloon {
-        background-color: var(--iui-color-icon);
-        text-align: center;
-        min-width: $min-balloon-width;
-        min-height: $min-balloon-height;
-        border-radius: 50%;
-        padding: $balloon-padding;
-        position: relative;
-
-        > .nz-arrow {
-          position: absolute;
-          width: 0;
-          bottom: -3px;
-          left: 0;
-          display: block;
-          border-width: 0;
-          border-bottom-width: $balloon-arrow-height;
-          border-left-width: $balloon-arrow-width;
-          border-style: solid;
-          border-color: transparent var(--iui-color-icon);
-          transform: rotate(25deg);
-        }
-
-        > .nz-content {
-          position: relative;
-          color: var(--iui-color-background);
-          line-height: $min-balloon-height;
-          font-size: 11px;
-        }
-      }
-
       > .nz-target {
         height: 100%;
         width: 100%;

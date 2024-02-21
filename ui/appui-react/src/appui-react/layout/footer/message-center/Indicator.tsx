@@ -11,6 +11,8 @@ import classnames from "classnames";
 import * as React from "react";
 import type { FooterIndicatorProps } from "../Indicator";
 import { FooterIndicator } from "../Indicator";
+import { SvgChat } from "@itwin/itwinui-icons-react";
+import { NotificationMarker } from "@itwin/itwinui-react";
 
 /** Properties of [[MessageCenter]] component.
  * @internal
@@ -55,12 +57,11 @@ export class MessageCenter extends React.PureComponent<MessageCenterProps> {
           role="button"
           tabIndex={-1}
         >
+          <NotificationMarker status="primary">
+            <SvgChat />
+          </NotificationMarker>
           {label !== undefined && <span className="nz-label">{label}</span>}
           <div className="nz-container">
-            <div className="nz-balloon">
-              <div className="nz-arrow" />
-              <div className="nz-content">{children}</div>
-            </div>
             <div className="nz-target" ref={targetRef} />
           </div>
         </div>
