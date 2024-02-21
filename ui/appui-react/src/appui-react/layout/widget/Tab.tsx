@@ -9,6 +9,7 @@
 import "./Tab.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { Key } from "ts-key-enum";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
 import {
@@ -46,8 +47,7 @@ import { WidgetOverflowContext } from "./Overflow";
 import { useLayout, useLayoutStore } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
-import { Key } from "ts-key-enum";
-import { usePreviewMaximizedWidget } from "./PreviewMaximizeToggle";
+import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -120,19 +120,12 @@ function WidgetTabComponent(props: WidgetTabProps) {
     (state) => getWidgetState(state, widgetId).minimized
   );
 
-  const { enabled: enableMaximizedFloatingWidget, maximizedWidget } =
-    usePreviewMaximizedWidget();
-  const floatingWidgetId = useFloatingWidgetId();
-  // istanbul ignore next (preview)
-  const maximized =
-    !!floatingWidgetId &&
-    maximizedWidget === floatingWidgetId &&
-    enableMaximizedFloatingWidget;
+  const maximizedWidget = useIsMaximizedWidget();
 
   const resizeObserverRef = useResizeObserver<HTMLDivElement>(
     widgetTabsEntryContext?.onResize
   );
-  const pointerCaptorRef = useTabInteractions({ clickOnly: maximized });
+  const pointerCaptorRef = useTabInteractions({ clickOnly: maximizedWidget });
   const refs = useRefs<HTMLDivElement>(resizeObserverRef, pointerCaptorRef);
 
   const active = activeTabId === id;
@@ -357,7 +350,7 @@ export function useTabInteractions<T extends HTMLElement>({
       clickCount.current = 0;
     });
     const keydown = (e: KeyboardEvent) => {
-      if (e.key === " " || e.key === Key.Enter) {
+      if (e.key === " " || e.key === Key.Enter.valueOf()) {
         handleClick();
       }
     };

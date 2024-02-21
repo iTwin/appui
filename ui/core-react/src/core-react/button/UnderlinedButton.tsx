@@ -36,7 +36,7 @@ export function UnderlinedButton(props: UnderlinedButtonProps) {
       const key = event.key;
 
       switch (key) {
-        case Key.Enter:
+        case Key.Enter.valueOf():
         case " ":
           props.onActivate && props.onActivate();
           break;

@@ -33,7 +33,7 @@ export class MessageUiItemsProvider implements UiItemsProvider {
     orientation: ToolbarOrientation
   ): ToolbarItem[] {
     if (
-      stageUsage === StageUsage.General &&
+      stageUsage === StageUsage.General.valueOf() &&
       usage === ToolbarUsage.ContentManipulation &&
       orientation === ToolbarOrientation.Vertical
     ) {

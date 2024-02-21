@@ -2,6 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-.nz-widgetPanels-centerContent {
-  pointer-events: none;
+@layer appui {
+  @layer component, preview;
+
+  @layer preview {
+    @layer horizontal-panel-alignment, enable-maximized-widget;
+  }
 }

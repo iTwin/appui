@@ -202,7 +202,7 @@ class AbstractUiItemsManagerAdapter implements Target {
         : toAbstractStagePanelSection(section);
     const combos: [
       AbstractStagePanelLocation,
-      AbstractStagePanelSection | undefined
+      AbstractStagePanelSection | undefined // eslint-disable-line @typescript-eslint/no-redundant-type-constituents
     ][] = [];
     abstractLocations.forEach((abstractLocation) => {
       abstractSections.forEach((abstractSection) => {
@@ -354,7 +354,7 @@ function createAbstractToUiItemsProviderAdapter(
           : toAbstractStagePanelSection(section);
       const combos: [
         AbstractStagePanelLocation,
-        AbstractStagePanelSection | undefined
+        AbstractStagePanelSection | undefined // eslint-disable-line @typescript-eslint/no-redundant-type-constituents
       ][] = [];
       abstractLocations.forEach((abstractLocation) => {
         abstractSections.forEach((abstractSection) => {

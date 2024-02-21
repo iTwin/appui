@@ -42,7 +42,7 @@ export class SynchronizedFloatingViewportProvider implements UiItemsProvider {
     toolbarUsage: ToolbarUsage,
     toolbarOrientation: ToolbarOrientation
   ): ToolbarItem[] {
-    if (stageUsage !== StageUsage.General) return [];
+    if (stageUsage !== StageUsage.General.valueOf()) return [];
     if (_stageId !== "appui-test-providers:SynchronizedFloatingViewportExample")
       return [];
 

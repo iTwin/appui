@@ -5,6 +5,7 @@
 
 // cSpell:ignore safearea cursormenu clientservices oidc Textbox Modeless configurableui stagepanels dragdrop uiadmin itemsarbiter Popout
 
+import "./appui-react/layers.scss";
 export * from "./appui-react/UiFramework"; // Please ensure that this line comes before all other exports.
 
 export * from "./appui-react/accudraw/AccuDrawCommandItems";

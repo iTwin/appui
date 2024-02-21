@@ -74,6 +74,7 @@ export abstract class TypeConverter
   /** Converts a primitive value to a string */
   public convertToString(value?: Primitives.Value): string | Promise<string> {
     if (value === undefined) return "";
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     return value.toString();
   }
 

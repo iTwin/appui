@@ -24,7 +24,7 @@ export class NavigationPropertyValueRenderer implements IPropertyValueRenderer {
   public canRender(record: PropertyRecord) {
     return (
       record.value.valueFormat === PropertyValueFormat.Primitive &&
-      record.property.typename === StandardTypeNames.Navigation
+      record.property.typename === StandardTypeNames.Navigation.valueOf()
     );
   }
 

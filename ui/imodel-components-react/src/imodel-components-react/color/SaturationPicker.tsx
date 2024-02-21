@@ -187,23 +187,23 @@ export function SaturationPicker({
     (evt: React.KeyboardEvent<HTMLDivElement>) => {
       const h = hsv.h;
       let { s, v } = { ...hsv };
-      if (evt.key === Key.ArrowLeft) {
+      if (evt.key === Key.ArrowLeft.valueOf()) {
         s -= evt.ctrlKey ? 10 : 1;
-      } else if (evt.key === Key.ArrowDown) {
+      } else if (evt.key === Key.ArrowDown.valueOf()) {
         v -= evt.ctrlKey ? 10 : 1;
-      } else if (evt.key === Key.ArrowRight) {
+      } else if (evt.key === Key.ArrowRight.valueOf()) {
         s += evt.ctrlKey ? 10 : 1;
-      } else if (evt.key === Key.ArrowUp) {
+      } else if (evt.key === Key.ArrowUp.valueOf()) {
         v += evt.ctrlKey ? 10 : 1;
-      } else if (evt.key === Key.PageDown) {
+      } else if (evt.key === Key.PageDown.valueOf()) {
         v = 0;
-      } else if (evt.key === Key.PageUp) {
+      } else if (evt.key === Key.PageUp.valueOf()) {
         v = 100;
-      } else if (evt.key === Key.Home) {
+      } else if (evt.key === Key.Home.valueOf()) {
         s = 0;
       } else {
         // istanbul ignore else
-        if (evt.key === Key.End) {
+        if (evt.key === Key.End.valueOf()) {
           s = 100;
         }
       }

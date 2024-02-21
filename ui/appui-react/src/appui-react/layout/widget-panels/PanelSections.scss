@@ -2,17 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/core-react/lib/cjs/core-react/z-index";
-
-.nz-widgetPanels-panels {
-  display: grid;
-  background-color: $buic-background-widget-panel;
-  grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
-  grid-template-rows: minmax(0, auto) 1fr minmax(0, auto);
-  overflow: hidden;
-  position: relative;
-
+@layer appui.component {
   .nz-widgetPanels-vertical {
     position: relative;
     display: flex;
