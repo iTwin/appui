@@ -78,6 +78,7 @@ export interface WidgetContentManagerContextArgs {
 }
 
 /** @internal */
-export const WidgetContentManagerContext =
-  React.createContext<WidgetContentManagerContextArgs>(null!);
+export const WidgetContentManagerContext = React.createContext<
+  WidgetContentManagerContextArgs | undefined
+>(undefined);
 WidgetContentManagerContext.displayName = "nz:WidgetContentManagerContext";
