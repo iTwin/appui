@@ -80,7 +80,6 @@ export function TimelineComponent(props: TimelineComponentProps) {
     if (!props.componentId) return;
     return UiAdmin.onGenericUiEvent.addListener((args) => {
       const timelineArgs = args as TimelinePausePlayArgs;
-      // istanbul ignore else
       if (
         !timelineArgs ||
         props.componentId !== timelineArgs.uiComponentId ||
@@ -99,11 +98,10 @@ export function TimelineComponent(props: TimelineComponentProps) {
         case TimelinePausePlayAction.Toggle:
           startPlaying = !isPlaying;
           break;
-        // istanbul ignore next
         default:
           return; // throw error?
       }
-      if (startPlaying) _onPlay();
+      if (startPlaying) play();
       else _onPause();
     });
   }, []);
@@ -124,14 +122,14 @@ export function TimelineComponent(props: TimelineComponentProps) {
     _onSetTotalDuration(props.totalDuration);
   }, [props.totalDuration]);
 
-  const _onPlay = () => {
+  const onPlay = () => {
     if (isPlaying) return;
 
     // Timeline was complete, restart from the beginning
     if (currentDuration >= totalDuration) {
       _replay();
     } else {
-      _play();
+      play();
     }
 
     props.onPlayPause?.(true);
@@ -149,8 +147,9 @@ export function TimelineComponent(props: TimelineComponentProps) {
     props.onPlayPause?.(false);
   };
 
-  const _play = () => {
+  const play = () => {
     setIsPlaying(true);
+
     // TODO: setState callback
     _timeLastCycle.current = new Date().getTime();
     _requestFrame.current = window.requestAnimationFrame(_updateAnimation);
@@ -208,7 +207,7 @@ export function TimelineComponent(props: TimelineComponentProps) {
   const _replay = () => {
     setCurrentDuration(0);
     // TODO: setState callback
-    _play();
+    play();
   };
 
   const _displayTime = (millisec: number) => {
@@ -224,7 +223,6 @@ export function TimelineComponent(props: TimelineComponentProps) {
   };
 
   const _getMilliseconds = (time: string) => {
-    // istanbul ignore else - WIP
     if (time.indexOf(":") !== -1) {
       return (
         (Number(time.split(":")[0]) * 60 + Number(time.split(":")[1])) * 1000
@@ -373,7 +371,7 @@ export function TimelineComponent(props: TimelineComponentProps) {
         <PlayButton
           className="play-button"
           isPlaying={isPlaying}
-          onPlay={_onPlay}
+          onPlay={onPlay}
           onPause={_onPause}
         />
         <div className="start-time-container">
