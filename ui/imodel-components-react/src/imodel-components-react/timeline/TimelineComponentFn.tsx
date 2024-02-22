@@ -34,6 +34,15 @@ const fastSpeed = 10 * 1000;
 
 /** @internal */
 export function TimelineComponent(props: TimelineComponentProps) {
+  const {
+    startDate,
+    endDate,
+    showDuration,
+    timeZoneOffset,
+    dateFormatOptions,
+    timeFormatOptions,
+    includeRepeat = true,
+  } = props;
   const _timeLastCycle = React.useRef(0);
   const _requestFrame = React.useRef(0);
   const _unmounted = React.useRef(false);
@@ -44,9 +53,6 @@ export function TimelineComponent(props: TimelineComponentProps) {
   );
   const [totalDuration, setTotalDuration] = React.useState(props.totalDuration);
   const [repeat, setRepeat] = React.useState(props.repeat ?? false);
-  const [includeRepeat, setIncludeRepeat] = React.useState(
-    props.includeRepeat ?? false
-  );
 
   const _repeatLabel = React.useMemo(
     () => UiIModelComponents.translate("timeline.repeat"),
@@ -354,14 +360,6 @@ export function TimelineComponent(props: TimelineComponentProps) {
     );
   };
 
-  const {
-    startDate,
-    endDate,
-    showDuration,
-    timeZoneOffset,
-    dateFormatOptions,
-    timeFormatOptions,
-  } = props;
   const durationString = _displayTime(currentDuration);
   const totalDurationString = _displayTime(totalDuration);
   const hasDates = !!startDate && !!endDate;

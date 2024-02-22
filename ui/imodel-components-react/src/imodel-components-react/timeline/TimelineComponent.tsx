@@ -120,7 +120,7 @@ interface TimelineComponentState {
   totalDuration: number;
   /** If true, automatically restart when the timeline is finished playing */
   repeat: boolean;
-  /** If true, include the repeat option in the timeline context menu */
+  /** If true, include the repeat option in the timeline context menu. Defaults to `true`. */
   includeRepeat: boolean;
 }
 
