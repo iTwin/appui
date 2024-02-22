@@ -43,9 +43,7 @@ export function TimelineComponent(props: TimelineComponentProps) {
     timeFormatOptions,
     includeRepeat = true,
   } = props;
-  const _timeLastCycle = React.useRef(0);
-  const _requestFrame = React.useRef(0);
-  const _unmounted = React.useRef(false);
+  const _firstFrame = React.useRef<number | undefined>();
 
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [currentDuration, setCurrentDuration] = React.useState(
@@ -113,7 +111,7 @@ export function TimelineComponent(props: TimelineComponentProps) {
     // const newTotalDuration = props.totalDuration !== prevProps.totalDuration
     // ? this.props.totalDuration
     // : undefined
-    _setDuration(
+    setDuration(
       props.initialDuration ? props.initialDuration : 0,
       props.totalDuration
     );
@@ -121,7 +119,39 @@ export function TimelineComponent(props: TimelineComponentProps) {
   React.useEffect(() => {
     _onSetTotalDuration(props.totalDuration);
   }, [props.totalDuration]);
+  const animation = () => {
+    if (!isPlaying) {
+      return;
+    }
 
+    const currentTime = new Date().getTime();
+    if (!_firstFrame.current) {
+      _firstFrame.current = currentTime;
+    }
+
+    const millisecondsElapsed = currentTime - _firstFrame.current;
+    const duration = currentDuration + millisecondsElapsed;
+    setDuration(duration);
+
+    // stop the animation!
+    if (duration >= totalDuration) {
+      setIsPlaying(false);
+      if (repeat) _replay();
+      else {
+        props.onPlayPause?.(false);
+      }
+
+      return;
+    }
+  };
+
+  useAnimation(
+    animation,
+    () => {
+      _firstFrame.current = undefined;
+    },
+    isPlaying
+  );
   const onPlay = () => {
     if (isPlaying) return;
 
@@ -138,9 +168,6 @@ export function TimelineComponent(props: TimelineComponentProps) {
   const _onPause = () => {
     if (!isPlaying) return;
 
-    // stop requesting frames
-    window.cancelAnimationFrame(_requestFrame.current);
-
     // stop playing
     setIsPlaying(false);
 
@@ -149,59 +176,21 @@ export function TimelineComponent(props: TimelineComponentProps) {
 
   const play = () => {
     setIsPlaying(true);
-
-    // TODO: setState callback
-    _timeLastCycle.current = new Date().getTime();
-    _requestFrame.current = window.requestAnimationFrame(_updateAnimation);
-  };
-
-  // Recursively update the animation until we hit the end or the pause button is clicked
-  const _updateAnimation = (_timestamp: number) => {
-    if (!isPlaying && !_unmounted.current) {
-      return;
-    }
-
-    // update duration
-    const currentTime = new Date().getTime();
-    const millisecondsElapsed = currentTime - _timeLastCycle.current;
-    const duration = currentDuration + millisecondsElapsed;
-    _setDuration(duration);
-
-    // stop the animation!
-    if (duration >= totalDuration) {
-      window.cancelAnimationFrame(_requestFrame.current);
-      setIsPlaying(false);
-      if (repeat) _replay();
-      else {
-        props.onPlayPause?.(false);
-      }
-
-      return;
-    }
-
-    _requestFrame.current = window.requestAnimationFrame(_updateAnimation);
   };
 
   const _onTimelineChange = (values: ReadonlyArray<number>) => {
     const currentDuration = values[0];
-    _setDuration(currentDuration);
+    setDuration(currentDuration);
   };
 
-  // set the current duration, which will call the OnChange callback
-  const _setDuration = (currentDuration: number, updatedTotal?: number) => {
-    const actualDuration = Math.min(
-      updatedTotal ?? totalDuration,
-      Math.max(currentDuration, 0)
-    );
+  const setDuration = (newDuration: number, newTotal?: number) => {
+    newDuration = Math.max(newDuration, 0);
+    newTotal = newTotal ?? totalDuration;
+    newDuration = Math.min(newTotal, newDuration);
+    setCurrentDuration(newDuration);
 
-    _timeLastCycle.current = new Date().getTime();
-    if (!_unmounted.current) {
-      setCurrentDuration(actualDuration);
-    }
-    if (props.onChange) {
-      const fraction = actualDuration / (updatedTotal ?? totalDuration);
-      props.onChange(fraction);
-    }
+    const fraction = newDuration / newTotal;
+    props.onChange?.(fraction);
   };
 
   const _replay = () => {
@@ -425,4 +414,33 @@ export function TimelineComponent(props: TimelineComponentProps) {
       </div>
     </div>
   );
+}
+
+function useAnimation(
+  animation: () => void,
+  onCancel: () => void,
+  playing = true
+) {
+  React.useEffect(() => {
+    let handle = 0;
+    let didCancel = false;
+
+    const animate = () => {
+      animation();
+
+      // Canceled from within animation.
+      if (didCancel) return;
+
+      handle = window.requestAnimationFrame(animate);
+    };
+
+    if (playing) {
+      animate();
+    }
+    return () => {
+      didCancel = true;
+      onCancel();
+      window.cancelAnimationFrame(handle);
+    };
+  }, [playing]);
 }
