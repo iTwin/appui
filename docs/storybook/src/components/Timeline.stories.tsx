@@ -34,7 +34,7 @@ const PageLayout: Decorator = (Story) => {
 };
 
 // Sb date control returns a UNIX timestamp: https://storybook.js.org/docs/api/arg-types#controltype
-export const DateDecorator: Decorator = (Story, context) => {
+const DateDecorator: Decorator = (Story, context) => {
   if (typeof context.args.startDate === "number") {
     context.args.startDate = new Date(context.args.startDate * 1000);
   }
@@ -65,9 +65,7 @@ type Story = StoryObj<typeof TimelineComponent>;
 
 export const Basic: Story = {
   args: {
-    initialDuration: 5000,
-    totalDuration: 5000,
-    repeat: true,
+    totalDuration: 3000,
     onChange: action("onChange"),
   },
 };
@@ -77,5 +75,19 @@ export const WithDates: Story = {
     ...Basic.args,
     startDate: new Date(2023, 4, 1),
     endDate: new Date(2023, 4, 17),
+  },
+};
+
+export const ShowDuration: Story = {
+  args: {
+    ...Basic.args,
+    showDuration: true,
+  },
+};
+
+export const Repeat: Story = {
+  args: {
+    ...Basic.args,
+    repeat: true,
   },
 };
