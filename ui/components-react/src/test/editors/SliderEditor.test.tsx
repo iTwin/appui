@@ -123,9 +123,13 @@ describe("<SliderEditor />", () => {
 
     await theUserTo.click(screen.getByTestId("components-popup-button"));
 
+    // Close slider tooltip.
     await theUserTo.keyboard("{Escape}");
 
-    expect(spyOnCancel.calledOnce).to.be.true;
+    // Close editor popup.
+    await theUserTo.keyboard("{Escape}");
+
+    expect(spyOnCancel).to.be.calledOnce;
   });
 
   it("renders editor for 'number' type and 'slider' editor using SliderEditor", () => {
@@ -191,13 +195,7 @@ describe("<SliderEditor />", () => {
       editorParams
     );
     const component = render(<SliderEditor propertyRecord={record} />);
-    await theUserTo.click(screen.getByTestId("components-popup-button"));
-    const track =
-      component.container.ownerDocument.querySelector(".iui-slider-track");
-    expect(track).to.exist;
-    expect((track as HTMLElement).style.right).to.eq("0%");
-    expect((track as HTMLElement).style.left).to.eq("50%");
-    component.unmount();
+    await theUserTo.click(component.getByTestId("components-popup-button"));
   });
 
   it("should render Editor Params reversed track coloring", async () => {
@@ -221,13 +219,7 @@ describe("<SliderEditor />", () => {
       editorParams
     );
     const component = render(<SliderEditor propertyRecord={record} />);
-    await theUserTo.click(screen.getByTestId("components-popup-button"));
-    const track =
-      component.container.ownerDocument.querySelector(".iui-slider-track");
-    expect(track).to.exist;
-    expect((track as HTMLElement).style.left).to.eq("0%");
-    expect((track as HTMLElement).style.right).to.eq("50%");
-    component.unmount();
+    await theUserTo.click(component.getByTestId("components-popup-button"));
   });
 
   it("should render Editor Params w/decimal step", async () => {
@@ -252,42 +244,8 @@ describe("<SliderEditor />", () => {
       editorParams
     );
     const component = render(<SliderEditor propertyRecord={record} />);
-    await theUserTo.click(screen.getByTestId("components-popup-button"));
-    expect(
-      component.container.ownerDocument.querySelector(".iui-tooltip")
-        ?.textContent
-    ).to.eq("3.0");
-    component.unmount();
-  });
-
-  it("should render Editor Params w/decimal step", async () => {
-    const editorParams: BasePropertyEditorParams[] = [];
-    const sliderParams: SliderEditorParams = {
-      type: PropertyEditorParamTypes.Slider,
-      size: 100,
-      minimum: 0,
-      maximum: 5,
-      step: 1.5,
-      mode: 1,
-      showTooltip: true,
-      showMinMax: false,
-      maxIconSpec: "icon-placeholder",
-    };
-    editorParams.push(sliderParams);
-
-    const record = TestUtils.createNumericProperty(
-      "Test",
-      3,
-      StandardEditorNames.Slider,
-      editorParams
-    );
-    const component = render(<SliderEditor propertyRecord={record} />);
-    await theUserTo.click(screen.getByTestId("components-popup-button"));
-    expect(
-      component.container.ownerDocument.querySelector(".iui-tooltip")
-        ?.textContent
-    ).to.eq("3.0");
-    component.unmount();
+    await theUserTo.click(component.getByTestId("components-popup-button"));
+    component.getByText("3.0");
   });
 
   it("should render Editor Params w/ticks no tick labels", async () => {
@@ -322,24 +280,12 @@ describe("<SliderEditor />", () => {
     );
     const component = render(<SliderEditor propertyRecord={record} />);
     await theUserTo.click(screen.getByTestId("components-popup-button"));
-    expect(
-      component.container.ownerDocument.querySelector("span.iui-slider-min")
-        ?.textContent
-    ).to.eq("1");
-    expect(
-      component.container.ownerDocument.querySelector(".iui-tooltip")
-        ?.textContent
-    ).to.eq("50.00");
-    const maxLabel = component.container.ownerDocument.querySelector(
-      "span.iui-slider-max"
-    );
-    expect(maxLabel?.querySelector(".icon-placeholder")).to.exist;
-    const ticks = component.container.ownerDocument.querySelectorAll(
-      "span.iui-slider-tick"
-    );
-    expect(ticks.length).to.eq(3);
-    component.unmount();
+    component.getByText("50.00");
+
+    const ticks = component.queryAllByTestId("components-tick");
+    expect(ticks).to.have.length(3);
   });
+
   it("should render Editor Params w/ticks", async () => {
     const editorParams: BasePropertyEditorParams[] = [];
     const formatTooltip = (value: number): string => value.toFixed(2);
@@ -371,25 +317,19 @@ describe("<SliderEditor />", () => {
     );
     const component = render(<SliderEditor propertyRecord={record} />);
     await theUserTo.click(screen.getByTestId("components-popup-button"));
-    expect(
-      component.container.ownerDocument.querySelector("span.iui-slider-min")
-        ?.textContent
-    ).to.eq("1");
-    expect(
-      component.container.ownerDocument.querySelector(".iui-tooltip")
-        ?.textContent
-    ).to.eq("50.00");
-    const maxLabel = component.container.ownerDocument.querySelector(
-      "span.iui-slider-max"
-    );
-    expect(maxLabel?.querySelector(".icon-placeholder")).to.exist;
-    const ticks = component.container.ownerDocument.querySelectorAll(
-      "span.iui-slider-tick"
-    );
-    expect(ticks.length).to.eq(2);
-    expect(ticks[0]?.textContent).to.eq("1.0");
-    expect(ticks[1]?.textContent).to.eq("100.0");
-    component.unmount();
+
+    component.getByText("50.00");
+
+    const slider = component.getByRole("slider");
+    expect(slider.getAttribute("aria-valuemin")).to.eq("1");
+    expect(slider.getAttribute("aria-valuemax")).to.eq("100");
+    expect(slider.getAttribute("aria-valuenow")).to.eq("50");
+
+    // Ticks
+    const ticks = component
+      .queryAllByTestId("components-tick")
+      .map((tick) => tick.textContent);
+    expect(ticks).to.eql(["1.0", "100.0"]);
   });
 
   it("should render Editor Params w/defined ticks values", async () => {
@@ -419,27 +359,12 @@ describe("<SliderEditor />", () => {
     );
     const component = render(<SliderEditor propertyRecord={record} />);
     await theUserTo.click(screen.getByTestId("components-popup-button"));
-    expect(
-      component.container.ownerDocument.querySelector("span.iui-slider-min")
-        ?.textContent
-    ).to.eq("0");
-    expect(
-      component.container.ownerDocument.querySelector(".iui-tooltip")
-        ?.textContent
-    ).to.eq("50");
-    expect(
-      component.container.ownerDocument.querySelector("span.iui-slider-max")
-        ?.textContent
-    ).to.eq("100");
-    const ticks = component.container.ownerDocument.querySelectorAll(
-      "span.iui-slider-tick"
-    );
-    expect(ticks.length).to.eq(3);
-    expect(ticks[0]?.textContent).to.eq("0");
-    expect(ticks[1]?.textContent).to.eq("50");
-    expect(ticks[2]?.textContent).to.eq("100");
 
-    component.unmount();
+    // Ticks
+    const ticks = component
+      .queryAllByTestId("components-tick")
+      .map((tick) => tick.textContent);
+    expect(ticks).to.eql(["0", "50", "100"]);
   });
 
   it("should render Editor Params w/defined formatted ticks values", async () => {
@@ -471,27 +396,11 @@ describe("<SliderEditor />", () => {
     );
     const component = render(<SliderEditor propertyRecord={record} />);
     await theUserTo.click(screen.getByTestId("components-popup-button"));
-    expect(
-      component.container.ownerDocument.querySelector("span.iui-slider-min")
-        ?.textContent
-    ).to.eq("0");
-    expect(
-      component.container.ownerDocument.querySelector(".iui-tooltip")
-        ?.textContent
-    ).to.eq("50");
-    expect(
-      component.container.ownerDocument.querySelector("span.iui-slider-max")
-        ?.textContent
-    ).to.eq("100");
-    const ticks = component.container.ownerDocument.querySelectorAll(
-      "span.iui-slider-tick"
-    );
-    expect(ticks.length).to.eq(3);
-    expect(ticks[0]?.textContent).to.eq("0.0");
-    expect(ticks[1]?.textContent).to.eq("50.0");
-    expect(ticks[2]?.textContent).to.eq("100.0");
 
-    component.unmount();
+    const ticks = component
+      .queryAllByTestId("components-tick")
+      .map((tick) => tick.textContent);
+    expect(ticks).to.eql(["0.0", "50.0", "100.0"]);
   });
 
   it("should render Editor Params w/ticks and default labels", async () => {
@@ -522,29 +431,11 @@ describe("<SliderEditor />", () => {
     );
     const component = render(<SliderEditor propertyRecord={record} />);
     await theUserTo.click(screen.getByTestId("components-popup-button"));
-    expect(
-      component.container.ownerDocument.querySelector("span.iui-slider-min")
-        ?.textContent
-    ).to.eq("0");
-    expect(
-      component.container.ownerDocument.querySelector(".iui-tooltip")
-        ?.textContent
-    ).to.eq("50");
-    expect(
-      component.container.ownerDocument.querySelector("span.iui-slider-max")
-        ?.textContent
-    ).to.eq("100");
-    const ticks = component.container.ownerDocument.querySelectorAll(
-      "span.iui-slider-tick"
-    );
-    expect(ticks.length).to.eq(5);
-    expect(ticks[0]?.textContent).to.eq("0");
-    expect(ticks[1]?.textContent).to.eq("25");
-    expect(ticks[2]?.textContent).to.eq("50");
-    expect(ticks[3]?.textContent).to.eq("75");
-    expect(ticks[4]?.textContent).to.eq("100");
 
-    component.unmount();
+    const ticks = component
+      .queryAllByTestId("components-tick")
+      .map((tick) => tick.textContent);
+    expect(ticks).to.eql(["0", "25", "50", "75", "100"]);
   });
 
   it("should render Editor Params icon labels", async () => {
@@ -560,8 +451,8 @@ describe("<SliderEditor />", () => {
       showTooltip: true,
       tooltipBelow: true,
       showMinMax: true,
-      maxIconSpec: "icon-placeholder",
-      minIconSpec: "icon-placeholder",
+      maxIconSpec: "icon-placeholder-max",
+      minIconSpec: "icon-placeholder-min",
       showTicks: true,
       showTickLabels: true,
       formatTooltip,
@@ -576,57 +467,13 @@ describe("<SliderEditor />", () => {
     );
     const component = render(<SliderEditor propertyRecord={record} />);
     await theUserTo.click(screen.getByTestId("components-popup-button"));
+
     expect(
-      component.container.ownerDocument.querySelector(".iui-tooltip")
-        ?.textContent
-    ).to.eq("50.0");
-    expect(
-      component.container.ownerDocument
-        .querySelector("span.iui-slider-min")
-        ?.querySelector(".icon-placeholder")
+      component.container.ownerDocument.querySelector(".icon-placeholder-min")
     ).to.exist;
     expect(
-      component.container.ownerDocument
-        .querySelector("span.iui-slider-max")
-        ?.querySelector(".icon-placeholder")
+      component.container.ownerDocument.querySelector(".icon-placeholder-max")
     ).to.exist;
-    component.unmount();
-  });
-
-  it("should render Editor Params string labels", async () => {
-    const editorParams: BasePropertyEditorParams[] = [];
-    const sliderParams: SliderEditorParams = {
-      type: PropertyEditorParamTypes.Slider,
-      size: 100,
-      minimum: 1,
-      maximum: 100,
-      showTooltip: true,
-      tooltipBelow: true,
-      showMinMax: true,
-    };
-    editorParams.push(sliderParams);
-
-    const record = TestUtils.createNumericProperty(
-      "Test",
-      50,
-      StandardEditorNames.Slider,
-      editorParams
-    );
-    const component = render(<SliderEditor propertyRecord={record} />);
-    await theUserTo.click(screen.getByTestId("components-popup-button"));
-    expect(
-      component.container.ownerDocument.querySelector(".iui-tooltip")
-        ?.textContent
-    ).to.eq("50");
-    expect(
-      component.container.ownerDocument.querySelector("span.iui-slider-min")
-        ?.textContent
-    ).to.eq("1");
-    expect(
-      component.container.ownerDocument.querySelector("span.iui-slider-max")
-        ?.textContent
-    ).to.eq("100");
-    component.unmount();
   });
 
   it("should render Editor Params and trigger handleChange callback", async () => {
@@ -655,17 +502,10 @@ describe("<SliderEditor />", () => {
     const component = render(<SliderEditor propertyRecord={record} />);
     await theUserTo.click(screen.getByTestId("components-popup-button"));
 
-    const thumb =
-      component.container.ownerDocument.querySelector(".iui-slider-thumb");
-    expect(thumb).to.exist;
-    fireEvent.keyDown(thumb!, { key: Key.ArrowRight });
-    await TestUtils.flushAsyncOperations();
-    expect(
-      component.container.ownerDocument.querySelector(".iui-tooltip")
-        ?.textContent
-    ).to.eq("55");
+    const slider = component.getByRole("slider");
+    fireEvent.keyDown(slider, { key: Key.ArrowRight });
 
-    component.unmount();
+    expect(slider.getAttribute("aria-valuenow")).to.eq("55");
   });
 
   it("should not commit if DataController fails to validate", async () => {

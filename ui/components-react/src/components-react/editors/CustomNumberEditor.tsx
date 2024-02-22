@@ -31,8 +31,9 @@ import {
   UiAdmin,
 } from "@itwin/appui-abstract";
 import { Icon, IconInput } from "@itwin/core-react";
-import type { InputProps } from "@itwin/itwinui-react";
 import { Input } from "@itwin/itwinui-react";
+
+type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
 import { UiComponents } from "../UiComponents";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
@@ -363,7 +364,7 @@ export class CustomNumberEditor
       onChange: this._updateInputValue,
       onBlur: this.props.onBlur,
       onFocus: this._onFocus,
-      setFocus: this.shouldSetFocus(),
+      autoFocus: this.shouldSetFocus(),
       onKeyDown: this._onKeyPress,
     };
 

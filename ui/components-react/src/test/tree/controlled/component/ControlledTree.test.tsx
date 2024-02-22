@@ -83,10 +83,6 @@ describe("ControlledTree", () => {
       .returns(() => from([]));
   });
 
-  afterEach(() => {
-    sinon.restore();
-  });
-
   const mockVisibleNode = () => {
     treeModelMock.reset();
 

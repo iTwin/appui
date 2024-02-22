@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react";
 import { CanPopoutStory } from "./CanPopout";
-import { AppUiDecorator } from "../AppUiDecorator";
+import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 
 const meta = {

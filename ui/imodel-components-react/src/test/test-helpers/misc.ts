@@ -3,8 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type * as sinon from "sinon";
-import { expect } from "chai";
-import { fireEvent, waitFor } from "@testing-library/react";
+import { waitFor } from "@testing-library/react";
 
 /** Options for waitForSpy test helper function */
 export interface WaitForSpyOptions {
@@ -32,85 +31,6 @@ export const waitForSpy = async (
     { timeout, interval: 10 }
   );
 };
-
-/**
- * Select component pick value using index
- */
-export const selectChangeValueByIndex = (
-  select: HTMLElement,
-  index: number,
-  onError?: (msg: string) => void
-): void => {
-  fireEvent.click(select.querySelector(".iui-select-button") as HTMLElement);
-  const tippy = select.ownerDocument.querySelector(
-    "[data-tippy-root]"
-  ) as HTMLElement;
-  const menu = tippy.querySelector(".iui-menu") as HTMLUListElement;
-  if (!menu) onError && onError(`Couldn't find menu`);
-  expect(menu).to.exist;
-
-  const menuItem = menu.querySelectorAll("li");
-  if (menuItem[index] === undefined)
-    onError && onError(`Couldn't find menu item ${index}`);
-  expect(menuItem[index]).to.not.be.undefined;
-
-  fireEvent.click(menuItem[index]);
-};
-
-/**
- * Select component change value using text of menu item to find item
- */
-export const selectChangeValueByText = (
-  select: HTMLElement,
-  label: string,
-  onError?: (msg: string) => void
-): void => {
-  fireEvent.click(select.querySelector(".iui-select-button") as HTMLElement);
-  const tippy = select.ownerDocument.querySelector(
-    "[data-tippy-root]"
-  ) as HTMLElement;
-  const menu = tippy.querySelector(".iui-menu") as HTMLUListElement;
-  if (!menu) onError && onError(`Couldn't find menu`);
-  expect(menu).to.exist;
-
-  const menuItems = menu.querySelectorAll("li span.iui-content");
-  if (menuItems.length <= 0) onError && onError("Couldn't find any menu items");
-  expect(menuItems.length).to.be.greaterThan(0);
-
-  const menuItem = [...menuItems].find((span) => span.textContent === label);
-  if (!menuItem)
-    onError && onError(`Couldn't find menu item with '${label}' label`);
-  expect(menuItem).to.not.be.undefined;
-
-  fireEvent.click(menuItem!);
-};
-
-/**
- * Get a iTwinUI Button with a given label
- */
-export function getButtonWithText(
-  container: HTMLElement,
-  label: string,
-  onError?: (msg: string) => void
-): Element | undefined {
-  const selector = "button.iui-button";
-  const buttons = container.querySelectorAll(selector);
-  if (buttons.length <= 0)
-    onError && onError(`Couldn't find any '${selector}' buttons`);
-
-  const button = [...buttons].find((btn) => {
-    const span = btn.querySelector("span.iui-button-label");
-    return span!.textContent === label;
-  });
-  if (!button) onError && onError(`No button found with '${label}' label`);
-
-  return button;
-}
-
-/** Handle an error when attempting to get an element */
-export function handleError(msg: string) {
-  console.log(msg); // eslint-disable-line no-console
-}
 
 /** Creates Promise */
 export class ResolvablePromise<T> implements PromiseLike<T> {

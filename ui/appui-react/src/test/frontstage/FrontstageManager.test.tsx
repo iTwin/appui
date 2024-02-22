@@ -15,7 +15,7 @@ import type {
   ScreenViewport,
   SpatialViewState,
 } from "@itwin/core-frontend";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import type { ModalFrontstageRequestedCloseEventArgs } from "../../appui-react";
 import {
   ConfigurableCreateInfo,
@@ -26,6 +26,7 @@ import {
   FrontstageDef,
   RestoreFrontstageLayoutTool,
   SettingsModalFrontstage,
+  ThemeManager,
   ToolUiProvider,
   UiFramework,
   WidgetState,
@@ -46,28 +47,24 @@ const propertyDescriptorToRestore = Object.getOwnPropertyDescriptor(
 )!;
 
 describe("FrontstageManager", () => {
-  before(async () => {
+  const sandbox = sinon.createSandbox();
+
+  beforeEach(async () => {
     Object.defineProperty(window, "sessionStorage", {
       get: () => mySessionStorage,
     });
-
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
 
     InternalFrontstageManager.initialize();
     InternalFrontstageManager.clearFrontstageProviders();
   });
 
-  after(async () => {
-    await IModelApp.shutdown();
-    TestUtils.terminateUiFramework();
-
-    // restore the overriden property getter
+  afterEach(async () => {
     Object.defineProperty(
       window,
       "sessionStorage",
       propertyDescriptorToRestore
     );
+    sandbox.restore();
   });
 
   it("initialized should return true", () => {
@@ -78,7 +75,6 @@ describe("FrontstageManager", () => {
     await InternalFrontstageManager.setActiveFrontstageDef(undefined);
     expect(InternalFrontstageManager.findWidget("xyz")).to.be.undefined;
   });
-
   it("setActiveFrontstage should set active frontstage", async () => {
     const frontstageProvider = new TestFrontstage();
     InternalFrontstageManager.addFrontstageProvider(frontstageProvider);
@@ -89,14 +85,12 @@ describe("FrontstageManager", () => {
     );
 
     expect(frontstageDef).to.not.be.undefined;
-    if (frontstageDef) {
-      expect(InternalFrontstageManager.hasFrontstage(frontstageDef.id)).to.be
-        .true;
-      await InternalFrontstageManager.setActiveFrontstage(frontstageDef.id);
-      expect(InternalFrontstageManager.activeFrontstageId).to.eq(
-        frontstageDef.id
-      );
-    }
+    expect(InternalFrontstageManager.hasFrontstage(frontstageDef!.id)).to.be
+      .true;
+    await InternalFrontstageManager.setActiveFrontstage(frontstageDef!.id);
+    expect(InternalFrontstageManager.activeFrontstageId).to.eq(
+      frontstageDef!.id
+    );
   });
 
   it("getFronstageDef should return active frontstage when no id provided", async () => {
@@ -251,7 +245,6 @@ describe("FrontstageManager", () => {
     expect(stubbedWidget.setWidgetState).to.calledWithExactly(
       WidgetState.Closed
     );
-    sinon.restore();
   });
 
   it("findWidget returns undefined on invalid id", () => {
@@ -299,7 +292,7 @@ describe("FrontstageManager", () => {
   describe("Executing a tool should set activeToolId", () => {
     const viewportMock = moq.Mock.ofType<ScreenViewport>();
 
-    before(() => {
+    beforeEach(async () => {
       const spatialViewStateMock = moq.Mock.ofType<SpatialViewState>();
       spatialViewStateMock.setup((view) => view.is3d()).returns(() => true);
       spatialViewStateMock
@@ -312,7 +305,7 @@ describe("FrontstageManager", () => {
 
       InternalFrontstageManager.isInitialized = false;
       InternalFrontstageManager.initialize();
-      void IModelApp.viewManager.setSelectedView(viewportMock.object);
+      await IModelApp.viewManager.setSelectedView(viewportMock.object);
     });
 
     it("CoreTools.selectElementCommand", async () => {
@@ -344,7 +337,7 @@ describe("FrontstageManager", () => {
   });
 
   describe("ConfigurableUiContent", () => {
-    before(() => {
+    beforeEach(() => {
       const imodelConnectionMock = moq.Mock.ofType<IModelConnection>();
       imodelConnectionMock
         .setup((x) => x.iModelId)
@@ -355,10 +348,12 @@ describe("FrontstageManager", () => {
     });
 
     it("mouse moves should be handled for frontstage tracking", async () => {
-      const fakeTimers = sinon.useFakeTimers();
+      const fakeTimers = sandbox.useFakeTimers();
       render(
         <Provider store={TestUtils.store}>
-          <ConfigurableUiContent idleTimeout={100} intervalTimeout={100} />
+          <ThemeManager>
+            <ConfigurableUiContent idleTimeout={100} intervalTimeout={100} />
+          </ThemeManager>
         </Provider>
       );
 
@@ -366,10 +361,8 @@ describe("FrontstageManager", () => {
         "uifw-configurableui-wrapper"
       )!;
 
-      const spyDeactivated = sinon.spy();
-      InternalFrontstageManager.onFrontstageDeactivatedEvent.addListener(
-        spyDeactivated
-      );
+      const spy = sinon.spy();
+      InternalFrontstageManager.onFrontstageDeactivatedEvent.addListener(spy);
 
       const frontstageProvider = new TestFrontstage3();
       InternalFrontstageManager.addFrontstageProvider(frontstageProvider);
@@ -401,7 +394,6 @@ describe("FrontstageManager", () => {
       );
 
       fakeTimers.tick(200);
-      fakeTimers.restore();
 
       divContainer.dispatchEvent(
         new MouseEvent("mousemove", {
@@ -422,16 +414,12 @@ describe("FrontstageManager", () => {
 
       await InternalFrontstageManager.deactivateFrontstageDef();
       expect(InternalFrontstageManager.activeFrontstageDef).to.be.undefined;
-      spyDeactivated.calledOnce.should.true;
+      sinon.assert.calledOnce(spy);
     });
   });
 
   describe("nineZoneSize", () => {
-    let nineZoneSize: typeof InternalFrontstageManager.nineZoneSize;
-
-    before(() => {
-      nineZoneSize = InternalFrontstageManager.nineZoneSize;
-    });
+    const nineZoneSize = InternalFrontstageManager.nineZoneSize;
 
     afterEach(() => {
       InternalFrontstageManager.nineZoneSize = nineZoneSize;

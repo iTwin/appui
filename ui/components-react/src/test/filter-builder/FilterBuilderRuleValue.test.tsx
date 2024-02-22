@@ -57,7 +57,9 @@ describe("PropertyFilterBuilderRuleValue", () => {
       />
     );
 
-    const input = container.querySelector<HTMLInputElement>(".iui-input");
+    const input = container.querySelector<HTMLInputElement>(
+      ".components-editor-container input"
+    );
     expect(input).to.not.be.null;
 
     expect(input?.value).to.be.empty;

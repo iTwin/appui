@@ -25,7 +25,7 @@ export interface ThousandsSelectorProps extends CommonProps {
  * @internal
  */
 export function ThousandsSelector(props: ThousandsSelectorProps) {
-  const { separator, disabled, onChange, ...otherProps } = props;
+  const { separator, ...otherProps } = props;
   const uomDefaultEntries = React.useRef<SelectOption<string>[]>([
     {
       value: ",",
@@ -40,13 +40,6 @@ export function ThousandsSelector(props: ThousandsSelectorProps) {
       ),
     },
   ]);
-
-  const handleOnChange = React.useCallback(
-    (newValue: string) => {
-      onChange && onChange(newValue);
-    },
-    [onChange]
-  );
 
   const separatorOptions = React.useMemo(() => {
     const completeListOfEntries: SelectOption<string>[] = [];
@@ -64,9 +57,7 @@ export function ThousandsSelector(props: ThousandsSelectorProps) {
   return (
     <Select
       options={separatorOptions}
-      disabled={disabled}
       value={separator}
-      onChange={handleOnChange}
       size="small"
       {...otherProps}
     />

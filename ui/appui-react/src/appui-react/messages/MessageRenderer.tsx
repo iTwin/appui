@@ -8,11 +8,15 @@
 
 import * as React from "react";
 import type { ReactMessage } from "@itwin/core-react";
-import { UiCore } from "@itwin/core-react";
-import { ProgressLinear, Text, toaster } from "@itwin/itwinui-react";
+import {
+  MessageRenderer as CoreMessageRenderer,
+  UiCore,
+} from "@itwin/core-react";
+import { ProgressLinear, Text, useToaster } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
 import type { ActivityMessageEventArgs } from "../messages/MessageManager";
 import { MessageManager } from "../messages/MessageManager";
+import { OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 
 interface UseActivityMessageProps {
   cancelActivityMessage?: () => void;
@@ -20,8 +24,7 @@ interface UseActivityMessageProps {
   activityMessageInfo?: ActivityMessageEventArgs;
 }
 
-/**
- * Hook to render an Activity message.
+/** Hook to render an Activity message.
  * @internal
  */
 function useActivityMessage({
@@ -29,11 +32,12 @@ function useActivityMessage({
   dismissActivityMessage,
   cancelActivityMessage,
 }: UseActivityMessageProps) {
+  const toaster = useToaster();
   const [cancelLabel] = React.useState(UiCore.translate("dialog.cancel"));
   const recentToast = React.useRef<{ close: () => void } | undefined>();
   React.useEffect(() => {
     toaster.setSettings({ placement: "bottom" });
-  }, []);
+  }, [toaster]);
 
   React.useEffect(() => {
     if (activityMessageInfo?.restored) {
@@ -60,14 +64,14 @@ function useActivityMessage({
     cancelActivityMessage,
     cancelLabel,
     dismissActivityMessage,
+    toaster,
   ]);
 }
 
-/**
- * Component wrapping the `useActivityMessage` hook to use in class components.
+/** Component that renders activity, toast and sticky messages dispatched from message manager.
  * @internal
  */
-export function ActivityMessageRenderer() {
+export function MessageRenderer() {
   const [activityMessageInfo, setActivityMessageInfo] = React.useState<
     ActivityMessageEventArgs | undefined
   >();
@@ -88,11 +92,11 @@ export function ActivityMessageRenderer() {
   }, []);
 
   useActivityMessage({ activityMessageInfo, cancelActivityMessage });
-  return <></>;
+  useDisplayMessage();
+  return null;
 }
 
-/**
- * Component used to show and update activity message content.
+/** Component used to show and update activity message content.
  * @internal
  */
 function ActivityMessageContent({
@@ -137,4 +141,59 @@ function ActivityMessageContent({
       )}
     </>
   );
+}
+
+function useDisplayMessage() {
+  const toaster = useToaster();
+  React.useEffect(() => {
+    return MessageManager.onDisplayMessage.addListener((args) => {
+      const { message, options, settings, animateOutToElement } = args;
+      const toastOptions: typeof options = {
+        hasCloseButton: true,
+        duration: message.displayTime.milliseconds,
+        type:
+          message.msgType === OutputMessageType.Sticky
+            ? "persisting"
+            : "temporary",
+        animateOutTo: animateOutToElement,
+        ...options,
+      };
+      toaster.setSettings({
+        placement: "bottom",
+        order: "ascending",
+        ...settings,
+      });
+      const content = (
+        <>
+          <CoreMessageRenderer message={message.briefMessage} />
+          {message.detailedMessage && (
+            <Text variant="small">
+              <CoreMessageRenderer message={message.detailedMessage} />
+            </Text>
+          )}
+        </>
+      );
+
+      let toast;
+      switch (message.priority) {
+        case OutputMessagePriority.Warning: {
+          toast = toaster.warning(content, toastOptions);
+          break;
+        }
+        case OutputMessagePriority.Info: {
+          toast = toaster.informational(content, toastOptions);
+          break;
+        }
+        case OutputMessagePriority.Error:
+        case OutputMessagePriority.Fatal: {
+          toast = toaster.negative(content, toastOptions);
+          break;
+        }
+        default:
+          toast = toaster.positive(content, toastOptions);
+      }
+
+      args.close = toast.close;
+    });
+  }, [toaster]);
 }

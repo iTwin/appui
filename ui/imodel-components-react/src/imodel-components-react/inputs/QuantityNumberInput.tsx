@@ -28,7 +28,6 @@ import {
   FormatType,
   Parser,
 } from "@itwin/core-quantity";
-import type { InputProps } from "@itwin/itwinui-react";
 import { Input } from "@itwin/itwinui-react";
 import {
   SvgCaretDown,
@@ -36,6 +35,8 @@ import {
   SvgCaretUp,
   SvgCaretUpSmall,
 } from "@itwin/itwinui-icons-react";
+
+type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
 /** Step function prototype for [[QuantityNumberInput]] component
  * @beta

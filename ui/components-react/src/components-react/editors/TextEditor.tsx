@@ -21,11 +21,12 @@ import {
   PropertyValueFormat,
 } from "@itwin/appui-abstract";
 import { Icon, IconInput } from "@itwin/core-react";
-import type { InputProps } from "@itwin/itwinui-react";
 import { Input } from "@itwin/itwinui-react";
 import { TypeConverterManager } from "../converters/TypeConverterManager";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
 import { UiComponents } from "../UiComponents";
+
+type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
 /** @internal */
 interface TextEditorState {
@@ -201,7 +202,7 @@ export class TextEditor
       value: this.state.inputValue,
       onBlur: this.props.onBlur,
       onChange: this._updateInputValue,
-      setFocus: this.props.setFocus && !this.state.isDisabled,
+      autoFocus: this.props.setFocus && !this.state.isDisabled,
     };
 
     inputProps["aria-label"] = this._ariaLabel;

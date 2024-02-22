@@ -12,12 +12,13 @@ import { Key } from "ts-key-enum";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { DialogButtonType } from "@itwin/appui-abstract";
 import { Dialog as BaseDialog, Button } from "@itwin/itwinui-react";
-import type { ButtonProps } from "@itwin/itwinui-react";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
 import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
 import "./Dialog.scss";
+
+type ButtonProps = React.ComponentPropsWithoutRef<typeof Button>;
 
 // cspell:ignore focustrap
 
@@ -113,21 +114,10 @@ export interface DialogProps
   contentStyle?: React.CSSProperties;
 }
 
-/** @internal */
-interface DialogState {
-  rightResizing: boolean;
-  downResizing: boolean;
-  x?: number;
-  y?: number;
-  width?: number;
-  height?: number;
-}
-
-/**
- * Dialog React component with optional resizing and dragging functionality
+/** Dialog React component with optional resizing and dragging functionality
  * @public
  */
-export class Dialog extends React.Component<DialogProps, DialogState> {
+export class Dialog extends React.Component<DialogProps> {
   private _parentDocument = document;
   public static defaultProps: Partial<DialogProps> = {
     maxWidth: "100%",
@@ -191,6 +181,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       onModelessPointerDown,
       hideHeader,
       header,
+      as,
       ...props
     } = this.props;
 
@@ -267,11 +258,12 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
             >
               {this.props.children}
             </BaseDialog.Content>
-            {footer || (
-              <BaseDialog.ButtonBar style={footerStyle}>
-                {buttons}
-              </BaseDialog.ButtonBar>
-            )}
+            {footer ||
+              (buttons && (
+                <BaseDialog.ButtonBar style={footerStyle}>
+                  {buttons}
+                </BaseDialog.ButtonBar>
+              ))}
           </BaseDialog.Main>
         </DivWithOutsideClick>
       </BaseDialog>

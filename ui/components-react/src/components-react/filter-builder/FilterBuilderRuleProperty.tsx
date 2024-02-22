@@ -8,9 +8,11 @@
 
 import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
-import type { ComboBoxProps, SelectOption } from "@itwin/itwinui-react";
+import type { SelectOption } from "@itwin/itwinui-react";
 import { ComboBox, MenuItem } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
+
+type ComboBoxProps<T> = React.ComponentPropsWithoutRef<typeof ComboBox<T>>;
 
 /**
  * Props for [[PropertyFilterBuilderRuleProperty]] component.

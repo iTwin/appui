@@ -7,17 +7,9 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { ExpandableBlock } from "@itwin/itwinui-react";
 import { ExpandableList } from "../../core-react";
-import TestUtils, { classesFromElement } from "../TestUtils";
+import TestUtils from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-
-function blockClasses(titleElement: Element) {
-  expect(
-    titleElement.parentElement?.parentElement,
-    "Block class was not found for element"
-  ).to.exist;
-  return classesFromElement(titleElement.parentElement?.parentElement);
-}
 
 describe("ExpandableList", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -47,8 +39,18 @@ describe("ExpandableList", () => {
       </ExpandableList>
     );
 
-    expect(screen.queryByText("Hello0")).to.be.null;
-    expect(blockClasses(screen.getByText("Hello1"))).to.contain("iui-expanded");
+    expect(
+      screen
+        .getByRole("button", { name: "Test0" })
+        .getAttribute("aria-expanded")
+    ).to.equal("false");
+    expect(
+      screen
+        .getByRole("button", { name: "Test1" })
+        .getAttribute("aria-expanded")
+    ).to.equal("true");
+
+    screen.getByText("Hello1");
   });
 
   it("should handle block click", async () => {
@@ -81,24 +83,42 @@ describe("ExpandableList", () => {
       </ExpandableList>
     );
 
-    expect(screen.queryByText("Hello0")).to.be.null;
-    expect(blockClasses(screen.getByText("Hello1"))).to.contain("iui-expanded");
+    expect(
+      screen
+        .getByRole("button", { name: "Test0" })
+        .getAttribute("aria-expanded")
+    ).to.equal("false");
+    expect(
+      screen
+        .getByRole("button", { name: "Test1" })
+        .getAttribute("aria-expanded")
+    ).to.equal("true");
 
     await theUserTo.click(screen.getByText("Test0"));
 
-    expect(blockClasses(screen.getByText("Hello0"))).to.contain("iui-expanded");
-    expect(blockClasses(screen.getByText("Hello1"))).not.to.contain(
-      "iui-expanded"
-    );
+    expect(
+      screen
+        .getByRole("button", { name: "Test0" })
+        .getAttribute("aria-expanded")
+    ).to.equal("true");
+    expect(
+      screen
+        .getByRole("button", { name: "Test1" })
+        .getAttribute("aria-expanded")
+    ).to.equal("false");
 
     await theUserTo.click(screen.getByText("Test0"));
 
-    expect(blockClasses(screen.getByText("Hello0"))).not.to.contain(
-      "iui-expanded"
-    );
-    expect(blockClasses(screen.getByText("Hello1"))).not.to.contain(
-      "iui-expanded"
-    );
+    expect(
+      screen
+        .getByRole("button", { name: "Test0" })
+        .getAttribute("aria-expanded")
+    ).to.equal("false");
+    expect(
+      screen
+        .getByRole("button", { name: "Test1" })
+        .getAttribute("aria-expanded")
+    ).to.equal("false");
   });
 
   it("should support changing defaultActiveBlock in update", () => {
@@ -117,8 +137,11 @@ describe("ExpandableList", () => {
       </ExpandableList>
     );
 
-    expect(screen.queryByText("Hello0")).to.be.null;
-    expect(blockClasses(screen.getByText("Hello1"))).to.contain("iui-expanded");
+    expect(
+      screen
+        .getByRole("button", { name: "Test1" })
+        .getAttribute("aria-expanded")
+    ).to.equal("true");
 
     rerender(
       <ExpandableList
@@ -135,29 +158,15 @@ describe("ExpandableList", () => {
       </ExpandableList>
     );
 
-    expect(blockClasses(screen.getByText("Hello0"))).to.contain("iui-expanded");
-    expect(blockClasses(screen.getByText("Hello1"))).not.to.contain(
-      "iui-expanded"
-    );
-
-    rerender(
-      <ExpandableList
-        singleExpandOnly={true}
-        singleIsCollapsible={true}
-        defaultActiveBlock={1}
-      >
-        <ExpandableBlock title="Test0" isExpanded={true}>
-          Hello0
-        </ExpandableBlock>
-        <ExpandableBlock title="Test1" isExpanded={true}>
-          Hello1
-        </ExpandableBlock>
-      </ExpandableList>
-    );
-
-    expect(blockClasses(screen.getByText("Hello0"))).not.to.contain(
-      "iui-expanded"
-    );
-    expect(blockClasses(screen.getByText("Hello1"))).to.contain("iui-expanded");
+    expect(
+      screen
+        .getByRole("button", { name: "Test0" })
+        .getAttribute("aria-expanded")
+    ).to.equal("true");
+    expect(
+      screen
+        .getByRole("button", { name: "Test1" })
+        .getAttribute("aria-expanded")
+    ).to.equal("false");
   });
 });

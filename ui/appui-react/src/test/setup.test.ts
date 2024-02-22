@@ -2,15 +2,19 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { toaster } from "@itwin/itwinui-react";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import TestUtils from "./TestUtils";
 
-afterEach(() => {
+beforeEach(async () => {
+  await NoRenderApp.startup();
+  await TestUtils.initializeUiFramework();
+});
+
+afterEach(async () => {
+  TestUtils.terminateUiFramework();
+  await IModelApp.shutdown();
+
   // Undo DOM manipulations made by iTwinUI-React components
   document.body.innerHTML = "";
   document.body.removeAttribute("class");
-  // Force toaster to recreate container
-  // because its statically initialized and after cleaning the body
-  // it looses reference of container ot render in
-  // eslint-disable-next-line @typescript-eslint/dot-notation
-  toaster["isInitialized"] = false;
 });
