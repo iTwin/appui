@@ -4,31 +4,25 @@
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 
-// 40px is used to ensure scrubber is not drawn behind a widget tab
-
-$uifw-view-overlay-indent: calc(var(--iui-size-l) * 2);
-
 .uifw-view-overlay {
   display: flex;
   justify-content: center;
   align-items: center;
   width: calc(
-    100% - #{$uifw-view-overlay-indent} * 2
-  ); // TODO: Change this to: ( [ viewport padding ] + [ toolbar width ] + [ padding from toolbars ] * 2 ) - 100%
+    100% - (var(--iui-size-s) * 4) - (40px * 2)
+  ); // TODO: Change iui-size-s to an AppUI global CSS variable, same for 40px
   position: absolute;
   inset: auto 0 var(--iui-size-s) 0;
   margin-inline: auto;
   pointer-events: none;
   @include uicore-z-index(view-overlay);
-
-  // background-color: red;
 }
 
 .uifw-animation-overlay {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 100%;
   max-width: 1000px;
   background-color: Hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2));
   -webkit-backdrop-filter: saturate(1.8) blur(20px);
@@ -37,6 +31,7 @@ $uifw-view-overlay-indent: calc(var(--iui-size-l) * 2);
   border-radius: var(--iui-border-radius-1);
   transition: background-color var(--iui-duration-1) ease;
   pointer-events: auto;
+  container: solar-timeline / inline-size;
 
   &:hover {
     background-color: Hsl(

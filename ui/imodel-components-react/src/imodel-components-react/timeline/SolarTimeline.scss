@@ -12,15 +12,22 @@
   align-items: center;
   grid-template-columns: auto 1fr auto;
   grid-template-areas: "solar-timeline-start solar-timeline solar-timeline-end";
+}
 
-  @media only screen and (max-width: 768px) {
+@container solar-timeline (width < 600px) {
+  .solar-timeline-wrapper {
     grid-template-areas: "solar-timeline solar-timeline" "solar-timeline-start solar-timeline-end";
   }
+}
 
-  @media only screen and (max-width: 490px) {
-    .solar-timeline-date-time {
-      display: none;
-    }
+@container solar-timeline (width < 320px) {
+  .solar-timeline-date-time {
+    clip-path: inset(50%) !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    white-space: nowrap !important;
+    block-size: 1px !important;
+    inline-size: 1px !important;
   }
 }
 
