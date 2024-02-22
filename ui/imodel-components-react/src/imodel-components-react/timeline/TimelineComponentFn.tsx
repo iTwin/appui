@@ -23,7 +23,7 @@ import { TimelinePausePlayAction } from "./interfaces";
 import { PlayButton } from "./PlayButton";
 import { Scrubber } from "./Scrubber";
 import "./TimelineComponent.scss";
-import {
+import type {
   TimelineComponentProps,
   TimelineMenuItemProps,
 } from "./TimelineComponent";
@@ -42,9 +42,9 @@ export function TimelineComponent(props: TimelineComponentProps) {
     dateFormatOptions,
     timeFormatOptions,
     includeRepeat = true,
+    onSettingsChange,
+    onChange,
   } = props;
-  const _firstFrame = React.useRef<number | undefined>();
-
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [currentDuration, setCurrentDuration] = React.useState(
     props.initialDuration ?? 0
@@ -52,11 +52,11 @@ export function TimelineComponent(props: TimelineComponentProps) {
   const [totalDuration, setTotalDuration] = React.useState(props.totalDuration);
   const [repeat, setRepeat] = React.useState(props.repeat ?? false);
 
-  const _repeatLabel = React.useMemo(
+  const repeatLabel = React.useMemo(
     () => UiIModelComponents.translate("timeline.repeat"),
     []
   );
-  const _standardTimelineMenuItems: TimelineMenuItemProps[] = React.useMemo(
+  const standardTimelineMenuItems: TimelineMenuItemProps[] = React.useMemo(
     () => [
       {
         label: UiIModelComponents.translate("timeline.slow"),
@@ -73,145 +73,59 @@ export function TimelineComponent(props: TimelineComponentProps) {
     ],
     []
   );
-
-  React.useEffect(() => {
-    if (!props.componentId) return;
-    return UiAdmin.onGenericUiEvent.addListener((args) => {
-      const timelineArgs = args as TimelinePausePlayArgs;
-      if (
-        !timelineArgs ||
-        props.componentId !== timelineArgs.uiComponentId ||
-        timelineArgs.timelineAction === undefined
-      )
-        return;
-
-      let startPlaying: boolean;
-      switch (timelineArgs.timelineAction) {
-        case TimelinePausePlayAction.Play:
-          startPlaying = true;
-          break;
-        case TimelinePausePlayAction.Pause:
-          startPlaying = false;
-          break;
-        case TimelinePausePlayAction.Toggle:
-          startPlaying = !isPlaying;
-          break;
-        default:
-          return; // throw error?
-      }
-      if (startPlaying) play();
-      else _onPause();
-    });
-  }, []);
-  React.useEffect(() => {
-    _changeRepeatSetting(props.repeat);
-  }, [props.repeat]);
-  React.useEffect(() => {
-    // TODO:
-    // const newTotalDuration = props.totalDuration !== prevProps.totalDuration
-    // ? this.props.totalDuration
-    // : undefined
-    setDuration(
-      props.initialDuration ? props.initialDuration : 0,
-      props.totalDuration
-    );
-  }, [props.initialDuration]);
-  React.useEffect(() => {
-    _onSetTotalDuration(props.totalDuration);
-  }, [props.totalDuration]);
-  const animation = () => {
-    if (!isPlaying) {
-      return;
-    }
-
-    const currentTime = new Date().getTime();
-    if (!_firstFrame.current) {
-      _firstFrame.current = currentTime;
-    }
-
-    const millisecondsElapsed = currentTime - _firstFrame.current;
-    const duration = currentDuration + millisecondsElapsed;
-    setDuration(duration);
-
-    // stop the animation!
-    if (duration >= totalDuration) {
-      setIsPlaying(false);
-      if (repeat) _replay();
-      else {
-        props.onPlayPause?.(false);
-      }
-
-      return;
-    }
-  };
-
-  useAnimation(
-    animation,
-    () => {
-      _firstFrame.current = undefined;
-    },
-    isPlaying
-  );
-  const onPlay = () => {
+  const play = () => {
     if (isPlaying) return;
-
-    // Timeline was complete, restart from the beginning
-    if (currentDuration >= totalDuration) {
-      _replay();
-    } else {
-      play();
-    }
-
+    setIsPlaying(true);
     props.onPlayPause?.(true);
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const playOrReplay = () => {
+    if (isPlaying) return;
 
-  const _onPause = () => {
-    if (!isPlaying) return;
+    if (currentDuration >= totalDuration) {
+      setCurrentDuration(0);
+    }
 
-    // stop playing
-    setIsPlaying(false);
-
-    props.onPlayPause?.(false);
-  };
-
-  const play = () => {
-    setIsPlaying(true);
-  };
-
-  const _onTimelineChange = (values: ReadonlyArray<number>) => {
-    const currentDuration = values[0];
-    setDuration(currentDuration);
-  };
-
-  const setDuration = (newDuration: number, newTotal?: number) => {
-    newDuration = Math.max(newDuration, 0);
-    newTotal = newTotal ?? totalDuration;
-    newDuration = Math.min(newTotal, newDuration);
-    setCurrentDuration(newDuration);
-
-    const fraction = newDuration / newTotal;
-    props.onChange?.(fraction);
-  };
-
-  const _replay = () => {
-    setCurrentDuration(0);
-    // TODO: setState callback
     play();
   };
 
-  const _displayTime = (millisec: number) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const pause = () => {
+    if (!isPlaying) return;
+    setIsPlaying(false);
+    props.onPlayPause?.(false);
+  };
+
+  const onTimelineChange = (values: ReadonlyArray<number>) => {
+    const newDuration = values[0];
+    updateDuration(newDuration);
+  };
+
+  const updateDuration = React.useCallback(
+    (newDuration: number) => {
+      newDuration = Math.max(newDuration, 0);
+      newDuration = Math.min(totalDuration, newDuration);
+      setCurrentDuration(newDuration);
+
+      const fraction = newDuration / totalDuration;
+      onChange?.(fraction);
+    },
+    [onChange, totalDuration]
+  );
+
+  const displayTime = (time: number) => {
     const addZero = (i: number) => {
       return i < 10 ? `0${i}` : i;
     };
 
-    const date = new Date(millisec);
+    const date = new Date(time);
     // const hours = date.getUTCHours();
     const minutes = date.getUTCMinutes();
     const seconds = date.getUTCSeconds();
     return `${addZero(minutes)}:${addZero(seconds)}`;
   };
 
-  const _getMilliseconds = (time: string) => {
+  const getMilliseconds = (time: string) => {
     if (time.indexOf(":") !== -1) {
       return (
         (Number(time.split(":")[0]) * 60 + Number(time.split(":")[1])) * 1000
@@ -221,34 +135,33 @@ export function TimelineComponent(props: TimelineComponentProps) {
     }
   };
 
-  // user changed the total duration
-  const _onTotalDurationChange = (value: string) => {
+  const onTotalDurationChange = (value: string) => {
     // NOTE: we should reset the current duration to 0
-    const milliseconds = _getMilliseconds(value);
-    _onSetTotalDuration(milliseconds);
+    const milliseconds = getMilliseconds(value);
+    updateTotalDuration(milliseconds);
   };
 
-  const _changeRepeatSetting = (newValue?: boolean) => {
-    if (newValue === undefined) return;
-
-    setRepeat(newValue);
-    // TODO: setState callback
-    props.onSettingsChange?.({ loop: repeat });
+  const onRepeatClick = () => {
+    const newRepeat = !repeat;
+    setRepeat(newRepeat);
+    props.onSettingsChange?.({ loop: newRepeat });
   };
 
-  const _onRepeatChanged = () => {
-    setRepeat((prev) => !prev);
-    // TODO: setState callback
-    props.onSettingsChange?.({ loop: repeat });
-  };
+  const updateTotalDuration = React.useCallback(
+    (duration: number) => {
+      let changed = false;
+      setTotalDuration((prev) => {
+        if (prev !== duration) changed = true;
+        return duration;
+      });
 
-  const _onSetTotalDuration = (milliseconds: number) => {
-    setTotalDuration(milliseconds);
-    // TODO: setState callback
-    props.onSettingsChange?.({ duration: milliseconds });
-  };
+      if (!changed) return;
+      onSettingsChange?.({ duration });
+    },
+    [onSettingsChange]
+  );
 
-  const _createMenuItemNode = (
+  const createMenuItemNode = (
     item: TimelineMenuItemProps,
     index: number,
     currentTimelineDuration: number,
@@ -268,7 +181,7 @@ export function TimelineComponent(props: TimelineComponentProps) {
         key={index}
         startIcon={icon}
         onClick={() => {
-          _onSetTotalDuration(item.timelineDuration);
+          updateTotalDuration(item.timelineDuration);
           close();
         }}
       >
@@ -277,20 +190,20 @@ export function TimelineComponent(props: TimelineComponentProps) {
     );
   };
 
-  const _renderSettings = () => {
+  const renderSettings = () => {
     const createMenuItemNodes = (close: () => void): React.ReactElement[] => {
       let contextMenuItems: Array<TimelineMenuItemProps> = [];
 
       if (!props.appMenuItems) {
-        contextMenuItems = _standardTimelineMenuItems;
+        contextMenuItems = standardTimelineMenuItems;
       } else {
         if (props.appMenuItemOption === "append") {
-          contextMenuItems = _standardTimelineMenuItems.concat(
+          contextMenuItems = standardTimelineMenuItems.concat(
             props.appMenuItems
           );
         } else if (props.appMenuItemOption === "prefix") {
           contextMenuItems = props.appMenuItems.concat(
-            _standardTimelineMenuItems
+            standardTimelineMenuItems
           );
         } else {
           contextMenuItems = props.appMenuItems;
@@ -312,12 +225,12 @@ export function TimelineComponent(props: TimelineComponentProps) {
           <MenuItem
             key={++keyIndex}
             onClick={() => {
-              _onRepeatChanged();
+              onRepeatClick();
               close();
             }}
             startIcon={icon}
           >
-            {_repeatLabel}
+            {repeatLabel}
           </MenuItem>
         );
         itemNodes.push(<MenuDivider key={++keyIndex} />);
@@ -325,7 +238,7 @@ export function TimelineComponent(props: TimelineComponentProps) {
 
       contextMenuItems.forEach((item: TimelineMenuItemProps, index: number) => {
         itemNodes.push(
-          _createMenuItemNode(item, index + keyIndex + 1, totalDuration, close)
+          createMenuItemNode(item, index + keyIndex + 1, totalDuration, close)
         );
       });
 
@@ -347,8 +260,68 @@ export function TimelineComponent(props: TimelineComponentProps) {
     );
   };
 
-  const durationString = _displayTime(currentDuration);
-  const totalDurationString = _displayTime(totalDuration);
+  React.useEffect(() => {
+    if (!props.componentId) return;
+    return UiAdmin.onGenericUiEvent.addListener((args) => {
+      const timelineArgs = args as TimelinePausePlayArgs;
+      if (
+        !timelineArgs ||
+        props.componentId !== timelineArgs.uiComponentId ||
+        timelineArgs.timelineAction === undefined
+      )
+        return;
+
+      switch (timelineArgs.timelineAction) {
+        case TimelinePausePlayAction.Play:
+          playOrReplay();
+          break;
+        case TimelinePausePlayAction.Pause:
+          pause();
+          break;
+        case TimelinePausePlayAction.Toggle:
+          if (isPlaying) {
+            pause();
+          } else {
+            playOrReplay();
+          }
+          break;
+      }
+    });
+  }, [isPlaying, pause, playOrReplay, props.componentId]);
+
+  React.useEffect(() => {
+    if (props.repeat === undefined) return;
+    if (props.repeat === repeat) return;
+
+    setRepeat(props.repeat);
+    onSettingsChange?.({ loop: props.repeat });
+  }, [props.repeat, onSettingsChange, repeat]);
+  React.useEffect(() => {
+    updateDuration(props.initialDuration ?? 0);
+  }, [props.initialDuration]);
+  React.useEffect(() => {
+    updateTotalDuration(props.totalDuration);
+  }, [props.totalDuration, updateTotalDuration]);
+  useAnimation(
+    ({ delta }) => {
+      const duration = currentDuration + delta;
+      updateDuration(duration);
+
+      if (duration >= totalDuration) {
+        if (repeat) {
+          setCurrentDuration(0);
+          return;
+        }
+
+        pause();
+      }
+    },
+    () => {},
+    isPlaying
+  );
+
+  const durationString = displayTime(currentDuration);
+  const totalDurationString = displayTime(totalDuration);
   const hasDates = !!startDate && !!endDate;
 
   return (
@@ -360,8 +333,8 @@ export function TimelineComponent(props: TimelineComponentProps) {
         <PlayButton
           className="play-button"
           isPlaying={isPlaying}
-          onPlay={onPlay}
-          onPause={_onPause}
+          onPlay={playOrReplay}
+          onPause={pause}
         />
         <div className="start-time-container">
           {hasDates && (
@@ -386,8 +359,8 @@ export function TimelineComponent(props: TimelineComponentProps) {
           endDate={endDate}
           isPlaying={isPlaying}
           showTime={!showDuration}
-          onChange={_onTimelineChange}
-          onUpdate={_onTimelineChange}
+          onChange={onTimelineChange}
+          onUpdate={onTimelineChange}
           timeZoneOffset={props.timeZoneOffset}
           markDate={props.markDate}
         />
@@ -406,41 +379,65 @@ export function TimelineComponent(props: TimelineComponentProps) {
             <InlineEdit
               className="duration-end-time"
               defaultValue={totalDurationString}
-              onChange={_onTotalDurationChange}
+              onChange={onTotalDurationChange}
             />
           )}
         </div>
-        {_renderSettings()}
+        {renderSettings()}
       </div>
     </div>
   );
 }
 
 function useAnimation(
-  animation: () => void,
+  onAnimate: (args: { duration: number; delta: number }) => void,
   onCancel: () => void,
   playing = true
 ) {
+  const onAnimateRef = React.useRef(onAnimate);
+  onAnimateRef.current = onAnimate;
+
+  const onCancelRef = React.useRef(onCancel);
+  onCancelRef.current = onCancel;
+
+  const startTimeRef = React.useRef<number | undefined>();
+  const lastTimeRef = React.useRef<number | undefined>();
+
   React.useEffect(() => {
+    if (!playing) return;
+
     let handle = 0;
     let didCancel = false;
+    const cancel = onCancelRef.current;
 
-    const animate = () => {
-      animation();
+    const animate = (time: number) => {
+      if (startTimeRef.current === undefined) {
+        startTimeRef.current = time;
+      }
+      if (lastTimeRef.current === undefined) {
+        lastTimeRef.current = time;
+      }
 
-      // Canceled from within animation.
-      if (didCancel) return;
+      onAnimateRef.current({
+        duration: time - startTimeRef.current,
+        delta: time - lastTimeRef.current,
+      });
+      lastTimeRef.current = time;
+
+      if (didCancel) {
+        return;
+      }
 
       handle = window.requestAnimationFrame(animate);
     };
 
-    if (playing) {
-      animate();
-    }
+    handle = window.requestAnimationFrame(animate);
     return () => {
       didCancel = true;
-      onCancel();
+      startTimeRef.current = undefined;
+      lastTimeRef.current = undefined;
       window.cancelAnimationFrame(handle);
+      cancel();
     };
   }, [playing]);
 }
