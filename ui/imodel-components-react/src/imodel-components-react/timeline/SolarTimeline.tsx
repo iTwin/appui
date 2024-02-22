@@ -12,7 +12,14 @@
 import "./SolarTimeline.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { Button, IconButton, Slider, Text } from "@itwin/itwinui-react";
+import {
+  Button,
+  IconButton,
+  Label,
+  Slider,
+  Text,
+  VisuallyHidden,
+} from "@itwin/itwinui-react";
 
 import type { HSVColor } from "@itwin/core-common";
 import { ColorByName, ColorDef } from "@itwin/core-common";
@@ -704,6 +711,9 @@ export class SolarTimeline extends React.PureComponent<
         />
 
         <div className="solar-timeline-end">
+          <VisuallyHidden>
+            <Label htmlFor="speed">Timeline speed</Label>
+          </VisuallyHidden>
           <select className="xyz" name="speed" id="speed">
             <option value="1x" selected>
               1x
