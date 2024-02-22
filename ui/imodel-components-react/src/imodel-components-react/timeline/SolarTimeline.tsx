@@ -18,6 +18,7 @@ import {
   Label,
   Slider,
   Text,
+  Tooltip,
   VisuallyHidden,
 } from "@itwin/itwinui-react";
 
@@ -180,7 +181,13 @@ function Timeline(props: TimelineProps) {
   const sunSetFormat = formatTime(dayStartMs + sunSetOffsetMs);
   return (
     <div className={className}>
+      <VisuallyHidden>
+        <Label id="timeline" as="div">
+          Solar timeline
+        </Label>
+      </VisuallyHidden>
       <Slider
+        thumbProps={() => ({ "aria-labelledby": "timeline" })}
         ref={sliderRef}
         className={className}
         step={millisecPerMinute}
@@ -650,18 +657,20 @@ export class SolarTimeline extends React.PureComponent<
             <SvgPlay />
           </IconButton>
 
-          <Button
-            styleType="borderless"
-            startIcon={<SvgCalendar />}
-            data-testid="solar-date-time-button"
-            title={this._dateTimeLabel}
-            ref={(element) => (this._datePicker = element)}
-            onClick={this._onOpenDayPicker}
-          >
-            <span className="solar-timeline-date-time">
-              {formattedDate} @ {formattedTime}
-            </span>
-          </Button>
+          <Tooltip content={this._dateTimeLabel}>
+            <Button
+              styleType="borderless"
+              startIcon={<SvgCalendar />}
+              data-testid="solar-date-time-button"
+              title={this._dateTimeLabel}
+              ref={(element) => (this._datePicker = element)}
+              onClick={this._onOpenDayPicker}
+            >
+              <span className="solar-timeline-date-time">
+                {formattedDate} @ {formattedTime}
+              </span>
+            </Button>
+          </Tooltip>
 
           <Popup
             style={{ border: "none" }}
@@ -714,16 +723,18 @@ export class SolarTimeline extends React.PureComponent<
           <VisuallyHidden>
             <Label htmlFor="speed">Timeline speed</Label>
           </VisuallyHidden>
-          <select className="xyz" name="speed" id="speed">
-            <option value="1x" selected>
-              1x
-            </option>
-            <option value="2x">2x</option>
-            <option value="3x">3x</option>
-            <option value="4x">4x</option>
-            <option value="5x">5x</option>
-            <option value="6x">6x</option>
-          </select>
+          <Tooltip content={this._speedLabel}>
+            <select className="xyz" name="speed" id="speed">
+              <option value="1x" selected>
+                1x
+              </option>
+              <option value="2x">2x</option>
+              <option value="3x">3x</option>
+              <option value="4x">4x</option>
+              <option value="5x">5x</option>
+              <option value="6x">6x</option>
+            </select>
+          </Tooltip>
 
           <IconButton
             styleType="borderless"
