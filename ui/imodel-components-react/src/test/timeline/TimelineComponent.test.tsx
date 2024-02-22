@@ -955,7 +955,6 @@ describe("<TimelineComponent showDuration={true} />", () => {
       <TimelineComponent
         startDate={startDate}
         endDate={endDate}
-        minimized={true}
         showDuration={false}
         totalDuration={duration}
         componentId={"sampleApp-MarkTodayCustom"}

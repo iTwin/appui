@@ -72,6 +72,10 @@ export interface TimelineComponentProps {
   totalDuration: number;
   /** Initial value for the current duration (the location of the thumb) in milliseconds */
   initialDuration?: number;
+  /** Show in minimized mode (For future use. This prop will always be treated as true.)
+   * @deprecated in 4.10.x. Has no effect.
+   */
+  minimized?: boolean;
   /** When playing, repeat indefinitely */
   repeat?: boolean;
   /** Show duration instead of time */
@@ -148,8 +152,6 @@ export class TimelineComponent extends React.Component<
   constructor(props: TimelineComponentProps) {
     super(props);
 
-    console.log("constructor", props);
-
     this.state = {
       isPlaying: false,
       currentDuration: props.initialDuration
@@ -200,8 +202,6 @@ export class TimelineComponent extends React.Component<
   }
 
   public override componentDidUpdate(prevProps: TimelineComponentProps) {
-    console.log("componentDidUpdate", this.props);
-
     // istanbul ignore else
     if (this.props.initialDuration !== prevProps.initialDuration) {
       this._setDuration(
@@ -251,12 +251,6 @@ export class TimelineComponent extends React.Component<
     }
     if (startPlaying) this._onPlay();
     else this._onPause();
-  };
-
-  // user clicked backward button
-  private _onBackward = () => {
-    // istanbul ignore else
-    if (this.props.onJump) this.props.onJump(false);
   };
 
   // user clicked forward button
@@ -554,7 +548,6 @@ export class TimelineComponent extends React.Component<
       timeFormatOptions,
     } = this.props;
     const { currentDuration, totalDuration } = this.state;
-    const currentDate = this._currentDate();
     const durationString = this._displayTime(currentDuration);
     const totalDurationString = this._displayTime(totalDuration);
     const hasDates = !!startDate && !!endDate;
