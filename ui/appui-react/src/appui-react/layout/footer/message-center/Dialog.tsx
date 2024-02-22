@@ -23,7 +23,7 @@ export interface MessageCenterDialogProps extends CommonProps {
   children?: React.ReactNode;
   /* Prompt showed when no messages are present. */
   prompt?: string;
-  /** Tabs of message center. See [[MessageCenterTab]] */
+  /** Tabs of message center.*/
   tabs?: React.ReactNode;
   /** Title of title bar. */
   title?: string;
