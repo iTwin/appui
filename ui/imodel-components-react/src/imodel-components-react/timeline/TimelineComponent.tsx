@@ -253,12 +253,6 @@ export class TimelineComponent extends React.Component<
     else this._onPause();
   };
 
-  // user clicked forward button
-  private _onForward = () => {
-    // istanbul ignore else
-    if (this.props.onJump) this.props.onJump(true);
-  };
-
   // user clicked play button
   private _onPlay = () => {
     // istanbul ignore if
@@ -411,17 +405,6 @@ export class TimelineComponent extends React.Component<
         }
       }
     );
-  };
-
-  private _currentDate = (): Date => {
-    const fraction = this.state.currentDuration / this.state.totalDuration;
-    if (this.props.endDate && this.props.startDate) {
-      const timeElapsed =
-        (this.props.endDate.getTime() - this.props.startDate.getTime()) *
-        fraction;
-      return new Date(this.props.startDate.getTime() + timeElapsed);
-    }
-    return new Date();
   };
 
   private _onSetTotalDuration = (milliseconds: number) => {
