@@ -5,6 +5,8 @@
 /** @packageDocumentation
  * @module Timeline
  */
+import classnames from "classnames";
+import * as React from "react";
 import type { GenericUiEventArgs } from "@itwin/appui-abstract";
 import { UiAdmin } from "@itwin/appui-abstract";
 import type { DateFormatOptions } from "@itwin/components-react";
@@ -14,33 +16,21 @@ import {
   UiComponents,
 } from "@itwin/components-react";
 import { Icon } from "@itwin/core-react";
-import {
-  SvgCaretLeft,
-  SvgCaretRight,
-  SvgCheckmark,
-  SvgMoreVertical,
-  SvgPlayCircular,
-} from "@itwin/itwinui-icons-react";
+import { SvgCheckmark, SvgMoreVertical } from "@itwin/itwinui-icons-react";
 import { DropdownMenu, MenuDivider, MenuItem } from "@itwin/itwinui-react";
-import classnames from "classnames";
-import * as React from "react";
-
 import { UiIModelComponents } from "../UiIModelComponents";
 import { InlineEdit } from "./InlineEdit";
 import type { PlaybackSettings, TimelinePausePlayArgs } from "./interfaces";
 import { TimelinePausePlayAction } from "./interfaces";
-import { PlayButton, PlayerButton } from "./PlayerButton";
+import { PlayButton } from "./PlayerButton";
 import { Scrubber } from "./Scrubber";
-
 import "./TimelineComponent.scss";
-
-// cspell:ignore millisec
 
 const slowSpeed = 60 * 1000;
 const mediumSpeed = 20 * 1000;
 const fastSpeed = 10 * 1000;
-/**
- * [[TimelineMenuItemOption]]: specifies how the app wants the timeline speeds to be installed on the TimelineComponent's ContextMenu
+
+/** [[TimelineMenuItemOption]]: specifies how the app wants the timeline speeds to be installed on the TimelineComponent's ContextMenu
  * "replace" : use the app-supplied items in place of the standard items
  * "append" : add the app-supplied items following the standard items
  * "prefix" : add the app-supplied items before the standard items
@@ -48,8 +38,8 @@ const fastSpeed = 10 * 1000;
  * @public
  */
 export type TimelineMenuItemOption = "replace" | "append" | "prefix";
-/**
- * [[TimelineMenuItemProps]] specifies playback speed entries in the Timeline's ContextMenu
+
+/** [[TimelineMenuItemProps]] specifies playback speed entries in the Timeline's ContextMenu
  * @public
  */
 export interface TimelineMenuItemProps {
@@ -59,6 +49,7 @@ export interface TimelineMenuItemProps {
   /** duration for the entire timeline to play */
   timelineDuration: number;
 }
+
 /** TimelineDateMarkerProps: Mark a date on the timeline with an indicator
  * @public
  */
@@ -68,8 +59,8 @@ export interface TimelineDateMarkerProps {
   /** ReactNode to use as the marker on the timeline. If undefined, a short vertical bar will mark the date. */
   dateMarker?: React.ReactNode;
 }
-/**
- *  [[TimelineComponentProps]] configure the timeline
+
+/** [[TimelineComponentProps]] configure the timeline
  * @public
  */
 export interface TimelineComponentProps {
@@ -81,8 +72,6 @@ export interface TimelineComponentProps {
   totalDuration: number;
   /** Initial value for the current duration (the location of the thumb) in milliseconds */
   initialDuration?: number;
-  /** Show in minimized mode (For future use. This prop will always be treated as true.) */
-  minimized?: boolean;
   /** When playing, repeat indefinitely */
   repeat?: boolean;
   /** Show duration instead of time */
@@ -95,7 +84,9 @@ export interface TimelineComponentProps {
   onJump?: (forward: boolean) => void;
   /** Callback triggered when a setting is changed */
   onSettingsChange?: (arg: PlaybackSettings) => void;
-  /** Always display in miniMode with no expand menu (For future use. This prop will always be treated as true) */
+  /** Always display in miniMode with no expand menu (For future use. This prop will always be treated as true)
+   * @deprecated in 4.10.x. Has no effect.
+   */
   alwaysMinimized?: boolean;
   /** ComponentId -- must be set to use TimelineComponentEvents */
   componentId?: string;
@@ -114,12 +105,11 @@ export interface TimelineComponentProps {
   /** Options used to format time string. If not defined it will user browser default locale settings. */
   timeFormatOptions?: DateFormatOptions;
 }
+
 /** @internal */
 interface TimelineComponentState {
   /**  True if timeline is currently playing, false if paused */
   isPlaying: boolean;
-  /** Minimized mode (For future use. This will always be true) */
-  minimized?: boolean;
   /** Current duration in milliseconds */
   currentDuration: number;
   /** Total duration in milliseconds */
@@ -130,10 +120,7 @@ interface TimelineComponentState {
   includeRepeat: boolean;
 }
 
-/**
- * [[TimelineComponent]] is used to playback timeline data
- * @public
- */
+/** @internal */
 export class TimelineComponent extends React.Component<
   TimelineComponentProps,
   TimelineComponentState
@@ -161,9 +148,10 @@ export class TimelineComponent extends React.Component<
   constructor(props: TimelineComponentProps) {
     super(props);
 
+    console.log("constructor", props);
+
     this.state = {
       isPlaying: false,
-      minimized: true,
       currentDuration: props.initialDuration
         ? props.initialDuration
         : /* istanbul ignore next */ 0,
@@ -212,6 +200,8 @@ export class TimelineComponent extends React.Component<
   }
 
   public override componentDidUpdate(prevProps: TimelineComponentProps) {
+    console.log("componentDidUpdate", this.props);
+
     // istanbul ignore else
     if (this.props.initialDuration !== prevProps.initialDuration) {
       this._setDuration(
@@ -563,7 +553,7 @@ export class TimelineComponent extends React.Component<
       dateFormatOptions,
       timeFormatOptions,
     } = this.props;
-    const { currentDuration, totalDuration, minimized } = this.state;
+    const { currentDuration, totalDuration } = this.state;
     const currentDate = this._currentDate();
     const durationString = this._displayTime(currentDuration);
     const totalDurationString = this._displayTime(totalDuration);
@@ -572,44 +562,8 @@ export class TimelineComponent extends React.Component<
     return (
       <div
         data-testid="timeline-component"
-        className={classnames(
-          "timeline-component",
-          !!minimized && "minimized",
-          hasDates && "has-dates"
-        )}
+        className={classnames("timeline-component", hasDates && "has-dates")}
       >
-        <div className="header">
-          <PlayButton
-            className="play-button"
-            isPlaying={this.state.isPlaying}
-            onPlay={this._onPlay}
-            onPause={this._onPause}
-            data-testid="timeline-play"
-          />
-          <PlayerButton
-            className="play-backward"
-            icon={<SvgCaretLeft />}
-            onClick={this._onBackward}
-            title={UiIModelComponents.translate("timeline.backward")}
-          />
-          <PlayerButton
-            className="play-button-step"
-            icon={<SvgPlayCircular />}
-            isPlaying={this.state.isPlaying}
-            onPlay={this._onPlay}
-            onPause={this._onPause}
-            title={UiIModelComponents.translate("timeline.step")}
-          />
-          <PlayerButton
-            className="play-forward"
-            icon={<SvgCaretRight />}
-            onClick={this._onForward}
-            title={UiIModelComponents.translate("timeline.backward")}
-          />
-          <span className="current-date">
-            {toDateString(currentDate, timeZoneOffset, dateFormatOptions)}
-          </span>
-        </div>
         <div className="scrubber">
           <PlayButton
             className="play-button"
@@ -639,7 +593,6 @@ export class TimelineComponent extends React.Component<
             startDate={startDate}
             endDate={endDate}
             isPlaying={this.state.isPlaying}
-            inMiniMode={!!minimized}
             showTime={!showDuration}
             onChange={this._onTimelineChange}
             onUpdate={this._onTimelineChange}
@@ -665,7 +618,7 @@ export class TimelineComponent extends React.Component<
               />
             )}
           </div>
-          {minimized && this._renderSettings()}
+          {this._renderSettings()}
         </div>
       </div>
     );

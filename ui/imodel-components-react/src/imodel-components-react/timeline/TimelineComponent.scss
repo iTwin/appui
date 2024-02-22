@@ -11,51 +11,8 @@
   padding: 8px 16px;
   min-width: 275px;
 
-  > .header {
-    display: flex;
-    align-items: center;
-    height: 38px;
-    position: relative;
-
-    > .play-backward {
-      border-radius: var(--iui-border-radius-1) 0 0 var(--iui-border-radius-1);
-    }
-
-    > .play-button-step {
-      border-left: none;
-      border-right: none;
-      border-radius: 0;
-    }
-
-    > .play-forward {
-      border-radius: 0px var(--iui-border-radius-1) var(--iui-border-radius-1) 0;
-    }
-
-    > .current-date {
-      font-size: 14px;
-      min-width: 180px;
-      padding: 8px;
-      color: var(--iui-color-text);
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: var(--iui-border-radius-1);
-      border: solid 1px var(--iui-color-border);
-      background-color: var(--iui-color-background);
-      text-align: center;
-      box-sizing: border-box;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-
   .play-button {
     margin-right: 10px;
-  }
-
-  > .timeline-timeline {
-    margin: 8px 0;
   }
 
   > .scrubber {
@@ -119,7 +76,7 @@
   }
 }
 
-.timeline-component.minimized .timeline-settings {
+.timeline-component .timeline-settings {
   margin-left: 8px;
   margin-right: -6px;
 }
@@ -132,14 +89,8 @@
   margin-left: 8px;
 }
 
-.timeline-component.minimized .header,
-.timeline-component.minimized .timeline-timeline,
-.timeline-component:not(.minimized) .scrubber .start-date,
-.timeline-component:not(.minimized) .scrubber .end-date,
 .timeline-component:not(.has-dates) .scrubber .start-date,
-.timeline-component:not(.has-dates) .scrubber .end-date,
-.timeline-component:not(.minimized) .scrubber .play-button,
-.timeline-component:not(.minimized) .scrubber .timeline-settings {
+.timeline-component:not(.has-dates) .scrubber .end-date {
   display: none;
 }
 
