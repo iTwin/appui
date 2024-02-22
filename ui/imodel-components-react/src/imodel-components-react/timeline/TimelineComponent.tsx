@@ -22,7 +22,7 @@ import { UiIModelComponents } from "../UiIModelComponents";
 import { InlineEdit } from "./InlineEdit";
 import type { PlaybackSettings, TimelinePausePlayArgs } from "./interfaces";
 import { TimelinePausePlayAction } from "./interfaces";
-import { PlayButton } from "./PlayerButton";
+import { PlayButton } from "./PlayButton";
 import { Scrubber } from "./Scrubber";
 import "./TimelineComponent.scss";
 

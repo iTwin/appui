@@ -2,44 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import "./PlayerButton.scss";
+import "./PlayButton.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
-import { UiIModelComponents } from "../UiIModelComponents";
+import { CommonProps, Icon } from "@itwin/core-react";
 import { SvgPause, SvgPlay } from "@itwin/itwinui-icons-react";
+import { UiIModelComponents } from "../UiIModelComponents";
 
-/** Player button used by buttons on timeline control
- * @internal
- */
-export class PlayerButton extends React.PureComponent<any> {
-  private _onClick = () => {
-    // istanbul ignore else
-    if (this.props.onClick) this.props.onClick();
-  };
-
-  public override render() {
-    const { icon, title } = this.props;
-    return (
-      <button
-        data-testid={this.props.className}
-        className={classnames("player-button", this.props.className)}
-        onClick={this._onClick}
-        title={title}
-      >
-        <span className="icon">
-          <Icon iconSpec={icon} />
-        </span>
-      </button>
-    );
-  }
-}
-
-/** Properties for Play/Pause button used on timeline control
- * @internal
- */
-export interface PlayerButtonProps extends CommonProps {
+interface PlayButtonProps extends CommonProps {
   isPlaying: boolean;
   onPlay?: () => void;
   onPause?: () => void;
@@ -54,10 +24,10 @@ interface PlayButtonState {
  * @internal
  */
 export class PlayButton extends React.Component<
-  PlayerButtonProps,
+  PlayButtonProps,
   PlayButtonState
 > {
-  constructor(props: PlayerButtonProps, context?: any) {
+  constructor(props: PlayButtonProps, context?: any) {
     super(props, context);
 
     this.state = { isPlaying: this.props.isPlaying };
@@ -98,7 +68,7 @@ export class PlayButton extends React.Component<
       <button
         data-testid={this.props.className}
         title={title}
-        className={classnames("player-button", this.props.className)}
+        className={classnames("play-button", this.props.className)}
         onClick={this._onClick}
       >
         <span
