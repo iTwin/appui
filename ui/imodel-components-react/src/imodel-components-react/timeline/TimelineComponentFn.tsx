@@ -89,11 +89,15 @@ export function TimelineComponent(props: TimelineComponentProps) {
     setRepeat(newRepeat);
     onSettingsChange?.({ loop: newRepeat });
   };
-  const updateTotalDuration = (newDuration: number) => {
-    if (newDuration === totalDuration) return;
+  const updateTotalDuration = (newTotalDuration: number) => {
+    if (newTotalDuration === totalDuration) return;
 
-    setTotalDuration(newDuration);
-    onSettingsChange?.({ duration: newDuration });
+    const fraction = currentDuration / totalDuration;
+    const newCurrentDuration = fraction * newTotalDuration;
+
+    setTotalDuration(newTotalDuration);
+    setCurrentDuration(newCurrentDuration);
+    onSettingsChange?.({ duration: newTotalDuration });
   };
 
   const prevInitialDuration = React.useRef(props.initialDuration);
