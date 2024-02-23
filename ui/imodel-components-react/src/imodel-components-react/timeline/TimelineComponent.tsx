@@ -76,7 +76,7 @@ export interface TimelineComponentProps {
    * @deprecated in 4.10.x. Has no effect.
    */
   minimized?: boolean;
-  /** When playing, repeat indefinitely */
+  /** When playing, repeat indefinitely. Defaults to `false`. */
   repeat?: boolean;
   /** Show duration instead of time */
   showDuration?: boolean;
@@ -94,11 +94,11 @@ export interface TimelineComponentProps {
   alwaysMinimized?: boolean;
   /** ComponentId -- must be set to use TimelineComponentEvents */
   componentId?: string;
-  /** Include the repeat option on the Timeline Context Menu */
+  /** Include the repeat option on the Timeline Context Menu. Defaults to `true`. */
   includeRepeat?: boolean;
   /** App-supplied speed entries in the Timeline Context Menu */
   appMenuItems?: TimelineMenuItemProps[];
-  /** How to include the supplied app menu items in the Timeline Context Menu (prefix, append, replace)*/
+  /** How to include the supplied app menu items in the Timeline Context Menu (prefix, append or replace). Defaults to `replace`. */
   appMenuItemOption?: TimelineMenuItemOption;
   /** Display date and time offset by the number of minutes specified. When undefined - local timezone will be used */
   timeZoneOffset?: number;
