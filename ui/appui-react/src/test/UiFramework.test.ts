@@ -12,7 +12,7 @@ import type { Id64String } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
-import type { CursorMenuData, UserSettingsProvider } from "../appui-react";
+import type { CursorMenuPayload, UserSettingsProvider } from "../appui-react";
 import {
   ColorTheme,
   SettingsModalFrontstage,
@@ -225,7 +225,7 @@ describe("UiFramework localStorage Wrapper", () => {
       UiFramework.closeCursorMenu();
       expect(UiFramework.getCursorMenuData()).to.be.undefined;
 
-      const menuData: CursorMenuData = {
+      const menuData: CursorMenuPayload = {
         items: [],
         position: { x: 100, y: 100 },
       };
