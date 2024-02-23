@@ -15,10 +15,7 @@ import {
   ToolbarItemUtilities,
   UiFramework,
 } from "@itwin/appui-react";
-import { AppUiDecorator } from "../AppUiDecorator";
-import { Page } from "../AppUiStory";
-import { createFrontstageProvider, removeProperty } from "../Utils";
-import { SplitViewportStory } from "./SplitViewport";
+import { ConditionalIconItem } from "@itwin/core-react";
 import {
   Svg2D,
   Svg3D,
@@ -27,7 +24,10 @@ import {
   SvgWindow,
   SvgWindowSplitVertical,
 } from "@itwin/itwinui-icons-react";
-import { ConditionalIconItem } from "@itwin/core-react";
+import { AppUiDecorator } from "../Decorators";
+import { Page } from "../AppUiStory";
+import { createFrontstageProvider, removeProperty } from "../Utils";
+import { SplitViewportStory } from "./SplitViewport";
 
 const meta = {
   title: "Frontstage/SplitViewport",

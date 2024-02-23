@@ -8,7 +8,7 @@ import sinon from "sinon";
 import { PropertyCategoryBlock } from "../../../components-react/propertygrid/component/PropertyCategoryBlock";
 import type { PropertyCategory } from "../../../components-react/propertygrid/PropertyDataProvider";
 import { render, screen } from "@testing-library/react";
-import { selectorMatches, userEvent } from "../../TestUtils";
+import { userEvent } from "../../TestUtils";
 
 describe("PropertyCategoryBlock", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -20,32 +20,25 @@ describe("PropertyCategoryBlock", () => {
   });
 
   it("renders content correctly when collapsed", () => {
-    category.expand = false;
-
-    const { container } = render(
-      <PropertyCategoryBlock category={category}>
-        <div className="test-content" />
-      </PropertyCategoryBlock>
-    );
-
-    expect(container.firstElementChild).satisfy(
-      selectorMatches(".iui-expandable-block:not(.iui-expanded)")
-    );
-  });
-
-  it("renders content correctly when expanded", () => {
-    category.expand = true;
-
-    const { container } = render(
+    const component = render(
       <PropertyCategoryBlock category={category}>
         <div>My Content</div>
       </PropertyCategoryBlock>
     );
 
-    expect(screen.getByText("My Content")).to.exist;
-    expect(container.firstElementChild).satisfy(
-      selectorMatches(".iui-expandable-block.iui-expanded")
+    expect(component.queryByText("My Content")).to.be.null;
+  });
+
+  it("renders content correctly when expanded", () => {
+    category.expand = true;
+
+    const component = render(
+      <PropertyCategoryBlock category={category}>
+        <div>My Content</div>
+      </PropertyCategoryBlock>
     );
+
+    component.getByText("My Content");
   });
 
   it("does not expand if header gets clicked, but callback is not provided", async () => {
@@ -65,21 +58,15 @@ describe("PropertyCategoryBlock", () => {
   });
 
   it("expands when header gets clicked", async () => {
-    const toggleSpy = sinon.spy();
-
-    const { container } = render(
-      <PropertyCategoryBlock
-        category={category}
-        onExpansionToggled={toggleSpy}
-      />
+    const spy = sinon.spy();
+    const component = render(
+      <PropertyCategoryBlock category={category} onExpansionToggled={spy}>
+        <div>My Content</div>
+      </PropertyCategoryBlock>
     );
 
-    await theUserTo.click(screen.getByText("Group 1"));
-
-    expect(container.firstElementChild).satisfy(
-      selectorMatches(".iui-expandable-block.iui-expanded")
-    );
-    expect(toggleSpy).to.have.been.calledWith("Group_1");
+    await theUserTo.click(component.getByRole("button", { name: "Group 1" }));
+    sinon.assert.calledOnceWithExactly(spy, "Group_1");
   });
 
   it('expands when "Enter" or "Space" key gets pressed', async () => {

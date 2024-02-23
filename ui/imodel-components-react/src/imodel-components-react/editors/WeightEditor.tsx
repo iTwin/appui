@@ -38,7 +38,7 @@ export class WeightEditor
   extends React.PureComponent<PropertyEditorProps, WeightEditorState>
   implements TypeEditor
 {
-  private _control: any | null = null;
+  private _control: any = null;
   private _isMounted = false;
   private _availableWeights: number[] = [];
   private _divElement = React.createRef<HTMLDivElement>();

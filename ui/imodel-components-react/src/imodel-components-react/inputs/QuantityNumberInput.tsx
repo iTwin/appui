@@ -28,7 +28,6 @@ import {
   FormatType,
   Parser,
 } from "@itwin/core-quantity";
-import type { InputProps } from "@itwin/itwinui-react";
 import { Input } from "@itwin/itwinui-react";
 import {
   SvgCaretDown,
@@ -36,6 +35,8 @@ import {
   SvgCaretUp,
   SvgCaretUpSmall,
 } from "@itwin/itwinui-icons-react";
+
+type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
 /** Step function prototype for [[QuantityNumberInput]] component
  * @beta
@@ -384,16 +385,16 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
-      if (event.key === Key.Enter) {
+      if (event.key === Key.Enter.valueOf()) {
         updateValueFromString(event.currentTarget.value);
         event.preventDefault();
-      } else if (event.key === Key.Escape) {
+      } else if (event.key === Key.Escape.valueOf()) {
         setFormattedValue(formatValue(rawValueRef.current));
         event.preventDefault();
-      } else if (event.key === Key.ArrowDown) {
+      } else if (event.key === Key.ArrowDown.valueOf()) {
         applyStep(false);
         event.preventDefault();
-      } else if (event.key === Key.ArrowUp) {
+      } else if (event.key === Key.ArrowUp.valueOf()) {
         applyStep(true);
         event.preventDefault();
       }

@@ -10,129 +10,131 @@ $full-bar-width: calc(#{$nz-grip-width} * 0.5);
 $handle-width: calc(#{$nz-grip-width} + 1px);
 $line-grip-width: calc(#{$nz-grip-width} - 2px);
 
-.nz-widgetPanels-grip {
-  background-color: transparent;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  display: flex;
-  transition: 0.2s ease-out;
-
-  > .nz-handle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  &.nz-left {
-    transition-property: background-color, right;
-  }
-  &.nz-right {
-    transition-property: background-color, left;
-  }
-  &.nz-top {
-    transition-property: background-color, bottom;
-  }
-
-  &.nz-left,
-  &.nz-right {
-    flex-direction: column;
-    cursor: ew-resize;
-    width: $full-bar-width;
-    height: 100%;
+@layer appui.component {
+  .nz-widgetPanels-grip {
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    display: flex;
+    transition: 0.2s ease-out;
 
     > .nz-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &.nz-left {
+      transition-property: background-color, right;
+    }
+    &.nz-right {
+      transition-property: background-color, left;
+    }
+    &.nz-top {
+      transition-property: background-color, bottom;
+    }
+
+    &.nz-left,
+    &.nz-right {
+      flex-direction: column;
+      cursor: ew-resize;
+      width: $full-bar-width;
       height: 100%;
-      width: $handle-width;
+
+      > .nz-handle {
+        height: 100%;
+        width: $handle-width;
+      }
+    }
+
+    &.nz-top,
+    &.nz-bottom {
+      cursor: ns-resize;
+      width: 100%;
+      height: $full-bar-width;
+
+      > .nz-handle {
+        height: $handle-width;
+        width: 100%;
+      }
+    }
+
+    &:hover,
+    &.nz-resizing {
+      background-color: $buic-foreground-primary;
     }
   }
 
-  &.nz-top,
-  &.nz-bottom {
-    cursor: ns-resize;
-    width: 100%;
-    height: $full-bar-width;
+  .nz-line-grip {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease-out, height 0.2s ease-out, width 0.2s ease-out;
 
-    > .nz-handle {
-      height: $handle-width;
+    .nz-captured &,
+    .nz-widgetPanels-grip.nz-resizing &,
+    .nz-collapsed .nz-widgetPanels-grip:hover & {
+      opacity: 0;
+      height: 100%;
       width: 100%;
     }
-  }
 
-  &:hover,
-  &.nz-resizing {
-    background-color: $buic-foreground-primary;
-  }
-}
+    .nz-collapsed & {
+      display: flex;
+      background-color: $buic-background-5;
+      border: 1px solid var(--iui-color-border-subtle);
+      border-radius: 999px;
+      box-sizing: border-box;
+      opacity: 1;
+    }
 
-.nz-line-grip {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.2s ease-out, height 0.2s ease-out, width 0.2s ease-out;
+    .nz-left & {
+      transform: translateX($line-grip-translate);
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .nz-right & {
+      transform: translateX(calc(#{$line-grip-translate} * -1));
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .nz-top & {
+      transform: translateY($line-grip-translate);
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    .nz-bottom & {
+      transform: translateY(calc(#{$line-grip-translate} * -1));
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
 
-  .nz-captured &,
-  .nz-widgetPanels-grip.nz-resizing &,
-  .nz-collapsed .nz-widgetPanels-grip:hover & {
-    opacity: 0;
-    height: 100%;
-    width: 100%;
-  }
+    .nz-left &,
+    .nz-right & {
+      height: 20%;
+      width: $line-grip-width;
 
-  .nz-collapsed & {
-    display: flex;
-    background-color: $buic-background-5;
-    border: 1px solid var(--iui-color-border-subtle);
-    border-radius: 999px;
-    box-sizing: border-box;
-    opacity: 1;
-  }
+      .nz-line-grip-detail {
+        width: 1px;
+        height: 70%;
+      }
+    }
 
-  .nz-left & {
-    transform: translateX($line-grip-translate);
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  .nz-right & {
-    transform: translateX(calc(#{$line-grip-translate} * -1));
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .nz-top & {
-    transform: translateY($line-grip-translate);
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-  .nz-bottom & {
-    transform: translateY(calc(#{$line-grip-translate} * -1));
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
+    .nz-top &,
+    .nz-bottom & {
+      height: $line-grip-width;
+      width: 20%;
 
-  .nz-left &,
-  .nz-right & {
-    height: 20%;
-    width: $line-grip-width;
+      .nz-line-grip-detail {
+        width: 70%;
+        height: 1px;
+      }
+    }
 
     .nz-line-grip-detail {
-      width: 1px;
-      height: 70%;
+      background-color: var(--iui-color-border-subtle);
     }
-  }
-
-  .nz-top &,
-  .nz-bottom & {
-    height: $line-grip-width;
-    width: 20%;
-
-    .nz-line-grip-detail {
-      width: 70%;
-      height: 1px;
-    }
-  }
-
-  .nz-line-grip-detail {
-    background-color: var(--iui-color-border-subtle);
   }
 }

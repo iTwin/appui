@@ -32,7 +32,7 @@ import {
   StandardViewId,
   ViewRect,
 } from "@itwin/core-frontend";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents";
 import { TestUtils } from "../TestUtils";
 import { ViewportComponent } from "../../imodel-components-react/viewport/ViewportComponent";
@@ -316,8 +316,7 @@ describe("ViewportComponent", () => {
         screenViewportOverride={ScreenViewportMock}
       />
     );
-    await TestUtils.flushAsyncOperations();
-    spyLogger.called.should.false;
+    expect(spyLogger).to.not.have.been.called;
 
     globalViewId = "FakeId";
     component.rerender(
@@ -328,10 +327,9 @@ describe("ViewportComponent", () => {
         screenViewportOverride={ScreenViewportMock}
       />
     );
-    await TestUtils.flushAsyncOperations();
-    spyLogger.called.should.true;
-
-    (Logger.logError as any).restore();
+    await waitFor(() => {
+      expect(spyLogger).to.have.been.called;
+    });
   });
 
   it("should return viewport to viewportRef callback", async () => {

@@ -97,7 +97,8 @@ export class InternalUiShowHideManager {
   private static _showHidePanels: boolean = false;
   private static _showHideFooter: boolean = false;
   private static _inactivityTime: number = INACTIVITY_TIME_DEFAULT;
-  private static _timeout: NodeJS.Timeout;
+  private static _timeout: number;
+  private static _showUiTimeout: number | undefined;
   private static _useProximityOpacity: boolean = false;
   private static _snapWidgetOpacity: boolean = false;
 
@@ -226,7 +227,8 @@ export class InternalUiShowHideManager {
 
   /** Shows the Ui and resets the inactivity timer */
   public static showUiAndResetTimer() {
-    setTimeout(() => {
+    window.clearTimeout(this._showUiTimeout);
+    this._showUiTimeout = window.setTimeout(() => {
       InternalUiShowHideManager.showUi();
       InternalUiShowHideManager.resetTimer();
     });
@@ -234,19 +236,20 @@ export class InternalUiShowHideManager {
 
   /** Shows the Ui and cancels the inactivity timer */
   public static showUiAndCancelTimer() {
-    setTimeout(() => {
+    window.clearTimeout(this._showUiTimeout);
+    this._showUiTimeout = window.setTimeout(() => {
       InternalUiShowHideManager.showUi();
       InternalUiShowHideManager.cancelTimer();
     });
   }
 
   private static cancelTimer() {
-    clearTimeout(InternalUiShowHideManager._timeout);
+    window.clearTimeout(InternalUiShowHideManager._timeout);
   }
 
   private static resetTimer() {
     InternalUiShowHideManager.cancelTimer();
-    InternalUiShowHideManager._timeout = setTimeout(
+    InternalUiShowHideManager._timeout = window.setTimeout(
       InternalUiShowHideManager.hideUi,
       InternalUiShowHideManager._inactivityTime
     );
@@ -262,14 +265,15 @@ export class InternalUiShowHideManager {
 
   /** @internal */
   public static terminate() {
-    InternalUiShowHideManager.cancelTimer();
-    // Ensure that next use will have default values for tests.
-    InternalUiShowHideManager._isUiVisible = true;
-    InternalUiShowHideManager._autoHideUi = true;
-    InternalUiShowHideManager._showHidePanels = false;
-    InternalUiShowHideManager._showHideFooter = false;
-    InternalUiShowHideManager._inactivityTime = INACTIVITY_TIME_DEFAULT;
-    InternalUiShowHideManager._useProximityOpacity = false;
-    InternalUiShowHideManager._snapWidgetOpacity = false;
+    this.cancelTimer();
+    window.clearTimeout(this._showUiTimeout);
+    this._showUiTimeout = undefined;
+    this._isUiVisible = true;
+    this._autoHideUi = true;
+    this._showHidePanels = false;
+    this._showHideFooter = false;
+    this._inactivityTime = INACTIVITY_TIME_DEFAULT;
+    this._useProximityOpacity = false;
+    this._snapWidgetOpacity = false;
   }
 }

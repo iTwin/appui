@@ -23,7 +23,7 @@
     "yargs": "^17.6.2"
   },
   "devDependencies": {
-    "@itwin/build-tools": "^3.7.0",
+    "@itwin/build-tools": "^3.7.0 || ^4.0.0",
     "mocha": "^10.0.0"
   },
   "repository": {

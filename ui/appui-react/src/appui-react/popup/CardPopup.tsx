@@ -18,13 +18,18 @@ import type {
   RelativePosition,
 } from "@itwin/appui-abstract";
 import type { Orientation, SizeProps } from "@itwin/core-react";
-import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
+import {
+  DivWithOutsideClick,
+  FocusTrap,
+  MessageRenderer,
+  Point,
+  Size,
+} from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
 import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
 import type { PopupContentType, PopupPropsBase } from "./PopupManager";
 import { isReactContent, PopupManager } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
-import { MessageDiv } from "../messages/MessageSpan";
 import {
   Direction,
   PropertyValueRendererManager,
@@ -70,7 +75,7 @@ export class CardPopup extends React.PureComponent<
 
   private _handleKeyDown = (event: React.KeyboardEvent): void => {
     switch (event.key) {
-      case Key.Escape:
+      case Key.Escape.valueOf():
         this._cancel();
         break;
     }
@@ -151,7 +156,7 @@ export function Card(props: CardProps) {
   const content = isReactContent(props.content) ? (
     props.content.reactNode
   ) : (
-    <MessageDiv message={props.content} />
+    <MessageRenderer message={props.content} />
   );
 
   return (

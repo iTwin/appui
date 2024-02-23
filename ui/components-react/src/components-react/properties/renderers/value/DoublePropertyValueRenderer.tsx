@@ -24,7 +24,7 @@ export class DoublePropertyValueRenderer implements IPropertyValueRenderer {
   public canRender(record: PropertyRecord) {
     return (
       record.value.valueFormat === PropertyValueFormat.Primitive &&
-      record.property.typename === StandardTypeNames.Double
+      record.property.typename === StandardTypeNames.Double.valueOf()
     );
   }
 

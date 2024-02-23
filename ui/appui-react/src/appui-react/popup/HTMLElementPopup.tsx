@@ -9,12 +9,16 @@
 import * as React from "react";
 import type { OnCancelFunc, RelativePosition } from "@itwin/appui-abstract";
 import type { Orientation, SizeProps } from "@itwin/core-react";
-import { DivWithOutsideClick, Point, Size } from "@itwin/core-react";
+import {
+  DivWithOutsideClick,
+  MessageRenderer,
+  Point,
+  Size,
+} from "@itwin/core-react";
 import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
 import type { PopupPropsBase } from "./PopupManager";
 import { PopupManager } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
-import { MessageDiv } from "../messages/MessageSpan";
 
 /** @alpha */
 export interface HTMLElementPopupProps extends PopupPropsBase {
@@ -70,7 +74,7 @@ export class HTMLElementPopup extends React.PureComponent<
         onSizeKnown={this._onSizeKnown}
       >
         <DivWithOutsideClick onOutsideClick={this.props.onCancel}>
-          <MessageDiv message={this.props.element} />
+          <MessageRenderer message={this.props.element} />
         </DivWithOutsideClick>
       </PositionPopup>
     );

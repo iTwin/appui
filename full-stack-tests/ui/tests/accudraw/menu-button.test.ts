@@ -10,6 +10,6 @@ test("menu button test", async ({ page, baseURL }) => {
 
   await page.getByRole("button", { name: "AccuDraw", exact: true }).click();
 
-  const menuButton = page.locator(".uifw-menu-button > .iui-button");
+  const menuButton = page.locator(".uifw-menu-button > .uifw-square-button");
   await expect(menuButton).toHaveScreenshot();
 });

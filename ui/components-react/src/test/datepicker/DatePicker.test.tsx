@@ -22,7 +22,6 @@ describe("<DatePicker />", () => {
   });
 
   beforeEach(() => {
-    sinon.restore();
     renderSpy = sinon.spy();
   });
 

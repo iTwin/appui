@@ -32,6 +32,8 @@ for (const id of testIds) {
   test(`Editor ${id} default visual`, async ({ page, baseURL }) => {
     await openComponentExamples(page, baseURL);
 
+    // Avoid highlighting one of the editors.
+    await page.keyboard.press("Escape");
     await page.getByRole("button", { name: "Editor", exact: true }).click();
 
     const editors = page.locator(editorId(id)).first();

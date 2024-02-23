@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module Utilities
+ * @module Widget
  */
 
 import * as React from "react";
@@ -14,6 +14,7 @@ import { TabBarButton } from "../../layout/widget/Button";
 import { usePreviewFeatures } from "../PreviewFeatures";
 import { useLayout } from "../../layout/base/LayoutStore";
 import { PanelSideContext } from "../../layout/widget-panels/Panel";
+import type { WidgetFeature } from "../../layout/widget/Buttons";
 
 /** @internal */
 export function MoreButton(props: React.PropsWithChildren<{}>) {
@@ -26,11 +27,13 @@ export function MoreButton(props: React.PropsWithChildren<{}>) {
           {props.children}
         </WidgetActionDropdownContext.Provider>,
       ]}
-      offset={[0, 2]}
     >
-      <TabBarButton label="More actions" style={{ marginInline: "0.25em" }}>
-        <SvgMoreVertical />
-      </TabBarButton>
+      {/* TODO: offset is not available for DropdownMenu */}
+      <div style={{ height: "100%", display: "flex", marginInline: "0.25em" }}>
+        <TabBarButton label="More actions">
+          <SvgMoreVertical />
+        </TabBarButton>
+      </div>
     </DropdownMenu>
   );
 }
@@ -59,7 +62,7 @@ function CloseOnPanelCollapse() {
   return null;
 }
 
-const order = [
+const order: WidgetFeature[] = [
   "pin",
   "maximize",
   "popout",
@@ -69,12 +72,12 @@ const order = [
 ];
 
 /** @internal */
-export function useDropdownFeatures(buttons: string[]) {
+export function useDropdownFeatures(features: WidgetFeature[]) {
   const { widgetActionDropdown } = usePreviewFeatures();
   const threshold = widgetActionDropdown?.threshold ?? Infinity;
-  const isDropdown = buttons.length > threshold;
-  if (!isDropdown) return [buttons, false] as const;
-  const sorted = [...buttons].sort(
+  const isDropdown = features.length > threshold;
+  if (!isDropdown) return [features, false] as const;
+  const sorted = [...features].sort(
     (a, b) => order.indexOf(a) - order.indexOf(b)
   );
   return [sorted, true] as const;

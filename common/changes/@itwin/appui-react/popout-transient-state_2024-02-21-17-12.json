@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fixed null property access when `useTransientState` is used in a popout widget.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

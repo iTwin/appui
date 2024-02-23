@@ -6,21 +6,24 @@
  * @module Notification
  */
 
+import * as React from "react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { Tab, Tabs } from "@itwin/itwinui-react";
 import { Orientation } from "@itwin/core-react";
 import type { CommonProps } from "@itwin/itwinui-react/cjs/core/utils";
 import { Icon } from "@itwin/core-react";
 import * as React from "react";
+import type { CommonProps } from "@itwin/core-react";
+import { Icon, MessageRenderer } from "@itwin/core-react";
+import { Text } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
 import { MessageCenterDialog } from "../layout/footer/message-center/Dialog";
 import { MessageCenter } from "../layout/footer/message-center/Indicator";
 import { MessageCenterMessage } from "../layout/footer/message-center/Message";
 import { MessageManager } from "../messages/MessageManager";
-import { MessageDiv, MessageSpan } from "../messages/MessageSpan";
 import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
 import { StatusBar } from "../statusbar/StatusBar";
-import { useEffect, useState } from "react";
+import { useEffect, React.useState } from "react";
 
 /** Enum for the [[MessageCenterField]] active tab
  * @internal
@@ -55,14 +58,14 @@ export const MessageCenterField: any = (props: any) => {
   let _unloadMessagesUpdatedHandler: undefined | (() => void);
   let _removeOpenMessagesCenterHandler: undefined | (() => void);
 
-  const [activeTab, setActiveTab] = useState(
+  const [activeTab, setActiveTab] = React.useState(
     MessageCenterActiveTab.AllMessages
   );
-  const [target, setTarget] = useState(null);
-  const [messageCount, setMessageCount] = useState(
+  const [target, setTarget] = React.useState(null);
+  const [messageCount, setMessageCount] = React.useState(
     MessageManager.messages.length
   );
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = React.useState(true);
   const tooltip = `${messageCount} ${_title}`;
   const divStyle = { ...style, height: "100%" };
 
@@ -164,12 +167,11 @@ export const MessageCenterField: any = (props: any) => {
             key={index.toString()}
             icon={<Icon iconSpec={iconSpec} className={iconClassName} />}
           >
-            <MessageSpan message={message} />
+            <MessageRenderer message={message} useSpan />
             {details.detailedMessage && (
-              <MessageDiv
-                className="iui-text-small"
-                message={details.detailedMessage}
-              />
+              <Text variant="small">
+                <MessageRenderer message={details.detailedMessage} />
+              </Text>
             )}
           </MessageCenterMessage>
         );
@@ -210,7 +212,7 @@ export const MessageCenterField: any = (props: any) => {
           >
             {"content"}
           </Tabs>
-          {/* {getMessages()} */}
+          {getMessages()}
         </MessageCenterDialog>
       </StatusBar.Popup>
     </>

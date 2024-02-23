@@ -6,7 +6,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { IModelViewportControl, UiFramework } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
-import { AppUiDecorator } from "../AppUiDecorator";
+import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { createFrontstageProvider, removeProperty } from "../Utils";
 import { ToolSettingsStory } from "./ToolSettings";

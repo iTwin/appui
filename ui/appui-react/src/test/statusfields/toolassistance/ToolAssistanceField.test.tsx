@@ -7,8 +7,6 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import {
-  IModelApp,
-  NoRenderApp,
   ToolAssistance,
   ToolAssistanceImage,
   ToolAssistanceInputMethod,
@@ -22,11 +20,7 @@ import {
   ToolAssistanceField,
   UiFramework,
 } from "../../../appui-react";
-import TestUtils, {
-  selectorMatches,
-  storageMock,
-  userEvent,
-} from "../../TestUtils";
+import { selectorMatches, storageMock, userEvent } from "../../TestUtils";
 
 describe(`ToolAssistanceField`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -47,18 +41,6 @@ describe(`ToolAssistanceField`, () => {
   const uiSettingsStorage = new LocalStateStorage({
     localStorage: storageMock(),
   } as Window);
-
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  after(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
-  });
-
-  // cSpell:Ignore TOOLPROMPT
 
   it("Status Bar with ToolAssistanceField should mount", async () => {
     render(
@@ -103,15 +85,13 @@ describe(`ToolAssistanceField`, () => {
 
     await theUserTo.click(screen.getByRole("button"));
 
-    expect(screen.getByText("toolAssistance.promptAtCursor")).to.satisfy(
-      selectorMatches(".nz-footer-toolAssistance-item .iui-toggle-switch-label")
-    );
+    screen.getByText("toolAssistance.promptAtCursor");
 
     await theUserTo.click(
       screen.getByTitle(/Hello World!.*toolAssistance\.moreInfo/)
     );
 
-    expect(screen.queryByText("toolAssistance.promptAtCursor")).to.null;
+    expect(screen.queryByText("toolAssistance.promptAtCursor")).to.be.null;
   });
 
   it("passing isNew:true should use newDot", async () => {
@@ -799,7 +779,6 @@ describe(`ToolAssistanceField`, () => {
       </StatusBar>
     );
 
-    const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
       ToolAssistanceImage.CursorClick,
       "Click on something",
@@ -827,32 +806,18 @@ describe(`ToolAssistanceField`, () => {
       section1,
     ]);
 
+    const notifications = new AppNotificationManager();
     notifications.setToolAssistance(instructions);
 
     await theUserTo.click(screen.getByRole("button"));
 
-    expect(screen.getByText("toolAssistance.mouse")).to.satisfy(
-      selectorMatches(
-        ".nz-content .iui-tabs-wrapper .iui-tab.iui-active .iui-tab-label div"
-      )
-    );
-    expect(screen.getByText("mouseClick")).to.exist;
+    screen.getByText("toolAssistance.mouse");
+    screen.getByText("mouseClick");
     expect(screen.queryByText("fingerTouch")).to.be.null;
 
     const touchTab = screen.getByText("toolAssistance.touch");
-    expect(touchTab).to.satisfy(
-      selectorMatches(
-        ".nz-content .iui-tabs-wrapper .iui-tab:not(.iui-active) .iui-tab-label div"
-      )
-    );
-
     await theUserTo.click(touchTab);
-    expect(screen.getByText("toolAssistance.touch")).to.satisfy(
-      selectorMatches(
-        ".nz-content .iui-tabs-wrapper .iui-tab.iui-active .iui-tab-label div"
-      )
-    );
-    expect(screen.getByText("fingerTouch")).to.exist;
+    screen.getByText("fingerTouch");
     expect(screen.queryByText("mouseClick")).to.be.null;
   });
 

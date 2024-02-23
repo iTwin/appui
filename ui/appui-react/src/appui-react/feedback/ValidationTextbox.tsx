@@ -166,11 +166,11 @@ export class ValidationTextbox extends React.PureComponent<
     this.processValidateText(event.target as HTMLInputElement);
 
     switch (event.key) {
-      case Key.Escape:
+      case Key.Escape.valueOf():
         // istanbul ignore else
         if (this.props.onEscPressed) this.props.onEscPressed();
         break;
-      case Key.Enter:
+      case Key.Enter.valueOf():
         // istanbul ignore else
         if (this.props.onEnterPressed) this.props.onEnterPressed();
         break;

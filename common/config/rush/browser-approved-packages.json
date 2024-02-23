@@ -92,7 +92,7 @@
     },
     {
       "name": "@itwin/ecschema-metadata",
-      "allowedCategories": [ "frontend", "internal" ]
+      "allowedCategories": [ "frontend" ]
     },
     {
       "name": "@itwin/ecschema-rpcinterface-common",
@@ -155,10 +155,6 @@
       "allowedCategories": [ "internal" ]
     },
     {
-      "name": "@itwin/itwinui-icons",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
       "name": "@itwin/itwinui-icons-react",
       "allowedCategories": [ "frontend", "internal" ]
     },
@@ -173,14 +169,6 @@
     {
       "name": "@itwin/itwinui-variables",
       "allowedCategories": [ "frontend", "internal" ]
-    },
-    {
-      "name": "@itwin/map-layers",
-      "allowedCategories": [ "internal" ]
-    },
-    {
-      "name": "@itwin/map-layers-auth",
-      "allowedCategories": [ "internal" ]
     },
     {
       "name": "@itwin/presentation-common",
@@ -449,10 +437,6 @@
     {
       "name": "react-redux",
       "allowedCategories": [ "frontend", "internal" ]
-    },
-    {
-      "name": "react-test-renderer",
-      "allowedCategories": [ "frontend" ]
     },
     {
       "name": "react-transition-group",

@@ -55,7 +55,7 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
   ): ToolbarItem[] {
     /** Add a tool that displays tool settings  */
     if (
-      stageUsage === StageUsage.General &&
+      stageUsage === StageUsage.General.valueOf() &&
       toolbarUsage === ToolbarUsage.ContentManipulation &&
       toolbarOrientation === ToolbarOrientation.Horizontal
     ) {
@@ -72,7 +72,7 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
     }
     /** Add a tool that opens a dialog box  */
     if (
-      stageUsage === StageUsage.General &&
+      stageUsage === StageUsage.General.valueOf() &&
       toolbarUsage === ToolbarUsage.ContentManipulation &&
       toolbarOrientation === ToolbarOrientation.Vertical
     ) {
@@ -92,7 +92,7 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
     stageUsage: string
   ): StatusBarItem[] {
     const statusBarItems: StatusBarItem[] = [];
-    if (stageUsage === StageUsage.General) {
+    if (stageUsage === StageUsage.General.valueOf()) {
       statusBarItems.push(
         /** Add a status bar item that will open a dialog allow the user to set the active unit system used to display quantity values.  */
         StatusBarItemUtilities.createActionItem(

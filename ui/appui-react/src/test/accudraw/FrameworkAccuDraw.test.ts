@@ -4,14 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 import * as sinon from "sinon";
 import { expect } from "chai";
-import type { IModelAppOptions } from "@itwin/core-frontend";
 import {
   BeButtonEvent,
   CompassMode,
   CurrentState,
   IModelApp,
   ItemField,
-  NoRenderApp,
   RotationMode,
 } from "@itwin/core-frontend";
 import TestUtils, { storageMock } from "../TestUtils";
@@ -19,8 +17,6 @@ import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw"
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import { UiFramework } from "../../appui-react/UiFramework";
-
-// cspell:ignore dont uiadmin
 
 describe("FrameworkAccuDraw localStorage Wrapper", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(
@@ -40,18 +36,11 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
   });
 
   describe("FrameworkAccuDraw", () => {
-    before(async () => {
-      await TestUtils.initializeUiFramework();
-
-      const opts: IModelAppOptions = {};
-      opts.accuDraw = new FrameworkAccuDraw();
-      opts.uiAdmin = new FrameworkUiAdmin();
-      await NoRenderApp.startup(opts);
-    });
-
-    after(async () => {
-      await IModelApp.shutdown();
-      TestUtils.terminateUiFramework();
+    beforeEach(async () => {
+      const accuDraw = new FrameworkAccuDraw();
+      const uiAdmin = new FrameworkUiAdmin();
+      sinon.stub(IModelApp, "accuDraw").get(() => accuDraw);
+      sinon.stub(IModelApp, "uiAdmin").get(() => uiAdmin);
     });
 
     it("FrameworkAccuDraw.displayNotifications should set & return correctly", () => {

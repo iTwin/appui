@@ -1,12 +1,12 @@
 {
   "recommendations": [
-    "esbenp.prettier-vscode",
-    "streetsidesoftware.code-spell-checker",
     "dbaeumer.vscode-eslint",
-    "davidanson.vscode-markdownlint",
+    "esbenp.prettier-vscode",
     "mike-co.import-sorter",
     "ms-playwright.playwright",
     "Orta.vscode-jest",
-    "unifiedjs.vscode-mdx"
+    "streetsidesoftware.code-spell-checker",
+    "unifiedjs.vscode-mdx",
+    "yzhang.markdown-all-in-one"
   ]
 }

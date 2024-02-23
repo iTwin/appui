@@ -14,7 +14,7 @@ importers:
         specifier: ^1.0.34
         version: 1.0.34
       '@itwin/appui-abstract':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/appui-react':
         specifier: workspace:*
@@ -26,26 +26,29 @@ importers:
         specifier: workspace:*
         version: link:../../ui/components-react
       '@itwin/core-bentley':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-common':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/core-frontend':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-orbitgt@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/webgl-compatibility@3.8.0)
       '@itwin/core-geometry':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-orbitgt':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-quantity':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/core-react':
         specifier: workspace:*
         version: link:../../ui/core-react
+      '@itwin/imodel-components-react':
+        specifier: workspace:*
+        version: link:../../ui/imodel-components-react
       '@itwin/imodels-access-frontend':
         specifier: ^3.0.0
         version: 3.1.1(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)
@@ -53,11 +56,11 @@ importers:
         specifier: ^3.0.0
         version: 3.1.0
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
       react:
         specifier: ^17.0.0
         version: 17.0.2
@@ -69,7 +72,7 @@ importers:
         version: 7.2.9(react-dom@17.0.2)(react@17.0.2)
     devDependencies:
       '@itwin/build-tools':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@originjs/vite-plugin-commonjs':
         specifier: ~1.0.3
@@ -144,8 +147,8 @@ importers:
         specifier: ^15.8.1
         version: 15.8.1
       storybook:
-        specifier: ^7.4.6
-        version: 7.6.10
+        specifier: ^7.6.14
+        version: 7.6.17
       typescript:
         specifier: ~5.0.2
         version: 5.0.4
@@ -168,7 +171,7 @@ importers:
         specifier: ^1.0.34
         version: 1.0.34
       '@itwin/appui-abstract':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/appui-react':
         specifier: workspace:*
@@ -177,22 +180,22 @@ importers:
         specifier: workspace:*
         version: link:../../../ui/components-react
       '@itwin/core-bentley':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-common':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/core-frontend':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-orbitgt@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/webgl-compatibility@3.8.0)
       '@itwin/core-geometry':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-orbitgt':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-quantity':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/core-react':
         specifier: workspace:*
@@ -201,16 +204,19 @@ importers:
         specifier: workspace:*
         version: link:../../../ui/imodel-components-react
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
+      '@itwin/itwinui-react-v2':
+        specifier: npm:@itwin/itwinui-react@^2.11.11
+        version: /@itwin/itwinui-react@2.12.20(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
+        specifier: ^3.0.0
+        version: 3.1.0
       '@itwin/webgl-compatibility':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@reduxjs/toolkit':
         specifier: ^1.5.0
@@ -232,20 +238,17 @@ importers:
         version: 2.0.12
     devDependencies:
       '@itwin/build-tools':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/eslint-plugin':
-        specifier: ^4.0.0-dev.45
-        version: 4.0.0-dev.48(eslint@8.56.0)(typescript@5.0.4)
+        specifier: ^4.0.0-dev.52
+        version: 4.0.0-dev.52(eslint@8.56.0)(typescript@5.0.4)
       '@types/react':
         specifier: ^17.0.37
         version: 17.0.75
       '@types/react-redux':
         specifier: ^7.1.18
         version: 7.1.33
-      '@types/react-table':
-        specifier: ^7.7.0
-        version: 7.7.19
       cpx2:
         specifier: ^3.0.0
         version: 3.0.2
@@ -274,7 +277,7 @@ importers:
         specifier: ^1.0.34
         version: 1.0.34
       '@itwin/appui-abstract':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/appui-react':
         specifier: workspace:*
@@ -283,68 +286,65 @@ importers:
         specifier: workspace:*
         version: link:../appui-test-providers
       '@itwin/browser-authorization':
-        specifier: ^0.6.2
-        version: 0.6.2(@itwin/core-bentley@3.8.0)
+        specifier: ^1.1.0
+        version: 1.1.0(@itwin/core-bentley@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/components-react':
         specifier: workspace:*
         version: link:../../../ui/components-react
       '@itwin/core-backend':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/core-bentley':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-common':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/core-electron':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-backend@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/presentation-common@3.8.0)(electron@22.3.27)
       '@itwin/core-frontend':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-orbitgt@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/webgl-compatibility@3.8.0)
       '@itwin/core-geometry':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-mobile':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-backend@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/presentation-common@3.8.0)
       '@itwin/core-orbitgt':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-quantity':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/core-react':
         specifier: workspace:*
         version: link:../../../ui/core-react
-      '@itwin/ecschema-metadata':
-        specifier: ^3.7.0
-        version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-quantity@3.8.0)
       '@itwin/ecschema-rpcinterface-common':
-        specifier: ^3.7.0
-        version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/ecschema-metadata@3.8.0)
+        specifier: ^3.7.0 || ^4.0.0
+        version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/ecschema-rpcinterface-impl':
-        specifier: ^3.7.0
-        version: 3.8.0(@itwin/core-backend@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/ecschema-metadata@3.8.0)(@itwin/ecschema-rpcinterface-common@3.8.0)
+        specifier: ^3.7.0 || ^4.0.0
+        version: 3.8.0(@itwin/core-backend@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/ecschema-rpcinterface-common@3.8.0)
       '@itwin/editor-backend':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-backend@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/electron-authorization':
         specifier: ^0.11.0
         version: 0.11.0(@itwin/core-bentley@3.8.0)(electron@22.3.27)
       '@itwin/express-server':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-backend@3.8.0)
       '@itwin/frontend-devtools':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/core-orbitgt@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/webgl-compatibility@3.8.0)
       '@itwin/hypermodeling-frontend':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/imodel-browser-react':
-        specifier: 0.13.3
-        version: 0.13.3(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^1.2.2
+        version: 1.2.2(react-dom@17.0.2)(react@17.0.2)
       '@itwin/imodel-components-react':
         specifier: workspace:*
         version: link:../../../ui/imodel-components-react
@@ -361,28 +361,22 @@ importers:
         specifier: ^3.0.0
         version: 3.1.0
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
-      '@itwin/map-layers':
-        specifier: ^3.7.0
-        version: 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/appui-react@..+ui+appui-react)(@itwin/components-react@..+ui+components-react)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/core-react@..+ui+core-react)(@itwin/imodel-components-react@..+ui+imodel-components-react)(react-dom@17.0.2)(react@17.0.2)
-      '@itwin/map-layers-auth':
-        specifier: ^3.7.0
-        version: 3.8.0(@itwin/core-bentley@3.8.0)
+        specifier: ^3.0.0
+        version: 3.1.0
       '@itwin/presentation-common':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-quantity@3.8.0)
       '@itwin/reality-data-client':
         specifier: 0.9.0
         version: 0.9.0(@itwin/core-bentley@3.8.0)
       '@itwin/webgl-compatibility':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       classnames:
         specifier: 2.3.1
@@ -410,11 +404,11 @@ importers:
         specifier: ^5.0.3
         version: 5.0.7(react@17.0.2)(typescript@5.0.4)
       '@itwin/build-tools':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/eslint-plugin':
-        specifier: ^4.0.0-dev.45
-        version: 4.0.0-dev.48(eslint@8.56.0)(typescript@5.0.4)
+        specifier: ^4.0.0-dev.52
+        version: 4.0.0-dev.52(eslint@8.56.0)(typescript@5.0.4)
       '@itwin/itwins-client':
         specifier: ^1.2.0
         version: 1.2.1
@@ -482,7 +476,7 @@ importers:
         specifier: ^1.0.34
         version: 1.0.34
       '@itwin/appui-abstract':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/appui-react':
         specifier: workspace:*
@@ -494,79 +488,73 @@ importers:
         specifier: workspace:*
         version: link:../../../ui/components-react
       '@itwin/core-backend':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/core-bentley':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-common':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/core-electron':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-backend@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/presentation-common@3.8.0)(electron@22.3.27)
       '@itwin/core-frontend':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-orbitgt@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/webgl-compatibility@3.8.0)
       '@itwin/core-geometry':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-mobile':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-backend@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/presentation-common@3.8.0)
       '@itwin/core-orbitgt':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-quantity':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/core-react':
         specifier: workspace:*
         version: link:../../../ui/core-react
-      '@itwin/ecschema-metadata':
-        specifier: ^3.7.0
-        version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-quantity@3.8.0)
       '@itwin/ecschema-rpcinterface-common':
-        specifier: ^3.7.0
-        version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/ecschema-metadata@3.8.0)
+        specifier: ^3.7.0 || ^4.0.0
+        version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/ecschema-rpcinterface-impl':
-        specifier: ^3.7.0
-        version: 3.8.0(@itwin/core-backend@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/ecschema-metadata@3.8.0)(@itwin/ecschema-rpcinterface-common@3.8.0)
+        specifier: ^3.7.0 || ^4.0.0
+        version: 3.8.0(@itwin/core-backend@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/ecschema-rpcinterface-common@3.8.0)
       '@itwin/editor-backend':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-backend@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/express-server':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-backend@3.8.0)
       '@itwin/frontend-devtools':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/core-orbitgt@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/webgl-compatibility@3.8.0)
       '@itwin/hypermodeling-frontend':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/imodel-components-react':
         specifier: workspace:*
         version: link:../../../ui/imodel-components-react
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
-      '@itwin/map-layers':
-        specifier: ^3.7.0
-        version: 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/appui-react@..+ui+appui-react)(@itwin/components-react@..+ui+components-react)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/core-react@..+ui+core-react)(@itwin/imodel-components-react@..+ui+imodel-components-react)(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.0.0
+        version: 3.1.0
       '@itwin/presentation-common':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-quantity@3.8.0)
       '@itwin/reality-data-client':
         specifier: 0.9.0
         version: 0.9.0(@itwin/core-bentley@3.8.0)
       '@itwin/webgl-compatibility':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       classnames:
         specifier: 2.3.1
@@ -594,11 +582,11 @@ importers:
         specifier: ^5.0.3
         version: 5.0.7(react@17.0.2)(typescript@5.0.4)
       '@itwin/build-tools':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/eslint-plugin':
-        specifier: ^4.0.0-dev.45
-        version: 4.0.0-dev.48(eslint@8.56.0)(typescript@5.0.4)
+        specifier: ^4.0.0-dev.52
+        version: 4.0.0-dev.52(eslint@8.56.0)(typescript@5.0.4)
       '@types/node':
         specifier: 18.11.5
         version: 18.11.5
@@ -713,7 +701,7 @@ importers:
         version: 17.7.2
     devDependencies:
       '@itwin/build-tools':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       mocha:
         specifier: ^10.0.0
@@ -724,21 +712,21 @@ importers:
       '@bentley/icons-generic':
         specifier: ^1.0.34
         version: 1.0.34
-      '@itwin/itwinui-icons':
-        specifier: ^1.14.0
-        version: 1.16.0
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-illustrations-react':
         specifier: ^2.0.1
         version: 2.1.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
+      '@itwin/itwinui-react-v2':
+        specifier: npm:@itwin/itwinui-react@^2.11.11
+        version: /@itwin/itwinui-react@2.12.20(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
+        specifier: ^3.0.0
+        version: 3.1.0
       classnames:
         specifier: 2.3.1
         version: 2.3.1
@@ -765,49 +753,49 @@ importers:
         version: 4.5.0(@types/react@17.0.75)(immer@9.0.6)(react@17.0.2)
     devDependencies:
       '@itwin/appui-abstract':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/build-tools':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/components-react':
         specifier: workspace:*
         version: link:../components-react
       '@itwin/core-bentley':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-common':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/core-frontend':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-orbitgt@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/webgl-compatibility@3.8.0)
       '@itwin/core-geometry':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-orbitgt':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-quantity':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/core-react':
         specifier: workspace:*
         version: link:../core-react
       '@itwin/core-telemetry':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-geometry@3.8.0)
       '@itwin/ecschema-metadata':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-quantity@3.8.0)
       '@itwin/eslint-plugin':
-        specifier: ^4.0.0-dev.45
-        version: 4.0.0-dev.48(eslint@8.56.0)(typescript@5.0.4)
+        specifier: ^4.0.0-dev.52
+        version: 4.0.0-dev.52(eslint@8.56.0)(typescript@5.0.4)
       '@itwin/imodel-components-react':
         specifier: workspace:*
         version: link:../imodel-components-react
       '@itwin/webgl-compatibility':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@testing-library/dom':
         specifier: ^8.11.2
@@ -817,7 +805,7 @@ importers:
         version: 12.1.5(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/react-hooks':
         specifier: ^7.0.2
-        version: 7.0.2(react-dom@17.0.2)(react-test-renderer@17.0.2)(react@17.0.2)
+        version: 7.0.2(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/user-event':
         specifier: ^14.4.2
         version: 14.5.2(@testing-library/dom@8.20.1)
@@ -914,9 +902,6 @@ importers:
       react-redux:
         specifier: ^7.2.2
         version: 7.2.9(react-dom@17.0.2)(react@17.0.2)
-      react-test-renderer:
-        specifier: ^17.0.0
-        version: 17.0.2(react@17.0.2)
       redux:
         specifier: ^4.1.0
         version: 4.2.1
@@ -948,14 +933,14 @@ importers:
         specifier: ^1.0.34
         version: 1.0.34
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
+        specifier: ^3.0.0
+        version: 3.1.0
       '@types/shortid':
         specifier: ~0.0.29
         version: 0.0.32
@@ -988,29 +973,29 @@ importers:
         version: 2.0.12
     devDependencies:
       '@itwin/appui-abstract':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/build-tools':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-bentley':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-common':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/core-geometry':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-i18n':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/core-react':
         specifier: workspace:*
         version: link:../core-react
       '@itwin/eslint-plugin':
-        specifier: ^4.0.0-dev.45
-        version: 4.0.0-dev.48(eslint@8.56.0)(typescript@5.0.4)
+        specifier: ^4.0.0-dev.52
+        version: 4.0.0-dev.52(eslint@8.56.0)(typescript@5.0.4)
       '@testing-library/dom':
         specifier: ^8.11.2
         version: 8.20.1
@@ -1019,7 +1004,7 @@ importers:
         version: 12.1.5(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/react-hooks':
         specifier: ^7.0.2
-        version: 7.0.2(react-dom@17.0.2)(react-test-renderer@17.0.2)(react@17.0.2)
+        version: 7.0.2(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/user-event':
         specifier: ^14.4.2
         version: 14.5.2(@testing-library/dom@8.20.1)
@@ -1147,14 +1132,14 @@ importers:
         specifier: ^1.0.34
         version: 1.0.34
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
+        specifier: ^3.0.0
+        version: 3.1.0
       classnames:
         specifier: 2.3.1
         version: 2.3.1
@@ -1175,23 +1160,23 @@ importers:
         version: 2.0.12
     devDependencies:
       '@itwin/appui-abstract':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/build-tools':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-bentley':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-common':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/core-i18n':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/eslint-plugin':
-        specifier: ^4.0.0-dev.45
-        version: 4.0.0-dev.48(eslint@8.56.0)(typescript@5.0.4)
+        specifier: ^4.0.0-dev.52
+        version: 4.0.0-dev.52(eslint@8.56.0)(typescript@5.0.4)
       '@testing-library/dom':
         specifier: ^8.11.2
         version: 8.20.1
@@ -1200,7 +1185,7 @@ importers:
         version: 12.1.5(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/react-hooks':
         specifier: ^7.0.2
-        version: 7.0.2(react-dom@17.0.2)(react-test-renderer@17.0.2)(react@17.0.2)
+        version: 7.0.2(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/user-event':
         specifier: ^14.4.2
         version: 14.5.2(@testing-library/dom@8.20.1)
@@ -1279,9 +1264,6 @@ importers:
       react-dom:
         specifier: ^17.0.0
         version: 17.0.2(react@17.0.2)
-      react-test-renderer:
-        specifier: ^17.0.0
-        version: 17.0.2(react@17.0.2)
       rimraf:
         specifier: ^3.0.2
         version: 3.0.2
@@ -1300,6 +1282,9 @@ importers:
       typescript:
         specifier: ~5.0.2
         version: 5.0.4
+      upath:
+        specifier: ^2.0.1
+        version: 2.0.1
 
   ../../ui/imodel-components-react:
     dependencies:
@@ -1307,14 +1292,14 @@ importers:
         specifier: ^1.0.34
         version: 1.0.34
       '@itwin/itwinui-icons-react':
-        specifier: ^2.1.0
+        specifier: ^2.8.0
         version: 2.8.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-react':
-        specifier: ^2.11.11
-        version: 2.12.20(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^3.2.4
+        version: 3.5.0(react-dom@17.0.2)(react@17.0.2)
       '@itwin/itwinui-variables':
-        specifier: ^2.0.0
-        version: 2.1.2
+        specifier: ^3.0.0
+        version: 3.1.0
       classnames:
         specifier: 2.3.1
         version: 2.3.1
@@ -1323,40 +1308,40 @@ importers:
         version: 2.0.12
     devDependencies:
       '@itwin/appui-abstract':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/build-tools':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/components-react':
         specifier: workspace:*
         version: link:../components-react
       '@itwin/core-bentley':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-common':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/core-frontend':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-orbitgt@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/webgl-compatibility@3.8.0)
       '@itwin/core-geometry':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-orbitgt':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@itwin/core-quantity':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0(@itwin/core-bentley@3.8.0)
       '@itwin/core-react':
         specifier: workspace:*
         version: link:../core-react
       '@itwin/eslint-plugin':
-        specifier: ^4.0.0-dev.45
-        version: 4.0.0-dev.48(eslint@8.56.0)(typescript@5.0.4)
+        specifier: ^4.0.0-dev.52
+        version: 4.0.0-dev.52(eslint@8.56.0)(typescript@5.0.4)
       '@itwin/webgl-compatibility':
-        specifier: ^3.7.0
+        specifier: ^3.7.0 || ^4.0.0
         version: 3.8.0
       '@testing-library/dom':
         specifier: ^8.11.2
@@ -1366,7 +1351,7 @@ importers:
         version: 12.1.5(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/react-hooks':
         specifier: ^7.0.2
-        version: 7.0.2(react-dom@17.0.2)(react-test-renderer@17.0.2)(react@17.0.2)
+        version: 7.0.2(react-dom@17.0.2)(react@17.0.2)
       '@testing-library/user-event':
         specifier: ^14.4.2
         version: 14.5.2(@testing-library/dom@8.20.1)
@@ -1448,9 +1433,6 @@ importers:
       react-dom:
         specifier: ^17.0.0
         version: 17.0.2(react@17.0.2)
-      react-test-renderer:
-        specifier: ^17.0.0
-        version: 17.0.2(react@17.0.2)
       rimraf:
         specifier: ^3.0.2
         version: 3.0.2
@@ -1469,6 +1451,9 @@ importers:
       typescript:
         specifier: ~5.0.2
         version: 5.0.4
+      upath:
+        specifier: ^2.0.1
+        version: 2.0.1
 
 packages:
 
@@ -3418,11 +3403,11 @@ packages:
       react: 17.0.2
     dev: true
 
-  /@es-joy/jsdoccomment@0.38.0:
-    resolution: {integrity: sha512-TFac4Bnv0ZYNkEeDnOWHQhaS1elWlvOCQxH06iHeu5iffs+hCaLVIZJwF+FqksQi68R4i66Pu+4DfFGvble+Uw==}
+  /@es-joy/jsdoccomment@0.42.0:
+    resolution: {integrity: sha512-R1w57YlVA6+YE01wch3GPYn6bCsrOV3YW/5oGGE2tmX6JcL9Nr+b5IikrjMPF+v9CV3ay+obImEdsDhovhJrzw==}
     engines: {node: '>=16'}
     dependencies:
-      comment-parser: 1.3.1
+      comment-parser: 1.4.1
       esquery: 1.5.0
       jsdoc-type-pratt-parser: 4.0.0
     dev: true
@@ -3679,7 +3664,6 @@ packages:
     resolution: {integrity: sha512-O0WKDOo0yhJuugCx6trZQj5jVJ9yR0ystG2JaNAemYUWce+pmM6WUEFIibnWyEJKdrDxhm75NoSRME35FNaM/Q==}
     dependencies:
       '@floating-ui/utils': 0.2.1
-    dev: true
 
   /@floating-ui/dom@1.5.4:
     resolution: {integrity: sha512-jByEsHIY+eEdCjnTVu+E3ephzTOzkQ8hgUfGwos+bg7NlH33Zc5uO+QHz1mrQUOgIKKDD1RtS201P9NvAfq3XQ==}
@@ -3687,6 +3671,13 @@ packages:
       '@floating-ui/core': 1.5.3
       '@floating-ui/utils': 0.2.1
     dev: true
+
+  /@floating-ui/dom@1.6.3:
+    resolution: {integrity: sha512-RnDthu3mzPlQ31Ss/BTwQ1zjzIhr3lk1gZB1OC56h/1vEtaXkESrOqL5fQVMfXpwGtRwX+YsZBdyHtJMQnkArw==}
+    dependencies:
+      '@floating-ui/core': 1.5.3
+      '@floating-ui/utils': 0.2.1
+    dev: false
 
   /@floating-ui/react-dom@2.0.6(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-IB8aCRFxr8nFkdYZgH+Otd9EVQPJoynxeFRGTB8voPoZMRWo8XjYuCRgpI1btvuKY69XMiLnW+ym7zoBHM90Rw==}
@@ -3699,9 +3690,32 @@ packages:
       react-dom: 17.0.2(react@17.0.2)
     dev: true
 
+  /@floating-ui/react-dom@2.0.8(react-dom@17.0.2)(react@17.0.2):
+    resolution: {integrity: sha512-HOdqOt3R3OGeTKidaLvJKcgg75S6tibQ3Tif4eyd91QnIJWr0NLvoXFpJA/j8HqkFSL68GDca9AuyWEHlhyClw==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@floating-ui/dom': 1.6.3
+      react: 17.0.2
+      react-dom: 17.0.2(react@17.0.2)
+    dev: false
+
+  /@floating-ui/react@0.26.9(react-dom@17.0.2)(react@17.0.2):
+    resolution: {integrity: sha512-p86wynZJVEkEq2BBjY/8p2g3biQ6TlgT4o/3KgFKyTWoJLU1GZ8wpctwRqtkEl2tseYA+kw7dBAIDFcednfI5w==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@floating-ui/react-dom': 2.0.8(react-dom@17.0.2)(react@17.0.2)
+      '@floating-ui/utils': 0.2.1
+      react: 17.0.2
+      react-dom: 17.0.2(react@17.0.2)
+      tabbable: 6.2.0
+    dev: false
+
   /@floating-ui/utils@0.2.1:
     resolution: {integrity: sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==}
-    dev: true
 
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -3758,13 +3772,16 @@ packages:
       '@bentley/icons-generic-webfont': 1.0.34
       '@itwin/core-bentley': 3.8.0
 
-  /@itwin/browser-authorization@0.6.2(@itwin/core-bentley@3.8.0):
-    resolution: {integrity: sha512-ZBi6jBfEf9EvXczJhdJbncTjdFlaKB2ysUoL8+Z1JNmvEPeN+QZu54+XO5vpzzAilAS6w6QD/ISFHQv3wPRbmg==}
+  /@itwin/browser-authorization@1.1.0(@itwin/core-bentley@3.8.0)(@itwin/core-geometry@3.8.0):
+    resolution: {integrity: sha512-6OcNS8BAFYLjqD8GIwf9/V/0NGognS3EIEI4ki4ktq7ufgVzWMnLE9xK7EO5KusMI+iaH60MS2XZ9/jVecatFQ==}
     peerDependencies:
-      '@itwin/core-bentley': ^3.0.0
+      '@itwin/core-bentley': ^3.3.0 || ^4.0.0
     dependencies:
       '@itwin/core-bentley': 3.8.0
+      '@itwin/core-common': 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-geometry@3.8.0)
       oidc-client-ts: 2.4.0
+    transitivePeerDependencies:
+      - '@itwin/core-geometry'
     dev: false
 
   /@itwin/build-tools@3.8.0:
@@ -4012,8 +4029,9 @@ packages:
       '@itwin/core-bentley': 3.8.0
       '@itwin/core-quantity': 3.8.0(@itwin/core-bentley@3.8.0)
       almost-equal: 1.1.0
+    dev: true
 
-  /@itwin/ecschema-rpcinterface-common@3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/ecschema-metadata@3.8.0):
+  /@itwin/ecschema-rpcinterface-common@3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0):
     resolution: {integrity: sha512-t57J4fdTi/nBh38fZVPzpVs83v7IbevwOiqDvGuBYfhaQewkhGUu7QlMJty1+IZlp2Sh6bxEf7nfk9dI39lfZA==}
     peerDependencies:
       '@itwin/core-bentley': 3.8.0
@@ -4024,10 +4042,9 @@ packages:
       '@itwin/core-bentley': 3.8.0
       '@itwin/core-common': 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/core-geometry': 3.8.0
-      '@itwin/ecschema-metadata': 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-quantity@3.8.0)
     dev: false
 
-  /@itwin/ecschema-rpcinterface-impl@3.8.0(@itwin/core-backend@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/ecschema-metadata@3.8.0)(@itwin/ecschema-rpcinterface-common@3.8.0):
+  /@itwin/ecschema-rpcinterface-impl@3.8.0(@itwin/core-backend@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/ecschema-rpcinterface-common@3.8.0):
     resolution: {integrity: sha512-8azu4Zo5O1j8ZLn+SkpXxu0q8OprMGVzI9xRAuTEiwboASFlbnRf1HH18HZxXmTJKK0mu3WHR7PBxIKzAnc2nA==}
     peerDependencies:
       '@itwin/core-backend': 3.8.0
@@ -4041,8 +4058,7 @@ packages:
       '@itwin/core-bentley': 3.8.0
       '@itwin/core-common': 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-geometry@3.8.0)
       '@itwin/core-geometry': 3.8.0
-      '@itwin/ecschema-metadata': 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-quantity@3.8.0)
-      '@itwin/ecschema-rpcinterface-common': 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/ecschema-metadata@3.8.0)
+      '@itwin/ecschema-rpcinterface-common': 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)
     dev: false
 
   /@itwin/editor-backend@3.8.0(@itwin/core-backend@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0):
@@ -4089,28 +4105,27 @@ packages:
       - debug
     dev: false
 
-  /@itwin/eslint-plugin@4.0.0-dev.48(eslint@8.56.0)(typescript@5.0.4):
-    resolution: {integrity: sha512-+hZPrjt2/aKOvlde1AZMR23xvXk7wIEmkqBNWIzOjfvYCV+ndo/mFC9m8qRmpV5WwiMehKTG+lVY48CWUQrS5Q==}
+  /@itwin/eslint-plugin@4.0.0-dev.52(eslint@8.56.0)(typescript@5.0.4):
+    resolution: {integrity: sha512-y1X/+dRCxBJTZgJjQbKap/l7cAXx5MaRt1FWAsEzzJ48hEvUDBjLQfdtFXbjXRZWPyc1WQ2OyLnD4NnppsABOg==}
+    engines: {node: ^18.18.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
-      eslint: ^8.36.0
+      eslint: ^8.56.0
       typescript: ^3.7.0 || ^4.0.0 || ^5.0.0
     dependencies:
-      '@typescript-eslint/eslint-plugin': 5.55.0(@typescript-eslint/parser@5.55.0)(eslint@8.56.0)(typescript@5.0.4)
-      '@typescript-eslint/parser': 5.55.0(eslint@8.56.0)(typescript@5.0.4)
+      '@typescript-eslint/eslint-plugin': 7.0.2(@typescript-eslint/parser@7.0.2)(eslint@8.56.0)(typescript@5.0.4)
+      '@typescript-eslint/parser': 7.0.2(eslint@8.56.0)(typescript@5.0.4)
       eslint: 8.56.0
-      eslint-import-resolver-node: 0.3.4
-      eslint-import-resolver-typescript: 2.7.1(eslint-plugin-import@2.29.1)(eslint@8.56.0)
-      eslint-plugin-deprecation: 1.5.0(eslint@8.56.0)(typescript@5.0.4)
+      eslint-plugin-deprecation: 2.0.0(eslint@8.56.0)(typescript@5.0.4)
       eslint-plugin-import: 2.29.1(eslint@8.56.0)
       eslint-plugin-jam3: 0.2.3
-      eslint-plugin-jsdoc: 43.2.0(eslint@8.56.0)
+      eslint-plugin-jsdoc: 48.1.0(eslint@8.56.0)
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.56.0)
       eslint-plugin-prefer-arrow: 1.2.3(eslint@8.56.0)
       eslint-plugin-react: 7.33.2(eslint@8.56.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.56.0)
       typescript: 5.0.4
-      workspace-tools: 0.34.6
+      workspace-tools: 0.36.4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4162,14 +4177,14 @@ packages:
       '@itwin/core-geometry': 3.8.0
     dev: false
 
-  /@itwin/imodel-browser-react@0.13.3(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-v5dnHbQzn1uNODAjySVPWTDJxyWXRmm9kbL402aM7bFYDtTXUEQSHcRrAXx08v/rE3DOl2qc3SZR+b0FULlSYA==}
+  /@itwin/imodel-browser-react@1.2.2(react-dom@17.0.2)(react@17.0.2):
+    resolution: {integrity: sha512-seNRdo5zG2BWn9vIVVp/gl+iJRUtisVahsGHFNZX5c/sFepVTUywsfFqTsRn7ogohKDdHJsEMkff93fEQIXaFA==}
     peerDependencies:
       react: ^16.13.0 || ^17.0.2
       react-dom: ^16.13.0 || ^17.0.2
     dependencies:
-      '@itwin/itwinui-icons-react': 1.16.0(react-dom@17.0.2)(react@17.0.2)
-      '@itwin/itwinui-react': 1.48.3(react-dom@17.0.2)(react@17.0.2)
+      '@itwin/itwinui-icons-react': 2.8.0(react-dom@17.0.2)(react@17.0.2)
+      '@itwin/itwinui-react': 2.12.20(react-dom@17.0.2)(react@17.0.2)
       classnames: 2.3.1
       react: 17.0.2
       react-dom: 17.0.2(react@17.0.2)
@@ -4237,46 +4252,8 @@ packages:
       - debug
     dev: true
 
-  /@itwin/itwinui-css@0.63.3:
-    resolution: {integrity: sha512-uP6yE903hJeO5R/cbbx0P+42liJmngXNTV3G+ZytAkf7PIgekmaTHQe7kJWyffp/tX6Y56Er0wZdW8Baa8OZ5g==}
-    dev: false
-
-  /@itwin/itwinui-icons-color-react@1.0.3(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-TGIv0AAYCUKDadl2AnwndzorTOocCYtfMbL3aVmfeFsAq8WqNGSqP7yi3D8opWqdhLXjO/yBzbz9PsaOpxvnaw==}
-    peerDependencies:
-      react: '>=16.8.6'
-      react-dom: '>=16.8.6'
-    dependencies:
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
-    dev: false
-
-  /@itwin/itwinui-icons-react@1.16.0(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-0jlfxz+8qy2h13UuVfh5mgtK3NCv5hagphcjPA4XC4Qe4FDG9p3ku50jLTXyBOTZTZWrd7aTMdZjrMIlJyEMbw==}
-    peerDependencies:
-      react: '>=16.8.6'
-      react-dom: '>=16.8.6'
-    dependencies:
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
-    dev: false
-
   /@itwin/itwinui-icons-react@2.8.0(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-FMXUrDFC7U827/QJNE603+FL6OvIngFss5B9YTSCXcrWuwVLAzJ+sFb+RQ/I1sc19qujYBkZ9asNqlHXM2O4Cg==}
-    peerDependencies:
-      react: '>=16.8.6'
-      react-dom: '>=16.8.6'
-    dependencies:
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
-    dev: false
-
-  /@itwin/itwinui-icons@1.16.0:
-    resolution: {integrity: sha512-m3s28MitTRtCo7hAIjMB7787KGsjvPhxN9QucmTaKXxDJLahb51fqq4YXgZBpyLw39tbAMETXmbdEdzN6HnK4w==}
-    dev: false
-
-  /@itwin/itwinui-illustrations-react@1.3.1(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-hIZwYwd1qmyjt5yiL8Lg6E3CpgeLxGOnb4dVktoM+h3h5zSmgjhm2qFk+RqgsqV+dy0Fb2cs1jH4Jup9jWY9pA==}
     peerDependencies:
       react: '>=16.8.6'
       react-dom: '>=16.8.6'
@@ -4293,25 +4270,6 @@ packages:
     dependencies:
       react: 17.0.2
       react-dom: 17.0.2(react@17.0.2)
-    dev: false
-
-  /@itwin/itwinui-react@1.48.3(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-8DDKxmo8a65Iu42mnZsMI/n2KleXLk7miLYOQXwcZYIas6ScFR91BF5+Qv9Ve70c1KyX7oWKnZJ/uDZGUKo6qw==}
-    peerDependencies:
-      react: '>=16.8.6 < 19.0.0'
-      react-dom: '>=16.8.6 < 19.0.0'
-    dependencies:
-      '@itwin/itwinui-css': 0.63.3
-      '@itwin/itwinui-icons-react': 1.16.0(react-dom@17.0.2)(react@17.0.2)
-      '@itwin/itwinui-illustrations-react': 1.3.1(react-dom@17.0.2)(react@17.0.2)
-      '@tippyjs/react': 4.2.6(react-dom@17.0.2)(react@17.0.2)
-      '@types/react-table': 7.7.19
-      classnames: 2.3.1
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
-      react-table: 7.8.0(react@17.0.2)
-      react-transition-group: 4.4.5(react-dom@17.0.2)(react@17.0.2)
-      tippy.js: 6.3.7
     dev: false
 
   /@itwin/itwinui-react@2.12.20(react-dom@17.0.2)(react@17.0.2):
@@ -4331,52 +4289,24 @@ packages:
       tippy.js: 6.3.7
     dev: false
 
-  /@itwin/itwinui-variables@2.1.2:
-    resolution: {integrity: sha512-bwaoiqJdPvMCEhccXh5jE/uF83IoHaHofURZV62t9BEhKXW0LF+iaAwCPC+G4Sttgs6tUtqEGsPqj5RnbdipsQ==}
-    dev: false
-
-  /@itwin/map-layers-auth@3.8.0(@itwin/core-bentley@3.8.0):
-    resolution: {integrity: sha512-8MpaNv7+BY9QHGi1SlLGTJUzFM/3P5LqwcCDfk50/HOhSvm2/9+I1oI7U/ZSI7VKFVtpo9ufY9zSbmQ+s+1oHA==}
+  /@itwin/itwinui-react@3.5.0(react-dom@17.0.2)(react@17.0.2):
+    resolution: {integrity: sha512-Xtdq8e4OzQiN0wGa9MRn92tdgp3jk7ITIMlV2hcFoZs16p6pBJVChhpX0ayA6wSDauT6cLg+0dK9K+24TEdQYw==}
     peerDependencies:
-      '@itwin/core-bentley': 3.8.0
+      react: '>= 17.0.0 < 19.0.0'
+      react-dom: '>=17.0.0 < 19.0.0'
     dependencies:
-      '@itwin/core-bentley': 3.8.0
-    dev: false
-
-  /@itwin/map-layers@3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/appui-react@..+ui+appui-react)(@itwin/components-react@..+ui+components-react)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-frontend@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/core-react@..+ui+core-react)(@itwin/imodel-components-react@..+ui+imodel-components-react)(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-FfRXCWWmkkHtfo2wqrJe3yPZhk7pUgCgYcc81YSxbKotpQIdkJc/5j5MQ57+age8+AQ64wSKJKAZVb3FMYe+Kw==}
-    peerDependencies:
-      '@itwin/appui-abstract': ^3.8.0
-      '@itwin/appui-layout-react': ^3.8.0
-      '@itwin/appui-react': ^3.8.0
-      '@itwin/components-react': ^3.8.0
-      '@itwin/core-bentley': ^3.8.0
-      '@itwin/core-common': ^3.8.0
-      '@itwin/core-frontend': ^3.8.0
-      '@itwin/core-geometry': ^3.8.0
-      '@itwin/core-quantity': ^3.8.0
-      '@itwin/core-react': ^3.8.0
-      '@itwin/imodel-components-react': ^3.8.0
-      react: ^17.0.0
-      react-dom: ^17.0.0
-    dependencies:
-      '@itwin/appui-abstract': 3.8.0(@itwin/core-bentley@3.8.0)
-      '@itwin/appui-react': link:../../ui/appui-react
-      '@itwin/components-react': link:../../ui/components-react
-      '@itwin/core-bentley': 3.8.0
-      '@itwin/core-common': 3.8.0(@itwin/core-bentley@3.8.0)(@itwin/core-geometry@3.8.0)
-      '@itwin/core-frontend': 3.8.0(@itwin/appui-abstract@3.8.0)(@itwin/core-bentley@3.8.0)(@itwin/core-common@3.8.0)(@itwin/core-geometry@3.8.0)(@itwin/core-orbitgt@3.8.0)(@itwin/core-quantity@3.8.0)(@itwin/webgl-compatibility@3.8.0)
-      '@itwin/core-geometry': 3.8.0
-      '@itwin/core-quantity': 3.8.0(@itwin/core-bentley@3.8.0)
-      '@itwin/core-react': link:../../ui/core-react
-      '@itwin/imodel-components-react': link:../../ui/imodel-components-react
-      '@itwin/itwinui-icons-color-react': 1.0.3(react-dom@17.0.2)(react@17.0.2)
-      classnames: 2.3.1
+      '@floating-ui/react': 0.26.9(react-dom@17.0.2)(react@17.0.2)
+      '@itwin/itwinui-illustrations-react': 2.1.0(react-dom@17.0.2)(react@17.0.2)
+      classnames: 2.5.1
       react: 17.0.2
-      react-beautiful-dnd: 13.1.1(react-dom@17.0.2)(react@17.0.2)
       react-dom: 17.0.2(react@17.0.2)
-    transitivePeerDependencies:
-      - react-native
+      react-table: 7.8.0(react@17.0.2)
+      react-transition-group: 4.4.5(react-dom@17.0.2)(react@17.0.2)
+      tslib: 2.6.2
+    dev: false
+
+  /@itwin/itwinui-variables@3.1.0:
+    resolution: {integrity: sha512-CHCS+hkaO4c0SUT1Lgi23Gpy8d/fZZKXCyd907c+a5wf8JAOtFQbuCa566YJS+08QDP11Jr+mzDDAMF1Yhk3yg==}
     dev: false
 
   /@itwin/object-storage-azure@1.6.0:
@@ -5042,7 +4972,7 @@ packages:
       resolve: 1.17.0
       semver: 7.3.8
       source-map: 0.6.1
-      typescript: 4.4.4
+      typescript: 4.6.4
     dev: true
 
   /@microsoft/tsdoc-config@0.16.2:
@@ -6124,13 +6054,13 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/builder-manager@7.6.10:
-    resolution: {integrity: sha512-f+YrjZwohGzvfDtH8BHzqM3xW0p4vjjg9u7uzRorqUiNIAAKHpfNrZ/WvwPlPYmrpAHt4xX/nXRJae4rFSygPw==}
+  /@storybook/builder-manager@7.6.17:
+    resolution: {integrity: sha512-Sj8hcDYiPCCMfeLzus37czl0zdrAxAz4IyYam2jBjVymrIrcDAFyL1OCZvnq33ft179QYQWhUs9qwzVmlR/ZWg==}
     dependencies:
       '@fal-works/esbuild-plugin-global-externals': 2.1.2
-      '@storybook/core-common': 7.6.10
-      '@storybook/manager': 7.6.10
-      '@storybook/node-logger': 7.6.10
+      '@storybook/core-common': 7.6.17
+      '@storybook/manager': 7.6.17
+      '@storybook/node-logger': 7.6.17
       '@types/ejs': 3.1.5
       '@types/find-cache-dir': 3.2.1
       '@yarnpkg/esbuild-plugin-pnp': 3.0.0-rc.15(esbuild@0.18.20)
@@ -6197,22 +6127,33 @@ packages:
       tiny-invariant: 1.3.1
     dev: true
 
-  /@storybook/cli@7.6.10:
-    resolution: {integrity: sha512-pK1MEseMm73OMO2OVoSz79QWX8ymxgIGM8IeZTCo9gImiVRChMNDFYcv8yPWkjuyesY8c15CoO48aR7pdA1OjQ==}
+  /@storybook/channels@7.6.17:
+    resolution: {integrity: sha512-GFG40pzaSxk1hUr/J/TMqW5AFDDPUSu+HkeE/oqSWJbOodBOLJzHN6CReJS6y1DjYSZLNFt1jftPWZZInG/XUA==}
+    dependencies:
+      '@storybook/client-logger': 7.6.17
+      '@storybook/core-events': 7.6.17
+      '@storybook/global': 5.0.0
+      qs: 6.11.2
+      telejson: 7.2.0
+      tiny-invariant: 1.3.1
+    dev: true
+
+  /@storybook/cli@7.6.17:
+    resolution: {integrity: sha512-1sCo+nCqyR+nKfTcEidVu8XzNoECC7Y1l+uW38/r7s2f/TdDorXaIGAVrpjbSaXSoQpx5DxYJVaKCcQuOgqwcA==}
     hasBin: true
     dependencies:
       '@babel/core': 7.23.7
       '@babel/preset-env': 7.23.8(@babel/core@7.23.7)
       '@babel/types': 7.23.6
       '@ndelangen/get-tarball': 3.0.9
-      '@storybook/codemod': 7.6.10
-      '@storybook/core-common': 7.6.10
-      '@storybook/core-events': 7.6.10
-      '@storybook/core-server': 7.6.10
-      '@storybook/csf-tools': 7.6.10
-      '@storybook/node-logger': 7.6.10
-      '@storybook/telemetry': 7.6.10
-      '@storybook/types': 7.6.10
+      '@storybook/codemod': 7.6.17
+      '@storybook/core-common': 7.6.17
+      '@storybook/core-events': 7.6.17
+      '@storybook/core-server': 7.6.17
+      '@storybook/csf-tools': 7.6.17
+      '@storybook/node-logger': 7.6.17
+      '@storybook/telemetry': 7.6.17
+      '@storybook/types': 7.6.17
       '@types/semver': 7.5.6
       '@yarnpkg/fslib': 2.10.3
       '@yarnpkg/libzip': 2.3.0
@@ -6236,7 +6177,7 @@ packages:
       prompts: 2.4.2
       puppeteer-core: 2.1.1
       read-pkg-up: 7.0.1
-      semver: 7.5.4
+      semver: 7.6.0
       strip-json-comments: 3.1.1
       tempy: 1.0.1
       ts-dedent: 2.2.0
@@ -6254,16 +6195,22 @@ packages:
       '@storybook/global': 5.0.0
     dev: true
 
-  /@storybook/codemod@7.6.10:
-    resolution: {integrity: sha512-pzFR0nocBb94vN9QCJLC3C3dP734ZigqyPmd0ZCDj9Xce2ytfHK3v1lKB6TZWzKAZT8zztauECYxrbo4LVuagw==}
+  /@storybook/client-logger@7.6.17:
+    resolution: {integrity: sha512-6WBYqixAXNAXlSaBWwgljWpAu10tPRBJrcFvx2gPUne58EeMM20Gi/iHYBz2kMCY+JLAgeIH7ZxInqwO8vDwiQ==}
+    dependencies:
+      '@storybook/global': 5.0.0
+    dev: true
+
+  /@storybook/codemod@7.6.17:
+    resolution: {integrity: sha512-JuTmf2u3C4fCnjO7o3dqRgrq3ozNYfWlrRP8xuIdvT7niMap7a396hJtSKqS10FxCgKFcMAOsRgrCalH1dWxUg==}
     dependencies:
       '@babel/core': 7.23.7
       '@babel/preset-env': 7.23.8(@babel/core@7.23.7)
       '@babel/types': 7.23.6
       '@storybook/csf': 0.1.2
-      '@storybook/csf-tools': 7.6.10
-      '@storybook/node-logger': 7.6.10
-      '@storybook/types': 7.6.10
+      '@storybook/csf-tools': 7.6.17
+      '@storybook/node-logger': 7.6.17
+      '@storybook/types': 7.6.17
       '@types/cross-spawn': 6.0.6
       cross-spawn: 7.0.3
       globby: 11.1.0
@@ -6336,30 +6283,67 @@ packages:
       - supports-color
     dev: true
 
+  /@storybook/core-common@7.6.17:
+    resolution: {integrity: sha512-me2TP3Q9/qzqCLoDHUSsUF+VS1MHxfHbTVF6vAz0D/COTxzsxLpu9TxTbzJoBCxse6XRb6wWI1RgF1mIcjic7g==}
+    dependencies:
+      '@storybook/core-events': 7.6.17
+      '@storybook/node-logger': 7.6.17
+      '@storybook/types': 7.6.17
+      '@types/find-cache-dir': 3.2.1
+      '@types/node': 18.11.5
+      '@types/node-fetch': 2.6.11
+      '@types/pretty-hrtime': 1.0.3
+      chalk: 4.1.2
+      esbuild: 0.18.20
+      esbuild-register: 3.5.0(esbuild@0.18.20)
+      file-system-cache: 2.3.0
+      find-cache-dir: 3.3.2
+      find-up: 5.0.0
+      fs-extra: 11.2.0
+      glob: 10.2.7
+      handlebars: 4.7.8
+      lazy-universal-dotenv: 4.0.0
+      node-fetch: 2.7.0
+      picomatch: 2.3.1
+      pkg-dir: 5.0.0
+      pretty-hrtime: 1.0.3
+      resolve-from: 5.0.0
+      ts-dedent: 2.2.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: true
+
   /@storybook/core-events@7.6.10:
     resolution: {integrity: sha512-yccDH67KoROrdZbRKwxgTswFMAco5nlCyxszCDASCLygGSV2Q2e+YuywrhchQl3U6joiWi3Ps1qWu56NeNafag==}
     dependencies:
       ts-dedent: 2.2.0
     dev: true
 
-  /@storybook/core-server@7.6.10:
-    resolution: {integrity: sha512-2icnqJkn3vwq0eJPP0rNaHd7IOvxYf5q4lSVl2AWTxo/Ae19KhokI6j/2vvS2XQJMGQszwshlIwrZUNsj5p0yw==}
+  /@storybook/core-events@7.6.17:
+    resolution: {integrity: sha512-AriWMCm/k1cxlv10f+jZ1wavThTRpLaN3kY019kHWbYT9XgaSuLU67G7GPr3cGnJ6HuA6uhbzu8qtqVCd6OfXA==}
+    dependencies:
+      ts-dedent: 2.2.0
+    dev: true
+
+  /@storybook/core-server@7.6.17:
+    resolution: {integrity: sha512-KWGhTTaL1Q14FolcoKKZgytlPJUbH6sbJ1Ptj/84EYWFewcnEgVs0Zlnh1VStRZg+Rd1WC1V4yVd/bbDzxrvQA==}
     dependencies:
       '@aw-web-design/x-default-browser': 1.4.126
       '@discoveryjs/json-ext': 0.5.7
-      '@storybook/builder-manager': 7.6.10
-      '@storybook/channels': 7.6.10
-      '@storybook/core-common': 7.6.10
-      '@storybook/core-events': 7.6.10
+      '@storybook/builder-manager': 7.6.17
+      '@storybook/channels': 7.6.17
+      '@storybook/core-common': 7.6.17
+      '@storybook/core-events': 7.6.17
       '@storybook/csf': 0.1.2
-      '@storybook/csf-tools': 7.6.10
+      '@storybook/csf-tools': 7.6.17
       '@storybook/docs-mdx': 0.1.0
       '@storybook/global': 5.0.0
-      '@storybook/manager': 7.6.10
-      '@storybook/node-logger': 7.6.10
-      '@storybook/preview-api': 7.6.10
-      '@storybook/telemetry': 7.6.10
-      '@storybook/types': 7.6.10
+      '@storybook/manager': 7.6.17
+      '@storybook/node-logger': 7.6.17
+      '@storybook/preview-api': 7.6.17
+      '@storybook/telemetry': 7.6.17
+      '@storybook/types': 7.6.17
       '@types/detect-port': 1.3.5
       '@types/node': 18.11.5
       '@types/pretty-hrtime': 1.0.3
@@ -6372,13 +6356,13 @@ packages:
       express: 4.18.2
       fs-extra: 11.2.0
       globby: 11.1.0
-      ip: 2.0.0
+      ip: 2.0.1
       lodash: 4.17.21
       open: 8.4.2
       pretty-hrtime: 1.0.3
       prompts: 2.4.2
       read-pkg-up: 7.0.1
-      semver: 7.5.4
+      semver: 7.6.0
       telejson: 7.2.0
       tiny-invariant: 1.3.1
       ts-dedent: 2.2.0
@@ -6411,6 +6395,22 @@ packages:
       '@babel/types': 7.23.6
       '@storybook/csf': 0.1.2
       '@storybook/types': 7.6.10
+      fs-extra: 11.2.0
+      recast: 0.23.4
+      ts-dedent: 2.2.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@storybook/csf-tools@7.6.17:
+    resolution: {integrity: sha512-dAQtam0EBPeTJYcQPLxXgz4L9JFqD+HWbLFG9CmNIhMMjticrB0mpk1EFIS6vPXk/VsVWpBgMLD7dZlD6YMKcQ==}
+    dependencies:
+      '@babel/generator': 7.23.6
+      '@babel/parser': 7.23.6
+      '@babel/traverse': 7.23.7
+      '@babel/types': 7.23.6
+      '@storybook/csf': 0.1.2
+      '@storybook/types': 7.6.17
       fs-extra: 11.2.0
       recast: 0.23.4
       ts-dedent: 2.2.0
@@ -6475,8 +6475,8 @@ packages:
       - react-dom
     dev: true
 
-  /@storybook/manager@7.6.10:
-    resolution: {integrity: sha512-Co3sLCbNYY6O4iH2ggmRDLCPWLj03JE5s/DOG8OVoXc6vBwTc/Qgiyrsxxp6BHQnPpM0mxL6aKAxE3UjsW/Nog==}
+  /@storybook/manager@7.6.17:
+    resolution: {integrity: sha512-A1LDDIqMpwRzq/dqkbbiza0QI04o4ZHCl2a3UMDZUV/+QLc2nsr2DAaLk4CVL4/cIc5zGqmIcaOTvprx2YKVBw==}
     dev: true
 
   /@storybook/mdx2-csf@1.1.0:
@@ -6485,6 +6485,10 @@ packages:
 
   /@storybook/node-logger@7.6.10:
     resolution: {integrity: sha512-ZBuqrv4bjJzKXyfRGFkVIi+z6ekn6rOPoQao4KmsfLNQAUUsEdR8Baw/zMnnU417zw5dSEaZdpuwx75SCQAeOA==}
+    dev: true
+
+  /@storybook/node-logger@7.6.17:
+    resolution: {integrity: sha512-w59MQuXhhUNrUVmVkXhMwIg2nvFWjdDczLTwYLorhfsE36CWeUOY5QCZWQy0Qf/h+jz8Uo7Evy64qn18v9C4wA==}
     dev: true
 
   /@storybook/postinstall@7.6.10:
@@ -6500,6 +6504,25 @@ packages:
       '@storybook/csf': 0.1.2
       '@storybook/global': 5.0.0
       '@storybook/types': 7.6.10
+      '@types/qs': 6.9.11
+      dequal: 2.0.3
+      lodash: 4.17.21
+      memoizerific: 1.11.3
+      qs: 6.11.2
+      synchronous-promise: 2.0.17
+      ts-dedent: 2.2.0
+      util-deprecate: 1.0.2
+    dev: true
+
+  /@storybook/preview-api@7.6.17:
+    resolution: {integrity: sha512-wLfDdI9RWo1f2zzFe54yRhg+2YWyxLZvqdZnSQ45mTs4/7xXV5Wfbv3QNTtcdw8tT3U5KRTrN1mTfTCiRJc0Kw==}
+    dependencies:
+      '@storybook/channels': 7.6.17
+      '@storybook/client-logger': 7.6.17
+      '@storybook/core-events': 7.6.17
+      '@storybook/csf': 0.1.2
+      '@storybook/global': 5.0.0
+      '@storybook/types': 7.6.17
       '@types/qs': 6.9.11
       dequal: 2.0.3
       lodash: 4.17.21
@@ -6599,12 +6622,12 @@ packages:
       qs: 6.11.2
     dev: true
 
-  /@storybook/telemetry@7.6.10:
-    resolution: {integrity: sha512-p3mOSUtIyy2tF1z6pQXxNh1JzYFcAm97nUgkwLzF07GfEdVAPM+ftRSLFbD93zVvLEkmLTlsTiiKaDvOY/lQWg==}
+  /@storybook/telemetry@7.6.17:
+    resolution: {integrity: sha512-WOcOAmmengYnGInH98Px44F47DSpLyk20BM+Z/IIQDzfttGOLlxNqBBG1XTEhNRn+AYuk4aZ2JEed2lCjVIxcA==}
     dependencies:
-      '@storybook/client-logger': 7.6.10
-      '@storybook/core-common': 7.6.10
-      '@storybook/csf-tools': 7.6.10
+      '@storybook/client-logger': 7.6.17
+      '@storybook/core-common': 7.6.17
+      '@storybook/csf-tools': 7.6.17
       chalk: 4.1.2
       detect-package-manager: 2.0.1
       fetch-retry: 5.0.6
@@ -6641,6 +6664,15 @@ packages:
     resolution: {integrity: sha512-hcS2HloJblaMpCAj2axgGV+53kgSRYPT0a1PG1IHsZaYQILfHSMmBqM8XzXXYTsgf9250kz3dqFX1l0n3EqMlQ==}
     dependencies:
       '@storybook/channels': 7.6.10
+      '@types/babel__core': 7.20.5
+      '@types/express': 4.17.21
+      file-system-cache: 2.3.0
+    dev: true
+
+  /@storybook/types@7.6.17:
+    resolution: {integrity: sha512-GRY0xEJQ0PrL7DY2qCNUdIfUOE0Gsue6N+GBJw9ku1IUDFLJRDOF+4Dx2BvYcVCPI5XPqdWKlEyZdMdKjiQN7Q==}
+    dependencies:
+      '@storybook/channels': 7.6.17
       '@types/babel__core': 7.20.5
       '@types/express': 4.17.21
       file-system-cache: 2.3.0
@@ -6842,7 +6874,7 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
-  /@testing-library/react-hooks@7.0.2(react-dom@17.0.2)(react-test-renderer@17.0.2)(react@17.0.2):
+  /@testing-library/react-hooks@7.0.2(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-dYxpz8u9m4q1TuzfcUApqi8iFfR6R0FaMbr2hjZJy1uC8z+bO/K4v8Gs9eogGKYQop7QsrBTFkv/BCF7MzD2Cg==}
     engines: {node: '>=12'}
     peerDependencies:
@@ -6862,7 +6894,6 @@ packages:
       react: 17.0.2
       react-dom: 17.0.2(react@17.0.2)
       react-error-boundary: 3.1.4(react@17.0.2)
-      react-test-renderer: 17.0.2(react@17.0.2)
     dev: true
 
   /@testing-library/react@12.1.5(react-dom@17.0.2)(react@17.0.2):
@@ -7333,6 +7364,7 @@ packages:
     resolution: {integrity: sha512-47jMa1Pai7ily6BXJCW33IL5ghqmCWs2VM9s+h1D4mCaK5P4uNkZOW3RMMg8MCXBvAJ0v9+sPqKjhid0PaJPQA==}
     dependencies:
       '@types/react': 17.0.75
+    dev: false
 
   /@types/react-test-renderer@18.0.7:
     resolution: {integrity: sha512-1+ANPOWc6rB3IkSnElhjv6VLlKg2dSv/OWClUyZimbLsQyBn8Js9Vtdsi3UICJ2rIQ3k2la06dkB+C92QfhKmg==}
@@ -7494,34 +7526,6 @@ packages:
       '@types/node': 18.11.5
     optional: true
 
-  /@typescript-eslint/eslint-plugin@5.55.0(@typescript-eslint/parser@5.55.0)(eslint@8.56.0)(typescript@5.0.4):
-    resolution: {integrity: sha512-IZGc50rtbjk+xp5YQoJvmMPmJEYoC53SiKPXyqWfv15XoD2Y5Kju6zN0DwlmaGJp1Iw33JsWJcQ7nw0lGCGjVg==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    peerDependencies:
-      '@typescript-eslint/parser': ^5.0.0
-      eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
-      typescript: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@eslint-community/regexpp': 4.10.0
-      '@typescript-eslint/parser': 5.55.0(eslint@8.56.0)(typescript@5.0.4)
-      '@typescript-eslint/scope-manager': 5.55.0
-      '@typescript-eslint/type-utils': 5.55.0(eslint@8.56.0)(typescript@5.0.4)
-      '@typescript-eslint/utils': 5.55.0(eslint@8.56.0)(typescript@5.0.4)
-      debug: 4.3.4(supports-color@8.1.1)
-      eslint: 8.56.0
-      grapheme-splitter: 1.0.4
-      ignore: 5.3.0
-      natural-compare-lite: 1.4.0
-      semver: 7.5.4
-      tsutils: 3.21.0(typescript@5.0.4)
-      typescript: 5.0.4
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0)(eslint@8.56.0)(typescript@5.0.4):
     resolution: {integrity: sha512-TiZzBSJja/LbhNPvk6yc0JrX9XqhQ0hdh6M2svYfsHGejaKFIAGd9MQ+ERIMzLGlN/kZoYIgdxFV0PuljTKXag==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -7578,6 +7582,35 @@ packages:
       - supports-color
     dev: true
 
+  /@typescript-eslint/eslint-plugin@7.0.2(@typescript-eslint/parser@7.0.2)(eslint@8.56.0)(typescript@5.0.4):
+    resolution: {integrity: sha512-/XtVZJtbaphtdrWjr+CJclaCVGPtOdBpFEnvtNf/jRV0IiEemRrL0qABex/nEt8isYcnFacm3nPHYQwL+Wb7qg==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    peerDependencies:
+      '@typescript-eslint/parser': ^7.0.0
+      eslint: ^8.56.0
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@eslint-community/regexpp': 4.10.0
+      '@typescript-eslint/parser': 7.0.2(eslint@8.56.0)(typescript@5.0.4)
+      '@typescript-eslint/scope-manager': 7.0.2
+      '@typescript-eslint/type-utils': 7.0.2(eslint@8.56.0)(typescript@5.0.4)
+      '@typescript-eslint/utils': 7.0.2(eslint@8.56.0)(typescript@5.0.4)
+      '@typescript-eslint/visitor-keys': 7.0.2
+      debug: 4.3.4(supports-color@8.1.1)
+      eslint: 8.56.0
+      graphemer: 1.4.0
+      ignore: 5.3.0
+      natural-compare: 1.4.0
+      semver: 7.5.4
+      ts-api-utils: 1.0.3(typescript@5.0.4)
+      typescript: 5.0.4
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /@typescript-eslint/experimental-utils@5.62.0(eslint@8.56.0)(typescript@5.0.4):
     resolution: {integrity: sha512-RTXpeB3eMkpoclG3ZHft6vG/Z30azNHuqY6wKPBHlVMZFuEvrtlEDe8gMqDb+SO+9hjC/pLekeSCryf9vMZlCw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -7589,26 +7622,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
       - typescript
-    dev: true
-
-  /@typescript-eslint/parser@5.55.0(eslint@8.56.0)(typescript@5.0.4):
-    resolution: {integrity: sha512-ppvmeF7hvdhUUZWSd2EEWfzcFkjJzgNQzVST22nzg958CR+sphy8A6K7LXQZd6V75m1VKjp+J4g/PCEfSCmzhw==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    peerDependencies:
-      eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
-      typescript: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@typescript-eslint/scope-manager': 5.55.0
-      '@typescript-eslint/types': 5.55.0
-      '@typescript-eslint/typescript-estree': 5.55.0(typescript@5.0.4)
-      debug: 4.3.4(supports-color@8.1.1)
-      eslint: 8.56.0
-      typescript: 5.0.4
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /@typescript-eslint/parser@5.62.0(eslint@8.56.0)(typescript@5.0.4):
@@ -7652,12 +7665,25 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/scope-manager@5.55.0:
-    resolution: {integrity: sha512-OK+cIO1ZGhJYNCL//a3ROpsd83psf4dUJ4j7pdNVzd5DmIk+ffkuUIX2vcZQbEW/IR41DYsfJTB19tpCboxQuw==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+  /@typescript-eslint/parser@7.0.2(eslint@8.56.0)(typescript@5.0.4):
+    resolution: {integrity: sha512-GdwfDglCxSmU+QTS9vhz2Sop46ebNCXpPPvsByK7hu0rFGRHL+AusKQJ7SoN+LbLh6APFpQwHKmDSwN35Z700Q==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    peerDependencies:
+      eslint: ^8.56.0
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     dependencies:
-      '@typescript-eslint/types': 5.55.0
-      '@typescript-eslint/visitor-keys': 5.55.0
+      '@typescript-eslint/scope-manager': 7.0.2
+      '@typescript-eslint/types': 7.0.2
+      '@typescript-eslint/typescript-estree': 7.0.2(typescript@5.0.4)
+      '@typescript-eslint/visitor-keys': 7.0.2
+      debug: 4.3.4(supports-color@8.1.1)
+      eslint: 8.56.0
+      typescript: 5.0.4
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /@typescript-eslint/scope-manager@5.62.0:
@@ -7676,24 +7702,20 @@ packages:
       '@typescript-eslint/visitor-keys': 6.19.1
     dev: true
 
-  /@typescript-eslint/type-utils@5.55.0(eslint@8.56.0)(typescript@5.0.4):
-    resolution: {integrity: sha512-ObqxBgHIXj8rBNm0yh8oORFrICcJuZPZTqtAFh0oZQyr5DnAHZWfyw54RwpEEH+fD8suZaI0YxvWu5tYE/WswA==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    peerDependencies:
-      eslint: '*'
-      typescript: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
+  /@typescript-eslint/scope-manager@6.21.0:
+    resolution: {integrity: sha512-OwLUIWZJry80O99zvqXVEioyniJMa+d2GrqpUTqi5/v5D5rOrppJVBPa0yKCblcigC0/aYAzxxqQ1B+DS2RYsg==}
+    engines: {node: ^16.0.0 || >=18.0.0}
     dependencies:
-      '@typescript-eslint/typescript-estree': 5.55.0(typescript@5.0.4)
-      '@typescript-eslint/utils': 5.55.0(eslint@8.56.0)(typescript@5.0.4)
-      debug: 4.3.4(supports-color@8.1.1)
-      eslint: 8.56.0
-      tsutils: 3.21.0(typescript@5.0.4)
-      typescript: 5.0.4
-    transitivePeerDependencies:
-      - supports-color
+      '@typescript-eslint/types': 6.21.0
+      '@typescript-eslint/visitor-keys': 6.21.0
+    dev: true
+
+  /@typescript-eslint/scope-manager@7.0.2:
+    resolution: {integrity: sha512-l6sa2jF3h+qgN2qUMjVR3uCNGjWw4ahGfzIYsCtFrQJCjhbrDPdiihYT8FnnqFwsWX+20hK592yX9I2rxKTP4g==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    dependencies:
+      '@typescript-eslint/types': 7.0.2
+      '@typescript-eslint/visitor-keys': 7.0.2
     dev: true
 
   /@typescript-eslint/type-utils@5.62.0(eslint@8.56.0)(typescript@5.0.4):
@@ -7716,9 +7738,24 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/types@5.55.0:
-    resolution: {integrity: sha512-M4iRh4AG1ChrOL6Y+mETEKGeDnT7Sparn6fhZ5LtVJF1909D5O4uqK+C5NPbLmpfZ0XIIxCdwzKiijpZUOvOug==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+  /@typescript-eslint/type-utils@7.0.2(eslint@8.56.0)(typescript@5.0.4):
+    resolution: {integrity: sha512-IKKDcFsKAYlk8Rs4wiFfEwJTQlHcdn8CLwLaxwd6zb8HNiMcQIFX9sWax2k4Cjj7l7mGS5N1zl7RCHOVwHq2VQ==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    peerDependencies:
+      eslint: ^8.56.0
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@typescript-eslint/typescript-estree': 7.0.2(typescript@5.0.4)
+      '@typescript-eslint/utils': 7.0.2(eslint@8.56.0)(typescript@5.0.4)
+      debug: 4.3.4(supports-color@8.1.1)
+      eslint: 8.56.0
+      ts-api-utils: 1.0.3(typescript@5.0.4)
+      typescript: 5.0.4
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /@typescript-eslint/types@5.62.0:
@@ -7731,25 +7768,14 @@ packages:
     engines: {node: ^16.0.0 || >=18.0.0}
     dev: true
 
-  /@typescript-eslint/typescript-estree@5.55.0(typescript@5.0.4):
-    resolution: {integrity: sha512-I7X4A9ovA8gdpWMpr7b1BN9eEbvlEtWhQvpxp/yogt48fy9Lj3iE3ild/1H3jKBBIYj5YYJmS2+9ystVhC7eaQ==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    peerDependencies:
-      typescript: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@typescript-eslint/types': 5.55.0
-      '@typescript-eslint/visitor-keys': 5.55.0
-      debug: 4.3.4(supports-color@8.1.1)
-      globby: 11.1.0
-      is-glob: 4.0.3
-      semver: 7.5.4
-      tsutils: 3.21.0(typescript@5.0.4)
-      typescript: 5.0.4
-    transitivePeerDependencies:
-      - supports-color
+  /@typescript-eslint/types@6.21.0:
+    resolution: {integrity: sha512-1kFmZ1rOm5epu9NZEZm1kckCDGj5UJEf7P1kliH4LKu/RkwpsfqqGmY2OOcUs18lSlQBKLDYBOGxRVtrMN5lpg==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    dev: true
+
+  /@typescript-eslint/types@7.0.2:
+    resolution: {integrity: sha512-ZzcCQHj4JaXFjdOql6adYV4B/oFOFjPOC9XYwCaZFRvqN8Llfvv4gSxrkQkd2u4Ci62i2c6W6gkDwQJDaRc4nA==}
+    engines: {node: ^16.0.0 || >=18.0.0}
     dev: true
 
   /@typescript-eslint/typescript-estree@5.62.0(typescript@5.0.4):
@@ -7795,24 +7821,48 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/utils@5.55.0(eslint@8.56.0)(typescript@5.0.4):
-    resolution: {integrity: sha512-FkW+i2pQKcpDC3AY6DU54yl8Lfl14FVGYDgBTyGKB75cCwV3KpkpTMFi9d9j2WAJ4271LR2HeC5SEWF/CZmmfw==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+  /@typescript-eslint/typescript-estree@6.21.0(typescript@5.0.4):
+    resolution: {integrity: sha512-6npJTkZcO+y2/kr+z0hc4HwNfrrP4kNYh57ek7yCNlrBjWQ1Y0OS7jiZTkgumrvkX5HkEKXFZkkdFNkaW2wmUQ==}
+    engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
-      eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     dependencies:
-      '@eslint-community/eslint-utils': 4.4.0(eslint@8.56.0)
-      '@types/json-schema': 7.0.15
-      '@types/semver': 7.5.6
-      '@typescript-eslint/scope-manager': 5.55.0
-      '@typescript-eslint/types': 5.55.0
-      '@typescript-eslint/typescript-estree': 5.55.0(typescript@5.0.4)
-      eslint: 8.56.0
-      eslint-scope: 5.1.1
+      '@typescript-eslint/types': 6.21.0
+      '@typescript-eslint/visitor-keys': 6.21.0
+      debug: 4.3.4(supports-color@8.1.1)
+      globby: 11.1.0
+      is-glob: 4.0.3
+      minimatch: 9.0.3
       semver: 7.5.4
+      ts-api-utils: 1.0.3(typescript@5.0.4)
+      typescript: 5.0.4
     transitivePeerDependencies:
       - supports-color
-      - typescript
+    dev: true
+
+  /@typescript-eslint/typescript-estree@7.0.2(typescript@5.0.4):
+    resolution: {integrity: sha512-3AMc8khTcELFWcKcPc0xiLviEvvfzATpdPj/DXuOGIdQIIFybf4DMT1vKRbuAEOFMwhWt7NFLXRkbjsvKZQyvw==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    peerDependencies:
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@typescript-eslint/types': 7.0.2
+      '@typescript-eslint/visitor-keys': 7.0.2
+      debug: 4.3.4(supports-color@8.1.1)
+      globby: 11.1.0
+      is-glob: 4.0.3
+      minimatch: 9.0.3
+      semver: 7.5.4
+      ts-api-utils: 1.0.3(typescript@5.0.4)
+      typescript: 5.0.4
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /@typescript-eslint/utils@5.62.0(eslint@8.56.0)(typescript@5.0.4):
@@ -7835,12 +7885,42 @@ packages:
       - typescript
     dev: true
 
-  /@typescript-eslint/visitor-keys@5.55.0:
-    resolution: {integrity: sha512-q2dlHHwWgirKh1D3acnuApXG+VNXpEY5/AwRxDVuEQpxWaB0jCDe0jFMVMALJ3ebSfuOVE8/rMS+9ZOYGg1GWw==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+  /@typescript-eslint/utils@6.21.0(eslint@8.56.0)(typescript@5.0.4):
+    resolution: {integrity: sha512-NfWVaC8HP9T8cbKQxHcsJBY5YE1O33+jpMwN45qzWWaPDZgLIbo12toGMWnmhvCpd3sIxkpDw3Wv1B3dYrbDQQ==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    peerDependencies:
+      eslint: ^7.0.0 || ^8.0.0
     dependencies:
-      '@typescript-eslint/types': 5.55.0
-      eslint-visitor-keys: 3.4.3
+      '@eslint-community/eslint-utils': 4.4.0(eslint@8.56.0)
+      '@types/json-schema': 7.0.15
+      '@types/semver': 7.5.6
+      '@typescript-eslint/scope-manager': 6.21.0
+      '@typescript-eslint/types': 6.21.0
+      '@typescript-eslint/typescript-estree': 6.21.0(typescript@5.0.4)
+      eslint: 8.56.0
+      semver: 7.5.4
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+    dev: true
+
+  /@typescript-eslint/utils@7.0.2(eslint@8.56.0)(typescript@5.0.4):
+    resolution: {integrity: sha512-PZPIONBIB/X684bhT1XlrkjNZJIEevwkKDsdwfiu1WeqBxYEEdIgVDgm8/bbKHVu+6YOpeRqcfImTdImx/4Bsw==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    peerDependencies:
+      eslint: ^8.56.0
+    dependencies:
+      '@eslint-community/eslint-utils': 4.4.0(eslint@8.56.0)
+      '@types/json-schema': 7.0.15
+      '@types/semver': 7.5.6
+      '@typescript-eslint/scope-manager': 7.0.2
+      '@typescript-eslint/types': 7.0.2
+      '@typescript-eslint/typescript-estree': 7.0.2(typescript@5.0.4)
+      eslint: 8.56.0
+      semver: 7.5.4
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
     dev: true
 
   /@typescript-eslint/visitor-keys@5.62.0:
@@ -7856,6 +7936,22 @@ packages:
     engines: {node: ^16.0.0 || >=18.0.0}
     dependencies:
       '@typescript-eslint/types': 6.19.1
+      eslint-visitor-keys: 3.4.3
+    dev: true
+
+  /@typescript-eslint/visitor-keys@6.21.0:
+    resolution: {integrity: sha512-JJtkDduxLi9bivAB+cYOVMtbkqdPOhZ+ZI5LC47MIRrDV4Yn2o+ZnW10Nkmr28xRpSpdJ6Sm42Hjf2+REYXm0A==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    dependencies:
+      '@typescript-eslint/types': 6.21.0
+      eslint-visitor-keys: 3.4.3
+    dev: true
+
+  /@typescript-eslint/visitor-keys@7.0.2:
+    resolution: {integrity: sha512-8Y+YiBmqPighbm5xA2k4wKTxRzx9EkBu7Rlw+WHqMvRJ3RPz/BMBO9b2ru0LUNmXg120PHUXD5+SWFy2R8DqlQ==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    dependencies:
+      '@typescript-eslint/types': 7.0.2
       eslint-visitor-keys: 3.4.3
     dev: true
 
@@ -8196,6 +8292,7 @@ packages:
 
   /almost-equal@1.1.0:
     resolution: {integrity: sha512-0V/PkoculFl5+0Lp47JoxUcO0xSxhIBvm+BxHdD/OgXNmdRpRHCFnKVuUoWyS9EzQP+otSGv0m9Lb4yVkQBn2A==}
+    dev: true
 
   /ansi-align@3.0.1:
     resolution: {integrity: sha512-IOfwwBF5iczOjp/WeY4YxyjqAFMQoZufdQWDd19SEExbVLNXqvpzSJ/M7Za4/sCPmQ0+GRquoA7bGcINcxew6w==}
@@ -9306,6 +9403,10 @@ packages:
     resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
     dev: false
 
+  /classnames@2.5.1:
+    resolution: {integrity: sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==}
+    dev: false
+
   /clean-css@5.3.3:
     resolution: {integrity: sha512-D5J+kHaVb/wKSFcyyV75uCn8fiY4sV38XJoe4CUyGQ+mOU/fMVYUdH1hJC+CJQ5uY3EnW27SbJYS4X8BiLrAFg==}
     engines: {node: '>= 10.0'}
@@ -9500,8 +9601,8 @@ packages:
     dev: true
     optional: true
 
-  /comment-parser@1.3.1:
-    resolution: {integrity: sha512-B52sN2VNghyq5ofvUsqZjmk6YkihBX5vMSChmSK9v4ShjKf3Vk5Xcmgpw4o+iIgtrnM/u5FiMpz9VKb8lpBveA==}
+  /comment-parser@1.4.1:
+    resolution: {integrity: sha512-buhp5kePrmda3vhc5B9t7pUQXAb2Tnd0qgpkIhPhkHXxJpiPJ11H0ZEU0oBpJ2QztSbzG/ZxMj/CHsYJqRHmyg==}
     engines: {node: '>= 12.0.0'}
     dev: true
 
@@ -9775,12 +9876,6 @@ packages:
       postcss: 8.4.33
       postcss-selector-parser: 6.0.15
     dev: true
-
-  /css-box-model@1.2.1:
-    resolution: {integrity: sha512-a7Vr4Q/kd/aw96bnJG332W9V9LkJO69JRcaCYDUqjp6/z0w6VcZjgAcTbgFxEPfBgdnAwlh3iwu+hLopa+flJw==}
-    dependencies:
-      tiny-invariant: 1.3.1
-    dev: false
 
   /css-declaration-sorter@6.4.1(postcss@8.4.33):
     resolution: {integrity: sha512-rtdthzxKuyq6IzqX6jEcIzQF/YqccluefyCYheovBOLhFT/drQA9zj/UbRAa9J7C0o6EG6u3E6g+vKkay7/k3g==}
@@ -11047,37 +11142,12 @@ packages:
       - typescript
     dev: true
 
-  /eslint-import-resolver-node@0.3.4:
-    resolution: {integrity: sha512-ogtf+5AB/O+nM6DIeBUNr2fuT7ot9Qg/1harBfBtaP13ekEWFQEEMP94BCB7zaNW3gyY+8SHYF00rnqYwXKWOA==}
-    dependencies:
-      debug: 2.6.9
-      resolve: 1.22.8
-    dev: true
-
   /eslint-import-resolver-node@0.3.9:
     resolution: {integrity: sha512-WFj2isz22JahUv+B788TlO3N6zL3nNJGU8CcZbPZvVEkBPaJdCV4vy5wyghty5ROFbCRnm132v8BScu5/1BQ8g==}
     dependencies:
       debug: 3.2.7
       is-core-module: 2.13.1
       resolve: 1.22.8
-    dev: true
-
-  /eslint-import-resolver-typescript@2.7.1(eslint-plugin-import@2.29.1)(eslint@8.56.0):
-    resolution: {integrity: sha512-00UbgGwV8bSgUv34igBDbTOtKhqoRMy9bFjNehT40bXg6585PNIct8HhXZ0SybqB9rWtXj9crcku8ndDn/gIqQ==}
-    engines: {node: '>=4'}
-    peerDependencies:
-      eslint: '*'
-      eslint-plugin-import: '*'
-    dependencies:
-      debug: 4.3.4(supports-color@8.1.1)
-      eslint: 8.56.0
-      eslint-plugin-import: 2.29.1(eslint@8.56.0)
-      glob: 7.2.3
-      is-glob: 4.0.3
-      resolve: 1.22.8
-      tsconfig-paths: 3.15.0
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /eslint-module-utils@2.8.0(eslint@8.56.0):
@@ -11093,13 +11163,13 @@ packages:
       eslint: 8.56.0
     dev: true
 
-  /eslint-plugin-deprecation@1.5.0(eslint@8.56.0)(typescript@5.0.4):
-    resolution: {integrity: sha512-mRcssI/tLROueBQ6yf4LnnGTijbMsTCPIpbRbPj5R5wGYVCpk1zDmAS0SEkgcUDXOPc22qMNFR24Qw7vSPrlTA==}
+  /eslint-plugin-deprecation@2.0.0(eslint@8.56.0)(typescript@5.0.4):
+    resolution: {integrity: sha512-OAm9Ohzbj11/ZFyICyR5N6LbOIvQMp7ZU2zI7Ej0jIc8kiGUERXPNMfw2QqqHD1ZHtjMub3yPZILovYEYucgoQ==}
     peerDependencies:
-      eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
-      typescript: ^3.7.5 || ^4.0.0 || ^5.0.0
+      eslint: ^7.0.0 || ^8.0.0
+      typescript: ^4.2.4 || ^5.0.0
     dependencies:
-      '@typescript-eslint/utils': 5.62.0(eslint@8.56.0)(typescript@5.0.4)
+      '@typescript-eslint/utils': 6.21.0(eslint@8.56.0)(typescript@5.0.4)
       eslint: 8.56.0
       tslib: 2.6.2
       tsutils: 3.21.0(typescript@5.0.4)
@@ -11178,21 +11248,22 @@ packages:
       - typescript
     dev: true
 
-  /eslint-plugin-jsdoc@43.2.0(eslint@8.56.0):
-    resolution: {integrity: sha512-Hst7XUfqh28UmPD52oTXmjaRN3d0KrmOZdgtp4h9/VHUJD3Evoo82ZGXi1TtRDWgWhvqDIRI63O49H0eH7NrZQ==}
-    engines: {node: '>=16'}
+  /eslint-plugin-jsdoc@48.1.0(eslint@8.56.0):
+    resolution: {integrity: sha512-g9S8ukmTd1DVcV/xeBYPPXOZ6rc8WJ4yi0+MVxJ1jBOrz5kmxV9gJJQ64ltCqIWFnBChLIhLVx3tbTSarqVyFA==}
+    engines: {node: '>=18'}
     peerDependencies:
-      eslint: ^7.0.0 || ^8.0.0
+      eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
     dependencies:
-      '@es-joy/jsdoccomment': 0.38.0
+      '@es-joy/jsdoccomment': 0.42.0
       are-docs-informative: 0.0.2
-      comment-parser: 1.3.1
+      comment-parser: 1.4.1
       debug: 4.3.4(supports-color@8.1.1)
       escape-string-regexp: 4.0.0
       eslint: 8.56.0
       esquery: 1.5.0
-      semver: 7.5.4
-      spdx-expression-parse: 3.0.1
+      is-builtin-module: 3.2.1
+      semver: 7.6.0
+      spdx-expression-parse: 4.0.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -12425,10 +12496,6 @@ packages:
   /graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  /grapheme-splitter@1.0.4:
-    resolution: {integrity: sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==}
-    dev: true
-
   /graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
@@ -12963,8 +13030,8 @@ packages:
   /inversify@6.0.2:
     resolution: {integrity: sha512-i9m8j/7YIv4mDuYXUAcrpKPSaju/CIly9AHK5jvCBeoiM/2KEsuCQTTP+rzSWWpLYWRukdXFSl6ZTk2/uumbiA==}
 
-  /ip@2.0.0:
-    resolution: {integrity: sha512-WKa+XuLG1A1R0UWhl2+1XQSi+fZWMsYKffMZTTYsiZaUD8k2yDAj5atimTUD2TZkyCkNEeYE5NhFZmupOGtjYQ==}
+  /ip@2.0.1:
+    resolution: {integrity: sha512-lJUL9imLTNi1ZfXT+DU6rBBdbiKGBuay9B6xGSPVjUeQwaH1RIGqef8RZkUtHioLmSNpPR5M4HVKJGm1j8FWVQ==}
     dev: true
 
   /ipaddr.js@1.9.1:
@@ -13038,6 +13105,13 @@ packages:
 
   /is-buffer@1.1.6:
     resolution: {integrity: sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==}
+    dev: true
+
+  /is-builtin-module@3.2.1:
+    resolution: {integrity: sha512-BSLE3HnV2syZ0FK0iMA/yUGplUeMmNz4AW5fnTunbCIqZi4vG3WjJT9FHMy5D69xmAYBHXQhJdALdpwVxV501A==}
+    engines: {node: '>=6'}
+    dependencies:
+      builtin-modules: 3.3.0
     dev: true
 
   /is-callable@1.2.7:
@@ -17365,10 +17439,6 @@ packages:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
 
-  /raf-schd@4.0.3:
-    resolution: {integrity: sha512-tQkJl2GRWh83ui2DiPTJz9wEiMN20syf+5oKfB03yYP7ioZcJwsIK8FjrtLwH1m7C7e+Tt2yYBlrOpdT+dyeIQ==}
-    dev: false
-
   /raf@3.4.1:
     resolution: {integrity: sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==}
     dependencies:
@@ -17440,25 +17510,6 @@ packages:
       react-themeable: 1.1.0
       section-iterator: 2.0.0
       shallow-equal: 1.2.1
-    dev: false
-
-  /react-beautiful-dnd@13.1.1(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-0Lvs4tq2VcrEjEgDXHjT98r+63drkKEgqyxdA7qD3mvKwga6a5SscbdLPO2IExotU1jW8L0Ksdl0Cj2AF67nPQ==}
-    peerDependencies:
-      react: ^16.8.5 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.5 || ^17.0.0 || ^18.0.0
-    dependencies:
-      '@babel/runtime': 7.23.8
-      css-box-model: 1.2.1
-      memoize-one: 5.2.1
-      raf-schd: 4.0.3
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
-      react-redux: 7.2.9(react-dom@17.0.2)(react@17.0.2)
-      redux: 4.2.1
-      use-memo-one: 1.1.3(react@17.0.2)
-    transitivePeerDependencies:
-      - react-native
     dev: false
 
   /react-colorful@5.6.1(react-dom@17.0.2)(react@17.0.2):
@@ -17677,16 +17728,6 @@ packages:
       use-sidecar: 1.1.2(@types/react@17.0.75)(react@17.0.2)
     dev: true
 
-  /react-shallow-renderer@16.15.0(react@17.0.2):
-    resolution: {integrity: sha512-oScf2FqQ9LFVQgA73vr86xl2NaOIX73rh+YFqcOp68CWj56tSfgtGKrEbyhCj0rSijyG9M1CYprTh39fBi5hzA==}
-    peerDependencies:
-      react: ^16.0.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      object-assign: 4.1.1
-      react: 17.0.2
-      react-is: 18.2.0
-    dev: true
-
   /react-style-singleton@2.2.1(@types/react@17.0.75)(react@17.0.2):
     resolution: {integrity: sha512-ZWj0fHEMyWkHzKYUr2Bs/4zU6XLmq9HsgBURm7g5pAVfyn49DgUiNgY2d4lXRlYSiCif9YBGpQleewkcqddc7g==}
     engines: {node: '>=10'}
@@ -17711,18 +17752,6 @@ packages:
     dependencies:
       react: 17.0.2
     dev: false
-
-  /react-test-renderer@17.0.2(react@17.0.2):
-    resolution: {integrity: sha512-yaQ9cB89c17PUb0x6UfWRs7kQCorVdHlutU1boVPEsB8IDZH6n9tHxMacc3y0JoXOJUsZb/t/Mb8FUWMKaM7iQ==}
-    peerDependencies:
-      react: 17.0.2
-    dependencies:
-      object-assign: 4.1.1
-      react: 17.0.2
-      react-is: 17.0.2
-      react-shallow-renderer: 16.15.0(react@17.0.2)
-      scheduler: 0.20.2
-    dev: true
 
   /react-themeable@1.1.0:
     resolution: {integrity: sha512-kl5tQ8K+r9IdQXZd8WLa+xxYN04lLnJXRVhHfdgwsUJr/SlKJxIejoc9z9obEkx1mdqbTw1ry43fxEUwyD9u7w==}
@@ -18415,6 +18444,14 @@ packages:
     dependencies:
       lru-cache: 6.0.0
 
+  /semver@7.6.0:
+    resolution: {integrity: sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      lru-cache: 6.0.0
+    dev: true
+
   /send@0.18.0:
     resolution: {integrity: sha512-qqWzuOjSFOuqPjFe4NOsMLafToQQwBSOEpS+FwEt3A2V3vKubTquT3vmLTQpFgMXp8AlFWFuP1qKaJZOtPpVXg==}
     engines: {node: '>= 0.8.0'}
@@ -18820,6 +18857,13 @@ packages:
       spdx-license-ids: 3.0.16
     dev: true
 
+  /spdx-expression-parse@4.0.0:
+    resolution: {integrity: sha512-Clya5JIij/7C6bRR22+tnGXbc4VKlibKSVj2iHvVeX5iMW7s1SIQlqu699JkODJJIhh/pUu8L0/VLh8xflD+LQ==}
+    dependencies:
+      spdx-exceptions: 2.3.0
+      spdx-license-ids: 3.0.16
+    dev: true
+
   /spdx-license-ids@3.0.16:
     resolution: {integrity: sha512-eWN+LnM3GR6gPu35WxNgbGl8rmY1AEmoMDvL/QD6zYmPWgywxWqJWNdLGT+ke8dKNWrcYgYjPpG5gbTfghP8rw==}
     dev: true
@@ -18915,11 +18959,11 @@ packages:
     resolution: {integrity: sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==}
     dev: true
 
-  /storybook@7.6.10:
-    resolution: {integrity: sha512-ypFeGhQTUBBfqSUVZYh7wS5ghn3O2wILCiQc4459SeUpvUn+skcqw/TlrwGSoF5EWjDA7gtRrWDxO3mnlPt5Cw==}
+  /storybook@7.6.17:
+    resolution: {integrity: sha512-8+EIo91bwmeFWPg1eysrxXlhIYv3OsXrznTr4+4Eq0NikqAoq6oBhtlN5K2RGS2lBVF537eN+9jTCNbR+WrzDA==}
     hasBin: true
     dependencies:
-      '@storybook/cli': 7.6.10
+      '@storybook/cli': 7.6.17
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -19285,6 +19329,10 @@ packages:
     resolution: {integrity: sha512-AsS729u2RHUfEra9xJrE39peJcc2stq2+poBXX8bcM08Y6g9j/i/PUzwNQqkaJde7Ntg1TO7bSREbR5sdosQ+g==}
     dev: true
 
+  /tabbable@6.2.0:
+    resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
+    dev: false
+
   /tailwindcss@3.4.1:
     resolution: {integrity: sha512-qAYmXRfk3ENzuPBakNK0SRrUDipP8NQnEY6772uDhflcQz5EhRdD7JNZxyrFHVQNCwULPBn6FNPp9brpO7ctcA==}
     engines: {node: '>=14.0.0'}
@@ -19484,6 +19532,7 @@ packages:
 
   /tiny-invariant@1.3.1:
     resolution: {integrity: sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==}
+    dev: true
 
   /tippy.js@6.3.7:
     resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==}
@@ -19889,6 +19938,12 @@ packages:
     hasBin: true
     dev: true
 
+  /typescript@4.6.4:
+    resolution: {integrity: sha512-9ia/jWHIEbo49HfjrLGfKbZSuWo9iTMwXO+Ca3pRsSpbsMbc7/IU8NKdCZVRRBafVPGnoJeFL76ZOAA84I9fEg==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
+
   /typescript@5.0.4:
     resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
     engines: {node: '>=12.20'}
@@ -20097,14 +20152,6 @@ packages:
       react: 17.0.2
       tslib: 2.6.2
     dev: true
-
-  /use-memo-one@1.1.3(react@17.0.2):
-    resolution: {integrity: sha512-g66/K7ZQGYrI6dy8GLpVcMsBp4s17xNkYJVSMvTEevGy3nDxHOfE6z8BVE22+5G5x7t3+bhzrlTDB7ObrEE0cQ==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 17.0.2
-    dev: false
 
   /use-resize-observer@9.1.0(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-R25VqO9Wb3asSD4eqtcxk8sJalvIOYBqS8MNZlpDSQ4l4xMQxC/J7Id9HoTqPq8FwULIn0PVW+OAqF2dyYbjow==}
@@ -20820,10 +20867,11 @@ packages:
     resolution: {integrity: sha512-ILEIE97kDZvF9Wb9f6h5aXK4swSlKGUcOEGiIYb2OOu/IrDU9iwj0fD//SsA6E5ibwJxpEvhullJY4Sl4GcpAw==}
     dev: true
 
-  /workspace-tools@0.34.6:
-    resolution: {integrity: sha512-6KDZW4K/t+CM3RGp56KN11Jp75NwNsEgTGCIxnvLbCY14j/Xa67vBCdWipFkB7t72gJJb61qDoCL9CHVNcI6Qg==}
+  /workspace-tools@0.36.4:
+    resolution: {integrity: sha512-v0UFVvw9BjHtRu2Dau5PEJKkuG8u4jPlpXZQWjSz9XgbSutpPURqtO2P0hp3cVmQVATh8lkMFCewFgJuDnyC/w==}
     dependencies:
       '@yarnpkg/lockfile': 1.1.0
+      fast-glob: 3.3.2
       git-url-parse: 13.1.1
       globby: 11.1.0
       jju: 1.4.0

@@ -24,33 +24,4 @@ describe("<LoadingSpinner />", () => {
       "ls-message-top"
     );
   });
-
-  // Tests for Deprecated SpinnerSize
-  it("renders with Small size correctly", () => {
-    const { container } = render(<LoadingSpinner size={"x-small"} />);
-
-    expect(
-      classesFromElement(
-        container.querySelector(".iui-progress-indicator-radial")
-      )
-    ).to.include("iui-x-small");
-  });
-  it("renders with Medium size correctly", () => {
-    const { container } = render(<LoadingSpinner />);
-
-    expect(
-      classesFromElement(
-        container.querySelector(".iui-progress-indicator-radial")
-      )
-    ).to.not.include.members(["iui-x-small", "iui-small", "iui-large"]);
-  });
-  it("renders with Large size correctly", () => {
-    const { container } = render(<LoadingSpinner size={"large"} />);
-
-    expect(
-      classesFromElement(
-        container.querySelector(".iui-progress-indicator-radial")
-      )
-    ).to.include("iui-large");
-  });
 });

@@ -166,7 +166,6 @@ describe("<TimelineComponent showDuration={true} />", () => {
     );
 
     expect(renderedComponent).not.to.be.undefined;
-    // renderedComponent.debug();
 
     // hit play/pause button to start animation
     const playButton = renderedComponent.getAllByTestId("play-button")[0];
@@ -216,25 +215,16 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
-    expect(renderedComponent.container.querySelector(".tooltip-text")).not.to
-      .exist;
-    const thumb =
-      renderedComponent.container.querySelector(".iui-slider-thumb");
-    expect(thumb).to.exist;
-    fireEvent.focus(thumb!, {});
+    const thumb = renderedComponent.getByRole("slider");
+    fireEvent.focus(thumb, {});
     expect(renderedComponent.container.querySelector(".tooltip-text")).to.exist;
-    fireEvent.blur(thumb!, {});
+    fireEvent.blur(thumb, {});
     expect(renderedComponent.container.querySelector(".tooltip-text")).not.to
       .exist;
-    const sliderContainer = renderedComponent.container.querySelector(
-      ".iui-slider-container"
-    );
-    expect(sliderContainer).to.exist;
 
     await theUserTo.pointer([
       {
-        target: thumb!,
+        target: thumb,
         coords: { x: 210, clientX: 210, y: 0, clientY: 0 },
         keys: "[MouseLeft>]",
       },

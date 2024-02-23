@@ -161,22 +161,14 @@ describe("<DateTimeEditor />", () => {
   });
 
   it("long date should render", async () => {
-    const spyOnCommit = sinon.spy();
+    const spy = sinon.spy();
     const record = createDateProperty("Test", date, 0); // 0 creates a long DateTime record
     const renderedComponent = render(
-      <DateTimeEditor
-        showTime={true}
-        propertyRecord={record}
-        onCommit={spyOnCommit}
-      />
+      <DateTimeEditor showTime={true} propertyRecord={record} onCommit={spy} />
     );
-    expect(
-      await waitFor(() =>
-        renderedComponent.getByText(
-          date.toLocaleString().replace("\u202f", " ")
-        )
-      )
-    ).to.exist;
+    await waitFor(() =>
+      renderedComponent.getByText(date.toLocaleString().replace("\u202f", " "))
+    );
     const originalValue = (record.value as PrimitiveValue).value as Date;
     expect(originalValue.getTime()).to.be.equal(date.getTime());
     expect(renderedComponent).not.to.be.undefined;
@@ -188,20 +180,19 @@ describe("<DateTimeEditor />", () => {
       "components-time-input"
     );
     const hrInput = timeDiv.querySelector(
-      ".iui-input.components-time-input"
+      ".components-time-input"
     ) as HTMLInputElement;
     expect(hrInput).not.to.be.null;
     hrInput.focus();
     fireEvent.change(hrInput, { target: { value: "09" } });
     hrInput.blur();
-    //  renderedComponent.debug();
+
     const okButton = renderedComponent.getByTestId(
       "components-popup-ok-button"
     );
     fireEvent.click(okButton);
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit).to.be.calledOnce;
-    fireEvent.click(popupButton);
+    sinon.assert.calledOnce(spy);
   });
 
   it("long utc date should render", async () => {
@@ -222,13 +213,12 @@ describe("<DateTimeEditor />", () => {
       "components-time-input"
     );
     const hrInput = timeDiv.querySelector(
-      ".iui-input.components-time-input"
+      ".components-time-input"
     ) as HTMLInputElement;
     expect(hrInput).not.to.be.null;
     hrInput.focus();
     fireEvent.change(hrInput, { target: { value: "09" } });
     hrInput.blur();
-    //  renderedComponent.debug();
     const okButton = renderedComponent.getByTestId(
       "components-popup-ok-button"
     );

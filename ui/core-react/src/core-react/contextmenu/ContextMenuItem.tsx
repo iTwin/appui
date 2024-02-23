@@ -209,7 +209,7 @@ export class ContextMenuItem extends React.PureComponent<
   private _handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
     const isDisabled = ConditionalBooleanValue.getValue(this.props.disabled);
     if (
-      event.key === Key.Enter &&
+      event.key === Key.Enter.valueOf() &&
       this.props.onSelect !== undefined &&
       !isDisabled
     ) {
