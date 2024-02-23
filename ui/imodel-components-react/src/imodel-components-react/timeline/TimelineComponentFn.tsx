@@ -6,7 +6,6 @@
  * @module Timeline
  */
 import "./TimelineComponent.scss";
-import classnames from "classnames";
 import * as React from "react";
 import { UiAdmin } from "@itwin/appui-abstract";
 import {
@@ -169,81 +168,71 @@ export function TimelineComponent(props: TimelineComponentProps) {
   const totalDurationStr = toDisplayTime(totalDuration);
   const hasDates = !!startDate && !!endDate;
   return (
-    <div
-      data-testid="timeline-component"
-      className={classnames("timeline-component", hasDates && "has-dates")}
-    >
-      <div className="scrubber">
-        <PlayButton
-          className="play-button"
-          isPlaying={isPlaying}
-          onPlay={playOrReplay}
-          onPause={pause}
-        />
-        <div className="start-time-container">
-          {hasDates && (
-            <span data-testid="test-start-date" className="start-date">
-              {toDateString(startDate, timeZoneOffset, dateFormatOptions)}
-            </span>
-          )}
-          {hasDates && !showDuration && (
-            <span data-testid="test-start-time" className="start-time">
-              {toTimeString(startDate, timeZoneOffset, timeFormatOptions)}
-            </span>
-          )}
-          {showDuration && (
-            <span className="duration-start-time">{currentDurationStr}</span>
-          )}
-        </div>
-        <Scrubber
-          className="slider"
-          currentDuration={currentDuration}
-          totalDuration={totalDuration}
-          startDate={startDate}
-          endDate={endDate}
-          isPlaying={isPlaying}
-          showTime={!showDuration}
-          onChange={onTimelineChange}
-          onUpdate={onTimelineChange}
-          timeZoneOffset={props.timeZoneOffset}
-          markDate={props.markDate}
-        />
-        <div className="end-time-container">
-          {hasDates && (
-            <span className="end-date">
-              {toDateString(endDate, timeZoneOffset)}
-            </span>
-          )}
-          {hasDates && !showDuration && (
-            <span className="end-time">
-              {toTimeString(endDate, timeZoneOffset, timeFormatOptions)}
-            </span>
-          )}
-          {showDuration && (
-            <InlineEdit
-              className="duration-end-time"
-              defaultValue={totalDurationStr}
-              onChange={(value) => {
-                const newTotalDuration = timeToMs(value);
-                updateTotalDuration(newTotalDuration);
-              }}
-            />
-          )}
-        </div>
-        <SettingsMenu
-          appMenuItems={props.appMenuItems}
-          appMenuItemOption={appMenuItemOption}
-          includeRepeat={includeRepeat}
-          repeat={repeat}
-          totalDuration={totalDuration}
-          onRepeatClick={() => {
-            updateRepeat(!repeat);
-          }}
-          onTotalDurationChange={(newTotalDuration) => {
-            updateTotalDuration(newTotalDuration);
-          }}
-        />
+    <div data-testid="timeline-component" className="timeline-component">
+      <PlayButton isPlaying={isPlaying} onPlay={playOrReplay} onPause={pause} />
+      <div className="time-container">
+        {hasDates && (
+          <span data-testid="test-start-date" className="timeline-date">
+            {toDateString(startDate, timeZoneOffset, dateFormatOptions)}
+          </span>
+        )}
+        {hasDates && !showDuration && (
+          <span data-testid="test-start-time" className="timeline-time">
+            {toTimeString(startDate, timeZoneOffset, timeFormatOptions)}
+          </span>
+        )}
+        {showDuration && (
+          <span className="timeline-duration-time">{currentDurationStr}</span>
+        )}
       </div>
+      <Scrubber
+        className="slider"
+        currentDuration={currentDuration}
+        totalDuration={totalDuration}
+        startDate={startDate}
+        endDate={endDate}
+        isPlaying={isPlaying}
+        showTime={!showDuration}
+        onChange={onTimelineChange}
+        onUpdate={onTimelineChange}
+        timeZoneOffset={props.timeZoneOffset}
+        markDate={props.markDate}
+      />
+      <div className="time-container">
+        {hasDates && (
+          <span className="end-date">
+            {toDateString(endDate, timeZoneOffset)}
+          </span>
+        )}
+        {hasDates && !showDuration && (
+          <span className="timeline-time">
+            {toTimeString(endDate, timeZoneOffset, timeFormatOptions)}
+          </span>
+        )}
+        {showDuration && (
+          <InlineEdit
+            className="timeline-duration-time"
+            defaultValue={totalDurationStr}
+            onChange={(value) => {
+              const newTotalDuration = timeToMs(value);
+              updateTotalDuration(newTotalDuration);
+            }}
+          />
+        )}
+      </div>
+      <SettingsMenu
+        appMenuItems={props.appMenuItems}
+        appMenuItemOption={appMenuItemOption}
+        includeRepeat={includeRepeat}
+        repeat={repeat}
+        totalDuration={totalDuration}
+        onRepeatClick={() => {
+          updateRepeat(!repeat);
+        }}
+        onTotalDurationChange={(newTotalDuration) => {
+          updateTotalDuration(newTotalDuration);
+        }}
+      />
     </div>
   );
 }
