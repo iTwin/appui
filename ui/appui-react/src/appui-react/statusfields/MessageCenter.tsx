@@ -8,9 +8,7 @@
 
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { Tabs } from "@itwin/itwinui-react";
-import type { CommonProps } from "@itwin/itwinui-react/cjs/core/utils";
 import * as React from "react";
-// import type { CommonProps } from "@itwin/core-react";
 import { Icon, MessageRenderer } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
@@ -19,7 +17,6 @@ import { MessageCenter } from "../layout/footer/message-center/Indicator";
 import { MessageCenterMessage } from "../layout/footer/message-center/Message";
 import { MessageManager } from "../messages/MessageManager";
 import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
-import { StatusBar } from "../statusbar/StatusBar";
 import { Popover } from "@itwin/itwinui-react";
 
 /** Enum for the [[MessageCenterField]] active tab
@@ -45,19 +42,16 @@ interface MessageCenterState {
  */
 export const MessageCenterField: React.FC = () => {
   const _indicator = React.createRef<HTMLDivElement>();
-  const activeTab = MessageCenterActiveTab.AllMessages;
+  const activeTab = MessageCenterActiveTab.AllMessages; // What is this doing exactly?
   const messageCount = MessageManager.messages.length;
   const _title = UiFramework.translate("messageCenter.messages");
   const tooltip = `${messageCount} ${_title}`;
   const divStyle = { height: "100%" }; // this would be better as a class
 
   const [isOpen, setIsOpen] = React.useState(false);
+  // ADD STATE FOR MESSSAGES OR MAYVE MAKE MESSAGE COUNT A STATE THAT GETS UPDATED SOMEHOW
 
-  // Event Handlers
-
-  const _handleOpenChange = (isOpenState: boolean) => {
-    setIsOpen(isOpenState);
-  };
+  const _handleOpenChange = (isOpenState: boolean) => setIsOpen(isOpenState);
 
   const isProblemStatus = (priority: OutputMessagePriority): boolean => {
     // See priority values in DgnPlatform defined in NotificationManager
@@ -78,6 +72,8 @@ export const MessageCenterField: React.FC = () => {
     messages.forEach((details: NotifyMessageDetailsType, index: number) => {
       /* istanbul ignore else */
       if (
+        // one of these is always true and therefore obsolete.
+        // How would errors be handled anyways?
         activeTab === MessageCenterActiveTab.AllMessages ||
         isProblemStatus(details.priority)
       ) {
@@ -85,6 +81,7 @@ export const MessageCenterField: React.FC = () => {
         const iconSpec = MessageManager.getIconSpecFromDetails(details);
         const message = details.briefMessage;
 
+        // THIS COULD BE BETTER. FIGURE OUT WHAT IT"S DOING and HOW AND MAE IT BETTER
         tabRows.push(
           <MessageCenterMessage
             key={index.toString()}
@@ -113,8 +110,8 @@ export const MessageCenterField: React.FC = () => {
     >
       <Tabs.Wrapper type="pill">
         <Tabs.TabList>
-          <Tabs.Tab label="All" key="all" value="all" />,
-          <Tabs.Tab label="Error" key="error" value="error" />,
+          <Tabs.Tab label="All" key="all" value="all" />
+          <Tabs.Tab label="Error" key="error" value="error" />
         </Tabs.TabList>
         <Tabs.Panel value="all" key="all">
           {getMessages()}
@@ -129,7 +126,7 @@ export const MessageCenterField: React.FC = () => {
         <MessageCenter
           indicatorRef={_indicator}
           label={_title}
-          onClick={() => _handleOpenChange(!isOpen)}
+          onClick={() => _handleOpenChange(!isOpen)} // ADD A PROP BELOW THIS TO MAKE IT RESPONSIVE
         >
           {messageCount.toString()}
         </MessageCenter>
