@@ -5,9 +5,8 @@
 /** @packageDocumentation
  * @module Timeline
  */
-import classnames from "classnames";
+import "./TimelineComponent.scss";
 import * as React from "react";
-import type { GenericUiEventArgs } from "@itwin/appui-abstract";
 import { UiAdmin } from "@itwin/appui-abstract";
 import type { DateFormatOptions } from "@itwin/components-react";
 import {
@@ -15,16 +14,19 @@ import {
   toTimeString,
   UiComponents,
 } from "@itwin/components-react";
-import { Icon } from "@itwin/core-react";
 import { SvgCheckmark, SvgMoreVertical } from "@itwin/itwinui-icons-react";
-import { DropdownMenu, MenuDivider, MenuItem } from "@itwin/itwinui-react";
+import {
+  DropdownMenu,
+  IconButton,
+  MenuDivider,
+  MenuItem,
+} from "@itwin/itwinui-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { InlineEdit } from "./InlineEdit";
 import type { PlaybackSettings, TimelinePausePlayArgs } from "./interfaces";
 import { TimelinePausePlayAction } from "./interfaces";
 import { PlayButton } from "./PlayButton";
 import { Scrubber } from "./Scrubber";
-import "./TimelineComponent.scss";
 
 const slowSpeed = 60 * 1000;
 const mediumSpeed = 20 * 1000;
@@ -111,492 +113,377 @@ export interface TimelineComponentProps {
 }
 
 /** @internal */
-interface TimelineComponentState {
-  /**  True if timeline is currently playing, false if paused */
-  isPlaying: boolean;
-  /** Current duration in milliseconds */
-  currentDuration: number;
-  /** Total duration in milliseconds */
-  totalDuration: number;
-  /** If true, automatically restart when the timeline is finished playing */
-  repeat: boolean;
-  /** If true, include the repeat option in the timeline context menu. Defaults to `true`. */
-  includeRepeat: boolean;
+export function TimelineComponent(props: TimelineComponentProps) {
+  const {
+    appMenuItemOption = "replace",
+    startDate,
+    endDate,
+    showDuration,
+    timeZoneOffset,
+    dateFormatOptions,
+    timeFormatOptions,
+    includeRepeat = true,
+    onSettingsChange,
+    onChange,
+    onPlayPause,
+  } = props;
+  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [currentDuration, setCurrentDuration] = React.useState(
+    props.initialDuration ?? 0
+  );
+  const [totalDuration, setTotalDuration] = React.useState(props.totalDuration);
+  const [repeat, setRepeat] = React.useState(props.repeat ?? false);
+
+  const playOrReplay = React.useCallback(() => {
+    if (isPlaying) return;
+
+    if (currentDuration >= totalDuration) {
+      setCurrentDuration(0);
+    }
+
+    setIsPlaying(true);
+    onPlayPause?.(true);
+  }, [isPlaying, onPlayPause, currentDuration, totalDuration]);
+  const pause = React.useCallback(() => {
+    if (!isPlaying) return;
+    setIsPlaying(false);
+    onPlayPause?.(false);
+  }, [isPlaying, onPlayPause]);
+  const updateDuration = (newDuration: number) => {
+    newDuration = Math.max(newDuration, 0);
+    newDuration = Math.min(newDuration, totalDuration);
+
+    if (newDuration === currentDuration) return;
+    setCurrentDuration(newDuration);
+
+    const fraction = newDuration / totalDuration;
+    onChange?.(fraction);
+  };
+  const updateRepeat = (newRepeat: boolean) => {
+    if (newRepeat === repeat) return;
+
+    setRepeat(newRepeat);
+    onSettingsChange?.({ loop: newRepeat });
+  };
+  const updateTotalDuration = (newTotalDuration: number) => {
+    if (newTotalDuration === totalDuration) return;
+
+    const fraction = currentDuration / totalDuration;
+    const newCurrentDuration = fraction * newTotalDuration;
+
+    setTotalDuration(newTotalDuration);
+    setCurrentDuration(newCurrentDuration);
+    onSettingsChange?.({ duration: newTotalDuration });
+  };
+
+  const prevInitialDuration = React.useRef(props.initialDuration);
+  if (prevInitialDuration.current !== props.initialDuration) {
+    updateDuration(props.initialDuration ?? 0);
+    prevInitialDuration.current = props.initialDuration;
+  }
+
+  const prevRepeat = React.useRef(props.repeat);
+  if (prevRepeat.current !== props.repeat) {
+    updateRepeat(props.repeat ?? repeat);
+    prevRepeat.current = props.repeat;
+  }
+
+  const prevTotalDuration = React.useRef(props.totalDuration);
+  if (prevTotalDuration.current !== props.totalDuration) {
+    updateTotalDuration(props.totalDuration);
+    prevTotalDuration.current = props.totalDuration;
+  }
+
+  React.useEffect(() => {
+    if (!props.componentId) return;
+    return UiAdmin.onGenericUiEvent.addListener((args) => {
+      const timelineArgs = args as TimelinePausePlayArgs;
+      if (
+        !timelineArgs ||
+        props.componentId !== timelineArgs.uiComponentId ||
+        timelineArgs.timelineAction === undefined
+      )
+        return;
+
+      switch (timelineArgs.timelineAction) {
+        case TimelinePausePlayAction.Play:
+          playOrReplay();
+          break;
+        case TimelinePausePlayAction.Pause:
+          pause();
+          break;
+        case TimelinePausePlayAction.Toggle:
+          if (isPlaying) {
+            pause();
+          } else {
+            playOrReplay();
+          }
+          break;
+      }
+    });
+  }, [isPlaying, pause, playOrReplay, props.componentId]);
+  useAnimation(({ delta }) => {
+    const duration = currentDuration + delta;
+    updateDuration(duration);
+
+    if (duration >= totalDuration) {
+      if (repeat) {
+        setCurrentDuration(0);
+        return;
+      }
+
+      pause();
+    }
+  }, isPlaying);
+
+  const onTimelineChange = (values: ReadonlyArray<number>) => {
+    const newDuration = values[0];
+    updateDuration(newDuration);
+  };
+
+  const currentDurationStr = toDisplayTime(currentDuration);
+  const totalDurationStr = toDisplayTime(totalDuration);
+  const hasDates = !!startDate && !!endDate;
+  return (
+    <div data-testid="timeline-component" className="timeline-component">
+      <PlayButton isPlaying={isPlaying} onPlay={playOrReplay} onPause={pause} />
+      <div className="time-container">
+        {hasDates && (
+          <span data-testid="test-start-date" className="timeline-date">
+            {toDateString(startDate, timeZoneOffset, dateFormatOptions)}
+          </span>
+        )}
+        {hasDates && !showDuration && (
+          <span data-testid="test-start-time" className="timeline-time">
+            {toTimeString(startDate, timeZoneOffset, timeFormatOptions)}
+          </span>
+        )}
+        {showDuration && (
+          <span className="timeline-duration-time">{currentDurationStr}</span>
+        )}
+      </div>
+      <Scrubber
+        className="slider"
+        currentDuration={currentDuration}
+        totalDuration={totalDuration}
+        startDate={startDate}
+        endDate={endDate}
+        isPlaying={isPlaying}
+        showTime={!showDuration}
+        onChange={onTimelineChange}
+        onUpdate={onTimelineChange}
+        timeZoneOffset={props.timeZoneOffset}
+        markDate={props.markDate}
+      />
+      <div className="time-container">
+        {hasDates && (
+          <span className="end-date">
+            {toDateString(endDate, timeZoneOffset)}
+          </span>
+        )}
+        {hasDates && !showDuration && (
+          <span className="timeline-time">
+            {toTimeString(endDate, timeZoneOffset, timeFormatOptions)}
+          </span>
+        )}
+        {showDuration && (
+          <InlineEdit
+            className="timeline-duration-time"
+            defaultValue={totalDurationStr}
+            onChange={(value) => {
+              const newTotalDuration = timeToMs(value);
+              updateTotalDuration(newTotalDuration);
+            }}
+          />
+        )}
+      </div>
+      <SettingsMenu
+        appMenuItems={props.appMenuItems}
+        appMenuItemOption={appMenuItemOption}
+        includeRepeat={includeRepeat}
+        repeat={repeat}
+        totalDuration={totalDuration}
+        onRepeatClick={() => {
+          updateRepeat(!repeat);
+        }}
+        onTotalDurationChange={(newTotalDuration) => {
+          updateTotalDuration(newTotalDuration);
+        }}
+      />
+    </div>
+  );
 }
 
-/** @internal */
-export class TimelineComponent extends React.Component<
+type SettingsMenuProps = Pick<
   TimelineComponentProps,
-  TimelineComponentState
-> {
-  private _timeLastCycle = 0;
-  private _requestFrame = 0;
-  private _unmounted = false;
-  private _repeatLabel: string;
-  private _removeListener?: () => void;
-  private _standardTimelineMenuItems: TimelineMenuItemProps[] = [
-    {
-      label: UiIModelComponents.translate("timeline.slow"),
-      timelineDuration: slowSpeed,
-    },
-    {
-      label: UiIModelComponents.translate("timeline.medium"),
-      timelineDuration: mediumSpeed,
-    },
-    {
-      label: UiIModelComponents.translate("timeline.fast"),
-      timelineDuration: fastSpeed,
-    },
-  ];
+  "appMenuItems" | "totalDuration"
+> &
+  Pick<
+    Required<TimelineComponentProps>,
+    "appMenuItemOption" | "includeRepeat" | "repeat"
+  > & {
+    onRepeatClick: () => void;
+    onTotalDurationChange: (totalDuration: number) => void;
+  };
 
-  constructor(props: TimelineComponentProps) {
-    super(props);
+function SettingsMenu({
+  appMenuItems,
+  appMenuItemOption,
+  includeRepeat,
+  repeat,
+  totalDuration,
+  onRepeatClick,
+  onTotalDurationChange,
+}: SettingsMenuProps) {
+  const settingsLabel = React.useMemo(
+    () => UiComponents.translate("button.label.settings"),
+    []
+  );
+  const repeatLabel = React.useMemo(
+    () => UiIModelComponents.translate("timeline.repeat"),
+    []
+  );
+  const standardItems: TimelineMenuItemProps[] = React.useMemo(
+    () => [
+      {
+        label: UiIModelComponents.translate("timeline.slow"),
+        timelineDuration: slowSpeed,
+      },
+      {
+        label: UiIModelComponents.translate("timeline.medium"),
+        timelineDuration: mediumSpeed,
+      },
+      {
+        label: UiIModelComponents.translate("timeline.fast"),
+        timelineDuration: fastSpeed,
+      },
+    ],
+    []
+  );
 
-    this.state = {
-      isPlaying: false,
-      currentDuration: props.initialDuration
-        ? props.initialDuration
-        : /* istanbul ignore next */ 0,
-      totalDuration: this.props.totalDuration,
-      repeat: this.props.repeat ? true : false,
-      includeRepeat:
-        this.props.includeRepeat || this.props.includeRepeat === undefined
-          ? true
-          : false,
-    };
-
-    this._repeatLabel = UiIModelComponents.translate("timeline.repeat");
-    // istanbul ignore else
-    if (this.props.componentId) {
-      // can't handle an event if we have no id
-      this._removeListener = UiAdmin.onGenericUiEvent.addListener(
-        this._handleTimelinePausePlayEvent
-      );
-    }
-  }
-
-  public override componentWillUnmount() {
-    if (this._removeListener) this._removeListener();
-    window.cancelAnimationFrame(this._requestFrame);
-    this._unmounted = true;
-  }
-
-  public override shouldComponentUpdate(
-    nextProps: TimelineComponentProps,
-    nextState: TimelineComponentState
-  ) {
-    let result = false;
-
-    // istanbul ignore next
-    if (
-      nextState !== this.state ||
-      nextProps !== this.props ||
-      nextProps.startDate !== this.props.startDate ||
-      nextProps.endDate !== this.props.endDate ||
-      nextProps.initialDuration !== this.props.initialDuration ||
-      nextProps.repeat !== this.props.repeat
-    )
-      result = true;
-
-    return result;
-  }
-
-  public override componentDidUpdate(prevProps: TimelineComponentProps) {
-    // istanbul ignore else
-    if (this.props.initialDuration !== prevProps.initialDuration) {
-      this._setDuration(
-        this.props.initialDuration
-          ? this.props.initialDuration
-          : /* istanbul ignore next */ 0,
-        this.props.totalDuration !== prevProps.totalDuration
-          ? this.props.totalDuration
-          : undefined
-      );
+  const menuItems = React.useMemo(() => {
+    if (!appMenuItems) {
+      return standardItems;
     }
 
-    // istanbul ignore else
-    if (this.props.repeat !== prevProps.repeat) {
-      this._changeRepeatSetting(this.props.repeat);
+    if (appMenuItemOption === "append") {
+      return [...standardItems, ...appMenuItems];
     }
-
-    // istanbul ignore else
-    if (this.props.totalDuration !== prevProps.totalDuration) {
-      this._onSetTotalDuration(this.props.totalDuration);
+    if (appMenuItemOption === "prefix") {
+      return [...appMenuItems, ...standardItems];
     }
-  }
-  private _handleTimelinePausePlayEvent = (args: GenericUiEventArgs): void => {
-    const timelineArgs = args as TimelinePausePlayArgs;
-    // istanbul ignore else
-    if (
-      !timelineArgs ||
-      this.props.componentId !== timelineArgs.uiComponentId ||
-      timelineArgs.timelineAction === undefined
-    )
-      return;
+    // Replace
+    return appMenuItems;
+  }, [appMenuItemOption, appMenuItems, standardItems]);
 
-    let startPlaying: boolean;
-    switch (timelineArgs.timelineAction) {
-      case TimelinePausePlayAction.Play:
-        startPlaying = true;
-        break;
-      case TimelinePausePlayAction.Pause:
-        startPlaying = false;
-        break;
-      case TimelinePausePlayAction.Toggle:
-        startPlaying = !this.state.isPlaying;
-        break;
-      // istanbul ignore next
-      default:
-        return; // throw error?
-    }
-    if (startPlaying) this._onPlay();
-    else this._onPause();
-  };
-
-  // user clicked play button
-  private _onPlay = () => {
-    // istanbul ignore if
-    if (this.state.isPlaying) return;
-
-    // timeline was complete, restart from the beginning
-    if (this.state.currentDuration >= this.state.totalDuration) {
-      this._replay();
-    } else this._play();
-
-    // istanbul ignore else
-    if (this.props.onPlayPause) this.props.onPlayPause(true);
-  };
-
-  // user clicked pause button
-  private _onPause = () => {
-    // istanbul ignore if
-    if (!this.state.isPlaying) return;
-
-    // stop requesting frames
-    window.cancelAnimationFrame(this._requestFrame);
-
-    // stop playing
-    this.setState({ isPlaying: false });
-
-    // istanbul ignore else
-    if (this.props.onPlayPause) this.props.onPlayPause(false);
-  };
-
-  // user clicked on timeline rail or dragged scrubber handle
-  private _onTimelineChange = (values: ReadonlyArray<number>) => {
-    const currentDuration = values[0];
-    this._setDuration(currentDuration);
-  };
-
-  // set the current duration, which will call the OnChange callback
-  private _setDuration = (currentDuration: number, updatedTotal?: number) => {
-    const actualDuration = Math.min(
-      updatedTotal ?? this.state.totalDuration,
-      Math.max(currentDuration, 0)
-    );
-
-    this._timeLastCycle = new Date().getTime();
-    // istanbul ignore else
-    if (!this._unmounted) this.setState({ currentDuration: actualDuration });
-    // istanbul ignore else
-    if (this.props.onChange) {
-      const fraction =
-        actualDuration / (updatedTotal ?? this.state.totalDuration);
-      this.props.onChange(fraction);
-    }
-  };
-
-  // recursively update the animation until we hit the end or the pause button is clicked
-  private _updateAnimation = (_timestamp: number) => {
-    // istanbul ignore else
-    if (!this.state.isPlaying && !this._unmounted) {
-      return;
-    }
-
-    // update duration
-    const currentTime = new Date().getTime();
-    const millisecondsElapsed = currentTime - this._timeLastCycle;
-    const duration = this.state.currentDuration + millisecondsElapsed;
-    this._setDuration(duration);
-
-    // stop the animation!
-    if (duration >= this.state.totalDuration) {
-      window.cancelAnimationFrame(this._requestFrame);
-      this.setState({ isPlaying: false });
-      if (this.state.repeat) this._replay();
-      else {
-        // istanbul ignore else
-        if (this.props.onPlayPause) this.props.onPlayPause(false);
-      }
-
-      return;
-    }
-
-    // continue the animation - request the next frame
-    this._requestFrame = window.requestAnimationFrame(this._updateAnimation);
-  };
-
-  private _play() {
-    // start playing
-    this.setState({ isPlaying: true }, () => {
-      // request the next frame
-      this._timeLastCycle = new Date().getTime();
-      this._requestFrame = window.requestAnimationFrame(this._updateAnimation);
-    });
-  }
-
-  private _replay = () => {
-    // timeline was complete, restart from the beginning
-    this.setState({ currentDuration: 0 }, () => this._play());
-  };
-
-  private _displayTime(millisec: number) {
-    const addZero = (i: number) => {
-      return i < 10 ? `0${i}` : i;
-    };
-
-    const date = new Date(millisec);
-    // const hours = date.getUTCHours();
-    const minutes = date.getUTCMinutes();
-    const seconds = date.getUTCSeconds();
-    return `${addZero(minutes)}:${addZero(seconds)}`;
-  }
-
-  private _getMilliseconds(time: string) {
-    // istanbul ignore else - WIP
-    if (time.indexOf(":") !== -1) {
-      return (
-        (Number(time.split(":")[0]) * 60 + Number(time.split(":")[1])) * 1000
-      );
-    } else {
-      return Number(time) * 1000;
-    }
-  }
-
-  // user changed the total duration
-  private _onTotalDurationChange = (value: string) => {
-    // NOTE: we should reset the current duration to 0
-    const milliseconds = this._getMilliseconds(value);
-    this._onSetTotalDuration(milliseconds);
-  };
-
-  private _changeRepeatSetting = (newValue?: boolean) => {
-    // istanbul ignore else
-    if (newValue !== undefined) {
-      this.setState(
-        () => ({ repeat: newValue }),
-        () => {
-          // istanbul ignore else
-          if (this.props.onSettingsChange) {
-            this.props.onSettingsChange({ loop: this.state.repeat });
-          }
-        }
-      );
-    }
-  };
-
-  private _onRepeatChanged = () => {
-    this.setState(
-      (prevState) => ({ repeat: !prevState.repeat }),
-      () => {
-        // istanbul ignore else
-        if (this.props.onSettingsChange) {
-          this.props.onSettingsChange({ loop: this.state.repeat });
-        }
-      }
-    );
-  };
-
-  private _onSetTotalDuration = (milliseconds: number) => {
-    this.setState({ totalDuration: milliseconds }, () => {
-      // istanbul ignore else
-      if (this.props.onSettingsChange) {
-        this.props.onSettingsChange({ duration: milliseconds });
-      }
-    });
-  };
-
-  private _createMenuItemNode(
-    item: TimelineMenuItemProps,
-    index: number,
-    currentTimelineDuration: number,
-    close: () => void
-  ): React.ReactElement {
-    const label = item.label;
-    const checked = currentTimelineDuration === item.timelineDuration;
-    const icon = checked ? (
-      <span className="icon">
-        <Icon iconSpec={<SvgCheckmark />} />{" "}
-      </span>
-    ) : (
-      <span />
-    );
-    return (
-      <MenuItem
-        key={index}
-        startIcon={icon}
-        onClick={() => {
-          this._onSetTotalDuration(item.timelineDuration);
-          close();
-        }}
+  return (
+    <DropdownMenu
+      menuItems={(close) => {
+        return [
+          ...(includeRepeat
+            ? [
+                <MenuItem
+                  key="repeat"
+                  onClick={() => {
+                    onRepeatClick();
+                    close();
+                  }}
+                  startIcon={repeat ? <SvgCheckmark /> : <></>}
+                >
+                  {repeatLabel}
+                </MenuItem>,
+                <MenuDivider key="divider" />,
+              ]
+            : []),
+          ...menuItems.map((item, index) => {
+            const checked = totalDuration === item.timelineDuration;
+            return (
+              <MenuItem
+                key={index}
+                startIcon={checked ? <SvgCheckmark /> : <></>}
+                onClick={() => {
+                  onTotalDurationChange(item.timelineDuration);
+                  close();
+                }}
+              >
+                {item.label}
+              </MenuItem>
+            );
+          }),
+        ];
+      }}
+      placement="top-start"
+    >
+      <IconButton
+        data-testid="timeline-settings"
+        title={settingsLabel}
+        styleType="borderless"
       >
-        {label}
-      </MenuItem>
-    );
-  }
+        <SvgMoreVertical />
+      </IconButton>
+    </DropdownMenu>
+  );
+}
 
-  private _renderSettings = () => {
-    const createMenuItemNodes = (close: () => void): React.ReactElement[] => {
-      const { totalDuration } = this.state;
-      let contextMenuItems: Array<TimelineMenuItemProps> = [];
+function useAnimation(
+  onAnimate: (args: { delta: number }) => void,
+  playing = true
+) {
+  const onAnimateRef = React.useRef(onAnimate);
+  onAnimateRef.current = onAnimate;
 
-      if (!this.props.appMenuItems) {
-        contextMenuItems = this._standardTimelineMenuItems;
-      } else {
-        if (this.props.appMenuItemOption === "append") {
-          contextMenuItems = this._standardTimelineMenuItems.concat(
-            this.props.appMenuItems
-          );
-        } else if (this.props.appMenuItemOption === "prefix") {
-          contextMenuItems = this.props.appMenuItems.concat(
-            this._standardTimelineMenuItems
-          );
-        } else {
-          contextMenuItems = this.props.appMenuItems;
-        }
+  const lastTimeRef = React.useRef<number | undefined>();
+
+  React.useEffect(() => {
+    if (!playing) return;
+
+    let handle = 0;
+    let didCancel = false;
+
+    const animate = (time: number) => {
+      if (lastTimeRef.current === undefined) {
+        lastTimeRef.current = time;
       }
 
-      const itemNodes: React.ReactElement[] = [];
-      let keyIndex = 0;
-      if (this.state.includeRepeat) {
-        const checked = this.state.repeat;
-        const icon = checked ? (
-          <span className="icon">
-            <Icon iconSpec={<SvgCheckmark />} />{" "}
-          </span>
-        ) : (
-          <span />
-        );
-        itemNodes.push(
-          <MenuItem
-            key={++keyIndex}
-            onClick={() => {
-              this._onRepeatChanged();
-              close();
-            }}
-            startIcon={icon}
-          >
-            {this._repeatLabel}
-          </MenuItem>
-        );
-        itemNodes.push(<MenuDivider key={++keyIndex} />);
-      }
+      const delta = time - lastTimeRef.current;
+      lastTimeRef.current = time;
 
-      contextMenuItems.forEach((item: TimelineMenuItemProps, index: number) => {
-        itemNodes.push(
-          this._createMenuItemNode(
-            item,
-            index + keyIndex + 1,
-            totalDuration,
-            close
-          )
-        );
+      onAnimateRef.current({
+        delta,
       });
 
-      return itemNodes;
+      if (didCancel) return;
+
+      handle = window.requestAnimationFrame(animate);
     };
 
+    handle = window.requestAnimationFrame(animate);
+    return () => {
+      didCancel = true;
+      lastTimeRef.current = undefined;
+      window.cancelAnimationFrame(handle);
+    };
+  }, [playing]);
+}
+
+function timeToMs(time: string) {
+  if (time.indexOf(":") !== -1) {
     return (
-      <DropdownMenu menuItems={createMenuItemNodes} placement="top-start">
-        <span
-          data-testid="timeline-settings"
-          className="timeline-settings icon"
-          role="button"
-          tabIndex={-1}
-          title={UiComponents.translate("button.label.settings")}
-        >
-          <Icon iconSpec={<SvgMoreVertical />} />
-        </span>
-      </DropdownMenu>
+      (Number(time.split(":")[0]) * 60 + Number(time.split(":")[1])) * 1000
     );
+  } else {
+    return Number(time) * 1000;
+  }
+}
+
+function toDisplayTime(ms: number) {
+  const addZero = (i: number) => {
+    return i < 10 ? `0${i}` : i;
   };
 
-  public override render() {
-    const {
-      startDate,
-      endDate,
-      showDuration,
-      timeZoneOffset,
-      dateFormatOptions,
-      timeFormatOptions,
-    } = this.props;
-    const { currentDuration, totalDuration } = this.state;
-    const durationString = this._displayTime(currentDuration);
-    const totalDurationString = this._displayTime(totalDuration);
-    const hasDates = !!startDate && !!endDate;
-
-    return (
-      <div
-        data-testid="timeline-component"
-        className={classnames("timeline-component", hasDates && "has-dates")}
-      >
-        <div className="scrubber">
-          <PlayButton
-            className="play-button"
-            isPlaying={this.state.isPlaying}
-            onPlay={this._onPlay}
-            onPause={this._onPause}
-          />
-          <div className="start-time-container">
-            {hasDates && (
-              <span data-testid="test-start-date" className="start-date">
-                {toDateString(startDate, timeZoneOffset, dateFormatOptions)}
-              </span>
-            )}
-            {hasDates && !showDuration && (
-              <span data-testid="test-start-time" className="start-time">
-                {toTimeString(startDate, timeZoneOffset, timeFormatOptions)}
-              </span>
-            )}
-            {showDuration && (
-              <span className="duration-start-time">{durationString}</span>
-            )}
-          </div>
-          <Scrubber
-            className="slider"
-            currentDuration={this.state.currentDuration}
-            totalDuration={totalDuration}
-            startDate={startDate}
-            endDate={endDate}
-            isPlaying={this.state.isPlaying}
-            showTime={!showDuration}
-            onChange={this._onTimelineChange}
-            onUpdate={this._onTimelineChange}
-            timeZoneOffset={this.props.timeZoneOffset}
-            markDate={this.props.markDate}
-          />
-          <div className="end-time-container">
-            {hasDates && (
-              <span className="end-date">
-                {toDateString(endDate, timeZoneOffset)}
-              </span>
-            )}
-            {hasDates && !showDuration && (
-              <span className="end-time">
-                {toTimeString(endDate, timeZoneOffset, timeFormatOptions)}
-              </span>
-            )}
-            {showDuration && (
-              <InlineEdit
-                className="duration-end-time"
-                defaultValue={totalDurationString}
-                onChange={this._onTotalDurationChange}
-              />
-            )}
-          </div>
-          {this._renderSettings()}
-        </div>
-      </div>
-    );
-  }
+  const date = new Date(ms);
+  // const hours = date.getUTCHours();
+  const minutes = date.getUTCMinutes();
+  const seconds = date.getUTCSeconds();
+  return `${addZero(minutes)}:${addZero(seconds)}`;
 }
