@@ -2,17 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { AccuDrawInputField } from "../../appui-react/accudraw/AccuDrawInputField";
-import { TestUtils } from "../TestUtils";
 import type { IModelAppOptions } from "@itwin/core-frontend";
 import { IModelApp, ItemField, NoRenderApp } from "@itwin/core-frontend";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { UiFramework } from "../../appui-react";
+import TestUtils from "../TestUtils";
 
 // cspell:ignore uiadmin
 
@@ -23,9 +23,8 @@ describe("AccuDrawInputField", () => {
     IModelApp,
     "requestNextAnimation"
   )!;
-  const sandbox = sinon.createSandbox();
 
-  before(async () => {
+  beforeEach(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
     // Tried replacing window.requestAnimationFrame first but that did not work.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
@@ -37,22 +36,16 @@ describe("AccuDrawInputField", () => {
     const opts: IModelAppOptions = {};
     opts.accuDraw = new FrameworkAccuDraw();
     await NoRenderApp.startup(opts);
+    const accuDraw = new FrameworkAccuDraw();
+    sinon.stub(IModelApp, "accuDraw").get(() => accuDraw);
   });
 
-  after(async () => {
-    await IModelApp.shutdown();
-
+  afterEach(async () => {
     Object.defineProperty(
       IModelApp,
       "requestNextAnimation",
       rnaDescriptorToRestore
     );
-
-    TestUtils.terminateUiFramework();
-  });
-
-  afterEach(() => {
-    sandbox.restore();
   });
 
   it("should render with lock", () => {
@@ -172,23 +165,27 @@ describe("AccuDrawInputField", () => {
   });
 
   it("should update value when calling onFieldValueChange", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const wrapper = render(
       <AccuDrawInputField
         isLocked={false}
         field={ItemField.X_Item}
         id="x"
-        onValueChanged={spyMethod}
+        onValueChanged={spy}
       />
     );
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
-    IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
-    IModelApp.accuDraw.setValueByIndex(ItemField.X_Item, 30.48);
-    IModelApp.accuDraw.onFieldValueChange(ItemField.X_Item);
+
+    act(() => {
+      IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
+      IModelApp.accuDraw.setValueByIndex(ItemField.X_Item, 30.48);
+      IModelApp.accuDraw.onFieldValueChange(ItemField.X_Item);
+    });
+
     await waitFor(() => {
       expect((input as HTMLInputElement).value).to.eq("100'-0\"");
     });
-    spyMethod.called.should.be.false;
+    sinon.assert.notCalled(spy);
   });
 });

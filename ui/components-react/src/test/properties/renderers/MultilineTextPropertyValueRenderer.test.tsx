@@ -82,10 +82,6 @@ describe("MultilineTextRenderer", () => {
     TestUtils.terminateUiComponents();
   });
 
-  afterEach(() => {
-    sinon.restore();
-  });
-
   it("renders child element", () => {
     const { getByText } = render(
       <MultilineTextRenderer>Test</MultilineTextRenderer>

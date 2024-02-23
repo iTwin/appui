@@ -7,16 +7,13 @@
 
 .components-date-input {
   width: auto;
+  padding: $uicore-iui-input-padding;
 
   &.components-date-has-error {
     color: var(--iui-color-text-negative);
   }
 
-  &.iui-input {
-    padding: $uicore-iui-input-padding;
-  }
-
-  &.iui-input[disabled] {
+  &[disabled] {
     color: var(--buic-foreground-body);
     opacity: 0.65;
   }

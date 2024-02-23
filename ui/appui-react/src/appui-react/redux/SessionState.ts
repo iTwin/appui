@@ -38,7 +38,8 @@ export interface CursorMenuData {
 
 /**
  * Definition of data added to Redux store to define cursor menu.  If menuItems are empty the menu control is not displayed.
- * To close the menu clear the menuItems or pass in undefined as the CursorData.`
+ * To close the menu clear the menuItems or pass in undefined as the CursorData.
+ * @public
  */
 export interface CursorMenuPayload {
   position: XAndY;

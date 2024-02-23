@@ -4,29 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
-import { render } from "@testing-library/react";
+import { fireEvent, render, within } from "@testing-library/react";
 import type { UnitSystemKey } from "@itwin/core-quantity";
 import { UnitSystemSelector } from "../../appui-react/settings/quantityformatting/UnitSystemSelector";
-import TestUtils, {
-  handleError,
-  selectChangeValueByText,
-  selectTestOptionCount,
-  stubScrollIntoView,
-} from "../TestUtils";
+import { waitForPosition } from "../TestUtils";
 
 describe("UnitSystemSelector", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  after(() => {
-    TestUtils.terminateUiFramework();
-  });
-
-  stubScrollIntoView();
-
-  it("will render four systems", () => {
-    const onChangedSpy = sinon.spy();
+  it("will render four systems", async () => {
+    const spy = sinon.spy();
     const availableUnitSystems = new Set<UnitSystemKey>([
       "metric",
       "imperial",
@@ -35,27 +20,29 @@ describe("UnitSystemSelector", () => {
     ]);
     const wrapper = render(
       <UnitSystemSelector
-        onUnitSystemSelected={onChangedSpy}
+        onUnitSystemSelected={spy}
         selectedUnitSystemKey="metric"
         availableUnitSystems={availableUnitSystems}
       />
     );
 
-    // expect(wrapper.container.querySelectorAll("option").length).to.eq(4);
-    const selectButton = wrapper.getByTestId("unitSystemSelector");
-    // fireEvent.change(selectButton, { target: { value: "usCustomary" } });
-    selectTestOptionCount(selectButton, 4, handleError);
-    selectChangeValueByText(
-      selectButton,
-      "presentationUnitSystem.USCustomary",
-      handleError
+    const selectButton = within(
+      wrapper.getByTestId("unitSystemSelector")
+    ).getByRole("combobox");
+    fireEvent.click(selectButton);
+    await waitForPosition();
+
+    const menu = wrapper.getAllByRole("listbox").find((element) => {
+      return within(element).queryByText("presentationUnitSystem.Metric");
+    })!;
+    fireEvent.click(
+      within(menu).getByText("presentationUnitSystem.USCustomary")
     );
-    onChangedSpy.calledOnce.should.true;
-    wrapper.unmount();
+    sinon.assert.calledOnce(spy);
   });
 
-  it("will render three systems", () => {
-    const onChangedSpy = sinon.spy();
+  it("will render three systems", async () => {
+    const spy = sinon.spy();
     const availableUnitSystems = new Set<UnitSystemKey>([
       "metric",
       "imperial",
@@ -63,22 +50,22 @@ describe("UnitSystemSelector", () => {
     ]);
     const wrapper = render(
       <UnitSystemSelector
-        onUnitSystemSelected={onChangedSpy}
+        onUnitSystemSelected={spy}
         selectedUnitSystemKey="usCustomary"
         availableUnitSystems={availableUnitSystems}
       />
     );
 
-    // expect(wrapper.container.querySelectorAll("option").length).to.eq(3);
-    const selectButton = wrapper.getByTestId("unitSystemSelector");
-    // fireEvent.change(selectButton, { target: { value: "usSurvey" } });
-    selectTestOptionCount(selectButton, 3, handleError);
-    selectChangeValueByText(
-      selectButton,
-      "presentationUnitSystem.USSurvey",
-      handleError
-    );
-    onChangedSpy.calledOnce.should.true;
-    wrapper.unmount();
+    const selectButton = within(
+      wrapper.getByTestId("unitSystemSelector")
+    ).getByRole("combobox");
+    fireEvent.click(selectButton);
+    await waitForPosition();
+
+    const menu = wrapper.getAllByRole("listbox").find((element) => {
+      return within(element).queryByText("presentationUnitSystem.Metric");
+    })!;
+    fireEvent.click(within(menu).getByText("presentationUnitSystem.USSurvey"));
+    sinon.assert.calledOnce(spy);
   });
 });

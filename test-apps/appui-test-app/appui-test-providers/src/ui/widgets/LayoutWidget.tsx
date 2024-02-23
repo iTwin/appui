@@ -173,14 +173,7 @@ function WidgetSelect({
     setOptions(newOptions);
   }, [frontstageDef]);
   return (
-    <Select
-      options={options}
-      value={id}
-      onChange={(value) => {
-        onChange(value);
-      }}
-      size="small"
-    />
+    <Select options={options} value={id} onChange={onChange} size="small" />
   );
 }
 
@@ -636,14 +629,7 @@ function FloatingWidgetSelect({
   }, [allIds]);
 
   return (
-    <Select
-      options={options}
-      value={id}
-      onChange={(value) => {
-        onChange && onChange(value);
-      }}
-      size="small"
-    />
+    <Select options={options} value={id} onChange={onChange} size="small" />
   );
 }
 

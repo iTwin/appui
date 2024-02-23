@@ -113,9 +113,8 @@ function markDateInTimelineRange(
   }
   return false;
 }
-/**
- * @internal
- */
+
+/** @internal */
 export function RailMarkers({
   showToolTip,
   percent,
@@ -171,13 +170,10 @@ export function useFocusedThumb(sliderContainer: HTMLDivElement | undefined) {
   const [thumbElement, setThumbElement] = React.useState<HTMLDivElement>();
 
   React.useLayoutEffect(() => {
-    // istanbul ignore else
-    if (sliderContainer) {
-      const element = sliderContainer.querySelector(".iui-slider-thumb");
-      if (element && thumbElement !== element) {
-        setThumbElement(element as HTMLDivElement);
-      }
-    }
+    if (!sliderContainer) return;
+    const element = sliderContainer.querySelector(".components-timeline-thumb");
+    if (!element) return;
+    setThumbElement(element as HTMLDivElement);
   }, [sliderContainer, thumbElement]);
 
   const [thumbHasFocus, setThumbHasFocus] = React.useState(false);
@@ -236,29 +232,9 @@ export function Scrubber(props: ScrubberProps) {
     onUpdate,
   } = props;
 
-  const thumbProps = () => {
-    return {
-      className: "components-timeline-thumb",
-      children: <CustomThumb />,
-    };
-  };
-
-  const sliderRef = React.useRef<HTMLDivElement>(null);
   const [sliderContainer, setSliderContainer] =
-    React.useState<HTMLDivElement>();
+    React.useState<HTMLDivElement | null>(null);
   const [pointerPercent, setPointerPercent] = React.useState(0);
-
-  React.useLayoutEffect(() => {
-    // istanbul ignore else
-    if (sliderRef.current) {
-      const container = sliderRef.current.querySelector(
-        ".iui-slider-container"
-      );
-      if (container && sliderContainer !== container) {
-        setSliderContainer(container as HTMLDivElement);
-      }
-    }
-  }, [sliderContainer]);
 
   const tooltipProps = React.useCallback(() => {
     return { visible: false };
@@ -289,7 +265,7 @@ export function Scrubber(props: ScrubberProps) {
     [sliderContainer]
   );
 
-  const thumbHasFocus = useFocusedThumb(sliderContainer);
+  const thumbHasFocus = useFocusedThumb(sliderContainer ?? undefined);
 
   const tickLabel = React.useMemo(() => {
     const showTip = isPlaying || showRailTooltip || thumbHasFocus;
@@ -339,7 +315,7 @@ export function Scrubber(props: ScrubberProps) {
 
   return (
     <Slider
-      ref={sliderRef}
+      ref={setSliderContainer}
       className={className}
       step={1}
       min={0}
@@ -350,13 +326,14 @@ export function Scrubber(props: ScrubberProps) {
       onChange={onChange}
       values={[currentDuration]}
       tooltipProps={tooltipProps}
-      thumbProps={thumbProps}
+      thumbProps={() => ({
+        children: <CustomThumb />,
+        className: "components-timeline-thumb",
+      })}
       tickLabels={tickLabel}
-      railContainerProps={{
-        onPointerEnter: handlePointerEnter,
-        onPointerMove: handlePointerMove,
-        onPointerLeave: handlePointerLeave,
-      }}
+      onPointerEnter={handlePointerEnter}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
     />
   );
 }

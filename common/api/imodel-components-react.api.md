@@ -13,7 +13,7 @@ import { FormatterSpec } from '@itwin/core-quantity';
 import { HSVColor } from '@itwin/core-common';
 import type { Id64String } from '@itwin/core-bentley';
 import type { IModelConnection } from '@itwin/core-frontend';
-import type { InputProps } from '@itwin/itwinui-react';
+import { Input } from '@itwin/itwinui-react';
 import { Matrix3d } from '@itwin/core-geometry';
 import { Point2d } from '@itwin/core-geometry';
 import { Point3d } from '@itwin/core-geometry';

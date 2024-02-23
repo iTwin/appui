@@ -10,7 +10,7 @@ import * as React from "react";
 import { IconButton } from "@itwin/itwinui-react";
 
 /** @internal */
-export const TabBarButton = React.forwardRef<
+export const TabBarButton: typeof IconButton = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof IconButton>
 >(function TabBarButton(props, ref) {

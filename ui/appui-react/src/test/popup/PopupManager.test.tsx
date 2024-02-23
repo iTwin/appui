@@ -51,7 +51,7 @@ describe("PopupManager", () => {
     "requestNextAnimation"
   )!;
 
-  before(async () => {
+  beforeEach(async () => {
     Object.defineProperty(window, "localStorage", {
       get: () => myLocalStorage,
     });
@@ -67,8 +67,7 @@ describe("PopupManager", () => {
     await NoRenderApp.startup();
   });
 
-  after(async () => {
-    await IModelApp.shutdown();
+  afterEach(async () => {
     // restore the overriden property getter
     Object.defineProperty(window, "localStorage", propertyDescriptorToRestore);
     Object.defineProperty(
@@ -76,8 +75,6 @@ describe("PopupManager", () => {
       "requestNextAnimation",
       rnaDescriptorToRestore
     );
-
-    TestUtils.terminateUiFramework();
   });
 
   beforeEach(() => {
@@ -541,9 +538,7 @@ describe("PopupManager", () => {
           wrapper.container.querySelectorAll("div.uifw-card-content").length
         ).to.eq(1);
       });
-      expect(
-        wrapper.container.querySelectorAll(".iui-text-leading").length
-      ).to.eq(1);
+      wrapper.getByText("Title");
       expect(
         wrapper.container.querySelectorAll(
           "div.components-toolbar-overflow-sizer"
@@ -573,9 +568,7 @@ describe("PopupManager", () => {
       expect(
         wrapper.container.querySelectorAll("div.uifw-card-content").length
       ).to.eq(1);
-      expect(
-        wrapper.container.querySelectorAll(".iui-text-leading").length
-      ).to.eq(1);
+      wrapper.getByText("Title");
       PopupManager.hideCard();
 
       PopupManager.showCard(
@@ -593,9 +586,6 @@ describe("PopupManager", () => {
         expect(
           wrapper.container.querySelectorAll("div.uifw-card-content").length
         ).to.eq(1);
-        expect(
-          wrapper.container.querySelectorAll(".iui-text-leading").length
-        ).to.eq(0);
       });
       PopupManager.hideCard();
 
@@ -614,9 +604,6 @@ describe("PopupManager", () => {
       expect(
         wrapper.container.querySelectorAll("div.uifw-card-content").length
       ).to.eq(1);
-      expect(
-        wrapper.container.querySelectorAll(".iui-text-leading").length
-      ).to.eq(0);
       PopupManager.hideCard();
     });
 
@@ -750,7 +737,7 @@ describe("PopupManager", () => {
         ).to.eq(1);
       });
       const inputNode = wrapper.container.querySelector("input");
-      expect(inputNode).not.to.null;
+      expect(inputNode).not.to.be.null;
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
       expect(spyCancel.calledOnce).to.be.true;

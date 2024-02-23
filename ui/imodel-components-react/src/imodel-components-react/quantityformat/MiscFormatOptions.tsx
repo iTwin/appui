@@ -282,7 +282,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
           onKeyUp={handleKeyUpOnLink}
           className={"components-quantityFormat-more-less"}
           role="link"
-          data-testid="quantityFormat-more"
           tabIndex={0}
         >
           {moreLabel.current}
@@ -429,7 +428,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
               onKeyUp={handleKeyUpOnLink}
               className={"components-quantityFormat-more-less"}
               role="link"
-              data-testid="quantityFormat-less"
               tabIndex={0}
             >
               {lessLabel.current}

@@ -2,10 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { act, fireEvent, render } from "@testing-library/react";
-import { renderHook } from "@testing-library/react-hooks";
+import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
+import { act, fireEvent, render } from "@testing-library/react";
+import { renderHook } from "@testing-library/react-hooks";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import * as NineZoneModule from "../../../appui-react/layout/base/NineZone";
 import type { PanelWidgetDragStartAction } from "../../../appui-react/layout/state/NineZoneAction";
@@ -51,24 +52,30 @@ describe("PanelWidget", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    const { container } = render(
+    const component = render(
       <Provider defaultState={state}>
         <PanelWidget widgetId="w1" />
       </Provider>
     );
-    container.firstChild!.should.matchSnapshot();
+    const widgets = component.container.getElementsByClassName(
+      "nz-widget-panelWidget"
+    );
+    expect(Array.from(widgets)).to.have.lengthOf(1);
   });
 
   it("should render minimized", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"], { minimized: true });
-    const { container } = render(
+    const component = render(
       <Provider defaultState={state}>
         <PanelWidget widgetId="w1" />
       </Provider>
     );
-    container.firstChild!.should.matchSnapshot();
+    const widgets = component.container.getElementsByClassName(
+      "nz-widget-panelWidget nz-minimized"
+    );
+    expect(Array.from(widgets)).to.have.lengthOf(1);
   });
 
   it("should render with fit-content", () => {
@@ -77,26 +84,15 @@ describe("PanelWidget", () => {
     state = addTab(state, "t2");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addPanelWidget(state, "left", "w2", ["t2"]);
-    const { container } = render(
+    const component = render(
       <Provider defaultState={state}>
         <PanelWidget widgetId="w1" />
       </Provider>
     );
-    container.firstChild!.should.matchSnapshot();
-  });
-
-  it("should render horizontal with fit-content", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "t1", { preferredPanelWidgetSize: "fit-content" });
-    state = addTab(state, "t2");
-    state = addPanelWidget(state, "top", "w1", ["t1"]);
-    state = addPanelWidget(state, "top", "w2", ["t2"]);
-    const { container } = render(
-      <Provider defaultState={state} side="top">
-        <PanelWidget widgetId="w1" />
-      </Provider>
+    const widgets = component.container.getElementsByClassName(
+      "nz-widget-panelWidget nz-fit"
     );
-    container.firstChild!.should.matchSnapshot();
+    expect(Array.from(widgets)).to.have.lengthOf(1);
   });
 
   describe("PANEL_WIDGET_DRAG_START", () => {

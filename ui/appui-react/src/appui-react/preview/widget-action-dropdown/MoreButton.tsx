@@ -27,11 +27,13 @@ export function MoreButton(props: React.PropsWithChildren<{}>) {
           {props.children}
         </WidgetActionDropdownContext.Provider>,
       ]}
-      offset={[0, 2]}
     >
-      <TabBarButton label="More actions" style={{ marginInline: "0.25em" }}>
-        <SvgMoreVertical />
-      </TabBarButton>
+      {/* TODO: offset is not available for DropdownMenu */}
+      <div style={{ height: "100%", display: "flex", marginInline: "0.25em" }}>
+        <TabBarButton label="More actions">
+          <SvgMoreVertical />
+        </TabBarButton>
+      </div>
     </DropdownMenu>
   );
 }

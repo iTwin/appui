@@ -10,7 +10,6 @@ import "./NumberInput.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import type { InputProps } from "@itwin/itwinui-react";
 import { Input } from "@itwin/itwinui-react";
 import { Icon } from "../../icons/IconComponent";
 import {
@@ -19,6 +18,8 @@ import {
   SvgCaretUp,
   SvgCaretUpSmall,
 } from "@itwin/itwinui-icons-react";
+
+type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
 /** Step function prototype for [[NumberInput]] component
  * @public
@@ -71,6 +72,7 @@ const ForwardRefNumberInput = React.forwardRef<
 >(function ForwardRefNumberInput(props, ref) {
   const {
     containerClassName,
+    className,
     value,
     min,
     max,
@@ -295,6 +297,7 @@ const ForwardRefNumberInput = React.forwardRef<
         onFocus={handleFocus}
         onBlur={handleBlur}
         size="small"
+        className={classnames("core-input", className)}
         {...otherProps}
       />
       <div

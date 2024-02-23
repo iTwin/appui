@@ -2,7 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
@@ -36,7 +42,7 @@ describe("AccuDrawFieldContainer", () => {
     "requestNextAnimation"
   )!;
 
-  before(async () => {
+  beforeEach(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
     // Tried replacing window.requestAnimationFrame first but that did not work.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
@@ -48,18 +54,16 @@ describe("AccuDrawFieldContainer", () => {
     const opts: IModelAppOptions = {};
     opts.accuDraw = new FrameworkAccuDraw();
     await NoRenderApp.startup(opts);
+    const accuDraw = new FrameworkAccuDraw();
+    sinon.stub(IModelApp, "accuDraw").get(() => accuDraw);
   });
 
   after(async () => {
-    await IModelApp.shutdown();
-
     Object.defineProperty(
       IModelApp,
       "requestNextAnimation",
       rnaDescriptorToRestore
     );
-
-    TestUtils.terminateUiFramework();
   });
 
   it("should render Vertical", () => {
@@ -237,10 +241,14 @@ describe("AccuDrawFieldContainer", () => {
     const remove =
       FrameworkAccuDraw.onAccuDrawSetCompassModeEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
-    IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
-    spy.calledOnce.should.true;
-    IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
-    spy.calledTwice.should.true;
+
+    act(() => {
+      IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
+      sinon.assert.calledOnce(spy);
+      IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
+      sinon.assert.calledTwice(spy);
+    });
+
     remove();
   });
 

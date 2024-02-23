@@ -22,7 +22,6 @@ import {
   StandardEditorNames,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import type { TextareaProps } from "@itwin/itwinui-react";
 import { Textarea } from "@itwin/itwinui-react";
 import { TypeConverterManager } from "../converters/TypeConverterManager";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
@@ -32,6 +31,8 @@ import {
 } from "./PropertyEditorManager";
 import { PopupButton, PopupContent, PopupOkCancelButtons } from "./PopupButton";
 import { UiComponents } from "../UiComponents";
+
+type TextareaProps = React.ComponentPropsWithoutRef<typeof Textarea>;
 
 /** @internal */
 interface TextareaEditorState {
@@ -55,6 +56,7 @@ export class TextareaEditor
   private _isMounted = false;
   private _ariaLabel = UiComponents.translate("editor.textarea");
   private _divElement = React.createRef<HTMLDivElement>();
+  private _textAreaElement = React.createRef<HTMLTextAreaElement>();
 
   /** @internal */
   public override readonly state: Readonly<TextareaEditorState> = {
@@ -220,7 +222,7 @@ export class TextareaEditor
       maxLength: this.state.maxLength,
       value: this.state.inputValue,
       onChange: this._updateTextareaValue,
-      setFocus: this.props.setFocus && !this.state.isDisabled,
+      autoFocus: this.props.setFocus && !this.state.isDisabled,
     };
 
     textareaProps["aria-label"] = this._ariaLabel;
@@ -231,12 +233,13 @@ export class TextareaEditor
           label={this.state.inputValue}
           closeOnEnter={false}
           setFocus={this.props.setFocus}
-          focusTarget=".iui-input"
+          focusTarget={this._textAreaElement}
         >
           <PopupContent>
             <Textarea
               {...textareaProps}
               data-testid="components-textarea-editor"
+              ref={this._textAreaElement}
             />
             <PopupOkCancelButtons
               onOk={this._handleOk}

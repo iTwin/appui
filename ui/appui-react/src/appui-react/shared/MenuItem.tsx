@@ -26,6 +26,7 @@ export type MenuItemProps = AbstractMenuItemProps;
 
 /**
  * Properties for context menu items.
+ * @public
  */
 export interface CursorMenuItemProps extends ItemProps {
   /** The id for the menu item. */

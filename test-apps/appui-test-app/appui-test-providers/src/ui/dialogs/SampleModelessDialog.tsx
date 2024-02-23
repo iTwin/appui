@@ -27,7 +27,7 @@ export class SampleModelessDialog extends React.Component<
   SampleModelessDialogState
 > {
   public override readonly state: Readonly<SampleModelessDialogState>;
-  private _title = "sample dialog";
+  private _title = "Sample Dialog";
 
   constructor(props: SampleModelessDialogProps) {
     super(props);
@@ -35,6 +35,7 @@ export class SampleModelessDialog extends React.Component<
       opened: this.props.opened,
     };
   }
+
   public override render(): React.ReactElement {
     return (
       <ModelessDialog
@@ -43,18 +44,16 @@ export class SampleModelessDialog extends React.Component<
         dialogId={this.props.dialogId}
         width={450}
         height={250}
-        onClose={this._handleCancel}
-        onEscape={this._handleCancel}
+        onClose={this._closeDialog}
+        onEscape={this._closeDialog}
         movable={true}
       >
         <div className="sample-options">
           <div>To demonstrate messagebox behaviour in modeless dialog</div>
           <ComboBox
-            value={"hello"}
             inputProps={{
-              placeholder: "localized1 placeholder",
+              placeholder: "Select units",
             }}
-            // onChange={(value: string) => memoizedOnViewDefinitionSelected(value)}
             options={[
               {
                 disabled: false,
@@ -75,7 +74,7 @@ export class SampleModelessDialog extends React.Component<
             <Button styleType="cta" onClick={this._onShowMessageBox}>
               Show Message box
             </Button>
-            <Button styleType="cta" onClick={this._handleCancel}>
+            <Button styleType="cta" onClick={this._closeDialog}>
               Close
             </Button>
           </div>
@@ -83,16 +82,13 @@ export class SampleModelessDialog extends React.Component<
       </ModelessDialog>
     );
   }
+
   private _onShowMessageBox = async () => {
-    const _result = await IModelApp.notifications.openMessageBox(
+    await IModelApp.notifications.openMessageBox(
       MessageBoxType.LargeOk,
       "I should be displayed over the Sample Modeless dialog.",
       MessageBoxIconType.Warning
     );
-  };
-
-  private _handleCancel = () => {
-    this._closeDialog();
   };
 
   private _closeDialog = () => {

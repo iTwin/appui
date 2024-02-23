@@ -59,7 +59,6 @@ describe("TreeRenderer", () => {
     visibleNodesMock.reset();
     treeActionsMock.reset();
     nodeLoaderMock.reset();
-    sinon.restore();
   });
 
   it("renders without nodes", () => {

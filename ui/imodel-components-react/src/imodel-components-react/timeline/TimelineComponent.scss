@@ -159,20 +159,3 @@
     transform: translateY(-50%);
   }
 }
-
-.timeline-component-max-sized-scrolling-menu {
-  display: flex;
-  max-height: 100%;
-  > .tippy-box {
-    display: flex;
-    > .tippy-content {
-      display: flex;
-      > div {
-        display: flex;
-        > .iui-menu {
-          overflow: auto;
-        }
-      }
-    }
-  }
-}

@@ -33,6 +33,10 @@ import {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
+import {
+  SvgCameraAnimation,
+  SvgCameraAnimationDisabled,
+} from "@itwin/itwinui-icons-react";
 import { getIsHiddenIfSelectionNotActive } from "../selection/SelectionContextItemDef";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import { ToolItemDef } from "../shared/ToolItemDef";
@@ -40,14 +44,13 @@ import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { GroupItemDef } from "../toolbar/GroupItem";
 import { RestoreFrontstageLayoutTool } from "./RestoreLayoutTool";
 import { UiFramework } from "../UiFramework";
-import cameraAnimationIcon from "@itwin/itwinui-icons/icons/camera-animation.svg";
-import cameraAnimationDisabledIcon from "@itwin/itwinui-icons/icons/camera-animation-disabled.svg";
 import svgGyroscope from "@bentley/icons-generic/icons/gyroscope.svg";
 import svgRotateLeft from "@bentley/icons-generic/icons/rotate-left.svg";
 import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
 import svgSelectionClear from "@bentley/icons-generic/icons/selection-clear.svg";
 import { SvgMeasure, SvgProcess } from "@itwin/itwinui-icons-react";
 import { KeyinPalettePopup } from "../popup/KeyinPalettePopup";
+import { ConditionalIconItem } from "@itwin/core-react";
 
 /** Utility Class that provides definitions of tools provided by the ($core-frontend) core. These definitions can be used to populate the UI.
  * @public
@@ -198,16 +201,16 @@ export class CoreTools {
   public static get toggleCameraViewCommand() {
     return new ToolItemDef({
       toolId: ViewToggleCameraTool.toolId,
-      iconSpec: new ConditionalStringValue(() => {
+      iconSpec: new ConditionalIconItem(() => {
         const activeContentControl =
           UiFramework.content.getActiveContentControl();
         if (
           activeContentControl?.viewport?.view.is3d() &&
           activeContentControl?.viewport?.isCameraOn
         ) {
-          return cameraAnimationIcon;
+          return <SvgCameraAnimation />;
         }
-        return cameraAnimationDisabledIcon;
+        return <SvgCameraAnimationDisabled />;
       }, [
         SyncUiEventId.ActiveContentChanged,
         SyncUiEventId.ActiveViewportChanged,

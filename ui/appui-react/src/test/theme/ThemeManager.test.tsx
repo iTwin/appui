@@ -11,14 +11,6 @@ import { ColorTheme, ThemeManager } from "../../appui-react/theme/ThemeManager";
 import TestUtils from "../TestUtils";
 
 describe("ThemeManager", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  after(() => {
-    TestUtils.terminateUiFramework();
-  });
-
   it("should change the theme", () => {
     const { container } = render(
       <Provider store={TestUtils.store}>
@@ -32,11 +24,10 @@ describe("ThemeManager", () => {
     expect(
       container.ownerDocument.documentElement.getAttribute("data-theme")
     ).to.eq("dark");
-    const providerDiv = container.querySelector(".iui-root")!;
+    const providerDiv = container.querySelector(
+      `[data-root-container="appui-root-id"]`
+    )!;
     expect(providerDiv.getAttribute("data-iui-theme")).to.eq("dark");
-    expect(providerDiv.getAttribute("data-root-container")).to.eq(
-      "iui-root-id"
-    );
   });
 
   it("should change the widget opacity", async () => {

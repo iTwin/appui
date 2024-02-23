@@ -86,6 +86,7 @@ public;ColorTheme
 public;CombinedReducerState
 public;combineReducers: CombineReducersFunction
 public;CombineReducersFunction = 
+public;CommandHandler
 public;CommandItemDef 
 public;CommandItemProps 
 public;CommonBackstageItem
@@ -136,6 +137,9 @@ public;CursorDirection
 public;CursorDirectionParts
 public;CursorInformation
 public;CursorMenuData
+deprecated;CursorMenuData
+public;CursorMenuItemProps 
+public;CursorMenuPayload
 public;CursorPopup 
 public;CursorPopupContent(props: CommonDivProps): React_2.JSX.Element
 internal;CursorPopupFadeOutEvent 
@@ -300,6 +304,7 @@ alpha;MenuButtonProps
 alpha;MenuItem 
 alpha;MenuItemHelpers
 public;MenuItemProps = AbstractMenuItemProps
+deprecated;MenuItemProps = AbstractMenuItemProps
 public;MessageAddedEvent 
 public;MessageAddedEventArgs
 public;MessageCenterField 
@@ -338,7 +343,7 @@ public;NotifyMessageDetailsType = NotifyMessageDetails | ReactNotifyMessageDetai
 public;NotifyMessageType = MessageType
 public;OpenChildWindowInfo
 public;OpenMessageCenterEvent 
-beta;OverflowToolbarOptions
+public;OverflowToolbarOptions
 internal;packNineZoneState(state: NineZoneState): NineZoneState
 public;PanelPinnedChangedEventArgs
 internal;PanelSizeChangedEvent 
@@ -502,8 +507,8 @@ alpha;ToolbarItemLayouts
 beta;ToolbarItemUtilities
 public;ToolbarOrientation
 beta;ToolbarPopup 
-beta;ToolbarPopupProps 
-beta;ToolbarProps 
+beta;ToolbarPopupProps = Omit
+public;ToolbarProps 
 public;ToolbarUsage
 beta;ToolbarWithOverflow(props: ToolbarWithOverflowProps): React_2.JSX.Element
 beta;ToolbarWithOverflowProps 

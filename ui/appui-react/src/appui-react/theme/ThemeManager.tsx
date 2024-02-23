@@ -11,6 +11,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import type { ThemeType } from "@itwin/itwinui-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
+import { ThemeProvider as ThemeProviderV2 } from "@itwin/itwinui-react-v2";
 import type { FrameworkState } from "../redux/FrameworkState";
 import { UiFramework } from "../UiFramework";
 
@@ -157,9 +158,16 @@ class ThemeManagerComponent extends React.Component<ThemeManagerProps> {
         className="uifw-root"
         theme={theme ?? "inherit"}
         themeOptions={{ highContrast }}
-        data-root-container={"iui-root-id"}
+        data-root-container="appui-root-id"
+        includeCss={true}
       >
-        {this.props.children}
+        <ThemeProviderV2 /* v2 ThemeProvider is required to fix popup styling issues in widget popouts. */
+          style={{ height: "100%" }}
+          theme={theme ?? "inherit"}
+          themeOptions={{ highContrast }}
+        >
+          {this.props.children}
+        </ThemeProviderV2>
       </ThemeProvider>
     );
   }

@@ -21,7 +21,7 @@ import {
   StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { Icon } from "@itwin/core-react";
-import type { TooltipProps } from "@itwin/itwinui-react";
+import type { Tooltip } from "@itwin/itwinui-react";
 import { Slider } from "@itwin/itwinui-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
 import {
@@ -29,6 +29,8 @@ import {
   PropertyEditorManager,
 } from "./PropertyEditorManager";
 import { PopupButton, PopupContent, PopupOkCancelButtons } from "./PopupButton";
+
+type TooltipProps = React.ComponentPropsWithoutRef<typeof Tooltip>;
 
 /** @internal */
 interface SliderEditorState {
@@ -308,6 +310,9 @@ export class SliderEditor
       minWidth: `${minSize}px`,
     };
 
+    const tickProps = {
+      "data-testid": "components-tick",
+    } as React.ComponentProps<"span">;
     const popupContent = (
       <Slider
         className="components-slider-editor-slider"
@@ -323,6 +328,7 @@ export class SliderEditor
         maxLabel={this.state.maxLabel}
         tooltipProps={this.tooltipProps}
         tickLabels={this.state.tickLabels}
+        tickProps={tickProps}
         onChange={this._handleChange}
       />
     );
@@ -334,7 +340,6 @@ export class SliderEditor
           onClose={this._handleClose}
           onEnter={this._handleEnter}
           setFocus={this.props.setFocus}
-          focusTarget=".core-slider-handle"
         >
           <PopupContent>
             {popupContent}

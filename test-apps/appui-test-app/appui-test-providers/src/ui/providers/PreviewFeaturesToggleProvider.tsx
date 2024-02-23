@@ -60,7 +60,7 @@ function PreviewFeatureList() {
           <MenuItem
             key={feature}
             sublabel={feature}
-            badge={<Checkbox checked={feature in features} readOnly />}
+            endIcon={<Checkbox checked={feature in features} readOnly />}
             onClick={() => {
               setFeatures((prev) => {
                 if (Object.keys(prev).includes(feature)) {

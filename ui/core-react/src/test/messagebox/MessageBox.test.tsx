@@ -38,12 +38,7 @@ describe("MessageBox", () => {
         </MessageBox>
       );
 
-      expect(
-        screen.getByText("Content", {
-          selector:
-            ".iui-dialog.iui-dialog-default.iui-dialog-visible .iui-dialog-content .core-message-box-container .core-message-box-content > div",
-        })
-      ).to.exist;
+      screen.getByText("Content");
     });
   });
 

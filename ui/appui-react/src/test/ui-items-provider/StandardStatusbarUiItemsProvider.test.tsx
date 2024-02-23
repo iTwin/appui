@@ -3,9 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import * as sinon from "sinon";
-import TestUtils from "../TestUtils";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { DefaultStatusbarItems } from "../../appui-react";
 import {
   StageUsage,
@@ -55,18 +52,6 @@ const testArray: DefaultStatusbarItems[] = [
 ];
 
 describe("StandardStatusbarUiItemsProvider", () => {
-  // avoid problems due to no real localization resources by return dummy values for englishKeyin and keyin properties.
-  before(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
-  });
-
-  after(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
-    sinon.reset();
-  });
-
   it("should register StandardStatusbarUiItemsProvider with defaults", () => {
     const provider = new StandardStatusbarUiItemsProvider();
     UiItemsManager.register(provider);

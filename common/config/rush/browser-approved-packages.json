@@ -155,10 +155,6 @@
       "allowedCategories": [ "internal" ]
     },
     {
-      "name": "@itwin/itwinui-icons",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
       "name": "@itwin/itwinui-icons-react",
       "allowedCategories": [ "frontend", "internal" ]
     },
@@ -441,10 +437,6 @@
     {
       "name": "react-redux",
       "allowedCategories": [ "frontend", "internal" ]
-    },
-    {
-      "name": "react-test-renderer",
-      "allowedCategories": [ "frontend" ]
     },
     {
       "name": "react-transition-group",

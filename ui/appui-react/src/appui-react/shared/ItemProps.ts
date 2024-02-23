@@ -63,7 +63,7 @@ export interface CommandItemProps extends ItemProps, CommandHandler {
 }
 
 /** Definition for a command handler.
- * @internal
+ * @public
  */
 export interface CommandHandler {
   /** Function to execute */

@@ -4,15 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import { render } from "@testing-library/react";
+import sinon from "sinon";
+import { fireEvent, render, within } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { FormatProps } from "@itwin/core-quantity";
-import { TestUtils } from "../TestUtils";
-import {
-  handleError,
-  selectChangeValueByText,
-  stubScrollIntoView,
-} from "../test-helpers/misc";
+import type { ComponentSpy } from "../TestUtils";
+import { TestUtils, waitForPosition } from "../TestUtils";
+import { stubScrollIntoView } from "../test-helpers/misc";
 import { FormatUnits } from "../../imodel-components-react/quantityformat/FormatUnits";
 
 describe("FormatUnits", () => {
@@ -54,27 +52,31 @@ describe("FormatUnits", () => {
 
     const unitsProvider = IModelApp.quantityFormatter.unitsProvider;
     const pu = await unitsProvider.findUnitByName("Units.M");
-    let onChangeFuncCalled = false;
-    const onChangeFunc = (format: FormatProps) => {
-      expect(format.composite).not.to.be.undefined;
-      expect(format.composite?.units[0].name).to.eql("Units.IN");
-      onChangeFuncCalled = true;
-    };
 
-    const renderedComponent = render(
+    const spy: ComponentSpy<typeof FormatUnits, "onUnitsChange"> = sinon.stub();
+    const component = render(
       <FormatUnits
         initialFormat={numericFormatProps}
         persistenceUnit={pu}
         unitsProvider={unitsProvider}
-        onUnitsChange={onChangeFunc}
+        onUnitsChange={spy}
       />
     );
-    await TestUtils.flushAsyncOperations();
-    // fireEvent.change(renderedComponent.getByTestId("unit-Units.M"), {target: { value: "Units.IN:in" }});
-    const unitsSelector = renderedComponent.getByTestId("unit-Units.M");
-    selectChangeValueByText(unitsSelector, "IN", handleError);
-    await TestUtils.flushAsyncOperations();
-    expect(onChangeFuncCalled).to.be.true;
+
+    const comboBox = within(component.getByTestId("unit-Units.M")).getByRole(
+      "combobox"
+    );
+    fireEvent.click(comboBox);
+    await waitForPosition();
+
+    const menu = component.getByRole("listbox");
+    fireEvent.click(within(menu).getByRole("option", { name: "IN" }));
+    await waitForPosition();
+
+    expect(spy).to.be.calledOnce;
+    const format = spy.firstCall.args[0];
+    expect(format.composite).not.to.be.undefined;
+    expect(format.composite?.units[0].name).to.eq("Units.IN");
   });
 
   it("should render (composite format without label or composite spacer)", async () => {
@@ -90,26 +92,30 @@ describe("FormatUnits", () => {
 
     const unitsProvider = IModelApp.quantityFormatter.unitsProvider;
     const pu = await unitsProvider.findUnitByName("Units.M");
-    let onChangeFuncCalled = false;
-    const onChangeFunc = (format: FormatProps) => {
-      expect(format.composite).not.to.be.undefined;
-      expect(format.composite?.units[0].name).to.eql("Units.FT");
-      expect(format.composite?.units.length).to.eql(1);
-      onChangeFuncCalled = true;
-    };
 
-    const renderedComponent = render(
+    const spy: ComponentSpy<typeof FormatUnits, "onUnitsChange"> = sinon.stub();
+    const component = render(
       <FormatUnits
         initialFormat={compositeFormatProps}
         persistenceUnit={pu}
         unitsProvider={unitsProvider}
-        onUnitsChange={onChangeFunc}
+        onUnitsChange={spy}
       />
     );
-    await TestUtils.flushAsyncOperations();
-    // fireEvent.change(renderedComponent.getByTestId("unit-Units.IN"), { target: { value: "REMOVEUNIT" } });
-    const unitsSelector = renderedComponent.getByTestId("unit-Units.IN");
-    selectChangeValueByText(unitsSelector, "Remove", handleError);
-    expect(onChangeFuncCalled).to.be.true;
+
+    const comboBox = within(component.getByTestId("unit-Units.IN")).getByRole(
+      "combobox"
+    );
+    fireEvent.click(comboBox);
+    await waitForPosition();
+
+    const menu = component.getByRole("listbox");
+    fireEvent.click(within(menu).getByRole("option", { name: "Remove" }));
+
+    expect(spy).to.be.calledOnce;
+    const format = spy.firstCall.args[0];
+    expect(format.composite).not.to.be.undefined;
+    expect(format.composite?.units[0].name).to.eql("Units.FT");
+    expect(format.composite?.units.length).to.eql(1);
   });
 });

@@ -12,13 +12,18 @@ import classnames from "classnames";
 import { Key } from "ts-key-enum";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import type { Orientation, SizeProps } from "@itwin/core-react";
-import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
+import {
+  DivWithOutsideClick,
+  FocusTrap,
+  MessageRenderer,
+  Point,
+  Size,
+} from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
 import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
 import type { PopupContentType, PopupPropsBase } from "./PopupManager";
 import { isReactContent, PopupManager } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
-import { MessageDiv } from "../messages/MessageSpan";
 import {
   Direction,
   PropertyValueRendererManager,
@@ -153,7 +158,7 @@ export function Card(props: CardProps) {
   const content = isReactContent(props.content) ? (
     props.content.reactNode
   ) : (
-    <MessageDiv message={props.content} />
+    <MessageRenderer message={props.content} />
   );
 
   return (
