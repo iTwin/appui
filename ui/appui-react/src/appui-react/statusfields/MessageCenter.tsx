@@ -7,8 +7,7 @@
  */
 
 import { OutputMessagePriority } from "@itwin/core-frontend";
-import { Tab, Tabs } from "@itwin/itwinui-react";
-import { Orientation } from "@itwin/core-react";
+import { Tabs } from "@itwin/itwinui-react";
 import type { CommonProps } from "@itwin/itwinui-react/cjs/core/utils";
 import * as React from "react";
 // import type { CommonProps } from "@itwin/core-react";
@@ -21,6 +20,7 @@ import { MessageCenterMessage } from "../layout/footer/message-center/Message";
 import { MessageManager } from "../messages/MessageManager";
 import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
 import { StatusBar } from "../statusbar/StatusBar";
+import { Popover } from "@itwin/itwinui-react";
 
 /** Enum for the [[MessageCenterField]] active tab
  * @internal
@@ -43,28 +43,25 @@ interface MessageCenterState {
 /** Message Center Field React component.
  * @public
  */
-
-/**
- *
- */
-export const MessageCenterField: any = (props: any) => {
+export const MessageCenterField: React.FC = (props: any) => {
   const { style, className } = props;
-
   const _indicator = React.createRef<HTMLDivElement>();
-  const _title = UiFramework.translate("messageCenter.messages");
-  let _unloadMessagesUpdatedHandler: undefined | (() => void);
-  let _removeOpenMessagesCenterHandler: undefined | (() => void);
 
   const [activeTab, setActiveTab] = React.useState(
     MessageCenterActiveTab.AllMessages
   );
-  const [target, setTarget] = React.useState(null);
+  const [target, setTarget] = React.useState(_indicator.current);
   const [messageCount, setMessageCount] = React.useState(
     MessageManager.messages.length
   );
-  const [isOpen, setIsOpen] = React.useState(true);
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const _title = UiFramework.translate("messageCenter.messages");
   const tooltip = `${messageCount} ${_title}`;
   const divStyle = { ...style, height: "100%" };
+
+  let _unloadMessagesUpdatedHandler: undefined | (() => void);
+  let _removeOpenMessagesCenterHandler: undefined | (() => void);
 
   React.useRef(() => {
     _unloadMessagesUpdatedHandler =
@@ -92,24 +89,12 @@ export const MessageCenterField: any = (props: any) => {
 
   // Event Handlers
 
-  const _changeActiveTab = (tab: MessageCenterActiveTab) => {
-    setActiveTab(tab);
-  };
-
-  // const setOpen = (isOpenState : boolean) => {
-  //   setIsOpen(isOpenState)
-  // }
-
-  const _handleMessageIndicatorClick = () => {
-    setIsOpen(!isOpen);
+  const _handleOpenChange = (isOpenState: boolean) => {
+    setIsOpen(isOpenState);
   };
 
   const _handleOpenMessageCenterEvent = () => {
     setIsOpen(true);
-  };
-
-  const _handleClose = () => {
-    setIsOpen(false);
   };
 
   const _handleMessagesUpdatedEvent = () => {
@@ -126,7 +111,7 @@ export const MessageCenterField: any = (props: any) => {
     )
       return;
 
-    _handleClose();
+    _handleOpenChange(false);
   };
 
   const isProblemStatus = (priority: OutputMessagePriority): boolean => {
@@ -140,10 +125,6 @@ export const MessageCenterField: any = (props: any) => {
 
     return false;
   };
-
-  // const setIsOpen(isOpen: boolean) {
-  //   this.setState({ isOpen });
-  // }
 
   const getMessages = (): React.ReactChild[] => {
     const messages = MessageManager.messages.slice(0).reverse();
@@ -178,41 +159,76 @@ export const MessageCenterField: any = (props: any) => {
     return tabRows;
   };
 
+  const messageCenterContent = () => {
+    return (
+      <MessageCenterDialog
+        prompt={UiFramework.translate("messageCenter.prompt")}
+        title={_title}
+      >
+        <Tabs.Wrapper type="pill">
+          <Tabs.TabList>
+            <Tabs.Tab label="All" key="all" value="all" />,
+            <Tabs.Tab label="Error" key="error" value="error" />,
+          </Tabs.TabList>
+          <Tabs.Panel value="all" key="all">
+            {getMessages()}
+          </Tabs.Panel>
+        </Tabs.Wrapper>
+      </MessageCenterDialog>
+    );
+  };
+
   return (
     <>
-      <div className={className} style={divStyle} title={tooltip}>
-        <MessageCenter
-          indicatorRef={_indicator}
-          label={_title}
-          onClick={_handleMessageIndicatorClick}
-        >
-          {messageCount.toString()}
-        </MessageCenter>
-      </div>
-      <StatusBar.Popup
-        showArrow={false}
-        isOpen={isOpen}
-        onClose={_handleClose}
-        onOutsideClick={_handleOutsideClick}
-        target={_indicator.current}
-      >
-        <MessageCenterDialog
-          prompt={UiFramework.translate("messageCenter.prompt")}
-          title={_title}
-        >
-          <Tabs.Wrapper type="pill">
-            <Tabs.TabList>
-              <Tabs.Tab label="All" key="all" value="all" />,
-              <Tabs.Tab label="Error" key="error" value="error" />,
-            </Tabs.TabList>
-            <Tabs.Panel value="all" key="all">
-              {getMessages()}
-            </Tabs.Panel>
-          </Tabs.Wrapper>
-        </MessageCenterDialog>
-      </StatusBar.Popup>
+      <Popover content={messageCenterContent()} applyBackground style={style}>
+        <div className={className} style={divStyle} title={tooltip}>
+          <MessageCenter
+            indicatorRef={_indicator}
+            label={_title}
+            onClick={() => _handleOpenChange(!isOpen)}
+          >
+            {messageCount.toString()}
+          </MessageCenter>
+        </div>
+      </Popover>
     </>
   );
+
+  // return (
+  //   <>
+  //     <div className={className} style={divStyle} title={tooltip}>
+  //       <MessageCenter
+  //         indicatorRef={_indicator}
+  //         label={_title}
+  //         onClick={() => _handleOpenChange(!isOpen)}
+  //       >
+  //         {messageCount.toString()}
+  //       </MessageCenter>
+  //     </div>
+  //     <StatusBar.Popup
+  //       showArrow={false}
+  //       isOpen={isOpen}
+  //       onClose={() => _handleOpenChange(false)}
+  //       onOutsideClick={_handleOutsideClick}
+  //       target={_indicator.current}
+  //     >
+  //       <MessageCenterDialog
+  //         prompt={UiFramework.translate("messageCenter.prompt")}
+  //         title={_title}
+  //       >
+  //         <Tabs.Wrapper type="pill">
+  //           <Tabs.TabList>
+  //             <Tabs.Tab label="All" key="all" value="all" />,
+  //             <Tabs.Tab label="Error" key="error" value="error" />,
+  //           </Tabs.TabList>
+  //           <Tabs.Panel value="all" key="all">
+  //             {getMessages()}
+  //           </Tabs.Panel>
+  //         </Tabs.Wrapper>
+  //       </MessageCenterDialog>
+  //     </StatusBar.Popup>
+  //   </>
+  // );
 };
 
 // /** Message Center Field React component.
