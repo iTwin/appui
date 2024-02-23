@@ -14,6 +14,7 @@ import classnames from "classnames";
 import * as React from "react";
 import {
   Button,
+  Flex,
   IconButton,
   Label,
   Slider,
@@ -646,7 +647,7 @@ export class SolarTimeline extends React.PureComponent<
 
     return (
       <div className={"solar-timeline-wrapper"}>
-        <div className="solar-timeline-start">
+        <Flex flexWrap="wrap" gap="none" className="solar-timeline-start">
           <IconButton
             styleType="borderless"
             label={this._playLabel}
@@ -705,7 +706,7 @@ export class SolarTimeline extends React.PureComponent<
               </div>
             </div>
           </Popup>
-        </div>
+        </Flex>
 
         <Timeline
           className="solar-timeline"
@@ -719,7 +720,12 @@ export class SolarTimeline extends React.PureComponent<
           isPlaying={this.state.isPlaying}
         />
 
-        <div className="solar-timeline-end">
+        <Flex
+          justifyContent="flex-end"
+          flexWrap="wrap"
+          gap="none"
+          className="solar-timeline-end"
+        >
           <VisuallyHidden>
             <Label htmlFor="speed">Timeline speed</Label>
           </VisuallyHidden>
@@ -835,7 +841,7 @@ export class SolarTimeline extends React.PureComponent<
               </div>
             </div>
           </Popup>
-        </div>
+        </Flex>
       </div>
     );
   }

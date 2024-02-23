@@ -16,6 +16,7 @@
 
 @container solar-timeline (width < 600px) {
   .solar-timeline-wrapper {
+    grid-template-columns: auto auto;
     grid-template-areas: "solar-timeline solar-timeline" "solar-timeline-start solar-timeline-end";
   }
 }
@@ -36,19 +37,12 @@
   margin-inline: var(--iui-size-2xs);
 }
 
-.solar-timeline-start,
-.solar-timeline-end {
-  display: flex;
-  align-items: center;
-}
-
 .solar-timeline-start {
   grid-area: solar-timeline-start;
 }
 
 .solar-timeline-end {
   grid-area: solar-timeline-end;
-  justify-content: flex-end;
 }
 // #endregion Solar timeline
 
