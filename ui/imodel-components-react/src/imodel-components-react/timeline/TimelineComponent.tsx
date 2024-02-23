@@ -71,7 +71,7 @@ export interface TimelineComponentProps {
   /** End date: end of the date range of a date-based timeline. */
   endDate?: Date;
   /** Total duration: range of the timeline in milliseconds.
-   * @note This can be changed by user interaction. See {@link appMenuItems}.
+   * @note This can be changed by user interaction. See {@link TimelineComponentProps.appMenuItems}.
    */
   totalDuration: number;
   /** Initial value for the current duration (the location of the thumb) in milliseconds */
@@ -81,7 +81,7 @@ export interface TimelineComponentProps {
    */
   minimized?: boolean;
   /** When playing, repeat indefinitely. Defaults to `false`.
-   * @note This can be changed by user interaction. See {@link includeRepeat}.
+   * @note This can be changed by user interaction. See {@link TimelineComponentProps.includeRepeat}.
    */
   repeat?: boolean;
   /** Show duration instead of time */
@@ -118,7 +118,9 @@ export interface TimelineComponentProps {
   timeFormatOptions?: DateFormatOptions;
 }
 
-/** @internal */
+/** [[TimelineComponent]] is used to playback timeline data
+ * @public
+ */
 export function TimelineComponent(props: TimelineComponentProps) {
   const {
     appMenuItemOption = "replace",
