@@ -26,16 +26,20 @@ import { PopupManager } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
 import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { Toolbar } from "../toolbar/Toolbar";
+import { WrapperContext } from "../configurableui/ConfigurableUiContent";
+import type { Placement } from "../utils/Placement";
 
 /** Props for a popup toolbar
  * @beta */
-export interface ToolbarPopupProps extends PopupPropsBase {
+export type ToolbarPopupProps = Omit<PopupPropsBase, "el"> & {
   items: ToolbarItem[];
-  relativePosition: RelativePosition;
+  relativePosition?: RelativePosition; // @deprecated in 4.10.x. Please use `placement` instead.
+  placement: Placement;
   orientation: Orientation;
   onCancel: OnCancelFunc;
   onItemExecuted: OnItemExecutedFunc;
-}
+  el?: HTMLElement;
+};
 
 /** @internal */
 interface ToolbarPopupState {
@@ -49,6 +53,11 @@ export class ToolbarPopup extends React.PureComponent<
   ToolbarPopupProps,
   ToolbarPopupState
 > {
+  /** @internal */
+  public static override contextType = WrapperContext;
+  /** @internal */
+  public declare context: React.ContextType<typeof WrapperContext>;
+
   /** @internal */
   public override readonly state = {
     size: new Size(-1, -1),
@@ -79,7 +88,7 @@ export class ToolbarPopup extends React.PureComponent<
 
   public override render() {
     let point = PopupManager.getPopupPosition(
-      this.props.el,
+      this.props.el ?? this.context,
       this.props.pt,
       new Point(),
       this.state.size
@@ -88,7 +97,7 @@ export class ToolbarPopup extends React.PureComponent<
       point,
       this.props.offset,
       this.state.size,
-      this.props.relativePosition
+      this.props.placement
     );
     point = new Point(popupRect.left, popupRect.top);
     return (

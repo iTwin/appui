@@ -10,13 +10,7 @@ import "./CardPopup.scss";
 import * as React from "react";
 import classnames from "classnames";
 import { Key } from "ts-key-enum";
-import type {
-  CommonToolbarItem,
-  OnCancelFunc,
-  OnItemExecutedFunc,
-  PropertyRecord,
-  RelativePosition,
-} from "@itwin/appui-abstract";
+import type { PropertyRecord } from "@itwin/appui-abstract";
 import type { Orientation, SizeProps } from "@itwin/core-react";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
@@ -30,20 +24,24 @@ import {
   PropertyValueRendererManager,
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
-  ToolbarWithOverflow,
 } from "@itwin/components-react";
+import { ToolbarWithOverflow } from "../toolbar/ToolbarWithOverflow";
+import type { ToolbarItem } from "../toolbar/ToolbarItem";
+import type { Placement } from "../utils/Placement";
+import { WrapperContext } from "../configurableui/ConfigurableUiContent";
 
 /** Props for defining a CardPopup editor
  * @beta */
-export interface CardPopupProps extends PopupPropsBase {
+export type CardPopupProps = Omit<PopupPropsBase, "el"> & {
   content: PopupContentType;
   title: string | PropertyRecord | undefined;
-  items: CommonToolbarItem[] | undefined;
-  relativePosition: RelativePosition;
+  items: ToolbarItem[] | undefined;
+  placement: Placement;
   orientation: Orientation;
-  onCancel: OnCancelFunc;
-  onItemExecuted: OnItemExecutedFunc;
-}
+  onCancel: () => void;
+  onItemExecuted: (item: any) => void;
+  el?: HTMLElement;
+};
 
 /** @internal */
 interface CardPopupState {
@@ -57,6 +55,10 @@ export class CardPopup extends React.PureComponent<
   CardPopupProps,
   CardPopupState
 > {
+  /** @internal */
+  public static override contextType = WrapperContext;
+  /** @internal */
+  public declare context: React.ContextType<typeof WrapperContext>;
   /** @internal */
   public override readonly state = {
     size: new Size(-1, -1),
@@ -85,7 +87,7 @@ export class CardPopup extends React.PureComponent<
 
   public override render() {
     let point = PopupManager.getPopupPosition(
-      this.props.el,
+      this.props.el ?? this.context,
       this.props.pt,
       new Point(),
       this.state.size
@@ -94,7 +96,7 @@ export class CardPopup extends React.PureComponent<
       point,
       this.props.offset,
       this.state.size,
-      this.props.relativePosition
+      this.props.placement
     );
     point = new Point(popupRect.left, popupRect.top);
 
@@ -128,8 +130,8 @@ export class CardPopup extends React.PureComponent<
 export interface CardProps {
   content: PopupContentType;
   title: string | PropertyRecord | undefined;
-  items: CommonToolbarItem[] | undefined;
-  onItemExecuted: OnItemExecutedFunc;
+  items: ToolbarItem[] | undefined;
+  onItemExecuted: (item: any) => void;
 }
 
 /** Card component
@@ -168,7 +170,7 @@ export function Card(props: CardProps) {
       {props.items && (
         <>
           <div className="uifw-card-separator" />
-          <ToolbarWithOverflow // eslint-disable-line deprecation/deprecation
+          <ToolbarWithOverflow
             expandsTo={Direction.Bottom}
             panelAlignment={ToolbarPanelAlignment.Start}
             items={props.items}

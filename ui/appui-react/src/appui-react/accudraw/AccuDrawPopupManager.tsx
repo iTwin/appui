@@ -9,14 +9,10 @@
 import * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
 import { AngleDescription, LengthDescription } from "@itwin/core-frontend";
-import type {
-  AbstractMenuItemProps,
-  OnCancelFunc,
-  OnNumberCommitFunc,
-  OnValueCommitFunc,
-} from "@itwin/appui-abstract";
+import type { OnValueCommitFunc } from "@itwin/appui-abstract";
 import type { PopupInfo } from "../popup/PopupManager";
 import { PopupManager } from "../popup/PopupManager";
+import type { CursorMenuItemProps } from "../shared/MenuItem";
 import { MenuItemHelpers } from "../shared/MenuItem";
 import { CalculatorPopup } from "./CalculatorPopup";
 import { MenuButtonPopup } from "./MenuButtonPopup";
@@ -35,7 +31,7 @@ export class AccuDrawPopupManager {
     id: string,
     el: HTMLElement,
     pt: XAndY,
-    menuItemsProps: AbstractMenuItemProps[]
+    menuItemsProps: CursorMenuItemProps[]
   ): boolean {
     const menuItems = MenuItemHelpers.createMenuItems(menuItemsProps);
     const menuContent = MenuItemHelpers.createMenuItemNodes(menuItems);
@@ -70,8 +66,8 @@ export class AccuDrawPopupManager {
     pt: XAndY,
     initialValue: number,
     resultIcon: string,
-    onOk: OnNumberCommitFunc,
-    onCancel: OnCancelFunc
+    onOk: (value: number) => void,
+    onCancel: () => void
   ): boolean {
     const id = AccuDrawPopupManager._calculatorId;
     const component = (
@@ -106,8 +102,8 @@ export class AccuDrawPopupManager {
     el: HTMLElement,
     pt: XAndY,
     value: number,
-    onCommit: OnNumberCommitFunc,
-    onCancel: OnCancelFunc
+    onCommit: (value: number) => void,
+    onCancel: () => void
   ): boolean {
     const propertyDescription = new AngleDescription(
       undefined,
@@ -130,8 +126,8 @@ export class AccuDrawPopupManager {
     el: HTMLElement,
     pt: XAndY,
     value: number,
-    onCommit: OnNumberCommitFunc,
-    onCancel: OnCancelFunc
+    onCommit: (value: number) => void,
+    onCancel: () => void
   ) {
     if (dimension === "Height") {
       return AccuDrawPopupManager.showHeightEditor(
@@ -156,8 +152,8 @@ export class AccuDrawPopupManager {
     el: HTMLElement,
     pt: XAndY,
     value: number,
-    onCommit: OnNumberCommitFunc,
-    onCancel: OnCancelFunc
+    onCommit: (value: number) => void,
+    onCancel: () => void
   ): boolean {
     const propertyDescription = new LengthDescription(
       undefined,
@@ -178,8 +174,8 @@ export class AccuDrawPopupManager {
     el: HTMLElement,
     pt: XAndY,
     value: number,
-    onCommit: OnNumberCommitFunc,
-    onCancel: OnCancelFunc
+    onCommit: (value: number) => void,
+    onCancel: () => void
   ): boolean {
     const propertyDescription = new LengthDescription(
       undefined,

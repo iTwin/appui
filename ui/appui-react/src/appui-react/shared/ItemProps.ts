@@ -7,7 +7,6 @@
  */
 
 import type {
-  CommandHandler,
   ConditionalBooleanValue,
   ConditionalStringValue,
   StringGetter,
@@ -61,4 +60,16 @@ export interface ToolItemProps extends ItemProps, CommandHandler {
  */
 export interface CommandItemProps extends ItemProps, CommandHandler {
   commandId?: string;
+}
+
+/** Definition for a command handler.
+ * @internal
+ */
+export interface CommandHandler {
+  /** Function to execute */
+  execute?: (args?: any) => any;
+  /** Parameters passed to the function */
+  parameters?: any;
+  /** Function to get the parameters passed to the function */
+  getCommandArgs?: () => any[];
 }

@@ -11,7 +11,7 @@ import { PopupManager } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
 import { useEffect, useState } from "react";
 import { WrapperContext } from "../configurableui/ConfigurableUiContent";
-import { mapToRelativePosition, type Placement } from "../utils/Placement";
+import { type Placement } from "../utils/Placement";
 
 // Props used for the ComponentPopup.
 interface ComponentPopupProps extends Omit<PopupPropsBase, "el"> {

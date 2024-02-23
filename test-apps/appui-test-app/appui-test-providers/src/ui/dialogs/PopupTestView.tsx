@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import { AbstractMenuItemProps } from "@itwin/appui-abstract";
 import {
   FloatingViewportContent,
   UiFramework,
@@ -16,6 +15,7 @@ import ViewDefinitionSelector, {
   getViewDefinitions,
 } from "../components/ViewDefinitionSelector";
 import { Id64String } from "@itwin/core-bentley";
+import { CursorMenuItemProps } from "@itwin/appui-react/lib/cjs/appui-react/shared/MenuItem";
 
 export function PopupTestView({
   contentId,
@@ -24,7 +24,7 @@ export function PopupTestView({
   contentId: string;
   showViewPicker?: boolean;
 }) {
-  const menuItems: AbstractMenuItemProps[] = React.useMemo(() => {
+  const menuItems: CursorMenuItemProps[] = React.useMemo(() => {
     return [
       {
         id: "Item1",

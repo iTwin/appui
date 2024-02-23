@@ -32,7 +32,7 @@ import {
   PopupManager,
   PopupRenderer,
 } from "../../appui-react/popup/PopupManager";
-import type { MenuItemProps } from "../../appui-react/shared/MenuItem";
+import type { CursorMenuItemProps } from "../../appui-react/shared/MenuItem";
 import TestUtils, { storageMock } from "../TestUtils";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { Button } from "@itwin/itwinui-react";
@@ -86,7 +86,7 @@ describe("PopupManager", () => {
 
   describe("Manager API", () => {
     it("showMenuButton should add menuButton", () => {
-      const menuItemProps: MenuItemProps[] = [
+      const menuItemProps: CursorMenuItemProps[] = [
         {
           id: "test",
           item: {
@@ -129,7 +129,7 @@ describe("PopupManager", () => {
     });
 
     it("hideMenuButton should hide menuButton", () => {
-      const menuItemProps: MenuItemProps[] = [
+      const menuItemProps: CursorMenuItemProps[] = [
         {
           id: "test",
           item: {
@@ -343,7 +343,7 @@ describe("PopupManager", () => {
 
     it("PopupRenderer should render menuButton with menu item", async () => {
       const wrapper = render(<PopupRenderer />);
-      const menuItemProps: MenuItemProps[] = [
+      const menuItemProps: CursorMenuItemProps[] = [
         {
           id: "test",
           item: {

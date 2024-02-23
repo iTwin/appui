@@ -13,7 +13,7 @@ import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
-import type { AbstractMenuItemProps, AbstractToolbarProps, DialogLayoutDataProvider, DialogProps, Primitives, PropertyDescription, PropertyRecord, RelativePosition } from "@itwin/appui-abstract";
+import type { DialogLayoutDataProvider, DialogProps, Primitives, PropertyDescription, PropertyRecord } from "@itwin/appui-abstract";
 import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
@@ -26,6 +26,7 @@ import { ConfigurableUiActionId } from "./configurableui/state";
 import type { FrameworkState } from "./redux/FrameworkState";
 import type {
   CursorMenuData,
+  CursorMenuPayload,
   PresentationSelectionScope,
 } from "./redux/SessionState";
 import { SessionStateActionId } from "./redux/SessionState";
@@ -75,6 +76,8 @@ import { createElement } from "react";
 import type { DialogInfo } from "./dialog/DialogManagerBase";
 import type { KeyinEntry } from "./keyins/Keyins";
 import { mapToRelativePosition, type Placement } from "./utils/Placement";
+import type { ToolbarProps } from "./toolbar/Toolbar";
+import type { CursorMenuItemProps } from "./shared/MenuItem";
 
 interface ShowInputEditorOptions {
   location: XAndY;
@@ -523,7 +526,7 @@ export class UiFramework {
    * @param anchorElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the menu was displayed, false if the menu could not be displayed.
    */
-  public static openContextMenu(items: AbstractMenuItemProps[],
+  public static openContextMenu(items: CursorMenuItemProps[],
     location: XAndY,
     anchorElement?: HTMLElement): boolean {
 
@@ -544,19 +547,22 @@ export class UiFramework {
     }
 
     position = { x: position.x + UiFramework.CONTEXT_MENU_OFFSET, y: position.y + UiFramework.CONTEXT_MENU_OFFSET };
-    const cursorMenu: CursorMenuData = { position, items, childWindowId };
-    UiFramework.openCursorMenu(cursorMenu);
+
+    const cursorMenuData: CursorMenuPayload = { position, items, childWindowId };
+    UiFramework.openCursorMenu(cursorMenuData);
 
     return true;
   }
 
   /** @public */
-  public static openCursorMenu(menuData: CursorMenuData | undefined): void {
+  // eslint-disable-next-line deprecation/deprecation
+  public static openCursorMenu(menuData: CursorMenuData | CursorMenuPayload | undefined): void {
     UiFramework.dispatchActionToStore(
       SessionStateActionId.UpdateCursorMenu,
       menuData
     );
   }
+
 
   /** @public */
   public static closeCursorMenu(): void {
@@ -567,9 +573,10 @@ export class UiFramework {
   }
 
   /** @public */
-  public static getCursorMenuData(): CursorMenuData | undefined {
+  // eslint-disable-next-line deprecation/deprecation
+  public static getCursorMenuData(): CursorMenuData | CursorMenuPayload | undefined {
     return UiFramework.frameworkState
-      ? UiFramework.frameworkState.sessionState.cursorMenuData
+      ? (UiFramework.frameworkState.sessionState.cursorMenuPayload ?? UiFramework.frameworkState.sessionState.cursorMenuData)
       : /* istanbul ignore next */ undefined;
   }
 
@@ -927,7 +934,7 @@ export class UiFramework {
   public static showCard(
     content: React.ReactNode,
     title: string | PropertyRecord | undefined,
-    toolbarProps: AbstractToolbarProps | undefined,
+    toolbarProps: ToolbarProps,
     location: XAndY,
     offset: XAndY,
     onItemExecuted: (item: any) => void,
@@ -935,19 +942,20 @@ export class UiFramework {
     placement: Placement = "top-end",
     anchorElement?: HTMLElement
   ): boolean {
-    const el = this.resolveHtmlElement(anchorElement);
+    const anchor = this.resolveHtmlElement(anchorElement);
 
-    const relativePosition = mapToRelativePosition(placement);
-    return PopupManager.showCard(
+    return PopupManager.displayCard(
       { reactNode: content },
-      title,
-      toolbarProps,
-      el,
-      location,
-      offset,
-      onItemExecuted,
-      onCancel,
-      relativePosition
+      {
+        title,
+        toolbarProps,
+        location,
+        offset,
+        onItemExecuted,
+        onCancel,
+        placement,
+        anchor
+      }
     );
   }
 
@@ -1006,7 +1014,7 @@ export class UiFramework {
    * @return true if the Toolbar was displayed, false if the Toolbar could not be displayed.
    */
   public static showToolbar(
-    toolbarProps: AbstractToolbarProps,
+    toolbarProps: ToolbarProps,
     location: XAndY,
     offset: XAndY,
     onItemExecuted: (item: any) => void,
@@ -1014,17 +1022,18 @@ export class UiFramework {
     placement: Placement = "top-end",
     anchorElement?: HTMLElement
   ): boolean {
-    const el = UiFramework.resolveHtmlElement(anchorElement)
-    const relativePosition = mapToRelativePosition(placement);
+    const anchor = UiFramework.resolveHtmlElement(anchorElement)
 
-    return PopupManager.showToolbar(
-      toolbarProps,
-      el,
-      location,
-      offset,
-      onItemExecuted,
-      onCancel,
-      relativePosition
+    return PopupManager.displayToolbar(
+      toolbarProps.items,
+      {
+        anchor,
+        location,
+        offset,
+        onItemExecuted,
+        onCancel,
+        placement
+      }
     );
   }
 
@@ -1042,12 +1051,11 @@ export class UiFramework {
    */
   public static showMenuButton(
     id: string,
-    menuItemsProps: AbstractMenuItemProps[],
+    menuItemsProps: CursorMenuItemProps[],
     location: XAndY,
     anchorElement?: HTMLElement
   ): boolean {
     const el = this.resolveHtmlElement(anchorElement);
-
     return AccuDrawPopupManager.showMenuButton(
       id,
       el,

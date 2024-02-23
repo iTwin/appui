@@ -12,6 +12,7 @@ import { IModelApp } from "@itwin/core-frontend";
 import type {
   AbstractMenuItemProps,
   AbstractToolbarProps,
+  CommonToolbarItem,
   DialogLayoutDataProvider,
   DialogProps,
   OnCancelFunc,
@@ -32,6 +33,9 @@ import {
   KeyinFieldLocalization,
 } from "../keyins/Keyins";
 import { mapToPlacement } from "../utils/Placement";
+import type { ToolbarProps } from "../toolbar/Toolbar";
+import type { ToolbarItem } from "../toolbar/ToolbarItem";
+import type { CursorMenuItemProps } from "../shared/MenuItem";
 
 /** Subclass of `UiAdmin` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
  *
@@ -93,7 +97,11 @@ export class FrameworkUiAdmin extends UiAdmin {
     location: XAndY,
     htmlElement?: HTMLElement
   ): boolean {
-    return UiFramework.openContextMenu(items, location, htmlElement);
+    return UiFramework.openContextMenu(
+      items as CursorMenuItemProps[],
+      location,
+      htmlElement
+    );
   }
 
   /**
@@ -184,7 +192,7 @@ export class FrameworkUiAdmin extends UiAdmin {
   ): boolean {
     return UiFramework.showMenuButton(
       id,
-      menuItemsProps,
+      menuItemsProps as CursorMenuItemProps[],
       location,
       htmlElement
     );
@@ -416,7 +424,9 @@ export class FrameworkUiAdmin extends UiAdmin {
     return UiFramework.showCard(
       content,
       title,
-      toolbarProps,
+      toolbarProps
+        ? AbstractToolbarPropsToToolbarProps(toolbarProps)
+        : { items: [] },
       location,
       offset,
       onItemExecuted,
@@ -454,7 +464,9 @@ export class FrameworkUiAdmin extends UiAdmin {
     return UiFramework.showCard(
       content,
       title,
-      toolbarProps,
+      toolbarProps
+        ? AbstractToolbarPropsToToolbarProps(toolbarProps)
+        : { items: [] },
       location,
       offset,
       onItemExecuted,
@@ -540,4 +552,21 @@ export class FrameworkUiAdmin extends UiAdmin {
   public override closeDialog(dialogId: string): boolean {
     return UiFramework.closeDialog(dialogId);
   }
+}
+
+// utility functions to wean off appui-abstract
+function AbstractToolbarPropsToToolbarProps(
+  props: AbstractToolbarProps
+): ToolbarProps {
+  return {
+    items: props.items.map(CommonToolbarItemToToolBarItem),
+    itemId: props.toolbarId,
+  };
+}
+
+function CommonToolbarItemToToolBarItem(item: CommonToolbarItem): ToolbarItem {
+  return {
+    ...item,
+    badge: item.badgeType,
+  };
 }
