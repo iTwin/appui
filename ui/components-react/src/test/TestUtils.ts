@@ -611,7 +611,6 @@ export type SinonSpy<T extends (...args: any) => any> = sinon.SinonSpy<
 
 export default TestUtils;
 
-
 /** @internal */
 export enum BadgeType {
   /** No badge. */

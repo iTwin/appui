@@ -4,9 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as sinon from "sinon";
 import { expect } from "chai";
-import type {
-  IModelAppOptions
-} from "@itwin/core-frontend";
+import type { IModelAppOptions } from "@itwin/core-frontend";
 import {
   BeButtonEvent,
   CompassMode,

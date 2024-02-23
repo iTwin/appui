@@ -32,9 +32,8 @@ export interface CursorMenuData {
   position: XAndY;
   childWindowId?: string;
   // eslint-disable-next-line deprecation/deprecation
-  items: MenuItemProps[]
+  items: MenuItemProps[];
 }
-
 
 /**
  * Definition of data added to Redux store to define cursor menu.  If menuItems are empty the menu control is not displayed.
@@ -46,7 +45,6 @@ export interface CursorMenuPayload {
   childWindowId?: string;
   items: CursorMenuItemProps[];
 }
-
 
 /** Action Ids used by Redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
  *  Since these are also used as sync ids they should be in lowercase.
@@ -79,7 +77,6 @@ export interface SessionState {
   // eslint-disable-next-line deprecation/deprecation
   cursorMenuData: CursorMenuData | undefined; // @deprecated in 4.10.x use {@link CursorMenuPayload} instead
   cursorMenuPayload: CursorMenuPayload | undefined;
-
 }
 
 const defaultSelectionScope = {
@@ -102,7 +99,7 @@ const initialState: SessionState = {
   defaultViewState: undefined,
   iModelConnection: undefined,
   cursorMenuData: undefined, // @deprecated in 4.10.x use {@link SessionState.cursorMenuPayload} instead
-  cursorMenuPayload: undefined
+  cursorMenuPayload: undefined,
 };
 
 /** An interface that allows redux connected object to dispatch changes to the SessionState reducer.
@@ -227,7 +224,11 @@ export function SessionStateReducer(
     }
     case SessionStateActionId.UpdateCursorMenu: {
       // eslint-disable-next-line deprecation/deprecation
-      return { ...state, cursorMenuPayload: action.payload as CursorMenuPayload, cursorMenuData: action.payload as CursorMenuData };
+      return {
+        ...state,
+        cursorMenuPayload: action.payload as CursorMenuPayload,
+        cursorMenuData: action.payload as CursorMenuData,
+      };
     }
   }
 

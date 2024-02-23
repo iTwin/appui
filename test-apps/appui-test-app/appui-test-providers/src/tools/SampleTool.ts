@@ -650,8 +650,9 @@ export class SampleTool extends PrimitiveTool {
   }
 
   private showColorInfoFromUi(updatedValue: DialogPropertySyncItem) {
-    const msg = `Property '${updatedValue.propertyName
-      }' updated to value ${this.colorDef.toRgbString()}`;
+    const msg = `Property '${
+      updatedValue.propertyName
+    }' updated to value ${this.colorDef.toRgbString()}`;
     IModelApp.notifications.outputMessage(
       new NotifyMessageDetails(OutputMessagePriority.Info, msg)
     );

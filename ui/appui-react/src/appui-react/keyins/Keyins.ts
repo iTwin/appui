@@ -34,7 +34,10 @@ export enum KeyinFieldLocalization {
  * Parses a given ToolList for its tools keyins, filtering based on a KeyinFieldLocalization value.
  * @internal
  */
-export function getKeyinsFromToolList(toolList: ToolList, localizedKeyinPreference: KeyinFieldLocalization = KeyinFieldLocalization.NonLocalized): KeyinEntry[] {
+export function getKeyinsFromToolList(
+  toolList: ToolList,
+  localizedKeyinPreference: KeyinFieldLocalization = KeyinFieldLocalization.NonLocalized
+): KeyinEntry[] {
   const toolKeyins: KeyinEntry[] = [];
   for (const tool of toolList) {
     switch (localizedKeyinPreference) {
@@ -50,8 +53,7 @@ export function getKeyinsFromToolList(toolList: ToolList, localizedKeyinPreferen
       case KeyinFieldLocalization.NonLocalized:
         // istanbul ignore next
         if (
-          KeyinFieldLocalization.NonLocalized ===
-          localizedKeyinPreference ||
+          KeyinFieldLocalization.NonLocalized === localizedKeyinPreference ||
           (KeyinFieldLocalization.Both === localizedKeyinPreference &&
             tool.englishKeyin !== tool.keyin)
         )

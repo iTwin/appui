@@ -85,7 +85,7 @@ export enum TimelinePausePlayAction {
  * @public
  */
 export interface TimelinePausePlayArgs {
-  uiComponentId: string
+  uiComponentId: string;
   timelineAction: TimelinePausePlayAction;
 }
 /** Interface for a timeline data provider class

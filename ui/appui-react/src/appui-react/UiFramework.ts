@@ -13,7 +13,13 @@ import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
-import type { DialogLayoutDataProvider, DialogProps, Primitives, PropertyDescription, PropertyRecord } from "@itwin/appui-abstract";
+import type {
+  DialogLayoutDataProvider,
+  DialogProps,
+  Primitives,
+  PropertyDescription,
+  PropertyRecord,
+} from "@itwin/appui-abstract";
 import { UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
@@ -111,7 +117,7 @@ export interface UiVisibilityEventArgs {
  * @public
  */
 // eslint-disable-next-line deprecation/deprecation
-export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> { }
+export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {}
 
 /** TrackingTime time argument used by our feature tracking manager as an option argument to the TelemetryClient
  * @internal
@@ -122,8 +128,15 @@ export interface TrackingTime {
 }
 
 type fn = typeof PopupManager.showComponent;
-type ShowComponentParams = Parameters<fn>
-type OptionalShowComponentParams = [ShowComponentParams[0], Partial<Exclude<ShowComponentParams[1], "anchor"> & { anchorRef?: RefObject<HTMLElement> }>?];
+type ShowComponentParams = Parameters<fn>;
+type OptionalShowComponentParams = [
+  ShowComponentParams[0],
+  Partial<
+    Exclude<ShowComponentParams[1], "anchor"> & {
+      anchorRef?: RefObject<HTMLElement>;
+    }
+  >?
+];
 
 /** Main entry point to configure and interact with the features provided by the AppUi-react package.
  * @public
@@ -510,7 +523,7 @@ export class UiFramework {
       if (-1 !== foundIndex) {
         const scope =
           UiFramework.frameworkState.sessionState.availableSelectionScopes[
-          foundIndex
+            foundIndex
           ];
         UiFramework.dispatchActionToStore(
           SessionStateActionId.SetSelectionScope,
@@ -526,10 +539,11 @@ export class UiFramework {
    * @param anchorElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the menu was displayed, false if the menu could not be displayed.
    */
-  public static openContextMenu(items: CursorMenuItemProps[],
+  public static openContextMenu(
+    items: CursorMenuItemProps[],
     location: XAndY,
-    anchorElement?: HTMLElement): boolean {
-
+    anchorElement?: HTMLElement
+  ): boolean {
     let position = location;
     let childWindowId: string | undefined;
 
@@ -546,9 +560,16 @@ export class UiFramework {
       );
     }
 
-    position = { x: position.x + UiFramework.CONTEXT_MENU_OFFSET, y: position.y + UiFramework.CONTEXT_MENU_OFFSET };
+    position = {
+      x: position.x + UiFramework.CONTEXT_MENU_OFFSET,
+      y: position.y + UiFramework.CONTEXT_MENU_OFFSET,
+    };
 
-    const cursorMenuData: CursorMenuPayload = { position, items, childWindowId };
+    const cursorMenuData: CursorMenuPayload = {
+      position,
+      items,
+      childWindowId,
+    };
     UiFramework.openCursorMenu(cursorMenuData);
 
     return true;
@@ -556,13 +577,14 @@ export class UiFramework {
 
   /** @public */
   // eslint-disable-next-line deprecation/deprecation
-  public static openCursorMenu(menuData: CursorMenuData | CursorMenuPayload | undefined): void {
+  public static openCursorMenu(
+    menuData: CursorMenuData | CursorMenuPayload | undefined
+  ): void {
     UiFramework.dispatchActionToStore(
       SessionStateActionId.UpdateCursorMenu,
       menuData
     );
   }
-
 
   /** @public */
   public static closeCursorMenu(): void {
@@ -574,9 +596,13 @@ export class UiFramework {
 
   /** @public */
   // eslint-disable-next-line deprecation/deprecation
-  public static getCursorMenuData(): CursorMenuData | CursorMenuPayload | undefined {
+  public static getCursorMenuData():
+    | CursorMenuData
+    | CursorMenuPayload
+    | undefined {
     return UiFramework.frameworkState
-      ? (UiFramework.frameworkState.sessionState.cursorMenuPayload ?? UiFramework.frameworkState.sessionState.cursorMenuData)
+      ? UiFramework.frameworkState.sessionState.cursorMenuPayload ??
+          UiFramework.frameworkState.sessionState.cursorMenuData
       : /* istanbul ignore next */ undefined;
   }
 
@@ -730,7 +756,7 @@ export class UiFramework {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.availableSelectionScopes
       : /* istanbul ignore next */
-      [{ id: "element", label: "Element" } as PresentationSelectionScope];
+        [{ id: "element", label: "Element" } as PresentationSelectionScope];
   }
 
   public static getIsUiVisible() {
@@ -841,7 +867,7 @@ export class UiFramework {
   public static get useToolAsToolSettingsLabel(): boolean {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState
-        .useToolAsToolSettingsLabel
+          .useToolAsToolSettingsLabel
       : /* istanbul ignore next */ false;
   }
   public static setUseToolAsToolSettingsLabel(value: boolean) {
@@ -859,7 +885,7 @@ export class UiFramework {
   public static get autoCollapseUnpinnedPanels(): boolean {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.configurableUiState
-        .autoCollapseUnpinnedPanels
+          .autoCollapseUnpinnedPanels
       : /* istanbul ignore next */ false;
   }
 
@@ -954,7 +980,7 @@ export class UiFramework {
         onItemExecuted,
         onCancel,
         placement,
-        anchor
+        anchor,
       }
     );
   }
@@ -992,7 +1018,7 @@ export class UiFramework {
       location,
       offset,
       onCancel,
-      relativePosition,
+      relativePosition
     );
   }
 
@@ -1022,24 +1048,21 @@ export class UiFramework {
     placement: Placement = "top-end",
     anchorElement?: HTMLElement
   ): boolean {
-    const anchor = UiFramework.resolveHtmlElement(anchorElement)
+    const anchor = UiFramework.resolveHtmlElement(anchorElement);
 
-    return PopupManager.displayToolbar(
-      toolbarProps.items,
-      {
-        anchor,
-        location,
-        offset,
-        onItemExecuted,
-        onCancel,
-        placement
-      }
-    );
+    return PopupManager.displayToolbar(toolbarProps.items, {
+      anchor,
+      location,
+      offset,
+      onItemExecuted,
+      onCancel,
+      placement,
+    });
   }
 
   /** Hides a toolbar displayed via {@link UiFramework.showToolbar} */
   public static hideToolbar() {
-    return PopupManager.hideToolbar()
+    return PopupManager.hideToolbar();
   }
 
   /** Show a menu button at a particular location. A menu button opens a context menu.
@@ -1065,9 +1088,9 @@ export class UiFramework {
   }
 
   /** Hides a menu button.
-  * @param id Id of the menu button. Multiple menu buttons may be displayed.
-  * @return true if the menu was hidden, false if the menu could not be hidden.
-  */
+   * @param id Id of the menu button. Multiple menu buttons may be displayed.
+   * @return true if the menu was hidden, false if the menu could not be hidden.
+   */
   public static hideMenuButton(id: string) {
     return AccuDrawPopupManager.hideMenuButton(id);
   }
@@ -1096,7 +1119,7 @@ export class UiFramework {
       initialValue,
       resultIcon,
       onOk,
-      onCancel,
+      onCancel
     );
   }
 
@@ -1105,42 +1128,32 @@ export class UiFramework {
     return AccuDrawPopupManager.hideCalculator();
   }
 
-
   /** Show a React Element at a particular location.
    * @param component The ReactElement to display
    * @param options - Optional {@link: ShowComponentParams}
    */
 
   public static showComponent(...params: OptionalShowComponentParams): boolean {
-    const options: typeof params[1] = params[1] || {};
-    const component = params[0]
+    const options: (typeof params)[1] = params[1] || {};
+    const component = params[0];
     const { anchorRef, id } = options;
 
-    let {
+    let { location, offset, onCancel, placement } = options;
+
+    if (!location) location = { x: 0, y: 0 };
+    if (!offset) offset = { x: 0, y: 0 };
+    if (!placement) placement = "top-end";
+    if (!onCancel) onCancel = () => UiFramework.hideComponent(id);
+
+    return PopupManager.showComponent(component, {
       location,
       offset,
       onCancel,
       placement,
-    } = options;
-
-    if (!location) location = { x: 0, y: 0 };
-    if (!offset) offset = { x: 0, y: 0 };
-    if (!placement) placement = "top-end"
-    if (!onCancel) onCancel = () => UiFramework.hideComponent(id);
-
-    return PopupManager.showComponent(
-      component,
-      {
-        location,
-        offset,
-        onCancel,
-        placement,
-        anchor: anchorRef?.current ?? undefined,
-        id
-      },
-    );
+      anchor: anchorRef?.current ?? undefined,
+      id,
+    });
   }
-
 
   /**
    * Hides the Component previously shown with {@link UiFramework.showComponent}
@@ -1186,11 +1199,23 @@ export class UiFramework {
    * @return true if the editor was displayed, false if the editor could not be displayed.
    */
   public static showInputEditor({
-    anchorElement, initialValue, location, onCancel, onCommit, propertyDescription
+    anchorElement,
+    initialValue,
+    location,
+    onCancel,
+    onCommit,
+    propertyDescription,
   }: ShowInputEditorOptions): boolean {
     const el = this.resolveHtmlElement(anchorElement);
-    PopupManager.showInputEditor(el, location, initialValue, propertyDescription, onCommit, onCancel)
-    return true
+    PopupManager.showInputEditor(
+      el,
+      location,
+      initialValue,
+      propertyDescription,
+      onCommit,
+      onCancel
+    );
+    return true;
   }
 
   /** Show an input editor for a length value at a particular location.
@@ -1202,14 +1227,28 @@ export class UiFramework {
    * @param anchorElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the editor was displayed, false if the editor could not be displayed.
    */
-  public static showDimensionEditor(dimension: "Height" | "Length", initialValue: number, location: XAndY, onCommit: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement) {
+  public static showDimensionEditor(
+    dimension: "Height" | "Length",
+    initialValue: number,
+    location: XAndY,
+    onCommit: (value: number) => void,
+    onCancel: () => void,
+    anchorElement?: HTMLElement
+  ) {
     const el = this.resolveHtmlElement(anchorElement);
-    return AccuDrawPopupManager.showDimensionEditor(dimension, el, location, initialValue, onCommit, onCancel);
+    return AccuDrawPopupManager.showDimensionEditor(
+      dimension,
+      el,
+      location,
+      initialValue,
+      onCommit,
+      onCancel
+    );
   }
 
   /** Hides the input editor. */
   public static hideInputEditor(): boolean {
-    return PopupManager.hideInputEditor()
+    return PopupManager.hideInputEditor();
   }
 
   /** Opens a Dialog and automatically populates it using the properties defined by the UiDataProvider.
@@ -1227,30 +1266,31 @@ export class UiFramework {
     id: string,
     optionalProps?: DialogProps
   ): boolean {
-    const dialog = createElement(UiDataProvidedDialog, { uiDataProvider, title, isModal, id, ...optionalProps });
+    const dialog = createElement(UiDataProvidedDialog, {
+      uiDataProvider,
+      title,
+      isModal,
+      id,
+      ...optionalProps,
+    });
     const modalType = isModal ? "modal" : "modeless";
     UiFramework.dialogs[modalType].open(dialog, id);
     return true;
   }
 
-
   /** Closes the Dialog with the specified dialogId.
-  * @param dialogId Id of the dialog to close.
-  */
+   * @param dialogId Id of the dialog to close.
+   */
   public static closeDialog(dialogId: string): boolean {
     const findFn = (info: DialogInfo) => info.id === dialogId;
     // istanbul ignore else
-    if (
-      UiFramework.dialogs.modeless.dialogs.findIndex(findFn)
-    ) {
+    if (UiFramework.dialogs.modeless.dialogs.findIndex(findFn)) {
       UiFramework.dialogs.modeless.close(dialogId);
       return true;
     }
 
     // istanbul ignore else
-    if (
-      UiFramework.dialogs.modal.dialogs.findIndex(findFn)
-    ) {
+    if (UiFramework.dialogs.modal.dialogs.findIndex(findFn)) {
       UiFramework.dialogs.modal.close();
       return true;
     }
@@ -1264,7 +1304,10 @@ export class UiFramework {
    * @param htmlElement The HTMLElement that anchors the Popup. If undefined, the location is relative to the overall window.
    * @return true if the Command Palette was displayed, false if it could not be displayed.
    */
-  public static showKeyinPalette(keyinEntries: KeyinEntry[], htmlElement?: HTMLElement): boolean {
+  public static showKeyinPalette(
+    keyinEntries: KeyinEntry[],
+    htmlElement?: HTMLElement
+  ): boolean {
     return PopupManager.showKeyinPalette(keyinEntries, htmlElement);
   }
 
@@ -1273,10 +1316,8 @@ export class UiFramework {
     return PopupManager.hideKeyinPalette();
   }
 
-  private static resolveHtmlElement(
-    htmlElement?: HTMLElement
-  ): HTMLElement {
+  private static resolveHtmlElement(htmlElement?: HTMLElement): HTMLElement {
     const el = htmlElement ?? UiFramework.controls.getWrapperElement();
-    return el
+    return el;
   }
 }

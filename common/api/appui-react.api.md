@@ -4993,7 +4993,7 @@ export class UiFramework {
     static showCard(content: React.ReactNode, title: string | PropertyRecord | undefined, toolbarProps: ToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, placement?: Placement, anchorElement?: HTMLElement): boolean;
     static showComponent(...params: OptionalShowComponentParams): boolean;
     static showDimensionEditor(dimension: "Height" | "Length", initialValue: number, location: XAndY, onCommit: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement): boolean;
-    static showInputEditor({ anchorElement, initialValue, location, onCancel, onCommit, propertyDescription }: ShowInputEditorOptions): boolean;
+    static showInputEditor({ anchorElement, initialValue, location, onCancel, onCommit, propertyDescription, }: ShowInputEditorOptions): boolean;
     static showKeyinPalette(keyinEntries: KeyinEntry[], htmlElement?: HTMLElement): boolean;
     static showMenuButton(id: string, menuItemsProps: CursorMenuItemProps[], location: XAndY, anchorElement?: HTMLElement): boolean;
     static showToolbar(toolbarProps: ToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, placement?: Placement, anchorElement?: HTMLElement): boolean;
