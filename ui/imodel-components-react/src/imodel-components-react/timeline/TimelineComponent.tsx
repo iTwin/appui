@@ -70,7 +70,9 @@ export interface TimelineComponentProps {
   startDate?: Date;
   /** End date: end of the date range of a date-based timeline. */
   endDate?: Date;
-  /** Total duration: range of the timeline in milliseconds. */
+  /** Total duration: range of the timeline in milliseconds.
+   * @note This can be changed by user interaction. See {@link appMenuItems}.
+   */
   totalDuration: number;
   /** Initial value for the current duration (the location of the thumb) in milliseconds */
   initialDuration?: number;
@@ -78,7 +80,9 @@ export interface TimelineComponentProps {
    * @deprecated in 4.10.x. Has no effect.
    */
   minimized?: boolean;
-  /** When playing, repeat indefinitely. Defaults to `false`. */
+  /** When playing, repeat indefinitely. Defaults to `false`.
+   * @note This can be changed by user interaction. See {@link includeRepeat}.
+   */
   repeat?: boolean;
   /** Show duration instead of time */
   showDuration?: boolean;
@@ -86,7 +90,9 @@ export interface TimelineComponentProps {
   onChange?: (duration: number) => void;
   /** Callback triggered when play/pause button is pressed */
   onPlayPause?: (playing: boolean) => void;
-  /** Callback triggered when backward/forward buttons are pressed */
+  /** Callback triggered when backward/forward buttons are pressed.
+   * @deprecated in 4.10.x. Has no effect.
+   */
   onJump?: (forward: boolean) => void;
   /** Callback triggered when a setting is changed */
   onSettingsChange?: (arg: PlaybackSettings) => void;
@@ -98,7 +104,7 @@ export interface TimelineComponentProps {
   componentId?: string;
   /** Include the repeat option on the Timeline Context Menu. Defaults to `true`. */
   includeRepeat?: boolean;
-  /** App-supplied speed entries in the Timeline Context Menu */
+  /** App-supplied speed entries in the Timeline Context Menu. Defaults to `[Slow, Medium, Fast]` items. */
   appMenuItems?: TimelineMenuItemProps[];
   /** How to include the supplied app menu items in the Timeline Context Menu (prefix, append or replace). Defaults to `replace`. */
   appMenuItemOption?: TimelineMenuItemOption;
