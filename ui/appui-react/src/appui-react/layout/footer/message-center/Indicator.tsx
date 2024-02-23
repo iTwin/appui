@@ -38,8 +38,6 @@ export const MessageCenter: React.FC<MessageCenterProps> = (props) => {
   const { messages, className, indicatorRef, label, onClick, targetRef } =
     props;
 
-  const [test, setTest] = React.useState(false);
-
   return (
     <FooterIndicator
       className={classnames("nz-footer-messageCenter-indicator", className)}
