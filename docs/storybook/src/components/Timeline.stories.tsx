@@ -67,6 +67,7 @@ export const Basic: Story = {
   args: {
     totalDuration: 3000,
     onChange: action("onChange"),
+    onSettingsChange: action("onSettingsChange"),
     onPlayPause: action("onPlayPause"),
   },
 };

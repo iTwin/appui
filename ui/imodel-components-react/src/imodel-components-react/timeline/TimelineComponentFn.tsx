@@ -101,17 +101,21 @@ export function TimelineComponent(props: TimelineComponentProps) {
     updateDuration(newDuration);
   };
 
-  const updateDuration = React.useCallback(
-    (newDuration: number) => {
-      newDuration = Math.max(newDuration, 0);
-      newDuration = Math.min(totalDuration, newDuration);
-      setCurrentDuration(newDuration);
+  const updateDuration = (newDuration: number) => {
+    newDuration = Math.max(newDuration, 0);
+    newDuration = Math.min(totalDuration, newDuration);
+    setCurrentDuration(newDuration);
 
-      const fraction = newDuration / totalDuration;
-      onChange?.(fraction);
-    },
-    [onChange, totalDuration]
-  );
+    const fraction = newDuration / totalDuration;
+    onChange?.(fraction);
+  };
+  const updateRepeat = (newRepeat: boolean | undefined) => {
+    if (newRepeat === undefined) return;
+    if (newRepeat === repeat) return;
+
+    setRepeat(newRepeat);
+    onSettingsChange?.({ loop: newRepeat });
+  };
 
   const displayTime = (time: number) => {
     const addZero = (i: number) => {
@@ -147,19 +151,12 @@ export function TimelineComponent(props: TimelineComponentProps) {
     props.onSettingsChange?.({ loop: newRepeat });
   };
 
-  const updateTotalDuration = React.useCallback(
-    (duration: number) => {
-      let changed = false;
-      setTotalDuration((prev) => {
-        if (prev !== duration) changed = true;
-        return duration;
-      });
+  const updateTotalDuration = (newDuration: number) => {
+    if (newDuration === totalDuration) return;
 
-      if (!changed) return;
-      onSettingsChange?.({ duration });
-    },
-    [onSettingsChange]
-  );
+    setTotalDuration(newDuration);
+    onSettingsChange?.({ duration: newDuration });
+  };
 
   const createMenuItemNode = (
     item: TimelineMenuItemProps,
@@ -260,6 +257,24 @@ export function TimelineComponent(props: TimelineComponentProps) {
     );
   };
 
+  const prevInitialDuration = React.useRef(props.initialDuration);
+  if (prevInitialDuration.current !== props.initialDuration) {
+    updateDuration(props.initialDuration ?? 0);
+    prevInitialDuration.current = props.initialDuration;
+  }
+
+  const prevRepeat = React.useRef(props.repeat);
+  if (prevRepeat.current !== props.repeat) {
+    updateRepeat(props.repeat);
+    prevRepeat.current = props.repeat;
+  }
+
+  const prevTotalDuration = React.useRef(props.totalDuration);
+  if (prevTotalDuration.current !== props.totalDuration) {
+    updateTotalDuration(props.totalDuration);
+    prevTotalDuration.current = props.totalDuration;
+  }
+
   React.useEffect(() => {
     if (!props.componentId) return;
     return UiAdmin.onGenericUiEvent.addListener((args) => {
@@ -288,20 +303,6 @@ export function TimelineComponent(props: TimelineComponentProps) {
       }
     });
   }, [isPlaying, pause, playOrReplay, props.componentId]);
-
-  React.useEffect(() => {
-    if (props.repeat === undefined) return;
-    if (props.repeat === repeat) return;
-
-    setRepeat(props.repeat);
-    onSettingsChange?.({ loop: props.repeat });
-  }, [props.repeat, onSettingsChange, repeat]);
-  React.useEffect(() => {
-    updateDuration(props.initialDuration ?? 0);
-  }, [props.initialDuration]);
-  React.useEffect(() => {
-    updateTotalDuration(props.totalDuration);
-  }, [props.totalDuration, updateTotalDuration]);
   useAnimation(
     ({ delta }) => {
       const duration = currentDuration + delta;
