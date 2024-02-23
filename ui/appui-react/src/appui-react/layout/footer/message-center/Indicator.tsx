@@ -18,8 +18,6 @@ import { NotificationMarker } from "@itwin/itwinui-react";
  * @internal
  */
 export interface MessageCenterProps extends FooterIndicatorProps {
-  /** Message center balloon content. */
-  children?: string;
   /** Clickable part of the indicator. */
   indicatorRef?: React.Ref<HTMLDivElement>;
   /** Message center label. */
@@ -28,44 +26,40 @@ export interface MessageCenterProps extends FooterIndicatorProps {
   onClick?: () => void;
   /** Message center dialog target. */
   targetRef?: React.Ref<HTMLDivElement>;
+  /** Messages */
+  messages?: number;
 }
 
 /** Message center indicator used in [[Footer]] component.
  * @note Used with [[MessageCenterDialog]] component.
  * @internal
  */
-export class MessageCenter extends React.PureComponent<MessageCenterProps> {
-  public override render() {
-    const {
-      children,
-      className,
-      indicatorRef,
-      label,
-      onClick,
-      targetRef,
-      ...props
-    } = this.props;
-    return (
-      <FooterIndicator
-        className={classnames("nz-footer-messageCenter-indicator", className)}
-        {...props}
+export const MessageCenter: React.FC<MessageCenterProps> = (props) => {
+  const { messages, className, indicatorRef, label, onClick, targetRef } =
+    props;
+
+  const [test, setTest] = React.useState(false);
+
+  return (
+    <FooterIndicator
+      className={classnames("nz-footer-messageCenter-indicator", className)}
+      {...props}
+    >
+      <div // eslint-disable-line jsx-a11y/click-events-have-key-events
+        className="nz-indicator"
+        onClick={onClick}
+        ref={indicatorRef}
+        role="button"
+        tabIndex={-1}
       >
-        <div // eslint-disable-line jsx-a11y/click-events-have-key-events
-          className="nz-indicator"
-          onClick={onClick}
-          ref={indicatorRef}
-          role="button"
-          tabIndex={-1}
-        >
-          <NotificationMarker status="primary">
-            <SvgChat />
-          </NotificationMarker>
-          {label !== undefined && <span className="nz-label">{label}</span>}
-          <div className="nz-container">
-            <div className="nz-target" ref={targetRef} />
-          </div>
+        <NotificationMarker status={messages ? "primary" : "negative"}>
+          <SvgChat />
+        </NotificationMarker>
+        {label !== undefined && <span className="nz-label">{label}</span>}
+        <div className="nz-container">
+          <div className="nz-target" ref={targetRef} />
         </div>
-      </FooterIndicator>
-    );
-  }
-}
+      </div>
+    </FooterIndicator>
+  );
+};

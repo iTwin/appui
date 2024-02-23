@@ -43,75 +43,20 @@ interface MessageCenterState {
 /** Message Center Field React component.
  * @public
  */
-export const MessageCenterField: React.FC = (props: any) => {
-  const { style, className } = props;
+export const MessageCenterField: React.FC = () => {
   const _indicator = React.createRef<HTMLDivElement>();
-
-  const [activeTab, setActiveTab] = React.useState(
-    MessageCenterActiveTab.AllMessages
-  );
-  const [target, setTarget] = React.useState(_indicator.current);
-  const [messageCount, setMessageCount] = React.useState(
-    MessageManager.messages.length
-  );
-  const [isOpen, setIsOpen] = React.useState(false);
-
+  const activeTab = MessageCenterActiveTab.AllMessages;
+  const messageCount = MessageManager.messages.length;
   const _title = UiFramework.translate("messageCenter.messages");
   const tooltip = `${messageCount} ${_title}`;
-  const divStyle = { ...style, height: "100%" };
+  const divStyle = { height: "100%" }; // this would be better as a class
 
-  let _unloadMessagesUpdatedHandler: undefined | (() => void);
-  let _removeOpenMessagesCenterHandler: undefined | (() => void);
-
-  React.useRef(() => {
-    _unloadMessagesUpdatedHandler =
-      MessageManager.onMessagesUpdatedEvent.addListener(
-        _handleMessagesUpdatedEvent
-      );
-    _removeOpenMessagesCenterHandler =
-      MessageManager.onOpenMessageCenterEvent.addListener(
-        _handleOpenMessageCenterEvent
-      );
-    MessageManager.registerAnimateOutToElement(_indicator.current);
-
-    return () => {
-      if (_unloadMessagesUpdatedHandler) {
-        _unloadMessagesUpdatedHandler();
-        _unloadMessagesUpdatedHandler = undefined;
-      }
-      // istanbul ignore else
-      if (_removeOpenMessagesCenterHandler) {
-        _removeOpenMessagesCenterHandler();
-        _removeOpenMessagesCenterHandler = undefined;
-      }
-    };
-  });
+  const [isOpen, setIsOpen] = React.useState(false);
 
   // Event Handlers
 
   const _handleOpenChange = (isOpenState: boolean) => {
     setIsOpen(isOpenState);
-  };
-
-  const _handleOpenMessageCenterEvent = () => {
-    setIsOpen(true);
-  };
-
-  const _handleMessagesUpdatedEvent = () => {
-    // istanbul ignore else
-    if (_unloadMessagesUpdatedHandler)
-      setMessageCount(MessageManager.messages.length);
-  };
-
-  const _handleOutsideClick = (e: MouseEvent) => {
-    if (
-      !_indicator.current ||
-      !(e.target instanceof Node) ||
-      _indicator.current.contains(e.target)
-    )
-      return;
-
-    _handleOpenChange(false);
   };
 
   const isProblemStatus = (priority: OutputMessagePriority): boolean => {
@@ -159,39 +104,36 @@ export const MessageCenterField: React.FC = (props: any) => {
     return tabRows;
   };
 
-  const messageCenterContent = () => {
-    return (
-      <MessageCenterDialog
-        prompt={UiFramework.translate("messageCenter.prompt")}
-        title={_title}
-      >
-        <Tabs.Wrapper type="pill">
-          <Tabs.TabList>
-            <Tabs.Tab label="All" key="all" value="all" />,
-            <Tabs.Tab label="Error" key="error" value="error" />,
-          </Tabs.TabList>
-          <Tabs.Panel value="all" key="all">
-            {getMessages()}
-          </Tabs.Panel>
-        </Tabs.Wrapper>
-      </MessageCenterDialog>
-    );
-  };
+  const messageCenterContent = (
+    <MessageCenterDialog
+      prompt={UiFramework.translate("messageCenter.prompt")}
+      title={_title}
+    >
+      <Tabs.Wrapper type="pill">
+        <Tabs.TabList>
+          <Tabs.Tab label="All" key="all" value="all" />,
+          <Tabs.Tab label="Error" key="error" value="error" />,
+        </Tabs.TabList>
+        <Tabs.Panel value="all" key="all">
+          {getMessages()}
+        </Tabs.Panel>
+      </Tabs.Wrapper>
+    </MessageCenterDialog>
+  );
 
   return (
-    <>
-      <Popover content={messageCenterContent()} applyBackground style={style}>
-        <div className={className} style={divStyle} title={tooltip}>
-          <MessageCenter
-            indicatorRef={_indicator}
-            label={_title}
-            onClick={() => _handleOpenChange(!isOpen)}
-          >
-            {messageCount.toString()}
-          </MessageCenter>
-        </div>
-      </Popover>
-    </>
+    <Popover content={messageCenterContent} applyBackground>
+      <div style={divStyle} title={tooltip}>
+        <MessageCenter
+          indicatorRef={_indicator}
+          label={_title}
+          onClick={() => _handleOpenChange(!isOpen)}
+          messages={}
+        >
+          {messageCount.toString()}
+        </MessageCenter>
+      </div>
+    </Popover>
   );
 
   // return (
@@ -230,6 +172,30 @@ export const MessageCenterField: React.FC = (props: any) => {
   //   </>
   // );
 };
+
+// React.useRef(() => {
+//   _unloadMessagesUpdatedHandler =
+//     MessageManager.onMessagesUpdatedEvent.addListener(
+//       _handleMessagesUpdatedEvent
+//     );
+//   _removeOpenMessagesCenterHandler =
+//     MessageManager.onOpenMessageCenterEvent.addListener(
+//       _handleOpenMessageCenterEvent
+//     );
+//   MessageManager.registerAnimateOutToElement(_indicator.current);
+
+//   return () => {
+//     if (_unloadMessagesUpdatedHandler) {
+//       _unloadMessagesUpdatedHandler();
+//       _unloadMessagesUpdatedHandler = undefined;
+//     }
+//     // istanbul ignore else
+//     if (_removeOpenMessagesCenterHandler) {
+//       _removeOpenMessagesCenterHandler();
+//       _removeOpenMessagesCenterHandler = undefined;
+//     }
+//   };
+// });
 
 // /** Message Center Field React component.
 //  * @public
