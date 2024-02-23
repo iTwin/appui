@@ -285,7 +285,7 @@ export function TimelineComponent(props: TimelineComponentProps) {
       />
       <div className="time-container">
         {hasDates && (
-          <span className="end-date">
+          <span data-testid="test-end-date" className="timeline-date">
             {toDateString(endDate, timeZoneOffset)}
           </span>
         )}
