@@ -61,26 +61,6 @@
   }
 }
 
-.timeline-settings {
-  margin-left: auto;
-  font-size: 14px;
-  color: var(--iui-color-text);
-  cursor: pointer;
-
-  &:hover {
-    color: var(--iui-color-text-hover);
-  }
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.timeline-component .timeline-settings {
-  margin-left: 8px;
-  margin-right: -6px;
-}
-
 .timeline-component.has-dates .start-time-container {
   margin-right: 8px;
 }
@@ -92,21 +72,4 @@
 .timeline-component:not(.has-dates) .scrubber .start-date,
 .timeline-component:not(.has-dates) .scrubber .end-date {
   display: none;
-}
-
-.separator {
-  padding: 0.5em 0;
-  position: relative;
-
-  &:before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 4px;
-    right: 4px;
-    width: auto;
-    height: 1px;
-    background: #dce0e3;
-    transform: translateY(-50%);
-  }
 }

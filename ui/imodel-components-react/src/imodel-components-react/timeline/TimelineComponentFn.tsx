@@ -5,6 +5,7 @@
 /** @packageDocumentation
  * @module Timeline
  */
+import "./TimelineComponent.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { UiAdmin } from "@itwin/appui-abstract";
@@ -13,16 +14,19 @@ import {
   toTimeString,
   UiComponents,
 } from "@itwin/components-react";
-import { Icon } from "@itwin/core-react";
 import { SvgCheckmark, SvgMoreVertical } from "@itwin/itwinui-icons-react";
-import { DropdownMenu, MenuDivider, MenuItem } from "@itwin/itwinui-react";
+import {
+  DropdownMenu,
+  IconButton,
+  MenuDivider,
+  MenuItem,
+} from "@itwin/itwinui-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { InlineEdit } from "./InlineEdit";
 import type { TimelinePausePlayArgs } from "./interfaces";
 import { TimelinePausePlayAction } from "./interfaces";
 import { PlayButton } from "./PlayButton";
 import { Scrubber } from "./Scrubber";
-import "./TimelineComponent.scss";
 import type {
   TimelineComponentProps,
   TimelineMenuItemProps,
@@ -261,11 +265,15 @@ function SettingsMenu({
   onRepeatClick,
   onTotalDurationChange,
 }: SettingsMenuProps) {
+  const settingsLabel = React.useMemo(
+    () => UiComponents.translate("button.label.settings"),
+    []
+  );
   const repeatLabel = React.useMemo(
     () => UiIModelComponents.translate("timeline.repeat"),
     []
   );
-  const standardTimelineMenuItems: TimelineMenuItemProps[] = React.useMemo(
+  const standardItems: TimelineMenuItemProps[] = React.useMemo(
     () => [
       {
         label: UiIModelComponents.translate("timeline.slow"),
@@ -285,18 +293,18 @@ function SettingsMenu({
 
   const menuItems = React.useMemo(() => {
     if (!appMenuItems) {
-      return standardTimelineMenuItems;
+      return standardItems;
     }
 
     if (appMenuItemOption === "append") {
-      return [...standardTimelineMenuItems, ...appMenuItems];
+      return [...standardItems, ...appMenuItems];
     }
     if (appMenuItemOption === "prefix") {
-      return [...appMenuItems, ...standardTimelineMenuItems];
+      return [...appMenuItems, ...standardItems];
     }
     // Replace
     return appMenuItems;
-  }, [appMenuItemOption, appMenuItems, standardTimelineMenuItems]);
+  }, [appMenuItemOption, appMenuItems, standardItems]);
 
   return (
     <DropdownMenu
@@ -310,9 +318,7 @@ function SettingsMenu({
                     onRepeatClick();
                     close();
                   }}
-                  startIcon={
-                    repeat ? <Icon iconSpec={<SvgCheckmark />} /> : <></>
-                  }
+                  startIcon={repeat ? <SvgCheckmark /> : <></>}
                 >
                   {repeatLabel}
                 </MenuItem>,
@@ -324,9 +330,7 @@ function SettingsMenu({
             return (
               <MenuItem
                 key={index}
-                startIcon={
-                  checked ? <Icon iconSpec={<SvgCheckmark />} /> : <></>
-                }
+                startIcon={checked ? <SvgCheckmark /> : <></>}
                 onClick={() => {
                   onTotalDurationChange(item.timelineDuration);
                   close();
@@ -340,15 +344,13 @@ function SettingsMenu({
       }}
       placement="top-start"
     >
-      <span
+      <IconButton
         data-testid="timeline-settings"
-        className="timeline-settings"
-        role="button"
-        tabIndex={-1}
-        title={UiComponents.translate("button.label.settings")}
+        title={settingsLabel}
+        styleType="borderless"
       >
-        <Icon iconSpec={<SvgMoreVertical />} />
-      </span>
+        <SvgMoreVertical />
+      </IconButton>
     </DropdownMenu>
   );
 }
@@ -373,10 +375,12 @@ function useAnimation(
         lastTimeRef.current = time;
       }
 
-      onAnimateRef.current({
-        delta: time - lastTimeRef.current,
-      });
+      const delta = time - lastTimeRef.current;
       lastTimeRef.current = time;
+
+      onAnimateRef.current({
+        delta,
+      });
 
       if (didCancel) return;
 
