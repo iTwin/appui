@@ -6,14 +6,12 @@
  * @module Notification
  */
 
-import * as React from "react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { Tab, Tabs } from "@itwin/itwinui-react";
 import { Orientation } from "@itwin/core-react";
 import type { CommonProps } from "@itwin/itwinui-react/cjs/core/utils";
-import { Icon } from "@itwin/core-react";
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
+// import type { CommonProps } from "@itwin/core-react";
 import { Icon, MessageRenderer } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
@@ -23,7 +21,6 @@ import { MessageCenterMessage } from "../layout/footer/message-center/Message";
 import { MessageManager } from "../messages/MessageManager";
 import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
 import { StatusBar } from "../statusbar/StatusBar";
-import { useEffect, React.useState } from "react";
 
 /** Enum for the [[MessageCenterField]] active tab
  * @internal
@@ -69,7 +66,7 @@ export const MessageCenterField: any = (props: any) => {
   const tooltip = `${messageCount} ${_title}`;
   const divStyle = { ...style, height: "100%" };
 
-  useEffect(() => {
+  React.useRef(() => {
     _unloadMessagesUpdatedHandler =
       MessageManager.onMessagesUpdatedEvent.addListener(
         _handleMessagesUpdatedEvent
@@ -91,7 +88,7 @@ export const MessageCenterField: any = (props: any) => {
         _removeOpenMessagesCenterHandler = undefined;
       }
     };
-  }, []);
+  });
 
   // Event Handlers
 
@@ -203,16 +200,15 @@ export const MessageCenterField: any = (props: any) => {
           prompt={UiFramework.translate("messageCenter.prompt")}
           title={_title}
         >
-          <Tabs
-            type="pill"
-            labels={[
-              <Tab key="All" label="All" />,
-              <Tab key="Errors" label="Errors" />,
-            ]}
-          >
-            {"content"}
-          </Tabs>
-          {getMessages()}
+          <Tabs.Wrapper type="pill">
+            <Tabs.TabList>
+              <Tabs.Tab label="All" key="all" value="all" />,
+              <Tabs.Tab label="Error" key="error" value="error" />,
+            </Tabs.TabList>
+            <Tabs.Panel value="all" key="all">
+              {getMessages()}
+            </Tabs.Panel>
+          </Tabs.Wrapper>
         </MessageCenterDialog>
       </StatusBar.Popup>
     </>
