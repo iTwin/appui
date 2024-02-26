@@ -679,33 +679,6 @@ export interface PlaybackSettings {
 // @public
 export type PlaybackSettingsChangeHandler = (settingsChange: PlaybackSettings) => void;
 
-// @internal
-export class PlayButton extends React_2.Component<PlayerButtonProps, PlayButtonState> {
-    constructor(props: PlayerButtonProps, context?: any);
-    // (undocumented)
-    componentDidUpdate(): void;
-    // (undocumented)
-    render(): React_2.JSX.Element;
-}
-
-// @internal
-export class PlayerButton extends React_2.PureComponent<any> {
-    // (undocumented)
-    render(): React_2.JSX.Element;
-}
-
-// @internal
-export interface PlayerButtonProps extends CommonProps {
-    // (undocumented)
-    isPlaying: boolean;
-    // (undocumented)
-    onPause?: () => void;
-    // (undocumented)
-    onPlay?: () => void;
-    // (undocumented)
-    tooltip?: string;
-}
-
 // @alpha
 export function QuantityFormatPanel(props: QuantityFormatPanelProps): React_2.JSX.Element;
 
@@ -778,8 +751,6 @@ export interface ScrubberProps extends CommonProps {
     // (undocumented)
     endDate?: Date;
     // (undocumented)
-    inMiniMode: boolean;
-    // (undocumented)
     isPlaying: boolean;
     // (undocumented)
     markDate?: TimelineDateMarkerProps;
@@ -844,20 +815,11 @@ export interface StandardRotationChangeEventArgs {
 export type StepFunctionProp = number | ((direction: string) => number | undefined);
 
 // @public
-export class TimelineComponent extends React_2.Component<TimelineComponentProps, TimelineComponentState> {
-    constructor(props: TimelineComponentProps);
-    // (undocumented)
-    componentDidUpdate(prevProps: TimelineComponentProps): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    render(): React_2.JSX.Element;
-    // (undocumented)
-    shouldComponentUpdate(nextProps: TimelineComponentProps, nextState: TimelineComponentState): boolean;
-}
+export function TimelineComponent(props: TimelineComponentProps): React_2.JSX.Element;
 
 // @public
 export interface TimelineComponentProps {
+    // @deprecated
     alwaysMinimized?: boolean;
     appMenuItemOption?: TimelineMenuItemOption;
     appMenuItems?: TimelineMenuItemProps[];
@@ -868,8 +830,10 @@ export interface TimelineComponentProps {
     initialDuration?: number;
     isPlaying?: boolean;
     markDate?: TimelineDateMarkerProps;
+    // @deprecated
     minimized?: boolean;
     onChange?: (duration: number) => void;
+    // @deprecated
     onJump?: (forward: boolean) => void;
     onPlayPause?: (playing: boolean) => void;
     onSettingsChange?: (arg: PlaybackSettings) => void;

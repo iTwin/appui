@@ -198,7 +198,6 @@ export interface ScrubberProps extends CommonProps {
   currentDuration: number;
   totalDuration: number;
   isPlaying: boolean;
-  inMiniMode: boolean;
   startDate?: Date;
   endDate?: Date;
   showTime?: boolean;
