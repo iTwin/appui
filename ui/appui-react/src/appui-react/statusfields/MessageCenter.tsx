@@ -19,39 +19,56 @@ import { MessageManager } from "../messages/MessageManager";
 import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
 import { Popover } from "@itwin/itwinui-react";
 
-/** Enum for the [[MessageCenterField]] active tab
- * @internal
- */
-enum MessageCenterActiveTab {
-  AllMessages,
-  Problems,
-}
-
-/** State for the [[MessageCenterField]] React component
- * @internal
- */
-interface MessageCenterState {
-  activeTab: MessageCenterActiveTab;
-  target: HTMLDivElement | null;
-  messageCount: number;
-  isOpen: boolean;
-}
-
 /** Message Center Field React component.
  * @public
  */
 export const MessageCenterField: React.FC = () => {
-  const _indicator = React.createRef<HTMLDivElement>();
-  const activeTab = MessageCenterActiveTab.AllMessages; // What is this doing exactly?
-  const messageCount = MessageManager.messages.length;
-  const _title = UiFramework.translate("messageCenter.messages");
-  const tooltip = `${messageCount} ${_title}`;
-  const divStyle = { height: "100%" }; // this would be better as a class
+  const indicator = React.createRef<HTMLDivElement>();
+  const [messageCount, setMessageCount] = React.useState(
+    MessageManager.messages.length
+  );
+  const title = UiFramework.translate("messageCenter.messages");
+  const tooltip = `${messageCount} ${title}`;
+  const divStyle = { height: "100%" };
 
   const [isOpen, setIsOpen] = React.useState(false);
   // ADD STATE FOR MESSSAGES OR MAYVE MAKE MESSAGE COUNT A STATE THAT GETS UPDATED SOMEHOW
 
-  const _handleOpenChange = (isOpenState: boolean) => setIsOpen(isOpenState);
+  const handleOpenChange = (isOpenState: boolean) => setIsOpen(isOpenState);
+
+  const handleMessagesUpdatedEvent = () => {
+    // istanbul ignore else
+    setMessageCount(MessageManager.messages.length);
+    console.log(messageCount);
+  };
+
+  const handleOpenMessageCenterEvent = () => {
+    setIsOpen(true);
+  };
+
+  React.useEffect(() => {
+    MessageManager.onMessagesUpdatedEvent.addListener(
+      handleMessagesUpdatedEvent
+    );
+    MessageManager.onOpenMessageCenterEvent.addListener(
+      handleOpenMessageCenterEvent
+    );
+    MessageManager.registerAnimateOutToElement(indicator.current);
+  });
+
+  // /** @internal */
+  // public override componentWillUnmount() {
+  //   // istanbul ignore else
+  //   if (this._unloadMessagesUpdatedHandler) {
+  //     this._unloadMessagesUpdatedHandler();
+  //     this._unloadMessagesUpdatedHandler = undefined;
+  //   }
+  //   // istanbul ignore else
+  //   if (this._removeOpenMessagesCenterHandler) {
+  //     this._removeOpenMessagesCenterHandler();
+  //     this._removeOpenMessagesCenterHandler = undefined;
+  //   }
+  // }
 
   const isProblemStatus = (priority: OutputMessagePriority): boolean => {
     // See priority values in DgnPlatform defined in NotificationManager
@@ -74,12 +91,13 @@ export const MessageCenterField: React.FC = () => {
       if (
         // one of these is always true and therefore obsolete.
         // How would errors be handled anyways?
-        activeTab === MessageCenterActiveTab.AllMessages ||
+        messages.length > 0 ||
         isProblemStatus(details.priority)
       ) {
         const iconClassName = MessageManager.getIconClassName(details);
         const iconSpec = MessageManager.getIconSpecFromDetails(details);
         const message = details.briefMessage;
+        console.log(details);
 
         // THIS COULD BE BETTER. FIGURE OUT WHAT IT"S DOING and HOW AND MAE IT BETTER
         tabRows.push(
@@ -96,7 +114,7 @@ export const MessageCenterField: React.FC = () => {
           </MessageCenterMessage>
         );
       } else {
-        return <span>nothing to see here!</span>;
+        tabRows.push(<span>nothing to see here!</span>);
       }
     });
 
@@ -106,7 +124,7 @@ export const MessageCenterField: React.FC = () => {
   const messageCenterContent = (
     <MessageCenterDialog
       prompt={UiFramework.translate("messageCenter.prompt")}
-      title={_title}
+      title={title}
     >
       <Tabs.Wrapper type="pill">
         <Tabs.TabList>
@@ -114,6 +132,9 @@ export const MessageCenterField: React.FC = () => {
           <Tabs.Tab label="Error" key="error" value="error" />
         </Tabs.TabList>
         <Tabs.Panel value="all" key="all">
+          {getMessages()}
+        </Tabs.Panel>
+        <Tabs.Panel value="error" key="error">
           {getMessages()}
         </Tabs.Panel>
       </Tabs.Wrapper>
@@ -124,9 +145,9 @@ export const MessageCenterField: React.FC = () => {
     <Popover content={messageCenterContent} applyBackground>
       <div style={divStyle} title={tooltip}>
         <MessageCenter
-          indicatorRef={_indicator}
-          label={_title}
-          onClick={() => _handleOpenChange(!isOpen)} // ADD A PROP BELOW THIS TO MAKE IT RESPONSIVE
+          indicatorRef={indicator}
+          label={title}
+          onClick={() => handleOpenChange(!isOpen)} // ADD A PROP BELOW THIS TO MAKE IT RESPONSIVE
         >
           {messageCount.toString()}
         </MessageCenter>

@@ -50,7 +50,7 @@ export const MessageCenter: React.FC<MessageCenterProps> = (props) => {
         role="button"
         tabIndex={-1}
       >
-        <NotificationMarker status={messages ? "primary" : "negative"}>
+        <NotificationMarker status={"primary"}>
           <SvgChat />
         </NotificationMarker>
         {label !== undefined && <span className="nz-label">{label}</span>}
