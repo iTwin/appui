@@ -13,6 +13,7 @@ import type { FooterIndicatorProps } from "../Indicator";
 import { FooterIndicator } from "../Indicator";
 import { SvgChat } from "@itwin/itwinui-icons-react";
 import { NotificationMarker } from "@itwin/itwinui-react";
+// import { NotifyMessageDetailsType } from "../../../messages/ReactNotifyMessageDetails"
 
 /** Properties of [[MessageCenter]] component.
  * @internal
@@ -27,7 +28,7 @@ export interface MessageCenterProps extends FooterIndicatorProps {
   /** Message center dialog target. */
   targetRef?: React.Ref<HTMLDivElement>;
   /** Messages */
-  messages?: number;
+  messages: any;
 }
 
 /** Message center indicator used in [[Footer]] component.
@@ -37,6 +38,26 @@ export interface MessageCenterProps extends FooterIndicatorProps {
 export const MessageCenter: React.FC<MessageCenterProps> = (props) => {
   const { messages, className, indicatorRef, label, onClick, targetRef } =
     props;
+
+  const checkForErrors = () => {
+    return messages?.some(
+      (message: NotifyMessageDetailsType) => message.msgType > 3
+    )
+      ? "negative"
+      : "primary";
+  };
+
+  const setNotification = () => {
+    if (messages?.length > 0) {
+      return (
+        <NotificationMarker status={checkForErrors()}>
+          <SvgChat />
+        </NotificationMarker>
+      );
+    } else {
+      return <SvgChat />;
+    }
+  };
 
   return (
     <FooterIndicator
@@ -50,11 +71,9 @@ export const MessageCenter: React.FC<MessageCenterProps> = (props) => {
         role="button"
         tabIndex={-1}
       >
-        <NotificationMarker status={"primary"}>
-          <SvgChat />
-        </NotificationMarker>
+        {setNotification()}
         {label !== undefined && <span className="nz-label">{label}</span>}
-        <div className="nz-container">
+        <div className="nz-container" onClick={}>
           <div className="nz-target" ref={targetRef} />
         </div>
       </div>
