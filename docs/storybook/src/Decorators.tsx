@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import type { Decorator } from "@storybook/react";
 import { StateManager, ThemeManager, UiFramework } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
+import { UiIModelComponents } from "@itwin/imodel-components-react/src/imodel-components-react/UiIModelComponents";
 
 export const AppUiDecorator: Decorator = (Story) => {
   new StateManager();
@@ -27,8 +28,8 @@ export const InitializerDecorator: Decorator = (Story) => {
     let ignore = false;
     void (async () => {
       await IModelApp.startup({});
-      if (ignore) return;
       await UiFramework.initialize(undefined);
+      await UiIModelComponents.initialize();
       if (ignore) return;
       setInitialized(true);
     })();

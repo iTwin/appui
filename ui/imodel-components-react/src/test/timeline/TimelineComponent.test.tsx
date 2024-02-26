@@ -6,13 +6,7 @@
 import { expect } from "chai";
 import React from "react";
 import * as sinon from "sinon";
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { UiAdmin } from "@itwin/appui-abstract";
 import { BaseTimelineDataProvider } from "../../imodel-components-react/timeline/BaseTimelineDataProvider";
 import type {
@@ -108,7 +102,9 @@ describe("<TimelineComponent showDuration={true} />", () => {
   });
   let fakeTimers: sinon.SinonFakeTimers | undefined;
   const rafSpy = sinon.spy((cb: FrameRequestCallback) => {
-    return window.setTimeout(cb, 0);
+    return window.setTimeout(() => {
+      cb(Date.now());
+    }, 0);
   });
 
   const getBoundingClientRect = Element.prototype.getBoundingClientRect;
@@ -165,10 +161,8 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    expect(renderedComponent).not.to.be.undefined;
-
     // hit play/pause button to start animation
-    const playButton = renderedComponent.getAllByTestId("play-button")[0];
+    const playButton = renderedComponent.getAllByTestId("play")[0];
     expect(dataProvider.playing).to.be.false;
     expect(dataProvider.pointerCallbackCalled).to.be.false;
 
@@ -254,7 +248,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     );
 
     // hit play/pause button to start animation
-    const playButtons = renderedComponent.getAllByTestId("play-button");
+    const playButtons = renderedComponent.getAllByTestId("play");
     const playButton = playButtons[0];
     expect(dataProvider.playing).to.be.false;
     expect(dataProvider.pointerCallbackCalled).to.be.false;
@@ -294,7 +288,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     );
 
     // hit play/pause button to start animation
-    const playButtons = renderedComponent.getAllByTestId("play-button");
+    const playButtons = renderedComponent.getAllByTestId("play");
     const playButton = playButtons[0];
     expect(dataProvider.playing).to.be.false;
     expect(dataProvider.pointerCallbackCalled).to.be.false;
@@ -338,7 +332,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     );
 
     // hit play/pause button to start animation
-    const playButton = renderedComponent.getAllByTestId("play-button")[0];
+    const playButton = renderedComponent.getAllByTestId("play")[0];
     expect(dataProvider.playing).to.be.false;
     expect(dataProvider.pointerCallbackCalled).to.be.false;
 
@@ -376,7 +370,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     );
 
     // hit play/pause button to start animation
-    const playButtons = renderedComponent.getAllByTestId("play-button");
+    const playButtons = renderedComponent.getAllByTestId("play");
     const playButton = playButtons[playButtons.length - 1]; // last play button is the one in the scrubber.
     expect(dataProvider.playing).to.be.false;
     expect(dataProvider.pointerCallbackCalled).to.be.false;
@@ -541,11 +535,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     };
     UiAdmin.sendUiEvent(args);
 
-    // React18 is scheduling setStates,
-    // Wait for the playing to effectively start, otherwise "Pause" event wouldn't do anything.
-    await waitFor(() => {
-      expect(screen.getAllByTitle("timeline.pause")).lengthOf(2);
-    });
+    screen.getByTitle("timeline.pause");
 
     args.timelineAction = TimelinePausePlayAction.Pause;
     UiAdmin.sendUiEvent(args);
@@ -683,57 +673,15 @@ describe("<TimelineComponent showDuration={true} />", () => {
         alwaysMinimized={false}
       />
     );
-    const startDateItem = renderedComponent.container.querySelector(
-      ".start-date"
-    ) as HTMLElement;
+    const startDateItem = renderedComponent.getByTestId("test-start-date");
     expect(startDateItem).not.to.be.null;
     expect(startDateItem?.innerHTML).to.be.eq(
       newStartDate.toLocaleDateString()
     );
 
-    const endDateItem = renderedComponent.container.querySelector(
-      ".end-date"
-    ) as HTMLElement;
+    const endDateItem = renderedComponent.getByTestId("test-end-date");
     expect(endDateItem).not.to.be.null;
     expect(endDateItem?.innerHTML).to.be.eq(newEndDate.toLocaleDateString());
-  });
-  it("should call onForward on forward button click", () => {
-    const dataProvider = new TestTimelineDataProvider();
-    const spyOnJump = sinon.spy();
-    const renderedComponent = render(
-      <TimelineComponent
-        initialDuration={dataProvider.initialDuration}
-        totalDuration={dataProvider.duration}
-        minimized={true}
-        showDuration={true}
-        onChange={dataProvider.onAnimationFractionChanged}
-        onJump={spyOnJump}
-        onPlayPause={dataProvider.onPlayPause}
-        componentId={"TestTimeline"}
-      />
-    );
-    const forwardButton = renderedComponent.getAllByTestId("play-forward")[0];
-    fireEvent.click(forwardButton);
-    expect(spyOnJump).to.be.called;
-  });
-  it("should call onBackward on back button click", () => {
-    const dataProvider = new TestTimelineDataProvider();
-    const spyOnJump = sinon.spy();
-    const renderedComponent = render(
-      <TimelineComponent
-        initialDuration={dataProvider.initialDuration}
-        totalDuration={dataProvider.duration}
-        minimized={true}
-        showDuration={true}
-        onChange={dataProvider.onAnimationFractionChanged}
-        onJump={spyOnJump}
-        onPlayPause={dataProvider.onPlayPause}
-        componentId={"TestTimeline"}
-      />
-    );
-    const backButton = renderedComponent.getAllByTestId("play-backward")[0];
-    fireEvent.click(backButton);
-    expect(spyOnJump).to.be.called;
   });
   it("should append items", () => {
     const duration = 8 * 1000;
@@ -955,7 +903,6 @@ describe("<TimelineComponent showDuration={true} />", () => {
       <TimelineComponent
         startDate={startDate}
         endDate={endDate}
-        minimized={true}
         showDuration={false}
         totalDuration={duration}
         componentId={"sampleApp-MarkTodayCustom"}

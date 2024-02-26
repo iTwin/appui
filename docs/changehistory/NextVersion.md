@@ -8,6 +8,9 @@ Table of contents:
   - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Fixes](#fixes-1)
+- [@itwin/imodel-components-react](#itwinimodel-components-react)
+  - [Deprecations](#deprecations)
+  - [Fixes](#fixes-2)
 
 ## @itwin/appui-react
 
@@ -30,3 +33,13 @@ Table of contents:
 
 - Fix a potential maximum update depth error caused by useResizeObserver. [#658](https://github.com/iTwin/appui/pull/658)
 - `ControlledTree`: add ability to select multiple nodes using `CMD` key + mouse click. [#734](https://github.com/iTwin/appui/pull/734)
+
+## @itwin/imodel-components-react
+
+### Deprecations
+
+- `alwaysMinimized`, `minimized`, `onJump` properties of `TimelineComponentProps` are deprecated without a replacement, since these props have no effect and were never implemented. It is safe to remove these props in case they are used in a `TimelineComponent`. [#742](https://github.com/iTwin/appui/pull/742)
+
+### Fixes
+
+- Fix timeline component to keep fractional duration unchanged when total duration is changed. [#742](https://github.com/iTwin/appui/pull/742)
