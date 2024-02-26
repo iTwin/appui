@@ -157,22 +157,6 @@ export function TimelineComponent(props: TimelineComponentProps) {
     setIsPlaying(false);
     onPlayPause?.(false);
   }, [isPlaying, onPlayPause]);
-  const updateDuration = (newDuration: number) => {
-    newDuration = Math.max(newDuration, 0);
-    newDuration = Math.min(newDuration, totalDuration);
-
-    if (newDuration === currentDuration) return;
-    setCurrentDuration(newDuration);
-
-    const fraction = newDuration / totalDuration;
-    onChange?.(fraction);
-  };
-  const updateRepeat = (newRepeat: boolean) => {
-    if (newRepeat === repeat) return;
-
-    setRepeat(newRepeat);
-    onSettingsChange?.({ loop: newRepeat });
-  };
   const updateTotalDuration = (newTotalDuration: number) => {
     if (newTotalDuration === totalDuration) return;
 
@@ -183,23 +167,46 @@ export function TimelineComponent(props: TimelineComponentProps) {
     setCurrentDuration(newCurrentDuration);
     onSettingsChange?.({ duration: newTotalDuration });
   };
+  const updateDuration = (
+    newDuration: number,
+    currentTotalDuration = totalDuration
+  ) => {
+    newDuration = Math.max(newDuration, 0);
+    newDuration = Math.min(newDuration, currentTotalDuration);
 
-  const prevTotalDuration = React.useRef(props.totalDuration);
-  if (prevTotalDuration.current !== props.totalDuration) {
+    if (newDuration === currentDuration) return;
+    setCurrentDuration(newDuration);
+
+    const fraction = newDuration / currentTotalDuration;
+    onChange?.(fraction);
+  };
+  const updateRepeat = (newRepeat: boolean) => {
+    if (newRepeat === repeat) return;
+
+    setRepeat(newRepeat);
+    onSettingsChange?.({ loop: newRepeat });
+  };
+
+  const [prevTotalDuration, setPrevTotalDuration] = React.useState(
+    props.totalDuration
+  );
+  if (prevTotalDuration !== props.totalDuration) {
+    setPrevTotalDuration(props.totalDuration);
     updateTotalDuration(props.totalDuration);
-    prevTotalDuration.current = props.totalDuration;
   }
 
-  const prevInitialDuration = React.useRef(props.initialDuration);
-  if (prevInitialDuration.current !== props.initialDuration) {
-    updateDuration(props.initialDuration ?? 0);
-    prevInitialDuration.current = props.initialDuration;
+  const [prevInitialDuration, setPrevInitialDuration] = React.useState(
+    props.initialDuration
+  );
+  if (prevInitialDuration !== props.initialDuration) {
+    setPrevInitialDuration(props.initialDuration);
+    updateDuration(props.initialDuration ?? 0, props.totalDuration);
   }
 
-  const prevRepeat = React.useRef(props.repeat);
-  if (prevRepeat.current !== props.repeat) {
+  const [prevRepeat, setPrevRepeat] = React.useState(props.repeat);
+  if (prevRepeat !== props.repeat) {
+    setPrevRepeat(props.repeat);
     updateRepeat(props.repeat ?? repeat);
-    prevRepeat.current = props.repeat;
   }
 
   React.useEffect(() => {
