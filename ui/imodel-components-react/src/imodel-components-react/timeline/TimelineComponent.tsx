@@ -184,6 +184,12 @@ export function TimelineComponent(props: TimelineComponentProps) {
     onSettingsChange?.({ duration: newTotalDuration });
   };
 
+  const prevTotalDuration = React.useRef(props.totalDuration);
+  if (prevTotalDuration.current !== props.totalDuration) {
+    updateTotalDuration(props.totalDuration);
+    prevTotalDuration.current = props.totalDuration;
+  }
+
   const prevInitialDuration = React.useRef(props.initialDuration);
   if (prevInitialDuration.current !== props.initialDuration) {
     updateDuration(props.initialDuration ?? 0);
@@ -194,12 +200,6 @@ export function TimelineComponent(props: TimelineComponentProps) {
   if (prevRepeat.current !== props.repeat) {
     updateRepeat(props.repeat ?? repeat);
     prevRepeat.current = props.repeat;
-  }
-
-  const prevTotalDuration = React.useRef(props.totalDuration);
-  if (prevTotalDuration.current !== props.totalDuration) {
-    updateTotalDuration(props.totalDuration);
-    prevTotalDuration.current = props.totalDuration;
   }
 
   React.useEffect(() => {
