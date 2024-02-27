@@ -19,11 +19,12 @@ import { MessageManager } from "../messages/MessageManager";
 import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
 import { Popover } from "@itwin/itwinui-react";
 import "../layout/footer/Indicator.scss";
-import classnames from "classnames";
+// import classnames from "classnames";
 // import type { FooterIndicatorProps } from "../Indicator";
-import { FooterIndicator } from "../layout/footer/Indicator";
+// import { FooterIndicator } from "../layout/footer/Indicator";
 import { SvgChat } from "@itwin/itwinui-icons-react";
 import { NotificationMarker } from "@itwin/itwinui-react";
+import { Button } from "@itwin/itwinui-react";
 
 /** Message Center Field React component.
  * @public
@@ -131,9 +132,7 @@ export const MessageCenterField: React.FC = () => {
   return (
     <Popover content={tabs} applyBackground>
       <div style={divStyle} title={`${messages.length} ${title}`}>
-        <FooterIndicator
-          className={classnames("nz-footer-messageCenter-indicator")}
-        >
+        <Button styleType="borderless">
           <div // eslint-disable-line jsx-a11y/click-events-have-key-events
             className="nz-indicator"
             onClick={() => handleOpenChange(!isOpen)}
@@ -152,7 +151,7 @@ export const MessageCenterField: React.FC = () => {
               <div className="nz-target" />
             </div>
           </div>
-        </FooterIndicator>
+        </Button>
       </div>
     </Popover>
   );
