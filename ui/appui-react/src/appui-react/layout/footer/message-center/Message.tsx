@@ -7,7 +7,6 @@
  */
 
 import "./Message.scss";
-import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import type { MessageType } from "@itwin/core-react";
@@ -36,12 +35,10 @@ export interface MessageCenterMessageProps extends CommonProps {
 export const MessageCenterMessage: React.FC<MessageCenterMessageProps> = (
   props
 ) => {
-  const { className, icon, message, details, style } = props;
-
-  const newClass = classnames("nz-footer-messageCenter-message", className);
+  const { icon, message, details, style } = props;
 
   return (
-    <div className={newClass} style={style}>
+    <div className={"nz-footer-messageCenter-message"} style={style}>
       {icon && <div className="nz-icon">{icon}</div>}
       {message && (
         <div className="nz-content">

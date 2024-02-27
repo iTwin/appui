@@ -11,12 +11,11 @@ import {
   NotificationMarker,
   Popover,
   Tabs,
-  Text,
 } from "@itwin/itwinui-react";
 
 import { SvgChat } from "@itwin/itwinui-icons-react";
 import type { MessageType } from "@itwin/core-react";
-import { Icon, MessageRenderer } from "@itwin/core-react";
+import { Icon } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { MessageCenterMessage } from "../layout/footer/message-center/Message";
@@ -25,8 +24,6 @@ import { TitleBar } from "../layout/footer/dialog/TitleBar";
 import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
 import "../layout/footer/message-center/Dialog.scss";
 import "../layout/footer/Indicator.scss";
-
-// import { MessageCenter } from "../layout/footer/message-center/Indicator";
 
 /** Message Center Field React component.
  * @public
@@ -45,6 +42,20 @@ export const MessageCenterField: React.FC = () => {
     setActive(!active);
     setNotify("");
     setIsOpen(isOpenState);
+  };
+
+  const isProblemStatus = (message: NotifyMessageDetailsType): boolean => {
+    // See priority values in DgnPlatform defined in NotificationManager
+    return (
+      message.priority === OutputMessagePriority.Error ||
+      message.priority === OutputMessagePriority.Fatal
+    );
+  };
+
+  const notifyStatus = () => {
+    return messages.some((msg) => isProblemStatus(msg))
+      ? "negative"
+      : "primary";
   };
 
   const handleMessagesUpdatedEvent = () => {
@@ -66,29 +77,19 @@ export const MessageCenterField: React.FC = () => {
     };
   });
 
-  const isProblemStatus = (message: NotifyMessageDetailsType): boolean => {
-    // See priority values in DgnPlatform defined in NotificationManager
-    return (
-      message.priority === OutputMessagePriority.Error ||
-      message.priority === OutputMessagePriority.Fatal
-    );
-  };
-
-  const getMessages = (tab: string): React.ReactChild[] => {
-    const tabRows: React.ReactChild[] = new Array<React.ReactChild>();
-
-    messages
+  const getMessages = (tab: string): (React.JSX.Element | undefined)[] => {
+    return messages
       .slice(0)
       .reverse()
-      .forEach((details: NotifyMessageDetailsType, index: number) => {
+      .map((details: NotifyMessageDetailsType, index: number) => {
         /* istanbul ignore else */
         if (messages.length > 0) {
           const iconClassName = MessageManager.getIconClassName(details);
           const iconSpec = MessageManager.getIconSpecFromDetails(details);
           const message: MessageType = details.briefMessage;
-
+          /* istanbul ignore else */
           if ((tab === "error" && isProblemStatus(details)) || tab === "all") {
-            tabRows.push(
+            return (
               <MessageCenterMessage
                 key={index.toString()}
                 message={message}
@@ -99,8 +100,6 @@ export const MessageCenterField: React.FC = () => {
           }
         }
       });
-
-    return tabRows;
   };
 
   const tabs = (
@@ -120,12 +119,6 @@ export const MessageCenterField: React.FC = () => {
       ))}
     </>
   );
-
-  const notifyStatus = () => {
-    return messages.some((msg) => isProblemStatus(msg))
-      ? "negative"
-      : "primary";
-  };
 
   return (
     <Popover
