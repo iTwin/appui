@@ -29,57 +29,43 @@ import { NotificationMarker } from "@itwin/itwinui-react";
  * @public
  */
 export const MessageCenterField: React.FC = () => {
-  const indicator = React.createRef<HTMLDivElement>();
   const [messages, setMessages] = React.useState(MessageManager.messages);
-  const [notify, setNotify] = React.useState("none");
-  const title = UiFramework.translate("messageCenter.messages");
-  const tooltip = `${messages.length} ${title}`;
-  const divStyle = { height: "100%" };
-
+  const [notify, setNotify] = React.useState("");
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const handleOpenChange = (isOpenState: boolean) => setIsOpen(isOpenState);
+  const indicator = React.createRef<HTMLDivElement>();
+  const title = UiFramework.translate("messageCenter.messages");
+  const divStyle = { height: "100%" };
+
+  const handleOpenChange = (isOpenState: boolean) => {
+    setNotify("");
+    setIsOpen(isOpenState);
+  };
 
   const handleMessagesUpdatedEvent = () => {
     // istanbul ignore else
-    setNotify(notifyStatus);
+    setNotify(notifyStatus());
     setMessages(MessageManager.messages);
-  };
-
-  const handleOpenMessageCenterEvent = () => {
-    setIsOpen(true);
   };
 
   React.useEffect(() => {
     MessageManager.onMessagesUpdatedEvent.addListener(
       handleMessagesUpdatedEvent
     );
-    MessageManager.onOpenMessageCenterEvent.addListener(
-      handleOpenMessageCenterEvent
-    );
     MessageManager.registerAnimateOutToElement(indicator.current);
+
+    return () => {
+      MessageManager.onMessagesUpdatedEvent.removeListener(
+        handleMessagesUpdatedEvent
+      );
+    };
   });
 
-  // /** @internal */
-  // public override componentWillUnmount() {
-  //   // istanbul ignore else
-  //   if (this._unloadMessagesUpdatedHandler) {
-  //     this._unloadMessagesUpdatedHandler();
-  //     this._unloadMessagesUpdatedHandler = undefined;
-  //   }
-  //   // istanbul ignore else
-  //   if (this._removeOpenMessagesCenterHandler) {
-  //     this._removeOpenMessagesCenterHandler();
-  //     this._removeOpenMessagesCenterHandler = undefined;
-  //   }
-  // }
-
-  const isProblemStatus = (): boolean => {
+  const isProblemStatus = (message: NotifyMessageDetailsType): boolean => {
     // See priority values in DgnPlatform defined in NotificationManager
-    return messages.some(
-      (message) =>
-        message.priority === OutputMessagePriority.Error ||
-        message.priority === OutputMessagePriority.Fatal
+    return (
+      message.priority === OutputMessagePriority.Error ||
+      message.priority === OutputMessagePriority.Fatal
     );
   };
 
@@ -91,13 +77,12 @@ export const MessageCenterField: React.FC = () => {
       .reverse()
       .forEach((details: NotifyMessageDetailsType, index: number) => {
         /* istanbul ignore else */
-        if (messages.length > 0 || isProblemStatus()) {
+        if (messages.length > 0) {
           const iconClassName = MessageManager.getIconClassName(details);
           const iconSpec = MessageManager.getIconSpecFromDetails(details);
           const message = details.briefMessage;
 
-          // THIS COULD BE BETTER. FIGURE OUT WHAT IT"S DOING and HOW AND MAE IT BETTER
-          if ((tab === "error" && details.msgType > 3) || tab === "all") {
+          if ((tab === "error" && isProblemStatus(details)) || tab === "all") {
             tabRows.push(
               <MessageCenterMessage
                 key={index.toString()}
@@ -112,66 +97,40 @@ export const MessageCenterField: React.FC = () => {
               </MessageCenterMessage>
             );
           }
-        } else {
-          tabRows.push(<span>nothing to see here!</span>);
         }
       });
 
     return tabRows;
   };
 
-  const messageCenterContent = (
+  const tabs = (
     <MessageCenterDialog
       prompt={UiFramework.translate("messageCenter.prompt")}
       title={title}
     >
-      <Tabs.Wrapper type="pill">
+      <Tabs.Wrapper type="pill" role="tablist">
         <Tabs.TabList>
           <Tabs.Tab label="All" key="all" value="all" />
           <Tabs.Tab label="Error" key="error" value="error" />
         </Tabs.TabList>
-        {["all", "error"].map((tabType) => {
-          return (
-            <Tabs.Panel value={tabType} key={tabType}>
-              {getMessages(tabType)}
-            </Tabs.Panel>
-          );
-        })}
+        {["all", "error"].map((tabType) => (
+          <Tabs.Panel value={tabType} key={tabType}>
+            {getMessages(tabType)}
+          </Tabs.Panel>
+        ))}
       </Tabs.Wrapper>
     </MessageCenterDialog>
   );
 
   const notifyStatus = () => {
-    return isProblemStatus()
+    return messages.some((msg) => isProblemStatus(msg))
       ? "negative"
-      : messages.length > 0
-      ? "primary"
-      : "white";
+      : "primary";
   };
 
-  // return (
-  //   <FooterIndicator
-  //     className={classnames("nz-footer-messageCenter-indicator")}
-  //   >
-  //     <div // eslint-disable-line jsx-a11y/click-events-have-key-events
-  //       className="nz-indicator"
-  //       onClick={() => handleOpenChange(!isOpen)}
-  //       ref={indicator}
-  //       role="button"
-  //       tabIndex={-1}
-  //     >
-  //       {setNotification()}
-  //       {title !== undefined && <span className="nz-label">{title}</span>}
-  //       <div className="nz-container">
-  //         <div className="nz-target" />
-  //       </div>
-  //     </div>
-  //   </FooterIndicator>
-  // );
-
   return (
-    <Popover content={messageCenterContent} applyBackground>
-      <div style={divStyle} title={tooltip}>
+    <Popover content={tabs} applyBackground>
+      <div style={divStyle} title={`${messages.length} ${title}`}>
         <FooterIndicator
           className={classnames("nz-footer-messageCenter-indicator")}
         >
@@ -182,9 +141,12 @@ export const MessageCenterField: React.FC = () => {
             role="button"
             tabIndex={-1}
           >
-            <NotificationMarker status={notifyStatus()}>
-              <SvgChat />
-            </NotificationMarker>
+            {!notify && <SvgChat />}
+            {notify && (
+              <NotificationMarker status={notifyStatus()}>
+                <SvgChat />
+              </NotificationMarker>
+            )}
             {title !== undefined && <span className="nz-label">{title}</span>}
             <div className="nz-container">
               <div className="nz-target" />

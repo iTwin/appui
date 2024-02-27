@@ -6,6 +6,14 @@
  * @module MessageCenter
  */
 
+/*
+
+I HAVE A VERY STRONG SUSPICION THAT THIS FILE CAN BE DELETED. WHILE THIS COMPONENT IS REFERENCED EXTENSIVELY
+IT:S NOT BEING USED ANYWHERE I CAN SEE.
+
+
+*/
+
 import "./Indicator.scss";
 import classnames from "classnames";
 import * as React from "react";
@@ -73,7 +81,7 @@ export const MessageCenter: React.FC<MessageCenterProps> = (props) => {
       >
         {setNotification()}
         {label !== undefined && <span className="nz-label">{label}</span>}
-        <div className="nz-container" onClick={}>
+        <div className="nz-container" onClick={onClick}>
           <div className="nz-target" ref={targetRef} />
         </div>
       </div>
