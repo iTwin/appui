@@ -1419,14 +1419,12 @@ export type CursorPopupProps = {
     content: React_2.ReactNode;
     pt: XAndY;
     offset: XAndY;
-    relativePosition?: RelativePosition;
-    placement?: Placement;
     title?: string;
     shadow?: boolean;
     onSizeKnown?: (size: SizeProps) => void;
 } & CommonProps & RequireAtLeastOne<{
-    placement?: Placement;
-    relativePosition?: RelativePosition;
+    relativePosition: RelativePosition /** @deprecated in 4.11.x. Use `placement` instead. */;
+    placement: Placement;
 }>;
 
 // @public
@@ -2543,7 +2541,7 @@ export class HTMLElementPopup extends React_2.PureComponent<HTMLElementPopupProp
     };
 }
 
-// @alpha (undocumented)
+// @alpha @deprecated (undocumented)
 export interface HTMLElementPopupProps extends PopupPropsBase {
     // (undocumented)
     element: HTMLElement;
@@ -2631,11 +2629,11 @@ export function initializePanel(frontstageDef: FrontstageDef, location: StagePan
 
 // @beta (undocumented)
 export class InputEditorCommitHandler {
-    constructor(onCommit: OnValueCommitFunc);
+    constructor(onCommit: (value: Primitives.Value) => void);
     // (undocumented)
     handleCommit: (args: PropertyUpdatedArgs) => void;
     // (undocumented)
-    readonly onCommit: OnValueCommitFunc;
+    readonly onCommit: (value: Primitives.Value) => void;
 }
 
 // @alpha
@@ -2653,7 +2651,7 @@ export interface InputEditorPopupProps extends PopupPropsBase {
     // (undocumented)
     commitHandler: InputEditorCommitHandler;
     // (undocumented)
-    onCancel: OnCancelFunc;
+    onCancel: () => void;
     // (undocumented)
     record: PropertyRecord;
 }
@@ -4708,13 +4706,14 @@ export class ToolbarPopup extends React_2.PureComponent<ToolbarPopupProps, Toolb
 // @beta
 export type ToolbarPopupProps = Omit<PopupPropsBase, "el"> & {
     items: ToolbarItem[];
-    relativePosition?: RelativePosition;
-    placement: Placement;
     orientation: Orientation;
-    onCancel: OnCancelFunc;
-    onItemExecuted: OnItemExecutedFunc;
+    onCancel: () => void;
+    onItemExecuted: (item: any) => void;
     el?: HTMLElement;
-};
+} & RequireAtLeastOne<{
+    relativePosition: RelativePosition;
+    placement: Placement;
+}>;
 
 // @public
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
@@ -4902,7 +4901,8 @@ export class UiFramework {
     // (undocumented)
     static getColorTheme(): ThemeId;
     // (undocumented)
-    static getCursorMenuData(): CursorMenuData | CursorMenuPayload | undefined;
+    static getCursorMenuData(): // eslint-disable-next-line deprecation/deprecation
+    CursorMenuData | CursorMenuPayload | undefined;
     // (undocumented)
     static getDefaultIModelViewportControlId(): string | undefined;
     // (undocumented)

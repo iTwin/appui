@@ -8,11 +8,8 @@
 
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import type {
-  OnCancelFunc,
-  OnItemExecutedFunc,
-  RelativePosition,
-} from "@itwin/appui-abstract";
+import type { RelativePosition } from "@itwin/appui-abstract";
+import type { RequireAtLeastOne } from "@itwin/core-bentley";
 import type { Orientation, SizeProps } from "@itwin/core-react";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
 import {
@@ -27,19 +24,20 @@ import { PositionPopup } from "./PositionPopup";
 import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { Toolbar } from "../toolbar/Toolbar";
 import { WrapperContext } from "../configurableui/ConfigurableUiContent";
-import type { Placement } from "../utils/Placement";
+import { mapToPlacement, type Placement } from "../utils/Placement";
 
 /** Props for a popup toolbar
  * @beta */
 export type ToolbarPopupProps = Omit<PopupPropsBase, "el"> & {
   items: ToolbarItem[];
-  relativePosition?: RelativePosition; // @deprecated in 4.11.x. Please use `placement` instead.
-  placement: Placement;
   orientation: Orientation;
-  onCancel: OnCancelFunc;
-  onItemExecuted: OnItemExecutedFunc;
+  onCancel: () => void;
+  onItemExecuted: (item: any) => void;
   el?: HTMLElement;
-};
+} & RequireAtLeastOne<{
+    relativePosition: RelativePosition; // @deprecated in 4.11.x. Please use placement instead.
+    placement: Placement;
+  }>;
 
 /** @internal */
 interface ToolbarPopupState {
@@ -97,7 +95,7 @@ export class ToolbarPopup extends React.PureComponent<
       point,
       this.props.offset,
       this.state.size,
-      this.props.placement
+      this.props.placement ?? mapToPlacement(this.props.relativePosition)
     );
     point = new Point(popupRect.left, popupRect.top);
     return (

@@ -245,6 +245,7 @@ public;HideIsolateEmphasizeManager
 alpha;HTMLElementPopup 
 deprecated;HTMLElementPopup 
 alpha;HTMLElementPopupProps 
+deprecated;HTMLElementPopupProps 
 public;IModelConnectedViewport: ConnectedComponent
 beta;IModelConnectedViewSelector: ConnectedComponent
 public;IModelViewportControl 

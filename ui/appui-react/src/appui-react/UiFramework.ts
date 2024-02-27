@@ -576,8 +576,8 @@ export class UiFramework {
   }
 
   /** @public */
-  // eslint-disable-next-line deprecation/deprecation
   public static openCursorMenu(
+    // eslint-disable-next-line deprecation/deprecation
     menuData: CursorMenuData | CursorMenuPayload | undefined
   ): void {
     UiFramework.dispatchActionToStore(
@@ -595,11 +595,8 @@ export class UiFramework {
   }
 
   /** @public */
-  // eslint-disable-next-line deprecation/deprecation
-  public static getCursorMenuData():
-    | CursorMenuData
-    | CursorMenuPayload
-    | undefined {
+  public static getCursorMenuData(): // eslint-disable-next-line deprecation/deprecation
+  CursorMenuData | CursorMenuPayload | undefined {
     return UiFramework.frameworkState
       ? UiFramework.frameworkState.sessionState.cursorMenuPayload ??
           UiFramework.frameworkState.sessionState.cursorMenuData

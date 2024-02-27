@@ -32,17 +32,14 @@ export type CursorPopupProps = {
   content: React.ReactNode;
   pt: XAndY;
   offset: XAndY;
-  /** @deprecated in 4.11.x. Use `placement` instead. */
-  relativePosition?: RelativePosition;
-  placement?: Placement;
   title?: string;
   shadow?: boolean;
   /** Function called when size is known. */
   onSizeKnown?: (size: SizeProps) => void;
 } & CommonProps &
   RequireAtLeastOne<{
-    placement?: Placement;
-    relativePosition?: RelativePosition;
+    relativePosition: RelativePosition /** @deprecated in 4.11.x. Use `placement` instead. */;
+    placement: Placement;
   }>;
 
 /** Enum for showing CursorPopup

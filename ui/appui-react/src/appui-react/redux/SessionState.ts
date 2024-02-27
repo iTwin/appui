@@ -223,10 +223,10 @@ export function SessionStateReducer(
       return { ...state, iModelConnection: action.payload };
     }
     case SessionStateActionId.UpdateCursorMenu: {
-      // eslint-disable-next-line deprecation/deprecation
       return {
         ...state,
         cursorMenuPayload: action.payload as CursorMenuPayload,
+        // eslint-disable-next-line deprecation/deprecation
         cursorMenuData: action.payload as CursorMenuData,
       };
     }
