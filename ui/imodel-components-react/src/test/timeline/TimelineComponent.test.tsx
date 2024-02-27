@@ -513,7 +513,6 @@ describe("<TimelineComponent showDuration={true} />", () => {
     );
   });
   it("Timeline can be controlled through play/pause props", async () => {
-    fakeTimers = sinon.useFakeTimers();
     const dataProvider = new TestTimelineDataProvider();
     const spyOnPlayPause = sinon.spy();
     const initialProps = {
@@ -528,20 +527,28 @@ describe("<TimelineComponent showDuration={true} />", () => {
       componentId: "TestTimeline",
     };
 
-    const { rerender } = render(<TimelineComponent {...initialProps} />); // initial render
-    rerender(<TimelineComponent {...initialProps} isPlaying={true} />); // start playing
-    expect(screen.getAllByTitle("timeline.pause").length).to.eq(2);
+    const { rerender, getByTitle } = render(
+      <TimelineComponent {...initialProps} />
+    );
+    rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
+    expect(spyOnPlayPause.calledOnce).to.be.true;
+    getByTitle("timeline.pause");
 
-    rerender(<TimelineComponent {...initialProps} isPlaying={false} />); // trigger pause
-    rerender(<TimelineComponent {...initialProps} isPlaying={true} />); // trigger play
+    rerender(<TimelineComponent {...initialProps} isPlaying={false} />);
+    expect(spyOnPlayPause.calledTwice).to.be.true;
+    getByTitle("timeline.play");
+
+    rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
     expect(spyOnPlayPause.calledThrice).to.be.true;
+    getByTitle("timeline.pause");
 
-    rerender(<TimelineComponent {...initialProps} isPlaying={true} />); // do nothing (already playing)
-    expect(spyOnPlayPause.calledThrice).to.be.true; // onPlayPause should not be called again
+    // do nothing (already playing)
+    rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
+    expect(spyOnPlayPause.calledThrice).to.be.true;
+    getByTitle("timeline.pause");
   });
 
   it("deprecated UiAdmin.sendUiEvent ", async () => {
-    fakeTimers = sinon.useFakeTimers();
     const dataProvider = new TestTimelineDataProvider();
     const spyOnPlayPause = sinon.spy();
     render(
