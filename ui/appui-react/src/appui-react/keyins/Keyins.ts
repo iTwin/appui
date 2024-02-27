@@ -2,17 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
-/** @packageDocumentation
- * @module Utilities
- */
-
-import type { ToolList } from "@itwin/core-frontend";
-import type { IMatch } from "../utils/matchesWords";
 /** @packageDocumentation
  *  @module Tools
  */
 
+import type { ToolList } from "@itwin/core-frontend";
+import type { IMatch } from "../utils/matchesWords";
 /**
  * Defines a keyin entry to show/filter in UI
  * @public

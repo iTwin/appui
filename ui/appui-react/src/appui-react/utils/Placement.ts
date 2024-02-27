@@ -2,6 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+/** @packageDocumentation
+ * @module Utilities
+ */
+
 import { RelativePosition } from "@itwin/appui-abstract";
 
 /**
@@ -53,31 +57,31 @@ export function mapToPlacement(
 }
 
 const placementToRelativePositionMap: { [key in Placement]: RelativePosition } =
-  {
-    left: RelativePosition.Left,
-    top: RelativePosition.Top,
-    right: RelativePosition.Right,
-    bottom: RelativePosition.Bottom,
-    "left-start": RelativePosition.LeftTop,
-    "left-end": RelativePosition.Left,
-    "right-start": RelativePosition.RightTop,
-    "right-end": RelativePosition.Right,
-    "top-start": RelativePosition.TopLeft,
-    "top-end": RelativePosition.TopRight,
-    "bottom-start": RelativePosition.BottomLeft,
-    "bottom-end": RelativePosition.BottomRight,
-  };
+{
+  left: RelativePosition.Left,
+  top: RelativePosition.Top,
+  right: RelativePosition.Right,
+  bottom: RelativePosition.Bottom,
+  "left-start": RelativePosition.LeftTop,
+  "left-end": RelativePosition.Left,
+  "right-start": RelativePosition.RightTop,
+  "right-end": RelativePosition.Right,
+  "top-start": RelativePosition.TopLeft,
+  "top-end": RelativePosition.TopRight,
+  "bottom-start": RelativePosition.BottomLeft,
+  "bottom-end": RelativePosition.BottomRight,
+};
 
 const relativePositionToPlacementMap: { [key in RelativePosition]: Placement } =
-  {
-    [RelativePosition.Left]: "left",
-    [RelativePosition.Top]: "top",
-    [RelativePosition.Right]: "right",
-    [RelativePosition.Bottom]: "bottom",
-    [RelativePosition.LeftTop]: "left-start",
-    [RelativePosition.RightTop]: "right-start",
-    [RelativePosition.TopLeft]: "top-start",
-    [RelativePosition.TopRight]: "top-end",
-    [RelativePosition.BottomLeft]: "bottom-start",
-    [RelativePosition.BottomRight]: "bottom-end",
-  };
+{
+  [RelativePosition.Left]: "left",
+  [RelativePosition.Top]: "top",
+  [RelativePosition.Right]: "right",
+  [RelativePosition.Bottom]: "bottom",
+  [RelativePosition.LeftTop]: "left-start",
+  [RelativePosition.RightTop]: "right-start",
+  [RelativePosition.TopLeft]: "top-start",
+  [RelativePosition.TopRight]: "top-end",
+  [RelativePosition.BottomLeft]: "bottom-start",
+  [RelativePosition.BottomRight]: "bottom-end",
+};
