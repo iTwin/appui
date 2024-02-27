@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { render, screen } from "@testing-library/react";
-import { BadgeType } from "../../appui-react/shared/BadgeType";
+import { BadgeType } from "@itwin/core-react";
 import type { CursorMenuItemProps } from "../../appui-react/shared/MenuItem";
 import { MenuItem, MenuItemHelpers } from "../../appui-react/shared/MenuItem";
 import TestUtils, { childStructure, selectorMatches } from "../TestUtils";

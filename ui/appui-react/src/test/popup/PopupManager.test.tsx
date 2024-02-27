@@ -26,7 +26,7 @@ import {
   RelativePosition,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import { Point } from "@itwin/core-react";
+import { BadgeType, Point } from "@itwin/core-react";
 import { AccuDrawPopupManager } from "../../appui-react/accudraw/AccuDrawPopupManager";
 import {
   PopupManager,
@@ -37,7 +37,6 @@ import TestUtils, { storageMock } from "../TestUtils";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { Button } from "@itwin/itwinui-react";
 import type { KeyinEntry } from "../../appui-react/keyins/Keyins";
-import { BadgeType } from "../../appui-react/shared/BadgeType";
 const myLocalStorage = storageMock();
 function requestNextAnimation() {}
 

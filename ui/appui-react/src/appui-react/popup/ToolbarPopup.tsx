@@ -33,7 +33,7 @@ import type { Placement } from "../utils/Placement";
  * @beta */
 export type ToolbarPopupProps = Omit<PopupPropsBase, "el"> & {
   items: ToolbarItem[];
-  relativePosition?: RelativePosition; // @deprecated in 4.10.x. Please use `placement` instead.
+  relativePosition?: RelativePosition; // @deprecated in 4.11.x. Please use `placement` instead.
   placement: Placement;
   orientation: Orientation;
   onCancel: OnCancelFunc;

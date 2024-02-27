@@ -278,7 +278,7 @@ export class PopupManager {
     return PopupManager.removePopup(PopupManager._keyPalettePopupId);
   }
 
-  // @deprecated in 4.10.x. Use {@link PopupManager.displayToolbar} instead.
+  // @deprecated in 4.11.x. Use {@link PopupManager.displayToolbar} instead.
   public static showToolbar(
     toolbarProps: AbstractToolbarProps,
     el: HTMLElement,
@@ -336,7 +336,7 @@ export class PopupManager {
     return PopupManager.removePopup(PopupManager._toolbarId);
   }
 
-  // @deprecated in 4.10.x. Use {@link PopupManager.showComponent} instead.
+  // @deprecated in 4.11.x. Use {@link PopupManager.showComponent} instead.
   public static showHTMLElement(
     displayElement: HTMLElement,
     el: HTMLElement,
@@ -371,7 +371,7 @@ export class PopupManager {
     return true;
   }
 
-  // @deprecated in 4.10.x. Use {@link PopupManager.hideComponent} instead.
+  // @deprecated in 4.11.x. Use {@link PopupManager.hideComponent} instead.
   public static hideHTMLElement(): boolean {
     return PopupManager.removePopup(PopupManager._htmlElementId);
   }
@@ -417,7 +417,7 @@ export class PopupManager {
     return PopupManager.removePopup(id ?? PopupManager._htmlElementId);
   }
 
-  // @deprecated in 4.10.x. Use {@link PopupManager.displayCard} instead.
+  // @deprecated in 4.11.x. Use {@link PopupManager.displayCard} instead.
   public static showCard(
     content: PopupContentType,
     title: string | PropertyRecord | undefined,

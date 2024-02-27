@@ -12,10 +12,9 @@ import type {
   ConditionalStringValue,
   StringGetter,
 } from "@itwin/appui-abstract";
-import type { BadgeType } from "./BadgeType";
 import { PropsHelper } from "../utils/PropsHelper";
 import type { ItemProps } from "./ItemProps";
-import type { IconSpec } from "@itwin/core-react";
+import type { BadgeType, IconSpec } from "@itwin/core-react";
 
 /** Base state for any 'stateful' React component
  * @public

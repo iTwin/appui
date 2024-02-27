@@ -1228,7 +1228,7 @@ export class UiFramework {
    * @return true if the editor was displayed, false if the editor could not be displayed.
    */
   public static showDimensionEditor(
-    dimension: "Height" | "Length",
+    dimension: "height" | "length",
     initialValue: number,
     location: XAndY,
     onCommit: (value: number) => void,

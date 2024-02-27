@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
+import { BadgeType } from "@itwin/core-react";
 import type {
   BackstageActionItem,
   BackstageStageLauncher,
@@ -12,7 +13,6 @@ import {
   BackstageComposerActionItem,
   BackstageComposerItem,
   BackstageComposerStageLauncher,
-  BadgeType,
   UiFramework,
 } from "../../appui-react";
 import TestUtils, {

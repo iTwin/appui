@@ -21,10 +21,9 @@ import {
 import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
 import type { WidgetControl } from "./WidgetControl";
-import type { IconSpec, SizeProps } from "@itwin/core-react";
+import type { BadgeType, IconSpec, SizeProps } from "@itwin/core-react";
 import { IconHelper } from "@itwin/core-react";
 import type { WidgetConfig } from "./WidgetConfig";
-import type { BadgeType } from "../shared/BadgeType";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";

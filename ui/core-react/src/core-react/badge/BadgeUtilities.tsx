@@ -7,21 +7,15 @@
  */
 
 import * as React from "react";
+import { BadgeType as _BadgeType } from "@itwin/appui-abstract";
 import { BetaBadge } from "./BetaBadge";
 import { NewBadge } from "./NewBadge";
 
 /** Specifies type of badge, if any, that should be overlaid on UI component.
  * @public
  */
-export enum BadgeType {
-  /** No badge. */
-  None = 0,
-  /** Standard Technical Preview badge. */
-  TechnicalPreview = 1,
-  /** Standard New Feature badge. */
-  New = 2,
-}
-
+export type BadgeType = _BadgeType; // eslint-disable-line deprecation/deprecation
+export const BadgeType = _BadgeType; // eslint-disable-line @typescript-eslint/no-redeclare, deprecation/deprecation
 /** Converts BadgeType to Badge React component
  * @internal
  */

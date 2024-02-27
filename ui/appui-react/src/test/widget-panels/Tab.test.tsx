@@ -7,7 +7,6 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  BadgeType,
   FrontstageDef,
   getBadgeClassName,
   UiFramework,
@@ -23,6 +22,7 @@ import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer";
 import { TabPositionContext } from "../../appui-react/layout/widget/Tab";
 import { WidgetIdContext } from "../../appui-react/layout/widget/Widget";
 import { selectorMatches } from "../TestUtils";
+import { BadgeType } from "@itwin/core-react";
 
 describe("WidgetPanelsTab", () => {
   it("should render", () => {

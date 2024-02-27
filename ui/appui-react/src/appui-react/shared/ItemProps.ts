@@ -11,9 +11,7 @@ import type {
   ConditionalStringValue,
   StringGetter,
 } from "@itwin/appui-abstract";
-import type { IconProps, IconSpec } from "@itwin/core-react";
-import type { BadgeType } from "./BadgeType";
-
+import type { BadgeType, IconProps, IconSpec } from "@itwin/core-react";
 /** Definition that specifies properties shared between many ConfigurableUi components.
  * @public
  */

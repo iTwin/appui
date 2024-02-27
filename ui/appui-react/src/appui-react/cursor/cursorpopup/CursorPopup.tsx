@@ -32,7 +32,7 @@ export type CursorPopupProps = {
   content: React.ReactNode;
   pt: XAndY;
   offset: XAndY;
-  /** @deprecated in 4.10.0. Use `placement` instead. */
+  /** @deprecated in 4.11.x. Use `placement` instead. */
   relativePosition?: RelativePosition;
   placement?: Placement;
   title?: string;

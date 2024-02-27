@@ -8,7 +8,6 @@ import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { SvgList } from "@itwin/itwinui-icons-react";
 import {
-  BadgeType,
   FrontstageDef,
   initializeNineZoneState,
   UiFramework,
@@ -17,6 +16,7 @@ import {
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test";
+import { BadgeType } from "@itwin/core-react";
 
 describe("WidgetDef", () => {
   before(async () => {

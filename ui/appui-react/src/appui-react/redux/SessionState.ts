@@ -26,7 +26,7 @@ export interface PresentationSelectionScope {
 /** Definition of data added to Redux store to define cursor menu.  If menuItems are empty the menu control is not displayed.
  * To close the menu clear the menuItems or pass in undefined as the CursorData.
  * @public
- * @deprecated in 4.10.x use {@link CursorMenuPayload} instead.
+ * @deprecated in 4.11.x use {@link CursorMenuPayload} instead.
  */
 export interface CursorMenuData {
   position: XAndY;
@@ -75,7 +75,7 @@ export interface SessionState {
   defaultViewState: any;
   iModelConnection: any;
   // eslint-disable-next-line deprecation/deprecation
-  cursorMenuData: CursorMenuData | undefined; // @deprecated in 4.10.x use {@link CursorMenuPayload} instead
+  cursorMenuData: CursorMenuData | undefined; // @deprecated in 4.11.x use {@link CursorMenuPayload} instead
   cursorMenuPayload: CursorMenuPayload | undefined;
 }
 
@@ -98,7 +98,7 @@ const initialState: SessionState = {
   defaultViewId: undefined,
   defaultViewState: undefined,
   iModelConnection: undefined,
-  cursorMenuData: undefined, // @deprecated in 4.10.x use {@link SessionState.cursorMenuPayload} instead
+  cursorMenuData: undefined, // @deprecated in 4.11.x use {@link SessionState.cursorMenuPayload} instead
   cursorMenuPayload: undefined,
 };
 

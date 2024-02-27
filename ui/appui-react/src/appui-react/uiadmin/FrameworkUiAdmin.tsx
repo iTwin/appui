@@ -47,14 +47,14 @@ import type { CursorMenuItemProps } from "../shared/MenuItem";
  * });
  * ```
  * @public
- * @deprecated in 4.10.x. Use various fields from [[UiFramework]] instead. Please see individual deprecation notices for more info.
+ * @deprecated in 4.11.x. Use various fields from [[UiFramework]] instead. Please see individual deprecation notices for more info.
  */
 export class FrameworkUiAdmin extends UiAdmin {
   private _localizedKeyinPreference: KeyinFieldLocalization =
     KeyinFieldLocalization.NonLocalized;
 
   /**
-   * @deprecated in 4.10.x. Gathering and filtering of keyins is now left up to the user.
+   * @deprecated in 4.11.x. Gathering and filtering of keyins is now left up to the user.
    */
   public get localizedKeyinPreference(): KeyinFieldLocalization {
     return this._localizedKeyinPreference;
@@ -65,21 +65,21 @@ export class FrameworkUiAdmin extends UiAdmin {
   }
 
   /** Gets the cursor X and Y position, which is mouseEvent.pageX and mouseEvent.pageY.
-   * @deprecated in 4.10.x. Please use {@link CursorInformation.cursorPosition}
+   * @deprecated in 4.11.x. Please use {@link CursorInformation.cursorPosition}
    */
   public override get cursorPosition(): XAndY {
     return CursorInformation.cursorPosition;
   }
 
   /** Determines if focus is set to Home
-   * @deprecated in 4.10.x. Please use {@link UiFramework.keyboardShortcuts().isFocusOnHome}
+   * @deprecated in 4.11.x. Please use {@link UiFramework.keyboardShortcuts().isFocusOnHome}
    */
   public override get isFocusOnHome(): boolean {
     return UiFramework.keyboardShortcuts.isFocusOnHome;
   }
 
   /** Sets focus to Home
-   * @deprecated in 4.10.x. Please use {@link UiFramework.keyboardShortcuts().setFocusToHome}
+   * @deprecated in 4.11.x. Please use {@link UiFramework.keyboardShortcuts().setFocusToHome}
    */
   public override setFocusToHome(): void {
     UiFramework.keyboardShortcuts.setFocusToHome();
@@ -90,7 +90,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param location Location of the context menu, relative to the origin of htmlElement or the overall window.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the menu was displayed, false if the menu could not be displayed.
-   * @deprecated in 4.10.x. Use {@link UiFramework.openContextMenu}
+   * @deprecated in 4.11.x. Use {@link UiFramework.openContextMenu}
    */
   public override showContextMenu(
     items: AbstractMenuItemProps[],
@@ -105,7 +105,7 @@ export class FrameworkUiAdmin extends UiAdmin {
   }
 
   /**
-   * @deprecated in 4.10.x. Construct your own {@link KeyinEntry[]} via {@link @itwin/core-frontend#IModelApp.tools.getToolList}.
+   * @deprecated in 4.11.x. Construct your own {@link KeyinEntry[]} via {@link @itwin/core-frontend#IModelApp.tools.getToolList}.
    */
   public getKeyins(): KeyinEntry[] {
     const tools = IModelApp.tools.getToolList();
@@ -115,7 +115,7 @@ export class FrameworkUiAdmin extends UiAdmin {
   /** Show the Key-in Palette to display key-in from all registered Tools.
    * @param htmlElement The HTMLElement that anchors the Popup. If undefined, the location is relative to the overall window.
    * @return true if the Command Palette was displayed, false if it could not be displayed.
-   * @deprecated in 4.10.x. Use {@link UiFramework.showKeyinPalette}. Please note, the use of feature flags to control whether the KeyinPalette can be opened has been deprecated.
+   * @deprecated in 4.11.x. Use {@link UiFramework.showKeyinPalette}. Please note, the use of feature flags to control whether the KeyinPalette can be opened has been deprecated.
    */
   public override showKeyinPalette(htmlElement?: HTMLElement): boolean {
     if (!this.featureFlags.allowKeyinPalette) return false;
@@ -128,7 +128,7 @@ export class FrameworkUiAdmin extends UiAdmin {
 
   /**
    * Hides the Key-in Palette.
-   * @deprecated in 4.10.x. Use {@link UiFramework.hideKeyinPalette}
+   * @deprecated in 4.11.x. Use {@link UiFramework.hideKeyinPalette}
    */
   public override hideKeyinPalette(): boolean {
     if (!this.featureFlags.allowKeyinPalette) return false;
@@ -145,7 +145,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param relativePosition Position relative to the given location. Defaults to TopRight.
    * @param htmlElement The HTMLElement that anchors the Toolbar. If undefined, the location is relative to the overall window.
    * @return true if the Toolbar was displayed, false if the Toolbar could not be displayed.
-   * @deprecated in 4.10.x. Please use {@link UiFramework.showToolbar}.
+   * @deprecated in 4.11.x. Please use {@link UiFramework.showToolbar}.
    */
   public override showToolbar(
     toolbarProps: AbstractToolbarProps,
@@ -170,7 +170,7 @@ export class FrameworkUiAdmin extends UiAdmin {
   }
 
   /** Hides the toolbar.
-   * @deprecated in 4.10.x. Please use {@link UiFramework.hideToolbar}.
+   * @deprecated in 4.11.x. Please use {@link UiFramework.hideToolbar}.
    */
   public override hideToolbar(): boolean {
     return UiFramework.hideToolbar();
@@ -182,7 +182,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param location Location of the context menu, relative to the origin of htmlElement or the window.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the menu was displayed, false if the menu could not be displayed.
-   * @deprecated in 4.10.x. Please use {@link UiFramework.showMenuButton}.
+   * @deprecated in 4.11.x. Please use {@link UiFramework.showMenuButton}.
    */
   public override showMenuButton(
     id: string,
@@ -201,7 +201,7 @@ export class FrameworkUiAdmin extends UiAdmin {
   /** Hides a menu button.
    * @param id Id of the menu button. Multiple menu buttons may be displayed.
    * @return true if the menu was hidden, false if the menu could not be hidden.
-   * @deprecated in 4.10.x. Please use {@link UiFramework.hideMenuButton}.
+   * @deprecated in 4.11.x. Please use {@link UiFramework.hideMenuButton}.
    */
   public override hideMenuButton(id: string): boolean {
     return UiFramework.hideMenuButton(id);
@@ -215,7 +215,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param onCancel Function called when the Cancel button or the Escape key  is pressed.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the menu was displayed, false if the menu could not be displayed.
-   * @deprecated in 4.10.x. Use {@link UiFramework.showCalculator}.
+   * @deprecated in 4.11.x. Use {@link UiFramework.showCalculator}.
    */
   public override showCalculator(
     initialValue: number,
@@ -236,7 +236,7 @@ export class FrameworkUiAdmin extends UiAdmin {
   }
 
   /** Hides the calculator.
-   * @deprecated in 4.10.x. Use {@link UiFramework.hideCalculator}.
+   * @deprecated in 4.11.x. Use {@link UiFramework.hideCalculator}.
    */
   public override hideCalculator(): boolean {
     return UiFramework.hideCalculator();
@@ -249,7 +249,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param onCancel Function called when the Cancel button or the Escape key  is pressed.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the editor was displayed, false if the editor could not be displayed.
-   * @deprecated in 4.10.x. Use {@link UiFramework.showAngleEditor}.
+   * @deprecated in 4.11.x. Use {@link UiFramework.showAngleEditor}.
    */
   public override showAngleEditor(
     initialValue: number,
@@ -274,7 +274,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param onCancel Function called when the Cancel button or the Escape key  is pressed.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the editor was displayed, false if the editor could not be displayed.
-   * @deprecated in 4.10.x. Use {@link UiFramework.showDimensionEditor("Length")}.
+   * @deprecated in 4.11.x. Use {@link UiFramework.showDimensionEditor("Length")}.
    */
   public override showLengthEditor(
     initialValue: number,
@@ -284,7 +284,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     htmlElement?: HTMLElement
   ): boolean {
     return UiFramework.showDimensionEditor(
-      "Length",
+      "length",
       initialValue,
       location,
       onCommit,
@@ -300,7 +300,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param onCancel Function called when the Cancel button or the Escape key  is pressed.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the editor was displayed, false if the editor could not be displayed.
-   * @deprecated in 4.10.x. Use {@link UiFramework.showDimensionEditor("Height")}.
+   * @deprecated in 4.11.x. Use {@link UiFramework.showDimensionEditor("height")}.
    */
   public override showHeightEditor(
     initialValue: number,
@@ -310,7 +310,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     htmlElement?: HTMLElement
   ): boolean {
     return UiFramework.showDimensionEditor(
-      "Height",
+      "height",
       initialValue,
       location,
       onCommit,
@@ -327,7 +327,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param onCancel Function called when the Cancel button or the Escape key  is pressed.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the editor was displayed, false if the editor could not be displayed.
-   * @deprecated in 4.10.x. Use {@link UiFramework.showInputEditor}.
+   * @deprecated in 4.11.x. Use {@link UiFramework.showInputEditor}.
    */
   public override showInputEditor(
     initialValue: Primitives.Value,
@@ -348,7 +348,7 @@ export class FrameworkUiAdmin extends UiAdmin {
   }
 
   /** Hides the input editor.
-   * @deprecated in 4.10.x. Use {@link UiFramework.hideInputEditor}.
+   * @deprecated in 4.11.x. Use {@link UiFramework.hideInputEditor}.
    */
   public override hideInputEditor(): boolean {
     return UiFramework.hideInputEditor();
@@ -362,7 +362,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param relativePosition Position relative to the given location. Defaults to TopRight.
    * @param anchorElement The HTMLElement that anchors the display element. If undefined, the location is relative to the overall window.
    * @return true if the display element was displayed, false if the display element could not be displayed.
-   * @deprecated in 4.10.x. Use {@link UiFramework.showComponent}
+   * @deprecated in 4.11.x. Use {@link UiFramework.showComponent}
    */
   public override showHTMLElement(
     displayElement: HTMLElement,
@@ -390,7 +390,7 @@ export class FrameworkUiAdmin extends UiAdmin {
 
   /**
    *  Hides the HTML Element.
-   * @deprecated in 4.10.x. Use {@link UiFramework.hideComponent}
+   * @deprecated in 4.11.x. Use {@link UiFramework.hideComponent}
    */
   public override hideHTMLElement(): boolean {
     return PopupManager.hideHTMLElement();
@@ -407,7 +407,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param relativePosition Position relative to the given location. Defaults to TopRight.
    * @param anchorElement The HTMLElement that anchors the Card. If undefined, the location is relative to the overall window.
    * @return true if the Card was displayed, false if the Card could not be displayed.
-   * @deprecated in 4.10.x. Use {@link UiFramework.showCard} with content as React.Node instead of HTMLElement.
+   * @deprecated in 4.11.x. Use {@link UiFramework.showCard} with content as React.Node instead of HTMLElement.
    */
   public override showCard(
     content: HTMLElement,
@@ -447,7 +447,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param relativePosition Position relative to the given location. Defaults to TopRight.
    * @param anchorElement The HTMLElement that anchors the Card. If undefined, the location is relative to the overall window.
    * @return true if the Card was displayed, false if the Card could not be displayed.
-   * @deprecated in 4.10.x. Use {@link UiFramework.showCard}
+   * @deprecated in 4.11.x. Use {@link UiFramework.showCard}
    */
   public showReactCard(
     content: React.ReactNode,
@@ -478,7 +478,7 @@ export class FrameworkUiAdmin extends UiAdmin {
 
   /**
    * Hides the Card.
-   * @deprecated in 4.10.x. Use {@link UiFramework.hideCard} instead.
+   * @deprecated in 4.11.x. Use {@link UiFramework.hideCard} instead.
    * */
 
   public override hideCard(): boolean {
@@ -493,7 +493,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param relativePosition Position relative to the given location. Defaults to TopRight.
    * @param anchorElement The HTMLElement that anchors the tool settings. If undefined, the location is relative to the overall window.
    * @return true if the tool settings were displayed, false if the tool settings could not be displayed.
-   * @deprecated in 4.10.x. Use {@link UiFramework.openToolSettingsPopup}.
+   * @deprecated in 4.11.x. Use {@link UiFramework.openToolSettingsPopup}.
    */
   public override openToolSettingsPopup(
     dataProvider: DialogLayoutDataProvider,
@@ -515,7 +515,7 @@ export class FrameworkUiAdmin extends UiAdmin {
   }
 
   /** Closes the Tool Settings Ui popup.
-   * @deprecated in 4.10.x. Use {@link UiFramework.closeToolSettingsPopup}.
+   * @deprecated in 4.11.x. Use {@link UiFramework.closeToolSettingsPopup}.
    */
   public override closeToolSettingsPopup(): boolean {
     return UiFramework.closeToolSettingsPopup();
@@ -528,7 +528,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param id Id of the dialog that is used to close it.
    * @param optionalProps Optional props for Dialog construction.
    * @return true if the tool settings were displayed, false if the tool settings could not be displayed.
-   * @deprecated in 4.10.x. Use {@link UiFramework.openDialog}
+   * @deprecated in 4.11.x. Use {@link UiFramework.openDialog}
    */
   public override openDialog(
     uiDataProvider: DialogLayoutDataProvider,
@@ -547,7 +547,7 @@ export class FrameworkUiAdmin extends UiAdmin {
   }
 
   /** Closes the Tool Settings Ui popup.
-   * @deprecated in 4.10.x. Use {@link UiFramework.closeDialog}
+   * @deprecated in 4.11.x. Use {@link UiFramework.closeDialog}
    */
   public override closeDialog(dialogId: string): boolean {
     return UiFramework.closeDialog(dialogId);

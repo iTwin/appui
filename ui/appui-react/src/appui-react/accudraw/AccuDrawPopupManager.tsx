@@ -122,14 +122,14 @@ export class AccuDrawPopupManager {
 
   // @internal
   public static showDimensionEditor(
-    dimension: "Height" | "Length",
+    dimension: "height" | "length",
     el: HTMLElement,
     pt: XAndY,
     value: number,
     onCommit: (value: number) => void,
     onCancel: () => void
   ) {
-    if (dimension === "Height") {
+    if (dimension === "height") {
       return AccuDrawPopupManager.showHeightEditor(
         el,
         pt,

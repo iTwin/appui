@@ -101,7 +101,7 @@ export interface TimelineComponentProps {
    */
   alwaysMinimized?: boolean;
   /** ComponentId -- must be set to use TimelineComponentEvents
-   * @deprecated in 4.10.x.  Use the isPlaying prop instead.
+   * @deprecated in 4.11.x.  Use the isPlaying prop instead.
    */
   componentId?: string;
   /** Include the repeat option on the Timeline Context Menu. Defaults to `true`. */

@@ -20,7 +20,7 @@ import type { ConditionalStringValue } from "./ConditionalValue";
 
 /** Menu Item Properties
  * @public
- * @deprecated in 4.10.x. Please use {@link CursorMenuItemProps}.
+ * @deprecated in 4.11.x. Please use {@link CursorMenuItemProps}.
  */
 export type MenuItemProps = AbstractMenuItemProps;
 
