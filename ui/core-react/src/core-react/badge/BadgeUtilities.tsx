@@ -15,7 +15,12 @@ import { NewBadge } from "./NewBadge";
  * @public
  */
 export type BadgeType = _BadgeType; // eslint-disable-line deprecation/deprecation
+
+/** Specifies type of badge, if any, that should be overlaid on UI component.
+ * @public
+ */
 export const BadgeType = _BadgeType; // eslint-disable-line @typescript-eslint/no-redeclare, deprecation/deprecation
+
 /** Converts BadgeType to Badge React component
  * @internal
  */

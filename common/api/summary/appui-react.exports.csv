@@ -58,7 +58,6 @@ beta;BackstageItemUtilities
 public;BackstageManager
 public;BackstageStageLauncher 
 public;BackstageToggledArgs
-public;BadgeType
 public;BaseItemState
 public;BaseUiItemsProvider 
 public;BasicNavigationWidget(props: BasicNavigationWidgetProps): React_2.JSX.Element

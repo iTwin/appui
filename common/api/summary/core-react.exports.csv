@@ -10,7 +10,8 @@ public;AutoSuggestData
 public;AutoSuggestProps 
 internal;Badge 
 internal;BadgeProps 
-public;BadgeType
+public;BadgeType = BadgeType_2
+public;BadgeType: typeof BadgeType_2
 internal;BadgeUtilities
 internal;BetaBadge(props: CommonProps): React_2.JSX.Element
 public;BlockText(props: TextProps): React_2.JSX.Element

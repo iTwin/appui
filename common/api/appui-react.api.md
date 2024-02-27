@@ -13,6 +13,7 @@ import { AccuDraw } from '@itwin/core-frontend';
 import type { ActionButton } from '@itwin/appui-abstract';
 import { ActivityMessageDetails } from '@itwin/core-frontend';
 import { ActivityMessageEndReason } from '@itwin/core-frontend';
+import { BadgeType } from '@itwin/core-react';
 import { BaseSolarDataProvider } from '@itwin/imodel-components-react';
 import { BaseTimelineDataProvider } from '@itwin/imodel-components-react';
 import type { BeButtonEvent } from '@itwin/core-frontend';
@@ -195,7 +196,7 @@ export class AccuDrawPopupManager {
     // (undocumented)
     static showCalculator(el: HTMLElement, pt: XAndY, initialValue: number, resultIcon: string, onOk: (value: number) => void, onCancel: () => void): boolean;
     // (undocumented)
-    static showDimensionEditor(dimension: "Height" | "Length", el: HTMLElement, pt: XAndY, value: number, onCommit: (value: number) => void, onCancel: () => void): boolean;
+    static showDimensionEditor(dimension: "height" | "length", el: HTMLElement, pt: XAndY, value: number, onCommit: (value: number) => void, onCancel: () => void): boolean;
     // (undocumented)
     static showHeightEditor(el: HTMLElement, pt: XAndY, value: number, onCommit: (value: number) => void, onCancel: () => void): boolean;
     // (undocumented)
@@ -543,13 +544,6 @@ export interface BackstageStageLauncher extends CommonBackstageItem {
 export interface BackstageToggledArgs {
     // (undocumented)
     readonly isOpen: boolean;
-}
-
-// @public
-export enum BadgeType {
-    New = 2,
-    None = 0,
-    TechnicalPreview = 1
 }
 
 // @public
@@ -4992,7 +4986,7 @@ export class UiFramework {
     static showCalculator(initialValue: number, resultIcon: string, location: XAndY, onOk: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement): boolean;
     static showCard(content: React.ReactNode, title: string | PropertyRecord | undefined, toolbarProps: ToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, placement?: Placement, anchorElement?: HTMLElement): boolean;
     static showComponent(...params: OptionalShowComponentParams): boolean;
-    static showDimensionEditor(dimension: "Height" | "Length", initialValue: number, location: XAndY, onCommit: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement): boolean;
+    static showDimensionEditor(dimension: "height" | "length", initialValue: number, location: XAndY, onCommit: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement): boolean;
     static showInputEditor({ anchorElement, initialValue, location, onCancel, onCommit, propertyDescription, }: ShowInputEditorOptions): boolean;
     static showKeyinPalette(keyinEntries: KeyinEntry[], htmlElement?: HTMLElement): boolean;
     static showMenuButton(id: string, menuItemsProps: CursorMenuItemProps[], location: XAndY, anchorElement?: HTMLElement): boolean;

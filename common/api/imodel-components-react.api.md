@@ -823,6 +823,7 @@ export interface TimelineComponentProps {
     alwaysMinimized?: boolean;
     appMenuItemOption?: TimelineMenuItemOption;
     appMenuItems?: TimelineMenuItemProps[];
+    // @deprecated
     componentId?: string;
     dateFormatOptions?: DateFormatOptions;
     endDate?: Date;
