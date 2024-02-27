@@ -32,8 +32,7 @@
     width: 100%;
 
     &.with-icon {
-      > input,
-      > .bwx-inputs-input {
+      > input {
         padding-right: calc(#{$uicore-bordered-padding} + var(--iui-size-l));
         margin-right: calc(#{$uicore-bordered-padding} + var(--iui-size-l));
       }
