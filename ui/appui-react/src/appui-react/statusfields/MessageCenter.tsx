@@ -77,7 +77,7 @@ export const MessageCenterField: React.FC = () => {
     };
   });
 
-  const getMessages = (tab: string): (React.JSX.Element | undefined)[] => {
+  const getMessages = (tab: string): React.JSX.Element[] => {
     return messages
       .slice(0)
       .reverse()
@@ -98,6 +98,9 @@ export const MessageCenterField: React.FC = () => {
               />
             );
           }
+          return <></>;
+        } else {
+          return <></>;
         }
       });
   };
