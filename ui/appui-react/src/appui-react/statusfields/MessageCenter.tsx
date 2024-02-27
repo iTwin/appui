@@ -32,14 +32,12 @@ export const MessageCenterField: React.FC = () => {
   const [messages, setMessages] = React.useState(MessageManager.messages);
   const [notify, setNotify] = React.useState("");
   const [isOpen, setIsOpen] = React.useState(false);
-  const [active, setActive] = React.useState(false);
 
   const indicator = React.createRef<HTMLDivElement>();
   const title = UiFramework.translate("messageCenter.messages");
   const divStyle = { height: "100%" };
 
   const handleOpenChange = (isOpenState: boolean) => {
-    setActive(!active);
     setNotify("");
     setIsOpen(isOpenState);
   };
