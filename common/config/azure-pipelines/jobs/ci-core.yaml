@@ -70,3 +70,17 @@ jobs:
           NodeVersion: ${{ parameters.nodeVersion }}
       # The publish script identifies any new packages not previously published and tags the build
       - template: ../templates/publish.yaml
+
+  - job:
+    displayName: "Run e2e tests"
+    condition: succeeded()
+    workspace:
+      clean: all
+
+    pool:
+      vmImage: ubuntu-latest
+
+    steps:
+      - template: ../templates/e2e-tests.yaml
+        parameters:
+          NodeVersion: ${{ parameters.nodeVersion }}

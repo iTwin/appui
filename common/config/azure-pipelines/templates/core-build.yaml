@@ -72,14 +72,6 @@ steps:
       CI: true
       BUILD_SOURCES_DIRECTORY: $(Build.SourcesDirectory)
 
-  # Run playwright tests
-  - script: npm run test:e2e
-    displayName: run playwright
-    workingDirectory: "e2e-tests"
-    env:
-      CI: true
-    condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
-
   # Run codemod tests
   - script: npm run test
     displayName: run Codemod Tests
