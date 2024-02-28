@@ -14,11 +14,15 @@
     "cover": "",
     "docs": "",
     "lint": "",
-    "test": "playwright test"
+    "test": "",
+    "start": "tsx scripts/run-with-docker.ts",
+    "test:e2e": "npm start -- npm run playwright test",
+    "playwright": "playwright"
   },
   "devDependencies": {
     "@playwright/test": "^1.36.2",
-    "appui-standalone-app": "workspace:*"
+    "appui-standalone-app": "workspace:*",
+    "tsx": "^4.7.1"
   },
   "repository": {
     "type": "git",

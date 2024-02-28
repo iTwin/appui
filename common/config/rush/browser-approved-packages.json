@@ -499,6 +499,10 @@
       "allowedCategories": [ "frontend", "tools" ]
     },
     {
+      "name": "tsx",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "typemoq",
       "allowedCategories": [ "frontend" ]
     },

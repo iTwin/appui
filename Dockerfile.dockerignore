@@ -6,7 +6,9 @@
 !common/config/rush
 !common/scripts
 !docs/storybook
-!e2e-tests
+!e2e-tests/tests
+!e2e-tests/playwright.config.ts
+!e2e-tests/package.json
 !test-apps
 !ui
 !tools
