@@ -12,6 +12,7 @@ import type { CommonProps } from "@itwin/core-react";
 import type { MessageType } from "@itwin/core-react";
 import { MessageRenderer } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
+import { Icon } from "@itwin/itwinui-react";
 
 /** Properties of [[MessageCenterMessage]] component.
  * @internal
@@ -32,14 +33,12 @@ export interface MessageCenterMessageProps extends CommonProps {
 /** Message entry in [[MessageCenter]] component.
  * @internal
  */
-export const MessageCenterMessage: React.FC<MessageCenterMessageProps> = (
-  props
-) => {
+export function MessageCenterMessage(props: MessageCenterMessageProps) {
   const { icon, message, details, style, className } = props;
 
   return (
     <div className={"nz-footer-messageCenter-message"} style={style}>
-      {icon && <div className="nz-icon">{icon}</div>}
+      {icon && <Icon size="small">{icon}</Icon>}
       {message && (
         <div className="nz-content">
           <MessageRenderer message={message} className={className} useSpan />
@@ -52,4 +51,4 @@ export const MessageCenterMessage: React.FC<MessageCenterMessageProps> = (
       )}
     </div>
   );
-};
+}

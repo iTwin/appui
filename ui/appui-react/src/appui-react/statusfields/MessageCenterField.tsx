@@ -34,7 +34,6 @@ export const MessageCenterField: React.FC = () => {
 
   const indicator = React.createRef<HTMLDivElement>();
   const title = UiFramework.translate("messageCenter.messages");
-  const divStyle = { height: "100%" };
 
   const handleOpenChange = (isOpenState: boolean) => {
     setNotify("");
@@ -72,8 +71,8 @@ export const MessageCenterField: React.FC = () => {
   });
 
   const getMessages = (tab: string): React.JSX.Element[] => {
-    return messages
-      .slice(0)
+    console.log(messages);
+    return [...messages]
       .reverse()
       .map((details: NotifyMessageDetailsType, index: number) => {
         /* istanbul ignore else */
@@ -110,7 +109,7 @@ export const MessageCenterField: React.FC = () => {
         return (
           <Tabs.Panel value={tabType} key={tabType}>
             <div className={"nz-footer-messageCenter-dialog"}>
-              {messages.length > 0 && getMessages(tabType)}
+              {getMessages(tabType)}
             </div>
           </Tabs.Panel>
         );
@@ -135,30 +134,32 @@ export const MessageCenterField: React.FC = () => {
       }
       applyBackground
     >
-      <div style={divStyle} title={`${messages.length} ${title}`}>
-        <Button
-          styleType="borderless"
-          startIcon={
-            !notify ? ( //  Notification Marker doesn't accept a "none" argument so this is a workaround to render it conditionally
+      <Button
+        onClick={() => handleOpenChange(!isOpen)}
+        styleType="borderless"
+        labelProps={
+          <span>
+            `${messages.length} ${title}`
+          </span>
+        }
+        startIcon={
+          !notify ? ( //  Notification Marker doesn't accept a "none" argument so this is a workaround to render it conditionally
+            <SvgChat />
+          ) : (
+            <NotificationMarker status={notifyStatus()}>
               <SvgChat />
-            ) : (
-              <NotificationMarker status={notifyStatus()}>
-                <SvgChat />
-              </NotificationMarker>
-            )
-          }
+            </NotificationMarker>
+          )
+        }
+      >
+        <div // eslint-disable-line jsx-a11y/click-events-have-key-events
+          ref={indicator}
+          role="button"
+          tabIndex={-1}
         >
-          <div // eslint-disable-line jsx-a11y/click-events-have-key-events
-            className="nz-indicator"
-            onClick={() => handleOpenChange(!isOpen)}
-            ref={indicator}
-            role="button"
-            tabIndex={-1}
-          >
-            {title !== undefined && <span className="nz-label">{title}</span>}
-          </div>
-        </Button>
-      </div>
+          {title !== undefined && <span className="nz-label">{title}</span>}
+        </div>
+      </Button>
     </Popover>
   );
 };

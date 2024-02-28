@@ -11,11 +11,8 @@
 
   min-height: 48px;
   box-sizing: border-box;
-  margin-left: $nz-message-horizontal-padding;
-  margin-right: $nz-message-horizontal-padding;
   padding-left: $nz-message-horizontal-padding;
   padding-right: $nz-message-horizontal-padding;
-  padding-top: $vertical-padding;
   padding-bottom: $vertical-padding;
   display: grid;
   grid-gap: 12px;
@@ -27,11 +24,8 @@
   font-size: $text-font-size;
 
   &:not(:first-child) {
+    padding-top: $vertical-padding;
     border-top: 1px solid $buic-background-4;
-  }
-
-  > .nz-icon {
-    min-width: 20px;
   }
 
   > .nz-content {
