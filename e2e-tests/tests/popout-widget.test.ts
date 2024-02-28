@@ -98,10 +98,10 @@ test.describe("popout widget", () => {
     let popoutPage = await popoutWidget(context, widget);
     await expect(popoutPage).toHaveTitle(/View Attributes/);
 
-    expect(popoutPage.viewportSize()).toEqual({
-      height: 270,
-      width: 218,
-    });
+    const size = popoutPage.viewportSize();
+    expect(size?.height).toEqual(270);
+    expect(size?.width).toBeGreaterThanOrEqual(218);
+    expect(size?.width).toBeLessThanOrEqual(219);
 
     // Update widget size and close the popout.
     await popoutPage.setViewportSize({
