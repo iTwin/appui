@@ -23,7 +23,6 @@ import { MessageManager } from "../messages/MessageManager";
 import { TitleBar } from "../layout/footer/dialog/TitleBar";
 import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
 import "../layout/footer/message-center/Dialog.scss";
-import "../layout/footer/Indicator.scss";
 
 /** Message Center Field React component.
  * @public
@@ -50,11 +49,8 @@ export const MessageCenterField: React.FC = () => {
     );
   };
 
-  const notifyStatus = () => {
-    return messages.some((msg) => isProblemStatus(msg))
-      ? "negative"
-      : "primary";
-  };
+  const notifyStatus = () =>
+    messages.some((msg) => isProblemStatus(msg)) ? "negative" : "primary";
 
   const handleMessagesUpdatedEvent = () => {
     // istanbul ignore else
@@ -96,28 +92,29 @@ export const MessageCenterField: React.FC = () => {
               />
             );
           }
+          // these returns are a work around to avoid 'Not all paths return a value error"
           return <></>;
         } else {
-          return <></>;
+          return (
+            <span className="nz-message-prompt" key={`${details.briefMessage}`}>
+              No Messages.
+            </span>
+          );
         }
       });
   };
 
   const tabs = (
     <>
-      {["all", "error"].map((tabType) => (
-        <Tabs.Panel value={tabType} key={tabType}>
-          <div
-            className={"nz-footer-messageCenter-dialog"}
-            style={{ overflowY: "scroll" }}
-          >
-            {messages.length < 0 && (
-              <span className="nz-message-prompt">No Messages. </span>
-            )}
-            {messages.length > 0 && getMessages(tabType)}
-          </div>
-        </Tabs.Panel>
-      ))}
+      {["all", "error"].map((tabType) => {
+        return (
+          <Tabs.Panel value={tabType} key={tabType}>
+            <div className={"nz-footer-messageCenter-dialog"}>
+              {messages.length > 0 && getMessages(tabType)}
+            </div>
+          </Tabs.Panel>
+        );
+      })}
     </>
   );
 
@@ -142,7 +139,7 @@ export const MessageCenterField: React.FC = () => {
         <Button
           styleType="borderless"
           startIcon={
-            !notify ? (
+            !notify ? ( //  Notification Marker doesn't accept a "none" argument so this is a workaround to render it conditionally
               <SvgChat />
             ) : (
               <NotificationMarker status={notifyStatus()}>

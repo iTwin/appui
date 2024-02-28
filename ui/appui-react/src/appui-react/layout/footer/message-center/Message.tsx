@@ -35,14 +35,14 @@ export interface MessageCenterMessageProps extends CommonProps {
 export const MessageCenterMessage: React.FC<MessageCenterMessageProps> = (
   props
 ) => {
-  const { icon, message, details, style } = props;
+  const { icon, message, details, style, className } = props;
 
   return (
     <div className={"nz-footer-messageCenter-message"} style={style}>
       {icon && <div className="nz-icon">{icon}</div>}
       {message && (
         <div className="nz-content">
-          <MessageRenderer message={message} useSpan />
+          <MessageRenderer message={message} className={className} useSpan />
           {details && (
             <Text variant="small">
               <MessageRenderer message={details} />

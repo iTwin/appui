@@ -18,9 +18,11 @@ describe("<MessageCenterMessage />", () => {
 
   it("renders correctly with icon and content", () => {
     render(
-      <MessageCenterMessage icon={<img alt=""></img>}>
-        Custom message
-      </MessageCenterMessage>
+      <MessageCenterMessage
+        icon={<img alt=""></img>}
+        message="Custom message"
+        className="nz-content"
+      />
     );
     expect(screen.getByText("Custom message")).to.satisfy(
       selectorMatches(".nz-content")

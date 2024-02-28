@@ -175,7 +175,7 @@ export * from "./appui-react/statusbar/useDefaultStatusBarItems";
 
 export * from "./appui-react/statusfields/tileloading/TileLoadingIndicator";
 export * from "./appui-react/statusfields/ActivityCenter";
-export * from "./appui-react/statusfields/MessageCenter";
+export * from "./appui-react/statusfields/MessageCenterField";
 export * from "./appui-react/statusfields/SectionsField";
 export * from "./appui-react/statusfields/SelectionCount";
 export * from "./appui-react/statusfields/SelectionInfo";
