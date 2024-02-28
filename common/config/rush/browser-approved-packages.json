@@ -263,6 +263,10 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "appui-standalone-app",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "chai",
       "allowedCategories": [ "frontend" ]
     },
