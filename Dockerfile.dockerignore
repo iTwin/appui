@@ -1,0 +1,34 @@
+# Start off ignoring everything
+*
+
+# Add back only the files that we want
+!common/autoinstallers
+!common/config/rush
+!common/scripts
+!docs/storybook
+!e2e-tests
+!test-apps
+!ui
+!tools
+!rush.json
+
+# Dependency directories
+**/node_modules
+
+# Rush specific
+**/.rush
+
+# Playwright specific
+**/playwright-report
+**/test-results
+
+# Logs
+**/*.log
+
+# Build specific
+**/lib
+**/build
+
+# Environment variables
+**/.env
+**/.env.*
