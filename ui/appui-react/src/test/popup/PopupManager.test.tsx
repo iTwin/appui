@@ -742,4 +742,21 @@ describe("PopupManager", () => {
       expect(spyCancel.calledOnce).to.be.true;
     });
   });
+
+  it("Popup renderer should render ComponentPopup", async () => {
+    const { getByText, queryByText } = render(<PopupRenderer />);
+    const component = <div>Test Component xyz1</div>;
+    const spyCancel = sinon.spy();
+
+    expect(queryByText("Test Component xyz1")).to.be.null;
+
+    PopupManager.showComponent(component, {
+      location: new Point(150, 250),
+      offset: new Point(8, 8),
+      onCancel: spyCancel,
+      placement: "top",
+    });
+
+    getByText("Test Component xyz1");
+  });
 });

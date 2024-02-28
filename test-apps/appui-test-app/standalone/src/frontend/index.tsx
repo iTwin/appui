@@ -10,6 +10,7 @@ import classnames from "classnames";
 import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
 import reactAxe from "@axe-core/react";
+import { Key } from "ts-key-enum";
 import {
   RealityDataAccessClient,
   RealityDataClientOptions,
@@ -28,6 +29,7 @@ import {
   FrameworkToolAdmin,
   FrameworkUiAdmin,
   FrontstageDeactivatedEventArgs,
+  getKeyinsFromToolList,
   IModelViewportControl,
   InitialAppUiSettings,
   ModalFrontstageClosedEventArgs,
@@ -282,6 +284,13 @@ export class SampleAppIModelApp {
 
     // No longer necessary, but useful to test legacy behavior until uiAdmin is completely removed:
     // IModelApp.uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
+    // The updated way of doing things would be something like this:
+    const keyins = getKeyinsFromToolList(IModelApp.tools.getToolList());
+    document.addEventListener("keydown", (event) => {
+      if (event.ctrlKey && event.key === Key.F2.valueOf()) {
+        UiFramework.showKeyinPalette(keyins);
+      }
+    });
 
     // store name of this registered control in Redux store so it can be access by extensions
     UiFramework.setDefaultIModelViewportControlId(IModelViewportControl.id);
