@@ -17,7 +17,8 @@
     "test": "playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.36.2"
+    "@playwright/test": "^1.36.2",
+    "appui-standalone-app": "workspace:*"
   },
   "repository": {
     "type": "git",
