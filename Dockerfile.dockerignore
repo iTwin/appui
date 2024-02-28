@@ -19,6 +19,8 @@
 
 # Rush specific
 **/.rush
+**/CHANGELOG.*
+**/*.md
 
 # Playwright specific
 **/playwright-report
