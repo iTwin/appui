@@ -102,9 +102,9 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: "Publish Playwright Report"
     inputs:
-      pathToPublish: '$(Build.Repository.LocalPath)\full-stack-tests\ui\playwright-report'
+      pathToPublish: '$(Build.Repository.LocalPath)\e2e-tests\playwright-report'
       artifactName: "playwright-report_$(Build.BuildId)"
-    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Windows_NT'))
+    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Linux'))
 
   #-------
   # Codemod Tests

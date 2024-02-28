@@ -78,7 +78,7 @@ steps:
     workingDirectory: "e2e-tests"
     env:
       CI: true
-    condition: and(succeeded(), eq(variables['Agent.OS'], 'Darwin'))
+    condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
 
   # Run codemod tests
   - script: npm run test
