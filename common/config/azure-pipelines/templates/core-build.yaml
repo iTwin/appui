@@ -72,19 +72,13 @@ steps:
       CI: true
       BUILD_SOURCES_DIRECTORY: $(Build.SourcesDirectory)
 
-  # Install Playwright browsers and dependencies
-  - script: npx playwright install --with-deps
-    displayName: install playwright
-    workingDirectory: "full-stack-tests/ui"
-    condition: and(succeeded(), eq(variables['Agent.OS'], 'Windows_NT'))
-
   # Run playwright tests
-  - script: npm run test
+  - script: npm run test:e2e
     displayName: run playwright
-    workingDirectory: "full-stack-tests/ui"
+    workingDirectory: "e2e-tests"
     env:
       CI: true
-    condition: and(succeeded(), eq(variables['Agent.OS'], 'Windows_NT'))
+    condition: and(succeeded(), eq(variables['Agent.OS'], 'Darwin'))
 
   # Run codemod tests
   - script: npm run test
