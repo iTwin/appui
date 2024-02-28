@@ -467,10 +467,6 @@
       "allowedCategories": [ "frontend" ]
     },
     {
-      "name": "serve",
-      "allowedCategories": [ "internal" ]
-    },
-    {
       "name": "shortid",
       "allowedCategories": [ "frontend" ]
     },
