@@ -4,7 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
+  AccuDrawWidget,
   BackstageItemUtilities,
+  StagePanelLocation,
+  StagePanelSection,
   StageUsage,
   StandardFrontstageProvider,
   ToolbarActionItem,
@@ -18,7 +21,7 @@ import {
   CreateLineStringTool,
   EditTools,
 } from "@itwin/editor-frontend";
-import { SvgEdit } from "@itwin/itwinui-icons-react";
+import { SvgDraw, SvgEdit } from "@itwin/itwinui-icons-react";
 import { InitialIModelContentStageProvider } from "./MainFrontstage";
 import { IModelApp, ToolType } from "@itwin/core-frontend";
 
@@ -42,35 +45,59 @@ export async function initializeEditor() {
   await EditTools.initialize();
 }
 
+const frontstageId = "standalone:editor-frontstage";
 export const editorFrontstageProvider = new StandardFrontstageProvider({
-  id: "standalone:editor-frontstage",
+  id: frontstageId,
   contentGroupProps: new InitialIModelContentStageProvider(),
   usage: StageUsage.General,
 });
 
-const toolbarItemOverrides = {
-  layouts: {
-    standard: {
-      orientation: ToolbarOrientation.Horizontal,
-      usage: ToolbarUsage.ContentManipulation,
-    },
-  },
-};
+export const editorUiItemsProvider = createUiItemsProvider();
 
-export const editorUiItemsProvider: UiItemsProvider = {
-  id: "standalone:editor-items",
-  getBackstageItems: () => [
-    BackstageItemUtilities.createStageLauncher(
-      "standalone:editor-frontstage",
-      400,
-      0,
-      "Editor",
-      undefined,
-      <SvgEdit />
-    ),
-  ],
-  getToolbarItems: () => [
-    createToolbarItem(CreateLineStringTool, toolbarItemOverrides),
-    createToolbarItem(CreateArcTool, toolbarItemOverrides),
-  ],
-};
+function createUiItemsProvider(): UiItemsProvider {
+  const id = "standalone:editor-items";
+  return {
+    id,
+    getBackstageItems: () => [
+      BackstageItemUtilities.createStageLauncher(
+        frontstageId,
+        400,
+        0,
+        "Editor",
+        undefined,
+        <SvgEdit />
+      ),
+    ],
+    getToolbarItems: () => {
+      const overrides = {
+        layouts: {
+          standard: {
+            orientation: ToolbarOrientation.Horizontal,
+            usage: ToolbarUsage.ContentManipulation,
+          },
+        },
+      };
+      return [
+        createToolbarItem(CreateLineStringTool, overrides),
+        createToolbarItem(CreateArcTool, overrides),
+      ];
+    },
+    getWidgets: () => {
+      const layouts = {
+        standard: {
+          location: StagePanelLocation.Right,
+          section: StagePanelSection.Start,
+        },
+      };
+      return [
+        {
+          id: `${id}:accudraw-widget`,
+          label: "AccuDraw",
+          icon: <SvgDraw />,
+          content: <AccuDrawWidget />,
+          layouts,
+        },
+      ];
+    },
+  };
+}
