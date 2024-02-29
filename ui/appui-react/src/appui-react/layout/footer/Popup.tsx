@@ -18,12 +18,12 @@ import { Popup } from "@itwin/core-react";
  * @internal
  */
 export function FooterPopup(props: Partial<PopupProps>) {
-  const { className, ...other } = props;
+  const { className, showArrow, ...other } = props;
   return (
     <Popup
       className={classnames("nz-footer-popup", className)}
       position={RelativePosition.Top}
-      showArrow
+      showArrow={showArrow ?? true}
       showShadow={true}
       {...other}
     />

@@ -14,5 +14,5 @@ import { FooterPopup } from "../layout/footer/Popup";
  * @beta
  */
 export function StatusBarPopup(props: Partial<PopupProps>) {
-  return <FooterPopup {...props} />;
+  return <FooterPopup showArrow={false} {...props} />;
 }
