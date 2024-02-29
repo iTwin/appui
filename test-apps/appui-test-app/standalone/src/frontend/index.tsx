@@ -108,6 +108,12 @@ import {
   addExampleFrontstagesToBackstage,
   registerExampleFrontstages,
 } from "./appui/frontstages/example-stages/ExampleStagesBackstageProvider";
+import {
+  editorFrontstageProvider,
+  editorUiItemsProvider,
+  initializeEditor,
+} from "./appui/frontstages/EditorFrontstageProvider";
+import { useEditorToolSettings } from "./appui/useEditorToolSettings";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -360,6 +366,14 @@ export class SampleAppIModelApp {
     );
     PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
 
+    if (ProcessDetector.isElectronAppFrontend) {
+      await initializeEditor();
+      UiFramework.frontstages.addFrontstageProvider(editorFrontstageProvider);
+      UiItemsManager.register(editorUiItemsProvider, {
+        stageIds: [editorFrontstageProvider.id],
+      });
+    }
+
     // TODO: should not be required. Start event loop to open key-in palette.
     IModelApp.startEventLoop();
   }
@@ -536,6 +550,8 @@ const AppDragInteraction = connect(mapDragInteractionStateToProps)(
 );
 
 const SampleAppViewer = () => {
+  useEditorToolSettings();
+
   React.useEffect(() => {
     AppUi.initialize();
   }, []);
@@ -684,6 +700,8 @@ async function main() {
     process.env.IMJS_CESIUM_ION_KEY;
   SampleAppIModelApp.testAppConfiguration.reactAxeConsole =
     SampleAppIModelApp.isEnvVarOn("IMJS_TESTAPP_REACT_AXE_CONSOLE");
+  SampleAppIModelApp.testAppConfiguration.readWrite =
+    SampleAppIModelApp.isEnvVarOn("IMJS_READ_WRITE");
   Logger.logInfo(
     "Configuration",
     JSON.stringify(SampleAppIModelApp.testAppConfiguration)
