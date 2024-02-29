@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Removed arrow from status bar popup.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
