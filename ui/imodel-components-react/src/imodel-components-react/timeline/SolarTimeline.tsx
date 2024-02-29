@@ -30,7 +30,7 @@ import { HueSlider } from "../color/HueSlider";
 import { SaturationPicker } from "../color/SaturationPicker";
 import { ColorSwatch } from "../color/Swatch";
 import type { SolarDataProvider } from "./interfaces";
-import { PlayButton } from "./PlayerButton";
+import { PlayButton } from "./PlayButton";
 import { SpeedTimeline } from "./SpeedTimeline";
 import {
   CustomThumb,

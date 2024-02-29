@@ -3,7 +3,7 @@
   "rushVersion": "5.112.2",
   "pnpmVersion": "8.14.3",
   "nodeSupportedVersionRange": ">=18.12.0",
-  "projectFolderMinDepth": 2,
+  "projectFolderMinDepth": 1,
   "projectFolderMaxDepth": 3,
   "ensureConsistentVersions": true,
   "approvedPackagesPolicy": {
@@ -26,8 +26,8 @@
       "shouldPublish": false
     },
     {
-      "packageName": "ui-end-to-end-tests",
-      "projectFolder": "full-stack-tests/ui",
+      "packageName": "e2e-tests",
+      "projectFolder": "e2e-tests",
       "reviewCategory": "internal",
       "shouldPublish": false
     },
