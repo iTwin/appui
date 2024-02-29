@@ -52,10 +52,11 @@ export const usePointerCaptor = <T extends HTMLElement>(
     (instance: T | null) => {
       let touchTarget: EventTarget | null = null;
       const mouseDown = (e: MouseEvent) => {
-        if (e.buttons === 1) {
-          onPointerDown && onPointerDown(e, e);
-          isDown.current = true;
-        }
+        const isSecondaryButton = (e.button & 2) === 2;
+        if (isSecondaryButton) return;
+
+        onPointerDown && onPointerDown(e, e);
+        isDown.current = true;
       };
       const touchMove = (e: TouchEvent) => {
         if (e.touches.length !== 1) return;

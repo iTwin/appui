@@ -160,20 +160,12 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
       [measure]
     );
 
-    const handleContextMenu = React.useCallback(
-      (e: React.MouseEvent): boolean => {
-        e.preventDefault();
-        return false;
-      },
-      []
-    );
     const ref = useRefs(forwardedRef, elementRef);
     const className = classnames("nz-widget-widget", props.className);
     return (
       <WidgetContext.Provider value={widgetContextValue}>
         <div
           className={className}
-          onContextMenu={handleContextMenu}
           onMouseEnter={props.onMouseEnter}
           onMouseLeave={props.onMouseLeave}
           onTransitionEnd={props.onTransitionEnd}
