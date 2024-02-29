@@ -35,6 +35,7 @@ import {
   SafeAreaContext,
   SafeAreaInsets,
   SessionStateActionId,
+  StandardContentToolsUiItemsProvider,
   StateManager,
   SyncUiEventDispatcher,
   SYSTEM_PREFERRED_COLOR_THEME,
@@ -372,6 +373,9 @@ export class SampleAppIModelApp {
       UiItemsManager.register(editorUiItemsProvider, {
         stageIds: [editorFrontstageProvider.id],
       });
+      UiItemsManager.register(new StandardContentToolsUiItemsProvider(), {
+        stageIds: [editorFrontstageProvider.id],
+      });
     }
 
     // TODO: should not be required. Start event loop to open key-in palette.
@@ -422,7 +426,11 @@ export class SampleAppIModelApp {
 
     if (this.iModelParams && this.iModelParams.stageId)
       stageId = this.iModelParams.stageId;
-    else stageId = defaultFrontstage;
+    else if (SampleAppIModelApp.testAppConfiguration?.readWrite) {
+      stageId = editorFrontstageProvider.id;
+    } else {
+      stageId = defaultFrontstage;
+    }
 
     if (stageId === defaultFrontstage) {
       if (stageId === MainFrontstage.stageId) {
@@ -700,8 +708,10 @@ async function main() {
     process.env.IMJS_CESIUM_ION_KEY;
   SampleAppIModelApp.testAppConfiguration.reactAxeConsole =
     SampleAppIModelApp.isEnvVarOn("IMJS_TESTAPP_REACT_AXE_CONSOLE");
-  SampleAppIModelApp.testAppConfiguration.readWrite =
-    SampleAppIModelApp.isEnvVarOn("IMJS_READ_WRITE");
+  if (ProcessDetector.isElectronAppFrontend) {
+    SampleAppIModelApp.testAppConfiguration.readWrite =
+      SampleAppIModelApp.isEnvVarOn("IMJS_READ_WRITE");
+  }
   Logger.logInfo(
     "Configuration",
     JSON.stringify(SampleAppIModelApp.testAppConfiguration)

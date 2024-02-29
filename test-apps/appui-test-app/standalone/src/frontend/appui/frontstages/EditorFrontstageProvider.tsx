@@ -5,6 +5,7 @@
 import * as React from "react";
 import {
   AccuDrawWidget,
+  BackstageAppButton,
   BackstageItemUtilities,
   StagePanelLocation,
   StagePanelSection,
@@ -50,6 +51,7 @@ export const editorFrontstageProvider = new StandardFrontstageProvider({
   id: frontstageId,
   contentGroupProps: new InitialIModelContentStageProvider(),
   usage: StageUsage.General,
+  cornerButton: <BackstageAppButton />,
 });
 
 export const editorUiItemsProvider = createUiItemsProvider();
