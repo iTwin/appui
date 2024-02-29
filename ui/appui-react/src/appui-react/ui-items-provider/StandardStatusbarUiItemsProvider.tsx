@@ -9,7 +9,7 @@
 import * as React from "react";
 import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
 import { ToolAssistanceField } from "../statusfields/toolassistance/ToolAssistanceField";
-import { MessageCenterField } from "../statusfields/MessageCenterField";
+import { MessageCenterField } from "../layout/footer/message-center/MessageCenterField";
 import { ActivityCenterField } from "../statusfields/ActivityCenter";
 import { SnapModeField } from "../statusfields/SnapMode";
 import { SelectionInfoField } from "../statusfields/SelectionInfo";

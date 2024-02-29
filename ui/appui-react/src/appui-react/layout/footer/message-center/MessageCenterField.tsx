@@ -16,13 +16,13 @@ import {
 import { SvgChat } from "@itwin/itwinui-icons-react";
 import type { MessageType } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
-import { UiFramework } from "../UiFramework";
+import { UiFramework } from "../../../UiFramework";
 import { OutputMessagePriority } from "@itwin/core-frontend";
-import { MessageCenterMessage } from "../layout/footer/message-center/Message";
-import { MessageManager } from "../messages/MessageManager";
-import { TitleBar } from "../layout/footer/dialog/TitleBar";
-import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
-import "../layout/footer/message-center/Dialog.scss";
+import { MessageCenterMessage } from "./MessageCenterMessage";
+import { MessageManager } from "../../../messages/MessageManager";
+import { TitleBar } from "../dialog/TitleBar";
+import type { NotifyMessageDetailsType } from "../../../messages/ReactNotifyMessageDetails";
+import "./MessageCenterField.scss";
 
 /** Message Center Field React component.
  * @public
@@ -52,7 +52,6 @@ export const MessageCenterField: React.FC = () => {
     messages.some((msg) => isProblemStatus(msg)) ? "negative" : "primary";
 
   const handleMessagesUpdatedEvent = () => {
-    // istanbul ignore else
     setNotify(notifyStatus());
     setMessages(MessageManager.messages);
   };
@@ -71,16 +70,13 @@ export const MessageCenterField: React.FC = () => {
   });
 
   const getMessages = (tab: string): React.JSX.Element[] => {
-    console.log(messages);
     return [...messages]
       .reverse()
       .map((details: NotifyMessageDetailsType, index: number) => {
-        /* istanbul ignore else */
         if (messages.length > 0) {
           const iconClassName = MessageManager.getIconClassName(details);
           const iconSpec = MessageManager.getIconSpecFromDetails(details);
           const message: MessageType = details.briefMessage;
-          /* istanbul ignore else */
           if ((tab === "error" && isProblemStatus(details)) || tab === "all") {
             return (
               <MessageCenterMessage
@@ -152,13 +148,7 @@ export const MessageCenterField: React.FC = () => {
           )
         }
       >
-        <div // eslint-disable-line jsx-a11y/click-events-have-key-events
-          ref={indicator}
-          role="button"
-          tabIndex={-1}
-        >
-          {title !== undefined && <span className="nz-label">{title}</span>}
-        </div>
+        {title}
       </Button>
     </Popover>
   );

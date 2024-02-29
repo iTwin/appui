@@ -8,11 +8,9 @@
 
 import "./Message.scss";
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
-import type { MessageType } from "@itwin/core-react";
+import type { CommonProps, MessageType } from "@itwin/core-react";
 import { MessageRenderer } from "@itwin/core-react";
-import { Text } from "@itwin/itwinui-react";
-import { Icon } from "@itwin/itwinui-react";
+import { Icon, Text } from "@itwin/itwinui-react";
 
 /** Properties of [[MessageCenterMessage]] component.
  * @internal
