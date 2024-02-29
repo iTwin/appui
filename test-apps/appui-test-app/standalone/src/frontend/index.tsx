@@ -738,7 +738,8 @@ async function main() {
     /** API Url. Used to select environment. Defaults to "https://api.bentley.com/realitydata" */
     baseUrl: `https://${process.env.IMJS_URL_PREFIX}api.bentley.com/realitydata`,
   };
-  const opts: NativeAppOpts = {
+  // Start the app.
+  await SampleAppIModelApp.startup({
     iModelApp: {
       accuSnap: new SampleAppAccuSnap(),
       toolAdmin: new FrameworkToolAdmin(),
@@ -753,10 +754,7 @@ async function main() {
         cesiumIonKey: SampleAppIModelApp.testAppConfiguration.cesiumIonKey,
       },
     },
-  };
-
-  // Start the app.
-  await SampleAppIModelApp.startup(opts);
+  });
   await SampleAppIModelApp.initialize();
 
   ReactDOM.render(
