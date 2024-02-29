@@ -9,14 +9,14 @@ import * as React from "react";
 import sinon from "sinon";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { PropertyFilterBuilder } from "../../components-react/filter-builder/FilterBuilder";
 import type {
   PropertyFilterBuilderRule,
   PropertyFilterBuilderRuleGroup,
 } from "../../components-react/filter-builder/FilterBuilderState";
 import { buildPropertyFilter } from "../../components-react/filter-builder/FilterBuilderState";
-import TestUtils from "../TestUtils";
+import TestUtils, { userEvent } from "../TestUtils";
 import type { PropertyFilter } from "../../components-react/filter-builder/Types";
 
 chai.use(chaiSubset);
@@ -42,18 +42,18 @@ describe("PropertyFilterBuilder", () => {
   });
 
   it("call onFilterChanged with filter after new rule is setup", async () => {
+    const user = userEvent.setup();
     const spy = sinon.spy();
-    const { container, getByText, getByDisplayValue } = render(
+    const { getByText, getByPlaceholderText } = render(
       <PropertyFilterBuilder properties={[property1]} onFilterChanged={spy} />
     );
-    const propertySelector = container.querySelector<HTMLInputElement>(
-      ".fb-property-name .iui-input"
+    const propSelector = getByPlaceholderText(
+      TestUtils.i18n.getLocalizedString(
+        "Components:filterBuilder.chooseProperty"
+      )
     );
-    expect(propertySelector).to.not.be.null;
-    propertySelector?.focus();
-    fireEvent.click(getByText("Prop1"));
-    // wait until property is selected
-    await waitFor(() => getByDisplayValue("Prop1"));
+    await user.click(propSelector);
+    await user.click(getByText("Prop1"));
 
     expect(spy).to.be.calledOnceWith({
       property: property1,

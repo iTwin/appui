@@ -11,10 +11,9 @@ import classnames from "classnames";
 import * as React from "react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
-import { Icon, Popup } from "@itwin/core-react";
+import { Icon, MessageRenderer, Popup } from "@itwin/core-react";
 import type { InputFieldMessageEventArgs } from "../messages/MessageManager";
 import { MessageManager } from "../messages/MessageManager";
-import { MessageDiv } from "./MessageSpan";
 import type { NotifyMessageType } from "./ReactNotifyMessageDetails";
 import {
   SvgClose,
@@ -102,12 +101,12 @@ export class InputFieldMessage extends React.PureComponent<
                 </span>
               )}
               <span className="uifw-popup-message-text">
-                <MessageDiv
+                <MessageRenderer
                   className="uifw-popup-message-brief"
                   message={message}
                 />
                 {detailedMessage && (
-                  <MessageDiv
+                  <MessageRenderer
                     className="uifw-popup-message-detailed"
                     message={detailedMessage}
                   />

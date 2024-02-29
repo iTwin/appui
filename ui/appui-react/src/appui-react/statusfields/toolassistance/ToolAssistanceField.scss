@@ -169,7 +169,7 @@ $key-size-modifier: 24px;
   }
 }
 
-.uifw-toolAssistance-tabs.iui-tabs.iui-default {
+.uifw-toolAssistance-tabs {
   margin: 0;
   padding: 0;
   border: none;
@@ -178,17 +178,8 @@ $key-size-modifier: 24px;
   font-weight: var(--iui-font-weight-normal);
   line-height: var(--iui-size-l);
 
-  // Tabs are sized at 50% with the labels centered
-  > li {
+  > .uifw-tab {
     width: 50%;
-
-    button.iui-tab {
-      width: 100%;
-      display: unset;
-    }
-
-    .iui-tab-label {
-      text-align: center;
-    }
+    text-align: center;
   }
 }

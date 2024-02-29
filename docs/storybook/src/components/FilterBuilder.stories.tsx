@@ -13,7 +13,7 @@ import {
   PropertyFilterRuleGroupOperator,
   PropertyFilter,
 } from "@itwin/components-react";
-import { AppUiDecorator } from "../AppUiDecorator";
+import { AppUiDecorator } from "../Decorators";
 import { FilterBuilderStory } from "./FilterBuilder";
 
 const meta = {

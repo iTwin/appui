@@ -12,14 +12,12 @@ import { DraggedPanelSideContext } from "../../../appui-react/layout/base/DragMa
 import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
-import {
-  addPanelWidget,
-  updatePanelState,
-} from "../../../appui-react/layout/state/internal/PanelStateHelpers";
+import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
 import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
 import { WidgetPanelProvider } from "../../../appui-react/layout/widget-panels/Panel";
 import { createDragInfo, TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";
+import { expect } from "chai";
 
 describe("WidgetPanelProvider", () => {
   it("should render vertical", () => {
@@ -29,12 +27,15 @@ describe("WidgetPanelProvider", () => {
     state = produce(state, (stateDraft) => {
       stateDraft.panels.left.size = 200;
     });
-    const { container } = render(
+    const component = render(
       <TestNineZoneProvider defaultState={state}>
         <WidgetPanelProvider side="left" />
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    const panel = component.container.getElementsByClassName(
+      "nz-widgetPanels-panel"
+    )[0] as HTMLElement;
+    expect(panel.style.width).to.eq("200px");
   });
 
   it("should render horizontal", () => {
@@ -44,12 +45,15 @@ describe("WidgetPanelProvider", () => {
     state = produce(state, (stateDraft) => {
       stateDraft.panels.top.size = 200;
     });
-    const { container } = render(
+    const component = render(
       <TestNineZoneProvider defaultState={state}>
         <WidgetPanelProvider side="top" />
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    const panel = component.container.getElementsByClassName(
+      "nz-widgetPanels-panel"
+    )[0] as HTMLElement;
+    expect(panel.style.height).to.eq("200px");
   });
 
   it("should render collapsed", () => {
@@ -59,71 +63,29 @@ describe("WidgetPanelProvider", () => {
     state = produce(state, (stateDraft) => {
       stateDraft.panels.left.collapsed = true;
     });
-    const { container } = render(
+    const component = render(
       <TestNineZoneProvider defaultState={state}>
         <WidgetPanelProvider side="left" />
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    const collapsed =
+      component.container.getElementsByClassName("nz-collapsed");
+    expect(Array.from(collapsed)).to.have.lengthOf(1);
   });
 
   it("should render captured", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    const { container } = render(
+    const component = render(
       <TestNineZoneProvider defaultState={state}>
         <DraggedPanelSideContext.Provider value="left">
           <WidgetPanelProvider side="left" />
         </DraggedPanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
-  });
-
-  it("should render spanned", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "t1");
-    state = addPanelWidget(state, "top", "w1", ["t1"]);
-    state = produce(state, (stateDraft) => {
-      stateDraft.panels.top.span = true;
-    });
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state}>
-        <WidgetPanelProvider side="top" />
-      </TestNineZoneProvider>
-    );
-    container.firstChild!.should.matchSnapshot();
-  });
-
-  it("should render with top spanned", () => {
-    let state = createNineZoneState();
-    state = updatePanelState(state, "top", (draft) => {
-      draft.span = true;
-    });
-    state = addTab(state, "t1");
-    state = addPanelWidget(state, "left", "w1", ["t1"]);
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state}>
-        <WidgetPanelProvider side="left" />
-      </TestNineZoneProvider>
-    );
-    container.firstChild!.should.matchSnapshot();
-  });
-
-  it("should render with span bottom", () => {
-    let state = createNineZoneState();
-    state = updatePanelState(state, "bottom", (draft) => {
-      draft.span = true;
-    });
-    state = addTab(state, "t1");
-    state = addPanelWidget(state, "left", "w1", ["t1"]);
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state}>
-        <WidgetPanelProvider side="left" />
-      </TestNineZoneProvider>
-    );
-    container.firstChild!.should.matchSnapshot();
+    const captured = component.container.getElementsByClassName("nz-captured");
+    expect(Array.from(captured)).to.have.lengthOf(1);
   });
 
   it("should dispatch PANEL_INITIALIZE", () => {
@@ -153,12 +115,13 @@ describe("WidgetPanelProvider", () => {
     state = addTabs(state, ["t1", "t2"]);
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addPanelWidget(state, "left", "w2", ["t2"]);
-    const { container } = render(
+    const component = render(
       <TestNineZoneProvider defaultState={state}>
         <WidgetPanelProvider side="left" />
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    component.getByText("t1");
+    component.getByText("t2");
   });
 
   it("should transition when collapsed", async () => {

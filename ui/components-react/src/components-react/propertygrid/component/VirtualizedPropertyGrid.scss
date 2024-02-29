@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/expandable/list";
 @import "~@itwin/core-react/lib/cjs/core-react/scrollbar";
 
 .components-virtualized-property-grid-loader {
@@ -82,7 +81,7 @@
 .virtualized-grid-node-category {
   padding-top: 4px;
 
-  .iui-expandable-content {
+  .components-expandable-content {
     // We are rendering virtualized content below the expandable block
     display: none;
   }
@@ -91,7 +90,7 @@
 .virtualized-grid-node-custom-category {
   padding-top: 4px;
 
-  .iui-expandable-content > div {
+  .components-expandable-content > div {
     padding: 0 4px 4px 4px;
   }
 }

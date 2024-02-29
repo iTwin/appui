@@ -2,8 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { render } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
+import { render } from "@testing-library/react";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
 import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
@@ -15,11 +16,14 @@ describe("FloatingWidgets", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
-    const { container } = render(
+    const component = render(
       <TestNineZoneProvider defaultState={state}>
         <FloatingWidgets />
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    const widgets = component.container.getElementsByClassName(
+      "nz-widget-floatingWidget"
+    );
+    expect(Array.from(widgets)).to.have.lengthOf(1);
   });
 });

@@ -139,7 +139,7 @@ export class WeightPickerButton extends React.PureComponent<
   }
 
   private _handleKeyDown = (event: React.KeyboardEvent<any>) => {
-    if (event.key === Key.Enter) {
+    if (event.key === Key.Enter.valueOf()) {
       event.preventDefault();
       event.stopPropagation();
       const weightButton = document.activeElement as HTMLElement;
@@ -162,10 +162,10 @@ export class WeightPickerButton extends React.PureComponent<
       this._closePopup();
     } else {
       switch (event.key) {
-        case Key.ArrowDown:
+        case Key.ArrowDown.valueOf():
           this.moveFocusInPopup(false, event);
           break;
-        case Key.ArrowUp:
+        case Key.ArrowUp.valueOf():
           this.moveFocusInPopup(true, event);
           break;
       }

@@ -2,16 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import "@itwin/itwinui-react/styles.css";
 import "./index.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
 import reactAxe from "@axe-core/react";
-import {
-  BrowserAuthorizationCallbackHandler,
-  BrowserAuthorizationClient,
-} from "@itwin/browser-authorization";
+import { BrowserAuthorizationClient } from "@itwin/browser-authorization";
 import {
   ITwin,
   ITwinsAccessClient,
@@ -82,7 +80,6 @@ import {
   MobileApp,
   MobileAppOpts,
 } from "@itwin/core-mobile/lib/cjs/MobileFrontend";
-// import { SchemaUnitProvider } from "@itwin/ecschema-metadata";
 import { IModelsClient } from "@itwin/imodels-client-management";
 import {
   AccessTokenAdapter,
@@ -253,10 +250,7 @@ export class SampleAppIModelApp {
       const redirectUri = process.env.IMJS_OIDC_BROWSER_TEST_REDIRECT_URI ?? "";
       const urlObj = new URL(redirectUri);
       if (urlObj.pathname === window.location.pathname) {
-        await BrowserAuthorizationCallbackHandler.handleSigninCallback({
-          redirectUri,
-          clientId: process.env.IMJS_OIDC_BROWSER_TEST_CLIENT_ID!,
-        });
+        await BrowserAuthorizationClient.handleSignInCallback();
         return;
       }
 

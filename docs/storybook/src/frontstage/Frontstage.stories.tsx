@@ -10,10 +10,10 @@ import {
   StagePanelState,
   WidgetState,
 } from "@itwin/appui-react";
-import { AppUiDecorator } from "../AppUiDecorator";
+import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { FrontstageStory } from "./Frontstage";
-import { createFrontstageProvider, removeProperty } from "../Utils";
+import { removeProperty } from "../Utils";
 import { VirtualCursorElement, createCursorEvents } from "../VirtualCursor";
 
 const meta = {
@@ -27,8 +27,12 @@ const meta = {
     },
     layout: "fullscreen",
   },
+  args: {
+    hideStatusBar: true,
+    hideToolSettings: true,
+  },
   argTypes: {
-    frontstageProviders: removeProperty(),
+    frontstage: removeProperty(),
     itemProviders: removeProperty(),
   },
 } satisfies Meta<typeof FrontstageStory>;
@@ -38,7 +42,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Overview: Story = {
   args: {
-    frontstageProviders: [createFrontstageProvider()],
     itemProviders: [
       {
         id: "widgets",
@@ -70,30 +73,28 @@ export const Overview: Story = {
 
 export const Panels: Story = {
   args: {
-    frontstageProviders: [
-      createFrontstageProvider({
-        leftPanelProps: {
-          defaultState: StagePanelState.Open,
-          pinned: true,
-          minSize: 120,
-          size: 150,
-        },
-        rightPanelProps: {
-          minSize: 120,
-          size: 150,
-        },
-        topPanelProps: {
-          defaultState: StagePanelState.Open,
-          pinned: true,
-          minSize: 90,
-          size: 100,
-        },
-        bottomPanelProps: {
-          minSize: 90,
-          size: 100,
-        },
-      }),
-    ],
+    frontstage: {
+      leftPanelProps: {
+        defaultState: StagePanelState.Open,
+        pinned: true,
+        minSize: 120,
+        size: 150,
+      },
+      rightPanelProps: {
+        minSize: 120,
+        size: 150,
+      },
+      topPanelProps: {
+        defaultState: StagePanelState.Open,
+        pinned: true,
+        minSize: 90,
+        size: 100,
+      },
+      bottomPanelProps: {
+        minSize: 90,
+        size: 100,
+      },
+    },
     itemProviders: [
       {
         id: "widgets",
@@ -139,18 +140,16 @@ export const Panels: Story = {
 
 export const PanelSections: Story = {
   args: {
-    frontstageProviders: [
-      createFrontstageProvider({
-        rightPanelProps: {
-          minSize: 120,
-          size: 150,
-        },
-        bottomPanelProps: {
-          minSize: 90,
-          size: 100,
-        },
-      }),
-    ],
+    frontstage: {
+      rightPanelProps: {
+        minSize: 120,
+        size: 150,
+      },
+      bottomPanelProps: {
+        minSize: 90,
+        size: 100,
+      },
+    },
     itemProviders: [
       {
         id: "widgets",
@@ -208,7 +207,6 @@ export const PanelSections: Story = {
 
 export const FloatingWidgets: Story = {
   args: {
-    frontstageProviders: [createFrontstageProvider()],
     itemProviders: [
       {
         id: "widgets",
@@ -247,13 +245,11 @@ export const FloatingWidgets: Story = {
 
 export const WidgetContainer: Story = {
   args: {
-    frontstageProviders: [
-      createFrontstageProvider({
-        rightPanelProps: {
-          size: 300,
-        },
-      }),
-    ],
+    frontstage: {
+      rightPanelProps: {
+        size: 300,
+      },
+    },
     itemProviders: [
       {
         id: "widgets",
@@ -315,7 +311,6 @@ export const WidgetContainer: Story = {
 
 export const Interaction: Story = {
   args: {
-    frontstageProviders: () => [createFrontstageProvider()],
     itemProviders: [
       {
         id: "widgets",

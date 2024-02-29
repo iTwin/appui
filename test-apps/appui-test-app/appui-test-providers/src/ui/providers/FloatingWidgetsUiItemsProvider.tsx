@@ -27,7 +27,7 @@ export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
   ): ReadonlyArray<Widget> {
     const widgets: Widget[] = [];
     if (
-      stageUsage === StageUsage.General &&
+      stageUsage === StageUsage.General.valueOf() &&
       location === StagePanelLocation.Left &&
       section === StagePanelSection.Start
     ) {

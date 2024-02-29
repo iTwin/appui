@@ -9,7 +9,7 @@
  *  It should NOT be imported by any *.scss or other ui-core files.
  */
 
-[data-root-container="iui-root-id"] {
+[data-root-container="appui-root-id"] {
   // NEEDSWORK - Need to deprecate these accessory colors
   --buic-accessory-hollow: rgb(255, 255, 255);
   --buic-accessory-primary: rgb(000, 139, 225);

@@ -20,12 +20,6 @@ describe("<LoadingPrompt />", () => {
     expect(screen.getByText("description")).to.exist;
   });
 
-  it("renders with indeterminate ProgressBar", () => {
-    const { container } = render(<LoadingPrompt showIndeterminateBar />);
-
-    expect(container.querySelector(".iui-indeterminate")).to.exist;
-  });
-
   it("renders with text and message, and determinate", () => {
     const { container } = render(
       <LoadingPrompt title="title" message="description" isDeterminate={true} />

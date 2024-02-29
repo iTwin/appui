@@ -213,7 +213,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
   const handleKeyUpOnLink = React.useCallback(
     (e: React.KeyboardEvent<HTMLAnchorElement>) => {
       // istanbul ignore else
-      if (e.key === Key.Enter || e.key === " ") {
+      if (e.key === Key.Enter.valueOf() || e.key === " ") {
         onShowHideOptions(!showOptions);
         e.preventDefault();
       }
@@ -282,7 +282,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
           onKeyUp={handleKeyUpOnLink}
           className={"components-quantityFormat-more-less"}
           role="link"
-          data-testid="quantityFormat-more"
           tabIndex={0}
         >
           {moreLabel.current}
@@ -429,7 +428,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
               onKeyUp={handleKeyUpOnLink}
               className={"components-quantityFormat-more-less"}
               role="link"
-              data-testid="quantityFormat-less"
               tabIndex={0}
             >
               {lessLabel.current}

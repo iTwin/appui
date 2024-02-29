@@ -152,7 +152,7 @@ export class BooleanEditor
         style={this.props.style}
         checked={checked}
         onChange={this._updateCheckboxValue}
-        setFocus={this.props.setFocus}
+        autoFocus={this.props.setFocus} // eslint-disable-line jsx-a11y/no-autofocus
         disabled={isDisabled}
         data-testid="components-checkbox-editor"
       ></Checkbox>

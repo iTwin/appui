@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import classnames from "classnames";
-import { MessageDiv } from "./MessageSpan";
+import { MessageRenderer } from "@itwin/core-react";
 import type { NotifyMessageType } from "./ReactNotifyMessageDetails";
 
 /** Message String/Label
@@ -22,5 +22,5 @@ export function MessageLabel(props: {
     "uifw-statusbar-message-label",
     props.className
   );
-  return <MessageDiv className={classNames} message={props.message} />;
+  return <MessageRenderer className={classNames} message={props.message} />;
 }

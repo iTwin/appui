@@ -16,6 +16,7 @@
   &.nz-right {
     grid-row: 2/3;
     height: 100%;
+    top: 0;
   }
 
   &.nz-left {
@@ -32,6 +33,7 @@
   &.nz-bottom {
     grid-column: 2/3;
     width: 100%;
+    left: 0;
 
     &.nz-span {
       grid-column: 1/4;

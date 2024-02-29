@@ -22,7 +22,6 @@ import {
   StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { UiDataProvidedDialog } from "../../appui-react";
-import TestUtils, { getButtonWithText, handleError } from "../TestUtils";
 
 const spyCancel = sinon.spy();
 const spyOK = sinon.spy();
@@ -124,27 +123,6 @@ class TestUiDataProvider extends DialogLayoutDataProvider {
     }
   };
 
-  public disableUserInputReplaceDescription(): void {
-    const newUserValue: DialogItemValue = { value: "xxx" };
-    const syncItem: DialogPropertySyncItem = {
-      value: newUserValue,
-      propertyName: TestUiDataProvider.userPropertyName,
-      isDisabled: true,
-      property: TestUiDataProvider._getUserDescription(),
-    };
-    this.fireSyncPropertiesEvent([syncItem]);
-  }
-
-  public disableUserInput(): void {
-    const newUserValue: DialogItemValue = { value: "xxx" };
-    const syncItem: DialogPropertySyncItem = {
-      value: newUserValue,
-      propertyName: TestUiDataProvider.userPropertyName,
-      isDisabled: true,
-    };
-    this.fireSyncPropertiesEvent([syncItem]);
-  }
-
   public override supplyButtonData(): DialogButtonDef[] | undefined {
     const buttons: DialogButtonDef[] = [];
 
@@ -171,62 +149,39 @@ class TestUiDataProvider extends DialogLayoutDataProvider {
 }
 
 describe("UiDataProvidedDialog", () => {
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  after(() => {
-    TestUtils.terminateUiFramework();
+  afterEach(() => {
+    spyCancel.resetHistory();
+    spyOK.resetHistory();
   });
 
   describe("Modal Dialog", () => {
     it("should handle button presses", async () => {
-      // const spyOnEscape = sinon.spy();
-      const reactNode = (
+      const component = render(
         <UiDataProvidedDialog
           title="My Title"
           uiDataProvider={new TestUiDataProvider()}
           isModal={true}
         />
       );
-      const component = render(reactNode);
-      let nextButton = getButtonWithText(
-        component.container,
-        "dialog.next",
-        handleError
-      );
-      expect(nextButton).to.not.be.undefined;
-      fireEvent.click(nextButton!);
-      const previousButton = getButtonWithText(
-        component.container,
-        "dialog.previous",
-        handleError
-      );
-      expect(previousButton).to.not.be.undefined;
-      fireEvent.click(previousButton!);
-      nextButton = getButtonWithText(
-        component.container,
-        "dialog.next",
-        handleError
-      );
-      expect(nextButton).to.not.be.undefined;
-      fireEvent.click(nextButton!);
-      const cancelButton = getButtonWithText(
-        component.container,
-        "dialog.cancel",
-        handleError
-      );
-      expect(cancelButton).to.not.be.undefined;
-      fireEvent.click(cancelButton!);
-      const okButton = getButtonWithText(
-        component.container,
-        "dialog.ok",
-        handleError
-      ) as HTMLButtonElement;
-      expect(okButton).to.not.be.undefined;
+
+      const nextButton = component.getByText("dialog.next");
+      fireEvent.click(nextButton);
+
+      const previousButton = component.getByText("dialog.previous");
+      fireEvent.click(previousButton);
+
+      fireEvent.click(nextButton);
+
+      const cancelButton = component.getByText("dialog.cancel");
+      fireEvent.click(cancelButton);
+
+      const okButton = component.getByText("dialog.ok");
       fireEvent.click(okButton);
+      expect(okButton.parentElement?.getAttribute("aria-disabled")).to.eq(
+        "true"
+      );
+
       const inputs = component.container.querySelectorAll("input");
-      expect(okButton.disabled).to.be.true;
       expect(inputs.length).to.be.eq(2);
       inputs[0].focus();
       fireEvent.change(inputs[0], { target: { value: "test-user" } });
@@ -237,24 +192,24 @@ describe("UiDataProvidedDialog", () => {
       inputs[1].blur();
 
       await waitFor(() => {
-        expect(okButton.disabled).to.be.false;
+        expect(okButton.parentElement?.getAttribute("aria-disabled")).to.be
+          .null;
       });
       fireEvent.click(okButton);
-      expect(spyOK.calledOnce).to.be.true;
+      sinon.assert.calledOnce(spyOK);
 
       component.baseElement.dispatchEvent(
         new KeyboardEvent("keyup", { key: "Escape" })
       );
-      expect(spyCancel.calledOnce).to.be.true;
+      sinon.assert.calledOnce(spyCancel);
     });
   });
 
   describe("Modeless Dialog", () => {
     it("should handle button presses", async () => {
       const dataProvider = new TestUiDataProvider();
-      spyOK.resetHistory();
-      spyCancel.resetHistory();
-      const reactNode = (
+
+      const component = render(
         <UiDataProvidedDialog
           title="My Title"
           uiDataProvider={dataProvider}
@@ -262,44 +217,24 @@ describe("UiDataProvidedDialog", () => {
           id="my-test-id"
         />
       );
-      const component = render(reactNode);
-      let nextButton = getButtonWithText(
-        component.container,
-        "dialog.next",
-        handleError
-      );
-      expect(nextButton).to.not.be.undefined;
-      fireEvent.click(nextButton!);
-      const previousButton = getButtonWithText(
-        component.container,
-        "dialog.previous",
-        handleError
-      );
-      expect(previousButton).to.not.be.undefined;
-      fireEvent.click(previousButton!);
-      nextButton = getButtonWithText(
-        component.container,
-        "dialog.next",
-        handleError
-      );
-      expect(nextButton).to.not.be.undefined;
-      fireEvent.click(nextButton!);
-      const cancelButton = getButtonWithText(
-        component.container,
-        "dialog.cancel",
-        handleError
-      );
-      expect(cancelButton).to.not.be.undefined;
-      fireEvent.click(cancelButton!);
-      const okButton = getButtonWithText(
-        component.container,
-        "dialog.ok",
-        handleError
-      ) as HTMLButtonElement;
-      expect(okButton).to.not.be.undefined;
+      const nextButton = component.getByText("dialog.next");
+      fireEvent.click(nextButton);
+
+      const previousButton = component.getByText("dialog.previous");
+      fireEvent.click(previousButton);
+
+      fireEvent.click(nextButton);
+
+      const cancelButton = component.getByText("dialog.cancel");
+      fireEvent.click(cancelButton);
+
+      const okButton = component.getByText("dialog.ok");
       fireEvent.click(okButton);
+      expect(okButton.parentElement?.getAttribute("aria-disabled")).to.eq(
+        "true"
+      );
+
       const inputs = component.container.querySelectorAll("input");
-      expect(okButton.disabled).to.be.true;
       expect(inputs.length).to.be.eq(2);
       inputs[0].focus();
       fireEvent.change(inputs[0], { target: { value: "test-user" } });
@@ -310,18 +245,16 @@ describe("UiDataProvidedDialog", () => {
       inputs[1].blur();
 
       await waitFor(() => {
-        expect(okButton.disabled).to.be.false;
+        expect(okButton.parentElement?.getAttribute("aria-disabled")).to.be
+          .null;
       });
       fireEvent.click(okButton);
-      expect(spyOK.calledOnce).to.be.true;
+      sinon.assert.calledOnce(spyOK);
 
       component.baseElement.dispatchEvent(
         new KeyboardEvent("keyup", { key: "Escape" })
       );
-      expect(spyCancel.calledOnce).to.be.true;
-
-      dataProvider.disableUserInputReplaceDescription();
-      dataProvider.disableUserInput();
+      sinon.assert.calledOnce(spyCancel);
     });
   });
 });

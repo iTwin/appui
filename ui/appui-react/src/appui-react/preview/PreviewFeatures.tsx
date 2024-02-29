@@ -17,11 +17,16 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/672
    */
   contentAlwaysMaxSize: boolean;
-  /** If true, the floating widget will have a "maximize" button.
+  /** If true, the floating widget will have a "maximize" button. Use `enableMaximizedPanelWidget` to enable the feature for panel widgets.
    *
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
    */
   enableMaximizedFloatingWidget: boolean;
+  /** If true, the panel widget will have a "maximize" button. Use `enableMaximizedFloatingWidget` to enable the feature for floating widgets.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
+   */
+  enableMaximizedPanelWidget: boolean;
   /** If true, a tab, or the active tab of a group of widget will become active when dropped in a container.
    *
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/679
@@ -46,6 +51,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   activateDroppedTab: undefined,
   contentAlwaysMaxSize: undefined,
   enableMaximizedFloatingWidget: undefined,
+  enableMaximizedPanelWidget: undefined,
   horizontalPanelAlignment: undefined,
   widgetActionDropdown: undefined,
   ...{ newToolbars: undefined }, // Hidden feature used in storybook only (to avoid trimming).

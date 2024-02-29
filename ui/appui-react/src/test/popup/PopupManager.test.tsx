@@ -6,12 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
-import type { IModelAppOptions } from "@itwin/core-frontend";
-import {
-  IModelApp,
-  LengthDescription,
-  NoRenderApp,
-} from "@itwin/core-frontend";
+import { IModelApp, LengthDescription } from "@itwin/core-frontend";
 import type {
   AbstractToolbarProps,
   DialogItem,
@@ -40,6 +35,7 @@ import type { KeyinEntry } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { Button } from "@itwin/itwinui-react";
+
 const myLocalStorage = storageMock();
 function requestNextAnimation() {}
 
@@ -53,7 +49,7 @@ describe("PopupManager", () => {
     "requestNextAnimation"
   )!;
 
-  before(async () => {
+  beforeEach(async () => {
     Object.defineProperty(window, "localStorage", {
       get: () => myLocalStorage,
     });
@@ -64,14 +60,11 @@ describe("PopupManager", () => {
       get: () => requestNextAnimation,
     });
 
-    await TestUtils.initializeUiFramework();
-    // use mock renderer so standards tools are registered.
-    const opts: IModelAppOptions = { uiAdmin: new FrameworkUiAdmin() };
-    await NoRenderApp.startup(opts);
+    const uiAdmin = new FrameworkUiAdmin();
+    sinon.stub(IModelApp, "uiAdmin").get(() => uiAdmin);
   });
 
-  after(async () => {
-    await IModelApp.shutdown();
+  afterEach(async () => {
     // restore the overriden property getter
     Object.defineProperty(window, "localStorage", propertyDescriptorToRestore);
     Object.defineProperty(
@@ -79,8 +72,6 @@ describe("PopupManager", () => {
       "requestNextAnimation",
       rnaDescriptorToRestore
     );
-
-    TestUtils.terminateUiFramework();
   });
 
   beforeEach(() => {
@@ -544,9 +535,7 @@ describe("PopupManager", () => {
           wrapper.container.querySelectorAll("div.uifw-card-content").length
         ).to.eq(1);
       });
-      expect(
-        wrapper.container.querySelectorAll(".iui-text-leading").length
-      ).to.eq(1);
+      wrapper.getByText("Title");
       expect(
         wrapper.container.querySelectorAll(
           "div.components-toolbar-overflow-sizer"
@@ -576,9 +565,7 @@ describe("PopupManager", () => {
       expect(
         wrapper.container.querySelectorAll("div.uifw-card-content").length
       ).to.eq(1);
-      expect(
-        wrapper.container.querySelectorAll(".iui-text-leading").length
-      ).to.eq(1);
+      wrapper.getByText("Title");
       PopupManager.hideCard();
 
       PopupManager.showCard(
@@ -596,9 +583,6 @@ describe("PopupManager", () => {
         expect(
           wrapper.container.querySelectorAll("div.uifw-card-content").length
         ).to.eq(1);
-        expect(
-          wrapper.container.querySelectorAll(".iui-text-leading").length
-        ).to.eq(0);
       });
       PopupManager.hideCard();
 
@@ -617,9 +601,6 @@ describe("PopupManager", () => {
       expect(
         wrapper.container.querySelectorAll("div.uifw-card-content").length
       ).to.eq(1);
-      expect(
-        wrapper.container.querySelectorAll(".iui-text-leading").length
-      ).to.eq(0);
       PopupManager.hideCard();
     });
 
@@ -753,7 +734,7 @@ describe("PopupManager", () => {
         ).to.eq(1);
       });
       const inputNode = wrapper.container.querySelector("input");
-      expect(inputNode).not.to.null;
+      expect(inputNode).not.to.be.null;
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
       expect(spyCancel.calledOnce).to.be.true;

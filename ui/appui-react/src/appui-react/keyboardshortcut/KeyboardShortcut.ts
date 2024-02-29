@@ -42,7 +42,7 @@ enum SpecialKey {
   ArrowUp = "ArrowUp",
   ArrowDown = "ArrowDown",
   Enter = "Enter",
-  Return = "Enter",
+  Return = "Enter", // eslint-disable-line @typescript-eslint/no-duplicate-enum-values
   Space = " ",
   Backspace = "Backspace",
   Clear = "Clear",

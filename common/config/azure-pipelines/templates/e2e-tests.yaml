@@ -1,0 +1,28 @@
+parameters:
+  - name: NodeVersion
+    type: string
+
+steps:
+  - task: NodeTool@0
+    displayName: "Use Node ${{ parameters.nodeVersion }}"
+    inputs:
+      versionSpec: ${{ parameters.nodeVersion }}
+
+  - script: |
+      git config --local user.email imodeljs-admin@users.noreply.github.com
+      git config --local user.name imodeljs-admin
+    displayName: Configure git
+
+  - script: node common/scripts/install-run-rush.js install --only e2e-tests
+    displayName: Rush install
+
+  - script: npm run test:e2e
+    displayName: Run e2e tests
+    workingDirectory: "e2e-tests"
+    env:
+      CI: true
+
+  - publish: $(System.DefaultWorkingDirectory)/e2e-tests/playwright-report
+    artifact: "playwright-report_$(Build.BuildId)"
+    displayName: Publish playwright report
+    condition: succeededOrFailed()

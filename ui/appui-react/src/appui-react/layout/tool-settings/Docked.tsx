@@ -17,7 +17,6 @@ import {
 import classnames from "classnames";
 import * as React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { usePreviewFeatures } from "../../preview/PreviewFeatures";
 import { AnimateDockedToolSettingsContext } from "../base/NineZone";
 import { DockedToolSettingsHandle } from "./Handle";
 import { DockedToolSettingsOverflow } from "./Overflow";
@@ -65,7 +64,6 @@ export interface DockedToolSettingsProps extends CommonProps {
  */
 export function DockedToolSettings(props: DockedToolSettingsProps) {
   const [open, setOpen] = React.useState(false);
-  const { contentAlwaysMaxSize } = usePreviewFeatures();
   const animateToolSettings = React.useContext(
     AnimateDockedToolSettingsContext
   );
@@ -140,12 +138,7 @@ export function DockedToolSettings(props: DockedToolSettingsProps) {
   const PanelContainer = props.panelContainer
     ? props.panelContainer
     : DefaultPanelContainer;
-  const className = classnames(
-    "nz-toolSettings-docked",
-    props.className,
-    // istanbul ignore next (preview)
-    contentAlwaysMaxSize && "preview-contentAlwaysMaxSize"
-  );
+  const className = classnames("nz-toolSettings-docked", props.className);
   return (
     <div
       data-toolsettings-provider={props.itemId}

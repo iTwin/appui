@@ -97,7 +97,7 @@ function processKeyboardNavigation(
   let newIndex = itemIndex >= 0 ? itemIndex : 0;
 
   // Note: In aria example Page Up/Down just moves up or down by one item. See https://www.w3.org/TR/wai-aria-practices-1.1/examples/listbox/js/listbox.js
-  if (key === Key.ArrowDown || key === Key.PageDown) {
+  if (key === Key.ArrowDown.valueOf() || key === Key.PageDown.valueOf()) {
     for (let i = itemIndex + 1; i < optionValues.length; i++) {
       if (!optionValues[i].disabled) {
         newIndex = i;
@@ -105,7 +105,7 @@ function processKeyboardNavigation(
       }
     }
     keyProcessed = true;
-  } else if (key === Key.ArrowUp || key === Key.PageUp) {
+  } else if (key === Key.ArrowUp.valueOf() || key === Key.PageUp.valueOf()) {
     for (let i = itemIndex - 1; i >= 0; i--) {
       if (!optionValues[i].disabled) {
         newIndex = i;
@@ -113,7 +113,7 @@ function processKeyboardNavigation(
       }
     }
     keyProcessed = true;
-  } else if (key === Key.Home) {
+  } else if (key === Key.Home.valueOf()) {
     for (let i = 0; i < optionValues.length; i++) {
       if (!optionValues[i].disabled) {
         newIndex = i;
@@ -121,7 +121,7 @@ function processKeyboardNavigation(
       }
     }
     keyProcessed = true;
-  } else if (key === Key.End) {
+  } else if (key === Key.End.valueOf()) {
     for (let i = optionValues.length - 1; i >= 0; i--) {
       if (!optionValues[i].disabled) {
         newIndex = i;
