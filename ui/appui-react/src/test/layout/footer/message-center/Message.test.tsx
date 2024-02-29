@@ -5,7 +5,7 @@
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
-import { MessageCenterMessage } from "../../../../appui-react/layout/footer/message-center/Message";
+import { MessageCenterMessage } from "../../../../appui-react/layout/footer/message-center/MessageCenterMessage";
 import { selectorMatches } from "../../Utils";
 
 describe("<MessageCenterMessage />", () => {
