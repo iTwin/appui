@@ -10,29 +10,23 @@ jobs:
         "Windows_${{ parameters.name }}":
           OS: windows-latest
           platform: Windows_NT
-          name: $(win_pool)
         "Linux_${{ parameters.name }}":
           OS: ubuntu-latest
           platform: Linux
-          name: $(linux_pool)
         "MacOS_${{ parameters.name }}":
           OS: macOS-latest
           platform: Darwin
-          name: $(mac_pool)
         "Windows_${{ parameters.name }}_core_3x":
           OS: windows-latest
           platform: Windows_NT
-          name: $(win_pool)
           variant: core-3x
         "Linux_${{ parameters.name }}_core_3x":
           OS: ubuntu-latest
           platform: Linux
-          name: $(linux_pool)
           variant: core-3x
         "MacOS_${{ parameters.name }}_core_3x":
           OS: macOS-latest
           platform: Darwin
-          name: $(mac_pool)
           variant: core-3x
 
     timeoutInMinutes: 30
@@ -76,3 +70,17 @@ jobs:
           NodeVersion: ${{ parameters.nodeVersion }}
       # The publish script identifies any new packages not previously published and tags the build
       - template: ../templates/publish.yaml
+
+  - job:
+    displayName: "Run e2e tests"
+    condition: succeeded()
+    workspace:
+      clean: all
+
+    pool:
+      vmImage: ubuntu-latest
+
+    steps:
+      - template: ../templates/e2e-tests.yaml
+        parameters:
+          NodeVersion: ${{ parameters.nodeVersion }}
