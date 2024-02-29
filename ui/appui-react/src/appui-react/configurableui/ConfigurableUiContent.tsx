@@ -104,7 +104,6 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
           <CursorPopupRenderer />
           <PopupRenderer />
           <MessageRenderer />
-          <MessageRenderer />
         </ThemeProvider>
       </WrapperContext.Provider>
       <div
