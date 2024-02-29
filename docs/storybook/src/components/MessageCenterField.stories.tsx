@@ -13,9 +13,7 @@ const AlignComponent: Decorator = (Story) => {
         height: "100%",
         display: "flex",
         justifyContent: "center",
-        paddingInline: "10%",
         paddingBlock: "2em",
-        boxSizing: "border-box",
       }}
     >
       <Story />
