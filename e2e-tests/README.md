@@ -10,10 +10,16 @@ The end-to-end tests on CI are running in a docker container to avoid platform s
 npm run test:e2e
 ```
 
-Pass additional arguments to run specific tests or update the snapshots:
+Pass additional arguments to playwright to run specific tests or update the snapshots:
 
 ```sh
 npm run test:e2e -- widget.test.ts --update-snapshots
+```
+
+To see the generated report on a host:
+
+```sh
+npx playwright show-report
 ```
 
 > _Note:_ This requires [Docker](https://www.docker.com/) to be running on your machine.

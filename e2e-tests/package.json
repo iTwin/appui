@@ -16,7 +16,7 @@
     "lint": "",
     "test": "",
     "start": "tsx scripts/run-with-docker.ts",
-    "test:e2e": "npm start -- npm run playwright test",
+    "test:e2e": "npm start -- npm run playwright -- test",
     "playwright": "playwright"
   },
   "devDependencies": {
