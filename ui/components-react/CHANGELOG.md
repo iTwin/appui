@@ -1,6 +1,14 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Tue, 06 Feb 2024 08:56:40 GMT and should not be manually modified.
+This log was last generated on Mon, 26 Feb 2024 15:50:45 GMT and should not be manually modified.
+
+## 4.10.0
+Mon, 26 Feb 2024 15:50:45 GMT
+
+### Updates
+
+- `ControlledTree`: add ability to select multiple nodes using `CMD` key + mouse click.
+- Use iTwinUI 3.x.
 
 ## 4.9.0
 Tue, 06 Feb 2024 08:56:40 GMT
