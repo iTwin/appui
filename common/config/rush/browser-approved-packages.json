@@ -263,6 +263,10 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "appui-standalone-app",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "chai",
       "allowedCategories": [ "frontend" ]
     },
@@ -463,10 +467,6 @@
       "allowedCategories": [ "frontend" ]
     },
     {
-      "name": "serve",
-      "allowedCategories": [ "internal" ]
-    },
-    {
       "name": "shortid",
       "allowedCategories": [ "frontend" ]
     },
@@ -493,6 +493,10 @@
     {
       "name": "ts-node",
       "allowedCategories": [ "frontend", "tools" ]
+    },
+    {
+      "name": "tsx",
+      "allowedCategories": [ "internal" ]
     },
     {
       "name": "typemoq",
