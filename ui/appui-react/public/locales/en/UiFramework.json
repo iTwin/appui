@@ -24,8 +24,7 @@
     "settings": "Settings",
     "minimize": "Minimize",
     "overflow": "Overflow",
-    "no-content": "No data for this content view",
-    "doNotShowAgain": "Do not show again"
+    "no-content": "No data for this content view"
   },
   "rotations": {
     "top": "Top",
@@ -281,8 +280,7 @@
     },
     "errorMessage": {
       "unknownError": "Something went wrong...",
-      "widgetPopoutFail": "Widget failed to popout, ensure you allow popout for this site.",
-      "popoutFocusFail": "Popout widget '{{widgetLabel}}' attempted to get focus, but this action was restricted by the browser."
+      "widgetPopoutFail": "Widget failed to popout, ensure you allow popout for this site."
     }
   },
   "statusBar": {
