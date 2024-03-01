@@ -6,17 +6,17 @@
  * @module Notification
  */
 
+import * as React from "react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
-import * as React from "react";
+import { Icon, MessageRenderer } from "@itwin/core-react";
+import { Text } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
 import { MessageCenterDialog } from "../layout/footer/message-center/Dialog";
 import { MessageCenter } from "../layout/footer/message-center/Indicator";
 import { MessageCenterMessage } from "../layout/footer/message-center/Message";
 import { MessageCenterTab } from "../layout/footer/message-center/Tab";
 import { MessageManager } from "../messages/MessageManager";
-import { MessageDiv, MessageSpan } from "../messages/MessageSpan";
 import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
 import { StatusBar } from "../statusbar/StatusBar";
 
@@ -199,12 +199,11 @@ export class MessageCenterField extends React.Component<
             key={index.toString()}
             icon={<Icon iconSpec={iconSpec} className={iconClassName} />}
           >
-            <MessageSpan message={message} />
+            <MessageRenderer message={message} useSpan />
             {details.detailedMessage && (
-              <MessageDiv
-                className="iui-text-small"
-                message={details.detailedMessage}
-              />
+              <Text variant="small">
+                <MessageRenderer message={details.detailedMessage} />
+              </Text>
             )}
           </MessageCenterMessage>
         );

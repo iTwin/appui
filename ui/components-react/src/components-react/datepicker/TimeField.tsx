@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import classnames from "classnames";
 import { Key } from "ts-key-enum";
 import { Input } from "@itwin/itwinui-react";
 import type { TimeDisplay } from "@itwin/appui-abstract";
@@ -210,8 +211,11 @@ export function TimeField({
   const handleHoursOnKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
-      if (event.key === Key.ArrowDown || event.key === Key.ArrowUp) {
-        let newHours = hours + (event.key === Key.ArrowDown ? -1 : 1);
+      if (
+        event.key === Key.ArrowDown.valueOf() ||
+        event.key === Key.ArrowUp.valueOf()
+      ) {
+        let newHours = hours + (event.key === Key.ArrowDown.valueOf() ? -1 : 1);
         if (newHours < 0) newHours = 24;
         if (newHours > 24 || (newHours > 23 && minutes + seconds > 0))
           newHours = 0;
@@ -222,7 +226,7 @@ export function TimeField({
             newHours >= 12 ? pmLabelRef.current : amLabelRef.current
           );
         event.preventDefault();
-      } else if (event.key === Key.Enter) {
+      } else if (event.key === Key.Enter.valueOf()) {
         const newHours = getValidInt(hoursText, 0, 24, hours);
         setHoursText(getDisplayHours(newHours).toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, hours: newHours });
@@ -248,22 +252,25 @@ export function TimeField({
   const handleMinutesOnKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
-      if (event.key === Key.ArrowDown) {
+      if (event.key === Key.ArrowDown.valueOf()) {
         const newMinutes = minutes === 0 ? 59 : minutes - 1;
         setMinutesText(newMinutes.toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, minutes: newMinutes });
         event.preventDefault();
-      } else if (event.key === Key.ArrowUp) {
+      } else if (event.key === Key.ArrowUp.valueOf()) {
         const newMinutes = minutes === 59 ? 0 : minutes + 1;
         setMinutesText(newMinutes.toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, minutes: newMinutes });
         event.preventDefault();
-      } else if (event.key === Key.Home || event.key === Key.End) {
-        const newMinutes = event.key === Key.Home ? 0 : 59;
+      } else if (
+        event.key === Key.Home.valueOf() ||
+        event.key === Key.End.valueOf()
+      ) {
+        const newMinutes = event.key === Key.Home.valueOf() ? 0 : 59;
         setMinutesText(newMinutes.toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, minutes: newMinutes });
         event.preventDefault();
-      } else if (event.key === Key.Enter) {
+      } else if (event.key === Key.Enter.valueOf()) {
         const newMinutes = getValidInt(minutesText, 0, 59, minutes);
         setMinutesText(newMinutes.toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, minutes: newMinutes });
@@ -276,22 +283,25 @@ export function TimeField({
   const handleSecondsOnKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
-      if (event.key === Key.ArrowDown) {
+      if (event.key === Key.ArrowDown.valueOf()) {
         const newSeconds = seconds === 0 ? 59 : seconds - 1;
         setSecondsText(newSeconds.toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, seconds: newSeconds });
         event.preventDefault();
-      } else if (event.key === Key.ArrowUp) {
+      } else if (event.key === Key.ArrowUp.valueOf()) {
         const newSeconds = seconds === 59 ? 0 : seconds + 1;
         setSecondsText(newSeconds.toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, seconds: newSeconds });
         event.preventDefault();
-      } else if (event.key === Key.Home || event.key === Key.End) {
-        const newSeconds = event.key === Key.Home ? 0 : 59;
+      } else if (
+        event.key === Key.Home.valueOf() ||
+        event.key === Key.End.valueOf()
+      ) {
+        const newSeconds = event.key === Key.Home.valueOf() ? 0 : 59;
         setSecondsText(newSeconds.toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, seconds: newSeconds });
         event.preventDefault();
-      } else if (event.key === Key.Enter) {
+      } else if (event.key === Key.Enter.valueOf()) {
         const newSeconds = getValidInt(secondsText, 0, 59, seconds);
         setSecondsText(newSeconds.toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, seconds: newSeconds });
@@ -306,22 +316,22 @@ export function TimeField({
       let newPeriodText: string | undefined;
       // istanbul ignore else
       if (
-        event.key === Key.ArrowDown ||
-        event.key === Key.Home ||
+        event.key === Key.ArrowDown.valueOf() ||
+        event.key === Key.Home.valueOf() ||
         event.key === "a" ||
         event.key === "A"
       ) {
         newPeriodText = amLabelRef.current;
         event.preventDefault();
       } else if (
-        event.key === Key.ArrowUp ||
-        event.key === Key.End ||
+        event.key === Key.ArrowUp.valueOf() ||
+        event.key === Key.End.valueOf() ||
         event.key === "p" ||
         event.key === "P"
       ) {
         newPeriodText = pmLabelRef.current;
         event.preventDefault();
-      } else if (event.key === Key.Enter) {
+      } else if (event.key === Key.Enter.valueOf()) {
         if (
           dayPeriodText === "AM" ||
           dayPeriodText === "am" ||
@@ -355,7 +365,7 @@ export function TimeField({
   return (
     <div data-testid="components-time-input" className="components-time">
       <Input
-        className="components-time-input"
+        className={classnames("components-time-input", "components-input")}
         onKeyDown={handleHoursOnKeyDown}
         onBlur={handleHoursOnBlur}
         onChange={handleHoursChange}
@@ -365,7 +375,7 @@ export function TimeField({
       />
       <span className="component-time-separator">:</span>
       <Input
-        className="components-time-input"
+        className={classnames("components-time-input", "components-input")}
         onKeyDown={handleMinutesOnKeyDown}
         onBlur={handleMinutesOnBlur}
         onChange={handleMinutesChange}
@@ -377,7 +387,7 @@ export function TimeField({
         <>
           <span className="component-time-separator">:</span>
           <Input
-            className="components-time-input"
+            className={classnames("components-time-input", "components-input")}
             onKeyDown={handleSecondsOnKeyDown}
             onBlur={handleSecondsOnBlur}
             onChange={handleSecondsChange}
@@ -389,7 +399,10 @@ export function TimeField({
       )}
       {dayPeriodText && (
         <Input
-          className="components-time-period-input"
+          className={classnames(
+            "components-time-period-input",
+            "components-input"
+          )}
           onKeyDown={handleDayPeriodOnKeyDown}
           onBlur={handleDayPeriodOnBlur}
           onChange={handleDayPeriodChange}

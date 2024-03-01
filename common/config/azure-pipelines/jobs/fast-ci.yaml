@@ -28,6 +28,4 @@ jobs:
       name: Node_18
       nodeVersion: 18.14.0
       pool:
-        name: $(name)
-        demands:
-          - Agent.OS -equals $(platform)
+        vmImage: $(OS)

@@ -40,7 +40,7 @@ export class InspectUiItemInfoToolProvider implements UiItemsProvider {
   ): ToolbarItem[] {
     /** Add a tool that starts inspect tool  */
     if (
-      stageUsage === StageUsage.General &&
+      stageUsage === StageUsage.General.valueOf() &&
       toolbarUsage === ToolbarUsage.ContentManipulation &&
       toolbarOrientation === ToolbarOrientation.Horizontal
     ) {

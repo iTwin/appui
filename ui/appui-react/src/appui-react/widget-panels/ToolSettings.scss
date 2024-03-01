@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 .uif-toolsetting-label-docked-horizontal {
-  padding-right: 0.5em;
   align-self: center;
 }
 
@@ -12,7 +11,7 @@
   padding-right: 0.5em;
   align-self: center;
   font-style: italic;
-  color: var(--iui-text-color-muted);
+  color: var(--iui-color-text-muted);
 }
 
 .uifw-standard-toolsettings-two-column-grid {
@@ -33,9 +32,4 @@
 
 .uifw-floating-toolsettings-container {
   padding-top: 4px;
-}
-
-.nz-toolSettings-docked {
-  padding-top: 3px;
-  padding-bottom: 3px;
 }

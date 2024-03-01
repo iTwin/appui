@@ -173,14 +173,7 @@ function WidgetSelect({
     setOptions(newOptions);
   }, [frontstageDef]);
   return (
-    <Select
-      options={options}
-      value={id}
-      onChange={(value) => {
-        onChange(value);
-      }}
-      size="small"
-    />
+    <Select options={options} value={id} onChange={onChange} size="small" />
   );
 }
 
@@ -452,11 +445,11 @@ function PanelControls({ location }: { location: StagePanelLocation }) {
         onBlur={handleSubmitValue}
         onKeyDown={(e) => {
           switch (e.key) {
-            case Key.Enter: {
+            case Key.Enter.valueOf(): {
               handleSubmitValue();
               break;
             }
-            case Key.Escape: {
+            case Key.Escape.valueOf(): {
               setSizeValue("");
               break;
             }
@@ -636,14 +629,7 @@ function FloatingWidgetSelect({
   }, [allIds]);
 
   return (
-    <Select
-      options={options}
-      value={id}
-      onChange={(value) => {
-        onChange && onChange(value);
-      }}
-      size="small"
-    />
+    <Select options={options} value={id} onChange={onChange} size="small" />
   );
 }
 

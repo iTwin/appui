@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
-// the following overrides default iui-slider-thumb settings from  iTwinUI
-div.components-timeline-thumb.iui-slider-thumb {
+
+.components-timeline-thumb {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,14 +15,14 @@ div.components-timeline-thumb.iui-slider-thumb {
   border-radius: var(--iui-border-radius-1);
   border: 1px solid var(--iui-color-border);
   transform: translateX(-19.2px);
-  top: 4px;
 }
 
 .components-timeline-rail-marker-container {
-  width: 100%;
   position: absolute;
+  width: 100%;
+  top: 0;
 
-  div.components-timeline-tooltip {
+  .components-timeline-tooltip {
     @include uicore-z-index(tooltip);
     position: absolute;
     top: -8px;

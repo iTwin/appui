@@ -6,6 +6,7 @@
  * @module WidgetPanels
  */
 
+import "./Panel.scss";
 import { assert } from "@itwin/core-bentley";
 import type { RectangleProps } from "@itwin/core-react";
 import { useRefs } from "@itwin/core-react";
@@ -19,7 +20,6 @@ import { isHorizontalPanelState } from "../state/PanelState";
 import { PanelTargets } from "../target/PanelTargets";
 import { SectionTargets } from "../target/SectionTargets";
 import { WidgetPanelGrip } from "./Grip";
-import "./Panel.scss";
 import { PanelSections } from "./PanelSections";
 import type {
   BottomPanelSide,
@@ -30,6 +30,7 @@ import type {
   TopPanelSide,
 } from "./PanelTypes";
 import { useAnimatePanel } from "./useAnimatePanel";
+import { useMaximizedPanel } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 /** Properties of [[WidgetPanelProvider]] component.
  * @internal
@@ -47,9 +48,11 @@ export function WidgetPanelProvider({ side }: WidgetPanelProviderProps) {
   );
   return (
     <PanelSideContext.Provider value={side}>
-      {hasWidgets && <WidgetPanel />}
-      <PanelTargets />
-      <PanelOutline />
+      <div className="nz-widgetPanels_panelContainer">
+        {hasWidgets && <WidgetPanel />}
+        <PanelTargets />
+        <PanelOutline />
+      </div>
     </PanelSideContext.Provider>
   );
 }
@@ -59,6 +62,7 @@ export function WidgetPanel() {
   const side = React.useContext(PanelSideContext);
   const draggedPanelSide = React.useContext(DraggedPanelSideContext);
   assert(!!side);
+  const maximizedPanel = useMaximizedPanel(side);
 
   const spanTop = useLayout((state) => state.panels.top.span);
   const spanBottom = useLayout((state) => state.panels.bottom.span);
@@ -122,23 +126,23 @@ export function WidgetPanel() {
     panel.span && "nz-span",
     spanTop && "nz-span-top",
     spanBottom && "nz-span-bottom",
-    transition && `nz-${transition}`
+    transition && `nz-${transition}`,
+    maximizedPanel
   );
 
   const singleSection = panel.widgets.length === 1;
   const showSectionTargets = singleSection && !panel.collapsed;
   const ref = useRefs(elementRef, panelRef);
 
-  /* istanbul ignore next */
   return (
     <WidgetPanelContext.Provider value={widgetPanel}>
       <div
         className={className}
         ref={ref}
-        style={style}
+        style={maximizedPanel ? {} : style}
         onTransitionEnd={handleTransitionEnd}
       >
-        <div className="nz-content" style={contentStyle}>
+        <div className="nz-content" style={maximizedPanel ? {} : contentStyle}>
           {singleSection && <SectionOutline sectionIndex={0} />}
           <PanelSections />
           {singleSection && <SectionOutline sectionIndex={1} />}

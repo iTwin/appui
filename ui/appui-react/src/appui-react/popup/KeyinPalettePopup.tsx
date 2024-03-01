@@ -52,7 +52,7 @@ export function KeyinPalettePopup({
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>): void => {
       switch (event.key) {
-        case Key.Escape:
+        case Key.Escape.valueOf():
           cancel();
           event.preventDefault();
           break;

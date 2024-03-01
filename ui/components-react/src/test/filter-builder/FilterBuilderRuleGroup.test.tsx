@@ -12,7 +12,6 @@ import {
   PropertyFilterBuilderActions,
   type PropertyFilterBuilderRuleGroup,
 } from "../../components-react/filter-builder/FilterBuilderState";
-import { PropertyFilterRuleGroupOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";
 import sinon from "sinon";
@@ -30,7 +29,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
         groupId: "id",
       },
     ],
-    operator: PropertyFilterRuleGroupOperator.And,
+    operator: "and",
   };
   const defaultProps: PropertyFilterBuilderRuleGroupRendererProps = {
     group: rootGroup,
@@ -61,7 +60,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
         group={{
           id: "id",
           items: [{ id: "childId", groupId: "id" }],
-          operator: PropertyFilterRuleGroupOperator.And,
+          operator: "and",
         }}
       />
     );
@@ -85,7 +84,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
         {...defaultProps}
         group={{
           id: "id",
-          operator: PropertyFilterRuleGroupOperator.And,
+          operator: "and",
           items: [
             {
               id: "childId",
@@ -124,16 +123,13 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
       )
     ).to.not.be.null;
 
-    expect(setRuleGroupOperatorSpy).to.be.calledWith(
-      defaultProps.path,
-      PropertyFilterRuleGroupOperator.Or
-    );
+    expect(setRuleGroupOperatorSpy).to.be.calledWith(defaultProps.path, "or");
   });
 
   it("Toggles operator 'Or' to 'And'", async () => {
     const actions = new PropertyFilterBuilderActions(sinon.spy());
     const props: PropertyFilterBuilderRuleGroupRendererProps = {
-      group: { ...rootGroup, operator: PropertyFilterRuleGroupOperator.Or },
+      group: { ...rootGroup, operator: "or" },
       path: [],
       isGroupOperatorDisabled: false,
     };
@@ -158,16 +154,13 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
       )
     ).to.not.be.null;
 
-    expect(setRuleGroupOperatorSpy).to.be.calledWith(
-      defaultProps.path,
-      PropertyFilterRuleGroupOperator.And
-    );
+    expect(setRuleGroupOperatorSpy).to.be.calledWith(defaultProps.path, "and");
   });
 
   it("'Or' Operator should not be clickable if toggle disabled", async () => {
     const actions = new PropertyFilterBuilderActions(sinon.spy());
     const props: PropertyFilterBuilderRuleGroupRendererProps = {
-      group: { ...rootGroup, operator: PropertyFilterRuleGroupOperator.Or },
+      group: { ...rootGroup, operator: "or" },
       path: [],
       isGroupOperatorDisabled: true,
     };

@@ -22,16 +22,13 @@
 
   .components-time-input {
     box-sizing: border-box;
-    width: 2em;
+    width: 2.5em;
     text-align: center;
     border: none;
     box-shadow: none;
     margin: 0;
-
-    &.iui-input {
-      padding-left: 0;
-      padding-right: 0;
-    }
+    padding-left: 0;
+    padding-right: 0;
 
     &:focus {
       outline: 0px;
@@ -70,7 +67,7 @@
     padding: 0 1px;
   }
 
-  .iui-input {
+  .components-input {
     padding: $uicore-iui-input-padding;
   }
 }

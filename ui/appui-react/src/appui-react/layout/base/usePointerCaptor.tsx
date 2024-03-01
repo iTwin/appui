@@ -52,6 +52,9 @@ export const usePointerCaptor = <T extends HTMLElement>(
     (instance: T | null) => {
       let touchTarget: EventTarget | null = null;
       const mouseDown = (e: MouseEvent) => {
+        const isSecondaryButton = (e.button & 2) === 2;
+        if (isSecondaryButton) return;
+
         onPointerDown && onPointerDown(e, e);
         isDown.current = true;
       };

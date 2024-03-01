@@ -60,7 +60,7 @@ export class ToolSettingsPopup extends React.PureComponent<
 
   private _handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
-      case Key.Escape:
+      case Key.Escape.valueOf():
         // istanbul ignore else
         if (this.props.onCancel) this.props.onCancel();
         break;

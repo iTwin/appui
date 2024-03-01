@@ -61,6 +61,8 @@ To set the environment variables, either set them directly within the terminal y
 
 - IMJS_NO_DEV_TOOLS
   - If defined, do not open the electron dev tools on startup
+- IMJS_READ_WRITE
+  - If defined, the `OpenMode.ReadWrite` mode is used while opening the briefcase.
 
 ### Browser-only
 
@@ -73,3 +75,4 @@ _Optionally_ used to load an application in a specific configuration:
 
 - `frontstage` - opens a frontstage by specified frontstage id, uses a blank connection. I.e. <http://localhost:3000/?frontstage=appui-test-providers:WidgetApi>
 - `mode` - specifies application mode: `portal` | `portal-overflow` | `header`. I.e. <http://localhost:3000/?mode=header>
+- `timeline` - configures the view state to display a timeline component in a default view overlay. I.e. <http://localhost:3000/?timeline=1>

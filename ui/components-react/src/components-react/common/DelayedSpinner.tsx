@@ -7,8 +7,11 @@
  */
 
 import * as React from "react";
-import type { ProgressRadialProps } from "@itwin/itwinui-react";
 import { ProgressRadial } from "@itwin/itwinui-react";
+
+type ProgressRadialProps = React.ComponentPropsWithoutRef<
+  typeof ProgressRadial
+>;
 
 /** Type for ProgressRadialProps.size */
 type RadialSizeType = ProgressRadialProps["size"];
@@ -43,7 +46,13 @@ export function DelayedSpinner(props: DelayedSpinnerProps) {
 
   if (diff < delay) return null;
 
-  return <ProgressRadial indeterminate size={props.size ?? "large"} />;
+  return (
+    <ProgressRadial
+      data-testid="components-delayed-spinner"
+      indeterminate
+      size={props.size ?? "large"}
+    />
+  );
 }
 
 const useForceUpdate = () => {

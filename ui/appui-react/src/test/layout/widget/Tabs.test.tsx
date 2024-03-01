@@ -39,7 +39,7 @@ describe("WidgetTabs", () => {
     sinon
       .stub(Element.prototype, "getBoundingClientRect")
       .returns(DOMRect.fromRect({ width: 100 }));
-    const { container } = render(
+    const component = render(
       <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
@@ -48,17 +48,22 @@ describe("WidgetTabs", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    component.getByRole(
+      "button" /* TODO: needs a label , { name: "Other widgets" } */
+    );
   });
 
   it("should render tabs with icons", () => {
     let state = createNineZoneState();
-    state = addTabs(state, ["t1", "t2", "t3"]);
+    state = addTab(state, "t1", {
+      iconSpec: <div>t1 icon</div>,
+    });
+    state = addTabs(state, ["t2", "t3"]);
     state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
     sinon
       .stub(Element.prototype, "getBoundingClientRect")
       .returns(DOMRect.fromRect({ width: 300 }));
-    const { container } = render(
+    const component = render(
       <TestNineZoneProvider defaultState={state}>
         <ShowWidgetIconContext.Provider value={true}>
           <PanelSideContext.Provider value="left">
@@ -69,7 +74,7 @@ describe("WidgetTabs", () => {
         </ShowWidgetIconContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    component.getByText("t1 icon");
   });
 
   it("should overflow all tabs in horizontal minimized widget", () => {

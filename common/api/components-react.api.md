@@ -33,7 +33,8 @@ import type { OnItemExecutedFunc } from '@itwin/appui-abstract';
 import { Orientation } from '@itwin/core-react';
 import type { ParseResults } from '@itwin/appui-abstract';
 import type { Primitives } from '@itwin/appui-abstract';
-import type { PropertyDescription } from '@itwin/appui-abstract';
+import type { PrimitiveValue } from '@itwin/appui-abstract';
+import { PropertyDescription } from '@itwin/appui-abstract';
 import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyValue } from '@itwin/appui-abstract';
 import type { RatioChangeResult } from '@itwin/core-react';
@@ -836,10 +837,10 @@ export function formatInputDate(inputDate: Date, timeDisplay?: TimeDisplay, cust
 export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T>;
 
 // @beta
-export function getPropertyFilterOperatorLabel(operator: PropertyFilterRuleOperator): string;
+export function getPropertyFilterBuilderOperatorLabel(operator: PropertyFilterBuilderRuleOperator): string;
 
 // @beta
-export function getPropertyFilterOperators(property: PropertyDescription): PropertyFilterRuleOperator[];
+export function getPropertyFilterBuilderOperators(property: PropertyDescription): PropertyFilterBuilderRuleOperator[];
 
 // @internal
 export function getPropertyKey(propertyCategory: PropertyCategory, propertyRecord: PropertyRecord): string;
@@ -1247,7 +1248,10 @@ export function isTreeModelNodePlaceholder(obj: TreeModelNodeType | undefined): 
 export function isTreeModelRootNode(obj: TreeModelNodeType | undefined): obj is TreeModelRootNode;
 
 // @beta
-export function isUnaryPropertyFilterOperator(operator: PropertyFilterRuleOperator): boolean;
+export function isUnaryPropertyFilterBuilderOperator(operator: PropertyFilterBuilderRuleOperator): boolean;
+
+// @beta
+export function isUnaryPropertyFilterOperator(operator: `${PropertyFilterRuleOperator}`): boolean;
 
 // @public
 export interface ItemColorOverrides {
@@ -2059,8 +2063,8 @@ export class PropertyFilterBuilderActions {
     removeAllItems(): void;
     removeItem(path: string[]): void;
     setRuleErrorMessages(ruleIdsAndErrorMessages: Map<string, string>): void;
-    setRuleGroupOperator(path: string[], operator: PropertyFilterRuleGroupOperator): void;
-    setRuleOperator(path: string[], operator: PropertyFilterRuleOperator): void;
+    setRuleGroupOperator(path: string[], operator: `${PropertyFilterRuleGroupOperator}`): void;
+    setRuleOperator(path: string[], operator: PropertyFilterBuilderRuleOperator): void;
     setRuleProperty(path: string[], property?: PropertyDescription): void;
     setRuleValue(path: string[], value: PropertyValue): void;
 }
@@ -2072,8 +2076,8 @@ export const PropertyFilterBuilderLogicalOperator: (props: PropertyFilterBuilder
 export interface PropertyFilterBuilderLogicalOperatorProps {
     className?: string;
     isDisabled?: boolean;
-    onOperatorChange: (operator: PropertyFilterRuleGroupOperator) => void;
-    operator: PropertyFilterRuleGroupOperator;
+    onOperatorChange: (operator: `${PropertyFilterRuleGroupOperator}`) => void;
+    operator: `${PropertyFilterRuleGroupOperator}`;
 }
 
 // @beta
@@ -2104,7 +2108,7 @@ export interface PropertyFilterBuilderRule {
     errorMessage?: string;
     groupId: string;
     id: string;
-    operator?: PropertyFilterRuleOperator;
+    operator?: PropertyFilterBuilderRuleOperator;
     property?: PropertyDescription;
     value?: PropertyValue;
 }
@@ -2114,24 +2118,42 @@ export interface PropertyFilterBuilderRuleGroup {
     groupId?: string;
     id: string;
     items: PropertyFilterBuilderRuleGroupItem[];
-    operator: PropertyFilterRuleGroupOperator;
+    operator: `${PropertyFilterRuleGroupOperator}`;
 }
 
 // @beta
 export type PropertyFilterBuilderRuleGroupItem = PropertyFilterBuilderRuleGroup | PropertyFilterBuilderRule;
 
-// @internal
-export function PropertyFilterBuilderRuleOperator(props: PropertyFilterBuilderRuleOperatorProps): React_3.JSX.Element;
+// @beta
+export type PropertyFilterBuilderRuleOperator = `${PropertyFilterRuleOperator}` | "between" | "not-between";
 
 // @beta
 export interface PropertyFilterBuilderRuleOperatorProps {
-    onChange: (operator: PropertyFilterRuleOperator) => void;
-    operator?: PropertyFilterRuleOperator;
+    onChange: (operator: PropertyFilterBuilderRuleOperator) => void;
+    operator?: PropertyFilterBuilderRuleOperator;
     property: PropertyDescription;
 }
 
+// @internal
+export function PropertyFilterBuilderRuleOperatorRenderer(props: PropertyFilterBuilderRuleOperatorProps): React_3.JSX.Element;
+
 // @beta
-export function PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueProps): React_3.JSX.Element;
+export interface PropertyFilterBuilderRuleRangeValue {
+    // (undocumented)
+    from: PrimitiveValue;
+    // (undocumented)
+    to: PrimitiveValue;
+}
+
+// @beta (undocumented)
+export namespace PropertyFilterBuilderRuleRangeValue {
+    export function isRangeValid({ from, to, }: PropertyFilterBuilderRuleRangeValue): boolean;
+    export function parse(val?: PropertyValue): PropertyFilterBuilderRuleRangeValue;
+    export function serialize(val: PropertyFilterBuilderRuleRangeValue): PrimitiveValue;
+}
+
+// @beta
+export function PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueRendererProps): React_3.JSX.Element;
 
 // @beta
 export interface PropertyFilterBuilderRuleValueProps {
@@ -2142,7 +2164,7 @@ export interface PropertyFilterBuilderRuleValueProps {
 
 // @beta
 export interface PropertyFilterBuilderRuleValueRendererProps extends PropertyFilterBuilderRuleValueProps {
-    operator: PropertyFilterRuleOperator;
+    operator: PropertyFilterBuilderRuleOperator;
 }
 
 // @beta
@@ -2162,49 +2184,49 @@ export type PropertyFilterChangesListener = () => void;
 
 // @beta
 export interface PropertyFilterRule {
-    operator: PropertyFilterRuleOperator;
+    operator: `${PropertyFilterRuleOperator}`;
     property: PropertyDescription;
     value?: PropertyValue;
 }
 
 // @beta
 export interface PropertyFilterRuleGroup {
-    operator: PropertyFilterRuleGroupOperator;
+    operator: `${PropertyFilterRuleGroupOperator}`;
     rules: Array<PropertyFilter>;
 }
 
 // @beta
 export enum PropertyFilterRuleGroupOperator {
     // (undocumented)
-    And = 0,
+    And = "and",
     // (undocumented)
-    Or = 1
+    Or = "or"
 }
 
 // @beta
 export enum PropertyFilterRuleOperator {
     // (undocumented)
-    Greater = 4,
+    Greater = "greater",
     // (undocumented)
-    GreaterOrEqual = 5,
+    GreaterOrEqual = "greater-or-equal",
     // (undocumented)
-    IsEqual = 2,
+    IsEqual = "is-equal",
     // (undocumented)
-    IsFalse = 1,
+    IsFalse = "is-false",
     // (undocumented)
-    IsNotEqual = 3,
+    IsNotEqual = "is-not-equal",
     // (undocumented)
-    IsNotNull = 10,
+    IsNotNull = "is-not-null",
     // (undocumented)
-    IsNull = 9,
+    IsNull = "is-null",
     // (undocumented)
-    IsTrue = 0,
+    IsTrue = "is-true",
     // (undocumented)
-    Less = 6,
+    Less = "less",
     // (undocumented)
-    LessOrEqual = 7,
+    LessOrEqual = "less-or-equal",
     // (undocumented)
-    Like = 8
+    Like = "like"
 }
 
 // @internal (undocumented)

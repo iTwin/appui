@@ -30,12 +30,12 @@ export class MessageUiItemsProvider implements UiItemsProvider {
     _stageId: string,
     stageUsage: string,
     usage: ToolbarUsage,
-    orientatipn: ToolbarOrientation
+    orientation: ToolbarOrientation
   ): ToolbarItem[] {
     if (
-      stageUsage === StageUsage.General &&
+      stageUsage === StageUsage.General.valueOf() &&
       usage === ToolbarUsage.ContentManipulation &&
-      orientatipn === ToolbarOrientation.Vertical
+      orientation === ToolbarOrientation.Vertical
     ) {
       return [
         ToolbarItemUtilities.createGroupItem(
@@ -102,7 +102,7 @@ export class MessageUiItemsProvider implements UiItemsProvider {
                   new NotifyMessageDetails(
                     OutputMessagePriority.Info,
                     "Sticky message",
-                    undefined,
+                    "Additional message details",
                     OutputMessageType.Sticky
                   )
                 );

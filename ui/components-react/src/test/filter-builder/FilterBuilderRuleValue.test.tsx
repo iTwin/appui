@@ -11,6 +11,7 @@ import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, screen, waitFor } from "@testing-library/react";
 import { PropertyFilterBuilderRuleValue } from "../../components-react/filter-builder/FilterBuilderRuleValue";
 import TestUtils, { userEvent } from "../TestUtils";
+import { PropertyFilterBuilderRuleRangeValue } from "../../components-react";
 
 describe("PropertyFilterBuilderRuleValue", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -41,6 +42,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
         }}
         property={defaultProperty}
         onChange={() => {}}
+        operator={"is-equal"}
       />
     );
     await waitFor(() => getByDisplayValue("Test String"));
@@ -51,10 +53,13 @@ describe("PropertyFilterBuilderRuleValue", () => {
       <PropertyFilterBuilderRuleValue
         property={defaultProperty}
         onChange={() => {}}
+        operator={"is-equal"}
       />
     );
 
-    const input = container.querySelector<HTMLInputElement>(".iui-input");
+    const input = container.querySelector<HTMLInputElement>(
+      ".components-editor-container input"
+    );
     expect(input).to.not.be.null;
 
     expect(input?.value).to.be.empty;
@@ -66,6 +71,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
       <PropertyFilterBuilderRuleValue
         property={defaultProperty}
         onChange={spy}
+        operator={"is-equal"}
       />
     );
 
@@ -79,5 +85,93 @@ describe("PropertyFilterBuilderRuleValue", () => {
         displayValue: "test text",
       })
     );
+  });
+
+  describe("range value", () => {
+    const prop: PropertyDescription = { ...defaultProperty, typename: "int" };
+    const value: PropertyFilterBuilderRuleRangeValue = {
+      from: {
+        valueFormat: PropertyValueFormat.Primitive,
+        value: 123,
+      },
+      to: {
+        valueFormat: PropertyValueFormat.Primitive,
+        value: 456,
+      },
+    };
+
+    it("renders", async () => {
+      const serializedValue =
+        PropertyFilterBuilderRuleRangeValue.serialize(value);
+      const { queryByDisplayValue } = render(
+        <PropertyFilterBuilderRuleValue
+          property={prop}
+          onChange={() => {}}
+          operator="between"
+          value={serializedValue}
+        />
+      );
+
+      await waitFor(() => {
+        expect(queryByDisplayValue("123")).to.not.be.null;
+        expect(queryByDisplayValue("456")).to.not.be.null;
+      });
+    });
+
+    it("calls 'onChange' when 'from' value changes", async () => {
+      const serializedValue =
+        PropertyFilterBuilderRuleRangeValue.serialize(value);
+      const user = userEvent.setup();
+      const spy = sinon.spy();
+      const { getByDisplayValue } = render(
+        <PropertyFilterBuilderRuleValue
+          property={prop}
+          onChange={spy}
+          operator="between"
+          value={serializedValue}
+        />
+      );
+
+      const input = await waitFor(() => getByDisplayValue("123"));
+      await user.type(input, "456");
+      await user.keyboard("{Enter}");
+
+      const expected = PropertyFilterBuilderRuleRangeValue.serialize({
+        ...value,
+        from: { ...value.from, value: 123456, displayValue: "123456" },
+      } as PropertyFilterBuilderRuleRangeValue);
+
+      await waitFor(() => {
+        expect(spy).to.be.calledWithExactly(expected);
+      });
+    });
+
+    it("calls 'onChange' when 'to' value changes", async () => {
+      const serializedValue =
+        PropertyFilterBuilderRuleRangeValue.serialize(value);
+      const user = userEvent.setup();
+      const spy = sinon.spy();
+      const { getByDisplayValue } = render(
+        <PropertyFilterBuilderRuleValue
+          property={prop}
+          onChange={spy}
+          operator="between"
+          value={serializedValue}
+        />
+      );
+
+      const input = await waitFor(() => getByDisplayValue("456"));
+      await user.type(input, "789");
+      await user.keyboard("{Enter}");
+
+      const expected = PropertyFilterBuilderRuleRangeValue.serialize({
+        ...value,
+        to: { ...value.to, value: 456789, displayValue: "456789" },
+      } as PropertyFilterBuilderRuleRangeValue);
+
+      await waitFor(() => {
+        expect(spy).to.be.calledWithExactly(expected);
+      });
+    });
   });
 });

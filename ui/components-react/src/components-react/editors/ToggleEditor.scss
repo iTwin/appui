@@ -5,19 +5,13 @@
 .components-property-list--horizontal {
   .components-toggle-editor {
     margin-left: var(--iui-size-2xs); // Clear the resizer in the PropertyGrid
-
-    &.iui-toggle-switch {
-      padding: 1px 0;
-    }
+    padding: 1px 0;
   }
 }
 
 .components-property-list--vertical {
   .components-toggle-editor {
     margin-left: var(--iui-size-3xs);
-
-    &.iui-toggle-switch {
-      padding: 1px 0;
-    }
+    padding: 1px 0;
   }
 }

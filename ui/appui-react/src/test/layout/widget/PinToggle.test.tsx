@@ -13,23 +13,27 @@ import { PinToggle } from "../../../appui-react/layout/widget/PinToggle";
 import { TestNineZoneProvider } from "../Providers";
 
 describe("PinToggle", () => {
-  it("should render", () => {
-    const { container } = render(
-      <TestNineZoneProvider>
-        <PanelSideContext.Provider value="left">
+  it("should render in pinned panel", () => {
+    const component = render(
+      <TestNineZoneProvider
+        labels={{
+          unpinPanelTitle: "Unpin panel",
+        }}
+      >
+        <PanelSideContext.Provider value="bottom">
           <PinToggle />
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    component.getByTitle("Unpin panel");
   });
 
-  it("should render with `pin panel` title", () => {
+  it("should render in unpinned panel", () => {
     let state = createNineZoneState();
     state = updatePanelState(state, "left", (draft) => {
       draft.pinned = false;
     });
-    const { container } = render(
+    const { getByTitle } = render(
       <TestNineZoneProvider
         defaultState={state}
         labels={{
@@ -41,32 +45,27 @@ describe("PinToggle", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
-  });
-
-  it("should render `icon-chevron-down` for bottom pinned panel", () => {
-    const { container } = render(
-      <TestNineZoneProvider>
-        <PanelSideContext.Provider value="bottom">
-          <PinToggle />
-        </PanelSideContext.Provider>
-      </TestNineZoneProvider>
-    );
-    const toggle = container.getElementsByClassName("nz-widget-pinToggle")[0];
-    Array.from(toggle.classList.values()).should.contain("nz-is-pinned");
+    getByTitle("Pin panel");
   });
 
   it("should dispatch PANEL_TOGGLE_PINNED", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     const state = createNineZoneState();
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
+    const component = render(
+      <TestNineZoneProvider
+        defaultState={state}
+        labels={{
+          unpinPanelTitle: "Unpin panel",
+        }}
+        dispatch={dispatch}
+      >
         <PanelSideContext.Provider value="left">
           <PinToggle />
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    const button = container.getElementsByClassName("nz-widget-pinToggle")[0];
+
+    const button = component.getByTitle("Unpin panel");
     fireEvent.click(button);
 
     sinon.assert.calledOnceWithExactly(dispatch, {

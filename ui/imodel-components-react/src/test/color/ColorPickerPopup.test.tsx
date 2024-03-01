@@ -7,9 +7,10 @@ import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
 import { Key } from "ts-key-enum";
-import { ColorByName, ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
 import { RelativePosition } from "@itwin/appui-abstract";
+import { ColorByName, ColorDef } from "@itwin/core-common";
+import { ColorValue } from "@itwin/itwinui-react";
 import { TestUtils } from "../TestUtils";
 import { ColorPickerPopup } from "../../imodel-components-react/color/ColorPickerPopup";
 
@@ -25,145 +26,138 @@ describe("<ColorPickerPopup/>", () => {
   });
 
   it("should render", () => {
-    const renderedComponent = render(
-      <ColorPickerPopup initialColor={colorDef} />
-    );
-    expect(renderedComponent).not.to.be.undefined;
-    expect(renderedComponent.container.querySelector(".components-caret")).to.be
-      .null;
+    const component = render(<ColorPickerPopup initialColor={colorDef} />);
+    expect(component).not.to.be.undefined;
+    expect(component.container.querySelector(".components-caret")).to.be.null;
   });
 
   it("should render with caret", () => {
-    const renderedComponent = render(
+    const component = render(
       <ColorPickerPopup initialColor={colorDef} showCaret />
     );
-    expect(renderedComponent).not.to.be.undefined;
-    expect(renderedComponent.container.querySelector(".components-caret")).not
-      .to.be.null;
+    expect(component).not.to.be.undefined;
+    expect(component.container.querySelector(".components-caret")).not.to.be
+      .null;
   });
 
   it("button press should open popup and allow color selection", async () => {
-    const spyOnColorPick = sinon.spy();
-
-    function handleColorPick(color: ColorDef): void {
-      expect(color.tbgr).to.be.equal(ColorByName.red);
-      spyOnColorPick();
-    }
-
-    const renderedComponent = render(
-      <ColorPickerPopup
-        initialColor={colorDef}
-        onColorChange={handleColorPick}
-        showCaret
-      />
+    const spy = sinon.spy();
+    const component = render(
+      <ColorPickerPopup initialColor={colorDef} onColorChange={spy} showCaret />
     );
-    expect(renderedComponent.getByTestId("components-colorpicker-popup-button"))
-      .to.exist;
-    const pickerButton = renderedComponent.getByTestId(
+    component.getByTestId("components-colorpicker-popup-button");
+    const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
     expect(pickerButton.tagName).to.be.equal("BUTTON");
-    expect(renderedComponent.getByTestId("caret-down")).not.to.be.null;
+    component.getByTestId("caret-down");
     fireEvent.click(pickerButton);
-    expect(renderedComponent.getByTestId("caret-up")).not.to.be.null;
+    component.getByTestId("caret-up");
 
-    const panel = renderedComponent.getByTestId("core-popup");
-    const colorSwatch = panel.querySelector(".iui-color-swatch") as HTMLElement;
-    expect(colorSwatch).not.to.be.null;
+    const colorSwatch = component.getByRole("button", {
+      name: ColorValue.fromTbgr(ColorByName.red)
+        .toHslString(true)
+        .toUpperCase(),
+    });
     fireEvent.click(colorSwatch);
-    expect(spyOnColorPick).to.be.calledOnce;
+
+    sinon.assert.calledOnceWithExactly(
+      spy,
+      sinon.match({ tbgr: ColorByName.red })
+    );
   });
 
   it("button press should open popup and allow color selection of specified preset", async () => {
-    const spyOnColorPick = sinon.spy();
+    const spy = sinon.spy();
 
-    function handleColorPick(color: ColorDef): void {
-      expect(color.tbgr).to.be.equal(ColorByName.green);
-      spyOnColorPick();
-    }
-
-    const renderedComponent = render(
+    const component = render(
       <ColorPickerPopup
         initialColor={colorDef}
         popupPosition={RelativePosition.BottomRight}
         colorDefs={[ColorDef.green, ColorDef.black, ColorDef.red]}
-        onColorChange={handleColorPick}
+        onColorChange={spy}
       />
     );
-    expect(renderedComponent.getByTestId("components-colorpicker-popup-button"))
-      .to.exist;
-    const pickerButton = renderedComponent.getByTestId(
+    expect(component.getByTestId("components-colorpicker-popup-button")).to
+      .exist;
+    const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
     expect(pickerButton.tagName).to.be.equal("BUTTON");
     fireEvent.click(pickerButton);
 
-    const panel = renderedComponent.getByTestId("core-popup");
-    const colorSwatch = panel.querySelector(".iui-color-swatch") as HTMLElement;
-    expect(colorSwatch).not.to.be.null;
+    const colorSwatch = component.getByRole("button", {
+      name: ColorValue.fromTbgr(ColorByName.green)
+        .toHslString(true)
+        .toUpperCase(),
+    });
     fireEvent.click(colorSwatch);
-    expect(spyOnColorPick).to.be.calledOnce;
+
+    sinon.assert.calledOnceWithExactly(
+      spy,
+      sinon.match({ tbgr: ColorByName.green })
+    );
   });
 
   it("readonly - button press should not open popup", async () => {
-    const renderedComponent = render(
+    const component = render(
       <ColorPickerPopup
         initialColor={colorDef}
         colorDefs={[ColorDef.blue, ColorDef.black, ColorDef.red]}
         readonly={true}
       />
     );
-    const pickerButton = renderedComponent.getByTestId(
+    const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
     expect(pickerButton.tagName).to.be.equal("BUTTON");
     fireEvent.click(pickerButton);
 
-    const corePopupDiv = renderedComponent.queryByTestId("core-popup");
+    const corePopupDiv = component.queryByTestId("core-popup");
     expect(corePopupDiv).not.to.be.null;
     if (corePopupDiv)
       expect(corePopupDiv.classList.contains("visible")).to.be.false;
   });
 
   it("button press should open popup and allow trigger color selection when popup closed", async () => {
-    const spyOnColorPopupClosed = sinon.spy();
+    const spy = sinon.spy();
 
-    function handleColorPopupClosed(color: ColorDef): void {
-      expect(color.tbgr).to.be.equal(ColorDef.green.tbgr);
-      spyOnColorPopupClosed();
-    }
-
-    const renderedComponent = render(
+    const component = render(
       <ColorPickerPopup
         initialColor={colorDef}
         popupPosition={RelativePosition.BottomRight}
         colorDefs={[ColorDef.green, ColorDef.black, ColorDef.red]}
-        onClose={handleColorPopupClosed}
+        onClose={spy}
       />
     );
-    expect(renderedComponent.getByTestId("components-colorpicker-popup-button"))
-      .to.exist;
-    const pickerButton = renderedComponent.getByTestId(
+    expect(component.getByTestId("components-colorpicker-popup-button")).to
+      .exist;
+    const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
     expect(pickerButton.tagName).to.be.equal("BUTTON");
     fireEvent.click(pickerButton);
 
-    const panel = renderedComponent.getByTestId("core-popup");
-    const colorSwatch = panel.querySelector(".iui-color-swatch") as HTMLElement;
-    expect(colorSwatch).not.to.be.null;
+    const colorSwatch = component.getByRole("button", {
+      name: ColorValue.fromTbgr(ColorDef.green.tbgr)
+        .toHslString(true)
+        .toUpperCase(),
+    });
     fireEvent.click(colorSwatch);
 
     fireEvent.click(pickerButton); /* close popup */
-    expect(spyOnColorPopupClosed).to.be.calledOnce;
+    sinon.assert.calledOnceWithExactly(
+      spy,
+      sinon.match({ tbgr: ColorDef.green.tbgr })
+    );
   });
 
   it("captureClicks property should stop mouse click propagation", async () => {
-    const spyOnClick = sinon.spy();
+    const spy = sinon.spy();
 
-    const renderedComponent = render(
+    const component = render(
       /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
-      <div onClick={spyOnClick}>
+      <div onClick={spy}>
         <ColorPickerPopup
           initialColor={colorDef}
           popupPosition={RelativePosition.BottomRight}
@@ -172,25 +166,27 @@ describe("<ColorPickerPopup/>", () => {
         />
       </div>
     );
-    const pickerButton = renderedComponent.getByTestId(
+    const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
     fireEvent.click(pickerButton);
-    expect(spyOnClick).not.to.be.called;
+    expect(spy).not.to.be.called;
 
-    const panel = renderedComponent.getByTestId("core-popup");
-    const colorSwatch = panel.querySelector(".iui-color-swatch") as HTMLElement;
-    expect(colorSwatch).not.to.be.null;
+    const colorSwatch = component.getByRole("button", {
+      name: ColorValue.fromTbgr(ColorDef.green.tbgr)
+        .toHslString(true)
+        .toUpperCase(),
+    });
     fireEvent.click(colorSwatch);
-    expect(spyOnClick).not.to.be.called;
+    expect(spy).not.to.be.called;
   });
 
   it("mouse click should propagate if captureClicks not set to true", async () => {
-    const spyOnClick = sinon.spy();
+    const spy = sinon.spy();
 
-    const renderedComponent = render(
+    const component = render(
       /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
-      <div onClick={spyOnClick}>
+      <div onClick={spy}>
         <ColorPickerPopup
           initialColor={colorDef}
           popupPosition={RelativePosition.BottomRight}
@@ -198,23 +194,23 @@ describe("<ColorPickerPopup/>", () => {
         />
       </div>
     );
-    const pickerButton = renderedComponent.getByTestId(
+    const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
     fireEvent.click(pickerButton);
-    expect(spyOnClick).to.be.called;
+    expect(spy).to.be.called;
 
-    const popupDiv = renderedComponent.getByTestId("core-popup");
-    const colorSwatch = popupDiv.querySelector(
-      ".iui-color-swatch"
-    ) as HTMLElement;
-    expect(colorSwatch).not.to.be.null;
+    const colorSwatch = component.getByRole("button", {
+      name: ColorValue.fromTbgr(ColorDef.green.tbgr)
+        .toHslString(true)
+        .toUpperCase(),
+    });
     fireEvent.click(colorSwatch);
-    expect(spyOnClick).to.be.calledTwice;
+    expect(spy).to.be.calledTwice;
   });
 
   it("ensure update prop is handled", async () => {
-    const renderedComponent = render(
+    const component = render(
       <div>
         <ColorPickerPopup
           initialColor={colorDef}
@@ -224,13 +220,13 @@ describe("<ColorPickerPopup/>", () => {
       </div>
     );
 
-    let colorSwatch = renderedComponent.container.querySelector(
+    let colorSwatch = component.container.querySelector(
       "div.components-colorpicker-button-color-swatch"
     ) as HTMLElement;
     expect(colorSwatch.style.backgroundColor).to.eql("rgb(0, 0, 255)");
     // ensure update prop is handled
     const newColorDef = ColorDef.create(ColorByName.green); // green = 0x008000,
-    renderedComponent.rerender(
+    component.rerender(
       <div>
         <ColorPickerPopup
           initialColor={newColorDef}
@@ -239,7 +235,7 @@ describe("<ColorPickerPopup/>", () => {
         />
       </div>
     );
-    colorSwatch = renderedComponent.container.querySelector(
+    colorSwatch = component.container.querySelector(
       "div.components-colorpicker-button-color-swatch"
     ) as HTMLElement;
     expect(colorSwatch.style.backgroundColor).to.eql("rgb(0, 128, 0)");
@@ -248,7 +244,7 @@ describe("<ColorPickerPopup/>", () => {
   it("ensure closing X is shown", async () => {
     const spyOnClick = sinon.spy();
 
-    const renderedComponent = render(
+    const component = render(
       <div>
         <ColorPickerPopup
           initialColor={colorDef}
@@ -259,27 +255,26 @@ describe("<ColorPickerPopup/>", () => {
         />
       </div>
     );
-    const pickerButton = renderedComponent.getByTestId(
+    const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
     fireEvent.click(pickerButton);
 
-    const popupDiv = renderedComponent.getByTestId("core-popup");
+    const popupDiv = component.getByTestId("core-popup");
     expect(popupDiv).not.to.be.undefined;
 
-    const closeButton = renderedComponent.getByTestId("core-dialog-close");
+    const closeButton = component.getByTestId("core-dialog-close");
     fireEvent.click(closeButton);
     await TestUtils.flushAsyncOperations();
 
-    expect(
-      renderedComponent.container.querySelector("button.core-dialog-close")
-    ).to.be.null;
+    expect(component.container.querySelector("button.core-dialog-close")).to.be
+      .null;
   });
 
   it("ensure closing X is NOT shown", async () => {
     const spyOnClick = sinon.spy();
 
-    const renderedComponent = render(
+    const component = render(
       <div>
         <ColorPickerPopup
           initialColor={colorDef}
@@ -291,22 +286,20 @@ describe("<ColorPickerPopup/>", () => {
         />
       </div>
     );
-    const pickerButton = renderedComponent.getByTestId(
+    const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
     fireEvent.click(pickerButton);
 
-    const popupDiv = renderedComponent.getByTestId("core-popup");
+    const popupDiv = component.getByTestId("core-popup");
     expect(popupDiv).not.to.be.undefined;
 
     expect(popupDiv.querySelector("button.core-dialog-close")).to.be.null;
   });
 
   it("ensure rgb values are shown", async () => {
-    const spyOnClick = sinon.spy();
-    const spyOnChange = sinon.spy();
-
-    const renderedComponent = render(
+    const spy = sinon.spy();
+    const component = render(
       <div>
         <ColorPickerPopup
           initialColor={colorDef}
@@ -314,31 +307,27 @@ describe("<ColorPickerPopup/>", () => {
           colorInputType="rgb"
           colorDefs={[ColorDef.green, ColorDef.black, ColorDef.red]}
           captureClicks={true}
-          onClick={spyOnClick}
-          onColorChange={spyOnChange}
+          onColorChange={spy}
         />
       </div>
     );
-    const pickerButton = renderedComponent.getByTestId(
+    const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
     fireEvent.click(pickerButton);
 
-    const popupDiv = renderedComponent.getByTestId("core-popup");
-    const inputs = popupDiv.querySelectorAll(
-      '.iui-input[data-iui-size="small"]'
-    );
-    fireEvent.change(inputs[0], { target: { value: "100" } });
-    expect((inputs[0] as HTMLInputElement).value).to.eq("100");
-    fireEvent.keyDown(inputs[0], { key: Key.Enter });
-    spyOnChange.calledOnce.should.be.true;
+    const redInput = component.getByRole("spinbutton", {
+      name: "Red",
+    }) as HTMLInputElement;
+    fireEvent.change(redInput, { target: { value: "100" } });
+    expect(redInput.value).to.eq("100");
+    fireEvent.keyDown(redInput, { key: Key.Enter });
+    sinon.assert.calledOnce(spy);
   });
 
   it("ensure hsl values are shown", async () => {
-    const spyOnClick = sinon.spy();
-    const spyOnChange = sinon.spy();
-
-    const renderedComponent = render(
+    const spy = sinon.spy();
+    const component = render(
       <div>
         <ColorPickerPopup
           initialColor={colorDef}
@@ -346,30 +335,26 @@ describe("<ColorPickerPopup/>", () => {
           colorInputType="hsl"
           colorDefs={[ColorDef.green, ColorDef.black, ColorDef.red]}
           captureClicks={true}
-          onClick={spyOnClick}
-          onColorChange={spyOnChange}
+          onColorChange={spy}
         />
       </div>
     );
-    const pickerButton = renderedComponent.getByTestId(
+    const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
     fireEvent.click(pickerButton);
 
-    // const popupDiv = renderedComponent.container.querySelector(".iui-color-selection-wrapper") as HTMLElement;
-    // expect(popupDiv).not.to.be.null;
-    const popupDiv = renderedComponent.getByTestId("core-popup");
-    const inputs = popupDiv.querySelectorAll(
-      '.iui-input[data-iui-size="small"]'
-    );
-    fireEvent.change(inputs[0], { target: { value: "100" } });
-    expect((inputs[0] as HTMLInputElement).value).to.eq("100");
-    fireEvent.keyDown(inputs[0], { key: Key.Enter });
-    spyOnChange.calledOnce.should.be.true;
+    const hueInput = component.getByRole("spinbutton", {
+      name: "Hue",
+    }) as HTMLInputElement;
+    fireEvent.change(hueInput, { target: { value: "100" } });
+    expect(hueInput.value).to.eq("100");
+    fireEvent.keyDown(hueInput, { key: Key.Enter });
+    sinon.assert.calledOnce(spy);
   });
 
   it("should not show swatches", async () => {
-    const renderedComponent = render(
+    const component = render(
       <div>
         <ColorPickerPopup
           initialColor={colorDef}
@@ -379,12 +364,14 @@ describe("<ColorPickerPopup/>", () => {
         />
       </div>
     );
-    const pickerButton = renderedComponent.getByTestId(
+    const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
     fireEvent.click(pickerButton);
 
-    const popupDiv = renderedComponent.getByTestId("core-popup");
-    expect(popupDiv.querySelectorAll(".iui-color-swatch").length).to.be.eql(0);
+    const popupDiv = component.getByTestId("core-popup");
+    expect(
+      popupDiv.querySelectorAll(".components-colorpicker-button-color-swatch")
+    ).to.have.length(0);
   });
 });

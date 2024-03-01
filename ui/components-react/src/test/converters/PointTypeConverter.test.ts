@@ -273,6 +273,7 @@ describe("Point3dTypeConverter", () => {
 class TestSyncComponentConverter extends TypeConverter {
   public static NAME = "test-sync-component-converter";
   public override convertToString(value?: Primitives.Value) {
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     return `_${(value ?? "").toString()}_`;
   }
   public sortCompare() {
@@ -283,6 +284,7 @@ class TestSyncComponentConverter extends TypeConverter {
 class TestAsyncComponentConverter extends TypeConverter {
   public static NAME = "test-async-component-converter";
   public override async convertToString(value?: Primitives.Value) {
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     return `_${(value ?? "").toString()}_`;
   }
   public sortCompare(): number {
@@ -295,8 +297,9 @@ class TestPartialAsyncComponentConverter extends TypeConverter {
   public override convertToString(
     value?: Primitives.Value
   ): string | Promise<string> {
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     const result = `_${(value ?? "").toString()}_`;
-    return value && value.toString() === "100"
+    return value && value.toString() === "100" // eslint-disable-line @typescript-eslint/no-base-to-string
       ? Promise.resolve(result)
       : result;
   }

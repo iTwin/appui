@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 export * from "./AppUiTestProviders";
+export * from "./createBlankConnection";
 
 export * from "./ui/providers/AbstractUiItemsProvider";
 export * from "./ui/providers/CustomStageUiItemsProvider";

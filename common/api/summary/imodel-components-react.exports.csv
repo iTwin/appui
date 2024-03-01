@@ -63,9 +63,6 @@ internal;NavCubeFace
 internal;NavCubeFaceProps 
 public;PlaybackSettings
 public;PlaybackSettingsChangeHandler = (settingsChange: PlaybackSettings) => void
-internal;PlayButton 
-internal;PlayerButton 
-internal;PlayerButtonProps 
 alpha;QuantityFormatPanel(props: QuantityFormatPanelProps): React_2.JSX.Element
 alpha;QuantityFormatPanelProps 
 beta;QuantityInput({ initialValue, quantityType, readonly, className, style, onQuantityChange, ref, }: QuantityProps): React_2.JSX.Element
@@ -83,7 +80,7 @@ alpha;SolarTimeline
 public;StandardRotationChangeEvent 
 public;StandardRotationChangeEventArgs
 beta;StepFunctionProp = number | ((direction: string) => number | undefined)
-public;TimelineComponent 
+public;TimelineComponent(props: TimelineComponentProps): React_2.JSX.Element
 public;TimelineComponentProps
 public;TimelineDataProvider
 public;TimelineDateDisplay

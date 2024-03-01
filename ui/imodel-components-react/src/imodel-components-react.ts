@@ -41,7 +41,6 @@ export * from "./imodel-components-react/quantityformat/QuantityFormatPanel";
 export * from "./imodel-components-react/timeline/interfaces";
 export * from "./imodel-components-react/timeline/BaseTimelineDataProvider";
 export * from "./imodel-components-react/timeline/InlineEdit";
-export * from "./imodel-components-react/timeline/PlayerButton";
 export * from "./imodel-components-react/timeline/Scrubber";
 export * from "./imodel-components-react/timeline/TimelineComponent";
 export * from "./imodel-components-react/timeline/SolarTimeline";

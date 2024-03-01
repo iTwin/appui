@@ -226,7 +226,7 @@ export function DatePicker(props: DatePickerProps) {
 
   const handleCalendarKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLUListElement>) => {
-      if (event.key === Key.ArrowDown) {
+      if (event.key === Key.ArrowDown.valueOf()) {
         const focusedDayIndex = days.findIndex((day) =>
           isSameDay(day, focusedDay)
         );
@@ -234,7 +234,7 @@ export function DatePicker(props: DatePickerProps) {
         else setFocusedDay(days[focusedDayIndex + 7]);
         event.preventDefault();
       }
-      if (event.key === Key.ArrowUp) {
+      if (event.key === Key.ArrowUp.valueOf()) {
         const focusedDayIndex = days.findIndex((day) =>
           isSameDay(day, focusedDay)
         );
@@ -243,7 +243,7 @@ export function DatePicker(props: DatePickerProps) {
         else setFocusedDay(days[focusedDayIndex - 7]);
         event.preventDefault();
       }
-      if (event.key === Key.ArrowLeft) {
+      if (event.key === Key.ArrowLeft.valueOf()) {
         const focusedDayIndex = days.findIndex((day) =>
           isSameDay(day, focusedDay)
         );
@@ -251,7 +251,7 @@ export function DatePicker(props: DatePickerProps) {
         if (focusedDayIndex - 1 >= 0) setFocusedDay(days[focusedDayIndex - 1]);
         event.preventDefault();
       }
-      if (event.key === Key.ArrowRight) {
+      if (event.key === Key.ArrowRight.valueOf()) {
         const focusedDayIndex = days.findIndex((day) =>
           isSameDay(day, focusedDay)
         );
@@ -259,7 +259,7 @@ export function DatePicker(props: DatePickerProps) {
         if (focusedDayIndex + 1 <= 41) setFocusedDay(days[focusedDayIndex + 1]);
         event.preventDefault();
       }
-      if (event.key === Key.Enter || event.key === " ") {
+      if (event.key === Key.Enter.valueOf() || event.key === " ") {
         handleOnDayChange(focusedDay)(); // NB: immediately call returned handler function
         event.preventDefault();
       }

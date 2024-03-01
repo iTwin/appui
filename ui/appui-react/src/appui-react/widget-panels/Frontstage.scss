@@ -16,23 +16,4 @@
       pointer-events: none;
     }
   }
-
-  // When the tool setting is docked, we need to account for the space it takes up.
-  .preview-contentAlwaysMaxSize-toolSettingsDocked {
-    .nz-widgetPanels-panel.nz-top,
-    .nz-widgetPanels-panel.nz-left,
-    .nz-widgetPanels-panel.nz-right,
-    .nz-widgetPanels-centerContent {
-      margin-top: calc(2.5em + 6.8px);
-    }
-  }
-  // When top panel is active, it acts as the "top" bound, so we don't need to
-  // account for the DockedToolSettings space.
-  .preview-contentAlwaysMaxSize-topPanelActive {
-    .nz-widgetPanels-panel.nz-left,
-    .nz-widgetPanels-panel.nz-right,
-    .nz-widgetPanels-centerContent {
-      margin-top: 0;
-    }
-  }
 }

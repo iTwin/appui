@@ -247,9 +247,8 @@ export class ContentGroup {
             content.classId
           );
           if (classId !== undefined) content.classId = classId;
-          // eslint-disable-next-line deprecation/deprecation
           else
-            throw new UiError(
+            throw new UiError( // eslint-disable-line deprecation/deprecation
               UiFramework.loggerCategory(this),
               `toJSON: ContentControl at index ${index} is NOT registered with a string id`
             );

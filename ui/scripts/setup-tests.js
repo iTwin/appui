@@ -19,7 +19,6 @@ const commonjsGlobal =
 if (commonjsGlobal.MessageChannel) delete commonjsGlobal.MessageChannel;
 
 const path = require("path");
-const os = require("os");
 const upath = require("upath");
 
 // Don't ignore svgs or imports will return 'undefined'
@@ -44,6 +43,12 @@ require("jsdom-global")();
 window.Date = Date;
 document.elementFromPoint = () => null;
 window.HTMLElement.prototype.scrollIntoView = () => {};
+window.HTMLElement.prototype.scrollTo = () => {};
+
+// Remove wall of text because of jsdom missing css features: https://github.com/jsdom/jsdom/issues/2005#issuecomment-1381649538
+const HTMLStyleElementImpl =
+  require("jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl").implementation;
+HTMLStyleElementImpl.prototype._updateAStyleBlock = () => {};
 
 // Fill in more missing functions left out by jsdom or mocha
 performance = window.performance;
@@ -101,6 +106,10 @@ try {
   chai.use(require("chai-string"));
 } catch (e) {}
 
+const sinon = require("sinon");
+const rtl = require("@testing-library/react");
+const rhtl = require("@testing-library/react-hooks");
+
 before(function () {
   if (chaiJestSnapshot) {
     chaiJestSnapshot.resetSnapshotRegistry();
@@ -134,23 +143,20 @@ beforeEach(function () {
     chaiJestSnapshot.setFilename(snapPath);
     chaiJestSnapshot.setTestName(currentTest.fullTitle());
   }
+
+  sinon
+    .stub(console, "error")
+    .callThrough()
+    .withArgs(
+      "iTwinUI components must be used within a tree wrapped in a ThemeProvider."
+    )
+    .callsFake(() => {
+      // Ignore this error.
+    });
 });
 
-let rhtl;
-try {
-  rhtl = require("@testing-library/react-hooks");
-} catch (e) {}
-
 afterEach(async () => {
-  try {
-    const rtl = require("@testing-library/react");
-    rtl.cleanup();
-  } catch (e) {}
-  if (rhtl) {
-    await rhtl.cleanup();
-  }
-  try {
-    const sinon = require("sinon");
-    sinon.restore();
-  } catch (e) {}
+  rtl.cleanup();
+  await rhtl.cleanup();
+  sinon.restore();
 });

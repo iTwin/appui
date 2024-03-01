@@ -23,7 +23,6 @@ describe("<DatePickerPopupButton />", () => {
   });
 
   beforeEach(() => {
-    sinon.restore();
     renderSpy = sinon.spy();
   });
 

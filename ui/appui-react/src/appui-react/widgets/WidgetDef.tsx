@@ -157,7 +157,7 @@ export class WidgetDef {
   public get stateChanged(): boolean {
     return this._stateChanged;
   }
-  public get applicationData(): any | undefined {
+  public get applicationData(): any {
     return this._applicationData;
   }
   public get isFloating(): boolean {

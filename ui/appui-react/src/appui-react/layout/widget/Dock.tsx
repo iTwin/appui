@@ -6,25 +6,33 @@
  * @module Widget
  */
 
-import "./Dock.scss";
 import * as React from "react";
+import { SvgDockTop } from "@itwin/itwinui-icons-react";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
+import { ActionButton } from "../../preview/widget-action-dropdown/Button";
+import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
+import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 /** @internal */
 export function Dock() {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const title = useLabel("dockToolSettingsTitle");
   return (
-    <button
-      className="nz-widget-dock"
+    <ActionButton
+      icon={<SvgDockTop />}
+      title={title}
       onClick={() => {
         dispatch({
           type: "TOOL_SETTINGS_DOCK",
         });
       }}
-      title={title}
-    >
-      <i />
-    </button>
+    />
   );
+}
+
+/** @internal */
+export function useDock() {
+  const isToolSettings = useIsToolSettingsTab();
+  const isMaximizedWidget = useIsMaximizedWidget();
+  return isToolSettings && !isMaximizedWidget;
 }

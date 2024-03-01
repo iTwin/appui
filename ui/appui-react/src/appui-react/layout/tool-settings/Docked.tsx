@@ -6,15 +6,18 @@
  * @module ToolSettings
  */
 
+import "./Docked.scss";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
-import { useRefs, useResizeObserver } from "@itwin/core-react";
+import {
+  getCssVariableAsNumber,
+  useRefs,
+  useResizeObserver,
+} from "@itwin/core-react";
 import classnames from "classnames";
 import * as React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { usePreviewFeatures } from "../../preview/PreviewFeatures";
 import { AnimateDockedToolSettingsContext } from "../base/NineZone";
-import "./Docked.scss";
 import { DockedToolSettingsHandle } from "./Handle";
 import { DockedToolSettingsOverflow } from "./Overflow";
 import { ToolSettingsOverflowPanel } from "./Panel";
@@ -61,7 +64,6 @@ export interface DockedToolSettingsProps extends CommonProps {
  */
 export function DockedToolSettings(props: DockedToolSettingsProps) {
   const [open, setOpen] = React.useState(false);
-  const { contentAlwaysMaxSize } = usePreviewFeatures();
   const animateToolSettings = React.useContext(
     AnimateDockedToolSettingsContext
   );
@@ -73,13 +75,19 @@ export function DockedToolSettings(props: DockedToolSettingsProps) {
     overflown,
     handleContainerResize,
     handleOverflowResize,
-    handleEntryResize,
+    getOnEntryResize,
+    handleGapResize,
   ] = useOverflow(props.children);
   const onResize = React.useCallback(() => {
+    let gapSize = 0;
+    if (ref.current) {
+      gapSize = getGapVariable(ref.current);
+      handleGapResize(gapSize);
+    }
     width.current !== undefined &&
       handleWidth.current !== undefined &&
-      handleContainerResize(width.current - handleWidth.current);
-  }, [handleContainerResize]);
+      handleContainerResize(width.current - handleWidth.current - gapSize);
+  }, [handleContainerResize, handleGapResize]);
   const handleHandleResize = React.useCallback(
     (w: number) => {
       handleWidth.current = w;
@@ -130,12 +138,7 @@ export function DockedToolSettings(props: DockedToolSettingsProps) {
   const PanelContainer = props.panelContainer
     ? props.panelContainer
     : DefaultPanelContainer;
-  const className = classnames(
-    "nz-toolSettings-docked",
-    props.className,
-    // istanbul ignore next (preview)
-    contentAlwaysMaxSize && "preview-contentAlwaysMaxSize"
-  );
+  const className = classnames("nz-toolSettings-docked", props.className);
   return (
     <div
       data-toolsettings-provider={props.itemId}
@@ -164,7 +167,7 @@ export function DockedToolSettings(props: DockedToolSettingsProps) {
               <DockedToolSettingsEntry
                 key={key}
                 entryKey={key}
-                getOnResize={handleEntryResize}
+                getOnResize={getOnEntryResize}
               >
                 {child}
               </DockedToolSettingsEntry>
@@ -244,33 +247,55 @@ export function getOverflown(
   width: number,
   docked: ReadonlyArray<readonly [string, number]>,
   overflowWidth: number,
-  activeIndex?: number
+  activeIndex?: number,
+  gapSize = 0
 ) {
   let settingsWidth = 0;
+
+  // Avoid adding gap to first item.
+  let firstItem = true;
+  const getGapSize = () => {
+    if (firstItem) {
+      firstItem = false;
+      return 0;
+    }
+    return gapSize;
+  };
+
+  // Make sure active item is always visible.
   if (activeIndex !== undefined && docked.length > activeIndex) {
     const activeWidth = docked[activeIndex];
-    settingsWidth += activeWidth[1];
+    settingsWidth += activeWidth[1] + getGapSize();
   }
+
   let i = 0;
+
   for (; i < docked.length; i++) {
+    // Skip active item.
     if (i === activeIndex) continue;
-    const w = docked[i][1];
-    const newSettingsWidth = settingsWidth + w;
+
+    const itemWidth = docked[i][1];
+    const newSettingsWidth = settingsWidth + itemWidth + getGapSize();
+
+    // Items overflow, add an overflow button.
     if (newSettingsWidth > width) {
-      settingsWidth += overflowWidth;
+      settingsWidth += overflowWidth + getGapSize();
       break;
     }
+
+    // Items fit, add an item.
     settingsWidth = newSettingsWidth;
   }
 
+  // Remove items until they fit.
   let j = i;
   // istanbul ignore else
   if (j < docked.length) {
     for (; j > 0; j--) {
       if (j === activeIndex) continue;
       if (settingsWidth <= width) break;
-      const w = docked[j][1];
-      settingsWidth -= w;
+      const itemWidth = docked[j][1];
+      settingsWidth -= itemWidth + gapSize;
     }
   }
 
@@ -282,22 +307,29 @@ export function getOverflown(
   return overflown;
 }
 
-/** Hook that returns a list of overflown children.
+/** Hook that returns a list of overflown children keys.
  * @internal
  */
 export function useOverflow(
   children: React.ReactNode,
   activeChildIndex?: number
 ): [
+  /** Keys of overflown children. */
   ReadonlyArray<string> | undefined,
-  (size: number) => void,
-  (size: number) => void,
-  (key: string) => (size: number) => void
+  /** Function to update container size. */
+  (containerSize: number) => void,
+  /** Function to update overflow button size. */
+  (overflowButtonSize: number) => void,
+  /** Returns a function to update an entry size for a given key. */
+  (key: string) => (entrySize: number) => void,
+  /** Function to update gap size. */
+  (gapSize: number) => void
 ] {
   const [overflown, setOverflown] = React.useState<ReadonlyArray<string>>();
   const entryWidths = React.useRef(new Map<string, number | undefined>());
   const width = React.useRef<number | undefined>(undefined);
   const overflowWidth = React.useRef<number | undefined>(undefined);
+  const gapSize = React.useRef(0);
 
   const calculateOverflow = React.useCallback(() => {
     const widths = verifiedMapEntries(entryWidths.current);
@@ -315,7 +347,8 @@ export function useOverflow(
       width.current,
       [...widths.entries()],
       overflowWidth.current,
-      activeChildIndex
+      activeChildIndex,
+      gapSize.current
     );
     setOverflown((prevOverflown) => {
       return eqlOverflown(prevOverflown, newOverflown)
@@ -358,8 +391,18 @@ export function useOverflow(
   const handleEntryResize = React.useCallback(
     (key: string) => (w: number) => {
       const oldW = entryWidths.current.get(key);
-      oldW !== w && entryWidths.current.set(key, w);
-      oldW !== w && calculateOverflow();
+      if (oldW === w) return;
+      entryWidths.current.set(key, w);
+      calculateOverflow();
+    },
+    [calculateOverflow]
+  );
+
+  const handleGapResize = React.useCallback(
+    (w: number) => {
+      if (gapSize.current === w) return;
+      gapSize.current = w;
+      calculateOverflow();
     },
     [calculateOverflow]
   );
@@ -369,6 +412,7 @@ export function useOverflow(
     handleContainerResize,
     handleOverflowResize,
     handleEntryResize,
+    handleGapResize,
   ];
 }
 
@@ -413,4 +457,10 @@ export function eqlOverflown(
     if (p !== v) return false;
   }
   return true;
+}
+
+function getGapVariable(htmlElement: HTMLElement) {
+  const gap = getCssVariableAsNumber("gap", htmlElement);
+  if (isNaN(gap)) return 0;
+  return gap;
 }
