@@ -274,7 +274,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param onCancel Function called when the Cancel button or the Escape key  is pressed.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the editor was displayed, false if the editor could not be displayed.
-   * @deprecated in 4.11.x. Use {@link UiFramework.showDimensionEditor("Length")}.
+   * @deprecated in 4.11.x. Use {@link UiFramework.showDimensionEditor("length")}.
    */
   public override showLengthEditor(
     initialValue: number,

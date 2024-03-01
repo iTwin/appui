@@ -1281,13 +1281,13 @@ export class UiFramework {
   public static closeDialog(dialogId: string): boolean {
     const findFn = (info: DialogInfo) => info.id === dialogId;
     // istanbul ignore else
-    if (UiFramework.dialogs.modeless.dialogs.findIndex(findFn)) {
+    if (UiFramework.dialogs.modeless.dialogs.findIndex(findFn) !== -1) {
       UiFramework.dialogs.modeless.close(dialogId);
       return true;
     }
 
     // istanbul ignore else
-    if (UiFramework.dialogs.modal.dialogs.findIndex(findFn)) {
+    if (UiFramework.dialogs.modal.dialogs.findIndex(findFn) !== -1) {
       UiFramework.dialogs.modal.close();
       return true;
     }
