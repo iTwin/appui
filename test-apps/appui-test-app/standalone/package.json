@@ -6,9 +6,10 @@
   "version": "0.0.0",
   "homepage": "http://localhost:3000/",
   "scripts": {
-    "build": "npm run -s build:backend && npm run -s build:frontend",
+    "build": "npm run -s build:backend && npm run -s frontend:tsc",
     "build:backend": "tsc -p tsconfig.backend.json",
     "build:frontend": "cross-env DISABLE_NEW_JSX_TRANSFORM=true SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true TRANSPILE_DEPS=false USE_FAST_SASS=true react-scripts --max_old_space_size=8192 build",
+    "frontend:tsc": "tsc",
     "clean": "rimraf lib build .rush/temp/package-deps*.json",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "start": "run-p start:webserver start:electron",
@@ -17,7 +18,6 @@
     "start:webserver": "npm run -s pseudolocalize && cross-env DISABLE_NEW_JSX_TRANSFORM=true SKIP_PREFLIGHT_CHECK=true BROWSER=none DISABLE_ESLINT_PLUGIN=true TRANSPILE_DEPS=false USE_FAST_SASS=true react-scripts start",
     "start:backend": "node --max-http-header-size=16000 lib/backend/main.js",
     "start:servers": "run-p \"start:webserver\" \"start:backend\"",
-    "serve": "serve -s build",
     "pseudolocalize": "betools pseudolocalize --englishDir ./public/locales/en --out ./build/public/locales/en-PSEUDO",
     "docs:extract": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../../generated-docs/extract",
     "test": "",
@@ -62,7 +62,6 @@
     "npm-run-all": "^4.1.5",
     "null-loader": "^4.0.1",
     "rimraf": "^3.0.2",
-    "serve": "^14.1.2",
     "typescript": "~5.0.2",
     "webpack": "^5.76.0"
   },

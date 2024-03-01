@@ -1,6 +1,14 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Tue, 06 Feb 2024 08:56:40 GMT and should not be manually modified.
+This log was last generated on Mon, 26 Feb 2024 15:50:45 GMT and should not be manually modified.
+
+## 4.10.0
+Mon, 26 Feb 2024 15:50:45 GMT
+
+### Updates
+
+- Use iTwinUI 3.x.
+- Fix a potential maximum update depth error caused by useResizeObserver.
 
 ## 4.9.0
 Tue, 06 Feb 2024 08:56:40 GMT
