@@ -59,8 +59,6 @@ Table of contents:
 
 - `UiFramework` methods detailed above which replace FrameworkUiAdmin methods. #729
 - `Placement` has been introduced to replace `RelativePosition`. #729
-- `ConditionalBooleanValue` has been moved over from `appui-abstract`#729
-- `ConditionalStringValue` has been moved over from `appui-abstract`. #729
 
 ### Changes
 
@@ -78,6 +76,4 @@ Table of contents:
 
 ### Additions
 
-- # `TimelineComponentProps.isPlaying` to control the timeline play state. #729
-
-> > > > > > > master
+- `TimelineComponentProps.isPlaying` to control the timeline play state. #729
