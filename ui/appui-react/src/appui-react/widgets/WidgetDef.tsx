@@ -538,7 +538,9 @@ export class WidgetDef {
   }
 
   /** Opens the widget and makes it visible to the user.
-   * I.e. opens the stage panel or brings the floating widget to front of the screen.
+   * @note Opens the stage panel if needed.
+   * @note Brings the floating widget to the front.
+   * @note Brings the window of the popout widget to the front (if allowed by the browser).
    * @public
    */
   public show() {
