@@ -10,7 +10,8 @@ import "./Popup.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { RelativePosition } from "@itwin/appui-abstract";
-import { Popup, type PopupProps } from "@itwin/core-react";
+import type { PopupProps } from "@itwin/core-react";
+import { Popup } from "@itwin/core-react";
 
 /** Popup component used in [[StatusBar]] component.
  * @beta
