@@ -68,7 +68,7 @@ Table of contents:
 
 ### Fixes
 
-- Description. #PR
+- Fix the issue when right-click + left-click starts a widget drag interaction. #730
 
 ## @itwin/imodel-components-react
 
@@ -78,4 +78,6 @@ Table of contents:
 
 ### Additions
 
-- `TimelineComponentProps.isPlaying` to control the timeline play state. #729
+- # `TimelineComponentProps.isPlaying` to control the timeline play state. #729
+
+> > > > > > > master
