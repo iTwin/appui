@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Update show() function to work with popouts",
+      "comment": "Update `WidgetDef.show()` to bring the popout widget window to the front if allowed by the browser.",
       "type": "none"
     }
   ],
