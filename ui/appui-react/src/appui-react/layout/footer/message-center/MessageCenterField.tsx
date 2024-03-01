@@ -32,7 +32,7 @@ export const MessageCenterField: React.FC = () => {
   const [notify, setNotify] = React.useState("");
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const indicator = React.createRef<HTMLDivElement>();
+  const indicatorRef = React.createRef<HTMLDivElement>();
   const title = UiFramework.translate("messageCenter.messages");
 
   const handleOpenChange = (isOpenState: boolean) => {
@@ -48,11 +48,12 @@ export const MessageCenterField: React.FC = () => {
     );
   };
 
-  const notifyStatus = () =>
-    messages.some((msg) => isProblemStatus(msg)) ? "negative" : "primary";
+  const notifyStatus = messages.some((msg) => isProblemStatus(msg))
+    ? "negative"
+    : "primary";
 
   const handleMessagesUpdatedEvent = () => {
-    setNotify(notifyStatus());
+    setNotify(notifyStatus);
     setMessages(MessageManager.messages);
   };
 
@@ -60,7 +61,7 @@ export const MessageCenterField: React.FC = () => {
     MessageManager.onMessagesUpdatedEvent.addListener(
       handleMessagesUpdatedEvent
     );
-    MessageManager.registerAnimateOutToElement(indicator.current);
+    MessageManager.registerAnimateOutToElement(indicatorRef.current);
 
     return () => {
       MessageManager.onMessagesUpdatedEvent.removeListener(
@@ -69,34 +70,32 @@ export const MessageCenterField: React.FC = () => {
     };
   });
 
-  const getMessages = (tab: string): React.JSX.Element[] => {
-    return [...messages]
-      .reverse()
-      .map((details: NotifyMessageDetailsType, index: number) => {
-        if (messages.length > 0) {
-          const iconClassName = MessageManager.getIconClassName(details);
-          const iconSpec = MessageManager.getIconSpecFromDetails(details);
-          const message: MessageType = details.briefMessage;
-          if ((tab === "error" && isProblemStatus(details)) || tab === "all") {
-            return (
-              <MessageCenterMessage
-                key={index.toString()}
-                message={message}
-                details={details.detailedMessage}
-                icon={<Icon iconSpec={iconSpec} className={iconClassName} />}
-              />
-            );
-          }
-          // these returns are a work around to avoid 'Not all paths return a value error"
-          return <></>;
-        } else {
+  const getMessages = (tab: string) => {
+    return [...messages].reverse().map((details, index) => {
+      if (messages.length > 0) {
+        const iconClassName = MessageManager.getIconClassName(details);
+        const iconSpec = MessageManager.getIconSpecFromDetails(details);
+        const message: MessageType = details.briefMessage;
+        if ((tab === "error" && isProblemStatus(details)) || tab === "all") {
           return (
-            <span className="nz-message-prompt" key={`${details.briefMessage}`}>
-              No Messages.
-            </span>
+            <MessageCenterMessage
+              key={index.toString()}
+              message={message}
+              details={details.detailedMessage}
+              icon={<Icon iconSpec={iconSpec} className={iconClassName} />}
+            />
           );
         }
-      });
+        // these returns are a work around to avoid 'Not all paths return a value error"
+        return <></>;
+      } else {
+        return (
+          <span className="nz-message-prompt" key={`${details.briefMessage}`}>
+            No Messages.
+          </span>
+        );
+      }
+    });
   };
 
   const tabs = (
@@ -119,7 +118,7 @@ export const MessageCenterField: React.FC = () => {
         <>
           <TitleBar title={title}></TitleBar>
 
-          <Tabs.Wrapper type="pill" role="tablist">
+          <Tabs.Wrapper type="pill">
             <Tabs.TabList>
               <Tabs.Tab label="All" key="all" value="all" />
               <Tabs.Tab label="Error" key="error" value="error" />
@@ -142,7 +141,7 @@ export const MessageCenterField: React.FC = () => {
           !notify ? ( //  Notification Marker doesn't accept a "none" argument so this is a workaround to render it conditionally
             <SvgChat />
           ) : (
-            <NotificationMarker status={notifyStatus()}>
+            <NotificationMarker status={notifyStatus}>
               <SvgChat />
             </NotificationMarker>
           )
