@@ -54,7 +54,9 @@ export class LocalFileSupport {
       try {
         iModelConnection = await BriefcaseConnection.openStandalone(
           filePath,
-          OpenMode.Readonly,
+          SampleAppIModelApp.testAppConfiguration?.readWrite
+            ? OpenMode.ReadWrite
+            : OpenMode.Readonly,
           { key: filePath }
         );
       } catch (err: any) {

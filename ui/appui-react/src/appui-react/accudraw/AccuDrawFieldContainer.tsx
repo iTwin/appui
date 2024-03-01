@@ -10,10 +10,7 @@ import "./AccuDrawFieldContainer.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { ColorDef } from "@itwin/core-common";
-import type {
-  ScreenViewport,
-  SelectedViewportChangedArgs,
-} from "@itwin/core-frontend";
+import type { ScreenViewport } from "@itwin/core-frontend";
 import { CompassMode, IModelApp, ItemField } from "@itwin/core-frontend";
 import type { CommonProps, IconSpec, UiStateStorage } from "@itwin/core-react";
 import { Orientation } from "@itwin/core-react";
@@ -214,15 +211,10 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
       showZOverride || determineShowZ(IModelApp.viewManager.selectedView)
     );
 
-    // istanbul ignore next
-    const handleSelectedViewportChanged = (
-      args: SelectedViewportChangedArgs
-    ) => {
-      setShowZ(determineShowZ(args.current));
-    };
-
     return IModelApp.viewManager.onSelectedViewportChanged.addListener(
-      handleSelectedViewportChanged
+      (args) => {
+        setShowZ(determineShowZ(args.current));
+      }
     );
   }, [showZOverride]);
 
@@ -351,13 +343,10 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     if (FrameworkAccuDraw.uiStateStorage)
       processAccuDrawUiSettings(FrameworkAccuDraw.uiStateStorage);
 
-    // istanbul ignore next
-    const handleAccuDrawUiSettingsChanged = () => {
-      processAccuDrawUiSettings(FrameworkAccuDraw.uiStateStorage);
-    };
-
     return FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(
-      handleAccuDrawUiSettingsChanged
+      () => {
+        processAccuDrawUiSettings(FrameworkAccuDraw.uiStateStorage);
+      }
     );
   }, []);
 
