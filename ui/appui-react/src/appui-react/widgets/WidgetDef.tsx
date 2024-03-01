@@ -6,7 +6,7 @@
  * @module Widget
  */
 
-import * as React from "react";
+import type * as React from "react";
 import type {
   BadgeType,
   ConditionalStringValue,
@@ -28,10 +28,6 @@ import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
-import { OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
-import { MessageManager } from "../messages/MessageManager";
-import { ReactNotifyMessageDetails } from "../messages/ReactNotifyMessageDetails";
-import type { UiStateStorageResult } from "@itwin/core-react";
 import {
   getTabLocation,
   isPopoutTabLocation,
@@ -556,88 +552,14 @@ export class WidgetDef {
       const testWindow = UiFramework.childWindows.find(
         tabLocation.popoutWidgetId
       );
-      if (testWindow) {
-        // We have to check if Safari is the browser being used. Safari has security
-        // measures that do not allow you to change focus to another tab programmatically.
-        // Therefore the only and recommended way around this at the moment, is to close
-        // and then open the tab again. This remounts the popout. Thats why this will not be done,
-        // because we don't want the state of the widget to be lost. Instead a toast will
-        // be displayed that informs the user that safari cannot focus the popout.
-        // Apple support docs: https://discussions.apple.com/thread/251676767?sortBy=best
-        const isSafari =
-          navigator.userAgent.toLowerCase().indexOf("safari/") > -1;
-
-        const isChrome =
-          navigator.userAgent.toLowerCase().indexOf("chrome") > -1;
-
-        if (!isChrome && isSafari) {
-          void UiFramework.getUiStateStorage()
-            .getSetting("popoutFocus", "hidePopoutFocusFail")
-            .then((hideFocusFail: UiStateStorageResult) => {
-              if (hideFocusFail.setting !== true) {
-                const checkbox = (
-                  <div>
-                    <input
-                      type="checkbox"
-                      id="doNotShowAgain"
-                      name="doNotShowAgain"
-                      onChange={async () => {
-                        const focusFailValue =
-                          await UiFramework.getUiStateStorage().getSetting(
-                            "popoutFocus",
-                            "hidePopoutFocusFail"
-                          );
-                        if (focusFailValue.setting !== true) {
-                          await UiFramework.getUiStateStorage().saveSetting(
-                            "popoutFocus",
-                            "hidePopoutFocusFail",
-                            true
-                          );
-                        } else {
-                          await UiFramework.getUiStateStorage().saveSetting(
-                            "popoutFocus",
-                            "hidePopoutFocusFail",
-                            false
-                          );
-                        }
-                      }}
-                    />
-                    <label htmlFor="doNotShowAgain">
-                      {UiFramework.translate("general.doNotShowAgain")}
-                    </label>
-                  </div>
-                );
-
-                MessageManager.outputMessage(
-                  new ReactNotifyMessageDetails(
-                    OutputMessagePriority.Error,
-                    {
-                      reactNode: UiFramework.localization.getLocalizedString(
-                        "widget.errorMessage.popoutFocusFail",
-                        {
-                          widgetLabel: this.label,
-                          ns: UiFramework.localizationNamespace,
-                        }
-                      ),
-                    },
-                    {
-                      reactNode: checkbox,
-                    },
-                    OutputMessageType.Sticky
-                  )
-                );
-              }
-            });
-        } else {
-          testWindow.window.focus();
-        }
-      }
-    } else {
-      frontstageDef.dispatch({
-        type: "WIDGET_TAB_SHOW",
-        id: this.id,
-      });
+      // Try to bring the window of the popout widget to the front.
+      testWindow?.window.focus();
     }
+
+    frontstageDef.dispatch({
+      type: "WIDGET_TAB_SHOW",
+      id: this.id,
+    });
   }
 
   /** Opens the widget and expands it to fill full size of the stage panel.
