@@ -28,7 +28,6 @@ export const InitializerDecorator: Decorator = (Story) => {
     let ignore = false;
     void (async () => {
       await IModelApp.startup({});
-      if (ignore) return;
       await UiFramework.initialize(undefined);
       await UiIModelComponents.initialize();
       if (ignore) return;
