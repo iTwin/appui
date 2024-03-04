@@ -7,6 +7,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BadgeType } from "@itwin/appui-abstract";
 import {
   CommandItemDef,
+  PreviewFeaturesProvider,
   ToolbarComposer,
   ToolbarHelper,
   ToolbarItemUtilities,
@@ -32,12 +33,11 @@ type PropsWithArgs = React.ComponentProps<typeof ToolbarComposer> & {
 
 function StoryComponent(props: PropsWithArgs) {
   const { newToolbars, ...other } = props;
-  React.useEffect(() => {
-    UiFramework.setPreviewFeatures({
-      newToolbars,
-    });
-  }, [newToolbars]);
-  return <ToolbarComposer {...other} />;
+  return (
+    <PreviewFeaturesProvider features={{ newToolbars }}>
+      <ToolbarComposer {...other} />
+    </PreviewFeaturesProvider>
+  );
 }
 
 const meta = {
