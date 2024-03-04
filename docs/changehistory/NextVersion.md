@@ -3,9 +3,14 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Changes](#changes)
   - [Fixes](#fixes)
 
 ## @itwin/appui-react
+
+### Changes
+
+- Removed arrow from status bar popup. [#750](https://github.com/iTwin/appui/pull/750)
 
 ### Fixes
 

@@ -13,7 +13,7 @@ import { UiFramework } from "../UiFramework";
 import { Footer } from "../layout/footer/Footer";
 import { SafeAreaContext } from "../safearea/SafeAreaContext";
 import { StatusBarField } from "./Field";
-import { StatusBarPopup } from "./Popup";
+import { StatusBarPopup } from "./popup/Popup";
 import "./StatusBar.scss";
 import type { StatusBarWidgetControl } from "./StatusBarWidgetControl";
 
