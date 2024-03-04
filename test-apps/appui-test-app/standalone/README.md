@@ -61,6 +61,8 @@ To set the environment variables, either set them directly within the terminal y
 
 - IMJS_NO_DEV_TOOLS
   - If defined, do not open the electron dev tools on startup
+- IMJS_READ_WRITE
+  - If defined, the `OpenMode.ReadWrite` mode is used while opening the briefcase.
 
 ### Browser-only
 

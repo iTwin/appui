@@ -35,6 +35,7 @@ import {
   SafeAreaContext,
   SafeAreaInsets,
   SessionStateActionId,
+  StandardContentToolsUiItemsProvider,
   StateManager,
   SyncUiEventDispatcher,
   SYSTEM_PREFERRED_COLOR_THEME,
@@ -108,6 +109,12 @@ import {
   addExampleFrontstagesToBackstage,
   registerExampleFrontstages,
 } from "./appui/frontstages/example-stages/ExampleStagesBackstageProvider";
+import {
+  editorFrontstageProvider,
+  editorUiItemsProvider,
+  initializeEditor,
+} from "./appui/frontstages/EditorFrontstageProvider";
+import { useEditorToolSettings } from "./appui/useEditorToolSettings";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -360,6 +367,17 @@ export class SampleAppIModelApp {
     );
     PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace);
 
+    if (ProcessDetector.isElectronAppFrontend) {
+      await initializeEditor();
+      UiFramework.frontstages.addFrontstageProvider(editorFrontstageProvider);
+      UiItemsManager.register(editorUiItemsProvider, {
+        stageIds: [editorFrontstageProvider.id],
+      });
+      UiItemsManager.register(new StandardContentToolsUiItemsProvider(), {
+        stageIds: [editorFrontstageProvider.id],
+      });
+    }
+
     // TODO: should not be required. Start event loop to open key-in palette.
     IModelApp.startEventLoop();
   }
@@ -408,7 +426,11 @@ export class SampleAppIModelApp {
 
     if (this.iModelParams && this.iModelParams.stageId)
       stageId = this.iModelParams.stageId;
-    else stageId = defaultFrontstage;
+    else if (SampleAppIModelApp.testAppConfiguration?.readWrite) {
+      stageId = editorFrontstageProvider.id;
+    } else {
+      stageId = defaultFrontstage;
+    }
 
     if (stageId === defaultFrontstage) {
       if (stageId === MainFrontstage.stageId) {
@@ -536,6 +558,8 @@ const AppDragInteraction = connect(mapDragInteractionStateToProps)(
 );
 
 const SampleAppViewer = () => {
+  useEditorToolSettings();
+
   React.useEffect(() => {
     AppUi.initialize();
   }, []);
@@ -684,6 +708,10 @@ async function main() {
     process.env.IMJS_CESIUM_ION_KEY;
   SampleAppIModelApp.testAppConfiguration.reactAxeConsole =
     SampleAppIModelApp.isEnvVarOn("IMJS_TESTAPP_REACT_AXE_CONSOLE");
+  if (ProcessDetector.isElectronAppFrontend) {
+    SampleAppIModelApp.testAppConfiguration.readWrite =
+      SampleAppIModelApp.isEnvVarOn("IMJS_READ_WRITE");
+  }
   Logger.logInfo(
     "Configuration",
     JSON.stringify(SampleAppIModelApp.testAppConfiguration)
@@ -710,7 +738,8 @@ async function main() {
     /** API Url. Used to select environment. Defaults to "https://api.bentley.com/realitydata" */
     baseUrl: `https://${process.env.IMJS_URL_PREFIX}api.bentley.com/realitydata`,
   };
-  const opts: NativeAppOpts = {
+  // Start the app.
+  await SampleAppIModelApp.startup({
     iModelApp: {
       accuSnap: new SampleAppAccuSnap(),
       toolAdmin: new FrameworkToolAdmin(),
@@ -725,10 +754,7 @@ async function main() {
         cesiumIonKey: SampleAppIModelApp.testAppConfiguration.cesiumIonKey,
       },
     },
-  };
-
-  // Start the app.
-  await SampleAppIModelApp.startup(opts);
+  });
   await SampleAppIModelApp.initialize();
 
   ReactDOM.render(

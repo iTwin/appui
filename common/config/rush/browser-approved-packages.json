@@ -107,6 +107,14 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "@itwin/editor-common",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@itwin/editor-frontend",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "@itwin/electron-authorization",
       "allowedCategories": [ "internal" ]
     },
