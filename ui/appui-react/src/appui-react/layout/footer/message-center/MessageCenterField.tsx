@@ -31,8 +31,6 @@ export const MessageCenterField: React.FC = () => {
   const [messages, setMessages] = React.useState(MessageManager.messages);
   const [notify, setNotify] = React.useState("");
   const [isOpen, setIsOpen] = React.useState(false);
-
-  const indicatorRef = React.createRef<HTMLDivElement>();
   const title = UiFramework.translate("messageCenter.messages");
 
   const handleOpenChange = (isOpenState: boolean) => {
@@ -61,7 +59,6 @@ export const MessageCenterField: React.FC = () => {
     MessageManager.onMessagesUpdatedEvent.addListener(
       handleMessagesUpdatedEvent
     );
-    MessageManager.registerAnimateOutToElement(indicatorRef.current);
 
     return () => {
       MessageManager.onMessagesUpdatedEvent.removeListener(
@@ -90,7 +87,7 @@ export const MessageCenterField: React.FC = () => {
         return <></>;
       } else {
         return (
-          <span className="nz-message-prompt" key={`${details.briefMessage}`}>
+          <span className="nz-message-prompt" key={`${index.toString()}`}>
             No Messages.
           </span>
         );
