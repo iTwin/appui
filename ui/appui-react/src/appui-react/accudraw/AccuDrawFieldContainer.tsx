@@ -118,7 +118,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     React.CSSProperties | undefined
   >(undefined);
 
-  const getInput = (field: ItemField): HTMLInputElement | undefined => {
+  const getFieldInput = (field: ItemField) => {
     switch (field) {
       case ItemField.X_Item:
         return getCurrent(xInputRef);
@@ -132,6 +132,44 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
         return getCurrent(distanceInputRef);
     }
   };
+
+  const getInputToFocus = React.useCallback((field: ItemField | undefined) => {
+    const fieldInput = field === undefined ? undefined : getFieldInput(field);
+    if (fieldInput) {
+      if (document.activeElement === fieldInput) return undefined;
+      return fieldInput;
+    }
+
+    const focusedInput = [
+      xInputRef,
+      yInputRef,
+      zInputRef,
+      angleInputRef,
+      distanceInputRef,
+    ].find((inputRef) => document.activeElement === inputRef.current);
+
+    // One of AccuDraw input fields is focused already.
+    if (focusedInput) return undefined;
+
+    // Focus one of fallback fields.
+    let fallbackInput = getFieldInput(ItemField.DIST_Item);
+    if (fallbackInput) return fallbackInput;
+
+    fallbackInput = getFieldInput(ItemField.X_Item);
+    return fallbackInput;
+  }, []);
+
+  // Moves focus to `field` input if not focused OR fallbacks to default field if none of accudraw fields are focused.
+  const setFocusToField = React.useCallback(
+    (field: ItemField | undefined) => {
+      const input = getInputToFocus(field);
+      if (!input) return;
+
+      input.focus();
+      input.select();
+    },
+    [getInputToFocus]
+  );
 
   React.useEffect(() => {
     return FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener((args) => {
@@ -155,15 +193,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     });
   }, []);
 
-  const setFocusToField = React.useCallback((field: ItemField) => {
-    const input = getInput(field);
-    // istanbul ignore else
-    if (input && document.activeElement !== input) {
-      input.focus();
-      input.select();
-    }
-  }, []);
-
   React.useEffect(() => {
     return FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(
       (args) => {
@@ -175,7 +204,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
 
   React.useEffect(() => {
     return FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(() => {
-      if (focusField.current) setFocusToField(focusField.current);
+      setFocusToField(focusField.current);
     });
   }, [setFocusToField]);
 
