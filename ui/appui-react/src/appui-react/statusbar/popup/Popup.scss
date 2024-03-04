@@ -4,16 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/index";
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
-@import "variables";
 
-.nz-footer-popup {
+.nz-status-bar-popup {
   font-size: var(--iui-font-size-1);
   background-color: var(--iui-color-background);
-
-  &.core-popup.arrow::after,
-  &.core-popup.arrow::before {
-    color: var(--iui-color-background);
-  }
 
   @include uicore-z-index(status-popup);
 }
