@@ -5170,6 +5170,9 @@ export function useLayoutStore(frontstageDef: FrontstageDef | undefined): Layout
 // @internal (undocumented)
 export function useNineZoneDispatch(frontstageDef: FrontstageDef): NineZoneDispatch;
 
+// @internal
+export function usePreviewFeatures(): PreviewFeatures;
+
 // @public
 export interface UserSettingsProvider {
     loadUserSettings(storage: UiStateStorage): Promise<void>;

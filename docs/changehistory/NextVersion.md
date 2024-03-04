@@ -62,7 +62,7 @@ Table of contents:
 
 ### Changes
 
-- Description. #PR
+- Removed arrow from status bar popup. [#750](https://github.com/iTwin/appui/pull/750)
 
 ### Fixes
 
