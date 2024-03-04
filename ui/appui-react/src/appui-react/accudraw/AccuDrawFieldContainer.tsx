@@ -118,26 +118,19 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     React.CSSProperties | undefined
   >(undefined);
 
-  const getInputRef = (field: ItemField): React.RefObject<HTMLInputElement> => {
-    let inputRef: React.RefObject<HTMLInputElement>;
+  const getInput = (field: ItemField): HTMLInputElement | undefined => {
     switch (field) {
       case ItemField.X_Item:
-        inputRef = xInputRef;
-        break;
+        return getCurrent(xInputRef);
       case ItemField.Y_Item:
-        inputRef = yInputRef;
-        break;
+        return getCurrent(yInputRef);
       case ItemField.Z_Item:
-        inputRef = zInputRef;
-        break;
+        return getCurrent(zInputRef);
       case ItemField.ANGLE_Item:
-        inputRef = angleInputRef;
-        break;
+        return getCurrent(angleInputRef);
       case ItemField.DIST_Item:
-        inputRef = distanceInputRef;
-        break;
+        return getCurrent(distanceInputRef);
     }
-    return inputRef;
   };
 
   React.useEffect(() => {
@@ -163,12 +156,11 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   }, []);
 
   const setFocusToField = React.useCallback((field: ItemField) => {
-    const inputRef = getInputRef(field);
-
+    const input = getInput(field);
     // istanbul ignore else
-    if (inputRef.current && document.activeElement !== inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.select();
+    if (input && document.activeElement !== input) {
+      input.focus();
+      input.select();
     }
   }, []);
 
@@ -462,4 +454,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
       )}
     </div>
   );
+}
+
+function getCurrent<T>(ref: React.RefObject<T>) {
+  if (ref.current === null) return undefined;
+  return ref.current;
 }
