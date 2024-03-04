@@ -427,22 +427,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
       {mode === CompassMode.Polar && (
         <>
           <AccuDrawInputField
-            ref={angleInputRef}
-            isLocked={angleLock}
-            className="uifw-accudraw-angle-value"
-            style={angleStyle}
-            field={ItemField.ANGLE_Item}
-            id={`uifw-accudraw-angle-${containerIndex}`}
-            data-testid="uifw-accudraw-angle"
-            label={angleLabel}
-            iconSpec={angleIcon}
-            valueChangedDelay={delay}
-            onValueChanged={(stringValue) =>
-              handleValueChanged(ItemField.ANGLE_Item, stringValue)
-            }
-            onEscPressed={handleEscPressed}
-          />
-          <AccuDrawInputField
             ref={distanceInputRef}
             isLocked={distanceLock}
             className="uifw-accudraw-distance-value"
@@ -455,6 +439,22 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             valueChangedDelay={delay}
             onValueChanged={(stringValue) =>
               handleValueChanged(ItemField.DIST_Item, stringValue)
+            }
+            onEscPressed={handleEscPressed}
+          />
+          <AccuDrawInputField
+            ref={angleInputRef}
+            isLocked={angleLock}
+            className="uifw-accudraw-angle-value"
+            style={angleStyle}
+            field={ItemField.ANGLE_Item}
+            id={`uifw-accudraw-angle-${containerIndex}`}
+            data-testid="uifw-accudraw-angle"
+            label={angleLabel}
+            iconSpec={angleIcon}
+            valueChangedDelay={delay}
+            onValueChanged={(stringValue) =>
+              handleValueChanged(ItemField.ANGLE_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
           />
