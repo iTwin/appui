@@ -76,7 +76,7 @@ export class BaseUiItemsProvider implements UiItemsProvider {
         this
       );
     } else {
-      provideToStage = stageUsage === StageUsage.General;
+      provideToStage = stageUsage === StageUsage.General.valueOf();
     }
 
     return provideToStage
@@ -113,7 +113,7 @@ export class BaseUiItemsProvider implements UiItemsProvider {
         this
       );
     } else {
-      provideToStage = stageUsage === StageUsage.General;
+      provideToStage = stageUsage === StageUsage.General.valueOf();
     }
 
     return provideToStage
@@ -148,7 +148,7 @@ export class BaseUiItemsProvider implements UiItemsProvider {
         this
       );
     } else {
-      provideToStage = stageUsage === StageUsage.General;
+      provideToStage = stageUsage === StageUsage.General.valueOf();
     }
 
     return provideToStage

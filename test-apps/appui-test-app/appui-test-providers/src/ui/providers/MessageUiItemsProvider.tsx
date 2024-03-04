@@ -33,7 +33,7 @@ export class MessageUiItemsProvider implements UiItemsProvider {
     orientation: ToolbarOrientation
   ): ToolbarItem[] {
     if (
-      stageUsage === StageUsage.General &&
+      stageUsage === StageUsage.General.valueOf() &&
       usage === ToolbarUsage.ContentManipulation &&
       orientation === ToolbarOrientation.Vertical
     ) {
@@ -102,7 +102,7 @@ export class MessageUiItemsProvider implements UiItemsProvider {
                   new NotifyMessageDetails(
                     OutputMessagePriority.Info,
                     "Sticky message",
-                    undefined,
+                    "Additional message details",
                     OutputMessageType.Sticky
                   )
                 );

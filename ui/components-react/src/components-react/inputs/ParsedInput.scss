@@ -7,6 +7,7 @@
 
 .components-parsed-input {
   width: auto;
+  padding: $uicore-iui-input-padding;
 
   &.components-parsed-input-has-error {
     color: var(--iui-color-text-negative);
@@ -16,9 +17,5 @@
   &.components-parsed-input[disabled] {
     color: var(--iui-color-text);
     opacity: 0.65;
-  }
-
-  &.iui-input {
-    padding: $uicore-iui-input-padding;
   }
 }

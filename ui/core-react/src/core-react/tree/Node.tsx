@@ -9,12 +9,13 @@
 import "./Node.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CheckboxProps } from "@itwin/itwinui-react";
 import { Checkbox, ProgressRadial } from "@itwin/itwinui-react";
 import { CheckBoxState } from "../enums/CheckBoxState";
 import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
 import { ExpansionToggle } from "./ExpansionToggle";
+
+type CheckboxProps = React.ComponentPropsWithoutRef<typeof Checkbox>;
 
 /** Props for node Checkbox renderer
  * @public
@@ -172,7 +173,11 @@ export class TreeNode extends React.Component<TreeNodeProps> {
           data-testid={this.createSubComponentTestId("contents")}
         >
           {this.props.isLoading && (
-            <ProgressRadial size="x-small" indeterminate />
+            <ProgressRadial
+              size="x-small"
+              indeterminate
+              className="core-progress-indicator"
+            />
           )}
           {toggle}
           {checkbox}

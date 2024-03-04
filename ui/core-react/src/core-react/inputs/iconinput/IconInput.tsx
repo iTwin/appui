@@ -31,14 +31,18 @@ export interface IconInputProps extends Omit<InputProps, "size"> {
  */
 const ForwardRefIconInput = React.forwardRef<HTMLInputElement, IconInputProps>(
   function ForwardRefIconInput(props, ref) {
-    const { icon, containerClassName, size, ...otherProps } = props;
+    const { className, icon, containerClassName, size, ...otherProps } = props;
 
     // NEEDSWORK: still using core-react Input component because of `nativeKeyHandler` prop
     return (
       <div
         className={classnames("core-iconInput-container", containerClassName)}
       >
-        <Input ref={ref} {...otherProps} />
+        <Input
+          ref={ref}
+          className={classnames("core-input", className)}
+          {...otherProps}
+        />
         <div className="core-iconInput-icon">{icon}</div>
       </div>
     );

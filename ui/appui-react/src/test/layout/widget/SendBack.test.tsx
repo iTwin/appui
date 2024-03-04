@@ -22,14 +22,17 @@ describe("SendBack", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state}>
+    const component = render(
+      <TestNineZoneProvider
+        defaultState={state}
+        labels={{ sendWidgetHomeTitle: "Send back" }}
+      >
         <WidgetIdContext.Provider value="w1">
           <SendBack />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    component.getByTitle("Send back");
   });
 
   it("should dispatch TOOL_SETTINGS_DOCK", () => {

@@ -48,7 +48,7 @@ export class PropertyCategoryBlock extends React.Component<PropertyCategoryBlock
 
   /** @internal */
   public override render() {
-    const { highlight, category, children, onExpansionToggled, ...props } =
+    const { highlight, category, children, onExpansionToggled, ...other } =
       this.props;
     const activeMatchIndex =
       this.props.category.name ===
@@ -65,15 +65,17 @@ export class PropertyCategoryBlock extends React.Component<PropertyCategoryBlock
       category.label
     );
     return (
-      <ExpandableBlock
+      <ExpandableBlock.Wrapper
         isExpanded={category.expand}
         onToggle={this._handleToggle}
-        title={label}
         size="small"
-        {...props}
+        {...other}
       >
-        {category.expand && children}
-      </ExpandableBlock>
+        <ExpandableBlock.Trigger label={label} />
+        <ExpandableBlock.Content className="components-expandable-content">
+          {category.expand && children}
+        </ExpandableBlock.Content>
+      </ExpandableBlock.Wrapper>
     );
   }
 }

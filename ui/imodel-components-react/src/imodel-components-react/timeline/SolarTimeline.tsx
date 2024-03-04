@@ -76,30 +76,11 @@ interface TimelineProps extends CommonProps {
   onChange?: (values: ReadonlyArray<number>) => void;
   onUpdate?: (values: ReadonlyArray<number>) => void;
 }
+
 function Timeline(props: TimelineProps) {
-  const sliderRef = React.useRef<HTMLDivElement>(null);
   const [sliderContainer, setSliderContainer] =
-    React.useState<HTMLDivElement>();
+    React.useState<HTMLDivElement | null>(null);
   const [pointerPercent, setPointerPercent] = React.useState(0);
-
-  React.useLayoutEffect(() => {
-    // istanbul ignore else
-    if (sliderRef.current) {
-      const container = sliderRef.current.querySelector(
-        ".iui-slider-container"
-      );
-      if (container && sliderContainer !== container) {
-        setSliderContainer(container as HTMLDivElement);
-      }
-    }
-  }, [sliderContainer]);
-
-  const thumbProps = () => {
-    return {
-      className: "components-timeline-thumb",
-      children: <CustomThumb />,
-    };
-  };
 
   const tooltipProps = React.useCallback(() => {
     return { visible: false };
@@ -140,7 +121,7 @@ function Timeline(props: TimelineProps) {
     isPlaying,
   } = props;
 
-  const thumbHasFocus = useFocusedThumb(sliderContainer);
+  const thumbHasFocus = useFocusedThumb(sliderContainer ?? undefined);
 
   const tickLabel = React.useMemo(() => {
     const showTip = isPlaying || showRailTooltip || thumbHasFocus;
@@ -174,7 +155,7 @@ function Timeline(props: TimelineProps) {
   ]);
 
   const className = classnames(
-    "solar-slider",
+    "solar-timeline",
     props.className,
     formatTick && "showticks"
   );
@@ -201,11 +182,9 @@ function Timeline(props: TimelineProps) {
         values={[currentTimeOffsetMs]}
         tooltipProps={tooltipProps}
         tickLabels={tickLabel}
-        railContainerProps={{
-          onPointerEnter: handlePointerEnter,
-          onPointerMove: handlePointerMove,
-          onPointerLeave: handlePointerLeave,
-        }}
+        onPointerEnter={handlePointerEnter}
+        onPointerMove={handlePointerMove}
+        onPointerLeave={handlePointerLeave}
       />
     </div>
   );

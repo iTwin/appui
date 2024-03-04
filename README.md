@@ -29,7 +29,6 @@ Each package has its own **node_modules** directory that contains symbolic links
 1. Clone repository (first time) with `git clone` or pull updates to the repository (subsequent times) with `git pull`
 2. Install dependencies: `rush install`
    - Check variant version with: `rush install --variant core-3x` (see [variant](#itwinjs-core-3x-compatibility) for clarifications)
-   - (First time) After installation go to `/full-stack-tests/ui` and run `npx playwright install`
 3. Clean: `rush clean`
 4. Rebuild source: `rush rebuild`
 5. Run tests: `rush cover`
@@ -48,7 +47,7 @@ For incremental builds, the `rush build` command can be used to only build packa
    - Each packages supports `npm start` command to enter build in watch mode for easy validation along the `test-apps` or `storybook` (see [Testing options](#testing-options)).
 2. Ensure unit tests pass when run locally: `rush cover`
    - Each packages will generate a detailed coverage HTML report which can be accessed in `ui/[package]/lib/cjs/test/coverage/lcov-report/index.html`.
-3. Ensure integration tests pass when run locally: See [the related Readme](./full-stack-tests/ui/README.md)
+3. Ensure integration tests pass: See [the related Readme](./e2e-tests/README.md)
 4. Ensure linting passes when run locally: `rush lint` / `rush lint:fix`
 5. Ensure prettier passes when run locally: `rush prettier` / `rush prettier:fix`
 6. Locally commit changes: `git commit` (or use the Visual Studio Code user interface)
@@ -89,7 +88,7 @@ The apps are:
 
 - `connected`: This app is working with the iTwin Platform and requires log in, it is useful for testing with iModels that are on the iTwin Platform. [See Readme for more info](./test-apps/appui-test-app/connected/README.md)
 
-> Note: `standalone` is used by the [full stack tests](./full-stack-tests/ui/README.md).
+> Note: `standalone` is used by the [end-to-end tests](./e2e-tests/README.md).
 
 ### Storybook
 

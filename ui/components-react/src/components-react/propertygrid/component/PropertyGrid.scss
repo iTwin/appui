@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/expandable/list";
 @import "~@itwin/core-react/lib/cjs/core-react/scrollbar";
 
 .components-property-grid-loader {
@@ -10,22 +9,6 @@
   display: block;
   left: calc(50% - 24px);
   top: calc(50% - 24px);
-}
-
-.components-property-grid {
-  .property-categories {
-    @include uicore-expandable-blocks-list;
-
-    display: grid;
-    grid-row-gap: 6px;
-    padding: 3px;
-  }
-
-  padding-top: 6px;
-  padding-bottom: 6px;
-
-  user-select: none;
-  color: var(--iui-color-text);
 }
 
 .components-property-grid-wrapper {

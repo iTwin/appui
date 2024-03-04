@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import { QuantityInput } from "../../imodel-components-react/inputs/QuantityInput";
 import { TestUtils } from "../TestUtils";
@@ -40,19 +40,18 @@ describe("QuantityInput", () => {
   it("should render input for Length", () => {
     const initialLength = 1; // 1 meter
     const spyOnChange = sinon.spy();
-    const wrapper = render(
+    const component = render(
       <QuantityInput
         initialValue={initialLength}
         quantityType={QuantityType.Length}
         onQuantityChange={spyOnChange}
       />
     );
-    expect(wrapper).not.to.be.undefined;
-    const input = wrapper.getByTestId("components-parsed-input");
+    const input = component.getByTestId("components-parsed-input");
     fireEvent.change(input, { target: { value: "2.5" } });
     expect(spyOnChange).not.to.have.been.called;
     fireEvent.keyDown(input, { key: Key.Enter });
-    expect(spyOnChange).to.have.been.called;
+    expect(spyOnChange).to.have.been.calledOnce;
   });
 
   const overrideLengthFormats = {
@@ -104,18 +103,16 @@ describe("QuantityInput", () => {
 
     // set active unit system to be metric and wait to make sure quantity format cache is set
     await IModelApp.quantityFormatter.setActiveUnitSystem("metric");
-    await TestUtils.flushAsyncOperations();
 
-    const wrapper = render(
+    const component = render(
       <QuantityInput
         initialValue={initialLength}
         quantityType={QuantityType.Length}
         onQuantityChange={spyOnChange}
       />
     );
-    expect(wrapper).not.to.be.undefined;
 
-    const input = wrapper.getByTestId(
+    const input = component.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
     const initialValue = input.value;
@@ -129,19 +126,25 @@ describe("QuantityInput", () => {
     expect(input.value).to.eq("3.5 m");
 
     // set active unit system to be imperial and wait to make sure quantity format cache is set
-    await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
-    await TestUtils.flushAsyncOperations();
+    await act(async () => {
+      await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
+    });
     expect(input.value).to.eq("3'-3 3/8\"");
 
     // set override for length to inches and insure proper format is returned
-    await IModelApp.quantityFormatter.setOverrideFormats(
-      QuantityType.Length,
-      overrideLengthFormats
-    );
-    await TestUtils.flushAsyncOperations();
+    await act(async () => {
+      await IModelApp.quantityFormatter.setOverrideFormats(
+        QuantityType.Length,
+        overrideLengthFormats
+      );
+    });
     expect(input.value).to.eq("39.3701 in");
-    await IModelApp.quantityFormatter.clearOverrideFormats(QuantityType.Length);
-    await TestUtils.flushAsyncOperations();
+
+    await act(async () => {
+      await IModelApp.quantityFormatter.clearOverrideFormats(
+        QuantityType.Length
+      );
+    });
     expect(input.value).to.eq("3'-3 3/8\"");
   });
 
@@ -149,15 +152,14 @@ describe("QuantityInput", () => {
     const initialLength = 1; // 1 meter
     const spyOnChange = sinon.spy();
 
-    const wrapper = render(
+    const component = render(
       <QuantityInput
         initialValue={initialLength}
         quantityType={QuantityType.Length}
         onQuantityChange={spyOnChange}
       />
     );
-    expect(wrapper).not.to.be.undefined;
-    const input = wrapper.getByTestId(
+    const input = component.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
     const initialValue = input.value;

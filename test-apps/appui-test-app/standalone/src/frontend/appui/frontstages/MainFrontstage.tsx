@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { IModelApp, IModelConnection, ViewState } from "@itwin/core-frontend";
 import {
   ContentLayoutProps,
   StandardContentLayouts,
@@ -31,12 +30,14 @@ import {
   UiItemsManager,
   UiItemsProvider,
 } from "@itwin/appui-react";
+import { ComponentExamplesModalFrontstage } from "@itwin/appui-test-providers";
+import { AnalysisStyle } from "@itwin/core-common";
+import { IModelApp, IModelConnection, ViewState } from "@itwin/core-frontend";
+import { LocalStateStorage } from "@itwin/core-react";
 import { SampleAppIModelApp } from "../../index";
 import { AppUi } from "../AppUi";
-// cSpell:Ignore contentviews statusbars
-import { LocalStateStorage } from "@itwin/core-react";
 import stageIconSvg from "./imodeljs.svg";
-import { ComponentExamplesModalFrontstage } from "@itwin/appui-test-providers";
+import { getUrlParam } from "../../UrlParams";
 
 function getIModelSpecificKey(
   inKey: string,
@@ -177,8 +178,15 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
       promises.push(iModelConnection.views.load(viewId));
     });
 
+    const timeline = getUrlParam("timeline");
     try {
       viewStates = await Promise.all(promises);
+      if (timeline) {
+        viewStates.forEach((viewState) => {
+          viewState.displayStyle.settings.analysisStyle =
+            AnalysisStyle.fromJSON({});
+        });
+      }
     } catch {}
 
     // create the content props that specifies an iModelConnection and a viewState entry in the application data.

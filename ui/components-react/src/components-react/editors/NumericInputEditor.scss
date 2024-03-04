@@ -6,10 +6,8 @@
 
 .components-smallEditor-host {
   .components-numeric-input-editor {
-    &.iui-input {
-      min-height: $editor-component-height-small !important;
-      padding-top: 0px !important;
-      padding-bottom: 0px !important;
-    }
+    min-height: $editor-component-height-small !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
   }
 }

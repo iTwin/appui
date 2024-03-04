@@ -69,7 +69,7 @@ describe("<Node />", () => {
   it("renders loader correctly", () => {
     const { container } = render(<Node label="a" level={0} isLoading />);
 
-    expect(container.querySelector(".iui-indeterminate.iui-x-small")).to.exist;
+    expect(container.querySelector(".core-progress-indicator")).to.exist;
   });
 
   it("render leaf correctly", () => {

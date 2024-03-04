@@ -158,7 +158,7 @@ export class ToggleEditor
         disabled={isDisabled}
         onChange={this._updateToggleValue}
         data-testid="components-toggle-editor"
-        setFocus={this.props.setFocus}
+        autoFocus={this.props.setFocus} // eslint-disable-line jsx-a11y/no-autofocus
       />
     );
   }

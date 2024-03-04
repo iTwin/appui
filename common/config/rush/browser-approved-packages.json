@@ -107,6 +107,14 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "@itwin/editor-common",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "@itwin/editor-frontend",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "@itwin/electron-authorization",
       "allowedCategories": [ "internal" ]
     },
@@ -153,10 +161,6 @@
     {
       "name": "@itwin/itwins-client",
       "allowedCategories": [ "internal" ]
-    },
-    {
-      "name": "@itwin/itwinui-icons",
-      "allowedCategories": [ "frontend" ]
     },
     {
       "name": "@itwin/itwinui-icons-react",
@@ -264,6 +268,10 @@
     },
     {
       "name": "@vitejs/plugin-react",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "appui-standalone-app",
       "allowedCategories": [ "internal" ]
     },
     {
@@ -443,10 +451,6 @@
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
-      "name": "react-test-renderer",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
       "name": "react-transition-group",
       "allowedCategories": [ "frontend" ]
     },
@@ -469,10 +473,6 @@
     {
       "name": "rxjs",
       "allowedCategories": [ "frontend" ]
-    },
-    {
-      "name": "serve",
-      "allowedCategories": [ "internal" ]
     },
     {
       "name": "shortid",
@@ -501,6 +501,10 @@
     {
       "name": "ts-node",
       "allowedCategories": [ "frontend", "tools" ]
+    },
+    {
+      "name": "tsx",
+      "allowedCategories": [ "internal" ]
     },
     {
       "name": "typemoq",

@@ -27,7 +27,7 @@
     > a {
       display: block;
       position: relative;
-      padding: $uicore-bordered-padding (var(--iui-font-size-1) - 1px)
+      padding: $uicore-bordered-padding calc(var(--iui-font-size-1) - 1px)
         $uicore-unbordered-padding;
       margin: 0;
       line-height: var(--iui-size-l);

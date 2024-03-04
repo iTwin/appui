@@ -40,11 +40,11 @@ describe("<Tree />", () => {
     const overrides = {
       scrollTo: Element.prototype.scrollTo,
     };
-    const scrollToSpy = sinon.spy();
+    let scrollToSpy: sinon.SinonSpiedMember<HTMLElement["scrollTo"]>;
 
     beforeEach(() => {
-      Element.prototype.scrollTo = scrollToSpy;
-      scrollToSpy.resetHistory();
+      Element.prototype.scrollTo = () => {};
+      scrollToSpy = sinon.spy(HTMLElement.prototype, "scrollTo");
     });
 
     afterEach(() => {

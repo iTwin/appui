@@ -4,17 +4,14 @@ Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
   - [Changes](#changes)
-- [@itwin/components-react](#itwincomponents-react)
   - [Fixes](#fixes)
 
 ## @itwin/appui-react
 
 ### Changes
 
-- Update styling of tool settings components. #658
-
-## @itwin/components-react
+- Removed arrow from status bar popup. [#750](https://github.com/iTwin/appui/pull/750)
 
 ### Fixes
 
-- Fix a potential maximum update depth error caused by useResizeObserver. #658
+- Fix the issue when right-click + left-click starts a widget drag interaction. #730

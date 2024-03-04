@@ -10,21 +10,13 @@ import "./AccuDrawFieldContainer.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { ColorDef } from "@itwin/core-common";
-import type {
-  ScreenViewport,
-  SelectedViewportChangedArgs,
-} from "@itwin/core-frontend";
+import type { ScreenViewport } from "@itwin/core-frontend";
 import { CompassMode, IModelApp, ItemField } from "@itwin/core-frontend";
 import type { CommonProps, IconSpec, UiStateStorage } from "@itwin/core-react";
 import { Orientation } from "@itwin/core-react";
 import { getCSSColorFromDef } from "@itwin/imodel-components-react";
 
 import { AccuDrawInputField } from "./AccuDrawInputField";
-import type {
-  AccuDrawSetCompassModeEventArgs,
-  AccuDrawSetFieldFocusEventArgs,
-  AccuDrawSetFieldLockEventArgs,
-} from "./FrameworkAccuDraw";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
 import type { AccuDrawUiSettings } from "./AccuDrawUiSettings";
 import angleIconSvg from "./angle.svg";
@@ -32,7 +24,8 @@ import distanceIconSvg from "./distance.svg";
 import { UiFramework } from "../UiFramework";
 
 /** Properties for [[AccuDrawFieldContainer]] component
- * @beta */
+ * @beta
+ */
 export interface AccuDrawFieldContainerProps extends CommonProps {
   /** Orientation of the fields */
   orientation: Orientation;
@@ -55,7 +48,8 @@ const defaultYLabel = "Y";
 const defaultZLabel = "Z";
 
 /** AccuDraw Ui Field Container displays [[AccuDrawInputField]] for each field
- * @beta */
+ * @beta
+ */
 export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   const {
     className,
@@ -73,12 +67,22 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   const angleInputRef = React.useRef<HTMLInputElement>(null);
   const distanceInputRef = React.useRef<HTMLInputElement>(null);
   const focusField = React.useRef<ItemField | undefined>(undefined);
-  const [mode, setMode] = React.useState(CompassMode.Rectangular);
-  const [xLock, setXLock] = React.useState(false);
-  const [yLock, setYLock] = React.useState(false);
-  const [zLock, setZLock] = React.useState(false);
-  const [angleLock, setAngleLock] = React.useState(false);
-  const [distanceLock, setDistanceLock] = React.useState(false);
+  const [mode, setMode] = React.useState(() => IModelApp.accuDraw.compassMode);
+  const [xLock, setXLock] = React.useState(() =>
+    IModelApp.accuDraw.getFieldLock(ItemField.X_Item)
+  );
+  const [yLock, setYLock] = React.useState(() =>
+    IModelApp.accuDraw.getFieldLock(ItemField.Y_Item)
+  );
+  const [zLock, setZLock] = React.useState(() =>
+    IModelApp.accuDraw.getFieldLock(ItemField.Z_Item)
+  );
+  const [angleLock, setAngleLock] = React.useState(() =>
+    IModelApp.accuDraw.getFieldLock(ItemField.ANGLE_Item)
+  );
+  const [distanceLock, setDistanceLock] = React.useState(() =>
+    IModelApp.accuDraw.getFieldLock(ItemField.DIST_Item)
+  );
   const [showZ, setShowZ] = React.useState(true);
   const [xLabel, setXLabel] = React.useState<string | undefined>(defaultXLabel);
   const [yLabel, setYLabel] = React.useState<string | undefined>(defaultYLabel);
@@ -137,13 +141,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   };
 
   React.useEffect(() => {
-    setXLock(IModelApp.accuDraw.getFieldLock(ItemField.X_Item));
-    setYLock(IModelApp.accuDraw.getFieldLock(ItemField.Y_Item));
-    setZLock(IModelApp.accuDraw.getFieldLock(ItemField.Z_Item));
-    setAngleLock(IModelApp.accuDraw.getFieldLock(ItemField.ANGLE_Item));
-    setDistanceLock(IModelApp.accuDraw.getFieldLock(ItemField.DIST_Item));
-
-    const handleSetFieldLock = (args: AccuDrawSetFieldLockEventArgs) => {
+    return FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener((args) => {
       switch (args.field) {
         case ItemField.X_Item:
           setXLock(args.lock);
@@ -161,10 +159,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
           setDistanceLock(args.lock);
           break;
       }
-    };
-    return FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener(
-      handleSetFieldLock
-    );
+    });
   }, []);
 
   const setFocusToField = React.useCallback((field: ItemField) => {
@@ -178,34 +173,25 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   }, []);
 
   React.useEffect(() => {
-    const handleSetFieldFocus = (args: AccuDrawSetFieldFocusEventArgs) => {
-      focusField.current = args.field;
-      setFocusToField(focusField.current);
-    };
     return FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(
-      handleSetFieldFocus
+      (args) => {
+        focusField.current = args.field;
+        setFocusToField(focusField.current);
+      }
     );
   }, [setFocusToField]);
 
   React.useEffect(() => {
-    const handleGrabInputFocus = () => {
-      // istanbul ignore else
+    return FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(() => {
       if (focusField.current) setFocusToField(focusField.current);
-    };
-    return FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(
-      handleGrabInputFocus
-    );
+    });
   }, [setFocusToField]);
 
   React.useEffect(() => {
-    setMode(IModelApp.accuDraw.compassMode);
-
-    const handleSetMode = (args: AccuDrawSetCompassModeEventArgs) => {
-      setMode(args.mode);
-    };
-
     return FrameworkAccuDraw.onAccuDrawSetCompassModeEvent.addListener(
-      handleSetMode
+      (args) => {
+        setMode(args.mode);
+      }
     );
   }, []);
 
@@ -225,15 +211,10 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
       showZOverride || determineShowZ(IModelApp.viewManager.selectedView)
     );
 
-    // istanbul ignore next
-    const handleSelectedViewportChanged = (
-      args: SelectedViewportChangedArgs
-    ) => {
-      setShowZ(determineShowZ(args.current));
-    };
-
     return IModelApp.viewManager.onSelectedViewportChanged.addListener(
-      handleSelectedViewportChanged
+      (args) => {
+        setShowZ(determineShowZ(args.current));
+      }
     );
   }, [showZOverride]);
 
@@ -362,21 +343,16 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     if (FrameworkAccuDraw.uiStateStorage)
       processAccuDrawUiSettings(FrameworkAccuDraw.uiStateStorage);
 
-    // istanbul ignore next
-    const handleAccuDrawUiSettingsChanged = () => {
-      processAccuDrawUiSettings(FrameworkAccuDraw.uiStateStorage);
-    };
-
     return FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(
-      handleAccuDrawUiSettingsChanged
+      () => {
+        processAccuDrawUiSettings(FrameworkAccuDraw.uiStateStorage);
+      }
     );
   }, []);
 
   const classNames = classnames(
     "uifw-accudraw-field-container",
-    orientation === Orientation.Vertical
-      ? "uifw-accudraw-field-container-vertical"
-      : "uifw-accudraw-field-container-horizontal",
+    orientation === Orientation.Vertical ? "uifw-vertical" : "uifw-horizontal",
     className
   );
 

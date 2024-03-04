@@ -201,7 +201,13 @@ export class EnumEditor
           onChange={this._updateSelectValue}
           data-testid="components-select-editor"
           options={this.state.options}
-          setFocus={this.props.setFocus}
+          triggerProps={{
+            ref: (el) => {
+              if (!this.props.setFocus) return;
+              el?.focus();
+            },
+            className: "components-button",
+          }}
           aria-label={this._ariaLabel}
           size="small"
         />

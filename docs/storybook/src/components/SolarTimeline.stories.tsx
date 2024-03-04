@@ -45,6 +45,7 @@ const meta = {
   ],
   parameters: {
     layout: "fullscreen",
+    backgrounds: { default: "background-backdrop" },
   },
 } satisfies Meta<typeof SolarTimeline>;
 

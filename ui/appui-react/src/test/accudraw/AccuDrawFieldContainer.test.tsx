@@ -2,19 +2,19 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { ColorByName, ColorDef } from "@itwin/core-common";
-import type { IModelAppOptions } from "@itwin/core-frontend";
-import {
-  CompassMode,
-  IModelApp,
-  ItemField,
-  NoRenderApp,
-} from "@itwin/core-frontend";
+import { CompassMode, IModelApp, ItemField } from "@itwin/core-frontend";
 import { Orientation } from "@itwin/core-react";
 import TestUtils, { selectAllBeforeType, userEvent } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
@@ -37,31 +37,25 @@ describe("AccuDrawFieldContainer", () => {
     "requestNextAnimation"
   )!;
 
-  before(async () => {
+  beforeEach(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
     // Tried replacing window.requestAnimationFrame first but that did not work.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
       get: () => requestNextAnimation,
     });
 
-    await TestUtils.initializeUiFramework();
-
-    const opts: IModelAppOptions = {};
-    opts.accuDraw = new FrameworkAccuDraw();
-    opts.uiAdmin = new FrameworkUiAdmin();
-    await NoRenderApp.startup(opts);
+    const accuDraw = new FrameworkAccuDraw();
+    const uiAdmin = new FrameworkUiAdmin();
+    sinon.stub(IModelApp, "accuDraw").get(() => accuDraw);
+    sinon.stub(IModelApp, "uiAdmin").get(() => uiAdmin);
   });
 
   after(async () => {
-    await IModelApp.shutdown();
-
     Object.defineProperty(
       IModelApp,
       "requestNextAnimation",
       rnaDescriptorToRestore
     );
-
-    TestUtils.terminateUiFramework();
   });
 
   it("should render Vertical", () => {
@@ -239,10 +233,14 @@ describe("AccuDrawFieldContainer", () => {
     const remove =
       FrameworkAccuDraw.onAccuDrawSetCompassModeEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
-    IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
-    spy.calledOnce.should.true;
-    IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
-    spy.calledTwice.should.true;
+
+    act(() => {
+      IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
+      sinon.assert.calledOnce(spy);
+      IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
+      sinon.assert.calledTwice(spy);
+    });
+
     remove();
   });
 

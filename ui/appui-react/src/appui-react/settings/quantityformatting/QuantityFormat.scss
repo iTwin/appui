@@ -76,10 +76,7 @@
 
           .components-quantity-persistence-input {
             width: 6.5em;
-
-            &.iui-input {
-              padding: $uicore-iui-input-padding;
-            }
+            padding: $uicore-iui-input-padding;
           }
 
           span.components-quantity-formatted-sample {

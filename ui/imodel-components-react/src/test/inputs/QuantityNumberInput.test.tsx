@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { QuantityTypeArg } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
-import { fireEvent, render } from "@testing-library/react";
+import { act, fireEvent, render } from "@testing-library/react";
 import { Key } from "ts-key-enum";
 import { expect } from "chai";
 import * as React from "react";
@@ -130,7 +130,7 @@ describe("<QuantityNumberInput />", () => {
 
     fireEvent.click(incrementor!);
     expect(input.value).to.eq(`${incrementedLengthFeet}`);
-    spyMethod.calledOnce.should.true;
+    expect(spyMethod).to.have.been.calledOnce;
     expect(updatedValue).to.eq(incrementedLengthInMeters);
 
     fireEvent.click(decrementor!);
@@ -179,7 +179,7 @@ describe("<QuantityNumberInput />", () => {
     );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
-    spyMethod.calledOnce.should.true;
+    expect(spyMethod).to.have.been.calledOnce;
     expect(value).to.eq(5 * metersPerFoot);
   });
 
@@ -203,7 +203,7 @@ describe("<QuantityNumberInput />", () => {
     );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
-    spyMethod.calledOnce.should.true;
+    expect(spyMethod).to.have.been.calledOnce;
     expect(value).to.eq(0.25 * metersPerFoot);
   });
 
@@ -254,7 +254,7 @@ describe("<QuantityNumberInput />", () => {
     );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
-    spyMethod.calledOnce.should.true;
+    expect(spyMethod).to.have.been.calledOnce;
     expect(value).to.eq(Number.MAX_SAFE_INTEGER * metersPerFoot);
   });
 
@@ -305,7 +305,7 @@ describe("<QuantityNumberInput />", () => {
     );
     expect(decrementor).not.to.be.null;
     fireEvent.click(decrementor!);
-    spyMethod.calledOnce.should.true;
+    expect(spyMethod).to.have.been.calledOnce;
     expect(value).to.eq(Number.MIN_SAFE_INTEGER * metersPerFoot);
   });
 
@@ -335,7 +335,7 @@ describe("<QuantityNumberInput />", () => {
     );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
-    spyMethod.calledOnce.should.true;
+    expect(spyMethod).to.have.been.calledOnce;
     expect(value).to.eq(snapLengthInFeet * metersPerFoot);
   });
 
@@ -443,12 +443,12 @@ describe("<QuantityNumberInput />", () => {
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     fireEvent.keyDown(input!, { key: Key.ArrowUp });
-    spyMethod.calledOnce.should.true;
+    expect(spyMethod).to.have.been.calledOnce;
     expect(value).to.eq(0.25 * metersPerFoot);
 
     spyMethod.resetHistory();
     fireEvent.keyDown(input!, { key: Key.ArrowDown });
-    spyMethod.calledOnce.should.true;
+    expect(spyMethod).to.have.been.calledOnce;
     expect(value).to.eq(0);
     spyKeyDown.calledTwice.should.true;
   });
@@ -472,7 +472,7 @@ describe("<QuantityNumberInput />", () => {
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "22.3" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
-    spyMethod.calledOnce.should.true;
+    expect(spyMethod).to.have.been.calledOnce;
     expect(value).to.eq(22.3 * metersPerFoot);
   });
 
@@ -495,7 +495,7 @@ describe("<QuantityNumberInput />", () => {
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "42in" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
-    spyMethod.calledOnce.should.true;
+    expect(spyMethod).to.have.been.calledOnce;
     expect(value).to.eq(3.5 * metersPerFoot);
   });
 
@@ -522,8 +522,8 @@ describe("<QuantityNumberInput />", () => {
     fireEvent.change(input!, { target: { value: "22.3" } });
     input?.blur();
     expect(value).to.eq(22.3 * metersPerFoot);
-    spyBlur.calledOnce.should.true;
-    spyMethod.calledOnce.should.true;
+    expect(spyBlur).to.have.been.calledOnce;
+    expect(spyMethod).to.have.been.calledOnce;
   });
 
   it("should reset value on ESC", () => {
@@ -558,11 +558,13 @@ describe("<QuantityNumberInput />", () => {
     const quantityKey = IModelApp.quantityFormatter.getQuantityTypeKey(
       QuantityType.LengthEngineering
     );
-    IModelApp.quantityFormatter.onQuantityFormatsChanged.emit({
-      quantityType: quantityKey,
-    });
-    IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.emit({
-      system: "imperial",
+    act(() => {
+      IModelApp.quantityFormatter.onQuantityFormatsChanged.emit({
+        quantityType: quantityKey,
+      });
+      IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.emit({
+        system: "imperial",
+      });
     });
   });
 
@@ -586,7 +588,7 @@ describe("<QuantityNumberInput />", () => {
     fireEvent.change(input!, { target: { value: "abc" } });
     expect((input as HTMLInputElement).value).to.eq("abc");
     fireEvent.keyDown(input!, { key: Key.Enter });
-    spyMethod.calledOnce.should.be.false; // value was invalid so previous value restore and no callback
+    expect(spyMethod).to.have.not.been.called; // value was invalid so previous value restore and no callback
     expect((input as HTMLInputElement).value).to.eq("3.2808");
   });
 
@@ -648,7 +650,7 @@ describe("<QuantityNumberInput />", () => {
       fireEvent.change(input!, { target: { value: "2" } });
       expect((input as HTMLInputElement).value).to.eq("2");
       fireEvent.keyDown(input!, { key: Key.Enter });
-      spyMethod.calledOnce.should.be.true;
+      expect(spyMethod).to.have.been.calledOnce;
       expect((input as HTMLInputElement).value).to.eq("2.00");
     });
   });
@@ -690,7 +692,6 @@ describe("<QuantityNumberInput />", () => {
         QuantityType.Length,
         overrideLengthFormats
       );
-      await TestUtils.flushAsyncOperations();
 
       let value = 1; // since no units are specified the persistence unit of meters are used.
       const spyMethod = sinon.spy();
@@ -713,10 +714,12 @@ describe("<QuantityNumberInput />", () => {
       fireEvent.change(input!, { target: { value: "2" } });
       expect((input as HTMLInputElement).value).to.eq("2");
       fireEvent.keyDown(input!, { key: Key.Enter });
-      spyMethod.calledOnce.should.be.true;
+      expect(spyMethod).to.have.been.calledOnce;
       expect((input as HTMLInputElement).value.slice(0, 2)).to.eq("2.");
 
-      await IModelApp.quantityFormatter.clearAllOverrideFormats();
+      await act(async () => {
+        await IModelApp.quantityFormatter.clearAllOverrideFormats();
+      });
     });
   });
 });

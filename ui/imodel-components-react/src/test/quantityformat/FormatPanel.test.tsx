@@ -203,7 +203,7 @@ describe("FormatPanel", () => {
     });
   });
 
-  it("should use generic format spec generator is not specified", async () => {
+  it("should use generic format spec generator if not specified", async () => {
     const unitsProvider = IModelApp.quantityFormatter.unitsProvider;
     const pu = await unitsProvider.findUnitByName("Units.M");
     const formatterSpec = await provideFormatSpec(
@@ -212,13 +212,11 @@ describe("FormatPanel", () => {
       unitsProvider,
       "numeric"
     );
-    const spy = sinon.spy();
 
     const renderedComponent = render(
       <FormatPanel
         initialFormat={formatterSpec.format.toJSON()}
         showSample={true}
-        onFormatChange={spy}
         initialMagnitude={123.45}
         unitsProvider={unitsProvider}
         persistenceUnit={formatterSpec.persistenceUnit}
@@ -226,12 +224,7 @@ describe("FormatPanel", () => {
         provideSecondaryChildren={provideSecondaryChildren}
       />
     );
-
-    await TestUtils.flushAsyncOperations();
-    const spanElement = renderedComponent.getByTestId(
-      "format-sample-formatted"
-    ) as HTMLSpanElement;
-    expect(spanElement.textContent).to.be.eql(`123.45 m`);
+    await waitFor(() => renderedComponent.getByText("123.45 m"));
   });
 });
 

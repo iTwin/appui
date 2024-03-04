@@ -28,6 +28,9 @@ const availableFeatures: AvailableFeatures = {
   enableMaximizedFloatingWidget: {
     label: "Enable maximized floating widgets",
   },
+  enableMaximizedPanelWidget: {
+    label: "Enable maximized panel widgets",
+  },
   activateDroppedTab: {
     label: "Change active tab after drag & drop",
   },
@@ -57,7 +60,7 @@ function PreviewFeatureList() {
           <MenuItem
             key={feature}
             sublabel={feature}
-            badge={<Checkbox checked={feature in features} readOnly />}
+            endIcon={<Checkbox checked={feature in features} readOnly />}
             onClick={() => {
               setFeatures((prev) => {
                 if (Object.keys(prev).includes(feature)) {
@@ -95,7 +98,7 @@ export const previewFeaturesToggleProvider: UiItemsProvider = {
 };
 
 export function AppPreviewFeatures(props: React.PropsWithChildren<{}>) {
-  const [features, setFeatures] = React.useState<PreviewFeatures>({});
+  const [features, setFeatures] = useSavedFeatures();
   return (
     <PreviewFeaturesContext.Provider value={[features, setFeatures]}>
       <PreviewFeaturesProvider features={features}>
@@ -103,4 +106,18 @@ export function AppPreviewFeatures(props: React.PropsWithChildren<{}>) {
       </PreviewFeaturesProvider>
     </PreviewFeaturesContext.Provider>
   );
+}
+
+function useSavedFeatures() {
+  const [features, setFeatures] = React.useState<PreviewFeatures>(() => {
+    const item = window.localStorage.getItem("preview-features");
+    if (item) {
+      return JSON.parse(item);
+    }
+    return {};
+  });
+  React.useEffect(() => {
+    window.localStorage.setItem("preview-features", JSON.stringify(features));
+  }, [features]);
+  return [features, setFeatures] as const;
 }
