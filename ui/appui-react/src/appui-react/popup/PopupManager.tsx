@@ -332,7 +332,7 @@ export class PopupManager {
       component,
       parentDocument:
         anchor?.ownerDocument ??
-        InternalConfigurableUiManager.getWrapperElement().ownerDocument,
+        InternalConfigurableUiManager.getWrapperDocument(),
       parent: anchor?.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
@@ -416,7 +416,7 @@ export class PopupManager {
       component,
       parentDocument:
         anchor?.ownerDocument ??
-        InternalConfigurableUiManager.getWrapperElement().ownerDocument,
+        InternalConfigurableUiManager.getWrapperDocument(),
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -510,7 +510,7 @@ export class PopupManager {
       component,
       parentDocument:
         anchor?.ownerDocument ??
-        InternalConfigurableUiManager.getWrapperElement().ownerDocument,
+        InternalConfigurableUiManager.getWrapperDocument(),
       parent: anchor?.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
