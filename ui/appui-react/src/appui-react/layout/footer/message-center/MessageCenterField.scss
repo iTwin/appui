@@ -6,11 +6,11 @@
 @import "../variables";
 
 .mc-footer-messageCenter-dialog {
-  width: 16vw;
   height: 200px;
   overflow-y: scroll;
   min-width: $nz-footer-popup-min-width;
   max-width: $nz-footer-popup-max-width;
+  padding-left: 10px;
 
   > .mc-message-prompt {
     display: none;
