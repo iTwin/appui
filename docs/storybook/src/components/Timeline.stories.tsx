@@ -45,7 +45,7 @@ const DateDecorator: Decorator = (Story, context) => {
 };
 
 const meta = {
-  title: "Components/TimelineComponent",
+  title: "Components/Timeline",
   component: TimelineComponent,
   tags: ["autodocs"],
   decorators: [
