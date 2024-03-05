@@ -34,6 +34,7 @@ export function MessageCenterField() {
 
   const indicatorRef = React.createRef<HTMLDivElement>();
   const messageCount = React.useRef(messages.length);
+  MessageManager.registerAnimateOutToElement(indicatorRef.current);
 
   const title = UiFramework.translate("messageCenter.messages");
 
@@ -55,8 +56,6 @@ export function MessageCenterField() {
     : "primary";
 
   React.useEffect(() => {
-    MessageManager.registerAnimateOutToElement(indicatorRef.current);
-
     return MessageManager.onMessagesUpdatedEvent.addListener(() => {
       setNotify(notifyStatus);
       setMessages(MessageManager.messages);
@@ -64,17 +63,17 @@ export function MessageCenterField() {
   });
 
   const getMessages = (tab: string) => {
-    return [...messages].reverse().map((details, index) => {
+    return [...messages].reverse().map((message, index) => {
       if (messages.length > 0) {
-        const iconClassName = MessageManager.getIconClassName(details);
-        const iconSpec = MessageManager.getIconSpecFromDetails(details);
-        const message: MessageType = details.briefMessage;
-        if ((tab === "error" && isProblemStatus(details)) || tab === "all") {
+        const iconClassName = MessageManager.getIconClassName(message);
+        const iconSpec = MessageManager.getIconSpecFromDetails(message);
+        const text: MessageType = message.briefMessage;
+        if ((tab === "error" && isProblemStatus(message)) || tab === "all") {
           return (
             <MessageCenterMessage
               key={index.toString()}
-              message={message}
-              details={details.detailedMessage}
+              message={text}
+              details={message.detailedMessage}
               icon={<Icon iconSpec={iconSpec} className={iconClassName} />}
             />
           );
@@ -108,7 +107,7 @@ export function MessageCenterField() {
   return (
     <Popover
       content={
-        <div ref={indicatorRef} className="nz-indicator">
+        <>
           <TitleBar title={title}></TitleBar>
 
           <Tabs.Wrapper type="pill">
@@ -118,7 +117,7 @@ export function MessageCenterField() {
             </Tabs.TabList>
             {tabs}
           </Tabs.Wrapper>
-        </div>
+        </>
       }
       applyBackground
     >
@@ -140,7 +139,9 @@ export function MessageCenterField() {
           )
         }
       >
-        {title}
+        <div ref={indicatorRef} className="nz-indicator">
+          {title}
+        </div>
       </Button>
     </Popover>
   );
