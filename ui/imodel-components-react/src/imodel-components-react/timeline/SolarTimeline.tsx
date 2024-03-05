@@ -18,6 +18,7 @@ import {
   Flex,
   IconButton,
   Label,
+  Popover,
   Slider,
   Text,
   Tooltip,
@@ -219,7 +220,6 @@ export class SolarTimeline extends React.PureComponent<
   SolarTimelineComponentProps,
   SolarTimelineComponentState
 > {
-  private _datePicker: HTMLElement | null = null;
   private _settings: HTMLElement | null = null;
   private _requestFrame = 0;
   private _unmounted = false;
@@ -233,9 +233,6 @@ export class SolarTimeline extends React.PureComponent<
   );
   private _loopLabel = UiIModelComponents.translate("timeline.repeat");
   private _speedLabel = UiIModelComponents.translate("solartimeline.speed");
-  private _dateTimeLabel = UiIModelComponents.translate(
-    "solartimeline.dateTime"
-  );
 
   private _months = [
     UiComponents.translate("month.short.january"),
@@ -465,14 +462,6 @@ export class SolarTimeline extends React.PureComponent<
     });
   };
 
-  private _onCloseDayPicker = () => {
-    this.setState({ isDateOpened: false });
-  };
-
-  private _onOpenDayPicker = () => {
-    this.setState((prevState) => ({ isDateOpened: !prevState.isDateOpened }));
-  };
-
   private _onCloseSettingsPopup = () => {
     this.setState({ isSettingsOpened: false });
   };
@@ -605,41 +594,33 @@ export class SolarTimeline extends React.PureComponent<
             onPlay={this._onPlay}
             onPause={this._onPause}
           />
-          <Tooltip content={this._dateTimeLabel}>
-            <Button
-              styleType="borderless"
-              startIcon={<SvgCalendar />}
-              data-testid="solar-date-time-button"
-              title={this._dateTimeLabel}
-              ref={(element) => (this._datePicker = element)}
-              onClick={this._onOpenDayPicker}
-            >
-              <span className="solar-timeline-date-time">
-                {formattedDate} @ {formattedTime}
-              </span>
-            </Button>
-          </Tooltip>
-
-          <Popup
-            style={{ border: "none" }}
-            offset={11}
-            target={this._datePicker}
-            isOpen={this.state.isDateOpened}
-            onClose={this._onCloseDayPicker}
-            position={RelativePosition.Top}
-          >
-            <div
-              className="components-date-picker-calendar-popup-panel"
-              data-testid="components-date-picker-calendar-popup-panel"
-            >
+          <Popover
+            content={
               <DatePicker
                 date={localTime}
                 onChange={this._onDateChange}
                 showTime
                 use12Hours
               />
-            </div>
-          </Popup>
+            }
+            visible={this.state.isDateOpened}
+            onVisibleChange={(isDateOpened) => {
+              this.setState({ isDateOpened });
+            }}
+            placement="top"
+            middleware={{
+              offset: 6,
+            }}
+          >
+            <CalendarButton
+              onClick={() => {
+                const isDateOpened = !this.state.isDateOpened;
+                this.setState({ isDateOpened });
+              }}
+            >
+              {formattedDate} @ {formattedTime}
+            </CalendarButton>
+          </Popover>
         </Flex>
 
         <Timeline
@@ -780,3 +761,32 @@ export class SolarTimeline extends React.PureComponent<
     );
   }
 }
+
+interface CalendarButtonProps {
+  children?: React.ReactNode;
+  onClick?: () => void;
+}
+
+const CalendarButton = React.forwardRef<HTMLButtonElement, CalendarButtonProps>(
+  function CalendarButton({ children, onClick }, ref) {
+    const tooltip = React.useMemo(
+      () => UiIModelComponents.translate("solartimeline.dateTime"),
+      []
+    );
+
+    return (
+      <Tooltip content={tooltip}>
+        <Button
+          styleType="borderless"
+          startIcon={<SvgCalendar />}
+          data-testid="solar-date-time-button"
+          title={tooltip}
+          onClick={onClick}
+          ref={ref}
+        >
+          <span className="solar-timeline-date-time">{children}</span>
+        </Button>
+      </Tooltip>
+    );
+  }
+);
