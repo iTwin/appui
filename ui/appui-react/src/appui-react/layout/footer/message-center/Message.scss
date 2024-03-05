@@ -5,7 +5,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "../variables";
 
-.nz-footer-messageCenter-message {
+.mc-footer-messageCenter-message {
   $vertical-padding: $nz-message-horizontal-padding;
 
   min-height: 48px;
@@ -24,10 +24,10 @@
 
   &:not(:first-child) {
     padding-top: $vertical-padding;
-    border-top: 1px solid $buic-background-4;
+    border-top: 1px solid lightgrey;
   }
 
-  > .nz-content {
+  > .mc-content {
     overflow: hidden;
     overflow-wrap: break-word;
   }

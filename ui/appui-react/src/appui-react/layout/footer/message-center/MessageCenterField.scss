@@ -5,14 +5,14 @@
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "../variables";
 
-.nz-footer-messageCenter-dialog {
+.mc-footer-messageCenter-dialog {
   width: 16vw;
   height: 200px;
   overflow-y: scroll;
   min-width: $nz-footer-popup-min-width;
   max-width: $nz-footer-popup-max-width;
 
-  > .nz-message-prompt {
+  > .mc-message-prompt {
     display: none;
     text-align: center;
     margin: 30px 15px;

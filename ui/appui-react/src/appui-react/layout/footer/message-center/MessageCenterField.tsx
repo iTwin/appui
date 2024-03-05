@@ -83,7 +83,7 @@ export function MessageCenterField() {
         return <></>;
       } else {
         return (
-          <span className="nz-message-prompt" key={`${index.toString()}`}>
+          <span className="mc-message-prompt" key={`${index.toString()}`}>
             No Messages.
           </span>
         );
@@ -96,7 +96,7 @@ export function MessageCenterField() {
       {["all", "error"].map((tabType) => {
         return (
           <Tabs.Panel value={tabType} key={tabType}>
-            <div className={"nz-footer-messageCenter-dialog"}>
+            <div className={"mc-footer-messageCenter-dialog"}>
               {getMessages(tabType)}
             </div>
           </Tabs.Panel>
@@ -107,6 +107,7 @@ export function MessageCenterField() {
 
   return (
     <>
+      <div ref={indicatorRef} />
       <Popover
         content={
           <>
@@ -141,7 +142,6 @@ export function MessageCenterField() {
             )
           }
         >
-          <div ref={indicatorRef} />
           {title}
         </Button>
       </Popover>
