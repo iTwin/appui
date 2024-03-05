@@ -6,9 +6,6 @@
  * @module Timeline
  */
 
-// component is in alpha state - it may change after usability testing - test coverage not complete
-/* istanbul ignore file */
-
 import "./SolarTimeline.scss";
 import classnames from "classnames";
 import * as React from "react";
@@ -21,32 +18,20 @@ import {
   Label,
   Popover,
   Slider,
-  Text,
   Tooltip,
   VisuallyHidden,
 } from "@itwin/itwinui-react";
 
 import type { HSVColor } from "@itwin/core-common";
 import { ColorByName, ColorDef } from "@itwin/core-common";
-import { RelativePosition, TimeDisplay } from "@itwin/appui-abstract";
+import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Popup } from "@itwin/core-react";
-import type { TimeSpec } from "@itwin/components-react";
-import {
-  adjustDateToTimezone,
-  TimeField,
-  UiComponents,
-} from "@itwin/components-react";
+import { adjustDateToTimezone, UiComponents } from "@itwin/components-react";
 import { HueSlider } from "../color/HueSlider";
 import { SaturationPicker } from "../color/SaturationPicker";
 import { ColorSwatch } from "../color/Swatch";
 import type { SolarDataProvider } from "./interfaces";
-import {
-  CustomThumb,
-  getPercentageOfRectangle,
-  RailMarkers,
-  useFocusedThumb,
-} from "./Scrubber";
 import { UiIModelComponents } from "../UiIModelComponents";
 import {
   SvgCalendar,
@@ -57,12 +42,9 @@ import {
 } from "@itwin/itwinui-icons-react";
 import { PlayButton } from "./PlayButton";
 
-// cSpell:ignore millisec solarsettings showticks shadowcolor solartimeline datepicker millisecs
-
-const millisecPerMinute = 1000 * 60;
-const millisecPerHour = millisecPerMinute * 60;
-// const millisecPerDay = millisecPerHour * 24;
-const defaultPlaybackDuration = 40 * 1000; // 40 seconds
+const msPerMinute = 1000 * 60;
+const msPerHour = msPerMinute * 60;
+const defaultPlaybackDuration = 40 * 1000;
 
 interface TimelineProps extends CommonProps {
   dayStartMs: number;
@@ -108,7 +90,7 @@ function Timeline(props: TimelineProps) {
         className={classnames(className, "slider")}
         ref={setSliderContainer}
         thumbProps={() => ({ "aria-labelledby": "timeline" })}
-        step={millisecPerMinute}
+        step={msPerMinute}
         min={sunRiseOffsetMs}
         max={sunSetOffsetMs}
         minLabel={
@@ -137,7 +119,7 @@ function Timeline(props: TimelineProps) {
 }
 
 interface SolarTimelineComponentProps {
-  dataProvider: SolarDataProvider; // provides date, sunrise, sunset in millisecs, also contains timezone offset from UTC, and updates the display style to current time.
+  dataProvider: SolarDataProvider; // provides date, sunrise, sunset in ms, also contains timezone offset from UTC, and updates the display style to current time.
   onPlayPause?: (playing: boolean) => void; // callback triggered when play/pause button is pressed
   duration?: number; // playback duration in milliseconds
   speed?: number;
@@ -262,7 +244,6 @@ export class SolarTimeline extends React.PureComponent<
 
   // recursively update the animation until we hit the end or the pause button is clicked
   private _updateAnimation = (_timestamp: number) => {
-    // istanbul ignore else
     if (!this.state.isPlaying || this._unmounted) {
       window.cancelAnimationFrame(this._requestFrame);
       return;
@@ -314,14 +295,12 @@ export class SolarTimeline extends React.PureComponent<
     // start playing
     this.setState({ isPlaying: true, currentTimeOffsetMs: sunTimeMs }, () => {
       this._requestFrame = window.requestAnimationFrame(this._updateAnimation);
-      // istanbul ignore else
       if (this.props.onPlayPause) this.props.onPlayPause(true);
     });
   }
 
   // user clicked pause button
   private _onPause = () => {
-    // istanbul ignore if
     if (!this.state.isPlaying) return;
 
     const currentTime = new Date().getTime();
@@ -333,13 +312,11 @@ export class SolarTimeline extends React.PureComponent<
     // stop playing
     this.setState({ isPlaying: false });
 
-    // istanbul ignore else
     if (this.props.onPlayPause) this.props.onPlayPause(false);
   };
 
   // user clicked play button
   private _onPlay = () => {
-    // istanbul ignore if
     if (this.state.isPlaying) return;
 
     if (
@@ -380,8 +357,7 @@ export class SolarTimeline extends React.PureComponent<
     // Update time
     const newHours = newDate.getHours();
     const newMinutes = newDate.getMinutes();
-    const newSunTime =
-      newHours * millisecPerHour + newMinutes * millisecPerMinute;
+    const newSunTime = newHours * msPerHour + newMinutes * msPerMinute;
     const dateWithNewTime = new Date(dayStartMs + newSunTime);
     // this.props.dataProvider.setDateAndTime(dateWithNewTime, true);
 
