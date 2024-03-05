@@ -170,7 +170,6 @@ function Timeline(props: TimelineProps) {
       </VisuallyHidden>
       <Slider
         thumbProps={() => ({ "aria-labelledby": "timeline" })}
-        ref={sliderRef}
         className={className}
         step={millisecPerMinute}
         min={sunRiseOffsetMs}

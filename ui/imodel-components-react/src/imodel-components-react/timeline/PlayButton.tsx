@@ -17,71 +17,39 @@ interface PlayButtonProps extends CommonProps {
   tooltip?: string;
 }
 
-interface PlayButtonState {
-  isPlaying: boolean;
-}
-
-/** Play/Pause button used on timeline control
+/** Play/pause button used in timeline components.
  * @internal
  */
-export class PlayButton extends React.Component<
-  PlayButtonProps,
-  PlayButtonState
-> {
-  constructor(props: PlayButtonProps, context?: any) {
-    super(props, context);
+export function PlayButton(props: PlayButtonProps) {
+  const [isPlaying, setIsPlaying] = React.useState(props.isPlaying);
+  let title = props.tooltip;
 
-    this.state = { isPlaying: this.props.isPlaying };
-  }
-
-  /** @internal */
-  public override componentDidUpdate() {
-    if (this.props.isPlaying !== this.state.isPlaying) {
-      this.setState((_, props) => ({ isPlaying: props.isPlaying }));
-    }
-  }
-
-  private _onClick = () => {
-    const _isPlaying = !this.state.isPlaying;
-
-    this.setState({ isPlaying: _isPlaying });
-
-    if (_isPlaying) {
-      // istanbul ignore else
-      if (this.props.onPlay) this.props.onPlay();
-    } else {
-      // istanbul ignore else
-      if (this.props.onPause) this.props.onPause();
-    }
-  };
-
-  public override render() {
-    const { tooltip } = this.props;
-    const iconSpec = this.state.isPlaying ? <SvgPause /> : <SvgPlay />;
-    let title = tooltip;
-
-    if (!title)
-      title = UiIModelComponents.translate(
-        this.state.isPlaying ? "timeline.pause" : "timeline.play"
-      );
-
-    return (
-      <button
-        data-testid={this.props.className}
-        title={title}
-        className={classnames("play-button", this.props.className)}
-        onClick={this._onClick}
-      >
-        <span
-          className="icon"
-          data-testid={this.state.isPlaying ? "pause" : "play"}
-        >
-          <Icon
-            iconSpec={iconSpec}
-            data-testid={this.state.isPlaying ? "pause" : "play"}
-          />
-        </span>
-      </button>
+  if (!title)
+    title = UiIModelComponents.translate(
+      isPlaying ? "timeline.pause" : "timeline.play"
     );
-  }
+
+  return (
+    <button
+      title={title}
+      className={classnames("components-play-button", props.className)}
+      onClick={() => {
+        const newIsPlaying = !isPlaying;
+        setIsPlaying(newIsPlaying);
+
+        if (newIsPlaying) {
+          props.onPlay?.();
+        } else {
+          props.onPause?.();
+        }
+      }}
+    >
+      <span className="icon" data-testid={isPlaying ? "pause" : "play"}>
+        <Icon
+          iconSpec={isPlaying ? <SvgPause /> : <SvgPlay />}
+          data-testid={isPlaying ? "pause" : "play"}
+        />
+      </span>
+    </button>
+  );
 }
