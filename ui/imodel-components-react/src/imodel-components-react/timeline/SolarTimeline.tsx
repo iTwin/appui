@@ -421,10 +421,9 @@ export class SolarTimeline extends React.PureComponent<
       (adjustedDuration ? adjustedDuration : this.state.adjustedDuration);
   }
 
-  /** note the day passed in is in the time of the current user not in project time because the date picker works in
-   * local time  */
-  private _onDayClick = (selectedDate: Date) => {
-    this.props.dataProvider.setDateAndTime(selectedDate);
+  private _onDateChange = (newDate: Date) => {
+    this.props.dataProvider.setDateAndTime(newDate);
+
     const dayStartMs = this.props.dataProvider.dayStartMs;
     const sunRiseOffsetMs =
       this.props.dataProvider.sunrise.getTime() - dayStartMs;
@@ -432,59 +431,38 @@ export class SolarTimeline extends React.PureComponent<
       this.props.dataProvider.sunset.getTime() - dayStartMs;
     const sunDeltaMs = sunSetOffsetMs - sunRiseOffsetMs;
 
-    const sunOffsetMs = this.ensureRange(
-      this.state.currentTimeOffsetMs,
+    /** call dataProvider to update display style */
+    // this.props.dataProvider.onTimeChanged?.(this.props.dataProvider.timeOfDay);
+
+    // Update time
+    const newHours = newDate.getHours();
+    const newMinutes = newDate.getMinutes();
+    const newSunTime =
+      newHours * millisecPerHour + newMinutes * millisecPerMinute;
+    const dateWithNewTime = new Date(dayStartMs + newSunTime);
+    // this.props.dataProvider.setDateAndTime(dateWithNewTime, true);
+
+    const currentTimeOffsetMs = this.ensureRange(
+      newSunTime,
       sunRiseOffsetMs,
       sunSetOffsetMs
     );
-    this.setPlaybackTimeBySunTime(sunOffsetMs, sunRiseOffsetMs, sunDeltaMs);
-
-    /** call dataProvider to update display style */
-    if (this.props.dataProvider.onTimeChanged)
-      this.props.dataProvider.onTimeChanged(this.props.dataProvider.timeOfDay);
-
-    this.setState(
-      {
-        dayStartMs,
-        sunRiseOffsetMs,
-        sunSetOffsetMs,
-        currentTimeOffsetMs: sunOffsetMs,
-        sunDeltaMs,
-        isDateOpened: false,
-      },
-      () => {
-        this._timeLastCycle = new Date().getTime();
-      }
-    );
-  };
-
-  private _onTimeChanged = (time: TimeSpec) => {
-    // compute the current date (with time)
-    const dayStartMs = this.props.dataProvider.dayStartMs;
-    const sunTime =
-      time.hours * millisecPerHour + time.minutes * millisecPerMinute;
-    const dateWithNewTime = new Date(dayStartMs + sunTime);
-    this.props.dataProvider.setDateAndTime(dateWithNewTime, true);
-
-    // notify the provider to update style
-    if (this.props.dataProvider.onTimeChanged)
-      this.props.dataProvider.onTimeChanged(dateWithNewTime);
-
-    const currentTimeOffsetMs = this.ensureRange(
-      sunTime,
-      this.state.sunRiseOffsetMs,
-      this.state.sunSetOffsetMs
-    );
-
     this.setPlaybackTimeBySunTime(
       currentTimeOffsetMs,
-      this.state.sunRiseOffsetMs,
-      this.state.sunDeltaMs
+      sunRiseOffsetMs,
+      sunDeltaMs
     );
     this._timeLastCycle = new Date().getTime();
 
-    // update the timeline
-    this.setState({ currentTimeOffsetMs });
+    this.props.dataProvider.onTimeChanged?.(dateWithNewTime);
+    this.setState({
+      dayStartMs,
+      sunRiseOffsetMs,
+      sunSetOffsetMs,
+      currentTimeOffsetMs,
+      sunDeltaMs,
+      isDateOpened: false,
+    });
   };
 
   private _onCloseDayPicker = () => {
@@ -654,21 +632,12 @@ export class SolarTimeline extends React.PureComponent<
               className="components-date-picker-calendar-popup-panel"
               data-testid="components-date-picker-calendar-popup-panel"
             >
-              <DatePicker date={localTime} onChange={this._onDayClick} />
-              <div className="time-container">
-                <Text variant="body" className="time-label">
-                  {this._timeLabel}
-                </Text>
-                <TimeField
-                  time={{
-                    hours: localTime.getHours(),
-                    minutes: localTime.getMinutes(),
-                    seconds: 0,
-                  }}
-                  timeDisplay={TimeDisplay.H12MC}
-                  onTimeChange={this._onTimeChanged}
-                />
-              </div>
+              <DatePicker
+                date={localTime}
+                onChange={this._onDateChange}
+                showTime
+                use12Hours
+              />
             </div>
           </Popup>
         </Flex>
