@@ -59,16 +59,13 @@ interface TimelineProps extends CommonProps {
   sunSetOffsetMs: number;
   currentTimeOffsetMs: number;
   isPlaying: boolean;
-  formatTick?: (millisec: number) => string;
-  formatTime: (millisec: number) => string;
+  formatTick?: (ms: number) => string;
+  formatTime: (ms: number) => string;
   onChange?: (values: ReadonlyArray<number>) => void;
   onUpdate?: (values: ReadonlyArray<number>) => void;
 }
 
 function Timeline(props: TimelineProps) {
-  const [sliderContainer, setSliderContainer] =
-    React.useState<HTMLDivElement | null>(null);
-
   const {
     formatTick,
     formatTime,
@@ -95,7 +92,6 @@ function Timeline(props: TimelineProps) {
       <VisuallyHidden>Solar timeline</VisuallyHidden>
       <Slider
         className={classnames(className, "slider")}
-        ref={setSliderContainer}
         thumbProps={() => ({ "aria-labelledby": "timeline" })}
         step={msPerMinute}
         min={sunRiseOffsetMs}
