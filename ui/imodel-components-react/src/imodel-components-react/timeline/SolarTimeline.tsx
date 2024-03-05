@@ -14,6 +14,7 @@ import classnames from "classnames";
 import * as React from "react";
 import {
   Button,
+  DatePicker,
   Flex,
   IconButton,
   Label,
@@ -31,7 +32,6 @@ import { Popup } from "@itwin/core-react";
 import type { TimeSpec } from "@itwin/components-react";
 import {
   adjustDateToTimezone,
-  DatePicker,
   TimeField,
   UiComponents,
 } from "@itwin/components-react";
@@ -423,10 +423,7 @@ export class SolarTimeline extends React.PureComponent<
 
   /** note the day passed in is in the time of the current user not in project time because the date picker works in
    * local time  */
-  private _onDayClick = (day: Date) => {
-    const selectedDate = new Date(
-      day.getTime() + this.state.currentTimeOffsetMs
-    );
+  private _onDayClick = (selectedDate: Date) => {
     this.props.dataProvider.setDateAndTime(selectedDate);
     const dayStartMs = this.props.dataProvider.dayStartMs;
     const sunRiseOffsetMs =
@@ -657,11 +654,7 @@ export class SolarTimeline extends React.PureComponent<
               className="components-date-picker-calendar-popup-panel"
               data-testid="components-date-picker-calendar-popup-panel"
             >
-              <DatePicker
-                selected={localTime}
-                onDateChange={this._onDayClick}
-                showFocusOutline={false}
-              />
+              <DatePicker date={localTime} onChange={this._onDayClick} />
               <div className="time-container">
                 <Text variant="body" className="time-label">
                   {this._timeLabel}
