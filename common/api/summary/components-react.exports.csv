@@ -47,9 +47,13 @@ internal;DateField({ initialDate, onDateChange, readOnly, dateFormatter, timeDis
 internal;DateFieldProps 
 public;DateFormatOptions
 alpha;DatePicker(props: DatePickerProps): React_3.JSX.Element
+deprecated;DatePicker(props: DatePickerProps): React_3.JSX.Element
 alpha;DatePickerPopupButton({ displayEditField, timeDisplay, selected, onDateChange, dateFormatter, buttonToolTip, fieldStyle, fieldClassName, style, }: DatePickerPopupButtonProps): React_3.JSX.Element
+deprecated;DatePickerPopupButton({ displayEditField, timeDisplay, selected, onDateChange, dateFormatter, buttonToolTip, fieldStyle, fieldClassName, style, }: DatePickerPopupButtonProps): React_3.JSX.Element
 alpha;DatePickerPopupButtonProps 
+deprecated;DatePickerPopupButtonProps 
 alpha;DatePickerProps
+deprecated;DatePickerProps
 internal;DateTimeEditor 
 internal;DateTimePropertyEditor 
 public;DateTimeTypeConverter 

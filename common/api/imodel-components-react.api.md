@@ -36,7 +36,7 @@ import type { ViewManager } from '@itwin/core-frontend';
 import type { Viewport } from '@itwin/core-frontend';
 import type { ViewState } from '@itwin/core-frontend';
 
-// @public
+// @public @deprecated
 export class AlphaSlider extends React_2.PureComponent<AlphaSliderProps> {
     // @internal
     constructor(props: AlphaSliderProps);
@@ -46,7 +46,7 @@ export class AlphaSlider extends React_2.PureComponent<AlphaSliderProps> {
     render(): React_2.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export interface AlphaSliderProps extends React_2.HTMLAttributes<HTMLDivElement>, CommonProps {
     alpha: number;
     isHorizontal?: boolean;
@@ -165,13 +165,13 @@ export class ColorEditor extends React_2.PureComponent<PropertyEditorProps, Colo
     readonly state: Readonly<ColorEditorState>;
 }
 
-// @beta
+// @beta @deprecated
 export const ColorPickerButton: (props: ColorPickerProps) => React_2.ReactElement | null;
 
-// @beta
+// @beta @deprecated
 export function ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResult, colorPresets, colorInputType, }: ColorPickerDialogProps): React_2.JSX.Element;
 
-// @beta
+// @beta @deprecated
 export interface ColorPickerDialogProps {
     // (undocumented)
     color: ColorDef;
@@ -185,10 +185,10 @@ export interface ColorPickerDialogProps {
     onOkResult: (selectedColor: ColorDef) => void;
 }
 
-// @public
+// @public @deprecated
 export const ColorPickerPopup: (props: ColorPickerPopupProps) => React_2.ReactElement | null;
 
-// @public
+// @public @deprecated
 export interface ColorPickerPopupProps extends React_2.ButtonHTMLAttributes<HTMLButtonElement>, CommonProps {
     captureClicks?: boolean;
     colorDefs?: ColorDef[];
@@ -204,7 +204,7 @@ export interface ColorPickerPopupProps extends React_2.ButtonHTMLAttributes<HTML
     showCaret?: boolean;
 }
 
-// @beta
+// @beta @deprecated
 export interface ColorPickerProps extends React_2.ButtonHTMLAttributes<HTMLButtonElement>, CommonProps {
     colorDefs?: ColorDef[];
     disabled?: boolean;
@@ -224,10 +224,10 @@ export class ColorPropertyEditor extends PropertyEditorBase {
     get reactNode(): React_2.ReactNode;
 }
 
-// @beta
+// @beta @deprecated
 export function ColorSwatch(props: ColorSwatchProps): React_2.JSX.Element;
 
-// @beta
+// @beta @deprecated
 export interface ColorSwatchProps extends React_2.ButtonHTMLAttributes<HTMLButtonElement>, CommonProps {
     colorDef: ColorDef;
     onColorPick?: ((color: ColorDef, e: React_2.MouseEvent) => void) | undefined;
@@ -576,10 +576,10 @@ export function getCSSColorFromDef(colorDef: ColorDef): string;
 // @internal (undocumented)
 export function getPercentageOfRectangle(rect: DOMRect, pointer: number): number;
 
-// @beta
+// @beta @deprecated
 export function HueSlider({ isHorizontal, onHueChange, hsv, className, style, }: HueSliderProps): React_2.JSX.Element;
 
-// @beta
+// @beta @deprecated
 export interface HueSliderProps extends React_2.HTMLAttributes<HTMLDivElement>, CommonProps {
     hsv: HSVColor;
     isHorizontal?: boolean;
@@ -733,10 +733,10 @@ export function RailMarkers({ showToolTip, percent, tooltipText, markDate, }: {
     markDate?: DateMarkerProps;
 }): React_2.JSX.Element;
 
-// @beta
+// @beta @deprecated
 export function SaturationPicker({ onSaturationChange, hsv, className, style, }: SaturationPickerProps): React_2.JSX.Element;
 
-// @beta
+// @beta @deprecated
 export interface SaturationPickerProps extends React_2.HTMLAttributes<HTMLDivElement>, CommonProps {
     hsv: HSVColor;
     onSaturationChange?: ((saturation: HSVColor) => void) | undefined;
