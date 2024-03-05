@@ -20,7 +20,9 @@ import { TimeField } from "./TimeField";
 import "./DatePickerPopupButton.scss";
 
 /** Props used by [[DatePickerPopupButton]] component.
- * @alpha */
+ * @alpha
+ * @deprecated in 4.11.x. Props of deprecated component {@link DatePickerPopupButton}.
+ */
 export interface DatePickerPopupButtonProps extends CommonProps {
   /** Date to be shown as the selected date. */
   selected: Date;
@@ -43,7 +45,8 @@ export interface DatePickerPopupButtonProps extends CommonProps {
 
 /** Component that displays a button used to pick a date and optionally a time.
  * @alpha
- * */
+ * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/datepicker iTwinUI date picker} instead.
+ */
 export function DatePickerPopupButton({
   displayEditField,
   timeDisplay,
