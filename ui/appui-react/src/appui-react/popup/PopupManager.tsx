@@ -40,6 +40,7 @@ import { WrapperContext } from "../configurableui/ConfigurableUiContent";
 import { mapToPlacement, type Placement } from "../utils/Placement";
 import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import type { ToolbarProps } from "../toolbar/Toolbar";
+import { InternalConfigurableUiManager } from "../configurableui/InternalConfigurableUiManager";
 
 // cSpell:ignore uiadmin
 
@@ -50,7 +51,10 @@ export interface PopupInfo {
   id: string;
   pt: XAndY;
   component: React.ReactNode;
-  parentDocument?: Document;
+  /** @deprecated in 4.x.11. Please use the optional `parent` property moving forward. */
+  parentDocument: Document;
+  /** will become standard once `parentDocument` is removed. */
+  parent?: Document;
 }
 
 /** @internal */
@@ -232,6 +236,7 @@ export class PopupManager {
       pt,
       component,
       parentDocument: el.ownerDocument,
+      parent: el.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -244,7 +249,7 @@ export class PopupManager {
 
   public static showKeyinPalette(
     keyins: KeyinEntry[],
-    el?: HTMLElement,
+    el: HTMLElement,
     onItemExecuted?: (item: any) => void,
     onCancel?: () => void
   ): boolean {
@@ -325,7 +330,10 @@ export class PopupManager {
       id,
       pt: location,
       component,
-      parentDocument: anchor?.ownerDocument,
+      parentDocument:
+        anchor?.ownerDocument ??
+        InternalConfigurableUiManager.getWrapperElement().ownerDocument,
+      parent: anchor?.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -406,7 +414,9 @@ export class PopupManager {
       id: id ?? _id,
       pt: location,
       component,
-      parentDocument: anchor?.ownerDocument,
+      parentDocument:
+        anchor?.ownerDocument ??
+        InternalConfigurableUiManager.getWrapperElement().ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -456,6 +466,7 @@ export class PopupManager {
       pt,
       component,
       parentDocument: el.ownerDocument,
+      parent: el.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -497,7 +508,10 @@ export class PopupManager {
       id,
       pt: location,
       component,
-      parentDocument: anchor?.ownerDocument,
+      parentDocument:
+        anchor?.ownerDocument ??
+        InternalConfigurableUiManager.getWrapperElement().ownerDocument,
+      parent: anchor?.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -617,8 +631,10 @@ export class PopupRenderer extends React.Component<{}, PopupRendererState> {
           this.state.popups
             .filter(
               (info) =>
-                (info.parentDocument ?? this.context.ownerDocument) ===
-                this.state.parentDocument
+                (info.parent ??
+                  // eslint-disable-next-line deprecation/deprecation
+                  info.parentDocument ??
+                  this.context.ownerDocument) === this.state.parentDocument
             )
             .map((popupInfo: PopupInfo) => {
               return (

@@ -2889,12 +2889,14 @@ export enum KeyinFieldLocalization {
 export function KeyinPalettePanel({ keyins, onKeyinExecuted, historyLength: allowedHistoryLength, }: KeyinPalettePanelProps): React_2.JSX.Element;
 
 // @public
-export function KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted, }: KeyinPalettePopupProps): React_2.JSX.Element;
+export function KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted, anchorEl, }: KeyinPalettePopupProps): React_2.JSX.Element;
 
 // @public
 export interface KeyinPalettePopupProps {
     // (undocumented)
-    el?: HTMLElement;
+    anchorEl?: HTMLElement;
+    // @deprecated (undocumented)
+    el: HTMLElement;
     // (undocumented)
     id: string;
     // (undocumented)
@@ -3446,8 +3448,9 @@ export interface PopupInfo {
     component: React_2.ReactNode;
     // (undocumented)
     id: string;
-    // (undocumented)
-    parentDocument?: Document;
+    parent?: Document;
+    // @deprecated (undocumented)
+    parentDocument: Document;
     // (undocumented)
     pt: XAndY;
 }
@@ -3502,7 +3505,7 @@ export class PopupManager {
     // (undocumented)
     static showInputEditor(el: HTMLElement, pt: XAndY, value: Primitives.Value, propertyDescription: PropertyDescription, onCommit: OnValueCommitFunc, onCancel: () => void): boolean;
     // (undocumented)
-    static showKeyinPalette(keyins: KeyinEntry[], el?: HTMLElement, onItemExecuted?: (item: any) => void, onCancel?: () => void): boolean;
+    static showKeyinPalette(keyins: KeyinEntry[], el: HTMLElement, onItemExecuted?: (item: any) => void, onCancel?: () => void): boolean;
     // (undocumented)
     static showToolbar(toolbarProps: AbstractToolbarProps, el: HTMLElement, pt: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, relativePosition: RelativePosition): boolean;
 }

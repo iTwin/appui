@@ -51,6 +51,7 @@ export class AccuDrawPopupManager {
       pt,
       component,
       parentDocument: el.ownerDocument,
+      parent: el.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -88,6 +89,7 @@ export class AccuDrawPopupManager {
       pt,
       component,
       parentDocument: el.ownerDocument,
+      parent: el.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 

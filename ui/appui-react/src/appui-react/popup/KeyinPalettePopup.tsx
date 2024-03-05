@@ -14,14 +14,15 @@ import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
 import { PositionPopup } from "./PositionPopup";
 import { KeyinPalettePanel } from "./KeyinPalettePanel";
 import type { KeyinEntry } from "../keyins/Keyins";
-import { WrapperContext } from "../configurableui/ConfigurableUiContent";
 
 /** Props defining KeyinPalettePopup component
  * @public */
 export interface KeyinPalettePopupProps {
   id: string;
-  el?: HTMLElement;
+  /** @deprecated in 4.11.x. Please use the optional `anchorEl` property moving forward. */
+  el: HTMLElement;
   keyins: KeyinEntry[];
+  anchorEl?: HTMLElement;
   onCancel?: OnCancelFunc;
   onItemExecuted?: OnItemExecutedFunc;
 }
@@ -30,14 +31,19 @@ export interface KeyinPalettePopupProps {
  * @public
  */
 export function KeyinPalettePopup({
+  // eslint-disable-next-line deprecation/deprecation
   el,
   id,
   keyins,
   onCancel,
   onItemExecuted,
+  anchorEl,
 }: KeyinPalettePopupProps) {
-  const wrapper = React.useContext(WrapperContext);
-  el = el ?? wrapper;
+  // due to deprecation policy, the context won't be used as fallback
+  // until we replace `el` with the optional `anchorEl` property.
+  // const wrapper = React.useContext(WrapperContext);
+
+  const _el = anchorEl ?? el;
 
   const [popupSize, setPopupSize] = React.useState(new Size(-1, -1));
 
@@ -66,8 +72,8 @@ export function KeyinPalettePopup({
   );
 
   const xMid =
-    el.getBoundingClientRect().left + el.getBoundingClientRect().width / 2;
-  let point = new Point(xMid, el.getBoundingClientRect().top);
+    _el.getBoundingClientRect().left + _el.getBoundingClientRect().width / 2;
+  let point = new Point(xMid, _el.getBoundingClientRect().top);
   // istanbul ignore next
   if (popupSize.width > 0) point = point.offsetX(popupSize.width / -2);
 

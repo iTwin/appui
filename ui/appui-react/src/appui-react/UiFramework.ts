@@ -1305,7 +1305,10 @@ export class UiFramework {
     keyinEntries: KeyinEntry[],
     htmlElement?: HTMLElement
   ): boolean {
-    return PopupManager.showKeyinPalette(keyinEntries, htmlElement);
+    return PopupManager.showKeyinPalette(
+      keyinEntries,
+      UiFramework.resolveHtmlElement(htmlElement)
+    );
   }
 
   /** Hides the Key-in Palette. */
