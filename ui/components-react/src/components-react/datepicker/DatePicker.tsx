@@ -42,6 +42,7 @@ export interface DatePickerProps {
  * @alpha
  * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/datepicker iTwinUI date picker} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function DatePicker(props: DatePickerProps) {
   const previousMonthLabel = React.useRef(
     UiComponents.localization.getLocalizedString(

@@ -41,6 +41,8 @@ import {
 import { UiIModelComponents } from "../UiIModelComponents";
 import { SvgCalendar, SvgLoop, SvgSettings } from "@itwin/itwinui-icons-react";
 
+/* eslint-disable deprecation/deprecation */
+
 // cSpell:ignore millisec solarsettings showticks shadowcolor solartimeline datepicker millisecs
 
 const millisecPerMinute = 1000 * 60;

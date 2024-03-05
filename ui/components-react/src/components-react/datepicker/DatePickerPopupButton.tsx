@@ -57,7 +57,8 @@ export function DatePickerPopupButton({
   fieldStyle,
   fieldClassName,
   style,
-}: DatePickerPopupButtonProps) {
+}: // eslint-disable-next-line deprecation/deprecation
+DatePickerPopupButtonProps) {
   const [workingDate, setWorkingDate] = React.useState(
     new Date(selected.getTime())
   );
@@ -158,7 +159,7 @@ export function DatePickerPopupButton({
           className="components-date-picker-calendar-popup-panel"
           data-testid="components-date-picker-calendar-popup-panel"
         >
-          <DatePicker
+          <DatePicker // eslint-disable-line deprecation/deprecation
             selected={workingDate}
             onDateChange={handleOnDateChanged}
             showFocusOutline={showFocusOutline}
