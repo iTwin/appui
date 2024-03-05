@@ -14,10 +14,6 @@ import type { ItemField } from "@itwin/core-frontend";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
 import { Icon, useRefs } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
-import type {
-  AccuDrawSetFieldFocusEventArgs,
-  AccuDrawSetFieldValueToUiEventArgs,
-} from "./FrameworkAccuDraw";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
 import { UiFramework } from "../UiFramework";
 import { SvgLock } from "@itwin/itwinui-icons-react";
@@ -140,10 +136,10 @@ const ForwardRefAccuDrawInput = React.forwardRef<
   const handleKeyDown = React.useCallback(
     (e: React.KeyboardEvent) => {
       switch (e.key) {
-        case Key.Escape:
+        case Key.Escape.valueOf():
           onEscPressed && onEscPressed();
           return;
-        case Key.Enter:
+        case Key.Enter.valueOf():
           onEnterPressed && onEnterPressed();
           return;
       }
@@ -158,17 +154,14 @@ const ForwardRefAccuDrawInput = React.forwardRef<
   );
 
   React.useEffect(() => {
-    const handleSetFieldValueToUi = (
-      args: AccuDrawSetFieldValueToUiEventArgs
-    ) => {
-      if (args.field === field && stringValue !== args.formattedValue) {
-        setStringValue(args.formattedValue);
-        // istanbul ignore else
-        if (isFocusField) setNeedSelection(true);
-      }
-    };
     return FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(
-      handleSetFieldValueToUi
+      (args) => {
+        if (args.field === field && stringValue !== args.formattedValue) {
+          setStringValue(args.formattedValue);
+          // istanbul ignore else
+          if (isFocusField) setNeedSelection(true);
+        }
+      }
     );
   }, [field, isFocusField, stringValue]);
 
@@ -181,11 +174,10 @@ const ForwardRefAccuDrawInput = React.forwardRef<
   }, [needSelection]);
 
   React.useEffect(() => {
-    const handleSetFieldFocus = (args: AccuDrawSetFieldFocusEventArgs) => {
-      setIsFocusField(args.field === field);
-    };
     return FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(
-      handleSetFieldFocus
+      (args) => {
+        setIsFocusField(args.field === field);
+      }
     );
   }, [field]);
 
@@ -221,7 +213,7 @@ const ForwardRefAccuDrawInput = React.forwardRef<
   );
 });
 
-/** Input field for AccuDraw Ui
+/** Input field for AccuDraw UI.
  * @beta
  */
 export const AccuDrawInputField: (

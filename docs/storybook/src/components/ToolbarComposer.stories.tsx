@@ -16,7 +16,6 @@ import {
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
-  UiFramework,
 } from "@itwin/appui-react";
 import { ConditionalIconItem, IconHelper } from "@itwin/core-react";
 import {
@@ -29,8 +28,6 @@ import {
   SvgExport,
 } from "@itwin/itwinui-icons-react";
 import { StoryComponent } from "./ToolbarComposer";
-
-UiFramework.initialize(undefined);
 
 const meta = {
   title: "Components/ToolbarComposer",

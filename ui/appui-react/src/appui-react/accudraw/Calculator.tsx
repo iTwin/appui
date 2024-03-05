@@ -206,39 +206,39 @@ export class Calculator extends React.PureComponent<
         break;
       case "c":
       case "C":
-      case Key.Clear:
+      case Key.Clear.valueOf():
         this._onOperatorButtonClick(CalculatorOperator.Clear);
         break;
-      case Key.Escape:
+      case Key.Escape.valueOf():
         this._cancel();
         break;
-      case Key.Backspace:
+      case Key.Backspace.valueOf():
         this._onOperatorButtonClick(CalculatorOperator.Backspace);
         break;
       case "/":
-      case Key.Divide:
+      case Key.Divide.valueOf():
         this._onOperatorButtonClick(CalculatorOperator.Divide);
         break;
       case "*":
-      case Key.Multiply:
+      case Key.Multiply.valueOf():
         this._onOperatorButtonClick(CalculatorOperator.Multiply);
         break;
       case "-":
-      case Key.Subtract:
+      case Key.Subtract.valueOf():
         this._onOperatorButtonClick(CalculatorOperator.Subtract);
         break;
       case "+":
-      case Key.Add:
+      case Key.Add.valueOf():
         this._onOperatorButtonClick(CalculatorOperator.Add);
         break;
       case ".":
-      case Key.Decimal:
+      case Key.Decimal.valueOf():
         this._onOperatorButtonClick(CalculatorOperator.Decimal);
         break;
       case "=":
         this._onOperatorButtonClick(CalculatorOperator.Equals);
         break;
-      case Key.Enter:
+      case Key.Enter.valueOf():
         if (!this._equalsClicked)
           this._onOperatorButtonClick(CalculatorOperator.Equals);
         this._ok();

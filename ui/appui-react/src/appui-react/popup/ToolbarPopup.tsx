@@ -64,7 +64,7 @@ export class ToolbarPopup extends React.PureComponent<
     event: React.KeyboardEvent<HTMLDivElement>
   ): void => {
     switch (event.key) {
-      case Key.Escape:
+      case Key.Escape.valueOf():
         this._cancel();
         break;
     }

@@ -22,14 +22,17 @@ describe("SendBack", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state}>
+    const component = render(
+      <TestNineZoneProvider
+        defaultState={state}
+        labels={{ sendWidgetHomeTitle: "Send back" }}
+      >
         <WidgetIdContext.Provider value="w1">
           <SendBack />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    component.getByTitle("Send back");
   });
 
   it("should dispatch TOOL_SETTINGS_DOCK", () => {
@@ -37,14 +40,18 @@ describe("SendBack", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
+    const component = render(
+      <TestNineZoneProvider
+        defaultState={state}
+        dispatch={dispatch}
+        labels={{ sendWidgetHomeTitle: "Send back" }}
+      >
         <WidgetIdContext.Provider value="w1">
           <SendBack />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    const button = container.getElementsByClassName("nz-widget-sendBack")[0];
+    const button = component.getByTitle("Send back");
     fireEvent.click(button);
 
     sinon.assert.calledOnceWithExactly(dispatch, {
@@ -57,14 +64,17 @@ describe("SendBack", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state}>
+    const component = render(
+      <TestNineZoneProvider
+        defaultState={state}
+        labels={{ sendWidgetHomeTitle: "Send back" }}
+      >
         <WidgetIdContext.Provider value="w1">
           <SendBack />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    const button = container.getElementsByClassName("nz-widget-sendBack")[0];
+    const button = component.getByTitle("Send back");
 
     fireEvent.mouseOver(button);
     expect(useActiveSendBackWidgetIdStore.getState()).equal("w1");

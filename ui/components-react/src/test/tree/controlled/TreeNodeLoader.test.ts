@@ -52,7 +52,7 @@ import type {
 const extractLoadedNodeIds = async (obs: Observable<TreeNodeLoadResult>) => {
   const loadResult = await extractSequence(toRxjsObservable(obs));
   if (loadResult.length === 0) return [];
-  return loadResult[0]!.loadedNodes.map((item) => item.id);
+  return loadResult[0].loadedNodes.map((item) => item.id);
 };
 
 function createTestTreeNodeItem(

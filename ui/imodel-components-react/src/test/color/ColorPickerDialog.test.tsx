@@ -9,6 +9,7 @@ import { fireEvent, render } from "@testing-library/react";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { TestUtils } from "../TestUtils";
 import { ColorPickerDialog } from "../../imodel-components-react/color/ColorPickerDialog";
+import { ColorValue } from "@itwin/itwinui-react";
 
 // cSpell:ignore colorpicker
 
@@ -52,9 +53,12 @@ describe("ColorPickerDialog", () => {
           onCancelResult={() => {}}
         />
       );
-      expect(
-        wrapper.container.querySelectorAll(".iui-color-swatch").length
-      ).to.eq(6);
+
+      defaultColors.forEach((def) => {
+        wrapper.getByText(
+          ColorValue.fromTbgr(def.tbgr).toHslString(true).toUpperCase()
+        );
+      });
     });
 
     it("should trigger onCancelResult", () => {
@@ -128,13 +132,13 @@ describe("ColorPickerDialog", () => {
           onCancelResult={() => {}}
         />
       );
-      const panel = wrapper.container.querySelector(
-        ".iui-color-palette-wrapper"
-      ) as HTMLElement;
-      const colorButton = panel.querySelector(
-        ".iui-color-swatch"
-      ) as HTMLElement;
-      fireEvent.click(colorButton);
+
+      const button = wrapper.getByRole("button", {
+        name: ColorValue.fromTbgr(defaultColors[0].tbgr)
+          .toHslString(true)
+          .toUpperCase(),
+      });
+      fireEvent.click(button);
 
       const okButton = wrapper.getByRole("button", {
         name: "dialog.ok",

@@ -142,7 +142,7 @@ export class ColorEditor
       if (record.property.editor && record.property.editor.params) {
         const colorParams = record.property.editor.params.find(
           (param: PropertyEditorParams) =>
-            param.type === PropertyEditorParamTypes.ColorData
+            param.type === PropertyEditorParamTypes.ColorData.valueOf()
         ) as ColorEditorParams;
         // istanbul ignore else
         if (colorParams) {

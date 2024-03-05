@@ -9,7 +9,6 @@ import {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import type { StatusBarItem, UiItemsProvider } from "../../appui-react";
 import {
@@ -59,7 +58,7 @@ describe("StatusBarComposer", () => {
         [TestUiProvider.uiSyncEventId]
       );
 
-      if (stageUsage === StageUsage.General) {
+      if (stageUsage === StageUsage.General.valueOf()) {
         statusBarItems.push(
           StatusBarItemUtilities.createActionItem(
             "ExtensionTest:StatusBarItem1",
@@ -121,16 +120,6 @@ describe("StatusBarComposer", () => {
   function AppStatusBarComponent(props: {}) {
     return <div className="status-bar-component" {...props} />;
   }
-
-  before(async () => {
-    await TestUtils.initializeUiFramework();
-    await NoRenderApp.startup();
-  });
-
-  after(async () => {
-    TestUtils.terminateUiFramework();
-    await IModelApp.shutdown();
-  });
 
   describe("StatusBarComposer", () => {
     it("StatusBarComposer should be instantiated", () => {

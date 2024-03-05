@@ -66,7 +66,6 @@ describe("<DateField />", () => {
   });
 
   beforeEach(() => {
-    sinon.restore();
     renderSpy = sinon.spy();
   });
 

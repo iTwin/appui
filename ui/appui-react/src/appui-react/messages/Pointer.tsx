@@ -6,6 +6,9 @@
  * @module Notification
  */
 
+import "./Pointer.scss";
+import classnames from "classnames";
+import * as React from "react";
 import {
   MessageSeverity,
   RelativePosition,
@@ -14,13 +17,15 @@ import {
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import type { XAndY } from "@itwin/core-geometry";
 import type { CommonProps, SizeProps } from "@itwin/core-react";
-import { Icon, MessageContainer, Point, Rectangle } from "@itwin/core-react";
-import classnames from "classnames";
-import * as React from "react";
+import {
+  Icon,
+  MessageContainer,
+  MessageRenderer,
+  Point,
+  Rectangle,
+} from "@itwin/core-react";
 import { offsetAndContainInContainer, Tooltip } from "../layout/popup/Tooltip";
 import { MessageManager } from "./MessageManager";
-import { MessageDiv, MessageSpan } from "./MessageSpan";
-import "./Pointer.scss";
 import type {
   NotifyMessageDetailsType,
   NotifyMessageType,
@@ -170,12 +175,13 @@ export class PointerMessage extends React.Component<
             </span>
           )}
           <span className="uifw-pointer-message-text">
-            <MessageSpan
+            <MessageRenderer
               className="uifw-pointer-message-brief"
               message={this.state.message}
+              useSpan
             />
             {this.state.detailedMessage && (
-              <MessageDiv
+              <MessageRenderer
                 className="uifw-pointer-message-detailed"
                 message={this.state.detailedMessage}
               />

@@ -39,7 +39,6 @@ describe("<TimeField />", () => {
   });
 
   beforeEach(() => {
-    sinon.restore();
     renderSpy = sinon.spy();
   });
 

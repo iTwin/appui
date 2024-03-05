@@ -5,7 +5,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ContextMenuItem, ContextSubMenu } from "@itwin/core-react";
 import { ContextMenu } from "@itwin/core-react/src/core-react/contextmenu/ContextMenu";
-import { AppUiDecorator } from "../AppUiDecorator";
+import { AppUiDecorator } from "../Decorators";
 
 const meta = {
   title: "Components/ContextMenu",

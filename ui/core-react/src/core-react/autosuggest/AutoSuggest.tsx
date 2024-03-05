@@ -8,9 +8,10 @@
 
 import "./AutoSuggest.scss";
 import * as React from "react";
+import { Logger } from "@itwin/core-bentley";
+import { Input } from "@itwin/itwinui-react";
 import * as ReactAutosuggest from "react-autosuggest";
 import { Key } from "ts-key-enum";
-import { Logger } from "@itwin/core-bentley";
 import type { CommonProps } from "../utils/Props";
 import { UiCore } from "../UiCore";
 
@@ -232,15 +233,15 @@ export class AutoSuggest extends React.PureComponent<
 
   private _handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     switch (e.key) {
-      case Key.Enter:
+      case Key.Enter.valueOf():
         // istanbul ignore else
         if (this.props.onPressEnter) this.props.onPressEnter(e);
         break;
-      case Key.Escape:
+      case Key.Escape.valueOf():
         // istanbul ignore else
         if (this.props.onPressEscape) this.props.onPressEscape(e);
         break;
-      case Key.Tab:
+      case Key.Tab.valueOf():
         // istanbul ignore else
         if (this.props.onPressTab) this.props.onPressTab(e);
         break;
@@ -250,7 +251,7 @@ export class AutoSuggest extends React.PureComponent<
   private _theme = {
     container: "uicore-autosuggest__container",
     containerOpen: "uicore-autosuggest__container--open",
-    input: "iui-input uicore-autosuggest__input",
+    input: "uicore-autosuggest__input",
     inputOpen: "uicore-autosuggest__input--open",
     inputFocused: "uicore-autosuggest__input--focused",
     suggestionsContainer: "uicore-autosuggest__suggestions-container",
@@ -296,6 +297,12 @@ export class AutoSuggest extends React.PureComponent<
       autoFocus: setFocus,
     };
 
+    const defaultRenderInputComponent: React.ComponentProps<
+      typeof ReactAutosuggest
+    >["renderInputComponent"] = (renderInputProps) => {
+      const { size, ...other } = renderInputProps;
+      return <Input {...other} />;
+    };
     return (
       // The onKeyDown event handler is only being used to capture bubbled events
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
@@ -314,7 +321,9 @@ export class AutoSuggest extends React.PureComponent<
           inputProps={inputProps}
           onSuggestionSelected={this._onSuggestionSelected}
           alwaysRenderSuggestions={alwaysRenderSuggestions}
-          renderInputComponent={renderInputComponent}
+          renderInputComponent={
+            renderInputComponent || defaultRenderInputComponent
+          }
           renderSuggestionsContainer={renderSuggestionsContainer}
         />
       </div>

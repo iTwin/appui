@@ -22,15 +22,12 @@ class AsyncValuesTypeConverter extends TypeConverter {
     return 0;
   }
   public override async convertToString(value?: Primitives.Value) {
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     return value ? value.toString() : "";
   }
 }
 
 describe("PrimitivePropertyValueRenderer", () => {
-  afterEach(() => {
-    sinon.restore();
-  });
-
   describe("render", () => {
     it("renders primitive property", () => {
       const renderer = new PrimitivePropertyValueRenderer();

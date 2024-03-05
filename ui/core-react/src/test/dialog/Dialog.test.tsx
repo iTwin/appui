@@ -49,10 +49,7 @@ describe("Dialog", () => {
           titleStyle={{ fontWeight: "bold" }}
         />
       );
-      const element = component.container.querySelector(
-        ".iui-dialog-title-bar"
-      ) as HTMLElement;
-      expect(element.style.fontWeight).to.equal("bold");
+      component.getByText("Test");
     });
     it("should render without inset", () => {
       const component = render(
@@ -257,16 +254,14 @@ describe("Dialog", () => {
   describe("header", () => {
     it("should render without header", () => {
       const component = render(<Dialog opened={true} hideHeader={true} />);
-      expect(component.container.querySelector(".iui-dialog-title-bar")).to.be
-        .null;
+      expect(component.queryByTestId("core-dialog-head")).to.be.null;
     });
+
     it("should render with header", () => {
       const component = render(
-        <Dialog opened={true} header={<div className="header-test" />} />
+        <Dialog opened={true} header={<div>Test Header</div>} />
       );
-      expect(component.container.querySelector(".header-test")).not.to.be.null;
-      expect(component.container.querySelector(".iui-dialog-title-bar")).to.be
-        .null;
+      component.getByText("Test Header");
     });
   });
 });

@@ -6,47 +6,35 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
+  act,
+  fireEvent,
+  render,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
+import { MessageSeverity } from "@itwin/appui-abstract";
+import {
   MessageBoxIconType,
-  NoRenderApp,
   NotifyMessageDetails,
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
-import { MessageSeverity } from "@itwin/appui-abstract";
 import { UnderlinedButton } from "@itwin/core-react";
+import { ThemeProvider } from "@itwin/itwinui-react";
 import {
   AppNotificationManager,
   MessageManager,
   ReactNotifyMessageDetails,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
-import {
-  act,
-  fireEvent,
-  screen,
-  waitFor,
-  waitForElementToBeRemoved,
-} from "@testing-library/react";
+import { MessageRenderer } from "../../appui-react/messages/MessageRenderer";
 
 describe("MessageManager", () => {
-  let notifications: AppNotificationManager;
+  const notifications = new AppNotificationManager();
 
-  before(async () => {
-    await NoRenderApp.startup();
-    await TestUtils.initializeUiFramework();
-
-    notifications = new AppNotificationManager();
-    MessageManager.clearMessages();
-  });
-
-  beforeEach(async () => {
+  afterEach(async () => {
     act(() => {
       MessageManager.closeAllMessages();
+      MessageManager.clearMessages();
     });
-  });
-
-  after(async () => {
-    TestUtils.terminateUiFramework();
   });
 
   it("maxCachedMessages handled correctly", () => {
@@ -57,20 +45,19 @@ describe("MessageManager", () => {
     clearSpy.calledOnce.should.true;
 
     for (let i = 0; i < 500; i++) {
-      const details = new NotifyMessageDetails(
-        OutputMessagePriority.Debug,
-        `A brief message - ${i}.`
+      MessageManager.addMessage(
+        new NotifyMessageDetails(
+          OutputMessagePriority.Debug,
+          `A brief message - ${i}.`
+        )
       );
-      MessageManager.addMessage(details);
     }
     expect(MessageManager.messages.length).to.eq(500);
 
     clearSpy.resetHistory();
-    const details2 = new NotifyMessageDetails(
-      OutputMessagePriority.Debug,
-      `A brief message.`
+    MessageManager.addMessage(
+      new NotifyMessageDetails(OutputMessagePriority.Debug, `A brief message.`)
     );
-    MessageManager.addMessage(details2);
     expect(MessageManager.messages.length).to.eq(376);
     clearSpy.calledTwice.should.true;
 
@@ -85,103 +72,111 @@ describe("MessageManager", () => {
   });
 
   it("getIconType should return proper icon type", () => {
-    let details = new NotifyMessageDetails(
-      OutputMessagePriority.Info,
-      "A brief message."
-    );
-    expect(MessageManager.getIconType(details)).to.eq(
-      MessageBoxIconType.Information
-    );
+    expect(
+      MessageManager.getIconType(
+        new NotifyMessageDetails(OutputMessagePriority.Info, "A brief message.")
+      )
+    ).to.eq(MessageBoxIconType.Information);
 
-    details = new NotifyMessageDetails(
-      OutputMessagePriority.Warning,
-      "A brief message."
-    );
-    expect(MessageManager.getIconType(details)).to.eq(
-      MessageBoxIconType.Warning
-    );
+    expect(
+      MessageManager.getIconType(
+        new NotifyMessageDetails(
+          OutputMessagePriority.Warning,
+          "A brief message."
+        )
+      )
+    ).to.eq(MessageBoxIconType.Warning);
 
-    details = new NotifyMessageDetails(
-      OutputMessagePriority.Error,
-      "A brief message."
-    );
-    expect(MessageManager.getIconType(details)).to.eq(
-      MessageBoxIconType.Critical
-    );
+    expect(
+      MessageManager.getIconType(
+        new NotifyMessageDetails(
+          OutputMessagePriority.Error,
+          "A brief message."
+        )
+      )
+    ).to.eq(MessageBoxIconType.Critical);
 
-    details = new NotifyMessageDetails(
-      OutputMessagePriority.Fatal,
-      "A brief message."
-    );
-    expect(MessageManager.getIconType(details)).to.eq(
-      MessageBoxIconType.Critical
-    );
+    expect(
+      MessageManager.getIconType(
+        new NotifyMessageDetails(
+          OutputMessagePriority.Fatal,
+          "A brief message."
+        )
+      )
+    ).to.eq(MessageBoxIconType.Critical);
 
-    details = new NotifyMessageDetails(
-      OutputMessagePriority.None,
-      "A brief message."
-    );
-    expect(MessageManager.getIconType(details)).to.eq(
-      MessageBoxIconType.NoSymbol
-    );
+    expect(
+      MessageManager.getIconType(
+        new NotifyMessageDetails(OutputMessagePriority.None, "A brief message.")
+      )
+    ).to.eq(MessageBoxIconType.NoSymbol);
   });
 
   it("getSeverity should return proper severity", () => {
-    let details = new NotifyMessageDetails(
-      OutputMessagePriority.Info,
-      "A brief message."
-    );
-    expect(MessageManager.getSeverity(details)).to.eq(
-      MessageSeverity.Information
-    );
+    expect(
+      MessageManager.getSeverity(
+        new NotifyMessageDetails(OutputMessagePriority.Info, "A brief message.")
+      )
+    ).to.eq(MessageSeverity.Information);
 
-    details = new NotifyMessageDetails(
-      OutputMessagePriority.Warning,
-      "A brief message."
-    );
-    expect(MessageManager.getSeverity(details)).to.eq(MessageSeverity.Warning);
+    expect(
+      MessageManager.getSeverity(
+        new NotifyMessageDetails(
+          OutputMessagePriority.Warning,
+          "A brief message."
+        )
+      )
+    ).to.eq(MessageSeverity.Warning);
 
-    details = new NotifyMessageDetails(
-      OutputMessagePriority.Error,
-      "A brief message."
-    );
-    expect(MessageManager.getSeverity(details)).to.eq(MessageSeverity.Error);
+    expect(
+      MessageManager.getSeverity(
+        new NotifyMessageDetails(
+          OutputMessagePriority.Error,
+          "A brief message."
+        )
+      )
+    ).to.eq(MessageSeverity.Error);
 
-    details = new NotifyMessageDetails(
-      OutputMessagePriority.Fatal,
-      "A brief message."
-    );
-    expect(MessageManager.getSeverity(details)).to.eq(MessageSeverity.Fatal);
+    expect(
+      MessageManager.getSeverity(
+        new NotifyMessageDetails(
+          OutputMessagePriority.Fatal,
+          "A brief message."
+        )
+      )
+    ).to.eq(MessageSeverity.Fatal);
 
-    details = new NotifyMessageDetails(
-      OutputMessagePriority.None,
-      "A brief message."
-    );
-    expect(MessageManager.getSeverity(details)).to.eq(MessageSeverity.Success);
+    expect(
+      MessageManager.getSeverity(
+        new NotifyMessageDetails(OutputMessagePriority.None, "A brief message.")
+      )
+    ).to.eq(MessageSeverity.Success);
 
-    details = new NotifyMessageDetails(
-      OutputMessagePriority.Success,
-      "A brief message."
-    );
-    expect(MessageManager.getSeverity(details)).to.eq(MessageSeverity.Success);
+    expect(
+      MessageManager.getSeverity(
+        new NotifyMessageDetails(
+          OutputMessagePriority.Success,
+          "A brief message."
+        )
+      )
+    ).to.eq(MessageSeverity.Success);
   });
 
   it("non-duplicate message should be added to Message Center", () => {
     MessageManager.clearMessages();
     expect(MessageManager.messages.length).to.eq(0);
 
-    const details1 = new NotifyMessageDetails(
-      OutputMessagePriority.Debug,
-      "A brief message."
+    MessageManager.addMessage(
+      new NotifyMessageDetails(OutputMessagePriority.Debug, "A brief message.")
     );
-    MessageManager.addMessage(details1);
     expect(MessageManager.messages.length).to.eq(1);
 
-    const details2 = new NotifyMessageDetails(
-      OutputMessagePriority.Error,
-      "Another brief message."
+    MessageManager.addMessage(
+      new NotifyMessageDetails(
+        OutputMessagePriority.Error,
+        "Another brief message."
+      )
     );
-    MessageManager.addMessage(details2);
     expect(MessageManager.messages.length).to.eq(2);
   });
 
@@ -189,18 +184,14 @@ describe("MessageManager", () => {
     MessageManager.clearMessages();
     expect(MessageManager.messages.length).to.eq(0);
 
-    const details1 = new NotifyMessageDetails(
-      OutputMessagePriority.Debug,
-      "A brief message."
+    MessageManager.addMessage(
+      new NotifyMessageDetails(OutputMessagePriority.Debug, "A brief message.")
     );
-    MessageManager.addMessage(details1);
     expect(MessageManager.messages.length).to.eq(1);
 
-    const details2 = new NotifyMessageDetails(
-      OutputMessagePriority.Debug,
-      "A brief message."
+    MessageManager.addMessage(
+      new NotifyMessageDetails(OutputMessagePriority.Debug, "A brief message.")
     );
-    MessageManager.addMessage(details2);
     expect(MessageManager.messages.length).to.eq(1);
   });
 
@@ -213,12 +204,13 @@ describe("MessageManager", () => {
         For more details, <UnderlinedButton>click here</UnderlinedButton>.
       </span>
     );
-    const details1 = new ReactNotifyMessageDetails(
-      OutputMessagePriority.Debug,
-      "A brief message.",
-      { reactNode }
+    MessageManager.outputMessage(
+      new ReactNotifyMessageDetails(
+        OutputMessagePriority.Debug,
+        "A brief message.",
+        { reactNode }
+      )
     );
-    MessageManager.outputMessage(details1);
     expect(MessageManager.messages.length).to.eq(1);
   });
 
@@ -232,7 +224,8 @@ describe("MessageManager", () => {
     expect(onOpenMessageCenterEventSpy.callCount).to.eq(1);
   });
 
-  it("MessageManager should render a Toast message", async () => {
+  it("should render a toast message", async () => {
+    const component = render(<MessageRenderer />, { wrapper: ThemeProvider });
     const details = new NotifyMessageDetails(
       OutputMessagePriority.None,
       "A brief message.",
@@ -241,115 +234,121 @@ describe("MessageManager", () => {
     act(() => {
       notifications.outputMessage(details);
     });
-    await waitFor(() => {
-      expect(screen.getByText("A brief message.")).to.be.not.null;
-    });
+    component.getByText("A brief message.");
 
     act(() => {
       MessageManager.closeAllMessages();
     });
-    await waitForElementToBeRemoved(screen.queryByText("A brief message."));
+    expect(component.queryByText("A brief message.")).to.be.null;
   });
 
-  it("MessageManager should render a Sticky message", async () => {
-    const details = new NotifyMessageDetails(
-      OutputMessagePriority.Info,
-      "A brief message.",
-      "A detailed message.",
-      OutputMessageType.Sticky
-    );
+  it("should render a sticky message", async () => {
+    const component = render(<MessageRenderer />, { wrapper: ThemeProvider });
     act(() => {
-      notifications.outputMessage(details);
+      notifications.outputMessage(
+        new NotifyMessageDetails(
+          OutputMessagePriority.Info,
+          "A brief message.",
+          "A detailed message.",
+          OutputMessageType.Sticky
+        )
+      );
     });
-    await waitFor(() => {
-      expect(screen.getByText("A brief message.")).to.be.not.null;
-    });
+    component.getByText("A brief message.");
 
     act(() => {
       MessageManager.closeAllMessages();
     });
-    await waitForElementToBeRemoved(screen.queryByText("A brief message."));
+    expect(component.queryByText("A brief message.")).to.be.null;
   });
 
-  it("Sticky message should close on button click", async () => {
-    const details = new NotifyMessageDetails(
-      OutputMessagePriority.Error,
-      "A brief message.",
-      "A detailed message.",
-      OutputMessageType.Sticky
-    );
-    act(() => {
-      notifications.outputMessage(details);
-    });
-    await waitFor(() => {
-      expect(screen.getByText("A brief message.")).to.be.not.null;
-    });
+  it("should close sticky message on click", async () => {
+    const component = render(<MessageRenderer />, { wrapper: ThemeProvider });
 
-    const closeButton = screen.getByRole("button", { name: "Close" });
+    act(() => {
+      notifications.outputMessage(
+        new NotifyMessageDetails(
+          OutputMessagePriority.Error,
+          "A brief message.",
+          "A detailed message.",
+          OutputMessageType.Sticky
+        )
+      );
+    });
+    component.getByText("A brief message.");
+
+    const closeButton = component.getByRole("button", { name: "Close" });
     fireEvent.click(closeButton);
-    await waitForElementToBeRemoved(screen.queryByText("A brief message."));
-    act(() => {
-      MessageManager.clearMessages();
-    });
+
+    await waitForElementToBeRemoved(() =>
+      component.queryByText("A brief message.")
+    );
   });
 
-  it("StatusBar should render maximum of 3 Sticky messages", async () => {
-    MessageManager.maxDisplayedStickyMessages = 3;
+  it("should respect `maxDisplayedStickyMessages`", async () => {
+    sinon.stub(MessageManager, "maxDisplayedStickyMessages").get(() => 3);
 
-    const details1 = new NotifyMessageDetails(
-      OutputMessagePriority.None,
-      "A brief message 1.",
-      undefined,
-      OutputMessageType.Sticky
-    );
+    const component = render(<MessageRenderer />, { wrapper: ThemeProvider });
     act(() => {
-      notifications.outputMessage(details1);
+      notifications.outputMessage(
+        new NotifyMessageDetails(
+          OutputMessagePriority.None,
+          "A brief message 1.",
+          undefined,
+          OutputMessageType.Sticky
+        )
+      );
     });
-    await waitFor(() => {
-      expect(screen.getByText("A brief message 1.")).to.be.not.null;
-    });
-    const details2 = new NotifyMessageDetails(
-      OutputMessagePriority.None,
-      "A brief message 2.",
-      undefined,
-      OutputMessageType.Sticky
-    );
-    act(() => {
-      notifications.outputMessage(details2);
-    });
-    await waitFor(() => {
-      expect(screen.getByText("A brief message 2.")).to.be.not.null;
-    });
-    const details3 = new NotifyMessageDetails(
-      OutputMessagePriority.None,
-      "A brief message 3.",
-      undefined,
-      OutputMessageType.Sticky
-    );
-    act(() => {
-      notifications.outputMessage(details3);
-    });
-    await waitFor(() => {
-      expect(screen.getByText("A brief message 3.")).to.be.not.null;
-    });
+    component.getByText("A brief message 1.");
 
-    const details4 = new NotifyMessageDetails(
-      OutputMessagePriority.None,
-      "A brief message 4.",
-      undefined,
-      OutputMessageType.Sticky
-    );
     act(() => {
-      notifications.outputMessage(details4);
+      notifications.outputMessage(
+        new NotifyMessageDetails(
+          OutputMessagePriority.None,
+          "A brief message 2.",
+          undefined,
+          OutputMessageType.Sticky
+        )
+      );
     });
-    await waitForElementToBeRemoved(screen.queryByText("A brief message 1."));
-    await waitFor(() => {
-      expect(screen.getByText("A brief message 4.")).to.be.not.null;
+    component.getByText("A brief message 1.");
+    component.getByText("A brief message 2.");
+
+    act(() => {
+      notifications.outputMessage(
+        new NotifyMessageDetails(
+          OutputMessagePriority.None,
+          "A brief message 3.",
+          undefined,
+          OutputMessageType.Sticky
+        )
+      );
     });
+    component.getByText("A brief message 1.");
+    component.getByText("A brief message 2.");
+    component.getByText("A brief message 3.");
+
+    act(() => {
+      notifications.outputMessage(
+        new NotifyMessageDetails(
+          OutputMessagePriority.None,
+          "A brief message 4.",
+          undefined,
+          OutputMessageType.Sticky
+        )
+      );
+    });
+    expect(component.queryByText("A brief message 1.")).to.be.null;
+    component.getByText("A brief message 2.");
+    component.getByText("A brief message 3.");
+    component.getByText("A brief message 4.");
 
     act(() => {
       MessageManager.closeAllMessages();
     });
-    await waitForElementToBeRemoved(screen.queryByText("A brief message 4."));
+    expect(component.queryByText("A brief message 1.")).to.be.null;
+    expect(component.queryByText("A brief message 2.")).to.be.null;
+    expect(component.queryByText("A brief message 3.")).to.be.null;
+    expect(component.queryByText("A brief message 4.")).to.be.null;
   });
 });

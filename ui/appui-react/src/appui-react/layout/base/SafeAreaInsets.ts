@@ -10,19 +10,19 @@ import { SafeAreaInsets } from "../../safearea/SafeAreaInsets";
 /** @internal */
 export class SafeAreaInsetsHelpers {
   public static isBottom(flags: SafeAreaInsets) {
-    return SafeAreaInsets.Bottom === (flags & SafeAreaInsets.Bottom);
+    return SafeAreaInsets.Bottom.valueOf() === (flags & SafeAreaInsets.Bottom);
   }
 
   public static isLeft(flags: SafeAreaInsets) {
-    return SafeAreaInsets.Left === (flags & SafeAreaInsets.Left);
+    return SafeAreaInsets.Left.valueOf() === (flags & SafeAreaInsets.Left);
   }
 
   public static isRight(flags: SafeAreaInsets) {
-    return SafeAreaInsets.Right === (flags & SafeAreaInsets.Right);
+    return SafeAreaInsets.Right.valueOf() === (flags & SafeAreaInsets.Right);
   }
 
   public static isTop(flags: SafeAreaInsets) {
-    return SafeAreaInsets.Top === (flags & SafeAreaInsets.Top);
+    return SafeAreaInsets.Top.valueOf() === (flags & SafeAreaInsets.Top);
   }
 
   public static getCssClassNames = (flags: SafeAreaInsets) => {

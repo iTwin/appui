@@ -12,10 +12,8 @@
 
 .components-smallEditor-host {
   .components-customnumber-editor {
-    &.iui-input {
-      min-height: $editor-component-height-small !important;
-      padding-top: 1px !important;
-      padding-bottom: 1px !important;
-    }
+    min-height: $editor-component-height-small !important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
   }
 }

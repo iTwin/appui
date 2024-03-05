@@ -597,7 +597,10 @@ export class DrawingNavigationAid extends React.Component<
 
   private _handleKeyUp = (event: React.KeyboardEvent) => {
     // istanbul ignore else
-    if (event.key === Key.Escape && this.state.mode === MapMode.Opened) {
+    if (
+      event.key === Key.Escape.valueOf() &&
+      this.state.mode === MapMode.Opened
+    ) {
       this._closeLargeMap();
     }
   };

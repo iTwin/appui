@@ -66,7 +66,7 @@ export class PopoutWindowsStageUiItemsProvider implements UiItemsProvider {
   ): ReadonlyArray<Widget> {
     const widgets: Widget[] = [];
     if (
-      stageUsage === StageUsage.General &&
+      stageUsage === StageUsage.General.valueOf() &&
       location === StagePanelLocation.Left &&
       section === StagePanelSection.Start
     ) {
@@ -117,7 +117,7 @@ export class PopoutWindowsStageUiItemsProvider implements UiItemsProvider {
     stageUsage: string
   ): StatusBarItem[] {
     const statusBarItems: StatusBarItem[] = [];
-    if (stageUsage === StageUsage.General) {
+    if (stageUsage === StageUsage.General.valueOf()) {
       statusBarItems.push(
         StatusBarItemUtilities.createCustomItem(
           "DisplayStyle",

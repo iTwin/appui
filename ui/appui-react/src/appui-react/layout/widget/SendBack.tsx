@@ -6,17 +6,24 @@
  * @module Widget
  */
 
-import "./SendBack.scss";
-import classnames from "classnames";
 import * as React from "react";
 import { create } from "zustand";
 import { assert } from "@itwin/core-bentley";
+import {
+  SvgDockBottom,
+  SvgDockLeft,
+  SvgDockRight,
+  SvgDockTop,
+} from "@itwin/itwinui-icons-react";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { useLayout } from "../base/LayoutStore";
-import { useFloatingWidgetId } from "./FloatingWidget";
+import { useFloatingWidgetId, useWidgetAllowedToDock } from "./FloatingWidget";
 import type { WidgetState } from "../state/WidgetState";
 import { getWidgetPanelSectionId } from "../state/PanelState";
 import type { NineZoneState } from "../state/NineZoneState";
+import { useIsToolSettingsTab } from "./useIsToolSettingsTab";
+import { ActionButton } from "../../preview/widget-action-dropdown/Button";
+import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget";
 
 /** @internal */
 export const useActiveSendBackWidgetIdStore = create<
@@ -72,48 +79,68 @@ export function useSendBackHomeState() {
   );
 }
 
+function Icon() {
+  const id = useFloatingWidgetId();
+  assert(!!id);
+  const home = useLayout((state) => state.floatingWidgets.byId[id].home);
+  return home.side === "left" ? (
+    <SvgDockLeft />
+  ) : home.side === "right" ? (
+    <SvgDockRight />
+  ) : home.side === "top" ? (
+    <SvgDockTop />
+  ) : (
+    <SvgDockBottom />
+  );
+}
+
 /** @internal */
 export function SendBack() {
   const id = useFloatingWidgetId();
   assert(!!id);
-  const home = useLayout((state) => state.floatingWidgets.byId[id].home);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const title = useLabel("sendWidgetHomeTitle");
-  const className = classnames("nz-widget-sendBack", `nz-${home.side}`);
   const setActiveWidgetId = (newId: WidgetState["id"] | undefined) =>
     useActiveSendBackWidgetIdStore.setState(newId);
 
+  const onClick = () => {
+    setActiveWidgetId(undefined);
+    dispatch({
+      type: "FLOATING_WIDGET_SEND_BACK",
+      id,
+    });
+  };
+  const onMouseOver = () => {
+    setActiveWidgetId(id);
+  };
+  const onFocus = () => {
+    setActiveWidgetId(id);
+  };
+  const onMouseOut = () => {
+    setActiveWidgetId(undefined);
+  };
+  const onBlur = () => {
+    setActiveWidgetId(undefined);
+  };
+  const eventHandlers = { onMouseOver, onFocus, onMouseOut, onBlur };
   return (
-    <button
-      className={className}
-      onClick={() => {
-        setActiveWidgetId(undefined);
-        dispatch({
-          type: "FLOATING_WIDGET_SEND_BACK",
-          id,
-        });
-      }}
-      onMouseOver={() => {
-        setActiveWidgetId(id);
-      }}
-      onFocus={
-        // istanbul ignore next
-        () => {
-          setActiveWidgetId(id);
-        }
-      }
-      onMouseOut={() => {
-        setActiveWidgetId(undefined);
-      }}
-      onBlur={
-        // istanbul ignore next
-        () => {
-          setActiveWidgetId(undefined);
-        }
-      }
+    <ActionButton
+      icon={<Icon />}
       title={title}
-    >
-      <i />
-    </button>
+      onClick={onClick}
+      buttonProps={eventHandlers}
+      // TODO: can not pass down event handlers due to iTwinUI type issues.
+      menuProps={eventHandlers as any}
+    />
   );
+}
+
+/** @internal */
+export function useSendBack() {
+  const maximizedWidget = useIsMaximizedWidget();
+  const isToolSettings = useIsToolSettingsTab();
+  const isFloatingWidget = !!useFloatingWidgetId();
+  const canBeDocked = useWidgetAllowedToDock();
+
+  return !maximizedWidget && isFloatingWidget && !isToolSettings && canBeDocked;
 }

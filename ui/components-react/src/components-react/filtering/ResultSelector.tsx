@@ -114,7 +114,7 @@ export class ResultSelector extends React.PureComponent<
   };
 
   private _onSelectedResultKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === Key.Enter) this._onSelectedResultConfirmed();
+    if (event.key === Key.Enter.valueOf()) this._onSelectedResultConfirmed();
   };
 
   /** @internal */

@@ -17,17 +17,32 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/672
    */
   contentAlwaysMaxSize: boolean;
-  /** If true, the floating widget will have a "maximize" button.
+  /** If true, the floating widget will have a "maximize" button. Use `enableMaximizedPanelWidget` to enable the feature for panel widgets.
    *
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
    */
   enableMaximizedFloatingWidget: boolean;
+  /** If true, the panel widget will have a "maximize" button. Use `enableMaximizedFloatingWidget` to enable the feature for floating widgets.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
+   */
+  enableMaximizedPanelWidget: boolean;
   /** If true, a tab, or the active tab of a group of widget will become active when dropped in a container.
    *
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/679
    */
   activateDroppedTab: boolean;
-  /** If true, the [[Toolbar]] component will display an iTwinUI based button group toolbar. */
+  /** If true, the horizontal panels will have an additional "Align" button.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/706
+   */
+  horizontalPanelAlignment: boolean;
+  /** If enabled, a dropdown menu will be rendered for widgets that exceed the specified threshold of title bar buttons.
+   *
+   * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/723
+   */
+  widgetActionDropdown: { threshold: number };
+  /** If true, the [[Toolbar]] component will be replaced by a new iTwinUI based button group toolbar. */
   newToolbars: boolean;
 }
 
@@ -38,6 +53,9 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   activateDroppedTab: undefined,
   contentAlwaysMaxSize: undefined,
   enableMaximizedFloatingWidget: undefined,
+  enableMaximizedPanelWidget: undefined,
+  horizontalPanelAlignment: undefined,
+  widgetActionDropdown: undefined,
   newToolbars: undefined,
 };
 

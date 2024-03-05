@@ -10,8 +10,6 @@
 $uicore-inputs-height: 22px;
 $uicore-inputs-height-large: 40px;
 $uicore-line-height: calc(var(--iui-size-s) * 1.4);
-$uicore-bordered-padding: calc(#{$uicore-bordered-padding} * 0.5);
-$uicore-unbordered-padding: calc(#{$uicore-unbordered-padding} * 0.5);
 
 $uicore-inputs-padding: calc(
   (#{$uicore-inputs-height} - #{$uicore-line-height}) * 0.5

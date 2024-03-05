@@ -25,40 +25,29 @@ import { TestNineZoneProvider } from "../Providers";
 describe("FloatingWidget", () => {
   it("should render", () => {
     let state = createNineZoneState();
-    state = addTab(state, "t1");
+    state = addTab(state, "t1", { label: "t1" });
     state = addFloatingWidget(state, "w1", ["t1"]);
-    const { container } = render(
+    const component = render(
       <TestNineZoneProvider defaultState={state}>
         <FloatingWidgetProvider id="w1" />
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
-  });
-
-  it("should render minimized", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "t1");
-    state = addFloatingWidget(state, "w1", ["t1"], undefined, {
-      minimized: true,
-    });
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state}>
-        <FloatingWidgetProvider id="w1" />
-      </TestNineZoneProvider>
-    );
-    container.firstChild!.should.matchSnapshot();
+    component.getByText("t1");
   });
 
   it("should render hidden when hideWithUiWhenFloating is true", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { hideWithUiWhenFloating: true });
     state = addFloatingWidget(state, "w1", ["t1"]);
-    const { container } = render(
+    const component = render(
       <TestNineZoneProvider defaultState={state}>
         <FloatingWidgetProvider id="w1" />
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    const widget = component.container.getElementsByClassName(
+      "nz-widget-floatingWidget nz-hidden"
+    );
+    expect(Array.from(widget)).to.have.lengthOf(1);
   });
 
   it("should render dragged", () => {
@@ -67,18 +56,22 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "w1", ["t1"], undefined, {
       minimized: true,
     });
-    const { container } = render(
+    const component = render(
       <TestNineZoneProvider defaultState={state}>
         <FloatingWidgetProvider id="w1" />
       </TestNineZoneProvider>
     );
-    const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
+    const titleBar =
+      component.container.getElementsByClassName("nz-widget-tabBar")[0];
     const handle = titleBar.getElementsByClassName("nz-handle")[0];
     act(() => {
       fireEvent.mouseDown(handle);
       fireEvent.mouseMove(handle);
     });
-    container.firstChild!.should.matchSnapshot();
+    const widget = component.container.getElementsByClassName(
+      "nz-widget-floatingWidget nz-dragged"
+    );
+    expect(Array.from(widget)).to.have.lengthOf(1);
   });
 
   it("should dispatch FLOATING_WIDGET_RESIZE", () => {

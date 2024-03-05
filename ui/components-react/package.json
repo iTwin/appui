@@ -1,6 +1,6 @@
 {
   "name": "@itwin/components-react",
-  "version": "4.9.0-dev.0",
+  "version": "4.11.0-dev.0",
   "description": "iTwin.js UI complex components",
   "main": "lib/cjs/components-react.js",
   "module": "lib/esm/components-react.js",
@@ -45,7 +45,7 @@
   "peerDependencies": {
     "@itwin/appui-abstract": "^3.7.0 || ^4.0.0",
     "@itwin/core-bentley": "^3.7.0 || ^4.0.0",
-    "@itwin/core-react": "workspace:^4.9.0-dev.0",
+    "@itwin/core-react": "workspace:^4.11.0-dev.0",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0"
   },
@@ -54,14 +54,14 @@
     "NOTE: All tools used by scripts in this package must be listed as devDependencies"
   ],
   "devDependencies": {
-    "@itwin/appui-abstract": "^3.7.0",
-    "@itwin/build-tools": "^3.7.0",
-    "@itwin/core-bentley": "^3.7.0",
-    "@itwin/core-common": "^3.7.0",
-    "@itwin/core-geometry": "^3.7.0",
-    "@itwin/core-i18n": "^3.7.0",
+    "@itwin/appui-abstract": "^3.7.0 || ^4.0.0",
+    "@itwin/build-tools": "^3.7.0 || ^4.0.0",
+    "@itwin/core-bentley": "^3.7.0 || ^4.0.0",
+    "@itwin/core-common": "^3.7.0 || ^4.0.0",
+    "@itwin/core-geometry": "^3.7.0 || ^4.0.0",
+    "@itwin/core-i18n": "^3.7.0 || ^4.0.0",
     "@itwin/core-react": "workspace:*",
-    "@itwin/eslint-plugin": "^4.0.0-dev.45",
+    "@itwin/eslint-plugin": "^4.0.0-dev.52",
     "@testing-library/dom": "^8.11.2",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.2",
@@ -103,7 +103,8 @@
     "sinon-chai": "^3.2.0",
     "ts-node": "^10.8.2",
     "typemoq": "^2.1.0",
-    "typescript": "~5.0.2"
+    "typescript": "~5.0.2",
+    "upath": "^2.0.1"
   },
   "//dependencies": [
     "NOTE: these dependencies should be only for things that DO NOT APPEAR IN THE API",
@@ -111,9 +112,9 @@
   ],
   "dependencies": {
     "@bentley/icons-generic": "^1.0.34",
-    "@itwin/itwinui-variables": "^2.0.0",
-    "@itwin/itwinui-icons-react": "^2.1.0",
-    "@itwin/itwinui-react": "^2.11.11",
+    "@itwin/itwinui-variables": "^3.0.0",
+    "@itwin/itwinui-icons-react": "^2.8.0",
+    "@itwin/itwinui-react": "^3.2.4",
     "@types/shortid": "~0.0.29",
     "classnames": "2.3.1",
     "immer": "9.0.6",

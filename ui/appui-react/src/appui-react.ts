@@ -5,6 +5,7 @@
 
 // cSpell:ignore safearea cursormenu clientservices oidc Textbox Modeless configurableui stagepanels dragdrop uiadmin itemsarbiter Popout
 
+import "./appui-react/layers.scss";
 export * from "./appui-react/UiFramework"; // Please ensure that this line comes before all other exports.
 
 export * from "./appui-react/accudraw/AccuDrawCommandItems";
@@ -116,11 +117,7 @@ export * from "./appui-react/popup/PopupManager";
 export * from "./appui-react/popup/PositionPopup";
 export * from "./appui-react/popup/ToolbarPopup";
 
-export {
-  PreviewFeatures,
-  PreviewFeaturesProvider,
-  PreviewFeaturesProviderProps,
-} from "./appui-react/preview/PreviewFeatures";
+export * from "./appui-react/preview/PreviewFeatures";
 
 export * from "./appui-react/redux/SessionState";
 export * from "./appui-react/redux/StateManager";

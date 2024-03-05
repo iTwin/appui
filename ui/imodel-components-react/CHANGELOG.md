@@ -1,6 +1,21 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Tue, 30 Jan 2024 09:04:27 GMT and should not be manually modified.
+This log was last generated on Mon, 26 Feb 2024 15:50:45 GMT and should not be manually modified.
+
+## 4.10.0
+Mon, 26 Feb 2024 15:50:45 GMT
+
+### Updates
+
+- Fix timeline to keep fractional duration unchanged when total duration is changed.
+- Use iTwinUI 3.x.
+
+## 4.9.0
+Tue, 06 Feb 2024 08:56:40 GMT
+
+### Updates
+
+- ignore appui-abstract eslint deprecation m
 
 ## 4.8.3
 Tue, 30 Jan 2024 09:04:27 GMT
