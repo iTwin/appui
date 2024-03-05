@@ -50,10 +50,10 @@ import {
   SvgCalendar,
   SvgLoop,
   SvgMoon,
-  SvgPlay,
   SvgSettings,
   SvgSun,
 } from "@itwin/itwinui-icons-react";
+import { PlayButton } from "./PlayButton";
 
 // cSpell:ignore millisec solarsettings showticks shadowcolor solartimeline datepicker millisecs
 
@@ -228,7 +228,6 @@ export class SolarTimeline extends React.PureComponent<
   private _settingsPopupTitle = UiIModelComponents.translate(
     "solarsettings.shadowcolor"
   );
-  private _playLabel = UiIModelComponents.translate("solartimeline.play");
   private _settingLabel = UiIModelComponents.translate(
     "solartimeline.settings"
   );
@@ -626,16 +625,11 @@ export class SolarTimeline extends React.PureComponent<
     return (
       <div className={"solar-timeline-wrapper"}>
         <Flex flexWrap="wrap" gap="none" className="solar-timeline-start">
-          <IconButton
-            styleType="borderless"
-            label={this._playLabel}
-            // isPlaying={this.state.isPlaying} // TODO: icon and label should change based on `isPlaying` prop.
+          <PlayButton
+            isPlaying={this.state.isPlaying}
             onPlay={this._onPlay}
             onPause={this._onPause}
-          >
-            <SvgPlay />
-          </IconButton>
-
+          />
           <Tooltip content={this._dateTimeLabel}>
             <Button
               styleType="borderless"

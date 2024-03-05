@@ -2,42 +2,31 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import "./PlayButton.scss";
-import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
 import { SvgPause, SvgPlay } from "@itwin/itwinui-icons-react";
 import { UiIModelComponents } from "../UiIModelComponents";
+import { IconButton } from "@itwin/itwinui-react";
 
-interface PlayButtonProps extends CommonProps {
+interface PlayButtonProps {
   isPlaying: boolean;
   onPlay?: () => void;
   onPause?: () => void;
-  tooltip?: string;
 }
 
 /** Play/pause button used in timeline components.
  * @internal
  */
-export function PlayButton({
-  className,
-  isPlaying,
-  tooltip,
-  onPlay,
-  onPause,
-}: PlayButtonProps) {
-  const title = React.useMemo(() => {
-    if (tooltip) return tooltip;
+export function PlayButton({ isPlaying, onPlay, onPause }: PlayButtonProps) {
+  const label = React.useMemo(() => {
     return UiIModelComponents.translate(
       isPlaying ? "timeline.pause" : "timeline.play"
     );
-  }, [isPlaying, tooltip]);
+  }, [isPlaying]);
 
   return (
-    <button
-      title={title}
-      className={classnames("components-play-button", className)}
+    <IconButton
+      styleType="borderless"
+      label={label}
       onClick={() => {
         if (isPlaying) {
           onPause?.();
@@ -47,12 +36,7 @@ export function PlayButton({
         onPlay?.();
       }}
     >
-      <span className="icon" data-testid={isPlaying ? "pause" : "play"}>
-        <Icon
-          iconSpec={isPlaying ? <SvgPause /> : <SvgPlay />}
-          data-testid={isPlaying ? "pause" : "play"}
-        />
-      </span>
-    </button>
+      {isPlaying ? <SvgPause /> : <SvgPlay />}
+    </IconButton>
   );
 }
