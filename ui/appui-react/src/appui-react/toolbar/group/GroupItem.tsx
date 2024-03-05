@@ -33,7 +33,6 @@ interface GroupItemProps extends CommonProps {
 /** @internal */
 export function GroupItem(props: GroupItemProps) {
   const { item } = props;
-  const isDisabled = useConditionalValue(item.isDisabled);
   const isHidden = useConditionalValue(item.isHidden);
   const placement = usePlacement();
 
@@ -52,10 +51,8 @@ export function GroupItem(props: GroupItemProps) {
   if (isHidden) return null;
 
   return (
-    // TODO: replace with `Popover` when available.
     <DropdownMenu
       className={props.className}
-      // disabled={isDisabled}
       style={props.style}
       menuItems={menuItems}
       placement={placement}

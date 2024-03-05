@@ -24,7 +24,6 @@ interface CustomItemProps extends CommonProps {
 /** @internal */
 export function CustomItem(props: CustomItemProps) {
   const { item } = props;
-  const isDisabled = useConditionalValue(item.isDisabled);
   const isHidden = useConditionalValue(item.isHidden);
   const placement = usePlacement();
 
@@ -38,10 +37,8 @@ export function CustomItem(props: CustomItemProps) {
   );
   if (isHidden) return null;
   return (
-    // TODO: replace with `Popover` when available.
     <DropdownMenu
       className={props.className}
-      // disabled={isDisabled}
       style={props.style}
       menuItems={menuItems}
       placement={placement}
