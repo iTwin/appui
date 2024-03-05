@@ -97,7 +97,8 @@ export function SaturationPicker({
   hsv,
   className,
   style,
-}: SaturationPickerProps) {
+}: // eslint-disable-next-line deprecation/deprecation
+SaturationPickerProps) {
   const container = React.useRef<HTMLDivElement>(null);
   const [saturationLabel] = React.useState(() =>
     UiIModelComponents.translate("color.saturation")

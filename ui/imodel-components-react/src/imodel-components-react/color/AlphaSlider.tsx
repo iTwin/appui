@@ -32,12 +32,14 @@ export interface AlphaSliderProps
  * @public
  * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
   private _container: HTMLDivElement | null = null;
   private _transparencyLabel =
     UiIModelComponents.translate("color.transparency");
 
   /** @internal */
+  // eslint-disable-next-line deprecation/deprecation
   constructor(props: AlphaSliderProps) {
     super(props);
   }

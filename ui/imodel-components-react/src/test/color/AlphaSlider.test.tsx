@@ -6,8 +6,10 @@
 import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
-import { fireEvent, render } from "@testing-library/react"; // , waitForElement
+import { fireEvent, render } from "@testing-library/react";
 import { AlphaSlider } from "../../imodel-components-react/color/AlphaSlider";
+
+/* eslint-disable deprecation/deprecation */
 
 describe("<AlphaSlider />", () => {
   const alpha = 0.5;

@@ -32,6 +32,7 @@ export interface ColorSwatchProps
  * @beta
  * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function ColorSwatch(props: ColorSwatchProps) {
   const rgbaString = getCSSColorFromDef(props.colorDef);
   const colorStyle: React.CSSProperties = {

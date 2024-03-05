@@ -66,6 +66,7 @@ export interface ColorPickerPopupProps
 
 const ForwardRefColorPickerPopup = React.forwardRef<
   HTMLButtonElement,
+  // eslint-disable-next-line deprecation/deprecation
   ColorPickerPopupProps
 >(function ForwardRefColorPickerPopup(props, ref) {
   const target = React.useRef<HTMLButtonElement>(null);
@@ -230,5 +231,6 @@ const ForwardRefColorPickerPopup = React.forwardRef<
  * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
 export const ColorPickerPopup: (
+  // eslint-disable-next-line deprecation/deprecation
   props: ColorPickerPopupProps
 ) => React.ReactElement | null = ForwardRefColorPickerPopup;

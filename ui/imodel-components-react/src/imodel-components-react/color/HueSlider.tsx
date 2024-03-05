@@ -100,7 +100,8 @@ export function HueSlider({
   hsv,
   className,
   style,
-}: HueSliderProps) {
+}: // eslint-disable-next-line deprecation/deprecation
+HueSliderProps) {
   const container = React.useRef<HTMLDivElement>(null);
   const [hueLabel] = React.useState(() =>
     UiIModelComponents.translate("color.hue")

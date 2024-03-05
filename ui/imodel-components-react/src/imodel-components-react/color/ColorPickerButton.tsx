@@ -44,6 +44,7 @@ function ColorOptions({
         style={containerStyle}
       >
         {options.map((color, index) => (
+          // eslint-disable-next-line deprecation/deprecation
           <ColorSwatch
             className="components-colorpicker-swatch"
             key={index}
@@ -89,6 +90,7 @@ export interface ColorPickerProps
 // Defined using following pattern (const ColorPickerButton at bottom) to ensure useful API documentation is extracted
 const ForwardRefColorPickerButton = React.forwardRef<
   HTMLButtonElement,
+  // eslint-disable-next-line deprecation/deprecation
   ColorPickerProps
 >(function ForwardRefColorPickerButton(
   {
@@ -221,5 +223,6 @@ const ForwardRefColorPickerButton = React.forwardRef<
  * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
 export const ColorPickerButton: (
+  // eslint-disable-next-line deprecation/deprecation
   props: ColorPickerProps
 ) => React.ReactElement | null = ForwardRefColorPickerButton;
