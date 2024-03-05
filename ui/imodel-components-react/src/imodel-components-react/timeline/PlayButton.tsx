@@ -20,28 +20,31 @@ interface PlayButtonProps extends CommonProps {
 /** Play/pause button used in timeline components.
  * @internal
  */
-export function PlayButton(props: PlayButtonProps) {
-  const [isPlaying, setIsPlaying] = React.useState(props.isPlaying);
-  let title = props.tooltip;
-
-  if (!title)
-    title = UiIModelComponents.translate(
+export function PlayButton({
+  className,
+  isPlaying,
+  tooltip,
+  onPlay,
+  onPause,
+}: PlayButtonProps) {
+  const title = React.useMemo(() => {
+    if (tooltip) return tooltip;
+    return UiIModelComponents.translate(
       isPlaying ? "timeline.pause" : "timeline.play"
     );
+  }, [isPlaying, tooltip]);
 
   return (
     <button
       title={title}
-      className={classnames("components-play-button", props.className)}
+      className={classnames("components-play-button", className)}
       onClick={() => {
-        const newIsPlaying = !isPlaying;
-        setIsPlaying(newIsPlaying);
-
-        if (newIsPlaying) {
-          props.onPlay?.();
-        } else {
-          props.onPause?.();
+        if (isPlaying) {
+          onPause?.();
+          return;
         }
+
+        onPlay?.();
       }}
     >
       <span className="icon" data-testid={isPlaying ? "pause" : "play"}>
