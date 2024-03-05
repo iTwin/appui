@@ -77,6 +77,7 @@ function calculateChange(
 
 /** Properties for the [[HueSlider]] React component
  * @beta
+ * @deprecated in 4.11.x. Props of deprecated component {@link HueSlider}.
  */
 export interface HueSliderProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -91,6 +92,7 @@ export interface HueSliderProps
 
 /** HueSlider component used to set the hue value.
  * @beta
+ * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
 export function HueSlider({
   isHorizontal,
