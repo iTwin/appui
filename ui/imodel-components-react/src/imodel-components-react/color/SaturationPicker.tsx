@@ -77,6 +77,7 @@ function calculateChange(
 
 /** Properties for the [[SaturationPicker]] React component
  * @beta
+ * @deprecated in 4.11.x. Props of deprecated component {@link SaturationPicker}.
  */
 export interface SaturationPickerProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -89,6 +90,7 @@ export interface SaturationPickerProps
 
 /** SaturationPicker component used to set the saturation value.
  * @beta
+ * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
 export function SaturationPicker({
   onSaturationChange,

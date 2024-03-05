@@ -6,8 +6,6 @@
  * @module Color
  */
 
-// cSpell:ignore colorpicker
-
 import * as React from "react";
 import { DialogButtonType } from "@itwin/appui-abstract";
 import { Dialog } from "@itwin/core-react";
@@ -22,6 +20,7 @@ import {
 
 /** Properties for the [[ColorPickerDialog]] React component
  * @beta
+ * @deprecated in 4.11.x. Props of deprecated component {@link ColorPickerDialog}.
  */
 export interface ColorPickerDialogProps {
   dialogTitle: string;
@@ -37,6 +36,7 @@ export interface ColorPickerDialogProps {
 /**
  * Color Picker Dialog to use as modal dialog.
  * @beta
+ * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
 export function ColorPickerDialog({
   dialogTitle,

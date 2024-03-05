@@ -59,6 +59,7 @@ function ColorOptions({
 
 /** Properties for the [[ColorPickerButton]] React component
  * @beta
+ * @deprecated in 4.11.x. Props of deprecated component {@link ColorPickerButton}.
  */
 export interface ColorPickerProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -217,6 +218,7 @@ const ForwardRefColorPickerButton = React.forwardRef<
 /** ColorPickerButton component
  * @note Using forwardRef so the ColorEditor (Type Editor) can access the ref of the button element inside this component.
  * @beta
+ * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
 export const ColorPickerButton: (
   props: ColorPickerProps

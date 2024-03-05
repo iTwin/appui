@@ -15,6 +15,7 @@ import { getCSSColorFromDef } from "./getCSSColorFromDef";
 
 /** Properties for the [[ColorSwatch]] React component
  * @beta
+ * @deprecated in 4.11.x. Props of deprecated component {@link ColorSwatch}.
  */
 export interface ColorSwatchProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -29,6 +30,7 @@ export interface ColorSwatchProps
 
 /** ColorSwatch Functional component displays a color swatch in a button
  * @beta
+ * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
 export function ColorSwatch(props: ColorSwatchProps) {
   const rgbaString = getCSSColorFromDef(props.colorDef);

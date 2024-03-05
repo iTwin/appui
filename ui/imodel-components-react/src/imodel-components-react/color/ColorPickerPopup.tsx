@@ -6,15 +6,12 @@
  * @module Color
  */
 
-// cSpell:ignore colorpicker
-
 import * as React from "react";
 import classnames from "classnames";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon, Popup, useRefs } from "@itwin/core-react";
-// import { ColorPickerPanel } from "./ColorPickerPanel";
 import {
   ColorBuilder,
   ColorInputPanel,
@@ -33,6 +30,7 @@ import {
 
 /** Properties for the [[ColorPickerPopup]] React component
  * @public
+ * @deprecated in 4.11.x. Props of deprecated component {@link ColorPickerPopup}.
  */
 export interface ColorPickerPopupProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -229,6 +227,7 @@ const ForwardRefColorPickerPopup = React.forwardRef<
  * ColorPickerButton component that allows user to select a color from a set of color swatches or to define a new color.
  * @note Using forwardRef so the ColorEditor (Type Editor) can access the ref of the button element inside this component.
  * @public
+ * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/colorpicker iTwinUI color picker} instead.
  */
 export const ColorPickerPopup: (
   props: ColorPickerPopupProps
