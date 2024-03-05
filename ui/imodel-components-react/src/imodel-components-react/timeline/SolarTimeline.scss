@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
-// #region Solar timeline
 .solar-timeline-wrapper {
   width: 100%;
   position: relative;
@@ -44,74 +43,6 @@
 .solar-timeline-end {
   grid-area: solar-timeline-end;
 }
-// #endregion Solar timeline
-
-// #region Color picker
-$color-picker-width: 220px;
-$color-picker-gap: var(--iui-size-s);
-
-.shadow-settings-color-bottom {
-  display: flex;
-  flex-direction: row;
-}
-
-.shadow-settings-popup-container {
-  width: $color-picker-width;
-  padding-block: $color-picker-gap;
-  display: flex;
-  flex-direction: column;
-  row-gap: $color-picker-gap;
-}
-
-.shadow-settings-header {
-  text-align: center;
-  user-select: none;
-}
-
-.shadow-settings-color {
-  display: flex;
-  flex-direction: column;
-  row-gap: $color-picker-gap;
-}
-
-.shadow-settings-color-top {
-  height: $color-picker-width;
-}
-
-.shadow-settings-color-bottom {
-  box-sizing: border-box;
-  display: flex;
-  column-gap: $color-picker-gap;
-  width: 100%;
-  height: 32px;
-  padding-inline: $color-picker-gap;
-}
-
-.shadow-settings-color-bottom-left {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-}
-
-.shadow-settings-color-bottom-right {
-  width: 32px;
-  height: 100%;
-}
-
-.shadow-settings-color-presets {
-  box-sizing: border-box;
-  width: 100%;
-  padding-block-start: $color-picker-gap;
-  padding-inline: $color-picker-gap;
-  display: grid;
-  justify-items: center;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  column-gap: var(--iui-size-3xs);
-  border-top: 1px solid var(--iui-color-border-subtle);
-}
-// #endregion Color picker
 
 .xyz {
   all: unset;
