@@ -72,7 +72,6 @@ function Menu({
           </MenuItem>
         ))}
       </ToolGroupOverflowContext.Provider>
-      ,
     </ToolbarContext.Provider>
   );
 }

@@ -44,7 +44,7 @@ const preview: Preview = {
     iModel: demoIModelGlobalType,
     resizer: resizerGlobalType,
   },
-  decorators: [withDemoIModel, withResizer],
+  decorators: [withDemoIModel],
 };
 
 export default preview;

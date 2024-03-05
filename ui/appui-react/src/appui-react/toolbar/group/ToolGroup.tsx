@@ -30,13 +30,12 @@ export function ToolGroup(props: ToolGroupProps) {
     props.className
   );
   return (
-    <Surface className={className}>
+    <Surface className={className} style={props.style}>
       <ButtonGroup
         orientation={props.orientation}
-        style={props.style}
         overflowButton={(overflowStart) => {
           const children = React.Children.toArray(props.children);
-          const overflowChildren = children.slice(overflowStart - 1);
+          const overflowChildren = children.slice(overflowStart);
           return <OverflowButton>{overflowChildren}</OverflowButton>;
         }}
       >

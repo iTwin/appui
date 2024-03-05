@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 .uifw-toolbar-group-toolGroup {
   border-color: var(--iui-color-border-foreground);
-  max-width: fit-content;
   transition: border-color var(--iui-duration-1) ease;
   @supports (backdrop-filter: blur(5px)) {
     background-color: hsl(

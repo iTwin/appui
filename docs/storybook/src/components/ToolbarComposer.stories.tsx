@@ -29,12 +29,13 @@ import {
 } from "@itwin/itwinui-icons-react";
 import { StoryComponent } from "./ToolbarComposer";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
+import { withResizer } from "../../.storybook/addons/Resizer";
 
 const meta = {
   title: "Components/ToolbarComposer",
   component: StoryComponent,
   tags: ["autodocs"],
-  decorators: [AppUiDecorator, InitializerDecorator],
+  decorators: [withResizer, AppUiDecorator, InitializerDecorator],
   args: {
     newToolbars: false,
     orientation: ToolbarOrientation.Horizontal,
