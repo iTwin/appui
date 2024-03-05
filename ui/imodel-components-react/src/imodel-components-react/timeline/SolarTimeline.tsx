@@ -16,6 +16,7 @@ import {
   Button,
   DatePicker,
   Flex,
+  Icon,
   IconButton,
   Label,
   Popover,
@@ -78,34 +79,6 @@ interface TimelineProps extends CommonProps {
 function Timeline(props: TimelineProps) {
   const [sliderContainer, setSliderContainer] =
     React.useState<HTMLDivElement | null>(null);
-  const [pointerPercent, setPointerPercent] = React.useState(0);
-
-  const tooltipProps = React.useCallback(() => {
-    return { visible: false };
-  }, []);
-
-  const [showRailTooltip, setShowRailTooltip] = React.useState(false);
-
-  const handlePointerEnter = React.useCallback(() => {
-    setShowRailTooltip(true);
-  }, []);
-
-  const handlePointerLeave = React.useCallback(() => {
-    setShowRailTooltip(false);
-  }, []);
-
-  const handlePointerMove = React.useCallback(
-    (event: React.PointerEvent) => {
-      sliderContainer &&
-        setPointerPercent(
-          getPercentageOfRectangle(
-            sliderContainer.getBoundingClientRect(),
-            event.clientX
-          )
-        );
-    },
-    [sliderContainer]
-  );
 
   const {
     formatTick,
@@ -119,69 +92,45 @@ function Timeline(props: TimelineProps) {
     isPlaying,
   } = props;
 
-  const thumbHasFocus = useFocusedThumb(sliderContainer ?? undefined);
-
-  const tickLabel = React.useMemo(() => {
-    const showTip = isPlaying || showRailTooltip || thumbHasFocus;
-    const totalDuration = sunSetOffsetMs - sunRiseOffsetMs;
-    const percent =
-      isPlaying || thumbHasFocus
-        ? (currentTimeOffsetMs - sunRiseOffsetMs) / totalDuration
-        : pointerPercent;
-    const tooltipText = formatTime(
-      isPlaying || thumbHasFocus
-        ? dayStartMs + currentTimeOffsetMs
-        : dayStartMs + (sunRiseOffsetMs + pointerPercent * totalDuration)
-    );
-    return (
-      <RailMarkers
-        showToolTip={showTip}
-        percent={percent}
-        tooltipText={tooltipText}
-      />
-    );
-  }, [
-    isPlaying,
-    showRailTooltip,
-    thumbHasFocus,
-    sunSetOffsetMs,
-    sunRiseOffsetMs,
-    currentTimeOffsetMs,
-    pointerPercent,
-    formatTime,
-    dayStartMs,
-  ]);
+  const tooltipContent = formatTime(dayStartMs + currentTimeOffsetMs);
 
   const className = classnames(
     "solar-timeline",
     props.className,
     formatTick && "showticks"
   );
-  const sunRiseFormat = formatTime(dayStartMs + sunRiseOffsetMs);
-  const sunSetFormat = formatTime(dayStartMs + sunSetOffsetMs);
+  const sunRiseStr = formatTime(dayStartMs + sunRiseOffsetMs);
+  const sunSetStr = formatTime(dayStartMs + sunSetOffsetMs);
   return (
     <div className={className}>
-      <VisuallyHidden>
-        <Label id="timeline" as="div">
-          Solar timeline
-        </Label>
-      </VisuallyHidden>
+      <VisuallyHidden>Solar timeline</VisuallyHidden>
       <Slider
+        className={classnames(className, "slider")}
+        ref={setSliderContainer}
         thumbProps={() => ({ "aria-labelledby": "timeline" })}
-        className={className}
         step={millisecPerMinute}
         min={sunRiseOffsetMs}
         max={sunSetOffsetMs}
-        minLabel={<SvgSun />}
-        maxLabel={<SvgMoon />}
+        minLabel={
+          <Tooltip content={sunRiseStr}>
+            <Icon>
+              <SvgSun />
+            </Icon>
+          </Tooltip>
+        }
+        maxLabel={
+          <Tooltip content={sunSetStr}>
+            <Icon>
+              <SvgMoon />
+            </Icon>
+          </Tooltip>
+        }
         onUpdate={onUpdate}
         onChange={onChange}
         values={[currentTimeOffsetMs]}
-        tooltipProps={tooltipProps}
-        tickLabels={tickLabel}
-        onPointerEnter={handlePointerEnter}
-        onPointerMove={handlePointerMove}
-        onPointerLeave={handlePointerLeave}
+        tooltipProps={() => ({
+          content: tooltipContent,
+        })}
       />
     </div>
   );
