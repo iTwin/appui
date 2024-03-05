@@ -27,10 +27,14 @@ import "./MessageCenterField.scss";
 /** Message Center Field React component.
  * @public
  */
-export const MessageCenterField: React.FC = () => {
+export function MessageCenterField() {
   const [messages, setMessages] = React.useState(MessageManager.messages);
   const [notify, setNotify] = React.useState("");
   const [isOpen, setIsOpen] = React.useState(false);
+
+  const indicatorRef = React.createRef<HTMLDivElement>();
+  const messageCount = React.useRef(messages.length);
+
   const title = UiFramework.translate("messageCenter.messages");
 
   const handleOpenChange = (isOpenState: boolean) => {
@@ -50,21 +54,13 @@ export const MessageCenterField: React.FC = () => {
     ? "negative"
     : "primary";
 
-  const handleMessagesUpdatedEvent = () => {
-    setNotify(notifyStatus);
-    setMessages(MessageManager.messages);
-  };
-
   React.useEffect(() => {
-    MessageManager.onMessagesUpdatedEvent.addListener(
-      handleMessagesUpdatedEvent
-    );
+    MessageManager.registerAnimateOutToElement(indicatorRef.current);
 
-    return () => {
-      MessageManager.onMessagesUpdatedEvent.removeListener(
-        handleMessagesUpdatedEvent
-      );
-    };
+    return MessageManager.onMessagesUpdatedEvent.addListener(() => {
+      setNotify(notifyStatus);
+      setMessages(MessageManager.messages);
+    });
   });
 
   const getMessages = (tab: string) => {
@@ -112,7 +108,7 @@ export const MessageCenterField: React.FC = () => {
   return (
     <Popover
       content={
-        <>
+        <div ref={indicatorRef} className="nz-indicator">
           <TitleBar title={title}></TitleBar>
 
           <Tabs.Wrapper type="pill">
@@ -122,7 +118,7 @@ export const MessageCenterField: React.FC = () => {
             </Tabs.TabList>
             {tabs}
           </Tabs.Wrapper>
-        </>
+        </div>
       }
       applyBackground
     >
@@ -148,4 +144,4 @@ export const MessageCenterField: React.FC = () => {
       </Button>
     </Popover>
   );
-};
+}

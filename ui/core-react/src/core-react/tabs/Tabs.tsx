@@ -43,7 +43,7 @@ export interface TabsProps
     CommonProps {
   /** Text shown for each tab
    * @public */
-  labels: Array<string | TabLabel | any>;
+  labels: Array<string | TabLabel>;
   /** Handler for activating a tab */
   onActivateTab?: (index: number) => any;
   /** Index of the initial active tab */
