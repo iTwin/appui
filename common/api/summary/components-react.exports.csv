@@ -128,6 +128,7 @@ public;IMutablePropertyGridModel
 internal;InternalToolbarComponent(props: InternalToolbarComponentProps): React_3.JSX.Element
 internal;InternalToolbarComponentProps 
 alpha;IntlFormatter 
+deprecated;IntlFormatter 
 public;IntTypeConverter 
 public;IPropertyDataFilterer
 public;IPropertyDataProvider

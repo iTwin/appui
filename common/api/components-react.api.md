@@ -1146,7 +1146,7 @@ export interface InternalToolbarComponentProps extends CommonProps, NoChildrenPr
     useDragInteraction?: boolean;
 }
 
-// @alpha
+// @alpha @deprecated
 export class IntlFormatter implements DateFormatter {
     constructor(_intlFormatter?: Intl.DateTimeFormat | undefined);
     // (undocumented)

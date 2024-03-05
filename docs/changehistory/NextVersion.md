@@ -27,7 +27,7 @@ Table of contents:
 
 ### Deprecations
 
-- `DatePicker`, `DatePickerPopupButton` are deprecated in favor of [iTwinUI date picker](https://itwinui.bentley.com/docs/datepicker). [#755](https://github.com/iTwin/appui/pull/755)
+- `DatePicker`, `DatePickerPopupButton`, `IntlFormatter` are deprecated in favor of [iTwinUI date picker](https://itwinui.bentley.com/docs/datepicker). [#755](https://github.com/iTwin/appui/pull/755)
 
 ## @itwin/imodel-components-react
 
