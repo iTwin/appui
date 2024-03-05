@@ -62,9 +62,6 @@ const millisecPerMinute = 1000 * 60;
 const millisecPerHour = millisecPerMinute * 60;
 // const millisecPerDay = millisecPerHour * 24;
 const defaultPlaybackDuration = 40 * 1000; // 40 seconds
-const addZero = (i: number) => {
-  return i < 10 ? `0${i}` : i;
-};
 
 interface TimelineProps extends CommonProps {
   dayStartMs: number;
@@ -527,11 +524,17 @@ export class SolarTimeline extends React.PureComponent<
       this.props.dataProvider.timeZoneOffset * 60
     );
     let hours = localTime.getHours();
-    const minutes = addZero(date.getMinutes());
+    const minutes = date.getMinutes();
     const abbrev =
       hours < 12 ? this._amLabel : hours === 24 ? this._amLabel : this._pmLabel;
     hours = hours > 12 ? hours - 12 : hours;
-    return `${hours}:${minutes} ${abbrev}`;
+    const hoursStr = hours.toLocaleString(undefined, {
+      minimumIntegerDigits: 2,
+    });
+    const minutesStr = minutes.toLocaleString(undefined, {
+      minimumIntegerDigits: 2,
+    });
+    return `${hoursStr}:${minutesStr} ${abbrev}`;
   };
 
   private _onPresetColorPick = (shadowColor: ColorDef) => {
