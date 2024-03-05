@@ -34,7 +34,6 @@ export function MessageCenterField() {
 
   const indicatorRef = React.createRef<HTMLDivElement>();
   const messageCount = React.useRef(messages.length);
-  MessageManager.registerAnimateOutToElement(indicatorRef.current);
 
   const title = UiFramework.translate("messageCenter.messages");
 
@@ -56,6 +55,8 @@ export function MessageCenterField() {
     : "primary";
 
   React.useEffect(() => {
+    MessageManager.registerAnimateOutToElement(indicatorRef.current);
+
     return MessageManager.onMessagesUpdatedEvent.addListener(() => {
       setNotify(notifyStatus);
       setMessages(MessageManager.messages);
@@ -105,44 +106,45 @@ export function MessageCenterField() {
   );
 
   return (
-    <Popover
-      content={
-        <>
-          <TitleBar title={title}></TitleBar>
+    <>
+      <Popover
+        content={
+          <>
+            <TitleBar title={title}></TitleBar>
 
-          <Tabs.Wrapper type="pill">
-            <Tabs.TabList>
-              <Tabs.Tab label="All" key="all" value="all" />
-              <Tabs.Tab label="Error" key="error" value="error" />
-            </Tabs.TabList>
-            {tabs}
-          </Tabs.Wrapper>
-        </>
-      }
-      applyBackground
-    >
-      <Button
-        onClick={() => handleOpenChange(!isOpen)}
-        styleType="borderless"
-        labelProps={
-          <span>
-            `${messages.length} ${title}`
-          </span>
+            <Tabs.Wrapper type="pill">
+              <Tabs.TabList>
+                <Tabs.Tab label="All" key="all" value="all" />
+                <Tabs.Tab label="Error" key="error" value="error" />
+              </Tabs.TabList>
+              {tabs}
+            </Tabs.Wrapper>
+          </>
         }
-        startIcon={
-          !notify ? ( //  Notification Marker doesn't accept a "none" argument so this is a workaround to render it conditionally
-            <SvgChat />
-          ) : (
-            <NotificationMarker status={notifyStatus}>
-              <SvgChat />
-            </NotificationMarker>
-          )
-        }
+        applyBackground
       >
-        <div ref={indicatorRef} className="nz-indicator">
+        <Button
+          onClick={() => handleOpenChange(!isOpen)}
+          styleType="borderless"
+          labelProps={
+            <span>
+              `${messages.length} ${title}`
+            </span>
+          }
+          startIcon={
+            !notify ? ( //  Notification Marker doesn't accept a "none" argument so this is a workaround to render it conditionally
+              <SvgChat />
+            ) : (
+              <NotificationMarker status={notifyStatus}>
+                <SvgChat />
+              </NotificationMarker>
+            )
+          }
+        >
+          <div ref={indicatorRef} />
           {title}
-        </div>
-      </Button>
-    </Popover>
+        </Button>
+      </Popover>
+    </>
   );
 }
