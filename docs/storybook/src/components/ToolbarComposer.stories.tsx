@@ -28,11 +28,13 @@ import {
   SvgExport,
 } from "@itwin/itwinui-icons-react";
 import { StoryComponent } from "./ToolbarComposer";
+import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 
 const meta = {
   title: "Components/ToolbarComposer",
   component: StoryComponent,
   tags: ["autodocs"],
+  decorators: [AppUiDecorator, InitializerDecorator],
   args: {
     newToolbars: false,
     orientation: ToolbarOrientation.Horizontal,
@@ -169,7 +171,6 @@ export const Badge: Story = {
         description: "New badge",
         badge: BadgeType.New,
       },
-
       {
         ...items.custom2,
         description: "New badge",
@@ -179,6 +180,32 @@ export const Badge: Story = {
         ...items.action3,
         description: "No badge",
         badge: BadgeType.None,
+      },
+    ],
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    items: [
+      {
+        ...items.action1,
+        isDisabled: true,
+      },
+      {
+        ...items.group1,
+        isDisabled: true,
+      },
+      {
+        ...items.group2,
+        items: items.group2.items.map((item) => ({
+          ...item,
+          isDisabled: true,
+        })),
+      },
+      {
+        ...items.custom1,
+        isDisabled: true,
       },
     ],
   },
@@ -267,6 +294,7 @@ function createItems() {
       const item = [action1, action2, action3][i % 3];
       return {
         ...item,
+        id: `${item.id}_${i}`,
         label: `${item.label} (${i})`,
         itemPriority: i,
       };

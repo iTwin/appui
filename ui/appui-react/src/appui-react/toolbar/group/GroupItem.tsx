@@ -55,7 +55,7 @@ export function GroupItem(props: GroupItemProps) {
     // TODO: replace with `Popover` when available.
     <DropdownMenu
       className={props.className}
-      disabled={isDisabled}
+      // disabled={isDisabled}
       style={props.style}
       menuItems={menuItems}
       placement={placement}
@@ -112,8 +112,8 @@ function Menu({ item, onClose }: MenuProps) {
         </Flex.Item>
       </Flex>
       <Flex>
-        {columns.map((columnItems, index) => (
-          <Flex.Item key={index}>
+        {columns.map((columnItems, columnIndex) => (
+          <Flex.Item key={columnIndex}>
             {columnItems.map((columnItem) => (
               <ToolbarMenuItem
                 key={columnItem.id}
@@ -143,10 +143,11 @@ function ToolbarMenuItem({
   onClose,
 }: ToolbarMenuItemProps) {
   const iconSpec = useConditionalValue(item.icon);
+  const isDisabled = useConditionalValue(item.isDisabled);
   const isGroupItem = isToolbarGroupItem(item);
   return (
     <MenuItem
-      icon={<Icon iconSpec={iconSpec} />}
+      startIcon={<Icon iconSpec={iconSpec} />}
       onClick={() => {
         if (isGroupItem) {
           onExpandGroup(item);
@@ -155,6 +156,7 @@ function ToolbarMenuItem({
         item.execute();
         onClose();
       }}
+      disabled={isDisabled}
     >
       {item.label}
       {isGroupItem && " >"}

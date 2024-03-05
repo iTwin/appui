@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { type CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import type { DropdownButton } from "@itwin/itwinui-react";
 import { DropdownMenu, MenuExtraContent } from "@itwin/itwinui-react";
 import type { ToolbarCustomItem } from "../ToolbarItem";
@@ -41,7 +41,7 @@ export function CustomItem(props: CustomItemProps) {
     // TODO: replace with `Popover` when available.
     <DropdownMenu
       className={props.className}
-      disabled={isDisabled}
+      // disabled={isDisabled}
       style={props.style}
       menuItems={menuItems}
       placement={placement}
