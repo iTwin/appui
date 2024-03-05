@@ -9,6 +9,9 @@
 import "./SolarTimeline.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { ColorByName, ColorDef } from "@itwin/core-common";
+import type { CommonProps } from "@itwin/core-react";
+import { adjustDateToTimezone, UiComponents } from "@itwin/components-react";
 import {
   Button,
   ColorBuilder,
@@ -26,18 +29,6 @@ import {
   Tooltip,
   VisuallyHidden,
 } from "@itwin/itwinui-react";
-
-import type { HSVColor } from "@itwin/core-common";
-import { ColorByName, ColorDef } from "@itwin/core-common";
-import { RelativePosition } from "@itwin/appui-abstract";
-import type { CommonProps } from "@itwin/core-react";
-import { Popup } from "@itwin/core-react";
-import { adjustDateToTimezone, UiComponents } from "@itwin/components-react";
-import { HueSlider } from "../color/HueSlider";
-import { SaturationPicker } from "../color/SaturationPicker";
-import { ColorSwatch } from "../color/Swatch";
-import type { SolarDataProvider } from "./interfaces";
-import { UiIModelComponents } from "../UiIModelComponents";
 import {
   SvgCalendar,
   SvgLoop,
@@ -45,6 +36,9 @@ import {
   SvgSettings,
   SvgSun,
 } from "@itwin/itwinui-icons-react";
+import type { SolarDataProvider } from "./interfaces";
+import { UiIModelComponents } from "../UiIModelComponents";
+
 import { PlayButton } from "./PlayButton";
 
 const msPerMinute = 1000 * 60;
@@ -75,7 +69,6 @@ function Timeline(props: TimelineProps) {
     sunSetOffsetMs,
     sunRiseOffsetMs,
     currentTimeOffsetMs,
-    isPlaying,
   } = props;
 
   const tooltipContent = formatTime(dayStartMs + currentTimeOffsetMs);
@@ -151,7 +144,6 @@ export class SolarTimeline extends React.PureComponent<
   SolarTimelineComponentProps,
   SolarTimelineComponentState
 > {
-  private _settings: HTMLElement | null = null;
   private _requestFrame = 0;
   private _unmounted = false;
   private _timeLastCycle = 0;
@@ -180,7 +172,6 @@ export class SolarTimeline extends React.PureComponent<
     UiComponents.translate("month.short.december"),
   ];
 
-  private _timeLabel = UiComponents.translate("datepicker.time");
   private _amLabel = UiComponents.translate("time.am");
   private _pmLabel = UiComponents.translate("time.pm");
   private readonly _presetColors = [
@@ -193,6 +184,8 @@ export class SolarTimeline extends React.PureComponent<
     ColorDef.create(ColorByName.tan),
     ColorDef.create(ColorByName.darkBrown),
   ];
+
+  private readonly _speeds = [1, 2, 3, 4, 5, 6];
 
   constructor(props: SolarTimelineComponentProps) {
     super(props);
@@ -444,8 +437,8 @@ export class SolarTimeline extends React.PureComponent<
     this.setState((prevState) => ({ loop: !prevState.loop }));
   };
 
-  private _formatTime = (millisec: number) => {
-    const date = new Date(millisec);
+  private _formatTime = (ms: number) => {
+    const date = new Date(ms);
     // convert project date to browser locale date
     const localTime = adjustDateToTimezone(
       date,
@@ -477,7 +470,7 @@ export class SolarTimeline extends React.PureComponent<
   public override render() {
     const { dataProvider } = this.props;
     const {
-      speed,
+      speed: currentSpeed,
       loop,
       currentTimeOffsetMs,
       sunRiseOffsetMs,
@@ -492,11 +485,6 @@ export class SolarTimeline extends React.PureComponent<
     const formattedDate = `${
       this._months[localTime.getMonth()]
     }, ${localTime.getDate()}`;
-
-    const colorSwatchStyle: React.CSSProperties = {
-      width: `100%`,
-      height: `100%`,
-    };
 
     return (
       <div className="solar-timeline-wrapper">
@@ -557,15 +545,20 @@ export class SolarTimeline extends React.PureComponent<
             <Label htmlFor="speed">Timeline speed</Label>
           </VisuallyHidden>
           <Tooltip content={this._speedLabel}>
-            <select className="xyz" name="speed" id="speed">
-              <option value="1x" selected>
-                1x
-              </option>
-              <option value="2x">2x</option>
-              <option value="3x">3x</option>
-              <option value="4x">4x</option>
-              <option value="5x">5x</option>
-              <option value="6x">6x</option>
+            <select
+              className="solar-timeline_speed"
+              name="speed"
+              onChange={(e) => this._onSpeedChange(Number(e.target.value))}
+            >
+              {this._speeds.map((speed) => (
+                <option
+                  key={speed}
+                  value={speed}
+                  selected={speed === currentSpeed}
+                >
+                  {speed}x
+                </option>
+              ))}
             </select>
           </Tooltip>
 
@@ -609,7 +602,6 @@ export class SolarTimeline extends React.PureComponent<
               styleType="borderless"
               data-testid="shadow-settings-button"
               label={this._settingLabel}
-              ref={(element) => (this._settings = element)}
               onClick={this._onOpenSettingsPopup}
             >
               <SvgSettings />
