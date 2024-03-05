@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix polar mode AccuDraw input focus by correctly focusing the distance field.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

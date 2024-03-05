@@ -12,7 +12,7 @@ test("accudraw widget test", async ({ page, baseURL }) => {
 
   const accudrawWidget = page
     .locator("div")
-    .filter({ hasText: /^angledistance$/ })
+    .filter({ hasText: /^distanceangle$/ })
     .first();
   await expect(accudrawWidget).toHaveScreenshot();
 });
