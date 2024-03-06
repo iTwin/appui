@@ -33,7 +33,6 @@ export function MessageCenterField() {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const indicatorRef = React.createRef<HTMLButtonElement>();
-  const messageCount = React.useRef(messages.length);
 
   const title = UiFramework.translate("messageCenter.messages");
 
