@@ -12,6 +12,8 @@ import { DatePickerPopupButton } from "../../components-react/datepicker/DatePic
 import { TimeDisplay } from "@itwin/appui-abstract";
 import { Key } from "ts-key-enum";
 
+/* eslint-disable deprecation/deprecation */
+
 describe("<DatePickerPopupButton />", () => {
   let renderSpy: sinon.SinonSpy;
 
