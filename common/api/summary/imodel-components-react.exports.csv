@@ -1,20 +1,30 @@
 sep=;
 Release Tag;API Item
 public;AlphaSlider 
+deprecated;AlphaSlider 
 public;AlphaSliderProps 
+deprecated;AlphaSliderProps 
 public;AnimationFractionChangeHandler = (animationFraction: number) => void
 alpha;BaseSolarDataProvider 
 alpha;BaseTimelineDataProvider 
 beta;ColorEditor 
 beta;ColorPickerButton: (props: ColorPickerProps) => React_2.ReactElement | null
+deprecated;ColorPickerButton: (props: ColorPickerProps) => React_2.ReactElement | null
 beta;ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResult, colorPresets, colorInputType, }: ColorPickerDialogProps): React_2.JSX.Element
+deprecated;ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResult, colorPresets, colorInputType, }: ColorPickerDialogProps): React_2.JSX.Element
 beta;ColorPickerDialogProps
+deprecated;ColorPickerDialogProps
 public;ColorPickerPopup: (props: ColorPickerPopupProps) => React_2.ReactElement | null
+deprecated;ColorPickerPopup: (props: ColorPickerPopupProps) => React_2.ReactElement | null
 public;ColorPickerPopupProps 
+deprecated;ColorPickerPopupProps 
 beta;ColorPickerProps 
+deprecated;ColorPickerProps 
 beta;ColorPropertyEditor 
 beta;ColorSwatch(props: ColorSwatchProps): React_2.JSX.Element
+deprecated;ColorSwatch(props: ColorSwatchProps): React_2.JSX.Element
 beta;ColorSwatchProps 
+deprecated;ColorSwatchProps 
 public;Cube 
 internal;CubeFace 
 internal;CubeFaceProps 
@@ -52,7 +62,9 @@ alpha;FormatUnitsProps
 internal;getCSSColorFromDef(colorDef: ColorDef): string
 internal;getPercentageOfRectangle(rect: DOMRect, pointer: number): number
 beta;HueSlider({ isHorizontal, onHueChange, hsv, className, style, }: HueSliderProps): React_2.JSX.Element
+deprecated;HueSlider({ isHorizontal, onHueChange, hsv, className, style, }: HueSliderProps): React_2.JSX.Element
 beta;HueSliderProps 
+deprecated;HueSliderProps 
 internal;InlineEdit 
 public;LineWeightSwatch 
 public;LineWeightSwatchProps 
@@ -71,7 +83,9 @@ beta;QuantityNumberInputProps
 beta;QuantityProps 
 internal;RailMarkers({ showToolTip, percent, tooltipText, markDate, }:
 beta;SaturationPicker({ onSaturationChange, hsv, className, style, }: SaturationPickerProps): React_2.JSX.Element
+deprecated;SaturationPicker({ onSaturationChange, hsv, className, style, }: SaturationPickerProps): React_2.JSX.Element
 beta;SaturationPickerProps 
+deprecated;SaturationPickerProps 
 internal;Scrubber(props: ScrubberProps): React_2.JSX.Element
 internal;ScrubberProps 
 alpha;SolarDataProvider
