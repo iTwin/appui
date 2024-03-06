@@ -21,6 +21,7 @@ export const useOverflow = <
 ) => {
   const [visible, setVisible] = React.useState(allItems.length);
   const [calculate, setCalculate] = React.useState(false);
+  const componentRef = React.useRef<TComponent>();
   const containerSizeRef = React.useRef<number>();
   const componentSizeRef = React.useRef<number>();
 
@@ -32,7 +33,6 @@ export const useOverflow = <
   );
 
   React.useLayoutEffect(() => {
-    setCalculate(false);
     if (!calculate) return;
 
     const containerSize = containerSizeRef.current;
@@ -43,6 +43,8 @@ export const useOverflow = <
 
     const component = componentRef.current;
     if (!component) return;
+
+    setCalculate(false);
 
     const children = Array.from(component.children);
     const sizes = children.map((child) => {
@@ -99,7 +101,7 @@ export const useOverflow = <
       [getSize]
     )
   );
-  const componentRef = React.useRef<TContainer>();
+
   const componentRefs = useRefs(componentRoRef, componentRef);
 
   const overflow = calculate || visible < allItems.length;
