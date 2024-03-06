@@ -9,6 +9,7 @@
 }
 
 .uifw-toolbar-group-toolGroup {
+  display: flex;
   width: fit-content;
   height: fit-content;
   border-color: var(--iui-color-border-foreground);
@@ -18,6 +19,10 @@
       var(--iui-color-background-hsl) / var(--iui-opacity-2)
     );
     backdrop-filter: blur(5px);
+  }
+
+  &.uifw-vertical {
+    flex-direction: column;
   }
 
   &:hover,

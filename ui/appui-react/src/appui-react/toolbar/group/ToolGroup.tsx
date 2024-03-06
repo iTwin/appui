@@ -10,7 +10,7 @@ import "./ToolGroup.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { ButtonGroup, Surface } from "@itwin/itwinui-react";
+import { Surface } from "@itwin/itwinui-react";
 import { ActionItem } from "./ActionItem";
 import { GroupItem } from "./GroupItem";
 import { CustomItem } from "./CustomItem";
@@ -25,15 +25,10 @@ interface ToolGroupProps extends CommonProps {
 
 /** @internal */
 export function ToolGroup(props: ToolGroupProps) {
-  const className = classnames(
-    "uifw-toolbar-group-toolGroup",
-    `uifw-${props.orientation}`,
-    props.className
-  );
   const childrenArray = React.Children.toArray(props.children);
   const [containerRef, componentRef, visibleCount, renderOverflow] =
     useOverflow(childrenArray, props.orientation ?? "horizontal");
-  const visibleChildren = childrenArray.slice(0, visibleCount);
+  const children = childrenArray.slice(0, visibleCount);
   const overflown = childrenArray.slice(visibleCount);
   return (
     <div
@@ -43,12 +38,17 @@ export function ToolGroup(props: ToolGroupProps) {
       )}
       ref={containerRef}
     >
-      <Surface className={className} style={props.style}>
-        <ButtonGroup orientation={props.orientation} ref={componentRef}>
-          {visibleChildren}
-          {/* TODO: iTwinUI overflow logic is still running layout effects and re-rendering w/ fewer items if rendered conditionally */}
-          {renderOverflow && <OverflowButton>{overflown}</OverflowButton>}
-        </ButtonGroup>
+      <Surface
+        className={classnames(
+          "uifw-toolbar-group-toolGroup",
+          `uifw-${props.orientation}`,
+          props.className
+        )}
+        style={props.style}
+        ref={componentRef}
+      >
+        {children}
+        {renderOverflow && <OverflowButton>{overflown}</OverflowButton>}
       </Surface>
     </div>
   );
