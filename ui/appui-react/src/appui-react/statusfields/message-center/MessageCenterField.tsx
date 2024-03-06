@@ -16,12 +16,12 @@ import {
 import { SvgChat } from "@itwin/itwinui-icons-react";
 import type { MessageType } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
-import { UiFramework } from "../../../UiFramework";
+import { UiFramework } from "../../UiFramework";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { MessageCenterMessage } from "./MessageCenterMessage";
-import { MessageManager } from "../../../messages/MessageManager";
-import { TitleBar } from "../dialog/TitleBar";
-import type { NotifyMessageDetailsType } from "../../../messages/ReactNotifyMessageDetails";
+import { MessageManager } from "../../messages/MessageManager";
+import { TitleBar } from "../../layout/footer/dialog/TitleBar";
+import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails";
 import "./MessageCenterField.scss";
 
 /** Message Center Field React component.
