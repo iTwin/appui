@@ -15,6 +15,7 @@ import { ActionItem } from "./ActionItem";
 import { GroupItem } from "./GroupItem";
 import { CustomItem } from "./CustomItem";
 import { OverflowButton } from "./OverflowButton";
+import { useOverflow } from "./useOverflow";
 
 /** @internal */
 interface ToolGroupProps extends CommonProps {
@@ -29,19 +30,27 @@ export function ToolGroup(props: ToolGroupProps) {
     `uifw-${props.orientation}`,
     props.className
   );
+  const childrenArray = React.Children.toArray(props.children);
+  const [containerRef, componentRef, visibleCount, renderOverflow] =
+    useOverflow(childrenArray, props.orientation ?? "horizontal");
+  const visibleChildren = childrenArray.slice(0, visibleCount);
+  const overflown = childrenArray.slice(visibleCount);
   return (
-    <Surface className={className} style={props.style}>
-      <ButtonGroup
-        orientation={props.orientation}
-        overflowButton={(overflowStart) => {
-          const children = React.Children.toArray(props.children);
-          const overflowChildren = children.slice(overflowStart);
-          return <OverflowButton>{overflowChildren}</OverflowButton>;
-        }}
-      >
-        {props.children}
-      </ButtonGroup>
-    </Surface>
+    <div
+      className={classnames(
+        "uifw-toolbar-group-toolGroup_container",
+        `uifw-${props.orientation}`
+      )}
+      ref={containerRef}
+    >
+      <Surface className={className} style={props.style}>
+        <ButtonGroup orientation={props.orientation} ref={componentRef}>
+          {visibleChildren}
+          {/* TODO: iTwinUI overflow logic is still running layout effects and re-rendering w/ fewer items if rendered conditionally */}
+          {renderOverflow && <OverflowButton>{overflown}</OverflowButton>}
+        </ButtonGroup>
+      </Surface>
+    </div>
   );
 }
 

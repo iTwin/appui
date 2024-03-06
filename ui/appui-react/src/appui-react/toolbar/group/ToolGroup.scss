@@ -2,7 +2,15 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+.uifw-toolbar-group-toolGroup_container {
+  &.uifw-vertical {
+    height: 100%;
+  }
+}
+
 .uifw-toolbar-group-toolGroup {
+  width: fit-content;
+  height: fit-content;
   border-color: var(--iui-color-border-foreground);
   transition: border-color var(--iui-duration-1) ease;
   @supports (backdrop-filter: blur(5px)) {
@@ -10,11 +18,6 @@
       var(--iui-color-background-hsl) / var(--iui-opacity-2)
     );
     backdrop-filter: blur(5px);
-  }
-
-  // TODO: needed to overflow, but background color fills the container.
-  &.uifw-vertical {
-    height: 100%;
   }
 
   &:hover,
