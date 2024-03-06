@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
 import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
@@ -14,6 +13,8 @@ import { TimeDisplay } from "@itwin/appui-abstract";
 import { DateField } from "../../components-react/datepicker/DateField";
 import TestUtils from "../TestUtils";
 import { IntlFormatter } from "../../components-react/datepicker/IntlFormatter";
+
+/* eslint-disable deprecation/deprecation */
 
 // Note many test do not test exact time because it may yield different results depending on time zone of machine running test.
 

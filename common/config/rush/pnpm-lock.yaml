@@ -532,6 +532,12 @@ importers:
       '@itwin/editor-backend':
         specifier: ^3.7.0 || ^4.0.0
         version: 4.4.0(@itwin/core-backend@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
+      '@itwin/editor-common':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
+      '@itwin/editor-frontend':
+        specifier: ^3.7.0 || ^4.0.0
+        version: 4.4.3(@itwin/appui-abstract@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)(@itwin/core-geometry@4.4.0)
       '@itwin/express-server':
         specifier: ^3.7.0 || ^4.0.0
         version: 4.4.0(@itwin/core-backend@4.4.0)
@@ -4285,6 +4291,35 @@ packages:
       '@itwin/core-bentley': 4.4.0
       '@itwin/core-common': 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
       '@itwin/core-geometry': 4.4.0
+    dev: false
+
+  /@itwin/editor-common@4.4.3(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0):
+    resolution: {integrity: sha512-grnvZEK4xBTravtu0s5l7psLM7tyrQwFgI/IRVNTMbb8IVFO4CLeuj95UfvnttIQN7bah2SwHtbn90qicWGutg==}
+    peerDependencies:
+      '@itwin/core-bentley': ^4.4.3
+      '@itwin/core-common': ^4.4.3
+      '@itwin/core-geometry': ^4.4.3
+    dependencies:
+      '@itwin/core-bentley': 4.4.0
+      '@itwin/core-common': 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
+      '@itwin/core-geometry': 4.4.0
+    dev: false
+
+  /@itwin/editor-frontend@4.4.3(@itwin/appui-abstract@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-frontend@4.4.0)(@itwin/core-geometry@4.4.0):
+    resolution: {integrity: sha512-WkRBDAm/ETrziKqUeE3LE0/wj3W3t0pxccvSllMhOcAZ4RV/dxK5sRmB3/RWLQ6dirzRGiAaf14pwPkdSt5E+A==}
+    peerDependencies:
+      '@itwin/appui-abstract': ^4.4.3
+      '@itwin/core-bentley': ^4.4.3
+      '@itwin/core-common': ^4.4.3
+      '@itwin/core-frontend': ^4.4.3
+      '@itwin/core-geometry': ^4.4.3
+    dependencies:
+      '@itwin/appui-abstract': 4.4.0(@itwin/core-bentley@4.4.0)
+      '@itwin/core-bentley': 4.4.0
+      '@itwin/core-common': 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
+      '@itwin/core-frontend': 4.4.0(@itwin/appui-abstract@4.4.0)(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)(@itwin/core-orbitgt@4.4.0)(@itwin/core-quantity@4.4.0)
+      '@itwin/core-geometry': 4.4.0
+      '@itwin/editor-common': 4.4.3(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0)(@itwin/core-geometry@4.4.0)
     dev: false
 
   /@itwin/electron-authorization@0.11.0(@itwin/core-bentley@4.4.0)(electron@22.3.27):

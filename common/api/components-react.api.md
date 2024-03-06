@@ -439,13 +439,13 @@ export interface DateFormatOptions {
     options?: Intl.DateTimeFormatOptions | undefined;
 }
 
-// @alpha
+// @alpha @deprecated
 export function DatePicker(props: DatePickerProps): React_3.JSX.Element;
 
-// @alpha
+// @alpha @deprecated
 export function DatePickerPopupButton({ displayEditField, timeDisplay, selected, onDateChange, dateFormatter, buttonToolTip, fieldStyle, fieldClassName, style, }: DatePickerPopupButtonProps): React_3.JSX.Element;
 
-// @alpha
+// @alpha @deprecated
 export interface DatePickerPopupButtonProps extends CommonProps {
     buttonToolTip?: string;
     // (undocumented)
@@ -459,7 +459,7 @@ export interface DatePickerPopupButtonProps extends CommonProps {
     timeDisplay?: TimeDisplay;
 }
 
-// @alpha
+// @alpha @deprecated
 export interface DatePickerProps {
     onDateChange?: (day: Date) => void;
     selected: Date;
@@ -1146,7 +1146,7 @@ export interface InternalToolbarComponentProps extends CommonProps, NoChildrenPr
     useDragInteraction?: boolean;
 }
 
-// @alpha
+// @alpha @deprecated
 export class IntlFormatter implements DateFormatter {
     constructor(_intlFormatter?: Intl.DateTimeFormat | undefined);
     // (undocumented)

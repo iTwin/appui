@@ -3,29 +3,29 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module Footer
+ * @module StatusBar
  */
 
 import "./Popup.scss";
-import classnames from "classnames";
 import * as React from "react";
-import { RelativePosition } from "@itwin/appui-abstract";
+import classnames from "classnames";
 import type { PopupProps } from "@itwin/core-react";
 import { Popup } from "@itwin/core-react";
+import { RelativePosition } from "@itwin/appui-abstract";
 
-/** Popup component used in [[Footer]] component.
- * @note Use `popup` prop of [StatusBarIndicator]($appui-react) instead
- * @internal
+/** Popup component used in [[StatusBar]] component.
+ * @beta
  */
-export function FooterPopup(props: Partial<PopupProps>) {
-  const { className, ...other } = props;
+export function StatusBarPopup(props: Partial<PopupProps>) {
+  const { className, offset, ...other } = props;
+
   return (
     <Popup
-      className={classnames("nz-footer-popup", className)}
+      className={classnames("nz-status-bar-popup", className)}
       position={RelativePosition.Top}
-      showArrow
       showShadow={true}
       {...other}
+      showArrow={false}
     />
   );
 }
