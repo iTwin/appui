@@ -6,7 +6,7 @@
  * @module MessageCenter
  */
 
-import "./Message.scss";
+import "./MessageCenterMessage.scss";
 import * as React from "react";
 import type { CommonProps, MessageType } from "@itwin/core-react";
 import { MessageRenderer } from "@itwin/core-react";
