@@ -10,10 +10,7 @@ import "./AccuDrawFieldContainer.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { ColorDef } from "@itwin/core-common";
-import type {
-  ScreenViewport,
-  SelectedViewportChangedArgs,
-} from "@itwin/core-frontend";
+import type { ScreenViewport } from "@itwin/core-frontend";
 import { CompassMode, IModelApp, ItemField } from "@itwin/core-frontend";
 import type { CommonProps, IconSpec, UiStateStorage } from "@itwin/core-react";
 import { Orientation } from "@itwin/core-react";
@@ -121,27 +118,58 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     React.CSSProperties | undefined
   >(undefined);
 
-  const getInputRef = (field: ItemField): React.RefObject<HTMLInputElement> => {
-    let inputRef: React.RefObject<HTMLInputElement>;
+  const getFieldInput = (field: ItemField) => {
     switch (field) {
       case ItemField.X_Item:
-        inputRef = xInputRef;
-        break;
+        return getCurrent(xInputRef);
       case ItemField.Y_Item:
-        inputRef = yInputRef;
-        break;
+        return getCurrent(yInputRef);
       case ItemField.Z_Item:
-        inputRef = zInputRef;
-        break;
+        return getCurrent(zInputRef);
       case ItemField.ANGLE_Item:
-        inputRef = angleInputRef;
-        break;
+        return getCurrent(angleInputRef);
       case ItemField.DIST_Item:
-        inputRef = distanceInputRef;
-        break;
+        return getCurrent(distanceInputRef);
     }
-    return inputRef;
   };
+
+  const getInputToFocus = React.useCallback((field: ItemField | undefined) => {
+    const fieldInput = field === undefined ? undefined : getFieldInput(field);
+    if (fieldInput) {
+      if (document.activeElement === fieldInput) return undefined;
+      return fieldInput;
+    }
+
+    const focusedInput = [
+      xInputRef,
+      yInputRef,
+      zInputRef,
+      angleInputRef,
+      distanceInputRef,
+    ].find((inputRef) => document.activeElement === inputRef.current);
+
+    // One of AccuDraw input fields is focused already.
+    if (focusedInput) return undefined;
+
+    // Focus one of fallback fields.
+    let fallbackInput = getFieldInput(ItemField.DIST_Item);
+    if (fallbackInput) return fallbackInput;
+
+    fallbackInput = getFieldInput(ItemField.X_Item);
+    return fallbackInput;
+  }, []);
+
+  // Moves focus to `field` input if not focused OR fallbacks to default field if none of accudraw fields are focused.
+  const setFocusToField = React.useCallback(
+    (field: ItemField | undefined) => {
+      const input = getInputToFocus(field);
+      if (!input) return;
+
+      input.focus();
+      input.select();
+    },
+    [getInputToFocus]
+  );
 
   React.useEffect(() => {
     return FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener((args) => {
@@ -165,16 +193,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     });
   }, []);
 
-  const setFocusToField = React.useCallback((field: ItemField) => {
-    const inputRef = getInputRef(field);
-
-    // istanbul ignore else
-    if (inputRef.current && document.activeElement !== inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.select();
-    }
-  }, []);
-
   React.useEffect(() => {
     return FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(
       (args) => {
@@ -186,7 +204,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
 
   React.useEffect(() => {
     return FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(() => {
-      if (focusField.current) setFocusToField(focusField.current);
+      setFocusToField(focusField.current);
     });
   }, [setFocusToField]);
 
@@ -214,15 +232,10 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
       showZOverride || determineShowZ(IModelApp.viewManager.selectedView)
     );
 
-    // istanbul ignore next
-    const handleSelectedViewportChanged = (
-      args: SelectedViewportChangedArgs
-    ) => {
-      setShowZ(determineShowZ(args.current));
-    };
-
     return IModelApp.viewManager.onSelectedViewportChanged.addListener(
-      handleSelectedViewportChanged
+      (args) => {
+        setShowZ(determineShowZ(args.current));
+      }
     );
   }, [showZOverride]);
 
@@ -351,13 +364,10 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     if (FrameworkAccuDraw.uiStateStorage)
       processAccuDrawUiSettings(FrameworkAccuDraw.uiStateStorage);
 
-    // istanbul ignore next
-    const handleAccuDrawUiSettingsChanged = () => {
-      processAccuDrawUiSettings(FrameworkAccuDraw.uiStateStorage);
-    };
-
     return FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(
-      handleAccuDrawUiSettingsChanged
+      () => {
+        processAccuDrawUiSettings(FrameworkAccuDraw.uiStateStorage);
+      }
     );
   }, []);
 
@@ -438,22 +448,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
       {mode === CompassMode.Polar && (
         <>
           <AccuDrawInputField
-            ref={angleInputRef}
-            isLocked={angleLock}
-            className="uifw-accudraw-angle-value"
-            style={angleStyle}
-            field={ItemField.ANGLE_Item}
-            id={`uifw-accudraw-angle-${containerIndex}`}
-            data-testid="uifw-accudraw-angle"
-            label={angleLabel}
-            iconSpec={angleIcon}
-            valueChangedDelay={delay}
-            onValueChanged={(stringValue) =>
-              handleValueChanged(ItemField.ANGLE_Item, stringValue)
-            }
-            onEscPressed={handleEscPressed}
-          />
-          <AccuDrawInputField
             ref={distanceInputRef}
             isLocked={distanceLock}
             className="uifw-accudraw-distance-value"
@@ -469,8 +463,29 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             }
             onEscPressed={handleEscPressed}
           />
+          <AccuDrawInputField
+            ref={angleInputRef}
+            isLocked={angleLock}
+            className="uifw-accudraw-angle-value"
+            style={angleStyle}
+            field={ItemField.ANGLE_Item}
+            id={`uifw-accudraw-angle-${containerIndex}`}
+            data-testid="uifw-accudraw-angle"
+            label={angleLabel}
+            iconSpec={angleIcon}
+            valueChangedDelay={delay}
+            onValueChanged={(stringValue) =>
+              handleValueChanged(ItemField.ANGLE_Item, stringValue)
+            }
+            onEscPressed={handleEscPressed}
+          />
         </>
       )}
     </div>
   );
+}
+
+function getCurrent<T>(ref: React.RefObject<T>) {
+  if (ref.current === null) return undefined;
+  return ref.current;
 }

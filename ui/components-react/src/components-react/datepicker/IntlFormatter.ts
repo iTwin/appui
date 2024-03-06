@@ -15,6 +15,7 @@ import type { DateFormatter } from "@itwin/appui-abstract";
  * support parsing, so when used by [[DatePickerPopup]] the edit field will be readonly. If
  * a parseData function is implemented then the edit field will be editable.
  * @alpha
+ * @deprecated in 4.11.x. Use {@link https://itwinui.bentley.com/docs/datepicker iTwinUI date picker} instead.
  */
 export class IntlFormatter implements DateFormatter {
   constructor(private _intlFormatter?: Intl.DateTimeFormat) {}

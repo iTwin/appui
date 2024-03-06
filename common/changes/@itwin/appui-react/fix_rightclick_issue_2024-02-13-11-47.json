@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix an issue when right-click + left-click starts widget drag interaction",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

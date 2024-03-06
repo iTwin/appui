@@ -28,6 +28,10 @@ import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
+import {
+  getTabLocation,
+  isPopoutTabLocation,
+} from "../layout/state/TabLocation";
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -534,7 +538,9 @@ export class WidgetDef {
   }
 
   /** Opens the widget and makes it visible to the user.
-   * I.e. opens the stage panel or brings the floating widget to front of the screen.
+   * @note Opens the stage panel if needed.
+   * @note Brings the floating widget to the front.
+   * @note Brings the window of the popout widget to the front (if allowed by the browser).
    * @public
    */
   public show() {
@@ -542,6 +548,15 @@ export class WidgetDef {
     const state = frontstageDef?.nineZoneState;
     if (!state) return;
     if (!frontstageDef.findWidgetDef(this.id)) return;
+
+    const tabLocation = getTabLocation(state, this.id);
+    if (tabLocation && isPopoutTabLocation(tabLocation)) {
+      const testWindow = UiFramework.childWindows.find(
+        tabLocation.popoutWidgetId
+      );
+      // Try to bring the window of the popout widget to the front.
+      testWindow?.window.focus();
+    }
 
     frontstageDef.dispatch({
       type: "WIDGET_TAB_SHOW",

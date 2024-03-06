@@ -10,6 +10,7 @@ export interface TestAppConfiguration {
   bingMapsKey?: string;
   mapBoxKey?: string;
   cesiumIonKey?: string;
+  readWrite?: boolean;
 }
 
 export const loggerCategory = "appui-test-app";

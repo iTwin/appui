@@ -2,17 +2,15 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-/** @packageDocumentation
- * @module StatusBar
- */
-
-import type { PopupProps } from "@itwin/core-react";
+import { render } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
-import { FooterPopup } from "../layout/footer/Popup";
+import { StatusBarPopup } from "../../appui-react/statusbar/popup/Popup";
 
-/** Popup component used in [[StatusBar]] component.
- * @beta
- */
-export function StatusBarPopup(props: Partial<PopupProps>) {
-  return <FooterPopup {...props} />;
-}
+describe("<StatusBarPopup />", () => {
+  it("renders correctly", () => {
+    const { container } = render(<StatusBarPopup />);
+
+    expect(container.innerHTML).to.be.empty;
+  });
+});

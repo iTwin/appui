@@ -159,6 +159,7 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
       }),
       [measure]
     );
+
     const ref = useRefs(forwardedRef, elementRef);
     const className = classnames("nz-widget-widget", props.className);
     return (
