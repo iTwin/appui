@@ -14,6 +14,8 @@ import { ColorValue } from "@itwin/itwinui-react";
 import { TestUtils } from "../TestUtils";
 import { ColorPickerPopup } from "../../imodel-components-react/color/ColorPickerPopup";
 
+/* eslint-disable deprecation/deprecation */
+
 describe("<ColorPickerPopup/>", () => {
   const colorDef = ColorDef.create(ColorByName.blue);
 

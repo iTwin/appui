@@ -38,7 +38,6 @@ import {
 } from "@itwin/itwinui-icons-react";
 import type { SolarDataProvider } from "./interfaces";
 import { UiIModelComponents } from "../UiIModelComponents";
-
 import { PlayButton } from "./PlayButton";
 
 const msPerMinute = 1000 * 60;

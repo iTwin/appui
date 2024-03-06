@@ -5,6 +5,10 @@ Table of contents:
 - [@itwin/appui-react](#itwinappui-react)
   - [Changes](#changes)
   - [Fixes](#fixes)
+- [@itwin/components-react](#itwincomponents-react)
+  - [Deprecations](#deprecations)
+- [@itwin/imodel-components-react](#itwinimodel-components-react)
+  - [Deprecations](#deprecations-1)
 
 ## @itwin/appui-react
 
@@ -18,3 +22,15 @@ Table of contents:
 
 - Fix the issue when right-click + left-click starts a widget drag interaction. [#730](https://github.com/iTwin/appui/pull/730)
 - Fix polar mode AccuDraw input focus by correctly focusing the distance field. [#753](https://github.com/iTwin/appui/pull/753)
+
+## @itwin/components-react
+
+### Deprecations
+
+- `DatePicker`, `DatePickerPopupButton`, `IntlFormatter` are deprecated in favor of [iTwinUI date picker](https://itwinui.bentley.com/docs/datepicker). [#755](https://github.com/iTwin/appui/pull/755)
+
+## @itwin/imodel-components-react
+
+### Deprecations
+
+- `AlphaSlider`, `ColorPickerButton`, `ColorPickerDialog`, `ColorPickerPopup`, `ColorSwatch`, `HueSlider`, `SaturationPicker` are deprecated in favor of [iTwinUI color picker](https://itwinui.bentley.com/docs/colorpicker). [#755](https://github.com/iTwin/appui/pull/755)
