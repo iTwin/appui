@@ -12,6 +12,8 @@ import TestUtils from "../TestUtils";
 import { DatePicker } from "../../components-react/datepicker/DatePicker";
 import { adjustDateToTimezone } from "../../components-react/common/DateUtils";
 
+/* eslint-disable deprecation/deprecation */
+
 describe("<DatePicker />", () => {
   let renderSpy: sinon.SinonSpy;
 

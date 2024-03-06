@@ -333,7 +333,7 @@ export class DateTimeEditor
                 className="components-date-picker-calendar-popup-panel"
                 data-testid="components-date-picker-calendar-popup-panel"
               >
-                <DatePicker
+                <DatePicker // eslint-disable-line deprecation/deprecation
                   selected={date}
                   onDateChange={this._handleChange}
                   showFocusOutline={false}

@@ -11,7 +11,7 @@ import { TestUtils } from "../TestUtils";
 import { ColorPickerDialog } from "../../imodel-components-react/color/ColorPickerDialog";
 import { ColorValue } from "@itwin/itwinui-react";
 
-// cSpell:ignore colorpicker
+/* eslint-disable deprecation/deprecation */
 
 describe("ColorPickerDialog", () => {
   before(async () => {

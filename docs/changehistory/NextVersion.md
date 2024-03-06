@@ -3,19 +3,19 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
-  - [Removals](#removals)
   - [Deprecations](#deprecations)
   - [Additions](#additions)
   - [Changes](#changes)
   - [Fixes](#fixes)
+- [@itwin/components-react](#itwincomponents-react)
+  - [Deprecations](#deprecations-1)
 - [@itwin/core-react](#itwincore-react)
   - [Additions](#additions-1)
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
-  - [Deprecations](#deprecations-1)
+  - [Deprecations](#deprecations-2)
+  - [Additions](#additions-2)
 
 ## @itwin/appui-react
-
-### Removals
 
 ### Deprecations
 
@@ -71,17 +71,24 @@ Table of contents:
 - Fix the issue when right-click + left-click starts a widget drag interaction. [#730](https://github.com/iTwin/appui/pull/730)
 - Fix polar mode AccuDraw input focus by correctly focusing the distance field. [#753](https://github.com/iTwin/appui/pull/753)
 
+## @itwin/components-react
+
+### Deprecations
+
+- `DatePicker`, `DatePickerPopupButton`, `IntlFormatter` are deprecated in favor of [iTwinUI date picker](https://itwinui.bentley.com/docs/datepicker). [#755](https://github.com/iTwin/appui/pull/755)
+
 ## @itwin/core-react
 
 ### Additions
 
-- `BadgeType` has been moved from `@itwin/appui-abstract`
+- `BadgeType` has been moved from `@itwin/appui-abstract`. [#729](https://github.com/iTwin/appui/pull/729)
 
 ## @itwin/imodel-components-react
 
 ### Deprecations
 
 - `TimelineComponentProps.componentId` was used only when listening for events on `UiAdmin.onGenericUiEvent.addListener`. As `UiAdmin` will be deprecated, please use the `TimelineComponentProps.isPlaying` prop to control the timeline play state. [#729](https://github.com/iTwin/appui/pull/729)
+- `AlphaSlider`, `ColorPickerButton`, `ColorPickerDialog`, `ColorPickerPopup`, `ColorSwatch`, `HueSlider`, `SaturationPicker` are deprecated in favor of [iTwinUI color picker](https://itwinui.bentley.com/docs/colorpicker). [#755](https://github.com/iTwin/appui/pull/755)
 
 ### Additions
 
