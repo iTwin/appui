@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Deprecate `FrameworkUiAdmin`. Introduce `Placement`, a replacement for `RelativePosition`",
+      "comment": "Deprecate much of `FrameworkUiAdmin`. Introduce `Placement`, a replacement for `RelativePosition`",
       "type": "none"
     }
   ],

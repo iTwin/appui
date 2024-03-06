@@ -19,7 +19,6 @@ Table of contents:
 
 ### Deprecations
 
-- `FrameworkUiAdmin` has been deprecated in preparation for upcoming @itwin/appui-abstract#UiAdmin deprecation. Continue to set `FrameworkUiAdmin` as `IModelAppOption.uiAdmin` until `UiAdmin` is deprecated, but do not call any methods on it directly, using the below replacements instead. [#729](https://github.com/iTwin/appui/pull/729)
 - `FrameworkUiAdmin.cursorPosition` in favor of `UiFramework.getCursorPosition`. [#729](https://github.com/iTwin/appui/pull/729)
 - `FrameworkUiAdmin.isFocusOnHome` in favor of `UiFramework.keyboardShortcuts.isFocusOnHome`. [#729](https://github.com/iTwin/appui/pull/729)
 - `FrameworkUiAdmin.setFocusToHome` in favor of `UiFramework.keyboardShortcuts.setFocusToHome`. [#729](https://github.com/iTwin/appui/pull/729)
@@ -37,16 +36,8 @@ Table of contents:
 - `FrameworkUiAdmin.showAngleEditor` in favor of `UiFramework.showAngleEditor`. [#729](https://github.com/iTwin/appui/pull/729)
 - `FrameworkUiAdmin.showLengthEditor` in favor of `UiFramework.showDimensionEditor("length")`. [#729](https://github.com/iTwin/appui/pull/729)
 - `FrameworkUiAdmin.showHeightEditor` in favor of `UiFramework.showDimensionEditor("height")`. [#729](https://github.com/iTwin/appui/pull/729)
-- `FrameworkUiAdmin.showInputEditor` in favor of `UiFramework.showInputEditor`. [#729](https://github.com/iTwin/appui/pull/729)
-- `FrameworkUiAdmin.hideInputEditor` in favor of `UiFramework.hideInputEditor`. [#729](https://github.com/iTwin/appui/pull/729)
 - `FrameworkUiAdmin.showHTMLElement` in favor of `UiFramework.showComponent`. Note, as appui is a React-focused library, the new `UiFramework.showComponent` function takes a React Element instead of an HTMLElement.`
 - `FrameworkUiAdmin.hideHTMLElement` in favor of `UiFramework.hideComponent`. [#729](https://github.com/iTwin/appui/pull/729)
-- `FrameworkUiAdmin.showCard` in favor of `UiFramework.showCard`. As with the above, HTMLElements have been replaced with React Elements. [#729](https://github.com/iTwin/appui/pull/729)
-- `FrameworkUiAdmin.showReactCard` in favor of `UiFramework.showCard`. [#729](https://github.com/iTwin/appui/pull/729)
-- `FrameworkUiAdmin.hideCard` in favor of `UiFramework.hideCard`. [#729](https://github.com/iTwin/appui/pull/729)
-- `FrameworkUiAdmin.openToolSettingsPopup` in favor of `UiFramework.openToolSettingsPopup`. [#729](https://github.com/iTwin/appui/pull/729)
-- `FrameworkUiAdmin.openDialog` in favor of `UiFramework.openDialog`. [#729](https://github.com/iTwin/appui/pull/729)
-- `FrameworkUiAdmin.closeDialog` in favor of `UiFramework.closeDialog`. [#729](https://github.com/iTwin/appui/pull/729)
 
 - `CursorMenuData` is favor of `CursorMenuPayload`. [#729](https://github.com/iTwin/appui/pull/729)
 - `RelativePosition` in favor of `Placement`. [#729](https://github.com/iTwin/appui/pull/729)

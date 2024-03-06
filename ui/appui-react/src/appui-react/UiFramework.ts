@@ -953,6 +953,7 @@ export class UiFramework {
    * @param placement {@link Placement} relative to the given location. Defaults to top-end.
    * @param anchorElement The HTMLElement that anchors the Card. If undefined, the location is relative to the overall window.
    * @return true if the Card was displayed, false if the Card could not be displayed.
+   * @internal
    */
   public static showCard(
     content: React.ReactNode,
@@ -984,6 +985,7 @@ export class UiFramework {
 
   /**
    * Hides a Card displayed with {@link UiFramework.showCard}
+   * @internal
    */
   public static hideCard() {
     return PopupManager.hideCard();
@@ -997,6 +999,7 @@ export class UiFramework {
    * @param placement {@link Placement} relative to the given location. Defaults to top-end.
    * @param anchorElement The HTMLElement that anchors the tool settings. If undefined, the location is relative to the overall window.
    * @return true if the tool settings were displayed, false if the tool settings could not be displayed.
+   * @internal
    */
   public static openToolSettingsPopup(
     dataProvider: DialogLayoutDataProvider,
@@ -1021,6 +1024,7 @@ export class UiFramework {
 
   /**
    * Closes the Tool Settings Ui popup.
+   * @internal
    */
   public static closeToolSettingsPopup() {
     return PopupManager.closeToolSettings();
@@ -1194,6 +1198,7 @@ export class UiFramework {
    * @param ShowInputEditorOptions.onCommit Function called when the OK button or the Enter key is pressed.
    * @param ShowInputEditorOptions.onCancel Function called when the Cancel button or the Escape key is pressed.
    * @return true if the editor was displayed, false if the editor could not be displayed.
+   * @internal
    */
   public static showInputEditor({
     anchorElement,
@@ -1243,7 +1248,9 @@ export class UiFramework {
     );
   }
 
-  /** Hides the input editor. */
+  /** Hides the input editor.
+   * @internal
+   */
   public static hideInputEditor(): boolean {
     return PopupManager.hideInputEditor();
   }
@@ -1255,6 +1262,7 @@ export class UiFramework {
    * @param id Id of the dialog that is used to close it.
    * @param optionalProps Optional props for Dialog construction.
    * @return true if the tool settings were displayed, false if the tool settings could not be displayed.
+   * @internal
    */
   public static openDialog(
     uiDataProvider: DialogLayoutDataProvider,
@@ -1277,6 +1285,7 @@ export class UiFramework {
 
   /** Closes the Dialog with the specified dialogId.
    * @param dialogId Id of the dialog to close.
+   * @internal
    */
   public static closeDialog(dialogId: string): boolean {
     const findFn = (info: DialogInfo) => info.id === dialogId;

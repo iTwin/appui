@@ -2101,11 +2101,9 @@ export interface FrameworkToolSettings {
     useDefaultToolSettingsProvider: boolean;
 }
 
-// @public @deprecated
+// @public
 export class FrameworkUiAdmin extends UiAdmin {
-    // @deprecated
     closeDialog(dialogId: string): boolean;
-    // @deprecated
     closeToolSettingsPopup(): boolean;
     // @deprecated
     get cursorPosition(): XAndY;
@@ -2113,11 +2111,9 @@ export class FrameworkUiAdmin extends UiAdmin {
     getKeyins(): KeyinEntry[];
     // @deprecated
     hideCalculator(): boolean;
-    // @deprecated
     hideCard(): boolean;
     // @deprecated
     hideHTMLElement(): boolean;
-    // @deprecated
     hideInputEditor(): boolean;
     // @deprecated
     hideKeyinPalette(): boolean;
@@ -2130,9 +2126,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     // @deprecated (undocumented)
     get localizedKeyinPreference(): KeyinFieldLocalization;
     set localizedKeyinPreference(preference: KeyinFieldLocalization);
-    // @deprecated
     openDialog(uiDataProvider: DialogLayoutDataProvider, title: string, isModal: boolean, id: string, optionalProps?: DialogProps): boolean;
-    // @deprecated
     openToolSettingsPopup(dataProvider: DialogLayoutDataProvider, location: XAndY, offset: XAndY, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
     // @deprecated
     setFocusToHome(): void;
@@ -2140,7 +2134,6 @@ export class FrameworkUiAdmin extends UiAdmin {
     showAngleEditor(initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, htmlElement?: HTMLElement): boolean;
     // @deprecated
     showCalculator(initialValue: number, resultIcon: string, location: XAndY, onOk: OnNumberCommitFunc, onCancel: OnCancelFunc, htmlElement?: HTMLElement): boolean;
-    // @deprecated
     showCard(content: HTMLElement, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
     // @deprecated
     showContextMenu(items: AbstractMenuItemProps[], location: XAndY, htmlElement?: HTMLElement): boolean;
@@ -2148,7 +2141,6 @@ export class FrameworkUiAdmin extends UiAdmin {
     showHeightEditor(initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, htmlElement?: HTMLElement): boolean;
     // @deprecated
     showHTMLElement(displayElement: HTMLElement, location: XAndY, offset: XAndY, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
-    // @deprecated
     showInputEditor(initialValue: Primitives.Value, propertyDescription: PropertyDescription, location: XAndY, onCommit: OnValueCommitFunc, onCancel: OnCancelFunc, htmlElement?: HTMLElement): boolean;
     // @deprecated
     showKeyinPalette(htmlElement?: HTMLElement): boolean;
@@ -2156,7 +2148,6 @@ export class FrameworkUiAdmin extends UiAdmin {
     showLengthEditor(initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, htmlElement?: HTMLElement): boolean;
     // @deprecated
     showMenuButton(id: string, menuItemsProps: AbstractMenuItemProps[], location: XAndY, htmlElement?: HTMLElement): boolean;
-    // @deprecated
     showReactCard(content: React_2.ReactNode, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
     // @deprecated
     showToolbar(toolbarProps: AbstractToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, htmlElement?: HTMLElement): boolean;
@@ -4884,7 +4875,9 @@ export class UiFramework {
     static get childWindows(): FrameworkChildWindows;
     // (undocumented)
     static closeCursorMenu(): void;
+    // @internal
     static closeDialog(dialogId: string): boolean;
+    // @internal
     static closeToolSettingsPopup(): boolean;
     static get content(): FrameworkContent;
     static get controls(): FrameworkControls;
@@ -4921,8 +4914,10 @@ export class UiFramework {
     // (undocumented)
     static getWidgetOpacity(): number;
     static hideCalculator(): boolean;
+    // @internal
     static hideCard(): boolean;
     static hideComponent(id?: string): boolean;
+    // @internal
     static hideInputEditor(): boolean;
     // (undocumented)
     static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler;
@@ -4946,7 +4941,9 @@ export class UiFramework {
     static openContextMenu(items: CursorMenuItemProps[], location: XAndY, anchorElement?: HTMLElement): boolean;
     // (undocumented)
     static openCursorMenu(menuData: CursorMenuData | CursorMenuPayload | undefined): void;
+    // @internal
     static openDialog(uiDataProvider: DialogLayoutDataProvider, title: string, isModal: boolean, id: string, optionalProps?: DialogProps): boolean;
+    // @internal
     static openToolSettingsPopup(dataProvider: DialogLayoutDataProvider, location: XAndY, offset: XAndY, onCancel: () => void, placement?: Placement, anchorElement?: HTMLElement): boolean;
     // @internal (undocumented)
     static get packageName(): string;
@@ -4987,9 +4984,11 @@ export class UiFramework {
     static setWidgetOpacity(opacity: number): void;
     static showAngleEditor(initialValue: number, location: XAndY, onCommit: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement): boolean;
     static showCalculator(initialValue: number, resultIcon: string, location: XAndY, onOk: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement): boolean;
+    // @internal
     static showCard(content: React.ReactNode, title: string | PropertyRecord | undefined, toolbarProps: ToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, placement?: Placement, anchorElement?: HTMLElement): boolean;
     static showComponent(...params: OptionalShowComponentParams): boolean;
     static showDimensionEditor(dimension: "height" | "length", initialValue: number, location: XAndY, onCommit: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement): boolean;
+    // @internal
     static showInputEditor({ anchorElement, initialValue, location, onCancel, onCommit, propertyDescription, }: ShowInputEditorOptions): boolean;
     static showKeyinPalette(keyinEntries: KeyinEntry[], htmlElement?: HTMLElement): boolean;
     static showMenuButton(id: string, menuItemsProps: CursorMenuItemProps[], location: XAndY, anchorElement?: HTMLElement): boolean;

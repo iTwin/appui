@@ -47,7 +47,6 @@ import type { CursorMenuItemProps } from "../shared/MenuItem";
  * });
  * ```
  * @public
- * @deprecated in 4.11.x. Use various fields from [[UiFramework]] instead. Please see individual deprecation notices for more info.
  */
 export class FrameworkUiAdmin extends UiAdmin {
   private _localizedKeyinPreference: KeyinFieldLocalization =
@@ -327,7 +326,6 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param onCancel Function called when the Cancel button or the Escape key  is pressed.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the editor was displayed, false if the editor could not be displayed.
-   * @deprecated in 4.11.x. Use {@link UiFramework.showInputEditor}.
    */
   public override showInputEditor(
     initialValue: Primitives.Value,
@@ -347,9 +345,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     });
   }
 
-  /** Hides the input editor.
-   * @deprecated in 4.11.x. Use {@link UiFramework.hideInputEditor}.
-   */
+  /** Hides the input editor.*/
   public override hideInputEditor(): boolean {
     return UiFramework.hideInputEditor();
   }
@@ -407,7 +403,6 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param relativePosition Position relative to the given location. Defaults to TopRight.
    * @param anchorElement The HTMLElement that anchors the Card. If undefined, the location is relative to the overall window.
    * @return true if the Card was displayed, false if the Card could not be displayed.
-   * @deprecated in 4.11.x. Use {@link UiFramework.showCard} with content as React.Node instead of HTMLElement.
    */
   public override showCard(
     content: HTMLElement,
@@ -447,7 +442,6 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param relativePosition Position relative to the given location. Defaults to TopRight.
    * @param anchorElement The HTMLElement that anchors the Card. If undefined, the location is relative to the overall window.
    * @return true if the Card was displayed, false if the Card could not be displayed.
-   * @deprecated in 4.11.x. Use {@link UiFramework.showCard}
    */
   public showReactCard(
     content: React.ReactNode,
@@ -478,9 +472,7 @@ export class FrameworkUiAdmin extends UiAdmin {
 
   /**
    * Hides the Card.
-   * @deprecated in 4.11.x. Use {@link UiFramework.hideCard} instead.
    * */
-
   public override hideCard(): boolean {
     return UiFramework.hideCard();
   }
@@ -493,7 +485,6 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param relativePosition Position relative to the given location. Defaults to TopRight.
    * @param anchorElement The HTMLElement that anchors the tool settings. If undefined, the location is relative to the overall window.
    * @return true if the tool settings were displayed, false if the tool settings could not be displayed.
-   * @deprecated in 4.11.x. Use {@link UiFramework.openToolSettingsPopup}.
    */
   public override openToolSettingsPopup(
     dataProvider: DialogLayoutDataProvider,
@@ -514,9 +505,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     );
   }
 
-  /** Closes the Tool Settings Ui popup.
-   * @deprecated in 4.11.x. Use {@link UiFramework.closeToolSettingsPopup}.
-   */
+  /** Closes the Tool Settings Ui popup. */
   public override closeToolSettingsPopup(): boolean {
     return UiFramework.closeToolSettingsPopup();
   }
@@ -528,7 +517,6 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param id Id of the dialog that is used to close it.
    * @param optionalProps Optional props for Dialog construction.
    * @return true if the tool settings were displayed, false if the tool settings could not be displayed.
-   * @deprecated in 4.11.x. Use {@link UiFramework.openDialog}
    */
   public override openDialog(
     uiDataProvider: DialogLayoutDataProvider,
@@ -546,9 +534,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     );
   }
 
-  /** Closes the Tool Settings Ui popup.
-   * @deprecated in 4.11.x. Use {@link UiFramework.closeDialog}
-   */
+  /** Closes the Tool Settings Ui popup.*/
   public override closeDialog(dialogId: string): boolean {
     return UiFramework.closeDialog(dialogId);
   }
