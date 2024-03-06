@@ -9,6 +9,7 @@ Table of contents:
   - [Deprecations](#deprecations)
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Deprecations](#deprecations-1)
+  - [Changes](#changes-1)
 
 ## @itwin/appui-react
 
@@ -34,3 +35,7 @@ Table of contents:
 ### Deprecations
 
 - `AlphaSlider`, `ColorPickerButton`, `ColorPickerDialog`, `ColorPickerPopup`, `ColorSwatch`, `HueSlider`, `SaturationPicker` are deprecated in favor of [iTwinUI color picker](https://itwinui.bentley.com/docs/colorpicker). [#755](https://github.com/iTwin/appui/pull/755)
+
+### Changes
+
+- Updated visual styling of `SolarTimeline` component. [#733](https://github.com/iTwin/appui/pull/733)
