@@ -32,7 +32,7 @@ export function MessageCenterField() {
   const [notify, setNotify] = React.useState("");
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const indicatorRef = React.createRef<HTMLDivElement>();
+  const indicatorRef = React.createRef<HTMLButtonElement>();
   const messageCount = React.useRef(messages.length);
 
   const title = UiFramework.translate("messageCenter.messages");
@@ -107,7 +107,6 @@ export function MessageCenterField() {
 
   return (
     <>
-      <div ref={indicatorRef} />
       <Popover
         content={
           <>
@@ -126,6 +125,7 @@ export function MessageCenterField() {
       >
         <Button
           onClick={() => handleOpenChange(!isOpen)}
+          ref={indicatorRef}
           styleType="borderless"
           labelProps={
             <span>
