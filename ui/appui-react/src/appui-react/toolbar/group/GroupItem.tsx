@@ -104,7 +104,7 @@ function Menu({ item, onClose }: MenuProps) {
             variant="subheading"
             className="uifw-toolbar-group-groupItem_menuTitle"
           >
-            {item.label}
+            {activeGroup.label}
           </Text>
         </Flex.Item>
       </Flex>
