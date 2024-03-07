@@ -8,6 +8,7 @@
 
 import "./NestedMenu.scss";
 import * as React from "react";
+import { flattenChildren } from "@itwin/core-react";
 import { Flex, IconButton, List, ListItem, Text } from "@itwin/itwinui-react";
 import {
   SvgChevronRightSmall,
@@ -21,6 +22,17 @@ interface NestedMenuProps {
   onBack?: () => void;
 }
 
+interface NestedMenuContextArgs {
+  columnIndex?: number;
+  itemIndex?: number;
+  focusedColumnIndex?: number;
+  focusedItemIndex?: number;
+}
+
+const NestedMenuContext = React.createContext<
+  NestedMenuContextArgs | undefined
+>(undefined);
+
 /** @internal */
 export function NestedMenu({
   children,
@@ -28,8 +40,61 @@ export function NestedMenu({
   title,
   onBack,
 }: NestedMenuProps) {
+  const flattened = flattenChildren(children);
+  const columns = React.Children.toArray(flattened);
+  const columnIndexToItemCountMap = columns.reduce<Map<number, number>>(
+    (acc, column, columnIndex) => {
+      if (!React.isValidElement<ItemProps>(column)) {
+        acc.set(columnIndex, 0);
+        return acc;
+      }
+
+      const columnItems = React.Children.toArray(column.props.children);
+      const length = columnItems.length;
+      acc.set(columnIndex, length);
+      return acc;
+    },
+    new Map()
+  );
+
+  const [focusedColumnIndex, setFocusedColumnIndex] = React.useState(0);
+  const [focusedItemIndex, setFocusedItemIndex] = React.useState(0);
+
+  const itemCount =
+    columnIndexToItemCountMap.get(focusedColumnIndex) ??
+    Number.POSITIVE_INFINITY;
+  const actualFocusedItemIndex = Math.min(focusedItemIndex, itemCount - 1);
   return (
-    <Flex flexDirection="column">
+    <Flex
+      flexDirection="column"
+      onKeyDown={(e) => {
+        switch (e.key) {
+          case "ArrowDown": {
+            const newIndex = (actualFocusedItemIndex + 1) % itemCount;
+            setFocusedItemIndex(newIndex);
+            break;
+          }
+          case "ArrowUp": {
+            const newIndex = mod(actualFocusedItemIndex - 1, itemCount);
+            setFocusedItemIndex(newIndex);
+            break;
+          }
+          case "ArrowRight": {
+            const columnCount = columnIndexToItemCountMap.size;
+            const newIndex = (focusedColumnIndex + 1) % columnCount;
+            setFocusedColumnIndex(newIndex);
+            break;
+          }
+          case "ArrowLeft": {
+            const columnCount = columnIndexToItemCountMap.size;
+            const newIndex = mod(focusedColumnIndex - 1, columnCount);
+            setFocusedColumnIndex(newIndex);
+            break;
+          }
+        }
+      }}
+      tabIndex={-1}
+    >
       <Flex
         flexDirection="row"
         className="uifw-toolbar-group-nestedMenu_menuHeader"
@@ -49,7 +114,22 @@ export function NestedMenu({
         </Flex.Item>
       </Flex>
       <Flex.Item flex={1} className="uifw-toolbar-group-nestedMenu_columns">
-        <Flex>{children}</Flex>
+        <Flex>
+          {columns.map((column, columnIndex) => {
+            return (
+              <NestedMenuContext.Provider
+                key={columnIndex}
+                value={{
+                  focusedItemIndex: actualFocusedItemIndex,
+                  focusedColumnIndex,
+                  columnIndex,
+                }}
+              >
+                {column}
+              </NestedMenuContext.Provider>
+            );
+          })}
+        </Flex>
       </Flex.Item>
     </Flex>
   );
@@ -67,11 +147,24 @@ interface ItemProps {
 }
 
 function Item({ children, icon, disabled, submenu, onClick }: ItemProps) {
+  const context = React.useContext(NestedMenuContext);
+  const { columnIndex, itemIndex, focusedColumnIndex, focusedItemIndex } =
+    context || {};
+  const ref = React.useRef<HTMLLIElement>(null);
+  React.useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+    if (focusedColumnIndex !== columnIndex) return;
+    if (focusedItemIndex !== itemIndex) return;
+    element.focus();
+  }, [columnIndex, itemIndex, focusedColumnIndex, focusedItemIndex]);
   return (
     <ListItem
       actionable
       disabled={disabled}
       onClick={disabled ? undefined : onClick}
+      tabIndex={0}
+      ref={ref}
     >
       <ListItem.Icon>{icon}</ListItem.Icon>
       <ListItem.Content>{children}</ListItem.Content>
@@ -89,9 +182,26 @@ interface ColumnProps {
 }
 
 function Column({ children }: ColumnProps) {
+  const context = React.useContext(NestedMenuContext);
+  const items = React.Children.toArray(children);
   return (
     <Flex.Item>
-      <List>{children}</List>
+      <List>
+        {items.map((item, itemIndex) => {
+          return (
+            <NestedMenuContext.Provider
+              key={itemIndex}
+              value={{ ...context, itemIndex }}
+            >
+              {item}
+            </NestedMenuContext.Provider>
+          );
+        })}
+      </List>
     </Flex.Item>
   );
+}
+
+function mod(num: number, modulo: number) {
+  return ((num % modulo) + modulo) % modulo;
 }

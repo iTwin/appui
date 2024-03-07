@@ -18,9 +18,22 @@ const meta = {
     onBack: action("back"),
     children: (
       <NestedMenu.Column>
-        <NestedMenu.Item icon={<SvgPlaceholder />} children="Test 1" />
-        <NestedMenu.Item icon={<SvgPlaceholder />} children="Test 2" />
-        <NestedMenu.Item icon={<SvgPlaceholder />} children="Test 3" submenu />
+        <NestedMenu.Item
+          icon={<SvgPlaceholder />}
+          children="Test 1"
+          onClick={action("test1")}
+        />
+        <NestedMenu.Item
+          icon={<SvgPlaceholder />}
+          children="Test 2"
+          onClick={action("test2")}
+        />
+        <NestedMenu.Item
+          icon={<SvgPlaceholder />}
+          children="Test 3"
+          onClick={action("test3")}
+          submenu
+        />
       </NestedMenu.Column>
     ),
   },
@@ -42,21 +55,35 @@ export const Columns: Story = {
     children: (
       <>
         <NestedMenu.Column>
-          <NestedMenu.Item icon={<SvgPlaceholder />} children="Test 1_1" />
+          <NestedMenu.Item
+            icon={<SvgPlaceholder />}
+            children="Test 1_1"
+            onClick={action("test1_1")}
+          />
           <NestedMenu.Item
             icon={<SvgPlaceholder />}
             children="Test 1_2"
+            onClick={action("test1_2")}
             submenu
           />
-          <NestedMenu.Item icon={<SvgPlaceholder />} children="Test 1_3" />
+          <NestedMenu.Item
+            icon={<SvgPlaceholder />}
+            children="Test 1_3"
+            onClick={action("test1_3")}
+          />
         </NestedMenu.Column>
         <NestedMenu.Column>
           <NestedMenu.Item
             icon={<SvgPlaceholder />}
             children="Test 2_1"
+            onClick={action("test2_1")}
             submenu
           />
-          <NestedMenu.Item icon={<SvgPlaceholder />} children="Test 2_2" />
+          <NestedMenu.Item
+            icon={<SvgPlaceholder />}
+            children="Test 2_2"
+            onClick={action("test2_2")}
+          />
         </NestedMenu.Column>
       </>
     ),
