@@ -75,8 +75,6 @@ describe("<SolarTimeline />", () => {
     await TestUtils.initializeUiIModelComponents();
     await NoRenderApp.startup();
 
-    console.log(IModelApp.localization);
-
     // JSDom used in testing does not provide implementations for requestAnimationFrame/cancelAnimationFrame so add dummy ones here.
     window.requestAnimationFrame = rafSpy;
     window.cancelAnimationFrame = () => {};

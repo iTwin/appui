@@ -548,13 +548,10 @@ export class SolarTimeline extends React.PureComponent<
               className="solar-timeline_speed"
               name="speed"
               onChange={(e) => this._onSpeedChange(Number(e.target.value))}
+              value={currentSpeed}
             >
               {this._speeds.map((speed) => (
-                <option
-                  key={speed}
-                  value={speed}
-                  selected={speed === currentSpeed}
-                >
+                <option key={speed} value={speed}>
                   {speed}x
                 </option>
               ))}
