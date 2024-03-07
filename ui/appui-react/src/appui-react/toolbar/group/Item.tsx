@@ -6,6 +6,7 @@
  * @module Toolbar
  */
 
+import "./Item.scss";
 import * as React from "react";
 import { Icon } from "@itwin/core-react";
 import { IconButton } from "@itwin/itwinui-react";
@@ -37,6 +38,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
         disabled={isDisabled}
         isActive={item.isActive}
         label={<Label label={label} description={description} />}
+        labelProps={{ className: "uifw-toolbar-group-item_label" }}
         style={props.style}
         ref={ref}
         {...other}
