@@ -6,24 +6,15 @@
  * @module Toolbar
  */
 
-import "./GroupItem.scss";
 import * as React from "react";
 import { type CommonProps, Icon } from "@itwin/core-react";
-import { SvgProgressBackward } from "@itwin/itwinui-icons-react";
-import type { DropdownButton } from "@itwin/itwinui-react";
-import {
-  DropdownMenu,
-  Flex,
-  IconButton,
-  MenuExtraContent,
-  MenuItem,
-  Text,
-} from "@itwin/itwinui-react";
+import { Popover, Surface } from "@itwin/itwinui-react";
 import { isToolbarGroupItem, type ToolbarGroupItem } from "../ToolbarItem";
 import { useConditionalValue } from "../../hooks/useConditionalValue";
 import { ExpandIndicator } from "./ExpandIndicator";
 import { Item } from "./Item";
 import { ToolbarContext } from "./Toolbar";
+import { NestedMenu } from "./NestedMenu";
 
 /** @internal */
 interface GroupItemProps extends CommonProps {
@@ -35,32 +26,20 @@ export function GroupItem(props: GroupItemProps) {
   const { item } = props;
   const isHidden = useConditionalValue(item.isHidden);
   const placement = usePlacement();
+  const [visible, setVisible] = React.useState(false);
 
-  const menuItems = React.useCallback<
-    React.ComponentProps<typeof DropdownButton>["menuItems"]
-  >(
-    (close) => {
-      return [
-        <MenuExtraContent key={0}>
-          <Menu item={item} onClose={close} />
-        </MenuExtraContent>,
-      ];
-    },
-    [item]
-  );
   if (isHidden) return null;
-
   return (
-    <DropdownMenu
-      className={props.className}
-      style={props.style}
-      menuItems={menuItems}
+    <Popover
+      content={<Menu item={item} onClose={() => setVisible(!visible)} />}
       placement={placement}
+      visible={visible}
+      onVisibleChange={setVisible}
     >
       <Item item={item}>
         <ExpandIndicator />
       </Item>
-    </DropdownMenu>
+    </Popover>
   );
 }
 
@@ -74,7 +53,7 @@ export function usePlacement() {
 
 interface MenuProps {
   item: ToolbarGroupItem;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 function Menu({ item, onClose }: MenuProps) {
@@ -85,79 +64,64 @@ function Menu({ item, onClose }: MenuProps) {
     const columnCount = getColumnCount(items.length);
     return toColumns(items, columnCount);
   }, [items]);
+  const nested = groupStack.length > 1;
   return (
-    <>
-      <Flex>
-        {groupStack.length > 1 && (
-          <IconButton
-            label="Back"
-            styleType="borderless"
-            onClick={() => {
-              setGroupStack((prev) => prev.slice(0, prev.length - 1));
-            }}
-          >
-            <SvgProgressBackward />
-          </IconButton>
-        )}
-        <Flex.Item flex={1}>
-          <Text
-            variant="subheading"
-            className="uifw-toolbar-group-groupItem_menuTitle"
-          >
-            {activeGroup.label}
-          </Text>
-        </Flex.Item>
-      </Flex>
-      <Flex>
-        {columns.map((columnItems, columnIndex) => (
-          <Flex.Item key={columnIndex}>
-            {columnItems.map((columnItem) => (
-              <ToolbarMenuItem
-                key={columnItem.id}
-                item={columnItem}
-                onExpandGroup={(groupItem) => {
-                  setGroupStack((prev) => [...prev, groupItem]);
-                }}
-                onClose={onClose}
-              />
-            ))}
-          </Flex.Item>
-        ))}
-      </Flex>
-    </>
+    <Surface elevation={1}>
+      <Surface.Body isPadded>
+        <NestedMenu
+          title={activeGroup.label}
+          nested={nested}
+          onBack={() => {
+            setGroupStack((prev) => prev.slice(0, prev.length - 1));
+          }}
+        >
+          {columns.map((columnItems, columnIndex) => (
+            <NestedMenu.Column key={columnIndex}>
+              {columnItems.map((columnItem) => (
+                <MenuItem
+                  key={columnItem.id}
+                  item={columnItem}
+                  onExpandGroup={(groupItem) => {
+                    setGroupStack((prev) => [...prev, groupItem]);
+                  }}
+                  onClose={onClose}
+                />
+              ))}
+            </NestedMenu.Column>
+          ))}
+        </NestedMenu>
+      </Surface.Body>
+    </Surface>
   );
 }
 
-interface ToolbarMenuItemProps {
+interface MenuItemProps {
   item: ToolbarGroupItem["items"][number];
-  onExpandGroup: (item: ToolbarGroupItem) => void;
-  onClose: () => void;
+  onExpandGroup?: (item: ToolbarGroupItem) => void;
+  onClose?: () => void;
 }
 
-function ToolbarMenuItem({
-  item,
-  onExpandGroup,
-  onClose,
-}: ToolbarMenuItemProps) {
+function MenuItem({ item, onExpandGroup, onClose }: MenuItemProps) {
   const iconSpec = useConditionalValue(item.icon);
   const isDisabled = useConditionalValue(item.isDisabled);
+  const label = useConditionalValue(item.label);
   const isGroupItem = isToolbarGroupItem(item);
   return (
-    <MenuItem
-      startIcon={<Icon iconSpec={iconSpec} />}
+    <NestedMenu.Item
+      icon={<Icon iconSpec={iconSpec} />}
+      disabled={isDisabled}
+      submenu={isGroupItem}
       onClick={() => {
         if (isGroupItem) {
-          onExpandGroup(item);
+          onExpandGroup?.(item);
           return;
         }
         item.execute();
-        onClose();
+        onClose?.();
       }}
-      disabled={isDisabled}
     >
-      {item.label}
-      {isGroupItem && " >"}
-    </MenuItem>
+      {label}
+    </NestedMenu.Item>
   );
 }
 
