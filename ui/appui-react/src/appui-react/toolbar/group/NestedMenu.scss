@@ -2,13 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-.uifw-toolbar-group-groupItem_indicator {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+.uifw-toolbar-group-nestedMenu_menuHeader {
+  width: 100%;
 }
 
-.uifw-toolbar-group-groupItem_menuTitle {
+.uifw-toolbar-group-nestedMenu_menuTitle {
   text-align: center;
-  text-wrap: nowrap;
+}
+
+.uifw-toolbar-group-nestedMenu_columns {
+  width: 100%;
 }
