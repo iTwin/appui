@@ -431,7 +431,7 @@ function SettingsMenu({
     >
       <IconButton
         data-testid="timeline-settings"
-        title={settingsLabel}
+        label={settingsLabel}
         styleType="borderless"
       >
         <SvgMoreVertical />
