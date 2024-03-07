@@ -14,6 +14,7 @@ Table of contents:
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Deprecations](#deprecations-2)
   - [Additions](#additions-2)
+  - [Changes](#changes-1)
 
 ## @itwin/appui-react
 
@@ -84,3 +85,7 @@ Table of contents:
 ### Additions
 
 - `TimelineComponentProps.isPlaying` to control the timeline play state. [#729](https://github.com/iTwin/appui/pull/729)
+
+### Changes
+
+- Updated visual styling of `SolarTimeline` and `TimelineComponent` components. [#733](https://github.com/iTwin/appui/pull/733)

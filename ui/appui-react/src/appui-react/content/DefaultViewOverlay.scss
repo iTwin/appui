@@ -4,43 +4,38 @@
  *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 
-// 40px is used to ensure scrubber is not drawn behind a widget tab
-
-$uifw-view-overlay-indent: calc(var(--iui-size-l) * 2);
-
 .uifw-view-overlay {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: calc(100% - #{$uifw-view-overlay-indent} * 2);
-  height: auto;
+  width: calc(
+    100% - (var(--iui-size-s) * 4) - (40px * 2)
+  ); // TODO: Change iui-size-s to an AppUI global CSS variable, same for 40px
   position: absolute;
-  bottom: var(--iui-size-s);
-  left: $uifw-view-overlay-indent;
-  right: $uifw-view-overlay-indent;
+  inset: auto 0 var(--iui-size-s) 0;
+  margin-inline: auto;
   pointer-events: none;
   @include uicore-z-index(view-overlay);
 }
-
-$widget-transparency: 0.9;
 
 .uifw-animation-overlay {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 100%;
   max-width: 1000px;
-  height: auto;
-  background: var(--iui-color-background);
+  background-color: Hsl(var(--iui-color-background-hsl) / var(--iui-opacity-2));
+  -webkit-backdrop-filter: saturate(1.8) blur(20px);
+  backdrop-filter: saturate(1.8) blur(20px);
   border: 1px solid var(--iui-color-border);
   border-radius: var(--iui-border-radius-1);
-  // overflow: hidden;
-  opacity: $widget-transparency;
-  transition: opacity var(--iui-duration-1) ease;
+  transition: background-color var(--iui-duration-1) ease;
   pointer-events: auto;
+  container: solar-timeline / inline-size;
 
   &:hover {
-    opacity: 1;
+    background-color: Hsl(
+      var(--iui-color-background-hsl) / var(--iui-opacity-1)
+    );
   }
 }

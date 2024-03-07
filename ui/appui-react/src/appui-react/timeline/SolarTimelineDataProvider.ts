@@ -91,10 +91,9 @@ export class SolarTimelineDataProvider extends BaseSolarDataProvider {
     )
       return;
 
-    const newSettings = displayStyle.settings.solarShadows.toJSON();
-    if (!newSettings) return;
-
+    const newSettings = displayStyle.settings.solarShadows.toJSON() ?? {};
     newSettings.color = color.tbgr;
+
     displayStyle.settings.solarShadows =
       SolarShadowSettings.fromJSON(newSettings);
   }
