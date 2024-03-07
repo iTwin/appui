@@ -6,7 +6,7 @@
 import { expect } from "chai";
 import React from "react";
 import * as sinon from "sinon";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render } from "@testing-library/react";
 import { UiAdmin } from "@itwin/appui-abstract";
 import { BaseTimelineDataProvider } from "../../imodel-components-react/timeline/BaseTimelineDataProvider";
 import type {
@@ -161,8 +161,9 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    // hit play/pause button to start animation
-    const playButton = renderedComponent.getAllByTestId("play")[0];
+    const playButton = renderedComponent.getByRole("button", {
+      name: "timeline.play",
+    });
     expect(dataProvider.playing).to.be.false;
     expect(dataProvider.pointerCallbackCalled).to.be.false;
 
@@ -176,7 +177,6 @@ describe("<TimelineComponent showDuration={true} />", () => {
     // await new Promise((r) => { setTimeout(r, 40); });
     expect(dataProvider.playing).to.be.true;
 
-    // hit play/pause button to pause animation
     fireEvent.click(playButton);
     // Wait for animation.
     fakeTimers.tick(600);
@@ -247,9 +247,9 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    // hit play/pause button to start animation
-    const playButtons = renderedComponent.getAllByTestId("play");
-    const playButton = playButtons[0];
+    const playButton = renderedComponent.getByRole("button", {
+      name: "timeline.play",
+    });
     expect(dataProvider.playing).to.be.false;
     expect(dataProvider.pointerCallbackCalled).to.be.false;
 
@@ -287,9 +287,9 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    // hit play/pause button to start animation
-    const playButtons = renderedComponent.getAllByTestId("play");
-    const playButton = playButtons[0];
+    const playButton = renderedComponent.getByRole("button", {
+      name: "timeline.play",
+    });
     expect(dataProvider.playing).to.be.false;
     expect(dataProvider.pointerCallbackCalled).to.be.false;
 
@@ -331,8 +331,9 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    // hit play/pause button to start animation
-    const playButton = renderedComponent.getAllByTestId("play")[0];
+    const playButton = renderedComponent.getByRole("button", {
+      name: "timeline.play",
+    });
     expect(dataProvider.playing).to.be.false;
     expect(dataProvider.pointerCallbackCalled).to.be.false;
 
@@ -369,9 +370,9 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
 
-    // hit play/pause button to start animation
-    const playButtons = renderedComponent.getAllByTestId("play");
-    const playButton = playButtons[playButtons.length - 1]; // last play button is the one in the scrubber.
+    const playButton = renderedComponent.getByRole("button", {
+      name: "timeline.play",
+    });
     expect(dataProvider.playing).to.be.false;
     expect(dataProvider.pointerCallbackCalled).to.be.false;
 
@@ -516,7 +517,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     fakeTimers = sinon.useFakeTimers();
     const dataProvider = new TestTimelineDataProvider();
     const spyOnPlayPause = sinon.spy();
-    render(
+    const renderedComponent = render(
       <TimelineComponent
         initialDuration={dataProvider.initialDuration}
         totalDuration={dataProvider.duration}
@@ -535,7 +536,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     };
     UiAdmin.sendUiEvent(args);
 
-    screen.getByTitle("timeline.pause");
+    renderedComponent.getByRole("button", { name: "timeline.pause" });
 
     args.timelineAction = TimelinePausePlayAction.Pause;
     UiAdmin.sendUiEvent(args);

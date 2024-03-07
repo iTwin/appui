@@ -7,7 +7,11 @@ import { expect } from "chai";
 import React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import type { ScreenViewport } from "@itwin/core-frontend";
+import {
+  IModelApp,
+  NoRenderApp,
+  type ScreenViewport,
+} from "@itwin/core-frontend";
 import { BaseSolarDataProvider } from "../../imodel-components-react/timeline/BaseSolarDataProvider";
 import { TestUtils } from "../TestUtils";
 import { SpeedTimeline } from "../../imodel-components-react/timeline/SpeedTimeline";
@@ -69,6 +73,9 @@ describe("<SolarTimeline />", () => {
   before(async () => {
     // need to initialize to get localized strings
     await TestUtils.initializeUiIModelComponents();
+    await NoRenderApp.startup();
+
+    console.log(IModelApp.localization);
 
     // JSDom used in testing does not provide implementations for requestAnimationFrame/cancelAnimationFrame so add dummy ones here.
     window.requestAnimationFrame = rafSpy;
@@ -166,39 +173,32 @@ describe("<SolarTimeline />", () => {
     const renderedComponent = render(
       <SolarTimeline dataProvider={dataProvider} />
     );
-    expect(renderedComponent).not.to.be.undefined;
-    // renderedComponent.debug();
 
-    // hit play/pause button to start animation
-    const playButton = renderedComponent.getByTestId("play-button");
+    const playButton = renderedComponent.getByRole("button", {
+      name: "timeline.play",
+    });
     expect(dataProvider.timeChangeCallbackCalled).to.be.false;
-    expect(renderedComponent.getAllByTestId("play").length).to.eq(1);
 
     fireEvent.click(playButton);
-    try {
-      // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
-      fakeTimers.tick(500);
-      fakeTimers.restore();
-      // the following sets up a MutationObserver which triggers when the DOM is updated
-      const update1Button = await waitFor(() =>
-        renderedComponent.getByTestId("play-button")
-      );
-      if (update1Button) {
-        expect(dataProvider.timeChangeCallbackCalled).to.be.true;
-        expect(renderedComponent.getAllByTestId("pause").length).to.eq(1);
-      }
-      // hit play/pause button to pause animation
-      fireEvent.click(playButton);
-      // the following sets up a MutationObserver which triggers when the DOM is updated
-      const update2Button = await waitFor(() =>
-        renderedComponent.getByTestId("play-button")
-      );
-      if (update2Button)
-        expect(
-          renderedComponent.container.getElementsByClassName(
-            "icon-media-controls-play"
-          ).length
-        ).to.eq(1);
-    } catch {}
+
+    // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
+    fakeTimers.tick(500);
+    fakeTimers.restore();
+    // the following sets up a MutationObserver which triggers when the DOM is updated
+    await waitFor(() =>
+      renderedComponent.getByRole("button", {
+        name: "timeline.pause",
+      })
+    );
+    expect(dataProvider.timeChangeCallbackCalled).to.be.true;
+
+    // hit play/pause button to pause animation
+    fireEvent.click(playButton);
+    // the following sets up a MutationObserver which triggers when the DOM is updated
+    await waitFor(() =>
+      renderedComponent.getByRole("button", {
+        name: "timeline.play",
+      })
+    );
   });
 });
