@@ -7,11 +7,7 @@ import { expect } from "chai";
 import React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import {
-  IModelApp,
-  NoRenderApp,
-  type ScreenViewport,
-} from "@itwin/core-frontend";
+import { NoRenderApp, type ScreenViewport } from "@itwin/core-frontend";
 import { BaseSolarDataProvider } from "../../imodel-components-react/timeline/BaseSolarDataProvider";
 import { TestUtils } from "../TestUtils";
 import { SpeedTimeline } from "../../imodel-components-react/timeline/SpeedTimeline";
