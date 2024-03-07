@@ -29,7 +29,7 @@ import "./MessageCenterField.scss";
  */
 export function MessageCenterField() {
   const [messages, setMessages] = React.useState(MessageManager.messages);
-  const [notify, setNotify] = React.useState("");
+  const [notify, setNotify] = React.useState("none");
   const [isOpen, setIsOpen] = React.useState(false);
 
   const indicatorRef = React.createRef<HTMLButtonElement>();
@@ -37,7 +37,7 @@ export function MessageCenterField() {
   const title = UiFramework.translate("messageCenter.messages");
 
   const handleOpenChange = (isOpenState: boolean) => {
-    setNotify("");
+    setNotify("none");
     setIsOpen(isOpenState);
   };
 
@@ -132,13 +132,16 @@ export function MessageCenterField() {
             </span>
           }
           startIcon={
-            !notify ? ( //  Notification Marker doesn't accept a "none" argument so this is a workaround to render it conditionally
+            <NotificationMarker
+              status={notifyStatus}
+              enabled={
+                notify === "primary" || notifyStatus === "negative"
+                  ? true
+                  : false
+              }
+            >
               <SvgChat />
-            ) : (
-              <NotificationMarker status={notifyStatus}>
-                <SvgChat />
-              </NotificationMarker>
-            )
+            </NotificationMarker>
           }
         >
           {title}
