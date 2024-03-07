@@ -25,7 +25,7 @@ export function ActionItem(props: ActionItemProps) {
     <Item
       item={item}
       onClick={() => {
-        toolGroupOverflow?.close();
+        toolGroupOverflow?.onClose?.();
         item.execute();
       }}
     />

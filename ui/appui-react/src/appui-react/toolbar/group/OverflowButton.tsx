@@ -10,13 +10,13 @@ import "./OverflowButton.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { DropdownMenu, IconButton, MenuItem } from "@itwin/itwinui-react";
+import { DropdownMenu, IconButton } from "@itwin/itwinui-react";
 import { SvgMore } from "@itwin/itwinui-icons-react";
 import { ToolbarContext } from "./Toolbar";
 
 /** @internal */
 interface ToolGroupOverflow {
-  close: () => void;
+  onClose?: () => void;
 }
 
 /** @internal */
@@ -28,6 +28,7 @@ export const ToolGroupOverflowContext = React.createContext<
 export function OverflowButton(props: React.PropsWithChildren<{}>) {
   const placement = usePlacement();
   const orientation = useMenuOrientation();
+
   return (
     <DropdownMenu
       className={classnames(
@@ -36,9 +37,9 @@ export function OverflowButton(props: React.PropsWithChildren<{}>) {
       )}
       menuItems={(close) => {
         return [
-          <Menu key={0} onClose={close}>
+          <OverflowMenu key={0} onClose={close}>
             {props.children}
-          </Menu>,
+          </OverflowMenu>,
         ];
       }}
       placement={placement}
@@ -50,10 +51,12 @@ export function OverflowButton(props: React.PropsWithChildren<{}>) {
   );
 }
 
-function Menu({
-  children,
-  onClose,
-}: React.PropsWithChildren<{ onClose: () => void }>) {
+interface OverflowMenuProps {
+  children?: React.ReactNode;
+  onClose?: () => void;
+}
+
+function OverflowMenu({ children, onClose }: OverflowMenuProps) {
   const childrenArray = React.Children.toArray(children);
   const placement = useSubMenuPlacement();
   return (
@@ -62,15 +65,8 @@ function Menu({
         ...placement,
       }}
     >
-      <ToolGroupOverflowContext.Provider key={0} value={{ close: onClose }}>
-        {childrenArray.map((child, index) => (
-          <MenuItem
-            key={index}
-            className="uifw-toolbar-group-overflowButton_menuItem"
-          >
-            {child}
-          </MenuItem>
-        ))}
+      <ToolGroupOverflowContext.Provider value={{ onClose }}>
+        {childrenArray}
       </ToolGroupOverflowContext.Provider>
     </ToolbarContext.Provider>
   );
