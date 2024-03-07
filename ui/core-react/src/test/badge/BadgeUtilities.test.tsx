@@ -4,8 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import type * as React from "react";
-import { BadgeType } from "@itwin/appui-abstract";
-import { BadgeUtilities } from "../../core-react/badge/BadgeUtilities";
+import {
+  BadgeType,
+  BadgeUtilities,
+} from "../../core-react/badge/BadgeUtilities";
 import { render } from "@testing-library/react";
 
 describe("BadgeUtilities", () => {

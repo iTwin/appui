@@ -513,11 +513,46 @@ describe("<TimelineComponent showDuration={true} />", () => {
       />
     );
   });
-  it("onPlayPause called for TimerPausePlay event", async () => {
-    fakeTimers = sinon.useFakeTimers();
+  it("Timeline can be controlled through play/pause props", async () => {
     const dataProvider = new TestTimelineDataProvider();
     const spyOnPlayPause = sinon.spy();
-    const renderedComponent = render(
+    const initialProps = {
+      initialDuration: dataProvider.initialDuration,
+      totalDuration: dataProvider.duration,
+      minimized: true,
+      showDuration: true,
+      onChange: dataProvider.onAnimationFractionChanged,
+      onJump: dataProvider.onJump,
+      onPlayPause: spyOnPlayPause,
+      isPlaying: false,
+      componentId: "TestTimeline",
+    };
+
+    const { rerender, getByRole } = render(
+      <TimelineComponent {...initialProps} />
+    );
+    rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
+    expect(spyOnPlayPause.calledOnce).to.be.true;
+    getByRole("button", { name: "timeline.pause" });
+
+    rerender(<TimelineComponent {...initialProps} isPlaying={false} />);
+    expect(spyOnPlayPause.calledTwice).to.be.true;
+    getByRole("button", { name: "timeline.play" });
+
+    rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
+    expect(spyOnPlayPause.calledThrice).to.be.true;
+    getByRole("button", { name: "timeline.pause" });
+
+    // do nothing (already playing)
+    rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
+    expect(spyOnPlayPause.calledThrice).to.be.true;
+    getByRole("button", { name: "timeline.pause" });
+  });
+
+  it("deprecated UiAdmin.sendUiEvent ", async () => {
+    const dataProvider = new TestTimelineDataProvider();
+    const spyOnPlayPause = sinon.spy();
+    const { getByRole } = render(
       <TimelineComponent
         initialDuration={dataProvider.initialDuration}
         totalDuration={dataProvider.duration}
@@ -536,7 +571,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     };
     UiAdmin.sendUiEvent(args);
 
-    renderedComponent.getByRole("button", { name: "timeline.pause" });
+    getByRole("button", { name: "timeline.pause" });
 
     args.timelineAction = TimelinePausePlayAction.Pause;
     UiAdmin.sendUiEvent(args);
@@ -547,6 +582,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     // onPlayPause should not be called again, since the args don't include an action
     expect(spyOnPlayPause.calledThrice).to.be.true;
   });
+
   it("re-render on repeat change", () => {
     const dataProvider = new TestTimelineDataProvider();
     const renderedComponent = render(

@@ -8,11 +8,10 @@
 
 import type * as React from "react";
 import type {
-  BadgeType,
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
-import type { IconSpec } from "@itwin/core-react";
+import type { BadgeType, IconSpec } from "@itwin/core-react";
 
 /** Status bar Groups/Sections from Left to Right
  * @public

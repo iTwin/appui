@@ -102,7 +102,7 @@ public;TimelineDateMarkerProps
 public;TimelineMenuItemOption = "replace" | "append" | "prefix"
 public;TimelineMenuItemProps
 public;TimelinePausePlayAction
-public;TimelinePausePlayArgs 
+public;TimelinePausePlayArgs
 public;TimelineScale
 public;UiIModelComponents
 internal;useFocusedThumb(sliderContainer: HTMLDivElement | undefined): boolean

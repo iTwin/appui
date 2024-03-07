@@ -28,7 +28,7 @@ import { UiFramework } from "../UiFramework";
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
 import { ClearKeyinPaletteHistoryTool } from "../tools/KeyinPaletteTools";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
-import type { KeyinEntry } from "../uiadmin/FrameworkUiAdmin";
+import type { KeyinEntry } from "../keyins/Keyins";
 import { Input } from "@itwin/itwinui-react";
 import { matchesWords } from "../utils/matchesWords";
 

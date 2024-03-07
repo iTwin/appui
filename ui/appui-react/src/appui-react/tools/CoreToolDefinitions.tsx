@@ -62,7 +62,9 @@ export class CoreTools {
       iconSpec: <SvgProcess />,
       labelKey: "UiFramework:keyinbrowser.label",
       execute: () => {
-        IModelApp.uiAdmin.showKeyinPalette();
+        UiFramework.showKeyinPalette(
+          IModelApp.tools.getToolList().map((tool) => ({ value: tool.keyin }))
+        );
       },
     });
   }

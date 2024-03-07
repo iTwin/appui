@@ -93,6 +93,8 @@ export * from "./appui-react/hooks/useUiVisibility";
 export * from "./appui-react/keyboardshortcut/KeyboardShortcut";
 export * from "./appui-react/keyboardshortcut/KeyboardShortcutMenu";
 
+export * from "./appui-react/keyins/Keyins";
+
 export * from "./appui-react/messages/AppNotificationManager";
 export * from "./appui-react/messages/InputField";
 export * from "./appui-react/messages/MessageManager";
@@ -108,6 +110,8 @@ export * from "./appui-react/navigationaids/StandardRotationNavigationAid";
 
 export * from "./appui-react/pickers/ListPicker";
 export * from "./appui-react/pickers/ViewSelector";
+
+export * from "./appui-react/utils/Placement";
 
 export * from "./appui-react/popup/KeyinPalettePanel";
 export * from "./appui-react/popup/KeyinPalettePopup";

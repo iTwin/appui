@@ -10,7 +10,7 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { GlobalContextMenu } from "@itwin/core-react"; // ContextSubMenu,
 import { SessionStateActionId } from "../../redux/SessionState";
-import type { MenuItemProps } from "../../shared/MenuItem";
+import type { CursorMenuItemProps } from "../../shared/MenuItem";
 import { MenuItemHelpers } from "../../shared/MenuItem";
 import { SyncUiEventDispatcher } from "../../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../../UiFramework";
@@ -24,7 +24,7 @@ interface CursorPopupMenuState {
   menuX: number;
   menuY: number;
   menuVisible: boolean;
-  items?: MenuItemProps[];
+  items?: CursorMenuItemProps[];
 }
 
 /** Popup Menu to show at cursor typically used by tools to provide a right-click context menu.
@@ -60,7 +60,7 @@ export class CursorPopupMenu extends React.PureComponent<
       if (menuData && this._hostChildWindowId === menuData.childWindowId) {
         this.setState({
           menuVisible: menuData.items && menuData.items.length > 0,
-          items: menuData.items,
+          items: menuData.items as CursorMenuItemProps[],
           menuX: menuData.position.x,
           menuY: menuData.position.y,
         });

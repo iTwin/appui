@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Add BadgeType",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

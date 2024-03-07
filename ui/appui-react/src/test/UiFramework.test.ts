@@ -12,8 +12,9 @@ import type { Id64String } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
-import type { CursorMenuData, UserSettingsProvider } from "../appui-react";
+import type { CursorMenuPayload, UserSettingsProvider } from "../appui-react";
 import {
+  AccuDrawPopupManager,
   ColorTheme,
   SettingsModalFrontstage,
   UiFramework,
@@ -22,6 +23,11 @@ import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage } from "@itwin/core-react";
 import TestUtils, { storageMock } from "./TestUtils";
 import { OpenSettingsTool } from "../appui-react/tools/OpenSettingsTool";
+import { PopupManager } from "../appui-react";
+import { createElement } from "react";
+import type { DialogLayoutDataProvider } from "@itwin/appui-abstract";
+import { InternalModalDialogManager } from "../appui-react/dialog/InternalModalDialogManager";
+import { InternalModelessDialogManager } from "../appui-react/dialog/InternalModelessDialogManager";
 
 describe("UiFramework localStorage Wrapper", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(
@@ -225,7 +231,7 @@ describe("UiFramework localStorage Wrapper", () => {
       UiFramework.closeCursorMenu();
       expect(UiFramework.getCursorMenuData()).to.be.undefined;
 
-      const menuData: CursorMenuData = {
+      const menuData: CursorMenuPayload = {
         items: [],
         position: { x: 100, y: 100 },
       };
@@ -248,6 +254,419 @@ describe("UiFramework localStorage Wrapper", () => {
 
       // try again when store is not defined
       expect(UiFramework.useDragInteraction).to.eql(false);
+    });
+
+    it("showCard/hideCard forwards to PopupManager", () => {
+      const stub = sinon.stub(PopupManager, "displayCard").returns(true);
+      expect(
+        UiFramework.showCard(
+          createElement("div", { id: "test" }, ["card content"]),
+          "test",
+          { items: [] },
+          { x: 0, y: 0 },
+          { x: 0, y: 0 },
+          (item: any) => {
+            item;
+          },
+          () => {}
+        )
+      ).to.be.true;
+      stub.restore();
+
+      sinon.stub(PopupManager, "displayCard").returns(false);
+      expect(
+        UiFramework.showCard(
+          createElement("div", { id: "test" }, ["card content"]),
+          "test",
+          { items: [] },
+          { x: 0, y: 0 },
+          { x: 0, y: 0 },
+          (item: any) => {
+            item;
+          },
+          () => {}
+        )
+      ).to.be.false;
+
+      const hideStub = sinon.stub(PopupManager, "hideCard").returns(true);
+      expect(UiFramework.hideCard()).to.be.true;
+
+      hideStub.restore();
+
+      sinon.stub(PopupManager, "hideCard").returns(false);
+      expect(UiFramework.hideCard()).to.be.false;
+    });
+
+    it("openToolSettingsPopup/closeToolSettingsPopup forwards to PopupManager", () => {
+      const dataProviderMock = moq.Mock.ofType<DialogLayoutDataProvider>();
+      const stub = sinon.stub(PopupManager, "openToolSettings").returns(true);
+      expect(
+        UiFramework.openToolSettingsPopup(
+          dataProviderMock.object,
+          { x: 0, y: 0 },
+          { x: 0, y: 0 },
+          () => {}
+        )
+      ).to.be.true;
+      stub.restore();
+
+      sinon.stub(PopupManager, "openToolSettings").returns(false);
+      expect(
+        UiFramework.openToolSettingsPopup(
+          dataProviderMock.object,
+          { x: 0, y: 0 },
+          { x: 0, y: 0 },
+          () => {}
+        )
+      ).to.be.false;
+
+      const hideStub = sinon
+        .stub(PopupManager, "closeToolSettings")
+        .returns(true);
+      expect(UiFramework.closeToolSettingsPopup()).to.be.true;
+
+      hideStub.restore();
+
+      sinon.stub(PopupManager, "closeToolSettings").returns(false);
+      expect(UiFramework.closeToolSettingsPopup()).to.be.false;
+    });
+
+    it("showToolbar/hideToolbar forwards to PopupManager", () => {
+      const stub = sinon.stub(PopupManager, "displayToolbar").returns(true);
+      expect(
+        UiFramework.showToolbar(
+          { items: [] },
+          { x: 0, y: 0 },
+          { x: 0, y: 0 },
+          (item: any) => {
+            item;
+          },
+          () => {}
+        )
+      ).to.be.true;
+      stub.restore();
+
+      const hideStub = sinon.stub(PopupManager, "hideToolbar").returns(true);
+      expect(UiFramework.hideToolbar()).to.be.true;
+
+      hideStub.restore();
+
+      sinon.stub(PopupManager, "hideToolbar").returns(false);
+      expect(UiFramework.hideToolbar()).to.be.false;
+    });
+
+    it("showMenuButton/hideMenuButton forwards to AccuDrawPopupManager", () => {
+      const stub = sinon
+        .stub(AccuDrawPopupManager, "showMenuButton")
+        .returns(true);
+      expect(UiFramework.showMenuButton("test", [], { x: 0, y: 0 })).to.be.true;
+      stub.restore();
+
+      sinon.stub(AccuDrawPopupManager, "showMenuButton").returns(false);
+      expect(UiFramework.showMenuButton("test", [], { x: 0, y: 0 })).to.be
+        .false;
+
+      const hideStub = sinon
+        .stub(AccuDrawPopupManager, "hideMenuButton")
+        .returns(true);
+      expect(UiFramework.hideMenuButton("test")).to.be.true;
+
+      hideStub.restore();
+
+      sinon.stub(AccuDrawPopupManager, "hideMenuButton").returns(false);
+      expect(UiFramework.hideMenuButton("test")).to.be.false;
+    });
+
+    it("hideMenuButton returns false if menu button with id cannot be found", () => {
+      const htmlElement = document.createElement<any>("div");
+      UiFramework.showMenuButton("test", [], { x: 0, y: 0 }, htmlElement);
+
+      expect(UiFramework.hideMenuButton("test2")).to.be.false;
+      expect(UiFramework.hideMenuButton("test")).to.be.true;
+    });
+
+    it("showCalculator/hideCalculator forwards to AccuDrawPopupManager", () => {
+      const stub = sinon
+        .stub(AccuDrawPopupManager, "showCalculator")
+        .returns(true);
+      expect(
+        UiFramework.showCalculator(
+          23,
+          "icon-string",
+          { x: 0, y: 0 },
+          () => {},
+          () => {}
+        )
+      ).to.be.true;
+
+      stub.restore();
+
+      sinon.stub(AccuDrawPopupManager, "showCalculator").returns(false);
+      expect(
+        UiFramework.showCalculator(
+          23,
+          "icon-string",
+          { x: 0, y: 0 },
+          () => {},
+          () => {}
+        )
+      ).to.be.false;
+
+      const hideStub = sinon
+        .stub(AccuDrawPopupManager, "hideCalculator")
+        .returns(true);
+      expect(UiFramework.hideCalculator()).to.be.true;
+
+      hideStub.restore();
+
+      sinon.stub(AccuDrawPopupManager, "hideCalculator").returns(false);
+      expect(UiFramework.hideCalculator()).to.be.false;
+    });
+
+    it("showComponent/hideComponent forwards to PopupManager", () => {
+      const stub = sinon.stub(PopupManager, "showComponent").returns(true);
+      expect(
+        UiFramework.showComponent(
+          createElement("div", { id: "test" }, ["card content"]),
+          {}
+        )
+      ).to.be.true;
+      stub.restore();
+
+      sinon.stub(PopupManager, "showComponent").returns(false);
+      expect(
+        UiFramework.showComponent(
+          createElement("div", { id: "test" }, ["card content"]),
+          {}
+        )
+      ).to.be.false;
+
+      const hideStub = sinon.stub(PopupManager, "hideComponent").returns(true);
+      expect(UiFramework.hideComponent()).to.be.true;
+
+      hideStub.restore();
+
+      sinon.stub(PopupManager, "hideComponent").returns(false);
+      expect(UiFramework.hideComponent()).to.be.false;
+    });
+
+    it("hideComponent returns false if menu button with id cannot be found", () => {
+      UiFramework.showComponent(createElement("div", {}, ["card content"]), {
+        id: "component-1",
+      });
+
+      expect(UiFramework.hideComponent("component-1000")).to.be.false;
+      expect(UiFramework.hideComponent("component-1")).to.be.true;
+    });
+
+    it("showAngleEditor forwards to AccuDrawPopupManager", () => {
+      const stub = sinon
+        .stub(AccuDrawPopupManager, "showAngleEditor")
+        .returns(true);
+      expect(
+        UiFramework.showAngleEditor(
+          23,
+          { x: 0, y: 0 },
+          () => {},
+          () => {}
+        )
+      ).to.be.true;
+
+      stub.restore();
+
+      sinon.stub(AccuDrawPopupManager, "showAngleEditor").returns(false);
+      expect(
+        UiFramework.showAngleEditor(
+          23,
+          { x: 0, y: 0 },
+          () => {},
+          () => {}
+        )
+      ).to.be.false;
+    });
+
+    it("showInputEditor/hideImportEditor forwards to PopupManager", () => {
+      sinon.stub(PopupManager, "showInputEditor").returns(true);
+      expect(
+        UiFramework.showInputEditor({
+          initialValue: 2,
+          location: { x: 0, y: 0 },
+          onCancel: () => {},
+          onCommit: (_: any) => {},
+          propertyDescription: {
+            typename: "",
+            name: "test",
+            displayLabel: "test",
+          },
+        })
+      ).to.be.true;
+
+      const hideStub = sinon
+        .stub(PopupManager, "hideInputEditor")
+        .returns(true);
+      expect(UiFramework.hideInputEditor()).to.be.true;
+
+      hideStub.restore();
+      sinon.stub(PopupManager, "hideInputEditor").returns(false);
+      expect(UiFramework.hideInputEditor()).to.be.false;
+    });
+
+    it("showDimensionEditor(height) forwards to AccuDrawPopupManager", () => {
+      const lengthStub = sinon
+        .stub(AccuDrawPopupManager, "showLengthEditor")
+        .returns(true);
+      const heightStub = sinon
+        .stub(AccuDrawPopupManager, "showHeightEditor")
+        .returns(true);
+      expect(
+        UiFramework.showDimensionEditor(
+          "length",
+          23,
+          { x: 0, y: 0 },
+          () => {},
+          () => {}
+        )
+      ).to.be.true;
+
+      expect(lengthStub.calledOnce).to.be.true;
+      expect(heightStub.called).to.be.false;
+      lengthStub.restore();
+
+      sinon.stub(AccuDrawPopupManager, "showDimensionEditor").returns(false);
+      expect(
+        UiFramework.showDimensionEditor(
+          "length",
+          23,
+          { x: 0, y: 0 },
+          () => {},
+          () => {}
+        )
+      ).to.be.false;
+
+      expect(lengthStub.calledOnce).to.be.true;
+      expect(heightStub.called).to.be.false;
+    });
+
+    it("showDimensionEditor(length) forwards to AccuDrawPopupManager", () => {
+      const lengthStub = sinon
+        .stub(AccuDrawPopupManager, "showLengthEditor")
+        .returns(true);
+      const heightStub = sinon
+        .stub(AccuDrawPopupManager, "showHeightEditor")
+        .returns(true);
+      expect(
+        UiFramework.showDimensionEditor(
+          "height",
+          23,
+          { x: 0, y: 0 },
+          () => {},
+          () => {}
+        )
+      ).to.be.true;
+
+      expect(lengthStub.called).to.be.false;
+      expect(heightStub.calledOnce).to.be.true;
+      heightStub.restore();
+
+      sinon.stub(AccuDrawPopupManager, "showDimensionEditor").returns(false);
+      expect(
+        UiFramework.showDimensionEditor(
+          "height",
+          23,
+          { x: 0, y: 0 },
+          () => {},
+          () => {}
+        )
+      ).to.be.false;
+
+      expect(lengthStub.called).to.be.false;
+      expect(heightStub.calledOnce).to.be.true;
+    });
+
+    it("openDialog calls the appropriate UiFramework.dialogs open method", () => {
+      const UiDataProvidedDialogMock =
+        moq.Mock.ofType<DialogLayoutDataProvider>();
+      let isModal = true;
+      const internalModalStub = sinon.stub(InternalModalDialogManager, "open");
+      const internalModalessStub = sinon.stub(
+        InternalModelessDialogManager,
+        "open"
+      );
+      expect(
+        UiFramework.openDialog(
+          UiDataProvidedDialogMock.object,
+          "My Dialog",
+          isModal,
+          "one"
+        )
+      ).to.be.true;
+      expect(internalModalStub.calledOnce).to.be.true;
+      expect(internalModalessStub.called).to.be.false;
+
+      internalModalStub.resetHistory();
+      internalModalessStub.resetHistory();
+
+      isModal = false;
+      expect(
+        UiFramework.openDialog(
+          UiDataProvidedDialogMock.object,
+          "My Dialog",
+          isModal,
+          "one"
+        )
+      ).to.be.true;
+      expect(internalModalStub.called).to.be.false;
+      expect(internalModalessStub.calledOnce).to.be.true;
+    });
+
+    it("closeDialog calls the modelless close method, and model close method if needed", () => {
+      const UiDataProvidedDialogMock =
+        moq.Mock.ofType<DialogLayoutDataProvider>();
+      const internalModalStub = sinon.spy(InternalModalDialogManager, "close");
+      const internalModalessStub = sinon.spy(
+        InternalModelessDialogManager,
+        "close"
+      );
+
+      let isModal = true;
+      expect(
+        UiFramework.openDialog(
+          UiDataProvidedDialogMock.object,
+          "My Dialog",
+          isModal,
+          "one"
+        )
+      ).to.be.true;
+      expect(UiFramework.closeDialog("one")).to.be.true;
+      expect(internalModalStub.calledOnce).to.be.true;
+      expect(internalModalessStub.called).to.be.false;
+
+      internalModalStub.resetHistory();
+      internalModalessStub.resetHistory();
+
+      isModal = false;
+      expect(
+        UiFramework.openDialog(
+          UiDataProvidedDialogMock.object,
+          "My Dialog",
+          isModal,
+          "one"
+        )
+      ).to.be.true;
+      expect(UiFramework.closeDialog("one")).to.be.true;
+      expect(internalModalStub.called).to.be.false;
+      expect(internalModalessStub.calledOnce).to.be.true;
+    });
+
+    it("showKeyinPalette/hideKeyinPalette forwards to PopupManager", () => {
+      const stub = sinon.spy(PopupManager, "showKeyinPalette");
+      expect(UiFramework.showKeyinPalette([])).to.be.true;
+      expect(stub.calledOnce).to.be.true;
+
+      const hideStub = sinon.spy(PopupManager, "hideKeyinPalette");
+      expect(UiFramework.hideKeyinPalette()).to.be.true;
+      expect(hideStub.calledOnce).to.be.true;
+      expect(UiFramework.hideKeyinPalette()).to.be.false; // cannot hide if not shown
     });
   });
 

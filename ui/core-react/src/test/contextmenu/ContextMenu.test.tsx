@@ -5,9 +5,10 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { BadgeType, ConditionalBooleanValue } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import {
+  BadgeType,
   ContextMenu,
   ContextMenuDirection,
   ContextMenuDivider,

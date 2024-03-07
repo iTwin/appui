@@ -5,7 +5,6 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { BadgeType } from "@itwin/appui-abstract";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { SvgList } from "@itwin/itwinui-icons-react";
 import {
@@ -17,6 +16,7 @@ import {
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { defaultFrontstageConfig } from "../frontstage/FrontstageDef.test";
+import { BadgeType } from "@itwin/core-react";
 
 describe("WidgetDef", () => {
   before(async () => {
