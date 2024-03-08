@@ -138,6 +138,31 @@ export function NestedMenu({
 NestedMenu.Item = Item;
 NestedMenu.Column = Column;
 
+interface ColumnProps {
+  children?: React.ReactNode;
+}
+
+function Column({ children }: ColumnProps) {
+  const context = React.useContext(NestedMenuContext);
+  const items = React.Children.toArray(children);
+  return (
+    <Flex.Item>
+      <List>
+        {items.map((item, itemIndex) => {
+          return (
+            <NestedMenuContext.Provider
+              key={itemIndex}
+              value={{ ...context, itemIndex }}
+            >
+              {item}
+            </NestedMenuContext.Provider>
+          );
+        })}
+      </List>
+    </Flex.Item>
+  );
+}
+
 interface ItemProps {
   children?: React.ReactNode;
   icon?: React.ReactNode;
@@ -165,6 +190,16 @@ function Item({ children, icon, disabled, submenu, onClick }: ItemProps) {
       onClick={disabled ? undefined : onClick}
       tabIndex={-1}
       ref={ref}
+      onKeyDown={(e) => {
+        switch (e.key) {
+          case "Enter":
+          case " ":
+          case "Spacebar": {
+            onClick?.();
+            break;
+          }
+        }
+      }}
     >
       <ListItem.Icon>{icon}</ListItem.Icon>
       <ListItem.Content>{children}</ListItem.Content>
@@ -174,31 +209,6 @@ function Item({ children, icon, disabled, submenu, onClick }: ItemProps) {
         </ListItem.Icon>
       )}
     </ListItem>
-  );
-}
-
-interface ColumnProps {
-  children?: React.ReactNode;
-}
-
-function Column({ children }: ColumnProps) {
-  const context = React.useContext(NestedMenuContext);
-  const items = React.Children.toArray(children);
-  return (
-    <Flex.Item>
-      <List>
-        {items.map((item, itemIndex) => {
-          return (
-            <NestedMenuContext.Provider
-              key={itemIndex}
-              value={{ ...context, itemIndex }}
-            >
-              {item}
-            </NestedMenuContext.Provider>
-          );
-        })}
-      </List>
-    </Flex.Item>
   );
 }
 
