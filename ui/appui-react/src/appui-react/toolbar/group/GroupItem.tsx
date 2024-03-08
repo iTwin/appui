@@ -46,6 +46,22 @@ export function GroupItem(props: GroupItemProps) {
         if (el.contains(e.relatedTarget)) return;
         setVisible(false);
       }}
+      onKeyDown={(e) => {
+        switch (e.key) {
+          case "ArrowDown":
+          case "ArrowUp":
+          case "ArrowRight":
+          case "ArrowLeft": {
+            // Avoid moving through overflow drop down menu w/ arrow keys.
+            e.stopPropagation();
+            break;
+          }
+          case "Tab": {
+            // Avoid closing the overflow drop down menu if group menu is displayed.
+            e.stopPropagation();
+          }
+        }
+      }}
     >
       <Item item={item}>
         <ExpandIndicator />
