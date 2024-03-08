@@ -6,7 +6,11 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
-import { IModelApp, LengthDescription } from "@itwin/core-frontend";
+import {
+  IModelApp,
+  LengthDescription,
+  NoRenderApp,
+} from "@itwin/core-frontend";
 import type {
   AbstractToolbarProps,
   DialogItem,
@@ -17,25 +21,22 @@ import type {
   PropertyDescription,
 } from "@itwin/appui-abstract";
 import {
-  BadgeType,
   DialogLayoutDataProvider,
   PropertyChangeStatus,
   RelativePosition,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import { Point } from "@itwin/core-react";
+import { BadgeType, Point } from "@itwin/core-react";
 import { AccuDrawPopupManager } from "../../appui-react/accudraw/AccuDrawPopupManager";
 import {
   PopupManager,
   PopupRenderer,
 } from "../../appui-react/popup/PopupManager";
-import type { MenuItemProps } from "../../appui-react/shared/MenuItem";
+import type { CursorMenuItemProps } from "../../appui-react/shared/MenuItem";
 import TestUtils, { storageMock } from "../TestUtils";
-import type { KeyinEntry } from "../../appui-react/uiadmin/FrameworkUiAdmin";
-import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { Button } from "@itwin/itwinui-react";
-
+import type { KeyinEntry } from "../../appui-react/keyins/Keyins";
 const myLocalStorage = storageMock();
 function requestNextAnimation() {}
 
@@ -60,8 +61,9 @@ describe("PopupManager", () => {
       get: () => requestNextAnimation,
     });
 
-    const uiAdmin = new FrameworkUiAdmin();
-    sinon.stub(IModelApp, "uiAdmin").get(() => uiAdmin);
+    await TestUtils.initializeUiFramework();
+    // use mock renderer so standards tools are registered.
+    await NoRenderApp.startup();
   });
 
   afterEach(async () => {
@@ -80,7 +82,7 @@ describe("PopupManager", () => {
 
   describe("Manager API", () => {
     it("showMenuButton should add menuButton", () => {
-      const menuItemProps: MenuItemProps[] = [
+      const menuItemProps: CursorMenuItemProps[] = [
         {
           id: "test",
           item: {
@@ -123,7 +125,7 @@ describe("PopupManager", () => {
     });
 
     it("hideMenuButton should hide menuButton", () => {
-      const menuItemProps: MenuItemProps[] = [
+      const menuItemProps: CursorMenuItemProps[] = [
         {
           id: "test",
           item: {
@@ -337,7 +339,7 @@ describe("PopupManager", () => {
 
     it("PopupRenderer should render menuButton with menu item", async () => {
       const wrapper = render(<PopupRenderer />);
-      const menuItemProps: MenuItemProps[] = [
+      const menuItemProps: CursorMenuItemProps[] = [
         {
           id: "test",
           item: {
@@ -739,5 +741,22 @@ describe("PopupManager", () => {
       await TestUtils.flushAsyncOperations();
       expect(spyCancel.calledOnce).to.be.true;
     });
+  });
+
+  it("Popup renderer should render ComponentPopup", async () => {
+    const { getByText, queryByText } = render(<PopupRenderer />);
+    const component = <div>Test Component xyz1</div>;
+    const spyCancel = sinon.spy();
+
+    expect(queryByText("Test Component xyz1")).to.be.null;
+
+    PopupManager.showComponent(component, {
+      location: new Point(150, 250),
+      offset: new Point(8, 8),
+      onCancel: spyCancel,
+      placement: "top",
+    });
+
+    getByText("Test Component xyz1");
   });
 });

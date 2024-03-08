@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { BadgeType } from "@itwin/appui-abstract";
 import {
   StageUsage,
   ToolbarItem,
@@ -20,6 +19,7 @@ import {
   OutputMessagePriority,
   OutputMessageType,
 } from "@itwin/core-frontend";
+import { BadgeType } from "@itwin/core-react";
 
 /** UiItemsProvider that provides tools to test message APIs. */
 export class MessageUiItemsProvider implements UiItemsProvider {

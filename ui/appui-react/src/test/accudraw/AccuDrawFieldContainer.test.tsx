@@ -14,12 +14,17 @@ import * as sinon from "sinon";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { ColorByName, ColorDef } from "@itwin/core-common";
-import { CompassMode, IModelApp, ItemField } from "@itwin/core-frontend";
+import type { IModelAppOptions } from "@itwin/core-frontend";
+import {
+  CompassMode,
+  IModelApp,
+  ItemField,
+  NoRenderApp,
+} from "@itwin/core-frontend";
 import { Orientation } from "@itwin/core-react";
 import TestUtils, { selectAllBeforeType, userEvent } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { AccuDrawFieldContainer } from "../../appui-react/accudraw/AccuDrawFieldContainer";
-import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import type { AccuDrawUiSettings } from "../../appui-react/accudraw/AccuDrawUiSettings";
 import { UiFramework } from "../../appui-react";
 
@@ -44,10 +49,13 @@ describe("AccuDrawFieldContainer", () => {
       get: () => requestNextAnimation,
     });
 
+    await TestUtils.initializeUiFramework();
+
+    const opts: IModelAppOptions = {};
+    opts.accuDraw = new FrameworkAccuDraw();
+    await NoRenderApp.startup(opts);
     const accuDraw = new FrameworkAccuDraw();
-    const uiAdmin = new FrameworkUiAdmin();
     sinon.stub(IModelApp, "accuDraw").get(() => accuDraw);
-    sinon.stub(IModelApp, "uiAdmin").get(() => uiAdmin);
   });
 
   after(async () => {

@@ -9,6 +9,7 @@ import * as ReactDOM from "react-dom";
 import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
 import reactAxe from "@axe-core/react";
+import { Key } from "ts-key-enum";
 import { BrowserAuthorizationClient } from "@itwin/browser-authorization";
 import {
   ITwin,
@@ -35,6 +36,7 @@ import {
   FrameworkUiAdmin,
   FrontstageDeactivatedEventArgs,
   FrontstageDef,
+  getKeyinsFromToolList,
   IModelViewportControl,
   InitialAppUiSettings,
   ModalFrontstageClosedEventArgs,
@@ -330,7 +332,16 @@ export class SampleAppIModelApp {
     await UiFramework.initialize(undefined, undefined);
 
     IModelApp.toolAdmin.defaultToolId = SelectionTool.toolId;
-    IModelApp.uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
+
+    // No longer necessary, but useful to test legacy behavior until uiAdmin is completely removed:
+    // IModelApp.uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
+    // The updated way of doing things would be something like this:
+    const keyins = getKeyinsFromToolList(IModelApp.tools.getToolList());
+    document.addEventListener("keydown", (event) => {
+      if (event.ctrlKey && event.key === Key.F2.valueOf()) {
+        UiFramework.showKeyinPalette(keyins);
+      }
+    });
 
     // store name of this registered control in Redux store so it can be access by extensions
     UiFramework.setDefaultIModelViewportControlId(IModelViewportControl.id);
@@ -905,6 +916,7 @@ async function main() {
       accuSnap: new SampleAppAccuSnap(),
       toolAdmin: new FrameworkToolAdmin(),
       notifications: new AppNotificationManager(),
+      // eslint-disable-next-line deprecation/deprecation
       uiAdmin: new FrameworkUiAdmin(),
       accuDraw: new FrameworkAccuDraw(),
       realityDataAccess: new RealityDataAccessClient(realityDataClientOptions),

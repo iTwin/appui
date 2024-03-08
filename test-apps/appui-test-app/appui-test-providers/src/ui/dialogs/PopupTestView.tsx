@@ -4,8 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import { IModelApp } from "@itwin/core-frontend";
-import { AbstractMenuItemProps } from "@itwin/appui-abstract";
 import {
   FloatingViewportContent,
   UiFramework,
@@ -17,6 +15,7 @@ import ViewDefinitionSelector, {
   getViewDefinitions,
 } from "../components/ViewDefinitionSelector";
 import { Id64String } from "@itwin/core-bentley";
+import { CursorMenuItemProps } from "@itwin/appui-react/lib/cjs/appui-react/shared/MenuItem";
 
 export function PopupTestView({
   contentId,
@@ -25,7 +24,7 @@ export function PopupTestView({
   contentId: string;
   showViewPicker?: boolean;
 }) {
-  const menuItems: AbstractMenuItemProps[] = React.useMemo(() => {
+  const menuItems: CursorMenuItemProps[] = React.useMemo(() => {
     return [
       {
         id: "Item1",
@@ -95,11 +94,8 @@ export function PopupTestView({
   const handleContextMenu = React.useCallback(
     (e: React.MouseEvent): boolean => {
       e.preventDefault();
-      IModelApp.uiAdmin.showContextMenu(
-        menuItems,
-        { x: e.pageX, y: e.pageY },
-        (e.target as HTMLElement).ownerDocument.body
-      );
+      UiFramework.openContextMenu(menuItems, { x: e.pageX, y: e.pageY });
+
       return false;
     },
     [menuItems]

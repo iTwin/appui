@@ -9,8 +9,6 @@
 import type {
   AbstractToolbarProps,
   DialogLayoutDataProvider,
-  OnCancelFunc,
-  OnItemExecutedFunc,
   OnValueCommitFunc,
   Primitives,
   PrimitiveValue,
@@ -27,8 +25,9 @@ import type { XAndY } from "@itwin/core-geometry";
 import type { Point, SizeProps } from "@itwin/core-react";
 import { Orientation, Rectangle } from "@itwin/core-react";
 import * as React from "react";
+import type { ReactElement } from "react";
 import { offsetAndContainInContainer } from "../layout/popup/Tooltip";
-import type { KeyinEntry } from "../uiadmin/FrameworkUiAdmin";
+import type { KeyinEntry } from "../keyins/Keyins";
 import { UiFramework } from "../UiFramework";
 import { CardPopup } from "./CardPopup";
 import { HTMLElementPopup } from "./HTMLElementPopup";
@@ -36,6 +35,12 @@ import { InputEditorCommitHandler, InputEditorPopup } from "./InputEditorPopup";
 import { KeyinPalettePopup } from "./KeyinPalettePopup";
 import { ToolbarPopup } from "./ToolbarPopup";
 import { ToolSettingsPopup } from "./ToolSettingsPopup";
+import { ComponentPopup } from "./ComponentPopup";
+import { WrapperContext } from "../configurableui/ConfigurableUiContent";
+import { mapToPlacement, type Placement } from "../utils/Placement";
+import type { ToolbarItem } from "../toolbar/ToolbarItem";
+import type { ToolbarProps } from "../toolbar/Toolbar";
+import { InternalConfigurableUiManager } from "../configurableui/InternalConfigurableUiManager";
 
 // cSpell:ignore uiadmin
 
@@ -46,7 +51,26 @@ export interface PopupInfo {
   id: string;
   pt: XAndY;
   component: React.ReactNode;
+  /** @deprecated in 4.x.11. Please use the optional `parent` property moving forward. */
   parentDocument: Document;
+  /** will become standard once `parentDocument` is removed. */
+  parent?: Document;
+}
+
+/** @internal */
+interface CommonPopupOptions {
+  onCancel: () => void;
+  location: XAndY;
+  offset: XAndY;
+  placement: Placement;
+  anchor?: HTMLElement;
+  id?: string;
+}
+
+interface DisplayCardPopupOptions extends CommonPopupOptions {
+  title: string | PropertyRecord | undefined;
+  toolbarProps?: ToolbarProps;
+  onItemExecuted: (item: any) => void;
 }
 
 /** @public */
@@ -186,7 +210,7 @@ export class PopupManager {
     value: Primitives.Value,
     propertyDescription: PropertyDescription,
     onCommit: OnValueCommitFunc,
-    onCancel: OnCancelFunc
+    onCancel: () => void
   ): boolean {
     const primitiveValue: PrimitiveValue = {
       value,
@@ -212,6 +236,7 @@ export class PopupManager {
       pt,
       component,
       parentDocument: el.ownerDocument,
+      parent: el.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -225,17 +250,18 @@ export class PopupManager {
   public static showKeyinPalette(
     keyins: KeyinEntry[],
     el: HTMLElement,
-    onItemExecuted?: OnItemExecutedFunc,
-    onCancel?: OnCancelFunc
+    onItemExecuted?: (item: any) => void,
+    onCancel?: () => void
   ): boolean {
     const id = PopupManager._keyPalettePopupId;
+    const cancelFn = onCancel ?? (() => PopupManager.hideKeyinPalette());
     const component = (
       <KeyinPalettePopup
         keyins={keyins}
         id={id}
         el={el}
-        onCancel={onCancel}
         onItemExecuted={onItemExecuted}
+        onCancel={cancelFn}
       />
     );
 
@@ -246,7 +272,7 @@ export class PopupManager {
       id,
       pt,
       component,
-      parentDocument: el.ownerDocument,
+      parentDocument: el?.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -257,24 +283,43 @@ export class PopupManager {
     return PopupManager.removePopup(PopupManager._keyPalettePopupId);
   }
 
+  // @deprecated in 4.11.x. Use {@link PopupManager.displayToolbar} instead.
   public static showToolbar(
     toolbarProps: AbstractToolbarProps,
     el: HTMLElement,
     pt: XAndY,
     offset: XAndY,
-    onItemExecuted: OnItemExecutedFunc,
-    onCancel: OnCancelFunc,
+    onItemExecuted: (item: any) => void,
+    onCancel: () => void,
     relativePosition: RelativePosition
   ): boolean {
-    const id = PopupManager._toolbarId;
+    PopupManager.displayToolbar(toolbarProps.items, {
+      anchor: el,
+      location: pt,
+      offset,
+      onCancel,
+      placement: mapToPlacement(relativePosition),
+      onItemExecuted,
+    });
+    return true;
+  }
+
+  public static displayToolbar(
+    items: ToolbarItem[],
+    options: CommonPopupOptions & { onItemExecuted: (item: any) => void }
+  ): boolean {
+    const id = options.id ?? PopupManager._toolbarId;
+    const { anchor, location, offset, onCancel, placement, onItemExecuted } =
+      options;
+
     const component = (
       <ToolbarPopup
         id={id}
-        el={el}
-        pt={pt}
+        el={anchor}
+        pt={location}
         offset={offset}
-        items={toolbarProps.items}
-        relativePosition={relativePosition}
+        items={items}
+        placement={placement}
         orientation={Orientation.Horizontal}
         onCancel={onCancel}
         onItemExecuted={onItemExecuted}
@@ -283,9 +328,12 @@ export class PopupManager {
 
     const popupInfo: PopupInfo = {
       id,
-      pt,
+      pt: location,
       component,
-      parentDocument: el.ownerDocument,
+      parentDocument:
+        anchor?.ownerDocument ??
+        InternalConfigurableUiManager.getWrapperDocument(),
+      parent: anchor?.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -296,16 +344,18 @@ export class PopupManager {
     return PopupManager.removePopup(PopupManager._toolbarId);
   }
 
+  // @deprecated in 4.11.x. Use {@link PopupManager.showComponent} instead.
   public static showHTMLElement(
     displayElement: HTMLElement,
     el: HTMLElement,
     pt: XAndY,
     offset: XAndY,
-    onCancel: OnCancelFunc,
+    onCancel: () => void,
     relativePosition: RelativePosition
   ): boolean {
     const id = PopupManager._htmlElementId;
     const component = (
+      // eslint-disable-next-line deprecation/deprecation
       <HTMLElementPopup
         id={id}
         el={el}
@@ -329,10 +379,55 @@ export class PopupManager {
     return true;
   }
 
+  // @deprecated in 4.11.x. Use {@link PopupManager.hideComponent} instead.
   public static hideHTMLElement(): boolean {
     return PopupManager.removePopup(PopupManager._htmlElementId);
   }
 
+  /**
+   * Displays a React component as a popup.
+   * @param displayElement The React component to display.
+   * @param options for displaying the component.
+   */
+  public static showComponent(
+    displayElement: ReactElement,
+    options: CommonPopupOptions
+  ): boolean {
+    const { onCancel, location, offset, placement, anchor, id } = options;
+    const _id = PopupManager._htmlElementId;
+
+    const component = (
+      <ComponentPopup
+        id={id ?? _id}
+        anchor={anchor ?? undefined}
+        pt={location}
+        offset={offset}
+        placement={placement}
+        orientation={Orientation.Horizontal}
+        onCancel={onCancel}
+      >
+        {displayElement}
+      </ComponentPopup>
+    );
+
+    const popupInfo: PopupInfo = {
+      id: id ?? _id,
+      pt: location,
+      component,
+      parentDocument:
+        anchor?.ownerDocument ??
+        InternalConfigurableUiManager.getWrapperDocument(),
+    };
+    PopupManager.addOrUpdatePopup(popupInfo);
+
+    return true;
+  }
+
+  public static hideComponent(id?: string): boolean {
+    return PopupManager.removePopup(id ?? PopupManager._htmlElementId);
+  }
+
+  // @deprecated in 4.11.x. Use {@link PopupManager.displayCard} instead.
   public static showCard(
     content: PopupContentType,
     title: string | PropertyRecord | undefined,
@@ -340,11 +435,12 @@ export class PopupManager {
     el: HTMLElement,
     pt: XAndY,
     offset: XAndY,
-    onItemExecuted: OnItemExecutedFunc,
-    onCancel: OnCancelFunc,
+    onItemExecuted: (item: any) => void,
+    onCancel: () => void,
     relativePosition: RelativePosition
   ): boolean {
     const id = PopupManager._cardId;
+    const placement = mapToPlacement(relativePosition);
     const component = (
       <CardPopup
         id={id}
@@ -358,7 +454,7 @@ export class PopupManager {
             ? toolbarProps.items
             : /* istanbul ignore next */ undefined
         }
-        relativePosition={relativePosition}
+        placement={placement}
         orientation={Orientation.Horizontal}
         onCancel={onCancel}
         onItemExecuted={onItemExecuted}
@@ -370,15 +466,61 @@ export class PopupManager {
       pt,
       component,
       parentDocument: el.ownerDocument,
+      parent: el.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
     return true;
   }
 
-  public static hideCard(): boolean {
+  public static displayCard(
+    content: React.ReactNode,
+    options: DisplayCardPopupOptions
+  ): boolean {
+    const id = options.id ?? PopupManager._cardId;
+    const {
+      onCancel,
+      location,
+      placement,
+      offset,
+      anchor,
+      title,
+      toolbarProps,
+      onItemExecuted,
+    } = options;
+    const component = (
+      <CardPopup
+        id={id}
+        el={anchor}
+        pt={location}
+        offset={offset}
+        content={{ reactNode: content }}
+        title={title}
+        items={toolbarProps?.items}
+        placement={placement}
+        orientation={Orientation.Horizontal}
+        onCancel={onCancel}
+        onItemExecuted={onItemExecuted}
+      />
+    );
+
+    const popupInfo: PopupInfo = {
+      id,
+      pt: location,
+      component,
+      parentDocument:
+        anchor?.ownerDocument ??
+        InternalConfigurableUiManager.getWrapperDocument(),
+      parent: anchor?.ownerDocument,
+    };
+    PopupManager.addOrUpdatePopup(popupInfo);
+
+    return true;
+  }
+
+  public static hideCard(id?: string): boolean {
     const index = PopupManager._popups.findIndex(
-      (info: PopupInfo) => PopupManager._cardId === info.id
+      (info: PopupInfo) => id ?? PopupManager._cardId === info.id
     );
     if (index >= 0) return PopupManager.removePopup(PopupManager._cardId);
     return false;
@@ -389,7 +531,7 @@ export class PopupManager {
     el: HTMLElement,
     pt: XAndY,
     offset: XAndY,
-    onCancel: OnCancelFunc,
+    onCancel: () => void,
     relativePosition: RelativePosition
   ): boolean {
     const id = PopupManager._toolSettingsId;
@@ -451,6 +593,10 @@ interface PopupRendererState {
  */
 export class PopupRenderer extends React.Component<{}, PopupRendererState> {
   /** @internal */
+  public static override contextType = WrapperContext;
+  /** @internal */
+  public declare context: React.ContextType<typeof WrapperContext>;
+
   public override readonly state: PopupRendererState = {
     parentDocument: null,
     popups: PopupManager.popups,
@@ -476,7 +622,6 @@ export class PopupRenderer extends React.Component<{}, PopupRendererState> {
 
   public override render(): React.ReactNode {
     if (PopupManager.popupCount <= 0) return null;
-
     return (
       <div
         className="appui-react-popup-render-container"
@@ -484,7 +629,13 @@ export class PopupRenderer extends React.Component<{}, PopupRendererState> {
       >
         {this.state.parentDocument &&
           this.state.popups
-            .filter((info) => info.parentDocument === this.state.parentDocument)
+            .filter(
+              (info) =>
+                (info.parent ??
+                  // eslint-disable-next-line deprecation/deprecation
+                  info.parentDocument ??
+                  this.context.ownerDocument) === this.state.parentDocument
+            )
             .map((popupInfo: PopupInfo) => {
               return (
                 <React.Fragment key={popupInfo.id}>

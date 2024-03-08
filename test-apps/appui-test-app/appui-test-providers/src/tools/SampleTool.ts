@@ -37,7 +37,7 @@ import { ColorByName, ColorDef } from "@itwin/core-common";
 import { FormatterSpec } from "@itwin/core-quantity";
 import {
   CursorInformation,
-  MenuItemProps,
+  CursorMenuItemProps,
   UiFramework,
 } from "@itwin/appui-react";
 import { AppUiTestProviders } from "../AppUiTestProviders";
@@ -463,7 +463,7 @@ export class SampleTool extends PrimitiveTool {
   ): Promise<EventHandled> {
     // Used to test Cursor Menu
     if (ev.isAltKey) {
-      const menuItems: MenuItemProps[] = [];
+      const menuItems: CursorMenuItemProps[] = [];
       menuItems.push({
         id: "entry1",
         item: {

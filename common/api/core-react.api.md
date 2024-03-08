@@ -4,7 +4,7 @@
 
 ```ts
 
-import { BadgeType } from '@itwin/appui-abstract';
+import { BadgeType as BadgeType_2 } from '@itwin/appui-abstract';
 import { BeUiEvent } from '@itwin/core-bentley';
 import { Button } from '@itwin/itwinui-react';
 import { Checkbox } from '@itwin/itwinui-react';
@@ -121,6 +121,12 @@ export interface BadgeProps extends CommonProps {
     // (undocumented)
     svg: any;
 }
+
+// @public
+export type BadgeType = BadgeType_2;
+
+// @public
+export const BadgeType: typeof BadgeType_2;
 
 // @internal
 export class BadgeUtilities {

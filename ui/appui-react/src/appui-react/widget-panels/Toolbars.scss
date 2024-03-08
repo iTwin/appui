@@ -6,7 +6,9 @@
   display: grid;
   height: 100%;
   width: 100%;
-  padding: 0.75em;
+  padding: var(
+    --iui-size-s
+  ); // TODO: Change this to an AppUI global CSS variable.
   box-sizing: border-box;
   grid-template-columns: 1fr 1fr;
 

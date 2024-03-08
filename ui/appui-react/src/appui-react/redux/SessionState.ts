@@ -9,10 +9,9 @@
 // The following definitions are causing extract-api issues on linux so for now just using any until we can figure out the issue.
 import type { XAndY } from "@itwin/core-geometry";
 // import { IModelConnection, ViewState } from "@itwin/core-frontend";
-import type { MenuItemProps } from "../shared/MenuItem";
+import type { CursorMenuItemProps, MenuItemProps } from "../shared/MenuItem";
 import type { ActionsUnion, DeepReadonly } from "./redux-ts";
 import { createAction } from "./redux-ts";
-
 // cSpell:ignore configurableui snapmode toolprompt sessionstate imodelid viewid viewportid rulesetid
 
 /** PresentationSelectionScope holds the id and the localized label for a selection scope supported for a specific iModel.
@@ -27,11 +26,24 @@ export interface PresentationSelectionScope {
 /** Definition of data added to Redux store to define cursor menu.  If menuItems are empty the menu control is not displayed.
  * To close the menu clear the menuItems or pass in undefined as the CursorData.
  * @public
+ * @deprecated in 4.11.x use {@link CursorMenuPayload} instead.
  */
 export interface CursorMenuData {
-  items: MenuItemProps[];
   position: XAndY;
   childWindowId?: string;
+  // eslint-disable-next-line deprecation/deprecation
+  items: MenuItemProps[];
+}
+
+/**
+ * Definition of data added to Redux store to define cursor menu.  If menuItems are empty the menu control is not displayed.
+ * To close the menu clear the menuItems or pass in undefined as the CursorData.
+ * @public
+ */
+export interface CursorMenuPayload {
+  position: XAndY;
+  childWindowId?: string;
+  items: CursorMenuItemProps[];
 }
 
 /** Action Ids used by Redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
@@ -62,7 +74,9 @@ export interface SessionState {
   defaultViewId: string | undefined;
   defaultViewState: any;
   iModelConnection: any;
-  cursorMenuData: CursorMenuData | undefined;
+  // eslint-disable-next-line deprecation/deprecation
+  cursorMenuData: CursorMenuData | undefined; // @deprecated in 4.11.x use {@link CursorMenuPayload} instead
+  cursorMenuPayload: CursorMenuPayload | undefined;
 }
 
 const defaultSelectionScope = {
@@ -84,7 +98,8 @@ const initialState: SessionState = {
   defaultViewId: undefined,
   defaultViewState: undefined,
   iModelConnection: undefined,
-  cursorMenuData: undefined,
+  cursorMenuData: undefined, // @deprecated in 4.11.x use {@link SessionState.cursorMenuPayload} instead
+  cursorMenuPayload: undefined,
 };
 
 /** An interface that allows redux connected object to dispatch changes to the SessionState reducer.
@@ -143,7 +158,8 @@ export const SessionStateActions = {
       ),
   updateCursorMenu:
     // istanbul ignore next
-    (cursorMenuData: CursorMenuData) =>
+    // eslint-disable-next-line deprecation/deprecation
+    (cursorMenuData: CursorMenuData | CursorMenuPayload) =>
       createAction(SessionStateActionId.UpdateCursorMenu, cursorMenuData),
 };
 
@@ -207,7 +223,12 @@ export function SessionStateReducer(
       return { ...state, iModelConnection: action.payload };
     }
     case SessionStateActionId.UpdateCursorMenu: {
-      return { ...state, cursorMenuData: action.payload };
+      return {
+        ...state,
+        cursorMenuPayload: action.payload as CursorMenuPayload,
+        // eslint-disable-next-line deprecation/deprecation
+        cursorMenuData: action.payload as CursorMenuData,
+      };
     }
   }
 

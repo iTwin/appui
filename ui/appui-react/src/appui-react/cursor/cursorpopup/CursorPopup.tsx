@@ -21,21 +21,26 @@ import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
 import "./CursorPopup.scss";
 import type { CursorPopupFadeOutEventArgs } from "./CursorPopupManager";
 import { CursorPopupManager } from "./CursorPopupManager";
+import { type Placement } from "../../utils/Placement";
+import type { RequireAtLeastOne } from "@itwin/core-bentley";
 
 /** Properties for the [[CursorPopup]] React component
  * @public
  */
-export interface CursorPopupProps extends CommonProps {
+export type CursorPopupProps = {
   id: string;
   content: React.ReactNode;
   pt: XAndY;
   offset: XAndY;
-  relativePosition: RelativePosition;
   title?: string;
   shadow?: boolean;
   /** Function called when size is known. */
   onSizeKnown?: (size: SizeProps) => void;
-}
+} & CommonProps &
+  RequireAtLeastOne<{
+    relativePosition: RelativePosition /** @deprecated in 4.11.x. Use `placement` instead. */;
+    placement: Placement;
+  }>;
 
 /** Enum for showing CursorPopup
  * @internal - unit testing
@@ -104,61 +109,112 @@ export class CursorPopup extends React.Component<
     pt: XAndY,
     offset: XAndY,
     popupSize: SizeProps | undefined,
-    relativePosition: RelativePosition
+    relativePosition: RelativePosition | Placement
   ): RectangleProps {
     const popupRect = { top: 0, left: 0, right: 0, bottom: 0 };
-
     if (popupSize === undefined) return popupRect;
 
-    switch (relativePosition) {
-      case RelativePosition.Top:
-        popupRect.bottom = pt.y - offset.y;
-        popupRect.left = pt.x - popupSize.width / 2;
-        popupRect.top = popupRect.bottom - popupSize.height;
-        popupRect.right = popupRect.left + popupSize.width;
-        break;
-      case RelativePosition.Left:
-        popupRect.right = pt.x - offset.x;
-        popupRect.top = pt.y - popupSize.height / 2;
-        popupRect.left = popupRect.right - popupSize.width;
-        popupRect.bottom = popupRect.top + popupSize.height;
-        break;
-      case RelativePosition.Right:
-        popupRect.left = pt.x + offset.x;
-        popupRect.top = pt.y - popupSize.height / 2;
-        popupRect.right = popupRect.left + popupSize.width;
-        popupRect.bottom = popupRect.top + popupSize.height;
-        break;
-      case RelativePosition.Bottom:
-        popupRect.top = pt.y + offset.y;
-        popupRect.left = pt.x - popupSize.width / 2;
-        popupRect.bottom = popupRect.top + popupSize.height;
-        popupRect.right = popupRect.left + popupSize.width;
-        break;
-      case RelativePosition.TopLeft:
-        popupRect.bottom = pt.y - offset.y;
-        popupRect.right = pt.x - offset.x;
-        popupRect.top = popupRect.bottom - popupSize.height;
-        popupRect.left = popupRect.right - popupSize.width;
-        break;
-      case RelativePosition.TopRight:
-        popupRect.bottom = pt.y - offset.y;
-        popupRect.left = pt.x + offset.x;
-        popupRect.top = popupRect.bottom - popupSize.height;
-        popupRect.right = popupRect.left + popupSize.width;
-        break;
-      case RelativePosition.BottomLeft:
-        popupRect.top = pt.y + offset.y;
-        popupRect.right = pt.x - offset.x;
-        popupRect.bottom = popupRect.top + popupSize.height;
-        popupRect.left = popupRect.right - popupSize.width;
-        break;
-      case RelativePosition.BottomRight:
-        popupRect.top = pt.y + offset.y;
-        popupRect.left = pt.x + offset.x;
-        popupRect.bottom = popupRect.top + popupSize.height;
-        popupRect.right = popupRect.left + popupSize.width;
-        break;
+    if (typeof relativePosition === "string") {
+      const placement = relativePosition.split("-");
+      const [mainPlacement, subPlacement] = placement;
+
+      switch (mainPlacement) {
+        case "top":
+          popupRect.left = pt.x - popupSize.width / 2 - offset.x;
+          popupRect.top = pt.y - offset.y + popupSize.height;
+          break;
+        case "left":
+          popupRect.left = pt.x - popupSize.width - offset.x;
+          popupRect.top = pt.y + popupSize.height / 2 - offset.y;
+          break;
+        case "right":
+          popupRect.left = pt.x + offset.x;
+          popupRect.top = pt.y + popupSize.height / 2 - offset.y;
+          break;
+        case "bottom":
+          popupRect.left = pt.x - popupSize.width / 2 - offset.x;
+          popupRect.top = pt.y + offset.y;
+          break;
+      }
+
+      if (subPlacement === "start") {
+        switch (mainPlacement) {
+          case "top":
+          case "bottom":
+            popupRect.left = pt.x - offset.x;
+
+            break;
+          case "left":
+          case "right":
+            popupRect.top = pt.y - offset.y;
+            break;
+        }
+      } else if (subPlacement === "end") {
+        switch (mainPlacement) {
+          case "top":
+          case "bottom":
+            popupRect.left = pt.x - popupSize.width - offset.x;
+            break;
+          case "left":
+          case "right":
+            popupRect.top = popupSize.height + pt.y - offset.y;
+            break;
+        }
+      }
+
+      popupRect.right = popupRect.left + popupSize.width;
+      popupRect.bottom = popupRect.top + popupSize.height;
+    } else {
+      switch (relativePosition) {
+        case RelativePosition.Top:
+          popupRect.bottom = pt.y - offset.y;
+          popupRect.left = pt.x - popupSize.width / 2;
+          popupRect.top = popupRect.bottom - popupSize.height;
+          popupRect.right = popupRect.left + popupSize.width;
+          break;
+        case RelativePosition.Left:
+          popupRect.right = pt.x - offset.x;
+          popupRect.top = pt.y - popupSize.height / 2;
+          popupRect.left = popupRect.right - popupSize.width;
+          popupRect.bottom = popupRect.top + popupSize.height;
+          break;
+        case RelativePosition.Right:
+          popupRect.left = pt.x + offset.x;
+          popupRect.top = pt.y - popupSize.height / 2;
+          popupRect.right = popupRect.left + popupSize.width;
+          popupRect.bottom = popupRect.top + popupSize.height;
+          break;
+        case RelativePosition.Bottom:
+          popupRect.top = pt.y + offset.y;
+          popupRect.left = pt.x - popupSize.width / 2;
+          popupRect.bottom = popupRect.top + popupSize.height;
+          popupRect.right = popupRect.left + popupSize.width;
+          break;
+        case RelativePosition.TopLeft:
+          popupRect.bottom = pt.y - offset.y;
+          popupRect.right = pt.x - offset.x;
+          popupRect.top = popupRect.bottom - popupSize.height;
+          popupRect.left = popupRect.right - popupSize.width;
+          break;
+        case RelativePosition.TopRight:
+          popupRect.bottom = pt.y - offset.y;
+          popupRect.left = pt.x + offset.x;
+          popupRect.top = popupRect.bottom - popupSize.height;
+          popupRect.right = popupRect.left + popupSize.width;
+          break;
+        case RelativePosition.BottomLeft:
+          popupRect.top = pt.y + offset.y;
+          popupRect.right = pt.x - offset.x;
+          popupRect.bottom = popupRect.top + popupSize.height;
+          popupRect.left = popupRect.right - popupSize.width;
+          break;
+        case RelativePosition.BottomRight:
+          popupRect.top = pt.y + offset.y;
+          popupRect.left = pt.x + offset.x;
+          popupRect.bottom = popupRect.top + popupSize.height;
+          popupRect.right = popupRect.left + popupSize.width;
+          break;
+      }
     }
 
     return popupRect;
@@ -187,7 +243,8 @@ export class CursorPopup extends React.Component<
       this.props.pt,
       this.props.offset,
       this.state.size,
-      this.props.relativePosition
+      // eslint-disable-next-line deprecation/deprecation
+      this.props.placement || this.props.relativePosition
     );
 
     const positioningStyle: React.CSSProperties = {

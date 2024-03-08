@@ -10,13 +10,8 @@ import "./CardPopup.scss";
 import * as React from "react";
 import classnames from "classnames";
 import { Key } from "ts-key-enum";
-import type {
-  CommonToolbarItem,
-  OnCancelFunc,
-  OnItemExecutedFunc,
-  PropertyRecord,
-  RelativePosition,
-} from "@itwin/appui-abstract";
+import type { CommonToolbarItem, PropertyRecord } from "@itwin/appui-abstract";
+import type { RelativePosition } from "@itwin/appui-abstract";
 import type { Orientation, SizeProps } from "@itwin/core-react";
 import {
   DivWithOutsideClick,
@@ -35,20 +30,27 @@ import {
   PropertyValueRendererManager,
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
-  ToolbarWithOverflow,
 } from "@itwin/components-react";
+import { ToolbarWithOverflow } from "../toolbar/ToolbarWithOverflow";
+import type { ToolbarItem } from "../toolbar/ToolbarItem";
+import { mapToPlacement, type Placement } from "../utils/Placement";
+import { WrapperContext } from "../configurableui/ConfigurableUiContent";
+import type { RequireAtLeastOne } from "@itwin/core-bentley";
 
 /** Props for defining a CardPopup editor
  * @beta */
-export interface CardPopupProps extends PopupPropsBase {
+export type CardPopupProps = Omit<PopupPropsBase, "el"> & {
   content: PopupContentType;
   title: string | PropertyRecord | undefined;
-  items: CommonToolbarItem[] | undefined;
-  relativePosition: RelativePosition;
+  items: CommonToolbarItem[] | ToolbarItem[] | undefined; // {@link @itwin/appui-abstract#CommonToolbarItem} will be deprecated in 4.11.x. Please use {@link ToolbarItem[]} instead.
   orientation: Orientation;
-  onCancel: OnCancelFunc;
-  onItemExecuted: OnItemExecutedFunc;
-}
+  onCancel: () => void;
+  onItemExecuted: (item: any) => void;
+  el?: HTMLElement;
+} & RequireAtLeastOne<{
+    relativePosition: RelativePosition; // @deprecated in 4.11.x. Please use placement instead.
+    placement: Placement;
+  }>;
 
 /** @internal */
 interface CardPopupState {
@@ -62,6 +64,10 @@ export class CardPopup extends React.PureComponent<
   CardPopupProps,
   CardPopupState
 > {
+  /** @internal */
+  public static override contextType = WrapperContext;
+  /** @internal */
+  public declare context: React.ContextType<typeof WrapperContext>;
   /** @internal */
   public override readonly state = {
     size: new Size(-1, -1),
@@ -90,7 +96,7 @@ export class CardPopup extends React.PureComponent<
 
   public override render() {
     let point = PopupManager.getPopupPosition(
-      this.props.el,
+      this.props.el ?? this.context,
       this.props.pt,
       new Point(),
       this.state.size
@@ -99,7 +105,7 @@ export class CardPopup extends React.PureComponent<
       point,
       this.props.offset,
       this.state.size,
-      this.props.relativePosition
+      this.props.placement ?? mapToPlacement(this.props.relativePosition)
     );
     point = new Point(popupRect.left, popupRect.top);
 
@@ -119,6 +125,7 @@ export class CardPopup extends React.PureComponent<
               content={this.props.content}
               title={this.props.title}
               items={this.props.items}
+              // toolbarItems={this.props.toolbarItems}
               onItemExecuted={this.props.onItemExecuted}
             />
           </FocusTrap>
@@ -133,8 +140,8 @@ export class CardPopup extends React.PureComponent<
 export interface CardProps {
   content: PopupContentType;
   title: string | PropertyRecord | undefined;
-  items: CommonToolbarItem[] | undefined;
-  onItemExecuted: OnItemExecutedFunc;
+  items?: CommonToolbarItem[] | ToolbarItem[] | undefined; // @deprecated in 4.11.x. Please use {@link CardProps.toolbarItems}
+  onItemExecuted: (item: any) => void;
 }
 
 /** Card component
@@ -173,7 +180,7 @@ export function Card(props: CardProps) {
       {props.items && (
         <>
           <div className="uifw-card-separator" />
-          <ToolbarWithOverflow // eslint-disable-line deprecation/deprecation
+          <ToolbarWithOverflow
             expandsTo={Direction.Bottom}
             panelAlignment={ToolbarPanelAlignment.Start}
             items={props.items}

@@ -8,7 +8,6 @@
 
 import type * as React from "react";
 import type {
-  BadgeType,
   ConditionalStringValue,
   StringGetter,
 } from "@itwin/appui-abstract";
@@ -22,7 +21,7 @@ import {
 import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
 import type { WidgetControl } from "./WidgetControl";
-import type { IconSpec, SizeProps } from "@itwin/core-react";
+import type { BadgeType, IconSpec, SizeProps } from "@itwin/core-react";
 import { IconHelper } from "@itwin/core-react";
 import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";

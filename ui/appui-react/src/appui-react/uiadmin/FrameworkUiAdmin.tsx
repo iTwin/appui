@@ -6,12 +6,13 @@
  * @module Admin
  */
 
-import * as React from "react";
+import type * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
 import { IModelApp } from "@itwin/core-frontend";
 import type {
   AbstractMenuItemProps,
   AbstractToolbarProps,
+  CommonToolbarItem,
   DialogLayoutDataProvider,
   DialogProps,
   OnCancelFunc,
@@ -23,37 +24,18 @@ import type {
   PropertyRecord,
 } from "@itwin/appui-abstract";
 import { RelativePosition, UiAdmin } from "@itwin/appui-abstract";
-import { AccuDrawPopupManager } from "../accudraw/AccuDrawPopupManager";
 import { CursorInformation } from "../cursor/CursorInformation";
 import { PopupManager } from "../popup/PopupManager";
-import type { IMatch } from "../utils/matchesWords";
-import type { CursorMenuData } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
-import { UiDataProvidedDialog } from "../dialog/UiDataProvidedDialog";
-
-/** Controls whether localized and/or non-localized key-in strings appear in a KeyinField's auto-completion list.
- * @public
- */
-export enum KeyinFieldLocalization {
-  /** Include only non-localized key-in strings. */
-  NonLocalized,
-  /** Include only localized key-in strings. */
-  Localized,
-  /** Include localized and non-localized strings for each key-in. */
-  Both,
-}
-
-/** Defines a keyin entry to show/filter in UI
- * @public
- */
-export interface KeyinEntry {
-  /** string that matched a filter string */
-  value: string;
-  /** define array of start and end positions of filter matches. */
-  matches?: IMatch[];
-  /** true if entry was loaded from key-in history */
-  isHistory?: boolean;
-}
+import type { KeyinEntry } from "../keyins/Keyins";
+import {
+  getKeyinsFromToolList,
+  KeyinFieldLocalization,
+} from "../keyins/Keyins";
+import { mapToPlacement } from "../utils/Placement";
+import type { ToolbarProps } from "../toolbar/Toolbar";
+import type { ToolbarItem } from "../toolbar/ToolbarItem";
+import type { CursorMenuItemProps } from "../shared/MenuItem";
 
 /** Subclass of `UiAdmin` in `@itwin/core-frontend` to be used to initialize `IModelApp`.
  *
@@ -70,27 +52,34 @@ export class FrameworkUiAdmin extends UiAdmin {
   private _localizedKeyinPreference: KeyinFieldLocalization =
     KeyinFieldLocalization.NonLocalized;
 
+  /**
+   * @deprecated in 4.11.x. Gathering and filtering of keyins is now left up to the user.
+   */
   public get localizedKeyinPreference(): KeyinFieldLocalization {
     return this._localizedKeyinPreference;
   }
+
   public set localizedKeyinPreference(preference: KeyinFieldLocalization) {
     this._localizedKeyinPreference = preference;
   }
 
-  /** @internal */
-  public override onInitialized() {}
-
-  /** Gets the cursor X and Y position, which is mouseEvent.pageX and mouseEvent.pageY. */
+  /** Gets the cursor X and Y position, which is mouseEvent.pageX and mouseEvent.pageY.
+   * @deprecated in 4.11.x. Please use {@link CursorInformation.cursorPosition}
+   */
   public override get cursorPosition(): XAndY {
     return CursorInformation.cursorPosition;
   }
 
-  /** Determines if focus is set to Home */
+  /** Determines if focus is set to Home
+   * @deprecated in 4.11.x. Please use {@link UiFramework.keyboardShortcuts().isFocusOnHome}
+   */
   public override get isFocusOnHome(): boolean {
     return UiFramework.keyboardShortcuts.isFocusOnHome;
   }
 
-  /** Sets focus to Home */
+  /** Sets focus to Home
+   * @deprecated in 4.11.x. Please use {@link UiFramework.keyboardShortcuts().setFocusToHome}
+   */
   public override setFocusToHome(): void {
     UiFramework.keyboardShortcuts.setFocusToHome();
   }
@@ -100,104 +89,50 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param location Location of the context menu, relative to the origin of htmlElement or the overall window.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the menu was displayed, false if the menu could not be displayed.
+   * @deprecated in 4.11.x. Use {@link UiFramework.openContextMenu}
    */
   public override showContextMenu(
     items: AbstractMenuItemProps[],
     location: XAndY,
     htmlElement?: HTMLElement
   ): boolean {
-    let position = location;
-    let childWindowId: string | undefined;
-    if (htmlElement) {
-      const anchorOffset = htmlElement.getBoundingClientRect();
-      position = {
-        x: anchorOffset.left + location.x,
-        y: anchorOffset.top + location.y,
-      };
-      childWindowId = UiFramework.childWindows.findId(
-        htmlElement.ownerDocument.defaultView
-      );
-    }
-
-    const offset = -8;
-    position = { x: position.x + offset, y: position.y + offset };
-
-    const cursorMenu: CursorMenuData = { position, items, childWindowId };
-    UiFramework.openCursorMenu(cursorMenu);
-
-    return true;
+    return UiFramework.openContextMenu(
+      items as CursorMenuItemProps[],
+      location,
+      htmlElement
+    );
   }
 
-  /** Resolve location and parent element */
-  private resolveHtmlElement(
-    location: XAndY,
-    htmlElement?: HTMLElement
-  ): { position: XAndY; el: HTMLElement } {
-    const position = location;
-    const el = htmlElement ?? UiFramework.controls.getWrapperElement();
-    return { position, el };
-  }
-
+  /**
+   * @deprecated in 4.11.x. Construct your own {@link KeyinEntry[]} via {@link @itwin/core-frontend#IModelApp.tools.getToolList}.
+   */
   public getKeyins(): KeyinEntry[] {
-    const toolKeyins: KeyinEntry[] = [];
     const tools = IModelApp.tools.getToolList();
-    for (const tool of tools) {
-      switch (this.localizedKeyinPreference) {
-        case KeyinFieldLocalization.Localized:
-          toolKeyins.push({ value: tool.keyin });
-          break;
-        case KeyinFieldLocalization.Both:
-          toolKeyins.push({ value: tool.keyin });
-          // istanbul ignore else
-          if (tool.keyin === tool.englishKeyin) break;
-        // istanbul ignore next
-        default: // eslint-disable-line no-fallthrough
-        case KeyinFieldLocalization.NonLocalized:
-          // istanbul ignore next
-          if (
-            KeyinFieldLocalization.NonLocalized ===
-              this.localizedKeyinPreference ||
-            (KeyinFieldLocalization.Both === this.localizedKeyinPreference &&
-              tool.englishKeyin !== tool.keyin)
-          )
-            toolKeyins.push({ value: tool.englishKeyin });
-          break;
-      }
-    }
-
-    return toolKeyins;
+    return getKeyinsFromToolList(tools);
   }
 
   /** Show the Key-in Palette to display key-in from all registered Tools.
    * @param htmlElement The HTMLElement that anchors the Popup. If undefined, the location is relative to the overall window.
    * @return true if the Command Palette was displayed, false if it could not be displayed.
+   * @deprecated in 4.11.x. Use {@link UiFramework.showKeyinPalette}. Please note, the use of feature flags to control whether the KeyinPalette can be opened has been deprecated.
    */
   public override showKeyinPalette(htmlElement?: HTMLElement): boolean {
     if (!this.featureFlags.allowKeyinPalette) return false;
 
-    // istanbul ignore next
-    const el = htmlElement
-      ? htmlElement
-      : UiFramework.controls.getWrapperElement();
+    const tools = IModelApp.tools.getToolList();
+    const keyIns = getKeyinsFromToolList(tools);
 
-    // istanbul ignore next
-    const hidePopup = () => {
-      IModelApp.uiAdmin.hideKeyinPalette();
-    };
-
-    return PopupManager.showKeyinPalette(
-      this.getKeyins(),
-      el,
-      hidePopup,
-      hidePopup
-    );
+    return UiFramework.showKeyinPalette(keyIns, htmlElement);
   }
 
-  /** Hides the Key-in Palette. */
+  /**
+   * Hides the Key-in Palette.
+   * @deprecated in 4.11.x. Use {@link UiFramework.hideKeyinPalette}
+   */
   public override hideKeyinPalette(): boolean {
     if (!this.featureFlags.allowKeyinPalette) return false;
 
-    return PopupManager.hideKeyinPalette();
+    return UiFramework.hideKeyinPalette();
   }
 
   /** Show a Toolbar at a particular location.
@@ -209,6 +144,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param relativePosition Position relative to the given location. Defaults to TopRight.
    * @param htmlElement The HTMLElement that anchors the Toolbar. If undefined, the location is relative to the overall window.
    * @return true if the Toolbar was displayed, false if the Toolbar could not be displayed.
+   * @deprecated in 4.11.x. Please use {@link UiFramework.showToolbar}.
    */
   public override showToolbar(
     toolbarProps: AbstractToolbarProps,
@@ -219,25 +155,24 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     htmlElement?: HTMLElement
   ): boolean {
-    const { position, el } = this.resolveHtmlElement(location, htmlElement);
+    const placement = mapToPlacement(relativePosition);
 
-    if (relativePosition === undefined)
-      relativePosition = RelativePosition.TopRight;
-
-    return PopupManager.showToolbar(
+    return UiFramework.showToolbar(
       toolbarProps,
-      el,
-      position,
+      location,
       offset,
       onItemExecuted,
       onCancel,
-      relativePosition
+      placement,
+      htmlElement
     );
   }
 
-  /** Hides the toolbar. */
+  /** Hides the toolbar.
+   * @deprecated in 4.11.x. Please use {@link UiFramework.hideToolbar}.
+   */
   public override hideToolbar(): boolean {
-    return PopupManager.hideToolbar();
+    return UiFramework.hideToolbar();
   }
 
   /** Show a menu button at a particular location. A menu button opens a context menu.
@@ -246,6 +181,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param location Location of the context menu, relative to the origin of htmlElement or the window.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the menu was displayed, false if the menu could not be displayed.
+   * @deprecated in 4.11.x. Please use {@link UiFramework.showMenuButton}.
    */
   public override showMenuButton(
     id: string,
@@ -253,22 +189,21 @@ export class FrameworkUiAdmin extends UiAdmin {
     location: XAndY,
     htmlElement?: HTMLElement
   ): boolean {
-    const { position, el } = this.resolveHtmlElement(location, htmlElement);
-
-    return AccuDrawPopupManager.showMenuButton(
+    return UiFramework.showMenuButton(
       id,
-      el,
-      position,
-      menuItemsProps
+      menuItemsProps as CursorMenuItemProps[],
+      location,
+      htmlElement
     );
   }
 
   /** Hides a menu button.
    * @param id Id of the menu button. Multiple menu buttons may be displayed.
    * @return true if the menu was hidden, false if the menu could not be hidden.
+   * @deprecated in 4.11.x. Please use {@link UiFramework.hideMenuButton}.
    */
   public override hideMenuButton(id: string): boolean {
-    return AccuDrawPopupManager.hideMenuButton(id);
+    return UiFramework.hideMenuButton(id);
   }
 
   /** Show a calculator at a particular location.
@@ -279,6 +214,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param onCancel Function called when the Cancel button or the Escape key  is pressed.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the menu was displayed, false if the menu could not be displayed.
+   * @deprecated in 4.11.x. Use {@link UiFramework.showCalculator}.
    */
   public override showCalculator(
     initialValue: number,
@@ -288,21 +224,21 @@ export class FrameworkUiAdmin extends UiAdmin {
     onCancel: OnCancelFunc,
     htmlElement?: HTMLElement
   ): boolean {
-    const { position, el } = this.resolveHtmlElement(location, htmlElement);
-
-    return AccuDrawPopupManager.showCalculator(
-      el,
-      position,
+    return UiFramework.showCalculator(
       initialValue,
       resultIcon,
+      location,
       onOk,
-      onCancel
+      onCancel,
+      htmlElement
     );
   }
 
-  /** Hides the calculator. */
+  /** Hides the calculator.
+   * @deprecated in 4.11.x. Use {@link UiFramework.hideCalculator}.
+   */
   public override hideCalculator(): boolean {
-    return AccuDrawPopupManager.hideCalculator();
+    return UiFramework.hideCalculator();
   }
 
   /** Show an input editor for an angle value at a particular location.
@@ -312,6 +248,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param onCancel Function called when the Cancel button or the Escape key  is pressed.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the editor was displayed, false if the editor could not be displayed.
+   * @deprecated in 4.11.x. Use {@link UiFramework.showAngleEditor}.
    */
   public override showAngleEditor(
     initialValue: number,
@@ -320,14 +257,12 @@ export class FrameworkUiAdmin extends UiAdmin {
     onCancel: OnCancelFunc,
     htmlElement?: HTMLElement
   ): boolean {
-    const { position, el } = this.resolveHtmlElement(location, htmlElement);
-
-    return AccuDrawPopupManager.showAngleEditor(
-      el,
-      position,
+    return UiFramework.showAngleEditor(
       initialValue,
+      location,
       onCommit,
-      onCancel
+      onCancel,
+      htmlElement
     );
   }
 
@@ -338,6 +273,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param onCancel Function called when the Cancel button or the Escape key  is pressed.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the editor was displayed, false if the editor could not be displayed.
+   * @deprecated in 4.11.x. Use {@link UiFramework.showDimensionEditor("length")}.
    */
   public override showLengthEditor(
     initialValue: number,
@@ -346,14 +282,13 @@ export class FrameworkUiAdmin extends UiAdmin {
     onCancel: OnCancelFunc,
     htmlElement?: HTMLElement
   ): boolean {
-    const { position, el } = this.resolveHtmlElement(location, htmlElement);
-
-    return AccuDrawPopupManager.showLengthEditor(
-      el,
-      position,
+    return UiFramework.showDimensionEditor(
+      "length",
       initialValue,
+      location,
       onCommit,
-      onCancel
+      onCancel,
+      htmlElement
     );
   }
 
@@ -364,6 +299,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param onCancel Function called when the Cancel button or the Escape key  is pressed.
    * @param htmlElement The HTMLElement that anchors the context menu. If undefined, the location is relative to the overall window.
    * @return true if the editor was displayed, false if the editor could not be displayed.
+   * @deprecated in 4.11.x. Use {@link UiFramework.showDimensionEditor("height")}.
    */
   public override showHeightEditor(
     initialValue: number,
@@ -372,14 +308,13 @@ export class FrameworkUiAdmin extends UiAdmin {
     onCancel: OnCancelFunc,
     htmlElement?: HTMLElement
   ): boolean {
-    const { position, el } = this.resolveHtmlElement(location, htmlElement);
-
-    return AccuDrawPopupManager.showHeightEditor(
-      el,
-      position,
+    return UiFramework.showDimensionEditor(
+      "height",
       initialValue,
+      location,
       onCommit,
-      onCancel
+      onCancel,
+      htmlElement
     );
   }
 
@@ -400,21 +335,19 @@ export class FrameworkUiAdmin extends UiAdmin {
     onCancel: OnCancelFunc,
     htmlElement?: HTMLElement
   ): boolean {
-    const { position, el } = this.resolveHtmlElement(location, htmlElement);
-
-    return PopupManager.showInputEditor(
-      el,
-      position,
+    return UiFramework.showInputEditor({
       initialValue,
       propertyDescription,
+      location,
       onCommit,
-      onCancel
-    );
+      onCancel,
+      anchorElement: htmlElement,
+    });
   }
 
-  /** Hides the input editor. */
+  /** Hides the input editor.*/
   public override hideInputEditor(): boolean {
-    return PopupManager.hideInputEditor();
+    return UiFramework.hideInputEditor();
   }
 
   /** Show an HTML element at a particular location.
@@ -425,6 +358,7 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @param relativePosition Position relative to the given location. Defaults to TopRight.
    * @param anchorElement The HTMLElement that anchors the display element. If undefined, the location is relative to the overall window.
    * @return true if the display element was displayed, false if the display element could not be displayed.
+   * @deprecated in 4.11.x. Use {@link UiFramework.showComponent}
    */
   public override showHTMLElement(
     displayElement: HTMLElement,
@@ -434,7 +368,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     anchorElement?: HTMLElement
   ): boolean {
-    const { position, el } = this.resolveHtmlElement(location, anchorElement);
+    const el = anchorElement ?? UiFramework.controls.getWrapperElement();
 
     // istanbul ignore if
     if (relativePosition === undefined)
@@ -443,14 +377,17 @@ export class FrameworkUiAdmin extends UiAdmin {
     return PopupManager.showHTMLElement(
       displayElement,
       el,
-      position,
+      location,
       offset,
       onCancel,
       relativePosition
     );
   }
 
-  /** Hides the HTML Element. */
+  /**
+   *  Hides the HTML Element.
+   * @deprecated in 4.11.x. Use {@link UiFramework.hideComponent}
+   */
   public override hideHTMLElement(): boolean {
     return PopupManager.hideHTMLElement();
   }
@@ -478,22 +415,19 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     anchorElement?: HTMLElement
   ): boolean {
-    const { position, el } = this.resolveHtmlElement(location, anchorElement);
-
-    // istanbul ignore if
-    if (relativePosition === undefined)
-      relativePosition = RelativePosition.TopRight;
-
-    return PopupManager.showCard(
+    const placement = mapToPlacement(relativePosition);
+    return UiFramework.showCard(
       content,
       title,
-      toolbarProps,
-      el,
-      position,
+      toolbarProps
+        ? AbstractToolbarPropsToToolbarProps(toolbarProps)
+        : { items: [] },
+      location,
       offset,
       onItemExecuted,
       onCancel,
-      relativePosition
+      placement,
+      anchorElement
     );
   }
 
@@ -520,29 +454,27 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     anchorElement?: HTMLElement
   ): boolean {
-    const { position, el } = this.resolveHtmlElement(location, anchorElement);
-    const reactContent = { reactNode: content };
-
-    // istanbul ignore if
-    if (relativePosition === undefined)
-      relativePosition = RelativePosition.TopRight;
-
-    return PopupManager.showCard(
-      reactContent,
+    const placement = mapToPlacement(relativePosition);
+    return UiFramework.showCard(
+      content,
       title,
-      toolbarProps,
-      el,
-      position,
+      toolbarProps
+        ? AbstractToolbarPropsToToolbarProps(toolbarProps)
+        : { items: [] },
+      location,
       offset,
       onItemExecuted,
       onCancel,
-      relativePosition
+      placement,
+      anchorElement
     );
   }
 
-  /** Hides the Card. */
+  /**
+   * Hides the Card.
+   * */
   public override hideCard(): boolean {
-    return PopupManager.hideCard();
+    return UiFramework.hideCard();
   }
 
   /** Opens a Tool Settings Ui popup at a particular location.
@@ -562,24 +494,20 @@ export class FrameworkUiAdmin extends UiAdmin {
     relativePosition?: RelativePosition,
     anchorElement?: HTMLElement
   ): boolean {
-    const { position, el } = this.resolveHtmlElement(location, anchorElement);
-
-    if (relativePosition === undefined)
-      relativePosition = RelativePosition.TopRight;
-
-    return PopupManager.openToolSettings(
+    const placement = mapToPlacement(relativePosition);
+    return UiFramework.openToolSettingsPopup(
       dataProvider,
-      el,
-      position,
+      location,
       offset,
       onCancel,
-      relativePosition
+      placement,
+      anchorElement
     );
   }
 
   /** Closes the Tool Settings Ui popup. */
   public override closeToolSettingsPopup(): boolean {
-    return PopupManager.closeToolSettings();
+    return UiFramework.closeToolSettingsPopup();
   }
 
   /** Opens a Dialog and automatically populates it using the properties defined by the UiDataProvider.
@@ -597,56 +525,34 @@ export class FrameworkUiAdmin extends UiAdmin {
     id: string,
     optionalProps?: DialogProps
   ): boolean {
-    if (isModal) {
-      UiFramework.dialogs.modal.open(
-        <UiDataProvidedDialog
-          uiDataProvider={uiDataProvider}
-          title={title}
-          isModal={isModal}
-          id={id}
-          {...optionalProps}
-        />,
-        id
-      );
-      return true;
-    } else {
-      UiFramework.dialogs.modeless.open(
-        <UiDataProvidedDialog
-          uiDataProvider={uiDataProvider}
-          title={title}
-          isModal={isModal}
-          id={id}
-          {...optionalProps}
-        />,
-        id
-      );
-      return true;
-    }
+    return UiFramework.openDialog(
+      uiDataProvider,
+      title,
+      isModal,
+      id,
+      optionalProps
+    );
   }
 
-  /** Closes the Tool Settings Ui popup. */
+  /** Closes the Tool Settings Ui popup.*/
   public override closeDialog(dialogId: string): boolean {
-    // istanbul ignore else
-    if (
-      UiFramework.dialogs.modeless.dialogs.findIndex(
-        (info) => info.id === dialogId
-      )
-    ) {
-      UiFramework.dialogs.modeless.close(dialogId);
-      return true;
-    }
-
-    // istanbul ignore else
-    if (
-      UiFramework.dialogs.modal.dialogs.findIndex(
-        (info) => info.id === dialogId
-      )
-    ) {
-      UiFramework.dialogs.modal.close();
-      return true;
-    }
-
-    // istanbul ignore next
-    return false;
+    return UiFramework.closeDialog(dialogId);
   }
+}
+
+// utility functions to wean off appui-abstract
+function AbstractToolbarPropsToToolbarProps(
+  props: AbstractToolbarProps
+): ToolbarProps {
+  return {
+    items: props.items.map(CommonToolbarItemToToolBarItem),
+    itemId: props.toolbarId,
+  };
+}
+
+function CommonToolbarItemToToolBarItem(item: CommonToolbarItem): ToolbarItem {
+  return {
+    ...item,
+    badge: item.badgeType,
+  };
 }

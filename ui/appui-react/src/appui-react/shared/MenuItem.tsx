@@ -15,11 +15,31 @@ import { UiFramework } from "../UiFramework";
 import type { ActionButtonItemDef } from "./ActionButtonItemDef";
 import { CommandItemDef } from "./CommandItemDef";
 import { ItemDefBase } from "./ItemDefBase";
+import type { CommandItemProps, ItemProps } from "./ItemProps";
+import type { ConditionalStringValue } from "./ConditionalValue";
 
 /** Menu Item Properties
  * @public
+ * @deprecated in 4.11.x. Please use {@link CursorMenuItemProps}.
  */
 export type MenuItemProps = AbstractMenuItemProps;
+
+/**
+ * Properties for context menu items.
+ * @public
+ */
+export interface CursorMenuItemProps extends ItemProps {
+  /** The id for the menu item. */
+  id: string;
+  /** The item to execute when this item is invoked. Either 'item' or 'submenu' must be specified. */
+  item?: CommandItemProps;
+  /** Nested array of item props. Either 'item' or 'submenu' must be specified. */
+  submenu?: CursorMenuItemProps[];
+  /** Icon to display on right side of the menu item.
+   * Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix  to imported symbol Id.
+   */
+  iconRight?: string | ConditionalStringValue;
+}
 
 /** Menu Item
  * @alpha
@@ -31,7 +51,7 @@ export class MenuItem extends ItemDefBase {
   private _onSelection?: () => void;
 
   /** onSelection is an optional parameter typically supplied to allow menu parent to close context menu when a menu item is selected. */
-  constructor(props: MenuItemProps, onSelection?: () => void) {
+  constructor(props: CursorMenuItemProps, onSelection?: () => void) {
     super(props);
 
     this._id = props.id;
@@ -47,7 +67,7 @@ export class MenuItem extends ItemDefBase {
       if (!this.badgeType) this.badgeType = this._actionItem.badgeType;
       if (!this.isDisabled) this.isDisabled = this._actionItem.isDisabled;
     } else if (props.submenu) {
-      props.submenu.forEach((childProps: MenuItemProps) => {
+      props.submenu.forEach((childProps: CursorMenuItemProps) => {
         const childItem = new MenuItem(childProps, onSelection);
         this._submenu.push(childItem);
       });
@@ -92,11 +112,11 @@ export class MenuItem extends ItemDefBase {
  */
 export class MenuItemHelpers {
   public static createMenuItems(
-    itemPropsList: MenuItemProps[],
+    itemPropsList: CursorMenuItemProps[],
     onSelection?: () => void
   ): MenuItem[] {
     const menuItems = new Array<MenuItem>();
-    itemPropsList.forEach((itemProps: MenuItemProps) => {
+    itemPropsList.forEach((itemProps: CursorMenuItemProps) => {
       menuItems.push(new MenuItem(itemProps, onSelection));
     });
     return menuItems;

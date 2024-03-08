@@ -5,7 +5,6 @@
 import { action } from "@storybook/addon-actions";
 import type { Meta, StoryObj } from "@storybook/react";
 import {
-  BadgeType,
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
@@ -17,7 +16,7 @@ import {
   ToolbarOrientation,
   ToolbarUsage,
 } from "@itwin/appui-react";
-import { ConditionalIconItem, IconHelper } from "@itwin/core-react";
+import { BadgeType, ConditionalIconItem, IconHelper } from "@itwin/core-react";
 import {
   Svg2D,
   Svg3D,

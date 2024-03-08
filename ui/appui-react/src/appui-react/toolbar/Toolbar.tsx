@@ -23,7 +23,7 @@ import { Toolbar as ToolGroupToolbar } from "./group/Toolbar";
 
 /**
  * Properties of [[Toolbar.enableOverflow]] component.
- * @beta
+ * @public
  */
 export interface OverflowToolbarOptions {
   /** Describes to which direction the overflow popup panels are expanded if overflow is enabled. Defaults to: [[Direction.Right]] */
@@ -31,7 +31,7 @@ export interface OverflowToolbarOptions {
 }
 
 /** Properties of [[Toolbar]] component.
- * @beta
+ * @public
  */
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
   /** Describes to which direction the popup panels are expanded, also defines the orientation of the toolbar (Top/Bottom will create an horizontal toolbar, Left/Right will create a vertical toolbar). Defaults to: [[Direction.Bottom]] */

@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
+import { BadgeType } from "@itwin/core-react";
 import type {
   BackstageActionItem,
   BackstageStageLauncher,
@@ -21,7 +22,6 @@ import TestUtils, {
 } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
-import { BadgeType } from "@itwin/appui-abstract";
 
 /** @internal */
 export const getActionItem = (
