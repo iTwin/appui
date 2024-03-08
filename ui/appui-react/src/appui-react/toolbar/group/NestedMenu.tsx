@@ -163,7 +163,7 @@ function Item({ children, icon, disabled, submenu, onClick }: ItemProps) {
       actionable
       disabled={disabled}
       onClick={disabled ? undefined : onClick}
-      tabIndex={0}
+      tabIndex={-1}
       ref={ref}
     >
       <ListItem.Icon>{icon}</ListItem.Icon>
