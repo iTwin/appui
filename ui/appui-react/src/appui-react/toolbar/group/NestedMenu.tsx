@@ -67,6 +67,7 @@ export function NestedMenu({
   return (
     <Flex
       flexDirection="column"
+      tabIndex={-1}
       onKeyDown={(e) => {
         switch (e.key) {
           case "ArrowDown": {
@@ -93,7 +94,6 @@ export function NestedMenu({
           }
         }
       }}
-      tabIndex={-1}
     >
       <Flex
         flexDirection="row"
@@ -176,19 +176,23 @@ function Item({ children, icon, disabled, submenu, onClick }: ItemProps) {
   const { columnIndex, itemIndex, focusedColumnIndex, focusedItemIndex } =
     context || {};
   const ref = React.useRef<HTMLLIElement>(null);
+  const isFocused = React.useMemo(() => {
+    if (focusedColumnIndex === undefined) return false;
+    if (focusedItemIndex === undefined) return false;
+    return focusedColumnIndex === columnIndex && focusedItemIndex === itemIndex;
+  }, [columnIndex, itemIndex, focusedColumnIndex, focusedItemIndex]);
   React.useEffect(() => {
     const element = ref.current;
     if (!element) return;
-    if (focusedColumnIndex !== columnIndex) return;
-    if (focusedItemIndex !== itemIndex) return;
+    if (!isFocused) return;
     element.focus();
-  }, [columnIndex, itemIndex, focusedColumnIndex, focusedItemIndex]);
+  }, [isFocused]);
   return (
     <ListItem
       actionable
       disabled={disabled}
       onClick={disabled ? undefined : onClick}
-      tabIndex={-1}
+      tabIndex={isFocused ? 0 : -1}
       ref={ref}
       onKeyDown={(e) => {
         switch (e.key) {
