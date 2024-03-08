@@ -18,7 +18,7 @@ import { SampleTool } from "../../tools/SampleTool";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { OpenAbstractDialogTool } from "../../tools/OpenAbstractModalDialogTool";
 import { ToolWithDynamicSettings } from "../../tools/ToolWithDynamicSettings";
-import { UnitsField } from "../dialogs/unitsfield/UnitsField";
+import { UnitsField } from "../statusfields/unitsfield/UnitsField";
 
 export interface AbstractUiItemsProviderProps {
   sampleTool?: { itemPriority?: number; groupPriority?: number };
