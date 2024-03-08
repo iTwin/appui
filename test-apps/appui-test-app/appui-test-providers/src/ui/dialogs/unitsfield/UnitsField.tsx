@@ -11,8 +11,11 @@ import type { SelectOption } from "@itwin/itwinui-react";
 import { IconButton, List, ListItem } from "@itwin/itwinui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import type { UnitSystemKey } from "@itwin/core-quantity";
-import { StatusBar, StatusBarIndicator } from "@itwin/appui-react";
-import { StatusBarDialogTitleBar } from "@itwin/appui-react/lib/cjs/appui-react/statusbar/dialog/TitleBar";
+import {
+  StatusBar,
+  StatusBarDialog,
+  StatusBarIndicator,
+} from "@itwin/appui-react";
 
 /** Props for [[UnitsField]].
  * @internal
@@ -74,7 +77,7 @@ export function UnitsField(props: UnitsFieldProps) {
         onOutsideClick={handleOutsideClick}
         target={buttonRef.current}
       >
-        <StatusBarDialogTitleBar title={title}></StatusBarDialogTitleBar>
+        <StatusBarDialog.TitleBar title={title}></StatusBarDialog.TitleBar>
         <List>
           {options.map((option: SelectOption<string>) => (
             <ListItem
