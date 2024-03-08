@@ -9,11 +9,10 @@ import type { CommonProps } from "@itwin/core-react";
 import { SvgLightbulbHollow } from "@itwin/itwinui-icons-react";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { IconButton, List, ListItem } from "@itwin/itwinui-react";
-import { TitleBar } from "../../layout/footer/dialog/TitleBar";
-import { StatusBar } from "../../statusbar/StatusBar";
-import { FooterIndicator } from "../../layout/footer/Indicator";
 import { IModelApp } from "@itwin/core-frontend";
 import type { UnitSystemKey } from "@itwin/core-quantity";
+import { StatusBar, StatusBarIndicator } from "@itwin/appui-react";
+import { StatusBarDialogTitleBar } from "@itwin/appui-react/lib/cjs/appui-react/statusbar/dialog/TitleBar";
 
 /** Props for [[UnitsField]].
  * @internal
@@ -58,7 +57,7 @@ export function UnitsField(props: UnitsFieldProps) {
   return (
     <>
       <div title={label} className="nz-footer-units-field">
-        <FooterIndicator className="units-indicator">
+        <StatusBarIndicator className="units-indicator">
           <IconButton
             className="units-button"
             styleType="borderless"
@@ -67,7 +66,7 @@ export function UnitsField(props: UnitsFieldProps) {
           >
             <SvgLightbulbHollow />
           </IconButton>
-        </FooterIndicator>
+        </StatusBarIndicator>
       </div>
       <StatusBar.Popup
         isOpen={isOpen}
@@ -75,7 +74,7 @@ export function UnitsField(props: UnitsFieldProps) {
         onOutsideClick={handleOutsideClick}
         target={buttonRef.current}
       >
-        <TitleBar title={title}></TitleBar>
+        <StatusBarDialogTitleBar title={title}></StatusBarDialogTitleBar>
         <List>
           {options.map((option: SelectOption<string>) => (
             <ListItem

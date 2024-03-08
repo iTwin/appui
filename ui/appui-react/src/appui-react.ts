@@ -182,7 +182,6 @@ export * from "./appui-react/statusfields/SelectionInfo";
 export * from "./appui-react/statusfields/SelectionScope";
 export * from "./appui-react/statusfields/SnapMode";
 export * from "./appui-react/statusfields/ViewAttributes";
-export * from "./appui-react/statusfields/unitsfield/UnitsField";
 export * from "./appui-react/statusfields/toolassistance/ToolAssistanceField";
 
 export * from "./appui-react/syncui/SyncUiEventDispatcher";
