@@ -296,7 +296,7 @@ alpha;MenuItemHelpers
 public;MenuItemProps = AbstractMenuItemProps
 public;MessageAddedEvent 
 public;MessageAddedEventArgs
-public;MessageCenterField 
+public;MessageCenterField(): React_2.JSX.Element
 public;MessageManager
 public;MessagesUpdatedEvent 
 public;ModalDialogChangedEvent 

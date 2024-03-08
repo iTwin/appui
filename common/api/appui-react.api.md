@@ -3011,15 +3011,7 @@ export interface MessageAddedEventArgs {
 }
 
 // @public
-export class MessageCenterField extends React_2.Component<CommonProps, MessageCenterState> {
-    constructor(p: CommonProps);
-    // @internal (undocumented)
-    componentDidMount(): void;
-    // @internal (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
+export function MessageCenterField(): React_2.JSX.Element;
 
 // @public
 export class MessageManager {
