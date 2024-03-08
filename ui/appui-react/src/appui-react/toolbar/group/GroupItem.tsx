@@ -27,6 +27,7 @@ export function GroupItem(props: GroupItemProps) {
   const isHidden = useConditionalValue(item.isHidden);
   const placement = usePlacement();
   const [visible, setVisible] = React.useState(false);
+  const ref = React.useRef<HTMLDivElement>(null);
 
   if (isHidden) return null;
   return (
@@ -35,6 +36,15 @@ export function GroupItem(props: GroupItemProps) {
       placement={placement}
       visible={visible}
       onVisibleChange={setVisible}
+      ref={ref}
+      onBlur={(e) => {
+        // TODO: potential iTwinUI issue. Multiple buttons w/ popovers shift-tab moves focus to the last button.
+        // Close on shift-tab.
+        const el = ref.current;
+        if (!el) return;
+        if (el.contains(e.relatedTarget)) return;
+        setVisible(false);
+      }}
     >
       <Item item={item}>
         <ExpandIndicator />
@@ -74,7 +84,6 @@ function Menu({ item, onClose }: MenuProps) {
           onBack={() => {
             setGroupStack((prev) => prev.slice(0, prev.length - 1));
           }}
-          onClose={onClose}
         >
           {columns.map((columnItems, columnIndex) => (
             <NestedMenu.Column key={columnIndex}>

@@ -31,7 +31,6 @@ interface NestedMenuProps {
   title?: React.ReactNode;
   nested?: boolean;
   onBack?: () => void;
-  onClose?: () => void;
 }
 
 /** @internal */
@@ -40,7 +39,6 @@ export function NestedMenu({
   nested,
   title,
   onBack,
-  onClose,
 }: NestedMenuProps) {
   const flattened = flattenChildren(children);
   const columns = React.Children.toArray(flattened);
@@ -61,7 +59,6 @@ export function NestedMenu({
 
   const [focusedColumnIndex, setFocusedColumnIndex] = React.useState(0);
   const [focusedItemIndex, setFocusedItemIndex] = React.useState(0);
-  const ref = React.useRef<HTMLDivElement>(null);
 
   const itemCount =
     columnIndexToItemCountMap.get(focusedColumnIndex) ??
@@ -97,15 +94,6 @@ export function NestedMenu({
           }
         }
       }}
-      onBlur={(e) => {
-        // TODO: potential iTwinUI issue. Multiple buttons w/ popovers shift-tab moves focus to the last button.
-        // Close on shift-tab.
-        const el = ref.current;
-        if (!el) return;
-        if (el.contains(e.relatedTarget)) return;
-        onClose?.();
-      }}
-      ref={ref}
     >
       <Flex
         flexDirection="row"
