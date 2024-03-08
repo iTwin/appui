@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
+import * as React from "react";
 import {
   StageUsage,
   StatusBarItem,
@@ -11,14 +12,12 @@ import {
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
-  UiFramework,
   UiItemsProvider,
+  UnitsField,
 } from "@itwin/appui-react";
 import { SampleTool } from "../../tools/SampleTool";
-import { UnitsPopupUiDataProvider } from "../dialogs/UnitsPopup";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { OpenAbstractDialogTool } from "../../tools/OpenAbstractModalDialogTool";
-import statusFieldSvg from "../icons/StatusField.svg";
 import { ToolWithDynamicSettings } from "../../tools/ToolWithDynamicSettings";
 
 export interface AbstractUiItemsProviderProps {
@@ -95,21 +94,32 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
     if (stageUsage === StageUsage.General.valueOf()) {
       statusBarItems.push(
         /** Add a status bar item that will open a dialog allow the user to set the active unit system used to display quantity values.  */
-        StatusBarItemUtilities.createActionItem(
+        StatusBarItemUtilities.createCustomItem(
           "AppUiTestProviders:UnitsStatusBarItem",
           this.props?.unitsStatusBarItem?.section ?? StatusBarSection.Center,
           this.props?.unitsStatusBarItem?.itemPriority ?? 100,
-          statusFieldSvg,
-          AppUiTestProviders.translate("StatusBar.UnitsFlyover"),
-          () => {
-            UiFramework.openDialog(
-              new UnitsPopupUiDataProvider(),
-              AppUiTestProviders.translate("StatusBar.Units"),
-              true,
-              "uiItemsProvidersTest:units-popup",
-              { movable: true, width: 280, minWidth: 280 }
-            );
-          }
+          <UnitsField
+            label={AppUiTestProviders.translate("StatusBar.UnitsFlyover")}
+            title={AppUiTestProviders.translate("StatusBar.Units")}
+            options={[
+              {
+                label: AppUiTestProviders.translate("StatusBar.Metric"),
+                value: "metric",
+              },
+              {
+                label: AppUiTestProviders.translate("StatusBar.Imperial"),
+                value: "imperial",
+              },
+              {
+                label: AppUiTestProviders.translate("StatusBar.UsSurvey"),
+                value: "usSurvey",
+              },
+              {
+                label: AppUiTestProviders.translate("StatusBar.UsCustomary"),
+                value: "usCustomary",
+              },
+            ]}
+          />
         )
       );
     }
