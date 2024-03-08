@@ -28,8 +28,11 @@ interface UnitsFieldProps extends CommonProps {
  * @internal
  */
 export function UnitsField(props: UnitsFieldProps) {
+  const { label, title, options } = props;
   const [isOpen, setIsOpen] = React.useState(false);
-  const [units, setUnits] = React.useState(props.options[0].value);
+  const [units, setUnits] = React.useState(
+    IModelApp.quantityFormatter.activeUnitSystem as string
+  );
 
   const buttonRef = React.useRef<HTMLButtonElement>(null);
 
@@ -54,7 +57,7 @@ export function UnitsField(props: UnitsFieldProps) {
 
   return (
     <>
-      <div title={props.label} className="nz-footer-units-field">
+      <div title={label} className="nz-footer-units-field">
         <FooterIndicator className="units-indicator">
           <IconButton
             className="units-button"
@@ -72,9 +75,9 @@ export function UnitsField(props: UnitsFieldProps) {
         onOutsideClick={handleOutsideClick}
         target={buttonRef.current}
       >
-        <TitleBar title={props.title}></TitleBar>
+        <TitleBar title={title}></TitleBar>
         <List>
-          {props.options.map((option: SelectOption<string>) => (
+          {options.map((option: SelectOption<string>) => (
             <ListItem
               actionable
               key={option.value}
