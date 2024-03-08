@@ -88,6 +88,7 @@ import type { RefObject } from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import type { RequireAtLeastOne } from '@itwin/core-bentley';
 import type { ScreenViewport } from '@itwin/core-frontend';
+import type { SelectOption } from '@itwin/itwinui-react';
 import { SettingsManager } from '@itwin/core-react';
 import type { SettingsTabEntry } from '@itwin/core-react';
 import { Size } from '@itwin/core-react';
@@ -5090,6 +5091,9 @@ export interface UiVisibilityEventArgs {
     // (undocumented)
     visible: boolean;
 }
+
+// @internal
+export function UnitsField(props: UnitsFieldProps): React_2.JSX.Element;
 
 // @alpha
 export function UnitSystemSelector(props: UnitSystemSelectorProps): React_2.JSX.Element;

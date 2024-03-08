@@ -543,6 +543,7 @@ public;UiSyncEvent
 public;UiSyncEventArgs
 public;UiVisibilityChangedEvent 
 public;UiVisibilityEventArgs
+internal;UnitsField(props: UnitsFieldProps): React_2.JSX.Element
 alpha;UnitSystemSelector(props: UnitSystemSelectorProps): React_2.JSX.Element
 beta;UnitSystemSelectorProps
 internal;useActiveContentControlId(): string | undefined
