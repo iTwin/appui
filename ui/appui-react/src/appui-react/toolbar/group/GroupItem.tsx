@@ -15,6 +15,7 @@ import { ExpandIndicator } from "./ExpandIndicator";
 import { Item } from "./Item";
 import { ToolbarContext } from "./Toolbar";
 import { NestedMenu } from "./NestedMenu";
+import { Badge } from "./Badge";
 
 /** @internal */
 interface GroupItemProps extends CommonProps {
@@ -130,6 +131,7 @@ function MenuItem({ item, onExpandGroup, onClose }: MenuItemProps) {
         onClose?.();
       }}
     >
+      <Badge badge={item.badge} />
       {label}
     </NestedMenu.Item>
   );

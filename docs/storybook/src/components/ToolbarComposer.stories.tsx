@@ -171,6 +171,15 @@ export const Badge: Story = {
         ...items.group2,
         description: "New badge",
         badge: BadgeType.New,
+        items: items.group2.items.map((item, index) => {
+          const badges = [BadgeType.New, BadgeType.TechnicalPreview];
+          const badgeIndex = index % badges.length;
+          const badge = badges[badgeIndex];
+          return {
+            ...item,
+            badge,
+          };
+        }),
       },
       {
         ...items.custom2,
