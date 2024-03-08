@@ -15,13 +15,6 @@ import {
   SvgProgressBackward,
 } from "@itwin/itwinui-icons-react";
 
-interface NestedMenuProps {
-  children?: React.ReactNode;
-  title?: React.ReactNode;
-  nested?: boolean;
-  onBack?: () => void;
-}
-
 interface NestedMenuContextArgs {
   columnIndex?: number;
   itemIndex?: number;
@@ -33,12 +26,21 @@ const NestedMenuContext = React.createContext<
   NestedMenuContextArgs | undefined
 >(undefined);
 
+interface NestedMenuProps {
+  children?: React.ReactNode;
+  title?: React.ReactNode;
+  nested?: boolean;
+  onBack?: () => void;
+  onClose?: () => void;
+}
+
 /** @internal */
 export function NestedMenu({
   children,
   nested,
   title,
   onBack,
+  onClose,
 }: NestedMenuProps) {
   const flattened = flattenChildren(children);
   const columns = React.Children.toArray(flattened);
@@ -59,6 +61,7 @@ export function NestedMenu({
 
   const [focusedColumnIndex, setFocusedColumnIndex] = React.useState(0);
   const [focusedItemIndex, setFocusedItemIndex] = React.useState(0);
+  const ref = React.useRef<HTMLDivElement>(null);
 
   const itemCount =
     columnIndexToItemCountMap.get(focusedColumnIndex) ??
@@ -94,6 +97,15 @@ export function NestedMenu({
           }
         }
       }}
+      onBlur={(e) => {
+        // TODO: potential iTwinUI issue. Multiple buttons w/ popovers shift-tab moves focus to the last button.
+        // Close on shift-tab.
+        const el = ref.current;
+        if (!el) return;
+        if (el.contains(e.relatedTarget)) return;
+        onClose?.();
+      }}
+      ref={ref}
     >
       <Flex
         flexDirection="row"
@@ -181,7 +193,7 @@ function Item({ children, icon, disabled, submenu, onClick }: ItemProps) {
     if (focusedItemIndex === undefined) return false;
     return focusedColumnIndex === columnIndex && focusedItemIndex === itemIndex;
   }, [columnIndex, itemIndex, focusedColumnIndex, focusedItemIndex]);
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     const element = ref.current;
     if (!element) return;
     if (!isFocused) return;

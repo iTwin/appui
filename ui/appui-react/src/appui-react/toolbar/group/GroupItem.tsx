@@ -74,6 +74,7 @@ function Menu({ item, onClose }: MenuProps) {
           onBack={() => {
             setGroupStack((prev) => prev.slice(0, prev.length - 1));
           }}
+          onClose={onClose}
         >
           {columns.map((columnItems, columnIndex) => (
             <NestedMenu.Column key={columnIndex}>
