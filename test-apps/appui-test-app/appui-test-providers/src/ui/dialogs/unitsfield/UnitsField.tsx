@@ -7,8 +7,12 @@ import "./UnitsField.scss";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { SvgLightbulbHollow } from "@itwin/itwinui-icons-react";
-import type { SelectOption } from "@itwin/itwinui-react";
-import { IconButton, List, ListItem } from "@itwin/itwinui-react";
+import {
+  IconButton,
+  List,
+  ListItem,
+  type SelectOption,
+} from "@itwin/itwinui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import type { UnitSystemKey } from "@itwin/core-quantity";
 import {
