@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
-import { MessageCenterField } from "@itwin/appui-react/src/appui-react/statusfields/MessageCenterField";
+import { MessageCenterField } from "@itwin/appui-react/src/appui-react/statusfields/message-center/MessageCenterField";
 
 const AlignComponent: Decorator = (Story) => {
   return (
