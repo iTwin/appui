@@ -13,6 +13,7 @@ import { assert } from "@itwin/core-bentley";
 import { DropdownMenu, IconButton } from "@itwin/itwinui-react";
 import { SvgMore } from "@itwin/itwinui-icons-react";
 import { ToolbarContext } from "./Toolbar";
+import { useExpandsTo } from "./Item";
 
 /** @internal */
 interface ToolGroupOverflow {
@@ -26,7 +27,7 @@ export const ToolGroupOverflowContext = React.createContext<
 
 /** @internal */
 export function OverflowButton(props: React.PropsWithChildren<{}>) {
-  const placement = usePlacement();
+  const placement = useExpandsTo();
   const orientation = useMenuOrientation();
 
   return (
@@ -44,7 +45,11 @@ export function OverflowButton(props: React.PropsWithChildren<{}>) {
       }}
       placement={placement}
     >
-      <IconButton label="More" styleType="borderless">
+      <IconButton
+        label="More"
+        labelProps={{ placement }}
+        styleType="borderless"
+      >
         <SvgMore />
       </IconButton>
     </DropdownMenu>
@@ -70,13 +75,6 @@ function OverflowMenu({ children, onClose }: OverflowMenuProps) {
       </ToolGroupOverflowContext.Provider>
     </ToolbarContext.Provider>
   );
-}
-
-function usePlacement() {
-  const context = React.useContext(ToolbarContext);
-  if (!context) return undefined;
-
-  return `${context.expandsTo}` as const;
 }
 
 function useMenuOrientation() {

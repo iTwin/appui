@@ -13,6 +13,8 @@ import { IconButton } from "@itwin/itwinui-react";
 import type { ToolbarItem } from "../ToolbarItem";
 import { useConditionalValue } from "../../hooks/useConditionalValue";
 import { Badge } from "./Badge";
+import { ToolbarContext } from "./Toolbar";
+import { assert } from "@itwin/core-bentley";
 
 /** @internal */
 export interface ItemProps
@@ -29,6 +31,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
     const isDisabled = useConditionalValue(item.isDisabled);
     const isHidden = useConditionalValue(item.isHidden);
     const iconSpec = useConditionalValue(item.icon);
+    const placement = useExpandsTo();
 
     if (isHidden) return null;
     return (
@@ -38,7 +41,10 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
         disabled={isDisabled}
         isActive={item.isActive}
         label={<Label label={label} description={description} />}
-        labelProps={{ className: "uifw-toolbar-group-item_label" }}
+        labelProps={{
+          className: "uifw-toolbar-group-item_label",
+          placement,
+        }}
         style={props.style}
         ref={ref}
         {...other}
@@ -64,4 +70,13 @@ function Label({ label, description }: LabelProps) {
       {description}
     </>
   );
+}
+
+/** @internal */
+export function useExpandsTo() {
+  const context = React.useContext(ToolbarContext);
+  assert(!!context);
+
+  const { expandsTo } = context;
+  return expandsTo;
 }
