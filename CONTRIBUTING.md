@@ -40,11 +40,11 @@ If you cannot find an existing issue that describes your bug or feature, create 
 
 ### Writing Good Bug Reports and Feature Requests
 
-Please File a single issue per problem and feature request.
+Please file a single issue per problem and feature request.
 
 Refrain from adding your issue as a comment to an existing issue unless it's for the identical input. Many issues look similar, but have different causes.
 
-Please include the following information with each issue:
+Include the following information with each issue:
 
 - A short description of the issue with a clear title
 - Versions of relevant iTwin.js core and AppUI packages
