@@ -83,7 +83,14 @@ function PreviewFeatureList() {
         ))
       }
     >
-      <BetaBadge />
+      Preview features
+      <BetaBadge
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+        }}
+      />
     </DropdownButton>
   );
 }
