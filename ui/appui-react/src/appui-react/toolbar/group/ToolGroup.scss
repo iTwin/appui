@@ -21,6 +21,9 @@
     backdrop-filter: blur(5px);
   }
 
+  // TODO: needed due to opacity on toolbar container (since pointer events are disabled for center content).
+  pointer-events: all;
+
   &.uifw-vertical {
     flex-direction: column;
   }
