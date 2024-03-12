@@ -21,6 +21,7 @@ export function LanguageSelect() {
         },
       ]}
       value={language}
+      size="small"
       onChange={async (newLanguage) => {
         await IModelApp.localization.changeLanguage(newLanguage);
         setLanguage(newLanguage);
