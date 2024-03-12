@@ -28,7 +28,7 @@ export interface FrameworkVisibility {
   inactivityTime: number;
 
   /** Determines whether the proximity of the mouse should alter the opacity of a toolbar. Defaults to `true`.
-   * @deprecated in 4.11.x. The preferred mode is to change opacity in a snappy way (use {@link snapWidgetOpacity}).
+   * @deprecated in 4.11.x. The preferred mode is to change opacity in a snappy way (use {@link FrameworkVisibility.snapWidgetOpacity}).
    */
   useProximityOpacity: boolean;
 
