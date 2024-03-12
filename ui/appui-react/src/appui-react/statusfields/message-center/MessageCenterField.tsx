@@ -14,13 +14,13 @@ import {
 } from "@itwin/itwinui-react";
 
 import { SvgChat } from "@itwin/itwinui-icons-react";
-import type { MessageType } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { MessageCenterMessage } from "./MessageCenterMessage";
 import { MessageManager } from "../../messages/MessageManager";
 import { TitleBar } from "../../layout/footer/dialog/TitleBar";
+import type { MessageType } from "@itwin/core-react";
 import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails";
 import "./MessageCenterField.scss";
 
@@ -33,7 +33,6 @@ export function MessageCenterField() {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const indicatorRef = React.createRef<HTMLButtonElement>();
-
   const title = UiFramework.translate("messageCenter.messages");
 
   const handleOpenChange = (isOpenState: boolean) => {
@@ -59,6 +58,7 @@ export function MessageCenterField() {
     return MessageManager.onMessagesUpdatedEvent.addListener(() => {
       setNotify(notifyStatus);
       setMessages(MessageManager.messages);
+      console.log(messages);
     });
   });
 
@@ -95,7 +95,7 @@ export function MessageCenterField() {
       {["all", "error"].map((tabType) => {
         return (
           <Tabs.Panel value={tabType} key={tabType}>
-            <div className={"mc-footer-messageCenter-dialog"}>
+            <div className="mc-footer-messageCenter-dialog">
               {getMessages(tabType)}
             </div>
           </Tabs.Panel>
