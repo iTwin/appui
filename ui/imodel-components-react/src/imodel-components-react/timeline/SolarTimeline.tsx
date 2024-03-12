@@ -24,6 +24,7 @@ import {
   IconButton,
   Label,
   Popover,
+  Select,
   Slider,
   Text,
   Tooltip,
@@ -83,7 +84,6 @@ function Timeline(props: TimelineProps) {
     <div className={className}>
       <VisuallyHidden>Solar timeline</VisuallyHidden>
       <Slider
-        className={classnames(className, "slider")}
         thumbProps={() => ({ "aria-labelledby": "timeline" })}
         step={msPerMinute}
         min={sunRiseOffsetMs}
@@ -523,7 +523,6 @@ export class SolarTimeline extends React.PureComponent<
         </Flex>
 
         <Timeline
-          className="solar-timeline"
           dayStartMs={dataProvider.dayStartMs}
           sunSetOffsetMs={sunSetOffsetMs}
           sunRiseOffsetMs={sunRiseOffsetMs}
@@ -544,18 +543,18 @@ export class SolarTimeline extends React.PureComponent<
             <Label htmlFor="speed">Timeline speed</Label>
           </VisuallyHidden>
           <Tooltip content={this._speedLabel}>
-            <select
-              className="solar-timeline_speed"
+            <Select
+              native
+              styleType="borderless"
               name="speed"
-              onChange={(e) => this._onSpeedChange(Number(e.target.value))}
+              onChange={(newValue) => this._onSpeedChange(Number(newValue))}
               value={currentSpeed}
-            >
-              {this._speeds.map((speed) => (
-                <option key={speed} value={speed}>
-                  {speed}x
-                </option>
-              ))}
-            </select>
+              options={this._speeds.map((speed) => ({
+                key: speed,
+                value: speed,
+                label: `${speed}x`,
+              }))}
+            />
           </Tooltip>
 
           <IconButton
