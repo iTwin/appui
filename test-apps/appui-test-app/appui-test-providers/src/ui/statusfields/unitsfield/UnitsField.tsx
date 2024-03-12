@@ -63,7 +63,7 @@ export function UnitsField(props: UnitsFieldProps) {
 
   return (
     <>
-      <div title={label} className="nz-footer-units-field">
+      <div title={label} className="uitestapp-footer-units-field">
         <StatusBarIndicator className="units-indicator">
           <IconButton
             className="units-button"
