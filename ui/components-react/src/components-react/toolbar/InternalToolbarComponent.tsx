@@ -601,9 +601,7 @@ export function InternalToolbarComponent(props: InternalToolbarComponentProps) {
         panelAlignment,
         useDragInteraction,
         toolbarOpacitySetting:
-          undefined !== props.toolbarOpacitySetting
-            ? props.toolbarOpacitySetting
-            : ToolbarOpacitySetting.Proximity,
+          props.toolbarOpacitySetting ?? ToolbarOpacitySetting.Proximity,
         overflowDirection:
           direction === OrthogonalDirection.Horizontal
             ? OrthogonalDirection.Vertical
