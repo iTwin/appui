@@ -546,12 +546,13 @@ export class SolarTimeline extends React.PureComponent<
             <Select
               native
               styleType="borderless"
-              name="speed"
+              triggerProps={{
+                name: "speed",
+              }}
               onChange={(newValue) => this._onSpeedChange(Number(newValue))}
-              value={currentSpeed}
+              value={currentSpeed.toString()}
               options={this._speeds.map((speed) => ({
-                key: speed,
-                value: speed,
+                value: speed.toString(),
                 label: `${speed}x`,
               }))}
             />
