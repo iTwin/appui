@@ -163,21 +163,30 @@ function combineItems(
 
 const useProximityOpacitySetting = () => {
   const [proximityOpacity, setProximityOpacity] = React.useState(
-    UiFramework.visibility.useProximityOpacity
+    UiFramework.visibility.useProximityOpacity // eslint-disable-line deprecation/deprecation
   );
+
   React.useEffect(() => {
-    // istanbul ignore next
-    const handleUiVisibilityChanged = () => {
-      setProximityOpacity(UiFramework.visibility.useProximityOpacity);
-    };
-    UiFramework.onUiVisibilityChanged.addListener(handleUiVisibilityChanged);
-    return () => {
-      UiFramework.onUiVisibilityChanged.removeListener(
-        handleUiVisibilityChanged
-      );
-    };
+    UiFramework.onUiVisibilityChanged.addListener(
+      () => setProximityOpacity(UiFramework.visibility.useProximityOpacity) // eslint-disable-line deprecation/deprecation
+    );
   }, []);
+
   return proximityOpacity;
+};
+
+const useSnapWidgetOpacitySetting = () => {
+  const [snapWidgetOpacity, setSnapWidgetOpacity] = React.useState(
+    UiFramework.visibility.snapWidgetOpacity
+  );
+
+  React.useEffect(() => {
+    UiFramework.onUiVisibilityChanged.addListener(() =>
+      setSnapWidgetOpacity(UiFramework.visibility.snapWidgetOpacity)
+    );
+  }, []);
+
+  return snapWidgetOpacity;
 };
 
 /** Properties for the [[ToolbarComposer]] React components
@@ -224,6 +233,7 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
       : ToolbarPanelAlignment.Start;
   const isDragEnabled = React.useContext(ToolbarDragInteractionContext);
   const useProximityOpacity = useProximityOpacitySetting();
+  const snapWidgetOpacity = useSnapWidgetOpacitySetting();
 
   return (
     <Toolbar
@@ -233,7 +243,7 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
       items={items}
       useDragInteraction={isDragEnabled}
       toolbarOpacitySetting={
-        useProximityOpacity && !UiFramework.isMobile()
+        (useProximityOpacity || snapWidgetOpacity) && !UiFramework.isMobile()
           ? ToolbarOpacitySetting.Proximity
           : /* istanbul ignore next */ ToolbarOpacitySetting.Defaults
       }

@@ -156,7 +156,11 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   };
 
   // istanbul ignore else
-  if (UiFramework.visibility.useProximityOpacity && !UiFramework.isMobile()) {
+  if (
+    (UiFramework.visibility.useProximityOpacity || // eslint-disable-line deprecation/deprecation
+      UiFramework.visibility.snapWidgetOpacity) &&
+    !UiFramework.isMobile()
+  ) {
     const navigationAidOpacity = 0.3 * proximityScale + 0.7;
     divStyle.opacity = `${navigationAidOpacity}`;
   }
