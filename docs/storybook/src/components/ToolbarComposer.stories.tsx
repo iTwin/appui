@@ -220,6 +220,25 @@ export const Disabled: Story = {
   },
 };
 
+export const Hidden: Story = {
+  args: {
+    items: [
+      items.action1,
+      items.action2,
+      {
+        ...items.action3,
+        isHidden: true,
+      },
+      items.group1,
+      items.group2,
+      {
+        ...items.group3,
+        isHidden: true,
+      },
+    ],
+  },
+};
+
 function createAbstractReactIcon() {
   const internalData = new Map();
   const icon = IconHelper.getIconData(<SvgExport />, internalData);
