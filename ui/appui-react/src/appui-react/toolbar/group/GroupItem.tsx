@@ -18,57 +18,59 @@ import { NestedMenu } from "./NestedMenu";
 import { Badge } from "./Badge";
 
 /** @internal */
-interface GroupItemProps extends CommonProps {
+export interface GroupItemProps extends CommonProps {
   item: ToolbarGroupItem;
 }
 
 /** @internal */
-export function GroupItem(props: GroupItemProps) {
-  const { item } = props;
-  const isHidden = useConditionalValue(item.isHidden);
-  const placement = usePlacement();
-  const [visible, setVisible] = React.useState(false);
-  const ref = React.useRef<HTMLDivElement>(null);
+export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
+  function GroupItem(props, ref) {
+    const { item } = props;
+    const isHidden = useConditionalValue(item.isHidden);
+    const placement = usePlacement();
+    const [visible, setVisible] = React.useState(false);
+    const popoverRef = React.useRef<HTMLDivElement>(null);
 
-  if (isHidden) return null;
-  return (
-    <Popover
-      content={<Menu item={item} onClose={() => setVisible(!visible)} />}
-      placement={placement}
-      visible={visible}
-      onVisibleChange={setVisible}
-      ref={ref}
-      onBlur={(e) => {
-        // TODO: potential iTwinUI issue. Multiple buttons w/ popovers shift-tab moves focus to the last button.
-        // Close on shift-tab.
-        const el = ref.current;
-        if (!el) return;
-        if (el.contains(e.relatedTarget)) return;
-        setVisible(false);
-      }}
-      onKeyDown={(e) => {
-        switch (e.key) {
-          case "ArrowDown":
-          case "ArrowUp":
-          case "ArrowRight":
-          case "ArrowLeft": {
-            // Avoid moving through overflow drop down menu w/ arrow keys.
-            e.stopPropagation();
-            break;
+    if (isHidden) return null;
+    return (
+      <Popover
+        content={<Menu item={item} onClose={() => setVisible(!visible)} />}
+        placement={placement}
+        visible={visible}
+        onVisibleChange={setVisible}
+        ref={popoverRef}
+        onBlur={(e) => {
+          // TODO: potential iTwinUI issue. Multiple buttons w/ popovers shift-tab moves focus to the last button.
+          // Close on shift-tab.
+          const el = popoverRef.current;
+          if (!el) return;
+          if (el.contains(e.relatedTarget)) return;
+          setVisible(false);
+        }}
+        onKeyDown={(e) => {
+          switch (e.key) {
+            case "ArrowDown":
+            case "ArrowUp":
+            case "ArrowRight":
+            case "ArrowLeft": {
+              // Avoid moving through overflow drop down menu w/ arrow keys.
+              e.stopPropagation();
+              break;
+            }
+            case "Tab": {
+              // Avoid closing the overflow drop down menu if group menu is displayed.
+              e.stopPropagation();
+            }
           }
-          case "Tab": {
-            // Avoid closing the overflow drop down menu if group menu is displayed.
-            e.stopPropagation();
-          }
-        }
-      }}
-    >
-      <Item item={item}>
-        <ExpandIndicator />
-      </Item>
-    </Popover>
-  );
-}
+        }}
+      >
+        <Item item={item} ref={ref}>
+          <ExpandIndicator />
+        </Item>
+      </Popover>
+    );
+  }
+);
 
 /** @internal */
 export function usePlacement() {

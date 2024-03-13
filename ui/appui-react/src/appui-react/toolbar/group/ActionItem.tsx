@@ -13,21 +13,24 @@ import { ToolGroupOverflowContext } from "./OverflowButton";
 import { Item } from "./Item";
 
 /** @internal */
-interface ActionItemProps extends CommonProps {
+export interface ActionItemProps extends CommonProps {
   item: ToolbarActionItem;
 }
 
 /** @internal */
-export function ActionItem(props: ActionItemProps) {
-  const { item } = props;
-  const toolGroupOverflow = React.useContext(ToolGroupOverflowContext);
-  return (
-    <Item
-      item={item}
-      onClick={() => {
-        toolGroupOverflow?.onClose?.();
-        item.execute();
-      }}
-    />
-  );
-}
+export const ActionItem = React.forwardRef<HTMLButtonElement, ActionItemProps>(
+  function ActionItem(props, ref) {
+    const { item } = props;
+    const toolGroupOverflow = React.useContext(ToolGroupOverflowContext);
+    return (
+      <Item
+        ref={ref}
+        item={item}
+        onClick={() => {
+          toolGroupOverflow?.onClose?.();
+          item.execute();
+        }}
+      />
+    );
+  }
+);

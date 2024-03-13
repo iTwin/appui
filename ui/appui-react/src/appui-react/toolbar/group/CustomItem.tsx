@@ -17,35 +17,39 @@ import { Item } from "./Item";
 import { usePlacement } from "./GroupItem";
 
 /** @internal */
-interface CustomItemProps extends CommonProps {
+export interface CustomItemProps extends CommonProps {
   item: ToolbarCustomItem;
 }
 
 /** @internal */
-export function CustomItem(props: CustomItemProps) {
-  const { item } = props;
-  const isHidden = useConditionalValue(item.isHidden);
-  const placement = usePlacement();
+export const CustomItem = React.forwardRef<HTMLButtonElement, CustomItemProps>(
+  function CustomItem(props, ref) {
+    const { item } = props;
+    const isHidden = useConditionalValue(item.isHidden);
+    const placement = usePlacement();
 
-  const menuItems = React.useCallback<
-    React.ComponentProps<typeof DropdownButton>["menuItems"]
-  >(
-    (_close) => {
-      return [<MenuExtraContent key={0}>{item.panelContent}</MenuExtraContent>];
-    },
-    [item]
-  );
-  if (isHidden) return null;
-  return (
-    <DropdownMenu
-      className={props.className}
-      style={props.style}
-      menuItems={menuItems}
-      placement={placement}
-    >
-      <Item item={item}>
-        <ExpandIndicator />
-      </Item>
-    </DropdownMenu>
-  );
-}
+    const menuItems = React.useCallback<
+      React.ComponentProps<typeof DropdownButton>["menuItems"]
+    >(
+      (_close) => {
+        return [
+          <MenuExtraContent key={0}>{item.panelContent}</MenuExtraContent>,
+        ];
+      },
+      [item]
+    );
+    if (isHidden) return null;
+    return (
+      <DropdownMenu
+        className={props.className}
+        style={props.style}
+        menuItems={menuItems}
+        placement={placement}
+      >
+        <Item ref={ref} item={item}>
+          <ExpandIndicator />
+        </Item>
+      </DropdownMenu>
+    );
+  }
+);

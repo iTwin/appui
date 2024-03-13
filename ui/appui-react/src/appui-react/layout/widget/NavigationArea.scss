@@ -44,8 +44,8 @@
     grid-area: htools;
     width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    flex-direction: row;
+    justify-content: flex-end;
     min-width: 0;
 
     > .components-toolbar-overflow-sizer {

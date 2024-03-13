@@ -39,7 +39,7 @@ export function Toolbar({
         panelAlignment,
       }}
     >
-      <ToolGroup orientation={orientation}>
+      <ToolGroup alignment={panelAlignment} orientation={orientation}>
         {props.items.map((item) => {
           if (isToolbarActionItem(item)) {
             return <ToolGroup.ActionItem key={item.id} item={item} />;
@@ -73,7 +73,6 @@ function toOrientation(expandsTo: Required<ToolbarProps>["expandsTo"]) {
       return "vertical";
     case "top":
     case "bottom":
-    default:
       return "horizontal";
   }
 }
