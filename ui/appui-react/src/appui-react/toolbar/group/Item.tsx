@@ -31,7 +31,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
     const isDisabled = useConditionalValue(item.isDisabled);
     const isHidden = useConditionalValue(item.isHidden);
     const iconSpec = useConditionalValue(item.icon);
-    const placement = useExpandsTo();
+    const labelProps = useLabelProps();
 
     if (isHidden) return null;
     return (
@@ -41,10 +41,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
         disabled={isDisabled}
         isActive={item.isActive}
         label={<Label label={label} description={description} />}
-        labelProps={{
-          className: "uifw-toolbar-group-item_label",
-          placement,
-        }}
+        labelProps={labelProps}
         style={props.style}
         ref={ref}
         {...other}
@@ -79,4 +76,13 @@ export function useExpandsTo() {
 
   const { expandsTo } = context;
   return expandsTo;
+}
+
+/** @internal */
+export function useLabelProps() {
+  const placement = useExpandsTo();
+  return {
+    className: "uifw-toolbar-group-item_label",
+    placement,
+  } as const;
 }
