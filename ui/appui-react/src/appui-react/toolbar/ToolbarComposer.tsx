@@ -167,17 +167,9 @@ const useProximityOpacitySetting = () => {
   );
 
   React.useEffect(() => {
-    // istanbul ignore next
-    const handleUiVisibilityChanged = () => {
-      // eslint-disable-next-line deprecation/deprecation
-      setProximityOpacity(UiFramework.visibility.useProximityOpacity);
-    };
-    UiFramework.onUiVisibilityChanged.addListener(handleUiVisibilityChanged);
-    return () => {
-      UiFramework.onUiVisibilityChanged.removeListener(
-        handleUiVisibilityChanged
-      );
-    };
+    UiFramework.onUiVisibilityChanged.addListener(
+      () => setProximityOpacity(UiFramework.visibility.useProximityOpacity) // eslint-disable-line deprecation/deprecation
+    );
   }, []);
 
   return proximityOpacity;
@@ -189,16 +181,9 @@ const useSnapWidgetOpacitySetting = () => {
   );
 
   React.useEffect(() => {
-    // istanbul ignore next
-    const handleUiVisibilityChanged = () => {
-      setSnapWidgetOpacity(UiFramework.visibility.snapWidgetOpacity);
-    };
-    UiFramework.onUiVisibilityChanged.addListener(handleUiVisibilityChanged);
-    return () => {
-      UiFramework.onUiVisibilityChanged.removeListener(
-        handleUiVisibilityChanged
-      );
-    };
+    UiFramework.onUiVisibilityChanged.addListener(() =>
+      setSnapWidgetOpacity(UiFramework.visibility.snapWidgetOpacity)
+    );
   }, []);
 
   return snapWidgetOpacity;
