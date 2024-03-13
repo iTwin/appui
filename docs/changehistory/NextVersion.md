@@ -47,6 +47,8 @@ Table of contents:
 
 - `MenuItemProps` in favor of `CursorMenuItemProps`. [#729](https://github.com/iTwin/appui/pull/729)
 
+- `useProximityOpacity` setting of `FrameworkVisibility` is deprecated. The preferred mode is to change opacity immediately when the mouse gets close (use `FrameworkVisibility.snapWidgetOpacity`). [#765](https://github.com/iTwin/appui/pull/765)
+
 ### Additions
 
 - `UiFramework` methods detailed above which replace FrameworkUiAdmin methods. [#729](https://github.com/iTwin/appui/pull/729)
