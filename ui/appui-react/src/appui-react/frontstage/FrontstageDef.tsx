@@ -722,48 +722,6 @@ export class FrontstageDef {
     });
   }
 
-  /** Used to determine WidgetState from NinezoneState
-   *  @internal
-   */
-  public getWidgetCurrentState(widgetDef: WidgetDef): WidgetState | undefined {
-    const state = this.nineZoneState;
-    if (!state) return widgetDef.defaultState;
-
-    const tab = state.tabs[widgetDef.id];
-    if (tab && tab.unloaded) {
-      return WidgetState.Unloaded;
-    }
-
-    const toolSettingsTabId = state.toolSettings?.tabId;
-    if (
-      toolSettingsTabId === widgetDef.id &&
-      state.toolSettings?.type === "docked"
-    ) {
-      return WidgetState.Open;
-    }
-
-    const location = getTabLocation(state, widgetDef.id);
-
-    // istanbul ignore next
-    if (!location) return WidgetState.Hidden;
-
-    if (isFloatingTabLocation(location)) {
-      return WidgetState.Floating;
-    }
-
-    let collapsedPanel = false;
-    // istanbul ignore else
-    if ("side" in location) {
-      const panel = state.panels[location.side];
-      collapsedPanel =
-        panel.collapsed || undefined === panel.size || 0 === panel.size;
-    }
-    const widgetContainer = state.widgets[location.widgetId];
-    if (widgetDef.id === widgetContainer.activeTabId && !collapsedPanel)
-      return WidgetState.Open;
-    return WidgetState.Closed;
-  }
-
   public isPopoutWidget(widgetId: string) {
     // istanbul ignore else
     if (this.nineZoneState) {

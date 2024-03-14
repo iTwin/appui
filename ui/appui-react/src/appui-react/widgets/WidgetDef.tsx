@@ -29,8 +29,10 @@ import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 import {
   getTabLocation,
+  isFloatingTabLocation,
   isPopoutTabLocation,
 } from "../layout/state/TabLocation";
+import type { NineZoneState } from "../layout/state/NineZoneState";
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -103,12 +105,10 @@ export class WidgetDef {
 
   public get state(): WidgetState {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    if (frontstageDef && frontstageDef.findWidgetDef(this.id)) {
-      const currentState = frontstageDef.getWidgetCurrentState(this);
-      // istanbul ignore else
-      if (undefined !== currentState) return currentState;
-    }
-    return this.defaultState;
+    const state = frontstageDef?.nineZoneState;
+    if (!state) return this.defaultState;
+    if (!frontstageDef.findWidgetDef(this.id)) return this.defaultState;
+    return getWidgetState(this, state);
   }
 
   public get id(): string {
@@ -577,4 +577,40 @@ export class WidgetDef {
       id: this.id,
     });
   }
+}
+
+/** @internal */
+export function getWidgetState(widgetDef: WidgetDef, state: NineZoneState) {
+  const tab = state.tabs[widgetDef.id];
+  if (tab && tab.unloaded) {
+    return WidgetState.Unloaded;
+  }
+
+  const toolSettingsTabId = state.toolSettings?.tabId;
+  if (
+    toolSettingsTabId === widgetDef.id &&
+    state.toolSettings?.type === "docked"
+  ) {
+    return WidgetState.Open;
+  }
+
+  const location = getTabLocation(state, widgetDef.id);
+  if (!location) {
+    return WidgetState.Hidden;
+  }
+
+  if (isFloatingTabLocation(location)) {
+    return WidgetState.Floating;
+  }
+
+  let collapsedPanel = false;
+  if ("side" in location) {
+    const panel = state.panels[location.side];
+    collapsedPanel =
+      panel.collapsed || undefined === panel.size || 0 === panel.size;
+  }
+  const widgetContainer = state.widgets[location.widgetId];
+  if (widgetDef.id === widgetContainer.activeTabId && !collapsedPanel)
+    return WidgetState.Open;
+  return WidgetState.Closed;
 }
