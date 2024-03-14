@@ -17,7 +17,7 @@ import { CommonPropertyRenderer } from "../../../properties/renderers/CommonProp
 import type { PrimitiveRendererProps } from "../../../properties/renderers/PrimitivePropertyRenderer";
 import { PrimitivePropertyRenderer } from "../../../properties/renderers/PrimitivePropertyRenderer";
 import type { SharedRendererProps } from "../../../properties/renderers/PropertyRenderer";
-import type { PropertyValueRendererManager } from "../../../properties/ValueRendererManager";
+import { PropertyValueRendererManager } from "../../../properties/ValueRendererManager";
 import type { PropertyCategory } from "../../PropertyDataProvider";
 import { FlatNonPrimitivePropertyRenderer } from "./FlatNonPrimitivePropertyRenderer";
 
@@ -94,6 +94,18 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
     valueElementRenderer,
     indentation: props.indentation,
   };
+
+  const rendererManager =
+    propertyValueRendererManager ?? PropertyValueRendererManager.defaultManager;
+  const property = passthroughProps.propertyRecord.property;
+  const propertyRenderer =
+    property.renderer &&
+    rendererManager?.getRegisteredRenderer(property.renderer.name);
+  const typeRenderer = rendererManager?.getRegisteredRenderer(
+    property.typename
+  );
+  const hasCustomRenderer = !!(propertyRenderer || typeRenderer);
+
   switch (props.propertyRecord.value.valueFormat) {
     case PropertyValueFormat.Primitive:
       return (
@@ -104,17 +116,29 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
       );
 
     case PropertyValueFormat.Array:
-      // If array is empty, render it as a primitive property
-      if (props.propertyRecord.value.items.length === 0)
+      // If array is empty or has a custom renderer registered, render it as a primitive property
+      if (props.propertyRecord.value.items.length === 0 || hasCustomRenderer)
         return (
           <PrimitivePropertyRenderer
             highlight={highlight?.applyOnLabel ? highlight : undefined}
+            renderValueElementForNonPrimitiveProperty={hasCustomRenderer}
             {...primitiveRendererProps}
           />
         );
 
     // eslint-disable-next-line no-fallthrough
     case PropertyValueFormat.Struct:
+      // If a custom renderer is registered for the struct property, render it as a primitive property
+      if (hasCustomRenderer) {
+        return (
+          <PrimitivePropertyRenderer
+            highlight={highlight?.applyOnLabel ? highlight : undefined}
+            renderValueElementForNonPrimitiveProperty={true}
+            {...primitiveRendererProps}
+          />
+        );
+      }
+
       return (
         <FlatNonPrimitivePropertyRenderer
           isExpanded={props.isExpanded}

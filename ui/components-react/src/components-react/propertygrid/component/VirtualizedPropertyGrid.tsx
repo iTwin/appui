@@ -583,16 +583,8 @@ const FlatGridItemNode = React.memo(
                 isHoverable={gridContext.isPropertyHoverEnabled}
                 isSelectable={gridContext.isPropertySelectionEnabled}
                 isSelected={selectionKey === gridContext.selectedPropertyKey}
-                onClick={
-                  node.type === FlatGridItemType.Primitive
-                    ? gridContext.onPropertyClicked
-                    : undefined
-                }
-                onRightClick={
-                  node.type === FlatGridItemType.Primitive
-                    ? gridContext.onPropertyRightClicked
-                    : undefined
-                }
+                onClick={gridContext.onPropertyClicked}
+                onRightClick={gridContext.onPropertyRightClicked}
                 onContextMenu={gridContext.onPropertyContextMenu}
                 category={parentCategoryItem.derivedCategory}
                 isEditing={selectionKey === gridContext.editingPropertyKey}

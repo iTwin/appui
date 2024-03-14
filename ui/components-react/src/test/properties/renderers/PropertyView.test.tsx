@@ -514,6 +514,25 @@ describe("PropertyView", () => {
     expect(screen.queryByText("Vilnius")).to.be.null;
   });
 
+  it("renders value element when property record is non primitive and `renderValueElementForNonPrimitiveProperty` is true", () => {
+    propertyRecord = TestUtils.createStructProperty("StructProperty");
+    render(
+      <PropertyView
+        renderValueElementForNonPrimitiveProperty={true}
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        labelElement={"City"}
+        valueElement={"Vilnius"}
+      />
+    );
+    expect(
+      screen.getByText("City", {
+        selector: ".components-property-record-label",
+      })
+    ).to.exist;
+    expect(screen.queryByText("Vilnius")).to.not.be.null;
+  });
+
   it("calls onContextMenu callback on property right click", async () => {
     const callback = sinon.spy();
     render(

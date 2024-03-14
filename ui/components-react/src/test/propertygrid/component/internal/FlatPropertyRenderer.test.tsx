@@ -144,7 +144,7 @@ describe("FlatPropertyRenderer", () => {
     expect(highlightedNode!.textContent).to.eq("rr");
   });
 
-  it("renders struct as a non primitive value", () => {
+  it("renders array as a non primitive value", () => {
     propertyRecord = TestUtils.createArrayProperty("StringArray", [
       TestUtils.createPrimitiveStringProperty("Label", "Model"),
     ]);
@@ -168,7 +168,107 @@ describe("FlatPropertyRenderer", () => {
     );
   });
 
-  it("renders array as a non primitive value", () => {
+  it("renders array as a non primitive value when renderer assigned but not registered", () => {
+    propertyRecord = TestUtils.createArrayProperty("StringArray", [
+      TestUtils.createPrimitiveStringProperty("Label", "Model"),
+    ]);
+    propertyRecord.property.renderer = { name: "nonRegisteredRenderer" };
+
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+      />
+    );
+
+    expect(screen.getByTitle("StringArray (1)")).satisfy(
+      selectorMatches(
+        [
+          ".components-nonprimitive-property-label-renderer",
+          ".components-property-label-renderer",
+        ].join(" ")
+      )
+    );
+  });
+
+  it("renders array as a primitive value when a custom property renderer is registered", () => {
+    propertyRecord = TestUtils.createArrayProperty("StringArray", [
+      TestUtils.createPrimitiveStringProperty("Label", "Model"),
+    ]);
+    propertyRecord.property.renderer = { name: "CustomArrayRenderer" };
+
+    const customRenderer = {
+      canRender: () => true,
+      render: () => <div>My value</div>,
+    };
+
+    PropertyValueRendererManager.defaultManager.registerRenderer(
+      "CustomArrayRenderer",
+      customRenderer
+    );
+
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+      />
+    );
+
+    expect(screen.getByTitle("StringArray")).satisfy(
+      selectorMatches(
+        [
+          ".components-primitive-property-label-renderer",
+          ".components-property-label-renderer",
+        ].join(" ")
+      )
+    );
+  });
+
+  it("renders array as a primitive value when a custom typename renderer is registered", () => {
+    propertyRecord = TestUtils.createArrayProperty("StringArray", [
+      TestUtils.createPrimitiveStringProperty("Label", "Model"),
+    ]);
+    propertyRecord.property.typename = "customArrayTypename";
+
+    const customRenderer = {
+      canRender: () => true,
+      render: () => <div>My value</div>,
+    };
+
+    PropertyValueRendererManager.defaultManager.registerRenderer(
+      "customArrayTypename",
+      customRenderer
+    );
+
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+        highlight={{
+          highlightedText: "rr",
+          applyOnLabel: true,
+          applyOnValue: true,
+        }}
+      />
+    );
+
+    expect(screen.getByTitle("StringArray")).satisfy(
+      selectorMatches(
+        [
+          ".components-primitive-property-label-renderer",
+          ".components-property-label-renderer",
+        ].join(" ")
+      )
+    );
+  });
+
+  it("renders struct as a non primitive value", () => {
     propertyRecord = TestUtils.createStructProperty("Struct");
 
     render(
@@ -184,6 +284,100 @@ describe("FlatPropertyRenderer", () => {
       selectorMatches(
         [
           ".components-nonprimitive-property-label-renderer",
+          ".components-property-label-renderer",
+        ].join(" ")
+      )
+    );
+  });
+
+  it("renders struct as a non primitive value when renderer assigned but not registered", () => {
+    propertyRecord = TestUtils.createStructProperty("Struct");
+    propertyRecord.property.renderer = { name: "nonRegisteredRenderer" };
+
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+      />
+    );
+
+    expect(screen.getByTitle("Struct")).satisfy(
+      selectorMatches(
+        [
+          ".components-nonprimitive-property-label-renderer",
+          ".components-property-label-renderer",
+        ].join(" ")
+      )
+    );
+  });
+
+  it("renders struct as a primitive value when a custom property renderer is registered", () => {
+    propertyRecord = TestUtils.createStructProperty("Struct");
+    propertyRecord.property.renderer = { name: "CustomStructRenderer" };
+
+    const customRenderer = {
+      canRender: () => true,
+      render: () => <div>My value</div>,
+    };
+
+    PropertyValueRendererManager.defaultManager.registerRenderer(
+      "CustomStructRenderer",
+      customRenderer
+    );
+
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+      />
+    );
+
+    expect(screen.getByTitle("Struct")).satisfy(
+      selectorMatches(
+        [
+          ".components-primitive-property-label-renderer",
+          ".components-property-label-renderer",
+        ].join(" ")
+      )
+    );
+  });
+
+  it("renders struct as a primitive value when a custom typename renderer is registered", () => {
+    propertyRecord = TestUtils.createStructProperty("Struct");
+    propertyRecord.property.typename = "customStructTypename";
+
+    const customRenderer = {
+      canRender: () => true,
+      render: () => <div>My value</div>,
+    };
+
+    PropertyValueRendererManager.defaultManager.registerRenderer(
+      "customStructTypename",
+      customRenderer
+    );
+
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+        highlight={{
+          highlightedText: "rr",
+          applyOnLabel: true,
+          applyOnValue: true,
+        }}
+      />
+    );
+
+    expect(screen.getByTitle("Struct")).satisfy(
+      selectorMatches(
+        [
+          ".components-primitive-property-label-renderer",
           ".components-property-label-renderer",
         ].join(" ")
       )

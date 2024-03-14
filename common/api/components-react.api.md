@@ -1861,6 +1861,7 @@ export function PrimitivePropertyValueRendererImpl(props: PrimitivePropertyValue
 export interface PrimitiveRendererProps extends SharedRendererProps {
     highlight?: HighlightingComponentProps;
     indentation?: number;
+    renderValueElementForNonPrimitiveProperty?: boolean;
     valueElement?: React_3.ReactNode;
     valueElementRenderer?: () => React_3.ReactNode;
 }
@@ -2461,6 +2462,7 @@ export class PropertyView extends React_3.Component<PropertyViewProps, PropertyV
 // @public
 export interface PropertyViewProps extends SharedRendererProps {
     labelElement: React_3.ReactNode;
+    renderValueElementForNonPrimitiveProperty?: boolean;
     valueElement?: React_3.ReactNode;
     valueElementRenderer?: () => React_3.ReactNode;
 }

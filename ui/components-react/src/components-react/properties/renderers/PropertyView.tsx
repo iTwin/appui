@@ -22,8 +22,10 @@ export interface PropertyViewProps extends SharedRendererProps {
   labelElement: React.ReactNode;
   /** Property value as a React element */
   valueElement?: React.ReactNode;
-  /** Render callback for property value. If specified, `valueElement` is ignored. */
+  /** Render callback for property value. If specified, `valueElement` is ignored */
   valueElementRenderer?: () => React.ReactNode;
+  /** Should value element be rendered for non primitive property. False by default */
+  renderValueElementForNonPrimitiveProperty?: boolean;
 }
 
 /** @internal */
@@ -89,6 +91,10 @@ export class PropertyView extends React.Component<
     const columnsStyleProvider = new PropertyGridColumnStyleProvider(
       this.props.columnInfo
     );
+    const renderValueElement =
+      this.props.renderValueElementForNonPrimitiveProperty ||
+      this.props.propertyRecord.value.valueFormat ===
+        PropertyValueFormat.Primitive;
 
     return (
       <div
@@ -120,8 +126,7 @@ export class PropertyView extends React.Component<
             onResizeHandleDragChanged={this.props.onResizeHandleDragChanged}
           />
         ) : undefined}
-        {this.props.propertyRecord.value.valueFormat ===
-        PropertyValueFormat.Primitive ? (
+        {renderValueElement ? (
           <div className="components-property-record-value">
             <span>
               {this.props.valueElementRenderer
