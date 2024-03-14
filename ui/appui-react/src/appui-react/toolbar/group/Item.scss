@@ -4,5 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 .uifw-toolbar-group-item_label {
   z-index: 99999;
+
+  // Make sure toolbar items overlapped by the label can be selected. Need a better approach to support key-binding.
   pointer-events: none;
 }

@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @layer appui {
-  @layer component, preview;
+  @layer layout, component, preview;
 
   @layer preview {
     @layer horizontal-panel-alignment, enable-maximized-widget;

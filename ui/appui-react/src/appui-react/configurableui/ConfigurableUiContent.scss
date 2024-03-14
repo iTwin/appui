@@ -73,16 +73,18 @@
   margin-bottom: 6px;
 }
 
-.uifw-configurableui-portalContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 99999;
-  pointer-events: none;
+@layer appui.layout {
+  .uifw-configurableui-portalContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    pointer-events: none;
 
-  > * {
-    pointer-events: all;
+    > * {
+      pointer-events: all;
+    }
   }
 }
