@@ -166,11 +166,10 @@ export class FrontstageDef {
     }
   }
 
-  private populateStateMaps(
-    nineZone: NineZoneState,
-    panelMap: Map<StagePanelDef, StagePanelState>,
-    widgetMap: Map<WidgetDef, WidgetState>
-  ) {
+  private populateStateMaps(nineZone: NineZoneState) {
+    const panelMap = new Map<StagePanelDef, StagePanelState>();
+    const widgetMap = new Map<WidgetDef, WidgetState>();
+
     for (const panelSide of panelSides) {
       const panel = nineZone.panels[panelSide];
       const location = this.toStagePanelLocation(panelSide);
@@ -211,6 +210,7 @@ export class FrontstageDef {
         widgetState = WidgetState.Closed;
       widgetMap.set(widgetDef, widgetState);
     }
+    return { panelMap, widgetMap };
   }
 
   private triggerStateChangeEvents(oldState: NineZoneState) {
@@ -219,25 +219,18 @@ export class FrontstageDef {
 
     if (this._isStageClosing || this._isApplicationClosing) return;
 
-    const originalPanelStateMap = new Map<StagePanelDef, StagePanelState>();
-    const originalWidgetStateMap = new Map<WidgetDef, WidgetState>();
-    const newPanelStateMap = new Map<StagePanelDef, StagePanelState>();
-    const newWidgetStateMap = new Map<WidgetDef, WidgetState>();
-    this.populateStateMaps(
-      oldState,
-      originalPanelStateMap,
-      originalWidgetStateMap
-    );
-    this.populateStateMaps(newState, newPanelStateMap, newWidgetStateMap);
+    const { panelMap, widgetMap } = this.populateStateMaps(oldState);
+    const { panelMap: newPanelMap, widgetMap: newWidgetMap } =
+      this.populateStateMaps(newState);
 
     // Now walk and trigger set state events
-    newWidgetStateMap.forEach((newWidgetState, widgetDef) => {
-      const originalState = originalWidgetStateMap.get(widgetDef);
+    newWidgetMap.forEach((newWidgetState, widgetDef) => {
+      const originalState = widgetMap.get(widgetDef);
       if (originalState === newWidgetState) return;
       widgetDef.handleWidgetStateChanged(newWidgetState);
     });
-    newPanelStateMap.forEach((newPanelState, panelDef) => {
-      const originalState = originalPanelStateMap.get(panelDef);
+    newPanelMap.forEach((newPanelState, panelDef) => {
+      const originalState = panelMap.get(panelDef);
       if (originalState === newPanelState) return;
       panelDef.handlePanelStateChanged(newPanelState);
     });
