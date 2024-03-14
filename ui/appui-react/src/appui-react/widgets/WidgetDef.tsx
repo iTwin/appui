@@ -30,6 +30,7 @@ import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl
 import {
   getTabLocation,
   isFloatingTabLocation,
+  isPanelTabLocation,
   isPopoutTabLocation,
 } from "../layout/state/TabLocation";
 import type { NineZoneState } from "../layout/state/NineZoneState";
@@ -581,9 +582,21 @@ export class WidgetDef {
 
 /** @internal */
 export function getWidgetState(widgetDef: WidgetDef, state: NineZoneState) {
+  // if (widgetDef === this.toolSettings) {
+  //   if (!state.toolSettings) {
+  //     return WidgetState.Hidden;
+  //   } else if (state.toolSettings.type === "docked") {
+  //     return WidgetState.Open;
+  //   }
+  // }
+
   const tab = state.tabs[widgetDef.id];
   if (tab && tab.unloaded) {
     return WidgetState.Unloaded;
+  }
+
+  if (state.draggedTab?.tabId === widgetDef.id) {
+    return WidgetState.Closed;
   }
 
   const toolSettingsTabId = state.toolSettings?.tabId;
@@ -603,14 +616,15 @@ export function getWidgetState(widgetDef: WidgetDef, state: NineZoneState) {
     return WidgetState.Floating;
   }
 
-  let collapsedPanel = false;
-  if ("side" in location) {
+  if (isPanelTabLocation(location)) {
     const panel = state.panels[location.side];
-    collapsedPanel =
-      panel.collapsed || undefined === panel.size || 0 === panel.size;
+    if (panel.collapsed || undefined === panel.size || 0 === panel.size)
+      return WidgetState.Closed;
   }
-  const widgetContainer = state.widgets[location.widgetId];
-  if (widgetDef.id === widgetContainer.activeTabId && !collapsedPanel)
-    return WidgetState.Open;
-  return WidgetState.Closed;
+
+  const widget = state.widgets[location.widgetId];
+  if (widget.minimized || widgetDef.id !== widget.activeTabId)
+    return WidgetState.Closed;
+
+  return WidgetState.Open;
 }

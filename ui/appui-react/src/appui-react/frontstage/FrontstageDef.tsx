@@ -53,7 +53,7 @@ import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StagePanelState } from "../stagepanels/StagePanelState";
 import type { WidgetConfig } from "../widgets/WidgetConfig";
 import type { WidgetControl } from "../widgets/WidgetControl";
-import { WidgetDef, WidgetType } from "../widgets/WidgetDef";
+import { getWidgetState, WidgetDef, WidgetType } from "../widgets/WidgetDef";
 import { WidgetState } from "../widgets/WidgetState";
 import type { FrontstageConfig } from "./FrontstageConfig";
 import type { FrontstageProvider } from "./FrontstageProvider";
@@ -182,32 +182,7 @@ export class FrontstageDef {
     }
 
     for (const widgetDef of this.widgetDefs) {
-      const widgetId = widgetDef.id;
-      if (widgetDef === this.toolSettings) {
-        if (!nineZone.toolSettings) {
-          widgetMap.set(widgetDef, WidgetState.Hidden);
-          continue;
-        } else if (nineZone.toolSettings.type === "docked") {
-          widgetMap.set(widgetDef, WidgetState.Open);
-          continue;
-        }
-      }
-
-      if (nineZone.draggedTab?.tabId === widgetId) {
-        widgetMap.set(widgetDef, WidgetState.Closed);
-        continue;
-      }
-
-      const tabLocation = getTabLocation(nineZone, widgetId);
-      if (!tabLocation) {
-        widgetMap.set(widgetDef, WidgetState.Hidden);
-        continue;
-      }
-
-      const widget = nineZone.widgets[tabLocation.widgetId];
-      let widgetState = WidgetState.Open;
-      if (widget.minimized || widgetId !== widget.activeTabId)
-        widgetState = WidgetState.Closed;
+      const widgetState = getWidgetState(widgetDef, nineZone);
       widgetMap.set(widgetDef, widgetState);
     }
     return { panelMap, widgetMap };
