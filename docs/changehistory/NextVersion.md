@@ -90,4 +90,4 @@ Table of contents:
 
 ### Changes
 
-- Updated visual styling of `SolarTimeline` and `TimelineComponent` components. [#733](https://github.com/iTwin/appui/pull/733)
+- Updated visual styling of `SolarTimeline` and `TimelineComponent` components. [#733](https://github.com/iTwin/appui/pull/733), [#763](https://github.com/iTwin/appui/pull/763)

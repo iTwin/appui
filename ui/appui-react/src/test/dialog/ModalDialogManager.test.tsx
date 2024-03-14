@@ -12,7 +12,6 @@ import {
   StandardMessageBox,
   UiFramework,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("ModalDialogManager", () => {
@@ -22,25 +21,22 @@ describe("ModalDialogManager", () => {
     spyMethod();
   }
 
-  before(async () => {
-    await TestUtils.initializeUiFramework(true);
-
+  beforeEach(() => {
     UiFramework.dialogs.modal.onModalDialogChangedEvent.addListener(
       handleModalDialogChanged
     );
   });
 
-  after(() => {
+  afterEach(() => {
     UiFramework.dialogs.modal.onModalDialogChangedEvent.removeListener(
       handleModalDialogChanged
     );
-    TestUtils.terminateUiFramework(); // clear out the framework key
   });
 
   it("ModalDialogRenderer component", async () => {
     const reactNode = (
       <StandardMessageBox
-        opened={false}
+        opened={true}
         title="My Title"
         iconType={MessageBoxIconType.Critical}
         messageBoxType={MessageBoxType.YesNoCancel}
@@ -64,7 +60,7 @@ describe("ModalDialogManager", () => {
   it("ModalDialogRenderer component with two dialogs", async () => {
     const reactNode = (
       <StandardMessageBox
-        opened={false}
+        opened={true}
         title="My Title"
         iconType={MessageBoxIconType.Critical}
         messageBoxType={MessageBoxType.YesNoCancel}
@@ -72,7 +68,7 @@ describe("ModalDialogManager", () => {
     );
     const reactNode2 = (
       <StandardMessageBox
-        opened={false}
+        opened={true}
         title="My Title 2"
         iconType={MessageBoxIconType.Critical}
         messageBoxType={MessageBoxType.YesNoCancel}
