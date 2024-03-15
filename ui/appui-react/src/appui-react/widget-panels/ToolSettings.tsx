@@ -208,6 +208,7 @@ export function ToolSettingsContent() {
 export function ToolSettingsWidgetContent() {
   const floatingToolSettingsContainerRef = React.useRef<HTMLDivElement>(null);
   const node = useToolSettingsNode();
+  const activeToolId = useActiveToolId();
   const forceRefreshKey = useRefreshKey(node);
 
   // if no tool settings hide the floating widgets tab
@@ -234,7 +235,9 @@ export function ToolSettingsWidgetContent() {
       ref={floatingToolSettingsContainerRef}
       key={forceRefreshKey}
     >
-      <ScrollableWidgetContent>{node}</ScrollableWidgetContent>
+      <ScrollableWidgetContent>
+        {node ?? <EmptyToolSettingsLabel toolId={activeToolId} />}
+      </ScrollableWidgetContent>
     </div>
   );
 }
