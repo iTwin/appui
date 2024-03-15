@@ -7,27 +7,28 @@
  */
 
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
 import type { ToolbarActionItem } from "../ToolbarItem";
 import { ToolGroupOverflowContext } from "./OverflowButton";
 import { Item } from "./Item";
+import { GroupMenuItem } from "./GroupItem";
 
 /** @internal */
-export interface ActionItemProps extends CommonProps {
+export interface ActionItemProps {
   item: ToolbarActionItem;
 }
 
 /** @internal */
 export const ActionItem = React.forwardRef<HTMLButtonElement, ActionItemProps>(
-  function ActionItem(props, ref) {
-    const { item } = props;
+  function ActionItem({ item }, ref) {
     const toolGroupOverflow = React.useContext(ToolGroupOverflowContext);
+    if (toolGroupOverflow) {
+      return <GroupMenuItem item={item} />;
+    }
     return (
       <Item
         ref={ref}
         item={item}
         onClick={() => {
-          toolGroupOverflow?.onClose?.();
           item.execute();
         }}
       />

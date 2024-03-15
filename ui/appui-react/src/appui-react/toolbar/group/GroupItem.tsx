@@ -8,7 +8,7 @@
 
 import "./GroupItem.scss";
 import * as React from "react";
-import { type CommonProps, Icon } from "@itwin/core-react";
+import { Icon } from "@itwin/core-react";
 import {
   DropdownMenu,
   MenuExtraContent,
@@ -18,6 +18,7 @@ import {
 import type { ToolbarItem } from "../ToolbarItem";
 import {
   isToolbarActionItem,
+  isToolbarCustomItem,
   isToolbarGroupItem,
   type ToolbarGroupItem,
 } from "../ToolbarItem";
@@ -26,20 +27,23 @@ import { ExpandIndicator } from "./ExpandIndicator";
 import { Item } from "./Item";
 import { ToolbarContext } from "./Toolbar";
 import { Badge } from "./Badge";
+import { ToolGroupOverflowContext } from "./OverflowButton";
 
 /** @internal */
-export interface GroupItemProps extends CommonProps {
+export interface GroupItemProps {
   item: ToolbarGroupItem;
 }
 
 /** @internal */
 export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
   function GroupItem({ item }, ref) {
-    const isHidden = useConditionalValue(item.isHidden);
-    const placement = usePlacement();
+    const placement = usePopoverPlacement();
     const context = React.useContext(ToolbarContext);
+    const toolGroupOverflow = React.useContext(ToolGroupOverflowContext);
 
-    if (isHidden) return null;
+    if (toolGroupOverflow) {
+      return <GroupMenuItem item={item} />;
+    }
     return (
       <DropdownMenu
         menuItems={(_close) => {
@@ -59,7 +63,7 @@ export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
 );
 
 /** @internal */
-export function usePlacement() {
+export function usePopoverPlacement() {
   const context = React.useContext(ToolbarContext);
   if (!context) return undefined;
 
@@ -79,34 +83,31 @@ function MenuTitle({ item }: { item: ToolbarGroupItem }) {
 
 interface GroupMenuItemProps {
   item: ToolbarItem;
-  onExpandGroup?: (item: ToolbarGroupItem) => void;
   onClose?: () => void;
 }
 
-function GroupMenuItem({ item, onExpandGroup, onClose }: GroupMenuItemProps) {
+/** @internal */
+export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
   const iconSpec = useConditionalValue(item.icon);
-  const isDisabled = useConditionalValue(item.isDisabled);
   const label = useConditionalValue(item.label);
+  const isDisabled = useConditionalValue(item.isDisabled);
+  const isHidden = useConditionalValue(item.isHidden);
 
-  const subMenuItems =
-    isToolbarGroupItem(item) && !isDisabled
-      ? toGroupMenuItems(item)
-      : undefined;
+  if (isHidden) {
+    return null;
+  }
+
+  const subMenuItems = isDisabled ? undefined : toSubMenuItems(item);
   return (
     <MenuItem
       startIcon={<Icon iconSpec={iconSpec} />}
       disabled={isDisabled}
       subMenuItems={subMenuItems}
       onClick={() => {
-        if (isToolbarGroupItem(item)) {
-          onExpandGroup?.(item);
-          return;
-        }
         if (isToolbarActionItem(item)) {
           item.execute();
           onClose?.();
         }
-        // TODO: handle custom item which is not supported by current toolbars.
       }}
     >
       <Badge badge={item.badge} />
@@ -120,4 +121,16 @@ function toGroupMenuItems(groupItem: ToolbarGroupItem) {
     return <GroupMenuItem key={item.id} item={item} />;
   });
   return [<MenuTitle key="menu-title" item={groupItem} />, ...items];
+}
+
+function toSubMenuItems(item: ToolbarItem) {
+  if (isToolbarGroupItem(item)) {
+    return toGroupMenuItems(item);
+  }
+  if (isToolbarCustomItem(item)) {
+    return [
+      <MenuExtraContent key={item.id}>{item.panelContent}</MenuExtraContent>,
+    ];
+  }
+  return undefined;
 }

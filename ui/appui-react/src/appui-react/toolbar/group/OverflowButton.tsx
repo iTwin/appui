@@ -13,7 +13,8 @@ import { assert } from "@itwin/core-bentley";
 import { DropdownMenu, IconButton } from "@itwin/itwinui-react";
 import { SvgMore } from "@itwin/itwinui-icons-react";
 import { ToolbarContext } from "./Toolbar";
-import { useExpandsTo, useLabelProps } from "./Item";
+import { useLabelProps } from "./Item";
+import { usePopoverPlacement } from "./GroupItem";
 
 /** @internal */
 interface ToolGroupOverflow {
@@ -27,7 +28,7 @@ export const ToolGroupOverflowContext = React.createContext<
 
 /** @internal */
 export function OverflowButton(props: React.PropsWithChildren<{}>) {
-  const placement = useExpandsTo();
+  const placement = usePopoverPlacement();
   const orientation = useMenuOrientation();
   const labelProps = useLabelProps();
   const context = React.useContext(ToolbarContext);
@@ -63,7 +64,6 @@ interface OverflowMenuProps {
 }
 
 function OverflowMenu({ children, onClose }: OverflowMenuProps) {
-  const childrenArray = React.Children.toArray(children);
   const context = React.useContext(ToolbarContext);
   const placement = useSubMenuPlacement();
   return (
@@ -77,7 +77,7 @@ function OverflowMenu({ children, onClose }: OverflowMenuProps) {
       }}
     >
       <ToolGroupOverflowContext.Provider value={{ onClose }}>
-        {childrenArray}
+        {children}
       </ToolGroupOverflowContext.Provider>
     </ToolbarContext.Provider>
   );

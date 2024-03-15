@@ -235,6 +235,12 @@ export const Hidden: Story = {
         ...items.group3,
         isHidden: true,
       },
+      items.custom1,
+      items.custom2,
+      {
+        ...items.custom3,
+        isHidden: true,
+      },
     ],
   },
 };
