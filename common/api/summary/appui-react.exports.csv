@@ -562,7 +562,7 @@ deprecated;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly To
 alpha;useFloatingViewport(args: FloatingViewportContentProps):
 internal;useFrontstageManager(frontstageDef: FrontstageDef, useToolAsToolSettingsLabel?: boolean): void
 internal;useGroupedItems: (items: ReadonlyArray
-internal;useHorizontalToolSettingEntries(): ToolSettingsEntry[]
+internal;useHorizontalToolSettingEntries(): ToolSettingsEntry[] | undefined
 public;useIsBackstageOpen: (manager: FrameworkBackstage) => boolean
 internal;useItemsManager(frontstageDef: FrontstageDef): void
 internal;useLabels(): NineZoneLabels
