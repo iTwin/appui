@@ -15,6 +15,7 @@ import { DockedToolSettings } from "../layout/tool-settings/Docked";
 import { DockedToolSetting } from "../layout/tool-settings/Setting";
 import { ScrollableWidgetContent } from "../layout/widget/Content";
 import "./ToolSettings.scss";
+import { useActiveToolId } from "../hooks/useActiveToolId";
 
 /** Defines a ToolSettings property entry.
  * @public
@@ -26,9 +27,9 @@ export interface ToolSettingsEntry {
   editorNode: React.ReactNode;
 }
 
-function EmptyToolSettingsEntry(): ToolSettingsEntry {
-  const toolId = UiFramework.frontstages.activeToolId;
-  const toolName = IModelApp.tools.find(toolId)?.flyover;
+function EmptyToolSettingsLabel({ toolId }: { toolId: string }) {
+  const tool = IModelApp.tools.find(toolId);
+  const toolName = tool?.flyover;
   const toolPlaceholderName = IModelApp.localization.getLocalizedString(
     "UiFramework:tools.noToolSettingsPlaceholderName"
   );
@@ -38,15 +39,13 @@ function EmptyToolSettingsEntry(): ToolSettingsEntry {
   const labelStringEnd = IModelApp.localization.getLocalizedString(
     "UiFramework:tools.noToolSettingsEnd"
   );
-  const labelNode = (
+  return (
     <div className="uif-toolsetting-label-docked-horizontal-empty">
       {labelStringStart}
       {toolName ? toolName : toolPlaceholderName}
       {labelStringEnd}
     </div>
   );
-  const editorNode = <div />;
-  return { labelNode, editorNode };
 }
 
 /** @internal */
@@ -77,8 +76,8 @@ export function WidgetPanelsToolSettings() {
 
 /** @internal */
 export function ToolSettingsDockedContent() {
-  const settings = useHorizontalToolSettingNodes();
-  const forceRefreshKey = useRefreshKey(settings);
+  const entries = useHorizontalToolSettingEntries();
+  const forceRefreshKey = useRefreshKey(entries);
   // for the overflow to work properly each setting in the DockedToolSettings should be wrapped by a DockedToolSetting component
   return (
     <DockedToolSettings
@@ -87,8 +86,8 @@ export function ToolSettingsDockedContent() {
       }
       key={forceRefreshKey}
     >
-      {settings &&
-        settings.map((entry, index) => (
+      {entries &&
+        entries.map((entry, index) => (
           <DockedToolSetting key={index}>
             <TsLabel>{entry.labelNode}</TsLabel>
             {entry.editorNode}
@@ -99,27 +98,23 @@ export function ToolSettingsDockedContent() {
 }
 
 /** @internal */
-export function useHorizontalToolSettingNodes() {
+export function useHorizontalToolSettingEntries() {
+  const activeToolId = useActiveToolId();
   React.useEffect(() => {
     UiFramework.frontstages.activeToolInformation?.toolUiProvider?.reloadPropertiesFromTool();
   }, []);
-
   const [settings, setSettings] = React.useState(
     InternalFrontstageManager.activeToolSettingsProvider
       ?.horizontalToolSettingNodes
   );
-  const [emptySettings, setEmptySettings] = React.useState(() => [
-    EmptyToolSettingsEntry(),
-  ]);
   React.useEffect(() => {
     return UiFramework.frontstages.onToolActivatedEvent.addListener(() => {
       const nodes =
         InternalFrontstageManager.activeToolSettingsProvider
           ?.horizontalToolSettingNodes;
       setSettings(nodes);
-      setEmptySettings([EmptyToolSettingsEntry()]);
     });
-  }, [setSettings, setEmptySettings]);
+  }, []);
 
   React.useEffect(() => {
     return UiFramework.frontstages.onToolSettingsReloadEvent.addListener(() => {
@@ -127,9 +122,18 @@ export function useHorizontalToolSettingNodes() {
         InternalFrontstageManager.activeToolSettingsProvider
           ?.horizontalToolSettingNodes;
       setSettings(nodes);
-      setEmptySettings([EmptyToolSettingsEntry()]);
     });
-  }, [setSettings, setEmptySettings]);
+  }, []);
+
+  const emptySettings = React.useMemo<ToolSettingsEntry[]>(
+    () => [
+      {
+        editorNode: <div />,
+        labelNode: <EmptyToolSettingsLabel toolId={activeToolId} />,
+      },
+    ],
+    [activeToolId]
+  );
 
   if (!settings || settings.length === 0) return emptySettings;
   return settings;
