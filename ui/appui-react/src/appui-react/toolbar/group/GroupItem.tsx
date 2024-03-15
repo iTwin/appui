@@ -6,15 +6,25 @@
  * @module Toolbar
  */
 
+import "./GroupItem.scss";
 import * as React from "react";
 import { type CommonProps, Icon } from "@itwin/core-react";
-import { Popover, Surface } from "@itwin/itwinui-react";
-import { isToolbarGroupItem, type ToolbarGroupItem } from "../ToolbarItem";
+import {
+  DropdownMenu,
+  MenuExtraContent,
+  MenuItem,
+  Text,
+} from "@itwin/itwinui-react";
+import type { ToolbarItem } from "../ToolbarItem";
+import {
+  isToolbarActionItem,
+  isToolbarGroupItem,
+  type ToolbarGroupItem,
+} from "../ToolbarItem";
 import { useConditionalValue } from "../../hooks/useConditionalValue";
 import { ExpandIndicator } from "./ExpandIndicator";
 import { Item } from "./Item";
 import { ToolbarContext } from "./Toolbar";
-import { NestedMenu } from "./NestedMenu";
 import { Badge } from "./Badge";
 
 /** @internal */
@@ -24,54 +34,26 @@ export interface GroupItemProps extends CommonProps {
 
 /** @internal */
 export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
-  function GroupItem(props, ref) {
-    const { item } = props;
+  function GroupItem({ item }, ref) {
     const isHidden = useConditionalValue(item.isHidden);
     const placement = usePlacement();
-    const [visible, setVisible] = React.useState(false);
-    const popoverRef = React.useRef<HTMLDivElement>(null);
     const context = React.useContext(ToolbarContext);
 
     if (isHidden) return null;
     return (
-      <Popover
-        content={
-          <Menu
-            item={item}
-            onClose={() => {
-              setVisible(!visible);
-              context?.setPopoverOpen(!visible);
-            }}
-          />
-        }
-        placement={placement}
-        visible={visible}
-        onVisibleChange={(newVisible) => {
-          setVisible(newVisible);
-          context?.setPopoverOpen(newVisible);
+      <DropdownMenu
+        menuItems={(_close) => {
+          return toGroupMenuItems(item);
         }}
-        ref={popoverRef}
-        onKeyDown={(e) => {
-          switch (e.key) {
-            case "ArrowDown":
-            case "ArrowUp":
-            case "ArrowRight":
-            case "ArrowLeft": {
-              // Avoid moving through overflow drop down menu w/ arrow keys.
-              e.stopPropagation();
-              break;
-            }
-            case "Tab": {
-              // Avoid closing the overflow drop down menu if group menu is displayed.
-              e.stopPropagation();
-            }
-          }
+        placement={placement}
+        onVisibleChange={(newVisible) => {
+          context?.setPopoverOpen(newVisible);
         }}
       >
         <Item item={item} ref={ref}>
           <ExpandIndicator />
         </Item>
-      </Popover>
+      </DropdownMenu>
     );
   }
 );
@@ -84,100 +66,58 @@ export function usePlacement() {
   return `${context.expandsTo}-${context.panelAlignment}` as const;
 }
 
-interface MenuProps {
-  item: ToolbarGroupItem;
-  onClose?: () => void;
-}
-
-function Menu({ item, onClose }: MenuProps) {
-  const [groupStack, setGroupStack] = React.useState([item]);
-  const activeGroup = groupStack[groupStack.length - 1];
-  const { items } = activeGroup;
-  const columns = React.useMemo(() => {
-    const columnCount = getColumnCount(items.length);
-    return toColumns(items, columnCount);
-  }, [items]);
-  const nested = groupStack.length > 1;
+function MenuTitle({ item }: { item: ToolbarGroupItem }) {
+  const label = useConditionalValue(item.label);
   return (
-    <Surface elevation={1}>
-      <Surface.Body isPadded>
-        <NestedMenu
-          title={activeGroup.label}
-          nested={nested}
-          onBack={() => {
-            setGroupStack((prev) => prev.slice(0, prev.length - 1));
-          }}
-        >
-          {columns.map((columnItems, columnIndex) => (
-            <NestedMenu.Column key={columnIndex}>
-              {columnItems.map((columnItem) => (
-                <MenuItem
-                  key={columnItem.id}
-                  item={columnItem}
-                  onExpandGroup={(groupItem) => {
-                    setGroupStack((prev) => [...prev, groupItem]);
-                  }}
-                  onClose={onClose}
-                />
-              ))}
-            </NestedMenu.Column>
-          ))}
-        </NestedMenu>
-      </Surface.Body>
-    </Surface>
+    <MenuExtraContent>
+      <Text variant="subheading" className="uifw-toolbar-group-groupItem_title">
+        {label}
+      </Text>
+    </MenuExtraContent>
   );
 }
 
-interface MenuItemProps {
-  item: ToolbarGroupItem["items"][number];
+interface GroupMenuItemProps {
+  item: ToolbarItem;
   onExpandGroup?: (item: ToolbarGroupItem) => void;
   onClose?: () => void;
 }
 
-function MenuItem({ item, onExpandGroup, onClose }: MenuItemProps) {
+function GroupMenuItem({ item, onExpandGroup, onClose }: GroupMenuItemProps) {
   const iconSpec = useConditionalValue(item.icon);
   const isDisabled = useConditionalValue(item.isDisabled);
   const label = useConditionalValue(item.label);
-  const isGroupItem = isToolbarGroupItem(item);
+
+  const subMenuItems =
+    isToolbarGroupItem(item) && !isDisabled
+      ? toGroupMenuItems(item)
+      : undefined;
   return (
-    <NestedMenu.Item
-      icon={<Icon iconSpec={iconSpec} />}
+    <MenuItem
+      startIcon={<Icon iconSpec={iconSpec} />}
       disabled={isDisabled}
-      submenu={isGroupItem}
+      subMenuItems={subMenuItems}
       onClick={() => {
-        if (isGroupItem) {
+        if (isToolbarGroupItem(item)) {
           onExpandGroup?.(item);
           return;
         }
-        item.execute();
-        onClose?.();
+        if (isToolbarActionItem(item)) {
+          item.execute();
+          onClose?.();
+        }
+        // TODO: handle custom item which is not supported by current toolbars.
       }}
     >
       <Badge badge={item.badge} />
       {label}
-    </NestedMenu.Item>
+    </MenuItem>
   );
 }
 
-function getColumnCount(itemCount: number): number {
-  if (itemCount <= 6) return 1;
-  if (itemCount <= 24) return 2;
-  if (itemCount <= 36) return 3;
-  return 4;
-}
-
-function toColumns<T>(
-  items: ReadonlyArray<T>,
-  columnCount: number
-): Array<Array<T>> {
-  const itemsPerColumn = Math.ceil(items.length / columnCount);
-  return items.reduce<Array<Array<T>>>((acc, item, index) => {
-    const columnIndex = Math.floor(index / itemsPerColumn);
-    if (columnIndex >= acc.length) {
-      acc.push([item]);
-      return acc;
-    }
-    acc[columnIndex].push(item);
-    return acc;
-  }, []);
+function toGroupMenuItems(groupItem: ToolbarGroupItem) {
+  const items = groupItem.items.map((item) => {
+    return <GroupMenuItem key={item.id} item={item} />;
+  });
+  return [<MenuTitle key="menu-title" item={groupItem} />, ...items];
 }
