@@ -235,6 +235,7 @@ internal;getPanelState(state: NineZoneState, side: PanelSide): StagePanelState.M
 beta;getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial
 beta;getSelectionContextSyncEventIds(): string[]
 beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry
+internal;getWidgetState(widgetDef: WidgetDef, state: NineZoneState): WidgetState
 internal;GroupedItems = ReadonlyArray
 public;GroupItemDef 
 public;GroupItemProps 
