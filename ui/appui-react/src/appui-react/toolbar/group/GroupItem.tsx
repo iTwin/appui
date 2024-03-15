@@ -37,16 +37,8 @@ export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
         content={<Menu item={item} onClose={() => setVisible(!visible)} />}
         placement={placement}
         visible={visible}
-        onVisibleChange={setVisible}
+        onVisibleChange={(v) => setVisible(v)}
         ref={popoverRef}
-        onBlur={(e) => {
-          // TODO: potential iTwinUI issue. Multiple buttons w/ popovers shift-tab moves focus to the last button.
-          // Close on shift-tab.
-          const el = popoverRef.current;
-          if (!el) return;
-          if (el.contains(e.relatedTarget)) return;
-          setVisible(false);
-        }}
         onKeyDown={(e) => {
           switch (e.key) {
             case "ArrowDown":
