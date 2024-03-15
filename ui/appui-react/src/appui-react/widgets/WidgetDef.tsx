@@ -581,25 +581,25 @@ export class WidgetDef {
 }
 
 /** @internal */
-export function getWidgetState(widgetDef: WidgetDef, state: NineZoneState) {
-  const tab = state.tabs[widgetDef.id];
+export function getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState) {
+  const tab = nineZone.tabs[widgetDef.id];
   if (tab && tab.unloaded) {
     return WidgetState.Unloaded;
   }
 
-  if (state.draggedTab?.tabId === widgetDef.id) {
+  if (nineZone.draggedTab?.tabId === widgetDef.id) {
     return WidgetState.Closed;
   }
 
-  const toolSettingsTabId = state.toolSettings?.tabId;
+  const toolSettingsTabId = nineZone.toolSettings?.tabId;
   if (
     toolSettingsTabId === widgetDef.id &&
-    state.toolSettings?.type === "docked"
+    nineZone.toolSettings?.type === "docked"
   ) {
-    return state.toolSettings.hidden ? WidgetState.Hidden : WidgetState.Open;
+    return nineZone.toolSettings.hidden ? WidgetState.Hidden : WidgetState.Open;
   }
 
-  const location = getTabLocation(state, widgetDef.id);
+  const location = getTabLocation(nineZone, widgetDef.id);
   if (!location) {
     return WidgetState.Hidden;
   }
@@ -609,12 +609,12 @@ export function getWidgetState(widgetDef: WidgetDef, state: NineZoneState) {
   }
 
   if (isPanelTabLocation(location)) {
-    const panel = state.panels[location.side];
+    const panel = nineZone.panels[location.side];
     if (panel.collapsed || undefined === panel.size || 0 === panel.size)
       return WidgetState.Closed;
   }
 
-  const widget = state.widgets[location.widgetId];
+  const widget = nineZone.widgets[location.widgetId];
   if (widget.minimized || widgetDef.id !== widget.activeTabId)
     return WidgetState.Closed;
 
