@@ -76,8 +76,24 @@ export function WidgetPanelsToolSettings() {
 
 /** @internal */
 export function ToolSettingsDockedContent() {
-  const entries = useHorizontalToolSettingEntries();
-  const forceRefreshKey = useRefreshKey(entries);
+  const activeToolId = useActiveToolId();
+  const toolSettingEntries = useHorizontalToolSettingEntries();
+  const forceRefreshKey = useRefreshKey(toolSettingEntries);
+
+  const emptySettings = React.useMemo<ToolSettingsEntry[]>(
+    () => [
+      {
+        editorNode: <div />,
+        labelNode: <EmptyToolSettingsLabel toolId={activeToolId} />,
+      },
+    ],
+    [activeToolId]
+  );
+  const entries =
+    !toolSettingEntries || toolSettingEntries.length === 0
+      ? emptySettings
+      : toolSettingEntries;
+
   // for the overflow to work properly each setting in the DockedToolSettings should be wrapped by a DockedToolSetting component
   return (
     <DockedToolSettings
@@ -99,7 +115,6 @@ export function ToolSettingsDockedContent() {
 
 /** @internal */
 export function useHorizontalToolSettingEntries() {
-  const activeToolId = useActiveToolId();
   React.useEffect(() => {
     UiFramework.frontstages.activeToolInformation?.toolUiProvider?.reloadPropertiesFromTool();
   }, []);
@@ -125,17 +140,6 @@ export function useHorizontalToolSettingEntries() {
     });
   }, []);
 
-  const emptySettings = React.useMemo<ToolSettingsEntry[]>(
-    () => [
-      {
-        editorNode: <div />,
-        labelNode: <EmptyToolSettingsLabel toolId={activeToolId} />,
-      },
-    ],
-    [activeToolId]
-  );
-
-  if (!settings || settings.length === 0) return emptySettings;
   return settings;
 }
 

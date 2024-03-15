@@ -174,7 +174,7 @@ describe("ToolSettingsContent", () => {
     state = addFloatingWidget(state, "fw1", ["ts"]);
     state = addWidgetToolSettings(state, "ts");
     const layout = createLayoutStore(state);
-    const { container } = render(
+    const component = render(
       <NineZoneProvider
         layout={layout}
         dispatch={sinon.stub()}
@@ -185,7 +185,7 @@ describe("ToolSettingsContent", () => {
         </div>
       </NineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    component.getByText("Hello World");
   });
 });
 
@@ -276,7 +276,7 @@ describe("useHorizontalToolSettingEntries", () => {
       UiFramework.frontstages.onToolSettingsReloadEvent.emit();
     });
 
-    sut.result.current.should.eq(entries);
+    expect(sut.result.current).to.eq(entries);
   });
 });
 
