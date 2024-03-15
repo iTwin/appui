@@ -6,7 +6,6 @@
  * @module Widget
  */
 
-import { assert } from "@itwin/core-bentley";
 import { Point } from "@itwin/core-react";
 import * as React from "react";
 import { useTransientState } from "../../widget-panels/useTransientState";
@@ -29,15 +28,14 @@ export function ScrollableWidgetContent(props: ScrollableWidgetContentProps) {
   const scrollPosition = React.useRef(new Point());
   const ref = React.useRef<HTMLDivElement>(null);
   const onSave = React.useCallback(() => {
-    // istanbul ignore else
-    if (!!ref.current)
-      scrollPosition.current = new Point(
-        ref.current.scrollLeft,
-        ref.current.scrollTop
-      );
+    if (!ref.current) return;
+    scrollPosition.current = new Point(
+      ref.current.scrollLeft,
+      ref.current.scrollTop
+    );
   }, []);
   const onRestore = React.useCallback(() => {
-    assert(!!ref.current);
+    if (!ref.current) return;
     ref.current.scrollLeft = scrollPosition.current.x;
     ref.current.scrollTop = scrollPosition.current.y;
   }, []);
