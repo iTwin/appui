@@ -95,7 +95,7 @@ test.describe("tool settings", () => {
   });
 
   test("should float docked tool settings", async ({ page }) => {
-    const dockedToolSettings = page.getByText("does not have tool settings.");
+    const dockedToolSettings = page.getByTitle("Drag to undock");
     const widgetToolSettings = tabLocator(page, "Tool Settings");
 
     await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Floating);
@@ -104,7 +104,7 @@ test.describe("tool settings", () => {
   });
 
   test("should close floating tool settings", async ({ page }) => {
-    const dockedToolSettings = page.getByText("does not have tool settings.");
+    const dockedToolSettings = page.getByTitle("Drag to undock");
     const widgetToolSettings = tabLocator(page, "Tool Settings");
 
     await setWidgetState(page, "WidgetApi:ToolSettings", WidgetState.Floating);
