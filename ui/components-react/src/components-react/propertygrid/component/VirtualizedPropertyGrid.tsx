@@ -505,6 +505,9 @@ const FlatGridItemNode = React.memo(
     } = usePropertyGridInternalContext(FlatGridItemNode);
     const node = gridItems[index];
 
+    const divRef = React.useRef<HTMLDivElement>(null);
+    const previousHeightRef = React.useRef(0);
+
     const onExpansionToggled = React.useCallback(
       () => gridEventHandler.onExpansionToggled(node.selectionKey),
       [gridEventHandler, node.selectionKey]
@@ -513,6 +516,16 @@ const FlatGridItemNode = React.memo(
       (newHeight: number) => onItemHeightChanged(index, node.key, newHeight),
       [onItemHeightChanged, index, node.key]
     );
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    React.useLayoutEffect(() => {
+      assert(divRef.current !== null);
+      const currentHeight = Math.max(divRef.current.offsetHeight, 27);
+      if (currentHeight !== previousHeightRef.current) {
+        onHeightChanged?.(currentHeight);
+        previousHeightRef.current = currentHeight;
+      }
+    });
 
     function getDisplayNode() {
       const lastInNumberOfCategories = node.lastInNumberOfCategories;
@@ -633,7 +646,13 @@ const FlatGridItemNode = React.memo(
 
     return (
       <div className="virtualized-grid-node" style={virtualizedListStyle}>
-        {getDisplayNode()}
+        <div
+          ref={divRef}
+          className="virtualized-grid-node-content-wrapper"
+          style={{ minHeight: "27px" }}
+        >
+          {getDisplayNode()}
+        </div>
       </div>
     );
   },

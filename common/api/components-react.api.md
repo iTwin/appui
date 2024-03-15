@@ -369,6 +369,21 @@ export namespace ConvertedPrimitives {
 // @internal
 export function convertPrimitiveRecordToString(record: PropertyRecord): string | Promise<string>;
 
+// @public
+export class CustomizablePropertyRenderer extends React_3.Component<CustomizablePropertyRendererProps> {
+    constructor(props: CustomizablePropertyRendererProps);
+    // @internal (undocumented)
+    render(): React_3.JSX.Element;
+}
+
+// @public
+export interface CustomizablePropertyRendererProps extends SharedRendererProps {
+    highlight?: HighlightingComponentProps;
+    indentation?: number;
+    valueElement?: React_3.ReactNode;
+    valueElementRenderer?: () => React_3.ReactNode;
+}
+
 // @alpha
 export class CustomNumberEditor extends React_3.PureComponent<PropertyEditorProps, CustomNumberEditorState> implements TypeEditor {
     // @internal (undocumented)
@@ -1842,10 +1857,8 @@ export interface PrimitivePropertyLabelRendererProps extends PropertyLabelRender
 }
 
 // @public
-export class PrimitivePropertyRenderer extends React_3.Component<PrimitiveRendererProps> {
+export class PrimitivePropertyRenderer extends CustomizablePropertyRenderer {
     constructor(props: PrimitiveRendererProps);
-    // @internal (undocumented)
-    render(): React_3.JSX.Element;
 }
 
 // @public
@@ -1861,9 +1874,8 @@ export function PrimitivePropertyValueRendererImpl(props: PrimitivePropertyValue
 export interface PrimitiveRendererProps extends SharedRendererProps {
     highlight?: HighlightingComponentProps;
     indentation?: number;
-    renderValueElementForNonPrimitiveProperty?: boolean;
-    valueElement?: React_3.ReactNode;
-    valueElementRenderer?: () => React_3.ReactNode;
+    valueElement?: React.ReactNode;
+    valueElementRenderer?: () => React.ReactNode;
 }
 
 // @public
@@ -2462,7 +2474,6 @@ export class PropertyView extends React_3.Component<PropertyViewProps, PropertyV
 // @public
 export interface PropertyViewProps extends SharedRendererProps {
     labelElement: React_3.ReactNode;
-    renderValueElementForNonPrimitiveProperty?: boolean;
     valueElement?: React_3.ReactNode;
     valueElementRenderer?: () => React_3.ReactNode;
 }

@@ -6,14 +6,9 @@
  * @module Properties
  */
 
-import * as React from "react";
-import { Orientation } from "@itwin/core-react";
-import { HighlightedText } from "../../common/HighlightedText";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
-import { CommonPropertyRenderer } from "./CommonPropertyRenderer";
-import { PrimitivePropertyLabelRenderer } from "./label/PrimitivePropertyLabelRenderer";
 import type { SharedRendererProps } from "./PropertyRenderer";
-import { PropertyView } from "./PropertyView";
+import { CustomizablePropertyRenderer } from "./CustomizablePropertyRenderer";
 
 /** Properties of [[PrimitivePropertyRenderer]] React component
  * @public
@@ -27,56 +22,13 @@ export interface PrimitiveRendererProps extends SharedRendererProps {
   indentation?: number;
   /** Properties used for highlighting */
   highlight?: HighlightingComponentProps;
-  /** Should value element be rendered for non primitive property. False by default */
-  renderValueElementForNonPrimitiveProperty?: boolean;
 }
 
 /** React Component that renders primitive properties
  * @public
  */
-export class PrimitivePropertyRenderer extends React.Component<PrimitiveRendererProps> {
+export class PrimitivePropertyRenderer extends CustomizablePropertyRenderer {
   constructor(props: PrimitiveRendererProps) {
     super(props);
-  }
-
-  /** @internal */
-  public override render() {
-    const { indentation, highlight, ...props } = this.props;
-    const displayLabel = this.props.propertyRecord.property.displayLabel;
-    const offset = CommonPropertyRenderer.getLabelOffset(
-      indentation,
-      props.orientation,
-      props.width,
-      props.columnRatio,
-      props.columnInfo?.minLabelWidth
-    );
-
-    const activeMatchIndex =
-      this.props.propertyRecord.property.name ===
-      highlight?.activeHighlight?.highlightedItemIdentifier
-        ? highlight.activeHighlight.highlightIndex
-        : undefined;
-    const label = highlight
-      ? HighlightedText({
-          text: displayLabel,
-          searchText: highlight.highlightedText,
-          activeMatchIndex,
-        })
-      : displayLabel;
-
-    return (
-      <PropertyView
-        {...props}
-        labelElement={
-          <PrimitivePropertyLabelRenderer
-            offset={offset}
-            renderColon={this.props.orientation === Orientation.Horizontal}
-            tooltip={displayLabel}
-          >
-            {label}
-          </PrimitivePropertyLabelRenderer>
-        }
-      />
-    );
   }
 }

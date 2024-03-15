@@ -1239,23 +1239,23 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       await waitFor(() => {
         const clickableComponents = container.querySelectorAll(
-          ".virtualized-grid-node"
+          ".virtualized-grid-node-content-wrapper"
         );
         expect(clickableComponents.length).to.be.equal(3);
 
         expect(
           clickableComponents[0].querySelector(
-            ".virtualized-grid-node > .virtualized-grid-node-content"
+            ".virtualized-grid-node-content-wrapper > .virtualized-grid-node-content"
           )
         ).to.be.not.null;
         expect(
           clickableComponents[1].querySelector(
-            ".virtualized-grid-node > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-content"
+            ".virtualized-grid-node-content-wrapper > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-content"
           )
         ).to.be.not.null;
         expect(
           clickableComponents[2].querySelector(
-            ".virtualized-grid-node > .virtualized-grid-node-content"
+            ".virtualized-grid-node-content-wrapper > .virtualized-grid-node-content"
           )
         ).to.be.not.null;
       });
@@ -1353,64 +1353,64 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
         expect(
           clickableComponents[0].querySelector(
-            ".virtualized-grid-node > .virtualized-grid-node-category"
+            ".virtualized-grid-node-content-wrapper > .virtualized-grid-node-category"
           )
         ).to.be.not.null;
         expect(
           clickableComponents[1].querySelector(
-            ".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-content"
+            ".virtualized-grid-node-content-wrapper > .nested-border-middle > .virtualized-grid-node-content"
           )
         ).to.be.not.null;
         expect(
           clickableComponents[2].querySelector(
-            ".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-content"
+            ".virtualized-grid-node-content-wrapper > .nested-border-middle > .virtualized-grid-node-content"
           )
         ).to.be.not.null;
         expect(
           clickableComponents[3].querySelector(
-            ".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-content"
+            ".virtualized-grid-node-content-wrapper > .nested-border-middle > .virtualized-grid-node-content"
           )
         ).to.be.not.null;
         expect(
           clickableComponents[4].querySelector(
-            ".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-content"
+            ".virtualized-grid-node-content-wrapper > .nested-border-middle > .virtualized-grid-node-content"
           )
         ).to.be.not.null;
 
         expect(
           clickableComponents[5].querySelector(
-            ".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-category"
+            ".virtualized-grid-node-content-wrapper > .nested-border-middle > .virtualized-grid-node-category"
           )
         ).to.be.not.null;
         expect(
           clickableComponents[6].querySelector(
-            ".virtualized-grid-node > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
+            ".virtualized-grid-node-content-wrapper > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
           )
         ).to.be.not.null;
         expect(
           clickableComponents[7].querySelector(
-            ".virtualized-grid-node > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
+            ".virtualized-grid-node-content-wrapper > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
           )
         ).to.be.not.null;
         expect(
           clickableComponents[8].querySelector(
-            ".virtualized-grid-node > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
+            ".virtualized-grid-node-content-wrapper > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
           )
         ).to.be.not.null;
         expect(
           clickableComponents[9].querySelector(
-            ".virtualized-grid-node > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
+            ".virtualized-grid-node-content-wrapper > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content"
           )
         ).to.be.not.null;
         expect(
           clickableComponents[10].querySelector(
-            ".virtualized-grid-node > .nested-border-middle > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-content"
+            ".virtualized-grid-node-content-wrapper > .nested-border-middle > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-content"
           )
         ).to.be.not.null;
 
         expect(
           clickableComponents[11].querySelector(
-            ".virtualized-grid-node > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-category"
+            ".virtualized-grid-node-content-wrapper > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-category"
           )
         ).to.be.not.null;
       });
