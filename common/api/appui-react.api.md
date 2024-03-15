@@ -5156,7 +5156,7 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
 export const useGroupedItems: (items: ReadonlyArray<BackstageItem>) => GroupedItems;
 
 // @internal (undocumented)
-export function useHorizontalToolSettingNodes(): ToolSettingsEntry[];
+export function useHorizontalToolSettingEntries(): ToolSettingsEntry[];
 
 // @public
 export const useIsBackstageOpen: (manager: FrameworkBackstage) => boolean;
