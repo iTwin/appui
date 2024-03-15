@@ -2257,8 +2257,6 @@ export class FrontstageDef {
     getFloatingWidgetContainerIds(): string[];
     // @beta
     getStagePanelDef(location: StagePanelLocation): StagePanelDef | undefined;
-    // @internal
-    getWidgetCurrentState(widgetDef: WidgetDef): WidgetState | undefined;
     // (undocumented)
     get id(): string;
     // @internal
@@ -2397,6 +2395,9 @@ export function getSelectionContextSyncEventIds(): string[];
 
 // @beta
 export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry;
+
+// @internal (undocumented)
+export function getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState): WidgetState;
 
 // @internal (undocumented)
 export type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix `UiFramework.frontstages.onWidgetStateChangedEvent` event to correctly emit widget state changes.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
