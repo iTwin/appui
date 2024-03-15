@@ -106,10 +106,10 @@ export class WidgetDef {
 
   public get state(): WidgetState {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    const state = frontstageDef?.nineZoneState;
-    if (!state) return this.defaultState;
+    const nineZone = frontstageDef?.nineZoneState;
+    if (!nineZone) return this.defaultState;
     if (!frontstageDef.findWidgetDef(this.id)) return this.defaultState;
-    return getWidgetState(this, state);
+    return getWidgetState(this, nineZone);
   }
 
   public get id(): string {
@@ -403,8 +403,8 @@ export class WidgetDef {
 
   public setWidgetState(newState: WidgetState): void {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    const state = frontstageDef?.nineZoneState;
-    if (!state || this.isStatusBar) return;
+    const nineZone = frontstageDef?.nineZoneState;
+    if (!nineZone || this.isStatusBar) return;
     if (!frontstageDef.findWidgetDef(this.id)) return;
 
     switch (newState) {
@@ -545,11 +545,11 @@ export class WidgetDef {
    */
   public show() {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    const state = frontstageDef?.nineZoneState;
-    if (!state) return;
+    const nineZone = frontstageDef?.nineZoneState;
+    if (!nineZone) return;
     if (!frontstageDef.findWidgetDef(this.id)) return;
 
-    const tabLocation = getTabLocation(state, this.id);
+    const tabLocation = getTabLocation(nineZone, this.id);
     if (tabLocation && isPopoutTabLocation(tabLocation)) {
       const testWindow = UiFramework.childWindows.find(
         tabLocation.popoutWidgetId
@@ -569,8 +569,8 @@ export class WidgetDef {
    */
   public expand() {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    const state = frontstageDef?.nineZoneState;
-    if (!state) return;
+    const nineZone = frontstageDef?.nineZoneState;
+    if (!nineZone) return;
     if (!frontstageDef.findWidgetDef(this.id)) return;
 
     frontstageDef.dispatch({
