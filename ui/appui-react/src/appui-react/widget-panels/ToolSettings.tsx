@@ -211,21 +211,6 @@ export function ToolSettingsWidgetContent() {
   const activeToolId = useActiveToolId();
   const forceRefreshKey = useRefreshKey(node);
 
-  // if no tool settings hide the floating widgets tab
-  React.useEffect(() => {
-    if (floatingToolSettingsContainerRef.current) {
-      const floatingWidgetTab =
-        floatingToolSettingsContainerRef.current.closest(
-          ".nz-floating-toolsettings"
-        );
-      if (floatingWidgetTab) {
-        (floatingWidgetTab as HTMLDivElement).style.visibility = !!node
-          ? "visible"
-          : "hidden";
-      }
-    }
-  }, [node]);
-
   const providerId =
     InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ?? "none";
   return (
