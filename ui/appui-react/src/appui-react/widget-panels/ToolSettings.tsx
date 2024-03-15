@@ -179,37 +179,20 @@ export function useToolSettingsNode() {
     InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode
   );
   React.useEffect(() => {
-    const handleToolActivatedEvent = () => {
+    return UiFramework.frontstages.onToolActivatedEvent.addListener(() => {
       const nodes =
         InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
       setSettings(nodes);
-    };
-    UiFramework.frontstages.onToolActivatedEvent.addListener(
-      handleToolActivatedEvent
-    );
-    return () => {
-      UiFramework.frontstages.onToolActivatedEvent.removeListener(
-        handleToolActivatedEvent
-      );
-    };
+    });
   }, [setSettings]);
 
   React.useEffect(() => {
-    const handleToolSettingsReloadEvent = () => {
+    return UiFramework.frontstages.onToolSettingsReloadEvent.addListener(() => {
       const nodes =
         InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
       setSettings(nodes);
-    };
-    UiFramework.frontstages.onToolSettingsReloadEvent.addListener(
-      handleToolSettingsReloadEvent
-    );
-    return () => {
-      UiFramework.frontstages.onToolSettingsReloadEvent.removeListener(
-        handleToolSettingsReloadEvent
-      );
-    };
+    });
   }, [setSettings]);
-
   return settings;
 }
 
@@ -229,25 +212,21 @@ export function ToolSettingsWidgetContent() {
 
   // if no tool settings hide the floating widgets tab
   React.useEffect(() => {
-    // istanbul ignore else
     if (floatingToolSettingsContainerRef.current) {
       const floatingWidgetTab =
         floatingToolSettingsContainerRef.current.closest(
           ".nz-floating-toolsettings"
         );
-      // istanbul ignore else
       if (floatingWidgetTab) {
         (floatingWidgetTab as HTMLDivElement).style.visibility = !!node
           ? "visible"
-          : /* istanbul ignore next */ "hidden";
+          : "hidden";
       }
     }
   }, [node]);
 
-  // istanbul ignore next
   const providerId =
     InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ?? "none";
-
   return (
     <div
       data-toolsettings-provider={providerId}
