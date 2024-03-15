@@ -64,6 +64,7 @@ Table of contents:
 
 - Fix the issue when right-click + left-click starts a widget drag interaction. [#730](https://github.com/iTwin/appui/pull/730)
 - Fix polar mode AccuDraw input focus by correctly focusing the distance field. [#753](https://github.com/iTwin/appui/pull/753)
+- Fix `UiFramework.frontstages.onWidgetStateChangedEvent` event to correctly emit state changes and match `WidgetState` returned by `WidgetDef.state`.
 
 ## @itwin/components-react
 
