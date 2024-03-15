@@ -2166,6 +2166,7 @@ export interface FrameworkVisibility {
     showUiAndCancelTimer(): void;
     showUiAndResetTimer(): void;
     snapWidgetOpacity: boolean;
+    // @deprecated
     useProximityOpacity: boolean;
 }
 

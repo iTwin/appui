@@ -27,10 +27,12 @@ export interface FrameworkVisibility {
   /** Determines the amount of inactivity time before the Ui is hidden. Defaults to 3.5 seconds. */
   inactivityTime: number;
 
-  /** Determines whether the proximity of the mouse should alter the opacity of a toolbar. Defaults to true. */
+  /** Determines whether the proximity of the mouse should alter the opacity of a toolbar. Defaults to `true`.
+   * @deprecated in 4.11.x. The preferred mode is to change opacity in a snappy way (use {@link FrameworkVisibility.snapWidgetOpacity}).
+   */
   useProximityOpacity: boolean;
 
-  /** Determines whether the opacity of a toolbar should snap. Defaults to false. */
+  /** Determines whether the opacity of a toolbar should change immediately when the mouse gets close. Defaults to `false`. */
   snapWidgetOpacity: boolean;
 
   /** Handler for when a Frontstage is ready */
