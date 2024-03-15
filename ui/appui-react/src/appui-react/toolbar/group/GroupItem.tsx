@@ -30,14 +30,26 @@ export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
     const placement = usePlacement();
     const [visible, setVisible] = React.useState(false);
     const popoverRef = React.useRef<HTMLDivElement>(null);
+    const context = React.useContext(ToolbarContext);
 
     if (isHidden) return null;
     return (
       <Popover
-        content={<Menu item={item} onClose={() => setVisible(!visible)} />}
+        content={
+          <Menu
+            item={item}
+            onClose={() => {
+              setVisible(!visible);
+              context?.setPopoverOpen(!visible);
+            }}
+          />
+        }
         placement={placement}
         visible={visible}
-        onVisibleChange={(v) => setVisible(v)}
+        onVisibleChange={(newVisible) => {
+          setVisible(newVisible);
+          context?.setPopoverOpen(newVisible);
+        }}
         ref={popoverRef}
         onKeyDown={(e) => {
           switch (e.key) {

@@ -30,6 +30,7 @@ export function OverflowButton(props: React.PropsWithChildren<{}>) {
   const placement = useExpandsTo();
   const orientation = useMenuOrientation();
   const labelProps = useLabelProps();
+  const context = React.useContext(ToolbarContext);
 
   return (
     <DropdownMenu
@@ -45,6 +46,9 @@ export function OverflowButton(props: React.PropsWithChildren<{}>) {
         ];
       }}
       placement={placement}
+      onVisibleChange={(newVisible) => {
+        context?.setPopoverOpen(newVisible);
+      }}
     >
       <IconButton label="More" labelProps={labelProps} styleType="borderless">
         <SvgMore />
@@ -60,10 +64,15 @@ interface OverflowMenuProps {
 
 function OverflowMenu({ children, onClose }: OverflowMenuProps) {
   const childrenArray = React.Children.toArray(children);
+  const context = React.useContext(ToolbarContext);
   const placement = useSubMenuPlacement();
   return (
     <ToolbarContext.Provider
       value={{
+        ...(context ?? {
+          setPopoverOpen: () => {},
+          popoverOpen: false,
+        }),
         ...placement,
       }}
     >

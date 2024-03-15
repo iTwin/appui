@@ -32,11 +32,14 @@ export function Toolbar({
   ...props
 }: ToolbarProps) {
   const orientation = toOrientation(expandsTo);
+  const [popoverOpen, setPopoverOpen] = React.useState(false);
   return (
     <ToolbarContext.Provider
       value={{
         expandsTo,
         panelAlignment,
+        popoverOpen,
+        setPopoverOpen,
       }}
     >
       <ToolGroup alignment={panelAlignment} orientation={orientation}>
@@ -57,13 +60,16 @@ export function Toolbar({
   );
 }
 
+interface ToolbarContextProps
+  extends Pick<Required<ToolbarProps>, "expandsTo" | "panelAlignment"> {
+  popoverOpen: boolean;
+  setPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 /** @internal */
 export const ToolbarContext = React.createContext<
-  Pick<Required<ToolbarProps>, "expandsTo" | "panelAlignment"> | undefined
->({
-  expandsTo: "bottom",
-  panelAlignment: "start",
-});
+  ToolbarContextProps | undefined
+>(undefined);
 ToolbarContext.displayName = "uifw:ToolbarContext";
 
 function toOrientation(expandsTo: Required<ToolbarProps>["expandsTo"]) {

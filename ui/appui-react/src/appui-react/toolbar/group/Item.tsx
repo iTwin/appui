@@ -80,9 +80,14 @@ export function useExpandsTo() {
 
 /** @internal */
 export function useLabelProps() {
+  const context = React.useContext(ToolbarContext);
+  const [internalVisible, setInternalVisible] = React.useState(false);
+  const visible = context?.popoverOpen ? false : internalVisible;
   const placement = useExpandsTo();
   return {
     className: "uifw-toolbar-group-item_label",
     placement,
+    visible,
+    onVisibleChange: setInternalVisible,
   } as const;
 }
