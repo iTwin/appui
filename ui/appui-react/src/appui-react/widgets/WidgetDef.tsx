@@ -582,14 +582,6 @@ export class WidgetDef {
 
 /** @internal */
 export function getWidgetState(widgetDef: WidgetDef, state: NineZoneState) {
-  // if (widgetDef === this.toolSettings) {
-  //   if (!state.toolSettings) {
-  //     return WidgetState.Hidden;
-  //   } else if (state.toolSettings.type === "docked") {
-  //     return WidgetState.Open;
-  //   }
-  // }
-
   const tab = state.tabs[widgetDef.id];
   if (tab && tab.unloaded) {
     return WidgetState.Unloaded;
@@ -604,7 +596,7 @@ export function getWidgetState(widgetDef: WidgetDef, state: NineZoneState) {
     toolSettingsTabId === widgetDef.id &&
     state.toolSettings?.type === "docked"
   ) {
-    return WidgetState.Open;
+    return state.toolSettings.hidden ? WidgetState.Hidden : WidgetState.Open;
   }
 
   const location = getTabLocation(state, widgetDef.id);
