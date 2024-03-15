@@ -6,15 +6,9 @@
  * @module Toolbar
  */
 
-import "./GroupItem.scss";
 import * as React from "react";
 import { Icon } from "@itwin/core-react";
-import {
-  DropdownMenu,
-  MenuExtraContent,
-  MenuItem,
-  Text,
-} from "@itwin/itwinui-react";
+import { DropdownMenu, MenuExtraContent, MenuItem } from "@itwin/itwinui-react";
 import type { ToolbarItem } from "../ToolbarItem";
 import {
   isToolbarActionItem,
@@ -70,17 +64,6 @@ export function usePopoverPlacement() {
   return `${context.expandsTo}-${context.panelAlignment}` as const;
 }
 
-function MenuTitle({ item }: { item: ToolbarGroupItem }) {
-  const label = useConditionalValue(item.label);
-  return (
-    <MenuExtraContent>
-      <Text variant="subheading" className="uifw-toolbar-group-groupItem_title">
-        {label}
-      </Text>
-    </MenuExtraContent>
-  );
-}
-
 interface GroupMenuItemProps {
   item: ToolbarItem;
   onClose?: () => void;
@@ -117,10 +100,9 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
 }
 
 function toGroupMenuItems(groupItem: ToolbarGroupItem) {
-  const items = groupItem.items.map((item) => {
+  return groupItem.items.map((item) => {
     return <GroupMenuItem key={item.id} item={item} />;
   });
-  return [<MenuTitle key="menu-title" item={groupItem} />, ...items];
 }
 
 function toSubMenuItems(item: ToolbarItem) {
