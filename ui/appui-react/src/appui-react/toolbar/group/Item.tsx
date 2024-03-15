@@ -27,7 +27,6 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
   function Item(props, ref) {
     const { item, ...other } = props;
     const label = useConditionalValue(item.label);
-    const description = useConditionalValue(item.description);
     const isDisabled = useConditionalValue(item.isDisabled);
     const isHidden = useConditionalValue(item.isHidden);
     const iconSpec = useConditionalValue(item.icon);
@@ -40,7 +39,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
         styleType="borderless"
         disabled={isDisabled}
         isActive={item.isActive}
-        label={<Label label={label} description={description} />}
+        label={label}
         labelProps={labelProps}
         style={props.style}
         ref={ref}
@@ -53,21 +52,6 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
     );
   }
 );
-
-interface LabelProps {
-  label?: string;
-  description?: string;
-}
-
-function Label({ label, description }: LabelProps) {
-  return (
-    <>
-      {label}
-      <br />
-      {description}
-    </>
-  );
-}
 
 /** @internal */
 export function useExpandsTo() {
