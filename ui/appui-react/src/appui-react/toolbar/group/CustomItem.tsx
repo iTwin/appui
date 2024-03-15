@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import type { DropdownButton } from "@itwin/itwinui-react";
 import { DropdownMenu, MenuExtraContent } from "@itwin/itwinui-react";
 import type { ToolbarCustomItem } from "../ToolbarItem";
 import { ExpandIndicator } from "./ExpandIndicator";
@@ -26,22 +25,18 @@ export const CustomItem = React.forwardRef<HTMLButtonElement, CustomItemProps>(
     const placement = usePopoverPlacement();
     const toolGroupOverflow = React.useContext(ToolGroupOverflowContext);
 
-    const menuItems = React.useCallback<
-      React.ComponentProps<typeof DropdownButton>["menuItems"]
-    >(
-      (_close) => {
-        return [
-          <MenuExtraContent key={0}>{item.panelContent}</MenuExtraContent>,
-        ];
-      },
-      [item]
-    );
-
     if (toolGroupOverflow) {
-      return <GroupMenuItem item={item} />;
+      return <GroupMenuItem item={item} onClose={toolGroupOverflow.onClose} />;
     }
     return (
-      <DropdownMenu menuItems={menuItems} placement={placement}>
+      <DropdownMenu
+        menuItems={() => {
+          return [
+            <MenuExtraContent key={0}>{item.panelContent}</MenuExtraContent>,
+          ];
+        }}
+        placement={placement}
+      >
         <Item ref={ref} item={item}>
           <ExpandIndicator />
         </Item>

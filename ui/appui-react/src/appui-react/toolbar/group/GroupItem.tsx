@@ -36,12 +36,12 @@ export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
     const toolGroupOverflow = React.useContext(ToolGroupOverflowContext);
 
     if (toolGroupOverflow) {
-      return <GroupMenuItem item={item} />;
+      return <GroupMenuItem item={item} onClose={toolGroupOverflow.onClose} />;
     }
     return (
       <DropdownMenu
-        menuItems={(_close) => {
-          return toGroupMenuItems(item);
+        menuItems={(close) => {
+          return toSubMenuItems(item, close);
         }}
         placement={placement}
         onVisibleChange={(newVisible) => {
@@ -80,7 +80,7 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
     return null;
   }
 
-  const subMenuItems = isDisabled ? undefined : toSubMenuItems(item);
+  const subMenuItems = isDisabled ? undefined : toSubMenuItems(item, onClose);
   return (
     <MenuItem
       startIcon={<Icon iconSpec={iconSpec} />}
@@ -99,20 +99,18 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
   );
 }
 
-function toGroupMenuItems(groupItem: ToolbarGroupItem) {
-  return groupItem.items.map((item) => {
-    return <GroupMenuItem key={item.id} item={item} />;
-  });
-}
-
-function toSubMenuItems(item: ToolbarItem) {
+function toSubMenuItems(item: ToolbarItem, onClose?: () => void) {
   if (isToolbarGroupItem(item)) {
-    return toGroupMenuItems(item);
+    return item.items.map((groupItem) => {
+      return (
+        <GroupMenuItem key={groupItem.id} item={groupItem} onClose={onClose} />
+      );
+    });
   }
   if (isToolbarCustomItem(item)) {
     return [
       <MenuExtraContent key={item.id}>{item.panelContent}</MenuExtraContent>,
     ];
   }
-  return undefined;
+  return [];
 }

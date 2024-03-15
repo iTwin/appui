@@ -22,7 +22,7 @@ export const ActionItem = React.forwardRef<HTMLButtonElement, ActionItemProps>(
   function ActionItem({ item }, ref) {
     const toolGroupOverflow = React.useContext(ToolGroupOverflowContext);
     if (toolGroupOverflow) {
-      return <GroupMenuItem item={item} />;
+      return <GroupMenuItem item={item} onClose={toolGroupOverflow.onClose} />;
     }
     return (
       <Item
