@@ -185,8 +185,8 @@ describe("FrontstageDef", () => {
 
   describe("onWidgetStateChangedEvent", () => {
     it("should open a hidden widget", async () => {
-      const def = new FrontstageDef();
-      await def.initializeFromConfig({
+      const activeFrontstageDef = new FrontstageDef();
+      await activeFrontstageDef.initializeFromConfig({
         ...defaultFrontstageConfig,
         rightPanel: {
           sections: {
@@ -199,8 +199,10 @@ describe("FrontstageDef", () => {
           },
         },
       });
-      initializeNineZoneState(def);
-      sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
+      initializeNineZoneState(activeFrontstageDef);
+      sinon
+        .stub(UiFramework.frontstages, "activeFrontstageDef")
+        .get(() => activeFrontstageDef);
 
       const spy = sinon.spy();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
@@ -219,9 +221,39 @@ describe("FrontstageDef", () => {
       expect(widgetDef?.state).to.eq(WidgetState.Open);
     });
 
+    it("should hide a panel widget", async () => {
+      const frontstageDef = new FrontstageDef();
+      await frontstageDef.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        rightPanel: {
+          sections: {
+            start: [
+              {
+                id: "w1",
+              },
+            ],
+          },
+        },
+      });
+      initializeNineZoneState(frontstageDef);
+      sinon
+        .stub(UiFramework.frontstages, "activeFrontstageDef")
+        .get(() => frontstageDef);
+
+      const spy = sinon.spy();
+      UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
+
+      const widgetDef = frontstageDef.findWidgetDef("w1")!;
+      widgetDef.setWidgetState(WidgetState.Hidden);
+      expect(spy).to.calledOnceWithExactly({
+        widgetDef,
+        widgetState: WidgetState.Hidden,
+      });
+    });
+
     it("should float a panel widget", async () => {
-      const def = new FrontstageDef();
-      await def.initializeFromConfig({
+      const frontstageDef = new FrontstageDef();
+      await frontstageDef.initializeFromConfig({
         ...defaultFrontstageConfig,
         rightPanel: {
           sections: {
@@ -234,13 +266,15 @@ describe("FrontstageDef", () => {
           },
         },
       });
-      initializeNineZoneState(def);
-      sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
+      initializeNineZoneState(frontstageDef);
+      sinon
+        .stub(UiFramework.frontstages, "activeFrontstageDef")
+        .get(() => frontstageDef);
 
       const spy = sinon.spy();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
-      const widgetDef = def.findWidgetDef("test-widget");
+      const widgetDef = frontstageDef.findWidgetDef("test-widget");
       widgetDef?.setWidgetState(WidgetState.Floating);
 
       expect(spy).to.calledOnceWith({
@@ -251,20 +285,22 @@ describe("FrontstageDef", () => {
     });
 
     it("should hide tool settings", async () => {
-      const def = new FrontstageDef();
-      await def.initializeFromConfig({
+      const frontstageDef = new FrontstageDef();
+      await frontstageDef.initializeFromConfig({
         ...defaultFrontstageConfig,
         toolSettings: {
           id: "ts",
         },
       });
-      initializeNineZoneState(def);
-      sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
+      initializeNineZoneState(frontstageDef);
+      sinon
+        .stub(UiFramework.frontstages, "activeFrontstageDef")
+        .get(() => frontstageDef);
 
       const spy = sinon.spy();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
-      const widgetDef = def.findWidgetDef("ts");
+      const widgetDef = frontstageDef.findWidgetDef("ts");
       widgetDef?.setWidgetState(WidgetState.Hidden);
 
       expect(spy).to.calledOnceWith({
@@ -426,8 +462,8 @@ describe("FrontstageDef", () => {
 
   describe("floatWidget", () => {
     it("should dispatch WIDGET_TAB_FLOAT action", async () => {
-      const def = new FrontstageDef();
-      await def.initializeFromConfig({
+      const frontstageDef = new FrontstageDef();
+      await frontstageDef.initializeFromConfig({
         ...defaultFrontstageConfig,
         leftPanel: {
           sections: {
@@ -439,11 +475,11 @@ describe("FrontstageDef", () => {
           },
         },
       });
-      initializeNineZoneState(def);
+      initializeNineZoneState(frontstageDef);
 
       const dispatch = sinon.stub();
-      sinon.stub(def, "dispatch").get(() => dispatch);
-      def.floatWidget("t1");
+      sinon.stub(frontstageDef, "dispatch").get(() => dispatch);
+      frontstageDef.floatWidget("t1");
       sinon.assert.calledOnceWithMatch(dispatch, {
         type: "WIDGET_TAB_FLOAT",
         id: "t1",
@@ -453,8 +489,8 @@ describe("FrontstageDef", () => {
 
   describe("popoutWidget", () => {
     it("should dispatch WIDGET_TAB_POPOUT action", async () => {
-      const def = new FrontstageDef();
-      await def.initializeFromConfig({
+      const frontstageDef = new FrontstageDef();
+      await frontstageDef.initializeFromConfig({
         ...defaultFrontstageConfig,
         leftPanel: {
           sections: {
@@ -466,11 +502,11 @@ describe("FrontstageDef", () => {
           },
         },
       });
-      initializeNineZoneState(def);
+      initializeNineZoneState(frontstageDef);
 
       const dispatch = sinon.stub();
-      sinon.stub(def, "dispatch").get(() => dispatch);
-      def.popoutWidget("t1");
+      sinon.stub(frontstageDef, "dispatch").get(() => dispatch);
+      frontstageDef.popoutWidget("t1");
       sinon.assert.calledOnceWithMatch(dispatch, {
         type: "WIDGET_TAB_POPOUT",
         id: "t1",
