@@ -19,67 +19,6 @@ Thank you for taking the time to contribute to open source and making great proj
 
 ## Contributing
 
-## Getting started
-
-1. Install dependencies using `rush install`.
-2. Run build using `rush rebuild`.
-3. While in the desired packages' folder, run `npm start` to enter build in watch mode for easy validation along the `test-apps` or `storybook` (see [Testing options](#testing-options)).
-4. In a new terminal, `cd` into `test-apps/appui-test-app/standalone` and run `npm run start:webserver`.
-
----
-
-## Commands
-
-### Ensure unit tests pass when run locally
-
-`rush cover`
-
-> Each packages will generate a detailed coverage HTML report which can be accessed in `ui/[package]/lib/cjs/test/coverage/lcov-report/index.html`. Ensure integration tests pass: See [the related Readme](./e2e-tests/README.md)
-
-### Ensure linting passes when run locally
-
-`rush lint` / `rush lint:fix`
-
-### Ensure prettier passes when run locally
-
-`rush prettier` / `rush prettier:fix`
-
----
-
-## Checking and documenting changes
-
-**Please note that checking and documenting changes prior to PR submission is mandatory**
-
-### Check for API signature changes
-
-`rush extract-api`
-
-This will update the signature files, located in `common/api`. **Note:** before doing this, first do the following:
-
-- Cleanup your build output: `rush clean`
-- Rebuild the project: `rush build`
-
-Review any diffs to the API signature files in the `common/api` directory to ensure they are compatible with the intended release of the package.
-
-If any differences are in packages not modified on this branch, revert the changes before committing.
-
-### Add changelog entry
-
-`rush change`
-
-Follow prompts to enter a change description or press ENTER if the change does not warrant a changelog entry. If multiple packages have changed, multiple sets of prompts will be presented. If the changes are only to non-published packages (like the **test-apps**), then `rush change` will indicate that a changelog entry is not needed.
-
-Completing the `rush change` prompts will cause new changelog entry JSON files to be created.
-
-If using the command line, this process can be completed in one step by running `rushchange.bat` from the root directory.
-**Only use `rushchange.bat` if none of the changes require a changelog entry.**
-
-> Note: The CI build will break if changes are pushed without running `rush change` and `rush extract-api` (if the API was changed).
-
-Here is a sample [changelog](https://github.com/microsoft/rushstack/blob/master/apps/rush/CHANGELOG.md) to demonstrate the level of detail expected.
-
----
-
 ## Contributing guidelines
 
 AppUI contains a large amount of legacy code. As such we are in the process of standardizing, reorganizing, and optimizing our codebase.
@@ -122,14 +61,67 @@ Please follow these conventions when contributing to AppUI
 
 For example, when working on `MessageCenterField` component under `status-bar/fields` directory in `@itwin/appui-react` one would use `”uifw-statusBar-fields-dialog”`
 
----
-
-## Contributor License Agreement (CLA)
+### Contributor License Agreement (CLA)
 
 A [Contribution License Agreement with Bentley](https://gist.github.com/imodeljs-admin/9a071844d3a8d420092b5cf360e978ca) must be signed before your contributions will be accepted. Upon opening a pull request, you will be prompted to use [cla-assistant](https://cla-assistant.io/) for a one-time acceptance applicable for all Bentley projects.
 You can read more about [Contributor License Agreements](https://en.wikipedia.org/wiki/Contributor_License_Agreement) on Wikipedia.
 
 > All submissions go through a review process from our developers using GitHub. Consult [GitHub Help](https://help.github.com/articles/about-pull-requests/) for more information on using pull requests.
+
+## Getting started
+
+1. Install dependencies using `rush install`.
+2. Run build using `rush rebuild`.
+3. While in the desired packages' folder, run `npm start` to enter build in watch mode for easy validation along the `test-apps` or `storybook` (see [Testing options](#testing-options)).
+4. In a new terminal, `cd` into `test-apps/appui-test-app/standalone` and run `npm run start:webserver`.
+
+## Commands
+
+### Ensure unit tests pass when run locally
+
+`rush cover`
+
+> Each packages will generate a detailed coverage HTML report which can be accessed in `ui/[package]/lib/cjs/test/coverage/lcov-report/index.html`. Ensure integration tests pass: See [the related Readme](./e2e-tests/README.md)
+
+### Ensure linting passes when run locally
+
+`rush lint` / `rush lint:fix`
+
+### Ensure prettier passes when run locally
+
+`rush prettier` / `rush prettier:fix`
+
+## Checking and documenting changes
+
+**Please note that checking and documenting changes prior to PR submission is mandatory**
+
+### Check for API signature changes
+
+`rush extract-api`
+
+This will update the signature files, located in `common/api`. **Note:** before doing this, first do the following:
+
+- Cleanup your build output: `rush clean`
+- Rebuild the project: `rush build`
+
+Review any diffs to the API signature files in the `common/api` directory to ensure they are compatible with the intended release of the package.
+
+If any differences are in packages not modified on this branch, revert the changes before committing.
+
+### Add changelog entry
+
+`rush change`
+
+Follow prompts to enter a change description or press ENTER if the change does not warrant a changelog entry. If multiple packages have changed, multiple sets of prompts will be presented. If the changes are only to non-published packages (like the **test-apps**), then `rush change` will indicate that a changelog entry is not needed.
+
+Completing the `rush change` prompts will cause new changelog entry JSON files to be created.
+
+If using the command line, this process can be completed in one step by running `rushchange.bat` from the root directory.
+**Only use `rushchange.bat` if none of the changes require a changelog entry.**
+
+> Note: The CI build will break if changes are pushed without running `rush change` and `rush extract-api` (if the API was changed).
+
+Here is a sample [changelog](https://github.com/microsoft/rushstack/blob/master/apps/rush/CHANGELOG.md) to demonstrate the level of detail expected.
 
 ---
 
