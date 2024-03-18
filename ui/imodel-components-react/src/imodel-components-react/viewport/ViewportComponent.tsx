@@ -255,7 +255,7 @@ export function ViewportComponent(props: ViewportProps) {
       ? screenViewportOverride
       : ScreenViewport;
     const parentWindow = parentDiv.ownerDocument.defaultView as Window;
-    parentWindow.addEventListener("unload", handleWindowUnload, true); // listener clear after being called
+    parentWindow.addEventListener("unload", handleWindowUnload, {once: true, capture: true}); // by specifying 'once', listener clears after being called
     ViewportComponentEvents.initialize();
     ViewportComponentEvents.onDrawingViewportChangeEvent.addListener(
       handleDrawingViewportChangeEvent
