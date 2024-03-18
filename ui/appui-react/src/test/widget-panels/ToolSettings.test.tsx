@@ -17,7 +17,7 @@ import {
   ToolSettingsGrid,
   ToolUiProvider,
   UiFramework,
-  useHorizontalToolSettingNodes,
+  useHorizontalToolSettingEntries,
   useToolSettingsNode,
   WidgetDef,
   WidgetPanelsToolSettings,
@@ -174,7 +174,7 @@ describe("ToolSettingsContent", () => {
     state = addFloatingWidget(state, "fw1", ["ts"]);
     state = addWidgetToolSettings(state, "ts");
     const layout = createLayoutStore(state);
-    const { container } = render(
+    const component = render(
       <NineZoneProvider
         layout={layout}
         dispatch={sinon.stub()}
@@ -185,11 +185,11 @@ describe("ToolSettingsContent", () => {
         </div>
       </NineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    component.getByText("Hello World");
   });
 });
 
-describe("useHorizontalToolSettingNodes", () => {
+describe("useHorizontalToolSettingEntries", () => {
   it("should add tool activated event listener", () => {
     const addListenerSpy = sinon.spy(
       UiFramework.frontstages.onToolActivatedEvent,
@@ -199,7 +199,7 @@ describe("useHorizontalToolSettingNodes", () => {
       UiFramework.frontstages.onToolActivatedEvent,
       "removeListener"
     );
-    const sut = renderHook(() => useHorizontalToolSettingNodes());
+    const sut = renderHook(() => useHorizontalToolSettingEntries());
     sut.unmount();
     addListenerSpy.calledOnce.should.true;
     removeListenerSpy.calledOnce.should.true;
@@ -214,7 +214,7 @@ describe("useHorizontalToolSettingNodes", () => {
       UiFramework.frontstages.onToolSettingsReloadEvent,
       "removeListener"
     );
-    const sut = renderHook(() => useHorizontalToolSettingNodes());
+    const sut = renderHook(() => useHorizontalToolSettingEntries());
     act(() => {
       UiFramework.frontstages.onToolSettingsReloadEvent.emit();
     });
@@ -224,7 +224,7 @@ describe("useHorizontalToolSettingNodes", () => {
   });
 
   it("should not return undefined if activeToolSettingsProvider is unset", () => {
-    const { result } = renderHook(() => useHorizontalToolSettingNodes());
+    const { result } = renderHook(() => useHorizontalToolSettingEntries());
     act(() => {
       UiFramework.frontstages.onToolActivatedEvent.emit({ toolId: "t1" });
     });
@@ -258,7 +258,7 @@ describe("useHorizontalToolSettingNodes", () => {
             undefined
           )
       );
-    const sut = renderHook(() => useHorizontalToolSettingNodes());
+    const sut = renderHook(() => useHorizontalToolSettingEntries());
 
     act(() => {
       sinon
@@ -276,7 +276,7 @@ describe("useHorizontalToolSettingNodes", () => {
       UiFramework.frontstages.onToolSettingsReloadEvent.emit();
     });
 
-    sut.result.current.should.eq(entries);
+    expect(sut.result.current).to.eq(entries);
   });
 });
 

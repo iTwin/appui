@@ -53,7 +53,7 @@ import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StagePanelState } from "../stagepanels/StagePanelState";
 import type { WidgetConfig } from "../widgets/WidgetConfig";
 import type { WidgetControl } from "../widgets/WidgetControl";
-import { WidgetDef, WidgetType } from "../widgets/WidgetDef";
+import { getWidgetState, WidgetDef, WidgetType } from "../widgets/WidgetDef";
 import { WidgetState } from "../widgets/WidgetState";
 import type { FrontstageConfig } from "./FrontstageConfig";
 import type { FrontstageProvider } from "./FrontstageProvider";
@@ -166,11 +166,10 @@ export class FrontstageDef {
     }
   }
 
-  private populateStateMaps(
-    nineZone: NineZoneState,
-    panelMap: Map<StagePanelDef, StagePanelState>,
-    widgetMap: Map<WidgetDef, WidgetState>
-  ) {
+  private populateStateMaps(nineZone: NineZoneState) {
+    const panelMap = new Map<StagePanelDef, StagePanelState>();
+    const widgetMap = new Map<WidgetDef, WidgetState>();
+
     for (const panelSide of panelSides) {
       const panel = nineZone.panels[panelSide];
       const location = this.toStagePanelLocation(panelSide);
@@ -183,34 +182,10 @@ export class FrontstageDef {
     }
 
     for (const widgetDef of this.widgetDefs) {
-      const widgetId = widgetDef.id;
-      if (widgetDef === this.toolSettings) {
-        if (!nineZone.toolSettings) {
-          widgetMap.set(widgetDef, WidgetState.Hidden);
-          continue;
-        } else if (nineZone.toolSettings.type === "docked") {
-          widgetMap.set(widgetDef, WidgetState.Open);
-          continue;
-        }
-      }
-
-      if (nineZone.draggedTab?.tabId === widgetId) {
-        widgetMap.set(widgetDef, WidgetState.Closed);
-        continue;
-      }
-
-      const tabLocation = getTabLocation(nineZone, widgetId);
-      if (!tabLocation) {
-        widgetMap.set(widgetDef, WidgetState.Hidden);
-        continue;
-      }
-
-      const widget = nineZone.widgets[tabLocation.widgetId];
-      let widgetState = WidgetState.Open;
-      if (widget.minimized || widgetId !== widget.activeTabId)
-        widgetState = WidgetState.Closed;
+      const widgetState = getWidgetState(widgetDef, nineZone);
       widgetMap.set(widgetDef, widgetState);
     }
+    return { panelMap, widgetMap };
   }
 
   private triggerStateChangeEvents(oldState: NineZoneState) {
@@ -219,25 +194,18 @@ export class FrontstageDef {
 
     if (this._isStageClosing || this._isApplicationClosing) return;
 
-    const originalPanelStateMap = new Map<StagePanelDef, StagePanelState>();
-    const originalWidgetStateMap = new Map<WidgetDef, WidgetState>();
-    const newPanelStateMap = new Map<StagePanelDef, StagePanelState>();
-    const newWidgetStateMap = new Map<WidgetDef, WidgetState>();
-    this.populateStateMaps(
-      oldState,
-      originalPanelStateMap,
-      originalWidgetStateMap
-    );
-    this.populateStateMaps(newState, newPanelStateMap, newWidgetStateMap);
+    const { panelMap, widgetMap } = this.populateStateMaps(oldState);
+    const { panelMap: newPanelMap, widgetMap: newWidgetMap } =
+      this.populateStateMaps(newState);
 
     // Now walk and trigger set state events
-    newWidgetStateMap.forEach((newWidgetState, widgetDef) => {
-      const originalState = originalWidgetStateMap.get(widgetDef);
+    newWidgetMap.forEach((newWidgetState, widgetDef) => {
+      const originalState = widgetMap.get(widgetDef);
       if (originalState === newWidgetState) return;
       widgetDef.handleWidgetStateChanged(newWidgetState);
     });
-    newPanelStateMap.forEach((newPanelState, panelDef) => {
-      const originalState = originalPanelStateMap.get(panelDef);
+    newPanelMap.forEach((newPanelState, panelDef) => {
+      const originalState = panelMap.get(panelDef);
       if (originalState === newPanelState) return;
       panelDef.handlePanelStateChanged(newPanelState);
     });
@@ -727,48 +695,6 @@ export class FrontstageDef {
     InternalFrontstageManager.onFrontstageRestoreLayoutEvent.emit({
       frontstageDef: this,
     });
-  }
-
-  /** Used to determine WidgetState from NinezoneState
-   *  @internal
-   */
-  public getWidgetCurrentState(widgetDef: WidgetDef): WidgetState | undefined {
-    const state = this.nineZoneState;
-    if (!state) return widgetDef.defaultState;
-
-    const tab = state.tabs[widgetDef.id];
-    if (tab && tab.unloaded) {
-      return WidgetState.Unloaded;
-    }
-
-    const toolSettingsTabId = state.toolSettings?.tabId;
-    if (
-      toolSettingsTabId === widgetDef.id &&
-      state.toolSettings?.type === "docked"
-    ) {
-      return WidgetState.Open;
-    }
-
-    const location = getTabLocation(state, widgetDef.id);
-
-    // istanbul ignore next
-    if (!location) return WidgetState.Hidden;
-
-    if (isFloatingTabLocation(location)) {
-      return WidgetState.Floating;
-    }
-
-    let collapsedPanel = false;
-    // istanbul ignore else
-    if ("side" in location) {
-      const panel = state.panels[location.side];
-      collapsedPanel =
-        panel.collapsed || undefined === panel.size || 0 === panel.size;
-    }
-    const widgetContainer = state.widgets[location.widgetId];
-    if (widgetDef.id === widgetContainer.activeTabId && !collapsedPanel)
-      return WidgetState.Open;
-    return WidgetState.Closed;
   }
 
   public isPopoutWidget(widgetId: string) {

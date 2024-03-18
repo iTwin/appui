@@ -2166,6 +2166,7 @@ export interface FrameworkVisibility {
     showUiAndCancelTimer(): void;
     showUiAndResetTimer(): void;
     snapWidgetOpacity: boolean;
+    // @deprecated
     useProximityOpacity: boolean;
 }
 
@@ -2256,8 +2257,6 @@ export class FrontstageDef {
     getFloatingWidgetContainerIds(): string[];
     // @beta
     getStagePanelDef(location: StagePanelLocation): StagePanelDef | undefined;
-    // @internal
-    getWidgetCurrentState(widgetDef: WidgetDef): WidgetState | undefined;
     // (undocumented)
     get id(): string;
     // @internal
@@ -2396,6 +2395,9 @@ export function getSelectionContextSyncEventIds(): string[];
 
 // @beta
 export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry;
+
+// @internal (undocumented)
+export function getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState): WidgetState;
 
 // @internal (undocumented)
 export type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
@@ -5155,7 +5157,7 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
 export const useGroupedItems: (items: ReadonlyArray<BackstageItem>) => GroupedItems;
 
 // @internal (undocumented)
-export function useHorizontalToolSettingNodes(): ToolSettingsEntry[];
+export function useHorizontalToolSettingEntries(): ToolSettingsEntry[] | undefined;
 
 // @public
 export const useIsBackstageOpen: (manager: FrameworkBackstage) => boolean;

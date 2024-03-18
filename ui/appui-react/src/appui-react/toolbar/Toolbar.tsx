@@ -72,7 +72,7 @@ function OriginalToolbar(props: ToolbarProps) {
     return items.map((item) => toUIAToolbarItem(item));
   }, [items]);
   return (
-    <CR_Toolbar // eslint-disable-line deprecation/deprecation
+    <CR_Toolbar
       items={uiaItems}
       syncUiEvent={SyncUiEventDispatcher.onSyncUiEvent}
       {...other}

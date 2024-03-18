@@ -5,6 +5,8 @@
 export * from "./AppUiTestProviders";
 export * from "./createBlankConnection";
 
+export * from "./ui/components/LanguageSelect";
+
 export * from "./ui/providers/AbstractUiItemsProvider";
 export * from "./ui/providers/CustomStageUiItemsProvider";
 export * from "./ui/providers/InspectUiItemInfoToolProvider";
