@@ -13,7 +13,7 @@
 
 <p align="center">A Bentley Systems internal React UI library.</p>
 
-Copyright © Bentley Systems, Incorporated. All rights reserved. See [LICENSE.md](./LICENSE.md) for license terms and full copyright notice.
+> Copyright © Bentley Systems, Incorporated. All rights reserved. See [LICENSE.md](./LICENSE.md) for license terms and full copyright notice.
 
 [iTwin.js](http://www.itwinjs.org) is an open source platform for creating, querying, modifying, and displaying Infrastructure Digital Twins. The goal of AppUI is to provide easy to use, flexible UI components for the iTwin.js platform.
 

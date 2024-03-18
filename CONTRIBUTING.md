@@ -17,8 +17,6 @@ Rather than opening an issue, first check [the Github discussions page](https://
 
 Thank you for taking the time to contribute to open source and making great projects like iTwin.js possible!
 
----
-
 ## Contributing
 
 ## Getting started
