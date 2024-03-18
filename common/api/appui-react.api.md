@@ -13,7 +13,7 @@ import { AccuDraw } from '@itwin/core-frontend';
 import type { ActionButton } from '@itwin/appui-abstract';
 import { ActivityMessageDetails } from '@itwin/core-frontend';
 import { ActivityMessageEndReason } from '@itwin/core-frontend';
-import { BadgeType } from '@itwin/appui-abstract';
+// import { BadgeType } from '@itwin/appui-abstract';
 import { BaseSolarDataProvider } from '@itwin/imodel-components-react';
 import { BaseTimelineDataProvider } from '@itwin/imodel-components-react';
 import type { BeButtonEvent } from '@itwin/core-frontend';

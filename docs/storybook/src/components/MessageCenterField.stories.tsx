@@ -5,8 +5,13 @@
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { MessageCenterField } from "@itwin/appui-react/src/appui-react/statusfields/message-center/MessageCenterField";
-import { useArgs } from "@storybook/preview-api";
-import { AnyChain } from "@itwin/core-geometry";
+import { MessageManager } from "@itwin/appui-react";
+import { useEffect } from "react";
+import {
+  NotifyMessageDetails,
+  OutputMessagePriority,
+} from "@itwin/core-frontend";
+import { Button } from "@itwin/itwinui-react";
 
 const AlignComponent: Decorator = (Story) => {
   return (
@@ -38,51 +43,34 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {};
 
+// NoTification
+
+const NotificationDecorator: Decorator = (Story) => {
+  useEffect(() => {
+    MessageManager.addToMessageCenter(
+      new NotifyMessageDetails(OutputMessagePriority.Info, "info")
+    );
+
+    return MessageManager.clearMessages();
+  }, []);
+
+  return (
+    <div>
+      <Story />
+      <Button
+        size="small"
+        onClick={() =>
+          MessageManager.addToMessageCenter(
+            new NotifyMessageDetails(OutputMessagePriority.Info, "info")
+          )
+        }
+      >
+        Update Messages
+      </Button>
+    </div>
+  );
+};
+
 export const Notification: Story = {
-  args: {
-    notify: "primary",
-    render: function Render(args: any) {
-      const [{ messages }, updateArgs] = useArgs();
-
-      function onChange() {
-        updateArgs({ messages: messages });
-      }
-
-      return (
-        <MessageCenterField {...args} onChange={onChange} messages={messages} />
-      );
-    },
-    messages: [
-      {
-        priority: 12,
-        briefMessage: "Distance: 2441'-6 5/8\"",
-        msgType: 2,
-        openAlert: 0,
-        displayTime: {
-          _milliseconds: 5000,
-        },
-        relativePosition: 5,
-      },
-      {
-        priority: 12,
-        briefMessage: "Cumulative Distance: 4979'-3 1/8\"",
-        msgType: 2,
-        openAlert: 0,
-        displayTime: {
-          _milliseconds: 5000,
-        },
-        relativePosition: 5,
-      },
-      {
-        priority: 12,
-        briefMessage: "Cumulative Distance: 16635'-6 3/4\"",
-        msgType: 2,
-        openAlert: 0,
-        displayTime: {
-          _milliseconds: 5000,
-        },
-        relativePosition: 5,
-      },
-    ],
-  },
+  decorators: NotificationDecorator,
 };

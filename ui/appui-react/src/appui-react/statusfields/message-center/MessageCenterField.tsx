@@ -58,7 +58,6 @@ export function MessageCenterField() {
     return MessageManager.onMessagesUpdatedEvent.addListener(() => {
       setNotify(notifyStatus);
       setMessages(MessageManager.messages);
-      console.log(messages);
     });
   });
 
