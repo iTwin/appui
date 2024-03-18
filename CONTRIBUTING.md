@@ -17,17 +17,11 @@ Rather than opening an issue, first check [the Github discussions page](https://
 
 Thank you for taking the time to contribute to open source and making great projects like iTwin.js possible!
 
-## Contributing
-
 ## Contributing guidelines
-
-AppUI contains a large amount of legacy code. As such we are in the process of standardizing, reorganizing, and optimizing our codebase.
-
-Before contributing to AppUI please consult [the iTwinUI styling guide](https://github.com/iTwin/iTwinUI/blob/main/STYLEGUIDE.md) for all syntax conventions.
 
 ### Application architecture
 
-Our `ui` folder contains all our packages which are organized as following:
+Our `ui` folder contains all our packages which are organized as such:
 
 - `appui-react` should contain exclusively layouts. These are the largest and most complicated components in AppUI.
 - `components-react` should contain exclusively widgets: smaller components that are used inside `appui-react`. Ideally should largely be combinations of iTwinUI components.
@@ -44,8 +38,9 @@ Common fixes we are looking to solve include, but are not limited to:
 
 ### Conventions
 
-Please follow these conventions when contributing to AppUI
+Please follow these conventions when contributing to AppUI:
 
+- Consult [the iTwinUI styling guide](https://github.com/iTwin/iTwinUI/blob/main/STYLEGUIDE.md) for all syntax conventions.
 - Be sure that your branch is up to date with the master branch (i.e. `git merge origin/master`)
 - All components should import a single SCSS file with a matching name, e.g. `Message.tsx` importing `Message.scss`. SCSS files should be siblings of their relative component files
 - We are planning to migrate to CSS modules. Until then, minimize potential class name clashes by following this formula:
