@@ -73,7 +73,7 @@ There are just a few guidelines you need to follow.
 1. Install dependencies using `rush install`.
 2. Run build using `rush rebuild`.
 3. While in the desired packages' folder, run `npm start` to enter build in watch mode for easy validation along the `test-apps` or `storybook` (see [Testing options](#testing-options)).
-4. In a new terminal, `cd` into `test-apps/appui-test-aoo/standalone` and run `npm run start:webserver`.
+4. In a new terminal, `cd` into `test-apps/appui-test-app/standalone` and run `npm run start:webserver`.
 
 ---
 
@@ -142,7 +142,7 @@ Our `ui` folder contains all our packages which are organized as following:
 - `appui-react` should contain exclusively layouts. These are the largest and most complicated components in AppUI.
 - `components-react` should contain exclusively widgets: smaller components that are used inside `appui-react`. Ideally should largely be combinations of iTwinUI components.
 - `core-react` marked to be decrepit at some point. Currently, houses the smallest components inside AppUI. Ideally, all of these components would be replaced with the latest iTwinUI components and the entire core-react could be deleted. Rely on this as little as possible.
-- `imodel-components-react/` contains components that require a 3D environment. Used exclusively for iModels.
+- `imodel-components-react` contains components and APIs that facilitate integration with an [iTwin.js library](https://www.itwinjs.org/).
 
 ### Common issues to solve
 
