@@ -19,56 +19,9 @@ Thank you for taking the time to contribute to open source and making great proj
 
 ---
 
-## Reporting Issues
-
-Have you identified a reproducible problem in iTwin.js AppUI?
-Have a feature request?
-We want to hear about it!
-Here's how you can make reporting your issue as effective as possible:
-
-### Look For an Existing Issue
-
-Before you create a new issue, please search [open issues](https://github.com/iTwin/appui/issues) to see if the issue or feature request has already been filed.
-
-If you find that your issue already exists, please add relevant comments and your [reaction](https://github.com/blog/2119-add-reactions-to-pull-requests-issues-and-comments).
-Use a reaction in place of a "+1" comment:
-
-- 👍 - upvote
-- 👎 - downvote
-
-If you cannot find an existing issue that describes your bug or feature, create a new issue using the guidelines below.
-
-### Writing Good Bug Reports and Feature Requests
-
-Please File a single issue per problem and feature request.
-
-Refrain from adding your issue as a comment to an existing issue unless it's for the identical input. Many issues look similar, but have different causes.
-
-Please include the following information with each issue:
-
-- A short description of the issue with a clear title
-- Versions of relevant iTwin.js core and AppUI packages
-- Minimal steps to reproduce the issue or a code snippet that demonstrates the issue
-- What you expected to see, versus what you actually saw
-- Images that help explain the issue
-- Any relevant error messages, logs, or other details
-- Impact of the issue
-- Use the [`bug`](https://github.com/iTwin/appui/labels/bug) or [`enhancement`](https://github.com/iTwin/appui/labels/enhancement) label to identify the type of issue you are filing
-
-Please follow your issue and be responsive, as our developers might need more information! The more information you can provide, the more likely someone will be successful reproducing the issue and finding a fix!
-
----
-
 ## Contributing
 
-We'd love to accept your contributions to iTwin.js AppUI.
-There are just a few guidelines you need to follow.
-
-> All submissions go through a review process from our developers using GitHub. Consult [GitHub Help](https://help.github.com/articles/about-pull-requests/) for more information on using pull requests.
-
----
-
-## Getting Started
+## Getting started
 
 1. Install dependencies using `rush install`.
 2. Run build using `rush rebuild`.
@@ -96,6 +49,8 @@ There are just a few guidelines you need to follow.
 ---
 
 ## Checking and documenting changes
+
+**Please note that checking and documenting changes prior to PR submission is mandatory**
 
 ### Check for API signature changes
 
@@ -127,29 +82,27 @@ Here is a sample [changelog](https://github.com/microsoft/rushstack/blob/master/
 
 ---
 
-## Contributing Guidelines
+## Contributing guidelines
 
-AppUI contains a large amount of legacy code. As such we are in the process of standardizing, reorganizing, and optimizing AppUI.
+AppUI contains a large amount of legacy code. As such we are in the process of standardizing, reorganizing, and optimizing our codebase.
 
-Before contributing to AppUI please consult [the iTwinUI styling guide](https://github.com/iTwin/iTwinUI/blob/main/STYLEGUIDE.md)
+Before contributing to AppUI please consult [the iTwinUI styling guide](https://github.com/iTwin/iTwinUI/blob/main/STYLEGUIDE.md) for all syntax conventions.
 
-When contributing to AppUI please keep in mind the following guidelines.
-
-### Application Architecture
+### Application architecture
 
 Our `ui` folder contains all our packages which are organized as following:
 
 - `appui-react` should contain exclusively layouts. These are the largest and most complicated components in AppUI.
 - `components-react` should contain exclusively widgets: smaller components that are used inside `appui-react`. Ideally should largely be combinations of iTwinUI components.
-- `core-react` marked to be decrepit at some point. Currently, houses the smallest components inside AppUI. Ideally, all of these components would be replaced with the latest iTwinUI components and the entire core-react could be deleted. Rely on this as little as possible.
+- `core-react` is marked to be decrepit at some point. Currently, it houses the smallest components inside AppUI. Ideally, all of these components would be replaced with the latest iTwinUI components and the entire `core-react` could be deleted. Do not use these components if possible.
 - `imodel-components-react` contains components and APIs that facilitate integration with an [iTwin.js library](https://www.itwinjs.org/).
 
 ### Common issues to solve
 
-Common fixes are we looking to solve include, but ar e not limited to:
+Common fixes we are looking to solve include, but are not limited to:
 
-- Replacing `core-react` components with iTwinUI components
-- Deleting Snapshot tests
+- Replacing `@itwin/core-react` components with iTwinUI components
+- Removing snapshot testing from unit tests
 - Migrating to functional from class based React Components
 
 ### Conventions
@@ -157,8 +110,19 @@ Common fixes are we looking to solve include, but ar e not limited to:
 Please follow these conventions when contributing to AppUI
 
 - Be sure that your branch is up to date with the master branch (i.e. `git merge origin/master`)
-- Classnames should follow this formula: [abrv. of module name] + [folder] + [component]. For example, when working inside the Message Center module on MessageCenterField on the dialog, one would use `”mc-messagecenterfield-dialog”`
-- All components should import a single SCSS file with a matching name, e.g. `Message.tsx` importing `Message.scss`. SCSS files should be siblings of their relative component files.
+- All components should import a single SCSS file with a matching name, e.g. `Message.tsx` importing `Message.scss`. SCSS files should be siblings of their relative component files
+- We are planning to migrate to CSS modules. Until then, minimize potential class name clashes by following this formula:
+
+  [abbr. of package name] + [folders] + [component]
+
+  Package name abbreviations:
+
+  - @itwin/appui-react - uifw
+  - @itwin/components-react - components
+  - @itwin/core-react - core
+  - @itwin/imodel-components-react - icr
+
+For example, when working on `MessageCenterField` component under `status-bar/fields` directory in `@itwin/appui-react` one would use `”uifw-statusBar-fields-dialog”`
 
 ---
 
@@ -166,6 +130,8 @@ Please follow these conventions when contributing to AppUI
 
 A [Contribution License Agreement with Bentley](https://gist.github.com/imodeljs-admin/9a071844d3a8d420092b5cf360e978ca) must be signed before your contributions will be accepted. Upon opening a pull request, you will be prompted to use [cla-assistant](https://cla-assistant.io/) for a one-time acceptance applicable for all Bentley projects.
 You can read more about [Contributor License Agreements](https://en.wikipedia.org/wiki/Contributor_License_Agreement) on Wikipedia.
+
+> All submissions go through a review process from our developers using GitHub. Consult [GitHub Help](https://help.github.com/articles/about-pull-requests/) for more information on using pull requests.
 
 ---
 
@@ -175,23 +141,23 @@ The repository is set up to allow 2 different ways of testing changes with manua
 
 ### Test apps
 
-In the `test-apps` folder there are 2 apps that can be used to test changes to the packages in this repository. Each app is a standalone app that can be run with `npm start` from the app's folder.
+In the `test-apps` folder there are 2 apps that can be used to test changes to the packages in this repository. Each app can be run with `npm start` from the app's folder.
 
-Most of the features should be the same in both apps as they are both being configured by the `appui-test-providers` package, new features should be added through this package.
+Most of the features should be the same in both apps as they are both being configured by the `appui-test-providers` package. New features should be added through this package.
 
 The apps are:
 
-- `standalone`: This app is working only on the current machine and do not require log in, it is useful for testing with `.bim` files that you are on your machine. [See Readme for more info](./test-apps/appui-test-app/standalone/README.md)
+- `standalone` is an iTwin.js application that is using IPC and is useful for testing with local `.bim` files that are on your machine. [See Readme for more info](./test-apps/appui-test-app/standalone/README.md)
 
-- `connected`: This app is working with the iTwin Platform and requires log in, it is useful for testing with iModels that are on the iTwin Platform. [See Readme for more info](./test-apps/appui-test-app/connected/README.md)
+- `connected` is working with the iTwin Platform and requires log in, it is useful for testing with iModels that are on the iTwin Platform. [See Readme for more info](./test-apps/appui-test-app/connected/README.md)
 
 > Note: `standalone` is used by the [end-to-end tests](./e2e-tests/README.md).
 
 ### Storybook
 
-In the `docs/storybook` folder, there is a [storybook](https://storybook.js.org/) that can be used to test changes to the packages in this repository. The storybook can be run with `npm start` from the folder and will be accessible at `http://localhost:3000/`.
+There is a [storybook](https://storybook.js.org/) that can be used to test changes to the packages in this repository. The storybook can be run with `npm start` from `docs/storybook` folder, and will be accessible at `http://localhost:3000/`.
 
-Storybook is deployed with each PR build and can be accessed through the **Storybook preview** link in the PR checks. (Direct link: `https://itwin.github.io/appui/[PR_NUMBER]`) So a feature with a story facilitate PR reviews.
+Storybook is deployed with each PR build and can be accessed through the **Storybook preview** link in the PR checks. (Direct link: `https://itwin.github.io/appui/[PR_NUMBER]`) So adding stories for a feature facilitates PR reviews.
 
 It is also deployed with master and can be accessed through this URL: <https://itwin.github.io/appui/storybook>
 
@@ -236,7 +202,47 @@ The external dependencies must be updated in this variant with the following com
 1. Run `rush check --variant core-3x`
 2. Run `rush update --variant core-3x`
 
-### Other NPM Scripts
+### Other NPM scripts
 
 1. Build TypeDoc documentation for all packages: `rush docs`
 2. Build TypeDoc documentation for a single package: `cd ui\core-react` and then `npm run docs`
+
+---
+
+## Reporting issues
+
+Have you identified a reproducible problem in iTwin.js AppUI?
+Have a feature request?
+We want to hear about it!
+Here's how you can make reporting your issue as effective as possible:
+
+### Look for an existing issue
+
+Before you create a new issue, please search [open issues](https://github.com/iTwin/appui/issues) to see if the issue or feature request has already been filed.
+
+If you find that your issue already exists, please add relevant comments and your [reaction](https://github.com/blog/2119-add-reactions-to-pull-requests-issues-and-comments).
+Use a reaction in place of a "+1" comment:
+
+- 👍 - upvote
+- 👎 - downvote
+
+If you cannot find an existing issue that describes your bug or feature, create a new issue using the guidelines below.
+
+### Writing good bug reports and feature requests
+
+Please File a single issue per problem and feature request.
+
+Refrain from adding your issue as a comment to an existing issue unless it's for the identical input. Many issues look similar, but have different causes.
+
+Please include the following information with each issue:
+
+- A short description of the issue with a clear title
+- Versions of relevant iTwin.js core and AppUI packages
+- Minimal steps to reproduce the issue or a code snippet that demonstrates the issue
+- What you expected to see, versus what you actually saw
+- Images that help explain the issue
+- Any relevant error messages, logs, or other details
+- Impact of the issue
+- Use the [`bug`](https://github.com/iTwin/appui/labels/bug) or [`enhancement`](https://github.com/iTwin/appui/labels/enhancement) label to identify the type of issue you are filing
+
+Please follow your issue and be responsive, as our developers might need more information! The more information you can provide, the more likely someone will be successful reproducing the issue and finding a fix!

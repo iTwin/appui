@@ -11,7 +11,7 @@
   </picture>
 </p>
 
-<p align="center">A Bentley Systems © internal React UI library.</p>
+<p align="center">A Bentley Systems internal React UI library.</p>
 
 Copyright © Bentley Systems, Incorporated. All rights reserved. See [LICENSE.md](./LICENSE.md) for license terms and full copyright notice.
 
