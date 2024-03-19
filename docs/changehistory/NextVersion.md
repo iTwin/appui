@@ -15,6 +15,7 @@ Table of contents:
   - [Deprecations](#deprecations-2)
   - [Additions](#additions-2)
   - [Changes](#changes-1)
+  - [Fixes](#fixes-1)
 
 ## @itwin/appui-react
 
@@ -95,3 +96,7 @@ Table of contents:
 ### Changes
 
 - Updated visual styling of `SolarTimeline` and `TimelineComponent` components. [#733](https://github.com/iTwin/appui/pull/733), [#763](https://github.com/iTwin/appui/pull/763)
+
+### Fixes
+
+- Fix disposal of `unload` event listener in `ViewportComponent` to address a memory leak. [#773](https://github.com/iTwin/appui/pull/773)
