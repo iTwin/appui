@@ -9,7 +9,7 @@
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import type { Orientation } from "@itwin/core-react";
+import { Orientation } from "@itwin/core-react";
 import type { HighlightingComponentProps } from "../../../common/HighlightingComponentProps";
 import type { PropertyUpdatedArgs } from "../../../editors/EditorContainer";
 import { EditorContainer } from "../../../editors/EditorContainer";
@@ -86,6 +86,7 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
       onExpansionToggled={passthroughProps.onExpansionToggled}
       onHeightChanged={onHeightChanged}
       highlight={highlight}
+      indentation={props.indentation}
     />
   );
 
@@ -97,13 +98,8 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
 
   const rendererManager =
     propertyValueRendererManager ?? PropertyValueRendererManager.defaultManager;
-  const property = passthroughProps.propertyRecord.property;
-  const customRenderer =
-    (property.renderer &&
-      rendererManager?.getRegisteredRenderer(property.renderer.name)) ||
-    rendererManager?.getRegisteredRenderer(property.typename);
-  const hasValidCustomRenderer = !!(
-    customRenderer && customRenderer.canRender(passthroughProps.propertyRecord)
+  const hasCustomRenderer = rendererManager.hasCustomRenderer(
+    passthroughProps.propertyRecord
   );
 
   switch (props.propertyRecord.value.valueFormat) {
@@ -117,10 +113,7 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
 
     case PropertyValueFormat.Array:
       // If array is empty or has a custom renderer registered, render it as a customizable property
-      if (
-        props.propertyRecord.value.items.length === 0 ||
-        hasValidCustomRenderer
-      )
+      if (props.propertyRecord.value.items.length === 0 || hasCustomRenderer)
         return (
           <CustomizablePropertyRenderer
             highlight={highlight?.applyOnLabel ? highlight : undefined}
@@ -131,7 +124,7 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
     // eslint-disable-next-line no-fallthrough
     case PropertyValueFormat.Struct:
       // If a custom renderer is registered for the struct property, render it as a customizable property
-      if (hasValidCustomRenderer) {
+      if (hasCustomRenderer) {
         return (
           <CustomizablePropertyRenderer
             highlight={highlight?.applyOnLabel ? highlight : undefined}
@@ -142,9 +135,11 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
 
       return (
         <FlatNonPrimitivePropertyRenderer
+          {...primitiveRendererProps}
           isExpanded={props.isExpanded}
           onExpandToggled={props.onExpansionToggled}
-          {...primitiveRendererProps}
+          valueElement={undefined}
+          valueElementRenderer={undefined}
         />
       );
   }
@@ -178,7 +173,11 @@ interface DisplayValueProps {
 }
 
 const DisplayValue: React.FC<DisplayValueProps> = (props) => {
-  useResetHeightOnEdit(props.isEditing, props.onHeightChanged);
+  useResetHeightOnEdit(
+    props.orientation,
+    props.isEditing,
+    props.onHeightChanged
+  );
 
   if (props.isEditing) {
     const _onEditCommit = (args: PropertyUpdatedArgs) => {
@@ -213,13 +212,14 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
 };
 
 function useResetHeightOnEdit(
+  orientation: Orientation,
   isEditing?: boolean,
   onHeightChanged?: (newHeight: number) => void
 ) {
   const previousEditingStatusRef = React.useRef(isEditing);
   React.useEffect(() => {
     if (!previousEditingStatusRef.current && isEditing) {
-      onHeightChanged?.(27);
+      onHeightChanged?.(orientation === Orientation.Vertical ? 48 : 28);
     }
 
     previousEditingStatusRef.current = isEditing;

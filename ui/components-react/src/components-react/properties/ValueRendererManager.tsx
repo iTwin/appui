@@ -171,6 +171,17 @@ export class PropertyValueRendererManager {
     return this._propertyRenderers.get(rendererType);
   }
 
+  /** Check whether a property record has a custom renderer registered that can render it */
+  public hasCustomRenderer(record: PropertyRecord): boolean {
+    const property = record.property;
+    const customRenderer =
+      (property.renderer &&
+        this._propertyRenderers.get(property.renderer.name)) ||
+      this._propertyRenderers.get(property.typename);
+
+    return !!(customRenderer && customRenderer.canRender(record));
+  }
+
   /** Returns default PropertyValueRendererManager instance */
   public static get defaultManager() {
     if (!this._defaultRendererManager)

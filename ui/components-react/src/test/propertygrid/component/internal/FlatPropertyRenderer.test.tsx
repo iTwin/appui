@@ -545,11 +545,12 @@ describe("FlatPropertyRenderer", () => {
 
     function renderFlatPropertyRenderer(
       isEditing: boolean,
-      onHeightChanged?: (newHeight: number) => void
+      onHeightChanged?: (newHeight: number) => void,
+      orientation?: Orientation
     ) {
       return (
         <FlatPropertyRenderer
-          orientation={Orientation.Horizontal}
+          orientation={orientation ?? Orientation.Horizontal}
           propertyRecord={record}
           isExpanded={false}
           isEditing={isEditing}
@@ -566,7 +567,19 @@ describe("FlatPropertyRenderer", () => {
       );
       expect(onHeightChanged).to.have.not.been.called;
       rerender(renderFlatPropertyRenderer(true, onHeightChanged));
-      expect(onHeightChanged).to.have.been.calledOnceWith(27);
+      expect(onHeightChanged).to.have.been.calledOnceWith(28);
+    });
+
+    it("gets called when entering editing state in vertical orientation", () => {
+      const onHeightChanged = sinon.fake();
+      const { rerender } = render(
+        renderFlatPropertyRenderer(false, onHeightChanged, Orientation.Vertical)
+      );
+      expect(onHeightChanged).to.have.not.been.called;
+      rerender(
+        renderFlatPropertyRenderer(true, onHeightChanged, Orientation.Vertical)
+      );
+      expect(onHeightChanged).to.have.been.calledOnceWith(48);
     });
 
     it("does not get called when component is mounted in editing state", () => {
