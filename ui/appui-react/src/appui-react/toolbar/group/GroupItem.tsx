@@ -75,6 +75,7 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
   const label = useConditionalValue(item.label);
   const isDisabled = useConditionalValue(item.isDisabled);
   const isHidden = useConditionalValue(item.isHidden);
+  const isActive = useConditionalValue(item.isActive);
 
   if (isHidden) {
     return null;
@@ -92,6 +93,7 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
           onClose?.();
         }
       }}
+      isSelected={isActive}
     >
       <Badge badge={item.badge} />
       {label}
