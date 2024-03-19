@@ -134,7 +134,7 @@ The apps are:
 
 - `standalone` is an iTwin.js application that is using IPC and is useful for testing with local `.bim` files that are on your machine. [See Readme for more info](./test-apps/appui-test-app/standalone/README.md)
 
-- `connected` is working with the iTwin Platform and requires log in, it is useful for testing with iModels that are on the iTwin Platform. [See Readme for more info](./test-apps/appui-test-app/connected/README.md)
+- `connected` is an iTwin.js application that is using RPC and is useful for testing with iModels that are on the iTwin Hub. This application requires a log in. [See Readme for more info](./test-apps/appui-test-app/connected/README.md)
 
 > Note: `standalone` is used by the [end-to-end tests](./e2e-tests/README.md).
 
