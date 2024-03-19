@@ -12,6 +12,7 @@ Table of contents:
 - [@itwin/core-react](#itwincore-react)
   - [Additions](#additions-1)
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
+  - [Fixes](#fixes-1)
   - [Deprecations](#deprecations-2)
   - [Additions](#additions-2)
   - [Changes](#changes-1)
@@ -82,6 +83,10 @@ Table of contents:
 - `BadgeType` has been moved from `@itwin/appui-abstract`. [#729](https://github.com/iTwin/appui/pull/729)
 
 ## @itwin/imodel-components-react
+
+### Fixes
+
+- Fix disposal of handleWindowUnload() event listener to address a memory leak. [#773](https://github.com/iTwin/appui/pull/773)
 
 ### Deprecations
 
