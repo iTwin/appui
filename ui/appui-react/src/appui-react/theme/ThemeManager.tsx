@@ -54,6 +54,7 @@ const colorThemeToThemeTypeMap: { [x: string]: ThemeType } = {
   [ColorTheme.Dark]: "dark",
   [ColorTheme.HighContrastDark]: "dark",
   [ColorTheme.System]: "os",
+  os: "os", // handle "os" for backwards compatibility
 };
 
 /**
