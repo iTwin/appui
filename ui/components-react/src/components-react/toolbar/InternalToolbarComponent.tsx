@@ -662,7 +662,7 @@ export function InternalToolbarComponent(props: InternalToolbarComponentProps) {
 /** Returns key of a child. Must be used along with React.Children.toArray to preserve the semantics of availableItems.
  * @internal
  */
-export function getChildKey(child: React.ReactNode, index: number) {
+function getChildKey(child: React.ReactNode, index: number) {
   // istanbul ignore else
   if (React.isValidElement(child) && child.key !== null) {
     return child.key.toString();

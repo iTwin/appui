@@ -51,7 +51,6 @@ function getWebComponentSource(iconSpec: string): string | undefined {
  * @public
  */
 export function Icon(props: IconProps) {
-  // TODO: this doesn't handle conditionals ATM - if refresh is not called.
   if (!props.iconSpec) return null;
 
   const iconString =
