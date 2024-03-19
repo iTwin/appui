@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Add `newToolbars` preview feature which replaces `Toolbar` component with iTwinUI based toolbar.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
