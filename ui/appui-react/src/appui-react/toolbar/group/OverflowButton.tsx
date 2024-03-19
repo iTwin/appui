@@ -26,8 +26,15 @@ export const ToolGroupOverflowContext = React.createContext<
   ToolGroupOverflow | undefined
 >(undefined);
 
+interface OverflowButtonProps {
+  children?: React.ReactNode;
+}
+
 /** @internal */
-export function OverflowButton(props: React.PropsWithChildren<{}>) {
+export const OverflowButton = React.forwardRef<
+  HTMLButtonElement,
+  OverflowButtonProps
+>(function OverflowButton(props, ref) {
   const placement = usePopoverPlacement();
   const orientation = useMenuOrientation();
   const labelProps = useLabelProps();
@@ -51,12 +58,17 @@ export function OverflowButton(props: React.PropsWithChildren<{}>) {
         context?.setPopoverOpen(newVisible);
       }}
     >
-      <IconButton label="More" labelProps={labelProps} styleType="borderless">
+      <IconButton
+        ref={ref}
+        label="More"
+        labelProps={labelProps}
+        styleType="borderless"
+      >
         <SvgMore />
       </IconButton>
     </DropdownMenu>
   );
-}
+});
 
 interface OverflowMenuProps {
   children?: React.ReactNode;

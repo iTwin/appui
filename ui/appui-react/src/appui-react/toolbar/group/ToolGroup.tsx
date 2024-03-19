@@ -44,6 +44,7 @@ export function ToolGroup({
   );
   const childrenKeys = Array.from(keyToChildMap.keys());
   const itemRefs = React.useRef<Map<string, Element>>(new Map());
+  const overflowRef = React.useRef<HTMLButtonElement>(null);
 
   const getItemSize = React.useCallback(
     (item: string): number => {
@@ -55,8 +56,10 @@ export function ToolGroup({
     [orientation]
   );
   const getOverflowSize = React.useCallback((): number => {
-    orientation;
-    return 36;
+    const element = overflowRef.current;
+    if (!element) return 0;
+    const bounds = element.getBoundingClientRect();
+    return getLength(bounds, orientation);
   }, [orientation]);
 
   const [containerRef, componentRef, visibleCount, renderOverflow] =
@@ -98,7 +101,7 @@ export function ToolGroup({
           });
         })}
         {renderOverflow && (
-          <OverflowButton>
+          <OverflowButton ref={overflowRef}>
             {overflown.map(([_, child]) => child)}
           </OverflowButton>
         )}
