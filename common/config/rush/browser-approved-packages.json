@@ -299,6 +299,10 @@
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
+      "name": "copyfiles",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "cpx2",
       "allowedCategories": [ "frontend", "internal" ]
     },

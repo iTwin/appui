@@ -39,6 +39,8 @@ import {
   SessionStateActionId,
   StandardContentToolsUiItemsProvider,
   StateManager,
+  StatusBarItemUtilities,
+  StatusBarSection,
   SyncUiEventDispatcher,
   SYSTEM_PREFERRED_COLOR_THEME,
   ThemeManager,
@@ -98,6 +100,7 @@ import {
   CustomStageUiItemsProvider,
   FloatingWidgetsUiItemsProvider,
   InspectUiItemInfoToolProvider,
+  LanguageSelect,
   MessageUiItemsProvider,
   PopoutWindowsFrontstage,
   previewFeaturesToggleProvider,
@@ -366,6 +369,17 @@ export class SampleAppIModelApp {
     );
     UiItemsManager.register(previewFeaturesToggleProvider);
     UiItemsManager.register(new CustomStageUiItemsProvider());
+    UiItemsManager.register({
+      id: "language",
+      getStatusBarItems: () => [
+        StatusBarItemUtilities.createCustomItem(
+          "language",
+          StatusBarSection.Right,
+          0,
+          <LanguageSelect />
+        ),
+      ],
+    });
 
     // Register frontstages
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace);

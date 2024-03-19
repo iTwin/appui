@@ -47,6 +47,8 @@ Table of contents:
 
 - `MenuItemProps` in favor of `CursorMenuItemProps`. [#729](https://github.com/iTwin/appui/pull/729)
 
+- `useProximityOpacity` setting of `FrameworkVisibility` is deprecated. The preferred mode is to change opacity immediately when the mouse gets close (use `FrameworkVisibility.snapWidgetOpacity`). [#765](https://github.com/iTwin/appui/pull/765)
+
 ### Additions
 
 - `UiFramework` methods detailed above which replace FrameworkUiAdmin methods. [#729](https://github.com/iTwin/appui/pull/729)
@@ -58,11 +60,15 @@ Table of contents:
 - Update `WidgetDef.show()` to bring the popout widget window to the front (this behavior is not guaranteed and depends on browser and user settings). [#667](https://github.com/iTwin/appui/pull/667)
 - Removed arrow from status bar popup. [#750](https://github.com/iTwin/appui/pull/750)
 - Render AccuDraw Distance field above Angle field when in Polar mode. [#753](https://github.com/iTwin/appui/pull/753)
+- Changed tool settings to render empty tool settings message when in widget mode. [#769](https://github.com/iTwin/appui/pull/753)
 
 ### Fixes
 
 - Fix the issue when right-click + left-click starts a widget drag interaction. [#730](https://github.com/iTwin/appui/pull/730)
 - Fix polar mode AccuDraw input focus by correctly focusing the distance field. [#753](https://github.com/iTwin/appui/pull/753)
+- Fix `UiFramework.frontstages.onWidgetStateChangedEvent` event to correctly emit state changes and match `WidgetState` returned by `WidgetDef.state`. [#768](https://github.com/iTwin/appui/pull/768)
+- Fix an assertion in `ScrollableWidgetContent` when tool settings is un-docked. [#769](https://github.com/iTwin/appui/pull/769)
+- Fix `ThemeManager` to correctly handle `os` theme for backwards compatibility. [#774](https://github.com/iTwin/appui/pull/774)
 
 ## @itwin/components-react
 
@@ -89,4 +95,4 @@ Table of contents:
 
 ### Changes
 
-- Updated visual styling of `SolarTimeline` and `TimelineComponent` components. [#733](https://github.com/iTwin/appui/pull/733)
+- Updated visual styling of `SolarTimeline` and `TimelineComponent` components. [#733](https://github.com/iTwin/appui/pull/733), [#763](https://github.com/iTwin/appui/pull/763)

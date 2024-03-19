@@ -31,7 +31,7 @@
   }
 }
 
-.solar-slider {
+.solar-timeline {
   grid-area: solar-timeline;
   margin-inline: var(--iui-size-2xs);
 }
@@ -42,30 +42,4 @@
 
 .solar-timeline-end {
   grid-area: solar-timeline-end;
-}
-
-.solar-timeline_speed {
-  all: unset;
-  display: flex;
-  align-items: center;
-  height: var(--iui-component-height);
-  padding-inline: var(--iui-size-xs);
-  box-sizing: border-box;
-  border-radius: var(--iui-border-radius-1);
-  border: 1px solid transparent;
-  color: var(--iui-color-text);
-  cursor: pointer;
-  user-select: none;
-  transition: background-color var(--iui-duration-1) ease-out,
-    border-color var(--iui-duration-1) ease-out;
-
-  &:hover {
-    color: var(--iui-color-text-hover);
-    background-color: var(--iui-color-background-transparent-hover);
-  }
-
-  &:focus-visible {
-    outline: 1px solid var(--iui-color-border-accent);
-    outline-offset: -1px;
-  }
 }
