@@ -2457,6 +2457,7 @@ export class PropertyValueRendererManager {
     // (undocumented)
     protected _defaultStructValueRenderer: IPropertyValueRenderer;
     getRegisteredRenderer(rendererType: string): IPropertyValueRenderer | undefined;
+    hasCustomRenderer(record: PropertyRecord): boolean;
     // (undocumented)
     protected _propertyRenderers: Map<string, IPropertyValueRenderer>;
     registerRenderer(rendererType: string, propertyRenderer: IPropertyValueRenderer, overwrite?: boolean): void;
@@ -3677,7 +3678,7 @@ export class VirtualizedPropertyGrid extends React_3.Component<VirtualizedProper
     // @internal
     constructor(props: VirtualizedPropertyGridProps);
     // @internal (undocumented)
-    componentDidUpdate(prevProps: VirtualizedPropertyGridProps, prevState: VirtualizedPropertyGridState): void;
+    componentDidUpdate(prevProps: VirtualizedPropertyGridProps): void;
     // @internal (undocumented)
     static getDerivedStateFromProps(props: VirtualizedPropertyGridProps, state: VirtualizedPropertyGridState): VirtualizedPropertyGridState | null;
     // @internal (undocumented)

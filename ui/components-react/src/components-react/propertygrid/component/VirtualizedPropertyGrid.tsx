@@ -79,8 +79,6 @@ interface VirtualizedPropertyGridState {
   orientation: Orientation;
   /** Keeps record of dynamic node heights */
   dynamicNodeHeights: Map<string, number>;
-  /** When resetting node height cache, marks the point at which heights have become stale */
-  resetIndex: number;
 }
 
 /**
@@ -151,6 +149,9 @@ const [
 );
 
 const ACTION_BUTTON_DEFAULT_WIDTH = 90;
+const CATEGORY_HEADER_HEIGHT = 42;
+const CATEGORY_PROPERTY_HEIGHT = 28;
+const VERTICAL_CATEGORY_PROPERTY_HEIGHT = 48;
 
 /**
  * VirtualizedPropertyGrid React component.
@@ -176,15 +177,11 @@ export class VirtualizedPropertyGrid extends React.Component<
           props.horizontalOrientationMinWidth
         ),
       dynamicNodeHeights: new Map(),
-      resetIndex: 0,
     };
   }
 
   /** @internal */
-  public override componentDidUpdate(
-    prevProps: VirtualizedPropertyGridProps,
-    prevState: VirtualizedPropertyGridState
-  ) {
+  public override componentDidUpdate(prevProps: VirtualizedPropertyGridProps) {
     if (
       this.props.orientation !== prevProps.orientation ||
       this.props.isOrientationFixed !== prevProps.isOrientationFixed ||
@@ -225,12 +222,6 @@ export class VirtualizedPropertyGrid extends React.Component<
         if (this._listRef.current) this._listRef.current.scrollToItem(index);
       }
     }
-
-    if (this.state.dynamicNodeHeights !== prevState.dynamicNodeHeights) {
-      // istanbul ignore else
-      if (this._listRef.current)
-        this._listRef.current.resetAfterIndex(this.state.resetIndex);
-    }
   }
 
   /** @internal */
@@ -257,8 +248,6 @@ export class VirtualizedPropertyGrid extends React.Component<
 
     if (currentOrientation !== this.state.orientation) {
       this.setState({ orientation: currentOrientation });
-      // istanbul ignore else
-      if (this._listRef.current) this._listRef.current.resetAfterIndex(0);
     }
   }
 
@@ -268,11 +257,7 @@ export class VirtualizedPropertyGrid extends React.Component<
    * @returns current height of node.
    */
   private calculateNodeHeight(node: FlatGridItem) {
-    const categoryHeaderHeight = 38;
-    const categoryHeaderPadding = 4;
-    const categoryPropertyHeight = 27;
     const bottomBorderPadding = 5;
-    const verticalPrimitivePropertyHeight = 55;
 
     return (
       getPropertyHeight(this.state) +
@@ -284,29 +269,21 @@ export class VirtualizedPropertyGrid extends React.Component<
       if (dynamicHeight !== undefined) {
         if (node instanceof MutableCustomGridCategory) {
           return (
-            categoryHeaderHeight +
-            categoryHeaderPadding +
+            CATEGORY_HEADER_HEIGHT +
             (node.isExpanded ? dynamicHeight + bottomBorderPadding : 0)
           );
         }
 
-        return (
-          dynamicHeight + (state.orientation === Orientation.Vertical ? 28 : 0)
-        );
+        return dynamicHeight;
       }
 
       if (node.type === FlatGridItemType.Category) {
-        return categoryHeaderHeight + categoryHeaderPadding;
+        return CATEGORY_HEADER_HEIGHT;
       }
 
-      if (
-        state.orientation === Orientation.Vertical &&
-        node.type === FlatGridItemType.Primitive
-      ) {
-        return verticalPrimitivePropertyHeight;
-      }
-
-      return categoryPropertyHeight;
+      return state.orientation === Orientation.Vertical
+        ? VERTICAL_CATEGORY_PROPERTY_HEIGHT
+        : CATEGORY_PROPERTY_HEIGHT;
     }
   }
 
@@ -319,16 +296,18 @@ export class VirtualizedPropertyGrid extends React.Component<
       return;
     }
 
-    this.setState((state) => {
-      return {
-        ...state,
-        dynamicNodeHeights: new Map(state.dynamicNodeHeights).set(
-          key,
-          newHeight
-        ),
-        resetIndex: index,
-      };
-    });
+    this.setState(
+      (state) => {
+        return {
+          ...state,
+          dynamicNodeHeights: new Map(state.dynamicNodeHeights).set(
+            key,
+            newHeight
+          ),
+        };
+      },
+      () => this._listRef.current?.resetAfterIndex(index)
+    );
   };
 
   private _calculateNodeHeightByIndex = (index: number) => {
@@ -504,7 +483,6 @@ const FlatGridItemNode = React.memo(
       onItemHeightChanged,
     } = usePropertyGridInternalContext(FlatGridItemNode);
     const node = gridItems[index];
-
     const divRef = React.useRef<HTMLDivElement>(null);
     const previousHeightRef = React.useRef(0);
 
@@ -517,12 +495,22 @@ const FlatGridItemNode = React.memo(
       [onItemHeightChanged, index, node.key]
     );
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const minHeight = React.useMemo(() => {
+      if (node.type === FlatGridItemType.Category)
+        return CATEGORY_HEADER_HEIGHT;
+
+      return gridContext.orientation === Orientation.Vertical
+        ? VERTICAL_CATEGORY_PROPERTY_HEIGHT
+        : CATEGORY_PROPERTY_HEIGHT;
+    }, [gridContext.orientation, node.type]);
+
     React.useLayoutEffect(() => {
       assert(divRef.current !== null);
-      const currentHeight = Math.max(divRef.current.offsetHeight, 27);
+      const refHeight = divRef.current.getBoundingClientRect().height;
+      const currentHeight = Math.max(refHeight, minHeight);
+
       if (currentHeight !== previousHeightRef.current) {
-        onHeightChanged?.(currentHeight);
+        onHeightChanged(currentHeight);
         previousHeightRef.current = currentHeight;
       }
     });
@@ -647,11 +635,18 @@ const FlatGridItemNode = React.memo(
     return (
       <div className="virtualized-grid-node" style={virtualizedListStyle}>
         <div
-          ref={divRef}
           className="virtualized-grid-node-content-wrapper"
-          style={{ minHeight: "27px" }}
+          style={{
+            minHeight: `${minHeight}px`,
+            display: "grid",
+          }}
         >
-          {getDisplayNode()}
+          <div
+            ref={divRef}
+            className="virtualized-grid-node-content-wrapper-item"
+          >
+            {getDisplayNode()}
+          </div>
         </div>
       </div>
     );
