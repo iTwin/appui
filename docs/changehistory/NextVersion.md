@@ -67,6 +67,7 @@ Table of contents:
 - Fix polar mode AccuDraw input focus by correctly focusing the distance field. [#753](https://github.com/iTwin/appui/pull/753)
 - Fix `UiFramework.frontstages.onWidgetStateChangedEvent` event to correctly emit state changes and match `WidgetState` returned by `WidgetDef.state`. [#768](https://github.com/iTwin/appui/pull/768)
 - Fix an assertion in `ScrollableWidgetContent` when tool settings is un-docked. [#769](https://github.com/iTwin/appui/pull/769)
+- Fix `ThemeManager` to correctly handle `os` theme for backwards compatibility. [#774](https://github.com/iTwin/appui/pull/774)
 
 ## @itwin/components-react
 
