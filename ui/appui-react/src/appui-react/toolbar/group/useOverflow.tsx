@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import type { SizeProps } from "@itwin/core-react";
 import { useRefs, useResizeObserver } from "@itwin/core-react";
 
 type Orientation = "horizontal" | "vertical";
@@ -18,33 +19,40 @@ export const useOverflow = <
 >(
   allItems: ReadonlyArray<string>,
   orientation: Orientation,
-  getItemSize: (item: string) => number,
-  getOverflowSize: () => number
+  getItemSize: (item: string) => SizeProps,
+  getOverflowSize: () => SizeProps
 ) => {
   const [visible, setVisible] = React.useState(allItems.length);
   const [calculate, setCalculate] = React.useState(false);
   const componentRef = React.useRef<TComponent>();
-  const containerSizeRef = React.useRef<number>();
-  const componentSizeRef = React.useRef<number>();
+  const containerSizeRef = React.useRef<SizeProps>();
+  const componentSizeRef = React.useRef<SizeProps>();
+
+  const [prevOrientation, setPrevOrientation] = React.useState(orientation);
+  if (prevOrientation !== orientation) {
+    setPrevOrientation(orientation);
+    setCalculate(true);
+  }
 
   React.useLayoutEffect(() => {
     setCalculate(false);
     if (!calculate) return;
 
-    const containerSize = containerSizeRef.current;
+    const containerSize = containerSizeRef.current
+      ? getLength(containerSizeRef.current, orientation)
+      : undefined;
     if (containerSize === undefined) return;
 
-    const componentSize = componentSizeRef.current;
+    const componentSize = componentSizeRef.current
+      ? getLength(componentSizeRef.current, orientation)
+      : undefined;
     if (componentSize === undefined) return;
-
-    const component = componentRef.current;
-    if (!component) return;
 
     const itemSizes = allItems.map((item) => {
       const size = getItemSize(item);
-      return size;
+      return getLength(size, orientation);
     });
-    const overflowSize = getOverflowSize();
+    const overflowSize = getLength(getOverflowSize(), orientation);
 
     const otherSize = itemSizes.reduce((acc, size) => acc + size, 0);
     if (otherSize < containerSize) {
@@ -69,13 +77,17 @@ export const useOverflow = <
       newVisible++;
     }
     setVisible(newVisible);
-  }, [calculate, allItems, getItemSize, getOverflowSize]);
+  }, [calculate, allItems, getItemSize, getOverflowSize, orientation]);
   const containerRoRef = useResizeObserver<TContainer>(
     React.useCallback(
       (width, height) => {
-        const newSize = getLength({ width, height }, orientation);
-        if (newSize === containerSizeRef.current) return;
-        containerSizeRef.current = newSize;
+        const length = containerSizeRef.current
+          ? getLength(containerSizeRef.current, orientation)
+          : undefined;
+        containerSizeRef.current = { width, height };
+        const newLength = getLength(containerSizeRef.current, orientation);
+
+        if (newLength === length) return;
         setCalculate(true);
       },
       [orientation]
@@ -84,9 +96,13 @@ export const useOverflow = <
   const componentRoRef = useResizeObserver<TComponent>(
     React.useCallback(
       (width, height) => {
-        const newSize = getLength({ width, height }, orientation);
-        if (newSize === componentSizeRef.current) return;
-        componentSizeRef.current = newSize;
+        const length = componentSizeRef.current
+          ? getLength(componentSizeRef.current, orientation)
+          : undefined;
+        componentSizeRef.current = { width, height };
+        const newLength = getLength(componentSizeRef.current, orientation);
+
+        if (newLength === length) return;
         setCalculate(true);
       },
       [orientation]
@@ -100,8 +116,7 @@ export const useOverflow = <
   return [containerRoRef, componentRefs, visibleItems, overflow] as const;
 };
 
-/** @internal */
-export function getLength(
+function getLength(
   size: { width: number; height: number },
   orientation: Orientation
 ) {

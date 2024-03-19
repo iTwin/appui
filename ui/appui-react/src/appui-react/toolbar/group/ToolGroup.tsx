@@ -15,7 +15,7 @@ import { ActionItem } from "./ActionItem";
 import { GroupItem } from "./GroupItem";
 import { CustomItem } from "./CustomItem";
 import { OverflowButton } from "./OverflowButton";
-import { getLength, useOverflow } from "./useOverflow";
+import { useOverflow } from "./useOverflow";
 import { getChildKey } from "../../layout/tool-settings/Docked";
 import { ToolbarContext } from "./Toolbar";
 
@@ -45,21 +45,16 @@ export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
   const itemRefs = React.useRef<Map<string, Element>>(new Map());
   const overflowRef = React.useRef<HTMLButtonElement>(null);
 
-  const getItemSize = React.useCallback(
-    (item: string): number => {
-      const element = itemRefs.current.get(item);
-      if (!element) return 0;
-      const bounds = element.getBoundingClientRect();
-      return getLength(bounds, orientation);
-    },
-    [orientation]
-  );
-  const getOverflowSize = React.useCallback((): number => {
+  const getItemSize = React.useCallback((item: string) => {
+    const element = itemRefs.current.get(item);
+    if (!element) return { width: 0, height: 0 };
+    return element.getBoundingClientRect();
+  }, []);
+  const getOverflowSize = React.useCallback(() => {
     const element = overflowRef.current;
-    if (!element) return 0;
-    const bounds = element.getBoundingClientRect();
-    return getLength(bounds, orientation);
-  }, [orientation]);
+    if (!element) return { width: 0, height: 0 };
+    return element.getBoundingClientRect();
+  }, []);
 
   const [containerRef, componentRef, visibleCount, renderOverflow] =
     useOverflow(childrenKeys, orientation, getItemSize, getOverflowSize);
