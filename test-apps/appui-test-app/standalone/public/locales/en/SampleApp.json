@@ -29,9 +29,7 @@
   },
   "settingsStage": {
     "accuDrawNotificationsTitle": "Display AccuDraw Notifications",
-    "accuDrawNotificationsDescription": "Display toast notifications when AccuDraw status changes",
-    "dark": "Dark",
-    "light": "Light"
+    "accuDrawNotificationsDescription": "Display toast notifications when AccuDraw status changes"
   },
   "QuantityFormatModalFrontstage": {
     "QuantityFormatStage": "Quantity Format Overrides"
@@ -362,27 +360,8 @@
       }
     }
   },
-  "componentExamplesStage": {
-    "examples": "Component Examples",
-    "light": "Light",
-    "dark": "Dark",
-    "themeTitle": "Theme",
-    "themeDescription": "Toggle the theme between light and dark"
-  },
   "property-grid": {
     "too-many-elements-selected": "Too many elements selected"
-  },
-  "BearingQuantityType": {
-    "label": "Bearing",
-    "description": "Bearing",
-    "bearingGap": {
-      "label": "Add Direction Gap"
-    },
-    "bearingAngleDirection": {
-      "label": "Angle Direction",
-      "clockwise": "Clockwise",
-      "counter-clockwise": "Counter-Clockwise"
-    }
   },
   "signIn": {
     "prompt": "Please sign in to access your Bentley services.",
