@@ -306,7 +306,7 @@ export class VirtualizedPropertyGrid extends React.Component<
           ),
         };
       },
-      () => this._listRef.current?.resetAfterIndex(index)
+      () => this._listRef.current!.resetAfterIndex(index)
     );
   };
 

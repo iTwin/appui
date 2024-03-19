@@ -193,7 +193,7 @@ describe("FlatPropertyRenderer", () => {
     );
   });
 
-  it("renders array as a primitive value when a custom property renderer is registered", () => {
+  it("renders array using custom renderer", () => {
     propertyRecord = TestUtils.createArrayProperty("StringArray", [
       TestUtils.createPrimitiveStringProperty("Label", "Model"),
     ]);
@@ -201,7 +201,7 @@ describe("FlatPropertyRenderer", () => {
 
     const customRenderer = {
       canRender: () => true,
-      render: () => <div>My value</div>,
+      render: () => <div>Custom array renderer</div>,
     };
 
     PropertyValueRendererManager.defaultManager.registerRenderer(
@@ -218,14 +218,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByTitle("StringArray")).satisfy(
-      selectorMatches(
-        [
-          ".components-primitive-property-label-renderer",
-          ".components-property-label-renderer",
-        ].join(" ")
-      )
-    );
+    expect(screen.getByText("Custom array renderer")).to.not.be.null;
   });
 
   it("renders array as a primitive value when a custom typename renderer is registered", () => {
@@ -313,13 +306,13 @@ describe("FlatPropertyRenderer", () => {
     );
   });
 
-  it("renders struct as a primitive value when a custom property renderer is registered", () => {
+  it("renders struct using custom renderer", () => {
     propertyRecord = TestUtils.createStructProperty("Struct");
     propertyRecord.property.renderer = { name: "CustomStructRenderer" };
 
     const customRenderer = {
       canRender: () => true,
-      render: () => <div>My value</div>,
+      render: () => <div>Custom struct renderer</div>,
     };
 
     PropertyValueRendererManager.defaultManager.registerRenderer(
@@ -336,14 +329,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByTitle("Struct")).satisfy(
-      selectorMatches(
-        [
-          ".components-primitive-property-label-renderer",
-          ".components-property-label-renderer",
-        ].join(" ")
-      )
-    );
+    expect(screen.getByText("Custom struct renderer")).to.not.be.null;
   });
 
   it("renders struct as a primitive value when a custom typename renderer is registered", () => {
