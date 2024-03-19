@@ -39,7 +39,7 @@ import type { DialogPropertySyncItem } from '@itwin/appui-abstract';
 import type { DialogProps } from '@itwin/appui-abstract';
 import type { DialogProps as DialogProps_2 } from '@itwin/core-react';
 import type { DialogRow } from '@itwin/appui-abstract';
-import type { Direction } from '@itwin/components-react';
+import { Direction } from '@itwin/components-react';
 import type { DisplayStyle3dState } from '@itwin/core-frontend';
 import type { EmphasizeElementsProps } from '@itwin/core-common';
 import type { GroupButton } from '@itwin/appui-abstract';
@@ -104,7 +104,7 @@ import { ToolAdmin } from '@itwin/core-frontend';
 import type { ToolAssistanceInstruction } from '@itwin/core-frontend';
 import type { ToolAssistanceInstructions } from '@itwin/core-frontend';
 import type { ToolbarOpacitySetting } from '@itwin/components-react';
-import type { ToolbarPanelAlignment } from '@itwin/components-react';
+import { ToolbarPanelAlignment } from '@itwin/components-react';
 import type { ToolList } from '@itwin/core-frontend';
 import type { ToolTipOptions } from '@itwin/core-frontend';
 import { UiAdmin } from '@itwin/appui-abstract';
@@ -1764,10 +1764,8 @@ export interface ExpandableSectionProps extends CommonProps {
 
 // @public
 export interface ExtensibleToolbarProps {
-    // (undocumented)
     items: ToolbarItem[];
     orientation: ToolbarOrientation;
-    // (undocumented)
     usage: ToolbarUsage;
 }
 
