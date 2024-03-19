@@ -12,10 +12,10 @@ Table of contents:
 - [@itwin/core-react](#itwincore-react)
   - [Additions](#additions-1)
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
-  - [Fixes](#fixes-1)
   - [Deprecations](#deprecations-2)
   - [Additions](#additions-2)
   - [Changes](#changes-1)
+  - [Fixes](#fixes-1)
 
 ## @itwin/appui-react
 
@@ -84,10 +84,6 @@ Table of contents:
 
 ## @itwin/imodel-components-react
 
-### Fixes
-
-- Fix disposal of handleWindowUnload() event listener to address a memory leak. [#773](https://github.com/iTwin/appui/pull/773)
-
 ### Deprecations
 
 - `TimelineComponentProps.componentId` was used only when listening for events on `UiAdmin.onGenericUiEvent.addListener`. As `UiAdmin` will be deprecated, please use the `TimelineComponentProps.isPlaying` prop to control the timeline play state. [#729](https://github.com/iTwin/appui/pull/729)
@@ -100,3 +96,7 @@ Table of contents:
 ### Changes
 
 - Updated visual styling of `SolarTimeline` and `TimelineComponent` components. [#733](https://github.com/iTwin/appui/pull/733), [#763](https://github.com/iTwin/appui/pull/763)
+
+### Fixes
+
+- Fix disposal of `unload` event listener in `ViewportComponent` to address a memory leak. [#773](https://github.com/iTwin/appui/pull/773)

@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/imodel-components-react",
-      "comment": "Fix disposal of handleWindowUnload() event listener to address a memory leak.",
+      "comment": "Fix disposal of `unload` event listener in `ViewportComponent` to address a memory leak.",
       "type": "none"
     }
   ],
