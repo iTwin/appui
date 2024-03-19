@@ -48,86 +48,11 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const { getVal, bump } = createBumpEvent();
 const items = createItems();
 
 export const ActionItem: Story = {
   args: {
-    items: [
-      {
-        ...items.action1,
-        execute: () => {
-          bump();
-          items.action1.execute();
-        },
-      },
-      {
-        ...items.action2,
-        icon: new ConditionalIconItem(
-          () => (getVal() % 2 === 0 ? <Svg3D /> : <Svg2D />),
-          ["bump"]
-        ),
-        label: new ConditionalStringValue(
-          () => `Item 2 (${getVal()})`,
-          ["bump"]
-        ),
-        isDisabled: new ConditionalBooleanValue(
-          () => getVal() % 2 === 1,
-          ["bump"]
-        ),
-        description: new ConditionalStringValue(
-          () => `Conditional item. Click 'Item 1' to toggle. (${getVal()}).`,
-          ["bump"]
-        ),
-      },
-      ToolbarHelper.createToolbarItemFromItemDef(
-        125,
-        new CommandItemDef({
-          iconSpec: <SvgActivity />,
-          label: "Item 3",
-          execute: action("Item 3"),
-        })
-      ),
-      ToolbarHelper.createToolbarItemFromItemDef(
-        127,
-        new CommandItemDef({
-          iconSpec: <SvgClipboard />,
-          label: "Item 4",
-          execute: action("Item 4"),
-        }),
-        {
-          ...createAbstractReactIcon(),
-        }
-      ),
-      ToolbarHelper.createToolbarItemFromItemDef(
-        130,
-        new CommandItemDef({
-          iconSpec: <SvgAirplane />,
-          label: "Item 5",
-          execute: action("Item 5"),
-        }),
-        {
-          description: "Conditional icon overrides.",
-          isDisabled: true,
-          ...createAbstractConditionalIcon(),
-        }
-      ),
-      ...ToolbarHelper.createToolbarItemsFromItemDefs(
-        [
-          new CommandItemDef({
-            iconSpec: <SvgActivity />,
-            label: "Item 6",
-            execute: action("Item 6"),
-          }),
-          new CommandItemDef({
-            iconSpec: <SvgClipboard />,
-            label: "Item 7",
-            execute: action("Item 7"),
-          }),
-        ],
-        200
-      ),
-    ],
+    items: [items.action1, items.action2, items.action3],
   },
 };
 
@@ -241,6 +166,95 @@ export const Hidden: Story = {
         ...items.custom3,
         isHidden: true,
       },
+    ],
+  },
+};
+
+const { getVal, bump, eventId } = createBumpEvent();
+
+export const Conditional: Story = {
+  args: {
+    items: [
+      {
+        ...items.action1,
+        execute: () => {
+          bump();
+          items.action1.execute();
+        },
+      },
+      {
+        ...items.action2,
+        icon: new ConditionalIconItem(
+          () => (getVal() % 2 === 0 ? <Svg3D /> : <Svg2D />),
+          [eventId]
+        ),
+        label: new ConditionalStringValue(
+          () => `Item 2 (${getVal()})`,
+          [eventId]
+        ),
+        isDisabled: new ConditionalBooleanValue(
+          () => getVal() % 2 === 1,
+          [eventId]
+        ),
+        description: new ConditionalStringValue(
+          () => `Conditional item. Click 'Item 1' to toggle. (${getVal()}).`,
+          [eventId]
+        ),
+      },
+    ],
+  },
+};
+
+export const ItemDef: Story = {
+  args: {
+    items: [
+      ToolbarHelper.createToolbarItemFromItemDef(
+        125,
+        new CommandItemDef({
+          iconSpec: <SvgActivity />,
+          label: "Item 3",
+          execute: action("Item 3"),
+        })
+      ),
+      ToolbarHelper.createToolbarItemFromItemDef(
+        127,
+        new CommandItemDef({
+          iconSpec: <SvgClipboard />,
+          label: "Item 4",
+          execute: action("Item 4"),
+        }),
+        {
+          ...createAbstractReactIcon(),
+        }
+      ),
+      ToolbarHelper.createToolbarItemFromItemDef(
+        130,
+        new CommandItemDef({
+          iconSpec: <SvgAirplane />,
+          label: "Item 5",
+          execute: action("Item 5"),
+        }),
+        {
+          description: "Conditional icon overrides.",
+          isDisabled: true,
+          ...createAbstractConditionalIcon(),
+        }
+      ),
+      ...ToolbarHelper.createToolbarItemsFromItemDefs(
+        [
+          new CommandItemDef({
+            iconSpec: <SvgActivity />,
+            label: "Item 6",
+            execute: action("Item 6"),
+          }),
+          new CommandItemDef({
+            iconSpec: <SvgClipboard />,
+            label: "Item 7",
+            execute: action("Item 7"),
+          }),
+        ],
+        200
+      ),
     ],
   },
 };
@@ -375,12 +389,14 @@ function createItems() {
 
 function createBumpEvent() {
   let i = 10;
+  const eventId = "bump";
   const bump = () => {
     i++;
-    SyncUiEventDispatcher.dispatchSyncUiEvent("bump");
+    SyncUiEventDispatcher.dispatchSyncUiEvent(eventId);
   };
   return {
     getVal: () => i,
     bump,
+    eventId,
   };
 }
