@@ -51,9 +51,9 @@ Table of contents:
 
 ### Additions
 
+- `newToolbars` preview feature. When enabled, `Toolbar` component is replaced with a new iTwinUI based toolbar with improved visuals and accessibility. [#602](https://github.com/iTwin/appui/pull/602)
 - `UiFramework` methods detailed above which replace FrameworkUiAdmin methods. [#729](https://github.com/iTwin/appui/pull/729)
 - `Placement` has been introduced to replace `RelativePosition`. [#729](https://github.com/iTwin/appui/pull/729)
-- `newToolbars` preview feature. When enabled, `Toolbar` component is replaced with a new iTwinUI based toolbar with improved visuals and accessibility.
 
 ### Changes
 
