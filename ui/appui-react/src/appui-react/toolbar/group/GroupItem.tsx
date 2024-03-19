@@ -41,7 +41,7 @@ export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
     return (
       <DropdownMenu
         menuItems={(close) => {
-          return toSubMenuItems(item, close);
+          return toMenuItems(item, close);
         }}
         placement={placement}
         onVisibleChange={(newVisible) => {
@@ -80,7 +80,7 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
     return null;
   }
 
-  const subMenuItems = isDisabled ? undefined : toSubMenuItems(item, onClose);
+  const subMenuItems = isDisabled ? undefined : toMenuItems(item, onClose);
   return (
     <MenuItem
       startIcon={<Icon iconSpec={iconSpec} />}
@@ -99,7 +99,7 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
   );
 }
 
-function toSubMenuItems(item: ToolbarItem, onClose?: () => void) {
+function toMenuItems(item: ToolbarItem, onClose?: () => void) {
   if (isToolbarGroupItem(item)) {
     return item.items.map((groupItem) => {
       return (

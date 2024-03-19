@@ -6,7 +6,6 @@
  * @module Toolbar
  */
 
-import "./Item.scss";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { Icon } from "@itwin/core-react";
@@ -69,7 +68,6 @@ export function useLabelProps() {
   const visible = context?.popoverOpen ? false : internalVisible;
   const placement = useExpandsTo();
   return {
-    className: "uifw-toolbar-group-item_label",
     placement,
     visible,
     onVisibleChange: setInternalVisible,
