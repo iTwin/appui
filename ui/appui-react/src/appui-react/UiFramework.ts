@@ -10,7 +10,7 @@
 
 import type { Store } from "redux";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
-import type { Localization } from "@itwin/core-common";
+import type { Localization, TranslationOptions } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
 import type {
@@ -450,13 +450,17 @@ export class UiFramework {
     return UiFramework._widgetManager;
   }
 
-  /** Calls localization.getLocalizedStringWithNamespace with the "UiFramework" namespace. Do NOT include the namespace in the key.
+  /** Calls localization.getLocalizedString with the "UiFramework" namespace. Do NOT include the namespace in the key.
    * @internal
    */
-  public static translate(key: string | string[]): string {
-    return IModelApp.localization.getLocalizedString(key, {
-      ns: UiFramework.localizationNamespace,
-    });
+  public static translate(
+    key: string | string[],
+    options?: TranslationOptions
+  ): string {
+    return IModelApp.localization.getLocalizedString(
+      `${UiFramework.localizationNamespace}:${key}`,
+      options
+    );
   }
 
   /** @internal */
