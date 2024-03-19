@@ -54,7 +54,7 @@ Please follow these conventions when contributing to AppUI:
   - @itwin/core-react - core
   - @itwin/imodel-components-react - icr
 
-For example, when working on `MessageCenterField` component under `status-bar/fields` directory in `@itwin/appui-react` one would use `”uifw-statusBar-fields-dialog”`
+For example, when working on `MessageCenterField` component under `status-bar/fields` directory in `@itwin/appui-react` one would use `”uifw-statusBar-fields-messageCenterField”`
 
 ### Contributor License Agreement (CLA)
 
