@@ -33,10 +33,10 @@ export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
   function GroupItem({ item }, ref) {
     const placement = usePopoverPlacement();
     const context = React.useContext(ToolbarContext);
-    const toolGroupOverflow = React.useContext(ToolGroupOverflowContext);
+    const overflowContext = React.useContext(ToolGroupOverflowContext);
 
-    if (toolGroupOverflow) {
-      return <GroupMenuItem item={item} onClose={toolGroupOverflow.onClose} />;
+    if (overflowContext) {
+      return <GroupMenuItem item={item} onClose={overflowContext.onClose} />;
     }
     return (
       <DropdownMenu

@@ -13,6 +13,7 @@ import { ExpandIndicator } from "./ExpandIndicator";
 import { Item } from "./Item";
 import { GroupMenuItem, usePopoverPlacement } from "./GroupItem";
 import { ToolGroupOverflowContext } from "./OverflowButton";
+import { ToolbarContext } from "./Toolbar";
 
 /** @internal */
 export interface CustomItemProps {
@@ -23,10 +24,11 @@ export interface CustomItemProps {
 export const CustomItem = React.forwardRef<HTMLButtonElement, CustomItemProps>(
   function CustomItem({ item }, ref) {
     const placement = usePopoverPlacement();
-    const toolGroupOverflow = React.useContext(ToolGroupOverflowContext);
+    const context = React.useContext(ToolbarContext);
+    const overflowContext = React.useContext(ToolGroupOverflowContext);
 
-    if (toolGroupOverflow) {
-      return <GroupMenuItem item={item} onClose={toolGroupOverflow.onClose} />;
+    if (overflowContext) {
+      return <GroupMenuItem item={item} onClose={overflowContext.onClose} />;
     }
     return (
       <DropdownMenu
@@ -36,6 +38,9 @@ export const CustomItem = React.forwardRef<HTMLButtonElement, CustomItemProps>(
           ];
         }}
         placement={placement}
+        onVisibleChange={(newVisible) => {
+          context?.setPopoverOpen(newVisible);
+        }}
       >
         <Item ref={ref} item={item}>
           <ExpandIndicator />

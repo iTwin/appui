@@ -20,9 +20,9 @@ export interface ActionItemProps {
 /** @internal */
 export const ActionItem = React.forwardRef<HTMLButtonElement, ActionItemProps>(
   function ActionItem({ item }, ref) {
-    const toolGroupOverflow = React.useContext(ToolGroupOverflowContext);
-    if (toolGroupOverflow) {
-      return <GroupMenuItem item={item} onClose={toolGroupOverflow.onClose} />;
+    const overflowContext = React.useContext(ToolGroupOverflowContext);
+    if (overflowContext) {
+      return <GroupMenuItem item={item} onClose={overflowContext.onClose} />;
     }
     return (
       <Item
