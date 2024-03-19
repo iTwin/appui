@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
 import type { ToolbarItem } from "../ToolbarItem";
 import {
   isToolbarActionItem,
@@ -16,22 +15,21 @@ import {
 } from "../ToolbarItem";
 import { ToolGroup } from "./ToolGroup";
 
-interface ToolbarProps extends CommonProps {
-  /** Describes direction to which the panels are expanded. Orientation of the toolbar is determined based on this direction. Defaults to `bottom`.  */
+interface ToolbarProps {
+  /** Definitions for items of the toolbar. */
+  items: ToolbarItem[];
+  /** Describes direction to which the panels are expanded. Orientation of the toolbar is determined based on this prop. Defaults to `bottom`.  */
   expandsTo?: "top" | "bottom" | "left" | "right";
   /** Describes how panels are aligned. Defaults to `start`. */
   panelAlignment?: "start" | "end";
-  /** Definitions for items of the toolbar. */
-  items: ToolbarItem[];
 }
 
 /** @internal */
 export function Toolbar({
+  items,
   expandsTo = "bottom",
   panelAlignment = "start",
-  ...props
 }: ToolbarProps) {
-  const orientation = toOrientation(expandsTo);
   const [popoverOpen, setPopoverOpen] = React.useState(false);
   return (
     <ToolbarContext.Provider
@@ -42,8 +40,8 @@ export function Toolbar({
         setPopoverOpen,
       }}
     >
-      <ToolGroup alignment={panelAlignment} orientation={orientation}>
-        {props.items.map((item) => {
+      <ToolGroup>
+        {items.map((item) => {
           if (isToolbarActionItem(item)) {
             return <ToolGroup.ActionItem key={item.id} item={item} />;
           }
@@ -71,14 +69,3 @@ export const ToolbarContext = React.createContext<
   ToolbarContextProps | undefined
 >(undefined);
 ToolbarContext.displayName = "uifw:ToolbarContext";
-
-function toOrientation(expandsTo: Required<ToolbarProps>["expandsTo"]) {
-  switch (expandsTo) {
-    case "left":
-    case "right":
-      return "vertical";
-    case "top":
-    case "bottom":
-      return "horizontal";
-  }
-}

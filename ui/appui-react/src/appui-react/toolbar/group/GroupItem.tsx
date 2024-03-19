@@ -19,9 +19,9 @@ import {
 import { useConditionalValue } from "../../hooks/useConditionalValue";
 import { ExpandIndicator } from "./ExpandIndicator";
 import { Item } from "./Item";
-import { ToolbarContext } from "./Toolbar";
 import { Badge } from "./Badge";
 import { ToolGroupOverflowContext } from "./OverflowButton";
+import { ToolbarContext } from "./Toolbar";
 
 /** @internal */
 export interface GroupItemProps {

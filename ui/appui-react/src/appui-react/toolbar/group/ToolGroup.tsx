@@ -17,23 +17,22 @@ import { CustomItem } from "./CustomItem";
 import { OverflowButton } from "./OverflowButton";
 import { getLength, useOverflow } from "./useOverflow";
 import { getChildKey } from "../../layout/tool-settings/Docked";
+import { ToolbarContext } from "./Toolbar";
 
-/** @internal */
 interface ToolGroupProps extends CommonProps {
-  alignment?: "start" | "end";
-  orientation?: "horizontal" | "vertical";
   children?: React.ReactNode;
 }
 
 type Child = ReturnType<typeof React.Children.toArray>[0];
 
 /** @internal */
-export function ToolGroup({
-  alignment = "start",
-  orientation = "horizontal",
-  ...props
-}: ToolGroupProps) {
-  const childrenArray = React.Children.toArray(props.children);
+export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
+  const context = React.useContext(ToolbarContext);
+  const expandsTo = context?.expandsTo ?? "bottom";
+  const panelAlignment = context?.panelAlignment ?? "start";
+  const orientation = getOrientation(expandsTo);
+  const childrenArray = React.Children.toArray(children);
+
   const keyToChildMap = childrenArray.reduce<Map<string, Child>>(
     (acc, child, index) => {
       const childKey = getChildKey(child, index);
@@ -66,28 +65,27 @@ export function ToolGroup({
     useOverflow(childrenKeys, orientation, getItemSize, getOverflowSize);
 
   const keyToChildEntries = Array.from(keyToChildMap.entries());
-  const children = keyToChildEntries.slice(0, visibleCount);
+  const visibleChildren = keyToChildEntries.slice(0, visibleCount);
   const overflown = keyToChildEntries.slice(visibleCount);
-
   return (
     <div
       className={classnames(
         "uifw-toolbar-group-toolGroup_container",
         `uifw-${orientation}`,
-        `uifw-${alignment}`
+        `uifw-${panelAlignment}`,
+        className
       )}
       ref={containerRef}
     >
       <Surface
         className={classnames(
           "uifw-toolbar-group-toolGroup",
-          `uifw-${orientation}`,
-          props.className
+          `uifw-${orientation}`
         )}
-        style={props.style}
         ref={componentRef}
+        {...props}
       >
-        {children.map(([item, child]) => {
+        {visibleChildren.map(([item, child]) => {
           if (!React.isValidElement<{ ref: React.Ref<Element> }>(child))
             return child;
           return React.cloneElement(child, {
@@ -113,3 +111,18 @@ export function ToolGroup({
 ToolGroup.ActionItem = ActionItem;
 ToolGroup.GroupItem = GroupItem;
 ToolGroup.CustomItem = CustomItem;
+
+type ToolbarContextProps = React.ContextType<typeof ToolbarContext>;
+
+function getOrientation(
+  expandsTo: NonNullable<ToolbarContextProps>["expandsTo"]
+) {
+  switch (expandsTo) {
+    case "left":
+    case "right":
+      return "vertical";
+    case "top":
+    case "bottom":
+      return "horizontal";
+  }
+}
