@@ -29,8 +29,11 @@ import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 import {
   getTabLocation,
+  isFloatingTabLocation,
+  isPanelTabLocation,
   isPopoutTabLocation,
 } from "../layout/state/TabLocation";
+import type { NineZoneState } from "../layout/state/NineZoneState";
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -103,12 +106,10 @@ export class WidgetDef {
 
   public get state(): WidgetState {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    if (frontstageDef && frontstageDef.findWidgetDef(this.id)) {
-      const currentState = frontstageDef.getWidgetCurrentState(this);
-      // istanbul ignore else
-      if (undefined !== currentState) return currentState;
-    }
-    return this.defaultState;
+    const nineZone = frontstageDef?.nineZoneState;
+    if (!nineZone) return this.defaultState;
+    if (!frontstageDef.findWidgetDef(this.id)) return this.defaultState;
+    return getWidgetState(this, nineZone);
   }
 
   public get id(): string {
@@ -402,8 +403,8 @@ export class WidgetDef {
 
   public setWidgetState(newState: WidgetState): void {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    const state = frontstageDef?.nineZoneState;
-    if (!state || this.isStatusBar) return;
+    const nineZone = frontstageDef?.nineZoneState;
+    if (!nineZone || this.isStatusBar) return;
     if (!frontstageDef.findWidgetDef(this.id)) return;
 
     switch (newState) {
@@ -544,11 +545,11 @@ export class WidgetDef {
    */
   public show() {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    const state = frontstageDef?.nineZoneState;
-    if (!state) return;
+    const nineZone = frontstageDef?.nineZoneState;
+    if (!nineZone) return;
     if (!frontstageDef.findWidgetDef(this.id)) return;
 
-    const tabLocation = getTabLocation(state, this.id);
+    const tabLocation = getTabLocation(nineZone, this.id);
     if (tabLocation && isPopoutTabLocation(tabLocation)) {
       const testWindow = UiFramework.childWindows.find(
         tabLocation.popoutWidgetId
@@ -568,8 +569,8 @@ export class WidgetDef {
    */
   public expand() {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    const state = frontstageDef?.nineZoneState;
-    if (!state) return;
+    const nineZone = frontstageDef?.nineZoneState;
+    if (!nineZone) return;
     if (!frontstageDef.findWidgetDef(this.id)) return;
 
     frontstageDef.dispatch({
@@ -577,4 +578,45 @@ export class WidgetDef {
       id: this.id,
     });
   }
+}
+
+/** @internal */
+export function getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState) {
+  const tab = nineZone.tabs[widgetDef.id];
+  if (tab && tab.unloaded) {
+    return WidgetState.Unloaded;
+  }
+
+  if (nineZone.draggedTab?.tabId === widgetDef.id) {
+    return WidgetState.Closed;
+  }
+
+  const toolSettingsTabId = nineZone.toolSettings?.tabId;
+  if (
+    toolSettingsTabId === widgetDef.id &&
+    nineZone.toolSettings?.type === "docked"
+  ) {
+    return nineZone.toolSettings.hidden ? WidgetState.Hidden : WidgetState.Open;
+  }
+
+  const location = getTabLocation(nineZone, widgetDef.id);
+  if (!location) {
+    return WidgetState.Hidden;
+  }
+
+  if (isFloatingTabLocation(location)) {
+    return WidgetState.Floating;
+  }
+
+  if (isPanelTabLocation(location)) {
+    const panel = nineZone.panels[location.side];
+    if (panel.collapsed || undefined === panel.size || 0 === panel.size)
+      return WidgetState.Closed;
+  }
+
+  const widget = nineZone.widgets[location.widgetId];
+  if (widget.minimized || widgetDef.id !== widget.activeTabId)
+    return WidgetState.Closed;
+
+  return WidgetState.Open;
 }
