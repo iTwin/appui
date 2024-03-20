@@ -15,6 +15,7 @@ Table of contents:
   - [Deprecations](#deprecations-2)
   - [Additions](#additions-2)
   - [Changes](#changes-1)
+  - [Fixes](#fixes-1)
 
 ## @itwin/appui-react
 
@@ -67,6 +68,7 @@ Table of contents:
 - Fix polar mode AccuDraw input focus by correctly focusing the distance field. [#753](https://github.com/iTwin/appui/pull/753)
 - Fix `UiFramework.frontstages.onWidgetStateChangedEvent` event to correctly emit state changes and match `WidgetState` returned by `WidgetDef.state`. [#768](https://github.com/iTwin/appui/pull/768)
 - Fix an assertion in `ScrollableWidgetContent` when tool settings is un-docked. [#769](https://github.com/iTwin/appui/pull/769)
+- Fix `ThemeManager` to correctly handle `os` theme for backwards compatibility. [#774](https://github.com/iTwin/appui/pull/774)
 
 ## @itwin/components-react
 
@@ -94,3 +96,7 @@ Table of contents:
 ### Changes
 
 - Updated visual styling of `SolarTimeline` and `TimelineComponent` components. [#733](https://github.com/iTwin/appui/pull/733), [#763](https://github.com/iTwin/appui/pull/763)
+
+### Fixes
+
+- Fix disposal of `unload` event listener in `ViewportComponent` to address a memory leak. [#773](https://github.com/iTwin/appui/pull/773)
