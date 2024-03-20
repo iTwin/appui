@@ -336,15 +336,12 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
 
   /** Add entry to activate this stage in the backstage. */
   public provideBackstageItems(): BackstageItem[] {
-    const label = AppUiTestProviders.translate(
-      "backstage.widgetApiTestFrontstageLabel"
-    );
     return [
       BackstageItemUtilities.createStageLauncher(
         WidgetApiStage.stageId,
         300,
         2,
-        label,
+        AppUiTestProviders.translate("backstage.widgetApiTestFrontstageLabel"),
         undefined,
         undefined
       ),

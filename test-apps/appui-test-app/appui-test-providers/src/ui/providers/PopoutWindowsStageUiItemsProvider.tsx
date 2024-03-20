@@ -131,15 +131,12 @@ export class PopoutWindowsStageUiItemsProvider implements UiItemsProvider {
   }
 
   public provideBackstageItems(): BackstageItem[] {
-    const label = AppUiTestProviders.translate(
-      "backstage.PopoutWindowsFrontstageLabel"
-    );
     return [
       BackstageItemUtilities.createStageLauncher(
         PopoutWindowsFrontstage.stageId,
         300,
         2,
-        label,
+        AppUiTestProviders.translate("backstage.PopoutWindowsFrontstageLabel"),
         undefined,
         undefined
       ),

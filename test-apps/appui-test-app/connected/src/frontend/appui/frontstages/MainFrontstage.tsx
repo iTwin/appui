@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { IModelApp, IModelConnection, ViewState } from "@itwin/core-frontend";
+import { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { ContentLayoutProps } from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
@@ -34,6 +34,7 @@ import { AppUi } from "../AppUi";
 import { LocalStateStorage } from "@itwin/core-react";
 import stageIconSvg from "./imodeljs.svg";
 import { ComponentExamplesModalFrontstage } from "@itwin/appui-test-providers";
+import { TestAppLocalization } from "../../Translation";
 
 function getIModelSpecificKey(
   inKey: string,
@@ -210,12 +211,8 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
         MainFrontstage.stageId,
         100,
         10,
-        IModelApp.localization.getLocalizedString(
-          "SampleApp:backstage.viewIModel"
-        ),
-        IModelApp.localization.getLocalizedString(
-          "SampleApp:backstage.iModelStage"
-        ),
+        TestAppLocalization.translate("backstage.viewIModel"),
+        TestAppLocalization.translate("backstage.iModelStage"),
         stageIconSvg
       ),
       SettingsModalFrontstage.getBackstageActionItem(400, 10),

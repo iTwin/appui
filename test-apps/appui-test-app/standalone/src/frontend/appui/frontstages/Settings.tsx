@@ -8,20 +8,12 @@
 
 import "./Settings.scss";
 import * as React from "react";
-import { FrameworkAccuDraw, UiFramework } from "@itwin/appui-react";
+import { FrameworkAccuDraw } from "@itwin/appui-react";
 import { ToggleSwitch } from "@itwin/itwinui-react";
+import { TestAppLocalization } from "../../Translation";
 
 /** UiSettingsPage displaying the active settings. */
 export class AccudrawSettingsPageComponent extends React.Component {
-  private _accuDrawNotificationsTitle: string =
-    UiFramework.localization.getLocalizedString(
-      "SampleApp:settingsStage.accuDrawNotificationsTitle"
-    );
-  private _accuDrawNotificationsDescription: string =
-    UiFramework.localization.getLocalizedString(
-      "SampleApp:settingsStage.accuDrawNotificationsDescription"
-    );
-
   private _onAccuDrawNotificationsChange = async () => {
     FrameworkAccuDraw.displayNotifications =
       !FrameworkAccuDraw.displayNotifications;
@@ -31,8 +23,12 @@ export class AccudrawSettingsPageComponent extends React.Component {
     return (
       <div className="uifw-settings">
         <SettingsItem
-          title={this._accuDrawNotificationsTitle}
-          description={this._accuDrawNotificationsDescription}
+          title={TestAppLocalization.translate(
+            "settingsStage.accuDrawNotificationsTitle"
+          )}
+          description={TestAppLocalization.translate(
+            "settingsStage.accuDrawNotificationsDescription"
+          )}
           settingUi={
             <ToggleSwitch
               checked={FrameworkAccuDraw.displayNotifications}

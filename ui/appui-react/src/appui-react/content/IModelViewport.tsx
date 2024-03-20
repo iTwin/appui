@@ -222,8 +222,9 @@ export class IModelViewportControl extends ViewportContentControl {
   protected getNoContentReactElement(
     _options: IModelViewportControlOptions
   ): React.ReactNode {
-    const noContent = UiFramework.translate("general.no-content");
-    return <FillCentered> {noContent} </FillCentered>;
+    return (
+      <FillCentered>{UiFramework.translate("general.no-content")}</FillCentered>
+    );
   }
 
   /** Get the React.Element for a ViewSelector change. */

@@ -32,12 +32,13 @@ import {
 } from "@itwin/appui-react";
 import { ComponentExamplesModalFrontstage } from "@itwin/appui-test-providers";
 import { AnalysisStyle } from "@itwin/core-common";
-import { IModelApp, IModelConnection, ViewState } from "@itwin/core-frontend";
+import { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { LocalStateStorage } from "@itwin/core-react";
 import { SampleAppIModelApp } from "../../index";
 import { AppUi } from "../AppUi";
 import stageIconSvg from "./imodeljs.svg";
 import { getUrlParam } from "../../UrlParams";
+import { TestAppLocalization } from "../../Translation";
 
 function getIModelSpecificKey(
   inKey: string,
@@ -232,12 +233,8 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
         MainFrontstage.stageId,
         100,
         10,
-        IModelApp.localization.getLocalizedString(
-          "SampleApp:backstage.viewIModel"
-        ),
-        IModelApp.localization.getLocalizedString(
-          "SampleApp:backstage.iModelStage"
-        ),
+        TestAppLocalization.translate("backstage.viewIModel"),
+        TestAppLocalization.translate("backstage.iModelStage"),
         stageIconSvg
       ),
       SettingsModalFrontstage.getBackstageActionItem(400, 10),

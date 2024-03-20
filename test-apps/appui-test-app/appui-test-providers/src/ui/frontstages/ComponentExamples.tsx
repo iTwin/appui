@@ -15,6 +15,8 @@ import {
 } from "@itwin/appui-react";
 import { ToggleSwitch } from "@itwin/itwinui-react";
 import { ComponentExamplesProvider } from "../providers/ComponentExamplesProvider";
+import { AppUiTestProviders } from "../../AppUiTestProviders";
+import { useTranslation } from "../../Translation";
 
 export interface ComponentExampleCategory {
   title: string;
@@ -25,8 +27,8 @@ export interface ComponentExampleCategory {
  */
 export class ComponentExamplesModalFrontstage implements ModalFrontstageInfo {
   public static stageId = "appui-test-app:componentExamplesStage";
-  public title: string = UiFramework.localization.getLocalizedString(
-    "SampleApp:componentExamplesStage.examples"
+  public title = AppUiTestProviders.translate(
+    "componentExamplesStage.examples"
   );
   public categories: ComponentExampleCategory[] = [
     ...ComponentExamplesProvider.categories,
@@ -62,12 +64,7 @@ interface ComponentExamplesPageProps {
 export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
   props: ComponentExamplesPageProps
 ) => {
-  const themeTitle: string = UiFramework.localization.getLocalizedString(
-    "SampleApp:componentExamplesStage.themeTitle"
-  );
-  const themeDescription: string = UiFramework.localization.getLocalizedString(
-    "SampleApp:componentExamplesStage.themeDescription"
-  );
+  const { translate } = useTranslation();
   const showThemeOption = !!!props.hideThemeOption;
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [colorTheme, setColorTheme] = React.useState(() =>
@@ -85,12 +82,6 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
   };
 
   const isChecked = isLightTheme();
-  const darkLabel = UiFramework.localization.getLocalizedString(
-    "SampleApp:settingsStage.dark"
-  );
-  const lightLabel = UiFramework.localization.getLocalizedString(
-    "SampleApp:settingsStage.light"
-  );
 
   const handleActivateTab = (index: number) => {
     setActiveIndex(index);
@@ -126,15 +117,15 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
         {showThemeOption && (
           <>
             <ComponentExample
-              title={themeTitle}
-              description={themeDescription}
+              title={translate("componentExamplesStage.themeTitle")}
+              description={translate("componentExamplesStage.themeDescription")}
               content={
                 <>
-                  {darkLabel}
+                  {translate("componentExamplesStage.dark")}
                   &nbsp;
                   <ToggleSwitch checked={isChecked} onChange={onThemeChange} />
                   &nbsp;
-                  {lightLabel}
+                  {translate("componentExamplesStage.light")}
                 </>
               }
             />

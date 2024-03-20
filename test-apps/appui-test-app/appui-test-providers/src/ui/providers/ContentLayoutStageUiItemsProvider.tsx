@@ -154,15 +154,12 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
   }
 
   public provideBackstageItems(): BackstageItem[] {
-    const label = AppUiTestProviders.translate(
-      "backstage.contentLayoutFrontstageLabel"
-    );
     return [
       BackstageItemUtilities.createStageLauncher(
         ContentLayoutStage.stageId,
         300,
         2,
-        label,
+        AppUiTestProviders.translate("backstage.contentLayoutFrontstageLabel"),
         undefined,
         undefined
       ),

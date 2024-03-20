@@ -331,8 +331,7 @@
     "pullButtonTitle": "Pull",
     "pullButtonDisabledTitle": "No server changes to pull",
     "sampleField": "Sample StatusBar Field",
-    "sampleButton": "Sample Button",
-    "unnamedDisplayStyle": "unnamed"
+    "sampleButton": "Sample Button"
   },
   "properties": {
     "context-menu": {
