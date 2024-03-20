@@ -10,7 +10,7 @@
 
 import type { Store } from "redux";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
-import type { Localization, TranslationOptions } from "@itwin/core-common";
+import type { TranslationOptions } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, SnapMode } from "@itwin/core-frontend";
 import type {
@@ -394,20 +394,6 @@ export class UiFramework {
 
     // istanbul ignore next
     return StateManager.store;
-  }
-
-  /** The internationalization service created by the app.
-   * @internal
-   */
-  public static get localization(): Localization {
-    // istanbul ignore next
-    if (!IModelApp.localization)
-      // eslint-disable-next-line deprecation/deprecation
-      throw new UiError(
-        UiFramework.loggerCategory(this),
-        `IModelApp.localization has not been defined.`
-      );
-    return IModelApp.localization;
   }
 
   /** The internationalization service namespace. */
