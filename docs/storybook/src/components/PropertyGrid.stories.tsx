@@ -4,12 +4,21 @@
  *--------------------------------------------------------------------------------------------*/
 
 import type { Meta, StoryObj } from "@storybook/react";
-import { PropertyRecord } from "@itwin/appui-abstract";
 import {
+  ArrayValue,
+  PrimitiveValue,
+  PropertyRecord,
+  PropertyValueFormat,
+  StructValue,
+} from "@itwin/appui-abstract";
+import {
+  MultilineTextPropertyValueRenderer,
   PropertyDataChangeEvent,
+  PropertyValueRendererManager,
   VirtualizedPropertyGridWithDataProvider,
 } from "@itwin/components-react/src/components-react";
 import { AppUiDecorator } from "../Decorators";
+import { Orientation } from "@itwin/core-react";
 
 const meta = {
   title: "Components/PropertyGrid",
@@ -38,6 +47,261 @@ export const Basic: Story = {
           Group_2: [
             PropertyRecord.fromString("Record 2_1"),
             PropertyRecord.fromString("Record 2_2"),
+          ],
+        },
+      }),
+      onDataChanged: new PropertyDataChangeEvent(),
+    },
+    height: 400,
+  },
+};
+
+const rendererManager = new PropertyValueRendererManager();
+
+rendererManager.registerRenderer("customRendererStructPropertyRenderer", {
+  canRender: () => true,
+  render: (record) => {
+    const entries = Object.entries((record.value as StructValue).members);
+    return (
+      <ul>
+        {entries.map((entry) => {
+          return (
+            <li key={entry[0]}>
+              {entry[0]} = {(entry[1].value as PrimitiveValue).displayValue}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  },
+});
+
+rendererManager.registerRenderer("customRendererArrayPropertyRenderer", {
+  canRender: () => true,
+  render: (record) => {
+    const items = (record.value as ArrayValue).items;
+    return (
+      <ol>
+        {items.map((item, index) => {
+          return (
+            <li key={index}>{(item.value as PrimitiveValue).displayValue}</li>
+          );
+        })}
+      </ol>
+    );
+  },
+});
+
+rendererManager.registerRenderer("defaultRendererPropertyRenderer", {
+  canRender: () => false,
+  render: () => {
+    <div>Should not render</div>;
+  },
+});
+
+rendererManager.registerRenderer(
+  "multiline",
+  new MultilineTextPropertyValueRenderer()
+);
+
+const structMembers = {
+  member1: PropertyRecord.fromString("Value 1", "Member 1"),
+  member2: PropertyRecord.fromString("Value 2", "Member 2"),
+  member3: PropertyRecord.fromString("Value 3", "Member 3"),
+};
+
+const arrayMembers = [
+  PropertyRecord.fromString("Value 1", "Item 1"),
+  PropertyRecord.fromString("Value 2", "Item 2"),
+  PropertyRecord.fromString("Value 3", "Item 3"),
+];
+
+const multilineString =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n";
+
+export const StructRendering: Story = {
+  args: {
+    orientation: Orientation.Vertical,
+    propertyValueRendererManager: rendererManager,
+    dataProvider: {
+      getData: async () => ({
+        label: PropertyRecord.fromString("Record 1"),
+        categories: [
+          {
+            name: "structPropertyRendering",
+            label: "Struct property rendering",
+            expand: true,
+          },
+        ],
+        records: {
+          structPropertyRendering: [
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Primitive,
+                value: "string value",
+              },
+              {
+                name: "simpleProperty",
+                displayLabel: "Simple property",
+                typename: "string",
+              }
+            ),
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Primitive,
+                value: multilineString,
+              },
+              {
+                name: "multilineProperty",
+                displayLabel: "Multiline property",
+                typename: "string",
+                renderer: { name: "multiline" },
+              }
+            ),
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Primitive,
+                value: undefined,
+              },
+              {
+                name: "noValueStruct",
+                displayLabel: "Struct property with no value",
+                typename: "struct",
+              }
+            ),
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Struct,
+                members: structMembers,
+              },
+              {
+                name: "noRendererStructProperty",
+                displayLabel: "Struct property (no renderer)",
+                typename: "struct",
+              }
+            ),
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Struct,
+                members: structMembers,
+              },
+              {
+                name: "defaultRendererStructProperty",
+                displayLabel: "Struct property (default renderer)",
+                typename: "struct",
+                renderer: { name: "defaultRendererPropertyRenderer" },
+              }
+            ),
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Struct,
+                members: structMembers,
+              },
+              {
+                name: "customRendererStructProperty",
+                displayLabel: "Struct property (custom renderer)",
+                typename: "struct",
+                renderer: { name: "customRendererStructPropertyRenderer" },
+              }
+            ),
+          ],
+        },
+      }),
+      onDataChanged: new PropertyDataChangeEvent(),
+    },
+    height: 400,
+  },
+};
+
+export const ArrayRendering: Story = {
+  args: {
+    orientation: Orientation.Horizontal,
+    propertyValueRendererManager: rendererManager,
+    dataProvider: {
+      getData: async () => ({
+        label: PropertyRecord.fromString("Record 1"),
+        categories: [
+          {
+            name: "arrayPropertyRendering",
+            label: "Array property rendering",
+            expand: true,
+          },
+        ],
+        records: {
+          arrayPropertyRendering: [
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Primitive,
+                value: "string value",
+              },
+              {
+                name: "simpleProperty",
+                displayLabel: "Simple property",
+                typename: "string",
+              }
+            ),
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Primitive,
+                value: multilineString,
+              },
+              {
+                name: "multilineProperty",
+                displayLabel: "Multiline property",
+                typename: "string",
+                renderer: { name: "multiline" },
+              }
+            ),
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Array,
+                items: [],
+                itemsTypeName: "array",
+              },
+              {
+                name: "emptyArray",
+                displayLabel: "Array property with no items",
+                typename: "array",
+              }
+            ),
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Array,
+                items: arrayMembers,
+                itemsTypeName: "array",
+              },
+              {
+                name: "noRendererStructProperty",
+                displayLabel: "Array property (no renderer)",
+                typename: "array",
+              }
+            ),
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Array,
+                items: arrayMembers,
+                itemsTypeName: "array",
+              },
+              {
+                name: "defaultRendererArrayProperty",
+                displayLabel: "Array property (default renderer)",
+                typename: "array",
+                renderer: { name: "defaultRendererPropertyRenderer" },
+              }
+            ),
+            new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Array,
+                items: arrayMembers,
+                itemsTypeName: "array",
+              },
+              {
+                name: "customRendererArrayPropertyRenderer",
+                displayLabel: "Array property (custom renderer)",
+                typename: "struct",
+                renderer: { name: "customRendererArrayPropertyRenderer" },
+              }
+            ),
           ],
         },
       }),

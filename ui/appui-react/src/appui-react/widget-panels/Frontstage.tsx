@@ -26,7 +26,7 @@ import type { LayoutStore } from "../layout/base/LayoutStore";
 import { createLayoutStore } from "../layout/base/LayoutStore";
 import type { NineZoneDispatch, NineZoneLabels } from "../layout/base/NineZone";
 import { getUniqueId, NineZone } from "../layout/base/NineZone";
-import { activateDroppedTab } from "../layout/state/activateDroppedTab";
+import { activateDroppedTab } from "../preview/activate-dropped-tab/activateDroppedTab";
 import type { NineZoneState } from "../layout/state/NineZoneState";
 import { createNineZoneState } from "../layout/state/NineZoneState";
 import { NineZoneStateReducer } from "../layout/state/NineZoneStateReducer";

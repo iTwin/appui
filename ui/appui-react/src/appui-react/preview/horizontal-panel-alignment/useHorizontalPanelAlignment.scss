@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @layer appui.preview.horizontal-panel-alignment {
-  .preview-left {
+  .uifw-preview-horizontalPanelAlignment_left {
     &[data-preview-horizontal-panel-align-top="right"],
     &[data-preview-horizontal-panel-align-top="center"] {
       grid-row-start: ts-end;
@@ -14,7 +14,7 @@
     }
   }
 
-  .preview-right {
+  .uifw-preview-horizontalPanelAlignment_right {
     &[data-preview-horizontal-panel-align-top="left"],
     &[data-preview-horizontal-panel-align-top="center"] {
       grid-row-start: ts-end;
@@ -25,7 +25,7 @@
     }
   }
 
-  .preview-top {
+  .uifw-preview-horizontalPanelAlignment_top {
     &[data-preview-horizontal-panel-align-top="right"],
     &[data-preview-horizontal-panel-align-top="center"] {
       grid-column-start: lp-end;
@@ -36,7 +36,7 @@
     }
   }
 
-  .preview-bottom {
+  .uifw-preview-horizontalPanelAlignment_bottom {
     &[data-preview-horizontal-panel-align-bottom="right"],
     &[data-preview-horizontal-panel-align-bottom="center"] {
       grid-column-start: lp-end;

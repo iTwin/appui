@@ -86,7 +86,6 @@ export const MultilineTextRenderer: React.FC<MultilineTextRendererProps> = (
   const { translate } = useTranslation();
   const spanRef = useRef<HTMLSpanElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
-  const previousHeightRef = useRef(0);
   const [contentOverflows, setContentOverflows] = useState<boolean>(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useLayoutEffect(() => {
@@ -95,12 +94,6 @@ export const MultilineTextRenderer: React.FC<MultilineTextRendererProps> = (
     setContentOverflows(
       spanRef.current.clientWidth < spanRef.current.scrollWidth
     );
-
-    const currentHeight = Math.max(divRef.current.offsetHeight, 27);
-    if (currentHeight !== previousHeightRef.current) {
-      props.onHeightChanged?.(currentHeight);
-      previousHeightRef.current = currentHeight;
-    }
   });
 
   const handleExpansionToggleClick = (event: React.MouseEvent) => {
