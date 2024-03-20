@@ -11,7 +11,6 @@ import type { CommonProps } from "@itwin/core-react";
 import { FillCentered } from "@itwin/core-react";
 import { DelayedSpinner } from "../../../common/DelayedSpinner";
 import type { SelectionMode } from "../../../common/selection/SelectionModes";
-import { UiComponents } from "../../../UiComponents";
 import type { HighlightableTreeProps } from "../../HighlightingEngine";
 import { TreeImageLoader } from "../../ImageLoader";
 import { TreeEventDispatcher } from "../TreeEventDispatcher";
@@ -29,6 +28,7 @@ import { TreeNodeRenderer } from "./TreeNodeRenderer";
 import type { RenderedItemsRange, TreeRendererProps } from "./TreeRenderer";
 import { TreeRenderer } from "./TreeRenderer";
 import { useElementsScrollStorage } from "../../../common/UseElementsScrollStorage";
+import { useTranslation } from "../../../Translation";
 
 /**
  * Properties for [[ControlledTree]]
@@ -173,6 +173,7 @@ interface LoaderProps {
 }
 
 function Loader(props: LoaderProps) {
+  const { translate } = useTranslation();
   if (props.loading) {
     return props.spinnerRenderer ? (
       props.spinnerRenderer()
@@ -188,7 +189,7 @@ function Loader(props: LoaderProps) {
     ) : (
       <FillCentered>
         <p className="components-controlledTree-errorMessage">
-          {UiComponents.translate("general.noData")}
+          {translate("general.noData")}
         </p>
       </FillCentered>
     );

@@ -14,7 +14,7 @@ import { EditorContainer } from "../editors/EditorContainer";
 import { Flex, Text } from "@itwin/itwinui-react";
 import { PropertyFilterBuilderRuleRangeValue } from "./FilterBuilderRangeValue";
 import type { PropertyFilterBuilderRuleOperator } from "./Operators";
-import { UiComponents } from "../UiComponents";
+import { useTranslation } from "../Translation";
 
 /**
  * Props for [[PropertyFilterBuilderRuleValue]] component.
@@ -90,6 +90,7 @@ function FilterBuilderRuleRangeValueRenderer({
   value,
   onChange,
 }: PropertyFilterBuilderRuleValueProps) {
+  const { translate } = useTranslation();
   const { from, to } = React.useMemo(() => {
     const rangeValue = PropertyFilterBuilderRuleRangeValue.parse(value);
     return {
@@ -127,9 +128,7 @@ function FilterBuilderRuleRangeValueRenderer({
           shouldCommitOnChange={false}
         />
       </Flex.Item>
-      <Text>
-        {UiComponents.translate("filterBuilder.operators.and").toLowerCase()}
-      </Text>
+      <Text>{translate("filterBuilder.operators.and").toLowerCase()}</Text>
       <Flex.Item>
         <EditorContainer
           propertyRecord={to}

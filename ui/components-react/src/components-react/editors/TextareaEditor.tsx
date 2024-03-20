@@ -54,7 +54,6 @@ export class TextareaEditor
   implements TypeEditor
 {
   private _isMounted = false;
-  private _ariaLabel = UiComponents.translate("editor.textarea");
   private _divElement = React.createRef<HTMLDivElement>();
   private _textAreaElement = React.createRef<HTMLTextAreaElement>();
 
@@ -225,7 +224,7 @@ export class TextareaEditor
       autoFocus: this.props.setFocus && !this.state.isDisabled,
     };
 
-    textareaProps["aria-label"] = this._ariaLabel;
+    textareaProps["aria-label"] = UiComponents.translate("editor.textarea");
 
     return (
       <div className={className} ref={this._divElement}>

@@ -9,10 +9,10 @@
 import * as React from "react";
 import classnames from "classnames";
 import { Key } from "ts-key-enum";
-import { UiComponents } from "../UiComponents";
 import { Icon } from "@itwin/core-react";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 import "./DatePicker.scss";
+import { useTranslation } from "../Translation";
 
 function isSameDay(a: Date, b: Date) {
   return (
@@ -44,100 +44,43 @@ export interface DatePickerProps {
  */
 // eslint-disable-next-line deprecation/deprecation
 export function DatePicker(props: DatePickerProps) {
-  const previousMonthLabel = React.useRef(
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:datepicker.previousMonth"
-    )
-  );
-  const nextMonthLabel = React.useRef(
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:datepicker.nextMonth"
-    )
-  );
-  const monthsLong = React.useRef([
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:month.long.january"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:month.long.february"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:month.long.march"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:month.long.april"
-    ),
-    UiComponents.localization.getLocalizedString("UiComponents:month.long.may"),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:month.long.june"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:month.long.july"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:month.long.august"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:month.long.september"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:month.long.october"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:month.long.november"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:month.long.december"
-    ),
-  ]);
+  const { translate } = useTranslation();
+  const previousMonthLabel = translate("datepicker.previousMonth");
+  const nextMonthLabel = translate("datepicker.nextMonth");
+  const monthsLong = [
+    translate("month.long.january"),
+    translate("month.long.february"),
+    translate("month.long.march"),
+    translate("month.long.april"),
+    translate("month.long.may"),
+    translate("month.long.june"),
+    translate("month.long.july"),
+    translate("month.long.august"),
+    translate("month.long.september"),
+    translate("month.long.october"),
+    translate("month.long.november"),
+    translate("month.long.december"),
+  ];
 
-  const daysLong = React.useRef([
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:days.long.sunday"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:days.long.monday"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:days.long.tuesday"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:days.long.wednesday"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:days.long.thursday"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:days.long.friday"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:days.long.saturday"
-    ),
-  ]);
+  const daysLong = [
+    translate("days.long.sunday"),
+    translate("days.long.monday"),
+    translate("days.long.tuesday"),
+    translate("days.long.wednesday"),
+    translate("days.long.thursday"),
+    translate("days.long.friday"),
+    translate("days.long.saturday"),
+  ];
 
-  const daysShort = React.useRef([
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:days.short.sunday"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:days.short.monday"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:days.short.tuesday"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:days.short.wednesday"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:days.short.thursday"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:days.short.friday"
-    ),
-    UiComponents.localization.getLocalizedString(
-      "UiComponents:days.short.saturday"
-    ),
-  ]);
+  const daysShort = [
+    translate("days.short.sunday"),
+    translate("days.short.monday"),
+    translate("days.short.tuesday"),
+    translate("days.short.wednesday"),
+    translate("days.short.thursday"),
+    translate("days.short.friday"),
+    translate("days.short.saturday"),
+  ];
 
   const [selectedDay, setSelectedDay] = React.useState(
     new Date(props.selected.getTime())
@@ -288,17 +231,17 @@ export function DatePicker(props: DatePickerProps) {
       <div className="components-date-picker-calendar-header-months">
         <button
           className={previousButtonClass}
-          title={previousMonthLabel.current}
+          title={previousMonthLabel}
           onClick={handleMoveToPreviousMonth}
         >
           <Icon iconSpec={<SvgChevronLeft />} />
         </button>
         <span className="components-month-year">
-          {monthsLong.current[displayedMonthIndex]} {displayedYear}
+          {monthsLong[displayedMonthIndex]} {displayedYear}
         </span>
         <button
           className={nextButtonClass}
-          title={nextMonthLabel.current}
+          title={nextMonthLabel}
           onClick={handleMoveToNextMonth}
         >
           <Icon iconSpec={<SvgChevronRight />} />
@@ -309,9 +252,9 @@ export function DatePicker(props: DatePickerProps) {
           <div
             key={`day-${dayOfWeek}`}
             className="components-date-picker-calendar-header-day-short"
-            title={daysLong.current[dayOfWeek]}
+            title={daysLong[dayOfWeek]}
           >
-            <span>{daysShort.current[dayOfWeek]}</span>
+            <span>{daysShort[dayOfWeek]}</span>
           </div>
         ))}
       </div>

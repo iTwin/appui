@@ -12,12 +12,12 @@ import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Popup } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
-import { UiComponents } from "../UiComponents";
 import { DatePicker } from "./DatePicker";
 import { DateField } from "./DateField";
 import type { TimeSpec } from "./TimeField";
 import { TimeField } from "./TimeField";
 import "./DatePickerPopupButton.scss";
+import { useTranslation } from "../Translation";
 
 /** Props used by [[DatePickerPopupButton]] component.
  * @alpha
@@ -59,18 +59,12 @@ export function DatePickerPopupButton({
   style,
 }: // eslint-disable-next-line deprecation/deprecation
 DatePickerPopupButtonProps) {
+  const { translate } = useTranslation();
   const [workingDate, setWorkingDate] = React.useState(
     new Date(selected.getTime())
   );
   const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
-  const timeLabelRef = React.useRef(UiComponents.translate("datepicker.time"));
-  const toolTipLabelRef = React.useRef(
-    UiComponents.translate("datepicker.selectDate")
-  );
-  const toolTipLabel = React.useMemo(
-    () => (buttonToolTip ? buttonToolTip : toolTipLabelRef.current),
-    [buttonToolTip]
-  );
+  const toolTipLabel = buttonToolTip ?? translate("datepicker.selectDate");
 
   // See if props have changed since component mounted
   React.useEffect(() => {
@@ -167,7 +161,7 @@ DatePickerPopupButtonProps) {
           {timeDisplay && (
             <div className="time-container">
               <Text variant="body" className="time-label">
-                {timeLabelRef.current}
+                {translate("datepicker.time")}
               </Text>
               <TimeField
                 time={timeSpec}

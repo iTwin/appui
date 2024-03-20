@@ -37,10 +37,10 @@ import {
   OrthogonalDirection,
   OrthogonalDirectionHelpers,
 } from "./utilities/Direction";
-import { UiComponents } from "../UiComponents";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import type { BeEvent } from "@itwin/core-bentley";
 import { useConditionalSynchedItems } from "./useConditionalSynchedItems";
+import { useTranslation } from "../Translation";
 
 /** Describes the data needed to insert a custom `React` button into an ToolbarWithOverflow.
  * @public
@@ -414,11 +414,9 @@ export function InternalToolbarComponent(props: InternalToolbarComponentProps) {
     : ToolbarPanelAlignment.Start;
   const useHeight =
     expandsTo === Direction.Right || expandsTo === Direction.Left;
+  const { translate } = useTranslation();
   const [isOverflowPanelOpen, setIsOverflowPanelOpen] = React.useState(false);
   const [popupPanelCount, setPopupPanelCount] = React.useState(0);
-  const overflowTitle = React.useRef(
-    UiComponents.translate("toolbar.overflow")
-  );
   const isMounted = React.useRef(false);
   React.useEffect(() => {
     isMounted.current = true;
@@ -565,19 +563,20 @@ export function InternalToolbarComponent(props: InternalToolbarComponentProps) {
                 </OverflowItemsContainer>
               </ToolbarOverflowPanel>
             }
-            title={overflowTitle.current}
+            title={translate("toolbar.overflow")}
           />
         </ToolbarItemContext.Provider>
       );
     },
     [
-      handleClick,
-      handleClose,
-      handleOverflowResize,
-      isOverflowPanelOpen,
-      expandsTo,
       overflowPanelItems,
       useHeight,
+      handleOverflowResize,
+      expandsTo,
+      handleClick,
+      handleClose,
+      isOverflowPanelOpen,
+      translate,
     ]
   );
 

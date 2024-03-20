@@ -46,7 +46,6 @@ export class TextEditor
   implements TypeEditor
 {
   private _isMounted = false;
-  private _ariaLabel = UiComponents.translate("editor.text");
   private _inputElement = React.createRef<HTMLInputElement>();
 
   /** @internal */
@@ -205,7 +204,7 @@ export class TextEditor
       autoFocus: this.props.setFocus && !this.state.isDisabled,
     };
 
-    inputProps["aria-label"] = this._ariaLabel;
+    inputProps["aria-label"] = UiComponents.translate("editor.text");
 
     let reactNode: React.ReactNode;
     if (this.state.iconSpec) {

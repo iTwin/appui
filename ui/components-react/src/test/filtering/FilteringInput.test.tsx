@@ -163,7 +163,7 @@ describe("FilteringInput", () => {
       />
     );
 
-    await theUserTo.click(screen.getByTitle("general.search"));
+    await theUserTo.click(screen.getByTitle("general.clear"));
 
     expect(clearCallback).to.be.calledOnce;
   });

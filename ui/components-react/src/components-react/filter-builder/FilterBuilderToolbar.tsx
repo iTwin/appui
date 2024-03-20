@@ -8,7 +8,7 @@
 import React from "react";
 import { Flex, IconButton } from "@itwin/itwinui-react";
 import { SvgAdd, SvgDelete } from "@itwin/itwinui-icons-react";
-import { UiComponents } from "../UiComponents";
+import { useTranslation } from "../Translation";
 /**
  * Props for [[PropertyFilterBuilderToolbar]] component.
  * @internal
@@ -27,6 +27,7 @@ export const PropertyFilterBuilderToolbar = (
   props: PropertyFilterBuilderToolbarProps
 ) => {
   const { onAddChild, onDelete } = props;
+  const { translate } = useTranslation();
 
   return (
     <Flex
@@ -37,7 +38,7 @@ export const PropertyFilterBuilderToolbar = (
       <IconButton
         size={"small"}
         className="fb-add-rule-button"
-        label={UiComponents.translate("filterBuilder.add")}
+        label={translate("filterBuilder.add")}
         styleType="borderless"
         onClick={onAddChild}
       >
@@ -46,7 +47,7 @@ export const PropertyFilterBuilderToolbar = (
       <IconButton
         size={"small"}
         className="fb-remove-rule-button"
-        label={UiComponents.translate("filterBuilder.delete")}
+        label={translate("filterBuilder.delete")}
         styleType="borderless"
         onClick={onDelete}
       >

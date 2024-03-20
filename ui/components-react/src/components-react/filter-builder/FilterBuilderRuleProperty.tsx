@@ -10,7 +10,7 @@ import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { ComboBox, MenuItem } from "@itwin/itwinui-react";
-import { UiComponents } from "../UiComponents";
+import { useTranslation } from "../Translation";
 
 type ComboBoxProps<T> = React.ComponentPropsWithoutRef<typeof ComboBox<T>>;
 
@@ -45,6 +45,8 @@ export function PropertyFilterBuilderRuleProperty(
     propertyRenderer,
     isDisabled,
   } = props;
+
+  const { translate } = useTranslation();
 
   const selectOptions = React.useMemo<SelectOption<string>[]>(
     () =>
@@ -95,7 +97,7 @@ export function PropertyFilterBuilderRuleProperty(
         onChange={onPropertyChanged}
         value={selectedProperty?.name}
         inputProps={{
-          placeholder: UiComponents.translate("filterBuilder.chooseProperty"),
+          placeholder: translate("filterBuilder.chooseProperty"),
           disabled: isDisabled,
           size: "small",
         }}

@@ -44,8 +44,6 @@ export class ResultSelector extends React.PureComponent<
   ResultSelectorProps,
   ResultSelectorState
 > {
-  private _ofLabel = UiComponents.translate("general.of");
-
   /** @internal */
   constructor(props: ResultSelectorProps) {
     super(props);
@@ -169,7 +167,7 @@ export class ResultSelector extends React.PureComponent<
             this.state.selectedResultId
           )}
           <span style={{ marginLeft: "5px", marginRight: "5px" }}>
-            {this._ofLabel}
+            {UiComponents.translate("general.of")}
           </span>
           <span>{this.props.resultCount}</span>
         </span>
