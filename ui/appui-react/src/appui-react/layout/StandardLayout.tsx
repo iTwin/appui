@@ -11,10 +11,10 @@ import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { useLayout } from "./base/LayoutStore";
-import { usePreviewFeatures } from "../preview/PreviewFeatures";
+import { useContentAlwaysMaxSize } from "../preview/content-always-max-size/useContentAlwaysMaxSize";
 import { useMaximizedPanelLayout } from "../preview/enable-maximized-widget/useMaximizedWidget";
-import { usePanelsAutoCollapse } from "./widget-panels/usePanelsAutoCollapse";
 import { useHorizontalPanelAlignment } from "../preview/horizontal-panel-alignment/useHorizontalPanelAlignment";
+import { usePanelsAutoCollapse } from "./widget-panels/usePanelsAutoCollapse";
 import type { PanelSide } from "./widget-panels/PanelTypes";
 
 interface StandardLayoutProps extends CommonProps {
@@ -34,12 +34,16 @@ interface StandardLayoutProps extends CommonProps {
  * @internal
  */
 export function StandardLayout(props: StandardLayoutProps) {
-  const pinned = usePinned();
+  const pinned = usePinnedPanels();
   const appContentRef = usePanelsAutoCollapse<HTMLDivElement>();
   const className = classnames("nz-standardLayout", pinned, props.className);
+  const contentAlwaysMaxSize = useContentAlwaysMaxSize();
   return (
     <div className={className} style={props.style}>
-      <div className="nz-appContent" ref={appContentRef}>
+      <div
+        className={classnames("nz-appContent", contentAlwaysMaxSize)}
+        ref={appContentRef}
+      >
         {props.children}
       </div>
       <div className="nz-centerContent">{props.centerContent}</div>
@@ -72,16 +76,15 @@ function Panel({ children, side }: React.PropsWithChildren<PanelProps>) {
   );
 }
 
-function usePinned() {
-  const { contentAlwaysMaxSize } = usePreviewFeatures();
+function usePinnedPanels() {
   const leftPinned = useLayout((state) => state.panels.left.pinned);
   const rightPinned = useLayout((state) => state.panels.right.pinned);
   const topPinned = useLayout((state) => state.panels.top.pinned);
   const bottomPinned = useLayout((state) => state.panels.bottom.pinned);
   return {
-    "nz-pinned-left": leftPinned && !contentAlwaysMaxSize,
-    "nz-pinned-right": rightPinned && !contentAlwaysMaxSize,
-    "nz-pinned-top": topPinned && !contentAlwaysMaxSize,
-    "nz-pinned-bottom": bottomPinned && !contentAlwaysMaxSize,
+    "nz-pinned-left": leftPinned,
+    "nz-pinned-right": rightPinned,
+    "nz-pinned-top": topPinned,
+    "nz-pinned-bottom": bottomPinned,
   };
 }
