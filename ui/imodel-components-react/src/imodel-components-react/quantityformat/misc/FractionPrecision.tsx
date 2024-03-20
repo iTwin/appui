@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { UiIModelComponents } from "../../UiIModelComponents";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
+import { useTranslation } from "../../Translation";
 
 /** Properties of [[FractionPrecisionSelector]] component.
  * @internal
@@ -27,62 +27,45 @@ export function FractionPrecisionSelector(
   props: FractionPrecisionSelectorProps
 ) {
   const { precision, onChange, ...otherProps } = props;
-  const options = React.useRef<SelectOption<number>[]>([
+  const { translate } = useTranslation();
+  const options: SelectOption<number>[] = [
     {
       value: 1,
-      label: UiIModelComponents.translate(
-        "QuantityFormat.fraction_precision.whole"
-      ),
+      label: translate("QuantityFormat.fraction_precision.whole"),
     },
     {
       value: 2,
-      label: UiIModelComponents.translate(
-        "QuantityFormat.fraction_precision.half"
-      ),
+      label: translate("QuantityFormat.fraction_precision.half"),
     },
     {
       value: 4,
-      label: UiIModelComponents.translate(
-        "QuantityFormat.fraction_precision.quarter"
-      ),
+      label: translate("QuantityFormat.fraction_precision.quarter"),
     },
     {
       value: 8,
-      label: UiIModelComponents.translate(
-        "QuantityFormat.fraction_precision.eighth"
-      ),
+      label: translate("QuantityFormat.fraction_precision.eighth"),
     },
     {
       value: 16,
-      label: UiIModelComponents.translate(
-        "QuantityFormat.fraction_precision.sixteenth"
-      ),
+      label: translate("QuantityFormat.fraction_precision.sixteenth"),
     },
     {
       value: 32,
-      label: UiIModelComponents.translate(
-        "QuantityFormat.fraction_precision.over32"
-      ),
+      label: translate("QuantityFormat.fraction_precision.over32"),
     },
     {
       value: 64,
-      label: UiIModelComponents.translate(
-        "QuantityFormat.fraction_precision.over64"
-      ),
+      label: translate("QuantityFormat.fraction_precision.over64"),
     },
     {
       value: 128,
-      label: UiIModelComponents.translate(
-        "QuantityFormat.fraction_precision.over128"
-      ),
+      label: translate("QuantityFormat.fraction_precision.over128"),
     },
     {
       value: 256,
-      label: UiIModelComponents.translate(
-        "QuantityFormat.fraction_precision.over256"
-      ),
+      label: translate("QuantityFormat.fraction_precision.over256"),
     },
-  ]);
+  ];
 
   const handleOnChange = React.useCallback(
     (newValue: number) => {
@@ -93,7 +76,7 @@ export function FractionPrecisionSelector(
 
   return (
     <Select
-      options={options.current}
+      options={options}
       value={precision}
       onChange={handleOnChange}
       size="small"

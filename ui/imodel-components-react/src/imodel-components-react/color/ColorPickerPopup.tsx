@@ -21,12 +21,12 @@ import {
 } from "@itwin/itwinui-react";
 import "./ColorPickerPopup.scss";
 import { getCSSColorFromDef } from "./getCSSColorFromDef";
-import { UiIModelComponents } from "../UiIModelComponents";
 import {
   SvgCaretDownSmall,
   SvgCaretUpSmall,
   SvgClose,
 } from "@itwin/itwinui-icons-react";
+import { useTranslation } from "../Translation";
 
 /** Properties for the [[ColorPickerPopup]] React component
  * @public
@@ -69,6 +69,7 @@ const ForwardRefColorPickerPopup = React.forwardRef<
   // eslint-disable-next-line deprecation/deprecation
   ColorPickerPopupProps
 >(function ForwardRefColorPickerPopup(props, ref) {
+  const { translate } = useTranslation();
   const target = React.useRef<HTMLButtonElement>(null);
   const refs = useRefs(target, ref); // combine ref needed for target with the forwardRef needed by the Parent when parent is a Type Editor.
   const [showPopup, setShowPopup] = React.useState(false);
@@ -154,12 +155,8 @@ const ForwardRefColorPickerPopup = React.forwardRef<
       ? props.popupPosition
       : RelativePosition.BottomLeft;
 
-  const [closeLabel] = React.useState(() =>
-    UiIModelComponents.translate("color.close")
-  );
-  const [togglePopupLabel] = React.useState(() =>
-    UiIModelComponents.translate("color.toggleColorPopup")
-  );
+  const closeLabel = translate("color.close");
+  const togglePopupLabel = translate("color.toggleColorPopup");
 
   return (
     /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */

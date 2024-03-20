@@ -12,7 +12,7 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import { ColorDef, HSVColor } from "@itwin/core-common";
 import type { CommonProps } from "@itwin/core-react";
-import { UiIModelComponents } from "../UiIModelComponents";
+import { useTranslation } from "../Translation";
 
 function calculateChange(
   e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
@@ -99,10 +99,8 @@ export function SaturationPicker({
   style,
 }: // eslint-disable-next-line deprecation/deprecation
 SaturationPickerProps) {
+  const { translate } = useTranslation();
   const container = React.useRef<HTMLDivElement>(null);
-  const [saturationLabel] = React.useState(() =>
-    UiIModelComponents.translate("color.saturation")
-  );
   const isDragging = React.useRef(false);
 
   const onChange = React.useCallback(
@@ -252,7 +250,7 @@ SaturationPickerProps) {
       <div
         data-testid="saturation-region"
         role="slider"
-        aria-label={saturationLabel}
+        aria-label={translate("color.saturation")}
         aria-valuenow={hsv.s}
         style={colorStyle}
         className="components-saturation-region"

@@ -13,7 +13,7 @@ import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
 import { Checkbox } from "@itwin/itwinui-react";
 import { ThousandsSelector } from "./ThousandsSelector";
-import { UiIModelComponents } from "../../UiIModelComponents";
+import { useTranslation } from "../../Translation";
 
 /** Properties of [[ThousandsSeparator]] component.
  * @internal
@@ -28,6 +28,7 @@ export interface ThousandsSeparatorProps extends CommonProps {
  */
 export function ThousandsSeparator(props: ThousandsSeparatorProps) {
   const { formatProps, onChange } = props;
+  const { translate } = useTranslation();
 
   const handleSetFormatProps = React.useCallback(
     (newProps: FormatProps) => {
@@ -103,19 +104,10 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
     [formatProps, isFormatTraitSet, handleSetFormatProps]
   );
 
-  const useThousandSeparatorLabel = React.useRef(
-    UiIModelComponents.translate(
-      "QuantityFormat.labels.useThousandSeparatorLabel"
-    )
-  );
-  const thousandSeparatorLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.thousandSeparatorLabel")
-  );
-
   return (
     <>
       <span className={"uicore-label"}>
-        {useThousandSeparatorLabel.current}
+        {translate("QuantityFormat.labels.useThousandSeparatorLabel")}
       </span>
       <Checkbox
         data-testid="use-thousands-separator"
@@ -128,7 +120,7 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
           !isFormatTraitSet(FormatTraits.Use1000Separator) && "uicore-disabled"
         )}
       >
-        {thousandSeparatorLabel.current}
+        {translate("QuantityFormat.labels.thousandSeparatorLabel")}
       </span>
       <ThousandsSelector
         data-testid="thousands-separator-selector"

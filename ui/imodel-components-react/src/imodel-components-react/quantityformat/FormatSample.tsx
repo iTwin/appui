@@ -12,8 +12,8 @@ import type { FormatterSpec } from "@itwin/core-quantity";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
-import { UiIModelComponents } from "../UiIModelComponents";
 import { SvgProgressForward } from "@itwin/itwinui-icons-react";
+import { useTranslation } from "../Translation";
 
 /** Properties of [[FormatSample]] component.
  * @alpha
@@ -29,6 +29,7 @@ export interface FormatSampleProps extends CommonProps {
  */
 export function FormatSample(props: FormatSampleProps) {
   const { initialMagnitude, formatSpec, hideLabels } = props;
+  const { translate } = useTranslation();
   const initialValue = initialMagnitude ?? 0;
   const [magnitude, setMagnitude] = React.useState(initialValue);
   const [sampleValue, setSampleValue] = React.useState(initialValue.toString());
@@ -74,17 +75,12 @@ export function FormatSample(props: FormatSampleProps) {
     ? formatSpec.applyFormatting(magnitude)
     : "";
 
-  const valueLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.value")
-  );
-  const formattedLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.formatted")
-  );
-
   return (
     <>
       {!hideLabels && (
-        <span className={"uicore-label"}>{valueLabel.current}</span>
+        <span className={"uicore-label"}>
+          {translate("QuantityFormat.labels.value")}
+        </span>
       )}
       <span className="components-inline">
         <Input
@@ -99,7 +95,9 @@ export function FormatSample(props: FormatSampleProps) {
         {activePersistenceUnitLabel}
       </span>
       {!hideLabels && (
-        <span className={"uicore-label"}>{formattedLabel.current}</span>
+        <span className={"uicore-label"}>
+          {translate("QuantityFormat.labels.formatted")}
+        </span>
       )}
       <span data-testid="progress-forward">
         {hideLabels && formattedValue.length > 0 && (

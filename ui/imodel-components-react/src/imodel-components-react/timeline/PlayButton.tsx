@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { SvgPause, SvgPlay } from "@itwin/itwinui-icons-react";
-import { UiIModelComponents } from "../UiIModelComponents";
 import { IconButton } from "@itwin/itwinui-react";
+import { useTranslation } from "../Translation";
 
 interface PlayButtonProps {
   isPlaying: boolean;
@@ -17,11 +17,8 @@ interface PlayButtonProps {
  * @internal
  */
 export function PlayButton({ isPlaying, onPlay, onPause }: PlayButtonProps) {
-  const label = React.useMemo(() => {
-    return UiIModelComponents.translate(
-      isPlaying ? "timeline.pause" : "timeline.play"
-    );
-  }, [isPlaying]);
+  const { translate } = useTranslation();
+  const label = translate(isPlaying ? "timeline.pause" : "timeline.play");
 
   return (
     <IconButton

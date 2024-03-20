@@ -9,11 +9,7 @@ import "./TimelineComponent.scss";
 import * as React from "react";
 import { UiAdmin } from "@itwin/appui-abstract";
 import type { DateFormatOptions } from "@itwin/components-react";
-import {
-  toDateString,
-  toTimeString,
-  UiComponents,
-} from "@itwin/components-react";
+import { toDateString, toTimeString } from "@itwin/components-react";
 import { SvgCheckmark, SvgMoreVertical } from "@itwin/itwinui-icons-react";
 import {
   DropdownMenu,
@@ -21,12 +17,12 @@ import {
   MenuDivider,
   MenuItem,
 } from "@itwin/itwinui-react";
-import { UiIModelComponents } from "../UiIModelComponents";
 import { InlineEdit } from "./InlineEdit";
 import type { PlaybackSettings, TimelinePausePlayArgs } from "./interfaces";
 import { TimelinePausePlayAction } from "./interfaces";
 import { PlayButton } from "./PlayButton";
 import { Scrubber } from "./Scrubber";
+import { useTranslation } from "../Translation";
 
 const slowSpeed = 60 * 1000;
 const mediumSpeed = 20 * 1000;
@@ -363,33 +359,24 @@ function SettingsMenu({
   onRepeatClick,
   onTotalDurationChange,
 }: SettingsMenuProps) {
-  const settingsLabel = React.useMemo(
-    () => UiComponents.translate("button.label.settings"),
-    []
-  );
-  const repeatLabel = React.useMemo(
-    () => UiIModelComponents.translate("timeline.repeat"),
-    []
-  );
-  const standardItems: TimelineMenuItemProps[] = React.useMemo(
-    () => [
+  const { translate } = useTranslation();
+
+  const menuItems = React.useMemo(() => {
+    const standardItems: TimelineMenuItemProps[] = [
       {
-        label: UiIModelComponents.translate("timeline.slow"),
+        label: translate("timeline.slow"),
         timelineDuration: slowSpeed,
       },
       {
-        label: UiIModelComponents.translate("timeline.medium"),
+        label: translate("timeline.medium"),
         timelineDuration: mediumSpeed,
       },
       {
-        label: UiIModelComponents.translate("timeline.fast"),
+        label: translate("timeline.fast"),
         timelineDuration: fastSpeed,
       },
-    ],
-    []
-  );
+    ];
 
-  const menuItems = React.useMemo(() => {
     if (!appMenuItems) {
       return standardItems;
     }
@@ -402,7 +389,7 @@ function SettingsMenu({
     }
     // Replace
     return appMenuItems;
-  }, [appMenuItemOption, appMenuItems, standardItems]);
+  }, [appMenuItemOption, appMenuItems, translate]);
 
   return (
     <DropdownMenu
@@ -418,7 +405,7 @@ function SettingsMenu({
                   }}
                   startIcon={repeat ? <SvgCheckmark /> : <></>}
                 >
-                  {repeatLabel}
+                  {translate("timeline.repeat")}
                 </MenuItem>,
                 <MenuDivider key="divider" />,
               ]
@@ -444,7 +431,7 @@ function SettingsMenu({
     >
       <IconButton
         data-testid="timeline-settings"
-        label={settingsLabel}
+        label={translate("button.label.settings")}
         styleType="borderless"
       >
         <SvgMoreVertical />

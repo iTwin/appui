@@ -8,10 +8,10 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { UiIModelComponents } from "../../UiIModelComponents";
 import { ScientificType } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
+import { useTranslation } from "../../Translation";
 
 /** Properties of [[ScientificTypeSelector]] component.
  * @internal
@@ -27,20 +27,17 @@ export interface ScientificTypeSelectorProps extends CommonProps {
  */
 export function ScientificTypeSelector(props: ScientificTypeSelectorProps) {
   const { type, onChange, ...otherProps } = props;
-  const formatOptions = React.useRef<SelectOption<ScientificType>[]>([
+  const { translate } = useTranslation();
+  const formatOptions: SelectOption<ScientificType>[] = [
     {
       value: ScientificType.Normalized,
-      label: UiIModelComponents.translate(
-        "QuantityFormat.scientific-type.normalized"
-      ),
+      label: translate("QuantityFormat.scientific-type.normalized"),
     },
     {
       value: ScientificType.ZeroNormalized,
-      label: UiIModelComponents.translate(
-        "QuantityFormat.scientific-type.zero-normalized"
-      ),
+      label: translate("QuantityFormat.scientific-type.zero-normalized"),
     },
-  ]);
+  ];
 
   const handleOnChange = React.useCallback(
     (newValue: ScientificType) => {
@@ -51,7 +48,7 @@ export function ScientificTypeSelector(props: ScientificTypeSelectorProps) {
 
   return (
     <Select
-      options={formatOptions.current}
+      options={formatOptions}
       value={type}
       onChange={handleOnChange}
       size="small"

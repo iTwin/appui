@@ -12,7 +12,7 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { HSVColor } from "@itwin/core-common";
 import type { CommonProps } from "@itwin/core-react";
-import { UiIModelComponents } from "../UiIModelComponents";
+import { useTranslation } from "../Translation";
 
 // hue is a value from 0 to 360
 function calculateHue(currentPos: number, high: number, isVertical: boolean) {
@@ -102,10 +102,8 @@ export function HueSlider({
   style,
 }: // eslint-disable-next-line deprecation/deprecation
 HueSliderProps) {
+  const { translate } = useTranslation();
   const container = React.useRef<HTMLDivElement>(null);
-  const [hueLabel] = React.useState(() =>
-    UiIModelComponents.translate("color.hue")
-  );
   const isDragging = React.useRef(false);
 
   const onChange = React.useCallback(
@@ -264,7 +262,7 @@ HueSliderProps) {
       <div
         data-testid="hue-slider"
         role="slider"
-        aria-label={hueLabel}
+        aria-label={translate("color.hue")}
         aria-valuemin={0}
         aria-valuemax={360}
         aria-valuenow={hsv.h}

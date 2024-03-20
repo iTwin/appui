@@ -12,7 +12,7 @@ import type { FormatProps } from "@itwin/core-quantity";
 import { FormatType, parseFormatType } from "@itwin/core-quantity";
 import { DecimalPrecisionSelector } from "./misc/DecimalPrecision";
 import { FractionPrecisionSelector } from "./misc/FractionPrecision";
-import { UiIModelComponents } from "../UiIModelComponents";
+import { useTranslation } from "../Translation";
 
 /** Properties of [[FormatPrecision]] component.
  * @alpha
@@ -27,6 +27,7 @@ export interface FormatPrecisionProps extends CommonProps {
  */
 export function FormatPrecision(props: FormatPrecisionProps) {
   const { formatProps, onChange } = props;
+  const { translate } = useTranslation();
 
   const handlePrecisionChange = React.useCallback(
     (precision: number) => {
@@ -38,12 +39,11 @@ export function FormatPrecision(props: FormatPrecisionProps) {
 
   const formatType = parseFormatType(formatProps.type, "format");
 
-  const label = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.precision")
-  );
   return (
     <>
-      <span className={"uicore-label"}>{label.current}</span>
+      <span className={"uicore-label"}>
+        {translate("QuantityFormat.labels.precision")}
+      </span>
       {formatType === FormatType.Fractional ? (
         <FractionPrecisionSelector
           data-testid="fraction-precision-selector"

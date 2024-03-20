@@ -40,6 +40,7 @@ import {
 import type { SolarDataProvider } from "./interfaces";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { PlayButton } from "./PlayButton";
+import { useTranslation } from "../Translation";
 
 const msPerMinute = 1000 * 60;
 const msPerHour = msPerMinute * 60;
@@ -147,15 +148,6 @@ export class SolarTimeline extends React.PureComponent<
   private _unmounted = false;
   private _timeLastCycle = 0;
   private _totalPlayTime = 0;
-  private _settingsPopupTitle = UiIModelComponents.translate(
-    "solarsettings.shadowcolor"
-  );
-  private _settingLabel = UiIModelComponents.translate(
-    "solartimeline.settings"
-  );
-  private _loopLabel = UiIModelComponents.translate("timeline.repeat");
-  private _speedLabel = UiIModelComponents.translate("solartimeline.speed");
-
   private _months = [
     UiComponents.translate("month.short.january"),
     UiComponents.translate("month.short.february"),
@@ -542,7 +534,9 @@ export class SolarTimeline extends React.PureComponent<
           <VisuallyHidden>
             <Label htmlFor="speed">Timeline speed</Label>
           </VisuallyHidden>
-          <Tooltip content={this._speedLabel}>
+          <Tooltip
+            content={UiIModelComponents.translate("solartimeline.speed")}
+          >
             <Select
               native
               styleType="borderless"
@@ -560,7 +554,7 @@ export class SolarTimeline extends React.PureComponent<
 
           <IconButton
             styleType="borderless"
-            label={this._loopLabel}
+            label={UiIModelComponents.translate("timeline.repeat")}
             onClick={this._onToggleLoop}
             isActive={loop}
           >
@@ -580,7 +574,7 @@ export class SolarTimeline extends React.PureComponent<
                 }}
               >
                 <Text variant="title" as="h2" style={{ textAlign: "center" }}>
-                  {this._settingsPopupTitle}
+                  {UiIModelComponents.translate("solarsettings.shadowcolor")}
                 </Text>
                 <ColorBuilder />
                 <ColorInputPanel defaultColorFormat="hsl" />
@@ -597,7 +591,7 @@ export class SolarTimeline extends React.PureComponent<
             <IconButton
               styleType="borderless"
               data-testid="shadow-settings-button"
-              label={this._settingLabel}
+              label={UiIModelComponents.translate("solartimeline.settings")}
               onClick={this._onOpenSettingsPopup}
             >
               <SvgSettings />
@@ -616,10 +610,8 @@ interface CalendarButtonProps {
 
 const CalendarButton = React.forwardRef<HTMLButtonElement, CalendarButtonProps>(
   function CalendarButton({ children, onClick }, ref) {
-    const tooltip = React.useMemo(
-      () => UiIModelComponents.translate("solartimeline.dateTime"),
-      []
-    );
+    const { translate } = useTranslation();
+    const tooltip = translate("solartimeline.dateTime");
 
     return (
       <Tooltip content={tooltip}>

@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { UiIModelComponents } from "../../UiIModelComponents";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
+import { useTranslation } from "../../Translation";
 
 /** Properties of [[StationSeparatorSelector]] component.
  * @internal
@@ -26,32 +26,7 @@ export interface StationSeparatorSelectorProps extends CommonProps {
  */
 export function StationSeparatorSelector(props: StationSeparatorSelectorProps) {
   const { separator, disabled, onChange, ...otherProps } = props;
-  const uomDefaultEntries = React.useRef<SelectOption<string>[]>([
-    {
-      value: "+",
-      label: UiIModelComponents.translate(
-        "QuantityFormat.station_separator.plus"
-      ),
-    },
-    {
-      value: "-",
-      label: UiIModelComponents.translate(
-        "QuantityFormat.station_separator.minus"
-      ),
-    },
-    {
-      value: " ",
-      label: UiIModelComponents.translate(
-        "QuantityFormat.station_separator.blank"
-      ),
-    },
-    {
-      value: "^",
-      label: UiIModelComponents.translate(
-        "QuantityFormat.station_separator.caret"
-      ),
-    },
-  ]);
+  const { translate } = useTranslation();
 
   const handleOnChange = React.useCallback(
     (newValue: string) => {
@@ -61,17 +36,35 @@ export function StationSeparatorSelector(props: StationSeparatorSelectorProps) {
   );
 
   const separatorOptions = React.useMemo(() => {
+    const uomDefaultEntries: SelectOption<string>[] = [
+      {
+        value: "+",
+        label: translate("QuantityFormat.station_separator.plus"),
+      },
+      {
+        value: "-",
+        label: translate("QuantityFormat.station_separator.minus"),
+      },
+      {
+        value: " ",
+        label: translate("QuantityFormat.station_separator.blank"),
+      },
+      {
+        value: "^",
+        label: translate("QuantityFormat.station_separator.caret"),
+      },
+    ];
     const completeListOfEntries: SelectOption<string>[] = [];
     // istanbul ignore next (only used if format already has a character that does not match standard options)
     if (
       undefined ===
-      uomDefaultEntries.current.find((option) => option.value === separator)
+      uomDefaultEntries.find((option) => option.value === separator)
     ) {
       completeListOfEntries.push({ value: separator, label: separator });
     }
-    completeListOfEntries.push(...uomDefaultEntries.current);
+    completeListOfEntries.push(...uomDefaultEntries);
     return completeListOfEntries;
-  }, [separator]);
+  }, [separator, translate]);
 
   return (
     <Select
