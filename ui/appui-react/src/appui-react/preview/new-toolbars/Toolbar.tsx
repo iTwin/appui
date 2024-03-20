@@ -7,12 +7,12 @@
  */
 
 import * as React from "react";
-import type { ToolbarItem } from "../ToolbarItem";
+import type { ToolbarItem } from "../../toolbar/ToolbarItem";
 import {
   isToolbarActionItem,
   isToolbarCustomItem,
   isToolbarGroupItem,
-} from "../ToolbarItem";
+} from "../../toolbar/ToolbarItem";
 import { ToolGroup } from "./ToolGroup";
 
 interface ToolbarProps {

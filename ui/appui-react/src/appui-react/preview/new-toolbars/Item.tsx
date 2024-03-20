@@ -10,7 +10,7 @@ import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { Icon } from "@itwin/core-react";
 import { IconButton } from "@itwin/itwinui-react";
-import type { ToolbarItem } from "../ToolbarItem";
+import type { ToolbarItem } from "../../toolbar/ToolbarItem";
 import { useConditionalValue } from "../../hooks/useConditionalValue";
 import { Badge } from "./Badge";
 import { ToolbarContext } from "./Toolbar";

@@ -19,7 +19,7 @@ import type { ToolbarItem } from "./ToolbarItem";
 import { toUIAToolbarItem } from "./toUIAToolbarItem";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
-import { Toolbar as ToolGroupToolbar } from "./group/Toolbar";
+import { Toolbar as ToolGroupToolbar } from "../preview/new-toolbars/Toolbar";
 
 /**
  * Properties of [[Toolbar.enableOverflow]] component.

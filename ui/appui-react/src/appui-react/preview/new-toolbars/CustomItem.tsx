@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { DropdownMenu, MenuExtraContent } from "@itwin/itwinui-react";
-import type { ToolbarCustomItem } from "../ToolbarItem";
+import type { ToolbarCustomItem } from "../../toolbar/ToolbarItem";
 import { ExpandIndicator } from "./ExpandIndicator";
 import { Item } from "./Item";
 import { GroupMenuItem, usePopoverPlacement } from "./GroupItem";

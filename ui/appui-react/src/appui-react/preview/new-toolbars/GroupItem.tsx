@@ -9,13 +9,13 @@
 import * as React from "react";
 import { Icon } from "@itwin/core-react";
 import { DropdownMenu, MenuExtraContent, MenuItem } from "@itwin/itwinui-react";
-import type { ToolbarItem } from "../ToolbarItem";
+import type { ToolbarItem } from "../../toolbar/ToolbarItem";
 import {
   isToolbarActionItem,
   isToolbarCustomItem,
   isToolbarGroupItem,
   type ToolbarGroupItem,
-} from "../ToolbarItem";
+} from "../../toolbar/ToolbarItem";
 import { useConditionalValue } from "../../hooks/useConditionalValue";
 import { ExpandIndicator } from "./ExpandIndicator";
 import { Item } from "./Item";
