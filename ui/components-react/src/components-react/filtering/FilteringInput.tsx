@@ -79,7 +79,6 @@ export class FilteringInput extends React.PureComponent<
   FilteringInputState
 > {
   private _inputElement = React.createRef<HTMLInputElement>();
-  private _searchLabel = UiComponents.translate("general.search");
 
   constructor(props: FilteringInputProps) {
     super(props);
@@ -147,6 +146,7 @@ export class FilteringInput extends React.PureComponent<
 
   public override render() {
     const status = this.props.status;
+    const searchLabel = UiComponents.translate("general.search");
     return (
       // TODO: What is filtering-input-preload-images?
       <div
@@ -168,7 +168,7 @@ export class FilteringInput extends React.PureComponent<
             onKeyDown={this._onFilterKeyDown}
             value={this.state.searchText}
             onChange={this._onInputChanged}
-            aria-label={this._searchLabel}
+            aria-label={searchLabel}
             size="small"
           />
 
@@ -188,7 +188,7 @@ export class FilteringInput extends React.PureComponent<
                 data-testid="filter-input-search"
                 role="button"
                 tabIndex={-1}
-                title={this._searchLabel}
+                title={searchLabel}
               >
                 <Icon iconSpec={<SvgSearch />} />{" "}
               </span>

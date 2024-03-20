@@ -148,23 +148,7 @@ export class SolarTimeline extends React.PureComponent<
   private _unmounted = false;
   private _timeLastCycle = 0;
   private _totalPlayTime = 0;
-  private _months = [
-    UiComponents.translate("month.short.january"),
-    UiComponents.translate("month.short.february"),
-    UiComponents.translate("month.short.march"),
-    UiComponents.translate("month.short.april"),
-    UiComponents.translate("month.short.may"),
-    UiComponents.translate("month.short.june"),
-    UiComponents.translate("month.short.july"),
-    UiComponents.translate("month.short.august"),
-    UiComponents.translate("month.short.september"),
-    UiComponents.translate("month.short.october"),
-    UiComponents.translate("month.short.november"),
-    UiComponents.translate("month.short.december"),
-  ];
 
-  private _amLabel = UiComponents.translate("time.am");
-  private _pmLabel = UiComponents.translate("time.pm");
   private readonly _presetColors = [
     ColorDef.create(ColorByName.grey),
     ColorDef.create(ColorByName.lightGrey),
@@ -430,6 +414,8 @@ export class SolarTimeline extends React.PureComponent<
 
   private _formatTime = (ms: number) => {
     const date = new Date(ms);
+    const amLabel = UiComponents.translate("time.am");
+    const pmLabel = UiComponents.translate("time.pm");
     // convert project date to browser locale date
     const localTime = adjustDateToTimezone(
       date,
@@ -437,8 +423,7 @@ export class SolarTimeline extends React.PureComponent<
     );
     let hours = localTime.getHours();
     const minutes = date.getMinutes();
-    const abbrev =
-      hours < 12 ? this._amLabel : hours === 24 ? this._amLabel : this._pmLabel;
+    const abbrev = hours < 12 ? amLabel : hours === 24 ? amLabel : pmLabel;
     hours = hours > 12 ? hours - 12 : hours;
     const hoursStr = hours.toLocaleString(undefined, {
       minimumIntegerDigits: 2,
@@ -467,6 +452,21 @@ export class SolarTimeline extends React.PureComponent<
       sunRiseOffsetMs,
       sunSetOffsetMs,
     } = this.state;
+    const months = [
+      UiComponents.translate("month.short.january"),
+      UiComponents.translate("month.short.february"),
+      UiComponents.translate("month.short.march"),
+      UiComponents.translate("month.short.april"),
+      UiComponents.translate("month.short.may"),
+      UiComponents.translate("month.short.june"),
+      UiComponents.translate("month.short.july"),
+      UiComponents.translate("month.short.august"),
+      UiComponents.translate("month.short.september"),
+      UiComponents.translate("month.short.october"),
+      UiComponents.translate("month.short.november"),
+      UiComponents.translate("month.short.december"),
+    ];
+
     const localTime = this.getLocalTime(
       this.state.dayStartMs + this.state.currentTimeOffsetMs
     );
@@ -474,7 +474,7 @@ export class SolarTimeline extends React.PureComponent<
       dataProvider.dayStartMs + currentTimeOffsetMs
     );
     const formattedDate = `${
-      this._months[localTime.getMonth()]
+      months[localTime.getMonth()]
     }, ${localTime.getDate()}`;
 
     return (

@@ -31,8 +31,6 @@ export class ViewAttributesStatusField extends React.Component<
   CommonProps,
   ViewAttributesStatusFieldState
 > {
-  private _title = UiFramework.translate("listTools.viewAttributes");
-
   constructor(props: CommonProps) {
     super(props);
 
@@ -172,13 +170,15 @@ export class ViewAttributesStatusField extends React.Component<
   }
 
   public override render() {
+    const title = UiFramework.translate("listTools.viewAttributes");
+
     return (
       <StatusBarLabelIndicator
         iconSpec={<SvgWindowSettings />}
-        title={this._title}
+        title={title}
         popup={
           <StatusBarDialog
-            titleBar={<StatusBarDialog.TitleBar title={this._title} />}
+            titleBar={<StatusBarDialog.TitleBar title={title} />}
           >
             {this.getViewFlags()}
           </StatusBarDialog>
