@@ -42,7 +42,7 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/723
    */
   widgetActionDropdown: { threshold: number };
-  /** If true, the [[Toolbar]] component will be replaced by a new iTwinUI based button group toolbar. */
+  /** If true, the [[Toolbar]] component will be replaced by a new iTwinUI based toolbar. */
   newToolbars: boolean;
 }
 
