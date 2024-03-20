@@ -32,7 +32,7 @@ import {
   ConditionalBooleanValue,
   StandardContentLayouts,
 } from "@itwin/appui-abstract";
-import { TestAppLocalization, useTranslation } from "../../Translation";
+import { TestAppLocalization, useTranslation } from "../../useTranslation";
 
 async function getDefaultViewId(
   iModelConnection: IModelConnection

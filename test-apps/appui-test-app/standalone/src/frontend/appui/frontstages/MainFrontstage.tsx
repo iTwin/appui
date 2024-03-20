@@ -38,7 +38,7 @@ import { SampleAppIModelApp } from "../../index";
 import { AppUi } from "../AppUi";
 import stageIconSvg from "./imodeljs.svg";
 import { getUrlParam } from "../../UrlParams";
-import { TestAppLocalization } from "../../Translation";
+import { TestAppLocalization } from "../../useTranslation";
 
 function getIModelSpecificKey(
   inKey: string,

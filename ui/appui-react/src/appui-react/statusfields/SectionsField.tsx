@@ -23,7 +23,7 @@ import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { StatusBar } from "../statusbar/StatusBar";
 import { StatusBarDialog } from "../statusbar/dialog/Dialog";
 import "./SectionsField.scss";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 /** Sections Status Field Props
  * @beta

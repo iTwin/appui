@@ -64,7 +64,7 @@ import { WidgetPanelProvider } from "../layout/widget-panels/Panel";
 import { WidgetContentRenderers } from "../layout/widget/ContentRenderer";
 import { useCursor } from "../layout/widget-panels/CursorOverlay";
 import { WidgetPanelExpanders } from "../layout/widget-panels/Expander";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();

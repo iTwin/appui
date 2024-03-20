@@ -16,7 +16,7 @@ import {
 import { ToggleSwitch } from "@itwin/itwinui-react";
 import { ComponentExamplesProvider } from "../providers/ComponentExamplesProvider";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
-import { useTranslation } from "../../Translation";
+import { useTranslation } from "../../useTranslation";
 
 export interface ComponentExampleCategory {
   title: string;

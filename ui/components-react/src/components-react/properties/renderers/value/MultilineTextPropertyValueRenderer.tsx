@@ -19,7 +19,7 @@ import type {
 import { useRenderedStringValue } from "./PrimitivePropertyValueRenderer";
 import classnames from "classnames";
 import { convertRecordToString } from "./Common";
-import { useTranslation } from "../../../Translation";
+import { useTranslation } from "../../../useTranslation";
 
 /** @internal */
 export class MultilineTextPropertyValueRenderer

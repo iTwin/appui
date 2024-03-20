@@ -26,7 +26,7 @@ import { UiFramework } from "../UiFramework";
 import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { StageUsage } from "./StageUsage";
 import { BackstageItemUtilities } from "../backstage/BackstageItemUtilities";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 function ModalSettingsStage({
   initialSettingsTabId,

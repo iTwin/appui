@@ -24,7 +24,7 @@ import {
 } from "@itwin/appui-react";
 import { Select, SelectOption } from "@itwin/itwinui-react";
 import { CommonProps } from "@itwin/core-react";
-import { useTranslation } from "../../Translation";
+import { useTranslation } from "../../useTranslation";
 
 /**
  * This component is designed to be specified in a status bar definition to select the display style in the active IModel view.

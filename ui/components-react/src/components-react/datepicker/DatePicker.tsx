@@ -12,7 +12,7 @@ import { Key } from "ts-key-enum";
 import { Icon } from "@itwin/core-react";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 import "./DatePicker.scss";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 function isSameDay(a: Date, b: Date) {
   return (

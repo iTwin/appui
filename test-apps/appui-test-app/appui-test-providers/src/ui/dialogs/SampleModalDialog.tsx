@@ -7,7 +7,7 @@ import * as React from "react";
 import { UiFramework } from "@itwin/appui-react";
 import { Dialog } from "@itwin/core-react";
 import { DialogButtonType } from "@itwin/appui-abstract";
-import { useTranslation } from "../../Translation";
+import { useTranslation } from "../../useTranslation";
 
 /**
  *  This is an example of how to create a React-based modal dialog that can be opened via a toolbutton or a key-in.

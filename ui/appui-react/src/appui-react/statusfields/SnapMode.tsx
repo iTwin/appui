@@ -22,7 +22,7 @@ import { UiFramework } from "../UiFramework";
 import { SnapModePanel } from "../layout/footer/snap-mode/Panel";
 import { Snap } from "../layout/footer/snap-mode/Snap";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 // cSpell:ignore multione
 

@@ -14,7 +14,7 @@ import { EditorContainer } from "../editors/EditorContainer";
 import { Flex, Text } from "@itwin/itwinui-react";
 import { PropertyFilterBuilderRuleRangeValue } from "./FilterBuilderRangeValue";
 import type { PropertyFilterBuilderRuleOperator } from "./Operators";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 /**
  * Props for [[PropertyFilterBuilderRuleValue]] component.

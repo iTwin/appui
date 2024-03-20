@@ -19,7 +19,7 @@ import {
   SvgChevronDown,
   SvgRemove,
 } from "@itwin/itwinui-icons-react";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 /** Properties for [[PopupButton]] component
  * @alpha
