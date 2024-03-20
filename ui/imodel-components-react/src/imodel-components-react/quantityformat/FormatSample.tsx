@@ -13,7 +13,7 @@ import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 import { SvgProgressForward } from "@itwin/itwinui-icons-react";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 /** Properties of [[FormatSample]] component.
  * @alpha

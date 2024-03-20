@@ -34,7 +34,7 @@ import { AppUi } from "../AppUi";
 import { LocalStateStorage } from "@itwin/core-react";
 import stageIconSvg from "./imodeljs.svg";
 import { ComponentExamplesModalFrontstage } from "@itwin/appui-test-providers";
-import { TestAppLocalization } from "../../Translation";
+import { TestAppLocalization } from "../../useTranslation";
 
 function getIModelSpecificKey(
   inKey: string,

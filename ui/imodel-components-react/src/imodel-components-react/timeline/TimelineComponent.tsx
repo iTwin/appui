@@ -22,7 +22,7 @@ import type { PlaybackSettings, TimelinePausePlayArgs } from "./interfaces";
 import { TimelinePausePlayAction } from "./interfaces";
 import { PlayButton } from "./PlayButton";
 import { Scrubber } from "./Scrubber";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 const slowSpeed = 60 * 1000;
 const mediumSpeed = 20 * 1000;

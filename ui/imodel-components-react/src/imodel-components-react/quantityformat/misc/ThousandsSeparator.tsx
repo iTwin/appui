@@ -13,7 +13,7 @@ import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
 import { Checkbox } from "@itwin/itwinui-react";
 import { ThousandsSelector } from "./ThousandsSelector";
-import { useTranslation } from "../../Translation";
+import { useTranslation } from "../../useTranslation";
 
 /** Properties of [[ThousandsSeparator]] component.
  * @internal

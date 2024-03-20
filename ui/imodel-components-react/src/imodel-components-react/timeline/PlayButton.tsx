@@ -5,7 +5,7 @@
 import * as React from "react";
 import { SvgPause, SvgPlay } from "@itwin/itwinui-icons-react";
 import { IconButton } from "@itwin/itwinui-react";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 interface PlayButtonProps {
   isPlaying: boolean;

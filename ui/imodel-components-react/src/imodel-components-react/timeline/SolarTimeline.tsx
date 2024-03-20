@@ -40,7 +40,7 @@ import {
 import type { SolarDataProvider } from "./interfaces";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { PlayButton } from "./PlayButton";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 const msPerMinute = 1000 * 60;
 const msPerHour = msPerMinute * 60;

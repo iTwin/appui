@@ -30,7 +30,7 @@ import { DecimalSeparatorSelector } from "./misc/DecimalSeparator";
 import { ScientificTypeSelector } from "./misc/ScientificType";
 import { StationSeparatorSelector } from "./misc/StationSeparatorSelector";
 import { StationSizeSelector } from "./misc/StationSizeSelector";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 /** Properties of [[MiscFormatOptions]] component.
  * @alpha

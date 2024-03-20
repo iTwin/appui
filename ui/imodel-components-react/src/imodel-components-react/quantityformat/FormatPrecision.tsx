@@ -12,7 +12,7 @@ import type { FormatProps } from "@itwin/core-quantity";
 import { FormatType, parseFormatType } from "@itwin/core-quantity";
 import { DecimalPrecisionSelector } from "./misc/DecimalPrecision";
 import { FractionPrecisionSelector } from "./misc/FractionPrecision";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 /** Properties of [[FormatPrecision]] component.
  * @alpha

@@ -13,7 +13,7 @@ import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Checkbox, Select } from "@itwin/itwinui-react";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 interface UomSeparatorSelectorProps extends CommonProps {
   separator: string;

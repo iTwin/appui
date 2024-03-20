@@ -21,7 +21,7 @@ import {
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../../index";
 import { IModelOpen } from "../imodelopen/IModelOpen";
-import { TestAppLocalization } from "../../Translation";
+import { TestAppLocalization } from "../../useTranslation";
 
 class IModelOpenControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {

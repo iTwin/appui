@@ -17,7 +17,7 @@ import { Parser } from "@itwin/core-quantity";
 import type { ParseResults } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { ParsedInput } from "@itwin/components-react";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 /** Props for [[QuantityInput]] control
  * @beta

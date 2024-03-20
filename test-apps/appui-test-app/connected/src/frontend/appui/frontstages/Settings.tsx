@@ -10,7 +10,7 @@ import "./Settings.scss";
 import * as React from "react";
 import { FrameworkAccuDraw } from "@itwin/appui-react";
 import { ToggleSwitch } from "@itwin/itwinui-react";
-import { TestAppLocalization } from "../../Translation";
+import { TestAppLocalization } from "../../useTranslation";
 
 /** UiSettingsPage displaying the active settings. */
 export class AccudrawSettingsPageComponent extends React.Component {

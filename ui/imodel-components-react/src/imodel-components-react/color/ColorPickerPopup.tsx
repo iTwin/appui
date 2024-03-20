@@ -26,7 +26,7 @@ import {
   SvgCaretUpSmall,
   SvgClose,
 } from "@itwin/itwinui-icons-react";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 /** Properties for the [[ColorPickerPopup]] React component
  * @public

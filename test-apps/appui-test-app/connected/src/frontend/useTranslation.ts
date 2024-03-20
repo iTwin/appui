@@ -5,15 +5,15 @@
 
 import { IModelApp } from "@itwin/core-frontend";
 
-interface Localization {
+interface UseTranslationResult {
   translate: (key: string) => string;
 }
 
 /**
- * Returns a localization object.
+ * Returns a translation function.
  * @internal
  */
-export function useTranslation(): Localization {
+export function useTranslation(): UseTranslationResult {
   const translate = (key: string) => {
     return TestAppLocalization.translate(key);
   };

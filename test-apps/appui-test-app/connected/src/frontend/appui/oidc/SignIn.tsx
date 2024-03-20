@@ -13,7 +13,7 @@ import { CommonProps } from "@itwin/core-react";
 import { Button } from "@itwin/itwinui-react";
 import { ProcessDetector } from "@itwin/core-bentley";
 import { Key } from "ts-key-enum";
-import { TestAppLocalization } from "../../Translation";
+import { TestAppLocalization } from "../../useTranslation";
 
 // cspell:ignore signingin
 

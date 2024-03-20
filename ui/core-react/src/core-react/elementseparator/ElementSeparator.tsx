@@ -20,7 +20,7 @@ import classnames from "classnames";
 import { Orientation } from "../enums/Orientation";
 import type { CommonProps } from "../utils/Props";
 import { useThrottledFn } from "../utils/hooks/useThrottledFn";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 /**
  * Results returned by onRatioChanged callback for determining new ratio and whether the ratio was updated.

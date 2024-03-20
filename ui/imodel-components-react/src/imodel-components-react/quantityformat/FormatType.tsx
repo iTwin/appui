@@ -20,7 +20,7 @@ import {
 } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
-import { useTranslation } from "../Translation";
+import { useTranslation } from "../useTranslation";
 
 /** Properties of [[FormatTypeSelector]] component.
  * @alpha
