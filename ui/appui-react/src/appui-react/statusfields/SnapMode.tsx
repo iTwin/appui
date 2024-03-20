@@ -22,6 +22,7 @@ import { UiFramework } from "../UiFramework";
 import { SnapModePanel } from "../layout/footer/snap-mode/Panel";
 import { Snap } from "../layout/footer/snap-mode/Snap";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
+import { useTranslation } from "../Translation";
 
 // cSpell:ignore multione
 
@@ -71,64 +72,60 @@ function getIconFromIconName(iconName: string): IconSpec {
  * display the active snap mode that AccuSnap will use and allow the user to select a new snap mode.
  */
 function SnapModeFieldComponent(props: SnapModeFieldProps) {
-  const snapModes: SnapModeFieldEntry[] = React.useMemo(
-    () => [
-      {
-        label: UiFramework.translate("snapModeField.keypoint"),
-        value: SnapMode.NearestKeypoint as number,
-        iconName: "snaps",
-      },
-      {
-        label: UiFramework.translate("snapModeField.intersection"),
-        value: SnapMode.Intersection as number,
-        iconName: "snaps-intersection",
-      },
-      {
-        label: UiFramework.translate("snapModeField.center"),
-        value: SnapMode.Center as number,
-        iconName: "snaps-center",
-      },
-      {
-        label: UiFramework.translate("snapModeField.nearest"),
-        value: SnapMode.Nearest as number,
-        iconName: "snaps-nearest",
-      },
-      {
-        label: UiFramework.translate("snapModeField.origin"),
-        value: SnapMode.Origin as number,
-        iconName: "snaps-origin",
-      },
-      {
-        label: UiFramework.translate("snapModeField.midpoint"),
-        value: SnapMode.MidPoint as number,
-        iconName: "snaps-midpoint",
-      },
-      {
-        label: UiFramework.translate("snapModeField.bisector"),
-        value: SnapMode.Bisector as number,
-        iconName: "snaps-bisector",
-      },
-    ],
-    []
-  );
+  const { translate } = useTranslation();
+
+  const snapModes: SnapModeFieldEntry[] = [
+    {
+      label: translate("snapModeField.keypoint"),
+      value: SnapMode.NearestKeypoint as number,
+      iconName: "snaps",
+    },
+    {
+      label: translate("snapModeField.intersection"),
+      value: SnapMode.Intersection as number,
+      iconName: "snaps-intersection",
+    },
+    {
+      label: translate("snapModeField.center"),
+      value: SnapMode.Center as number,
+      iconName: "snaps-center",
+    },
+    {
+      label: translate("snapModeField.nearest"),
+      value: SnapMode.Nearest as number,
+      iconName: "snaps-nearest",
+    },
+    {
+      label: translate("snapModeField.origin"),
+      value: SnapMode.Origin as number,
+      iconName: "snaps-origin",
+    },
+    {
+      label: translate("snapModeField.midpoint"),
+      value: SnapMode.MidPoint as number,
+      iconName: "snaps-midpoint",
+    },
+    {
+      label: translate("snapModeField.bisector"),
+      value: SnapMode.Bisector as number,
+      iconName: "snaps-bisector",
+    },
+  ];
 
   /** Return icon class name for a specific snapMode. */
-  const getSnapModeIconNameFromMode = React.useCallback(
-    function (snapMode: number): string {
-      for (const mode of snapModes) {
-        if (mode.value === snapMode) return mode.iconName;
-      }
+  const getSnapModeIconNameFromMode = (snapMode: number) => {
+    for (const mode of snapModes) {
+      if (mode.value === snapMode) return mode.iconName;
+    }
 
-      /* istanbul ignore else */
-      if (snapMode > 0) return "snaps-multione";
+    /* istanbul ignore else */
+    if (snapMode > 0) return "snaps-multione";
 
-      /* istanbul ignore next */
-      return "placeholder";
-    },
-    [snapModes]
-  );
+    /* istanbul ignore next */
+    return "placeholder";
+  };
 
-  const title = UiFramework.translate("snapModeField.snapMode");
+  const title = translate("snapModeField.snapMode");
   return (
     <StatusBarLabelIndicator
       iconSpec={getIconFromIconName(

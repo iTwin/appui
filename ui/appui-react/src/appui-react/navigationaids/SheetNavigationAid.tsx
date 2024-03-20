@@ -15,7 +15,6 @@ import type {
   SelectedViewportChangedArgs,
 } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import { UiComponents } from "@itwin/components-react";
 import type { ViewIdChangedEventArgs } from "@itwin/imodel-components-react";
 import { ViewportComponentEvents } from "@itwin/imodel-components-react";
 import type { CommonProps } from "@itwin/core-react";
@@ -163,8 +162,6 @@ export class SheetNavigationAid extends React.Component<
       this.state.sheetData.length > 0
         ? /* istanbul ignore next */ this.state.sheetData[this.state.index].name
         : "";
-    const sheet = UiFramework.translate("general.sheet");
-    const ofStr = UiComponents.translate("general.of");
     const leftIndex =
       this.state.index === 0
         ? this.state.sheetData.length - 1
@@ -185,7 +182,9 @@ export class SheetNavigationAid extends React.Component<
     if (this.state.sheetData.length > 0) {
       content = (
         <>
-          <div className="sheet-title">{sheet}</div>
+          <div className="sheet-title">
+            {UiFramework.translate("general.sheet")}
+          </div>
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
           <div
             className="sheet-name"
@@ -208,7 +207,8 @@ export class SheetNavigationAid extends React.Component<
               <SvgChevronLeft />
             </IconButton>
             <div>
-              {this.state.index + 1} {ofStr} {this.state.sheetData.length}
+              {this.state.index + 1} {UiFramework.translate("general.of")}
+              {this.state.sheetData.length}
             </div>
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
             <IconButton

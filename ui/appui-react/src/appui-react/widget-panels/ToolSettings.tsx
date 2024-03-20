@@ -16,6 +16,7 @@ import { DockedToolSetting } from "../layout/tool-settings/Setting";
 import { ScrollableWidgetContent } from "../layout/widget/Content";
 import "./ToolSettings.scss";
 import { useActiveToolId } from "../hooks/useActiveToolId";
+import { useTranslation } from "../Translation";
 
 /** Defines a ToolSettings property entry.
  * @public
@@ -28,22 +29,14 @@ export interface ToolSettingsEntry {
 }
 
 function EmptyToolSettingsLabel({ toolId }: { toolId: string }) {
+  const { translate } = useTranslation();
   const tool = IModelApp.tools.find(toolId);
   const toolName = tool?.flyover;
-  const toolPlaceholderName = IModelApp.localization.getLocalizedString(
-    "UiFramework:tools.noToolSettingsPlaceholderName"
-  );
-  const labelStringStart = IModelApp.localization.getLocalizedString(
-    "UiFramework:tools.noToolSettingsStart"
-  );
-  const labelStringEnd = IModelApp.localization.getLocalizedString(
-    "UiFramework:tools.noToolSettingsEnd"
-  );
   return (
     <div className="uif-toolsetting-label-docked-horizontal-empty">
-      {labelStringStart}
-      {toolName ? toolName : toolPlaceholderName}
-      {labelStringEnd}
+      {translate("tools.noToolSettingsStart")}
+      {toolName ? toolName : translate("tools.noToolSettingsPlaceholderName")}
+      {translate("tools.noToolSettingsEnd")}
     </div>
   );
 }

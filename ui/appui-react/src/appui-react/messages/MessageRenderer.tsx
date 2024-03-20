@@ -8,15 +8,12 @@
 
 import * as React from "react";
 import type { ReactMessage } from "@itwin/core-react";
-import {
-  MessageRenderer as CoreMessageRenderer,
-  UiCore,
-} from "@itwin/core-react";
+import { MessageRenderer as CoreMessageRenderer } from "@itwin/core-react";
 import { ProgressLinear, Text, useToaster } from "@itwin/itwinui-react";
-import { UiFramework } from "../UiFramework";
 import type { ActivityMessageEventArgs } from "../messages/MessageManager";
 import { MessageManager } from "../messages/MessageManager";
 import { OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
+import { useTranslation } from "../Translation";
 
 interface UseActivityMessageProps {
   cancelActivityMessage?: () => void;
@@ -33,7 +30,7 @@ function useActivityMessage({
   cancelActivityMessage,
 }: UseActivityMessageProps) {
   const toaster = useToaster();
-  const [cancelLabel] = React.useState(UiCore.translate("dialog.cancel"));
+  const { translate } = useTranslation();
   const recentToast = React.useRef<{ close: () => void } | undefined>();
   React.useEffect(() => {
     toaster.setSettings({ placement: "bottom" });
@@ -51,7 +48,10 @@ function useActivityMessage({
           link:
             activityMessageInfo?.details?.supportsCancellation &&
             cancelActivityMessage
-              ? { title: cancelLabel, onClick: cancelActivityMessage }
+              ? {
+                  title: translate("dialog.cancel"),
+                  onClick: cancelActivityMessage,
+                }
               : undefined,
         }
       );
@@ -62,9 +62,9 @@ function useActivityMessage({
   }, [
     activityMessageInfo,
     cancelActivityMessage,
-    cancelLabel,
     dismissActivityMessage,
     toaster,
+    translate,
   ]);
 }
 
@@ -104,9 +104,9 @@ function ActivityMessageContent({
 }: {
   initialActivityMessageInfo: ActivityMessageEventArgs;
 }) {
-  const [percentCompleteLabel] = React.useState(
-    UiFramework.translate("activityCenter.percentComplete")
-  );
+  const { translate } = useTranslation();
+
+  const percentCompleteLabel = translate("activityCenter.percentComplete");
   const [activityMessageInfo, setActivityMessageInfo] = React.useState(
     initialActivityMessageInfo
   );

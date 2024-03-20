@@ -34,9 +34,7 @@ export class PropsHelper {
       return explicitValue;
     }
 
-    let outValue = "";
-    if (stringKey)
-      outValue = UiFramework.localization.getLocalizedString(stringKey);
+    const outValue = stringKey ? UiFramework.translate(stringKey) : "";
     return outValue;
   }
 

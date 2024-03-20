@@ -111,8 +111,8 @@ describe("WidgetDef", () => {
   it("labelKey and tooltipKey should return translated string", () => {
     const widgetDef = WidgetDef.create({
       id: "w1",
-      labelKey: "App:label",
-      tooltipKey: "App:tooltip",
+      labelKey: "label",
+      tooltipKey: "tooltip",
     });
 
     expect(widgetDef.label).to.eq("label");

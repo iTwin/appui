@@ -16,6 +16,7 @@ import { UiFramework } from "../UiFramework";
 import { FooterIndicator } from "../layout/footer/Indicator";
 import type { PresentationSelectionScope } from "../redux/SessionState";
 import "./SelectionScope.scss";
+import { useTranslation } from "../Translation";
 
 /** Defines properties supported by the SelectionScopeField Component.
  * @public
@@ -29,8 +30,7 @@ interface SelectionScopeFieldProps extends CommonProps {
  * Status Field React component. This component is designed to be specified in a status bar definition.
  */
 function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
-  const label = UiFramework.translate("selectionScopeField.label");
-  const toolTip = UiFramework.translate("selectionScopeField.toolTip");
+  const { translate } = useTranslation();
 
   const options = React.useMemo(
     () =>
@@ -55,14 +55,16 @@ function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
       )}
       style={props.style}
     >
-      <label className="uifw-statusFields-selectionScope-label">{label}:</label>
+      <label className="uifw-statusFields-selectionScope-label">
+        {translate("selectionScopeField.label")}:
+      </label>
       <Select
         className="uifw-statusFields-selectionScope-selector"
         value={props.activeSelectionScope}
         options={options}
         onChange={updateSelectValue}
         data-testid="components-selectionScope-selector"
-        title={toolTip}
+        title={translate("selectionScopeField.toolTip")}
         size="small"
       />
     </FooterIndicator>

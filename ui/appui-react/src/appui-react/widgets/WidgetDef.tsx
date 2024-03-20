@@ -226,9 +226,7 @@ export class WidgetDef {
 
     if (config.label) this._label = config.label;
     else if (config.labelKey)
-      this._label = UiFramework.localization.getLocalizedString(
-        config.labelKey
-      );
+      this._label = UiFramework.translate(config.labelKey);
     else if (type === WidgetType.ToolSettings) this._label = "Tool Settings";
 
     this.setCanPopout(config.canPopout);
@@ -254,9 +252,7 @@ export class WidgetDef {
 
     if (config.tooltip) this.setTooltip(config.tooltip);
     else if (config.tooltipKey)
-      this._tooltip = UiFramework.localization.getLocalizedString(
-        config.tooltipKey
-      );
+      this._tooltip = UiFramework.translate(config.tooltipKey);
 
     if (config.defaultState !== undefined) {
       this._defaultState = config.defaultState;

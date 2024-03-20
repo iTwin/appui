@@ -41,6 +41,7 @@ import { UiFramework } from "../../UiFramework";
 import { UnitSystemSelector } from "./UnitSystemSelector";
 import { Button } from "@itwin/itwinui-react";
 import { SvgMeasure } from "@itwin/itwinui-icons-react";
+import { useTranslation } from "../../Translation";
 
 function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
   const compare = new DeepCompare();
@@ -94,6 +95,7 @@ export function QuantityFormatSettingsPage({
   initialQuantityType,
   availableUnitSystems,
 }: QuantityFormatterSettingsOptions) {
+  const { translate } = useTranslation();
   const [activeUnitSystemKey, setActiveUnitSystemKey] = React.useState(
     IModelApp.quantityFormatter.activeUnitSystem
   );
@@ -112,15 +114,6 @@ export function QuantityFormatSettingsPage({
     IModelApp.quantityFormatter.hasActiveOverride(initialQuantityType, true)
   );
   const newQuantityTypeRef = React.useRef<QuantityTypeKey>();
-  const formatSectionLabel = React.useRef(
-    UiFramework.translate("settings.quantity-formatting.formatSectionLabel")
-  );
-  const setButtonLabel = React.useRef(
-    UiFramework.translate("settings.quantity-formatting.setButtonLabel")
-  );
-  const clearButtonLabel = React.useRef(
-    UiFramework.translate("settings.quantity-formatting.clearButtonLabel")
-  );
 
   React.useEffect(() => {
     const handleUnitSystemChanged = (): void => {
@@ -333,7 +326,7 @@ export function QuantityFormatSettingsPage({
         onUnitSystemSelected={handleUnitSystemSelected}
       />
       <span className="uifw-quantity-format-section-label">
-        {formatSectionLabel.current}
+        {translate("settings.quantity-formatting.formatSectionLabel")}
       </span>
       <div className="uifw-quantity-types-container">
         <div className="left-panel">
@@ -391,14 +384,14 @@ export function QuantityFormatSettingsPage({
                   onClick={handleOnFormatSave}
                   disabled={!saveEnabled}
                 >
-                  {setButtonLabel.current}
+                  {translate("settings.quantity-formatting.setButtonLabel")}
                 </Button>
                 <Button
                   styleType="default"
                   onClick={handleOnFormatReset}
                   disabled={!clearEnabled}
                 >
-                  {clearButtonLabel.current}
+                  {translate("settings.quantity-formatting.clearButtonLabel")}
                 </Button>
               </div>
             </>

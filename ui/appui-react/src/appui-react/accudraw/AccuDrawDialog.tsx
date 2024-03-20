@@ -14,6 +14,7 @@ import { Orientation } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 import { ModelessDialog } from "../dialog/ModelessDialog";
 import { AccuDrawFieldContainer } from "./AccuDrawFieldContainer";
+import { useTranslation } from "../Translation";
 
 /** Properties for [[AccuDrawDialog]]
  * @beta */
@@ -31,7 +32,7 @@ export interface AccuDrawDialogProps extends CommonProps {
 /** Dialog displays [[AccuDrawFieldContainer]] for AccuDraw Ui
  * @beta */
 export function AccuDrawDialog(props: AccuDrawDialogProps) {
-  const title = React.useRef(UiFramework.translate("accuDraw.dialogTitle"));
+  const { translate } = useTranslation();
   const [opened, setOpened] = React.useState(props.opened);
 
   const closeDialog = React.useCallback(() => {
@@ -56,7 +57,7 @@ export function AccuDrawDialog(props: AccuDrawDialogProps) {
     <ModelessDialog
       className={classNames}
       style={props.style}
-      title={title.current}
+      title={translate("accuDraw.dialogTitle")}
       opened={opened}
       dialogId={props.dialogId}
       width={dialogWidth}
