@@ -370,19 +370,7 @@ export namespace ConvertedPrimitives {
 export function convertPrimitiveRecordToString(record: PropertyRecord): string | Promise<string>;
 
 // @public
-export class CustomizablePropertyRenderer extends React_3.Component<CustomizablePropertyRendererProps> {
-    constructor(props: CustomizablePropertyRendererProps);
-    // @internal (undocumented)
-    render(): React_3.JSX.Element;
-}
-
-// @public
-export interface CustomizablePropertyRendererProps extends SharedRendererProps {
-    highlight?: HighlightingComponentProps;
-    indentation?: number;
-    valueElement?: React_3.ReactNode;
-    valueElementRenderer?: () => React_3.ReactNode;
-}
+export function CustomizablePropertyRenderer(props: CustomizablePropertyRendererProps): React_3.JSX.Element;
 
 // @alpha
 export class CustomNumberEditor extends React_3.PureComponent<PropertyEditorProps, CustomNumberEditorState> implements TypeEditor {
@@ -1857,8 +1845,10 @@ export interface PrimitivePropertyLabelRendererProps extends PropertyLabelRender
 }
 
 // @public
-export class PrimitivePropertyRenderer extends CustomizablePropertyRenderer {
+export class PrimitivePropertyRenderer extends React_2.Component<PrimitiveRendererProps> {
     constructor(props: PrimitiveRendererProps);
+    // @internal (undocumented)
+    render(): React_2.JSX.Element;
 }
 
 // @public
@@ -1874,8 +1864,8 @@ export function PrimitivePropertyValueRendererImpl(props: PrimitivePropertyValue
 export interface PrimitiveRendererProps extends SharedRendererProps {
     highlight?: HighlightingComponentProps;
     indentation?: number;
-    valueElement?: React.ReactNode;
-    valueElementRenderer?: () => React.ReactNode;
+    valueElement?: React_2.ReactNode;
+    valueElementRenderer?: () => React_2.ReactNode;
 }
 
 // @public

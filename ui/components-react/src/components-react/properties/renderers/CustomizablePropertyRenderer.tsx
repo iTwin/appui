@@ -18,7 +18,7 @@ import { PropertyView } from "./PropertyView";
 /** Properties of [[CustomizablePropertyRenderer]] React component
  * @public
  */
-export interface CustomizablePropertyRendererProps extends SharedRendererProps {
+interface CustomizablePropertyRendererProps extends SharedRendererProps {
   /** Property value as a React element */
   valueElement?: React.ReactNode;
   /** Render callback for property value. If specified, `valueElement` is ignored */
@@ -32,49 +32,44 @@ export interface CustomizablePropertyRendererProps extends SharedRendererProps {
 /** React Component that renders customizable properties
  * @public
  */
-export class CustomizablePropertyRenderer extends React.Component<CustomizablePropertyRendererProps> {
-  constructor(props: CustomizablePropertyRendererProps) {
-    super(props);
-  }
+export function CustomizablePropertyRenderer(
+  props: CustomizablePropertyRendererProps
+) {
+  const { indentation, highlight, ...passthroughProps } = props;
+  const displayLabel = props.propertyRecord.property.displayLabel;
+  const offset = CommonPropertyRenderer.getLabelOffset(
+    indentation,
+    passthroughProps.orientation,
+    passthroughProps.width,
+    passthroughProps.columnRatio,
+    passthroughProps.columnInfo?.minLabelWidth
+  );
 
-  /** @internal */
-  public override render() {
-    const { indentation, highlight, ...props } = this.props;
-    const displayLabel = this.props.propertyRecord.property.displayLabel;
-    const offset = CommonPropertyRenderer.getLabelOffset(
-      indentation,
-      props.orientation,
-      props.width,
-      props.columnRatio,
-      props.columnInfo?.minLabelWidth
-    );
+  const activeMatchIndex =
+    props.propertyRecord.property.name ===
+    highlight?.activeHighlight?.highlightedItemIdentifier
+      ? highlight.activeHighlight.highlightIndex
+      : undefined;
+  const label = highlight
+    ? HighlightedText({
+        text: displayLabel,
+        searchText: highlight.highlightedText,
+        activeMatchIndex,
+      })
+    : displayLabel;
 
-    const activeMatchIndex =
-      this.props.propertyRecord.property.name ===
-      highlight?.activeHighlight?.highlightedItemIdentifier
-        ? highlight.activeHighlight.highlightIndex
-        : undefined;
-    const label = highlight
-      ? HighlightedText({
-          text: displayLabel,
-          searchText: highlight.highlightedText,
-          activeMatchIndex,
-        })
-      : displayLabel;
-
-    return (
-      <PropertyView
-        {...props}
-        labelElement={
-          <PrimitivePropertyLabelRenderer
-            offset={offset}
-            renderColon={this.props.orientation === Orientation.Horizontal}
-            tooltip={displayLabel}
-          >
-            {label}
-          </PrimitivePropertyLabelRenderer>
-        }
-      />
-    );
-  }
+  return (
+    <PropertyView
+      {...passthroughProps}
+      labelElement={
+        <PrimitivePropertyLabelRenderer
+          offset={offset}
+          renderColon={props.orientation === Orientation.Horizontal}
+          tooltip={displayLabel}
+        >
+          {label}
+        </PrimitivePropertyLabelRenderer>
+      }
+    />
+  );
 }

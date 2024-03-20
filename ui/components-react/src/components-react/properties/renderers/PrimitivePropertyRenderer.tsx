@@ -9,6 +9,7 @@
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
 import type { SharedRendererProps } from "./PropertyRenderer";
 import { CustomizablePropertyRenderer } from "./CustomizablePropertyRenderer";
+import React from "react";
 
 /** Properties of [[PrimitivePropertyRenderer]] React component
  * @public
@@ -27,8 +28,13 @@ export interface PrimitiveRendererProps extends SharedRendererProps {
 /** React Component that renders primitive properties
  * @public
  */
-export class PrimitivePropertyRenderer extends CustomizablePropertyRenderer {
+export class PrimitivePropertyRenderer extends React.Component<PrimitiveRendererProps> {
   constructor(props: PrimitiveRendererProps) {
     super(props);
+  }
+
+  /** @internal */
+  public override render() {
+    return <CustomizablePropertyRenderer {...this.props} />;
   }
 }
