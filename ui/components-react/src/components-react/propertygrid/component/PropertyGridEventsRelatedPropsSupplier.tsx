@@ -9,7 +9,6 @@
 import "./PropertyGrid.scss";
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer";
 import type { PropertyCategory } from "../PropertyDataProvider";
 import type { CommonPropertyGridProps } from "./PropertyGridCommons";
@@ -154,12 +153,10 @@ export class PropertyGridEventsRelatedPropsSupplier extends React.Component<
     let selectedPropertyKey = this.state.selectedPropertyKey;
     let editingPropertyKey = this.state.editingPropertyKey;
 
-    const isValuePrimitive =
-      property.value.valueFormat === PropertyValueFormat.Primitive;
     const isEditingEnabled = this.props.isPropertyEditingEnabled;
     const isSelectionEnabled = this.props.isPropertySelectionEnabled;
 
-    if (isEditingEnabled && isValuePrimitive) {
+    if (isEditingEnabled) {
       // Deselect editing key only if another selection was made
       editingPropertyKey =
         isSelectionEnabled && selectedPropertyKey !== key ? undefined : key;

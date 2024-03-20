@@ -496,7 +496,7 @@ describe("PropertyView", () => {
     );
   });
 
-  it("renders only label when property record is non primitive", () => {
+  it("renders label and element when property record is non primitive", () => {
     propertyRecord = TestUtils.createStructProperty("StructProperty");
     render(
       <PropertyView
@@ -511,7 +511,11 @@ describe("PropertyView", () => {
         selector: ".components-property-record-label",
       })
     ).to.exist;
-    expect(screen.queryByText("Vilnius")).to.be.null;
+    expect(
+      screen.getByText("Vilnius", {
+        selector: ".components-property-record-value span",
+      })
+    ).to.exist;
   });
 
   it("calls onContextMenu callback on property right click", async () => {

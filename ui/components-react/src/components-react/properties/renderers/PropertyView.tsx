@@ -8,7 +8,6 @@
 
 import "./PropertyView.scss";
 import * as React from "react";
-import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { ElementSeparator, Orientation } from "@itwin/core-react";
 import { ActionButtonList } from "./ActionButtonList";
 import { PropertyGridColumnStyleProvider } from "./PropertyGridColumns";
@@ -22,7 +21,7 @@ export interface PropertyViewProps extends SharedRendererProps {
   labelElement: React.ReactNode;
   /** Property value as a React element */
   valueElement?: React.ReactNode;
-  /** Render callback for property value. If specified, `valueElement` is ignored. */
+  /** Render callback for property value. If specified, `valueElement` is ignored */
   valueElementRenderer?: () => React.ReactNode;
 }
 
@@ -89,6 +88,9 @@ export class PropertyView extends React.Component<
     const columnsStyleProvider = new PropertyGridColumnStyleProvider(
       this.props.columnInfo
     );
+    const renderValueElement = !!(
+      this.props.valueElement || this.props.valueElementRenderer
+    );
 
     return (
       <div
@@ -120,8 +122,7 @@ export class PropertyView extends React.Component<
             onResizeHandleDragChanged={this.props.onResizeHandleDragChanged}
           />
         ) : undefined}
-        {this.props.propertyRecord.value.valueFormat ===
-        PropertyValueFormat.Primitive ? (
+        {renderValueElement ? (
           <div className="components-property-record-value">
             <span>
               {this.props.valueElementRenderer
