@@ -31,8 +31,6 @@ export class ViewAttributesStatusField extends React.Component<
   CommonProps,
   ViewAttributesStatusFieldState
 > {
-  private _title = UiFramework.translate("listTools.viewAttributes");
-
   constructor(props: CommonProps) {
     super(props);
 
@@ -85,22 +83,11 @@ export class ViewAttributesStatusField extends React.Component<
     this.updateState();
   };
 
-  // istanbul ignore next
-  private stylizeName(name: string) {
-    name = name.charAt(0).toUpperCase() + name.slice(1);
-    name = name.replace(/([A-Z])/g, " $1").trim();
-    return name;
-  }
-
-  private getViewFlagItem(flagName: string, value: boolean, labelKey?: string) {
+  private getViewFlagItem(flagName: string, value: boolean, labelKey: string) {
     return (
       <Checkbox
         key={flagName}
-        label={
-          labelKey
-            ? IModelApp.localization.getLocalizedString(labelKey)
-            : /* istanbul ignore next */ this.stylizeName(flagName)
-        }
+        label={UiFramework.translate(labelKey)}
         onClick={() => this._handleViewFlagClick(flagName)}
         defaultChecked={value}
       />
@@ -117,9 +104,7 @@ export class ViewAttributesStatusField extends React.Component<
     return (
       <Checkbox
         key={"toggleCamera"}
-        label={IModelApp.localization.getLocalizedString(
-          "UiFramework:listTools.camera"
-        )}
+        label={UiFramework.translate("listTools.camera")}
         onClick={this._handleToggleCamera}
         defaultChecked={this.state.cameraOn}
       />
@@ -129,73 +114,71 @@ export class ViewAttributesStatusField extends React.Component<
   private getViewFlags() {
     const items: React.ReactElement[] = [];
     items.push(
-      this.getViewFlagItem(
-        "acs",
-        this.getFlagState("acs"),
-        "UiFramework:listTools.acs"
-      )
+      this.getViewFlagItem("acs", this.getFlagState("acs"), "listTools.acs")
     );
     items.push(this.getToggleCameraItem());
     items.push(
       this.getViewFlagItem(
         "noConstruct",
         !this.getFlagState("noConstruct"),
-        "UiFramework:listTools.constructions"
+        "listTools.constructions"
       )
     );
     items.push(
       this.getViewFlagItem(
         "hidEdges",
         this.getFlagState("hidEdges"),
-        "UiFramework:listTools.hidEdges"
+        "listTools.hidEdges"
       )
     );
     items.push(
       this.getViewFlagItem(
         "monochrome",
         this.getFlagState("monochrome"),
-        "UiFramework:listTools.monochrome"
+        "listTools.monochrome"
       )
     );
     items.push(
       this.getViewFlagItem(
         "visEdges",
         this.getFlagState("visEdges"),
-        "UiFramework:listTools.visEdges"
+        "listTools.visEdges"
       )
     );
     items.push(
       this.getViewFlagItem(
         "ambientOcclusion",
         this.getFlagState("ambientOcclusion"),
-        "UiFramework:listTools.ambientOcclusion"
+        "listTools.ambientOcclusion"
       )
     );
     items.push(
       this.getViewFlagItem(
         "shadows",
         this.getFlagState("shadows"),
-        "UiFramework:listTools.shadows"
+        "listTools.shadows"
       )
     );
     items.push(
       this.getViewFlagItem(
         "backgroundMap",
         this.getFlagState("backgroundMap"),
-        "UiFramework:listTools.backgroundMap"
+        "listTools.backgroundMap"
       )
     );
     return <div className="uifw-view-attributes-contents">{items}</div>;
   }
 
   public override render() {
+    const title = UiFramework.translate("listTools.viewAttributes");
+
     return (
       <StatusBarLabelIndicator
         iconSpec={<SvgWindowSettings />}
-        title={this._title}
+        title={title}
         popup={
           <StatusBarDialog
-            titleBar={<StatusBarDialog.TitleBar title={this._title} />}
+            titleBar={<StatusBarDialog.TitleBar title={title} />}
           >
             {this.getViewFlags()}
           </StatusBarDialog>

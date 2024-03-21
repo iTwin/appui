@@ -252,7 +252,6 @@ export class DrawingNavigationAid extends React.Component<
         ? Vector3d.createZero()
         : rotation.multiplyTransposeVector(halfExtents).minus(halfExtents);
 
-    const unrotateLabel = UiIModelComponents.translate("drawing.unrotate");
     const e = sz.scale(1 / dz);
     const halfMapExtents = e.scale(0.5);
     const mapOffset =
@@ -331,7 +330,7 @@ export class DrawingNavigationAid extends React.Component<
               role="button"
               tabIndex={-1}
             >
-              {unrotateLabel}
+              {UiIModelComponents.translate("drawing.unrotate")}
             </div>
           )}
           {mode === MapMode.Opened && !isAnimating && (

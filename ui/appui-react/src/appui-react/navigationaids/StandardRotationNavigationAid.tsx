@@ -67,8 +67,6 @@ export class StandardRotationNavigationAid extends React.Component<
   CommonProps,
   StandardRotationNavigationAidState
 > {
-  private _title = UiFramework.translate("standardRotationNavigationAid.title");
-
   /** @internal */
   public override readonly state: Readonly<StandardRotationNavigationAidState>;
 
@@ -135,7 +133,7 @@ export class StandardRotationNavigationAid extends React.Component<
               </span>
             }
             onClick={this._toggleIsExpanded}
-            title={this._title}
+            title={UiFramework.translate("standardRotationNavigationAid.title")}
           ></NZ_Icon>
         </NZ_Expandable>
         <Popup

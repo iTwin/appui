@@ -18,7 +18,6 @@ import {
   Icon,
   ScrollView,
   SearchBox,
-  UiCore,
 } from "@itwin/core-react";
 import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
 import { UiFramework } from "../UiFramework";
@@ -54,9 +53,7 @@ export class CardSelectedEvent extends UiEvent<CardSelectedEventArgs> {}
  * @alpha
  */
 export class SheetsModalFrontstage implements ModalFrontstageInfo {
-  public title: string = UiFramework.translate(
-    "navigationAid.sheetsModalFrontstage"
-  );
+  public title = UiFramework.translate("navigationAid.sheetsModalFrontstage");
   private _cards: CardInfo[] = [];
   private _connection: IModelConnection;
   private _currentIndex: number;
@@ -108,7 +105,7 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
   public get appBarRight(): React.ReactNode {
     return (
       <SearchBox
-        placeholder={UiCore.translate("general.search")}
+        placeholder={UiFramework.translate("general.search")}
         onValueChanged={this._handleSearchValueChanged}
         valueChangedDelay={250}
       />

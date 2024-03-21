@@ -8,8 +8,8 @@
 import React from "react";
 import cx from "classnames";
 import { Anchor } from "@itwin/itwinui-react";
-import { UiComponents } from "../UiComponents";
 import type { PropertyFilterRuleGroupOperator } from "./Operators";
+import { useTranslation } from "../useTranslation";
 
 /**
  * Props for [[PropertyFilterBuilderLogicalOperator]] component.
@@ -33,13 +33,14 @@ export const PropertyFilterBuilderLogicalOperator = (
   props: PropertyFilterBuilderLogicalOperatorProps
 ) => {
   const { isDisabled, operator, onOperatorChange, className } = props;
+  const { translate } = useTranslation();
 
   const toggle = () => (operator === "and" ? "or" : "and");
 
   const operatorDisplayText =
     operator === "and"
-      ? UiComponents.translate("filterBuilder.operators.and")
-      : UiComponents.translate("filterBuilder.operators.or");
+      ? translate("filterBuilder.operators.and")
+      : translate("filterBuilder.operators.or");
 
   return (
     <div className={cx("fb-logical-operator", className)}>

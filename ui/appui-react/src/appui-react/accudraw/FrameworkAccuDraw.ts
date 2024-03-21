@@ -369,32 +369,26 @@ export class FrameworkAccuDraw
 
   private outputCompassModeMessage(): void {
     if (FrameworkAccuDraw.displayNotifications) {
-      let modeKey = compassModeToKeyMap.get(this.compassMode);
-      // istanbul ignore if
-      if (modeKey === undefined) modeKey = "polar";
+      const modeKey = compassModeToKeyMap.get(this.compassMode) ?? "polar";
       const modeString = UiFramework.translate(
         `accuDraw.compassMode.${modeKey}`
       );
-      const modeMessage = UiFramework.localization.getLocalizedString(
-        "accuDraw.compassModeSet",
-        { modeString, ns: UiFramework.localizationNamespace }
-      );
+      const modeMessage = UiFramework.translate("accuDraw.compassModeSet", {
+        modeString,
+      });
       this.outputInfoMessage(modeMessage);
     }
   }
 
   private outputRotationMessage(): void {
     if (FrameworkAccuDraw.displayNotifications) {
-      let rotationKey = rotationModeToKeyMap.get(this.rotationMode);
-      // istanbul ignore if
-      if (rotationKey === undefined) rotationKey = "top";
+      const rotationKey = rotationModeToKeyMap.get(this.rotationMode) ?? "top";
       const rotationString = UiFramework.translate(
         `accuDraw.rotation.${rotationKey}`
       );
-      const rotationMessage = UiFramework.localization.getLocalizedString(
-        "accuDraw.rotationSet",
-        { rotationString, ns: UiFramework.localizationNamespace }
-      );
+      const rotationMessage = UiFramework.translate("accuDraw.rotationSet", {
+        rotationString,
+      });
       this.outputInfoMessage(rotationMessage);
     }
   }

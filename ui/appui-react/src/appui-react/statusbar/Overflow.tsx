@@ -10,9 +10,9 @@ import type { CommonProps } from "@itwin/core-react";
 import { useRefs, useResizeObserver } from "@itwin/core-react";
 import classnames from "classnames";
 import * as React from "react";
-import { UiFramework } from "../UiFramework";
 import { Ellipsis } from "../layout/base/Ellipsis";
 import "./Overflow.scss";
+import { useTranslation } from "../useTranslation";
 
 /** Properties of [[StatusBarOverflow]] component.
  * @internal
@@ -31,10 +31,11 @@ export const StatusBarOverflow = React.forwardRef<
   HTMLDivElement,
   StatusBarOverflowProps
 >(function StatusBarOverflow(props, ref) {
+  const { translate } = useTranslation();
+
   const roRef = useResizeObserver<HTMLDivElement>(props.onResize);
   const refs = useRefs(roRef, ref);
   const className = classnames("uifw-statusbar-overflow", props.className);
-  const title = React.useRef(UiFramework.translate("statusBar.overflow"));
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events
@@ -45,7 +46,7 @@ export const StatusBarOverflow = React.forwardRef<
       style={props.style}
       role="button"
       tabIndex={-1}
-      title={title.current}
+      title={translate("statusBar.overflow")}
     >
       <Ellipsis />
     </div>

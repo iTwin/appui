@@ -27,6 +27,7 @@ import {
   Parser,
   ParserSpec,
 } from "@itwin/core-quantity";
+import { UiIModelComponents } from "../../imodel-components-react";
 
 /* Interface that defines custom properties used to format and parse Bearing values. */
 interface BearingFormatProps extends CustomFormatProps {
@@ -223,8 +224,6 @@ export class BearingQuantityType implements CustomQuantityTypeDefinition {
   private _type = "Bearing";
   private _persistenceUnitName = "Units.RAD";
   private _persistenceUnit: UnitProps | undefined;
-  private _labelKey = "SampleApp:BearingQuantityType.label";
-  private _descriptionKey = "SampleApp:BearingQuantityType.description";
   private _label: string | undefined;
   private _description: string | undefined;
   private _formatProps = defaultBearingFormat;
@@ -261,22 +260,18 @@ export class BearingQuantityType implements CustomQuantityTypeDefinition {
 
   public get label(): string {
     if (!this._label) {
-      if (this._labelKey)
-        this._label = IModelApp.localization.getLocalizedString(this._labelKey);
-      else this._label = this._type;
+      this._label = UiIModelComponents.translate("BearingQuantityType.label");
     }
-    return this._label ? this._label : "unknown";
+    return this._label ?? "unknown";
   }
 
   public get description(): string {
     if (!this._description) {
-      if (this._descriptionKey)
-        this._description = IModelApp.localization.getLocalizedString(
-          this._descriptionKey
-        );
-      else this._description = this.label;
+      this._description = UiIModelComponents.translate(
+        "BearingQuantityType.label"
+      );
     }
-    return this._description ? this._description : "unknown";
+    return this._description ?? "unknown";
   }
 
   public generateFormatterSpec = async (
@@ -328,19 +323,19 @@ export class BearingQuantityType implements CustomQuantityTypeDefinition {
         selectOptions: [
           {
             value: "clockwise",
-            label: IModelApp.localization.getLocalizedString(
-              "SampleApp:BearingQuantityType.bearingAngleDirection.clockwise"
+            label: UiIModelComponents.translate(
+              "BearingQuantityType.bearingAngleDirection.clockwise"
             ),
           },
           {
             value: "counter-clockwise",
-            label: IModelApp.localization.getLocalizedString(
-              "SampleApp:BearingQuantityType.bearingAngleDirection.counter-clockwise"
+            label: UiIModelComponents.translate(
+              "BearingQuantityType.bearingAngleDirection.counter-clockwise"
             ),
           },
         ],
-        label: IModelApp.localization.getLocalizedString(
-          "SampleApp:BearingQuantityType.bearingAngleDirection.label"
+        label: UiIModelComponents.translate(
+          "BearingQuantityType.bearingAngleDirection.label"
         ),
         getString: BearingQuantityType.bearingAngleDirectionGetter,
         setString: BearingQuantityType.bearingAngleDirectionSetter,
@@ -358,8 +353,8 @@ export class BearingQuantityType implements CustomQuantityTypeDefinition {
     return [
       {
         editorType: "checkbox",
-        label: IModelApp.localization.getLocalizedString(
-          "SampleApp:BearingQuantityType.bearingGap.label"
+        label: UiIModelComponents.translate(
+          "BearingQuantityType.bearingGap.label"
         ),
         getBool: BearingQuantityType.bearingGapPropGetter,
         setBool: BearingQuantityType.bearingGapPropSetter,

@@ -52,7 +52,6 @@ import type { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
 import type { Key } from 'ts-key-enum';
 import type { LayoutFragmentProps } from '@itwin/appui-abstract';
-import type { Localization } from '@itwin/core-common';
 import type { MarkRequired } from '@itwin/core-bentley';
 import { MessageBoxIconType } from '@itwin/core-frontend';
 import { MessageBoxType } from '@itwin/core-frontend';
@@ -107,6 +106,7 @@ import type { ToolbarOpacitySetting } from '@itwin/components-react';
 import type { ToolbarPanelAlignment } from '@itwin/components-react';
 import type { ToolList } from '@itwin/core-frontend';
 import type { ToolTipOptions } from '@itwin/core-frontend';
+import type { TranslationOptions } from '@itwin/core-common';
 import { UiAdmin } from '@itwin/appui-abstract';
 import type { UiDataProvider } from '@itwin/appui-abstract';
 import { UiEvent } from '@itwin/appui-abstract';
@@ -4934,8 +4934,6 @@ export class UiFramework {
     // (undocumented)
     static isMobile(): boolean;
     static get keyboardShortcuts(): FrameworkKeyboardShortcuts;
-    // @internal
-    static get localization(): Localization;
     static get localizationNamespace(): string;
     // @internal (undocumented)
     static loggerCategory(obj: any): string;
@@ -5001,7 +4999,7 @@ export class UiFramework {
     static terminate(): void;
     static get toolSettings(): FrameworkToolSettings;
     // @internal
-    static translate(key: string | string[]): string;
+    static translate(key: string | string[], options?: TranslationOptions): string;
     // (undocumented)
     static useDefaultPopoutUrl: boolean;
     // (undocumented)

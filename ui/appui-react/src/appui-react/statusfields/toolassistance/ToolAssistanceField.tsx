@@ -27,7 +27,6 @@ import {
   FillCentered,
   Icon,
   LocalStateStorage,
-  UiCore,
   UiStateEntry,
   UiStateStorageStatus,
 } from "@itwin/core-react";
@@ -531,7 +530,7 @@ export class ToolAssistanceField extends React.Component<
                 {this.state.isPinned && (
                   <StatusBarDialog.TitleBarButton
                     onClick={this._handleCloseButtonClick}
-                    title={UiCore.translate("dialog.close")}
+                    title={UiFramework.translate("dialog.close")}
                   >
                     <Icon iconSpec={<SvgClose />} />
                   </StatusBarDialog.TitleBarButton>

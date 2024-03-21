@@ -91,5 +91,12 @@
     "UnregisterUiProviderTool": {
       "keyin": "uiprovider unregister"
     }
+  },
+  "componentExamplesStage": {
+    "examples": "Component Examples",
+    "light": "Light",
+    "dark": "Dark",
+    "themeTitle": "Theme",
+    "themeDescription": "Toggle the theme between light and dark"
   }
 }

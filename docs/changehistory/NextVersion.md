@@ -8,13 +8,15 @@ Table of contents:
   - [Changes](#changes)
   - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
+  - [Changes](#changes-1)
   - [Deprecations](#deprecations-1)
 - [@itwin/core-react](#itwincore-react)
   - [Additions](#additions-1)
+  - [Changes](#changes-2)
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Deprecations](#deprecations-2)
   - [Additions](#additions-2)
-  - [Changes](#changes-1)
+  - [Changes](#changes-3)
   - [Fixes](#fixes-1)
 
 ## @itwin/appui-react
@@ -61,6 +63,7 @@ Table of contents:
 - Removed arrow from status bar popup. [#750](https://github.com/iTwin/appui/pull/750)
 - Render AccuDraw Distance field above Angle field when in Polar mode. [#753](https://github.com/iTwin/appui/pull/753)
 - Changed tool settings to render empty tool settings message when in widget mode. [#769](https://github.com/iTwin/appui/pull/753)
+- Removed memoization for translated strings in components. [#776](https://github.com/iTwin/appui/pull/776)
 
 ### Fixes
 
@@ -72,6 +75,10 @@ Table of contents:
 
 ## @itwin/components-react
 
+### Changes
+
+- Removed memoization for translated strings in components. [#776](https://github.com/iTwin/appui/pull/776)
+
 ### Deprecations
 
 - `DatePicker`, `DatePickerPopupButton`, `IntlFormatter` are deprecated in favor of [iTwinUI date picker](https://itwinui.bentley.com/docs/datepicker). [#755](https://github.com/iTwin/appui/pull/755)
@@ -81,6 +88,10 @@ Table of contents:
 ### Additions
 
 - `BadgeType` has been moved from `@itwin/appui-abstract`. [#729](https://github.com/iTwin/appui/pull/729)
+
+### Changes
+
+- Removed memoization for translated strings in components. [#776](https://github.com/iTwin/appui/pull/776)
 
 ## @itwin/imodel-components-react
 
@@ -96,6 +107,7 @@ Table of contents:
 ### Changes
 
 - Updated visual styling of `SolarTimeline` and `TimelineComponent` components. [#733](https://github.com/iTwin/appui/pull/733), [#763](https://github.com/iTwin/appui/pull/763)
+- Removed memoization for translated strings in components. [#776](https://github.com/iTwin/appui/pull/776)
 
 ### Fixes
 

@@ -649,8 +649,6 @@ export class MessageManager {
     message: NotifyMessageType,
     icon: MessageBoxIconType
   ): Promise<MessageBoxValue> {
-    const title = UiFramework.translate("general.alert");
-
     return new Promise(
       (
         onFulfilled: (result: MessageBoxValue) => void,
@@ -665,7 +663,7 @@ export class MessageManager {
           this.standardMessageBox(
             mbType,
             icon,
-            title,
+            UiFramework.translate("general.alert"),
             messageElement,
             messageBoxCallbacks
           )
@@ -678,7 +676,6 @@ export class MessageManager {
   public static showAlertMessageBox(
     messageDetails: NotifyMessageDetailsType
   ): void {
-    const title = UiFramework.translate("general.alert");
     const iconType = this.getIconType(messageDetails);
     const content = (
       <>
@@ -691,7 +688,12 @@ export class MessageManager {
       </>
     );
     UiFramework.dialogs.modal.open(
-      this.standardMessageBox(MessageBoxType.Ok, iconType, title, content)
+      this.standardMessageBox(
+        MessageBoxType.Ok,
+        iconType,
+        UiFramework.translate("general.alert"),
+        content
+      )
     );
   }
 

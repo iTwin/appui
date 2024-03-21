@@ -20,7 +20,7 @@ import classnames from "classnames";
 import { Orientation } from "../enums/Orientation";
 import type { CommonProps } from "../utils/Props";
 import { useThrottledFn } from "../utils/hooks/useThrottledFn";
-import { UiCore } from "../UiCore";
+import { useTranslation } from "../useTranslation";
 
 /**
  * Results returned by onRatioChanged callback for determining new ratio and whether the ratio was updated.
@@ -233,7 +233,8 @@ function getStyle(
  * @public
  */
 export const ElementSeparator = (props: ElementSeparatorProps) => {
-  const label = useRef(UiCore.translate("elementSeparator.label"));
+  const { translate } = useTranslation();
+
   const [hasHoverHappened, setHasHoverHappened] = useState(false);
   const { isDragged, isHovered, onPointerDown, onPointerOver, onPointerOut } =
     useElementSeparatorPointerHandler(props);
@@ -273,7 +274,7 @@ export const ElementSeparator = (props: ElementSeparatorProps) => {
       onPointerDown={onPointerDown}
       onPointerOver={onPointerOver}
       onPointerOut={onPointerOut}
-      aria-label={label.current}
+      aria-label={translate("elementSeparator.label")}
     />
   );
 };

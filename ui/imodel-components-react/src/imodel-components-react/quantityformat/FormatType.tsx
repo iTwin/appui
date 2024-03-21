@@ -8,7 +8,6 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { UiIModelComponents } from "../UiIModelComponents";
 import type { FormatProps } from "@itwin/core-quantity";
 import {
   DecimalPrecision,
@@ -21,6 +20,7 @@ import {
 } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
+import { useTranslation } from "../useTranslation";
 
 /** Properties of [[FormatTypeSelector]] component.
  * @alpha
@@ -35,22 +35,23 @@ interface FormatTypeSelectorProps extends CommonProps {
  */
 function FormatTypeSelector(props: FormatTypeSelectorProps) {
   const { type, onChange, ...otherProps } = props;
+  const { translate } = useTranslation();
   const formatOptions = React.useRef<SelectOption<FormatType>[]>([
     {
       value: FormatType.Decimal,
-      label: UiIModelComponents.translate("QuantityFormat.decimal"),
+      label: translate("QuantityFormat.decimal"),
     },
     {
       value: FormatType.Scientific,
-      label: UiIModelComponents.translate("QuantityFormat.scientific"),
+      label: translate("QuantityFormat.scientific"),
     },
     {
       value: FormatType.Station,
-      label: UiIModelComponents.translate("QuantityFormat.station"),
+      label: translate("QuantityFormat.station"),
     },
     {
       value: FormatType.Fractional,
-      label: UiIModelComponents.translate("QuantityFormat.fractional"),
+      label: translate("QuantityFormat.fractional"),
     },
   ]);
 
@@ -85,6 +86,7 @@ export interface FormatTypeOptionProps extends CommonProps {
  */
 export function FormatTypeOption(props: FormatTypeOptionProps) {
   const { formatProps, onChange } = props;
+  const { translate } = useTranslation();
   const handleFormatTypeChange = React.useCallback(
     (newType: FormatType) => {
       const type = formatTypeToString(newType);
@@ -126,13 +128,11 @@ export function FormatTypeOption(props: FormatTypeOptionProps) {
   );
 
   const formatType = parseFormatType(formatProps.type, "format");
-  const label = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.type")
-  );
-
   return (
     <>
-      <span className={"uicore-label.current"}>{label.current}</span>
+      <span className={"uicore-label.current"}>
+        {translate("QuantityFormat.labels.type")}
+      </span>
       <FormatTypeSelector
         data-testid="format-type-selector"
         type={formatType}

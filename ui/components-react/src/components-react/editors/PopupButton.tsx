@@ -12,13 +12,14 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonDivProps, CommonProps } from "@itwin/core-react";
-import { Div, Icon, Popup, UiCore } from "@itwin/core-react";
+import { Div, Icon, Popup } from "@itwin/core-react";
 import { Button } from "@itwin/itwinui-react";
 import {
   SvgCheckmark,
   SvgChevronDown,
   SvgRemove,
 } from "@itwin/itwinui-icons-react";
+import { useTranslation } from "../useTranslation";
 
 /** Properties for [[PopupButton]] component
  * @alpha
@@ -197,6 +198,7 @@ export interface OkCancelProps {
  * @alpha
  */
 export function PopupOkCancelButtons(props: OkCancelProps) {
+  const { translate } = useTranslation();
   return (
     <div className="components-popup-bottom-buttons">
       <Button
@@ -206,7 +208,7 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         )}
         data-testid="components-popup-ok-button"
         styleType="cta"
-        title={UiCore.translate("dialog.ok")}
+        title={translate("dialog.ok")}
         onClick={props.onOk}
       >
         <Icon iconSpec={<SvgCheckmark />} />
@@ -217,7 +219,7 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
           "components-popup-cancel-button"
         )}
         data-testid="components-popup-cancel-button"
-        title={UiCore.translate("dialog.cancel")}
+        title={translate("dialog.cancel")}
         onClick={props.onCancel}
       >
         <Icon iconSpec={<SvgRemove />} />

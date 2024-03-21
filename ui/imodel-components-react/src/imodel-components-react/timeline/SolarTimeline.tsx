@@ -40,6 +40,7 @@ import {
 import type { SolarDataProvider } from "./interfaces";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { PlayButton } from "./PlayButton";
+import { useTranslation } from "../useTranslation";
 
 const msPerMinute = 1000 * 60;
 const msPerHour = msPerMinute * 60;
@@ -147,32 +148,7 @@ export class SolarTimeline extends React.PureComponent<
   private _unmounted = false;
   private _timeLastCycle = 0;
   private _totalPlayTime = 0;
-  private _settingsPopupTitle = UiIModelComponents.translate(
-    "solarsettings.shadowcolor"
-  );
-  private _settingLabel = UiIModelComponents.translate(
-    "solartimeline.settings"
-  );
-  private _loopLabel = UiIModelComponents.translate("timeline.repeat");
-  private _speedLabel = UiIModelComponents.translate("solartimeline.speed");
 
-  private _months = [
-    UiComponents.translate("month.short.january"),
-    UiComponents.translate("month.short.february"),
-    UiComponents.translate("month.short.march"),
-    UiComponents.translate("month.short.april"),
-    UiComponents.translate("month.short.may"),
-    UiComponents.translate("month.short.june"),
-    UiComponents.translate("month.short.july"),
-    UiComponents.translate("month.short.august"),
-    UiComponents.translate("month.short.september"),
-    UiComponents.translate("month.short.october"),
-    UiComponents.translate("month.short.november"),
-    UiComponents.translate("month.short.december"),
-  ];
-
-  private _amLabel = UiComponents.translate("time.am");
-  private _pmLabel = UiComponents.translate("time.pm");
   private readonly _presetColors = [
     ColorDef.create(ColorByName.grey),
     ColorDef.create(ColorByName.lightGrey),
@@ -438,6 +414,8 @@ export class SolarTimeline extends React.PureComponent<
 
   private _formatTime = (ms: number) => {
     const date = new Date(ms);
+    const amLabel = UiComponents.translate("time.am");
+    const pmLabel = UiComponents.translate("time.pm");
     // convert project date to browser locale date
     const localTime = adjustDateToTimezone(
       date,
@@ -445,8 +423,7 @@ export class SolarTimeline extends React.PureComponent<
     );
     let hours = localTime.getHours();
     const minutes = date.getMinutes();
-    const abbrev =
-      hours < 12 ? this._amLabel : hours === 24 ? this._amLabel : this._pmLabel;
+    const abbrev = hours < 12 ? amLabel : hours === 24 ? amLabel : pmLabel;
     hours = hours > 12 ? hours - 12 : hours;
     const hoursStr = hours.toLocaleString(undefined, {
       minimumIntegerDigits: 2,
@@ -475,6 +452,21 @@ export class SolarTimeline extends React.PureComponent<
       sunRiseOffsetMs,
       sunSetOffsetMs,
     } = this.state;
+    const months = [
+      UiComponents.translate("month.short.january"),
+      UiComponents.translate("month.short.february"),
+      UiComponents.translate("month.short.march"),
+      UiComponents.translate("month.short.april"),
+      UiComponents.translate("month.short.may"),
+      UiComponents.translate("month.short.june"),
+      UiComponents.translate("month.short.july"),
+      UiComponents.translate("month.short.august"),
+      UiComponents.translate("month.short.september"),
+      UiComponents.translate("month.short.october"),
+      UiComponents.translate("month.short.november"),
+      UiComponents.translate("month.short.december"),
+    ];
+
     const localTime = this.getLocalTime(
       this.state.dayStartMs + this.state.currentTimeOffsetMs
     );
@@ -482,7 +474,7 @@ export class SolarTimeline extends React.PureComponent<
       dataProvider.dayStartMs + currentTimeOffsetMs
     );
     const formattedDate = `${
-      this._months[localTime.getMonth()]
+      months[localTime.getMonth()]
     }, ${localTime.getDate()}`;
 
     return (
@@ -542,7 +534,9 @@ export class SolarTimeline extends React.PureComponent<
           <VisuallyHidden>
             <Label htmlFor="speed">Timeline speed</Label>
           </VisuallyHidden>
-          <Tooltip content={this._speedLabel}>
+          <Tooltip
+            content={UiIModelComponents.translate("solartimeline.speed")}
+          >
             <Select
               native
               styleType="borderless"
@@ -560,7 +554,7 @@ export class SolarTimeline extends React.PureComponent<
 
           <IconButton
             styleType="borderless"
-            label={this._loopLabel}
+            label={UiIModelComponents.translate("timeline.repeat")}
             onClick={this._onToggleLoop}
             isActive={loop}
           >
@@ -580,7 +574,7 @@ export class SolarTimeline extends React.PureComponent<
                 }}
               >
                 <Text variant="title" as="h2" style={{ textAlign: "center" }}>
-                  {this._settingsPopupTitle}
+                  {UiIModelComponents.translate("solarsettings.shadowcolor")}
                 </Text>
                 <ColorBuilder />
                 <ColorInputPanel defaultColorFormat="hsl" />
@@ -597,7 +591,7 @@ export class SolarTimeline extends React.PureComponent<
             <IconButton
               styleType="borderless"
               data-testid="shadow-settings-button"
-              label={this._settingLabel}
+              label={UiIModelComponents.translate("solartimeline.settings")}
               onClick={this._onOpenSettingsPopup}
             >
               <SvgSettings />
@@ -616,10 +610,8 @@ interface CalendarButtonProps {
 
 const CalendarButton = React.forwardRef<HTMLButtonElement, CalendarButtonProps>(
   function CalendarButton({ children, onClick }, ref) {
-    const tooltip = React.useMemo(
-      () => UiIModelComponents.translate("solartimeline.dateTime"),
-      []
-    );
+    const { translate } = useTranslation();
+    const tooltip = translate("solartimeline.dateTime");
 
     return (
       <Tooltip content={tooltip}>

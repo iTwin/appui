@@ -177,16 +177,13 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
   }
 
   public provideBackstageItems(): BackstageItem[] {
-    const label = AppUiTestProviders.translate(
-      "backstage.customContentFrontstageLabel"
-    );
     return [
       // use 200 to group it with secondary stages in ui-test-app
       BackstageItemUtilities.createStageLauncher(
         CustomContentFrontstage.stageId,
         200,
         2,
-        label,
+        AppUiTestProviders.translate("backstage.customContentFrontstageLabel"),
         "from provider",
         "icon-flag-2"
       ),

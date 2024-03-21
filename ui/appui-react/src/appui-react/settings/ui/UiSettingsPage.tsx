@@ -24,6 +24,7 @@ import {
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select, Slider, ToggleSwitch } from "@itwin/itwinui-react";
 import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
+import { useTranslation } from "../../useTranslation";
 
 /** UiSettingsPage displaying the active UI settings. This page lets users set the following settings.
  *
@@ -39,105 +40,7 @@ import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
  * @beta
  */
 export function UiSettingsPage() {
-  const themeTitle = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.themeTitle")
-  );
-  const themeDescription = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.themeDescription")
-  );
-  const autoHideTitle = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.autoHideTitle")
-  );
-  const autoHideDescription = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.autoHideDescription")
-  );
-  const dragInteractionTitle = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.dragInteractionTitle")
-  );
-  const dragInteractionDescription = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.dragInteractionDescription")
-  );
-  const useProximityOpacityTitle = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.useProximityOpacityTitle")
-  );
-  const useProximityOpacityDescription = React.useRef(
-    UiFramework.translate(
-      "settings.uiSettingsPage.useProximityOpacityDescription"
-    )
-  );
-  const snapWidgetOpacityTitle = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.snapWidgetOpacityTitle")
-  );
-  const snapWidgetOpacityDescription = React.useRef(
-    UiFramework.translate(
-      "settings.uiSettingsPage.snapWidgetOpacityDescription"
-    )
-  );
-  const darkLabel = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.dark")
-  );
-  const lightLabel = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.light")
-  );
-  const darkHCLabel = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.darkHighContrast")
-  );
-  const lightHCLabel = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.lightHighContrast")
-  );
-  const inheritLabel = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.inherit")
-  );
-  const systemPreferredLabel = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.systemPreferred")
-  );
-  const widgetOpacityTitle = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.widgetOpacityTitle")
-  );
-  const widgetOpacityDescription = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.widgetOpacityDescription")
-  );
-  const widgetIconTitle = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.widgetIconTitle")
-  );
-  const widgetIconDescription = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.widgetIconDescription")
-  );
-  const autoCollapseUnpinnedPanelsTitle = React.useRef(
-    UiFramework.translate(
-      "settings.uiSettingsPage.autoCollapseUnpinnedPanelsTitle"
-    )
-  );
-  const autoCollapseUnpinnedPanelsDescription = React.useRef(
-    UiFramework.translate(
-      "settings.uiSettingsPage.autoCollapseUnpinnedPanelsDescription"
-    )
-  );
-  const animateToolSettingsTitle = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.animateToolSettingsTitle")
-  );
-  const animateToolSettingsDescription = React.useRef(
-    UiFramework.translate(
-      "settings.uiSettingsPage.animateToolSettingsDescription"
-    )
-  );
-  const useToolAsToolSettingsLabelTitle = React.useRef(
-    UiFramework.translate(
-      "settings.uiSettingsPage.useToolAsToolSettingsLabelTitle"
-    )
-  );
-  const useToolAsToolSettingsLabelDescription = React.useRef(
-    UiFramework.translate(
-      "settings.uiSettingsPage.useToolAsToolSettingsLabelDescription"
-    )
-  );
-  const toolbarOpacityTitle = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.toolbarOpacityTitle")
-  );
-  const toolbarOpacityDescription = React.useRef(
-    UiFramework.translate("settings.uiSettingsPage.toolbarOpacityDescription")
-  );
-
+  const { translate } = useTranslation();
   const [theme, setTheme] = React.useState(() => UiFramework.getColorTheme());
   const [useDragInteraction, setUseDragInteraction] = React.useState(
     () => UiFramework.useDragInteraction
@@ -237,16 +140,31 @@ export function UiSettingsPage() {
   ]);
 
   const defaultThemeOption = {
-    label: systemPreferredLabel.current,
+    label: translate("settings.uiSettingsPage.systemPreferred"),
     value: SYSTEM_PREFERRED_COLOR_THEME,
   };
   const themeOptions: SelectOption<string>[] = [
     defaultThemeOption,
-    { label: lightLabel.current, value: ColorTheme.Light },
-    { label: darkLabel.current, value: ColorTheme.Dark },
-    { label: lightHCLabel.current, value: ColorTheme.HighContrastLight },
-    { label: darkHCLabel.current, value: ColorTheme.HighContrastDark },
-    { label: inheritLabel.current, value: ColorTheme.Inherit },
+    {
+      label: translate("settings.uiSettingsPage.light"),
+      value: ColorTheme.Light,
+    },
+    {
+      label: translate("settings.uiSettingsPage.dark"),
+      value: ColorTheme.Dark,
+    },
+    {
+      label: translate("settings.uiSettingsPage.lightHighContrast"),
+      value: ColorTheme.HighContrastLight,
+    },
+    {
+      label: translate("settings.uiSettingsPage.darkHighContrast"),
+      value: ColorTheme.HighContrastDark,
+    },
+    {
+      label: translate("settings.uiSettingsPage.inherit"),
+      value: ColorTheme.Inherit,
+    },
   ];
 
   const onThemeChange = React.useCallback((newValue: string) => {
@@ -310,8 +228,8 @@ export function UiSettingsPage() {
   return (
     <div className="uifw-settings">
       <SettingsItem
-        title={themeTitle.current}
-        description={themeDescription.current}
+        title={translate("settings.uiSettingsPage.themeTitle")}
+        description={translate("settings.uiSettingsPage.themeDescription")}
         settingUi={
           <div
             data-testid="select-theme-container"
@@ -328,15 +246,17 @@ export function UiSettingsPage() {
         }
       />
       <SettingsItem
-        title={autoHideTitle.current}
-        description={autoHideDescription.current}
+        title={translate("settings.uiSettingsPage.autoHideTitle")}
+        description={translate("settings.uiSettingsPage.autoHideDescription")}
         settingUi={
           <ToggleSwitch checked={autoHideUi} onChange={onAutoHideChange} />
         }
       />
       <SettingsItem
-        title={dragInteractionTitle.current}
-        description={dragInteractionDescription.current}
+        title={translate("settings.uiSettingsPage.dragInteractionTitle")}
+        description={translate(
+          "settings.uiSettingsPage.dragInteractionDescription"
+        )}
         settingUi={
           <ToggleSwitch
             checked={useDragInteraction}
@@ -345,8 +265,10 @@ export function UiSettingsPage() {
         }
       />
       <SettingsItem
-        title={useProximityOpacityTitle.current}
-        description={useProximityOpacityDescription.current}
+        title={translate("settings.uiSettingsPage.useProximityOpacityTitle")}
+        description={translate(
+          "settings.uiSettingsPage.useProximityOpacityDescription"
+        )}
         settingUi={
           <ToggleSwitch
             checked={useProximityOpacity}
@@ -355,8 +277,10 @@ export function UiSettingsPage() {
         }
       />
       <SettingsItem
-        title={snapWidgetOpacityTitle.current}
-        description={snapWidgetOpacityDescription.current}
+        title={translate("settings.uiSettingsPage.snapWidgetOpacityTitle")}
+        description={translate(
+          "settings.uiSettingsPage.snapWidgetOpacityDescription"
+        )}
         settingUi={
           <ToggleSwitch
             checked={snapWidgetOpacity}
@@ -365,8 +289,8 @@ export function UiSettingsPage() {
         }
       />
       <SettingsItem
-        title={widgetIconTitle.current}
-        description={widgetIconDescription.current}
+        title={translate("settings.uiSettingsPage.widgetIconTitle")}
+        description={translate("settings.uiSettingsPage.widgetIconDescription")}
         settingUi={
           <ToggleSwitch
             checked={showWidgetIcon}
@@ -375,8 +299,12 @@ export function UiSettingsPage() {
         }
       />
       <SettingsItem
-        title={autoCollapseUnpinnedPanelsTitle.current}
-        description={autoCollapseUnpinnedPanelsDescription.current}
+        title={translate(
+          "settings.uiSettingsPage.autoCollapseUnpinnedPanelsTitle"
+        )}
+        description={translate(
+          "settings.uiSettingsPage.autoCollapseUnpinnedPanelsDescription"
+        )}
         settingUi={
           <ToggleSwitch
             checked={autoCollapseUnpinnedPanels}
@@ -385,8 +313,10 @@ export function UiSettingsPage() {
         }
       />
       <SettingsItem
-        title={animateToolSettingsTitle.current}
-        description={animateToolSettingsDescription.current}
+        title={translate("settings.uiSettingsPage.animateToolSettingsTitle")}
+        description={translate(
+          "settings.uiSettingsPage.animateToolSettingsDescription"
+        )}
         settingUi={
           <ToggleSwitch
             checked={animateToolSettings}
@@ -395,8 +325,12 @@ export function UiSettingsPage() {
         }
       />
       <SettingsItem
-        title={useToolAsToolSettingsLabelTitle.current}
-        description={useToolAsToolSettingsLabelDescription.current}
+        title={translate(
+          "settings.uiSettingsPage.useToolAsToolSettingsLabelTitle"
+        )}
+        description={translate(
+          "settings.uiSettingsPage.useToolAsToolSettingsLabelDescription"
+        )}
         settingUi={
           <ToggleSwitch
             checked={useToolAsToolSettingsLabel}
@@ -405,8 +339,10 @@ export function UiSettingsPage() {
         }
       />
       <SettingsItem
-        title={toolbarOpacityTitle.current}
-        description={toolbarOpacityDescription.current}
+        title={translate("settings.uiSettingsPage.toolbarOpacityTitle")}
+        description={translate(
+          "settings.uiSettingsPage.toolbarOpacityDescription"
+        )}
         settingUi={
           <Slider
             style={{ flex: "1" }}
@@ -421,8 +357,10 @@ export function UiSettingsPage() {
         }
       />
       <SettingsItem
-        title={widgetOpacityTitle.current}
-        description={widgetOpacityDescription.current}
+        title={translate("settings.uiSettingsPage.widgetOpacityTitle")}
+        description={translate(
+          "settings.uiSettingsPage.widgetOpacityDescription"
+        )}
         settingUi={
           <Slider
             style={{ flex: "1" }}

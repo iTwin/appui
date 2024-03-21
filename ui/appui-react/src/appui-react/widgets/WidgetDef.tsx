@@ -34,6 +34,7 @@ import {
   isPopoutTabLocation,
 } from "../layout/state/TabLocation";
 import type { NineZoneState } from "../layout/state/NineZoneState";
+import { IModelApp } from "@itwin/core-frontend";
 
 /** Widget State Changed Event Args interface.
  * @public
@@ -226,9 +227,7 @@ export class WidgetDef {
 
     if (config.label) this._label = config.label;
     else if (config.labelKey)
-      this._label = UiFramework.localization.getLocalizedString(
-        config.labelKey
-      );
+      this._label = IModelApp.localization.getLocalizedString(config.labelKey);
     else if (type === WidgetType.ToolSettings) this._label = "Tool Settings";
 
     this.setCanPopout(config.canPopout);
@@ -254,7 +253,7 @@ export class WidgetDef {
 
     if (config.tooltip) this.setTooltip(config.tooltip);
     else if (config.tooltipKey)
-      this._tooltip = UiFramework.localization.getLocalizedString(
+      this._tooltip = IModelApp.localization.getLocalizedString(
         config.tooltipKey
       );
 

@@ -10,7 +10,6 @@ import { SvgError } from "@itwin/itwinui-illustrations-react";
 import { NonIdealState } from "@itwin/itwinui-react";
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { UiFramework } from "../UiFramework";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { ScrollableWidgetContent } from "../layout/widget/Content";
@@ -19,14 +18,17 @@ import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import { isProviderItem } from "../ui-items-provider/isProviderItem";
 import type { WidgetDef } from "../widgets/WidgetDef";
 import { useTransientState } from "./useTransientState";
+import { useTranslation } from "../useTranslation";
 
 function WidgetFallback() {
-  const errorMessage = UiFramework.translate(
-    "widget.errorMessage.unknownError"
-  );
+  const { translate } = useTranslation();
+
   return (
     <div role="alert" style={{ position: "relative", minHeight: 400 }}>
-      <NonIdealState svg={<SvgError />} heading={errorMessage} />
+      <NonIdealState
+        svg={<SvgError />}
+        heading={translate("widget.errorMessage.unknownError")}
+      />
     </div>
   );
 }
