@@ -27,7 +27,7 @@ import "./MessageCenterField.scss";
 /**
  * Type for Status state to satisfy NotificationMarker type checking
  */
-type status = "primary" | "negative";
+type Status = "primary" | "negative";
 
 /** Message Center Field React component.
  * @public
@@ -36,7 +36,8 @@ export function MessageCenterField() {
   const [messages, setMessages] = React.useState(MessageManager.messages);
   const [notify, setNotify] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
-  const [status, setStatus] = React.useState<status>("primary");
+  const [NotificationMarkerStatus, setStatus] =
+    React.useState<Status>("primary");
 
   const indicatorRef = React.createRef<HTMLButtonElement>();
   const title = UiFramework.translate("messageCenter.messages");
@@ -55,7 +56,7 @@ export function MessageCenterField() {
   };
 
   const determineStatus = () =>
-    messages.some((msg) => isProblemStatus(msg))
+    messages.some((message) => isProblemStatus(message))
       ? setStatus("negative")
       : setStatus("primary");
 
@@ -139,7 +140,10 @@ export function MessageCenterField() {
             </span>
           }
           startIcon={
-            <NotificationMarker status={status} enabled={notify}>
+            <NotificationMarker
+              status={NotificationMarkerStatus}
+              enabled={notify}
+            >
               <SvgChat />
             </NotificationMarker>
           }

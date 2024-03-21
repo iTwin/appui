@@ -4,14 +4,45 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
-import { MessageCenterField } from "@itwin/appui-react/src/appui-react/statusfields/message-center/MessageCenterField";
-import { MessageManager } from "@itwin/appui-react";
-import { useEffect } from "react";
+import { MessageManager, MessageCenterField } from "@itwin/appui-react";
 import {
   NotifyMessageDetails,
   OutputMessagePriority,
 } from "@itwin/core-frontend";
-import { Button } from "@itwin/itwinui-react";
+import { DropdownButton, MenuItem } from "@itwin/itwinui-react";
+
+const menuItems = [
+  <MenuItem
+    key={1}
+    onClick={() => {
+      MessageManager.clearMessages();
+      MessageManager.addToMessageCenter(
+        new NotifyMessageDetails(OutputMessagePriority.Info, "info")
+      );
+    }}
+  >
+    Primary
+  </MenuItem>,
+  <MenuItem
+    key={1}
+    onClick={() => {
+      MessageManager.clearMessages();
+      MessageManager.addToMessageCenter(
+        new NotifyMessageDetails(OutputMessagePriority.Error, "error")
+      );
+    }}
+  >
+    Error
+  </MenuItem>,
+  <MenuItem
+    key={1}
+    onClick={() => {
+      MessageManager.clearMessages();
+    }}
+  >
+    Clear
+  </MenuItem>,
+];
 
 const AlignComponent: Decorator = (Story) => {
   return (
@@ -21,9 +52,17 @@ const AlignComponent: Decorator = (Story) => {
         display: "flex",
         justifyContent: "center",
         paddingBlock: "2em",
+        gap: "10",
       }}
     >
       <Story />
+      <DropdownButton
+        styleType="borderless"
+        size="small"
+        menuItems={() => menuItems}
+      >
+        Update Messages
+      </DropdownButton>
     </div>
   );
 };
@@ -42,35 +81,3 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {};
-
-// NoTification
-
-const NotificationDecorator: Decorator = (Story) => {
-  useEffect(() => {
-    MessageManager.addToMessageCenter(
-      new NotifyMessageDetails(OutputMessagePriority.Info, "info")
-    );
-
-    return MessageManager.clearMessages();
-  }, []);
-
-  return (
-    <div>
-      <Story />
-      <Button
-        size="small"
-        onClick={() =>
-          MessageManager.addToMessageCenter(
-            new NotifyMessageDetails(OutputMessagePriority.Info, "info")
-          )
-        }
-      >
-        Update Messages
-      </Button>
-    </div>
-  );
-};
-
-export const Notification: Story = {
-  decorators: NotificationDecorator,
-};
