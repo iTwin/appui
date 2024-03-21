@@ -19,7 +19,7 @@ import type {
   CommonBackstageItem as UIA_CommonBackstageItem,
 } from "@itwin/appui-abstract";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
-import { UiFramework } from "../UiFramework";
+import { IModelApp } from "@itwin/core-frontend";
 
 /** A set of helper methods for various props
  * @public
@@ -34,7 +34,9 @@ export class PropsHelper {
       return explicitValue;
     }
 
-    const outValue = stringKey ? UiFramework.translate(stringKey) : "";
+    const outValue = stringKey
+      ? IModelApp.localization.getLocalizedString(stringKey)
+      : "";
     return outValue;
   }
 

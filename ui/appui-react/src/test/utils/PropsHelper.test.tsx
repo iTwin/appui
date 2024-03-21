@@ -86,7 +86,7 @@ describe("PropsHelper", () => {
   it("Use stringKey for undefined explicitValue", () => {
     const undefinedStringAndKeySpec = PropsHelper.getStringSpec(
       undefined,
-      "snapModeField.snapMode"
+      "UiFramework:snapModeField.snapMode"
     );
     expect(undefinedStringAndKeySpec).not.to.be.undefined;
     outString = undefined;
@@ -98,7 +98,7 @@ describe("PropsHelper", () => {
   it("Use stringKey for blank explicitValue", () => {
     const undefinedStringAndKeySpec = PropsHelper.getStringSpec(
       "",
-      "snapModeField.snapMode"
+      "UiFramework:snapModeField.snapMode"
     );
     expect(undefinedStringAndKeySpec).not.to.be.undefined;
     outString = undefined;
