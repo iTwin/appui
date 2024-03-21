@@ -32,7 +32,7 @@ export function useIsMaximizedWidget() {
 export function useMaximizedPanelLayout(side: PanelSide) {
   const location = useMaximizedPanelWidgetLocation();
   return {
-    "preview-maximized-panel-layout": location?.side === side,
+    "uifw-preview-enableMaximizedWidget_panel-layout": location?.side === side,
   };
 }
 
@@ -41,7 +41,7 @@ export function useMaximizedPanel(side: PanelSide) {
   const isMaximized = useIsMaximizedPanel(side);
   if (!isMaximized) return undefined;
   return {
-    "preview-maximized-panel": isMaximized,
+    "uifw-preview-enableMaximizedWidget_panel": isMaximized,
   };
 }
 
@@ -51,8 +51,10 @@ export function useMaximizedSection(widgetId: WidgetState["id"]) {
   if (!location) return undefined;
 
   return {
-    "preview-maximized-section": location.widgetId === widgetId,
-    "preview-maximized-section-sibling": location.widgetId !== widgetId,
+    "uifw-preview-enableMaximizedWidget_section":
+      location.widgetId === widgetId,
+    "uifw-preview-enableMaximizedWidget_section-sibling":
+      location.widgetId !== widgetId,
   };
 }
 
@@ -108,7 +110,7 @@ export function useMaximizedFloatingWidget() {
       "max-height": "unset",
       "max-width": "unset",
     },
-    classNames: { "preview-maximized-floatingWidget": true },
+    classNames: { "uifw-preview-enableMaximizedWidget_floatingWidget": true },
   };
 }
 
@@ -116,6 +118,6 @@ export function useMaximizedFloatingWidget() {
 export function useMaximizedWidgetTabBarHandle() {
   const isMaximizedWidget = useIsMaximizedWidget();
   return {
-    "preview-maximized-widget-tabBar": isMaximizedWidget,
+    "uifw-preview-enableMaximizedWidget_widget-tabBar": isMaximizedWidget,
   };
 }

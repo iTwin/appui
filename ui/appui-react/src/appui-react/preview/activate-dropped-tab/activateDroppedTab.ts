@@ -3,16 +3,17 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { assert } from "@itwin/core-bentley";
-import type { NineZoneState } from "./NineZoneState";
-import type { NineZoneStateReducer } from "./NineZoneStateReducer";
-import { getTabLocation } from "./TabLocation";
+import type { NineZoneState } from "../../layout/state/NineZoneState";
+import type { NineZoneStateReducer } from "../../layout/state/NineZoneStateReducer";
+import { getTabLocation } from "../../layout/state/TabLocation";
 import {
   getWidgetState,
   setWidgetActiveTabId,
-} from "./internal/WidgetStateHelpers";
+} from "../../layout/state/internal/WidgetStateHelpers";
 
-/** Changes widget active tab after drag & drop
- * @internal */
+/** Reducer factory to activate tab of a dragged widget when dropped in a container.
+ * @internal
+ */
 export const activateDroppedTab =
   (reducer: typeof NineZoneStateReducer): typeof NineZoneStateReducer =>
   (state, action) => {

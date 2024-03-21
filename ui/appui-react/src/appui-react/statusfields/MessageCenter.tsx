@@ -46,7 +46,6 @@ export class MessageCenterField extends React.Component<
   MessageCenterState
 > {
   private _indicator = React.createRef<HTMLDivElement>();
-  private _title = UiFramework.translate("messageCenter.messages");
   private _unloadMessagesUpdatedHandler?: () => void;
   private _removeOpenMessagesCenterHandler?: () => void;
 
@@ -101,14 +100,15 @@ export class MessageCenterField extends React.Component<
   };
 
   public override render(): React.ReactNode {
-    const tooltip = `${this.state.messageCount} ${this._title}`;
+    const title = UiFramework.translate("messageCenter.messages");
+    const tooltip = `${this.state.messageCount} ${title}`;
     const divStyle = { ...this.props.style, height: "100%" };
     const footerMessages = (
       <>
         <div className={this.props.className} style={divStyle} title={tooltip}>
           <MessageCenter
             indicatorRef={this._indicator}
-            label={this._title}
+            label={title}
             onClick={this._handleMessageIndicatorClick}
           >
             {this.state.messageCount.toString()}
@@ -146,7 +146,7 @@ export class MessageCenterField extends React.Component<
                 </MessageCenterTab>
               </>
             }
-            title={this._title}
+            title={title}
           >
             {this.getMessages()}
           </MessageCenterDialog>

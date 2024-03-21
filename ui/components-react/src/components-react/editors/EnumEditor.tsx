@@ -36,7 +36,6 @@ export class EnumEditor
   implements TypeEditor
 {
   private _isMounted = false;
-  private _ariaLabel = UiComponents.translate("editor.enum");
   private _divElement = React.createRef<HTMLDivElement>();
 
   /** @internal */
@@ -208,7 +207,7 @@ export class EnumEditor
             },
             className: "components-button",
           }}
-          aria-label={this._ariaLabel}
+          aria-label={UiComponents.translate("editor.enum")}
           size="small"
         />
       </div>

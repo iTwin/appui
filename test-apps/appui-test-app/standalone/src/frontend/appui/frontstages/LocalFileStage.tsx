@@ -5,11 +5,7 @@
 import * as React from "react";
 import { Id64String } from "@itwin/core-bentley";
 import { IModelReadRpcInterface, ViewQueryParams } from "@itwin/core-common";
-import {
-  IModelApp,
-  IModelConnection,
-  SpatialViewState,
-} from "@itwin/core-frontend";
+import { IModelConnection, SpatialViewState } from "@itwin/core-frontend";
 
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import { OpenDialogOptions } from "electron";
@@ -36,6 +32,7 @@ import {
   ConditionalBooleanValue,
   StandardContentLayouts,
 } from "@itwin/appui-abstract";
+import { TestAppLocalization, useTranslation } from "../../useTranslation";
 
 async function getDefaultViewId(
   iModelConnection: IModelConnection
@@ -194,9 +191,7 @@ class LocalFileOpenStageBackstageItemsProvider implements UiItemsProvider {
         300,
         30,
         async () => LocalFileOpenFrontstage.open(),
-        IModelApp.localization.getLocalizedString(
-          "SampleApp:backstage:fileSelect"
-        ),
+        TestAppLocalization.translate("backstage:fileSelect"),
         undefined,
         "icon-placeholder",
         { isHidden: openLocalFileHidden }
@@ -216,17 +211,8 @@ interface LocalFilePageProps {
 /** LocalFilePage displays the file picker and view picker. */
 function LocalFilePage(props: LocalFilePageProps) {
   const { onViewsSelected } = props;
+  const { translate } = useTranslation();
 
-  const title = React.useRef(
-    UiFramework.localization.getLocalizedString(
-      "SampleApp:localFileStage.localFile"
-    )
-  );
-  const buttonLabel = React.useRef(
-    UiFramework.localization.getLocalizedString(
-      "SampleApp:localFileStage.selectFile"
-    )
-  );
   const isElectronApp = React.useRef(ElectronApp.isValid);
   const filePickerElement = React.useRef<HTMLInputElement | null>(null);
 
@@ -285,7 +271,7 @@ function LocalFilePage(props: LocalFilePageProps) {
   return (
     <>
       <div style={{ position: "absolute", top: "16px", left: "100px" }}>
-        <Text variant="headline">{title.current}</Text>
+        <Text variant="headline">{translate("localFileStage.localFile")}</Text>
       </div>
       <FillCentered>
         {!isElectronApp.current && (
@@ -299,7 +285,7 @@ function LocalFilePage(props: LocalFilePageProps) {
           />
         )}
         <Button size="large" styleType="cta" onClick={handleButtonClick}>
-          {buttonLabel.current}
+          {translate("localFileStage.selectFile")}
         </Button>
       </FillCentered>
     </>

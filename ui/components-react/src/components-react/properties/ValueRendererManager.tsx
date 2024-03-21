@@ -107,7 +107,7 @@ export class PropertyValueRendererManager {
   protected _defaultMergedValueRenderer: IPropertyValueRenderer =
     new MergedPropertyValueRenderer();
 
-  private selectRenderer(record: PropertyRecord) {
+  private getCustomRenderer(record: PropertyRecord) {
     if (
       record.property.renderer &&
       this._propertyRenderers.has(record.property.renderer.name)
@@ -119,6 +119,13 @@ export class PropertyValueRendererManager {
 
     if (this._propertyRenderers.has(record.property.typename))
       return this._propertyRenderers.get(record.property.typename)!;
+
+    return undefined;
+  }
+
+  private selectRenderer(record: PropertyRecord) {
+    const customRenderer = this.getCustomRenderer(record);
+    if (customRenderer) return customRenderer;
 
     // Use one of default renderers
     switch (record.value.valueFormat) {
@@ -169,6 +176,12 @@ export class PropertyValueRendererManager {
   /** Get the specified property type renderer instance */
   public getRegisteredRenderer(rendererType: string) {
     return this._propertyRenderers.get(rendererType);
+  }
+
+  /** Check whether a property record has a custom renderer registered that can render it */
+  public hasCustomRenderer(record: PropertyRecord): boolean {
+    const customRenderer = this.getCustomRenderer(record);
+    return !!(customRenderer && customRenderer.canRender(record));
   }
 
   /** Returns default PropertyValueRendererManager instance */

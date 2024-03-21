@@ -26,21 +26,21 @@ import { UiFramework } from "../UiFramework";
 import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { StageUsage } from "./StageUsage";
 import { BackstageItemUtilities } from "../backstage/BackstageItemUtilities";
+import { useTranslation } from "../useTranslation";
 
 function ModalSettingsStage({
   initialSettingsTabId,
 }: {
   initialSettingsTabId?: string;
 }) {
+  const { translate } = useTranslation();
+
   const id = UiFramework.frontstages.activeFrontstageDef?.id ?? "none";
   const stageUsage =
     UiFramework.frontstages.activeFrontstageDef?.usage ?? StageUsage.General;
   const tabEntries = UiFramework.settingsManager.getSettingEntries(
     id,
     stageUsage
-  );
-  const noSettingsAvailableLabel = React.useRef(
-    UiFramework.translate("settings.noSettingsAvailable")
   );
 
   const currentSettingsTab = React.useCallback(() => {
@@ -84,7 +84,7 @@ function ModalSettingsStage({
           settingsManager={UiFramework.settingsManager}
         />
       ) : (
-        <Centered>{noSettingsAvailableLabel.current}</Centered>
+        <Centered>{translate("settings.noSettingsAvailable")}</Centered>
       )}
     </div>
   );
@@ -96,7 +96,7 @@ function ModalSettingsStage({
  */
 export class SettingsModalFrontstage implements ModalFrontstageInfo {
   public static id = "appui-react.modalSettingsStage";
-  public title: string = UiFramework.translate("settings.settingsStageLabel");
+  public title = UiFramework.translate("settings.settingsStageLabel");
   constructor(public initialSettingsTabId?: string) {}
   public notifyCloseRequest = true;
   public get content(): React.ReactNode {
@@ -147,15 +147,12 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
         new SettingsModalFrontstage(initialSettingsTab)
       );
     } else {
-      const briefMessage = UiFramework.translate(
-        "settings.noSettingsAvailable"
-      );
       const detailedMessage = UiFramework.translate(
         "settings.noSettingsProvidersRegistered"
       );
       const info = new NotifyMessageDetails(
         OutputMessagePriority.Info,
-        briefMessage,
+        UiFramework.translate("settings.noSettingsAvailable"),
         detailedMessage,
         OutputMessageType.Toast
       );

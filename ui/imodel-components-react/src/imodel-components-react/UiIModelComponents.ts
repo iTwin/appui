@@ -70,7 +70,7 @@ export class UiIModelComponents {
     return "imodel-components-react";
   }
 
-  /** Calls localization.getLocalizedStringWithNamespace with the "UiIModelComponents" namespace. Do NOT include the namespace in the key.
+  /** Calls localization.getLocalizedString with the "UiIModelComponents" namespace. Do NOT include the namespace in the key.
    * @internal
    */
   public static translate(key: string | string[]): string {
@@ -84,9 +84,9 @@ export class UiIModelComponents {
       );
       return "";
     }
-    return IModelApp.localization.getLocalizedString(key, {
-      ns: UiIModelComponents.localizationNamespace,
-    });
+    return IModelApp.localization.getLocalizedString(
+      `${UiIModelComponents.localizationNamespace}:${key}`
+    );
   }
 
   /** @internal */

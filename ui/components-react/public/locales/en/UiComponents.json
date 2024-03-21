@@ -6,7 +6,9 @@
     "noData": "The data required for this tree layout is not available in this iModel.",
     "length": "Length",
     "label": "Label",
-    "of": "of"
+    "of": "of",
+    "search": "Search",
+    "clear": "Clear"
   },
   "button": {
     "label": {
@@ -143,5 +145,9 @@
       "emptyValue": "Value is required",
       "invalidRange": "Invalid range"
     }
+  },
+  "dialog": {
+    "ok": "OK",
+    "cancel": "Cancel"
   }
 }

@@ -5,32 +5,32 @@
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 
 @layer appui.preview.enable-maximized-widget {
-  .preview-maximized-panel-layout {
+  .uifw-preview-enableMaximizedWidget_panel-layout {
     grid-row: 1 / -1;
     grid-column: 1 / -1;
 
     z-index: uicore-get-z-index(dragged-widget) + 1;
   }
 
-  .preview-maximized-panel {
+  .uifw-preview-enableMaximizedWidget_panel {
     height: 100%;
   }
 
-  .preview-maximized-section {
+  .uifw-preview-enableMaximizedWidget_section {
     flex: 1;
   }
 
-  .preview-maximized-section-sibling {
+  .uifw-preview-enableMaximizedWidget_section-sibling {
     display: none;
   }
 
-  .preview-maximized-floatingWidget {
+  .uifw-preview-enableMaximizedWidget_floatingWidget {
     opacity: 1;
     border-radius: unset;
     inset: 0;
   }
 
-  .preview-maximized-widget-tabBar {
+  .uifw-preview-enableMaximizedWidget_widget-tabBar {
     pointer-events: none;
   }
 }

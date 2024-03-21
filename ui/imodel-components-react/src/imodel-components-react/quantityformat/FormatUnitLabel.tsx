@@ -13,7 +13,7 @@ import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Checkbox, Select } from "@itwin/itwinui-react";
-import { UiIModelComponents } from "../UiIModelComponents";
+import { useTranslation } from "../useTranslation";
 
 interface UomSeparatorSelectorProps extends CommonProps {
   separator: string;
@@ -23,11 +23,7 @@ interface UomSeparatorSelectorProps extends CommonProps {
 
 function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
   const { separator, onChange, ...otherProps } = props;
-  const uomDefaultEntries = React.useRef<SelectOption<string>[]>([
-    { value: "", label: UiIModelComponents.translate("QuantityFormat.none") },
-    { value: " ", label: UiIModelComponents.translate("QuantityFormat.space") },
-    { value: "-", label: UiIModelComponents.translate("QuantityFormat.dash") },
-  ]);
+  const { translate } = useTranslation();
 
   const handleOnChange = React.useCallback(
     (newValue: string) => {
@@ -37,17 +33,23 @@ function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
   );
 
   const separatorOptions = React.useMemo(() => {
+    const uomDefaultEntries: SelectOption<string>[] = [
+      { value: "", label: translate("QuantityFormat.none") },
+      { value: " ", label: translate("QuantityFormat.space") },
+      { value: "-", label: translate("QuantityFormat.dash") },
+    ];
     const completeListOfEntries: SelectOption<string>[] = [];
+
     // istanbul ignore next (only used if format already has a character that does not match standard options)
     if (
       undefined ===
-      uomDefaultEntries.current.find((option) => option.value === separator)
+      uomDefaultEntries.find((option) => option.value === separator)
     ) {
       completeListOfEntries.push({ value: separator, label: separator });
     }
-    completeListOfEntries.push(...uomDefaultEntries.current);
+    completeListOfEntries.push(...uomDefaultEntries);
     return completeListOfEntries;
-  }, [separator]);
+  }, [separator, translate]);
 
   return (
     <Select
@@ -73,6 +75,7 @@ export interface FormatUnitLabelProps extends CommonProps {
  */
 export function FormatUnitLabel(props: FormatUnitLabelProps) {
   const { formatProps, onUnitLabelChange } = props;
+  const { translate } = useTranslation();
 
   const handleSetFormatProps = React.useCallback(
     (newProps: FormatProps) => {
@@ -136,16 +139,11 @@ export function FormatUnitLabel(props: FormatUnitLabelProps) {
     [setFormatTrait]
   );
 
-  const appendUnitLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.appendUnitLabel")
-  );
-  const labelSeparator = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.labelSeparator")
-  );
-
   return (
     <>
-      <span className={"uicore-label"}>{appendUnitLabel.current}</span>
+      <span className={"uicore-label"}>
+        {translate("QuantityFormat.labels.appendUnitLabel")}
+      </span>
       <Checkbox
         data-testid="show-unit-label-checkbox"
         checked={isFormatTraitSet(FormatTraits.ShowUnitLabel)}
@@ -157,7 +155,7 @@ export function FormatUnitLabel(props: FormatUnitLabelProps) {
           !isFormatTraitSet(FormatTraits.ShowUnitLabel) && "uicore-disabled"
         )}
       >
-        {labelSeparator.current}
+        {translate("QuantityFormat.labels.labelSeparator")}
       </span>
       <UomSeparatorSelector
         data-testid="uom-separator-select"

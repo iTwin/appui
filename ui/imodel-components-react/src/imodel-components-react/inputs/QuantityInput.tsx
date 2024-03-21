@@ -16,8 +16,8 @@ import { IModelApp } from "@itwin/core-frontend";
 import { Parser } from "@itwin/core-quantity";
 import type { ParseResults } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
-import { UiIModelComponents } from "../UiIModelComponents";
 import { ParsedInput } from "@itwin/components-react";
+import { useTranslation } from "../useTranslation";
 
 /** Props for [[QuantityInput]] control
  * @beta
@@ -47,6 +47,7 @@ export function QuantityInput({
   onQuantityChange,
   ref,
 }: QuantityProps) {
+  const { translate } = useTranslation();
   const [formatterSpec, setFormatterSpec] = React.useState(() =>
     IModelApp.quantityFormatter.findFormatterSpecByQuantityType(quantityType)
   );
@@ -82,7 +83,7 @@ export function QuantityInput({
             ? parseResult.error.toString()
             : "Unknown";
           return {
-            parseError: `${UiIModelComponents.translate(
+            parseError: `${translate(
               "QuantityInput.NoParserDefined"
             )}${statusId}`,
           };
@@ -90,12 +91,10 @@ export function QuantityInput({
       }
       // istanbul ignore next
       return {
-        parseError: UiIModelComponents.translate(
-          "QuantityInput.NoParserDefined"
-        ),
+        parseError: translate("QuantityInput.NoParserDefined"),
       };
     },
-    [parserSpec]
+    [parserSpec, translate]
   );
 
   const classNames = classnames(className, "components-quantity-input");

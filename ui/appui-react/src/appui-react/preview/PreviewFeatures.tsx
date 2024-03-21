@@ -27,7 +27,7 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/673
    */
   enableMaximizedPanelWidget: boolean;
-  /** If true, a tab, or the active tab of a group of widget will become active when dropped in a container.
+  /** If true, the active tab of a dragged widget will become active when dropped in a container.
    *
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/679
    */

@@ -7,14 +7,14 @@ import { produce } from "immer";
 import type { NineZoneAction } from "../../../appui-react/layout/state/NineZoneAction";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { NineZoneStateReducer } from "../../../appui-react/layout/state/NineZoneStateReducer";
-import { activateDroppedTab } from "../../../appui-react/layout/state/activateDroppedTab";
+import { activateDroppedTab } from "../../../appui-react/preview/activate-dropped-tab/activateDroppedTab";
 import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers";
 import {
   addTab,
   createDraggedTabState,
 } from "../../../appui-react/layout/state/internal/TabStateHelpers";
 import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers";
-import { addTabs } from "../Utils";
+import { addTabs } from "../../layout/Utils";
 
 describe("activateDroppedTab", () => {
   describe("WIDGET_DRAG_END", () => {
@@ -26,13 +26,13 @@ describe("activateDroppedTab", () => {
         state = addTabs(state, ["t1"]);
         state = addFloatingWidget(state, "fw1", ["t1"]);
 
-        const action = {
+        const action: NineZoneAction = {
           type: "WIDGET_DRAG_END",
           floatingWidgetId: "fw1",
           target: {
             type: "window",
           },
-        } as NineZoneAction;
+        };
 
         const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
         const newState = wrappedReducer(state, action);
@@ -48,7 +48,7 @@ describe("activateDroppedTab", () => {
           state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
           state = addFloatingWidget(state, "fw1", ["fwt1"]);
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_DRAG_END",
             floatingWidgetId: "fw1",
             target: {
@@ -56,7 +56,7 @@ describe("activateDroppedTab", () => {
               tabIndex: 1,
               widgetId: "w1",
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -74,7 +74,7 @@ describe("activateDroppedTab", () => {
           state = addPanelWidget(state, "left", "w2", ["t2"]);
           state = addFloatingWidget(state, "fw1", ["fwt1"]);
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_DRAG_END",
             floatingWidgetId: "fw1",
             target: {
@@ -83,7 +83,7 @@ describe("activateDroppedTab", () => {
               side: "left",
               sectionIndex: 1,
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -101,14 +101,14 @@ describe("activateDroppedTab", () => {
           state = addPanelWidget(state, "left", "w2", ["t2"]);
           state = addFloatingWidget(state, "fw1", ["fwt1"]);
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_DRAG_END",
             floatingWidgetId: "fw1",
             target: {
               type: "widget",
               widgetId: "w2",
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -123,14 +123,14 @@ describe("activateDroppedTab", () => {
           state = addFloatingWidget(state, "fw1", ["fwt1"]);
           state = addFloatingWidget(state, "fw2", ["fwt2"]);
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_DRAG_END",
             floatingWidgetId: "fw1",
             target: {
               type: "widget",
               widgetId: "fw2",
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -146,7 +146,7 @@ describe("activateDroppedTab", () => {
           state = addTab(state, "fwt1");
           state = addFloatingWidget(state, "fw1", ["fwt1"]);
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_DRAG_END",
             floatingWidgetId: "fw1",
             target: {
@@ -154,7 +154,7 @@ describe("activateDroppedTab", () => {
               newWidgetId: "leftStart",
               side: "left",
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -177,7 +177,7 @@ describe("activateDroppedTab", () => {
             });
           });
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_TAB_DRAG_END",
             id: "dt",
             target: {
@@ -185,7 +185,7 @@ describe("activateDroppedTab", () => {
               tabIndex: 1,
               widgetId: "leftStart",
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -204,7 +204,7 @@ describe("activateDroppedTab", () => {
             });
           });
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_TAB_DRAG_END",
             id: "dt",
             target: {
@@ -212,7 +212,7 @@ describe("activateDroppedTab", () => {
               tabIndex: 1,
               widgetId: "leftEnd",
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -233,7 +233,7 @@ describe("activateDroppedTab", () => {
             });
           });
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_TAB_DRAG_END",
             id: "dt",
             target: {
@@ -242,7 +242,7 @@ describe("activateDroppedTab", () => {
               side: "left",
               sectionIndex: 1,
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -261,7 +261,7 @@ describe("activateDroppedTab", () => {
             });
           });
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_TAB_DRAG_END",
             id: "dt",
             target: {
@@ -270,7 +270,7 @@ describe("activateDroppedTab", () => {
               side: "left",
               sectionIndex: 1,
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -289,7 +289,7 @@ describe("activateDroppedTab", () => {
             });
           });
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_TAB_DRAG_END",
             id: "dt",
             target: {
@@ -298,7 +298,7 @@ describe("activateDroppedTab", () => {
               side: "left",
               sectionIndex: 0,
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -319,14 +319,14 @@ describe("activateDroppedTab", () => {
             });
           });
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_TAB_DRAG_END",
             id: "dt",
             target: {
               type: "widget",
               widgetId: "leftEnd",
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -345,14 +345,14 @@ describe("activateDroppedTab", () => {
             });
           });
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_TAB_DRAG_END",
             id: "dt",
             target: {
               type: "widget",
               widgetId: "leftStart",
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -371,14 +371,14 @@ describe("activateDroppedTab", () => {
             });
           });
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_TAB_DRAG_END",
             id: "dt",
             target: {
               type: "widget",
               widgetId: "fw1",
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -398,7 +398,7 @@ describe("activateDroppedTab", () => {
             });
           });
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_TAB_DRAG_END",
             id: "dt",
             target: {
@@ -406,7 +406,7 @@ describe("activateDroppedTab", () => {
               newWidgetId: "newId",
               side: "left",
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -426,7 +426,7 @@ describe("activateDroppedTab", () => {
             });
           });
 
-          const action = {
+          const action: NineZoneAction = {
             type: "WIDGET_TAB_DRAG_END",
             id: "dt",
             target: {
@@ -437,7 +437,7 @@ describe("activateDroppedTab", () => {
                 width: 200,
               },
             },
-          } as NineZoneAction;
+          };
 
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
@@ -458,11 +458,11 @@ describe("activateDroppedTab", () => {
           bounds: new Rectangle(0, 100, 200, 400),
         });
 
-        const action = {
+        const action: NineZoneAction = {
           type: "WIDGET_DRAG",
           dragBy: new Point(10, 20).toProps(),
           floatingWidgetId: "fw1",
-        } as NineZoneAction;
+        };
 
         const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
         const newState = wrappedReducer(state, action);

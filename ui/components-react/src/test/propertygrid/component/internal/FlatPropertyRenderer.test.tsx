@@ -144,7 +144,7 @@ describe("FlatPropertyRenderer", () => {
     expect(highlightedNode!.textContent).to.eq("rr");
   });
 
-  it("renders struct as a non primitive value", () => {
+  it("renders array as a non primitive value", () => {
     propertyRecord = TestUtils.createArrayProperty("StringArray", [
       TestUtils.createPrimitiveStringProperty("Label", "Model"),
     ]);
@@ -168,7 +168,93 @@ describe("FlatPropertyRenderer", () => {
     );
   });
 
-  it("renders array as a non primitive value", () => {
+  it("renders array as a non primitive value when renderer assigned but not registered", () => {
+    propertyRecord = TestUtils.createArrayProperty("StringArray", [
+      TestUtils.createPrimitiveStringProperty("Label", "Model"),
+    ]);
+    propertyRecord.property.renderer = { name: "nonRegisteredRenderer" };
+
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+      />
+    );
+
+    expect(screen.getByTitle("StringArray (1)")).satisfy(
+      selectorMatches(
+        [
+          ".components-nonprimitive-property-label-renderer",
+          ".components-property-label-renderer",
+        ].join(" ")
+      )
+    );
+  });
+
+  it("renders array using custom renderer", () => {
+    propertyRecord = TestUtils.createArrayProperty("StringArray", [
+      TestUtils.createPrimitiveStringProperty("Label", "Model"),
+    ]);
+    propertyRecord.property.renderer = { name: "CustomArrayRenderer" };
+
+    const customRenderer = {
+      canRender: () => true,
+      render: () => <div>Custom array renderer</div>,
+    };
+
+    PropertyValueRendererManager.defaultManager.registerRenderer(
+      "CustomArrayRenderer",
+      customRenderer
+    );
+
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+      />
+    );
+
+    expect(screen.getByText("Custom array renderer")).to.not.be.null;
+  });
+
+  it("renders array using custom typename renderer", () => {
+    propertyRecord = TestUtils.createArrayProperty("StringArray", [
+      TestUtils.createPrimitiveStringProperty("Label", "Model"),
+    ]);
+    propertyRecord.property.typename = "customArrayTypename";
+
+    const customRenderer = {
+      canRender: () => true,
+      render: () => <div>Custom array typename renderer</div>,
+    };
+
+    PropertyValueRendererManager.defaultManager.registerRenderer(
+      "customArrayTypename",
+      customRenderer
+    );
+
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+        highlight={{
+          highlightedText: "rr",
+          applyOnLabel: true,
+          applyOnValue: true,
+        }}
+      />
+    );
+
+    expect(screen.getByText("Custom array typename renderer")).to.not.be.null;
+  });
+
+  it("renders struct as a non primitive value", () => {
     propertyRecord = TestUtils.createStructProperty("Struct");
 
     render(
@@ -188,6 +274,86 @@ describe("FlatPropertyRenderer", () => {
         ].join(" ")
       )
     );
+  });
+
+  it("renders struct as a non primitive value when renderer assigned but not registered", () => {
+    propertyRecord = TestUtils.createStructProperty("Struct");
+    propertyRecord.property.renderer = { name: "nonRegisteredRenderer" };
+
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+      />
+    );
+
+    expect(screen.getByTitle("Struct")).satisfy(
+      selectorMatches(
+        [
+          ".components-nonprimitive-property-label-renderer",
+          ".components-property-label-renderer",
+        ].join(" ")
+      )
+    );
+  });
+
+  it("renders struct using custom renderer", () => {
+    propertyRecord = TestUtils.createStructProperty("Struct");
+    propertyRecord.property.renderer = { name: "CustomStructRenderer" };
+
+    const customRenderer = {
+      canRender: () => true,
+      render: () => <div>Custom struct renderer</div>,
+    };
+
+    PropertyValueRendererManager.defaultManager.registerRenderer(
+      "CustomStructRenderer",
+      customRenderer
+    );
+
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+      />
+    );
+
+    expect(screen.getByText("Custom struct renderer")).to.not.be.null;
+  });
+
+  it("renders struct using custom typename renderer", () => {
+    propertyRecord = TestUtils.createStructProperty("Struct");
+    propertyRecord.property.typename = "customStructTypename";
+
+    const customRenderer = {
+      canRender: () => true,
+      render: () => <div>Custom struct typename renderer</div>,
+    };
+
+    PropertyValueRendererManager.defaultManager.registerRenderer(
+      "customStructTypename",
+      customRenderer
+    );
+
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        isExpanded={false}
+        onExpansionToggled={() => {}}
+        highlight={{
+          highlightedText: "rr",
+          applyOnLabel: true,
+          applyOnValue: true,
+        }}
+      />
+    );
+
+    expect(screen.getByText("Custom struct typename renderer")).to.not.be.null;
   });
 
   it("renders an editor correctly", () => {
@@ -351,11 +517,12 @@ describe("FlatPropertyRenderer", () => {
 
     function renderFlatPropertyRenderer(
       isEditing: boolean,
-      onHeightChanged?: (newHeight: number) => void
+      onHeightChanged?: (newHeight: number) => void,
+      orientation?: Orientation
     ) {
       return (
         <FlatPropertyRenderer
-          orientation={Orientation.Horizontal}
+          orientation={orientation ?? Orientation.Horizontal}
           propertyRecord={record}
           isExpanded={false}
           isEditing={isEditing}
@@ -372,7 +539,19 @@ describe("FlatPropertyRenderer", () => {
       );
       expect(onHeightChanged).to.have.not.been.called;
       rerender(renderFlatPropertyRenderer(true, onHeightChanged));
-      expect(onHeightChanged).to.have.been.calledOnceWith(27);
+      expect(onHeightChanged).to.have.been.calledOnceWith(28);
+    });
+
+    it("gets called when entering editing state in vertical orientation", () => {
+      const onHeightChanged = sinon.fake();
+      const { rerender } = render(
+        renderFlatPropertyRenderer(false, onHeightChanged, Orientation.Vertical)
+      );
+      expect(onHeightChanged).to.have.not.been.called;
+      rerender(
+        renderFlatPropertyRenderer(true, onHeightChanged, Orientation.Vertical)
+      );
+      expect(onHeightChanged).to.have.been.calledOnceWith(48);
     });
 
     it("does not get called when component is mounted in editing state", () => {

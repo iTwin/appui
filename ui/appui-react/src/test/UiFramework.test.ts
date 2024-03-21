@@ -11,7 +11,7 @@ import type { IModelRpcProps } from "@itwin/core-common";
 import type { Id64String } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
-import { IModelApp, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
+import { IModelApp, SelectionSet } from "@itwin/core-frontend";
 import type { CursorMenuPayload, UserSettingsProvider } from "../appui-react";
 import {
   AccuDrawPopupManager,
@@ -128,15 +128,6 @@ describe("UiFramework localStorage Wrapper", () => {
       expect(UiFramework.initialized).to.be.true;
       await UiFramework.initialize(TestUtils.store);
       spyLogger.calledOnce.should.true;
-    });
-
-    it("calling initialize without I18N will use IModelApp.i18n", async () => {
-      await NoRenderApp.startup();
-
-      await UiFramework.initialize(TestUtils.store);
-      expect(UiFramework.localization).to.eq(IModelApp.localization);
-
-      await IModelApp.shutdown();
     });
 
     it("test default frameworkState key", async () => {

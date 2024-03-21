@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { UiIModelComponents } from "../../UiIModelComponents";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
+import { useTranslation } from "../../useTranslation";
 
 /** Properties of [[StationSizeSelector]] component.
  * @internal
@@ -26,16 +26,17 @@ export interface StationSizeSelectorProps extends CommonProps {
  */
 export function StationSizeSelector(props: StationSizeSelectorProps) {
   const { value, disabled, onChange, ...otherProps } = props;
-  const separatorOptions = React.useRef<SelectOption<number>[]>([
+  const { translate } = useTranslation();
+  const separatorOptions: SelectOption<number>[] = [
     {
       value: 2,
-      label: UiIModelComponents.translate("QuantityFormat.station_size.two"),
+      label: translate("QuantityFormat.station_size.two"),
     },
     {
       value: 3,
-      label: UiIModelComponents.translate("QuantityFormat.station_size.three"),
+      label: translate("QuantityFormat.station_size.three"),
     },
-  ]);
+  ];
 
   const handleOnChange = React.useCallback(
     (newValue: number) => {
@@ -46,7 +47,7 @@ export function StationSizeSelector(props: StationSizeSelectorProps) {
 
   return (
     <Select
-      options={separatorOptions.current}
+      options={separatorOptions}
       disabled={disabled}
       value={value}
       onChange={handleOnChange}

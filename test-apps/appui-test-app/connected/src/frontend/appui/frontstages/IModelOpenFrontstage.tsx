@@ -21,6 +21,7 @@ import {
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../../index";
 import { IModelOpen } from "../imodelopen/IModelOpen";
+import { TestAppLocalization } from "../../useTranslation";
 
 class IModelOpenControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -105,9 +106,7 @@ class BackstageItemsProvider implements UiItemsProvider {
         IModelOpenFrontstage.stageId,
         300,
         10,
-        IModelApp.localization.getLocalizedString(
-          "SampleApp:backstage.imodelopen"
-        ),
+        TestAppLocalization.translate("backstage.imodelopen"),
         undefined,
         "icon-folder-opened"
       ),

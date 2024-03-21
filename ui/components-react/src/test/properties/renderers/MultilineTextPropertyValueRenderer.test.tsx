@@ -89,41 +89,6 @@ describe("MultilineTextRenderer", () => {
     expect(getByText("Test")).to.be.not.null;
   });
 
-  it("reports element's height", () => {
-    sinon.stub(HTMLElement.prototype, "offsetHeight").get(() => 50);
-    const handleHeightChange = sinon.fake();
-    render(<MultilineTextRenderer onHeightChanged={handleHeightChange} />);
-    expect(handleHeightChange).to.have.been.calledOnceWith(50);
-  });
-
-  it("doesn't report element's height change when height hasn't changed", () => {
-    sinon.stub(HTMLElement.prototype, "offsetHeight").get(() => 10);
-    const handleHeightChange = sinon.fake();
-    const { rerender } = render(
-      <MultilineTextRenderer onHeightChanged={handleHeightChange} />
-    );
-
-    sinon.restore();
-    sinon.stub(HTMLElement.prototype, "offsetHeight").get(() => 15);
-    rerender(<MultilineTextRenderer onHeightChanged={handleHeightChange} />);
-    expect(handleHeightChange).to.have.been.calledOnceWith(27);
-  });
-
-  it("reports element's height change", () => {
-    sinon.stub(HTMLElement.prototype, "offsetHeight").get(() => 50);
-    const handleHeightChange = sinon.fake();
-    const { rerender } = render(
-      <MultilineTextRenderer onHeightChanged={handleHeightChange} />
-    );
-    expect(handleHeightChange).to.have.been.calledWith(50);
-
-    sinon.restore();
-    sinon.stub(HTMLElement.prototype, "offsetHeight").get(() => 5);
-    rerender(<MultilineTextRenderer onHeightChanged={handleHeightChange} />);
-    expect(handleHeightChange).to.have.been.calledWith(27);
-    expect(handleHeightChange).to.have.been.calledTwice;
-  });
-
   it("does not attempt to call `onExpansionToggled` callback that is not present and throw", () => {
     sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
     sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 100);

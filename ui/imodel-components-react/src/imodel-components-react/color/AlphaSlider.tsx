@@ -35,8 +35,6 @@ export interface AlphaSliderProps
 // eslint-disable-next-line deprecation/deprecation
 export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
   private _container: HTMLDivElement | null = null;
-  private _transparencyLabel =
-    UiIModelComponents.translate("color.transparency");
 
   /** @internal */
   // eslint-disable-next-line deprecation/deprecation
@@ -207,7 +205,7 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
         <div
           data-testid="alpha-slider"
           role="slider"
-          aria-label={this._transparencyLabel}
+          aria-label={UiIModelComponents.translate("color.transparency")}
           aria-valuemin={0}
           aria-valuemax={1}
           aria-valuenow={this.props.alpha}

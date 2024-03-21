@@ -8,10 +8,10 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { UiIModelComponents } from "../../UiIModelComponents";
 import { ShowSignOption } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
+import { useTranslation } from "../../useTranslation";
 
 /** Properties of [[SignOptionSelector]] component.
  * @internal
@@ -26,30 +26,25 @@ export interface SignOptionSelectorProps extends CommonProps {
  */
 export function SignOptionSelector(props: SignOptionSelectorProps) {
   const { signOption, onChange, ...otherProps } = props;
-  const options = React.useRef<SelectOption<ShowSignOption>[]>([
+  const { translate } = useTranslation();
+  const options: SelectOption<ShowSignOption>[] = [
     {
       value: ShowSignOption.NoSign,
-      label: UiIModelComponents.translate("QuantityFormat.sign_option.noSign"),
+      label: translate("QuantityFormat.sign_option.noSign"),
     },
     {
       value: ShowSignOption.OnlyNegative,
-      label: UiIModelComponents.translate(
-        "QuantityFormat.sign_option.onlyNegative"
-      ),
+      label: translate("QuantityFormat.sign_option.onlyNegative"),
     },
     {
       value: ShowSignOption.SignAlways,
-      label: UiIModelComponents.translate(
-        "QuantityFormat.sign_option.signAlways"
-      ),
+      label: translate("QuantityFormat.sign_option.signAlways"),
     },
     {
       value: ShowSignOption.NegativeParentheses,
-      label: UiIModelComponents.translate(
-        "QuantityFormat.sign_option.negativeParentheses"
-      ),
+      label: translate("QuantityFormat.sign_option.negativeParentheses"),
     },
-  ]);
+  ];
 
   const handleOnChange = React.useCallback(
     (newValue: ShowSignOption) => {
@@ -60,7 +55,7 @@ export function SignOptionSelector(props: SignOptionSelectorProps) {
 
   return (
     <Select
-      options={options.current}
+      options={options}
       value={signOption}
       onChange={handleOnChange}
       size="small"

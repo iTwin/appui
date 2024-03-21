@@ -22,7 +22,7 @@ export function useHorizontalPanelAlignment(side: PanelSide) {
           "data-preview-horizontal-panel-align-bottom": alignments.bottom,
         },
         classNames: {
-          [`preview-${side}`]: true,
+          [`uifw-preview-horizontalPanelAlignment_${side}`]: true,
         },
       }
     : {};
