@@ -1,6 +1,23 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Mon, 26 Feb 2024 15:50:45 GMT and should not be manually modified.
+This log was last generated on Thu, 21 Mar 2024 16:38:04 GMT and should not be manually modified.
+
+## 4.11.0
+Thu, 21 Mar 2024 16:38:04 GMT
+
+### Updates
+
+- Deprecate much of `FrameworkUiAdmin`. Introduce `Placement`, a replacement for `RelativePosition`
+- Deprecate useProximityOpacity visibility setting.
+- Fix `UiFramework.frontstages.onWidgetStateChangedEvent` event to correctly emit widget state changes.
+- Fix `ThemeManager` to correctly handle `os` theme for backwards compatibility.
+- Fix polar mode AccuDraw input focus by correctly focusing the distance field.
+- Fix an issue when right-click + left-click starts widget drag interaction
+- Update `WidgetDef.show()` to bring the popout widget window to the front if allowed by the browser.
+- Removed arrow from status bar popup.
+- Render empty tool settings message in widget mode.
+- Add `newToolbars` preview feature which replaces `Toolbar` component with iTwinUI based toolbar.
+- Removed memoization for translated strings in components.
 
 ## 4.10.0
 Mon, 26 Feb 2024 15:50:45 GMT
