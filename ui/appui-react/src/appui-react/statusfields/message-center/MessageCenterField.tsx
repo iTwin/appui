@@ -24,19 +24,25 @@ import type { MessageType } from "@itwin/core-react";
 import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails";
 import "./MessageCenterField.scss";
 
+/**
+ * Type for Status state to satisfy NotificationMarker type checking
+ */
+type status = "primary" | "negative";
+
 /** Message Center Field React component.
  * @public
  */
 export function MessageCenterField() {
   const [messages, setMessages] = React.useState(MessageManager.messages);
-  const [notify, setNotify] = React.useState("");
+  const [notify, setNotify] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
+  const [status, setStatus] = React.useState<status>("primary");
 
   const indicatorRef = React.createRef<HTMLButtonElement>();
   const title = UiFramework.translate("messageCenter.messages");
 
   const handleOpenChange = (isOpenState: boolean) => {
-    setNotify("");
+    setNotify(false);
     setIsOpen(isOpenState);
   };
 
@@ -48,16 +54,18 @@ export function MessageCenterField() {
     );
   };
 
-  const notifyStatus = messages.some((msg) => isProblemStatus(msg))
-    ? "negative"
-    : "primary";
+  const determineStatus = () =>
+    messages.some((msg) => isProblemStatus(msg))
+      ? setStatus("negative")
+      : setStatus("primary");
 
   React.useEffect(() => {
     MessageManager.registerAnimateOutToElement(indicatorRef.current);
 
     return MessageManager.onMessagesUpdatedEvent.addListener(() => {
-      setNotify(notifyStatus);
+      MessageManager.messages.length > 0 ? setNotify(true) : setNotify(false);
       setMessages(MessageManager.messages);
+      determineStatus();
     });
   });
 
@@ -131,12 +139,7 @@ export function MessageCenterField() {
             </span>
           }
           startIcon={
-            <NotificationMarker
-              status={notifyStatus}
-              enabled={
-                notify === "primary" || notify === "negative" ? true : false
-              }
-            >
+            <NotificationMarker status={status} enabled={notify}>
               <SvgChat />
             </NotificationMarker>
           }
