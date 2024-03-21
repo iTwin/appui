@@ -17,10 +17,8 @@ import type { Localization } from "@itwin/core-common";
 import { UiError } from "@itwin/appui-abstract";
 import { IconWebComponent } from "./utils/IconWebComponent";
 import { getObjectClassName } from "./utils/getObjectClassName";
-// cSpell:ignore colorthemes colorvariables
 
-/**
- * Manages the Localization service for the core-react package.
+/** Manages the Localization service for the core-react package.
  * @public
  */
 export class UiCore {
@@ -110,3 +108,8 @@ export class UiCore {
     return category;
   }
 }
+
+/** The default internationalization namespace of this package.
+ * @alpha
+ */
+export const defaultNamespace = UiCore.localizationNamespace;
