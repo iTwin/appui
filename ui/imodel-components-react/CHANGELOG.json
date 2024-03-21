@@ -2,6 +2,30 @@
   "name": "@itwin/imodel-components-react",
   "entries": [
     {
+      "version": "4.11.0",
+      "tag": "@itwin/imodel-components-react_v4.11.0",
+      "date": "Thu, 21 Mar 2024 16:38:04 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "TimelinePausePlayArgs no longer extends GenericUiEventArgs"
+          },
+          {
+            "comment": "Deprecate color picker components."
+          },
+          {
+            "comment": "Update styling of SolarTimeline component."
+          },
+          {
+            "comment": "Fix disposal of `unload` event listener in `ViewportComponent` to address a memory leak."
+          },
+          {
+            "comment": "Removed memoization for translated strings in components."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.10.0",
       "tag": "@itwin/imodel-components-react_v4.10.0",
       "date": "Mon, 26 Feb 2024 15:50:45 GMT",
