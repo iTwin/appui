@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Preview } from "@storybook/react";
 import { withDemoIModel, demoIModelGlobalType } from "./addons/DemoIModel";
-import { resizerGlobalType, withResizer } from "./addons/Resizer";
+import { resizerGlobalType } from "./addons/Resizer";
 
 const preview: Preview = {
   parameters: {

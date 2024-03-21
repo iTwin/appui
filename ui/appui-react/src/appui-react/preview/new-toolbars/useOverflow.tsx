@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import type { SizeProps } from "@itwin/core-react";
-import { useRefs, useResizeObserver } from "@itwin/core-react";
+import { useResizeObserver } from "@itwin/core-react";
 
 type Orientation = "horizontal" | "vertical";
 
@@ -24,7 +24,6 @@ export const useOverflow = <
 ) => {
   const [visible, setVisible] = React.useState(allItems.length);
   const [calculate, setCalculate] = React.useState(false);
-  const componentRef = React.useRef<TComponent>();
   const containerSizeRef = React.useRef<SizeProps>();
   const componentSizeRef = React.useRef<SizeProps>();
 
@@ -109,11 +108,9 @@ export const useOverflow = <
     )
   );
 
-  const componentRefs = useRefs(componentRoRef, componentRef);
-
   const overflow = calculate || visible < allItems.length;
   const visibleItems = calculate ? allItems.length : visible;
-  return [containerRoRef, componentRefs, visibleItems, overflow] as const;
+  return [containerRoRef, componentRoRef, visibleItems, overflow] as const;
 };
 
 function getLength(
