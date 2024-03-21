@@ -2,10 +2,16 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@layer appui {
-  @layer layout, component, preview;
+@import "~@itwin/core-react/lib/cjs/core-react/geometry";
 
-  @layer preview {
-    @layer horizontal-panel-alignment, enable-maximized-widget;
-  }
+.uifw-toolbar-group-expandIndicator {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+
+  @include triangle-bottom-right(
+    $width: 5px,
+    $height: 5px,
+    $color: currentColor
+  );
 }

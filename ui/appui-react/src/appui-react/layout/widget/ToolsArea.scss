@@ -44,6 +44,8 @@
 
   > .nz-horizontal-toolbar-container {
     width: 100%;
+    min-width: 0;
+
     @include nz-widget-opacity;
   }
 }

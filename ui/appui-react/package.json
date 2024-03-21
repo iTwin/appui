@@ -96,6 +96,7 @@
     "@types/rimraf": "^2.0.2",
     "@types/sinon": "^17.0.3",
     "@types/sinon-chai": "^3.2.0",
+    "@types/use-sync-external-store": "^0.0.6",
     "chai": "^4.3.10",
     "chai-as-promised": "^7",
     "chai-jest-snapshot": "^2.0.0",
@@ -140,6 +141,7 @@
     "react-transition-group": "^4.4.2",
     "rxjs": "^7.8.1",
     "ts-key-enum": "~2.0.12",
+    "use-sync-external-store": "^1.2.0",
     "zustand": "^4.4.1"
   },
   "nyc": {

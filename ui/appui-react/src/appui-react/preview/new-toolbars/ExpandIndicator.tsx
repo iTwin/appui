@@ -2,10 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@layer appui {
-  @layer layout, component, preview;
+import "./ExpandIndicator.scss";
+import * as React from "react";
 
-  @layer preview {
-    @layer horizontal-panel-alignment, enable-maximized-widget;
-  }
+/** @internal */
+export function ExpandIndicator() {
+  return <div className="uifw-toolbar-group-expandIndicator" />;
 }

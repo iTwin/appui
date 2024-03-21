@@ -2,10 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@layer appui {
-  @layer layout, component, preview;
+.uifw-toolbar-group-badge {
+  position: absolute;
+  left: -1px;
+  top: -1px;
 
-  @layer preview {
-    @layer horizontal-panel-alignment, enable-maximized-widget;
+  svg {
+    fill: currentColor;
   }
 }

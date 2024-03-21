@@ -42,6 +42,8 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/723
    */
   widgetActionDropdown: { threshold: number };
+  /** If true, the [[Toolbar]] component will be replaced by a new iTwinUI based toolbar. */
+  newToolbars: boolean;
 }
 
 /** Object used trim to only known features at runtime.
@@ -54,7 +56,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   enableMaximizedPanelWidget: undefined,
   horizontalPanelAlignment: undefined,
   widgetActionDropdown: undefined,
-  ...{ newToolbars: undefined }, // Hidden feature used in storybook only (to avoid trimming).
+  newToolbars: undefined,
 };
 
 /** List of preview features that can be enabled/disabled.

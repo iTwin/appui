@@ -193,15 +193,17 @@ const useSnapWidgetOpacitySetting = () => {
  * @public
  */
 export interface ExtensibleToolbarProps {
+  /** Toolbar items. */
   items: ToolbarItem[];
+  /** Toolbar usage based on which additional toolbar items are added from UI item providers. */
   usage: ToolbarUsage;
   /** Toolbar orientation. */
   orientation: ToolbarOrientation;
 }
 
 /**
- * Toolbar that is populated and maintained by item managers, will override
- * isActive property based on the active tool id.
+ * Toolbar that is populated and maintained by UI item providers.
+ * @note Overrides `isActive` property based on the active tool id.
  * @public
  */
 export function ToolbarComposer(props: ExtensibleToolbarProps) {

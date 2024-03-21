@@ -103,7 +103,8 @@ export class ToolbarHelper {
     itemDef: AnyItemDef,
     overrides?: Partial<CommonToolbarItem>
   ): ToolbarItem {
-    const { badgeType, icon, internalData, ...itemOverrides } = overrides ?? {};
+    const { badgeType, description, icon, internalData, ...itemOverrides } =
+      overrides ?? {};
     const itemBase: ToolbarItem = {
       id: itemDef.id,
       itemPriority,
@@ -117,6 +118,7 @@ export class ToolbarHelper {
         itemDef.iconSpec,
       label: this.getStringOrConditionalString(itemDef.rawLabel),
       badge: badgeType ?? itemDef.badgeType,
+      description: description ?? itemDef.description,
     };
 
     // istanbul ignore else
