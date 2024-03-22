@@ -18,7 +18,7 @@
     "build:esm": "npm run -s copy:esm && tsc -p tsconfig.esm.json",
     "copy:cjs": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib/cjs\"",
     "copy:esm": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib/esm\"",
-    "copy:locale": "cpx \"./public/**/*\" ./lib/public",
+    "copy:locale": "cpx ./src/appui-react/UiFramework.json ./lib/public/locales/en",
     "pseudolocalize": "betools pseudolocalize --englishDir ./public/locales/en --out ./public/locales/en-PSEUDO",
     "clean": "rimraf lib .rush/temp/package-deps*.json",
     "cover": "nyc npm -s test",

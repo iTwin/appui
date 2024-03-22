@@ -18,7 +18,7 @@
     "build:esm": "npm run -s copy:esm && tsc 1>&2 --module ES2020 --outDir lib/esm",
     "copy:cjs": "cpx \"./src/**/*.*css\" ./lib/cjs",
     "copy:esm": "cpx \"./src/**/*.*css\" ./lib/esm",
-    "copy:locale": "cpx \"./public/**/*\" ./lib/public",
+    "copy:locale": "cpx ./src/components-react/UiComponents.json ./lib/public/locales/en",
     "pseudolocalize": "betools pseudolocalize --englishDir ./public/locales/en --out ./public/locales/en-PSEUDO",
     "clean": "rimraf lib .rush/temp/package-deps*.json",
     "cover": "nyc npm -s test",
