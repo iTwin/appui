@@ -5,10 +5,7 @@
 
 // cSpell:ignore iconpicker lineweight hocs datepicker quantityformat
 
-export {
-  UiComponents,
-  defaultNamespace,
-} from "./components-react/UiComponents";
+export { UiComponents } from "./components-react/UiComponents";
 export * from "./components-react/useTranslation";
 
 export * from "./components-react/common/Links";

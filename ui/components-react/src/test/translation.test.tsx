@@ -5,13 +5,10 @@
 import { expect } from "chai";
 import * as React from "react";
 import { render } from "@testing-library/react";
-import {
-  defaultNamespace as coreDefaultNamespace,
-  LocalizationProvider,
-} from "@itwin/core-react";
+import { LocalizationProvider, UiCore } from "@itwin/core-react";
 import { useTranslation as useCoreTranslation } from "@itwin/core-react/lib/cjs/core-react/l10n/useTranslation";
 import {
-  defaultNamespace as componentsDefaultNamespace,
+  UiComponents,
   useTranslation as useComponentsTranslation,
 } from "../components-react";
 
@@ -39,10 +36,10 @@ export const localization: Localization = {
 describe.only("translation", () => {
   it("application should register namespace", () => {
     // Application should use `IModelApp.localization` to register namespaces.
-    expect([coreDefaultNamespace, componentsDefaultNamespace]).to.eql([
-      "UiCore",
-      "UiComponents",
-    ]);
+    expect([
+      UiCore.localizationNamespace,
+      UiComponents.localizationNamespace,
+    ]).to.eql(["UiCore", "UiComponents"]);
   });
 
   it("should localize", () => {
