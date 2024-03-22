@@ -19,7 +19,6 @@
     "copy:cjs": "cpx \"./src/**/*.{*css,svg}\" ./lib/cjs",
     "copy:esm": "cpx \"./src/**/*.{*css,svg}\" ./lib/esm",
     "copy:locale": "cpx ./src/core-react/UiCore.json ./lib/public/locales/en",
-    "pseudolocalize": "betools pseudolocalize --englishDir ./public/locales/en --out ./public/locales/en-PSEUDO",
     "clean": "rimraf lib .rush/temp/package-deps*.json",
     "cover": "nyc npm -s test",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
