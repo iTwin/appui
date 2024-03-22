@@ -15,7 +15,6 @@ import "./classes.scss";
 import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
 import { UiError } from "@itwin/appui-abstract";
-import { IconWebComponent } from "./utils/IconWebComponent";
 import { getObjectClassName } from "./utils/getObjectClassName";
 
 /** Manages the Localization service for the core-react package.
@@ -40,8 +39,6 @@ export class UiCore {
 
     UiCore._localization = localization;
     await UiCore._localization.registerNamespace(UiCore.localizationNamespace);
-    if (window.customElements.get("svg-loader") === undefined)
-      window.customElements.define("svg-loader", IconWebComponent);
 
     UiCore._initialized = true;
   }
