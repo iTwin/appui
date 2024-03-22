@@ -26,6 +26,8 @@ Table of contents:
   </LocalizationProvider>;
   ```
 
+  Additionally, localized components will now re-render correctly after a different localization instance is provided, which is needed when i.e. a language is changed.
+
 ### Changes
 
 - Components will use english localization strings by default if `LocalizationProvider` is not used and static package initializer is not used.
