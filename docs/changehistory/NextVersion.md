@@ -28,6 +28,26 @@ Table of contents:
 
   Additionally, localized components will now re-render correctly after a different localization instance is provided, which is needed when i.e. a language is changed.
 
+  ```tsx
+  const [localization, setLocalization] = React.useState<
+    Pick<Localization, "getLocalizedString" | "registerNamespace">
+  >(IModelApp.localization);
+
+  const onChange = async (language) => {
+    await IModelApp.localization.changeLanguage(language);
+    setLocalization({
+      getLocalizedString: (...args) =>
+        IModelApp.localization.getLocalizedString(...args),
+      registerNamespace: async (...args) =>
+        IModelApp.localization.registerNamespace(...args),
+    });
+  };
+
+  <LocalizationProvider localization={localization}>
+    <App />
+  </LocalizationProvider>;
+  ```
+
 ### Changes
 
 - Components will use english localization strings by default if `LocalizationProvider` is not used and static package initializer is not used.
