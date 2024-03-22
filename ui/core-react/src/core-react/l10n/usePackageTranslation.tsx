@@ -40,7 +40,6 @@ export function usePackageTranslation({
   const translate = React.useCallback(
     (key: string) => {
       if (localization && registered) {
-        // TODO: might flicker even if the localization is registered?
         return localization.getLocalizedString(`${namespace}:${key}`);
       }
 
