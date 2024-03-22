@@ -53,10 +53,7 @@ export * from "./core-react/hocs/withIsPressed";
 export * from "./core-react/hocs/withOnOutsideClick";
 export * from "./core-react/hocs/withTimeout";
 
-export {
-  LocalizationProvider,
-  useLocalization,
-} from "./core-react/l10n/LocalizationProvider";
+export { LocalizationProvider } from "./core-react/l10n/LocalizationProvider";
 export { usePackageTranslation } from "./core-react/l10n/usePackageTranslation";
 
 export * from "./core-react/icons/ConditionalIconItem";

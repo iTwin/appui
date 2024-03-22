@@ -32,7 +32,7 @@ export function LocalizationProvider(props: LocalizationProviderProps) {
 }
 
 /** Returns localization context.
- * @alpha
+ * @internal
  */
 export function useLocalization() {
   const localization = React.useContext(LocalizationContext);
