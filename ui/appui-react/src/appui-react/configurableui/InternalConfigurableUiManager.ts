@@ -209,6 +209,12 @@ export class InternalConfigurableUiManager {
     return htmlElement;
   }
 
+  /** Assists in the transition to context wrapper exported from Configurable UI */
+  public static getWrapperDocument(): Document {
+    const wrapper = document.getElementById("uifw-configurableui-wrapper");
+    return wrapper?.ownerDocument ?? document;
+  }
+
   /** Closes all UI popups currently open */
   public static closeUi(): void {
     MessageManager.closeAllMessages();

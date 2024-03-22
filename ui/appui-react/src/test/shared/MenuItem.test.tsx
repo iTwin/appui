@@ -5,9 +5,9 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { BadgeType } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
-import type { MenuItemProps } from "../../appui-react/shared/MenuItem";
+import { BadgeType } from "@itwin/core-react";
+import type { CursorMenuItemProps } from "../../appui-react/shared/MenuItem";
 import { MenuItem, MenuItemHelpers } from "../../appui-react/shared/MenuItem";
 import TestUtils, { childStructure, selectorMatches } from "../TestUtils";
 
@@ -88,7 +88,7 @@ describe("MenuItem", () => {
   });
 
   it("createMenuItems should create a valid MenuItem", () => {
-    const menuItemProps: MenuItemProps[] = [
+    const CursorMenuItemProps: CursorMenuItemProps[] = [
       {
         id: "test",
         item: {
@@ -99,7 +99,7 @@ describe("MenuItem", () => {
       },
     ];
 
-    const menuItems = MenuItemHelpers.createMenuItems(menuItemProps);
+    const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
 
     expect(menuItems.length).to.eq(1);
 
@@ -112,7 +112,7 @@ describe("MenuItem", () => {
   });
 
   it("createMenuItems should create a valid submenu", () => {
-    const menuItemProps: MenuItemProps[] = [
+    const CursorMenuItemProps: CursorMenuItemProps[] = [
       {
         id: "test",
         label: "test label",
@@ -138,7 +138,7 @@ describe("MenuItem", () => {
       },
     ];
 
-    const menuItems = MenuItemHelpers.createMenuItems(menuItemProps);
+    const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
 
     expect(menuItems.length).to.eq(1);
 
@@ -150,7 +150,7 @@ describe("MenuItem", () => {
   });
 
   it("createMenuItemNodes should create a valid MenuItem", () => {
-    const menuItemProps: MenuItemProps[] = [
+    const CursorMenuItemProps: CursorMenuItemProps[] = [
       {
         id: "test",
         badgeType: BadgeType.New,
@@ -164,7 +164,7 @@ describe("MenuItem", () => {
       },
     ];
 
-    const menuItems = MenuItemHelpers.createMenuItems(menuItemProps);
+    const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
     expect(menuItems.length).to.eq(1);
 
     const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);
@@ -186,7 +186,7 @@ describe("MenuItem", () => {
   });
 
   it("createMenuItemNodes abstract disabled item should create a disabled MenuItem", () => {
-    const menuItemProps: MenuItemProps[] = [
+    const CursorMenuItemProps: CursorMenuItemProps[] = [
       {
         id: "test",
         badgeType: BadgeType.New,
@@ -200,7 +200,7 @@ describe("MenuItem", () => {
       },
     ];
 
-    const menuItems = MenuItemHelpers.createMenuItems(menuItemProps);
+    const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
     expect(menuItems.length).to.eq(1);
 
     const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);
@@ -217,7 +217,7 @@ describe("MenuItem", () => {
     const handleSelect = sinon.fake();
     const handleSelect2 = sinon.fake();
 
-    const menuItemProps: MenuItemProps[] = [
+    const CursorMenuItemProps: CursorMenuItemProps[] = [
       {
         id: "test",
         item: {
@@ -230,7 +230,7 @@ describe("MenuItem", () => {
     ];
 
     const menuItems = MenuItemHelpers.createMenuItems(
-      menuItemProps,
+      CursorMenuItemProps,
       handleSelect2
     );
     expect(menuItems.length).to.eq(1);
@@ -249,7 +249,7 @@ describe("MenuItem", () => {
   });
 
   it("createMenuItemNodes should create a valid submenu", () => {
-    const menuItemProps: MenuItemProps[] = [
+    const CursorMenuItemProps: CursorMenuItemProps[] = [
       {
         id: "test",
         label: "test label",
@@ -275,7 +275,7 @@ describe("MenuItem", () => {
       },
     ];
 
-    const menuItems = MenuItemHelpers.createMenuItems(menuItemProps);
+    const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
     expect(menuItems.length).to.eq(1);
 
     const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);

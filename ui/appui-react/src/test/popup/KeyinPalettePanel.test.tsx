@@ -6,14 +6,11 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
-
-import type { IModelAppOptions } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, Tool } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import type { KeyinEntry } from "../../appui-react";
+import type { KeyinEntry } from "../../appui-react/keyins/Keyins";
 import {
   clearKeyinPaletteHistory,
-  FrameworkUiAdmin,
   KeyinPalettePanel,
   UiFramework,
 } from "../../appui-react";
@@ -47,8 +44,7 @@ describe("<KeyinPalettePanel>", () => {
 
     await TestUtils.initializeUiFramework();
     // use mock renderer so standards tools are registered.
-    const opts: IModelAppOptions = { uiAdmin: new FrameworkUiAdmin() };
-    await NoRenderApp.startup(opts);
+    await NoRenderApp.startup();
   });
 
   after(async () => {

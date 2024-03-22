@@ -7,15 +7,13 @@ import * as React from "react";
 import { UiFramework } from "@itwin/appui-react";
 import { Dialog } from "@itwin/core-react";
 import { DialogButtonType } from "@itwin/appui-abstract";
-import { AppUiTestProviders } from "../../AppUiTestProviders";
+import { useTranslation } from "../../useTranslation";
 
 /**
  *  This is an example of how to create a React-based modal dialog that can be opened via a toolbutton or a key-in.
  */
 export function SampleModalDialog() {
-  const title = React.useRef(
-    AppUiTestProviders.translate("Dialogs.SampleModal.title")
-  );
+  const { translate } = useTranslation();
 
   const closeDialog = React.useCallback(() => {
     UiFramework.dialogs.modal.close();
@@ -33,7 +31,7 @@ export function SampleModalDialog() {
 
   return (
     <Dialog
-      title={title.current}
+      title={translate("Dialogs.SampleModal.title")}
       opened={true}
       modal={true}
       width={450}

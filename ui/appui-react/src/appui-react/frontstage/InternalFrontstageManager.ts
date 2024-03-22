@@ -520,9 +520,7 @@ export class InternalFrontstageManager {
   public static get activeToolSettingsProvider(): ToolUiProvider | undefined {
     const activeToolInformation =
       InternalFrontstageManager.activeToolInformation;
-    return activeToolInformation
-      ? activeToolInformation.toolUiProvider
-      : /* istanbul ignore next */ undefined;
+    return activeToolInformation?.toolUiProvider;
   }
 
   /** Sets the active layout, content group and active content.

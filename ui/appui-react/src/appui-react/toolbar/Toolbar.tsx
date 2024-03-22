@@ -9,20 +9,21 @@
 import * as React from "react";
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import type {
+import type { ToolbarOpacitySetting } from "@itwin/components-react";
+import {
+  InternalToolbarComponent as CR_Toolbar,
   Direction,
-  ToolbarOpacitySetting,
   ToolbarPanelAlignment,
 } from "@itwin/components-react";
-import { InternalToolbarComponent as CR_Toolbar } from "@itwin/components-react";
 import type { ToolbarItem } from "./ToolbarItem";
 import { toUIAToolbarItem } from "./toUIAToolbarItem";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { usePreviewFeatures } from "../preview/PreviewFeatures";
+import { Toolbar as ToolGroupToolbar } from "../preview/new-toolbars/Toolbar";
 
 /**
  * Properties of [[Toolbar.enableOverflow]] component.
- * @beta
+ * @public
  */
 export interface OverflowToolbarOptions {
   /** Describes to which direction the overflow popup panels are expanded if overflow is enabled. Defaults to: [[Direction.Right]] */
@@ -30,7 +31,7 @@ export interface OverflowToolbarOptions {
 }
 
 /** Properties of [[Toolbar]] component.
- * @beta
+ * @public
  */
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
   /** Describes to which direction the popup panels are expanded, also defines the orientation of the toolbar (Top/Bottom will create an horizontal toolbar, Left/Right will create a vertical toolbar). Defaults to: [[Direction.Bottom]] */
@@ -62,8 +63,16 @@ export function Toolbar(props: ToolbarProps) {
   return <OriginalToolbar {...props} />;
 }
 
-function NewToolbar(_props: ToolbarProps) {
-  return <>WIP</>;
+function NewToolbar(props: ToolbarProps) {
+  const expandsTo = toDirection(props.expandsTo);
+  const panelAlignment = toPanelAlignment(props.panelAlignment);
+  return (
+    <ToolGroupToolbar
+      expandsTo={expandsTo}
+      panelAlignment={panelAlignment}
+      items={props.items}
+    />
+  );
 }
 
 function OriginalToolbar(props: ToolbarProps) {
@@ -72,10 +81,34 @@ function OriginalToolbar(props: ToolbarProps) {
     return items.map((item) => toUIAToolbarItem(item));
   }, [items]);
   return (
-    <CR_Toolbar // eslint-disable-line deprecation/deprecation
+    <CR_Toolbar
       items={uiaItems}
       syncUiEvent={SyncUiEventDispatcher.onSyncUiEvent}
       {...other}
     />
   );
+}
+
+function toDirection(direction: ToolbarProps["expandsTo"]) {
+  switch (direction) {
+    case Direction.Bottom:
+      return "bottom";
+    case Direction.Left:
+      return "left";
+    case Direction.Right:
+      return "right";
+    case Direction.Top:
+      return "top";
+  }
+  return undefined;
+}
+
+function toPanelAlignment(alignment: ToolbarProps["panelAlignment"]) {
+  switch (alignment) {
+    case ToolbarPanelAlignment.End:
+      return "end";
+    case ToolbarPanelAlignment.Start:
+      return "start";
+  }
+  return undefined;
 }

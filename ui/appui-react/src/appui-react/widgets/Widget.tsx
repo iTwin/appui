@@ -6,9 +6,9 @@
  * @module Widget
  */
 
-import type { BadgeType, ConditionalStringValue } from "@itwin/appui-abstract";
+import type { ConditionalStringValue } from "@itwin/appui-abstract";
 import type { XAndY } from "@itwin/core-geometry";
-import type { IconSpec, SizeProps } from "@itwin/core-react";
+import type { BadgeType, IconSpec, SizeProps } from "@itwin/core-react";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { WidgetState } from "./WidgetState";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection";

@@ -8,15 +8,17 @@ import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { Point } from "@itwin/core-react";
-import type { CursorPopupOptions } from "../../../appui-react";
+import type { CursorPopupOptions, Placement } from "../../../appui-react";
 import {
   CursorInformation,
+  CursorPopup,
   CursorPopupContent,
   CursorPopupManager,
   CursorPopupRenderer,
 } from "../../../appui-react";
 import TestUtils, { selectorMatches } from "../../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
+import type { XAndY } from "@itwin/core-geometry";
 
 describe("CursorPopup", () => {
   beforeEach(() => {
@@ -116,8 +118,7 @@ describe("CursorPopup", () => {
   });
 
   it("should open and close with fadeOut", async function test() {
-    const fakeTimers = sinon.useFakeTimers({ shouldAdvanceTime: true });
-    render(<CursorPopupRenderer />);
+    const { getByText } = render(<CursorPopupRenderer />);
     expect(CursorPopupManager.popupCount).to.eq(0);
 
     const relativePosition =
@@ -131,26 +132,26 @@ describe("CursorPopup", () => {
       new Point(20, 20),
       relativePosition
     );
-    expect(CursorPopupManager.popupCount).to.eq(1);
+
     await waitFor(() => {
-      screen.getByText("Hello");
+      expect(CursorPopupManager.popupCount).to.eq(1);
+      getByText("Hello");
     });
 
     CursorPopupManager.close("test", false, true);
     await waitFor(() => {
-      expect(screen.getByText("Hello")).to.satisfy(
+      expect(getByText("Hello")).to.satisfy(
         selectorMatches(".uifw-cursorpopup-fadeOut")
       );
     });
 
-    fakeTimers.tick(1000);
-    fakeTimers.restore();
-    expect(CursorPopupManager.popupCount).to.eq(0);
+    await waitFor(() => {
+      expect(CursorPopupManager.popupCount).to.eq(0);
+    });
   });
 
   it("should fadeOut correct popup", async () => {
-    const fakeTimers = sinon.useFakeTimers({ shouldAdvanceTime: true });
-    render(<CursorPopupRenderer />);
+    const { findByText, getByText } = render(<CursorPopupRenderer />);
     expect(CursorPopupManager.popupCount).to.eq(0);
 
     const relativePosition =
@@ -171,26 +172,31 @@ describe("CursorPopup", () => {
       new Point(20, 20),
       relativePosition
     );
-    expect(CursorPopupManager.popupCount).to.eq(2);
-    await screen.findByText("Hello1");
-    await screen.findByText("Hello2");
+    await waitFor(() => {
+      expect(CursorPopupManager.popupCount).to.eq(2);
+    });
+
+    await findByText("Hello1");
+    await findByText("Hello2");
 
     CursorPopupManager.close("test", false, true);
     await waitFor(() => {
-      expect(screen.getByText("Hello1")).to.satisfy(
+      expect(getByText("Hello1")).to.satisfy(
         selectorMatches(".uifw-cursorpopup-fadeOut")
       );
-      expect(screen.getByText("Hello2")).to.not.satisfy(
+      expect(getByText("Hello2")).to.not.satisfy(
         selectorMatches(".uifw-cursorpopup-fadeOut")
       );
     });
 
-    fakeTimers.tick(1000);
-    fakeTimers.restore();
-    expect(CursorPopupManager.popupCount).to.eq(1);
+    await waitFor(() => {
+      expect(CursorPopupManager.popupCount).to.eq(1);
+    });
 
     CursorPopupManager.close("test2", false);
-    expect(CursorPopupManager.popupCount).to.eq(0);
+    await waitFor(() => {
+      expect(CursorPopupManager.popupCount).to.eq(0);
+    });
   });
 
   it("should set relativePosition", async () => {
@@ -452,4 +458,333 @@ describe("CursorPopup", () => {
 
     spyMethod.calledOnce.should.true;
   });
+
+  describe("Placement", () => {
+    it("left-start", () => {
+      const height = 50;
+      const width = 50;
+
+      const container = setupTestCursorPopup(height, width, "left-start");
+      const el = container.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+
+      expect(el.style.left).to.eq("-50px");
+      expect(el.style.top).to.eq("0px");
+
+      const containerWithOffset = setupTestCursorPopup(
+        height,
+        width,
+        "left-start",
+        { x: 17, y: 17 },
+        false
+      );
+      const elWithOffset =
+        containerWithOffset.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+
+      expect(elWithOffset.style.left).to.eq("-67px");
+      expect(elWithOffset.style.top).to.eq("-17px");
+    });
+
+    it("left-end", () => {
+      const height = 50;
+      const width = 50;
+
+      const container = setupTestCursorPopup(height, width, "left-end");
+      const el = container.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+
+      expect(el.style.left).to.eq("-50px");
+      expect(el.style.top).to.eq("50px");
+
+      const containerWithOffset = setupTestCursorPopup(
+        height,
+        width,
+        "left-end",
+        { x: 17, y: 17 },
+        false
+      );
+      const elWithOffset =
+        containerWithOffset.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+
+      expect(elWithOffset.style.left).to.eq("-67px");
+      expect(elWithOffset.style.top).to.eq("33px");
+    });
+
+    it("left", () => {
+      const height = 50;
+      const width = 50;
+
+      const container = setupTestCursorPopup(height, width, "left");
+      const el = container.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+      expect(el.style.left).to.eq("-50px");
+      expect(el.style.top).to.eq("25px");
+
+      const containerWithOffset = setupTestCursorPopup(
+        height,
+        width,
+        "left",
+        { x: 17, y: 17 },
+        false
+      );
+      const elWithOffset =
+        containerWithOffset.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+
+      expect(elWithOffset.style.left).to.eq("-67px");
+      expect(elWithOffset.style.top).to.eq("8px");
+    });
+
+    it("right-start", () => {
+      const height = 50;
+      const width = 50;
+
+      const container = setupTestCursorPopup(height, width, "right-start");
+      const el = container.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+      expect(el.style.left).to.eq("0px");
+      expect(el.style.top).to.eq("0px");
+
+      const containerWithOffset = setupTestCursorPopup(
+        height,
+        width,
+        "right-start",
+        { x: 17, y: 17 },
+        false
+      );
+      const elWithOffset =
+        containerWithOffset.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+
+      expect(elWithOffset.style.left).to.eq("17px");
+      expect(elWithOffset.style.top).to.eq("-17px");
+    });
+
+    it("right-end", () => {
+      const height = 50;
+      const width = 50;
+
+      const container = setupTestCursorPopup(height, width, "right-end");
+      const el = container.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+      expect(el.style.left).to.eq("0px");
+      expect(el.style.top).to.eq("50px");
+
+      const containerWithOffset = setupTestCursorPopup(
+        height,
+        width,
+        "right-end",
+        { x: 17, y: 17 },
+        false
+      );
+      const elWithOffset =
+        containerWithOffset.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+
+      expect(elWithOffset.style.left).to.eq("17px");
+      expect(elWithOffset.style.top).to.eq("33px");
+    });
+
+    it("right", () => {
+      const height = 50;
+      const width = 50;
+
+      const container = setupTestCursorPopup(height, width, "right");
+      const el = container.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+      expect(el.style.left).to.eq("0px");
+      expect(el.style.top).to.eq("25px");
+
+      const containerWithOffset = setupTestCursorPopup(
+        height,
+        width,
+        "right",
+        { x: 17, y: 17 },
+        false
+      );
+      const elWithOffset =
+        containerWithOffset.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+
+      expect(elWithOffset.style.left).to.eq("17px");
+      expect(elWithOffset.style.top).to.eq("8px");
+    });
+
+    it("top-start", () => {
+      const height = 50;
+      const width = 50;
+
+      const container = setupTestCursorPopup(height, width, "top-start");
+      const el = container.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+      expect(el.style.left).to.eq("0px");
+      expect(el.style.top).to.eq("50px");
+
+      const containerWithOffset = setupTestCursorPopup(
+        height,
+        width,
+        "top-start",
+        { x: 17, y: 17 },
+        false
+      );
+      const elWithOffset =
+        containerWithOffset.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+
+      expect(elWithOffset.style.left).to.eq("-17px");
+      expect(elWithOffset.style.top).to.eq("33px");
+    });
+
+    it("top-end", () => {
+      const height = 50;
+      const width = 50;
+
+      const container = setupTestCursorPopup(height, width, "top-end");
+      const el = container.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+      expect(el.style.left).to.eq("-50px");
+      expect(el.style.top).to.eq("50px");
+
+      const containerWithOffset = setupTestCursorPopup(
+        height,
+        width,
+        "top-end",
+        { x: 17, y: 17 },
+        false
+      );
+      const elWithOffset =
+        containerWithOffset.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+
+      expect(elWithOffset.style.left).to.eq("-67px");
+      expect(elWithOffset.style.top).to.eq("33px");
+    });
+
+    it("top", () => {
+      const height = 50;
+      const width = 50;
+
+      const container = setupTestCursorPopup(height, width, "top");
+      const el = container.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+      expect(el.style.left).to.eq("-25px");
+      expect(el.style.top).to.eq("50px");
+
+      const containerWithOffset = setupTestCursorPopup(
+        height,
+        width,
+        "top",
+        { x: 17, y: 17 },
+        false
+      );
+      const elWithOffset =
+        containerWithOffset.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+
+      expect(elWithOffset.style.left).to.eq("-42px");
+      expect(elWithOffset.style.top).to.eq("33px");
+    });
+
+    it("bottom-start", () => {
+      const height = 50;
+      const width = 50;
+
+      const container = setupTestCursorPopup(height, width, "bottom-start");
+      const el = container.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+      expect(el.style.left).to.eq("0px");
+      expect(el.style.top).to.eq("0px");
+
+      const containerWithOffset = setupTestCursorPopup(
+        height,
+        width,
+        "bottom-start",
+        { x: 17, y: 17 },
+        false
+      );
+      const elWithOffset =
+        containerWithOffset.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+
+      expect(elWithOffset.style.left).to.eq("-17px");
+      expect(elWithOffset.style.top).to.eq("17px");
+    });
+
+    it("bottom-end", () => {
+      const height = 50;
+      const width = 50;
+
+      const container = setupTestCursorPopup(height, width, "bottom-end");
+      const el = container.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+      expect(el.style.left).to.eq("-50px");
+      expect(el.style.top).to.eq("0px");
+
+      const containerWithOffset = setupTestCursorPopup(
+        height,
+        width,
+        "bottom-end",
+        { x: 17, y: 17 },
+        false
+      );
+      const elWithOffset =
+        containerWithOffset.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+
+      expect(elWithOffset.style.left).to.eq("-67px");
+      expect(elWithOffset.style.top).to.eq("17px");
+    });
+
+    it("bottom", () => {
+      const height = 50;
+      const width = 50;
+
+      const container = setupTestCursorPopup(height, width, "bottom");
+      const el = container.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+      expect(el.style.left).to.eq("-25px");
+      expect(el.style.top).to.eq("0px");
+
+      const containerWithOffset = setupTestCursorPopup(
+        height,
+        width,
+        "bottom",
+        { x: 17, y: 17 },
+        false
+      );
+      const elWithOffset =
+        containerWithOffset.querySelector<HTMLDivElement>(".uifw-cursorpopup")!;
+
+      expect(elWithOffset.style.left).to.eq("-42px");
+      expect(elWithOffset.style.top).to.eq("17px");
+    });
+  });
 });
+
+function setupTestCursorPopup(
+  height: number,
+  width: number,
+  placement: Placement,
+  offset: XAndY = { x: 0, y: 0 },
+  stub: boolean = true
+): HTMLElement {
+  if (stub)
+    sinon
+      .stub(Element.prototype, "getBoundingClientRect")
+      .returns(DOMRect.fromRect({ height, width, x: 0, y: 0 }));
+
+  const content = (
+    <div
+      style={{
+        height: `${height}px`,
+        width: `${width}px`,
+        display: "block",
+        position: "relative",
+      }}
+    >
+      Hello
+    </div>
+  );
+  const id = "test";
+  const pt = { x: 0, y: 0 };
+  const { container, rerender } = render(
+    <CursorPopup
+      content={content}
+      id={id}
+      pt={pt}
+      placement={placement}
+      offset={offset}
+    />
+  );
+  // must rerender otherwise new size state will not be updated
+  rerender(
+    <CursorPopup
+      content={content}
+      id={id}
+      pt={pt}
+      placement={placement}
+      offset={offset}
+    />
+  );
+
+  return container;
+}

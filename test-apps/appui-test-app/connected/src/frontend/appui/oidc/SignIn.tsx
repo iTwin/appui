@@ -10,10 +10,10 @@ import "./SignIn.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { CommonProps } from "@itwin/core-react";
-import { IModelApp } from "@itwin/core-frontend";
 import { Button } from "@itwin/itwinui-react";
 import { ProcessDetector } from "@itwin/core-bentley";
 import { Key } from "ts-key-enum";
+import { TestAppLocalization } from "../../useTranslation";
 
 // cspell:ignore signingin
 
@@ -47,23 +47,12 @@ export class SignIn extends React.PureComponent<SignInProps, SignInState> {
 
     this.state = {
       isSigningIn: false,
-
-      prompt: IModelApp.localization.getLocalizedString(
-        "SampleApp:signIn.prompt"
-      ),
-      signInButton: IModelApp.localization.getLocalizedString(
-        "SampleApp:signIn.signInButton"
-      ),
-      profilePrompt: IModelApp.localization.getLocalizedString(
-        "SampleApp:signIn.profilePrompt"
-      ),
-      registerAnchor: IModelApp.localization.getLocalizedString(
-        "SampleApp:signIn.register"
-      ),
+      prompt: TestAppLocalization.translate("signIn.prompt"),
+      signInButton: TestAppLocalization.translate("signIn.signInButton"),
+      profilePrompt: TestAppLocalization.translate("signIn.profilePrompt"),
+      registerAnchor: TestAppLocalization.translate("signIn.register"),
       signingInMessage: ProcessDetector.isElectronAppFrontend
-        ? IModelApp.localization.getLocalizedString(
-            "SampleApp:signIn.signingInMessage"
-          )
+        ? TestAppLocalization.translate("signIn.signingInMessage")
         : "",
     };
   }

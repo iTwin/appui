@@ -23,14 +23,15 @@ import {
   UiFramework,
 } from "@itwin/appui-react";
 import { Select, SelectOption } from "@itwin/itwinui-react";
-import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { CommonProps } from "@itwin/core-react";
+import { useTranslation } from "../../useTranslation";
 
 /**
  * This component is designed to be specified in a status bar definition to select the display style in the active IModel view.
  * It is used to enable/disable display of shadows.
  */
 export function DisplayStyleField(props: CommonProps) {
+  const { translate } = useTranslation();
   const [viewport, setViewport] = React.useState<ScreenViewport | undefined>();
   const [displayStyles, setDisplayStyles] = React.useState(
     () => new Map<Id64String, DisplayStyleState>()
@@ -40,19 +41,9 @@ export function DisplayStyleField(props: CommonProps) {
   >(() => []);
   const [displayStyleId, setDisplayStyleId] = React.useState("");
 
-  const [label] = React.useState(() =>
-    AppUiTestProviders.translate("statusFields.displayStyle.label")
-  );
-  const [tooltip] = React.useState(() =>
-    AppUiTestProviders.translate("statusFields.displayStyle.tooltip")
-  );
-
   const setStateFromActiveContent = React.useCallback(
     async (contentControl?: ContentControl) => {
       if (contentControl && contentControl.viewport) {
-        const unnamedPrefix = AppUiTestProviders.translate(
-          "SampleApp:statusFields.unnamedDisplayStyle"
-        );
         const newDisplayStyles = new Map<Id64String, DisplayStyleState>();
         const view = contentControl.viewport.view;
         const is3d = view.is3d();
@@ -67,8 +58,9 @@ export function DisplayStyleField(props: CommonProps) {
         let emptyNameSuffix = 0;
         for (const displayStyleProp of displayStyleProps) {
           let name = displayStyleProp.code.value!;
-          if (0 === name.length) {
+          if (name.length === 0) {
             emptyNameSuffix++;
+            const unnamedPrefix = translate("statusFields.unnamedDisplayStyle");
             name = `${unnamedPrefix}-${emptyNameSuffix}`;
           }
           newStyleEntries.push({ value: displayStyleProp.id!, label: name });
@@ -92,7 +84,7 @@ export function DisplayStyleField(props: CommonProps) {
         setDisplayStyleId(contentControl.viewport.view.displayStyle.id);
       }
     },
-    []
+    [translate]
   );
 
   React.useEffect(() => {
@@ -140,8 +132,8 @@ export function DisplayStyleField(props: CommonProps) {
         options={styleEntries}
         value={displayStyleId}
         onChange={handleDisplayStyleSelected}
-        title={tooltip}
-        aria-label={label}
+        title={translate("statusFields.displayStyle.tooltip")}
+        aria-label={translate("statusFields.displayStyle.label")}
         className="uifw-statusFields-displayStyle-selector"
         size="small"
       />

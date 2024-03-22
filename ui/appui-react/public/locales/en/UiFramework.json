@@ -24,7 +24,9 @@
     "settings": "Settings",
     "minimize": "Minimize",
     "overflow": "Overflow",
-    "no-content": "No data for this content view"
+    "no-content": "No data for this content view",
+    "of": "of",
+    "search": "Search"
   },
   "rotations": {
     "top": "Top",
@@ -335,5 +337,9 @@
     "BritishImperial": "Imperial",
     "USCustomary": "US Customary",
     "USSurvey": "US Survey"
+  },
+  "dialog": {
+    "cancel": "Cancel",
+    "close": "Close"
   }
 }

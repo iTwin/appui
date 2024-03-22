@@ -38,10 +38,6 @@ export interface ModalFrontstageProps extends CommonProps {
  * @public
  */
 export class ModalFrontstage extends React.Component<ModalFrontstageProps> {
-  private _backButtonTitle = UiFramework.translate(
-    "modalFrontstage.backButtonTitle"
-  );
-
   constructor(props: ModalFrontstageProps) {
     super(props);
   }
@@ -66,7 +62,7 @@ export class ModalFrontstage extends React.Component<ModalFrontstageProps> {
               className="nz-toolbar-button-app"
               onClick={this._onGoBack}
               icon={<Icon iconSpec={<SvgProgressBackwardCircular />} />}
-              title={this._backButtonTitle}
+              title={UiFramework.translate("modalFrontstage.backButtonTitle")}
             />
             <Text variant="headline" className="uifw-headline">
               {this.props.title}

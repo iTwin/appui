@@ -12,7 +12,6 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { assert } from "@itwin/core-bentley";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import { UiComponents } from "../../../UiComponents";
 import type {
   IPropertyValueRenderer,
   PropertyValueRendererContext,
@@ -20,6 +19,7 @@ import type {
 import { useRenderedStringValue } from "./PrimitivePropertyValueRenderer";
 import classnames from "classnames";
 import { convertRecordToString } from "./Common";
+import { useTranslation } from "../../../useTranslation";
 
 /** @internal */
 export class MultilineTextPropertyValueRenderer
@@ -83,9 +83,9 @@ interface MultilineTextRendererProps {
 export const MultilineTextRenderer: React.FC<MultilineTextRendererProps> = (
   props
 ) => {
+  const { translate } = useTranslation();
   const spanRef = useRef<HTMLSpanElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
-  const previousHeightRef = useRef(0);
   const [contentOverflows, setContentOverflows] = useState<boolean>(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useLayoutEffect(() => {
@@ -94,12 +94,6 @@ export const MultilineTextRenderer: React.FC<MultilineTextRendererProps> = (
     setContentOverflows(
       spanRef.current.clientWidth < spanRef.current.scrollWidth
     );
-
-    const currentHeight = Math.max(divRef.current.offsetHeight, 27);
-    if (currentHeight !== previousHeightRef.current) {
-      props.onHeightChanged?.(currentHeight);
-      previousHeightRef.current = currentHeight;
-    }
   });
 
   const handleExpansionToggleClick = (event: React.MouseEvent) => {
@@ -123,12 +117,12 @@ export const MultilineTextRenderer: React.FC<MultilineTextRendererProps> = (
           style={{ display: props.isExpanded ? "inline-block" : "none" }}
           onClick={handleExpansionToggleClick}
         >
-          {UiComponents.translate("property.collapse")}
+          {translate("property.collapse")}
         </button>
       </span>
       {contentOverflows && !props.isExpanded && (
         <button className="expand-toggle" onClick={handleExpansionToggleClick}>
-          {UiComponents.translate("property.expand")}
+          {translate("property.expand")}
         </button>
       )}
     </div>

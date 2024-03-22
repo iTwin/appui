@@ -7,14 +7,11 @@
  */
 
 import type {
-  BadgeType,
-  CommandHandler,
   ConditionalBooleanValue,
   ConditionalStringValue,
   StringGetter,
 } from "@itwin/appui-abstract";
-import type { IconProps, IconSpec } from "@itwin/core-react";
-
+import type { BadgeType, IconProps, IconSpec } from "@itwin/core-react";
 /** Definition that specifies properties shared between many ConfigurableUi components.
  * @public
  */
@@ -61,4 +58,16 @@ export interface ToolItemProps extends ItemProps, CommandHandler {
  */
 export interface CommandItemProps extends ItemProps, CommandHandler {
   commandId?: string;
+}
+
+/** Definition for a command handler.
+ * @public
+ */
+export interface CommandHandler {
+  /** Function to execute */
+  execute?: (args?: any) => any;
+  /** Parameters passed to the function */
+  parameters?: any;
+  /** Function to get the parameters passed to the function */
+  getCommandArgs?: () => any[];
 }

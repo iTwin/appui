@@ -7,12 +7,7 @@
  */
 
 import * as React from "react";
-import type {
-  OnCancelFunc,
-  OnValueCommitFunc,
-  Primitives,
-  PropertyRecord,
-} from "@itwin/appui-abstract";
+import type { Primitives, PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
 import { EditorContainer } from "@itwin/components-react";
@@ -24,7 +19,7 @@ import { PositionPopup, PositionPopupContent } from "./PositionPopup";
 
 /** @beta */
 export class InputEditorCommitHandler {
-  constructor(public readonly onCommit: OnValueCommitFunc) {}
+  constructor(public readonly onCommit: (value: Primitives.Value) => void) {}
 
   public handleCommit = (args: PropertyUpdatedArgs) => {
     let newValue: Primitives.Value = 0;
@@ -43,7 +38,7 @@ export class InputEditorCommitHandler {
  * @beta */
 export interface InputEditorPopupProps extends PopupPropsBase {
   record: PropertyRecord;
-  onCancel: OnCancelFunc;
+  onCancel: () => void;
   commitHandler: InputEditorCommitHandler;
 }
 

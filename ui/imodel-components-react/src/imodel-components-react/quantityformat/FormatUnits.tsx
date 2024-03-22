@@ -15,7 +15,7 @@ import type {
 } from "@itwin/core-quantity";
 import { Input } from "@itwin/itwinui-react";
 import { UnitDescr } from "./misc/UnitDescr";
-import { UiIModelComponents } from "../UiIModelComponents";
+import { useTranslation } from "../useTranslation";
 
 /** Properties of [[FormatUnits]] component.
  * @alpha
@@ -33,6 +33,7 @@ export interface FormatUnitsProps extends CommonProps {
 export function FormatUnits(props: FormatUnitsProps) {
   const { initialFormat, persistenceUnit, unitsProvider, onUnitsChange } =
     props;
+  const { translate } = useTranslation();
   const initialFormatRef = React.useRef<FormatProps>(initialFormat);
   const [formatProps, setFormatProps] = React.useState(initialFormat);
 
@@ -141,10 +142,6 @@ export function FormatUnits(props: FormatUnitsProps) {
     [formatProps, handleSetFormatProps]
   );
 
-  const compositeSpacer = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.compositeSpacer")
-  );
-
   return (
     <>
       {formatProps.composite?.units
@@ -181,7 +178,7 @@ export function FormatUnits(props: FormatUnitsProps) {
         formatProps.composite.units.length > 1 && (
           <>
             <span key={"composite-spacer-label"} className={"uicore-label"}>
-              {compositeSpacer.current}
+              {translate("QuantityFormat.labels.compositeSpacer")}
             </span>
             <Input
               key={"composite-spacer"}

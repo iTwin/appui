@@ -65,6 +65,7 @@ export * from "./components-react/properties/LinkHandler";
 export * from "./components-react/properties/ValueRendererManager";
 export * from "./components-react/properties/renderers/NonPrimitivePropertyRenderer";
 export * from "./components-react/properties/renderers/PrimitivePropertyRenderer";
+export * from "./components-react/properties/renderers/CustomizablePropertyRenderer";
 export * from "./components-react/properties/renderers/PropertyRenderer";
 export * from "./components-react/properties/renderers/PropertyView";
 export * from "./components-react/properties/renderers/ActionButtonList";

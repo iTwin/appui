@@ -18,12 +18,12 @@ import type { CommonProps } from "@itwin/core-react";
 import { Button, ToggleSwitch } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
-import { UiFramework } from "../UiFramework";
 import { useActiveViewport } from "../hooks/useActiveViewport";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { StatusBar } from "../statusbar/StatusBar";
 import { StatusBarDialog } from "../statusbar/dialog/Dialog";
 import "./SectionsField.scss";
+import { useTranslation } from "../useTranslation";
 
 /** Sections Status Field Props
  * @beta
@@ -36,14 +36,9 @@ export interface SectionsStatusFieldProps extends CommonProps {
  * @beta
  */
 export function SectionsStatusField(props: SectionsStatusFieldProps) {
-  const [toolTip, clearLabel, showHandlesLabel] = React.useMemo(
-    () => [
-      UiFramework.translate("tools.sectionTools"),
-      UiFramework.translate("tools.sectionClear"),
-      UiFramework.translate("tools.sectionShowHandles"),
-    ],
-    []
-  );
+  const { translate } = useTranslation();
+  const tooltip = translate("tools.sectionTools");
+
   const activeViewport = useActiveViewport();
   const [showIndicator, setShowIndicator] = React.useState(false);
   const [isPopupOpen, setPopupOpen] = React.useState(false);
@@ -109,7 +104,7 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
     <div className="uifw-section-footer-popup-container">
       {showIndicator && (
         <>
-          <div ref={targetDiv} title={toolTip}>
+          <div ref={targetDiv} title={tooltip}>
             <StatusBarLabelIndicator
               className={classes}
               iconSpec={svgSectionTool}
@@ -122,13 +117,15 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
             isOpen={isPopupOpen}
           >
             <StatusBarDialog
-              titleBar={<StatusBarDialog.TitleBar title={toolTip} />}
+              titleBar={<StatusBarDialog.TitleBar title={tooltip} />}
             >
               <div className="uifw-sections-footer-contents">
-                <Button onClick={handleClear}>{clearLabel}</Button>
+                <Button onClick={handleClear}>
+                  {translate("tools.sectionClear")}
+                </Button>
                 <div className="uifw-uifw-sections-toggle-container">
                   <div className={classnames("uifw-sections-label")}>
-                    {showHandlesLabel}
+                    {translate("tools.sectionShowHandles")}
                   </div>
                   <ToggleSwitch
                     className="uifw-sections-toggle"

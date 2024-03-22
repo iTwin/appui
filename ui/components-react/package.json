@@ -1,6 +1,6 @@
 {
   "name": "@itwin/components-react",
-  "version": "4.11.0-dev.0",
+  "version": "4.12.0-dev.0",
   "description": "iTwin.js UI complex components",
   "main": "lib/cjs/components-react.js",
   "module": "lib/esm/components-react.js",
@@ -45,7 +45,7 @@
   "peerDependencies": {
     "@itwin/appui-abstract": "^3.7.0 || ^4.0.0",
     "@itwin/core-bentley": "^3.7.0 || ^4.0.0",
-    "@itwin/core-react": "workspace:^4.11.0-dev.0",
+    "@itwin/core-react": "workspace:^4.12.0-dev.0",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0"
   },
@@ -114,7 +114,7 @@
     "@bentley/icons-generic": "^1.0.34",
     "@itwin/itwinui-variables": "^3.0.0",
     "@itwin/itwinui-icons-react": "^2.8.0",
-    "@itwin/itwinui-react": "^3.2.4",
+    "@itwin/itwinui-react": "^3.6.0",
     "@types/shortid": "~0.0.29",
     "classnames": "2.3.1",
     "immer": "9.0.6",

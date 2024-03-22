@@ -369,6 +369,9 @@ export namespace ConvertedPrimitives {
 // @internal
 export function convertPrimitiveRecordToString(record: PropertyRecord): string | Promise<string>;
 
+// @public
+export function CustomizablePropertyRenderer(props: CustomizablePropertyRendererProps): React_3.JSX.Element;
+
 // @alpha
 export class CustomNumberEditor extends React_3.PureComponent<PropertyEditorProps, CustomNumberEditorState> implements TypeEditor {
     // @internal (undocumented)
@@ -1842,10 +1845,10 @@ export interface PrimitivePropertyLabelRendererProps extends PropertyLabelRender
 }
 
 // @public
-export class PrimitivePropertyRenderer extends React_3.Component<PrimitiveRendererProps> {
+export class PrimitivePropertyRenderer extends React_2.Component<PrimitiveRendererProps> {
     constructor(props: PrimitiveRendererProps);
     // @internal (undocumented)
-    render(): React_3.JSX.Element;
+    render(): React_2.JSX.Element;
 }
 
 // @public
@@ -1861,8 +1864,8 @@ export function PrimitivePropertyValueRendererImpl(props: PrimitivePropertyValue
 export interface PrimitiveRendererProps extends SharedRendererProps {
     highlight?: HighlightingComponentProps;
     indentation?: number;
-    valueElement?: React_3.ReactNode;
-    valueElementRenderer?: () => React_3.ReactNode;
+    valueElement?: React_2.ReactNode;
+    valueElementRenderer?: () => React_2.ReactNode;
 }
 
 // @public
@@ -2444,6 +2447,7 @@ export class PropertyValueRendererManager {
     // (undocumented)
     protected _defaultStructValueRenderer: IPropertyValueRenderer;
     getRegisteredRenderer(rendererType: string): IPropertyValueRenderer | undefined;
+    hasCustomRenderer(record: PropertyRecord): boolean;
     // (undocumented)
     protected _propertyRenderers: Map<string, IPropertyValueRenderer>;
     registerRenderer(rendererType: string, propertyRenderer: IPropertyValueRenderer, overwrite?: boolean): void;
@@ -3664,7 +3668,7 @@ export class VirtualizedPropertyGrid extends React_3.Component<VirtualizedProper
     // @internal
     constructor(props: VirtualizedPropertyGridProps);
     // @internal (undocumented)
-    componentDidUpdate(prevProps: VirtualizedPropertyGridProps, prevState: VirtualizedPropertyGridState): void;
+    componentDidUpdate(prevProps: VirtualizedPropertyGridProps): void;
     // @internal (undocumented)
     static getDerivedStateFromProps(props: VirtualizedPropertyGridProps, state: VirtualizedPropertyGridState): VirtualizedPropertyGridState | null;
     // @internal (undocumented)

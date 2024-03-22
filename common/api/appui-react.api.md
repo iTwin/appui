@@ -13,7 +13,11 @@ import { AccuDraw } from '@itwin/core-frontend';
 import type { ActionButton } from '@itwin/appui-abstract';
 import { ActivityMessageDetails } from '@itwin/core-frontend';
 import { ActivityMessageEndReason } from '@itwin/core-frontend';
+<<<<<<< HEAD
 // import { BadgeType } from '@itwin/appui-abstract';
+=======
+import { BadgeType } from '@itwin/core-react';
+>>>>>>> ce27d92a4905a08bfdcde14f282ab40e9f752288
 import { BaseSolarDataProvider } from '@itwin/imodel-components-react';
 import { BaseTimelineDataProvider } from '@itwin/imodel-components-react';
 import type { BeButtonEvent } from '@itwin/core-frontend';
@@ -22,7 +26,7 @@ import { BeEvent } from '@itwin/core-bentley';
 import { BeUiEvent } from '@itwin/core-bentley';
 import { Button } from '@itwin/itwinui-react';
 import { ColorDef } from '@itwin/core-common';
-import type { CommandHandler } from '@itwin/appui-abstract';
+import type { CommandHandler as CommandHandler_2 } from '@itwin/appui-abstract';
 import type { CommonBackstageItem as CommonBackstageItem_2 } from '@itwin/appui-abstract';
 import type { CommonDivProps } from '@itwin/core-react';
 import type { CommonProps } from '@itwin/core-react';
@@ -36,10 +40,10 @@ import type { CustomButtonDefinition } from '@itwin/appui-abstract';
 import type { DialogItem } from '@itwin/appui-abstract';
 import type { DialogLayoutDataProvider } from '@itwin/appui-abstract';
 import type { DialogPropertySyncItem } from '@itwin/appui-abstract';
-import type { DialogProps } from '@itwin/core-react';
-import type { DialogProps as DialogProps_2 } from '@itwin/appui-abstract';
+import type { DialogProps } from '@itwin/appui-abstract';
+import type { DialogProps as DialogProps_2 } from '@itwin/core-react';
 import type { DialogRow } from '@itwin/appui-abstract';
-import type { Direction } from '@itwin/components-react';
+import { Direction } from '@itwin/components-react';
 import type { DisplayStyle3dState } from '@itwin/core-frontend';
 import type { EmphasizeElementsProps } from '@itwin/core-common';
 import type { GroupButton } from '@itwin/appui-abstract';
@@ -52,7 +56,6 @@ import type { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
 import type { Key } from 'ts-key-enum';
 import type { LayoutFragmentProps } from '@itwin/appui-abstract';
-import type { Localization } from '@itwin/core-common';
 import type { MarkRequired } from '@itwin/core-bentley';
 import { MessageBoxIconType } from '@itwin/core-frontend';
 import { MessageBoxType } from '@itwin/core-frontend';
@@ -82,8 +85,11 @@ import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyUpdatedArgs } from '@itwin/components-react';
 import type { QuantityTypeArg } from '@itwin/core-frontend';
 import * as React_2 from 'react';
+import type { ReactElement } from 'react';
 import type { RectangleProps } from '@itwin/core-react';
+import type { RefObject } from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
+import type { RequireAtLeastOne } from '@itwin/core-bentley';
 import type { ScreenViewport } from '@itwin/core-frontend';
 import { SettingsManager } from '@itwin/core-react';
 import type { SettingsTabEntry } from '@itwin/core-react';
@@ -101,8 +107,10 @@ import { ToolAdmin } from '@itwin/core-frontend';
 import type { ToolAssistanceInstruction } from '@itwin/core-frontend';
 import type { ToolAssistanceInstructions } from '@itwin/core-frontend';
 import type { ToolbarOpacitySetting } from '@itwin/components-react';
-import type { ToolbarPanelAlignment } from '@itwin/components-react';
+import { ToolbarPanelAlignment } from '@itwin/components-react';
+import type { ToolList } from '@itwin/core-frontend';
 import type { ToolTipOptions } from '@itwin/core-frontend';
+import type { TranslationOptions } from '@itwin/core-common';
 import { UiAdmin } from '@itwin/appui-abstract';
 import type { UiDataProvider } from '@itwin/appui-abstract';
 import { UiEvent } from '@itwin/appui-abstract';
@@ -188,15 +196,17 @@ export class AccuDrawPopupManager {
     // (undocumented)
     static hideMenuButton(id: string): boolean;
     // (undocumented)
-    static showAngleEditor(el: HTMLElement, pt: XAndY, value: number, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc): boolean;
+    static showAngleEditor(el: HTMLElement, pt: XAndY, value: number, onCommit: (value: number) => void, onCancel: () => void): boolean;
     // (undocumented)
-    static showCalculator(el: HTMLElement, pt: XAndY, initialValue: number, resultIcon: string, onOk: OnNumberCommitFunc, onCancel: OnCancelFunc): boolean;
+    static showCalculator(el: HTMLElement, pt: XAndY, initialValue: number, resultIcon: string, onOk: (value: number) => void, onCancel: () => void): boolean;
     // (undocumented)
-    static showHeightEditor(el: HTMLElement, pt: XAndY, value: number, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc): boolean;
+    static showDimensionEditor(dimension: "height" | "length", el: HTMLElement, pt: XAndY, value: number, onCommit: (value: number) => void, onCancel: () => void): boolean;
     // (undocumented)
-    static showLengthEditor(el: HTMLElement, pt: XAndY, value: number, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc): boolean;
+    static showHeightEditor(el: HTMLElement, pt: XAndY, value: number, onCommit: (value: number) => void, onCancel: () => void): boolean;
     // (undocumented)
-    static showMenuButton(id: string, el: HTMLElement, pt: XAndY, menuItemsProps: AbstractMenuItemProps[]): boolean;
+    static showLengthEditor(el: HTMLElement, pt: XAndY, value: number, onCommit: (value: number) => void, onCancel: () => void): boolean;
+    // (undocumented)
+    static showMenuButton(id: string, el: HTMLElement, pt: XAndY, menuItemsProps: CursorMenuItemProps[]): boolean;
 }
 
 // @beta
@@ -311,7 +321,7 @@ export interface Action<T extends string> {
 // @public
 export abstract class ActionButtonItemDef extends ItemDefBase {
     constructor(itemProps: ItemProps, onItemExecuted?: OnItemExecutedFunc);
-    protected _commandHandler?: CommandHandler;
+    protected _commandHandler?: CommandHandler_2;
     static defaultButtonSize: number;
     execute(): void;
     getDimension(orientation: Orientation): number;
@@ -799,6 +809,13 @@ export const combineReducers: CombineReducersFunction;
 export type CombineReducersFunction = <A>(reducers: A) => (state: CombinedReducerState<A>, action: ReducerMapActions<A>) => CombinedReducerState<A>;
 
 // @public
+export interface CommandHandler {
+    execute?: (args?: any) => any;
+    getCommandArgs?: () => any[];
+    parameters?: any;
+}
+
+// @public
 export class CommandItemDef extends ActionButtonItemDef {
     constructor(commandItemProps: CommandItemProps, onItemExecuted?: OnItemExecutedFunc);
     // (undocumented)
@@ -1062,7 +1079,7 @@ export interface ContentDialogInfo {
 }
 
 // @public
-export interface ContentDialogProps extends DialogProps {
+export interface ContentDialogProps extends DialogProps_2 {
     // (undocumented)
     children: React_2.ReactNode;
     // (undocumented)
@@ -1303,12 +1320,30 @@ export class CursorInformation {
     static readonly onCursorUpdatedEvent: CursorUpdatedEvent;
 }
 
-// @public
+// @public @deprecated
 export interface CursorMenuData {
     // (undocumented)
     childWindowId?: string;
     // (undocumented)
     items: MenuItemProps[];
+    // (undocumented)
+    position: XAndY;
+}
+
+// @public
+export interface CursorMenuItemProps extends ItemProps {
+    iconRight?: string | ConditionalStringValue_2;
+    id: string;
+    item?: CommandItemProps;
+    submenu?: CursorMenuItemProps[];
+}
+
+// @public
+export interface CursorMenuPayload {
+    // (undocumented)
+    childWindowId?: string;
+    // (undocumented)
+    items: CursorMenuItemProps[];
     // (undocumented)
     position: XAndY;
 }
@@ -1324,7 +1359,7 @@ export class CursorPopup extends React_2.Component<CursorPopupProps, CursorPopup
     // @internal (undocumented)
     static fadeOutTime: number;
     // @internal (undocumented)
-    static getPopupRect(pt: XAndY, offset: XAndY, popupSize: SizeProps | undefined, relativePosition: RelativePosition): RectangleProps;
+    static getPopupRect(pt: XAndY, offset: XAndY, popupSize: SizeProps | undefined, relativePosition: RelativePosition | Placement): RectangleProps;
     // @internal (undocumented)
     render(): React_2.JSX.Element;
 }
@@ -1383,23 +1418,18 @@ export interface CursorPopupOptions {
 }
 
 // @public
-export interface CursorPopupProps extends CommonProps {
-    // (undocumented)
-    content: React_2.ReactNode;
-    // (undocumented)
+export type CursorPopupProps = {
     id: string;
-    // (undocumented)
-    offset: XAndY;
-    onSizeKnown?: (size: SizeProps) => void;
-    // (undocumented)
+    content: React_2.ReactNode;
     pt: XAndY;
-    // (undocumented)
-    relativePosition: RelativePosition;
-    // (undocumented)
-    shadow?: boolean;
-    // (undocumented)
+    offset: XAndY;
     title?: string;
-}
+    shadow?: boolean;
+    onSizeKnown?: (size: SizeProps) => void;
+} & CommonProps & RequireAtLeastOne<{
+    relativePosition: RelativePosition /** @deprecated in 4.11.x. Use `placement` instead. */;
+    placement: Placement;
+}>;
 
 // @public
 export class CursorPopupRenderer extends React_2.Component<any, CursorPopupRendererState> {
@@ -1738,10 +1768,8 @@ export interface ExpandableSectionProps extends CommonProps {
 
 // @public
 export interface ExtensibleToolbarProps {
-    // (undocumented)
     items: ToolbarItem[];
     orientation: ToolbarOrientation;
-    // (undocumented)
     usage: ToolbarUsage;
 }
 
@@ -2027,7 +2055,7 @@ export interface FrameworkKeyboardShortcuts {
 export const FrameworkReducer: (state: CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
-}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
+}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData> | DeepReadonlyObject<CursorMenuPayload>>>) => CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
 }>;
@@ -2079,36 +2107,51 @@ export interface FrameworkToolSettings {
 export class FrameworkUiAdmin extends UiAdmin {
     closeDialog(dialogId: string): boolean;
     closeToolSettingsPopup(): boolean;
+    // @deprecated
     get cursorPosition(): XAndY;
-    // (undocumented)
+    // @deprecated (undocumented)
     getKeyins(): KeyinEntry[];
+    // @deprecated
     hideCalculator(): boolean;
     hideCard(): boolean;
+    // @deprecated
     hideHTMLElement(): boolean;
     hideInputEditor(): boolean;
+    // @deprecated
     hideKeyinPalette(): boolean;
+    // @deprecated
     hideMenuButton(id: string): boolean;
+    // @deprecated
     hideToolbar(): boolean;
+    // @deprecated
     get isFocusOnHome(): boolean;
-    // (undocumented)
+    // @deprecated (undocumented)
     get localizedKeyinPreference(): KeyinFieldLocalization;
     set localizedKeyinPreference(preference: KeyinFieldLocalization);
-    // @internal (undocumented)
-    onInitialized(): void;
-    openDialog(uiDataProvider: DialogLayoutDataProvider, title: string, isModal: boolean, id: string, optionalProps?: DialogProps_2): boolean;
+    openDialog(uiDataProvider: DialogLayoutDataProvider, title: string, isModal: boolean, id: string, optionalProps?: DialogProps): boolean;
     openToolSettingsPopup(dataProvider: DialogLayoutDataProvider, location: XAndY, offset: XAndY, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
+    // @deprecated
     setFocusToHome(): void;
+    // @deprecated
     showAngleEditor(initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, htmlElement?: HTMLElement): boolean;
+    // @deprecated
     showCalculator(initialValue: number, resultIcon: string, location: XAndY, onOk: OnNumberCommitFunc, onCancel: OnCancelFunc, htmlElement?: HTMLElement): boolean;
     showCard(content: HTMLElement, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
+    // @deprecated
     showContextMenu(items: AbstractMenuItemProps[], location: XAndY, htmlElement?: HTMLElement): boolean;
+    // @deprecated
     showHeightEditor(initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, htmlElement?: HTMLElement): boolean;
+    // @deprecated
     showHTMLElement(displayElement: HTMLElement, location: XAndY, offset: XAndY, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
     showInputEditor(initialValue: Primitives.Value, propertyDescription: PropertyDescription, location: XAndY, onCommit: OnValueCommitFunc, onCancel: OnCancelFunc, htmlElement?: HTMLElement): boolean;
+    // @deprecated
     showKeyinPalette(htmlElement?: HTMLElement): boolean;
+    // @deprecated
     showLengthEditor(initialValue: number, location: XAndY, onCommit: OnNumberCommitFunc, onCancel: OnCancelFunc, htmlElement?: HTMLElement): boolean;
+    // @deprecated
     showMenuButton(id: string, menuItemsProps: AbstractMenuItemProps[], location: XAndY, htmlElement?: HTMLElement): boolean;
     showReactCard(content: React_2.ReactNode, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
+    // @deprecated
     showToolbar(toolbarProps: AbstractToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, htmlElement?: HTMLElement): boolean;
 }
 
@@ -2125,6 +2168,7 @@ export interface FrameworkVisibility {
     showUiAndCancelTimer(): void;
     showUiAndResetTimer(): void;
     snapWidgetOpacity: boolean;
+    // @deprecated
     useProximityOpacity: boolean;
 }
 
@@ -2215,8 +2259,6 @@ export class FrontstageDef {
     getFloatingWidgetContainerIds(): string[];
     // @beta
     getStagePanelDef(location: StagePanelLocation): StagePanelDef | undefined;
-    // @internal
-    getWidgetCurrentState(widgetDef: WidgetDef): WidgetState | undefined;
     // (undocumented)
     get id(): string;
     // @internal
@@ -2332,6 +2374,9 @@ export function getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue;
 // @beta
 export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue;
 
+// @internal
+export function getKeyinsFromToolList(toolList: ToolList, localizedKeyinPreference?: KeyinFieldLocalization): KeyinEntry[];
+
 // @beta (undocumented)
 export function getListPanel(props: ListPickerProps): React_2.ReactNode;
 
@@ -2352,6 +2397,9 @@ export function getSelectionContextSyncEventIds(): string[];
 
 // @beta
 export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry;
+
+// @internal (undocumented)
+export function getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState): WidgetState;
 
 // @internal (undocumented)
 export type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
@@ -2478,7 +2526,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
     static updateModelOverride(vp: Viewport, ids: string[]): void;
 }
 
-// @alpha
+// @alpha @deprecated
 export class HTMLElementPopup extends React_2.PureComponent<HTMLElementPopupProps, HTMLElementPopupState> {
     // (undocumented)
     render(): React_2.JSX.Element;
@@ -2488,7 +2536,7 @@ export class HTMLElementPopup extends React_2.PureComponent<HTMLElementPopupProp
     };
 }
 
-// @alpha (undocumented)
+// @alpha @deprecated (undocumented)
 export interface HTMLElementPopupProps extends PopupPropsBase {
     // (undocumented)
     element: HTMLElement;
@@ -2576,11 +2624,11 @@ export function initializePanel(frontstageDef: FrontstageDef, location: StagePan
 
 // @beta (undocumented)
 export class InputEditorCommitHandler {
-    constructor(onCommit: OnValueCommitFunc);
+    constructor(onCommit: (value: Primitives.Value) => void);
     // (undocumented)
     handleCommit: (args: PropertyUpdatedArgs) => void;
     // (undocumented)
-    readonly onCommit: OnValueCommitFunc;
+    readonly onCommit: (value: Primitives.Value) => void;
 }
 
 // @alpha
@@ -2598,7 +2646,7 @@ export interface InputEditorPopupProps extends PopupPropsBase {
     // (undocumented)
     commitHandler: InputEditorCommitHandler;
     // (undocumented)
-    onCancel: OnCancelFunc;
+    onCancel: () => void;
     // (undocumented)
     record: PropertyRecord;
 }
@@ -2836,11 +2884,13 @@ export enum KeyinFieldLocalization {
 export function KeyinPalettePanel({ keyins, onKeyinExecuted, historyLength: allowedHistoryLength, }: KeyinPalettePanelProps): React_2.JSX.Element;
 
 // @public
-export function KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted, }: KeyinPalettePopupProps): React_2.JSX.Element;
+export function KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted, anchorEl, }: KeyinPalettePopupProps): React_2.JSX.Element;
 
 // @public
 export interface KeyinPalettePopupProps {
     // (undocumented)
+    anchorEl?: HTMLElement;
+    // @deprecated (undocumented)
     el: HTMLElement;
     // (undocumented)
     id: string;
@@ -2946,6 +2996,12 @@ export interface ListPickerPropsExtended extends ListPickerProps {
     invertFunc?: () => void;
 }
 
+// @internal
+export function mapToPlacement(input?: Placement | RelativePosition): Placement;
+
+// @internal
+export function mapToRelativePosition(input: Placement | RelativePosition): RelativePosition;
+
 // @alpha (undocumented)
 export class MenuButton extends React_2.PureComponent<MenuButtonProps, MenuButtonState> {
     constructor(props: MenuButtonProps);
@@ -2977,7 +3033,7 @@ export interface MenuButtonProps extends SquareButtonProps {
 
 // @alpha
 export class MenuItem extends ItemDefBase {
-    constructor(props: MenuItemProps, onSelection?: () => void);
+    constructor(props: CursorMenuItemProps, onSelection?: () => void);
     // (undocumented)
     get actionItem(): ActionButtonItemDef | undefined;
     // (undocumented)
@@ -2995,10 +3051,10 @@ export class MenuItemHelpers {
     // (undocumented)
     static createMenuItemNodes(itemList: MenuItem[]): React_2.ReactNode[];
     // (undocumented)
-    static createMenuItems(itemPropsList: MenuItemProps[], onSelection?: () => void): MenuItem[];
+    static createMenuItems(itemPropsList: CursorMenuItemProps[], onSelection?: () => void): MenuItem[];
 }
 
-// @public
+// @public @deprecated
 export type MenuItemProps = AbstractMenuItemProps;
 
 // @public
@@ -3180,7 +3236,7 @@ export interface ModelessDialogInfo {
 }
 
 // @public
-export interface ModelessDialogProps extends DialogProps {
+export interface ModelessDialogProps extends DialogProps_2 {
     // (undocumented)
     dialogId: string;
     // (undocumented)
@@ -3275,7 +3331,7 @@ export interface OpenChildWindowInfo {
 export class OpenMessageCenterEvent extends UiEvent<{}> {
 }
 
-// @beta
+// @public
 export interface OverflowToolbarOptions {
     overflowExpandsTo?: Direction;
 }
@@ -3314,6 +3370,12 @@ export interface PanelStateChangedEventArgs {
     // (undocumented)
     panelState: StagePanelState;
 }
+
+// @public
+export type Placement = Side | `${Side}-${Alignment}`;
+
+// @internal
+export type PlacementOrRelativePosition = Placement | RelativePosition;
 
 // @public
 export class PointerMessage extends React_2.Component<PointerMessageProps, PointerMessageState> {
@@ -3373,7 +3435,8 @@ export interface PopupInfo {
     component: React_2.ReactNode;
     // (undocumented)
     id: string;
-    // (undocumented)
+    parent?: Document;
+    // @deprecated (undocumented)
     parentDocument: Document;
     // (undocumented)
     pt: XAndY;
@@ -3391,9 +3454,17 @@ export class PopupManager {
     static get defaultOffset(): XAndY;
     static set defaultOffset(offset: XAndY);
     // (undocumented)
+    static displayCard(content: React_2.ReactNode, options: DisplayCardPopupOptions): boolean;
+    // (undocumented)
+    static displayToolbar(items: ToolbarItem[], options: CommonPopupOptions & {
+        onItemExecuted: (item: any) => void;
+    }): boolean;
+    // (undocumented)
     static getPopupPosition(el: HTMLElement, pt: XAndY, offset: XAndY, size: SizeProps): Point;
     // (undocumented)
-    static hideCard(): boolean;
+    static hideCard(id?: string): boolean;
+    // (undocumented)
+    static hideComponent(id?: string): boolean;
     // (undocumented)
     static hideHTMLElement(): boolean;
     // (undocumented)
@@ -3405,7 +3476,7 @@ export class PopupManager {
     // (undocumented)
     static readonly onPopupsChangedEvent: PopupsChangedEvent;
     // (undocumented)
-    static openToolSettings(dataProvider: DialogLayoutDataProvider, el: HTMLElement, pt: XAndY, offset: XAndY, onCancel: OnCancelFunc, relativePosition: RelativePosition): boolean;
+    static openToolSettings(dataProvider: DialogLayoutDataProvider, el: HTMLElement, pt: XAndY, offset: XAndY, onCancel: () => void, relativePosition: RelativePosition): boolean;
     // (undocumented)
     static get popupCount(): number;
     // (undocumented)
@@ -3414,15 +3485,16 @@ export class PopupManager {
     // (undocumented)
     static removePopup(id: string): boolean;
     // (undocumented)
-    static showCard(content: PopupContentType, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined, el: HTMLElement, pt: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition: RelativePosition): boolean;
+    static showCard(content: PopupContentType, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined, el: HTMLElement, pt: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, relativePosition: RelativePosition): boolean;
+    static showComponent(displayElement: ReactElement, options: CommonPopupOptions): boolean;
     // (undocumented)
-    static showHTMLElement(displayElement: HTMLElement, el: HTMLElement, pt: XAndY, offset: XAndY, onCancel: OnCancelFunc, relativePosition: RelativePosition): boolean;
+    static showHTMLElement(displayElement: HTMLElement, el: HTMLElement, pt: XAndY, offset: XAndY, onCancel: () => void, relativePosition: RelativePosition): boolean;
     // (undocumented)
-    static showInputEditor(el: HTMLElement, pt: XAndY, value: Primitives.Value, propertyDescription: PropertyDescription, onCommit: OnValueCommitFunc, onCancel: OnCancelFunc): boolean;
+    static showInputEditor(el: HTMLElement, pt: XAndY, value: Primitives.Value, propertyDescription: PropertyDescription, onCommit: OnValueCommitFunc, onCancel: () => void): boolean;
     // (undocumented)
-    static showKeyinPalette(keyins: KeyinEntry[], el: HTMLElement, onItemExecuted?: OnItemExecutedFunc, onCancel?: OnCancelFunc): boolean;
+    static showKeyinPalette(keyins: KeyinEntry[], el: HTMLElement, onItemExecuted?: (item: any) => void, onCancel?: () => void): boolean;
     // (undocumented)
-    static showToolbar(toolbarProps: AbstractToolbarProps, el: HTMLElement, pt: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition: RelativePosition): boolean;
+    static showToolbar(toolbarProps: AbstractToolbarProps, el: HTMLElement, pt: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, relativePosition: RelativePosition): boolean;
 }
 
 // @public
@@ -3443,9 +3515,13 @@ export class PopupRenderer extends React_2.Component<{}, PopupRendererState> {
     componentDidMount(): void;
     // (undocumented)
     componentWillUnmount(): void;
+    // @internal (undocumented)
+    context: React_2.ContextType<typeof WrapperContext>;
+    // @internal (undocumented)
+    static contextType: React_2.Context<HTMLElement>;
     // (undocumented)
     render(): React_2.ReactNode;
-    // @internal (undocumented)
+    // (undocumented)
     readonly state: PopupRendererState;
 }
 
@@ -3720,6 +3796,8 @@ export interface SessionState {
     // (undocumented)
     cursorMenuData: CursorMenuData | undefined;
     // (undocumented)
+    cursorMenuPayload: CursorMenuPayload | undefined;
+    // (undocumented)
     defaultIModelViewportControlId: string | undefined;
     // (undocumented)
     defaultViewId: string | undefined;
@@ -3765,7 +3843,7 @@ export const SessionStateActions: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData) => ActionWithPayload<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData> | DeepReadonlyObject<CursorMenuPayload>>;
 };
 
 // @beta
@@ -3803,7 +3881,7 @@ export const sessionStateMapDispatchToProps: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData) => ActionWithPayload<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData> | DeepReadonlyObject<CursorMenuPayload>>;
 };
 
 // @public
@@ -4603,6 +4681,10 @@ export enum ToolbarOrientation {
 
 // @beta
 export class ToolbarPopup extends React_2.PureComponent<ToolbarPopupProps, ToolbarPopupState> {
+    // @internal (undocumented)
+    context: React_2.ContextType<typeof WrapperContext>;
+    // @internal (undocumented)
+    static contextType: React_2.Context<HTMLElement>;
     // (undocumented)
     render(): React_2.JSX.Element;
     // @internal (undocumented)
@@ -4612,20 +4694,18 @@ export class ToolbarPopup extends React_2.PureComponent<ToolbarPopupProps, Toolb
 }
 
 // @beta
-export interface ToolbarPopupProps extends PopupPropsBase {
-    // (undocumented)
+export type ToolbarPopupProps = Omit<PopupPropsBase, "el"> & {
     items: ToolbarItem[];
-    // (undocumented)
-    onCancel: OnCancelFunc;
-    // (undocumented)
-    onItemExecuted: OnItemExecutedFunc;
-    // (undocumented)
     orientation: Orientation;
-    // (undocumented)
+    onCancel: () => void;
+    onItemExecuted: (item: any) => void;
+    el?: HTMLElement;
+} & RequireAtLeastOne<{
     relativePosition: RelativePosition;
-}
+    placement: Placement;
+}>;
 
-// @beta
+// @public
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
     enableOverflow?: boolean | OverflowToolbarOptions;
     expandsTo?: Direction;
@@ -4791,6 +4871,10 @@ export class UiFramework {
     static get childWindows(): FrameworkChildWindows;
     // (undocumented)
     static closeCursorMenu(): void;
+    // @internal
+    static closeDialog(dialogId: string): boolean;
+    // @internal
+    static closeToolSettingsPopup(): boolean;
     static get content(): FrameworkContent;
     static get controls(): FrameworkControls;
     static get dialogs(): FrameworkDialogs;
@@ -4809,7 +4893,8 @@ export class UiFramework {
     // (undocumented)
     static getColorTheme(): ThemeId;
     // (undocumented)
-    static getCursorMenuData(): CursorMenuData | undefined;
+    static getCursorMenuData(): // eslint-disable-next-line deprecation/deprecation
+    CursorMenuData | CursorMenuPayload | undefined;
     // (undocumented)
     static getDefaultIModelViewportControlId(): string | undefined;
     // (undocumented)
@@ -4824,8 +4909,17 @@ export class UiFramework {
     static getUiStateStorage(): UiStateStorage;
     // (undocumented)
     static getWidgetOpacity(): number;
+    static hideCalculator(): boolean;
+    // @internal
+    static hideCard(): boolean;
+    static hideComponent(id?: string): boolean;
+    // @internal
+    static hideInputEditor(): boolean;
     // (undocumented)
     static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler;
+    static hideKeyinPalette(): boolean;
+    static hideMenuButton(id: string): boolean;
+    static hideToolbar(): boolean;
     static initialize(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void>;
     static get initialized(): boolean;
     static initializeStateFromUserSettingsProviders(immediateSync?: boolean): Promise<void>;
@@ -4834,14 +4928,17 @@ export class UiFramework {
     // (undocumented)
     static isMobile(): boolean;
     static get keyboardShortcuts(): FrameworkKeyboardShortcuts;
-    // @internal
-    static get localization(): Localization;
     static get localizationNamespace(): string;
     // @internal (undocumented)
     static loggerCategory(obj: any): string;
     static readonly onUiVisibilityChanged: UiVisibilityChangedEvent;
+    static openContextMenu(items: CursorMenuItemProps[], location: XAndY, anchorElement?: HTMLElement): boolean;
     // (undocumented)
-    static openCursorMenu(menuData: CursorMenuData | undefined): void;
+    static openCursorMenu(menuData: CursorMenuData | CursorMenuPayload | undefined): void;
+    // @internal
+    static openDialog(uiDataProvider: DialogLayoutDataProvider, title: string, isModal: boolean, id: string, optionalProps?: DialogProps): boolean;
+    // @internal
+    static openToolSettingsPopup(dataProvider: DialogLayoutDataProvider, location: XAndY, offset: XAndY, onCancel: () => void, placement?: Placement, anchorElement?: HTMLElement): boolean;
     // @internal (undocumented)
     static get packageName(): string;
     static registerUserSettingsProvider(entry: UserSettingsProvider): boolean;
@@ -4879,13 +4976,24 @@ export class UiFramework {
     static setViewOverlayDisplay(display: boolean): void;
     // (undocumented)
     static setWidgetOpacity(opacity: number): void;
+    static showAngleEditor(initialValue: number, location: XAndY, onCommit: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement): boolean;
+    static showCalculator(initialValue: number, resultIcon: string, location: XAndY, onOk: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement): boolean;
+    // @internal
+    static showCard(content: React.ReactNode, title: string | PropertyRecord | undefined, toolbarProps: ToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, placement?: Placement, anchorElement?: HTMLElement): boolean;
+    static showComponent(...params: OptionalShowComponentParams): boolean;
+    static showDimensionEditor(dimension: "height" | "length", initialValue: number, location: XAndY, onCommit: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement): boolean;
+    // @internal
+    static showInputEditor({ anchorElement, initialValue, location, onCancel, onCommit, propertyDescription, }: ShowInputEditorOptions): boolean;
+    static showKeyinPalette(keyinEntries: KeyinEntry[], htmlElement?: HTMLElement): boolean;
+    static showMenuButton(id: string, menuItemsProps: CursorMenuItemProps[], location: XAndY, anchorElement?: HTMLElement): boolean;
+    static showToolbar(toolbarProps: ToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, placement?: Placement, anchorElement?: HTMLElement): boolean;
     // (undocumented)
     static get showWidgetIcon(): boolean;
     static get store(): Store<any>;
     static terminate(): void;
     static get toolSettings(): FrameworkToolSettings;
     // @internal
-    static translate(key: string | string[]): string;
+    static translate(key: string | string[], options?: TranslationOptions): string;
     // (undocumented)
     static useDefaultPopoutUrl: boolean;
     // (undocumented)
@@ -5041,7 +5149,7 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
 export const useGroupedItems: (items: ReadonlyArray<BackstageItem>) => GroupedItems;
 
 // @internal (undocumented)
-export function useHorizontalToolSettingNodes(): ToolSettingsEntry[];
+export function useHorizontalToolSettingEntries(): ToolSettingsEntry[] | undefined;
 
 // @public
 export const useIsBackstageOpen: (manager: FrameworkBackstage) => boolean;
@@ -5567,6 +5675,9 @@ export enum WidgetType {
     // (undocumented)
     ToolSettings = 3
 }
+
+// @internal
+export const WrapperContext: React_2.Context<HTMLElement>;
 
 // (No @packageDocumentation comment for this package)
 

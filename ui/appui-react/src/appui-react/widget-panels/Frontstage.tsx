@@ -26,7 +26,7 @@ import type { LayoutStore } from "../layout/base/LayoutStore";
 import { createLayoutStore } from "../layout/base/LayoutStore";
 import type { NineZoneDispatch, NineZoneLabels } from "../layout/base/NineZone";
 import { getUniqueId, NineZone } from "../layout/base/NineZone";
-import { activateDroppedTab } from "../layout/state/activateDroppedTab";
+import { activateDroppedTab } from "../preview/activate-dropped-tab/activateDroppedTab";
 import type { NineZoneState } from "../layout/state/NineZoneState";
 import { createNineZoneState } from "../layout/state/NineZoneState";
 import { NineZoneStateReducer } from "../layout/state/NineZoneStateReducer";
@@ -64,6 +64,7 @@ import { WidgetPanelProvider } from "../layout/widget-panels/Panel";
 import { WidgetContentRenderers } from "../layout/widget/ContentRenderer";
 import { useCursor } from "../layout/widget-panels/CursorOverlay";
 import { WidgetPanelExpanders } from "../layout/widget-panels/Expander";
+import { useTranslation } from "../useTranslation";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -277,27 +278,20 @@ export function ActiveFrontstageDefProvider({
 }
 
 /** @internal */
-export function useLabels() {
-  return React.useMemo<NineZoneLabels>(
-    () => ({
-      dockToolSettingsTitle: UiFramework.translate(
-        "widget.tooltips.dockToolSettings"
-      ),
-      moreWidgetsTitle: UiFramework.translate("widget.tooltips.moreWidgets"),
-      moreToolSettingsTitle: UiFramework.translate(
-        "widget.tooltips.moreToolSettings"
-      ),
-      pinPanelTitle: UiFramework.translate("widget.tooltips.pinPanel"),
-      resizeGripTitle: UiFramework.translate("widget.tooltips.resizeGrip"),
-      sendWidgetHomeTitle: UiFramework.translate("widget.tooltips.sendHome"),
-      toolSettingsHandleTitle: UiFramework.translate(
-        "widget.tooltips.toolSettingsHandle"
-      ),
-      unpinPanelTitle: UiFramework.translate("widget.tooltips.unpinPanel"),
-      popoutActiveTab: UiFramework.translate("widget.tooltips.popoutActiveTab"),
-    }),
-    []
-  );
+export function useLabels(): NineZoneLabels {
+  const { translate } = useTranslation();
+
+  return {
+    dockToolSettingsTitle: translate("widget.tooltips.dockToolSettings"),
+    moreWidgetsTitle: translate("widget.tooltips.moreWidgets"),
+    moreToolSettingsTitle: translate("widget.tooltips.moreToolSettings"),
+    pinPanelTitle: translate("widget.tooltips.pinPanel"),
+    resizeGripTitle: translate("widget.tooltips.resizeGrip"),
+    sendWidgetHomeTitle: translate("widget.tooltips.sendHome"),
+    toolSettingsHandleTitle: translate("widget.tooltips.toolSettingsHandle"),
+    unpinPanelTitle: translate("widget.tooltips.unpinPanel"),
+    popoutActiveTab: translate("widget.tooltips.popoutActiveTab"),
+  };
 }
 
 function toTabArgs(widget: WidgetDef) {
@@ -858,6 +852,7 @@ export function useFrontstageManager(
   frontstageDef: FrontstageDef,
   useToolAsToolSettingsLabel?: boolean
 ) {
+  const { translate } = useTranslation();
   const uiSettingsStorage = useUiStateStorageHandler();
   React.useEffect(() => {
     return InternalFrontstageManager.onFrontstageRestoreLayoutEvent.addListener(
@@ -876,10 +871,9 @@ export function useFrontstageManager(
       }
     );
   }, [uiSettingsStorage, frontstageDef]);
-  const defaultLabel = React.useMemo(
-    () => UiFramework.translate("widget.labels.toolSettings"),
-    []
-  );
+
+  const defaultLabel = translate("widget.labels.toolSettings");
+
   React.useEffect(() => {
     const updateLabel = () => {
       const state = frontstageDef.nineZoneState;

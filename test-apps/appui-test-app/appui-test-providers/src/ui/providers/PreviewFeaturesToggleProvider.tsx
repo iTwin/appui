@@ -41,6 +41,9 @@ const availableFeatures: AvailableFeatures = {
     label: "Render dropdown menu when widget title bar has more than 2 buttons",
     value: { threshold: 2 },
   },
+  newToolbars: {
+    label: "Enable iTwinUI based toolbars",
+  },
 };
 
 function PreviewFeatureList() {
@@ -80,7 +83,14 @@ function PreviewFeatureList() {
         ))
       }
     >
-      <BetaBadge />
+      Preview features
+      <BetaBadge
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+        }}
+      />
     </DropdownButton>
   );
 }

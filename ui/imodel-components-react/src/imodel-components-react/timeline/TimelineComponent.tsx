@@ -9,11 +9,7 @@ import "./TimelineComponent.scss";
 import * as React from "react";
 import { UiAdmin } from "@itwin/appui-abstract";
 import type { DateFormatOptions } from "@itwin/components-react";
-import {
-  toDateString,
-  toTimeString,
-  UiComponents,
-} from "@itwin/components-react";
+import { toDateString, toTimeString } from "@itwin/components-react";
 import { SvgCheckmark, SvgMoreVertical } from "@itwin/itwinui-icons-react";
 import {
   DropdownMenu,
@@ -21,12 +17,12 @@ import {
   MenuDivider,
   MenuItem,
 } from "@itwin/itwinui-react";
-import { UiIModelComponents } from "../UiIModelComponents";
 import { InlineEdit } from "./InlineEdit";
 import type { PlaybackSettings, TimelinePausePlayArgs } from "./interfaces";
 import { TimelinePausePlayAction } from "./interfaces";
 import { PlayButton } from "./PlayButton";
 import { Scrubber } from "./Scrubber";
+import { useTranslation } from "../useTranslation";
 
 const slowSpeed = 60 * 1000;
 const mediumSpeed = 20 * 1000;
@@ -100,7 +96,9 @@ export interface TimelineComponentProps {
    * @deprecated in 4.10.x. Has no effect.
    */
   alwaysMinimized?: boolean;
-  /** ComponentId -- must be set to use TimelineComponentEvents */
+  /** ComponentId -- must be set to use TimelineComponentEvents
+   * @deprecated in 4.11.x.  Use the isPlaying prop instead.
+   */
   componentId?: string;
   /** Include the repeat option on the Timeline Context Menu. Defaults to `true`. */
   includeRepeat?: boolean;
@@ -116,6 +114,8 @@ export interface TimelineComponentProps {
   dateFormatOptions?: DateFormatOptions;
   /** Options used to format time string. If not defined it will user browser default locale settings. */
   timeFormatOptions?: DateFormatOptions;
+  /** Used to control the play/pause state of the Timeline.*/
+  isPlaying?: boolean;
 }
 
 /** [[TimelineComponent]] is used to playback timeline data
@@ -135,7 +135,7 @@ export function TimelineComponent(props: TimelineComponentProps) {
     onChange,
     onPlayPause,
   } = props;
-  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [isPlaying, setIsPlaying] = React.useState(!!props.isPlaying);
   const [currentDuration, setCurrentDuration] = React.useState(
     props.initialDuration ?? 0
   );
@@ -210,11 +210,13 @@ export function TimelineComponent(props: TimelineComponentProps) {
   }
 
   React.useEffect(() => {
+    // eslint-disable-next-line deprecation/deprecation
     if (!props.componentId) return;
     return UiAdmin.onGenericUiEvent.addListener((args) => {
       const timelineArgs = args as TimelinePausePlayArgs;
       if (
         !timelineArgs ||
+        // eslint-disable-next-line deprecation/deprecation
         props.componentId !== timelineArgs.uiComponentId ||
         timelineArgs.timelineAction === undefined
       )
@@ -236,6 +238,7 @@ export function TimelineComponent(props: TimelineComponentProps) {
           break;
       }
     });
+    // eslint-disable-next-line deprecation/deprecation
   }, [isPlaying, pause, playOrReplay, props.componentId]);
   useAnimation(({ delta }) => {
     const duration = currentDuration + delta;
@@ -250,6 +253,12 @@ export function TimelineComponent(props: TimelineComponentProps) {
       pause();
     }
   }, isPlaying);
+
+  React.useEffect(() => {
+    if (props.isPlaying) playOrReplay();
+
+    if (props.isPlaying === false) pause();
+  }, [props.isPlaying, playOrReplay, pause]);
 
   const onTimelineChange = (values: ReadonlyArray<number>) => {
     const newDuration = values[0];
@@ -350,33 +359,24 @@ function SettingsMenu({
   onRepeatClick,
   onTotalDurationChange,
 }: SettingsMenuProps) {
-  const settingsLabel = React.useMemo(
-    () => UiComponents.translate("button.label.settings"),
-    []
-  );
-  const repeatLabel = React.useMemo(
-    () => UiIModelComponents.translate("timeline.repeat"),
-    []
-  );
-  const standardItems: TimelineMenuItemProps[] = React.useMemo(
-    () => [
+  const { translate } = useTranslation();
+
+  const menuItems = React.useMemo(() => {
+    const standardItems: TimelineMenuItemProps[] = [
       {
-        label: UiIModelComponents.translate("timeline.slow"),
+        label: translate("timeline.slow"),
         timelineDuration: slowSpeed,
       },
       {
-        label: UiIModelComponents.translate("timeline.medium"),
+        label: translate("timeline.medium"),
         timelineDuration: mediumSpeed,
       },
       {
-        label: UiIModelComponents.translate("timeline.fast"),
+        label: translate("timeline.fast"),
         timelineDuration: fastSpeed,
       },
-    ],
-    []
-  );
+    ];
 
-  const menuItems = React.useMemo(() => {
     if (!appMenuItems) {
       return standardItems;
     }
@@ -389,7 +389,7 @@ function SettingsMenu({
     }
     // Replace
     return appMenuItems;
-  }, [appMenuItemOption, appMenuItems, standardItems]);
+  }, [appMenuItemOption, appMenuItems, translate]);
 
   return (
     <DropdownMenu
@@ -405,7 +405,7 @@ function SettingsMenu({
                   }}
                   startIcon={repeat ? <SvgCheckmark /> : <></>}
                 >
-                  {repeatLabel}
+                  {translate("timeline.repeat")}
                 </MenuItem>,
                 <MenuDivider key="divider" />,
               ]
@@ -431,7 +431,7 @@ function SettingsMenu({
     >
       <IconButton
         data-testid="timeline-settings"
-        title={settingsLabel}
+        label={translate("button.label.settings")}
         styleType="borderless"
       >
         <SvgMoreVertical />

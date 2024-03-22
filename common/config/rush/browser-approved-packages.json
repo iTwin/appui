@@ -299,6 +299,10 @@
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
+      "name": "copyfiles",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "cpx2",
       "allowedCategories": [ "frontend", "internal" ]
     },
@@ -513,6 +517,10 @@
     {
       "name": "typescript",
       "allowedCategories": [ "frontend", "internal", "tools" ]
+    },
+    {
+      "name": "use-sync-external-store",
+      "allowedCategories": [ "frontend" ]
     },
     {
       "name": "upath",

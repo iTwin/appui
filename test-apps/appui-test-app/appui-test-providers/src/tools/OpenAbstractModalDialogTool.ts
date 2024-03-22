@@ -10,6 +10,7 @@ import { IModelApp, Tool } from "@itwin/core-frontend";
 import { AbstractDialogDataProvider } from "../ui/dialogs/TestUiProviderDialog";
 import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { AppUiTestProviders } from "../AppUiTestProviders";
+import { UiFramework } from "@itwin/appui-react";
 
 /**
  * Immediate tool that will open an example modal dialog.The tool is created and register to allow the user
@@ -32,7 +33,7 @@ export class OpenAbstractDialogTool extends Tool {
   }
 
   public override async run(): Promise<boolean> {
-    IModelApp.uiAdmin.openDialog(
+    UiFramework.openDialog(
       new AbstractDialogDataProvider(),
       "Test Abstract Dialog",
       true,

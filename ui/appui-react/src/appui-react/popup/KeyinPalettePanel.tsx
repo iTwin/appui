@@ -28,9 +28,10 @@ import { UiFramework } from "../UiFramework";
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
 import { ClearKeyinPaletteHistoryTool } from "../tools/KeyinPaletteTools";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
-import type { KeyinEntry } from "../uiadmin/FrameworkUiAdmin";
+import type { KeyinEntry } from "../keyins/Keyins";
 import { Input } from "@itwin/itwinui-react";
 import { matchesWords } from "../utils/matchesWords";
+import { useTranslation } from "../useTranslation";
 
 const KEYIN_PALETTE_NAMESPACE = "KeyinPalettePanel";
 const KEYIN_HISTORY_KEY = "historyArray";
@@ -61,10 +62,9 @@ export function KeyinPalettePanel({
   onKeyinExecuted,
   historyLength: allowedHistoryLength = 6,
 }: KeyinPalettePanelProps) {
+  const { translate } = useTranslation();
   const [currentKeyin, setCurrentKeyin] = React.useState<string>("");
-  const placeholderLabel = React.useRef(
-    UiFramework.translate("keyinbrowser.placeholder")
-  );
+
   const inputRef = React.useRef<HTMLInputElement>(null);
   const keyinSeparator = "--#--";
   const [historyKeyins, setHistoryKeyins] = React.useState<string[]>([]);
@@ -102,17 +102,14 @@ export function KeyinPalettePanel({
         value
       );
       if (result.status !== UiStateStorageStatus.Success) {
-        const briefMessage = UiFramework.translate(
-          "keyinbrowser.couldNotSaveHistory"
-        );
         const errorDetails = new NotifyMessageDetails(
           OutputMessagePriority.Error,
-          briefMessage
+          translate("keyinbrowser.couldNotSaveHistory")
         );
         IModelApp.notifications.outputMessage(errorDetails);
       }
     },
-    [uiSettingsStorage]
+    [translate, uiSettingsStorage]
   );
 
   const allKeyins = React.useMemo(() => {
@@ -135,22 +132,22 @@ export function KeyinPalettePanel({
       try {
         switch (await IModelApp.tools.parseAndRun(value)) {
           case ParseAndRunResult.ToolNotFound:
-            message = `UiFramework.translate("keyinbrowser.couldNotFindTool")} ${value}`;
+            message = `translate("keyinbrowser.couldNotFindTool")} ${value}`;
             break;
           // istanbul ignore next
           case ParseAndRunResult.BadArgumentCount:
-            message = UiFramework.translate("keyinbrowser.incorrectArgs");
+            message = translate("keyinbrowser.incorrectArgs");
             break;
           // istanbul ignore next
           case ParseAndRunResult.FailedToRun:
-            message = UiFramework.translate("keyinbrowser.failedToRun");
+            message = translate("keyinbrowser.failedToRun");
             break;
         }
       } catch (ex) {
         // istanbul ignore next
         {
-          message = UiFramework.translate("keyinbrowser.exceptionOccurred");
-          detailedMessage = `${UiFramework.translate(
+          message = translate("keyinbrowser.exceptionOccurred");
+          detailedMessage = `${translate(
             "keyinbrowser.exceptionOccurred"
           )}: ${ex}`;
         }
@@ -186,7 +183,13 @@ export function KeyinPalettePanel({
         if (onKeyinExecuted) onKeyinExecuted(value);
       }
     },
-    [storeHistoryKeyins, onKeyinExecuted, historyKeyins, allowedHistoryLength]
+    [
+      translate,
+      onKeyinExecuted,
+      storeHistoryKeyins,
+      historyKeyins,
+      allowedHistoryLength,
+    ]
   );
 
   const selectKeyin = React.useCallback(() => {
@@ -348,7 +351,7 @@ export function KeyinPalettePanel({
         className={"uifw-command-palette-input"}
         data-testid="command-palette-input"
         onChange={onInputValueChange}
-        placeholder={placeholderLabel.current}
+        placeholder={translate("keyinbrowser.placeholder")}
         value={currentKeyin}
         size="small"
       />

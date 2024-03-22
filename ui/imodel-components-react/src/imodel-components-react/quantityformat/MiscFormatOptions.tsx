@@ -30,7 +30,7 @@ import { DecimalSeparatorSelector } from "./misc/DecimalSeparator";
 import { ScientificTypeSelector } from "./misc/ScientificType";
 import { StationSeparatorSelector } from "./misc/StationSeparatorSelector";
 import { StationSizeSelector } from "./misc/StationSizeSelector";
-import { UiIModelComponents } from "../UiIModelComponents";
+import { useTranslation } from "../useTranslation";
 
 /** Properties of [[MiscFormatOptions]] component.
  * @alpha
@@ -55,6 +55,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
     onShowHideOptions,
     enableMinimumProperties,
   } = props;
+  const { translate } = useTranslation();
 
   const handleSetFormatProps = React.useCallback(
     (newFormatProps: FormatProps) => {
@@ -237,43 +238,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
     [formatProps, handleSetFormatProps]
   );
 
-  const signOptionLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.signOptionLabel")
-  );
-  const stationOffsetLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.stationOffsetLabel")
-  );
-  const stationSeparatorLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.stationSeparatorLabel")
-  );
-  const decimalSeparatorLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.decimalSeparatorLabel")
-  );
-  const showTrailZerosLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.showTrailZerosLabel")
-  );
-  const keepSingleZeroLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.keepSingleZeroLabel")
-  );
-  const zeroEmptyLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.zeroEmptyLabel")
-  );
-  const moreLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.moreLabel")
-  );
-  const lessLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.lessLabel")
-  );
-  const keepDecimalPointLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.keepDecimalPointLabel")
-  );
-  const fractionDashLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.fractionDashLabel")
-  );
-  const scientificTypeLabel = React.useRef(
-    UiIModelComponents.translate("QuantityFormat.labels.scientificTypeLabel")
-  );
-
   return (
     <>
       {enableMinimumProperties && !showOptions && (
@@ -284,12 +248,14 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
           role="link"
           tabIndex={0}
         >
-          {moreLabel.current}
+          {translate("QuantityFormat.labels.moreLabel")}
         </a>
       )}
       {(!enableMinimumProperties || showOptions) && (
         <>
-          <span className={"uicore-label"}>{signOptionLabel.current}</span>
+          <span className={"uicore-label"}>
+            {translate("QuantityFormat.labels.signOptionLabel")}
+          </span>
           <SignOptionSelector
             data-testid="sign-option-selector"
             signOption={showSignOption}
@@ -302,7 +268,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
               formatType !== FormatType.Station && "uicore-disabled"
             )}
           >
-            {stationOffsetLabel.current}
+            {translate("QuantityFormat.labels.stationOffsetLabel")}
           </span>
           <StationSizeSelector
             data-testid="station-size-selector"
@@ -317,7 +283,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
               formatType !== FormatType.Station && "uicore-disabled"
             )}
           >
-            {stationSeparatorLabel.current}
+            {translate("QuantityFormat.labels.stationSeparatorLabel")}
           </span>
           <StationSeparatorSelector
             data-testid="station-separator-selector"
@@ -341,7 +307,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
               formatType === FormatType.Fractional && "uicore-disabled"
             )}
           >
-            {decimalSeparatorLabel.current}
+            {translate("QuantityFormat.labels.decimalSeparatorLabel")}
           </span>
           <DecimalSeparatorSelector
             data-testid="decimal-separator-selector"
@@ -350,7 +316,9 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             disabled={formatType === FormatType.Fractional}
           />
 
-          <span className={"uicore-label"}>{showTrailZerosLabel.current}</span>
+          <span className={"uicore-label"}>
+            {translate("QuantityFormat.labels.showTrailZerosLabel")}
+          </span>
           <Checkbox
             data-testid="show-trail-zeros"
             checked={isFormatTraitSet(FormatTraits.TrailZeroes)}
@@ -363,7 +331,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
               formatType === FormatType.Fractional && "uicore-disabled"
             )}
           >
-            {keepDecimalPointLabel.current}
+            {translate("QuantityFormat.labels.keepDecimalPointLabel")}
           </span>
           <Checkbox
             data-testid="keep-decimal-point"
@@ -371,14 +339,18 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             onChange={handleKeepDecimalPointChange}
           />
 
-          <span className={"uicore-label"}>{keepSingleZeroLabel.current}</span>
+          <span className={"uicore-label"}>
+            {translate("QuantityFormat.labels.keepSingleZeroLabel")}
+          </span>
           <Checkbox
             data-testid="keep-single-zero"
             checked={isFormatTraitSet(FormatTraits.KeepSingleZero)}
             onChange={handleKeepSingleZeroChange}
           />
 
-          <span className={"uicore-label"}>{zeroEmptyLabel.current}</span>
+          <span className={"uicore-label"}>
+            {translate("QuantityFormat.labels.zeroEmptyLabel")}
+          </span>
           <Checkbox
             data-testid="zero-empty"
             checked={isFormatTraitSet(FormatTraits.ZeroEmpty)}
@@ -391,7 +363,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
               formatType !== FormatType.Fractional && "uicore-disabled"
             )}
           >
-            {fractionDashLabel.current}
+            {translate("QuantityFormat.labels.fractionDashLabel")}
           </span>
           <Checkbox
             data-testid="fraction-dash"
@@ -406,7 +378,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
               formatType !== FormatType.Scientific && "uicore-disabled"
             )}
           >
-            {scientificTypeLabel.current}
+            {translate("QuantityFormat.labels.scientificTypeLabel")}
           </span>
           <ScientificTypeSelector
             data-testid="scientific-type-selector"
@@ -430,7 +402,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
               role="link"
               tabIndex={0}
             >
-              {lessLabel.current}
+              {translate("QuantityFormat.labels.lessLabel")}
             </a>
           )}
         </>

@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
-import { Icon, UiCore } from "@itwin/core-react";
+import { Icon } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
 import type { ResultSelectorProps } from "./ResultSelector";
@@ -79,9 +79,6 @@ export class FilteringInput extends React.PureComponent<
   FilteringInputState
 > {
   private _inputElement = React.createRef<HTMLInputElement>();
-  private _searchLabel = UiCore.translate("general.search");
-  private _cancelLabel = UiCore.translate("dialog.cancel");
-  private _clearLabel = UiCore.translate("general.search");
 
   constructor(props: FilteringInputProps) {
     super(props);
@@ -149,6 +146,7 @@ export class FilteringInput extends React.PureComponent<
 
   public override render() {
     const status = this.props.status;
+    const searchLabel = UiComponents.translate("general.search");
     return (
       // TODO: What is filtering-input-preload-images?
       <div
@@ -170,7 +168,7 @@ export class FilteringInput extends React.PureComponent<
             onKeyDown={this._onFilterKeyDown}
             value={this.state.searchText}
             onChange={this._onInputChanged}
-            aria-label={UiCore.translate("general.search")}
+            aria-label={searchLabel}
             size="small"
           />
 
@@ -190,7 +188,7 @@ export class FilteringInput extends React.PureComponent<
                 data-testid="filter-input-search"
                 role="button"
                 tabIndex={-1}
-                title={this._searchLabel}
+                title={searchLabel}
               >
                 <Icon iconSpec={<SvgSearch />} />{" "}
               </span>
@@ -203,7 +201,7 @@ export class FilteringInput extends React.PureComponent<
                 data-testid="filter-input-close"
                 role="button"
                 tabIndex={-1}
-                title={this._cancelLabel}
+                title={UiComponents.translate("dialog.cancel")}
               >
                 <Icon iconSpec={<SvgClose />} />{" "}
               </span>
@@ -216,7 +214,7 @@ export class FilteringInput extends React.PureComponent<
                 data-testid="filter-input-close"
                 role="button"
                 tabIndex={-1}
-                title={this._clearLabel}
+                title={UiComponents.translate("general.clear")}
               >
                 <Icon iconSpec={<SvgClose />} />{" "}
               </span>

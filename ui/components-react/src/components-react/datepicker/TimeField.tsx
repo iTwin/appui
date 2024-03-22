@@ -11,8 +11,8 @@ import classnames from "classnames";
 import { Key } from "ts-key-enum";
 import { Input } from "@itwin/itwinui-react";
 import type { TimeDisplay } from "@itwin/appui-abstract";
-import { UiComponents } from "../UiComponents";
 import "./TimeField.scss";
+import { useTranslation } from "../useTranslation";
 
 /** Interface used to hold 24 hour time in
  * hours, minutes, and seconds.
@@ -66,13 +66,10 @@ export function TimeField({
   readOnly,
   onTimeChange,
 }: TimeFieldProps) {
+  const { translate } = useTranslation();
   const initialDateRef = React.useRef(time);
-  const amLabelRef = React.useRef(
-    UiComponents.translate("timepicker.day-period-am")
-  );
-  const pmLabelRef = React.useRef(
-    UiComponents.translate("timepicker.day-period-pm")
-  );
+  const amLabel = translate("timepicker.day-period-am");
+  const pmLabel = translate("timepicker.day-period-pm");
   const [timeSpec, setTimeSpec] = React.useState(time);
   const { hours, minutes, seconds } = timeSpec;
   const showDayPeriod = -1 !== (timeDisplay as string).search("aa");
@@ -99,11 +96,7 @@ export function TimeField({
 
   const displayHour = getDisplayHours(hours);
   const [dayPeriodText, setDayPeriodText] = React.useState(
-    showDayPeriod
-      ? hours >= 12
-        ? pmLabelRef.current
-        : amLabelRef.current
-      : undefined
+    showDayPeriod ? (hours >= 12 ? pmLabel : amLabel) : undefined
   );
   const [hoursText, setHoursText] = React.useState(
     displayHour.toString().padStart(2, "0")
@@ -159,14 +152,13 @@ export function TimeField({
     const newHours = getValidInt(hoursText, 0, 24, hours);
     setHoursText(getDisplayHours(newHours).toString().padStart(2, "0"));
     updateTimeSpec({ ...timeSpec, hours: newHours });
-    showDayPeriod &&
-      setDayPeriodText(
-        newHours >= 12 ? pmLabelRef.current : amLabelRef.current
-      );
+    showDayPeriod && setDayPeriodText(newHours >= 12 ? pmLabel : amLabel);
   }, [
+    amLabel,
     getDisplayHours,
     hours,
     hoursText,
+    pmLabel,
     showDayPeriod,
     timeSpec,
     updateTimeSpec,
@@ -187,26 +179,26 @@ export function TimeField({
     if (
       dayPeriodText === "AM" ||
       dayPeriodText === "am" ||
-      dayPeriodText === amLabelRef.current
+      dayPeriodText === amLabel
     )
-      newPeriodText = amLabelRef.current;
+      newPeriodText = amLabel;
     else if (
       dayPeriodText === "PM" ||
       dayPeriodText === "pm" ||
-      dayPeriodText === pmLabelRef.current
+      dayPeriodText === pmLabel
     )
-      newPeriodText = pmLabelRef.current;
+      newPeriodText = pmLabel;
 
     // istanbul ignore else
     if (undefined !== newPeriodText) {
       setDayPeriodText(newPeriodText);
-      if (newPeriodText === amLabelRef.current && hours > 12) {
+      if (newPeriodText === amLabel && hours > 12) {
         updateTimeSpec({ ...timeSpec, hours: hours - 12 });
-      } else if (newPeriodText === pmLabelRef.current && hours <= 11) {
+      } else if (newPeriodText === pmLabel && hours <= 11) {
         updateTimeSpec({ ...timeSpec, hours: hours + 12 });
       }
     }
-  }, [dayPeriodText, hours, timeSpec, updateTimeSpec]);
+  }, [amLabel, dayPeriodText, hours, pmLabel, timeSpec, updateTimeSpec]);
 
   const handleHoursOnKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -221,27 +213,23 @@ export function TimeField({
           newHours = 0;
         setHoursText(getDisplayHours(newHours).toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, hours: newHours });
-        showDayPeriod &&
-          setDayPeriodText(
-            newHours >= 12 ? pmLabelRef.current : amLabelRef.current
-          );
+        showDayPeriod && setDayPeriodText(newHours >= 12 ? pmLabel : amLabel);
         event.preventDefault();
       } else if (event.key === Key.Enter.valueOf()) {
         const newHours = getValidInt(hoursText, 0, 24, hours);
         setHoursText(getDisplayHours(newHours).toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, hours: newHours });
-        showDayPeriod &&
-          setDayPeriodText(
-            newHours >= 12 ? pmLabelRef.current : amLabelRef.current
-          );
+        showDayPeriod && setDayPeriodText(newHours >= 12 ? pmLabel : amLabel);
         event.preventDefault();
       }
     },
     [
+      amLabel,
       getDisplayHours,
       hours,
       hoursText,
       minutes,
+      pmLabel,
       seconds,
       showDayPeriod,
       timeSpec,
@@ -321,7 +309,7 @@ export function TimeField({
         event.key === "a" ||
         event.key === "A"
       ) {
-        newPeriodText = amLabelRef.current;
+        newPeriodText = amLabel;
         event.preventDefault();
       } else if (
         event.key === Key.ArrowUp.valueOf() ||
@@ -329,35 +317,35 @@ export function TimeField({
         event.key === "p" ||
         event.key === "P"
       ) {
-        newPeriodText = pmLabelRef.current;
+        newPeriodText = pmLabel;
         event.preventDefault();
       } else if (event.key === Key.Enter.valueOf()) {
         if (
           dayPeriodText === "AM" ||
           dayPeriodText === "am" ||
-          dayPeriodText === amLabelRef.current
+          dayPeriodText === amLabel
         )
-          newPeriodText = amLabelRef.current;
+          newPeriodText = amLabel;
         else if (
           dayPeriodText === "PM" ||
           dayPeriodText === "pm" ||
-          dayPeriodText === pmLabelRef.current
+          dayPeriodText === pmLabel
         )
-          newPeriodText = pmLabelRef.current;
+          newPeriodText = pmLabel;
         event.preventDefault();
       }
       // istanbul ignore else
       if (undefined !== newPeriodText) {
         setDayPeriodText(newPeriodText);
         /* istanbul ignore else */
-        if (newPeriodText === amLabelRef.current && hours > 12) {
+        if (newPeriodText === amLabel && hours > 12) {
           updateTimeSpec({ ...timeSpec, hours: hours - 12 });
-        } else if (newPeriodText === pmLabelRef.current && hours <= 11) {
+        } else if (newPeriodText === pmLabel && hours <= 11) {
           updateTimeSpec({ ...timeSpec, hours: hours + 12 });
         }
       }
     },
-    [dayPeriodText, hours, timeSpec, updateTimeSpec]
+    [amLabel, dayPeriodText, hours, pmLabel, timeSpec, updateTimeSpec]
   );
 
   const showSeconds = -1 !== (timeDisplay as string).search(":ss");

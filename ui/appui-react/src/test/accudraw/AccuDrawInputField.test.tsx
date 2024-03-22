@@ -8,10 +8,11 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { AccuDrawInputField } from "../../appui-react/accudraw/AccuDrawInputField";
-import { IModelApp, ItemField } from "@itwin/core-frontend";
+import type { IModelAppOptions } from "@itwin/core-frontend";
+import { IModelApp, ItemField, NoRenderApp } from "@itwin/core-frontend";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
-import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
 import { UiFramework } from "../../appui-react";
+import TestUtils from "../TestUtils";
 
 // cspell:ignore uiadmin
 
@@ -30,10 +31,13 @@ describe("AccuDrawInputField", () => {
       get: () => requestNextAnimation,
     });
 
+    await TestUtils.initializeUiFramework();
+
+    const opts: IModelAppOptions = {};
+    opts.accuDraw = new FrameworkAccuDraw();
+    await NoRenderApp.startup(opts);
     const accuDraw = new FrameworkAccuDraw();
-    const uiAdmin = new FrameworkUiAdmin();
     sinon.stub(IModelApp, "accuDraw").get(() => accuDraw);
-    sinon.stub(IModelApp, "uiAdmin").get(() => uiAdmin);
   });
 
   afterEach(async () => {

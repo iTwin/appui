@@ -85,6 +85,7 @@ public;ColorTheme
 public;CombinedReducerState
 public;combineReducers: CombineReducersFunction
 public;CombineReducersFunction = 
+public;CommandHandler
 public;CommandItemDef 
 public;CommandItemProps 
 public;CommonBackstageItem
@@ -135,6 +136,9 @@ public;CursorDirection
 public;CursorDirectionParts
 public;CursorInformation
 public;CursorMenuData
+deprecated;CursorMenuData
+public;CursorMenuItemProps 
+public;CursorMenuPayload
 public;CursorPopup 
 public;CursorPopupContent(props: CommonDivProps): React_2.JSX.Element
 internal;CursorPopupFadeOutEvent 
@@ -142,7 +146,7 @@ internal;CursorPopupFadeOutEventArgs
 public;CursorPopupManager
 alpha;CursorPopupMenu 
 public;CursorPopupOptions
-public;CursorPopupProps 
+public;CursorPopupProps =
 public;CursorPopupRenderer 
 internal;CursorPopupShow
 internal;CursorPopupUpdatePositionEvent 
@@ -223,6 +227,7 @@ beta;getFeatureOverrideSyncEventIds(): string[]
 internal;getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]): string
 beta;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue
 beta;getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue
+internal;getKeyinsFromToolList(toolList: ToolList, localizedKeyinPreference?: KeyinFieldLocalization): KeyinEntry[]
 beta;getListPanel(props: ListPickerProps): React_2.ReactNode
 internal;getPanelSectionId(location: StagePanelLocation, section: StagePanelSection): PanelSectionId
 internal;getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray
@@ -230,6 +235,7 @@ internal;getPanelState(state: NineZoneState, side: PanelSide): StagePanelState.M
 beta;getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial
 beta;getSelectionContextSyncEventIds(): string[]
 beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry
+internal;getWidgetState(widgetDef: WidgetDef, nineZone: NineZoneState): WidgetState
 internal;GroupedItems = ReadonlyArray
 public;GroupItemDef 
 public;GroupItemProps 
@@ -237,7 +243,9 @@ public;HideIsolateEmphasizeAction
 public;class HideIsolateEmphasizeActionHandler
 public;HideIsolateEmphasizeManager 
 alpha;HTMLElementPopup 
+deprecated;HTMLElementPopup 
 alpha;HTMLElementPopupProps 
+deprecated;HTMLElementPopupProps 
 public;IModelConnectedViewport: ConnectedComponent
 beta;IModelConnectedViewSelector: ConnectedComponent
 public;IModelViewportControl 
@@ -278,7 +286,7 @@ public;KeyboardShortcutProps
 public;KeyinEntry
 public;KeyinFieldLocalization
 internal;KeyinPalettePanel({ keyins, onKeyinExecuted, historyLength: allowedHistoryLength, }: KeyinPalettePanelProps): React_2.JSX.Element
-public;KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted, }: KeyinPalettePopupProps): React_2.JSX.Element
+public;KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted, anchorEl, }: KeyinPalettePopupProps): React_2.JSX.Element
 public;KeyinPalettePopupProps
 beta;ListItem
 beta;ListItemType
@@ -287,6 +295,8 @@ beta;ListPickerItem
 beta;ListPickerItemProps 
 beta;ListPickerProps
 beta;ListPickerPropsExtended 
+internal;mapToPlacement(input?: Placement | RelativePosition): Placement
+internal;mapToRelativePosition(input: Placement | RelativePosition): RelativePosition
 alpha;MenuButton 
 alpha;MenuButtonPopup 
 alpha;MenuButtonPopupProps 
@@ -294,6 +304,7 @@ alpha;MenuButtonProps
 alpha;MenuItem 
 alpha;MenuItemHelpers
 public;MenuItemProps = AbstractMenuItemProps
+deprecated;MenuItemProps = AbstractMenuItemProps
 public;MessageAddedEvent 
 public;MessageAddedEventArgs
 public;MessageCenterField(): React_2.JSX.Element
@@ -332,13 +343,15 @@ public;NotifyMessageDetailsType = NotifyMessageDetails | ReactNotifyMessageDetai
 public;NotifyMessageType = MessageType
 public;OpenChildWindowInfo
 public;OpenMessageCenterEvent 
-beta;OverflowToolbarOptions
+public;OverflowToolbarOptions
 internal;packNineZoneState(state: NineZoneState): NineZoneState
 public;PanelPinnedChangedEventArgs
 internal;PanelSizeChangedEvent 
 internal;PanelSizeChangedEventArgs
 beta;PanelStateChangedEvent 
 public;PanelStateChangedEventArgs
+public;Placement = Side | `${Side}-${Alignment}`
+internal;PlacementOrRelativePosition = Placement | RelativePosition
 public;PointerMessage 
 public;PointerMessageChangedEvent 
 public;PointerMessageChangedEventArgs
@@ -494,8 +507,8 @@ alpha;ToolbarItemLayouts
 beta;ToolbarItemUtilities
 public;ToolbarOrientation
 beta;ToolbarPopup 
-beta;ToolbarPopupProps 
-beta;ToolbarProps 
+beta;ToolbarPopupProps = Omit
+public;ToolbarProps 
 public;ToolbarUsage
 beta;ToolbarWithOverflow(props: ToolbarWithOverflowProps): React_2.JSX.Element
 beta;ToolbarWithOverflowProps 
@@ -550,7 +563,7 @@ deprecated;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly To
 alpha;useFloatingViewport(args: FloatingViewportContentProps):
 internal;useFrontstageManager(frontstageDef: FrontstageDef, useToolAsToolSettingsLabel?: boolean): void
 internal;useGroupedItems: (items: ReadonlyArray
-internal;useHorizontalToolSettingNodes(): ToolSettingsEntry[]
+internal;useHorizontalToolSettingEntries(): ToolSettingsEntry[] | undefined
 public;useIsBackstageOpen: (manager: FrameworkBackstage) => boolean
 internal;useItemsManager(frontstageDef: FrontstageDef): void
 internal;useLabels(): NineZoneLabels
@@ -621,3 +634,4 @@ public;WidgetState
 public;WidgetStateChangedEvent 
 public;WidgetStateChangedEventArgs
 public;WidgetType
+internal;WrapperContext: React_2.Context

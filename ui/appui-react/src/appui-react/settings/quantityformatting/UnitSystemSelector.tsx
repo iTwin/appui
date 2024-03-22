@@ -7,10 +7,10 @@
  */
 
 import * as React from "react";
-import { UiFramework } from "../../UiFramework";
 import type { UnitSystemKey } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
+import { useTranslation } from "../../useTranslation";
 
 /** Props for [[UnitSystemSelector]]
  * @beta
@@ -25,9 +25,8 @@ export interface UnitSystemSelectorProps {
  * @alpha
  */
 export function UnitSystemSelector(props: UnitSystemSelectorProps) {
-  const label = React.useRef(
-    UiFramework.translate("presentationUnitSystem.selector-label")
-  );
+  const { translate } = useTranslation();
+
   const { selectedUnitSystemKey, onUnitSystemSelected, availableUnitSystems } =
     props;
   const handleUnitSystemSelected = React.useCallback(
@@ -44,25 +43,23 @@ export function UnitSystemSelector(props: UnitSystemSelectorProps) {
       case "imperial":
         return {
           value: "imperial",
-          label: UiFramework.translate(
-            "presentationUnitSystem.BritishImperial"
-          ),
+          label: translate("presentationUnitSystem.BritishImperial"),
         };
       case "usCustomary":
         return {
           value: "usCustomary",
-          label: UiFramework.translate("presentationUnitSystem.USCustomary"),
+          label: translate("presentationUnitSystem.USCustomary"),
         };
       case "usSurvey":
         return {
           value: "usSurvey",
-          label: UiFramework.translate("presentationUnitSystem.USSurvey"),
+          label: translate("presentationUnitSystem.USSurvey"),
         };
       case "metric":
       default:
         return {
           value: "metric",
-          label: UiFramework.translate("presentationUnitSystem.Metric"),
+          label: translate("presentationUnitSystem.Metric"),
         };
     }
   });
@@ -73,7 +70,9 @@ export function UnitSystemSelector(props: UnitSystemSelectorProps) {
 
   return (
     <div className="quantity-unit-system-selector-container">
-      <span className={"uicore-label"}>{label.current}</span>
+      <span className={"uicore-label"}>
+        {translate("presentationUnitSystem.selector-label")}
+      </span>
       <Select
         data-testid="unitSystemSelector"
         value={unitSystemKey}

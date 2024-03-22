@@ -13,13 +13,12 @@
     "step": "Step"
   },
   "solartimeline": {
-    "play": "Play",
     "settings": "Settings",
     "speed": "Speed",
-    "dateTime": "Set Date/Time"
+    "dateTime": "Date & time"
   },
   "solarsettings": {
-    "shadowcolor": "Shadow Color"
+    "shadowcolor": "Shadow color"
   },
   "errors": {
     "unable-to-parse-quantity": "Unable to parse string into quantity"
@@ -134,6 +133,18 @@
     },
     "popupButton": {
       "setFormat": "Set Format"
+    }
+  },
+  "BearingQuantityType": {
+    "label": "Bearing",
+    "description": "Bearing",
+    "bearingGap": {
+      "label": "Add Direction Gap"
+    },
+    "bearingAngleDirection": {
+      "label": "Angle Direction",
+      "clockwise": "Clockwise",
+      "counter-clockwise": "Counter-Clockwise"
     }
   }
 }

@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { UiIModelComponents } from "../../UiIModelComponents";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
+import { useTranslation } from "../../useTranslation";
 
 /** Properties of [[DecimalSeparatorSelector]] component.
  * @internal
@@ -26,20 +26,17 @@ export interface DecimalSeparatorSelectorProps extends CommonProps {
  */
 export function DecimalSeparatorSelector(props: DecimalSeparatorSelectorProps) {
   const { separator, onChange, ...otherProps } = props;
-  const options = React.useRef<SelectOption<string>[]>([
+  const { translate } = useTranslation();
+  const options: SelectOption<string>[] = [
     {
       value: ".",
-      label: UiIModelComponents.translate(
-        "QuantityFormat.decimal_separator.point"
-      ),
+      label: translate("QuantityFormat.decimal_separator.point"),
     },
     {
       value: ",",
-      label: UiIModelComponents.translate(
-        "QuantityFormat.decimal_separator.comma"
-      ),
+      label: translate("QuantityFormat.decimal_separator.comma"),
     },
-  ]);
+  ];
 
   const handleOnChange = React.useCallback(
     (newValue: string) => {
@@ -50,7 +47,7 @@ export function DecimalSeparatorSelector(props: DecimalSeparatorSelectorProps) {
 
   return (
     <Select
-      options={options.current}
+      options={options}
       value={separator}
       onChange={handleOnChange}
       size="small"

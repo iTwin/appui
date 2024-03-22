@@ -42,16 +42,26 @@ export interface ConfigurableUiContentProps extends CommonProps {
   intervalTimeout?: number;
 }
 
+/**
+ * Allows children to get the bounds or other properties of the wrapper element.
+ * @internal
+ */
+export const WrapperContext = React.createContext<HTMLElement>(document.body);
+
 /** The ConfigurableUiContent component is the component the pages specified using ConfigurableUi
  * @public
  */
 export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
+  const [mainElement, setMainElement] = React.useState<HTMLElement | null>(
+    null
+  );
   const [portalContainer, setPortalContainer] = React.useState<
     HTMLElement | undefined
   >();
   React.useEffect(() => {
     UiFramework.keyboardShortcuts.setFocusToHome();
   }, []);
+
   React.useEffect(() => {
     InternalConfigurableUiManager.activityTracker.initialize({
       idleTimeout: props.idleTimeout,
@@ -74,25 +84,28 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
       className={props.className}
       style={props.style}
       onMouseMove={handleMouseMove}
+      ref={setMainElement}
     >
-      <ThemeProvider
-        style={{ height: "100%" }}
-        portalContainer={portalContainer}
-      >
-        {props.appBackstage}
-        <WidgetPanelsFrontstage />
-        <ContentDialogRenderer />
-        <ModelessDialogRenderer />
-        <ModalDialogRenderer />
-        <ElementTooltip />
-        <PointerMessage />
-        <KeyboardShortcutMenu />
-        <InputFieldMessage />
-        <CursorPopupMenu />
-        <CursorPopupRenderer />
-        <PopupRenderer />
-        <MessageRenderer />
-      </ThemeProvider>
+      <WrapperContext.Provider value={mainElement!}>
+        <ThemeProvider
+          style={{ height: "100%" }}
+          portalContainer={portalContainer}
+        >
+          {props.appBackstage}
+          <WidgetPanelsFrontstage />
+          <ContentDialogRenderer />
+          <ModelessDialogRenderer />
+          <ModalDialogRenderer />
+          <ElementTooltip />
+          <PointerMessage />
+          <KeyboardShortcutMenu />
+          <InputFieldMessage />
+          <CursorPopupMenu />
+          <CursorPopupRenderer />
+          <PopupRenderer />
+          <MessageRenderer />
+        </ThemeProvider>
+      </WrapperContext.Provider>
       <div
         className="uifw-configurableui-portalContainer"
         ref={(instance) => setPortalContainer(instance ?? undefined)}
