@@ -10,12 +10,14 @@ import "./SearchBox.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
 import { Input } from "@itwin/itwinui-react";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
+import { useTranslation } from "../l10n/useTranslation";
+
+// TODO: deprecate in favor of iTwinUI SearchBox.
 
 /** Properties for [[SearchBox]] component
  * @public
@@ -66,16 +68,13 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
     const emptyString = this.state.value === "";
     const iconClassName = classnames("core-searchbox-icon", "icon");
     const iconSpec: IconSpec = emptyString ? <SvgSearch /> : <SvgClose />;
-    const buttonTitle = UiCore.translate(
-      emptyString ? "general.search" : "general.clear"
-    );
     return (
       <div
         className={searchClassName}
         style={this.props.style}
         data-testid="core-searchbox-instance"
       >
-        <Input
+        <SearchBoxInput
           defaultValue={this.props.initialValue}
           ref={(el) => {
             this._inputElement = el;
@@ -84,26 +83,20 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
           onKeyDown={this._handleKeyDown}
           onPaste={this._trackChange}
           onCut={this._trackChange}
-          placeholder={
-            this.props.placeholder
-              ? this.props.placeholder
-              : UiCore.translate("general.search")
-          }
           role="searchbox"
           data-testid="core-searchbox-input"
         />
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-        <div
+        <SearchBoxButton
           className="core-searchbox-button"
           onClick={this._handleIconClick}
           role="button"
           tabIndex={-1}
-          title={buttonTitle}
+          emptyString={emptyString}
         >
           <span className={iconClassName}>
             <Icon iconSpec={iconSpec} />
           </span>
-        </div>
+        </SearchBoxButton>
       </div>
     );
   }
@@ -181,4 +174,29 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
     // istanbul ignore else
     if (this._inputElement) this._inputElement.focus();
   }
+}
+
+const SearchBoxInput = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentProps<typeof Input>
+>(function SearchBoxInput({ placeholder, ...props }, ref) {
+  const { translate } = useTranslation();
+  return (
+    <Input
+      ref={ref}
+      placeholder={placeholder ? placeholder : translate("general.search")}
+      {...props}
+    />
+  );
+});
+
+function SearchBoxButton({
+  emptyString,
+  ...props
+}: React.ComponentProps<"div"> & { emptyString: boolean }) {
+  const { translate } = useTranslation();
+  const buttonTitle = translate(
+    emptyString ? "general.search" : "general.clear"
+  );
+  return <div title={buttonTitle} {...props} />;
 }
