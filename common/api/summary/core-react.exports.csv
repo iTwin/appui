@@ -119,6 +119,7 @@ public;LoadingSpinner
 public;LoadingSpinnerProps 
 public;LoadingStatus 
 public;LoadingStatusProps 
+alpha;LocalizationProvider(props: LocalizationProviderProps): React_2.JSX.Element
 public;LocalStateStorage 
 public;MainTabsProps 
 internal;mergeRefs
@@ -219,6 +220,7 @@ internal;useEventListener(eventName: string, handler: (event: Event) => void, el
 beta;useInterval(callback: (...args: any[]) => void, delay: number | undefined): void
 internal;useLayoutResizeObserver(inElement: HTMLElement | null, onResize?: (width?: number, height?: number) => void): (number | undefined)[]
 public;useOptionalDisposable
+internal;usePackageTranslation({ namespace, fallback, defaults, }:
 internal;useProximityToMouse: (elementSet: WidgetElementSet, snap?: boolean, threshold?: number) => number
 internal;useRefEffect
 internal;useRefs
