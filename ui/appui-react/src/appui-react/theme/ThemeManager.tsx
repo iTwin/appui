@@ -36,6 +36,8 @@ export enum ColorTheme {
   HighContrastLight = "high-contrast-light",
   /** Will use iTwinUI `dark` theme with `highContrast` set to `true` */
   HighContrastDark = "high-contrast-dark",
+  /** Will use iTwinUI `os` theme. Needed for type-safe backwards compatibility */
+  OS = "os",
 }
 
 /**
@@ -54,7 +56,7 @@ const colorThemeToThemeTypeMap: { [x: string]: ThemeType } = {
   [ColorTheme.Dark]: "dark",
   [ColorTheme.HighContrastDark]: "dark",
   [ColorTheme.System]: "os",
-  os: "os", // handle "os" for backwards compatibility
+  [ColorTheme.OS]: "os", // handle "os" for backwards compatibility
 };
 
 /**
