@@ -20,7 +20,7 @@ const localization: Localization = {
   registerNamespace: async () => {},
 };
 
-describe.only("usePackageTranslation", () => {
+describe("usePackageTranslation", () => {
   it("should use a localization context", async () => {
     const spy = sinon.spy(localization, "getLocalizedString");
     const { result, waitFor } = renderHook(

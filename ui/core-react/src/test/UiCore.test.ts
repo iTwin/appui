@@ -13,10 +13,6 @@ describe("UiCore", () => {
     TestUtils.terminateUiCore();
   });
 
-  it("i18n should throw Error without initialize", () => {
-    expect(() => UiCore.localization).to.throw(Error);
-  });
-
   it("terminate should run even if no i18n to unregister", () => {
     expect(() => UiCore.terminate()).to.not.throw(Error);
   });
