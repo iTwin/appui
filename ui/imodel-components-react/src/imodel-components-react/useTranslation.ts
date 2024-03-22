@@ -5,10 +5,7 @@
 import * as defaults from "./UiIModelComponents.json";
 import * as React from "react";
 import { usePackageTranslation } from "@itwin/core-react";
-import {
-  defaultNamespace as namespace,
-  UiIModelComponents,
-} from "./UiIModelComponents";
+import { UiIModelComponents } from "./UiIModelComponents";
 
 /** Returns a translation function.
  * @internal
@@ -21,7 +18,7 @@ export function useTranslation() {
     return UiIModelComponents.translate(key);
   }, []);
   return usePackageTranslation({
-    namespace,
+    namespace: UiIModelComponents.localizationNamespace,
     fallback,
     defaults,
   });

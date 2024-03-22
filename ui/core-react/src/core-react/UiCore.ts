@@ -108,8 +108,3 @@ export class UiCore {
     return category;
   }
 }
-
-/** The default internationalization namespace of this package.
- * @alpha
- */
-export const defaultNamespace = UiCore.localizationNamespace;

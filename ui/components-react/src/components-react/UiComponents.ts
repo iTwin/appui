@@ -108,8 +108,3 @@ export class UiComponents {
     return category;
   }
 }
-
-/** The default internationalization namespace of this package.
- * @alpha
- */
-export const defaultNamespace = UiComponents.localizationNamespace;

@@ -97,8 +97,3 @@ export class UiIModelComponents {
     return category;
   }
 }
-
-/** The default localization namespace of this package.
- * @alpha
- */
-export const defaultNamespace = UiIModelComponents.localizationNamespace;

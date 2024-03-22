@@ -5,7 +5,7 @@
 import * as defaults from "../UiFramework.json";
 import * as React from "react";
 import { usePackageTranslation } from "@itwin/core-react";
-import { defaultNamespace as namespace, UiFramework } from "../UiFramework";
+import { UiFramework } from "../UiFramework";
 
 /** Returns a translation function.
  * @internal
@@ -18,7 +18,7 @@ export function useTranslation() {
     return UiFramework.translate(key);
   }, []);
   return usePackageTranslation({
-    namespace,
+    namespace: UiFramework.localizationNamespace,
     fallback,
     defaults,
   });

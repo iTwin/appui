@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as defaults from "../UiCore.json";
 import * as React from "react";
-import { defaultNamespace as namespace, UiCore } from "../UiCore";
+import { UiCore } from "../UiCore";
 import { usePackageTranslation } from "./usePackageTranslation";
 
 /** Returns a translation function to localize package components.
@@ -19,7 +19,7 @@ export function useTranslation() {
     return UiCore.translate(key);
   }, []);
   return usePackageTranslation({
-    namespace,
+    namespace: UiCore.localizationNamespace,
     fallback,
     defaults,
   });
