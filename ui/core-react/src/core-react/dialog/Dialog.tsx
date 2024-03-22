@@ -13,10 +13,10 @@ import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { DialogButtonType } from "@itwin/appui-abstract";
 import { Dialog as BaseDialog, Button } from "@itwin/itwinui-react";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
-import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
 import "./Dialog.scss";
+import { useTranslation } from "../l10n/useTranslation";
 
 type ButtonProps = React.ComponentPropsWithoutRef<typeof Button>;
 
@@ -212,6 +212,7 @@ export class Dialog extends React.Component<DialogProps> {
       ...minMaxStyle,
     };
 
+    // eslint-disable-next-line deprecation/deprecation
     const buttons = this.getFooterButtons(
       buttonCluster,
       "high-visibility",
@@ -293,76 +294,23 @@ export class Dialog extends React.Component<DialogProps> {
     }
   }
 
+  /** @deprecated in 4.11.x. Use iTwinUI Button instead. */
   protected getFooterButtons(
     buttonCluster: DialogButtonDef[] | undefined,
-    /* istanbul ignore next */ primaryStyleType: ButtonProps["styleType"] = "cta",
-    /* istanbul ignore next */ noCoreButtonClasses: boolean = false
+    primaryStyleType: ButtonProps["styleType"] = "cta",
+    noCoreButtonClasses: boolean = false
   ): React.ReactNode[] | undefined {
     if (buttonCluster === undefined) return undefined;
 
     const buttons: React.ReactNode[] = [];
     buttonCluster.forEach((button: DialogButtonDef, index: number) => {
-      let buttonText = "";
-      // istanbul ignore next
-      let buttonClass = classnames(
-        !noCoreButtonClasses && "core-dialog-button",
-        !noCoreButtonClasses && `dialog-button-${button.type}`,
-        button.className
-      );
-      let usePrimaryStyleType = false;
-
-      switch (button.type) {
-        case DialogButtonType.OK:
-          buttonText = UiCore.translate("dialog.ok");
-          buttonClass = classnames(buttonClass, button.buttonStyle);
-          usePrimaryStyleType = true;
-          break;
-        case DialogButtonType.Retry:
-          buttonText = UiCore.translate("dialog.retry");
-          buttonClass = classnames(buttonClass, button.buttonStyle);
-          usePrimaryStyleType = true;
-          break;
-        case DialogButtonType.Yes:
-          buttonText = UiCore.translate("dialog.yes");
-          buttonClass = classnames(buttonClass, button.buttonStyle);
-          usePrimaryStyleType = true;
-          break;
-        case DialogButtonType.No:
-          buttonText = UiCore.translate("dialog.no");
-          buttonClass = classnames(buttonClass, button.buttonStyle);
-          break;
-        case DialogButtonType.Cancel:
-          buttonText = UiCore.translate("dialog.cancel");
-          buttonClass = classnames(buttonClass, button.buttonStyle);
-          break;
-        case DialogButtonType.Close:
-          buttonText = UiCore.translate("dialog.close");
-          buttonClass = classnames(buttonClass, button.buttonStyle);
-          break;
-        case DialogButtonType.Next:
-          buttonText = UiCore.translate("dialog.next");
-          buttonClass = classnames(buttonClass, button.buttonStyle);
-          usePrimaryStyleType = true;
-          break;
-        case DialogButtonType.Previous:
-          buttonText = UiCore.translate("dialog.previous");
-          buttonClass = classnames(buttonClass, button.buttonStyle);
-          usePrimaryStyleType = true;
-          break;
-      }
-
-      if (button.label) buttonText = button.label;
-
       buttons.push(
-        <Button
-          className={buttonClass}
-          disabled={button.disabled}
-          styleType={usePrimaryStyleType ? primaryStyleType : undefined}
+        <DialogButton
           key={index.toString()}
-          onClick={button.onClick}
-        >
-          {buttonText}
-        </Button>
+          button={button}
+          primaryStyleType={primaryStyleType}
+          noCoreButtonClasses={noCoreButtonClasses}
+        />
       );
     });
     return buttons;
@@ -385,4 +333,78 @@ export class Dialog extends React.Component<DialogProps> {
         this.props.onModelessPointerDown(event, this.props.modelessId);
     }
   };
+}
+
+function DialogButton({
+  button,
+  primaryStyleType,
+  noCoreButtonClasses,
+}: {
+  button: DialogButtonDef;
+  primaryStyleType: ButtonProps["styleType"];
+  noCoreButtonClasses: boolean;
+}) {
+  const { translate } = useTranslation();
+
+  let buttonText = "";
+
+  let buttonClass = classnames(
+    !noCoreButtonClasses && "core-dialog-button",
+    !noCoreButtonClasses && `dialog-button-${button.type}`,
+    button.className
+  );
+  let usePrimaryStyleType = false;
+
+  switch (button.type) {
+    case DialogButtonType.OK:
+      buttonText = translate("dialog.ok");
+      buttonClass = classnames(buttonClass, button.buttonStyle);
+      usePrimaryStyleType = true;
+      break;
+    case DialogButtonType.Retry:
+      buttonText = translate("dialog.retry");
+      buttonClass = classnames(buttonClass, button.buttonStyle);
+      usePrimaryStyleType = true;
+      break;
+    case DialogButtonType.Yes:
+      buttonText = translate("dialog.yes");
+      buttonClass = classnames(buttonClass, button.buttonStyle);
+      usePrimaryStyleType = true;
+      break;
+    case DialogButtonType.No:
+      buttonText = translate("dialog.no");
+      buttonClass = classnames(buttonClass, button.buttonStyle);
+      break;
+    case DialogButtonType.Cancel:
+      buttonText = translate("dialog.cancel");
+      buttonClass = classnames(buttonClass, button.buttonStyle);
+      break;
+    case DialogButtonType.Close:
+      buttonText = translate("dialog.close");
+      buttonClass = classnames(buttonClass, button.buttonStyle);
+      break;
+    case DialogButtonType.Next:
+      buttonText = translate("dialog.next");
+      buttonClass = classnames(buttonClass, button.buttonStyle);
+      usePrimaryStyleType = true;
+      break;
+    case DialogButtonType.Previous:
+      buttonText = translate("dialog.previous");
+      buttonClass = classnames(buttonClass, button.buttonStyle);
+      usePrimaryStyleType = true;
+      break;
+  }
+
+  buttonText = button.label ? button.label : buttonText;
+
+  return (
+    <Button
+      className={buttonClass}
+      disabled={button.disabled}
+      styleType={usePrimaryStyleType ? primaryStyleType : undefined}
+      onClick={button.onClick}
+    >
+      {buttonText}
+    </Button>
+  );
 }
