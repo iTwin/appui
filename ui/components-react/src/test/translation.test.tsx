@@ -87,7 +87,6 @@ describe.only("translation", () => {
         <LocalizedComponentsComponent />
       </>
     );
-
     component.getByText("Yes");
     component.getByText("OK");
   });

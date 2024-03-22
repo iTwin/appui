@@ -57,6 +57,7 @@ export {
   LocalizationProvider,
   useLocalization,
 } from "./core-react/l10n/LocalizationProvider";
+export { usePackageTranslation } from "./core-react/l10n/usePackageTranslation";
 
 export * from "./core-react/icons/ConditionalIconItem";
 export * from "./core-react/icons/IconComponent";
