@@ -8,7 +8,10 @@
 import * as React from "react";
 import type { Localization as CoreLocalization } from "@itwin/core-common";
 
-type Localization = Pick<CoreLocalization, "getLocalizedString">;
+type Localization = Pick<
+  CoreLocalization,
+  "getLocalizedString" | "registerNamespace"
+>;
 
 const LocalizationContext = React.createContext<Localization | undefined>(
   undefined

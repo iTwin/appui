@@ -22,9 +22,25 @@ export function usePackageTranslation({
   defaults: object;
 }) {
   const localization = useLocalization();
+  const [registered, setRegistered] = React.useState(false);
+  React.useEffect(() => {
+    if (!localization) return;
+
+    let ignore = false;
+    setRegistered(false);
+    void (async () => {
+      await localization.registerNamespace(namespace);
+      if (ignore) return;
+      setRegistered(true);
+    })();
+    return () => {
+      ignore = true;
+    };
+  }, [localization, namespace]);
   const translate = React.useCallback(
     (key: string) => {
-      if (localization) {
+      if (localization && registered) {
+        // TODO: might flicker even if the localization is registered?
         return localization.getLocalizedString(`${namespace}:${key}`);
       }
 
@@ -36,7 +52,7 @@ export function usePackageTranslation({
       const defaultValue = getDefaultValue(defaults, key);
       return defaultValue ?? key;
     },
-    [localization, namespace, fallback, defaults]
+    [localization, namespace, fallback, defaults, registered]
   );
   return { translate };
 }

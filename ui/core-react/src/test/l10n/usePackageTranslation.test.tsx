@@ -21,9 +21,9 @@ const localization: Localization = {
 };
 
 describe.only("usePackageTranslation", () => {
-  it("should use a localization context", () => {
+  it("should use a localization context", async () => {
     const spy = sinon.spy(localization, "getLocalizedString");
-    const { result } = renderHook(
+    const { result, waitFor } = renderHook(
       () =>
         usePackageTranslation({
           namespace: "test-namespace",
@@ -37,8 +37,10 @@ describe.only("usePackageTranslation", () => {
       }
     );
 
-    expect(result.current.translate("prop.val")).to.eq("localized-string");
-    sinon.assert.calledOnceWithExactly(spy, "test-namespace:prop.val");
+    await waitFor(() => {
+      expect(result.current.translate("prop.val")).to.eq("localized-string");
+      sinon.assert.calledOnceWithExactly(spy, "test-namespace:prop.val");
+    });
   });
 
   it("should use a fallback function", () => {
@@ -88,8 +90,8 @@ describe.only("usePackageTranslation", () => {
     expect(result.current.translate("prop.val")).to.eq("prop.val");
   });
 
-  it("should use a localization context", () => {
-    const { result, rerender } = renderHook(
+  it("should update translations when localization context changes", async () => {
+    const { result, rerender, waitFor } = renderHook(
       (_props: { localization: Localization }) =>
         usePackageTranslation({
           namespace: "test-namespace",
@@ -110,9 +112,62 @@ describe.only("usePackageTranslation", () => {
       localization: newLocalization,
     });
 
-    expect(result.current.translate("prop.val")).to.eq(
-      "updated-localized-string"
+    await waitFor(() => {
+      expect(result.current.translate("prop.val")).to.eq(
+        "updated-localized-string"
+      );
+      sinon.assert.calledOnceWithExactly(spy, "test-namespace:prop.val");
+    });
+  });
+
+  it("should register a namespace", async () => {
+    const spy = sinon.spy(localization, "registerNamespace");
+
+    renderHook(
+      () =>
+        usePackageTranslation({
+          namespace: "test-namespace",
+          fallback: () => undefined,
+          defaults: {},
+        }),
+      {
+        wrapper: (props) => (
+          <LocalizationProvider localization={localization} {...props} />
+        ),
+      }
     );
-    sinon.assert.calledOnceWithExactly(spy, "test-namespace:prop.val");
+
+    sinon.assert.calledOnceWithExactly(spy, "test-namespace");
+  });
+
+  it("should update translation when namespace is registered", async () => {
+    const promise = sinon.promise<void>();
+    sinon.stub(localization, "registerNamespace").returns(promise);
+
+    const { result, waitFor } = renderHook(
+      () =>
+        usePackageTranslation({
+          namespace: "test-namespace",
+          fallback: () => undefined,
+          defaults: {
+            val: "default-value",
+          },
+        }),
+      {
+        wrapper: (props) => (
+          <LocalizationProvider localization={localization} {...props} />
+        ),
+      }
+    );
+
+    await expect(
+      waitFor(() => {
+        expect(result.current.translate("val")).to.eq("localized-string");
+      })
+    ).to.be.rejectedWith();
+    expect(result.current.translate("val")).to.eq("default-value");
+
+    await promise.resolve(undefined);
+    expect(result.current.translate("val")).to.eq("localized-string");
   });
 });
