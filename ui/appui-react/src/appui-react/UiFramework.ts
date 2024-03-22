@@ -1320,3 +1320,8 @@ export class UiFramework {
     return el;
   }
 }
+
+/** The default internationalization namespace of this package.
+ * @alpha
+ */
+export const defaultNamespace = UiFramework.localizationNamespace;

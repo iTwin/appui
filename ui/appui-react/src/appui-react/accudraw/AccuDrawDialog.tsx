@@ -14,7 +14,7 @@ import { Orientation } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 import { ModelessDialog } from "../dialog/ModelessDialog";
 import { AccuDrawFieldContainer } from "./AccuDrawFieldContainer";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../hooks/useTranslation";
 
 /** Properties for [[AccuDrawDialog]]
  * @beta */

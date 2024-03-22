@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { expect } from "chai";
 import * as React from "react";
 import { render } from "@testing-library/react";
 import {
@@ -13,7 +14,6 @@ import {
   defaultNamespace as componentsDefaultNamespace,
   useTranslation as useComponentsTranslation,
 } from "../components-react";
-import { expect } from "chai";
 
 function LocalizedCoreComponent() {
   const { translate } = useCoreTranslation();

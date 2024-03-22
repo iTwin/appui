@@ -18,7 +18,7 @@ import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import { isProviderItem } from "../ui-items-provider/isProviderItem";
 import type { WidgetDef } from "../widgets/WidgetDef";
 import { useTransientState } from "./useTransientState";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../hooks/useTranslation";
 
 function WidgetFallback() {
   const { translate } = useTranslation();
