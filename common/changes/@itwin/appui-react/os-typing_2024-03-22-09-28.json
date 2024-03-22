@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Add \"os\" type to ColorTheme for type-safe setting of theme",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
