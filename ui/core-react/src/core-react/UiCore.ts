@@ -14,7 +14,6 @@ import "./classes.scss";
 
 import { Logger } from "@itwin/core-bentley";
 import type { Localization } from "@itwin/core-common";
-import { UiError } from "@itwin/appui-abstract";
 import { getObjectClassName } from "./utils/getObjectClassName";
 
 /** Manages the Localization service for the core-react package.
@@ -63,6 +62,7 @@ export class UiCore {
   }
 
   /** Calls localization.getLocalizedString with the "UiCore" namespace. Do NOT include the namespace in the key.
+   * @deprecated in 4.11.x. Do not use this internally, this is replaced by `useTranslation`.
    * @internal
    */
   public static translate(key: string | string[]): string {
