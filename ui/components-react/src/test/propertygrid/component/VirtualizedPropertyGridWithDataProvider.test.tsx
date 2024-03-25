@@ -1115,7 +1115,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       await waitForPropertyGridLoad(container);
 
-      await waitFor(() => expect(spy).to.be.calledOnce);
+      await waitFor(() => expect(spy).to.be).toHaveBeenCalledOnce();
     });
 
     it("does not start editor on click if not selected yet", async () => {
@@ -1745,7 +1745,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
-      expect(scrollToItemFake).to.not.have.been.called;
+      expect(scrollToItemFake).not.toBeCalled();
 
       rerender(
         <VirtualizedPropertyGridWithDataProvider
@@ -1754,7 +1754,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
-      expect(scrollToItemFake).to.not.have.been.called;
+      expect(scrollToItemFake).not.toBeCalled();
     });
 
     it("doesn't scroll to item when there are no items in the grid", async () => {
@@ -1797,7 +1797,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         container.querySelector(".components-virtualized-property-grid")
       );
 
-      expect(scrollToItemFake).to.not.have.been.called;
+      expect(scrollToItemFake).not.toBeCalled();
     });
 
     it("doesn't scroll to item if there is no matching item in the grid", async () => {
@@ -1853,7 +1853,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
-      expect(scrollToItemFake).to.not.have.been.called;
+      expect(scrollToItemFake).not.toBeCalled();
     });
   });
 
@@ -1912,7 +1912,7 @@ describe("Learning Snippets", () => {
 
 describe("useVirtualizedPropertyGridLayoutStorage", () => {
   it("invokes `useElementsScrollStorage`", () => {
-    const stub = sinon.stub(
+    const stub = vi.spyOn(
       useElementsScrollStorageModule,
       "useElementsScrollStorage"
     );

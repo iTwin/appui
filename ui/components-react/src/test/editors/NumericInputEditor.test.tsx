@@ -200,7 +200,7 @@ describe("<NumericInputEditor />", () => {
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.calledOnce).toEqual(true);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("calls onCommit on increment click", async () => {
@@ -232,7 +232,7 @@ describe("<NumericInputEditor />", () => {
     fireEvent.click(incrementor[0]);
 
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.calledOnce).toEqual(true);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
 
     expect(input.value).toEqual("124");
   });
@@ -267,7 +267,7 @@ describe("<NumericInputEditor />", () => {
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCancel.calledOnce).toEqual(true);
+    expect(spyOnCancel).toHaveBeenCalledOnce();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

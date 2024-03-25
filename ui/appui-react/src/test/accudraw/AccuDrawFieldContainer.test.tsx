@@ -55,7 +55,7 @@ describe("AccuDrawFieldContainer", () => {
     opts.accuDraw = new FrameworkAccuDraw();
     await NoRenderApp.startup(opts);
     const accuDraw = new FrameworkAccuDraw();
-    sinon.stub(IModelApp, "accuDraw").get(() => accuDraw);
+    vi.spyOn(IModelApp, "accuDraw").get(() => accuDraw);
   });
 
   after(async () => {
@@ -84,19 +84,19 @@ describe("AccuDrawFieldContainer", () => {
     IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
     IModelApp.accuDraw.onFieldValueChange(ItemField.X_Item);
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     IModelApp.accuDraw.onFieldValueChange(ItemField.Y_Item);
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     IModelApp.accuDraw.onFieldValueChange(ItemField.Z_Item);
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     IModelApp.accuDraw.onFieldValueChange(ItemField.ANGLE_Item);
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     IModelApp.accuDraw.onFieldValueChange(ItemField.DIST_Item);
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     remove();
   });
 
@@ -107,19 +107,19 @@ describe("AccuDrawFieldContainer", () => {
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
     IModelApp.accuDraw.setFieldLock(ItemField.X_Item, true);
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     IModelApp.accuDraw.setFieldLock(ItemField.Y_Item, true);
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     IModelApp.accuDraw.setFieldLock(ItemField.Z_Item, true);
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     IModelApp.accuDraw.setFieldLock(ItemField.ANGLE_Item, true);
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     IModelApp.accuDraw.setFieldLock(ItemField.DIST_Item, true);
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     remove();
   });
 
@@ -140,14 +140,14 @@ describe("AccuDrawFieldContainer", () => {
     let input = wrapper.queryByTestId("uifw-accudraw-x");
     expect(input).not.to.be.null;
     expect(document.activeElement === input).toEqual(true);
-    spy.resetHistory();
+    spy.mockReset();
 
     IModelApp.accuDraw.setFocusItem(ItemField.Y_Item);
     expect(spy).toHaveBeenCalledOnce();
     input = wrapper.queryByTestId("uifw-accudraw-y");
     expect(input).not.to.be.null;
     expect(document.activeElement === input).toEqual(true);
-    spy.resetHistory();
+    spy.mockReset();
 
     input = wrapper.queryByTestId("uifw-accudraw-z");
     expect(input).to.be.null;
@@ -160,14 +160,14 @@ describe("AccuDrawFieldContainer", () => {
     input = wrapper.queryByTestId("uifw-accudraw-angle");
     expect(input).not.to.be.null;
     expect(document.activeElement === input).toEqual(true);
-    spy.resetHistory();
+    spy.mockReset();
 
     IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item);
     expect(spy).toHaveBeenCalledOnce();
     input = wrapper.queryByTestId("uifw-accudraw-distance");
     expect(input).not.to.be.null;
     expect(document.activeElement === input).toEqual(true);
-    spy.resetHistory();
+    spy.mockReset();
 
     await TestUtils.flushAsyncOperations();
     expect(IModelApp.accuDraw.hasInputFocus).toEqual(true);
@@ -199,7 +199,7 @@ describe("AccuDrawFieldContainer", () => {
     expect(document.activeElement).toEqual(
       screen.getByTestId("uifw-accudraw-z")
     );
-    spy.resetHistory();
+    spy.mockReset();
 
     expect(IModelApp.accuDraw.hasInputFocus).toEqual(true);
 
@@ -270,7 +270,7 @@ describe("AccuDrawFieldContainer", () => {
     await waitFor(() => {
       expect(spy).toHaveBeenCalledOnce();
     });
-    spy.resetHistory();
+    spy.mockReset();
 
     await theUserTo.type(
       screen.getByTestId("uifw-accudraw-y"),
@@ -280,7 +280,7 @@ describe("AccuDrawFieldContainer", () => {
     await waitFor(() => {
       expect(spy).toHaveBeenCalledOnce();
     });
-    spy.resetHistory();
+    spy.mockReset();
 
     expect(screen.queryByTestId("uifw-accudraw-z")).to.be.null;
 
@@ -296,7 +296,7 @@ describe("AccuDrawFieldContainer", () => {
     await waitFor(() => {
       expect(spy).toHaveBeenCalledOnce();
     });
-    spy.resetHistory();
+    spy.mockReset();
 
     await theUserTo.type(
       screen.getByTestId("uifw-accudraw-distance"),
@@ -306,7 +306,7 @@ describe("AccuDrawFieldContainer", () => {
     await waitFor(() => {
       expect(spy).toHaveBeenCalledOnce();
     });
-    spy.resetHistory();
+    spy.mockReset();
 
     remove();
   });
@@ -440,7 +440,7 @@ describe("AccuDrawFieldContainer", () => {
       await TestUtils.flushAsyncOperations();
       await settingsTest(3);
 
-      spy.resetHistory();
+      spy.mockReset();
 
       IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
       expect(wrapper.queryAllByLabelText(labelTest).length).toEqual(0);

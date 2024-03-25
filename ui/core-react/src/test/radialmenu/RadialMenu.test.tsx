@@ -113,7 +113,7 @@ describe("RadialMenu", () => {
       );
 
       await theUserTo.type(screen.getByTestId("core-radial-menu"), "[Escape]");
-      spy.should.have.been.called;
+      expect(spy).toHaveBeenCalled();
     });
 
     it("should not call onEsc on other keys", async () => {
@@ -151,7 +151,7 @@ describe("RadialMenu", () => {
 
       await theUserTo.click(screen.getByRole("button"));
 
-      spy.should.have.been.called;
+      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -267,7 +267,7 @@ describe("RadialMenu", () => {
       );
 
       await theUserTo.click(screen.getByText("Test"));
-      spy.should.have.been.called;
+      expect(spy).toHaveBeenCalled();
     });
 
     it("should call onSelect when button select API called", () => {
@@ -288,7 +288,7 @@ describe("RadialMenu", () => {
       );
 
       button.current?.select();
-      spy.should.have.been.called;
+      expect(spy).toHaveBeenCalled();
     });
 
     it("should call onSelect when menu select API called", () => {
@@ -311,7 +311,7 @@ describe("RadialMenu", () => {
       );
 
       menu.current?.select();
-      spy.should.have.been.called;
+      expect(spy).toHaveBeenCalled();
     });
 
     it("should handle hover state", async () => {

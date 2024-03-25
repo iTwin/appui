@@ -410,7 +410,7 @@ describe("PopupManager", () => {
         fireEvent.keyDown(firstInput as HTMLElement, { key: "Enter" });
       });
       await TestUtils.flushAsyncOperations();
-      expect(spyCommit.calledOnce).toEqual(true);
+      expect(spyCommit).toHaveBeenCalledOnce();
 
       PopupManager.showInputEditor(
         wrapper.container,
@@ -472,7 +472,7 @@ describe("PopupManager", () => {
         fireEvent.keyDown(buttonNodes[0] as HTMLElement, { key: "Escape" });
       });
 
-      expect(spyCancel.calledOnce).toEqual(true);
+      expect(spyCancel).toHaveBeenCalledOnce();
     });
 
     it("PopupRenderer should render HTMLElement", async () => {
@@ -691,7 +691,7 @@ describe("PopupManager", () => {
 
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
       await TestUtils.flushAsyncOperations();
-      expect(spyChange.calledOnce).toEqual(true);
+      expect(spyChange).toHaveBeenCalledOnce();
 
       PopupManager.openToolSettings(
         uiDataProvider,
@@ -710,7 +710,7 @@ describe("PopupManager", () => {
       fireEvent.click(inputNode as HTMLElement);
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
-      expect(spyCancel.calledOnce).toEqual(true);
+      expect(spyCancel).toHaveBeenCalledOnce();
     });
 
     it("PopupRenderer should render Keyin Palette", async () => {
@@ -739,7 +739,7 @@ describe("PopupManager", () => {
       expect(inputNode).not.to.be.null;
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
-      expect(spyCancel.calledOnce).toEqual(true);
+      expect(spyCancel).toHaveBeenCalledOnce();
     });
   });
 

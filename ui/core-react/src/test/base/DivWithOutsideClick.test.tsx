@@ -19,7 +19,7 @@ describe("<DivWithOutsideClick />", () => {
     );
 
     await theUserTo.click(screen.getByText("Inside"));
-    expect(spy).to.not.have.been.called;
+    expect(spy).not.toBeCalled();
 
     await theUserTo.click(screen.getByRole("button"));
     expect(spy).toHaveBeenCalledOnce();

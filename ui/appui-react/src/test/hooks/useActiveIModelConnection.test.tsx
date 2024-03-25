@@ -74,11 +74,11 @@ describe("useActiveIModelConnection", () => {
       const initialLabel = result.getByTestId("mylabel");
       expect(initialLabel.innerHTML).to.be.eq("NoConnection");
 
-      const initEventStub = sinon.stub(
+      const initEventStub = vi.spyOn(
         SyncUiEventDispatcher,
         "initializeConnectionEvents"
       );
-      const clearEventStub = sinon.stub(
+      const clearEventStub = vi.spyOn(
         SyncUiEventDispatcher,
         "clearConnectionEvents"
       );
@@ -87,7 +87,7 @@ describe("useActiveIModelConnection", () => {
       UiFramework.setIModelConnection(imodelMock.object, true);
       expect(initEventStub).toHaveBeenCalled();
       expect(clearEventStub).not.toBeCalled();
-      initEventStub.resetHistory();
+      initEventStub.mockReset();
 
       // already set, so should not trigger dispatch action
       UiFramework.setIModelConnection(imodelMock.object, true);

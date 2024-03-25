@@ -268,7 +268,7 @@ describe("<KeyinPalettePanel>", () => {
     }
 
     beforeEach(() => {
-      sinon.stub(IModelApp.tools, "parseKeyin").callsFake((keyin: string) => {
+      vi.spyOn(IModelApp.tools, "parseKeyin").callsFake((keyin: string) => {
         if (keyin === "bogus") return { ok: false, error: 1 };
         return { ok: true, args: [], tool: TestImmediate };
       });

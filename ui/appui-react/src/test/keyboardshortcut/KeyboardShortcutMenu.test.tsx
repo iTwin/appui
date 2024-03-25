@@ -73,7 +73,7 @@ describe("KeyboardShortcutMenu", () => {
   });
 
   beforeEach(() => {
-    testspy.resetHistory();
+    testspy.mockReset();
     UiFramework.keyboardShortcuts.shortcutContainer.emptyData();
     theUserTo = userEvent.setup();
   });
@@ -122,6 +122,6 @@ describe("KeyboardShortcutMenu", () => {
     expect(screen.queryAllByRole("menuitem")).to.have.lengthOf(0);
 
     await TestUtils.flushAsyncOperations();
-    expect(testspy.calledOnce).toEqual(true);
+    expect(testspy).toHaveBeenCalledOnce();
   });
 });

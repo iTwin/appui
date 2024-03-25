@@ -39,13 +39,13 @@ describe("ChildWindowManager", () => {
       parentWindow: {} as Window,
     };
 
-    sinon.stub(manager, "openChildWindows").get(() => [childWindowInfo]);
+    vi.spyOn(manager, "openChildWindows").get(() => [childWindowInfo]);
     expect(manager.close("bogus", false)).to.eql(false);
 
     expect(manager.findId(window)).to.be.eql("child");
     expect(manager.find("child")).to.not.be.undefined;
     const def = new FrontstageDef();
-    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
     expect(manager.close("child", false)).to.true;
   });
 
@@ -58,11 +58,11 @@ describe("ChildWindowManager", () => {
       parentWindow: {} as Window,
     };
 
-    sinon.stub(manager, "openChildWindows").get(() => [childWindowInfo]);
+    vi.spyOn(manager, "openChildWindows").get(() => [childWindowInfo]);
     expect(manager.findId(window)).to.be.eql("child");
     expect(manager.find("child")).to.not.be.undefined;
     const closeStub = vi.fn();
-    sinon.stub(window, "close").callsFake(closeStub);
+    vi.spyOn(window, "close").callsFake(closeStub);
     expect(manager.close("child")).to.eql(true);
     expect(closeStub).toHaveBeenCalled();
   });
@@ -133,9 +133,9 @@ describe("ChildWindowManager", () => {
         parentWindow: window,
       },
     ];
-    sinon.stub(manager, "openChildWindows").get(() => stubbedResponse);
+    vi.spyOn(manager, "openChildWindows").get(() => stubbedResponse);
 
     manager.close("childId");
-    expect(closeSpy).to.have.been.called;
+    expect(closeSpy).toHaveBeenCalled();
   });
 });

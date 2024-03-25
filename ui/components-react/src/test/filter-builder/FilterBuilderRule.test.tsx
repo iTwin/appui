@@ -258,7 +258,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
       { actions, properties: [defaultProperty] }
     );
-    const setRulePropertySpy = sinon.stub(actions, "setRuleProperty");
+    const setRulePropertySpy = vi.spyOn(actions, "setRuleProperty");
 
     const selector = container.querySelector<HTMLInputElement>(
       ".fb-property-name input"
@@ -275,7 +275,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
   it("dispatches property change with undefined property when selected property is not in properties list", () => {
     const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const setRulePropertySpy = sinon.stub(actions, "setRuleProperty");
+    const setRulePropertySpy = vi.spyOn(actions, "setRuleProperty");
     renderWithContext(
       <PropertyFilterBuilderRuleRenderer
         {...defaultProps}
@@ -317,7 +317,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
       { actions }
     );
-    const removeItemSpy = sinon.stub(actions, "removeItem");
+    const removeItemSpy = vi.spyOn(actions, "removeItem");
 
     const button = container.querySelector(".fb-toolbar")?.childNodes[1];
     expect(button).to.not.be.null;
@@ -340,7 +340,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       { actions },
       { ruleOperatorRenderer: operatorRendererSpy }
     );
-    const setRuleOperatorSpy = sinon.stub(actions, "setRuleOperator");
+    const setRuleOperatorSpy = vi.spyOn(actions, "setRuleOperator");
 
     expect(operatorRendererSpy).toHaveBeenCalledOnce();
     const operatorRendererProps = operatorRendererSpy.firstCall
@@ -369,7 +369,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       { actions },
       { ruleValueRenderer: valueRendererSpy }
     );
-    const setRuleValueSpy = sinon.stub(actions, "setRuleValue");
+    const setRuleValueSpy = vi.spyOn(actions, "setRuleValue");
 
     expect(valueRendererSpy).toHaveBeenCalledOnce();
     const valueRendererProps = valueRendererSpy.firstCall

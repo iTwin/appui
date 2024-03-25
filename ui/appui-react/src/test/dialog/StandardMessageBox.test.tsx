@@ -43,7 +43,7 @@ describe("StandardMessageBox", () => {
     ).toEqual(2);
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.ok" }));
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("OK/Cancel buttons & Information", async () => {
@@ -65,7 +65,7 @@ describe("StandardMessageBox", () => {
     );
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.ok" }));
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("Yes/No buttons & Question", async () => {
@@ -87,7 +87,7 @@ describe("StandardMessageBox", () => {
     );
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.yes" }));
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("MediumAlert & Question", async () => {
@@ -109,7 +109,7 @@ describe("StandardMessageBox", () => {
     await theUserTo.click(
       screen.getByRole("button", { name: "dialog.cancel" })
     );
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("YesNoCancel & Critical", async () => {
@@ -129,7 +129,7 @@ describe("StandardMessageBox", () => {
     );
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.no" }));
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("YesNoCancel & Warning", async () => {
@@ -151,7 +151,7 @@ describe("StandardMessageBox", () => {
     await theUserTo.click(
       screen.getByRole("button", { name: "dialog.cancel" })
     );
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should close on Esc key", async () => {

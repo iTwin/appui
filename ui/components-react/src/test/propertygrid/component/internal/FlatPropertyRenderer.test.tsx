@@ -391,7 +391,7 @@ describe("FlatPropertyRenderer", () => {
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("does not attempt to call onEditCommit callback when it is not present and throw", async () => {
@@ -430,7 +430,7 @@ describe("FlatPropertyRenderer", () => {
     expect(inputNode).not.to.be.null;
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("does not remove Editor on Enter if callback is not provided", async () => {
@@ -539,7 +539,8 @@ describe("FlatPropertyRenderer", () => {
       );
       expect(onHeightChanged).to.have.not.been.called;
       rerender(renderFlatPropertyRenderer(true, onHeightChanged));
-      expect(onHeightChanged).to.have.been.calledOnceWith(28);
+      expect(onHeightChanged).toHaveBeenCalledOnce();
+      expect(onHeightChanged).toHaveBeenCalledWith(28);
     });
 
     it("gets called when entering editing state in vertical orientation", () => {
@@ -551,7 +552,8 @@ describe("FlatPropertyRenderer", () => {
       rerender(
         renderFlatPropertyRenderer(true, onHeightChanged, Orientation.Vertical)
       );
-      expect(onHeightChanged).to.have.been.calledOnceWith(48);
+      expect(onHeightChanged).toHaveBeenCalledOnce();
+      expect(onHeightChanged).toHaveBeenCalledWith(48);
     });
 
     it("does not get called when component is mounted in editing state", () => {

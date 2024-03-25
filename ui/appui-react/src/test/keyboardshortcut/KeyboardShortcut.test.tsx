@@ -53,7 +53,7 @@ describe("KeyboardShortcut", () => {
   });
 
   beforeEach(() => {
-    testspy.resetHistory();
+    testspy.mockReset();
     InternalKeyboardShortcutManager.shortcutContainer.emptyData();
   });
 
@@ -96,7 +96,7 @@ describe("KeyboardShortcut", () => {
         shortcut.itemPicked();
 
         await TestUtils.flushAsyncOperations();
-        expect(testspy.calledOnce).toEqual(true);
+        expect(testspy).toHaveBeenCalledOnce();
       }
     });
 
@@ -143,7 +143,7 @@ describe("KeyboardShortcut", () => {
         const remove =
           KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.addListener(menuspy);
         shortcut.itemPicked();
-        expect(menuspy.calledOnce).toEqual(true);
+        expect(menuspy).toHaveBeenCalledOnce();
         remove();
       }
     });
@@ -240,7 +240,7 @@ describe("KeyboardShortcut", () => {
 
       const menuspy = sinon.spy();
       InternalKeyboardShortcutManager.displayMenu(); // No shortcuts to display yet
-      expect(menuspy.calledOnce).to.be.false;
+      expect(menuspy).not.toBeCalled();
 
       UiFramework.keyboardShortcuts.loadShortcuts(keyboardShortcutList);
 
@@ -263,7 +263,7 @@ describe("KeyboardShortcut", () => {
       const remove =
         KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.addListener(menuspy);
       InternalKeyboardShortcutManager.displayMenu();
-      expect(menuspy.calledOnce).toEqual(true);
+      expect(menuspy).toHaveBeenCalledOnce();
       remove();
     });
 
@@ -280,7 +280,7 @@ describe("KeyboardShortcut", () => {
       expect(processed).toEqual(true);
 
       await TestUtils.flushAsyncOperations();
-      expect(testspy.calledOnce).toEqual(true);
+      expect(testspy).toHaveBeenCalledOnce();
 
       const processedG = InternalKeyboardShortcutManager.processKey("g");
       expect(processedG).to.be.false;

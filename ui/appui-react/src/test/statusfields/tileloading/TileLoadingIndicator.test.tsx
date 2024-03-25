@@ -38,10 +38,10 @@ describe("TileLoadingIndicator", () => {
       .returns(spy);
 
     const { unmount } = render(<TileLoadingIndicator />);
-    expect(viewOpenSpy).to.have.been.called;
+    expect(viewOpenSpy).toHaveBeenCalled();
 
     unmount();
-    expect(spy).to.have.been.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("50% then 100% complete", async () => {

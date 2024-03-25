@@ -162,8 +162,8 @@ describe("usePointerCaptor", () => {
     const spy = sinon.spy(HTMLElement.prototype, "addEventListener");
     act(() => {
       const touchStart = new TouchEvent("touchstart");
-      sinon.stub(touchStart, "target").get(() => ({}));
-      sinon.stub(touchStart, "touches").get(() => [{}]);
+      vi.spyOn(touchStart, "target").get(() => ({}));
+      vi.spyOn(touchStart, "touches").get(() => [{}]);
       element.dispatchEvent(touchStart);
     });
 
@@ -184,8 +184,8 @@ describe("usePointerCaptor", () => {
     const spy = sinon.spy(HTMLElement.prototype, "removeEventListener");
     act(() => {
       const touchEnd = new TouchEvent("touchend");
-      sinon.stub(touchEnd, "target").get(() => ({}));
-      sinon.stub(touchEnd, "touches").get(() => [{}]);
+      vi.spyOn(touchEnd, "target").get(() => ({}));
+      vi.spyOn(touchEnd, "touches").get(() => [{}]);
       element.dispatchEvent(touchEnd);
     });
 
@@ -229,8 +229,8 @@ describe("usePointerCaptor", () => {
       });
 
       const touchEnd = new TouchEvent("touchmove");
-      sinon.stub(touchEnd, "target").get(() => element);
-      sinon.stub(touchEnd, "touches").get(() => [{}]);
+      vi.spyOn(touchEnd, "target").get(() => element);
+      vi.spyOn(touchEnd, "touches").get(() => [{}]);
       document.dispatchEvent(touchEnd);
     });
 
@@ -252,8 +252,8 @@ describe("usePointerCaptor", () => {
       });
 
       const touchEnd = new TouchEvent("touchend");
-      sinon.stub(touchEnd, "target").get(() => element);
-      sinon.stub(touchEnd, "touches").get(() => [{}]);
+      vi.spyOn(touchEnd, "target").get(() => element);
+      vi.spyOn(touchEnd, "touches").get(() => [{}]);
       document.dispatchEvent(touchEnd);
     });
 

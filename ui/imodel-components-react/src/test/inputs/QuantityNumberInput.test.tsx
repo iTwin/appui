@@ -446,7 +446,7 @@ describe("<QuantityNumberInput />", () => {
     expect(spy).to.have.been.calledOnce;
     expect(value).toEqual(0.25 * metersPerFoot);
 
-    spy.resetHistory();
+    spy.mockReset();
     fireEvent.keyDown(input!, { key: Key.ArrowDown });
     expect(spy).to.have.been.calledOnce;
     expect(value).toEqual(0);

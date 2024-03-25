@@ -107,7 +107,7 @@ describe("NestedFrontstage", async () => {
     expect(UiFramework.frontstages.activeNestedFrontstage).toEqual(
       nestedFrontstageDef
     );
-    expect(spyActivated.calledOnce).toEqual(true);
+    expect(spyActivated).toHaveBeenCalledOnce();
 
     const nestedFrontstageProvider2 = new TestNestedFrontstage();
     const nestedFrontstageDef2 = await FrontstageDef.create(
@@ -118,7 +118,7 @@ describe("NestedFrontstage", async () => {
     expect(UiFramework.frontstages.activeNestedFrontstage).toEqual(
       nestedFrontstageDef2
     );
-    expect(spyDeactivated.calledOnce).toEqual(true);
+    expect(spyDeactivated).toHaveBeenCalledOnce();
 
     NestedFrontstage.backToPreviousFrontstageCommand.execute();
     await TestUtils.flushAsyncOperations();

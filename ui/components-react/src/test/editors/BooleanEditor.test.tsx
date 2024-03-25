@@ -52,7 +52,7 @@ describe("<BooleanEditor />", () => {
     expect(spyOnCommit).toHaveBeenCalledWith(
       sinon.match({ newValue: sinon.match({ value: true }) })
     );
-    spyOnCommit.resetHistory();
+    spyOnCommit.mockReset();
 
     await theUserTo.click(screen.getByTestId(testId));
     expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.false;
@@ -76,9 +76,10 @@ describe("<BooleanEditor />", () => {
     screen.getByTestId(testId).focus();
     await theUserTo.keyboard(" ");
 
-    expect(spyOnCommit).to.have.been.calledOnceWith(
-      sinon.match({ newValue: sinon.match({ value: true }) })
-    );
+    expect(spyOnCommit).toHaveBeenCalledOnce();
+    expect(spyOnCommit).toHaveBeenCalledWith({
+      newValue: sinon.match({ value: true }),
+    });
   });
 
   it("new props update checkbox state", async () => {
@@ -110,7 +111,7 @@ describe("<BooleanEditor />", () => {
 
     await theUserTo.click(screen.getByTestId(testId));
 
-    expect(spyOnCommit.calledOnce).to.be.false;
+    expect(spyOnCommit).not.toBeCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

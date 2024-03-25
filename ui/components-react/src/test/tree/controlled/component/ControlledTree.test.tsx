@@ -252,7 +252,7 @@ describe("ControlledTree", () => {
 
 describe("useControlledTreeTransientState", () => {
   it("invokes `useElementScrollStorage`", () => {
-    const stub = sinon.stub(
+    const stub = vi.spyOn(
       useElementsScrollStorageModule,
       "useElementsScrollStorage"
     );

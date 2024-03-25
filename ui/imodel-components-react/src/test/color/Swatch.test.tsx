@@ -43,6 +43,6 @@ describe("<ColorSwatch />", () => {
     expect(colorSwatch.tagName).to.be.equal("BUTTON");
     fireEvent.click(colorSwatch);
     await TestUtils.flushAsyncOperations();
-    expect(spyOnPick.calledOnce).toEqual(true);
+    expect(spyOnPick).toHaveBeenCalledOnce();
   });
 });

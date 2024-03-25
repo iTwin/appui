@@ -39,8 +39,8 @@ describe("WidgetContent", () => {
     sinon
       .stub(UiFramework.frontstages, "activeFrontstageDef")
       .get(() => frontstage);
-    sinon.stub(frontstage, "findWidgetDef").mockReturnValue(widget);
-    sinon.stub(widget, "reactNode").get(() => <>Content</>);
+    vi.spyOn(frontstage, "findWidgetDef").mockReturnValue(widget);
+    vi.spyOn(widget, "reactNode").get(() => <>Content</>);
     const { container } = render(
       <NineZoneProvider
         dispatch={sinon.stub()}
@@ -86,7 +86,7 @@ describe("WidgetContent", () => {
     sinon
       .stub(UiFramework.frontstages, "activeFrontstageDef")
       .get(() => frontstage);
-    sinon.stub(frontstage, "findWidgetDef").mockReturnValue(undefined);
+    vi.spyOn(frontstage, "findWidgetDef").mockReturnValue(undefined);
     const { container } = render(
       <NineZoneProvider
         dispatch={sinon.stub()}

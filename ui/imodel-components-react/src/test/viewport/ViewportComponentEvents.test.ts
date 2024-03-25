@@ -43,7 +43,7 @@ describe("ViewportComponentEvents", () => {
     const rotMatrix = Matrix3d.createIdentity();
     ViewportComponentEvents.setCubeMatrix(rotMatrix, undefined);
     await TestUtils.flushAsyncOperations();
-    expect(cubeListener.calledOnce).toEqual(true);
+    expect(cubeListener).toHaveBeenCalledOnce();
     remove();
   });
 
@@ -56,7 +56,7 @@ describe("ViewportComponentEvents", () => {
     const standardRotation = StandardViewId.Front;
     ViewportComponentEvents.setStandardRotation(standardRotation);
     await TestUtils.flushAsyncOperations();
-    expect(standardRotationListener.calledOnce).toEqual(true);
+    expect(standardRotationListener).toHaveBeenCalledOnce();
     remove();
   });
 
@@ -69,7 +69,7 @@ describe("ViewportComponentEvents", () => {
     const viewport = { rotation: Matrix3d.createIdentity() } as Viewport;
     ViewportComponentEvents.setViewMatrix(viewport, undefined);
     await TestUtils.flushAsyncOperations();
-    expect(viewRotationListener.calledOnce).toEqual(true);
+    expect(viewRotationListener).toHaveBeenCalledOnce();
     remove();
   });
 
@@ -82,7 +82,7 @@ describe("ViewportComponentEvents", () => {
     const current = { rotation: Matrix3d.createIdentity() } as Viewport;
     onSelectedViewportChanged.emit({ current } as SelectedViewportChangedArgs);
     await TestUtils.flushAsyncOperations();
-    expect(viewRotationListener.calledOnce).toEqual(true);
+    expect(viewRotationListener).toHaveBeenCalledOnce();
     remove();
   });
 
@@ -94,7 +94,7 @@ describe("ViewportComponentEvents", () => {
       );
     onSelectedViewportChanged.emit({} as SelectedViewportChangedArgs);
     await TestUtils.flushAsyncOperations();
-    expect(viewRotationListener.calledOnce).to.be.false;
+    expect(viewRotationListener).not.toBeCalled();
     remove();
   });
 
@@ -108,7 +108,7 @@ describe("ViewportComponentEvents", () => {
     const rotation = Matrix3d.createIdentity();
     ViewportComponentEvents.setDrawingViewportState(origin, rotation);
     await TestUtils.flushAsyncOperations();
-    expect(drawingViewportStateListener.calledOnce).toEqual(true);
+    expect(drawingViewportStateListener).toHaveBeenCalledOnce();
     remove();
   });
 });

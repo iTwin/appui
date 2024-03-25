@@ -28,9 +28,9 @@ describe("ValidationTextbox", () => {
   const onEscPressed = sinon.spy();
 
   beforeEach(async () => {
-    onValueChanged.resetHistory();
-    onEnterPressed.resetHistory();
-    onEscPressed.resetHistory();
+    onValueChanged.mockReset();
+    onEnterPressed.mockReset();
+    onEscPressed.mockReset();
   });
 
   it("should render correctly", () => {

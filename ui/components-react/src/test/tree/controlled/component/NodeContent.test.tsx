@@ -56,7 +56,7 @@ describe("NodeContent", () => {
     const highlightingProps: HighlightableTreeNodeProps = {
       searchText: "label",
     };
-    const spy = sinon.stub(HighlightingEngine, "renderNodeLabel");
+    const spy = vi.spyOn(HighlightingEngine, "renderNodeLabel");
 
     render(<TreeNodeContent node={node} highlightProps={highlightingProps} />);
 

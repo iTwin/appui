@@ -171,7 +171,7 @@ describe("<DateField />", () => {
     fireEvent.keyDown(input!, { key: Key.Enter });
     expect(renderSpy).toHaveBeenCalled();
     expect(input!.value).toEqual("07-04-2004");
-    renderSpy.resetHistory();
+    renderspy.mockReset();
     expect(
       renderedComponent.container.querySelector(
         "input.components-date-has-error"

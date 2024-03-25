@@ -50,7 +50,7 @@ describe("PropertyList", () => {
     const primitiveProperty = clickableComponents[0];
     fireEvent.click(primitiveProperty);
     expect(onPropertyClicked).toHaveBeenCalledWith(primitiveRecord);
-    onPropertyClicked.resetHistory();
+    onPropertyClicked.mockReset();
 
     const structProperty = clickableComponents[1];
     fireEvent.click(structProperty);
@@ -93,7 +93,7 @@ describe("PropertyList", () => {
     const primitiveProperty = clickableComponents[0];
     fireEvent.contextMenu(primitiveProperty);
     expect(onPropertyRightClicked).toHaveBeenCalledWith(primitiveRecord);
-    onPropertyRightClicked.resetHistory();
+    onPropertyRightClicked.mockReset();
 
     const structProperty = clickableComponents[1];
     fireEvent.contextMenu(structProperty);
@@ -136,6 +136,6 @@ describe("PropertyList", () => {
     fireEvent.keyDown(inputNode as HTMLElement, { key: "A" });
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 });

@@ -64,7 +64,7 @@ describe("<EnumButtonGroupEditor />", () => {
     fireEvent.click(greenButton);
     await TestUtils.flushAsyncOperations();
     expect(greenButton.classList.contains("nz-is-active")).toEqual(true);
-    expect(spyOnCommit.calledOnce).toEqual(true);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("button press updates string value and display", async () => {
@@ -93,7 +93,7 @@ describe("<EnumButtonGroupEditor />", () => {
     fireEvent.click(greenButton);
     await TestUtils.flushAsyncOperations();
     expect(greenButton.classList.contains("nz-is-active")).toEqual(true);
-    expect(spyOnCommit.calledOnce).toEqual(true);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("test support for enable/disable button states", async () => {
@@ -163,7 +163,7 @@ describe("<EnumButtonGroupEditor />", () => {
 
     fireEvent.keyDown(greenButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.calledOnce).to.be.false;
+    expect(spyOnCommit).not.toBeCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

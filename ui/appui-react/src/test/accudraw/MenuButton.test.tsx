@@ -19,7 +19,7 @@ describe("MenuButton", () => {
     const spy = sinon.spy();
     render(<MenuButton point={{ x: 100, y: 120 }} onSizeKnown={spy} />);
 
-    expect(spy).to.have.been.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("should open and close on click", async () => {

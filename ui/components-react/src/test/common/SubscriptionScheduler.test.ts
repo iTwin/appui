@@ -111,7 +111,7 @@ describe("SubscriptionScheduler", () => {
             subscriptionScheduler.scheduleSubscription(source);
           await waitForUnsubscription(secondScheduledObservable.subscribe());
 
-          expect(subscriptionSpy).to.have.been.calledTwice;
+          expect(subscriptionSpy).toHaveBeenCalledTimes(2);
         });
 
         it("subscribes to one source observable at a time", async () => {
@@ -156,11 +156,11 @@ describe("SubscriptionScheduler", () => {
           subscriptionScheduler.scheduleSubscription(secondSource).subscribe();
 
           await firstSourcePromise1.resolve(0);
-          expect(secondSpy).to.not.have.been.called;
+          expect(secondSpy).not.toBeCalled();
 
           await firstSourcePromise2.resolve(1);
           await waitForUnsubscription(firstSubscription);
-          expect(secondSpy).to.have.been.called;
+          expect(secondSpy).toHaveBeenCalled();
         });
 
         it("notifies subscribers about error in source observable", async () => {
@@ -217,7 +217,7 @@ describe("SubscriptionScheduler", () => {
             .subscribe()
             .unsubscribe();
           await Promise.resolve();
-          expect(onSubscribe).not.to.have.been.called;
+          expect(onSubscribe).not.toBeCalled();
         });
       });
     }

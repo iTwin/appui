@@ -340,7 +340,7 @@ describe("<DateTimeEditor />", () => {
     );
     fireEvent.click(cancelButton);
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.notCalled);
+    expect(spyOnCommit).not.toBeCalled();
   });
 
   it("should not commit if DataController fails to validate", async () => {

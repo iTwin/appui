@@ -177,10 +177,10 @@ describe("<EditorContainer />", () => {
     // Sanity: Validating that a similar control would indeed cause these to be triggered.
     const controlInput = screen.getByTestId("test-control-input");
     fireEvent.blur(controlInput);
-    expect(blurSpy).to.have.been.called;
+    expect(blurSpy).toHaveBeenCalled();
     fireEvent.contextMenu(controlInput);
-    expect(contextSpy).to.have.been.called;
+    expect(contextSpy).toHaveBeenCalled();
     fireEvent.keyDown(controlInput, { key: Key.ArrowLeft });
-    expect(keySpy).to.have.been.called;
+    expect(keySpy).toHaveBeenCalled();
   });
 });

@@ -206,7 +206,7 @@ describe("WidgetDef", () => {
 describe("getWidgetState", () => {
   it("should return `Closed` if panel size is undefined", () => {
     const frontstageDef = new FrontstageDef();
-    sinon.stub(frontstageDef, "isReady").get(() => true);
+    vi.spyOn(frontstageDef, "isReady").get(() => true);
 
     let nineZoneState = createNineZoneState();
     nineZoneState = addTab(nineZoneState, "t1");
@@ -233,7 +233,7 @@ describe("getWidgetState", () => {
       },
       StagePanelLocation.Left
     );
-    sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
+    vi.spyOn(frontstageDef, "leftPanel").get(() => leftPanel);
 
     sinon
       .stub(frontstageDef, "getStagePanelDef")
@@ -251,7 +251,7 @@ describe("getWidgetState", () => {
 
   it("should return `Closed` if panel size is 0", () => {
     const frontstageDef = new FrontstageDef();
-    sinon.stub(frontstageDef, "isReady").get(() => true);
+    vi.spyOn(frontstageDef, "isReady").get(() => true);
 
     let nineZoneState = createNineZoneState();
     nineZoneState = addTab(nineZoneState, "t1");
@@ -279,7 +279,7 @@ describe("getWidgetState", () => {
       },
       StagePanelLocation.Left
     );
-    sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
+    vi.spyOn(frontstageDef, "leftPanel").get(() => leftPanel);
 
     sinon
       .stub(frontstageDef, "getStagePanelDef")
@@ -297,7 +297,7 @@ describe("getWidgetState", () => {
 
   it("should return `Closed` if panel is collapsed", () => {
     const frontstageDef = new FrontstageDef();
-    sinon.stub(frontstageDef, "isReady").get(() => true);
+    vi.spyOn(frontstageDef, "isReady").get(() => true);
 
     let nineZoneState = createNineZoneState();
     nineZoneState = addTab(nineZoneState, "t1");

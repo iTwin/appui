@@ -47,7 +47,7 @@ describe("<EnumEditor />", () => {
       screen.getByTestId("components-select-editor").firstElementChild!
     );
     await theUserTo.click(screen.getByRole("option", { name: "Green" }));
-    expect(spyOnCommit.calledOnce).toEqual(true);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("HTML select onChange updates numeric value", async () => {
@@ -58,7 +58,7 @@ describe("<EnumEditor />", () => {
       screen.getByTestId("components-select-editor").firstElementChild!
     );
     await theUserTo.click(screen.getByRole("option", { name: "Green" }));
-    expect(spyOnCommit.calledOnce).toEqual(true);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("onCommit should not be called for escape", async () => {

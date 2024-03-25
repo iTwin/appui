@@ -13,7 +13,7 @@ describe("withTimeout", () => {
     const spy = vi.fn();
     render(<WithTimeoutDiv timeout={100} onTimeout={spy} />);
 
-    await waitFor(() => expect(spy).to.have.been.called);
+    await waitFor(() => expect(spy).toHaveBeenCalled());
   });
 
   it("should start timer on update", async () => {
@@ -22,11 +22,11 @@ describe("withTimeout", () => {
       <WithTimeoutDiv timeout={100} onTimeout={spy} />
     );
 
-    await waitFor(() => expect(spy).to.have.been.called);
+    await waitFor(() => expect(spy).toHaveBeenCalled());
 
     rerender(<WithTimeoutDiv timeout={50} onTimeout={spy} />);
 
-    await waitFor(() => expect(spy).to.have.been.calledTwice);
+    await waitFor(() => expect(spy).toHaveBeenCalledTimes(2));
   });
 
   it("should ignore update if timer running", async () => {
@@ -36,9 +36,9 @@ describe("withTimeout", () => {
     );
     rerender(<WithTimeoutDiv timeout={50} onTimeout={spy} />);
 
-    await waitFor(() => expect(spy).to.have.been.calledOnce);
+    await waitFor(() => expect(spy).toHaveBeenCalledOnce());
     rerender(<WithTimeoutDiv timeout={60} onTimeout={spy} />);
 
-    await waitFor(() => expect(spy).to.have.been.calledTwice);
+    await waitFor(() => expect(spy).toHaveBeenCalledTimes(2));
   });
 });

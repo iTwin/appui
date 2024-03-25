@@ -118,7 +118,7 @@ describe("UrlPropertyValueRenderer", () => {
           "Label",
           "Random Test property"
         );
-        spy = sinon.stub(window, "open");
+        spy = vi.spyOn(window, "open");
         spy.returns(null);
 
         const element = renderer.render(stringProperty);
@@ -182,7 +182,7 @@ describe("UrlPropertyValueRenderer", () => {
         const windowMock = moq.Mock.ofType<Window>();
         windowMock.setup((x) => x.focus());
 
-        spy = sinon.stub(window, "open");
+        spy = vi.spyOn(window, "open");
         spy.returns(windowMock.object);
 
         const element = renderer.render(stringProperty);

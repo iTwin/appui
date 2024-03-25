@@ -157,7 +157,7 @@ describe("QuantityInput", () => {
     );
 
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     expect(spanElement.textContent).to.be.eql(`405 '-0 1/4 "`);
 
     // change back from space to none;
@@ -168,17 +168,17 @@ describe("QuantityInput", () => {
       })
     );
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     expect(spanElement.textContent).to.be.eql(`405'-0 1/4"`);
 
     await theUserTo.click(screen.getByTestId("show-unit-label-checkbox"));
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     expect(spanElement.textContent).to.be.eql(`405:-0 1/4`); // TODO: does this match Native formatter?
 
     await theUserTo.click(screen.getByTestId("show-unit-label-checkbox"));
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     expect(spanElement.textContent).to.be.eql(`405'-0 1/4"`);
   });
 
@@ -206,7 +206,7 @@ describe("QuantityInput", () => {
     });
     expect(spanElement.textContent).to.be.eql(`405'x0 1/4"`);
     expect(spy).toHaveBeenCalled();
-    spy.resetHistory();
+    spy.mockReset();
 
     await theUserTo.type(component.getByTestId("composite-spacer"), "xxx", {
       initialSelectionStart: 0,
@@ -288,7 +288,7 @@ describe("QuantityInput", () => {
     );
 
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     const precisionSelector = within(
       component.getByTestId("decimal-precision-selector")
@@ -370,7 +370,7 @@ describe("QuantityInput", () => {
       })
     );
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     fireEvent.click(
       within(component.getByTestId("station-size-selector")).getByRole(
@@ -383,7 +383,7 @@ describe("QuantityInput", () => {
       })
     );
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     fireEvent.click(
       within(component.getByTestId("station-separator-selector")).getByRole(
@@ -413,7 +413,7 @@ describe("QuantityInput", () => {
     /* turn on */
     fireEvent.click(component.getByTestId("use-thousands-separator"));
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     fireEvent.click(
       within(component.getByTestId("thousands-separator-selector")).getByRole(
@@ -426,18 +426,18 @@ describe("QuantityInput", () => {
       })
     );
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     /* turn off */
     fireEvent.click(component.getByTestId("use-thousands-separator"));
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     /* turn on */
     fireEvent.click(component.getByTestId("use-thousands-separator"));
     await waitForPosition();
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
     component.getByText(`40.504'-2"`);
 
     fireEvent.click(
@@ -477,12 +477,12 @@ describe("QuantityInput", () => {
       })
     );
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     /* turn on 1000 separator */
     fireEvent.click(component.getByTestId("use-thousands-separator"));
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     const separatorSelector = within(
       component.getByTestId("decimal-separator-selector")
@@ -494,7 +494,7 @@ describe("QuantityInput", () => {
       })
     );
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     fireEvent.click(separatorSelector);
     fireEvent.click(
@@ -520,7 +520,7 @@ describe("QuantityInput", () => {
     // test fraction specific trait before changing type
     fireEvent.click(component.getByTestId("fraction-dash"));
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     const typeSelector = within(
       component.getByTestId("format-type-selector")
@@ -532,23 +532,23 @@ describe("QuantityInput", () => {
       })
     );
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     fireEvent.click(component.getByTestId("show-trail-zeros"));
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     fireEvent.click(component.getByTestId("keep-decimal-point"));
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     fireEvent.click(component.getByTestId("keep-single-zero"));
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     fireEvent.click(component.getByTestId("zero-empty"));
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     fireEvent.click(typeSelector);
     fireEvent.click(
@@ -557,7 +557,7 @@ describe("QuantityInput", () => {
       })
     );
     expect(spy).toHaveBeenCalledOnce();
-    spy.resetHistory();
+    spy.mockReset();
 
     fireEvent.click(
       within(component.getByTestId("scientific-type-selector")).getByRole(
@@ -738,7 +738,7 @@ describe("QuantityInput", () => {
     // const unitLabel = await component.findByTestId("unit-label-Units.YRD");
     // expect(unitLabel).to.exist;
     // expect(spy).toHaveBeenCalledOnce();
-    // spy.resetHistory();
+    // spy.mockReset();
   });
 
   describe("Properties from Custom Quantity Type are Rendered", () => {
@@ -764,12 +764,12 @@ describe("QuantityInput", () => {
         initialSelectionEnd: Infinity,
       });
       expect(spy).toHaveBeenCalled();
-      spy.resetHistory();
+      spy.mockReset();
 
       const checkboxField = component.getByTestId("checkbox-0-editor");
       await theUserTo.click(checkboxField);
       expect(spy).toHaveBeenCalledOnce();
-      spy.resetHistory();
+      spy.mockReset();
 
       const selectField = component.getByTestId("select-0-editor");
       await theUserTo.click(

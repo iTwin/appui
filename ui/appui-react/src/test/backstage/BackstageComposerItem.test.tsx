@@ -95,7 +95,7 @@ describe("BackstageComposerItem", () => {
         .stub(UiFramework.frontstages, "hasFrontstage")
         .withArgs("Frontstage-1")
         .returns(true);
-      const spy = sinon.stub(UiFramework.frontstages, "setActiveFrontstage");
+      const spy = vi.spyOn(UiFramework.frontstages, "setActiveFrontstage");
 
       render(
         <BackstageComposerStageLauncher
@@ -108,7 +108,7 @@ describe("BackstageComposerItem", () => {
     });
 
     it("should not activate if frontstage is not found", async () => {
-      const spy = sinon.stub(UiFramework.frontstages, "setActiveFrontstage");
+      const spy = vi.spyOn(UiFramework.frontstages, "setActiveFrontstage");
 
       render(<BackstageComposerStageLauncher item={getStageLauncherItem()} />);
       await theUserTo.click(screen.getByRole("menuitem"));
@@ -139,7 +139,7 @@ describe("BackstageComposerItem", () => {
 
       await theUserTo.click(screen.getByRole("menuitem"));
 
-      expect(spy).to.have.been.called;
+      expect(spy).toHaveBeenCalled();
     });
 
     it("should render action item", async () => {
@@ -148,7 +148,7 @@ describe("BackstageComposerItem", () => {
 
       await theUserTo.click(screen.getByRole("menuitem"));
 
-      expect(spy).to.have.been.called;
+      expect(spy).toHaveBeenCalled();
     });
 
     it("should render with TP badgeType", async () => {

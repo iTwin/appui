@@ -43,7 +43,7 @@ describe("WithOnOutsideClick", async () => {
     render(<WithOnOutsideClickDiv onOutsideClick={spyOnClose} />);
 
     await theUserTo.pointer(["[MouseLeft]"]);
-    expect(spyOnClose.calledOnce).toEqual(true);
+    expect(spyOnClose).toHaveBeenCalledOnce();
   });
 
   it("should handle inner click", async () => {
@@ -59,11 +59,11 @@ describe("WithOnOutsideClick", async () => {
   });
 
   it("should handle document click in default", async () => {
-    defaultOnClose.resetHistory();
+    defaultOnClose.mockReset();
     render(<WithOnOutsideClickAndDefaultDiv />);
 
     await theUserTo.pointer("[MouseLeft]");
-    expect(defaultOnClose.calledOnce).toEqual(true);
+    expect(defaultOnClose).toHaveBeenCalledOnce();
   });
 
   it("should handle document pointer events", async () => {
@@ -71,7 +71,7 @@ describe("WithOnOutsideClick", async () => {
     render(<WithOnOutsidePointerDiv onOutsideClick={spyOnClose} />);
 
     await theUserTo.pointer("[MouseLeft]");
-    expect(spyOnClose.calledOnce).toEqual(true);
+    expect(spyOnClose).toHaveBeenCalledOnce();
   });
 
   it("should handle empty onOutsideClick (Coverage only)", async () => {
@@ -83,15 +83,15 @@ describe("WithOnOutsideClick", async () => {
   });
 
   it("should handle document pointer events in default", async () => {
-    defaultOnClose.resetHistory();
+    defaultOnClose.mockReset();
     render(<WithOnOutsidePointerAndDefaultDiv />);
 
     await theUserTo.pointer("[MouseLeft]");
-    expect(defaultOnClose.calledOnce).toEqual(true);
+    expect(defaultOnClose).toHaveBeenCalledOnce();
   });
 
   it("should dispatch close processing if clicking on a popup", async () => {
-    defaultOnClose.resetHistory();
+    defaultOnClose.mockReset();
     render(
       <>
         <div className="core-popup" data-testid="popup" />
@@ -100,11 +100,11 @@ describe("WithOnOutsideClick", async () => {
     );
 
     await theUserTo.click(screen.getByTestId("popup"));
-    expect(defaultOnClose.calledOnce).toEqual(true);
+    expect(defaultOnClose).toHaveBeenCalledOnce();
   });
 
   it("should not dispatch close processing if clicking on a popup", async () => {
-    defaultOnClose.resetHistory();
+    defaultOnClose.mockReset();
     // build an hierarchy that will test all recursion in code
     render(
       <>
@@ -120,10 +120,10 @@ describe("WithOnOutsideClick", async () => {
     );
 
     await theUserTo.click(screen.getByText("PopupContent"));
-    expect(defaultOnClose.calledOnce).to.be.false;
+    expect(defaultOnClose).not.toBeCalled();
 
     await theUserTo.unhover(screen.getByText("PopupContent"));
     await theUserTo.pointer("[MouseLeft]");
-    expect(defaultOnClose.calledOnce).toEqual(true);
+    expect(defaultOnClose).toHaveBeenCalledOnce();
   });
 });

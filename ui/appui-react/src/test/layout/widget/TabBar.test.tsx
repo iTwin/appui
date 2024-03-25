@@ -102,7 +102,7 @@ describe("WidgetTitleBar", () => {
     const targets = container.getElementsByClassName("nz-target-tabTarget");
     const target = targets[targets.length - 1];
 
-    sinon.stub(document, "elementFromPoint").mockReturnValue(target);
+    vi.spyOn(document, "elementFromPoint").mockReturnValue(target);
 
     act(() => {
       fireEvent.mouseDown(handle);
@@ -125,7 +125,7 @@ describe("WidgetTitleBar", () => {
   });
 
   it("should dispatch WIDGET_DRAG_END with panel target", () => {
-    sinon.stub(NineZoneModule, "getUniqueId").mockReturnValue("newId");
+    vi.spyOn(NineZoneModule, "getUniqueId").mockReturnValue("newId");
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
@@ -139,7 +139,7 @@ describe("WidgetTitleBar", () => {
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
     const handle = titleBar.getElementsByClassName("nz-handle")[0];
     const target = container.getElementsByClassName("nz-target-panelTarget")[0];
-    sinon.stub(document, "elementFromPoint").mockReturnValue(target);
+    vi.spyOn(document, "elementFromPoint").mockReturnValue(target);
     act(() => {
       fireEvent.mouseDown(handle);
       fireEvent.mouseMove(target);
@@ -207,7 +207,7 @@ describe("useDrag", () => {
       result.current(instance);
       fireEvent.mouseDown(instance);
       fireEvent.mouseMove(document);
-      spy.resetHistory();
+      spy.mockReset();
       fireEvent.mouseMove(document);
     });
     sinon.assert.notCalled(spy);

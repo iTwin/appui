@@ -337,7 +337,7 @@ describe("WidgetPanelProvider", () => {
       "nz-widgetPanels-panel"
     )[0] as HTMLElement;
 
-    const stub = sinon.stub(panel, "getBoundingClientRect");
+    const stub = vi.spyOn(panel, "getBoundingClientRect");
     stub
       .onFirstCall()
       .returns(DOMRect.fromRect({ width: 200 }))

@@ -140,7 +140,9 @@ describe("<Node />", () => {
         renderOverrides={{ renderCheckbox: ovr }}
       />
     );
-    expect(ovr).toHaveBeenCalledWith({ checked: true });
+    expect(ovr).toHaveBeenCalledWith(
+      expect.objectContaining({ checked: true })
+    );
     expect(screen.getByTestId("custom-checkbox")).to.exist;
   });
 
@@ -227,7 +229,7 @@ describe("<Node />", () => {
     );
 
     await userEvent.click(screen.getByRole("checkbox"));
-    expect(handleOnClick).to.not.have.been.called;
+    expect(handleOnClick).not.toBeCalled();
   });
 
   it("should still stop propagation with undefined handlers", async () => {
@@ -240,7 +242,7 @@ describe("<Node />", () => {
 
     await theUserTo.click(screen.getByRole("treeitem"));
     await theUserTo.click(screen.getByTestId("a-expansion-toggle"));
-    expect(spy).not.to.have.been.called;
+    expect(spy).not.toBeCalled();
   });
 
   it("sets data-testid", () => {

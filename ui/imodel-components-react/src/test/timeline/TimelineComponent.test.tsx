@@ -131,7 +131,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
   afterEach(() => {
     fakeTimers && fakeTimers.restore();
 
-    rafSpy.resetHistory();
+    rafspy.mockReset();
   });
 
   after(async () => {
@@ -532,7 +532,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
       <TimelineComponent {...initialProps} />
     );
     rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
-    expect(spyOnPlayPause.calledOnce).toEqual(true);
+    expect(spyOnPlayPause).toHaveBeenCalledOnce();
     getByRole("button", { name: "timeline.pause" });
 
     rerender(<TimelineComponent {...initialProps} isPlaying={false} />);
@@ -857,7 +857,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     expect(renderedComponent.queryByText("timeline.repeat")).to.be.null;
 
     const mouseUp = new MouseEvent("mouseup");
-    sinon.stub(mouseUp, "target").get(() => document.createElement("div"));
+    vi.spyOn(mouseUp, "target").get(() => document.createElement("div"));
     window.dispatchEvent(mouseUp);
   });
   it("should respect time zone offset", () => {

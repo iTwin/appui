@@ -150,8 +150,8 @@ class TestUiDataProvider extends DialogLayoutDataProvider {
 
 describe("UiDataProvidedDialog", () => {
   afterEach(() => {
-    spyCancel.resetHistory();
-    spyOK.resetHistory();
+    spyCancel.mockReset();
+    spyOK.mockReset();
   });
 
   describe("Modal Dialog", () => {

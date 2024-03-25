@@ -38,7 +38,7 @@ describe("BasicToolWidget", () => {
   });
 
   it("BasicToolWidget should render correctly", () => {
-    sinon.stub(UiFramework.content, "getActiveContentControl").mockReturnValue({
+    vi.spyOn(UiFramework.content, "getActiveContentControl").mockReturnValue({
       viewport: {
         findFeatureOverrideProviderOfType() {},
         view: {
@@ -80,7 +80,7 @@ describe("BasicToolWidget", () => {
   });
 
   it("BasicToolWidget with Categories and Models should render", () => {
-    sinon.stub(UiFramework.content, "getActiveContentControl").mockReturnValue({
+    vi.spyOn(UiFramework.content, "getActiveContentControl").mockReturnValue({
       viewport: {
         findFeatureOverrideProviderOfType() {},
         view: {

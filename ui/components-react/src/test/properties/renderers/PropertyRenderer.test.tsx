@@ -308,7 +308,7 @@ describe("PropertyRenderer", () => {
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("calls onEditCancel on Escape key when editing", () => {
@@ -326,7 +326,7 @@ describe("PropertyRenderer", () => {
     expect(inputNode).not.to.be.null;
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("does not remove Editor on Enter if callback is not provided", async () => {

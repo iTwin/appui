@@ -71,7 +71,7 @@ describe("useTabTarget", () => {
       result.current[1].should.true;
     });
 
-    spy.resetHistory();
+    spy.mockReset();
     elementFromPointStub.restore();
     sinon
       .stub(document, "elementFromPoint")
@@ -116,7 +116,7 @@ describe("useTabTarget", () => {
       result.current[1].should.true;
     });
 
-    stub.resetHistory();
+    stub.mockReset();
     elementFromPointStub.restore();
     dragManager.handleDragEnd();
 
@@ -145,13 +145,13 @@ describe("usePanelTarget", () => {
     );
 
     const element = document.createElement("div");
-    sinon.stub(document, "elementFromPoint").mockReturnValue(element);
+    vi.spyOn(document, "elementFromPoint").mockReturnValue(element);
     setRefValue(result.current[0], element);
 
     dragManager.handleDragStart(createDragStartArgs());
     dragManager.handleDrag(10, 20);
 
-    spy.resetHistory();
+    spy.mockReset();
 
     setRefValue(result.current[0], document.createElement("div"));
     dragManager.handleDrag(10, 20);
@@ -178,13 +178,13 @@ describe("useWidgetTarget", () => {
     );
 
     const element = document.createElement("div");
-    sinon.stub(document, "elementFromPoint").mockReturnValue(element);
+    vi.spyOn(document, "elementFromPoint").mockReturnValue(element);
     setRefValue(result.current[0], element);
 
     dragManager.handleDragStart(createDragStartArgs());
     dragManager.handleDrag(10, 20);
 
-    spy.resetHistory();
+    spy.mockReset();
 
     setRefValue(result.current[0], document.createElement("div"));
     dragManager.handleDrag(10, 20);

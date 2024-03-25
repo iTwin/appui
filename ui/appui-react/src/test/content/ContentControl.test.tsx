@@ -155,11 +155,11 @@ describe("ContentControl", () => {
         if (contentControl) {
           const deactivatedMethod = sinon.spy(contentControl, "onDeactivated");
           UiFramework.content.setActive(contentSet[1]);
-          expect(deactivatedMethod.calledOnce).toEqual(true);
+          expect(deactivatedMethod).toHaveBeenCalledOnce();
 
           const activatedMethod = sinon.spy(contentControl, "onActivated");
           UiFramework.content.refreshActive(contentSet[0]);
-          expect(activatedMethod.calledOnce).toEqual(true);
+          expect(activatedMethod).toHaveBeenCalledOnce();
         }
       }
     }

@@ -108,7 +108,7 @@ describe("WidgetPanelGrip", () => {
     fireEvent.mouseDown(handle);
 
     const event = new MouseEvent("mousemove");
-    sinon.stub(event, "clientX").get(() => 220);
+    vi.spyOn(event, "clientX").get(() => 220);
     fireEvent(document, event);
 
     dispatch.callCount.should.eq(1);

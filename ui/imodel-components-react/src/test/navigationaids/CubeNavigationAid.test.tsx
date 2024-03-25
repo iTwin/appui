@@ -492,7 +492,7 @@ describe("CubeNavigationAid", () => {
             );
         const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
         expect(mat2.matrix.isAlmostEqual(expectedMatrixTemp)).is.true;
-        animationEnd.resetHistory();
+        animationEnd.mockReset();
         topCenterCell.dispatchEvent(
           new MouseEvent("mousedown", {
             bubbles: true,
@@ -582,7 +582,7 @@ describe("CubeNavigationAid", () => {
         const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
         expect(mat2.matrix.isAlmostEqual(expectedMatrixTemp)).is.true;
 
-        animationEnd.resetHistory();
+        animationEnd.mockReset();
         bottomCornerCenter.dispatchEvent(
           new MouseEvent("mousedown", {
             bubbles: true,

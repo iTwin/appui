@@ -84,7 +84,8 @@ describe("PropertyValueRendererManager", () => {
 
       rendererManager.render(record);
 
-      expect(fakeRenderer.render).to.have.been.calledOnceWith(record);
+      expect(fakeRenderer.render).toHaveBeenCalledOnce();
+      expect(fakeRenderer.render).toHaveBeenCalledWith(record);
       expect(fakeRenderer2.render).to.have.not.been.called;
     });
 
@@ -100,7 +101,8 @@ describe("PropertyValueRendererManager", () => {
 
       rendererManager.render(record);
 
-      expect(fakeRenderer.render).to.have.been.calledOnceWith(record);
+      expect(fakeRenderer.render).toHaveBeenCalledOnce();
+      expect(fakeRenderer.render).toHaveBeenCalledWith(record);
     });
 
     it("renders a primitive type", () => {

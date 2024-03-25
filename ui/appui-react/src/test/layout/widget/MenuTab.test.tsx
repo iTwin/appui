@@ -101,7 +101,7 @@ describe("MenuTab", () => {
       fireEvent.mouseMove(document, { clientX: 10, clientY: 10 });
     });
     await waitFor(() => sinon.assert.calledOnce(close));
-    close.resetHistory();
+    close.mockReset();
 
     // On click
     act(() => {
@@ -109,7 +109,7 @@ describe("MenuTab", () => {
       fireEvent.mouseUp(document);
     });
     await waitFor(() => sinon.assert.calledOnce(close));
-    close.resetHistory();
+    close.mockReset();
 
     // On double click
     act(() => {

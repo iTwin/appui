@@ -201,7 +201,7 @@ describe("<TextEditor />", () => {
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.calledOnce).toEqual(true);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("should call onCommit after value change when shouldCommitOnChange is true", async () => {
@@ -266,7 +266,7 @@ describe("<TextEditor />", () => {
 
       fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
       await TestUtils.flushAsyncOperations();
-      expect(spyOnCommit.calledOnce).to.be.false;
+      expect(spyOnCommit).not.toBeCalled();
 
       PropertyEditorManager.deregisterDataController("myData");
     });
@@ -313,7 +313,7 @@ describe("<TextEditor />", () => {
 
       fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
       await TestUtils.flushAsyncOperations();
-      expect(spyOnCommit.calledOnce).to.be.false;
+      expect(spyOnCommit).not.toBeCalled();
 
       PropertyEditorManager.deregisterDataController("myData");
     });

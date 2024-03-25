@@ -117,7 +117,7 @@ describe("Calculator", () => {
     expect(cancelButton).to.exist;
     await theUserTo.click(cancelButton!);
 
-    expect(spy).to.have.been.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("Pressing Esc should fire onCancel", async () => {

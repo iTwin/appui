@@ -163,7 +163,7 @@ describe("<DatePicker />", () => {
     fireEvent.keyDown(calendar, { key: Key.ArrowRight });
     fireEvent.keyDown(calendar, { key: Key.Enter });
     expect(renderSpy).toHaveBeenCalled();
-    renderSpy.resetHistory();
+    renderspy.mockReset();
     fireEvent.keyDown(calendar, { key: Key.ArrowLeft });
     fireEvent.keyDown(calendar, { key: " " });
     expect(renderSpy).toHaveBeenCalled();

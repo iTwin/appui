@@ -50,7 +50,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       TestUtils.terminateUiFramework();
       beforeEach(async () => {
         const accuDraw = new FrameworkAccuDraw();
-        sinon.stub(IModelApp, "accuDraw").get(() => accuDraw);
+        vi.spyOn(IModelApp, "accuDraw").get(() => accuDraw);
       });
 
       it("FrameworkAccuDraw.displayNotifications should set & return correctly", () => {
@@ -76,7 +76,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
         ).toEqual(true);
         expect(spy).toHaveBeenCalledOnce();
         spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
+        spyMessage.mockReset();
 
         IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
         FrameworkAccuDraw.isRectangularModeConditional.refresh();
@@ -87,12 +87,12 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
         ).toEqual(true);
         spy.calledTwice.should.true;
         spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
+        spyMessage.mockReset();
 
         FrameworkAccuDraw.displayNotifications = false;
         IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
         spyMessage.called.should.false;
-        spyMessage.resetHistory();
+        spyMessage.mockReset();
 
         remove();
       });
@@ -103,19 +103,19 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener(spy);
         IModelApp.accuDraw.setFieldLock(ItemField.X_Item, true);
         expect(spy).toHaveBeenCalledOnce();
-        spy.resetHistory();
+        spy.mockReset();
         IModelApp.accuDraw.setFieldLock(ItemField.Y_Item, true);
         expect(spy).toHaveBeenCalledOnce();
-        spy.resetHistory();
+        spy.mockReset();
         IModelApp.accuDraw.setFieldLock(ItemField.Z_Item, true);
         expect(spy).toHaveBeenCalledOnce();
-        spy.resetHistory();
+        spy.mockReset();
         IModelApp.accuDraw.setFieldLock(ItemField.ANGLE_Item, true);
         expect(spy).toHaveBeenCalledOnce();
-        spy.resetHistory();
+        spy.mockReset();
         IModelApp.accuDraw.setFieldLock(ItemField.DIST_Item, true);
         expect(spy).toHaveBeenCalledOnce();
-        spy.resetHistory();
+        spy.mockReset();
         remove();
       });
 
@@ -131,7 +131,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           )
         ).toEqual(true);
         spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
+        spyMessage.mockReset();
         IModelApp.accuDraw.setRotationMode(RotationMode.Front);
         FrameworkAccuDraw.isFrontRotationConditional.refresh();
         expect(
@@ -140,7 +140,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           )
         ).toEqual(true);
         spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
+        spyMessage.mockReset();
         IModelApp.accuDraw.setRotationMode(RotationMode.Side);
         FrameworkAccuDraw.isSideRotationConditional.refresh();
         expect(
@@ -149,7 +149,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           )
         ).toEqual(true);
         spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
+        spyMessage.mockReset();
         IModelApp.accuDraw.setRotationMode(RotationMode.View);
         FrameworkAccuDraw.isViewRotationConditional.refresh();
         expect(
@@ -158,7 +158,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           )
         ).toEqual(true);
         spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
+        spyMessage.mockReset();
         IModelApp.accuDraw.setRotationMode(RotationMode.ACS);
         FrameworkAccuDraw.isACSRotationConditional.refresh();
         expect(
@@ -167,7 +167,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           )
         ).toEqual(true);
         spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
+        spyMessage.mockReset();
         IModelApp.accuDraw.setRotationMode(RotationMode.Context);
         FrameworkAccuDraw.isContextRotationConditional.refresh();
         expect(
@@ -176,12 +176,12 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           )
         ).toEqual(true);
         spyMessage.calledOnce.should.true;
-        spyMessage.resetHistory();
+        spyMessage.mockReset();
 
         FrameworkAccuDraw.displayNotifications = false;
         IModelApp.accuDraw.setRotationMode(RotationMode.Top);
         spyMessage.calledOnce.should.false;
-        spyMessage.resetHistory();
+        spyMessage.mockReset();
       });
 
       it("should call onFieldValueChange & emit onAccuDrawSetFieldValueToUiEvent", () => {
@@ -229,14 +229,14 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
         IModelApp.accuDraw.currentState = CurrentState.Deactivated;
         IModelApp.accuDraw.onMotion(new BeButtonEvent());
         spyValue.called.should.false;
-        spyValue.resetHistory();
+        spyValue.mockReset();
 
         IModelApp.accuDraw.currentState = CurrentState.Active;
         IModelApp.accuDraw.onMotion(new BeButtonEvent());
         spyValue.called.should.true;
         spyFocus.called.should.true;
-        spyValue.resetHistory();
-        spyFocus.resetHistory();
+        spyValue.mockReset();
+        spyFocus.mockReset();
 
         IModelApp.accuDraw.dontMoveFocus = true;
         IModelApp.accuDraw.onMotion(new BeButtonEvent());

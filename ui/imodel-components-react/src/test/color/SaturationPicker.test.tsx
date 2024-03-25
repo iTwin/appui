@@ -90,15 +90,15 @@ describe("<SaturationPicker />", () => {
 
     keys.forEach((keyName) => {
       fireEvent.keyDown(sliderDiv, { key: keyName });
-      expect(spyOnPick.calledOnce).toEqual(true);
-      spyOnPick.resetHistory();
+      expect(spyOnPick).toHaveBeenCalledOnce();
+      spyOnPick.mockReset();
       index = index + 1;
     });
 
     keys.forEach((keyName) => {
       fireEvent.keyDown(sliderDiv, { key: keyName, ctrlKey: true });
-      expect(spyOnPick.calledOnce).toEqual(true);
-      spyOnPick.resetHistory();
+      expect(spyOnPick).toHaveBeenCalledOnce();
+      spyOnPick.mockReset();
       index = index + 1;
     });
   });

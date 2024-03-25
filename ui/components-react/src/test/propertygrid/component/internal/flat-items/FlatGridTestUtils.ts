@@ -288,17 +288,17 @@ export class FlatGridTestUtils {
     isExpanded?: boolean
   ) {
     Object.assign(mockItem, { key: shortid.generate() });
-    sinon.stub(mockItem, "type").get(() => type);
+    vi.spyOn(mockItem, "type").get(() => type);
     if (isExpanded !== undefined)
-      sinon.stub(mockItem, "isExpanded").get(() => isExpanded);
+      vi.spyOn(mockItem, "isExpanded").get(() => isExpanded);
 
-    sinon.stub(mockItem, "selectionKey").get(() => selectionKey);
+    vi.spyOn(mockItem, "selectionKey").get(() => selectionKey);
     mockItem.getChildren.returns([]);
   }
 
   public static createMockGridCategory(name: string, isExpanded?: boolean) {
     const gridCategory = sinon.createStubInstance(MutableGridCategory);
-    sinon.stub(gridCategory, "name").get(() => name);
+    vi.spyOn(gridCategory, "name").get(() => name);
 
     this.replaceMockGridItemProperties(
       gridCategory,

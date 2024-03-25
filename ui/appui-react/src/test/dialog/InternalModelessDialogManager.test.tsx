@@ -23,7 +23,7 @@ describe("InternalModelessDialogManager", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
     InternalModelessDialogManager.closeAll();
-    spy.resetHistory();
+    spy.mockReset();
   });
 
   function handleModelessDialogChanged(_args: DialogChangedEventArgs) {
@@ -55,7 +55,7 @@ describe("InternalModelessDialogManager", () => {
 
     expect(UiFramework.dialogs.modeless.count).toEqual(0);
     UiFramework.dialogs.modeless.open(reactNode, dialogId);
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
 
     expect(UiFramework.dialogs.modeless.active).toEqual(reactNode);
 

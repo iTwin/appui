@@ -61,14 +61,14 @@ describe("TreeEventDispatcher", () => {
   };
 
   beforeEach(() => {
-    treeEvents.onSelectionModified.resetHistory();
-    treeEvents.onSelectionReplaced.resetHistory();
-    treeEvents.onNodeExpanded.resetHistory();
-    treeEvents.onNodeCollapsed.resetHistory();
-    treeEvents.onDelayedNodeClick.resetHistory();
-    treeEvents.onNodeEditorActivated.resetHistory();
-    treeEvents.onCheckboxStateChanged.resetHistory();
-    treeEvents.onNodeDoubleClick.resetHistory();
+    treeEvents.onSelectionModified.mockReset();
+    treeEvents.onSelectionReplaced.mockReset();
+    treeEvents.onNodeExpanded.mockReset();
+    treeEvents.onNodeCollapsed.mockReset();
+    treeEvents.onDelayedNodeClick.mockReset();
+    treeEvents.onNodeEditorActivated.mockReset();
+    treeEvents.onCheckboxStateChanged.mockReset();
+    treeEvents.onNodeDoubleClick.mockReset();
   });
 
   function setupTreeEventDispatcher(
@@ -841,8 +841,8 @@ describe("TreeEventDispatcher", () => {
       );
       const selectionManager = (dispatcher as any)
         ._selectionManager as TreeSelectionManager;
-      const onKeyDownStub = sinon.stub(selectionManager, "onTreeKeyDown");
-      const onKeyUpStub = sinon.stub(selectionManager, "onTreeKeyUp");
+      const onKeyDownStub = vi.spyOn(selectionManager, "onTreeKeyDown");
+      const onKeyUpStub = vi.spyOn(selectionManager, "onTreeKeyUp");
 
       dispatcher.onTreeKeyDown({} as any);
       expect(onKeyDownStub).toHaveBeenCalledOnce();
@@ -873,7 +873,7 @@ describe("TreeEventDispatcher", () => {
 
         dispatcher.onNodeClicked("B", {} as any);
 
-        expect(treeEvents.onSelectionModified).not.to.have.been.called;
+        expect(treeEvents.onSelectionModified).not.toBeCalled();
         expect(treeEvents.onSelectionReplaced).to.have.been.calledOnce;
         const changes = await extractSequence(
           toRxjsObservable(
@@ -905,8 +905,8 @@ describe("TreeEventDispatcher", () => {
         dispatcher.onNodeClicked("D", {} as any);
         dispatcher.onNodeClicked("B", { shiftKey: true } as any);
 
-        expect(treeEvents.onSelectionModified).not.to.have.been.called;
-        expect(treeEvents.onSelectionReplaced).to.have.been.calledTwice;
+        expect(treeEvents.onSelectionModified).not.toBeCalled();
+        expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
         const changes = await extractSequence(
           toRxjsObservable(
             treeEvents.onSelectionReplaced.secondCall.args[0].replacements
@@ -941,8 +941,8 @@ describe("TreeEventDispatcher", () => {
         dispatcher.onNodeClicked("A", {} as any);
         dispatcher.onNodeClicked("C", { shiftKey: true } as any);
 
-        expect(treeEvents.onSelectionModified).not.to.have.been.called;
-        expect(treeEvents.onSelectionReplaced).to.have.been.calledTwice;
+        expect(treeEvents.onSelectionModified).not.toBeCalled();
+        expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
         const changes = await extractSequence(
           toRxjsObservable(
             treeEvents.onSelectionReplaced.secondCall.args[0].replacements
@@ -976,8 +976,8 @@ describe("TreeEventDispatcher", () => {
         dispatcher.onNodeClicked("A", {} as any);
         dispatcher.onNodeClicked("C", { shiftKey: true } as any);
 
-        expect(treeEvents.onSelectionModified).not.to.have.been.called;
-        expect(treeEvents.onSelectionReplaced).to.have.been.calledTwice;
+        expect(treeEvents.onSelectionModified).not.toBeCalled();
+        expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
         expect(nodeLoader.loadNode).to.have.been.calledOnce;
         const changes = await extractSequence(
           toRxjsObservable(

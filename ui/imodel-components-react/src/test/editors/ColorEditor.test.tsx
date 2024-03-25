@@ -119,7 +119,7 @@ describe("<ColorEditor />", () => {
 
     fireEvent.keyDown(pickerButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.calledOnce).to.be.false;
+    expect(spyOnCommit).not.toBeCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

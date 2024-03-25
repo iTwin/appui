@@ -90,30 +90,30 @@ describe("MultilineTextRenderer", () => {
   });
 
   it("does not attempt to call `onExpansionToggled` callback that is not present and throw", () => {
-    sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
-    sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 100);
+    vi.spyOn(HTMLElement.prototype, "clientWidth").get(() => 50);
+    vi.spyOn(HTMLElement.prototype, "scrollWidth").get(() => 100);
     const { getByText } = render(<MultilineTextRenderer />);
     fireEvent.click(getByText("property.expand"));
   });
 
   describe("collapsed", () => {
     it('doesn\'t show "See more" button when text fits in one line', () => {
-      sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
-      sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 50);
+      vi.spyOn(HTMLElement.prototype, "clientWidth").get(() => 50);
+      vi.spyOn(HTMLElement.prototype, "scrollWidth").get(() => 50);
       const { queryByText } = render(<MultilineTextRenderer />);
       expect(queryByText("property.expand")).to.be.null;
     });
 
     it('shows "See more" button when text overflows', () => {
-      sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
-      sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 100);
+      vi.spyOn(HTMLElement.prototype, "clientWidth").get(() => 50);
+      vi.spyOn(HTMLElement.prototype, "scrollWidth").get(() => 100);
       const { getByText } = render(<MultilineTextRenderer />);
       expect(getByText("property.expand")).to.be.not.null;
     });
 
     it('reports expansion toggle when "See more" button is pressed', () => {
-      sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
-      sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 100);
+      vi.spyOn(HTMLElement.prototype, "clientWidth").get(() => 50);
+      vi.spyOn(HTMLElement.prototype, "scrollWidth").get(() => 100);
       const handleExpansionToggle = vi.fn();
       const { getByText } = render(
         <MultilineTextRenderer onExpansionToggled={handleExpansionToggle} />
@@ -130,8 +130,8 @@ describe("MultilineTextRenderer", () => {
     });
 
     it('reports expansion toggle when "See less" button is pressed', () => {
-      sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
-      sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 100);
+      vi.spyOn(HTMLElement.prototype, "clientWidth").get(() => 50);
+      vi.spyOn(HTMLElement.prototype, "scrollWidth").get(() => 100);
       const handleExpansionToggle = vi.fn();
       const { getByText } = render(
         <MultilineTextRenderer

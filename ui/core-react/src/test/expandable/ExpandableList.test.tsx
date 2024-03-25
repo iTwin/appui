@@ -62,7 +62,7 @@ describe("ExpandableList", () => {
     );
 
     await theUserTo.click(screen.getByText("Test"));
-    expect(toggleSpy.calledOnce).toEqual(true);
+    expect(toggleSpy).toHaveBeenCalledOnce();
   });
 
   it("should support singleExpandOnly & singleIsCollapsible props", async () => {

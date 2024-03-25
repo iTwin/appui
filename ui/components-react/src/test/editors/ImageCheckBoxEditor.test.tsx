@@ -60,7 +60,7 @@ describe("<ImageCheckBoxEditor />", () => {
 
     await theUserTo.click(screen.getByRole("checkbox"));
 
-    expect(spyOnCommit).to.have.been.called;
+    expect(spyOnCommit).toHaveBeenCalled();
   });
 
   it("onCommit should be called for Space", async () => {
@@ -123,7 +123,7 @@ describe("<ImageCheckBoxEditor />", () => {
 
     fireEvent.keyDown(inputNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCancel.calledOnce).toEqual(true);
+    expect(spyOnCancel).toHaveBeenCalledOnce();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

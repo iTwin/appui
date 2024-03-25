@@ -116,7 +116,7 @@ describe("StagePanelDef", () => {
       .stub(UiFramework.frontstages, "activeFrontstageDef")
       .get(() => frontstageDef);
     const panelDef = new StagePanelDef();
-    sinon.stub(panelDef, "location").get(() => StagePanelLocation.Right);
+    vi.spyOn(panelDef, "location").get(() => StagePanelLocation.Right);
     panelDef.panelState = StagePanelState.Minimized;
 
     frontstageDef.nineZoneState.panels.right.collapsed.should.true;
@@ -130,7 +130,7 @@ describe("StagePanelDef", () => {
       .stub(UiFramework.frontstages, "activeFrontstageDef")
       .get(() => frontstageDef);
     const panelDef = new StagePanelDef();
-    sinon.stub(panelDef, "location").get(() => StagePanelLocation.Right);
+    vi.spyOn(panelDef, "location").get(() => StagePanelLocation.Right);
     panelDef.panelState = StagePanelState.Off;
 
     frontstageDef.nineZoneState.panels.right.collapsed.should.true;

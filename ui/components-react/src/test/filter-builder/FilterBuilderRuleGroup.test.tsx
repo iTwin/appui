@@ -106,7 +106,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
       <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />,
       { actions }
     );
-    const setRuleGroupOperatorSpy = sinon.stub(actions, "setRuleGroupOperator");
+    const setRuleGroupOperatorSpy = vi.spyOn(actions, "setRuleGroupOperator");
 
     const selector = container.querySelector<HTMLAnchorElement>(
       ".fb-group-operator .fb-logical-operator-toggle"
@@ -137,7 +137,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
       <PropertyFilterBuilderRuleGroupRenderer {...props} />,
       { actions }
     );
-    const setRuleGroupOperatorSpy = sinon.stub(actions, "setRuleGroupOperator");
+    const setRuleGroupOperatorSpy = vi.spyOn(actions, "setRuleGroupOperator");
 
     const selector = container.querySelector<HTMLAnchorElement>(
       ".fb-group-operator .fb-logical-operator-toggle"

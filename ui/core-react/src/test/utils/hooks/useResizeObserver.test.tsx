@@ -84,7 +84,7 @@ describe("useResizeObserver", () => {
       result.current(element);
     });
     await TestUtils.flushAsyncOperations();
-    spy.resetHistory();
+    spy.mockReset();
     sinon
       .stub(element, "getBoundingClientRect")
       .returns(DOMRect.fromRect({ width: 100 }));
@@ -115,7 +115,7 @@ describe("useResizeObserver", () => {
     });
     await TestUtils.flushAsyncOperations();
 
-    spy.resetHistory();
+    spy.mockReset();
     sinon
       .stub(element, "getBoundingClientRect")
       .returns(DOMRect.fromRect({ height: 100 }));
@@ -146,7 +146,7 @@ describe("useResizeObserver", () => {
     });
 
     await TestUtils.flushAsyncOperations();
-    spy.resetHistory();
+    spy.mockReset();
     sinon
       .stub(element, "getBoundingClientRect")
       .returns(DOMRect.fromRect({ width: 100, height: 100 }));

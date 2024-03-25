@@ -45,7 +45,7 @@ describe("TableNonPrimitiveValueRenderer", () => {
     )[0];
     fireEvent.click(button);
 
-    expect(onDialogOpen.calledOnce).toEqual(true);
+    expect(onDialogOpen).toHaveBeenCalledOnce();
     expect(onDialogOpen.args[0][0].content).to.be.eq(dialogContents);
     expect(onDialogOpen.args[0][0].title).to.be.eq("Greeting");
   });

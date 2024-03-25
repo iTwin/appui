@@ -414,7 +414,7 @@ describe("ContentLayout", () => {
       </div>
     );
 
-    const rect = sinon.stub(Element.prototype, "getBoundingClientRect");
+    const rect = vi.spyOn(Element.prototype, "getBoundingClientRect");
     rect
       .onFirstCall()
       .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
@@ -459,7 +459,7 @@ describe("ContentLayout", () => {
       </div>
     );
 
-    const rect = sinon.stub(Element.prototype, "getBoundingClientRect");
+    const rect = vi.spyOn(Element.prototype, "getBoundingClientRect");
     rect
       .onFirstCall()
       .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));

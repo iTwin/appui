@@ -354,23 +354,23 @@ describe("<ListBox />", () => {
 
     // we should not see key events passed to external handler if handled internally
     fireEvent.keyDown(listBoxElement!, { key: "ArrowDown" });
-    expect(spyOnKeyboard.notCalled);
-    spyOnKeyboard.resetHistory();
+    expect(spyOnKeyboard).not.toBeCalled();
+    spyOnKeyboard.mockReset();
 
     // hitting spacebar below should trigger onListboxValueChange
     expect(onListboxValueChangeCalled).to.be.false;
     fireEvent.keyDown(listBoxElement!, { key: " " });
     expect(onListboxValueChangeCalled).toEqual(true);
-    expect(spyOnKeyboard.notCalled);
-    spyOnKeyboard.resetHistory();
+    expect(spyOnKeyboard).not.toBeCalled();
+    spyOnKeyboard.mockReset();
 
     fireEvent.keyDown(listBoxElement!, { key: Key.Enter });
-    expect(spyOnKeyboard.calledOnce);
-    spyOnKeyboard.resetHistory();
+    expect(spyOnKeyboard).toHaveBeenCalledOnce();
+    spyOnKeyboard.mockReset();
 
     fireEvent.keyDown(listBoxElement!, { key: "P" });
-    expect(spyOnKeyboard.calledOnce);
-    spyOnKeyboard.resetHistory();
+    expect(spyOnKeyboard).toHaveBeenCalledOnce();
+    spyOnKeyboard.mockReset();
   });
 
   it("handles click processing", () => {
@@ -405,9 +405,9 @@ describe("<ListBox />", () => {
     );
 
     expect(listItemElement).not.to.be.null;
-    expect(onListboxValueChangeSpy.notCalled);
+    expect(onListboxValueChangeSpy).not.toBeCalled();
     fireEvent.click(listItemElement!);
-    expect(onListboxValueChangeSpy.calledOnce);
+    expect(onListboxValueChangeSpy).toHaveBeenCalledOnce();
     // ensure list box value is set to match
     expect(listBoxElement!.getAttribute("data-value")).toEqual(listItems[5]);
   });

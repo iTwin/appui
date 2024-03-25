@@ -257,7 +257,7 @@ describe("Frontstage local storage wrapper", () => {
       sinon
         .stub(UiFramework.frontstages, "activeFrontstageDef")
         .get(() => frontstageDef);
-      sinon.stub(frontstageDef, "contentGroup").get(() => contentGroup.object);
+      vi.spyOn(frontstageDef, "contentGroup").get(() => contentGroup.object);
       render(
         <Provider store={TestUtils.store}>
           <WidgetPanelsFrontstage />
@@ -359,7 +359,7 @@ describe("Frontstage local storage wrapper", () => {
       });
 
       beforeEach(() => {
-        sinon.stub(InternalFrontstageManager, "nineZoneSize").set(() => {});
+        vi.spyOn(InternalFrontstageManager, "nineZoneSize").set(() => {});
       });
 
       it("should render", async () => {
@@ -420,7 +420,7 @@ describe("Frontstage local storage wrapper", () => {
 
     describe("useNineZoneDispatch", () => {
       beforeEach(() => {
-        sinon.stub(InternalFrontstageManager, "nineZoneSize").set(() => {});
+        vi.spyOn(InternalFrontstageManager, "nineZoneSize").set(() => {});
       });
 
       it("should modify nineZoneState with default NineZoneReducer", () => {
@@ -502,7 +502,7 @@ describe("Frontstage local storage wrapper", () => {
 
       it("should return updated nineZoneState", () => {
         const frontstageDef = new FrontstageDef();
-        sinon.stub(frontstageDef, "isReady").get(() => true);
+        vi.spyOn(frontstageDef, "isReady").get(() => true);
         sinon
           .stub(UiFramework.frontstages, "activeFrontstageDef")
           .get(() => frontstageDef);
@@ -549,7 +549,7 @@ describe("Frontstage local storage wrapper", () => {
         const setting = createFrontstageState();
         const uiStateStorage = new UiStateStorageStub();
         await UiFramework.setUiStateStorage(uiStateStorage);
-        sinon.stub(uiStateStorage, "getSetting").resolves({
+        vi.spyOn(uiStateStorage, "getSetting").resolves({
           status: UiStateStorageStatus.Success,
           setting,
         });
@@ -577,7 +577,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should initialize nineZoneState", async () => {
         const setting = createFrontstageState();
         const uiStateStorage = new UiStateStorageStub();
-        sinon.stub(uiStateStorage, "getSetting").mockReturnValue(
+        vi.spyOn(uiStateStorage, "getSetting").mockReturnValue(
           Promise.resolve<UiStateStorageResult>({
             status: UiStateStorageStatus.Success,
             setting,
@@ -586,7 +586,7 @@ describe("Frontstage local storage wrapper", () => {
         const frontstageDef = new FrontstageDef();
         await UiFramework.setUiStateStorage(uiStateStorage);
 
-        sinon.stub(frontstageDef, "version").get(() => setting.version + 1);
+        vi.spyOn(frontstageDef, "version").get(() => setting.version + 1);
         renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
@@ -599,7 +599,7 @@ describe("Frontstage local storage wrapper", () => {
         const setting = createFrontstageState();
         const uiStateStorage = new UiStateStorageStub();
 
-        sinon.stub(uiStateStorage, "getSetting").resolves({
+        vi.spyOn(uiStateStorage, "getSetting").resolves({
           status: UiStateStorageStatus.Success,
           setting,
         });
@@ -615,7 +615,7 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
+        vi.spyOn(frontstageDef, "leftPanel").get(() => leftPanel);
 
         renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
@@ -630,7 +630,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should save frontstage settings", async () => {
         const fakeTimers = sinon.useFakeTimers();
         const uiStateStorage = new UiStateStorageStub();
-        const spy = sinon.stub(uiStateStorage, "saveSetting").resolves({
+        const spy = vi.spyOn(uiStateStorage, "saveSetting").resolves({
           status: UiStateStorageStatus.Success,
         });
         const frontstageDef = new FrontstageDef();
@@ -650,7 +650,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should not save if tab is dragged", async () => {
         const fakeTimers = sinon.useFakeTimers();
         const uiStateStorage = new UiStateStorageStub();
-        const spy = sinon.stub(uiStateStorage, "saveSetting").resolves({
+        const spy = vi.spyOn(uiStateStorage, "saveSetting").resolves({
           status: UiStateStorageStatus.Success,
         });
         const frontstageDef = new FrontstageDef();
@@ -732,7 +732,7 @@ describe("Frontstage local storage wrapper", () => {
             wrapper: (props) => <UiStateStorageHandler {...props} />,
           });
           const frontstageDef1 = new FrontstageDef();
-          sinon.stub(frontstageDef1, "id").get(() => "f1");
+          vi.spyOn(frontstageDef1, "id").get(() => "f1");
           frontstageDef1.nineZoneState = createNineZoneState();
           InternalFrontstageManager.onFrontstageRestoreLayoutEvent.emit({
             frontstageDef: frontstageDef1,
@@ -805,10 +805,10 @@ describe("Frontstage local storage wrapper", () => {
         sinon
           .stub(UiFramework.frontstages, "activeFrontstageDef")
           .get(() => frontstageDef);
-        sinon.stub(frontstageDef, "leftPanel").get(() => new StagePanelDef());
-        sinon.stub(frontstageDef, "rightPanel").get(() => new StagePanelDef());
-        sinon.stub(frontstageDef, "topPanel").get(() => new StagePanelDef());
-        sinon.stub(frontstageDef, "bottomPanel").get(() => new StagePanelDef());
+        vi.spyOn(frontstageDef, "leftPanel").get(() => new StagePanelDef());
+        vi.spyOn(frontstageDef, "rightPanel").get(() => new StagePanelDef());
+        vi.spyOn(frontstageDef, "topPanel").get(() => new StagePanelDef());
+        vi.spyOn(frontstageDef, "bottomPanel").get(() => new StagePanelDef());
         initializeNineZoneState(frontstageDef);
 
         const sut = frontstageDef.nineZoneState!;
@@ -825,7 +825,7 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "leftPanel").get(() => panel);
+        vi.spyOn(frontstageDef, "leftPanel").get(() => panel);
         initializeNineZoneState(frontstageDef);
 
         const sut = frontstageDef.nineZoneState!;
@@ -860,7 +860,7 @@ describe("Frontstage local storage wrapper", () => {
             defaultSize: { width: 33, height: 33 },
           },
         });
-        sinon.stub(frontstageDef, "toolSettings").get(() => widgetDef);
+        vi.spyOn(frontstageDef, "toolSettings").get(() => widgetDef);
         initializeNineZoneState(frontstageDef);
 
         const sut = frontstageDef.nineZoneState!;
@@ -879,7 +879,7 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "leftPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "leftPanel").get(() => panelDef);
         initializeNineZoneState(frontstageDef);
 
         const sut = frontstageDef.nineZoneState!;
@@ -899,8 +899,8 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "leftPanel").get(() => panelDef);
-        sinon.stub(frontstageDef, "rightPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "leftPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "rightPanel").get(() => panelDef);
         initializeNineZoneState(frontstageDef);
 
         const sut = frontstageDef.nineZoneState!;
@@ -921,7 +921,7 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
+        vi.spyOn(frontstageDef, "leftPanel").get(() => leftPanel);
         initializeNineZoneState(frontstageDef);
         const sut = frontstageDef.nineZoneState;
         sut.panels.left.widgets[0].should.eq("leftStart");
@@ -937,7 +937,7 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "leftPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "leftPanel").get(() => panelDef);
         initializeNineZoneState(frontstageDef);
         const sut = frontstageDef.nineZoneState!;
         sut.panels.left.widgets[0].should.eq("leftEnd");
@@ -955,7 +955,7 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Right
         );
-        sinon.stub(frontstageDef, "rightPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "rightPanel").get(() => panelDef);
         initializeNineZoneState(frontstageDef);
         const sut = frontstageDef.nineZoneState;
         sut.panels.right.widgets[0].should.eq("rightEnd");
@@ -973,7 +973,7 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Left
         );
-        sinon.stub(frontstageDef, "topPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "topPanel").get(() => panelDef);
         initializeNineZoneState(frontstageDef);
         const sut = frontstageDef.nineZoneState;
         sut.panels.top.widgets[0].should.eq("topStart");
@@ -991,7 +991,7 @@ describe("Frontstage local storage wrapper", () => {
           },
           StagePanelLocation.Bottom
         );
-        sinon.stub(frontstageDef, "bottomPanel").get(() => panelDef);
+        vi.spyOn(frontstageDef, "bottomPanel").get(() => panelDef);
         initializeNineZoneState(frontstageDef);
         const sut = frontstageDef.nineZoneState;
         sut.panels.bottom.widgets[0].should.eq("bottomStart");
@@ -1004,8 +1004,8 @@ describe("Frontstage local storage wrapper", () => {
         const frontstageDef = new FrontstageDef();
         frontstageDef.nineZoneState = createNineZoneState();
         const leftPanel = new StagePanelDef();
-        sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
-        sinon.stub(leftPanel, "initialConfig").get(() => ({
+        vi.spyOn(frontstageDef, "leftPanel").get(() => leftPanel);
+        vi.spyOn(leftPanel, "initialConfig").get(() => ({
           maxSize: 100,
         }));
         initializePanel(frontstageDef, StagePanelLocation.Left);
@@ -1017,8 +1017,8 @@ describe("Frontstage local storage wrapper", () => {
         const frontstageDef = new FrontstageDef();
         frontstageDef.nineZoneState = createNineZoneState();
         const leftPanel = new StagePanelDef();
-        sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
-        sinon.stub(leftPanel, "initialConfig").get(() => ({
+        vi.spyOn(frontstageDef, "leftPanel").get(() => leftPanel);
+        vi.spyOn(leftPanel, "initialConfig").get(() => ({
           minSize: 50,
         }));
         initializePanel(frontstageDef, StagePanelLocation.Left);
@@ -1239,7 +1239,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should restore tabs", () => {
         const frontstageDef = new FrontstageDef();
         const widgetDef = new WidgetDef();
-        sinon.stub(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
+        vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
         let state = createNineZoneState();
         state = addTab(state, "t1");
         restoreNineZoneState(frontstageDef, state);
@@ -1626,7 +1626,7 @@ describe("Frontstage local storage wrapper", () => {
           frontstageProvider.id
         );
         await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
-        const spy = sinon.stub(frontstageDef!, "setIsApplicationClosing");
+        const spy = vi.spyOn(frontstageDef!, "setIsApplicationClosing");
         const wrapper = render(
           <Provider store={TestUtils.store}>
             <WidgetPanelsFrontstage />
@@ -1647,7 +1647,7 @@ describe("Frontstage local storage wrapper", () => {
         const setting = createFrontstageState(state);
 
         const uiStateStorage = new UiStateStorageStub();
-        sinon.stub(uiStateStorage, "getSetting").resolves({
+        vi.spyOn(uiStateStorage, "getSetting").resolves({
           status: UiStateStorageStatus.Success,
           setting,
         });

@@ -14,7 +14,7 @@ describe("useActiveViewport", () => {
   const selectedView = {} as ScreenViewport;
 
   beforeEach(() => {
-    sinon.stub(IModelApp.viewManager, "selectedView").get(() => selectedView);
+    vi.spyOn(IModelApp.viewManager, "selectedView").get(() => selectedView);
   });
 
   it("should update active viewport", async () => {
@@ -22,7 +22,7 @@ describe("useActiveViewport", () => {
     expect(result.current).toEqual(selectedView);
 
     const updatedView = {} as ScreenViewport;
-    sinon.stub(IModelApp.viewManager, "selectedView").get(() => updatedView);
+    vi.spyOn(IModelApp.viewManager, "selectedView").get(() => updatedView);
     act(() => {
       UiFramework.content.onActiveContentChangedEvent.emit(
         {} as ActiveContentChangedEventArgs

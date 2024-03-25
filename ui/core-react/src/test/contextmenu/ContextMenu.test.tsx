@@ -68,10 +68,12 @@ describe("ContextMenu", () => {
       );
 
       const mouseUp = new MouseEvent("mouseup");
-      sinon.stub(mouseUp, "target").get(() => document.createElement("div"));
+      vi.spyOn(mouseUp, "target", "get").mockReturnValue(
+        document.createElement("div")
+      );
       window.dispatchEvent(mouseUp);
 
-      spy.should.have.been.called;
+      expect(spy).toHaveBeenCalled();
     });
     it("should not call onOutsideClick on window mouseup if closed", () => {
       const spy = vi.fn();
@@ -82,7 +84,9 @@ describe("ContextMenu", () => {
       );
 
       const mouseUp = new MouseEvent("mouseup");
-      sinon.stub(mouseUp, "target").get(() => document.createElement("div"));
+      vi.spyOn(mouseUp, "target", "get").mockReturnValue(
+        document.createElement("div")
+      );
       window.dispatchEvent(mouseUp);
 
       expect(spy).not.toBeCalled();
@@ -225,7 +229,7 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.not.have.been.called;
+        expect(onSelectFake).not.toBeCalled();
       });
       it("should not select list item of hotkey if hidden", async () => {
         const onSelectFake = vi.fn();
@@ -238,7 +242,7 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.not.have.been.called;
+        expect(onSelectFake).not.toBeCalled();
       });
       it("should ignore next keyup when ignoreNextKeyUp=true", async () => {
         const onSelectFake = vi.fn();
@@ -251,7 +255,7 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.not.have.been.called;
+        expect(onSelectFake).not.toBeCalled();
         await theUserTo.keyboard("f");
         expect(onSelectFake).toHaveBeenCalledOnce();
       });
@@ -285,7 +289,7 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.not.have.been.called;
+        expect(onSelectFake).not.toBeCalled();
       });
       it("should not select sub menu list item of hotkey if hidden", async () => {
         const onSelectFake = vi.fn();
@@ -303,7 +307,7 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.not.have.been.called;
+        expect(onSelectFake).not.toBeCalled();
       });
       it("should find list item of hotkey", async () => {
         const onSelectFake = vi.fn();
@@ -608,7 +612,7 @@ describe("ContextMenu", () => {
       );
       const item = component.getByTestId("core-context-menu-item");
       await theUserTo.click(item);
-      handleClick.should.have.been.calledOnce;
+      expect(handleClick).toHaveBeenCalledOnce();
     });
     it("onSelect handled correctly on click", async () => {
       const handleSelect = vi.fn();
@@ -617,7 +621,7 @@ describe("ContextMenu", () => {
       );
       const item = component.getByTestId("core-context-menu-item");
       await theUserTo.click(item);
-      handleSelect.should.have.been.calledOnce;
+      expect(handleSelect).toHaveBeenCalledOnce();
     });
     it("onHover handled correctly", async () => {
       const handleHover = vi.fn();
@@ -626,7 +630,7 @@ describe("ContextMenu", () => {
       );
       const item = component.getByTestId("core-context-menu-item");
       await theUserTo.hover(item);
-      handleHover.should.have.been.calledOnce;
+      expect(handleHover).toHaveBeenCalledOnce();
     });
     it("onSelect handled correctly on Enter", async () => {
       const handleSelect = vi.fn();
@@ -636,7 +640,7 @@ describe("ContextMenu", () => {
       const item = component.getByTestId("core-context-menu-item");
       item.focus();
       await theUserTo.keyboard("{Enter}");
-      handleSelect.should.have.been.calledOnce;
+      expect(handleSelect).toHaveBeenCalledOnce();
     });
     it("onSelect not called on Escape", async () => {
       const handleSelect = vi.fn();
@@ -646,7 +650,7 @@ describe("ContextMenu", () => {
       const item = component.getByTestId("core-context-menu-item");
       item.focus();
       await theUserTo.keyboard("{Escape}");
-      handleSelect.should.not.have.been.called;
+      expect(handleSelect).not.toBeCalled();
     });
     it("onSelect not called when disabled", async () => {
       const handleSelect = vi.fn();
@@ -657,7 +661,7 @@ describe("ContextMenu", () => {
       );
       const item = component.getByTestId("core-context-menu-item");
       await theUserTo.type(item, "{Enter}");
-      handleSelect.should.not.have.been.called;
+      expect(handleSelect).not.toBeCalled();
     });
   });
 
@@ -763,7 +767,7 @@ describe("ContextMenu", () => {
       );
       const item = component.getByTestId("core-context-submenu");
       await theUserTo.hover(item);
-      handleHover.should.have.been.calledOnce;
+      expect(handleHover).toHaveBeenCalledOnce();
     });
     it("onHover handled internally when in ContextMenu", async () => {
       const handleHover = vi.fn();
@@ -776,7 +780,7 @@ describe("ContextMenu", () => {
       );
       const item = component.getByTestId("core-context-submenu");
       await theUserTo.hover(item);
-      handleHover.should.not.have.been.calledOnce;
+      expect(handleHover).not.toBeCalled();
     });
     it("onClick handled correctly", async () => {
       const handleClick = vi.fn();
@@ -789,7 +793,7 @@ describe("ContextMenu", () => {
       );
       const item = component.getByTestId("core-context-submenu-container");
       await theUserTo.click(item);
-      handleClick.should.have.been.calledOnce;
+      expect(handleClick).toHaveBeenCalledOnce();
     });
     it("onFocus handled correctly", () => {
       const component = render(
@@ -868,11 +872,11 @@ describe("ContextMenu", () => {
       const items = component.getAllByTestId("core-context-submenu-container");
 
       await theUserTo.click(items[0]);
-      fakeClick1.should.have.been.calledOnce;
+      expect(fakeClick1).toHaveBeenCalledOnce();
 
       await theUserTo.click(items[1]);
-      fakeClick2.should.have.been.calledOnce;
-      fakeOutsideClick.should.have.been.calledOnce;
+      expect(fakeClick2).toHaveBeenCalledOnce();
+      expect(fakeOutsideClick).toHaveBeenCalledOnce();
 
       const subMenus = component.getAllByTestId("core-context-menu-container");
       expect(subMenus[1].className).not.to.contain("opened");

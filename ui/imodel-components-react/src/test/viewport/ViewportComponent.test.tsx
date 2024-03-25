@@ -320,7 +320,7 @@ describe("ViewportComponent", () => {
         screenViewportOverride={ScreenViewportMock}
       />
     );
-    expect(spyLogger).to.not.have.been.called;
+    expect(spyLogger).not.toBeCalled();
 
     globalViewId = "FakeId";
     component.rerender(
@@ -332,7 +332,7 @@ describe("ViewportComponent", () => {
       />
     );
     await waitFor(() => {
-      expect(spyLogger).to.have.been.called;
+      expect(spyLogger).toHaveBeenCalled();
     });
   });
 

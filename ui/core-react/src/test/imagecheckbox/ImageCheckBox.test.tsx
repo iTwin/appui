@@ -22,10 +22,12 @@ describe("<ImageCheckBox />", () => {
       />
     );
     await theUserTo.click(screen.getByRole("checkbox"));
-    expect(spy).to.have.been.calledOnceWith(true);
-    spy.resetHistory();
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith(true);
+    spy.mockReset();
     await theUserTo.click(screen.getByRole("checkbox"));
-    expect(spy).to.have.been.calledOnceWith(false);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith(false);
   });
 
   it("disabled do not react on click", async () => {
@@ -39,7 +41,7 @@ describe("<ImageCheckBox />", () => {
       />
     );
     await theUserTo.click(screen.getByRole("checkbox"));
-    expect(spy).not.to.have.been.called;
+    expect(spy).not.toBeCalled();
   });
 
   it("onClick should be called on label click", async () => {
@@ -53,7 +55,7 @@ describe("<ImageCheckBox />", () => {
       />
     );
     await theUserTo.click(screen.getByTitle("test"));
-    expect(spy).to.have.been.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("border renders correctly", () => {
@@ -100,7 +102,7 @@ describe("<ImageCheckBox />", () => {
       />
     );
     await theUserTo.click(screen.getByRole("checkbox"));
-    handler.should.have.been.calledOnce;
-    handler.should.have.been.calledWithExactly(true);
+    expect(handler).toHaveBeenCalledOnce();
+    expect(handler).toHaveBeenCalledWith(true);
   });
 });

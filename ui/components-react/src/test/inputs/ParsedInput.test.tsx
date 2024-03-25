@@ -70,12 +70,12 @@ describe("ParsedInput", () => {
     expect(input.value).toEqual("20.0C");
     fireEvent.change(input, { target: { value: "32F" } });
     fireEvent.keyDown(input, { key: Key.Enter });
-    expect(spyOnChange).to.have.been.called;
-    spyOnChange.resetHistory();
+    expect(spyOnChange).toHaveBeenCalled();
+    spyOnChange.mockReset();
     expect(input.value).toEqual("0.0C");
     fireEvent.change(input, { target: { value: "0.0C" } });
     fireEvent.keyDown(input, { key: Key.Enter });
-    expect(spyOnChange).to.not.have.been.called;
+    expect(spyOnChange).not.toBeCalled();
   });
 
   it("should process blur", () => {
@@ -99,7 +99,7 @@ describe("ParsedInput", () => {
     // Blur does change
     fireEvent.change(input, { target: { value: "10.0C" } });
     fireEvent.blur(input);
-    expect(spyOnChange).to.have.been.called;
+    expect(spyOnChange).toHaveBeenCalled();
   });
 
   it("should process Escape keystroke", () => {
@@ -123,7 +123,7 @@ describe("ParsedInput", () => {
     // Escape does not change
     fireEvent.change(input, { target: { value: "20.0C" } });
     fireEvent.keyDown(input, { key: Key.Escape });
-    expect(spyOnChange).to.not.have.been.called;
+    expect(spyOnChange).not.toBeCalled();
   });
 
   it("should process keystrokes and initialValue prop change", () => {
@@ -217,7 +217,7 @@ describe("ParsedInput", () => {
     // Should add "components-parsed-input-has-error" CSS class on bad input
     fireEvent.change(input, { target: { value: "XYZ" } });
     fireEvent.keyDown(input, { key: Key.Enter });
-    expect(spyOnChange).to.not.have.been.called;
+    expect(spyOnChange).not.toBeCalled();
     expect(
       wrapper.container.querySelector(".components-parsed-input-has-error")
     ).to.not.be.null;

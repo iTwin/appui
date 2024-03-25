@@ -37,7 +37,7 @@ describe("AccuDrawInputField", () => {
     opts.accuDraw = new FrameworkAccuDraw();
     await NoRenderApp.startup(opts);
     const accuDraw = new FrameworkAccuDraw();
-    sinon.stub(IModelApp, "accuDraw").get(() => accuDraw);
+    vi.spyOn(IModelApp, "accuDraw").get(() => accuDraw);
   });
 
   afterEach(async () => {

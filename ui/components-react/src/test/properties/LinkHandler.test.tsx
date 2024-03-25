@@ -52,7 +52,7 @@ describe("LinkHandler", () => {
     });
 
     it("rendered anchor tag calls appropriate callback on click", () => {
-      onClickSpy.resetHistory();
+      onClickspy.mockReset();
 
       const anchor = render(<>{renderLinks("Example text", links)}</>);
 

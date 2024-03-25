@@ -21,7 +21,7 @@ describe("WidgetPanelsStatusBar", () => {
       id: "w1",
       content: <div title="my-control"></div>,
     });
-    sinon.stub(frontstageDef, "statusBar").get(() => widget);
+    vi.spyOn(frontstageDef, "statusBar").get(() => widget);
     sinon
       .stub(UiFramework.frontstages, "activeFrontstageDef")
       .get(() => frontstageDef);

@@ -168,7 +168,7 @@ describe("TreeNodeLoader", () => {
       // Finalise the first node load to allow SubscriptionScheduler to move onto next observable. As a bonus, after the
       // await, the second subscription will have already propagated to the node loader.
       await dataProvider.firstCall.returnValue.resolve([]);
-      expect(dataProvider).to.have.been.calledTwice;
+      expect(dataProvider).toHaveBeenCalledTimes(2);
     });
 
     it("does not put stale nodes into model after cancellation", async () => {
@@ -419,7 +419,7 @@ describe("PagedTreeNodeLoader", () => {
       // Finalise the first node load to allow SubscriptionScheduler to move onto next observable. As a bonus, after the
       // await, the second subscription will have already propagated to the node loader.
       await dataProvider.firstCall.returnValue.resolve([]);
-      expect(dataProvider).to.have.been.calledTwice;
+      expect(dataProvider).toHaveBeenCalledTimes(2);
     });
 
     it("does not load more than one page concurrently", async () => {
@@ -436,7 +436,7 @@ describe("PagedTreeNodeLoader", () => {
       expect(dataProvider).to.have.been.calledOnce;
 
       await dataProvider.firstCall.returnValue.resolve([]);
-      expect(dataProvider).to.have.been.calledTwice;
+      expect(dataProvider).toHaveBeenCalledTimes(2);
     });
 
     it("does not put stale nodes into model after cancellation", async () => {
@@ -559,7 +559,7 @@ describe("AbstractTreeNodeLoader", () => {
         hierarchyItems: [],
       };
       await dataProvider.firstCall.returnValue.resolve(hierarchy);
-      expect(dataProvider).to.have.been.calledTwice;
+      expect(dataProvider).toHaveBeenCalledTimes(2);
     });
 
     it("does not put stale nodes into model after cancellation", async () => {
@@ -713,7 +713,7 @@ describe("TreeDataSource", () => {
         // Simulating unsubscribing from TreeDataSource in between getNodesCount call and getNodes call
         subscription.unsubscribe();
         await getNodesCountPromise.resolve(1);
-        expect(dataProvider.getNodes).not.to.have.been.called;
+        expect(dataProvider.getNodes).not.toBeCalled();
       });
     });
 

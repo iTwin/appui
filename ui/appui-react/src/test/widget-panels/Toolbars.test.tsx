@@ -41,7 +41,7 @@ describe("WidgetPanelsToolbars", () => {
     sinon
       .stub(frontstageDef, "contentManipulation")
       .get(() => contentManipulationWidget);
-    sinon.stub(frontstageDef, "viewNavigation").get(() => viewNavigationWidget);
+    vi.spyOn(frontstageDef, "viewNavigation").get(() => viewNavigationWidget);
     render(<WidgetPanelsToolbars />);
     expect(screen.getByText(/tools.*navigation/)).to.satisfy(
       selectorMatches(".uifw-widgetPanels-toolbars")

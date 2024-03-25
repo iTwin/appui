@@ -15,7 +15,7 @@ import {
 describe("WidgetPanelsFrontstageContent", () => {
   it("should render", () => {
     const frontstageDef = new FrontstageDef();
-    sinon.stub(frontstageDef, "contentLayoutDef").get(() => ({
+    vi.spyOn(frontstageDef, "contentLayoutDef").get(() => ({
       fillLayoutContainer() {
         return "ContentLayoutDefMockContent";
       },

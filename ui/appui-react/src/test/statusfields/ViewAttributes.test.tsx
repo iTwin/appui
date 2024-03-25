@@ -66,7 +66,7 @@ describe(`ViewAttributes`, () => {
       screen.getByText("listTools.acs").previousElementSibling
     ).to.have.property("checked", true);
 
-    const spy = sinon.stub(IModelApp.tools, "run");
+    const spy = vi.spyOn(IModelApp.tools, "run");
     await theUserTo.click(screen.getByText("listTools.camera"));
     expect(
       screen.getByText("listTools.camera").previousElementSibling

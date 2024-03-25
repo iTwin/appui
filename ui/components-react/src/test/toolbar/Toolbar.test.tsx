@@ -549,7 +549,7 @@ describe("<Toolbar (No Overflow) />", () => {
 
   describe("<BackArrow />", () => {
     it("renders targeted correctly", () => {
-      sinon.stub(useTargetedModule, "useTargeted").mockReturnValue(true);
+      vi.spyOn(useTargetedModule, "useTargeted").mockReturnValue(true);
       const renderedComponent = render(<BackArrow />);
       expect(renderedComponent.container.querySelector(".components-targeted"))
         .to.not.be.null;
@@ -572,7 +572,7 @@ describe("<Toolbar (No Overflow) />", () => {
     });
 
     it("renders targeted correctly", () => {
-      sinon.stub(useTargetedModule, "useTargeted").mockReturnValue(true);
+      vi.spyOn(useTargetedModule, "useTargeted").mockReturnValue(true);
       const renderedComponent = render(<GroupTool item={item} />);
       expect(renderedComponent.container.querySelector(".components-targeted"))
         .to.not.be.null;

@@ -77,7 +77,7 @@ describe("<SolarTimeline />", () => {
   });
 
   afterEach(() => {
-    rafSpy.resetHistory();
+    rafspy.mockReset();
   });
 
   after(() => {

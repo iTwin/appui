@@ -271,7 +271,7 @@ describe("QuantityFormatSettingsPage", () => {
     // Wait that the handler have been updated, otherwise it compares with the previous version...
     // Visual change already have been processed but scope didnt upddate.
     await waitFor(() => {
-      expect(addListenerSpy).to.have.been.called;
+      expect(addListenerSpy).toHaveBeenCalled();
     });
 
     act(() => {

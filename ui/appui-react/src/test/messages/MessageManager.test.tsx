@@ -54,7 +54,7 @@ describe("MessageManager", () => {
     }
     expect(MessageManager.messages.length).toEqual(500);
 
-    clearSpy.resetHistory();
+    clearspy.mockReset();
     MessageManager.addMessage(
       new NotifyMessageDetails(OutputMessagePriority.Debug, `A brief message.`)
     );
@@ -286,7 +286,7 @@ describe("MessageManager", () => {
   });
 
   it("should respect `maxDisplayedStickyMessages`", async () => {
-    sinon.stub(MessageManager, "maxDisplayedStickyMessages").get(() => 3);
+    vi.spyOn(MessageManager, "maxDisplayedStickyMessages").get(() => 3);
 
     const component = render(<MessageRenderer />, { wrapper: ThemeProvider });
     act(() => {

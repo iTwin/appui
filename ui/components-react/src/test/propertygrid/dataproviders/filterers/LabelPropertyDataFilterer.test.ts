@@ -249,7 +249,7 @@ describe("LabelPropertyDataFilterer", () => {
       expect(spy).not.toBeCalled();
 
       filterer.filterText = "AAA";
-      spy.resetHistory();
+      spy.mockReset();
 
       filterer.filterText = "AAA";
       expect(spy).not.toBeCalled();

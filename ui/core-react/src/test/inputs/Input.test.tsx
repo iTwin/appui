@@ -42,8 +42,8 @@ describe("<Input />", () => {
       <Input setFocus={true} nativeKeyHandler={spyOnSecondKeyboardEvent} />
     );
     fireEvent.keyDown(inputNode, { key: "Enter" });
-    expect(spyOnKeyboardEvent.calledOnce).toEqual(true);
-    expect(spyOnSecondKeyboardEvent.calledOnce).toEqual(true);
+    expect(spyOnKeyboardEvent).toHaveBeenCalledOnce();
+    expect(spyOnSecondKeyboardEvent).toHaveBeenCalledOnce();
   });
 
   it("input element is properly set", () => {

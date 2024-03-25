@@ -43,7 +43,7 @@ describe("<Tabs />", () => {
       />
     );
     await theUserTo.click(screen.getByRole("button", { name: "label 2" }));
-    spyActivate.should.have.been.calledOnceWithExactly(1);
+    expect(spyActivate).toHaveBeenCalledOnce();
   });
 
   it("Home key puts focus on 1st tab", async () => {
@@ -72,8 +72,6 @@ describe("<Tabs />", () => {
     expect(document.activeElement).toEqual(last);
   });
 
-  ///
-
   it("Up key in Vertical puts focus on previous tab", async () => {
     const { getAllByRole } = render(
       <VerticalTabs
@@ -99,8 +97,6 @@ describe("<Tabs />", () => {
     const nextTab = getAllByRole("button")[2];
     expect(document.activeElement).toEqual(nextTab);
   });
-
-  ///
 
   it("Up key in Vertical puts focus on last tab when on first", async () => {
     const { getAllByRole } = render(
@@ -128,8 +124,6 @@ describe("<Tabs />", () => {
     expect(document.activeElement).toEqual(first);
   });
 
-  ///
-
   it("Left/Right key in Vertical does nothing", async () => {
     const { getAllByRole } = render(
       <VerticalTabs
@@ -146,8 +140,6 @@ describe("<Tabs />", () => {
     expect(document.activeElement).to.not.eq(last);
   });
 
-  ///
-
   it("Enter key in activates tab", async () => {
     const spyActivate = vi.fn();
     render(
@@ -159,13 +151,13 @@ describe("<Tabs />", () => {
     );
     const label = screen.getByRole("button", { name: "label 2" });
     await theUserTo.type(label, "{arrowup}");
-    spyActivate.resetHistory();
+    spyActivate.mockReset();
 
     await theUserTo.keyboard("{enter}");
     expect(
       classesFromElement(screen.getByRole("tab", { name: "label 1" }))
     ).to.include("core-active");
-    spyActivate.should.have.been.calledOnceWithExactly(0);
+    expect(spyActivate).toHaveBeenCalledOnce();
   });
 
   it("Space key in activates tab", async () => {
@@ -179,16 +171,14 @@ describe("<Tabs />", () => {
     );
     const label = screen.getByRole("button", { name: "label 2" });
     await theUserTo.type(label, "{arrowup}");
-    spyActivate.resetHistory();
+    spyActivate.mockReset();
 
     await theUserTo.keyboard(" ");
     expect(
       classesFromElement(screen.getByRole("tab", { name: "label 1" }))
     ).to.include("core-active");
-    spyActivate.should.have.been.calledOnceWithExactly(0);
+    expect(spyActivate).toHaveBeenCalledOnce();
   });
-
-  ///
 
   it("Supports updating labels & orientation", async () => {
     const { container, getAllByRole, rerender } = render(

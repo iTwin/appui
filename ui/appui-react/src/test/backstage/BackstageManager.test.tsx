@@ -34,7 +34,8 @@ describe("BackstageManager", () => {
     // Check that we call only once;
     manager.open();
 
-    expect(spy).to.have.been.calledOnceWith(sinon.match({ isOpen: true }));
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith({ isOpen: true });
     expect(manager.isOpen).toEqual(true);
 
     manager.onToggled.removeListener(spy);
@@ -65,7 +66,7 @@ describe("BackstageManager", () => {
     expect(spy).toHaveBeenCalledWith(sinon.match({ isOpen: false }));
     expect(manager.isOpen).to.be.false;
 
-    spy.resetHistory();
+    spy.mockReset();
     manager.toggle();
 
     expect(spy).toHaveBeenCalledWith(sinon.match({ isOpen: true }));
@@ -80,7 +81,7 @@ describe("BackstageManager", () => {
     manager.onToggled.addListener(spy);
     manager.open();
 
-    expect(spy).to.not.have.been.called;
+    expect(spy).not.toBeCalled();
     expect(manager.isOpen).toEqual(true);
     manager.onToggled.removeListener(spy);
   });
@@ -104,10 +105,10 @@ describe("BackstageManager", () => {
     const manager = new BackstageManager();
     const internal = new InternalBackstageManager();
     const stubbedOnToggled = Symbol("onToggled");
-    sinon.stub(internal, "onToggled").get(() => stubbedOnToggled);
+    vi.spyOn(internal, "onToggled").get(() => stubbedOnToggled);
     const stubbedIsOpen = Symbol("isOpen");
-    sinon.stub(internal, "isOpen").get(() => stubbedIsOpen);
-    sinon.stub(internal);
+    vi.spyOn(internal, "isOpen").get(() => stubbedIsOpen);
+    vi.spyOn(internal);
     manager.mockInternal(internal);
 
     expect(manager.onToggled).toEqual(internal.onToggled);

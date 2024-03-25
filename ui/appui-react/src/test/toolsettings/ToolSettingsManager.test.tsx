@@ -223,11 +223,11 @@ describe("InternalToolSettingsManager", () => {
 
   it("handleDispatchSyncUiEvent", () => {
     InternalToolSettingsManager.initialize();
-    const immediateStub = sinon.stub(
+    const immediateStub = vi.spyOn(
       SyncUiEventDispatcher,
       "dispatchImmediateSyncUiEvent"
     );
-    const timerStub = sinon.stub(SyncUiEventDispatcher, "dispatchSyncUiEvent");
+    const timerStub = vi.spyOn(SyncUiEventDispatcher, "dispatchSyncUiEvent");
     IModelApp.toolAdmin.dispatchUiSyncEvent("test1");
     timerStub.calledOnce.should.be.true;
 

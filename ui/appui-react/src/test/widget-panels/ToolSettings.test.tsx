@@ -75,7 +75,7 @@ describe("WidgetPanelsToolSettings", () => {
     sinon
       .stub(InternalFrontstageManager, "activeToolSettingsProvider")
       .get(() => undefined);
-    sinon.stub(frontstageDef, "toolSettings").get(() => toolSettings);
+    vi.spyOn(frontstageDef, "toolSettings").get(() => toolSettings);
     let state = createNineZoneState();
     state = addTab(state, "ts");
     state = addDockedToolSettings(state, "ts");

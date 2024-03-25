@@ -58,7 +58,7 @@ describe("PropertyGrid Commons", () => {
     });
 
     it("opens new window if the link text was found without http schema", async () => {
-      spy = sinon.stub(window, "open");
+      spy = vi.spyOn(window, "open");
       spy.returns(null);
 
       PropertyGridCommons.handleLinkClick("www.testLink.com");
@@ -66,7 +66,7 @@ describe("PropertyGrid Commons", () => {
     });
 
     it("opens new window if the link text was found in record with http schema", async () => {
-      spy = sinon.stub(window, "open");
+      spy = vi.spyOn(window, "open");
       spy.returns(null);
 
       PropertyGridCommons.handleLinkClick("http://www.testLink.com");
@@ -74,7 +74,7 @@ describe("PropertyGrid Commons", () => {
     });
 
     it("does not open new window if there were no url links", async () => {
-      spy = sinon.stub(window, "open");
+      spy = vi.spyOn(window, "open");
       spy.returns(null);
 
       PropertyGridCommons.handleLinkClick("not an url link");
@@ -102,7 +102,7 @@ describe("PropertyGrid Commons", () => {
       const windowMock = moq.Mock.ofType<Window>();
       windowMock.setup((x) => x.focus());
 
-      spy = sinon.stub(window, "open");
+      spy = vi.spyOn(window, "open");
       spy.returns(windowMock.object);
 
       PropertyGridCommons.handleLinkClick("www.testLink.com");

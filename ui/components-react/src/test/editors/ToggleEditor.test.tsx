@@ -46,7 +46,7 @@ describe("<ToggleEditor />", () => {
 
     await theUserTo.click(screen.getByRole("switch"));
 
-    expect(spyOnCommit.calledOnce).toEqual(true);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("onCommit should be called for Space", async () => {
@@ -105,7 +105,7 @@ describe("<ToggleEditor />", () => {
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.calledOnce).to.be.false;
+    expect(spyOnCommit).not.toBeCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

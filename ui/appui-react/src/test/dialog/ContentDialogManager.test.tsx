@@ -22,7 +22,7 @@ describe("ContentDialogManager", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
     InternalContentDialogManager.closeAll();
-    spy.resetHistory();
+    spy.mockReset();
   });
 
   const spy = sinon.spy();
@@ -58,7 +58,7 @@ describe("ContentDialogManager", () => {
 
     expect(UiFramework.content.dialogs.count).toEqual(0);
     UiFramework.content.dialogs.open(reactNode, dialogId);
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
 
     expect(UiFramework.content.dialogs.active).toEqual(reactNode);
 

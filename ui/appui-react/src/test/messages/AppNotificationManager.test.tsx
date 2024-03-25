@@ -39,13 +39,13 @@ describe("AppNotificationManager", () => {
   it("outputPromptByKey", () => {
     const spy = sinon.spy(MessageManager, "outputPrompt");
     notifications.outputPromptByKey("Framework:tests.label");
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("outputPrompt", () => {
     const spy = sinon.spy(MessageManager, "outputPrompt");
     notifications.outputPrompt("This is a prompt.");
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("outputMessage", () => {
@@ -55,7 +55,7 @@ describe("AppNotificationManager", () => {
       "A brief message."
     );
     notifications.outputMessage(details);
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("outputMessage with Alert", () => {
@@ -69,8 +69,8 @@ describe("AppNotificationManager", () => {
       OutputMessageType.Alert
     );
     notifications.outputMessage(details);
-    expect(spy.calledOnce).toEqual(true);
-    expect(alertBoxMethod.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(alertBoxMethod).toHaveBeenCalledOnce();
 
     UiFramework.dialogs.modal.close();
   });
@@ -87,8 +87,8 @@ describe("AppNotificationManager", () => {
       OutputMessageAlert.Balloon
     );
     notifications.outputMessage(details);
-    expect(spy.calledOnce).toEqual(true);
-    expect(alertBoxMethod.calledOnce).to.be.false;
+    expect(spy).toHaveBeenCalledOnce();
+    expect(alertBoxMethod).not.toBeCalled();
   });
 
   it("outputMessage with InputField", () => {
@@ -111,10 +111,10 @@ describe("AppNotificationManager", () => {
     );
     details.setInputFieldTypeDetails(divElement!);
     notifications.outputMessage(details);
-    expect(spy.calledOnce).toEqual(true);
-    expect(spy2.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy2).toHaveBeenCalledOnce();
     notifications.closeInputFieldMessage();
-    expect(spy3.calledOnce).toEqual(true);
+    expect(spy3).toHaveBeenCalledOnce();
   });
 
   it("outputMessage with InputField but without setInputFieldTypeDetails", () => {
@@ -127,7 +127,7 @@ describe("AppNotificationManager", () => {
       OutputMessageType.InputField
     );
     notifications.outputMessage(details);
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
     expect(spy2.called).to.be.false;
   });
 
@@ -157,13 +157,13 @@ describe("AppNotificationManager", () => {
     const spy = sinon.spy(MessageManager, "setupActivityMessageDetails");
     const details = new ActivityMessageDetails(true, true, true, true);
     notifications.setupActivityMessage(details);
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("outputActivityMessage", () => {
     const spy = sinon.spy(MessageManager, "setupActivityMessageValues");
     notifications.outputActivityMessage("Message text", 50);
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("endActivityMessage", () => {
@@ -186,8 +186,8 @@ describe("AppNotificationManager", () => {
     );
     notifications.openToolTip(divElement!, "Tooltip message");
     notifications.clearToolTip();
-    expect(showMethod.calledOnce).toEqual(true);
-    expect(hideMethod.calledOnce).toEqual(true);
+    expect(showMethod).toHaveBeenCalledOnce();
+    expect(hideMethod).toHaveBeenCalledOnce();
     expect(notifications.isToolTipSupported).toEqual(true);
   });
 
@@ -205,14 +205,14 @@ describe("AppNotificationManager", () => {
     const reactNode = <span>Tooltip message</span>;
     MessageManager.openToolTip(divElement!, { reactNode });
     notifications.clearToolTip();
-    expect(showMethod.calledOnce).toEqual(true);
-    expect(hideMethod.calledOnce).toEqual(true);
+    expect(showMethod).toHaveBeenCalledOnce();
+    expect(hideMethod).toHaveBeenCalledOnce();
   });
 
   it("ActivityMessage with a React component", () => {
     const spy = sinon.spy(MessageManager, "setupActivityMessageValues");
     const reactNode = <span>Activity message</span>;
     MessageManager.outputActivityMessage({ reactNode }, 50);
-    expect(spy.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 });

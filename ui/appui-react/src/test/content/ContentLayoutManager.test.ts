@@ -96,6 +96,6 @@ describe("ContentLayoutManager", () => {
       .stub(InternalFrontstageManager, "setActiveContentGroup")
       .returns(Promise.resolve());
     await InternalContentLayoutManager.setActiveContentGroup(contentGroup);
-    expect(spy).to.have.been.called;
+    expect(spy).toHaveBeenCalled();
   });
 });

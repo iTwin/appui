@@ -52,7 +52,7 @@ describe("WidgetPanelsTab", () => {
       id: "w1",
       badge: BadgeType.New,
     });
-    sinon.stub(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
+    vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
 
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "Tab1" });

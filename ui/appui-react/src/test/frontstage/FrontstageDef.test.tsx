@@ -136,7 +136,7 @@ describe("FrontstageDef", () => {
       defaultState: WidgetState.Floating,
     });
 
-    sinon.stub(frontstageDef, "findWidgetDef").callsFake((id) => {
+    vi.spyOn(frontstageDef, "findWidgetDef").callsFake((id) => {
       if (id === "t1") return t1;
       if (id === "t2") return t2;
       if (id === "t3") return t3;
@@ -152,7 +152,7 @@ describe("FrontstageDef", () => {
 
   it("should not save size and position if ninezone state is not available", () => {
     const frontstageDef = new FrontstageDef();
-    const spy = sinon.stub(frontstageDef, "findWidgetDef");
+    const spy = vi.spyOn(frontstageDef, "findWidgetDef");
 
     frontstageDef.saveChildWindowSizeAndPosition("1", window);
 
@@ -162,8 +162,8 @@ describe("FrontstageDef", () => {
   it("should not save size and position if widget is not found", () => {
     const frontstageDef = new FrontstageDef();
     const state = createNineZoneState({ size: { height: 1000, width: 1600 } });
-    const spy = sinon.stub(frontstageDef, "findWidgetDef");
-    sinon.stub(frontstageDef, "nineZoneState").get(() => state);
+    const spy = vi.spyOn(frontstageDef, "findWidgetDef");
+    vi.spyOn(frontstageDef, "nineZoneState").get(() => state);
 
     frontstageDef.saveChildWindowSizeAndPosition("1", window);
 
@@ -179,7 +179,7 @@ describe("FrontstageDef", () => {
     const spy = sinon
       .stub(frontstageDef, "findWidgetDef")
       .mockReturnValue(undefined);
-    sinon.stub(frontstageDef, "nineZoneState").get(() => state);
+    vi.spyOn(frontstageDef, "nineZoneState").get(() => state);
 
     frontstageDef.saveChildWindowSizeAndPosition("pw1", window);
 
@@ -362,8 +362,8 @@ describe("FrontstageDef", () => {
         id: "w1",
         defaultState: WidgetState.Open,
       });
-      sinon.stub(rightPanel, "widgetDefs").get(() => [w1]);
-      sinon.stub(frontstageDef, "rightPanel").get(() => rightPanel);
+      vi.spyOn(rightPanel, "widgetDefs").get(() => [w1]);
+      vi.spyOn(frontstageDef, "rightPanel").get(() => rightPanel);
       const spy = sinon.spy(w1, "setWidgetState");
 
       frontstageDef.restoreLayout();
@@ -374,8 +374,8 @@ describe("FrontstageDef", () => {
       const frontstageDef = new FrontstageDef();
       const rightPanel = new StagePanelDef();
       const stagePanelConfig: StagePanelConfig = { sizeSpec: 300 };
-      sinon.stub(rightPanel, "initialConfig").get(() => stagePanelConfig);
-      sinon.stub(frontstageDef, "rightPanel").get(() => rightPanel);
+      sinon.spyOn(rightPanel, "initialConfig").get(() => stagePanelConfig);
+      sinon.spyOn(frontstageDef, "rightPanel").get(() => rightPanel);
       const spy = sinon.spy(rightPanel, "sizeSpec", ["set"]);
 
       frontstageDef.restoreLayout();
@@ -482,7 +482,7 @@ describe("FrontstageDef", () => {
       initializeNineZoneState(frontstageDef);
 
       const dispatch = vi.fn();
-      sinon.stub(frontstageDef, "dispatch").get(() => dispatch);
+      vi.spyOn(frontstageDef, "dispatch").get(() => dispatch);
       frontstageDef.floatWidget("t1");
       sinon.assert.calledOnceWithMatch(dispatch, {
         type: "WIDGET_TAB_FLOAT",
@@ -509,7 +509,7 @@ describe("FrontstageDef", () => {
       initializeNineZoneState(frontstageDef);
 
       const dispatch = vi.fn();
-      sinon.stub(frontstageDef, "dispatch").get(() => dispatch);
+      vi.spyOn(frontstageDef, "dispatch").get(() => dispatch);
       frontstageDef.popoutWidget("t1");
       sinon.assert.calledOnceWithMatch(dispatch, {
         type: "WIDGET_TAB_POPOUT",
@@ -773,7 +773,7 @@ describe("floatWidget", () => {
         bounds: { top: 55, left: 105, bottom: 155, right: 255 },
       });
       const frontstageDef = new FrontstageDef();
-      sinon.stub(frontstageDef, "nineZoneState").get(() => state);
+      vi.spyOn(frontstageDef, "nineZoneState").get(() => state);
       expect(frontstageDef.getFloatingWidgetContainerIds().length).to.eql(1);
       expect(frontstageDef.getFloatingWidgetContainerIdByWidgetId("t1")).to.eql(
         "fw1"
@@ -788,7 +788,7 @@ describe("floatWidget", () => {
 
     it("get floating containers 0 available", () => {
       const frontstageDef = new FrontstageDef();
-      sinon.stub(frontstageDef, "nineZoneState").get(() => undefined);
+      vi.spyOn(frontstageDef, "nineZoneState").get(() => undefined);
       expect(frontstageDef.getFloatingWidgetContainerIds().length).to.eql(0);
       expect(frontstageDef.getFloatingWidgetContainerIdByWidgetId("t1")).to.be
         .undefined;
@@ -814,7 +814,7 @@ describe("useSpecificWidgetDef", () => {
   it("should return widgetDef from active frontstage", () => {
     const frontstageDef = new FrontstageDef();
     const widgetDef = new WidgetDef();
-    sinon.stub(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
+    vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
     sinon
       .stub(UiFramework.frontstages, "activeFrontstageDef")
       .get(() => frontstageDef);

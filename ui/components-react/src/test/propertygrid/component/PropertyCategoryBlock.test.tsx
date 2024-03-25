@@ -80,10 +80,12 @@ describe("PropertyCategoryBlock", () => {
     );
 
     await theUserTo.keyboard("{tab} ");
-    expect(toggleSpy).to.have.been.calledOnceWith("Group_1");
-    toggleSpy.resetHistory();
+    expect(toggleSpy).toHaveBeenCalledOnce();
+    expect(toggleSpy).toHaveBeenCalledWith("Group_1");
+    togglespy.mockReset();
     await theUserTo.keyboard("{Enter}");
-    expect(toggleSpy).to.have.been.calledOnceWith("Group_1");
+    expect(toggleSpy).toHaveBeenCalledOnce();
+    expect(toggleSpy).toHaveBeenCalledWith("Group_1");
   });
 
   it("does not expand when wrong key gets pressed", async () => {
@@ -98,6 +100,6 @@ describe("PropertyCategoryBlock", () => {
 
     screen.getByText("Group 1").focus();
     await theUserTo.keyboard("a");
-    expect(toggleSpy).to.not.have.been.called;
+    expect(toggleSpy).not.toBeCalled();
   });
 });

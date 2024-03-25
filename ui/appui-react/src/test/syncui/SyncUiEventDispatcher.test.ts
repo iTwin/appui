@@ -176,74 +176,74 @@ describe("SyncUiEventDispatcher", () => {
     SyncUiEventDispatcher.initialize();
     SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onContentControlActivatedEvent.emit(
       {} as ContentControlActivatedEventArgs
     );
     fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).toEqual(true);
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onContentLayoutActivatedEvent.emit(
       {} as ContentLayoutActivatedEventArgs
     );
     fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).toEqual(true);
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onFrontstageActivatedEvent.emit(
       {} as FrontstageActivatedEventArgs
     );
     fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).toEqual(true);
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onFrontstageReadyEvent.emit(
       {} as FrontstageReadyEventArgs
     );
     fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).toEqual(true);
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onModalFrontstageChangedEvent.emit(
       {} as ModalFrontstageChangedEventArgs
     );
     fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).toEqual(true);
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onNavigationAidActivatedEvent.emit(
       {} as NavigationAidActivatedEventArgs
     );
     fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).toEqual(true);
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onToolActivatedEvent.emit(
       {} as ToolActivatedEventArgs
     );
     fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).toEqual(true);
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.frontstages.onWidgetStateChangedEvent.emit(
       {} as WidgetStateChangedEventArgs
     );
     fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).toEqual(true);
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.backstage.open();
     fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).toEqual(true);
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
-    handleSyncUiEvent.resetHistory();
+    handleSyncUiEvent.mockReset();
     UiFramework.content.onActiveContentChangedEvent.emit(
       {} as ActiveContentChangedEventArgs
     );
     fakeTimers.runAll();
     fakeTimers.restore();
-    expect(handleSyncUiEvent.calledOnce).toEqual(true);
+    expect(handleSyncUiEvent).toHaveBeenCalledOnce();
 
     SyncUiEventDispatcher.onSyncUiEvent.removeListener(handleSyncUiEvent);
   });

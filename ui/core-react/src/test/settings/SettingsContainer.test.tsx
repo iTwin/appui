@@ -155,8 +155,6 @@ describe("<SettingsContainer />", () => {
     const tab3 = wrapper.getByTestId("page3");
     fireEvent.click(tab3);
 
-    await Promise.all(spy.returnValues);
-
     activePageSelector = `li[data-for='page3']`;
     const liPage3 = wrapper.container.querySelector(
       activePageSelector
@@ -188,7 +186,7 @@ describe("<SettingsContainer />", () => {
     });
     expect(spy).toHaveBeenCalledOnce();
 
-    spy.resetHistory();
+    spy.mockReset();
     settingsManager.closeSettingsContainer(spy);
   });
 
@@ -229,8 +227,5 @@ describe("<SettingsContainer />", () => {
 
     // trigger the close container processing
     settingsManager.closeSettingsContainer(spy);
-    await Promise.all(spy.returnValues);
-
-    wrapper.unmount();
   });
 });

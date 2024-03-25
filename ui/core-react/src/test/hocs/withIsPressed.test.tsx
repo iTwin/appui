@@ -61,7 +61,7 @@ describe("withIsPressed", () => {
       target: screen.getByTestId("tested"),
     });
 
-    spy.resetHistory();
+    spy.mockReset();
 
     await theUserTo.pointer("[/MouseLeft]");
 
@@ -91,7 +91,7 @@ describe("withIsPressed", () => {
       "[/MouseLeft]",
     ]);
 
-    expect(spy.calledOnce).to.be.false;
+    expect(spy).not.toBeCalled();
     expect(iAmPressed).toEqual(false);
   });
 

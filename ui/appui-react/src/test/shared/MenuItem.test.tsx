@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { render, screen } from "@testing-library/react";
 import { BadgeType } from "@itwin/core-react";
 import type { CursorMenuItemProps } from "../../appui-react/shared/MenuItem";
@@ -243,8 +242,8 @@ describe("MenuItem", () => {
     item.dispatchEvent(createBubbledEvent("click"));
 
     await TestUtils.flushAsyncOperations();
-    handleSelect.should.have.been.calledOnce;
-    handleSelect2.should.have.been.calledOnce;
+    expect(handleSelect).toHaveBeenCalledOnce();
+    expect(handleSelect2).toHaveBeenCalledOnce();
     expect(component.container.querySelector(".core-badge")).not.to.be.null;
   });
 

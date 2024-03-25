@@ -77,7 +77,7 @@ describe("<SliderEditor />", () => {
 
     await theUserTo.click(screen.getByTestId("components-popup-ok-button"));
 
-    expect(spyOnCommit.calledOnce).toEqual(true);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("calls onCancel on Cancel button click", async () => {
@@ -93,7 +93,7 @@ describe("<SliderEditor />", () => {
 
     await theUserTo.click(screen.getByTestId("components-popup-cancel-button"));
 
-    expect(spyOnCancel.calledOnce).toEqual(true);
+    expect(spyOnCancel).toHaveBeenCalledOnce();
   });
 
   it("calls onCommit on Enter key", async () => {
@@ -109,7 +109,7 @@ describe("<SliderEditor />", () => {
 
     await theUserTo.keyboard("{Enter}");
 
-    expect(spyOnCommit.calledOnce).toEqual(true);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("calls onCancel on Escape key", async () => {
@@ -171,7 +171,7 @@ describe("<SliderEditor />", () => {
     await theUserTo.click(screen.getByRole("slider"));
     await theUserTo.click(screen.getByTestId("components-popup-ok-button"));
 
-    expect(spyOnCommit.calledOnce).toEqual(true);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("should render Editor Params reversed track coloring", async () => {

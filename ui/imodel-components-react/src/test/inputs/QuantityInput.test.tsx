@@ -49,7 +49,7 @@ describe("QuantityInput", () => {
     );
     const input = component.getByTestId("components-parsed-input");
     fireEvent.change(input, { target: { value: "2.5" } });
-    expect(spyOnChange).not.to.have.been.called;
+    expect(spyOnChange).not.toBeCalled();
     fireEvent.keyDown(input, { key: Key.Enter });
     expect(spyOnChange).to.have.been.calledOnce;
   });
@@ -118,11 +118,11 @@ describe("QuantityInput", () => {
     const initialValue = input.value;
     fireEvent.change(input, { target: { value: "2.5" } });
     fireEvent.keyDown(input, { key: Key.Escape });
-    expect(spyOnChange).not.to.have.been.called; // value did not change after ESC was pressed
+    expect(spyOnChange).not.toBeCalled(); // value did not change after ESC was pressed
     expect(initialValue).toEqual(input.value);
     fireEvent.change(input, { target: { value: "3.5" } });
     fireEvent.keyDown(input, { key: Key.Enter });
-    expect(spyOnChange).to.have.been.called;
+    expect(spyOnChange).toHaveBeenCalled();
     expect(input.value).toEqual("3.5 m");
 
     // set active unit system to be imperial and wait to make sure quantity format cache is set
@@ -171,7 +171,7 @@ describe("QuantityInput", () => {
         .be.true;
     });
     fireEvent.keyDown(input, { key: Key.Escape });
-    expect(spyOnChange).not.to.have.been.called; // value did not change after ESC was pressed
+    expect(spyOnChange).not.toBeCalled(); // value did not change after ESC was pressed
     const currentValue = input.value;
     expect(input.classList.contains("components-parsed-input-has-error")).to.be
       .false;

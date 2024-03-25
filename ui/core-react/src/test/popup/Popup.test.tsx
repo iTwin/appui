@@ -422,7 +422,7 @@ describe("<Popup />", () => {
     fireEvent.click(nestedButton);
 
     const mouseDown = new PointerEvent("pointerdown");
-    sinon.stub(mouseDown, "target").get(() => nestedButton);
+    vi.spyOn(mouseDown, "target").get(() => nestedButton);
     window.dispatchEvent(mouseDown);
     // component.debug();
     nestedButton = component.getByTestId("NestedPopup-Button");
@@ -483,14 +483,14 @@ describe("<Popup />", () => {
       const spyOnOpen = vi.fn();
       const { rerender } = render(<Popup onOpen={spyOnOpen} />);
       rerender(<Popup onOpen={spyOnOpen} isOpen={true} />);
-      expect(spyOnOpen.calledOnce).toEqual(true);
+      expect(spyOnOpen).toHaveBeenCalledOnce();
     });
 
     it("should call onClose", () => {
       const spyOnClose = vi.fn();
       const { rerender } = render(<Popup isOpen onClose={spyOnClose} />);
       rerender(<Popup isOpen={false} onClose={spyOnClose} />);
-      expect(spyOnClose.calledOnce).toEqual(true);
+      expect(spyOnClose).toHaveBeenCalledOnce();
     });
   });
 
@@ -767,10 +767,10 @@ describe("<Popup />", () => {
 
       // Using this as user-event do not support scrolling: https://github.com/testing-library/user-event/issues/475
       const scroll = new WheelEvent("wheel");
-      sinon.stub(scroll, "target").get(() => document.createElement("div"));
+      vi.spyOn(scroll, "target").get(() => document.createElement("div"));
       window.dispatchEvent(scroll);
 
-      await waitFor(() => expect(spyOnClose).to.be.calledOnce);
+      await waitFor(() => expect(spyOnClose).to.be).toHaveBeenCalledOnce();
     });
 
     it("should not hide when scrolling popup content", () => {
@@ -778,7 +778,7 @@ describe("<Popup />", () => {
       render(<Popup isOpen onClose={spyOnClose} />);
 
       const scroll = new WheelEvent("wheel");
-      sinon.stub(scroll, "target").get(() => screen.getByRole("dialog"));
+      vi.spyOn(scroll, "target").get(() => screen.getByRole("dialog"));
       window.dispatchEvent(scroll);
 
       expect(spyOnClose).not.toBeCalled();
@@ -792,7 +792,7 @@ describe("<Popup />", () => {
       render(<Popup isOpen isPinned onClose={spyOnClose} />);
 
       const scroll = new WheelEvent("wheel");
-      sinon.stub(scroll, "target").get(() => document.createElement("div"));
+      vi.spyOn(scroll, "target").get(() => document.createElement("div"));
       window.dispatchEvent(scroll);
 
       expect(spyOnClose).not.toBeCalled();
@@ -806,7 +806,7 @@ describe("<Popup />", () => {
       render(<Popup isOpen closeOnWheel={false} onClose={spyOnClose} />);
 
       const scroll = new WheelEvent("wheel");
-      sinon.stub(scroll, "target").get(() => document.createElement("div"));
+      vi.spyOn(scroll, "target").get(() => document.createElement("div"));
       window.dispatchEvent(scroll);
 
       expect(spyOnClose).not.toBeCalled();
@@ -821,7 +821,7 @@ describe("<Popup />", () => {
       render(<Popup isOpen onWheel={spyWheel} onClose={spyOnClose} />);
 
       const scroll = new WheelEvent("wheel");
-      sinon.stub(scroll, "target").get(() => document.createElement("div"));
+      vi.spyOn(scroll, "target").get(() => document.createElement("div"));
       window.dispatchEvent(scroll);
 
       expect(spyOnClose).not.toBeCalled();
@@ -848,7 +848,7 @@ describe("<Popup />", () => {
         .get(() => document.createElement("div"));
       window.dispatchEvent(contextMenu);
 
-      await waitFor(() => expect(spyOnClose).to.be.calledOnce);
+      await waitFor(() => expect(spyOnClose).to.be).toHaveBeenCalledOnce();
     });
 
     it("should not hide when context menu used popup content", () => {
@@ -857,7 +857,7 @@ describe("<Popup />", () => {
       const popup = screen.getByRole("dialog");
 
       const contextMenu = new MouseEvent("contextmenu");
-      sinon.stub(contextMenu, "target").get(() => popup);
+      vi.spyOn(contextMenu, "target").get(() => popup);
       window.dispatchEvent(contextMenu);
 
       expect(spyOnClose).not.toBeCalled();
@@ -993,7 +993,7 @@ describe("<Popup />", () => {
       const spyOnClose = vi.fn();
       const { rerender } = render(<Popup isOpen onClose={spyOnClose} />);
       rerender(<Popup isOpen={false} onClose={spyOnClose} />);
-      spyOnClose.resetHistory();
+      spyOnClose.mockReset();
 
       await theUserTo.keyboard("[Escape]");
 

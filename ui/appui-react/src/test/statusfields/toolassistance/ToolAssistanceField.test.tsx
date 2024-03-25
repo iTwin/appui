@@ -754,7 +754,7 @@ describe(`ToolAssistanceField`, () => {
     const instructions = ToolAssistance.createInstructions(mainInstruction);
     notifications.setToolAssistance(instructions);
 
-    spy.resetHistory();
+    spy.mockReset();
 
     // emit after instructions set
     UiFramework.frontstages.onToolIconChangedEvent.emit({

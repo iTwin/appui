@@ -159,12 +159,12 @@ describe("FrontstageManager", () => {
       const tool = new RestoreFrontstageLayoutTool();
       await tool.parseAndRun(frontstageDef.id);
       expect(spy).toHaveBeenCalledOnce();
-      spy.resetHistory();
+      spy.mockReset();
 
       // call without id to use active stage
       await tool.parseAndRun();
       expect(spy).toHaveBeenCalledOnce();
-      spy.resetHistory();
+      spy.mockReset();
 
       // call without invalid id
       await tool.parseAndRun("bad-id");
@@ -226,7 +226,7 @@ describe("FrontstageManager", () => {
     sinon
       .stub(UiFramework.content.layouts, "getForGroup")
       .mockReturnValue(layoutDef);
-    const spy = sinon.stub(InternalFrontstageManager, "setActiveLayout");
+    const spy = vi.spyOn(InternalFrontstageManager, "setActiveLayout");
     await InternalFrontstageManager.setActiveContentGroup(contentGroup);
     expect(spy).to.have.been.calledWithExactly(layoutDef, contentGroup);
   });

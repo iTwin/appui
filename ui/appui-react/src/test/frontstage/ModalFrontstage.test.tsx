@@ -74,7 +74,7 @@ describe("ModalFrontstage", () => {
       );
 
     UiFramework.frontstages.openModalFrontstage(modalFrontstage);
-    expect(changedEventSpy.calledOnce).toEqual(true);
+    expect(changedEventSpy).toHaveBeenCalledOnce();
 
     const { baseElement, rerender } = render(renderModalFrontstage(false));
 
@@ -92,12 +92,12 @@ describe("ModalFrontstage", () => {
     expect(changedEventSpy.calledTwice).toEqual(true);
 
     backButton[0].click();
-    expect(navigationBackSpy.calledOnce).toEqual(true);
-    expect(closeModalSpy.calledOnce).toEqual(true);
+    expect(navigationBackSpy).toHaveBeenCalledOnce();
+    expect(closeModalSpy).toHaveBeenCalledOnce();
 
     UiFramework.frontstages.closeModalFrontstage();
     expect(changedEventSpy.calledThrice).toEqual(true);
-    expect(closedEventSpy.calledOnce).toEqual(true);
+    expect(closedEventSpy).toHaveBeenCalledOnce();
 
     removeListener();
     removeListener2();

@@ -129,7 +129,7 @@ describe("<SettingsManager />", () => {
       handleProcessSettingsContainerClose
     );
     settingsManager.closeSettingsContainer(() => {});
-    expect(spyCloseMethod.calledOnce).toEqual(true);
+    expect(spyCloseMethod).toHaveBeenCalledOnce();
   });
 
   it("should fire change tab events", async () => {
@@ -141,6 +141,6 @@ describe("<SettingsManager />", () => {
 
     settingsManager.onActivateSettingsTab.addOnce(handleProcessChangeTab);
     settingsManager.activateSettingsTab("test-tab-id");
-    expect(spyChangeTabMethod.calledOnce).toEqual(true);
+    expect(spyChangeTabMethod).toHaveBeenCalledOnce();
   });
 });
