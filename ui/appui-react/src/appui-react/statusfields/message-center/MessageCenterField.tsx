@@ -64,7 +64,7 @@ export function MessageCenterField() {
     MessageManager.registerAnimateOutToElement(indicatorRef.current);
 
     return MessageManager.onMessagesUpdatedEvent.addListener(() => {
-      MessageManager.messages.length > 0 ? setNotify(true) : setNotify(false);
+      messages.length > 0 ? setNotify(true) : setNotify(false);
       setMessages(MessageManager.messages);
       determineStatus();
     });
@@ -115,6 +115,7 @@ export function MessageCenterField() {
   return (
     <>
       <Popover
+        style={{ width: "305px" }}
         content={
           <>
             <TitleBar title={title}></TitleBar>
