@@ -3,10 +3,6 @@
   "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/approved-packages.schema.json",
   "packages": [
     {
-      "name": "@axe-core/react",
-      "allowedCategories": [ "internal" ]
-    },
-    {
       "name": "@bentley/icons-generic",
       "allowedCategories": [ "frontend", "internal" ]
     },
@@ -271,6 +267,10 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "@vitejs/plugin-react-swc",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "appui-standalone-app",
       "allowedCategories": [ "internal" ]
     },
@@ -519,11 +519,11 @@
       "allowedCategories": [ "frontend", "internal", "tools" ]
     },
     {
-      "name": "use-sync-external-store",
+      "name": "upath",
       "allowedCategories": [ "frontend" ]
     },
     {
-      "name": "upath",
+      "name": "use-sync-external-store",
       "allowedCategories": [ "frontend" ]
     },
     {

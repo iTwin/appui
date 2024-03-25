@@ -8,7 +8,6 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
-import reactAxe from "@axe-core/react";
 import { Key } from "ts-key-enum";
 import { BrowserAuthorizationClient } from "@itwin/browser-authorization";
 import {
@@ -320,12 +319,6 @@ export class SampleAppIModelApp {
     // register local commands.
     // register core commands not automatically registered
     ViewClipByPlaneTool.register();
-
-    if (SampleAppIModelApp.testAppConfiguration?.reactAxeConsole) {
-      if (process.env.NODE_ENV !== "production") {
-        await reactAxe(React, ReactDOM, 1000);
-      }
-    }
   }
 
   public static async initialize() {
@@ -873,8 +866,6 @@ async function main() {
     process.env.IMJS_MAPBOX_KEY;
   SampleAppIModelApp.testAppConfiguration.cesiumIonKey =
     process.env.IMJS_CESIUM_ION_KEY;
-  SampleAppIModelApp.testAppConfiguration.reactAxeConsole =
-    SampleAppIModelApp.isEnvVarOn("IMJS_TESTAPP_REACT_AXE_CONSOLE");
   SampleAppIModelApp.testAppConfiguration.useLocalSettings =
     SampleAppIModelApp.isEnvVarOn("IMJS_UITESTAPP_USE_LOCAL_SETTINGS");
   Logger.logInfo(
