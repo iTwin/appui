@@ -27,7 +27,7 @@ describe("getPanelPixelSizeFromSpec", () => {
       { height: 1000, width: 2000 },
       { percentage: 80 }
     );
-    expect(size).to.eq(1600);
+    expect(sut).toEqual(1600);
   });
 
   it("should use percentage for horizontal panel", () => {
@@ -36,7 +36,7 @@ describe("getPanelPixelSizeFromSpec", () => {
       { height: 1000, width: 2000 },
       { percentage: 80 }
     );
-    expect(size).to.eq(800);
+    expect(sut).toEqual(800);
   });
 });
 

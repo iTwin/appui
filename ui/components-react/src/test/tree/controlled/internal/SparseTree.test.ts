@@ -179,7 +179,7 @@ describe("SparseTree", () => {
     it("does nothing if the new id matches current", () => {
       sparseTree.setChildren(undefined, [{ id: "existingId", data: 1 }], 0);
       const resultStatus = sparseTree.setNodeId(undefined, 0, "existingId");
-      expect(resultStatus).to.be.true;
+      expect(resultStatus).toEqual(true);
       verifyNodes(sparseTree.getChildren(undefined)!, [
         { id: "existingId", data: 1 },
       ]);
@@ -188,7 +188,7 @@ describe("SparseTree", () => {
     it("changes node id", () => {
       sparseTree.setChildren(undefined, [{ id: "oldId", data: 1 }], 0);
       const resultStatus = sparseTree.setNodeId(undefined, 0, "newId");
-      expect(resultStatus).to.be.true;
+      expect(resultStatus).toEqual(true);
       expect(sparseTree.getNode("oldId")).to.be.undefined;
       verifyNodes(sparseTree.getChildren(undefined)!, [
         { id: "newId", data: 1 },
@@ -202,7 +202,7 @@ describe("SparseTree", () => {
 
       const resultStatus = sparseTree.setNodeId("root", 0, "newId");
 
-      expect(resultStatus).to.be.true;
+      expect(resultStatus).toEqual(true);
       expect(sparseTree.getChildren("child1")).to.be.undefined;
       verifyNodes(sparseTree.getChildren(undefined)!, [{ id: "root" }]);
       verifyNodes(sparseTree.getChildren("root")!, [{ id: "newId" }]);
@@ -445,7 +445,7 @@ describe("SparseTree", () => {
       sparseTree.deleteSubtree(rootNode.id);
       const children = sparseTree.getChildren(rootNode.id);
       expect(children).to.be.undefined;
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("does not remove parent node of subtree", () => {

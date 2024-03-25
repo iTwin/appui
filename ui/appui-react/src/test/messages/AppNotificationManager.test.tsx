@@ -37,29 +37,29 @@ describe("AppNotificationManager", () => {
   });
 
   it("outputPromptByKey", () => {
-    const spyMethod = sinon.spy(MessageManager, "outputPrompt");
+    const spy = sinon.spy(MessageManager, "outputPrompt");
     notifications.outputPromptByKey("Framework:tests.label");
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("outputPrompt", () => {
-    const spyMethod = sinon.spy(MessageManager, "outputPrompt");
+    const spy = sinon.spy(MessageManager, "outputPrompt");
     notifications.outputPrompt("This is a prompt.");
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("outputMessage", () => {
-    const spyMethod = sinon.spy(MessageManager, "addMessage");
+    const spy = sinon.spy(MessageManager, "addMessage");
     const details = new NotifyMessageDetails(
       OutputMessagePriority.Debug,
       "A brief message."
     );
     notifications.outputMessage(details);
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("outputMessage with Alert", () => {
-    const spyMethod = sinon.spy(MessageManager, "addMessage");
+    const spy = sinon.spy(MessageManager, "addMessage");
     const alertBoxMethod = sinon.spy(MessageManager, "showAlertMessageBox");
 
     const details = new NotifyMessageDetails(
@@ -69,14 +69,14 @@ describe("AppNotificationManager", () => {
       OutputMessageType.Alert
     );
     notifications.outputMessage(details);
-    expect(spyMethod.calledOnce).to.be.true;
-    expect(alertBoxMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
+    expect(alertBoxMethod.calledOnce).toEqual(true);
 
     UiFramework.dialogs.modal.close();
   });
 
   it("outputMessage with Alert & Balloon", () => {
-    const spyMethod = sinon.spy(MessageManager, "addMessage");
+    const spy = sinon.spy(MessageManager, "addMessage");
     const alertBoxMethod = sinon.spy(MessageManager, "showAlertMessageBox");
 
     const details = new NotifyMessageDetails(
@@ -87,14 +87,14 @@ describe("AppNotificationManager", () => {
       OutputMessageAlert.Balloon
     );
     notifications.outputMessage(details);
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
     expect(alertBoxMethod.calledOnce).to.be.false;
   });
 
   it("outputMessage with InputField", () => {
-    const spyMethod = sinon.spy(MessageManager, "addMessage");
-    const spyMethod2 = sinon.spy(MessageManager, "displayInputFieldMessage");
-    const spyMethod3 = sinon.spy(MessageManager, "hideInputFieldMessage");
+    const spy = sinon.spy(MessageManager, "addMessage");
+    const spy2 = sinon.spy(MessageManager, "displayInputFieldMessage");
+    const spy3 = sinon.spy(MessageManager, "hideInputFieldMessage");
     const details = new NotifyMessageDetails(
       OutputMessagePriority.Debug,
       "A brief message.",
@@ -111,15 +111,15 @@ describe("AppNotificationManager", () => {
     );
     details.setInputFieldTypeDetails(divElement!);
     notifications.outputMessage(details);
-    expect(spyMethod.calledOnce).to.be.true;
-    expect(spyMethod2.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
+    expect(spy2.calledOnce).toEqual(true);
     notifications.closeInputFieldMessage();
-    expect(spyMethod3.calledOnce).to.be.true;
+    expect(spy3.calledOnce).toEqual(true);
   });
 
   it("outputMessage with InputField but without setInputFieldTypeDetails", () => {
-    const spyMethod = sinon.spy(MessageManager, "addMessage");
-    const spyMethod2 = sinon.spy(MessageManager, "displayInputFieldMessage");
+    const spy = sinon.spy(MessageManager, "addMessage");
+    const spy2 = sinon.spy(MessageManager, "displayInputFieldMessage");
     const details = new NotifyMessageDetails(
       OutputMessagePriority.Debug,
       "A brief message.",
@@ -127,15 +127,15 @@ describe("AppNotificationManager", () => {
       OutputMessageType.InputField
     );
     notifications.outputMessage(details);
-    expect(spyMethod.calledOnce).to.be.true;
-    expect(spyMethod2.called).to.be.false;
+    expect(spy.calledOnce).toEqual(true);
+    expect(spy2.called).to.be.false;
   });
 
   it("openMessageBox", async () => {
     render(<ModalDialogRenderer />);
 
-    const spyMethod = sinon.spy(MessageManager, "openMessageBox");
-    expect(UiFramework.dialogs.modal.count).to.eq(0);
+    const spy = sinon.spy(MessageManager, "openMessageBox");
+    expect(UiFramework.dialogs.modal.count).toEqual(0);
     const boxResult = notifications.openMessageBox(
       MessageBoxType.OkCancel,
       "Message string",
@@ -143,34 +143,34 @@ describe("AppNotificationManager", () => {
     );
     await waitForPosition();
 
-    expect(spyMethod).to.be.calledOnce;
-    expect(UiFramework.dialogs.modal.count).to.eq(1);
+    expect(spy).toHaveBeenCalledOnce();
+    expect(UiFramework.dialogs.modal.count).toEqual(1);
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.ok" }));
-    expect(UiFramework.dialogs.modal.count).to.eq(0);
+    expect(UiFramework.dialogs.modal.count).toEqual(0);
 
     const boxValue = await boxResult;
-    expect(boxValue).to.eq(MessageBoxValue.Ok);
+    expect(boxValue).toEqual(MessageBoxValue.Ok);
   });
 
   it("setupActivityMessage", () => {
-    const spyMethod = sinon.spy(MessageManager, "setupActivityMessageDetails");
+    const spy = sinon.spy(MessageManager, "setupActivityMessageDetails");
     const details = new ActivityMessageDetails(true, true, true, true);
     notifications.setupActivityMessage(details);
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("outputActivityMessage", () => {
-    const spyMethod = sinon.spy(MessageManager, "setupActivityMessageValues");
+    const spy = sinon.spy(MessageManager, "setupActivityMessageValues");
     notifications.outputActivityMessage("Message text", 50);
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("endActivityMessage", () => {
-    const spyMethod = sinon.spy(MessageManager, "endActivityMessage");
+    const spy = sinon.spy(MessageManager, "endActivityMessage");
     notifications.endActivityMessage(ActivityMessageEndReason.Cancelled);
     notifications.endActivityMessage(ActivityMessageEndReason.Completed);
-    expect(spyMethod.calledTwice).to.be.true;
+    expect(spy.calledTwice).toEqual(true);
   });
 
   it("ElementTooltip", () => {
@@ -186,9 +186,9 @@ describe("AppNotificationManager", () => {
     );
     notifications.openToolTip(divElement!, "Tooltip message");
     notifications.clearToolTip();
-    expect(showMethod.calledOnce).to.be.true;
-    expect(hideMethod.calledOnce).to.be.true;
-    expect(notifications.isToolTipSupported).to.be.true;
+    expect(showMethod.calledOnce).toEqual(true);
+    expect(hideMethod.calledOnce).toEqual(true);
+    expect(notifications.isToolTipSupported).toEqual(true);
   });
 
   it("ElementTooltip with a React component", () => {
@@ -205,14 +205,14 @@ describe("AppNotificationManager", () => {
     const reactNode = <span>Tooltip message</span>;
     MessageManager.openToolTip(divElement!, { reactNode });
     notifications.clearToolTip();
-    expect(showMethod.calledOnce).to.be.true;
-    expect(hideMethod.calledOnce).to.be.true;
+    expect(showMethod.calledOnce).toEqual(true);
+    expect(hideMethod.calledOnce).toEqual(true);
   });
 
   it("ActivityMessage with a React component", () => {
-    const spyMethod = sinon.spy(MessageManager, "setupActivityMessageValues");
+    const spy = sinon.spy(MessageManager, "setupActivityMessageValues");
     const reactNode = <span>Activity message</span>;
     MessageManager.outputActivityMessage({ reactNode }, 50);
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 });

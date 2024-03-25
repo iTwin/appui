@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { render, screen } from "@testing-library/react";
 import { RadialButton, RadialMenu } from "../../core-react";
 import userEvent from "@testing-library/user-event";
@@ -43,8 +41,8 @@ describe("RadialMenu", () => {
       const svg = container.querySelector<SVGElement>(
         ".core-radial-menu-container"
       );
-      expect(svg?.getAttribute("width")).to.eq("202");
-      expect(svg?.getAttribute("height")).to.eq("202");
+      expect(svg?.getAttribute("width")).toEqual("202");
+      expect(svg?.getAttribute("height")).toEqual("202");
 
       rerender(
         <RadialMenu
@@ -58,8 +56,8 @@ describe("RadialMenu", () => {
       const rerenderedSvg = container.querySelector<SVGElement>(
         ".core-radial-menu-container"
       );
-      expect(rerenderedSvg?.getAttribute("width")).to.eq("242");
-      expect(rerenderedSvg?.getAttribute("height")).to.eq("242");
+      expect(rerenderedSvg?.getAttribute("width")).toEqual("242");
+      expect(rerenderedSvg?.getAttribute("height")).toEqual("242");
     });
 
     it("should fix x and y if too low", () => {
@@ -102,7 +100,7 @@ describe("RadialMenu", () => {
     });
 
     it("should call onEsc", async () => {
-      const spyMethod = sinon.fake();
+      const spy = vi.fn();
       render(
         <RadialMenu
           opened={true}
@@ -110,16 +108,16 @@ describe("RadialMenu", () => {
           top={100}
           innerRadius={10}
           outerRadius={100}
-          onEsc={spyMethod}
+          onEsc={spy}
         />
       );
 
       await theUserTo.type(screen.getByTestId("core-radial-menu"), "[Escape]");
-      spyMethod.should.have.been.called;
+      spy.should.have.been.called;
     });
 
     it("should not call onEsc on other keys", async () => {
-      const spyMethod = sinon.fake();
+      const spy = vi.fn();
       render(
         <RadialMenu
           opened={true}
@@ -127,16 +125,16 @@ describe("RadialMenu", () => {
           top={100}
           innerRadius={10}
           outerRadius={100}
-          onEsc={spyMethod}
+          onEsc={spy}
         />
       );
 
       await theUserTo.type(screen.getByTestId("core-radial-menu"), "[Enter]");
-      spyMethod.should.not.have.been.called;
+      expect(spy).not.toBeCalled();
     });
 
     it("should call onBlur on window mouseup", async () => {
-      const spyMethod = sinon.fake();
+      const spy = vi.fn();
       render(
         <>
           <button />
@@ -146,14 +144,14 @@ describe("RadialMenu", () => {
             top={100}
             innerRadius={10}
             outerRadius={100}
-            onBlur={spyMethod}
+            onBlur={spy}
           />
         </>
       );
 
       await theUserTo.click(screen.getByRole("button"));
 
-      spyMethod.should.have.been.called;
+      spy.should.have.been.called;
     });
   });
 
@@ -239,7 +237,7 @@ describe("RadialMenu", () => {
           button.parentElement?.parentElement;
 
         expect(svg).to.exist;
-        expect(svg?.getAttribute("transform")).to.eq(transform);
+        expect(svg?.getAttribute("transform")).toEqual(transform);
         expect(Number.parseFloat(svg?.getAttribute("x") ?? "")).to.be.closeTo(
           x,
           0.05
@@ -258,10 +256,10 @@ describe("RadialMenu", () => {
     });
 
     it("should call onSelect", async () => {
-      const spyMethod = sinon.fake();
+      const spy = vi.fn();
       render(
         <RadialMenu opened={true} innerRadius={10} outerRadius={100}>
-          <RadialButton key="0" icon="icon-placeholder" onSelect={spyMethod}>
+          <RadialButton key="0" icon="icon-placeholder" onSelect={spy}>
             {" "}
             Test{" "}
           </RadialButton>
@@ -269,11 +267,11 @@ describe("RadialMenu", () => {
       );
 
       await theUserTo.click(screen.getByText("Test"));
-      spyMethod.should.have.been.called;
+      spy.should.have.been.called;
     });
 
     it("should call onSelect when button select API called", () => {
-      const spyMethod = sinon.fake();
+      const spy = vi.fn();
       const button = React.createRef<RadialButton>();
       render(
         <svg>
@@ -281,7 +279,7 @@ describe("RadialMenu", () => {
             ref={button}
             key="0"
             icon="icon-placeholder"
-            onSelect={spyMethod}
+            onSelect={spy}
           >
             {" "}
             Test{" "}
@@ -290,11 +288,11 @@ describe("RadialMenu", () => {
       );
 
       button.current?.select();
-      spyMethod.should.have.been.called;
+      spy.should.have.been.called;
     });
 
     it("should call onSelect when menu select API called", () => {
-      const spyMethod = sinon.fake();
+      const spy = vi.fn();
 
       const menu = React.createRef<RadialMenu>();
       render(
@@ -305,7 +303,7 @@ describe("RadialMenu", () => {
           outerRadius={100}
           selected={0}
         >
-          <RadialButton key="0" icon="icon-placeholder" onSelect={spyMethod}>
+          <RadialButton key="0" icon="icon-placeholder" onSelect={spy}>
             {" "}
             Test{" "}
           </RadialButton>
@@ -313,7 +311,7 @@ describe("RadialMenu", () => {
       );
 
       menu.current?.select();
-      spyMethod.should.have.been.called;
+      spy.should.have.been.called;
     });
 
     it("should handle hover state", async () => {

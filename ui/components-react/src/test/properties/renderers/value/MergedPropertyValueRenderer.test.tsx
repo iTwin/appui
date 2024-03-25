@@ -32,7 +32,7 @@ describe("MergedPropertyValueRenderer", () => {
       const property = TestUtils.createPrimitiveStringProperty("a", "b");
       property.isMerged = true;
 
-      expect(renderer.canRender(property)).to.be.true;
+      expect(renderer.canRender(property)).toEqual(true);
     });
 
     it("returns false for merged non primitive properties", () => {

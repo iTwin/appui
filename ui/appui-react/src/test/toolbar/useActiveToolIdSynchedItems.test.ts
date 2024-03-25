@@ -22,7 +22,7 @@ describe("useActiveToolIdSynchedItems", () => {
     });
 
     expect(result.current).to.not.eq(items);
-    expect(result.current[0].isActive).to.be.true;
+    expect(result.current[0].isActive).toEqual(true);
   });
 
   it("Should update items on event", () => {
@@ -43,7 +43,7 @@ describe("useActiveToolIdSynchedItems", () => {
     syncHost.onToolActivatedEvent.emit({ toolId: "Btn2" });
 
     expect(result.current[0].isActive).to.be.false;
-    expect(result.current[1].isActive).to.be.true;
+    expect(result.current[1].isActive).toEqual(true);
   });
 
   it("Should return same items if change do not cause refresh", () => {
@@ -61,7 +61,7 @@ describe("useActiveToolIdSynchedItems", () => {
 
     syncHost.onToolActivatedEvent.emit({ toolId: "Btn1" });
 
-    expect(result.current).to.eq(first);
+    expect(result.current).toEqual(first);
   });
   it("Should support nested items", () => {
     const items = [
@@ -87,7 +87,7 @@ describe("useActiveToolIdSynchedItems", () => {
 
     syncHost.onToolActivatedEvent.emit({ toolId: "Btn2" });
     expect(result.current[1].isActive).to.be.false;
-    expect(result.current[0].items?.[1].items?.[0].isActive).to.be.true;
+    expect(result.current[0].items?.[1].items?.[0].isActive).toEqual(true);
   });
 
   it("Should properly unregister from onToolActivatedEvent", () => {
@@ -103,6 +103,6 @@ describe("useActiveToolIdSynchedItems", () => {
 
     expect(spy.called).to.be.false;
     unmount();
-    expect(spy.called).to.be.true;
+    expect(spy.called).toEqual(true);
   });
 });

@@ -5,8 +5,6 @@
 
 import * as React from "react";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import { expect } from "chai";
-import * as sinon from "sinon";
 import {
   SettingsContainer,
   useSaveBeforeActivatingNewSettingsTab,
@@ -92,7 +90,7 @@ describe("<SettingsContainer />", () => {
     const liPage2 = wrapper.container.querySelector(
       `li[data-for='page2']`
     ) as HTMLLIElement;
-    expect(liPage2.classList.contains("core-active")).to.be.true;
+    expect(liPage2.classList.contains("core-active")).toEqual(true);
 
     const headerDiv = wrapper.container.querySelector(
       `div.core-settings-container-right-header`
@@ -101,7 +99,7 @@ describe("<SettingsContainer />", () => {
   });
 
   it("should render", async () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
 
     // note we are setting current tab to "page 2" to avoid the async tab activation process that would
     // ensue if the current tab was page 1 that set pageWillHandleCloseRequest to true.
@@ -110,7 +108,7 @@ describe("<SettingsContainer />", () => {
         tabs={tabs}
         settingsManager={settingsManager}
         currentSettingsTab={tabs[1]}
-        onSettingsTabSelected={spyMethod}
+        onSettingsTabSelected={spy}
       />
     );
     // no header should be located since showHeader not specified
@@ -123,7 +121,7 @@ describe("<SettingsContainer />", () => {
     const liPage2 = wrapper.container.querySelector(
       activePageSelector
     ) as HTMLLIElement;
-    expect(liPage2.classList.contains("core-active")).to.be.true;
+    expect(liPage2.classList.contains("core-active")).toEqual(true);
 
     const tab3 = wrapper.getByTestId("page3");
     fireEvent.click(tab3);
@@ -132,12 +130,12 @@ describe("<SettingsContainer />", () => {
     const liPage3 = wrapper.container.querySelector(
       activePageSelector
     ) as HTMLLIElement;
-    expect(liPage3.classList.contains("core-active")).to.be.true;
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(liPage3.classList.contains("core-active")).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should trigger tab activation", async () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
 
     // note we are setting current tab to "page 2" to avoid the async tab activation process that would
     // ensue if the current tab was page 1 that set pageWillHandleCloseRequest to true.
@@ -145,36 +143,36 @@ describe("<SettingsContainer />", () => {
       <SettingsContainer
         tabs={tabs}
         settingsManager={settingsManager}
-        onSettingsTabSelected={spyMethod}
+        onSettingsTabSelected={spy}
       />
     );
     let activePageSelector = `li[data-for='page1']`;
     const liPage1 = wrapper.container.querySelector(
       activePageSelector
     ) as HTMLLIElement;
-    expect(liPage1.classList.contains("core-active")).to.be.true;
+    expect(liPage1.classList.contains("core-active")).toEqual(true);
 
     const tab3 = wrapper.getByTestId("page3");
     fireEvent.click(tab3);
 
-    await Promise.all(spyMethod.returnValues);
+    await Promise.all(spy.returnValues);
 
     activePageSelector = `li[data-for='page3']`;
     const liPage3 = wrapper.container.querySelector(
       activePageSelector
     ) as HTMLLIElement;
-    expect(liPage3.classList.contains("core-active")).to.be.true;
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(liPage3.classList.contains("core-active")).toEqual(true);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("simulate tab activation via keyin", async () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
 
     const wrapper = render(
       <SettingsContainer
         tabs={tabs}
         settingsManager={settingsManager}
-        onSettingsTabSelected={spyMethod}
+        onSettingsTabSelected={spy}
         currentSettingsTab={tabs[1]}
       />
     );
@@ -186,22 +184,22 @@ describe("<SettingsContainer />", () => {
       const liPage3 = wrapper.container.querySelector(
         activePageSelector
       ) as HTMLLIElement;
-      expect(liPage3.classList.contains("core-active")).to.be.true;
+      expect(liPage3.classList.contains("core-active")).toEqual(true);
     });
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy).toHaveBeenCalledOnce();
 
-    spyMethod.resetHistory();
-    settingsManager.closeSettingsContainer(spyMethod);
+    spy.resetHistory();
+    settingsManager.closeSettingsContainer(spy);
   });
 
   it("simulate tab 4 activation via keyin", async () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
 
     const wrapper = render(
       <SettingsContainer
         tabs={tabs}
         settingsManager={settingsManager}
-        onSettingsTabSelected={spyMethod}
+        onSettingsTabSelected={spy}
       />
     );
 
@@ -212,11 +210,11 @@ describe("<SettingsContainer />", () => {
     const liPage1 = wrapper.container.querySelector(
       activePageSelector
     ) as HTMLLIElement;
-    expect(liPage1.classList.contains("core-active")).to.be.true;
+    expect(liPage1.classList.contains("core-active")).toEqual(true);
   });
 
   it("should trigger close activation", async () => {
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
 
     // note we are setting current tab to "page 2" to avoid the async tab activation process that would
     // ensue if the current tab was page 1 that set pageWillHandleCloseRequest to true.
@@ -227,11 +225,11 @@ describe("<SettingsContainer />", () => {
     const liPage1 = wrapper.container.querySelector(
       activePageSelector
     ) as HTMLLIElement;
-    expect(liPage1.classList.contains("core-active")).to.be.true;
+    expect(liPage1.classList.contains("core-active")).toEqual(true);
 
     // trigger the close container processing
-    settingsManager.closeSettingsContainer(spyMethod);
-    await Promise.all(spyMethod.returnValues);
+    settingsManager.closeSettingsContainer(spy);
+    await Promise.all(spy.returnValues);
 
     wrapper.unmount();
   });

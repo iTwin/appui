@@ -22,7 +22,7 @@ describe("usePointerCaptor", () => {
 
     fireEvent.mouseDown(element);
 
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should call onPointerMove", () => {
@@ -37,7 +37,7 @@ describe("usePointerCaptor", () => {
     fireEvent.mouseDown(element);
     fireEvent.mouseMove(document);
 
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should call onPointerUp", () => {
@@ -54,7 +54,7 @@ describe("usePointerCaptor", () => {
     fireEvent.mouseDown(element);
     fireEvent.mouseUp(document);
 
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should call onPointerDown for touchstart", () => {
@@ -69,7 +69,7 @@ describe("usePointerCaptor", () => {
       });
     });
 
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should call onPointerMove for touchmove", () => {
@@ -89,7 +89,7 @@ describe("usePointerCaptor", () => {
       });
     });
 
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should call onPointerUp for touchend", () => {
@@ -109,7 +109,7 @@ describe("usePointerCaptor", () => {
         touches: [{}],
       });
     });
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
 
     act(() => {
       result.current(null);
@@ -211,7 +211,7 @@ describe("usePointerCaptor", () => {
       });
     });
 
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should not handle document touchmove if it was dispatched for touch target", () => {

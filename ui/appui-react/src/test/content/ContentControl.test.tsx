@@ -79,7 +79,7 @@ describe("ContentControl", () => {
 
       if (contentGroup) {
         const contentSet = contentGroup.getContentNodes();
-        expect(contentSet.length).to.eq(2);
+        expect(contentSet.length).toEqual(2);
 
         const contentControl = contentGroup.getControlFromElement(
           contentSet[1]
@@ -92,11 +92,11 @@ describe("ContentControl", () => {
           expect(
             activatedMethod.calledOnce,
             `onActivated called ${activatedMethod.callCount} times`
-          ).to.be.true;
+          ).toEqual(true);
 
           expect(contentControl.isViewport).to.be.false;
           expect(contentControl.viewport).to.be.undefined;
-          expect(contentControl.navigationAidControl.length).to.eq(0);
+          expect(contentControl.navigationAidControl.length).toEqual(0);
         }
       }
     }
@@ -145,7 +145,7 @@ describe("ContentControl", () => {
 
       if (contentGroup) {
         const contentSet = contentGroup.getContentNodes();
-        expect(contentSet.length).to.eq(2);
+        expect(contentSet.length).toEqual(2);
 
         const contentControl = contentGroup.getControlFromElement(
           contentSet[0]
@@ -155,11 +155,11 @@ describe("ContentControl", () => {
         if (contentControl) {
           const deactivatedMethod = sinon.spy(contentControl, "onDeactivated");
           UiFramework.content.setActive(contentSet[1]);
-          expect(deactivatedMethod.calledOnce).to.be.true;
+          expect(deactivatedMethod.calledOnce).toEqual(true);
 
           const activatedMethod = sinon.spy(contentControl, "onActivated");
           UiFramework.content.refreshActive(contentSet[0]);
-          expect(activatedMethod.calledOnce).to.be.true;
+          expect(activatedMethod.calledOnce).toEqual(true);
         }
       }
     }

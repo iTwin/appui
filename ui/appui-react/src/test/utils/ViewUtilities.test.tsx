@@ -28,22 +28,22 @@ describe("ViewUtilities", () => {
     const bisBaseClass = ViewUtilities.getBisBaseClass(
       "xyz:SheetViewDefinition"
     );
-    expect(bisBaseClass).to.eq("SheetViewDefinition");
+    expect(bisBaseClass).toEqual("SheetViewDefinition");
   });
 
   it("should recognize spatial view", () => {
-    expect(ViewUtilities.isSpatial("SpatialViewDefinition")).to.be.true;
-    expect(ViewUtilities.isSpatial("OrthographicViewDefinition")).to.be.true;
+    expect(ViewUtilities.isSpatial("SpatialViewDefinition")).toEqual(true);
+    expect(ViewUtilities.isSpatial("OrthographicViewDefinition")).toEqual(true);
     expect(ViewUtilities.isSpatial("")).to.be.false;
   });
 
   it("should recognize drawing view", () => {
-    expect(ViewUtilities.isDrawing("DrawingViewDefinition")).to.be.true;
+    expect(ViewUtilities.isDrawing("DrawingViewDefinition")).toEqual(true);
     expect(ViewUtilities.isDrawing("")).to.be.false;
   });
 
   it("should recognize sheet view", () => {
-    expect(ViewUtilities.isSheet("SheetViewDefinition")).to.be.true;
+    expect(ViewUtilities.isSheet("SheetViewDefinition")).toEqual(true);
     expect(ViewUtilities.isSheet("")).to.be.false;
   });
 
@@ -51,7 +51,9 @@ describe("ViewUtilities", () => {
 
   it("is2d Sheet View", () => {
     const sheetViewStateMock = moq.Mock.ofType<SheetViewState>();
-    sheetViewStateMock.setup((view) => view.is3d()).returns(() => false);
+    sheetViewStateMock
+      .setup((view) => view.is3d())
+      .mockReturnValue(() => false);
     sheetViewStateMock
       .setup((view) => view.classFullName)
       .returns(() => "BisCore:SheetViewDefinition");
@@ -60,7 +62,7 @@ describe("ViewUtilities", () => {
       .setup((viewport) => viewport.view)
       .returns(() => sheetViewStateMock.object);
     expect(ViewUtilities.is3dView(viewportMock.object)).to.be.false;
-    expect(ViewUtilities.isSheetView(viewportMock.object)).to.be.true;
+    expect(ViewUtilities.isSheetView(viewportMock.object)).toEqual(true);
     expect(ViewUtilities.isDrawingView(viewportMock.object)).to.be.false;
     expect(ViewUtilities.isSpatialView(viewportMock.object)).to.be.false;
     expect(ViewUtilities.isOrthographicView(viewportMock.object)).to.be.false;
@@ -69,7 +71,9 @@ describe("ViewUtilities", () => {
 
   it("is2d Drawing View", () => {
     const drawingViewStateMock = moq.Mock.ofType<DrawingViewState>();
-    drawingViewStateMock.setup((view) => view.is3d()).returns(() => false);
+    drawingViewStateMock
+      .setup((view) => view.is3d())
+      .mockReturnValue(() => false);
     drawingViewStateMock
       .setup((view) => view.classFullName)
       .returns(() => "BisCore:DrawingViewDefinition");
@@ -79,7 +83,7 @@ describe("ViewUtilities", () => {
       .returns(() => drawingViewStateMock.object);
     expect(ViewUtilities.is3dView(viewportMock.object)).to.be.false;
     expect(ViewUtilities.isSheetView(viewportMock.object)).to.be.false;
-    expect(ViewUtilities.isDrawingView(viewportMock.object)).to.be.true;
+    expect(ViewUtilities.isDrawingView(viewportMock.object)).toEqual(true);
     expect(ViewUtilities.isSpatialView(viewportMock.object)).to.be.false;
     expect(ViewUtilities.isOrthographicView(viewportMock.object)).to.be.false;
     expect(ViewUtilities.viewSupportsCamera(viewportMock.object)).to.be.false;
@@ -87,7 +91,9 @@ describe("ViewUtilities", () => {
 
   it("is3d Spatial View", () => {
     const spatialViewStateMock = moq.Mock.ofType<SpatialViewState>();
-    spatialViewStateMock.setup((view) => view.is3d()).returns(() => true);
+    spatialViewStateMock
+      .setup((view) => view.is3d())
+      .mockReturnValue(() => true);
     spatialViewStateMock
       .setup((view) => view.classFullName)
       .returns(() => "BisCore:SpatialViewDefinition");
@@ -95,17 +101,19 @@ describe("ViewUtilities", () => {
     viewportMock
       .setup((viewport) => viewport.view)
       .returns(() => spatialViewStateMock.object);
-    expect(ViewUtilities.is3dView(viewportMock.object)).to.be.true;
+    expect(ViewUtilities.is3dView(viewportMock.object)).toEqual(true);
     expect(ViewUtilities.isSheetView(viewportMock.object)).to.be.false;
     expect(ViewUtilities.isDrawingView(viewportMock.object)).to.be.false;
-    expect(ViewUtilities.isSpatialView(viewportMock.object)).to.be.true;
+    expect(ViewUtilities.isSpatialView(viewportMock.object)).toEqual(true);
     expect(ViewUtilities.isOrthographicView(viewportMock.object)).to.be.false;
-    expect(ViewUtilities.viewSupportsCamera(viewportMock.object)).to.be.true;
+    expect(ViewUtilities.viewSupportsCamera(viewportMock.object)).toEqual(true);
   });
 
   it("is3d Ortho View", () => {
     const orthographicViewStateMock = moq.Mock.ofType<OrthographicViewState>();
-    orthographicViewStateMock.setup((view) => view.is3d()).returns(() => true);
+    orthographicViewStateMock
+      .setup((view) => view.is3d())
+      .mockReturnValue(() => true);
     orthographicViewStateMock
       .setup((view) => view.classFullName)
       .returns(() => "BisCore:OrthographicViewDefinition");
@@ -113,11 +121,11 @@ describe("ViewUtilities", () => {
     viewportMock
       .setup((viewport) => viewport.view)
       .returns(() => orthographicViewStateMock.object);
-    expect(ViewUtilities.is3dView(viewportMock.object)).to.be.true;
+    expect(ViewUtilities.is3dView(viewportMock.object)).toEqual(true);
     expect(ViewUtilities.isSheetView(viewportMock.object)).to.be.false;
     expect(ViewUtilities.isDrawingView(viewportMock.object)).to.be.false;
-    expect(ViewUtilities.isSpatialView(viewportMock.object)).to.be.true; // ortho is derived from spatial
-    expect(ViewUtilities.isOrthographicView(viewportMock.object)).to.be.true;
+    expect(ViewUtilities.isSpatialView(viewportMock.object)).toEqual(true); // ortho is derived from spatial
+    expect(ViewUtilities.isOrthographicView(viewportMock.object)).toEqual(true);
     expect(ViewUtilities.viewSupportsCamera(viewportMock.object)).to.be.false;
   });
 });

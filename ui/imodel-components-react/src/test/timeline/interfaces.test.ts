@@ -47,7 +47,7 @@ describe("Timeline", () => {
       expect(settings.loop).to.be.equal(loop);
       expect(timelineProvider.pointerCallbackCalled).to.be.false;
       timelineProvider.onAnimationFractionChanged(testanimationFraction);
-      expect(timelineProvider.pointerCallbackCalled).to.be.true;
+      expect(timelineProvider.pointerCallbackCalled).toEqual(true);
     });
   });
 
@@ -83,7 +83,7 @@ describe("Timeline", () => {
 
       // simulate UI updating pointer to current playback time
       timelineProvider.onAnimationFractionChanged(testanimationFraction);
-      expect(timelineProvider.pointerCallbackCalled).to.be.true;
+      expect(timelineProvider.pointerCallbackCalled).toEqual(true);
       expect(timelineProvider.animationFraction).to.be.equal(
         testanimationFraction
       );

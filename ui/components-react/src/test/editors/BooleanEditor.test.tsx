@@ -31,7 +31,7 @@ describe("<BooleanEditor />", () => {
     const record = TestUtils.createBooleanProperty("Test", true);
     render(<BooleanEditor propertyRecord={record} />);
 
-    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.true;
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).toEqual(true);
   });
 
   it("isDisabled should have the checkbox disabled", async () => {
@@ -39,7 +39,7 @@ describe("<BooleanEditor />", () => {
     record.isDisabled = true;
     render(<BooleanEditor propertyRecord={record} />);
 
-    expect(screen.getByTestId<HTMLInputElement>(testId).disabled).to.be.true;
+    expect(screen.getByTestId<HTMLInputElement>(testId).disabled).toEqual(true);
   });
 
   it("toggling the checkbox should updates boolean value", async () => {
@@ -48,15 +48,15 @@ describe("<BooleanEditor />", () => {
     render(<BooleanEditor propertyRecord={record} onCommit={spyOnCommit} />);
 
     await theUserTo.click(screen.getByTestId(testId));
-    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.true;
-    expect(spyOnCommit).to.have.been.calledWith(
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).toEqual(true);
+    expect(spyOnCommit).toHaveBeenCalledWith(
       sinon.match({ newValue: sinon.match({ value: true }) })
     );
     spyOnCommit.resetHistory();
 
     await theUserTo.click(screen.getByTestId(testId));
     expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.false;
-    expect(spyOnCommit).to.have.been.calledWith(
+    expect(spyOnCommit).toHaveBeenCalledWith(
       sinon.match({ newValue: sinon.match({ value: false }) })
     );
   });
@@ -90,7 +90,7 @@ describe("<BooleanEditor />", () => {
     const newRecord = TestUtils.createBooleanProperty("Test", true);
     rerender(<BooleanEditor propertyRecord={newRecord} />);
 
-    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.true;
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).toEqual(true);
   });
 
   it("should not commit if DataController fails to validate", async () => {
@@ -122,7 +122,7 @@ describe("<BooleanEditor />", () => {
 
     expect(((await ref.current?.getPropertyValue()) as PrimitiveValue).value).to
       .be.false;
-    expect(ref.current?.hasFocus).to.be.true;
+    expect(ref.current?.hasFocus).toEqual(true);
     expect(ref.current?.htmlElement).to.equal(screen.getByRole("checkbox"));
   });
 });

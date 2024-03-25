@@ -16,7 +16,7 @@ describe("initSizeProps", () => {
     const sut = produce(obj, (draft) => {
       initSizeProps(draft, "x", { height: 10, width: 20 });
     });
-    sut.should.eq(obj);
+    expect(sut).toEqual(obj);
   });
 
   it("should reset", () => {
@@ -69,6 +69,6 @@ describe("initRectangleProps", () => {
         right: 40,
       });
     });
-    expect(sut).to.eq(obj);
+    expect(sut).toEqual(obj);
   });
 });

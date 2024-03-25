@@ -493,7 +493,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       );
       await waitForPropertyGridLoad(container);
 
-      expect(dataFake).to.be.calledOnce;
+      expect(dataFake).toHaveBeenCalledOnce();
 
       // simulate multiple onDataChanged calls
       for (let i = 1; i <= 10; ++i) {
@@ -849,7 +849,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const clickableComponent = clickableComponents[0];
       fireEvent.click(clickableComponent);
 
-      expect(onPropertySelectionChanged.called).to.be.true;
+      expect(onPropertySelectionChanged.called).toEqual(true);
     });
 
     it("deselects if clicked a 2nd time", async () => {
@@ -940,7 +940,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       fireEvent.contextMenu(clickableComponents[0]);
 
-      expect(onPropertySelectionChanged.called).to.be.true;
+      expect(onPropertySelectionChanged.called).toEqual(true);
     });
 
     it("calls onPropertySelectionChanged once when property gets right clicked after left clicked and both left and right click selections are enabled", async () => {
@@ -970,7 +970,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       fireEvent.click(clickableComponent);
       fireEvent.contextMenu(clickableComponent);
 
-      expect(onPropertySelectionChanged.callCount).to.be.equal(2);
+      expect(onPropertySelectionChanged).toHaveBeenCalledTimes(2);
     });
 
     it("does not deselect if right clicked a 2nd time", async () => {
@@ -995,14 +995,14 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const clickableComponent = clickableComponents[0];
 
       fireEvent.contextMenu(clickableComponent);
-      expect(container.querySelectorAll(".components--selected").length).to.eq(
-        1
-      );
+      expect(
+        container.querySelectorAll(".components--selected").length
+      ).toEqual(1);
 
       fireEvent.contextMenu(clickableComponent);
-      expect(container.querySelectorAll(".components--selected").length).to.eq(
-        1
-      );
+      expect(
+        container.querySelectorAll(".components--selected").length
+      ).toEqual(1);
     });
 
     it("deselects if left clicked after right clicked", async () => {
@@ -1027,14 +1027,14 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const clickableComponent = clickableComponents[0];
 
       fireEvent.contextMenu(clickableComponent);
-      expect(container.querySelectorAll(".components--selected").length).to.eq(
-        1
-      );
+      expect(
+        container.querySelectorAll(".components--selected").length
+      ).toEqual(1);
 
       fireEvent.click(clickableComponent);
-      expect(container.querySelectorAll(".components--selected").length).to.eq(
-        0
-      );
+      expect(
+        container.querySelectorAll(".components--selected").length
+      ).toEqual(0);
     });
 
     it("does not call onPropertySelectionChanged when property gets right clicked and selection is disabled", async () => {
@@ -1084,12 +1084,12 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
   describe("property editing", () => {
     it("starts editor on click & commits on Enter", async () => {
-      const spyMethod = sinon.spy();
+      const spy = sinon.spy();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
           isPropertyEditingEnabled={true}
-          onPropertyUpdated={spyMethod}
+          onPropertyUpdated={spy}
         />
       );
 
@@ -1115,7 +1115,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       await waitForPropertyGridLoad(container);
 
-      await waitFor(() => expect(spyMethod).to.be.calledOnce);
+      await waitFor(() => expect(spy).to.be.calledOnce);
     });
 
     it("does not start editor on click if not selected yet", async () => {
@@ -1185,7 +1185,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       expect(
         container.querySelectorAll(".components-cell-editor").length,
         "Cell editor did not disappear after pressing Escape"
-      ).to.eq(0);
+      ).toEqual(0);
     });
   });
 
@@ -1208,7 +1208,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         fireEvent.contextMenu(clickableComponents[0]);
       });
 
-      expect(callback).to.be.calledOnce;
+      expect(callback).toHaveBeenCalledOnce();
       expect(callback.firstCall.args[0].propertyRecord).to.deep.eq(records[0]);
     });
   });
@@ -1454,7 +1454,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         categories: [],
         records: {},
       }));
-    providerMock1.setup((x) => x.onDataChanged).returns(() => evt1);
+    providerMock1.setup((x) => x.onDataChanged).mockReturnValue(() => evt1);
 
     const evt2 = new PropertyDataChangeEvent();
     const providerMock2 = moq.Mock.ofType<IPropertyDataProvider>();
@@ -1465,7 +1465,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         categories: [],
         records: {},
       }));
-    providerMock2.setup((x) => x.onDataChanged).returns(() => evt2);
+    providerMock2.setup((x) => x.onDataChanged).mockReturnValue(() => evt2);
 
     const { rerender, unmount } = render(
       <VirtualizedPropertyGridWithDataProvider
@@ -1473,7 +1473,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         dataProvider={providerMock1.object}
       />
     );
-    expect(evt1.numberOfListeners).to.eq(
+    expect(evt1.numberOfListeners).toEqual(
       1,
       "listener should be added when component is mounted"
     );
@@ -1484,7 +1484,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         dataProvider={providerMock1.object}
       />
     );
-    expect(evt1.numberOfListeners).to.eq(
+    expect(evt1.numberOfListeners).toEqual(
       1,
       "additional listener should not be added when data provider doesn't change"
     );
@@ -1495,17 +1495,17 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         dataProvider={providerMock2.object}
       />
     );
-    expect(evt1.numberOfListeners).to.eq(
+    expect(evt1.numberOfListeners).toEqual(
       0,
       "listener should be removed when data provider is not used anymore"
     );
-    expect(evt2.numberOfListeners).to.eq(
+    expect(evt2.numberOfListeners).toEqual(
       1,
       "listener should be added when data provider changes"
     );
 
     unmount();
-    expect(evt2.numberOfListeners).to.eq(
+    expect(evt2.numberOfListeners).toEqual(
       0,
       "listener should be removed when component is unmounted"
     );
@@ -1575,9 +1575,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           },
         }));
       const evt = new PropertyDataChangeEvent();
-      providerMock.setup((x) => x.onDataChanged).returns(() => evt);
+      providerMock.setup((x) => x.onDataChanged).mockReturnValue(() => evt);
 
-      const scrollToItemFake = sinon.fake();
+      const scrollToItemFake = vi.fn();
       sinon.replace(
         VariableSizeList.prototype,
         "scrollToItem",
@@ -1623,9 +1623,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           },
         }));
       const evt = new PropertyDataChangeEvent();
-      providerMock.setup((x) => x.onDataChanged).returns(() => evt);
+      providerMock.setup((x) => x.onDataChanged).mockReturnValue(() => evt);
 
-      const scrollToItemFake = sinon.fake();
+      const scrollToItemFake = vi.fn();
       sinon.replace(
         VariableSizeList.prototype,
         "scrollToItem",
@@ -1671,9 +1671,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           },
         }));
       const evt = new PropertyDataChangeEvent();
-      providerMock.setup((x) => x.onDataChanged).returns(() => evt);
+      providerMock.setup((x) => x.onDataChanged).mockReturnValue(() => evt);
 
-      const scrollToItemFake = sinon.fake();
+      const scrollToItemFake = vi.fn();
       sinon.replace(
         VariableSizeList.prototype,
         "scrollToItem",
@@ -1719,9 +1719,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           },
         }));
       const evt = new PropertyDataChangeEvent();
-      providerMock.setup((x) => x.onDataChanged).returns(() => evt);
+      providerMock.setup((x) => x.onDataChanged).mockReturnValue(() => evt);
 
-      const scrollToItemFake = sinon.fake();
+      const scrollToItemFake = vi.fn();
       sinon.replace(
         VariableSizeList.prototype,
         "scrollToItem",
@@ -1767,9 +1767,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           records: {},
         }));
       const evt = new PropertyDataChangeEvent();
-      providerMock.setup((x) => x.onDataChanged).returns(() => evt);
+      providerMock.setup((x) => x.onDataChanged).mockReturnValue(() => evt);
 
-      const scrollToItemFake = sinon.fake();
+      const scrollToItemFake = vi.fn();
       sinon.replace(
         VariableSizeList.prototype,
         "scrollToItem",
@@ -1827,9 +1827,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           },
         }));
       const evt = new PropertyDataChangeEvent();
-      providerMock.setup((x) => x.onDataChanged).returns(() => evt);
+      providerMock.setup((x) => x.onDataChanged).mockReturnValue(() => evt);
 
-      const scrollToItemFake = sinon.fake();
+      const scrollToItemFake = vi.fn();
       sinon.replace(
         VariableSizeList.prototype,
         "scrollToItem",

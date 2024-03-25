@@ -37,19 +37,19 @@ describe("ToolSettingsTools", () => {
         </div>
       );
       const tool = new FocusToolSettings();
-      expect(await tool.parseAndRun()).to.be.true;
+      expect(await tool.parseAndRun()).toEqual(true);
     });
   });
 
   describe("BumpToolSetting", () => {
     it("should return true if no args", async () => {
       const tool = new BumpToolSetting();
-      expect(await tool.parseAndRun()).to.be.true;
+      expect(await tool.parseAndRun()).toEqual(true);
     });
 
     it("should return true if valid arg", async () => {
       const tool = new BumpToolSetting();
-      expect(await tool.parseAndRun("2")).to.be.true;
+      expect(await tool.parseAndRun("2")).toEqual(true);
     });
 
     it("should return false if invalid arg", async () => {

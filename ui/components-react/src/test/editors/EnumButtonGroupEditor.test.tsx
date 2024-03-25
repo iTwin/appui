@@ -63,8 +63,8 @@ describe("<EnumButtonGroupEditor />", () => {
 
     fireEvent.click(greenButton);
     await TestUtils.flushAsyncOperations();
-    expect(greenButton.classList.contains("nz-is-active")).to.be.true;
-    expect(spyOnCommit.calledOnce).to.be.true;
+    expect(greenButton.classList.contains("nz-is-active")).toEqual(true);
+    expect(spyOnCommit.calledOnce).toEqual(true);
   });
 
   it("button press updates string value and display", async () => {
@@ -92,8 +92,8 @@ describe("<EnumButtonGroupEditor />", () => {
 
     fireEvent.click(greenButton);
     await TestUtils.flushAsyncOperations();
-    expect(greenButton.classList.contains("nz-is-active")).to.be.true;
-    expect(spyOnCommit.calledOnce).to.be.true;
+    expect(greenButton.classList.contains("nz-is-active")).toEqual(true);
+    expect(spyOnCommit.calledOnce).toEqual(true);
   });
 
   it("test support for enable/disable button states", async () => {

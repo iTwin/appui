@@ -2,11 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { Input } from "../../core-react/inputs/Input";
-import * as sinon from "sinon";
 
 describe("<Input />", () => {
   it("renders", () => {
@@ -27,12 +25,12 @@ describe("<Input />", () => {
     const input = component.container.querySelector("input[type='text']");
 
     const element = document.activeElement as HTMLElement;
-    expect(element && element === input).to.be.true;
+    expect(element && element === input).toEqual(true);
   });
 
   it("native key handler passed by props is called", () => {
-    const spyOnKeyboardEvent = sinon.spy();
-    const spyOnSecondKeyboardEvent = sinon.spy();
+    const spyOnKeyboardEvent = vi.fn();
+    const spyOnSecondKeyboardEvent = vi.fn();
 
     const component = render(
       <Input setFocus={true} nativeKeyHandler={spyOnKeyboardEvent} />
@@ -44,8 +42,8 @@ describe("<Input />", () => {
       <Input setFocus={true} nativeKeyHandler={spyOnSecondKeyboardEvent} />
     );
     fireEvent.keyDown(inputNode, { key: "Enter" });
-    expect(spyOnKeyboardEvent.calledOnce).to.be.true;
-    expect(spyOnSecondKeyboardEvent.calledOnce).to.be.true;
+    expect(spyOnKeyboardEvent.calledOnce).toEqual(true);
+    expect(spyOnSecondKeyboardEvent.calledOnce).toEqual(true);
   });
 
   it("input element is properly set", () => {

@@ -97,10 +97,10 @@ describe("<Toolbar (No Overflow) />", () => {
         ToolbarPanelAlignmentHelpers.getCssClassName(
           ToolbarPanelAlignment.Start
         )
-      ).to.eq(ToolbarPanelAlignmentHelpers.START_CLASS_NAME);
+      ).toEqual(ToolbarPanelAlignmentHelpers.START_CLASS_NAME);
       expect(
         ToolbarPanelAlignmentHelpers.getCssClassName(ToolbarPanelAlignment.End)
-      ).to.eq(ToolbarPanelAlignmentHelpers.END_CLASS_NAME);
+      ).toEqual(ToolbarPanelAlignmentHelpers.END_CLASS_NAME);
     });
 
     it("will render 6 items", () => {
@@ -446,7 +446,7 @@ describe("<Toolbar (No Overflow) />", () => {
       popupPanel!.dispatchEvent(
         createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
       );
-      onKeyDownSpy.calledOnce.should.true;
+      onKeyDownexpect(spy).toHaveBeenCalledOnce();
     });
 
     it("should call onItemExecuted", async () => {
@@ -470,8 +470,8 @@ describe("<Toolbar (No Overflow) />", () => {
       expect(actionButton).not.to.be.null;
       fireEvent.click(actionButton!);
       // renderedComponent.debug();
-      toolSpy.calledOnce.should.true;
-      onItemExecuteSpy.calledOnce.should.true;
+      toolexpect(spy).toHaveBeenCalledOnce();
+      onItemExecuteexpect(spy).toHaveBeenCalledOnce();
     });
   });
 
@@ -549,7 +549,7 @@ describe("<Toolbar (No Overflow) />", () => {
 
   describe("<BackArrow />", () => {
     it("renders targeted correctly", () => {
-      sinon.stub(useTargetedModule, "useTargeted").returns(true);
+      sinon.stub(useTargetedModule, "useTargeted").mockReturnValue(true);
       const renderedComponent = render(<BackArrow />);
       expect(renderedComponent.container.querySelector(".components-targeted"))
         .to.not.be.null;
@@ -572,7 +572,7 @@ describe("<Toolbar (No Overflow) />", () => {
     });
 
     it("renders targeted correctly", () => {
-      sinon.stub(useTargetedModule, "useTargeted").returns(true);
+      sinon.stub(useTargetedModule, "useTargeted").mockReturnValue(true);
       const renderedComponent = render(<GroupTool item={item} />);
       expect(renderedComponent.container.querySelector(".components-targeted"))
         .to.not.be.null;
@@ -600,7 +600,7 @@ describe("<Toolbar (No Overflow) />", () => {
       );
       expect(div).not.to.be.null;
       fireEvent.pointerUp(div!);
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 

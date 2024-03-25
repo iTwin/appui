@@ -106,12 +106,12 @@ describe("<CustomNumberEditor />", () => {
     // resetToOriginalValue
     fireEvent.keyDown(inputField, { key: Key.Escape });
     expect(inputField.value).to.be.equal(displayVal);
-    expect(spyOnCancel).not.to.be.called;
+    expect(spyOnCancel).not.toBeCalled();
 
     // since value is same as original, cancel
     fireEvent.keyDown(inputField, { key: Key.Escape });
     expect(inputField.value).to.be.equal(displayVal);
-    expect(spyOnCancel).to.be.calledOnce;
+    expect(spyOnCancel).toHaveBeenCalledOnce();
 
     const newValue = "7.777";
     fireEvent.change(inputField, { target: { value: newValue } });
@@ -119,7 +119,7 @@ describe("<CustomNumberEditor />", () => {
     fireEvent.keyDown(container, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
     // renderedComponent.debug();
-    expect(spyOnCommit).to.be.calledOnce;
+    expect(spyOnCommit).toHaveBeenCalledOnce();
 
     fireEvent.change(inputField, { target: { value: "zzzz" } });
     expect(inputField.value).to.be.equal("zzzz");
@@ -187,7 +187,7 @@ describe("<CustomNumberEditor />", () => {
     fireEvent.keyDown(container, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
     // renderedComponent.debug();
-    expect(spyOnCommit).to.be.calledOnce;
+    expect(spyOnCommit).toHaveBeenCalledOnce();
 
     // trigger componentDidUpdate processing
     const newPropertyRecord = TestUtils.createCustomNumberProperty(
@@ -250,7 +250,7 @@ describe("<CustomNumberEditor />", () => {
     ) as HTMLSpanElement;
     fireEvent.keyDown(container, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit).to.be.calledOnce;
+    expect(spyOnCommit).toHaveBeenCalledOnce();
     // renderedComponent.debug();
     expect(inputField.value).to.be.equal(displayVal);
   });

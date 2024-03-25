@@ -13,7 +13,7 @@ describe("<HighlightedText />", () => {
       <HighlightedText text="abcBd" searchText="b" />
     );
     const matchedNodes = container.querySelectorAll("mark");
-    expect(matchedNodes.length).to.eq(2);
+    expect(matchedNodes.length).toEqual(2);
   });
 
   it("renders string with case-sensitive highlights", () => {
@@ -21,7 +21,7 @@ describe("<HighlightedText />", () => {
       <HighlightedText text="abcBd" searchText="b" caseSensitive={true} />
     );
     const matchedNodes = container.querySelectorAll("mark");
-    expect(matchedNodes.length).to.eq(1);
+    expect(matchedNodes.length).toEqual(1);
   });
 
   it("renders string with active highlights", () => {
@@ -29,7 +29,7 @@ describe("<HighlightedText />", () => {
       <HighlightedText text="abcBd" searchText="b" activeMatchIndex={1} />
     );
     const matchedNodes = container.querySelectorAll("mark");
-    expect(matchedNodes.length).to.eq(2);
+    expect(matchedNodes.length).toEqual(2);
     expect(matchedNodes[1].classList.contains("components-activehighlight")).to
       .be.true;
   });

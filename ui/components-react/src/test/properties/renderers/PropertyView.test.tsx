@@ -532,7 +532,7 @@ describe("PropertyView", () => {
       target: screen.getByRole("presentation"),
       keys: "[MouseRight]",
     });
-    expect(callback).to.be.calledOnceWith(propertyRecord);
+    expect(callback).toHaveBeenCalledWith(propertyRecord);
   });
 
   it("calls onRightClick callback on property right click", async () => {
@@ -549,6 +549,6 @@ describe("PropertyView", () => {
       target: screen.getByRole("presentation"),
       keys: "[MouseRight]",
     });
-    expect(callback).to.be.calledOnceWith(propertyRecord);
+    expect(callback).toHaveBeenCalledWith(propertyRecord);
   });
 });

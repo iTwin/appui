@@ -68,7 +68,7 @@ describe("TreeModelMutator", () => {
 
       treeModelMock.verifyAll();
       treeModelSourceMock.verifyAll();
-      expect(node.isExpanded).to.be.true;
+      expect(node.isExpanded).toEqual(true);
     });
 
     it("expands node and loads children", () => {
@@ -86,14 +86,14 @@ describe("TreeModelMutator", () => {
 
       treeModelMock.verifyAll();
       treeNodeLoaderMock.verifyAll();
-      expect(node.isExpanded).to.be.true;
+      expect(node.isExpanded).toEqual(true);
     });
 
     it("does nothing if node is expanded", () => {
       node = { ...node, isExpanded: true, numChildren: 0 };
       modelMutator.expandNode(node.id);
 
-      expect(node.isExpanded).to.be.true;
+      expect(node.isExpanded).toEqual(true);
     });
   });
 
@@ -165,7 +165,7 @@ describe("TreeModelMutator", () => {
       treeModelMock.verifyAll();
       treeModelSourceMock.verifyAll();
 
-      expect(nodeToSelect.isSelected).to.be.true;
+      expect(nodeToSelect.isSelected).toEqual(true);
       expect(nodeToDeselect.isSelected).to.be.false;
     });
 
@@ -209,7 +209,7 @@ describe("TreeModelMutator", () => {
       modelMutator.replaceSelection([nodeToSelect.item]);
       treeModelMock.verifyAll();
       expect(selectedNode.isSelected).to.be.false;
-      expect(nodeToSelect.isSelected).to.be.true;
+      expect(nodeToSelect.isSelected).toEqual(true);
     });
 
     it("tries to replace selection even if nodes were removed", () => {
@@ -318,7 +318,9 @@ describe("TreeModelMutator", () => {
 
       beforeEach(() => {
         onNodeUpdatedSpy = sinon.spy();
-        treeModelMock.setup((x) => x.getNode(node.id)).returns(() => node);
+        treeModelMock
+          .setup((x) => x.getNode(node.id))
+          .mockReturnValue(() => node);
         modelMutator.activateEditing(node.id, onNodeUpdatedSpy);
       });
 
@@ -329,7 +331,7 @@ describe("TreeModelMutator", () => {
 
       it("closes editing and calls onNodeUpdated when changes are committed", () => {
         node.editingInfo!.onCommit(node, "newValue");
-        expect(onNodeUpdatedSpy).to.be.calledOnceWith(node, "newValue");
+        expect(onNodeUpdatedSpy).toHaveBeenCalledWith(node, "newValue");
         expect(node.editingInfo).to.be.undefined;
       });
     });

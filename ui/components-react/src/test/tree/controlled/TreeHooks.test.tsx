@@ -41,7 +41,7 @@ describe("useTreeModel", () => {
         useTreeModel(props.modelSource),
       { initialProps: { modelSource } }
     );
-    expect(result.current).to.eq(modelSource.getModel());
+    expect(result.current).toEqual(modelSource.getModel());
     expect(spy).to.have.been.calledOnce;
   });
 
@@ -60,7 +60,7 @@ describe("useTreeModel", () => {
         useTreeModel(props.modelSource),
       { initialProps: { modelSource } }
     );
-    expect(result.current).to.eq(modelSource.getModel());
+    expect(result.current).toEqual(modelSource.getModel());
     expect(firstModelEventAddSpy).to.have.been.calledOnce;
 
     const newModelSource = new TreeModelSource();
@@ -70,7 +70,7 @@ describe("useTreeModel", () => {
     );
 
     rerender({ modelSource: newModelSource });
-    expect(result.current).to.eq(newModelSource.getModel());
+    expect(result.current).toEqual(newModelSource.getModel());
     expect(firstModelEventRemoveSpy).to.have.been.calledOnce;
     expect(newModelEventAddSpy).to.have.been.calledOnce;
   });
@@ -346,18 +346,18 @@ describe("useTreeEventsHandler", () => {
   it("creates and disposes events handler using factory function", () => {
     const disposeSpy = sinon.spy();
     const handler = { dispose: disposeSpy };
-    const factory = sinon.mock().returns(handler);
+    const factory = sinon.mock().mockReturnValue(handler);
     const { result, unmount } = renderHook(
       (props: { factory: () => TreeEventHandler }) =>
         // eslint-disable-next-line deprecation/deprecation
         useTreeEventsHandler(props.factory),
       { initialProps: { factory } }
     );
-    expect(factory).to.be.calledOnce;
-    expect(result.current).to.eq(handler);
-    expect(disposeSpy).to.not.be.called;
+    expect(factory).toHaveBeenCalledOnce();
+    expect(result.current).toEqual(handler);
+    expect(disposeSpy).not.toBeCalled();
     unmount();
-    expect(disposeSpy).to.be.calledOnce;
+    expect(disposeSpy).toHaveBeenCalledOnce();
   });
 
   it("creates and disposes events handler using event handler params", () => {
@@ -378,9 +378,9 @@ describe("useTreeEventsHandler", () => {
     );
     expect(result.current).to.not.be.undefined;
     const disposeSpy = sinon.spy(result.current, "dispose");
-    expect(disposeSpy).to.not.be.called;
+    expect(disposeSpy).not.toBeCalled();
     unmount();
-    expect(disposeSpy).to.be.calledOnce;
+    expect(disposeSpy).toHaveBeenCalledOnce();
   });
 });
 
@@ -388,7 +388,7 @@ describe("useControlledTreeEventsHandler", () => {
   it("creates and disposes events handler using factory function", async () => {
     const disposeSpy = sinon.spy();
     const handler = { dispose: disposeSpy };
-    const factory = sinon.mock().returns(handler);
+    const factory = sinon.mock().mockReturnValue(handler);
     const { result, unmount } = renderHook(
       (props: { factory: () => TreeEventHandler }) =>
         useControlledTreeEventsHandler(props.factory),
@@ -396,8 +396,8 @@ describe("useControlledTreeEventsHandler", () => {
     );
 
     await waitFor(() => {
-      expect(factory).to.be.calledOnce;
-      expect(result.current).to.eq(handler);
+      expect(factory).toHaveBeenCalledOnce();
+      expect(result.current).toEqual(handler);
     });
     unmount();
 
@@ -420,7 +420,7 @@ describe("useControlledTreeEventsHandler", () => {
       }
     );
     await waitFor(() => expect(result.current).to.not.be.undefined);
-    const disposeSpy = sinon.spy(result.current!, "dispose");
+    const disposeSpy = sinon.spy(result.current, "dispose");
     unmount();
 
     await waitFor(() => expect(disposeSpy).to.be.called);

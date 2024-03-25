@@ -293,13 +293,13 @@ describe("PropertyRenderer", () => {
   });
 
   it("calls onEditCommit on Enter key when editing", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const propertyRenderer = render(
       <PropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isEditing={true}
-        onEditCommit={spyMethod}
+        onEditCommit={spy}
       />
     );
 
@@ -308,17 +308,17 @@ describe("PropertyRenderer", () => {
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("calls onEditCancel on Escape key when editing", () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const propertyRenderer = render(
       <PropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isEditing={true}
-        onEditCancel={spyMethod}
+        onEditCancel={spy}
       />
     );
 
@@ -326,7 +326,7 @@ describe("PropertyRenderer", () => {
     expect(inputNode).not.to.be.null;
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("does not remove Editor on Enter if callback is not provided", async () => {

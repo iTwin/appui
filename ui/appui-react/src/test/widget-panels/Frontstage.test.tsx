@@ -318,8 +318,8 @@ describe("Frontstage local storage wrapper", () => {
       );
       const sut = renderHook(() => useActiveModalFrontstageInfo());
       sut.unmount();
-      addListenerSpy.calledOnce.should.true;
-      removeListenerSpy.calledOnce.should.true;
+      addListenerexpect(spy).toHaveBeenCalledOnce();
+      removeListenerexpect(spy).toHaveBeenCalledOnce();
     });
 
     it("should update active modal info", () => {
@@ -577,7 +577,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should initialize nineZoneState", async () => {
         const setting = createFrontstageState();
         const uiStateStorage = new UiStateStorageStub();
-        sinon.stub(uiStateStorage, "getSetting").returns(
+        sinon.stub(uiStateStorage, "getSetting").mockReturnValue(
           Promise.resolve<UiStateStorageResult>({
             status: UiStateStorageStatus.Success,
             setting,
@@ -719,7 +719,7 @@ describe("Frontstage local storage wrapper", () => {
           InternalFrontstageManager.onFrontstageRestoreLayoutEvent.emit({
             frontstageDef,
           });
-          spy.calledOnce.should.true;
+          expect(spy).toHaveBeenCalledOnce();
         });
 
         it("should unset nineZoneState", async () => {
@@ -865,7 +865,7 @@ describe("Frontstage local storage wrapper", () => {
 
         const sut = frontstageDef.nineZoneState!;
         sut.tabs.w1.preferredPanelWidgetSize!.should.eq("fit-content");
-        expect(sut.toolSettings?.tabId).to.eq("w1");
+        expect(sut.toolSettings?.tabId).toEqual("w1");
       });
 
       it("should add panel zone widgets", () => {
@@ -1136,56 +1136,56 @@ describe("Frontstage local storage wrapper", () => {
         getPanelSectionId(
           StagePanelLocation.Left,
           StagePanelSection.Start
-        ).should.eq("leftStart");
+        ).toEqual("leftStart");
       });
 
       it("should return 'leftEnd'", () => {
         getPanelSectionId(
           StagePanelLocation.Left,
           StagePanelSection.End
-        ).should.eq("leftEnd");
+        ).toEqual("leftEnd");
       });
 
       it("should return 'rightStart'", () => {
         getPanelSectionId(
           StagePanelLocation.Right,
           StagePanelSection.Start
-        ).should.eq("rightStart");
+        ).toEqual("rightStart");
       });
 
       it("should return 'rightEnd'", () => {
         getPanelSectionId(
           StagePanelLocation.Right,
           StagePanelSection.End
-        ).should.eq("rightEnd");
+        ).toEqual("rightEnd");
       });
 
       it("should return 'topStart'", () => {
         getPanelSectionId(
           StagePanelLocation.Top,
           StagePanelSection.Start
-        ).should.eq("topStart");
+        ).toEqual("topStart");
       });
 
       it("should return 'topEnd'", () => {
         getPanelSectionId(
           StagePanelLocation.Top,
           StagePanelSection.End
-        ).should.eq("topEnd");
+        ).toEqual("topEnd");
       });
 
       it("should return 'bottomStart'", () => {
         getPanelSectionId(
           StagePanelLocation.Bottom,
           StagePanelSection.Start
-        ).should.eq("bottomStart");
+        ).toEqual("bottomStart");
       });
 
       it("should return 'bottomEnd'", () => {
         getPanelSectionId(
           StagePanelLocation.Bottom,
           StagePanelSection.End
-        ).should.eq("bottomEnd");
+        ).toEqual("bottomEnd");
       });
     });
 
@@ -1204,7 +1204,7 @@ describe("Frontstage local storage wrapper", () => {
         let state = createNineZoneState();
         state = addTab(state, "t1");
         restoreNineZoneState(frontstageDef, state);
-        spy.calledOnce.should.true;
+        expect(spy).toHaveBeenCalledOnce();
         (
           BentleyError.getMetaData(spy.firstCall.args[2]) as any
         ).should.matchSnapshot();
@@ -1239,7 +1239,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should restore tabs", () => {
         const frontstageDef = new FrontstageDef();
         const widgetDef = new WidgetDef();
-        sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef);
+        sinon.stub(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
         let state = createNineZoneState();
         state = addTab(state, "t1");
         restoreNineZoneState(frontstageDef, state);

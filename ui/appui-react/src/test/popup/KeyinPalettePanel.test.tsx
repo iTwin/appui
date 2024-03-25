@@ -98,7 +98,9 @@ describe("<KeyinPalettePanel>", () => {
       renderedComponent.getByTitle("test b")
     );
     expect(history2).not.to.be.undefined;
-    expect(renderedComponent.container.querySelectorAll("li").length).to.eq(4);
+    expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
+      4
+    );
   });
 
   it("handles key presses in select input ", async () => {
@@ -119,11 +121,15 @@ describe("<KeyinPalettePanel>", () => {
       renderedComponent.getByTitle("test b")
     );
     expect(history2).not.to.be.undefined;
-    expect(renderedComponent.container.querySelectorAll("li").length).to.eq(4);
+    expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
+      4
+    );
 
     fireEvent.change(selectInput, { target: { value: "two" } });
     await TestUtils.flushAsyncOperations();
-    expect(renderedComponent.container.querySelectorAll("li").length).to.eq(1);
+    expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
+      1
+    );
     fireEvent.keyDown(selectInput, { key: Key.Enter });
   });
 
@@ -145,11 +151,15 @@ describe("<KeyinPalettePanel>", () => {
       renderedComponent.getByTitle("test b")
     );
     expect(history2).not.to.be.undefined;
-    expect(renderedComponent.container.querySelectorAll("li").length).to.eq(4);
+    expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
+      4
+    );
 
     fireEvent.change(selectInput, { target: { value: "two" } });
     await TestUtils.flushAsyncOperations();
-    expect(renderedComponent.container.querySelectorAll("li").length).to.eq(1);
+    expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
+      1
+    );
     fireEvent.keyDown(selectInput, { key: Key.Enter, ctrlKey: true });
     await TestUtils.flushAsyncOperations();
     fireEvent.change(selectInput, { target: { value: "two" } });
@@ -216,7 +226,7 @@ describe("<KeyinPalettePanel>", () => {
     ) as HTMLInputElement;
     expect(selectInput.value.length === 0);
     const liItems = renderedComponent.container.querySelectorAll("li");
-    expect(liItems.length).to.eq(4);
+    expect(liItems.length).toEqual(4);
     fireEvent.click(liItems[1]);
     expect(selectInput.value.length > 0);
   });
@@ -244,7 +254,7 @@ describe("<KeyinPalettePanel>", () => {
     fireEvent.keyDown(selectInput, { key: Key.ArrowDown });
 
     const liItems = renderedComponent.container.querySelectorAll("li");
-    expect(liItems.length).to.eq(4);
+    expect(liItems.length).toEqual(4);
     fireEvent.click(liItems[1], { ctrlKey: true });
     expect(selectInput.value.length > 0);
   });
@@ -289,7 +299,7 @@ describe("<KeyinPalettePanel>", () => {
         renderedComponent.getByTitle("history2")
       );
       expect(history2).not.to.be.undefined;
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+      expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
         4
       );
     });
@@ -318,13 +328,13 @@ describe("<KeyinPalettePanel>", () => {
         renderedComponent.getByTitle("history2")
       );
       expect(history2).not.to.be.undefined;
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+      expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
         4
       );
 
       fireEvent.change(selectInput, { target: { value: "two" } });
       await TestUtils.flushAsyncOperations();
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+      expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
         1
       );
       fireEvent.keyDown(selectInput, { key: Key.Enter });
@@ -354,13 +364,13 @@ describe("<KeyinPalettePanel>", () => {
         renderedComponent.getByTitle("history2")
       );
       expect(history2).not.to.be.undefined;
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+      expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
         4
       );
 
       fireEvent.change(selectInput, { target: { value: "two" } });
       await TestUtils.flushAsyncOperations();
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+      expect(renderedComponent.container.querySelectorAll("li").length).toEqual(
         1
       );
       fireEvent.keyDown(selectInput, { key: Key.Enter, ctrlKey: true });
@@ -415,7 +425,7 @@ describe("<KeyinPalettePanel>", () => {
       ) as HTMLInputElement;
       expect(selectInput.value.length === 0);
       const liItems = renderedComponent.container.querySelectorAll("li");
-      expect(liItems.length).to.eq(4);
+      expect(liItems.length).toEqual(4);
       fireEvent.click(liItems[1]);
       expect(selectInput.value.length > 0);
     });
@@ -449,7 +459,7 @@ describe("<KeyinPalettePanel>", () => {
       fireEvent.keyDown(selectInput, { key: Key.ArrowDown });
 
       const liItems = renderedComponent.container.querySelectorAll("li");
-      expect(liItems.length).to.eq(4);
+      expect(liItems.length).toEqual(4);
       fireEvent.click(liItems[1], { ctrlKey: true });
       expect(selectInput.value.length > 0);
     });

@@ -51,22 +51,22 @@ describe("WidgetDef", () => {
       content: <div />,
     });
 
-    expect(widgetDef.isVisible).to.eq(true);
-    expect(widgetDef.isActive).to.eq(true);
-    expect(widgetDef.isFloating).to.eq(false);
-    expect(widgetDef.priority).to.eq(100);
-    expect(widgetDef.isFloatingStateSupported).to.eq(true);
-    expect(widgetDef.isFloatingStateWindowResizable).to.eq(false);
-    expect(widgetDef.isToolSettings).to.eq(false);
-    expect(widgetDef.isStatusBar).to.eq(false);
+    expect(widgetDef.isVisible).toEqual(true);
+    expect(widgetDef.isActive).toEqual(true);
+    expect(widgetDef.isFloating).toEqual(false);
+    expect(widgetDef.priority).toEqual(100);
+    expect(widgetDef.isFloatingStateSupported).toEqual(true);
+    expect(widgetDef.isFloatingStateWindowResizable).toEqual(false);
+    expect(widgetDef.isToolSettings).toEqual(false);
+    expect(widgetDef.isStatusBar).toEqual(false);
 
-    expect(widgetDef.label).to.eq("label");
-    expect(widgetDef.tooltip).to.eq("tooltip");
-    expect(widgetDef.iconSpec).to.eq("icon-home");
-    expect(widgetDef.badgeType).to.eq(BadgeType.TechnicalPreview);
+    expect(widgetDef.label).toEqual("label");
+    expect(widgetDef.tooltip).toEqual("tooltip");
+    expect(widgetDef.iconSpec).toEqual("icon-home");
+    expect(widgetDef.badgeType).toEqual(BadgeType.TechnicalPreview);
 
     widgetDef.iconSpec = "icon-lightbulb";
-    expect(widgetDef.iconSpec).to.eq("icon-lightbulb");
+    expect(widgetDef.iconSpec).toEqual("icon-lightbulb");
     expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
   });
 
@@ -82,7 +82,7 @@ describe("WidgetDef", () => {
         isResizable: true,
       },
     });
-    expect(React.isValidElement(widgetDef.iconSpec)).to.be.true;
+    expect(React.isValidElement(widgetDef.iconSpec)).toEqual(true);
   });
 
   it("should properly handle iconSpec set/get", () => {
@@ -97,14 +97,14 @@ describe("WidgetDef", () => {
         isResizable: true,
       },
     });
-    expect(widgetDef.iconSpec).to.eq("icon-lightbulb");
+    expect(widgetDef.iconSpec).toEqual("icon-lightbulb");
     expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
 
     widgetDef.iconSpec = <SvgList />;
-    expect(React.isValidElement(widgetDef.iconSpec)).to.be.true;
+    expect(React.isValidElement(widgetDef.iconSpec)).toEqual(true);
 
     widgetDef.iconSpec = "icon-home";
-    expect(widgetDef.iconSpec).to.eq("icon-home");
+    expect(widgetDef.iconSpec).toEqual("icon-home");
     expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
   });
 
@@ -115,8 +115,8 @@ describe("WidgetDef", () => {
       tooltipKey: "App:tooltip",
     });
 
-    expect(widgetDef.label).to.eq("label");
-    expect(widgetDef.tooltip).to.eq("tooltip");
+    expect(widgetDef.label).toEqual("label");
+    expect(widgetDef.tooltip).toEqual("tooltip");
   });
 
   it("reactNode supports set and get", () => {
@@ -156,8 +156,8 @@ describe("WidgetDef", () => {
       widgetDef?.setWidgetState(WidgetState.Open);
       // __PUBLISH_EXTRACT_END__
 
-      expect(widgetDef?.state).to.eq(WidgetState.Open);
-      expect(widgetDef?.stateChanged).to.eq(true);
+      expect(widgetDef?.state).toEqual(WidgetState.Open);
+      expect(widgetDef?.stateChanged).toEqual(true);
     });
 
     it("should emit `UiFramework.frontstages.onWidgetStateChangedEvent`", async () => {

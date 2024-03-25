@@ -57,7 +57,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
         FrameworkAccuDraw.displayNotifications = false;
         expect(FrameworkAccuDraw.displayNotifications).to.be.false;
         FrameworkAccuDraw.displayNotifications = true;
-        expect(FrameworkAccuDraw.displayNotifications).to.be.true;
+        expect(FrameworkAccuDraw.displayNotifications).toEqual(true);
       });
 
       it("should call onCompassModeChange & emit onAccuDrawSetModeEvent & set conditionals", () => {
@@ -73,8 +73,8 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           ConditionalBooleanValue.getValue(
             FrameworkAccuDraw.isPolarModeConditional
           )
-        ).to.be.true;
-        spy.calledOnce.should.true;
+        ).toEqual(true);
+        expect(spy).toHaveBeenCalledOnce();
         spyMessage.calledOnce.should.true;
         spyMessage.resetHistory();
 
@@ -84,7 +84,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           ConditionalBooleanValue.getValue(
             FrameworkAccuDraw.isRectangularModeConditional
           )
-        ).to.be.true;
+        ).toEqual(true);
         spy.calledTwice.should.true;
         spyMessage.calledOnce.should.true;
         spyMessage.resetHistory();
@@ -102,19 +102,19 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
         const remove =
           FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener(spy);
         IModelApp.accuDraw.setFieldLock(ItemField.X_Item, true);
-        spy.calledOnce.should.true;
+        expect(spy).toHaveBeenCalledOnce();
         spy.resetHistory();
         IModelApp.accuDraw.setFieldLock(ItemField.Y_Item, true);
-        spy.calledOnce.should.true;
+        expect(spy).toHaveBeenCalledOnce();
         spy.resetHistory();
         IModelApp.accuDraw.setFieldLock(ItemField.Z_Item, true);
-        spy.calledOnce.should.true;
+        expect(spy).toHaveBeenCalledOnce();
         spy.resetHistory();
         IModelApp.accuDraw.setFieldLock(ItemField.ANGLE_Item, true);
-        spy.calledOnce.should.true;
+        expect(spy).toHaveBeenCalledOnce();
         spy.resetHistory();
         IModelApp.accuDraw.setFieldLock(ItemField.DIST_Item, true);
-        spy.calledOnce.should.true;
+        expect(spy).toHaveBeenCalledOnce();
         spy.resetHistory();
         remove();
       });
@@ -129,7 +129,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           ConditionalBooleanValue.getValue(
             FrameworkAccuDraw.isTopRotationConditional
           )
-        ).to.be.true;
+        ).toEqual(true);
         spyMessage.calledOnce.should.true;
         spyMessage.resetHistory();
         IModelApp.accuDraw.setRotationMode(RotationMode.Front);
@@ -138,7 +138,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           ConditionalBooleanValue.getValue(
             FrameworkAccuDraw.isFrontRotationConditional
           )
-        ).to.be.true;
+        ).toEqual(true);
         spyMessage.calledOnce.should.true;
         spyMessage.resetHistory();
         IModelApp.accuDraw.setRotationMode(RotationMode.Side);
@@ -147,7 +147,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           ConditionalBooleanValue.getValue(
             FrameworkAccuDraw.isSideRotationConditional
           )
-        ).to.be.true;
+        ).toEqual(true);
         spyMessage.calledOnce.should.true;
         spyMessage.resetHistory();
         IModelApp.accuDraw.setRotationMode(RotationMode.View);
@@ -156,7 +156,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           ConditionalBooleanValue.getValue(
             FrameworkAccuDraw.isViewRotationConditional
           )
-        ).to.be.true;
+        ).toEqual(true);
         spyMessage.calledOnce.should.true;
         spyMessage.resetHistory();
         IModelApp.accuDraw.setRotationMode(RotationMode.ACS);
@@ -165,7 +165,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           ConditionalBooleanValue.getValue(
             FrameworkAccuDraw.isACSRotationConditional
           )
-        ).to.be.true;
+        ).toEqual(true);
         spyMessage.calledOnce.should.true;
         spyMessage.resetHistory();
         IModelApp.accuDraw.setRotationMode(RotationMode.Context);
@@ -174,7 +174,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           ConditionalBooleanValue.getValue(
             FrameworkAccuDraw.isContextRotationConditional
           )
-        ).to.be.true;
+        ).toEqual(true);
         spyMessage.calledOnce.should.true;
         spyMessage.resetHistory();
 
@@ -190,7 +190,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
           FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(spy);
         IModelApp.accuDraw.setValueByIndex(ItemField.X_Item, 1.0);
         IModelApp.accuDraw.onFieldValueChange(ItemField.X_Item);
-        spy.calledOnce.should.true;
+        expect(spy).toHaveBeenCalledOnce();
         remove();
       });
 
@@ -199,7 +199,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
         const remove =
           FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
         IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
-        spy.calledOnce.should.true;
+        expect(spy).toHaveBeenCalledOnce();
         remove();
       });
 
@@ -208,7 +208,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
         const remove =
           FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(spy);
         IModelApp.accuDraw.grabInputFocus();
-        spy.calledOnce.should.true;
+        expect(spy).toHaveBeenCalledOnce();
         remove();
       });
 
@@ -250,7 +250,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       it("should save/retrieve displayNotifications to/from user storage", async () => {
         FrameworkAccuDraw.displayNotifications = true;
         await TestUtils.flushAsyncOperations();
-        expect(FrameworkAccuDraw.displayNotifications).to.be.true;
+        expect(FrameworkAccuDraw.displayNotifications).toEqual(true);
         FrameworkAccuDraw.displayNotifications = false;
         await TestUtils.flushAsyncOperations();
         expect(FrameworkAccuDraw.displayNotifications).to.be.false;

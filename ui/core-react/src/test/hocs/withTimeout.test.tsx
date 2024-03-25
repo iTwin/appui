@@ -3,23 +3,21 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, waitFor } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { withTimeout } from "../../core-react";
 
 describe("withTimeout", () => {
   const WithTimeoutDiv = withTimeout((props) => <div {...props} />);
 
   it("should start timer on mount", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(<WithTimeoutDiv timeout={100} onTimeout={spy} />);
 
     await waitFor(() => expect(spy).to.have.been.called);
   });
 
   it("should start timer on update", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const { rerender } = render(
       <WithTimeoutDiv timeout={100} onTimeout={spy} />
     );
@@ -32,7 +30,7 @@ describe("withTimeout", () => {
   });
 
   it("should ignore update if timer running", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const { rerender } = render(
       <WithTimeoutDiv timeout={100} onTimeout={spy} />
     );

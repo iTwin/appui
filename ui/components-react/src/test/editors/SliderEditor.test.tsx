@@ -77,7 +77,7 @@ describe("<SliderEditor />", () => {
 
     await theUserTo.click(screen.getByTestId("components-popup-ok-button"));
 
-    expect(spyOnCommit.calledOnce).to.be.true;
+    expect(spyOnCommit.calledOnce).toEqual(true);
   });
 
   it("calls onCancel on Cancel button click", async () => {
@@ -93,7 +93,7 @@ describe("<SliderEditor />", () => {
 
     await theUserTo.click(screen.getByTestId("components-popup-cancel-button"));
 
-    expect(spyOnCancel.calledOnce).to.be.true;
+    expect(spyOnCancel.calledOnce).toEqual(true);
   });
 
   it("calls onCommit on Enter key", async () => {
@@ -109,7 +109,7 @@ describe("<SliderEditor />", () => {
 
     await theUserTo.keyboard("{Enter}");
 
-    expect(spyOnCommit.calledOnce).to.be.true;
+    expect(spyOnCommit.calledOnce).toEqual(true);
   });
 
   it("calls onCancel on Escape key", async () => {
@@ -129,7 +129,7 @@ describe("<SliderEditor />", () => {
     // Close editor popup.
     await theUserTo.keyboard("{Escape}");
 
-    expect(spyOnCancel).to.be.calledOnce;
+    expect(spyOnCancel).toHaveBeenCalledOnce();
   });
 
   it("renders editor for 'number' type and 'slider' editor using SliderEditor", () => {
@@ -171,7 +171,7 @@ describe("<SliderEditor />", () => {
     await theUserTo.click(screen.getByRole("slider"));
     await theUserTo.click(screen.getByTestId("components-popup-ok-button"));
 
-    expect(spyOnCommit.calledOnce).to.be.true;
+    expect(spyOnCommit.calledOnce).toEqual(true);
   });
 
   it("should render Editor Params reversed track coloring", async () => {
@@ -321,9 +321,9 @@ describe("<SliderEditor />", () => {
     component.getByText("50.00");
 
     const slider = component.getByRole("slider");
-    expect(slider.getAttribute("aria-valuemin")).to.eq("1");
-    expect(slider.getAttribute("aria-valuemax")).to.eq("100");
-    expect(slider.getAttribute("aria-valuenow")).to.eq("50");
+    expect(slider.getAttribute("aria-valuemin")).toEqual("1");
+    expect(slider.getAttribute("aria-valuemax")).toEqual("100");
+    expect(slider.getAttribute("aria-valuenow")).toEqual("50");
 
     // Ticks
     const ticks = component
@@ -505,7 +505,7 @@ describe("<SliderEditor />", () => {
     const slider = component.getByRole("slider");
     fireEvent.keyDown(slider, { key: Key.ArrowRight });
 
-    expect(slider.getAttribute("aria-valuenow")).to.eq("55");
+    expect(slider.getAttribute("aria-valuenow")).toEqual("55");
   });
 
   it("should not commit if DataController fails to validate", async () => {
@@ -555,6 +555,6 @@ describe("<SliderEditor />", () => {
     popupButton.focus();
     const editor = findInstance(renderedComponent.container.firstChild);
     expect(editor).not.to.be.null;
-    expect(editor.hasFocus).to.be.true;
+    expect(editor.hasFocus).toEqual(true);
   });
 });

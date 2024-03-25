@@ -67,7 +67,7 @@ describe("<Backstage />", () => {
     const addEventListenerSpy = sinon.spy(document, "addEventListener");
 
     render(<Backstage />);
-    addEventListenerSpy.calledOnce.should.true;
+    addEventListenerexpect(spy).toHaveBeenCalledOnce();
   });
 
   it("should remove event listener", () => {
@@ -75,7 +75,7 @@ describe("<Backstage />", () => {
     const { unmount } = render(<Backstage />);
     unmount();
 
-    removeEventListenerSpy.calledOnce.should.true;
+    removeEventListenerexpect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle overlay click events", async () => {
@@ -83,7 +83,7 @@ describe("<Backstage />", () => {
     render(<Backstage onClose={spy} />);
 
     await theUserTo.click(screen.getByRole("presentation"));
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle escape key down close event", async () => {
@@ -91,7 +91,7 @@ describe("<Backstage />", () => {
     render(<Backstage isOpen onClose={spy} />);
 
     await theUserTo.keyboard("[Escape]");
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle other key down close event", async () => {
@@ -99,6 +99,6 @@ describe("<Backstage />", () => {
     render(<Backstage isOpen onClose={spy} />);
 
     await theUserTo.keyboard("[Enter]abcd");
-    spy.calledOnce.should.false;
+    expect(spy).not.toBeCalled();
   });
 });

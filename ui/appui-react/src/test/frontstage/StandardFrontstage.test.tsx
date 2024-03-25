@@ -163,7 +163,7 @@ describe("ContentGroupProvider", () => {
     expect(contentGroup.contentPropsList.length).to.eql(1);
     expect(
       contentGroup.contentPropsList[0].applicationData?.isInitialContentTestData
-    ).to.be.true;
+    ).toEqual(true);
 
     const savedContentGroupProps = provider.prepareToSaveProps(
       contentGroup.toJSON()
@@ -197,7 +197,7 @@ describe("ContentGroupProvider", () => {
     setImmediate(async () => {
       await TestUtils.flushAsyncOperations();
 
-      expect(UiFramework.frontstages.activeFrontstageId).to.eq(
+      expect(UiFramework.frontstages.activeFrontstageId).toEqual(
         standardFrontstageProvider.id
       );
     });
@@ -227,7 +227,7 @@ describe("ContentGroupProvider", () => {
     setImmediate(async () => {
       await TestUtils.flushAsyncOperations();
 
-      expect(UiFramework.frontstages.activeFrontstageId).to.eq(
+      expect(UiFramework.frontstages.activeFrontstageId).toEqual(
         standardFrontstageProvider.id
       );
     });
@@ -264,7 +264,7 @@ describe("ContentGroupProvider", () => {
     );
     setImmediate(async () => {
       await TestUtils.flushAsyncOperations();
-      expect(UiFramework.frontstages.activeFrontstageId).to.eq(
+      expect(UiFramework.frontstages.activeFrontstageId).toEqual(
         standardFrontstageProvider.id
       );
     });

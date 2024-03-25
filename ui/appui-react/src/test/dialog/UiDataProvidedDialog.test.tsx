@@ -177,7 +177,7 @@ describe("UiDataProvidedDialog", () => {
 
       const okButton = component.getByText("dialog.ok");
       fireEvent.click(okButton);
-      expect(okButton.parentElement?.getAttribute("aria-disabled")).to.eq(
+      expect(okButton.parentElement?.getAttribute("aria-disabled")).toEqual(
         "true"
       );
 
@@ -230,7 +230,7 @@ describe("UiDataProvidedDialog", () => {
 
       const okButton = component.getByText("dialog.ok");
       fireEvent.click(okButton);
-      expect(okButton.parentElement?.getAttribute("aria-disabled")).to.eq(
+      expect(okButton.parentElement?.getAttribute("aria-disabled")).toEqual(
         "true"
       );
 

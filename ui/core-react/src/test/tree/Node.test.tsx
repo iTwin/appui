@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { TreeNode as Node } from "../../core-react";
@@ -63,7 +61,7 @@ describe("<Node />", () => {
       screen
         .getByTestId("test-icon")
         .matches(".contents > .core-tree-node-icon > i")
-    ).to.be.true;
+    ).toEqual(true);
   });
 
   it("renders loader correctly", () => {
@@ -127,11 +125,13 @@ describe("<Node />", () => {
       <Node label="a" level={0} checkboxProps={{ state: CheckBoxState.On }} />
     );
 
-    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).to.be.true;
+    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toEqual(
+      true
+    );
   });
 
   it("renders checkbox using render override if specified", () => {
-    const ovr = sinon.stub().returns(<div data-testid="custom-checkbox" />);
+    const ovr = vi.fn().mockReturnValue(<div data-testid="custom-checkbox" />);
     render(
       <Node
         label="a"
@@ -140,20 +140,20 @@ describe("<Node />", () => {
         renderOverrides={{ renderCheckbox: ovr }}
       />
     );
-    ovr.should.be.calledWithMatch({ checked: true });
+    expect(ovr).toHaveBeenCalledWith({ checked: true });
     expect(screen.getByTestId("custom-checkbox")).to.exist;
   });
 
   it("should call onClick callback when node is clicked", async () => {
-    const callback = sinon.spy();
+    const callback = vi.fn();
     render(<Node label="a" level={0} onClick={callback} />);
 
     await theUserTo.click(screen.getByRole("treeitem"));
-    expect(callback).to.be.calledOnce;
+    expect(callback).toHaveBeenCalledOnce();
   });
 
   it("should call onClickExpansionToggle callback when expansion toggle is clicked", async () => {
-    const callback = sinon.spy();
+    const callback = vi.fn();
     render(
       <Node
         label="a"
@@ -164,19 +164,19 @@ describe("<Node />", () => {
     );
 
     await theUserTo.click(screen.getByTestId("a-expansion-toggle"));
-    expect(callback).to.be.calledOnce;
+    expect(callback).toHaveBeenCalledOnce();
   });
 
   it("should not call onClick callback when expansion toggle is clicked", async () => {
-    const callback = sinon.spy();
+    const callback = vi.fn();
     render(<Node label="a" level={0} onClick={callback} data-testid="a" />);
 
     await theUserTo.click(screen.getByTestId("a-expansion-toggle"));
-    expect(callback).to.not.be.called;
+    expect(callback).not.toBeCalled();
   });
 
   it("should call checkboxProps.onClick callback when checkbox state changes with On", async () => {
-    const callback = sinon.spy();
+    const callback = vi.fn();
     render(
       <Node
         label="a"
@@ -187,11 +187,11 @@ describe("<Node />", () => {
     );
 
     await theUserTo.click(screen.getByTestId("a-checkbox"));
-    expect(callback).to.be.calledOnceWith(CheckBoxState.Off);
+    expect(callback).toHaveBeenCalledWith(CheckBoxState.Off);
   });
 
   it("should call checkboxProps.onClick callback when checkbox state changes with Off", async () => {
-    const callback = sinon.spy();
+    const callback = vi.fn();
     render(
       <Node
         label="a"
@@ -202,11 +202,11 @@ describe("<Node />", () => {
     );
 
     await theUserTo.click(screen.getByTestId("a-checkbox"));
-    expect(callback).to.be.calledOnceWith(CheckBoxState.On);
+    expect(callback).toHaveBeenCalledWith(CheckBoxState.On);
   });
 
   it("should not call checkboxProps.onClick callback when checkbox is disabled", async () => {
-    const callback = sinon.spy();
+    const callback = vi.fn();
     render(
       <Node
         label="a"
@@ -217,11 +217,11 @@ describe("<Node />", () => {
     );
 
     await theUserTo.click(screen.getByTestId("a-checkbox"));
-    expect(callback).to.not.be.called;
+    expect(callback).not.toBeCalled();
   });
 
   it("does not call node onClick callback when checkbox is clicked", async () => {
-    const handleOnClick = sinon.fake();
+    const handleOnClick = vi.fn();
     render(
       <Node label="a" level={0} onClick={handleOnClick} checkboxProps={{}} />
     );
@@ -231,7 +231,7 @@ describe("<Node />", () => {
   });
 
   it("should still stop propagation with undefined handlers", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(
       <button onClick={spy}>
         <Node label="a" level={0} data-testid="a" />
@@ -251,10 +251,10 @@ describe("<Node />", () => {
   });
 
   it("should call onContextMenu callback when node is right-clicked", () => {
-    const callback = sinon.spy();
+    const callback = vi.fn();
     render(<Node label="a" level={0} onContextMenu={callback} />);
 
     fireEvent.contextMenu(screen.getByRole("treeitem"));
-    expect(callback).to.be.calledOnce;
+    expect(callback).toHaveBeenCalledOnce();
   });
 });

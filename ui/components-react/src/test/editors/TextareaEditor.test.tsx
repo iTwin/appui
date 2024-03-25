@@ -138,7 +138,7 @@ describe("<TextareaEditor />", () => {
     await theUserTo.click(screen.getByTestId("components-popup-button"));
     await theUserTo.click(screen.getByTestId("components-popup-ok-button"));
 
-    expect(spyOnCommit.calledOnce).to.be.true;
+    expect(spyOnCommit.calledOnce).toEqual(true);
   });
 
   it("calls onCancel on Cancel button click", async () => {
@@ -149,7 +149,7 @@ describe("<TextareaEditor />", () => {
     await theUserTo.click(screen.getByTestId("components-popup-button"));
     await theUserTo.click(screen.getByTestId("components-popup-cancel-button"));
 
-    expect(spyOnCancel.calledOnce).to.be.true;
+    expect(spyOnCancel.calledOnce).toEqual(true);
   });
 
   it("renders editor for 'text' type and 'multi=line' editor using TextareaEditor", () => {
@@ -204,6 +204,6 @@ describe("<TextareaEditor />", () => {
 
     fireEvent.keyDown(popupButton, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCancel.calledOnce).to.be.true;
+    expect(spyOnCancel.calledOnce).toEqual(true);
   });
 });

@@ -4,9 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { ExpansionToggle } from "../../core-react";
 import TestUtils, { classesFromElement } from "../TestUtils";
 
@@ -39,7 +37,7 @@ describe("<ExpansionToggle />", () => {
   });
 
   it("should handle click events", async () => {
-    const handler = sinon.spy();
+    const handler = vi.fn();
     render(<ExpansionToggle onClick={handler} />);
 
     await theUserTo.click(screen.getByRole("button"));

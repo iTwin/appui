@@ -36,7 +36,7 @@ describe("Item", () => {
     });
     expect(
       commandItem.id.substring(0, CommandItemDef.commandIdPrefix.length)
-    ).to.eq(CommandItemDef.commandIdPrefix);
+    ).toEqual(CommandItemDef.commandIdPrefix);
     commandItem.execute(); // Just for 'else' coverage
   });
 
@@ -45,33 +45,33 @@ describe("Item", () => {
       iconSpec: "icon-placeholder",
     });
     commandItem.setDescription("Hello");
-    expect(commandItem.description).to.eq("Hello");
+    expect(commandItem.description).toEqual("Hello");
     commandItem.setDescription(() => "World");
-    expect(commandItem.description).to.eq("World");
+    expect(commandItem.description).toEqual("World");
   });
 
   it("CommandItemDef with getCommandArgs should call it on execute", () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const commandItem = new CommandItemDef({
       iconSpec: "icon-placeholder",
       execute: () => {},
-      getCommandArgs: () => spyMethod(),
+      getCommandArgs: () => spy(),
     });
     commandItem.execute();
-    expect(spyMethod).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("CommandItemDef with onItemExecuted should call it on execute", () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const commandItem = new CommandItemDef(
       {
         iconSpec: "icon-placeholder",
         execute: () => {},
       },
-      spyMethod
+      spy
     );
     commandItem.execute();
-    expect(spyMethod).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("ToolItemDef with no execute has no commandHandler", () => {
@@ -89,8 +89,8 @@ describe("Item", () => {
       isPressed: true,
       isActive: true,
     });
-    expect(toolItem.isPressed).to.be.true;
-    expect(toolItem.isActive).to.be.true;
+    expect(toolItem.isPressed).toEqual(true);
+    expect(toolItem.isActive).toEqual(true);
   });
 
   it("ToolItemDef helper function", () => {
@@ -144,10 +144,10 @@ describe("Item", () => {
 
     toolItem.execute();
 
-    const spyMethod = sinon.spy(IModelApp.tools, "run");
+    const spy = sinon.spy(IModelApp.tools, "run");
     toolItem.execute();
-    expect(TestImmediate.isValid).to.be.true;
-    spyMethod.calledOnceWithExactly("1");
+    expect(TestImmediate.isValid).toEqual(true);
+    spy.calledOnceWithExactly("1");
   });
 
   class TestItemDef extends ActionButtonItemDef {
@@ -166,7 +166,7 @@ describe("Item", () => {
     const testItem = new TestItemDef({
       iconSpec: "icon-placeholder",
     });
-    expect(testItem.getDimension(Orientation.Horizontal)).to.eq(
+    expect(testItem.getDimension(Orientation.Horizontal)).toEqual(
       ActionButtonItemDef.defaultButtonSize
     );
   });
@@ -176,7 +176,7 @@ describe("Item", () => {
       iconSpec: "icon-placeholder",
     });
     testItem.handleSizeKnown(new Size(200, 100));
-    expect(testItem.getDimension(Orientation.Horizontal)).to.eq(200);
-    expect(testItem.getDimension(Orientation.Vertical)).to.eq(100);
+    expect(testItem.getDimension(Orientation.Horizontal)).toEqual(200);
+    expect(testItem.getDimension(Orientation.Vertical)).toEqual(100);
   });
 });

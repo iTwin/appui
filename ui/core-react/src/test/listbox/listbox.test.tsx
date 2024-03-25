@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
 
 import { fireEvent, render } from "@testing-library/react";
@@ -63,12 +61,12 @@ describe("<ListBox />", () => {
     const selectedItems = listBox.container.querySelectorAll(
       "li[aria-selected='true']"
     );
-    expect(selectedItems.length).to.eq(0);
+    expect(selectedItems.length).toEqual(0);
 
     fireEvent.keyDown(listBoxElement!, { key: "ArrowDown" });
     const focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[0]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[0]);
   });
 
   it("honors aria-labelledby", () => {
@@ -94,9 +92,9 @@ describe("<ListBox />", () => {
     );
     const listBoxElement = listBoxDiv.container.querySelector("ul");
     expect(listBoxElement).not.to.be.null;
-    expect(listBoxElement!.id.length).to.eq(36);
+    expect(listBoxElement!.id.length).toEqual(36);
     const ariaLabeledBy = listBoxElement!.getAttribute("aria-labelledby");
-    expect(ariaLabeledBy).to.eq("aria-label-provider");
+    expect(ariaLabeledBy).toEqual("aria-label-provider");
   });
 
   it("aria-label overrides aria-labelledby", () => {
@@ -124,11 +122,11 @@ describe("<ListBox />", () => {
     // listBoxDiv.debug();
     const listBoxElement = listBoxDiv.container.querySelector("ul");
     expect(listBoxElement).not.to.be.null;
-    expect(listBoxElement!.id.length).to.eq(36);
+    expect(listBoxElement!.id.length).toEqual(36);
     const ariaLabeledBy = listBoxElement!.getAttribute("aria-labelledby");
     expect(ariaLabeledBy).to.be.null;
     const ariaLabel = listBoxElement!.getAttribute("aria-label");
-    expect(ariaLabel).to.eq("aria-explicit-label");
+    expect(ariaLabel).toEqual("aria-explicit-label");
   });
 
   it("renders without selected item or list id", () => {
@@ -149,9 +147,9 @@ describe("<ListBox />", () => {
     );
     const listBoxElement = listBox.container.querySelector("ul");
     expect(listBoxElement).not.to.be.null;
-    expect(listBoxElement!.id.length).to.eq(36);
+    expect(listBoxElement!.id.length).toEqual(36);
     const ariaLabel = listBoxElement!.getAttribute("aria-label");
-    expect(ariaLabel).to.eq("test-label");
+    expect(ariaLabel).toEqual("test-label");
   });
 
   it("renders with selected item", () => {
@@ -184,59 +182,59 @@ describe("<ListBox />", () => {
     const selectedItems = listBox.container.querySelectorAll(
       "li[aria-selected='true']"
     );
-    expect(selectedItems.length).to.eq(1);
+    expect(selectedItems.length).toEqual(1);
     const dataValue = selectedItems[0].getAttribute("data-value");
-    expect(dataValue).to.eq(listItems[1]);
+    expect(dataValue).toEqual(listItems[1]);
 
     fireEvent.keyDown(listBoxElement!, { key: "ArrowUp" });
     let focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[0]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[0]);
 
     fireEvent.keyDown(listBoxElement!, { key: "ArrowDown" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[1]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[1]);
 
     fireEvent.keyDown(listBoxElement!, { key: "ArrowDown" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[2]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[2]);
 
     // set list box selection using space key
     fireEvent.keyDown(listBoxElement!, { key: " " });
     // ensure list box value is set to match
-    expect(listBoxElement!.getAttribute("data-value")).to.eq(listItems[2]);
+    expect(listBoxElement!.getAttribute("data-value")).toEqual(listItems[2]);
 
     fireEvent.keyDown(listBoxElement!, { key: "End" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[8]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[8]);
 
     fireEvent.keyDown(listBoxElement!, { key: "ArrowDown" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[8]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[8]);
 
     fireEvent.keyDown(listBoxElement!, { key: "PageDown" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[8]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[8]);
 
     fireEvent.keyDown(listBoxElement!, { key: "Home" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[0]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[0]);
 
     fireEvent.keyDown(listBoxElement!, { key: "ArrowUp" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[0]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[0]);
 
     fireEvent.keyDown(listBoxElement!, { key: "PageUp" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[0]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[0]);
   });
 
   it("renders and processed key navigation with disabled items", () => {
@@ -270,63 +268,63 @@ describe("<ListBox />", () => {
     const selectedItems = listBox.container.querySelectorAll(
       "li[aria-selected='true']"
     );
-    expect(selectedItems.length).to.eq(1);
+    expect(selectedItems.length).toEqual(1);
     const dataValue = selectedItems[0].getAttribute("data-value");
-    expect(dataValue).to.eq(listItems[1]);
+    expect(dataValue).toEqual(listItems[1]);
     expect(selectedItems[0].className.indexOf("focused")).not.to.eq(-1);
 
     fireEvent.keyDown(listBoxElement!, { key: "ArrowDown" });
     let focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[3]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[3]);
 
     fireEvent.keyDown(listBoxElement!, { key: "ArrowDown" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[5]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[5]);
 
     // set list box selection using space key
     fireEvent.keyDown(listBoxElement!, { key: " " });
     // ensure list box value is set to match
-    expect(listBoxElement!.getAttribute("data-value")).to.eq(listItems[5]);
+    expect(listBoxElement!.getAttribute("data-value")).toEqual(listItems[5]);
 
     fireEvent.keyDown(listBoxElement!, { key: "End" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[7]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[7]);
 
     fireEvent.keyDown(listBoxElement!, { key: "ArrowDown" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[7]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[7]);
 
     fireEvent.keyDown(listBoxElement!, { key: "PageDown" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[7]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[7]);
 
     fireEvent.keyDown(listBoxElement!, { key: "Home" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[1]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[1]);
 
     fireEvent.keyDown(listBoxElement!, { key: "ArrowUp" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[1]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[1]);
 
     fireEvent.keyDown(listBoxElement!, { key: "PageUp" });
     focusedItem = listBox.container.querySelector("li.focused");
     expect(focusedItem).not.to.null;
-    expect(focusedItem!.getAttribute("data-value")).to.eq(listItems[1]);
+    expect(focusedItem!.getAttribute("data-value")).toEqual(listItems[1]);
   });
 
   it("handles key processing", () => {
-    const spyOnKeyboard = sinon.spy();
+    const spyOnKeyboard = vi.fn();
     let onListboxValueChangeCalled = false;
 
     const onListboxValueChange = (newValue: ListboxValue) => {
-      expect(newValue).to.eq(listItems[2]);
+      expect(newValue).toEqual(listItems[2]);
       onListboxValueChangeCalled = true;
     };
 
@@ -362,7 +360,7 @@ describe("<ListBox />", () => {
     // hitting spacebar below should trigger onListboxValueChange
     expect(onListboxValueChangeCalled).to.be.false;
     fireEvent.keyDown(listBoxElement!, { key: " " });
-    expect(onListboxValueChangeCalled).to.be.true;
+    expect(onListboxValueChangeCalled).toEqual(true);
     expect(spyOnKeyboard.notCalled);
     spyOnKeyboard.resetHistory();
 
@@ -376,7 +374,7 @@ describe("<ListBox />", () => {
   });
 
   it("handles click processing", () => {
-    const onListboxValueChangeSpy = sinon.spy();
+    const onListboxValueChangeSpy = vi.fn();
 
     const listBox = render(
       <Listbox
@@ -411,7 +409,7 @@ describe("<ListBox />", () => {
     fireEvent.click(listItemElement!);
     expect(onListboxValueChangeSpy.calledOnce);
     // ensure list box value is set to match
-    expect(listBoxElement!.getAttribute("data-value")).to.eq(listItems[5]);
+    expect(listBoxElement!.getAttribute("data-value")).toEqual(listItems[5]);
   });
 
   it("renders with selected item/re-render empty selection", () => {
@@ -444,9 +442,9 @@ describe("<ListBox />", () => {
     let selectedItems = listBox.container.querySelectorAll(
       "li[aria-selected='true']"
     );
-    expect(selectedItems.length).to.eq(1);
+    expect(selectedItems.length).toEqual(1);
     let dataValue = selectedItems[0].getAttribute("data-value");
-    expect(dataValue).to.eq(listItems[1]);
+    expect(dataValue).toEqual(listItems[1]);
 
     // re-render with a different selected value
     listBox.rerender(
@@ -472,9 +470,9 @@ describe("<ListBox />", () => {
     selectedItems = listBox.container.querySelectorAll(
       "li[aria-selected='true']"
     );
-    expect(selectedItems.length).to.eq(1);
+    expect(selectedItems.length).toEqual(1);
     dataValue = selectedItems[0].getAttribute("data-value");
-    expect(dataValue).to.eq(listItems[2]);
+    expect(dataValue).toEqual(listItems[2]);
 
     // re-render with no selected value
     listBox.rerender(
@@ -500,6 +498,6 @@ describe("<ListBox />", () => {
     selectedItems = listBox.container.querySelectorAll(
       "li[aria-selected='true']"
     );
-    expect(selectedItems.length).to.eq(0);
+    expect(selectedItems.length).toEqual(0);
   });
 });

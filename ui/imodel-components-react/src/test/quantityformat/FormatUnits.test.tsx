@@ -53,7 +53,7 @@ describe("FormatUnits", () => {
     const unitsProvider = IModelApp.quantityFormatter.unitsProvider;
     const pu = await unitsProvider.findUnitByName("Units.M");
 
-    const spy: ComponentSpy<typeof FormatUnits, "onUnitsChange"> = sinon.stub();
+    const spy: ComponentSpy<typeof FormatUnits, "onUnitsChange"> = vi.fn();
     const component = render(
       <FormatUnits
         initialFormat={numericFormatProps}
@@ -73,10 +73,10 @@ describe("FormatUnits", () => {
     fireEvent.click(within(menu).getByRole("option", { name: "IN" }));
     await waitForPosition();
 
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     const format = spy.firstCall.args[0];
     expect(format.composite).not.to.be.undefined;
-    expect(format.composite?.units[0].name).to.eq("Units.IN");
+    expect(format.composite?.units[0].name).toEqual("Units.IN");
   });
 
   it("should render (composite format without label or composite spacer)", async () => {
@@ -93,7 +93,7 @@ describe("FormatUnits", () => {
     const unitsProvider = IModelApp.quantityFormatter.unitsProvider;
     const pu = await unitsProvider.findUnitByName("Units.M");
 
-    const spy: ComponentSpy<typeof FormatUnits, "onUnitsChange"> = sinon.stub();
+    const spy: ComponentSpy<typeof FormatUnits, "onUnitsChange"> = vi.fn();
     const component = render(
       <FormatUnits
         initialFormat={compositeFormatProps}
@@ -112,7 +112,7 @@ describe("FormatUnits", () => {
     const menu = component.getByRole("listbox");
     fireEvent.click(within(menu).getByRole("option", { name: "Remove" }));
 
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     const format = spy.firstCall.args[0];
     expect(format.composite).not.to.be.undefined;
     expect(format.composite?.units[0].name).to.eql("Units.FT");

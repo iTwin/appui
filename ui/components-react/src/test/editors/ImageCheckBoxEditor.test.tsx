@@ -36,7 +36,9 @@ describe("<ImageCheckBoxEditor />", () => {
     const record = TestUtils.createImageCheckBoxProperty("Test", true);
     render(<ImageCheckBoxEditor propertyRecord={record} />);
 
-    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).to.be.true;
+    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toEqual(
+      true
+    );
   });
 
   it("isDisabled is set by the property record", async () => {
@@ -44,7 +46,9 @@ describe("<ImageCheckBoxEditor />", () => {
     record.isDisabled = true;
     render(<ImageCheckBoxEditor propertyRecord={record} />);
 
-    expect(screen.getByRole<HTMLInputElement>("checkbox").disabled).to.be.true;
+    expect(screen.getByRole<HTMLInputElement>("checkbox").disabled).toEqual(
+      true
+    );
   });
 
   it("toggling the checkbox should updates boolean value", async () => {
@@ -76,7 +80,7 @@ describe("<ImageCheckBoxEditor />", () => {
 
     await theUserTo.click(screen.getByRole("checkbox"));
 
-    expect(spyOnCommit).to.have.been.calledWith(
+    expect(spyOnCommit).toHaveBeenCalledWith(
       sinon.match({ newValue: sinon.match({ value: true }) })
     );
   });
@@ -90,7 +94,9 @@ describe("<ImageCheckBoxEditor />", () => {
 
     const newRecord = TestUtils.createImageCheckBoxProperty("Test", true);
     rerender(<ImageCheckBoxEditor propertyRecord={newRecord} />);
-    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).to.be.true;
+    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toEqual(
+      true
+    );
   });
 
   it("should not commit if DataController fails to validate", async () => {
@@ -117,7 +123,7 @@ describe("<ImageCheckBoxEditor />", () => {
 
     fireEvent.keyDown(inputNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCancel.calledOnce).to.be.true;
+    expect(spyOnCancel.calledOnce).toEqual(true);
 
     PropertyEditorManager.deregisterDataController("myData");
   });

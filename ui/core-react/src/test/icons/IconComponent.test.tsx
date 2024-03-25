@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { render, waitFor } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
 import { ConditionalIconItem } from "../../core-react/icons/ConditionalIconItem";
 import type { IconSpec } from "../../core-react/icons/IconComponent";
@@ -32,7 +31,7 @@ describe("IconComponent", () => {
     const { container } = render(<Icon iconSpec={spec} />);
     const iconContainer = container.querySelector(".core-svg-icon");
     expect(iconContainer).not.to.be.null;
-    expect(iconContainer?.childElementCount).to.eq(0);
+    expect(iconContainer?.childElementCount).toEqual(0);
   });
 
   it("should render correctly with icon class string", () => {

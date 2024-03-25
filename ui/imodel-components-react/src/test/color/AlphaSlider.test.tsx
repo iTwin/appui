@@ -76,14 +76,14 @@ describe("<AlphaSlider />", () => {
 
     keys.forEach((keyName) => {
       fireEvent.keyDown(sliderDiv, { key: keyName });
-      expect(spyOnPick.calledOnce).to.be.true;
+      expect(spyOnPick.calledOnce).toEqual(true);
       spyOnPick.resetHistory();
       index = index + 1;
     });
 
     keys.forEach((keyName) => {
       fireEvent.keyDown(sliderDiv, { key: keyName, ctrlKey: true });
-      expect(spyOnPick.calledOnce).to.be.true;
+      expect(spyOnPick.calledOnce).toEqual(true);
       spyOnPick.resetHistory();
       index = index + 1;
     });
@@ -126,7 +126,7 @@ describe("<AlphaSlider />", () => {
 
     keys.forEach((keyName) => {
       fireEvent.keyDown(sliderDiv, { key: keyName });
-      expect(spyOnPick.calledOnce).to.be.true;
+      expect(spyOnPick.calledOnce).toEqual(true);
       spyOnPick.resetHistory();
       index = index + 1;
     });

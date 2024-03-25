@@ -83,13 +83,13 @@ describe("ModalSettingsStage", () => {
     const wrapper = render(renderModalFrontstage(true));
     expect(
       wrapper.container.querySelectorAll("div.uifw-modal-frontstage").length
-    ).to.eq(1);
+    ).toEqual(1);
 
     const centeredDiv = wrapper.container.querySelectorAll(
       "div.uicore-centered"
     );
-    expect(centeredDiv.length).to.eq(1);
-    expect(centeredDiv[0].textContent).to.eq("settings.noSettingsAvailable");
+    expect(centeredDiv.length).toEqual(1);
+    expect(centeredDiv[0].textContent).toEqual("settings.noSettingsAvailable");
 
     UiFramework.frontstages.closeModalFrontstage();
     wrapper.unmount();
@@ -187,25 +187,25 @@ describe("ModalSettingsStage", () => {
 
     expect(
       wrapper.container.querySelectorAll("div.uifw-modal-frontstage").length
-    ).to.eq(1);
+    ).toEqual(1);
     const liPage1 = wrapper.container.querySelector(
       `li[data-for='page1']`
     ) as HTMLLIElement;
-    expect(liPage1.classList.contains("core-active")).to.be.true;
+    expect(liPage1.classList.contains("core-active")).toEqual(true);
 
     SettingsModalFrontstage.showSettingsStage("page2");
     await TestUtils.flushAsyncOperations();
     const liPage2 = wrapper.container.querySelector(
       `li[data-for='page-2']`
     ) as HTMLLIElement;
-    expect(liPage2.classList.contains("core-active")).to.be.true;
+    expect(liPage2.classList.contains("core-active")).toEqual(true);
 
     SettingsModalFrontstage.showSettingsStage("page-3");
     const liPage3 = wrapper.container.querySelector(
       `li[data-for='page-3']`
     ) as HTMLLIElement;
     await waitFor(() => {
-      expect(liPage3.classList.contains("core-active")).to.be.true;
+      expect(liPage3.classList.contains("core-active")).toEqual(true);
     });
 
     settingsManager.removeSettingsProvider("AppSettingsProvider");
@@ -238,7 +238,7 @@ describe("ModalSettingsStage", () => {
       const liPage3 = wrapper.container.querySelector(
         `li[data-for='page-3']`
       ) as HTMLLIElement;
-      expect(liPage3.classList.contains("core-active")).to.be.true;
+      expect(liPage3.classList.contains("core-active")).toEqual(true);
     });
 
     settingsManager.removeSettingsProvider("AppSettingsProvider");
@@ -269,7 +269,7 @@ describe("ModalSettingsStage", () => {
       const liPage2 = wrapper.container.querySelector(
         `li[data-for='page-2']`
       ) as HTMLLIElement;
-      expect(liPage2.classList.contains("core-active")).to.be.true;
+      expect(liPage2.classList.contains("core-active")).toEqual(true);
     });
 
     settingsManager.removeSettingsProvider("AppSettingsProvider");

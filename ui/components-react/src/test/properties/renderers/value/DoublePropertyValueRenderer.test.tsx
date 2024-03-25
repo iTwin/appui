@@ -115,7 +115,7 @@ describe("DoublePropertyValueRenderer", () => {
     it("returns true for a double property", () => {
       const renderer = new DoublePropertyValueRenderer();
       const property = createDoubleProperty(0.45);
-      expect(renderer.canRender(property)).to.be.true;
+      expect(renderer.canRender(property)).toEqual(true);
     });
 
     it("returns false for properties that are not double", () => {

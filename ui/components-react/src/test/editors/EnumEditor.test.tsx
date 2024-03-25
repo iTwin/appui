@@ -47,7 +47,7 @@ describe("<EnumEditor />", () => {
       screen.getByTestId("components-select-editor").firstElementChild!
     );
     await theUserTo.click(screen.getByRole("option", { name: "Green" }));
-    expect(spyOnCommit.calledOnce).to.be.true;
+    expect(spyOnCommit.calledOnce).toEqual(true);
   });
 
   it("HTML select onChange updates numeric value", async () => {
@@ -58,7 +58,7 @@ describe("<EnumEditor />", () => {
       screen.getByTestId("components-select-editor").firstElementChild!
     );
     await theUserTo.click(screen.getByRole("option", { name: "Green" }));
-    expect(spyOnCommit.calledOnce).to.be.true;
+    expect(spyOnCommit.calledOnce).toEqual(true);
   });
 
   it("onCommit should not be called for escape", async () => {
@@ -120,7 +120,7 @@ describe("<EnumEditor />", () => {
 
     fireEvent.keyDown(selectNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCancel.called).to.be.true;
+    expect(spyOnCancel.called).toEqual(true);
 
     PropertyEditorManager.deregisterDataController("myData");
   });
@@ -144,6 +144,6 @@ describe("<EnumEditor />", () => {
 
     fireEvent.keyDown(selectNode, { key: Key.PageDown });
     await TestUtils.flushAsyncOperations();
-    expect(spyParent.called).to.be.true;
+    expect(spyParent.called).toEqual(true);
   });
 });

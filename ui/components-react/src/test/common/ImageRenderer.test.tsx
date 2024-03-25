@@ -58,7 +58,7 @@ describe("ImageRenderer", () => {
       const imageRender = render(<>{image}</>);
 
       await waitFor(() => {
-        expect(imageRender.container.innerHTML).to.eq(renderedSvg);
+        expect(imageRender.container.innerHTML).toEqual(renderedSvg);
       });
 
       // render a second time to see if it produces identical value

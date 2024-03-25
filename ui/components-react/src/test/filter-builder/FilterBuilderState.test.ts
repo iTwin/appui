@@ -70,7 +70,7 @@ describe("usePropertyFilterBuilder", () => {
     expect(
       rootGroup.items[0].groupId === rootGroup.items[1].groupId &&
         rootGroup.items[0].groupId === rootGroup.id
-    ).to.be.true;
+    ).toEqual(true);
   });
 
   it("adds rule to nested group", async () => {
@@ -1025,7 +1025,7 @@ describe("usePropertyFilterBuilder", () => {
 
       const { rootGroup } = result.current;
       const group = rootGroup.items[0];
-      expect(isPropertyFilterBuilderRuleGroup(group)).to.be.true;
+      expect(isPropertyFilterBuilderRuleGroup(group)).toEqual(true);
       expect((group as PropertyFilterBuilderRuleGroup).items.length).to.be.eq(
         2
       );
@@ -1065,7 +1065,7 @@ describe("usePropertyFilterBuilder", () => {
 
       const { rootGroup } = result.current;
       const group = rootGroup.items[0];
-      expect(isPropertyFilterBuilderRuleGroup(group)).to.be.true;
+      expect(isPropertyFilterBuilderRuleGroup(group)).toEqual(true);
       expect((group as PropertyFilterBuilderRuleGroup).items.length).to.be.eq(
         2
       );
@@ -1109,7 +1109,7 @@ describe("usePropertyFilterBuilder", () => {
 
       const { rootGroup } = result.current;
       const group = rootGroup.items[0];
-      expect(isPropertyFilterBuilderRuleGroup(group)).to.be.true;
+      expect(isPropertyFilterBuilderRuleGroup(group)).toEqual(true);
       expect((group as PropertyFilterBuilderRuleGroup).items.length).to.be.eq(
         3
       );

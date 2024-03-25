@@ -5,8 +5,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
-import * as sinon from "sinon";
-import { expect } from "chai";
 import { Orientation, Tabs, VerticalTabs } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 
@@ -37,7 +35,7 @@ describe("<Tabs />", () => {
   });
 
   it("onActivateTab triggers correctly", async () => {
-    const spyActivate = sinon.spy();
+    const spyActivate = vi.fn();
     render(
       <VerticalTabs
         labels={["label 1", "label 2"]}
@@ -58,7 +56,7 @@ describe("<Tabs />", () => {
     const label = screen.getByText("label 1");
     await theUserTo.type(label, "{home}");
     const first = getAllByRole("button")[0];
-    expect(document.activeElement).to.eq(first);
+    expect(document.activeElement).toEqual(first);
   });
 
   it("End key puts focus on last tab", async () => {
@@ -71,7 +69,7 @@ describe("<Tabs />", () => {
     const label = screen.getByText("label 1");
     await theUserTo.type(label, "{end}");
     const last = getAllByRole("button")[2];
-    expect(document.activeElement).to.eq(last);
+    expect(document.activeElement).toEqual(last);
   });
 
   ///
@@ -86,7 +84,7 @@ describe("<Tabs />", () => {
     const label = screen.getByText("label 2");
     await theUserTo.type(label, "{arrowup}");
     const previous = getAllByRole("button")[0];
-    expect(document.activeElement).to.eq(previous);
+    expect(document.activeElement).toEqual(previous);
   });
 
   it("Down key in Vertical puts focus on next tab", async () => {
@@ -99,7 +97,7 @@ describe("<Tabs />", () => {
     const label = screen.getByText("label 2");
     await theUserTo.type(label, "{arrowdown}");
     const nextTab = getAllByRole("button")[2];
-    expect(document.activeElement).to.eq(nextTab);
+    expect(document.activeElement).toEqual(nextTab);
   });
 
   ///
@@ -114,7 +112,7 @@ describe("<Tabs />", () => {
     const label = screen.getByText("label 1");
     await theUserTo.type(label, "{arrowup}");
     const last = getAllByRole("button")[2];
-    expect(document.activeElement).to.eq(last);
+    expect(document.activeElement).toEqual(last);
   });
 
   it("Down key in Vertical puts focus on first tab when on last", async () => {
@@ -127,7 +125,7 @@ describe("<Tabs />", () => {
     const label = screen.getByText("label 3");
     await theUserTo.type(label, "{arrowdown}");
     const first = getAllByRole("button")[0];
-    expect(document.activeElement).to.eq(first);
+    expect(document.activeElement).toEqual(first);
   });
 
   ///
@@ -151,7 +149,7 @@ describe("<Tabs />", () => {
   ///
 
   it("Enter key in activates tab", async () => {
-    const spyActivate = sinon.spy();
+    const spyActivate = vi.fn();
     render(
       <VerticalTabs
         labels={["label 1", "label 2", "label 3"]}
@@ -171,7 +169,7 @@ describe("<Tabs />", () => {
   });
 
   it("Space key in activates tab", async () => {
-    const spyActivate = sinon.spy();
+    const spyActivate = vi.fn();
     render(
       <VerticalTabs
         labels={["label 1", "label 2", "label 3"]}
@@ -203,11 +201,11 @@ describe("<Tabs />", () => {
     );
     container.focus();
     let tabButtons = getAllByRole("button");
-    expect(tabButtons.length).to.eq(3);
+    expect(tabButtons.length).toEqual(3);
     let label = screen.getByText("label 2");
     // verify they're vertical by using arrow up to change focus
     await theUserTo.type(label, "{arrowup}");
-    expect(document.activeElement).to.eq(tabButtons[0]);
+    expect(document.activeElement).toEqual(tabButtons[0]);
 
     rerender(
       <Tabs
@@ -218,12 +216,12 @@ describe("<Tabs />", () => {
       />
     );
     tabButtons = getAllByRole("button");
-    expect(tabButtons.length).to.eq(4);
+    expect(tabButtons.length).toEqual(4);
     label = screen.getByText("label 2");
     await theUserTo.type(label, "{enter}"); // focus in the tab
     await theUserTo.type(label, "{arrowup}");
     // arrow up does not change focus because they're horizontal
-    expect(document.activeElement).to.eq(tabButtons[1]);
+    expect(document.activeElement).toEqual(tabButtons[1]);
   });
 
   it("Supports updating activeIndex", async () => {
@@ -238,7 +236,7 @@ describe("<Tabs />", () => {
 
     const label = getByText("label 1");
     await theUserTo.type(label, "{home}");
-    expect(document.activeElement).to.eq(
+    expect(document.activeElement).toEqual(
       screen.getByRole("button", { name: "label 1" })
     );
 
@@ -250,7 +248,7 @@ describe("<Tabs />", () => {
         activeIndex={1}
       />
     );
-    expect(document.activeElement).to.eq(
+    expect(document.activeElement).toEqual(
       screen.getByRole("button", { name: "label 2" })
     );
 
@@ -261,7 +259,7 @@ describe("<Tabs />", () => {
         labels={["label 1", "label 2", "label 3"]}
       />
     );
-    expect(document.activeElement).to.eq(
+    expect(document.activeElement).toEqual(
       screen.getByRole("button", { name: "label 1" })
     );
 
@@ -273,7 +271,7 @@ describe("<Tabs />", () => {
         activeIndex={2}
       />
     );
-    expect(document.activeElement).to.eq(
+    expect(document.activeElement).toEqual(
       screen.getByRole("button", { name: "label 3" })
     );
 
@@ -285,7 +283,7 @@ describe("<Tabs />", () => {
         activeIndex={3}
       />
     );
-    expect(document.activeElement).to.eq(
+    expect(document.activeElement).toEqual(
       screen.getByRole("button", { name: "label 1" })
     );
   });

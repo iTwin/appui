@@ -114,7 +114,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         { ruleOperatorRenderer: spy }
       );
 
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 
@@ -157,7 +157,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       const valueContainer =
         container.querySelector<HTMLDivElement>(".fb-property-value");
       expect(valueContainer).to.not.be.null;
-      expect(valueContainer!.hasChildNodes()).to.be.true;
+      expect(valueContainer!.hasChildNodes()).toEqual(true);
     });
 
     it("renders operator using provided renderer", () => {
@@ -175,7 +175,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
         { ruleValueRenderer: spy }
       );
 
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("renders error message", () => {
@@ -267,7 +267,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     fireEvent.click(selector!);
 
     fireEvent.click(getByText(defaultProperty.displayLabel));
-    expect(setRulePropertySpy).to.be.calledOnceWith(
+    expect(setRulePropertySpy).toHaveBeenCalledWith(
       defaultProps.path,
       defaultProperty
     );
@@ -288,7 +288,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       { actions, properties: [] }
     );
 
-    expect(setRulePropertySpy).to.be.calledOnceWith(
+    expect(setRulePropertySpy).toHaveBeenCalledWith(
       defaultProps.path,
       undefined
     );
@@ -308,7 +308,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     fireEvent.click(selector!);
 
     fireEvent.click(getByText(defaultProperty.displayLabel));
-    expect(spy).to.be.calledOnceWith(defaultProperty);
+    expect(spy).toHaveBeenCalledWith(defaultProperty);
   });
 
   it("dispatches remove rule action", () => {
@@ -322,7 +322,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     const button = container.querySelector(".fb-toolbar")?.childNodes[1];
     expect(button).to.not.be.null;
     fireEvent.click(button!);
-    expect(removeItemSpy).to.be.calledOnceWith(defaultProps.path);
+    expect(removeItemSpy).toHaveBeenCalledWith(defaultProps.path);
   });
 
   it("dispatches operator change when operator is changed", () => {
@@ -342,13 +342,13 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     );
     const setRuleOperatorSpy = sinon.stub(actions, "setRuleOperator");
 
-    expect(operatorRendererSpy).to.be.calledOnce;
+    expect(operatorRendererSpy).toHaveBeenCalledOnce();
     const operatorRendererProps = operatorRendererSpy.firstCall
       .args[0] as PropertyFilterBuilderRuleOperatorProps;
     const newOperator = "is-not-null";
     operatorRendererProps.onChange(newOperator);
 
-    expect(setRuleOperatorSpy).to.be.calledOnceWith(
+    expect(setRuleOperatorSpy).toHaveBeenCalledWith(
       defaultProps.path,
       newOperator
     );
@@ -371,7 +371,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     );
     const setRuleValueSpy = sinon.stub(actions, "setRuleValue");
 
-    expect(valueRendererSpy).to.be.calledOnce;
+    expect(valueRendererSpy).toHaveBeenCalledOnce();
     const valueRendererProps = valueRendererSpy.firstCall
       .args[0] as PropertyFilterBuilderRuleValueProps;
     const newValue: PropertyValue = {
@@ -379,6 +379,6 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     };
     valueRendererProps.onChange(newValue);
 
-    expect(setRuleValueSpy).to.be.calledOnceWith(defaultProps.path, newValue);
+    expect(setRuleValueSpy).toHaveBeenCalledWith(defaultProps.path, newValue);
   });
 });

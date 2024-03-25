@@ -366,7 +366,7 @@ describe("ContentLayout", () => {
       target: screen.getByText("Test"),
       keys: "[MouseLeft>]",
     });
-    expect(UiFramework.content.isMouseDown).to.be.true;
+    expect(UiFramework.content.isMouseDown).toEqual(true);
     await theUserTo.pointer("[/MouseLeft]");
     expect(UiFramework.content.isMouseDown).to.be.false;
   });
@@ -495,16 +495,14 @@ describe("ContentLayout", () => {
   });
 
   it("UiFramework.content.layouts.setActiveLayout & refreshActiveLayout should emit onContentLayoutActivatedEvent", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const layoutProps: ContentLayoutProps = {
       id: "UiFramework:tests.singleContent",
       description: "UiFramework:tests.singleContent",
     };
     const contentLayout = new ContentLayoutDef(layoutProps);
     const remove =
-      UiFramework.frontstages.onContentLayoutActivatedEvent.addListener(
-        spyMethod
-      );
+      UiFramework.frontstages.onContentLayoutActivatedEvent.addListener(spy);
     render(
       <ContentLayout
         contentGroup={fourContentGroup}
@@ -522,10 +520,10 @@ describe("ContentLayout", () => {
       contentLayout,
       emptyContentGroup
     );
-    spyMethod.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
 
     UiFramework.content.layouts.refreshActive();
-    spyMethod.calledTwice.should.true;
+    spy.calledTwice.should.true;
 
     remove();
   });

@@ -259,14 +259,14 @@ describe("PropertyGridModelSource", () => {
 
       gridModelSource.onModelChanged.addListener(eventSpy);
       gridModelSource.setPropertyData(testData.before.propertyData);
-      expect(eventSpy.callCount).to.be.equal(1);
+      expect(eventSpy).toHaveBeenCalledTimes(1);
 
       gridModelSource.modifyModel((model) => {
         const itemToChange = model.getItem(testData.changedPropertyKey);
         itemToChange.isExpanded = !itemToChange.isExpanded;
       });
 
-      expect(eventSpy.callCount).to.be.equal(2);
+      expect(eventSpy).toHaveBeenCalledTimes(2);
     });
 
     it(`Should correctly map old state to new state: ${testData.before.testName}`, () => {

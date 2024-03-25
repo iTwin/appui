@@ -77,7 +77,7 @@ describe("DisplayValuePropertyDataFilterer", () => {
 
       filterer.filterText = faker.random.word();
 
-      expect(filterer.isActive).to.be.true;
+      expect(filterer.isActive).toEqual(true);
     });
 
     it("Should return false when given struct record", async () => {
@@ -228,27 +228,27 @@ describe("DisplayValuePropertyDataFilterer", () => {
 
     it("doesn't raise event when filter doesn't change", () => {
       filterer.filterText = "";
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
 
       filterer.filterText = "    ";
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
 
       filterer.filterText = "AAA";
       spy.resetHistory();
 
       filterer.filterText = "AAA";
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
 
       filterer.filterText = "aaa";
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
     });
 
     it("raises event when filter changes", () => {
       filterer.filterText = "a";
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
 
       filterer.filterText = "b";
-      expect(spy).to.be.calledTwice;
+      expect(spy).toHaveBeenCalledTimes(2);
     });
   });
 });

@@ -15,10 +15,10 @@ import {
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("ModalDialogManager", () => {
-  const spyMethod = sinon.spy();
+  const spy = sinon.spy();
 
   function handleModalDialogChanged(_args: DialogChangedEventArgs) {
-    spyMethod();
+    spy();
   }
 
   beforeEach(() => {
@@ -45,13 +45,13 @@ describe("ModalDialogManager", () => {
 
     render(<ModalDialogRenderer />);
 
-    expect(UiFramework.dialogs.modal.count).to.eq(0);
+    expect(UiFramework.dialogs.modal.count).toEqual(0);
     UiFramework.dialogs.modal.open(reactNode);
-    expect(UiFramework.dialogs.modal.count).to.eq(1);
+    expect(UiFramework.dialogs.modal.count).toEqual(1);
     expect(await screen.findByTestId("core-dialog-root")).to.exist;
 
     UiFramework.dialogs.modal.close();
-    expect(UiFramework.dialogs.modal.count).to.eq(0);
+    expect(UiFramework.dialogs.modal.count).toEqual(0);
     await waitFor(() => {
       expect(screen.queryByTestId("core-dialog-root")).to.be.null;
     });
@@ -77,28 +77,28 @@ describe("ModalDialogManager", () => {
 
     render(<ModalDialogRenderer />);
 
-    expect(UiFramework.dialogs.modal.count).to.eq(0);
+    expect(UiFramework.dialogs.modal.count).toEqual(0);
 
     UiFramework.dialogs.modal.open(reactNode);
-    expect(UiFramework.dialogs.modal.count).to.eq(1);
+    expect(UiFramework.dialogs.modal.count).toEqual(1);
     expect(await screen.findAllByTestId("core-dialog-root")).to.have.lengthOf(
       1
     );
 
     UiFramework.dialogs.modal.open(reactNode2);
-    expect(UiFramework.dialogs.modal.count).to.eq(2);
+    expect(UiFramework.dialogs.modal.count).toEqual(2);
     await waitFor(() => {
       expect(screen.getAllByTestId("core-dialog-root")).to.have.lengthOf(2);
     });
 
     UiFramework.dialogs.modal.close();
-    expect(UiFramework.dialogs.modal.count).to.eq(1);
+    expect(UiFramework.dialogs.modal.count).toEqual(1);
     await waitFor(() => {
       expect(screen.getAllByTestId("core-dialog-root")).to.have.lengthOf(1);
     });
 
     UiFramework.dialogs.modal.close();
-    expect(UiFramework.dialogs.modal.count).to.eq(0);
+    expect(UiFramework.dialogs.modal.count).toEqual(0);
     await waitFor(() => {
       expect(screen.queryAllByTestId("core-dialog-root")).to.have.lengthOf(0);
     });

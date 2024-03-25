@@ -13,7 +13,7 @@ describe("isPropertyFilterRuleGroup", () => {
         operator: "and",
         rules: [],
       })
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       isPropertyFilterRuleGroup({
         property: { name: "prop", displayLabel: "Prop", typename: "string" },

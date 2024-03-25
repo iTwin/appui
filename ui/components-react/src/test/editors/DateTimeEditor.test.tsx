@@ -224,7 +224,7 @@ describe("<DateTimeEditor />", () => {
     );
     fireEvent.click(okButton);
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit).to.be.calledOnce;
+    expect(spyOnCommit).toHaveBeenCalledOnce();
     fireEvent.click(popupButton);
   });
 
@@ -298,7 +298,7 @@ describe("<DateTimeEditor />", () => {
     );
     fireEvent.click(okButton);
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit).to.be.calledOnce;
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("renders editor for 'date' type - cancel", async () => {
@@ -389,6 +389,6 @@ describe("<DateTimeEditor />", () => {
     popupButton.focus();
     const editor = findInstance(renderedComponent.container.firstChild);
     expect(editor).not.to.be.null;
-    expect(editor.hasFocus).to.be.true;
+    expect(editor.hasFocus).toEqual(true);
   });
 });

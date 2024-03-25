@@ -33,7 +33,7 @@ describe("PropertyEditorManager", () => {
     expect(propertyEditor).to.not.be.null;
     if (propertyEditor) {
       expect(propertyEditor).to.be.instanceof(BasicPropertyEditor);
-      expect(React.isValidElement(propertyEditor.reactNode)).to.be.true;
+      expect(React.isValidElement(propertyEditor.reactNode)).toEqual(true);
     }
   });
 
@@ -240,12 +240,12 @@ describe("PropertyEditorManager", () => {
         createPropertyValue("newvalue"),
         createPropertyRecord("value")
       );
-      expect(validateResult.encounteredError).to.be.true;
+      expect(validateResult.encounteredError).toEqual(true);
       const commitResult = await propertyEditor.commitValue(
         createPropertyValue("newvalue"),
         createPropertyRecord("value")
       );
-      expect(commitResult.encounteredError).to.be.true;
+      expect(commitResult.encounteredError).toEqual(true);
     }
   });
 
@@ -302,7 +302,7 @@ describe("PropertyEditorManager", () => {
       propertyEditor.applyEditorParams(propertyDescription, propertyRecord);
       const iconParamsWorked = (propertyRecord as any)
         .iconParamsWorked as boolean;
-      expect(iconParamsWorked).to.be.true;
+      expect(iconParamsWorked).toEqual(true);
     }
   });
 });

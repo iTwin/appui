@@ -70,7 +70,7 @@ describe("MutableCustomGridCategory", () => {
         undefined,
         0
       );
-      expect(categoryItem.isRootCategory).to.be.true;
+      expect(categoryItem.isRootCategory).toEqual(true);
     });
 
     it("is `false` when not at depth 0", () => {

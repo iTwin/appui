@@ -145,7 +145,7 @@ describe("usePanelTarget", () => {
     );
 
     const element = document.createElement("div");
-    sinon.stub(document, "elementFromPoint").returns(element);
+    sinon.stub(document, "elementFromPoint").mockReturnValue(element);
     setRefValue(result.current[0], element);
 
     dragManager.handleDragStart(createDragStartArgs());
@@ -178,7 +178,7 @@ describe("useWidgetTarget", () => {
     );
 
     const element = document.createElement("div");
-    sinon.stub(document, "elementFromPoint").returns(element);
+    sinon.stub(document, "elementFromPoint").mockReturnValue(element);
     setRefValue(result.current[0], element);
 
     dragManager.handleDragStart(createDragStartArgs());

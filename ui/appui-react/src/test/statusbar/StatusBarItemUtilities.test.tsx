@@ -18,7 +18,7 @@ describe("StatusBarItemUtilities", () => {
         <div />,
         { id: newId }
       );
-      expect(item.id).to.eq(newId);
+      expect(item.id).toEqual(newId);
     });
 
     it("should support isVisible", () => {
@@ -36,7 +36,7 @@ describe("StatusBarItemUtilities", () => {
         <div />,
         { isHidden: true }
       );
-      expect(ConditionalBooleanValue.getValue(item2.isHidden)).to.be.true;
+      expect(ConditionalBooleanValue.getValue(item2.isHidden)).toEqual(true);
     });
   });
 });

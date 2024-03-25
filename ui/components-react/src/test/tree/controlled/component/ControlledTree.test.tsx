@@ -93,8 +93,10 @@ describe("ControlledTree", () => {
     treeModelMock
       .setup((x) => x.getRootNode())
       .returns(() => ({ id: undefined, depth: -1, numChildren: 1 }));
-    treeModelMock.setup((x) => x.getChildren(undefined)).returns(() => nodes);
-    treeModelMock.setup((x) => x.getNode(node.id)).returns(() => node);
+    treeModelMock
+      .setup((x) => x.getChildren(undefined))
+      .mockReturnValue(() => nodes);
+    treeModelMock.setup((x) => x.getNode(node.id)).mockReturnValue(() => node);
     treeModelMock
       .setup((x) => x.getChildOffset(undefined, node.id))
       .returns(() => 0);
@@ -199,7 +201,7 @@ describe("ControlledTree", () => {
 
     render(<ControlledTree {...defaultProps} treeRenderer={spy} />);
 
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("uses provided spinner renderer", () => {
@@ -212,7 +214,7 @@ describe("ControlledTree", () => {
 
     render(<ControlledTree {...defaultProps} spinnerRenderer={spy} />);
 
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("uses provided no data renderer", () => {
@@ -225,7 +227,7 @@ describe("ControlledTree", () => {
 
     render(<ControlledTree {...defaultProps} noDataRenderer={spy} />);
 
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("selects node", async () => {
@@ -244,7 +246,7 @@ describe("ControlledTree", () => {
     const treeNode = getByRole("treeitem");
     await user.click(treeNode);
 
-    expect(treeEvents.onSelectionReplaced).to.be.called;
+    expect(treeEvents.onSelectionReplaced).toHaveBeenCalled();
   });
 });
 

@@ -46,14 +46,14 @@ describe("CubeNavigationAid", () => {
 
   const connection = moq.Mock.ofType<IModelConnection>();
   const viewState = moq.Mock.ofType<DrawingViewState>();
-  viewState.setup((x) => x.id).returns(() => "id1");
+  viewState.setup((x) => x.id).mockReturnValue(() => "id1");
   viewState
     .setup((x) => x.classFullName)
     .returns(() => "Bis:DrawingViewDefinition");
-  viewState.setup((x) => x.getRotation).returns(() => () => rotation);
+  viewState.setup((x) => x.getRotation).mockReturnValue(() => () => rotation);
   const vp = moq.Mock.ofType<ScreenViewport>();
-  vp.setup((x) => x.view).returns(() => viewState.object);
-  vp.setup((x) => x.rotation).returns(() => rotation);
+  vp.setup((x) => x.view).mockReturnValue(() => viewState.object);
+  vp.setup((x) => x.rotation).mockReturnValue(() => rotation);
 
   const waitForSpy = async (
     spy: sinon.SinonSpy,
@@ -120,7 +120,7 @@ describe("CubeNavigationAid", () => {
           "toolAdmin",
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
-        const animationEnd = sinon.fake();
+        const animationEnd = vi.fn();
         const component = render(
           <CubeNavigationAid
             iModelConnection={connection.object}
@@ -159,7 +159,7 @@ describe("CubeNavigationAid", () => {
           "toolAdmin",
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
-        const animationEnd = sinon.fake();
+        const animationEnd = vi.fn();
         const component = render(
           <CubeNavigationAid
             iModelConnection={connection.object}
@@ -202,7 +202,7 @@ describe("CubeNavigationAid", () => {
           "toolAdmin",
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
-        const animationEnd = sinon.fake();
+        const animationEnd = vi.fn();
         const component = render(
           <CubeNavigationAid
             iModelConnection={connection.object}
@@ -246,7 +246,7 @@ describe("CubeNavigationAid", () => {
           "toolAdmin",
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
-        const animationEnd = sinon.fake();
+        const animationEnd = vi.fn();
         const component = render(
           <CubeNavigationAid
             iModelConnection={connection.object}
@@ -378,7 +378,7 @@ describe("CubeNavigationAid", () => {
           "toolAdmin",
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
-        const animationEnd = sinon.fake();
+        const animationEnd = vi.fn();
         const component = render(
           <CubeNavigationAid
             iModelConnection={connection.object}
@@ -441,7 +441,7 @@ describe("CubeNavigationAid", () => {
           "toolAdmin",
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
-        const animationEnd = sinon.fake();
+        const animationEnd = vi.fn();
         const component = render(
           <CubeNavigationAid
             iModelConnection={connection.object}
@@ -530,7 +530,7 @@ describe("CubeNavigationAid", () => {
           "toolAdmin",
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
-        const animationEnd = sinon.fake();
+        const animationEnd = vi.fn();
         const component = render(
           <CubeNavigationAid
             iModelConnection={connection.object}
@@ -796,7 +796,7 @@ describe("CubeNavigationAid", () => {
         const faceCell = component.getByTestId("nav-cube-face-cell-top-1-1-1");
         fireEvent.mouseDown(faceCell);
         fireEvent.mouseUp(faceCell);
-        expect(cellClick).to.be.called;
+        expect(cellClick).toHaveBeenCalled();
       });
 
       it("should be called when cell is touched", () => {
@@ -828,7 +828,7 @@ describe("CubeNavigationAid", () => {
             },
           ],
         });
-        expect(cellClick).to.be.called;
+        expect(cellClick).toHaveBeenCalled();
       });
     });
     describe("onFaceCellHoverChange", () => {

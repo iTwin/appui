@@ -174,7 +174,7 @@ describe("PrimitivePropertyValueRenderer", () => {
         "Label",
         "Test property"
       );
-      expect(renderer.canRender(stringProperty)).to.be.true;
+      expect(renderer.canRender(stringProperty)).toEqual(true);
     });
 
     it("returns false for array and struct property", () => {

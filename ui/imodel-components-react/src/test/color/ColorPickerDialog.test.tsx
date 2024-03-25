@@ -77,7 +77,7 @@ describe("ColorPickerDialog", () => {
       });
       expect(cancelButton).not.to.be.null;
       fireEvent.click(cancelButton);
-      expect(spyOnCancel).to.be.calledOnce;
+      expect(spyOnCancel).toHaveBeenCalledOnce();
     });
 
     it("should trigger onOkResult with initial color", () => {
@@ -102,7 +102,7 @@ describe("ColorPickerDialog", () => {
       });
       expect(okButton).not.to.be.null;
       fireEvent.click(okButton);
-      expect(spyOnOK).to.be.calledOnce;
+      expect(spyOnOK).toHaveBeenCalledOnce();
     });
 
     it("should trigger onOkResult with preset color (black)", () => {
@@ -144,7 +144,7 @@ describe("ColorPickerDialog", () => {
         name: "dialog.ok",
       });
       fireEvent.click(okButton);
-      expect(spyOnOK).to.be.calledOnce;
+      expect(spyOnOK).toHaveBeenCalledOnce();
     });
   });
 });

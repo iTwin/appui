@@ -51,7 +51,7 @@ describe("AccuDrawDialog", () => {
     component.baseElement.dispatchEvent(
       new KeyboardEvent("keyup", { key: Key.Escape })
     );
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
 
     (UiFramework.keyboardShortcuts.setFocusToHome as any).restore();
   });
@@ -64,6 +64,6 @@ describe("AccuDrawDialog", () => {
 
     const closeButton = component.getByRole("button", { name: "Close" });
     fireEvent.click(closeButton);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 });

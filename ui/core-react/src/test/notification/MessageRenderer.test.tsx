@@ -6,7 +6,6 @@ import * as React from "react";
 import { MessageRenderer } from "../../core-react/notification/MessageRenderer";
 import { UnderlinedButton } from "../../core-react/button/UnderlinedButton";
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 
 describe("MessageRenderer", () => {
   describe("Span", () => {

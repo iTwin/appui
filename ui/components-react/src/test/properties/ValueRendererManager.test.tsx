@@ -171,7 +171,7 @@ describe("PropertyValueRendererManager", () => {
       render(<>{value}</>);
       expect(screen.getByText(UiComponents.translate("property.varies"))).to
         .exist;
-      expect(fakeRenderer.render).to.not.be.called;
+      expect(fakeRenderer.render).not.toBeCalled();
     });
   });
 });

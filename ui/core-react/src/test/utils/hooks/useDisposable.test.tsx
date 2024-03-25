@@ -2,8 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
+import type { Mock } from "vitest";
 import type { IDisposable } from "@itwin/core-bentley";
 import { renderHook } from "@testing-library/react-hooks";
 import {
@@ -12,11 +11,11 @@ import {
 } from "../../../core-react/utils/hooks/useDisposable";
 
 describe("useDisposable", () => {
-  let disposeSpy: sinon.SinonSpy<any, any[]>;
+  let disposeSpy: Mock;
   let createDisposable: () => IDisposable;
 
   beforeEach(() => {
-    disposeSpy = sinon.spy();
+    disposeSpy = vi.fn();
     createDisposable = () => ({ dispose: disposeSpy });
   });
 
@@ -30,7 +29,7 @@ describe("useDisposable", () => {
     expect(result.current).to.not.be.undefined;
 
     unmount();
-    expect(disposeSpy).to.be.calledOnce;
+    expect(disposeSpy).toHaveBeenCalledOnce();
   });
 
   it("disposes old disposable when creating new one", () => {
@@ -43,22 +42,22 @@ describe("useDisposable", () => {
     expect(result.current).to.not.be.undefined;
 
     const oldDisposable = result.current;
-    const newDisposeSpy = sinon.spy();
+    const newDisposeSpy = vi.fn();
     const createNewDisposable = () => ({ dispose: newDisposeSpy });
     rerender({ createDisposable: createNewDisposable });
 
     expect(oldDisposable).to.not.be.eq(result.current);
-    expect(disposeSpy).to.be.calledOnce;
-    expect(newDisposeSpy).to.not.be.called;
+    expect(disposeSpy).toHaveBeenCalledOnce();
+    expect(newDisposeSpy).not.toBeCalled();
   });
 });
 
 describe("useOptionalDisposable", () => {
-  let disposeSpy: sinon.SinonSpy<any, any[]>;
+  let disposeSpy: Mock<any, any[]>;
   let createDisposable: () => IDisposable;
 
   beforeEach(() => {
-    disposeSpy = sinon.spy();
+    disposeSpy = vi.fn();
     createDisposable = () => ({ dispose: disposeSpy });
   });
 
@@ -71,7 +70,7 @@ describe("useOptionalDisposable", () => {
     expect(result.current).to.not.be.undefined;
 
     unmount();
-    expect(disposeSpy).to.be.calledOnce;
+    expect(disposeSpy).toHaveBeenCalledOnce();
   });
 
   it("disposes old disposable when creating new one", () => {
@@ -83,12 +82,12 @@ describe("useOptionalDisposable", () => {
     expect(result.current).to.not.be.undefined;
 
     const oldDisposable = result.current;
-    const newDisposeSpy = sinon.spy();
+    const newDisposeSpy = vi.fn();
     const createNewDisposable = () => ({ dispose: newDisposeSpy });
     rerender({ createDisposable: createNewDisposable });
 
     expect(oldDisposable).to.not.be.eq(result.current);
-    expect(disposeSpy).to.be.calledOnce;
-    expect(newDisposeSpy).to.not.be.called;
+    expect(disposeSpy).toHaveBeenCalledOnce();
+    expect(newDisposeSpy).not.toBeCalled();
   });
 });

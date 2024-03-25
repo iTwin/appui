@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import { ConditionalIconItem } from "../../core-react/icons/ConditionalIconItem";
 import type { IconSpec } from "../../core-react/icons/IconComponent";
 
@@ -27,7 +26,7 @@ describe("ConditionalIconItem", () => {
       defaultIconSpec
     );
     expect(sut.value).to.be.equal(defaultIconSpec);
-    expect(sut.refresh()).to.be.true;
+    expect(sut.refresh()).toEqual(true);
     expect(sut.value).to.be.equal(iconSpec1);
   });
 
@@ -75,7 +74,7 @@ describe("ConditionalIconItem", () => {
     expect(sut.value).to.be.equal(defaultIconSpec);
     expect(
       ConditionalIconItem.refreshValue(sut, new Set<string>(["sync-id-two"]))
-    ).to.be.true;
+    ).toEqual(true);
     expect(sut.value).to.be.equal(iconSpec1);
     expect(
       ConditionalIconItem.refreshValue(undefined, new Set<string>(["cat"]))
@@ -94,7 +93,7 @@ describe("ConditionalIconItem", () => {
     expect(sut.value).to.be.equal(defaultIconSpec);
     expect(
       ConditionalIconItem.refreshValue(sut, new Set<string>(["sync-id-three"]))
-    ).to.be.true;
+    ).toEqual(true);
     expect(sut.value).to.be.equal(iconSpec1);
     expect(
       ConditionalIconItem.refreshValue(undefined, new Set<string>(["cat"]))
@@ -108,7 +107,7 @@ describe("ConditionalIconItem", () => {
       defaultIconSpec
     );
 
-    expect(ConditionalIconItem.isConditionalIconItem(sut)).to.be.true;
+    expect(ConditionalIconItem.isConditionalIconItem(sut)).toEqual(true);
     expect(ConditionalIconItem.isConditionalIconItem("icon.svg")).to.be.false;
   });
 });

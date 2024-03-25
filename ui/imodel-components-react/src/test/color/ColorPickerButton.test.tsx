@@ -41,21 +41,21 @@ describe("<ColorPickerButton/>", () => {
     const button = renderedComponent.getByTestId(
       "components-colorpicker-button"
     );
-    expect(button.getAttribute("data-value")).to.eq("rgb(0,0,255)"); // blue
+    expect(button.getAttribute("data-value")).toEqual("rgb(0,0,255)"); // blue
 
     const newColorDef = ColorDef.create(ColorByName.red);
     renderedComponent.rerender(
       <ColorPickerButton initialColor={newColorDef} />
     );
     expect(renderedComponent).not.to.be.undefined;
-    expect(button.getAttribute("data-value")).to.eq("rgb(255,0,0)"); // red
+    expect(button.getAttribute("data-value")).toEqual("rgb(255,0,0)"); // red
 
     const colorDefWithAlpha = ColorDef.create(0x80ff0000);
     renderedComponent.rerender(
       <ColorPickerButton initialColor={colorDefWithAlpha} />
     );
     expect(renderedComponent).not.to.be.undefined;
-    expect(button.getAttribute("data-value")).to.eq("rgba(0,0,255,0.50)"); // blue with alpha
+    expect(button.getAttribute("data-value")).toEqual("rgba(0,0,255,0.50)"); // blue with alpha
   });
 
   it("round swatches with title should render", () => {
@@ -84,7 +84,7 @@ describe("<ColorPickerButton/>", () => {
     const button = renderedComponent.getByTestId(
       "components-colorpicker-button"
     );
-    expect(button.getAttribute("data-value")).to.eq("rgb(0,0,255)"); // blue
+    expect(button.getAttribute("data-value")).toEqual("rgb(0,0,255)"); // blue
     expect(renderedComponent.getByTestId("caret-down")).not.to.be.null;
     fireEvent.click(button);
     expect(renderedComponent.getByTestId("caret-up")).not.to.be.null;
@@ -101,8 +101,8 @@ describe("<ColorPickerButton/>", () => {
       expect(firstColorButton).not.to.be.undefined;
       fireEvent.click(firstColorButton);
 
-      expect(spyOnColorPick).to.be.calledOnce;
-      expect(button.getAttribute("data-value")).to.eq("rgb(255,0,0)"); // red
+      expect(spyOnColorPick).toHaveBeenCalledOnce();
+      expect(button.getAttribute("data-value")).toEqual("rgb(255,0,0)"); // red
     }
 
     // ensure update prop is handled
@@ -115,7 +115,7 @@ describe("<ColorPickerButton/>", () => {
         showCaret
       />
     );
-    expect(button.getAttribute("data-value")).to.eq("rgb(0,128,0)"); // green
+    expect(button.getAttribute("data-value")).toEqual("rgb(0,128,0)"); // green
   });
 
   it("readonly - button press should not open popup", async () => {

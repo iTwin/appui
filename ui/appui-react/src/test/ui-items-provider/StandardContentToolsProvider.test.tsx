@@ -173,7 +173,7 @@ describe("StandardContentToolsProvider", () => {
     const provider = StandardContentToolsProvider.register(
       testContentToolProviderId
     );
-    expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
     expect(
       UiItemsManager.getToolbarButtonItems(
         "test",
@@ -181,7 +181,7 @@ describe("StandardContentToolsProvider", () => {
         ToolbarUsage.ContentManipulation,
         ToolbarOrientation.Horizontal
       ).length
-    ).to.eq(5);
+    ).toEqual(5);
     expect(
       UiItemsManager.getToolbarButtonItems(
         "test",
@@ -189,7 +189,7 @@ describe("StandardContentToolsProvider", () => {
         ToolbarUsage.ContentManipulation,
         ToolbarOrientation.Vertical
       ).length
-    ).to.eq(3);
+    ).toEqual(3);
     provider.unregister();
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
   });
@@ -210,7 +210,7 @@ describe("StandardContentToolsProvider", () => {
         return "test" === stageId;
       }
     );
-    expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
     expect(
       UiItemsManager.getToolbarButtonItems(
         "test",
@@ -218,7 +218,7 @@ describe("StandardContentToolsProvider", () => {
         ToolbarUsage.ContentManipulation,
         ToolbarOrientation.Horizontal
       ).length
-    ).to.eq(5);
+    ).toEqual(5);
     expect(
       UiItemsManager.getToolbarButtonItems(
         "test",
@@ -226,7 +226,7 @@ describe("StandardContentToolsProvider", () => {
         ToolbarUsage.ContentManipulation,
         ToolbarOrientation.Vertical
       ).length
-    ).to.eq(3);
+    ).toEqual(3);
     provider.unregister();
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
   });
@@ -241,7 +241,7 @@ describe("StandardContentToolsProvider", () => {
         return "test" === stageId;
       }
     );
-    expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
     expect(
       UiItemsManager.getToolbarButtonItems(
         "test",
@@ -249,7 +249,7 @@ describe("StandardContentToolsProvider", () => {
         ToolbarUsage.ContentManipulation,
         ToolbarOrientation.Horizontal
       ).length
-    ).to.eq(0);
+    ).toEqual(0);
     expect(
       UiItemsManager.getToolbarButtonItems(
         "test",
@@ -257,7 +257,7 @@ describe("StandardContentToolsProvider", () => {
         ToolbarUsage.ContentManipulation,
         ToolbarOrientation.Vertical
       ).length
-    ).to.eq(3);
+    ).toEqual(3);
     provider.unregister();
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
   });
@@ -279,7 +279,7 @@ describe("StandardContentToolsProvider", () => {
         return "test" === stageId;
       }
     );
-    expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
     expect(
       UiItemsManager.getToolbarButtonItems(
         "test",
@@ -287,7 +287,7 @@ describe("StandardContentToolsProvider", () => {
         ToolbarUsage.ContentManipulation,
         ToolbarOrientation.Horizontal
       ).length
-    ).to.eq(5);
+    ).toEqual(5);
     expect(
       UiItemsManager.getToolbarButtonItems(
         "test",
@@ -295,7 +295,7 @@ describe("StandardContentToolsProvider", () => {
         ToolbarUsage.ContentManipulation,
         ToolbarOrientation.Vertical
       ).length
-    ).to.eq(0);
+    ).toEqual(0);
 
     provider.unregister();
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
@@ -319,7 +319,7 @@ describe("StandardContentToolsProvider", () => {
       }
     );
 
-    expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
 
     testAppDataPropsArray.forEach(
       (_testAppDataProps: DefaultContentToolsAppData) => {
@@ -330,7 +330,7 @@ describe("StandardContentToolsProvider", () => {
             ToolbarUsage.ContentManipulation,
             ToolbarOrientation.Horizontal
           ).length
-        ).to.eq(5);
+        ).toEqual(5);
         expect(
           UiItemsManager.getToolbarButtonItems(
             "test",
@@ -338,7 +338,7 @@ describe("StandardContentToolsProvider", () => {
             ToolbarUsage.ContentManipulation,
             ToolbarOrientation.Vertical
           ).length
-        ).to.eq(0);
+        ).toEqual(0);
       }
     );
 
@@ -354,7 +354,7 @@ describe("StandardContentToolsProvider", () => {
         return true;
       }
     );
-    expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
     UiItemsManager.getToolbarButtonItems(
       "test",
       StageUsage.General,
@@ -375,7 +375,7 @@ describe("StandardContentToolsProvider", () => {
         testContentToolProviderId,
         defaultTools
       );
-      expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+      expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
       UiItemsManager.getToolbarButtonItems(
         "test",
         StageUsage.General,

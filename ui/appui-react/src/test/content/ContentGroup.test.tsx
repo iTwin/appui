@@ -97,7 +97,7 @@ describe("ContentGroup", () => {
     const contentGroup = new ContentGroup(groupProps);
 
     const props = contentGroup.toJSON();
-    expect(props.contents[0].classId).to.eq(classId);
+    expect(props.contents[0].classId).toEqual(classId);
 
     UiFramework.controls.unregister(classId);
   });
@@ -115,7 +115,7 @@ describe("ContentGroup", () => {
     const contentGroup = new ContentGroup(groupProps);
 
     const props = contentGroup.toJSON();
-    expect(props.contents[0].classId).to.eq(classId);
+    expect(props.contents[0].classId).toEqual(classId);
 
     UiFramework.controls.unregister(classId);
   });
@@ -135,7 +135,7 @@ describe("ContentGroup", () => {
     const contentGroup = new ContentGroup(groupProps);
 
     const viewports = contentGroup.getViewports();
-    expect(viewports[0]).to.eq(undefined);
+    expect(viewports[0]).toEqual(undefined);
 
     UiFramework.controls.unregister("TestContentControl");
   });

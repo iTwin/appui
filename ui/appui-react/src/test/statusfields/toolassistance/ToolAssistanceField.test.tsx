@@ -425,7 +425,7 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard but keyboardInfo should log error", async () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spy = sinon.spy(Logger, "logError");
     render(
       <StatusBar>
         <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -442,12 +442,12 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      spy.called.should.true;
     });
   });
 
   it("ToolAssistanceImage.Keyboard with invalid keyboardInfo should log error", async () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spy = sinon.spy(Logger, "logError");
     render(
       <StatusBar>
         <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -464,7 +464,7 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      spy.called.should.true;
     });
   });
 
@@ -595,7 +595,7 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("invalid modifier key info along with image should log error", async () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spy = sinon.spy(Logger, "logError");
     render(
       <StatusBar>
         <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -614,7 +614,7 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      spy.called.should.true;
     });
   });
 
@@ -706,8 +706,8 @@ describe(`ToolAssistanceField`, () => {
       </StatusBar>
     );
 
-    const spyMethod = sinon.spy();
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spyMethod);
+    const spy = sinon.spy();
+    CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spy);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -719,12 +719,10 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      spy.called.should.true;
     });
 
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(
-      spyMethod
-    );
+    CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(spy);
   });
 
   it("cursorPrompt should open when tool icon changes", async () => {
@@ -737,15 +735,15 @@ describe(`ToolAssistanceField`, () => {
       </StatusBar>
     );
 
-    const spyMethod = sinon.spy();
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spyMethod);
+    const spy = sinon.spy();
+    CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spy);
 
     // emit before instructions set
     UiFramework.frontstages.onToolIconChangedEvent.emit({
       iconSpec: "icon-placeholder",
     });
 
-    spyMethod.called.should.false;
+    spy.called.should.false;
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -756,7 +754,7 @@ describe(`ToolAssistanceField`, () => {
     const instructions = ToolAssistance.createInstructions(mainInstruction);
     notifications.setToolAssistance(instructions);
 
-    spyMethod.resetHistory();
+    spy.resetHistory();
 
     // emit after instructions set
     UiFramework.frontstages.onToolIconChangedEvent.emit({
@@ -764,12 +762,10 @@ describe(`ToolAssistanceField`, () => {
     });
 
     await waitFor(() => {
-      spyMethod.called.should.true;
+      spy.called.should.true;
     });
 
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(
-      spyMethod
-    );
+    CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(spy);
   });
 
   it("mouse & touch instructions should generate tabs", async () => {

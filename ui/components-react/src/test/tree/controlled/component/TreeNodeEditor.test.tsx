@@ -36,7 +36,7 @@ describe("TreeNodeEditor", () => {
       fireEvent.keyDown(editorContainer, { key: "Enter", code: 13 });
     });
     await waitFor(() => {
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 
@@ -51,7 +51,7 @@ describe("TreeNodeEditor", () => {
       fireEvent.keyDown(editorContainer, { key: "Escape", code: 27 });
     });
     await waitFor(() => {
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 

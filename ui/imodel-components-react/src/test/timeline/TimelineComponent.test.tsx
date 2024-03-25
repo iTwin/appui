@@ -175,7 +175,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
 
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
     // await new Promise((r) => { setTimeout(r, 40); });
-    expect(dataProvider.playing).to.be.true;
+    expect(dataProvider.playing).toEqual(true);
 
     fireEvent.click(playButton);
     // Wait for animation.
@@ -186,7 +186,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
     // await new Promise((r) => { setTimeout(r, 40); });
     expect(dataProvider.playing).to.be.false;
-    expect(dataProvider.pointerCallbackCalled).to.be.true;
+    expect(dataProvider.pointerCallbackCalled).toEqual(true);
   });
 
   it("should show tooltip on pointer move", async () => {
@@ -254,7 +254,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     expect(dataProvider.pointerCallbackCalled).to.be.false;
 
     fireEvent.click(playButton);
-    expect(dataProvider.playing).to.be.true;
+    expect(dataProvider.playing).toEqual(true);
 
     // Wait for animation.
     fakeTimers.tick(1);
@@ -294,7 +294,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     expect(dataProvider.pointerCallbackCalled).to.be.false;
 
     fireEvent.click(playButton);
-    expect(dataProvider.playing).to.be.true;
+    expect(dataProvider.playing).toEqual(true);
 
     // Wait for animation.
     fakeTimers.tick(600);
@@ -303,7 +303,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
 
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
     // await new Promise((r) => { setTimeout(r, 40); });
-    expect(dataProvider.playing).to.be.true;
+    expect(dataProvider.playing).toEqual(true);
 
     fireEvent.click(playButton);
     expect(dataProvider.playing).to.be.false;
@@ -338,7 +338,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     expect(dataProvider.pointerCallbackCalled).to.be.false;
 
     fireEvent.click(playButton);
-    expect(dataProvider.playing).to.be.true;
+    expect(dataProvider.playing).toEqual(true);
 
     // Wait for animation.
     fakeTimers.tick(600);
@@ -347,7 +347,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
 
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
     // await new Promise((r) => { setTimeout(r, 40); });
-    expect(dataProvider.playing).to.be.true;
+    expect(dataProvider.playing).toEqual(true);
 
     fireEvent.click(playButton);
     expect(dataProvider.playing).to.be.false;
@@ -377,7 +377,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     expect(dataProvider.pointerCallbackCalled).to.be.false;
 
     fireEvent.click(playButton);
-    expect(dataProvider.playing).to.be.true;
+    expect(dataProvider.playing).toEqual(true);
 
     fakeTimers.tick(1);
     // Wait for animation.
@@ -416,7 +416,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     expect(repeatItem).not.to.be.null;
     fireEvent.click(repeatItem);
 
-    expect(dataProvider.settingsCallbackCalled).to.be.true;
+    expect(dataProvider.settingsCallbackCalled).toEqual(true);
 
     const durationInputField = renderedComponent.queryByTestId(
       "timeline-duration-edit-input"
@@ -532,20 +532,20 @@ describe("<TimelineComponent showDuration={true} />", () => {
       <TimelineComponent {...initialProps} />
     );
     rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
-    expect(spyOnPlayPause.calledOnce).to.be.true;
+    expect(spyOnPlayPause.calledOnce).toEqual(true);
     getByRole("button", { name: "timeline.pause" });
 
     rerender(<TimelineComponent {...initialProps} isPlaying={false} />);
-    expect(spyOnPlayPause.calledTwice).to.be.true;
+    expect(spyOnPlayPause.calledTwice).toEqual(true);
     getByRole("button", { name: "timeline.play" });
 
     rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
-    expect(spyOnPlayPause.calledThrice).to.be.true;
+    expect(spyOnPlayPause.calledThrice).toEqual(true);
     getByRole("button", { name: "timeline.pause" });
 
     // do nothing (already playing)
     rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
-    expect(spyOnPlayPause.calledThrice).to.be.true;
+    expect(spyOnPlayPause.calledThrice).toEqual(true);
     getByRole("button", { name: "timeline.pause" });
   });
 
@@ -577,10 +577,10 @@ describe("<TimelineComponent showDuration={true} />", () => {
     UiAdmin.sendUiEvent(args);
     args.timelineAction = TimelinePausePlayAction.Toggle;
     UiAdmin.sendUiEvent(args);
-    expect(spyOnPlayPause.calledThrice).to.be.true;
+    expect(spyOnPlayPause.calledThrice).toEqual(true);
     UiAdmin.sendUiEvent({ uiComponentId: "TestTimeline" });
     // onPlayPause should not be called again, since the args don't include an action
-    expect(spyOnPlayPause.calledThrice).to.be.true;
+    expect(spyOnPlayPause.calledThrice).toEqual(true);
   });
 
   it("re-render on repeat change", () => {
@@ -620,7 +620,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
         alwaysMinimized={false}
       />
     );
-    expect(dataProvider.getSettings().loop).to.be.true;
+    expect(dataProvider.getSettings().loop).toEqual(true);
   });
   it("test repeat button does not loop endlessly with external state variable", () => {
     const renderedComponent = render(<TestRepeatTimelineComponent />);

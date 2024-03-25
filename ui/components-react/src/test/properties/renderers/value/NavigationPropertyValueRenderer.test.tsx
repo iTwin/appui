@@ -115,7 +115,7 @@ describe("NavigationPropertyValueRenderer", () => {
         "Category",
         instanceKey
       );
-      expect(renderer.canRender(property)).to.be.true;
+      expect(renderer.canRender(property)).toEqual(true);
     });
 
     it("returns false for properties that are not navigation", () => {

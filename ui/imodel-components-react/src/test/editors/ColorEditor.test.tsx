@@ -74,7 +74,7 @@ describe("<ColorEditor />", () => {
 
       // wait for async processing done in ColorEditor._onColorPick method
       await TestUtils.flushAsyncOperations();
-      expect(spyOnCommit).to.be.calledOnce;
+      expect(spyOnCommit).toHaveBeenCalledOnce();
     }
   });
 

@@ -26,11 +26,11 @@ describe("MenuItem", () => {
       },
     });
 
-    expect(menuItem.id).to.eq("test");
-    expect(menuItem.label).to.eq("test label");
-    expect(menuItem.iconSpec).to.eq("icon-placeholder");
+    expect(menuItem.id).toEqual("test");
+    expect(menuItem.label).toEqual("test label");
+    expect(menuItem.iconSpec).toEqual("icon-placeholder");
     expect(menuItem.actionItem).to.not.be.undefined;
-    expect(menuItem.submenu.length).to.eq(0);
+    expect(menuItem.submenu.length).toEqual(0);
   });
 
   it("should handle label & icon correctly", () => {
@@ -42,10 +42,10 @@ describe("MenuItem", () => {
       item: { label: "wrong label", icon: "wrong icon", execute: () => {} },
     });
 
-    expect(menuItem.id).to.eq("test");
-    expect(menuItem.label).to.eq("test label");
-    expect(menuItem.iconSpec).to.eq("icon-placeholder");
-    expect(menuItem.iconRightSpec).to.eq("icon-checkmark");
+    expect(menuItem.id).toEqual("test");
+    expect(menuItem.label).toEqual("test label");
+    expect(menuItem.iconSpec).toEqual("icon-placeholder");
+    expect(menuItem.iconRightSpec).toEqual("icon-checkmark");
   });
 
   it("should create a valid submenu", () => {
@@ -73,10 +73,10 @@ describe("MenuItem", () => {
       ],
     });
 
-    expect(menuItem.id).to.eq("test");
-    expect(menuItem.label).to.eq("test label");
-    expect(menuItem.iconSpec).to.eq("icon-placeholder");
-    expect(menuItem.submenu.length).to.eq(2);
+    expect(menuItem.id).toEqual("test");
+    expect(menuItem.label).toEqual("test label");
+    expect(menuItem.iconSpec).toEqual("icon-placeholder");
+    expect(menuItem.submenu.length).toEqual(2);
   });
 
   it("should throw an exception with item or submenu", () => {
@@ -101,14 +101,14 @@ describe("MenuItem", () => {
 
     const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
 
-    expect(menuItems.length).to.eq(1);
+    expect(menuItems.length).toEqual(1);
 
     const menuItem = menuItems[0];
-    expect(menuItem.id).to.eq("test");
-    expect(menuItem.label).to.eq("test label");
-    expect(menuItem.iconSpec).to.eq("icon-placeholder");
+    expect(menuItem.id).toEqual("test");
+    expect(menuItem.label).toEqual("test label");
+    expect(menuItem.iconSpec).toEqual("icon-placeholder");
     expect(menuItem.actionItem).to.not.be.undefined;
-    expect(menuItem.submenu.length).to.eq(0);
+    expect(menuItem.submenu.length).toEqual(0);
   });
 
   it("createMenuItems should create a valid submenu", () => {
@@ -140,13 +140,13 @@ describe("MenuItem", () => {
 
     const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
 
-    expect(menuItems.length).to.eq(1);
+    expect(menuItems.length).toEqual(1);
 
     const menuItem = menuItems[0];
-    expect(menuItem.id).to.eq("test");
-    expect(menuItem.label).to.eq("test label");
-    expect(menuItem.iconSpec).to.eq("icon-placeholder");
-    expect(menuItem.submenu.length).to.eq(2);
+    expect(menuItem.id).toEqual("test");
+    expect(menuItem.label).toEqual("test label");
+    expect(menuItem.iconSpec).toEqual("icon-placeholder");
+    expect(menuItem.submenu.length).toEqual(2);
   });
 
   it("createMenuItemNodes should create a valid MenuItem", () => {
@@ -165,10 +165,10 @@ describe("MenuItem", () => {
     ];
 
     const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
-    expect(menuItems.length).to.eq(1);
+    expect(menuItems.length).toEqual(1);
 
     const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);
-    expect(menuItemNodes.length).to.eq(1);
+    expect(menuItemNodes.length).toEqual(1);
 
     render(<div>{menuItemNodes}</div>);
 
@@ -201,10 +201,10 @@ describe("MenuItem", () => {
     ];
 
     const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
-    expect(menuItems.length).to.eq(1);
+    expect(menuItems.length).toEqual(1);
 
     const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);
-    expect(menuItemNodes.length).to.eq(1);
+    expect(menuItemNodes.length).toEqual(1);
 
     render(<div>{menuItemNodes}</div>);
 
@@ -214,8 +214,8 @@ describe("MenuItem", () => {
   });
 
   it("onSelect handled correctly on click", async () => {
-    const handleSelect = sinon.fake();
-    const handleSelect2 = sinon.fake();
+    const handleSelect = vi.fn();
+    const handleSelect2 = vi.fn();
 
     const CursorMenuItemProps: CursorMenuItemProps[] = [
       {
@@ -233,10 +233,10 @@ describe("MenuItem", () => {
       CursorMenuItemProps,
       handleSelect2
     );
-    expect(menuItems.length).to.eq(1);
+    expect(menuItems.length).toEqual(1);
 
     const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);
-    expect(menuItemNodes.length).to.eq(1);
+    expect(menuItemNodes.length).toEqual(1);
 
     const component = render(<div>{menuItemNodes}</div>);
     const item = component.getByTestId("core-context-menu-item");
@@ -276,10 +276,10 @@ describe("MenuItem", () => {
     ];
 
     const menuItems = MenuItemHelpers.createMenuItems(CursorMenuItemProps);
-    expect(menuItems.length).to.eq(1);
+    expect(menuItems.length).toEqual(1);
 
     const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);
-    expect(menuItemNodes.length).to.eq(1);
+    expect(menuItemNodes.length).toEqual(1);
 
     render(<div>{menuItemNodes}</div>);
 

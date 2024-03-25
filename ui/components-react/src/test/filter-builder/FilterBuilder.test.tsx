@@ -55,7 +55,7 @@ describe("PropertyFilterBuilder", () => {
     await user.click(propSelector);
     await user.click(getByText("Prop1"));
 
-    expect(spy).to.be.calledOnceWith({
+    expect(spy).toHaveBeenCalledWith({
       property: property1,
       operator: "is-true",
       value: undefined,

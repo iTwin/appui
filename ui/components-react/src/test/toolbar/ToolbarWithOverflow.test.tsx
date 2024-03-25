@@ -105,10 +105,10 @@ describe("<ToolbarWithOverflow />", () => {
         ToolbarPanelAlignmentHelpers.getCssClassName(
           ToolbarPanelAlignment.Start
         )
-      ).to.eq(ToolbarPanelAlignmentHelpers.START_CLASS_NAME);
+      ).toEqual(ToolbarPanelAlignmentHelpers.START_CLASS_NAME);
       expect(
         ToolbarPanelAlignmentHelpers.getCssClassName(ToolbarPanelAlignment.End)
-      ).to.eq(ToolbarPanelAlignmentHelpers.END_CLASS_NAME);
+      ).toEqual(ToolbarPanelAlignmentHelpers.END_CLASS_NAME);
     });
 
     it("will render 6 items without overflow", () => {
@@ -229,7 +229,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(entryButton).not.to.be.null;
       fireEvent.click(entryButton!);
       // renderedComponent.debug();
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("will auto-hide rendered with 3 items + overflow", () => {
@@ -739,7 +739,7 @@ describe("<ToolbarWithOverflow />", () => {
       const button = renderedComponent.queryByTitle("Entry1");
       expect(button).not.to.be.null;
       fireEvent.click(button!);
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("should open panel when popup item clicked", () => {
@@ -786,7 +786,7 @@ describe("<ToolbarWithOverflow />", () => {
       popupPanel!.dispatchEvent(
         createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
       );
-      onKeyDownSpy.calledOnce.should.true;
+      onKeyDownexpect(spy).toHaveBeenCalledOnce();
     });
 
     it("should auto-hide open panel", () => {
@@ -876,7 +876,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent).not.to.be.undefined;
       // since keepContentsLoaded is true the popup-panel will render and its display will be set to `none`
       const popupDiv = renderedComponent.queryByTestId("core-popup");
-      expect(popupDiv!.classList.contains("core-popup-hidden")).to.be.true;
+      expect(popupDiv!.classList.contains("core-popup-hidden")).toEqual(true);
       const button = renderedComponent.queryByTitle("PopupEntry");
       fireEvent.click(button!);
       expect(popupDiv!.classList.contains("core-popup-hidden")).to.be.false;
@@ -953,7 +953,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(firstAction).not.to.be.null;
 
       fireEvent.click(firstAction!);
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("group button panel w/4 cols should open when clicked", () => {
@@ -1269,7 +1269,7 @@ describe("<ToolbarWithOverflow />", () => {
         document.querySelectorAll(
           ".components-toolbar-item-expandable-group-column"
         ).length
-      ).to.eq(4);
+      ).toEqual(4);
     });
 
     it("group button panel w/3 cols should open when clicked", () => {
@@ -1564,7 +1564,7 @@ describe("<ToolbarWithOverflow />", () => {
         document.querySelectorAll(
           ".components-toolbar-item-expandable-group-column"
         ).length
-      ).to.eq(3);
+      ).toEqual(3);
     });
 
     it("group button panel w/2 cols should open when clicked", () => {
@@ -1775,7 +1775,7 @@ describe("<ToolbarWithOverflow />", () => {
         document.querySelectorAll(
           ".components-toolbar-item-expandable-group-column"
         ).length
-      ).to.eq(2);
+      ).toEqual(2);
     });
 
     it("nested group button panel should open when clicked", () => {
@@ -2023,14 +2023,14 @@ describe("<ToolbarWithOverflow />", () => {
       expect(button).not.to.be.null;
 
       fireEvent.click(button!);
-      spy.calledOnce.should.false; // because Child1 is disabled
+      expect(spy).not.toBeCalled(); // because Child1 is disabled
 
       // Group2 button should have the title for the first child
       const button2 = renderedComponent.queryByTitle("EnabledChild1");
       expect(button2).not.to.be.null;
 
       fireEvent.click(button2!);
-      spy.calledOnce.should.true; // because EnabledChild1 is enabled
+      expect(spy).toHaveBeenCalledOnce(); // because EnabledChild1 is enabled
 
       // click overflow to force other group to render in overflow
       const overflowButton = renderedComponent.container.querySelector(
@@ -2182,7 +2182,7 @@ describe("<ToolbarWithOverflow />", () => {
       fireEvent.click(button!);
       // renderedComponent.debug();
 
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("nested group item set active should activate when clicked", () => {
@@ -2271,7 +2271,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(button).not.to.be.null;
       fireEvent.click(button!);
       // renderedComponent.debug();
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("nested group item set active to first action item available", () => {
@@ -2675,7 +2675,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent.queryByText("Entry3")).not.to.be.null;
 
       fireEvent.click(groupEntry2!);
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
 
       // GroupButton should now have the title for the selected child
       const groupButton = renderedComponent.queryByTitle("Entry2");
@@ -2801,8 +2801,8 @@ describe("<ToolbarWithOverflow />", () => {
       expect(actionButton).not.to.be.null;
       fireEvent.click(actionButton!);
       // renderedComponent.debug();
-      toolSpy.calledOnce.should.true;
-      onItemExecuteSpy.calledOnce.should.true;
+      toolexpect(spy).toHaveBeenCalledOnce();
+      onItemExecuteexpect(spy).toHaveBeenCalledOnce();
     });
 
     it("should call onKeyDown", async () => {
@@ -2840,7 +2840,7 @@ describe("<ToolbarWithOverflow />", () => {
       actionButton!.dispatchEvent(
         createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
       );
-      onKeyDownSpy.calledOnce.should.true;
+      onKeyDownexpect(spy).toHaveBeenCalledOnce();
     });
 
     it("should not open if we get pointer up before meeting drag requirements", async () => {

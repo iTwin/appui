@@ -95,10 +95,10 @@ describe("FilteringInput", () => {
     await theUserTo.type(screen.getByRole("textbox"), "test{Backspace}", {
       skipAutoClose: true,
     });
-    expect(startCallback).to.not.be.called;
+    expect(startCallback).not.toBeCalled();
 
     await theUserTo.keyboard("[Enter]");
-    expect(startCallback).to.be.calledOnce;
+    expect(startCallback).toHaveBeenCalledOnce();
   });
 
   it("doesn't start search when input is empty", async () => {
@@ -115,10 +115,10 @@ describe("FilteringInput", () => {
     await theUserTo.type(screen.getByRole("textbox"), "{Enter}", {
       skipAutoClose: true,
     });
-    expect(startCallback).to.not.be.called;
+    expect(startCallback).not.toBeCalled();
 
     await theUserTo.click(screen.getByTitle("general.search"));
-    expect(startCallback).to.not.be.called;
+    expect(startCallback).not.toBeCalled();
   });
 
   it("calls appropriate callbacks to different button clicks", async () => {
@@ -139,7 +139,7 @@ describe("FilteringInput", () => {
       skipAutoClose: true,
     });
     await theUserTo.click(screen.getByTitle("general.search"));
-    expect(startCallback).to.be.calledOnce;
+    expect(startCallback).toHaveBeenCalledOnce();
 
     rerender(
       <FilteringInput
@@ -151,7 +151,7 @@ describe("FilteringInput", () => {
     );
 
     await theUserTo.click(screen.getByTitle("dialog.cancel"));
-    expect(cancelCallback).to.be.calledOnce;
+    expect(cancelCallback).toHaveBeenCalledOnce();
 
     rerender(
       <FilteringInput
@@ -165,7 +165,7 @@ describe("FilteringInput", () => {
 
     await theUserTo.click(screen.getByTitle("general.clear"));
 
-    expect(clearCallback).to.be.calledOnce;
+    expect(clearCallback).toHaveBeenCalledOnce();
   });
 
   it("calls onFilterCancel when input text is changed after starting the search", () => {
@@ -191,7 +191,7 @@ describe("FilteringInput", () => {
     fireEvent.click(searchIcon as Element);
     fireEvent.change(searchBar as Element, { target: { value: "testing" } });
 
-    expect(cancelCallback).to.be.calledOnce;
+    expect(cancelCallback).toHaveBeenCalledOnce();
   });
 
   it("does not render `ResultSelector` but renders `search` button when status is set to `ReadyToFilter`", () => {

@@ -100,7 +100,7 @@ describe("StructPropertyValueRenderer", () => {
     it("returns true for an struct property", () => {
       const renderer = new StructPropertyValueRenderer();
       const structProperty = TestUtils.createStructProperty("NameStruct");
-      expect(renderer.canRender(structProperty)).to.be.true;
+      expect(renderer.canRender(structProperty)).toEqual(true);
     });
 
     it("returns false for array and struct property", () => {

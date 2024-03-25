@@ -100,10 +100,10 @@ describe("getPropertyFilterBuilderOperators", () => {
 
 describe("isUnaryPropertyFilterOperator", () => {
   it("returns correct values", () => {
-    expect(isUnaryPropertyFilterOperator("is-true")).to.be.true;
-    expect(isUnaryPropertyFilterOperator("is-false")).to.be.true;
-    expect(isUnaryPropertyFilterOperator("is-null")).to.be.true;
-    expect(isUnaryPropertyFilterOperator("is-not-null")).to.be.true;
+    expect(isUnaryPropertyFilterOperator("is-true")).toEqual(true);
+    expect(isUnaryPropertyFilterOperator("is-false")).toEqual(true);
+    expect(isUnaryPropertyFilterOperator("is-null")).toEqual(true);
+    expect(isUnaryPropertyFilterOperator("is-not-null")).toEqual(true);
     expect(isUnaryPropertyFilterOperator("is-equal")).to.be.false;
     expect(isUnaryPropertyFilterOperator("is-not-equal")).to.be.false;
     expect(isUnaryPropertyFilterOperator("greater")).to.be.false;

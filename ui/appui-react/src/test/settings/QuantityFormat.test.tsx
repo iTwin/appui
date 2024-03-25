@@ -153,12 +153,12 @@ describe("QuantityFormatSettingsPage", () => {
     const setButton = wrapper.getByRole("button", {
       name: "settings.quantity-formatting.setButtonLabel",
     });
-    expect(setButton.hasAttribute("aria-disabled")).to.be.true;
+    expect(setButton.hasAttribute("aria-disabled")).toEqual(true);
 
     const clearButton = wrapper.getByRole("button", {
       name: "settings.quantity-formatting.clearButtonLabel",
     });
-    expect(clearButton.hasAttribute("aria-disabled")).to.be.true;
+    expect(clearButton.hasAttribute("aria-disabled")).toEqual(true);
 
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
     fireEvent.click(checkbox);
@@ -168,13 +168,13 @@ describe("QuantityFormatSettingsPage", () => {
 
     fireEvent.click(setButton);
     await waitFor(() => {
-      expect(setButton.hasAttribute("aria-disabled")).to.be.true;
+      expect(setButton.hasAttribute("aria-disabled")).toEqual(true);
     });
     expect(clearButton.hasAttribute("aria-disabled")).to.be.false;
 
     fireEvent.click(clearButton);
     await waitFor(() => {
-      expect(clearButton.hasAttribute("aria-disabled")).to.be.true;
+      expect(clearButton.hasAttribute("aria-disabled")).toEqual(true);
     });
   });
 

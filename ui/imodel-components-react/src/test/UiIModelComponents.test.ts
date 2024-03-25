@@ -15,24 +15,24 @@ describe("UiIModelComponents", () => {
   });
 
   it("i18nNamespace should return 'UiIModelComponents'", () => {
-    expect(UiIModelComponents.localizationNamespace).to.eq(
+    expect(UiIModelComponents.localizationNamespace).toEqual(
       "UiIModelComponents"
     );
   });
 
   it("packageName should return 'imodel-components-react'", () => {
-    expect(UiIModelComponents.packageName).to.eq("imodel-components-react");
+    expect(UiIModelComponents.packageName).toEqual("imodel-components-react");
   });
 
   it("translate should return the key (in test environment)", async () => {
     await TestUtils.initializeUiIModelComponents();
-    expect(UiIModelComponents.translate("test1.test2")).to.eq("test1.test2");
+    expect(UiIModelComponents.translate("test1.test2")).toEqual("test1.test2");
     TestUtils.terminateUiIModelComponents();
   });
 
   it("translate should return blank and log error if UiIModelComponents not initialized", () => {
     const spyLogger = sinon.spy(Logger, "logError");
-    expect(UiIModelComponents.translate("xyz")).to.eq("");
+    expect(UiIModelComponents.translate("xyz")).toEqual("");
     spyLogger.calledOnce.should.true;
     (Logger.logError as any).restore();
   });
@@ -41,7 +41,7 @@ describe("UiIModelComponents", () => {
     const spyLogger = sinon.spy(Logger, "logInfo");
     expect(UiIModelComponents.initialized).to.be.false;
     await UiIModelComponents.initialize();
-    expect(UiIModelComponents.initialized).to.be.true;
+    expect(UiIModelComponents.initialized).toEqual(true);
     await UiIModelComponents.initialize();
     spyLogger.calledOnce.should.true;
     (Logger.logInfo as any).restore();
@@ -56,6 +56,6 @@ describe("UiIModelComponents", () => {
 
   it("calling loggerCategory without an obj should return packageName", () => {
     const category = UiIModelComponents.loggerCategory(undefined);
-    expect(category).to.eq(UiIModelComponents.packageName);
+    expect(category).toEqual(UiIModelComponents.packageName);
   });
 });

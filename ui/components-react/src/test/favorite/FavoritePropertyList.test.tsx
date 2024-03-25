@@ -53,14 +53,14 @@ describe("FavoritePropertyList", () => {
         <FavoritePropertyList propertyData={data} />
       );
 
-      expect(screen.getByTitle("CADID1")).to.eq(screen.getByText("CADID1")).and
-        .to.exist;
-      expect(screen.getByTitle("0000 0005 00E0 02D8")).to.eq(
+      expect(screen.getByTitle("CADID1")).toEqual(screen.getByText("CADID1"))
+        .and.to.exist;
+      expect(screen.getByTitle("0000 0005 00E0 02D8")).toEqual(
         screen.getByText("0000 0005 00E0 02D8")
       ).and.to.exist;
-      expect(screen.getByTitle("CADID2")).to.eq(screen.getByText("CADID2")).and
-        .to.exist;
-      expect(screen.getByTitle("0000 0005 00E0 02D9")).to.eq(
+      expect(screen.getByTitle("CADID2")).toEqual(screen.getByText("CADID2"))
+        .and.to.exist;
+      expect(screen.getByTitle("0000 0005 00E0 02D9")).toEqual(
         screen.getByText("0000 0005 00E0 02D9")
       ).and.to.exist;
       expect(container).to.satisfy(

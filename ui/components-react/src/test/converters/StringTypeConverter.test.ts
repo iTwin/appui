@@ -65,18 +65,18 @@ describe("StringTypeConverter", () => {
   });
 
   it("isStringType", () => {
-    expect(converter.isStringType).to.be.true;
+    expect(converter.isStringType).toEqual(true);
   });
 
   it("startsWith", () => {
-    expect(converter.startsWith("The Test", "The", true)).to.be.true;
-    expect(converter.startsWith("The Test", "the", false)).to.be.true;
+    expect(converter.startsWith("The Test", "The", true)).toEqual(true);
+    expect(converter.startsWith("The Test", "the", false)).toEqual(true);
     expect(converter.startsWith("The Test", "", false)).to.be.false;
   });
 
   it("endsWith", () => {
-    expect(converter.endsWith("The Test", "Test", true)).to.be.true;
-    expect(converter.endsWith("The Test", "test", false)).to.be.true;
+    expect(converter.endsWith("The Test", "Test", true)).toEqual(true);
+    expect(converter.endsWith("The Test", "test", false)).toEqual(true);
     expect(converter.endsWith("The Test", "", false)).to.be.false;
     expect(converter.endsWith("Test", "The Test", false)).to.be.false;
   });
@@ -112,15 +112,15 @@ describe("StringTypeConverter", () => {
   });
 
   it("isEmpty", () => {
-    expect(converter.isEmpty("")).to.be.true;
-    expect(converter.isEmpty(1 as unknown as string)).to.be.true;
+    expect(converter.isEmpty("")).toEqual(true);
+    expect(converter.isEmpty(1 as unknown as string)).toEqual(true);
   });
 
   it("isNotEmpty", () => {
-    expect(converter.isNotEmpty("not empty")).to.be.true;
+    expect(converter.isNotEmpty("not empty")).toEqual(true);
   });
 
   it("isStringType", () => {
-    expect(converter.isStringType).to.be.true;
+    expect(converter.isStringType).toEqual(true);
   });
 });

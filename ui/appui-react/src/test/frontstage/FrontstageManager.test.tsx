@@ -68,7 +68,7 @@ describe("FrontstageManager", () => {
   });
 
   it("initialized should return true", () => {
-    expect(InternalFrontstageManager.isInitialized).to.be.true;
+    expect(InternalFrontstageManager.isInitialized).toEqual(true);
   });
 
   it("findWidget should return undefined when no active frontstage", async () => {
@@ -88,7 +88,7 @@ describe("FrontstageManager", () => {
     expect(InternalFrontstageManager.hasFrontstage(frontstageDef!.id)).to.be
       .true;
     await InternalFrontstageManager.setActiveFrontstage(frontstageDef!.id);
-    expect(InternalFrontstageManager.activeFrontstageId).to.eq(
+    expect(InternalFrontstageManager.activeFrontstageId).toEqual(
       frontstageDef!.id
     );
   });
@@ -101,7 +101,7 @@ describe("FrontstageManager", () => {
 
     const frontstageDef = await InternalFrontstageManager.getFrontstageDef();
 
-    expect(frontstageDef).to.eq(activeFrontstageDef);
+    expect(frontstageDef).toEqual(activeFrontstageDef);
   });
 
   it("hasFrontstage returns false if the fronstage is not found", () => {
@@ -152,30 +152,30 @@ describe("FrontstageManager", () => {
     expect(frontstageDef).to.not.be.undefined;
     if (frontstageDef) {
       await InternalFrontstageManager.setActiveFrontstage(frontstageDef.id);
-      expect(InternalFrontstageManager.activeFrontstageId).to.eq(
+      expect(InternalFrontstageManager.activeFrontstageId).toEqual(
         frontstageDef.id
       );
 
       const tool = new RestoreFrontstageLayoutTool();
       await tool.parseAndRun(frontstageDef.id);
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
       spy.resetHistory();
 
       // call without id to use active stage
       await tool.parseAndRun();
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
       spy.resetHistory();
 
       // call without invalid id
       await tool.parseAndRun("bad-id");
-      spy.calledOnce.should.false;
+      expect(spy).not.toBeCalled();
     }
   });
 
   it("setActiveFrontstage should log Error on invalid id", async () => {
-    const spyMethod = sinon.spy(Logger, "logError");
+    const spy = sinon.spy(Logger, "logError");
     await InternalFrontstageManager.setActiveFrontstage("xyz");
-    spyMethod.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("setActiveFrontstage should set active frontstage", async () => {
@@ -193,7 +193,7 @@ describe("FrontstageManager", () => {
       expect(frontstageDef.statusBar).not.to.be.undefined;
       expect(frontstageDef.viewNavigation).to.be.undefined;
       await InternalFrontstageManager.setActiveFrontstage(frontstageDef.id);
-      expect(InternalFrontstageManager.activeFrontstageId).to.eq(
+      expect(InternalFrontstageManager.activeFrontstageId).toEqual(
         frontstageDef.id
       );
     }
@@ -207,11 +207,13 @@ describe("FrontstageManager", () => {
     );
 
     await InternalFrontstageManager.setActiveFrontstageDef(frontstageDef);
-    expect(InternalFrontstageManager.activeFrontstageDef).to.eq(frontstageDef);
+    expect(InternalFrontstageManager.activeFrontstageDef).toEqual(
+      frontstageDef
+    );
 
     await InternalFrontstageManager.deactivateFrontstageDef();
     expect(InternalFrontstageManager.activeFrontstageDef).to.be.undefined;
-    expect(InternalFrontstageManager.activeFrontstageId).to.eq("");
+    expect(InternalFrontstageManager.activeFrontstageId).toEqual("");
   });
 
   it("setActiveContentGroup should setActiveLayout if layout found", async () => {
@@ -221,7 +223,9 @@ describe("FrontstageManager", () => {
       layout: { id: "1" },
     });
     const layoutDef = new ContentLayoutDef({ id: "1" });
-    sinon.stub(UiFramework.content.layouts, "getForGroup").returns(layoutDef);
+    sinon
+      .stub(UiFramework.content.layouts, "getForGroup")
+      .mockReturnValue(layoutDef);
     const spy = sinon.stub(InternalFrontstageManager, "setActiveLayout");
     await InternalFrontstageManager.setActiveContentGroup(contentGroup);
     expect(spy).to.have.been.calledWithExactly(layoutDef, contentGroup);
@@ -294,7 +298,9 @@ describe("FrontstageManager", () => {
 
     beforeEach(async () => {
       const spatialViewStateMock = moq.Mock.ofType<SpatialViewState>();
-      spatialViewStateMock.setup((view) => view.is3d()).returns(() => true);
+      spatialViewStateMock
+        .setup((view) => view.is3d())
+        .mockReturnValue(() => true);
       spatialViewStateMock
         .setup((view) => view.classFullName)
         .returns(() => "BisCore:SpatialViewDefinition");
@@ -313,7 +319,7 @@ describe("FrontstageManager", () => {
       item.execute();
       setImmediate(async () => {
         await TestUtils.flushAsyncOperations();
-        expect(InternalFrontstageManager.activeToolId).to.eq(item.toolId);
+        expect(InternalFrontstageManager.activeToolId).toEqual(item.toolId);
       });
     });
 
@@ -370,7 +376,7 @@ describe("FrontstageManager", () => {
         frontstageProvider.id
       );
       await InternalFrontstageManager.setActiveFrontstageDef(frontstageDef);
-      expect(InternalFrontstageManager.activeFrontstageDef).to.eq(
+      expect(InternalFrontstageManager.activeFrontstageDef).toEqual(
         frontstageDef
       );
 

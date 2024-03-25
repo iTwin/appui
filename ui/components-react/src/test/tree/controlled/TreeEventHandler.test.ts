@@ -56,7 +56,7 @@ describe("TreeEventHandler", () => {
       const subject: Subject<unknown> = (eventHandler as any)._disposed;
       const spy = sinon.spy(subject, "next");
       eventHandler.dispose();
-      expect(spy).to.be.called;
+      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -153,7 +153,7 @@ describe("TreeEventHandler", () => {
     it("does not call TreeMutator activateEditing if editing params are not set", () => {
       const spy = sinon.spy(modelMutator, "activateEditing");
       eventHandler.onDelayedNodeClick({ nodeId: testNode.id });
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
     });
   });
 
@@ -174,7 +174,7 @@ describe("TreeEventHandler", () => {
     it("does not call TreeMutator activateEditing if editing params are not set", () => {
       const spy = sinon.spy(modelMutator, "activateEditing");
       eventHandler.onNodeEditorActivated({ nodeId: testNode.id });
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
     });
   });
 

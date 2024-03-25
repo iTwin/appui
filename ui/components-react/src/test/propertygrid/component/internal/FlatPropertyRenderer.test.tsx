@@ -100,7 +100,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
     const highlightedNodes = container.querySelectorAll("mark");
-    expect(highlightedNodes.length).to.eq(2);
+    expect(highlightedNodes.length).toEqual(2);
   });
 
   it("renders as primitive value if property is an empty array", () => {
@@ -141,7 +141,7 @@ describe("FlatPropertyRenderer", () => {
     );
     const highlightedNode = container.querySelector("mark");
     expect(highlightedNode).to.be.not.null;
-    expect(highlightedNode!.textContent).to.eq("rr");
+    expect(highlightedNode!.textContent).toEqual("rr");
   });
 
   it("renders array as a non primitive value", () => {
@@ -373,14 +373,14 @@ describe("FlatPropertyRenderer", () => {
   });
 
   it("calls onEditCommit on Enter key when editing", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const propertyRenderer = render(
       <FlatPropertyRenderer
         category={{ name: "Cat1", label: "Category 1", expand: true }}
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isEditing={true}
-        onEditCommit={spyMethod}
+        onEditCommit={spy}
         isExpanded={false}
         onExpansionToggled={() => {}}
       />
@@ -391,7 +391,7 @@ describe("FlatPropertyRenderer", () => {
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("does not attempt to call onEditCommit callback when it is not present and throw", async () => {
@@ -414,13 +414,13 @@ describe("FlatPropertyRenderer", () => {
   });
 
   it("calls onEditCancel on Escape key when editing", () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const propertyRenderer = render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isEditing={true}
-        onEditCancel={spyMethod}
+        onEditCancel={spy}
         isExpanded={false}
         onExpansionToggled={() => {}}
       />
@@ -430,7 +430,7 @@ describe("FlatPropertyRenderer", () => {
     expect(inputNode).not.to.be.null;
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("does not remove Editor on Enter if callback is not provided", async () => {
@@ -533,7 +533,7 @@ describe("FlatPropertyRenderer", () => {
     }
 
     it("gets called when entering editing state", () => {
-      const onHeightChanged = sinon.fake();
+      const onHeightChanged = vi.fn();
       const { rerender } = render(
         renderFlatPropertyRenderer(false, onHeightChanged)
       );
@@ -543,7 +543,7 @@ describe("FlatPropertyRenderer", () => {
     });
 
     it("gets called when entering editing state in vertical orientation", () => {
-      const onHeightChanged = sinon.fake();
+      const onHeightChanged = vi.fn();
       const { rerender } = render(
         renderFlatPropertyRenderer(false, onHeightChanged, Orientation.Vertical)
       );
@@ -555,7 +555,7 @@ describe("FlatPropertyRenderer", () => {
     });
 
     it("does not get called when component is mounted in editing state", () => {
-      const onHeightChanged = sinon.fake();
+      const onHeightChanged = vi.fn();
       render(renderFlatPropertyRenderer(true, onHeightChanged));
       expect(onHeightChanged).to.have.not.been.called;
     });

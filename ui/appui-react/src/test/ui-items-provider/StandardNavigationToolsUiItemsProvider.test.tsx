@@ -76,7 +76,7 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
     const provider = new StandardNavigationToolsUiItemsProvider();
     UiItemsManager.register(provider);
 
-    expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
     expect(
       UiItemsManager.getToolbarButtonItems(
         "test",
@@ -84,7 +84,7 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
         ToolbarUsage.ViewNavigation,
         ToolbarOrientation.Horizontal
       ).length
-    ).to.eq(6);
+    ).toEqual(6);
     expect(
       UiItemsManager.getToolbarButtonItems(
         "test",
@@ -92,7 +92,7 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
         ToolbarUsage.ViewNavigation,
         ToolbarOrientation.Vertical
       ).length
-    ).to.eq(3);
+    ).toEqual(3);
 
     UiItemsManager.unregister(provider.id);
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
@@ -108,7 +108,7 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
       },
     });
     UiItemsManager.register(provider, { stageIds: ["test"] });
-    expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
     expect(
       UiItemsManager.getToolbarButtonItems(
         "test",
@@ -116,7 +116,7 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
         ToolbarUsage.ViewNavigation,
         ToolbarOrientation.Horizontal
       ).length
-    ).to.eq(0);
+    ).toEqual(0);
     expect(
       UiItemsManager.getToolbarButtonItems(
         "test",
@@ -124,7 +124,7 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
         ToolbarUsage.ViewNavigation,
         ToolbarOrientation.Vertical
       ).length
-    ).to.eq(3);
+    ).toEqual(3);
     UiItemsManager.unregister(provider.id);
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
   });
@@ -142,7 +142,7 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
     });
     UiItemsManager.register(provider, { stageIds: ["test"] });
 
-    expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
     expect(
       UiItemsManager.getToolbarButtonItems(
         "test",
@@ -150,7 +150,7 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
         ToolbarUsage.ViewNavigation,
         ToolbarOrientation.Horizontal
       ).length
-    ).to.eq(6);
+    ).toEqual(6);
     expect(
       UiItemsManager.getToolbarButtonItems(
         "test",
@@ -158,7 +158,7 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
         ToolbarUsage.ViewNavigation,
         ToolbarOrientation.Vertical
       ).length
-    ).to.eq(0);
+    ).toEqual(0);
 
     UiItemsManager.unregister(provider.id);
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
@@ -167,7 +167,7 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
   it("should process all combinations of options", () => {
     const provider = new StandardNavigationToolsUiItemsProvider();
     UiItemsManager.register(provider);
-    expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+    expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
     UiItemsManager.getToolbarButtonItems(
       "test",
       StageUsage.General,
@@ -188,7 +188,7 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
         defaultTools
       );
       UiItemsManager.register(local_provider);
-      expect(UiItemsManager.hasRegisteredProviders).to.be.true;
+      expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
       UiItemsManager.getToolbarButtonItems(
         "test",
         StageUsage.General,

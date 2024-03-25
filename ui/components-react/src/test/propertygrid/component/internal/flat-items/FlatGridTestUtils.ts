@@ -387,7 +387,7 @@ export class FlatGridTestUtils {
       );
 
       expectedMockChildren.push(mock);
-      factoryStub.createCategorizedProperty.onCall(index).returns(mock);
+      factoryStub.createCategorizedProperty.onCall(index).mockReturnValue(mock);
     });
 
     factoryStub.createCategorizedProperty
@@ -410,7 +410,7 @@ export class FlatGridTestUtils {
     children.forEach((child, index) => {
       const mock = FlatGridTestUtils.createMockGridCategory(child.name);
       expectedMockChildren.push(mock);
-      factoryStub.createGridCategory.onCall(index).returns(mock);
+      factoryStub.createGridCategory.onCall(index).mockReturnValue(mock);
     });
 
     factoryStub.createGridCategory

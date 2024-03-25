@@ -26,7 +26,7 @@ describe("ElementTooltip", () => {
       x: 20,
       y: 20,
     });
-    expect(ElementTooltip.isTooltipVisible).to.be.true;
+    expect(ElementTooltip.isTooltipVisible).toEqual(true);
 
     ElementTooltip.hideTooltip();
     expect(ElementTooltip.isTooltipVisible).to.be.false;
@@ -41,7 +41,7 @@ describe("ElementTooltip", () => {
     para.appendChild(t); // Append the text to <p>
 
     ElementTooltip.showTooltip(divElement, para, { x: 10, y: 10 });
-    expect(ElementTooltip.isTooltipVisible).to.be.true;
+    expect(ElementTooltip.isTooltipVisible).toEqual(true);
 
     expect(await screen.findByText(`HTMLElement message`)).to.exist;
   });

@@ -42,7 +42,7 @@ describe("PropertyGridEventHandler", () => {
 
       expect(modelStub.getItem.calledOnceWithExactly(expectedSelectionKey)).to
         .be.true;
-      expect(isExpandedSpy.calledOnceWithExactly(true)).to.be.true;
+      expect(isExpandedSpy.calledOnceWithExactly(true)).toEqual(true);
     });
   });
 });

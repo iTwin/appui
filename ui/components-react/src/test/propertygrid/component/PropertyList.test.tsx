@@ -40,25 +40,25 @@ describe("PropertyList", () => {
       />
     );
     await TestUtils.flushAsyncOperations();
-    expect(onPropertyClicked).to.not.be.called;
+    expect(onPropertyClicked).not.toBeCalled();
 
     const clickableComponents = container.querySelectorAll(
       ".components-property-record--horizontal"
     );
-    expect(clickableComponents.length).to.eq(3);
+    expect(clickableComponents.length).toEqual(3);
 
     const primitiveProperty = clickableComponents[0];
     fireEvent.click(primitiveProperty);
-    expect(onPropertyClicked).to.be.calledOnceWith(primitiveRecord);
+    expect(onPropertyClicked).toHaveBeenCalledWith(primitiveRecord);
     onPropertyClicked.resetHistory();
 
     const structProperty = clickableComponents[1];
     fireEvent.click(structProperty);
-    expect(onPropertyClicked).to.not.be.called;
+    expect(onPropertyClicked).not.toBeCalled();
 
     const arrayProperty = clickableComponents[2];
     fireEvent.click(arrayProperty);
-    expect(onPropertyClicked).to.not.be.called;
+    expect(onPropertyClicked).not.toBeCalled();
   });
 
   it("should call `onPropertyRightClicked` when right clicked on a primitive property", async () => {
@@ -83,25 +83,25 @@ describe("PropertyList", () => {
       />
     );
     await TestUtils.flushAsyncOperations();
-    expect(onPropertyRightClicked).to.not.be.called;
+    expect(onPropertyRightClicked).not.toBeCalled();
 
     const clickableComponents = container.querySelectorAll(
       ".components-property-record--horizontal"
     );
-    expect(clickableComponents.length).to.eq(3);
+    expect(clickableComponents.length).toEqual(3);
 
     const primitiveProperty = clickableComponents[0];
     fireEvent.contextMenu(primitiveProperty);
-    expect(onPropertyRightClicked).to.be.calledOnceWith(primitiveRecord);
+    expect(onPropertyRightClicked).toHaveBeenCalledWith(primitiveRecord);
     onPropertyRightClicked.resetHistory();
 
     const structProperty = clickableComponents[1];
     fireEvent.contextMenu(structProperty);
-    expect(onPropertyRightClicked).to.not.be.called;
+    expect(onPropertyRightClicked).not.toBeCalled();
 
     const arrayProperty = clickableComponents[2];
     fireEvent.contextMenu(arrayProperty);
-    expect(onPropertyRightClicked).to.not.be.called;
+    expect(onPropertyRightClicked).not.toBeCalled();
   });
 
   it("should call onEditCommit", async () => {
@@ -116,7 +116,7 @@ describe("PropertyList", () => {
       TestUtils.createPrimitiveStringProperty("test", "value"),
     ]);
 
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const category = { name: "Cat1", label: "Category 1", expand: true };
     const editingPropertyKey = getPropertyKey(category, primitiveRecord);
     const propertyList = render(
@@ -124,7 +124,7 @@ describe("PropertyList", () => {
         orientation={Orientation.Horizontal}
         width={800}
         properties={[primitiveRecord, structRecord, arrayRecord]}
-        onEditCommit={spyMethod}
+        onEditCommit={spy}
         category={category}
         editingPropertyKey={editingPropertyKey}
       />
@@ -136,6 +136,6 @@ describe("PropertyList", () => {
     fireEvent.keyDown(inputNode as HTMLElement, { key: "A" });
     fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 });

@@ -149,23 +149,25 @@ describe("IModelViewportControl", () => {
 
       const contentControl = UiFramework.content.getActiveContentControl();
       expect(contentControl).to.not.be.undefined;
-      expect(contentControl instanceof TestViewportContentControl).to.be.true;
+      expect(contentControl instanceof TestViewportContentControl).toEqual(
+        true
+      );
 
       if (contentControl) {
-        expect(contentControl.isViewport).to.be.true;
+        expect(contentControl.isViewport).toEqual(true);
         expect(contentControl.viewport).to.not.be.undefined;
-        expect(contentControl.getType()).to.eq(
+        expect(contentControl.getType()).toEqual(
           ConfigurableUiControlType.Viewport
         );
 
         const supportsContentControl =
           contentControl as unknown as SupportsViewSelectorChange;
-        expect(supportsContentControl.supportsViewSelectorChange).to.be.true;
+        expect(supportsContentControl.supportsViewSelectorChange).toEqual(true);
 
         const controlNode = (contentControl as TestViewportContentControl)
           .reactNode;
         expect(controlNode).to.not.be.undefined;
-        expect(React.isValidElement(controlNode)).to.be.true;
+        expect(React.isValidElement(controlNode)).toEqual(true);
 
         const componentWrapper = render(controlNode as React.ReactElement);
         expect(componentWrapper).to.not.be.undefined;

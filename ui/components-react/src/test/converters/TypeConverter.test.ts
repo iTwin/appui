@@ -108,31 +108,31 @@ describe("TypeConverter", () => {
   });
 
   it("isEqualTo", () => {
-    expect(converter.isEqualTo(0, 0)).to.be.true;
+    expect(converter.isEqualTo(0, 0)).toEqual(true);
     expect(converter.isEqualTo(1, 0)).to.be.false;
   });
 
   it("isNotEqualTo", () => {
     expect(converter.isNotEqualTo(0, 0)).to.be.false;
-    expect(converter.isNotEqualTo(1, 0)).to.be.true;
+    expect(converter.isNotEqualTo(1, 0)).toEqual(true);
   });
 
   it("Type methods", () => {
     expect(converter.isStringType).to.be.false;
     expect(converter.isLessGreaterType).to.be.false;
     expect(converter.isBooleanType).to.be.false;
-    expect(converter.isNullableType).to.be.true;
+    expect(converter.isNullableType).toEqual(true);
   });
 
   it("isNull", () => {
-    expect(converter.isNull(null as any)).to.be.true;
-    expect(converter.isNull(undefined as any)).to.be.true;
+    expect(converter.isNull(null as any)).toEqual(true);
+    expect(converter.isNull(undefined as any)).toEqual(true);
     expect(converter.isNull("")).to.be.false;
   });
 
   it("isNotNull", () => {
     expect(converter.isNotNull(null as any)).to.be.false;
     expect(converter.isNotNull(undefined as any)).to.be.false;
-    expect(converter.isNotNull(0)).to.be.true;
+    expect(converter.isNotNull(0)).toEqual(true);
   });
 });

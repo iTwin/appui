@@ -45,6 +45,6 @@ describe("<FooterIndicator />", () => {
 
     await theUserTo.click(screen.getByText("Indicator"));
 
-    expect(spy.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 });

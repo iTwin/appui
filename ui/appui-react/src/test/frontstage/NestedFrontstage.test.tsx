@@ -79,7 +79,7 @@ describe("NestedFrontstage", async () => {
 
   it("activeNestedFrontstage should return undefined if none active", () => {
     expect(UiFramework.frontstages.activeNestedFrontstage).to.be.undefined;
-    expect(UiFramework.frontstages.nestedFrontstageCount).to.eq(0);
+    expect(UiFramework.frontstages.nestedFrontstageCount).toEqual(0);
   });
 
   it("openNestedFrontstage & closeNestedFrontstage should open/close nested frontstages", async () => {
@@ -89,8 +89,8 @@ describe("NestedFrontstage", async () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
     await TestUtils.flushAsyncOperations();
 
-    expect(UiFramework.frontstages.activeFrontstageDef).to.eq(frontstageDef);
-    expect(UiFramework.frontstages.nestedFrontstageCount).to.eq(0);
+    expect(UiFramework.frontstages.activeFrontstageDef).toEqual(frontstageDef);
+    expect(UiFramework.frontstages.nestedFrontstageCount).toEqual(0);
 
     const nestedFrontstageProvider = new TestNestedFrontstage();
     const nestedFrontstageDef = await FrontstageDef.create(
@@ -103,32 +103,32 @@ describe("NestedFrontstage", async () => {
     );
 
     await UiFramework.frontstages.openNestedFrontstage(nestedFrontstageDef);
-    expect(UiFramework.frontstages.nestedFrontstageCount).to.eq(1);
-    expect(UiFramework.frontstages.activeNestedFrontstage).to.eq(
+    expect(UiFramework.frontstages.nestedFrontstageCount).toEqual(1);
+    expect(UiFramework.frontstages.activeNestedFrontstage).toEqual(
       nestedFrontstageDef
     );
-    expect(spyActivated.calledOnce).to.be.true;
+    expect(spyActivated.calledOnce).toEqual(true);
 
     const nestedFrontstageProvider2 = new TestNestedFrontstage();
     const nestedFrontstageDef2 = await FrontstageDef.create(
       nestedFrontstageProvider2
     );
     await UiFramework.frontstages.openNestedFrontstage(nestedFrontstageDef2);
-    expect(UiFramework.frontstages.nestedFrontstageCount).to.eq(2);
-    expect(UiFramework.frontstages.activeNestedFrontstage).to.eq(
+    expect(UiFramework.frontstages.nestedFrontstageCount).toEqual(2);
+    expect(UiFramework.frontstages.activeNestedFrontstage).toEqual(
       nestedFrontstageDef2
     );
-    expect(spyDeactivated.calledOnce).to.be.true;
+    expect(spyDeactivated.calledOnce).toEqual(true);
 
     NestedFrontstage.backToPreviousFrontstageCommand.execute();
     await TestUtils.flushAsyncOperations();
 
-    expect(UiFramework.frontstages.nestedFrontstageCount).to.eq(1);
+    expect(UiFramework.frontstages.nestedFrontstageCount).toEqual(1);
 
     NestedFrontstage.backToPreviousFrontstageCommand.execute();
     await TestUtils.flushAsyncOperations();
 
-    expect(UiFramework.frontstages.nestedFrontstageCount).to.eq(0);
-    expect(UiFramework.frontstages.activeFrontstageDef).to.eq(frontstageDef);
+    expect(UiFramework.frontstages.nestedFrontstageCount).toEqual(0);
+    expect(UiFramework.frontstages.activeFrontstageDef).toEqual(frontstageDef);
   });
 });

@@ -62,7 +62,7 @@ describe("PropertyGrid Commons", () => {
       spy.returns(null);
 
       PropertyGridCommons.handleLinkClick("www.testLink.com");
-      expect(spy).to.be.calledOnceWith("http://www.testLink.com", "_blank");
+      expect(spy).toHaveBeenCalledWith("http://www.testLink.com", "_blank");
     });
 
     it("opens new window if the link text was found in record with http schema", async () => {
@@ -70,7 +70,7 @@ describe("PropertyGrid Commons", () => {
       spy.returns(null);
 
       PropertyGridCommons.handleLinkClick("http://www.testLink.com");
-      expect(spy).to.be.calledOnceWith("http://www.testLink.com", "_blank");
+      expect(spy).toHaveBeenCalledWith("http://www.testLink.com", "_blank");
     });
 
     it("does not open new window if there were no url links", async () => {
@@ -107,7 +107,7 @@ describe("PropertyGrid Commons", () => {
 
       PropertyGridCommons.handleLinkClick("www.testLink.com");
 
-      expect(spy).to.be.calledOnceWith("http://www.testLink.com", "_blank");
+      expect(spy).toHaveBeenCalledWith("http://www.testLink.com", "_blank");
       windowMock.verify((x) => x.focus(), moq.Times.once());
     });
   });

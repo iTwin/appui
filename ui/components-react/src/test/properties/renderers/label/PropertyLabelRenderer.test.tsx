@@ -97,7 +97,7 @@ describe("NonPrimitivePropertyLabelRenderer  ", () => {
 
     await theUserTo.click(screen.getByRole("presentation"));
 
-    expect(onExpand.calledOnce).to.be.true;
+    expect(onExpand.calledOnce).toEqual(true);
   });
 
   it("calls onCollapse when label gets clicked while expanded", async () => {
@@ -115,6 +115,6 @@ describe("NonPrimitivePropertyLabelRenderer  ", () => {
 
     await theUserTo.click(screen.getByRole("presentation"));
 
-    expect(onCollapse.calledOnce).to.be.true;
+    expect(onCollapse.calledOnce).toEqual(true);
   });
 });

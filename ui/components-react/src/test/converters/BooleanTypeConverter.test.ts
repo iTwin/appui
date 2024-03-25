@@ -25,8 +25,8 @@ describe("BooleanTypeConverter", () => {
       const falseString = TestUtils.i18n.getLocalizedString(
         "Components:general.false"
       );
-      expect(converter.convertToString(trueString)).to.eq(trueString);
-      expect(converter.convertToString(falseString)).to.eq(falseString);
+      expect(converter.convertToString(trueString)).toEqual(trueString);
+      expect(converter.convertToString(falseString)).toEqual(falseString);
     });
 
     it("returns localized boolean if parameter is boolean", () => {
@@ -36,28 +36,28 @@ describe("BooleanTypeConverter", () => {
       const falseString = TestUtils.i18n.getLocalizedString(
         "Components:general.false"
       );
-      expect(converter.convertToString(true)).to.eq(trueString);
-      expect(converter.convertToString(false)).to.eq(falseString);
+      expect(converter.convertToString(true)).toEqual(trueString);
+      expect(converter.convertToString(false)).toEqual(falseString);
     });
 
     it("returns localized true value if parameter is truthy", () => {
       const trueString = TestUtils.i18n.getLocalizedString(
         "Components:general.true"
       );
-      expect(converter.convertToString("test")).to.eq(trueString);
-      expect(converter.convertToString(5)).to.eq(trueString);
-      expect(converter.convertToString({})).to.eq(trueString);
+      expect(converter.convertToString("test")).toEqual(trueString);
+      expect(converter.convertToString(5)).toEqual(trueString);
+      expect(converter.convertToString({})).toEqual(trueString);
     });
 
     it("returns localized false value if parameter is falsy", () => {
       const falseString = TestUtils.i18n.getLocalizedString(
         "Components:general.false"
       );
-      expect(converter.convertToString(0)).to.eq(falseString);
+      expect(converter.convertToString(0)).toEqual(falseString);
     });
 
     it("returns empty string if provided value is undefined", () => {
-      expect(converter.convertToString(undefined)).to.eq("");
+      expect(converter.convertToString(undefined)).toEqual("");
     });
   });
 
@@ -66,7 +66,7 @@ describe("BooleanTypeConverter", () => {
       const trueString = TestUtils.i18n.getLocalizedString(
         "Components:general.true"
       );
-      expect(converter.convertFromString(trueString)).to.be.true;
+      expect(converter.convertFromString(trueString)).toEqual(true);
       expect(converter.convertFromString(trueString.toLocaleUpperCase())).to.be
         .true;
     });
@@ -78,7 +78,7 @@ describe("BooleanTypeConverter", () => {
 
   describe("isBooleanType", () => {
     it("returns true", () => {
-      expect(converter.isBooleanType).to.be.true;
+      expect(converter.isBooleanType).toEqual(true);
     });
   });
 

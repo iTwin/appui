@@ -61,7 +61,7 @@ describe("useElementsScrollStorage", () => {
       });
 
     ref.current!.persist();
-    expect(getterCalled).to.be.true;
+    expect(getterCalled).toEqual(true);
 
     ref.current!.restore();
     expect(setScroll).to.be.eq(10);
@@ -115,7 +115,7 @@ describe("useElementsScrollStorage", () => {
       });
 
     ref.current!.persist();
-    expect(getterCalled).to.be.true;
+    expect(getterCalled).toEqual(true);
 
     rerender(<TestComponent ref={ref} renderSecond={true} />);
 

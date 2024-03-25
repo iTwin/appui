@@ -33,11 +33,11 @@ describe("ConfigurableUiContent", () => {
         </ThemeManager>
       </Provider>
     );
-    expect(UiFramework.keyboardShortcuts.isFocusOnHome).to.be.true;
+    expect(UiFramework.keyboardShortcuts.isFocusOnHome).toEqual(true);
 
     const toolAdmin = new FrameworkToolAdmin();
     let keyEvent = new KeyboardEvent("keydown", { key: "a" });
-    expect(await toolAdmin.processShortcutKey(keyEvent, true)).to.be.true;
+    expect(await toolAdmin.processShortcutKey(keyEvent, true)).toEqual(true);
     keyEvent = new KeyboardEvent("keyup", { key: "a" });
     expect(await toolAdmin.processShortcutKey(keyEvent, false)).to.be.false;
     keyEvent = new KeyboardEvent("keydown", { key: Key.Escape });
@@ -61,7 +61,7 @@ describe("ConfigurableUiContent", () => {
       coords: { x: 10, y: 10 },
     });
 
-    expect(spy).to.have.been.calledWith(
+    expect(spy).toHaveBeenCalledWith(
       sinon.match({
         oldPt: sinon.match.any,
         newPt: sinon.match.any,

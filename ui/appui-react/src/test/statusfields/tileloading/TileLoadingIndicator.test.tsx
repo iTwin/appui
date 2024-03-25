@@ -50,7 +50,7 @@ describe("TileLoadingIndicator", () => {
     const viewportMock = moq.Mock.ofType<ScreenViewport>();
 
     // added because component registers interest in onRender events
-    viewportMock.setup((x) => x.onRender).returns(() => onRenderEvent);
+    viewportMock.setup((x) => x.onRender).mockReturnValue(() => onRenderEvent);
 
     await IModelApp.viewManager.setSelectedView(viewportMock.object);
     render(<TileLoadingIndicator />);
@@ -59,7 +59,9 @@ describe("TileLoadingIndicator", () => {
     viewportMock
       .setup((viewport) => viewport.numRequestedTiles)
       .returns(() => 90);
-    viewportMock.setup((viewport) => viewport.numReadyTiles).returns(() => 10);
+    viewportMock
+      .setup((viewport) => viewport.numReadyTiles)
+      .mockReturnValue(() => 10);
     onRenderEvent.raiseEvent(viewportMock.object);
     await waitFor(() => expect(screen.getByText("10 / 100")).to.exist);
 
@@ -67,7 +69,9 @@ describe("TileLoadingIndicator", () => {
     viewportMock
       .setup((viewport) => viewport.numRequestedTiles)
       .returns(() => 250);
-    viewportMock.setup((viewport) => viewport.numReadyTiles).returns(() => 250);
+    viewportMock
+      .setup((viewport) => viewport.numReadyTiles)
+      .mockReturnValue(() => 250);
     onRenderEvent.raiseEvent(viewportMock.object);
     await waitFor(() => expect(screen.getByText("250 / 500")).to.exist);
 
@@ -75,7 +79,9 @@ describe("TileLoadingIndicator", () => {
     viewportMock
       .setup((viewport) => viewport.numRequestedTiles)
       .returns(() => 0);
-    viewportMock.setup((viewport) => viewport.numReadyTiles).returns(() => 0);
+    viewportMock
+      .setup((viewport) => viewport.numReadyTiles)
+      .mockReturnValue(() => 0);
     onRenderEvent.raiseEvent(viewportMock.object);
     await waitFor(() => expect(screen.getByText("0 / 0")).to.exist);
   });

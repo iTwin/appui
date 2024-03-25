@@ -48,6 +48,6 @@ describe("<LineWeightSwatch />", () => {
     expect(weightSwatch.tagName).to.be.equal("BUTTON");
     fireEvent.click(weightSwatch);
     await TestUtils.flushAsyncOperations();
-    expect(spyOnPick.calledOnce).to.be.true;
+    expect(spyOnPick.calledOnce).toEqual(true);
   });
 });

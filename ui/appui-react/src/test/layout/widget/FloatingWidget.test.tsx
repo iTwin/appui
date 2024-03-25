@@ -220,7 +220,7 @@ describe("useFloatingWidgetId", () => {
         </TestNineZoneProvider>
       ),
     });
-    expect(result.current).to.eq("w1");
+    expect(result.current).toEqual("w1");
   });
 
   it("should return `undefined` if WidgetIdContext is not provided", () => {
@@ -243,7 +243,7 @@ describe("useWidgetAllowedToDock", () => {
         </TestNineZoneProvider>
       ),
     });
-    expect(result.current).to.be.true;
+    expect(result.current).toEqual(true);
   });
 
   it("should return false if floating widget is not allowed to dock", () => {

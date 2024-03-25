@@ -18,7 +18,7 @@ describe("CustomItemDef", () => {
   it("CustomItemDef with no commandId should get generated id", () => {
     const item = new CustomItemDef({});
 
-    expect(item.id.substring(0, CustomItemDef.customIdPrefix.length)).to.eq(
+    expect(item.id.substring(0, CustomItemDef.customIdPrefix.length)).toEqual(
       CustomItemDef.customIdPrefix
     );
   });
@@ -29,6 +29,6 @@ describe("CustomItemDef", () => {
       customId: testId,
     });
 
-    expect(item.id).to.eq(testId);
+    expect(item.id).toEqual(testId);
   });
 });

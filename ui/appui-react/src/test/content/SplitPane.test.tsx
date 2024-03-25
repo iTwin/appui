@@ -141,14 +141,14 @@ describe("SplitPane", () => {
   });
 
   it("should handle click on resizer", async () => {
-    const spyMethod = sinon.spy();
-    const dblSpyMethod = sinon.spy();
+    const spy = sinon.spy();
+    const dblspy = sinon.spy();
     const componentWrapper = render(
       <SplitPane
         split="horizontal"
         primary="first"
-        onResizerClick={spyMethod}
-        onResizerDoubleClick={dblSpyMethod}
+        onResizerClick={spy}
+        onResizerDoubleClick={dblspy}
       >
         <div>one</div>
         <div>two</div>
@@ -159,18 +159,18 @@ describe("SplitPane", () => {
     );
     fireEvent.click(resizer!);
     fireEvent.dblClick(resizer!);
-    spyMethod.calledOnce.should.true;
-    dblSpyMethod.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
+    dblexpect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle touch resizing", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const spyDragFinishMethod = sinon.spy();
     const componentWrapper = render(
       <SplitPane
         split="horizontal"
         primary="first"
-        onChange={spyMethod}
+        onChange={spy}
         onDragFinished={spyDragFinishMethod}
       >
         <div>one</div>
@@ -204,18 +204,18 @@ describe("SplitPane", () => {
         },
       ],
     });
-    spyMethod.called.should.true;
+    spy.called.should.true;
     spyDragFinishMethod.called.should.true;
   });
 
   it("should handle mouse resizing", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const spyDragStartedMethod = sinon.spy();
     const componentWrapper = render(
       <SplitPane
         split="horizontal"
         primary="second"
-        onChange={spyMethod}
+        onChange={spy}
         minSize={40}
         size={80}
         step={1}
@@ -232,18 +232,18 @@ describe("SplitPane", () => {
     fireEvent.mouseDown(resizer!, { clientX: 10, clientY: 10 });
     fireEvent.mouseMove(resizer!, { clientX: 10, clientY: 20 });
     fireEvent.mouseUp(resizer!, { clientX: 10, clientY: 30 });
-    spyMethod.called.should.true;
+    spy.called.should.true;
     spyDragStartedMethod.called.should.true;
   });
 
   it("should handle mouse resizing (vertical)", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const spyDragStartedMethod = sinon.spy();
     const componentWrapper = render(
       <SplitPane
         split="vertical"
         primary="first"
-        onChange={spyMethod}
+        onChange={spy}
         minSize={40}
         size={80}
         step={1}
@@ -259,17 +259,17 @@ describe("SplitPane", () => {
     fireEvent.mouseDown(resizer!, { clientX: 10, clientY: 10 });
     fireEvent.mouseMove(resizer!, { clientX: 20, clientY: 10 });
     fireEvent.mouseUp(resizer!, { clientX: 30, clientY: 10 });
-    spyMethod.called.should.true;
+    spy.called.should.true;
     spyDragStartedMethod.called.should.true;
   });
 
   it("should ignore mouse resizing", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const componentWrapper = render(
       <SplitPane
         split="horizontal"
         primary="second"
-        onChange={spyMethod}
+        onChange={spy}
         minSize={40}
         size={80}
         step={1}
@@ -286,6 +286,6 @@ describe("SplitPane", () => {
     fireEvent.mouseDown(resizer!, { clientX: 10, clientY: 10 });
     fireEvent.mouseMove(resizer!, { clientX: 10, clientY: 20 });
     fireEvent.mouseUp(resizer!, { clientX: 10, clientY: 30 });
-    spyMethod.called.should.false;
+    spy.called.should.false;
   });
 });

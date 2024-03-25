@@ -90,13 +90,13 @@ describe("FlatNonPrimitivePropertyRenderer", () => {
       />
     );
 
-    expect(expandSpy.callCount).to.be.equal(0);
+    expect(expandSpy).toHaveBeenCalledTimes(0);
 
     await theUserTo.click(screen.getByTitle("House"));
-    expect(expandSpy.callCount).to.be.equal(1);
+    expect(expandSpy).toHaveBeenCalledTimes(1);
 
     await theUserTo.click(screen.getByTitle("House"));
-    expect(expandSpy.callCount).to.be.equal(2);
+    expect(expandSpy).toHaveBeenCalledTimes(2);
   });
 
   it("Should call onExpandToggled when label is clicked and item is expanded", async () => {
@@ -119,12 +119,12 @@ describe("FlatNonPrimitivePropertyRenderer", () => {
       />
     );
 
-    expect(expandSpy.callCount).to.be.equal(0);
+    expect(expandSpy).toHaveBeenCalledTimes(0);
 
     await theUserTo.click(screen.getByTitle("House"));
-    expect(expandSpy.callCount).to.be.equal(1);
+    expect(expandSpy).toHaveBeenCalledTimes(1);
 
     await theUserTo.click(screen.getByTitle("House"));
-    expect(expandSpy.callCount).to.be.equal(2);
+    expect(expandSpy).toHaveBeenCalledTimes(2);
   });
 });

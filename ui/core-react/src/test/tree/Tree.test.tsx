@@ -3,11 +3,10 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Tree } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
+import type { MockInstance } from "vitest";
 
 describe("<Tree />", () => {
   const createRect = (
@@ -40,11 +39,11 @@ describe("<Tree />", () => {
     const overrides = {
       scrollTo: Element.prototype.scrollTo,
     };
-    let scrollToSpy: sinon.SinonSpiedMember<HTMLElement["scrollTo"]>;
+    let scrollToSpy: MockInstance<[x: number, y: number], void>;
 
     beforeEach(() => {
       Element.prototype.scrollTo = () => {};
-      scrollToSpy = sinon.spy(HTMLElement.prototype, "scrollTo");
+      scrollToSpy = vi.spyOn(HTMLElement.prototype, "scrollTo");
     });
 
     afterEach(() => {
@@ -56,19 +55,17 @@ describe("<Tree />", () => {
       render(<Tree ref={tree} style={{ overflow: "scroll" }} />);
 
       const treediv = screen.getByRole<HTMLDivElement>("tree");
-      sinon
-        .stub(treediv, "getBoundingClientRect")
-        .returns(createRect(1000, 0, 1100, 100));
+      vi.spyOn(treediv, "getBoundingClientRect").mockReturnValue(
+        createRect(1000, 0, 1100, 100)
+      );
       treediv.scrollLeft = 100;
 
       const element = document.createElement("div");
-      sinon
-        .stub(element, "getBoundingClientRect")
-        .returns(createRect(980, 0, 1000, 20));
-      tree.current?.scrollToElement(element);
-      expect(scrollToSpy).to.be.calledWithMatch(
-        sinon.match(({ left }) => left === 0)
+      vi.spyOn(element, "getBoundingClientRect").mockReturnValue(
+        createRect(980, 0, 1000, 20)
       );
+      tree.current?.scrollToElement(element);
+      expect(scrollToSpy).toBeCalledWith(expect.objectContaining({ left: 0 }));
     });
 
     it("keeps current x scroll if the whole element is already visible", () => {
@@ -76,18 +73,18 @@ describe("<Tree />", () => {
       render(<Tree ref={tree} style={{ overflow: "scroll" }} />);
 
       const treediv = screen.getByRole<HTMLDivElement>("tree");
-      sinon
-        .stub(treediv, "getBoundingClientRect")
-        .returns(createRect(1000, 0, 1100, 100));
+      vi.spyOn(treediv, "getBoundingClientRect").mockReturnValue(
+        createRect(1000, 0, 1100, 100)
+      );
       treediv.scrollLeft = 100;
 
       const element = document.createElement("div");
-      sinon
-        .stub(element, "getBoundingClientRect")
-        .returns(createRect(1000, 0, 1020, 20));
+      vi.spyOn(element, "getBoundingClientRect").mockReturnValue(
+        createRect(1000, 0, 1020, 20)
+      );
       tree.current?.scrollToElement(element);
-      expect(scrollToSpy).to.be.calledWithMatch(
-        sinon.match(({ left }) => left === 100)
+      expect(scrollToSpy).toBeCalledWith(
+        expect.objectContaining({ left: 100 })
       );
     });
 
@@ -96,18 +93,18 @@ describe("<Tree />", () => {
       render(<Tree ref={tree} style={{ overflow: "scroll" }} />);
 
       const treediv = screen.getByRole<HTMLDivElement>("tree");
-      sinon
-        .stub(treediv, "getBoundingClientRect")
-        .returns(createRect(1000, 0, 1100, 100));
+      vi.spyOn(treediv, "getBoundingClientRect").mockReturnValue(
+        createRect(1000, 0, 1100, 100)
+      );
       treediv.scrollLeft = 0;
 
       const element = document.createElement("div");
-      sinon
-        .stub(element, "getBoundingClientRect")
-        .returns(createRect(1100, 0, 1120, 20));
+      vi.spyOn(element, "getBoundingClientRect").mockReturnValue(
+        createRect(1100, 0, 1120, 20)
+      );
       tree.current?.scrollToElement(element);
-      expect(scrollToSpy).to.be.calledWithMatch(
-        sinon.match(({ left }) => left === 100)
+      expect(scrollToSpy).toBeCalledWith(
+        expect.objectContaining({ left: 100 })
       );
     });
 
@@ -116,19 +113,17 @@ describe("<Tree />", () => {
       render(<Tree ref={tree} style={{ overflow: "scroll" }} />);
 
       const treediv = screen.getByRole<HTMLDivElement>("tree");
-      sinon
-        .stub(treediv, "getBoundingClientRect")
-        .returns(createRect(0, 100, 100, 220));
+      vi.spyOn(treediv, "getBoundingClientRect").mockReturnValue(
+        createRect(0, 100, 100, 220)
+      );
       treediv.scrollTop = 20;
 
       const element = document.createElement("div");
-      sinon
-        .stub(element, "getBoundingClientRect")
-        .returns(createRect(0, 120, 20, 140));
-      tree.current?.scrollToElement(element);
-      expect(scrollToSpy).to.be.calledWithMatch(
-        sinon.match(({ top }) => top === 20)
+      vi.spyOn(element, "getBoundingClientRect").mockReturnValue(
+        createRect(0, 120, 20, 140)
       );
+      tree.current?.scrollToElement(element);
+      expect(scrollToSpy).toBeCalledWith(expect.objectContaining({ top: 20 }));
     });
 
     it("scrolls to y position to make the whole element visible", () => {
@@ -136,27 +131,31 @@ describe("<Tree />", () => {
       render(<Tree ref={tree} style={{ overflow: "scroll" }} />);
 
       const treediv = screen.getByRole<HTMLDivElement>("tree");
-      sinon
-        .stub(treediv, "getBoundingClientRect")
-        .returns(createRect(0, 100, 100, 220));
+      vi.spyOn(treediv, "getBoundingClientRect").mockReturnValue(
+        createRect(0, 100, 100, 220)
+      );
       treediv.scrollLeft = 0;
 
       const element = document.createElement("div");
-      sinon
-        .stub(element, "getBoundingClientRect")
-        .returns(createRect(0, 220, 20, 240));
+      vi.spyOn(element, "getBoundingClientRect").mockReturnValue(
+        createRect(0, 220, 20, 240)
+      );
       tree.current?.scrollToElement(element);
-      expect(scrollToSpy).to.be.calledWithMatch(
-        sinon.match(({ top }) => top === 120)
+      expect(scrollToSpy).toBeCalledWith(
+        expect.objectContaining({
+          top: 120,
+        })
       );
     });
 
     it("does nothing if Tree isn't mounted properly", () => {
       const tree = new Tree({});
       const element = document.createElement("div");
-      sinon.stub(element, "getBoundingClientRect").returns(createRandomRect());
+      vi.spyOn(element, "getBoundingClientRect").mockReturnValue(
+        createRandomRect()
+      );
       tree.scrollToElement(element);
-      expect(scrollToSpy).to.not.be.called;
+      expect(scrollToSpy).not.toBeCalled();
     });
 
     it("does nothing if Tree is not scrollable and doesn't have a scrollable child", () => {
@@ -167,16 +166,18 @@ describe("<Tree />", () => {
         </Tree>
       );
       const element = document.createElement("div");
-      sinon.stub(element, "getBoundingClientRect").returns(createRandomRect());
+      vi.spyOn(element, "getBoundingClientRect").mockReturnValue(
+        createRandomRect()
+      );
       tree.current?.scrollToElement(element);
-      expect(scrollToSpy).to.not.be.called;
+      expect(scrollToSpy).not.toBeCalled();
     });
   });
 
   describe("getElementsByClassName", () => {
     it("returns empty array when component is not mounted", () => {
       const instance = new Tree({});
-      expect(instance.getElementsByClassName("test").length).to.eq(0);
+      expect(instance.getElementsByClassName("test").length).toEqual(0);
     });
 
     it("returns child elements by class name", () => {
@@ -187,8 +188,8 @@ describe("<Tree />", () => {
         </Tree>
       );
 
-      expect(tree.current?.getElementsByClassName("no").length).to.eq(0);
-      expect(tree.current?.getElementsByClassName("test").length).to.eq(1);
+      expect(tree.current?.getElementsByClassName("no").length).toEqual(0);
+      expect(tree.current?.getElementsByClassName("test").length).toEqual(1);
     });
   });
 
@@ -208,8 +209,8 @@ describe("<Tree />", () => {
 
       expect(document.activeElement).not.to.eq(screen.getByRole("button"));
 
-      expect(tree.current?.setFocusByClassName(".test")).to.be.true;
-      expect(document.activeElement).to.eq(screen.getByRole("button"));
+      expect(tree.current?.setFocusByClassName(".test")).toEqual(true);
+      expect(document.activeElement).toEqual(screen.getByRole("button"));
     });
   });
 });

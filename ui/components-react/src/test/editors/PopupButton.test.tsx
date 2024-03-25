@@ -68,7 +68,7 @@ describe("<PopupButton />", () => {
     fireEvent.click(button);
     await TestUtils.flushAsyncOperations();
 
-    expect(spyOnClick.calledOnce).to.be.true;
+    expect(spyOnClick.calledOnce).toEqual(true);
 
     const popupDiv = component.getByTestId("popup-test-div");
     expect(popupDiv).to.exist;

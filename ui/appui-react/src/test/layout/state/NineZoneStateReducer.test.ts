@@ -100,7 +100,7 @@ describe("NineZoneStateReducer", () => {
           width: 500,
         },
       });
-      expect(newState.panels.left.size).to.eq(250);
+      expect(newState.panels.left.size).toEqual(250);
     });
   });
 
@@ -135,7 +135,7 @@ describe("NineZoneStateReducer", () => {
         side: "left",
         size: 400,
       });
-      expect(newState.panels.left.size).to.eq(400);
+      expect(newState.panels.left.size).toEqual(400);
     });
 
     it("should reset panel size", () => {
@@ -163,8 +163,8 @@ describe("NineZoneStateReducer", () => {
         side: "left",
         minSize: 50,
       });
-      expect(newState.panels.left.minSize).to.eq(50);
-      expect(newState.panels.left.size).to.eq(200);
+      expect(newState.panels.left.minSize).toEqual(50);
+      expect(newState.panels.left.size).toEqual(200);
     });
 
     it("should update size", () => {
@@ -180,8 +180,8 @@ describe("NineZoneStateReducer", () => {
         side: "left",
         minSize: 300,
       });
-      expect(newState.panels.left.minSize).to.eq(300);
-      expect(newState.panels.left.size).to.eq(300);
+      expect(newState.panels.left.minSize).toEqual(300);
+      expect(newState.panels.left.size).toEqual(300);
     });
   });
 
@@ -199,8 +199,8 @@ describe("NineZoneStateReducer", () => {
         side: "left",
         maxSize: 800,
       });
-      expect(newState.panels.left.size).to.eq(200);
-      expect(newState.panels.left.maxSize).to.eq(800);
+      expect(newState.panels.left.size).toEqual(200);
+      expect(newState.panels.left.maxSize).toEqual(800);
     });
 
     it("should update size", () => {
@@ -216,8 +216,8 @@ describe("NineZoneStateReducer", () => {
         side: "left",
         maxSize: 150,
       });
-      expect(newState.panels.left.size).to.eq(150);
-      expect(newState.panels.left.maxSize).to.eq(150);
+      expect(newState.panels.left.size).toEqual(150);
+      expect(newState.panels.left.maxSize).toEqual(150);
     });
   });
 
@@ -229,7 +229,7 @@ describe("NineZoneStateReducer", () => {
         side: "left",
         percent: 40,
       });
-      expect(newState.panels.left.splitterPercent).to.eq(40);
+      expect(newState.panels.left.splitterPercent).toEqual(40);
     });
   });
 
@@ -1770,7 +1770,7 @@ describe("NineZoneStateReducer", () => {
 
       const blankHTML = document.createElement("div");
 
-      stub(document, "getElementById").returns(blankHTML);
+      stub(document, "getElementById").mockReturnValue(blankHTML);
       state = addTab(state, "t1");
       state = addPanelWidget(state, "left", "w1", ["t1"]);
 
@@ -1800,7 +1800,7 @@ describe("NineZoneStateReducer", () => {
         type: "WIDGET_TAB_HIDE",
         id: "t1",
       });
-      expect(newState).to.eq(state);
+      expect(newState).toEqual(state);
     });
 
     it("should hide docked tool settings tab", () => {
@@ -1828,8 +1828,8 @@ describe("NineZoneStateReducer", () => {
         id: "t1",
       });
 
-      expect(newState.toolSettings?.type).to.eq("widget");
-      expect(newState.toolSettings?.tabId).to.eq("t1");
+      expect(newState.toolSettings?.type).toEqual("widget");
+      expect(newState.toolSettings?.tabId).toEqual("t1");
       expect(newState.floatingWidgets.allIds).lengthOf(0);
       expect(newState.savedTabs.byId.t1?.home).to.eql({
         widgetId: "w1",
@@ -1920,7 +1920,7 @@ describe("NineZoneStateReducer", () => {
         id: "t1",
         label: "Tab 1",
       });
-      expect(newState.tabs.t1.label).to.eq("Tab 1");
+      expect(newState.tabs.t1.label).toEqual("Tab 1");
     });
   });
 
@@ -1934,7 +1934,7 @@ describe("NineZoneStateReducer", () => {
         id: "t1",
         label: "Tab 1",
       });
-      expect(newState.tabs.t1.label).to.eq("Tab 1");
+      expect(newState.tabs.t1.label).toEqual("Tab 1");
     });
   });
 
@@ -1964,7 +1964,7 @@ describe("NineZoneStateReducer", () => {
       expect(newState.panels.left.widgets).lengthOf(1);
       const widgetId = newState.panels.left.widgets[0];
       const widget = newState.widgets[widgetId];
-      expect(widget.activeTabId).to.eq("t1");
+      expect(widget.activeTabId).toEqual("t1");
     });
 
     it("should skip if tab is in a popout widget", () => {
@@ -1976,7 +1976,7 @@ describe("NineZoneStateReducer", () => {
         type: "WIDGET_TAB_OPEN",
         id: "t1",
       });
-      expect(newState).to.eq(state);
+      expect(newState).toEqual(state);
     });
   });
 
@@ -2100,7 +2100,7 @@ describe("NineZoneStateReducer", () => {
           label: "test",
         },
       });
-      expect(newState.tabs.t1.label).to.eq("test");
+      expect(newState.tabs.t1.label).toEqual("test");
     });
   });
 
@@ -2115,13 +2115,13 @@ describe("NineZoneStateReducer", () => {
         type: "WIDGET_TAB_EXPAND",
         id: "t1",
       });
-      expect(newState.panels.left.splitterPercent).to.eq(100);
+      expect(newState.panels.left.splitterPercent).toEqual(100);
 
       newState = NineZoneStateReducer(state, {
         type: "WIDGET_TAB_EXPAND",
         id: "t2",
       });
-      expect(newState.panels.left.splitterPercent).to.eq(0);
+      expect(newState.panels.left.splitterPercent).toEqual(0);
     });
   });
 
@@ -2152,7 +2152,7 @@ describe("NineZoneStateReducer", () => {
       const newState = NineZoneStateReducer(state, {
         type: "TOOL_SETTINGS_DOCK",
       });
-      expect(newState.toolSettings?.type).to.eq("docked");
+      expect(newState.toolSettings?.type).toEqual("docked");
       should().not.exist(newState.widgets.w1);
     });
 
@@ -2164,7 +2164,7 @@ describe("NineZoneStateReducer", () => {
       const newState = NineZoneStateReducer(state, {
         type: "TOOL_SETTINGS_DOCK",
       });
-      expect(newState.toolSettings?.type).to.eq("docked");
+      expect(newState.toolSettings?.type).toEqual("docked");
 
       should().not.exist(newState.widgets.w1);
       should().not.exist(newState.floatingWidgets.byId.w1);
@@ -2201,7 +2201,7 @@ describe("NineZoneStateReducer", () => {
         type: "TOOL_SETTINGS_DRAG_START",
         newFloatingWidgetId: "new-fw1",
       });
-      expect(newState.toolSettings?.type).to.eq("widget");
+      expect(newState.toolSettings?.type).toEqual("widget");
       newState.floatingWidgets.byId["new-fw1"].id.should.eq("new-fw1");
     });
 

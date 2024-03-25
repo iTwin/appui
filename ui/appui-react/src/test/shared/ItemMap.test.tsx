@@ -20,14 +20,18 @@ describe("ItemMap & ItemList", () => {
     it("constructor should add an item correctly", () => {
       const selectItem = CoreTools.selectElementCommand;
       const itemMap = new ItemMap([selectItem]);
-      expect(itemMap.get(CoreTools.selectElementCommand.id)).to.eq(selectItem);
+      expect(itemMap.get(CoreTools.selectElementCommand.id)).toEqual(
+        selectItem
+      );
     });
 
     it("addItem should add an item correctly", () => {
       const itemMap = new ItemMap();
       const selectItem = CoreTools.selectElementCommand;
       itemMap.addItem(selectItem);
-      expect(itemMap.get(CoreTools.selectElementCommand.id)).to.eq(selectItem);
+      expect(itemMap.get(CoreTools.selectElementCommand.id)).toEqual(
+        selectItem
+      );
     });
   });
 
@@ -35,7 +39,7 @@ describe("ItemMap & ItemList", () => {
     it("constructor should add an item correctly", () => {
       const selectItem = CoreTools.selectElementCommand;
       const itemList = new ItemList([selectItem]);
-      expect(itemList[0]).to.eq(selectItem);
+      expect(itemList[0]).toEqual(selectItem);
     });
   });
 });

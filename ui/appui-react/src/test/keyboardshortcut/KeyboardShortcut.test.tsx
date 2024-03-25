@@ -22,7 +22,7 @@ import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { InternalKeyboardShortcutManager } from "../../appui-react/keyboardshortcut/InternalKeyboardShortcut";
 
 describe("KeyboardShortcut", () => {
-  const testSpyMethod = sinon.spy();
+  const testspy = sinon.spy();
   let testCommand: CommandItemDef;
   let testCommand2: CommandItemDef;
 
@@ -34,7 +34,7 @@ describe("KeyboardShortcut", () => {
       iconSpec: "icon-placeholder",
       label: "Test",
       execute: () => {
-        testSpyMethod();
+        testspy();
       },
     });
 
@@ -43,7 +43,7 @@ describe("KeyboardShortcut", () => {
       iconSpec: "icon-placeholder",
       label: "Test",
       execute: () => {
-        testSpyMethod();
+        testspy();
       },
     });
   });
@@ -53,7 +53,7 @@ describe("KeyboardShortcut", () => {
   });
 
   beforeEach(() => {
-    testSpyMethod.resetHistory();
+    testspy.resetHistory();
     InternalKeyboardShortcutManager.shortcutContainer.emptyData();
   });
 
@@ -69,7 +69,7 @@ describe("KeyboardShortcut", () => {
         key: Key.F7,
         item: testCommand,
       });
-      expect(keyboardShortcut.isFunctionKey).to.be.true;
+      expect(keyboardShortcut.isFunctionKey).toEqual(true);
       expect(keyboardShortcut.isSpecialKey).to.be.false;
     });
 
@@ -78,7 +78,7 @@ describe("KeyboardShortcut", () => {
         key: Key.ArrowDown,
         item: testCommand,
       });
-      expect(keyboardShortcut.isSpecialKey).to.be.true;
+      expect(keyboardShortcut.isSpecialKey).toEqual(true);
       expect(keyboardShortcut.isFunctionKey).to.be.false;
     });
 
@@ -90,13 +90,13 @@ describe("KeyboardShortcut", () => {
       const shortcut = InternalKeyboardShortcutManager.getShortcut("b");
       expect(shortcut).to.not.be.undefined;
       if (shortcut) {
-        expect(shortcut.id).to.eq("b");
-        expect(shortcut.item).to.eq(testCommand);
+        expect(shortcut.id).toEqual("b");
+        expect(shortcut.item).toEqual(testCommand);
 
         shortcut.itemPicked();
 
         await TestUtils.flushAsyncOperations();
-        expect(testSpyMethod.calledOnce).to.be.true;
+        expect(testspy.calledOnce).toEqual(true);
       }
     });
 
@@ -112,11 +112,11 @@ describe("KeyboardShortcut", () => {
       const shortcut = InternalKeyboardShortcutManager.getShortcut("b");
       expect(shortcut).to.not.be.undefined;
       if (shortcut) {
-        expect(shortcut.item).to.eq(testCommand2);
+        expect(shortcut.item).toEqual(testCommand2);
         const shortcuts =
           InternalKeyboardShortcutManager.shortcutContainer.getAvailableKeyboardShortcuts();
-        expect(shortcuts.length).to.eq(1);
-        expect(shortcuts[0].item).to.eq(testCommand2);
+        expect(shortcuts.length).toEqual(1);
+        expect(shortcuts[0].item).toEqual(testCommand2);
       }
     });
 
@@ -134,18 +134,16 @@ describe("KeyboardShortcut", () => {
       const shortcut = InternalKeyboardShortcutManager.getShortcut("d");
       expect(shortcut).to.not.be.undefined;
       if (shortcut) {
-        expect(shortcut.id).to.eq("d");
+        expect(shortcut.id).toEqual("d");
         expect(shortcut.shortcutContainer.areKeyboardShortcutsAvailable()).to.be
           .true;
         expect(shortcut.getShortcut("1")).to.not.be.undefined;
 
-        const menuSpyMethod = sinon.spy();
+        const menuspy = sinon.spy();
         const remove =
-          KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.addListener(
-            menuSpyMethod
-          );
+          KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.addListener(menuspy);
         shortcut.itemPicked();
-        expect(menuSpyMethod.calledOnce).to.be.true;
+        expect(menuspy.calledOnce).toEqual(true);
         remove();
       }
     });
@@ -167,14 +165,14 @@ describe("KeyboardShortcut", () => {
         true,
         true
       );
-      expect(keyMapKey).to.eq("Ctrl+Shift+Alt+A");
+      expect(keyMapKey).toEqual("Ctrl+Shift+Alt+A");
       const shortcut = InternalKeyboardShortcutManager.getShortcut(keyMapKey);
 
       expect(shortcut).to.not.be.undefined;
       if (shortcut) {
-        expect(shortcut.isAltKeyRequired).to.be.true;
-        expect(shortcut.isCtrlKeyRequired).to.be.true;
-        expect(shortcut.isShiftKeyRequired).to.be.true;
+        expect(shortcut.isAltKeyRequired).toEqual(true);
+        expect(shortcut.isCtrlKeyRequired).toEqual(true);
+        expect(shortcut.isShiftKeyRequired).toEqual(true);
       }
     });
 
@@ -188,8 +186,8 @@ describe("KeyboardShortcut", () => {
       });
       const shortcut = InternalKeyboardShortcutManager.getShortcut("x");
       expect(shortcut).to.not.be.undefined;
-      expect(shortcut!.isDisabled).to.be.true;
-      expect(shortcut!.isHidden).to.be.true;
+      expect(shortcut!.isDisabled).toEqual(true);
+      expect(shortcut!.isHidden).toEqual(true);
 
       const yCommand = new CommandItemDef({
         commandId: "yCommand",
@@ -198,7 +196,7 @@ describe("KeyboardShortcut", () => {
         isHidden: true,
         label: "Test",
         execute: () => {
-          testSpyMethod();
+          testspy();
         },
       });
       InternalKeyboardShortcutManager.loadShortcut({
@@ -208,8 +206,8 @@ describe("KeyboardShortcut", () => {
       });
       const yShortcut = InternalKeyboardShortcutManager.getShortcut("y");
       expect(yShortcut).to.not.be.undefined;
-      expect(yShortcut!.isDisabled).to.be.true;
-      expect(yShortcut!.isHidden).to.be.true;
+      expect(yShortcut!.isDisabled).toEqual(true);
+      expect(yShortcut!.isHidden).toEqual(true);
     });
   });
 
@@ -240,19 +238,19 @@ describe("KeyboardShortcut", () => {
         },
       ];
 
-      const menuSpyMethod = sinon.spy();
+      const menuspy = sinon.spy();
       InternalKeyboardShortcutManager.displayMenu(); // No shortcuts to display yet
-      expect(menuSpyMethod.calledOnce).to.be.false;
+      expect(menuspy.calledOnce).to.be.false;
 
       UiFramework.keyboardShortcuts.loadShortcuts(keyboardShortcutList);
 
       expect(
         InternalKeyboardShortcutManager.shortcutContainer.areKeyboardShortcutsAvailable()
-      ).to.be.true;
+      ).toEqual(true);
       expect(
         InternalKeyboardShortcutManager.shortcutContainer.getAvailableKeyboardShortcuts()
           .length
-      ).to.eq(4);
+      ).toEqual(4);
       expect(InternalKeyboardShortcutManager.getShortcut("a")).to.not.be
         .undefined;
       expect(InternalKeyboardShortcutManager.getShortcut("d")).to.not.be
@@ -263,11 +261,9 @@ describe("KeyboardShortcut", () => {
         .undefined;
 
       const remove =
-        KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.addListener(
-          menuSpyMethod
-        );
+        KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.addListener(menuspy);
       InternalKeyboardShortcutManager.displayMenu();
-      expect(menuSpyMethod.calledOnce).to.be.true;
+      expect(menuspy.calledOnce).toEqual(true);
       remove();
     });
 
@@ -281,10 +277,10 @@ describe("KeyboardShortcut", () => {
       expect(shortcut).to.not.be.undefined;
 
       const processed = InternalKeyboardShortcutManager.processKey("f");
-      expect(processed).to.be.true;
+      expect(processed).toEqual(true);
 
       await TestUtils.flushAsyncOperations();
-      expect(testSpyMethod.calledOnce).to.be.true;
+      expect(testspy.calledOnce).toEqual(true);
 
       const processedG = InternalKeyboardShortcutManager.processKey("g");
       expect(processedG).to.be.false;
@@ -346,7 +342,9 @@ describe("KeyboardShortcut", () => {
 
       SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(testEventId);
 
-      expect(ConditionalBooleanValue.getValue(shortcut!.isDisabled)).to.be.true;
+      expect(ConditionalBooleanValue.getValue(shortcut!.isDisabled)).toEqual(
+        true
+      );
       expect(ConditionalBooleanValue.getValue(childShortcut!.isDisabled)).to.be
         .true;
       expect(ConditionalBooleanValue.getValue(childShortcutZ!.isDisabled)).to.be
@@ -358,8 +356,8 @@ describe("KeyboardShortcut", () => {
     it("Should maintain cursor X & Y", () => {
       CursorInformation.cursorPosition = new Point(100, 200);
 
-      expect(InternalKeyboardShortcutManager.cursorX).to.eq(100);
-      expect(InternalKeyboardShortcutManager.cursorY).to.eq(200);
+      expect(InternalKeyboardShortcutManager.cursorX).toEqual(100);
+      expect(InternalKeyboardShortcutManager.cursorY).toEqual(200);
     });
 
     it("setFocusToHome should set focus to home", () => {
@@ -367,13 +365,13 @@ describe("KeyboardShortcut", () => {
       document.body.appendChild(buttonElement);
       buttonElement.focus();
       let activeElement = document.activeElement as HTMLElement;
-      expect(activeElement === buttonElement).to.be.true;
+      expect(activeElement === buttonElement).toEqual(true);
       expect(InternalKeyboardShortcutManager.isFocusOnHome).to.be.false;
 
       InternalKeyboardShortcutManager.setFocusToHome();
       activeElement = document.activeElement as HTMLElement;
-      expect(activeElement === document.body).to.be.true;
-      expect(InternalKeyboardShortcutManager.isFocusOnHome).to.be.true;
+      expect(activeElement === document.body).toEqual(true);
+      expect(InternalKeyboardShortcutManager.isFocusOnHome).toEqual(true);
       document.body.removeChild(buttonElement);
     });
   });

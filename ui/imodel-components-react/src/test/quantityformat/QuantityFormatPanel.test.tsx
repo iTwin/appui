@@ -156,7 +156,7 @@ describe("QuantityInput", () => {
       })
     );
 
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     expect(spanElement.textContent).to.be.eql(`405 '-0 1/4 "`);
 
@@ -167,17 +167,17 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.none",
       })
     );
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     expect(spanElement.textContent).to.be.eql(`405'-0 1/4"`);
 
     await theUserTo.click(screen.getByTestId("show-unit-label-checkbox"));
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     expect(spanElement.textContent).to.be.eql(`405:-0 1/4`); // TODO: does this match Native formatter?
 
     await theUserTo.click(screen.getByTestId("show-unit-label-checkbox"));
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     expect(spanElement.textContent).to.be.eql(`405'-0 1/4"`);
   });
@@ -205,7 +205,7 @@ describe("QuantityInput", () => {
       initialSelectionEnd: Infinity,
     });
     expect(spanElement.textContent).to.be.eql(`405'x0 1/4"`);
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
     spy.resetHistory();
 
     await theUserTo.type(component.getByTestId("composite-spacer"), "xxx", {
@@ -213,7 +213,7 @@ describe("QuantityInput", () => {
       initialSelectionEnd: Infinity,
     });
     expect(spanElement.textContent).to.be.eql(`405'x0 1/4"`);
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("should handle onFormatChange Type selection", async () => {
@@ -237,7 +237,7 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange Fraction precision selection", async () => {
@@ -262,7 +262,7 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange Decimal precision selection", async () => {
@@ -287,7 +287,7 @@ describe("QuantityInput", () => {
       })
     );
 
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     const precisionSelector = within(
@@ -301,7 +301,7 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle processing more/less", async () => {
@@ -345,7 +345,7 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange when changing station size option", async () => {
@@ -369,7 +369,7 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.station",
       })
     );
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     fireEvent.click(
@@ -382,7 +382,7 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.station_size.three",
       })
     );
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     fireEvent.click(
@@ -396,7 +396,7 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange when changing thousands separator", async () => {
@@ -412,7 +412,7 @@ describe("QuantityInput", () => {
 
     /* turn on */
     fireEvent.click(component.getByTestId("use-thousands-separator"));
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     fireEvent.click(
@@ -425,18 +425,18 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.thousand_separator.point",
       })
     );
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     /* turn off */
     fireEvent.click(component.getByTestId("use-thousands-separator"));
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     /* turn on */
     fireEvent.click(component.getByTestId("use-thousands-separator"));
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     component.getByText(`40.504'-2"`);
 
@@ -451,7 +451,7 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     component.getByText(`40,504'-2"`);
   });
 
@@ -476,12 +476,12 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.decimal",
       })
     );
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     /* turn on 1000 separator */
     fireEvent.click(component.getByTestId("use-thousands-separator"));
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     const separatorSelector = within(
@@ -493,7 +493,7 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.decimal_separator.comma",
       })
     );
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     fireEvent.click(separatorSelector);
@@ -503,7 +503,7 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange when changing traits", async () => {
@@ -519,7 +519,7 @@ describe("QuantityInput", () => {
 
     // test fraction specific trait before changing type
     fireEvent.click(component.getByTestId("fraction-dash"));
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     const typeSelector = within(
@@ -531,23 +531,23 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.decimal",
       })
     );
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     fireEvent.click(component.getByTestId("show-trail-zeros"));
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     fireEvent.click(component.getByTestId("keep-decimal-point"));
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     fireEvent.click(component.getByTestId("keep-single-zero"));
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     fireEvent.click(component.getByTestId("zero-empty"));
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     fireEvent.click(typeSelector);
@@ -556,7 +556,7 @@ describe("QuantityInput", () => {
         name: "QuantityFormat.scientific",
       })
     );
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
 
     fireEvent.click(
@@ -570,7 +570,7 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange when changing composite units", async () => {
@@ -595,7 +595,7 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange when changing adding composite unit", async () => {
@@ -619,7 +619,7 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle onFormatChange when changing primary unit", async () => {
@@ -643,7 +643,7 @@ describe("QuantityInput", () => {
       })
     );
     await waitForPosition();
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle sample value change", async () => {
@@ -730,14 +730,14 @@ describe("QuantityInput", () => {
     await theUserTo.type(primaryUnitLabel, "testfeet");
     const itemLabel = await component.findByText(/testfeet/);
     expect(itemLabel).to.exist;
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
 
     // NEEDSWORK - Can't get the selectChangeValueByText below to work
     // const primaryUnitSelector = component.getByTestId("unit-Units.FT");
     // fireEvent.change(primaryUnitSelector, { target: {value:"Units.YRD:yd"}});
     // const unitLabel = await component.findByTestId("unit-label-Units.YRD");
     // expect(unitLabel).to.exist;
-    // expect(spy).to.be.calledOnce;
+    // expect(spy).toHaveBeenCalledOnce();
     // spy.resetHistory();
   });
 
@@ -763,12 +763,12 @@ describe("QuantityInput", () => {
         initialSelectionStart: 0,
         initialSelectionEnd: Infinity,
       });
-      expect(spy).to.be.called;
+      expect(spy).toHaveBeenCalled();
       spy.resetHistory();
 
       const checkboxField = component.getByTestId("checkbox-0-editor");
       await theUserTo.click(checkboxField);
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
       spy.resetHistory();
 
       const selectField = component.getByTestId("select-0-editor");
@@ -778,7 +778,7 @@ describe("QuantityInput", () => {
         )
       );
       await theUserTo.click(screen.getByText(/counter-clockwise/));
-      expect(spy).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 });

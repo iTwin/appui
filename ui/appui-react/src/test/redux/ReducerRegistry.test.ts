@@ -101,7 +101,7 @@ describe("ReducerRegistry", () => {
 
     ExtensionStateManager.initialize();
 
-    expect(reducerRegistryHasEntries).to.be.true;
+    expect(reducerRegistryHasEntries).toEqual(true);
     expect(ReducerRegistryInstance.getReducers().extension_state).to.exist;
 
     const myCurrentState: ExtensionState = {
@@ -115,7 +115,7 @@ describe("ReducerRegistry", () => {
         payload: true,
       }
     );
-    expect(outState.dialogVisible).to.be.true;
+    expect(outState.dialogVisible).toEqual(true);
     expect(outState.selectedItem).to.be.equal("selected");
     outState = ReducerRegistryInstance.getReducers().extension_state(outState, {
       type: ExtensionStateManager.SET_EXTENSION_SELECTED_ITEM,

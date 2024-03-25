@@ -97,7 +97,7 @@ describe("PanelWidget", () => {
 
   describe("PANEL_WIDGET_DRAG_START", () => {
     it("should dispatch", () => {
-      sinon.stub(NineZoneModule, "getUniqueId").returns("newId");
+      sinon.stub(NineZoneModule, "getUniqueId").mockReturnValue("newId");
       const dispatch = sinon.stub<NineZoneDispatch>();
       let state = createNineZoneState();
       state = addTab(state, "t1");

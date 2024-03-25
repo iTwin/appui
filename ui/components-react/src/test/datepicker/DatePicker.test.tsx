@@ -37,7 +37,7 @@ describe("<DatePicker />", () => {
      * and the time displayed should appear as if the user is seeing clock in project location. */
     const londonDate = new Date("July 22, 2018 07:22:13 +0100");
     const adjustedDate = adjustDateToTimezone(londonDate, 1 * 60);
-    expect(adjustedDate.getHours()).to.eq(7);
+    expect(adjustedDate.getHours()).toEqual(7);
   });
 
   it("should render ", () => {
@@ -135,7 +135,7 @@ describe("<DatePicker />", () => {
       renderedComponent.container.querySelector(dataValueSelector);
     expect(dayEntry).not.to.be.null;
     fireEvent.click(dayEntry!);
-    expect(renderSpy).to.be.called;
+    expect(renderSpy).toHaveBeenCalled();
   });
 
   it("should handle keyboard processing", () => {
@@ -162,10 +162,10 @@ describe("<DatePicker />", () => {
     fireEvent.keyDown(calendar, { key: Key.ArrowLeft });
     fireEvent.keyDown(calendar, { key: Key.ArrowRight });
     fireEvent.keyDown(calendar, { key: Key.Enter });
-    expect(renderSpy).to.be.called;
+    expect(renderSpy).toHaveBeenCalled();
     renderSpy.resetHistory();
     fireEvent.keyDown(calendar, { key: Key.ArrowLeft });
     fireEvent.keyDown(calendar, { key: " " });
-    expect(renderSpy).to.be.called;
+    expect(renderSpy).toHaveBeenCalled();
   });
 });

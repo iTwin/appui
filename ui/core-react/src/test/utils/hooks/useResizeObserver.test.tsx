@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import * as sinon from "sinon";
 import { act, renderHook } from "@testing-library/react-hooks";
 import * as ResizeObserverModule from "../../../core-react/utils/hooks/ResizeObserverPolyfill";
 import {
@@ -13,7 +12,6 @@ import {
 } from "../../../core-react/utils/hooks/useResizeObserver";
 import TestUtils from "../../TestUtils";
 import { render, waitFor } from "@testing-library/react";
-import { expect } from "chai";
 
 /** Stubs requestAnimationFrame. */
 function stubRaf() {
@@ -163,7 +161,7 @@ describe("useResizeObserver", () => {
       resizeObserverSpy.firstCall.returnValue
     );
     await TestUtils.flushAsyncOperations();
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 });
 

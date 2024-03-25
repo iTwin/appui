@@ -62,7 +62,7 @@ describe("Calculator", () => {
   it("should support initialValue", () => {
     render(<Calculator engine={new CalculatorEngine()} initialValue={100} />);
 
-    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("100");
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).toEqual("100");
   });
 
   it("clicking on 1 button should put it in display", async () => {
@@ -70,31 +70,31 @@ describe("Calculator", () => {
 
     await theUserTo.click(screen.getByRole("button", { name: "1" }));
 
-    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("1");
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).toEqual("1");
   });
 
   it("clicking on buttons, operator and equals should give correct result", async () => {
     render(<Calculator engine={new CalculatorEngine()} />);
 
     await theUserTo.click(screen.getByRole("button", { name: "1" }));
-    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("1");
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).toEqual("1");
 
     await theUserTo.click(screen.getByRole("button", { name: "0" }));
-    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("10");
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).toEqual("10");
 
     await theUserTo.click(screen.getByRole("button", { name: "×" }));
-    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("10");
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).toEqual("10");
 
     await theUserTo.click(screen.getByRole("button", { name: "2" }));
-    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("2");
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).toEqual("2");
 
     await theUserTo.click(screen.getByRole("button", { name: "=" }));
-    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("20");
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).toEqual("20");
   });
 
   it("clicking on OK button should fire onOk", async () => {
-    const spyMethod = sinon.spy();
-    render(<Calculator engine={new CalculatorEngine()} onOk={spyMethod} />);
+    const spy = sinon.spy();
+    render(<Calculator engine={new CalculatorEngine()} onOk={spy} />);
 
     await theUserTo.click(screen.getByRole("button", { name: "5" }));
     const okButton = screen
@@ -103,12 +103,12 @@ describe("Calculator", () => {
     expect(okButton).to.exist;
     await theUserTo.click(okButton!);
 
-    expect(spyMethod).to.have.been.calledWith(5);
+    expect(spy).toHaveBeenCalledWith(5);
   });
 
   it("clicking on Cancel button should fire onCancel", async () => {
-    const spyMethod = sinon.spy();
-    render(<Calculator engine={new CalculatorEngine()} onCancel={spyMethod} />);
+    const spy = sinon.spy();
+    render(<Calculator engine={new CalculatorEngine()} onCancel={spy} />);
     await theUserTo.click(screen.getByRole("button", { name: "5" }));
 
     const cancelButton = screen
@@ -117,16 +117,16 @@ describe("Calculator", () => {
     expect(cancelButton).to.exist;
     await theUserTo.click(cancelButton!);
 
-    expect(spyMethod).to.have.been.called;
+    expect(spy).to.have.been.called;
   });
 
   it("Pressing Esc should fire onCancel", async () => {
-    const spyMethod = sinon.spy();
-    render(<Calculator engine={new CalculatorEngine()} onCancel={spyMethod} />);
+    const spy = sinon.spy();
+    render(<Calculator engine={new CalculatorEngine()} onCancel={spy} />);
 
     await theUserTo.type(screen.getByRole("textbox"), "[Escape]");
 
-    spyMethod.called.should.true;
+    spy.called.should.true;
   });
 
   it("pressing keys and multiply should give correct result", async () => {
@@ -185,8 +185,8 @@ describe("Calculator", () => {
   });
 
   it("pressing keys and Enter should give correct result", async () => {
-    const spyMethod = sinon.spy();
-    render(<Calculator engine={new CalculatorEngine()} onOk={spyMethod} />);
+    const spy = sinon.spy();
+    render(<Calculator engine={new CalculatorEngine()} onOk={spy} />);
 
     await theUserTo.type(screen.getByRole("textbox"), "8/");
     expect(screen.getByDisplayValue("8")).to.exist;
@@ -196,7 +196,7 @@ describe("Calculator", () => {
 
     await theUserTo.type(screen.getByRole("textbox"), "[Enter]");
     expect(screen.getByDisplayValue("2")).to.exist;
-    spyMethod.called.should.true;
+    spy.called.should.true;
   });
 
   it("pressing keys and Clear should give correct result", async () => {
@@ -220,8 +220,8 @@ describe("Calculator", () => {
   });
 
   it("pressing keys and Equal and Enter should give correct result", async () => {
-    const spyMethod = sinon.spy();
-    render(<Calculator engine={new CalculatorEngine()} onOk={spyMethod} />);
+    const spy = sinon.spy();
+    render(<Calculator engine={new CalculatorEngine()} onOk={spy} />);
 
     await theUserTo.type(screen.getByRole("textbox"), "65-");
     expect(screen.getByDisplayValue("65")).to.exist;
@@ -234,7 +234,7 @@ describe("Calculator", () => {
 
     await theUserTo.type(screen.getByRole("textbox"), "[Enter]");
     expect(screen.getByDisplayValue("61")).to.exist;
-    spyMethod.called.should.true;
+    spy.called.should.true;
   });
 
   it("pressing keys and Equal and Clear should give correct result", async () => {

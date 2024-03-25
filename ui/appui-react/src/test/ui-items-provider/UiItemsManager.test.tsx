@@ -95,7 +95,7 @@ describe("UiItemsManager", () => {
     });
 
     const provider = UiItemsManager.getUiItemsProvider("provider1");
-    expect(provider?.id).to.eq("provider1");
+    expect(provider?.id).toEqual("provider1");
   });
 
   it("should provide status bar items", () => {
@@ -202,16 +202,16 @@ describe("UiItemsManager", () => {
       {
         const provider1 = UiItemsManager.getUiItemsProvider("provider1");
         const provider2 = UiItemsManager.getUiItemsProvider("provider2");
-        expect(provider1?.id).to.eq("provider1");
-        expect(provider2?.id).to.eq("provider2");
+        expect(provider1?.id).toEqual("provider1");
+        expect(provider2?.id).toEqual("provider2");
       }
       {
         const provider1 =
           AbstractUiItemsManager.getUiItemsProvider("provider1");
         const provider2 =
           AbstractUiItemsManager.getUiItemsProvider("provider2");
-        expect(provider1?.id).to.eq("provider1");
-        expect(provider2?.id).to.eq("provider2");
+        expect(provider1?.id).toEqual("provider1");
+        expect(provider2?.id).toEqual("provider2");
       }
     });
 
@@ -259,8 +259,8 @@ describe("UiItemsManager", () => {
     });
 
     it("should provide status bar items", () => {
-      const execute2 = sinon.stub();
-      const execute4 = sinon.stub();
+      const execute2 = vi.fn();
+      const execute4 = vi.fn();
       UiItemsManager.register({
         id: "provider1",
         provideStatusBarItems: () => [
@@ -418,7 +418,7 @@ describe("UiItemsManager", () => {
     });
 
     it("should provide backstage items", () => {
-      const execute = sinon.stub();
+      const execute = vi.fn();
       UiItemsManager.register({
         id: "provider1",
         provideBackstageItems: () => [
@@ -535,8 +535,8 @@ describe("UiItemsManager", () => {
     });
 
     it("should provide toolbar items", () => {
-      const execute1 = sinon.stub();
-      const execute3 = sinon.stub();
+      const execute1 = vi.fn();
+      const execute3 = vi.fn();
       UiItemsManager.register({
         id: "provider1",
         provideToolbarItems: () => [
@@ -909,7 +909,7 @@ describe("UiItemsManager", () => {
           ToolbarOrientation.Horizontal
         );
         expect(items).lengthOf(1);
-        expect(items[0].id).to.eq("item1");
+        expect(items[0].id).toEqual("item1");
       });
 
       it("should only provide for specified stage ids", () => {
@@ -982,7 +982,7 @@ describe("UiItemsManager", () => {
           StageUsage.General
         );
         expect(items).lengthOf(1);
-        expect(items[0].id).to.eq("item1");
+        expect(items[0].id).toEqual("item1");
       });
 
       it("should only provide for specified stage ids", () => {
@@ -1030,7 +1030,7 @@ describe("UiItemsManager", () => {
 
         const items = UiItemsManager.getBackstageItems();
         expect(items).lengthOf(1);
-        expect(items[0].id).to.eq("item1");
+        expect(items[0].id).toEqual("item1");
       });
     });
 

@@ -17,7 +17,7 @@ describe("HighlightingEngine", () => {
     it("just returns text if searchText is empty", () => {
       const text = "This is a test";
       const searchText = "";
-      expect(HighlightingEngine.renderNodeLabel(text, { searchText })).to.eq(
+      expect(HighlightingEngine.renderNodeLabel(text, { searchText })).toEqual(
         text
       );
     });
@@ -55,7 +55,7 @@ describe("HighlightingEngine", () => {
     it("sets correct searchText", () => {
       const searchText = "test";
       const he = new HighlightingEngine({ searchText });
-      expect(he.createRenderProps(simulateNode("id")).searchText).to.eq(
+      expect(he.createRenderProps(simulateNode("id")).searchText).toEqual(
         searchText
       );
     });
@@ -76,7 +76,9 @@ describe("HighlightingEngine", () => {
         searchText,
         activeMatch: { nodeId: "a", matchIndex: 1 },
       });
-      expect(he.createRenderProps(simulateNode("a")).activeMatchIndex).to.eq(1);
+      expect(he.createRenderProps(simulateNode("a")).activeMatchIndex).toEqual(
+        1
+      );
     });
   });
 });

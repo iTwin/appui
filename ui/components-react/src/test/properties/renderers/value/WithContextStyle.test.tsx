@@ -12,13 +12,13 @@ describe("withContextStyle", () => {
   it("returns given node when context is not provided", () => {
     const reactNode: React.ReactNode = <>test</>;
     const result = withContextStyle(reactNode, undefined);
-    expect(result).to.eq(reactNode);
+    expect(result).toEqual(reactNode);
   });
 
   it("returns given node when context.style is not set", () => {
     const reactNode: React.ReactNode = <>test</>;
     const result = withContextStyle(reactNode, { style: undefined });
-    expect(result).to.eq(reactNode);
+    expect(result).toEqual(reactNode);
   });
 
   it("returns proper node when context.style is set", () => {

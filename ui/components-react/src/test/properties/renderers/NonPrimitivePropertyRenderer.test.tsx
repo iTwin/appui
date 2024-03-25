@@ -164,7 +164,7 @@ describe("NonPrimitivePropertyRenderer", () => {
       />
     );
     await theUserTo.click(screen.getByTitle("Pipes (1)"));
-    expect(keySpy).to.have.been.calledWith(sinon.match.any, "unique_key");
+    expect(keySpy).toHaveBeenCalledWith(sinon.match.any, "unique_key");
   });
 
   it("renders as expanded if property should be automatically expanded", () => {

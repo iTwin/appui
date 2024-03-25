@@ -25,7 +25,7 @@ describe("CursorPrompt", () => {
 
   it("should display", async () => {
     render(<CursorPopupRenderer />);
-    expect(CursorPopupManager.popupCount).to.eq(0);
+    expect(CursorPopupManager.popupCount).toEqual(0);
 
     const cursorPrompt = new CursorPrompt(20, false);
     cursorPrompt.display(
@@ -33,7 +33,7 @@ describe("CursorPrompt", () => {
       ToolAssistance.createInstruction("icon-placeholder", "Prompt string")
     );
 
-    expect(CursorPopupManager.popupCount).to.eq(1);
+    expect(CursorPopupManager.popupCount).toEqual(1);
     expect(await screen.findByText("Prompt string")).to.satisfy(
       selectorMatches(".uifw-cursor-prompt *")
     );
@@ -47,7 +47,7 @@ describe("CursorPrompt", () => {
     CursorInformation.cursorPosition = cursor;
     const fakeTimers = sinon.useFakeTimers({ shouldAdvanceTime: true });
     const { container } = render(<CursorPopupRenderer />);
-    expect(CursorPopupManager.popupCount).to.eq(0);
+    expect(CursorPopupManager.popupCount).toEqual(0);
     CursorPopup.fadeOutTime = 50;
 
     const cursorPrompt = new CursorPrompt(20, true);
@@ -58,7 +58,7 @@ describe("CursorPrompt", () => {
       RelativePosition.BottomRight
     );
 
-    expect(CursorPopupManager.popupCount).to.eq(1);
+    expect(CursorPopupManager.popupCount).toEqual(1);
     expect(await screen.findByText("Prompt string")).to.satisfy(
       selectorMatches(".uifw-cursor-prompt *")
     );
@@ -84,16 +84,16 @@ describe("CursorPrompt", () => {
     });
 
     fakeTimers.tick(40);
-    expect(CursorPopupManager.popupCount).to.eq(1);
+    expect(CursorPopupManager.popupCount).toEqual(1);
 
     fakeTimers.tick(1000);
     fakeTimers.restore();
-    expect(CursorPopupManager.popupCount).to.eq(0);
+    expect(CursorPopupManager.popupCount).toEqual(0);
   });
 
   it("should close if passed a blank instruction", async () => {
     render(<CursorPopupRenderer />);
-    expect(CursorPopupManager.popupCount).to.eq(0);
+    expect(CursorPopupManager.popupCount).toEqual(0);
 
     const cursorPrompt = new CursorPrompt(20, false);
     cursorPrompt.display(
@@ -101,7 +101,7 @@ describe("CursorPrompt", () => {
       ToolAssistance.createInstruction("icon-placeholder", "Prompt string")
     );
 
-    expect(CursorPopupManager.popupCount).to.eq(1);
+    expect(CursorPopupManager.popupCount).toEqual(1);
     expect(await screen.findByText("Prompt string")).to.satisfy(
       selectorMatches(".uifw-cursor-prompt *")
     );
@@ -111,6 +111,6 @@ describe("CursorPrompt", () => {
       ToolAssistance.createInstruction("icon-placeholder", "")
     );
 
-    expect(CursorPopupManager.popupCount).to.eq(0);
+    expect(CursorPopupManager.popupCount).toEqual(0);
   });
 });

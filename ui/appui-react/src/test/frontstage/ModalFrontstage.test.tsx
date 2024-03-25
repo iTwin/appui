@@ -74,30 +74,30 @@ describe("ModalFrontstage", () => {
       );
 
     UiFramework.frontstages.openModalFrontstage(modalFrontstage);
-    expect(changedEventSpy.calledOnce).to.be.true;
+    expect(changedEventSpy.calledOnce).toEqual(true);
 
     const { baseElement, rerender } = render(renderModalFrontstage(false));
 
     rerender(renderModalFrontstage(true));
     expect(
       baseElement.querySelectorAll("div.uifw-modal-frontstage").length
-    ).to.eq(1);
+    ).toEqual(1);
 
     const backButton = baseElement.querySelectorAll<HTMLButtonElement>(
       "button.nz-toolbar-button-back"
     );
-    expect(backButton.length).to.eq(1);
+    expect(backButton.length).toEqual(1);
 
     UiFramework.frontstages.updateModalFrontstage();
-    expect(changedEventSpy.calledTwice).to.be.true;
+    expect(changedEventSpy.calledTwice).toEqual(true);
 
     backButton[0].click();
-    expect(navigationBackSpy.calledOnce).to.be.true;
-    expect(closeModalSpy.calledOnce).to.be.true;
+    expect(navigationBackSpy.calledOnce).toEqual(true);
+    expect(closeModalSpy.calledOnce).toEqual(true);
 
     UiFramework.frontstages.closeModalFrontstage();
-    expect(changedEventSpy.calledThrice).to.be.true;
-    expect(closedEventSpy.calledOnce).to.be.true;
+    expect(changedEventSpy.calledThrice).toEqual(true);
+    expect(closedEventSpy.calledOnce).toEqual(true);
 
     removeListener();
     removeListener2();

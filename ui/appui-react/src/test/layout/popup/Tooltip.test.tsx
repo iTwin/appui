@@ -58,8 +58,8 @@ describe("<Tooltip />", () => {
         width: 100,
       }
     );
-    sut.x.should.eq(20);
-    sut.y.should.eq(31);
+    expect(sut.x).toEqual(20);
+    expect(sut.y).toEqual(31);
   });
 
   it("should offset and contain in container", () => {
@@ -79,7 +79,7 @@ describe("<Tooltip />", () => {
         y: 0,
       }
     );
-    sut.x.should.eq(80);
-    sut.y.should.eq(12);
+    expect(sut.x).toEqual(80);
+    expect(sut.y).toEqual(12);
   });
 });

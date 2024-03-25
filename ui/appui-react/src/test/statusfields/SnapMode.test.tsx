@@ -88,7 +88,7 @@ describe("SnapModeField", () => {
     await theUserTo.click(screen.getByText("snapModeField.bisector"));
 
     expect(UiFramework.getAccudrawSnapMode()).to.equal(SnapMode.Bisector);
-    expect(spy).to.have.been.calledWith({
+    expect(spy).toHaveBeenCalledWith({
       eventIds: sinon.match.set.contains(
         new Set(["configurableui:set_snapmode"])
       ),

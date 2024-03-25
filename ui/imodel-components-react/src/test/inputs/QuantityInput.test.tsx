@@ -119,17 +119,17 @@ describe("QuantityInput", () => {
     fireEvent.change(input, { target: { value: "2.5" } });
     fireEvent.keyDown(input, { key: Key.Escape });
     expect(spyOnChange).not.to.have.been.called; // value did not change after ESC was pressed
-    expect(initialValue).to.eq(input.value);
+    expect(initialValue).toEqual(input.value);
     fireEvent.change(input, { target: { value: "3.5" } });
     fireEvent.keyDown(input, { key: Key.Enter });
     expect(spyOnChange).to.have.been.called;
-    expect(input.value).to.eq("3.5 m");
+    expect(input.value).toEqual("3.5 m");
 
     // set active unit system to be imperial and wait to make sure quantity format cache is set
     await act(async () => {
       await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
     });
-    expect(input.value).to.eq("3'-3 3/8\"");
+    expect(input.value).toEqual("3'-3 3/8\"");
 
     // set override for length to inches and insure proper format is returned
     await act(async () => {
@@ -138,14 +138,14 @@ describe("QuantityInput", () => {
         overrideLengthFormats
       );
     });
-    expect(input.value).to.eq("39.3701 in");
+    expect(input.value).toEqual("39.3701 in");
 
     await act(async () => {
       await IModelApp.quantityFormatter.clearOverrideFormats(
         QuantityType.Length
       );
     });
-    expect(input.value).to.eq("3'-3 3/8\"");
+    expect(input.value).toEqual("3'-3 3/8\"");
   });
 
   it("should attach 'components-parsed-input-has-error' when bad input", async () => {
@@ -175,6 +175,6 @@ describe("QuantityInput", () => {
     const currentValue = input.value;
     expect(input.classList.contains("components-parsed-input-has-error")).to.be
       .false;
-    expect(initialValue).to.eq(currentValue);
+    expect(initialValue).toEqual(currentValue);
   });
 });

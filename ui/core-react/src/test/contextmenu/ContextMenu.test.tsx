@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import {
@@ -62,9 +60,9 @@ describe("ContextMenu", () => {
       expect(component.getByTestId("core-context-menu-test-div")).to.exist;
     });
     it("should call onOutsideClick on window mouseup", () => {
-      const spyMethod = sinon.fake();
+      const spy = vi.fn();
       render(
-        <ContextMenu opened={true} onOutsideClick={spyMethod}>
+        <ContextMenu opened={true} onOutsideClick={spy}>
           <ContextMenuItem> Test </ContextMenuItem>
         </ContextMenu>
       );
@@ -73,12 +71,12 @@ describe("ContextMenu", () => {
       sinon.stub(mouseUp, "target").get(() => document.createElement("div"));
       window.dispatchEvent(mouseUp);
 
-      spyMethod.should.have.been.called;
+      spy.should.have.been.called;
     });
     it("should not call onOutsideClick on window mouseup if closed", () => {
-      const spyMethod = sinon.fake();
+      const spy = vi.fn();
       render(
-        <ContextMenu onOutsideClick={spyMethod}>
+        <ContextMenu onOutsideClick={spy}>
           <ContextMenuItem> Test </ContextMenuItem>
         </ContextMenu>
       );
@@ -87,7 +85,7 @@ describe("ContextMenu", () => {
       sinon.stub(mouseUp, "target").get(() => document.createElement("div"));
       window.dispatchEvent(mouseUp);
 
-      spyMethod.should.not.have.been.called;
+      expect(spy).not.toBeCalled();
     });
     it("should support selectedIndex", () => {
       const component = render(
@@ -119,32 +117,32 @@ describe("ContextMenu", () => {
 
     describe("Keyboard navigation", () => {
       it("should handle Escape press", async () => {
-        const handleEsc = sinon.fake();
+        const handleEsc = vi.fn();
         render(<ContextMenu opened={true} onEsc={handleEsc} />);
         await theUserTo.keyboard("{Escape}");
-        expect(handleEsc).to.be.calledOnce;
+        expect(handleEsc).toHaveBeenCalledOnce();
       });
       it("should handle one-level Left press", async () => {
-        const handleEsc = sinon.fake();
+        const handleEsc = vi.fn();
         render(<ContextMenu opened={true} onEsc={handleEsc} />);
         await theUserTo.keyboard("{ArrowLeft}");
-        expect(handleEsc).to.be.calledOnce;
+        expect(handleEsc).toHaveBeenCalledOnce();
       });
       it("should handle one-level select", async () => {
-        const handleSelect = sinon.fake();
-        const targetSelect = sinon.fake();
+        const handleSelect = vi.fn();
+        const targetSelect = vi.fn();
         render(
           <ContextMenu opened={true} onSelect={handleSelect}>
             <ContextMenuItem onSelect={targetSelect}>Item 1</ContextMenuItem>
           </ContextMenu>
         );
         await theUserTo.keyboard("{ArrowDown}{Enter}");
-        expect(handleSelect).to.be.calledOnce;
-        expect(targetSelect).to.be.calledOnce;
+        expect(handleSelect).toHaveBeenCalledOnce();
+        expect(targetSelect).toHaveBeenCalledOnce();
       });
       it("should handle one-level down arrow select", async () => {
-        const handleSelect = sinon.fake();
-        const targetSelect = sinon.fake();
+        const handleSelect = vi.fn();
+        const targetSelect = vi.fn();
         render(
           <ContextMenu opened={true} onSelect={handleSelect}>
             <ContextMenuItem onSelect={targetSelect}>Item 1</ContextMenuItem>
@@ -152,12 +150,12 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("{ArrowDown}{ArrowDown}{ArrowDown}{Enter}");
-        expect(handleSelect).to.be.calledOnce;
-        expect(targetSelect).to.be.calledOnce;
+        expect(handleSelect).toHaveBeenCalledOnce();
+        expect(targetSelect).toHaveBeenCalledOnce();
       });
       it("should handle one-level up arrow select", async () => {
-        const handleSelect = sinon.fake();
-        const targetSelect = sinon.fake();
+        const handleSelect = vi.fn();
+        const targetSelect = vi.fn();
         render(
           <ContextMenu opened={true} onSelect={handleSelect}>
             <ContextMenuItem onSelect={targetSelect}>Item 1</ContextMenuItem>
@@ -165,12 +163,12 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("{ArrowUp}{ArrowUp}{ArrowUp}{Enter}");
-        expect(handleSelect).to.be.calledOnce;
-        expect(targetSelect).to.be.calledOnce;
+        expect(handleSelect).toHaveBeenCalledOnce();
+        expect(targetSelect).toHaveBeenCalledOnce();
       });
       it("should handle multi-level right arrow then enter select", async () => {
-        const handleSelect = sinon.fake();
-        const targetSelect = sinon.fake();
+        const handleSelect = vi.fn();
+        const targetSelect = vi.fn();
         render(
           <ContextMenu opened={true} onSelect={handleSelect}>
             <ContextSubMenu label="Item 1">
@@ -182,12 +180,12 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("{ArrowDown}{ArrowRight}{ArrowDown}{Enter}");
-        expect(handleSelect).to.be.calledOnce;
-        expect(targetSelect).to.be.calledOnce;
+        expect(handleSelect).toHaveBeenCalledOnce();
+        expect(targetSelect).toHaveBeenCalledOnce();
       });
       it("should handle multi-level left arrow select", async () => {
-        const handleSelect = sinon.fake();
-        const targetSelect = sinon.fake();
+        const handleSelect = vi.fn();
+        const targetSelect = vi.fn();
         render(
           <ContextMenu opened={true} onSelect={handleSelect}>
             <ContextSubMenu label="Item 1">
@@ -200,11 +198,11 @@ describe("ContextMenu", () => {
         await theUserTo.keyboard(
           "{ArrowDown}{ArrowRight}{ArrowLeft}{ArrowDown}{Enter}"
         );
-        expect(handleSelect).to.be.calledOnce;
-        expect(targetSelect).to.be.calledOnce;
+        expect(handleSelect).toHaveBeenCalledOnce();
+        expect(targetSelect).toHaveBeenCalledOnce();
       });
       it("should select list item of hotkey", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true}>
             <ContextMenuItem onSelect={onSelectFake}>
@@ -214,10 +212,10 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.have.been.calledOnce;
+        expect(onSelectFake).toHaveBeenCalledOnce();
       });
       it("should not select list item of hotkey if disabled", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true}>
             <ContextMenuItem onSelect={onSelectFake} disabled={true}>
@@ -230,7 +228,7 @@ describe("ContextMenu", () => {
         expect(onSelectFake).to.not.have.been.called;
       });
       it("should not select list item of hotkey if hidden", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true}>
             <ContextMenuItem onSelect={onSelectFake} hidden={true}>
@@ -243,7 +241,7 @@ describe("ContextMenu", () => {
         expect(onSelectFake).to.not.have.been.called;
       });
       it("should ignore next keyup when ignoreNextKeyUp=true", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true} ignoreNextKeyUp={true}>
             <ContextMenuItem onSelect={onSelectFake}>
@@ -255,10 +253,10 @@ describe("ContextMenu", () => {
         await theUserTo.keyboard("f");
         expect(onSelectFake).to.not.have.been.called;
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.have.been.calledOnce;
+        expect(onSelectFake).toHaveBeenCalledOnce();
       });
       it("should select sub menu list item of hotkey", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true}>
             <ContextSubMenu label="~First item" onSelect={onSelectFake}>
@@ -269,10 +267,10 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f");
-        expect(onSelectFake).to.have.been.calledOnce;
+        expect(onSelectFake).toHaveBeenCalledOnce();
       });
       it("should not select sub menu list item of hotkey if disabled", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true}>
             <ContextSubMenu
@@ -290,7 +288,7 @@ describe("ContextMenu", () => {
         expect(onSelectFake).to.not.have.been.called;
       });
       it("should not select sub menu list item of hotkey if hidden", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true}>
             <ContextSubMenu
@@ -308,7 +306,7 @@ describe("ContextMenu", () => {
         expect(onSelectFake).to.not.have.been.called;
       });
       it("should find list item of hotkey", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true} hotkeySelect={false}>
             <ContextMenuItem>~First item</ContextMenuItem>
@@ -318,10 +316,10 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("s{Enter}");
-        expect(onSelectFake).to.have.been.calledOnce;
+        expect(onSelectFake).toHaveBeenCalledOnce();
       });
       it("should find sub menu list item of hotkey", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true} hotkeySelect={false}>
             <ContextSubMenu label="~First item" onSelect={onSelectFake}>
@@ -332,10 +330,10 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("f{enter}");
-        expect(onSelectFake).to.have.been.calledOnce;
+        expect(onSelectFake).toHaveBeenCalledOnce();
       });
       it("should find next list item of hotkey", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true} hotkeySelect={false}>
             <ContextMenuItem>~First item</ContextMenuItem>
@@ -347,10 +345,10 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("ff{enter}");
-        expect(onSelectFake).to.have.been.calledOnce;
+        expect(onSelectFake).toHaveBeenCalledOnce();
       });
       it("should wrap back to beginning to find next list item of hotkey", async () => {
-        const onSelectFake = sinon.fake();
+        const onSelectFake = vi.fn();
         render(
           <ContextMenu opened={true} hotkeySelect={false}>
             <ContextMenuItem>~First item</ContextMenuItem>
@@ -362,7 +360,7 @@ describe("ContextMenu", () => {
           </ContextMenu>
         );
         await theUserTo.keyboard("ffs{enter}");
-        expect(onSelectFake).to.have.been.calledOnce;
+        expect(onSelectFake).toHaveBeenCalledOnce();
       });
     });
 
@@ -604,7 +602,7 @@ describe("ContextMenu", () => {
     });
 
     it("onClick handled correctly", async () => {
-      const handleClick = sinon.fake();
+      const handleClick = vi.fn();
       const component = render(
         <ContextMenuItem onClick={handleClick}>Test</ContextMenuItem>
       );
@@ -613,7 +611,7 @@ describe("ContextMenu", () => {
       handleClick.should.have.been.calledOnce;
     });
     it("onSelect handled correctly on click", async () => {
-      const handleSelect = sinon.fake();
+      const handleSelect = vi.fn();
       const component = render(
         <ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>
       );
@@ -622,7 +620,7 @@ describe("ContextMenu", () => {
       handleSelect.should.have.been.calledOnce;
     });
     it("onHover handled correctly", async () => {
-      const handleHover = sinon.fake();
+      const handleHover = vi.fn();
       const component = render(
         <ContextMenuItem onHover={handleHover}>Test</ContextMenuItem>
       );
@@ -631,7 +629,7 @@ describe("ContextMenu", () => {
       handleHover.should.have.been.calledOnce;
     });
     it("onSelect handled correctly on Enter", async () => {
-      const handleSelect = sinon.fake();
+      const handleSelect = vi.fn();
       const component = render(
         <ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>
       );
@@ -641,7 +639,7 @@ describe("ContextMenu", () => {
       handleSelect.should.have.been.calledOnce;
     });
     it("onSelect not called on Escape", async () => {
-      const handleSelect = sinon.fake();
+      const handleSelect = vi.fn();
       const component = render(
         <ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>
       );
@@ -651,7 +649,7 @@ describe("ContextMenu", () => {
       handleSelect.should.not.have.been.called;
     });
     it("onSelect not called when disabled", async () => {
-      const handleSelect = sinon.fake();
+      const handleSelect = vi.fn();
       const component = render(
         <ContextMenuItem onSelect={handleSelect} disabled={true}>
           Test
@@ -757,7 +755,7 @@ describe("ContextMenu", () => {
       expect(component.container.querySelector(".core-badge")).not.to.be.null;
     });
     it("onHover handled correctly", async () => {
-      const handleHover = sinon.fake();
+      const handleHover = vi.fn();
       const component = render(
         <ContextSubMenu label="test" onHover={handleHover}>
           <ContextMenuItem> Test </ContextMenuItem>
@@ -768,7 +766,7 @@ describe("ContextMenu", () => {
       handleHover.should.have.been.calledOnce;
     });
     it("onHover handled internally when in ContextMenu", async () => {
-      const handleHover = sinon.fake();
+      const handleHover = vi.fn();
       const component = render(
         <ContextMenu opened={true}>
           <ContextSubMenu label="test" onHover={handleHover}>
@@ -781,7 +779,7 @@ describe("ContextMenu", () => {
       handleHover.should.not.have.been.calledOnce;
     });
     it("onClick handled correctly", async () => {
-      const handleClick = sinon.fake();
+      const handleClick = vi.fn();
       const component = render(
         <ContextMenu opened={true}>
           <ContextSubMenu label="test" onClick={handleClick}>
@@ -803,7 +801,7 @@ describe("ContextMenu", () => {
       );
       const item = component.getByTestId("core-context-menu-item");
       item.focus();
-      expect(document.activeElement).to.eq(item);
+      expect(document.activeElement).toEqual(item);
     });
     it("should support changing direction (COVERAGE ONLY)", () => {
       // THIS TEST IS ONLY ADDING COVERAGE, AS STATED ABOVE, THE DIRECTION DO NOT CHANGE HERE!
@@ -847,9 +845,9 @@ describe("ContextMenu", () => {
     });
 
     it("should close sub-menu on opening another sub-menu", async () => {
-      const fakeClick1 = sinon.fake();
-      const fakeClick2 = sinon.fake();
-      const fakeOutsideClick = sinon.fake();
+      const fakeClick1 = vi.fn();
+      const fakeClick2 = vi.fn();
+      const fakeOutsideClick = vi.fn();
 
       const component = render(
         <ContextMenu opened={true}>

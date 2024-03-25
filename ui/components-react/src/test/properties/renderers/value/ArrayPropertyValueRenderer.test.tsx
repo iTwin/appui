@@ -33,7 +33,7 @@ describe("ArrayPropertyValueRenderer", () => {
 
       const element = renderer.render(arrayProperty);
 
-      expect(element).to.eq("string[1]");
+      expect(element).toEqual("string[1]");
     });
 
     it("renders empty array property", () => {
@@ -122,7 +122,7 @@ describe("ArrayPropertyValueRenderer", () => {
     it("returns true for an array property", () => {
       const renderer = new ArrayPropertyValueRenderer();
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
-      expect(renderer.canRender(arrayProperty)).to.be.true;
+      expect(renderer.canRender(arrayProperty)).toEqual(true);
     });
 
     it("returns false for primitive and struct property", () => {

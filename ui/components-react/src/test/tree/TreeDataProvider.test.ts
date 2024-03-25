@@ -31,7 +31,7 @@ describe("TreeDataProvider", () => {
 
   describe("isTreeDataProviderRaw", () => {
     it("returns expected results", () => {
-      expect(isTreeDataProviderRaw(emptyRawProvider)).to.be.true;
+      expect(isTreeDataProviderRaw(emptyRawProvider)).toEqual(true);
       expect(isTreeDataProviderRaw(emptyPromiseProvider)).to.be.false;
       expect(isTreeDataProviderRaw(emptyMethodProvider)).to.be.false;
       expect(isTreeDataProviderRaw(emptyInterfaceProvider)).to.be.false;
@@ -41,7 +41,7 @@ describe("TreeDataProvider", () => {
   describe("isTreeDataProviderPromise", () => {
     it("returns expected results", () => {
       expect(isTreeDataProviderPromise(emptyRawProvider)).to.be.false;
-      expect(isTreeDataProviderPromise(emptyPromiseProvider)).to.be.true;
+      expect(isTreeDataProviderPromise(emptyPromiseProvider)).toEqual(true);
       expect(isTreeDataProviderPromise(emptyMethodProvider)).to.be.false;
       expect(isTreeDataProviderPromise(emptyInterfaceProvider)).to.be.false;
     });
@@ -51,7 +51,7 @@ describe("TreeDataProvider", () => {
     it("returns expected results", () => {
       expect(isTreeDataProviderMethod(emptyRawProvider)).to.be.false;
       expect(isTreeDataProviderMethod(emptyPromiseProvider)).to.be.false;
-      expect(isTreeDataProviderMethod(emptyMethodProvider)).to.be.true;
+      expect(isTreeDataProviderMethod(emptyMethodProvider)).toEqual(true);
       expect(isTreeDataProviderMethod(emptyInterfaceProvider)).to.be.false;
     });
   });
@@ -61,7 +61,7 @@ describe("TreeDataProvider", () => {
       expect(isTreeDataProviderInterface(emptyRawProvider)).to.be.false;
       expect(isTreeDataProviderInterface(emptyPromiseProvider)).to.be.false;
       expect(isTreeDataProviderInterface(emptyMethodProvider)).to.be.false;
-      expect(isTreeDataProviderInterface(emptyInterfaceProvider)).to.be.true;
+      expect(isTreeDataProviderInterface(emptyInterfaceProvider)).toEqual(true);
     });
   });
 
@@ -85,7 +85,7 @@ describe("TreeDataProvider", () => {
       description: "node 1 child",
     };
 
-    expect(hasChildren(withChildren)).to.be.true;
+    expect(hasChildren(withChildren)).toEqual(true);
     expect(hasChildren(noChildren)).to.be.false;
   });
 
@@ -100,7 +100,7 @@ describe("TreeDataProvider", () => {
       id: "2",
       hasChildren: false,
     };
-    expect(hasChildren(withChildren)).to.be.true;
+    expect(hasChildren(withChildren)).toEqual(true);
     expect(hasChildren(noChildren)).to.be.false;
   });
 });

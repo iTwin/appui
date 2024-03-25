@@ -643,7 +643,7 @@ describe("MutablePropertyGridModel", () => {
           (property) => property.item instanceof PropertyRecord
         );
 
-        expect(createCategorySpy.callCount).to.be.equal(
+        expect(createCategorySpy).toHaveBeenCalledTimes(
           expectedCategories.length
         );
         expectedCategories.forEach((category) =>
@@ -656,7 +656,7 @@ describe("MutablePropertyGridModel", () => {
           )
         );
 
-        expect(createPropertySpy.callCount).to.be.equal(expectedRecords.length);
+        expect(createPropertySpy).toHaveBeenCalledTimes(expectedRecords.length);
       });
     }
   });

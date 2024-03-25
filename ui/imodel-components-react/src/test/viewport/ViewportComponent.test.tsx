@@ -130,7 +130,7 @@ describe("ViewportComponent", () => {
   viewsMock
     .setup((x) => x.load)
     .returns(() => async (viewId: string) => getViewState(viewId));
-  imodelMock.setup((x) => x.views).returns(() => viewsMock.object);
+  imodelMock.setup((x) => x.views).mockReturnValue(() => viewsMock.object);
 
   let tentativePointIsActive = false;
   const tentativePointMock = moq.Mock.ofType<TentativePoint>();
@@ -147,15 +147,17 @@ describe("ViewportComponent", () => {
 
   const onViewChanged = new BeEvent<(vp: Viewport) => void>();
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
-  viewportMock.setup((x) => x.view).returns(() => viewState);
-  viewportMock.setup((x) => x.onViewChanged).returns(() => onViewChanged);
+  viewportMock.setup((x) => x.view).mockReturnValue(() => viewState);
+  viewportMock
+    .setup((x) => x.onViewChanged)
+    .mockReturnValue(() => onViewChanged);
   viewportMock
     .setup((x) => x.worldToView)
     .returns(
       () => (_input: Readonly<WritableXAndY>, _out?: Point3d | undefined) =>
         worldToViewPoint
     );
-  viewportMock.setup((x) => x.viewRect).returns(() => viewRect);
+  viewportMock.setup((x) => x.viewRect).mockReturnValue(() => viewRect);
   viewportMock
     .setup((x) => x.pickNearestVisibleGeometry)
     .returns(
@@ -173,7 +175,9 @@ describe("ViewportComponent", () => {
     .returns(() => (_box?: Frustum | undefined) => new Frustum());
 
   const viewManager = moq.Mock.ofType<ViewManager>();
-  viewManager.setup((x) => x.selectedView).returns(() => viewportMock.object);
+  viewManager
+    .setup((x) => x.selectedView)
+    .mockReturnValue(() => viewportMock.object);
   class ScreenViewportMock extends ScreenViewport {
     public static override create(
       _parentDiv: HTMLDivElement,
@@ -390,7 +394,7 @@ describe("ViewportComponent", () => {
     await TestUtils.flushAsyncOperations();
     const viewportDiv = component.getByTestId("viewport-component");
     fireEvent.contextMenu(viewportDiv);
-    expect(onContextMenu).to.be.called;
+    expect(onContextMenu).toHaveBeenCalled();
   });
 
   describe("drawingViewChangeEvent", () => {
@@ -411,8 +415,8 @@ describe("ViewportComponent", () => {
         rotation: rot,
         complete: false,
       });
-      expect(viewState.getOrigin().isAlmostEqual(or)).to.be.true;
-      expect(viewState.getRotation().isAlmostEqual(rot)).to.be.true;
+      expect(viewState.getOrigin().isAlmostEqual(or)).toEqual(true);
+      expect(viewState.getRotation().isAlmostEqual(rot)).toEqual(true);
     });
     it("should register drawingViewChangeEvent with complete: true", async () => {
       const or = Point3d.create(20, 20);
@@ -431,8 +435,8 @@ describe("ViewportComponent", () => {
         rotation: rot,
         complete: true,
       });
-      expect(viewState.getOrigin().isAlmostEqual(or)).to.be.true;
-      expect(viewState.getRotation().isAlmostEqual(rot)).to.be.true;
+      expect(viewState.getOrigin().isAlmostEqual(or)).toEqual(true);
+      expect(viewState.getRotation().isAlmostEqual(rot)).toEqual(true);
     });
   });
 
@@ -454,7 +458,7 @@ describe("ViewportComponent", () => {
         face: Face.Front,
       });
       // for some reason not evaluating as true, but still covers code path
-      // expect(viewState.getRotation().isAlmostEqual(rot)).to.be.true;
+      // expect(viewState.getRotation().isAlmostEqual(rot)).toEqual(true);
     });
     it("should register cubeRotationChangeEvent", async () => {
       const rot = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.X);
@@ -492,7 +496,7 @@ describe("ViewportComponent", () => {
         rotMatrix: rot,
         face: Face.Front,
       });
-      expect(viewState.getRotation().isAlmostEqual(rot)).to.be.true;
+      expect(viewState.getRotation().isAlmostEqual(rot)).toEqual(true);
     });
     it("should register cubeRotationChangeEvent where viewRect does not contain worldToView point", async () => {
       const rot = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.X);
@@ -511,7 +515,7 @@ describe("ViewportComponent", () => {
         rotMatrix: rot,
         face: Face.Front,
       });
-      expect(viewState.getRotation().isAlmostEqual(rot)).to.be.true;
+      expect(viewState.getRotation().isAlmostEqual(rot)).toEqual(true);
     });
     it("should register cubeRotationChangeEvent where targetPoint has been memoized and viewRect does not contain worldToView point", async () => {
       const rot = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.X);
@@ -570,7 +574,7 @@ describe("ViewportComponent", () => {
         rotMatrix: rot,
         face: Face.Front,
       });
-      expect(viewState.getRotation().isAlmostEqual(rot)).to.be.true;
+      expect(viewState.getRotation().isAlmostEqual(rot)).toEqual(true);
     });
     it("should register cubeRotationChangeEvent with vp.viewCmdTargetCenter defined where viewRect does not contain worldToView point", async () => {
       const rot = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.X);
@@ -589,7 +593,7 @@ describe("ViewportComponent", () => {
         rotMatrix: rot,
         face: Face.Front,
       });
-      expect(viewState.getRotation().isAlmostEqual(rot)).to.be.true;
+      expect(viewState.getRotation().isAlmostEqual(rot)).toEqual(true);
     });
   });
 
@@ -613,7 +617,7 @@ describe("ViewportComponent", () => {
 
   describe("onViewChanged", () => {
     const viewState2Mock = moq.Mock.ofType<OrthographicViewState>();
-    viewState2Mock.setup((x) => x.id).returns(() => "id2");
+    viewState2Mock.setup((x) => x.id).mockReturnValue(() => "id2");
     viewState2Mock
       .setup((x) => x.getExtents)
       .returns(() => () => viewState.getExtents());
@@ -625,8 +629,12 @@ describe("ViewportComponent", () => {
       .returns(() => "Bis:OrthographicViewDefinition");
 
     const viewportMock2 = moq.Mock.ofType<ScreenViewport>();
-    viewportMock2.setup((x) => x.view).returns(() => viewState2Mock.object);
-    viewportMock2.setup((x) => x.onViewChanged).returns(() => onViewChanged);
+    viewportMock2
+      .setup((x) => x.view)
+      .mockReturnValue(() => viewState2Mock.object);
+    viewportMock2
+      .setup((x) => x.onViewChanged)
+      .mockReturnValue(() => onViewChanged);
     viewportMock2
       .setup((x) => x.worldToView)
       .returns(

@@ -113,16 +113,16 @@ describe("ListPicker", () => {
     await theUserTo.click(screen.getByRole("button"));
 
     await theUserTo.click(screen.getByText("pickerButtons.all"));
-    expect(enableAllFunc).to.be.called;
+    expect(enableAllFunc).toHaveBeenCalled();
 
     await theUserTo.click(screen.getByText("pickerButtons.none"));
-    expect(disableAllFunc).to.be.called;
+    expect(disableAllFunc).toHaveBeenCalled();
 
     await theUserTo.click(screen.getByText("pickerButtons.invert"));
-    expect(invertFunc).to.be.called;
+    expect(invertFunc).toHaveBeenCalled();
 
     await theUserTo.click(screen.getByText("123456789012345678901234567890"));
-    expect(setEnabled).to.be.called;
+    expect(setEnabled).toHaveBeenCalled();
   });
 
   describe("isSpecialItem", () => {
@@ -142,28 +142,28 @@ describe("ListPicker", () => {
           key: ListPicker.Key_All,
           enabled: true,
         } as ListItem)
-      ).to.be.true;
+      ).toEqual(true);
 
       expect(
         listPickerInstance.isSpecialItem({
           key: ListPicker.Key_Invert,
           enabled: true,
         } as ListItem)
-      ).to.be.true;
+      ).toEqual(true);
 
       expect(
         listPickerInstance.isSpecialItem({
           key: ListPicker.Key_None,
           enabled: true,
         } as ListItem)
-      ).to.be.true;
+      ).toEqual(true);
 
       expect(
         listPickerInstance.isSpecialItem({
           key: ListPicker.Key_Separator,
           enabled: true,
         } as ListItem)
-      ).to.be.true;
+      ).toEqual(true);
     });
 
     it("should return true if item type is special", () => {
@@ -173,7 +173,7 @@ describe("ListPicker", () => {
           type: ListItemType.Container,
           enabled: true,
         } as ListItem)
-      ).to.be.true;
+      ).toEqual(true);
     });
 
     it("should return false if item type is not special", () => {

@@ -159,7 +159,7 @@ describe("StateManager", () => {
     const testState = new StateManager();
     expect(testState).to.exist;
     const currentState = StateManager.state;
-    expect(currentState.hasOwnProperty("frameworkState")).to.be.true;
+    expect(currentState.hasOwnProperty("frameworkState")).toEqual(true);
   });
 
   it("should allow initialization with app Reducer", () => {
@@ -168,8 +168,8 @@ describe("StateManager", () => {
     });
     expect(testState).to.exist;
     const currentState = StateManager.state;
-    expect(currentState.hasOwnProperty("frameworkState")).to.be.true;
-    expect(currentState.hasOwnProperty("appState")).to.be.true;
+    expect(currentState.hasOwnProperty("frameworkState")).toEqual(true);
+    expect(currentState.hasOwnProperty("appState")).toEqual(true);
   });
 
   it("should allow initialization with defaults that include frameworkState", () => {
@@ -179,8 +179,8 @@ describe("StateManager", () => {
     });
     expect(testState).to.exist;
     const currentState = StateManager.state;
-    expect(currentState.hasOwnProperty("frameworkState")).to.be.true;
-    expect(currentState.hasOwnProperty("appState")).to.be.true;
+    expect(currentState.hasOwnProperty("frameworkState")).toEqual(true);
+    expect(currentState.hasOwnProperty("appState")).toEqual(true);
   });
 
   it("should see extension state once extension reducer is registered", () => {
@@ -189,14 +189,14 @@ describe("StateManager", () => {
     });
     expect(testState).to.exist;
     let currentState = StateManager.state;
-    expect(currentState.hasOwnProperty("frameworkState")).to.be.true;
-    expect(currentState.hasOwnProperty("appState")).to.be.true;
+    expect(currentState.hasOwnProperty("frameworkState")).toEqual(true);
+    expect(currentState.hasOwnProperty("appState")).toEqual(true);
 
     ExtensionStateManager.initialize();
     currentState = StateManager.state;
-    expect(currentState.hasOwnProperty("frameworkState")).to.be.true;
-    expect(currentState.hasOwnProperty("appState")).to.be.true;
-    expect(currentState.hasOwnProperty("extension_state")).to.be.true;
+    expect(currentState.hasOwnProperty("frameworkState")).toEqual(true);
+    expect(currentState.hasOwnProperty("appState")).toEqual(true);
+    expect(currentState.hasOwnProperty("extension_state")).toEqual(true);
   });
 
   it("should see extension state once extension reducer is registered (using store property)", () => {
@@ -205,14 +205,14 @@ describe("StateManager", () => {
     });
     expect(testState).to.exist;
     let currentState = StateManager.store.getState();
-    expect(currentState.hasOwnProperty("frameworkState")).to.be.true;
-    expect(currentState.hasOwnProperty("appState")).to.be.true;
+    expect(currentState.hasOwnProperty("frameworkState")).toEqual(true);
+    expect(currentState.hasOwnProperty("appState")).toEqual(true);
 
     ExtensionStateManager.initialize();
     currentState = StateManager.store.getState();
-    expect(currentState.hasOwnProperty("frameworkState")).to.be.true;
-    expect(currentState.hasOwnProperty("appState")).to.be.true;
-    expect(currentState.hasOwnProperty("extension_state")).to.be.true;
+    expect(currentState.hasOwnProperty("frameworkState")).toEqual(true);
+    expect(currentState.hasOwnProperty("appState")).toEqual(true);
+    expect(currentState.hasOwnProperty("extension_state")).toEqual(true);
   });
 });
 
@@ -237,7 +237,7 @@ describe("ConfigurableUiReducer", () => {
       initialState,
       ConfigurableUiActions.setDragInteraction(true)
     );
-    expect(outState.useDragInteraction).to.be.true;
+    expect(outState.useDragInteraction).toEqual(true);
 
     outState = ConfigurableUiReducer(
       initialState,
@@ -285,13 +285,13 @@ describe("ConfigurableUiReducer", () => {
       initialState,
       ConfigurableUiActions.setAnimateToolSettings(true)
     );
-    expect(outState.animateToolSettings).to.be.true;
+    expect(outState.animateToolSettings).toEqual(true);
 
     outState = ConfigurableUiReducer(
       initialState,
       ConfigurableUiActions.setUseToolAsToolSettingsLabel(true)
     );
-    expect(outState.useToolAsToolSettingsLabel).to.be.true;
+    expect(outState.useToolAsToolSettingsLabel).toEqual(true);
 
     outState = ConfigurableUiReducer(
       initialState,

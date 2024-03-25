@@ -19,7 +19,7 @@ describe("useActiveViewport", () => {
 
   it("should update active viewport", async () => {
     const { result, waitFor } = renderHook(() => useActiveViewport());
-    expect(result.current).to.eq(selectedView);
+    expect(result.current).toEqual(selectedView);
 
     const updatedView = {} as ScreenViewport;
     sinon.stub(IModelApp.viewManager, "selectedView").get(() => updatedView);
@@ -30,7 +30,7 @@ describe("useActiveViewport", () => {
     });
 
     await waitFor(() => {
-      expect(result.current).to.eq(updatedView);
+      expect(result.current).toEqual(updatedView);
     });
   });
 });

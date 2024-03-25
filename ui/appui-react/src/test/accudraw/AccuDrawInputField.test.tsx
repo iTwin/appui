@@ -63,48 +63,48 @@ describe("AccuDrawInputField", () => {
   });
 
   it("should call onValueChanged on change", () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const wrapper = render(
       <AccuDrawInputField
         isLocked={false}
         field={ItemField.X_Item}
         id="x"
-        onValueChanged={spyMethod}
+        onValueChanged={spy}
       />
     );
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "22.3" } });
-    expect((input as HTMLInputElement).value).to.eq("22.3");
+    expect((input as HTMLInputElement).value).toEqual("22.3");
     fireEvent.keyDown(input!, { key: Key.Enter });
-    spyMethod.calledOnce.should.be.true;
+    expect(spy).toHaveBeenCalledOnce();
     fireEvent.change(input!, { target: { value: "22.3" } }); // Test no value change
-    expect((input as HTMLInputElement).value).to.eq("22.3");
+    expect((input as HTMLInputElement).value).toEqual("22.3");
     fireEvent.keyDown(input!, { key: Key.Enter });
-    spyMethod.calledOnce.should.be.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should call onValueChanged on change after delay", async () => {
     const fakeTimers = sinon.useFakeTimers();
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const wrapper = render(
       <AccuDrawInputField
         isLocked={false}
         field={ItemField.X_Item}
         id="x"
-        onValueChanged={spyMethod}
+        onValueChanged={spy}
         valueChangedDelay={10}
       />
     );
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "22.3" } });
-    expect((input as HTMLInputElement).value).to.eq("22.3");
+    expect((input as HTMLInputElement).value).toEqual("22.3");
     fireEvent.keyDown(input!, { key: Key.Enter });
-    spyMethod.called.should.not.be.true;
+    spy.called.should.not.be.true;
 
     fakeTimers.tick(20);
-    spyMethod.calledOnce.should.be.true;
+    expect(spy).toHaveBeenCalledOnce();
     fakeTimers.restore();
   });
 
@@ -145,7 +145,7 @@ describe("AccuDrawInputField", () => {
   });
 
   it("should call UiFramework.keyboardShortcuts.processKey on a letter", () => {
-    const spyMethod = sinon.spy(UiFramework.keyboardShortcuts, "processKey");
+    const spy = sinon.spy(UiFramework.keyboardShortcuts, "processKey");
     const spyChanged = sinon.spy();
     const wrapper = render(
       <AccuDrawInputField
@@ -158,9 +158,9 @@ describe("AccuDrawInputField", () => {
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     fireEvent.keyDown(input!, { key: "a" });
-    spyMethod.calledOnce.should.be.true;
+    expect(spy).toHaveBeenCalledOnce();
     fireEvent.keyDown(input!, { key: "1" });
-    spyMethod.calledTwice.should.not.be.true;
+    spy.calledTwice.should.not.be.true;
     (UiFramework.keyboardShortcuts.processKey as any).restore();
   });
 
@@ -184,7 +184,7 @@ describe("AccuDrawInputField", () => {
     });
 
     await waitFor(() => {
-      expect((input as HTMLInputElement).value).to.eq("100'-0\"");
+      expect((input as HTMLInputElement).value).toEqual("100'-0\"");
     });
     sinon.assert.notCalled(spy);
   });

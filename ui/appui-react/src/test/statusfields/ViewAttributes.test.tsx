@@ -71,7 +71,7 @@ describe(`ViewAttributes`, () => {
     expect(
       screen.getByText("listTools.camera").previousElementSibling
     ).to.have.property("checked", true);
-    expect(spy).to.have.been.calledWith("View.ToggleCamera", sinon.match.any);
+    expect(spy).toHaveBeenCalledWith("View.ToggleCamera", sinon.match.any);
 
     await theUserTo.click(screen.getAllByRole("button")[0]);
   });

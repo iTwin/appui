@@ -29,12 +29,12 @@ describe("useDebouncedAsyncValue", () => {
         useDebouncedAsyncValue(props.value),
       { initialProps: { value: async () => valuePromise } }
     );
-    expect(result.current.inProgress).to.be.true;
+    expect(result.current.inProgress).toEqual(true);
     expect(result.current.value).to.be.undefined;
 
     await valuePromise.resolve(value);
     await waitFor(() => expect(result.current.inProgress).to.be.false);
-    expect(result.current.value).to.eq(value);
+    expect(result.current.value).toEqual(value);
   });
 
   it("returns the last value when argument changes multiple times", async () => {
@@ -44,7 +44,7 @@ describe("useDebouncedAsyncValue", () => {
         useDebouncedAsyncValue(props.value),
       { initialProps: { value: async () => initialPromise } }
     );
-    expect(result.current.inProgress).to.be.true;
+    expect(result.current.inProgress).toEqual(true);
     expect(result.current.value).to.be.undefined;
 
     rerender({ value: async () => 1 });
@@ -52,7 +52,7 @@ describe("useDebouncedAsyncValue", () => {
     await initialPromise.resolve(0);
 
     await waitFor(() => expect(result.current.inProgress).to.be.false);
-    expect(result.current.value).to.eq(2);
+    expect(result.current.value).toEqual(2);
   });
 
   describe("rethrows exceptions capturable by react error boundary", () => {

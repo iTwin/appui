@@ -21,7 +21,7 @@ describe("MultilineTextPropertyValueRenderer", () => {
       const record = TestUtils.createMultilineTextPropertyRecord(
         TestUtils.createPrimitiveStringProperty("test", "test")
       );
-      expect(renderer.canRender(record)).to.be.true;
+      expect(renderer.canRender(record)).toEqual(true);
     });
 
     it("is not able to render when record value is not primitive", () => {
@@ -114,7 +114,7 @@ describe("MultilineTextRenderer", () => {
     it('reports expansion toggle when "See more" button is pressed', () => {
       sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
       sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 100);
-      const handleExpansionToggle = sinon.fake();
+      const handleExpansionToggle = vi.fn();
       const { getByText } = render(
         <MultilineTextRenderer onExpansionToggled={handleExpansionToggle} />
       );
@@ -132,7 +132,7 @@ describe("MultilineTextRenderer", () => {
     it('reports expansion toggle when "See less" button is pressed', () => {
       sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
       sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 100);
-      const handleExpansionToggle = sinon.fake();
+      const handleExpansionToggle = vi.fn();
       const { getByText } = render(
         <MultilineTextRenderer
           isExpanded={true}

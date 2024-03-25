@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { IconHelper } from "../../core-react/utils/IconHelper";
@@ -15,7 +14,7 @@ describe("IconHelper", () => {
 
     const iconNode = IconHelper.getIconReactNode(iconSpec);
     expect(iconNode).not.to.be.undefined;
-    expect((iconNode as React.ReactElement).props.iconSpec).to.eq("cat");
+    expect((iconNode as React.ReactElement).props.iconSpec).toEqual("cat");
   });
 
   it("should get null icon data", () => {
@@ -45,7 +44,7 @@ describe("IconHelper", () => {
       <i className="icon icon-placeholder" />
     );
     expect(iconNode).not.to.be.undefined;
-    expect(React.isValidElement(iconNode)).to.be.true;
+    expect(React.isValidElement(iconNode)).toEqual(true);
   });
 
   it("should get conditionalString icon data", () => {
@@ -56,7 +55,7 @@ describe("IconHelper", () => {
 
     const iconNode = IconHelper.getIconReactNode(iconSpec);
     expect(iconNode).not.to.be.undefined;
-    expect((iconNode as React.ReactElement).props.iconSpec).to.eq("dog");
+    expect((iconNode as React.ReactElement).props.iconSpec).toEqual("dog");
   });
 
   it("should get react icon data", () => {
@@ -68,7 +67,7 @@ describe("IconHelper", () => {
     expect(iconNode).not.to.be.undefined;
     expect(
       (iconNode as React.ReactElement).props.iconSpec.props.children
-    ).to.eq("Test");
+    ).toEqual("Test");
   });
 
   it("should get reactNode for ConditionalIconItem", () => {
@@ -85,7 +84,7 @@ describe("IconHelper", () => {
     expect(iconNode).not.to.be.undefined;
     expect(
       (iconNode as React.ReactElement).props.iconSpec.props.children
-    ).to.eq("Test");
+    ).toEqual("Test");
 
     const iconNodeDirect = IconHelper.getIconReactNode(
       new ConditionalIconItem(() => {
@@ -96,7 +95,7 @@ describe("IconHelper", () => {
     expect(iconNodeDirect).not.to.be.undefined;
     expect(
       (iconNodeDirect as React.ReactElement).props.iconSpec.props.children
-    ).to.eq("Plum");
+    ).toEqual("Plum");
   });
 
   it("should get empty string back", () => {

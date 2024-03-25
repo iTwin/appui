@@ -52,7 +52,7 @@ describe("FavoritePropertiesRenderer", () => {
 
     it("should support `createRoot` parameter", async () => {
       const fakeRender = sinon.spy();
-      const fakeRoot = sinon.stub().returns({ render: fakeRender });
+      const fakeRoot = vi.fn().mockReturnValue({ render: fakeRender });
       const propertyData = await dataProvider.getData();
       const div = renderer.renderFavorites(propertyData, undefined, fakeRoot);
       expect(fakeRoot).to.have.been.calledWithExactly(div);
@@ -64,7 +64,7 @@ describe("FavoritePropertiesRenderer", () => {
     it("should correctly determine if has favorites", async () => {
       const propertyData = await dataProvider.getData();
       const hasFavorites = renderer.hasFavorites(propertyData);
-      expect(hasFavorites).to.be.true;
+      expect(hasFavorites).toEqual(true);
     });
   });
 });

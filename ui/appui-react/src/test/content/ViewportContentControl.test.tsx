@@ -128,7 +128,7 @@ describe("ViewportContentControl", () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {
-      expect(UiFramework.content.layouts.activeLayout?.id).to.eq(
+      expect(UiFramework.content.layouts.activeLayout?.id).toEqual(
         "uia:singleView"
       );
 
@@ -136,15 +136,15 @@ describe("ViewportContentControl", () => {
       expect(contentControl).to.not.be.undefined;
 
       if (contentControl) {
-        expect(contentControl.isViewport).to.be.true;
+        expect(contentControl.isViewport).toEqual(true);
         expect(contentControl.viewport).to.not.be.undefined;
-        expect(contentControl.getType()).to.eq(
+        expect(contentControl.getType()).toEqual(
           ConfigurableUiControlType.Viewport
         );
 
         const supportsContentControl =
           contentControl as unknown as SupportsViewSelectorChange;
-        expect(supportsContentControl.supportsViewSelectorChange).to.be.true;
+        expect(supportsContentControl.supportsViewSelectorChange).toEqual(true);
       }
     }
   });
@@ -158,7 +158,7 @@ describe("ViewportContentControl", () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {
-      expect(UiFramework.content.layouts.activeLayout?.id).to.eq(
+      expect(UiFramework.content.layouts.activeLayout?.id).toEqual(
         "uia:singleView"
       );
 
@@ -166,13 +166,15 @@ describe("ViewportContentControl", () => {
       expect(contentControl).to.not.be.undefined;
 
       if (contentControl) {
-        expect(contentControl.navigationAidControl).to.eq("SheetNavigationAid");
+        expect(contentControl.navigationAidControl).toEqual(
+          "SheetNavigationAid"
+        );
 
         viewMock.reset();
         viewMock
           .setup((view) => view.classFullName)
           .returns(() => "DrawingViewDefinition");
-        expect(contentControl.navigationAidControl).to.eq(
+        expect(contentControl.navigationAidControl).toEqual(
           "DrawingNavigationAid"
         );
 
@@ -180,21 +182,25 @@ describe("ViewportContentControl", () => {
         viewMock
           .setup((view) => view.classFullName)
           .returns(() => "SpatialViewDefinition");
-        expect(contentControl.navigationAidControl).to.eq("CubeNavigationAid");
+        expect(contentControl.navigationAidControl).toEqual(
+          "CubeNavigationAid"
+        );
 
         viewMock.reset();
         viewMock
           .setup((view) => view.classFullName)
           .returns(() => "OrthographicViewDefinition");
-        expect(contentControl.navigationAidControl).to.eq("CubeNavigationAid");
+        expect(contentControl.navigationAidControl).toEqual(
+          "CubeNavigationAid"
+        );
       }
     }
   });
 
   it("UiFramework.frontstages.setActiveFrontstageDef should cause onActiveContentChangedEvent", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const remove =
-      UiFramework.content.onActiveContentChangedEvent.addListener(spyMethod);
+      UiFramework.content.onActiveContentChangedEvent.addListener(spy);
 
     const frontstageProvider = new Frontstage1();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
@@ -204,7 +210,7 @@ describe("ViewportContentControl", () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     await TestUtils.flushAsyncOperations();
-    expect(spyMethod.called).to.be.true;
+    expect(spy.called).toEqual(true);
 
     remove();
   });
@@ -244,7 +250,7 @@ describe("ViewportContentControl", () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {
-      expect(UiFramework.content.layouts.activeLayout?.id).to.eq(
+      expect(UiFramework.content.layouts.activeLayout?.id).toEqual(
         "uia:singleView"
       );
       const contentControl = UiFramework.content.getActiveContentControl();

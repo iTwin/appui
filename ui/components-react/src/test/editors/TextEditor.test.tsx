@@ -201,7 +201,7 @@ describe("<TextEditor />", () => {
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.calledOnce).to.be.true;
+    expect(spyOnCommit.calledOnce).toEqual(true);
   });
 
   it("should call onCommit after value change when shouldCommitOnChange is true", async () => {
@@ -227,7 +227,7 @@ describe("<TextEditor />", () => {
     expect(inputNode).not.to.be.null;
 
     await theUserTo.type(inputNode!, "a");
-    expect(spyOnCommit.called).to.be.true;
+    expect(spyOnCommit.called).toEqual(true);
   });
 
   describe("Needs IModelApp", () => {

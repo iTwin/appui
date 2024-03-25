@@ -172,7 +172,7 @@ describe("<ColorPickerPopup/>", () => {
       "components-colorpicker-popup-button"
     );
     fireEvent.click(pickerButton);
-    expect(spy).not.to.be.called;
+    expect(spy).not.toBeCalled();
 
     const colorSwatch = component.getByRole("button", {
       name: ColorValue.fromTbgr(ColorDef.green.tbgr)
@@ -180,7 +180,7 @@ describe("<ColorPickerPopup/>", () => {
         .toUpperCase(),
     });
     fireEvent.click(colorSwatch);
-    expect(spy).not.to.be.called;
+    expect(spy).not.toBeCalled();
   });
 
   it("mouse click should propagate if captureClicks not set to true", async () => {
@@ -200,7 +200,7 @@ describe("<ColorPickerPopup/>", () => {
       "components-colorpicker-popup-button"
     );
     fireEvent.click(pickerButton);
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
 
     const colorSwatch = component.getByRole("button", {
       name: ColorValue.fromTbgr(ColorDef.green.tbgr)
@@ -208,7 +208,7 @@ describe("<ColorPickerPopup/>", () => {
         .toUpperCase(),
     });
     fireEvent.click(colorSwatch);
-    expect(spy).to.be.calledTwice;
+    expect(spy).toHaveBeenCalledTimes(2);
   });
 
   it("ensure update prop is handled", async () => {
@@ -322,7 +322,7 @@ describe("<ColorPickerPopup/>", () => {
       name: "Red",
     }) as HTMLInputElement;
     fireEvent.change(redInput, { target: { value: "100" } });
-    expect(redInput.value).to.eq("100");
+    expect(redInput.value).toEqual("100");
     fireEvent.keyDown(redInput, { key: Key.Enter });
     sinon.assert.calledOnce(spy);
   });
@@ -350,7 +350,7 @@ describe("<ColorPickerPopup/>", () => {
       name: "Hue",
     }) as HTMLInputElement;
     fireEvent.change(hueInput, { target: { value: "100" } });
-    expect(hueInput.value).to.eq("100");
+    expect(hueInput.value).toEqual("100");
     fireEvent.keyDown(hueInput, { key: Key.Enter });
     sinon.assert.calledOnce(spy);
   });

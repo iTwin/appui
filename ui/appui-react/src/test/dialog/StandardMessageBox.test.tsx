@@ -25,7 +25,7 @@ describe("StandardMessageBox", () => {
   });
 
   it("OK button & NoSymbol", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
 
     const reactNode = (
       <StandardMessageBox
@@ -33,21 +33,21 @@ describe("StandardMessageBox", () => {
         title="My Title"
         iconType={MessageBoxIconType.NoSymbol}
         messageBoxType={MessageBoxType.Ok}
-        onResult={spyMethod}
+        onResult={spy}
       />
     );
 
     const { container } = render(reactNode);
     expect(
       container.querySelector(".icon.core-message-box-icon")?.classList.length
-    ).to.eq(2);
+    ).toEqual(2);
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.ok" }));
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("OK/Cancel buttons & Information", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
 
     const reactNode = (
       <StandardMessageBox
@@ -55,7 +55,7 @@ describe("StandardMessageBox", () => {
         title="My Title"
         iconType={MessageBoxIconType.Information}
         messageBoxType={MessageBoxType.OkCancel}
-        onResult={spyMethod}
+        onResult={spy}
       />
     );
 
@@ -65,11 +65,11 @@ describe("StandardMessageBox", () => {
     );
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.ok" }));
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("Yes/No buttons & Question", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
 
     const reactNode = (
       <StandardMessageBox
@@ -77,7 +77,7 @@ describe("StandardMessageBox", () => {
         title="My Title"
         iconType={MessageBoxIconType.Question}
         messageBoxType={MessageBoxType.YesNo}
-        onResult={spyMethod}
+        onResult={spy}
       />
     );
 
@@ -87,18 +87,18 @@ describe("StandardMessageBox", () => {
     );
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.yes" }));
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("MediumAlert & Question", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const reactNode = (
       <StandardMessageBox
         opened={true}
         title="My Title"
         iconType={MessageBoxIconType.Warning}
         messageBoxType={MessageBoxType.MediumAlert}
-        onResult={spyMethod}
+        onResult={spy}
       />
     );
     render(reactNode);
@@ -109,18 +109,18 @@ describe("StandardMessageBox", () => {
     await theUserTo.click(
       screen.getByRole("button", { name: "dialog.cancel" })
     );
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("YesNoCancel & Critical", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const reactNode = (
       <StandardMessageBox
         opened={true}
         title="My Title"
         iconType={MessageBoxIconType.Critical}
         messageBoxType={MessageBoxType.YesNoCancel}
-        onResult={spyMethod}
+        onResult={spy}
       />
     );
     render(reactNode);
@@ -129,18 +129,18 @@ describe("StandardMessageBox", () => {
     );
 
     await theUserTo.click(screen.getByRole("button", { name: "dialog.no" }));
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("YesNoCancel & Warning", async () => {
-    const spyMethod = sinon.spy();
+    const spy = sinon.spy();
     const reactNode = (
       <StandardMessageBox
         opened={true}
         title="My Title"
         iconType={MessageBoxIconType.Warning}
         messageBoxType={MessageBoxType.YesNoCancel}
-        onResult={spyMethod}
+        onResult={spy}
       />
     );
     render(reactNode);
@@ -151,7 +151,7 @@ describe("StandardMessageBox", () => {
     await theUserTo.click(
       screen.getByRole("button", { name: "dialog.cancel" })
     );
-    expect(spyMethod.calledOnce).to.be.true;
+    expect(spy.calledOnce).toEqual(true);
   });
 
   it("should close on Esc key", async () => {

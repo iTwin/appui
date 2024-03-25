@@ -171,52 +171,52 @@ describe("useLabel", () => {
 
 describe("handleToCursorType", () => {
   it("bottom", () => {
-    handleToCursorType("bottom").should.eq("ns-resize");
+    handleToCursorType("bottom").toEqual("ns-resize");
   });
 
   it("top", () => {
-    handleToCursorType("top").should.eq("ns-resize");
+    handleToCursorType("top").toEqual("ns-resize");
   });
 
   it("left", () => {
-    handleToCursorType("left").should.eq("ew-resize");
+    handleToCursorType("left").toEqual("ew-resize");
   });
 
   it("right", () => {
-    handleToCursorType("right").should.eq("ew-resize");
+    handleToCursorType("right").toEqual("ew-resize");
   });
 
   it("topLeft", () => {
-    handleToCursorType("topLeft").should.eq("nwse-resize");
+    handleToCursorType("topLeft").toEqual("nwse-resize");
   });
 
   it("bottomRight", () => {
-    handleToCursorType("bottomRight").should.eq("nwse-resize");
+    handleToCursorType("bottomRight").toEqual("nwse-resize");
   });
 
   it("topRight", () => {
-    handleToCursorType("topRight").should.eq("nesw-resize");
+    handleToCursorType("topRight").toEqual("nesw-resize");
   });
 
   it("bottomLeft", () => {
-    handleToCursorType("bottomLeft").should.eq("nesw-resize");
+    handleToCursorType("bottomLeft").toEqual("nesw-resize");
   });
 });
 
 describe("sideToCursorType", () => {
   it("bottom", () => {
-    sideToCursorType("bottom").should.eq("ns-resize");
+    sideToCursorType("bottom").toEqual("ns-resize");
   });
 
   it("top", () => {
-    sideToCursorType("top").should.eq("ns-resize");
+    sideToCursorType("top").toEqual("ns-resize");
   });
 
   it("left", () => {
-    sideToCursorType("left").should.eq("ew-resize");
+    sideToCursorType("left").toEqual("ew-resize");
   });
 
   it("right", () => {
-    sideToCursorType("right").should.eq("ew-resize");
+    sideToCursorType("right").toEqual("ew-resize");
   });
 });

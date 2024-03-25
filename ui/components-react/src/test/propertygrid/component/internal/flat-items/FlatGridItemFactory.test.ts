@@ -71,7 +71,7 @@ describe("FlatGridItemFactory", () => {
           0
         );
 
-        expect(gridCategory instanceof MutableCustomGridCategory).to.be.true;
+        expect(gridCategory instanceof MutableCustomGridCategory).toEqual(true);
       });
     });
 

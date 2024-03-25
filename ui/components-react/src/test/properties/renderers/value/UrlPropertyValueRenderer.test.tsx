@@ -131,7 +131,7 @@ describe("UrlPropertyValueRenderer", () => {
         expect(linkElement.textContent).to.be.eq("Random Test property");
 
         fireEvent.click(linkElement);
-        expect(spy).to.be.calledOnceWith("Random Test property", "_blank");
+        expect(spy).toHaveBeenCalledWith("Random Test property", "_blank");
       });
 
       it("sets location.href to the whole URI value, when link starting with pw: is clicked", () => {
@@ -195,7 +195,7 @@ describe("UrlPropertyValueRenderer", () => {
         expect(linkElement.textContent).to.be.eq("Random Test property");
 
         fireEvent.click(linkElement);
-        expect(spy).to.be.calledOnceWith("Random Test property", "_blank");
+        expect(spy).toHaveBeenCalledWith("Random Test property", "_blank");
         windowMock.verify((x) => x.focus(), moq.Times.once());
       });
     });
@@ -205,7 +205,7 @@ describe("UrlPropertyValueRenderer", () => {
     it("returns true for a URI property", () => {
       const renderer = new UrlPropertyValueRenderer();
       const property = TestUtils.createURIProperty("Category", "Value");
-      expect(renderer.canRender(property)).to.be.true;
+      expect(renderer.canRender(property)).toEqual(true);
     });
 
     it("returns false for properties that are not URI or string", () => {

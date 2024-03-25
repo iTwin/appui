@@ -36,7 +36,7 @@ describe("StagePanelDef", () => {
     panelDef.addWidgetDef(w1);
 
     expect(panelDef.widgetDefs).to.have.lengthOf(1);
-    expect(panelDef.widgetCount).to.eq(1);
+    expect(panelDef.widgetCount).toEqual(1);
     expect(panelDef.getSingleWidgetDef()).to.not.be.undefined;
   });
 
@@ -52,7 +52,7 @@ describe("StagePanelDef", () => {
 
   it("should default to Open state", () => {
     const panelDef = new StagePanelDef();
-    expect(panelDef.panelState).to.eq(StagePanelState.Open);
+    expect(panelDef.panelState).toEqual(StagePanelState.Open);
   });
 
   it("should initialize pinned", () => {
@@ -173,18 +173,18 @@ describe("StagePanelDef", () => {
 
 describe("toPanelSide", () => {
   it("should return 'left'", () => {
-    toPanelSide(StagePanelLocation.Left).should.eq("left");
+    toPanelSide(StagePanelLocation.Left).toEqual("left");
   });
 
   it("should return 'right'", () => {
-    toPanelSide(StagePanelLocation.Right).should.eq("right");
+    toPanelSide(StagePanelLocation.Right).toEqual("right");
   });
 
   it("should return 'bottom'", () => {
-    toPanelSide(StagePanelLocation.Bottom).should.eq("bottom");
+    toPanelSide(StagePanelLocation.Bottom).toEqual("bottom");
   });
 
   it("should return 'top'", () => {
-    toPanelSide(StagePanelLocation.Top).should.eq("top");
+    toPanelSide(StagePanelLocation.Top).toEqual("top");
   });
 });

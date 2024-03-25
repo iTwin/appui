@@ -104,11 +104,11 @@ describe("PopupManager", () => {
         menuItemProps
       );
 
-      expect(PopupManager.popupCount).to.eq(1);
+      expect(PopupManager.popupCount).toEqual(1);
       let popup = PopupManager.popups[0];
-      expect(popup.id).to.eq("test1");
-      expect(popup.pt.x).to.eq(150);
-      expect(popup.pt.y).to.eq(250);
+      expect(popup.id).toEqual("test1");
+      expect(popup.pt.x).toEqual(150);
+      expect(popup.pt.y).toEqual(250);
 
       AccuDrawPopupManager.showMenuButton(
         "test1",
@@ -117,11 +117,11 @@ describe("PopupManager", () => {
         menuItemProps
       );
 
-      expect(PopupManager.popupCount).to.eq(1);
+      expect(PopupManager.popupCount).toEqual(1);
       popup = PopupManager.popups[0];
-      expect(popup.id).to.eq("test1");
-      expect(popup.pt.x).to.eq(100);
-      expect(popup.pt.y).to.eq(200);
+      expect(popup.id).toEqual("test1");
+      expect(popup.pt.x).toEqual(100);
+      expect(popup.pt.y).toEqual(200);
     });
 
     it("hideMenuButton should hide menuButton", () => {
@@ -147,21 +147,21 @@ describe("PopupManager", () => {
         menuItemProps
       );
 
-      expect(PopupManager.popupCount).to.eq(1);
+      expect(PopupManager.popupCount).toEqual(1);
       const popup = PopupManager.popups[0];
-      expect(popup.id).to.eq("test1");
+      expect(popup.id).toEqual("test1");
 
       AccuDrawPopupManager.hideMenuButton("test1");
 
-      expect(PopupManager.popupCount).to.eq(0);
+      expect(PopupManager.popupCount).toEqual(0);
     });
 
     it("hideMenuButton should log error when invalid id passed", () => {
-      const spyMethod = sinon.spy(Logger, "logError");
+      const spy = sinon.spy(Logger, "logError");
 
       AccuDrawPopupManager.hideMenuButton("invalid-id");
 
-      spyMethod.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
       (Logger.logError as any).restore();
     });
 
@@ -182,10 +182,10 @@ describe("PopupManager", () => {
         spyCancel
       );
 
-      expect(PopupManager.popupCount).to.eq(1);
+      expect(PopupManager.popupCount).toEqual(1);
       let popup = PopupManager.popups[0];
-      expect(popup.pt.x).to.eq(150);
-      expect(popup.pt.y).to.eq(250);
+      expect(popup.pt.x).toEqual(150);
+      expect(popup.pt.y).toEqual(250);
 
       AccuDrawPopupManager.showCalculator(
         doc.documentElement,
@@ -196,10 +196,10 @@ describe("PopupManager", () => {
         spyCancel
       );
 
-      expect(PopupManager.popupCount).to.eq(1);
+      expect(PopupManager.popupCount).toEqual(1);
       popup = PopupManager.popups[0];
-      expect(popup.pt.x).to.eq(100);
-      expect(popup.pt.y).to.eq(200);
+      expect(popup.pt.x).toEqual(100);
+      expect(popup.pt.y).toEqual(200);
     });
 
     it("hideCalculator should hide Calculator", () => {
@@ -219,11 +219,11 @@ describe("PopupManager", () => {
         spyCancel
       );
 
-      expect(PopupManager.popupCount).to.eq(1);
+      expect(PopupManager.popupCount).toEqual(1);
 
       AccuDrawPopupManager.hideCalculator();
 
-      expect(PopupManager.popupCount).to.eq(0);
+      expect(PopupManager.popupCount).toEqual(0);
     });
 
     it("showInputEditor should show editor", () => {
@@ -242,10 +242,10 @@ describe("PopupManager", () => {
         spyCancel
       );
 
-      expect(PopupManager.popupCount).to.eq(1);
+      expect(PopupManager.popupCount).toEqual(1);
       let popup = PopupManager.popups[0];
-      expect(popup.pt.x).to.eq(150);
-      expect(popup.pt.y).to.eq(250);
+      expect(popup.pt.x).toEqual(150);
+      expect(popup.pt.y).toEqual(250);
 
       AccuDrawPopupManager.showLengthEditor(
         doc.documentElement,
@@ -255,10 +255,10 @@ describe("PopupManager", () => {
         spyCancel
       );
 
-      expect(PopupManager.popupCount).to.eq(1);
+      expect(PopupManager.popupCount).toEqual(1);
       popup = PopupManager.popups[0];
-      expect(popup.pt.x).to.eq(100);
-      expect(popup.pt.y).to.eq(200);
+      expect(popup.pt.x).toEqual(100);
+      expect(popup.pt.y).toEqual(200);
 
       AccuDrawPopupManager.showHeightEditor(
         doc.documentElement,
@@ -268,10 +268,10 @@ describe("PopupManager", () => {
         spyCancel
       );
 
-      expect(PopupManager.popupCount).to.eq(1);
+      expect(PopupManager.popupCount).toEqual(1);
       popup = PopupManager.popups[0];
-      expect(popup.pt.x).to.eq(200);
-      expect(popup.pt.y).to.eq(300);
+      expect(popup.pt.x).toEqual(200);
+      expect(popup.pt.y).toEqual(300);
 
       const propertyDescription: PropertyDescription = {
         name: "test",
@@ -288,10 +288,10 @@ describe("PopupManager", () => {
         spyCancel
       );
 
-      expect(PopupManager.popupCount).to.eq(1);
+      expect(PopupManager.popupCount).toEqual(1);
       popup = PopupManager.popups[0];
-      expect(popup.pt.x).to.eq(300);
-      expect(popup.pt.y).to.eq(400);
+      expect(popup.pt.x).toEqual(300);
+      expect(popup.pt.y).toEqual(400);
     });
 
     it("hideInputEditor should hide editor", () => {
@@ -311,21 +311,21 @@ describe("PopupManager", () => {
         spyCancel
       );
 
-      expect(PopupManager.popupCount).to.eq(1);
+      expect(PopupManager.popupCount).toEqual(1);
 
       PopupManager.hideInputEditor();
 
-      expect(PopupManager.popupCount).to.eq(0);
+      expect(PopupManager.popupCount).toEqual(0);
     });
 
     it("should be able to set offset", () => {
-      expect(PopupManager.defaultOffset.x).to.eq(8);
-      expect(PopupManager.defaultOffset.y).to.eq(8);
+      expect(PopupManager.defaultOffset.x).toEqual(8);
+      expect(PopupManager.defaultOffset.y).toEqual(8);
 
       PopupManager.defaultOffset = { x: 10, y: 10 };
 
-      expect(PopupManager.defaultOffset.x).to.eq(10);
-      expect(PopupManager.defaultOffset.y).to.eq(10);
+      expect(PopupManager.defaultOffset.x).toEqual(10);
+      expect(PopupManager.defaultOffset.y).toEqual(10);
     });
   });
 
@@ -410,7 +410,7 @@ describe("PopupManager", () => {
         fireEvent.keyDown(firstInput as HTMLElement, { key: "Enter" });
       });
       await TestUtils.flushAsyncOperations();
-      expect(spyCommit.calledOnce).to.be.true;
+      expect(spyCommit.calledOnce).toEqual(true);
 
       PopupManager.showInputEditor(
         wrapper.container,
@@ -426,7 +426,7 @@ describe("PopupManager", () => {
 
         fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       });
-      expect(spyCancel.called).to.be.true;
+      expect(spyCancel.called).toEqual(true);
     });
 
     it("PopupRenderer should render Toolbar", async () => {
@@ -467,12 +467,12 @@ describe("PopupManager", () => {
 
       await waitFor(() => {
         const buttonNodes = wrapper.container.querySelectorAll("button");
-        expect(buttonNodes.length).to.eq(2);
+        expect(buttonNodes.length).toEqual(2);
 
         fireEvent.keyDown(buttonNodes[0] as HTMLElement, { key: "Escape" });
       });
 
-      expect(spyCancel.calledOnce).to.be.true;
+      expect(spyCancel.calledOnce).toEqual(true);
     });
 
     it("PopupRenderer should render HTMLElement", async () => {
@@ -535,21 +535,21 @@ describe("PopupManager", () => {
       await waitFor(() => {
         expect(
           wrapper.container.querySelectorAll("div.uifw-card-content").length
-        ).to.eq(1);
+        ).toEqual(1);
       });
       wrapper.getByText("Title");
       expect(
         wrapper.container.querySelectorAll(
           "div.components-toolbar-overflow-sizer"
         ).length
-      ).to.eq(1);
+      ).toEqual(1);
 
       const buttonNodes = wrapper.container.querySelectorAll("button");
       expect(buttonNodes).not.to.be.null;
 
       fireEvent.keyDown(buttonNodes[0] as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
-      expect(spyCancel.called).to.be.true;
+      expect(spyCancel.called).toEqual(true);
       PopupManager.hideCard();
 
       const record = TestUtils.createPrimitiveStringProperty("record", "Title");
@@ -566,7 +566,7 @@ describe("PopupManager", () => {
       );
       expect(
         wrapper.container.querySelectorAll("div.uifw-card-content").length
-      ).to.eq(1);
+      ).toEqual(1);
       wrapper.getByText("Title");
       PopupManager.hideCard();
 
@@ -584,7 +584,7 @@ describe("PopupManager", () => {
       await waitFor(() => {
         expect(
           wrapper.container.querySelectorAll("div.uifw-card-content").length
-        ).to.eq(1);
+        ).toEqual(1);
       });
       PopupManager.hideCard();
 
@@ -602,7 +602,7 @@ describe("PopupManager", () => {
       );
       expect(
         wrapper.container.querySelectorAll("div.uifw-card-content").length
-      ).to.eq(1);
+      ).toEqual(1);
       PopupManager.hideCard();
     });
 
@@ -683,7 +683,7 @@ describe("PopupManager", () => {
         expect(
           wrapper.container.querySelectorAll("div.uifw-default-container")
             .length
-        ).to.eq(1);
+        ).toEqual(1);
       });
 
       let inputNode = wrapper.container.querySelector("input");
@@ -691,7 +691,7 @@ describe("PopupManager", () => {
 
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
       await TestUtils.flushAsyncOperations();
-      expect(spyChange.calledOnce).to.be.true;
+      expect(spyChange.calledOnce).toEqual(true);
 
       PopupManager.openToolSettings(
         uiDataProvider,
@@ -703,14 +703,14 @@ describe("PopupManager", () => {
       );
       expect(
         wrapper.container.querySelectorAll("div.uifw-default-container").length
-      ).to.eq(1);
+      ).toEqual(1);
 
       inputNode = wrapper.container.querySelector("input");
       expect(inputNode).not.to.be.null;
       fireEvent.click(inputNode as HTMLElement);
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
-      expect(spyCancel.calledOnce).to.be.true;
+      expect(spyCancel.calledOnce).toEqual(true);
     });
 
     it("PopupRenderer should render Keyin Palette", async () => {
@@ -733,13 +733,13 @@ describe("PopupManager", () => {
         expect(
           wrapper.container.querySelectorAll("div.uifw-command-palette-panel")
             .length
-        ).to.eq(1);
+        ).toEqual(1);
       });
       const inputNode = wrapper.container.querySelector("input");
       expect(inputNode).not.to.be.null;
       fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
-      expect(spyCancel.calledOnce).to.be.true;
+      expect(spyCancel.calledOnce).toEqual(true);
     });
   });
 

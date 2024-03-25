@@ -39,10 +39,10 @@ describe("useActiveIModelConnection", () => {
   describe("useActiveIModelConnection Hook", () => {
     const imodelMock = moq.Mock.ofType<IModelConnection>();
     const imodelToken: IModelRpcProps = { key: "" };
-    imodelMock.setup((x) => x.name).returns(() => "Fake");
-    imodelMock.setup((x) => x.getRpcProps()).returns(() => imodelToken);
+    imodelMock.setup((x) => x.name).mockReturnValue(() => "Fake");
+    imodelMock.setup((x) => x.getRpcProps()).mockReturnValue(() => imodelToken);
     const ss = new SelectionSet(imodelMock.object);
-    imodelMock.setup((x) => x.selectionSet).returns(() => ss);
+    imodelMock.setup((x) => x.selectionSet).mockReturnValue(() => ss);
 
     const HookTester = () => {
       const activeIModelConnection = useActiveIModelConnection();
@@ -85,19 +85,19 @@ describe("useActiveIModelConnection", () => {
 
       // should trigger dispatch action
       UiFramework.setIModelConnection(imodelMock.object, true);
-      expect(initEventStub).to.be.called;
-      expect(clearEventStub).not.to.be.called;
+      expect(initEventStub).toHaveBeenCalled();
+      expect(clearEventStub).not.toBeCalled();
       initEventStub.resetHistory();
 
       // already set, so should not trigger dispatch action
       UiFramework.setIModelConnection(imodelMock.object, true);
-      expect(initEventStub).not.to.be.called;
-      expect(clearEventStub).not.to.be.called;
+      expect(initEventStub).not.toBeCalled();
+      expect(clearEventStub).not.toBeCalled();
 
       // should trigger clearing action
       UiFramework.setIModelConnection(undefined, true);
-      expect(clearEventStub).to.be.called;
-      expect(initEventStub).not.to.be.called;
+      expect(clearEventStub).toHaveBeenCalled();
+      expect(initEventStub).not.toBeCalled();
 
       // --- the following does not work yet
       // const updatedLabel = result.getByTestId("mylabel");

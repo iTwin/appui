@@ -46,7 +46,7 @@ describe("<ToggleEditor />", () => {
 
     await theUserTo.click(screen.getByRole("switch"));
 
-    expect(spyOnCommit.calledOnce).to.be.true;
+    expect(spyOnCommit.calledOnce).toEqual(true);
   });
 
   it("onCommit should be called for Space", async () => {

@@ -52,8 +52,8 @@ describe("GridCategory", () => {
           factoryStub
         );
 
-        expect(factoryStub.createCategorizedProperty.callCount).to.be.equal(0);
-        expect(factoryStub.createGridCategory.callCount).to.be.equal(0);
+        expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(0);
+        expect(factoryStub.createGridCategory).toHaveBeenCalledTimes(0);
 
         expect(gridCategory.parentSelectionKey).to.be.undefined;
         expect(gridCategory.parentCategorySelectionKey).to.be.undefined;
@@ -74,8 +74,8 @@ describe("GridCategory", () => {
           1
         );
 
-        expect(factoryStub.createCategorizedProperty.callCount).to.be.equal(0);
-        expect(factoryStub.createGridCategory.callCount).to.be.equal(0);
+        expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(0);
+        expect(factoryStub.createGridCategory).toHaveBeenCalledTimes(0);
 
         expect(gridCategory.parentSelectionKey).to.be.equal("Cat0");
         expect(gridCategory.parentCategorySelectionKey).to.be.equal("Cat0");
@@ -103,10 +103,10 @@ describe("GridCategory", () => {
         new MutableGridCategory(category, expectedRecordsDict, factoryStub);
 
         const children = category.childCategories!;
-        expect(factoryStub.createGridCategory.callCount).to.be.equal(
+        expect(factoryStub.createGridCategory).toHaveBeenCalledTimes(
           children.length
         );
-        expect(factoryStub.createCategorizedProperty.callCount).to.be.equal(0);
+        expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(0);
 
         factoryStub.createGridCategory.args.forEach((args, index) => {
           const [
@@ -144,8 +144,8 @@ describe("GridCategory", () => {
 
         new MutableGridCategory(category, expectedRecordsDict, factoryStub);
 
-        expect(factoryStub.createGridCategory.callCount).to.be.equal(0);
-        expect(factoryStub.createCategorizedProperty.callCount).to.be.equal(
+        expect(factoryStub.createGridCategory).toHaveBeenCalledTimes(0);
+        expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(
           recordChildren.length
         );
 

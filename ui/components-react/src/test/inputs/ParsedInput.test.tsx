@@ -67,12 +67,12 @@ describe("ParsedInput", () => {
     const input = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
-    expect(input.value).to.eq("20.0C");
+    expect(input.value).toEqual("20.0C");
     fireEvent.change(input, { target: { value: "32F" } });
     fireEvent.keyDown(input, { key: Key.Enter });
     expect(spyOnChange).to.have.been.called;
     spyOnChange.resetHistory();
-    expect(input.value).to.eq("0.0C");
+    expect(input.value).toEqual("0.0C");
     fireEvent.change(input, { target: { value: "0.0C" } });
     fireEvent.keyDown(input, { key: Key.Enter });
     expect(spyOnChange).to.not.have.been.called;
@@ -94,7 +94,7 @@ describe("ParsedInput", () => {
     const input = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
-    expect(input.value).to.eq("20.0C");
+    expect(input.value).toEqual("20.0C");
 
     // Blur does change
     fireEvent.change(input, { target: { value: "10.0C" } });
@@ -118,7 +118,7 @@ describe("ParsedInput", () => {
     const input = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
-    expect(input.value).to.eq("20.0C");
+    expect(input.value).toEqual("20.0C");
 
     // Escape does not change
     fireEvent.change(input, { target: { value: "20.0C" } });
@@ -142,7 +142,7 @@ describe("ParsedInput", () => {
     const input = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
-    expect(input.value).to.eq("20.0C");
+    expect(input.value).toEqual("20.0C");
 
     // Should process updated initialValue prop
     const newTemperature = 100; // 100 C
@@ -158,7 +158,7 @@ describe("ParsedInput", () => {
     const updatedInput = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
-    expect(updatedInput.value).to.eq("100.0C");
+    expect(updatedInput.value).toEqual("100.0C");
   });
 
   it("should process keystrokes and initialValue prop change", () => {
@@ -177,7 +177,7 @@ describe("ParsedInput", () => {
     const input = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
-    expect(input.value).to.eq("20.0C");
+    expect(input.value).toEqual("20.0C");
 
     // Should process updated initialValue prop
     const newTemperature = 100; // 100 C
@@ -193,7 +193,7 @@ describe("ParsedInput", () => {
     const updatedInput = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
-    expect(updatedInput.value).to.eq("100.0C");
+    expect(updatedInput.value).toEqual("100.0C");
   });
 
   it("should notify on bad input", () => {
@@ -212,7 +212,7 @@ describe("ParsedInput", () => {
     const input = wrapper.getByTestId(
       "components-parsed-input"
     ) as HTMLInputElement;
-    expect(input.value).to.eq("20.0C");
+    expect(input.value).toEqual("20.0C");
 
     // Should add "components-parsed-input-has-error" CSS class on bad input
     fireEvent.change(input, { target: { value: "XYZ" } });

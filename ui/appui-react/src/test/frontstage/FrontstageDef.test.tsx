@@ -143,11 +143,11 @@ describe("FrontstageDef", () => {
       return undefined;
     });
 
-    sinon.stub();
+    vi.fn();
 
-    expect(frontstageDef.isWidgetDisplayed("t1")).to.be.true;
+    expect(frontstageDef.isWidgetDisplayed("t1")).toEqual(true);
     expect(frontstageDef.isWidgetDisplayed("t2")).to.be.false;
-    expect(frontstageDef.isWidgetDisplayed("t3")).to.be.true;
+    expect(frontstageDef.isWidgetDisplayed("t3")).toEqual(true);
   });
 
   it("should not save size and position if ninezone state is not available", () => {
@@ -156,7 +156,7 @@ describe("FrontstageDef", () => {
 
     frontstageDef.saveChildWindowSizeAndPosition("1", window);
 
-    expect(spy).to.not.be.called;
+    expect(spy).not.toBeCalled();
   });
 
   it("should not save size and position if widget is not found", () => {
@@ -167,7 +167,7 @@ describe("FrontstageDef", () => {
 
     frontstageDef.saveChildWindowSizeAndPosition("1", window);
 
-    expect(spy).to.not.be.called;
+    expect(spy).not.toBeCalled();
   });
 
   it("should not save size and position if widget is not found", () => {
@@ -176,7 +176,9 @@ describe("FrontstageDef", () => {
     state = addPopoutWidget(state, "pw1", ["t1"]);
 
     const frontstageDef = new FrontstageDef();
-    const spy = sinon.stub(frontstageDef, "findWidgetDef").returns(undefined);
+    const spy = sinon
+      .stub(frontstageDef, "findWidgetDef")
+      .mockReturnValue(undefined);
     sinon.stub(frontstageDef, "nineZoneState").get(() => state);
 
     frontstageDef.saveChildWindowSizeAndPosition("pw1", window);
@@ -219,7 +221,7 @@ describe("FrontstageDef", () => {
         widgetDef,
         widgetState: WidgetState.Open,
       });
-      expect(widgetDef?.state).to.eq(WidgetState.Open);
+      expect(widgetDef?.state).toEqual(WidgetState.Open);
     });
 
     it("should hide a panel widget", async () => {
@@ -282,7 +284,7 @@ describe("FrontstageDef", () => {
         widgetDef,
         widgetState: WidgetState.Floating,
       });
-      expect(widgetDef?.state).to.eq(WidgetState.Floating);
+      expect(widgetDef?.state).toEqual(WidgetState.Floating);
     });
 
     it("should hide tool settings", async () => {
@@ -308,7 +310,7 @@ describe("FrontstageDef", () => {
         widgetDef,
         widgetState: WidgetState.Hidden,
       });
-      expect(widgetDef?.state).to.eq(WidgetState.Hidden);
+      expect(widgetDef?.state).toEqual(WidgetState.Hidden);
     });
   });
 
@@ -322,7 +324,7 @@ describe("FrontstageDef", () => {
         },
       });
       const widget = frontstage.findWidgetDef("test-tool-settings-widget");
-      expect(widget?.id).to.eq("test-tool-settings-widget");
+      expect(widget?.id).toEqual("test-tool-settings-widget");
     });
 
     it("should return status bar", async () => {
@@ -334,7 +336,7 @@ describe("FrontstageDef", () => {
         },
       });
       const widget = frontstage.findWidgetDef("test-status-bar-widget");
-      expect(widget?.id).to.eq("test-status-bar-widget");
+      expect(widget?.id).toEqual("test-status-bar-widget");
     });
   });
 
@@ -479,7 +481,7 @@ describe("FrontstageDef", () => {
       });
       initializeNineZoneState(frontstageDef);
 
-      const dispatch = sinon.stub();
+      const dispatch = vi.fn();
       sinon.stub(frontstageDef, "dispatch").get(() => dispatch);
       frontstageDef.floatWidget("t1");
       sinon.assert.calledOnceWithMatch(dispatch, {
@@ -506,7 +508,7 @@ describe("FrontstageDef", () => {
       });
       initializeNineZoneState(frontstageDef);
 
-      const dispatch = sinon.stub();
+      const dispatch = vi.fn();
       sinon.stub(frontstageDef, "dispatch").get(() => dispatch);
       frontstageDef.popoutWidget("t1");
       sinon.assert.calledOnceWithMatch(dispatch, {
@@ -686,7 +688,7 @@ describe("FrontstageDef", () => {
         side: "left",
         collapsed: true,
       });
-      expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.true;
+      expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(true);
       sinon.assert.calledOnceWithExactly(spy, {
         panelDef: frontstageDef.leftPanel!,
         panelState: StagePanelState.Minimized,
@@ -730,7 +732,9 @@ describe("FrontstageDef", () => {
           side: "left",
           collapsed: true,
         });
-        expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.true;
+        expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(
+          true
+        );
         sinon.assert.notCalled(spy);
 
         frontstageDef.dispatch({
@@ -746,7 +750,9 @@ describe("FrontstageDef", () => {
           side: "left",
           collapsed: true,
         });
-        expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.true;
+        expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(
+          true
+        );
         sinon.assert.notCalled(spy);
       });
 
@@ -808,7 +814,7 @@ describe("useSpecificWidgetDef", () => {
   it("should return widgetDef from active frontstage", () => {
     const frontstageDef = new FrontstageDef();
     const widgetDef = new WidgetDef();
-    sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef);
+    sinon.stub(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
     sinon
       .stub(UiFramework.frontstages, "activeFrontstageDef")
       .get(() => frontstageDef);
@@ -843,7 +849,7 @@ describe("useSpecificWidgetDef", () => {
     const initialDef = frontstageDef.findWidgetDef("w1");
     const { result } = renderHook(() => useSpecificWidgetDef("w1"));
     expect(initialDef).to.exist;
-    expect(initialDef).to.eq(result.current);
+    expect(initialDef).toEqual(result.current);
 
     await act(async () => {
       // Re-creates dynamic widgets.
@@ -854,7 +860,7 @@ describe("useSpecificWidgetDef", () => {
     const recreatedDef = frontstageDef.findWidgetDef("w1");
     expect(recreatedDef).to.exist;
     expect(recreatedDef).to.not.eq(initialDef);
-    expect(recreatedDef).to.eq(result.current);
+    expect(recreatedDef).toEqual(result.current);
 
     UiItemsManager.unregister("provider1");
   });

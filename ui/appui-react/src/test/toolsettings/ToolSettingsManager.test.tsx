@@ -127,8 +127,8 @@ describe("InternalToolSettingsManager", () => {
     expect(InternalToolSettingsManager.toolSettingsProperties.length).to.equal(
       toolSettingsProperties.length
     );
-    expect(InternalToolSettingsManager.activeToolLabel).to.eq(testToolLabel);
-    expect(InternalToolSettingsManager.activeToolDescription).to.eq(
+    expect(InternalToolSettingsManager.activeToolLabel).toEqual(testToolLabel);
+    expect(InternalToolSettingsManager.activeToolDescription).toEqual(
       testToolDescription
     );
 
@@ -158,7 +158,7 @@ describe("InternalToolSettingsManager", () => {
   it("should support setting active tool label", () => {
     const label = "Test Label";
     InternalToolSettingsManager.activeToolLabel = label;
-    expect(InternalToolSettingsManager.activeToolLabel).to.eq(label);
+    expect(InternalToolSettingsManager.activeToolLabel).toEqual(label);
   });
 
   it("handleSyncToolSettingsPropertiesEvent", () => {
@@ -189,7 +189,7 @@ describe("InternalToolSettingsManager", () => {
       syncProperties: [syncItem],
     } as SyncToolSettingsPropertiesEventArgs;
     InternalToolSettingsManager.onSyncToolSettingsProperties.emit(syncArgs);
-    expect(eventCalled).to.be.true;
+    expect(eventCalled).toEqual(true);
     InternalToolSettingsManager.onSyncToolSettingsProperties.removeListener(
       handleSyncToolSettingsPropertiesEvent
     );
@@ -212,7 +212,7 @@ describe("InternalToolSettingsManager", () => {
     );
     expect(eventCalled).to.be.false;
     InternalToolSettingsManager.onReloadToolSettingsProperties.emit();
-    expect(eventCalled).to.be.true;
+    expect(eventCalled).toEqual(true);
     InternalToolSettingsManager.onReloadToolSettingsProperties.removeListener(
       handleReloadToolSettingsPropertiesEvent
     );
@@ -247,7 +247,7 @@ describe("InternalToolSettingsManager", () => {
           <button />
         </div>
       );
-      expect(InternalToolSettingsManager.focusIntoToolSettings()).to.be.true;
+      expect(InternalToolSettingsManager.focusIntoToolSettings()).toEqual(true);
     });
 
     it("should return false if no focusable item in docked ToolSettings", async () => {
@@ -261,7 +261,7 @@ describe("InternalToolSettingsManager", () => {
           <button />
         </div>
       );
-      expect(InternalToolSettingsManager.focusIntoToolSettings()).to.be.true;
+      expect(InternalToolSettingsManager.focusIntoToolSettings()).toEqual(true);
     });
 
     it("should return false if no focusable item in floating ToolSettings", async () => {

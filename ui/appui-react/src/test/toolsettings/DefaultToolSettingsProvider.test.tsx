@@ -189,7 +189,7 @@ describe("DefaultToolUiSettingsProvider", () => {
       UiFramework.toolSettings.useDefaultToolSettingsProvider = true;
 
       UiFramework.frontstages.setActiveToolId(firstToolId);
-      expect(UiFramework.frontstages.activeToolId).to.eq(firstToolId);
+      expect(UiFramework.frontstages.activeToolId).toEqual(firstToolId);
 
       const toolInformation = UiFramework.frontstages.activeToolInformation;
       expect(toolInformation).to.not.be.undefined;
@@ -279,7 +279,7 @@ describe("DefaultToolUiSettingsProvider", () => {
       );
       InternalFrontstageManager.ensureToolInformationIsSet(testToolId);
       UiFramework.frontstages.setActiveToolId(testToolId);
-      expect(UiFramework.frontstages.activeToolId).to.eq(testToolId);
+      expect(UiFramework.frontstages.activeToolId).toEqual(testToolId);
 
       const toolInformation = UiFramework.frontstages.activeToolInformation;
       expect(toolInformation).to.not.be.undefined;
@@ -417,7 +417,7 @@ describe("DefaultToolUiSettingsProvider", () => {
       );
       InternalFrontstageManager.ensureToolInformationIsSet(testToolId);
       UiFramework.frontstages.setActiveToolId(testToolId);
-      expect(UiFramework.frontstages.activeToolId).to.eq(testToolId);
+      expect(UiFramework.frontstages.activeToolId).toEqual(testToolId);
 
       const toolInformation = UiFramework.frontstages.activeToolInformation;
       expect(toolInformation).to.not.be.undefined;

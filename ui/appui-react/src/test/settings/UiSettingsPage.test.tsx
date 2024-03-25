@@ -42,7 +42,7 @@ describe("UiSettingsPage", () => {
     const tabEntry = getUiSettingsManagerEntry(5);
     const wrapper = render(tabEntry.page);
     expect(wrapper).not.to.be.undefined;
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(11);
+    expect(wrapper.container.querySelectorAll("span.title").length).toEqual(11);
     wrapper.unmount();
   });
 
@@ -64,37 +64,37 @@ describe("UiSettingsPage", () => {
 
     await openMenu();
     fireEvent.click(menu().getByText("settings.uiSettingsPage.dark"));
-    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.Dark);
+    expect(UiFramework.getColorTheme()).toEqual(ColorTheme.Dark);
 
     await openMenu();
     fireEvent.click(menu().getByText("settings.uiSettingsPage.light"));
-    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.Light);
+    expect(UiFramework.getColorTheme()).toEqual(ColorTheme.Light);
 
     await openMenu();
     fireEvent.click(
       menu().getByText("settings.uiSettingsPage.lightHighContrast")
     );
-    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.HighContrastLight);
+    expect(UiFramework.getColorTheme()).toEqual(ColorTheme.HighContrastLight);
 
     await openMenu();
     fireEvent.click(
       menu().getByText("settings.uiSettingsPage.darkHighContrast")
     );
-    expect(UiFramework.getColorTheme()).to.eq(ColorTheme.HighContrastDark);
+    expect(UiFramework.getColorTheme()).toEqual(ColorTheme.HighContrastDark);
   });
 
   it("renders set widget opacity", async () => {
     const wrapper = render(<UiSettingsPage />);
     const thumb = wrapper.getAllByRole("slider")[1];
 
-    expect(UiFramework.getWidgetOpacity()).to.eq(0.9);
-    expect(thumb.getAttribute("aria-valuenow")).to.eq("0.9");
+    expect(UiFramework.getWidgetOpacity()).toEqual(0.9);
+    expect(thumb.getAttribute("aria-valuenow")).toEqual("0.9");
 
     act(() => {
       UiFramework.setWidgetOpacity(0.5);
     });
     expect(UiFramework.getWidgetOpacity()).equals(0.5);
-    expect(thumb.getAttribute("aria-valuenow")).to.eq("0.5");
+    expect(thumb.getAttribute("aria-valuenow")).toEqual("0.5");
   });
 
   it("renders  set toolbar opacity", async () => {
@@ -102,14 +102,14 @@ describe("UiSettingsPage", () => {
     const thumb = wrapper.getAllByRole("slider")[0];
 
     // Default
-    expect(UiFramework.getToolbarOpacity()).to.eq(0.5);
-    expect(thumb.getAttribute("aria-valuenow")).to.eq("0.5");
+    expect(UiFramework.getToolbarOpacity()).toEqual(0.5);
+    expect(thumb.getAttribute("aria-valuenow")).toEqual("0.5");
 
     act(() => {
       UiFramework.setToolbarOpacity(0.9);
     });
-    expect(UiFramework.getToolbarOpacity()).to.eq(0.9);
-    expect(thumb.getAttribute("aria-valuenow")).to.eq("0.9");
+    expect(UiFramework.getToolbarOpacity()).toEqual(0.9);
+    expect(thumb.getAttribute("aria-valuenow")).toEqual("0.9");
   });
 
   it("renders toggle auto-hide", async () => {
@@ -125,8 +125,8 @@ describe("UiSettingsPage", () => {
     expect(checkbox?.checked).to.be.false; // defaults to true so this should make if false
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true;
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(11);
+    expect(checkbox?.checked).toEqual(true);
+    expect(wrapper.container.querySelectorAll("span.title").length).toEqual(11);
     wrapper.unmount();
   });
 
@@ -141,7 +141,7 @@ describe("UiSettingsPage", () => {
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true;
+    expect(checkbox?.checked).toEqual(true);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).to.be.false;
@@ -159,7 +159,7 @@ describe("UiSettingsPage", () => {
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true; // latest default value
+    expect(checkbox?.checked).toEqual(true); // latest default value
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).to.be.false;
@@ -177,7 +177,7 @@ describe("UiSettingsPage", () => {
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true;
+    expect(checkbox?.checked).toEqual(true);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).to.be.false;
@@ -198,7 +198,7 @@ describe("UiSettingsPage", () => {
     expect(checkbox?.checked).to.be.false;
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true;
+    expect(checkbox?.checked).toEqual(true);
     wrapper.unmount();
   });
 
@@ -213,7 +213,7 @@ describe("UiSettingsPage", () => {
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true;
+    expect(checkbox?.checked).toEqual(true);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).to.be.false;
@@ -231,7 +231,7 @@ describe("UiSettingsPage", () => {
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true;
+    expect(checkbox?.checked).toEqual(true);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).to.be.false;

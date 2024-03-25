@@ -60,7 +60,7 @@ describe("StageContentLayout", () => {
   const viewsMock = moq.Mock.ofType<IModelConnection.Views>();
   const rpcMock = moq.Mock.ofType<IModelReadRpcInterface>();
 
-  imodelMock.setup((x) => x.views).returns(() => viewsMock.object);
+  imodelMock.setup((x) => x.views).mockReturnValue(() => viewsMock.object);
   imodelMock
     .setup((x) => x.subcategories)
     .returns(() => new SubCategoriesCache(imodelMock.object));
@@ -258,7 +258,7 @@ describe("StageContentLayout", () => {
     UiFramework.frontstages.clearFrontstageProviders();
 
     viewportMock.reset();
-    viewportMock.setup((x) => x.view).returns(() => viewState);
+    viewportMock.setup((x) => x.view).mockReturnValue(() => viewState);
   });
 
   it("should create and parse Spatial saved view layout", async () => {
@@ -314,15 +314,15 @@ describe("StageContentLayout", () => {
         savedViewLayoutProps
       );
 
-      expect(contentLayoutDef.description).to.eq("Single Content View");
-      expect(viewStates.length).to.eq(1);
+      expect(contentLayoutDef.description).toEqual("Single Content View");
+      expect(viewStates.length).toEqual(1);
 
       const viewState0 = viewStates[0];
       if (viewState0) {
         const bisBaseName = ViewUtilities.getBisBaseClass(
           viewState0.classFullName
         );
-        expect(ViewUtilities.isSpatial(bisBaseName)).to.be.true;
+        expect(ViewUtilities.isSpatial(bisBaseName)).toEqual(true);
       }
 
       // attempting to emphasize the elements should return false because it wasn't saved
@@ -341,8 +341,8 @@ describe("StageContentLayout", () => {
   it("should create and parse Drawing saved view layout", async () => {
     const emphasizeElements = new EmphasizeElements();
     emphasizeElements.wantEmphasis = true;
-    viewportMock.setup((x) => x.neverDrawn).returns(() => undefined);
-    viewportMock.setup((x) => x.alwaysDrawn).returns(() => undefined);
+    viewportMock.setup((x) => x.neverDrawn).mockReturnValue(() => undefined);
+    viewportMock.setup((x) => x.alwaysDrawn).mockReturnValue(() => undefined);
 
     const vs = DrawingViewState.createFromProps(
       viewStateProps2,
@@ -405,21 +405,21 @@ describe("StageContentLayout", () => {
         savedViewLayoutProps
       );
 
-      expect(contentLayoutDef.description).to.eq("Single Content View");
-      expect(viewStates.length).to.eq(1);
+      expect(contentLayoutDef.description).toEqual("Single Content View");
+      expect(viewStates.length).toEqual(1);
 
       const viewState0 = viewStates[0];
       if (viewState0) {
         const bisBaseName = ViewUtilities.getBisBaseClass(
           viewState0.classFullName
         );
-        expect(ViewUtilities.isDrawing(bisBaseName)).to.be.true;
+        expect(ViewUtilities.isDrawing(bisBaseName)).toEqual(true);
       }
 
       const contentGroup = new ContentGroup(
         savedViewLayoutProps.contentGroupProps
       );
-      expect(contentGroup.propsId).to.eq("MyContentGroup");
+      expect(contentGroup.propsId).toEqual("MyContentGroup");
 
       // activate the layout
       await UiFramework.content.layouts.setActive(
@@ -433,7 +433,7 @@ describe("StageContentLayout", () => {
           contentGroup,
           savedViewLayoutProps
         )
-      ).to.be.true;
+      ).toEqual(true);
     }
   });
 
@@ -495,15 +495,15 @@ describe("StageContentLayout", () => {
         savedViewLayoutProps
       );
 
-      expect(contentLayoutDef.description).to.eq("Single Content View");
-      expect(viewStates.length).to.eq(1);
+      expect(contentLayoutDef.description).toEqual("Single Content View");
+      expect(viewStates.length).toEqual(1);
 
       const viewState0 = viewStates[0];
       if (viewState0) {
         const bisBaseName = ViewUtilities.getBisBaseClass(
           viewState0.classFullName
         );
-        expect(ViewUtilities.isSheet(bisBaseName)).to.be.true;
+        expect(ViewUtilities.isSheet(bisBaseName)).toEqual(true);
       }
     }
   });

@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import { LocalStateStorage, UiStateStorageStatus } from "../../core-react";
 
 import { storageMock } from "../TestUtils";
@@ -53,7 +52,7 @@ describe("LocalStateStorage", () => {
       test123: "4567",
     });
     let hasSettings = await localUiSettings.hasSetting("Testing", "TestData");
-    expect(hasSettings).to.be.true;
+    expect(hasSettings).toEqual(true);
     it("Should remove setting correctly", async () => {
       const result = await localUiSettings.deleteSetting("Testing", "TestData");
       expect(result.status).to.equal(UiStateStorageStatus.Success);

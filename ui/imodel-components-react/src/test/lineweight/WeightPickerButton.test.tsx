@@ -67,7 +67,7 @@ describe("<WeightPickerButton/>", () => {
       expect(firstColorButton).not.to.be.undefined;
       fireEvent.click(firstColorButton);
       // renderedComponent.debug();
-      expect(spyOnWeightPick).to.be.calledOnce;
+      expect(spyOnWeightPick).toHaveBeenCalledOnce();
     }
   });
 
@@ -130,7 +130,7 @@ describe("<WeightPickerButton/>", () => {
         fireEvent.keyDown(popupDiv, { key: "Enter" });
 
         // renderedComponent.debug();
-        expect(spyOnWeightPick).to.be.calledOnce;
+        expect(spyOnWeightPick).toHaveBeenCalledOnce();
       }
     }
   });
@@ -185,7 +185,7 @@ describe("<WeightPickerButton/>", () => {
       fireEvent.keyDown(popupDiv, { key: "ArrowUp" }); // back up to 3
       fireEvent.keyDown(popupDiv, { key: "ArrowUp" }); // up to 2
       fireEvent.keyDown(popupDiv, { key: "Enter" });
-      expect(spyOnWeightPick).to.be.calledOnce;
+      expect(spyOnWeightPick).toHaveBeenCalledOnce();
     }
   });
 
@@ -242,7 +242,7 @@ describe("<WeightPickerButton/>", () => {
       fireEvent.keyDown(popupDiv, { key: "ArrowUp" }); // back down to 6
       fireEvent.keyDown(popupDiv, { key: "ArrowUp" }); // up to 5
       fireEvent.keyDown(popupDiv, { key: "Enter" });
-      expect(spyOnWeightPick).to.be.calledOnce;
+      expect(spyOnWeightPick).toHaveBeenCalledOnce();
     }
   });
 

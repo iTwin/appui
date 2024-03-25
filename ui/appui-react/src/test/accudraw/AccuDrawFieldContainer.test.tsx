@@ -83,19 +83,19 @@ describe("AccuDrawFieldContainer", () => {
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
     IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
     IModelApp.accuDraw.onFieldValueChange(ItemField.X_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     IModelApp.accuDraw.onFieldValueChange(ItemField.Y_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     IModelApp.accuDraw.onFieldValueChange(ItemField.Z_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     IModelApp.accuDraw.onFieldValueChange(ItemField.ANGLE_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     IModelApp.accuDraw.onFieldValueChange(ItemField.DIST_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     remove();
   });
@@ -106,19 +106,19 @@ describe("AccuDrawFieldContainer", () => {
       FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
     IModelApp.accuDraw.setFieldLock(ItemField.X_Item, true);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     IModelApp.accuDraw.setFieldLock(ItemField.Y_Item, true);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     IModelApp.accuDraw.setFieldLock(ItemField.Z_Item, true);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     IModelApp.accuDraw.setFieldLock(ItemField.ANGLE_Item, true);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     IModelApp.accuDraw.setFieldLock(ItemField.DIST_Item, true);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     spy.resetHistory();
     remove();
   });
@@ -136,17 +136,17 @@ describe("AccuDrawFieldContainer", () => {
     await TestUtils.flushAsyncOperations();
 
     IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     let input = wrapper.queryByTestId("uifw-accudraw-x");
     expect(input).not.to.be.null;
-    expect(document.activeElement === input).to.be.true;
+    expect(document.activeElement === input).toEqual(true);
     spy.resetHistory();
 
     IModelApp.accuDraw.setFocusItem(ItemField.Y_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     input = wrapper.queryByTestId("uifw-accudraw-y");
     expect(input).not.to.be.null;
-    expect(document.activeElement === input).to.be.true;
+    expect(document.activeElement === input).toEqual(true);
     spy.resetHistory();
 
     input = wrapper.queryByTestId("uifw-accudraw-z");
@@ -156,21 +156,21 @@ describe("AccuDrawFieldContainer", () => {
     await TestUtils.flushAsyncOperations();
 
     IModelApp.accuDraw.setFocusItem(ItemField.ANGLE_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     input = wrapper.queryByTestId("uifw-accudraw-angle");
     expect(input).not.to.be.null;
-    expect(document.activeElement === input).to.be.true;
+    expect(document.activeElement === input).toEqual(true);
     spy.resetHistory();
 
     IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     input = wrapper.queryByTestId("uifw-accudraw-distance");
     expect(input).not.to.be.null;
-    expect(document.activeElement === input).to.be.true;
+    expect(document.activeElement === input).toEqual(true);
     spy.resetHistory();
 
     await TestUtils.flushAsyncOperations();
-    expect(IModelApp.accuDraw.hasInputFocus).to.be.true;
+    expect(IModelApp.accuDraw.hasInputFocus).toEqual(true);
 
     remove();
   });
@@ -194,12 +194,14 @@ describe("AccuDrawFieldContainer", () => {
     });
 
     IModelApp.accuDraw.setFocusItem(ItemField.Z_Item);
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
     await TestUtils.flushAsyncOperations();
-    expect(document.activeElement).to.eq(screen.getByTestId("uifw-accudraw-z"));
+    expect(document.activeElement).toEqual(
+      screen.getByTestId("uifw-accudraw-z")
+    );
     spy.resetHistory();
 
-    expect(IModelApp.accuDraw.hasInputFocus).to.be.true;
+    expect(IModelApp.accuDraw.hasInputFocus).toEqual(true);
 
     remove();
   });
@@ -220,7 +222,7 @@ describe("AccuDrawFieldContainer", () => {
     spySet.calledOnce.should.true;
     const input = wrapper.queryByTestId("uifw-accudraw-x");
     expect(input).not.to.be.null;
-    expect(document.activeElement === input).to.be.true;
+    expect(document.activeElement === input).toEqual(true);
 
     UiFramework.keyboardShortcuts.setFocusToHome();
     expect(document.activeElement === input).to.be.false;
@@ -230,7 +232,7 @@ describe("AccuDrawFieldContainer", () => {
       FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(spyGrab);
     IModelApp.accuDraw.grabInputFocus();
     spyGrab.calledOnce.should.true;
-    expect(document.activeElement === input).to.be.true;
+    expect(document.activeElement === input).toEqual(true);
 
     removeSet();
     removeGrab();
@@ -266,7 +268,7 @@ describe("AccuDrawFieldContainer", () => {
       selectAllBeforeType()
     );
     await waitFor(() => {
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
     spy.resetHistory();
 
@@ -276,7 +278,7 @@ describe("AccuDrawFieldContainer", () => {
       selectAllBeforeType()
     );
     await waitFor(() => {
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
     spy.resetHistory();
 
@@ -292,7 +294,7 @@ describe("AccuDrawFieldContainer", () => {
       );
     });
     await waitFor(() => {
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
     spy.resetHistory();
 
@@ -302,7 +304,7 @@ describe("AccuDrawFieldContainer", () => {
       selectAllBeforeType()
     );
     await waitFor(() => {
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
     spy.resetHistory();
 
@@ -330,7 +332,7 @@ describe("AccuDrawFieldContainer", () => {
       );
     });
     await waitFor(() => {
-      spy.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     remove();
@@ -347,7 +349,7 @@ describe("AccuDrawFieldContainer", () => {
     const input = wrapper.queryByTestId("uifw-accudraw-x");
     expect(input).not.to.be.null;
     fireEvent.keyDown(input!, { key: Key.Escape });
-    spy.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
 
     (UiFramework.keyboardShortcuts.setFocusToHome as any).restore();
   });
@@ -401,39 +403,39 @@ describe("AccuDrawFieldContainer", () => {
       );
 
       const settingsTest = async (count: number) => {
-        spy.calledOnce.should.true;
+        expect(spy).toHaveBeenCalledOnce();
 
         let labelElements = wrapper.queryAllByLabelText(labelTest);
         await waitFor(() => {
-          expect(labelElements.length).to.eq(count);
+          expect(labelElements.length).toEqual(count);
         });
 
         const inputElements = wrapper.container.querySelectorAll("input");
-        expect(inputElements.length).to.eq(count);
+        expect(inputElements.length).toEqual(count);
         for (const inputElement of inputElements) {
-          expect(inputElement.getAttribute("style")).to.eq(
+          expect(inputElement.getAttribute("style")).toEqual(
             "display: inline; background-color: rgb(255, 0, 0); color: rgb(0, 0, 0);"
           );
         }
 
         const iElements = wrapper.container.querySelectorAll(`i.${iconTest}`);
-        expect(iElements.length).to.eq(count);
+        expect(iElements.length).toEqual(count);
 
         FrameworkAccuDraw.uiStateStorage = emptySettings;
         spy.calledTwice.should.true;
         await waitFor(() => {
           labelElements = wrapper.queryAllByLabelText(labelTest);
-          expect(labelElements.length).to.eq(0);
+          expect(labelElements.length).toEqual(0);
         });
 
         FrameworkAccuDraw.uiStateStorage = undefined;
         spy.calledThrice.should.true;
         labelElements = wrapper.queryAllByLabelText(labelTest);
-        expect(labelElements.length).to.eq(0);
+        expect(labelElements.length).toEqual(0);
       };
 
       IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
-      expect(wrapper.queryAllByLabelText(labelTest).length).to.eq(0);
+      expect(wrapper.queryAllByLabelText(labelTest).length).toEqual(0);
       FrameworkAccuDraw.uiStateStorage = fullSettings;
       await TestUtils.flushAsyncOperations();
       await settingsTest(3);
@@ -441,7 +443,7 @@ describe("AccuDrawFieldContainer", () => {
       spy.resetHistory();
 
       IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
-      expect(wrapper.queryAllByLabelText(labelTest).length).to.eq(0);
+      expect(wrapper.queryAllByLabelText(labelTest).length).toEqual(0);
       FrameworkAccuDraw.uiStateStorage = fullSettings;
       await TestUtils.flushAsyncOperations();
       await settingsTest(2);
@@ -464,19 +466,19 @@ describe("AccuDrawFieldContainer", () => {
       const settingsTest = async (count: number) => {
         const labelElements = wrapper.queryAllByLabelText(labelTest);
         await waitFor(() => {
-          expect(labelElements.length).to.eq(count);
+          expect(labelElements.length).toEqual(count);
         });
 
         const inputElements = wrapper.container.querySelectorAll("input");
-        expect(inputElements.length).to.eq(count);
+        expect(inputElements.length).toEqual(count);
         for (const inputElement of inputElements) {
-          expect(inputElement.getAttribute("style")).to.eq(
+          expect(inputElement.getAttribute("style")).toEqual(
             "display: inline; background-color: rgb(255, 0, 0); color: rgb(0, 0, 0);"
           );
         }
 
         const iElements = wrapper.container.querySelectorAll(`i.${iconTest}`);
-        expect(iElements.length).to.eq(count);
+        expect(iElements.length).toEqual(count);
       };
 
       IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
@@ -519,7 +521,7 @@ describe("AccuDrawFieldContainer", () => {
       await TestUtils.flushAsyncOperations();
       let input = wrapper.queryByTestId("uifw-accudraw-x");
       expect(input).not.to.be.null;
-      expect(input!.getAttribute("style")).to.eq(
+      expect(input!.getAttribute("style")).toEqual(
         "background-color: rgb(255, 0, 0);"
       );
 
@@ -527,13 +529,13 @@ describe("AccuDrawFieldContainer", () => {
       await TestUtils.flushAsyncOperations();
       input = wrapper.queryByTestId("uifw-accudraw-x");
       expect(input).not.to.be.null;
-      expect(input!.getAttribute("style")).to.eq("color: rgb(0, 0, 0);");
+      expect(input!.getAttribute("style")).toEqual("color: rgb(0, 0, 0);");
 
       FrameworkAccuDraw.uiStateStorage = bgStringSettings;
       await TestUtils.flushAsyncOperations();
       input = wrapper.queryByTestId("uifw-accudraw-x");
       expect(input).not.to.be.null;
-      expect(input!.getAttribute("style")).to.eq(
+      expect(input!.getAttribute("style")).toEqual(
         "background-color: rgba(255, 0, 0, 0.5);"
       );
 
@@ -541,7 +543,7 @@ describe("AccuDrawFieldContainer", () => {
       await TestUtils.flushAsyncOperations();
       input = wrapper.queryByTestId("uifw-accudraw-x");
       expect(input).not.to.be.null;
-      expect(input!.getAttribute("style")).to.eq(
+      expect(input!.getAttribute("style")).toEqual(
         "color: rgba(0, 0, 255, 0.5);"
       );
     });

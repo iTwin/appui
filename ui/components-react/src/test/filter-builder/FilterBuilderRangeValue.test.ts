@@ -94,7 +94,7 @@ describe("PropertyFilterBuilderRuleRangeValue", () => {
         from: { valueFormat: PropertyValueFormat.Primitive, value: 123 },
         to: { valueFormat: PropertyValueFormat.Primitive, value: 456 },
       })
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       PropertyFilterBuilderRuleRangeValue.isRangeValid({
         from: { valueFormat: PropertyValueFormat.Primitive, value: 456 },
@@ -123,7 +123,7 @@ describe("PropertyFilterBuilderRuleRangeValue", () => {
         from: { valueFormat: PropertyValueFormat.Primitive, value: fromDate },
         to: { valueFormat: PropertyValueFormat.Primitive, value: toDate },
       })
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       PropertyFilterBuilderRuleRangeValue.isRangeValid({
         from: { valueFormat: PropertyValueFormat.Primitive, value: toDate },
@@ -152,7 +152,7 @@ describe("PropertyFilterBuilderRuleRangeValue", () => {
         from: { valueFormat: PropertyValueFormat.Primitive, value: fromDate },
         to: { valueFormat: PropertyValueFormat.Primitive, value: toDate },
       })
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       PropertyFilterBuilderRuleRangeValue.isRangeValid({
         from: { valueFormat: PropertyValueFormat.Primitive, value: toDate },

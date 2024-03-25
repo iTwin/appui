@@ -68,7 +68,7 @@ describe("SimplePropertyDataProvider", () => {
     const propertyCategory = propertyData.categories[0];
     expect(propertyCategory.name).to.equal("Group_1");
     expect(propertyCategory.label).to.equal("Group 1");
-    expect(propertyCategory.expand).to.be.true;
+    expect(propertyCategory.expand).toEqual(true);
 
     const records = propertyData.records[propertyCategory.name];
     expect(records).to.have.length(2);
@@ -84,7 +84,7 @@ describe("SimplePropertyDataProvider", () => {
 
   it("findCategoryIndex should return the proper index", () => {
     const index = dataProvider.findCategoryIndex(dataProvider.category2);
-    expect(index).to.eq(1);
+    expect(index).toEqual(1);
   });
 
   it("removeProperty should remove the correct property", async () => {
@@ -92,7 +92,7 @@ describe("SimplePropertyDataProvider", () => {
     const records = propertyData.records[dataProvider.category2.name];
     expect(records).to.have.length(2);
     const removed = dataProvider.removeProperty(dataProvider.pr22, 1);
-    expect(removed).to.be.true;
+    expect(removed).toEqual(true);
     const records2 = propertyData.records[dataProvider.category2.name];
     expect(records2).to.have.length(1);
   });
@@ -107,7 +107,7 @@ describe("SimplePropertyDataProvider", () => {
       "Test New Value"
     );
     const replaced = dataProvider.replaceProperty(record, 1, newRecord);
-    expect(replaced).to.be.true;
+    expect(replaced).toEqual(true);
     const records2 = propertyData.records[dataProvider.category2.name];
     expect(records2).to.have.length(2);
     const record2 = records[1];

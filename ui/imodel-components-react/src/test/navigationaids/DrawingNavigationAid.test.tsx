@@ -111,26 +111,26 @@ describe("DrawingNavigationAid", () => {
   let rotation = Matrix3d.createIdentity();
   const connection = moq.Mock.ofType<IModelConnection>();
   const viewState = moq.Mock.ofType<DrawingViewState>();
-  viewState.setup((x) => x.id).returns(() => "id1");
+  viewState.setup((x) => x.id).mockReturnValue(() => "id1");
   viewState
     .setup((x) => x.classFullName)
     .returns(() => "Bis:DrawingViewDefinition");
-  viewState.setup((x) => x.is3d).returns(() => () => false);
-  viewState.setup((x) => x.getExtents).returns(() => () => extents);
-  viewState.setup((x) => x.getOrigin).returns(() => () => origin);
-  viewState.setup((x) => x.getRotation).returns(() => () => rotation);
+  viewState.setup((x) => x.is3d).mockReturnValue(() => () => false);
+  viewState.setup((x) => x.getExtents).mockReturnValue(() => () => extents);
+  viewState.setup((x) => x.getOrigin).mockReturnValue(() => () => origin);
+  viewState.setup((x) => x.getRotation).mockReturnValue(() => () => rotation);
   const vp = moq.Mock.ofType<ScreenViewport>();
-  vp.setup((x) => x.view).returns(() => viewState.object);
+  vp.setup((x) => x.view).mockReturnValue(() => viewState.object);
 
   const viewState3d = moq.Mock.ofType<ViewState3d>();
-  viewState3d.setup((x) => x.id).returns(() => "id2");
+  viewState3d.setup((x) => x.id).mockReturnValue(() => "id2");
   viewState3d
     .setup((x) => x.classFullName)
     .returns(() => "Bis:ViewDefinition3d");
-  viewState3d.setup((x) => x.is3d).returns(() => () => true);
-  viewState3d.setup((x) => x.getExtents).returns(() => () => extents);
-  viewState3d.setup((x) => x.getOrigin).returns(() => () => origin);
-  viewState3d.setup((x) => x.getRotation).returns(() => () => rotation);
+  viewState3d.setup((x) => x.is3d).mockReturnValue(() => () => true);
+  viewState3d.setup((x) => x.getExtents).mockReturnValue(() => () => extents);
+  viewState3d.setup((x) => x.getOrigin).mockReturnValue(() => () => origin);
+  viewState3d.setup((x) => x.getRotation).mockReturnValue(() => () => rotation);
 
   const viewManager = moq.Mock.ofType<ViewManager>();
   class ScreenViewportMock extends ScreenViewport {
@@ -139,7 +139,7 @@ describe("DrawingNavigationAid", () => {
       _view: ViewState
     ): ScreenViewport {
       const vpMock = moq.Mock.ofType<ScreenViewport>();
-      vpMock.setup((x) => x.view).returns(() => viewState.object);
+      vpMock.setup((x) => x.view).mockReturnValue(() => viewState.object);
       return vpMock.object;
     }
   }
@@ -230,7 +230,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid.style.height).to.equal(`${size.y}px`);
     });
     it("should change from closed to opened when clicked", async () => {
-      const animationEnd = sinon.fake();
+      const animationEnd = vi.fn();
       const closedSize = Vector3d.create(96, 96);
       const openedSize = Vector3d.create(350, 300);
       const component = render(
@@ -260,7 +260,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid2!.style.height).to.equal("300px");
     });
     it("should change from closed to opened when view-window clicked", async () => {
-      const animationEnd = sinon.fake();
+      const animationEnd = vi.fn();
       const closedSize = Vector3d.create(96, 96);
       const openedSize = Vector3d.create(350, 300);
       const component = render(
@@ -290,7 +290,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid2!.style.height).to.equal("300px");
     });
     it("should change from closed to opened when clicked with rotateMinimapWithView", async () => {
-      const animationEnd = sinon.fake();
+      const animationEnd = vi.fn();
       const closedSize = Vector3d.create(96, 96);
       const openedSize = Vector3d.create(350, 300);
       const component = render(
@@ -321,7 +321,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid2!.style.height).to.equal("300px");
     });
     it("should change from opened to closed on Escape keypress", async () => {
-      const animationEnd = sinon.fake();
+      const animationEnd = vi.fn();
       const closedSize = Vector3d.create(96, 96);
       const openedSize = Vector3d.create(350, 300);
       const component = render(
@@ -359,7 +359,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid2!.style.height).to.equal("96px");
     });
     it("should change from opened to closed on Escape keypress with rotateMinimapWithView", async () => {
-      const animationEnd = sinon.fake();
+      const animationEnd = vi.fn();
       const closedSize = Vector3d.create(96, 96);
       const openedSize = Vector3d.create(350, 300);
       const component = render(
@@ -398,7 +398,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid2!.style.height).to.equal("96px");
     });
     it("should change from opened to closed on Esc keypress(Edge)", async () => {
-      const animationEnd = sinon.fake();
+      const animationEnd = vi.fn();
       const closedSize = Vector3d.create(96, 96);
       const openedSize = Vector3d.create(350, 300);
       const component = render(
@@ -436,7 +436,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid2!.style.height).to.equal("96px");
     });
     it("should change from opened to closed onOutsideClick", async () => {
-      const animationEnd = sinon.fake();
+      const animationEnd = vi.fn();
       const closedSize = Vector3d.create(96, 96);
       const openedSize = Vector3d.create(350, 300);
       const component = render(
@@ -565,7 +565,7 @@ describe("DrawingNavigationAid", () => {
         expect(navAid.style.height).to.equal("240px");
       });
       it("should update rotation and reset on un-rotate", async () => {
-        const animationEnd = sinon.fake();
+        const animationEnd = vi.fn();
         const component = render(
           <DrawingNavigationAid
             iModelConnection={connection.object}
@@ -602,7 +602,7 @@ describe("DrawingNavigationAid", () => {
         );
       });
       it("should update rotation and reset on un-rotate with rotateMinimapWithView", async () => {
-        const animationEnd = sinon.fake();
+        const animationEnd = vi.fn();
         const component = render(
           <DrawingNavigationAid
             iModelConnection={connection.object}
@@ -1030,7 +1030,7 @@ describe("DrawingNavigationAid", () => {
       const toggleButton = component.getByTestId("toggle-rotate-style");
 
       fireEvent.click(toggleButton);
-      expect(toggleButton.classList.contains("checked")).to.be.true;
+      expect(toggleButton.classList.contains("checked")).toEqual(true);
     });
     it("should toggle rotation mode with button with viewport", async () => {
       const closedSize = Vector3d.create(96, 96);
@@ -1048,7 +1048,7 @@ describe("DrawingNavigationAid", () => {
         viewport: vp.object,
       });
       fireEvent.click(toggleButton);
-      expect(toggleButton.classList.contains("checked")).to.be.true;
+      expect(toggleButton.classList.contains("checked")).toEqual(true);
     });
   });
   describe("<DrawingNavigationCanvas />", () => {
@@ -1121,7 +1121,7 @@ describe("DrawingNavigationAid", () => {
         />
       );
       const newState = moq.Mock.ofType<DrawingViewState>();
-      newState.setup((x) => x.id).returns(() => "id2");
+      newState.setup((x) => x.id).mockReturnValue(() => "id2");
       newState
         .setup((x) => x.getExtents)
         .returns(() => () => Vector3d.create(2, 2));

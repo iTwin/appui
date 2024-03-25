@@ -2,35 +2,23 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { SearchBox } from "../../core-react";
-import TestUtils from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 describe("SearchBox", () => {
-  let fakeTimers: sinon.SinonFakeTimers;
   let theUserTo: ReturnType<typeof userEvent.setup>;
   const throttleMs = 16;
 
-  before(async () => {
-    await TestUtils.initializeUiCore();
-  });
-
   beforeEach(() => {
-    fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
     theUserTo = userEvent.setup({
       advanceTimers: (delay) => {
-        fakeTimers.tick(delay);
+        vi.advanceTimersByTime(delay);
       },
       delay: throttleMs,
     });
-  });
-
-  afterEach(() => {
-    fakeTimers.restore();
   });
 
   describe("renders", () => {
@@ -44,67 +32,62 @@ describe("SearchBox", () => {
 
   describe("track change", () => {
     it("should call onValueChanged", async () => {
-      const spyMethod = sinon.spy();
-      render(<SearchBox onValueChanged={spyMethod} />);
+      const spy = vi.fn();
+      render(<SearchBox onValueChanged={spy} />);
 
       await theUserTo.type(screen.getByRole("searchbox"), "T");
-      expect(spyMethod).to.be.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("should ignore if value specified is not different", async () => {
-      const spyMethod = sinon.spy();
+      const spy = vi.fn();
       render(
-        <SearchBox
-          onValueChanged={spyMethod}
-          valueChangedDelay={throttleMs * 2}
-        />
+        <SearchBox onValueChanged={spy} valueChangedDelay={throttleMs * 2} />
       );
 
       await theUserTo.type(screen.getByRole("searchbox"), "T[Backspace]");
-      fakeTimers.tick(throttleMs * 3);
-      expect(spyMethod).not.to.be.called;
+      vi.advanceTimersByTime(throttleMs * 3);
+      expect(spy).not.toBeCalled();
     });
 
     it("should honor valueChangedDelay", async () => {
-      const spyMethod = sinon.spy();
-      render(<SearchBox onValueChanged={spyMethod} valueChangedDelay={100} />);
+      const spy = vi.fn();
+      render(<SearchBox onValueChanged={spy} valueChangedDelay={100} />);
 
       await theUserTo.type(screen.getByRole("searchbox"), "Test"); // 16ms / letter => 64ms
-      expect(spyMethod.called).to.be.false;
-      await fakeTimers.tickAsync(100);
-      expect(spyMethod.calledOnce).to.be.true;
+      expect(spy).not.toBeCalled();
+      await vi.advanceTimersByTimeAsync(100);
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("should call onEscPressed", async () => {
-      const spyMethod = sinon.spy();
-      render(<SearchBox onValueChanged={() => {}} onEscPressed={spyMethod} />);
+      const spy = vi.fn();
+      render(<SearchBox onValueChanged={() => {}} onEscPressed={spy} />);
 
       await theUserTo.type(screen.getByRole("searchbox"), "[Escape]");
-      expect(spyMethod.calledOnce).to.be.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("should call onEnterPressed", async () => {
-      const spyMethod = sinon.spy();
-      render(
-        <SearchBox onValueChanged={() => {}} onEnterPressed={spyMethod} />
-      );
+      const spy = vi.fn();
+      render(<SearchBox onValueChanged={() => {}} onEnterPressed={spy} />);
 
       await theUserTo.type(screen.getByRole("searchbox"), "[Enter]");
-      expect(spyMethod.calledOnce).to.be.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("should call onClear", async () => {
-      const spyMethod = sinon.spy();
+      const spy = vi.fn();
       render(
         <SearchBox
           onValueChanged={() => {}}
-          onClear={spyMethod}
+          onClear={spy}
           initialValue="Test"
         />
       );
 
       await theUserTo.click(screen.getByRole("button"));
-      expect(spyMethod.calledOnce).to.be.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("should set focus to input", () => {
@@ -119,7 +102,7 @@ describe("SearchBox", () => {
       searchBox.current?.focus();
       const inputElement = screen.getByRole("searchbox");
       const focusedElement = document.activeElement;
-      expect(inputElement).to.eq(focusedElement);
+      expect(inputElement).toEqual(focusedElement);
     });
   });
 });

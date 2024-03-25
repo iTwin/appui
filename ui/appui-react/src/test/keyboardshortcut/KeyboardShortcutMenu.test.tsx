@@ -13,7 +13,7 @@ import { UiFramework } from "../../appui-react/UiFramework";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("KeyboardShortcutMenu", () => {
-  const testSpyMethod = sinon.spy();
+  const testspy = sinon.spy();
   let testCommand: CommandItemDef;
   let keyboardShortcutList: KeyboardShortcutProps[];
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -26,7 +26,7 @@ describe("KeyboardShortcutMenu", () => {
       iconSpec: "icon-placeholder",
       label: "Test",
       execute: () => {
-        testSpyMethod();
+        testspy();
       },
     });
 
@@ -73,7 +73,7 @@ describe("KeyboardShortcutMenu", () => {
   });
 
   beforeEach(() => {
-    testSpyMethod.resetHistory();
+    testspy.resetHistory();
     UiFramework.keyboardShortcuts.shortcutContainer.emptyData();
     theUserTo = userEvent.setup();
   });
@@ -89,7 +89,7 @@ describe("KeyboardShortcutMenu", () => {
     await waitFor(() => {
       expect(screen.queryAllByRole("menuitem")).to.have.lengthOf(3);
     });
-    expect(UiFramework.isContextMenuOpen).to.be.true;
+    expect(UiFramework.isContextMenuOpen).toEqual(true);
 
     await theUserTo.type(
       screen.getAllByTestId("core-context-menu-root")[0],
@@ -122,6 +122,6 @@ describe("KeyboardShortcutMenu", () => {
     expect(screen.queryAllByRole("menuitem")).to.have.lengthOf(0);
 
     await TestUtils.flushAsyncOperations();
-    expect(testSpyMethod.calledOnce).to.be.true;
+    expect(testspy.calledOnce).toEqual(true);
   });
 });

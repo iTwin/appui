@@ -44,7 +44,7 @@ describe("CategorizedStructProperty", () => {
         factoryStub
       );
 
-      expect(factoryStub.createCategorizedProperty.callCount).to.be.equal(0);
+      expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(0);
 
       GridUtils.assertPropertyEquals(property, propertyRecord);
       expect(property.depth).to.be.equal(0);
@@ -66,7 +66,7 @@ describe("CategorizedStructProperty", () => {
         "[3]"
       );
 
-      expect(factoryStub.createCategorizedProperty.callCount).to.be.equal(0);
+      expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(0);
 
       GridUtils.assertPropertyEquals(
         property,
@@ -141,7 +141,7 @@ describe("CategorizedStructProperty", () => {
       );
 
       const arrayChildren = propertyRecord.getChildrenRecords();
-      expect(factoryStub.createCategorizedProperty.callCount).to.be.equal(
+      expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(
         arrayChildren.length
       );
 
@@ -739,10 +739,10 @@ describe("CategorizedStructProperty", () => {
         const lastSpy = GridUtils.getLast(childrenSpies)!;
 
         childrenSpies.forEach((spy) => {
-          if (spy !== lastSpy) expect(spy.notCalled).to.be.true;
+          if (spy !== lastSpy) expect(spy.notCalled).toEqual(true);
         });
 
-        expect(lastSpy.calledOnceWith(3)).to.be.true;
+        expect(lastSpy.calledOnceWith(3)).toEqual(true);
       });
     });
 
@@ -792,10 +792,10 @@ describe("CategorizedStructProperty", () => {
 
         const lastSpy = GridUtils.getLast(childrenSpies)!;
         childrenSpies.forEach((spy) => {
-          if (spy !== lastSpy) expect(spy.notCalled).to.be.true;
+          if (spy !== lastSpy) expect(spy.notCalled).toEqual(true);
         });
 
-        expect(lastSpy.calledOnceWith(true)).to.be.true;
+        expect(lastSpy.calledOnceWith(true)).toEqual(true);
       });
     });
   });

@@ -35,7 +35,7 @@ describe("WidgetPanelProvider", () => {
     const panel = component.container.getElementsByClassName(
       "nz-widgetPanels-panel"
     )[0] as HTMLElement;
-    expect(panel.style.width).to.eq("200px");
+    expect(panel.style.width).toEqual("200px");
   });
 
   it("should render horizontal", () => {
@@ -53,7 +53,7 @@ describe("WidgetPanelProvider", () => {
     const panel = component.container.getElementsByClassName(
       "nz-widgetPanels-panel"
     )[0] as HTMLElement;
-    expect(panel.style.height).to.eq("200px");
+    expect(panel.style.height).toEqual("200px");
   });
 
   it("should render collapsed", () => {

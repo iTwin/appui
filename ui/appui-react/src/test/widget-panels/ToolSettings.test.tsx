@@ -63,7 +63,7 @@ describe("WidgetPanelsToolSettings", () => {
         <WidgetPanelsToolSettings />
       </NineZoneProvider>
     );
-    expect(container.innerHTML).to.eq("");
+    expect(container.innerHTML).toEqual("");
   });
 
   it("should render", () => {
@@ -201,8 +201,8 @@ describe("useHorizontalToolSettingEntries", () => {
     );
     const sut = renderHook(() => useHorizontalToolSettingEntries());
     sut.unmount();
-    addListenerSpy.calledOnce.should.true;
-    removeListenerSpy.calledOnce.should.true;
+    addListenerexpect(spy).toHaveBeenCalledOnce();
+    removeListenerexpect(spy).toHaveBeenCalledOnce();
   });
 
   it("should add tool settings reload event listener", () => {
@@ -219,8 +219,8 @@ describe("useHorizontalToolSettingEntries", () => {
       UiFramework.frontstages.onToolSettingsReloadEvent.emit();
     });
     sut.unmount();
-    addListenerSpy.calledOnce.should.true;
-    removeListenerSpy.calledOnce.should.true;
+    addListenerexpect(spy).toHaveBeenCalledOnce();
+    removeListenerexpect(spy).toHaveBeenCalledOnce();
   });
 
   it("should not return undefined if activeToolSettingsProvider is unset", () => {
@@ -276,7 +276,7 @@ describe("useHorizontalToolSettingEntries", () => {
       UiFramework.frontstages.onToolSettingsReloadEvent.emit();
     });
 
-    expect(sut.result.current).to.eq(entries);
+    expect(sut.result.current).toEqual(entries);
   });
 });
 
@@ -298,8 +298,8 @@ describe("useToolSettingsNode", () => {
     );
     const sut = renderHook(() => useToolSettingsNode());
     sut.unmount();
-    addListenerSpy.calledOnce.should.true;
-    removeListenerSpy.calledOnce.should.true;
+    addListenerexpect(spy).toHaveBeenCalledOnce();
+    removeListenerexpect(spy).toHaveBeenCalledOnce();
   });
 
   it("should add/remove tool settings reload event listener", () => {
@@ -314,8 +314,8 @@ describe("useToolSettingsNode", () => {
     const sut = renderHook(() => useToolSettingsNode());
     UiFramework.frontstages.onToolSettingsReloadEvent.emit();
     sut.unmount();
-    addListenerSpy.calledOnce.should.true;
-    removeListenerSpy.calledOnce.should.true;
+    addListenerexpect(spy).toHaveBeenCalledOnce();
+    removeListenerexpect(spy).toHaveBeenCalledOnce();
   });
 
   it("should update toolSettingsNode", () => {

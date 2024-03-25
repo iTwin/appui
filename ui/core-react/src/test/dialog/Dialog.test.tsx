@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import { Dialog } from "../../core-react";
 import { DialogAlignment } from "../../core-react/dialog/Dialog";
@@ -116,26 +114,26 @@ describe("Dialog", () => {
 
   describe("keyboard support", () => {
     it("should close on Esc key", () => {
-      const spyOnEscape = sinon.spy();
+      const spyOnEscape = vi.fn();
       const component = render(<Dialog opened={true} onEscape={spyOnEscape} />);
 
       component.baseElement.dispatchEvent(
         new KeyboardEvent("keyup", { key: "Escape" })
       );
-      expect(spyOnEscape).to.be.calledOnce;
+      expect(spyOnEscape).toHaveBeenCalledOnce();
     });
     it("should not respond to other keyboard input", () => {
-      const spyOnEscape = sinon.spy();
+      const spyOnEscape = vi.fn();
       const component = render(<Dialog opened={true} onEscape={spyOnEscape} />);
 
       component.baseElement.dispatchEvent(new KeyboardEvent("keyup"));
-      expect(spyOnEscape).to.not.be.called;
+      expect(spyOnEscape).not.toBeCalled();
     });
   });
 
   describe("modeless support", () => {
     it("should call handler for pointerDown", async () => {
-      const spyOnPointerDown = sinon.spy();
+      const spyOnPointerDown = vi.fn();
       const component = render(
         <Dialog
           opened={true}
@@ -146,10 +144,10 @@ describe("Dialog", () => {
       );
       const head = component.getByTestId("core-dialog-head");
       await theUserTo.click(head);
-      expect(spyOnPointerDown).to.be.calledOnce;
+      expect(spyOnPointerDown).toHaveBeenCalledOnce();
     });
     it("should not call handler for pointerDown if no modelessId", async () => {
-      const spyOnPointerDown = sinon.spy();
+      const spyOnPointerDown = vi.fn();
       const component = render(
         <Dialog
           opened={true}
@@ -159,7 +157,7 @@ describe("Dialog", () => {
       );
       const head = component.getByTestId("core-dialog-head");
       await theUserTo.click(head);
-      expect(spyOnPointerDown).to.not.be.called;
+      expect(spyOnPointerDown).not.toBeCalled();
     });
   });
 

@@ -4,28 +4,24 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { DivWithOutsideClick } from "../../core-react";
 
 describe("<DivWithOutsideClick />", () => {
   it("should use onOutsideClick", async () => {
     const theUserTo = userEvent.setup();
-    const spyMethod = sinon.spy();
+    const spy = vi.fn();
     render(
       <div>
         <button>Outside</button>
-        <DivWithOutsideClick onOutsideClick={spyMethod}>
-          Inside
-        </DivWithOutsideClick>
+        <DivWithOutsideClick onOutsideClick={spy}>Inside</DivWithOutsideClick>
       </div>
     );
 
     await theUserTo.click(screen.getByText("Inside"));
-    expect(spyMethod).to.not.have.been.called;
+    expect(spy).to.not.have.been.called;
 
     await theUserTo.click(screen.getByRole("button"));
-    expect(spyMethod).to.have.been.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 });

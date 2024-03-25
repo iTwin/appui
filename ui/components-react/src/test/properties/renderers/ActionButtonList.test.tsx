@@ -53,7 +53,7 @@ describe("ActionButtonList", () => {
       actionButtonListRenderer.container.children[0].classList.contains(
         "components-property-action-button-list--horizontal"
       )
-    ).to.be.true;
+    ).toEqual(true);
   });
 
   it("renders in correct vertical orientation", () => {
@@ -70,6 +70,6 @@ describe("ActionButtonList", () => {
       actionButtonListRenderer.container.children[0].classList.contains(
         "components-property-action-button-list--vertical"
       )
-    ).to.be.true;
+    ).toEqual(true);
   });
 });

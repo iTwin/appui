@@ -64,19 +64,19 @@ describe("CompositePropertyDataFilterer", () => {
 
       compositeFilter.onFilterChanged.addListener(changeSpy);
 
-      expect(changeSpy.callCount).to.be.equal(0);
+      expect(changeSpy).toHaveBeenCalledTimes(0);
 
       leftOnFilterChanged.raiseEvent();
-      expect(changeSpy.callCount).to.be.equal(1);
+      expect(changeSpy).toHaveBeenCalledTimes(1);
 
       rightOnFilterChanged.raiseEvent();
-      expect(changeSpy.callCount).to.be.equal(2);
+      expect(changeSpy).toHaveBeenCalledTimes(2);
     });
 
     describe("isActive", () => {
       it("Should return filtering disabled if both filters disabled", () => {
-        leftFilterMock.setup((x) => x.isActive).returns(() => false);
-        rightFilterMock.setup((x) => x.isActive).returns(() => false);
+        leftFilterMock.setup((x) => x.isActive).mockReturnValue(() => false);
+        rightFilterMock.setup((x) => x.isActive).mockReturnValue(() => false);
 
         const compositeFilter = new CompositePropertyDataFilterer(
           leftFilterMock.object,
@@ -88,8 +88,8 @@ describe("CompositePropertyDataFilterer", () => {
       });
 
       it("Should return filtering enabled if left filter enabled", () => {
-        leftFilterMock.setup((x) => x.isActive).returns(() => true);
-        rightFilterMock.setup((x) => x.isActive).returns(() => false);
+        leftFilterMock.setup((x) => x.isActive).mockReturnValue(() => true);
+        rightFilterMock.setup((x) => x.isActive).mockReturnValue(() => false);
 
         const compositeFilter = new CompositePropertyDataFilterer(
           leftFilterMock.object,
@@ -101,8 +101,8 @@ describe("CompositePropertyDataFilterer", () => {
       });
 
       it("Should return filtering enabled if right filter enabled", () => {
-        leftFilterMock.setup((x) => x.isActive).returns(() => false);
-        rightFilterMock.setup((x) => x.isActive).returns(() => true);
+        leftFilterMock.setup((x) => x.isActive).mockReturnValue(() => false);
+        rightFilterMock.setup((x) => x.isActive).mockReturnValue(() => true);
 
         const compositeFilter = new CompositePropertyDataFilterer(
           leftFilterMock.object,
@@ -114,8 +114,8 @@ describe("CompositePropertyDataFilterer", () => {
       });
 
       it("Should return filtering enabled if both filters enabled", () => {
-        leftFilterMock.setup((x) => x.isActive).returns(() => true);
-        rightFilterMock.setup((x) => x.isActive).returns(() => true);
+        leftFilterMock.setup((x) => x.isActive).mockReturnValue(() => true);
+        rightFilterMock.setup((x) => x.isActive).mockReturnValue(() => true);
 
         const compositeFilter = new CompositePropertyDataFilterer(
           leftFilterMock.object,
@@ -629,19 +629,19 @@ describe("CompositePropertyDataFilterer", () => {
 
       compositeFilter.onFilterChanged.addListener(changeSpy);
 
-      expect(changeSpy.callCount).to.be.equal(0);
+      expect(changeSpy).toHaveBeenCalledTimes(0);
 
       leftOnFilterChanged.raiseEvent();
-      expect(changeSpy.callCount).to.be.equal(1);
+      expect(changeSpy).toHaveBeenCalledTimes(1);
 
       rightOnFilterChanged.raiseEvent();
-      expect(changeSpy.callCount).to.be.equal(2);
+      expect(changeSpy).toHaveBeenCalledTimes(2);
     });
 
     describe("isActive", () => {
       it("Should return filtering disabled if both filters disabled", () => {
-        leftFilterMock.setup((x) => x.isActive).returns(() => false);
-        rightFilterMock.setup((x) => x.isActive).returns(() => false);
+        leftFilterMock.setup((x) => x.isActive).mockReturnValue(() => false);
+        rightFilterMock.setup((x) => x.isActive).mockReturnValue(() => false);
 
         const compositeFilter = new CompositePropertyDataFilterer(
           leftFilterMock.object,
@@ -653,8 +653,8 @@ describe("CompositePropertyDataFilterer", () => {
       });
 
       it("Should return filtering enabled if left filter enabled", () => {
-        leftFilterMock.setup((x) => x.isActive).returns(() => true);
-        rightFilterMock.setup((x) => x.isActive).returns(() => false);
+        leftFilterMock.setup((x) => x.isActive).mockReturnValue(() => true);
+        rightFilterMock.setup((x) => x.isActive).mockReturnValue(() => false);
 
         const compositeFilter = new CompositePropertyDataFilterer(
           leftFilterMock.object,
@@ -666,8 +666,8 @@ describe("CompositePropertyDataFilterer", () => {
       });
 
       it("Should return filtering enabled if right filter enabled", () => {
-        leftFilterMock.setup((x) => x.isActive).returns(() => false);
-        rightFilterMock.setup((x) => x.isActive).returns(() => true);
+        leftFilterMock.setup((x) => x.isActive).mockReturnValue(() => false);
+        rightFilterMock.setup((x) => x.isActive).mockReturnValue(() => true);
 
         const compositeFilter = new CompositePropertyDataFilterer(
           leftFilterMock.object,
@@ -679,8 +679,8 @@ describe("CompositePropertyDataFilterer", () => {
       });
 
       it("Should return filtering enabled if both filters enabled", () => {
-        leftFilterMock.setup((x) => x.isActive).returns(() => true);
-        rightFilterMock.setup((x) => x.isActive).returns(() => true);
+        leftFilterMock.setup((x) => x.isActive).mockReturnValue(() => true);
+        rightFilterMock.setup((x) => x.isActive).mockReturnValue(() => true);
 
         const compositeFilter = new CompositePropertyDataFilterer(
           leftFilterMock.object,

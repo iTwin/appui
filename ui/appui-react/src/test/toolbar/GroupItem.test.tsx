@@ -40,11 +40,11 @@ describe("GroupItem", () => {
         items: [tool1, tool2],
       });
 
-      expect(groupItemDef.panelLabel).to.eq(panelLabel);
+      expect(groupItemDef.panelLabel).toEqual(panelLabel);
 
       const newPanelLabel = "New Panel Label";
       groupItemDef.setPanelLabel(newPanelLabel);
-      expect(groupItemDef.panelLabel).to.eq(newPanelLabel);
+      expect(groupItemDef.panelLabel).toEqual(newPanelLabel);
     });
 
     it("should generate id correctly", () => {
@@ -55,7 +55,7 @@ describe("GroupItem", () => {
 
       expect(
         groupItemDef.id.substring(0, GroupItemDef.groupIdPrefix.length)
-      ).to.eq(GroupItemDef.groupIdPrefix);
+      ).toEqual(GroupItemDef.groupIdPrefix);
     });
   });
 });

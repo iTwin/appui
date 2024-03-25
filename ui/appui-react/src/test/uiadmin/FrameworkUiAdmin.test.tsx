@@ -203,8 +203,8 @@ describe("FrameworkUiAdmin", () => {
 
   it("cursorPosition should return cursor position", () => {
     CursorInformation.cursorPosition = new Point(100, 200);
-    expect(uiAdmin.cursorPosition.x).to.eq(100);
-    expect(uiAdmin.cursorPosition.y).to.eq(200);
+    expect(uiAdmin.cursorPosition.x).toEqual(100);
+    expect(uiAdmin.cursorPosition.y).toEqual(200);
   });
 
   it("setFocusToHome should set focus to home", () => {
@@ -212,13 +212,13 @@ describe("FrameworkUiAdmin", () => {
     document.body.appendChild(buttonElement);
     buttonElement.focus();
     let activeElement = document.activeElement as HTMLElement;
-    expect(activeElement === buttonElement).to.be.true;
+    expect(activeElement === buttonElement).toEqual(true);
     expect(uiAdmin.isFocusOnHome).to.be.false;
 
     uiAdmin.setFocusToHome();
     activeElement = document.activeElement as HTMLElement;
-    expect(activeElement === document.body).to.be.true;
-    expect(uiAdmin.isFocusOnHome).to.be.true;
+    expect(activeElement === document.body).toEqual(true);
+    expect(uiAdmin.isFocusOnHome).toEqual(true);
     document.body.removeChild(buttonElement);
   });
 
@@ -249,7 +249,7 @@ describe("FrameworkUiAdmin", () => {
         { x: 150, y: 250 },
         wrapper.container
       )
-    ).to.be.true;
+    ).toEqual(true);
     expect(uiAdmin.showContextMenu(menuItemProps, { x: 150, y: 250 })).to.be
       .true;
   });
@@ -283,8 +283,8 @@ describe("FrameworkUiAdmin", () => {
       ],
     };
 
-    const spySelect = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spySelect = vi.fn();
+    const spyCancel = vi.fn();
 
     expect(
       uiAdmin.showToolbar(
@@ -296,7 +296,7 @@ describe("FrameworkUiAdmin", () => {
         RelativePosition.BottomRight,
         wrapper.container
       )
-    ).to.be.true;
+    ).toEqual(true);
     document = wrapper.container.ownerDocument;
     expect(
       uiAdmin.showToolbar(
@@ -306,8 +306,8 @@ describe("FrameworkUiAdmin", () => {
         spySelect,
         spyCancel
       )
-    ).to.be.true;
-    expect(uiAdmin.hideToolbar()).to.be.true;
+    ).toEqual(true);
+    expect(uiAdmin.hideToolbar()).toEqual(true);
   });
 
   it("showMenuButton should return true", () => {
@@ -337,10 +337,10 @@ describe("FrameworkUiAdmin", () => {
         { x: 150, y: 250 },
         wrapper.container
       )
-    ).to.be.true;
+    ).toEqual(true);
     expect(uiAdmin.showMenuButton("test", menuItemProps, { x: 150, y: 250 })).to
       .be.true;
-    expect(uiAdmin.hideMenuButton("test")).to.be.true;
+    expect(uiAdmin.hideMenuButton("test")).toEqual(true);
   });
 
   it("showKeyinPalette should return true", () => {
@@ -348,14 +348,14 @@ describe("FrameworkUiAdmin", () => {
     expect(uiAdmin.showKeyinPalette(wrapper.container)).to.be.false;
     expect(uiAdmin.hideKeyinPalette()).to.be.false;
     uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
-    expect(uiAdmin.showKeyinPalette(wrapper.container)).to.be.true;
-    expect(uiAdmin.hideKeyinPalette()).to.be.true;
+    expect(uiAdmin.showKeyinPalette(wrapper.container)).toEqual(true);
+    expect(uiAdmin.hideKeyinPalette()).toEqual(true);
   });
 
   it("showCalculator should return true", () => {
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    const spyCommit = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spyCommit = vi.fn();
+    const spyCancel = vi.fn();
 
     expect(
       uiAdmin.showCalculator(
@@ -366,7 +366,7 @@ describe("FrameworkUiAdmin", () => {
         spyCancel,
         wrapper.container
       )
-    ).to.be.true;
+    ).toEqual(true);
     document = wrapper.container.ownerDocument;
     expect(
       uiAdmin.showCalculator(
@@ -376,14 +376,14 @@ describe("FrameworkUiAdmin", () => {
         spyCommit,
         spyCancel
       )
-    ).to.be.true;
-    expect(uiAdmin.hideCalculator()).to.be.true;
+    ).toEqual(true);
+    expect(uiAdmin.hideCalculator()).toEqual(true);
   });
 
   it("showAngleEditor should return true", () => {
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    const spyCommit = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spyCommit = vi.fn();
+    const spyCancel = vi.fn();
 
     expect(
       uiAdmin.showAngleEditor(
@@ -393,18 +393,18 @@ describe("FrameworkUiAdmin", () => {
         spyCancel,
         wrapper.container
       )
-    ).to.be.true;
+    ).toEqual(true);
     document = wrapper.container.ownerDocument;
     expect(
       uiAdmin.showAngleEditor(100, { x: 150, y: 250 }, spyCommit, spyCancel)
-    ).to.be.true;
-    expect(uiAdmin.hideInputEditor()).to.be.true;
+    ).toEqual(true);
+    expect(uiAdmin.hideInputEditor()).toEqual(true);
   });
 
   it("showLengthEditor should return true", () => {
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    const spyCommit = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spyCommit = vi.fn();
+    const spyCancel = vi.fn();
 
     expect(
       uiAdmin.showLengthEditor(
@@ -414,18 +414,18 @@ describe("FrameworkUiAdmin", () => {
         spyCancel,
         wrapper.container
       )
-    ).to.be.true;
+    ).toEqual(true);
     document = wrapper.container.ownerDocument;
     expect(
       uiAdmin.showLengthEditor(100, { x: 150, y: 250 }, spyCommit, spyCancel)
-    ).to.be.true;
-    expect(uiAdmin.hideInputEditor()).to.be.true;
+    ).toEqual(true);
+    expect(uiAdmin.hideInputEditor()).toEqual(true);
   });
 
   it("showHeightEditor should return true", () => {
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    const spyCommit = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spyCommit = vi.fn();
+    const spyCancel = vi.fn();
 
     expect(
       uiAdmin.showHeightEditor(
@@ -435,18 +435,18 @@ describe("FrameworkUiAdmin", () => {
         spyCancel,
         wrapper.container
       )
-    ).to.be.true;
+    ).toEqual(true);
     document = wrapper.container.ownerDocument;
     expect(
       uiAdmin.showHeightEditor(100, { x: 150, y: 250 }, spyCommit, spyCancel)
-    ).to.be.true;
-    expect(uiAdmin.hideInputEditor()).to.be.true;
+    ).toEqual(true);
+    expect(uiAdmin.hideInputEditor()).toEqual(true);
   });
 
   it("showInputEditor should return true", () => {
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    const spyCommit = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spyCommit = vi.fn();
+    const spyCancel = vi.fn();
     const propertyDescription: PropertyDescription = {
       name: "test",
       displayLabel: "Test",
@@ -462,7 +462,7 @@ describe("FrameworkUiAdmin", () => {
         spyCancel,
         wrapper.container
       )
-    ).to.be.true;
+    ).toEqual(true);
     document = wrapper.container.ownerDocument;
     expect(
       uiAdmin.showInputEditor(
@@ -472,8 +472,8 @@ describe("FrameworkUiAdmin", () => {
         spyCommit,
         spyCancel
       )
-    ).to.be.true;
-    expect(uiAdmin.hideInputEditor()).to.be.true;
+    ).toEqual(true);
+    expect(uiAdmin.hideInputEditor()).toEqual(true);
   });
 
   it("showHTMLElement should return true", () => {
@@ -481,7 +481,7 @@ describe("FrameworkUiAdmin", () => {
       "<div style='width: 120px; height: 50px; display: flex; justify-content: center; align-items: center; background-color: aqua;'>Hello World!</div>";
     const display = new DOMParser().parseFromString(html, "text/html");
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    const spyCancel = sinon.fake();
+    const spyCancel = vi.fn();
 
     expect(
       uiAdmin.showHTMLElement(
@@ -492,7 +492,7 @@ describe("FrameworkUiAdmin", () => {
         RelativePosition.BottomRight,
         wrapper.container
       )
-    ).to.be.true;
+    ).toEqual(true);
     document = wrapper.container.ownerDocument;
     expect(
       uiAdmin.showHTMLElement(
@@ -502,7 +502,7 @@ describe("FrameworkUiAdmin", () => {
         spyCancel,
         RelativePosition.BottomRight
       )
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       uiAdmin.showHTMLElement(
         display.documentElement,
@@ -510,8 +510,8 @@ describe("FrameworkUiAdmin", () => {
         { x: 8, y: 8 },
         spyCancel
       )
-    ).to.be.true;
-    expect(uiAdmin.hideHTMLElement()).to.be.true;
+    ).toEqual(true);
+    expect(uiAdmin.hideHTMLElement()).toEqual(true);
   });
 
   it("showCard should return true", () => {
@@ -544,8 +544,8 @@ describe("FrameworkUiAdmin", () => {
         },
       ],
     };
-    const spySelect = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spySelect = vi.fn();
+    const spyCancel = vi.fn();
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
 
     expect(
@@ -560,7 +560,7 @@ describe("FrameworkUiAdmin", () => {
         RelativePosition.BottomRight,
         wrapper.container
       )
-    ).to.be.true;
+    ).toEqual(true);
     document = wrapper.container.ownerDocument;
     expect(
       uiAdmin.showCard(
@@ -573,7 +573,7 @@ describe("FrameworkUiAdmin", () => {
         spyCancel,
         RelativePosition.BottomRight
       )
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       uiAdmin.showCard(
         content.documentElement,
@@ -584,8 +584,8 @@ describe("FrameworkUiAdmin", () => {
         spySelect,
         spyCancel
       )
-    ).to.be.true;
-    expect(uiAdmin.hideCard()).to.be.true;
+    ).toEqual(true);
+    expect(uiAdmin.hideCard()).toEqual(true);
     expect(uiAdmin.hideCard()).to.be.false;
   });
 
@@ -617,8 +617,8 @@ describe("FrameworkUiAdmin", () => {
         },
       ],
     };
-    const spySelect = sinon.fake();
-    const spyCancel = sinon.fake();
+    const spySelect = vi.fn();
+    const spyCancel = vi.fn();
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
 
     expect(
@@ -633,7 +633,7 @@ describe("FrameworkUiAdmin", () => {
         RelativePosition.BottomRight,
         wrapper.container
       )
-    ).to.be.true;
+    ).toEqual(true);
     document = wrapper.container.ownerDocument;
     expect(
       uiAdmin.showReactCard(
@@ -646,7 +646,7 @@ describe("FrameworkUiAdmin", () => {
         spyCancel,
         RelativePosition.BottomRight
       )
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       uiAdmin.showReactCard(
         content,
@@ -657,8 +657,8 @@ describe("FrameworkUiAdmin", () => {
         spySelect,
         spyCancel
       )
-    ).to.be.true;
-    expect(uiAdmin.hideCard()).to.be.true;
+    ).toEqual(true);
+    expect(uiAdmin.hideCard()).toEqual(true);
     expect(uiAdmin.hideCard()).to.be.false;
   });
 
@@ -666,7 +666,7 @@ describe("FrameworkUiAdmin", () => {
     class TestUiDataProvider extends DialogLayoutDataProvider {}
     const uiDataProvider = new TestUiDataProvider();
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    const spyCancel = sinon.fake();
+    const spyCancel = vi.fn();
 
     expect(
       uiAdmin.openToolSettingsPopup(
@@ -677,7 +677,7 @@ describe("FrameworkUiAdmin", () => {
         RelativePosition.BottomRight,
         wrapper.container
       )
-    ).to.be.true;
+    ).toEqual(true);
     document = wrapper.container.ownerDocument;
     expect(
       uiAdmin.openToolSettingsPopup(
@@ -687,7 +687,7 @@ describe("FrameworkUiAdmin", () => {
         spyCancel,
         RelativePosition.BottomRight
       )
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       uiAdmin.openToolSettingsPopup(
         uiDataProvider,
@@ -695,19 +695,21 @@ describe("FrameworkUiAdmin", () => {
         { x: 8, y: 8 },
         spyCancel
       )
-    ).to.be.true;
-    expect(uiAdmin.closeToolSettingsPopup()).to.be.true;
+    ).toEqual(true);
+    expect(uiAdmin.closeToolSettingsPopup()).toEqual(true);
   });
 
   it("should ClearKeyinPaletteHistoryTool", async () => {
-    const stub = sinon.stub(keyinExports, "clearKeyinPaletteHistory").returns();
+    const stub = sinon
+      .stub(keyinExports, "clearKeyinPaletteHistory")
+      .mockReturnValue();
     const tool = new ClearKeyinPaletteHistoryTool();
     await tool.parseAndRun();
-    expect(stub).to.be.calledOnce;
+    expect(stub).toHaveBeenCalledOnce();
   });
 
   it("should get/set keyin preference", () => {
-    expect(uiAdmin.localizedKeyinPreference).to.eq(
+    expect(uiAdmin.localizedKeyinPreference).toEqual(
       KeyinFieldLocalization.NonLocalized
     );
     const nonLocalKeyins = uiAdmin.getKeyins();
@@ -717,7 +719,9 @@ describe("FrameworkUiAdmin", () => {
     uiAdmin.localizedKeyinPreference = KeyinFieldLocalization.Both;
     let bothKeyins = uiAdmin.getKeyins();
     expect(bothKeyins.length > nonLocalKeyins.length);
-    expect(uiAdmin.localizedKeyinPreference).to.eq(KeyinFieldLocalization.Both);
+    expect(uiAdmin.localizedKeyinPreference).toEqual(
+      KeyinFieldLocalization.Both
+    );
     // test when both keyin and english keyin are the same
     Object.defineProperty(Tool, "keyin", {
       get: () => {
@@ -733,7 +737,7 @@ describe("FrameworkUiAdmin", () => {
     const uiDataProvider = new TestDialogUiDataProvider();
     expect(uiAdmin.openDialog(uiDataProvider, "title", true, "modal-id")).to.be
       .true;
-    expect(uiAdmin.closeDialog("modal-id")).to.be.true;
+    expect(uiAdmin.closeDialog("modal-id")).toEqual(true);
   });
 
   it("openUiDialog (modeless) should return true", () => {
@@ -742,6 +746,6 @@ describe("FrameworkUiAdmin", () => {
     const uiDataProvider = new TestDialogUiDataProvider();
     expect(uiAdmin.openDialog(uiDataProvider, "title", false, "modeless-id")).to
       .be.true;
-    expect(uiAdmin.closeDialog("modeless-id")).to.be.true;
+    expect(uiAdmin.closeDialog("modeless-id")).toEqual(true);
   });
 });

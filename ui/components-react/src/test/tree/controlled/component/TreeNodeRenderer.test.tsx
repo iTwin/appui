@@ -93,7 +93,7 @@ describe("TreeNodeRenderer", () => {
     const nodeElement = getByText(nodeLabel);
     await userEvents.pointer({ keys: "[MouseRight>]", target: nodeElement });
 
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   describe("events", () => {

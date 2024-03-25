@@ -34,7 +34,7 @@ describe("LinkHandler", () => {
       const highlightSpy = sinon.spy();
 
       renderLinks(testString, links, highlightSpy);
-      expect(highlightSpy).to.be.calledOnce;
+      expect(highlightSpy).toHaveBeenCalledOnce();
     });
 
     it("calls highlight callback for matching part", () => {
@@ -48,7 +48,7 @@ describe("LinkHandler", () => {
 
       renderLinks(testString, links, highlighter);
 
-      expect(matchedPartHighlighted).to.be.true;
+      expect(matchedPartHighlighted).toEqual(true);
     });
 
     it("rendered anchor tag calls appropriate callback on click", () => {
@@ -141,7 +141,7 @@ describe("LinkHandler", () => {
       const highlightSpy = sinon.spy();
 
       withLinks(testString, undefined, highlightSpy);
-      expect(highlightSpy).to.be.calledOnce;
+      expect(highlightSpy).toHaveBeenCalledOnce();
     });
   });
 

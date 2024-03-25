@@ -177,7 +177,9 @@ describe("BasicNavigationWidget", () => {
       .returns(() => "StandardRotationNavigationAid");
 
     const spatialViewStateMock = moq.Mock.ofType<OrthographicViewState>();
-    spatialViewStateMock.setup((view) => view.is3d()).returns(() => true);
+    spatialViewStateMock
+      .setup((view) => view.is3d())
+      .mockReturnValue(() => true);
     spatialViewStateMock
       .setup((view) => view.classFullName)
       .returns(() => "Bis:OrthographicViewDefinition");

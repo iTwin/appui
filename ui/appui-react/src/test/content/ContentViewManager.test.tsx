@@ -34,7 +34,9 @@ describe("ContentViewManager", () => {
 
   it("Content is 2d Sheet View", () => {
     const sheetViewStateMock = moq.Mock.ofType<SheetViewState>();
-    sheetViewStateMock.setup((view) => view.is3d()).returns(() => false);
+    sheetViewStateMock
+      .setup((view) => view.is3d())
+      .mockReturnValue(() => false);
     sheetViewStateMock
       .setup((view) => view.classFullName)
       .returns(() => "BisCore:SheetViewDefinition");
@@ -45,7 +47,7 @@ describe("ContentViewManager", () => {
 
     expect(
       InternalContentViewManager.isContentSheetView(contentControlMock.object)
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       InternalContentViewManager.isContentDrawingView(contentControlMock.object)
     ).to.be.false;
@@ -69,7 +71,9 @@ describe("ContentViewManager", () => {
 
   it("Content is 2d Drawing View", () => {
     const drawingViewStateMock = moq.Mock.ofType<DrawingViewState>();
-    drawingViewStateMock.setup((view) => view.is3d()).returns(() => false);
+    drawingViewStateMock
+      .setup((view) => view.is3d())
+      .mockReturnValue(() => false);
     drawingViewStateMock
       .setup((view) => view.classFullName)
       .returns(() => "BisCore:DrawingViewDefinition");
@@ -83,7 +87,7 @@ describe("ContentViewManager", () => {
     ).to.be.false;
     expect(
       InternalContentViewManager.isContentDrawingView(contentControlMock.object)
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       InternalContentViewManager.isContentSpatialView(contentControlMock.object)
     ).to.be.false;
@@ -104,7 +108,9 @@ describe("ContentViewManager", () => {
 
   it("Content is 3d Spatial View", () => {
     const spatialViewStateMock = moq.Mock.ofType<SpatialViewState>();
-    spatialViewStateMock.setup((view) => view.is3d()).returns(() => true);
+    spatialViewStateMock
+      .setup((view) => view.is3d())
+      .mockReturnValue(() => true);
     spatialViewStateMock
       .setup((view) => view.classFullName)
       .returns(() => "BisCore:SpatialViewDefinition");
@@ -121,7 +127,7 @@ describe("ContentViewManager", () => {
     ).to.be.false;
     expect(
       InternalContentViewManager.isContentSpatialView(contentControlMock.object)
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       InternalContentViewManager.isContentOrthographicView(
         contentControlMock.object
@@ -129,17 +135,19 @@ describe("ContentViewManager", () => {
     ).to.be.false;
     expect(
       InternalContentViewManager.isContent3dView(contentControlMock.object)
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       InternalContentViewManager.contentSupportsCamera(
         contentControlMock.object
       )
-    ).to.be.true;
+    ).toEqual(true);
   });
 
   it("Content is 3d Ortho View View", () => {
     const orthographicViewStateMock = moq.Mock.ofType<OrthographicViewState>();
-    orthographicViewStateMock.setup((view) => view.is3d()).returns(() => true);
+    orthographicViewStateMock
+      .setup((view) => view.is3d())
+      .mockReturnValue(() => true);
     orthographicViewStateMock
       .setup((view) => view.classFullName)
       .returns(() => "BisCore:OrthographicViewDefinition");
@@ -156,15 +164,15 @@ describe("ContentViewManager", () => {
     ).to.be.false;
     expect(
       InternalContentViewManager.isContentSpatialView(contentControlMock.object)
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       InternalContentViewManager.isContentOrthographicView(
         contentControlMock.object
       )
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       InternalContentViewManager.isContent3dView(contentControlMock.object)
-    ).to.be.true;
+    ).toEqual(true);
     expect(
       InternalContentViewManager.contentSupportsCamera(
         contentControlMock.object

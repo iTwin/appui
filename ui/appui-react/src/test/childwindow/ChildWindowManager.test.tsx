@@ -61,10 +61,10 @@ describe("ChildWindowManager", () => {
     sinon.stub(manager, "openChildWindows").get(() => [childWindowInfo]);
     expect(manager.findId(window)).to.be.eql("child");
     expect(manager.find("child")).to.not.be.undefined;
-    const closeStub = sinon.stub();
+    const closeStub = vi.fn();
     sinon.stub(window, "close").callsFake(closeStub);
     expect(manager.close("child")).to.eql(true);
-    expect(closeStub).to.be.called;
+    expect(closeStub).toHaveBeenCalled();
   });
 });
 

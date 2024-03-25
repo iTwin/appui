@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as moq from "typemoq";
-import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
 import {
   isNavigationKey,
@@ -19,9 +17,9 @@ describe("ItemKeyboardNavigator", () => {
         () => {},
         () => {}
       );
-      expect(nav.itemCount).to.eq(0);
+      expect(nav.itemCount).toEqual(0);
       nav.itemCount = 100;
-      expect(nav.itemCount).to.eq(100);
+      expect(nav.itemCount).toEqual(100);
     });
 
     it("orientation property should be set properly", () => {
@@ -29,9 +27,9 @@ describe("ItemKeyboardNavigator", () => {
         () => {},
         () => {}
       );
-      expect(nav.orientation).to.eq(Orientation.Horizontal);
+      expect(nav.orientation).toEqual(Orientation.Horizontal);
       nav.orientation = Orientation.Vertical;
-      expect(nav.orientation).to.eq(Orientation.Vertical);
+      expect(nav.orientation).toEqual(Orientation.Vertical);
     });
 
     it("allowWrap property should be set properly", () => {
@@ -39,9 +37,9 @@ describe("ItemKeyboardNavigator", () => {
         () => {},
         () => {}
       );
-      expect(nav.allowWrap).to.eq(true);
+      expect(nav.allowWrap).toEqual(true);
       nav.allowWrap = false;
-      expect(nav.allowWrap).to.eq(false);
+      expect(nav.allowWrap).toEqual(false);
     });
 
     it("crossAxisArrowKeyHandler property should be set properly", () => {
@@ -52,7 +50,7 @@ describe("ItemKeyboardNavigator", () => {
       expect(nav.crossAxisArrowKeyHandler).to.be.undefined;
       const callback = () => {};
       nav.crossAxisArrowKeyHandler = callback;
-      expect(nav.crossAxisArrowKeyHandler).to.eq(callback);
+      expect(nav.crossAxisArrowKeyHandler).toEqual(callback);
     });
   });
 
@@ -62,8 +60,8 @@ describe("ItemKeyboardNavigator", () => {
     beforeEach(() => {
       keyEventMock.reset();
 
-      keyEventMock.setup((x) => x.shiftKey).returns(() => false);
-      keyEventMock.setup((x) => x.ctrlKey).returns(() => false);
+      keyEventMock.setup((x) => x.shiftKey).mockReturnValue(() => false);
+      keyEventMock.setup((x) => x.ctrlKey).mockReturnValue(() => false);
     });
 
     it("should call crossAxisArrowKeyHandler with true for ArrowRight", () => {
@@ -72,12 +70,12 @@ describe("ItemKeyboardNavigator", () => {
         () => {}
       );
       nav.orientation = Orientation.Vertical;
-      const spy = sinon.spy();
+      const spy = vi.fn();
       nav.crossAxisArrowKeyHandler = spy;
-      keyEventMock.setup((x) => x.key).returns(() => Key.ArrowRight);
+      keyEventMock.setup((x) => x.key).mockReturnValue(() => Key.ArrowRight);
       nav.handleKeyDownEvent(keyEventMock.object, 0);
       nav.handleKeyUpEvent(keyEventMock.object, 0);
-      expect(spy).to.be.calledWith(true);
+      expect(spy).toHaveBeenCalledWith(true);
     });
 
     it("should call crossAxisArrowKeyHandler with false for ArrowLeft", () => {
@@ -86,12 +84,12 @@ describe("ItemKeyboardNavigator", () => {
         () => {}
       );
       nav.orientation = Orientation.Vertical;
-      const spy = sinon.spy();
+      const spy = vi.fn();
       nav.crossAxisArrowKeyHandler = spy;
-      keyEventMock.setup((x) => x.key).returns(() => Key.ArrowLeft);
+      keyEventMock.setup((x) => x.key).mockReturnValue(() => Key.ArrowLeft);
       nav.handleKeyDownEvent(keyEventMock.object, 0);
       nav.handleKeyUpEvent(keyEventMock.object, 0);
-      expect(spy).to.be.calledWith(false);
+      expect(spy).toHaveBeenCalledWith(false);
     });
 
     it("should call crossAxisArrowKeyHandler with true for ArrowDown", () => {
@@ -100,12 +98,12 @@ describe("ItemKeyboardNavigator", () => {
         () => {}
       );
       nav.orientation = Orientation.Horizontal;
-      const spy = sinon.spy();
+      const spy = vi.fn();
       nav.crossAxisArrowKeyHandler = spy;
-      keyEventMock.setup((x) => x.key).returns(() => Key.ArrowDown);
+      keyEventMock.setup((x) => x.key).mockReturnValue(() => Key.ArrowDown);
       nav.handleKeyDownEvent(keyEventMock.object, 0);
       nav.handleKeyUpEvent(keyEventMock.object, 0);
-      expect(spy).to.be.calledWith(true);
+      expect(spy).toHaveBeenCalledWith(true);
     });
 
     it("should call crossAxisArrowKeyHandler with false for ArrowUp", () => {
@@ -114,70 +112,70 @@ describe("ItemKeyboardNavigator", () => {
         () => {}
       );
       nav.orientation = Orientation.Horizontal;
-      const spy = sinon.spy();
+      const spy = vi.fn();
       nav.crossAxisArrowKeyHandler = spy;
-      keyEventMock.setup((x) => x.key).returns(() => Key.ArrowUp);
+      keyEventMock.setup((x) => x.key).mockReturnValue(() => Key.ArrowUp);
       nav.handleKeyDownEvent(keyEventMock.object, 0);
       nav.handleKeyUpEvent(keyEventMock.object, 0);
-      expect(spy).to.be.calledWith(false);
+      expect(spy).toHaveBeenCalledWith(false);
     });
 
     it("should handle no crossAxisArrowKeyHandler (horizontal)", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const nav = new ItemKeyboardNavigator(spy, spy);
       nav.orientation = Orientation.Vertical;
-      keyEventMock.setup((x) => x.key).returns(() => Key.ArrowLeft);
+      keyEventMock.setup((x) => x.key).mockReturnValue(() => Key.ArrowLeft);
       nav.handleKeyDownEvent(keyEventMock.object, 0);
       nav.handleKeyUpEvent(keyEventMock.object, 0);
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
     });
 
     it("should handle no crossAxisArrowKeyHandler (vertical)", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const nav = new ItemKeyboardNavigator(spy, spy);
       nav.orientation = Orientation.Horizontal;
-      keyEventMock.setup((x) => x.key).returns(() => Key.ArrowDown);
+      keyEventMock.setup((x) => x.key).mockReturnValue(() => Key.ArrowDown);
       nav.handleKeyDownEvent(keyEventMock.object, 0);
       nav.handleKeyUpEvent(keyEventMock.object, 0);
-      expect(spy).to.not.be.called;
+      expect(spy).not.toBeCalled();
     });
 
     it("should focus on item 0 for Home", () => {
-      const spyFocus = sinon.spy();
+      const spyFocus = vi.fn();
       const nav = new ItemKeyboardNavigator(spyFocus, () => {});
-      keyEventMock.setup((x) => x.key).returns(() => Key.Home);
+      keyEventMock.setup((x) => x.key).mockReturnValue(() => Key.Home);
       nav.handleKeyDownEvent(keyEventMock.object, 0);
       nav.handleKeyUpEvent(keyEventMock.object, 0);
-      expect(spyFocus).to.be.calledWith(0);
+      expect(spyFocus).toHaveBeenCalledWith(0);
     });
 
     it("should focus on last item for End", () => {
-      const spyFocus = sinon.spy();
+      const spyFocus = vi.fn();
       const count = 10;
       const nav = new ItemKeyboardNavigator(spyFocus, () => {});
       nav.itemCount = count;
-      keyEventMock.setup((x) => x.key).returns(() => Key.End);
+      keyEventMock.setup((x) => x.key).mockReturnValue(() => Key.End);
       nav.handleKeyDownEvent(keyEventMock.object, 0);
       nav.handleKeyUpEvent(keyEventMock.object, 0);
-      expect(spyFocus).to.be.calledWith(count - 1);
+      expect(spyFocus).toHaveBeenCalledWith(count - 1);
     });
 
     it("should activate item for Enter", () => {
-      const spyActivate = sinon.spy();
+      const spyActivate = vi.fn();
       const nav = new ItemKeyboardNavigator(() => {}, spyActivate);
-      keyEventMock.setup((x) => x.key).returns(() => Key.Enter);
+      keyEventMock.setup((x) => x.key).mockReturnValue(() => Key.Enter);
       nav.handleKeyDownEvent(keyEventMock.object, 0);
       nav.handleKeyUpEvent(keyEventMock.object, 0);
-      expect(spyActivate).to.be.calledWith(0);
+      expect(spyActivate).toHaveBeenCalledWith(0);
     });
 
     it("should activate item for Space", () => {
-      const spyActivate = sinon.spy();
+      const spyActivate = vi.fn();
       const nav = new ItemKeyboardNavigator(() => {}, spyActivate);
-      keyEventMock.setup((x) => x.key).returns(() => " ");
+      keyEventMock.setup((x) => x.key).mockReturnValue(() => " ");
       nav.handleKeyDownEvent(keyEventMock.object, 0);
       nav.handleKeyUpEvent(keyEventMock.object, 0);
-      expect(spyActivate).to.be.calledWith(0);
+      expect(spyActivate).toHaveBeenCalledWith(0);
     });
 
     (
@@ -213,41 +211,41 @@ describe("ItemKeyboardNavigator", () => {
       ] as [string, Key, Orientation, number, number][]
     ).map(([title, key, orientation, result, wrapStart]) => {
       it(`should focus on ${title}`, () => {
-        const spyFocus = sinon.spy();
+        const spyFocus = vi.fn();
         const count = 10;
         const nav = new ItemKeyboardNavigator(spyFocus, () => {});
         nav.orientation = orientation;
         nav.itemCount = count;
-        keyEventMock.setup((x) => x.key).returns(() => key);
+        keyEventMock.setup((x) => x.key).mockReturnValue(() => key);
         nav.handleKeyDownEvent(keyEventMock.object, 5);
         nav.handleKeyUpEvent(keyEventMock.object, 5);
-        expect(spyFocus).to.be.calledWith(result);
+        expect(spyFocus).toHaveBeenCalledWith(result);
       });
 
       it(`should allow wrap if true on ${title}`, () => {
-        const spyFocus = sinon.spy();
+        const spyFocus = vi.fn();
         const count = 10;
         const nav = new ItemKeyboardNavigator(spyFocus, () => {});
         nav.orientation = orientation;
         nav.itemCount = count;
         nav.allowWrap = true;
-        keyEventMock.setup((x) => x.key).returns(() => key);
+        keyEventMock.setup((x) => x.key).mockReturnValue(() => key);
         nav.handleKeyDownEvent(keyEventMock.object, wrapStart);
         nav.handleKeyUpEvent(keyEventMock.object, wrapStart);
-        expect(spyFocus).to.be.calledWith(wrapStart === 0 ? 9 : 0);
+        expect(spyFocus).toHaveBeenCalledWith(wrapStart === 0 ? 9 : 0);
       });
 
       it(`should not allow wrap if false on ${title}`, () => {
-        const spyFocus = sinon.spy();
+        const spyFocus = vi.fn();
         const count = 10;
         const nav = new ItemKeyboardNavigator(spyFocus, () => {});
         nav.orientation = orientation;
         nav.itemCount = count;
         nav.allowWrap = false;
-        keyEventMock.setup((x) => x.key).returns(() => key);
+        keyEventMock.setup((x) => x.key).mockReturnValue(() => key);
         nav.handleKeyDownEvent(keyEventMock.object, wrapStart);
         nav.handleKeyUpEvent(keyEventMock.object, wrapStart);
-        expect(spyFocus).to.not.be.called;
+        expect(spyFocus).not.toBeCalled();
       });
     });
   });

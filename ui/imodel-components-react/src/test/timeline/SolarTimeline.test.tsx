@@ -184,7 +184,7 @@ describe("<SolarTimeline />", () => {
         name: "timeline.pause",
       })
     );
-    expect(dataProvider.timeChangeCallbackCalled).to.be.true;
+    expect(dataProvider.timeChangeCallbackCalled).toEqual(true);
 
     // hit play/pause button to pause animation
     fireEvent.click(playButton);

@@ -58,16 +58,16 @@ describe("StatusBar", () => {
     );
     expect(
       container.querySelectorAll("div.uifw-statusbar-space-between").length
-    ).to.eq(1);
+    ).toEqual(1);
   });
 
   it("StatusBarLeftSection should render correctly", () => {
     const { container } = render(
       <StatusBarLeftSection>Hello</StatusBarLeftSection>
     );
-    expect(container.querySelectorAll("div.uifw-statusbar-left").length).to.eq(
-      1
-    );
+    expect(
+      container.querySelectorAll("div.uifw-statusbar-left").length
+    ).toEqual(1);
   });
 
   it("StatusBarCenterSection should render correctly", () => {
@@ -76,15 +76,15 @@ describe("StatusBar", () => {
     );
     expect(
       container.querySelectorAll("div.uifw-statusbar-center").length
-    ).to.eq(1);
+    ).toEqual(1);
   });
 
   it("StatusBarRightSection should render correctly", () => {
     const { container } = render(
       <StatusBarRightSection>Hello</StatusBarRightSection>
     );
-    expect(container.querySelectorAll("div.uifw-statusbar-right").length).to.eq(
-      1
-    );
+    expect(
+      container.querySelectorAll("div.uifw-statusbar-right").length
+    ).toEqual(1);
   });
 });

@@ -31,7 +31,7 @@ describe("<ColorSwatch />", () => {
   it("Fire click event to pick color", async () => {
     const spyOnPick = sinon.spy();
     function handleColorPick(color: ColorDef): void {
-      expect(color.equals(colorDef)).to.be.true;
+      expect(color.equals(colorDef)).toEqual(true);
       spyOnPick();
     }
 
@@ -43,6 +43,6 @@ describe("<ColorSwatch />", () => {
     expect(colorSwatch.tagName).to.be.equal("BUTTON");
     fireEvent.click(colorSwatch);
     await TestUtils.flushAsyncOperations();
-    expect(spyOnPick.calledOnce).to.be.true;
+    expect(spyOnPick.calledOnce).toEqual(true);
   });
 });

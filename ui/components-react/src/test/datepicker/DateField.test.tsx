@@ -94,7 +94,7 @@ describe("<DateField />", () => {
     );
     const input = renderedComponent.container.querySelector("input");
     expect(input).not.to.be.null;
-    expect(input!.disabled).to.be.true;
+    expect(input!.disabled).toEqual(true);
   });
 
   it("should render with time", () => {
@@ -153,7 +153,7 @@ describe("<DateField />", () => {
     );
     const input = renderedComponent.container.querySelector("input");
     expect(input).not.to.be.null;
-    expect(input!.value).to.eq("07-22-2018");
+    expect(input!.value).toEqual("07-22-2018");
   });
 
   it("should trigger onDateChange", () => {
@@ -166,11 +166,11 @@ describe("<DateField />", () => {
     );
     const input = renderedComponent.container.querySelector("input");
     expect(input).not.to.be.null;
-    expect(input!.value).to.eq("07-22-2018");
+    expect(input!.value).toEqual("07-22-2018");
     fireEvent.change(input!, { target: { value: "07-04-2004" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
-    expect(renderSpy).to.be.called;
-    expect(input!.value).to.eq("07-04-2004");
+    expect(renderSpy).toHaveBeenCalled();
+    expect(input!.value).toEqual("07-04-2004");
     renderSpy.resetHistory();
     expect(
       renderedComponent.container.querySelector(
@@ -179,7 +179,7 @@ describe("<DateField />", () => {
     ).to.be.null;
     fireEvent.change(input!, { target: { value: "07-04-zzzz" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
-    expect(renderSpy).not.to.be.called;
+    expect(renderSpy).not.toBeCalled();
     // renderedComponent.debug();
     expect(
       renderedComponent.container.querySelector(
@@ -193,6 +193,6 @@ describe("<DateField />", () => {
         "input.components-date-has-error"
       )
     ).to.be.null;
-    expect(renderSpy).to.be.called;
+    expect(renderSpy).toHaveBeenCalled();
   });
 });

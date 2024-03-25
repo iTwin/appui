@@ -24,6 +24,6 @@ describe("<DelayedSpinner />", () => {
   it("renders spinner with specified size", () => {
     const component = render(<DelayedSpinner delay={0} size="small" />);
     const spinner = component.getByTestId("components-delayed-spinner");
-    expect(spinner.getAttribute("data-iui-size")).to.eq("small");
+    expect(spinner.getAttribute("data-iui-size")).toEqual("small");
   });
 });

@@ -60,7 +60,7 @@ describe("NodeContent", () => {
 
     render(<TreeNodeContent node={node} highlightProps={highlightingProps} />);
 
-    expect(spy).to.be.called;
+    expect(spy).toHaveBeenCalled();
     spy.restore();
   });
 
@@ -103,7 +103,7 @@ describe("NodeContent", () => {
     const spy = sinon.spy();
     render(<TreeNodeContent node={node} onLabelRendered={spy} />);
 
-    expect(spy).to.be.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("renders node editor if node editing is active", () => {
@@ -128,6 +128,6 @@ describe("NodeContent", () => {
       <TreeNodeContent node={node} nodeEditorRenderer={editorRendererSpy} />
     );
 
-    expect(editorRendererSpy).to.be.calledOnce;
+    expect(editorRendererSpy).toHaveBeenCalledOnce();
   });
 });

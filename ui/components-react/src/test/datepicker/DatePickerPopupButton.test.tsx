@@ -79,7 +79,7 @@ describe("<DatePickerPopupButton />", () => {
     const dayEntry = popupPanelDiv.querySelector(dataValueSelector);
     expect(dayEntry).not.to.be.null;
     fireEvent.click(dayEntry!);
-    expect(renderSpy).to.be.called;
+    expect(renderSpy).toHaveBeenCalled();
     expect(
       renderedComponent.queryByTestId(
         "components-date-picker-calendar-popup-panel"
@@ -108,7 +108,7 @@ describe("<DatePickerPopupButton />", () => {
     const dayEntry = popupPanelDiv.querySelector(dataValueSelector);
     expect(dayEntry).not.to.be.null;
     fireEvent.click(dayEntry!);
-    expect(renderSpy).to.be.called;
+    expect(renderSpy).toHaveBeenCalled();
     expect(
       renderedComponent.queryByTestId(
         "components-date-picker-calendar-popup-panel"
@@ -138,9 +138,9 @@ describe("<DatePickerPopupButton />", () => {
       "components-time-input"
     );
     const inputs = timeInputContainer.querySelectorAll("input");
-    expect(inputs.length).to.eq(3);
+    expect(inputs.length).toEqual(3);
     const hour = inputs[0];
     fireEvent.keyDown(hour, { key: Key.ArrowUp });
-    expect(renderSpy).to.be.called;
+    expect(renderSpy).toHaveBeenCalled();
   });
 });

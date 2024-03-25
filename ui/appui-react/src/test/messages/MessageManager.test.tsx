@@ -41,8 +41,8 @@ describe("MessageManager", () => {
     const clearSpy = sinon.spy();
     MessageManager.onMessagesUpdatedEvent.addListener(clearSpy);
     MessageManager.clearMessages();
-    expect(MessageManager.messages.length).to.eq(0);
-    clearSpy.calledOnce.should.true;
+    expect(MessageManager.messages.length).toEqual(0);
+    clearexpect(spy).toHaveBeenCalledOnce();
 
     for (let i = 0; i < 500; i++) {
       MessageManager.addMessage(
@@ -52,13 +52,13 @@ describe("MessageManager", () => {
         )
       );
     }
-    expect(MessageManager.messages.length).to.eq(500);
+    expect(MessageManager.messages.length).toEqual(500);
 
     clearSpy.resetHistory();
     MessageManager.addMessage(
       new NotifyMessageDetails(OutputMessagePriority.Debug, `A brief message.`)
     );
-    expect(MessageManager.messages.length).to.eq(376);
+    expect(MessageManager.messages.length).toEqual(376);
     clearSpy.calledTwice.should.true;
 
     const newMax = 375;
@@ -68,7 +68,7 @@ describe("MessageManager", () => {
 
   it("maxDisplayedStickyMessages handled correctly", () => {
     MessageManager.maxDisplayedStickyMessages = 5;
-    expect(MessageManager.maxDisplayedStickyMessages).to.eq(5);
+    expect(MessageManager.maxDisplayedStickyMessages).toEqual(5);
   });
 
   it("getIconType should return proper icon type", () => {
@@ -76,7 +76,7 @@ describe("MessageManager", () => {
       MessageManager.getIconType(
         new NotifyMessageDetails(OutputMessagePriority.Info, "A brief message.")
       )
-    ).to.eq(MessageBoxIconType.Information);
+    ).toEqual(MessageBoxIconType.Information);
 
     expect(
       MessageManager.getIconType(
@@ -85,7 +85,7 @@ describe("MessageManager", () => {
           "A brief message."
         )
       )
-    ).to.eq(MessageBoxIconType.Warning);
+    ).toEqual(MessageBoxIconType.Warning);
 
     expect(
       MessageManager.getIconType(
@@ -94,7 +94,7 @@ describe("MessageManager", () => {
           "A brief message."
         )
       )
-    ).to.eq(MessageBoxIconType.Critical);
+    ).toEqual(MessageBoxIconType.Critical);
 
     expect(
       MessageManager.getIconType(
@@ -103,13 +103,13 @@ describe("MessageManager", () => {
           "A brief message."
         )
       )
-    ).to.eq(MessageBoxIconType.Critical);
+    ).toEqual(MessageBoxIconType.Critical);
 
     expect(
       MessageManager.getIconType(
         new NotifyMessageDetails(OutputMessagePriority.None, "A brief message.")
       )
-    ).to.eq(MessageBoxIconType.NoSymbol);
+    ).toEqual(MessageBoxIconType.NoSymbol);
   });
 
   it("getSeverity should return proper severity", () => {
@@ -117,7 +117,7 @@ describe("MessageManager", () => {
       MessageManager.getSeverity(
         new NotifyMessageDetails(OutputMessagePriority.Info, "A brief message.")
       )
-    ).to.eq(MessageSeverity.Information);
+    ).toEqual(MessageSeverity.Information);
 
     expect(
       MessageManager.getSeverity(
@@ -126,7 +126,7 @@ describe("MessageManager", () => {
           "A brief message."
         )
       )
-    ).to.eq(MessageSeverity.Warning);
+    ).toEqual(MessageSeverity.Warning);
 
     expect(
       MessageManager.getSeverity(
@@ -135,7 +135,7 @@ describe("MessageManager", () => {
           "A brief message."
         )
       )
-    ).to.eq(MessageSeverity.Error);
+    ).toEqual(MessageSeverity.Error);
 
     expect(
       MessageManager.getSeverity(
@@ -144,13 +144,13 @@ describe("MessageManager", () => {
           "A brief message."
         )
       )
-    ).to.eq(MessageSeverity.Fatal);
+    ).toEqual(MessageSeverity.Fatal);
 
     expect(
       MessageManager.getSeverity(
         new NotifyMessageDetails(OutputMessagePriority.None, "A brief message.")
       )
-    ).to.eq(MessageSeverity.Success);
+    ).toEqual(MessageSeverity.Success);
 
     expect(
       MessageManager.getSeverity(
@@ -159,17 +159,17 @@ describe("MessageManager", () => {
           "A brief message."
         )
       )
-    ).to.eq(MessageSeverity.Success);
+    ).toEqual(MessageSeverity.Success);
   });
 
   it("non-duplicate message should be added to Message Center", () => {
     MessageManager.clearMessages();
-    expect(MessageManager.messages.length).to.eq(0);
+    expect(MessageManager.messages.length).toEqual(0);
 
     MessageManager.addMessage(
       new NotifyMessageDetails(OutputMessagePriority.Debug, "A brief message.")
     );
-    expect(MessageManager.messages.length).to.eq(1);
+    expect(MessageManager.messages.length).toEqual(1);
 
     MessageManager.addMessage(
       new NotifyMessageDetails(
@@ -177,27 +177,27 @@ describe("MessageManager", () => {
         "Another brief message."
       )
     );
-    expect(MessageManager.messages.length).to.eq(2);
+    expect(MessageManager.messages.length).toEqual(2);
   });
 
   it("duplicate message should not be added to Message Center", () => {
     MessageManager.clearMessages();
-    expect(MessageManager.messages.length).to.eq(0);
+    expect(MessageManager.messages.length).toEqual(0);
 
     MessageManager.addMessage(
       new NotifyMessageDetails(OutputMessagePriority.Debug, "A brief message.")
     );
-    expect(MessageManager.messages.length).to.eq(1);
+    expect(MessageManager.messages.length).toEqual(1);
 
     MessageManager.addMessage(
       new NotifyMessageDetails(OutputMessagePriority.Debug, "A brief message.")
     );
-    expect(MessageManager.messages.length).to.eq(1);
+    expect(MessageManager.messages.length).toEqual(1);
   });
 
   it("React based message should be supported", () => {
     MessageManager.clearMessages();
-    expect(MessageManager.messages.length).to.eq(0);
+    expect(MessageManager.messages.length).toEqual(0);
 
     const reactNode = (
       <span>
@@ -211,7 +211,7 @@ describe("MessageManager", () => {
         { reactNode }
       )
     );
-    expect(MessageManager.messages.length).to.eq(1);
+    expect(MessageManager.messages.length).toEqual(1);
   });
 
   it("openMessageCenter raises OpenMessageCenterEvent", () => {
@@ -221,7 +221,7 @@ describe("MessageManager", () => {
     );
 
     MessageManager.openMessageCenter();
-    expect(onOpenMessageCenterEventSpy.callCount).to.eq(1);
+    expect(onOpenMessageCenterEventSpy.callCount).toEqual(1);
   });
 
   it("should render a toast message", async () => {

@@ -35,7 +35,7 @@ describe("BackstageManager", () => {
     manager.open();
 
     expect(spy).to.have.been.calledOnceWith(sinon.match({ isOpen: true }));
-    expect(manager.isOpen).to.be.true;
+    expect(manager.isOpen).toEqual(true);
 
     manager.onToggled.removeListener(spy);
   });
@@ -48,7 +48,7 @@ describe("BackstageManager", () => {
 
     manager.close();
 
-    expect(spy).to.have.been.calledWith(sinon.match({ isOpen: false }));
+    expect(spy).toHaveBeenCalledWith(sinon.match({ isOpen: false }));
     expect(manager.isOpen).to.be.false;
 
     manager.onToggled.removeListener(spy);
@@ -62,14 +62,14 @@ describe("BackstageManager", () => {
 
     manager.toggle();
 
-    expect(spy).to.have.been.calledWith(sinon.match({ isOpen: false }));
+    expect(spy).toHaveBeenCalledWith(sinon.match({ isOpen: false }));
     expect(manager.isOpen).to.be.false;
 
     spy.resetHistory();
     manager.toggle();
 
-    expect(spy).to.have.been.calledWith(sinon.match({ isOpen: true }));
-    expect(manager.isOpen).to.be.true;
+    expect(spy).toHaveBeenCalledWith(sinon.match({ isOpen: true }));
+    expect(manager.isOpen).toEqual(true);
     manager.onToggled.removeListener(spy);
   });
 
@@ -81,7 +81,7 @@ describe("BackstageManager", () => {
     manager.open();
 
     expect(spy).to.not.have.been.called;
-    expect(manager.isOpen).to.be.true;
+    expect(manager.isOpen).toEqual(true);
     manager.onToggled.removeListener(spy);
   });
 
@@ -90,14 +90,14 @@ describe("BackstageManager", () => {
     const initialState = UiFramework.backstage.isOpen;
     command.execute();
 
-    expect(UiFramework.backstage.isOpen).to.eq(!initialState);
+    expect(UiFramework.backstage.isOpen).toEqual(!initialState);
   });
 
   it("getBackstageToggleCommand handles icon override", () => {
     const command =
       BackstageManager.getBackstageToggleCommand("different-icon");
 
-    expect(command.iconSpec).to.eq("different-icon");
+    expect(command.iconSpec).toEqual("different-icon");
   });
 
   it("will directly call internal implementation", () => {
@@ -110,8 +110,8 @@ describe("BackstageManager", () => {
     sinon.stub(internal);
     manager.mockInternal(internal);
 
-    expect(manager.onToggled).to.eq(internal.onToggled);
-    expect(manager.isOpen).to.eq(internal.isOpen);
+    expect(manager.onToggled).toEqual(internal.onToggled);
+    expect(manager.isOpen).toEqual(internal.isOpen);
 
     // New method names
     manager.open();
@@ -129,7 +129,9 @@ describe("BackstageManager", () => {
     sinon
       .stub(UiFramework.backstage, "getBackstageToggleCommand")
       .returns(stubbedCommand as any);
-    expect(BackstageManager.getBackstageToggleCommand()).to.eq(stubbedCommand);
+    expect(BackstageManager.getBackstageToggleCommand()).toEqual(
+      stubbedCommand
+    );
   });
 });
 
@@ -148,7 +150,7 @@ describe("useIsBackstageOpen", () => {
 
     manager.open();
     await waitFor(() => {
-      expect(result.current).to.be.true;
+      expect(result.current).toEqual(true);
     });
     manager.close();
     await waitFor(() => {

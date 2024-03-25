@@ -69,7 +69,7 @@ describe("<WeightEditor />", () => {
 
       // wait for async processing done in WeightEditor._onLineWeightPick method
       await TestUtils.flushAsyncOperations();
-      expect(spyOnCommit).to.be.calledOnce;
+      expect(spyOnCommit).toHaveBeenCalledOnce();
     }
   });
 

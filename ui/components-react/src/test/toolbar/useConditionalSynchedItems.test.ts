@@ -41,10 +41,10 @@ describe("useConditionalSynchedItems", () => {
       return useConditionalSynchedItems(items, event);
     });
 
-    expect(result.current).to.eq(items);
+    expect(result.current).toEqual(items);
 
     event.emit({ eventIds: new Set() });
-    expect(result.current).to.eq(items);
+    expect(result.current).toEqual(items);
   });
 
   it("Should update initial items on mount", () => {
@@ -82,7 +82,7 @@ describe("useConditionalSynchedItems", () => {
     const updatedItems = result.current;
 
     event.emit({ eventIds: new Set(["other-event"]) });
-    expect(result.current).to.eq(updatedItems);
+    expect(result.current).toEqual(updatedItems);
   });
 
   it("Should not update items when conditional do not change value on related event", () => {
@@ -102,7 +102,7 @@ describe("useConditionalSynchedItems", () => {
     const updatedItems = result.current;
 
     event.emit({ eventIds: new Set(["string-update"]) });
-    expect(result.current).to.eq(updatedItems);
+    expect(result.current).toEqual(updatedItems);
   });
 
   it("Should update items when conditional change value on related event", () => {
@@ -158,15 +158,15 @@ describe("useConditionalSynchedItems", () => {
     state.boolValue = false;
     event.emit({ eventIds: new Set(["change"]) });
 
-    expect(ConditionalIconItem.getValue(result.current[0].iconValue)).to.eq(
+    expect(ConditionalIconItem.getValue(result.current[0].iconValue)).toEqual(
       "updatedIcon"
     );
     expect(
       ConditionalStringValue.getValue(result.current[0].stringValue)
-    ).to.eq("updatedString");
+    ).toEqual("updatedString");
     expect(
       ConditionalBooleanValue.getValue(result.current[0].booleanValue)
-    ).to.eq(false);
+    ).toEqual(false);
   });
 
   it("Should support nested conditionals", () => {
@@ -203,36 +203,36 @@ describe("useConditionalSynchedItems", () => {
 
     expect(
       ConditionalStringValue.getValue(result.current[0].items[0].stringValue)
-    ).to.eq("initial1");
+    ).toEqual("initial1");
     expect(
       ConditionalStringValue.getValue(
         result.current[0].items[0].items[0].stringValue
       )
-    ).to.eq("initial2");
+    ).toEqual("initial2");
 
     level1State.value = "updated1";
     level2State.value = "updated2";
     event.emit({ eventIds: new Set(["change-1"]) });
     expect(
       ConditionalStringValue.getValue(result.current[0].items[0].stringValue)
-    ).to.eq("updated1");
+    ).toEqual("updated1");
     expect(
       ConditionalStringValue.getValue(
         result.current[0].items[0].items[0].stringValue
       )
-    ).to.eq("initial2");
+    ).toEqual("initial2");
 
     level1State.value = "final1";
     level2State.value = "final2";
     event.emit({ eventIds: new Set(["change-both"]) });
     expect(
       ConditionalStringValue.getValue(result.current[0].items[0].stringValue)
-    ).to.eq("final1");
+    ).toEqual("final1");
     expect(
       ConditionalStringValue.getValue(
         result.current[0].items[0].items[0].stringValue
       )
-    ).to.eq("final2");
+    ).toEqual("final2");
   });
 
   it("Should support `undefined` syncUiEvent arg", () => {
@@ -247,7 +247,7 @@ describe("useConditionalSynchedItems", () => {
 
     expect(
       ConditionalStringValue.getValue(result.current[0].stringValue)
-    ).to.eq("value");
+    ).toEqual("value");
   });
 
   it("Should properly unregister from syncUiEvent", () => {
@@ -264,6 +264,6 @@ describe("useConditionalSynchedItems", () => {
 
     expect(spy.called).to.be.false;
     unmount();
-    expect(spy.called).to.be.true;
+    expect(spy.called).toEqual(true);
   });
 });

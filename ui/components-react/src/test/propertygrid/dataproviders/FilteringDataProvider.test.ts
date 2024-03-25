@@ -31,7 +31,9 @@ describe("FilteringDataProvider", () => {
   beforeEach(() => {
     mockFilterer = moq.Mock.ofType<IPropertyDataFilterer>();
     onFilterChanged = new PropertyFilterChangeEvent();
-    mockFilterer.setup((x) => x.onFilterChanged).returns(() => onFilterChanged);
+    mockFilterer
+      .setup((x) => x.onFilterChanged)
+      .mockReturnValue(() => onFilterChanged);
     originalPropertyData = {
       label: TestUtils.createPrimitiveStringProperty("Label", "Value"),
       description: "Test data",
@@ -179,7 +181,7 @@ describe("FilteringDataProvider", () => {
   });
 
   it("Should listen to onFilterChanged events and raise onDataChanged", () => {
-    mockFilterer.setup((x) => x.isActive).returns(() => false);
+    mockFilterer.setup((x) => x.isActive).mockReturnValue(() => false);
     const filteringProvider = new FilteringPropertyDataProvider(
       dataProvider,
       mockFilterer.object
@@ -187,11 +189,11 @@ describe("FilteringDataProvider", () => {
     const spy = sinon.spy();
     filteringProvider.onDataChanged.addListener(spy);
     onFilterChanged.raiseEvent();
-    expect(spy.callCount).to.be.equal(1);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it("Should listen to onDataChanged events and call and re-raise onDataChanged", () => {
-    mockFilterer.setup((x) => x.isActive).returns(() => false);
+    mockFilterer.setup((x) => x.isActive).mockReturnValue(() => false);
     const filteringProvider = new FilteringPropertyDataProvider(
       dataProvider,
       mockFilterer.object
@@ -199,11 +201,11 @@ describe("FilteringDataProvider", () => {
     const dataSpy = sinon.spy();
     filteringProvider.onDataChanged.addListener(dataSpy);
     onDataChanged.raiseEvent();
-    expect(dataSpy.callCount).to.be.equal(1);
+    expect(dataSpy).toHaveBeenCalledTimes(1);
   });
 
   it("Should dispose listeners when component is disposed", () => {
-    mockFilterer.setup((x) => x.isActive).returns(() => false);
+    mockFilterer.setup((x) => x.isActive).mockReturnValue(() => false);
     const filteringProvider = new FilteringPropertyDataProvider(
       dataProvider,
       mockFilterer.object
@@ -220,7 +222,7 @@ describe("FilteringDataProvider", () => {
 
   describe("getData", () => {
     it("Should return original data if filter is not active", async () => {
-      mockFilterer.setup((x) => x.isActive).returns(() => false);
+      mockFilterer.setup((x) => x.isActive).mockReturnValue(() => false);
       const filteringProvider = new FilteringPropertyDataProvider(
         dataProvider,
         mockFilterer.object
@@ -230,7 +232,7 @@ describe("FilteringDataProvider", () => {
     });
 
     it("Should return empty property data and matchesCount equal to 0 if filter is enabled and nothing matches it", async () => {
-      mockFilterer.setup((x) => x.isActive).returns(() => true);
+      mockFilterer.setup((x) => x.isActive).mockReturnValue(() => true);
       mockFilterer
         .setup(async (x) =>
           x.recordMatchesFilter(moq.It.isAny(), moq.It.isAny())
@@ -522,7 +524,7 @@ describe("FilteringDataProvider", () => {
         },
       };
 
-      mockFilterer.setup((x) => x.isActive).returns(() => true);
+      mockFilterer.setup((x) => x.isActive).mockReturnValue(() => true);
 
       // Fix itemsTypeName since first child changed
       (
@@ -661,7 +663,7 @@ describe("FilteringDataProvider", () => {
       const propertyData = createPropertyData(records, "Cat1");
       const dataProv = createDataProvider(propertyData);
 
-      mockFilterer.setup((x) => x.isActive).returns(() => true);
+      mockFilterer.setup((x) => x.isActive).mockReturnValue(() => true);
 
       mockFilterer
         .setup(async (x) =>
@@ -714,7 +716,7 @@ describe("FilteringDataProvider", () => {
       const propertyData = createPropertyData(records, "Cat1");
       const dataProv = createDataProvider(propertyData);
 
-      mockFilterer.setup((x) => x.isActive).returns(() => true);
+      mockFilterer.setup((x) => x.isActive).mockReturnValue(() => true);
 
       mockFilterer
         .setup(async (x) =>
@@ -767,7 +769,7 @@ describe("FilteringDataProvider", () => {
       const propertyData = createPropertyData(records, "Cat1");
       const dataProv = createDataProvider(propertyData);
 
-      mockFilterer.setup((x) => x.isActive).returns(() => true);
+      mockFilterer.setup((x) => x.isActive).mockReturnValue(() => true);
 
       mockFilterer
         .setup(async (x) =>
@@ -817,7 +819,7 @@ describe("FilteringDataProvider", () => {
       const propertyData = createPropertyData(records, "Cat1");
       const dataProv = createDataProvider(propertyData);
 
-      mockFilterer.setup((x) => x.isActive).returns(() => true);
+      mockFilterer.setup((x) => x.isActive).mockReturnValue(() => true);
 
       mockFilterer
         .setup(async (x) =>
@@ -869,7 +871,7 @@ describe("FilteringDataProvider", () => {
       const propertyData = createPropertyData(records, "Cat1");
       const dataProv = createDataProvider(propertyData);
 
-      mockFilterer.setup((x) => x.isActive).returns(() => true);
+      mockFilterer.setup((x) => x.isActive).mockReturnValue(() => true);
 
       const filteringProvider = new FilteringPropertyDataProvider(
         dataProv,
@@ -931,7 +933,7 @@ describe("FilteringDataProvider", () => {
       const filteredData = await filteringProvider.getData();
       const filteredData2 = await filteringProvider.getData();
 
-      expect(filteredData === filteredData2).to.be.true;
+      expect(filteredData === filteredData2).toEqual(true);
       mockFilterer.verifyAll();
     });
 
@@ -974,7 +976,7 @@ describe("FilteringDataProvider", () => {
       const filteredData = await filteredDataPromise;
       const filteredData2 = await filteredDataPromise2;
 
-      expect(filteredData !== filteredData2).to.be.true;
+      expect(filteredData !== filteredData2).toEqual(true);
       mockFilterer.verifyAll();
     });
 
@@ -1018,7 +1020,7 @@ describe("FilteringDataProvider", () => {
       const filteredData = await filteredDataPromise;
       const filteredData2 = await filteredDataPromise2;
 
-      expect(filteredData !== filteredData2).to.be.true;
+      expect(filteredData !== filteredData2).toEqual(true);
       mockFilterer.verifyAll();
     });
   });
