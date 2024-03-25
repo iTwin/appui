@@ -92,14 +92,19 @@ describe("usePackageTranslation", () => {
 
   it("should update translations when localization context changes", async () => {
     const { result, rerender, waitFor } = renderHook(
-      (_props: { localization: Localization }) =>
+      () =>
         usePackageTranslation({
           namespace: "test-namespace",
           fallback: () => undefined,
           defaults: {},
         }),
       {
-        wrapper: (props) => <LocalizationProvider {...props} />,
+        wrapper: (props: { localization: Localization }) => (
+          <LocalizationProvider {...props} />
+        ),
+        initialProps: {
+          localization,
+        },
       }
     );
 
@@ -164,7 +169,7 @@ describe("usePackageTranslation", () => {
       waitFor(() => {
         expect(result.current.translate("val")).to.eq("localized-string");
       })
-    ).to.be.rejectedWith();
+    ).to.be.rejected;
     expect(result.current.translate("val")).to.eq("default-value");
 
     await promise.resolve(undefined);
