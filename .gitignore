@@ -57,6 +57,3 @@ common/api/summary/summary.exports.csv
 
 # Codemod specific
 junit.xml
-
-# test-app specific
-test-apps/**/public/locales/en-PSEUDO

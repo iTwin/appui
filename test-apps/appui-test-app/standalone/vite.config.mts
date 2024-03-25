@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
@@ -11,6 +11,11 @@ export default defineConfig({
         {
           // copy assets from `@itwin` dependencies
           src: "./node_modules/@itwin/*/lib/public/*",
+          dest: ".",
+        },
+        {
+          // copy localization files
+          src: "./lib/locales",
           dest: ".",
         },
       ],
