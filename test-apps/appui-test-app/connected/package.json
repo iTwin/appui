@@ -21,12 +21,7 @@
     "pseudolocalize": "betools pseudolocalize --englishDir ./public/locales/en --out ./build/public/locales/en-PSEUDO",
     "test": "",
     "cover": "",
-    "docs": "",
-    "copy:config": "internal-tools copy-config",
-    "build:ios-backend": "npm run -s build:backend && webpack --config ./ios/backend.config --env.outdir=./lib/ios --env.entry=./lib/backend/main.js --env.bundlename=main",
-    "install-ios-lib": "node ./ios/scripts/installIosNativeLib.js",
-    "copy:ios-frontend": "mkdir -p ./lib/ios && rm -rf ./lib/ios/www && cp -R ./build ./lib/ios/www",
-    "build:ios": "npm run -s install-ios-lib && npm run -s build:frontend && npm run -s build:ios-backend && npm run -s copy:ios-frontend"
+    "docs": ""
   },
   "keywords": [
     "Bentley",
@@ -56,7 +51,6 @@
     "electron": "^22.0.0",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "~8.8.0",
-    "internal-tools": "workspace:*",
     "npm-run-all": "^4.1.5",
     "null-loader": "^4.0.1",
     "rimraf": "^3.0.2",

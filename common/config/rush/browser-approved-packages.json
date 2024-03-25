@@ -363,10 +363,6 @@
       "allowedCategories": [ "frontend" ]
     },
     {
-      "name": "internal-tools",
-      "allowedCategories": [ "internal" ]
-    },
-    {
       "name": "jest",
       "allowedCategories": [ "tools" ]
     },
