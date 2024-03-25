@@ -86,7 +86,7 @@ export class ExternalIModel {
       const hubClient = new IModelsClient({
         api: {
           baseUrl: `https://${
-            process.env.IMJS_URL_PREFIX ?? ""
+            import.meta.env.IMJS_URL_PREFIX ?? ""
           }api.bentley.com/imodels`,
         },
       });

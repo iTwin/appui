@@ -481,7 +481,9 @@ export class SampleAppIModelApp {
   }
 
   public static isEnvVarOn(envVar: string): boolean {
-    return process.env[envVar] === "1" || process.env[envVar] === "true";
+    return (
+      import.meta.env[envVar] === "1" || import.meta.env[envVar] === "true"
+    );
   }
 
   public static getSnapshotPath(): string | undefined {
