@@ -17,11 +17,11 @@ Table of contents:
 
   ```ts
   // Before
-  await UiCore.initialize();
+  await UiCore.initialize(IModelApp.localization);
   ReactDOM.render(<App />, element);
 
   // After
-  <LocalizationProvider localization={localization}>
+  <LocalizationProvider localization={IModelApp.localization}>
     <App />
   </LocalizationProvider>;
   ```
@@ -46,6 +46,14 @@ Table of contents:
   <LocalizationProvider localization={localization}>
     <App />
   </LocalizationProvider>;
+  ```
+
+  Applications might still want to initialize the localization namespaces before rendering the components to avoid rendering of default translations.
+
+  ```tsx
+  await localization.registerNamespace(UiCore.localizationNamespace)
+
+  <LocalizationProvider localization={localization} />
   ```
 
 ### Changes
