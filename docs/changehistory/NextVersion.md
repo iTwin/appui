@@ -11,12 +11,12 @@ Table of contents:
 
 ### Deprecations
 
-- Static `Dialog.getFooterButtons()`. Use [iTwinUI buttons](https://itwinui.bentley.com/docs/button) instead.
+- Static `Dialog.getFooterButtons()`. Use [iTwinUI buttons](https://itwinui.bentley.com/docs/button) instead. [#782](https://github.com/iTwin/appui/pull/782)
 
 ### Additions
 
 - Added `LocalizationProvider` tagged as `@alpha` which should eventually replace static package initialization.
-  This is a shared provider used by all AppUI packages. Provided localization interface is a subset of `@itwin/core-common` `Localization` and is expected to handle namespaces.
+  This is a shared provider used by all AppUI packages. Provided localization interface is a subset of `@itwin/core-common` `Localization` and is expected to handle namespaces. [#782](https://github.com/iTwin/appui/pull/782)
 
   Usage example:
 
@@ -63,4 +63,4 @@ Table of contents:
 
 ### Changes
 
-- Components will use english localization strings by default if `LocalizationProvider` is not used and static package initializer is not used.
+- Components will use english localization strings by default if `LocalizationProvider` is not used and static package initializer is not used. [#782](https://github.com/iTwin/appui/pull/782)
