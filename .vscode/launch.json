@@ -15,11 +15,11 @@
     },
     // UI TESTS
     {
-      "name": "[UI] Tests: Components React",
+      "name": "@itwin/components-react open tests",
       "presentation": {
-        "group": "4_UI"
+        "group": "1_tests"
       },
-      "cwd": "${workspaceFolder}/ui/components-react",
+      "cwd": "${workspaceFolder}",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/ui/components-react/node_modules/mocha/bin/_mocha",
@@ -33,26 +33,23 @@
       "outFiles": ["${workspaceFolder}/{core,ui}/*/lib/**/*.js"]
     },
     {
-      "name": "[UI] Tests: Core React",
+      "name": "@itwin/core-react open tests",
       "presentation": {
-        "group": "4_UI"
+        "group": "1_tests"
       },
       "cwd": "${workspaceFolder}/ui/core-react",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/ui/core-react/node_modules/mocha/bin/_mocha",
-      "args": [
-        "--config",
-        "../.mocharc.json",
-        "--no-timeouts",
-        "lib/cjs/test/**/*.test.js"
-      ],
-      "outFiles": ["${workspaceFolder}/{core,ui}/*/lib/**/*.js"]
+      "autoAttachChildProcesses": true,
+      "program": "${workspaceFolder}/ui/core-react/node_modules/vitest/vitest.mjs",
+      "args": ["run", "../../${relativeFile}"],
+      "smartStep": true,
+      "console": "integratedTerminal"
     },
     {
-      "name": "[UI] Tests: IModel Components React",
+      "name": "@itwin/imodel-components-react open tests",
       "presentation": {
-        "group": "4_UI"
+        "group": "1_tests"
       },
       "cwd": "${workspaceFolder}/ui/imodel-components-react",
       "type": "node",
@@ -67,9 +64,9 @@
       "outFiles": ["${workspaceFolder}/{core,ui}/*/lib/cjs/**/*.js"]
     },
     {
-      "name": "[UI] Tests: AppUI React",
+      "name": "@itwin/appui-react open tests",
       "presentation": {
-        "group": "4_UI"
+        "group": "1_tests"
       },
       "cwd": "${workspaceFolder}/ui/appui-react",
       "type": "node",
