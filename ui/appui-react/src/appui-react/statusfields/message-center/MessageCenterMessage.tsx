@@ -35,13 +35,13 @@ export function MessageCenterMessage(props: MessageCenterMessageProps) {
   const { icon, message, details, style, className } = props;
 
   return (
-    <div className={"mc-footer-messageCenter-message"} style={style}>
+    <div className={"uifw-footer-messageCenter-message"} style={style}>
       {icon && <Icon size="small">{icon}</Icon>}
       {message && (
         <>
           <MessageRenderer message={message} className={className} useSpan />
           {details && (
-            <Text variant="small" className="mc-content">
+            <Text variant="small" className="uifw-content">
               <MessageRenderer message={details} />
             </Text>
           )}

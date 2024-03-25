@@ -30,11 +30,5 @@
     "url": "http://www.bentley.com"
   },
   "//dependencies": "NOTE: dependencies will be empty here and instead specified in each package.",
-  "//devDependencies": "NOTE: devDependencies will be empty here and instead specified in each package.",
-  "dependencies": {
-    "@storybook/preview-api": "^8.0.0"
-  },
-  "devDependencies": {
-    "@storybook/addon-controls": "^8.0.0"
-  }
+  "//devDependencies": "NOTE: devDependencies will be empty here and instead specified in each package."
 }

@@ -5,7 +5,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "../../layout/footer/variables.scss";
 
-.mc-footer-messageCenter-message {
+.uifw-footer-messageCenter-message {
   $vertical-padding: $nz-message-horizontal-padding;
 
   min-height: 48px;
@@ -27,7 +27,7 @@
     border-top: 1px solid lightgrey;
   }
 
-  > .mc-content {
+  > .uifw-content {
     overflow: hidden;
     overflow-wrap: break-word;
   }

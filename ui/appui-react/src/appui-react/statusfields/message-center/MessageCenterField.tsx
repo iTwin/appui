@@ -90,7 +90,7 @@ export function MessageCenterField() {
         return <></>;
       } else {
         return (
-          <span className="mc-message-prompt" key={`${index.toString()}`}>
+          <span className="uifw-message-prompt" key={`${index.toString()}`}>
             No Messages.
           </span>
         );
@@ -103,7 +103,7 @@ export function MessageCenterField() {
       {["all", "error"].map((tabType) => {
         return (
           <Tabs.Panel value={tabType} key={tabType}>
-            <div className="mc-footer-messageCenter-dialog">
+            <div className=".uifw-statusFields-messageCenter-messageCenterField">
               {getMessages(tabType)}
             </div>
           </Tabs.Panel>
