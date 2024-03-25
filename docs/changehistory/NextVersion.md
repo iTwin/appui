@@ -3,10 +3,15 @@
 Table of contents:
 
 - [@itwin/core-react](#itwincore-react)
+  - [Deprecations](#deprecations)
   - [Additions](#additions)
   - [Changes](#changes)
 
 ## @itwin/core-react
+
+### Deprecations
+
+- Static `Dialog.getFooterButtons()`. Use [iTwinUI buttons](https://itwinui.bentley.com/docs/button) instead.
 
 ### Additions
 

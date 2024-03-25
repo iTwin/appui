@@ -57,7 +57,7 @@ public;ElementSeparatorProps
 public;ExecuteHandler = (this: void) => void
 public;ExpandableList 
 public;ExpandableListProps 
-public;ExpansionToggle 
+public;ExpansionToggle(props: ExpansionToggleProps): React_2.JSX.Element
 public;ExpansionToggleProps 
 public;FillCentered(props: CommonDivProps): React_2.JSX.Element
 alpha;FilteredText(props: FilteredTextProps): React_2.JSX.Element

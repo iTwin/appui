@@ -415,7 +415,7 @@ export class Dialog extends React_2.Component<DialogProps> {
     componentWillUnmount(): void;
     // (undocumented)
     static defaultProps: Partial<DialogProps>;
-    // (undocumented)
+    // @deprecated (undocumented)
     protected getFooterButtons(buttonCluster: DialogButtonDef[] | undefined, primaryStyleType?: ButtonProps["styleType"], noCoreButtonClasses?: boolean): React_2.ReactNode[] | undefined;
     // (undocumented)
     protected _handleContainerPointerDown: (event: React_2.PointerEvent) => void;
@@ -610,10 +610,7 @@ export interface ExpandableListProps extends CommonProps {
 }
 
 // @public
-export class ExpansionToggle extends React_2.PureComponent<ExpansionToggleProps> {
-    // (undocumented)
-    render(): React_2.JSX.Element;
-}
+export function ExpansionToggle(props: ExpansionToggleProps): React_2.JSX.Element;
 
 // @public
 export interface ExpansionToggleProps extends CommonProps {
@@ -1778,15 +1775,13 @@ export interface TreeProps extends CommonProps {
 export class UiCore {
     static initialize(localization: Localization_2): Promise<void>;
     static get initialized(): boolean;
-    // @internal
-    static get localization(): Localization_2;
     static get localizationNamespace(): string;
     // @internal (undocumented)
     static loggerCategory(obj: any): string;
     // @internal (undocumented)
     static get packageName(): string;
     static terminate(): void;
-    // @internal
+    // @internal @deprecated
     static translate(key: string | string[]): string;
 }
 
