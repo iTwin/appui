@@ -37,7 +37,7 @@ import { TestAppLocalization, useTranslation } from "../../useTranslation";
 async function getDefaultViewId(
   iModelConnection: IModelConnection
 ): Promise<Id64String | undefined> {
-  const requestedViewId = process.env.IMJS_UITESTAPP_IMODEL_VIEWID;
+  const requestedViewId = import.meta.env.IMJS_UITESTAPP_IMODEL_VIEWID;
   // try specified viewId first
   if (requestedViewId) {
     const queryParams: ViewQueryParams = {};
