@@ -19,18 +19,14 @@
       "presentation": {
         "group": "1_tests"
       },
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/ui/components-react",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/ui/components-react/node_modules/mocha/bin/_mocha",
-      "args": [
-        "--config",
-        "../.mocharc.json",
-        "--no-timeouts",
-        "lib/cjs/test/**/*.test.js"
-      ],
-      "skipFiles": ["<node_internals>/**/*.js", "node_modules/rxjs/**/*"],
-      "outFiles": ["${workspaceFolder}/{core,ui}/*/lib/**/*.js"]
+      "autoAttachChildProcesses": true,
+      "program": "${workspaceFolder}/ui/components-react/node_modules/vitest/vitest.mjs",
+      "args": ["run", "../../${relativeFile}"],
+      "smartStep": true,
+      "console": "integratedTerminal"
     },
     {
       "name": "@itwin/core-react open tests",
