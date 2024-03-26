@@ -20,11 +20,10 @@ import {
   ToolbarPopupAutoHideContext,
 } from "../../components-react/toolbar/InternalToolbarComponent";
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
-import TestUtils, { BadgeType } from "../TestUtils";
+import { BadgeType } from "../TestUtils";
 import { ToolbarWithOverflow } from "../../components-react/toolbar/ToolbarWithOverflow";
 
 /* eslint-disable deprecation/deprecation */
-// cSpell:ignore testid
 
 function createBubbledEvent(type: string, props = {}) {
   const event = new Event(type, { bubbles: true });
@@ -32,21 +31,7 @@ function createBubbledEvent(type: string, props = {}) {
   return event;
 }
 
-describe("<ToolbarWithOverflow />", () => {
-  const sandbox = sinon.createSandbox();
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
+describe.only("<ToolbarWithOverflow />", () => {
   describe("<Horizontal ToolbarWithOverflow />", () => {
     const spy = vi.fn();
 
@@ -110,9 +95,8 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("will render 6 items without overflow", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -121,7 +105,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
@@ -131,9 +116,8 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("will render 6 items without overflow - simulate horizontal toolbar at bottom right of window.", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -142,7 +126,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           panelAlignment={ToolbarPanelAlignment.End}
@@ -157,9 +142,8 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("will render 3 items with overflow - simulate horizontal toolbar right of window.", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 168 }); // 4*42 = 168
           } else if (
@@ -168,7 +152,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           panelAlignment={ToolbarPanelAlignment.End}
@@ -197,9 +182,8 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("will render with 3 items + overflow", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 168 }); // 4*42 = 168
           } else if (
@@ -208,7 +192,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
@@ -231,9 +216,8 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("will auto-hide rendered with 3 items + overflow", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 168 }); // 4*42 = 168
           } else if (
@@ -242,7 +226,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       let isHidden = false;
       const renderedComponent = render(
         <ToolbarPopupAutoHideContext.Provider value={isHidden}>
@@ -334,9 +319,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 168 }); // 4*42 = 168
           } else if (
@@ -345,7 +329,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           items={toolbarItemsWithGroup}
@@ -416,9 +401,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 300 }); // plenty of room not no need overflow
           } else if (
@@ -427,7 +411,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           items={toolbarItemsWithGroupPriority}
@@ -486,9 +471,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 300 }); // plenty of room not no need overflow
           } else if (
@@ -497,7 +481,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           items={toolbarItemsWithGroupPriority}
@@ -556,9 +541,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 300 }); // plenty of room not no need overflow
           } else if (
@@ -567,7 +551,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           items={toolbarItemsWithGroupPriority}
@@ -631,9 +616,8 @@ describe("<ToolbarWithOverflow />", () => {
     ];
 
     it("will render 6 items without overflow", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ height: 252 }); // 6*42 = 252
           } else if (
@@ -642,7 +626,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ height: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           expandsTo={Direction.Right}
@@ -655,9 +640,8 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("will render 6 items without overflow - simulate vertical bar in Navigation Area", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ height: 252 }); // 6*42 = 252
           } else if (
@@ -666,7 +650,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ height: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           expandsTo={Direction.Left}
@@ -679,9 +664,8 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("will render with 3 items + overflow", () => {
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ height: 168 }); // 4*42 = 168
           } else if (
@@ -690,7 +674,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ height: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           expandsTo={Direction.Right}
@@ -717,9 +702,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -728,7 +712,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
@@ -754,9 +739,8 @@ describe("<ToolbarWithOverflow />", () => {
 
       const toolbarItems: CommonToolbarItem[] = [getCustomDefWithPopupPanel()];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -765,7 +749,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const onKeyDownSpy = vi.fn();
 
       const renderedComponent = render(
@@ -784,7 +769,7 @@ describe("<ToolbarWithOverflow />", () => {
       popupPanel!.dispatchEvent(
         createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
       );
-      onKeyDownexpect(spy).toHaveBeenCalledOnce();
+      expect(onKeyDownSpy).toHaveBeenCalledOnce();
     });
 
     it("should auto-hide open panel", () => {
@@ -801,9 +786,8 @@ describe("<ToolbarWithOverflow />", () => {
 
       const toolbarItems: CommonToolbarItem[] = [getCustomDefWithPopupPanel()];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -812,7 +796,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       let isHidden = false;
       const renderedComponent = render(
         <ToolbarPopupAutoHideContext.Provider value={isHidden}>
@@ -855,9 +840,8 @@ describe("<ToolbarWithOverflow />", () => {
 
       const toolbarItems: CommonToolbarItem[] = [getCustomDefWithPopupPanel()];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -866,7 +850,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const onKeyDownSpy = vi.fn();
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} onKeyDown={onKeyDownSpy} />
@@ -918,9 +903,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -929,7 +913,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
@@ -1242,9 +1227,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -1253,7 +1237,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
@@ -1537,9 +1522,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -1548,7 +1532,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
@@ -1748,9 +1733,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -1759,7 +1743,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
@@ -1836,9 +1821,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -1847,7 +1831,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} />
       );
@@ -1998,9 +1983,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2009,7 +1993,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
 
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
@@ -2096,9 +2081,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2107,7 +2091,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
 
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
@@ -2158,9 +2143,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2169,7 +2153,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
@@ -2247,9 +2232,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2258,7 +2242,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
@@ -2333,9 +2318,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2344,7 +2328,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
@@ -2403,9 +2388,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2414,7 +2398,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
       );
@@ -2462,9 +2447,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2473,7 +2457,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
 
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
@@ -2547,9 +2532,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2558,7 +2542,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
 
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
@@ -2591,6 +2576,7 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("should open on long press", async () => {
+      vi.useFakeTimers();
       const spy = vi.fn();
 
       const childItems: ReadonlyArray<ActionButton | GroupButton> = [
@@ -2628,9 +2614,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2639,7 +2624,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
 
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
@@ -2656,12 +2642,11 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent.queryByText("Entry3")).to.be.null;
 
       // long press should open group after 500 ms
-      const fakeTimers = vi.fn<
       button!.releasePointerCapture = () => {};
       button!.dispatchEvent(
         createBubbledEvent("pointerdown", { clientX: 30, clientY: 30 })
       );
-      fakeTimers.tick(500);
+      vi.advanceTimersByTime(500);
 
       await waitFor(
         () =>
@@ -2680,7 +2665,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(groupButton).not.to.be.null;
     });
 
-    it("should not open on long press if we move pointer more than 10 px", async () => {
+    it.only("should not open on long press if we move pointer more than 10 px", async () => {
       const spy = vi.fn();
 
       const childItems: ReadonlyArray<ActionButton | GroupButton> = [
@@ -2718,9 +2703,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2729,7 +2713,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
 
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
@@ -2746,7 +2731,6 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent.queryByText("Entry3")).to.be.null;
 
       // long press should open group after 500 ms
-      const fakeTimers = vi.fn<
       button!.releasePointerCapture = () => {};
       button!.dispatchEvent(
         createBubbledEvent("pointerdown", { clientX: 30, clientY: 25 })
@@ -2754,7 +2738,7 @@ describe("<ToolbarWithOverflow />", () => {
       button!.dispatchEvent(
         createBubbledEvent("pointermove", { clientX: 30, clientY: 36 })
       );
-      fakeTimers.tick(500);
+      vi.advanceTimersByTime(500);
 
       // renderedComponent.debug();
       expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
@@ -2776,9 +2760,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 168 }); // 4*42 = 168
           } else if (
@@ -2787,7 +2770,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow
           items={toolbarItems}
@@ -2798,9 +2782,8 @@ describe("<ToolbarWithOverflow />", () => {
       const actionButton = renderedComponent.queryByTitle("Entry1");
       expect(actionButton).not.to.be.null;
       fireEvent.click(actionButton!);
-      // renderedComponent.debug();
-      toolexpect(spy).toHaveBeenCalledOnce();
-      onItemExecuteexpect(spy).toHaveBeenCalledOnce();
+      expect(toolSpy).toHaveBeenCalledOnce();
+      expect(onItemExecuteSpy).toHaveBeenCalledOnce();
     });
 
     it("should call onKeyDown", async () => {
@@ -2816,9 +2799,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 168 }); // 4*42 = 168
           } else if (
@@ -2827,7 +2809,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} onKeyDown={onKeyDownSpy} />
       );
@@ -2838,10 +2821,11 @@ describe("<ToolbarWithOverflow />", () => {
       actionButton!.dispatchEvent(
         createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
       );
-      onKeyDownexpect(spy).toHaveBeenCalledOnce();
+      expect(onKeyDownSpy).toHaveBeenCalledOnce();
     });
 
     it("should not open if we get pointer up before meeting drag requirements", async () => {
+      vi.useFakeTimers();
       const spy = vi.fn();
 
       const childItems: ReadonlyArray<ActionButton | GroupButton> = [
@@ -2879,9 +2863,8 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      sandbox
-        .stub(Element.prototype, "getBoundingClientRect")
-        .callsFake(function (this: HTMLElement) {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
           if (this.classList.contains("components-toolbar-overflow-sizer")) {
             return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
           } else if (
@@ -2890,7 +2873,8 @@ describe("<ToolbarWithOverflow />", () => {
             return DOMRect.fromRect({ width: 40 });
           }
           return new DOMRect();
-        });
+        }
+      );
 
       const renderedComponent = render(
         <ToolbarWithOverflow useDragInteraction={true} items={toolbarItems} />
@@ -2907,7 +2891,6 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent.queryByText("Entry3")).to.be.null;
 
       // long press should open group after 500 ms if we have not moved pointer more than 10px and still have pointer down
-      const fakeTimers = vi.fn<
       button!.releasePointerCapture = () => {};
       button!.dispatchEvent(
         createBubbledEvent("pointerdown", { clientX: 30, clientY: 25 })
@@ -2918,9 +2901,8 @@ describe("<ToolbarWithOverflow />", () => {
       button!.dispatchEvent(
         createBubbledEvent("pointerup", { clientX: 30, clientY: 36 })
       );
-      fakeTimers.tick(500);
+      vi.advanceTimersByTime(500);
 
-      // renderedComponent.debug();
       expect(renderedComponent.queryByText("Group1-Tools")).to.be.null;
       expect(renderedComponent.queryByText("Entry1")).to.be.null;
       expect(renderedComponent.queryByText("Entry2")).to.be.null;

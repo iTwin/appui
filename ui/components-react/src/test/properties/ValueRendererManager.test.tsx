@@ -11,10 +11,6 @@ import { UiComponents } from "../../components-react/UiComponents";
 import TestUtils from "../TestUtils";
 
 describe("PropertyValueRendererManager", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let fakeRenderer: IPropertyValueRenderer;
   let fakeRenderer2: IPropertyValueRenderer;
 
@@ -23,12 +19,12 @@ describe("PropertyValueRendererManager", () => {
   beforeEach(() => {
     fakeRenderer = {
       canRender: () => true,
-      render: sinon.fake(),
+      render: vi.fn(),
     };
 
     fakeRenderer2 = {
       canRender: () => true,
-      render: sinon.fake(),
+      render: vi.fn(),
     };
 
     manager = new PropertyValueRendererManager();
@@ -83,8 +79,8 @@ describe("PropertyValueRendererManager", () => {
       rendererManager.render(record);
 
       expect(fakeRenderer.render).toHaveBeenCalledOnce();
-      expect(fakeRenderer.render).toHaveBeenCalledWith(record);
-      expect(fakeRenderer2.render).to.have.not.been.called;
+      expect(fakeRenderer.render).toHaveBeenCalledWith(record, undefined);
+      expect(fakeRenderer2.render).not.toBeCalled();
     });
 
     it("looks for custom renderer in property typename", () => {
@@ -100,7 +96,7 @@ describe("PropertyValueRendererManager", () => {
       rendererManager.render(record);
 
       expect(fakeRenderer.render).toHaveBeenCalledOnce();
-      expect(fakeRenderer.render).toHaveBeenCalledWith(record);
+      expect(fakeRenderer.render).toHaveBeenCalledWith(record, undefined);
     });
 
     it("renders a primitive type", () => {

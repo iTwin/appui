@@ -18,7 +18,7 @@ describe("<SaturationPicker />", () => {
     await TestUtils.initializeUiIModelComponents();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiIModelComponents();
   });
 
@@ -119,7 +119,7 @@ describe("<SaturationPicker />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 
@@ -224,7 +224,7 @@ describe("<SaturationPicker />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 

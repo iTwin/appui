@@ -151,16 +151,8 @@ describe("PropertyRenderer", () => {
 
   let propertyRecord: PropertyRecord;
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   beforeEach(() => {
     propertyRecord = TestUtils.createPrimitiveStringProperty("Label", "Model");
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
   });
 
   it("updates displayed value if propertyRecord changes", async () => {

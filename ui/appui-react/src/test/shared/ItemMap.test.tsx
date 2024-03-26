@@ -11,7 +11,7 @@ describe("ItemMap & ItemList", () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiFramework();
   });
 

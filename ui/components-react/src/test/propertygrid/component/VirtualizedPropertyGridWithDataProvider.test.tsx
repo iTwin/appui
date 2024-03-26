@@ -47,14 +47,6 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
   let dataProvider: IPropertyDataProvider;
   let defaultProps: VirtualizedPropertyGridWithDataProviderProps;
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   beforeEach(() => {
     const evt = new PropertyDataChangeEvent();
     dataProvider = {
@@ -671,7 +663,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         );
       });
 
-      after(() => {
+      afterEach(() => {
         PropertyCategoryRendererManager.defaultManager.removeRenderer(
           "test_renderer"
         );
@@ -1594,7 +1586,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
 
-      expect(scrollToItemFake).to.have.been.calledOnceWithExactly(3);
+      expect(scrollToItemFake).toHaveBeenCalledWith(3);
     });
 
     it("scrolls to highlighted category when highlight is updated", async () => {
@@ -1642,7 +1634,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
 
-      expect(scrollToItemFake).to.have.been.calledOnceWithExactly(0);
+      expect(scrollToItemFake).toHaveBeenCalledWith(0);
     });
 
     it("scrolls to highlighted label when highlight is updated", async () => {
@@ -1690,7 +1682,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
 
-      expect(scrollToItemFake).to.have.been.calledOnceWithExactly(3);
+      expect(scrollToItemFake).toHaveBeenCalledWith(3);
     });
 
     it("doesn't scroll to item when activeMatch is not provided", async () => {

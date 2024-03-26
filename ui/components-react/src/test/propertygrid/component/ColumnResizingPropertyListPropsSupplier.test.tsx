@@ -15,9 +15,6 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   let records: PropertyRecord[];
   const throttleMs = 16;
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
 
   beforeEach(() => {
     theUserTo = userEvent.setup({

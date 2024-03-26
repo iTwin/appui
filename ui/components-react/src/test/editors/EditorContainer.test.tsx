@@ -11,17 +11,9 @@ import { StandardEditorNames } from "@itwin/appui-abstract";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 describe("<EditorContainer />", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
   });
 
   it("renders editor for 'text' type using TextEditor", () => {

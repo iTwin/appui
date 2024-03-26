@@ -13,10 +13,6 @@ describe("FavoritePropertiesRenderer", () => {
   let dataProvider: FavoritePropertiesDataProvider;
   let renderer: FavoritePropertiesRenderer;
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   class FavoritePropertiesDataProvider {
     private _categories: PropertyCategory[] = [
       { name: "Favorite", label: "Group 1", expand: true },

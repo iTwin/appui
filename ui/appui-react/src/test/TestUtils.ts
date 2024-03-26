@@ -286,7 +286,7 @@ export function stubRaf() {
     };
   });
 
-  after(() => {
+  afterEach(() => {
     window.requestAnimationFrame = raf;
     window.cancelAnimationFrame = caf;
   });

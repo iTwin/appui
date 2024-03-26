@@ -21,7 +21,7 @@ describe("<ColorPickerPopup/>", () => {
     await TestUtils.initializeUiIModelComponents();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiIModelComponents();
   });
 
@@ -322,7 +322,7 @@ describe("<ColorPickerPopup/>", () => {
     fireEvent.change(redInput, { target: { value: "100" } });
     expect(redInput.value).toEqual("100");
     fireEvent.keyDown(redInput, { key: Key.Enter });
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("ensure hsl values are shown", async () => {
@@ -350,7 +350,7 @@ describe("<ColorPickerPopup/>", () => {
     fireEvent.change(hueInput, { target: { value: "100" } });
     expect(hueInput.value).toEqual("100");
     fireEvent.keyDown(hueInput, { key: Key.Enter });
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should not show swatches", async () => {

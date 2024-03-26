@@ -30,7 +30,7 @@ describe("ContentControl", () => {
     UiFramework.controls.register("TestContentControl", TestContentControl);
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiFramework();
   });
 

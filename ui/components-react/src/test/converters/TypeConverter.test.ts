@@ -18,10 +18,6 @@ describe("TypeConverter", () => {
     }
   }
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: TypeConverter;
 
   beforeEach(() => {

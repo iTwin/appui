@@ -40,7 +40,7 @@ describe("UrlPropertyValueRenderer", () => {
       );
 
       property.links = {
-        onClick: sinon.spy(),
+        onClick: vi.fn(),
         matcher: () => [{ start: 0, end: 4 }],
       };
 
@@ -88,26 +88,13 @@ describe("UrlPropertyValueRenderer", () => {
     describe("onClick", () => {
       const locationMockRef: moq.IMock<Location> =
         moq.Mock.ofInstance(location);
-      let spy: sinon.SinonStub<
-        [
-          (string | URL | undefined)?,
-          (string | undefined)?,
-          (string | undefined)?,
-          (boolean | undefined)?
-        ],
-        Window | null
-      >;
 
       beforeEach(() => {
         location = locationMockRef.object;
       });
 
-      after(() => {
-        locationMockRef.reset();
-      });
-
       afterEach(() => {
-        spy.restore();
+        locationMockRef.reset();
       });
 
       it("opens window using the whole URI value, when link which doesn't start with pw: or mailto: is clicked", () => {
@@ -116,8 +103,8 @@ describe("UrlPropertyValueRenderer", () => {
           "Label",
           "Random Test property"
         );
-        spy = vi.spyOn(window, "open");
-        spy.returns(null);
+        const spy = vi.spyOn(window, "open");
+        spy.mockReturnValue(null);
 
         const element = renderer.render(stringProperty);
         const renderedElement = render(<>{element}</>);
@@ -180,8 +167,8 @@ describe("UrlPropertyValueRenderer", () => {
         const windowMock = moq.Mock.ofType<Window>();
         windowMock.setup((x) => x.focus());
 
-        spy = vi.spyOn(window, "open");
-        spy.returns(windowMock.object);
+        const spy = vi.spyOn(window, "open");
+        spy.mockReturnValue(windowMock.object);
 
         const element = renderer.render(stringProperty);
         const renderedElement = render(<>{element}</>);

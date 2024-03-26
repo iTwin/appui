@@ -21,7 +21,7 @@ describe("StagePanelDef", () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiFramework();
   });
 

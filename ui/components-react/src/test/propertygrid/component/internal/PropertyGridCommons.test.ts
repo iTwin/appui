@@ -45,7 +45,7 @@ describe("PropertyGrid Commons", () => {
       location = locationMockRef.object;
     });
 
-    after(() => {
+    afterEach(() => {
       locationMockRef.reset();
     });
 

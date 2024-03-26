@@ -24,7 +24,7 @@ describe("WidgetContent", () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiFramework();
   });
 

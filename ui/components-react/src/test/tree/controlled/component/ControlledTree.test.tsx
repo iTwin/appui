@@ -25,7 +25,6 @@ import type {
 import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader";
 import type { HighlightableTreeProps } from "../../../../components-react/tree/HighlightingEngine";
 import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
-import TestUtils from "../../../TestUtils";
 import { SparseArray } from "../../../../components-react/tree/controlled/internal/SparseTree";
 import * as useElementsScrollStorageModule from "../../../../components-react/common/UseElementsScrollStorage";
 
@@ -41,14 +40,6 @@ describe("ControlledTree", () => {
     height: 200,
   };
   let node: MutableTreeModelNode;
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
 
   beforeEach(() => {
     treeModelMock.reset();

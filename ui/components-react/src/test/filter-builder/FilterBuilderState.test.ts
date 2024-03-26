@@ -19,7 +19,6 @@ import {
   isPropertyFilterBuilderRuleGroup,
   usePropertyFilterBuilder,
 } from "../../components-react/filter-builder/FilterBuilderState";
-import TestUtils from "../TestUtils";
 import { UiComponents } from "../../components-react/UiComponents";
 import type { PropertyFilter } from "../../components-react/filter-builder/Types";
 import { PropertyFilterBuilderRuleRangeValue } from "../../components-react";
@@ -27,14 +26,6 @@ import { PropertyFilterBuilderRuleRangeValue } from "../../components-react";
 chai.use(chaiSubset);
 
 describe("usePropertyFilterBuilder", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   const property = {
     name: "testName",
     displayLabel: "testLabel",

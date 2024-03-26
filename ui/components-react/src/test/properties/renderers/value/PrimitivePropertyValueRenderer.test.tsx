@@ -60,7 +60,7 @@ describe("PrimitivePropertyValueRenderer", () => {
         "Test property"
       );
       stringProperty.links = {
-        onClick: sinon.spy(),
+        onClick: vi.fn(),
       };
 
       const element = renderer.render(stringProperty);
@@ -99,7 +99,7 @@ describe("PrimitivePropertyValueRenderer", () => {
         "Test property"
       );
       stringProperty.links = {
-        onClick: sinon.spy(),
+        onClick: vi.fn(),
         matcher: () => [{ start: 0, end: 4 }],
       };
 
@@ -114,9 +114,7 @@ describe("PrimitivePropertyValueRenderer", () => {
     });
 
     it("renders async value with default value in context", async () => {
-      sinon.replace(
-        TypeConverterManager,
-        "getConverter",
+      vi.spyOn(TypeConverterManager, "getConverter").mockImplementation(
         () => new AsyncValuesTypeConverter()
       );
       const renderer = new PrimitivePropertyValueRenderer();
@@ -140,9 +138,7 @@ describe("PrimitivePropertyValueRenderer", () => {
     });
 
     it("renders async value without default value in context", async () => {
-      sinon.replace(
-        TypeConverterManager,
-        "getConverter",
+      vi.spyOn(TypeConverterManager, "getConverter").mockImplementation(
         () => new AsyncValuesTypeConverter()
       );
       const renderer = new PrimitivePropertyValueRenderer();

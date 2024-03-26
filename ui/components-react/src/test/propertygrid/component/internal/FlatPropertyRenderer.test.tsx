@@ -14,14 +14,6 @@ describe("FlatPropertyRenderer", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   let propertyRecord: PropertyRecord;
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   beforeEach(() => {
     theUserTo = userEvent.setup();
     propertyRecord = TestUtils.createPrimitiveStringProperty("Label", "Model");

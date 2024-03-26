@@ -36,7 +36,7 @@ describe("<SpeedTimeline />", () => {
 
   afterEach(() => {});
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiIModelComponents();
   });
 
@@ -78,7 +78,7 @@ describe("<SolarTimeline />", () => {
     rafspy.mockReset();
   });
 
-  after(() => {
+  afterEach(() => {
     sinon.restore();
     TestUtils.terminateUiIModelComponents();
   });

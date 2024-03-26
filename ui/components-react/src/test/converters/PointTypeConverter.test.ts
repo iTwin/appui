@@ -11,13 +11,8 @@ import {
 } from "../../components-react";
 import { TypeConverter } from "../../components-react/converters/TypeConverter";
 import { TypeConverterManager } from "../../components-react/converters/TypeConverterManager";
-import TestUtils from "../TestUtils";
 
 describe("Point2dTypeConverter", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: Point2dTypeConverter;
 
   beforeEach(() => {
@@ -142,10 +137,6 @@ describe("Point2dTypeConverter", () => {
 });
 
 describe("Point3dTypeConverter", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: Point3dTypeConverter;
 
   beforeEach(() => {
@@ -339,6 +330,6 @@ const expectOptionalPromiseLikeEq = async (
     expect(actual).toEqual(expected);
   } else {
     expect(isPromiseLike(actual)).toEqual(true);
-    await expect(actual).to.eventually.eq(expected);
+    await expect(actual).resolves.toEqual(expected);
   }
 };

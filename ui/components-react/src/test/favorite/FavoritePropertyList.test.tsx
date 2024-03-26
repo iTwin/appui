@@ -18,10 +18,6 @@ import { render, screen } from "@testing-library/react";
 describe("FavoritePropertyList", () => {
   let data: PropertyData;
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   beforeEach(() => {
     const categories: PropertyCategory[] = [
       { name: "Favorite", label: "Group 1", expand: true },

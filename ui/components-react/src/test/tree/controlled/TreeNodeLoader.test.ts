@@ -85,7 +85,7 @@ describe("TreeNodeLoader", () => {
     await UiComponents.initialize(new EmptyLocalization());
   });
 
-  after(() => {
+  afterEach(() => {
     UiComponents.terminate();
   });
 
@@ -252,7 +252,7 @@ describe("PagedTreeNodeLoader", () => {
     await UiComponents.initialize(new EmptyLocalization());
   });
 
-  after(() => {
+  afterEach(() => {
     UiComponents.terminate();
   });
 
@@ -499,7 +499,7 @@ describe("AbstractTreeNodeLoader", () => {
     await UiComponents.initialize(new EmptyLocalization());
   });
 
-  after(() => {
+  afterEach(() => {
     UiComponents.terminate();
   });
 

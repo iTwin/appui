@@ -5,7 +5,6 @@
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { Key } from "ts-key-enum";
-import TestUtils from "../TestUtils";
 import { ParsedInput } from "../../components-react/inputs/ParsedInput";
 import type { ParseResults } from "@itwin/appui-abstract";
 
@@ -41,14 +40,6 @@ function formatCelsiusValue(temperature: number): string {
 }
 
 describe("ParsedInput", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  afterEach(async () => {
-    TestUtils.terminateUiComponents();
-  });
-
   it("should process format and parse function", () => {
     const initialTemperature = 20; // 20 C
     const spyOnChange = vi.fn();

@@ -22,7 +22,7 @@ describe("InputFieldMessage", () => {
     UiFramework.keyboardShortcuts.closeMenu();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiFramework();
   });
 

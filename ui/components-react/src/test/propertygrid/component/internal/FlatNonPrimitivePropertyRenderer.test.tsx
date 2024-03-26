@@ -18,9 +18,6 @@ describe("FlatNonPrimitivePropertyRenderer", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
 
   it("renders correctly", async () => {
     render(

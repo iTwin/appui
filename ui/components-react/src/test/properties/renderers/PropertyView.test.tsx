@@ -16,15 +16,10 @@ import { render, screen } from "@testing-library/react";
 
 describe("PropertyView", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
+  let propertyRecord: PropertyRecord;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-  let propertyRecord: PropertyRecord;
-
-  beforeEach(async () => {
     propertyRecord = TestUtils.createPrimitiveStringProperty("Label", "Model");
-
-    await TestUtils.initializeUiComponents();
   });
 
   describe("Minimum column size disabled grid-template-columns", () => {

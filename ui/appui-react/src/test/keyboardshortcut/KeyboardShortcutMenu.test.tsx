@@ -66,7 +66,7 @@ describe("KeyboardShortcutMenu", () => {
     ];
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiFramework();
   });
 

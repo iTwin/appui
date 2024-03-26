@@ -123,7 +123,7 @@ describe("ConnectedContent", () => {
     expect(span3.innerHTML).to.be.eq(viewportControlId);
   });
 
-  after(() => {
+  afterEach(() => {
     // clear out the framework key
     TestUtils.terminateUiFramework();
   });

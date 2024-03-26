@@ -28,14 +28,6 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     typename: "int",
   };
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   describe("rule operator", () => {
     it("does not render operator if rule property is undefined", () => {
       const { container } = renderWithContext(

@@ -30,7 +30,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
     });
   });
 
-  after(() => {
+  afterEach(() => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
 

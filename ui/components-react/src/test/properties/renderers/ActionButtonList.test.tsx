@@ -13,8 +13,7 @@ import TestUtils from "../../TestUtils";
 describe("ActionButtonList", () => {
   let propertyRecord: PropertyRecord;
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
+  beforeEach(() => {
     propertyRecord = TestUtils.createPrimitiveStringProperty("Label", "Model");
   });
 

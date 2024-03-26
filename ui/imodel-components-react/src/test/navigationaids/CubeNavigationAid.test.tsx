@@ -36,7 +36,7 @@ describe("CubeNavigationAid", () => {
     await TestUtils.initializeUiIModelComponents();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiIModelComponents();
   });
 

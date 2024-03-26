@@ -46,7 +46,7 @@ describe("KeyboardShortcut", () => {
     });
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiFramework();
   });
 

@@ -65,6 +65,6 @@ describe("ActivityCenter", () => {
 
     const spy = vi.spyOn(MessageManager, "setupActivityMessageValues");
     fireEvent.click(field);
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 });

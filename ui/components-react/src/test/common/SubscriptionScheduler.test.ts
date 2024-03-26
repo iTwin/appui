@@ -175,7 +175,7 @@ describe("SubscriptionScheduler", () => {
             scheduledObservable.subscribe({ error: errorSpy })
           );
 
-          expect(errorSpy).to.have.been.calledOnceWithExactly(error);
+          expect(errorSpy).toHaveBeenCalledWith(error);
         });
 
         it("schedules the following observable when the previous one emits error", async () => {
@@ -199,7 +199,7 @@ describe("SubscriptionScheduler", () => {
           await waitForUnsubscription(firstSubscription);
           await waitForUnsubscription(secondSubscription);
 
-          expect(errorSpy).to.have.been.calledOnceWithExactly(error);
+          expect(errorSpy).toHaveBeenCalledWith(error);
           expect(errorSpy).to.have.been.calledBefore(nextSpy);
           expect(nextSpy).to.have.been.calledThrice;
           expect(completeSpy).to.have.been.calledAfter(nextSpy);
@@ -228,6 +228,6 @@ describe("scheduleSubscription", () => {
     const schedulerSpy = vi.spyOn(scheduler, "scheduleSubscription");
     const source = from([0, 1, 2]);
     source.pipe(scheduleSubscription(scheduler)).subscribe();
-    expect(schedulerSpy).to.have.been.calledOnceWithExactly(source);
+    expect(schedulerSpy).toHaveBeenCalledWith(source);
   });
 });

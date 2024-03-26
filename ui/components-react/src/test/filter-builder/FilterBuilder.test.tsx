@@ -32,14 +32,6 @@ describe("PropertyFilterBuilder", () => {
     typename: "string",
   };
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   it("call onFilterChanged with filter after new rule is setup", async () => {
     const user = userEvent.setup();
     const spy = vi.fn();

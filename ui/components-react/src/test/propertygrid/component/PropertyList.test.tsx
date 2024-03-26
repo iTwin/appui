@@ -12,10 +12,6 @@ import {
 import { fireEvent, render } from "@testing-library/react";
 
 describe("PropertyList", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   it("should call `onPropertyClicked` when clicked on a primitive property", async () => {
     const primitiveRecord = TestUtils.createPrimitiveStringProperty(
       "primitive",

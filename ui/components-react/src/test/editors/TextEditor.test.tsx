@@ -40,9 +40,6 @@ import {
 } from "../../components-react";
 
 describe("<TextEditor />", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
@@ -229,14 +226,6 @@ describe("<TextEditor />", () => {
   });
 
   describe("Needs IModelApp", () => {
-    beforeEach(async () => {
-      await TestUtils.initializeUiComponents();
-    });
-
-    afterEach(async () => {
-      TestUtils.terminateUiComponents();
-    });
-
     it("should not commit if DataController fails to validate", async () => {
       PropertyEditorManager.registerDataController(
         "myData",

@@ -14,6 +14,7 @@ import type {
 import type { TreeModelSource } from "../../../../components-react/tree/controlled/TreeModelSource";
 import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader";
 import { createRandomMutableTreeModelNode } from "../TreeHelpers";
+import type { Mock } from "vitest";
 
 describe("TreeModelMutator", () => {
   let modelMutator: TreeModelMutator;
@@ -312,13 +313,10 @@ describe("TreeModelMutator", () => {
     });
 
     describe("nodeEditingInfo callbacks", () => {
-      let onNodeUpdatedSpy: sinon.SinonSpy;
-
+      let onNodeUpdatedSpy: Mock<any, any>;
       beforeEach(() => {
         onNodeUpdatedSpy = vi.fn();
-        treeModelMock
-          .setup((x) => x.getNode(node.id))
-          .mockReturnValue(() => node);
+        treeModelMock.setup((x) => x.getNode(node.id)).returns(() => node);
         modelMutator.activateEditing(node.id, onNodeUpdatedSpy);
       });
 

@@ -17,7 +17,7 @@ describe("ValidationTextbox", () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiFramework();
   });
 

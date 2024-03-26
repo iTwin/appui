@@ -37,7 +37,7 @@ describe("UnitSystemSelector", () => {
     fireEvent.click(
       within(menu).getByText("presentationUnitSystem.USCustomary")
     );
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("will render three systems", async () => {
@@ -65,6 +65,6 @@ describe("UnitSystemSelector", () => {
       return within(element).queryByText("presentationUnitSystem.Metric");
     })!;
     fireEvent.click(within(menu).getByText("presentationUnitSystem.USSurvey"));
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 });

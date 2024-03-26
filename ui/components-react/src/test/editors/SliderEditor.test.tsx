@@ -21,9 +21,6 @@ import { PropertyEditorManager } from "../../components-react/editors/PropertyEd
 import { findInstance } from "../ReactInstance";
 
 describe("<SliderEditor />", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();

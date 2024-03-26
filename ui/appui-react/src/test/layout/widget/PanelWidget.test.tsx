@@ -212,7 +212,7 @@ describe("PanelWidget", () => {
       fireEvent.mouseMove(document, { clientX: 10, clientY: 10 });
     });
 
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 });
 

@@ -18,7 +18,7 @@ describe("StandardMessageBox", () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiFramework();
   });
 

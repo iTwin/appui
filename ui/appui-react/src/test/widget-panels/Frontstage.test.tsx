@@ -287,7 +287,7 @@ describe("Frontstage local storage wrapper", () => {
       await TestUtils.initializeUiFramework();
     });
 
-    after(() => {
+    afterEach(() => {
       TestUtils.terminateUiFramework();
     });
 
@@ -352,7 +352,7 @@ describe("Frontstage local storage wrapper", () => {
         await TestUtils.initializeUiFramework();
       });
 
-      after(() => {
+      afterEach(() => {
         TestUtils.terminateUiFramework();
       });
 
@@ -539,7 +539,7 @@ describe("Frontstage local storage wrapper", () => {
         await TestUtils.initializeUiFramework();
       });
 
-      after(() => {
+      afterEach(() => {
         TestUtils.terminateUiFramework();
       });
 
@@ -642,7 +642,7 @@ describe("Frontstage local storage wrapper", () => {
         fakeTimers.tick(1000);
         fakeTimers.restore();
 
-        sinon.assert.calledOnce(spy);
+        expect(spy).toHaveBeenCalledOnce();
       });
 
       it("should not save if tab is dragged", async () => {
@@ -1631,7 +1631,7 @@ describe("Frontstage local storage wrapper", () => {
           </Provider>
         );
         window.dispatchEvent(new Event("unload"));
-        sinon.assert.calledOnce(spy);
+        expect(spy).toHaveBeenCalledOnce();
         wrapper.unmount();
       });
 

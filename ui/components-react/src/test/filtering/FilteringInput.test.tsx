@@ -8,15 +8,12 @@ import {
   FilteringInput,
   FilteringInputStatus,
 } from "../../components-react/filtering/FilteringInput";
-import TestUtils, { selectorMatches, userEvent } from "../TestUtils";
+import { selectorMatches, userEvent } from "../TestUtils";
 
 describe("FilteringInput", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
   });
 
   it("renders correctly", () => {

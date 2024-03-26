@@ -14,9 +14,6 @@ describe("StructPropertyValueRenderer", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
 
   describe("render", () => {
     it("renders struct property", () => {
@@ -49,8 +46,14 @@ describe("StructPropertyValueRenderer", () => {
       });
       render(<>{element}</>);
       await theUserTo.click(screen.getByTitle("View {struct} in more detail."));
-      expect(dialogSpy).to.have.been.calledWithMatch(
-        (arg: any) => arg?.content?.props?.orientation === Orientation.Vertical
+      expect(dialogSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          content: expect.objectContaining({
+            props: expect.objectContaining({
+              orientation: Orientation.Vertical,
+            }),
+          }),
+        })
       );
     });
 
@@ -67,9 +70,14 @@ describe("StructPropertyValueRenderer", () => {
 
       await theUserTo.click(screen.getByRole("link"));
 
-      expect(dialogSpy).to.have.been.calledWithMatch(
-        (arg: any) =>
-          arg?.content?.props?.orientation === Orientation.Horizontal
+      expect(dialogSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          content: expect.objectContaining({
+            props: expect.objectContaining({
+              orientation: Orientation.Horizontal,
+            }),
+          }),
+        })
       );
     });
 

@@ -5,15 +5,12 @@
 import * as React from "react";
 import { ResultSelector } from "../../components-react/filtering/ResultSelector";
 import { render, screen } from "@testing-library/react";
-import TestUtils, { userEvent } from "../TestUtils";
+import { userEvent } from "../TestUtils";
 
 describe("ResultSelector", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
   });
 
   it("content is '0 of 0' and buttons are disabled when result count is 0", () => {

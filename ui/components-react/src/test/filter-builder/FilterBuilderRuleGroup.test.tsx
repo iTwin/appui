@@ -35,14 +35,6 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     isGroupOperatorDisabled: false,
   };
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   it("does not render remove button for root group", () => {
     const { queryByTestId } = renderWithContext(
       <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />

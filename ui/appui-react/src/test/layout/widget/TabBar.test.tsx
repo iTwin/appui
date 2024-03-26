@@ -195,7 +195,7 @@ describe("useDrag", () => {
       fireEvent.mouseDown(instance);
       fireEvent.mouseMove(document);
     });
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should not start drag on subsequent pointer move", () => {
@@ -222,7 +222,7 @@ describe("useDrag", () => {
       fireEvent.mouseMove(document);
       fireEvent.mouseMove(document);
     });
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should report drag end action", () => {
@@ -234,6 +234,6 @@ describe("useDrag", () => {
       fireEvent.mouseDown(instance);
       fireEvent.mouseUp(document);
     });
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 });

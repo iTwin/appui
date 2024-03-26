@@ -27,7 +27,6 @@ import {
 import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader";
 import type { HighlightableTreeProps } from "../../../../components-react/tree/HighlightingEngine";
 import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
-import TestUtils from "../../../TestUtils";
 import { createRandomMutableTreeModelNode } from "../TreeHelpers";
 
 describe("TreeRenderer", () => {
@@ -44,12 +43,10 @@ describe("TreeRenderer", () => {
   };
 
   beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
     HTMLElement.prototype.scrollIntoView = () => {};
   });
 
-  after(() => {
-    TestUtils.terminateUiComponents();
+  afterEach(() => {
     delete (HTMLElement.prototype as any).scrollIntoView;
   });
 
@@ -429,7 +426,7 @@ describe("TreeRenderer", () => {
       render(<TreeRenderer ref={treeRendererRef} {...defaultProps} />);
 
       treeRendererRef.current!.scrollToNode("test_id", "smart");
-      expect(scrollToItemFake).to.have.been.calledOnceWithExactly(15, "smart");
+      expect(scrollToItemFake).toHaveBeenCalledWith(15, "smart");
     });
 
     it("does not throw if called early", () => {
@@ -445,7 +442,7 @@ describe("TreeRenderer", () => {
         })
       );
 
-      expect(scrollToItemFake).to.have.been.calledOnceWithExactly(15, "smart");
+      expect(scrollToItemFake).toHaveBeenCalledWith(15, "smart");
     });
   });
 });

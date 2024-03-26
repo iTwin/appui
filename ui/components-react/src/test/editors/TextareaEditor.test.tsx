@@ -25,10 +25,6 @@ describe("<TextareaEditor />", () => {
     theUserTo = userEvent.setup();
   });
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   it("renders correctly with style and no record", async () => {
     render(<TextareaEditor style={{ color: "red" }} />);
     await theUserTo.click(screen.getByTestId("components-popup-button"));

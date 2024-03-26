@@ -73,7 +73,7 @@ function describeAbstractAdapter(title: string, fn: () => void) {
         UiItemsManager.useAbstractAdapter(useAbstractAdapter);
       });
 
-      after(() => {
+      afterEach(() => {
         UiItemsManager.useAbstractAdapter(true);
       });
 

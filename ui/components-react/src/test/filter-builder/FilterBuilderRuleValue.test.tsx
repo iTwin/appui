@@ -8,7 +8,7 @@ import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, screen, waitFor } from "@testing-library/react";
 import { PropertyFilterBuilderRuleValue } from "../../components-react/filter-builder/FilterBuilderRuleValue";
-import TestUtils, { userEvent } from "../TestUtils";
+import { userEvent } from "../TestUtils";
 import { PropertyFilterBuilderRuleRangeValue } from "../../components-react";
 
 describe("PropertyFilterBuilderRuleValue", () => {
@@ -22,14 +22,6 @@ describe("PropertyFilterBuilderRuleValue", () => {
     displayLabel: "Prop",
     typename: "string",
   };
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
 
   it("renders string value", async () => {
     const { getByDisplayValue } = render(

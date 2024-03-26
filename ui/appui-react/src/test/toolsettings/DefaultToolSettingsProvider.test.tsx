@@ -169,7 +169,7 @@ describe("DefaultToolUiSettingsProvider", () => {
     UiFramework.toolSettings.useDefaultToolSettingsProvider = false;
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiFramework();
   });
 

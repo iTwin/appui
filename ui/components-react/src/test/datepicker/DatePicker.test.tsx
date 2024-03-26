@@ -6,7 +6,6 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { Key } from "ts-key-enum";
-import TestUtils from "../TestUtils";
 import { DatePicker } from "../../components-react";
 import { adjustDateToTimezone } from "../../components-react/common/DateUtils";
 
@@ -14,14 +13,6 @@ import { adjustDateToTimezone } from "../../components-react/common/DateUtils";
 
 describe.only("<DatePicker />", () => {
   const testDate = new Date("July 22, 2018 07:22:13 -0400");
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiComponents();
-  });
 
   it("adjustDateToTimezone should adjust london time to current locale", () => {
     /* Adjust a Data object to show time in one time zone as if it is in the local time zone.

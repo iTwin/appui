@@ -150,14 +150,6 @@ describe("<DateTimeEditor />", () => {
   const date = new Date(2018, 0, 1);
   const jan4Ticks = new Date(2018, 0, 4).getTime();
 
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   it("long date should render", async () => {
     const spy = vi.fn();
     const record = createDateProperty("Test", date, 0); // 0 creates a long DateTime record
@@ -190,7 +182,7 @@ describe("<DateTimeEditor />", () => {
     );
     fireEvent.click(okButton);
     await TestUtils.flushAsyncOperations();
-    sinon.assert.calledOnce(spy);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("long utc date should render", async () => {

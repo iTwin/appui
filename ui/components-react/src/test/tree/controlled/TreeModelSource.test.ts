@@ -7,17 +7,12 @@ import type { MutableTreeModel } from "../../../components-react/tree/controlled
 import type { TreeModelChanges } from "../../../components-react/tree/controlled/TreeModelSource";
 import { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource";
 import type { ITreeDataProvider } from "../../../components-react/tree/TreeDataProvider";
-import TestUtils from "../../TestUtils";
 import { createTreeNodeInput } from "./TreeHelpers";
 
 describe("TreeModelSource", () => {
   let modelSource: TreeModelSource;
   const dataProviderMock = moq.Mock.ofType<ITreeDataProvider>();
   const mutableTreeModelMock = moq.Mock.ofType<MutableTreeModel>();
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
 
   beforeEach(() => {
     dataProviderMock.reset();
@@ -45,7 +40,7 @@ describe("TreeModelSource", () => {
         model.setChildren(undefined, [createTreeNodeInput("root2")], 1);
       });
       expect(spy).toHaveBeenCalled();
-      const changes = spy.args[0][0][1];
+      const changes = spy.mock.calls[0][0][1];
       expect(changes.addedNodeIds.length).to.be.eq(1);
       expect(changes.addedNodeIds[0]).to.be.eq("root2");
     });
@@ -56,7 +51,7 @@ describe("TreeModelSource", () => {
         model.clearChildren(undefined);
       });
       expect(spy).toHaveBeenCalled();
-      const changes = spy.args[0][0][1];
+      const changes = spy.mock.calls[0][0][1];
       expect(changes.removedNodeIds.length).to.be.eq(1);
       expect(changes.removedNodeIds[0]).to.be.eq("root1");
     });
@@ -68,7 +63,7 @@ describe("TreeModelSource", () => {
         node!.isSelected = !node!.isSelected;
       });
       expect(spy).toHaveBeenCalled();
-      const changes = spy.args[0][0][1];
+      const changes = spy.mock.calls[0][0][1];
       expect(changes.modifiedNodeIds.length).to.be.eq(1);
       expect(changes.modifiedNodeIds[0]).to.be.eq("root1");
     });
@@ -115,7 +110,7 @@ describe("TreeModelSource", () => {
             modifiedNodeIds: [],
             removedNodeIds: ["root1"],
           };
-          expect(spy).to.have.been.calledOnceWithExactly([
+          expect(spy).toHaveBeenCalledWith([
             modelSource.getModel(),
             expectedChanges,
           ]);
@@ -133,7 +128,7 @@ describe("TreeModelSource", () => {
             modifiedNodeIds: ["root1"],
             removedNodeIds: [],
           };
-          expect(spy).to.have.been.calledOnceWithExactly([
+          expect(spy).toHaveBeenCalledWith([
             modelSource.getModel(),
             expectedChanges,
           ]);
@@ -152,7 +147,7 @@ describe("TreeModelSource", () => {
             modifiedNodeIds: [],
             removedNodeIds: [],
           };
-          expect(spy).to.have.been.calledOnceWithExactly([
+          expect(spy).toHaveBeenCalledWith([
             modelSource.getModel(),
             expectedChanges,
           ]);
@@ -174,7 +169,7 @@ describe("TreeModelSource", () => {
             modifiedNodeIds: [],
             removedNodeIds: ["root1"],
           };
-          expect(spy).to.have.been.calledOnceWithExactly([
+          expect(spy).toHaveBeenCalledWith([
             modelSource.getModel(),
             expectedChanges,
           ]);
@@ -199,7 +194,7 @@ describe("TreeModelSource", () => {
             modifiedNodeIds: ["root1"],
             removedNodeIds: [],
           };
-          expect(spy).to.have.been.calledOnceWithExactly([
+          expect(spy).toHaveBeenCalledWith([
             modelSource.getModel(),
             expectedChanges,
           ]);
@@ -220,7 +215,7 @@ describe("TreeModelSource", () => {
             modifiedNodeIds: ["root1"],
             removedNodeIds: [],
           };
-          expect(spy).to.have.been.calledOnceWithExactly([
+          expect(spy).toHaveBeenCalledWith([
             modelSource.getModel(),
             expectedChanges,
           ]);
@@ -239,7 +234,7 @@ describe("TreeModelSource", () => {
             modifiedNodeIds: ["root1"],
             removedNodeIds: [],
           };
-          expect(spy).to.have.been.calledOnceWithExactly([
+          expect(spy).toHaveBeenCalledWith([
             modelSource.getModel(),
             expectedChanges,
           ]);

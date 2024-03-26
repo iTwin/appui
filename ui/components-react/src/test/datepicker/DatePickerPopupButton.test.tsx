@@ -5,7 +5,6 @@
 
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import TestUtils from "../TestUtils";
 import { DatePickerPopupButton } from "../../components-react/datepicker/DatePickerPopupButton";
 import { TimeDisplay } from "@itwin/appui-abstract";
 import { Key } from "ts-key-enum";
@@ -13,22 +12,8 @@ import { Key } from "ts-key-enum";
 /* eslint-disable deprecation/deprecation */
 
 describe("<DatePickerPopupButton />", () => {
-  let renderSpy: sinon.SinonSpy;
-
   const testDate = new Date("July 22, 2018 07:22:13 -0400");
   const testDate2 = new Date("July 20, 1969");
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  beforeEach(() => {
-    renderSpy = vi.fn();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
 
   it("should render ", () => {
     const renderedComponent = render(
@@ -58,6 +43,7 @@ describe("<DatePickerPopupButton />", () => {
   });
 
   it("should render popup ", async () => {
+    const renderSpy = vi.fn();
     const renderedComponent = render(
       <DatePickerPopupButton selected={testDate} onDateChange={renderSpy} />
     );
@@ -86,6 +72,7 @@ describe("<DatePickerPopupButton />", () => {
   });
 
   it("should render popup using keyboard ", async () => {
+    const renderSpy = vi.fn();
     const renderedComponent = render(
       <DatePickerPopupButton selected={testDate} onDateChange={renderSpy} />
     );
@@ -115,6 +102,7 @@ describe("<DatePickerPopupButton />", () => {
   });
 
   it("should render popup with time input ", async () => {
+    const renderSpy = vi.fn();
     const renderedComponent = render(
       <DatePickerPopupButton
         selected={testDate}

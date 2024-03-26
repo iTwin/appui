@@ -99,7 +99,7 @@ describe("DrawingNavigationAid", () => {
     await TestUtils.initializeUiIModelComponents();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiIModelComponents();
     sinon.restore();
   });

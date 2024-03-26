@@ -148,7 +148,7 @@ describe("<AlphaSlider />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 
@@ -213,7 +213,7 @@ describe("<AlphaSlider />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 
@@ -280,7 +280,7 @@ describe("<AlphaSlider />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 
@@ -349,7 +349,7 @@ describe("<AlphaSlider />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 

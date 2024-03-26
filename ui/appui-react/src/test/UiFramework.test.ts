@@ -40,7 +40,7 @@ describe("UiFramework localStorage Wrapper", () => {
     });
   });
 
-  after(() => {
+  afterEach(() => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });
 

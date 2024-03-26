@@ -28,8 +28,7 @@ describe("UiComponents", () => {
   it("translate should return blank and log error if UiComponents not initialized", () => {
     const spyLogger = vi.spyOn(Logger, "logError");
     expect(UiComponents.translate("xyz")).toEqual("");
-    spyLogger.calledOnce.should.true;
-    (Logger.logError as any).restore();
+    expect(spyLogger).toHaveBeenCalledOnce();
   });
 
   it("calling initialize twice should log", async () => {
@@ -38,8 +37,7 @@ describe("UiComponents", () => {
     await UiComponents.initialize(TestUtils.i18n);
     expect(UiComponents.initialized).toEqual(true);
     await UiComponents.initialize(TestUtils.i18n);
-    spyLogger.calledOnce.should.true;
-    (Logger.logInfo as any).restore();
+    expect(spyLogger).toHaveBeenCalledOnce();
   });
 
   it("calling loggerCategory without an obj should return packageName", () => {

@@ -7,14 +7,6 @@ import { UiComponents } from "../../../../components-react/UiComponents";
 import TestUtils from "../../../TestUtils";
 
 describe("MergedPropertyValueRenderer", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   describe("render", () => {
     it("renders merged property as localized string '*** Varies ***'", async () => {
       const renderer = new MergedPropertyValueRenderer();

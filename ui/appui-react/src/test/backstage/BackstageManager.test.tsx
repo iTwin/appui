@@ -114,15 +114,13 @@ describe("BackstageManager", () => {
 
     // New method names
     manager.open();
-    expect(internal.open).to.have.been.calledOnceWithExactly();
+    expect(internal.open).toHaveBeenCalledWith();
     manager.close();
-    expect(internal.close).to.have.been.calledOnceWithExactly();
+    expect(internal.close).toHaveBeenCalledWith();
     manager.toggle();
-    expect(internal.toggle).to.have.been.calledOnceWithExactly();
+    expect(internal.toggle).toHaveBeenCalledWith();
     manager.getBackstageToggleCommand("iconSpec");
-    expect(
-      internal.getBackstageToggleCommand
-    ).to.have.been.calledOnceWithExactly("iconSpec");
+    expect(internal.getBackstageToggleCommand).toHaveBeenCalledWith("iconSpec");
 
     const stubbedCommand = Symbol("backstageCommand");
     sinon

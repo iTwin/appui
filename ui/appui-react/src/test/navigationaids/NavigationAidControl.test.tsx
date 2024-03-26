@@ -9,7 +9,7 @@ describe("NavigationAidControl", () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiFramework();
   });
 });

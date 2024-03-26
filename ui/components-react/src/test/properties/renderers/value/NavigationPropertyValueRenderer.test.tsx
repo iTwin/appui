@@ -64,7 +64,7 @@ describe("NavigationPropertyValueRenderer", () => {
         "Test property"
       );
       stringProperty.links = {
-        onClick: sinon.spy(),
+        onClick: vi.fn(),
       };
 
       const element = renderer.render(stringProperty);

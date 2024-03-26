@@ -3,13 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { FloatTypeConverter, IntTypeConverter } from "../../components-react";
-import TestUtils from "../TestUtils";
 
 describe("IntTypeConverter", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: IntTypeConverter;
 
   beforeEach(() => {

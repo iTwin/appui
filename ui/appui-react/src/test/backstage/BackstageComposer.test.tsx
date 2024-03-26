@@ -99,7 +99,7 @@ describe("BackstageComposer", () => {
     TestUiItemsProvider.sampleStatusVisible = true;
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiFramework();
   });
 

@@ -10,15 +10,11 @@ import { TreeNodeContent } from "../../../../components-react/tree/controlled/co
 import type { MutableTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel";
 import type { HighlightableTreeNodeProps } from "../../../../components-react/tree/HighlightingEngine";
 import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
-import { styleMatch, TestUtils } from "../../../TestUtils";
+import { styleMatch } from "../../../TestUtils";
 
 describe("NodeContent", () => {
   let node: MutableTreeModelNode;
   let nodeLabelRecord: PropertyRecord;
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
 
   beforeEach(async () => {
     nodeLabelRecord = PropertyRecord.fromString("Test label");
@@ -59,7 +55,6 @@ describe("NodeContent", () => {
     render(<TreeNodeContent node={node} highlightProps={highlightingProps} />);
 
     expect(spy).toHaveBeenCalled();
-    spy.restore();
   });
 
   it("updates label", () => {

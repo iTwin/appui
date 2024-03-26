@@ -45,9 +45,9 @@ describe("SelectionHandler", () => {
     handler.onItemsSelectedCallback = itemsSelectedCallback.object;
     handler.onItemsDeselectedCallback = itemsDeselectedCallback.object;
 
-    itemSelectionHandler1.setup((x) => x.item()).mockReturnValue(() => "item1");
-    itemSelectionHandler2.setup((x) => x.item()).mockReturnValue(() => "item2");
-    itemSelectionHandler3.setup((x) => x.item()).mockReturnValue(() => "item3");
+    itemSelectionHandler1.setup((x) => x.item()).returns(() => "item1");
+    itemSelectionHandler2.setup((x) => x.item()).returns(() => "item2");
+    itemSelectionHandler3.setup((x) => x.item()).returns(() => "item3");
     componentSelectionHandler
       .setup((x) => x.areEqual(moq.It.isAny(), moq.It.isAny()))
       .returns((item1, item2) => item1 === item2);
@@ -59,15 +59,9 @@ describe("SelectionHandler", () => {
     });
 
     it("calls updateSelection", () => {
-      itemSelectionHandler1
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
-      itemSelectionHandler2
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => true);
-      itemSelectionHandler3
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
+      itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => false);
+      itemSelectionHandler2.setup((x) => x.isSelected()).returns(() => true);
+      itemSelectionHandler3.setup((x) => x.isSelected()).returns(() => false);
       componentSelectionHandler
         .setup((x) => x.updateSelection(["item1", "item3"], ["item2"]))
         .verifiable();
@@ -87,15 +81,9 @@ describe("SelectionHandler", () => {
     });
 
     it("does not call updateSelection if selection did not change", () => {
-      itemSelectionHandler1
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
-      itemSelectionHandler2
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => true);
-      itemSelectionHandler3
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
+      itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => false);
+      itemSelectionHandler2.setup((x) => x.isSelected()).returns(() => true);
+      itemSelectionHandler3.setup((x) => x.isSelected()).returns(() => false);
       handler.createDragAction(
         componentSelectionHandler.object,
         [
@@ -115,15 +103,9 @@ describe("SelectionHandler", () => {
     });
 
     it("does not call updateSelection if createDragAction was not called", () => {
-      itemSelectionHandler1
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
-      itemSelectionHandler2
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => true);
-      itemSelectionHandler3
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
+      itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => false);
+      itemSelectionHandler2.setup((x) => x.isSelected()).returns(() => true);
+      itemSelectionHandler3.setup((x) => x.isSelected()).returns(() => false);
       handler.updateDragAction(itemSelectionHandler1.object.item());
       componentSelectionHandler.verify(
         (x) => x.updateSelection(moq.It.isAny(), moq.It.isAny()),
@@ -133,15 +115,9 @@ describe("SelectionHandler", () => {
 
     it("does not call updateSelection if selectionMode does not have DragEnabled flag", () => {
       handler.selectionMode = SelectionMode.Single;
-      itemSelectionHandler1
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
-      itemSelectionHandler2
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => true);
-      itemSelectionHandler3
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
+      itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => false);
+      itemSelectionHandler2.setup((x) => x.isSelected()).returns(() => true);
+      itemSelectionHandler3.setup((x) => x.isSelected()).returns(() => false);
       handler.createDragAction(
         componentSelectionHandler.object,
         [
@@ -167,15 +143,9 @@ describe("SelectionHandler", () => {
     });
 
     it("calls callbacks", () => {
-      itemSelectionHandler1
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
-      itemSelectionHandler2
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => true);
-      itemSelectionHandler3
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
+      itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => false);
+      itemSelectionHandler2.setup((x) => x.isSelected()).returns(() => true);
+      itemSelectionHandler3.setup((x) => x.isSelected()).returns(() => false);
       handler.createDragAction(
         componentSelectionHandler.object,
         [
@@ -207,15 +177,9 @@ describe("SelectionHandler", () => {
     });
 
     it("does not call callbacks if selection did not change", () => {
-      itemSelectionHandler1
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
-      itemSelectionHandler2
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => true);
-      itemSelectionHandler3
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
+      itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => false);
+      itemSelectionHandler2.setup((x) => x.isSelected()).returns(() => true);
+      itemSelectionHandler3.setup((x) => x.isSelected()).returns(() => false);
       handler.createDragAction(
         componentSelectionHandler.object,
         [
@@ -240,15 +204,9 @@ describe("SelectionHandler", () => {
     });
 
     it("handles items selection changing twice during the operation", () => {
-      itemSelectionHandler1
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
-      itemSelectionHandler2
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => true);
-      itemSelectionHandler3
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
+      itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => false);
+      itemSelectionHandler2.setup((x) => x.isSelected()).returns(() => true);
+      itemSelectionHandler3.setup((x) => x.isSelected()).returns(() => false);
       handler.createDragAction(
         componentSelectionHandler.object,
         [
@@ -262,9 +220,7 @@ describe("SelectionHandler", () => {
       );
       handler.updateDragAction(itemSelectionHandler3.object.item());
 
-      itemSelectionHandler3
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => true);
+      itemSelectionHandler3.setup((x) => x.isSelected()).returns(() => true);
 
       handler.updateDragAction(itemSelectionHandler2.object.item());
       handler.completeDragAction();
@@ -279,15 +235,9 @@ describe("SelectionHandler", () => {
     });
 
     it("does not call callbacks if createDragAction was not called", () => {
-      itemSelectionHandler1
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
-      itemSelectionHandler2
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => true);
-      itemSelectionHandler3
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
+      itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => false);
+      itemSelectionHandler2.setup((x) => x.isSelected()).returns(() => true);
+      itemSelectionHandler3.setup((x) => x.isSelected()).returns(() => false);
       handler.updateDragAction(itemSelectionHandler3.object.item());
       handler.completeDragAction();
       itemsSelectedCallback.verify(
@@ -303,15 +253,9 @@ describe("SelectionHandler", () => {
     it("handles not having callbacks", () => {
       handler.onItemsDeselectedCallback = undefined;
       handler.onItemsSelectedCallback = undefined;
-      itemSelectionHandler1
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
-      itemSelectionHandler2
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => true);
-      itemSelectionHandler3
-        .setup((x) => x.isSelected())
-        .mockReturnValue(() => false);
+      itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => false);
+      itemSelectionHandler2.setup((x) => x.isSelected()).returns(() => true);
+      itemSelectionHandler3.setup((x) => x.isSelected()).returns(() => false);
       handler.createDragAction(
         componentSelectionHandler.object,
         [
@@ -371,9 +315,7 @@ describe("SelectionHandler", () => {
 
     describe("SingleAllowDeselect", () => {
       it("replaces selection if not selected item is selected", () => {
-        itemSelectionHandler1
-          .setup((x) => x.isSelected())
-          .mockReturnValue(() => false);
+        itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => false);
         handler.selectionMode = SelectionMode.SingleAllowDeselect;
         selectionFunction();
 
@@ -393,9 +335,7 @@ describe("SelectionHandler", () => {
       });
 
       it("does not replace selection if selectionMode is SingleAllowDeselect and selected item is deselected", () => {
-        itemSelectionHandler1
-          .setup((x) => x.isSelected())
-          .mockReturnValue(() => true);
+        itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => true);
         handler.selectionMode = SelectionMode.SingleAllowDeselect;
         selectionFunction();
 
@@ -460,9 +400,7 @@ describe("SelectionHandler", () => {
 
       it("deselects a single node that is selected if ctrlDown is true", () => {
         handler.selectionMode = SelectionMode.Extended;
-        itemSelectionHandler1
-          .setup((x) => x.isSelected())
-          .mockReturnValue(() => true);
+        itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => true);
         selectionFunction(false, true);
 
         componentSelectionHandler.verify(
@@ -632,15 +570,9 @@ describe("SelectionHandler", () => {
     describe("Multiple", () => {
       it("does not call callback if drag operation is in progress", () => {
         handler.selectionMode = SelectionMode.Multiple;
-        itemSelectionHandler1
-          .setup((x) => x.isSelected())
-          .mockReturnValue(() => false);
-        itemSelectionHandler2
-          .setup((x) => x.isSelected())
-          .mockReturnValue(() => true);
-        itemSelectionHandler3
-          .setup((x) => x.isSelected())
-          .mockReturnValue(() => false);
+        itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => false);
+        itemSelectionHandler2.setup((x) => x.isSelected()).returns(() => true);
+        itemSelectionHandler3.setup((x) => x.isSelected()).returns(() => false);
         handler.createDragAction(
           componentSelectionHandler.object,
           [
@@ -653,9 +585,7 @@ describe("SelectionHandler", () => {
           itemSelectionHandler1.object.item()
         );
         handler.updateDragAction(itemSelectionHandler3.object.item());
-        itemSelectionHandler1
-          .setup((x) => x.isSelected())
-          .mockReturnValue(() => true);
+        itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => true);
         selectionFunction();
 
         itemsSelectedCallback.verify(
@@ -699,9 +629,7 @@ describe("SelectionHandler", () => {
 
       it("deselects a node", () => {
         handler.selectionMode = SelectionMode.Multiple;
-        itemSelectionHandler1
-          .setup((x) => x.isSelected())
-          .mockReturnValue(() => true);
+        itemSelectionHandler1.setup((x) => x.isSelected()).returns(() => true);
         selectionFunction();
 
         itemsSelectedCallback.verify(

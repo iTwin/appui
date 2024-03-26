@@ -9,7 +9,6 @@ import type { DateFormatter } from "@itwin/appui-abstract";
 import { TimeDisplay } from "@itwin/appui-abstract";
 
 import { DateField } from "../../components-react/datepicker/DateField";
-import TestUtils from "../TestUtils";
 import { IntlFormatter } from "../../components-react/datepicker/IntlFormatter";
 
 /* eslint-disable deprecation/deprecation */
@@ -57,14 +56,6 @@ class MdyFormatter implements DateFormatter {
 describe("<DateField />", () => {
   const testDate = new Date("July 22, 2018 07:22:13 -0400");
   const testDate2 = new Date("July 23, 2018 07:22:13 -0400");
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  afterEach(() => {
-    TestUtils.terminateUiComponents();
-  });
 
   it("should render ", () => {
     const renderedComponent = render(<DateField initialDate={testDate} />);

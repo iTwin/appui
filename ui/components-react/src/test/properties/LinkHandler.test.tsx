@@ -10,15 +10,10 @@ import {
   renderLinks,
   withLinks,
 } from "../../components-react/properties/LinkHandler";
-import TestUtils from "../TestUtils";
 
 describe("LinkHandler", () => {
   const onClickSpy = vi.fn();
   let links: LinkElementsInfo;
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
 
   beforeEach(() => {
     links = {

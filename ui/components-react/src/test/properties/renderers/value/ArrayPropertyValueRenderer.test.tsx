@@ -14,9 +14,6 @@ describe("ArrayPropertyValueRenderer", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
 
   describe("render", () => {
     it("renders non empty array property", () => {
@@ -65,8 +62,14 @@ describe("ArrayPropertyValueRenderer", () => {
       render(<div>{element}</div>);
 
       await theUserTo.click(screen.getByTitle("View [] in more detail."));
-      expect(dialogSpy).to.have.been.calledWithMatch(
-        (arg: any) => arg?.content?.props?.orientation === Orientation.Vertical
+      expect(dialogSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          content: expect.objectContaining({
+            props: expect.objectContaining({
+              orientation: Orientation.Vertical,
+            }),
+          }),
+        })
       );
     });
 
@@ -83,9 +86,14 @@ describe("ArrayPropertyValueRenderer", () => {
 
       await theUserTo.click(screen.getByRole("link"));
 
-      expect(dialogSpy).to.have.been.calledWithMatch(
-        (arg: any) =>
-          arg?.content?.props?.orientation === Orientation.Horizontal
+      expect(dialogSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          content: expect.objectContaining({
+            props: expect.objectContaining({
+              orientation: Orientation.Horizontal,
+            }),
+          }),
+        })
       );
     });
 

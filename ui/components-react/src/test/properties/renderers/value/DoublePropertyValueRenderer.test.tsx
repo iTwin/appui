@@ -67,7 +67,7 @@ describe("DoublePropertyValueRenderer", () => {
         "zero point forty five meters"
       );
       property.links = {
-        onClick: sinon.spy(),
+        onClick: vi.fn(),
       };
 
       const element = renderer.render(property);

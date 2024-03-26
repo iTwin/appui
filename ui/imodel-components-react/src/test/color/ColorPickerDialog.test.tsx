@@ -16,7 +16,7 @@ describe("ColorPickerDialog", () => {
     await TestUtils.initializeUiIModelComponents();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiIModelComponents();
   });
 

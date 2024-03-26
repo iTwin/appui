@@ -236,7 +236,7 @@ describe("FrontstageManager", () => {
 
   it("setWidgetState apply state on widgetDef", () => {
     const stubbedWidget = {
-      setWidgetState: sinon.spy(),
+      setWidgetState: vi.fn(),
     };
     sinon
       .stub(UiFramework.frontstages, "findWidget")
@@ -419,7 +419,7 @@ describe("FrontstageManager", () => {
 
       await InternalFrontstageManager.deactivateFrontstageDef();
       expect(InternalFrontstageManager.activeFrontstageDef).to.be.undefined;
-      sinon.assert.calledOnce(spy);
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 

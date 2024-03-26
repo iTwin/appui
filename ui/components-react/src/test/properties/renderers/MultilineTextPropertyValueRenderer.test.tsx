@@ -72,14 +72,6 @@ describe("MultilineTextPropertyValueRenderer", () => {
 });
 
 describe("MultilineTextRenderer", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
-
   it("renders child element", () => {
     const { getByText } = render(
       <MultilineTextRenderer>Test</MultilineTextRenderer>
@@ -88,36 +80,52 @@ describe("MultilineTextRenderer", () => {
   });
 
   it("does not attempt to call `onExpansionToggled` callback that is not present and throw", () => {
-    vi.spyOn(HTMLElement.prototype, "clientWidth").get(() => 50);
-    vi.spyOn(HTMLElement.prototype, "scrollWidth").get(() => 100);
+    vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockImplementation(
+      () => 50
+    );
+    vi.spyOn(HTMLElement.prototype, "scrollWidth", "get").mockImplementation(
+      () => 100
+    );
     const { getByText } = render(<MultilineTextRenderer />);
     fireEvent.click(getByText("property.expand"));
   });
 
   describe("collapsed", () => {
     it('doesn\'t show "See more" button when text fits in one line', () => {
-      vi.spyOn(HTMLElement.prototype, "clientWidth").get(() => 50);
-      vi.spyOn(HTMLElement.prototype, "scrollWidth").get(() => 50);
+      vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockImplementation(
+        () => 50
+      );
+      vi.spyOn(HTMLElement.prototype, "scrollWidth", "get").mockImplementation(
+        () => 50
+      );
       const { queryByText } = render(<MultilineTextRenderer />);
       expect(queryByText("property.expand")).to.be.null;
     });
 
     it('shows "See more" button when text overflows', () => {
-      vi.spyOn(HTMLElement.prototype, "clientWidth").get(() => 50);
-      vi.spyOn(HTMLElement.prototype, "scrollWidth").get(() => 100);
+      vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockImplementation(
+        () => 50
+      );
+      vi.spyOn(HTMLElement.prototype, "scrollWidth", "get").mockImplementation(
+        () => 100
+      );
       const { getByText } = render(<MultilineTextRenderer />);
       expect(getByText("property.expand")).to.be.not.null;
     });
 
     it('reports expansion toggle when "See more" button is pressed', () => {
-      vi.spyOn(HTMLElement.prototype, "clientWidth").get(() => 50);
-      vi.spyOn(HTMLElement.prototype, "scrollWidth").get(() => 100);
+      vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockImplementation(
+        () => 50
+      );
+      vi.spyOn(HTMLElement.prototype, "scrollWidth", "get").mockImplementation(
+        () => 100
+      );
       const handleExpansionToggle = vi.fn();
       const { getByText } = render(
         <MultilineTextRenderer onExpansionToggled={handleExpansionToggle} />
       );
       fireEvent.click(getByText("property.expand"));
-      expect(handleExpansionToggle).to.have.been.calledOnce;
+      expect(handleExpansionToggle).toHaveBeenCalledOnce();
     });
   });
 
@@ -128,8 +136,12 @@ describe("MultilineTextRenderer", () => {
     });
 
     it('reports expansion toggle when "See less" button is pressed', () => {
-      vi.spyOn(HTMLElement.prototype, "clientWidth").get(() => 50);
-      vi.spyOn(HTMLElement.prototype, "scrollWidth").get(() => 100);
+      vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockImplementation(
+        () => 50
+      );
+      vi.spyOn(HTMLElement.prototype, "scrollWidth", "get").mockImplementation(
+        () => 100
+      );
       const handleExpansionToggle = vi.fn();
       const { getByText } = render(
         <MultilineTextRenderer
@@ -138,7 +150,7 @@ describe("MultilineTextRenderer", () => {
         />
       );
       fireEvent.click(getByText("property.collapse"));
-      expect(handleExpansionToggle).to.have.been.calledOnce;
+      expect(handleExpansionToggle).toHaveBeenCalledOnce();
     });
   });
 });

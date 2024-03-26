@@ -26,17 +26,9 @@ import { EditorContainer } from "../../components-react/editors/EditorContainer"
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 
 describe("<NumericInputEditor />", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
   });
 
   it("should render without record", () => {

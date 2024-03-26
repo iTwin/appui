@@ -8,12 +8,9 @@ import { fireEvent, render, waitFor } from "@testing-library/react";
 import { Key } from "ts-key-enum";
 import type { TimeSpec } from "../../components-react/datepicker/TimeField";
 import { TimeField } from "../../components-react/datepicker/TimeField";
-import TestUtils from "../TestUtils";
 import { TimeDisplay } from "@itwin/appui-abstract";
 
 describe("<TimeField />", () => {
-  let renderSpy: sinon.SinonSpy;
-
   const zeroTime: TimeSpec = {
     hours: 0,
     minutes: 15,
@@ -31,18 +28,6 @@ describe("<TimeField />", () => {
     minutes: 14,
     seconds: 13,
   };
-
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
-  beforeEach(() => {
-    renderSpy = vi.fn();
-  });
-
-  after(() => {
-    TestUtils.terminateUiComponents();
-  });
 
   it("should render zeroTime", () => {
     const renderedComponent = render(
@@ -141,6 +126,7 @@ describe("<TimeField />", () => {
   });
 
   it("should trigger time hour change", async () => {
+    const renderSpy = vi.fn();
     const renderedComponent = render(
       <TimeField
         time={amTime}
@@ -194,6 +180,7 @@ describe("<TimeField />", () => {
   });
 
   it("should trigger time minute change", async () => {
+    const renderSpy = vi.fn();
     const renderedComponent = render(
       <TimeField
         time={amTime}
@@ -233,6 +220,7 @@ describe("<TimeField />", () => {
   });
 
   it("should trigger time seconds change", async () => {
+    const renderSpy = vi.fn();
     const renderedComponent = render(
       <TimeField
         time={amTime}
@@ -274,6 +262,7 @@ describe("<TimeField />", () => {
   });
 
   it("should trigger time period change", async () => {
+    const renderSpy = vi.fn();
     const renderedComponent = render(
       <TimeField
         time={amTime}
@@ -389,6 +378,7 @@ describe("<TimeField />", () => {
   });
 
   it("should trigger AM time period change on blur", () => {
+    const renderSpy = vi.fn();
     const renderedComponent = render(
       <TimeField
         time={pmTime}
@@ -408,6 +398,7 @@ describe("<TimeField />", () => {
   });
 
   it("should trigger PM time period change on blur", () => {
+    const renderSpy = vi.fn();
     const renderedComponent = render(
       <TimeField
         time={amTime}

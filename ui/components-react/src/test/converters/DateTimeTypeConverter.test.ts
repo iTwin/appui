@@ -7,15 +7,10 @@ import {
   DateTimeTypeConverterBase,
   ShortDateTypeConverter,
 } from "../../components-react";
-import TestUtils from "../TestUtils";
 import { TimeFormat } from "@itwin/core-react";
 import { AlternateDateFormats, TimeDisplay } from "@itwin/appui-abstract";
 
 describe("ShortDateTypeConverter", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: ShortDateTypeConverter;
 
   beforeEach(() => {

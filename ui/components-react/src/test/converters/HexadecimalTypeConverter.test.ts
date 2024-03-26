@@ -3,13 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { HexadecimalTypeConverter } from "../../components-react";
-import TestUtils from "../TestUtils";
 
 describe("HexadecimalTypeConverter", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: HexadecimalTypeConverter;
 
   beforeEach(() => {

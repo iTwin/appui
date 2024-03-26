@@ -71,7 +71,7 @@ describe("NestedFrontstage", async () => {
     UiFramework.frontstages.clearFrontstageProviders();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiFramework();
   });
 

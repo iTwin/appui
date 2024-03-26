@@ -577,7 +577,7 @@ describe("FrontstageDef", () => {
         popoutWidget.id,
         frontstageDef.nineZoneState
       );
-      sinon.assert.calledOnce(spy);
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 

@@ -4,13 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { EnumTypeConverter } from "../../components-react";
-import TestUtils from "../TestUtils";
 
 describe("EnumTypeConverter", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: EnumTypeConverter;
   const colorNames = ["Yellow", "Red", "Green", "Blue", "Violet", "Cyan"];
   const propertyDescription: PropertyDescription = {

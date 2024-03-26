@@ -8,14 +8,8 @@ import { UiError } from "@itwin/appui-abstract";
 import { render, waitFor } from "@testing-library/react";
 import type { LoadedBinaryImage } from "../../components-react/common/IImageLoader";
 import { ImageRenderer } from "../../components-react/common/ImageRenderer";
-import { UiCore } from "@itwin/core-react";
-import { EmptyLocalization } from "@itwin/core-common";
 
 describe("ImageRenderer", () => {
-  beforeEach(async () => {
-    await UiCore.initialize(new EmptyLocalization());
-  });
-
   const imageRenderer = new ImageRenderer();
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="480" height="543.03003" viewBox="0 0 257.002 297.5" xml:space="preserve">

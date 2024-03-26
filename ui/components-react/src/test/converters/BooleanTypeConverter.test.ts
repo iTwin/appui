@@ -6,10 +6,6 @@ import { BooleanTypeConverter } from "../../components-react";
 import TestUtils from "../TestUtils";
 
 describe("BooleanTypeConverter", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: BooleanTypeConverter;
 
   beforeEach(() => {

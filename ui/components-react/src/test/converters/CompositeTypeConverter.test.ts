@@ -4,13 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Primitives } from "@itwin/appui-abstract";
 import { CompositeTypeConverter } from "../../components-react/converters/CompositeTypeConverter";
-import TestUtils from "../TestUtils";
 
 describe("CompositeTypeConverter", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiComponents();
-  });
-
   let converter: CompositeTypeConverter;
 
   beforeEach(() => {

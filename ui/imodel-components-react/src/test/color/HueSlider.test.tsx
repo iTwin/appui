@@ -17,7 +17,7 @@ describe("<HueSlider />", () => {
     await TestUtils.initializeUiIModelComponents();
   });
 
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiIModelComponents();
   });
 
@@ -111,7 +111,7 @@ describe("<HueSlider />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 
@@ -183,7 +183,7 @@ describe("<HueSlider />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 
@@ -255,7 +255,7 @@ describe("<HueSlider />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 
@@ -324,7 +324,7 @@ describe("<HueSlider />", () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       Element.prototype.getBoundingClientRect = getBoundingClientRect;
     });
 
