@@ -8,18 +8,18 @@ import * as React from "react";
 import { ConditionalIconItem } from "../../core-react/icons/ConditionalIconItem";
 import type { IconSpec } from "../../core-react/icons/IconComponent";
 import { Icon } from "../../core-react/icons/IconComponent";
-import { UiCore } from "../../core-react/UiCore";
-import { EmptyLocalization } from "@itwin/core-common";
+import TestUtils from "../TestUtils";
 
 describe("IconComponent", () => {
-  before(async () => {
-    await UiCore.initialize(new EmptyLocalization());
+  beforeEach(async () => {
+    await TestUtils.initializeUiCore();
   });
 
   it("Should return null from undefined iconSpec", () => {
     const { container } = render(<Icon />);
     expect(container.firstChild).to.be.null;
   });
+
   it("should render with ReactNode", () => {
     const { container } = render(<Icon iconSpec={<span>Test</span>} />);
     const span = container.querySelector("span");
@@ -41,6 +41,7 @@ describe("IconComponent", () => {
   });
 
   it("should render correctly with no web svg iconSpec - legacy", () => {
+    vi.stubGlobal("fetch", async () => Promise.resolve(new Response()));
     const { container } = render(<Icon iconSpec="webSvg:test.svg" />);
     const webComponent = container.querySelector("svg-loader");
     expect(webComponent).not.to.be.null;
@@ -48,6 +49,7 @@ describe("IconComponent", () => {
   });
 
   it("should render correctly with no web svg iconSpec", () => {
+    vi.stubGlobal("fetch", async () => Promise.resolve(new Response()));
     const { container } = render(<Icon iconSpec="test.svg" />);
     const webComponent = container.querySelector("svg-loader");
     expect(webComponent).not.to.be.null;

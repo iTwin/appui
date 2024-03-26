@@ -10,7 +10,7 @@ import "./AutoSuggest.scss";
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
 import { Input } from "@itwin/itwinui-react";
-import * as ReactAutosuggest from "react-autosuggest";
+import ReactAutosuggest from "react-autosuggest";
 import { Key } from "ts-key-enum";
 import type { CommonProps } from "../utils/Props";
 import { UiCore } from "../UiCore";

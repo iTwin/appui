@@ -354,14 +354,15 @@ describe("FrontstageManager", () => {
     });
 
     it("mouse moves should be handled for frontstage tracking", async () => {
-      const fakeTimers = sandbox.useFakeTimers();
-      render(
-        <Provider store={TestUtils.store}>
-          <ThemeManager>
-            <ConfigurableUiContent idleTimeout={100} intervalTimeout={100} />
-          </ThemeManager>
-        </Provider>
-      );
+      const fakeTimers =
+        vi.fn <
+        render(
+          <Provider store={TestUtils.store}>
+            <ThemeManager>
+              <ConfigurableUiContent idleTimeout={100} intervalTimeout={100} />
+            </ThemeManager>
+          </Provider>
+        );
 
       const divContainer = document.getElementById(
         "uifw-configurableui-wrapper"

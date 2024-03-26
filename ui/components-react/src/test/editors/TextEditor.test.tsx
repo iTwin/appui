@@ -227,7 +227,7 @@ describe("<TextEditor />", () => {
     expect(inputNode).not.to.be.null;
 
     await theUserTo.type(inputNode!, "a");
-    expect(spyOnCommit.called).toEqual(true);
+    expect(spyOnCommit).toHaveBeenCalled();
   });
 
   describe("Needs IModelApp", () => {

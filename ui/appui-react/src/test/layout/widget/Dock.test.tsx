@@ -14,7 +14,7 @@ import { Dock } from "../../../appui-react/layout/widget/Dock";
 
 describe("Dock", () => {
   it("should dispatch TOOL_SETTINGS_DOCK", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     const component = render(
       <NineZoneDispatchContext.Provider value={dispatch}>
         <NineZoneLabelsContext.Provider

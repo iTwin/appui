@@ -10,12 +10,13 @@ import TestUtils, { classesFromElement } from "../TestUtils";
 
 describe("<ExpansionToggle />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
+  beforeEach(async () => {
     theUserTo = userEvent.setup();
+    await TestUtils.initializeUiCore();
   });
 
-  before(async () => {
-    await TestUtils.initializeUiCore();
+  afterEach(() => {
+    TestUtils.terminateUiCore();
   });
 
   it("renders collapsed correctly", () => {
@@ -33,7 +34,7 @@ describe("<ExpansionToggle />", () => {
     expect(classesFromElement(screen.getByRole("button"))).to.include(
       "is-expanded"
     );
-    expect(screen.getByLabelText("tree.collapse")).to.exist;
+    screen.getByLabelText("tree.collapse");
   });
 
   it("should handle click events", async () => {
@@ -41,6 +42,6 @@ describe("<ExpansionToggle />", () => {
     render(<ExpansionToggle onClick={handler} />);
 
     await theUserTo.click(screen.getByRole("button"));
-    handler.calledOnce.should.true;
+    expect(handler).toHaveBeenCalledOnce();
   });
 });

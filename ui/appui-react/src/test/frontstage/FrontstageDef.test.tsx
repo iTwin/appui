@@ -676,7 +676,7 @@ describe("FrontstageDef", () => {
       frontstageDef.nineZoneState = state;
 
       const spy =
-        sinon.stub<
+        vi.fn<
           Parameters<
             typeof UiFramework.frontstages.onPanelStateChangedEvent.addListener
           >[0]
@@ -719,7 +719,7 @@ describe("FrontstageDef", () => {
       frontstageDef.nineZoneState = state;
 
       const spy =
-        sinon.stub<
+        vi.fn<
           Parameters<
             typeof UiFramework.frontstages.onPanelStateChangedEvent.addListener
           >[0]

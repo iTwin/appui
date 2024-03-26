@@ -54,7 +54,7 @@ describe("PointerMessage", () => {
   it("should hide the message", () => {
     const hideMessage = sinon.spy(PointerMessage, "hideMessage");
     notifications.closePointerMessage();
-    expect(hideMessage.called).toEqual(true);
+    expect(hideMessage).toHaveBeenCalled();
   });
 
   it("should display a warning message", () => {
@@ -66,7 +66,7 @@ describe("PointerMessage", () => {
       OutputMessageType.Pointer
     );
     notifications.outputMessage(localDetails);
-    expect(showMessage.called).toEqual(true);
+    expect(showMessage).toHaveBeenCalled();
   });
 
   it("should display an error message", () => {
@@ -78,7 +78,7 @@ describe("PointerMessage", () => {
       OutputMessageType.Pointer
     );
     notifications.outputMessage(localDetails);
-    expect(showMessage.called).toEqual(true);
+    expect(showMessage).toHaveBeenCalled();
   });
 
   it("should offset the message", () => {
@@ -119,6 +119,6 @@ describe("PointerMessage", () => {
       { x: 1, y: 1 },
       RelativePosition.BottomRight
     );
-    expect(updateMessage.called).toEqual(true);
+    expect(updateMessage).toHaveBeenCalled();
   });
 });

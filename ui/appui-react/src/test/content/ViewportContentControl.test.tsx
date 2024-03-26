@@ -210,7 +210,7 @@ describe("ViewportContentControl", () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     await TestUtils.flushAsyncOperations();
-    expect(spy.called).toEqual(true);
+    expect(spy).toHaveBeenCalled();
 
     remove();
   });

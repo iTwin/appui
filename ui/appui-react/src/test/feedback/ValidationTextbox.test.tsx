@@ -49,7 +49,7 @@ describe("ValidationTextbox", () => {
       />
     );
     await theUserTo.type(screen.getByRole("textbox"), "a");
-    expect(onValueChanged.called).toEqual(true);
+    expect(onValueChanged).toHaveBeenCalled();
   });
 
   it("should use default value check if none provided", async () => {
@@ -74,7 +74,7 @@ describe("ValidationTextbox", () => {
     );
     const hideMessage = sinon.spy(MessageManager, "hideInputFieldMessage");
     await theUserTo.type(screen.getByRole("textbox"), "test");
-    expect(hideMessage.called).toEqual(true);
+    expect(hideMessage).toHaveBeenCalled();
   });
 
   it("should show message when value is invalid", async () => {
@@ -87,7 +87,7 @@ describe("ValidationTextbox", () => {
     );
     const showMessage = sinon.spy(MessageManager, "displayInputFieldMessage");
     await theUserTo.type(screen.getByRole("textbox"), "t[Backspace]");
-    expect(showMessage.called).toEqual(true);
+    expect(showMessage).toHaveBeenCalled();
   });
 
   it("should manage escape press", async () => {
@@ -100,7 +100,7 @@ describe("ValidationTextbox", () => {
       />
     );
     await theUserTo.type(screen.getByRole("textbox"), "[Escape]");
-    expect(onEscPressed.called).toEqual(true);
+    expect(onEscPressed).toHaveBeenCalled();
   });
 
   it("should manage enter press", async () => {
@@ -113,6 +113,6 @@ describe("ValidationTextbox", () => {
       />
     );
     await theUserTo.type(screen.getByRole("textbox"), "[Enter]");
-    expect(onEnterPressed.called).toEqual(true);
+    expect(onEnterPressed).toHaveBeenCalled();
   });
 });

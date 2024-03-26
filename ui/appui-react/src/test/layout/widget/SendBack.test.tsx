@@ -36,7 +36,7 @@ describe("SendBack", () => {
   });
 
   it("should dispatch TOOL_SETTINGS_DOCK", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);

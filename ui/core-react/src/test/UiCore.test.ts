@@ -33,7 +33,7 @@ describe("UiCore", () => {
     const spyLogger = vi.spyOn(Logger, "logError");
     // eslint-disable-next-line deprecation/deprecation
     expect(UiCore.translate("xyz")).toEqual("");
-    spyLogger.calledOnce.should.true;
+    expect(spyLogger).toHaveBeenCalledOnce();
   });
 
   it("loggerCategory passed null should return 'core-react'", () => {
@@ -46,7 +46,6 @@ describe("UiCore", () => {
     await UiCore.initialize(TestUtils.i18n);
     expect(UiCore.initialized).toEqual(true);
     await UiCore.initialize(TestUtils.i18n);
-    spyLogger.calledOnce.should.true;
-    (Logger.logInfo as any).restore();
+    expect(spyLogger).toHaveBeenCalledOnce();
   });
 });

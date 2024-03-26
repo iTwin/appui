@@ -849,7 +849,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const clickableComponent = clickableComponents[0];
       fireEvent.click(clickableComponent);
 
-      expect(onPropertySelectionChanged.called).toEqual(true);
+      expect(onPropertySelectionChanged).toHaveBeenCalled();
     });
 
     it("deselects if clicked a 2nd time", async () => {
@@ -940,7 +940,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       fireEvent.contextMenu(clickableComponents[0]);
 
-      expect(onPropertySelectionChanged.called).toEqual(true);
+      expect(onPropertySelectionChanged).toHaveBeenCalled();
     });
 
     it("calls onPropertySelectionChanged once when property gets right clicked after left clicked and both left and right click selections are enabled", async () => {

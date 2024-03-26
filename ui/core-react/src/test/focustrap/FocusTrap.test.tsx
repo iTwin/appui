@@ -11,15 +11,7 @@ import {
   FocusTrap,
 } from "../../core-react/focustrap/FocusTrap";
 
-// cspell:ignore focustrap
-
 describe("<FocusTrap />", () => {
-  const sandbox = sinon.createSandbox();
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
   it("renders correctly", () => {
     const component = render(
       <FocusTrap active={true} returnFocusOnDeactivate={false}>
@@ -30,7 +22,7 @@ describe("<FocusTrap />", () => {
   });
 
   it("sets focus to first element correctly", async () => {
-    const clock = sandbox.useFakeTimers();
+    vi.useFakeTimers();
 
     render(
       <FocusTrap active={true} returnFocusOnDeactivate={false}>
@@ -46,7 +38,8 @@ describe("<FocusTrap />", () => {
   });
 
   it("logs error when initialFocusElement incorrectly specifies element", async () => {
-    const clock = sandbox.useFakeTimers();
+    vi.useFakeTimers();
+
     const spyLogger = vi.spyOn(Logger, "logError");
 
     render(
@@ -62,12 +55,11 @@ describe("<FocusTrap />", () => {
     vi.advanceTimersByTime(1000);
     await Promise.resolve();
 
-    spyLogger.called.should.true;
-    (Logger.logError as any).restore();
+    expect(spyLogger).toHaveBeenCalled();
   });
 
   it("cycles to first item correctly", async () => {
-    const clock = sandbox.useFakeTimers();
+    vi.useFakeTimers();
 
     const component = render(
       <FocusTrap active={true} returnFocusOnDeactivate={false}>
@@ -89,7 +81,7 @@ describe("<FocusTrap />", () => {
   });
 
   it("cycles to last item correctly", async () => {
-    const clock = sandbox.useFakeTimers();
+    vi.useFakeTimers();
 
     const component = render(
       <FocusTrap active={true} returnFocusOnDeactivate={false}>
@@ -115,14 +107,8 @@ describe("<FocusTrap />", () => {
 });
 
 describe("focusIntoContainer", () => {
-  const sandbox = sinon.createSandbox();
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
   it("should focus into first focusable element", async () => {
-    const clock = sandbox.useFakeTimers();
+    vi.useFakeTimers();
 
     const component = render(
       <div data-testid="div1">

@@ -103,6 +103,6 @@ describe("useActiveToolIdSynchedItems", () => {
 
     expect(spy.called).to.be.false;
     unmount();
-    expect(spy.called).toEqual(true);
+    expect(spy).toHaveBeenCalled();
   });
 });

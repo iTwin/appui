@@ -76,7 +76,7 @@ describe("SheetsModalFrontstage", () => {
         CardContainer.onCardSelectedEvent.addListener(onCardSelected);
 
       await theUserTo.click(screen.getByText("Name"));
-      expect(onCardSelected.called).toEqual(true);
+      expect(onCardSelected).toHaveBeenCalled();
       removeListener();
     });
   });
@@ -104,7 +104,7 @@ describe("SheetsModalFrontstage", () => {
       expect(input).not.to.be.null;
       fireEvent.change(input!, { target: { value: "search value" } });
       await fakeTimers.tickAsync(500);
-      expect(onChange.called).toEqual(true);
+      expect(onChange).toHaveBeenCalled();
       removeListener();
       fakeTimers.restore();
       wrapper.unmount();
@@ -202,7 +202,7 @@ describe("SheetsModalFrontstage", () => {
 
       await theUserTo.click(screen.getByText("Findable Label"));
 
-      expect(onClick.called).toEqual(true);
+      expect(onClick).toHaveBeenCalled();
     });
 
     it("handles mouse down and leave", async () => {

@@ -79,7 +79,7 @@ describe("<Backstage />", () => {
   });
 
   it("should handle overlay click events", async () => {
-    const spy = sinon.stub<Required<BackstageProps>["onClose"]>();
+    const spy = vi.fn<Required<BackstageProps>["onClose"]>();
     render(<Backstage onClose={spy} />);
 
     await theUserTo.click(screen.getByRole("presentation"));
@@ -87,7 +87,7 @@ describe("<Backstage />", () => {
   });
 
   it("should handle escape key down close event", async () => {
-    const spy = sinon.stub<Required<BackstageProps>["onClose"]>();
+    const spy = vi.fn<Required<BackstageProps>["onClose"]>();
     render(<Backstage isOpen onClose={spy} />);
 
     await theUserTo.keyboard("[Escape]");
@@ -95,7 +95,7 @@ describe("<Backstage />", () => {
   });
 
   it("should handle other key down close event", async () => {
-    const spy = sinon.stub<Required<BackstageProps>["onClose"]>();
+    const spy = vi.fn<Required<BackstageProps>["onClose"]>();
     render(<Backstage isOpen onClose={spy} />);
 
     await theUserTo.keyboard("[Enter]abcd");

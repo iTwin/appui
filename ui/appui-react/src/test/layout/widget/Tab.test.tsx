@@ -198,7 +198,7 @@ describe("WidgetTab", () => {
   });
 
   it("should dispatch WIDGET_TAB_CLICK on click", async () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -236,7 +236,7 @@ describe("WidgetTab", () => {
   });
 
   it("should dispatch WIDGET_TAB_CLICK on 'Enter'", async () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -273,7 +273,7 @@ describe("WidgetTab", () => {
   });
 
   it("should dispatch WIDGET_TAB_CLICK on 'space'", async () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -310,7 +310,7 @@ describe("WidgetTab", () => {
   });
 
   it("should not dispatch WIDGET_TAB_CLICK on other key", async () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -339,7 +339,7 @@ describe("WidgetTab", () => {
   });
 
   it("should dispatch WIDGET_TAB_DOUBLE_CLICK", async () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -379,7 +379,7 @@ describe("WidgetTab", () => {
   });
 
   it("should dispatch WIDGET_TAB_DRAG_START on pointer move", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1", { hideWithUiWhenFloating: true });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -408,7 +408,7 @@ describe("WidgetTab", () => {
   });
 
   it("should not dispatch WIDGET_TAB_DRAG_START on pointer move if pointer moved less than 10px", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -428,7 +428,7 @@ describe("WidgetTab", () => {
   });
 
   it("should dispatch FLOATING_WIDGET_BRING_TO_FRONT", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);

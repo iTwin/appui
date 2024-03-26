@@ -79,7 +79,7 @@ describe("<NineZone />", () => {
         measurer = element;
       });
 
-    const spy = sinon.stub<NineZoneDispatch>();
+    const spy = vi.fn<NineZoneDispatch>();
     render(<NineZone dispatch={spy} layout={createLayoutStore()} />);
 
     spy.reset();
@@ -125,7 +125,7 @@ describe("<NineZone />", () => {
       .stub(HTMLElement.prototype, "getBoundingClientRect")
       .returns(createRect(0, 0, 10, 20));
 
-    const spy = sinon.stub<NineZoneDispatch>();
+    const spy = vi.fn<NineZoneDispatch>();
     render(<NineZone dispatch={spy} layout={createLayoutStore()} />);
 
     spy.reset();

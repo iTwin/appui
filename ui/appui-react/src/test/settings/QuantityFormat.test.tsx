@@ -40,7 +40,7 @@ describe("QuantityFormatSettingsPage", () => {
     const settingsEntry = getQuantityFormatsSettingsManagerEntry(10);
     expect(settingsEntry.itemPriority).to.eql(10);
 
-    const spy = sandbox.spy(IModelApp.quantityFormatter, "setActiveUnitSystem");
+    const spy = vi.spyOn(IModelApp.quantityFormatter, "setActiveUnitSystem");
 
     const wrapper = render(settingsEntry.page);
 

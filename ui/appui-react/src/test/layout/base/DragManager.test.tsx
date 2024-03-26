@@ -29,7 +29,7 @@ describe("DragManager", () => {
         newWidgetId: "w1",
       });
       const spy =
-        sinon.stub<Parameters<DragManager["onDragStart"]["addListener"]>[0]>();
+        vi.fn<Parameters<DragManager["onDragStart"]["addListener"]>[0]>();
       sut.onDragStart.addListener(spy);
       sut.handleDragStart(createDragStartArgs());
       sinon.assert.calledOnceWithExactly(
@@ -87,9 +87,7 @@ describe("useTabTarget", () => {
   it("should clear target when drag interaction ends", async () => {
     const dragManager = new DragManager();
     const stub =
-      sinon.stub<
-        Parameters<DragManager["onTargetChanged"]["addListener"]>[0]
-      >();
+      vi.fn<Parameters<DragManager["onTargetChanged"]["addListener"]>[0]>();
     dragManager.onTargetChanged.addListener(stub);
     const { result } = renderHook(
       () =>

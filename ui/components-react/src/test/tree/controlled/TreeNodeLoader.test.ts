@@ -66,11 +66,11 @@ function createTestTreeNodeItem(
 
 describe("TreeNodeLoader", () => {
   const dataProviderStub = {
-    getNodes: sinon.stub<
+    getNodes: vi.fn<
       Parameters<ITreeDataProvider["getNodes"]>,
       ReturnType<ITreeDataProvider["getNodes"]>
     >(),
-    getNodesCount: sinon.stub<
+    getNodesCount: vi.fn<
       Parameters<ITreeDataProvider["getNodesCount"]>,
       ReturnType<ITreeDataProvider["getNodesCount"]>
     >(),
@@ -226,11 +226,11 @@ describe("TreeNodeLoader", () => {
 
 describe("PagedTreeNodeLoader", () => {
   const dataProviderStub = {
-    getNodes: sinon.stub<
+    getNodes: vi.fn<
       Parameters<ITreeDataProvider["getNodes"]>,
       ReturnType<ITreeDataProvider["getNodes"]>
     >(),
-    getNodesCount: sinon.stub<
+    getNodesCount: vi.fn<
       Parameters<ITreeDataProvider["getNodesCount"]>,
       ReturnType<ITreeDataProvider["getNodesCount"]>
     >(),

@@ -2658,7 +2658,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent.queryByText("Entry3")).to.be.null;
 
       // long press should open group after 500 ms
-      const fakeTimers = sandbox.useFakeTimers();
+      const fakeTimers = vi.fn<
       button!.releasePointerCapture = () => {};
       button!.dispatchEvent(
         createBubbledEvent("pointerdown", { clientX: 30, clientY: 30 })
@@ -2748,7 +2748,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent.queryByText("Entry3")).to.be.null;
 
       // long press should open group after 500 ms
-      const fakeTimers = sandbox.useFakeTimers();
+      const fakeTimers = vi.fn<
       button!.releasePointerCapture = () => {};
       button!.dispatchEvent(
         createBubbledEvent("pointerdown", { clientX: 30, clientY: 25 })
@@ -2909,7 +2909,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(renderedComponent.queryByText("Entry3")).to.be.null;
 
       // long press should open group after 500 ms if we have not moved pointer more than 10px and still have pointer down
-      const fakeTimers = sandbox.useFakeTimers();
+      const fakeTimers = vi.fn<
       button!.releasePointerCapture = () => {};
       button!.dispatchEvent(
         createBubbledEvent("pointerdown", { clientX: 30, clientY: 25 })

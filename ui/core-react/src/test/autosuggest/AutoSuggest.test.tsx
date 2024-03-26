@@ -163,7 +163,7 @@ describe("AutoSuggest", () => {
     );
 
     await theUserTo.type(screen.getByRole("searchbox"), "cba");
-    expect(spyInput.called).toEqual(true);
+    expect(spyInput).toHaveBeenCalled();
   });
 
   it("should support onSuggestionsClearRequested prop", async () => {
@@ -178,7 +178,7 @@ describe("AutoSuggest", () => {
 
     await theUserTo.type(screen.getByRole("textbox"), "cba");
     await theUserTo.type(screen.getByRole("textbox"), "[Backspace>3/]");
-    expect(spyClear.called).toEqual(true);
+    expect(spyClear).toHaveBeenCalled();
   });
 
   it("should log Error when options function provided but not getLabel", async () => {
@@ -189,9 +189,7 @@ describe("AutoSuggest", () => {
 
     await theUserTo.type(screen.getByRole("textbox"), "cba");
     expect(screen.getByRole("option", { name: "LABEL" }));
-    spyLogger.called.should.true;
-
-    (Logger.logError as any).restore();
+    expect(spyLogger).toHaveBeenCalled();
   });
 
   it("should log Error when no options or getSuggestions provided", async () => {
@@ -200,8 +198,7 @@ describe("AutoSuggest", () => {
 
     await theUserTo.type(screen.getByRole("textbox"), "abc");
     expect(screen.queryByRole("option")).to.be.null;
-    spyLogger.called.should.true;
-    (Logger.logError as any).restore();
+    expect(spyLogger).toHaveBeenCalled();
   });
 
   it("should invoke onPressEnter", async () => {
@@ -215,7 +212,7 @@ describe("AutoSuggest", () => {
     );
 
     await theUserTo.type(screen.getByRole("textbox"), "[Enter]");
-    expect(spyEnter.called).toEqual(true);
+    expect(spyEnter).toHaveBeenCalled();
   });
 
   it("should invoke onPressEscape", async () => {
@@ -229,7 +226,7 @@ describe("AutoSuggest", () => {
     );
 
     await theUserTo.type(screen.getByRole("textbox"), "[Escape]");
-    expect(spyEscape.called).toEqual(true);
+    expect(spyEscape).toHaveBeenCalled();
   });
 
   it("should invoke onPressTab", async () => {
@@ -243,7 +240,7 @@ describe("AutoSuggest", () => {
     );
 
     await theUserTo.type(screen.getByRole("textbox"), "[Tab]");
-    expect(spyTab.called).toEqual(true);
+    expect(spyTab).toHaveBeenCalled();
   });
 
   it("should invoke onInputFocus", async () => {
@@ -257,7 +254,7 @@ describe("AutoSuggest", () => {
     );
 
     await theUserTo.click(screen.getByRole("textbox"));
-    expect(spyFocus.called).toEqual(true);
+    expect(spyFocus).toHaveBeenCalled();
   });
 
   it("should handle unmounting before end of request", async () => {
@@ -268,17 +265,20 @@ describe("AutoSuggest", () => {
     const suggestion = new Promise<AutoSuggestData[]>((resolve) => {
       resolver = resolve;
     });
-    const spySuggester = sinon.fake(async () => suggestion);
+    const getSuggestionsSpy = vi.fn(async () => suggestion);
 
     const { unmount } = render(
-      <AutoSuggest getSuggestions={spySuggester} onSuggestionSelected={spy} />
+      <AutoSuggest
+        getSuggestions={getSuggestionsSpy}
+        onSuggestionSelected={spy}
+      />
     );
 
     await theUserTo.type(screen.getByRole("textbox"), "abc");
 
     unmount();
     resolver([]);
-    expect(spySuggester).toHaveBeenCalled();
+    expect(getSuggestionsSpy).toHaveBeenCalled();
     expect(spy).not.toBeCalled();
   });
 });

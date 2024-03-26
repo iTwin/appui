@@ -426,7 +426,7 @@ describe("PopupManager", () => {
 
         fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
       });
-      expect(spyCancel.called).toEqual(true);
+      expect(spyCancel).toHaveBeenCalled();
     });
 
     it("PopupRenderer should render Toolbar", async () => {
@@ -549,7 +549,7 @@ describe("PopupManager", () => {
 
       fireEvent.keyDown(buttonNodes[0] as HTMLElement, { key: "Escape" });
       await TestUtils.flushAsyncOperations();
-      expect(spyCancel.called).toEqual(true);
+      expect(spyCancel).toHaveBeenCalled();
       PopupManager.hideCard();
 
       const record = TestUtils.createPrimitiveStringProperty("record", "Title");

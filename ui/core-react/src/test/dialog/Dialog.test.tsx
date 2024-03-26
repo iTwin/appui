@@ -12,7 +12,7 @@ import userEvent from "@testing-library/user-event";
 
 describe("Dialog", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
+  beforeEach(async () => {
     theUserTo = userEvent.setup();
   });
 

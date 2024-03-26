@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
+import type { OutsideClickEvent } from "../../../core-react";
 import { useOnOutsideClick } from "../../../core-react";
 
 function setRefValue<T>(ref: React.Ref<T>, value: T) {
@@ -14,27 +15,14 @@ function setRefValue<T>(ref: React.Ref<T>, value: T) {
   }
 }
 
-describe("useOnOutsideClick", () => {
-  const sandbox = sinon.createSandbox();
-
-  afterEach(() => {
-    sandbox.restore();
+describe.only("useOnOutsideClick", () => {
+  beforeEach(() => {
+    (global as any).PointerEvent = global.MouseEvent;
   });
 
   describe("PointerEvent", () => {
-    let pointerEvent: typeof window.PointerEvent;
-
-    before(() => {
-      pointerEvent = window.PointerEvent;
-      window.PointerEvent = {} as any;
-    });
-
-    after(() => {
-      window.PointerEvent = pointerEvent;
-    });
-
     it("should call onOutsideClick", () => {
-      const spy = sinon.stub<[], void>();
+      const spy = vi.fn<[], void>();
       const { result } = renderHook(() => useOnOutsideClick(spy));
       const element = document.createElement("div");
       act(() => {
@@ -47,16 +35,15 @@ describe("useOnOutsideClick", () => {
       const pointerUp = new PointerEvent("pointerup");
       document.dispatchEvent(pointerUp);
 
-      spy.calledOnceWithExactly().should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
 
     it("should respect outside event predicate", () => {
-      const spy = sinon.stub<[], void>();
-      const predicate = sinon.spy<
-        NonNullable<Parameters<typeof useOnOutsideClick>[1]>
-      >(() => {
+      const spy = vi.fn<[], void>();
+      const predicate = vi.fn(() => {
         return false;
       });
+
       const { result } = renderHook(() => useOnOutsideClick(spy, predicate));
       const element = document.createElement("div");
       act(() => {
@@ -69,39 +56,40 @@ describe("useOnOutsideClick", () => {
       const pointerUp = new PointerEvent("pointerup");
       document.dispatchEvent(pointerUp);
 
-      predicate.calledOnceWithExactly(pointerDown).should.true;
-      spy.notCalled.should.true;
+      expect(predicate).toHaveBeenCalledWith(pointerDown);
+      expect(spy).not.toBeCalled();
     });
 
-    it("should respect outside event predicate", () => {
-      const spy = sinon.stub<[], void>();
-      const predicate = sinon.spy<
-        NonNullable<Parameters<typeof useOnOutsideClick>[1]>
-      >((ev) => {
+    it("should respect outside event predicate", async () => {
+      const spy = vi.fn<[], void>();
+      const onOutsideClick = vi.fn((ev: OutsideClickEvent) => {
         if (ev.type === "pointerup") return false;
         return true;
       });
-      const { result } = renderHook(() => useOnOutsideClick(spy, predicate));
+      const { result } = renderHook(() =>
+        useOnOutsideClick(spy, onOutsideClick)
+      );
       const element = document.createElement("div");
+
       act(() => {
         setRefValue(result.current, element);
       });
 
       const pointerDown = new PointerEvent("pointerdown");
-      document.dispatchEvent(pointerDown);
-
       const pointerUp = new PointerEvent("pointerup");
+      document.dispatchEvent(pointerDown);
       document.dispatchEvent(pointerUp);
 
-      predicate.callCount.should.eq(2);
-      predicate.firstCall.calledWithExactly(pointerDown).should.true;
-      predicate.secondCall.calledWithExactly(pointerUp).should.true;
-      spy.notCalled.should.true;
+      expect(onOutsideClick).toBeCalledTimes(2);
+      expect(onOutsideClick).toBeCalledWith(pointerDown);
+      expect(onOutsideClick).toBeCalledWith(pointerUp);
+      expect(spy).not.toBeCalled();
     });
   });
 
   it("should call onOutsideClick for touch", () => {
-    const spy = sinon.stub<[], void>();
+    const spy = vi.fn<[], void>();
+    global.PointerEvent = undefined!;
     const { result } = renderHook(() => useOnOutsideClick(spy));
     const element = document.createElement("div");
     act(() => {
@@ -111,20 +99,22 @@ describe("useOnOutsideClick", () => {
     fireEvent.touchStart(document);
     fireEvent.touchEnd(document);
 
-    spy.calledOnceWithExactly().should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should remove touch and mouse event listeners", () => {
+    global.PointerEvent = undefined!;
     const { unmount } = renderHook(() => useOnOutsideClick());
 
-    const spy = sandbox.spy(document, "removeEventListener");
+    const spy = vi.spyOn(document, "removeEventListener");
     unmount();
 
-    spy.callCount.should.eq(4);
+    expect(spy).toHaveBeenCalledTimes(4);
   });
 
   it("should not handle mouse event after touch event", () => {
-    const spy = sinon.stub<[], void>();
+    const spy = vi.fn<[], void>();
+    global.PointerEvent = undefined!;
     const { result } = renderHook(() => useOnOutsideClick(spy));
     const element = document.createElement("div");
     act(() => {
@@ -136,12 +126,13 @@ describe("useOnOutsideClick", () => {
     fireEvent.mouseDown(document);
     fireEvent.mouseUp(document);
 
-    spy.callCount.should.eq(1);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should continue handling mouse events after timeout", () => {
-    const fakeTimers = sandbox.useFakeTimers();
-    const spy = sinon.stub<[], void>();
+    vi.useFakeTimers();
+    const spy = vi.fn();
+    global.PointerEvent = undefined!;
     const { result } = renderHook(() => useOnOutsideClick(spy));
     const element = document.createElement("div");
     act(() => {
@@ -151,11 +142,11 @@ describe("useOnOutsideClick", () => {
     fireEvent.touchStart(document);
     fireEvent.touchEnd(document);
 
-    fakeTimers.tick(1000);
+    vi.advanceTimersByTime(1000);
 
     fireEvent.mouseDown(document);
     fireEvent.mouseUp(document);
 
-    spy.callCount.should.eq(2);
+    expect(spy).toBeCalledTimes(2);
   });
 });

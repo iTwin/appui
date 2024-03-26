@@ -120,7 +120,7 @@ describe("<EnumEditor />", () => {
 
     fireEvent.keyDown(selectNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCancel.called).toEqual(true);
+    expect(spyOnCancel).toHaveBeenCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });
@@ -144,6 +144,6 @@ describe("<EnumEditor />", () => {
 
     fireEvent.keyDown(selectNode, { key: Key.PageDown });
     await TestUtils.flushAsyncOperations();
-    expect(spyParent.called).toEqual(true);
+    expect(spyParent).toHaveBeenCalled();
   });
 });

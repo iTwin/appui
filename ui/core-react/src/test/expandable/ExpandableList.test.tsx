@@ -15,7 +15,7 @@ describe("ExpandableList", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiCore();
   });
 

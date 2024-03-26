@@ -58,7 +58,7 @@ describe("FloatingTab", () => {
 
   it("should dispatch WIDGET_TAB_DRAG", () => {
     const dragManager = React.createRef<DragManager>();
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "tab 1" });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -95,7 +95,7 @@ describe("FloatingTab", () => {
 
   it("should dispatch WIDGET_TAB_DRAG_END with tab start target", () => {
     const dragManager = React.createRef<DragManager>();
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1", {
       label: "tab 1",
@@ -139,7 +139,7 @@ describe("FloatingTab", () => {
 
   it("should dispatch WIDGET_TAB_DRAG_END with tab end target", () => {
     const dragManager = React.createRef<DragManager>();
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1", {
       label: "tab 1",
@@ -183,7 +183,7 @@ describe("FloatingTab", () => {
 
   it("should dispatch WIDGET_TAB_DRAG_END with floatingWidget target", () => {
     const dragManager = React.createRef<DragManager>();
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1", {
       label: "tab 1",
@@ -233,7 +233,7 @@ describe("FloatingTab", () => {
 
   it("should dispatch WIDGET_TAB_DRAG_END with panel target", () => {
     const dragManager = React.createRef<DragManager>();
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "tab 1" });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -279,7 +279,7 @@ describe("FloatingTab", () => {
 
   it("should dispatch WIDGET_TAB_DRAG_END with widget target", () => {
     const dragManager = React.createRef<DragManager>();
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "tab 1" });
     state = addPanelWidget(state, "left", "w1", ["t1"]);

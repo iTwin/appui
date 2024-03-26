@@ -15,7 +15,7 @@ import { TestNineZoneProvider } from "../Providers";
 
 describe("PopoutToggle", () => {
   it("should dispatch PANEL_TOGGLE_PINNED", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);

@@ -21,7 +21,7 @@ describe("useTransientState", () => {
       onSaveTransientState,
     };
     const onSave =
-      sinon.stub<NonNullable<Parameters<typeof useTransientState>[0]>>();
+      vi.fn<NonNullable<Parameters<typeof useTransientState>[0]>>();
     renderHook(() => useTransientState(onSave), {
       wrapper: (props: { children?: React.ReactNode }) => (
         <WidgetContentManagerContext.Provider value={widgetContentManager}>
@@ -47,7 +47,7 @@ describe("useTransientState", () => {
       onSaveTransientState: new BeEvent<(tabId: TabState["id"]) => void>(),
     };
     const onRestore =
-      sinon.stub<NonNullable<Parameters<typeof useTransientState>[1]>>();
+      vi.fn<NonNullable<Parameters<typeof useTransientState>[1]>>();
     renderHook(() => useTransientState(undefined, onRestore), {
       wrapper: (props: { children?: React.ReactNode }) => (
         <WidgetContentManagerContext.Provider value={widgetContentManager}>

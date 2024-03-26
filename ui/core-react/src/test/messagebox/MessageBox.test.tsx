@@ -13,7 +13,7 @@ import { MessageBox, MessageContainer } from "../../core-react";
 import TestUtils from "../TestUtils";
 
 describe("MessageBox", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiCore();
   });
 

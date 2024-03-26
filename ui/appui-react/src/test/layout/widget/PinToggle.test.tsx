@@ -49,7 +49,7 @@ describe("PinToggle", () => {
   });
 
   it("should dispatch PANEL_TOGGLE_PINNED", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     const state = createNineZoneState();
     const component = render(
       <TestNineZoneProvider

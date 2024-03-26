@@ -37,7 +37,7 @@ describe("ScrollableWidgetContent", () => {
       onSaveTransientState.raiseEvent("t1");
       onRestoreTransientState.raiseEvent("t1");
     });
-    scrollLeftSpy.get.callCount.should.eq(1);
-    scrollLeftSpy.set.callCount.should.eq(1);
+    scrollLeftSpy.get.toHaveBeenCalledOnce();
+    scrollLeftSpy.set.toHaveBeenCalledOnce();
   });
 });
