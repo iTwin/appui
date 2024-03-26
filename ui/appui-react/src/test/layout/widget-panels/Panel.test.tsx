@@ -6,7 +6,6 @@ import { fireEvent, render, waitFor } from "@testing-library/react";
 import { act } from "@testing-library/react-hooks";
 import produce from "immer";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { DragManager } from "../../../appui-react/layout/base/DragManager";
 import { DraggedPanelSideContext } from "../../../appui-react/layout/base/DragManager";
 import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore";
@@ -17,7 +16,6 @@ import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpe
 import { WidgetPanelProvider } from "../../../appui-react/layout/widget-panels/Panel";
 import { createDragInfo, TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";
-import { expect } from "chai";
 
 describe("WidgetPanelProvider", () => {
   it("should render vertical", () => {
@@ -451,7 +449,7 @@ describe("WidgetPanelProvider", () => {
     });
 
     const panel = container.getElementsByClassName("nz-widgetPanels-panel")[0];
-    const spy = sinon.spy(panel, "getBoundingClientRect");
+    const spy = vi.spyOn(panel, "getBoundingClientRect");
 
     const grip = container.getElementsByClassName("nz-widgetPanels-grip")[0];
     const handle = grip.getElementsByClassName("nz-handle")[0];

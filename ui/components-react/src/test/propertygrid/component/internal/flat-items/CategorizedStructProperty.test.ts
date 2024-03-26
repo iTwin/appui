@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import sinon from "sinon";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { MutableCategorizedStructProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedStructProperty";
 import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
@@ -47,10 +45,10 @@ describe("CategorizedStructProperty", () => {
       expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(0);
 
       GridUtils.assertPropertyEquals(property, propertyRecord);
-      expect(property.depth).to.be.equal(0);
+      expect(property.depth).toEqual(0);
 
-      expect(property.parentSelectionKey).to.be.equal("Cat1");
-      expect(property.parentCategorySelectionKey).to.be.equal("Cat1");
+      expect(property.parentSelectionKey).toEqual("Cat1");
+      expect(property.parentCategorySelectionKey).toEqual("Cat1");
     });
 
     it("Should correctly initialize categorized struct property with overrides", () => {
@@ -74,10 +72,10 @@ describe("CategorizedStructProperty", () => {
         "CADID1_2",
         "[3]"
       );
-      expect(property.depth).to.be.equal(1);
+      expect(property.depth).toEqual(1);
 
-      expect(property.parentSelectionKey).to.be.equal("Cat1_Array");
-      expect(property.parentCategorySelectionKey).to.be.equal("Cat1");
+      expect(property.parentSelectionKey).toEqual("Cat1_Array");
+      expect(property.parentCategorySelectionKey).toEqual("Cat1");
     });
 
     it("Should throw when initializing categorized struct property with primitive record", () => {
@@ -156,16 +154,14 @@ describe("CategorizedStructProperty", () => {
         ] = args;
         const expectedRecord = arrayChildren[index];
 
-        expect(parentSelectionKey).to.be.equal(
+        expect(parentSelectionKey).toEqual(
           GridUtils.getSelectionKey(propertyRecord, expectedParentSelectionKey)
         );
-        expect(parentCategorySelectionKey).to.be.equal(
-          expectedParentSelectionKey
-        );
-        expect(depth).to.be.equal(1);
-        expect(record).to.be.equal(expectedRecord);
-        expect(overrideName).to.be.equal(undefined);
-        expect(overrideDisplayLabel).to.be.equal(undefined);
+        expect(parentCategorySelectionKey).toEqual(expectedParentSelectionKey);
+        expect(depth).toEqual(1);
+        expect(record).toEqual(expectedRecord);
+        expect(overrideName).toEqual(undefined);
+        expect(overrideDisplayLabel).toEqual(undefined);
       });
     });
   });
@@ -188,7 +184,7 @@ describe("CategorizedStructProperty", () => {
         );
 
         const isExpanded = property.isExpanded;
-        expect(isExpanded).to.be.equal(propertyRecord.autoExpand);
+        expect(isExpanded).toEqual(propertyRecord.autoExpand);
       });
 
       it(`isExpanded should return ${expectedIsExpanded} when isExpanded set to: ${expectedIsExpanded}`, () => {
@@ -203,7 +199,7 @@ describe("CategorizedStructProperty", () => {
         );
 
         property.isExpanded = expectedIsExpanded;
-        expect(property.isExpanded).to.be.equal(expectedIsExpanded);
+        expect(property.isExpanded).toEqual(expectedIsExpanded);
       });
     }
 
@@ -225,7 +221,7 @@ describe("CategorizedStructProperty", () => {
 
       const self = property.getSelf();
 
-      expect(self).to.be.equal(property);
+      expect(self).toEqual(property);
     });
   });
 
@@ -727,7 +723,7 @@ describe("CategorizedStructProperty", () => {
         const children = property.getChildren();
         const childrenSpies: sinon.SinonSpy[] = [];
         children.forEach((child) => {
-          const spy = sinon.spy();
+          const spy = vi.fn();
           childrenSpies.push(spy);
 
           sinon.replaceSetter(child, "lastInNumberOfCategories", spy);
@@ -780,7 +776,7 @@ describe("CategorizedStructProperty", () => {
         const children = property.getChildren();
         const childrenSpies: sinon.SinonSpy[] = [];
         children.forEach((child) => {
-          const spy = sinon.spy();
+          const spy = vi.fn();
           childrenSpies.push(spy);
 
           sinon.replaceSetter(child, "isLastInRootCategory", spy);

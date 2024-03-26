@@ -2,11 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { VariableSizeList } from "react-window";
 import { Observable } from "rxjs";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
@@ -45,7 +43,7 @@ describe("TreeRenderer", () => {
     height: 200,
   };
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
     HTMLElement.prototype.scrollIntoView = () => {};
   });
@@ -247,8 +245,8 @@ describe("TreeRenderer", () => {
     );
 
     const nodeBefore = getByText("test_node_2");
-    expect(nodeBefore.style.height).to.be.equal("50px");
-    expect(nodeBefore.style.top).to.be.equal("50px");
+    expect(nodeBefore.style.height).toEqual("50px");
+    expect(nodeBefore.style.top).toEqual("50px");
 
     rerender(
       <TreeRenderer
@@ -259,8 +257,8 @@ describe("TreeRenderer", () => {
     );
 
     const nodeAfter = getByText("test_node_2");
-    expect(nodeAfter.style.height).to.be.equal("20px");
-    expect(nodeAfter.style.top).to.be.equal("20px");
+    expect(nodeAfter.style.height).toEqual("20px");
+    expect(nodeAfter.style.top).toEqual("20px");
   });
 
   it("calls 'onItemRendered' callback when nodes are rendered", () => {
@@ -276,7 +274,7 @@ describe("TreeRenderer", () => {
         createRandomMutableTreeModelNode(undefined, undefined, "test node 1")
       );
 
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const { getByText } = render(
       <TreeRenderer {...defaultProps} onItemsRendered={spy} />
@@ -320,13 +318,13 @@ describe("TreeRenderer", () => {
       return <div className={HighlightingEngine.ACTIVE_CLASS_NAME} />;
     };
 
-    const verticalScrollSpy = sinon.spy();
+    const verticalScrollSpy = vi.fn();
     sinon.replace(
       VariableSizeList.prototype,
       "scrollToItem",
       verticalScrollSpy
     );
-    const horizontalScrollSpy = sinon.spy();
+    const horizontalScrollSpy = vi.fn();
     sinon.replace(HTMLElement.prototype, "scrollIntoView", horizontalScrollSpy);
 
     const { rerender } = render(<TreeRenderer {...defaultProps} />);
@@ -341,7 +339,7 @@ describe("TreeRenderer", () => {
     );
     onLabelRendered!(node2);
 
-    expect(verticalScrollSpy).to.be.calledWith(1);
+    expect(verticalScrollSpy).toHaveBeenCalledWith(1);
     expect(horizontalScrollSpy).toHaveBeenCalled();
   });
 
@@ -351,8 +349,8 @@ describe("TreeRenderer", () => {
     visibleNodesMock.setup((x) => x.getNumNodes()).mockReturnValue(() => 1);
     visibleNodesMock.setup((x) => x.getAtIndex(0)).mockReturnValue(() => node);
 
-    const spyKeyDown = sinon.spy();
-    const spyKeyUp = sinon.spy();
+    const spyKeyDown = vi.fn();
+    const spyKeyUp = vi.fn();
     treeActionsMock
       .setup((x) => x.onTreeKeyDown)
       .mockReturnValue(() => spyKeyDown);
@@ -371,7 +369,7 @@ describe("TreeRenderer", () => {
   });
 
   it("calls onNodeEditorClosed when node.editingInfo changes to undefined", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const label = "test node";
     const node = createRandomMutableTreeModelNode(undefined, undefined, label);
     visibleNodesMock.setup((x) => x.getNumNodes()).mockReturnValue(() => 1);

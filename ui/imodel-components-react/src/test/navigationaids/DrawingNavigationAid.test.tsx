@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import {
   AxisIndex,
@@ -96,7 +94,7 @@ describe("DrawingNavigationAid", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeEach(async () => {
     sinon.restore();
     await TestUtils.initializeUiIModelComponents();
   });
@@ -161,7 +159,7 @@ describe("DrawingNavigationAid", () => {
       render(<DrawingNavigationAid iModelConnection={connection.object} />);
     });
     it("should exist", async () => {
-      const animationEnd = sinon.spy();
+      const animationEnd = vi.fn();
       const component = render(
         <DrawingNavigationAid
           iModelConnection={connection.object}

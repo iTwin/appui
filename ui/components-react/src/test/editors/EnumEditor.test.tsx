@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Key } from "ts-key-enum";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
@@ -41,7 +39,7 @@ describe("<EnumEditor />", () => {
 
   it("HTML select onChange updates string value", async () => {
     const record = TestUtils.createEnumProperty("Test1", "0");
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(<EnumEditor propertyRecord={record} onCommit={spyOnCommit} />);
     await theUserTo.click(
       screen.getByTestId("components-select-editor").firstElementChild!
@@ -52,7 +50,7 @@ describe("<EnumEditor />", () => {
 
   it("HTML select onChange updates numeric value", async () => {
     const record = TestUtils.createEnumProperty("Test1", 0);
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(<EnumEditor propertyRecord={record} onCommit={spyOnCommit} />);
     await theUserTo.click(
       screen.getByTestId("components-select-editor").firstElementChild!
@@ -63,7 +61,7 @@ describe("<EnumEditor />", () => {
 
   it("onCommit should not be called for escape", async () => {
     const propertyRecord = TestUtils.createEnumProperty("Test", 0);
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     const wrapper = render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -78,7 +76,7 @@ describe("<EnumEditor />", () => {
 
     fireEvent.keyDown(selectNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.called).to.be.false;
+    expect(spyOnCommit).not.toBeCalled();
   });
 
   it("new props updates the display", async () => {
@@ -97,8 +95,8 @@ describe("<EnumEditor />", () => {
     const record = TestUtils.createEnumProperty("Test", 0);
     record.property.dataController = "myData";
 
-    const spyOnCommit = sinon.spy();
-    const spyOnCancel = sinon.spy();
+    const spyOnCommit = vi.fn();
+    const spyOnCancel = vi.fn();
     const renderedComponent = render(
       <EditorContainer
         propertyRecord={record}
@@ -116,7 +114,7 @@ describe("<EnumEditor />", () => {
 
     fireEvent.blur(selectNode);
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.called).to.be.false;
+    expect(spyOnCommit).not.toBeCalled();
 
     fireEvent.keyDown(selectNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
@@ -127,7 +125,7 @@ describe("<EnumEditor />", () => {
 
   it("keyDown should propagate up", async () => {
     const propertyRecord = TestUtils.createEnumProperty("Test", 0);
-    const spyParent = sinon.spy();
+    const spyParent = vi.fn();
     const wrapper = render(
       <div onKeyDown={spyParent} role="presentation">
         <EditorContainer

@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import { Point, Rectangle, Size } from "@itwin/core-react";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   DragManager,
   DragManagerContext,

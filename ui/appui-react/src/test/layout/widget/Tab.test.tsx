@@ -6,7 +6,6 @@ import { Rectangle } from "@itwin/core-react";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone";

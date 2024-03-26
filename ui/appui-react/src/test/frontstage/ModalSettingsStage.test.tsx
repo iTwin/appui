@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { render, waitFor } from "@testing-library/react";
 import type { ModalFrontstageInfo } from "../../appui-react";
 import {
@@ -96,7 +94,7 @@ describe("ModalSettingsStage", () => {
   });
 
   it("will open no available settings message", () => {
-    const spyOutput = sinon.spy(IModelApp.notifications, "outputMessage");
+    const spyOutput = vi.spyOn(IModelApp.notifications, "outputMessage");
     SettingsModalFrontstage.showSettingsStage("page1");
     spyOutput.calledOnce.should.true;
   });

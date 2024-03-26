@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { ResultSelector } from "../../components-react/filtering/ResultSelector";
 import { render, screen } from "@testing-library/react";
@@ -13,7 +12,7 @@ describe("ResultSelector", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 

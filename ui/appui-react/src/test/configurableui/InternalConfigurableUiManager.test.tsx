@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
@@ -30,7 +29,7 @@ class TableExampleContentControl extends ContentControl {
 }
 
 describe("InternalConfigurableUiManager", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
 
@@ -41,7 +40,7 @@ describe("InternalConfigurableUiManager", () => {
     );
   });
 
-  after(async () => {
+  afterEach(async () => {
     InternalConfigurableUiManager.unregister("TableExampleContent");
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();

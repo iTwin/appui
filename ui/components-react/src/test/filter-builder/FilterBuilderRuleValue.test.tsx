@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, screen, waitFor } from "@testing-library/react";
@@ -25,7 +23,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
     typename: "string",
   };
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -66,7 +64,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
   });
 
   it("calls onChange when value is changed", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(
       <PropertyFilterBuilderRuleValue
         property={defaultProperty}
@@ -79,7 +77,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
     screen.getByRole("textbox").blur();
 
     await waitFor(() =>
-      expect(spy).to.be.calledWith({
+      expect(spy).toHaveBeenCalledWith({
         valueFormat: PropertyValueFormat.Primitive,
         value: "test text",
         displayValue: "test text",
@@ -122,7 +120,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
       const serializedValue =
         PropertyFilterBuilderRuleRangeValue.serialize(value);
       const user = userEvent.setup();
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const { getByDisplayValue } = render(
         <PropertyFilterBuilderRuleValue
           property={prop}
@@ -142,7 +140,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
       } as PropertyFilterBuilderRuleRangeValue);
 
       await waitFor(() => {
-        expect(spy).to.be.calledWithExactly(expected);
+        expect(spy).toHaveBeenCalledWith(expected);
       });
     });
 
@@ -150,7 +148,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
       const serializedValue =
         PropertyFilterBuilderRuleRangeValue.serialize(value);
       const user = userEvent.setup();
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const { getByDisplayValue } = render(
         <PropertyFilterBuilderRuleValue
           property={prop}
@@ -170,7 +168,7 @@ describe("PropertyFilterBuilderRuleValue", () => {
       } as PropertyFilterBuilderRuleRangeValue);
 
       await waitFor(() => {
-        expect(spy).to.be.calledWithExactly(expected);
+        expect(spy).toHaveBeenCalledWith(expected);
       });
     });
   });

@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import { UiError } from "@itwin/appui-abstract";
 import type {
   ActionCreatorsObject,
@@ -116,12 +115,12 @@ describe("ReducerRegistry", () => {
       }
     );
     expect(outState.dialogVisible).toEqual(true);
-    expect(outState.selectedItem).to.be.equal("selected");
+    expect(outState.selectedItem).toEqual("selected");
     outState = ReducerRegistryInstance.getReducers().extension_state(outState, {
       type: ExtensionStateManager.SET_EXTENSION_SELECTED_ITEM,
       payload: "new-selection",
     });
-    expect(outState.selectedItem).to.be.equal("new-selection");
+    expect(outState.selectedItem).toEqual("new-selection");
 
     ReducerRegistryInstance.clearReducers();
     expect(reducerRegistryHasEntries).to.be.false;
@@ -130,10 +129,10 @@ describe("ReducerRegistry", () => {
   it("should not be able to register duplicate reducer name ", () => {
     ExtensionStateManager.initialize();
     let keys = Object.keys(ReducerRegistryInstance.getReducers());
-    expect(keys.length).to.be.equal(1);
+    expect(keys.length).toEqual(1);
     // eslint-disable-next-line deprecation/deprecation
     expect(() => ExtensionStateManager.initialize()).to.throw(UiError);
     keys = Object.keys(ReducerRegistryInstance.getReducers());
-    expect(keys.length).to.be.equal(1);
+    expect(keys.length).toEqual(1);
   });
 });

@@ -6,7 +6,6 @@
 import chai, { expect } from "chai";
 import chaiSubset from "chai-subset";
 import * as React from "react";
-import sinon from "sinon";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, waitFor } from "@testing-library/react";
@@ -33,7 +32,7 @@ describe("PropertyFilterBuilder", () => {
     typename: "string",
   };
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -43,7 +42,7 @@ describe("PropertyFilterBuilder", () => {
 
   it("call onFilterChanged with filter after new rule is setup", async () => {
     const user = userEvent.setup();
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const { getByText, getByPlaceholderText } = render(
       <PropertyFilterBuilder properties={[property1]} onFilterChanged={spy} />
     );

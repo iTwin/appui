@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import { Orientation } from "@itwin/core-react";
 import { PropertyRenderer } from "../../../components-react/properties/renderers/PropertyRenderer";
 import { PropertyValueRendererManager } from "../../../components-react/properties/ValueRendererManager";
@@ -36,13 +34,13 @@ describe("PropertyRenderer", () => {
         });
 
         it("returns maxIndent when indentation is 1", () => {
-          expect(PropertyRenderer.getLabelOffset(1, orientation)).to.be.equal(
+          expect(PropertyRenderer.getLabelOffset(1, orientation)).toEqual(
             maxIndent
           );
         });
 
         it("returns maxIndent * 2 when indentation is 2", () => {
-          expect(PropertyRenderer.getLabelOffset(2, orientation)).to.be.equal(
+          expect(PropertyRenderer.getLabelOffset(2, orientation)).toEqual(
             maxIndent * 2
           );
         });
@@ -57,7 +55,7 @@ describe("PropertyRenderer", () => {
       it("should not shrink indentation in Vertical mode", () => {
         expect(
           PropertyRenderer.getLabelOffset(1, orientation, 100, 0.2, 20)
-        ).to.be.equal(maxIndent);
+        ).toEqual(maxIndent);
       });
     });
 
@@ -85,31 +83,31 @@ describe("PropertyRenderer", () => {
         it("returns maxIndent when indentation is 1 and current label size is bigger than shrink threshold", () => {
           expect(
             PropertyRenderer.getLabelOffset(1, orientation, 100, 0.4, 20)
-          ).to.be.equal(maxIndent);
+          ).toEqual(maxIndent);
         });
 
         it("returns minIndent when indentation is 1 and current label size is same as minimum label size", () => {
           expect(
             PropertyRenderer.getLabelOffset(1, orientation, 100, 0.2, 20)
-          ).to.be.equal(minIndent);
+          ).toEqual(minIndent);
         });
 
         it("returns intermediate value between min and max when indentation is 1 and current label size is between threshold and minimum shrink", () => {
           expect(
             PropertyRenderer.getLabelOffset(1, orientation, 100, 0.3, 20)
-          ).to.be.equal(10);
+          ).toEqual(10);
         });
 
         it("returns maxIndent * 4 when indentation is 4 and current label size is larger than shrink threshold", () => {
           expect(
             PropertyRenderer.getLabelOffset(4, orientation, 100, 0.9, 20)
-          ).to.be.equal(maxIndent * 4);
+          ).toEqual(maxIndent * 4);
         });
 
         it("returns minIndent * 4 when indentation is 4 and current label size is same as minimum label size", () => {
           expect(
             PropertyRenderer.getLabelOffset(4, orientation, 100, 0.2, 20)
-          ).to.be.equal(minIndent * 4);
+          ).toEqual(minIndent * 4);
         });
 
         it("returns (maxIndent * 3) + intermediate when indentation is 4 and current label size is between indentation 4 min shrink and threshold", () => {
@@ -127,7 +125,7 @@ describe("PropertyRenderer", () => {
               currentLabelSizeRatio,
               minimumLabelSize
             )
-          ).to.be.equal(maxIndent * 3 + intermediateSize);
+          ).toEqual(maxIndent * 3 + intermediateSize);
         });
 
         it("returns (maxIndent) + intermediate + (minIndent * 2) when when indentation is 4 and current label size is between indentation 2 threshold and minimum shrink", () => {
@@ -145,7 +143,7 @@ describe("PropertyRenderer", () => {
               currentLabelSizeRatio,
               minimumLabelSize
             )
-          ).to.be.equal(maxIndent + intermediateSize + minIndent * 2);
+          ).toEqual(maxIndent + intermediateSize + minIndent * 2);
         });
       });
     });
@@ -153,7 +151,7 @@ describe("PropertyRenderer", () => {
 
   let propertyRecord: PropertyRecord;
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -293,7 +291,7 @@ describe("PropertyRenderer", () => {
   });
 
   it("calls onEditCommit on Enter key when editing", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const propertyRenderer = render(
       <PropertyRenderer
         orientation={Orientation.Horizontal}
@@ -312,7 +310,7 @@ describe("PropertyRenderer", () => {
   });
 
   it("calls onEditCancel on Escape key when editing", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const propertyRenderer = render(
       <PropertyRenderer
         orientation={Orientation.Horizontal}

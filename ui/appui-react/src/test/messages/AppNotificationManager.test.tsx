@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   ActivityMessageDetails,
   ActivityMessageEndReason,
@@ -37,19 +35,19 @@ describe("AppNotificationManager", () => {
   });
 
   it("outputPromptByKey", () => {
-    const spy = sinon.spy(MessageManager, "outputPrompt");
+    const spy = vi.spyOn(MessageManager, "outputPrompt");
     notifications.outputPromptByKey("Framework:tests.label");
     expect(spy).toHaveBeenCalledOnce();
   });
 
   it("outputPrompt", () => {
-    const spy = sinon.spy(MessageManager, "outputPrompt");
+    const spy = vi.spyOn(MessageManager, "outputPrompt");
     notifications.outputPrompt("This is a prompt.");
     expect(spy).toHaveBeenCalledOnce();
   });
 
   it("outputMessage", () => {
-    const spy = sinon.spy(MessageManager, "addMessage");
+    const spy = vi.spyOn(MessageManager, "addMessage");
     const details = new NotifyMessageDetails(
       OutputMessagePriority.Debug,
       "A brief message."
@@ -59,8 +57,8 @@ describe("AppNotificationManager", () => {
   });
 
   it("outputMessage with Alert", () => {
-    const spy = sinon.spy(MessageManager, "addMessage");
-    const alertBoxMethod = sinon.spy(MessageManager, "showAlertMessageBox");
+    const spy = vi.spyOn(MessageManager, "addMessage");
+    const alertBoxMethod = vi.spyOn(MessageManager, "showAlertMessageBox");
 
     const details = new NotifyMessageDetails(
       OutputMessagePriority.Success,
@@ -76,8 +74,8 @@ describe("AppNotificationManager", () => {
   });
 
   it("outputMessage with Alert & Balloon", () => {
-    const spy = sinon.spy(MessageManager, "addMessage");
-    const alertBoxMethod = sinon.spy(MessageManager, "showAlertMessageBox");
+    const spy = vi.spyOn(MessageManager, "addMessage");
+    const alertBoxMethod = vi.spyOn(MessageManager, "showAlertMessageBox");
 
     const details = new NotifyMessageDetails(
       OutputMessagePriority.Debug,
@@ -92,9 +90,9 @@ describe("AppNotificationManager", () => {
   });
 
   it("outputMessage with InputField", () => {
-    const spy = sinon.spy(MessageManager, "addMessage");
-    const spy2 = sinon.spy(MessageManager, "displayInputFieldMessage");
-    const spy3 = sinon.spy(MessageManager, "hideInputFieldMessage");
+    const spy = vi.spyOn(MessageManager, "addMessage");
+    const spy2 = vi.spyOn(MessageManager, "displayInputFieldMessage");
+    const spy3 = vi.spyOn(MessageManager, "hideInputFieldMessage");
     const details = new NotifyMessageDetails(
       OutputMessagePriority.Debug,
       "A brief message.",
@@ -118,8 +116,8 @@ describe("AppNotificationManager", () => {
   });
 
   it("outputMessage with InputField but without setInputFieldTypeDetails", () => {
-    const spy = sinon.spy(MessageManager, "addMessage");
-    const spy2 = sinon.spy(MessageManager, "displayInputFieldMessage");
+    const spy = vi.spyOn(MessageManager, "addMessage");
+    const spy2 = vi.spyOn(MessageManager, "displayInputFieldMessage");
     const details = new NotifyMessageDetails(
       OutputMessagePriority.Debug,
       "A brief message.",
@@ -128,13 +126,13 @@ describe("AppNotificationManager", () => {
     );
     notifications.outputMessage(details);
     expect(spy).toHaveBeenCalledOnce();
-    expect(spy2.called).to.be.false;
+    expect(spy2).not.toBeCalled();
   });
 
   it("openMessageBox", async () => {
     render(<ModalDialogRenderer />);
 
-    const spy = sinon.spy(MessageManager, "openMessageBox");
+    const spy = vi.spyOn(MessageManager, "openMessageBox");
     expect(UiFramework.dialogs.modal.count).toEqual(0);
     const boxResult = notifications.openMessageBox(
       MessageBoxType.OkCancel,
@@ -154,28 +152,28 @@ describe("AppNotificationManager", () => {
   });
 
   it("setupActivityMessage", () => {
-    const spy = sinon.spy(MessageManager, "setupActivityMessageDetails");
+    const spy = vi.spyOn(MessageManager, "setupActivityMessageDetails");
     const details = new ActivityMessageDetails(true, true, true, true);
     notifications.setupActivityMessage(details);
     expect(spy).toHaveBeenCalledOnce();
   });
 
   it("outputActivityMessage", () => {
-    const spy = sinon.spy(MessageManager, "setupActivityMessageValues");
+    const spy = vi.spyOn(MessageManager, "setupActivityMessageValues");
     notifications.outputActivityMessage("Message text", 50);
     expect(spy).toHaveBeenCalledOnce();
   });
 
   it("endActivityMessage", () => {
-    const spy = sinon.spy(MessageManager, "endActivityMessage");
+    const spy = vi.spyOn(MessageManager, "endActivityMessage");
     notifications.endActivityMessage(ActivityMessageEndReason.Cancelled);
     notifications.endActivityMessage(ActivityMessageEndReason.Completed);
     expect(spy.calledTwice).toEqual(true);
   });
 
   it("ElementTooltip", () => {
-    const showMethod = sinon.spy(ElementTooltip, "showTooltip");
-    const hideMethod = sinon.spy(ElementTooltip, "hideTooltip");
+    const showMethod = vi.spyOn(ElementTooltip, "showTooltip");
+    const hideMethod = vi.spyOn(ElementTooltip, "hideTooltip");
     let divElement: HTMLElement | null;
     render(
       <div
@@ -192,8 +190,8 @@ describe("AppNotificationManager", () => {
   });
 
   it("ElementTooltip with a React component", () => {
-    const showMethod = sinon.spy(ElementTooltip, "showTooltip");
-    const hideMethod = sinon.spy(ElementTooltip, "hideTooltip");
+    const showMethod = vi.spyOn(ElementTooltip, "showTooltip");
+    const hideMethod = vi.spyOn(ElementTooltip, "hideTooltip");
     let divElement: HTMLElement | null;
     render(
       <div
@@ -210,7 +208,7 @@ describe("AppNotificationManager", () => {
   });
 
   it("ActivityMessage with a React component", () => {
-    const spy = sinon.spy(MessageManager, "setupActivityMessageValues");
+    const spy = vi.spyOn(MessageManager, "setupActivityMessageValues");
     const reactNode = <span>Activity message</span>;
     MessageManager.outputActivityMessage({ reactNode }, 50);
     expect(spy).toHaveBeenCalledOnce();

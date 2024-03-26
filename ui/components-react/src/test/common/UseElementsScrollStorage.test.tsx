@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
-import sinon from "sinon";
 import React, { forwardRef, useImperativeHandle } from "react";
 import { render } from "@testing-library/react";
 import { useElementsScrollStorage } from "../../components-react/common/UseElementsScrollStorage";

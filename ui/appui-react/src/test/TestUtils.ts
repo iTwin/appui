@@ -6,7 +6,6 @@ import type { Store } from "redux";
 import { createStore } from "redux";
 import type * as sinon from "sinon";
 import { act, prettyDOM } from "@testing-library/react";
-import { expect } from "chai";
 
 import type {
   ContentLayoutProps,
@@ -278,7 +277,7 @@ export function stubRaf() {
   const raf = window.requestAnimationFrame;
   const caf = window.cancelAnimationFrame;
 
-  before(() => {
+  beforeEach(() => {
     window.requestAnimationFrame = (cb: FrameRequestCallback) => {
       return window.setTimeout(cb, 0);
     };

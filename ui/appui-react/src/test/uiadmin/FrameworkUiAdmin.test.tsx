@@ -4,8 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 /* eslint-disable deprecation/deprecation */
 import * as React from "react";
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import type {
   AbstractMenuItemProps,
@@ -171,7 +169,7 @@ describe("FrameworkUiAdmin", () => {
   let uiAdmin: FrameworkUiAdmin;
 
   // avoid problems due to no real localization resources by return dummy values for englishKeyin and keyin properties.
-  before(async () => {
+  beforeEach(async () => {
     Object.defineProperty(Tool, "englishKeyin", {
       get: () => {
         return "english";
@@ -189,7 +187,7 @@ describe("FrameworkUiAdmin", () => {
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
     sinon.reset();

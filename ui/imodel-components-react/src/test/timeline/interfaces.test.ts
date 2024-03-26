@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { BaseTimelineDataProvider } from "../../imodel-components-react/timeline/BaseTimelineDataProvider";
 import type { PlaybackSettings } from "../../imodel-components-react/timeline/interfaces";
 
@@ -43,8 +42,8 @@ describe("Timeline", () => {
       await timelineProvider.loadTimelineData();
 
       const settings = timelineProvider.getSettings();
-      expect(settings.duration).to.be.equal(duration);
-      expect(settings.loop).to.be.equal(loop);
+      expect(settings.duration).toEqual(duration);
+      expect(settings.loop).toEqual(loop);
       expect(timelineProvider.pointerCallbackCalled).to.be.false;
       timelineProvider.onAnimationFractionChanged(testanimationFraction);
       expect(timelineProvider.pointerCallbackCalled).toEqual(true);
@@ -76,17 +75,15 @@ describe("Timeline", () => {
       const timelineProvider = new Test2TimelineDataProvider();
       await timelineProvider.loadTimelineData();
       const settings = timelineProvider.getSettings();
-      expect(settings.duration).to.be.equal(duration);
-      expect(settings.loop).to.be.equal(loop);
-      expect(timelineProvider.start).to.be.equal(startDate);
-      expect(timelineProvider.end).to.be.equal(endDate);
+      expect(settings.duration).toEqual(duration);
+      expect(settings.loop).toEqual(loop);
+      expect(timelineProvider.start).toEqual(startDate);
+      expect(timelineProvider.end).toEqual(endDate);
 
       // simulate UI updating pointer to current playback time
       timelineProvider.onAnimationFractionChanged(testanimationFraction);
       expect(timelineProvider.pointerCallbackCalled).toEqual(true);
-      expect(timelineProvider.animationFraction).to.be.equal(
-        testanimationFraction
-      );
+      expect(timelineProvider.animationFraction).toEqual(testanimationFraction);
     });
   });
 });

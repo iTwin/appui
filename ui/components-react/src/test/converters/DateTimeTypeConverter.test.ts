@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import {
   DateTimeTypeConverter,
   DateTimeTypeConverterBase,
@@ -13,7 +12,7 @@ import { TimeFormat } from "@itwin/core-react";
 import { AlternateDateFormats, TimeDisplay } from "@itwin/appui-abstract";
 
 describe("ShortDateTypeConverter", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -153,7 +152,7 @@ describe("ShortDateTypeConverter", () => {
     ).to.be.lessThan(0);
     expect(
       converter.sortCompare(new Date(2018, 0, 1), new Date(2018, 0, 1))
-    ).to.be.equal(0);
+    ).toEqual(0);
   });
 
   it("isLessGreaterType", () => {

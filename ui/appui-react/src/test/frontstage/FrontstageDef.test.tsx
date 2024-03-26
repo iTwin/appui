@@ -4,8 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { act, renderHook } from "@testing-library/react-hooks";
-import { expect } from "chai";
-import * as sinon from "sinon";
 import type {
   FrontstageConfig,
   StagePanelConfig,
@@ -79,7 +77,7 @@ describe("FrontstageDef", () => {
   )!;
   const localStorageMock = storageMock();
 
-  before(async () => {
+  beforeEach(async () => {
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
@@ -87,7 +85,7 @@ describe("FrontstageDef", () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(async () => {
+  afterEach(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
     Object.defineProperty(window, "localStorage", localStorageToRestore);
@@ -207,7 +205,7 @@ describe("FrontstageDef", () => {
         .stub(UiFramework.frontstages, "activeFrontstageDef")
         .get(() => activeFrontstageDef);
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
       // __PUBLISH_EXTRACT_START__ AppUI.WidgetDef.setWidgetState
@@ -243,7 +241,7 @@ describe("FrontstageDef", () => {
         .stub(UiFramework.frontstages, "activeFrontstageDef")
         .get(() => frontstageDef);
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
       const widgetDef = frontstageDef.findWidgetDef("w1")!;
@@ -274,7 +272,7 @@ describe("FrontstageDef", () => {
         .stub(UiFramework.frontstages, "activeFrontstageDef")
         .get(() => frontstageDef);
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
       const widgetDef = frontstageDef.findWidgetDef("test-widget");
@@ -300,7 +298,7 @@ describe("FrontstageDef", () => {
         .stub(UiFramework.frontstages, "activeFrontstageDef")
         .get(() => frontstageDef);
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
       const widgetDef = frontstageDef.findWidgetDef("ts");
@@ -342,7 +340,7 @@ describe("FrontstageDef", () => {
 
   describe("restoreLayout", () => {
     it("should emit onFrontstageRestoreLayoutEvent", () => {
-      const spy = sinon.spy(
+      const spy = vi.spyOn(
         InternalFrontstageManager.onFrontstageRestoreLayoutEvent,
         "emit"
       );
@@ -364,7 +362,7 @@ describe("FrontstageDef", () => {
       });
       vi.spyOn(rightPanel, "widgetDefs").get(() => [w1]);
       vi.spyOn(frontstageDef, "rightPanel").get(() => rightPanel);
-      const spy = sinon.spy(w1, "setWidgetState");
+      const spy = vi.spyOn(w1, "setWidgetState");
 
       frontstageDef.restoreLayout();
       sinon.assert.calledOnceWithExactly(spy, WidgetState.Open);
@@ -374,9 +372,9 @@ describe("FrontstageDef", () => {
       const frontstageDef = new FrontstageDef();
       const rightPanel = new StagePanelDef();
       const stagePanelConfig: StagePanelConfig = { sizeSpec: 300 };
-      sinon.spyOn(rightPanel, "initialConfig").get(() => stagePanelConfig);
-      sinon.spyOn(frontstageDef, "rightPanel").get(() => rightPanel);
-      const spy = sinon.spy(rightPanel, "sizeSpec", ["set"]);
+      vi.spyOn(rightPanel, "initialConfig").get(() => stagePanelConfig);
+      vi.spyOn(frontstageDef, "rightPanel").get(() => rightPanel);
+      const spy = vi.spyOn(rightPanel, "sizeSpec", ["set"]);
 
       frontstageDef.restoreLayout();
       sinon.assert.calledOnceWithExactly(spy.set, 300);
@@ -546,7 +544,7 @@ describe("FrontstageDef", () => {
         },
       });
 
-      const spy = sinon.spy(window, "open");
+      const spy = vi.spyOn(window, "open");
       frontstageDef.nineZoneState = state;
 
       expect(frontstageDef.nineZoneState).to.be.eq(state);
@@ -572,7 +570,7 @@ describe("FrontstageDef", () => {
       initializeNineZoneState(frontstageDef);
       frontstageDef.popoutWidget("t1");
 
-      const spy = sinon.spy(window, "open");
+      const spy = vi.spyOn(window, "open");
       const popoutWidgets = frontstageDef.nineZoneState!.popoutWidgets;
       const popoutWidget = popoutWidgets.byId[popoutWidgets.allIds[0]];
       frontstageDef.openPopoutWidgetContainer(
@@ -801,12 +799,12 @@ describe("floatWidget", () => {
 });
 
 describe("useSpecificWidgetDef", () => {
-  before(async () => {
+  beforeEach(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });

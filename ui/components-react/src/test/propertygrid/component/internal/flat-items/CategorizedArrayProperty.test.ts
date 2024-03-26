@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import sinon from "sinon";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { MutableCategorizedArrayProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedArrayProperty";
 import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
@@ -50,10 +48,10 @@ describe("CategorizedArrayProperty", () => {
       expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(0);
       GridUtils.assertPropertyEquals(property, propertyRecord);
 
-      expect(property.parentSelectionKey).to.be.equal("Cat1");
-      expect(property.parentCategorySelectionKey).to.be.equal("Cat1");
+      expect(property.parentSelectionKey).toEqual("Cat1");
+      expect(property.parentCategorySelectionKey).toEqual("Cat1");
 
-      expect(property.depth).to.be.equal(0);
+      expect(property.depth).toEqual(0);
     });
 
     it("Should correctly initialize categorized array property with overrides", () => {
@@ -77,10 +75,10 @@ describe("CategorizedArrayProperty", () => {
         "[3]"
       );
 
-      expect(property.parentSelectionKey).to.be.equal("Cat1_Array");
-      expect(property.parentCategorySelectionKey).to.be.equal("Cat1");
+      expect(property.parentSelectionKey).toEqual("Cat1_Array");
+      expect(property.parentCategorySelectionKey).toEqual("Cat1");
 
-      expect(property.depth).to.be.equal(1);
+      expect(property.depth).toEqual(1);
     });
 
     it("Should throw when initializing categorized array property with primitive record", () => {
@@ -163,16 +161,16 @@ describe("CategorizedArrayProperty", () => {
         const expectedOverrideName = `${expectedRecord.property.name}_${index}`;
         const expectedOverrideDisplayLabel = `[${index + 1}]`;
 
-        expect(parentSelectionKey).to.be.equal(
+        expect(parentSelectionKey).toEqual(
           GridUtils.getSelectionKey(propertyRecord, expectedParentSelectionKey)
         );
-        expect(parentCategorySelectionKey).to.be.equal(
+        expect(parentCategorySelectionKey).toEqual(
           expectedParentCategorySelectionKey
         );
-        expect(depth).to.be.equal(2);
-        expect(record).to.be.equal(expectedRecord);
-        expect(overrideName).to.be.equal(expectedOverrideName);
-        expect(overrideDisplayLabel).to.be.equal(expectedOverrideDisplayLabel);
+        expect(depth).toEqual(2);
+        expect(record).toEqual(expectedRecord);
+        expect(overrideName).toEqual(expectedOverrideName);
+        expect(overrideDisplayLabel).toEqual(expectedOverrideDisplayLabel);
       });
     });
   });
@@ -195,7 +193,7 @@ describe("CategorizedArrayProperty", () => {
         );
 
         const isExpanded = property.isExpanded;
-        expect(isExpanded).to.be.equal(propertyRecord.autoExpand);
+        expect(isExpanded).toEqual(propertyRecord.autoExpand);
       });
 
       it(`isExpanded should return ${expectedIsExpanded} when isExpanded set to: ${expectedIsExpanded}`, () => {
@@ -210,7 +208,7 @@ describe("CategorizedArrayProperty", () => {
         );
 
         property.isExpanded = expectedIsExpanded;
-        expect(property.isExpanded).to.be.equal(expectedIsExpanded);
+        expect(property.isExpanded).toEqual(expectedIsExpanded);
       });
     }
 
@@ -232,7 +230,7 @@ describe("CategorizedArrayProperty", () => {
 
       const self = property.getSelf();
 
-      expect(self).to.be.equal(property);
+      expect(self).toEqual(property);
     });
   });
 
@@ -743,7 +741,7 @@ describe("CategorizedArrayProperty", () => {
         const children = property.getChildren();
         const childrenSpies: sinon.SinonSpy[] = [];
         children.forEach((child) => {
-          const spy = sinon.spy();
+          const spy = vi.fn();
           childrenSpies.push(spy);
 
           sinon.replaceSetter(child, "lastInNumberOfCategories", spy);
@@ -796,7 +794,7 @@ describe("CategorizedArrayProperty", () => {
         const children = property.getChildren();
         const childrenSpies: sinon.SinonSpy[] = [];
         children.forEach((child) => {
-          const spy = sinon.spy();
+          const spy = vi.fn();
           childrenSpies.push(spy);
 
           sinon.replaceSetter(child, "isLastInRootCategory", spy);

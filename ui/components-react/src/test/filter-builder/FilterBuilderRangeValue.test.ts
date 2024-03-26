@@ -6,7 +6,6 @@
 import type { PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { PropertyFilterBuilderRuleRangeValue } from "../../components-react";
-import { expect } from "chai";
 
 describe("PropertyFilterBuilderRuleRangeValue", () => {
   it("serializes value", () => {

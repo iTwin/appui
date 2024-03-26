@@ -10,7 +10,7 @@ import { ConditionalIconItem } from "../../core-react";
 describe("IconHelper", () => {
   it("should get string icon data", () => {
     const iconSpec = IconHelper.getIconData("cat");
-    expect(iconSpec).to.be.equal("cat");
+    expect(iconSpec).toEqual("cat");
 
     const iconNode = IconHelper.getIconReactNode(iconSpec);
     expect(iconNode).not.to.be.undefined;
@@ -51,7 +51,7 @@ describe("IconHelper", () => {
     const iconSpec = IconHelper.getIconData(
       new ConditionalStringValue(() => "dog", ["dummy"])
     );
-    expect((iconSpec as ConditionalStringValue).value).to.be.equal("dog");
+    expect((iconSpec as ConditionalStringValue).value).toEqual("dog");
 
     const iconNode = IconHelper.getIconReactNode(iconSpec);
     expect(iconNode).not.to.be.undefined;
@@ -61,7 +61,7 @@ describe("IconHelper", () => {
   it("should get react icon data", () => {
     const internalData = new Map<string, any>(); // used to store ReactNode if iconSpec hold a ReactNode
     const iconSpec = IconHelper.getIconData(<span>Test</span>, internalData);
-    expect(iconSpec).to.be.equal(IconHelper.reactIconKey);
+    expect(iconSpec).toEqual(IconHelper.reactIconKey);
 
     const iconNode = IconHelper.getIconReactNode(iconSpec, internalData);
     expect(iconNode).not.to.be.undefined;
@@ -100,6 +100,6 @@ describe("IconHelper", () => {
 
   it("should get empty string back", () => {
     const iconSpec = IconHelper.getIconData(null);
-    expect(iconSpec).to.be.equal("");
+    expect(iconSpec).toEqual("");
   });
 });

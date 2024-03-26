@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { fireEvent, render } from "@testing-library/react";
 import type { DateFormatter } from "@itwin/appui-abstract";
@@ -57,20 +55,14 @@ class MdyFormatter implements DateFormatter {
 }
 
 describe("<DateField />", () => {
-  let renderSpy: sinon.SinonSpy;
-
   const testDate = new Date("July 22, 2018 07:22:13 -0400");
   const testDate2 = new Date("July 23, 2018 07:22:13 -0400");
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
-  beforeEach(() => {
-    renderSpy = sinon.spy();
-  });
-
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiComponents();
   });
 
@@ -157,11 +149,12 @@ describe("<DateField />", () => {
   });
 
   it("should trigger onDateChange", () => {
+    const spy = vi.fn();
     const renderedComponent = render(
       <DateField
         initialDate={testDate}
         dateFormatter={new MdyFormatter()}
-        onDateChange={renderSpy}
+        onDateChange={spy}
       />
     );
     const input = renderedComponent.container.querySelector("input");
@@ -169,9 +162,9 @@ describe("<DateField />", () => {
     expect(input!.value).toEqual("07-22-2018");
     fireEvent.change(input!, { target: { value: "07-04-2004" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
-    expect(renderSpy).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
     expect(input!.value).toEqual("07-04-2004");
-    renderspy.mockReset();
+    spy.mockReset();
     expect(
       renderedComponent.container.querySelector(
         "input.components-date-has-error"
@@ -179,7 +172,7 @@ describe("<DateField />", () => {
     ).to.be.null;
     fireEvent.change(input!, { target: { value: "07-04-zzzz" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
-    expect(renderSpy).not.toBeCalled();
+    expect(spy).not.toBeCalled();
     // renderedComponent.debug();
     expect(
       renderedComponent.container.querySelector(
@@ -193,6 +186,6 @@ describe("<DateField />", () => {
         "input.components-date-has-error"
       )
     ).to.be.null;
-    expect(renderSpy).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 });

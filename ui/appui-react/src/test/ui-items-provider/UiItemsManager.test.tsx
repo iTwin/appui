@@ -5,8 +5,6 @@
 /* eslint-disable deprecation/deprecation */
 
 import * as React from "react";
-import * as sinon from "sinon";
-import { expect } from "chai";
 import * as abstract from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
 import { IconHelper } from "@itwin/core-react";
@@ -71,7 +69,7 @@ function describeAbstractAdapter(title: string, fn: () => void) {
     describe(`${title} ${
       useAbstractAdapter ? "(uses abstract adapter)" : "(no abstract adapter)"
     }`, () => {
-      before(() => {
+      beforeEach(() => {
         UiItemsManager.useAbstractAdapter(useAbstractAdapter);
       });
 
@@ -240,8 +238,8 @@ describe("UiItemsManager", () => {
     });
 
     it("should emit events", () => {
-      const spy = sinon.spy();
-      const abstractSpy = sinon.spy();
+      const spy = vi.fn();
+      const abstractSpy = vi.fn();
       UiItemsManager.onUiProviderRegisteredEvent.addListener(spy);
       AbstractUiItemsManager.onUiProviderRegisteredEvent.addListener(
         abstractSpy

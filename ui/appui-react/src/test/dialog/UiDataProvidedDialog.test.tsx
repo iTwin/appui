@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import type {
   DialogButtonDef,
@@ -23,8 +21,8 @@ import {
 } from "@itwin/appui-abstract";
 import { UiDataProvidedDialog } from "../../appui-react";
 
-const spyCancel = sinon.spy();
-const spyOK = sinon.spy();
+const spyCancel = vi.fn();
+const spyOK = vi.fn();
 
 class TestUiDataProvider extends DialogLayoutDataProvider {
   public currentPageIndex = 0;

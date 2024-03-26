@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { fireEvent, render, within } from "@testing-library/react";
@@ -29,7 +28,7 @@ describe(`SelectionScopeField`, () => {
         "components-selectionScope-selector"
       ) as HTMLSelectElement;
       expect(selectElement).not.to.be.null;
-      expect(UiFramework.getActiveSelectionScope()).to.be.equal("element");
+      expect(UiFramework.getActiveSelectionScope()).toEqual("element");
     });
 
     it("SelectionScopeField with multiple scopes", async () => {
@@ -60,8 +59,8 @@ describe(`SelectionScopeField`, () => {
         "components-selectionScope-selector"
       ) as HTMLSelectElement;
       expect(selectElement).not.to.be.null;
-      expect(UiFramework.getActiveSelectionScope()).to.be.equal("top-assembly");
-      // expect(selectElement.selectedIndex).to.be.equal(2);
+      expect(UiFramework.getActiveSelectionScope()).toEqual("top-assembly");
+      // expect(selectElement.selectedIndex).toEqual(2);
     });
   });
 
@@ -98,7 +97,7 @@ describe(`SelectionScopeField`, () => {
 
       fireEvent.click(component.getByText("Assembly"));
 
-      expect(UiFramework.getActiveSelectionScope()).to.be.equal("assembly");
+      expect(UiFramework.getActiveSelectionScope()).toEqual("assembly");
     });
 
     it("SelectionScopeField should properly handle override scope labels", async () => {
@@ -128,7 +127,7 @@ describe(`SelectionScopeField`, () => {
         "components-selectionScope-selector"
       ) as HTMLSelectElement;
       expect(selectElement).not.to.be.null;
-      expect(UiFramework.getActiveSelectionScope()).to.be.equal("top-assembly");
+      expect(UiFramework.getActiveSelectionScope()).toEqual("top-assembly");
       component.getByText("Functional TopAssembly");
       UiFramework.dispatchActionToStore(
         SessionStateActionId.SetSelectionScope,

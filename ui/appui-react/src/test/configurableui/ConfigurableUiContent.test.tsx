@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Provider } from "react-redux";
 import { render, screen } from "@testing-library/react";
 import { Key } from "ts-key-enum";
@@ -45,7 +43,7 @@ describe("ConfigurableUiContent", () => {
   });
 
   it("mouse moves should be handled", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const removeListener =
       CursorInformation.onCursorUpdatedEvent.addListener(spy);
     render(

@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as sinon from "sinon";
 import { fireEvent } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
@@ -74,7 +73,7 @@ describe("usePanelsAutoCollapse", () => {
       })
     );
     const element = document.createElement("div");
-    const spy = sinon.spy(element, "removeEventListener");
+    const spy = vi.spyOn(element, "removeEventListener");
     setRefValue(result.current, element);
     sinon.assert.notCalled(spy);
 

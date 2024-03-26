@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { SelectionMode } from "../../../components-react/common/selection/SelectionModes";
 import { toRxjsObservable } from "../../../components-react/tree/controlled/Observable";
 import { TreeEventDispatcher } from "../../../components-react/tree/controlled/TreeEventDispatcher";
@@ -912,7 +910,7 @@ describe("TreeEventDispatcher", () => {
             treeEvents.onSelectionReplaced.secondCall.args[0].replacements
           )
         );
-        expect(changes.length).to.be.equal(1);
+        expect(changes.length).toEqual(1);
         expect(changes[0].selectedNodeItems).to.containSubset([
           { id: "C" },
           { id: "D" },
@@ -948,7 +946,7 @@ describe("TreeEventDispatcher", () => {
             treeEvents.onSelectionReplaced.secondCall.args[0].replacements
           )
         );
-        expect(changes.length).to.be.equal(1);
+        expect(changes.length).toEqual(1);
         expect(changes[0].selectedNodeItems).to.containSubset([
           { id: "A" },
           { id: "C" },
@@ -984,7 +982,7 @@ describe("TreeEventDispatcher", () => {
             treeEvents.onSelectionReplaced.secondCall.args[0].replacements
           )
         );
-        expect(changes.length).to.be.equal(1);
+        expect(changes.length).toEqual(1);
         expect(changes).to.containSubset([
           { selectedNodeItems: [{ id: "A" }, { id: "C" }] },
           {},

@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
 import { FlatNonPrimitivePropertyRenderer } from "../../../../components-react/propertygrid/internal/flat-properties/FlatNonPrimitivePropertyRenderer";
@@ -12,7 +11,6 @@ import {
   TestUtils,
   userEvent,
 } from "../../../TestUtils";
-import sinon from "sinon";
 import { render, screen } from "@testing-library/react";
 
 describe("FlatNonPrimitivePropertyRenderer", () => {
@@ -20,7 +18,7 @@ describe("FlatNonPrimitivePropertyRenderer", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -71,7 +69,7 @@ describe("FlatNonPrimitivePropertyRenderer", () => {
   });
 
   it("Should call onExpandToggled when label is clicked and item is not expanded", async () => {
-    const expandSpy = sinon.spy();
+    const expandSpy = vi.fn();
     render(
       <FlatNonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
@@ -100,7 +98,7 @@ describe("FlatNonPrimitivePropertyRenderer", () => {
   });
 
   it("Should call onExpandToggled when label is clicked and item is expanded", async () => {
-    const expandSpy = sinon.spy();
+    const expandSpy = vi.fn();
     render(
       <FlatNonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}

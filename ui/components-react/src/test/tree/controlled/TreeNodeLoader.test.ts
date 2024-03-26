@@ -2,10 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as faker from "faker";
 import { defer, from as rxjsFrom } from "rxjs";
-import sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { EmptyLocalization } from "@itwin/core-common";
 import { toRxjsObservable } from "../../../components-react/tree/controlled/Observable";
@@ -82,7 +80,7 @@ describe("TreeNodeLoader", () => {
     return new TreeNodeLoader(dataProviderStub, new TreeModelSource(model));
   }
 
-  before(async () => {
+  beforeEach(async () => {
     // needed to enable `immer` patches
     await UiComponents.initialize(new EmptyLocalization());
   });
@@ -249,7 +247,7 @@ describe("PagedTreeNodeLoader", () => {
     );
   }
 
-  before(async () => {
+  beforeEach(async () => {
     // needed to enable `immer` patches
     await UiComponents.initialize(new EmptyLocalization());
   });
@@ -496,7 +494,7 @@ describe("PagedTreeNodeLoader", () => {
 });
 
 describe("AbstractTreeNodeLoader", () => {
-  before(async () => {
+  beforeEach(async () => {
     // needed to enable `immer` patches
     await UiComponents.initialize(new EmptyLocalization());
   });
@@ -1032,9 +1030,7 @@ describe("handleLoadedNodeHierarchy", () => {
       PropertyRecord.fromString("new-label")
     );
     expect(modelSource.getModel().getNode(child1.id)).to.be.not.undefined;
-    expect(modelSource.getModel().getNode(root3.id)?.description).to.be.equal(
-      ""
-    );
+    expect(modelSource.getModel().getNode(root3.id)?.description).toEqual("");
     expect(modelSource.getModel().getNode(child2.id)).to.be.not.undefined;
   });
 });

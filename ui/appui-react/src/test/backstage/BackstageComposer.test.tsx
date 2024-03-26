@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { BackstageItem, UiItemsProvider } from "../../appui-react";
 import {
   BackstageComposer,
@@ -93,7 +91,7 @@ class TestUiItemsProvider implements UiItemsProvider {
 }
 
 describe("BackstageComposer", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 
@@ -118,7 +116,7 @@ describe("BackstageComposer", () => {
 
   it("should close the backstage", async () => {
     const theUserTo = userEvent.setup();
-    const spy = sinon.spy(UiFramework.backstage, "close");
+    const spy = vi.spyOn(UiFramework.backstage, "close");
     render(<BackstageComposer items={[]} />);
     UiFramework.backstage.open();
 

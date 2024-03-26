@@ -3,14 +3,12 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import * as sinon from "sinon";
 import type { ActionButton, CommonToolbarItem } from "@itwin/appui-abstract";
 import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
 import { Key } from "ts-key-enum";
-import * as useTargetedModule from "@itwin/core-react/lib/cjs/core-react/utils/hooks/useTargeted";
+import * as useTargetedModule from "@itwin/core-react/lib/esm/core-react/utils/hooks/useTargeted";
 import type { CustomToolbarItem } from "../../components-react/toolbar/InternalToolbarComponent";
 import {
   ToolbarOpacitySetting,
@@ -42,7 +40,7 @@ describe("<Toolbar (No Overflow) />", () => {
   });
 
   describe("<Horizontal Toolbar />", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const basicToolbarItems: CommonToolbarItem[] = [
       ToolbarItemUtilities.createActionButton(
@@ -428,7 +426,7 @@ describe("<Toolbar (No Overflow) />", () => {
 
       const toolbarItems: CommonToolbarItem[] = [getCustomDefWithPopupPanel()];
 
-      const onKeyDownSpy = sinon.spy();
+      const onKeyDownSpy = vi.fn();
 
       const renderedComponent = render(
         <Toolbar items={toolbarItems} onKeyDown={onKeyDownSpy} />
@@ -450,8 +448,8 @@ describe("<Toolbar (No Overflow) />", () => {
     });
 
     it("should call onItemExecuted", async () => {
-      const toolSpy = sinon.spy();
-      const onItemExecuteSpy = sinon.spy();
+      const toolSpy = vi.fn();
+      const onItemExecuteSpy = vi.fn();
       const testToolbarItems: CommonToolbarItem[] = [
         ToolbarItemUtilities.createActionButton(
           "Entry1",
@@ -591,7 +589,7 @@ describe("<Toolbar (No Overflow) />", () => {
     });
 
     it("should invoke onPointerUp handler", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const renderedComponent = render(
         <GroupTool item={item} onPointerUp={spy} />
       );

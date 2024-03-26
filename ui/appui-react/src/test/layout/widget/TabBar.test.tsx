@@ -5,7 +5,6 @@
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import * as NineZoneModule from "../../../appui-react/layout/base/NineZone";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";

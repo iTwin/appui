@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { act, render } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
 import type { DragManager } from "../../../appui-react/layout/base/DragManager";
 import { SectionOutline } from "../../../appui-react/layout/outline/SectionOutline";

@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import * as React from "react";
 import { act } from "react-dom/test-utils";
 import {
@@ -33,7 +31,7 @@ describe("QuantityInput", () => {
   )!;
   function requestNextAnimation() {}
 
-  before(async () => {
+  beforeEach(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
       get: () => requestNextAnimation,
@@ -42,7 +40,7 @@ describe("QuantityInput", () => {
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
     Object.defineProperty(
@@ -133,7 +131,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange UOM separator", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -184,7 +182,7 @@ describe("QuantityInput", () => {
 
   it("should handle onFormatChange Composite separator", async () => {
     // default QuantityType.Length should show ft-in (ie composite)
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -217,7 +215,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange Type selection", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -242,7 +240,7 @@ describe("QuantityInput", () => {
 
   it("should handle onFormatChange Fraction precision selection", async () => {
     // QuantityType.Length by default is set to Type=Fraction
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -266,7 +264,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange Decimal precision selection", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -325,7 +323,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange when changing sign option", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -349,7 +347,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange when changing station size option", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -400,7 +398,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange when changing thousands separator", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -456,7 +454,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange when changing decimal separator", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -507,7 +505,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange when changing traits", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -574,7 +572,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange when changing composite units", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.Length}
@@ -599,7 +597,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange when changing adding composite unit", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.LengthEngineering}
@@ -623,7 +621,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange when changing primary unit", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.LengthEngineering}
@@ -717,7 +715,7 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange when changing primary unit", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <QuantityFormatPanel
         quantityType={QuantityType.LengthEngineering}
@@ -742,13 +740,13 @@ describe("QuantityInput", () => {
   });
 
   describe("Properties from Custom Quantity Type are Rendered", () => {
-    before(async () => {
+    beforeEach(async () => {
       // register new QuantityType
       await BearingQuantityType.registerQuantityType();
     });
 
     it("should handle onFormatChange when changing changing primary unit", async () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const component = render(
         <QuantityFormatPanel
           quantityType={"Bearing"}

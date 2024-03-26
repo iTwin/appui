@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
 import { ColorSwatch } from "../../imodel-components-react/color/Swatch";
@@ -29,7 +27,7 @@ describe("<ColorSwatch />", () => {
   });
 
   it("Fire click event to pick color", async () => {
-    const spyOnPick = sinon.spy();
+    const spyOnPick = vi.fn();
     function handleColorPick(color: ColorDef): void {
       expect(color.equals(colorDef)).toEqual(true);
       spyOnPick();
@@ -40,7 +38,7 @@ describe("<ColorSwatch />", () => {
     );
     const colorSwatch = renderedComponent.container.firstChild as HTMLElement;
     expect(colorSwatch).not.to.be.null;
-    expect(colorSwatch.tagName).to.be.equal("BUTTON");
+    expect(colorSwatch.tagName).toEqual("BUTTON");
     fireEvent.click(colorSwatch);
     await TestUtils.flushAsyncOperations();
     expect(spyOnPick).toHaveBeenCalledOnce();

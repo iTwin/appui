@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as moq from "typemoq";
 import { SelectionMode } from "../../../components-react";
 import type {
@@ -794,7 +793,7 @@ describe("DragAction", () => {
       const selectionChanges = dragAction.updateDragAction(
         itemHandlers[0][1].item()
       );
-      expect(selectionChanges.deselections.length).to.be.equal(1);
+      expect(selectionChanges.deselections.length).toEqual(1);
       expect(findItem(selectionChanges.deselections, itemHandlers[0][0].item()))
         .to.not.be.undefined;
     });
@@ -815,7 +814,7 @@ describe("DragAction", () => {
       const selectionChanges = dragAction.updateDragAction(
         itemHandlers[0][1].item()
       );
-      expect(selectionChanges.selections.length).to.be.equal(1);
+      expect(selectionChanges.selections.length).toEqual(1);
       expect(findItem(selectionChanges.selections, itemHandlers[0][0].item()))
         .to.not.be.undefined;
     });
@@ -837,8 +836,8 @@ describe("DragAction", () => {
       const selectionChanges = dragAction.updateDragAction(
         itemHandlers[0][2].item()
       );
-      expect(selectionChanges.selections.length).to.be.equal(2);
-      expect(selectionChanges.deselections.length).to.be.equal(1);
+      expect(selectionChanges.selections.length).toEqual(2);
+      expect(selectionChanges.deselections.length).toEqual(1);
       expect(findItem(selectionChanges.selections, itemHandlers[0][0].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[0][2].item()))
@@ -858,8 +857,8 @@ describe("DragAction", () => {
       const selectionChanges = dragAction.updateDragAction(
         itemHandlers[0][0].item()
       );
-      expect(selectionChanges.selections.length).to.be.equal(0);
-      expect(selectionChanges.deselections.length).to.be.equal(0);
+      expect(selectionChanges.selections.length).toEqual(0);
+      expect(selectionChanges.deselections.length).toEqual(0);
     });
 
     it("returns empty selectionChanges if cannot find item", () => {
@@ -873,8 +872,8 @@ describe("DragAction", () => {
       const selectionChanges = dragAction.updateDragAction(
         createItemHandler({ row: 3, column: 3 }).item()
       );
-      expect(selectionChanges.selections.length).to.be.equal(0);
-      expect(selectionChanges.deselections.length).to.be.equal(0);
+      expect(selectionChanges.selections.length).toEqual(0);
+      expect(selectionChanges.deselections.length).toEqual(0);
     });
 
     it("returns selection changes from left to right", () => {
@@ -889,7 +888,7 @@ describe("DragAction", () => {
       let selectionChanges = dragAction.updateDragAction(
         itemHandlers[0][3].item()
       );
-      expect(selectionChanges.selections.length).to.be.equal(2);
+      expect(selectionChanges.selections.length).toEqual(2);
       expect(findItem(selectionChanges.selections, itemHandlers[0][2].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[0][3].item()))
@@ -897,19 +896,19 @@ describe("DragAction", () => {
 
       // move further left
       selectionChanges = dragAction.updateDragAction(itemHandlers[0][4].item());
-      expect(selectionChanges.selections.length).to.be.equal(1);
+      expect(selectionChanges.selections.length).toEqual(1);
       expect(findItem(selectionChanges.selections, itemHandlers[0][4].item()))
         .to.not.be.undefined;
 
       // move back
       selectionChanges = dragAction.updateDragAction(itemHandlers[0][3].item());
-      expect(selectionChanges.selections.length).to.be.equal(1);
+      expect(selectionChanges.selections.length).toEqual(1);
       expect(findItem(selectionChanges.selections, itemHandlers[0][4].item()))
         .to.not.be.undefined;
 
       // move to the right of the starting point
       selectionChanges = dragAction.updateDragAction(itemHandlers[0][1].item());
-      expect(selectionChanges.selections.length).to.be.equal(2);
+      expect(selectionChanges.selections.length).toEqual(2);
       expect(findItem(selectionChanges.selections, itemHandlers[0][1].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[0][3].item()))
@@ -928,7 +927,7 @@ describe("DragAction", () => {
       let selectionChanges = dragAction.updateDragAction(
         itemHandlers[0][2].item()
       );
-      expect(selectionChanges.selections.length).to.be.equal(2);
+      expect(selectionChanges.selections.length).toEqual(2);
       expect(findItem(selectionChanges.selections, itemHandlers[0][2].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[0][3].item()))
@@ -936,19 +935,19 @@ describe("DragAction", () => {
 
       // move further right
       selectionChanges = dragAction.updateDragAction(itemHandlers[0][1].item());
-      expect(selectionChanges.selections.length).to.be.equal(1);
+      expect(selectionChanges.selections.length).toEqual(1);
       expect(findItem(selectionChanges.selections, itemHandlers[0][1].item()))
         .to.not.be.undefined;
 
       // move back
       selectionChanges = dragAction.updateDragAction(itemHandlers[0][2].item());
-      expect(selectionChanges.selections.length).to.be.equal(1);
+      expect(selectionChanges.selections.length).toEqual(1);
       expect(findItem(selectionChanges.selections, itemHandlers[0][1].item()))
         .to.not.be.undefined;
 
       // move to the left of the starting point
       selectionChanges = dragAction.updateDragAction(itemHandlers[0][4].item());
-      expect(selectionChanges.selections.length).to.be.equal(2);
+      expect(selectionChanges.selections.length).toEqual(2);
       expect(findItem(selectionChanges.selections, itemHandlers[0][2].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[0][4].item()))
@@ -967,7 +966,7 @@ describe("DragAction", () => {
       let selectionChanges = dragAction.updateDragAction(
         itemHandlers[3][0].item()
       );
-      expect(selectionChanges.selections.length).to.be.equal(2);
+      expect(selectionChanges.selections.length).toEqual(2);
       expect(findItem(selectionChanges.selections, itemHandlers[2][0].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[3][0].item()))
@@ -975,19 +974,19 @@ describe("DragAction", () => {
 
       // move further down
       selectionChanges = dragAction.updateDragAction(itemHandlers[4][0].item());
-      expect(selectionChanges.selections.length).to.be.equal(1);
+      expect(selectionChanges.selections.length).toEqual(1);
       expect(findItem(selectionChanges.selections, itemHandlers[4][0].item()))
         .to.not.be.undefined;
 
       // move back up
       selectionChanges = dragAction.updateDragAction(itemHandlers[3][0].item());
-      expect(selectionChanges.selections.length).to.be.equal(1);
+      expect(selectionChanges.selections.length).toEqual(1);
       expect(findItem(selectionChanges.selections, itemHandlers[4][0].item()))
         .to.not.be.undefined;
 
       // move above the starting point
       selectionChanges = dragAction.updateDragAction(itemHandlers[1][0].item());
-      expect(selectionChanges.selections.length).to.be.equal(2);
+      expect(selectionChanges.selections.length).toEqual(2);
       expect(findItem(selectionChanges.selections, itemHandlers[1][0].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[3][0].item()))
@@ -1006,7 +1005,7 @@ describe("DragAction", () => {
       let selectionChanges = dragAction.updateDragAction(
         itemHandlers[2][0].item()
       );
-      expect(selectionChanges.selections.length).to.be.equal(2);
+      expect(selectionChanges.selections.length).toEqual(2);
       expect(findItem(selectionChanges.selections, itemHandlers[2][0].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[3][0].item()))
@@ -1014,19 +1013,19 @@ describe("DragAction", () => {
 
       // move further up
       selectionChanges = dragAction.updateDragAction(itemHandlers[1][0].item());
-      expect(selectionChanges.selections.length).to.be.equal(1);
+      expect(selectionChanges.selections.length).toEqual(1);
       expect(findItem(selectionChanges.selections, itemHandlers[1][0].item()))
         .to.not.be.undefined;
 
       // move back down
       selectionChanges = dragAction.updateDragAction(itemHandlers[2][0].item());
-      expect(selectionChanges.selections.length).to.be.equal(1);
+      expect(selectionChanges.selections.length).toEqual(1);
       expect(findItem(selectionChanges.selections, itemHandlers[1][0].item()))
         .to.not.be.undefined;
 
       // move below the starting point
       selectionChanges = dragAction.updateDragAction(itemHandlers[4][0].item());
-      expect(selectionChanges.selections.length).to.be.equal(2);
+      expect(selectionChanges.selections.length).toEqual(2);
       expect(findItem(selectionChanges.selections, itemHandlers[2][0].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[4][0].item()))
@@ -1045,7 +1044,7 @@ describe("DragAction", () => {
       let selectionChanges = dragAction.updateDragAction(
         itemHandlers[2][2].item()
       );
-      expect(selectionChanges.selections.length).to.be.equal(4);
+      expect(selectionChanges.selections.length).toEqual(4);
       expect(findItem(selectionChanges.selections, itemHandlers[2][1].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[2][2].item()))
@@ -1057,7 +1056,7 @@ describe("DragAction", () => {
 
       // move further to top right
       selectionChanges = dragAction.updateDragAction(itemHandlers[1][3].item());
-      expect(selectionChanges.selections.length).to.be.equal(5);
+      expect(selectionChanges.selections.length).toEqual(5);
       expect(findItem(selectionChanges.selections, itemHandlers[1][1].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[1][2].item()))
@@ -1071,7 +1070,7 @@ describe("DragAction", () => {
 
       // move back to bottom left
       selectionChanges = dragAction.updateDragAction(itemHandlers[2][2].item());
-      expect(selectionChanges.selections.length).to.be.equal(5);
+      expect(selectionChanges.selections.length).toEqual(5);
       expect(findItem(selectionChanges.selections, itemHandlers[1][1].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[1][2].item()))
@@ -1085,7 +1084,7 @@ describe("DragAction", () => {
 
       // move to bottom left of the starting point
       selectionChanges = dragAction.updateDragAction(itemHandlers[4][0].item());
-      expect(selectionChanges.selections.length).to.be.equal(6);
+      expect(selectionChanges.selections.length).toEqual(6);
       expect(findItem(selectionChanges.selections, itemHandlers[2][1].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[2][2].item()))
@@ -1112,7 +1111,7 @@ describe("DragAction", () => {
       let selectionChanges = dragAction.updateDragAction(
         itemHandlers[2][2].item()
       );
-      expect(selectionChanges.selections.length).to.be.equal(4);
+      expect(selectionChanges.selections.length).toEqual(4);
       expect(findItem(selectionChanges.selections, itemHandlers[1][2].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[1][3].item()))
@@ -1124,7 +1123,7 @@ describe("DragAction", () => {
 
       // move further to bottom left
       selectionChanges = dragAction.updateDragAction(itemHandlers[3][1].item());
-      expect(selectionChanges.selections.length).to.be.equal(5);
+      expect(selectionChanges.selections.length).toEqual(5);
       expect(findItem(selectionChanges.selections, itemHandlers[1][1].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[2][1].item()))
@@ -1138,7 +1137,7 @@ describe("DragAction", () => {
 
       // move back to top right
       selectionChanges = dragAction.updateDragAction(itemHandlers[2][2].item());
-      expect(selectionChanges.selections.length).to.be.equal(5);
+      expect(selectionChanges.selections.length).toEqual(5);
       expect(findItem(selectionChanges.selections, itemHandlers[1][1].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[2][1].item()))
@@ -1152,7 +1151,7 @@ describe("DragAction", () => {
 
       // move to top right of the starting point
       selectionChanges = dragAction.updateDragAction(itemHandlers[0][4].item());
-      expect(selectionChanges.selections.length).to.be.equal(6);
+      expect(selectionChanges.selections.length).toEqual(6);
       expect(findItem(selectionChanges.selections, itemHandlers[0][4].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[0][3].item()))
@@ -1179,7 +1178,7 @@ describe("DragAction", () => {
       let selectionChanges = dragAction.updateDragAction(
         itemHandlers[2][2].item()
       );
-      expect(selectionChanges.selections.length).to.be.equal(4);
+      expect(selectionChanges.selections.length).toEqual(4);
       expect(findItem(selectionChanges.selections, itemHandlers[1][1].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[1][2].item()))
@@ -1191,7 +1190,7 @@ describe("DragAction", () => {
 
       // move further to bottom right
       selectionChanges = dragAction.updateDragAction(itemHandlers[3][3].item());
-      expect(selectionChanges.selections.length).to.be.equal(5);
+      expect(selectionChanges.selections.length).toEqual(5);
       expect(findItem(selectionChanges.selections, itemHandlers[1][3].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[2][3].item()))
@@ -1205,7 +1204,7 @@ describe("DragAction", () => {
 
       // move back top left
       selectionChanges = dragAction.updateDragAction(itemHandlers[2][2].item());
-      expect(selectionChanges.selections.length).to.be.equal(5);
+      expect(selectionChanges.selections.length).toEqual(5);
       expect(findItem(selectionChanges.selections, itemHandlers[1][3].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[2][3].item()))
@@ -1219,7 +1218,7 @@ describe("DragAction", () => {
 
       // move to top left of the starting point
       selectionChanges = dragAction.updateDragAction(itemHandlers[0][0].item());
-      expect(selectionChanges.selections.length).to.be.equal(6);
+      expect(selectionChanges.selections.length).toEqual(6);
       expect(findItem(selectionChanges.selections, itemHandlers[0][0].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[0][1].item()))
@@ -1246,7 +1245,7 @@ describe("DragAction", () => {
       let selectionChanges = dragAction.updateDragAction(
         itemHandlers[2][2].item()
       );
-      expect(selectionChanges.selections.length).to.be.equal(4);
+      expect(selectionChanges.selections.length).toEqual(4);
       expect(findItem(selectionChanges.selections, itemHandlers[2][2].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[2][3].item()))
@@ -1258,7 +1257,7 @@ describe("DragAction", () => {
 
       // move further to top left
       selectionChanges = dragAction.updateDragAction(itemHandlers[1][1].item());
-      expect(selectionChanges.selections.length).to.be.equal(5);
+      expect(selectionChanges.selections.length).toEqual(5);
       expect(findItem(selectionChanges.selections, itemHandlers[1][1].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[1][2].item()))
@@ -1272,7 +1271,7 @@ describe("DragAction", () => {
 
       // move back to bottom right
       selectionChanges = dragAction.updateDragAction(itemHandlers[2][2].item());
-      expect(selectionChanges.selections.length).to.be.equal(5);
+      expect(selectionChanges.selections.length).toEqual(5);
       expect(findItem(selectionChanges.selections, itemHandlers[1][1].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[1][2].item()))
@@ -1286,7 +1285,7 @@ describe("DragAction", () => {
 
       // move to bottom right of the starting point
       selectionChanges = dragAction.updateDragAction(itemHandlers[4][4].item());
-      expect(selectionChanges.selections.length).to.be.equal(6);
+      expect(selectionChanges.selections.length).toEqual(6);
       expect(findItem(selectionChanges.selections, itemHandlers[2][2].item()))
         .to.not.be.undefined;
       expect(findItem(selectionChanges.selections, itemHandlers[2][3].item()))

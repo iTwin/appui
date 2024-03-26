@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import * as sinon from "sinon";
 import { BadgeType } from "@itwin/core-react";
 import type {
   BackstageActionItem,
@@ -21,7 +20,6 @@ import TestUtils, {
   userEvent,
 } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 
 /** @internal */
 export const getActionItem = (
@@ -53,7 +51,7 @@ describe("BackstageComposerItem", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 
@@ -131,7 +129,7 @@ describe("BackstageComposerItem", () => {
 
   describe("BackstageComposerItem", () => {
     it("should render stage launcher", async () => {
-      const spy = sinon.spy(UiFramework.frontstages, "setActiveFrontstage");
+      const spy = vi.spyOn(UiFramework.frontstages, "setActiveFrontstage");
       sinon
         .stub(UiFramework.frontstages, "hasFrontstage")
         .mockReturnValue(true);
@@ -143,7 +141,7 @@ describe("BackstageComposerItem", () => {
     });
 
     it("should render action item", async () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       render(<BackstageComposerItem item={getActionItem({ execute: spy })} />);
 
       await theUserTo.click(screen.getByRole("menuitem"));

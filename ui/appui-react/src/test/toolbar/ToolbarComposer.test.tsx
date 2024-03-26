@@ -2,10 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
-import * as sinon from "sinon";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
@@ -153,7 +151,7 @@ describe("<ToolbarComposer  />", async () => {
     }
   }
 
-  before(async () => {
+  beforeEach(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
     UiFramework.frontstages.addFrontstageProvider(new Frontstage1());
@@ -165,7 +163,7 @@ describe("<ToolbarComposer  />", async () => {
     await TestUtils.flushAsyncOperations();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });

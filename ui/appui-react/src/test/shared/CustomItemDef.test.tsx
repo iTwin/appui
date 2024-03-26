@@ -2,12 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { CustomItemDef } from "../../appui-react/shared/CustomItemDef";
 import TestUtils from "../TestUtils";
 
 describe("CustomItemDef", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 

@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { PropsHelper } from "../../appui-react";
@@ -10,7 +9,7 @@ import TestUtils from "../TestUtils";
 import { SvgCut } from "@itwin/itwinui-icons-react";
 
 describe("PropsHelper", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 

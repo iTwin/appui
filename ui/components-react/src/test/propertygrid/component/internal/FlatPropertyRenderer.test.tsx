@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { fireEvent, render, screen } from "@testing-library/react";
@@ -16,7 +14,7 @@ describe("FlatPropertyRenderer", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   let propertyRecord: PropertyRecord;
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -373,7 +371,7 @@ describe("FlatPropertyRenderer", () => {
   });
 
   it("calls onEditCommit on Enter key when editing", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const propertyRenderer = render(
       <FlatPropertyRenderer
         category={{ name: "Cat1", label: "Category 1", expand: true }}
@@ -414,7 +412,7 @@ describe("FlatPropertyRenderer", () => {
   });
 
   it("calls onEditCancel on Escape key when editing", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const propertyRenderer = render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}

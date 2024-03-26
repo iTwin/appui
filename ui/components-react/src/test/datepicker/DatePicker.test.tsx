@@ -3,31 +3,23 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
 import { Key } from "ts-key-enum";
 import TestUtils from "../TestUtils";
-import { DatePicker } from "../../components-react/datepicker/DatePicker";
+import { DatePicker } from "../../components-react";
 import { adjustDateToTimezone } from "../../components-react/common/DateUtils";
 
 /* eslint-disable deprecation/deprecation */
 
-describe("<DatePicker />", () => {
-  let renderSpy: sinon.SinonSpy;
-
+describe.only("<DatePicker />", () => {
   const testDate = new Date("July 22, 2018 07:22:13 -0400");
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
-  beforeEach(() => {
-    renderSpy = sinon.spy();
-  });
-
-  after(() => {
+  afterEach(() => {
     TestUtils.terminateUiComponents();
   });
 
@@ -126,8 +118,9 @@ describe("<DatePicker />", () => {
   });
 
   it("should trigger onDateChange", () => {
+    const spy = vi.fn();
     const renderedComponent = render(
-      <DatePicker selected={testDate} onDateChange={renderSpy} />
+      <DatePicker selected={testDate} onDateChange={spy} />
     );
     const testDayTicks = new Date(2018, 6, 19).getTime();
     const dataValueSelector = `li[data-value='${testDayTicks}']`; // li[data-value='1531972800000']
@@ -135,12 +128,13 @@ describe("<DatePicker />", () => {
       renderedComponent.container.querySelector(dataValueSelector);
     expect(dayEntry).not.to.be.null;
     fireEvent.click(dayEntry!);
-    expect(renderSpy).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 
   it("should handle keyboard processing", () => {
+    const spy = vi.fn();
     const renderedComponent = render(
-      <DatePicker selected={testDate} onDateChange={renderSpy} />
+      <DatePicker selected={testDate} onDateChange={spy} />
     );
     const calendar = renderedComponent.getByTestId(
       "components-date-picker-calendar-list"
@@ -162,10 +156,10 @@ describe("<DatePicker />", () => {
     fireEvent.keyDown(calendar, { key: Key.ArrowLeft });
     fireEvent.keyDown(calendar, { key: Key.ArrowRight });
     fireEvent.keyDown(calendar, { key: Key.Enter });
-    expect(renderSpy).toHaveBeenCalled();
-    renderspy.mockReset();
+    expect(spy).toHaveBeenCalled();
+    spy.mockReset();
     fireEvent.keyDown(calendar, { key: Key.ArrowLeft });
     fireEvent.keyDown(calendar, { key: " " });
-    expect(renderSpy).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 });

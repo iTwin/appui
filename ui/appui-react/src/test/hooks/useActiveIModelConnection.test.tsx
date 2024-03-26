@@ -2,11 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
 import * as moq from "typemoq";
-import * as sinon from "sinon";
 
 import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
@@ -20,14 +18,14 @@ import {
 import TestUtils from "../TestUtils";
 
 describe("useActiveIModelConnection", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
 
     // use mock renderer so standards tools are registered.
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });

@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { Id64 } from "@itwin/core-bentley";
 import { fireEvent, render } from "@testing-library/react";
@@ -10,7 +9,6 @@ import type { PropertyValueRendererContext } from "../../../../components-react/
 import TestUtils from "../../../TestUtils";
 import { UrlPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/UrlPropertyValueRenderer";
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import sinon from "sinon";
 import * as moq from "typemoq";
 
 describe("UrlPropertyValueRenderer", () => {
@@ -100,7 +98,7 @@ describe("UrlPropertyValueRenderer", () => {
         Window | null
       >;
 
-      before(() => {
+      beforeEach(() => {
         location = locationMockRef.object;
       });
 
@@ -150,7 +148,7 @@ describe("UrlPropertyValueRenderer", () => {
         expect(linkElement.textContent).to.be.eq("pw:Test property");
 
         fireEvent.click(linkElement);
-        expect(locationMockRef.object.href).to.be.equal("pw:Test property");
+        expect(locationMockRef.object.href).toEqual("pw:Test property");
       });
 
       it("sets location.href to the whole URI value, when link starting with mailto: is clicked", () => {
@@ -170,7 +168,7 @@ describe("UrlPropertyValueRenderer", () => {
         expect(linkElement.textContent).to.be.eq("mailto:Test property");
 
         fireEvent.click(linkElement);
-        expect(locationMockRef.object.href).to.be.equal("mailto:Test property");
+        expect(locationMockRef.object.href).toEqual("mailto:Test property");
       });
 
       it("calls window.open.focus if window.open returns not null", () => {

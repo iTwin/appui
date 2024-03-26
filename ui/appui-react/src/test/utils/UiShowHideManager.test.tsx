@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import type { ConfigurableCreateInfo } from "../../appui-react";
 import {
@@ -31,7 +29,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
   )!;
   const localStorageMock = storageMock();
 
-  before(async () => {
+  beforeEach(async () => {
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
@@ -67,7 +65,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       });
 
       it("showHidePanels should set & return correct value", () => {
-        const spy = sinon.spy();
+        const spy = vi.fn();
         const remove = UiFramework.onUiVisibilityChanged.addListener(spy);
 
         InternalUiShowHideManager.showHidePanels = true;
@@ -86,7 +84,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       });
 
       it("showHideFooter should set & return correct value", () => {
-        const spy = sinon.spy();
+        const spy = vi.fn();
         const remove = UiFramework.onUiVisibilityChanged.addListener(spy);
 
         InternalUiShowHideManager.showHideFooter = true;
@@ -105,7 +103,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       });
 
       it("useProximityOpacity should set & return correct value", () => {
-        const spy = sinon.spy();
+        const spy = vi.fn();
         const remove = UiFramework.onUiVisibilityChanged.addListener(spy);
 
         InternalUiShowHideManager.useProximityOpacity = false;
@@ -124,7 +122,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       });
 
       it("snapWidgetOpacity should set & return correct value", () => {
-        const spy = sinon.spy();
+        const spy = vi.fn();
         const remove = UiFramework.onUiVisibilityChanged.addListener(spy);
 
         InternalUiShowHideManager.snapWidgetOpacity = true;

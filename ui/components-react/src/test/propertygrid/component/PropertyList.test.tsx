@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
 import TestUtils from "../../TestUtils";
@@ -10,11 +9,10 @@ import {
   getPropertyKey,
   PropertyList,
 } from "../../../components-react/propertygrid/component/PropertyList";
-import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
 
 describe("PropertyList", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -30,7 +28,7 @@ describe("PropertyList", () => {
       TestUtils.createPrimitiveStringProperty("test", "value"),
     ]);
 
-    const onPropertyClicked = sinon.spy();
+    const onPropertyClicked = vi.fn();
     const { container } = render(
       <PropertyList
         orientation={Orientation.Horizontal}
@@ -73,7 +71,7 @@ describe("PropertyList", () => {
       TestUtils.createPrimitiveStringProperty("test", "value"),
     ]);
 
-    const onPropertyRightClicked = sinon.spy();
+    const onPropertyRightClicked = vi.fn();
     const { container } = render(
       <PropertyList
         orientation={Orientation.Horizontal}
@@ -116,7 +114,7 @@ describe("PropertyList", () => {
       TestUtils.createPrimitiveStringProperty("test", "value"),
     ]);
 
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const category = { name: "Cat1", label: "Category 1", expand: true };
     const editingPropertyKey = getPropertyKey(category, primitiveRecord);
     const propertyList = render(

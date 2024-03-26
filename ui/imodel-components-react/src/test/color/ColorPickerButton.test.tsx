@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
 import { ColorPickerButton } from "../../imodel-components-react/color/ColorPickerButton";
@@ -66,10 +64,10 @@ describe("<ColorPickerButton/>", () => {
   });
 
   it("button press should open popup and allow color selection", async () => {
-    const spyOnColorPick = sinon.spy();
+    const spyOnColorPick = vi.fn();
 
     function handleColorPick(color: ColorDef): void {
-      expect(color.tbgr).to.be.equal(ColorByName.red);
+      expect(color.tbgr).toEqual(ColorByName.red);
       spyOnColorPick();
     }
 
@@ -129,7 +127,7 @@ describe("<ColorPickerButton/>", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-colorpicker-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.click(pickerButton);
 
     const corePopupDiv = renderedComponent.queryByTestId("core-popup");

@@ -5,7 +5,6 @@
 import { Rectangle } from "@itwin/core-react";
 import { render } from "@testing-library/react";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   FrontstageDef,
   UiFramework,
@@ -21,7 +20,7 @@ import { WidgetIdContext } from "../../appui-react/layout/widget/Widget";
 import TestUtils from "../TestUtils";
 
 describe("WidgetContent", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 

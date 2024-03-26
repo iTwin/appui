@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import type { SimpleTreeDataProviderHierarchy } from "../../components-react/tree/SimpleTreeDataProvider";
 import { SimpleTreeDataProvider } from "../../components-react/tree/SimpleTreeDataProvider";
@@ -52,7 +51,7 @@ describe("SimpleTreeDataProvider", () => {
 
       const provider = new SimpleTreeDataProvider(hierarchy);
       const result = await provider.getNodesCount();
-      expect(result).to.be.equal(nodeCount);
+      expect(result).toEqual(nodeCount);
     });
 
     it("returns child nodes count", async () => {
@@ -62,7 +61,7 @@ describe("SimpleTreeDataProvider", () => {
       const provider = new SimpleTreeDataProvider(hierarchy);
       const nodes = hierarchy.get(undefined);
       const result = await provider.getNodesCount(nodes![0]);
-      expect(result).to.be.equal(nodeCount);
+      expect(result).toEqual(nodeCount);
     });
   });
 

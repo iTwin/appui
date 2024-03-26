@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import * as React from "react";
 import { renderHook } from "@testing-library/react-hooks";
@@ -35,7 +33,7 @@ import TestUtils from "../../TestUtils";
 describe("useTreeModel", () => {
   it("subscribes to onModelChange event and returns visible nodes", () => {
     const modelSource = new TreeModelSource();
-    const spy = sinon.spy(modelSource.onModelChanged, "addListener");
+    const spy = vi.spyOn(modelSource.onModelChanged, "addListener");
     const { result } = renderHook(
       (props: { modelSource: TreeModelSource }) =>
         useTreeModel(props.modelSource),
@@ -47,11 +45,11 @@ describe("useTreeModel", () => {
 
   it("resubscribes to onModelChangeEvent when model source changes", () => {
     const modelSource = new TreeModelSource();
-    const firstModelEventAddSpy = sinon.spy(
+    const firstModelEventAddSpy = vi.spyOn(
       modelSource.onModelChanged,
       "addListener"
     );
-    const firstModelEventRemoveSpy = sinon.spy(
+    const firstModelEventRemoveSpy = vi.spyOn(
       modelSource.onModelChanged,
       "removeListener"
     );
@@ -64,7 +62,7 @@ describe("useTreeModel", () => {
     expect(firstModelEventAddSpy).to.have.been.calledOnce;
 
     const newModelSource = new TreeModelSource();
-    const newModelEventAddSpy = sinon.spy(
+    const newModelEventAddSpy = vi.spyOn(
       newModelSource.onModelChanged,
       "addListener"
     );
@@ -117,7 +115,7 @@ describe("useTreeModel", () => {
       );
     }
 
-    before(async () => {
+    beforeEach(async () => {
       await TestUtils.initializeUiComponents();
     });
 
@@ -344,7 +342,7 @@ describe("useTreeModelSource", () => {
 
 describe("useTreeEventsHandler", () => {
   it("creates and disposes events handler using factory function", () => {
-    const disposeSpy = sinon.spy();
+    const disposeSpy = vi.fn();
     const handler = { dispose: disposeSpy };
     const factory = sinon.mock().mockReturnValue(handler);
     const { result, unmount } = renderHook(
@@ -377,7 +375,7 @@ describe("useTreeEventsHandler", () => {
       }
     );
     expect(result.current).to.not.be.undefined;
-    const disposeSpy = sinon.spy(result.current, "dispose");
+    const disposeSpy = vi.spyOn(result.current, "dispose");
     expect(disposeSpy).not.toBeCalled();
     unmount();
     expect(disposeSpy).toHaveBeenCalledOnce();
@@ -386,7 +384,7 @@ describe("useTreeEventsHandler", () => {
 
 describe("useControlledTreeEventsHandler", () => {
   it("creates and disposes events handler using factory function", async () => {
-    const disposeSpy = sinon.spy();
+    const disposeSpy = vi.fn();
     const handler = { dispose: disposeSpy };
     const factory = sinon.mock().mockReturnValue(handler);
     const { result, unmount } = renderHook(
@@ -420,7 +418,7 @@ describe("useControlledTreeEventsHandler", () => {
       }
     );
     await waitFor(() => expect(result.current).to.not.be.undefined);
-    const disposeSpy = sinon.spy(result.current, "dispose");
+    const disposeSpy = vi.spyOn(result.current, "dispose");
     unmount();
 
     await waitFor(() => expect(disposeSpy).to.be.called);

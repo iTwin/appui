@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as faker from "faker";
-import * as sinon from "sinon";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { LabelPropertyDataFilterer } from "../../../../components-react/propertygrid/dataproviders/filterers/LabelPropertyDataFilterer";
@@ -22,12 +20,12 @@ describe("LabelPropertyDataFilterer", () => {
     describe("[get] filterText", () => {
       it(`Should return empty string`, () => {
         const filterer = new LabelPropertyDataFilterer();
-        expect(filterer.filterText).to.be.equal("");
+        expect(filterer.filterText).toEqual("");
       });
 
       it(`Should return string which was set in the constructor`, () => {
         const filterer = new LabelPropertyDataFilterer("test");
-        expect(filterer.filterText).to.be.equal("test");
+        expect(filterer.filterText).toEqual("test");
       });
     });
 
@@ -63,7 +61,7 @@ describe("LabelPropertyDataFilterer", () => {
       const expectedText = faker.random.word();
       filterer.filterText = expectedText;
 
-      expect(filterer.filterText).to.be.equal(expectedText.toLowerCase());
+      expect(filterer.filterText).toEqual(expectedText.toLowerCase());
     });
 
     it("Should return filtering as enabled", () => {
@@ -233,7 +231,7 @@ describe("LabelPropertyDataFilterer", () => {
   });
 
   describe("raising `onFilterChanged` event", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     let filterer: LabelPropertyDataFilterer;
 
     beforeEach(() => {

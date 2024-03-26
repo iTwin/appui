@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
 import { WeightPickerButton } from "../../imodel-components-react/lineweight/WeightPickerButton";
@@ -27,10 +25,10 @@ describe("<WeightPickerButton/>", () => {
   });
 
   it("button press should open popup and allow weight selection", async () => {
-    const spyOnWeightPick = sinon.spy();
+    const spyOnWeightPick = vi.fn();
 
     function handleWeightPick(weight: number): void {
-      expect(weight).to.be.equal(1);
+      expect(weight).toEqual(1);
       spyOnWeightPick();
     }
 
@@ -47,7 +45,7 @@ describe("<WeightPickerButton/>", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-weightpicker-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     let expandedAttribute = pickerButton.getAttribute("aria-expanded");
     expect(expandedAttribute).to.be.eq("false");
 
@@ -72,14 +70,14 @@ describe("<WeightPickerButton/>", () => {
   });
 
   it("button press should open popup and allow weight selection (Enter to close)", async () => {
-    const spyOnWeightPick = sinon.spy();
+    const spyOnWeightPick = vi.fn();
 
     function buildIdForWeight(weight: number): string {
       return `ui-core-lineweight-${weight}`;
     }
 
     function handleWeightPick(weight: number): void {
-      expect(weight).to.be.equal(2);
+      expect(weight).toEqual(2);
       spyOnWeightPick();
     }
 
@@ -96,7 +94,7 @@ describe("<WeightPickerButton/>", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-weightpicker-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     let expandedAttribute = pickerButton.getAttribute("aria-expanded");
     expect(expandedAttribute).to.be.eq("false");
 
@@ -136,10 +134,10 @@ describe("<WeightPickerButton/>", () => {
   });
 
   it("button press should open popup and move selection via arrow (Enter to close)", async () => {
-    const spyOnWeightPick = sinon.spy();
+    const spyOnWeightPick = vi.fn();
 
     function handleWeightPick(weight: number): void {
-      expect(weight).to.be.equal(2);
+      expect(weight).toEqual(2);
       spyOnWeightPick();
     }
 
@@ -156,7 +154,7 @@ describe("<WeightPickerButton/>", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-weightpicker-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     let expandedAttribute = pickerButton.getAttribute("aria-expanded");
     expect(expandedAttribute).to.be.eq("false");
 
@@ -190,10 +188,10 @@ describe("<WeightPickerButton/>", () => {
   });
 
   it("button press should open popup, move selection via arrow & wraparound as needed", async () => {
-    const spyOnWeightPick = sinon.spy();
+    const spyOnWeightPick = vi.fn();
 
     function handleWeightPick(weight: number): void {
-      expect(weight).to.be.equal(5);
+      expect(weight).toEqual(5);
       spyOnWeightPick();
     }
 
@@ -210,7 +208,7 @@ describe("<WeightPickerButton/>", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-weightpicker-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     let expandedAttribute = pickerButton.getAttribute("aria-expanded");
     expect(expandedAttribute).to.be.eq("false");
 
@@ -257,7 +255,7 @@ describe("<WeightPickerButton/>", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-weightpicker-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.click(pickerButton);
     // use queryByTestId to avoid exception if it is not found.
     const corePopupDiv = renderedComponent.queryByTestId("core-popup");

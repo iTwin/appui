@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import { fireEvent, render, screen } from "@testing-library/react";
-import sinon from "sinon";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import type {
@@ -28,7 +26,7 @@ import { EditorContainer } from "../../components-react/editors/EditorContainer"
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 
 describe("<NumericInputEditor />", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -183,7 +181,7 @@ describe("<NumericInputEditor />", () => {
       123,
       StandardEditorNames.NumericInput
     );
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     function handleCommit(_commit: PropertyUpdatedArgs): void {
       spyOnCommit();
     }
@@ -209,7 +207,7 @@ describe("<NumericInputEditor />", () => {
       123,
       StandardEditorNames.NumericInput
     );
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     function handleCommit(_commit: PropertyUpdatedArgs): void {
       spyOnCommit();
     }
@@ -246,8 +244,8 @@ describe("<NumericInputEditor />", () => {
     );
     record.property.dataController = "myData";
 
-    const spyOnCommit = sinon.spy();
-    const spyOnCancel = sinon.spy();
+    const spyOnCommit = vi.fn();
+    const spyOnCancel = vi.fn();
     const renderedComponent = render(
       <EditorContainer
         propertyRecord={record}
@@ -263,7 +261,7 @@ describe("<NumericInputEditor />", () => {
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.called).to.be.false;
+    expect(spyOnCommit).not.toBeCalled();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();

@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import * as sinon from "sinon";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { NoRenderApp, type ScreenViewport } from "@itwin/core-frontend";
 import { BaseSolarDataProvider } from "../../imodel-components-react/timeline/BaseSolarDataProvider";
@@ -31,7 +29,7 @@ class TestSolarDataProvider extends BaseSolarDataProvider {
 }
 
 describe("<SpeedTimeline />", () => {
-  before(async () => {
+  beforeEach(async () => {
     // need to initialize to get localized strings
     await TestUtils.initializeUiIModelComponents();
   });
@@ -57,16 +55,16 @@ describe("<SpeedTimeline />", () => {
     const sliderDiv = renderedComponent.getByRole("slider");
     expect(sliderDiv).not.to.be.undefined;
     const ariaValue = sliderDiv.getAttribute("aria-valuenow");
-    expect(ariaValue).to.be.equal("3");
+    expect(ariaValue).toEqual("3");
   });
 });
 
 describe("<SolarTimeline />", () => {
-  const rafSpy = sinon.spy((cb: FrameRequestCallback) => {
+  const rafSpy = vi.spyOn((cb: FrameRequestCallback) => {
     return window.setTimeout(cb, 0);
   });
 
-  before(async () => {
+  beforeEach(async () => {
     // need to initialize to get localized strings
     await TestUtils.initializeUiIModelComponents();
     await NoRenderApp.startup();

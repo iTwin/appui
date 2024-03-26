@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import type { IModelRpcProps } from "@itwin/core-common";
 import type { IModelConnection, ScreenViewport } from "@itwin/core-frontend";
@@ -26,7 +24,7 @@ import type { UiSyncEventArgs } from "../../appui-react/syncui/UiSyncEvent";
 const timeToWaitForUiSyncCallback = 60;
 
 describe("SyncUiEventDispatcher", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 
@@ -75,7 +73,7 @@ describe("SyncUiEventDispatcher", () => {
 
     const dummyImodelId = "dummy";
     UiFramework.setActiveIModelId(dummyImodelId);
-    expect(UiFramework.getActiveIModelId()).to.be.equal(dummyImodelId);
+    expect(UiFramework.getActiveIModelId()).toEqual(dummyImodelId);
   });
 
   it("test immediate sync event", () => {
@@ -171,7 +169,7 @@ describe("SyncUiEventDispatcher", () => {
 
   it("Test event handlers", () => {
     const fakeTimers = sinon.useFakeTimers();
-    const handleSyncUiEvent = sinon.spy();
+    const handleSyncUiEvent = vi.fn();
 
     SyncUiEventDispatcher.initialize();
     SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
@@ -265,13 +263,13 @@ describe("SyncUiEventDispatcher", () => {
   });
 
   describe("SelectedViewportChanged", () => {
-    before(async () => {
+    beforeEach(async () => {
       await TestUtils.initializeUiFramework();
       await NoRenderApp.startup();
       SyncUiEventDispatcher.initialize();
     });
 
-    after(async () => {
+    afterEach(async () => {
       await IModelApp.shutdown();
       TestUtils.terminateUiFramework();
     });

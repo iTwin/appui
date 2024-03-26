@@ -5,8 +5,6 @@
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { renderHook } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react";
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { UiFramework } from "../../appui-react";
 import {
   BackstageManager,
@@ -17,18 +15,18 @@ import { InternalBackstageManager } from "../../appui-react/backstage/InternalBa
 import TestUtils from "../TestUtils";
 
 describe("BackstageManager", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 
   it("should open backstage", () => {
     const manager = new BackstageManager();
-    const spy = sinon.spy();
+    const spy = vi.fn();
     manager.onToggled.addListener(spy);
     manager.open();
     // Check that we call only once;
@@ -43,7 +41,7 @@ describe("BackstageManager", () => {
 
   it("should close backstage", () => {
     const manager = new BackstageManager();
-    const spy = sinon.spy();
+    const spy = vi.fn();
     manager.open();
     manager.onToggled.addListener(spy);
 
@@ -57,7 +55,7 @@ describe("BackstageManager", () => {
 
   it("should toggle backstage", () => {
     const manager = new BackstageManager();
-    const spy = sinon.spy();
+    const spy = vi.fn();
     manager.open();
     manager.onToggled.addListener(spy);
 
@@ -76,7 +74,7 @@ describe("BackstageManager", () => {
 
   it("should not trigger event if state do not change", () => {
     const manager = new BackstageManager();
-    const spy = sinon.spy();
+    const spy = vi.fn();
     manager.open();
     manager.onToggled.addListener(spy);
     manager.open();
@@ -161,10 +159,10 @@ describe("useIsBackstageOpen", () => {
 
   it("should remove onToggled listener", () => {
     const manager = new BackstageManager();
-    const addSpy = sinon.spy(manager.onToggled, "addListener");
-    const removeSpy = sinon.spy(manager.onToggled, "removeListener");
+    const addSpy = vi.spyOn(manager.onToggled, "addListener");
+    const removeSpy = vi.spyOn(manager.onToggled, "removeListener");
     const { unmount } = renderHook(() => useIsBackstageOpen(manager));
-    const callback = sinon.spy(addSpy.firstCall, "returnValue");
+    const callback = vi.spyOn(addSpy.firstCall, "returnValue");
     unmount();
 
     // Either one must be true for this test to pass

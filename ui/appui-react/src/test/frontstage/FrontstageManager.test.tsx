@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { expect } from "chai";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { Provider } from "react-redux";
 import { render } from "@testing-library/react";
@@ -137,7 +135,7 @@ describe("FrontstageManager", () => {
   });
 
   it("should emit onFrontstageRestoreLayoutEvent", async () => {
-    const spy = sinon.spy(
+    const spy = vi.spyOn(
       InternalFrontstageManager.onFrontstageRestoreLayoutEvent,
       "emit"
     );
@@ -173,7 +171,7 @@ describe("FrontstageManager", () => {
   });
 
   it("setActiveFrontstage should log Error on invalid id", async () => {
-    const spy = sinon.spy(Logger, "logError");
+    const spy = vi.spyOn(Logger, "logError");
     await InternalFrontstageManager.setActiveFrontstage("xyz");
     expect(spy).toHaveBeenCalledOnce();
   });
@@ -368,7 +366,7 @@ describe("FrontstageManager", () => {
         "uifw-configurableui-wrapper"
       )!;
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       InternalFrontstageManager.onFrontstageDeactivatedEvent.addListener(spy);
 
       const frontstageProvider = new TestFrontstage3();

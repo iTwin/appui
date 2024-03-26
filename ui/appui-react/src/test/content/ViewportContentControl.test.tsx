@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import type { ScreenViewport, ViewState3d } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
@@ -37,7 +35,7 @@ describe("ViewportContentControl", () => {
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
   const viewMock = moq.Mock.ofType<ViewState3d>();
 
-  before(async () => {
+  beforeEach(async () => {
     Object.defineProperty(window, "sessionStorage", {
       get: () => mySessionStorage,
     });
@@ -49,7 +47,7 @@ describe("ViewportContentControl", () => {
     InternalFrontstageManager.initialize();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
 
@@ -198,7 +196,7 @@ describe("ViewportContentControl", () => {
   });
 
   it("UiFramework.frontstages.setActiveFrontstageDef should cause onActiveContentChangedEvent", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const remove =
       UiFramework.content.onActiveContentChangedEvent.addListener(spy);
 

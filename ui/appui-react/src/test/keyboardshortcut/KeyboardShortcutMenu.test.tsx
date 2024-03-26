@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
 import type { KeyboardShortcutProps } from "../../appui-react";
 import { CommandItemDef, KeyboardShortcutMenu } from "../../appui-react";
@@ -13,12 +11,12 @@ import { UiFramework } from "../../appui-react/UiFramework";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("KeyboardShortcutMenu", () => {
-  const testspy = sinon.spy();
+  const testspy = vi.fn();
   let testCommand: CommandItemDef;
   let keyboardShortcutList: KeyboardShortcutProps[];
   let theUserTo: ReturnType<typeof userEvent.setup>;
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
 
     testCommand = new CommandItemDef({

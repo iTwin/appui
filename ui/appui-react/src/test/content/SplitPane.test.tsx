@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { SplitPane } from "../../appui-react";
@@ -141,8 +139,8 @@ describe("SplitPane", () => {
   });
 
   it("should handle click on resizer", async () => {
-    const spy = sinon.spy();
-    const dblspy = sinon.spy();
+    const spy = vi.fn();
+    const dblspy = vi.fn();
     const componentWrapper = render(
       <SplitPane
         split="horizontal"
@@ -164,8 +162,8 @@ describe("SplitPane", () => {
   });
 
   it("should handle touch resizing", async () => {
-    const spy = sinon.spy();
-    const spyDragFinishMethod = sinon.spy();
+    const spy = vi.fn();
+    const spyDragFinishMethod = vi.fn();
     const componentWrapper = render(
       <SplitPane
         split="horizontal"
@@ -209,8 +207,8 @@ describe("SplitPane", () => {
   });
 
   it("should handle mouse resizing", async () => {
-    const spy = sinon.spy();
-    const spyDragStartedMethod = sinon.spy();
+    const spy = vi.fn();
+    const spyDragStartedMethod = vi.fn();
     const componentWrapper = render(
       <SplitPane
         split="horizontal"
@@ -237,8 +235,8 @@ describe("SplitPane", () => {
   });
 
   it("should handle mouse resizing (vertical)", async () => {
-    const spy = sinon.spy();
-    const spyDragStartedMethod = sinon.spy();
+    const spy = vi.fn();
+    const spyDragStartedMethod = vi.fn();
     const componentWrapper = render(
       <SplitPane
         split="vertical"
@@ -264,7 +262,7 @@ describe("SplitPane", () => {
   });
 
   it("should ignore mouse resizing", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const componentWrapper = render(
       <SplitPane
         split="horizontal"

@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import type { ArrayValue, PropertyRecord } from "@itwin/appui-abstract";
 import type { IPropertyDataFilterer } from "../../../components-react";
@@ -186,7 +184,7 @@ describe("FilteringDataProvider", () => {
       dataProvider,
       mockFilterer.object
     );
-    const spy = sinon.spy();
+    const spy = vi.fn();
     filteringProvider.onDataChanged.addListener(spy);
     onFilterChanged.raiseEvent();
     expect(spy).toHaveBeenCalledTimes(1);
@@ -198,7 +196,7 @@ describe("FilteringDataProvider", () => {
       dataProvider,
       mockFilterer.object
     );
-    const dataSpy = sinon.spy();
+    const dataSpy = vi.fn();
     filteringProvider.onDataChanged.addListener(dataSpy);
     onDataChanged.raiseEvent();
     expect(dataSpy).toHaveBeenCalledTimes(1);
@@ -211,13 +209,13 @@ describe("FilteringDataProvider", () => {
       mockFilterer.object
     );
 
-    const dataSpy = sinon.spy();
+    const dataSpy = vi.fn();
     filteringProvider.onDataChanged.addListener(dataSpy);
 
     filteringProvider.dispose();
 
-    expect(onDataChanged.numberOfListeners).to.be.equal(0);
-    expect(onFilterChanged.numberOfListeners).to.be.equal(0);
+    expect(onDataChanged.numberOfListeners).toEqual(0);
+    expect(onFilterChanged.numberOfListeners).toEqual(0);
   });
 
   describe("getData", () => {
@@ -228,7 +226,7 @@ describe("FilteringDataProvider", () => {
         mockFilterer.object
       );
       const propertyData = await filteringProvider.getData();
-      expect(propertyData).to.be.equal(originalPropertyData);
+      expect(propertyData).toEqual(originalPropertyData);
     });
 
     it("Should return empty property data and matchesCount equal to 0 if filter is enabled and nothing matches it", async () => {

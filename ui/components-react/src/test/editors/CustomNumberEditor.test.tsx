@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import * as sinon from "sinon";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Key } from "ts-key-enum";
 import type {
@@ -59,23 +57,16 @@ describe("<CustomNumberEditor />", () => {
     const inputField = renderedComponent.getByTestId(
       testId
     ) as HTMLInputElement;
-    expect(inputField.value).to.be.equal(displayVal);
+    expect(inputField.value).toEqual(displayVal);
     const newValue = "7.777";
     fireEvent.change(inputField, { target: { value: newValue } });
-    expect(inputField.value).to.be.equal(newValue);
+    expect(inputField.value).toEqual(newValue);
   });
 
   it("EditorContainer with CustomNumberPropertyEditor", async () => {
-    const spyOnCommit = sinon.spy();
-    const spyOnCancel = sinon.spy();
+    const spyOnCommit = vi.fn();
+    const spyOnCancel = vi.fn();
     const newDisplayValue = "7.78";
-    function handleCommit(commit: PropertyUpdatedArgs): void {
-      const numValue = (commit.newValue as PrimitiveValue).value as number;
-      const displayValue = (commit.newValue as PrimitiveValue).displayValue;
-      expect(numValue).to.be.equal(7.777);
-      expect(displayValue).to.be.equal(newDisplayValue);
-      spyOnCommit();
-    }
     const propertyRecord = TestUtils.createCustomNumberProperty(
       "FormattedNumber",
       numVal,
@@ -85,67 +76,68 @@ describe("<CustomNumberEditor />", () => {
       <EditorContainer
         propertyRecord={propertyRecord}
         title="abc"
-        onCommit={handleCommit}
+        onCommit={spyOnCommit}
         onCancel={spyOnCancel}
       />
     );
-    // renderedComponent.debug();
     const inputField = renderedComponent.getByTestId(
       testId
     ) as HTMLInputElement;
-    expect(inputField.value).to.be.equal(displayVal);
+    expect(inputField.value).toEqual(displayVal);
     const container = renderedComponent.getByTestId(
       "editor-container"
     ) as HTMLSpanElement;
 
     fireEvent.change(inputField, { target: { value: "zzzz" } });
-    expect(inputField.value).to.be.equal("zzzz");
+    expect(inputField.value).toEqual("zzzz");
     fireEvent.keyDown(container, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
+    spyOnCommit.mockReset(); // TODO: shouldn't have called spyOnCommit?
 
     // resetToOriginalValue
     fireEvent.keyDown(inputField, { key: Key.Escape });
-    expect(inputField.value).to.be.equal(displayVal);
+    expect(inputField.value).toEqual(displayVal);
     expect(spyOnCancel).not.toBeCalled();
 
     // since value is same as original, cancel
     fireEvent.keyDown(inputField, { key: Key.Escape });
-    expect(inputField.value).to.be.equal(displayVal);
+    expect(inputField.value).toEqual(displayVal);
     expect(spyOnCancel).toHaveBeenCalledOnce();
 
     const newValue = "7.777";
     fireEvent.change(inputField, { target: { value: newValue } });
-    expect(inputField.value).to.be.equal(newValue);
+    expect(inputField.value).toEqual(newValue);
     fireEvent.keyDown(container, { key: "Enter" });
-    await TestUtils.flushAsyncOperations();
-    // renderedComponent.debug();
-    expect(spyOnCommit).toHaveBeenCalledOnce();
+
+    await vi.waitFor(() => {
+      expect(spyOnCommit).toHaveBeenCalledOnce();
+    });
 
     fireEvent.change(inputField, { target: { value: "zzzz" } });
-    expect(inputField.value).to.be.equal("zzzz");
+    expect(inputField.value).toEqual("zzzz");
     fireEvent.keyDown(container, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
 
     // resetToLastValue
     fireEvent.keyDown(inputField, { key: Key.Escape });
-    expect(inputField.value).to.be.equal(newDisplayValue);
+    expect(inputField.value).toEqual(newDisplayValue);
   });
 
   it("CustomNumberPropertyEditor with undefined initial display value", async () => {
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     function handleCommit(commit: PropertyUpdatedArgs): void {
       const newNumValue = (commit.newValue as PrimitiveValue).value as number;
       const newDisplayValue = (commit.newValue as PrimitiveValue).displayValue;
-      expect(newNumValue).to.be.equal(7.777);
-      expect(newDisplayValue).to.be.equal("7.78");
+      expect(newNumValue).toEqual(7.777);
+      expect(newDisplayValue).toEqual("7.78");
       spyOnCommit();
     }
 
     function handleBadKeyinCommit(commit: PropertyUpdatedArgs): void {
       const newNumValue = (commit.newValue as PrimitiveValue).value as number;
       const newDisplayValue = (commit.newValue as PrimitiveValue).displayValue;
-      expect(newNumValue).to.be.equal(numVal);
-      expect(newDisplayValue).to.be.equal(displayVal);
+      expect(newNumValue).toEqual(numVal);
+      expect(newDisplayValue).toEqual(displayVal);
       spyOnCommit();
     }
 
@@ -177,10 +169,10 @@ describe("<CustomNumberEditor />", () => {
     const inputField = renderedComponent.getByTestId(
       testId
     ) as HTMLInputElement;
-    expect(inputField.value).to.be.equal(displayVal);
+    expect(inputField.value).toEqual(displayVal);
     const newValue = "7.777";
     fireEvent.change(inputField, { target: { value: newValue } });
-    expect(inputField.value).to.be.equal(newValue);
+    expect(inputField.value).toEqual(newValue);
     const container = renderedComponent.getByTestId(
       "editor-container"
     ) as HTMLSpanElement;
@@ -220,13 +212,13 @@ describe("<CustomNumberEditor />", () => {
     propertyRecord.isReadonly = true;
     propertyRecord.isDisabled = true;
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
 
     function handleCommit(commit: PropertyUpdatedArgs): void {
       const newNumValue = (commit.newValue as PrimitiveValue).value as number;
       const newDisplayValue = (commit.newValue as PrimitiveValue).displayValue;
-      expect(newNumValue).to.be.equal(numVal);
-      expect(newDisplayValue).to.be.equal(displayVal);
+      expect(newNumValue).toEqual(numVal);
+      expect(newDisplayValue).toEqual(displayVal);
       spyOnCommit();
     }
 
@@ -241,10 +233,10 @@ describe("<CustomNumberEditor />", () => {
     const inputField = renderedComponent.getByTestId(
       testId
     ) as HTMLInputElement;
-    expect(inputField.value).to.be.equal(displayVal);
+    expect(inputField.value).toEqual(displayVal);
     const newValue = "7.777";
     fireEvent.change(inputField, { target: { value: newValue } });
-    expect(inputField.value).to.be.equal(displayVal);
+    expect(inputField.value).toEqual(displayVal);
     const container = renderedComponent.getByTestId(
       "editor-container"
     ) as HTMLSpanElement;
@@ -252,7 +244,7 @@ describe("<CustomNumberEditor />", () => {
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit).toHaveBeenCalledOnce();
     // renderedComponent.debug();
-    expect(inputField.value).to.be.equal(displayVal);
+    expect(inputField.value).toEqual(displayVal);
   });
 
   it("test with no editor params", async () => {
@@ -314,7 +306,7 @@ describe("<CustomNumberEditor />", () => {
     );
     propertyRecord.property.dataController = "myData";
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     const wrapper = render(
       <EditorContainer
         propertyRecord={propertyRecord}

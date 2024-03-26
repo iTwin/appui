@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import TestUtils, { childStructure, userEvent } from "../TestUtils";
@@ -13,7 +11,7 @@ import { StandardEditorNames } from "@itwin/appui-abstract";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 describe("<EditorContainer />", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -50,7 +48,7 @@ describe("<EditorContainer />", () => {
       "Test1",
       "my value"
     );
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -73,7 +71,7 @@ describe("<EditorContainer />", () => {
       "Test1",
       "my value"
     );
-    const spyOnCancel = sinon.spy();
+    const spyOnCancel = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -98,7 +96,7 @@ describe("<EditorContainer />", () => {
       undefined,
       { name: StandardEditorNames.MultiLine }
     );
-    const spyOnCancel = sinon.spy();
+    const spyOnCancel = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -119,7 +117,7 @@ describe("<EditorContainer />", () => {
       "Test1",
       "my value"
     );
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -144,9 +142,9 @@ describe("<EditorContainer />", () => {
       "Test1",
       "my value"
     );
-    const blurSpy = sinon.spy();
-    const contextSpy = sinon.spy();
-    const keySpy = sinon.spy();
+    const blurSpy = vi.fn();
+    const contextSpy = vi.fn();
+    const keySpy = vi.fn();
     render(
       <div
         onBlur={blurSpy}

@@ -2,14 +2,12 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import TestUtils from "../TestUtils";
+import TestUtils from "./TestUtils";
 
-describe("NavigationAidControl", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
+beforeEach(async () => {
+  await TestUtils.initializeUiComponents();
+});
 
-  after(() => {
-    TestUtils.terminateUiFramework();
-  });
+afterEach(() => {
+  TestUtils.terminateUiComponents();
 });

@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import {
   IModelApp,
   NoRenderApp,
@@ -20,12 +18,12 @@ import {
 import TestUtils from "../TestUtils";
 
 describe("Item", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
   });
@@ -51,7 +49,7 @@ describe("Item", () => {
   });
 
   it("CommandItemDef with getCommandArgs should call it on execute", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const commandItem = new CommandItemDef({
       iconSpec: "icon-placeholder",
       execute: () => {},
@@ -62,7 +60,7 @@ describe("Item", () => {
   });
 
   it("CommandItemDef with onItemExecuted should call it on execute", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const commandItem = new CommandItemDef(
       {
         iconSpec: "icon-placeholder",
@@ -144,7 +142,7 @@ describe("Item", () => {
 
     toolItem.execute();
 
-    const spy = sinon.spy(IModelApp.tools, "run");
+    const spy = vi.spyOn(IModelApp.tools, "run");
     toolItem.execute();
     expect(TestImmediate.isValid).toEqual(true);
     spy.calledOnceWithExactly("1");

@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
 import TestUtils from "../TestUtils";
 import { DatePickerPopupButton } from "../../components-react/datepicker/DatePickerPopupButton";
@@ -20,12 +18,12 @@ describe("<DatePickerPopupButton />", () => {
   const testDate = new Date("July 22, 2018 07:22:13 -0400");
   const testDate2 = new Date("July 20, 1969");
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
   beforeEach(() => {
-    renderSpy = sinon.spy();
+    renderSpy = vi.fn();
   });
 
   after(() => {
@@ -67,7 +65,7 @@ describe("<DatePickerPopupButton />", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-date-picker-calendar-popup-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.pointerDown(pickerButton);
     const popupPanelDiv = renderedComponent.getByTestId(
       "components-date-picker-calendar-popup-panel"
@@ -95,7 +93,7 @@ describe("<DatePickerPopupButton />", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-date-picker-calendar-popup-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.keyDown(pickerButton, { key: " " });
 
     const popupPanelDiv = renderedComponent.getByTestId(
@@ -128,7 +126,7 @@ describe("<DatePickerPopupButton />", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-date-picker-calendar-popup-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.pointerDown(pickerButton);
     const popupPanelDiv = renderedComponent.getByTestId(
       "components-date-picker-calendar-popup-panel"

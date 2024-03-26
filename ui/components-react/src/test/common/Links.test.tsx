@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { matchLinks } from "../../components-react/common/Links";
 
 describe("matchlinks", () => {
@@ -95,13 +94,13 @@ describe("matchlinks", () => {
     ];
     testLinksWithIndexes.forEach(({ link, linkIndexes }) => {
       const linkMatches = matchLinks(link);
-      expect(linkMatches.length).to.be.equal(
+      expect(linkMatches.length).toEqual(
         linkIndexes.length,
         `'${link}' should have ${linkIndexes.length} links.`
       );
       for (let i = 0; i < linkMatches.length; i++) {
-        expect(linkMatches[i].index).to.be.equal(linkIndexes[i].index);
-        expect(linkMatches[i].lastIndex).to.be.equal(linkIndexes[i].lastIndex);
+        expect(linkMatches[i].index).toEqual(linkIndexes[i].index);
+        expect(linkMatches[i].lastIndex).toEqual(linkIndexes[i].lastIndex);
       }
     });
   });

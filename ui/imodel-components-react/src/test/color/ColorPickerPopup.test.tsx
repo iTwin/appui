@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { fireEvent, render } from "@testing-library/react";
 import { RelativePosition } from "@itwin/appui-abstract";
@@ -19,7 +17,7 @@ import { ColorPickerPopup } from "../../imodel-components-react/color/ColorPicke
 describe("<ColorPickerPopup/>", () => {
   const colorDef = ColorDef.create(ColorByName.blue);
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiIModelComponents();
   });
 
@@ -43,7 +41,7 @@ describe("<ColorPickerPopup/>", () => {
   });
 
   it("button press should open popup and allow color selection", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <ColorPickerPopup initialColor={colorDef} onColorChange={spy} showCaret />
     );
@@ -51,7 +49,7 @@ describe("<ColorPickerPopup/>", () => {
     const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     component.getByTestId("caret-down");
     fireEvent.click(pickerButton);
     component.getByTestId("caret-up");
@@ -70,7 +68,7 @@ describe("<ColorPickerPopup/>", () => {
   });
 
   it("button press should open popup and allow color selection of specified preset", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const component = render(
       <ColorPickerPopup
@@ -85,7 +83,7 @@ describe("<ColorPickerPopup/>", () => {
     const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.click(pickerButton);
 
     const colorSwatch = component.getByRole("button", {
@@ -112,7 +110,7 @@ describe("<ColorPickerPopup/>", () => {
     const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.click(pickerButton);
 
     const corePopupDiv = component.queryByTestId("core-popup");
@@ -122,7 +120,7 @@ describe("<ColorPickerPopup/>", () => {
   });
 
   it("button press should open popup and allow trigger color selection when popup closed", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const component = render(
       <ColorPickerPopup
@@ -137,7 +135,7 @@ describe("<ColorPickerPopup/>", () => {
     const pickerButton = component.getByTestId(
       "components-colorpicker-popup-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.click(pickerButton);
 
     const colorSwatch = component.getByRole("button", {
@@ -155,7 +153,7 @@ describe("<ColorPickerPopup/>", () => {
   });
 
   it("captureClicks property should stop mouse click propagation", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const component = render(
       /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
@@ -184,7 +182,7 @@ describe("<ColorPickerPopup/>", () => {
   });
 
   it("mouse click should propagate if captureClicks not set to true", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const component = render(
       /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
@@ -244,7 +242,7 @@ describe("<ColorPickerPopup/>", () => {
   });
 
   it("ensure closing X is shown", async () => {
-    const spyOnClick = sinon.spy();
+    const spyOnClick = vi.fn();
 
     const component = render(
       <div>
@@ -274,7 +272,7 @@ describe("<ColorPickerPopup/>", () => {
   });
 
   it("ensure closing X is NOT shown", async () => {
-    const spyOnClick = sinon.spy();
+    const spyOnClick = vi.fn();
 
     const component = render(
       <div>
@@ -300,7 +298,7 @@ describe("<ColorPickerPopup/>", () => {
   });
 
   it("ensure rgb values are shown", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <div>
         <ColorPickerPopup
@@ -328,7 +326,7 @@ describe("<ColorPickerPopup/>", () => {
   });
 
   it("ensure hsl values are shown", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <div>
         <ColorPickerPopup

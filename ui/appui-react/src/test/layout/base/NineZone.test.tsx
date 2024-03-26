@@ -7,7 +7,6 @@ import * as ResizeObserverModule from "@itwin/core-react/lib/cjs/core-react/util
 import { render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
-import * as sinon from "sinon";
 import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore";
 import type {
   NineZoneDispatch,

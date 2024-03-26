@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Orientation } from "@itwin/core-react";
 import { ArrayPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/ArrayPropertyValueRenderer";
 import { PropertyContainerType } from "../../../../components-react/properties/ValueRendererManager";
@@ -16,7 +14,7 @@ describe("ArrayPropertyValueRenderer", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -55,7 +53,7 @@ describe("ArrayPropertyValueRenderer", () => {
     });
 
     it("renders array with Table renderer if container type is Table", async () => {
-      const dialogSpy = sinon.spy();
+      const dialogSpy = vi.fn();
       const renderer = new ArrayPropertyValueRenderer();
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
 
@@ -73,7 +71,7 @@ describe("ArrayPropertyValueRenderer", () => {
     });
 
     it("defaults to horizontal orientation when rendering for a table without specified orientation", async () => {
-      const dialogSpy = sinon.spy();
+      const dialogSpy = vi.fn();
       const renderer = new ArrayPropertyValueRenderer();
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
 

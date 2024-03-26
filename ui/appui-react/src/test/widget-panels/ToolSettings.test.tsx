@@ -5,9 +5,7 @@
 import { Rectangle } from "@itwin/core-react";
 import { render, screen } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { ToolSettingsEntry } from "../../appui-react";
 import {
   ConfigurableCreateInfo,
@@ -191,11 +189,11 @@ describe("ToolSettingsContent", () => {
 
 describe("useHorizontalToolSettingEntries", () => {
   it("should add tool activated event listener", () => {
-    const addListenerSpy = sinon.spy(
+    const addListenerSpy = vi.spyOn(
       UiFramework.frontstages.onToolActivatedEvent,
       "addListener"
     );
-    const removeListenerSpy = sinon.spy(
+    const removeListenerSpy = vi.spyOn(
       UiFramework.frontstages.onToolActivatedEvent,
       "removeListener"
     );
@@ -206,11 +204,11 @@ describe("useHorizontalToolSettingEntries", () => {
   });
 
   it("should add tool settings reload event listener", () => {
-    const addListenerSpy = sinon.spy(
+    const addListenerSpy = vi.spyOn(
       UiFramework.frontstages.onToolSettingsReloadEvent,
       "addListener"
     );
-    const removeListenerSpy = sinon.spy(
+    const removeListenerSpy = vi.spyOn(
       UiFramework.frontstages.onToolSettingsReloadEvent,
       "removeListener"
     );
@@ -288,11 +286,11 @@ describe("useToolSettingsNode", () => {
   }
 
   it("should add/remove tool activated event listener", () => {
-    const addListenerSpy = sinon.spy(
+    const addListenerSpy = vi.spyOn(
       UiFramework.frontstages.onToolActivatedEvent,
       "addListener"
     );
-    const removeListenerSpy = sinon.spy(
+    const removeListenerSpy = vi.spyOn(
       UiFramework.frontstages.onToolActivatedEvent,
       "removeListener"
     );
@@ -303,11 +301,11 @@ describe("useToolSettingsNode", () => {
   });
 
   it("should add/remove tool settings reload event listener", () => {
-    const addListenerSpy = sinon.spy(
+    const addListenerSpy = vi.spyOn(
       UiFramework.frontstages.onToolSettingsReloadEvent,
       "addListener"
     );
-    const removeListenerSpy = sinon.spy(
+    const removeListenerSpy = vi.spyOn(
       UiFramework.frontstages.onToolSettingsReloadEvent,
       "removeListener"
     );

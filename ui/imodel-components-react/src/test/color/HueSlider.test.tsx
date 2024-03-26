@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { HSVColor } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react";
 import { TestUtils } from "../TestUtils";
@@ -15,7 +13,7 @@ import { HueSlider } from "../../imodel-components-react/color/HueSlider";
 describe("<HueSlider />", () => {
   const hsv = new HSVColor(60, 100, 50);
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiIModelComponents();
   });
 
@@ -67,9 +65,9 @@ describe("<HueSlider />", () => {
       59, 59, 61, 61, 0, 359, 0, 120, 50, 50, 70, 70, 0, 359, 0, 240,
     ];
 
-    const spyOnPick = sinon.spy();
+    const spyOnPick = vi.fn();
     function handleHueChange(newColor: HSVColor): void {
-      expect(newColor.h).to.be.equal(values[index]);
+      expect(newColor.h).toEqual(values[index]);
       spyOnPick();
     }
 
@@ -78,7 +76,7 @@ describe("<HueSlider />", () => {
     );
     const sliderDiv = renderedComponent.getByTestId("hue-slider");
     expect(sliderDiv).not.to.be.null;
-    expect(sliderDiv.tagName).to.be.equal("DIV");
+    expect(sliderDiv.tagName).toEqual("DIV");
 
     keys.forEach((keyName) => {
       fireEvent.keyDown(sliderDiv, { key: keyName });
@@ -99,7 +97,7 @@ describe("<HueSlider />", () => {
     const getBoundingClientRect = Element.prototype.getBoundingClientRect;
 
     // force getBoundingClientRect to return info we need during testing
-    before(() => {
+    beforeEach(() => {
       Element.prototype.getBoundingClientRect = () => ({
         bottom: 0,
         height: 30,
@@ -119,7 +117,7 @@ describe("<HueSlider />", () => {
 
     it("point @0,0", () => {
       function handleHueChange(newColor: HSVColor): void {
-        expect(newColor.h).to.be.equal(0);
+        expect(newColor.h).toEqual(0);
       }
 
       const renderedComponent = render(
@@ -171,7 +169,7 @@ describe("<HueSlider />", () => {
     const getBoundingClientRect = Element.prototype.getBoundingClientRect;
 
     // force getBoundingClientRect to return info we need during testing
-    before(() => {
+    beforeEach(() => {
       Element.prototype.getBoundingClientRect = () => ({
         bottom: 0,
         height: 30,
@@ -191,7 +189,7 @@ describe("<HueSlider />", () => {
 
     it("point @0,0", () => {
       function handleHueChange(newColor: HSVColor): void {
-        expect(newColor.h).to.be.equal(0);
+        expect(newColor.h).toEqual(0);
       }
 
       const renderedComponent = render(
@@ -243,7 +241,7 @@ describe("<HueSlider />", () => {
     const getBoundingClientRect = Element.prototype.getBoundingClientRect;
 
     // force getBoundingClientRect to return info we need during testing
-    before(() => {
+    beforeEach(() => {
       Element.prototype.getBoundingClientRect = () => ({
         bottom: 0,
         height: 200,
@@ -263,7 +261,7 @@ describe("<HueSlider />", () => {
 
     it("point @0,0", () => {
       function handleHueChange(newColor: HSVColor): void {
-        expect(newColor.h).to.be.equal(359);
+        expect(newColor.h).toEqual(359);
       }
 
       const renderedComponent = render(
@@ -286,7 +284,7 @@ describe("<HueSlider />", () => {
 
     it("point @0,200", () => {
       function handleHueChange(newColor: HSVColor): void {
-        expect(newColor.h).to.be.equal(0);
+        expect(newColor.h).toEqual(0);
       }
 
       const renderedComponent = render(
@@ -312,7 +310,7 @@ describe("<HueSlider />", () => {
     const getBoundingClientRect = Element.prototype.getBoundingClientRect;
 
     // force getBoundingClientRect to return info we need during testing
-    before(() => {
+    beforeEach(() => {
       Element.prototype.getBoundingClientRect = () => ({
         bottom: 0,
         height: 200,
@@ -332,7 +330,7 @@ describe("<HueSlider />", () => {
 
     it("point @0,0", () => {
       function handleHueChange(newColor: HSVColor): void {
-        expect(newColor.h).to.be.equal(359);
+        expect(newColor.h).toEqual(359);
       }
 
       const renderedComponent = render(
@@ -355,7 +353,7 @@ describe("<HueSlider />", () => {
 
     it("point @200,0", () => {
       function handleHueChange(newColor: HSVColor): void {
-        expect(newColor.h).to.be.equal(0);
+        expect(newColor.h).toEqual(0);
       }
 
       const renderedComponent = render(

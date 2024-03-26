@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import * as moq from "typemoq";
 import {
@@ -69,13 +68,13 @@ describe("ViewSelector", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
     await TestUtils.flushAsyncOperations();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     await TestUtils.flushAsyncOperations();
     TestUtils.terminateUiFramework();

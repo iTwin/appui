@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { LinkElementsInfo } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
 import {
@@ -15,10 +13,10 @@ import {
 import TestUtils from "../TestUtils";
 
 describe("LinkHandler", () => {
-  const onClickSpy = sinon.spy();
+  const onClickSpy = vi.fn();
   let links: LinkElementsInfo;
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -31,7 +29,7 @@ describe("LinkHandler", () => {
   describe("renderLinks", () => {
     it("calls highlight callback if provided", () => {
       const testString = "Example text";
-      const highlightSpy = sinon.spy();
+      const highlightSpy = vi.fn();
 
       renderLinks(testString, links, highlightSpy);
       expect(highlightSpy).toHaveBeenCalledOnce();
@@ -64,7 +62,7 @@ describe("LinkHandler", () => {
     });
 
     it("rendered anchor tag container's onClick event will not trigger on anchor click", () => {
-      const parentOnClickSpy = sinon.spy();
+      const parentOnClickSpy = vi.fn();
 
       const anchor = render(
         <div onClick={parentOnClickSpy} role="presentation">
@@ -138,7 +136,7 @@ describe("LinkHandler", () => {
 
     it("calls highlight callback if provided with no links", () => {
       const testString = "Example text";
-      const highlightSpy = sinon.spy();
+      const highlightSpy = vi.fn();
 
       withLinks(testString, undefined, highlightSpy);
       expect(highlightSpy).toHaveBeenCalledOnce();

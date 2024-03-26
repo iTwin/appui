@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import type { DialogChangedEventArgs } from "../../appui-react";
 import {
@@ -25,13 +23,13 @@ describe("ContentDialogManager", () => {
     spy.mockReset();
   });
 
-  const spy = sinon.spy();
+  const spy = vi.fn();
 
   function handleContentDialogChanged(_args: DialogChangedEventArgs) {
     spy();
   }
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework(true);
     await NoRenderApp.startup();
 
@@ -40,7 +38,7 @@ describe("ContentDialogManager", () => {
     );
   });
 
-  after(async () => {
+  afterEach(async () => {
     UiFramework.content.dialogs.onContentDialogChangedEvent.removeListener(
       handleContentDialogChanged
     );
@@ -78,7 +76,7 @@ describe("ContentDialogManager", () => {
   });
 
   it("close should log error if passed a bad id", () => {
-    const logspy = sinon.spy(Logger, "logError");
+    const logspy = vi.spyOn(Logger, "logError");
     UiFramework.content.dialogs.close("bad");
     logexpect(spy).toHaveBeenCalledOnce();
   });

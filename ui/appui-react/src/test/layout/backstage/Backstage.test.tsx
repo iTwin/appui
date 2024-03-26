@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { BackstageProps } from "../../../appui-react/layout/backstage/Backstage";
 import { Backstage } from "../../../appui-react/layout/backstage/Backstage";
 import { selectorMatches, userEvent } from "../Utils";
@@ -64,14 +62,14 @@ describe("<Backstage />", () => {
   });
 
   it("should add event listener", () => {
-    const addEventListenerSpy = sinon.spy(document, "addEventListener");
+    const addEventListenerSpy = vi.spyOn(document, "addEventListener");
 
     render(<Backstage />);
     addEventListenerexpect(spy).toHaveBeenCalledOnce();
   });
 
   it("should remove event listener", () => {
-    const removeEventListenerSpy = sinon.spy(document, "removeEventListener");
+    const removeEventListenerSpy = vi.spyOn(document, "removeEventListener");
     const { unmount } = render(<Backstage />);
     unmount();
 

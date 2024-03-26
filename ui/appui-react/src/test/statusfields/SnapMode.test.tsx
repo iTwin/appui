@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Provider } from "react-redux";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { IModelApp, NoRenderApp, SnapMode } from "@itwin/core-frontend";
@@ -21,12 +19,12 @@ describe("SnapModeField", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  before(async () => {
+  beforeEach(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
   });
 
-  after(async () => {
+  afterEach(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
   });
@@ -60,9 +58,7 @@ describe("SnapModeField", () => {
       SnapMode.Intersection | SnapMode.NearestKeypoint
     );
     const snapMode = UiFramework.getAccudrawSnapMode();
-    expect(snapMode).to.be.equal(
-      SnapMode.Intersection | SnapMode.NearestKeypoint
-    );
+    expect(snapMode).toEqual(SnapMode.Intersection | SnapMode.NearestKeypoint);
     const wrapper = render(
       <Provider store={TestUtils.store}>
         <StatusBar>
@@ -75,7 +71,7 @@ describe("SnapModeField", () => {
   });
 
   it("should change snapMode and dispatch SyncEvent on click", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
     render(
       <Provider store={TestUtils.store}>

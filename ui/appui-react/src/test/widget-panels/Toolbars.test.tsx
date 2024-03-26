@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   FrontstageDef,
   UiFramework,

@@ -4,9 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 // cSpell:ignore typemoq, tabid
 
-import { expect } from "chai";
 import * as moq from "typemoq";
-import * as sinon from "sinon";
 import type { IModelRpcProps } from "@itwin/core-common";
 import type { Id64String } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
@@ -36,7 +34,7 @@ describe("UiFramework localStorage Wrapper", () => {
   )!;
   const localStorageMock = storageMock();
 
-  before(async () => {
+  beforeEach(async () => {
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
@@ -75,7 +73,7 @@ describe("UiFramework localStorage Wrapper", () => {
     it("test OpenSettingsTool", async () => {
       await TestUtils.initializeUiFramework(true);
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const tabName = "page1";
       const handleOpenSetting = (settingsCategory: string) => {
         expect(settingsCategory).to.eql(tabName);
@@ -122,7 +120,7 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("calling initialize twice should log", async () => {
-      const spyLogger = sinon.spy(Logger, "logInfo");
+      const spyLogger = vi.spyOn(Logger, "logInfo");
       expect(UiFramework.initialized).to.be.false;
       await UiFramework.initialize(TestUtils.store);
       expect(UiFramework.initialized).toEqual(true);
@@ -538,7 +536,7 @@ describe("UiFramework localStorage Wrapper", () => {
       ).toEqual(true);
 
       expect(lengthStub).toHaveBeenCalledOnce();
-      expect(heightStub.called).to.be.false;
+      expect(heightStub).not.toBeCalled();
       lengthStub.restore();
 
       sinon
@@ -555,7 +553,7 @@ describe("UiFramework localStorage Wrapper", () => {
       ).to.be.false;
 
       expect(lengthStub).toHaveBeenCalledOnce();
-      expect(heightStub.called).to.be.false;
+      expect(heightStub).not.toBeCalled();
     });
 
     it("showDimensionEditor(length) forwards to AccuDrawPopupManager", () => {
@@ -575,7 +573,7 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).toEqual(true);
 
-      expect(lengthStub.called).to.be.false;
+      expect(lengthStub).not.toBeCalled();
       expect(heightStub).toHaveBeenCalledOnce();
       heightStub.restore();
 
@@ -592,7 +590,7 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).to.be.false;
 
-      expect(lengthStub.called).to.be.false;
+      expect(lengthStub).not.toBeCalled();
       expect(heightStub).toHaveBeenCalledOnce();
     });
 
@@ -614,7 +612,7 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).toEqual(true);
       expect(internalModalStub).toHaveBeenCalledOnce();
-      expect(internalModalessStub.called).to.be.false;
+      expect(internalModalessStub).not.toBeCalled();
 
       internalModalStub.mockReset();
       internalModalessStub.mockReset();
@@ -628,15 +626,15 @@ describe("UiFramework localStorage Wrapper", () => {
           "one"
         )
       ).toEqual(true);
-      expect(internalModalStub.called).to.be.false;
+      expect(internalModalStub).not.toBeCalled();
       expect(internalModalessStub).toHaveBeenCalledOnce();
     });
 
     it("closeDialog calls the modelless close method, and model close method if needed", () => {
       const UiDataProvidedDialogMock =
         moq.Mock.ofType<DialogLayoutDataProvider>();
-      const internalModalStub = sinon.spy(InternalModalDialogManager, "close");
-      const internalModalessStub = sinon.spy(
+      const internalModalStub = vi.spyOn(InternalModalDialogManager, "close");
+      const internalModalessStub = vi.spyOn(
         InternalModelessDialogManager,
         "close"
       );
@@ -652,7 +650,7 @@ describe("UiFramework localStorage Wrapper", () => {
       ).toEqual(true);
       expect(UiFramework.closeDialog("one")).toEqual(true);
       expect(internalModalStub).toHaveBeenCalledOnce();
-      expect(internalModalessStub.called).to.be.false;
+      expect(internalModalessStub).not.toBeCalled();
 
       internalModalStub.mockReset();
       internalModalessStub.mockReset();
@@ -667,16 +665,16 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).toEqual(true);
       expect(UiFramework.closeDialog("one")).toEqual(true);
-      expect(internalModalStub.called).to.be.false;
+      expect(internalModalStub).not.toBeCalled();
       expect(internalModalessStub).toHaveBeenCalledOnce();
     });
 
     it("showKeyinPalette/hideKeyinPalette forwards to PopupManager", () => {
-      const stub = sinon.spy(PopupManager, "showKeyinPalette");
+      const stub = vi.spyOn(PopupManager, "showKeyinPalette");
       expect(UiFramework.showKeyinPalette([])).toEqual(true);
       expect(stub).toHaveBeenCalledOnce();
 
-      const hideStub = sinon.spy(PopupManager, "hideKeyinPalette");
+      const hideStub = vi.spyOn(PopupManager, "hideKeyinPalette");
       expect(UiFramework.hideKeyinPalette()).toEqual(true);
       expect(hideStub).toHaveBeenCalledOnce();
       expect(UiFramework.hideKeyinPalette()).to.be.false; // cannot hide if not shown

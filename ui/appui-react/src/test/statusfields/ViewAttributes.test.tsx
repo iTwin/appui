@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Provider } from "react-redux";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
@@ -17,12 +15,12 @@ describe(`ViewAttributes`, () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });

@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Orientation } from "@itwin/core-react";
 import { StructPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/StructPropertyValueRenderer";
 import { PropertyContainerType } from "../../../../components-react/properties/ValueRendererManager";
@@ -16,7 +14,7 @@ describe("StructPropertyValueRenderer", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -40,7 +38,7 @@ describe("StructPropertyValueRenderer", () => {
     });
 
     it("renders struct with Table renderer if container type is Table", async () => {
-      const dialogSpy = sinon.spy();
+      const dialogSpy = vi.fn();
       const renderer = new StructPropertyValueRenderer();
       const structProperty = TestUtils.createStructProperty("NameStruct");
 
@@ -57,7 +55,7 @@ describe("StructPropertyValueRenderer", () => {
     });
 
     it("defaults to horizontal orientation when rendering for a table without specified orientation", async () => {
-      const dialogSpy = sinon.spy();
+      const dialogSpy = vi.fn();
       const renderer = new StructPropertyValueRenderer();
       const structProperty = TestUtils.createStructProperty("NameStruct");
 

@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import type { Subject } from "rxjs";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { CheckBoxState } from "@itwin/core-react";
 import type { TreeModelMutator } from "../../../components-react/tree/controlled/internal/TreeModelMutator";
@@ -54,7 +52,7 @@ describe("TreeEventHandler", () => {
   describe("dispose", () => {
     it("calls next on disposed subject", () => {
       const subject: Subject<unknown> = (eventHandler as any)._disposed;
-      const spy = sinon.spy(subject, "next");
+      const spy = vi.spyOn(subject, "next");
       eventHandler.dispose();
       expect(spy).toHaveBeenCalled();
     });
@@ -68,17 +66,17 @@ describe("TreeEventHandler", () => {
 
   describe("onNodeExpanded", () => {
     it("calls TreeMutator expandNode", () => {
-      const spy = sinon.spy(modelMutator, "expandNode");
+      const spy = vi.spyOn(modelMutator, "expandNode");
       eventHandler.onNodeExpanded({ nodeId: testNode.id });
-      expect(spy).to.be.calledWith(testNode.id);
+      expect(spy).toHaveBeenCalledWith(testNode.id);
     });
   });
 
   describe("onNodeCollapsed", () => {
     it("calls TreeMutator collapseNode", () => {
-      const spy = sinon.spy(modelMutator, "collapseNode");
+      const spy = vi.spyOn(modelMutator, "collapseNode");
       eventHandler.onNodeCollapsed({ nodeId: testNode.id });
-      expect(spy).to.be.calledWith(testNode.id);
+      expect(spy).toHaveBeenCalledWith(testNode.id);
     });
   });
 
@@ -88,9 +86,9 @@ describe("TreeEventHandler", () => {
         selectedNodeItems: [testNode.item],
         deselectedNodeItems: [],
       };
-      const spy = sinon.spy(modelMutator, "modifySelection");
+      const spy = vi.spyOn(modelMutator, "modifySelection");
       eventHandler.onSelectionModified({ modifications: from([change]) });
-      expect(spy).to.be.calledWith([testNode.item], []);
+      expect(spy).toHaveBeenCalledWith([testNode.item], []);
     });
   });
 
@@ -99,9 +97,9 @@ describe("TreeEventHandler", () => {
       const change = {
         selectedNodeItems: [testNode.item],
       };
-      const spy = sinon.spy(modelMutator, "replaceSelection");
+      const spy = vi.spyOn(modelMutator, "replaceSelection");
       eventHandler.onSelectionReplaced({ replacements: from([change]) });
-      expect(spy).to.be.calledWith([testNode.item]);
+      expect(spy).toHaveBeenCalledWith([testNode.item]);
     });
 
     it("calls TreeMutator modifySelection on second value", () => {
@@ -112,13 +110,13 @@ describe("TreeEventHandler", () => {
       const change2 = {
         selectedNodeItems: [secondNode.item],
       };
-      const replaceSpy = sinon.spy(modelMutator, "replaceSelection");
-      const modifySpy = sinon.spy(modelMutator, "modifySelection");
+      const replaceSpy = vi.spyOn(modelMutator, "replaceSelection");
+      const modifySpy = vi.spyOn(modelMutator, "modifySelection");
       eventHandler.onSelectionReplaced({
         replacements: from([change1, change2]),
       });
-      expect(replaceSpy).to.be.calledWith(change1.selectedNodeItems);
-      expect(modifySpy).to.be.calledWith(change2.selectedNodeItems, []);
+      expect(replaceSpy).toHaveBeenCalledWith(change1.selectedNodeItems);
+      expect(modifySpy).toHaveBeenCalledWith(change2.selectedNodeItems, []);
     });
   });
 
@@ -130,9 +128,9 @@ describe("TreeEventHandler", () => {
           newState: CheckBoxState.On,
         },
       ];
-      const spy = sinon.spy(modelMutator, "setCheckboxStates");
+      const spy = vi.spyOn(modelMutator, "setCheckboxStates");
       eventHandler.onCheckboxStateChanged({ stateChanges: from([changes]) });
-      expect(spy).to.be.calledWith(changes);
+      expect(spy).toHaveBeenCalledWith(changes);
     });
   });
 
@@ -145,13 +143,13 @@ describe("TreeEventHandler", () => {
       });
       const modelMutatorWithEditing = (eventHandlerWithEditing as any)
         ._modelMutator;
-      const spy = sinon.spy(modelMutatorWithEditing, "activateEditing");
+      const spy = vi.spyOn(modelMutatorWithEditing, "activateEditing");
       eventHandlerWithEditing.onDelayedNodeClick({ nodeId: testNode.id });
-      expect(spy).to.be.calledWith(testNode.id, onNodeUpdated);
+      expect(spy).toHaveBeenCalledWith(testNode.id, onNodeUpdated);
     });
 
     it("does not call TreeMutator activateEditing if editing params are not set", () => {
-      const spy = sinon.spy(modelMutator, "activateEditing");
+      const spy = vi.spyOn(modelMutator, "activateEditing");
       eventHandler.onDelayedNodeClick({ nodeId: testNode.id });
       expect(spy).not.toBeCalled();
     });
@@ -166,13 +164,13 @@ describe("TreeEventHandler", () => {
       });
       const modelMutatorWithEditing = (eventHandlerWithEditing as any)
         ._modelMutator;
-      const spy = sinon.spy(modelMutatorWithEditing, "activateEditing");
+      const spy = vi.spyOn(modelMutatorWithEditing, "activateEditing");
       eventHandlerWithEditing.onNodeEditorActivated({ nodeId: testNode.id });
-      expect(spy).to.be.calledWith(testNode.id, onNodeUpdated);
+      expect(spy).toHaveBeenCalledWith(testNode.id, onNodeUpdated);
     });
 
     it("does not call TreeMutator activateEditing if editing params are not set", () => {
-      const spy = sinon.spy(modelMutator, "activateEditing");
+      const spy = vi.spyOn(modelMutator, "activateEditing");
       eventHandler.onNodeEditorActivated({ nodeId: testNode.id });
       expect(spy).not.toBeCalled();
     });

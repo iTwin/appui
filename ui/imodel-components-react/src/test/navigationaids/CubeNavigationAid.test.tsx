@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { AxisIndex, Matrix3d, Transform, Vector3d } from "@itwin/core-geometry";
 import type {
@@ -34,7 +32,7 @@ describe("CubeNavigationAid", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiIModelComponents();
   });
 
@@ -730,7 +728,7 @@ describe("CubeNavigationAid", () => {
     });
     describe("methods and callbacks", () => {
       beforeEach(() => {
-        NavCubeFace.faceCellToPos = sinon.spy(NavCubeFace.faceCellToPos);
+        NavCubeFace.faceCellToPos = vi.spyOn(NavCubeFace.faceCellToPos);
         render(
           <NavCubeFace
             face={Face.Top}
@@ -782,7 +780,7 @@ describe("CubeNavigationAid", () => {
     });
     describe("onFaceCellClick", () => {
       it("should be called when cell is clicked", () => {
-        const cellClick = sinon.spy();
+        const cellClick = vi.fn();
         const pos = Vector3d.create(1, 1, 1);
         const component = render(
           <FaceCell
@@ -800,7 +798,7 @@ describe("CubeNavigationAid", () => {
       });
 
       it("should be called when cell is touched", () => {
-        const cellClick = sinon.spy();
+        const cellClick = vi.fn();
         const pos = Vector3d.create(1, 1, 1);
         const component = render(
           <FaceCell
@@ -833,7 +831,7 @@ describe("CubeNavigationAid", () => {
     });
     describe("onFaceCellHoverChange", () => {
       it("should be called when cell is hovered", () => {
-        const cellHover = sinon.spy();
+        const cellHover = vi.fn();
         const pos = Vector3d.create(1, 1, 1);
         const component = render(
           <FaceCell
@@ -846,10 +844,10 @@ describe("CubeNavigationAid", () => {
         );
         const faceCell = component.getByTestId("nav-cube-face-cell-top-1-1-1");
         fireEvent.mouseOver(faceCell);
-        expect(cellHover).to.be.calledWithExactly(pos, CubeHover.Hover);
+        expect(cellHover).toHaveBeenCalledWith(pos, CubeHover.Hover);
       });
       it("should be called when cell is unhovered", () => {
-        const cellHover = sinon.spy();
+        const cellHover = vi.fn();
         const pos = Vector3d.create(1, 1, 1);
         const component = render(
           <FaceCell
@@ -863,10 +861,10 @@ describe("CubeNavigationAid", () => {
         const faceCell = component.getByTestId("nav-cube-face-cell-top-1-1-1");
         fireEvent.mouseOver(faceCell);
         fireEvent.mouseOut(faceCell);
-        expect(cellHover).to.be.calledWithExactly(pos, CubeHover.None);
+        expect(cellHover).toHaveBeenCalledWith(pos, CubeHover.None);
       });
       it("should be called when cell is clicked", () => {
-        const cellHover = sinon.spy();
+        const cellHover = vi.fn();
         const pos = Vector3d.create(1, 1, 1);
         const component = render(
           <FaceCell
@@ -879,10 +877,10 @@ describe("CubeNavigationAid", () => {
         );
         const faceCell = component.getByTestId("nav-cube-face-cell-top-1-1-1");
         fireEvent.mouseDown(faceCell);
-        expect(cellHover).to.be.calledWithExactly(pos, CubeHover.Active);
+        expect(cellHover).toHaveBeenCalledWith(pos, CubeHover.Active);
       });
       it("should be called when cell is unclicked", () => {
-        const cellHover = sinon.spy();
+        const cellHover = vi.fn();
         const pos = Vector3d.create(1, 1, 1);
         const component = render(
           <FaceCell
@@ -896,7 +894,7 @@ describe("CubeNavigationAid", () => {
         const faceCell = component.getByTestId("nav-cube-face-cell-top-1-1-1");
         fireEvent.mouseDown(faceCell);
         fireEvent.mouseUp(faceCell);
-        expect(cellHover).to.be.calledWithExactly(pos, CubeHover.None);
+        expect(cellHover).toHaveBeenCalledWith(pos, CubeHover.None);
       });
     });
   });

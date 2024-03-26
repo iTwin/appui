@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { Key } from "ts-key-enum";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
@@ -42,12 +40,12 @@ describe("<EnumButtonGroupEditor />", () => {
     TestUtils.addEnumButtonGroupEditorSpecification(record);
 
     const originalValue = (record.value as PrimitiveValue).value as number;
-    expect(originalValue).to.be.equal(0);
+    expect(originalValue).toEqual(0);
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     function handleCommit(commit: PropertyUpdatedArgs): void {
       const newValue = (commit.newValue as PrimitiveValue).value as number;
-      expect(newValue).to.be.equal(2);
+      expect(newValue).toEqual(2);
       spyOnCommit();
     }
 
@@ -58,7 +56,7 @@ describe("<EnumButtonGroupEditor />", () => {
       .be.null;
 
     const greenButton = renderedComponent.getByTestId("Green");
-    expect(greenButton.tagName).to.be.equal("BUTTON");
+    expect(greenButton.tagName).toEqual("BUTTON");
     expect(greenButton.classList.contains("nz-is-active")).to.be.false;
 
     fireEvent.click(greenButton);
@@ -72,12 +70,12 @@ describe("<EnumButtonGroupEditor />", () => {
     TestUtils.addEnumButtonGroupEditorSpecification(record);
 
     const originalValue = (record.value as PrimitiveValue).value as string;
-    expect(originalValue).to.be.equal("red");
+    expect(originalValue).toEqual("red");
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     function handleCommit(commit: PropertyUpdatedArgs): void {
       const newValue = (commit.newValue as PrimitiveValue).value as string;
-      expect(newValue).to.be.equal("green");
+      expect(newValue).toEqual("green");
       spyOnCommit();
     }
 
@@ -87,7 +85,7 @@ describe("<EnumButtonGroupEditor />", () => {
     expect(await waitFor(() => renderedComponent.getByTestId("Green"))).not.to
       .be.null;
     const greenButton = renderedComponent.getByTestId("Green");
-    expect(greenButton.tagName).to.be.equal("BUTTON");
+    expect(greenButton.tagName).toEqual("BUTTON");
     expect(greenButton.classList.contains("nz-is-active")).to.be.false;
 
     fireEvent.click(greenButton);
@@ -106,8 +104,8 @@ describe("<EnumButtonGroupEditor />", () => {
     expect(await waitFor(() => renderedComponent.getByTestId("Blue"))).not.to.be
       .null;
     const blueButton = renderedComponent.getByTestId("Blue");
-    expect(blueButton.tagName).to.be.equal("BUTTON");
-    expect(blueButton.classList.contains("nz-is-disabled")).to.be.equal(
+    expect(blueButton.tagName).toEqual("BUTTON");
+    expect(blueButton.classList.contains("nz-is-disabled")).toEqual(
       !TestUtils.blueEnumValueIsEnabled
     );
     TestUtils.toggleBlueEnumValueEnabled();
@@ -115,7 +113,7 @@ describe("<EnumButtonGroupEditor />", () => {
       <EnumButtonGroupEditor propertyRecord={record} />
     );
     await waitFor(() => renderedComponent.getByTestId("Blue"));
-    expect(blueButton.classList.contains("nz-is-disabled")).to.be.equal(
+    expect(blueButton.classList.contains("nz-is-disabled")).toEqual(
       !TestUtils.blueEnumValueIsEnabled
     );
   });
@@ -146,7 +144,7 @@ describe("<EnumButtonGroupEditor />", () => {
     TestUtils.addEnumButtonGroupEditorSpecification(record);
     record.property.dataController = "myData";
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     const renderedComponent = render(
       <EditorContainer
         propertyRecord={record}

@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
 import { NoRenderApp } from "@itwin/core-frontend";
@@ -19,14 +18,14 @@ import {
 import TestUtils from "../TestUtils";
 
 describe("StatusBar", () => {
-  before(async () => {
+  beforeEach(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
 
     MessageManager.clearMessages();
   });
 
-  after(async () => {
+  afterEach(async () => {
     TestUtils.terminateUiFramework();
   });
 

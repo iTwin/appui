@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import TestUtils from "../../../../TestUtils";
 import type {
   IMutableCategorizedPropertyItem,
@@ -11,7 +10,6 @@ import type {
 } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
 import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
 import { FlatGridTestUtils as GridUtils } from "./FlatGridTestUtils";
-import sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
 import { MutableGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridCategory";
@@ -59,7 +57,7 @@ describe("GridCategory", () => {
         expect(gridCategory.parentCategorySelectionKey).to.be.undefined;
 
         GridUtils.assertCategoryEquals(gridCategory, category);
-        expect(gridCategory.depth).to.be.equal(0);
+        expect(gridCategory.depth).toEqual(0);
       });
 
       it("Should correctly initialize grid category with no children and parent", () => {
@@ -77,11 +75,11 @@ describe("GridCategory", () => {
         expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(0);
         expect(factoryStub.createGridCategory).toHaveBeenCalledTimes(0);
 
-        expect(gridCategory.parentSelectionKey).to.be.equal("Cat0");
-        expect(gridCategory.parentCategorySelectionKey).to.be.equal("Cat0");
+        expect(gridCategory.parentSelectionKey).toEqual("Cat0");
+        expect(gridCategory.parentCategorySelectionKey).toEqual("Cat0");
 
         GridUtils.assertCategoryEquals(gridCategory, category);
-        expect(gridCategory.depth).to.be.equal(1);
+        expect(gridCategory.depth).toEqual(1);
       });
 
       it("Should correctly initialize grid category with children categories", () => {
@@ -117,10 +115,10 @@ describe("GridCategory", () => {
           ] = args;
           const expectedCategory = children[index];
 
-          expect(childCategory).to.be.equal(expectedCategory);
-          expect(recordsDict).to.be.equal(expectedRecordsDict);
-          expect(depth).to.be.equal(1);
-          expect(parentCategorySelectionKey).to.be.equal("Cat1");
+          expect(childCategory).toEqual(expectedCategory);
+          expect(recordsDict).toEqual(expectedRecordsDict);
+          expect(depth).toEqual(1);
+          expect(parentCategorySelectionKey).toEqual("Cat1");
         });
       });
 
@@ -158,10 +156,10 @@ describe("GridCategory", () => {
           ] = args;
           const expectedRecord = recordChildren[index];
 
-          expect(parentSelectionKey).to.be.equal("Cat1");
-          expect(parentCategorySelectionKey).to.be.equal("Cat1");
-          expect(depth).to.be.equal(0);
-          expect(record).to.be.equal(expectedRecord);
+          expect(parentSelectionKey).toEqual("Cat1");
+          expect(parentCategorySelectionKey).toEqual("Cat1");
+          expect(depth).toEqual(0);
+          expect(record).toEqual(expectedRecord);
         });
       });
     });
@@ -184,7 +182,7 @@ describe("GridCategory", () => {
             factoryStub
           );
 
-          expect(gridCategory.isExpanded).to.be.equal(expectedIsExpanded);
+          expect(gridCategory.isExpanded).toEqual(expectedIsExpanded);
         });
 
         it(`isExpanded should return ${expectedIsExpanded} when isExpanded is set to: ${expectedIsExpanded}`, () => {
@@ -204,7 +202,7 @@ describe("GridCategory", () => {
           );
 
           gridCategory.isExpanded = expectedIsExpanded;
-          expect(gridCategory.isExpanded).to.be.equal(expectedIsExpanded);
+          expect(gridCategory.isExpanded).toEqual(expectedIsExpanded);
         });
       }
 
@@ -229,7 +227,7 @@ describe("GridCategory", () => {
 
         const self = gridCategory.getSelf();
 
-        expect(self).to.be.equal(gridCategory);
+        expect(self).toEqual(gridCategory);
       });
     });
 
@@ -833,16 +831,14 @@ describe("GridCategory", () => {
           );
 
           GridUtils.assertCategoryEquals(gridCategory, propertyCategory);
-          expect(gridCategory.depth).to.be.equal(0);
-          expect(gridCategory.isRootCategory).to.be.equal(true);
-          expect(gridCategory.isExpanded).to.be.equal(propertyCategory.expand);
-          expect(gridCategory.derivedCategory.expand).to.be.equal(
+          expect(gridCategory.depth).toEqual(0);
+          expect(gridCategory.isRootCategory).toEqual(true);
+          expect(gridCategory.isExpanded).toEqual(propertyCategory.expand);
+          expect(gridCategory.derivedCategory.expand).toEqual(
             propertyCategory.expand
           );
-          expect(gridCategory.parentSelectionKey).to.be.equal(undefined);
-          expect(gridCategory.parentCategorySelectionKey).to.be.equal(
-            undefined
-          );
+          expect(gridCategory.parentSelectionKey).toEqual(undefined);
+          expect(gridCategory.parentCategorySelectionKey).toEqual(undefined);
         });
 
         it(`Should correctly initialize grid category with parent: (${categoryStr})`, () => {
@@ -865,14 +861,14 @@ describe("GridCategory", () => {
           );
 
           GridUtils.assertCategoryEquals(gridCategory, propertyCategory);
-          expect(gridCategory.depth).to.be.equal(1);
-          expect(gridCategory.isRootCategory).to.be.equal(false);
-          expect(gridCategory.isExpanded).to.be.equal(propertyCategory.expand);
-          expect(gridCategory.derivedCategory.expand).to.be.equal(
+          expect(gridCategory.depth).toEqual(1);
+          expect(gridCategory.isRootCategory).toEqual(false);
+          expect(gridCategory.isExpanded).toEqual(propertyCategory.expand);
+          expect(gridCategory.derivedCategory.expand).toEqual(
             propertyCategory.expand
           );
-          expect(gridCategory.parentSelectionKey).to.be.equal("ParentCategory");
-          expect(gridCategory.parentCategorySelectionKey).to.be.equal(
+          expect(gridCategory.parentSelectionKey).toEqual("ParentCategory");
+          expect(gridCategory.parentCategorySelectionKey).toEqual(
             "ParentCategory"
           );
         });
@@ -897,8 +893,8 @@ describe("GridCategory", () => {
       const expectedExpand = !gridCategory.isExpanded;
       gridCategory.isExpanded = expectedExpand;
 
-      expect(gridCategory.isExpanded).to.be.equal(expectedExpand);
-      expect(gridCategory.derivedCategory.expand).to.be.equal(expectedExpand);
+      expect(gridCategory.isExpanded).toEqual(expectedExpand);
+      expect(gridCategory.derivedCategory.expand).toEqual(expectedExpand);
     });
 
     function assertParentChildCategoryRelationship(
@@ -909,10 +905,10 @@ describe("GridCategory", () => {
     ) {
       // Test current gridCategory against propertyCategory
       GridUtils.assertCategoryEquals(gridCategory, propertyCategory);
-      expect(gridCategory.depth).to.be.equal(expectedDepth);
-      expect(gridCategory.isRootCategory).to.be.equal(expectedDepth === 0);
-      expect(gridCategory.parentSelectionKey).to.be.equal(parentSelectionKey);
-      expect(gridCategory.parentCategorySelectionKey).to.be.equal(
+      expect(gridCategory.depth).toEqual(expectedDepth);
+      expect(gridCategory.isRootCategory).toEqual(expectedDepth === 0);
+      expect(gridCategory.parentSelectionKey).toEqual(parentSelectionKey);
+      expect(gridCategory.parentCategorySelectionKey).toEqual(
         parentSelectionKey
       );
 
@@ -922,9 +918,7 @@ describe("GridCategory", () => {
         [propertyCategory],
         {}
       );
-      expect(descendants.length).to.be.equal(
-        flattenedPropertyCategories.length
-      );
+      expect(descendants.length).toEqual(flattenedPropertyCategories.length);
       descendants.forEach((descendant, index) =>
         GridUtils.assertCategoryEquals(
           descendant as GridCategoryItem,
@@ -935,9 +929,7 @@ describe("GridCategory", () => {
       // Test current gridCategory children parent-child category relationship (recursive)
       const childCategories = gridCategory.getChildren();
       const childPropertyCategories = propertyCategory.childCategories ?? [];
-      expect(childCategories.length).to.be.equal(
-        childPropertyCategories.length
-      );
+      expect(childCategories.length).toEqual(childPropertyCategories.length);
       childCategories.forEach((childCategory, index) =>
         assertParentChildCategoryRelationship(
           childCategory as IMutableGridCategoryItem,
@@ -1097,7 +1089,7 @@ describe("GridCategory", () => {
       categorizedProperties: IMutableCategorizedPropertyItem[],
       expectedPropertyRecords: PropertyRecord[]
     ) {
-      expect(categorizedProperties.length).to.be.equal(
+      expect(categorizedProperties.length).toEqual(
         expectedPropertyRecords.length
       );
       categorizedProperties.forEach((categorizedProperty, index) =>
@@ -1826,11 +1818,11 @@ describe("GridCategory", () => {
         );
 
         gridCategory.isExpanded = false;
-        expect(gridCategory.getLastVisibleDescendantOrSelf()).to.be.equal(
+        expect(gridCategory.getLastVisibleDescendantOrSelf()).toEqual(
           gridCategory
         );
         gridCategory.isExpanded = true;
-        expect(gridCategory.getLastVisibleDescendantOrSelf()).to.be.equal(
+        expect(gridCategory.getLastVisibleDescendantOrSelf()).toEqual(
           gridCategory
         );
       });
@@ -1890,7 +1882,7 @@ describe("GridCategory", () => {
           gridItemFactory
         );
 
-        expect(gridCategory.getLastVisibleDescendantOrSelf()).to.be.equal(
+        expect(gridCategory.getLastVisibleDescendantOrSelf()).toEqual(
           gridCategory
         );
       });

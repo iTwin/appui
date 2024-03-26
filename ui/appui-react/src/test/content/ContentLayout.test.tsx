@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
@@ -100,7 +98,7 @@ describe("ContentLayout", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
     UiFramework.frontstages.clearFrontstageProviders();
@@ -113,7 +111,7 @@ describe("ContentLayout", () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
@@ -495,7 +493,7 @@ describe("ContentLayout", () => {
   });
 
   it("UiFramework.content.layouts.setActiveLayout & refreshActiveLayout should emit onContentLayoutActivatedEvent", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const layoutProps: ContentLayoutProps = {
       id: "UiFramework:tests.singleContent",
       description: "UiFramework:tests.singleContent",
@@ -609,7 +607,7 @@ describe("SingleContentLayout", () => {
     }
   }
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
     UiFramework.frontstages.clearFrontstageProviders();
@@ -622,7 +620,7 @@ describe("SingleContentLayout", () => {
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });

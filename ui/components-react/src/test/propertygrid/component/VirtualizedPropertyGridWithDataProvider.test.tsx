@@ -2,11 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as faker from "faker";
 import * as React from "react";
 import { VariableSizeList } from "react-window";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
@@ -49,7 +47,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
   let dataProvider: IPropertyDataProvider;
   let defaultProps: VirtualizedPropertyGridWithDataProviderProps;
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -167,12 +165,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const categoryBlocks = container.querySelectorAll(
           ".virtualized-grid-node-category"
         );
-        expect(categoryBlocks.length, "Wrong amount of categories").to.be.equal(
-          2
-        );
+        expect(categoryBlocks.length, "Wrong amount of categories").toEqual(2);
 
-        expect(categoryBlocks[0].textContent).to.be.equal("Group 1");
-        expect(categoryBlocks[1].textContent).to.be.equal("Group 2");
+        expect(categoryBlocks[0].textContent).toEqual("Group 1");
+        expect(categoryBlocks[1].textContent).toEqual("Group 2");
       });
     });
 
@@ -212,9 +208,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const categoryBlocks = container.querySelectorAll(
           ".virtualized-grid-node-category"
         );
-        expect(categoryBlocks.length, "Wrong amount of categories").to.be.equal(
-          2
-        );
+        expect(categoryBlocks.length, "Wrong amount of categories").toEqual(2);
       });
     });
 
@@ -234,9 +228,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const categoryBlocks = Array.from<HTMLElement>(
         container.querySelectorAll(".virtualized-grid-node-category")
       ).map((el) => within(el).getByRole("button"));
-      expect(categoryBlocks.length, "Wrong amount of categories").to.be.equal(
-        2
-      );
+      expect(categoryBlocks.length, "Wrong amount of categories").toEqual(2);
       const categoryBlock = categoryBlocks[0];
 
       fireEvent.click(categoryBlock);
@@ -671,7 +663,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         };
       }
 
-      before(() => {
+      beforeEach(() => {
         PropertyCategoryRendererManager.defaultManager.addRenderer(
           "test_renderer",
           // eslint-disable-next-line react/display-name
@@ -738,12 +730,12 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const node = component.baseElement.querySelector(
           ".virtualized-grid-node"
         ) as HTMLElement;
-        expect(node.style.height).to.be.equal("42px");
+        expect(node.style.height).toEqual("42px");
 
         fireEvent.click(category);
 
         component.getByText("Custom renderer");
-        expect(node.style.height).to.be.equal("547px");
+        expect(node.style.height).toEqual("547px");
       });
 
       it("updates node height on collapse", async () => {
@@ -765,10 +757,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const node = baseElement.querySelector(
           ".virtualized-grid-node"
         ) as HTMLElement;
-        expect(node.style.height).to.be.equal("547px");
+        expect(node.style.height).toEqual("547px");
 
         fireEvent.click(category);
-        expect(node.style.height).to.be.equal("42px");
+        expect(node.style.height).toEqual("42px");
       });
     });
   });
@@ -818,13 +810,13 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const node = baseElement.querySelectorAll(
         ".virtualized-grid-node"
       )[1] as HTMLElement;
-      expect(node.style.height).to.be.equal("20px");
+      expect(node.style.height).toEqual("20px");
     });
   });
 
   describe("property selection", () => {
     it("calls onPropertySelectionChanged when property gets clicked and selection is enabled", async () => {
-      const onPropertySelectionChanged = sinon.spy();
+      const onPropertySelectionChanged = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
@@ -839,7 +831,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         ).to.be.greaterThan(0)
       );
 
-      expect(onPropertySelectionChanged.called).to.be.false;
+      expect(onPropertySelectionChanged).not.toBeCalled();
 
       const clickableComponents = container.querySelectorAll(
         ".components--clickable"
@@ -868,7 +860,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       expect(
         container.querySelectorAll(".components--selected").length
-      ).to.be.equal(0);
+      ).toEqual(0);
 
       const clickableComponents = container.querySelectorAll(
         ".components--clickable"
@@ -879,17 +871,17 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       expect(
         container.querySelectorAll(".components--selected").length
-      ).to.be.equal(1);
+      ).toEqual(1);
 
       fireEvent.click(clickableComponent);
 
       expect(
         container.querySelectorAll(".components--selected").length
-      ).to.be.equal(0);
+      ).toEqual(0);
     });
 
     it("does not call onPropertySelectionChanged when property gets clicked and selection is disabled", async () => {
-      const onPropertySelectionChanged = sinon.spy();
+      const onPropertySelectionChanged = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
@@ -913,11 +905,11 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       fireEvent.click(renderedRecords[0]);
 
-      expect(onPropertySelectionChanged.called).to.be.false;
+      expect(onPropertySelectionChanged).not.toBeCalled();
     });
 
     it("calls onPropertySelectionChanged when property gets right clicked and right click selection is enabled", async () => {
-      const onPropertySelectionChanged = sinon.spy();
+      const onPropertySelectionChanged = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
@@ -944,7 +936,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
     });
 
     it("calls onPropertySelectionChanged once when property gets right clicked after left clicked and both left and right click selections are enabled", async () => {
-      const onPropertySelectionChanged = sinon.spy();
+      const onPropertySelectionChanged = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
@@ -1038,7 +1030,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
     });
 
     it("does not call onPropertySelectionChanged when property gets right clicked and selection is disabled", async () => {
-      const onPropertySelectionChanged = sinon.spy();
+      const onPropertySelectionChanged = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
@@ -1062,7 +1054,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       fireEvent.contextMenu(clickableComponents[0]);
 
-      expect(onPropertySelectionChanged.called).to.be.false;
+      expect(onPropertySelectionChanged).not.toBeCalled();
     });
   });
 
@@ -1084,7 +1076,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
   describe("property editing", () => {
     it("starts editor on click & commits on Enter", async () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
@@ -1109,7 +1101,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const cellEditors = container.querySelectorAll(
         "input.components-cell-editor"
       );
-      expect(cellEditors.length).to.be.equal(1);
+      expect(cellEditors.length).toEqual(1);
 
       fireEvent.keyDown(cellEditors[0], { key: "Enter" });
 
@@ -1142,7 +1134,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       expect(
         container.querySelectorAll(".components-cell-editor").length
-      ).to.be.equal(0);
+      ).toEqual(0);
     });
 
     it("starts editor on click if clicked before to select", async () => {
@@ -1168,14 +1160,14 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       expect(
         container.querySelectorAll(".components--selected").length
-      ).to.be.equal(1);
+      ).toEqual(1);
 
       fireEvent.click(clickableComponents[0]);
 
       const cellEditors = container.querySelectorAll(
         "input.components-cell-editor"
       );
-      expect(cellEditors.length).to.be.equal(1);
+      expect(cellEditors.length).toEqual(1);
 
       const inputNode = cellEditors[0];
       fireEvent.keyDown(inputNode, { key: "Escape" });
@@ -1191,7 +1183,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
   describe("context menu", () => {
     it("calls onPropertyContextMenu callback when right clicked on a property", async () => {
-      const callback = sinon.spy();
+      const callback = vi.fn();
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider
           {...defaultProps}
@@ -1226,7 +1218,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const clickableComponents = container.querySelectorAll(
           ".virtualized-grid-node-content-wrapper-item"
         );
-        expect(clickableComponents.length).to.be.equal(3);
+        expect(clickableComponents.length).toEqual(3);
 
         expect(
           clickableComponents[0].querySelector(
@@ -1334,7 +1326,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const clickableComponents = container.querySelectorAll(
           ".virtualized-grid-node"
         );
-        expect(clickableComponents.length).to.be.equal(12);
+        expect(clickableComponents.length).toEqual(12);
 
         expect(
           clickableComponents[0].querySelector(
@@ -1918,7 +1910,7 @@ describe("useVirtualizedPropertyGridLayoutStorage", () => {
     );
     renderHook(() => useVirtualizedPropertyGridLayoutStorage());
 
-    expect(stub).to.be.calledWith("ReactWindow__VariableSizeList");
+    expect(stub).toHaveBeenCalledWith("ReactWindow__VariableSizeList");
   });
 });
 

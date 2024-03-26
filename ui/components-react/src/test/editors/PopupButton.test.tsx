@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import sinon from "sinon";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { PopupButton } from "../../components-react/editors/PopupButton";
@@ -56,7 +54,7 @@ describe("<PopupButton />", () => {
   });
 
   it("calls onClick", async () => {
-    const spyOnClick = sinon.spy();
+    const spyOnClick = vi.fn();
     const component = render(
       <PopupButton label="Hello" onClick={spyOnClick}>
         <div data-testid="popup-test-div">Hello World</div>
@@ -147,7 +145,7 @@ describe("<PopupButton />", () => {
   });
 
   it("calls onClose", async () => {
-    const spyOnClose = sinon.spy();
+    const spyOnClose = vi.fn();
 
     render(
       <PopupButton label="Hello" onClose={spyOnClose}>
@@ -163,7 +161,7 @@ describe("<PopupButton />", () => {
   });
 
   it("closePopup() closes popup", async () => {
-    const spyOnClose = sinon.spy();
+    const spyOnClose = vi.fn();
     const popupButtonRef = React.createRef<PopupButton>();
 
     render(

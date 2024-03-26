@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   act,
   fireEvent,
@@ -262,7 +260,7 @@ describe("QuantityFormatSettingsPage", () => {
     );
 
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
-    const addListenerSpy = sinon.spy(
+    const addListenerSpy = vi.spyOn(
       UiFramework.settingsManager.onProcessSettingsTabActivation,
       "addListener"
     );

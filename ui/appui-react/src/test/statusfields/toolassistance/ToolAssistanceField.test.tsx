@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import {
   ToolAssistance,
@@ -425,7 +423,7 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard but keyboardInfo should log error", async () => {
-    const spy = sinon.spy(Logger, "logError");
+    const spy = vi.spyOn(Logger, "logError");
     render(
       <StatusBar>
         <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -447,7 +445,7 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard with invalid keyboardInfo should log error", async () => {
-    const spy = sinon.spy(Logger, "logError");
+    const spy = vi.spyOn(Logger, "logError");
     render(
       <StatusBar>
         <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -595,7 +593,7 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("invalid modifier key info along with image should log error", async () => {
-    const spy = sinon.spy(Logger, "logError");
+    const spy = vi.spyOn(Logger, "logError");
     render(
       <StatusBar>
         <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -706,7 +704,7 @@ describe(`ToolAssistanceField`, () => {
       </StatusBar>
     );
 
-    const spy = sinon.spy();
+    const spy = vi.fn();
     CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spy);
 
     const notifications = new AppNotificationManager();
@@ -735,7 +733,7 @@ describe(`ToolAssistanceField`, () => {
       </StatusBar>
     );
 
-    const spy = sinon.spy();
+    const spy = vi.fn();
     CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spy);
 
     // emit before instructions set

@@ -4,19 +4,18 @@
  *--------------------------------------------------------------------------------------------*/
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
 import { BackstageAppButton } from "../../appui-react";
 import { ContentToolWidgetComposer } from "../../appui-react/widgets/ContentToolWidgetComposer";
 import TestUtils, { childStructure } from "../TestUtils";
 
 describe("ContentToolWidgetComposer", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });

@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { MessageManager, ValidationTextbox } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 
@@ -15,7 +13,7 @@ describe("ValidationTextbox", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 
@@ -23,9 +21,9 @@ describe("ValidationTextbox", () => {
     TestUtils.terminateUiFramework();
   });
 
-  const onValueChanged = sinon.spy();
-  const onEnterPressed = sinon.spy();
-  const onEscPressed = sinon.spy();
+  const onValueChanged = vi.fn();
+  const onEnterPressed = vi.fn();
+  const onEscPressed = vi.fn();
 
   beforeEach(async () => {
     onValueChanged.mockReset();
@@ -72,7 +70,7 @@ describe("ValidationTextbox", () => {
         errorText="Error"
       />
     );
-    const hideMessage = sinon.spy(MessageManager, "hideInputFieldMessage");
+    const hideMessage = vi.spyOn(MessageManager, "hideInputFieldMessage");
     await theUserTo.type(screen.getByRole("textbox"), "test");
     expect(hideMessage).toHaveBeenCalled();
   });
@@ -85,7 +83,7 @@ describe("ValidationTextbox", () => {
         errorText="Error"
       />
     );
-    const showMessage = sinon.spy(MessageManager, "displayInputFieldMessage");
+    const showMessage = vi.spyOn(MessageManager, "displayInputFieldMessage");
     await theUserTo.type(screen.getByRole("textbox"), "t[Backspace]");
     expect(showMessage).toHaveBeenCalled();
   });

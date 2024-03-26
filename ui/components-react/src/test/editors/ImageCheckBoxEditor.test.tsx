@@ -3,10 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import { fireEvent, render, screen } from "@testing-library/react";
 import * as React from "react";
-import sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { ImageCheckBoxEditor } from "../../components-react/editors/ImageCheckBoxEditor";
@@ -15,8 +13,13 @@ import { PropertyEditorManager } from "../../components-react/editors/PropertyEd
 
 describe("<ImageCheckBoxEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
+  beforeEach(async () => {
     theUserTo = userEvent.setup();
+    await TestUtils.initializeUiComponents();
+  });
+
+  afterEach(() => {
+    TestUtils.terminateUiComponents();
   });
 
   it("renders with no record", () => {
@@ -53,7 +56,7 @@ describe("<ImageCheckBoxEditor />", () => {
 
   it("toggling the checkbox should updates boolean value", async () => {
     const record = TestUtils.createImageCheckBoxProperty("Test1", false);
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(
       <ImageCheckBoxEditor propertyRecord={record} onCommit={spyOnCommit} />
     );
@@ -68,7 +71,7 @@ describe("<ImageCheckBoxEditor />", () => {
       "Test2",
       false
     );
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -81,7 +84,9 @@ describe("<ImageCheckBoxEditor />", () => {
     await theUserTo.click(screen.getByRole("checkbox"));
 
     expect(spyOnCommit).toHaveBeenCalledWith(
-      sinon.match({ newValue: sinon.match({ value: true }) })
+      expect.objectContaining({
+        newValue: expect.objectContaining({ value: true }),
+      })
     );
   });
 
@@ -104,8 +109,8 @@ describe("<ImageCheckBoxEditor />", () => {
     const record = TestUtils.createImageCheckBoxProperty("Test", false);
     record.property.dataController = "myData";
 
-    const spyOnCommit = sinon.spy();
-    const spyOnCancel = sinon.spy();
+    const spyOnCommit = vi.fn();
+    const spyOnCancel = vi.fn();
     render(
       <EditorContainer
         propertyRecord={record}
@@ -119,7 +124,7 @@ describe("<ImageCheckBoxEditor />", () => {
 
     fireEvent.keyDown(inputNode, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.called).to.be.false;
+    expect(spyOnCommit).not.toBeCalled();
 
     fireEvent.keyDown(inputNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();

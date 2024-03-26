@@ -5,7 +5,6 @@
 import { BentleyError } from "@itwin/core-bentley";
 import { prettyDOM } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { expect } from "chai";
 import * as React from "react";
 import type * as sinon from "sinon";
 import type { NineZoneState } from "../../appui-react/layout/state/NineZoneState";

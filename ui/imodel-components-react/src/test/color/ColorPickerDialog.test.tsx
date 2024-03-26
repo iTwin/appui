@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import sinon from "sinon";
-import { expect } from "chai";
 import { fireEvent, render } from "@testing-library/react";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { TestUtils } from "../TestUtils";
@@ -14,7 +12,7 @@ import { ColorValue } from "@itwin/itwinui-react";
 /* eslint-disable deprecation/deprecation */
 
 describe("ColorPickerDialog", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiIModelComponents();
   });
 
@@ -62,7 +60,7 @@ describe("ColorPickerDialog", () => {
     });
 
     it("should trigger onCancelResult", () => {
-      const spyOnCancel = sinon.spy();
+      const spyOnCancel = vi.fn();
 
       const wrapper = render(
         <ColorPickerDialog
@@ -81,10 +79,10 @@ describe("ColorPickerDialog", () => {
     });
 
     it("should trigger onOkResult with initial color", () => {
-      const spyOnOK = sinon.spy();
+      const spyOnOK = vi.fn();
 
       function handleOK(color: ColorDef): void {
-        expect(color.tbgr).to.be.equal(ColorByName.blue);
+        expect(color.tbgr).toEqual(ColorByName.blue);
         spyOnOK();
       }
 
@@ -106,7 +104,7 @@ describe("ColorPickerDialog", () => {
     });
 
     it("should trigger onOkResult with preset color (black)", () => {
-      const spyOnOK = sinon.spy();
+      const spyOnOK = vi.fn();
 
       const defaultColors = [
         ColorDef.create(ColorByName.black),
@@ -119,7 +117,7 @@ describe("ColorPickerDialog", () => {
       ];
 
       function handleOK(color: ColorDef): void {
-        expect(color.tbgr).to.be.equal(ColorByName.black);
+        expect(color.tbgr).toEqual(ColorByName.black);
         spyOnOK();
       }
 

@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import produce from "immer";
-import * as sinon from "sinon";
 import {
   FrontstageDef,
   StagePanelDef,
@@ -19,7 +17,7 @@ import { createNineZoneState } from "../../appui-react/layout/state/NineZoneStat
 import TestUtils from "../TestUtils";
 
 describe("StagePanelDef", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 
@@ -41,7 +39,7 @@ describe("StagePanelDef", () => {
   });
 
   it("should emit onPanelStateChangedEvent", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
     const panelDef = new StagePanelDef();
     panelDef.handlePanelStateChanged(StagePanelState.Minimized);
@@ -67,7 +65,7 @@ describe("StagePanelDef", () => {
   });
 
   it("should emit onPanelSizeChangedEvent", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     InternalFrontstageManager.onPanelSizeChangedEvent.addListener(spy);
     const panelDef = new StagePanelDef();
     panelDef.handleSizeChanged(200);
@@ -99,7 +97,7 @@ describe("StagePanelDef", () => {
     panelDef.sizeSpec = 200;
     panelDef.sizeSpec.should.eq(200);
 
-    const spy = sinon.spy(
+    const spy = vi.spyOn(
       InternalFrontstageManager.onPanelSizeChangedEvent,
       "emit"
     );

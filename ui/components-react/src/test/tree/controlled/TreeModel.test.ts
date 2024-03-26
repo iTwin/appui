@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as faker from "faker";
 import * as moq from "typemoq";
 import { PropertyRecord } from "@itwin/appui-abstract";
@@ -94,8 +93,8 @@ describe("MutableTreeModel", () => {
       const seedModel = new MutableTreeModel();
       seedModel.setNumChildren(undefined, 0);
       treeModel = new MutableTreeModel(seedModel);
-      expect(treeModel.getRootNode().numChildren).to.be.equal(0);
-      expect(treeModel.getChildren(undefined)?.getLength()).to.be.equal(0);
+      expect(treeModel.getRootNode().numChildren).toEqual(0);
+      expect(treeModel.getChildren(undefined)?.getLength()).toEqual(0);
     });
 
     it("clones populated seed model", () => {
@@ -112,10 +111,10 @@ describe("MutableTreeModel", () => {
         0
       );
       treeModel = new MutableTreeModel(seedModel);
-      expect(treeModel.getRootNode().numChildren).to.be.equal(2);
-      expect(treeModel.getNode("root1")?.numChildren).to.be.equal(1);
-      expect(treeModel.getNode("root2")?.numChildren).to.be.equal(undefined);
-      expect(treeModel.getNode("child1")?.numChildren).to.be.equal(0);
+      expect(treeModel.getRootNode().numChildren).toEqual(2);
+      expect(treeModel.getNode("root1")?.numChildren).toEqual(1);
+      expect(treeModel.getNode("root2")?.numChildren).toEqual(undefined);
+      expect(treeModel.getNode("child1")?.numChildren).toEqual(0);
     });
   });
 
@@ -438,7 +437,7 @@ describe("MutableTreeModel", () => {
       expect(resultStatus).toEqual(true);
       expect(treeModel.getNode("testId")).to.be.undefined;
       expect(treeModel.getNode("newId")!.item).to.be.deep.equal(nodeInput.item);
-      expect(treeModel.getNode("newId")!.id).to.be.equal("newId");
+      expect(treeModel.getNode("newId")!.id).toEqual("newId");
     });
 
     it("updates hierarchy", () => {
@@ -463,9 +462,7 @@ describe("MutableTreeModel", () => {
       expect([...treeModel.getChildren("updated_id")!]).to.be.deep.equal([
         "grandchild1",
       ]);
-      expect(treeModel.getNode("grandchild1")!.parentId).to.be.equal(
-        "updated_id"
-      );
+      expect(treeModel.getNode("grandchild1")!.parentId).toEqual("updated_id");
     });
   });
 
@@ -551,17 +548,17 @@ describe("MutableTreeModel", () => {
 
       expect(resultStatus).toEqual(true);
 
-      expect(treeModel.getRootNode().numChildren).to.be.equal(3);
+      expect(treeModel.getRootNode().numChildren).toEqual(3);
       expect([...treeModel.getChildren(undefined)!]).to.be.deep.equal([
         "child1",
         "root1",
         "root2",
       ]);
 
-      expect(treeModel.getNode("root1")!.numChildren).to.be.equal(1);
+      expect(treeModel.getNode("root1")!.numChildren).toEqual(1);
       expect([...treeModel.getChildren("root1")!]).to.be.deep.equal(["child2"]);
 
-      expect(treeModel.getNode("child1")!.depth).to.be.equal(0);
+      expect(treeModel.getNode("child1")!.depth).toEqual(0);
       expect(treeModel.getNode("child1")!.parentId).to.be.undefined;
     });
 
@@ -569,30 +566,30 @@ describe("MutableTreeModel", () => {
       const resultStatus = treeModel.moveNode("root1", "root2", 0);
 
       expect(resultStatus).toEqual(true);
-      expect(treeModel.getRootNode().numChildren).to.be.equal(1);
+      expect(treeModel.getRootNode().numChildren).toEqual(1);
       expect([...treeModel.getChildren(undefined)!]).to.be.deep.equal([
         "root2",
       ]);
 
-      expect(treeModel.getNode("root2")!.numChildren).to.be.equal(1);
+      expect(treeModel.getNode("root2")!.numChildren).toEqual(1);
       expect([...treeModel.getChildren("root2")!]).to.be.deep.equal(["root1"]);
 
-      expect(treeModel.getNode("root1")!.depth).to.be.equal(1);
-      expect(treeModel.getNode("root1")!.parentId).to.be.equal("root2");
+      expect(treeModel.getNode("root1")!.depth).toEqual(1);
+      expect(treeModel.getNode("root1")!.parentId).toEqual("root2");
       expect([...treeModel.getChildren("root1")!]).to.be.deep.equal([
         "child1",
         "child2",
       ]);
 
-      expect(treeModel.getNode("child1")!.depth).to.be.equal(2);
-      expect(treeModel.getNode("child2")!.depth).to.be.equal(2);
+      expect(treeModel.getNode("child1")!.depth).toEqual(2);
+      expect(treeModel.getNode("child2")!.depth).toEqual(2);
     });
 
     it("moves to position beyond last one", () => {
       const resultStatus = treeModel.moveNode("child1", "root1", 3);
 
       expect(resultStatus).toEqual(true);
-      expect(treeModel.getNode("root1")!.numChildren).to.be.equal(3);
+      expect(treeModel.getNode("root1")!.numChildren).toEqual(3);
       expect([...treeModel.getChildren("root1")!]).to.be.deep.equal([
         "child2",
         undefined,
@@ -628,7 +625,7 @@ describe("MutableTreeModel", () => {
     describe("when `numChildren` is a number", () => {
       it("removes all children", () => {
         treeModel.setNumChildren("root1", 10);
-        expect(treeModel.getChildren("root1")?.getLength()).to.be.equal(10);
+        expect(treeModel.getChildren("root1")?.getLength()).toEqual(10);
         expect(treeModel.getNode("child1")).to.be.undefined;
         expect(treeModel.getNode("child2")).to.be.undefined;
       });
@@ -636,14 +633,14 @@ describe("MutableTreeModel", () => {
       it("changes child count of root node", () => {
         treeModel.setNumChildren(undefined, 10);
         const children = treeModel.getChildren(undefined)!;
-        expect(children.getLength()).to.be.equal(10);
+        expect(children.getLength()).toEqual(10);
         expect(treeModel.getRootNode().numChildren).to.equal(10);
       });
 
       it("changes child count of parent node", () => {
         treeModel.setNumChildren("root1", 10);
         const children = treeModel.getChildren("root1")!;
-        expect(children.getLength()).to.be.equal(10);
+        expect(children.getLength()).toEqual(10);
         expect(treeModel.getNode("root1")!.numChildren).to.equal(10);
       });
     });
@@ -651,7 +648,7 @@ describe("MutableTreeModel", () => {
     describe("when `numChildren` is `undefined`", () => {
       it("sets child count and removes all root nodes", () => {
         treeModel.setNumChildren(undefined, undefined);
-        expect(treeModel.getChildren(undefined)?.getLength()).to.be.equal(0);
+        expect(treeModel.getChildren(undefined)?.getLength()).toEqual(0);
         expect(treeModel.getRootNode().numChildren).to.be.undefined;
         expect(treeModel.getNode("root1")).to.be.undefined;
         expect(treeModel.getNode("root2")).to.be.undefined;
@@ -659,7 +656,7 @@ describe("MutableTreeModel", () => {
 
       it("sets child count and removes all child nodes", () => {
         treeModel.setNumChildren("root1", undefined);
-        expect(treeModel.getChildren("root1")?.getLength()).to.be.equal(0);
+        expect(treeModel.getChildren("root1")?.getLength()).toEqual(0);
         expect(treeModel.getNode("root1")!.numChildren).to.be.undefined;
         expect(treeModel.getNode("child1")).to.be.undefined;
         expect(treeModel.getNode("child2")).to.be.undefined;

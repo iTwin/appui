@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { EMPTY } from "rxjs";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import { CheckBoxState } from "@itwin/core-react";
 import { TreeModelMutator } from "../../../../components-react/tree/controlled/internal/TreeModelMutator";
@@ -317,7 +315,7 @@ describe("TreeModelMutator", () => {
       let onNodeUpdatedSpy: sinon.SinonSpy;
 
       beforeEach(() => {
-        onNodeUpdatedSpy = sinon.spy();
+        onNodeUpdatedSpy = vi.fn();
         treeModelMock
           .setup((x) => x.getNode(node.id))
           .mockReturnValue(() => node);

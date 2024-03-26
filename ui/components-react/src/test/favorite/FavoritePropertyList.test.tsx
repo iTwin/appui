@@ -2,10 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as faker from "faker";
 import * as React from "react";
-import * as sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import type {
   PropertyCategory,
@@ -20,7 +18,7 @@ import { render, screen } from "@testing-library/react";
 describe("FavoritePropertyList", () => {
   let data: PropertyData;
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 

@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { Key } from "ts-key-enum";
 import type { PrimitiveValue } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
@@ -31,14 +29,14 @@ describe("<WeightEditor />", () => {
     const record2 = TestUtils.createWeightProperty("Test", weight2);
 
     const originalValue = (record1.value as PrimitiveValue).value as number;
-    expect(originalValue).to.be.equal(weight1);
+    expect(originalValue).toEqual(weight1);
 
     const renderedComponent = render(<WeightEditor propertyRecord={record1} />);
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     function handleCommit(commit: PropertyUpdatedArgs): void {
       const newValue = (commit.newValue as PrimitiveValue).value as number;
-      expect(newValue).to.be.equal(firstWeightValue);
+      expect(newValue).toEqual(firstWeightValue);
       spyOnCommit();
     }
 
@@ -48,7 +46,7 @@ describe("<WeightEditor />", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-weightpicker-button"
     );
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.click(pickerButton);
 
     // ====== Example of how to see contents of portal <Popup> component ==========
@@ -106,7 +104,7 @@ describe("<WeightEditor />", () => {
     const propertyRecord = TestUtils.createWeightProperty("Test", weight1);
     propertyRecord.property.dataController = "myData";
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     const renderedComponent = render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -123,7 +121,7 @@ describe("<WeightEditor />", () => {
 
     fireEvent.keyDown(button, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.called).to.be.false;
+    expect(spyOnCommit).not.toBeCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

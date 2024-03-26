@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import sinon from "sinon";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import type {
@@ -23,7 +21,7 @@ import { PropertyEditorManager } from "../../components-react/editors/PropertyEd
 import { findInstance } from "../ReactInstance";
 
 describe("<SliderEditor />", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -65,7 +63,7 @@ describe("<SliderEditor />", () => {
   });
 
   it("calls onCommit on OK button click", async () => {
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     const record = TestUtils.createNumericProperty(
       "Test",
       50,
@@ -81,7 +79,7 @@ describe("<SliderEditor />", () => {
   });
 
   it("calls onCancel on Cancel button click", async () => {
-    const spyOnCancel = sinon.spy();
+    const spyOnCancel = vi.fn();
     const record = TestUtils.createNumericProperty(
       "Test",
       50,
@@ -97,7 +95,7 @@ describe("<SliderEditor />", () => {
   });
 
   it("calls onCommit on Enter key", async () => {
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     const record = TestUtils.createNumericProperty(
       "Test",
       50,
@@ -113,7 +111,7 @@ describe("<SliderEditor />", () => {
   });
 
   it("calls onCancel on Escape key", async () => {
-    const spyOnCancel = sinon.spy();
+    const spyOnCancel = vi.fn();
     const record = TestUtils.createNumericProperty(
       "Test",
       50,
@@ -157,7 +155,7 @@ describe("<SliderEditor />", () => {
       50,
       StandardEditorNames.Slider
     );
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -517,7 +515,7 @@ describe("<SliderEditor />", () => {
     );
     propertyRecord.property.dataController = "myData";
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     const renderedComponent = render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -534,7 +532,7 @@ describe("<SliderEditor />", () => {
 
     fireEvent.keyDown(popupButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.called).to.be.false;
+    expect(spyOnCommit).not.toBeCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

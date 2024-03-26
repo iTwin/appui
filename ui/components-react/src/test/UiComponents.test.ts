@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import { UiComponents } from "../components-react";
 import TestUtils from "./TestUtils";
@@ -28,14 +26,14 @@ describe("UiComponents", () => {
   });
 
   it("translate should return blank and log error if UiComponents not initialized", () => {
-    const spyLogger = sinon.spy(Logger, "logError");
+    const spyLogger = vi.spyOn(Logger, "logError");
     expect(UiComponents.translate("xyz")).toEqual("");
     spyLogger.calledOnce.should.true;
     (Logger.logError as any).restore();
   });
 
   it("calling initialize twice should log", async () => {
-    const spyLogger = sinon.spy(Logger, "logInfo");
+    const spyLogger = vi.spyOn(Logger, "logInfo");
     expect(UiComponents.initialized).to.be.false;
     await UiComponents.initialize(TestUtils.i18n);
     expect(UiComponents.initialized).toEqual(true);

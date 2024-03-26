@@ -6,9 +6,7 @@ import type { QuantityTypeArg } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import { act, fireEvent, render } from "@testing-library/react";
 import { Key } from "ts-key-enum";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { QuantityNumberInput } from "../../imodel-components-react/inputs/QuantityNumberInput";
 import TestUtils from "../TestUtils";
 
@@ -32,7 +30,7 @@ describe("<QuantityNumberInput />", () => {
   )!;
   function requestNextAnimation() {}
 
-  before(async () => {
+  beforeEach(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
       get: () => requestNextAnimation,
@@ -41,7 +39,7 @@ describe("<QuantityNumberInput />", () => {
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
     Object.defineProperty(
@@ -91,7 +89,7 @@ describe("<QuantityNumberInput />", () => {
     const incrementedLengthInMeters = 5.30480016;
     const incrementedLengthFeet = 17.4042;
 
-    const spy = sinon.spy();
+    const spy = vi.fn();
     let updatedValue: number | undefined = 5;
     const handleChange = (v: number): void => {
       updatedValue = v;
@@ -161,7 +159,7 @@ describe("<QuantityNumberInput />", () => {
 
   it("steps correctly with number step", () => {
     let value: number | undefined = 0;
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (v: number): void => {
       spy();
       value = v;
@@ -185,7 +183,7 @@ describe("<QuantityNumberInput />", () => {
 
   it("steps correctly with decimal step", () => {
     let value: number = 0;
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (v: number): void => {
       spy();
       value = v;
@@ -236,7 +234,7 @@ describe("<QuantityNumberInput />", () => {
 
   it("properly handle MAX_SAFE_INTEGER value", () => {
     let value: number = Number.MAX_SAFE_INTEGER * metersPerFoot;
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (v: number): void => {
       spy();
       value = v;
@@ -287,7 +285,7 @@ describe("<QuantityNumberInput />", () => {
 
   it("properly handle MIN_SAFE_INTEGER value", () => {
     let value: number | undefined = Number.MIN_SAFE_INTEGER * metersPerFoot;
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (v: number): void => {
       spy();
       value = v;
@@ -315,7 +313,7 @@ describe("<QuantityNumberInput />", () => {
     const snapLengthInFeet = 3.5;
     let value = initialLengthInMeters;
 
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (v: number): void => {
       spy();
       value = v;
@@ -425,12 +423,12 @@ describe("<QuantityNumberInput />", () => {
 
   it("should increment/decrement value on Up/Down Arrow", () => {
     let value = 0;
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (v: number): void => {
       spy();
       value = v;
     };
-    const spyKeyDown = sinon.spy();
+    const spyKeyDown = vi.fn();
     const wrapper = render(
       <QuantityNumberInput
         persistenceValue={value}
@@ -455,7 +453,7 @@ describe("<QuantityNumberInput />", () => {
 
   it("should update value on enter", () => {
     let value: number | undefined = 0;
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (v: number): void => {
       spy();
       value = v;
@@ -478,7 +476,7 @@ describe("<QuantityNumberInput />", () => {
 
   it("should update value from inches to feet on enter", () => {
     let value: number | undefined = 0;
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (v: number): void => {
       spy();
       value = v;
@@ -501,12 +499,12 @@ describe("<QuantityNumberInput />", () => {
 
   it("should update value on blur", () => {
     let value: number | undefined = 0;
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (v: number): void => {
       spy();
       value = v;
     };
-    const spyBlur = sinon.spy();
+    const spyBlur = vi.fn();
     const wrapper = render(
       <QuantityNumberInput
         persistenceValue={value}
@@ -531,7 +529,7 @@ describe("<QuantityNumberInput />", () => {
     // const initialLengthInFeet = 3.2808;
 
     let value = initialLengthInMeters;
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (v: number): void => {
       spy();
       value = v;
@@ -570,7 +568,7 @@ describe("<QuantityNumberInput />", () => {
 
   it("should reset value to original when invalid text is entered", () => {
     let value = 1; // 3.2808ft
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const handleChange = (v: number): void => {
       spy();
       value = v;
@@ -630,7 +628,7 @@ describe("<QuantityNumberInput />", () => {
 
     it("renders correctly", () => {
       let value = 1;
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const handleChange = (v: number): void => {
         spy();
         value = v;
@@ -694,7 +692,7 @@ describe("<QuantityNumberInput />", () => {
       );
 
       let value = 1; // since no units are specified the persistence unit of meters are used.
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const handleChange = (v: number): void => {
         spy();
         value = v;

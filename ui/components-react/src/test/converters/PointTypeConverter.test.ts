@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import type { Primitives } from "@itwin/appui-abstract";
 import { isPromiseLike } from "@itwin/core-react";
 import type { ConvertedPrimitives } from "../../components-react";
@@ -15,7 +14,7 @@ import { TypeConverterManager } from "../../components-react/converters/TypeConv
 import TestUtils from "../TestUtils";
 
 describe("Point2dTypeConverter", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -143,7 +142,7 @@ describe("Point2dTypeConverter", () => {
 });
 
 describe("Point3dTypeConverter", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 

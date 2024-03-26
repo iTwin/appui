@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Orientation } from "@itwin/core-react";
 import { NonPrimitivePropertyRenderer } from "../../../components-react/properties/renderers/NonPrimitivePropertyRenderer";
 import TestUtils, {
@@ -20,7 +18,7 @@ describe("NonPrimitivePropertyRenderer", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -151,7 +149,7 @@ describe("NonPrimitivePropertyRenderer", () => {
   });
 
   it("uses unique key as a click parameter when used", async () => {
-    const keySpy = sinon.spy();
+    const keySpy = vi.fn();
     render(
       <NonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}

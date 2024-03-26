@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { FrontstageConfig } from "../../appui-react";
 import {
   ContentGroup,
@@ -68,7 +66,7 @@ class TestNestedFrontstage extends FrontstageProvider {
 }
 
 describe("NestedFrontstage", async () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     UiFramework.frontstages.clearFrontstageProviders();
   });
@@ -96,8 +94,8 @@ describe("NestedFrontstage", async () => {
     const nestedFrontstageDef = await FrontstageDef.create(
       nestedFrontstageProvider
     );
-    const spyActivated = sinon.spy(nestedFrontstageDef, "_onActivated" as any);
-    const spyDeactivated = sinon.spy(
+    const spyActivated = vi.spyOn(nestedFrontstageDef, "_onActivated" as any);
+    const spyDeactivated = vi.spyOn(
       nestedFrontstageDef,
       "_onDeactivated" as any
     );

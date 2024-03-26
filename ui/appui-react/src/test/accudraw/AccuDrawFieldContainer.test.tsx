@@ -9,8 +9,6 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
-import { expect } from "chai";
-import * as sinon from "sinon";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { ColorByName, ColorDef } from "@itwin/core-common";
@@ -58,7 +56,7 @@ describe("AccuDrawFieldContainer", () => {
     vi.spyOn(IModelApp, "accuDraw").get(() => accuDraw);
   });
 
-  after(async () => {
+  afterEach(async () => {
     Object.defineProperty(
       IModelApp,
       "requestNextAnimation",
@@ -77,7 +75,7 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it("should emit onAccuDrawSetFieldValueToUiEvent", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
@@ -101,7 +99,7 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it("should emit onAccuDrawSetFieldLockEvent", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
@@ -124,7 +122,7 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it("should emit onAccuDrawSetFieldFocusEvent", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
     const wrapper = render(
@@ -176,7 +174,7 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it("should emit onAccuDrawSetFieldFocusEvent and show Z field", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
     render(
@@ -207,7 +205,7 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it("should emit onAccuDrawGrabFieldFocusEvent", async () => {
-    const spySet = sinon.spy();
+    const spySet = vi.fn();
     const removeSet =
       FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spySet);
     const wrapper = render(
@@ -227,7 +225,7 @@ describe("AccuDrawFieldContainer", () => {
     UiFramework.keyboardShortcuts.setFocusToHome();
     expect(document.activeElement === input).to.be.false;
 
-    const spyGrab = sinon.spy();
+    const spyGrab = vi.fn();
     const removeGrab =
       FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(spyGrab);
     IModelApp.accuDraw.grabInputFocus();
@@ -239,7 +237,7 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it("should emit onAccuDrawSetModeEvent", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const remove =
       FrameworkAccuDraw.onAccuDrawSetCompassModeEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
@@ -255,7 +253,7 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it("should call onValueChanged & setFieldValueFromUi", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldValueFromUiEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
@@ -312,7 +310,7 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it("should call onValueChanged & setFieldValueFromUi & show the Z field", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldValueFromUiEvent.addListener(spy);
     render(
@@ -339,7 +337,7 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it("should set focus to home on Esc", () => {
-    const spy = sinon.spy(UiFramework.keyboardShortcuts, "setFocusToHome");
+    const spy = vi.spyOn(UiFramework.keyboardShortcuts, "setFocusToHome");
     const wrapper = render(
       <AccuDrawFieldContainer orientation={Orientation.Vertical} />
     );
@@ -391,7 +389,7 @@ describe("AccuDrawFieldContainer", () => {
     it("should support FrameworkAccuDraw.uiStateStorage- set after render", async () => {
       const emptySettings: AccuDrawUiSettings = {};
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       FrameworkAccuDraw.uiStateStorage = undefined;
       const remove =
         FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(spy);
@@ -452,7 +450,7 @@ describe("AccuDrawFieldContainer", () => {
     });
 
     it("should support FrameworkAccuDraw.uiStateStorage - set before render", async () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       FrameworkAccuDraw.uiStateStorage = fullSettings;
       const remove =
         FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(spy);

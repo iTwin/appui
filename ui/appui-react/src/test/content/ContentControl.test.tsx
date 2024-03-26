@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type {
   ConfigurableCreateInfo,
   FrontstageConfig,
@@ -27,7 +25,7 @@ describe("ContentControl", () => {
     }
   }
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     UiFramework.controls.register("TestContentControl", TestContentControl);
   });
@@ -87,7 +85,7 @@ describe("ContentControl", () => {
         expect(contentControl).to.not.be.undefined;
 
         if (contentControl) {
-          const activatedMethod = sinon.spy(contentControl, "onActivated");
+          const activatedMethod = vi.spyOn(contentControl, "onActivated");
           UiFramework.content.setActive(contentSet[1]);
           expect(
             activatedMethod.calledOnce,
@@ -153,11 +151,11 @@ describe("ContentControl", () => {
         expect(contentControl).to.not.be.undefined;
 
         if (contentControl) {
-          const deactivatedMethod = sinon.spy(contentControl, "onDeactivated");
+          const deactivatedMethod = vi.spyOn(contentControl, "onDeactivated");
           UiFramework.content.setActive(contentSet[1]);
           expect(deactivatedMethod).toHaveBeenCalledOnce();
 
-          const activatedMethod = sinon.spy(contentControl, "onActivated");
+          const activatedMethod = vi.spyOn(contentControl, "onActivated");
           UiFramework.content.refreshActive(contentSet[0]);
           expect(activatedMethod).toHaveBeenCalledOnce();
         }

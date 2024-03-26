@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
 import type {
   ActionButton,
@@ -37,7 +35,7 @@ function createBubbledEvent(type: string, props = {}) {
 describe("<ToolbarWithOverflow />", () => {
   const sandbox = sinon.createSandbox();
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -50,7 +48,7 @@ describe("<ToolbarWithOverflow />", () => {
   });
 
   describe("<Horizontal ToolbarWithOverflow />", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const toolbarItems: CommonToolbarItem[] = [
       ToolbarItemUtilities.createActionButton(
@@ -708,7 +706,7 @@ describe("<ToolbarWithOverflow />", () => {
 
   describe("<ToolbarWithOverflow Button />", () => {
     it("should fire when clicked", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       const toolbarItems: CommonToolbarItem[] = [
         ToolbarItemUtilities.createActionButton(
           "Entry1",
@@ -768,7 +766,7 @@ describe("<ToolbarWithOverflow />", () => {
           }
           return new DOMRect();
         });
-      const onKeyDownSpy = sinon.spy();
+      const onKeyDownSpy = vi.fn();
 
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} onKeyDown={onKeyDownSpy} />
@@ -869,7 +867,7 @@ describe("<ToolbarWithOverflow />", () => {
           }
           return new DOMRect();
         });
-      const onKeyDownSpy = sinon.spy();
+      const onKeyDownSpy = vi.fn();
       const renderedComponent = render(
         <ToolbarWithOverflow items={toolbarItems} onKeyDown={onKeyDownSpy} />
       );
@@ -883,7 +881,7 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("group button panel should open when clicked", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
 
       const childItems: ActionButton[] = [
         ToolbarItemUtilities.createActionButton(
@@ -1888,7 +1886,7 @@ describe("<ToolbarWithOverflow />", () => {
 
   describe("<ToolbarWithOverflow with Drag interaction />", () => {
     it("should fire first child when group item clicked", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
 
       const childItems: ReadonlyArray<ActionButton | GroupButton> = [
         ToolbarItemUtilities.createActionButton(
@@ -2122,7 +2120,7 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("group button panel should activate 'active entry' when clicked", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
 
       const childItems: ActionButton[] = [
         ToolbarItemUtilities.createActionButton(
@@ -2186,7 +2184,7 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("nested group item set active should activate when clicked", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
 
       const nestedChildren: ActionButton[] = [
         ToolbarItemUtilities.createActionButton(
@@ -2593,7 +2591,7 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("should open on long press", async () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
 
       const childItems: ReadonlyArray<ActionButton | GroupButton> = [
         ToolbarItemUtilities.createActionButton(
@@ -2683,7 +2681,7 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("should not open on long press if we move pointer more than 10 px", async () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
 
       const childItems: ReadonlyArray<ActionButton | GroupButton> = [
         ToolbarItemUtilities.createActionButton(
@@ -2766,8 +2764,8 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("should call onItemExecuted", async () => {
-      const toolSpy = sinon.spy();
-      const onItemExecuteSpy = sinon.spy();
+      const toolSpy = vi.fn();
+      const onItemExecuteSpy = vi.fn();
       const toolbarItems: CommonToolbarItem[] = [
         ToolbarItemUtilities.createActionButton(
           "Entry1",
@@ -2806,8 +2804,8 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("should call onKeyDown", async () => {
-      const toolSpy = sinon.spy();
-      const onKeyDownSpy = sinon.spy();
+      const toolSpy = vi.fn();
+      const onKeyDownSpy = vi.fn();
       const toolbarItems: CommonToolbarItem[] = [
         ToolbarItemUtilities.createActionButton(
           "Entry1",
@@ -2844,7 +2842,7 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("should not open if we get pointer up before meeting drag requirements", async () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
 
       const childItems: ReadonlyArray<ActionButton | GroupButton> = [
         ToolbarItemUtilities.createActionButton(

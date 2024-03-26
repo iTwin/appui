@@ -4,9 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { ToolbarHelper, UiFramework } from "../../appui-react";
 import { CommandItemDef } from "../../appui-react/shared/CommandItemDef";
 import { BasicToolWidget } from "../../appui-react/widgets/BasicToolWidget";
@@ -27,12 +25,12 @@ describe("BasicToolWidget", () => {
       });
   });
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });

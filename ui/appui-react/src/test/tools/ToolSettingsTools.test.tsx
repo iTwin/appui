@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { expect } from "chai";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { TestUtils } from "../TestUtils";
 import {
@@ -13,12 +12,12 @@ import {
 } from "../../appui-react/tools/ToolSettingsTools";
 
 describe("ToolSettingsTools", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });

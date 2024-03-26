@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import {
   NotifyMessageDetails,
@@ -18,7 +17,7 @@ import TestUtils, { childStructure } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("InputFieldMessage", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     UiFramework.keyboardShortcuts.closeMenu();
   });

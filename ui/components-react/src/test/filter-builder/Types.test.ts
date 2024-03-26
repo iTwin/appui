@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import { isPropertyFilterRuleGroup } from "../../components-react/filter-builder/Types";
 
 describe("isPropertyFilterRuleGroup", () => {

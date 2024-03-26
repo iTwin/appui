@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { IModelApp, NoRenderApp, Tool } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
@@ -31,7 +29,7 @@ const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
 function requestNextAnimation() {}
 
 describe("<KeyinPalettePanel>", () => {
-  before(async () => {
+  beforeEach(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it. Tried replacing window.requestAnimationFrame first
     // but that did not work.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
@@ -47,7 +45,7 @@ describe("<KeyinPalettePanel>", () => {
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
 
     // restore the overriden property getter

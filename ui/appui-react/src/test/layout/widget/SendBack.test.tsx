@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";

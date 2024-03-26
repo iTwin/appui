@@ -16,7 +16,7 @@ const syncEventIds = ["sync-id-one", "sync-id-two", "sync-id-THREE"];
 describe("ConditionalIconItem", () => {
   it("should construct without initial string value", () => {
     const sut = new ConditionalIconItem(icon1Getter, syncEventIds);
-    expect(sut.value).to.be.equal(iconSpec1);
+    expect(sut.value).toEqual(iconSpec1);
   });
 
   it("should construct with initial value", () => {
@@ -25,41 +25,41 @@ describe("ConditionalIconItem", () => {
       syncEventIds,
       defaultIconSpec
     );
-    expect(sut.value).to.be.equal(defaultIconSpec);
+    expect(sut.value).toEqual(defaultIconSpec);
     expect(sut.refresh()).toEqual(true);
-    expect(sut.value).to.be.equal(iconSpec1);
+    expect(sut.value).toEqual(iconSpec1);
   });
 
   it("should construct with initial value that matches stringGetter function", () => {
     const sut = new ConditionalIconItem(icon1Getter, syncEventIds, iconSpec1);
-    expect(sut.value).to.be.equal(iconSpec1);
+    expect(sut.value).toEqual(iconSpec1);
     expect(sut.refresh()).to.be.false;
-    expect(sut.value).to.be.equal(iconSpec1);
+    expect(sut.value).toEqual(iconSpec1);
   });
 
   it("test static getValue method", () => {
     expect(ConditionalIconItem.getValue(undefined)).to.be.undefined;
-    expect(ConditionalIconItem.getValue("icon1.svg")).to.be.equal("icon1.svg");
+    expect(ConditionalIconItem.getValue("icon1.svg")).toEqual("icon1.svg");
     expect(
       ConditionalIconItem.getValue(
         new ConditionalIconItem(icon1Getter, syncEventIds, defaultIconSpec)
       )
-    ).to.be.equal(defaultIconSpec);
+    ).toEqual(defaultIconSpec);
     expect(
       ConditionalIconItem.getValue(
         new ConditionalIconItem(icon2Getter, syncEventIds, defaultIconSpec)
       )
-    ).to.be.equal(defaultIconSpec);
+    ).toEqual(defaultIconSpec);
     expect(
       ConditionalIconItem.getValue(
         new ConditionalIconItem(icon1Getter, syncEventIds)
       )
-    ).to.be.equal(iconSpec1);
+    ).toEqual(iconSpec1);
     expect(
       ConditionalIconItem.getValue(
         new ConditionalIconItem(icon2Getter, syncEventIds)
       )
-    ).to.be.equal(iconSpec2);
+    ).toEqual(iconSpec2);
   });
 
   it("test static refreshValue method", () => {
@@ -68,14 +68,14 @@ describe("ConditionalIconItem", () => {
       syncEventIds,
       defaultIconSpec
     );
-    expect(sut.value).to.be.equal(defaultIconSpec);
+    expect(sut.value).toEqual(defaultIconSpec);
     expect(ConditionalIconItem.refreshValue(sut, new Set<string>(["cat"]))).to
       .be.false;
-    expect(sut.value).to.be.equal(defaultIconSpec);
+    expect(sut.value).toEqual(defaultIconSpec);
     expect(
       ConditionalIconItem.refreshValue(sut, new Set<string>(["sync-id-two"]))
     ).toEqual(true);
-    expect(sut.value).to.be.equal(iconSpec1);
+    expect(sut.value).toEqual(iconSpec1);
     expect(
       ConditionalIconItem.refreshValue(undefined, new Set<string>(["cat"]))
     ).to.be.false;
@@ -87,14 +87,14 @@ describe("ConditionalIconItem", () => {
       syncEventIds,
       defaultIconSpec
     );
-    expect(sut.value).to.be.equal(defaultIconSpec);
+    expect(sut.value).toEqual(defaultIconSpec);
     expect(ConditionalIconItem.refreshValue(sut, new Set<string>(["cat"]))).to
       .be.false;
-    expect(sut.value).to.be.equal(defaultIconSpec);
+    expect(sut.value).toEqual(defaultIconSpec);
     expect(
       ConditionalIconItem.refreshValue(sut, new Set<string>(["sync-id-three"]))
     ).toEqual(true);
-    expect(sut.value).to.be.equal(iconSpec1);
+    expect(sut.value).toEqual(iconSpec1);
     expect(
       ConditionalIconItem.refreshValue(undefined, new Set<string>(["cat"]))
     ).to.be.false;

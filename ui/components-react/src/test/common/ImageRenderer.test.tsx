@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
 import { UiError } from "@itwin/appui-abstract";
 import { render, waitFor } from "@testing-library/react";
@@ -13,7 +12,7 @@ import { UiCore } from "@itwin/core-react";
 import { EmptyLocalization } from "@itwin/core-common";
 
 describe("ImageRenderer", () => {
-  before(async () => {
+  beforeEach(async () => {
     await UiCore.initialize(new EmptyLocalization());
   });
 

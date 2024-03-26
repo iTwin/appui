@@ -5,7 +5,6 @@
 import { Rectangle } from "@itwin/core-react";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import * as React from "react";
-import * as sinon from "sinon";
 import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone";
 import type { NineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
@@ -80,7 +79,7 @@ describe("MenuTab", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "top", "w1", ["t1"]);
-    const close = sinon.spy();
+    const close = vi.fn();
     render(
       <WidgetOverflowContext.Provider value={{ close }}>
         <WidgetContext.Provider value={{ measure: () => new Rectangle() }}>

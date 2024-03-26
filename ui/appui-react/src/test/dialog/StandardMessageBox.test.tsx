@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { MessageBoxIconType, MessageBoxType } from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
 import { StandardMessageBox } from "../../appui-react";
@@ -16,7 +14,7 @@ describe("StandardMessageBox", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 
@@ -25,7 +23,7 @@ describe("StandardMessageBox", () => {
   });
 
   it("OK button & NoSymbol", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const reactNode = (
       <StandardMessageBox
@@ -47,7 +45,7 @@ describe("StandardMessageBox", () => {
   });
 
   it("OK/Cancel buttons & Information", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const reactNode = (
       <StandardMessageBox
@@ -69,7 +67,7 @@ describe("StandardMessageBox", () => {
   });
 
   it("Yes/No buttons & Question", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     const reactNode = (
       <StandardMessageBox
@@ -91,7 +89,7 @@ describe("StandardMessageBox", () => {
   });
 
   it("MediumAlert & Question", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const reactNode = (
       <StandardMessageBox
         opened={true}
@@ -113,7 +111,7 @@ describe("StandardMessageBox", () => {
   });
 
   it("YesNoCancel & Critical", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const reactNode = (
       <StandardMessageBox
         opened={true}
@@ -133,7 +131,7 @@ describe("StandardMessageBox", () => {
   });
 
   it("YesNoCancel & Warning", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const reactNode = (
       <StandardMessageBox
         opened={true}
@@ -155,7 +153,7 @@ describe("StandardMessageBox", () => {
   });
 
   it("should close on Esc key", async () => {
-    const spyOnEscape = sinon.spy();
+    const spyOnEscape = vi.fn();
     const reactNode = (
       <StandardMessageBox
         opened={true}

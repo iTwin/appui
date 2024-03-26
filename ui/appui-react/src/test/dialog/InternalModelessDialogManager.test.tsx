@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import type { DialogChangedEventArgs } from "../../appui-react";
 import {
@@ -19,7 +17,7 @@ import { InternalModelessDialogManager } from "../../appui-react/dialog/Internal
 
 describe("InternalModelessDialogManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  const spy = sinon.spy();
+  const spy = vi.fn();
   beforeEach(() => {
     theUserTo = userEvent.setup();
     InternalModelessDialogManager.closeAll();
@@ -30,7 +28,7 @@ describe("InternalModelessDialogManager", () => {
     spy();
   }
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework(true);
     await NoRenderApp.startup();
 
@@ -39,7 +37,7 @@ describe("InternalModelessDialogManager", () => {
     );
   });
 
-  after(async () => {
+  afterEach(async () => {
     InternalModelessDialogManager.onModelessDialogChangedEvent.removeListener(
       handleModelessDialogChanged
     );
@@ -77,7 +75,7 @@ describe("InternalModelessDialogManager", () => {
   });
 
   it("close should log error if passed a bad id", () => {
-    const logspy = sinon.spy(Logger, "logError");
+    const logspy = vi.spyOn(Logger, "logError");
     UiFramework.dialogs.modeless.close("bad");
     logexpect(spy).toHaveBeenCalledOnce();
   });

@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { ColorDef } from "@itwin/core-common";
 import { fireEvent, render } from "@testing-library/react"; // , waitForElement
 import { LineWeightSwatch } from "../../imodel-components-react/lineweight/Swatch";
@@ -38,14 +36,14 @@ describe("<LineWeightSwatch />", () => {
   });
 
   it("Fire click event to pick weight", async () => {
-    const spyOnPick = sinon.spy();
+    const spyOnPick = vi.fn();
 
     const renderedComponent = render(
       <LineWeightSwatch weight={activeWeight} onClick={spyOnPick} />
     );
     const weightSwatch = renderedComponent.container.firstChild as HTMLElement;
     expect(weightSwatch).not.to.be.null;
-    expect(weightSwatch.tagName).to.be.equal("BUTTON");
+    expect(weightSwatch.tagName).toEqual("BUTTON");
     fireEvent.click(weightSwatch);
     await TestUtils.flushAsyncOperations();
     expect(spyOnPick).toHaveBeenCalledOnce();

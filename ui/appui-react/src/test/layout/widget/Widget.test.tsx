@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";

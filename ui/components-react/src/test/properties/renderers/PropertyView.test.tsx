@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { PropertyView } from "../../../components-react";
@@ -23,7 +21,7 @@ describe("PropertyView", () => {
   });
   let propertyRecord: PropertyRecord;
 
-  before(async () => {
+  beforeEach(async () => {
     propertyRecord = TestUtils.createPrimitiveStringProperty("Label", "Model");
 
     await TestUtils.initializeUiComponents();
@@ -340,7 +338,7 @@ describe("PropertyView", () => {
   });
 
   it("triggers selection if property gets clicked once", async () => {
-    const onClick = sinon.spy();
+    const onClick = vi.fn();
 
     render(
       <PropertyView
@@ -353,11 +351,11 @@ describe("PropertyView", () => {
 
     await theUserTo.click(screen.getByRole("presentation"));
 
-    expect(onClick.callCount).to.be.eq(1);
+    expect(onClick).toHaveBeenCalledOnce();
   });
 
   it("triggers deselection if property gets clicked twice", async () => {
-    const onClick = sinon.spy();
+    const onClick = vi.fn();
 
     render(
       <PropertyView
@@ -371,7 +369,7 @@ describe("PropertyView", () => {
     await theUserTo.click(screen.getByRole("presentation"));
     await theUserTo.click(screen.getByRole("presentation"));
 
-    expect(onClick.callCount).to.be.eq(2);
+    expect(onClick).toHaveBeenCalledTimes(2);
   });
 
   it("renders as selected when isSelected prop is true", () => {
@@ -519,7 +517,7 @@ describe("PropertyView", () => {
   });
 
   it("calls onContextMenu callback on property right click", async () => {
-    const callback = sinon.spy();
+    const callback = vi.fn();
     render(
       <PropertyView
         orientation={Orientation.Horizontal}
@@ -532,11 +530,11 @@ describe("PropertyView", () => {
       target: screen.getByRole("presentation"),
       keys: "[MouseRight]",
     });
-    expect(callback).toHaveBeenCalledWith(propertyRecord);
+    expect(callback).toHaveBeenCalledWith(propertyRecord, expect.anything());
   });
 
   it("calls onRightClick callback on property right click", async () => {
-    const callback = sinon.spy();
+    const callback = vi.fn();
     render(
       <PropertyView
         orientation={Orientation.Horizontal}
@@ -549,6 +547,6 @@ describe("PropertyView", () => {
       target: screen.getByRole("presentation"),
       keys: "[MouseRight]",
     });
-    expect(callback).toHaveBeenCalledWith(propertyRecord);
+    expect(callback).toHaveBeenCalledWith(propertyRecord, undefined);
   });
 });

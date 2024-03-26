@@ -5,7 +5,6 @@
 import { BeEvent } from "@itwin/core-bentley";
 import { act, render } from "@testing-library/react";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { TabState } from "../../../appui-react/layout/state/TabState";
 import { ScrollableWidgetContent } from "../../../appui-react/layout/widget/Content";
 import { WidgetContentManagerContext } from "../../../appui-react/layout/widget/ContentManager";
@@ -32,7 +31,7 @@ describe("ScrollableWidgetContent", () => {
     );
 
     const content = container.getElementsByClassName("nz-widget-content")[0];
-    const scrollLeftSpy = sinon.spy(content, "scrollLeft", ["get", "set"]);
+    const scrollLeftSpy = vi.spyOn(content, "scrollLeft", ["get", "set"]);
     act(() => {
       onSaveTransientState.raiseEvent("t1");
       onRestoreTransientState.raiseEvent("t1");

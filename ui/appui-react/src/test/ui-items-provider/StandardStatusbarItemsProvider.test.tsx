@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import TestUtils from "../TestUtils";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { DefaultStatusbarItems } from "../../appui-react";
@@ -58,12 +56,12 @@ describe("StandardStatusbarItemsProvider", () => {
   const testProviderId = "testStatusItemsProvider";
 
   // avoid problems due to no real localization resources by return dummy values for englishKeyin and keyin properties.
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
     sinon.reset();

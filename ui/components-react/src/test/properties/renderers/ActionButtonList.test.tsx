@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { render } from "@testing-library/react";
@@ -15,7 +13,7 @@ import TestUtils from "../../TestUtils";
 describe("ActionButtonList", () => {
   let propertyRecord: PropertyRecord;
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
     propertyRecord = TestUtils.createPrimitiveStringProperty("Label", "Model");
   });
@@ -40,7 +38,7 @@ describe("ActionButtonList", () => {
   });
 
   it("renders in correct horizontal orientation", () => {
-    const renderer = sinon.spy();
+    const renderer = vi.fn();
     const actionButtonListRenderer = render(
       <ActionButtonList
         orientation={Orientation.Horizontal}
@@ -57,7 +55,7 @@ describe("ActionButtonList", () => {
   });
 
   it("renders in correct vertical orientation", () => {
-    const renderer = sinon.spy();
+    const renderer = vi.fn();
     const actionButtonListRenderer = render(
       <ActionButtonList
         orientation={Orientation.Vertical}

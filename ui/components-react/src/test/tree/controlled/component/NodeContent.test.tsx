@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
 import { render } from "@testing-library/react";
@@ -18,7 +16,7 @@ describe("NodeContent", () => {
   let node: MutableTreeModelNode;
   let nodeLabelRecord: PropertyRecord;
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -100,7 +98,7 @@ describe("NodeContent", () => {
   });
 
   it("call onLabelRendered when label is rendered", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(<TreeNodeContent node={node} onLabelRendered={spy} />);
 
     expect(spy).toHaveBeenCalledOnce();
@@ -122,7 +120,7 @@ describe("NodeContent", () => {
       onCancel: () => {},
       onCommit: () => {},
     };
-    const editorRendererSpy = sinon.spy();
+    const editorRendererSpy = vi.fn();
 
     render(
       <TreeNodeContent node={node} nodeEditorRenderer={editorRendererSpy} />

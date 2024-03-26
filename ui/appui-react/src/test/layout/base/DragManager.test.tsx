@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import * as sinon from "sinon";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { createDragInfo, createDragStartArgs, setRefValue } from "../Providers";
 import { expect, should } from "chai";
@@ -45,7 +44,7 @@ describe("DragManager", () => {
 describe("useTabTarget", () => {
   it("should clear target when target changes", async () => {
     const dragManager = new DragManager();
-    const spy = sinon.spy(dragManager, "handleTargetChanged");
+    const spy = vi.spyOn(dragManager, "handleTargetChanged");
     const { result } = renderHook(
       () =>
         useTabTarget({
@@ -128,7 +127,7 @@ describe("useTabTarget", () => {
 describe("usePanelTarget", () => {
   it("should clear target", () => {
     const dragManager = new DragManager();
-    const spy = sinon.spy(dragManager, "handleTargetChanged");
+    const spy = vi.spyOn(dragManager, "handleTargetChanged");
     const { result } = renderHook(
       () =>
         usePanelTarget({
@@ -161,7 +160,7 @@ describe("usePanelTarget", () => {
 describe("useWidgetTarget", () => {
   it("should clear target", () => {
     const dragManager = new DragManager();
-    const spy = sinon.spy(dragManager, "handleTargetChanged");
+    const spy = vi.spyOn(dragManager, "handleTargetChanged");
     const { result } = renderHook(
       () =>
         useTarget({

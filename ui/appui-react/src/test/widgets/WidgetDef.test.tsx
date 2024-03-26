@@ -2,10 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import produce from "immer";
 import * as React from "react";
-import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { BadgeType } from "@itwin/core-react";
 import { SvgList } from "@itwin/itwinui-icons-react";
@@ -26,12 +24,12 @@ import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers"
 import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers";
 
 describe("WidgetDef", () => {
-  before(async () => {
+  beforeEach(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
   });
 
-  after(async () => {
+  afterEach(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
   });
@@ -180,7 +178,7 @@ describe("WidgetDef", () => {
         .stub(UiFramework.frontstages, "activeFrontstageDef")
         .get(() => frontstageDef);
 
-      const spy = sinon.spy();
+      const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
       const widgetDef = frontstageDef.findWidgetDef("w1")!;

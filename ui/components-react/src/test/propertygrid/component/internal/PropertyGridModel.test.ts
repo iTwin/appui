@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { config, expect } from "chai";
-import sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import type { IMutableGridItemFactory } from "../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
 import { MutableGridItemFactory } from "../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
@@ -624,8 +623,8 @@ describe("MutablePropertyGridModel", () => {
     let createPropertySpy: sinon.SinonSpy<any, any>;
 
     beforeEach(() => {
-      createCategorySpy = sinon.spy(factory, "createGridCategory");
-      createPropertySpy = sinon.spy(factory, "createCategorizedProperty");
+      createCategorySpy = vi.spyOn(factory, "createGridCategory");
+      createPropertySpy = vi.spyOn(factory, "createCategorizedProperty");
     });
 
     for (const testCase of testCases) {
@@ -720,11 +719,11 @@ describe("MutablePropertyGridModel", () => {
           lastInNumberOfCategories: 0,
         };
 
-        expect(gridItem.lastInNumberOfCategories).to.be.equal(
+        expect(gridItem.lastInNumberOfCategories).toEqual(
           expectedLastItemData.lastInNumberOfCategories,
           `lastInNumberOfCategories does not match: ${gridItem.selectionKey}`
         );
-        expect(gridItem.isLastInRootCategory).to.be.equal(
+        expect(gridItem.isLastInRootCategory).toEqual(
           expectedLastItemData.isLastInRootCategory,
           `isLastInRootCategory does not match: ${gridItem.selectionKey}`
         );

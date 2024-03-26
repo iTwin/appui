@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { expect } from "chai";
-import sinon from "sinon";
 import { fireEvent, render, screen } from "@testing-library/react";
 import {
   MultilineTextPropertyValueRenderer,
@@ -74,7 +72,7 @@ describe("MultilineTextPropertyValueRenderer", () => {
 });
 
 describe("MultilineTextRenderer", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 

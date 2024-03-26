@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { renderHook } from "@testing-library/react-hooks";
 import {
   ConditionalBooleanValue,
@@ -257,12 +255,12 @@ describe("useConditionalSynchedItems", () => {
       },
     ];
     const event = new BeUiEvent<BeUiEventProps>();
-    const spy = sinon.spy(event, "removeListener");
+    const spy = vi.spyOn(event, "removeListener");
     const { unmount } = renderHook(() => {
       return useConditionalSynchedItems(items, event);
     });
 
-    expect(spy.called).to.be.false;
+    expect(spy).not.toBeCalled();
     unmount();
     expect(spy).toHaveBeenCalled();
   });

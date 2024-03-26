@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { AccuDrawInputField } from "../../appui-react/accudraw/AccuDrawInputField";
 import type { IModelAppOptions } from "@itwin/core-frontend";
@@ -49,7 +47,7 @@ describe("AccuDrawInputField", () => {
   });
 
   it("should render with lock", () => {
-    const spyChanged = sinon.spy();
+    const spyChanged = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
         isLocked={true}
@@ -63,7 +61,7 @@ describe("AccuDrawInputField", () => {
   });
 
   it("should call onValueChanged on change", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
         isLocked={false}
@@ -86,7 +84,7 @@ describe("AccuDrawInputField", () => {
 
   it("should call onValueChanged on change after delay", async () => {
     const fakeTimers = sinon.useFakeTimers();
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
         isLocked={false}
@@ -109,8 +107,8 @@ describe("AccuDrawInputField", () => {
   });
 
   it("should call onEscPressed on ESC", () => {
-    const spyEsc = sinon.spy();
-    const spyChanged = sinon.spy();
+    const spyEsc = vi.fn();
+    const spyChanged = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
         onEscPressed={spyEsc}
@@ -127,8 +125,8 @@ describe("AccuDrawInputField", () => {
   });
 
   it("should call onEnterPressed on Enter", () => {
-    const spyEnter = sinon.spy();
-    const spyChanged = sinon.spy();
+    const spyEnter = vi.fn();
+    const spyChanged = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
         onEnterPressed={spyEnter}
@@ -145,8 +143,8 @@ describe("AccuDrawInputField", () => {
   });
 
   it("should call UiFramework.keyboardShortcuts.processKey on a letter", () => {
-    const spy = sinon.spy(UiFramework.keyboardShortcuts, "processKey");
-    const spyChanged = sinon.spy();
+    const spy = vi.spyOn(UiFramework.keyboardShortcuts, "processKey");
+    const spyChanged = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
         isLocked={false}
@@ -165,7 +163,7 @@ describe("AccuDrawInputField", () => {
   });
 
   it("should update value when calling onFieldValueChange", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
         isLocked={false}

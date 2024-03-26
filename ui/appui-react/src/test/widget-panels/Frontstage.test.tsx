@@ -8,11 +8,9 @@ import type { UiStateStorageResult } from "@itwin/core-react";
 import { Size, UiStateStorageStatus } from "@itwin/core-react";
 import { render, screen } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
-import { expect } from "chai";
 import produce from "immer";
 import * as React from "react";
 import { Provider } from "react-redux";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import type {
   FrontstageConfig,
@@ -229,7 +227,7 @@ describe("Frontstage local storage wrapper", () => {
   )!;
   const localStorageMock = storageMock();
 
-  before(async () => {
+  beforeEach(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
     Object.defineProperty(window, "localStorage", {
@@ -237,7 +235,7 @@ describe("Frontstage local storage wrapper", () => {
     });
   });
 
-  after(async () => {
+  afterEach(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
     Object.defineProperty(window, "localStorage", localStorageToRestore);
@@ -285,7 +283,7 @@ describe("Frontstage local storage wrapper", () => {
   });
 
   describe("ModalFrontstageComposer", () => {
-    before(async () => {
+    beforeEach(async () => {
       await TestUtils.initializeUiFramework();
     });
 
@@ -308,11 +306,11 @@ describe("Frontstage local storage wrapper", () => {
     });
 
     it("should add tool activated event listener", () => {
-      const addListenerSpy = sinon.spy(
+      const addListenerSpy = vi.spyOn(
         UiFramework.frontstages.onModalFrontstageChangedEvent,
         "addListener"
       );
-      const removeListenerSpy = sinon.spy(
+      const removeListenerSpy = vi.spyOn(
         UiFramework.frontstages.onModalFrontstageChangedEvent,
         "removeListener"
       );
@@ -350,7 +348,7 @@ describe("Frontstage local storage wrapper", () => {
     });
 
     describe("ActiveFrontstageDefProvider", () => {
-      before(async () => {
+      beforeEach(async () => {
         await TestUtils.initializeUiFramework();
       });
 
@@ -537,7 +535,7 @@ describe("Frontstage local storage wrapper", () => {
     });
 
     describe("useSavedFrontstageState", () => {
-      before(async () => {
+      beforeEach(async () => {
         await TestUtils.initializeUiFramework();
       });
 
@@ -567,7 +565,7 @@ describe("Frontstage local storage wrapper", () => {
         const uiStateStorage = new UiStateStorageStub();
         await UiFramework.setUiStateStorage(uiStateStorage);
 
-        const spy = sinon.spy(uiStateStorage, "getSetting");
+        const spy = vi.spyOn(uiStateStorage, "getSetting");
         renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
@@ -712,7 +710,7 @@ describe("Frontstage local storage wrapper", () => {
           const uiStateStorage = new UiStateStorageStub();
           await UiFramework.setUiStateStorage(uiStateStorage);
 
-          const spy = sinon.spy(uiStateStorage, "deleteSetting");
+          const spy = vi.spyOn(uiStateStorage, "deleteSetting");
           renderHook(() => useFrontstageManager(frontstageDef), {
             wrapper: (props) => <UiStateStorageHandler {...props} />,
           });
@@ -1199,7 +1197,7 @@ describe("Frontstage local storage wrapper", () => {
 
     describe("restoreNineZoneState", () => {
       it("should log info if widgetDef is not found", () => {
-        const spy = sinon.spy(Logger, "logInfo");
+        const spy = vi.spyOn(Logger, "logInfo");
         const frontstageDef = new FrontstageDef();
         let state = createNineZoneState();
         state = addTab(state, "t1");
@@ -1640,7 +1638,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should render pre-loaded extension widgets when state is restored", async () => {
         UiItemsManager.register(new TestUi2Provider());
 
-        const spy = sinon.spy(localStorageMock, "getItem");
+        const spy = vi.spyOn(localStorageMock, "getItem");
         let state = createNineZoneState();
         state = addTab(state, "LeftStart1");
         state = addPanelWidget(state, "left", "leftStart", ["LeftStart1"]);

@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as faker from "faker";
-import sinon from "sinon";
 import type { Node } from "../../../../components-react/tree/controlled/internal/SparseTree";
 import {
   SparseArray,
@@ -441,7 +439,7 @@ describe("SparseTree", () => {
 
     it("does not attempt to remove child subtrees if parent subtree is deleted", () => {
       sparseTree.deleteSubtree(rootNode.id);
-      const spy = sinon.spy(sparseTree, "deleteSubtree");
+      const spy = vi.spyOn(sparseTree, "deleteSubtree");
       sparseTree.deleteSubtree(rootNode.id);
       const children = sparseTree.getChildren(rootNode.id);
       expect(children).to.be.undefined;

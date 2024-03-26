@@ -30,10 +30,8 @@ import {
   SubCategoriesCache,
 } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { expect } from "chai";
 import * as React from "react";
 import * as moq from "typemoq";
-import * as sinon from "sinon";
 import type {
   ConfigurableCreateInfo,
   ContentProps,
@@ -189,7 +187,7 @@ describe("StageContentLayout", () => {
 
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
 
@@ -203,7 +201,7 @@ describe("StageContentLayout", () => {
       .returns(rpcMock.object);
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     sinon.restore();
     TestUtils.terminateUiFramework();

@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as sinon from "sinon";
-import { expect } from "chai";
 import type { IModelAppOptions } from "@itwin/core-frontend";
 import {
   BeButtonEvent,
@@ -26,7 +24,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
   )!;
   const localStorageMock = storageMock();
 
-  before(async () => {
+  beforeEach(async () => {
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
@@ -37,7 +35,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
   });
 
   describe("FrameworkAccuDraw", () => {
-    before(async () => {
+    beforeEach(async () => {
       await TestUtils.initializeUiFramework();
 
       const opts: IModelAppOptions = {};
@@ -45,7 +43,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       await NoRenderApp.startup(opts);
     });
 
-    after(async () => {
+    afterEach(async () => {
       await IModelApp.shutdown();
       TestUtils.terminateUiFramework();
       beforeEach(async () => {
@@ -62,8 +60,8 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
 
       it("should call onCompassModeChange & emit onAccuDrawSetModeEvent & set conditionals", () => {
         FrameworkAccuDraw.displayNotifications = true;
-        const spy = sinon.spy();
-        const spyMessage = sinon.spy(IModelApp.notifications, "outputMessage");
+        const spy = vi.fn();
+        const spyMessage = vi.spyOn(IModelApp.notifications, "outputMessage");
         const remove =
           FrameworkAccuDraw.onAccuDrawSetCompassModeEvent.addListener(spy);
 
@@ -98,7 +96,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       });
 
       it("should call onFieldLockChange & emit onAccuDrawSetFieldLockEvent", () => {
-        const spy = sinon.spy();
+        const spy = vi.fn();
         const remove =
           FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener(spy);
         IModelApp.accuDraw.setFieldLock(ItemField.X_Item, true);
@@ -121,7 +119,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
 
       it("should set rotation & conditionals correctly & notify", () => {
         FrameworkAccuDraw.displayNotifications = true;
-        const spyMessage = sinon.spy(IModelApp.notifications, "outputMessage");
+        const spyMessage = vi.spyOn(IModelApp.notifications, "outputMessage");
 
         IModelApp.accuDraw.setRotationMode(RotationMode.Top);
         FrameworkAccuDraw.isTopRotationConditional.refresh();
@@ -185,7 +183,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       });
 
       it("should call onFieldValueChange & emit onAccuDrawSetFieldValueToUiEvent", () => {
-        const spy = sinon.spy();
+        const spy = vi.fn();
         const remove =
           FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(spy);
         IModelApp.accuDraw.setValueByIndex(ItemField.X_Item, 1.0);
@@ -195,7 +193,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       });
 
       it("should emit onAccuDrawSetFieldFocusEvent", () => {
-        const spy = sinon.spy();
+        const spy = vi.fn();
         const remove =
           FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
         IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
@@ -204,7 +202,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       });
 
       it("should emit onAccuDrawGrabInputFocusEvent", () => {
-        const spy = sinon.spy();
+        const spy = vi.fn();
         const remove =
           FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(spy);
         IModelApp.accuDraw.grabInputFocus();
@@ -217,12 +215,12 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       });
 
       it("should emit onAccuDrawSetFieldValueToUiEvent & onAccuDrawSetFieldFocusEvent", () => {
-        const spyValue = sinon.spy();
+        const spyValue = vi.fn();
         const remove =
           FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(
             spyValue
           );
-        const spyFocus = sinon.spy();
+        const spyFocus = vi.fn();
         const removeFocusSpy =
           FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spyFocus);
 

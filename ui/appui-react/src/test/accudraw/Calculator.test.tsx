@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Calculator } from "../../appui-react/accudraw/Calculator";
 import { CalculatorEngine } from "../../appui-react/accudraw/CalculatorEngine";
 import { selectorMatches, userEvent } from "../TestUtils";
@@ -93,7 +91,7 @@ describe("Calculator", () => {
   });
 
   it("clicking on OK button should fire onOk", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(<Calculator engine={new CalculatorEngine()} onOk={spy} />);
 
     await theUserTo.click(screen.getByRole("button", { name: "5" }));
@@ -107,7 +105,7 @@ describe("Calculator", () => {
   });
 
   it("clicking on Cancel button should fire onCancel", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(<Calculator engine={new CalculatorEngine()} onCancel={spy} />);
     await theUserTo.click(screen.getByRole("button", { name: "5" }));
 
@@ -121,7 +119,7 @@ describe("Calculator", () => {
   });
 
   it("Pressing Esc should fire onCancel", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(<Calculator engine={new CalculatorEngine()} onCancel={spy} />);
 
     await theUserTo.type(screen.getByRole("textbox"), "[Escape]");
@@ -185,7 +183,7 @@ describe("Calculator", () => {
   });
 
   it("pressing keys and Enter should give correct result", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(<Calculator engine={new CalculatorEngine()} onOk={spy} />);
 
     await theUserTo.type(screen.getByRole("textbox"), "8/");
@@ -220,7 +218,7 @@ describe("Calculator", () => {
   });
 
   it("pressing keys and Equal and Enter should give correct result", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(<Calculator engine={new CalculatorEngine()} onOk={spy} />);
 
     await theUserTo.type(screen.getByRole("textbox"), "65-");

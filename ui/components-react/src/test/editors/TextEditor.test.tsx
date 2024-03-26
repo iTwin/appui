@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
-import sinon from "sinon";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import * as React from "react";
 import { Key } from "ts-key-enum";
@@ -42,7 +40,7 @@ import {
 } from "../../components-react";
 
 describe("<TextEditor />", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -184,7 +182,7 @@ describe("<TextEditor />", () => {
     const convertInfo: PropertyConverterInfo = { name: "" };
     propertyRecord.property.converter = convertInfo;
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     function handleCommit(_commit: PropertyUpdatedArgs): void {
       spyOnCommit();
     }
@@ -212,7 +210,7 @@ describe("<TextEditor />", () => {
     const convertInfo: PropertyConverterInfo = { name: "" };
     propertyRecord.property.converter = convertInfo;
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
 
     const wrapper = render(
       <EditorContainer
@@ -231,11 +229,11 @@ describe("<TextEditor />", () => {
   });
 
   describe("Needs IModelApp", () => {
-    before(async () => {
+    beforeEach(async () => {
       await TestUtils.initializeUiComponents();
     });
 
-    after(async () => {
+    afterEach(async () => {
       TestUtils.terminateUiComponents();
     });
 
@@ -252,7 +250,7 @@ describe("<TextEditor />", () => {
       propertyRecord.property.converter = convertInfo;
       propertyRecord.property.dataController = "myData";
 
-      const spyOnCommit = sinon.spy();
+      const spyOnCommit = vi.fn();
       const wrapper = render(
         <EditorContainer
           propertyRecord={propertyRecord}
@@ -299,7 +297,7 @@ describe("<TextEditor />", () => {
       propertyRecord.property.converter = convertInfo;
       propertyRecord.property.dataController = "myData";
 
-      const spyOnCommit = sinon.spy();
+      const spyOnCommit = vi.fn();
       const wrapper = render(
         <EditorContainer
           propertyRecord={propertyRecord}

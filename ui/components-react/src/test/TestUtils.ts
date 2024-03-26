@@ -1,9 +1,8 @@
-import { expect } from "chai";
-import React from "react";
 /*---------------------------------------------------------------------------------------------
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import React from "react";
 import type {
   ArrayValue,
   BasePropertyEditorParams,
@@ -568,7 +567,7 @@ export interface TestErrorBoundaryState {
  *
  * Example usage:
  * ```tsx
- * const errorSpy = sinon.spy();
+ * const errorSpy = vi.fn();
  * render(
  *   <TestErrorBoundary onError={errorSpy}>
  *     <TestComponent />

@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import type { UiItemsProvider, Widget } from "../../appui-react";
 import {
@@ -73,7 +71,7 @@ describe("WidgetManager", () => {
   });
 
   it("addWidgetDef should log error when no stageId or stageUsage is provided", () => {
-    const spy = sinon.spy(Logger, "logError");
+    const spy = vi.spyOn(Logger, "logError");
     const widgetDef = WidgetDef.create({
       id: "test",
     });

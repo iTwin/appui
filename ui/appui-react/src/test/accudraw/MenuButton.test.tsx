@@ -2,12 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { MenuButton } from "../../appui-react/accudraw/MenuButton";
 import { selectorMatches, userEvent } from "../TestUtils";
 import { fireEvent, render, screen } from "@testing-library/react";
-import * as sinon from "sinon";
 
 describe("MenuButton", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -16,7 +14,7 @@ describe("MenuButton", () => {
   });
 
   it("should call onSizeKnown when mounting", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     render(<MenuButton point={{ x: 100, y: 120 }} onSizeKnown={spy} />);
 
     expect(spy).toHaveBeenCalled();

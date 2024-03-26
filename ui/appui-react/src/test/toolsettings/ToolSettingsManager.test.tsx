@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type {
@@ -62,12 +60,12 @@ describe("InternalToolSettingsManager", () => {
     },
   };
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     TestUtils.terminateUiFramework();
     await IModelApp.shutdown();
   });
@@ -175,9 +173,9 @@ describe("InternalToolSettingsManager", () => {
       args: SyncToolSettingsPropertiesEventArgs
     ): void => {
       eventCalled = true;
-      expect(args.toolId).to.be.equal(testToolId);
-      expect(args.syncProperties.length).to.be.equal(1);
-      expect(args.syncProperties[0].propertyName).to.be.equal(useLengthName);
+      expect(args.toolId).toEqual(testToolId);
+      expect(args.syncProperties.length).toEqual(1);
+      expect(args.syncProperties[0].propertyName).toEqual(useLengthName);
     };
 
     InternalToolSettingsManager.onSyncToolSettingsProperties.addListener(

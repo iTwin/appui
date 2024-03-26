@@ -4,15 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { ModalFrontstageInfo } from "../../appui-react";
 import { ModalFrontstage, UiFramework } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
-const navigationBackSpy = sinon.spy();
-const closeModalSpy = sinon.spy();
+const navigationBackSpy = vi.fn();
+const closeModalSpy = vi.fn();
 
 function renderModalFrontstage(isOpen: boolean): React.ReactElement<any> {
   const activeModalFrontstage: ModalFrontstageInfo | undefined =
@@ -49,12 +47,12 @@ class TestModalFrontstage implements ModalFrontstageInfo {
 }
 
 describe("ModalFrontstage", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
@@ -62,8 +60,8 @@ describe("ModalFrontstage", () => {
   it("openModalFrontstage, updateModalFrontstage & closeModalFrontstage", () => {
     const modalFrontstage = new TestModalFrontstage();
 
-    const changedEventSpy = sinon.spy();
-    const closedEventSpy = sinon.spy();
+    const changedEventSpy = vi.fn();
+    const closedEventSpy = vi.fn();
     const removeListener =
       UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(
         changedEventSpy

@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { BeUiEvent } from "@itwin/core-bentley";
 import { Matrix3d, Point3d } from "@itwin/core-geometry";
 import type {
@@ -18,7 +16,7 @@ import { TestUtils } from "../TestUtils";
 describe("ViewportComponentEvents", () => {
   const onSelectedViewportChanged = new BeUiEvent();
 
-  before(() => {
+  beforeEach(() => {
     ViewportComponentEvents.terminate();
   });
 
@@ -35,7 +33,7 @@ describe("ViewportComponentEvents", () => {
   });
 
   it("should setCubeMatrix", async () => {
-    const cubeListener = sinon.spy();
+    const cubeListener = vi.fn();
     const remove =
       ViewportComponentEvents.onCubeRotationChangeEvent.addListener(
         cubeListener
@@ -48,7 +46,7 @@ describe("ViewportComponentEvents", () => {
   });
 
   it("should setStandardRotation", async () => {
-    const standardRotationListener = sinon.spy();
+    const standardRotationListener = vi.fn();
     const remove =
       ViewportComponentEvents.onStandardRotationChangeEvent.addListener(
         standardRotationListener
@@ -61,7 +59,7 @@ describe("ViewportComponentEvents", () => {
   });
 
   it("should setViewMatrix", async () => {
-    const viewRotationListener = sinon.spy();
+    const viewRotationListener = vi.fn();
     const remove =
       ViewportComponentEvents.onViewRotationChangeEvent.addListener(
         viewRotationListener
@@ -74,7 +72,7 @@ describe("ViewportComponentEvents", () => {
   });
 
   it("should setViewMatrix when onSelectedViewportChanged event is emitted", async () => {
-    const viewRotationListener = sinon.spy();
+    const viewRotationListener = vi.fn();
     const remove =
       ViewportComponentEvents.onViewRotationChangeEvent.addListener(
         viewRotationListener
@@ -87,7 +85,7 @@ describe("ViewportComponentEvents", () => {
   });
 
   it("should not setViewMatrix when onSelectedViewportChanged event is emitted with unset current", async () => {
-    const viewRotationListener = sinon.spy();
+    const viewRotationListener = vi.fn();
     const remove =
       ViewportComponentEvents.onViewRotationChangeEvent.addListener(
         viewRotationListener
@@ -99,7 +97,7 @@ describe("ViewportComponentEvents", () => {
   });
 
   it("should setDrawingViewportState", async () => {
-    const drawingViewportStateListener = sinon.spy();
+    const drawingViewportStateListener = vi.fn();
     const remove =
       ViewportComponentEvents.onDrawingViewportChangeEvent.addListener(
         drawingViewportStateListener

@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
@@ -16,7 +15,7 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   let records: PropertyRecord[];
   const throttleMs = 16;
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 

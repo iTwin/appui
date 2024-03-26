@@ -4,9 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { SizeProps } from "@itwin/core-react";
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   offsetAndContainInContainer,
   Tooltip,
@@ -29,7 +27,7 @@ describe("<Tooltip />", () => {
   });
 
   it("should notify about size change", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const { rerender } = render(<Tooltip onSizeChanged={spy} />);
 
     sinon

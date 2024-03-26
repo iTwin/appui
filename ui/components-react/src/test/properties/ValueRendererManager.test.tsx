@@ -4,16 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 import type { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import type { IPropertyValueRenderer } from "../../components-react/properties/ValueRendererManager";
 import { PropertyValueRendererManager } from "../../components-react/properties/ValueRendererManager";
 import { UiComponents } from "../../components-react/UiComponents";
 import TestUtils from "../TestUtils";
 
 describe("PropertyValueRendererManager", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 

@@ -33,7 +33,6 @@ import type { AsyncValueProcessingResult } from "@itwin/components-react";
 import { DataControllerBase } from "@itwin/components-react";
 import { UiIModelComponents } from "../imodel-components-react/UiIModelComponents";
 import { act, prettyDOM } from "@testing-library/react";
-import { expect } from "chai";
 
 // cSpell:ignore buttongroup
 

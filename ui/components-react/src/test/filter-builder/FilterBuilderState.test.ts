@@ -27,7 +27,7 @@ import { PropertyFilterBuilderRuleRangeValue } from "../../components-react";
 chai.use(chaiSubset);
 
 describe("usePropertyFilterBuilder", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 

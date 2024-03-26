@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 
 import { BeEvent, Logger } from "@itwin/core-bentley";
@@ -101,7 +99,7 @@ describe("ViewportComponent", () => {
   const clone = (): ViewState => {
     return getViewState(globalViewId);
   };
-  before(async () => {
+  beforeEach(async () => {
     Object.defineProperty(EntityState.prototype, "clone", {
       get: () => clone,
     });
@@ -110,7 +108,7 @@ describe("ViewportComponent", () => {
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     Object.defineProperty(
       EntityState.prototype,
       "clone",
@@ -281,7 +279,7 @@ describe("ViewportComponent", () => {
   });
 
   it("should log error when fake viewDefinitionId is used", async () => {
-    const spyLogger = sinon.spy(Logger, "logError");
+    const spyLogger = vi.spyOn(Logger, "logError");
     globalViewId = "FakeId";
     render(
       <ViewportComponent
@@ -297,7 +295,7 @@ describe("ViewportComponent", () => {
   });
 
   it("should log error when rendering without viewState or viewDefinitionId", async () => {
-    const spyLogger = sinon.spy(Logger, "logError");
+    const spyLogger = vi.spyOn(Logger, "logError");
     render(
       <ViewportComponent
         imodel={imodelMock.object}
@@ -311,7 +309,7 @@ describe("ViewportComponent", () => {
   });
 
   it("should log error when re-rendering with fake viewDefinitionId", async () => {
-    const spyLogger = sinon.spy(Logger, "logError");
+    const spyLogger = vi.spyOn(Logger, "logError");
     const component = render(
       <ViewportComponent
         imodel={imodelMock.object}
@@ -337,7 +335,7 @@ describe("ViewportComponent", () => {
   });
 
   it("should return viewport to viewportRef callback", async () => {
-    const viewportRef = sinon.spy();
+    const viewportRef = vi.fn();
     render(
       <ViewportComponent
         imodel={imodelMock.object}
@@ -348,11 +346,11 @@ describe("ViewportComponent", () => {
       />
     );
     await TestUtils.flushAsyncOperations();
-    expect(viewportRef).to.be.calledWith(viewportMock.object);
+    expect(viewportRef).toHaveBeenCalledWith(viewportMock.object);
   });
 
   it("should return view to getViewOverlay callback", async () => {
-    const getViewOverlay = sinon.spy();
+    const getViewOverlay = vi.fn();
     render(
       <ViewportComponent
         imodel={imodelMock.object}
@@ -363,7 +361,7 @@ describe("ViewportComponent", () => {
       />
     );
     await TestUtils.flushAsyncOperations();
-    expect(getViewOverlay).to.be.calledWith(viewportMock.object);
+    expect(getViewOverlay).toHaveBeenCalledWith(viewportMock.object);
   });
 
   it("should not error when contextMenu event is triggered", async () => {
@@ -381,7 +379,7 @@ describe("ViewportComponent", () => {
   });
 
   it("should call onContextMenu callback when contextMenu event is triggered", async () => {
-    const onContextMenu = sinon.spy();
+    const onContextMenu = vi.fn();
     const component = render(
       <ViewportComponent
         imodel={imodelMock.object}

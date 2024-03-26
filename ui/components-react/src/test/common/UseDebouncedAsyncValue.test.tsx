@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { render, waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import { useDebouncedAsyncValue } from "../../components-react/common/UseDebouncedAsyncValue";
@@ -63,16 +61,15 @@ describe("useDebouncedAsyncValue", () => {
         useDebouncedAsyncValue(asyncValue);
         return null;
       }
-      const errorSpy = sinon.spy();
+      const errorSpy = vi.fn();
       render(
         <TestErrorBoundary onError={errorSpy}>
           <TestComponent />
         </TestErrorBoundary>
       );
       await waitFor(() => {
-        expect(errorSpy).to.be.calledOnce.and.calledWith(
-          sinon.match((error: Error) => error.message === "test error")
-        );
+        expect(errorSpy).toHaveBeenCalledOnce();
+        expect(errorSpy.mock.calls[0][0].message).toEqual("test error");
       });
     });
 
@@ -83,18 +80,16 @@ describe("useDebouncedAsyncValue", () => {
         useDebouncedAsyncValue(asyncValue);
         return null;
       }
-      const errorSpy = sinon.spy();
+      const errorSpy = vi.fn();
       render(
         <TestErrorBoundary onError={errorSpy}>
           <TestComponent />
         </TestErrorBoundary>
       );
       await waitFor(() => {
-        expect(errorSpy).to.be.calledOnce.and.calledWith(
-          sinon.match(
-            (error: Error) =>
-              error.message === "Exception in `useDebouncedAsyncValue`"
-          )
+        expect(errorSpy).toHaveBeenCalledOnce();
+        expect(errorSpy.mock.calls[0][0].message).toEqual(
+          "Exception in `useDebouncedAsyncValue`"
         );
       });
     });

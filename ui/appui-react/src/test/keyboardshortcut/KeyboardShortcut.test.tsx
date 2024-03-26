@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { Point } from "@itwin/core-react";
 import { Key } from "ts-key-enum";
 import type { KeyboardShortcutProps } from "../../appui-react";
@@ -22,11 +20,11 @@ import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { InternalKeyboardShortcutManager } from "../../appui-react/keyboardshortcut/InternalKeyboardShortcut";
 
 describe("KeyboardShortcut", () => {
-  const testspy = sinon.spy();
+  const testspy = vi.fn();
   let testCommand: CommandItemDef;
   let testCommand2: CommandItemDef;
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
 
     testCommand = new CommandItemDef({
@@ -139,7 +137,7 @@ describe("KeyboardShortcut", () => {
           .true;
         expect(shortcut.getShortcut("1")).to.not.be.undefined;
 
-        const menuspy = sinon.spy();
+        const menuspy = vi.fn();
         const remove =
           KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.addListener(menuspy);
         shortcut.itemPicked();
@@ -238,7 +236,7 @@ describe("KeyboardShortcut", () => {
         },
       ];
 
-      const menuspy = sinon.spy();
+      const menuspy = vi.fn();
       InternalKeyboardShortcutManager.displayMenu(); // No shortcuts to display yet
       expect(menuspy).not.toBeCalled();
 

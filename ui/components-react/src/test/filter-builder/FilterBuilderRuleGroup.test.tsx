@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import type { PropertyFilterBuilderRuleGroupRendererProps } from "../../components-react/filter-builder/FilterBuilderRuleGroup";
@@ -14,7 +13,6 @@ import {
 } from "../../components-react/filter-builder/FilterBuilderState";
 import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";
-import sinon from "sinon";
 
 describe("PropertyFilterBuilderRuleGroupRenderer", () => {
   const rootGroup: PropertyFilterBuilderRuleGroup = {
@@ -123,7 +121,10 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
       )
     ).to.not.be.null;
 
-    expect(setRuleGroupOperatorSpy).to.be.calledWith(defaultProps.path, "or");
+    expect(setRuleGroupOperatorSpy).toHaveBeenCalledWith(
+      defaultProps.path,
+      "or"
+    );
   });
 
   it("Toggles operator 'Or' to 'And'", async () => {
@@ -154,7 +155,10 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
       )
     ).to.not.be.null;
 
-    expect(setRuleGroupOperatorSpy).to.be.calledWith(defaultProps.path, "and");
+    expect(setRuleGroupOperatorSpy).toHaveBeenCalledWith(
+      defaultProps.path,
+      "and"
+    );
   });
 
   it("'Or' Operator should not be clickable if toggle disabled", async () => {

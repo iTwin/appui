@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import { CheckBoxState } from "@itwin/core-react";
 import { fireEvent, render } from "@testing-library/react";
@@ -81,7 +79,7 @@ describe("TreeNodeRenderer", () => {
   });
 
   it("invokes `onContextMenu` when node is right clicked", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const { getByText } = render(
       <TreeNodeRenderer
         treeActions={treeActionsMock.object}

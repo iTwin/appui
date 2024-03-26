@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { UiFramework } from "../../appui-react";
 import type {
   ContentGroupProps,
@@ -16,7 +14,7 @@ import { InternalFrontstageManager } from "../../appui-react/frontstage/Internal
 import { getUniqueId } from "../../appui-react/layout/base/NineZone";
 
 describe("ContentLayoutManager", () => {
-  before(async () => {
+  beforeEach(async () => {
     await UiFramework.frontstages.setActiveFrontstageDef(undefined);
   });
 

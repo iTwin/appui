@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import { CommandItemDef, GroupItemDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { BadgeType } from "@itwin/core-react";
@@ -22,7 +21,7 @@ const tool2 = new CommandItemDef({
 });
 
 describe("GroupItem", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 

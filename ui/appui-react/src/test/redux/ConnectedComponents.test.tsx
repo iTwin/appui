@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { fireEvent, render } from "@testing-library/react";
@@ -14,7 +13,7 @@ import { UiFramework } from "../../appui-react/UiFramework";
 import TestUtils from "../TestUtils";
 
 describe("ConnectedContent", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework(true);
   });
 

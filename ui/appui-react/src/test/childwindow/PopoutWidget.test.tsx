@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import { WidgetDef, WidgetState } from "../../appui-react";
 import { PopoutWidget } from "../../appui-react/childwindow/PopoutWidget";
@@ -21,7 +19,7 @@ describe("PopoutWidget", () => {
     sandbox.restore();
   });
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 

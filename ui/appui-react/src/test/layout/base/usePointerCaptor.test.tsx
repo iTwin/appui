@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import { act, fireEvent } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import * as sinon from "sinon";
 import { usePointerCaptor } from "../../../appui-react/layout/base/usePointerCaptor";
 import { DragManagerProvider } from "../Providers";
 
@@ -151,7 +150,7 @@ describe("usePointerCaptor", () => {
       result.current(element);
     });
 
-    const spy = sinon.spy(HTMLElement.prototype, "addEventListener");
+    const spy = vi.spyOn(HTMLElement.prototype, "addEventListener");
     act(() => {
       const touchStart = new TouchEvent("touchstart");
       vi.spyOn(touchStart, "target").get(() => ({}));
@@ -173,7 +172,7 @@ describe("usePointerCaptor", () => {
       });
     });
 
-    const spy = sinon.spy(HTMLElement.prototype, "removeEventListener");
+    const spy = vi.spyOn(HTMLElement.prototype, "removeEventListener");
     act(() => {
       const touchEnd = new TouchEvent("touchend");
       vi.spyOn(touchEnd, "target").get(() => ({}));

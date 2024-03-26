@@ -4,9 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";

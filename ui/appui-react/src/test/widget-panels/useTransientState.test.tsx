@@ -5,7 +5,6 @@
 import { BeEvent } from "@itwin/core-bentley";
 import { act, renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
-import * as sinon from "sinon";
 import { useTransientState } from "../../appui-react";
 import type { TabState } from "../../appui-react/layout/state/TabState";
 import type { WidgetContentManagerContextArgs } from "../../appui-react/layout/widget/ContentManager";

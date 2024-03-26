@@ -2,10 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
 import { VariableSizeList } from "react-window";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
@@ -44,7 +42,7 @@ describe("ControlledTree", () => {
   };
   let node: MutableTreeModelNode;
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -172,7 +170,7 @@ describe("ControlledTree", () => {
       },
     };
 
-    const verticalScrollSpy = sinon.spy();
+    const verticalScrollSpy = vi.fn();
     sinon.replace(
       VariableSizeList.prototype,
       "scrollToItem",
@@ -197,7 +195,7 @@ describe("ControlledTree", () => {
     mockVisibleNode();
 
     const treeRenderer = () => <div />;
-    const spy = sinon.spy(treeRenderer);
+    const spy = vi.spyOn(treeRenderer);
 
     render(<ControlledTree {...defaultProps} treeRenderer={spy} />);
 
@@ -210,7 +208,7 @@ describe("ControlledTree", () => {
       .returns(() => ({ id: undefined, depth: -1, numChildren: undefined }));
 
     const spinnerRenderer = () => <div />;
-    const spy = sinon.spy(spinnerRenderer);
+    const spy = vi.spyOn(spinnerRenderer);
 
     render(<ControlledTree {...defaultProps} spinnerRenderer={spy} />);
 
@@ -223,7 +221,7 @@ describe("ControlledTree", () => {
       .returns(() => ({ id: undefined, depth: -1, numChildren: 0 }));
 
     const noDataRenderer = () => <div />;
-    const spy = sinon.spy(noDataRenderer);
+    const spy = vi.spyOn(noDataRenderer);
 
     render(<ControlledTree {...defaultProps} noDataRenderer={spy} />);
 
@@ -258,6 +256,6 @@ describe("useControlledTreeTransientState", () => {
     );
     renderHook(() => useControlledTreeLayoutStorage());
 
-    expect(stub).to.be.calledWith("ReactWindow__VariableSizeList");
+    expect(stub).toHaveBeenCalledWith("ReactWindow__VariableSizeList");
   });
 });

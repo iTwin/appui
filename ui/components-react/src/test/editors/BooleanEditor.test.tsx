@@ -3,10 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import sinon from "sinon";
 import { BooleanEditor } from "../../components-react/editors/BooleanEditor";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import TestUtils, { MineDataController, userEvent } from "../TestUtils";
@@ -44,7 +42,7 @@ describe("<BooleanEditor />", () => {
 
   it("toggling the checkbox should updates boolean value", async () => {
     const record = TestUtils.createBooleanProperty("Test1", false);
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(<BooleanEditor propertyRecord={record} onCommit={spyOnCommit} />);
 
     await theUserTo.click(screen.getByTestId(testId));
@@ -63,7 +61,7 @@ describe("<BooleanEditor />", () => {
 
   it("onCommit should be called for Space", async () => {
     const propertyRecord = TestUtils.createBooleanProperty("Test2", false);
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -99,7 +97,7 @@ describe("<BooleanEditor />", () => {
     const propertyRecord = TestUtils.createBooleanProperty("Test2", false);
     propertyRecord.property.dataController = "myData";
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     render(
       <EditorContainer
         propertyRecord={propertyRecord}

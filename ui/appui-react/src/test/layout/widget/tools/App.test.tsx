@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
 import { AppButton } from "../../../../appui-react/layout/widget/tools/button/App";
 import { childStructure, selectorMatches } from "../../Utils";

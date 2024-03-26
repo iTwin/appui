@@ -3,8 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
-import * as sinon from "sinon";
 import { renderHook } from "@testing-library/react-hooks";
 import { ToolActivatedEvent } from "../../appui-react";
 import { useActiveToolIdSynchedItems } from "../../appui-react/toolbar/useActiveToolIdSynchedItems";
@@ -96,12 +94,12 @@ describe("useActiveToolIdSynchedItems", () => {
       activeToolId: "Btn1",
       onToolActivatedEvent: new ToolActivatedEvent(),
     };
-    const spy = sinon.spy(syncHost.onToolActivatedEvent, "removeListener");
+    const spy = vi.spyOn(syncHost.onToolActivatedEvent, "removeListener");
     const { unmount } = renderHook(() => {
       return useActiveToolIdSynchedItems(items, syncHost);
     });
 
-    expect(spy.called).to.be.false;
+    expect(spy).not.toBeCalled();
     unmount();
     expect(spy).toHaveBeenCalled();
   });

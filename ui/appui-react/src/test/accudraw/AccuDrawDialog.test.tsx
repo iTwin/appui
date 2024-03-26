@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
-import * as sinon from "sinon";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { CompassMode, IModelApp, NoRenderApp } from "@itwin/core-frontend";
@@ -14,14 +13,14 @@ import { AccuDrawDialog } from "../../appui-react/accudraw/AccuDrawDialog";
 import { UiFramework } from "../../appui-react";
 
 describe("AccuDrawDialog", () => {
-  before(async () => {
+  beforeEach(async () => {
     await NoRenderApp.startup({
       accuDraw: new FrameworkAccuDraw(),
     });
     await TestUtils.initializeUiFramework();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
@@ -43,7 +42,7 @@ describe("AccuDrawDialog", () => {
   });
 
   it("should set focus to Home on Esc key", () => {
-    const spy = sinon.spy(UiFramework.keyboardShortcuts, "setFocusToHome");
+    const spy = vi.spyOn(UiFramework.keyboardShortcuts, "setFocusToHome");
     const component = render(
       <AccuDrawDialog opened={true} dialogId="accudraw" />
     );
@@ -57,7 +56,7 @@ describe("AccuDrawDialog", () => {
   });
 
   it("should call onClose on close", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <AccuDrawDialog opened={true} dialogId="accudraw" onClose={spy} />
     );

@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
@@ -206,7 +204,7 @@ describe("PanelWidget", () => {
     );
 
     const widget = container.getElementsByClassName("nz-widget-panelWidget")[0];
-    const spy = sinon.spy(widget, "getBoundingClientRect");
+    const spy = vi.spyOn(widget, "getBoundingClientRect");
 
     const tab = container.getElementsByClassName("nz-widget-tab")[0];
     act(() => {

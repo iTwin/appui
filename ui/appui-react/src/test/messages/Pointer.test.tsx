@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   NotifyMessageDetails,
   OutputMessagePriority,
@@ -16,7 +14,7 @@ import TestUtils, { selectorMatches } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 
 describe("PointerMessage", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 
@@ -52,13 +50,13 @@ describe("PointerMessage", () => {
   });
 
   it("should hide the message", () => {
-    const hideMessage = sinon.spy(PointerMessage, "hideMessage");
+    const hideMessage = vi.spyOn(PointerMessage, "hideMessage");
     notifications.closePointerMessage();
     expect(hideMessage).toHaveBeenCalled();
   });
 
   it("should display a warning message", () => {
-    const showMessage = sinon.spy(PointerMessage, "showMessage");
+    const showMessage = vi.spyOn(PointerMessage, "showMessage");
     const localDetails = new NotifyMessageDetails(
       OutputMessagePriority.Warning,
       "Brief",
@@ -70,7 +68,7 @@ describe("PointerMessage", () => {
   });
 
   it("should display an error message", () => {
-    const showMessage = sinon.spy(PointerMessage, "showMessage");
+    const showMessage = vi.spyOn(PointerMessage, "showMessage");
     const localDetails = new NotifyMessageDetails(
       OutputMessagePriority.Error,
       "Brief",
@@ -113,7 +111,7 @@ describe("PointerMessage", () => {
   });
 
   it("should update the message", () => {
-    const updateMessage = sinon.spy(PointerMessage, "updateMessage");
+    const updateMessage = vi.spyOn(PointerMessage, "updateMessage");
     render(<PointerMessage />);
     notifications.updatePointerMessage(
       { x: 1, y: 1 },

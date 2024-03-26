@@ -13,7 +13,6 @@ import { FlatGridItemType } from "../../../../../components-react/propertygrid/i
 import type { CategoryRecordsDict } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridCategory";
 import { MutableGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridCategory";
 import { AssertionError, expect } from "chai";
-import sinon from "sinon";
 import { MutableCategorizedPrimitiveProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedPrimitiveProperty";
 import { MutableCategorizedArrayProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedArrayProperty";
 import { MutableCategorizedStructProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedStructProperty";
@@ -270,7 +269,7 @@ export class FlatGridTestUtils {
       record: PropertyRecord
     ) => void
   ) {
-    expect(gridItems.length).to.be.equal(records.length);
+    expect(gridItems.length).toEqual(records.length);
     gridItems.forEach((item, index) =>
       FlatGridTestUtils.callPropertyAndGridItemAssert(
         item,
@@ -529,12 +528,12 @@ export class FlatGridTestUtils {
     const expectedType = FlatGridTestUtils.valueTypeToFlatGridType(
       expectedRecord.value.valueFormat
     );
-    expect(gridItem.type).to.be.equal(expectedType);
+    expect(gridItem.type).toEqual(expectedType);
 
-    expect(gridItem.label).to.be.equal(expectedRecord.property.displayLabel);
+    expect(gridItem.label).toEqual(expectedRecord.property.displayLabel);
     expect(gridItem.derivedRecord).to.deep.equal(expectedRecord);
 
-    expect(gridItem.selectionKey).to.be.equal(
+    expect(gridItem.selectionKey).toEqual(
       FlatGridTestUtils.getSelectionKey(
         expectedRecord,
         gridItem.parentSelectionKey
@@ -546,18 +545,14 @@ export class FlatGridTestUtils {
     gridCategory: GridCategoryItem,
     propertyCategory: PropertyCategory
   ) {
-    expect(gridCategory.type).to.be.equal(FlatGridItemType.Category);
-    expect(gridCategory.name).to.be.equal(propertyCategory.name);
-    expect(gridCategory.label).to.be.equal(propertyCategory.label);
+    expect(gridCategory.type).toEqual(FlatGridItemType.Category);
+    expect(gridCategory.name).toEqual(propertyCategory.name);
+    expect(gridCategory.label).toEqual(propertyCategory.label);
 
-    expect(gridCategory.derivedCategory.name).to.be.equal(
-      propertyCategory.name
-    );
-    expect(gridCategory.derivedCategory.label).to.be.equal(
-      propertyCategory.label
-    );
+    expect(gridCategory.derivedCategory.name).toEqual(propertyCategory.name);
+    expect(gridCategory.derivedCategory.label).toEqual(propertyCategory.label);
 
-    expect(gridCategory.selectionKey).to.be.equal(
+    expect(gridCategory.selectionKey).toEqual(
       FlatGridTestUtils.getSelectionKey(
         propertyCategory,
         gridCategory.parentCategorySelectionKey
@@ -591,11 +586,11 @@ export class FlatGridTestUtils {
           lastInNumberOfCategories: 0,
         };
 
-        expect(gridItem.lastInNumberOfCategories).to.be.equal(
+        expect(gridItem.lastInNumberOfCategories).toEqual(
           expectedLastItemData.lastInNumberOfCategories,
           `lastInNumberOfCategories does not match: ${gridItem.selectionKey}`
         );
-        expect(gridItem.isLastInRootCategory).to.be.equal(
+        expect(gridItem.isLastInRootCategory).toEqual(
           expectedLastItemData.isLastInRootCategory,
           `isLastInRootCategory does not match: ${gridItem.selectionKey}`
         );
@@ -607,7 +602,7 @@ export class FlatGridTestUtils {
     gridItem: FlatGridItem,
     expectedProperty: FlattenedProperty
   ) {
-    expect(gridItem.selectionKey).to.be.equal(
+    expect(gridItem.selectionKey).toEqual(
       expectedProperty.selectionKey,
       "Selection keys do not match"
     );
@@ -617,7 +612,7 @@ export class FlatGridTestUtils {
         expectedProperty.item.value.valueFormat
       );
 
-      expect(gridItem.type).to.be.equal(expectedType);
+      expect(gridItem.type).toEqual(expectedType);
 
       const property = gridItem as CategorizedPropertyItem;
       expect(property.derivedRecord).to.deep.equal(
@@ -625,7 +620,7 @@ export class FlatGridTestUtils {
         `Derived record and expected record do not match`
       );
     } else {
-      expect(gridItem.type).to.be.equal(FlatGridItemType.Category);
+      expect(gridItem.type).toEqual(FlatGridItemType.Category);
 
       const category = gridItem as GridCategoryItem;
       const expectedCategory = {

@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import sinon from "sinon";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import type {
@@ -27,7 +25,7 @@ describe("<TextareaEditor />", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -131,7 +129,7 @@ describe("<TextareaEditor />", () => {
   });
 
   it("calls onCommit on OK button click", async () => {
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     const record = TestUtils.createPrimitiveStringProperty("Test1", "MyValue");
     render(<TextareaEditor propertyRecord={record} onCommit={spyOnCommit} />);
 
@@ -142,7 +140,7 @@ describe("<TextareaEditor />", () => {
   });
 
   it("calls onCancel on Cancel button click", async () => {
-    const spyOnCancel = sinon.spy();
+    const spyOnCancel = vi.fn();
     const record = TestUtils.createPrimitiveStringProperty("Test1", "MyValue");
     render(<TextareaEditor propertyRecord={record} onCancel={spyOnCancel} />);
 
@@ -186,8 +184,8 @@ describe("<TextareaEditor />", () => {
       editorInfo
     );
 
-    const spyOnCommit = sinon.spy();
-    const spyOnCancel = sinon.spy();
+    const spyOnCommit = vi.fn();
+    const spyOnCancel = vi.fn();
     const renderedComponent = render(
       <EditorContainer
         propertyRecord={propertyRecord}

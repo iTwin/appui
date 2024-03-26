@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
@@ -18,7 +16,7 @@ describe("QuantityInput", () => {
   )!;
   function requestNextAnimation() {}
 
-  before(async () => {
+  beforeEach(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
       get: () => requestNextAnimation,
@@ -27,7 +25,7 @@ describe("QuantityInput", () => {
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
     Object.defineProperty(
@@ -39,7 +37,7 @@ describe("QuantityInput", () => {
 
   it("should render input for Length", () => {
     const initialLength = 1; // 1 meter
-    const spyOnChange = sinon.spy();
+    const spyOnChange = vi.fn();
     const component = render(
       <QuantityInput
         initialValue={initialLength}
@@ -99,7 +97,7 @@ describe("QuantityInput", () => {
 
   it("should process ESC key", async () => {
     const initialLength = 1; // 1 meter
-    const spyOnChange = sinon.spy();
+    const spyOnChange = vi.fn();
 
     // set active unit system to be metric and wait to make sure quantity format cache is set
     await IModelApp.quantityFormatter.setActiveUnitSystem("metric");
@@ -150,7 +148,7 @@ describe("QuantityInput", () => {
 
   it("should attach 'components-parsed-input-has-error' when bad input", async () => {
     const initialLength = 1; // 1 meter
-    const spyOnChange = sinon.spy();
+    const spyOnChange = vi.fn();
 
     const component = render(
       <QuantityInput

@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   act,
   fireEvent,
@@ -38,7 +36,7 @@ describe("MessageManager", () => {
   });
 
   it("maxCachedMessages handled correctly", () => {
-    const clearSpy = sinon.spy();
+    const clearSpy = vi.fn();
     MessageManager.onMessagesUpdatedEvent.addListener(clearSpy);
     MessageManager.clearMessages();
     expect(MessageManager.messages.length).toEqual(0);
@@ -215,7 +213,7 @@ describe("MessageManager", () => {
   });
 
   it("openMessageCenter raises OpenMessageCenterEvent", () => {
-    const onOpenMessageCenterEventSpy = sinon.spy();
+    const onOpenMessageCenterEventSpy = vi.fn();
     MessageManager.onOpenMessageCenterEvent.addOnce(
       onOpenMessageCenterEventSpy
     );

@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import { expect } from "chai";
 import { render, waitFor } from "@testing-library/react";
 import { DelayedSpinner } from "../../components-react/common/DelayedSpinner";
 

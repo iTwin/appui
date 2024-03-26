@@ -3,10 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import type { PrimitiveValue, PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import type { PropertyCategory, PropertyData } from "../../components-react";
+import type { PropertyCategory } from "../../components-react";
 import { SimplePropertyDataProvider } from "../../components-react";
 import TestUtils from "../TestUtils";
 
@@ -142,28 +141,17 @@ describe("SimplePropertyDataProvider", () => {
     expect(propertyAdded).to.not.equal(propertyRemoved);
   });
 
-  it("getData should return different object when onDataChanged is called", (done) => {
+  it("getData should return different object when onDataChanged is called", async () => {
     const tested = new SimplePropertyDataProvider();
-    let initial: PropertyData | undefined;
-    tested
-      .getData()
-      .then((data) => {
-        initial = data;
-      })
-      .catch(() => expect.fail("getData threw"));
+    const initial = await tested.getData();
 
-    tested.onDataChanged.addListener(() => {
-      tested
-        .getData()
-        .then((data) => {
-          expect(initial).to.not.equal(data);
-          done();
-        })
-        .catch(() => {
-          expect.fail("onDataChanged getData threw");
-        });
-    });
+    const spy = vi.fn();
+    tested.onDataChanged.addListener(spy);
 
     tested.addCategory({ name: "Name1", label: "Label1", expand: false });
+
+    expect(spy).toHaveBeenCalledOnce();
+    const newData = await tested.getData();
+    expect(newData).not.toBe(initial);
   });
 });

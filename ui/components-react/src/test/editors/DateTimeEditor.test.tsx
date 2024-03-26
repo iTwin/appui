@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { Key } from "ts-key-enum";
 import type {
   PrimitiveValue,
@@ -152,7 +150,7 @@ describe("<DateTimeEditor />", () => {
   const date = new Date(2018, 0, 1);
   const jan4Ticks = new Date(2018, 0, 4).getTime();
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -161,7 +159,7 @@ describe("<DateTimeEditor />", () => {
   });
 
   it("long date should render", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const record = createDateProperty("Test", date, 0); // 0 creates a long DateTime record
     const renderedComponent = render(
       <DateTimeEditor showTime={true} propertyRecord={record} onCommit={spy} />
@@ -170,7 +168,7 @@ describe("<DateTimeEditor />", () => {
       renderedComponent.getByText(date.toLocaleString().replace("\u202f", " "))
     );
     const originalValue = (record.value as PrimitiveValue).value as Date;
-    expect(originalValue.getTime()).to.be.equal(date.getTime());
+    expect(originalValue.getTime()).toEqual(date.getTime());
     expect(renderedComponent).not.to.be.undefined;
     const popupButton = await renderedComponent.findByTestId(
       "components-popup-button"
@@ -196,7 +194,7 @@ describe("<DateTimeEditor />", () => {
   });
 
   it("long utc date should render", async () => {
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     const record = createDateProperty("Test", date, 13); // 13 creates a long utc DateTime record
     const renderedComponent = render(
       <DateTimeEditor
@@ -235,7 +233,7 @@ describe("<DateTimeEditor />", () => {
     );
     await waitFor(() => expect(getByText(date.toLocaleDateString())).to.exist);
     const originalValue = (record.value as PrimitiveValue).value as Date;
-    expect(originalValue.getTime()).to.be.equal(date.getTime());
+    expect(originalValue.getTime()).toEqual(date.getTime());
     // expect(renderedComponent).not.to.be.undefined;
     const popupButton = await findByTestId("components-popup-button");
     fireEvent.click(popupButton);
@@ -271,7 +269,7 @@ describe("<DateTimeEditor />", () => {
   });
 
   it("renders editor for 'date' type", async () => {
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     const record = createDateProperty("Test", date, 10);
     const renderedComponent = render(
       <EditorContainer
@@ -302,7 +300,7 @@ describe("<DateTimeEditor />", () => {
   });
 
   it("renders editor for 'date' type - cancel", async () => {
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     const record1 = createDateProperty("Test", date, 0);
     const record2 = createDateProperty("Test", date, 10);
 
@@ -348,7 +346,7 @@ describe("<DateTimeEditor />", () => {
     const propertyRecord = createDateProperty("Test", date, 10);
     propertyRecord.property.dataController = "myData";
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     const renderedComponent = render(
       <EditorContainer
         propertyRecord={propertyRecord}
@@ -365,7 +363,7 @@ describe("<DateTimeEditor />", () => {
 
     fireEvent.keyDown(popupButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.called).to.be.false;
+    expect(spyOnCommit).not.toBeCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

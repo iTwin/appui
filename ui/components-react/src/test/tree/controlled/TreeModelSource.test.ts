@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import sinon from "sinon";
 import * as moq from "typemoq";
 import type { MutableTreeModel } from "../../../components-react/tree/controlled/TreeModel";
 import type { TreeModelChanges } from "../../../components-react/tree/controlled/TreeModelSource";
@@ -17,7 +15,7 @@ describe("TreeModelSource", () => {
   const dataProviderMock = moq.Mock.ofType<ITreeDataProvider>();
   const mutableTreeModelMock = moq.Mock.ofType<MutableTreeModel>();
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -36,13 +34,13 @@ describe("TreeModelSource", () => {
     });
 
     it("does not emit onModelChanged event if model did not change", () => {
-      const spy = sinon.spy(modelSource.onModelChanged, "emit");
+      const spy = vi.spyOn(modelSource.onModelChanged, "emit");
       modelSource.modifyModel(() => {});
       expect(spy).not.toBeCalled();
     });
 
     it("emits onModelChanged event with added node id", () => {
-      const spy = sinon.spy(modelSource.onModelChanged, "emit");
+      const spy = vi.spyOn(modelSource.onModelChanged, "emit");
       modelSource.modifyModel((model) => {
         model.setChildren(undefined, [createTreeNodeInput("root2")], 1);
       });
@@ -53,7 +51,7 @@ describe("TreeModelSource", () => {
     });
 
     it("emits onModelChanged event with removed node id", () => {
-      const spy = sinon.spy(modelSource.onModelChanged, "emit");
+      const spy = vi.spyOn(modelSource.onModelChanged, "emit");
       modelSource.modifyModel((model) => {
         model.clearChildren(undefined);
       });
@@ -64,7 +62,7 @@ describe("TreeModelSource", () => {
     });
 
     it("emits onModelChanged event with modified node id", () => {
-      const spy = sinon.spy(modelSource.onModelChanged, "emit");
+      const spy = vi.spyOn(modelSource.onModelChanged, "emit");
       modelSource.modifyModel((model) => {
         const node = model.getNode("root1");
         node!.isSelected = !node!.isSelected;
@@ -104,7 +102,7 @@ describe("TreeModelSource", () => {
     describe("node change detection", () => {
       describe("node addition", () => {
         it("does not duplicate added nodes", () => {
-          const spy = sinon.spy(modelSource.onModelChanged, "emit");
+          const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             // Add added_node twice
             expect(model.changeNodeId("root1", "added_node")).toEqual(true);
@@ -124,7 +122,7 @@ describe("TreeModelSource", () => {
         });
 
         it("does not mistake attribute addition as node addtion", () => {
-          const spy = sinon.spy(modelSource.onModelChanged, "emit");
+          const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             const node = model.getNode("root1")!;
             node.checkbox.tooltip = "test tooltip";
@@ -142,7 +140,7 @@ describe("TreeModelSource", () => {
         });
 
         it("only notifies of node addition even when the added node is also modified", () => {
-          const spy = sinon.spy(modelSource.onModelChanged, "emit");
+          const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             model.insertChild(undefined, createTreeNodeInput("root2"), 1);
             const node = model.getNode("root2")!;
@@ -163,7 +161,7 @@ describe("TreeModelSource", () => {
 
       describe("node removal", () => {
         it("does not duplicate removed nodes", () => {
-          const spy = sinon.spy(modelSource.onModelChanged, "emit");
+          const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             // Remove root1 node twice
             expect(model.changeNodeId("root1", "another_id")).toEqual(true);
@@ -189,7 +187,7 @@ describe("TreeModelSource", () => {
             node.editingInfo = { onCommit: () => {}, onCancel: () => {} };
           });
 
-          const spy = sinon.spy(modelSource.onModelChanged, "emit");
+          const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             const node = model.getNode("root1")!;
             delete node.checkbox.tooltip;
@@ -210,7 +208,7 @@ describe("TreeModelSource", () => {
 
       describe("node modification", () => {
         it("does not duplicate modified nodes when overwriting nodes", () => {
-          const spy = sinon.spy(modelSource.onModelChanged, "emit");
+          const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             // Reassign root1 node twice
             model.insertChild(undefined, createTreeNodeInput("root1"), 0);
@@ -229,7 +227,7 @@ describe("TreeModelSource", () => {
         });
 
         it("does not duplicate modified nodes when adding new properties", () => {
-          const spy = sinon.spy(modelSource.onModelChanged, "emit");
+          const spy = vi.spyOn(modelSource.onModelChanged, "emit");
           modelSource.modifyModel((model) => {
             const node = model.getNode("root1")!;
             node.checkbox.tooltip = "test";

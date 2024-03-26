@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import { PropertyCategoryBlock } from "../../../components-react/propertygrid/component/PropertyCategoryBlock";
 import type { PropertyCategory } from "../../../components-react/propertygrid/PropertyDataProvider";
 import { render, screen } from "@testing-library/react";
@@ -58,7 +56,7 @@ describe("PropertyCategoryBlock", () => {
   });
 
   it("expands when header gets clicked", async () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const component = render(
       <PropertyCategoryBlock category={category} onExpansionToggled={spy}>
         <div>My Content</div>
@@ -70,7 +68,7 @@ describe("PropertyCategoryBlock", () => {
   });
 
   it('expands when "Enter" or "Space" key gets pressed', async () => {
-    const toggleSpy = sinon.spy();
+    const toggleSpy = vi.fn();
 
     render(
       <PropertyCategoryBlock
@@ -89,7 +87,7 @@ describe("PropertyCategoryBlock", () => {
   });
 
   it("does not expand when wrong key gets pressed", async () => {
-    const toggleSpy = sinon.spy();
+    const toggleSpy = vi.fn();
 
     render(
       <PropertyCategoryBlock

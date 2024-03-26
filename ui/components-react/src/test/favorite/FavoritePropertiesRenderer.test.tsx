@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as faker from "faker";
-import * as sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import type { PropertyCategory, PropertyData } from "../../components-react";
 import { FavoritePropertiesRenderer } from "../../components-react/favorite/FavoritePropertiesRenderer";
@@ -15,7 +13,7 @@ describe("FavoritePropertiesRenderer", () => {
   let dataProvider: FavoritePropertiesDataProvider;
   let renderer: FavoritePropertiesRenderer;
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -51,7 +49,7 @@ describe("FavoritePropertiesRenderer", () => {
     });
 
     it("should support `createRoot` parameter", async () => {
-      const fakeRender = sinon.spy();
+      const fakeRender = vi.fn();
       const fakeRoot = vi.fn().mockReturnValue({ render: fakeRender });
       const propertyData = await dataProvider.getData();
       const div = renderer.renderFavorites(propertyData, undefined, fakeRoot);

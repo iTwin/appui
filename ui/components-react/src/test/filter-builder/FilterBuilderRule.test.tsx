@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import * as React from "react";
-import sinon from "sinon";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
 import { fireEvent } from "@testing-library/react";
@@ -30,7 +28,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     typename: "int",
   };
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -104,7 +102,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     });
 
     it("renders operator using provided renderer", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       renderWithContext(
         <PropertyFilterBuilderRuleRenderer
           {...defaultProps}
@@ -161,7 +159,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     });
 
     it("renders operator using provided renderer", () => {
-      const spy = sinon.spy();
+      const spy = vi.fn();
       renderWithContext(
         <PropertyFilterBuilderRuleRenderer
           {...defaultProps}
@@ -199,7 +197,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
   describe("rule property", () => {
     it("renders with property renderer", () => {
       const actions = new PropertyFilterBuilderActions(sinon.spy());
-      const propertyRendererSpy = sinon.spy();
+      const propertyRendererSpy = vi.fn();
       const { container } = renderWithContext(
         <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
         { actions, properties: [defaultProperty] },
@@ -213,7 +211,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       expect(selector).to.not.be.null;
       fireEvent.click(selector!);
 
-      expect(propertyRendererSpy).to.be.calledWith(defaultProperty.name);
+      expect(propertyRendererSpy).toHaveBeenCalledWith(defaultProperty.name);
     });
 
     it("opens property selector menu", () => {
@@ -295,7 +293,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
   });
 
   it("invokes onRulePropertySelected callback when property is selected", () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const { container, getByText } = renderWithContext(
       <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
       { properties: [defaultProperty], onRulePropertySelected: spy }
@@ -327,7 +325,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
   it("dispatches operator change when operator is changed", () => {
     const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const operatorRendererSpy = sinon.spy();
+    const operatorRendererSpy = vi.fn();
     renderWithContext(
       <PropertyFilterBuilderRuleRenderer
         {...defaultProps}
@@ -356,7 +354,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
   it("dispatches value change when value is changed", () => {
     const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const valueRendererSpy = sinon.spy();
+    const valueRendererSpy = vi.fn();
     renderWithContext(
       <PropertyFilterBuilderRuleRenderer
         {...defaultProps}

@@ -6,7 +6,6 @@ import { Point } from "@itwin/core-react";
 import { act, fireEvent, render } from "@testing-library/react";
 import produce from "immer";
 import * as React from "react";
-import * as sinon from "sinon";
 import type { DragManager } from "../../../appui-react/layout/base/DragManager";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone";
 import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone";

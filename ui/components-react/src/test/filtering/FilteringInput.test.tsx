@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import {
   FilteringInput,
   FilteringInputStatus,
@@ -17,7 +15,7 @@ describe("FilteringInput", () => {
   beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
@@ -81,7 +79,7 @@ describe("FilteringInput", () => {
   });
 
   it("starts search when input is edited and 'Enter' key is pressed", async () => {
-    const startCallback = sinon.spy();
+    const startCallback = vi.fn();
     render(
       <FilteringInput
         status={FilteringInputStatus.ReadyToFilter}
@@ -102,7 +100,7 @@ describe("FilteringInput", () => {
   });
 
   it("doesn't start search when input is empty", async () => {
-    const startCallback = sinon.spy();
+    const startCallback = vi.fn();
     render(
       <FilteringInput
         status={FilteringInputStatus.ReadyToFilter}
@@ -122,9 +120,9 @@ describe("FilteringInput", () => {
   });
 
   it("calls appropriate callbacks to different button clicks", async () => {
-    const cancelCallback = sinon.spy();
-    const clearCallback = sinon.spy();
-    const startCallback = sinon.spy();
+    const cancelCallback = vi.fn();
+    const clearCallback = vi.fn();
+    const startCallback = vi.fn();
 
     const { rerender } = render(
       <FilteringInput
@@ -169,7 +167,7 @@ describe("FilteringInput", () => {
   });
 
   it("calls onFilterCancel when input text is changed after starting the search", () => {
-    const cancelCallback = sinon.spy();
+    const cancelCallback = vi.fn();
 
     const filteringInput = render(
       <FilteringInput

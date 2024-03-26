@@ -3,10 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
-import { expect } from "chai";
 import produce from "immer";
 import * as React from "react";
-import * as sinon from "sinon";
 import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers";
@@ -29,7 +27,7 @@ describe("WidgetContentRenderer", () => {
     useContainersStore.getState().setContainer("t1", renderTo);
     useContainersStore.getState().setContainer("t2", renderTo);
 
-    const spy = sinon.spy(renderTo, "removeChild");
+    const spy = vi.spyOn(renderTo, "removeChild");
     render(<WidgetContentRenderer tabId="t1" />, {
       wrapper,
     });
@@ -41,7 +39,7 @@ describe("WidgetContentRenderer", () => {
     const renderTo = document.createElement("div");
     useContainersStore.getState().setContainer("t1", renderTo);
 
-    const spy = sinon.spy(renderTo, "removeChild");
+    const spy = vi.spyOn(renderTo, "removeChild");
     const { unmount } = render(<WidgetContentRenderer tabId="t1" />, {
       wrapper,
     });

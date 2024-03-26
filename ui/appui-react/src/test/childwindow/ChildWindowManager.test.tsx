@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import type { OpenChildWindowInfo } from "../../appui-react";
 import { FrontstageDef, UiFramework } from "../../appui-react";
 import { copyStyles } from "../../appui-react/childwindow/CopyStyles";
@@ -11,11 +9,11 @@ import { InternalChildWindowManager } from "../../appui-react/childwindow/Intern
 import TestUtils from "../TestUtils";
 
 describe("ChildWindowManager", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(async () => {
+  afterEach(async () => {
     TestUtils.terminateUiFramework();
   });
 
@@ -123,7 +121,7 @@ describe("ChildWindowManager", () => {
 
   it("will close and processWindowClose by default", () => {
     const manager = new InternalChildWindowManager();
-    const closeSpy = sinon.spy();
+    const closeSpy = vi.fn();
     const stubbedResponse: OpenChildWindowInfo[] = [
       {
         childWindowId: "childId",

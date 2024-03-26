@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { RectangleProps } from "@itwin/core-react";
-import { expect } from "chai";
 import produce from "immer";
 import {
   initRectangleProps,

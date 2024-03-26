@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import * as sinon from "sinon";
 import { act, fireEvent, render } from "@testing-library/react";
 import { UiAdmin } from "@itwin/appui-abstract";
 import { BaseTimelineDataProvider } from "../../imodel-components-react/timeline/BaseTimelineDataProvider";
@@ -101,7 +99,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     theUserTo = userEvent.setup();
   });
   let fakeTimers: sinon.SinonFakeTimers | undefined;
-  const rafSpy = sinon.spy((cb: FrameRequestCallback) => {
+  const rafSpy = vi.spyOn((cb: FrameRequestCallback) => {
     return window.setTimeout(() => {
       cb(Date.now());
     }, 0);
@@ -114,7 +112,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     height: 60,
   });
 
-  before(async () => {
+  beforeEach(async () => {
     Element.prototype.getBoundingClientRect = () => sliderContainerSize;
 
     if (!window.PointerEvent) window.PointerEvent = window.MouseEvent as any;
@@ -134,7 +132,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     rafspy.mockReset();
   });
 
-  after(async () => {
+  afterEach(async () => {
     sinon.restore();
     Element.prototype.getBoundingClientRect = getBoundingClientRect;
     await IModelApp.shutdown();
@@ -190,7 +188,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
   });
 
   it("should show tooltip on pointer move", async () => {
-    const spyOnChange = sinon.spy();
+    const spyOnChange = vi.fn();
     const dataProvider = new TestTimelineDataProvider();
     expect(dataProvider.loop).to.be.false;
     fakeTimers = sinon.useFakeTimers({ shouldAdvanceTime: true });
@@ -426,18 +424,18 @@ describe("<TimelineComponent showDuration={true} />", () => {
     // callback is not triggered until Enter key is pressed.
     fireEvent.keyDown(durationInputField!, { key: "Enter" });
 
-    expect(dataProvider.duration).to.be.equal(44000);
+    expect(dataProvider.duration).toEqual(44000);
 
     fireEvent.change(durationInputField!, { target: { value: "00:66" } });
     // callback is not triggered until Enter key is pressed.
     fireEvent.keyDown(durationInputField!, { key: "Escape" });
 
-    expect(dataProvider.duration).to.be.equal(44000);
+    expect(dataProvider.duration).toEqual(44000);
 
     act(() => durationInputField!.focus());
     fireEvent.change(durationInputField!, { target: { value: "00:66" } });
     act(() => settingMenuSpan.focus());
-    // expect(dataProvider.duration).to.be.equal(66000);
+    // expect(dataProvider.duration).toEqual(66000);
   });
   it("open/close timeline settings - always minimized", async () => {
     const dataProvider = new TestTimelineDataProvider();
@@ -515,7 +513,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
   });
   it("Timeline can be controlled through play/pause props", async () => {
     const dataProvider = new TestTimelineDataProvider();
-    const spyOnPlayPause = sinon.spy();
+    const spyOnPlayPause = vi.fn();
     const initialProps = {
       initialDuration: dataProvider.initialDuration,
       totalDuration: dataProvider.duration,
@@ -551,7 +549,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
 
   it("deprecated UiAdmin.sendUiEvent ", async () => {
     const dataProvider = new TestTimelineDataProvider();
-    const spyOnPlayPause = sinon.spy();
+    const spyOnPlayPause = vi.fn();
     const { getByRole } = render(
       <TimelineComponent
         initialDuration={dataProvider.initialDuration}

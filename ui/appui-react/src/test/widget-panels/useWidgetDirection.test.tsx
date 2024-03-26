@@ -15,7 +15,7 @@ import { TabIdContext } from "../../appui-react/layout/widget/ContentRenderer";
 import TestUtils from "../TestUtils";
 
 describe("useWidgetDirection", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 

@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { fireEvent, render, screen } from "@testing-library/react";
 import type { IModelConnection } from "@itwin/core-frontend";
@@ -25,12 +23,12 @@ describe("SheetsModalFrontstage", () => {
     theUserTo = userEvent.setup();
   });
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
@@ -71,7 +69,7 @@ describe("SheetsModalFrontstage", () => {
 
       const content = modal.content;
       render(content as React.ReactElement<any>);
-      const onCardSelected = sinon.spy();
+      const onCardSelected = vi.fn();
       const removeListener =
         CardContainer.onCardSelectedEvent.addListener(onCardSelected);
 
@@ -95,7 +93,7 @@ describe("SheetsModalFrontstage", () => {
 
       const content = modal.appBarRight;
       const wrapper = render(content as React.ReactElement<any>);
-      const onChange = sinon.spy();
+      const onChange = vi.fn();
       const removeListener =
         UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(
           onChange
@@ -189,7 +187,7 @@ describe("SheetsModalFrontstage", () => {
 
   describe("SheetCard", () => {
     it("handles card selection", async () => {
-      const onClick = sinon.spy();
+      const onClick = vi.fn();
       render(
         <SheetCard
           label="Findable Label"

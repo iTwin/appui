@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { Key } from "ts-key-enum";
 import { fireEvent, render } from "@testing-library/react";
 import { ColorByName } from "@itwin/core-common";
@@ -33,7 +31,7 @@ describe("<ColorEditor />", () => {
     record2.isDisabled = true;
 
     const originalValue = (record1.value as PrimitiveValue).value as number;
-    expect(originalValue).to.be.equal(ColorByName.green);
+    expect(originalValue).toEqual(ColorByName.green);
 
     const renderedComponent = render(<ColorEditor propertyRecord={record1} />);
     renderedComponent.rerender(<ColorEditor propertyRecord={record2} />);
@@ -44,12 +42,12 @@ describe("<ColorEditor />", () => {
     const record = TestUtils.createColorProperty("Test", ColorByName.green);
 
     const originalValue = (record.value as PrimitiveValue).value as number;
-    expect(originalValue).to.be.equal(ColorByName.green);
+    expect(originalValue).toEqual(ColorByName.green);
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     function handleCommit(commit: PropertyUpdatedArgs): void {
       const newValue = (commit.newValue as PrimitiveValue).value as number;
-      expect(newValue).to.be.equal(ColorByName.blue);
+      expect(newValue).toEqual(ColorByName.blue);
       spyOnCommit();
     }
 
@@ -60,7 +58,7 @@ describe("<ColorEditor />", () => {
       "components-colorpicker-button"
     );
     // renderedComponent.debug();
-    expect(pickerButton.tagName).to.be.equal("BUTTON");
+    expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.click(pickerButton);
 
     const popupDiv = renderedComponent.getByTestId(
@@ -105,7 +103,7 @@ describe("<ColorEditor />", () => {
     );
     propertyRecord.property.dataController = "myData";
 
-    const spyOnCommit = sinon.spy();
+    const spyOnCommit = vi.fn();
     const wrapper = render(
       <EditorContainer
         propertyRecord={propertyRecord}

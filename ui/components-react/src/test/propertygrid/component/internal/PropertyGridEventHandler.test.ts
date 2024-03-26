@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import sinon from "sinon";
 import { FlatGridTestUtils } from "./flat-items/FlatGridTestUtils";
 import { MutablePropertyGridModel } from "../../../../components-react/propertygrid/internal/PropertyGridModel";
 import { PropertyGridEventHandler } from "../../../../components-react/propertygrid/internal/PropertyGridEventHandler";
@@ -27,7 +25,7 @@ describe("PropertyGridEventHandler", () => {
 
     it("Should return function which sets expansion to true when current expansion is false and updates model", () => {
       const eventHandler = new PropertyGridEventHandler(modelSourceStub);
-      const isExpandedSpy = sinon.spy();
+      const isExpandedSpy = vi.fn();
 
       const mockItem = FlatGridTestUtils.createMockCategorizedStruct("Struct");
       sinon

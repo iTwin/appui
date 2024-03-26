@@ -2,8 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
-import * as sinon from "sinon";
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { Key } from "ts-key-enum";
@@ -43,17 +41,17 @@ function formatCelsiusValue(temperature: number): string {
 }
 
 describe("ParsedInput", () => {
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
-  after(async () => {
+  afterEach(async () => {
     TestUtils.terminateUiComponents();
   });
 
   it("should process format and parse function", () => {
     const initialTemperature = 20; // 20 C
-    const spyOnChange = sinon.spy();
+    const spyOnChange = vi.fn();
 
     const wrapper = render(
       <ParsedInput
@@ -80,7 +78,7 @@ describe("ParsedInput", () => {
 
   it("should process blur", () => {
     const initialTemperature = 20; // 20 C
-    const spyOnChange = sinon.spy();
+    const spyOnChange = vi.fn();
 
     const wrapper = render(
       <ParsedInput
@@ -104,7 +102,7 @@ describe("ParsedInput", () => {
 
   it("should process Escape keystroke", () => {
     const initialTemperature = 20; // 20 C
-    const spyOnChange = sinon.spy();
+    const spyOnChange = vi.fn();
 
     const wrapper = render(
       <ParsedInput
@@ -128,7 +126,7 @@ describe("ParsedInput", () => {
 
   it("should process keystrokes and initialValue prop change", () => {
     const initialTemperature = 20; // 20 C
-    const spyOnChange = sinon.spy();
+    const spyOnChange = vi.fn();
 
     const wrapper = render(
       <ParsedInput
@@ -163,7 +161,7 @@ describe("ParsedInput", () => {
 
   it("should process keystrokes and initialValue prop change", () => {
     const initialTemperature = 20; // 20 C
-    const spyOnChange = sinon.spy();
+    const spyOnChange = vi.fn();
 
     const wrapper = render(
       <ParsedInput
@@ -198,7 +196,7 @@ describe("ParsedInput", () => {
 
   it("should notify on bad input", () => {
     const initialTemperature = 20; // 20 C
-    const spyOnChange = sinon.spy();
+    const spyOnChange = vi.fn();
 
     const wrapper = render(
       <ParsedInput

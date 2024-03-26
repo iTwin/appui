@@ -2,9 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { Point } from "@itwin/core-react";
@@ -85,8 +83,8 @@ describe("CursorPopup", () => {
     render(<CursorPopupRenderer />);
     expect(CursorPopupManager.popupCount).toEqual(0);
 
-    const spyClose = sinon.spy();
-    const spyApply = sinon.spy();
+    const spyClose = vi.fn();
+    const spyApply = vi.fn();
 
     const relativePosition =
       CursorInformation.getRelativePositionFromCursorDirection(
@@ -438,7 +436,7 @@ describe("CursorPopup", () => {
   });
 
   it("CursorPopupManager.update should log error when id not found", () => {
-    const spy = sinon.spy(Logger, "logError");
+    const spy = vi.spyOn(Logger, "logError");
 
     CursorPopupManager.update(
       "xyz",
@@ -452,7 +450,7 @@ describe("CursorPopup", () => {
   });
 
   it("CursorPopupManager.close should log error when id not found", () => {
-    const spy = sinon.spy(Logger, "logError");
+    const spy = vi.spyOn(Logger, "logError");
 
     CursorPopupManager.close("xyz", false);
 

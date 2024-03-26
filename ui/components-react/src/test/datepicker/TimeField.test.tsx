@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { Key } from "ts-key-enum";
 import type { TimeSpec } from "../../components-react/datepicker/TimeField";
@@ -34,12 +32,12 @@ describe("<TimeField />", () => {
     seconds: 13,
   };
 
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiComponents();
   });
 
   beforeEach(() => {
-    renderSpy = sinon.spy();
+    renderSpy = vi.fn();
   });
 
   after(() => {

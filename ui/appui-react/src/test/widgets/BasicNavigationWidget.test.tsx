@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { Matrix3d } from "@itwin/core-geometry";
 import type {
@@ -20,7 +19,6 @@ import {
 } from "../../appui-react";
 import TestUtils, { childStructure } from "../TestUtils";
 import { render } from "@testing-library/react";
-import { expect } from "chai";
 
 describe("BasicNavigationWidget", () => {
   beforeEach(() => {
@@ -36,12 +34,12 @@ describe("BasicNavigationWidget", () => {
         return DOMRect.fromRect({ width: 300, height: 300 });
       });
   });
-  before(async () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
