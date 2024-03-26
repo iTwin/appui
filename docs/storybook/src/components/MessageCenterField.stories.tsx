@@ -9,8 +9,7 @@ import {
   NotifyMessageDetails,
   OutputMessagePriority,
 } from "@itwin/core-frontend";
-import { DropdownButton, MenuItem, Button } from "@itwin/itwinui-react";
-import { useEffect } from "react";
+import { Button } from "@itwin/itwinui-react";
 
 const AlignComponent: Decorator = (Story) => {
   return (
@@ -48,7 +47,7 @@ const NotificationDecorator: Decorator = (Story) => {
     <div>
       <Story />
       <Button
-        styleType="borderless"
+        styleType="cta"
         onClick={() => {
           MessageManager.clearMessages();
           MessageManager.addToMessageCenter(
@@ -71,7 +70,7 @@ const ErrorDecorator: Decorator = (Story) => {
     <div>
       <Story />
       <Button
-        styleType="borderless"
+        styleType="cta"
         onClick={() => {
           MessageManager.clearMessages();
           MessageManager.addToMessageCenter(
@@ -94,15 +93,14 @@ const DetailedDecorator: Decorator = (Story) => {
     <div>
       <Story />
       <Button
-        styleType="borderless"
+        styleType="cta"
         onClick={() => {
           MessageManager.clearMessages();
           MessageManager.addToMessageCenter(
             new NotifyMessageDetails(
               1,
               "This is the brief message",
-              "This is the detailed message",
-              OutputMessagePriority.Success
+              "This is the detailed message"
             )
           );
         }}
