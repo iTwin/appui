@@ -18,6 +18,7 @@ import { WidgetHost } from "../widgets/WidgetHost";
 import type {
   StagePanelConfig,
   StagePanelSectionConfig,
+  StagePanelSizeSpec,
 } from "./StagePanelConfig";
 import { StagePanelLocation } from "./StagePanelLocation";
 import { StagePanelSection } from "./StagePanelSection";
@@ -83,7 +84,6 @@ export class StagePanelDef extends WidgetHost {
     location: StagePanelLocation
   ) {
     this._location = location;
-
     this._initialConfig = config;
     this._start.initializeFromConfig(config?.sections?.start);
     this._end.initializeFromConfig(config?.sections?.end);
@@ -94,18 +94,47 @@ export class StagePanelDef extends WidgetHost {
     return this._initialConfig;
   }
 
-  /** Current size of the panel */
+  /** Current size of the panel.
+   * @deprecated in 4.12.x. Use {@link StagePanelDef.sizeSpec} instead.
+   */
   public get size(): number | undefined {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     const state = frontstageDef?.nineZoneState;
-    if (!state) return this.defaultSize;
+    // eslint-disable-next-line deprecation/deprecation
+    if (!state) return this.initialConfig?.size;
 
     const side = toPanelSide(this.location);
     const panel = state.panels[side];
     return panel.size;
   }
 
+  /**
+   * @deprecated in 4.12.x. Use {@link StagePanelDef.sizeSpec} instead.
+   */
   public set size(size) {
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    if (!frontstageDef) return;
+
+    const side = toPanelSide(this.location);
+    frontstageDef.dispatch({
+      type: "PANEL_SET_SIZE",
+      side,
+      size,
+    });
+  }
+
+  /** Current size of the panel */
+  public get sizeSpec(): StagePanelSizeSpec | undefined {
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    const state = frontstageDef?.nineZoneState;
+    if (!state) return this.initialConfig?.sizeSpec;
+
+    const side = toPanelSide(this.location);
+    const panel = state.panels[side];
+    return panel.size;
+  }
+
+  public set sizeSpec(size) {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (!frontstageDef) return;
 
@@ -200,11 +229,6 @@ export class StagePanelDef extends WidgetHost {
   public get defaultState() {
     const defaultState = this._initialConfig?.defaultState;
     return defaultState ?? StagePanelState.Open;
-  }
-
-  /** @internal */
-  public get defaultSize() {
-    return this._initialConfig?.size;
   }
 
   /** @internal */
