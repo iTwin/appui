@@ -108,9 +108,6 @@ export class StagePanelDef extends WidgetHost {
     return panel.size;
   }
 
-  /**
-   * @deprecated in 4.12.x. Use {@link StagePanelDef.sizeSpec} instead.
-   */
   public set size(size) {
     const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (!frontstageDef) return;

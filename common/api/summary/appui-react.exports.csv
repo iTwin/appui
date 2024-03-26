@@ -423,10 +423,12 @@ public;StagePanelConfig
 public;StagePanelDef 
 public;StagePanelLocation
 public;StagePanelMaxSizeSpec = number |
+deprecated;StagePanelMaxSizeSpec = number |
 public;StagePanelSection
 public;StagePanelSectionConfig = ReadonlyArray
 internal;StagePanelSectionDef 
 public;StagePanelSectionsConfig
+public;StagePanelSizeSpec = number |
 public;StagePanelState
 public;StageUsage
 public;StandardContentToolsProvider 
