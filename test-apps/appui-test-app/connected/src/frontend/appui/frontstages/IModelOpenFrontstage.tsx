@@ -27,7 +27,7 @@ class IModelOpenControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
     let envUrlPrefix: "dev" | "qa" | "" | undefined;
-    switch (process.env.IMJS_URL_PREFIX) {
+    switch (import.meta.env.IMJS_URL_PREFIX) {
       case "qa-":
         envUrlPrefix = "qa";
         break;

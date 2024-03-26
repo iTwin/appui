@@ -2,9 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import "@bentley/icons-generic-webfont/dist/bentley-icons-generic-webfont.css";
-/** Include application registered Controls in Webpack
- */
 import { Key } from "ts-key-enum";
 import {
   ContentLayoutProps,
@@ -22,10 +19,7 @@ import {
 import { SignInFrontstage } from "./frontstages/SignInFrontstage";
 import { IModelOpenFrontstage } from "./frontstages/IModelOpenFrontstage";
 
-// cSpell:ignore uitestapp
-
-/** Example Ui Configuration for an iTwin.js App
- */
+/** Example Ui Configuration for an iTwin.js App */
 export class AppUi {
   public static initialize() {
     // initialize content groups and layouts before any frontstages.

@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import "../../lib/webfont/bentley-icons-generic-webfont.css";
 import "@itwin/itwinui-react/styles.css";
 import "./index.scss";
 import * as React from "react";
@@ -9,7 +10,6 @@ import * as ReactDOM from "react-dom";
 import classnames from "classnames";
 import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
-import reactAxe from "@axe-core/react";
 import { Key } from "ts-key-enum";
 import {
   RealityDataAccessClient,
@@ -279,12 +279,6 @@ export class SampleAppIModelApp {
 
     // register core commands not automatically registered
     ViewClipByPlaneTool.register();
-
-    if (SampleAppIModelApp.testAppConfiguration?.reactAxeConsole) {
-      if (process.env.NODE_ENV !== "production") {
-        await reactAxe(React, ReactDOM, 1000);
-      }
-    }
   }
 
   public static async initialize() {
@@ -487,14 +481,16 @@ export class SampleAppIModelApp {
   }
 
   public static isEnvVarOn(envVar: string): boolean {
-    return process.env[envVar] === "1" || process.env[envVar] === "true";
+    return (
+      import.meta.env[envVar] === "1" || import.meta.env[envVar] === "true"
+    );
   }
 
   public static getSnapshotPath(): string | undefined {
     const snapshotPath = getUrlParam("snapshotPath");
     return snapshotPath !== undefined
       ? decodeURIComponent(snapshotPath)
-      : process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
+      : import.meta.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
   }
 
   public static setTestProperty(value: string, immediateSync = false) {
@@ -722,17 +718,15 @@ async function main() {
   // retrieve, set, and output the global configuration variable
   SampleAppIModelApp.testAppConfiguration = {};
   SampleAppIModelApp.testAppConfiguration.fullSnapshotPath =
-    process.env.IMJS_UITESTAPP_SNAPSHOT_FULLPATH;
+    import.meta.env.IMJS_UITESTAPP_SNAPSHOT_FULLPATH;
   SampleAppIModelApp.testAppConfiguration.snapshotPath =
     SampleAppIModelApp.getSnapshotPath();
   SampleAppIModelApp.testAppConfiguration.bingMapsKey =
-    process.env.IMJS_BING_MAPS_KEY;
+    import.meta.env.IMJS_BING_MAPS_KEY;
   SampleAppIModelApp.testAppConfiguration.mapBoxKey =
-    process.env.IMJS_MAPBOX_KEY;
+    import.meta.env.IMJS_MAPBOX_KEY;
   SampleAppIModelApp.testAppConfiguration.cesiumIonKey =
-    process.env.IMJS_CESIUM_ION_KEY;
-  SampleAppIModelApp.testAppConfiguration.reactAxeConsole =
-    SampleAppIModelApp.isEnvVarOn("IMJS_TESTAPP_REACT_AXE_CONSOLE");
+    import.meta.env.IMJS_CESIUM_ION_KEY;
   if (ProcessDetector.isElectronAppFrontend) {
     SampleAppIModelApp.testAppConfiguration.readWrite =
       SampleAppIModelApp.isEnvVarOn("IMJS_READ_WRITE");
@@ -761,7 +755,9 @@ async function main() {
     /** API Version. v1 by default */
     // version?: ApiVersion;
     /** API Url. Used to select environment. Defaults to "https://api.bentley.com/realitydata" */
-    baseUrl: `https://${process.env.IMJS_URL_PREFIX}api.bentley.com/realitydata`,
+    baseUrl: `https://${
+      import.meta.env.IMJS_URL_PREFIX
+    }api.bentley.com/realitydata`,
   };
   // Start the app.
   await SampleAppIModelApp.startup({

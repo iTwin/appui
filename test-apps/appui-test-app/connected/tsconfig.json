@@ -14,9 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "types": ["@bentley/react-scripts"],
     "lib": ["dom", "dom.iterable", "esnext"]
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "vite.config.mts"],
   "exclude": ["./src/backend/**/*.ts"]
 }

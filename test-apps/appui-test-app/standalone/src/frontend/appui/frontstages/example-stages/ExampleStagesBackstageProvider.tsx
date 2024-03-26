@@ -8,7 +8,7 @@ import {
   UiItemsManager,
   UiItemsProvider,
 } from "@itwin/appui-react";
-import stageIconSvg from "../imodeljs.svg?sprite";
+import stageIconSvg from "../imodeljs.svg";
 import { registerViewportFrontstage } from "./ViewportFrontstage";
 
 class ExampleStagesBackstageItemsProvider implements UiItemsProvider {
