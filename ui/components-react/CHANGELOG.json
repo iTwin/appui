@@ -2,6 +2,29 @@
   "name": "@itwin/components-react",
   "entries": [
     {
+      "version": "4.11.0",
+      "tag": "@itwin/components-react_v4.11.0",
+      "date": "Thu, 21 Mar 2024 16:38:04 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Added custom property renderer support for non-primitive properties in `VirtualizedPropertyGrid`."
+          }
+        ],
+        "none": [
+          {
+            "comment": "Deprecate useProximityOpacity visibility setting."
+          },
+          {
+            "comment": "Deprecate date picker components."
+          },
+          {
+            "comment": "Removed memoization for translated strings in components."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.10.0",
       "tag": "@itwin/components-react_v4.10.0",
       "date": "Mon, 26 Feb 2024 15:50:45 GMT",
