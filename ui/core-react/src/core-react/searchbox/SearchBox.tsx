@@ -83,6 +83,7 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
           onKeyDown={this._handleKeyDown}
           onPaste={this._trackChange}
           onCut={this._trackChange}
+          placeholder={this.props.placeholder}
           role="searchbox"
           data-testid="core-searchbox-input"
         />
