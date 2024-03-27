@@ -63,16 +63,16 @@ export interface StandardFrontstageProps {
   /** Set to true if no status bar is needed in stage */
   hideStatusBar?: boolean;
   /** Props used to set initial size and state of panel. Defaults to:
-   *  {size: 300, pinned=false, defaultState:StagePanelState.Minimized} */
+   *  {sizeSpec: 300, pinned=false, defaultState:StagePanelState.Minimized} */
   leftPanelProps?: WidgetPanelProps;
   /** Props used to set initial size and state of panel. Defaults to:
-   *  {size: 90, pinned=false, defaultState:StagePanelState.Minimized} */
+   *  {sizeSpec: 90, pinned=false, defaultState:StagePanelState.Minimized} */
   topPanelProps?: WidgetPanelProps;
   /** Props used to set initial size and state of panel. Defaults to:
-   *  {size: 200, pinned=true, defaultState:StagePanelState.Open} */
+   *  {sizeSpec: 200, pinned=true, defaultState:StagePanelState.Open} */
   rightPanelProps?: WidgetPanelProps;
   /** Props used to set initial size and state of panel. Defaults to:
-   *  {size: 180, pinned=true, defaultState:StagePanelState.Open} */
+   *  {sizeSpec: 180, pinned=true, defaultState:StagePanelState.Open} */
   bottomPanelProps?: WidgetPanelProps;
 }
 
@@ -127,13 +127,13 @@ export class StandardFrontstageProvider extends FrontstageProvider {
             content: <StatusBarComposer items={[]} />,
           },
       leftPanel: {
-        size: 300,
+        sizeSpec: 300,
         pinned: false,
         defaultState: StagePanelState.Minimized,
         ...this.props.leftPanelProps,
       },
       topPanel: {
-        size: 90,
+        sizeSpec: 90,
         pinned: false,
         defaultState: StagePanelState.Minimized,
         ...this.props.topPanelProps,
@@ -143,7 +143,7 @@ export class StandardFrontstageProvider extends FrontstageProvider {
         ...this.props.rightPanelProps,
       },
       bottomPanel: {
-        size: 180,
+        sizeSpec: 180,
         defaultState: StagePanelState.Open,
         ...this.props.bottomPanelProps,
       },

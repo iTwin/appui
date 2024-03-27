@@ -685,7 +685,9 @@ export class FrontstageDef {
    */
   public restoreLayout() {
     for (const panelDef of this.panelDefs) {
-      panelDef.size = panelDef.defaultSize;
+      // eslint-disable-next-line deprecation/deprecation
+      panelDef.size = panelDef.initialConfig?.size;
+      panelDef.sizeSpec = panelDef.initialConfig?.sizeSpec;
       panelDef.panelState = panelDef.defaultState;
       panelDef.pinned = panelDef.initialConfig?.pinned ?? true;
     }
