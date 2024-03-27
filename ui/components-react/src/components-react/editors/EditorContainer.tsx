@@ -98,6 +98,7 @@ function TestComp(props: EditorContainerProps) {
     style,
     shouldCommitOnChange,
     propertyRecord,
+    setFocus,
     onCommit,
     onCancel,
   } = props;
@@ -106,8 +107,6 @@ function TestComp(props: EditorContainerProps) {
   let propertyEditor: any;
   const editorRef = React.useRef<TypeEditor | null>(null);
 
-  // This mimics the class component's behavior of setting the _editorRef
-  // In functional components, we directly assign the ref using useRef hook.
   const setEditorRef = React.useCallback((ref: TypeEditor | null) => {
     editorRef.current = ref;
   }, []);
@@ -118,7 +117,7 @@ function TestComp(props: EditorContainerProps) {
       onCommit: handleEditorCommit,
       onCancel: handleEditorCancel,
       onBlur: handleEditorBlur,
-      setFocus: this.props.setFocus !== undefined ? this.props.setFocus : true,
+      setFocus: setFocus !== undefined ? setFocus : true,
       className,
       propertyRecord,
       style,
