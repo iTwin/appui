@@ -71,4 +71,4 @@ Table of contents:
 
 ### Changes
 
-- Components will use english localization strings by default if `LocalizationProvider` is not used and static package initializer is not used. [#782](https://github.com/iTwin/appui/pull/782)
+- Components will use english localization strings by default if `LocalizationProvider` is used without static package initializer. [#782](https://github.com/iTwin/appui/pull/782)
