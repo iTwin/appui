@@ -16,7 +16,7 @@ import { DockedToolSetting } from "../layout/tool-settings/Setting";
 import { ScrollableWidgetContent } from "../layout/widget/Content";
 import "./ToolSettings.scss";
 import { useActiveToolId } from "../hooks/useActiveToolId";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../hooks/useTranslation";
 
 /** Defines a ToolSettings property entry.
  * @public

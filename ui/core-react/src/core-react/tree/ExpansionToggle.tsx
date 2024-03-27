@@ -10,9 +10,9 @@ import "./ExpansionToggle.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "../utils/Props";
-import { UiCore } from "../UiCore";
 import { Icon } from "../icons/IconComponent";
 import { SvgChevronRight } from "@itwin/itwinui-icons-react";
+import { useTranslation } from "../l10n/useTranslation";
 
 /** Properties for the [[ExpansionToggle]] component
  * @public
@@ -26,30 +26,27 @@ export interface ExpansionToggleProps extends CommonProps {
 /** ExpansionToggle React component used by the [[TreeNode]] component to show collapsed or expanded state
  * @public
  */
-export class ExpansionToggle extends React.PureComponent<ExpansionToggleProps> {
-  public override render() {
-    const className = classnames(
-      "core-tree-expansionToggle",
-      this.props.isExpanded && "is-expanded",
-      this.props.className
-    );
-    const label = UiCore.translate(
-      this.props.isExpanded ? "tree.collapse" : "tree.expand"
-    );
+export function ExpansionToggle(props: ExpansionToggleProps) {
+  const { translate } = useTranslation();
+  const className = classnames(
+    "core-tree-expansionToggle",
+    props.isExpanded && "is-expanded",
+    props.className
+  );
+  const label = translate(props.isExpanded ? "tree.collapse" : "tree.expand");
 
-    return (
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      <div
-        onClick={this.props.onClick}
-        className={className}
-        style={this.props.style}
-        data-testid={this.props["data-testid"]}
-        role="button"
-        tabIndex={-1}
-        aria-label={label}
-      >
-        <Icon className="toggle icon" iconSpec={<SvgChevronRight />} />
-      </div>
-    );
-  }
+  return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+    <div
+      onClick={props.onClick}
+      className={className}
+      style={props.style}
+      data-testid={props["data-testid"]}
+      role="button"
+      tabIndex={-1}
+      aria-label={label}
+    >
+      <Icon className="toggle icon" iconSpec={<SvgChevronRight />} />
+    </div>
+  );
 }

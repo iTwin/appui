@@ -13,7 +13,7 @@ import { ProgressLinear, Text, useToaster } from "@itwin/itwinui-react";
 import type { ActivityMessageEventArgs } from "../messages/MessageManager";
 import { MessageManager } from "../messages/MessageManager";
 import { OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
-import { useTranslation } from "../useTranslation";
+import { useTranslation } from "../hooks/useTranslation";
 
 interface UseActivityMessageProps {
   cancelActivityMessage?: () => void;
