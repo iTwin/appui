@@ -20,7 +20,6 @@ import type { NineZoneState } from "../NineZoneState";
 import type {
   HorizontalPanelState,
   PanelsState,
-  PanelState,
   VerticalPanelState,
 } from "../PanelState";
 import type { WidgetState } from "../WidgetState";
@@ -112,7 +111,7 @@ export function getPanelSize(
   preferredSizeSpec: StagePanelSizeSpec | undefined,
   side: PanelSide,
   minSizeSpec: StagePanelSizeSpec,
-  maxSizeSpec: PanelState["maxSize"],
+  maxSizeSpec: StagePanelSizeSpec,
   appSize: SizeProps
 ) {
   if (preferredSizeSpec === undefined) return undefined;
