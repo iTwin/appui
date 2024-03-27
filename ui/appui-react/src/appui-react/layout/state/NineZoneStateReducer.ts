@@ -24,6 +24,7 @@ import type { NineZoneState } from "./NineZoneState";
 import type { PopoutWidgetState, WidgetState } from "./WidgetState";
 import {
   addPanelWidget,
+  getPanelPixelSizeFromSpec,
   getPanelSize,
   insertPanelWidget,
   updatePanelState,
@@ -143,7 +144,12 @@ export function NineZoneStateReducer(
           state.size
         );
 
-        draft.minSize = action.minSize;
+        const minSizeInPixels = getPanelPixelSizeFromSpec(
+          draft.side,
+          state.size,
+          action.minSize
+        );
+        draft.minSize = minSizeInPixels;
         draft.size = size;
       });
     }

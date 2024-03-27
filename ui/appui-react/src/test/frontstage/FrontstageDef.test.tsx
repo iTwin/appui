@@ -8,6 +8,7 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import type {
   FrontstageConfig,
+  StagePanelConfig,
   UiItemsProvider,
   Widget,
 } from "../../appui-react";
@@ -370,9 +371,10 @@ describe("FrontstageDef", () => {
     it("should restore panel size to default size", () => {
       const frontstageDef = new FrontstageDef();
       const rightPanel = new StagePanelDef();
-      sinon.stub(rightPanel, "defaultSize").get(() => 300);
+      const stagePanelConfig: StagePanelConfig = { sizeSpec: 300 };
+      sinon.stub(rightPanel, "initialConfig").get(() => stagePanelConfig);
       sinon.stub(frontstageDef, "rightPanel").get(() => rightPanel);
-      const spy = sinon.spy(rightPanel, "size", ["set"]);
+      const spy = sinon.spy(rightPanel, "sizeSpec", ["set"]);
 
       frontstageDef.restoreLayout();
       sinon.assert.calledOnceWithExactly(spy.set, 300);

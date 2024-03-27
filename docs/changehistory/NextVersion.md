@@ -3,6 +3,8 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Deprecations](#deprecations)
+  - [Additions](#additions)
   - [Fixes](#fixes)
 - [@itwin/core-react](#itwincore-react)
   - [Deprecations](#deprecations)
@@ -10,6 +12,17 @@ Table of contents:
   - [Changes](#changes)
 
 ## @itwin/appui-react
+
+### Deprecations
+
+- Deprecated `StagePanelDef.size`. Please use `StagePanelDef.sizeSpec` instead. [#784](https://github.com/iTwin/appui/pull/784)
+- Deprecated `StagePanelConfig.maxSize`, `StagePanelConfig.minSize` and `StagePanelConfig.size`. Please use `StagePanelConfig.maxSizeSpec`, `StagePanelConfig.minSizeSpec` and `StagePanelConfig.sizeSpec` instead. [#784](https://github.com/iTwin/appui/pull/784)
+- Deprecated `StagePanelMaxSizeSpec`. Please use `StagePanelSizeSpec` instead. [#784](https://github.com/iTwin/appui/pull/784)
+
+### Additions
+
+- `StagePanelDef.sizeSpec` allows specifying stage panel size as pixels or a percentage value. [#784](https://github.com/iTwin/appui/pull/784)
+- `StagePanelConfig.maxSizeSpec`, `StagePanelConfig.minSizeSpec` and `StagePanelConfig.sizeSpec` allow specifying stage panel size as pixels or a percentage value. [#784](https://github.com/iTwin/appui/pull/784)
 
 ### Fixes
 
