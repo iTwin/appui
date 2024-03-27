@@ -395,7 +395,7 @@ function DialogButton({
       break;
   }
 
-  buttonText = button.label ? button.label : buttonText;
+  buttonText = button.label || buttonText;
 
   return (
     <Button

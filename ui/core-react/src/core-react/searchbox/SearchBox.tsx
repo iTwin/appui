@@ -185,7 +185,7 @@ const SearchBoxInput = React.forwardRef<
   return (
     <Input
       ref={ref}
-      placeholder={placeholder ? placeholder : translate("general.search")}
+      placeholder={placeholder || translate("general.search")}
       {...props}
     />
   );
