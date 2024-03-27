@@ -294,7 +294,7 @@ export class Dialog extends React.Component<DialogProps> {
     }
   }
 
-  /** @deprecated in 4.11.x. Use iTwinUI Button instead. */
+  /** @deprecated in 4.12.x. Use iTwinUI Button instead. */
   protected getFooterButtons(
     buttonCluster: DialogButtonDef[] | undefined,
     primaryStyleType: ButtonProps["styleType"] = "cta",
