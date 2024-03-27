@@ -56,12 +56,6 @@
       "versionPolicyName": "monorepo-individual"
     },
     {
-      "packageName": "internal-tools",
-      "projectFolder": "tools/internal",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
       "packageName": "@itwin/core-react",
       "projectFolder": "ui/core-react",
       "reviewCategory": "frontend",

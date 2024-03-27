@@ -10,7 +10,7 @@ import { providerSlice, TestProviderSliceName } from "./store";
  * initialize method is called tools, frontstages and UiItemProviders are registered.
  */
 export class AppUiTestProviders {
-  public static readonly localizationNamespace = "appuiTestProviders";
+  public static readonly localizationNamespace = "AppuiTestProviders";
 
   public static syncEventIdHideCustomDialogButton =
     "appui-test-providers:sync-custom-dialog-button";

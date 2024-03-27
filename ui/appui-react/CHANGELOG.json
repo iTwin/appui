@@ -2,6 +2,48 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.11.0",
+      "tag": "@itwin/appui-react_v4.11.0",
+      "date": "Thu, 21 Mar 2024 16:38:04 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Deprecate much of `FrameworkUiAdmin`. Introduce `Placement`, a replacement for `RelativePosition`"
+          },
+          {
+            "comment": "Deprecate useProximityOpacity visibility setting."
+          },
+          {
+            "comment": "Fix `UiFramework.frontstages.onWidgetStateChangedEvent` event to correctly emit widget state changes."
+          },
+          {
+            "comment": "Fix `ThemeManager` to correctly handle `os` theme for backwards compatibility."
+          },
+          {
+            "comment": "Fix polar mode AccuDraw input focus by correctly focusing the distance field."
+          },
+          {
+            "comment": "Fix an issue when right-click + left-click starts widget drag interaction"
+          },
+          {
+            "comment": "Update `WidgetDef.show()` to bring the popout widget window to the front if allowed by the browser."
+          },
+          {
+            "comment": "Removed arrow from status bar popup."
+          },
+          {
+            "comment": "Render empty tool settings message in widget mode."
+          },
+          {
+            "comment": "Add `newToolbars` preview feature which replaces `Toolbar` component with iTwinUI based toolbar."
+          },
+          {
+            "comment": "Removed memoization for translated strings in components."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.10.0",
       "tag": "@itwin/appui-react_v4.10.0",
       "date": "Mon, 26 Feb 2024 15:50:45 GMT",

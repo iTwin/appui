@@ -8,6 +8,8 @@
 
 import * as React from "react";
 import { create } from "zustand";
+import { Logger } from "@itwin/core-bentley";
+import { UiFramework } from "../UiFramework";
 
 /** List of known preview features. */
 interface KnownPreviewFeatures {
@@ -89,14 +91,13 @@ function trimToKnownFeaturesOnly(previewFeatures: PreviewFeatures) {
     },
     [{}, []] as [PreviewFeatures, string[]]
   );
-  if (
-    Object.keys(unknownFeatures).length > 0 &&
-    process.env.NODE_ENV === "development"
-  ) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `The following features used in "setPreviewFeatures" are unknown or no longer in preview: [${unknownFeatures.toString()}]
-      Here is the list of currently known features: [${knownFeatureKeys.toString()}]`
+  if (Object.keys(unknownFeatures).length > 0) {
+    Logger.logWarning(
+      UiFramework.loggerCategory(trimToKnownFeaturesOnly),
+      `Features used in "setPreviewFeatures" are unknown or no longer in preview`,
+      {
+        unknownFeatures,
+      }
     );
   }
   return knownFeatures;

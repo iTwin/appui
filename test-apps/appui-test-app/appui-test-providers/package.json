@@ -6,10 +6,11 @@
   "module": "lib/esm/appui-test-providers.js",
   "typings": "lib/cjs/appui-test-providers",
   "scripts": {
-    "start": "run-p -l \"build:** -- -w\" \"copy:** -- -w\"",
-    "build": "run-p -l \"build:**\" \"copy:**\"",
+    "start": "run-p -l copy:locale \"build:** -- -w\" \"copy:** -- -w\"",
+    "build": "run-p -l copy:locale \"build:**\" \"copy:**\"",
     "copy:cjs": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib/cjs\"",
     "copy:esm": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib/esm\"",
+    "copy:locale": "cpx \"./public/**/*\" ./lib/public",
     "build:cjs": "tsc 1>&2 --outDir lib/cjs",
     "build:esm": "tsc 1>&2 --module ES2020 --outDir lib/esm",
     "clean": "rimraf lib .rush/temp/package-deps*.json",
