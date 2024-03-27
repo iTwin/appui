@@ -5,7 +5,7 @@
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
-import { MessageCenterMessage } from "../../../../appui-react/layout/footer/message-center/Message";
+import { MessageCenterMessage } from "../../../../appui-react/statusfields/message-center/MessageCenterMessage";
 import { selectorMatches } from "../../Utils";
 
 describe("<MessageCenterMessage />", () => {
@@ -18,9 +18,11 @@ describe("<MessageCenterMessage />", () => {
 
   it("renders correctly with icon and content", () => {
     render(
-      <MessageCenterMessage icon={<img alt=""></img>}>
-        Custom message
-      </MessageCenterMessage>
+      <MessageCenterMessage
+        icon={<img alt=""></img>}
+        message="Custom message"
+        className="nz-content"
+      />
     );
     expect(screen.getByText("Custom message")).to.satisfy(
       selectorMatches(".nz-content")

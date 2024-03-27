@@ -43,7 +43,7 @@ body:
       placeholder: |
         - OS: [e.g. iOS]
         - Browser [e.g. chrome, safari]
-        - Version [e.g. 22]
+        - Browser Version [e.g. 22]
         - iTwin.js AppUI Version [e.g. 4.0.0]
         - iTwin.js Version [e.g. 3.6.2]
     validations:

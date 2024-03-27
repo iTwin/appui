@@ -4,7 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
-import { MessageCenterField } from "@itwin/appui-react/src/appui-react/statusfields/MessageCenter";
+import { MessageManager, MessageCenterField } from "@itwin/appui-react";
+import {
+  NotifyMessageDetails,
+  OutputMessagePriority,
+} from "@itwin/core-frontend";
+import { DropdownButton, MenuItem, Button } from "@itwin/itwinui-react";
+import { useEffect } from "react";
 
 const AlignComponent: Decorator = (Story) => {
   return (
@@ -14,6 +20,7 @@ const AlignComponent: Decorator = (Story) => {
         display: "flex",
         justifyContent: "center",
         paddingBlock: "2em",
+        gap: "10",
       }}
     >
       <Story />
@@ -34,4 +41,78 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {};
+export const Empty: Story = {};
+
+const NotificationDecorator: Decorator = (Story) => {
+  return (
+    <div>
+      <Story />
+      <Button
+        styleType="borderless"
+        onClick={() => {
+          MessageManager.clearMessages();
+          MessageManager.addToMessageCenter(
+            new NotifyMessageDetails(OutputMessagePriority.Info, "info")
+          );
+        }}
+      >
+        Info
+      </Button>
+    </div>
+  );
+};
+
+export const Notification: Story = {
+  decorators: NotificationDecorator,
+};
+
+const ErrorDecorator: Decorator = (Story) => {
+  return (
+    <div>
+      <Story />
+      <Button
+        styleType="borderless"
+        onClick={() => {
+          MessageManager.clearMessages();
+          MessageManager.addToMessageCenter(
+            new NotifyMessageDetails(OutputMessagePriority.Error, "error")
+          );
+        }}
+      >
+        Error
+      </Button>
+    </div>
+  );
+};
+
+export const Error: Story = {
+  decorators: ErrorDecorator,
+};
+
+const DetailedDecorator: Decorator = (Story) => {
+  return (
+    <div>
+      <Story />
+      <Button
+        styleType="borderless"
+        onClick={() => {
+          MessageManager.clearMessages();
+          MessageManager.addToMessageCenter(
+            new NotifyMessageDetails(
+              1,
+              "This is the brief message",
+              "This is the detailed message",
+              OutputMessagePriority.Success
+            )
+          );
+        }}
+      >
+        Detailed Message
+      </Button>
+    </div>
+  );
+};
+
+export const Detailed: Story = {
+  decorators: DetailedDecorator,
+};
