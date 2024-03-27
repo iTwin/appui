@@ -9,7 +9,8 @@ import {
   NotifyMessageDetails,
   OutputMessagePriority,
 } from "@itwin/core-frontend";
-import { Button } from "@itwin/itwinui-react";
+import { Button, DropdownButton, MenuItem } from "@itwin/itwinui-react";
+import * as React from "react";
 
 const AlignComponent: Decorator = (Story) => {
   return (
@@ -42,21 +43,20 @@ type Story = StoryObj<typeof meta>;
 
 export const Empty: Story = {};
 
+//Info UseCase
 const NotificationDecorator: Decorator = (Story) => {
+  React.useEffect(() => {
+    MessageManager.clearMessages();
+    ["1", "2", "3", "4"].forEach((num) => {
+      MessageManager.addToMessageCenter(
+        new NotifyMessageDetails(OutputMessagePriority.Info, `Message ${num}`)
+      );
+    });
+  });
+
   return (
     <div>
       <Story />
-      <Button
-        styleType="cta"
-        onClick={() => {
-          MessageManager.clearMessages();
-          MessageManager.addToMessageCenter(
-            new NotifyMessageDetails(OutputMessagePriority.Info, "info")
-          );
-        }}
-      >
-        Info
-      </Button>
     </div>
   );
 };
@@ -65,21 +65,21 @@ export const Notification: Story = {
   decorators: NotificationDecorator,
 };
 
+//Error Use Case
+
 const ErrorDecorator: Decorator = (Story) => {
+  React.useEffect(() => {
+    MessageManager.clearMessages();
+    ["1", "2", "3", "4"].forEach((num) => {
+      MessageManager.addToMessageCenter(
+        new NotifyMessageDetails(OutputMessagePriority.Error, `Error ${num}`)
+      );
+    });
+  });
+
   return (
     <div>
       <Story />
-      <Button
-        styleType="cta"
-        onClick={() => {
-          MessageManager.clearMessages();
-          MessageManager.addToMessageCenter(
-            new NotifyMessageDetails(OutputMessagePriority.Error, "error")
-          );
-        }}
-      >
-        Error
-      </Button>
     </div>
   );
 };
@@ -88,7 +88,22 @@ export const Error: Story = {
   decorators: ErrorDecorator,
 };
 
+//Detailed Message
+
 const DetailedDecorator: Decorator = (Story) => {
+  React.useEffect(() => {
+    MessageManager.clearMessages();
+    [1, 2, 3, 4].forEach((num) => {
+      MessageManager.addToMessageCenter(
+        new NotifyMessageDetails(
+          num,
+          "This is the brief message",
+          "This is the detailed message"
+        )
+      );
+    });
+  });
+
   return (
     <div>
       <Story />
@@ -113,4 +128,66 @@ const DetailedDecorator: Decorator = (Story) => {
 
 export const Detailed: Story = {
   decorators: DetailedDecorator,
+};
+
+//Dynamic Use Case
+
+const menuItems = (close) => [
+  <MenuItem
+    onClick={() => {
+      MessageManager.addToMessageCenter(
+        new NotifyMessageDetails(OutputMessagePriority.Info, `Info Message`)
+      );
+    }}
+  >
+    Info{" "}
+  </MenuItem>,
+  <MenuItem
+    onClick={() => {
+      MessageManager.addToMessageCenter(
+        new NotifyMessageDetails(OutputMessagePriority.Error, `Error Message`)
+      );
+    }}
+  >
+    Error
+  </MenuItem>,
+  <MenuItem
+    onClick={() => {
+      MessageManager.addToMessageCenter(
+        new NotifyMessageDetails(
+          1,
+          "This is the brief message",
+          "This is the detailed message"
+        )
+      );
+    }}
+  >
+    Detailed
+  </MenuItem>,
+  <MenuItem
+    onClick={() => {
+      MessageManager.clearMessages();
+    }}
+  >
+    Clear
+  </MenuItem>,
+];
+
+const DynamicDecorator: Decorator = (Story) => {
+  React.useEffect(() => {
+    MessageManager.clearMessages();
+  });
+
+  return (
+    <div>
+      <Story />
+      <DropdownButton menuItems={menuItems} styleType="borderless">
+        Add Messages
+      </DropdownButton>
+    </div>
+  );
+};
+
+export const Dynamic: Story = {
+  decorators: DynamicDecorator,
 };

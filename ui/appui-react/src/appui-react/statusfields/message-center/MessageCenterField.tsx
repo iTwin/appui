@@ -27,7 +27,7 @@ import "./MessageCenterField.scss";
 /**
  * Type for Status state to satisfy NotificationMarker type checking
  */
-type Status = "primary" | "negative";
+type NotificationMarkerStatus = "primary" | "negative" | "positive";
 
 /** Message Center Field React component.
  * @public
@@ -36,8 +36,8 @@ export function MessageCenterField() {
   const [messages, setMessages] = React.useState(MessageManager.messages);
   const [notify, setNotify] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
-  const [NotificationMarkerStatus, setStatus] =
-    React.useState<Status>("primary");
+  const [status, setStatus] =
+    React.useState<NotificationMarkerStatus>("primary");
 
   const indicatorRef = React.createRef<HTMLButtonElement>();
   const title = UiFramework.translate("messageCenter.messages");
@@ -58,7 +58,7 @@ export function MessageCenterField() {
   const determineStatus = () =>
     messages.some((message) => isProblemStatus(message))
       ? setStatus("negative")
-      : setStatus("primary");
+      : setStatus("positive");
 
   React.useEffect(() => {
     MessageManager.registerAnimateOutToElement(indicatorRef.current);
@@ -103,7 +103,7 @@ export function MessageCenterField() {
       {["all", "error"].map((tabType) => {
         return (
           <Tabs.Panel value={tabType} key={tabType}>
-            <div className=".uifw-statusFields-messageCenter-messageCenterField">
+            <div className="uifw-statusFields-messageCenter-messageCenterField">
               {getMessages(tabType)}
             </div>
           </Tabs.Panel>
@@ -113,45 +113,40 @@ export function MessageCenterField() {
   );
 
   return (
-    <>
-      <Popover
-        style={{ width: "305px" }}
-        content={
-          <>
-            <TitleBar title={title}></TitleBar>
+    <Popover
+      style={{ width: "305px" }}
+      content={
+        <>
+          <TitleBar title={title}></TitleBar>
 
-            <Tabs.Wrapper type="pill">
-              <Tabs.TabList>
-                <Tabs.Tab label="All" key="all" value="all" />
-                <Tabs.Tab label="Error" key="error" value="error" />
-              </Tabs.TabList>
-              {tabs}
-            </Tabs.Wrapper>
-          </>
+          <Tabs.Wrapper type="pill">
+            <Tabs.TabList>
+              <Tabs.Tab label="All" key="all" value="all" />
+              <Tabs.Tab label="Error" key="error" value="error" />
+            </Tabs.TabList>
+            {tabs}
+          </Tabs.Wrapper>
+        </>
+      }
+      applyBackground
+    >
+      <Button
+        onClick={() => handleOpenChange(!isOpen)}
+        ref={indicatorRef}
+        styleType="borderless"
+        labelProps={
+          <span>
+            `${messages.length} ${title}`
+          </span>
         }
-        applyBackground
+        startIcon={
+          <NotificationMarker status={status} enabled={notify}>
+            <SvgChat />
+          </NotificationMarker>
+        }
       >
-        <Button
-          onClick={() => handleOpenChange(!isOpen)}
-          ref={indicatorRef}
-          styleType="borderless"
-          labelProps={
-            <span>
-              `${messages.length} ${title}`
-            </span>
-          }
-          startIcon={
-            <NotificationMarker
-              status={NotificationMarkerStatus}
-              enabled={notify}
-            >
-              <SvgChat />
-            </NotificationMarker>
-          }
-        >
-          {title}
-        </Button>
-      </Popover>
-    </>
+        {title}
+      </Button>
+    </Popover>
   );
 }
