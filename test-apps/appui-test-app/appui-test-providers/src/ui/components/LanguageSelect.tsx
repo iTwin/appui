@@ -28,9 +28,7 @@ export function LanguageSelect({
       ]}
       value={language}
       size="small"
-      onChange={(newLanguage) => {
-        onChange?.(newLanguage);
-      }}
+      onChange={onChange}
     />
   );
 }
