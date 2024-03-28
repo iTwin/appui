@@ -28,7 +28,7 @@ describe("WidgetPanelsTab", () => {
     state = addTab(state, "t1", { label: "Tab1" });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
-      <NineZone dispatch={sinon.spy()} layout={createLayoutStore(state)}>
+      <NineZone dispatch={vi.fn()} layout={createLayoutStore(state)}>
         <WidgetIdContext.Provider value="w1">
           <TabIdContext.Provider value="t1">
             <TabPositionContext.Provider value={{}}>
@@ -56,7 +56,7 @@ describe("WidgetPanelsTab", () => {
     state = addTab(state, "t1", { label: "Tab1" });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
-      <NineZone dispatch={sinon.spy()} layout={createLayoutStore(state)}>
+      <NineZone dispatch={vi.fn()} layout={createLayoutStore(state)}>
         <WidgetIdContext.Provider value="w1">
           <TabIdContext.Provider value="t1">
             <TabPositionContext.Provider value={{}}>

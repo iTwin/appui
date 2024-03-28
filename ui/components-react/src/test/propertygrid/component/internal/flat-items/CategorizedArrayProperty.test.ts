@@ -5,17 +5,18 @@
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { MutableCategorizedArrayProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedArrayProperty";
 import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
-import { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
+import type { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
 import TestUtils from "../../../../TestUtils";
 import { FlatGridTestUtils as GridUtils } from "./FlatGridTestUtils";
+import type { Mock } from "vitest";
 
 describe("CategorizedArrayProperty", () => {
-  let factoryStub: sinon.SinonStubbedInstance<MutableGridItemFactory>;
+  let factoryStub: MutableGridItemFactory;
   beforeEach(() => {
-    factoryStub = sinon.createStubInstance(MutableGridItemFactory, {
+    factoryStub = {
       createCategorizedProperty: vi.fn(),
       createGridCategory: vi.fn(),
-    });
+    } as unknown as MutableGridItemFactory;
   });
 
   describe("Should correctly initialize categorized array property", () => {
@@ -147,7 +148,9 @@ describe("CategorizedArrayProperty", () => {
         arrayChildren.length
       );
 
-      factoryStub.createCategorizedProperty.args.forEach((args, index) => {
+      const createCategorizedProperty = factoryStub.createCategorizedProperty;
+      assert(vi.isMockFunction(createCategorizedProperty));
+      createCategorizedProperty.mock.calls.forEach((args, index) => {
         const [
           record,
           parentSelectionKey,
@@ -739,12 +742,17 @@ describe("CategorizedArrayProperty", () => {
         );
 
         const children = property.getChildren();
-        const childrenSpies: sinon.SinonSpy[] = [];
+        const childrenSpies: Mock[] = [];
         children.forEach((child) => {
           const spy = vi.fn();
           childrenSpies.push(spy);
 
-          sinon.replaceSetter(child, "lastInNumberOfCategories", spy);
+          Object.assign(child, {
+            lastInNumberOfCategories: child.lastInNumberOfCategories ?? 0,
+          });
+          vi.spyOn(child, "lastInNumberOfCategories", "set").mockImplementation(
+            spy
+          );
         });
 
         property.lastInNumberOfCategories = 3;
@@ -753,10 +761,11 @@ describe("CategorizedArrayProperty", () => {
         const lastSpy = GridUtils.getLast(childrenSpies)!;
 
         childrenSpies.forEach((spy) => {
-          if (spy !== lastSpy) expect(spy.notCalled).toEqual(true);
+          if (spy !== lastSpy) expect(spy).not.toBeCalled();
         });
 
-        expect(lastSpy.calledOnceWith(3)).toEqual(true);
+        expect(lastSpy).toHaveBeenCalledOnce();
+        expect(lastSpy).toHaveBeenCalledWith(3);
       });
     });
 
@@ -792,12 +801,17 @@ describe("CategorizedArrayProperty", () => {
         );
 
         const children = property.getChildren();
-        const childrenSpies: sinon.SinonSpy[] = [];
+        const childrenSpies: Mock[] = [];
         children.forEach((child) => {
           const spy = vi.fn();
           childrenSpies.push(spy);
 
-          sinon.replaceSetter(child, "isLastInRootCategory", spy);
+          Object.assign(child, {
+            isLastInRootCategory: child.isLastInRootCategory ?? true,
+          });
+          vi.spyOn(child, "isLastInRootCategory", "set").mockImplementation(
+            spy
+          );
         });
 
         property.isLastInRootCategory = true;
@@ -806,10 +820,11 @@ describe("CategorizedArrayProperty", () => {
 
         const lastSpy = GridUtils.getLast(childrenSpies)!;
         childrenSpies.forEach((spy) => {
-          if (spy !== lastSpy) expect(spy.notCalled).toEqual(true);
+          if (spy !== lastSpy) expect(spy).not.toBeCalled();
         });
 
-        expect(lastSpy.calledOnceWith(true)).toEqual(true);
+        expect(lastSpy).toHaveBeenCalledOnce();
+        expect(lastSpy).toHaveBeenCalledWith(true);
       });
     });
   });

@@ -86,7 +86,7 @@ describe("FloatingTab", () => {
       fireEvent.mouseMove(document);
     });
     dispatch.calledOnceWithExactly(
-      sinon.match({
+      expect.objectContaining({
         type: "WIDGET_TAB_DRAG",
       })
     ).should.true;
@@ -126,7 +126,7 @@ describe("FloatingTab", () => {
       fireEvent.mouseUp(document);
     });
     dispatch.calledOnceWithExactly(
-      sinon.match({
+      expect.objectContaining({
         type: "WIDGET_TAB_DRAG_END",
         id: "t1",
         target: {
@@ -170,7 +170,7 @@ describe("FloatingTab", () => {
       fireEvent.mouseUp(document);
     });
     dispatch.calledOnceWithExactly(
-      sinon.match({
+      expect.objectContaining({
         type: "WIDGET_TAB_DRAG_END",
         id: "t1",
         target: {
@@ -220,7 +220,7 @@ describe("FloatingTab", () => {
       fireEvent.mouseUp(document);
     });
     dispatch.calledOnceWithExactly(
-      sinon.match({
+      expect.objectContaining({
         type: "WIDGET_TAB_DRAG_END",
         id: "t1",
         target: {
@@ -266,7 +266,7 @@ describe("FloatingTab", () => {
       fireEvent.mouseUp(document);
     });
     dispatch.calledOnceWithExactly(
-      sinon.match({
+      expect.objectContaining({
         type: "WIDGET_TAB_DRAG_END",
         id: "t1",
         target: {
@@ -314,7 +314,7 @@ describe("FloatingTab", () => {
     });
     sinon.assert.calledOnceWithExactly(
       dispatch,
-      sinon.match({
+      expect.objectContaining({
         type: "WIDGET_TAB_DRAG_END",
         id: "t1",
         target: {

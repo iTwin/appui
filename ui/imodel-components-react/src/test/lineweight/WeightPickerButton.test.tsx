@@ -64,7 +64,6 @@ describe("<WeightPickerButton/>", () => {
       const firstColorButton = popupDiv.firstChild as HTMLElement;
       expect(firstColorButton).not.to.be.undefined;
       fireEvent.click(firstColorButton);
-      // renderedComponent.debug();
       expect(spyOnWeightPick).toHaveBeenCalledOnce();
     }
   });
@@ -118,7 +117,6 @@ describe("<WeightPickerButton/>", () => {
         setTimeout(r, 80);
       });
 
-      // renderedComponent.debug();
       // focus on weight 2 and press enter key which should close popup
       const node = popupDiv.querySelector(
         `#${buildIdForWeight(2)}`
@@ -127,7 +125,6 @@ describe("<WeightPickerButton/>", () => {
         node.focus();
         fireEvent.keyDown(popupDiv, { key: "Enter" });
 
-        // renderedComponent.debug();
         expect(spyOnWeightPick).toHaveBeenCalledOnce();
       }
     }
@@ -178,7 +175,6 @@ describe("<WeightPickerButton/>", () => {
         setTimeout(r, 80);
       });
 
-      // renderedComponent.debug();
       fireEvent.keyDown(popupDiv, { key: "ArrowDown" }); // down to 4
       fireEvent.keyDown(popupDiv, { key: "ArrowUp" }); // back up to 3
       fireEvent.keyDown(popupDiv, { key: "ArrowUp" }); // up to 2
@@ -232,7 +228,6 @@ describe("<WeightPickerButton/>", () => {
         setTimeout(r, 80);
       });
 
-      // renderedComponent.debug();
       fireEvent.keyDown(popupDiv, { key: "ArrowDown" }); // down to 4
       fireEvent.keyDown(popupDiv, { key: "ArrowDown" }); // down to 5
       fireEvent.keyDown(popupDiv, { key: "ArrowDown" }); // down to 6

@@ -527,7 +527,7 @@ describe("FlatPropertyRenderer", () => {
       const { rerender } = render(
         renderFlatPropertyRenderer(false, onHeightChanged)
       );
-      expect(onHeightChanged).to.have.not.been.called;
+      expect(onHeightChanged).not.toBeCalled();
       rerender(renderFlatPropertyRenderer(true, onHeightChanged));
       expect(onHeightChanged).toHaveBeenCalledOnce();
       expect(onHeightChanged).toHaveBeenCalledWith(28);
@@ -538,7 +538,7 @@ describe("FlatPropertyRenderer", () => {
       const { rerender } = render(
         renderFlatPropertyRenderer(false, onHeightChanged, Orientation.Vertical)
       );
-      expect(onHeightChanged).to.have.not.been.called;
+      expect(onHeightChanged).not.toBeCalled();
       rerender(
         renderFlatPropertyRenderer(true, onHeightChanged, Orientation.Vertical)
       );
@@ -549,7 +549,7 @@ describe("FlatPropertyRenderer", () => {
     it("does not get called when component is mounted in editing state", () => {
       const onHeightChanged = vi.fn();
       render(renderFlatPropertyRenderer(true, onHeightChanged));
-      expect(onHeightChanged).to.have.not.been.called;
+      expect(onHeightChanged).not.toBeCalled();
     });
 
     it("does not attempt to call when it is not present and throw", () => {

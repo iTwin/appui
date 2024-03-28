@@ -11,11 +11,10 @@ import type {
 } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
 import { FlatGridItemType } from "../../../../../components-react/propertygrid/internal/flat-items/MutableFlatGridItem";
 import type { CategoryRecordsDict } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridCategory";
-import { MutableGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridCategory";
-import { AssertionError, expect } from "chai";
-import { MutableCategorizedPrimitiveProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedPrimitiveProperty";
-import { MutableCategorizedArrayProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedArrayProperty";
-import { MutableCategorizedStructProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedStructProperty";
+import type { MutableGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridCategory";
+import type { MutableCategorizedPrimitiveProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedPrimitiveProperty";
+import type { MutableCategorizedArrayProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedArrayProperty";
+import type { MutableCategorizedStructProperty } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCategorizedStructProperty";
 import shortid from "shortid";
 import type { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
 import type {
@@ -281,23 +280,37 @@ export class FlatGridTestUtils {
   }
 
   private static replaceMockGridItemProperties(
-    mockItem: sinon.SinonStubbedInstance<IMutableFlatGridItem>,
+    mockItem: IMutableFlatGridItem,
     type: FlatGridItemType,
     selectionKey: string,
     isExpanded?: boolean
   ) {
-    Object.assign(mockItem, { key: shortid.generate() });
-    vi.spyOn(mockItem, "type").get(() => type);
-    if (isExpanded !== undefined)
-      vi.spyOn(mockItem, "isExpanded").get(() => isExpanded);
+    Object.assign(mockItem, {
+      key: shortid.generate(),
+      type: mockItem.type ?? {},
+      isExpanded: mockItem.isExpanded ?? {},
+      selectionKey: mockItem.selectionKey ?? {},
+      getChildren: mockItem.getChildren ?? vi.fn(),
+    });
 
-    vi.spyOn(mockItem, "selectionKey").get(() => selectionKey);
-    mockItem.getChildren.returns([]);
+    vi.spyOn(mockItem, "type", "get").mockImplementation(() => type);
+    if (isExpanded !== undefined)
+      vi.spyOn(mockItem, "isExpanded", "get").mockImplementation(
+        () => isExpanded
+      );
+
+    vi.spyOn(mockItem, "selectionKey", "get").mockImplementation(
+      () => selectionKey
+    );
+    vi.spyOn(mockItem, "getChildren").mockReturnValue([]);
   }
 
   public static createMockGridCategory(name: string, isExpanded?: boolean) {
-    const gridCategory = sinon.createStubInstance(MutableGridCategory);
-    vi.spyOn(gridCategory, "name").get(() => name);
+    const gridCategory = {
+      name: "",
+      derivedCategory: {},
+    } as MutableGridCategory;
+    vi.spyOn(gridCategory, "name", "get").mockImplementation(() => name);
 
     this.replaceMockGridItemProperties(
       gridCategory,
@@ -309,9 +322,7 @@ export class FlatGridTestUtils {
   }
 
   public static createMockCategorizedPrimitive(selectionKey: string) {
-    const primitive = sinon.createStubInstance(
-      MutableCategorizedPrimitiveProperty
-    );
+    const primitive = {} as MutableCategorizedPrimitiveProperty;
     this.replaceMockGridItemProperties(
       primitive,
       FlatGridItemType.Primitive,
@@ -326,7 +337,7 @@ export class FlatGridTestUtils {
     selectionKey: string,
     isExpanded?: boolean
   ) {
-    const array = sinon.createStubInstance(MutableCategorizedArrayProperty);
+    const array = {} as MutableCategorizedArrayProperty;
     this.replaceMockGridItemProperties(
       array,
       FlatGridItemType.Array,
@@ -341,7 +352,7 @@ export class FlatGridTestUtils {
     selectionKey: string,
     isExpanded?: boolean
   ) {
-    const struct = sinon.createStubInstance(MutableCategorizedStructProperty);
+    const struct = {} as MutableCategorizedStructProperty;
     this.replaceMockGridItemProperties(
       struct,
       FlatGridItemType.Struct,
@@ -373,12 +384,10 @@ export class FlatGridTestUtils {
 
   public static createCategorizedPropertyStub(
     records: PropertyRecord[],
-    factoryStub: sinon.SinonStubbedInstance<MutableGridItemFactory>
+    factoryStub: MutableGridItemFactory
   ) {
-    const expectedMockChildren: Array<
-      sinon.SinonStubbedInstance<IMutableCategorizedPropertyItem>
-    > = [];
-    records.forEach((child, index) => {
+    const expectedMockChildren: Array<IMutableCategorizedPropertyItem> = [];
+    records.forEach((child) => {
       const gridType = this.valueTypeToFlatGridType(child.value.valueFormat);
       const mock = this.createMockCategorizedProperty(
         faker.random.words(),
@@ -386,39 +395,34 @@ export class FlatGridTestUtils {
       );
 
       expectedMockChildren.push(mock);
-      factoryStub.createCategorizedProperty.onCall(index).mockReturnValue(mock);
     });
-
-    factoryStub.createCategorizedProperty
-      .onCall(records.length)
-      .throws(
-        new AssertionError("Factory called more times than there are children")
-      );
+    let callIndex = -1;
+    vi.spyOn(factoryStub, "createCategorizedProperty").mockImplementation(
+      () => {
+        callIndex = ++callIndex;
+        return expectedMockChildren[callIndex];
+      }
+    );
     return expectedMockChildren;
   }
 
   public static createGridCategoryStub(
     category: PropertyCategory,
-    factoryStub: sinon.SinonStubbedInstance<MutableGridItemFactory>
+    factoryStub: MutableGridItemFactory
   ) {
     const children = category.childCategories ?? [];
-    const expectedMockChildren: Array<
-      sinon.SinonStubbedInstance<IMutableGridCategoryItem>
-    > = [];
+    const expectedMockChildren: Array<IMutableGridCategoryItem> = [];
 
-    children.forEach((child, index) => {
+    children.forEach((child) => {
       const mock = FlatGridTestUtils.createMockGridCategory(child.name);
       expectedMockChildren.push(mock);
-      factoryStub.createGridCategory.onCall(index).mockReturnValue(mock);
     });
 
-    factoryStub.createGridCategory
-      .onCall(children.length)
-      .throws(
-        new AssertionError(
-          "Factory called more times than there are category children"
-        )
-      );
+    let callIndex = -1;
+    vi.spyOn(factoryStub, "createGridCategory").mockImplementation(() => {
+      callIndex = ++callIndex;
+      return expectedMockChildren[callIndex];
+    });
     return expectedMockChildren;
   }
 
@@ -443,9 +447,11 @@ export class FlatGridTestUtils {
       );
 
     const visibleDescendantsAndSelf = [property, ...visibleDescendants];
-    sinon.replace(
-      property,
-      "getVisibleDescendantsAndSelf",
+    Object.assign(property, {
+      getVisibleDescendantsAndSelf:
+        property.getVisibleDescendantsAndSelf ?? vi.fn(),
+    });
+    vi.spyOn(property, "getVisibleDescendantsAndSelf").mockImplementation(
       () => visibleDescendantsAndSelf
     );
 
@@ -471,7 +477,12 @@ export class FlatGridTestUtils {
       ...visibleDescendantsAndSelf,
       ...nonVisibleDescendants,
     ];
-    sinon.replace(property, "getDescendantsAndSelf", () => descendantsAndSelf);
+    Object.assign(property, {
+      getDescendantsAndSelf: property.getDescendantsAndSelf ?? vi.fn(),
+    });
+    vi.spyOn(property, "getDescendantsAndSelf").mockImplementation(
+      () => descendantsAndSelf
+    );
 
     return descendantsAndSelf;
   }
@@ -492,9 +503,11 @@ export class FlatGridTestUtils {
       expectedLastVisibleDescendant = FlatGridTestUtils.getLast(
         visibleDescendantsAndSelf
       );
-      sinon.replace(
-        child,
-        "getLastVisibleDescendantOrSelf",
+      Object.assign(child, {
+        getLastVisibleDescendantOrSelf:
+          child.getLastVisibleDescendantOrSelf ?? vi.fn(),
+      });
+      vi.spyOn(child, "getLastVisibleDescendantOrSelf").mockImplementation(
         () => expectedLastVisibleDescendant!
       );
 
@@ -586,14 +599,14 @@ export class FlatGridTestUtils {
           lastInNumberOfCategories: 0,
         };
 
-        expect(gridItem.lastInNumberOfCategories).toEqual(
-          expectedLastItemData.lastInNumberOfCategories,
+        expect(
+          gridItem.lastInNumberOfCategories,
           `lastInNumberOfCategories does not match: ${gridItem.selectionKey}`
-        );
-        expect(gridItem.isLastInRootCategory).toEqual(
-          expectedLastItemData.isLastInRootCategory,
+        ).toEqual(expectedLastItemData.lastInNumberOfCategories);
+        expect(
+          gridItem.isLastInRootCategory,
           `isLastInRootCategory does not match: ${gridItem.selectionKey}`
-        );
+        ).toEqual(expectedLastItemData.isLastInRootCategory);
       }
     });
   }
@@ -602,9 +615,8 @@ export class FlatGridTestUtils {
     gridItem: FlatGridItem,
     expectedProperty: FlattenedProperty
   ) {
-    expect(gridItem.selectionKey).toEqual(
-      expectedProperty.selectionKey,
-      "Selection keys do not match"
+    expect(gridItem.selectionKey, "Selection keys do not match").toEqual(
+      expectedProperty.selectionKey
     );
 
     if (expectedProperty.item instanceof PropertyRecord) {

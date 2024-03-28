@@ -48,14 +48,18 @@ describe("<BooleanEditor />", () => {
     await theUserTo.click(screen.getByTestId(testId));
     expect(screen.getByTestId<HTMLInputElement>(testId).checked).toEqual(true);
     expect(spyOnCommit).toHaveBeenCalledWith(
-      sinon.match({ newValue: sinon.match({ value: true }) })
+      expect.objectContaining({
+        newValue: expect.objectContaining({ value: true }),
+      })
     );
     spyOnCommit.mockReset();
 
     await theUserTo.click(screen.getByTestId(testId));
     expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.false;
     expect(spyOnCommit).toHaveBeenCalledWith(
-      sinon.match({ newValue: sinon.match({ value: false }) })
+      expect.objectContaining({
+        newValue: expect.objectContaining({ value: false }),
+      })
     );
   });
 
@@ -75,9 +79,11 @@ describe("<BooleanEditor />", () => {
     await theUserTo.keyboard(" ");
 
     expect(spyOnCommit).toHaveBeenCalledOnce();
-    expect(spyOnCommit).toHaveBeenCalledWith({
-      newValue: sinon.match({ value: true }),
-    });
+    expect(spyOnCommit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        newValue: expect.objectContaining({ value: true }),
+      })
+    );
   });
 
   it("new props update checkbox state", async () => {

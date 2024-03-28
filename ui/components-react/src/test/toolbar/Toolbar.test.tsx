@@ -8,7 +8,7 @@ import type { ActionButton, CommonToolbarItem } from "@itwin/appui-abstract";
 import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
 import { Key } from "ts-key-enum";
-import * as useTargetedModule from "@itwin/core-react/lib/esm/core-react/utils/hooks/useTargeted";
+import { renderHook } from "@testing-library/react-hooks";
 import type { CustomToolbarItem } from "../../components-react/toolbar/InternalToolbarComponent";
 import {
   ToolbarOpacitySetting,
@@ -20,7 +20,6 @@ import { Toolbar } from "../../components-react/toolbar/Toolbar";
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import { BackArrow } from "../../components-react/toolbar/groupPanel/BackArrow";
 import { GroupTool } from "../../components-react/toolbar/groupPanel/tool/Tool";
-import { renderHook } from "@testing-library/react-hooks";
 import { BadgeType } from "../TestUtils";
 
 /* eslint-disable deprecation/deprecation */
@@ -33,12 +32,6 @@ function createBubbledEvent(type: string, props = {}) {
 }
 
 describe("<Toolbar (No Overflow) />", () => {
-  const sandbox = sinon.createSandbox();
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
   describe("<Horizontal Toolbar />", () => {
     const spy = vi.fn();
 
@@ -104,7 +97,6 @@ describe("<Toolbar (No Overflow) />", () => {
     it("will render 6 items", () => {
       const renderedComponent = render(<Toolbar items={basicToolbarItems} />);
       expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
       expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
     });
 
@@ -117,7 +109,6 @@ describe("<Toolbar (No Overflow) />", () => {
         />
       );
       expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
       expect(renderedComponent.queryByTitle("Entry6")).not.to.be.null;
     });
 
@@ -196,7 +187,6 @@ describe("<Toolbar (No Overflow) />", () => {
       expect(renderedComponent.queryByTitle("Entry1")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Entry3")).not.to.be.null;
       expect(renderedComponent.queryByTitle("Group6")).not.to.be.null;
-      // renderedComponent.debug();
       // since group priorities are not defined no separator class should be found.
       expect(
         renderedComponent.container.querySelectorAll(
@@ -259,7 +249,6 @@ describe("<Toolbar (No Overflow) />", () => {
         />
       );
       expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
 
       expect(
         renderedComponent.container.querySelectorAll(
@@ -327,7 +316,6 @@ describe("<Toolbar (No Overflow) />", () => {
         />
       );
       expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
 
       expect(
         renderedComponent.container.querySelectorAll(
@@ -436,7 +424,6 @@ describe("<Toolbar (No Overflow) />", () => {
       expect(button).not.to.be.null;
       expect(renderedComponent.queryByTestId("popup-panel")).to.be.null;
       fireEvent.click(button!);
-      // renderedComponent.debug();
 
       // Also make sure the popup panel can inform user when key down is pressed
       const popupPanel = renderedComponent.queryByTestId("popup-panel");
@@ -444,7 +431,7 @@ describe("<Toolbar (No Overflow) />", () => {
       popupPanel!.dispatchEvent(
         createBubbledEvent("keydown", { key: Key.Escape /* <Esc> */ })
       );
-      onKeyDownexpect(spy).toHaveBeenCalledOnce();
+      expect(onKeyDownSpy).toHaveBeenCalledOnce();
     });
 
     it("should call onItemExecuted", async () => {
@@ -467,9 +454,8 @@ describe("<Toolbar (No Overflow) />", () => {
       const actionButton = renderedComponent.queryByTitle("Entry1");
       expect(actionButton).not.to.be.null;
       fireEvent.click(actionButton!);
-      // renderedComponent.debug();
-      toolexpect(spy).toHaveBeenCalledOnce();
-      onItemExecuteexpect(spy).toHaveBeenCalledOnce();
+      expect(toolSpy).toHaveBeenCalledOnce();
+      expect(onItemExecuteSpy).toHaveBeenCalledOnce();
     });
   });
 
@@ -546,9 +532,13 @@ describe("<Toolbar (No Overflow) />", () => {
   });
 
   describe("<BackArrow />", () => {
-    it("renders targeted correctly", () => {
-      vi.spyOn(useTargetedModule, "useTargeted").mockReturnValue(true);
+    it("renders targeted correctly", async () => {
       const renderedComponent = render(<BackArrow />);
+      const pointerMove = new MouseEvent("pointermove");
+      vi.spyOn(pointerMove, "target", "get").mockImplementation(
+        () => renderedComponent.container.children[0]
+      );
+      document.dispatchEvent(pointerMove);
       expect(renderedComponent.container.querySelector(".components-targeted"))
         .to.not.be.null;
     });
@@ -570,10 +560,15 @@ describe("<Toolbar (No Overflow) />", () => {
     });
 
     it("renders targeted correctly", () => {
-      vi.spyOn(useTargetedModule, "useTargeted").mockReturnValue(true);
       const renderedComponent = render(<GroupTool item={item} />);
-      expect(renderedComponent.container.querySelector(".components-targeted"))
-        .to.not.be.null;
+      const pointerMove = new MouseEvent("pointermove");
+      vi.spyOn(pointerMove, "target", "get").mockImplementation(
+        () => renderedComponent.container.children[0]
+      );
+      document.dispatchEvent(pointerMove);
+      expect(
+        renderedComponent.container.querySelector(".components-targeted")
+      ).toBeTruthy();
     });
 
     it("renders various props correctly", () => {

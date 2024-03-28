@@ -2,9 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
-import chai, { expect } from "chai";
-import chaiSubset from "chai-subset";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { waitFor } from "@testing-library/react";
@@ -22,8 +19,6 @@ import {
 import { UiComponents } from "../../components-react/UiComponents";
 import type { PropertyFilter } from "../../components-react/filter-builder/Types";
 import { PropertyFilterBuilderRuleRangeValue } from "../../components-react";
-
-chai.use(chaiSubset);
 
 describe("usePropertyFilterBuilder", () => {
   const property = {
@@ -73,7 +68,7 @@ describe("usePropertyFilterBuilder", () => {
 
     await waitFor(() => {
       nestedGroup = result.current.rootGroup.items[1];
-      expect(nestedGroup).to.not.be.undefined;
+      expect(nestedGroup).toBeTruthy();
     });
 
     actions.addItem([], "RULE");
@@ -502,7 +497,7 @@ describe("usePropertyFilterBuilder", () => {
     expect((rootGroup.items[0] as PropertyFilterBuilderRule).operator).to.be.eq(
       "between"
     );
-    expect(initialValue).to.not.be.undefined;
+    expect(initialValue).toBeTruthy();
     actions.setRuleOperator([rootGroup.items[0].id], "not-between");
 
     rootGroup = result.current.rootGroup;
@@ -1120,8 +1115,8 @@ describe("usePropertyFilterBuilder", () => {
 
       actions.addItem([], "RULE_GROUP");
       await waitFor(() => {
-        expect(getNestingRule()).to.not.be.undefined;
-        expect(getNestedRule()).to.not.be.undefined;
+        expect(getNestingRule()).toBeTruthy();
+        expect(getNestedRule()).toBeTruthy();
       });
 
       return { result, getNestingRule, getNestedRule, getNestedRulePath };

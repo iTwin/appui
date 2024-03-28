@@ -11,7 +11,7 @@ import { adjustDateToTimezone } from "../../components-react/common/DateUtils";
 
 /* eslint-disable deprecation/deprecation */
 
-describe.only("<DatePicker />", () => {
+describe("<DatePicker />", () => {
   const testDate = new Date("July 22, 2018 07:22:13 -0400");
 
   it("adjustDateToTimezone should adjust london time to current locale", () => {

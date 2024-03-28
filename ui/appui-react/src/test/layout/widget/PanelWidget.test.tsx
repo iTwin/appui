@@ -117,7 +117,7 @@ describe("PanelWidget", () => {
 
       sinon.assert.calledOnceWithExactly(
         dispatch,
-        sinon.match({
+        expect.objectContaining({
           type: "PANEL_WIDGET_DRAG_START",
           id: "w1",
           newFloatingWidgetId: "newId",

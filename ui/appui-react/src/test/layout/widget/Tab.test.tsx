@@ -59,7 +59,7 @@ describe("WidgetTab", () => {
               lastNotOverflown: false,
             }}
           >
-            <WidgetOverflowContext.Provider value={{ close: sinon.spy() }}>
+            <WidgetOverflowContext.Provider value={{ close: vi.fn() }}>
               <WidgetTabProvider id="t1" />
             </WidgetOverflowContext.Provider>
           </WidgetTabsEntryContext.Provider>
@@ -224,7 +224,7 @@ describe("WidgetTab", () => {
     await waitFor(() => {
       sinon.assert.calledOnceWithExactly(
         dispatch,
-        sinon.match({
+        expect.objectContaining({
           type: "WIDGET_TAB_CLICK",
           side: "left",
           widgetId: "w1",
@@ -261,7 +261,7 @@ describe("WidgetTab", () => {
     await waitFor(() => {
       sinon.assert.calledOnceWithExactly(
         dispatch,
-        sinon.match({
+        expect.objectContaining({
           type: "WIDGET_TAB_CLICK",
           side: "left",
           widgetId: "w1",
@@ -298,7 +298,7 @@ describe("WidgetTab", () => {
     await waitFor(() => {
       sinon.assert.calledOnceWithExactly(
         dispatch,
-        sinon.match({
+        expect.objectContaining({
           type: "WIDGET_TAB_CLICK",
           side: "left",
           widgetId: "w1",
@@ -367,7 +367,7 @@ describe("WidgetTab", () => {
     await waitFor(() => {
       sinon.assert.calledOnceWithExactly(
         dispatch,
-        sinon.match({
+        expect.objectContaining({
           type: "WIDGET_TAB_DOUBLE_CLICK",
           side: "left",
           widgetId: "w1",
@@ -398,7 +398,7 @@ describe("WidgetTab", () => {
     });
     sinon.assert.calledOnceWithExactly(
       dispatch,
-      sinon.match({
+      expect.objectContaining({
         type: "WIDGET_TAB_DRAG_START",
         widgetId: "w1",
         id: "t1",
@@ -446,7 +446,7 @@ describe("WidgetTab", () => {
     });
     sinon.assert.calledOnceWithExactly(
       dispatch,
-      sinon.match({
+      expect.objectContaining({
         type: "FLOATING_WIDGET_BRING_TO_FRONT",
         id: "w1",
       })

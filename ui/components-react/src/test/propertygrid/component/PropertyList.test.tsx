@@ -43,7 +43,10 @@ describe("PropertyList", () => {
 
     const primitiveProperty = clickableComponents[0];
     fireEvent.click(primitiveProperty);
-    expect(onPropertyClicked).toHaveBeenCalledWith(primitiveRecord);
+    expect(onPropertyClicked).toHaveBeenCalledWith(
+      primitiveRecord,
+      "primitive"
+    );
     onPropertyClicked.mockReset();
 
     const structProperty = clickableComponents[1];
@@ -86,7 +89,10 @@ describe("PropertyList", () => {
 
     const primitiveProperty = clickableComponents[0];
     fireEvent.contextMenu(primitiveProperty);
-    expect(onPropertyRightClicked).toHaveBeenCalledWith(primitiveRecord);
+    expect(onPropertyRightClicked).toHaveBeenCalledWith(
+      primitiveRecord,
+      "primitive"
+    );
     onPropertyRightClicked.mockReset();
 
     const structProperty = clickableComponents[1];

@@ -147,14 +147,14 @@ describe("IModelViewportControl", () => {
       expect(UiFramework.content.layouts.activeLayout).to.exist;
 
       const contentControl = UiFramework.content.getActiveContentControl();
-      expect(contentControl).to.not.be.undefined;
+      expect(contentControl).toBeTruthy();
       expect(contentControl instanceof TestViewportContentControl).toEqual(
         true
       );
 
       if (contentControl) {
         expect(contentControl.isViewport).toEqual(true);
-        expect(contentControl.viewport).to.not.be.undefined;
+        expect(contentControl.viewport).toBeTruthy();
         expect(contentControl.getType()).toEqual(
           ConfigurableUiControlType.Viewport
         );
@@ -165,13 +165,13 @@ describe("IModelViewportControl", () => {
 
         const controlNode = (contentControl as TestViewportContentControl)
           .reactNode;
-        expect(controlNode).to.not.be.undefined;
+        expect(controlNode).toBeTruthy();
         expect(React.isValidElement(controlNode)).toEqual(true);
 
         const componentWrapper = render(controlNode as React.ReactElement);
-        expect(componentWrapper).to.not.be.undefined;
-        expect(componentWrapper.getByTestId("MainContent")).to.not.be.undefined;
-        expect(componentWrapper.getByTestId("ViewOverlay")).to.not.be.undefined;
+        expect(componentWrapper).toBeTruthy();
+        expect(componentWrapper.getByTestId("MainContent")).toBeTruthy();
+        expect(componentWrapper.getByTestId("ViewOverlay")).toBeTruthy();
       }
     }
   });

@@ -668,7 +668,7 @@ describe("Frontstage local storage wrapper", () => {
         fakeTimers.tick(1000);
         fakeTimers.restore();
 
-        sinon.assert.notCalled(spy);
+        expect(spy).not.toBeCalled();
       });
     });
 
@@ -1552,7 +1552,7 @@ describe("Frontstage local storage wrapper", () => {
         const widgetDef = frontstageDef?.findWidgetDef(
           "TestHiddenWidgetProviderLM1"
         );
-        expect(widgetDef).to.not.be.undefined;
+        expect(widgetDef).toBeTruthy();
 
         const wrapper = render(
           <Provider store={TestUtils.store}>
@@ -1594,7 +1594,7 @@ describe("Frontstage local storage wrapper", () => {
         const widgetDef = frontstageDef?.findWidgetDef(
           "TestHiddenWidgetProviderLM1"
         );
-        expect(widgetDef).to.not.be.undefined;
+        expect(widgetDef).toBeTruthy();
 
         const wrapper = render(
           <Provider store={TestUtils.store}>
@@ -1668,7 +1668,7 @@ describe("Frontstage local storage wrapper", () => {
         await findByText("TestUi2Provider RM1");
         await findByText("TestUi2Provider W1");
 
-        sinon.assert.notCalled(spy);
+        expect(spy).not.toBeCalled();
       });
 
       it("should render loaded extension widgets", async () => {

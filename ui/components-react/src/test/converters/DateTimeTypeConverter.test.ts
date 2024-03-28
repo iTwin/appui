@@ -89,7 +89,7 @@ describe("ShortDateTypeConverter", () => {
     it("returns correct string when proper date string is provided", () => {
       const testDate = new Date(2018, 0, 1);
       const convertedDate = converter.convertFromString("1/1/2018");
-      expect(convertedDate).to.not.be.undefined;
+      expect(convertedDate).toBeTruthy();
       expect(convertedDate!.valueOf()).toEqual(testDate.valueOf());
     });
 
@@ -110,7 +110,7 @@ describe("ShortDateTypeConverter", () => {
     it("returns correct string when proper date string is provided", () => {
       const testDate = new Date(2018, 0, 1);
       const convertedDate = converter.convertFromStringWithOptions("1/1/2018");
-      expect(convertedDate).to.not.be.undefined;
+      expect(convertedDate).toBeTruthy();
       expect(convertedDate!.valueOf()).toEqual(testDate.valueOf());
     });
 

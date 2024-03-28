@@ -100,7 +100,7 @@ describe("WidgetPanelProvider", () => {
       </TestNineZoneProvider>
     );
     dispatch.calledOnceWithExactly(
-      sinon.match({
+      expect.objectContaining({
         type: "PANEL_INITIALIZE",
         side: "left",
         size: 300,

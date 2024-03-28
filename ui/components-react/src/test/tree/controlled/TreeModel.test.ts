@@ -121,7 +121,7 @@ describe("MutableTreeModel", () => {
   describe("getRootNode", () => {
     it("returns empty root node", () => {
       const node = treeModel.getRootNode();
-      expect(node).to.not.be.undefined;
+      expect(node).toBeTruthy();
       expect(node.depth).to.be.eq(-1);
       expect(node.numChildren).to.be.undefined;
       expect(node.id).to.be.undefined;

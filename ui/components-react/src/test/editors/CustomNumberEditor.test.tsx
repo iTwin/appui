@@ -165,7 +165,6 @@ describe("<CustomNumberEditor />", () => {
         onCancel={() => {}}
       />
     );
-    // renderedComponent.debug();
     const inputField = renderedComponent.getByTestId(
       testId
     ) as HTMLInputElement;
@@ -178,7 +177,6 @@ describe("<CustomNumberEditor />", () => {
     ) as HTMLSpanElement;
     fireEvent.keyDown(container, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
-    // renderedComponent.debug();
     expect(spyOnCommit).toHaveBeenCalledOnce();
 
     // trigger componentDidUpdate processing
@@ -243,7 +241,6 @@ describe("<CustomNumberEditor />", () => {
     fireEvent.keyDown(container, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit).toHaveBeenCalledOnce();
-    // renderedComponent.debug();
     expect(inputField.value).toEqual(displayVal);
   });
 
@@ -263,7 +260,6 @@ describe("<CustomNumberEditor />", () => {
         onCancel={() => {}}
       />
     );
-    // renderedComponent.debug();
     const inputField = renderedComponent.queryByTestId(
       testId
     ) as HTMLInputElement;

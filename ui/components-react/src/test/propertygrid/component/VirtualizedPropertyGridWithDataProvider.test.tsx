@@ -468,7 +468,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         },
       };
       const dataPromise = new ResolvablePromise<PropertyData>();
-      const dataFake = sinon.fake.returns(dataPromise);
+      const dataFake = vi.fn(() => dataPromise);
       dataProvider.getData = dataFake;
 
       // first render
@@ -491,7 +491,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       // expect data to be requested two more times.
       // Since the first request is already resolved, it should call once for initial change and once for the last change,
       // but not for intermediate ones
-      expect(dataFake).to.be.calledThrice;
+      expect(dataFake).toHaveBeenCalledTimes(3);
     });
 
     it("changes orientation when props change", async () => {
@@ -702,9 +702,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       });
 
       it("updates node height on expansion", async () => {
-        sinon
-          .stub(HTMLElement.prototype, "getBoundingClientRect")
-          .get(() => () => ({ height: 500 }));
+        vi.spyOn(
+          HTMLElement.prototype,
+          "getBoundingClientRect"
+        ).mockImplementation(() => ({ height: 500 } as DOMRect));
         dataProvider = setupDataProvider("test_category", {
           expandCustomCategory: false,
         });
@@ -731,9 +732,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       });
 
       it("updates node height on collapse", async () => {
-        sinon
-          .stub(HTMLElement.prototype, "getBoundingClientRect")
-          .get(() => () => ({ height: 500 }));
+        vi.spyOn(
+          HTMLElement.prototype,
+          "getBoundingClientRect"
+        ).mockImplementation(() => ({ height: 500 } as DOMRect));
         dataProvider = setupDataProvider("test_category", {
           expandCustomCategory: true,
         });
@@ -788,9 +790,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         }),
       };
 
-      sinon
-        .stub(FlatPropertyRendererExports, "FlatPropertyRenderer")
-        .callsFake(StubComponent);
+      vi.spyOn(
+        FlatPropertyRendererExports,
+        "FlatPropertyRenderer"
+      ).mockImplementation(StubComponent);
     });
 
     it("reacts to node height change", async () => {
@@ -1099,7 +1102,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       await waitForPropertyGridLoad(container);
 
-      await waitFor(() => expect(spy).to.be).toHaveBeenCalledOnce();
+      await waitFor(() => expect(spy).toHaveBeenCalledOnce());
     });
 
     it("does not start editor on click if not selected yet", async () => {
@@ -1193,7 +1196,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       });
 
       expect(callback).toHaveBeenCalledOnce();
-      expect(callback.firstCall.args[0].propertyRecord).to.deep.eq(records[0]);
+      expect(callback.mock.calls[0][0].propertyRecord).to.deep.eq(records[0]);
     });
   });
 
@@ -1438,7 +1441,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         categories: [],
         records: {},
       }));
-    providerMock1.setup((x) => x.onDataChanged).mockReturnValue(() => evt1);
+    providerMock1.setup((x) => x.onDataChanged).returns(() => evt1);
 
     const evt2 = new PropertyDataChangeEvent();
     const providerMock2 = moq.Mock.ofType<IPropertyDataProvider>();
@@ -1449,7 +1452,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         categories: [],
         records: {},
       }));
-    providerMock2.setup((x) => x.onDataChanged).mockReturnValue(() => evt2);
+    providerMock2.setup((x) => x.onDataChanged).returns(() => evt2);
 
     const { rerender, unmount } = render(
       <VirtualizedPropertyGridWithDataProvider
@@ -1457,10 +1460,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         dataProvider={providerMock1.object}
       />
     );
-    expect(evt1.numberOfListeners).toEqual(
-      1,
+    expect(
+      evt1.numberOfListeners,
       "listener should be added when component is mounted"
-    );
+    ).toEqual(1);
 
     rerender(
       <VirtualizedPropertyGridWithDataProvider
@@ -1468,10 +1471,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         dataProvider={providerMock1.object}
       />
     );
-    expect(evt1.numberOfListeners).toEqual(
-      1,
+    expect(
+      evt1.numberOfListeners,
       "additional listener should not be added when data provider doesn't change"
-    );
+    ).toEqual(1);
 
     rerender(
       <VirtualizedPropertyGridWithDataProvider
@@ -1479,20 +1482,20 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         dataProvider={providerMock2.object}
       />
     );
-    expect(evt1.numberOfListeners).toEqual(
-      0,
+    expect(
+      evt1.numberOfListeners,
       "listener should be removed when data provider is not used anymore"
-    );
-    expect(evt2.numberOfListeners).toEqual(
-      1,
+    ).toEqual(0);
+    expect(
+      evt2.numberOfListeners,
       "listener should be added when data provider changes"
-    );
+    ).toEqual(1);
 
     unmount();
-    expect(evt2.numberOfListeners).toEqual(
-      0,
+    expect(
+      evt2.numberOfListeners,
       "listener should be removed when component is unmounted"
-    );
+    ).toEqual(0);
   });
 
   describe("Should handle scrolling to item", () => {
@@ -1559,12 +1562,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           },
         }));
       const evt = new PropertyDataChangeEvent();
-      providerMock.setup((x) => x.onDataChanged).mockReturnValue(() => evt);
+      providerMock.setup((x) => x.onDataChanged).returns(() => evt);
 
       const scrollToItemFake = vi.fn();
-      sinon.replace(
-        VariableSizeList.prototype,
-        "scrollToItem",
+      vi.spyOn(VariableSizeList.prototype, "scrollToItem").mockImplementation(
         scrollToItemFake
       );
 
@@ -1607,12 +1608,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           },
         }));
       const evt = new PropertyDataChangeEvent();
-      providerMock.setup((x) => x.onDataChanged).mockReturnValue(() => evt);
+      providerMock.setup((x) => x.onDataChanged).returns(() => evt);
 
       const scrollToItemFake = vi.fn();
-      sinon.replace(
-        VariableSizeList.prototype,
-        "scrollToItem",
+      vi.spyOn(VariableSizeList.prototype, "scrollToItem").mockImplementation(
         scrollToItemFake
       );
 
@@ -1655,12 +1654,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           },
         }));
       const evt = new PropertyDataChangeEvent();
-      providerMock.setup((x) => x.onDataChanged).mockReturnValue(() => evt);
+      providerMock.setup((x) => x.onDataChanged).returns(() => evt);
 
       const scrollToItemFake = vi.fn();
-      sinon.replace(
-        VariableSizeList.prototype,
-        "scrollToItem",
+      vi.spyOn(VariableSizeList.prototype, "scrollToItem").mockImplementation(
         scrollToItemFake
       );
 
@@ -1703,12 +1700,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           },
         }));
       const evt = new PropertyDataChangeEvent();
-      providerMock.setup((x) => x.onDataChanged).mockReturnValue(() => evt);
+      providerMock.setup((x) => x.onDataChanged).returns(() => evt);
 
       const scrollToItemFake = vi.fn();
-      sinon.replace(
-        VariableSizeList.prototype,
-        "scrollToItem",
+      vi.spyOn(VariableSizeList.prototype, "scrollToItem").mockImplementation(
         scrollToItemFake
       );
 
@@ -1751,12 +1746,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           records: {},
         }));
       const evt = new PropertyDataChangeEvent();
-      providerMock.setup((x) => x.onDataChanged).mockReturnValue(() => evt);
+      providerMock.setup((x) => x.onDataChanged).returns(() => evt);
 
       const scrollToItemFake = vi.fn();
-      sinon.replace(
-        VariableSizeList.prototype,
-        "scrollToItem",
+      vi.spyOn(VariableSizeList.prototype, "scrollToItem").mockImplementation(
         scrollToItemFake
       );
 
@@ -1811,12 +1804,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           },
         }));
       const evt = new PropertyDataChangeEvent();
-      providerMock.setup((x) => x.onDataChanged).mockReturnValue(() => evt);
+      providerMock.setup((x) => x.onDataChanged).returns(() => evt);
 
       const scrollToItemFake = vi.fn();
-      sinon.replace(
-        VariableSizeList.prototype,
-        "scrollToItem",
+      vi.spyOn(VariableSizeList.prototype, "scrollToItem").mockImplementation(
         scrollToItemFake
       );
 

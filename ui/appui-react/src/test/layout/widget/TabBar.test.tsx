@@ -41,7 +41,7 @@ describe("WidgetTitleBar", () => {
     });
     sinon.assert.calledOnceWithExactly(
       dispatch,
-      sinon.match({
+      expect.objectContaining({
         type: "WIDGET_DRAG_END",
         floatingWidgetId: "w1",
         target: {
@@ -111,10 +111,10 @@ describe("WidgetTitleBar", () => {
     });
     sinon.assert.calledOnceWithExactly(
       dispatch,
-      sinon.match({
+      expect.objectContaining({
         type: "WIDGET_DRAG_END",
         floatingWidgetId: "w1",
-        target: sinon.match({
+        target: expect.objectContaining({
           tabIndex: 0,
           type: "tab",
           widgetId: "w2",
@@ -177,7 +177,7 @@ describe("WidgetTitleBar", () => {
     });
     sinon.assert.calledOnceWithExactly(
       dispatch,
-      sinon.match({
+      expect.objectContaining({
         type: "FLOATING_WIDGET_BRING_TO_FRONT",
         id: "w1",
       })
@@ -209,7 +209,7 @@ describe("useDrag", () => {
       spy.mockReset();
       fireEvent.mouseMove(document);
     });
-    sinon.assert.notCalled(spy);
+    expect(spy).not.toBeCalled();
   });
 
   it("should report drag action", () => {

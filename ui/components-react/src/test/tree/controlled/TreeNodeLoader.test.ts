@@ -145,7 +145,7 @@ describe("TreeNodeLoader", () => {
       // Node loader will invoke dataProvider in another microtask
       await Promise.resolve();
       await dataProvider.firstCall.returnValue.resolve([]);
-      expect(dataProvider).to.have.been.calledOnce;
+      expect(dataProvider).toHaveBeenCalledOnce();
     });
 
     it("unschedules node load after cancellation", async () => {
@@ -158,7 +158,7 @@ describe("TreeNodeLoader", () => {
         .loadNode(modelSource.getModel().getRootNode())
         .subscribe();
       await Promise.resolve();
-      expect(dataProvider).to.have.been.calledOnce;
+      expect(dataProvider).toHaveBeenCalledOnce();
       subscription.unsubscribe();
       // The first subscription no longer has any subscribers, so the initial load operation has been cancelled
 
@@ -181,7 +181,7 @@ describe("TreeNodeLoader", () => {
         .loadNode(modelSource.getModel().getRootNode())
         .subscribe();
       await Promise.resolve();
-      expect(dataProvider).to.have.been.calledOnce;
+      expect(dataProvider).toHaveBeenCalledOnce();
       subscription.unsubscribe();
 
       // resolve nodes promise
@@ -396,7 +396,7 @@ describe("PagedTreeNodeLoader", () => {
       // Node loader will invoke dataProvider in another microtask
       await Promise.resolve();
       await dataProvider.firstCall.returnValue.resolve([]);
-      expect(dataProvider).to.have.been.calledOnce;
+      expect(dataProvider).toHaveBeenCalledOnce();
     });
 
     it("unschedules node load after cancellation", async () => {
@@ -409,7 +409,7 @@ describe("PagedTreeNodeLoader", () => {
         .loadNode(modelSource.getModel().getRootNode(), 0)
         .subscribe();
       await Promise.resolve();
-      expect(dataProvider).to.have.been.calledOnce;
+      expect(dataProvider).toHaveBeenCalledOnce();
       subscription.unsubscribe();
       // The first subscription no longer has any subscribers, so the initial load operation has been cancelled
 
@@ -431,7 +431,7 @@ describe("PagedTreeNodeLoader", () => {
       nodeLoader.loadNode(modelSource.getModel().getRootNode(), 5).subscribe();
 
       await Promise.resolve();
-      expect(dataProvider).to.have.been.calledOnce;
+      expect(dataProvider).toHaveBeenCalledOnce();
 
       await dataProvider.firstCall.returnValue.resolve([]);
       expect(dataProvider).toHaveBeenCalledTimes(2);
@@ -449,7 +449,7 @@ describe("PagedTreeNodeLoader", () => {
         .loadNode(modelSource.getModel().getRootNode(), 0)
         .subscribe();
       await Promise.resolve();
-      expect(dataProvider).to.have.been.calledOnce;
+      expect(dataProvider).toHaveBeenCalledOnce();
       subscription.unsubscribe();
 
       // resolve nodes promise
@@ -548,7 +548,7 @@ describe("AbstractTreeNodeLoader", () => {
       nodeLoader.loadNode(modelSource.getModel().getRootNode(), 1).subscribe();
 
       await Promise.resolve();
-      expect(dataProvider).to.have.been.calledOnce;
+      expect(dataProvider).toHaveBeenCalledOnce();
 
       const hierarchy: LoadedNodeHierarchy = {
         parentId: undefined,
@@ -572,7 +572,7 @@ describe("AbstractTreeNodeLoader", () => {
         .subscribe();
 
       await Promise.resolve();
-      expect(dataProvider).to.have.been.calledOnce;
+      expect(dataProvider).toHaveBeenCalledOnce();
 
       // unsubscribe before completing promise
       subscription.unsubscribe();
@@ -706,7 +706,7 @@ describe("TreeDataSource", () => {
         const subscription = new TreeDataSource(dataProvider)
           .requestItems(undefined, 0, 1, true)
           .subscribe();
-        expect(dataProvider.getNodesCount).to.have.been.calledOnce;
+        expect(dataProvider.getNodesCount).toHaveBeenCalledOnce();
 
         // Simulating unsubscribing from TreeDataSource in between getNodesCount call and getNodes call
         subscription.unsubscribe();

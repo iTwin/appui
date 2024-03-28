@@ -86,7 +86,7 @@ describe("KeyboardShortcut", () => {
         item: testCommand,
       });
       const shortcut = InternalKeyboardShortcutManager.getShortcut("b");
-      expect(shortcut).to.not.be.undefined;
+      expect(shortcut).toBeTruthy();
       if (shortcut) {
         expect(shortcut.id).toEqual("b");
         expect(shortcut.item).toEqual(testCommand);
@@ -108,7 +108,7 @@ describe("KeyboardShortcut", () => {
         item: testCommand2,
       });
       const shortcut = InternalKeyboardShortcutManager.getShortcut("b");
-      expect(shortcut).to.not.be.undefined;
+      expect(shortcut).toBeTruthy();
       if (shortcut) {
         expect(shortcut.item).toEqual(testCommand2);
         const shortcuts =
@@ -130,12 +130,12 @@ describe("KeyboardShortcut", () => {
         ],
       });
       const shortcut = InternalKeyboardShortcutManager.getShortcut("d");
-      expect(shortcut).to.not.be.undefined;
+      expect(shortcut).toBeTruthy();
       if (shortcut) {
         expect(shortcut.id).toEqual("d");
         expect(shortcut.shortcutContainer.areKeyboardShortcutsAvailable()).to.be
           .true;
-        expect(shortcut.getShortcut("1")).to.not.be.undefined;
+        expect(shortcut.getShortcut("1")).toBeTruthy();
 
         const menuspy = vi.fn();
         const remove =
@@ -166,7 +166,7 @@ describe("KeyboardShortcut", () => {
       expect(keyMapKey).toEqual("Ctrl+Shift+Alt+A");
       const shortcut = InternalKeyboardShortcutManager.getShortcut(keyMapKey);
 
-      expect(shortcut).to.not.be.undefined;
+      expect(shortcut).toBeTruthy();
       if (shortcut) {
         expect(shortcut.isAltKeyRequired).toEqual(true);
         expect(shortcut.isCtrlKeyRequired).toEqual(true);
@@ -183,7 +183,7 @@ describe("KeyboardShortcut", () => {
         label: "Test",
       });
       const shortcut = InternalKeyboardShortcutManager.getShortcut("x");
-      expect(shortcut).to.not.be.undefined;
+      expect(shortcut).toBeTruthy();
       expect(shortcut!.isDisabled).toEqual(true);
       expect(shortcut!.isHidden).toEqual(true);
 
@@ -203,7 +203,7 @@ describe("KeyboardShortcut", () => {
         label: "Test",
       });
       const yShortcut = InternalKeyboardShortcutManager.getShortcut("y");
-      expect(yShortcut).to.not.be.undefined;
+      expect(yShortcut).toBeTruthy();
       expect(yShortcut!.isDisabled).toEqual(true);
       expect(yShortcut!.isHidden).toEqual(true);
     });
@@ -272,7 +272,7 @@ describe("KeyboardShortcut", () => {
       });
 
       const shortcut = InternalKeyboardShortcutManager.getShortcut("f");
-      expect(shortcut).to.not.be.undefined;
+      expect(shortcut).toBeTruthy();
 
       const processed = InternalKeyboardShortcutManager.processKey("f");
       expect(processed).toEqual(true);
@@ -324,15 +324,15 @@ describe("KeyboardShortcut", () => {
       });
 
       const shortcut = InternalKeyboardShortcutManager.getShortcut("r");
-      expect(shortcut).to.not.be.undefined;
+      expect(shortcut).toBeTruthy();
       expect(ConditionalBooleanValue.getValue(shortcut!.isDisabled)).to.be
         .false;
       const childShortcut = shortcut!.getShortcut("t");
-      expect(childShortcut).to.not.be.undefined;
+      expect(childShortcut).toBeTruthy();
       expect(ConditionalBooleanValue.getValue(childShortcut!.isDisabled)).to.be
         .false;
       const childShortcutZ = shortcut!.getShortcut("z");
-      expect(childShortcutZ).to.not.be.undefined;
+      expect(childShortcutZ).toBeTruthy();
       expect(ConditionalBooleanValue.getValue(childShortcutZ!.isDisabled)).to.be
         .false;
       expect(ConditionalBooleanValue.getValue(childShortcutZ!.isHidden)).to.be
@@ -380,8 +380,8 @@ describe("KeyboardShortcut", () => {
     );
 
     const shortcutA = InternalKeyboardShortcutManager.getShortcut("a");
-    expect(shortcutA).to.not.be.undefined;
+    expect(shortcutA).toBeTruthy();
     const shortcutR = InternalKeyboardShortcutManager.getShortcut("r");
-    expect(shortcutR).to.not.be.undefined;
+    expect(shortcutR).toBeTruthy();
   });
 });

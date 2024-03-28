@@ -18,9 +18,12 @@ import type { GridCategoryItem } from "../../../../../components-react/propertyg
 
 describe("GridCategory", () => {
   describe("GridCategory Mocked", () => {
-    let factoryStub: sinon.SinonStubbedInstance<MutableGridItemFactory>;
+    let factoryStub: MutableGridItemFactory;
     beforeEach(() => {
-      factoryStub = sinon.createStubInstance(MutableGridItemFactory);
+      factoryStub = {
+        createCategorizedProperty: vi.fn(),
+        createGridCategory: vi.fn(),
+      } as unknown as MutableGridItemFactory;
     });
 
     describe("Should correctly initialize grid category", () => {
@@ -106,7 +109,9 @@ describe("GridCategory", () => {
         );
         expect(factoryStub.createCategorizedProperty).toHaveBeenCalledTimes(0);
 
-        factoryStub.createGridCategory.args.forEach((args, index) => {
+        const createGridCategory = factoryStub.createGridCategory;
+        assert(vi.isMockFunction(createGridCategory));
+        createGridCategory.mock.calls.forEach((args, index) => {
           const [
             childCategory,
             recordsDict,
@@ -147,7 +152,9 @@ describe("GridCategory", () => {
           recordChildren.length
         );
 
-        factoryStub.createCategorizedProperty.args.forEach((args, index) => {
+        const createCategorizedProperty = factoryStub.createCategorizedProperty;
+        assert(vi.isMockFunction(createCategorizedProperty));
+        createCategorizedProperty.mock.calls.forEach((args, index) => {
           const [
             record,
             parentSelectionKey,

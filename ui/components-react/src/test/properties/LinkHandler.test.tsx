@@ -45,15 +45,13 @@ describe("LinkHandler", () => {
     });
 
     it("rendered anchor tag calls appropriate callback on click", () => {
-      onClickspy.mockReset();
-
       const anchor = render(<>{renderLinks("Example text", links)}</>);
 
-      expect(onClickSpy).to.have.not.been.called;
+      expect(onClickSpy).not.toBeCalled();
       fireEvent.click(
         anchor.container.getElementsByClassName("core-underlined-button")[0]
       );
-      expect(onClickSpy).to.have.been.calledOnce;
+      expect(onClickSpy).toHaveBeenCalledOnce();
     });
 
     it("rendered anchor tag container's onClick event will not trigger on anchor click", () => {
@@ -65,11 +63,11 @@ describe("LinkHandler", () => {
         </div>
       );
 
-      expect(parentOnClickSpy).to.have.not.been.called;
+      expect(parentOnClickSpy).not.toBeCalled();
       fireEvent.click(
         anchor.container.getElementsByClassName("core-underlined-button")[0]
       );
-      expect(parentOnClickSpy).to.have.not.been.called;
+      expect(parentOnClickSpy).not.toBeCalled();
     });
 
     it("returns text split up into anchor tags when text matcher is provided", () => {

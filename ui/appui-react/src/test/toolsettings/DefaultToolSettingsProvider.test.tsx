@@ -177,7 +177,7 @@ describe("DefaultToolUiSettingsProvider", () => {
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       "ToolUiProvider-TestFrontstage"
     );
-    expect(frontstageDef).to.not.be.undefined;
+    expect(frontstageDef).toBeTruthy();
     if (frontstageDef) {
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
@@ -191,7 +191,7 @@ describe("DefaultToolUiSettingsProvider", () => {
       expect(UiFramework.frontstages.activeToolId).toEqual(firstToolId);
 
       const toolInformation = UiFramework.frontstages.activeToolInformation;
-      expect(toolInformation).to.not.be.undefined;
+      expect(toolInformation).toBeTruthy();
 
       if (toolInformation) {
         const toolUiProvider = toolInformation.toolUiProvider;
@@ -204,7 +204,7 @@ describe("DefaultToolUiSettingsProvider", () => {
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       "ToolUiProvider-TestFrontstage"
     );
-    expect(frontstageDef).to.not.be.undefined;
+    expect(frontstageDef).toBeTruthy();
 
     if (frontstageDef) {
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
@@ -281,22 +281,22 @@ describe("DefaultToolUiSettingsProvider", () => {
       expect(UiFramework.frontstages.activeToolId).toEqual(testToolId);
 
       const toolInformation = UiFramework.frontstages.activeToolInformation;
-      expect(toolInformation).to.not.be.undefined;
+      expect(toolInformation).toBeTruthy();
 
       if (toolInformation) {
         const toolSettingsProvider =
           toolInformation.toolUiProvider as DefaultToolSettingsProvider;
-        expect(toolSettingsProvider).to.not.be.undefined;
+        expect(toolSettingsProvider).toBeTruthy();
 
         if (toolSettingsProvider) {
           const tsNode = toolSettingsProvider.toolSettingsNode;
-          expect(tsNode).to.not.be.undefined;
+          expect(tsNode).toBeTruthy();
         }
       }
 
       const toolSettingsNode =
         InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
-      expect(toolSettingsNode).to.not.be.undefined;
+      expect(toolSettingsNode).toBeTruthy();
 
       const renderedComponent = render(
         toolSettingsNode as React.ReactElement<any>
@@ -365,7 +365,7 @@ describe("DefaultToolUiSettingsProvider", () => {
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       "ToolUiProvider-TestFrontstage"
     );
-    expect(frontstageDef).to.not.be.undefined;
+    expect(frontstageDef).toBeTruthy();
 
     if (frontstageDef) {
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
@@ -419,14 +419,14 @@ describe("DefaultToolUiSettingsProvider", () => {
       expect(UiFramework.frontstages.activeToolId).toEqual(testToolId);
 
       const toolInformation = UiFramework.frontstages.activeToolInformation;
-      expect(toolInformation).to.not.be.undefined;
+      expect(toolInformation).toBeTruthy();
 
       if (toolInformation) {
         const toolUiProvider = toolInformation.toolUiProvider;
-        expect(toolUiProvider).to.not.be.undefined;
+        expect(toolUiProvider).toBeTruthy();
 
         if (toolUiProvider) {
-          expect(toolUiProvider.toolSettingsNode).to.not.be.undefined;
+          expect(toolUiProvider.toolSettingsNode).toBeTruthy();
           // simulate property update
 
           const newlengthValue: DialogItemValue = { value: 7.5 };
@@ -453,7 +453,7 @@ describe("DefaultToolUiSettingsProvider", () => {
 
       const toolSettingsNode =
         InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
-      expect(toolSettingsNode).to.not.be.undefined;
+      expect(toolSettingsNode).toBeTruthy();
 
       const renderedComponent = render(
         toolSettingsNode as React.ReactElement<any>

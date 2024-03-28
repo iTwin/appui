@@ -27,7 +27,7 @@ describe("MenuItem", () => {
     expect(menuItem.id).toEqual("test");
     expect(menuItem.label).toEqual("test label");
     expect(menuItem.iconSpec).toEqual("icon-placeholder");
-    expect(menuItem.actionItem).to.not.be.undefined;
+    expect(menuItem.actionItem).toBeTruthy();
     expect(menuItem.submenu.length).toEqual(0);
   });
 
@@ -105,7 +105,7 @@ describe("MenuItem", () => {
     expect(menuItem.id).toEqual("test");
     expect(menuItem.label).toEqual("test label");
     expect(menuItem.iconSpec).toEqual("icon-placeholder");
-    expect(menuItem.actionItem).to.not.be.undefined;
+    expect(menuItem.actionItem).toBeTruthy();
     expect(menuItem.submenu.length).toEqual(0);
   });
 

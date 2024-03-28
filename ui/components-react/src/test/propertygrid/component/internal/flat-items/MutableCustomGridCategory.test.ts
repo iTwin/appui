@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { MutableCustomGridCategory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableCustomGridCategory";
-import { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
+import type { MutableGridItemFactory } from "../../../../../components-react/propertygrid/internal/flat-items/MutableGridItemFactory";
 import type { PropertyCategory } from "../../../../../components-react/propertygrid/PropertyDataProvider";
 import { FlatGridTestUtils } from "./FlatGridTestUtils";
 
@@ -26,10 +26,10 @@ describe("MutableCustomGridCategory", () => {
     category,
   ]);
 
-  let factoryStub: sinon.SinonStubbedInstance<MutableGridItemFactory>;
+  let factoryStub: MutableGridItemFactory;
 
   beforeEach(() => {
-    factoryStub = sinon.createStubInstance(MutableGridItemFactory);
+    factoryStub = {} as MutableGridItemFactory;
   });
 
   describe("constructor", () => {

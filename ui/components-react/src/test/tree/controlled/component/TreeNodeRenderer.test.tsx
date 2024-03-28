@@ -42,7 +42,7 @@ describe("TreeNodeRenderer", () => {
     );
 
     const inputNode = container.querySelector("input");
-    expect(inputNode).to.not.be.undefined;
+    expect(inputNode).toBeTruthy();
   });
 
   it("renders tree node with icon", () => {
@@ -59,7 +59,7 @@ describe("TreeNodeRenderer", () => {
     );
 
     const inputNode = container.querySelector(".test-icon");
-    expect(inputNode).to.not.be.undefined;
+    expect(inputNode).toBeTruthy();
   });
 
   it("renders tree node without loaded icon", () => {

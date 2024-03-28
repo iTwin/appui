@@ -86,7 +86,6 @@ describe("<PopupButton />", () => {
       new KeyboardEvent("keydown", {
         bubbles: true,
         cancelable: true,
-        view: window,
         key: Key.ArrowDown,
       })
     );
@@ -110,7 +109,6 @@ describe("<PopupButton />", () => {
       new KeyboardEvent("keydown", {
         bubbles: true,
         cancelable: true,
-        view: window,
         key: " ",
       })
     );
@@ -134,7 +132,6 @@ describe("<PopupButton />", () => {
       new KeyboardEvent("keydown", {
         bubbles: true,
         cancelable: true,
-        view: window,
         key: Key.Enter,
       })
     );
@@ -157,7 +154,7 @@ describe("<PopupButton />", () => {
 
     await theUserTo.keyboard("{Escape}");
 
-    spyOnClose.calledOnce.should.true;
+    expect(spyOnClose).toHaveBeenCalledOnce();
   });
 
   it("closePopup() closes popup", async () => {
@@ -172,6 +169,6 @@ describe("<PopupButton />", () => {
 
     popupButtonRef.current?.closePopup();
 
-    await waitFor(() => spyOnClose.calledOnce.should.true);
+    await waitFor(() => expect(spyOnClose).toHaveBeenCalledOnce());
   });
 });

@@ -2,9 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
-import chai, { expect } from "chai";
-import chaiSubset from "chai-subset";
 import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
@@ -17,8 +14,6 @@ import type {
 import { buildPropertyFilter } from "../../components-react/filter-builder/FilterBuilderState";
 import TestUtils, { userEvent } from "../TestUtils";
 import type { PropertyFilter } from "../../components-react/filter-builder/Types";
-
-chai.use(chaiSubset);
 
 describe("PropertyFilterBuilder", () => {
   const property1: PropertyDescription = {

@@ -99,7 +99,7 @@ describe("FloatingWidget", () => {
       fireEvent.mouseMove(handle);
     });
     dispatch.calledOnceWithExactly(
-      sinon.match({
+      expect.objectContaining({
         type: "FLOATING_WIDGET_RESIZE",
         id: "w1",
       })

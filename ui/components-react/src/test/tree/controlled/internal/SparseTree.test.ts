@@ -451,7 +451,7 @@ describe("SparseTree", () => {
       expect(sparseTree.getChildren(rootNode.id)!.getLength()).to.be.eq(1);
       sparseTree.deleteSubtree(rootNode.id, false);
       expect(sparseTree.getChildren(rootNode.id)).to.be.undefined;
-      expect(sparseTree.getNode(rootNode.id)).to.not.be.undefined;
+      expect(sparseTree.getNode(rootNode.id)).toBeTruthy();
     });
   });
 });
@@ -506,7 +506,7 @@ describe("SparseArray", () => {
       sparseArray.set(testItems[0].index, testItems[0].value);
 
       const item = sparseArray.get(testItems[0].index);
-      expect(item).to.not.be.undefined;
+      expect(item).toBeTruthy();
     });
   });
 
@@ -665,7 +665,7 @@ describe("SparseArray", () => {
       testItems.forEach((item) => sparseArray.set(item.index, item.value));
       for (const [value, index] of sparseArray.iterateValues()) {
         const expectedItem = testItems.find((item) => item.index === index);
-        expect(expectedItem).to.not.be.undefined;
+        expect(expectedItem).toBeTruthy();
         expect(value).to.be.eq(expectedItem!.value);
       }
     });

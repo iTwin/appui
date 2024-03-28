@@ -135,7 +135,6 @@ describe("<TimeField />", () => {
         readOnly={false}
       />
     );
-    // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).toEqual(3);
@@ -189,7 +188,6 @@ describe("<TimeField />", () => {
         readOnly={false}
       />
     );
-    // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).toEqual(3);
@@ -229,7 +227,6 @@ describe("<TimeField />", () => {
         readOnly={false}
       />
     );
-    // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).toEqual(4);
@@ -271,7 +268,6 @@ describe("<TimeField />", () => {
         readOnly={false}
       />
     );
-    // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).toEqual(4);
@@ -387,7 +383,6 @@ describe("<TimeField />", () => {
         readOnly={false}
       />
     );
-    // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).toEqual(4);
@@ -407,7 +402,6 @@ describe("<TimeField />", () => {
         readOnly={false}
       />
     );
-    // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).toEqual(4);

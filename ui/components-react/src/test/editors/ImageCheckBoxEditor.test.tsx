@@ -8,12 +8,15 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { ImageCheckBoxEditor } from "../../components-react/editors/ImageCheckBoxEditor";
-import type { userEvent } from "../TestUtils";
+import { userEvent } from "../TestUtils";
 import TestUtils, { MineDataController } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 
 describe("<ImageCheckBoxEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(() => {
+    theUserTo = userEvent.setup();
+  });
 
   it("renders with no record", () => {
     render(<ImageCheckBoxEditor />);

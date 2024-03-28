@@ -141,7 +141,7 @@ describe("ToolUiProvider", () => {
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       "ToolUiProvider-TestFrontstage"
     );
-    expect(frontstageDef).to.not.be.undefined;
+    expect(frontstageDef).toBeTruthy();
 
     if (frontstageDef) {
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
@@ -151,14 +151,14 @@ describe("ToolUiProvider", () => {
       expect(UiFramework.frontstages.activeToolId).toEqual(testToolId);
 
       const toolInformation = UiFramework.frontstages.activeToolInformation;
-      expect(toolInformation).to.not.be.undefined;
+      expect(toolInformation).toBeTruthy();
 
       if (toolInformation) {
         const toolUiProvider = toolInformation.toolUiProvider;
-        expect(toolUiProvider).to.not.be.undefined;
+        expect(toolUiProvider).toBeTruthy();
 
         if (toolUiProvider) {
-          expect(toolUiProvider.toolSettingsNode).to.not.be.undefined;
+          expect(toolUiProvider.toolSettingsNode).toBeTruthy();
           // cover syncToolSettingsProperties
           const useLengthValue: DialogItemValue = { value: false };
           const syncItem: DialogPropertySyncItem = {
@@ -177,16 +177,16 @@ describe("ToolUiProvider", () => {
 
       const toolSettingsProvider =
         InternalFrontstageManager.activeToolSettingsProvider;
-      expect(toolSettingsProvider).to.not.be.undefined;
+      expect(toolSettingsProvider).toBeTruthy();
 
       const toolSettingsNode =
         InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
-      expect(toolSettingsNode).to.not.be.undefined;
+      expect(toolSettingsNode).toBeTruthy();
 
       const horizontalToolSettingsNode =
         InternalFrontstageManager.activeToolSettingsProvider
           ?.horizontalToolSettingNodes;
-      expect(horizontalToolSettingsNode).to.not.be.undefined;
+      expect(horizontalToolSettingsNode).toBeTruthy();
       expect(horizontalToolSettingsNode!.length).toEqual(5);
     }
   });

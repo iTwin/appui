@@ -49,8 +49,8 @@ describe("FavoritePropertiesRenderer", () => {
       const fakeRoot = vi.fn().mockReturnValue({ render: fakeRender });
       const propertyData = await dataProvider.getData();
       const div = renderer.renderFavorites(propertyData, undefined, fakeRoot);
-      expect(fakeRoot).to.have.been.calledWithExactly(div);
-      expect(fakeRender).to.have.been.calledOnce;
+      expect(fakeRoot).toHaveBeenCalledWith(div);
+      expect(fakeRender).toHaveBeenCalledOnce();
     });
   });
 

@@ -9,31 +9,33 @@ import {
 } from "../../components-react/common/DateUtils";
 
 describe("DateUtils", () => {
-  // Cannot test string values because of different locales
   it("toDateString", () => {
-    expect(toDateString(new Date(2021, 1, 1))).to.not.be.undefined;
-    expect(toDateString(new Date(2021, 1, 1), 12)).to.not.be.undefined;
+    expect(toDateString(new Date(2021, 1, 1))).toBeTruthy();
+    expect(toDateString(new Date(2021, 1, 1), 12)).toBeTruthy();
   });
+
   it("toTimeString", () => {
-    expect(toTimeString(new Date(2021, 1, 1))).to.not.be.undefined;
-    expect(toTimeString(new Date(2021, 1, 1), 12)).to.not.be.undefined;
+    expect(toTimeString(new Date(2021, 1, 1))).toBeTruthy();
+    expect(toTimeString(new Date(2021, 1, 1), 12)).toBeTruthy();
   });
-  it("toDateString", () => {
+
+  it("toDateString with options", () => {
     expect(
       toDateString(new Date("June 30, 2016, 00:00:00 GMT -0000"), 0, {
         locales: "en-US",
         options: { year: "numeric", month: "short", day: "numeric" },
       })
-    ).to.equal("Jun 30, 2016");
+    ).toEqual("Jun 30, 2016");
     // cannot test string value because of different time zones
     expect(
       toDateString(new Date("June 30, 2016, 00:00:00 GMT -0000"), undefined, {
         locales: "en-US",
         options: { year: "numeric", month: "short", day: "numeric" },
       })
-    ).to.not.be.undefined;
+    ).toBeTruthy();
   });
-  it("toTimeString", () => {
+  
+  it("toTimeString with options", () => {
     expect(
       toTimeString(new Date("June 30, 2016, 00:00:00 GMT -0000"), 0, {
         locales: "en-US",

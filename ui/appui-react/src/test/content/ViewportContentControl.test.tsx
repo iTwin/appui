@@ -131,11 +131,11 @@ describe("ViewportContentControl", () => {
       );
 
       const contentControl = UiFramework.content.getActiveContentControl();
-      expect(contentControl).to.not.be.undefined;
+      expect(contentControl).toBeTruthy();
 
       if (contentControl) {
         expect(contentControl.isViewport).toEqual(true);
-        expect(contentControl.viewport).to.not.be.undefined;
+        expect(contentControl.viewport).toBeTruthy();
         expect(contentControl.getType()).toEqual(
           ConfigurableUiControlType.Viewport
         );
@@ -161,7 +161,7 @@ describe("ViewportContentControl", () => {
       );
 
       const contentControl = UiFramework.content.getActiveContentControl();
-      expect(contentControl).to.not.be.undefined;
+      expect(contentControl).toBeTruthy();
 
       if (contentControl) {
         expect(contentControl.navigationAidControl).toEqual(
@@ -252,7 +252,7 @@ describe("ViewportContentControl", () => {
         "uia:singleView"
       );
       const contentControl = UiFramework.content.getActiveContentControl();
-      expect(contentControl).to.not.be.undefined;
+      expect(contentControl).toBeTruthy();
 
       const floatingControl = new TestFloatingContentControl();
 

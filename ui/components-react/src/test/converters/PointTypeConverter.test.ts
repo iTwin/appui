@@ -94,7 +94,7 @@ describe("Point2dTypeConverter", () => {
   describe("convertFromString", () => {
     it("returns correct object", () => {
       const point2d = converter.convertFromString("50, 100");
-      expect(point2d).to.not.be.undefined;
+      expect(point2d).toBeTruthy();
       expect(point2d!.x).to.equal(50);
       expect(point2d!.y).to.equal(100);
     });
@@ -212,7 +212,7 @@ describe("Point3dTypeConverter", () => {
       const point3d = converter.convertFromString(
         "50, 100, 150"
       ) as ConvertedPrimitives.Point3d;
-      expect(point3d).to.not.be.undefined;
+      expect(point3d).toBeTruthy();
       expect(point3d.x).to.equal(50);
       expect(point3d.y).to.equal(100);
       expect(point3d.z).to.equal(150);

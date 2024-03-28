@@ -145,7 +145,7 @@ describe("useTreeNodeLoader", () => {
       }
     );
 
-    expect(result.current).to.not.be.undefined;
+    expect(result.current).toBeTruthy();
   });
 
   it("returns same NodeLoader if data provider does not changes", () => {
@@ -220,7 +220,7 @@ describe("usePagedTreeNodeLoader", () => {
       }
     );
 
-    expect(result.current).to.not.be.undefined;
+    expect(result.current).toBeTruthy();
   });
 
   it("returns same PagedNodeLoader if dependencies do not changes", () => {
@@ -327,7 +327,7 @@ describe("useTreeModelSource", () => {
       { initialProps: { dataProvider: dataProviderMock } }
     );
 
-    expect(result.current).to.not.be.undefined;
+    expect(result.current).toBeTruthy();
   });
 });
 
@@ -365,7 +365,7 @@ describe("useTreeEventsHandler", () => {
         },
       }
     );
-    expect(result.current).to.not.be.undefined;
+    expect(result.current).toBeTruthy();
     const disposeSpy = vi.spyOn(result.current, "dispose");
     expect(disposeSpy).not.toBeCalled();
     unmount();

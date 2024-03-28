@@ -10,7 +10,7 @@ import { storageMock } from "../TestUtils";
 describe("LocalStateStorage", () => {
   it("default LocalStateStorage constructor executes successfully", () => {
     const initialLocalUiSettings = new LocalStateStorage();
-    expect(initialLocalUiSettings).to.not.be.undefined;
+    expect(initialLocalUiSettings).toBeTruthy();
   });
   describe("saveSetting", () => {
     const localUiSettings = new LocalStateStorage({

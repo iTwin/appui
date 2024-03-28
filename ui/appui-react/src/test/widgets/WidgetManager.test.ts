@@ -172,7 +172,7 @@ describe("WidgetManager", () => {
       StageUsage.General,
       StagePanelLocation.Bottom
     );
-    expect(widgetDefs).to.not.be.undefined;
+    expect(widgetDefs).toBeTruthy();
     if (widgetDefs) expect(widgetDefs.length).toEqual(1);
   });
 
@@ -193,7 +193,7 @@ describe("WidgetManager", () => {
       "TestUsage",
       StagePanelLocation.Bottom
     );
-    expect(widgetDefs).to.not.be.undefined;
+    expect(widgetDefs).toBeTruthy();
     if (widgetDefs) expect(widgetDefs.length).toEqual(1);
   });
 
@@ -216,7 +216,7 @@ describe("WidgetManager", () => {
       StagePanelLocation.Bottom,
       StagePanelSection.Start
     );
-    expect(widgetDefs).to.not.be.undefined;
+    expect(widgetDefs).toBeTruthy();
     if (widgetDefs) expect(widgetDefs.length).toEqual(1);
   });
 
@@ -241,7 +241,7 @@ describe("WidgetManager", () => {
       StageUsage.General,
       StagePanelLocation.Right
     );
-    expect(widgetDefs).to.not.be.undefined;
+    expect(widgetDefs).toBeTruthy();
     if (widgetDefs) expect(widgetDefs.length).toEqual(2);
 
     const zoneWidgetDefs = widgetManager.getWidgetDefs(
@@ -249,7 +249,7 @@ describe("WidgetManager", () => {
       StageUsage.General,
       StagePanelLocation.Bottom
     );
-    expect(zoneWidgetDefs).to.not.be.undefined;
+    expect(zoneWidgetDefs).toBeTruthy();
     if (zoneWidgetDefs) expect(zoneWidgetDefs.length).toEqual(1);
 
     UiItemsManager.unregister(testUiProvider.id);
@@ -265,7 +265,7 @@ describe("WidgetManager", () => {
       StageUsage.General,
       StagePanelLocation.Right
     );
-    expect(widgetDefs).to.not.be.undefined;
+    expect(widgetDefs).toBeTruthy();
     expect(widgetDefs?.length).toEqual(2);
     expect(widgetDefs?.[0].floatingContainerId).toEqual(
       "my-floating-container"

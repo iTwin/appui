@@ -111,7 +111,6 @@ describe("<DateField />", () => {
     const renderedComponent = render(
       <DateField initialDate={testDate} dateFormatter={new IntlFormatter()} />
     );
-    // renderedComponent.debug();
     const input = renderedComponent.container.querySelector("input");
     expect(input).not.to.be.null;
     expect(input!.disabled);
@@ -164,7 +163,6 @@ describe("<DateField />", () => {
     fireEvent.change(input!, { target: { value: "07-04-zzzz" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
     expect(spy).not.toBeCalled();
-    // renderedComponent.debug();
     expect(
       renderedComponent.container.querySelector(
         "input.components-date-has-error"

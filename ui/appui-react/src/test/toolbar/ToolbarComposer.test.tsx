@@ -158,7 +158,7 @@ describe("<ToolbarComposer  />", async () => {
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       "Test1"
     );
-    expect(frontstageDef).to.not.be.undefined;
+    expect(frontstageDef).toBeTruthy();
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
     await TestUtils.flushAsyncOperations();
   });

@@ -102,12 +102,12 @@ describe("InternalConfigurableUiManager", () => {
       ],
     };
     const contentGroup = new ContentGroup(contentGroupProps);
-    expect(contentGroup).to.not.be.undefined;
+    expect(contentGroup).toBeTruthy();
     // force controls to be creates
     const controls = contentGroup?.getContentControls();
-    expect(controls).to.not.be.undefined;
+    expect(controls).toBeTruthy();
     const control = contentGroup?.getContentControlById("test-content-control");
-    expect(control).to.not.be.undefined;
+    expect(control).toBeTruthy();
     expect(control?.applicationData.label).eql("Content 1a");
   });
 

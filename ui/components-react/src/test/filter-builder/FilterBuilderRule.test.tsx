@@ -188,7 +188,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
   describe("rule property", () => {
     it("renders with property renderer", () => {
-      const actions = new PropertyFilterBuilderActions(sinon.spy());
+      const actions = new PropertyFilterBuilderActions(vi.fn());
       const propertyRendererSpy = vi.fn();
       const { container } = renderWithContext(
         <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
@@ -207,7 +207,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     });
 
     it("opens property selector menu", () => {
-      const actions = new PropertyFilterBuilderActions(sinon.spy());
+      const actions = new PropertyFilterBuilderActions(vi.fn());
       const { container, queryByText } = renderWithContext(
         <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
         { actions, properties: [defaultProperty] }
@@ -224,7 +224,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     });
 
     it("does not open property selector menu when property selection is disabled", () => {
-      const actions = new PropertyFilterBuilderActions(sinon.spy());
+      const actions = new PropertyFilterBuilderActions(vi.fn());
       const { container, queryByText } = renderWithContext(
         <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
         { actions, properties: [defaultProperty] },
@@ -243,7 +243,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
   });
 
   it("dispatches property change when property is selected", () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const { container, getByText } = renderWithContext(
       <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
       { actions, properties: [defaultProperty] }
@@ -264,7 +264,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
   });
 
   it("dispatches property change with undefined property when selected property is not in properties list", () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const setRulePropertySpy = vi.spyOn(actions, "setRuleProperty");
     renderWithContext(
       <PropertyFilterBuilderRuleRenderer
@@ -302,7 +302,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
   });
 
   it("dispatches remove rule action", () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const { container } = renderWithContext(
       <PropertyFilterBuilderRuleRenderer {...defaultProps} />,
       { actions }
@@ -316,7 +316,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
   });
 
   it("dispatches operator change when operator is changed", () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const operatorRendererSpy = vi.fn();
     renderWithContext(
       <PropertyFilterBuilderRuleRenderer
@@ -333,8 +333,8 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     const setRuleOperatorSpy = vi.spyOn(actions, "setRuleOperator");
 
     expect(operatorRendererSpy).toHaveBeenCalledOnce();
-    const operatorRendererProps = operatorRendererSpy.firstCall
-      .args[0] as PropertyFilterBuilderRuleOperatorProps;
+    const operatorRendererProps = operatorRendererSpy.mock
+      .calls[0][0] as PropertyFilterBuilderRuleOperatorProps;
     const newOperator = "is-not-null";
     operatorRendererProps.onChange(newOperator);
 
@@ -345,7 +345,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
   });
 
   it("dispatches value change when value is changed", () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const valueRendererSpy = vi.fn();
     renderWithContext(
       <PropertyFilterBuilderRuleRenderer
@@ -362,8 +362,8 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     const setRuleValueSpy = vi.spyOn(actions, "setRuleValue");
 
     expect(valueRendererSpy).toHaveBeenCalledOnce();
-    const valueRendererProps = valueRendererSpy.firstCall
-      .args[0] as PropertyFilterBuilderRuleValueProps;
+    const valueRendererProps = valueRendererSpy.mock
+      .calls[0][0] as PropertyFilterBuilderRuleValueProps;
     const newValue: PropertyValue = {
       valueFormat: PropertyValueFormat.Primitive,
     };

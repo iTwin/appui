@@ -872,7 +872,7 @@ describe("TreeEventDispatcher", () => {
         dispatcher.onNodeClicked("B", {} as any);
 
         expect(treeEvents.onSelectionModified).not.toBeCalled();
-        expect(treeEvents.onSelectionReplaced).to.have.been.calledOnce;
+        expect(treeEvents.onSelectionReplaced).toHaveBeenCalledOnce();
         const changes = await extractSequence(
           toRxjsObservable(
             treeEvents.onSelectionReplaced.firstCall.args[0].replacements
@@ -976,7 +976,7 @@ describe("TreeEventDispatcher", () => {
 
         expect(treeEvents.onSelectionModified).not.toBeCalled();
         expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
-        expect(nodeLoader.loadNode).to.have.been.calledOnce;
+        expect(nodeLoader.loadNode).toHaveBeenCalledOnce();
         const changes = await extractSequence(
           toRxjsObservable(
             treeEvents.onSelectionReplaced.secondCall.args[0].replacements

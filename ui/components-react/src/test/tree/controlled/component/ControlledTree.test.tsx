@@ -148,7 +148,7 @@ describe("ControlledTree", () => {
     );
 
     const iconNode = container.querySelector(".test-icon");
-    expect(iconNode).to.not.be.undefined;
+    expect(iconNode).toBeTruthy();
   });
 
   it("renders highlighted node", () => {

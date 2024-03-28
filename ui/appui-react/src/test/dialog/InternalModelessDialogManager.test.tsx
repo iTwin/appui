@@ -223,7 +223,7 @@ describe("InternalModelessDialogManager", () => {
     const dialogId = "closeAll1";
     UiFramework.dialogs.modeless.open(<div />, dialogId);
     expect(UiFramework.dialogs.modeless.count).toEqual(1);
-    expect(UiFramework.dialogs.modeless.active).to.not.be.undefined;
+    expect(UiFramework.dialogs.modeless.active).toBeTruthy();
     InternalModelessDialogManager.closeAll();
     expect(UiFramework.dialogs.modeless.count).toEqual(0);
     expect(UiFramework.dialogs.modeless.active).to.be.undefined;

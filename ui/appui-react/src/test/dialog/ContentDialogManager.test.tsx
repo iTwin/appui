@@ -251,7 +251,7 @@ describe("ContentDialogManager", () => {
     const dialogId = "closeAll1";
     UiFramework.content.dialogs.open(<div />, dialogId);
     expect(UiFramework.content.dialogs.count).toEqual(1);
-    expect(UiFramework.content.dialogs.active).to.not.be.undefined;
+    expect(UiFramework.content.dialogs.active).toBeTruthy();
     InternalContentDialogManager.closeAll();
     expect(UiFramework.content.dialogs.count).toEqual(0);
     expect(UiFramework.content.dialogs.active).to.be.undefined;

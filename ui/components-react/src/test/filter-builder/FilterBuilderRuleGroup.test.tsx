@@ -91,7 +91,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
   });
 
   it("dispatches operator change event when operator is selected", async () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const { container, findByText } = renderWithContext(
       <PropertyFilterBuilderRuleGroupRenderer {...defaultProps} />,
       { actions }
@@ -120,7 +120,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
   });
 
   it("Toggles operator 'Or' to 'And'", async () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const props: PropertyFilterBuilderRuleGroupRendererProps = {
       group: { ...rootGroup, operator: "or" },
       path: [],
@@ -154,7 +154,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
   });
 
   it("'Or' Operator should not be clickable if toggle disabled", async () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const props: PropertyFilterBuilderRuleGroupRendererProps = {
       group: { ...rootGroup, operator: "or" },
       path: [],
@@ -180,7 +180,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
   });
 
   it("'And' Operator should not be clickable if toggled disabled", async () => {
-    const actions = new PropertyFilterBuilderActions(sinon.spy());
+    const actions = new PropertyFilterBuilderActions(vi.fn());
     const props: PropertyFilterBuilderRuleGroupRendererProps = {
       group: rootGroup,
       path: [],

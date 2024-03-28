@@ -71,7 +71,7 @@ describe("SectionOutline", () => {
     const element = container.getElementsByClassName(
       "nz-outline-sectionOutline"
     )[0];
-    expect(element).to.not.be.undefined;
+    expect(element).toBeTruthy();
 
     (element as HTMLElement).style.height.should.eq("40%");
   });

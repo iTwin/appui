@@ -23,8 +23,7 @@ export function renderWithContext(
 ): ReturnType<typeof render> {
   const builderContextValue: PropertyFilterBuilderContextProps = {
     actions:
-      builderContextProps.actions ??
-      new PropertyFilterBuilderActions(sinon.fake()),
+      builderContextProps.actions ?? new PropertyFilterBuilderActions(vi.fn()),
     properties: builderContextProps.properties ?? [],
     onRulePropertySelected: builderContextProps.onRulePropertySelected,
   };

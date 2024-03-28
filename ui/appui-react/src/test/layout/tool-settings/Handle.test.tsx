@@ -30,7 +30,7 @@ describe("DockedToolSettingsHandle", () => {
     fireEvent.mouseMove(document);
 
     dispatch.calledOnceWithExactly(
-      sinon.match({
+      expect.objectContaining({
         type: "TOOL_SETTINGS_DRAG_START",
       })
     ).should.true;

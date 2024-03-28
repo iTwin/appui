@@ -116,7 +116,7 @@ describe("UiItemsManager", () => {
       StageUsage.General
     );
     sinon.assert.match(items, [
-      sinon.match({
+      expect.objectContaining({
         id: "s1",
       }),
     ]);
@@ -139,10 +139,10 @@ describe("UiItemsManager", () => {
 
     const items = UiItemsManager.getBackstageItems();
     sinon.assert.match(items, [
-      sinon.match({
+      expect.objectContaining({
         id: "b1",
       }),
-      sinon.match({
+      expect.objectContaining({
         id: "b2",
       }),
     ]);
@@ -161,7 +161,7 @@ describe("UiItemsManager", () => {
       ToolbarOrientation.Horizontal
     );
     sinon.assert.match(items, [
-      sinon.match({
+      expect.objectContaining({
         id: "t1",
       }),
     ]);
@@ -179,7 +179,7 @@ describe("UiItemsManager", () => {
       StagePanelLocation.Left
     );
     sinon.assert.match(widgets, [
-      sinon.match({
+      expect.objectContaining({
         id: "w1",
       }),
     ]);
@@ -805,8 +805,8 @@ describe("UiItemsManager", () => {
           StagePanelLocation.Top
         );
         sinon.assert.match(widgets, [
-          sinon.match({ id: "w1" }),
-          sinon.match({ id: "w2" }),
+          expect.objectContaining({ id: "w1" }),
+          expect.objectContaining({ id: "w2" }),
         ]);
       }
       {

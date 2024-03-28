@@ -259,7 +259,7 @@ describe("Default ToolSettings", () => {
     const mockSelectTool = new MockSelectTool();
     expect(mockSelectTool.selectionOption).toEqual(SelectOptions.Method_Pick);
     const selectToolSettings = mockSelectTool.supplyToolSettingsProperties();
-    expect(selectToolSettings).to.not.be.undefined;
+    expect(selectToolSettings).toBeTruthy();
     if (selectToolSettings) {
       expect(selectToolSettings.length).toEqual(1);
 
@@ -306,7 +306,7 @@ describe("Default ToolSettings", () => {
     expect(mockPlaceLineTool.length).toEqual(1.0);
     expect(mockPlaceLineTool.useLength).toEqual(false);
     const lineToolSettings = mockPlaceLineTool.supplyToolSettingsProperties();
-    expect(lineToolSettings).to.not.be.undefined;
+    expect(lineToolSettings).toBeTruthy();
     if (lineToolSettings) {
       expect(lineToolSettings.length).toEqual(4);
 

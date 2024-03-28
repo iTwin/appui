@@ -68,12 +68,12 @@ describe("ContentControl", () => {
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       Frontstage1.stageId
     );
-    expect(frontstageDef).to.not.be.undefined;
+    expect(frontstageDef).toBeTruthy();
 
     if (frontstageDef) {
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
       const contentGroup = frontstageDef.contentGroup;
-      expect(contentGroup).to.not.be.undefined;
+      expect(contentGroup).toBeTruthy();
 
       if (contentGroup) {
         const contentSet = contentGroup.getContentNodes();
@@ -82,7 +82,7 @@ describe("ContentControl", () => {
         const contentControl = contentGroup.getControlFromElement(
           contentSet[1]
         );
-        expect(contentControl).to.not.be.undefined;
+        expect(contentControl).toBeTruthy();
 
         if (contentControl) {
           const activatedMethod = vi.spyOn(contentControl, "onActivated");
@@ -134,12 +134,12 @@ describe("ContentControl", () => {
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       Frontstage2.stageId
     );
-    expect(frontstageDef).to.not.be.undefined;
+    expect(frontstageDef).toBeTruthy();
 
     if (frontstageDef) {
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
       const contentGroup = frontstageDef.contentGroup;
-      expect(contentGroup).to.not.be.undefined;
+      expect(contentGroup).toBeTruthy();
 
       if (contentGroup) {
         const contentSet = contentGroup.getContentNodes();
@@ -148,7 +148,7 @@ describe("ContentControl", () => {
         const contentControl = contentGroup.getControlFromElement(
           contentSet[0]
         );
-        expect(contentControl).to.not.be.undefined;
+        expect(contentControl).toBeTruthy();
 
         if (contentControl) {
           const deactivatedMethod = vi.spyOn(contentControl, "onDeactivated");

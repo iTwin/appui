@@ -63,7 +63,7 @@ describe("<ColorPickerPopup/>", () => {
 
     sinon.assert.calledOnceWithExactly(
       spy,
-      sinon.match({ tbgr: ColorByName.red })
+      expect.objectContaining({ tbgr: ColorByName.red })
     );
   });
 
@@ -95,7 +95,7 @@ describe("<ColorPickerPopup/>", () => {
 
     sinon.assert.calledOnceWithExactly(
       spy,
-      sinon.match({ tbgr: ColorByName.green })
+      expect.objectContaining({ tbgr: ColorByName.green })
     );
   });
 
@@ -148,7 +148,7 @@ describe("<ColorPickerPopup/>", () => {
     fireEvent.click(pickerButton); /* close popup */
     sinon.assert.calledOnceWithExactly(
       spy,
-      sinon.match({ tbgr: ColorDef.green.tbgr })
+      expect.objectContaining({ tbgr: ColorDef.green.tbgr })
     );
   });
 

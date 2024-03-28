@@ -30,52 +30,40 @@ describe("PropertyGrid Commons", () => {
   });
 
   describe("handleLinkClick", () => {
+    const originalLocation = location;
     const locationMockRef: moq.IMock<Location> = moq.Mock.ofInstance(location);
-    let spy: sinon.SinonStub<
-      [
-        (string | URL | undefined)?,
-        (string | undefined)?,
-        (string | undefined)?,
-        (boolean | undefined)?
-      ],
-      Window | null
-    >;
-
     beforeEach(() => {
       location = locationMockRef.object;
     });
 
     afterEach(() => {
+      location = originalLocation;
       locationMockRef.reset();
     });
 
-    afterEach(() => {
-      spy.restore();
-    });
-
     it("opens new window if the link text was found without http schema", async () => {
-      spy = vi.spyOn(window, "open");
-      spy.returns(null);
+      const spy = vi.spyOn(window, "open");
+      spy.mockReturnValue(null);
 
       PropertyGridCommons.handleLinkClick("www.testLink.com");
       expect(spy).toHaveBeenCalledWith("http://www.testLink.com", "_blank");
     });
 
     it("opens new window if the link text was found in record with http schema", async () => {
-      spy = vi.spyOn(window, "open");
-      spy.returns(null);
+      const spy = vi.spyOn(window, "open");
+      spy.mockReturnValue(null);
 
       PropertyGridCommons.handleLinkClick("http://www.testLink.com");
       expect(spy).toHaveBeenCalledWith("http://www.testLink.com", "_blank");
     });
 
     it("does not open new window if there were no url links", async () => {
-      spy = vi.spyOn(window, "open");
-      spy.returns(null);
+      const spy = vi.spyOn(window, "open");
+      spy.mockReturnValue(null);
 
       PropertyGridCommons.handleLinkClick("not an url link");
       PropertyGridCommons.handleLinkClick("testEmail@mail.com");
-      sinon.assert.notCalled(spy);
+      expect(spy).not.toBeCalled();
     });
 
     it("sets location href value to value got in the text if it is an email link", async () => {
@@ -98,8 +86,8 @@ describe("PropertyGrid Commons", () => {
       const windowMock = moq.Mock.ofType<Window>();
       windowMock.setup((x) => x.focus());
 
-      spy = vi.spyOn(window, "open");
-      spy.returns(windowMock.object);
+      const spy = vi.spyOn(window, "open");
+      spy.mockReturnValue(windowMock.object);
 
       PropertyGridCommons.handleLinkClick("www.testLink.com");
 

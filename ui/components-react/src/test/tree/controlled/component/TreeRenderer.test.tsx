@@ -59,7 +59,7 @@ describe("TreeRenderer", () => {
   it("renders without nodes", () => {
     visibleNodesMock.setup((x) => x.getNumNodes()).mockReturnValue(() => 0);
     const renderNode = render(<TreeRenderer {...defaultProps} />);
-    expect(renderNode).to.not.be.undefined;
+    expect(renderNode).toBeTruthy();
   });
 
   it("renders with loaded node", () => {
@@ -355,7 +355,7 @@ describe("TreeRenderer", () => {
 
     const renderNode = render(<TreeRenderer {...defaultProps} />);
 
-    expect(renderNode).to.not.be.undefined;
+    expect(renderNode).toBeTruthy();
 
     const treeNode: HTMLElement =
       renderNode.container.querySelector(".core-tree-node")!;

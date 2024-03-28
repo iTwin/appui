@@ -86,6 +86,7 @@ describe("UrlPropertyValueRenderer", () => {
     });
 
     describe("onClick", () => {
+      const originalLocation = location;
       const locationMockRef: moq.IMock<Location> =
         moq.Mock.ofInstance(location);
 
@@ -94,6 +95,7 @@ describe("UrlPropertyValueRenderer", () => {
       });
 
       afterEach(() => {
+        location = originalLocation;
         locationMockRef.reset();
       });
 

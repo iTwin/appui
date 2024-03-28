@@ -15,7 +15,10 @@ describe("PropertyCategoryRendererManager", () => {
     renderer: string
   ): MutableGridCategory {
     const categoryItem = FlatGridTestUtils.createMockGridCategory(name);
-    sinon.replaceGetter(categoryItem, "derivedCategory", () => ({
+    Object.assign(categoryItem, {
+      derivedCategory: categoryItem.derivedCategory ?? {},
+    });
+    vi.spyOn(categoryItem, "derivedCategory", "get").mockImplementation(() => ({
       name,
       label: name,
       expand: false,

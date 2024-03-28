@@ -23,7 +23,7 @@ describe("UiStateEntry", () => {
       "Setting",
       getBoolean
     );
-    expect(uiSetting).to.not.be.undefined;
+    expect(uiSetting).toBeTruthy();
     expect(uiSetting.settingNamespace).toEqual("Namespace");
     expect(uiSetting.settingName).toEqual("Setting");
     expect(uiSetting.getValue).toEqual(getBoolean);

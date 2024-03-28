@@ -50,7 +50,6 @@ describe("<SpeedTimeline />", () => {
       <SpeedTimeline speed={3} onChange={onChange} />
     );
     expect(renderedComponent).not.to.be.undefined;
-    // renderedComponent.debug();
     expect(valueChanged).to.be.false;
     const sliderDiv = renderedComponent.getByRole("slider");
     expect(sliderDiv).not.to.be.undefined;

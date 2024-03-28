@@ -41,7 +41,7 @@ describe("ChildWindowManager", () => {
     expect(manager.close("bogus", false)).to.eql(false);
 
     expect(manager.findId(window)).to.be.eql("child");
-    expect(manager.find("child")).to.not.be.undefined;
+    expect(manager.find("child")).toBeTruthy();
     const def = new FrontstageDef();
     vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
     expect(manager.close("child", false)).to.true;
@@ -58,7 +58,7 @@ describe("ChildWindowManager", () => {
 
     vi.spyOn(manager, "openChildWindows").get(() => [childWindowInfo]);
     expect(manager.findId(window)).to.be.eql("child");
-    expect(manager.find("child")).to.not.be.undefined;
+    expect(manager.find("child")).toBeTruthy();
     const closeStub = vi.fn();
     vi.spyOn(window, "close").callsFake(closeStub);
     expect(manager.close("child")).to.eql(true);

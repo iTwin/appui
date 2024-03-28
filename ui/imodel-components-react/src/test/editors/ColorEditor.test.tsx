@@ -35,7 +35,6 @@ describe("<ColorEditor />", () => {
 
     const renderedComponent = render(<ColorEditor propertyRecord={record1} />);
     renderedComponent.rerender(<ColorEditor propertyRecord={record2} />);
-    // renderedComponent.debug();
   });
 
   it("button press should open popup and allow color selection", async () => {
@@ -57,7 +56,6 @@ describe("<ColorEditor />", () => {
     const pickerButton = renderedComponent.getByTestId(
       "components-colorpicker-button"
     );
-    // renderedComponent.debug();
     expect(pickerButton.tagName).toEqual("BUTTON");
     fireEvent.click(pickerButton);
 

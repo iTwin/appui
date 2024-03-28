@@ -287,7 +287,7 @@ describe("TreeModelMutator", () => {
         .verifiable(moq.Times.once());
       modelMutator.activateEditing(node.id, () => {});
       treeModelMock.verifyAll();
-      expect(node.editingInfo).to.not.be.undefined;
+      expect(node.editingInfo).toBeTruthy();
     });
 
     it("does not set editing info if node is not editable", () => {

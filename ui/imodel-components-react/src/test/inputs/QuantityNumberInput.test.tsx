@@ -128,7 +128,7 @@ describe("<QuantityNumberInput />", () => {
 
     fireEvent.click(incrementor!);
     expect(input.value).toEqual(`${incrementedLengthFeet}`);
-    expect(spy).to.have.been.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     expect(updatedValue).toEqual(incrementedLengthInMeters);
 
     fireEvent.click(decrementor!);
@@ -177,7 +177,7 @@ describe("<QuantityNumberInput />", () => {
     );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
-    expect(spy).to.have.been.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(5 * metersPerFoot);
   });
 
@@ -201,7 +201,7 @@ describe("<QuantityNumberInput />", () => {
     );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
-    expect(spy).to.have.been.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(0.25 * metersPerFoot);
   });
 
@@ -252,7 +252,7 @@ describe("<QuantityNumberInput />", () => {
     );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
-    expect(spy).to.have.been.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(Number.MAX_SAFE_INTEGER * metersPerFoot);
   });
 
@@ -303,7 +303,7 @@ describe("<QuantityNumberInput />", () => {
     );
     expect(decrementor).not.to.be.null;
     fireEvent.click(decrementor!);
-    expect(spy).to.have.been.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(Number.MIN_SAFE_INTEGER * metersPerFoot);
   });
 
@@ -333,7 +333,7 @@ describe("<QuantityNumberInput />", () => {
     );
     expect(incrementor).not.to.be.null;
     fireEvent.click(incrementor!);
-    expect(spy).to.have.been.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(snapLengthInFeet * metersPerFoot);
   });
 
@@ -441,12 +441,12 @@ describe("<QuantityNumberInput />", () => {
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     fireEvent.keyDown(input!, { key: Key.ArrowUp });
-    expect(spy).to.have.been.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(0.25 * metersPerFoot);
 
     spy.mockReset();
     fireEvent.keyDown(input!, { key: Key.ArrowDown });
-    expect(spy).to.have.been.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(0);
     spyKeyDown.calledTwice.should.true;
   });
@@ -470,7 +470,7 @@ describe("<QuantityNumberInput />", () => {
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "22.3" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
-    expect(spy).to.have.been.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(22.3 * metersPerFoot);
   });
 
@@ -493,7 +493,7 @@ describe("<QuantityNumberInput />", () => {
     expect(input).not.to.be.null;
     fireEvent.change(input!, { target: { value: "42in" } });
     fireEvent.keyDown(input!, { key: Key.Enter });
-    expect(spy).to.have.been.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(3.5 * metersPerFoot);
   });
 
@@ -520,8 +520,8 @@ describe("<QuantityNumberInput />", () => {
     fireEvent.change(input!, { target: { value: "22.3" } });
     input?.blur();
     expect(value).toEqual(22.3 * metersPerFoot);
-    expect(spyBlur).to.have.been.calledOnce;
-    expect(spy).to.have.been.calledOnce;
+    expect(spyBlur).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should reset value on ESC", () => {
@@ -586,7 +586,7 @@ describe("<QuantityNumberInput />", () => {
     fireEvent.change(input!, { target: { value: "abc" } });
     expect((input as HTMLInputElement).value).toEqual("abc");
     fireEvent.keyDown(input!, { key: Key.Enter });
-    expect(spy).to.have.not.been.called; // value was invalid so previous value restore and no callback
+    expect(spy).not.toBeCalled(); // value was invalid so previous value restore and no callback
     expect((input as HTMLInputElement).value).toEqual("3.2808");
   });
 
@@ -648,7 +648,7 @@ describe("<QuantityNumberInput />", () => {
       fireEvent.change(input!, { target: { value: "2" } });
       expect((input as HTMLInputElement).value).toEqual("2");
       fireEvent.keyDown(input!, { key: Key.Enter });
-      expect(spy).to.have.been.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
       expect((input as HTMLInputElement).value).toEqual("2.00");
     });
   });
@@ -712,7 +712,7 @@ describe("<QuantityNumberInput />", () => {
       fireEvent.change(input!, { target: { value: "2" } });
       expect((input as HTMLInputElement).value).toEqual("2");
       fireEvent.keyDown(input!, { key: Key.Enter });
-      expect(spy).to.have.been.calledOnce;
+      expect(spy).toHaveBeenCalledOnce();
       expect((input as HTMLInputElement).value.slice(0, 2)).toEqual("2.");
 
       await act(async () => {

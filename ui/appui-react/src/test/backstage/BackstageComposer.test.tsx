@@ -122,7 +122,7 @@ describe("BackstageComposer", () => {
 
     await theUserTo.click(screen.getByRole("presentation"));
 
-    expect(spy).to.have.been.calledOnce;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should render backstage separators", async () => {

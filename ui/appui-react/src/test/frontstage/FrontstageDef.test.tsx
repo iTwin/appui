@@ -347,7 +347,7 @@ describe("FrontstageDef", () => {
       const frontstageDef = new FrontstageDef();
       frontstageDef.restoreLayout();
       spy.calledOnceWithExactly(
-        sinon.match({
+        expect.objectContaining({
           frontstageDef,
         })
       ).should.true;
@@ -733,7 +733,7 @@ describe("FrontstageDef", () => {
         expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(
           true
         );
-        sinon.assert.notCalled(spy);
+        expect(spy).not.toBeCalled();
 
         frontstageDef.dispatch({
           type: "PANEL_SET_COLLAPSED",
@@ -741,7 +741,7 @@ describe("FrontstageDef", () => {
           collapsed: false,
         });
         expect(frontstageDef.nineZoneState?.panels.left.collapsed).to.be.false;
-        sinon.assert.notCalled(spy);
+        expect(spy).not.toBeCalled();
 
         frontstageDef.dispatch({
           type: "PANEL_SET_COLLAPSED",
@@ -751,7 +751,7 @@ describe("FrontstageDef", () => {
         expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(
           true
         );
-        sinon.assert.notCalled(spy);
+        expect(spy).not.toBeCalled();
       });
 
       sinon.assert.calledOnceWithExactly(spy, {

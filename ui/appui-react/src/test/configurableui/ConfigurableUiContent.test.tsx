@@ -60,7 +60,7 @@ describe("ConfigurableUiContent", () => {
     });
 
     expect(spy).toHaveBeenCalledWith(
-      sinon.match({
+      expect.objectContaining({
         oldPt: sinon.match.any,
         newPt: sinon.match.any,
         direction: sinon.match.any,

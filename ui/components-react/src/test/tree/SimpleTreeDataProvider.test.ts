@@ -73,7 +73,7 @@ describe("SimpleTreeDataProvider", () => {
       beforeEach(() => {
         const hierarchy = createHierarchy(3, 3);
         nodes = hierarchy.get(undefined)!;
-        expect(nodes).to.not.be.undefined;
+        expect(nodes).toBeTruthy();
         provider = new SimpleTreeDataProvider(hierarchy);
       });
 
@@ -119,10 +119,10 @@ describe("SimpleTreeDataProvider", () => {
       beforeEach(() => {
         const hierarchy = createHierarchy(1, 3);
         const rootNodes = hierarchy.get(undefined);
-        expect(rootNodes).to.not.be.undefined;
+        expect(rootNodes).toBeTruthy();
         rootNode = rootNodes![0];
         nodes = hierarchy.get(rootNode.id)!;
-        expect(nodes).to.not.be.undefined;
+        expect(nodes).toBeTruthy();
         provider = new SimpleTreeDataProvider(hierarchy);
       });
 

@@ -48,15 +48,13 @@ describe("useElementsScrollStorage", () => {
 
     let getterCalled = false;
     let setScroll: number = 0;
-    sinon
-      .stub(element, "scrollTop")
-      .get(() => {
-        getterCalled = true;
-        return 10;
-      })
-      .set((value: number) => {
-        setScroll = value;
-      });
+    vi.spyOn(element, "scrollTop", "get").mockImplementation(() => {
+      getterCalled = true;
+      return 10;
+    });
+    vi.spyOn(element, "scrollTop", "set").mockImplementation((value) => {
+      setScroll = value;
+    });
 
     ref.current!.persist();
     expect(getterCalled).toEqual(true);
@@ -75,15 +73,17 @@ describe("useElementsScrollStorage", () => {
 
     let getterCalled = false;
     let scrollValue: number | undefined;
-    sinon
-      .stub(HTMLElement.prototype, "scrollTop")
-      .get(() => {
+    vi.spyOn(HTMLElement.prototype, "scrollTop", "get").mockImplementation(
+      () => {
         getterCalled = true;
         return 10;
-      })
-      .set((value: number) => {
+      }
+    );
+    vi.spyOn(HTMLElement.prototype, "scrollTop", "set").mockImplementation(
+      (value) => {
         scrollValue = value;
-      });
+      }
+    );
 
     ref.current!.persist();
     expect(getterCalled).to.be.false;
@@ -102,15 +102,13 @@ describe("useElementsScrollStorage", () => {
 
     let getterCalled = false;
     let scrollValue: number | undefined;
-    sinon
-      .stub(element, "scrollTop")
-      .get(() => {
-        getterCalled = true;
-        return 10;
-      })
-      .set((value: number) => {
-        scrollValue = value;
-      });
+    vi.spyOn(element, "scrollTop", "get").mockImplementation(() => {
+      getterCalled = true;
+      return 10;
+    });
+    vi.spyOn(element, "scrollTop", "set").mockImplementation((value) => {
+      scrollValue = value;
+    });
 
     ref.current!.persist();
     expect(getterCalled).toEqual(true);

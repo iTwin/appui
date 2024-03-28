@@ -184,6 +184,6 @@ describe("AccuDrawInputField", () => {
     await waitFor(() => {
       expect((input as HTMLInputElement).value).toEqual("100'-0\"");
     });
-    sinon.assert.notCalled(spy);
+    expect(spy).not.toBeCalled();
   });
 });

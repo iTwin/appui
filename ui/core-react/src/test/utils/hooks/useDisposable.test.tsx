@@ -26,7 +26,7 @@ describe("useDisposable", () => {
         useDisposable(props.createDisposable),
       { initialProps: { createDisposable } }
     );
-    expect(result.current).to.not.be.undefined;
+    expect(result.current).toBeTruthy();
 
     unmount();
     expect(disposeSpy).toHaveBeenCalledOnce();
@@ -39,7 +39,7 @@ describe("useDisposable", () => {
         useDisposable(props.createDisposable),
       { initialProps: { createDisposable } }
     );
-    expect(result.current).to.not.be.undefined;
+    expect(result.current).toBeTruthy();
 
     const oldDisposable = result.current;
     const newDisposeSpy = vi.fn();
@@ -67,7 +67,7 @@ describe("useOptionalDisposable", () => {
         useOptionalDisposable(props.createDisposable),
       { initialProps: { createDisposable } }
     );
-    expect(result.current).to.not.be.undefined;
+    expect(result.current).toBeTruthy();
 
     unmount();
     expect(disposeSpy).toHaveBeenCalledOnce();
@@ -79,7 +79,7 @@ describe("useOptionalDisposable", () => {
         useOptionalDisposable(props.createDisposable),
       { initialProps: { createDisposable } }
     );
-    expect(result.current).to.not.be.undefined;
+    expect(result.current).toBeTruthy();
 
     const oldDisposable = result.current;
     const newDisposeSpy = vi.fn();

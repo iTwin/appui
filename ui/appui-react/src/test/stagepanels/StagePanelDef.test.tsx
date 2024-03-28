@@ -35,7 +35,7 @@ describe("StagePanelDef", () => {
 
     expect(panelDef.widgetDefs).to.have.lengthOf(1);
     expect(panelDef.widgetCount).toEqual(1);
-    expect(panelDef.getSingleWidgetDef()).to.not.be.undefined;
+    expect(panelDef.getSingleWidgetDef()).toBeTruthy();
   });
 
   it("should emit onPanelStateChangedEvent", () => {
@@ -44,7 +44,10 @@ describe("StagePanelDef", () => {
     const panelDef = new StagePanelDef();
     panelDef.handlePanelStateChanged(StagePanelState.Minimized);
     expect(spy).to.be.calledOnceWithExactly(
-      sinon.match({ panelDef, panelState: StagePanelState.Minimized })
+      expect.objectContaining({
+        panelDef,
+        panelState: StagePanelState.Minimized,
+      })
     );
   });
 
@@ -70,7 +73,7 @@ describe("StagePanelDef", () => {
     const panelDef = new StagePanelDef();
     panelDef.handleSizeChanged(200);
     expect(spy).to.be.calledOnceWithExactly(
-      sinon.match({ panelDef, size: 200 })
+      expect.objectContaining({ panelDef, size: 200 })
     );
   });
 
@@ -103,7 +106,7 @@ describe("StagePanelDef", () => {
     );
     panelDef.sizeSpec = 150;
     panelDef.sizeSpec.should.eq(200);
-    sinon.assert.notCalled(spy);
+    expect(spy).not.toBeCalled();
   });
 
   it("should collapse panel when panelState is Minimized", () => {

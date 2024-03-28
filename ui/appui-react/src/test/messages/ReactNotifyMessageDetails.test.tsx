@@ -20,7 +20,7 @@ describe("ReactNotifyMessageDetails", () => {
       OutputMessagePriority.Debug,
       reactMessage
     );
-    expect(details.messageDetails).to.not.be.undefined;
+    expect(details.messageDetails).toBeTruthy();
     expect(isReactMessage(details.briefMessage)).toEqual(true);
     expect(isReactNotifyMessageDetails(details)).toEqual(true);
   });

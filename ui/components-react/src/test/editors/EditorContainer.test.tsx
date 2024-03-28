@@ -55,7 +55,7 @@ describe("<EditorContainer />", () => {
       "{Enter}"
     );
 
-    sinon.assert.calledOnce(spyOnCommit);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("calls onCancel for Escape", async () => {
@@ -78,7 +78,7 @@ describe("<EditorContainer />", () => {
       "{Escape}"
     );
 
-    sinon.assert.calledOnce(spyOnCancel);
+    expect(spyOnCancel).toHaveBeenCalledOnce();
   });
 
   it("calls onCancel for Cancel button in popup", async () => {
@@ -101,7 +101,7 @@ describe("<EditorContainer />", () => {
     await theUserTo.click(screen.getByRole("button"));
     await theUserTo.click(screen.getByTestId("components-popup-cancel-button"));
 
-    sinon.assert.calledOnce(spyOnCancel);
+    expect(spyOnCancel).toHaveBeenCalledOnce();
   });
 
   it("calls onCommit for Tab", async () => {
@@ -126,7 +126,7 @@ describe("<EditorContainer />", () => {
       { skipAutoClose: true }
     );
 
-    sinon.assert.calledOnce(spyOnCommit);
+    expect(spyOnCommit).toHaveBeenCalledOnce();
   });
 
   it("stopPropagation of other input node events", () => {
@@ -158,11 +158,11 @@ describe("<EditorContainer />", () => {
     const testInput = screen.getByTestId("components-text-editor");
 
     fireEvent.blur(testInput);
-    expect(blurSpy).to.not.been.called;
+    expect(blurSpy).not.toBeCalled();
     fireEvent.contextMenu(testInput);
-    expect(contextSpy).to.not.been.called;
+    expect(contextSpy).not.toBeCalled();
     fireEvent.keyDown(testInput, { key: Key.ArrowLeft });
-    expect(keySpy).to.not.been.called;
+    expect(keySpy).not.toBeCalled();
 
     // Sanity: Validating that a similar control would indeed cause these to be triggered.
     const controlInput = screen.getByTestId("test-control-input");

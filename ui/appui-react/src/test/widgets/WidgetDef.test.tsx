@@ -123,7 +123,7 @@ describe("WidgetDef", () => {
     });
 
     widgetDef.reactNode = <div />;
-    expect(widgetDef.reactNode).to.not.be.undefined;
+    expect(widgetDef.reactNode).toBeTruthy();
   });
 
   describe("setWidgetState", () => {

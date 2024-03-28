@@ -79,7 +79,7 @@ describe("WidgetPanelGrip", () => {
     fireEvent.mouseDown(handle);
     fireEvent.mouseUp(handle);
     dispatch.calledOnceWithExactly(
-      sinon.match({
+      expect.objectContaining({
         type: "PANEL_TOGGLE_COLLAPSED",
         side: "left",
       })
@@ -113,7 +113,7 @@ describe("WidgetPanelGrip", () => {
     dispatch.toHaveBeenCalledOnce();
     sinon.assert.calledOnceWithExactly(
       dispatch,
-      sinon.match({
+      expect.objectContaining({
         type: "PANEL_SET_SIZE",
         side: "left",
         size: 220,

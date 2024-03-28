@@ -49,7 +49,7 @@ describe("QuantityInput", () => {
     fireEvent.change(input, { target: { value: "2.5" } });
     expect(spyOnChange).not.toBeCalled();
     fireEvent.keyDown(input, { key: Key.Enter });
-    expect(spyOnChange).to.have.been.calledOnce;
+    expect(spyOnChange).toHaveBeenCalledOnce();
   });
 
   const overrideLengthFormats = {

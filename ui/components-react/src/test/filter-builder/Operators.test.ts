@@ -2,15 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
-import chai, { expect } from "chai";
-import chaiSubset from "chai-subset";
 import {
   getPropertyFilterBuilderOperators,
   isUnaryPropertyFilterOperator,
 } from "../../components-react/filter-builder/Operators";
-
-chai.use(chaiSubset);
 
 describe("getPropertyFilterBuilderOperators", () => {
   it("returns operators by type", () => {

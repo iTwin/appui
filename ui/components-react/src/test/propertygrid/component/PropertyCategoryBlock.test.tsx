@@ -64,7 +64,8 @@ describe("PropertyCategoryBlock", () => {
     );
 
     await theUserTo.click(component.getByRole("button", { name: "Group 1" }));
-    sinon.assert.calledOnceWithExactly(spy, "Group_1");
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith("Group_1");
   });
 
   it('expands when "Enter" or "Space" key gets pressed', async () => {
@@ -80,7 +81,7 @@ describe("PropertyCategoryBlock", () => {
     await theUserTo.keyboard("{tab} ");
     expect(toggleSpy).toHaveBeenCalledOnce();
     expect(toggleSpy).toHaveBeenCalledWith("Group_1");
-    togglespy.mockReset();
+    toggleSpy.mockReset();
     await theUserTo.keyboard("{Enter}");
     expect(toggleSpy).toHaveBeenCalledOnce();
     expect(toggleSpy).toHaveBeenCalledWith("Group_1");

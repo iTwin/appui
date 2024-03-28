@@ -97,7 +97,7 @@ describe("<NineZone />", () => {
     );
     await flushAsyncOperations();
     spy.calledOnceWithExactly(
-      sinon.match({
+      expect.objectContaining({
         type: "RESIZE",
         size: {
           width: 10,

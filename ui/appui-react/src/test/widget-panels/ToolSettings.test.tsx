@@ -54,9 +54,9 @@ describe("WidgetPanelsToolSettings", () => {
       .get(() => undefined);
     const { container } = render(
       <NineZoneProvider
-        dispatch={sinon.spy()}
+        dispatch={vi.fn()}
         layout={createLayoutStore()}
-        measure={sinon.spy()}
+        measure={vi.fn()}
       >
         <WidgetPanelsToolSettings />
       </NineZoneProvider>
@@ -79,9 +79,9 @@ describe("WidgetPanelsToolSettings", () => {
     state = addDockedToolSettings(state, "ts");
     const sut = render(
       <NineZoneProvider
-        dispatch={sinon.spy()}
+        dispatch={vi.fn()}
         layout={createLayoutStore(state)}
-        measure={sinon.spy()}
+        measure={vi.fn()}
       >
         <WidgetPanelsToolSettings />
       </NineZoneProvider>
@@ -146,8 +146,8 @@ describe("ToolSettingsContent", () => {
   it("should not render if not in 'widget' mode", () => {
     const { container } = render(
       <NineZoneProvider
-        dispatch={sinon.spy()}
-        measure={sinon.spy()}
+        dispatch={vi.fn()}
+        measure={vi.fn()}
         layout={createLayoutStore()}
       >
         <ToolSettingsContent />

@@ -75,7 +75,7 @@ describe("usePanelsAutoCollapse", () => {
     const element = document.createElement("div");
     const spy = vi.spyOn(element, "removeEventListener");
     setRefValue(result.current, element);
-    sinon.assert.notCalled(spy);
+    expect(spy).not.toBeCalled();
 
     setRefValue(result.current, null);
     sinon.assert.calledTwice(spy);

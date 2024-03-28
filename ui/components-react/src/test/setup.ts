@@ -4,6 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import TestUtils from "./TestUtils";
 
+window.HTMLElement.prototype.scrollIntoView =
+  window.HTMLElement.prototype.scrollIntoView ?? (() => {});
+
 beforeEach(async () => {
   await TestUtils.initializeUiComponents();
 });
