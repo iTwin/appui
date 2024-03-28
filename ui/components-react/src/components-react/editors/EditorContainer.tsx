@@ -91,37 +91,52 @@ export interface TypeEditor {
  * EditorContainer React component used by the Tree and PropertyGrid for cell editing.
  * @public
  */
-export class EditorContainer extends React.PureComponent<EditorContainerProps> {
-  private _editorRef: TypeEditor | undefined;
-  private _propertyEditor: PropertyEditorBase | undefined;
+export function EditorContainer(props: EditorContainerProps) {
+  const {
+    ignoreEditorBlur,
+    title,
+    className,
+    style,
+    shouldCommitOnChange,
+    propertyRecord,
+    setFocus,
+    onCommit,
+    onCancel,
+  } = props;
 
-  private createEditor(): React.ReactNode {
-    const editorRef = (ref: TypeEditor | undefined) => (this._editorRef = ref);
+  let propertyEditor: PropertyEditorBase;
 
+  const editorRef = React.useRef<TypeEditor | null>(null);
+
+  const setEditorRef = (ref: TypeEditor | null) => (editorRef.current = ref);
+
+  const createEditor = (): React.ReactNode => {
     const editorProps: CloneProps = {
-      ref: editorRef,
-      onCommit: this._handleEditorCommit,
-      onCancel: this._handleEditorCancel,
-      onBlur: this._handleEditorBlur,
-      propertyRecord: this.props.propertyRecord,
-      setFocus: this.props.setFocus !== undefined ? this.props.setFocus : true,
-      className: this.props.className,
-      style: this.props.style,
-      shouldCommitOnChange: this.props.shouldCommitOnChange,
+      ref: setEditorRef,
+      onCommit: handleEditorCommit,
+      onCancel: handleCancel,
+      onBlur: handleEditorBlur,
+      setFocus: setFocus !== undefined ? setFocus : true,
+      className,
+      propertyRecord,
+      style,
+      shouldCommitOnChange,
     };
 
-    const propDescription = this.props.propertyRecord.property;
+    const propDescription = propertyRecord.property;
 
     const editorName =
       propDescription.editor !== undefined
         ? propDescription.editor.name
         : undefined;
-    this._propertyEditor = PropertyEditorManager.createEditor(
+
+    propertyEditor = PropertyEditorManager.createEditor(
       propDescription.typename,
       editorName,
       propDescription.dataController
     );
-    const editorNode: React.ReactNode = this._propertyEditor.reactNode;
+
+    const editorNode: React.ReactNode = propertyEditor.reactNode;
 
     let clonedNode: React.ReactNode = null;
     // istanbul ignore else
@@ -130,78 +145,104 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
     }
 
     return clonedNode;
-  }
+  };
 
-  private _handleEditorBlur = (_e: React.FocusEvent) => {
+  /** Event Handlers
+   * @internal
+   */
+  const handleCancel = () => onCancel();
+  const handleClick = (e: React.MouseEvent) => e.stopPropagation();
+  const handleContainerBlur = (e: React.FocusEvent) => e.stopPropagation();
+  const handleEditorCommit = (args: PropertyUpdatedArgs): void =>
+    void commit(args);
+
+  const handleContainerCommit = async (): Promise<void> => {
+    const newValue = editorRef && (await editorRef.current?.getPropertyValue());
     // istanbul ignore else
-    if (
-      !this.props.ignoreEditorBlur &&
-      this._propertyEditor &&
-      this._propertyEditor.containerHandlesBlur
-    )
-      void this._handleContainerCommit();
+    if (newValue !== undefined) {
+      void commit({
+        propertyRecord,
+        newValue,
+      });
+    }
   };
 
-  private _handleContainerBlur = (e: React.FocusEvent) => {
-    e.stopPropagation();
+  const onPressEscape = (): void => {
+    // istanbul ignore else
+    if (propertyEditor && propertyEditor.containerHandlesEscape) handleCancel();
   };
 
-  private _handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const onPressEnter = (e: React.KeyboardEvent): void => {
+    // istanbul ignore else
+    if (propertyEditor && propertyEditor.containerHandlesEnter) {
+      // istanbul ignore else
+      if (editorRef && editorRef.current?.hasFocus) e.stopPropagation();
+      void handleContainerCommit();
+    }
   };
 
-  private _handleKeyDown = (e: React.KeyboardEvent) => {
+  const onPressTab = (e: React.KeyboardEvent): void => {
+    // istanbul ignore else
+    if (propertyEditor && propertyEditor.containerHandlesTab) {
+      e.stopPropagation();
+      void handleContainerCommit();
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
       case Key.Escape.valueOf():
-        this.onPressEscape(e);
+        onPressEscape();
         break;
       case Key.Enter.valueOf():
-        this.onPressEnter(e);
+        onPressEnter(e);
         break;
       case Key.Tab.valueOf():
-        this.onPressTab(e);
+        onPressTab(e);
         break;
       default:
-        if (
-          this._propertyEditor &&
-          this._propertyEditor.containerStopsKeydownPropagation
-        )
+        if (propertyEditor && propertyEditor.containerStopsKeydownPropagation)
           e.stopPropagation();
     }
   };
 
-  private _handleRightClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleEditorBlur = () => {
+    // istanbul ignore else
+    if (
+      ignoreEditorBlur &&
+      propertyEditor &&
+      propertyEditor.containerHandlesBlur
+    )
+      void onPressEscape();
   };
 
-  private onPressEscape(_e: React.KeyboardEvent): void {
-    // istanbul ignore else
-    if (this._propertyEditor && this._propertyEditor.containerHandlesEscape) {
-      this._commitCancel();
-    }
-  }
+  const isNewValueValid = async (value: PropertyValue): Promise<boolean> => {
+    let isValid = true;
 
-  private onPressEnter(e: React.KeyboardEvent): void {
     // istanbul ignore else
-    if (this._propertyEditor && this._propertyEditor.containerHandlesEnter) {
-      // istanbul ignore else
-      if (this._editorRef && this._editorRef.hasFocus) e.stopPropagation();
-      void this._handleContainerCommit();
-    }
-  }
+    if (propertyEditor && propertyRecord) {
+      const validateResult = await propertyEditor.validateValue(
+        value,
+        propertyRecord
+      );
 
-  private onPressTab(e: React.KeyboardEvent): void {
-    // istanbul ignore else
-    if (this._propertyEditor && this._propertyEditor.containerHandlesTab) {
-      e.stopPropagation();
-      void this._handleContainerCommit();
+      if (validateResult.encounteredError) {
+        displayOutputMessage(validateResult.errorMessage);
+        isValid = false;
+      }
+    } else {
+      isValid = false;
     }
-  }
 
-  private displayOutputMessage(errorMessage: AsyncErrorMessage | undefined) {
+    return isValid;
+  };
+
+  const displayOutputMessage = (
+    errorMessage: AsyncErrorMessage | undefined
+  ) => {
     // istanbul ignore else
-    if (errorMessage && this._editorRef) {
-      const htmlElement = this._editorRef && this._editorRef.htmlElement;
+    if (errorMessage && editorRef) {
+      const htmlElement = editorRef && editorRef.current?.htmlElement;
       // istanbul ignore else
       if (htmlElement)
         UiAdmin.messagePresenter.displayInputFieldMessage(
@@ -218,91 +259,43 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
           errorMessage.messageType
         );
     }
-  }
-
-  private async isNewValueValid(value: PropertyValue): Promise<boolean> {
-    let isValid = true;
-
-    // istanbul ignore else
-    if (this._propertyEditor && this.props.propertyRecord) {
-      const validateResult = await this._propertyEditor.validateValue(
-        value,
-        this.props.propertyRecord
-      );
-
-      if (validateResult.encounteredError) {
-        this.displayOutputMessage(validateResult.errorMessage);
-        isValid = false;
-      }
-    } else {
-      isValid = false;
-    }
-
-    return isValid;
-  }
-
-  private _handleEditorCommit = (args: PropertyUpdatedArgs): void => {
-    void this._commit(args);
   };
 
-  private _handleContainerCommit = async (): Promise<void> => {
-    const newValue =
-      this._editorRef && (await this._editorRef.getPropertyValue());
-    // istanbul ignore else
-    if (newValue !== undefined) {
-      void this._commit({
-        propertyRecord: this.props.propertyRecord,
-        newValue,
-      });
-    }
-  };
-
-  private _commit = async (args: PropertyUpdatedArgs) => {
+  const commit = async (args: PropertyUpdatedArgs) => {
     const newValue = args.newValue;
-    const isValid = await this.isNewValueValid(newValue);
+    const isValid = await isNewValueValid(newValue);
     if (isValid) {
       let doCommit = true;
       // istanbul ignore else
-      if (this._propertyEditor && args.propertyRecord) {
-        const commitResult = await this._propertyEditor.commitValue(
+      if (propertyEditor && args.propertyRecord) {
+        const commitResult = await propertyEditor.commitValue(
           newValue,
           args.propertyRecord
         );
         if (commitResult.encounteredError) {
-          this.displayOutputMessage(commitResult.errorMessage);
+          displayOutputMessage(commitResult.errorMessage);
           doCommit = false;
         }
       }
 
       if (doCommit) {
-        this.props.onCommit(args);
+        onCommit(args);
       }
     }
   };
 
-  private _handleEditorCancel = () => {
-    this._commitCancel();
-  };
-
-  private _commitCancel = () => {
-    this.props.onCancel();
-  };
-
-  /** @internal */
-  public override render() {
-    return (
-      <span
-        className="components-editor-container"
-        onBlur={this._handleContainerBlur}
-        onKeyDown={this._handleKeyDown}
-        onClick={this._handleClick}
-        onContextMenu={this._handleRightClick}
-        title={this.props.title}
-        data-testid="editor-container"
-        role="presentation"
-      >
-        {this.createEditor()}
-      </span>
-    );
-  }
+  return (
+    <span
+      className="components-editor-container"
+      onBlur={handleContainerBlur}
+      onKeyDown={handleKeyDown}
+      onClick={handleClick}
+      onContextMenu={handleClick}
+      title={title}
+      data-testid="editor-container"
+      role="presentation"
+    >
+      {createEditor()}
+    </span>
+  );
 }
