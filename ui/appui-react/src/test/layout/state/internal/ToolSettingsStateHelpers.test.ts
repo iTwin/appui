@@ -27,19 +27,19 @@ describe("addDockedToolSettings", () => {
     let state = createNineZoneState();
     state = addTab(state, "ts");
     state = addDockedToolSettings(state, "ts");
-    (() => addDockedToolSettings(state, "ts")).should.throw();
+    expect(() => addDockedToolSettings(state, "ts")).toThrow();
   });
 
   it("should throw if tab doesn't exist", () => {
     const state = createNineZoneState();
-    handleMetaData(() => addDockedToolSettings(state, "ts")).should.throw();
+    expect(handleMetaData(() => addDockedToolSettings(state, "ts"))).toThrow();
   });
 
   it("should throw if tab is already in a widget", () => {
     let state = createNineZoneState();
     state = addTab(state, "ts");
     state = addPanelWidget(state, "left", "w1", ["ts"]);
-    handleMetaData(() => addDockedToolSettings(state, "ts")).should.throw();
+    expect(handleMetaData(() => addDockedToolSettings(state, "ts"))).toThrow();
   });
 });
 
@@ -57,17 +57,17 @@ describe("addWidgetToolSettings", () => {
     state = addTab(state, "ts");
     state = addPanelWidget(state, "left", "w1", ["ts"]);
     state = addWidgetToolSettings(state, "ts");
-    (() => addWidgetToolSettings(state, "ts")).should.throw();
+    expect(() => addWidgetToolSettings(state, "ts")).toThrow();
   });
 
   it("should throw if tab doesn't exist", () => {
     const state = createNineZoneState();
-    handleMetaData(() => addWidgetToolSettings(state, "ts")).should.throw();
+    expect(handleMetaData(() => addWidgetToolSettings(state, "ts"))).toThrow();
   });
 
   it("should throw if tab is not in a widget", () => {
     let state = createNineZoneState();
     state = addTab(state, "ts");
-    handleMetaData(() => addWidgetToolSettings(state, "ts")).should.throw();
+    expect(handleMetaData(() => addWidgetToolSettings(state, "ts"))).toThrow();
   });
 });

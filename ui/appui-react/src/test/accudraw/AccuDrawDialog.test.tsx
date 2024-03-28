@@ -51,8 +51,6 @@ describe("AccuDrawDialog", () => {
       new KeyboardEvent("keyup", { key: Key.Escape })
     );
     expect(spy).toHaveBeenCalledOnce();
-
-    (UiFramework.keyboardShortcuts.setFocusToHome as any).restore();
   });
 
   it("should call onClose on close", () => {

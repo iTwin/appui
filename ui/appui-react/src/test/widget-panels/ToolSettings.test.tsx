@@ -175,7 +175,7 @@ describe("ToolSettingsContent", () => {
     const component = render(
       <NineZoneProvider
         layout={layout}
-        dispatch={sinon.stub()}
+        dispatch={vi.fn()}
         measure={() => new Rectangle()}
       >
         <div className="nz-floating-toolsettings">

@@ -93,8 +93,8 @@ describe("insertPanelWidget", () => {
     state = addTabs(state, ["t1", "t2", "t3"]);
     state = insertPanelWidget(state, "left", "w1", ["t1"], 0);
     state = insertPanelWidget(state, "left", "w2", ["t2"], 1);
-    handleMetaData(() =>
-      insertPanelWidget(state, "left", "w3", ["t3"], 2)
-    ).should.throw();
+    expect(
+      handleMetaData(() => insertPanelWidget(state, "left", "w3", ["t3"], 2))
+    ).toThrow();
   });
 });

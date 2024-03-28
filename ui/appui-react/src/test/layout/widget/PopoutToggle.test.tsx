@@ -14,7 +14,7 @@ import { TestNineZoneProvider } from "../Providers";
 
 describe("PopoutToggle", () => {
   it("should dispatch PANEL_TOGGLE_PINNED", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -34,7 +34,7 @@ describe("PopoutToggle", () => {
     const button = component.getByTitle("Popout");
     fireEvent.click(button);
 
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "WIDGET_TAB_POPOUT",
       id: "t1",
     });

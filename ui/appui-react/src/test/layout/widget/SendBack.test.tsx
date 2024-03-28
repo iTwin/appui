@@ -34,7 +34,7 @@ describe("SendBack", () => {
   });
 
   it("should dispatch TOOL_SETTINGS_DOCK", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
@@ -52,7 +52,7 @@ describe("SendBack", () => {
     const button = component.getByTitle("Send back");
     fireEvent.click(button);
 
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "FLOATING_WIDGET_SEND_BACK",
       id: "w1",
     });

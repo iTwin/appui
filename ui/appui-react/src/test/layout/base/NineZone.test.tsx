@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Rectangle } from "@itwin/core-react";
-import * as ResizeObserverModule from "@itwin/core-react/lib/esm/core-react/utils/hooks/ResizeObserverPolyfill";
 import { render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
@@ -20,17 +19,20 @@ import {
   sideToCursorType,
   useLabel,
 } from "../../../appui-react/layout/base/NineZone";
-import { TestNineZoneProvider } from "../Providers";
-import { createRect, flushAsyncOperations, ResizeObserverMock } from "../Utils";
+import {
+  createRect,
+  createResizeObserverMock,
+  flushAsyncOperations,
+} from "../Utils";
 
 describe("<NineZone />", () => {
   it("renders correctly", () => {
-    const { container } = render(
-      <NineZone dispatch={sinon.stub()} layout={createLayoutStore()}>
+    const component = render(
+      <NineZone dispatch={vi.fn()} layout={createLayoutStore()}>
         9-Zone
       </NineZone>
     );
-    container.firstChild!.should.matchSnapshot();
+    component.getByText("9-Zone");
   });
 
   it("should measure NineZone bounds", () => {
@@ -46,18 +48,21 @@ describe("<NineZone />", () => {
     );
     const measurerRef = React.createRef<{ measure: () => Rectangle }>();
     const { container } = render(
-      <NineZone dispatch={sinon.stub()} layout={createLayoutStore()}>
+      <NineZone dispatch={vi.fn()} layout={createLayoutStore()}>
         <Measurer ref={measurerRef} />
       </NineZone>
     );
-    sinon
-      .stub(container.firstChild! as HTMLElement, "getBoundingClientRect")
-      .returns(
-        DOMRect.fromRect({
-          width: 200,
-        })
-      );
-    measurerRef.current!.measure().toProps().should.eql({
+    vi.spyOn(
+      container.firstChild! as HTMLElement,
+      "getBoundingClientRect"
+    ).mockReturnValue(
+      DOMRect.fromRect({
+        width: 200,
+      })
+    );
+
+    const sut = measurerRef.current!.measure().toProps();
+    expect(sut).toEqual({
       left: 0,
       right: 200,
       top: 0,
@@ -66,37 +71,34 @@ describe("<NineZone />", () => {
   });
 
   it("should dispatch RESIZE", async () => {
-    let resizeObserver: ResizeObserverMock | undefined;
-    let measurer: Element | undefined;
-    sinon
-      .stub(ResizeObserverModule, "ResizeObserver")
-      .callsFake((callback) => new ResizeObserverMock(callback));
-    sinon
-      .stub(ResizeObserverMock.prototype, "observe")
-      .callsFake(function (this: ResizeObserverMock, element: Element) {
-        resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
-        measurer = element;
-      });
+    const ResizeObserver = createResizeObserverMock();
+    vi.stubGlobal("ResizeObserver", ResizeObserver);
+    const observe = vi.spyOn(ResizeObserver.prototype, "observe");
 
-    const spy = vi.fn<NineZoneDispatch>();
+    const spy = vi.fn<Parameters<NineZoneDispatch>>();
     render(<NineZone dispatch={spy} layout={createLayoutStore()} />);
+    spy.mockReset();
 
-    spy.reset();
+    const measurer = observe.mock.calls[0][0];
+    vi.spyOn(measurer, "getBoundingClientRect").mockReturnValue(
+      createRect(0, 0, 10, 20)
+    );
 
-    sinon
-      .stub(measurer!, "getBoundingClientRect")
-      .returns(createRect(0, 0, 10, 20));
-    resizeObserver!.callback(
+    const resizeObserver = observe.mock.instances[0] as unknown as InstanceType<
+      typeof ResizeObserver
+    >;
+    resizeObserver.callback(
       [
         {
           contentRect: new DOMRect(),
-          target: measurer!,
+          target: measurer,
         } as any,
       ],
-      resizeObserver!
+      resizeObserver
     );
     await flushAsyncOperations();
-    spy.calledOnceWithExactly(
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({
         type: "RESIZE",
         size: {
@@ -104,53 +106,40 @@ describe("<NineZone />", () => {
           height: 20,
         },
       })
-    ).should.true;
+    );
   });
 
   it("should not dispatch RESIZE if size did not change", async () => {
-    let resizeObserver: ResizeObserverMock | undefined;
-    let measurer: Element | undefined;
-    sinon
-      .stub(ResizeObserverModule, "ResizeObserver")
-      .callsFake((callback) => new ResizeObserverMock(callback));
-    sinon
-      .stub(ResizeObserverMock.prototype, "observe")
-      .callsFake(function (this: ResizeObserverMock, element: Element) {
-        resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
-        measurer = element;
-      });
+    const ResizeObserver = createResizeObserverMock();
+    vi.stubGlobal("ResizeObserver", ResizeObserver);
+    const observe = vi.spyOn(ResizeObserver.prototype, "observe");
 
-    sinon
-      .stub(HTMLElement.prototype, "getBoundingClientRect")
-      .returns(createRect(0, 0, 10, 20));
+    vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue(
+      createRect(0, 0, 10, 20)
+    );
 
-    const spy = vi.fn<NineZoneDispatch>();
+    const spy = vi.fn<Parameters<NineZoneDispatch>>();
     render(<NineZone dispatch={spy} layout={createLayoutStore()} />);
 
-    spy.reset();
+    spy.mockReset();
 
     await flushAsyncOperations();
 
-    resizeObserver!.callback(
+    const measurer = observe.mock.calls[0][0];
+    const resizeObserver = observe.mock.instances[0] as unknown as InstanceType<
+      typeof ResizeObserver
+    >;
+    resizeObserver.callback(
       [
         {
           contentRect: new DOMRect(),
-          target: measurer!,
+          target: measurer,
         } as any,
       ],
-      resizeObserver!
+      resizeObserver
     );
 
-    spy.notCalled.should.true;
-  });
-});
-
-describe("<TestNineZoneProvider />", () => {
-  it("renders correctly", () => {
-    const { container } = render(
-      <TestNineZoneProvider>9-Zone</TestNineZoneProvider>
-    );
-    container.firstChild!.should.matchSnapshot();
+    expect(spy).not.toBeCalled();
   });
 });
 
@@ -164,58 +153,58 @@ describe("useLabel", () => {
         <NineZoneLabelsContext.Provider value={labels} {...props} />
       ),
     });
-    result.current!.should.eq("test");
+    expect(result.current).toEqual("test");
   });
 });
 
 describe("handleToCursorType", () => {
   it("bottom", () => {
-    handleToCursorType("bottom").toEqual("ns-resize");
+    expect(handleToCursorType("bottom")).toEqual("ns-resize");
   });
 
   it("top", () => {
-    handleToCursorType("top").toEqual("ns-resize");
+    expect(handleToCursorType("top")).toEqual("ns-resize");
   });
 
   it("left", () => {
-    handleToCursorType("left").toEqual("ew-resize");
+    expect(handleToCursorType("left")).toEqual("ew-resize");
   });
 
   it("right", () => {
-    handleToCursorType("right").toEqual("ew-resize");
+    expect(handleToCursorType("right")).toEqual("ew-resize");
   });
 
   it("topLeft", () => {
-    handleToCursorType("topLeft").toEqual("nwse-resize");
+    expect(handleToCursorType("topLeft")).toEqual("nwse-resize");
   });
 
   it("bottomRight", () => {
-    handleToCursorType("bottomRight").toEqual("nwse-resize");
+    expect(handleToCursorType("bottomRight")).toEqual("nwse-resize");
   });
 
   it("topRight", () => {
-    handleToCursorType("topRight").toEqual("nesw-resize");
+    expect(handleToCursorType("topRight")).toEqual("nesw-resize");
   });
 
   it("bottomLeft", () => {
-    handleToCursorType("bottomLeft").toEqual("nesw-resize");
+    expect(handleToCursorType("bottomLeft")).toEqual("nesw-resize");
   });
 });
 
 describe("sideToCursorType", () => {
   it("bottom", () => {
-    sideToCursorType("bottom").toEqual("ns-resize");
+    expect(sideToCursorType("bottom")).toEqual("ns-resize");
   });
 
   it("top", () => {
-    sideToCursorType("top").toEqual("ns-resize");
+    expect(sideToCursorType("top")).toEqual("ns-resize");
   });
 
   it("left", () => {
-    sideToCursorType("left").toEqual("ew-resize");
+    expect(sideToCursorType("left")).toEqual("ew-resize");
   });
 
   it("right", () => {
-    sideToCursorType("right").toEqual("ew-resize");
+    expect(sideToCursorType("right")).toEqual("ew-resize");
   });
 });

@@ -87,7 +87,7 @@ describe("WidgetPanelProvider", () => {
   });
 
   it("should dispatch PANEL_INITIALIZE", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);

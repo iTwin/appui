@@ -32,7 +32,7 @@ describe("WidgetContentRenderer", () => {
       wrapper,
     });
 
-    sinon.assert.callCount(spy, 1);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should remove added content node", () => {
@@ -48,7 +48,7 @@ describe("WidgetContentRenderer", () => {
     renderTo.appendChild(document.createElement("div"));
     unmount();
 
-    sinon.assert.callCount(spy, 1);
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should not render when tab is unloaded", async () => {

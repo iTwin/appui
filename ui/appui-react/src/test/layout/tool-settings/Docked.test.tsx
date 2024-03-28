@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import * as ResizeObserverModule from "@itwin/core-react/lib/esm/core-react/utils/hooks/ResizeObserverPolyfill";
 import { act, fireEvent, queryByText, render } from "@testing-library/react";
 import {
   DockedToolSettings,
@@ -13,7 +12,7 @@ import {
 } from "../../../appui-react/layout/tool-settings/Docked";
 import { DockedToolSetting } from "../../../appui-react/layout/tool-settings/Setting";
 import { DragManagerProvider, TestNineZoneProvider } from "../Providers";
-import { flushAsyncOperations, ResizeObserverMock } from "../Utils";
+import { createResizeObserverMock, flushAsyncOperations } from "../Utils";
 
 describe("DockedToolSettings", () => {
   it("should render w/o entries", () => {
@@ -46,16 +45,16 @@ describe("DockedToolSettings", () => {
   });
 
   it("should render overflow button", () => {
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .callsFake(function (this: HTMLElement) {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function (this: HTMLElement) {
         if (this.classList.contains("nz-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
         } else if (this.classList.contains("nz-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
-      });
+      }
+    );
     const sut = render(
       <DockedToolSettings>
         <DockedToolSetting>Entry 1</DockedToolSetting>
@@ -72,16 +71,16 @@ describe("DockedToolSettings", () => {
   });
 
   it("should render overflown entries", () => {
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .callsFake(function (this: HTMLElement) {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function (this: HTMLElement) {
         if (this.classList.contains("nz-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
         } else if (this.classList.contains("nz-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
-      });
+      }
+    );
     const sut = render(
       <DockedToolSettings>
         <DockedToolSetting>Entry 1</DockedToolSetting>
@@ -104,16 +103,16 @@ describe("DockedToolSettings", () => {
   });
 
   it("should render panel container", () => {
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .callsFake(function (this: HTMLElement) {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function (this: HTMLElement) {
         if (this.classList.contains("nz-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
         } else if (this.classList.contains("nz-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
-      });
+      }
+    );
     const sut = render(
       <DockedToolSettings
         panelContainer={(props) => <div>Overflow:{props.children}</div>}
@@ -138,16 +137,16 @@ describe("DockedToolSettings", () => {
   });
 
   it("should close overflow panel on outside click", () => {
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .callsFake(function (this: HTMLElement) {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function (this: HTMLElement) {
         if (this.classList.contains("nz-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
         } else if (this.classList.contains("nz-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
-      });
+      }
+    );
     const sut = render(
       <DockedToolSettings>
         <DockedToolSetting>Entry 1</DockedToolSetting>
@@ -165,9 +164,9 @@ describe("DockedToolSettings", () => {
       );
     });
 
-    document
-      .getElementsByClassName("nz-toolSettings-panel")
-      .length.should.eq(1);
+    expect(
+      document.getElementsByClassName("nz-toolSettings-panel")
+    ).toHaveLength(1);
 
     act(() => {
       fireEvent.pointerDown(document);
@@ -179,30 +178,30 @@ describe("DockedToolSettings", () => {
 
   it("should recalculate overflow on resize", async () => {
     let width = 100;
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .callsFake(function (this: HTMLElement) {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function (this: HTMLElement) {
         if (this.classList.contains("nz-toolSettings-docked")) {
           return DOMRect.fromRect({ width });
         } else if (this.classList.contains("nz-toolSettings-setting")) {
           return DOMRect.fromRect({ width: 50 });
         }
         return new DOMRect();
-      });
+      }
+    );
 
-    let resizeObserver: ResizeObserverMock | undefined;
+    const ResizeObserver = createResizeObserverMock();
+    let resizeObserver: InstanceType<typeof ResizeObserver> | undefined;
     let target: Element | undefined;
-    sinon
-      .stub(ResizeObserverModule, "ResizeObserver")
-      .callsFake((callback) => new ResizeObserverMock(callback));
-    sinon
-      .stub(ResizeObserverMock.prototype, "observe")
-      .callsFake(function (this: ResizeObserverMock, element: Element) {
-        if (element.classList.contains("nz-toolSettings-docked")) {
-          resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
-          target = element;
-        }
-      });
+    vi.stubGlobal("ResizeObserver", ResizeObserver);
+    vi.spyOn(ResizeObserver.prototype, "observe").mockImplementation(function (
+      this: InstanceType<typeof ResizeObserver>,
+      element: Element
+    ) {
+      if (element.classList.contains("nz-toolSettings-docked")) {
+        resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
+        target = element;
+      }
+    });
 
     const sut = render(
       <DockedToolSettings>
@@ -227,7 +226,7 @@ describe("DockedToolSettings", () => {
             target: target!,
           } as any,
         ],
-        resizeObserver!
+        resizeObserver as ResizeObserver
       );
     });
 
@@ -239,34 +238,34 @@ describe("DockedToolSettings", () => {
 
   it("should recalculate overflow on entry resize", async () => {
     let width = 50;
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .callsFake(function (this: HTMLElement) {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function (this: HTMLElement) {
         if (this.classList.contains("nz-toolSettings-docked")) {
           return DOMRect.fromRect({ width: 100 });
         } else if (this.classList.contains("nz-toolSettings-setting")) {
           return DOMRect.fromRect({ width });
         }
         return new DOMRect();
-      });
+      }
+    );
 
-    let resizeObserver: ResizeObserverMock | undefined;
+    const ResizeObserver = createResizeObserverMock();
+    let resizeObserver: InstanceType<typeof ResizeObserver> | undefined;
     let target: Element | undefined;
-    sinon
-      .stub(ResizeObserverModule, "ResizeObserver")
-      .callsFake((callback) => new ResizeObserverMock(callback));
-    sinon
-      .stub(ResizeObserverMock.prototype, "observe")
-      .callsFake(function (this: ResizeObserverMock, element: Element) {
-        if (
-          element instanceof HTMLElement &&
-          element.classList.contains("nz-toolSettings-setting") &&
-          queryByText(element, "Entry 1")
-        ) {
-          resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
-          target = element;
-        }
-      });
+    vi.stubGlobal("ResizeObserver", ResizeObserver);
+    vi.spyOn(ResizeObserver.prototype, "observe").mockImplementation(function (
+      this: InstanceType<typeof ResizeObserver>,
+      element: Element
+    ) {
+      if (
+        element instanceof HTMLElement &&
+        element.classList.contains("nz-toolSettings-setting") &&
+        queryByText(element, "Entry 1")
+      ) {
+        resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
+        target = element;
+      }
+    });
 
     const sut = render(
       <DockedToolSettings>
@@ -291,7 +290,7 @@ describe("DockedToolSettings", () => {
             target: target!,
           } as any,
         ],
-        resizeObserver!
+        resizeObserver as ResizeObserver
       );
     });
 
@@ -313,7 +312,7 @@ describe("getOverflown", () => {
       ],
       50
     );
-    overflown.should.eql(["2", "3"]);
+    expect(overflown).toEqual(["2", "3"]);
   });
 
   it("should not overflow active item", () => {
@@ -327,18 +326,18 @@ describe("getOverflown", () => {
       50,
       1
     );
-    overflown.should.eql(["1", "3"]);
+    expect(overflown).toEqual(["1", "3"]);
   });
 });
 
 describe("onOverflowLabelAndEditorResize", () => {
   it("should not throw", () => {
-    (() => onOverflowLabelAndEditorResize()).should.not.throw();
+    expect(() => onOverflowLabelAndEditorResize()).not.toThrow();
   });
 });
 
 describe("eqlOverflown", () => {
   it("should return false if entries are not equal", () => {
-    eqlOverflown(["a", "b"], ["a", "c"]).should.false;
+    expect(eqlOverflown(["a", "b"], ["a", "c"])).toEqual(false);
   });
 });

@@ -37,10 +37,7 @@ describe("useResizeObserver", () => {
   stubRaf();
 
   it("should observe instance", async () => {
-    const spy = vi.spyOn(
-      ResizeObserverModule.ResizeObserver.prototype,
-      "observe"
-    );
+    const spy = vi.spyOn(ResizeObserver.prototype, "observe");
     const { result } = renderHook(() => useResizeObserver());
     const element = document.createElement("div");
     act(() => {
@@ -51,10 +48,7 @@ describe("useResizeObserver", () => {
   });
 
   it("should unobserve instance", async () => {
-    const spy = vi.spyOn(
-      ResizeObserverModule.ResizeObserver.prototype,
-      "unobserve"
-    );
+    const spy = vi.spyOn(ResizeObserver.prototype, "unobserve");
     const { result } = renderHook(() => useResizeObserver());
     const element = document.createElement("div");
     act(() => {
@@ -68,7 +62,7 @@ describe("useResizeObserver", () => {
   });
 
   it("should call onResize", async () => {
-    const resizeObserverSpy = vi.spyOn(ResizeObserverModule, "ResizeObserver");
+    const resizeObserverSpy = vi.spyOn(window, "ResizeObserver");
     const spy = vi.fn();
     const { result } = renderHook(() => useResizeObserver(spy));
     const element = document.createElement("div");
@@ -96,7 +90,7 @@ describe("useResizeObserver", () => {
   });
 
   it("should call onResize (height)", async () => {
-    const resizeObserverSpy = vi.spyOn(ResizeObserverModule, "ResizeObserver");
+    const resizeObserverSpy = vi.spyOn(window, "ResizeObserver");
     const spy = vi.fn();
     const { result } = renderHook(() => useResizeObserver(spy));
     const element = document.createElement("div");
@@ -124,7 +118,7 @@ describe("useResizeObserver", () => {
   });
 
   it("should call onResize (width and height)", async () => {
-    const resizeObserverSpy = vi.spyOn(ResizeObserverModule, "ResizeObserver");
+    const resizeObserverSpy = vi.spyOn(window, "ResizeObserver");
     const spy = vi.fn();
     const { result } = renderHook(() => useResizeObserver(spy));
     const element = document.createElement("div");
@@ -238,7 +232,7 @@ describe("useLayoutResizeObserver", () => {
   });
 
   it("ElementResizeObserver - should call onResize (width and height)", async () => {
-    const resizeObserverSpy = vi.spyOn(ResizeObserverModule, "ResizeObserver");
+    const resizeObserverSpy = vi.spyOn(window, "ResizeObserver");
     boundingClientRect = size_100_50;
 
     const wrapper = render(<ElementResizeObserverTester />);
@@ -268,7 +262,7 @@ describe("useLayoutResizeObserver", () => {
   });
 
   it("ResizableContainerObserver - should call onResize (width and height)", async () => {
-    const resizeObserverSpy = vi.spyOn(ResizeObserverModule, "ResizeObserver");
+    const resizeObserverSpy = vi.spyOn(window, "ResizeObserver");
     boundingClientRect = size_100_50;
 
     const wrapper = render(<ResizableContainerObserverTester />);
@@ -303,7 +297,7 @@ describe("useLayoutResizeObserver", () => {
   });
 
   it("ResizableContainerObserver - should call onResize (width and height)", async () => {
-    const resizeObserverSpy = vi.spyOn(ResizeObserverModule, "ResizeObserver");
+    const resizeObserverSpy = vi.spyOn(window, "ResizeObserver");
     boundingClientRect = size_100_50;
     let currentWidth = 0;
     let currentHeight = 0;

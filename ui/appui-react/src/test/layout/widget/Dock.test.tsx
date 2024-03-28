@@ -13,7 +13,7 @@ import { Dock } from "../../../appui-react/layout/widget/Dock";
 
 describe("Dock", () => {
   it("should dispatch TOOL_SETTINGS_DOCK", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const component = render(
       <NineZoneDispatchContext.Provider value={dispatch}>
         <NineZoneLabelsContext.Provider
@@ -26,7 +26,7 @@ describe("Dock", () => {
     const button = component.getByTitle("Dock");
     fireEvent.click(button);
 
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "TOOL_SETTINGS_DOCK",
     });
   });

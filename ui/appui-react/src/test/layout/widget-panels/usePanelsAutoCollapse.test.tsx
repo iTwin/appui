@@ -13,7 +13,7 @@ import { usePanelsAutoCollapse } from "../../../appui-react/layout/widget-panels
 
 describe("usePanelsAutoCollapse", () => {
   it("should collapse unpinned panels", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = updatePanelState(state, "right", (draft) => {
       draft.pinned = false;
@@ -38,7 +38,7 @@ describe("usePanelsAutoCollapse", () => {
   });
 
   it("should auto collapse unpinned panels", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = updatePanelState(state, "left", (draft) => {
       draft.pinned = false;

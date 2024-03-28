@@ -54,7 +54,9 @@ describe("MenuTab", () => {
         <Wrapper defaultState={state} widgetId="w1" tabId="t1" {...props} />
       ),
     });
-    container.getElementsByClassName("nz-widget-menuTab").length.should.eq(1);
+    expect(container.getElementsByClassName("nz-widget-menuTab")).toHaveLength(
+      1
+    );
   });
 
   it("should render with badge and icon", async () => {
@@ -99,7 +101,7 @@ describe("MenuTab", () => {
       fireEvent.mouseDown(tab);
       fireEvent.mouseMove(document, { clientX: 10, clientY: 10 });
     });
-    await waitFor(() => sinon.assert.calledOnce(close));
+    await waitFor(() => expect(close).toHaveBeenCalledOnce());
     close.mockReset();
 
     // On click
@@ -107,7 +109,7 @@ describe("MenuTab", () => {
       fireEvent.mouseDown(tab);
       fireEvent.mouseUp(document);
     });
-    await waitFor(() => sinon.assert.calledOnce(close));
+    await waitFor(() => expect(close).toHaveBeenCalledOnce());
     close.mockReset();
 
     // On double click
@@ -117,6 +119,6 @@ describe("MenuTab", () => {
       fireEvent.mouseDown(tab);
       fireEvent.mouseUp(document);
     });
-    await waitFor(() => sinon.assert.calledOnce(close));
+    await waitFor(() => expect(close).toHaveBeenCalledOnce());
   });
 });

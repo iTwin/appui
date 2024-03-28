@@ -62,7 +62,7 @@ describe("QuantityFormatSettingsPage", () => {
 
     fireEvent.click(comboBox);
     fireEvent.click(within(menu()).getByText("presentationUnitSystem.Metric"));
-    sinon.assert.callCount(spy, 1);
+    expect(spy).toHaveBeenCalledOnce();
 
     fireEvent.click(comboBox);
     fireEvent.click(

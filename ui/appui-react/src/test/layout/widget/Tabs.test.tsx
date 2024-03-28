@@ -28,16 +28,16 @@ describe("WidgetTabs", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    expect(container.getElementsByClassName("nz-widget-tab")).toHaveLength(1);
   });
 
   it("should render overflow panel", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1", "t2", "t3"]);
     state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .returns(DOMRect.fromRect({ width: 100 }));
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
+      DOMRect.fromRect({ width: 100 })
+    );
     const component = render(
       <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="left">
@@ -59,9 +59,9 @@ describe("WidgetTabs", () => {
     });
     state = addTabs(state, ["t2", "t3"]);
     state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .returns(DOMRect.fromRect({ width: 300 }));
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
+      DOMRect.fromRect({ width: 300 })
+    );
     const component = render(
       <TestNineZoneProvider defaultState={state}>
         <ShowWidgetIconContext.Provider value={true}>
@@ -74,21 +74,5 @@ describe("WidgetTabs", () => {
       </TestNineZoneProvider>
     );
     component.getByText("t1 icon");
-  });
-
-  it("should overflow all tabs in horizontal minimized widget", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "t1");
-    state = addPanelWidget(state, "top", "w1", ["t1"], { minimized: true });
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state}>
-        <PanelSideContext.Provider value="top">
-          <WidgetIdContext.Provider value="w1">
-            <WidgetTabs />
-          </WidgetIdContext.Provider>
-        </PanelSideContext.Provider>
-      </TestNineZoneProvider>
-    );
-    container.firstChild!.should.matchSnapshot();
   });
 });

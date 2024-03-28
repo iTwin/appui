@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
-import type { BackstageProps } from "../../../appui-react/layout/backstage/Backstage";
 import { Backstage } from "../../../appui-react/layout/backstage/Backstage";
 import { selectorMatches, userEvent } from "../Utils";
 import { SafeAreaInsets } from "../../../appui-react";
@@ -62,22 +61,22 @@ describe("<Backstage />", () => {
   });
 
   it("should add event listener", () => {
-    const addEventListenerSpy = vi.spyOn(document, "addEventListener");
+    const spy = vi.spyOn(document, "addEventListener");
 
     render(<Backstage />);
-    addEventListenerexpect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should remove event listener", () => {
-    const removeEventListenerSpy = vi.spyOn(document, "removeEventListener");
+    const spy = vi.spyOn(document, "removeEventListener");
     const { unmount } = render(<Backstage />);
     unmount();
 
-    removeEventListenerexpect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should handle overlay click events", async () => {
-    const spy = vi.fn<Required<BackstageProps>["onClose"]>();
+    const spy = vi.fn();
     render(<Backstage onClose={spy} />);
 
     await theUserTo.click(screen.getByRole("presentation"));
@@ -85,7 +84,7 @@ describe("<Backstage />", () => {
   });
 
   it("should handle escape key down close event", async () => {
-    const spy = vi.fn<Required<BackstageProps>["onClose"]>();
+    const spy = vi.fn();
     render(<Backstage isOpen onClose={spy} />);
 
     await theUserTo.keyboard("[Escape]");
@@ -93,7 +92,7 @@ describe("<Backstage />", () => {
   });
 
   it("should handle other key down close event", async () => {
-    const spy = vi.fn<Required<BackstageProps>["onClose"]>();
+    const spy = vi.fn();
     render(<Backstage isOpen onClose={spy} />);
 
     await theUserTo.keyboard("[Enter]abcd");

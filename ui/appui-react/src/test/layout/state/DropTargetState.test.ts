@@ -10,26 +10,30 @@ import {
 
 describe("isWidgetDragDropTargetState", () => {
   it("returns `true`", () => {
-    isWidgetDragDropTargetState({ type: "tab", tabIndex: 0, widgetId: "w1" })
-      .should.true;
+    expect(
+      isWidgetDragDropTargetState({ type: "tab", tabIndex: 0, widgetId: "w1" })
+    ).toEqual(true);
   });
 
   it("returns `false`", () => {
-    isWidgetDragDropTargetState({
-      type: "floatingWidget",
-      newFloatingWidgetId: "",
-      size: { height: 0, width: 0 },
-    }).should.false;
+    expect(
+      isWidgetDragDropTargetState({
+        type: "floatingWidget",
+        newFloatingWidgetId: "",
+        size: { height: 0, width: 0 },
+      })
+    ).toEqual(false);
   });
 });
 
 describe("isTabDragDropTargetState", () => {
   it("returns `true`", () => {
-    isTabDragDropTargetState({ type: "tab", tabIndex: 0, widgetId: "w1" })
-      .should.true;
+    expect(
+      isTabDragDropTargetState({ type: "tab", tabIndex: 0, widgetId: "w1" })
+    ).toEqual(true);
   });
 
   it("returns `false`", () => {
-    isTabDragDropTargetState({ type: "window" }).should.false;
+    expect(isTabDragDropTargetState({ type: "window" })).toEqual(false);
   });
 });

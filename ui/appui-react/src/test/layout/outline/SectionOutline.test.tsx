@@ -33,9 +33,9 @@ describe("SectionOutline", () => {
     const { container } = render(<SectionOutline sectionIndex={0} />, {
       wrapper,
     });
-    container
-      .getElementsByClassName("nz-outline-sectionOutline")
-      .length.should.eq(1);
+    expect(
+      container.getElementsByClassName("nz-outline-sectionOutline")
+    ).toHaveLength(1);
   });
 
   it("should render visible", () => {
@@ -73,6 +73,6 @@ describe("SectionOutline", () => {
     )[0];
     expect(element).toBeTruthy();
 
-    (element as HTMLElement).style.height.should.eq("40%");
+    expect((element as HTMLElement).style.height).toEqual("40%");
   });
 });

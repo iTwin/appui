@@ -14,15 +14,6 @@ import { useActiveSendBackWidgetIdStore } from "../../appui-react/layout/widget/
 
 export { userEvent };
 
-before(() => {
-  window.requestAnimationFrame = (cb: FrameRequestCallback) => {
-    return window.setTimeout(cb, 1);
-  };
-  window.cancelAnimationFrame = (handle: number) => {
-    window.clearTimeout(handle);
-  };
-});
-
 const initialSendBackState = useActiveSendBackWidgetIdStore.getState();
 const initialContainersState = useContainersStore.getState();
 beforeEach(() => {
@@ -45,14 +36,19 @@ export const createRect = (
   });
 
 /** @internal */
-export class ResizeObserverMock implements ResizeObserver {
-  public constructor(public readonly callback: ResizeObserverCallback) {}
+export function createResizeObserverMock() {
+  const callbacks: ResizeObserverCallback[] = [];
+  return class ResizeObserverMock implements ResizeObserver {
+    public constructor(public readonly callback: ResizeObserverCallback) {
+      callbacks.push(callback);
+    }
 
-  public observe(_: Element): void {}
+    public observe(_: Element): void {}
 
-  public unobserve(_: Element): void {}
+    public unobserve(_: Element): void {}
 
-  public disconnect(): void {}
+    public disconnect(): void {}
+  };
 }
 
 /** Waits until all async operations finish */

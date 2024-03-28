@@ -35,7 +35,7 @@ describe("WidgetPanelExpanders", () => {
 
 describe("WidgetPanelExpander", () => {
   it("should dispatch `PANEL_SET_COLLAPSED`", async () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const { container } = render(
       <TestNineZoneProvider dispatch={dispatch}>
         <WidgetPanelExpander side="left" />
@@ -56,7 +56,7 @@ describe("WidgetPanelExpander", () => {
   });
 
   it("should not dispatch `PANEL_SET_COLLAPSED` if mouse moves out", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const { container } = render(
       <TestNineZoneProvider dispatch={dispatch}>
         <WidgetPanelExpander side="left" />
@@ -72,7 +72,7 @@ describe("WidgetPanelExpander", () => {
   });
 
   it("should reset timer if mouse moves", async () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const { container } = render(
       <TestNineZoneProvider dispatch={dispatch}>
         <WidgetPanelExpander side="left" />
@@ -97,7 +97,7 @@ describe("WidgetPanelExpander", () => {
   });
 
   it("should not reset timer if mouse move threshold is not exceeded", async () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const { container } = render(
       <TestNineZoneProvider dispatch={dispatch}>
         <WidgetPanelExpander side="left" />

@@ -53,7 +53,7 @@ describe("AccuDrawFieldContainer", () => {
     opts.accuDraw = new FrameworkAccuDraw();
     await NoRenderApp.startup(opts);
     const accuDraw = new FrameworkAccuDraw();
-    vi.spyOn(IModelApp, "accuDraw").get(() => accuDraw);
+    vi.spyOn(IModelApp, "accuDraw", "get").mockImplementation(() => accuDraw);
   });
 
   afterEach(async () => {

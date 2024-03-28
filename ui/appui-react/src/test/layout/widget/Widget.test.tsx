@@ -16,7 +16,7 @@ import { TestNineZoneProvider } from "../Providers";
 
 describe("Widget", () => {
   it("should dispatch FLOATING_WIDGET_BRING_TO_FRONT", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);

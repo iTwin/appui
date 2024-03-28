@@ -61,7 +61,7 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          newState.widgets.w1.tabs.should.eql(["t1", "fwt1", "t2", "t3"]);
+          expect(newState.widgets.w1.tabs).toEqual(["t1", "fwt1", "t2", "t3"]);
           newState.widgets.w1.activeTabId.should.eql("fwt1");
         });
       });
@@ -88,7 +88,7 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          newState.panels.left.widgets.should.eql(["w1", "newId", "w2"]);
+          expect(newState.panels.left.widgets).toEqual(["w1", "newId", "w2"]);
           newState.widgets.newId.activeTabId.should.eql("fwt1");
         });
       });
@@ -113,7 +113,7 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          newState.widgets.w2.tabs.should.eql(["t2", "fwt1"]);
+          expect(newState.widgets.w2.tabs).toEqual(["t2", "fwt1"]);
           newState.widgets.w2.activeTabId.should.eql("fwt1");
         });
 
@@ -159,7 +159,7 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          newState.panels.left.widgets.should.eql(["leftStart"]);
+          expect(newState.panels.left.widgets).toEqual(["leftStart"]);
           newState.widgets.leftStart.activeTabId.should.eql("fwt1");
         });
       });
@@ -190,7 +190,7 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          newState.widgets.leftStart.tabs.should.eql(["t1", "dt", "t2"]);
+          expect(newState.widgets.leftStart.tabs).toEqual(["t1", "dt", "t2"]);
           newState.widgets.leftStart.activeTabId.should.eql("dt");
         });
 
@@ -217,7 +217,7 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          newState.widgets.leftEnd.tabs.should.eql(["t1", "dt", "t2"]);
+          expect(newState.widgets.leftEnd.tabs).toEqual(["t1", "dt", "t2"]);
           newState.widgets.leftEnd.activeTabId.should.eql("dt");
         });
       });
@@ -247,7 +247,10 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          newState.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
+          expect(newState.panels.left.widgets).toEqual([
+            "leftStart",
+            "leftEnd",
+          ]);
           newState.widgets.leftEnd.activeTabId.should.eql("dt");
         });
 
@@ -275,7 +278,7 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          newState.panels.left.widgets.should.eql(["leftStart", "nw1"]);
+          expect(newState.panels.left.widgets).toEqual(["leftStart", "nw1"]);
           newState.widgets.nw1.activeTabId.should.eql("dt");
         });
 
@@ -303,7 +306,7 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          newState.panels.left.widgets.should.eql(["nw1", "leftEnd"]);
+          expect(newState.panels.left.widgets).toEqual(["nw1", "leftEnd"]);
           newState.widgets.nw1.activeTabId.should.eql("dt");
         });
       });
@@ -331,7 +334,7 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          newState.panels.left.widgets.should.eql(["leftEnd"]);
+          expect(newState.panels.left.widgets).toEqual(["leftEnd"]);
           newState.widgets.leftEnd.activeTabId.should.eql("dt");
         });
 
@@ -357,7 +360,7 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          newState.panels.left.widgets.should.eql(["leftStart"]);
+          expect(newState.panels.left.widgets).toEqual(["leftStart"]);
           newState.widgets.leftStart.activeTabId.should.eql("dt");
         });
 
@@ -383,7 +386,7 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          newState.widgets.fw1.tabs.should.eql(["fwt1", "dt"]);
+          expect(newState.widgets.fw1.tabs).toEqual(["fwt1", "dt"]);
           newState.widgets.fw1.activeTabId.should.eql("dt");
         });
       });
@@ -411,7 +414,7 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          newState.panels.left.widgets.should.eql(["newId"]);
+          expect(newState.panels.left.widgets).toEqual(["newId"]);
           newState.widgets.newId.activeTabId.should.eql("dt");
         });
       });
@@ -466,7 +469,7 @@ describe("activateDroppedTab", () => {
 
         const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
         const newState = wrappedReducer(state, action);
-        newState.floatingWidgets.byId.fw1.bounds.should.eql({
+        expect(newState.floatingWidgets.byId.fw1.bounds).toEqual({
           left: 10,
           top: 120,
           right: 210,

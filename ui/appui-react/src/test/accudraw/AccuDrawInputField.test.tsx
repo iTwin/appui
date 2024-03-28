@@ -35,7 +35,7 @@ describe("AccuDrawInputField", () => {
     opts.accuDraw = new FrameworkAccuDraw();
     await NoRenderApp.startup(opts);
     const accuDraw = new FrameworkAccuDraw();
-    vi.spyOn(IModelApp, "accuDraw").get(() => accuDraw);
+    vi.spyOn(IModelApp, "accuDraw", "get").mockImplementation(() => accuDraw);
   });
 
   afterEach(async () => {
@@ -83,7 +83,7 @@ describe("AccuDrawInputField", () => {
   });
 
   it("should call onValueChanged on change after delay", async () => {
-    const vi.useFakeTimers();
+    vi.useFakeTimers();
     const spy = vi.fn();
     const wrapper = render(
       <AccuDrawInputField

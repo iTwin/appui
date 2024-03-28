@@ -73,7 +73,7 @@ describe("FloatingWidget", () => {
   });
 
   it("should dispatch FLOATING_WIDGET_RESIZE", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(
@@ -95,19 +95,20 @@ describe("FloatingWidget", () => {
     )[0];
     act(() => {
       fireEvent.mouseDown(handle);
-      dispatch.reset();
+      dispatch.mockReset();
       fireEvent.mouseMove(handle);
     });
-    dispatch.calledOnceWithExactly(
+    expect(dispatch).toHaveBeenCalledOnce();
+    expect(dispatch).toHaveBeenCalledWith(
       expect.objectContaining({
         type: "FLOATING_WIDGET_RESIZE",
         id: "w1",
       })
-    ).should.true;
+    );
   });
 
   it("tool settings should NOT have resize handles", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "ts");
     state = addFloatingWidget(
@@ -128,13 +129,13 @@ describe("FloatingWidget", () => {
     const handleList = container.getElementsByClassName(
       "nz-widget-floatingWidget_handle"
     );
-    handleList.length.should.eq(0);
+    expect(handleList).toHaveLength(0);
   });
 });
 
 describe("getResizeBy", () => {
   it("top", () => {
-    getResizeBy("top", { x: 10, y: 20 }).should.eql({
+    expect(getResizeBy("top", { x: 10, y: 20 })).toEqual({
       left: 0,
       top: -20,
       right: 0,
@@ -143,7 +144,7 @@ describe("getResizeBy", () => {
   });
 
   it("right", () => {
-    getResizeBy("right", { x: 10, y: 20 }).should.eql({
+    expect(getResizeBy("right", { x: 10, y: 20 })).toEqual({
       left: 0,
       top: 0,
       right: 10,
@@ -152,7 +153,7 @@ describe("getResizeBy", () => {
   });
 
   it("bottom", () => {
-    getResizeBy("bottom", { x: 10, y: 20 }).should.eql({
+    expect(getResizeBy("bottom", { x: 10, y: 20 })).toEqual({
       left: 0,
       top: 0,
       right: 0,
@@ -161,7 +162,7 @@ describe("getResizeBy", () => {
   });
 
   it("left", () => {
-    getResizeBy("left", { x: 10, y: 20 }).should.eql({
+    expect(getResizeBy("left", { x: 10, y: 20 })).toEqual({
       left: -10,
       top: 0,
       right: 0,
@@ -170,7 +171,7 @@ describe("getResizeBy", () => {
   });
 
   it("topLeft", () => {
-    getResizeBy("topLeft", { x: 10, y: 20 }).should.eql({
+    expect(getResizeBy("topLeft", { x: 10, y: 20 })).toEqual({
       left: -10,
       top: -20,
       right: 0,
@@ -179,7 +180,7 @@ describe("getResizeBy", () => {
   });
 
   it("topRight", () => {
-    getResizeBy("topRight", { x: 10, y: 20 }).should.eql({
+    expect(getResizeBy("topRight", { x: 10, y: 20 })).toEqual({
       left: 0,
       top: -20,
       right: 10,
@@ -188,7 +189,7 @@ describe("getResizeBy", () => {
   });
 
   it("bottomLeft", () => {
-    getResizeBy("bottomLeft", { x: 10, y: 20 }).should.eql({
+    expect(getResizeBy("bottomLeft", { x: 10, y: 20 })).toEqual({
       left: -10,
       top: 0,
       right: 0,
@@ -197,7 +198,7 @@ describe("getResizeBy", () => {
   });
 
   it("bottomRight", () => {
-    getResizeBy("bottomRight", { x: 10, y: 20 }).should.eql({
+    expect(getResizeBy("bottomRight", { x: 10, y: 20 })).toEqual({
       left: 0,
       top: 0,
       right: 10,

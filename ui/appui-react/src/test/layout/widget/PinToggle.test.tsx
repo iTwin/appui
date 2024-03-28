@@ -48,7 +48,7 @@ describe("PinToggle", () => {
   });
 
   it("should dispatch PANEL_TOGGLE_PINNED", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const state = createNineZoneState();
     const component = render(
       <TestNineZoneProvider
@@ -67,7 +67,8 @@ describe("PinToggle", () => {
     const button = component.getByTitle("Unpin panel");
     fireEvent.click(button);
 
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledOnce();
+    expect(dispatch).toHaveBeenCalledWith({
       type: "PANEL_TOGGLE_PINNED",
       side: "left",
     });

@@ -15,6 +15,8 @@ global.DOMMatrix = class DOMMatrix {
   constructor() {}
 } as unknown as typeof DOMMatrix;
 
+document.elementFromPoint = document.elementFromPoint ?? (() => {});
+
 beforeEach(async () => {
   await NoRenderApp.startup();
   await TestUtils.initializeUiFramework();

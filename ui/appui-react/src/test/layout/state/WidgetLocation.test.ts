@@ -9,6 +9,6 @@ describe("getWidgetLocation", () => {
   it("should return `undefined` if widget is not found", () => {
     const state = createNineZoneState();
     const location = getWidgetLocation(state, "w1");
-    should().not.exist(location);
+    expect(location).not.to.exist;
   });
 });

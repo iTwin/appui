@@ -96,7 +96,7 @@ describe("PanelWidget", () => {
   describe("PANEL_WIDGET_DRAG_START", () => {
     it("should dispatch", () => {
       vi.spyOn(NineZoneModule, "getUniqueId").mockReturnValue("newId");
-      const dispatch = vi.fn<NineZoneDispatch>();
+      const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
       let state = createNineZoneState();
       state = addTab(state, "t1");
       state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -115,8 +115,8 @@ describe("PanelWidget", () => {
         fireEvent.mouseMove(handle);
       });
 
-      sinon.assert.calledOnceWithExactly(
-        dispatch,
+      expect(dispatch).toHaveBeenCalledOnce();
+      expect(dispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: "PANEL_WIDGET_DRAG_START",
           id: "w1",
@@ -126,7 +126,7 @@ describe("PanelWidget", () => {
     });
 
     it("should adjust bounds to keep widget under pointer", () => {
-      const dispatch = vi.fn<NineZoneDispatch>();
+      const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
       let state = createNineZoneState();
       state = addTab(state, "t1");
       state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -145,10 +145,10 @@ describe("PanelWidget", () => {
         fireEvent.mouseMove(handle, { clientX: 230 });
       });
 
-      sinon.assert.calledOnce(dispatch);
-      dispatch.firstCall.args[0].type.should.eq("PANEL_WIDGET_DRAG_START");
-      const action = dispatch.firstCall.args[0] as PanelWidgetDragStartAction;
-      action.bounds.should.eql({
+      expect(dispatch).toHaveBeenCalledOnce();
+      expect(dispatch.mock.calls[0][0].type).toEqual("PANEL_WIDGET_DRAG_START");
+      const action = dispatch.mock.calls[0][0] as PanelWidgetDragStartAction;
+      expect(action.bounds).toEqual({
         top: 0,
         bottom: 200,
         left: 50,
@@ -157,7 +157,7 @@ describe("PanelWidget", () => {
     });
 
     it("should use preferredFloatingWidgetSize of active tab", () => {
-      const dispatch = vi.fn<NineZoneDispatch>();
+      const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
       let state = createNineZoneState();
       state = addTab(state, "t1", {
         preferredFloatingWidgetSize: {
@@ -181,8 +181,8 @@ describe("PanelWidget", () => {
         fireEvent.mouseMove(handle);
       });
 
-      const action = dispatch.firstCall.args[0] as PanelWidgetDragStartAction;
-      action.bounds.should.eql({
+      const action = dispatch.mock.calls[0][0] as PanelWidgetDragStartAction;
+      expect(action.bounds).toEqual({
         top: 0,
         bottom: 400,
         left: 0,
@@ -231,7 +231,7 @@ describe("useMode", () => {
     const { result } = renderHook(() => useMode("w2"), {
       wrapper: (props) => <Provider defaultState={state} {...props} />,
     });
-    result.current.should.eq("fill");
+    expect(result.current).toEqual("fill");
   });
 
   it("should only force fill last widget", () => {
@@ -248,7 +248,7 @@ describe("useMode", () => {
     const { result } = renderHook(() => useMode("w2"), {
       wrapper: (props) => <Provider defaultState={state} {...props} />,
     });
-    result.current.should.eq("fit");
+    expect(result.current).toEqual("fit");
   });
 });
 
@@ -282,7 +282,7 @@ describe("useBorders", () => {
           side,
         })
       );
-      result.current["nz-border-top"].should.false;
+      expect(result.current["nz-border-top"]).toEqual(false);
     });
   });
 
@@ -299,7 +299,7 @@ describe("useBorders", () => {
           side,
         })
       );
-      result.current["nz-border-bottom"].should.false;
+      expect(result.current["nz-border-bottom"]).toEqual(false);
     });
   });
 
@@ -317,7 +317,7 @@ describe("useBorders", () => {
             side,
           })
         );
-        result.current["nz-border-left"].should.false;
+        expect(result.current["nz-border-left"]).toEqual(false);
       });
 
       it("should render w/o left border if there is left panel to the left", () => {
@@ -335,7 +335,7 @@ describe("useBorders", () => {
             side,
           })
         );
-        result.current["nz-border-left"].should.false;
+        expect(result.current["nz-border-left"]).toEqual(false);
       });
 
       it("should render w/o right border if there is right panel to the right", () => {
@@ -353,7 +353,7 @@ describe("useBorders", () => {
             side,
           })
         );
-        result.current["nz-border-right"].should.false;
+        expect(result.current["nz-border-right"]).toEqual(false);
       });
     });
   }
@@ -372,7 +372,7 @@ describe("useBorders", () => {
             side,
           })
         );
-        result.current["nz-border-top"].should.false;
+        expect(result.current["nz-border-top"]).toEqual(false);
       });
     });
   }

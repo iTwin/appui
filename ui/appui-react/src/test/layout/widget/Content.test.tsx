@@ -31,12 +31,15 @@ describe("ScrollableWidgetContent", () => {
     );
 
     const content = container.getElementsByClassName("nz-widget-content")[0];
-    const scrollLeftSpy = vi.spyOn(content, "scrollLeft", ["get", "set"]);
+    const getSpy = vi
+      .spyOn(content, "scrollLeft", "get")
+      .mockImplementation(() => 0);
+    const setSpy = vi.spyOn(content, "scrollLeft", "set");
     act(() => {
       onSaveTransientState.raiseEvent("t1");
       onRestoreTransientState.raiseEvent("t1");
     });
-    scrollLeftSpy.get.toHaveBeenCalledOnce();
-    scrollLeftSpy.set.toHaveBeenCalledOnce();
+    expect(getSpy).toHaveBeenCalledOnce();
+    expect(setSpy).toHaveBeenCalledOnce();
   });
 });

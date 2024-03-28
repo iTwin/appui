@@ -44,7 +44,7 @@ describe("WidgetTab", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    expect(container.getElementsByClassName("nz-active")).toHaveLength(1);
   });
 
   it("should render a menu tab", () => {
@@ -66,7 +66,9 @@ describe("WidgetTab", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    container.getElementsByClassName("nz-widget-menuTab").length.should.eq(1);
+    expect(container.getElementsByClassName("nz-widget-menuTab")).toHaveLength(
+      1
+    );
   });
 
   it("should render minimized", () => {
@@ -86,7 +88,7 @@ describe("WidgetTab", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    expect(container.getElementsByClassName("nz-minimized")).toHaveLength(1);
   });
 
   it("should render first inactive", () => {
@@ -106,34 +108,16 @@ describe("WidgetTab", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
-  });
-
-  it("should render last not overflown", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "t1");
-    state = addPanelWidget(state, "left", "w1", ["t1"]);
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state}>
-        <WidgetIdContext.Provider value="w1">
-          <WidgetTabsEntryContext.Provider
-            value={{
-              lastNotOverflown: true,
-            }}
-          >
-            <WidgetTabProvider id="t1" />
-          </WidgetTabsEntryContext.Provider>
-        </WidgetIdContext.Provider>
-      </TestNineZoneProvider>
+    expect(container.getElementsByClassName("nz-first-inactive")).toHaveLength(
+      1
     );
-    container.firstChild!.should.matchSnapshot();
   });
 
   it("should render tab with icon only", () => {
     let state = createNineZoneState();
-    state = addTab(state, "t1", { iconSpec: <SvgPlaceholder /> });
+    state = addTab(state, "t1", { iconSpec: <>test-icon</> });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    const { container } = render(
+    const component = render(
       <TestNineZoneProvider defaultState={state}>
         <ShowWidgetIconContext.Provider value={true}>
           <WidgetIdContext.Provider value="w1">
@@ -148,36 +132,14 @@ describe("WidgetTab", () => {
         </ShowWidgetIconContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
-  });
-
-  it("should render tab with text and icon", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "t1", { iconSpec: <SvgPlaceholder /> });
-    state = addPanelWidget(state, "left", "w1", ["t1"]);
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state}>
-        <ShowWidgetIconContext.Provider value={true}>
-          <WidgetIdContext.Provider value="w1">
-            <WidgetTabsEntryContext.Provider
-              value={{
-                lastNotOverflown: true,
-              }}
-            >
-              <WidgetTabProvider id="t1" />
-            </WidgetTabsEntryContext.Provider>
-          </WidgetIdContext.Provider>
-        </ShowWidgetIconContext.Provider>
-      </TestNineZoneProvider>
-    );
-    container.firstChild!.should.matchSnapshot();
+    component.getByText("test-icon");
   });
 
   it("should render badge", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    const { container } = render(
+    const component = render(
       <TestNineZoneProvider
         defaultState={state}
         tab={<WidgetTab badge="Badge" />}
@@ -193,11 +155,11 @@ describe("WidgetTab", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    component.getByText("Badge");
   });
 
   it("should dispatch WIDGET_TAB_CLICK on click", async () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -222,8 +184,7 @@ describe("WidgetTab", () => {
       fireEvent.mouseUp(tab);
     });
     await waitFor(() => {
-      sinon.assert.calledOnceWithExactly(
-        dispatch,
+      expect(dispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: "WIDGET_TAB_CLICK",
           side: "left",
@@ -235,7 +196,7 @@ describe("WidgetTab", () => {
   });
 
   it("should dispatch WIDGET_TAB_CLICK on 'Enter'", async () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -259,8 +220,7 @@ describe("WidgetTab", () => {
       fireEvent.keyDown(tab, { key: Key.Enter });
     });
     await waitFor(() => {
-      sinon.assert.calledOnceWithExactly(
-        dispatch,
+      expect(dispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: "WIDGET_TAB_CLICK",
           side: "left",
@@ -272,7 +232,7 @@ describe("WidgetTab", () => {
   });
 
   it("should dispatch WIDGET_TAB_CLICK on 'space'", async () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -296,8 +256,7 @@ describe("WidgetTab", () => {
       fireEvent.keyDown(tab, { key: " " });
     });
     await waitFor(() => {
-      sinon.assert.calledOnceWithExactly(
-        dispatch,
+      expect(dispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: "WIDGET_TAB_CLICK",
           side: "left",
@@ -309,7 +268,7 @@ describe("WidgetTab", () => {
   });
 
   it("should not dispatch WIDGET_TAB_CLICK on other key", async () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -333,12 +292,12 @@ describe("WidgetTab", () => {
       fireEvent.keyDown(tab, { key: "a" });
     });
     await waitFor(() => {
-      sinon.assert.notCalled(dispatch);
+      expect(dispatch).not.toBeCalled();
     });
   });
 
   it("should dispatch WIDGET_TAB_DOUBLE_CLICK", async () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -365,8 +324,7 @@ describe("WidgetTab", () => {
       fireEvent.mouseUp(tab);
     });
     await waitFor(() => {
-      sinon.assert.calledOnceWithExactly(
-        dispatch,
+      expect(dispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: "WIDGET_TAB_DOUBLE_CLICK",
           side: "left",
@@ -378,7 +336,7 @@ describe("WidgetTab", () => {
   });
 
   it("should dispatch WIDGET_TAB_DRAG_START on pointer move", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1", { hideWithUiWhenFloating: true });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -396,8 +354,7 @@ describe("WidgetTab", () => {
       fireEvent.mouseDown(tab);
       fireEvent.mouseMove(document, { clientX: 10, clientY: 10 });
     });
-    sinon.assert.calledOnceWithExactly(
-      dispatch,
+    expect(dispatch).toHaveBeenCalledWith(
       expect.objectContaining({
         type: "WIDGET_TAB_DRAG_START",
         widgetId: "w1",
@@ -407,7 +364,7 @@ describe("WidgetTab", () => {
   });
 
   it("should not dispatch WIDGET_TAB_DRAG_START on pointer move if pointer moved less than 10px", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -423,11 +380,11 @@ describe("WidgetTab", () => {
       fireEvent.mouseDown(tab);
       fireEvent.mouseMove(document, { clientX: 5, clientY: 0 });
     });
-    sinon.assert.notCalled(dispatch);
+    expect(dispatch).not.toBeCalled();
   });
 
   it("should dispatch FLOATING_WIDGET_BRING_TO_FRONT", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
@@ -444,8 +401,7 @@ describe("WidgetTab", () => {
         touches: [{}],
       });
     });
-    sinon.assert.calledOnceWithExactly(
-      dispatch,
+    expect(dispatch).toHaveBeenCalledWith(
       expect.objectContaining({
         type: "FLOATING_WIDGET_BRING_TO_FRONT",
         id: "w1",

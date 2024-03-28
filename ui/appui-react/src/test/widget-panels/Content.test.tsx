@@ -42,7 +42,7 @@ describe("WidgetContent", () => {
     vi.spyOn(widget, "reactNode").get(() => <>Content</>);
     const { container } = render(
       <NineZoneProvider
-        dispatch={sinon.stub()}
+        dispatch={vi.fn()}
         layout={layout}
         measure={() => new Rectangle()}
       >
@@ -64,7 +64,7 @@ describe("WidgetContent", () => {
       .get(() => undefined);
     const { container } = render(
       <NineZoneProvider
-        dispatch={sinon.stub()}
+        dispatch={vi.fn()}
         layout={layout}
         measure={() => new Rectangle()}
       >
@@ -88,7 +88,7 @@ describe("WidgetContent", () => {
     vi.spyOn(frontstage, "findWidgetDef").mockReturnValue(undefined);
     const { container } = render(
       <NineZoneProvider
-        dispatch={sinon.stub()}
+        dispatch={vi.fn()}
         layout={layout}
         measure={() => new Rectangle()}
       >

@@ -30,9 +30,9 @@ describe("<Tooltip />", () => {
     const spy = vi.fn();
     const { rerender } = render(<Tooltip onSizeChanged={spy} />);
 
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .returns(createRect(10, 1, 50, 22));
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
+      createRect(10, 1, 50, 22)
+    );
 
     rerender(<Tooltip onSizeChanged={spy} position={{ x: 0, y: 0 }} />);
 
@@ -40,7 +40,8 @@ describe("<Tooltip />", () => {
       height: 21,
       width: 40,
     };
-    spy.calledOnceWithExactly(sinon.match(size)).should.true;
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toBeCalledWith(expect.objectContaining(size));
   });
 
   it("should offset", () => {

@@ -60,7 +60,7 @@ describe("WidgetPanelGrip", () => {
   });
 
   it("should dispatch PANEL_TOGGLE_COLLAPSED", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -87,7 +87,7 @@ describe("WidgetPanelGrip", () => {
   });
 
   it("should start resize via timer and dispatch PANEL_SET_SIZE", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = updatePanelState(state, "left", (draft) => {
       draft.size = 200;
@@ -160,7 +160,7 @@ describe("WidgetPanelGrip", () => {
   });
 
   it("should auto-open collapsed unpinned panel", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     let state = createNineZoneState();
     state = updatePanelState(state, "left", (draft) => {
       draft.pinned = false;
@@ -215,7 +215,7 @@ describe("useResizeGrip", () => {
     const defaultState = produce(createNineZoneState(), (draft) => {
       draft.panels.top.size = 200;
     });
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const initialProps: WrapperProps = {
       dispatch,
       defaultState,
@@ -240,7 +240,7 @@ describe("useResizeGrip", () => {
     const defaultState = produce(createNineZoneState(), (draft) => {
       draft.panels.bottom.size = 200;
     });
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const initialProps: WrapperProps = {
       dispatch,
       defaultState,
@@ -262,7 +262,7 @@ describe("useResizeGrip", () => {
   });
 
   it("should not invoke onResize if ref is unset", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const dragManagerRef = React.createRef<DragManager>();
     const initialProps: WrapperProps = {
       dragManagerRef,
@@ -313,7 +313,7 @@ describe("useResizeGrip", () => {
   });
 
   it("should not resize if panel size is not set", () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const initialProps: WrapperProps = {
       dispatch,
       side: "left",
@@ -334,7 +334,7 @@ describe("useResizeGrip", () => {
       draft.panels.left.size = 300;
       draft.panels.left.collapsed = true;
     });
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const initialProps: WrapperProps = {
       dispatch,
       side: "left",
@@ -360,7 +360,7 @@ describe("useResizeGrip", () => {
       draft.panels.left.size = 300;
       draft.panels.left.collapsed = true;
     });
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const initialProps: WrapperProps = {
       dispatch,
       side: "left",
@@ -381,7 +381,7 @@ describe("useResizeGrip", () => {
     const defaultState = produce(createNineZoneState(), (draft) => {
       draft.panels.left.size = 200;
     });
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const initialProps: WrapperProps = {
       dispatch,
       side: "left",
@@ -414,7 +414,7 @@ describe("useResizeGrip", () => {
     const defaultState = produce(createNineZoneState(), (draft) => {
       draft.panels.left.size = 300;
     });
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const initialProps: WrapperProps = {
       dispatch,
       side: "left",

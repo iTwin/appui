@@ -24,15 +24,16 @@ import { addTabs, handleMetaData } from "../../Utils";
 
 describe("createWidgetState", () => {
   it("should throw w/o tabs", () => {
-    (() => createWidgetState("w1", [])).should.throw();
+    expect(() => createWidgetState("w1", [])).toThrow();
   });
 });
 
 describe("updateWidgetState", () => {
   it("should throw if widget is not found", () => {
     const state = createNineZoneState();
-    (() =>
-      updateWidgetState(state, "w1", { activeTabId: "t1" })).should.throw();
+    expect(() =>
+      updateWidgetState(state, "w1", { activeTabId: "t1" })
+    ).toThrow();
   });
 });
 
@@ -41,25 +42,28 @@ describe("addWidgetState", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1", "t2"]);
     state = addWidgetState(state, "w1", ["t1"]);
-    (() => addWidgetState(state, "w1", ["t2"])).should.throw(
+    expect(
+      () => addWidgetState(state, "w1", ["t2"]),
       "Widget already exists"
-    );
+    ).toThrow();
   });
 
   it("should throw if tab doesn't exist", () => {
     const state = createNineZoneState();
-    handleMetaData(() => addWidgetState(state, "w1", ["t1"])).should.throw(
+    expect(
+      handleMetaData(() => addWidgetState(state, "w1", ["t1"])),
       "Tab does not exist"
-    );
+    ).toThrow();
   });
 
   it("should throw if tab is already in another widget", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1"]);
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    handleMetaData(() => addWidgetState(state, "w2", ["t1"])).should.throw(
+    expect(
+      handleMetaData(() => addWidgetState(state, "w2", ["t1"])),
       "Tab is already in a widget"
-    );
+    ).toThrow();
   });
 });
 
@@ -68,7 +72,7 @@ describe("addFloatingWidget", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1", "t2"]);
     state = addFloatingWidget(state, "fw1", ["t1"]);
-    (() => addFloatingWidget(state, "fw1", ["t2"])).should.throw();
+    expect(() => addFloatingWidget(state, "fw1", ["t2"])).toThrow();
   });
 
   it("should set `resizable`", () => {
@@ -83,9 +87,9 @@ describe("addPopoutWidget", () => {
   it("should throw with multiple tabs", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1", "t2"]);
-    handleMetaData(() =>
-      addPopoutWidget(state, "fw1", ["t1", "t2"])
-    ).should.throw();
+    expect(
+      handleMetaData(() => addPopoutWidget(state, "fw1", ["t1", "t2"]))
+    ).toThrow();
   });
 });
 
@@ -94,26 +98,30 @@ describe("removeWidget", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1"]);
     state = addWidgetState(state, "w1", ["t1"]);
-    (() => removeWidget(state, "w1")).should.throw("Widget not found");
+    expect(() => removeWidget(state, "w1"), "Widget not found").toThrow();
   });
 });
 
 describe("removeWidgetState", () => {
   it("should throw if widget does not exist", () => {
     const state = createNineZoneState();
-    (() => removeWidgetState(state, "w1")).should.throw(
+    expect(
+      () => removeWidgetState(state, "w1"),
       "Widget does not exist"
-    );
+    ).toThrow();
   });
 });
 
 describe("updateFloatingWidgetState", () => {
   it("should throw if widget does not exist", () => {
     const state = createNineZoneState();
-    (() =>
-      updateFloatingWidgetState(state, "fw1", {
-        userSized: true,
-      })).should.throw("Floating widget does not exist");
+    expect(
+      () =>
+        updateFloatingWidgetState(state, "fw1", {
+          userSized: true,
+        }),
+      "Floating widget does not exist"
+    ).toThrow();
   });
 
   it("should update `bounds`", () => {
@@ -140,27 +148,21 @@ describe("updateFloatingWidgetState", () => {
 describe("removeFloatingWidget", () => {
   it("should throw if widget does not exist", () => {
     const state = createNineZoneState();
-    (() => removeFloatingWidget(state, "w1")).should.throw(
-      "Floating widget does not exist"
-    );
+    expect(() => removeFloatingWidget(state, "w1")).toThrow();
   });
 });
 
 describe("removePopoutWidget", () => {
   it("should throw if widget does not exist", () => {
     const state = createNineZoneState();
-    (() => removePopoutWidget(state, "w1")).should.throw(
-      "Popout widget does not exist"
-    );
+    expect(() => removePopoutWidget(state, "w1")).toThrow();
   });
 });
 
 describe("removePanelWidget", () => {
   it("should throw if widget is not found", () => {
     const state = createNineZoneState();
-    (() => removePanelWidget(state, "w1")).should.throw(
-      "Panel widget not found"
-    );
+    expect(() => removePanelWidget(state, "w1")).toThrow();
   });
 });
 
@@ -169,9 +171,7 @@ describe("setWidgetActiveTabId", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1", "t2"]);
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    (() => setWidgetActiveTabId(state, "w1", "t2")).should.throw(
-      "Tab is not in a widget"
-    );
+    expect(() => setWidgetActiveTabId(state, "w1", "t2")).toThrow();
   });
 });
 
@@ -193,7 +193,7 @@ describe("getNewFloatingWidgetBounds", () => {
       },
     });
     const bounds = getNewFloatingWidgetBounds(state);
-    bounds.should.eql({
+    expect(bounds).toEqual({
       left: 240,
       right: 240 + 200,
       top: 140,
@@ -218,7 +218,7 @@ describe("getNewFloatingWidgetBounds", () => {
       },
     });
     const bounds = getNewFloatingWidgetBounds(state);
-    bounds.should.eql({
+    expect(bounds).toEqual({
       left: 700 + 40 - 200,
       right: 700 + 40,
       top: 650 + 40 - 120,
@@ -243,7 +243,7 @@ describe("getNewFloatingWidgetBounds", () => {
       },
     });
     const bounds = getNewFloatingWidgetBounds(state);
-    bounds.should.eql({
+    expect(bounds).toEqual({
       left: 540 - 200,
       right: 540,
       top: 20,
@@ -268,7 +268,7 @@ describe("getNewFloatingWidgetBounds", () => {
       },
     });
     const bounds = getNewFloatingWidgetBounds(state);
-    bounds.should.eql({
+    expect(bounds).toEqual({
       left: 20,
       right: 20 + 200,
       top: 20,

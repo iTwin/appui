@@ -11,7 +11,7 @@ describe("usePointerCaptor", () => {
   const wrapper = DragManagerProvider;
 
   it("should call onPointerDown", () => {
-    const spy = vi.fn<NonNullable<Parameters<typeof usePointerCaptor>[0]>>();
+    const spy = vi.fn();
     const { result } = renderHook(() => usePointerCaptor(spy));
     const element = document.createElement("div");
     act(() => {
@@ -24,7 +24,7 @@ describe("usePointerCaptor", () => {
   });
 
   it("should call onPointerMove", () => {
-    const spy = vi.fn<NonNullable<Parameters<typeof usePointerCaptor>[1]>>();
+    const spy = vi.fn();
     const { result } = renderHook(() => usePointerCaptor(undefined, spy));
     const element = document.createElement("div");
     act(() => {
@@ -38,7 +38,7 @@ describe("usePointerCaptor", () => {
   });
 
   it("should call onPointerUp", () => {
-    const spy = vi.fn<NonNullable<Parameters<typeof usePointerCaptor>[2]>>();
+    const spy = vi.fn();
     const { result } = renderHook(() =>
       usePointerCaptor(undefined, undefined, spy)
     );
@@ -54,7 +54,7 @@ describe("usePointerCaptor", () => {
   });
 
   it("should call onPointerDown for touchstart", () => {
-    const spy = vi.fn<NonNullable<Parameters<typeof usePointerCaptor>[0]>>();
+    const spy = vi.fn();
     const { result } = renderHook(() => usePointerCaptor(spy), { wrapper });
     const element = document.createElement("div");
     act(() => {
@@ -68,7 +68,7 @@ describe("usePointerCaptor", () => {
   });
 
   it("should call onPointerMove for touchmove", () => {
-    const spy = vi.fn<NonNullable<Parameters<typeof usePointerCaptor>[1]>>();
+    const spy = vi.fn();
     const { result } = renderHook(() => usePointerCaptor(undefined, spy), {
       wrapper,
     });
@@ -87,7 +87,7 @@ describe("usePointerCaptor", () => {
   });
 
   it("should call onPointerUp for touchend", () => {
-    const spy = vi.fn<NonNullable<Parameters<typeof usePointerCaptor>[2]>>();
+    const spy = vi.fn();
     const { result } = renderHook(
       () => usePointerCaptor(undefined, undefined, spy),
       { wrapper }
@@ -110,7 +110,7 @@ describe("usePointerCaptor", () => {
   });
 
   it("should not call onPointerDown when touches.length !== 1", () => {
-    const spy = vi.fn<NonNullable<Parameters<typeof usePointerCaptor>[0]>>();
+    const spy = vi.fn();
     const { result } = renderHook(() => usePointerCaptor(spy));
     const element = document.createElement("div");
     act(() => {
@@ -120,11 +120,11 @@ describe("usePointerCaptor", () => {
       });
     });
 
-    spy.notCalled.should.true;
+    expect(spy).not.toBeCalled();
   });
 
   it("should not call onPointerMove when touches.length !== 1", () => {
-    const spy = vi.fn<NonNullable<Parameters<typeof usePointerCaptor>[1]>>();
+    const spy = vi.fn();
     const { result } = renderHook(() => usePointerCaptor(undefined, spy), {
       wrapper,
     });
@@ -139,7 +139,7 @@ describe("usePointerCaptor", () => {
       });
     });
 
-    spy.notCalled.should.true;
+    expect(spy).not.toBeCalled();
   });
 
   it("should not add target touch listeners", () => {
@@ -153,12 +153,16 @@ describe("usePointerCaptor", () => {
     const spy = vi.spyOn(HTMLElement.prototype, "addEventListener");
     act(() => {
       const touchStart = new TouchEvent("touchstart");
-      vi.spyOn(touchStart, "target").get(() => ({}));
-      vi.spyOn(touchStart, "touches").get(() => [{}]);
+      vi.spyOn(touchStart, "target", "get").mockImplementation(
+        () => ({} as any)
+      );
+      vi.spyOn(touchStart, "touches", "get").mockImplementation(
+        () => [{}] as any
+      );
       element.dispatchEvent(touchStart);
     });
 
-    spy.notCalled.should.true;
+    expect(spy).not.toBeCalled();
   });
 
   it("should not remove target touch listeners", () => {
@@ -175,16 +179,18 @@ describe("usePointerCaptor", () => {
     const spy = vi.spyOn(HTMLElement.prototype, "removeEventListener");
     act(() => {
       const touchEnd = new TouchEvent("touchend");
-      vi.spyOn(touchEnd, "target").get(() => ({}));
-      vi.spyOn(touchEnd, "touches").get(() => [{}]);
+      vi.spyOn(touchEnd, "target", "get").mockImplementation(() => ({} as any));
+      vi.spyOn(touchEnd, "touches", "get").mockImplementation(
+        () => [{}] as any
+      );
       element.dispatchEvent(touchEnd);
     });
 
-    spy.notCalled.should.true;
+    expect(spy).not.toBeCalled();
   });
 
   it("should call onPointerMove for document touchmove", () => {
-    const spy = vi.fn<NonNullable<Parameters<typeof usePointerCaptor>[1]>>();
+    const spy = vi.fn();
     const { result } = renderHook(() => usePointerCaptor(undefined, spy), {
       wrapper,
     });
@@ -205,7 +211,7 @@ describe("usePointerCaptor", () => {
   });
 
   it("should not handle document touchmove if it was dispatched for touch target", () => {
-    const spy = vi.fn<NonNullable<Parameters<typeof usePointerCaptor>[1]>>();
+    const spy = vi.fn();
     const { result } = renderHook(() => usePointerCaptor(undefined, spy), {
       wrapper,
     });
@@ -218,16 +224,18 @@ describe("usePointerCaptor", () => {
       });
 
       const touchEnd = new TouchEvent("touchmove");
-      vi.spyOn(touchEnd, "target").get(() => element);
-      vi.spyOn(touchEnd, "touches").get(() => [{}]);
+      vi.spyOn(touchEnd, "target", "get").mockImplementation(() => element);
+      vi.spyOn(touchEnd, "touches", "get").mockImplementation(
+        () => [{}] as any
+      );
       document.dispatchEvent(touchEnd);
     });
 
-    spy.notCalled.should.true;
+    expect(spy).not.toBeCalled();
   });
 
   it("should not handle document touchend if it was dispatched for touch target", () => {
-    const spy = vi.fn<NonNullable<Parameters<typeof usePointerCaptor>[1]>>();
+    const spy = vi.fn();
     const { result } = renderHook(() => usePointerCaptor(undefined, spy), {
       wrapper,
     });
@@ -240,11 +248,13 @@ describe("usePointerCaptor", () => {
       });
 
       const touchEnd = new TouchEvent("touchend");
-      vi.spyOn(touchEnd, "target").get(() => element);
-      vi.spyOn(touchEnd, "touches").get(() => [{}]);
+      vi.spyOn(touchEnd, "target", "get").mockImplementation(() => element);
+      vi.spyOn(touchEnd, "touches", "get").mockImplementation(
+        () => [{}] as any
+      );
       document.dispatchEvent(touchEnd);
     });
 
-    spy.notCalled.should.true;
+    expect(spy).not.toBeCalled();
   });
 });

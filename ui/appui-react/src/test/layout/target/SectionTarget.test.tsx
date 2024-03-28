@@ -27,7 +27,7 @@ describe("useTargetDirection", () => {
         </PanelSideContext.Provider>
       ),
     });
-    result.current.should.eq("horizontal");
+    expect(result.current).toEqual("horizontal");
   });
 
   it("should return `vertical`", () => {
@@ -38,7 +38,7 @@ describe("useTargetDirection", () => {
         </PanelSideContext.Provider>
       ),
     });
-    result.current.should.eq("vertical");
+    expect(result.current).toEqual("vertical");
   });
 });
 
@@ -81,7 +81,7 @@ describe("useAllowedPanelTarget", () => {
     const { container } = render(<SectionTargets widgetId="w2" />, {
       wrapper: (props) => <DragWidgetWrapper defaultState={state} {...props} />,
     });
-    container.getElementsByClassName("nz-hidden").length.should.eq(3);
+    expect(container.getElementsByClassName("nz-hidden")).toHaveLength(3);
   });
 
   it("should render hidden if dragged tab doesn't allow a panel target", () => {
@@ -94,6 +94,6 @@ describe("useAllowedPanelTarget", () => {
     const { container } = render(<SectionTargets widgetId="w1" />, {
       wrapper: (props) => <DragTabWrapper defaultState={state} {...props} />,
     });
-    container.getElementsByClassName("nz-hidden").length.should.eq(3);
+    expect(container.getElementsByClassName("nz-hidden")).toHaveLength(3);
   });
 });

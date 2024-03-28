@@ -15,7 +15,7 @@ import { DockedToolSettingsHandle } from "../../../appui-react/layout/tool-setti
 describe("DockedToolSettingsHandle", () => {
   it("should dispatch TOOL_SETTINGS_DRAG_START", () => {
     const dragManager = new DragManager();
-    const dispatch = vi.fn<NineZoneDispatch>();
+    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
     const { container } = render(
       <NineZoneDispatchContext.Provider value={dispatch}>
         <DragManagerContext.Provider value={dragManager}>
@@ -29,10 +29,11 @@ describe("DockedToolSettingsHandle", () => {
     fireEvent.mouseDown(handle);
     fireEvent.mouseMove(document);
 
-    dispatch.calledOnceWithExactly(
+    expect(dispatch).toHaveBeenCalledOnce();
+    expect(dispatch).toHaveBeenCalledWith(
       expect.objectContaining({
         type: "TOOL_SETTINGS_DRAG_START",
       })
-    ).should.true;
+    );
   });
 });
