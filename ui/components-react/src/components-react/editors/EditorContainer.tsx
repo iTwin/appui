@@ -105,13 +105,12 @@ export function EditorContainer(props: EditorContainerProps) {
   } = props;
 
   let propertyEditor: PropertyEditorBase;
+
   const editorRef = React.useRef<TypeEditor | null>(null);
 
-  const setEditorRef = (ref: TypeEditor | null) => {
-    editorRef.current = ref;
-  };
+  const setEditorRef = (ref: TypeEditor | null) => (editorRef.current = ref);
 
-  function createEditor(): React.ReactNode {
+  const createEditor = (): React.ReactNode => {
     const editorProps: CloneProps = {
       ref: setEditorRef,
       onCommit: handleEditorCommit,
@@ -130,6 +129,7 @@ export function EditorContainer(props: EditorContainerProps) {
       propDescription.editor !== undefined
         ? propDescription.editor.name
         : undefined;
+
     propertyEditor = PropertyEditorManager.createEditor(
       propDescription.typename,
       editorName,
@@ -145,7 +145,16 @@ export function EditorContainer(props: EditorContainerProps) {
     }
 
     return clonedNode;
-  }
+  };
+
+  /** Event Handlers
+   * @internal
+   */
+  const handleCancel = () => onCancel();
+  const handleClick = (e: React.MouseEvent) => e.stopPropagation();
+  const handleContainerBlur = (e: React.FocusEvent) => e.stopPropagation();
+  const handleEditorCommit = (args: PropertyUpdatedArgs): void =>
+    void commit(args);
 
   const handleContainerCommit = async (): Promise<void> => {
     const newValue = editorRef && (await editorRef.current?.getPropertyValue());
@@ -158,33 +167,9 @@ export function EditorContainer(props: EditorContainerProps) {
     }
   };
 
-  const handleEditorCommit = (args: PropertyUpdatedArgs): void => {
-    void commit(args);
-  };
-
-  const handleCancel = () => onCancel();
-
-  // Focus Event Handlers
-  const handleEditorBlur = () => {
-    // istanbul ignore else
-    if (
-      ignoreEditorBlur &&
-      propertyEditor &&
-      propertyEditor.containerHandlesBlur
-    )
-      void onPressEscape();
-  };
-
-  const handleContainerBlur = (e: React.FocusEvent) => e.stopPropagation();
-  const handleClick = (e: React.MouseEvent) => e.stopPropagation();
-
-  // Keyboard Event Handlers
-
   const onPressEscape = (): void => {
     // istanbul ignore else
-    if (propertyEditor && propertyEditor.containerHandlesEscape) {
-      handleCancel();
-    }
+    if (propertyEditor && propertyEditor.containerHandlesEscape) handleCancel();
   };
 
   const onPressEnter = (e: React.KeyboardEvent): void => {
@@ -203,6 +188,7 @@ export function EditorContainer(props: EditorContainerProps) {
       void handleContainerCommit();
     }
   };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
       case Key.Escape.valueOf():
@@ -218,6 +204,16 @@ export function EditorContainer(props: EditorContainerProps) {
         if (propertyEditor && propertyEditor.containerStopsKeydownPropagation)
           e.stopPropagation();
     }
+  };
+
+  const handleEditorBlur = () => {
+    // istanbul ignore else
+    if (
+      ignoreEditorBlur &&
+      propertyEditor &&
+      propertyEditor.containerHandlesBlur
+    )
+      void onPressEscape();
   };
 
   const isNewValueValid = async (value: PropertyValue): Promise<boolean> => {
