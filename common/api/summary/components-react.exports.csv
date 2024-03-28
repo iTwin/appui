@@ -424,6 +424,7 @@ public;useToolbarPopupContext(): ToolbarPopupContextProps
 internal;useToolbarWithOverflowDirectionContext(): ToolbarOverflowContextProps
 internal;useToolItemEntryContext(): ToolbarItemContextArgs
 public;useTrackedPropertyGridModelSource(props:
+internal;useTranslation():
 public;useTreeEventsHandler
 deprecated;useTreeEventsHandler
 public;useTreeModel(modelSource: TreeModelSource): TreeModel

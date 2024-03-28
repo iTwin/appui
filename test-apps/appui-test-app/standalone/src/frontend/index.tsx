@@ -100,7 +100,6 @@ import {
   CustomStageUiItemsProvider,
   FloatingWidgetsUiItemsProvider,
   InspectUiItemInfoToolProvider,
-  LanguageSelect,
   MessageUiItemsProvider,
   PopoutWindowsFrontstage,
   previewFeaturesToggleProvider,
@@ -120,6 +119,7 @@ import {
   initializeEditor,
 } from "./appui/frontstages/EditorFrontstageProvider";
 import { useEditorToolSettings } from "./appui/useEditorToolSettings";
+import { AppLanguageSelect, AppLocalizationProvider } from "./Localization";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -370,7 +370,7 @@ export class SampleAppIModelApp {
           "language",
           StatusBarSection.Right,
           0,
-          <LanguageSelect />
+          <AppLanguageSelect />
         ),
       ],
     });
@@ -628,17 +628,19 @@ const SampleAppViewer = () => {
 
   return (
     <AppPreviewFeatures>
-      <Provider store={SampleAppIModelApp.store}>
-        <ThemeManager>
-          <SafeAreaContext.Provider value={SafeAreaInsets.All}>
-            <AppDragInteraction>
-              <UiStateStorageHandler>
-                <AppViewerContent />
-              </UiStateStorageHandler>
-            </AppDragInteraction>
-          </SafeAreaContext.Provider>
-        </ThemeManager>
-      </Provider>
+      <AppLocalizationProvider>
+        <Provider store={SampleAppIModelApp.store}>
+          <ThemeManager>
+            <SafeAreaContext.Provider value={SafeAreaInsets.All}>
+              <AppDragInteraction>
+                <UiStateStorageHandler>
+                  <AppViewerContent />
+                </UiStateStorageHandler>
+              </AppDragInteraction>
+            </SafeAreaContext.Provider>
+          </ThemeManager>
+        </Provider>
+      </AppLocalizationProvider>
     </AppPreviewFeatures>
   );
 };

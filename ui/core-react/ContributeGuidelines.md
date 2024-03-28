@@ -44,7 +44,7 @@ In order to maintain consistency in the iTwin.js UI source code, please abide by
 export * from "./core-react/badge/Badge";
 ```
 
-- Localize all strings to be seen by the user and use `Ui*.translate` to get the localized string. Please do **not** use hard-coded strings. The translatable strings should be in a JSON file in the `public/locales/en` of the repository. Example:
+- Localize all strings to be seen by the user and use `useTranslation` hook to get the localized string. Please do **not** use hard-coded strings. The translatable strings should be in a JSON file in the `src/{package-name}/{Package}.json` of the repository. Example:
 
 ```json
 {
@@ -57,7 +57,7 @@ export * from "./core-react/badge/Badge";
 ```
 
 ```typescript
-buttonText = UiCore.translate("dialog.ok");
+buttonText = useTranslation("dialog.ok");
 ```
 
 - Run `npm run extract-api` to update the `*api.md` file for the package

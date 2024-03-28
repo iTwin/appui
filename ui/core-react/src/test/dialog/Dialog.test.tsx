@@ -9,8 +9,6 @@ import { render } from "@testing-library/react";
 import { Dialog } from "../../core-react";
 import { DialogAlignment } from "../../core-react/dialog/Dialog";
 import { GlobalDialog } from "../../core-react/dialog/GlobalDialog";
-import { UiCore } from "../../core-react/UiCore";
-import TestUtils from "../TestUtils";
 import { DialogButtonType } from "@itwin/appui-abstract";
 import userEvent from "@testing-library/user-event";
 
@@ -18,10 +16,6 @@ describe("Dialog", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     theUserTo = userEvent.setup();
-  });
-
-  before(async () => {
-    await TestUtils.initializeUiCore();
   });
 
   describe("<GlobalDialog />", () => {
@@ -73,8 +67,8 @@ describe("Dialog", () => {
           ]}
         />
       );
-      expect(component.getByText(UiCore.translate("dialog.ok"))).to.exist;
-      expect(component.getByText(UiCore.translate("dialog.cancel"))).to.exist;
+      component.getByText("OK");
+      component.getByText("Cancel");
     });
 
     it("should render with Close button", () => {
@@ -84,7 +78,7 @@ describe("Dialog", () => {
           buttonCluster={[{ type: DialogButtonType.Close, onClick: () => {} }]}
         />
       );
-      expect(component.getByText(UiCore.translate("dialog.close"))).to.exist;
+      component.getByText("Close");
     });
 
     it("should render with Yes, No & Retry buttons", () => {
@@ -100,11 +94,11 @@ describe("Dialog", () => {
           ]}
         />
       );
-      expect(component.getByText(UiCore.translate("dialog.yes"))).to.exist;
-      expect(component.getByText(UiCore.translate("dialog.no"))).to.exist;
-      expect(component.getByText(UiCore.translate("dialog.retry"))).to.exist;
-      expect(component.getByText(UiCore.translate("dialog.next"))).to.exist;
-      expect(component.getByText(UiCore.translate("dialog.previous"))).to.exist;
+      component.getByText("Yes");
+      component.getByText("No");
+      component.getByText("Retry");
+      component.getByText("Next");
+      component.getByText("Previous");
     });
 
     it("should render with custom button", () => {
@@ -116,7 +110,7 @@ describe("Dialog", () => {
           ]}
         />
       );
-      expect(component.getByText("XYZ")).to.exist;
+      component.getByText("XYZ");
     });
   });
 

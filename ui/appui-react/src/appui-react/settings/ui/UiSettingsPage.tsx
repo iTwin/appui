@@ -24,7 +24,7 @@ import {
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select, Slider, ToggleSwitch } from "@itwin/itwinui-react";
 import type { UiSyncEventArgs } from "../../syncui/UiSyncEvent";
-import { useTranslation } from "../../useTranslation";
+import { useTranslation } from "../../hooks/useTranslation";
 
 /** UiSettingsPage displaying the active UI settings. This page lets users set the following settings.
  *
