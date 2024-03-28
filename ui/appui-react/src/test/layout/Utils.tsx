@@ -6,7 +6,6 @@ import { BentleyError } from "@itwin/core-bentley";
 import { prettyDOM } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
-import type * as sinon from "sinon";
 import type { NineZoneState } from "../../appui-react/layout/state/NineZoneState";
 import type { TabState } from "../../appui-react/layout/state/TabState";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers";
@@ -55,27 +54,6 @@ export class ResizeObserverMock implements ResizeObserver {
 
   public disconnect(): void {}
 }
-
-declare module "sinon" {
-  interface SinonStubStatic {
-    // eslint-disable-next-line @typescript-eslint/prefer-function-type
-    <T extends (...args: any) => any>(): sinon.SinonStub<
-      Parameters<T>,
-      ReturnType<T>
-    >;
-  }
-}
-
-/** @internal */
-export type SinonSpy<T extends (...args: any) => any> = sinon.SinonSpy<
-  Parameters<T>,
-  ReturnType<T>
->;
-/** @internal */
-export type SinonStub<T extends (...args: any) => any> = sinon.SinonStub<
-  Parameters<T>,
-  ReturnType<T>
->;
 
 /** Waits until all async operations finish */
 export async function flushAsyncOperations() {

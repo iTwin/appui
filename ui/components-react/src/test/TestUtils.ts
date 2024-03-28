@@ -34,8 +34,6 @@ import { DataControllerBase, UiComponents } from "../components-react";
 
 export { userEvent };
 
-// cSpell:ignore buttongroup
-
 /** @internal */
 export class TestUtils {
   private static _i18n?: ITwinLocalization;
@@ -561,7 +559,8 @@ export interface TestErrorBoundaryState {
  *   </TestErrorBoundary>
  * );
  * await waitFor(() => {
- *   expect(errorSpy).to.be.calledOnce.and.calledWith(sinon.match((error: Error) => error.message === "test error"));
+ *   expect(errorSpy).toHaveBeenCalledOnce();
+ *   expect(errorSpy.mock.calls[0][0].message).toEqual("test error");
  * });
  * ```
  */

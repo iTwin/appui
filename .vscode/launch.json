@@ -64,17 +64,11 @@
       "cwd": "${workspaceFolder}/ui/appui-react",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/ui/appui-react/node_modules/mocha/bin/_mocha",
-      "args": [
-        "--config",
-        "../.mocharc.json",
-        "--no-timeouts",
-        "lib/cjs/test/**/*.test.js"
-      ],
-      "outFiles": [
-        "${workspaceFolder}/{core,clients,ui,presentation}/*/lib/**/*.js"
-      ],
-      "outputCapture": "std"
+      "autoAttachChildProcesses": true,
+      "program": "${workspaceFolder}/ui/appui-react/node_modules/vitest/vitest.mjs",
+      "args": ["run", "../../${relativeFile}"],
+      "smartStep": true,
+      "console": "integratedTerminal"
     },
     // TEST APPS
     {

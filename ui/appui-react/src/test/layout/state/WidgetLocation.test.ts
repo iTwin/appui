@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { should } from "chai";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState";
 import { getWidgetLocation } from "../../../appui-react/layout/state/WidgetLocation";
 

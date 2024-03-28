@@ -271,26 +271,6 @@
       "allowedCategories": [ "internal" ]
     },
     {
-      "name": "chai",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
-      "name": "chai-as-promised",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
-      "name": "chai-jest-snapshot",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
-      "name": "chai-string",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
-      "name": "chai-subset",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
       "name": "classnames",
       "allowedCategories": [ "frontend", "internal" ]
     },
@@ -388,7 +368,7 @@
     },
     {
       "name": "mocha",
-      "allowedCategories": [ "frontend", "internal" ]
+      "allowedCategories": [ "internal" ]
     },
     {
       "name": "npm-run-all",
@@ -476,14 +456,6 @@
     },
     {
       "name": "shortid",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
-      "name": "sinon",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
-      "name": "sinon-chai",
       "allowedCategories": [ "frontend" ]
     },
     {

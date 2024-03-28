@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import * as ResizeObserverModule from "@itwin/core-react/lib/cjs/core-react/utils/hooks/ResizeObserverPolyfill";
+import * as ResizeObserverModule from "@itwin/core-react/lib/esm/core-react/utils/hooks/ResizeObserverPolyfill";
 import { act, fireEvent, queryByText, render } from "@testing-library/react";
 import {
   DockedToolSettings,

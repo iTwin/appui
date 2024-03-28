@@ -5,7 +5,6 @@
 import * as React from "react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { createDragInfo, createDragStartArgs, setRefValue } from "../Providers";
-import { expect, should } from "chai";
 import { waitFor } from "@testing-library/react";
 import {
   DragManager,

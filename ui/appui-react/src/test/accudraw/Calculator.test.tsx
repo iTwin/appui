@@ -3,10 +3,10 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import { render, screen } from "@testing-library/react";
 import { Calculator } from "../../appui-react/accudraw/Calculator";
 import { CalculatorEngine } from "../../appui-react/accudraw/CalculatorEngine";
 import { selectorMatches, userEvent } from "../TestUtils";
-import { render, screen } from "@testing-library/react";
 
 describe("Calculator", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Store } from "redux";
 import { createStore } from "redux";
-import type * as sinon from "sinon";
 import { act, prettyDOM } from "@testing-library/react";
 
 import type {
@@ -290,16 +289,6 @@ export function stubRaf() {
     window.requestAnimationFrame = raf;
     window.cancelAnimationFrame = caf;
   });
-}
-
-declare module "sinon" {
-  interface SinonStubStatic {
-    // eslint-disable-next-line @typescript-eslint/prefer-function-type
-    <T extends (...args: any) => any>(): sinon.SinonStub<
-      Parameters<T>,
-      ReturnType<T>
-    >;
-  }
 }
 
 /** Stubs scrollIntoView. */
