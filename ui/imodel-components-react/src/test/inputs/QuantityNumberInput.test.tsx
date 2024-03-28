@@ -448,7 +448,7 @@ describe("<QuantityNumberInput />", () => {
     fireEvent.keyDown(input!, { key: Key.ArrowDown });
     expect(spy).toHaveBeenCalledOnce();
     expect(value).toEqual(0);
-    spyKeyDown.calledTwice.should.true;
+    expect(spyKeyDown).toHaveBeenCalledTimes(2);
   });
 
   it("should update value on enter", () => {
@@ -610,20 +610,18 @@ describe("<QuantityNumberInput />", () => {
 
   describe("<QuantityNumberInput with undefined formatter and parser specs/>", () => {
     beforeEach(() => {
-      sinon
-        .stub(IModelApp.quantityFormatter, "findFormatterSpecByQuantityType")
-        .callsFake((_type: QuantityTypeArg, _unused?: boolean) => {
-          return undefined;
-        });
-      sinon
-        .stub(IModelApp.quantityFormatter, "findParserSpecByQuantityType")
-        .callsFake((_type: QuantityTypeArg) => {
-          return undefined;
-        });
-    });
-
-    afterEach(() => {
-      sinon.restore();
+      vi.spyOn(
+        IModelApp.quantityFormatter,
+        "findFormatterSpecByQuantityType"
+      ).mockImplementation((_type: QuantityTypeArg, _unused?: boolean) => {
+        return undefined;
+      });
+      vi.spyOn(
+        IModelApp.quantityFormatter,
+        "findParserSpecByQuantityType"
+      ).mockImplementation((_type: QuantityTypeArg) => {
+        return undefined;
+      });
     });
 
     it("renders correctly", () => {

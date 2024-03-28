@@ -95,17 +95,6 @@ function TestRepeatTimelineComponent() {
 
 describe("<TimelineComponent showDuration={true} />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
-    theUserTo = userEvent.setup();
-  });
-  let fakeTimers: sinon.SinonFakeTimers | undefined;
-  const rafSpy = vi.spyOn((cb: FrameRequestCallback) => {
-    return window.setTimeout(() => {
-      cb(Date.now());
-    }, 0);
-  });
-
-  const getBoundingClientRect = Element.prototype.getBoundingClientRect;
   const sliderContainerSize = DOMRect.fromRect({
     x: 10,
     width: 1000,
@@ -113,37 +102,24 @@ describe("<TimelineComponent showDuration={true} />", () => {
   });
 
   beforeEach(async () => {
-    Element.prototype.getBoundingClientRect = () => sliderContainerSize;
+    theUserTo = userEvent.setup();
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
+      sliderContainerSize
+    );
 
-    if (!window.PointerEvent) window.PointerEvent = window.MouseEvent as any;
-    sinon.restore();
-    // need to initialize to get localized strings
     await TestUtils.initializeUiIModelComponents();
     await NoRenderApp.startup();
-
-    // JSDom used in testing does not provide implementations for requestAnimationFrame/cancelAnimationFrame so add dummy ones here.
-    window.requestAnimationFrame = rafSpy;
-    window.cancelAnimationFrame = () => {};
-  });
-
-  afterEach(() => {
-    fakeTimers && fakeTimers.restore();
-
-    rafspy.mockReset();
   });
 
   afterEach(async () => {
-    sinon.restore();
-    Element.prototype.getBoundingClientRect = getBoundingClientRect;
     await IModelApp.shutdown();
-
     TestUtils.terminateUiIModelComponents();
   });
 
   it("should render without milestones - minimized", async () => {
     const dataProvider = new TestTimelineDataProvider();
     expect(dataProvider.loop).to.be.false;
-    fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
 
     const renderedComponent = render(
       <TimelineComponent
@@ -167,9 +143,9 @@ describe("<TimelineComponent showDuration={true} />", () => {
 
     fireEvent.click(playButton);
     // Wait for animation.
-    fakeTimers.tick(600);
+    vi.advanceTimersByTime(600);
     // Wait for 1st raf cb.
-    fakeTimers.tick(1);
+    vi.advanceTimersByTime(1);
 
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
     // await new Promise((r) => { setTimeout(r, 40); });
@@ -177,9 +153,9 @@ describe("<TimelineComponent showDuration={true} />", () => {
 
     fireEvent.click(playButton);
     // Wait for animation.
-    fakeTimers.tick(600);
+    vi.advanceTimersByTime(600);
     // Wait for 1st raf cb.
-    fakeTimers.tick(1);
+    vi.advanceTimersByTime(1);
 
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
     // await new Promise((r) => { setTimeout(r, 40); });
@@ -191,7 +167,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const spyOnChange = vi.fn();
     const dataProvider = new TestTimelineDataProvider();
     expect(dataProvider.loop).to.be.false;
-    fakeTimers = sinon.useFakeTimers({ shouldAdvanceTime: true });
+    vi.useFakeTimers({ shouldAdvanceTime: true });
 
     const renderedComponent = render(
       <TimelineComponent
@@ -229,7 +205,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     const dataProvider = new TestTimelineDataProvider();
     dataProvider.getSettings().duration = 2; // make sure this is shorter than 40 so we get to end of animation
 
-    fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
 
     const renderedComponent = render(
       <TimelineComponent
@@ -255,20 +231,20 @@ describe("<TimelineComponent showDuration={true} />", () => {
     expect(dataProvider.playing).toEqual(true);
 
     // Wait for animation.
-    fakeTimers.tick(1);
-    fakeTimers.setSystemTime(600);
-    fakeTimers.tick(1);
+    vi.advanceTimersByTime(1);
+    vi.setSystemTime(600);
+    vi.advanceTimersByTime(1);
 
-    // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
-    // await new Promise((r) => { setTimeout(r, 40); });
-    expect(dataProvider.playing).to.be.false;
+    await vi.waitFor(() => {
+      expect(dataProvider.playing).to.be.false;
+    });
   });
 
   it("timeline with short duration (repeat animation loop) - expanded", async () => {
     const dataProvider = new TestTimelineDataProvider();
     dataProvider.getSettings().duration = 30; // make sure this is shorter than 40 so we get to end of animation
     dataProvider.getSettings().loop = true;
-    fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
 
     const renderedComponent = render(
       <TimelineComponent
@@ -295,9 +271,9 @@ describe("<TimelineComponent showDuration={true} />", () => {
     expect(dataProvider.playing).toEqual(true);
 
     // Wait for animation.
-    fakeTimers.tick(600);
+    vi.advanceTimersByTime(600);
     // Wait for 1st raf cb.
-    fakeTimers.tick(1);
+    vi.advanceTimersByTime(1);
 
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
     // await new Promise((r) => { setTimeout(r, 40); });
@@ -312,7 +288,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     dataProvider.getSettings().duration = 30; // make sure this is shorter than 40 so we get to end of animation
     dataProvider.getSettings().loop = true;
     dataProvider.animationFraction = 1.0;
-    fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
 
     const renderedComponent = render(
       <TimelineComponent
@@ -339,9 +315,9 @@ describe("<TimelineComponent showDuration={true} />", () => {
     expect(dataProvider.playing).toEqual(true);
 
     // Wait for animation.
-    fakeTimers.tick(600);
+    vi.advanceTimersByTime(600);
     // Wait for 1st raf cb.
-    fakeTimers.tick(1);
+    vi.advanceTimersByTime(1);
 
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
     // await new Promise((r) => { setTimeout(r, 40); });
@@ -354,7 +330,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
   it("timeline with no dates (Analysis animation", async () => {
     const dataProvider = new TestTimelineDataProvider();
     dataProvider.getSettings().duration = 30; // make sure this is shorter than the timeout of 40 so we get to end of animation
-    fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
 
     const renderedComponent = render(
       <TimelineComponent
@@ -377,15 +353,15 @@ describe("<TimelineComponent showDuration={true} />", () => {
     fireEvent.click(playButton);
     expect(dataProvider.playing).toEqual(true);
 
-    fakeTimers.tick(1);
+    vi.advanceTimersByTime(1);
     // Wait for animation.
-    fakeTimers.setSystemTime(600);
+    vi.setSystemTime(600);
     // Wait for 1st raf cb.
-    fakeTimers.tick(1);
+    vi.advanceTimersByTime(1);
 
-    // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
-    // await new Promise((r) => { setTimeout(r, 40); });
-    expect(dataProvider.playing).to.be.false;
+    await vi.waitFor(() => {
+      expect(dataProvider.playing).to.be.false;
+    });
   });
 
   it("open/close timeline settings - minimized", async () => {
@@ -534,16 +510,16 @@ describe("<TimelineComponent showDuration={true} />", () => {
     getByRole("button", { name: "timeline.pause" });
 
     rerender(<TimelineComponent {...initialProps} isPlaying={false} />);
-    expect(spyOnPlayPause.calledTwice).toEqual(true);
+    expect(spyOnPlayPause).toHaveBeenCalledTimes(2);
     getByRole("button", { name: "timeline.play" });
 
     rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
-    expect(spyOnPlayPause.calledThrice).toEqual(true);
+    expect(spyOnPlayPause).toHaveBeenCalledTimes(3);
     getByRole("button", { name: "timeline.pause" });
 
     // do nothing (already playing)
     rerender(<TimelineComponent {...initialProps} isPlaying={true} />);
-    expect(spyOnPlayPause.calledThrice).toEqual(true);
+    expect(spyOnPlayPause).toHaveBeenCalledTimes(3);
     getByRole("button", { name: "timeline.pause" });
   });
 
@@ -575,10 +551,10 @@ describe("<TimelineComponent showDuration={true} />", () => {
     UiAdmin.sendUiEvent(args);
     args.timelineAction = TimelinePausePlayAction.Toggle;
     UiAdmin.sendUiEvent(args);
-    expect(spyOnPlayPause.calledThrice).toEqual(true);
+    expect(spyOnPlayPause).toHaveBeenCalledTimes(3);
     UiAdmin.sendUiEvent({ uiComponentId: "TestTimeline" });
     // onPlayPause should not be called again, since the args don't include an action
-    expect(spyOnPlayPause.calledThrice).toEqual(true);
+    expect(spyOnPlayPause).toHaveBeenCalledTimes(3);
   });
 
   it("re-render on repeat change", () => {
@@ -855,7 +831,9 @@ describe("<TimelineComponent showDuration={true} />", () => {
     expect(renderedComponent.queryByText("timeline.repeat")).to.be.null;
 
     const mouseUp = new MouseEvent("mouseup");
-    vi.spyOn(mouseUp, "target").get(() => document.createElement("div"));
+    vi.spyOn(mouseUp, "target", "get").mockImplementation(() =>
+      document.createElement("div")
+    );
     window.dispatchEvent(mouseUp);
   });
   it("should respect time zone offset", () => {

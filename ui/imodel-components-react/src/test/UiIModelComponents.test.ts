@@ -12,6 +12,10 @@ describe("UiIModelComponents", () => {
     TestUtils.terminateUiIModelComponents();
   });
 
+  afterEach(async () => {
+    await IModelApp.shutdown();
+  });
+
   it("i18nNamespace should return 'UiIModelComponents'", () => {
     expect(UiIModelComponents.localizationNamespace).toEqual(
       "UiIModelComponents"
@@ -23,6 +27,7 @@ describe("UiIModelComponents", () => {
   });
 
   it("translate should return the key (in test environment)", async () => {
+    await NoRenderApp.startup();
     await TestUtils.initializeUiIModelComponents();
     expect(UiIModelComponents.translate("test1.test2")).toEqual("test1.test2");
     TestUtils.terminateUiIModelComponents();
@@ -31,8 +36,7 @@ describe("UiIModelComponents", () => {
   it("translate should return blank and log error if UiIModelComponents not initialized", () => {
     const spyLogger = vi.spyOn(Logger, "logError");
     expect(UiIModelComponents.translate("xyz")).toEqual("");
-    spyLogger.calledOnce.should.true;
-    (Logger.logError as any).restore();
+    expect(spyLogger).toHaveBeenCalledOnce();
   });
 
   it("calling initialize twice should log", async () => {
@@ -41,8 +45,7 @@ describe("UiIModelComponents", () => {
     await UiIModelComponents.initialize();
     expect(UiIModelComponents.initialized).toEqual(true);
     await UiIModelComponents.initialize();
-    spyLogger.calledOnce.should.true;
-    (Logger.logInfo as any).restore();
+    expect(spyLogger).toHaveBeenCalledOnce();
   });
 
   it("calling initialize without I18N will use IModelApp.i18n", async () => {

@@ -379,7 +379,7 @@ describe("FrontstageManager", () => {
         frontstageDef
       );
 
-      fakeTimers.tick(200);
+      vi.advanceTimersByTime(200);
 
       divContainer.dispatchEvent(
         new MouseEvent("mousemove", {
@@ -398,7 +398,7 @@ describe("FrontstageManager", () => {
         })
       );
 
-      fakeTimers.tick(200);
+      vi.advanceTimersByTime(200);
 
       divContainer.dispatchEvent(
         new MouseEvent("mousemove", {

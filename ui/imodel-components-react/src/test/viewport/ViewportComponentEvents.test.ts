@@ -9,27 +9,32 @@ import type {
   ViewManager,
   Viewport,
 } from "@itwin/core-frontend";
-import { IModelApp, StandardViewId } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, StandardViewId } from "@itwin/core-frontend";
 import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents";
 import { TestUtils } from "../TestUtils";
 
 describe("ViewportComponentEvents", () => {
-  const onSelectedViewportChanged = new BeUiEvent();
+  const onSelectedViewportChanged =
+    new BeUiEvent<SelectedViewportChangedArgs>();
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await NoRenderApp.startup();
+
+    vi.spyOn(
+      IModelApp.viewManager,
+      "onSelectedViewportChanged",
+      "get"
+    ).mockReturnValue(onSelectedViewportChanged);
+    ViewportComponentEvents.initialize();
+  });
+
+  afterEach(async () => {
+    await IModelApp.shutdown();
     ViewportComponentEvents.terminate();
   });
 
   it("should initialize when IModelApp.viewManager is defined", () => {
-    (IModelApp as any)._viewManager = {
-      onSelectedViewportChanged,
-    } as ViewManager;
-    ViewportComponentEvents.initialize();
     expect(onSelectedViewportChanged.numberOfListeners).to.equal(1);
-  });
-
-  it("should return early in initialization when already initialized", () => {
-    ViewportComponentEvents.initialize();
   });
 
   it("should setCubeMatrix", async () => {
@@ -72,6 +77,7 @@ describe("ViewportComponentEvents", () => {
   });
 
   it("should setViewMatrix when onSelectedViewportChanged event is emitted", async () => {
+    vi.useFakeTimers();
     const viewRotationListener = vi.fn();
     const remove =
       ViewportComponentEvents.onViewRotationChangeEvent.addListener(
@@ -79,19 +85,20 @@ describe("ViewportComponentEvents", () => {
       );
     const current = { rotation: Matrix3d.createIdentity() } as Viewport;
     onSelectedViewportChanged.emit({ current } as SelectedViewportChangedArgs);
-    await TestUtils.flushAsyncOperations();
+    vi.advanceTimersByTime(1);
     expect(viewRotationListener).toHaveBeenCalledOnce();
     remove();
   });
 
   it("should not setViewMatrix when onSelectedViewportChanged event is emitted with unset current", async () => {
+    vi.useFakeTimers();
     const viewRotationListener = vi.fn();
     const remove =
       ViewportComponentEvents.onViewRotationChangeEvent.addListener(
         viewRotationListener
       );
     onSelectedViewportChanged.emit({} as SelectedViewportChangedArgs);
-    await TestUtils.flushAsyncOperations();
+    vi.advanceTimersByTime(1);
     expect(viewRotationListener).not.toBeCalled();
     remove();
   });

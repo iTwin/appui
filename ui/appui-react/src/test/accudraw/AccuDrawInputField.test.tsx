@@ -83,7 +83,7 @@ describe("AccuDrawInputField", () => {
   });
 
   it("should call onValueChanged on change after delay", async () => {
-    const fakeTimers = sinon.useFakeTimers();
+    const vi.useFakeTimers();
     const spy = vi.fn();
     const wrapper = render(
       <AccuDrawInputField
@@ -101,7 +101,7 @@ describe("AccuDrawInputField", () => {
     fireEvent.keyDown(input!, { key: Key.Enter });
     spy.called.should.not.be.true;
 
-    fakeTimers.tick(20);
+    vi.advanceTimersByTime(20);
     expect(spy).toHaveBeenCalledOnce();
     fakeTimers.restore();
   });

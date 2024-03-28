@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
 import React from "react";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { NoRenderApp, type ScreenViewport } from "@itwin/core-frontend";
@@ -30,11 +29,8 @@ class TestSolarDataProvider extends BaseSolarDataProvider {
 
 describe("<SpeedTimeline />", () => {
   beforeEach(async () => {
-    // need to initialize to get localized strings
     await TestUtils.initializeUiIModelComponents();
   });
-
-  afterEach(() => {});
 
   afterEach(() => {
     TestUtils.terminateUiIModelComponents();
@@ -59,26 +55,12 @@ describe("<SpeedTimeline />", () => {
 });
 
 describe("<SolarTimeline />", () => {
-  const rafSpy = vi.spyOn((cb: FrameRequestCallback) => {
-    return window.setTimeout(cb, 0);
-  });
-
   beforeEach(async () => {
-    // need to initialize to get localized strings
     await TestUtils.initializeUiIModelComponents();
     await NoRenderApp.startup();
-
-    // JSDom used in testing does not provide implementations for requestAnimationFrame/cancelAnimationFrame so add dummy ones here.
-    window.requestAnimationFrame = rafSpy;
-    window.cancelAnimationFrame = () => {};
   });
 
   afterEach(() => {
-    rafspy.mockReset();
-  });
-
-  afterEach(() => {
-    sinon.restore();
     TestUtils.terminateUiIModelComponents();
   });
 
@@ -158,7 +140,7 @@ describe("<SolarTimeline />", () => {
   });
 
   it("should render", async () => {
-    const fakeTimers = sinon.useFakeTimers();
+    vi.useFakeTimers();
     const dataProvider = new TestSolarDataProvider();
 
     const renderedComponent = render(
@@ -173,8 +155,8 @@ describe("<SolarTimeline />", () => {
     fireEvent.click(playButton);
 
     // kill some time to wait for setState and subsequent call to window.requestAnimationFrame to process
-    fakeTimers.tick(500);
-    fakeTimers.restore();
+    vi.advanceTimersByTime(500);
+
     // the following sets up a MutationObserver which triggers when the DOM is updated
     await waitFor(() =>
       renderedComponent.getByRole("button", {

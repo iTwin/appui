@@ -9,9 +9,7 @@ import type {
   ButtonGroupEditorParams,
   ColorEditorParams,
   CustomFormattedNumberParams,
-  DisplayMessageType,
   ImageCheckBoxParams,
-  MessagePresenter,
   ParseResults,
   Primitives,
   PrimitiveValue,
@@ -33,8 +31,7 @@ import type { AsyncValueProcessingResult } from "@itwin/components-react";
 import { DataControllerBase } from "@itwin/components-react";
 import { UiIModelComponents } from "../imodel-components-react/UiIModelComponents";
 import { act, prettyDOM } from "@testing-library/react";
-
-// cSpell:ignore buttongroup
+import type { Mock } from "vitest";
 
 /** @internal */
 export class TestUtils {
@@ -45,22 +42,11 @@ export class TestUtils {
       await UiIModelComponents.initialize();
       TestUtils._uiIModelComponentsInitialized = true;
 
-      const mp: MessagePresenter = {
-        displayMessage: (
-          _severity: MessageSeverity,
-          _briefMessage: HTMLElement | string,
-          _detailedMessage?: HTMLElement | string,
-          _messageType?: DisplayMessageType.Toast
-        ): void => {},
-        displayInputFieldMessage: (
-          _inputField: HTMLElement,
-          _severity: MessageSeverity,
-          _briefMessage: HTMLElement | string,
-          _detailedMessage?: HTMLElement | string
-        ): void => {},
-        closeInputFieldMessage: (): void => {},
+      UiAdmin.messagePresenter = {
+        displayMessage: () => {},
+        displayInputFieldMessage: () => {},
+        closeInputFieldMessage: () => {},
       };
-      UiAdmin.messagePresenter = mp;
     }
   }
 
@@ -476,7 +462,7 @@ export class TestUtils {
 
 /** @internal */
 export class MineDataController extends DataControllerBase {
-  public override async validateValue(
+  public async validateValue(
     _newValue: PropertyValue,
     _record: PropertyRecord
   ): Promise<AsyncValueProcessingResult> {
@@ -545,15 +531,7 @@ export async function waitForPosition() {
   return act(async () => {});
 }
 
-/** Simplified type for `sinon.SinonSpy`.
- * @internal
- */
-export type SinonSpy<T extends (...args: any) => any> = sinon.SinonSpy<
-  Parameters<T>,
-  ReturnType<T>
->;
-
-/** Simplified type for `sinon.SinonSpy` for a React component.
+/** Simplified type for `vi.fn` for a React component.
  * @internal
  */
 export type ComponentSpy<
@@ -561,6 +539,9 @@ export type ComponentSpy<
     | keyof React.JSX.IntrinsicElements
     | React.JSXElementConstructor<any>,
   K extends keyof React.ComponentProps<T>
-> = SinonSpy<React.ComponentProps<T>[K]>;
+> = Mock<
+  Parameters<React.ComponentProps<T>[K]>,
+  ReturnType<React.ComponentProps<T>[K]>
+>;
 
 export default TestUtils;

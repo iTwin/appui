@@ -21,33 +21,20 @@ import { QuantityFormatPanel } from "../../imodel-components-react/quantityforma
 
 describe("QuantityInput", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(async () => {
-    theUserTo = userEvent.setup();
-    await IModelApp.quantityFormatter.clearAllOverrideFormats();
-  });
-  const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
-    IModelApp,
-    "requestNextAnimation"
-  )!;
-  function requestNextAnimation() {}
 
   beforeEach(async () => {
+    theUserTo = userEvent.setup();
+
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
-    Object.defineProperty(IModelApp, "requestNextAnimation", {
-      get: () => requestNextAnimation,
-    });
+    vi.spyOn(IModelApp, "requestNextAnimation").mockImplementation(() => {});
     await TestUtils.initializeUiIModelComponents();
     await NoRenderApp.startup();
+    await IModelApp.quantityFormatter.clearAllOverrideFormats();
   });
 
   afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
-    Object.defineProperty(
-      IModelApp,
-      "requestNextAnimation",
-      rnaDescriptorToRestore
-    );
   });
 
   it("should render basic panel", () => {
@@ -141,7 +128,7 @@ describe("QuantityInput", () => {
       />
     );
     expect(component).not.to.be.null;
-    expect(spy).to.not.be.calledOnce;
+    expect(spy).not.toBeCalled();
     const spanElement = component.getByTestId("format-sample-formatted");
 
     const comboBox = within(
@@ -191,7 +178,7 @@ describe("QuantityInput", () => {
         onFormatChange={spy}
       />
     );
-    expect(spy).to.not.be.calledOnce;
+    expect(spy).not.toBeCalled();
 
     const spanElement = component.getByTestId("format-sample-formatted");
     await waitFor(() => {

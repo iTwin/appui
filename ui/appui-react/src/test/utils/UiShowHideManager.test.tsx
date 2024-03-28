@@ -188,7 +188,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       });
 
       it("Mouse move in content view should show the UI then hide after inactivity", () => {
-        const fakeTimers = sinon.useFakeTimers();
+        const vi.useFakeTimers();
         UiFramework.setIsUiVisible(false);
         InternalUiShowHideManager.autoHideUi = true;
         InternalUiShowHideManager.inactivityTime = 20;
@@ -209,10 +209,10 @@ describe("UiShowHideManager localStorage Wrapper", () => {
           })
         );
 
-        fakeTimers.tick(0);
+        vi.advanceTimersByTime(0);
         expect(InternalUiShowHideManager.isUiVisible).toEqual(true);
 
-        fakeTimers.tick(1000);
+        vi.advanceTimersByTime(1000);
         fakeTimers.restore();
         expect(InternalUiShowHideManager.isUiVisible).toEqual(false);
       });

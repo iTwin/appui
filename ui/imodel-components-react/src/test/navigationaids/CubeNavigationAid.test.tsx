@@ -26,6 +26,7 @@ import {
 import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents";
 import { Face } from "../../imodel-components-react/navigationaids/Cube";
 import userEvent from "@testing-library/user-event";
+import type { Mock } from "vitest";
 
 describe("CubeNavigationAid", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -44,22 +45,20 @@ describe("CubeNavigationAid", () => {
 
   const connection = moq.Mock.ofType<IModelConnection>();
   const viewState = moq.Mock.ofType<DrawingViewState>();
-  viewState.setup((x) => x.id).mockReturnValue(() => "id1");
+  viewState.setup((x) => x.id).returns(() => "id1");
   viewState
     .setup((x) => x.classFullName)
     .returns(() => "Bis:DrawingViewDefinition");
-  viewState.setup((x) => x.getRotation).mockReturnValue(() => () => rotation);
+  viewState.setup((x) => x.getRotation).returns(() => () => rotation);
   const vp = moq.Mock.ofType<ScreenViewport>();
-  vp.setup((x) => x.view).mockReturnValue(() => viewState.object);
-  vp.setup((x) => x.rotation).mockReturnValue(() => rotation);
+  vp.setup((x) => x.view).returns(() => viewState.object);
+  vp.setup((x) => x.rotation).returns(() => rotation);
 
-  const waitForSpy = async (
-    spy: sinon.SinonSpy,
-    timeoutMillis: number = 1500
-  ) => {
+  const waitForSpy = async (spy: Mock, timeoutMillis: number = 1500) => {
     return waitFor(
       () => {
-        if (!spy.called) throw new Error("Waiting for spy timed out!");
+        if (spy.mock.calls.length === 0)
+          throw new Error("Waiting for spy timed out!");
       },
       { timeout: timeoutMillis, interval: 10 }
     );
@@ -97,9 +96,6 @@ describe("CubeNavigationAid", () => {
   };
 
   describe("<CubeNavigationAid />", () => {
-    afterEach(() => {
-      sinon.restore();
-    });
     it("should render", () => {
       render(<CubeNavigationAid iModelConnection={connection.object} />);
     });
@@ -113,9 +109,7 @@ describe("CubeNavigationAid", () => {
     [vp.object, undefined].map((lockedViewport) => {
       const shouldStr = !!lockedViewport ? "locked cube should not" : "should";
       it(`${shouldStr} change from top to front when arrow clicked`, async () => {
-        sinon.replaceGetter(
-          IModelApp,
-          "toolAdmin",
+        vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
         const animationEnd = vi.fn();
@@ -138,7 +132,6 @@ describe("CubeNavigationAid", () => {
           new MouseEvent("click", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
 
@@ -152,9 +145,7 @@ describe("CubeNavigationAid", () => {
         expect(mat2.matrix.isAlmostEqual(expectedMatrix)).is.true;
       });
       it(`${shouldStr} change from top to back when arrow clicked`, async () => {
-        sinon.replaceGetter(
-          IModelApp,
-          "toolAdmin",
+        vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
         const animationEnd = vi.fn();
@@ -177,7 +168,6 @@ describe("CubeNavigationAid", () => {
           new MouseEvent("click", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
 
@@ -195,9 +185,7 @@ describe("CubeNavigationAid", () => {
         ).is.true;
       });
       it(`${shouldStr} change from top to left when arrow clicked`, async () => {
-        sinon.replaceGetter(
-          IModelApp,
-          "toolAdmin",
+        vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
         const animationEnd = vi.fn();
@@ -221,7 +209,6 @@ describe("CubeNavigationAid", () => {
           new MouseEvent("click", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
 
@@ -239,9 +226,7 @@ describe("CubeNavigationAid", () => {
         ).is.true;
       });
       it(`${shouldStr} change from top to right when arrow clicked`, async () => {
-        sinon.replaceGetter(
-          IModelApp,
-          "toolAdmin",
+        vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
         const animationEnd = vi.fn();
@@ -267,7 +252,6 @@ describe("CubeNavigationAid", () => {
           new MouseEvent("click", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
 
@@ -285,9 +269,7 @@ describe("CubeNavigationAid", () => {
         ).is.true;
       });
       it(`${shouldStr} highlight hovered cell`, async () => {
-        sinon.replaceGetter(
-          IModelApp,
-          "toolAdmin",
+        vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
         const component = render(
@@ -307,7 +289,6 @@ describe("CubeNavigationAid", () => {
           new MouseEvent("mouseover", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
 
@@ -320,9 +301,7 @@ describe("CubeNavigationAid", () => {
         });
       });
       it(`${shouldStr} click center cell`, async () => {
-        sinon.replaceGetter(
-          IModelApp,
-          "toolAdmin",
+        vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
         const component = render(
@@ -346,7 +325,6 @@ describe("CubeNavigationAid", () => {
           new MouseEvent("mousedown", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         await waitFor(() => {
@@ -359,7 +337,6 @@ describe("CubeNavigationAid", () => {
           new MouseEvent("mouseup", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
 
@@ -371,9 +348,7 @@ describe("CubeNavigationAid", () => {
         expect(mat2.matrix.isAlmostEqual(expectedMatrix)).is.true;
       });
       it(`${shouldStr} click corner cell`, async () => {
-        sinon.replaceGetter(
-          IModelApp,
-          "toolAdmin",
+        vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
         const animationEnd = vi.fn();
@@ -399,7 +374,6 @@ describe("CubeNavigationAid", () => {
           new MouseEvent("mousedown", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         await waitFor(() => {
@@ -411,7 +385,6 @@ describe("CubeNavigationAid", () => {
           new MouseEvent("mouseup", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         await waitForSpy(animationEnd);
@@ -434,9 +407,7 @@ describe("CubeNavigationAid", () => {
         });
       });
       it(`${shouldStr} switch from corner to top face`, async () => {
-        sinon.replaceGetter(
-          IModelApp,
-          "toolAdmin",
+        vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
         const animationEnd = vi.fn();
@@ -463,14 +434,12 @@ describe("CubeNavigationAid", () => {
           new MouseEvent("mousedown", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         topCornerCell.dispatchEvent(
           new MouseEvent("mouseup", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         await waitForSpy(animationEnd);
@@ -495,14 +464,12 @@ describe("CubeNavigationAid", () => {
           new MouseEvent("mousedown", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         topCenterCell.dispatchEvent(
           new MouseEvent("mouseup", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         await waitForSpy(animationEnd);
@@ -523,9 +490,7 @@ describe("CubeNavigationAid", () => {
         expect(mat3.matrix.isAlmostEqual(expectedMatrix)).is.true;
       });
       it(`${shouldStr} switch from corner to bottom face`, async () => {
-        sinon.replaceGetter(
-          IModelApp,
-          "toolAdmin",
+        vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
         const animationEnd = vi.fn();
@@ -552,14 +517,12 @@ describe("CubeNavigationAid", () => {
           new MouseEvent("mousedown", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         bottomCornerCell.dispatchEvent(
           new MouseEvent("mouseup", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         await waitForSpy(animationEnd);
@@ -585,14 +548,12 @@ describe("CubeNavigationAid", () => {
           new MouseEvent("mousedown", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         bottomCornerCenter.dispatchEvent(
           new MouseEvent("mouseup", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         await waitForSpy(animationEnd);
@@ -604,9 +565,7 @@ describe("CubeNavigationAid", () => {
         expect(mat3.matrix.isAlmostEqual(expectedMatrix)).is.true;
       });
       it(`${shouldStr} drag cube`, async () => {
-        sinon.replaceGetter(
-          IModelApp,
-          "toolAdmin",
+        vi.spyOn(IModelApp, "toolAdmin", "get").mockImplementation(
           () => ({ markupView: lockedViewport } as ToolAdmin)
         );
         const component = render(
@@ -728,7 +687,7 @@ describe("CubeNavigationAid", () => {
     });
     describe("methods and callbacks", () => {
       beforeEach(() => {
-        NavCubeFace.faceCellToPos = vi.spyOn(NavCubeFace.faceCellToPos);
+        NavCubeFace.faceCellToPos = vi.fn(NavCubeFace.faceCellToPos);
         render(
           <NavCubeFace
             face={Face.Top}
@@ -742,13 +701,17 @@ describe("CubeNavigationAid", () => {
 
       describe("faceCellToPos", () => {
         it("should be called when component is rendered", () => {
-          NavCubeFace.faceCellToPos.should.have.been.calledWith(Face.Top, 0, 0);
+          expect(NavCubeFace.faceCellToPos).toHaveBeenCalledWith(
+            Face.Top,
+            0,
+            0
+          );
         });
         it("should return correct Point3d", () => {
           const pos = NavCubeFace.faceCellToPos(Face.Back, -1, 1);
-          pos.x.should.equal(CubeNavigationHitBoxX.Right);
-          pos.y.should.equal(CubeNavigationHitBoxY.Back);
-          pos.z.should.equal(CubeNavigationHitBoxZ.Bottom);
+          expect(pos.x).toEqual(CubeNavigationHitBoxX.Right);
+          expect(pos.y).toEqual(CubeNavigationHitBoxY.Back);
+          expect(pos.z).toEqual(CubeNavigationHitBoxZ.Bottom);
         });
       });
     });

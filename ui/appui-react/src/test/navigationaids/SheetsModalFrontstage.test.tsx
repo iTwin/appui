@@ -81,7 +81,7 @@ describe("SheetsModalFrontstage", () => {
 
   describe("CardContainer React Testing", () => {
     it("search box calls onValueChanged after 250ms delay", async () => {
-      const fakeTimers = sinon.useFakeTimers();
+      const vi.useFakeTimers();
       modal = new SheetsModalFrontstage(
         new Array<SheetData>({
           name: "Name",

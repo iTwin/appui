@@ -61,8 +61,8 @@ describe("<ColorPickerPopup/>", () => {
     });
     fireEvent.click(colorSwatch);
 
-    sinon.assert.calledOnceWithExactly(
-      spy,
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({ tbgr: ColorByName.red })
     );
   });
@@ -93,8 +93,8 @@ describe("<ColorPickerPopup/>", () => {
     });
     fireEvent.click(colorSwatch);
 
-    sinon.assert.calledOnceWithExactly(
-      spy,
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({ tbgr: ColorByName.green })
     );
   });
@@ -146,8 +146,9 @@ describe("<ColorPickerPopup/>", () => {
     fireEvent.click(colorSwatch);
 
     fireEvent.click(pickerButton); /* close popup */
-    sinon.assert.calledOnceWithExactly(
-      spy,
+
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({ tbgr: ColorDef.green.tbgr })
     );
   });

@@ -94,7 +94,7 @@ describe("SyncUiEventDispatcher", () => {
   });
 
   it("test timed sync event", () => {
-    const fakeTimers = sinon.useFakeTimers();
+    const vi.useFakeTimers();
     let callback1Called = false;
     let callback1HasExpectedEventId = false;
 
@@ -107,7 +107,7 @@ describe("SyncUiEventDispatcher", () => {
     SyncUiEventDispatcher.dispatchSyncUiEvent("Event1");
     expect(callback1Called).to.be.false;
 
-    fakeTimers.tick(timeToWaitForUiSyncCallback);
+    vi.advanceTimersByTime(timeToWaitForUiSyncCallback);
     fakeTimers.restore();
 
     expect(callback1Called).toEqual(true);
@@ -116,7 +116,7 @@ describe("SyncUiEventDispatcher", () => {
   });
 
   it("test multiple event Id with a timed sync event", () => {
-    const fakeTimers = sinon.useFakeTimers();
+    const vi.useFakeTimers();
     let callbackCalled = false;
     let callbackHasExpectedEventIds = false;
 
@@ -131,7 +131,7 @@ describe("SyncUiEventDispatcher", () => {
     SyncUiEventDispatcher.dispatchSyncUiEvents(["Event1", "Event2"]);
     expect(callbackCalled).to.be.false;
 
-    fakeTimers.tick(timeToWaitForUiSyncCallback);
+    vi.advanceTimersByTime(timeToWaitForUiSyncCallback);
     fakeTimers.restore();
 
     expect(callbackCalled).toEqual(true);
@@ -140,7 +140,7 @@ describe("SyncUiEventDispatcher", () => {
   });
 
   it("test multiple event Id with a multiple dispatches", () => {
-    const fakeTimers = sinon.useFakeTimers();
+    const vi.useFakeTimers();
     let callbackCalled = false;
     let callbackHasExpectedEventIds = false;
 
@@ -168,7 +168,7 @@ describe("SyncUiEventDispatcher", () => {
   });
 
   it("Test event handlers", () => {
-    const fakeTimers = sinon.useFakeTimers();
+    const vi.useFakeTimers();
     const handleSyncUiEvent = vi.fn();
 
     SyncUiEventDispatcher.initialize();

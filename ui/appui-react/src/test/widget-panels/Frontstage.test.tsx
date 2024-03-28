@@ -626,7 +626,7 @@ describe("Frontstage local storage wrapper", () => {
 
     describe("useSaveFrontstageSettings", () => {
       it("should save frontstage settings", async () => {
-        const fakeTimers = sinon.useFakeTimers();
+        const vi.useFakeTimers();
         const uiStateStorage = new UiStateStorageStub();
         const spy = vi.spyOn(uiStateStorage, "saveSetting").resolves({
           status: UiStateStorageStatus.Success,
@@ -639,14 +639,14 @@ describe("Frontstage local storage wrapper", () => {
         renderHook(() => useSaveFrontstageSettings(frontstageDef, layout), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
-        fakeTimers.tick(1000);
+        vi.advanceTimersByTime(1000);
         fakeTimers.restore();
 
         expect(spy).toHaveBeenCalledOnce();
       });
 
       it("should not save if tab is dragged", async () => {
-        const fakeTimers = sinon.useFakeTimers();
+        const vi.useFakeTimers();
         const uiStateStorage = new UiStateStorageStub();
         const spy = vi.spyOn(uiStateStorage, "saveSetting").resolves({
           status: UiStateStorageStatus.Success,
@@ -665,7 +665,7 @@ describe("Frontstage local storage wrapper", () => {
         renderHook(() => useSaveFrontstageSettings(frontstageDef, layout), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
-        fakeTimers.tick(1000);
+        vi.advanceTimersByTime(1000);
         fakeTimers.restore();
 
         expect(spy).not.toBeCalled();

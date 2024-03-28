@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as moq from "typemoq";
-
 import { BeEvent, Logger } from "@itwin/core-bentley";
 import type { WritableXAndY } from "@itwin/core-geometry";
 import { AxisIndex, Matrix3d, Point3d, Vector3d } from "@itwin/core-geometry";
@@ -128,7 +127,7 @@ describe("ViewportComponent", () => {
   viewsMock
     .setup((x) => x.load)
     .returns(() => async (viewId: string) => getViewState(viewId));
-  imodelMock.setup((x) => x.views).mockReturnValue(() => viewsMock.object);
+  imodelMock.setup((x) => x.views).returns(() => viewsMock.object);
 
   let tentativePointIsActive = false;
   const tentativePointMock = moq.Mock.ofType<TentativePoint>();
@@ -145,17 +144,15 @@ describe("ViewportComponent", () => {
 
   const onViewChanged = new BeEvent<(vp: Viewport) => void>();
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
-  viewportMock.setup((x) => x.view).mockReturnValue(() => viewState);
-  viewportMock
-    .setup((x) => x.onViewChanged)
-    .mockReturnValue(() => onViewChanged);
+  viewportMock.setup((x) => x.view).returns(() => viewState);
+  viewportMock.setup((x) => x.onViewChanged).returns(() => onViewChanged);
   viewportMock
     .setup((x) => x.worldToView)
     .returns(
       () => (_input: Readonly<WritableXAndY>, _out?: Point3d | undefined) =>
         worldToViewPoint
     );
-  viewportMock.setup((x) => x.viewRect).mockReturnValue(() => viewRect);
+  viewportMock.setup((x) => x.viewRect).returns(() => viewRect);
   viewportMock
     .setup((x) => x.pickNearestVisibleGeometry)
     .returns(
@@ -173,9 +170,7 @@ describe("ViewportComponent", () => {
     .returns(() => (_box?: Frustum | undefined) => new Frustum());
 
   const viewManager = moq.Mock.ofType<ViewManager>();
-  viewManager
-    .setup((x) => x.selectedView)
-    .mockReturnValue(() => viewportMock.object);
+  viewManager.setup((x) => x.selectedView).returns(() => viewportMock.object);
   class ScreenViewportMock extends ScreenViewport {
     public static override create(
       _parentDiv: HTMLDivElement,
@@ -290,8 +285,7 @@ describe("ViewportComponent", () => {
       />
     );
     await TestUtils.flushAsyncOperations();
-    spyLogger.called.should.true;
-    (Logger.logError as any).restore();
+    expect(spyLogger).toHaveBeenCalledOnce();
   });
 
   it("should log error when rendering without viewState or viewDefinitionId", async () => {
@@ -304,8 +298,7 @@ describe("ViewportComponent", () => {
       />
     );
     await TestUtils.flushAsyncOperations();
-    spyLogger.called.should.true;
-    (Logger.logError as any).restore();
+    expect(spyLogger).toHaveBeenCalledOnce();
   });
 
   it("should log error when re-rendering with fake viewDefinitionId", async () => {
@@ -615,7 +608,7 @@ describe("ViewportComponent", () => {
 
   describe("onViewChanged", () => {
     const viewState2Mock = moq.Mock.ofType<OrthographicViewState>();
-    viewState2Mock.setup((x) => x.id).mockReturnValue(() => "id2");
+    viewState2Mock.setup((x) => x.id).returns(() => "id2");
     viewState2Mock
       .setup((x) => x.getExtents)
       .returns(() => () => viewState.getExtents());
@@ -627,12 +620,8 @@ describe("ViewportComponent", () => {
       .returns(() => "Bis:OrthographicViewDefinition");
 
     const viewportMock2 = moq.Mock.ofType<ScreenViewport>();
-    viewportMock2
-      .setup((x) => x.view)
-      .mockReturnValue(() => viewState2Mock.object);
-    viewportMock2
-      .setup((x) => x.onViewChanged)
-      .mockReturnValue(() => onViewChanged);
+    viewportMock2.setup((x) => x.view).returns(() => viewState2Mock.object);
+    viewportMock2.setup((x) => x.onViewChanged).returns(() => onViewChanged);
     viewportMock2
       .setup((x) => x.worldToView)
       .returns(

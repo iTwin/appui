@@ -71,7 +71,7 @@ describe("CursorPrompt", () => {
 
     const move = new Point(50, 60);
     CursorInformation.handleMouseMove(move);
-    fakeTimers.tick(0);
+    vi.advanceTimersByTime(0);
 
     const moved = move.offset(offset);
     const styleForMoved = { top: `${moved.y}px`, left: `${moved.x}px` };
@@ -81,10 +81,10 @@ describe("CursorPrompt", () => {
       ).to.include(styleForMoved);
     });
 
-    fakeTimers.tick(40);
+    vi.advanceTimersByTime(40);
     expect(CursorPopupManager.popupCount).toEqual(1);
 
-    fakeTimers.tick(1000);
+    vi.advanceTimersByTime(1000);
     fakeTimers.restore();
     expect(CursorPopupManager.popupCount).toEqual(0);
   });

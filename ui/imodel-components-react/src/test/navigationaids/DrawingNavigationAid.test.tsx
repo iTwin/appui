@@ -29,6 +29,7 @@ import {
 } from "../../imodel-components-react/navigationaids/DrawingNavigationAid";
 import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents";
 import userEvent from "@testing-library/user-event";
+import type { Mock } from "vitest";
 
 // cspell:ignore unrotate
 
@@ -90,18 +91,13 @@ const cssMatrix3dToBentleyTransform = (mStr: string) => {
 
 describe("DrawingNavigationAid", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
-    theUserTo = userEvent.setup();
-  });
-
   beforeEach(async () => {
-    sinon.restore();
+    theUserTo = userEvent.setup();
     await TestUtils.initializeUiIModelComponents();
   });
 
   afterEach(() => {
     TestUtils.terminateUiIModelComponents();
-    sinon.restore();
   });
 
   let extents = Vector3d.create(400, 400);
@@ -109,26 +105,26 @@ describe("DrawingNavigationAid", () => {
   let rotation = Matrix3d.createIdentity();
   const connection = moq.Mock.ofType<IModelConnection>();
   const viewState = moq.Mock.ofType<DrawingViewState>();
-  viewState.setup((x) => x.id).mockReturnValue(() => "id1");
+  viewState.setup((x) => x.id).returns(() => "id1");
   viewState
     .setup((x) => x.classFullName)
     .returns(() => "Bis:DrawingViewDefinition");
-  viewState.setup((x) => x.is3d).mockReturnValue(() => () => false);
-  viewState.setup((x) => x.getExtents).mockReturnValue(() => () => extents);
-  viewState.setup((x) => x.getOrigin).mockReturnValue(() => () => origin);
-  viewState.setup((x) => x.getRotation).mockReturnValue(() => () => rotation);
+  viewState.setup((x) => x.is3d).returns(() => () => false);
+  viewState.setup((x) => x.getExtents).returns(() => () => extents);
+  viewState.setup((x) => x.getOrigin).returns(() => () => origin);
+  viewState.setup((x) => x.getRotation).returns(() => () => rotation);
   const vp = moq.Mock.ofType<ScreenViewport>();
-  vp.setup((x) => x.view).mockReturnValue(() => viewState.object);
+  vp.setup((x) => x.view).returns(() => viewState.object);
 
   const viewState3d = moq.Mock.ofType<ViewState3d>();
-  viewState3d.setup((x) => x.id).mockReturnValue(() => "id2");
+  viewState3d.setup((x) => x.id).returns(() => "id2");
   viewState3d
     .setup((x) => x.classFullName)
     .returns(() => "Bis:ViewDefinition3d");
-  viewState3d.setup((x) => x.is3d).mockReturnValue(() => () => true);
-  viewState3d.setup((x) => x.getExtents).mockReturnValue(() => () => extents);
-  viewState3d.setup((x) => x.getOrigin).mockReturnValue(() => () => origin);
-  viewState3d.setup((x) => x.getRotation).mockReturnValue(() => () => rotation);
+  viewState3d.setup((x) => x.is3d).returns(() => () => true);
+  viewState3d.setup((x) => x.getExtents).returns(() => () => extents);
+  viewState3d.setup((x) => x.getOrigin).returns(() => () => origin);
+  viewState3d.setup((x) => x.getRotation).returns(() => () => rotation);
 
   const viewManager = moq.Mock.ofType<ViewManager>();
   class ScreenViewportMock extends ScreenViewport {
@@ -137,18 +133,19 @@ describe("DrawingNavigationAid", () => {
       _view: ViewState
     ): ScreenViewport {
       const vpMock = moq.Mock.ofType<ScreenViewport>();
-      vpMock.setup((x) => x.view).mockReturnValue(() => viewState.object);
+      vpMock.setup((x) => x.view).returns(() => viewState.object);
       return vpMock.object;
     }
   }
 
   const waitForSpy = async (
-    spy: sinon.SinonSpy,
+    spy: Mock,
     options: { timeout: number } = { timeout: 250 }
   ) => {
     return waitFor(
       () => {
-        if (!spy.called) throw new Error("Waiting for spy timed out!");
+        if (spy.mock.calls.length === 0)
+          throw new Error("Waiting for spy timed out!");
       },
       { timeout: options.timeout, interval: 10 }
     );
@@ -342,7 +339,6 @@ describe("DrawingNavigationAid", () => {
         new KeyboardEvent("keyup", {
           bubbles: true,
           cancelable: true,
-          view: window,
           key: "Escape",
         })
       );
@@ -381,7 +377,6 @@ describe("DrawingNavigationAid", () => {
         new KeyboardEvent("keyup", {
           bubbles: true,
           cancelable: true,
-          view: window,
           key: "Escape",
         })
       );
@@ -419,7 +414,6 @@ describe("DrawingNavigationAid", () => {
         new KeyboardEvent("keyup", {
           bubbles: true,
           cancelable: true,
-          view: window,
           key: "Escape",
         })
       );
@@ -591,7 +585,6 @@ describe("DrawingNavigationAid", () => {
           new MouseEvent("click", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         await waitForSpy(animationEnd, { timeout: 1000 });
@@ -626,7 +619,6 @@ describe("DrawingNavigationAid", () => {
           new MouseEvent("click", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
         await waitForSpy(animationEnd, { timeout: 1000 });
@@ -1119,7 +1111,7 @@ describe("DrawingNavigationAid", () => {
         />
       );
       const newState = moq.Mock.ofType<DrawingViewState>();
-      newState.setup((x) => x.id).mockReturnValue(() => "id2");
+      newState.setup((x) => x.id).returns(() => "id2");
       newState
         .setup((x) => x.getExtents)
         .returns(() => () => Vector3d.create(2, 2));

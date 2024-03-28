@@ -30,7 +30,7 @@ describe("ColorPickerDialog", () => {
           onCancelResult={() => {}}
         />
       );
-      expect(wrapper.findByText("-testing-title-")).not.to.be.null;
+      wrapper.getByText("-testing-title-");
     });
 
     it("should render with presets", () => {
@@ -51,7 +51,6 @@ describe("ColorPickerDialog", () => {
           onCancelResult={() => {}}
         />
       );
-
       defaultColors.forEach((def) => {
         wrapper.getByText(
           ColorValue.fromTbgr(def.tbgr).toHslString(true).toUpperCase()

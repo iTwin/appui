@@ -94,10 +94,10 @@ describe("matchlinks", () => {
     ];
     testLinksWithIndexes.forEach(({ link, linkIndexes }) => {
       const linkMatches = matchLinks(link);
-      expect(linkMatches.length).toEqual(
-        linkIndexes.length,
+      expect(
+        linkMatches.length,
         `'${link}' should have ${linkIndexes.length} links.`
-      );
+      ).toEqual(linkIndexes.length);
       for (let i = 0; i < linkMatches.length; i++) {
         expect(linkMatches[i].index).toEqual(linkIndexes[i].index);
         expect(linkMatches[i].lastIndex).toEqual(linkIndexes[i].lastIndex);
