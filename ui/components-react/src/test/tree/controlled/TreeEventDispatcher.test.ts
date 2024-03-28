@@ -23,7 +23,6 @@ import {
   extractSequence,
   startExtractingSequence,
 } from "../../common/ObservableTestHelpers";
-import type { SinonSpy } from "../../TestUtils";
 import { createTreeNodeInput } from "./TreeHelpers";
 import { fireEvent, waitFor } from "@testing-library/react";
 import { asyncScheduler, from, of, scheduled, Subject } from "rxjs";
@@ -32,42 +31,15 @@ import type { TreeSelectionManager } from "../../../components-react/tree/contro
 
 describe("TreeEventDispatcher", () => {
   const treeEvents = {
-    onSelectionModified: sinon.fake() as SinonSpy<
-      Required<TreeEvents>["onSelectionModified"]
-    >,
-    onSelectionReplaced: sinon.fake() as SinonSpy<
-      Required<TreeEvents>["onSelectionReplaced"]
-    >,
-    onNodeExpanded: sinon.fake() as SinonSpy<
-      Required<TreeEvents>["onNodeExpanded"]
-    >,
-    onNodeCollapsed: sinon.fake() as SinonSpy<
-      Required<TreeEvents>["onNodeCollapsed"]
-    >,
-    onDelayedNodeClick: sinon.fake() as SinonSpy<
-      Required<TreeEvents>["onDelayedNodeClick"]
-    >,
-    onNodeEditorActivated: sinon.fake() as SinonSpy<
-      Required<TreeEvents>["onNodeEditorActivated"]
-    >,
-    onCheckboxStateChanged: sinon.fake() as SinonSpy<
-      Required<TreeEvents>["onCheckboxStateChanged"]
-    >,
-    onNodeDoubleClick: sinon.fake() as SinonSpy<
-      Required<TreeEvents>["onNodeDoubleClick"]
-    >,
-  };
-
-  beforeEach(() => {
-    treeEvents.onSelectionModified.mockReset();
-    treeEvents.onSelectionReplaced.mockReset();
-    treeEvents.onNodeExpanded.mockReset();
-    treeEvents.onNodeCollapsed.mockReset();
-    treeEvents.onDelayedNodeClick.mockReset();
-    treeEvents.onNodeEditorActivated.mockReset();
-    treeEvents.onCheckboxStateChanged.mockReset();
-    treeEvents.onNodeDoubleClick.mockReset();
-  });
+    onSelectionModified: vi.fn(),
+    onSelectionReplaced: vi.fn(),
+    onNodeExpanded: vi.fn(),
+    onNodeCollapsed: vi.fn(),
+    onDelayedNodeClick: vi.fn(),
+    onNodeEditorActivated: vi.fn(),
+    onCheckboxStateChanged: vi.fn(),
+    onNodeDoubleClick: vi.fn(),
+  } satisfies TreeEvents;
 
   function setupTreeEventDispatcher(
     selectionMode: SelectionMode,
@@ -79,7 +51,7 @@ describe("TreeEventDispatcher", () => {
 
     const eventDispatcher = new TreeEventDispatcher(
       treeEvents,
-      nodeLoader ?? { loadNode: sinon.fake() },
+      nodeLoader ?? { loadNode: vi.fn() },
       selectionMode,
       () => computeVisibleNodes(treeModel)
     );
@@ -105,7 +77,7 @@ describe("TreeEventDispatcher", () => {
       dispatcher.onNodeClicked("A", {} as any);
 
       expect(treeEvents.onSelectionReplaced).toHaveBeenCalledOnce();
-      const [args0] = treeEvents.onSelectionReplaced.args[0];
+      const [args0] = treeEvents.onSelectionReplaced.mock.calls[0];
       expect(await extractSequence(toRxjsObservable(args0.replacements)))
         .to.have.lengthOf(1)
         .and.containSubset([{ selectedNodeItems: [{ id: "A" }] }]);
@@ -113,7 +85,7 @@ describe("TreeEventDispatcher", () => {
       dispatcher.onNodeClicked("B", {} as any);
 
       expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
-      const [args1] = treeEvents.onSelectionReplaced.args[1];
+      const [args1] = treeEvents.onSelectionReplaced.mock.calls[1];
       expect(await extractSequence(toRxjsObservable(args1.replacements)))
         .to.have.lengthOf(1)
         .and.containSubset([{ selectedNodeItems: [{ id: "B" }] }]);
@@ -135,7 +107,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeClicked("A", {} as any);
       expect(treeEvents.onSelectionReplaced).toHaveBeenCalledOnce();
-      const [args0] = treeEvents.onSelectionReplaced.args[0];
+      const [args0] = treeEvents.onSelectionReplaced.mock.calls[0];
       expect(await extractSequence(toRxjsObservable(args0.replacements)))
         .to.have.lengthOf(1)
         .and.containSubset([
@@ -146,7 +118,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeClicked("B", { ctrlKey: true } as any);
       expect(treeEvents.onSelectionModified).toHaveBeenCalledOnce();
-      const [args1] = treeEvents.onSelectionModified.args[0];
+      const [args1] = treeEvents.onSelectionModified.mock.calls[0];
       expect(await extractSequence(toRxjsObservable(args1.modifications)))
         .to.have.lengthOf(1)
         .and.containSubset([
@@ -173,7 +145,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeClicked("A", { ctrlKey: true } as any);
       expect(treeEvents.onSelectionModified).toHaveBeenCalledOnce();
-      const [args0] = treeEvents.onSelectionModified.args[0];
+      const [args0] = treeEvents.onSelectionModified.mock.calls[0];
       expect(await extractSequence(toRxjsObservable(args0.modifications)))
         .to.have.lengthOf(1)
         .and.containSubset([
@@ -202,7 +174,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeClicked("A", {} as any);
       expect(treeEvents.onSelectionReplaced).toHaveBeenCalledOnce();
-      const [args0] = treeEvents.onSelectionReplaced.args[0];
+      const [args0] = treeEvents.onSelectionReplaced.mock.calls[0];
       expect(await extractSequence(toRxjsObservable(args0.replacements)))
         .to.have.lengthOf(1)
         .and.containSubset([
@@ -213,7 +185,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeClicked("D", { shiftKey: true } as any);
       expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
-      const [args1] = treeEvents.onSelectionReplaced.args[1];
+      const [args1] = treeEvents.onSelectionReplaced.mock.calls[1];
       expect(await extractSequence(toRxjsObservable(args1.replacements)))
         .to.have.lengthOf(1)
         .and.containSubset([
@@ -237,7 +209,7 @@ describe("TreeEventDispatcher", () => {
           model.setChildren(undefined, [createTreeNodeInput("C")], 2);
         },
         {
-          loadNode: sinon.fake(() => {
+          loadNode: vi.fn(() => {
             // use async scheduler to simulate request
             return scheduled(
               [{ loadedNodes: [createTreeNodeInput("B").item] }],
@@ -252,7 +224,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeClicked("C", { shiftKey: true } as any);
       expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
-      const [args1] = treeEvents.onSelectionReplaced.args[1];
+      const [args1] = treeEvents.onSelectionReplaced.mock.calls[1];
       expect(await extractSequence(toRxjsObservable(args1.replacements)))
         .to.have.lengthOf(2)
         .and.containSubset([
@@ -287,7 +259,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeClicked("C", { shiftKey: true } as any);
       expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
-      const [args1] = treeEvents.onSelectionReplaced.args[1];
+      const [args1] = treeEvents.onSelectionReplaced.mock.calls[1];
       expect(await extractSequence(toRxjsObservable(args1.replacements)))
         .to.have.lengthOf(1)
         .and.containSubset([
@@ -319,7 +291,7 @@ describe("TreeEventDispatcher", () => {
           model.setChildren("A", [createTreeNodeInput("A-A")], 0);
         },
         {
-          loadNode: sinon.fake((parent: TreeModelNode | TreeModelRootNode) => {
+          loadNode: vi.fn((parent: TreeModelNode | TreeModelRootNode) => {
             expect(isTreeModelNode(parent));
             return scheduled(
               [{ loadedNodes: [createTreeNodeInput("A-B").item] }],
@@ -334,7 +306,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeClicked("C", { shiftKey: true } as any);
       expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
-      const [args1] = treeEvents.onSelectionReplaced.args[1];
+      const [args1] = treeEvents.onSelectionReplaced.mock.calls[1];
       expect(await extractSequence(toRxjsObservable(args1.replacements)))
         .to.have.lengthOf(2)
         .and.containSubset([
@@ -365,7 +337,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeClicked("A", { shiftKey: true } as any);
       expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
-      const [args1] = treeEvents.onSelectionReplaced.args[1];
+      const [args1] = treeEvents.onSelectionReplaced.mock.calls[1];
       expect(await extractSequence(toRxjsObservable(args1.replacements)))
         .to.have.lengthOf(1)
         .and.containSubset([
@@ -395,7 +367,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeMouseDown("A");
       expect(treeEvents.onSelectionModified).toHaveBeenCalledOnce();
-      const [args0] = treeEvents.onSelectionModified.args[0];
+      const [args0] = treeEvents.onSelectionModified.mock.calls[0];
       const result0 = startExtractingSequence(
         toRxjsObservable(args0.modifications)
       );
@@ -421,7 +393,7 @@ describe("TreeEventDispatcher", () => {
 
       // `onSelectionModified` is called second time with selected items when drag operation is completed
       expect(treeEvents.onSelectionModified).toHaveBeenCalledTimes(2);
-      const [args1] = treeEvents.onSelectionModified.args[1];
+      const [args1] = treeEvents.onSelectionModified.mock.calls[1];
       expect(await extractSequence(toRxjsObservable(args1.modifications)))
         .to.have.lengthOf(1)
         .and.containSubset([
@@ -447,7 +419,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeMouseDown("A");
       expect(treeEvents.onSelectionModified).toHaveBeenCalledOnce();
-      const [args0] = treeEvents.onSelectionModified.args[0];
+      const [args0] = treeEvents.onSelectionModified.mock.calls[0];
       const result0 = startExtractingSequence(
         toRxjsObservable(args0.modifications)
       );
@@ -475,8 +447,8 @@ describe("TreeEventDispatcher", () => {
       // `onSelectionModified` is called two more times when drag operation is completed:
       // - first call has all the items that were selected during drag operation
       // - second call has all the items that were deselected during drag operation
-      expect(treeEvents.onSelectionModified).to.be.calledThrice;
-      const [args1] = treeEvents.onSelectionModified.args[1];
+      expect(treeEvents.onSelectionModified).toHaveBeenCalledTimes(3);
+      const [args1] = treeEvents.onSelectionModified.mock.calls[1];
       expect(await extractSequence(toRxjsObservable(args1.modifications)))
         .to.have.lengthOf(1)
         .and.containSubset([
@@ -485,7 +457,7 @@ describe("TreeEventDispatcher", () => {
           },
         ]);
 
-      const [args2] = treeEvents.onSelectionModified.args[2];
+      const [args2] = treeEvents.onSelectionModified.mock.calls[2];
       expect(await extractSequence(toRxjsObservable(args2.modifications)))
         .to.have.lengthOf(1)
         .and.containSubset([
@@ -520,7 +492,7 @@ describe("TreeEventDispatcher", () => {
       dispatcher.onNodeCheckboxClicked("A", CheckBoxState.On);
 
       expect(treeEvents.onCheckboxStateChanged).toHaveBeenCalledOnce();
-      const [args] = treeEvents.onCheckboxStateChanged.args[0];
+      const [args] = treeEvents.onCheckboxStateChanged.mock.calls[0];
       expect(await extractSequence(toRxjsObservable(args.stateChanges)))
         .to.have.lengthOf(1)
         .and.containSubset([
@@ -539,7 +511,7 @@ describe("TreeEventDispatcher", () => {
       dispatcher.onNodeCheckboxClicked("A", CheckBoxState.Off);
 
       expect(treeEvents.onCheckboxStateChanged).toHaveBeenCalledOnce();
-      const [args] = treeEvents.onCheckboxStateChanged.args[0];
+      const [args] = treeEvents.onCheckboxStateChanged.mock.calls[0];
       expect(await extractSequence(toRxjsObservable(args.stateChanges)))
         .to.have.lengthOf(1)
         .and.containSubset([
@@ -565,7 +537,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeCheckboxClicked("A", CheckBoxState.On);
       expect(treeEvents.onCheckboxStateChanged).toHaveBeenCalledOnce();
-      const [args] = treeEvents.onCheckboxStateChanged.args[0];
+      const [args] = treeEvents.onCheckboxStateChanged.mock.calls[0];
       expect(await extractSequence(toRxjsObservable(args.stateChanges)))
         .to.have.lengthOf(1)
         .and.containSubset([
@@ -595,7 +567,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeCheckboxClicked("A", CheckBoxState.On);
       expect(treeEvents.onCheckboxStateChanged).toHaveBeenCalledOnce();
-      const [args] = treeEvents.onCheckboxStateChanged.args[0];
+      const [args] = treeEvents.onCheckboxStateChanged.mock.calls[0];
       expect(await extractSequence(toRxjsObservable(args.stateChanges)))
         .to.have.lengthOf(1)
         .and.containSubset([
@@ -616,7 +588,7 @@ describe("TreeEventDispatcher", () => {
           model.setChildren(undefined, [createTreeNodeInput("C")], 2);
         },
         {
-          loadNode: sinon.fake(() => nodeLoadSubject),
+          loadNode: vi.fn(() => nodeLoadSubject),
         }
       );
 
@@ -624,7 +596,7 @@ describe("TreeEventDispatcher", () => {
       dispatcher.onNodeClicked("A", {} as any);
       dispatcher.onNodeClicked("C", { shiftKey: true } as any);
       expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
-      const [selectionArgs] = treeEvents.onSelectionReplaced.args[1];
+      const [selectionArgs] = treeEvents.onSelectionReplaced.mock.calls[1];
       const selectionResult = startExtractingSequence(
         toRxjsObservable(selectionArgs.replacements)
       );
@@ -644,7 +616,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeCheckboxClicked("A", CheckBoxState.On);
       expect(treeEvents.onCheckboxStateChanged).toHaveBeenCalledOnce();
-      const [checkboxArgs] = treeEvents.onCheckboxStateChanged.args[0];
+      const [checkboxArgs] = treeEvents.onCheckboxStateChanged.mock.calls[0];
       const checkboxResult = startExtractingSequence(
         toRxjsObservable(checkboxArgs.stateChanges)
       );
@@ -875,7 +847,7 @@ describe("TreeEventDispatcher", () => {
         expect(treeEvents.onSelectionReplaced).toHaveBeenCalledOnce();
         const changes = await extractSequence(
           toRxjsObservable(
-            treeEvents.onSelectionReplaced.firstCall.args[0].replacements
+            treeEvents.onSelectionReplaced.mock.calls[0][0].replacements
           )
         );
         expect(changes).to.be.deep.equal([
@@ -907,7 +879,7 @@ describe("TreeEventDispatcher", () => {
         expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
         const changes = await extractSequence(
           toRxjsObservable(
-            treeEvents.onSelectionReplaced.secondCall.args[0].replacements
+            treeEvents.onSelectionReplaced.mock.calls[1][0].replacements
           )
         );
         expect(changes.length).toEqual(1);
@@ -943,7 +915,7 @@ describe("TreeEventDispatcher", () => {
         expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
         const changes = await extractSequence(
           toRxjsObservable(
-            treeEvents.onSelectionReplaced.secondCall.args[0].replacements
+            treeEvents.onSelectionReplaced.mock.calls[1][0].replacements
           )
         );
         expect(changes.length).toEqual(1);
@@ -955,7 +927,7 @@ describe("TreeEventDispatcher", () => {
 
       it("gets loaded but does not get selected", async () => {
         const nodeLoader: ITreeNodeLoader = {
-          loadNode: sinon.fake(() => {
+          loadNode: vi.fn(() => {
             const nodeItem = createTreeNodeInput("B").item;
             nodeItem.isSelectionDisabled = true;
             return from([{ loadedNodes: [nodeItem] }]);
@@ -979,7 +951,7 @@ describe("TreeEventDispatcher", () => {
         expect(nodeLoader.loadNode).toHaveBeenCalledOnce();
         const changes = await extractSequence(
           toRxjsObservable(
-            treeEvents.onSelectionReplaced.secondCall.args[0].replacements
+            treeEvents.onSelectionReplaced.mock.calls[1][0].replacements
           )
         );
         expect(changes.length).toEqual(1);

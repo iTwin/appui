@@ -20,7 +20,7 @@ import { Toolbar } from "../../components-react/toolbar/Toolbar";
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import { BackArrow } from "../../components-react/toolbar/groupPanel/BackArrow";
 import { GroupTool } from "../../components-react/toolbar/groupPanel/tool/Tool";
-import { BadgeType } from "../TestUtils";
+import { BadgeType } from "@itwin/core-react";
 
 /* eslint-disable deprecation/deprecation */
 // cSpell:ignore testid

@@ -13,4 +13,5 @@ beforeEach(async () => {
 
 afterEach(() => {
   TestUtils.terminateUiComponents();
+  vi.useRealTimers();
 });

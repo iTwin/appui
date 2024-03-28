@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { VariableSizeList } from "react-window";
 import * as moq from "typemoq";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
@@ -82,10 +81,8 @@ describe("ControlledTree", () => {
     treeModelMock
       .setup((x) => x.getRootNode())
       .returns(() => ({ id: undefined, depth: -1, numChildren: 1 }));
-    treeModelMock
-      .setup((x) => x.getChildren(undefined))
-      .mockReturnValue(() => nodes);
-    treeModelMock.setup((x) => x.getNode(node.id)).mockReturnValue(() => node);
+    treeModelMock.setup((x) => x.getChildren(undefined)).returns(() => nodes);
+    treeModelMock.setup((x) => x.getNode(node.id)).returns(() => node);
     treeModelMock
       .setup((x) => x.getChildOffset(undefined, node.id))
       .returns(() => 0);
@@ -161,13 +158,6 @@ describe("ControlledTree", () => {
       },
     };
 
-    const verticalScrollSpy = vi.fn();
-    sinon.replace(
-      VariableSizeList.prototype,
-      "scrollToItem",
-      verticalScrollSpy
-    );
-
     const { container } = render(
       <ControlledTree
         {...defaultProps}
@@ -185,9 +175,7 @@ describe("ControlledTree", () => {
   it("uses provided tree renderer", () => {
     mockVisibleNode();
 
-    const treeRenderer = () => <div />;
-    const spy = vi.spyOn(treeRenderer);
-
+    const spy = vi.fn(() => <div />);
     render(<ControlledTree {...defaultProps} treeRenderer={spy} />);
 
     expect(spy).toHaveBeenCalled();
@@ -198,9 +186,7 @@ describe("ControlledTree", () => {
       .setup((x) => x.getRootNode())
       .returns(() => ({ id: undefined, depth: -1, numChildren: undefined }));
 
-    const spinnerRenderer = () => <div />;
-    const spy = vi.spyOn(spinnerRenderer);
-
+    const spy = vi.fn(() => <div />);
     render(<ControlledTree {...defaultProps} spinnerRenderer={spy} />);
 
     expect(spy).toHaveBeenCalled();
@@ -211,9 +197,7 @@ describe("ControlledTree", () => {
       .setup((x) => x.getRootNode())
       .returns(() => ({ id: undefined, depth: -1, numChildren: 0 }));
 
-    const noDataRenderer = () => <div />;
-    const spy = vi.spyOn(noDataRenderer);
-
+    const spy = vi.fn(() => <div />);
     render(<ControlledTree {...defaultProps} noDataRenderer={spy} />);
 
     expect(spy).toHaveBeenCalled();
@@ -223,10 +207,7 @@ describe("ControlledTree", () => {
     const user = userEvent.setup();
     mockVisibleNode();
     const treeEvents = {
-      onSelectionReplaced: sinon.fake<
-        Parameters<Required<TreeEvents>["onSelectionReplaced"]>,
-        ReturnType<Required<TreeEvents>["onSelectionReplaced"]>
-      >(),
+      onSelectionReplaced: vi.fn(),
     };
     const { getByRole } = render(
       <ControlledTree {...defaultProps} eventsHandler={treeEvents} />

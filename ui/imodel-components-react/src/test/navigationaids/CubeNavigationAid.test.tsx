@@ -708,8 +708,8 @@ describe("CubeNavigationAid", () => {
           face={Face.Top}
           label="test"
           hoverMap={{}}
-          onFaceCellClick={sinon.fake()}
-          onFaceCellHoverChange={sinon.fake()}
+          onFaceCellClick={vi.fn()}
+          onFaceCellHoverChange={vi.fn()}
         />
       );
     });
@@ -719,8 +719,8 @@ describe("CubeNavigationAid", () => {
           face={Face.Top}
           label="test"
           hoverMap={{}}
-          onFaceCellClick={sinon.fake()}
-          onFaceCellHoverChange={sinon.fake()}
+          onFaceCellClick={vi.fn()}
+          onFaceCellHoverChange={vi.fn()}
         />
       );
       const face = component.getByTestId("nav-cube-face");
@@ -734,8 +734,8 @@ describe("CubeNavigationAid", () => {
             face={Face.Top}
             label="test"
             hoverMap={{}}
-            onFaceCellClick={sinon.fake()}
-            onFaceCellHoverChange={sinon.fake()}
+            onFaceCellClick={vi.fn()}
+            onFaceCellHoverChange={vi.fn()}
           />
         );
       });
@@ -757,8 +757,8 @@ describe("CubeNavigationAid", () => {
     it("should render", () => {
       render(
         <FaceCell
-          onFaceCellClick={sinon.fake()}
-          onFaceCellHoverChange={sinon.fake()}
+          onFaceCellClick={vi.fn()}
+          onFaceCellHoverChange={vi.fn()}
           hoverMap={{}}
           vector={Vector3d.create(1, 1, 1)}
           face={Face.Top}
@@ -768,8 +768,8 @@ describe("CubeNavigationAid", () => {
     it("should exist", () => {
       const component = render(
         <FaceCell
-          onFaceCellClick={sinon.fake()}
-          onFaceCellHoverChange={sinon.fake()}
+          onFaceCellClick={vi.fn()}
+          onFaceCellHoverChange={vi.fn()}
           hoverMap={{}}
           vector={Vector3d.create(1, 1, 1)}
           face={Face.Top}
@@ -785,7 +785,7 @@ describe("CubeNavigationAid", () => {
         const component = render(
           <FaceCell
             onFaceCellClick={cellClick}
-            onFaceCellHoverChange={sinon.fake()}
+            onFaceCellHoverChange={vi.fn()}
             hoverMap={{}}
             vector={pos}
             face={Face.Top}
@@ -803,7 +803,7 @@ describe("CubeNavigationAid", () => {
         const component = render(
           <FaceCell
             onFaceCellClick={cellClick}
-            onFaceCellHoverChange={sinon.fake()}
+            onFaceCellHoverChange={vi.fn()}
             hoverMap={{}}
             vector={pos}
             face={Face.Top}
@@ -835,7 +835,7 @@ describe("CubeNavigationAid", () => {
         const pos = Vector3d.create(1, 1, 1);
         const component = render(
           <FaceCell
-            onFaceCellClick={sinon.fake()}
+            onFaceCellClick={vi.fn()}
             onFaceCellHoverChange={cellHover}
             hoverMap={{}}
             vector={pos}
@@ -851,7 +851,7 @@ describe("CubeNavigationAid", () => {
         const pos = Vector3d.create(1, 1, 1);
         const component = render(
           <FaceCell
-            onFaceCellClick={sinon.fake()}
+            onFaceCellClick={vi.fn()}
             onFaceCellHoverChange={cellHover}
             hoverMap={{}}
             vector={pos}
@@ -868,7 +868,7 @@ describe("CubeNavigationAid", () => {
         const pos = Vector3d.create(1, 1, 1);
         const component = render(
           <FaceCell
-            onFaceCellClick={sinon.fake()}
+            onFaceCellClick={vi.fn()}
             onFaceCellHoverChange={cellHover}
             hoverMap={{}}
             vector={pos}
@@ -884,7 +884,7 @@ describe("CubeNavigationAid", () => {
         const pos = Vector3d.create(1, 1, 1);
         const component = render(
           <FaceCell
-            onFaceCellClick={sinon.fake()}
+            onFaceCellClick={vi.fn()}
             onFaceCellHoverChange={cellHover}
             hoverMap={{}}
             vector={pos}

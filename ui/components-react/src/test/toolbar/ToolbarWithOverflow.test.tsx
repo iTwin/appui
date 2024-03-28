@@ -11,7 +11,7 @@ import type {
   GroupButton,
 } from "@itwin/appui-abstract";
 import { ToolbarItemUtilities } from "@itwin/appui-abstract";
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import type { CustomToolbarItem } from "../../components-react/toolbar/InternalToolbarComponent";
 import {
   ToolbarOpacitySetting,
@@ -20,8 +20,8 @@ import {
   ToolbarPopupAutoHideContext,
 } from "../../components-react/toolbar/InternalToolbarComponent";
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
-import { BadgeType } from "../TestUtils";
 import { ToolbarWithOverflow } from "../../components-react/toolbar/ToolbarWithOverflow";
+import { BadgeType } from "@itwin/core-react";
 
 /* eslint-disable deprecation/deprecation */
 
@@ -2458,7 +2458,7 @@ describe("<ToolbarWithOverflow />", () => {
         createBubbledEvent("pointermove", { clientX: 30, clientY: 60 })
       );
 
-      await waitFor(
+      await vi.waitFor(
         () =>
           expect(renderedComponent.queryByText("Group1-Tools")).not.to.be.null
       );
@@ -2621,7 +2621,7 @@ describe("<ToolbarWithOverflow />", () => {
       );
       vi.advanceTimersByTime(500);
 
-      await waitFor(
+      await vi.waitFor(
         () =>
           expect(renderedComponent.queryByText("Group1-Tools")).not.to.be.null
       );
@@ -2638,7 +2638,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(groupButton).not.to.be.null;
     });
 
-    it("should not open on long press if we move pointer more than 10 px", async () => {
+    it("should not open on long press if we move pointer more than 10 px", () => {
       vi.useFakeTimers();
       const spy = vi.fn();
 

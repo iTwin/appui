@@ -8,9 +8,7 @@ import type {
   BasePropertyEditorParams,
   ButtonGroupEditorParams,
   CustomFormattedNumberParams,
-  DisplayMessageType,
   ImageCheckBoxParams,
-  MessagePresenter,
   ParseResults,
   Primitives,
   PrimitiveValue,
@@ -55,22 +53,11 @@ export class TestUtils {
       await UiComponents.initialize(TestUtils.i18n);
       TestUtils._uiComponentsInitialized = true;
 
-      const mp: MessagePresenter = {
-        displayMessage: (
-          _severity: MessageSeverity,
-          _briefMessage: HTMLElement | string,
-          _detailedMessage?: HTMLElement | string,
-          _messageType?: DisplayMessageType.Toast
-        ): void => {},
-        displayInputFieldMessage: (
-          _inputField: HTMLElement,
-          _severity: MessageSeverity,
-          _briefMessage: HTMLElement | string,
-          _detailedMessage?: HTMLElement | string
-        ): void => {},
-        closeInputFieldMessage: (): void => {},
+      UiAdmin.messagePresenter = {
+        displayMessage: () => {},
+        displayInputFieldMessage: () => {},
+        closeInputFieldMessage: () => {},
       };
-      UiAdmin.messagePresenter = mp;
     }
   }
 
@@ -599,23 +586,4 @@ export class TestErrorBoundary extends React.Component<
   }
 }
 
-/**
- * Simplified type for `sinon.SinonSpy`.
- * @internal
- */
-export type SinonSpy<T extends (...args: any) => any> = sinon.SinonSpy<
-  Parameters<T>,
-  ReturnType<T>
->;
-
 export default TestUtils;
-
-/** @internal */
-export enum BadgeType {
-  /** No badge. */
-  None = 0,
-  /** Standard Technical Preview badge. */
-  TechnicalPreview = 1,
-  /** Standard New Feature badge. */
-  New = 2,
-}
