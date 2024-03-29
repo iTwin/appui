@@ -4,13 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { act, renderHook } from "@testing-library/react-hooks";
-import * as ResizeObserverModule from "../../../core-react/utils/hooks/ResizeObserverPolyfill";
 import {
   ElementResizeObserver,
   ResizableContainerObserver,
   useResizeObserver,
 } from "../../../core-react/utils/hooks/useResizeObserver";
-import TestUtils from "../../TestUtils";
+import type { ResizeObserverMock } from "../../TestUtils";
+import TestUtils, { createResizeObserverMock } from "../../TestUtils";
 import { render, waitFor } from "@testing-library/react";
 
 /** Stubs requestAnimationFrame. */
@@ -35,6 +35,11 @@ function stubRaf() {
 
 describe("useResizeObserver", () => {
   stubRaf();
+
+  beforeEach(() => {
+    const ResizeObserver = createResizeObserverMock();
+    vi.stubGlobal("ResizeObserver", ResizeObserver);
+  });
 
   it("should observe instance", async () => {
     const spy = vi.spyOn(ResizeObserver.prototype, "observe");
@@ -62,7 +67,7 @@ describe("useResizeObserver", () => {
   });
 
   it("should call onResize", async () => {
-    const resizeObserverSpy = vi.spyOn(window, "ResizeObserver");
+    const observe = vi.spyOn(ResizeObserver.prototype, "observe");
     const spy = vi.fn();
     const { result } = renderHook(() => useResizeObserver(spy));
     const element = document.createElement("div");
@@ -75,22 +80,23 @@ describe("useResizeObserver", () => {
       DOMRect.fromRect({ width: 100 })
     );
 
-    // Call the ResizeObserver callback.
-    resizeObserverSpy.mock.calls[0][0](
+    const resizeObserver = observe.mock
+      .instances[0] as unknown as ResizeObserverMock;
+    resizeObserver.callback(
       [
         {
           contentRect: DOMRect.fromRect({ width: 100 }),
           target: element,
         } as unknown as ResizeObserverEntry,
       ],
-      resizeObserverSpy.mock.results[0].value
+      observe.mock.results[0].value
     );
     await TestUtils.flushAsyncOperations();
     expect(spy).toHaveBeenCalledWith(100, 0);
   });
 
   it("should call onResize (height)", async () => {
-    const resizeObserverSpy = vi.spyOn(window, "ResizeObserver");
+    const observe = vi.spyOn(ResizeObserver.prototype, "observe");
     const spy = vi.fn();
     const { result } = renderHook(() => useResizeObserver(spy));
     const element = document.createElement("div");
@@ -103,22 +109,23 @@ describe("useResizeObserver", () => {
     vi.spyOn(element, "getBoundingClientRect").mockReturnValue(
       DOMRect.fromRect({ height: 100 })
     );
-    // Call the ResizeObserver callback.
-    resizeObserverSpy.mock.calls[0][0](
+    const resizeObserver = observe.mock
+      .instances[0] as unknown as ResizeObserverMock;
+    resizeObserver.callback(
       [
         {
           contentRect: DOMRect.fromRect({ height: 100 }),
           target: element,
         } as unknown as ResizeObserverEntry,
       ],
-      resizeObserverSpy.mock.results[0].value
+      observe.mock.results[0].value
     );
     await TestUtils.flushAsyncOperations();
     expect(spy).toHaveBeenCalledWith(0, 100);
   });
 
   it("should call onResize (width and height)", async () => {
-    const resizeObserverSpy = vi.spyOn(window, "ResizeObserver");
+    const observe = vi.spyOn(ResizeObserver.prototype, "observe");
     const spy = vi.fn();
     const { result } = renderHook(() => useResizeObserver(spy));
     const element = document.createElement("div");
@@ -131,15 +138,16 @@ describe("useResizeObserver", () => {
     vi.spyOn(element, "getBoundingClientRect").mockReturnValue(
       DOMRect.fromRect({ width: 100, height: 100 })
     );
-    // Call the ResizeObserver callback.
-    resizeObserverSpy.mock.calls[0][0](
+    const resizeObserver = observe.mock
+      .instances[0] as unknown as ResizeObserverMock;
+    resizeObserver.callback(
       [
         {
           contentRect: DOMRect.fromRect({ width: 100, height: 100 }),
           target: element,
         } as unknown as ResizeObserverEntry,
       ],
-      resizeObserverSpy.mock.results[0].value
+      observe.mock.results[0].value
     );
     await TestUtils.flushAsyncOperations();
     expect(spy).toHaveBeenCalledOnce();
@@ -232,7 +240,7 @@ describe("useLayoutResizeObserver", () => {
   });
 
   it("ElementResizeObserver - should call onResize (width and height)", async () => {
-    const resizeObserverSpy = vi.spyOn(window, "ResizeObserver");
+    const observe = vi.spyOn(ResizeObserver.prototype, "observe");
     boundingClientRect = size_100_50;
 
     const wrapper = render(<ElementResizeObserverTester />);
@@ -243,15 +251,16 @@ describe("useLayoutResizeObserver", () => {
     const container = wrapper.getByTestId("sizer");
 
     boundingClientRect = size_300_100;
-    // Call the ResizeObserver callback.
-    resizeObserverSpy.mock.calls[0][0](
+    const resizeObserver = observe.mock
+      .instances[0] as unknown as ResizeObserverMock;
+    resizeObserver.callback(
       [
         {
           contentRect: DOMRect.fromRect({ width: 300, height: 100 }), // we ignore this in hook and just get size from getBoundingClientRect method.
           target: container,
         } as unknown as ResizeObserverEntry,
       ],
-      resizeObserverSpy.mock.results[0].value
+      observe.mock.results[0].value
     );
 
     await waitFor(() =>
@@ -262,7 +271,7 @@ describe("useLayoutResizeObserver", () => {
   });
 
   it("ResizableContainerObserver - should call onResize (width and height)", async () => {
-    const resizeObserverSpy = vi.spyOn(window, "ResizeObserver");
+    const observe = vi.spyOn(ResizeObserver.prototype, "observe");
     boundingClientRect = size_100_50;
 
     const wrapper = render(<ResizableContainerObserverTester />);
@@ -277,15 +286,16 @@ describe("useLayoutResizeObserver", () => {
     await TestUtils.flushAsyncOperations();
 
     boundingClientRect = size_300_100;
-    // Call the ResizeObserver callback.
-    resizeObserverSpy.mock.calls[0][0](
+    const resizeObserver = observe.mock
+      .instances[0] as unknown as ResizeObserverMock;
+    resizeObserver.callback(
       [
         {
           contentRect: DOMRect.fromRect({ width: 300, height: 100 }), // we ignore this in hook and just get size from getBoundingClientRect method.
           target: container,
         } as unknown as ResizeObserverEntry,
       ],
-      resizeObserverSpy.mock.results[0].value
+      observe.mock.results[0].value
     );
     await TestUtils.flushAsyncOperations();
 
@@ -297,7 +307,7 @@ describe("useLayoutResizeObserver", () => {
   });
 
   it("ResizableContainerObserver - should call onResize (width and height)", async () => {
-    const resizeObserverSpy = vi.spyOn(window, "ResizeObserver");
+    const observe = vi.spyOn(ResizeObserver.prototype, "observe");
     boundingClientRect = size_100_50;
     let currentWidth = 0;
     let currentHeight = 0;
@@ -319,15 +329,16 @@ describe("useLayoutResizeObserver", () => {
     expect(currentHeight).to.eql(50);
 
     boundingClientRect = size_300_100;
-    // Call the ResizeObserver callback.
-    resizeObserverSpy.mock.calls[0][0](
+    const resizeObserver = observe.mock
+      .instances[0] as unknown as ResizeObserverMock;
+    resizeObserver.callback(
       [
         {
           contentRect: DOMRect.fromRect({ width: 300, height: 100 }), // we ignore this in hook and just get size from getBoundingClientRect method.
           target: container.parentElement,
         } as unknown as ResizeObserverEntry,
       ],
-      resizeObserverSpy.mock.results[0].value
+      observe.mock.results[0].value
     );
     await TestUtils.flushAsyncOperations();
 

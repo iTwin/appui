@@ -41,7 +41,6 @@ describe("IconComponent", () => {
   });
 
   it("should render correctly with no web svg iconSpec - legacy", () => {
-    vi.stubGlobal("fetch", async () => Promise.resolve(new Response()));
     const { container } = render(<Icon iconSpec="webSvg:test.svg" />);
     const webComponent = container.querySelector("svg-loader");
     expect(webComponent).not.to.be.null;
@@ -49,7 +48,6 @@ describe("IconComponent", () => {
   });
 
   it("should render correctly with no web svg iconSpec", () => {
-    vi.stubGlobal("fetch", async () => Promise.resolve(new Response()));
     const { container } = render(<Icon iconSpec="test.svg" />);
     const webComponent = container.querySelector("svg-loader");
     expect(webComponent).not.to.be.null;
