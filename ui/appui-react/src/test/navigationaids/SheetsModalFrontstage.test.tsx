@@ -81,7 +81,7 @@ describe("SheetsModalFrontstage", () => {
 
   describe("CardContainer React Testing", () => {
     it("search box calls onValueChanged after 250ms delay", async () => {
-      const vi.useFakeTimers();
+      vi.useFakeTimers();
       modal = new SheetsModalFrontstage(
         new Array<SheetData>({
           name: "Name",
@@ -101,11 +101,9 @@ describe("SheetsModalFrontstage", () => {
       const input = wrapper.container.querySelector("input");
       expect(input).not.to.be.null;
       fireEvent.change(input!, { target: { value: "search value" } });
-      await fakeTimers.tickAsync(500);
+      await vi.advanceTimersByTimeAsync(500);
       expect(onChange).toHaveBeenCalled();
       removeListener();
-      fakeTimers.restore();
-      wrapper.unmount();
     });
   });
 

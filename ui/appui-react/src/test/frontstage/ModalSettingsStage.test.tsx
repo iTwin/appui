@@ -94,9 +94,9 @@ describe("ModalSettingsStage", () => {
   });
 
   it("will open no available settings message", () => {
-    const spyOutput = vi.spyOn(IModelApp.notifications, "outputMessage");
+    const spy = vi.spyOn(IModelApp.notifications, "outputMessage");
     SettingsModalFrontstage.showSettingsStage("page1");
-    spyOutput.calledOnce.should.true;
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("will return action item", () => {
@@ -171,9 +171,11 @@ describe("ModalSettingsStage", () => {
       usage: "General",
       contentGroup: TestUtils.TestContentGroup2,
     });
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => frontstageDef
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());
     // const modalFrontstage = new SettingsModalFrontstage();
@@ -221,9 +223,11 @@ describe("ModalSettingsStage", () => {
       usage: "General",
       contentGroup: TestUtils.TestContentGroup2,
     });
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => frontstageDef
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());
     SettingsModalFrontstage.showSettingsStage("page-3");
@@ -254,9 +258,11 @@ describe("ModalSettingsStage", () => {
       usage: "General",
       contentGroup: TestUtils.TestContentGroup2,
     });
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => frontstageDef
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());
     SettingsModalFrontstage.showSettingsStage("page2");

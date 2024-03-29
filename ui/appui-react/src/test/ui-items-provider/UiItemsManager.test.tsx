@@ -74,6 +74,7 @@ function describeAbstractAdapter(title: string, fn: () => void) {
       });
 
       afterEach(() => {
+        UiItemsManager.clearAllProviders();
         UiItemsManager.useAbstractAdapter(true);
       });
 
@@ -115,7 +116,7 @@ describe("UiItemsManager", () => {
       "stage1",
       StageUsage.General
     );
-    sinon.assert.match(items, [
+    expect(items).toEqual([
       expect.objectContaining({
         id: "s1",
       }),
@@ -138,7 +139,7 @@ describe("UiItemsManager", () => {
     });
 
     const items = UiItemsManager.getBackstageItems();
-    sinon.assert.match(items, [
+    expect(items).toEqual([
       expect.objectContaining({
         id: "b1",
       }),
@@ -160,7 +161,7 @@ describe("UiItemsManager", () => {
       ToolbarUsage.ViewNavigation,
       ToolbarOrientation.Horizontal
     );
-    sinon.assert.match(items, [
+    expect(items).toEqual([
       expect.objectContaining({
         id: "t1",
       }),
@@ -178,7 +179,7 @@ describe("UiItemsManager", () => {
       StageUsage.General,
       StagePanelLocation.Left
     );
-    sinon.assert.match(widgets, [
+    expect(widgets).toEqual([
       expect.objectContaining({
         id: "w1",
       }),
@@ -221,11 +222,11 @@ describe("UiItemsManager", () => {
         id: "provider2",
       });
 
-      UiItemsManager.registeredProviderIds.should.eql([
+      expect(UiItemsManager.registeredProviderIds).toEqual([
         "provider1",
         "provider2",
       ]);
-      AbstractUiItemsManager.registeredProviderIds.should.eql([
+      expect(AbstractUiItemsManager.registeredProviderIds).toEqual([
         "provider1",
         "provider2",
       ]);
@@ -233,8 +234,8 @@ describe("UiItemsManager", () => {
       UiItemsManager.unregister("provider2");
       AbstractUiItemsManager.unregister("provider1");
 
-      UiItemsManager.registeredProviderIds.should.eql([]);
-      AbstractUiItemsManager.registeredProviderIds.should.eql([]);
+      expect(UiItemsManager.registeredProviderIds).toEqual([]);
+      expect(AbstractUiItemsManager.registeredProviderIds).toEqual([]);
     });
 
     it("should emit events", () => {
@@ -253,7 +254,7 @@ describe("UiItemsManager", () => {
       });
 
       expect(spy).toHaveBeenCalledTimes(2);
-      sinon.assert.calledTwice(abstractSpy);
+      expect(abstractSpy).toHaveBeenCalledTimes(2);
     });
 
     it("should provide status bar items", () => {
@@ -318,100 +319,110 @@ describe("UiItemsManager", () => {
           "stage1",
           StageUsage.General
         );
-        sinon.assert.match(items[0], {
-          id: "s1",
-          section: StatusBarSection.Left,
-          badge: abstract.BadgeType.New,
-          content: {
-            props: {
-              className: "s1-content",
-            },
-          },
-        });
-        sinon.assert.match(items[1], {
-          id: "s2",
-          section: StatusBarSection.Center,
-          execute: execute2,
-          icon: {
-            props: {
-              className: "s2-icon",
-            },
-          },
-        });
-        sinon.assert.match(items[2], {
-          id: "s3",
-          section: StatusBarSection.Right,
-          content: {
-            props: {
-              className: "s3-content",
-            },
-          },
-        });
-        sinon.assert.match(items[3], {
-          id: "s4",
-          section: StatusBarSection.Right,
-          badge: abstract.BadgeType.TechnicalPreview,
-          execute: execute4,
-          icon: {
-            props: {
-              className: "s4-icon",
-            },
-          },
-        });
+        expect(items[0]).toEqual(
+          expect.objectContaining({
+            id: "s1",
+            section: StatusBarSection.Left,
+            badge: abstract.BadgeType.New,
+            content: expect.objectContaining({
+              props: {
+                className: "s1-content",
+              },
+            }),
+          })
+        );
+        expect(items[1]).toEqual(
+          expect.objectContaining({
+            id: "s2",
+            section: StatusBarSection.Center,
+            execute: execute2,
+            icon: expect.objectContaining({
+              props: {
+                className: "s2-icon",
+              },
+            }),
+          })
+        );
+        expect(items[2]).toEqual(
+          expect.objectContaining({
+            id: "s3",
+            section: StatusBarSection.Right,
+            content: expect.objectContaining({
+              props: {
+                className: "s3-content",
+              },
+            }),
+          })
+        );
+        expect(items[3]).toEqual(
+          expect.objectContaining({
+            id: "s4",
+            section: StatusBarSection.Right,
+            badge: abstract.BadgeType.TechnicalPreview,
+            execute: execute4,
+            icon: expect.objectContaining({
+              props: {
+                className: "s4-icon",
+              },
+            }),
+          })
+        );
       }
       {
         const items = AbstractUiItemsManager.getStatusBarItems(
           "stage1",
           StageUsage.General
         );
-        sinon.assert.match(items[0], {
-          id: "s1",
-          section: StatusBarSection.Left,
-          badgeType: abstract.BadgeType.New,
-          reactNode: {
-            props: {
-              className: "s1-content",
-            },
-          },
-        });
+        expect(items[0]).toEqual(
+          expect.objectContaining({
+            id: "s1",
+            section: StatusBarSection.Left,
+            badgeType: abstract.BadgeType.New,
+            reactNode: expect.objectContaining({
+              props: {
+                className: "s1-content",
+              },
+            }),
+          })
+        );
         const s2 = items[1];
         // @ts-ignore Possibly 'any'
         assert(!!abstract.isAbstractStatusBarActionItem(s2));
-        sinon.assert.match(s2, {
-          id: "s2",
-          section: StatusBarSection.Center,
-          execute: execute2,
-        });
-        sinon.assert.match(
-          IconHelper.getIconReactNode(s2.icon, s2.internalData),
-          expectIconSpec({
-            className: "s2-icon",
+        expect(s2).toEqual(
+          expect.objectContaining({
+            id: "s2",
+            section: StatusBarSection.Center,
+            execute: execute2,
           })
         );
-        sinon.assert.match(items[2], {
-          id: "s3",
-          section: StatusBarSection.Right,
-          reactNode: {
-            props: {
-              className: "s3-content",
-            },
-          },
-        });
+        expect(
+          IconHelper.getIconReactNode(s2.icon, s2.internalData)
+        ).toHaveProperty("props.iconSpec.props.className", "s2-icon");
+        expect(items[2]).toEqual(
+          expect.objectContaining({
+            id: "s3",
+            section: StatusBarSection.Right,
+            reactNode: expect.objectContaining({
+              props: {
+                className: "s3-content",
+              },
+            }),
+          })
+        );
         const s4 = items[3];
         // @ts-ignore Possibly 'any'
         assert(!!abstract.isAbstractStatusBarActionItem(s4));
-        sinon.assert.match(s4, {
-          id: "s4",
-          section: StatusBarSection.Right,
-          badgeType: abstract.BadgeType.TechnicalPreview,
-          execute: execute4,
-        });
-        sinon.assert.match(
-          IconHelper.getIconReactNode(s4.icon, s4.internalData),
-          expectIconSpec({
-            className: "s4-icon",
+        expect(s4).toEqual(
+          expect.objectContaining({
+            id: "s4",
+            section: StatusBarSection.Right,
+            badgeType: abstract.BadgeType.TechnicalPreview,
+            execute: execute4,
           })
         );
+        expect(
+          IconHelper.getIconReactNode(s4.icon, s4.internalData)
+        ).toHaveProperty("props.iconSpec.props.className", "s4-icon");
       }
     });
 
@@ -473,62 +484,72 @@ describe("UiItemsManager", () => {
 
       {
         const items = UiItemsManager.getBackstageItems();
-        sinon.assert.match(items[0], {
-          id: "b1",
-          label: "b1-label",
-          execute,
-          badge: abstract.BadgeType.New,
-        });
-        sinon.assert.match(items[1], {
-          id: "b2",
-          stageId: "b2",
-        });
-        sinon.assert.match(items[2], {
-          id: "b3",
-          label: "b3-label",
-        });
-        sinon.assert.match(items[3], {
-          id: "b4",
-          badge: abstract.BadgeType.TechnicalPreview,
-          icon: {
-            props: {
-              className: "b4-icon",
-            },
-          },
-        });
+        expect(items[0]).toEqual(
+          expect.objectContaining({
+            id: "b1",
+            label: "b1-label",
+            execute,
+            badge: abstract.BadgeType.New,
+          })
+        );
+        expect(items[1]).toEqual(
+          expect.objectContaining({
+            id: "b2",
+            stageId: "b2",
+          })
+        );
+        expect(items[2]).toEqual(
+          expect.objectContaining({
+            id: "b3",
+            label: "b3-label",
+          })
+        );
+        expect(items[3]).toEqual(
+          expect.objectContaining({
+            id: "b4",
+            badge: abstract.BadgeType.TechnicalPreview,
+            icon: expect.objectContaining({
+              props: {
+                className: "b4-icon",
+              },
+            }),
+          })
+        );
       }
       {
         const items = AbstractUiItemsManager.getBackstageItems();
-        sinon.assert.match(items[0], {
-          id: "b1",
-          label: "b1-label",
-          execute,
-          badgeType: abstract.BadgeType.New,
-        });
-        sinon.assert.match(
-          IconHelper.getIconReactNode(items[0].icon, items[0].internalData),
-          expectIconSpec({
-            className: "b1-icon",
+        expect(items[0]).toEqual(
+          expect.objectContaining({
+            id: "b1",
+            label: "b1-label",
+            execute,
+            badgeType: abstract.BadgeType.New,
           })
         );
-        sinon.assert.match(items[1], {
-          id: "b2",
-          stageId: "b2",
-        });
-        sinon.assert.match(items[2], {
-          id: "b3",
-          label: "b3-label",
-        });
-        sinon.assert.match(items[3], {
-          id: "b4",
-          badgeType: abstract.BadgeType.TechnicalPreview,
-        });
-        sinon.assert.match(
-          IconHelper.getIconReactNode(items[3].icon, items[3].internalData),
-          expectIconSpec({
-            className: "b4-icon",
+        expect(
+          IconHelper.getIconReactNode(items[0].icon, items[0].internalData)
+        ).toHaveProperty("props.iconSpec.props.className", "b1-icon");
+        expect(items[1]).toEqual(
+          expect.objectContaining({
+            id: "b2",
+            stageId: "b2",
           })
         );
+        expect(items[2]).toEqual(
+          expect.objectContaining({
+            id: "b3",
+            label: "b3-label",
+          })
+        );
+        expect(items[3]).toEqual(
+          expect.objectContaining({
+            id: "b4",
+            badgeType: abstract.BadgeType.TechnicalPreview,
+          })
+        );
+        expect(
+          IconHelper.getIconReactNode(items[3].icon, items[3].internalData)
+        ).toHaveProperty("props.iconSpec.props.className", "b4-icon");
       }
     });
 
@@ -586,33 +607,39 @@ describe("UiItemsManager", () => {
           ToolbarUsage.ViewNavigation,
           ToolbarOrientation.Horizontal
         );
-        sinon.assert.match(items[0], {
-          id: "t1",
-          badge: abstract.BadgeType.New,
-          label: "t1-label",
-          execute: execute1,
-          parentGroupItemId: "p1",
-          icon: {
-            props: {
-              className: "t1-icon",
-            },
-          },
-        });
-        sinon.assert.match(items[1], {
-          id: "t2",
-          badge: abstract.BadgeType.TechnicalPreview,
-        });
-        sinon.assert.match(items[2], {
-          id: "t3",
-          execute: execute3,
-          parentGroupItemId: "p2",
-          label: "t3-label",
-          icon: {
-            props: {
-              className: "t3-icon",
-            },
-          },
-        });
+        expect(items[0]).toEqual(
+          expect.objectContaining({
+            id: "t1",
+            badge: abstract.BadgeType.New,
+            label: "t1-label",
+            execute: execute1,
+            parentGroupItemId: "p1",
+            icon: expect.objectContaining({
+              props: {
+                className: "t1-icon",
+              },
+            }),
+          })
+        );
+        expect(items[1]).toEqual(
+          expect.objectContaining({
+            id: "t2",
+            badge: abstract.BadgeType.TechnicalPreview,
+          })
+        );
+        expect(items[2]).toEqual(
+          expect.objectContaining({
+            id: "t3",
+            execute: execute3,
+            parentGroupItemId: "p2",
+            label: "t3-label",
+            icon: expect.objectContaining({
+              props: {
+                className: "t3-icon",
+              },
+            }),
+          })
+        );
       }
       {
         const items = AbstractUiItemsManager.getToolbarButtonItems(
@@ -621,35 +648,35 @@ describe("UiItemsManager", () => {
           ToolbarUsage.ViewNavigation,
           ToolbarOrientation.Horizontal
         );
-        sinon.assert.match(items[0], {
-          id: "t1",
-          badgeType: abstract.BadgeType.New,
-          label: "t1-label",
-          execute: execute1,
-          parentToolGroupId: "p1",
-        });
-        sinon.assert.match(
-          IconHelper.getIconReactNode(items[0].icon, items[0].internalData),
-          expectIconSpec({
-            className: "t1-icon",
+        expect(items[0]).toEqual(
+          expect.objectContaining({
+            id: "t1",
+            badgeType: abstract.BadgeType.New,
+            label: "t1-label",
+            execute: execute1,
+            parentToolGroupId: "p1",
           })
         );
-        sinon.assert.match(items[1], {
-          id: "t2",
-          badgeType: abstract.BadgeType.TechnicalPreview,
-        });
-        sinon.assert.match(items[2], {
-          id: "t3",
-          execute: execute3,
-          parentToolGroupId: "p2",
-          label: "t3-label",
-        });
-        sinon.assert.match(
-          IconHelper.getIconReactNode(items[2].icon, items[2].internalData),
-          expectIconSpec({
-            className: "t3-icon",
+        expect(
+          IconHelper.getIconReactNode(items[0].icon, items[0].internalData)
+        ).toHaveProperty("props.iconSpec.props.className", "t1-icon");
+        expect(items[1]).toEqual(
+          expect.objectContaining({
+            id: "t2",
+            badgeType: abstract.BadgeType.TechnicalPreview,
           })
         );
+        expect(items[2]).toEqual(
+          expect.objectContaining({
+            id: "t3",
+            execute: execute3,
+            parentToolGroupId: "p2",
+            label: "t3-label",
+          })
+        );
+        expect(
+          IconHelper.getIconReactNode(items[2].icon, items[2].internalData)
+        ).toHaveProperty("props.iconSpec.props.className", "t3-icon");
       }
     });
 
@@ -697,36 +724,40 @@ describe("UiItemsManager", () => {
           StageUsage.General,
           StagePanelLocation.Left
         );
-        sinon.assert.match(widgets[0], {
-          id: "w1",
-          badge: abstract.BadgeType.New,
-          allowedPanels: [StagePanelLocation.Left],
-          content: {
-            props: {
-              className: "w1-content",
-            },
-          },
-          icon: {
-            props: {
-              className: "w1-icon",
-            },
-          },
-        });
-        sinon.assert.match(widgets[1], {
-          id: "w2",
-          badge: abstract.BadgeType.TechnicalPreview,
-          allowedPanels: [StagePanelLocation.Right],
-          content: {
-            props: {
-              className: "w2-content",
-            },
-          },
-          icon: {
-            props: {
-              className: "w2-icon",
-            },
-          },
-        });
+        expect(widgets[0]).toEqual(
+          expect.objectContaining({
+            id: "w1",
+            badge: abstract.BadgeType.New,
+            allowedPanels: [StagePanelLocation.Left],
+            content: expect.objectContaining({
+              props: {
+                className: "w1-content",
+              },
+            }),
+            icon: expect.objectContaining({
+              props: {
+                className: "w1-icon",
+              },
+            }),
+          })
+        );
+        expect(widgets[1]).toEqual(
+          expect.objectContaining({
+            id: "w2",
+            badge: abstract.BadgeType.TechnicalPreview,
+            allowedPanels: [StagePanelLocation.Right],
+            content: expect.objectContaining({
+              props: {
+                className: "w2-content",
+              },
+            }),
+            icon: expect.objectContaining({
+              props: {
+                className: "w2-icon",
+              },
+            }),
+          })
+        );
       }
       {
         const widgets = AbstractUiItemsManager.getWidgets(
@@ -734,43 +765,34 @@ describe("UiItemsManager", () => {
           StageUsage.General,
           StagePanelLocation.Left
         );
-        sinon.assert.match(widgets[0], {
-          id: "w1",
-          badgeType: abstract.BadgeType.New,
-          allowedPanelTargets: ["left"],
-        });
-        sinon.assert.match(widgets[0].getWidgetContent(), {
-          props: {
-            className: "w1-content",
-          },
-        });
-        sinon.assert.match(widgets[0].getWidgetContent(), {
-          props: {
-            className: "w1-content",
-          },
-        });
-        sinon.assert.match(
-          IconHelper.getIconReactNode(widgets[0].icon, widgets[0].internalData),
-          expectIconSpec({
-            className: "w1-icon",
+        expect(widgets[0]).toEqual(
+          expect.objectContaining({
+            id: "w1",
+            badgeType: abstract.BadgeType.New,
+            allowedPanelTargets: ["left"],
           })
         );
-        sinon.assert.match(widgets[1], {
-          id: "w2",
-          badgeType: abstract.BadgeType.TechnicalPreview,
-          allowedPanelTargets: ["right"],
-        });
-        sinon.assert.match(widgets[1].getWidgetContent(), {
-          props: {
-            className: "w2-content",
-          },
-        });
-        sinon.assert.match(
-          IconHelper.getIconReactNode(widgets[1].icon, widgets[1].internalData),
-          expectIconSpec({
-            className: "w2-icon",
+        expect(widgets[0].getWidgetContent()).toHaveProperty(
+          "props.className",
+          "w1-content"
+        );
+        expect(
+          IconHelper.getIconReactNode(widgets[0].icon, widgets[0].internalData)
+        ).toHaveProperty("props.iconSpec.props.className", "w1-icon");
+        expect(widgets[1]).toEqual(
+          expect.objectContaining({
+            id: "w2",
+            badgeType: abstract.BadgeType.TechnicalPreview,
+            allowedPanelTargets: ["right"],
           })
         );
+        expect(widgets[1].getWidgetContent()).toHaveProperty(
+          "props.className",
+          "w2-content"
+        );
+        expect(
+          IconHelper.getIconReactNode(widgets[1].icon, widgets[1].internalData)
+        ).toHaveProperty("props.iconSpec.props.className", "w2-icon");
       }
     });
 
@@ -804,7 +826,7 @@ describe("UiItemsManager", () => {
           StageUsage.General,
           StagePanelLocation.Top
         );
-        sinon.assert.match(widgets, [
+        expect(widgets).toEqual([
           expect.objectContaining({ id: "w1" }),
           expect.objectContaining({ id: "w2" }),
         ]);
@@ -815,13 +837,13 @@ describe("UiItemsManager", () => {
           StageUsage.General,
           AbstractStagePanelLocation.Top
         );
-        sinon.assert.match(widgets, [sinon.match({ id: "w1" })]);
+        expect(widgets).toEqual([expect.objectContaining({ id: "w1" })]);
         const topMostWidgets = AbstractUiItemsManager.getWidgets(
           "stage1",
           StageUsage.General,
           AbstractStagePanelLocation.TopMost
         );
-        sinon.assert.match(topMostWidgets, [sinon.match({ id: "w2" })]);
+        expect(topMostWidgets).toEqual([expect.objectContaining({ id: "w2" })]);
       }
     });
   });
@@ -1151,13 +1173,3 @@ describe("UiItemsManager", () => {
     });
   });
 });
-
-function expectIconSpec(props: Object) {
-  return {
-    props: {
-      iconSpec: {
-        props,
-      },
-    },
-  };
-}

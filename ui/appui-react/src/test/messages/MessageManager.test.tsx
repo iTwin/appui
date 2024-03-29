@@ -36,11 +36,11 @@ describe("MessageManager", () => {
   });
 
   it("maxCachedMessages handled correctly", () => {
-    const clearSpy = vi.fn();
-    MessageManager.onMessagesUpdatedEvent.addListener(clearSpy);
+    const spy = vi.fn();
+    MessageManager.onMessagesUpdatedEvent.addListener(spy);
     MessageManager.clearMessages();
     expect(MessageManager.messages.length).toEqual(0);
-    clearexpect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalledOnce();
 
     for (let i = 0; i < 500; i++) {
       MessageManager.addMessage(
@@ -52,12 +52,12 @@ describe("MessageManager", () => {
     }
     expect(MessageManager.messages.length).toEqual(500);
 
-    clearspy.mockReset();
+    spy.mockReset();
     MessageManager.addMessage(
       new NotifyMessageDetails(OutputMessagePriority.Debug, `A brief message.`)
     );
     expect(MessageManager.messages.length).toEqual(376);
-    clearSpy.calledTwice.should.true;
+    expect(spy).toHaveBeenCalledTimes(2);
 
     const newMax = 375;
     MessageManager.setMaxCachedMessages(newMax);
@@ -219,7 +219,7 @@ describe("MessageManager", () => {
     );
 
     MessageManager.openMessageCenter();
-    expect(onOpenMessageCenterEventSpy.callCount).toEqual(1);
+    expect(onOpenMessageCenterEventSpy).toHaveBeenCalledOnce();
   });
 
   it("should render a toast message", async () => {
@@ -284,7 +284,11 @@ describe("MessageManager", () => {
   });
 
   it("should respect `maxDisplayedStickyMessages`", async () => {
-    vi.spyOn(MessageManager, "maxDisplayedStickyMessages").get(() => 3);
+    vi.spyOn(
+      MessageManager,
+      "maxDisplayedStickyMessages",
+      "get"
+    ).mockImplementation(() => 3);
 
     const component = render(<MessageRenderer />, { wrapper: ThemeProvider });
     act(() => {

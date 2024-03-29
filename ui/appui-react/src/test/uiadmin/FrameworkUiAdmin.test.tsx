@@ -190,7 +190,6 @@ describe("FrameworkUiAdmin", () => {
   afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
-    sinon.reset();
     Object.defineProperty(Tool, "englishKeyin", descriptorToRestore1);
     Object.defineProperty(Tool, "keyin", descriptorToRestore2);
   });
@@ -699,7 +698,7 @@ describe("FrameworkUiAdmin", () => {
 
   it("should ClearKeyinPaletteHistoryTool", async () => {
     const stub = vi
-      .stub(keyinExports, "clearKeyinPaletteHistory")
+      .spyOn(keyinExports, "clearKeyinPaletteHistory")
       .mockReturnValue();
     const tool = new ClearKeyinPaletteHistoryTool();
     await tool.parseAndRun();

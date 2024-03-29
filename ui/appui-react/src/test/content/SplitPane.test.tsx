@@ -158,7 +158,7 @@ describe("SplitPane", () => {
     fireEvent.click(resizer!);
     fireEvent.dblClick(resizer!);
     expect(spy).toHaveBeenCalledOnce();
-    dblexpect(spy).toHaveBeenCalledOnce();
+    expect(dblspy).toHaveBeenCalledOnce();
   });
 
   it("should handle touch resizing", async () => {
@@ -202,8 +202,8 @@ describe("SplitPane", () => {
         },
       ],
     });
-    spy.called.should.true;
-    spyDragFinishMethod.called.should.true;
+    expect(spy).toHaveBeenCalled();
+    expect(spyDragFinishMethod).toHaveBeenCalled();
   });
 
   it("should handle mouse resizing", async () => {
@@ -230,8 +230,8 @@ describe("SplitPane", () => {
     fireEvent.mouseDown(resizer!, { clientX: 10, clientY: 10 });
     fireEvent.mouseMove(resizer!, { clientX: 10, clientY: 20 });
     fireEvent.mouseUp(resizer!, { clientX: 10, clientY: 30 });
-    spy.called.should.true;
-    spyDragStartedMethod.called.should.true;
+    expect(spy).toHaveBeenCalled();
+    expect(spyDragStartedMethod).toHaveBeenCalled();
   });
 
   it("should handle mouse resizing (vertical)", async () => {
@@ -257,8 +257,8 @@ describe("SplitPane", () => {
     fireEvent.mouseDown(resizer!, { clientX: 10, clientY: 10 });
     fireEvent.mouseMove(resizer!, { clientX: 20, clientY: 10 });
     fireEvent.mouseUp(resizer!, { clientX: 30, clientY: 10 });
-    spy.called.should.true;
-    spyDragStartedMethod.called.should.true;
+    expect(spy).toHaveBeenCalled();
+    expect(spyDragStartedMethod).toHaveBeenCalled();
   });
 
   it("should ignore mouse resizing", async () => {
@@ -284,6 +284,6 @@ describe("SplitPane", () => {
     fireEvent.mouseDown(resizer!, { clientX: 10, clientY: 10 });
     fireEvent.mouseMove(resizer!, { clientX: 10, clientY: 20 });
     fireEvent.mouseUp(resizer!, { clientX: 10, clientY: 30 });
-    spy.called.should.false;
+    expect(spy).not.toBeCalled();
   });
 });

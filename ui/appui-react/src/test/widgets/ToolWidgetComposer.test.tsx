@@ -102,7 +102,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       const icon = component.container.querySelector("i.icon.icon-test");
       expect(icon).not.to.be.null;
       fireEvent.click(button);
-      spy.called.should.true;
+      expect(spy).toHaveBeenCalled();
     });
 
     it("BackstageAppButton should render with defaults", () => {
@@ -114,7 +114,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       );
       const button = component.container.querySelector("button");
       fireEvent.click(button!);
-      spy.called.should.true;
+      expect(spy).toHaveBeenCalled();
     });
   });
 });

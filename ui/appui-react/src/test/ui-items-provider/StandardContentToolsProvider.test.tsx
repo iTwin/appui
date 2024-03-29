@@ -164,7 +164,6 @@ describe("StandardContentToolsProvider", () => {
   afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
-    sinon.reset();
   });
 
   it("should register StandardContentToolsProvider with defaults", () => {

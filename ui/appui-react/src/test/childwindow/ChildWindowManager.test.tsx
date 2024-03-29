@@ -6,21 +6,8 @@ import type { OpenChildWindowInfo } from "../../appui-react";
 import { FrontstageDef, UiFramework } from "../../appui-react";
 import { copyStyles } from "../../appui-react/childwindow/CopyStyles";
 import { InternalChildWindowManager } from "../../appui-react/childwindow/InternalChildWindowManager";
-import TestUtils from "../TestUtils";
 
 describe("ChildWindowManager", () => {
-  beforeEach(async () => {
-    await TestUtils.initializeUiFramework();
-  });
-
-  afterEach(async () => {
-    TestUtils.terminateUiFramework();
-  });
-
-  afterEach(() => {
-    sinon.restore();
-  });
-
   it("will construct", () => {
     const manager = new InternalChildWindowManager();
 
@@ -37,32 +24,43 @@ describe("ChildWindowManager", () => {
       parentWindow: {} as Window,
     };
 
-    vi.spyOn(manager, "openChildWindows").get(() => [childWindowInfo]);
+    vi.spyOn(manager, "openChildWindows", "get").mockImplementation(() => [
+      childWindowInfo,
+    ]);
     expect(manager.close("bogus", false)).to.eql(false);
 
     expect(manager.findId(window)).to.be.eql("child");
     expect(manager.find("child")).toBeTruthy();
     const def = new FrontstageDef();
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => def);
     expect(manager.close("child", false)).to.true;
   });
 
   it("will find id and close", () => {
     const manager = new InternalChildWindowManager();
 
+    const childWindow = {
+      close: () => {},
+    } as Window;
     const childWindowInfo = {
       childWindowId: "child",
-      window,
+      window: childWindow,
       parentWindow: {} as Window,
     };
 
-    vi.spyOn(manager, "openChildWindows").get(() => [childWindowInfo]);
-    expect(manager.findId(window)).to.be.eql("child");
+    vi.spyOn(manager, "openChildWindows", "get").mockImplementation(() => [
+      childWindowInfo,
+    ]);
+
+    expect(manager.findId(childWindow)).to.be.eql("child");
     expect(manager.find("child")).toBeTruthy();
-    const closeStub = vi.fn();
-    vi.spyOn(window, "close").callsFake(closeStub);
-    expect(manager.close("child")).to.eql(true);
-    expect(closeStub).toHaveBeenCalled();
+    const spy = vi.spyOn(childWindow, "close");
+    expect(manager.close("child")).toEqual(true);
+    expect(spy).toHaveBeenCalled();
   });
 });
 
@@ -108,10 +106,6 @@ describe("ChildWindowManager", () => {
   </body>
   `;
 
-  afterEach(() => {
-    sinon.restore();
-  });
-
   it("will copy __SVG_SPRITE_NODE__", () => {
     const mainDoc = new DOMParser().parseFromString(mainHtml, "text/html");
     const childDoc = new DOMParser().parseFromString(childHtml, "text/html");
@@ -131,7 +125,9 @@ describe("ChildWindowManager", () => {
         parentWindow: window,
       },
     ];
-    vi.spyOn(manager, "openChildWindows").get(() => stubbedResponse);
+    vi.spyOn(manager, "openChildWindows", "get").mockImplementation(
+      () => stubbedResponse
+    );
 
     manager.close("childId");
     expect(closeSpy).toHaveBeenCalled();

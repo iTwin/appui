@@ -37,8 +37,8 @@ describe("activateDroppedTab", () => {
         const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
         const newState = wrappedReducer(state, action);
 
-        (!!newState.floatingWidgets.byId.fw1).should.true;
-        newState.widgets.fw1.activeTabId.should.eql("t1");
+        expect(newState.floatingWidgets.byId.fw1).toBeTruthy();
+        expect(newState.widgets.fw1.activeTabId).toEqual("t1");
       });
 
       describe("tab target", () => {
@@ -62,7 +62,7 @@ describe("activateDroppedTab", () => {
           const newState = wrappedReducer(state, action);
 
           expect(newState.widgets.w1.tabs).toEqual(["t1", "fwt1", "t2", "t3"]);
-          newState.widgets.w1.activeTabId.should.eql("fwt1");
+          expect(newState.widgets.w1.activeTabId).toEqual("fwt1");
         });
       });
 
@@ -89,7 +89,7 @@ describe("activateDroppedTab", () => {
           const newState = wrappedReducer(state, action);
 
           expect(newState.panels.left.widgets).toEqual(["w1", "newId", "w2"]);
-          newState.widgets.newId.activeTabId.should.eql("fwt1");
+          expect(newState.widgets.newId.activeTabId).toEqual("fwt1");
         });
       });
 
@@ -114,7 +114,7 @@ describe("activateDroppedTab", () => {
           const newState = wrappedReducer(state, action);
 
           expect(newState.widgets.w2.tabs).toEqual(["t2", "fwt1"]);
-          newState.widgets.w2.activeTabId.should.eql("fwt1");
+          expect(newState.widgets.w2.activeTabId).toEqual("fwt1");
         });
 
         it("should add tabs to a floating widget", () => {
@@ -135,8 +135,8 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          newState.widgets.fw2.tabs.should.eql(["fwt2", "fwt1"]);
-          newState.widgets.fw2.activeTabId.should.eql("fwt1");
+          expect(newState.widgets.fw2.tabs).toEqual(["fwt2", "fwt1"]);
+          expect(newState.widgets.fw2.activeTabId).toEqual("fwt1");
         });
       });
 
@@ -160,7 +160,7 @@ describe("activateDroppedTab", () => {
           const newState = wrappedReducer(state, action);
 
           expect(newState.panels.left.widgets).toEqual(["leftStart"]);
-          newState.widgets.leftStart.activeTabId.should.eql("fwt1");
+          expect(newState.widgets.leftStart.activeTabId).toEqual("fwt1");
         });
       });
     });
@@ -191,7 +191,7 @@ describe("activateDroppedTab", () => {
           const newState = wrappedReducer(state, action);
 
           expect(newState.widgets.leftStart.tabs).toEqual(["t1", "dt", "t2"]);
-          newState.widgets.leftStart.activeTabId.should.eql("dt");
+          expect(newState.widgets.leftStart.activeTabId).toEqual("dt");
         });
 
         it("should add tab to leftEnd", () => {
@@ -218,7 +218,7 @@ describe("activateDroppedTab", () => {
           const newState = wrappedReducer(state, action);
 
           expect(newState.widgets.leftEnd.tabs).toEqual(["t1", "dt", "t2"]);
-          newState.widgets.leftEnd.activeTabId.should.eql("dt");
+          expect(newState.widgets.leftEnd.activeTabId).toEqual("dt");
         });
       });
 
@@ -251,7 +251,7 @@ describe("activateDroppedTab", () => {
             "leftStart",
             "leftEnd",
           ]);
-          newState.widgets.leftEnd.activeTabId.should.eql("dt");
+          expect(newState.widgets.leftEnd.activeTabId).toEqual("dt");
         });
 
         it("should add widget to new end panel section", () => {
@@ -279,7 +279,7 @@ describe("activateDroppedTab", () => {
           const newState = wrappedReducer(state, action);
 
           expect(newState.panels.left.widgets).toEqual(["leftStart", "nw1"]);
-          newState.widgets.nw1.activeTabId.should.eql("dt");
+          expect(newState.widgets.nw1.activeTabId).toEqual("dt");
         });
 
         it("should add widget to new panel start section", () => {
@@ -307,7 +307,7 @@ describe("activateDroppedTab", () => {
           const newState = wrappedReducer(state, action);
 
           expect(newState.panels.left.widgets).toEqual(["nw1", "leftEnd"]);
-          newState.widgets.nw1.activeTabId.should.eql("dt");
+          expect(newState.widgets.nw1.activeTabId).toEqual("dt");
         });
       });
 
@@ -335,7 +335,7 @@ describe("activateDroppedTab", () => {
           const newState = wrappedReducer(state, action);
 
           expect(newState.panels.left.widgets).toEqual(["leftEnd"]);
-          newState.widgets.leftEnd.activeTabId.should.eql("dt");
+          expect(newState.widgets.leftEnd.activeTabId).toEqual("dt");
         });
 
         it("should add widget to existing panel start section", () => {
@@ -361,7 +361,7 @@ describe("activateDroppedTab", () => {
           const newState = wrappedReducer(state, action);
 
           expect(newState.panels.left.widgets).toEqual(["leftStart"]);
-          newState.widgets.leftStart.activeTabId.should.eql("dt");
+          expect(newState.widgets.leftStart.activeTabId).toEqual("dt");
         });
 
         it("should add tabs to a floating widget", () => {
@@ -387,7 +387,7 @@ describe("activateDroppedTab", () => {
           const newState = wrappedReducer(state, action);
 
           expect(newState.widgets.fw1.tabs).toEqual(["fwt1", "dt"]);
-          newState.widgets.fw1.activeTabId.should.eql("dt");
+          expect(newState.widgets.fw1.activeTabId).toEqual("dt");
         });
       });
 
@@ -415,7 +415,7 @@ describe("activateDroppedTab", () => {
           const newState = wrappedReducer(state, action);
 
           expect(newState.panels.left.widgets).toEqual(["newId"]);
-          newState.widgets.newId.activeTabId.should.eql("dt");
+          expect(newState.widgets.newId.activeTabId).toEqual("dt");
         });
       });
 
@@ -445,8 +445,8 @@ describe("activateDroppedTab", () => {
           const wrappedReducer = activateDroppedTab(NineZoneStateReducer);
           const newState = wrappedReducer(state, action);
 
-          (!!newState.floatingWidgets.byId.newId).should.true;
-          newState.widgets.newId.activeTabId.should.eql("dt");
+          expect(newState.floatingWidgets.byId.newId).toBeTruthy();
+          expect(newState.widgets.newId.activeTabId).toEqual("dt");
         });
       });
     });

@@ -64,7 +64,6 @@ describe("StandardStatusbarItemsProvider", () => {
   afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
-    sinon.reset();
   });
 
   it("should register StandardStatusbarItemsProvider with defaults", () => {

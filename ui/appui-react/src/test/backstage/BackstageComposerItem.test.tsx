@@ -69,13 +69,13 @@ describe("BackstageComposerItem", () => {
     });
 
     it("should invoke execute", async () => {
-      const spyExecute = vi.fn();
-      const actionItem = getActionItem({ execute: spyExecute });
+      const spy = vi.fn();
+      const actionItem = getActionItem({ execute: spy });
       render(<BackstageComposerActionItem item={actionItem} />);
 
       await theUserTo.click(screen.getByRole("menuitem"));
 
-      spyExecute.calledOnce.should.true;
+      expect(spy).toHaveBeenCalledOnce();
     });
   });
 
@@ -89,9 +89,11 @@ describe("BackstageComposerItem", () => {
     });
 
     it("should activate frontstage", async () => {
-      vi.spyOn(UiFramework.frontstages, "hasFrontstage")
-        .withArgs("Frontstage-1")
-        .returns(true);
+      vi.spyOn(UiFramework.frontstages, "hasFrontstage").mockImplementation(
+        (id) => {
+          return id === "Frontstage-1";
+        }
+      );
       const spy = vi.spyOn(UiFramework.frontstages, "setActiveFrontstage");
 
       render(
@@ -101,7 +103,7 @@ describe("BackstageComposerItem", () => {
       );
 
       await theUserTo.click(screen.getByRole("menuitem"));
-      spy.calledOnceWithExactly("Frontstage-1").should.true;
+      expect(spy).toHaveBeenCalledWith("Frontstage-1");
     });
 
     it("should not activate if frontstage is not found", async () => {
@@ -110,7 +112,7 @@ describe("BackstageComposerItem", () => {
       render(<BackstageComposerStageLauncher item={getStageLauncherItem()} />);
       await theUserTo.click(screen.getByRole("menuitem"));
 
-      spy.notCalled.should.true;
+      expect(spy).not.toBeCalled();
     });
 
     it("should honor isActive prop override", () => {

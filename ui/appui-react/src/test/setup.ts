@@ -7,6 +7,8 @@ import TestUtils from "./TestUtils";
 
 window.HTMLElement.prototype.scrollIntoView =
   window.HTMLElement.prototype.scrollIntoView ?? (() => {});
+window.HTMLElement.prototype.scrollTo =
+  window.HTMLElement.prototype.scrollTo ?? (() => {});
 
 global.DOMMatrix = class DOMMatrix {
   public m41 = 0;
@@ -16,6 +18,8 @@ global.DOMMatrix = class DOMMatrix {
 } as unknown as typeof DOMMatrix;
 
 document.elementFromPoint = document.elementFromPoint ?? (() => {});
+
+vi.stubGlobal("fetch", async () => Promise.resolve(new Response()));
 
 beforeEach(async () => {
   await NoRenderApp.startup();

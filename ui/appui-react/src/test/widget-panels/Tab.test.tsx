@@ -43,9 +43,11 @@ describe("WidgetPanelsTab", () => {
 
   it("should render with badge", () => {
     const frontstageDef = new FrontstageDef();
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => frontstageDef
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     const widgetDef = WidgetDef.create({
       id: "w1",
       badge: BadgeType.New,
@@ -74,10 +76,12 @@ describe("WidgetPanelsTab", () => {
 
 describe("getBadgeClassName", () => {
   it("should return class name for BadgeType.New", () => {
-    "uifw-badge-new".should.eq(getBadgeClassName(BadgeType.New));
+    expect(getBadgeClassName(BadgeType.New)).toEqual("uifw-badge-new");
   });
 
   it("should return class name for BadgeType.TechnicalPreview", () => {
-    "uifw-badge-tp".should.eq(getBadgeClassName(BadgeType.TechnicalPreview));
+    expect(getBadgeClassName(BadgeType.TechnicalPreview)).toEqual(
+      "uifw-badge-tp"
+    );
   });
 });

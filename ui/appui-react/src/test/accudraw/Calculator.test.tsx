@@ -124,7 +124,7 @@ describe("Calculator", () => {
 
     await theUserTo.type(screen.getByRole("textbox"), "[Escape]");
 
-    spy.called.should.true;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("pressing keys and multiply should give correct result", async () => {
@@ -194,7 +194,7 @@ describe("Calculator", () => {
 
     await theUserTo.type(screen.getByRole("textbox"), "[Enter]");
     expect(screen.getByDisplayValue("2")).to.exist;
-    spy.called.should.true;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("pressing keys and Clear should give correct result", async () => {
@@ -232,7 +232,7 @@ describe("Calculator", () => {
 
     await theUserTo.type(screen.getByRole("textbox"), "[Enter]");
     expect(screen.getByDisplayValue("61")).to.exist;
-    spy.called.should.true;
+    expect(spy).toHaveBeenCalled();
   });
 
   it("pressing keys and Equal and Clear should give correct result", async () => {

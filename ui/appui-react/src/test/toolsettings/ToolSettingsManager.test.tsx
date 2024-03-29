@@ -227,10 +227,10 @@ describe("InternalToolSettingsManager", () => {
     );
     const timerStub = vi.spyOn(SyncUiEventDispatcher, "dispatchSyncUiEvent");
     IModelApp.toolAdmin.dispatchUiSyncEvent("test1");
-    timerStub.calledOnce.should.be.true;
+    expect(timerStub).toHaveBeenCalledOnce();
 
     IModelApp.toolAdmin.dispatchImmediateUiSyncEvent("test2");
-    immediateStub.calledOnce.should.be.true;
+    expect(immediateStub).toHaveBeenCalledOnce();
   });
 
   describe("focusIntoToolSettings", () => {

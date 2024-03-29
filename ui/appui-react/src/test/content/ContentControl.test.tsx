@@ -32,6 +32,7 @@ describe("ContentControl", () => {
 
   afterEach(() => {
     TestUtils.terminateUiFramework();
+    UiFramework.controls.unregister("TestContentControl");
   });
 
   it("activated", async () => {
@@ -70,34 +71,23 @@ describe("ContentControl", () => {
     );
     expect(frontstageDef).toBeTruthy();
 
-    if (frontstageDef) {
-      await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
-      const contentGroup = frontstageDef.contentGroup;
-      expect(contentGroup).toBeTruthy();
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
+    const contentGroup = frontstageDef!.contentGroup;
+    expect(contentGroup).toBeTruthy();
 
-      if (contentGroup) {
-        const contentSet = contentGroup.getContentNodes();
-        expect(contentSet.length).toEqual(2);
+    const contentSet = contentGroup!.getContentNodes();
+    expect(contentSet.length).toEqual(2);
 
-        const contentControl = contentGroup.getControlFromElement(
-          contentSet[1]
-        );
-        expect(contentControl).toBeTruthy();
+    const contentControl = contentGroup!.getControlFromElement(contentSet[1])!;
+    expect(contentControl).toBeTruthy();
 
-        if (contentControl) {
-          const activatedMethod = vi.spyOn(contentControl, "onActivated");
-          UiFramework.content.setActive(contentSet[1]);
-          expect(
-            activatedMethod.calledOnce,
-            `onActivated called ${activatedMethod.callCount} times`
-          ).toEqual(true);
+    const activatedMethod = vi.spyOn(contentControl, "onActivated");
+    UiFramework.content.setActive(contentSet[1]);
+    expect(activatedMethod).toHaveBeenCalledOnce();
 
-          expect(contentControl.isViewport).to.be.false;
-          expect(contentControl.viewport).to.be.undefined;
-          expect(contentControl.navigationAidControl.length).toEqual(0);
-        }
-      }
-    }
+    expect(contentControl.isViewport).to.be.false;
+    expect(contentControl.viewport).to.be.undefined;
+    expect(contentControl.navigationAidControl.length).toEqual(0);
   });
 
   it("deactivated", async () => {

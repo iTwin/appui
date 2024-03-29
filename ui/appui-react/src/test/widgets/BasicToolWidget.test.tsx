@@ -12,7 +12,7 @@ import TestUtils, { childStructure } from "../TestUtils";
 
 describe("BasicToolWidget", () => {
   beforeEach(() => {
-    vi.spyOn(Element.prototype, "getBoundingClientRect").callsFake(
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
       function rect(this: any) {
         if (
           this instanceof HTMLButtonElement ||

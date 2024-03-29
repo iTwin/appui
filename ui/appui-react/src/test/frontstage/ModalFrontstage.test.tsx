@@ -87,14 +87,14 @@ describe("ModalFrontstage", () => {
     expect(backButton.length).toEqual(1);
 
     UiFramework.frontstages.updateModalFrontstage();
-    expect(changedEventSpy.calledTwice).toEqual(true);
+    expect(changedEventSpy).toHaveBeenCalledTimes(2);
 
     backButton[0].click();
     expect(navigationBackSpy).toHaveBeenCalledOnce();
     expect(closeModalSpy).toHaveBeenCalledOnce();
 
     UiFramework.frontstages.closeModalFrontstage();
-    expect(changedEventSpy.calledThrice).toEqual(true);
+    expect(changedEventSpy).toHaveBeenCalledTimes(3);
     expect(closedEventSpy).toHaveBeenCalledOnce();
 
     removeListener();

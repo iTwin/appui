@@ -194,12 +194,12 @@ describe("UiDataProvidedDialog", () => {
           .null;
       });
       fireEvent.click(okButton);
-      sinon.assert.calledOnce(spyOK);
+      expect(spyOK).toHaveBeenCalledOnce();
 
       component.baseElement.dispatchEvent(
         new KeyboardEvent("keyup", { key: "Escape" })
       );
-      sinon.assert.calledOnce(spyCancel);
+      expect(spyCancel).toHaveBeenCalledOnce();
     });
   });
 
@@ -247,12 +247,12 @@ describe("UiDataProvidedDialog", () => {
           .null;
       });
       fireEvent.click(okButton);
-      sinon.assert.calledOnce(spyOK);
+      expect(spyOK).toHaveBeenCalledOnce();
 
       component.baseElement.dispatchEvent(
         new KeyboardEvent("keyup", { key: "Escape" })
       );
-      sinon.assert.calledOnce(spyCancel);
+      expect(spyCancel).toHaveBeenCalledOnce();
     });
   });
 });

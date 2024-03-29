@@ -166,6 +166,6 @@ describe("StandardMessageBox", () => {
     render(reactNode);
 
     await theUserTo.type(screen.getByText("My Title"), "[Escape]");
-    spyOnEscape.calledOnce.should.true;
+    expect(spyOnEscape).toHaveBeenCalledOnce();
   });
 });

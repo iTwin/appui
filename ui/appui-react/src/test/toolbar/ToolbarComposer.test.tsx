@@ -168,12 +168,6 @@ describe("<ToolbarComposer  />", async () => {
     TestUtils.terminateUiFramework();
   });
 
-  const sandbox = sinon.createSandbox();
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
   it("should render with specified items", async () => {
     const renderedComponent = render(
       <Provider store={TestUtils.store}>
@@ -199,9 +193,8 @@ describe("<ToolbarComposer  />", async () => {
   });
 
   it("should render with updated items", async () => {
-    sandbox
-      .stub(Element.prototype, "getBoundingClientRect")
-      .callsFake(function (this: HTMLElement) {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function (this: HTMLElement) {
         if (this.classList.contains("components-toolbar-overflow-sizer")) {
           return DOMRect.fromRect({ width: 1000 });
         } else if (
@@ -210,7 +203,8 @@ describe("<ToolbarComposer  />", async () => {
           return DOMRect.fromRect({ width: 40 });
         }
         return new DOMRect();
-      });
+      }
+    );
 
     const renderedComponent = render(
       <Provider store={TestUtils.store}>
@@ -245,9 +239,8 @@ describe("<ToolbarComposer  />", async () => {
   });
 
   it("should not try to render duplicate items", async () => {
-    sandbox
-      .stub(Element.prototype, "getBoundingClientRect")
-      .callsFake(function (this: HTMLElement) {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function (this: HTMLElement) {
         if (this.classList.contains("components-toolbar-overflow-sizer")) {
           return DOMRect.fromRect({ width: 1600 });
         } else if (
@@ -256,7 +249,8 @@ describe("<ToolbarComposer  />", async () => {
           return DOMRect.fromRect({ width: 40 });
         }
         return new DOMRect();
-      });
+      }
+    );
 
     const duplicateToolsUiProvider = new DuplicatesUiProvider();
     UiItemsManager.register(duplicateToolsUiProvider);

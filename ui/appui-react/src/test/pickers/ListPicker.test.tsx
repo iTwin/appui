@@ -19,19 +19,20 @@ import TestUtils, {
 } from "../TestUtils";
 import { Provider } from "react-redux";
 import { render, screen } from "@testing-library/react";
+
 const title = "Test";
-const listItems = new Array<ListItem>();
+let listItems = new Array<ListItem>();
 const setEnabled = vi.fn();
 
 describe("ListPicker", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
-    theUserTo = userEvent.setup();
-  });
+
   beforeEach(async () => {
+    theUserTo = userEvent.setup();
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
 
+    listItems = [];
     const listItem: ListItem = {
       enabled: true,
       type: ListItemType.Item,
@@ -71,10 +72,6 @@ describe("ListPicker", () => {
     await IModelApp.shutdown();
   });
 
-  beforeEach(async () => {
-    await TestUtils.flushAsyncOperations();
-  });
-
   it("should render correctly", () => {
     render(
       <Provider store={TestUtils.store}>
@@ -96,7 +93,7 @@ describe("ListPicker", () => {
     const disableAllFunc = vi.fn();
     const invertFunc = vi.fn();
 
-    render(
+    const x = render(
       <Provider store={TestUtils.store}>
         <ListPicker
           title={title}
@@ -108,6 +105,7 @@ describe("ListPicker", () => {
         />
       </Provider>
     );
+    x.debug();
     await theUserTo.click(screen.getByRole("button"));
 
     await theUserTo.click(screen.getByText("pickerButtons.all"));

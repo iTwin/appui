@@ -145,7 +145,7 @@ beforeEach(function () {
   }
 
   sinon
-    .stub(console, "error")
+    .spyOn(console, "error")
     .callThrough()
     .withArgs(
       "iTwinUI components must be used within a tree wrapped in a ThemeProvider."

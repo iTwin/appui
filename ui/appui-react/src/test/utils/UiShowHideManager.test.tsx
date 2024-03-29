@@ -74,7 +74,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
 
         InternalUiShowHideManager.showHidePanels = false;
         expect(InternalUiShowHideManager.showHidePanels).to.be.false;
-        spy.calledTwice.should.true;
+        expect(spy).toHaveBeenCalledTimes(2);
 
         remove();
       });
@@ -93,7 +93,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
 
         InternalUiShowHideManager.showHideFooter = false;
         expect(InternalUiShowHideManager.showHideFooter).to.be.false;
-        spy.calledTwice.should.true;
+        expect(spy).toHaveBeenCalledTimes(2);
 
         remove();
       });
@@ -112,7 +112,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
 
         InternalUiShowHideManager.useProximityOpacity = true;
         expect(InternalUiShowHideManager.useProximityOpacity).toEqual(true);
-        spy.calledTwice.should.true;
+        expect(spy).toHaveBeenCalledTimes(2);
 
         remove();
       });
@@ -131,7 +131,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
 
         InternalUiShowHideManager.snapWidgetOpacity = false;
         expect(InternalUiShowHideManager.snapWidgetOpacity).to.be.false;
-        spy.calledTwice.should.true;
+        expect(spy).toHaveBeenCalledTimes(2);
 
         remove();
       });
@@ -188,7 +188,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       });
 
       it("Mouse move in content view should show the UI then hide after inactivity", () => {
-        const vi.useFakeTimers();
+        vi.useFakeTimers();
         UiFramework.setIsUiVisible(false);
         InternalUiShowHideManager.autoHideUi = true;
         InternalUiShowHideManager.inactivityTime = 20;
@@ -205,7 +205,6 @@ describe("UiShowHideManager localStorage Wrapper", () => {
           new MouseEvent("mousemove", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
 
@@ -213,7 +212,6 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         expect(InternalUiShowHideManager.isUiVisible).toEqual(true);
 
         vi.advanceTimersByTime(1000);
-        fakeTimers.restore();
         expect(InternalUiShowHideManager.isUiVisible).toEqual(false);
       });
 
@@ -233,7 +231,6 @@ describe("UiShowHideManager localStorage Wrapper", () => {
           new MouseEvent("mousemove", {
             bubbles: true,
             cancelable: true,
-            view: window,
           })
         );
 

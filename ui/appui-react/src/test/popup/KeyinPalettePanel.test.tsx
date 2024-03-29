@@ -266,14 +266,12 @@ describe("<KeyinPalettePanel>", () => {
     }
 
     beforeEach(() => {
-      vi.spyOn(IModelApp.tools, "parseKeyin").callsFake((keyin: string) => {
-        if (keyin === "bogus") return { ok: false, error: 1 };
-        return { ok: true, args: [], tool: TestImmediate };
-      });
-    });
-
-    afterEach(() => {
-      sinon.restore();
+      vi.spyOn(IModelApp.tools, "parseKeyin").mockImplementation(
+        (keyin: string) => {
+          if (keyin === "bogus") return { ok: false, error: 1 };
+          return { ok: true, args: [], tool: TestImmediate };
+        }
+      );
     });
 
     it("Renders and filters out bogus history entry", async () => {

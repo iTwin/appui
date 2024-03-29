@@ -8,6 +8,6 @@ import { WidgetDef } from "../../appui-react/widgets/WidgetDef";
 describe("createStableWidgetDef", () => {
   it("should return stableId", () => {
     const sut = createStableWidgetDef(new WidgetDef(), "w1");
-    sut.id.should.eq("w1");
+    expect(sut.id).toEqual("w1");
   });
 });

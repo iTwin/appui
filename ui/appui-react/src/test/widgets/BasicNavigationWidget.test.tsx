@@ -22,7 +22,7 @@ import { render } from "@testing-library/react";
 
 describe("BasicNavigationWidget", () => {
   beforeEach(() => {
-    vi.spyOn(Element.prototype, "getBoundingClientRect").callsFake(
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
       function rect(this: any) {
         if (
           this instanceof HTMLButtonElement ||
@@ -175,9 +175,7 @@ describe("BasicNavigationWidget", () => {
       .returns(() => "StandardRotationNavigationAid");
 
     const spatialViewStateMock = moq.Mock.ofType<OrthographicViewState>();
-    spatialViewStateMock
-      .setup((view) => view.is3d())
-      .mockReturnValue(() => true);
+    spatialViewStateMock.setup((view) => view.is3d()).returns(() => true);
     spatialViewStateMock
       .setup((view) => view.classFullName)
       .returns(() => "Bis:OrthographicViewDefinition");
@@ -191,7 +189,7 @@ describe("BasicNavigationWidget", () => {
       .setup((viewport) => viewport.view)
       .returns(() => spatialViewStateMock.object);
 
-    vi.spyOn(UiFramework.content, "getActiveContentControl").returns(
+    vi.spyOn(UiFramework.content, "getActiveContentControl").mockReturnValue(
       contentControlMock.object
     );
 

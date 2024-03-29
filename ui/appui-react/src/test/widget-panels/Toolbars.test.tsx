@@ -14,9 +14,11 @@ import { childStructure, selectorMatches } from "../TestUtils";
 
 describe("WidgetPanelsToolbars", () => {
   it("should not render", () => {
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => undefined
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => undefined);
     const { container } = render(<WidgetPanelsToolbars />);
     expect(container).to.satisfy(
       childStructure("div.uifw-widgetPanels-toolbars:only-child:empty")
@@ -33,13 +35,17 @@ describe("WidgetPanelsToolbars", () => {
       id: "viewNavigationWidget",
       content: <>navigation</>,
     });
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => frontstageDef
-    );
-    vi.spyOn(frontstageDef, "contentManipulation").get(
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
+    vi.spyOn(frontstageDef, "contentManipulation", "get").mockImplementation(
       () => contentManipulationWidget
     );
-    vi.spyOn(frontstageDef, "viewNavigation").get(() => viewNavigationWidget);
+    vi.spyOn(frontstageDef, "viewNavigation", "get").mockImplementation(
+      () => viewNavigationWidget
+    );
     render(<WidgetPanelsToolbars />);
     expect(screen.getByText(/tools.*navigation/)).to.satisfy(
       selectorMatches(".uifw-widgetPanels-toolbars")

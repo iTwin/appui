@@ -67,17 +67,17 @@ describe("InternalModelessDialogManager", () => {
     );
 
     UiFramework.dialogs.modeless.update();
-    expect(spy.calledTwice).toEqual(true);
+    expect(spy).toHaveBeenCalledTimes(2);
 
     UiFramework.dialogs.modeless.close(dialogId);
-    expect(spy.calledThrice).toEqual(true);
+    expect(spy).toHaveBeenCalledTimes(3);
     expect(UiFramework.dialogs.modeless.count).toEqual(0);
   });
 
   it("close should log error if passed a bad id", () => {
-    const logspy = vi.spyOn(Logger, "logError");
+    const logErrorSpy = vi.spyOn(Logger, "logError");
     UiFramework.dialogs.modeless.close("bad");
-    logexpect(spy).toHaveBeenCalledOnce();
+    expect(logErrorSpy).toHaveBeenCalledOnce();
   });
 
   it("ModelessDialogRenderer component", async () => {

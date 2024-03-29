@@ -47,7 +47,9 @@ describe("BackstageManager", () => {
 
     manager.close();
 
-    expect(spy).toHaveBeenCalledWith(sinon.match({ isOpen: false }));
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({ isOpen: false })
+    );
     expect(manager.isOpen).to.be.false;
 
     manager.onToggled.removeListener(spy);
@@ -61,13 +63,15 @@ describe("BackstageManager", () => {
 
     manager.toggle();
 
-    expect(spy).toHaveBeenCalledWith(sinon.match({ isOpen: false }));
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({ isOpen: false })
+    );
     expect(manager.isOpen).to.be.false;
 
     spy.mockReset();
     manager.toggle();
 
-    expect(spy).toHaveBeenCalledWith(sinon.match({ isOpen: true }));
+    expect(spy).toHaveBeenCalledWith(expect.objectContaining({ isOpen: true }));
     expect(manager.isOpen).toEqual(true);
     manager.onToggled.removeListener(spy);
   });
@@ -102,32 +106,36 @@ describe("BackstageManager", () => {
   it("will directly call internal implementation", () => {
     const manager = new BackstageManager();
     const internal = new InternalBackstageManager();
-    const stubbedOnToggled = Symbol("onToggled");
-    vi.spyOn(internal, "onToggled").get(() => stubbedOnToggled);
-    const stubbedIsOpen = Symbol("isOpen");
-    vi.spyOn(internal, "isOpen").get(() => stubbedIsOpen);
-    vi.spyOn(internal);
     manager.mockInternal(internal);
 
     expect(manager.onToggled).toEqual(internal.onToggled);
     expect(manager.isOpen).toEqual(internal.isOpen);
 
+    const open = vi.spyOn(internal, "open");
+    const close = vi.spyOn(internal, "close");
+    const toggle = vi.spyOn(internal, "toggle");
+    const getBackstageToggleCommand = vi.spyOn(
+      internal,
+      "getBackstageToggleCommand"
+    );
+
     // New method names
     manager.open();
-    expect(internal.open).toHaveBeenCalledWith();
+    expect(open).toHaveBeenCalledWith();
     manager.close();
-    expect(internal.close).toHaveBeenCalledWith();
+    expect(close).toHaveBeenCalledWith();
     manager.toggle();
-    expect(internal.toggle).toHaveBeenCalledWith();
+    expect(toggle).toHaveBeenCalledWith();
     manager.getBackstageToggleCommand("iconSpec");
-    expect(internal.getBackstageToggleCommand).toHaveBeenCalledWith("iconSpec");
+    expect(getBackstageToggleCommand).toHaveBeenCalledWith("iconSpec");
 
-    const stubbedCommand = Symbol("backstageCommand");
-    vi.spyOn(UiFramework.backstage, "getBackstageToggleCommand").returns(
-      stubbedCommand as any
-    );
+    const backstageCommandSymbol = Symbol("backstageCommand");
+    vi.spyOn(
+      UiFramework.backstage,
+      "getBackstageToggleCommand"
+    ).mockReturnValue(backstageCommandSymbol as any);
     expect(BackstageManager.getBackstageToggleCommand()).toEqual(
-      stubbedCommand
+      backstageCommandSymbol
     );
   });
 });
@@ -157,17 +165,11 @@ describe("useIsBackstageOpen", () => {
 
   it("should remove onToggled listener", () => {
     const manager = new BackstageManager();
-    const addSpy = vi.spyOn(manager.onToggled, "addListener");
     const removeSpy = vi.spyOn(manager.onToggled, "removeListener");
     const { unmount } = renderHook(() => useIsBackstageOpen(manager));
-    const callback = vi.spyOn(addSpy.firstCall, "returnValue");
     unmount();
 
-    // Either one must be true for this test to pass
-    expect([
-      callback.called,
-      removeSpy.calledWith(...addSpy.firstCall.args),
-    ]).to.include(true);
+    expect(removeSpy).toHaveBeenCalledOnce();
   });
 });
 

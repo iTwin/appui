@@ -91,8 +91,8 @@ describe("ContentLayoutManager", () => {
 
     const contentGroup = new ContentGroup(groupProps);
     const spy = vi
-      .stub(InternalFrontstageManager, "setActiveContentGroup")
-      .returns(Promise.resolve());
+      .spyOn(InternalFrontstageManager, "setActiveContentGroup")
+      .mockResolvedValue(undefined);
     await InternalContentLayoutManager.setActiveContentGroup(contentGroup);
     expect(spy).toHaveBeenCalled();
   });

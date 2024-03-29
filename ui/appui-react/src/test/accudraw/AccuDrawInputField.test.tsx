@@ -99,11 +99,10 @@ describe("AccuDrawInputField", () => {
     fireEvent.change(input!, { target: { value: "22.3" } });
     expect((input as HTMLInputElement).value).toEqual("22.3");
     fireEvent.keyDown(input!, { key: Key.Enter });
-    spy.called.should.not.be.true;
+    expect(spy).not.toBeCalled();
 
     vi.advanceTimersByTime(20);
     expect(spy).toHaveBeenCalledOnce();
-    fakeTimers.restore();
   });
 
   it("should call onEscPressed on ESC", () => {
@@ -121,7 +120,7 @@ describe("AccuDrawInputField", () => {
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     fireEvent.keyDown(input!, { key: Key.Escape });
-    spyEsc.calledOnce.should.be.true;
+    expect(spyEsc).toHaveBeenCalledOnce();
   });
 
   it("should call onEnterPressed on Enter", () => {
@@ -139,7 +138,7 @@ describe("AccuDrawInputField", () => {
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     fireEvent.keyDown(input!, { key: Key.Enter });
-    spyEnter.calledOnce.should.be.true;
+    expect(spyEnter).toHaveBeenCalledOnce();
   });
 
   it("should call UiFramework.keyboardShortcuts.processKey on a letter", () => {
@@ -158,8 +157,7 @@ describe("AccuDrawInputField", () => {
     fireEvent.keyDown(input!, { key: "a" });
     expect(spy).toHaveBeenCalledOnce();
     fireEvent.keyDown(input!, { key: "1" });
-    spy.calledTwice.should.not.be.true;
-    (UiFramework.keyboardShortcuts.processKey as any).restore();
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it("should update value when calling onFieldValueChange", async () => {

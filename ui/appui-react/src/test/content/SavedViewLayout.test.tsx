@@ -58,7 +58,7 @@ describe("StageContentLayout", () => {
   const viewsMock = moq.Mock.ofType<IModelConnection.Views>();
   const rpcMock = moq.Mock.ofType<IModelReadRpcInterface>();
 
-  imodelMock.setup((x) => x.views).mockReturnValue(() => viewsMock.object);
+  imodelMock.setup((x) => x.views).returns(() => viewsMock.object);
   imodelMock
     .setup((x) => x.subcategories)
     .returns(() => new SubCategoriesCache(imodelMock.object));
@@ -196,14 +196,15 @@ describe("StageContentLayout", () => {
   });
 
   beforeEach(async () => {
-    vi.spyOn(IModelReadRpcInterface, "getClientForRouting").returns(
+    vi.spyOn(IModelReadRpcInterface, "getClientForRouting").mockReturnValue(
       rpcMock.object
     );
+
+    UiFramework.controls.unregister("TestViewport");
   });
 
   afterEach(async () => {
     await IModelApp.shutdown();
-    sinon.restore();
     TestUtils.terminateUiFramework();
   });
 
@@ -256,7 +257,7 @@ describe("StageContentLayout", () => {
     UiFramework.frontstages.clearFrontstageProviders();
 
     viewportMock.reset();
-    viewportMock.setup((x) => x.view).mockReturnValue(() => viewState);
+    viewportMock.setup((x) => x.view).returns(() => viewState);
   });
 
   it("should create and parse Spatial saved view layout", async () => {
@@ -339,8 +340,8 @@ describe("StageContentLayout", () => {
   it("should create and parse Drawing saved view layout", async () => {
     const emphasizeElements = new EmphasizeElements();
     emphasizeElements.wantEmphasis = true;
-    viewportMock.setup((x) => x.neverDrawn).mockReturnValue(() => undefined);
-    viewportMock.setup((x) => x.alwaysDrawn).mockReturnValue(() => undefined);
+    viewportMock.setup((x) => x.neverDrawn).returns(() => undefined);
+    viewportMock.setup((x) => x.alwaysDrawn).returns(() => undefined);
 
     const vs = DrawingViewState.createFromProps(
       viewStateProps2,

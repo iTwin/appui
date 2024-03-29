@@ -43,7 +43,7 @@ describe("CursorPrompt", () => {
     const offset = new Point(20, 20);
     const cursor = { x: 6, y: 6 };
     CursorInformation.cursorPosition = cursor;
-    const fakeTimers = sinon.useFakeTimers({ shouldAdvanceTime: true });
+    vi.useFakeTimers({ shouldAdvanceTime: true });
     const { container } = render(<CursorPopupRenderer />);
     expect(CursorPopupManager.popupCount).toEqual(0);
     CursorPopup.fadeOutTime = 50;
@@ -85,7 +85,6 @@ describe("CursorPrompt", () => {
     expect(CursorPopupManager.popupCount).toEqual(1);
 
     vi.advanceTimersByTime(1000);
-    fakeTimers.restore();
     expect(CursorPopupManager.popupCount).toEqual(0);
   });
 

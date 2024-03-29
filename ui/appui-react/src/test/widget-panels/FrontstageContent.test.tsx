@@ -13,17 +13,21 @@ import {
 describe("WidgetPanelsFrontstageContent", () => {
   it("should render", () => {
     const frontstageDef = new FrontstageDef();
-    vi.spyOn(frontstageDef, "contentLayoutDef").get(() => ({
-      fillLayoutContainer() {
-        return "ContentLayoutDefMockContent";
-      },
-    }));
-    vi.spyOn(frontstageDef, "contentGroup").get(() => ({
+    vi.spyOn(frontstageDef, "contentLayoutDef", "get").mockImplementation(
+      () => ({
+        fillLayoutContainer() {
+          return "ContentLayoutDefMockContent";
+        },
+      })
+    );
+    vi.spyOn(frontstageDef, "contentGroup", "get").mockImplementation(() => ({
       getContentNodes() {},
     }));
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => frontstageDef
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     render(<WidgetPanelsFrontstageContent />);
     expect(screen.getByRole("presentation")).to.have.property(
       "innerHTML",
@@ -32,9 +36,11 @@ describe("WidgetPanelsFrontstageContent", () => {
   });
 
   it("should not render", () => {
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => undefined
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => undefined);
     const { container } = render(<WidgetPanelsFrontstageContent />);
     expect(container.childNodes).lengthOf(0);
   });

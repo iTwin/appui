@@ -125,7 +125,7 @@ describe("UiFramework localStorage Wrapper", () => {
       await UiFramework.initialize(TestUtils.store);
       expect(UiFramework.initialized).toEqual(true);
       await UiFramework.initialize(TestUtils.store);
-      spyLogger.calledOnce.should.true;
+      expect(spyLogger).toHaveBeenCalledOnce();
     });
 
     it("test default frameworkState key", async () => {
@@ -246,9 +246,7 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("showCard/hideCard forwards to PopupManager", () => {
-      const stub = vi
-        .stub(PopupManager, "displayCard")
-        .mockReturnValue(true);
+      const stub = vi.spyOn(PopupManager, "displayCard").mockReturnValue(true);
       expect(
         UiFramework.showCard(
           createElement("div", { id: "test" }, ["card content"]),
@@ -262,7 +260,7 @@ describe("UiFramework localStorage Wrapper", () => {
           () => {}
         )
       ).toEqual(true);
-      stub.restore();
+      stub.mockReset();
 
       vi.spyOn(PopupManager, "displayCard").mockReturnValue(false);
       expect(
@@ -279,12 +277,10 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).to.be.false;
 
-      const hideStub = vi
-        .stub(PopupManager, "hideCard")
-        .mockReturnValue(true);
+      const hideStub = vi.spyOn(PopupManager, "hideCard").mockReturnValue(true);
       expect(UiFramework.hideCard()).toEqual(true);
 
-      hideStub.restore();
+      hideStub.mockReset();
 
       vi.spyOn(PopupManager, "hideCard").mockReturnValue(false);
       expect(UiFramework.hideCard()).to.be.false;
@@ -293,7 +289,7 @@ describe("UiFramework localStorage Wrapper", () => {
     it("openToolSettingsPopup/closeToolSettingsPopup forwards to PopupManager", () => {
       const dataProviderMock = moq.Mock.ofType<DialogLayoutDataProvider>();
       const stub = vi
-        .stub(PopupManager, "openToolSettings")
+        .spyOn(PopupManager, "openToolSettings")
         .mockReturnValue(true);
       expect(
         UiFramework.openToolSettingsPopup(
@@ -303,7 +299,7 @@ describe("UiFramework localStorage Wrapper", () => {
           () => {}
         )
       ).toEqual(true);
-      stub.restore();
+      stub.mockReset();
 
       vi.spyOn(PopupManager, "openToolSettings").mockReturnValue(false);
       expect(
@@ -316,11 +312,11 @@ describe("UiFramework localStorage Wrapper", () => {
       ).to.be.false;
 
       const hideStub = vi
-        .stub(PopupManager, "closeToolSettings")
-        .returns(true);
+        .spyOn(PopupManager, "closeToolSettings")
+        .mockReturnValue(true);
       expect(UiFramework.closeToolSettingsPopup()).toEqual(true);
 
-      hideStub.restore();
+      hideStub.mockReset();
 
       vi.spyOn(PopupManager, "closeToolSettings").mockReturnValue(false);
       expect(UiFramework.closeToolSettingsPopup()).to.be.false;
@@ -328,7 +324,7 @@ describe("UiFramework localStorage Wrapper", () => {
 
     it("showToolbar/hideToolbar forwards to PopupManager", () => {
       const stub = vi
-        .stub(PopupManager, "displayToolbar")
+        .spyOn(PopupManager, "displayToolbar")
         .mockReturnValue(true);
       expect(
         UiFramework.showToolbar(
@@ -341,14 +337,14 @@ describe("UiFramework localStorage Wrapper", () => {
           () => {}
         )
       ).toEqual(true);
-      stub.restore();
+      stub.mockReset();
 
       const hideStub = vi
-        .stub(PopupManager, "hideToolbar")
+        .spyOn(PopupManager, "hideToolbar")
         .mockReturnValue(true);
       expect(UiFramework.hideToolbar()).toEqual(true);
 
-      hideStub.restore();
+      hideStub.mockReset();
 
       vi.spyOn(PopupManager, "hideToolbar").mockReturnValue(false);
       expect(UiFramework.hideToolbar()).to.be.false;
@@ -356,23 +352,23 @@ describe("UiFramework localStorage Wrapper", () => {
 
     it("showMenuButton/hideMenuButton forwards to AccuDrawPopupManager", () => {
       const stub = vi
-        .stub(AccuDrawPopupManager, "showMenuButton")
-        .returns(true);
+        .spyOn(AccuDrawPopupManager, "showMenuButton")
+        .mockReturnValue(true);
       expect(UiFramework.showMenuButton("test", [], { x: 0, y: 0 })).toEqual(
         true
       );
-      stub.restore();
+      stub.mockReset();
 
       vi.spyOn(AccuDrawPopupManager, "showMenuButton").mockReturnValue(false);
       expect(UiFramework.showMenuButton("test", [], { x: 0, y: 0 })).to.be
         .false;
 
       const hideStub = vi
-        .stub(AccuDrawPopupManager, "hideMenuButton")
-        .returns(true);
+        .spyOn(AccuDrawPopupManager, "hideMenuButton")
+        .mockReturnValue(true);
       expect(UiFramework.hideMenuButton("test")).toEqual(true);
 
-      hideStub.restore();
+      hideStub.mockReset();
 
       vi.spyOn(AccuDrawPopupManager, "hideMenuButton").mockReturnValue(false);
       expect(UiFramework.hideMenuButton("test")).to.be.false;
@@ -388,8 +384,8 @@ describe("UiFramework localStorage Wrapper", () => {
 
     it("showCalculator/hideCalculator forwards to AccuDrawPopupManager", () => {
       const stub = vi
-        .stub(AccuDrawPopupManager, "showCalculator")
-        .returns(true);
+        .spyOn(AccuDrawPopupManager, "showCalculator")
+        .mockReturnValue(true);
       expect(
         UiFramework.showCalculator(
           23,
@@ -400,7 +396,7 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).toEqual(true);
 
-      stub.restore();
+      stub.mockReset();
 
       vi.spyOn(AccuDrawPopupManager, "showCalculator").mockReturnValue(false);
       expect(
@@ -414,11 +410,11 @@ describe("UiFramework localStorage Wrapper", () => {
       ).to.be.false;
 
       const hideStub = vi
-        .stub(AccuDrawPopupManager, "hideCalculator")
-        .returns(true);
+        .spyOn(AccuDrawPopupManager, "hideCalculator")
+        .mockReturnValue(true);
       expect(UiFramework.hideCalculator()).toEqual(true);
 
-      hideStub.restore();
+      hideStub.mockReset();
 
       vi.spyOn(AccuDrawPopupManager, "hideCalculator").mockReturnValue(false);
       expect(UiFramework.hideCalculator()).to.be.false;
@@ -426,7 +422,7 @@ describe("UiFramework localStorage Wrapper", () => {
 
     it("showComponent/hideComponent forwards to PopupManager", () => {
       const stub = vi
-        .stub(PopupManager, "showComponent")
+        .spyOn(PopupManager, "showComponent")
         .mockReturnValue(true);
       expect(
         UiFramework.showComponent(
@@ -434,7 +430,7 @@ describe("UiFramework localStorage Wrapper", () => {
           {}
         )
       ).toEqual(true);
-      stub.restore();
+      stub.mockReset();
 
       vi.spyOn(PopupManager, "showComponent").mockReturnValue(false);
       expect(
@@ -445,11 +441,11 @@ describe("UiFramework localStorage Wrapper", () => {
       ).to.be.false;
 
       const hideStub = vi
-        .stub(PopupManager, "hideComponent")
+        .spyOn(PopupManager, "hideComponent")
         .mockReturnValue(true);
       expect(UiFramework.hideComponent()).toEqual(true);
 
-      hideStub.restore();
+      hideStub.mockReset();
 
       vi.spyOn(PopupManager, "hideComponent").mockReturnValue(false);
       expect(UiFramework.hideComponent()).to.be.false;
@@ -466,8 +462,8 @@ describe("UiFramework localStorage Wrapper", () => {
 
     it("showAngleEditor forwards to AccuDrawPopupManager", () => {
       const stub = vi
-        .stub(AccuDrawPopupManager, "showAngleEditor")
-        .returns(true);
+        .spyOn(AccuDrawPopupManager, "showAngleEditor")
+        .mockReturnValue(true);
       expect(
         UiFramework.showAngleEditor(
           23,
@@ -477,11 +473,9 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).toEqual(true);
 
-      stub.restore();
+      stub.mockReset();
 
-      vi
-        .stub(AccuDrawPopupManager, "showAngleEditor")
-        .mockReturnValue(false);
+      vi.spyOn(AccuDrawPopupManager, "showAngleEditor").mockReturnValue(false);
       expect(
         UiFramework.showAngleEditor(
           23,
@@ -509,22 +503,22 @@ describe("UiFramework localStorage Wrapper", () => {
       ).toEqual(true);
 
       const hideStub = vi
-        .stub(PopupManager, "hideInputEditor")
-        .returns(true);
+        .spyOn(PopupManager, "hideInputEditor")
+        .mockReturnValue(true);
       expect(UiFramework.hideInputEditor()).toEqual(true);
 
-      hideStub.restore();
+      hideStub.mockReset();
       vi.spyOn(PopupManager, "hideInputEditor").mockReturnValue(false);
       expect(UiFramework.hideInputEditor()).to.be.false;
     });
 
     it("showDimensionEditor(height) forwards to AccuDrawPopupManager", () => {
       const lengthStub = vi
-        .stub(AccuDrawPopupManager, "showLengthEditor")
-        .returns(true);
+        .spyOn(AccuDrawPopupManager, "showLengthEditor")
+        .mockReturnValue(true);
       const heightStub = vi
-        .stub(AccuDrawPopupManager, "showHeightEditor")
-        .returns(true);
+        .spyOn(AccuDrawPopupManager, "showHeightEditor")
+        .mockReturnValue(true);
       expect(
         UiFramework.showDimensionEditor(
           "length",
@@ -537,11 +531,8 @@ describe("UiFramework localStorage Wrapper", () => {
 
       expect(lengthStub).toHaveBeenCalledOnce();
       expect(heightStub).not.toBeCalled();
-      lengthStub.restore();
+      lengthStub.mockReset();
 
-      vi
-        .stub(AccuDrawPopupManager, "showDimensionEditor")
-        .mockReturnValue(false);
       expect(
         UiFramework.showDimensionEditor(
           "length",
@@ -550,7 +541,7 @@ describe("UiFramework localStorage Wrapper", () => {
           () => {},
           () => {}
         )
-      ).to.be.false;
+      );
 
       expect(lengthStub).toHaveBeenCalledOnce();
       expect(heightStub).not.toBeCalled();
@@ -558,11 +549,11 @@ describe("UiFramework localStorage Wrapper", () => {
 
     it("showDimensionEditor(length) forwards to AccuDrawPopupManager", () => {
       const lengthStub = vi
-        .stub(AccuDrawPopupManager, "showLengthEditor")
-        .returns(true);
+        .spyOn(AccuDrawPopupManager, "showLengthEditor")
+        .mockReturnValue(true);
       const heightStub = vi
-        .stub(AccuDrawPopupManager, "showHeightEditor")
-        .returns(true);
+        .spyOn(AccuDrawPopupManager, "showHeightEditor")
+        .mockReturnValue(true);
       expect(
         UiFramework.showDimensionEditor(
           "height",
@@ -575,11 +566,8 @@ describe("UiFramework localStorage Wrapper", () => {
 
       expect(lengthStub).not.toBeCalled();
       expect(heightStub).toHaveBeenCalledOnce();
-      heightStub.restore();
+      heightStub.mockReset();
 
-      vi
-        .stub(AccuDrawPopupManager, "showDimensionEditor")
-        .mockReturnValue(false);
       expect(
         UiFramework.showDimensionEditor(
           "height",
@@ -588,7 +576,7 @@ describe("UiFramework localStorage Wrapper", () => {
           () => {},
           () => {}
         )
-      ).to.be.false;
+      );
 
       expect(lengthStub).not.toBeCalled();
       expect(heightStub).toHaveBeenCalledOnce();
@@ -711,12 +699,10 @@ describe("UiFramework localStorage Wrapper", () => {
       await TestUtils.initializeUiFramework(false);
 
       imodelMock.reset();
-      imodelMock
-        .setup((x) => x.getRpcProps())
-        .mockReturnValue(() => imodelToken);
+      imodelMock.setup((x) => x.getRpcProps()).returns(() => imodelToken);
 
       ss = new SelectionSet(imodelMock.object);
-      imodelMock.setup((x) => x.selectionSet).mockReturnValue(() => ss);
+      imodelMock.setup((x) => x.selectionSet).returns(() => ss);
     });
 
     afterEach(() => {

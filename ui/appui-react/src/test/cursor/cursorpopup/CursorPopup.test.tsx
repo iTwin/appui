@@ -111,8 +111,8 @@ describe("CursorPopup", () => {
     await TestUtils.flushAsyncOperations();
     expect(CursorPopupManager.popupCount).toEqual(0);
 
-    spyClose.calledOnce.should.true;
-    spyApply.calledOnce.should.true;
+    expect(spyClose).toHaveBeenCalledOnce();
+    expect(spyApply).toHaveBeenCalledOnce();
   });
 
   it("should open and close with fadeOut", async function test() {
@@ -198,7 +198,7 @@ describe("CursorPopup", () => {
   });
 
   it("should set relativePosition", async () => {
-    vi.spyOn(Element.prototype, "getBoundingClientRect").returns(
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
       DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 })
     );
     render(<CursorPopupRenderer />);
@@ -243,7 +243,7 @@ describe("CursorPopup", () => {
   // After looking thoroughly the numbers, the "working" tests are wrong
   // This needs to be completely reviewed...
   it("should set offset if more than one popup in a position", async () => {
-    vi.spyOn(Element.prototype, "getBoundingClientRect").returns(
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
       DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 })
     );
     render(<CursorPopupRenderer />);
@@ -324,7 +324,7 @@ describe("CursorPopup", () => {
   });
 
   it("should flip right to left appropriately", async () => {
-    vi.spyOn(Element.prototype, "getBoundingClientRect").returns(
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
       DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 })
     );
     render(<CursorPopupRenderer />);
@@ -352,7 +352,7 @@ describe("CursorPopup", () => {
   });
 
   it("should flip bottom to top appropriately", async () => {
-    vi.spyOn(Element.prototype, "getBoundingClientRect").returns(
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
       DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 })
     );
     render(<CursorPopupRenderer />);
@@ -380,7 +380,7 @@ describe("CursorPopup", () => {
   });
 
   it("should flip left to right appropriately", async () => {
-    vi.spyOn(Element.prototype, "getBoundingClientRect").returns(
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
       DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 })
     );
     render(<CursorPopupRenderer />);
@@ -404,7 +404,7 @@ describe("CursorPopup", () => {
   });
 
   it("should flip top to bottom appropriately", async () => {
-    vi.spyOn(Element.prototype, "getBoundingClientRect").returns(
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
       DOMRect.fromRect({ height: 100, width: 100, x: 100, y: 100 })
     );
     render(<CursorPopupRenderer />);
@@ -746,7 +746,7 @@ function setupTestCursorPopup(
   stub: boolean = true
 ): HTMLElement {
   if (stub)
-    vi.spyOn(Element.prototype, "getBoundingClientRect").returns(
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
       DOMRect.fromRect({ height, width, x: 0, y: 0 })
     );
 

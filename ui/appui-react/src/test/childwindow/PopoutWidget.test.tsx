@@ -9,14 +9,9 @@ import { PopoutWidget } from "../../appui-react/childwindow/PopoutWidget";
 import TestUtils from "../TestUtils";
 
 describe("PopoutWidget", () => {
-  const sandbox = sinon.createSandbox();
   const widgetDef = WidgetDef.create({
     id: "w1",
     defaultState: WidgetState.Open,
-  });
-
-  afterEach(async () => {
-    sandbox.restore();
   });
 
   beforeEach(async () => {
@@ -28,7 +23,9 @@ describe("PopoutWidget", () => {
   });
 
   it("will render", () => {
-    sandbox.stub(widgetDef, "reactNode").get(() => <div>Hello</div>);
+    vi.spyOn(widgetDef, "reactNode", "get").mockImplementation(() => (
+      <div>Hello</div>
+    ));
     const renderedComponent = render(
       <PopoutWidget widgetContainerId="testContainer" widgetDef={widgetDef} />
     );

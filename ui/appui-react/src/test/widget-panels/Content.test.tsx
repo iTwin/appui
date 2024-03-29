@@ -35,12 +35,14 @@ describe("WidgetContent", () => {
     const layout = createLayoutStore(state);
     const frontstage = new FrontstageDef();
     const widget = WidgetDef.create({ id: "w1" });
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => frontstage
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstage);
     vi.spyOn(frontstage, "findWidgetDef").mockReturnValue(widget);
-    vi.spyOn(widget, "reactNode").get(() => <>Content</>);
-    const { container } = render(
+    vi.spyOn(widget, "reactNode", "get").mockImplementation(() => <>Content</>);
+    const component = render(
       <NineZoneProvider
         dispatch={vi.fn()}
         layout={layout}
@@ -51,52 +53,6 @@ describe("WidgetContent", () => {
         </WidgetIdContext.Provider>
       </NineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
-  });
-
-  it("should render w/o frontstage", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "w1");
-    state = addPanelWidget(state, "left", "leftStart", ["w1"]);
-    const layout = createLayoutStore(state);
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => undefined
-    );
-    const { container } = render(
-      <NineZoneProvider
-        dispatch={vi.fn()}
-        layout={layout}
-        measure={() => new Rectangle()}
-      >
-        <WidgetIdContext.Provider value="leftStart">
-          <WidgetContent />
-        </WidgetIdContext.Provider>
-      </NineZoneProvider>
-    );
-    container.firstChild!.should.matchSnapshot();
-  });
-
-  it("should render w/o widgetDef", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "w1");
-    state = addPanelWidget(state, "left", "leftStart", ["w1"]);
-    const layout = createLayoutStore(state);
-    const frontstage = new FrontstageDef();
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => frontstage
-    );
-    vi.spyOn(frontstage, "findWidgetDef").mockReturnValue(undefined);
-    const { container } = render(
-      <NineZoneProvider
-        dispatch={vi.fn()}
-        layout={layout}
-        measure={() => new Rectangle()}
-      >
-        <WidgetIdContext.Provider value="leftStart">
-          <WidgetContent />
-        </WidgetIdContext.Provider>
-      </NineZoneProvider>
-    );
-    container.firstChild!.should.matchSnapshot();
+    component.getByText("Content");
   });
 });

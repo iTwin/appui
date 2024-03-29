@@ -50,9 +50,7 @@ describe("ViewUtilities", () => {
 
   it("is2d Sheet View", () => {
     const sheetViewStateMock = moq.Mock.ofType<SheetViewState>();
-    sheetViewStateMock
-      .setup((view) => view.is3d())
-      .mockReturnValue(() => false);
+    sheetViewStateMock.setup((view) => view.is3d()).returns(() => false);
     sheetViewStateMock
       .setup((view) => view.classFullName)
       .returns(() => "BisCore:SheetViewDefinition");
@@ -70,9 +68,7 @@ describe("ViewUtilities", () => {
 
   it("is2d Drawing View", () => {
     const drawingViewStateMock = moq.Mock.ofType<DrawingViewState>();
-    drawingViewStateMock
-      .setup((view) => view.is3d())
-      .mockReturnValue(() => false);
+    drawingViewStateMock.setup((view) => view.is3d()).returns(() => false);
     drawingViewStateMock
       .setup((view) => view.classFullName)
       .returns(() => "BisCore:DrawingViewDefinition");
@@ -90,9 +86,7 @@ describe("ViewUtilities", () => {
 
   it("is3d Spatial View", () => {
     const spatialViewStateMock = moq.Mock.ofType<SpatialViewState>();
-    spatialViewStateMock
-      .setup((view) => view.is3d())
-      .mockReturnValue(() => true);
+    spatialViewStateMock.setup((view) => view.is3d()).returns(() => true);
     spatialViewStateMock
       .setup((view) => view.classFullName)
       .returns(() => "BisCore:SpatialViewDefinition");
@@ -110,9 +104,7 @@ describe("ViewUtilities", () => {
 
   it("is3d Ortho View", () => {
     const orthographicViewStateMock = moq.Mock.ofType<OrthographicViewState>();
-    orthographicViewStateMock
-      .setup((view) => view.is3d())
-      .mockReturnValue(() => true);
+    orthographicViewStateMock.setup((view) => view.is3d()).returns(() => true);
     orthographicViewStateMock
       .setup((view) => view.classFullName)
       .returns(() => "BisCore:OrthographicViewDefinition");

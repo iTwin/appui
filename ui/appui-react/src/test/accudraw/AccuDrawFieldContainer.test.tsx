@@ -217,7 +217,7 @@ describe("AccuDrawFieldContainer", () => {
     await TestUtils.flushAsyncOperations();
 
     IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
-    spySet.calledOnce.should.true;
+    expect(spySet).toHaveBeenCalledOnce();
     const input = wrapper.queryByTestId("uifw-accudraw-x");
     expect(input).not.to.be.null;
     expect(document.activeElement === input).toEqual(true);
@@ -229,7 +229,7 @@ describe("AccuDrawFieldContainer", () => {
     const removeGrab =
       FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(spyGrab);
     IModelApp.accuDraw.grabInputFocus();
-    spyGrab.calledOnce.should.true;
+    expect(spyGrab).toHaveBeenCalledOnce();
     expect(document.activeElement === input).toEqual(true);
 
     removeSet();
@@ -348,8 +348,6 @@ describe("AccuDrawFieldContainer", () => {
     expect(input).not.to.be.null;
     fireEvent.keyDown(input!, { key: Key.Escape });
     expect(spy).toHaveBeenCalledOnce();
-
-    (UiFramework.keyboardShortcuts.setFocusToHome as any).restore();
   });
 
   describe("FrameworkAccuDraw.uiStateStorage", () => {
@@ -420,14 +418,14 @@ describe("AccuDrawFieldContainer", () => {
         expect(iElements.length).toEqual(count);
 
         FrameworkAccuDraw.uiStateStorage = emptySettings;
-        spy.calledTwice.should.true;
+        expect(spy).toHaveBeenCalledTimes(2);
         await waitFor(() => {
           labelElements = wrapper.queryAllByLabelText(labelTest);
           expect(labelElements.length).toEqual(0);
         });
 
         FrameworkAccuDraw.uiStateStorage = undefined;
-        spy.calledThrice.should.true;
+        expect(spy).toHaveBeenCalledTimes(3);
         labelElements = wrapper.queryAllByLabelText(labelTest);
         expect(labelElements.length).toEqual(0);
       };

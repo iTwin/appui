@@ -30,17 +30,13 @@ describe("useActiveIModelConnection", () => {
     TestUtils.terminateUiFramework();
   });
 
-  afterEach(() => {
-    sinon.restore();
-  });
-
   describe("useActiveIModelConnection Hook", () => {
     const imodelMock = moq.Mock.ofType<IModelConnection>();
     const imodelToken: IModelRpcProps = { key: "" };
-    imodelMock.setup((x) => x.name).mockReturnValue(() => "Fake");
-    imodelMock.setup((x) => x.getRpcProps()).mockReturnValue(() => imodelToken);
+    imodelMock.setup((x) => x.name).returns(() => "Fake");
+    imodelMock.setup((x) => x.getRpcProps()).returns(() => imodelToken);
     const ss = new SelectionSet(imodelMock.object);
-    imodelMock.setup((x) => x.selectionSet).mockReturnValue(() => ss);
+    imodelMock.setup((x) => x.selectionSet).returns(() => ss);
 
     const HookTester = () => {
       const activeIModelConnection = useActiveIModelConnection();

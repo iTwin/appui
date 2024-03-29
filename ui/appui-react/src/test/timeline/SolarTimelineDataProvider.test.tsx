@@ -21,25 +21,21 @@ describe("SolarTimelineDataProvider", () => {
 
   beforeEach(() => {
     vfMock.reset();
-    vfMock.setup((vf) => vf.shadows).mockReturnValue(() => true);
+    vfMock.setup((vf) => vf.shadows).returns(() => true);
     displayStyleMock.reset();
-    displayStyleMock
-      .setup((ds) => ds.viewFlags)
-      .mockReturnValue(() => vfMock.object);
+    displayStyleMock.setup((ds) => ds.viewFlags).returns(() => vfMock.object);
     displayStyleMock.setup((ds) => ds.setSunTime(moq.It.isAnyNumber()));
 
-    imodelMock.setup((x) => x.isGeoLocated).mockReturnValue(() => false);
+    imodelMock.setup((x) => x.isGeoLocated).returns(() => false);
     viewMock.reset();
     viewMock
       .setup((view) => view.classFullName)
       .returns(() => "SpatialViewDefinition");
-    viewMock.setup((view) => view.is3d()).mockReturnValue(() => true);
+    viewMock.setup((view) => view.is3d()).returns(() => true);
     viewMock
       .setup((view) => view.displayStyle)
       .returns(() => displayStyleMock.object);
-    viewMock
-      .setup((view) => view.iModel)
-      .mockReturnValue(() => imodelMock.object);
+    viewMock.setup((view) => view.iModel).returns(() => imodelMock.object);
     viewportMock.reset();
     viewportMock
       .setup((viewport) => viewport.view)

@@ -71,7 +71,12 @@ describe("SnapModeField", () => {
   });
 
   it("should change snapMode and dispatch SyncEvent on click", async () => {
-    const spy = vi.fn();
+    const spy =
+      vi.fn<
+        Parameters<
+          Parameters<typeof SyncUiEventDispatcher.onSyncUiEvent.addListener>[0]
+        >
+      >();
     SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
     render(
       <Provider store={TestUtils.store}>
@@ -84,10 +89,8 @@ describe("SnapModeField", () => {
     await theUserTo.click(screen.getByText("snapModeField.bisector"));
 
     expect(UiFramework.getAccudrawSnapMode()).to.equal(SnapMode.Bisector);
-    expect(spy).toHaveBeenCalledWith({
-      eventIds: sinon.match.set.contains(
-        new Set(["configurableui:set_snapmode"])
-      ),
-    });
+    expect(spy.mock.calls[0][0].eventIds.values()).toContain(
+      "configurableui:set_snapmode"
+    );
   });
 });

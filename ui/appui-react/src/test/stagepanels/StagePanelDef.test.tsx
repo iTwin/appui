@@ -43,7 +43,7 @@ describe("StagePanelDef", () => {
     UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
     const panelDef = new StagePanelDef();
     panelDef.handlePanelStateChanged(StagePanelState.Minimized);
-    expect(spy).to.be.calledOnceWithExactly(
+    expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({
         panelDef,
         panelState: StagePanelState.Minimized,
@@ -57,9 +57,11 @@ describe("StagePanelDef", () => {
   });
 
   it("should initialize pinned", () => {
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => undefined
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => undefined);
     const panelDef = StagePanelDef.create(
       { resizable: false, pinned: false },
       StagePanelLocation.Left
@@ -72,7 +74,7 @@ describe("StagePanelDef", () => {
     InternalFrontstageManager.onPanelSizeChangedEvent.addListener(spy);
     const panelDef = new StagePanelDef();
     panelDef.handleSizeChanged(200);
-    expect(spy).to.be.calledOnceWithExactly(
+    expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({ panelDef, size: 200 })
     );
   });
@@ -81,31 +83,35 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => frontstageDef
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     const panelDef = new StagePanelDef();
     panelDef.sizeSpec = 150;
-    panelDef.sizeSpec.should.eq(200);
+    expect(panelDef.sizeSpec).toEqual(200);
   });
 
   it("should not invoke onPanelSizeChangedEvent", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => frontstageDef
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     const panelDef = new StagePanelDef();
     panelDef.sizeSpec = 200;
-    panelDef.sizeSpec.should.eq(200);
+    expect(panelDef.sizeSpec).toEqual(200);
 
     const spy = vi.spyOn(
       InternalFrontstageManager.onPanelSizeChangedEvent,
       "emit"
     );
     panelDef.sizeSpec = 150;
-    panelDef.sizeSpec.should.eq(200);
+    expect(panelDef.sizeSpec).toEqual(200);
     expect(spy).not.toBeCalled();
   });
 
@@ -113,28 +119,36 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => frontstageDef
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     const panelDef = new StagePanelDef();
-    vi.spyOn(panelDef, "location").get(() => StagePanelLocation.Right);
+    vi.spyOn(panelDef, "location", "get").mockImplementation(
+      () => StagePanelLocation.Right
+    );
     panelDef.panelState = StagePanelState.Minimized;
 
-    frontstageDef.nineZoneState.panels.right.collapsed.should.true;
+    expect(frontstageDef.nineZoneState.panels.right.collapsed).toEqual(true);
   });
 
   it("should collapse panel when panelState is Off", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => frontstageDef
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     const panelDef = new StagePanelDef();
-    vi.spyOn(panelDef, "location").get(() => StagePanelLocation.Right);
+    vi.spyOn(panelDef, "location", "get").mockImplementation(
+      () => StagePanelLocation.Right
+    );
     panelDef.panelState = StagePanelState.Off;
 
-    frontstageDef.nineZoneState.panels.right.collapsed.should.true;
+    expect(frontstageDef.nineZoneState.panels.right.collapsed).toEqual(true);
   });
 
   it("should expand panel when panelState is Open", () => {
@@ -143,9 +157,11 @@ describe("StagePanelDef", () => {
       draft.panels.right.collapsed = true;
     });
     frontstageDef.nineZoneState = nineZoneState;
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => frontstageDef
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     const panelDef = StagePanelDef.create(
       {
         resizable: true,
@@ -155,7 +171,7 @@ describe("StagePanelDef", () => {
     );
     panelDef.panelState = StagePanelState.Open;
 
-    frontstageDef.nineZoneState.panels.right.collapsed.should.false;
+    expect(frontstageDef.nineZoneState.panels.right.collapsed).toEqual(false);
   });
 
   it("should returns panel zone widgets", () => {
@@ -168,24 +184,24 @@ describe("StagePanelDef", () => {
       },
       StagePanelLocation.Left
     );
-    panelDef.widgetDefs.map((w) => w.id).should.eql(["s1", "e1", "e2"]);
+    expect(panelDef.widgetDefs.map((w) => w.id)).toEqual(["s1", "e1", "e2"]);
   });
 });
 
 describe("toPanelSide", () => {
   it("should return 'left'", () => {
-    toPanelSide(StagePanelLocation.Left).toEqual("left");
+    expect(toPanelSide(StagePanelLocation.Left)).toEqual("left");
   });
 
   it("should return 'right'", () => {
-    toPanelSide(StagePanelLocation.Right).toEqual("right");
+    expect(toPanelSide(StagePanelLocation.Right)).toEqual("right");
   });
 
   it("should return 'bottom'", () => {
-    toPanelSide(StagePanelLocation.Bottom).toEqual("bottom");
+    expect(toPanelSide(StagePanelLocation.Bottom)).toEqual("bottom");
   });
 
   it("should return 'top'", () => {
-    toPanelSide(StagePanelLocation.Top).toEqual("top");
+    expect(toPanelSide(StagePanelLocation.Top)).toEqual("top");
   });
 });

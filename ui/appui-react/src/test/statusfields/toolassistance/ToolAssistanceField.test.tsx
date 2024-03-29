@@ -440,7 +440,7 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spy.called.should.true;
+      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -462,7 +462,7 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spy.called.should.true;
+      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -612,7 +612,7 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spy.called.should.true;
+      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -717,7 +717,7 @@ describe(`ToolAssistanceField`, () => {
     notifications.setToolAssistance(instructions);
 
     await waitFor(() => {
-      spy.called.should.true;
+      expect(spy).toHaveBeenCalled();
     });
 
     CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(spy);
@@ -741,7 +741,7 @@ describe(`ToolAssistanceField`, () => {
       iconSpec: "icon-placeholder",
     });
 
-    spy.called.should.false;
+    expect(spy).not.toBeCalled();
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -760,7 +760,7 @@ describe(`ToolAssistanceField`, () => {
     });
 
     await waitFor(() => {
-      spy.called.should.true;
+      expect(spy).toHaveBeenCalled();
     });
 
     CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(spy);

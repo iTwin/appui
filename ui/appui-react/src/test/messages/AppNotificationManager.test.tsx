@@ -168,7 +168,7 @@ describe("AppNotificationManager", () => {
     const spy = vi.spyOn(MessageManager, "endActivityMessage");
     notifications.endActivityMessage(ActivityMessageEndReason.Cancelled);
     notifications.endActivityMessage(ActivityMessageEndReason.Completed);
-    expect(spy.calledTwice).toEqual(true);
+    expect(spy).toHaveBeenCalledTimes(2);
   });
 
   it("ElementTooltip", () => {

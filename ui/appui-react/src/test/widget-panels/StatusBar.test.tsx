@@ -19,10 +19,14 @@ describe("WidgetPanelsStatusBar", () => {
       id: "w1",
       content: <div title="my-control"></div>,
     });
-    vi.spyOn(frontstageDef, "statusBar").get(() => widget);
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => frontstageDef
+    vi.spyOn(frontstageDef, "statusBar", "get").mockImplementation(
+      () => widget
     );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => frontstageDef);
     const { container } = render(<WidgetPanelsStatusBar />);
     expect(container).to.satisfy(
       childStructure([
@@ -32,9 +36,11 @@ describe("WidgetPanelsStatusBar", () => {
   });
 
   it("should not render", () => {
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => undefined
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => undefined);
     const { container } = render(<WidgetPanelsStatusBar />);
     expect(container.childNodes).lengthOf(0);
   });

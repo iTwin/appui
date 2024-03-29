@@ -143,9 +143,11 @@ describe("WidgetDef", () => {
         },
       });
       initializeNineZoneState(activeFrontstageDef);
-      vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-        () => activeFrontstageDef
-      );
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => activeFrontstageDef);
 
       // __PUBLISH_EXTRACT_START__ AppUI.WidgetDef.setWidgetState
       const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
@@ -174,9 +176,11 @@ describe("WidgetDef", () => {
         },
       });
       initializeNineZoneState(frontstageDef);
-      vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-        () => frontstageDef
-      );
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => frontstageDef);
 
       const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
@@ -184,7 +188,7 @@ describe("WidgetDef", () => {
       const widgetDef = frontstageDef.findWidgetDef("w1")!;
       widgetDef.setWidgetState(WidgetState.Open);
 
-      sinon.assert.calledOnceWithExactly(spy, {
+      expect(spy).toHaveBeenCalledWith({
         widgetDef,
         widgetState: WidgetState.Open,
       });
@@ -204,7 +208,7 @@ describe("WidgetDef", () => {
 describe("getWidgetState", () => {
   it("should return `Closed` if panel size is undefined", () => {
     const frontstageDef = new FrontstageDef();
-    vi.spyOn(frontstageDef, "isReady").get(() => true);
+    vi.spyOn(frontstageDef, "isReady", "get").mockImplementation(() => true);
 
     let nineZoneState = createNineZoneState();
     nineZoneState = addTab(nineZoneState, "t1");
@@ -231,7 +235,9 @@ describe("getWidgetState", () => {
       },
       StagePanelLocation.Left
     );
-    vi.spyOn(frontstageDef, "leftPanel").get(() => leftPanel);
+    vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+      () => leftPanel
+    );
 
     vi.spyOn(frontstageDef, "getStagePanelDef")
       .withArgs(StagePanelLocation.Left)
@@ -245,7 +251,7 @@ describe("getWidgetState", () => {
 
   it("should return `Closed` if panel size is 0", () => {
     const frontstageDef = new FrontstageDef();
-    vi.spyOn(frontstageDef, "isReady").get(() => true);
+    vi.spyOn(frontstageDef, "isReady", "get").mockImplementation(() => true);
 
     let nineZoneState = createNineZoneState();
     nineZoneState = addTab(nineZoneState, "t1");
@@ -273,7 +279,9 @@ describe("getWidgetState", () => {
       },
       StagePanelLocation.Left
     );
-    vi.spyOn(frontstageDef, "leftPanel").get(() => leftPanel);
+    vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
+      () => leftPanel
+    );
 
     vi.spyOn(frontstageDef, "getStagePanelDef")
       .withArgs(StagePanelLocation.Left)
@@ -287,7 +295,7 @@ describe("getWidgetState", () => {
 
   it("should return `Closed` if panel is collapsed", () => {
     const frontstageDef = new FrontstageDef();
-    vi.spyOn(frontstageDef, "isReady").get(() => true);
+    vi.spyOn(frontstageDef, "isReady", "get").mockImplementation(() => true);
 
     let nineZoneState = createNineZoneState();
     nineZoneState = addTab(nineZoneState, "t1");

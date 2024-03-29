@@ -160,7 +160,6 @@ describe("PopupManager", () => {
       AccuDrawPopupManager.hideMenuButton("invalid-id");
 
       expect(spy).toHaveBeenCalledOnce();
-      (Logger.logError as any).restore();
     });
 
     it("showCalculator should show Calculator", () => {
@@ -332,7 +331,7 @@ describe("PopupManager", () => {
       const spyLogger = vi.spyOn(Logger, "logInfo");
       const wrapper = render(<PopupRenderer />);
       wrapper.unmount();
-      spyLogger.calledTwice.should.true;
+      expect(spyLogger).toHaveBeenCalledTimes(2);
     });
 
     it("PopupRenderer should render menuButton with menu item", async () => {

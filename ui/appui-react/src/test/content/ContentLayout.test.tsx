@@ -101,12 +101,11 @@ describe("ContentLayout", () => {
   beforeEach(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
-    UiFramework.frontstages.clearFrontstageProviders();
 
     const frontstageProvider = new TestFrontstage2();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
-      TestFrontstage2.stageId
+      frontstageProvider.id
     );
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   });
@@ -114,6 +113,7 @@ describe("ContentLayout", () => {
   afterEach(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
+    UiFramework.frontstages.clearFrontstageProviders();
   });
 
   it("SingleContent renders correctly", () => {
@@ -376,30 +376,33 @@ describe("ContentLayout", () => {
         contentLayout={verticalSplitLayout}
       />
     );
-    const allTests = screen.getAllByText("Test");
-    expect(allTests)
-      .to.have.lengthOf(2)
-      .and.to.satisfy((elements: HTMLElement[]) => [
-        expect(elements[0].parentElement).to.satisfy(
-          childStructure("div+.uifw-contentlayout-overlay-inactive")
-        ),
-        expect(elements[1].parentElement).to.satisfy(
-          childStructure("div+.uifw-contentlayout-overlay-inactive")
-        ),
-      ]);
+    let allTests = screen.getAllByText("Test");
+    expect(allTests).toHaveLength(2);
+    expect(
+      allTests[0].parentElement!.getElementsByClassName(
+        "uifw-contentlayout-overlay-active"
+      )
+    ).toHaveLength(1);
+    expect(
+      allTests[1].parentElement!.getElementsByClassName(
+        "uifw-contentlayout-overlay-inactive"
+      )
+    ).toHaveLength(1);
 
     await theUserTo.click(allTests[1]);
 
-    expect(screen.getAllByText("Test"))
-      .to.have.lengthOf(2)
-      .and.to.satisfy((elements: HTMLElement[]) => [
-        expect(elements[0].parentElement).to.satisfy(
-          childStructure("div+.uifw-contentlayout-overlay-inactive")
-        ),
-        expect(elements[1].parentElement).to.satisfy(
-          childStructure("div+.uifw-contentlayout-overlay-active")
-        ),
-      ]);
+    allTests = screen.getAllByText("Test");
+    expect(allTests).toHaveLength(2);
+    expect(
+      allTests[0].parentElement!.getElementsByClassName(
+        "uifw-contentlayout-overlay-inactive"
+      )
+    ).toHaveLength(1);
+    expect(
+      allTests[1].parentElement!.getElementsByClassName(
+        "uifw-contentlayout-overlay-active"
+      )
+    ).toHaveLength(1);
   });
 
   it("Vertical SplitPane onChanged", async () => {
@@ -412,17 +415,19 @@ describe("ContentLayout", () => {
       </div>
     );
 
-    const rect = vi.spyOn(Element.prototype, "getBoundingClientRect");
-    rect
-      .onFirstCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect
-      .onSecondCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect
-      .onThirdCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect.returns(DOMRect.fromRect({ height: 0, width: 0, x: 0, y: 0 }));
+    let callCount = 0;
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      () => {
+        callCount++;
+        switch (callCount) {
+          case 1:
+          case 2:
+          case 3:
+            return DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 });
+        }
+        return DOMRect.fromRect({ height: 0, width: 0, x: 0, y: 0 });
+      }
+    );
 
     await theUserTo.pointer([
       {
@@ -457,17 +462,19 @@ describe("ContentLayout", () => {
       </div>
     );
 
-    const rect = vi.spyOn(Element.prototype, "getBoundingClientRect");
-    rect
-      .onFirstCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect
-      .onSecondCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect
-      .onThirdCall()
-      .returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
-    rect.returns(DOMRect.fromRect({ height: 0, width: 0, x: 0, y: 0 }));
+    let callCount = 0;
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      () => {
+        callCount++;
+        switch (callCount) {
+          case 1:
+          case 2:
+          case 3:
+            return DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 });
+        }
+        return DOMRect.fromRect({ height: 0, width: 0, x: 0, y: 0 });
+      }
+    );
 
     await theUserTo.pointer([
       {
@@ -521,7 +528,7 @@ describe("ContentLayout", () => {
     expect(spy).toHaveBeenCalledOnce();
 
     UiFramework.content.layouts.refreshActive();
-    spy.calledTwice.should.true;
+    expect(spy).toHaveBeenCalledTimes(2);
 
     remove();
   });

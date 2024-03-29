@@ -19,17 +19,11 @@ import { ModalDialogRenderer } from "../../appui-react/dialog/ModalDialogManager
 import { UiFramework } from "../../appui-react/UiFramework";
 
 describe("QuantityFormatSettingsPage", () => {
-  const sandbox = sinon.createSandbox();
-
   beforeEach(async () => {
     await IModelApp.quantityFormatter.reinitializeFormatAndParsingsMaps(
       new Map<UnitSystemKey, Map<QuantityTypeKey, FormatProps>>(),
       "imperial"
     );
-  });
-
-  afterEach(() => {
-    sandbox.restore();
   });
 
   stubScrollIntoView();
@@ -58,7 +52,7 @@ describe("QuantityFormatSettingsPage", () => {
     fireEvent.click(
       within(menu()).getByText("presentationUnitSystem.BritishImperial")
     );
-    sinon.assert.callCount(spy, 0);
+    expect(spy).not.toBeCalled();
 
     fireEvent.click(comboBox);
     fireEvent.click(within(menu()).getByText("presentationUnitSystem.Metric"));
@@ -68,13 +62,13 @@ describe("QuantityFormatSettingsPage", () => {
     fireEvent.click(
       within(menu()).getByText("presentationUnitSystem.USCustomary")
     );
-    sinon.assert.callCount(spy, 2);
+    expect(spy).toHaveBeenCalledTimes(2);
 
     fireEvent.click(comboBox);
     fireEvent.click(
       within(menu()).getByText("presentationUnitSystem.USSurvey")
     );
-    sinon.assert.callCount(spy, 3);
+    expect(spy).toHaveBeenCalledTimes(3);
   });
 
   it("will listen for external unit system changes", async () => {

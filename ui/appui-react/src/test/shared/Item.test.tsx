@@ -145,7 +145,7 @@ describe("Item", () => {
     const spy = vi.spyOn(IModelApp.tools, "run");
     toolItem.execute();
     expect(TestImmediate.isValid).toEqual(true);
-    spy.calledOnceWithExactly("1");
+    expect(spy).toHaveBeenCalledWith("Test.Immediate", "test-string", 2);
   });
 
   class TestItemDef extends ActionButtonItemDef {

@@ -45,8 +45,6 @@ const propertyDescriptorToRestore = Object.getOwnPropertyDescriptor(
 )!;
 
 describe("FrontstageManager", () => {
-  const sandbox = sinon.createSandbox();
-
   beforeEach(async () => {
     Object.defineProperty(window, "sessionStorage", {
       get: () => mySessionStorage,
@@ -62,7 +60,6 @@ describe("FrontstageManager", () => {
       "sessionStorage",
       propertyDescriptorToRestore
     );
-    sandbox.restore();
   });
 
   it("initialized should return true", () => {
@@ -93,9 +90,11 @@ describe("FrontstageManager", () => {
 
   it("getFronstageDef should return active frontstage when no id provided", async () => {
     const activeFrontstageDef = new FrontstageDef();
-    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-      () => activeFrontstageDef
-    );
+    vi.spyOn(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      "get"
+    ).mockImplementation(() => activeFrontstageDef);
 
     const frontstageDef = await InternalFrontstageManager.getFrontstageDef();
 
@@ -238,12 +237,12 @@ describe("FrontstageManager", () => {
     const stubbedWidget = {
       setWidgetState: vi.fn(),
     };
-    vi.spyOn(UiFramework.frontstages, "findWidget")
-      .withArgs("xyz")
-      .returns(stubbedWidget as any);
+    vi.spyOn(UiFramework.frontstages, "findWidget").mockReturnValue(
+      stubbedWidget as any
+    );
     expect(InternalFrontstageManager.setWidgetState("xyz", WidgetState.Closed))
       .to.be.true;
-    expect(stubbedWidget.setWidgetState).to.calledWithExactly(
+    expect(stubbedWidget.setWidgetState).toHaveBeenCalledWith(
       WidgetState.Closed
     );
   });
@@ -331,9 +330,11 @@ describe("FrontstageManager", () => {
         new ConfigurableCreateInfo("test", "test", "test"),
         undefined
       );
-      vi.spyOn(InternalFrontstageManager, "activeToolSettingsProvider").get(
-        () => activeToolSettingsProvider
-      );
+      vi.spyOn(
+        InternalFrontstageManager,
+        "activeToolSettingsProvider",
+        "get"
+      ).mockImplementation(() => activeToolSettingsProvider);
 
       UiFramework.toolSettings.onReloadToolSettingsProperties.emit();
     });
@@ -345,7 +346,7 @@ describe("FrontstageManager", () => {
       imodelConnectionMock
         .setup((x) => x.iModelId)
         .returns(() => "dummyImodelId");
-      vi.spyOn(UiFramework, "getIModelConnection").get(
+      vi.spyOn(UiFramework, "getIModelConnection", "get").mockImplementation(
         () => imodelConnectionMock.object
       );
     });

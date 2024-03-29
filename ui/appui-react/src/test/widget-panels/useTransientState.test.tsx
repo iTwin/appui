@@ -19,8 +19,7 @@ describe("useTransientState", () => {
       onRestoreTransientState: new BeEvent<(tabId: TabState["id"]) => void>(),
       onSaveTransientState,
     };
-    const onSave =
-      vi.fn<NonNullable<Parameters<typeof useTransientState>[0]>>();
+    const onSave = vi.fn();
     renderHook(() => useTransientState(onSave), {
       wrapper: (props: { children?: React.ReactNode }) => (
         <WidgetContentManagerContext.Provider value={widgetContentManager}>
@@ -33,7 +32,7 @@ describe("useTransientState", () => {
     act(() => {
       onSaveTransientState.raiseEvent("t1");
     });
-    sinon.assert.calledOnceWithExactly(onSave);
+    expect(onSave).toHaveBeenCalledOnce();
   });
 
   it("should invoke onRestore", () => {
@@ -45,8 +44,7 @@ describe("useTransientState", () => {
       onRestoreTransientState,
       onSaveTransientState: new BeEvent<(tabId: TabState["id"]) => void>(),
     };
-    const onRestore =
-      vi.fn<NonNullable<Parameters<typeof useTransientState>[1]>>();
+    const onRestore = vi.fn();
     renderHook(() => useTransientState(undefined, onRestore), {
       wrapper: (props: { children?: React.ReactNode }) => (
         <WidgetContentManagerContext.Provider value={widgetContentManager}>
@@ -59,6 +57,6 @@ describe("useTransientState", () => {
     act(() => {
       onRestoreTransientState.raiseEvent("t1");
     });
-    sinon.assert.calledOnceWithExactly(onRestore);
+    expect(onRestore).toHaveBeenCalledOnce();
   });
 });

@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
-import type { DialogChangedEventArgs } from "../../appui-react";
 import {
   ContentDialog,
   ContentDialogRenderer,
@@ -25,23 +24,15 @@ describe("ContentDialogManager", () => {
 
   const spy = vi.fn();
 
-  function handleContentDialogChanged(_args: DialogChangedEventArgs) {
-    spy();
-  }
-
   beforeEach(async () => {
     await TestUtils.initializeUiFramework(true);
     await NoRenderApp.startup();
 
-    UiFramework.content.dialogs.onContentDialogChangedEvent.addListener(
-      handleContentDialogChanged
-    );
+    UiFramework.content.dialogs.onContentDialogChangedEvent.addListener(spy);
   });
 
   afterEach(async () => {
-    UiFramework.content.dialogs.onContentDialogChangedEvent.removeListener(
-      handleContentDialogChanged
-    );
+    UiFramework.content.dialogs.onContentDialogChangedEvent.removeListener(spy);
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework(); // clear out the framework key
   });
@@ -68,17 +59,17 @@ describe("ContentDialogManager", () => {
     expect(UiFramework.content.dialogs.dialogs[0].reactNode).toEqual(reactNode);
 
     UiFramework.content.dialogs.update();
-    expect(spy.calledTwice).toEqual(true);
+    expect(spy).toHaveBeenCalledTimes(2);
 
     UiFramework.content.dialogs.close(dialogId);
-    expect(spy.calledThrice).toEqual(true);
+    expect(spy).toHaveBeenCalledTimes(3);
     expect(UiFramework.content.dialogs.count).toEqual(0);
   });
 
   it("close should log error if passed a bad id", () => {
-    const logspy = vi.spyOn(Logger, "logError");
+    const logErrorSpy = vi.spyOn(Logger, "logError");
     UiFramework.content.dialogs.close("bad");
-    logexpect(spy).toHaveBeenCalledOnce();
+    expect(logErrorSpy).toHaveBeenCalledOnce();
   });
 
   it("ContentDialogRenderer component", async () => {

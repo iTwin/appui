@@ -12,7 +12,9 @@ describe("useActiveViewport", () => {
   const selectedView = {} as ScreenViewport;
 
   beforeEach(() => {
-    vi.spyOn(IModelApp.viewManager, "selectedView").get(() => selectedView);
+    vi.spyOn(IModelApp.viewManager, "selectedView", "get").mockImplementation(
+      () => selectedView
+    );
   });
 
   it("should update active viewport", async () => {
@@ -20,7 +22,9 @@ describe("useActiveViewport", () => {
     expect(result.current).toEqual(selectedView);
 
     const updatedView = {} as ScreenViewport;
-    vi.spyOn(IModelApp.viewManager, "selectedView").get(() => updatedView);
+    vi.spyOn(IModelApp.viewManager, "selectedView", "get").mockImplementation(
+      () => updatedView
+    );
     act(() => {
       UiFramework.content.onActiveContentChangedEvent.emit(
         {} as ActiveContentChangedEventArgs
