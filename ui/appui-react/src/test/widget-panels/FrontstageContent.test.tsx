@@ -18,12 +18,12 @@ describe("WidgetPanelsFrontstageContent", () => {
         return "ContentLayoutDefMockContent";
       },
     }));
-    sinon
-      .stub(frontstageDef, "contentGroup")
-      .get(() => ({ getContentNodes() {} }));
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(frontstageDef, "contentGroup").get(() => ({
+      getContentNodes() {},
+    }));
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => frontstageDef
+    );
     render(<WidgetPanelsFrontstageContent />);
     expect(screen.getByRole("presentation")).to.have.property(
       "innerHTML",
@@ -32,9 +32,9 @@ describe("WidgetPanelsFrontstageContent", () => {
   });
 
   it("should not render", () => {
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => undefined);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => undefined
+    );
     const { container } = render(<WidgetPanelsFrontstageContent />);
     expect(container.childNodes).lengthOf(0);
   });

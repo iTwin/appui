@@ -93,9 +93,9 @@ describe("FrontstageManager", () => {
 
   it("getFronstageDef should return active frontstage when no id provided", async () => {
     const activeFrontstageDef = new FrontstageDef();
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => activeFrontstageDef);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => activeFrontstageDef
+    );
 
     const frontstageDef = await InternalFrontstageManager.getFrontstageDef();
 
@@ -221,9 +221,9 @@ describe("FrontstageManager", () => {
       layout: { id: "1" },
     });
     const layoutDef = new ContentLayoutDef({ id: "1" });
-    sinon
-      .stub(UiFramework.content.layouts, "getForGroup")
-      .mockReturnValue(layoutDef);
+    vi.spyOn(UiFramework.content.layouts, "getForGroup").mockReturnValue(
+      layoutDef
+    );
     const spy = vi.spyOn(InternalFrontstageManager, "setActiveLayout");
     await InternalFrontstageManager.setActiveContentGroup(contentGroup);
     expect(spy).toHaveBeenCalledWith(layoutDef, contentGroup);
@@ -238,8 +238,7 @@ describe("FrontstageManager", () => {
     const stubbedWidget = {
       setWidgetState: vi.fn(),
     };
-    sinon
-      .stub(UiFramework.frontstages, "findWidget")
+    vi.spyOn(UiFramework.frontstages, "findWidget")
       .withArgs("xyz")
       .returns(stubbedWidget as any);
     expect(InternalFrontstageManager.setWidgetState("xyz", WidgetState.Closed))
@@ -332,9 +331,9 @@ describe("FrontstageManager", () => {
         new ConfigurableCreateInfo("test", "test", "test"),
         undefined
       );
-      sinon
-        .stub(InternalFrontstageManager, "activeToolSettingsProvider")
-        .get(() => activeToolSettingsProvider);
+      vi.spyOn(InternalFrontstageManager, "activeToolSettingsProvider").get(
+        () => activeToolSettingsProvider
+      );
 
       UiFramework.toolSettings.onReloadToolSettingsProperties.emit();
     });
@@ -346,9 +345,9 @@ describe("FrontstageManager", () => {
       imodelConnectionMock
         .setup((x) => x.iModelId)
         .returns(() => "dummyImodelId");
-      sinon
-        .stub(UiFramework, "getIModelConnection")
-        .get(() => imodelConnectionMock.object);
+      vi.spyOn(UiFramework, "getIModelConnection").get(
+        () => imodelConnectionMock.object
+      );
     });
 
     it("mouse moves should be handled for frontstage tracking", async () => {

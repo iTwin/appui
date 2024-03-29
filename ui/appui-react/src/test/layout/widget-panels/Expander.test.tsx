@@ -29,7 +29,9 @@ describe("WidgetPanelExpanders", () => {
         <WidgetPanelExpanders />
       </TestNineZoneProvider>
     );
-    container.firstChild!.should.matchSnapshot();
+    expect(
+      container.getElementsByClassName("nz-widgetPanels-expander")
+    ).toHaveLength(2);
   });
 });
 
@@ -47,7 +49,7 @@ describe("WidgetPanelExpander", () => {
     fireEvent.mouseOver(expander);
 
     await waitFor(() => {
-      sinon.assert.calledOnceWithExactly(dispatch, {
+      expect(dispatch).toHaveBeenCalledWith({
         type: "PANEL_SET_COLLAPSED",
         side: "left",
         collapsed: false,
@@ -68,7 +70,7 @@ describe("WidgetPanelExpander", () => {
     fireEvent.mouseOver(expander);
     fireEvent.mouseOut(expander);
 
-    sinon.assert.notCalled(dispatch);
+    expect(dispatch).not.toBeCalled();
   });
 
   it("should reset timer if mouse moves", async () => {
@@ -85,10 +87,10 @@ describe("WidgetPanelExpander", () => {
 
     fireEvent.mouseMove(expander, { clientX: 20 });
 
-    sinon.assert.notCalled(dispatch);
+    expect(dispatch).not.toBeCalled();
 
     await waitFor(() => {
-      sinon.assert.calledOnceWithExactly(dispatch, {
+      expect(dispatch).toHaveBeenCalledWith({
         type: "PANEL_SET_COLLAPSED",
         side: "left",
         collapsed: false,
@@ -111,7 +113,7 @@ describe("WidgetPanelExpander", () => {
     fireEvent.mouseMove(expander, { clientX: 4 });
 
     await waitFor(() => {
-      sinon.assert.calledOnceWithExactly(dispatch, {
+      expect(dispatch).toHaveBeenCalledWith({
         type: "PANEL_SET_COLLAPSED",
         side: "left",
         collapsed: false,

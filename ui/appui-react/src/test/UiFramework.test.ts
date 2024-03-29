@@ -246,7 +246,7 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("showCard/hideCard forwards to PopupManager", () => {
-      const stub = sinon
+      const stub = vi
         .stub(PopupManager, "displayCard")
         .mockReturnValue(true);
       expect(
@@ -279,7 +279,7 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).to.be.false;
 
-      const hideStub = sinon
+      const hideStub = vi
         .stub(PopupManager, "hideCard")
         .mockReturnValue(true);
       expect(UiFramework.hideCard()).toEqual(true);
@@ -292,7 +292,7 @@ describe("UiFramework localStorage Wrapper", () => {
 
     it("openToolSettingsPopup/closeToolSettingsPopup forwards to PopupManager", () => {
       const dataProviderMock = moq.Mock.ofType<DialogLayoutDataProvider>();
-      const stub = sinon
+      const stub = vi
         .stub(PopupManager, "openToolSettings")
         .mockReturnValue(true);
       expect(
@@ -315,7 +315,7 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).to.be.false;
 
-      const hideStub = sinon
+      const hideStub = vi
         .stub(PopupManager, "closeToolSettings")
         .returns(true);
       expect(UiFramework.closeToolSettingsPopup()).toEqual(true);
@@ -327,7 +327,7 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("showToolbar/hideToolbar forwards to PopupManager", () => {
-      const stub = sinon
+      const stub = vi
         .stub(PopupManager, "displayToolbar")
         .mockReturnValue(true);
       expect(
@@ -343,7 +343,7 @@ describe("UiFramework localStorage Wrapper", () => {
       ).toEqual(true);
       stub.restore();
 
-      const hideStub = sinon
+      const hideStub = vi
         .stub(PopupManager, "hideToolbar")
         .mockReturnValue(true);
       expect(UiFramework.hideToolbar()).toEqual(true);
@@ -355,7 +355,7 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("showMenuButton/hideMenuButton forwards to AccuDrawPopupManager", () => {
-      const stub = sinon
+      const stub = vi
         .stub(AccuDrawPopupManager, "showMenuButton")
         .returns(true);
       expect(UiFramework.showMenuButton("test", [], { x: 0, y: 0 })).toEqual(
@@ -367,7 +367,7 @@ describe("UiFramework localStorage Wrapper", () => {
       expect(UiFramework.showMenuButton("test", [], { x: 0, y: 0 })).to.be
         .false;
 
-      const hideStub = sinon
+      const hideStub = vi
         .stub(AccuDrawPopupManager, "hideMenuButton")
         .returns(true);
       expect(UiFramework.hideMenuButton("test")).toEqual(true);
@@ -387,7 +387,7 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("showCalculator/hideCalculator forwards to AccuDrawPopupManager", () => {
-      const stub = sinon
+      const stub = vi
         .stub(AccuDrawPopupManager, "showCalculator")
         .returns(true);
       expect(
@@ -413,7 +413,7 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).to.be.false;
 
-      const hideStub = sinon
+      const hideStub = vi
         .stub(AccuDrawPopupManager, "hideCalculator")
         .returns(true);
       expect(UiFramework.hideCalculator()).toEqual(true);
@@ -425,7 +425,7 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("showComponent/hideComponent forwards to PopupManager", () => {
-      const stub = sinon
+      const stub = vi
         .stub(PopupManager, "showComponent")
         .mockReturnValue(true);
       expect(
@@ -444,7 +444,7 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).to.be.false;
 
-      const hideStub = sinon
+      const hideStub = vi
         .stub(PopupManager, "hideComponent")
         .mockReturnValue(true);
       expect(UiFramework.hideComponent()).toEqual(true);
@@ -465,7 +465,7 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("showAngleEditor forwards to AccuDrawPopupManager", () => {
-      const stub = sinon
+      const stub = vi
         .stub(AccuDrawPopupManager, "showAngleEditor")
         .returns(true);
       expect(
@@ -479,7 +479,7 @@ describe("UiFramework localStorage Wrapper", () => {
 
       stub.restore();
 
-      sinon
+      vi
         .stub(AccuDrawPopupManager, "showAngleEditor")
         .mockReturnValue(false);
       expect(
@@ -508,7 +508,7 @@ describe("UiFramework localStorage Wrapper", () => {
         })
       ).toEqual(true);
 
-      const hideStub = sinon
+      const hideStub = vi
         .stub(PopupManager, "hideInputEditor")
         .returns(true);
       expect(UiFramework.hideInputEditor()).toEqual(true);
@@ -519,10 +519,10 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("showDimensionEditor(height) forwards to AccuDrawPopupManager", () => {
-      const lengthStub = sinon
+      const lengthStub = vi
         .stub(AccuDrawPopupManager, "showLengthEditor")
         .returns(true);
-      const heightStub = sinon
+      const heightStub = vi
         .stub(AccuDrawPopupManager, "showHeightEditor")
         .returns(true);
       expect(
@@ -539,7 +539,7 @@ describe("UiFramework localStorage Wrapper", () => {
       expect(heightStub).not.toBeCalled();
       lengthStub.restore();
 
-      sinon
+      vi
         .stub(AccuDrawPopupManager, "showDimensionEditor")
         .mockReturnValue(false);
       expect(
@@ -557,10 +557,10 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("showDimensionEditor(length) forwards to AccuDrawPopupManager", () => {
-      const lengthStub = sinon
+      const lengthStub = vi
         .stub(AccuDrawPopupManager, "showLengthEditor")
         .returns(true);
-      const heightStub = sinon
+      const heightStub = vi
         .stub(AccuDrawPopupManager, "showHeightEditor")
         .returns(true);
       expect(
@@ -577,7 +577,7 @@ describe("UiFramework localStorage Wrapper", () => {
       expect(heightStub).toHaveBeenCalledOnce();
       heightStub.restore();
 
-      sinon
+      vi
         .stub(AccuDrawPopupManager, "showDimensionEditor")
         .mockReturnValue(false);
       expect(

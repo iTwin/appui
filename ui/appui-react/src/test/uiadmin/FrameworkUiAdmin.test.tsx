@@ -698,7 +698,7 @@ describe("FrameworkUiAdmin", () => {
   });
 
   it("should ClearKeyinPaletteHistoryTool", async () => {
-    const stub = sinon
+    const stub = vi
       .stub(keyinExports, "clearKeyinPaletteHistory")
       .mockReturnValue();
     const tool = new ClearKeyinPaletteHistoryTool();

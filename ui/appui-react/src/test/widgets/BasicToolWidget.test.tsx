@@ -12,9 +12,8 @@ import TestUtils, { childStructure } from "../TestUtils";
 
 describe("BasicToolWidget", () => {
   beforeEach(() => {
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .callsFake(function rect(this: any) {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").callsFake(
+      function rect(this: any) {
         if (
           this instanceof HTMLButtonElement ||
           this.firstElementChild?.tagName === "BUTTON"
@@ -22,7 +21,8 @@ describe("BasicToolWidget", () => {
           return DOMRect.fromRect({ width: 16, height: 16 });
         }
         return DOMRect.fromRect({ width: 300, height: 300 });
-      });
+      }
+    );
   });
 
   beforeEach(async () => {

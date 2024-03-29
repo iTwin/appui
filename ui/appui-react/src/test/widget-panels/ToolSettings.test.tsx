@@ -49,9 +49,9 @@ describe("WidgetPanelsToolSettings", () => {
   });
 
   it("should not render w/o tool settings top center zone", () => {
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => undefined);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => undefined
+    );
     const { container } = render(
       <NineZoneProvider
         dispatch={vi.fn()}
@@ -67,12 +67,12 @@ describe("WidgetPanelsToolSettings", () => {
   it("should render", () => {
     const frontstageDef = new FrontstageDef();
     const toolSettings = new WidgetDef();
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
-    sinon
-      .stub(InternalFrontstageManager, "activeToolSettingsProvider")
-      .get(() => undefined);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => frontstageDef
+    );
+    vi.spyOn(InternalFrontstageManager, "activeToolSettingsProvider").get(
+      () => undefined
+    );
     vi.spyOn(frontstageDef, "toolSettings").get(() => toolSettings);
     let state = createNineZoneState();
     state = addTab(state, "ts");
@@ -102,15 +102,15 @@ describe("ToolSettingsDockedContent", () => {
       new ConfigurableCreateInfo("test", "test", "test"),
       undefined
     );
-    sinon
-      .stub(InternalFrontstageManager, "activeToolSettingsProvider")
-      .get(() => activeToolSettingsProvider);
+    vi.spyOn(InternalFrontstageManager, "activeToolSettingsProvider").get(
+      () => activeToolSettingsProvider
+    );
     const horizontalToolSettingNodes: ToolSettingsEntry[] = [
       { labelNode: "Date", editorNode: <input type="date" /> },
     ];
-    sinon
-      .stub(activeToolSettingsProvider, "horizontalToolSettingNodes")
-      .get(() => horizontalToolSettingNodes);
+    vi.spyOn(activeToolSettingsProvider, "horizontalToolSettingNodes").get(
+      () => horizontalToolSettingNodes
+    );
     const sut = render(
       <DragManagerContext.Provider value={new DragManager()}>
         <ToolSettingsDockedContent />
@@ -161,12 +161,12 @@ describe("ToolSettingsContent", () => {
       new ConfigurableCreateInfo("test", "test", "test"),
       undefined
     );
-    sinon
-      .stub(InternalFrontstageManager, "activeToolSettingsProvider")
-      .get(() => activeToolSettingsProvider);
-    sinon
-      .stub(activeToolSettingsProvider, "toolSettingsNode")
-      .get(() => <div>Hello World</div>);
+    vi.spyOn(InternalFrontstageManager, "activeToolSettingsProvider").get(
+      () => activeToolSettingsProvider
+    );
+    vi.spyOn(activeToolSettingsProvider, "toolSettingsNode").get(() => (
+      <div>Hello World</div>
+    ));
     let state = createNineZoneState();
     state = addTab(state, "ts");
     state = addFloatingWidget(state, "fw1", ["ts"]);
@@ -247,27 +247,23 @@ describe("useHorizontalToolSettingEntries", () => {
       }
     }
 
-    sinon
-      .stub(InternalFrontstageManager, "activeToolSettingsProvider")
-      .get(
+    vi.spyOn(InternalFrontstageManager, "activeToolSettingsProvider").get(
+      () =>
+        new Tool1UiProvider(
+          new ConfigurableCreateInfo("test", "test", "test"),
+          undefined
+        )
+    );
+    const sut = renderHook(() => useHorizontalToolSettingEntries());
+
+    act(() => {
+      vi.spyOn(InternalFrontstageManager, "activeToolSettingsProvider").get(
         () =>
           new Tool1UiProvider(
             new ConfigurableCreateInfo("test", "test", "test"),
             undefined
           )
       );
-    const sut = renderHook(() => useHorizontalToolSettingEntries());
-
-    act(() => {
-      sinon
-        .stub(InternalFrontstageManager, "activeToolSettingsProvider")
-        .get(
-          () =>
-            new Tool1UiProvider(
-              new ConfigurableCreateInfo("test", "test", "test"),
-              undefined
-            )
-        );
       UiFramework.frontstages.onToolActivatedEvent.emit({
         toolId: "",
       });
@@ -321,16 +317,14 @@ describe("useToolSettingsNode", () => {
       new ConfigurableCreateInfo("test", "test", "test"),
       undefined
     );
-    sinon
-      .stub(InternalFrontstageManager, "activeToolSettingsProvider")
-      .get(() => activeToolSettingsProvider);
+    vi.spyOn(InternalFrontstageManager, "activeToolSettingsProvider").get(
+      () => activeToolSettingsProvider
+    );
     const sut = renderHook(() => useToolSettingsNode());
 
     const node = <div>Hello World</div>;
     act(() => {
-      sinon
-        .stub(activeToolSettingsProvider, "toolSettingsNode")
-        .get(() => node);
+      vi.spyOn(activeToolSettingsProvider, "toolSettingsNode").get(() => node);
       UiFramework.frontstages.onToolActivatedEvent.emit({
         toolId: "",
       });
@@ -341,9 +335,9 @@ describe("useToolSettingsNode", () => {
   });
 
   it("should initialize to undefined w/o active activeToolSettingsProvider", () => {
-    sinon
-      .stub(InternalFrontstageManager, "activeToolSettingsProvider")
-      .get(() => undefined);
+    vi.spyOn(InternalFrontstageManager, "activeToolSettingsProvider").get(
+      () => undefined
+    );
     const { result } = renderHook(() => useToolSettingsNode());
 
     (result.current === undefined).should.true;

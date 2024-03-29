@@ -22,9 +22,8 @@ import { render } from "@testing-library/react";
 
 describe("BasicNavigationWidget", () => {
   beforeEach(() => {
-    sinon
-      .stub(Element.prototype, "getBoundingClientRect")
-      .callsFake(function rect(this: any) {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").callsFake(
+      function rect(this: any) {
         if (
           this instanceof HTMLButtonElement ||
           this.firstElementChild?.tagName === "BUTTON"
@@ -32,7 +31,8 @@ describe("BasicNavigationWidget", () => {
           return DOMRect.fromRect({ width: 16, height: 16 });
         }
         return DOMRect.fromRect({ width: 300, height: 300 });
-      });
+      }
+    );
   });
   beforeEach(async () => {
     await TestUtils.initializeUiFramework();
@@ -191,9 +191,9 @@ describe("BasicNavigationWidget", () => {
       .setup((viewport) => viewport.view)
       .returns(() => spatialViewStateMock.object);
 
-    sinon
-      .stub(UiFramework.content, "getActiveContentControl")
-      .returns(contentControlMock.object);
+    vi.spyOn(UiFramework.content, "getActiveContentControl").returns(
+      contentControlMock.object
+    );
 
     const { container } = render(<BasicNavigationWidget />);
 

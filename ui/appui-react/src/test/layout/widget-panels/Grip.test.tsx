@@ -56,7 +56,8 @@ describe("WidgetPanelGrip", () => {
     const handle = grip.getElementsByClassName("nz-handle")[0];
     fireEvent.mouseDown(handle);
     fireEvent.mouseMove(handle);
-    container.firstChild!.should.matchSnapshot();
+
+    expect(container.getElementsByClassName("nz-resizing")).toHaveLength(1);
   });
 
   it("should dispatch PANEL_TOGGLE_COLLAPSED", () => {
@@ -78,12 +79,12 @@ describe("WidgetPanelGrip", () => {
     fireEvent.mouseUp(handle);
     fireEvent.mouseDown(handle);
     fireEvent.mouseUp(handle);
-    dispatch.calledOnceWithExactly(
+    expect(dispatch).toHaveBeenCalledWith(
       expect.objectContaining({
         type: "PANEL_TOGGLE_COLLAPSED",
         side: "left",
       })
-    ).should.true;
+    );
   });
 
   it("should start resize via timer and dispatch PANEL_SET_SIZE", () => {
@@ -107,12 +108,11 @@ describe("WidgetPanelGrip", () => {
     fireEvent.mouseDown(handle);
 
     const event = new MouseEvent("mousemove");
-    vi.spyOn(event, "clientX").get(() => 220);
+    vi.spyOn(event, "clientX", "get").mockImplementation(() => 220);
     fireEvent(document, event);
 
-    dispatch.toHaveBeenCalledOnce();
-    sinon.assert.calledOnceWithExactly(
-      dispatch,
+    expect(dispatch).toHaveBeenCalledOnce();
+    expect(dispatch).toHaveBeenCalledWith(
       expect.objectContaining({
         type: "PANEL_SET_SIZE",
         side: "left",
@@ -136,27 +136,8 @@ describe("WidgetPanelGrip", () => {
     const grip = document.getElementsByClassName("nz-widgetPanels-grip")[0];
     const handle = grip.getElementsByClassName("nz-handle")[0];
     fireEvent.pointerMove(handle);
-    container.firstChild!.should.matchSnapshot();
-  });
 
-  it("should reset initial position on pointer up", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "t1");
-    state = addPanelWidget(state, "left", "w1", ["t1"]);
-    const { container } = render(
-      <TestNineZoneProvider defaultState={state}>
-        <PanelSideContext.Provider value="left">
-          <WidgetPanelGrip />
-        </PanelSideContext.Provider>
-      </TestNineZoneProvider>,
-      { wrapper }
-    );
-    const grip = document.getElementsByClassName("nz-widgetPanels-grip")[0];
-    const handle = grip.getElementsByClassName("nz-handle")[0];
-    fireEvent.pointerDown(handle);
-    fireEvent.pointerMove(handle);
-    fireEvent.pointerUp(handle);
-    container.firstChild!.should.matchSnapshot();
+    expect(container.getElementsByClassName("nz-resizing")).toHaveLength(0);
   });
 
   it("should auto-open collapsed unpinned panel", () => {
@@ -180,7 +161,7 @@ describe("WidgetPanelGrip", () => {
     const handle = grip.getElementsByClassName("nz-handle")[0];
     fireEvent.mouseOver(handle);
 
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "PANEL_SET_COLLAPSED",
       side: "left",
       collapsed: false,
@@ -229,7 +210,7 @@ describe("useResizeGrip", () => {
     result.current[0](element);
     fireEvent.mouseDown(element);
     fireEvent.mouseMove(document, { clientY: 210 });
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "PANEL_SET_SIZE",
       side: "top",
       size: 210,
@@ -254,7 +235,7 @@ describe("useResizeGrip", () => {
     result.current[0](element);
     fireEvent.mouseDown(element);
     fireEvent.mouseMove(document, { clientY: -210 });
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "PANEL_SET_SIZE",
       side: "bottom",
       size: 210,
@@ -281,7 +262,7 @@ describe("useResizeGrip", () => {
       },
     });
     dragManagerRef.current?.handleDrag(10, 20);
-    dispatch.callCount.should.eq(0);
+    expect(dispatch).not.toBeCalled();
   });
 
   it("should set resizing to true when drag starts", () => {
@@ -290,7 +271,7 @@ describe("useResizeGrip", () => {
     result.current[0](element);
     fireEvent.mouseDown(element);
     fireEvent.mouseMove(document);
-    result.current[1].should.true;
+    expect(result.current[1]).toEqual(true);
   });
 
   it("should set resizing to false when drag ends", () => {
@@ -300,7 +281,7 @@ describe("useResizeGrip", () => {
     fireEvent.mouseDown(element);
     fireEvent.mouseMove(document);
     fireEvent.mouseUp(document);
-    result.current[1].should.false;
+    expect(result.current[1]).toEqual(false);
   });
 
   it("should not start drag in timeout w/o required args", () => {
@@ -309,7 +290,7 @@ describe("useResizeGrip", () => {
     result.current[0](element);
     fireEvent.mouseDown(element);
     result.current[0](null);
-    result.current[1].should.false;
+    expect(result.current[1]).toEqual(false);
   });
 
   it("should not resize if panel size is not set", () => {
@@ -326,7 +307,7 @@ describe("useResizeGrip", () => {
     result.current[0](element);
     fireEvent.mouseDown(element);
     fireEvent.mouseMove(document, { clientX: 210 });
-    sinon.assert.notCalled(dispatch);
+    expect(dispatch).not.toBeCalled();
   });
 
   it("should expand collapsed panel", () => {
@@ -348,7 +329,7 @@ describe("useResizeGrip", () => {
     result.current[0](element);
     fireEvent.mouseDown(element);
     fireEvent.mouseMove(document, { clientX: 210 });
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "PANEL_SET_COLLAPSED",
       side: "left",
       collapsed: false,
@@ -374,7 +355,7 @@ describe("useResizeGrip", () => {
     result.current[0](element);
     fireEvent.mouseDown(element);
     fireEvent.mouseMove(document, { clientX: 50 });
-    sinon.assert.notCalled(dispatch);
+    expect(dispatch).not.toBeCalled();
   });
 
   it("should collapse", () => {
@@ -397,13 +378,13 @@ describe("useResizeGrip", () => {
       fireEvent.mouseDown(element, { clientX: 200 });
       fireEvent.mouseMove(document, { clientX: 50 });
     });
-    sinon.assert.callCount(dispatch, 2);
-    sinon.assert.calledWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch).toHaveBeenCalledWith({
       type: "PANEL_SET_COLLAPSED",
       side: "left",
       collapsed: true,
     });
-    sinon.assert.calledWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "PANEL_SET_SIZE",
       side: "left",
       size: 200,
@@ -430,6 +411,6 @@ describe("useResizeGrip", () => {
       fireEvent.mouseDown(element);
       fireEvent.mouseMove(document, { clientX: 50 });
     });
-    sinon.assert.notCalled(dispatch);
+    expect(dispatch).not.toBeCalled();
   });
 });

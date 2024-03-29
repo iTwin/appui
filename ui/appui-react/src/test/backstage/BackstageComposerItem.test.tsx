@@ -89,8 +89,7 @@ describe("BackstageComposerItem", () => {
     });
 
     it("should activate frontstage", async () => {
-      sinon
-        .stub(UiFramework.frontstages, "hasFrontstage")
+      vi.spyOn(UiFramework.frontstages, "hasFrontstage")
         .withArgs("Frontstage-1")
         .returns(true);
       const spy = vi.spyOn(UiFramework.frontstages, "setActiveFrontstage");
@@ -130,9 +129,7 @@ describe("BackstageComposerItem", () => {
   describe("BackstageComposerItem", () => {
     it("should render stage launcher", async () => {
       const spy = vi.spyOn(UiFramework.frontstages, "setActiveFrontstage");
-      sinon
-        .stub(UiFramework.frontstages, "hasFrontstage")
-        .mockReturnValue(true);
+      vi.spyOn(UiFramework.frontstages, "hasFrontstage").mockReturnValue(true);
       render(<BackstageComposerItem item={getStageLauncherItem()} />);
 
       await theUserTo.click(screen.getByRole("menuitem"));

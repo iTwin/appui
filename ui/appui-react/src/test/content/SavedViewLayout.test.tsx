@@ -196,9 +196,9 @@ describe("StageContentLayout", () => {
   });
 
   beforeEach(async () => {
-    sinon
-      .stub(IModelReadRpcInterface, "getClientForRouting")
-      .returns(rpcMock.object);
+    vi.spyOn(IModelReadRpcInterface, "getClientForRouting").returns(
+      rpcMock.object
+    );
   });
 
   afterEach(async () => {

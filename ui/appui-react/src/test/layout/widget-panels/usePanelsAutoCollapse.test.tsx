@@ -30,7 +30,7 @@ describe("usePanelsAutoCollapse", () => {
 
     fireEvent.mouseDown(element);
 
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "PANEL_SET_COLLAPSED",
       side: "right",
       collapsed: true,
@@ -56,7 +56,7 @@ describe("usePanelsAutoCollapse", () => {
 
     fireEvent.mouseEnter(element);
 
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "PANEL_SET_COLLAPSED",
       side: "left",
       collapsed: true,
@@ -78,18 +78,16 @@ describe("usePanelsAutoCollapse", () => {
     expect(spy).not.toBeCalled();
 
     setRefValue(result.current, null);
-    sinon.assert.calledTwice(spy);
-    sinon.assert.calledWithExactly(
-      spy,
+    expect(spy).toHaveBeenCalledTimes(2);
+    expect(spy).toHaveBeenCalledWith(
       "mousedown",
-      sinon.match.any,
-      sinon.match.any
+      expect.anything(),
+      expect.anything()
     );
-    sinon.assert.calledWithExactly(
-      spy,
+    expect(spy).toHaveBeenCalledWith(
       "mouseenter",
-      sinon.match.any,
-      sinon.match.any
+      expect.anything(),
+      expect.anything()
     );
   });
 });

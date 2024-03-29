@@ -143,9 +143,9 @@ describe("WidgetDef", () => {
         },
       });
       initializeNineZoneState(activeFrontstageDef);
-      sinon
-        .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => activeFrontstageDef);
+      vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+        () => activeFrontstageDef
+      );
 
       // __PUBLISH_EXTRACT_START__ AppUI.WidgetDef.setWidgetState
       const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
@@ -174,9 +174,9 @@ describe("WidgetDef", () => {
         },
       });
       initializeNineZoneState(frontstageDef);
-      sinon
-        .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => frontstageDef);
+      vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+        () => frontstageDef
+      );
 
       const spy = vi.fn();
       UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
@@ -233,14 +233,10 @@ describe("getWidgetState", () => {
     );
     vi.spyOn(frontstageDef, "leftPanel").get(() => leftPanel);
 
-    sinon
-      .stub(frontstageDef, "getStagePanelDef")
+    vi.spyOn(frontstageDef, "getStagePanelDef")
       .withArgs(StagePanelLocation.Left)
       .returns(leftPanel);
-    sinon
-      .stub(frontstageDef, "findWidgetDef")
-      .withArgs("t1")
-      .returns(widgetDef);
+    vi.spyOn(frontstageDef, "findWidgetDef").withArgs("t1").returns(widgetDef);
 
     expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Closed
@@ -279,14 +275,10 @@ describe("getWidgetState", () => {
     );
     vi.spyOn(frontstageDef, "leftPanel").get(() => leftPanel);
 
-    sinon
-      .stub(frontstageDef, "getStagePanelDef")
+    vi.spyOn(frontstageDef, "getStagePanelDef")
       .withArgs(StagePanelLocation.Left)
       .returns(leftPanel);
-    sinon
-      .stub(frontstageDef, "findWidgetDef")
-      .withArgs("t1")
-      .returns(widgetDef);
+    vi.spyOn(frontstageDef, "findWidgetDef").withArgs("t1").returns(widgetDef);
 
     expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Closed
@@ -316,10 +308,7 @@ describe("getWidgetState", () => {
       defaultState: WidgetState.Open,
     });
 
-    sinon
-      .stub(frontstageDef, "findWidgetDef")
-      .withArgs("t1")
-      .returns(widgetDef);
+    vi.spyOn(frontstageDef, "findWidgetDef").withArgs("t1").returns(widgetDef);
     expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Closed
     );
@@ -336,10 +325,7 @@ describe("getWidgetState", () => {
       id: "t1",
     });
 
-    sinon
-      .stub(frontstageDef, "findWidgetDef")
-      .withArgs("t1")
-      .returns(widgetDef);
+    vi.spyOn(frontstageDef, "findWidgetDef").withArgs("t1").returns(widgetDef);
     expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Unloaded
     );

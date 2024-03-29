@@ -35,9 +35,9 @@ describe("WidgetContent", () => {
     const layout = createLayoutStore(state);
     const frontstage = new FrontstageDef();
     const widget = WidgetDef.create({ id: "w1" });
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstage);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => frontstage
+    );
     vi.spyOn(frontstage, "findWidgetDef").mockReturnValue(widget);
     vi.spyOn(widget, "reactNode").get(() => <>Content</>);
     const { container } = render(
@@ -59,9 +59,9 @@ describe("WidgetContent", () => {
     state = addTab(state, "w1");
     state = addPanelWidget(state, "left", "leftStart", ["w1"]);
     const layout = createLayoutStore(state);
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => undefined);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => undefined
+    );
     const { container } = render(
       <NineZoneProvider
         dispatch={vi.fn()}
@@ -82,9 +82,9 @@ describe("WidgetContent", () => {
     state = addPanelWidget(state, "left", "leftStart", ["w1"]);
     const layout = createLayoutStore(state);
     const frontstage = new FrontstageDef();
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstage);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => frontstage
+    );
     vi.spyOn(frontstage, "findWidgetDef").mockReturnValue(undefined);
     const { container } = render(
       <NineZoneProvider

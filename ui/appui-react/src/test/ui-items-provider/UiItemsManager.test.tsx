@@ -252,7 +252,7 @@ describe("UiItemsManager", () => {
         id: "provider2",
       });
 
-      sinon.assert.calledTwice(spy);
+      expect(spy).toHaveBeenCalledTimes(2);
       sinon.assert.calledTwice(abstractSpy);
     });
 

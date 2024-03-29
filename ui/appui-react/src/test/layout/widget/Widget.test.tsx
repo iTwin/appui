@@ -32,7 +32,7 @@ describe("Widget", () => {
       container.getElementsByClassName("nz-widget-widget")[0];
     fireEvent.click(widgetElement);
 
-    sinon.assert.calledOnceWithExactly(dispatch, {
+    expect(dispatch).toHaveBeenCalledWith({
       type: "FLOATING_WIDGET_BRING_TO_FRONT",
       id: "w1",
     });

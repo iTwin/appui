@@ -57,9 +57,9 @@ describe("StagePanelDef", () => {
   });
 
   it("should initialize pinned", () => {
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => undefined);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => undefined
+    );
     const panelDef = StagePanelDef.create(
       { resizable: false, pinned: false },
       StagePanelLocation.Left
@@ -81,9 +81,9 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => frontstageDef
+    );
     const panelDef = new StagePanelDef();
     panelDef.sizeSpec = 150;
     panelDef.sizeSpec.should.eq(200);
@@ -93,9 +93,9 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => frontstageDef
+    );
     const panelDef = new StagePanelDef();
     panelDef.sizeSpec = 200;
     panelDef.sizeSpec.should.eq(200);
@@ -113,9 +113,9 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => frontstageDef
+    );
     const panelDef = new StagePanelDef();
     vi.spyOn(panelDef, "location").get(() => StagePanelLocation.Right);
     panelDef.panelState = StagePanelState.Minimized;
@@ -127,9 +127,9 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => frontstageDef
+    );
     const panelDef = new StagePanelDef();
     vi.spyOn(panelDef, "location").get(() => StagePanelLocation.Right);
     panelDef.panelState = StagePanelState.Off;
@@ -143,9 +143,9 @@ describe("StagePanelDef", () => {
       draft.panels.right.collapsed = true;
     });
     frontstageDef.nineZoneState = nineZoneState;
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => frontstageDef
+    );
     const panelDef = StagePanelDef.create(
       {
         resizable: true,

@@ -90,7 +90,7 @@ describe("ContentLayoutManager", () => {
     };
 
     const contentGroup = new ContentGroup(groupProps);
-    const spy = sinon
+    const spy = vi
       .stub(InternalFrontstageManager, "setActiveContentGroup")
       .returns(Promise.resolve());
     await InternalContentLayoutManager.setActiveContentGroup(contentGroup);

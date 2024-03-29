@@ -246,7 +246,7 @@ describe("AccuDrawFieldContainer", () => {
       IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
       expect(spy).toHaveBeenCalledOnce();
       IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
-      sinon.assert.calledTwice(spy);
+      expect(spy).toHaveBeenCalledTimes(2);
     });
 
     remove();

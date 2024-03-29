@@ -123,9 +123,9 @@ describe("BackstageManager", () => {
     expect(internal.getBackstageToggleCommand).toHaveBeenCalledWith("iconSpec");
 
     const stubbedCommand = Symbol("backstageCommand");
-    sinon
-      .stub(UiFramework.backstage, "getBackstageToggleCommand")
-      .returns(stubbedCommand as any);
+    vi.spyOn(UiFramework.backstage, "getBackstageToggleCommand").returns(
+      stubbedCommand as any
+    );
     expect(BackstageManager.getBackstageToggleCommand()).toEqual(
       stubbedCommand
     );

@@ -130,9 +130,9 @@ describe("ContentGroupProvider", () => {
   });
 
   beforeEach(() => {
-    sinon
-      .stub(InternalFrontstageManager, "activeToolSettingsProvider")
-      .get(() => undefined);
+    vi.spyOn(InternalFrontstageManager, "activeToolSettingsProvider").get(
+      () => undefined
+    );
     UiFramework.frontstages.clearFrontstageProviders();
   });
 

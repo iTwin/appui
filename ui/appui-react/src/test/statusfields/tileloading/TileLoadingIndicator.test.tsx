@@ -31,7 +31,7 @@ describe("TileLoadingIndicator", () => {
 
   it("should unmount correctly", () => {
     const spy = vi.fn();
-    const viewOpenSpy = sinon
+    const viewOpenSpy = vi
       .stub(IModelApp.viewManager.onViewOpen, "addListener")
       .returns(spy);
 

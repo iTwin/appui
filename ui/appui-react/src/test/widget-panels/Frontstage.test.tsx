@@ -247,12 +247,12 @@ describe("Frontstage local storage wrapper", () => {
         title: "TestModalStage",
         content: <div>Hello World!</div>,
       };
-      sinon
+      vi
         .stub(UiFramework.frontstages, "activeModalFrontstage")
         .get(() => modalStageInfo);
       const frontstageDef = new FrontstageDef();
       const contentGroup = moq.Mock.ofType<FrontstageDef["contentGroup"]>();
-      sinon
+      vi
         .stub(UiFramework.frontstages, "activeFrontstageDef")
         .get(() => frontstageDef);
       vi.spyOn(frontstageDef, "contentGroup").get(() => contentGroup.object);
@@ -270,7 +270,7 @@ describe("Frontstage local storage wrapper", () => {
     });
 
     it("should not render w/o frontstage", () => {
-      sinon
+      vi
         .stub(UiFramework.frontstages, "activeFrontstageDef")
         .get(() => undefined);
       const { container } = render(
@@ -326,19 +326,19 @@ describe("Frontstage local storage wrapper", () => {
         content: <div>Hello World!</div>,
       };
 
-      sinon
+      vi
         .stub(UiFramework.frontstages, "activeModalFrontstage")
         .get(() => undefined);
       renderHook(() => useActiveModalFrontstageInfo());
       act(() => {
-        sinon
+        vi
           .stub(UiFramework.frontstages, "activeModalFrontstage")
           .get(() => undefined);
         UiFramework.frontstages.onModalFrontstageChangedEvent.emit({
           modalFrontstageCount: 0,
         });
 
-        sinon
+        vi
           .stub(UiFramework.frontstages, "activeModalFrontstage")
           .get(() => modalStageInfo);
         UiFramework.frontstages.onModalFrontstageChangedEvent.emit({
@@ -376,7 +376,7 @@ describe("Frontstage local storage wrapper", () => {
           },
         });
         initializeNineZoneState(frontstageDef);
-        sinon
+        vi
           .stub(UiFramework.frontstages, "activeFrontstageDef")
           .get(() => frontstageDef);
         const component = render(
@@ -447,7 +447,7 @@ describe("Frontstage local storage wrapper", () => {
       });
 
       it("should set nineZoneSize when RESIZE is received", () => {
-        const spy = sinon
+        const spy = vi
           .stub(InternalFrontstageManager, "nineZoneSize")
           .set(() => {});
         const frontstageDef = new FrontstageDef();
@@ -467,7 +467,7 @@ describe("Frontstage local storage wrapper", () => {
     describe("useLayoutStore", () => {
       it("should return initial nineZoneState", () => {
         const frontstageDef = new FrontstageDef();
-        sinon
+        vi
           .stub(UiFramework.frontstages, "activeFrontstageDef")
           .get(() => frontstageDef);
         const nineZoneState = createNineZoneState({
@@ -480,7 +480,7 @@ describe("Frontstage local storage wrapper", () => {
 
       it("should return nineZoneState of provided frontstageDef", () => {
         const frontstageDef = new FrontstageDef();
-        sinon
+        vi
           .stub(UiFramework.frontstages, "activeFrontstageDef")
           .get(() => frontstageDef);
         const nineZoneState = createNineZoneState();
@@ -501,7 +501,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should return updated nineZoneState", () => {
         const frontstageDef = new FrontstageDef();
         vi.spyOn(frontstageDef, "isReady").get(() => true);
-        sinon
+        vi
           .stub(UiFramework.frontstages, "activeFrontstageDef")
           .get(() => frontstageDef);
         const nineZoneState = createNineZoneState();
@@ -516,7 +516,7 @@ describe("Frontstage local storage wrapper", () => {
 
       it("should ignore nineZoneState changes of other frontstages", () => {
         const frontstageDef = new FrontstageDef();
-        sinon
+        vi
           .stub(UiFramework.frontstages, "activeFrontstageDef")
           .get(() => frontstageDef);
         const nineZoneState = createNineZoneState({
@@ -780,10 +780,10 @@ describe("Frontstage local storage wrapper", () => {
           const fakeActiveToolId = "activeTool1";
           const fakeToolLabel = "activeToolLabel";
 
-          sinon
+          vi
             .stub(UiFramework.frontstages, "activeToolId")
             .get(() => fakeActiveToolId);
-          const findSpy = sinon
+          const findSpy = vi
             .stub(IModelApp.tools, "find")
             .returns({ flyover: fakeToolLabel } as any);
 
@@ -800,7 +800,7 @@ describe("Frontstage local storage wrapper", () => {
     describe("initializeNineZoneState", () => {
       it("should initialize widgets", () => {
         const frontstageDef = new FrontstageDef();
-        sinon
+        vi
           .stub(UiFramework.frontstages, "activeFrontstageDef")
           .get(() => frontstageDef);
         vi.spyOn(frontstageDef, "leftPanel").get(() => new StagePanelDef());
@@ -831,7 +831,7 @@ describe("Frontstage local storage wrapper", () => {
       });
 
       it("should initialize size", () => {
-        sinon
+        vi
           .stub(InternalFrontstageManager, "nineZoneSize")
           .get(() => new Size(10, 20));
         const frontstageDef = new FrontstageDef();
@@ -1214,7 +1214,7 @@ describe("Frontstage local storage wrapper", () => {
         });
 
         const frontstageDef = new FrontstageDef();
-        sinon
+        vi
           .stub(frontstageDef, "findWidgetDef")
           .withArgs("t2")
           .returns(widgetDef);
@@ -1247,7 +1247,7 @@ describe("Frontstage local storage wrapper", () => {
       });
 
       it("should RESIZE", () => {
-        sinon
+        vi
           .stub(InternalFrontstageManager, "nineZoneSize")
           .get(() => new Size(10, 20));
         const frontstageDef = new FrontstageDef();
@@ -1312,7 +1312,7 @@ describe("Frontstage local storage wrapper", () => {
         const newFrontstageDef = new FrontstageDef();
         newFrontstageDef.nineZoneState = createNineZoneState();
 
-        sinon
+        vi
           .stub(InternalFrontstageManager, "nineZoneSize")
           .get(() => new Size(10, 20));
         rerender(newFrontstageDef);

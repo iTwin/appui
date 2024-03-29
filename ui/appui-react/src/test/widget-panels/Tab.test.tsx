@@ -43,9 +43,9 @@ describe("WidgetPanelsTab", () => {
 
   it("should render with badge", () => {
     const frontstageDef = new FrontstageDef();
-    sinon
-      .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef);
+    vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
+      () => frontstageDef
+    );
     const widgetDef = WidgetDef.create({
       id: "w1",
       badge: BadgeType.New,
