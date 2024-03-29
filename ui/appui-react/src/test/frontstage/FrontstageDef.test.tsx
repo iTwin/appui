@@ -583,7 +583,7 @@ describe("FrontstageDef", () => {
   });
 
   describe("openPopoutWidgetContainer", () => {
-    it.only("should open a popout window", async () => {
+    it("should open a popout window", async () => {
       const frontstageDef = new FrontstageDef();
       await frontstageDef.initializeFromConfig({
         ...defaultFrontstageConfig,

@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
+import type { ContentLayoutDef } from "../../appui-react";
 import {
   FrontstageDef,
   UiFramework,
@@ -14,15 +15,19 @@ describe("WidgetPanelsFrontstageContent", () => {
   it("should render", () => {
     const frontstageDef = new FrontstageDef();
     vi.spyOn(frontstageDef, "contentLayoutDef", "get").mockImplementation(
-      () => ({
-        fillLayoutContainer() {
-          return "ContentLayoutDefMockContent";
-        },
-      })
+      () =>
+        ({
+          fillLayoutContainer: () => {
+            return "ContentLayoutDefMockContent";
+          },
+        } as any)
     );
-    vi.spyOn(frontstageDef, "contentGroup", "get").mockImplementation(() => ({
-      getContentNodes() {},
-    }));
+    vi.spyOn(frontstageDef, "contentGroup", "get").mockImplementation(
+      () =>
+        ({
+          getContentNodes: () => {},
+        } as any)
+    );
     vi.spyOn(
       UiFramework.frontstages,
       "activeFrontstageDef",

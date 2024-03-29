@@ -237,7 +237,7 @@ describe("useHorizontalToolSettingEntries", () => {
     expect(removeListenerSpy).toHaveBeenCalledOnce();
   });
 
-  it.only("should return undefined if activeToolSettingsProvider is unset", () => {
+  it("should return undefined if activeToolSettingsProvider is unset", () => {
     const { result } = renderHook(() => useHorizontalToolSettingEntries());
     vi.spyOn(
       InternalFrontstageManager,

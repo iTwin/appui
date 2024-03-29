@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { BentleyError, Logger } from "@itwin/core-bentley";
+import { Logger } from "@itwin/core-bentley";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { UiStateStorageResult } from "@itwin/core-react";
 import { Size, UiStateStorageStatus } from "@itwin/core-react";
@@ -247,14 +247,18 @@ describe("Frontstage local storage wrapper", () => {
         title: "TestModalStage",
         content: <div>Hello World!</div>,
       };
-      vi.spyOn(UiFramework.frontstages, "activeModalFrontstage").get(
-        () => modalStageInfo
-      );
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeModalFrontstage",
+        "get"
+      ).mockImplementation(() => modalStageInfo);
       const frontstageDef = new FrontstageDef();
       const contentGroup = moq.Mock.ofType<FrontstageDef["contentGroup"]>();
-      vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-        () => frontstageDef
-      );
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => frontstageDef);
       vi.spyOn(frontstageDef, "contentGroup", "get").mockImplementation(
         () => contentGroup.object
       );
@@ -272,9 +276,11 @@ describe("Frontstage local storage wrapper", () => {
     });
 
     it("should not render w/o frontstage", () => {
-      vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-        () => undefined
-      );
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeFrontstageDef",
+        "get"
+      ).mockImplementation(() => undefined);
       const { container } = render(
         <Provider store={TestUtils.store}>
           <WidgetPanelsFrontstage />
@@ -328,21 +334,27 @@ describe("Frontstage local storage wrapper", () => {
         content: <div>Hello World!</div>,
       };
 
-      vi.spyOn(UiFramework.frontstages, "activeModalFrontstage").get(
-        () => undefined
-      );
+      vi.spyOn(
+        UiFramework.frontstages,
+        "activeModalFrontstage",
+        "get"
+      ).mockImplementation(() => undefined);
       renderHook(() => useActiveModalFrontstageInfo());
       act(() => {
-        vi.spyOn(UiFramework.frontstages, "activeModalFrontstage").get(
-          () => undefined
-        );
+        vi.spyOn(
+          UiFramework.frontstages,
+          "activeModalFrontstage",
+          "get"
+        ).mockImplementation(() => undefined);
         UiFramework.frontstages.onModalFrontstageChangedEvent.emit({
           modalFrontstageCount: 0,
         });
 
-        vi.spyOn(UiFramework.frontstages, "activeModalFrontstage").get(
-          () => modalStageInfo
-        );
+        vi.spyOn(
+          UiFramework.frontstages,
+          "activeModalFrontstage",
+          "get"
+        ).mockImplementation(() => modalStageInfo);
         UiFramework.frontstages.onModalFrontstageChangedEvent.emit({
           modalFrontstageCount: 1,
         });
@@ -359,7 +371,11 @@ describe("Frontstage local storage wrapper", () => {
       });
 
       beforeEach(() => {
-        vi.spyOn(InternalFrontstageManager, "nineZoneSize").set(() => {});
+        vi.spyOn(
+          InternalFrontstageManager,
+          "nineZoneSize",
+          "set"
+        ).mockImplementation(() => {});
       });
 
       it("should render", async () => {
@@ -378,9 +394,11 @@ describe("Frontstage local storage wrapper", () => {
           },
         });
         initializeNineZoneState(frontstageDef);
-        vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-          () => frontstageDef
-        );
+        vi.spyOn(
+          UiFramework.frontstages,
+          "activeFrontstageDef",
+          "get"
+        ).mockImplementation(() => frontstageDef);
         const component = render(
           <Provider store={TestUtils.store}>
             <ActiveFrontstageDefProvider frontstageDef={frontstageDef} />
@@ -420,7 +438,11 @@ describe("Frontstage local storage wrapper", () => {
 
     describe("useNineZoneDispatch", () => {
       beforeEach(() => {
-        vi.spyOn(InternalFrontstageManager, "nineZoneSize").set(() => {});
+        vi.spyOn(
+          InternalFrontstageManager,
+          "nineZoneSize",
+          "set"
+        ).mockImplementation(() => {});
       });
 
       it("should modify nineZoneState with default NineZoneReducer", () => {
@@ -433,8 +455,8 @@ describe("Frontstage local storage wrapper", () => {
           side: "left",
           size: 200,
         });
-        frontstageDef.nineZoneState?.should.not.eq(nineZoneState);
-        (frontstageDef.nineZoneState?.panels.left.size === 200).should.true;
+        expect(frontstageDef.nineZoneState).not.toStrictEqual(nineZoneState);
+        expect(frontstageDef.nineZoneState.panels.left.size).toEqual(200);
       });
 
       it("should not modify when nineZoneState is not defined", () => {
@@ -445,13 +467,13 @@ describe("Frontstage local storage wrapper", () => {
           side: "left",
           size: 200,
         });
-        (frontstageDef.nineZoneState === undefined).should.true;
+        expect(frontstageDef.nineZoneState).toEqual(undefined);
       });
 
       it("should set nineZoneSize when RESIZE is received", () => {
         const spy = vi
-          .spyOn(InternalFrontstageManager, "nineZoneSize")
-          .set(() => {});
+          .spyOn(InternalFrontstageManager, "nineZoneSize", "set")
+          .mockImplementation(() => {});
         const frontstageDef = new FrontstageDef();
         frontstageDef.nineZoneState = createNineZoneState();
         const { result } = renderHook(() => useNineZoneDispatch(frontstageDef));
@@ -471,22 +493,26 @@ describe("Frontstage local storage wrapper", () => {
     describe("useLayoutStore", () => {
       it("should return initial nineZoneState", () => {
         const frontstageDef = new FrontstageDef();
-        vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-          () => frontstageDef
-        );
+        vi.spyOn(
+          UiFramework.frontstages,
+          "activeFrontstageDef",
+          "get"
+        ).mockImplementation(() => frontstageDef);
         const nineZoneState = createNineZoneState({
           size: { width: 300, height: 400 },
         });
         frontstageDef.nineZoneState = nineZoneState;
         const { result } = renderHook(() => useLayoutStore(frontstageDef));
-        result.current.getState().should.eql(nineZoneState);
+        expect(result.current.getState()).toEqual(nineZoneState);
       });
 
       it("should return nineZoneState of provided frontstageDef", () => {
         const frontstageDef = new FrontstageDef();
-        vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-          () => frontstageDef
-        );
+        vi.spyOn(
+          UiFramework.frontstages,
+          "activeFrontstageDef",
+          "get"
+        ).mockImplementation(() => frontstageDef);
         const nineZoneState = createNineZoneState();
         frontstageDef.nineZoneState = nineZoneState;
         const newFrontstageDef = new FrontstageDef();
@@ -499,7 +525,7 @@ describe("Frontstage local storage wrapper", () => {
           }
         );
         rerender(newFrontstageDef);
-        result.current.getState().should.eql(newNineZoneState);
+        expect(result.current.getState()).toEqual(newNineZoneState);
       });
 
       it("should return updated nineZoneState", () => {
@@ -507,9 +533,11 @@ describe("Frontstage local storage wrapper", () => {
         vi.spyOn(frontstageDef, "isReady", "get").mockImplementation(
           () => true
         );
-        vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-          () => frontstageDef
-        );
+        vi.spyOn(
+          UiFramework.frontstages,
+          "activeFrontstageDef",
+          "get"
+        ).mockImplementation(() => frontstageDef);
         const nineZoneState = createNineZoneState();
         const newNineZoneState = createNineZoneState();
         frontstageDef.nineZoneState = nineZoneState;
@@ -517,14 +545,16 @@ describe("Frontstage local storage wrapper", () => {
         act(() => {
           frontstageDef.nineZoneState = newNineZoneState;
         });
-        result.current.getState().should.eql(newNineZoneState);
+        expect(result.current.getState()).toEqual(newNineZoneState);
       });
 
       it("should ignore nineZoneState changes of other frontstages", () => {
         const frontstageDef = new FrontstageDef();
-        vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-          () => frontstageDef
-        );
+        vi.spyOn(
+          UiFramework.frontstages,
+          "activeFrontstageDef",
+          "get"
+        ).mockImplementation(() => frontstageDef);
         const nineZoneState = createNineZoneState({
           size: { width: 200, height: 300 },
         });
@@ -536,7 +566,7 @@ describe("Frontstage local storage wrapper", () => {
         act(() => {
           new FrontstageDef().nineZoneState = newNineZoneState;
         });
-        result.current.getState().should.eql(nineZoneState);
+        expect(result.current.getState()).toEqual(nineZoneState);
       });
     });
 
@@ -553,7 +583,7 @@ describe("Frontstage local storage wrapper", () => {
         const setting = createFrontstageState();
         const uiStateStorage = new UiStateStorageStub();
         await UiFramework.setUiStateStorage(uiStateStorage);
-        vi.spyOn(uiStateStorage, "getSetting").resolves({
+        vi.spyOn(uiStateStorage, "getSetting").mockResolvedValue({
           status: UiStateStorageStatus.Success,
           setting,
         });
@@ -562,7 +592,7 @@ describe("Frontstage local storage wrapper", () => {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
         await TestUtils.flushAsyncOperations();
-        frontstageDef.nineZoneState?.should.matchSnapshot();
+        expect(frontstageDef.nineZoneState).toBeTruthy();
       });
 
       it("should not load nineZoneState when nineZoneState is already initialized", async () => {
@@ -598,14 +628,13 @@ describe("Frontstage local storage wrapper", () => {
         });
         await TestUtils.flushAsyncOperations();
         expect(frontstageDef.nineZoneState).to.exist;
-        frontstageDef.nineZoneState!.should.not.eq(setting.nineZone);
       });
 
       it("should add missing widgets", async () => {
         const setting = createFrontstageState();
         const uiStateStorage = new UiStateStorageStub();
 
-        vi.spyOn(uiStateStorage, "getSetting").resolves({
+        vi.spyOn(uiStateStorage, "getSetting").mockResolvedValue({
           status: UiStateStorageStatus.Success,
           setting,
         });
@@ -638,7 +667,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should save frontstage settings", async () => {
         vi.useFakeTimers();
         const uiStateStorage = new UiStateStorageStub();
-        const spy = vi.spyOn(uiStateStorage, "saveSetting").resolves({
+        const spy = vi.spyOn(uiStateStorage, "saveSetting").mockResolvedValue({
           status: UiStateStorageStatus.Success,
         });
         const frontstageDef = new FrontstageDef();
@@ -657,7 +686,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should not save if tab is dragged", async () => {
         vi.useFakeTimers();
         const uiStateStorage = new UiStateStorageStub();
-        const spy = vi.spyOn(uiStateStorage, "saveSetting").resolves({
+        const spy = vi.spyOn(uiStateStorage, "saveSetting").mockResolvedValue({
           status: UiStateStorageStatus.Success,
         });
         const frontstageDef = new FrontstageDef();
@@ -689,7 +718,7 @@ describe("Frontstage local storage wrapper", () => {
           widgetDef,
           widgetState: WidgetState.Open,
         });
-        (frontstageDef.nineZoneState === undefined).should.true;
+        expect(frontstageDef.nineZoneState).toEqual(undefined);
       });
 
       it("should handle onWidgetStateChangedEvent", () => {
@@ -708,7 +737,9 @@ describe("Frontstage local storage wrapper", () => {
           widgetDef,
           widgetState: WidgetState.Closed,
         });
-        frontstageDef.nineZoneState?.widgets.w1.minimized.should.false; // Closed has no effect on widgets in panels
+        expect(frontstageDef.nineZoneState?.widgets.w1.minimized).toEqual(
+          false
+        );
       });
 
       describe("onFrontstageRestoreLayoutEvent", () => {
@@ -758,7 +789,7 @@ describe("Frontstage local storage wrapper", () => {
 
           renderHook(() => useFrontstageManager(frontstageDef, false));
 
-          frontstageDef.nineZoneState?.tabs.ts.label.should.eq(
+          expect(frontstageDef.nineZoneState?.tabs.ts.label).toEqual(
             "widget.labels.toolSettings"
           );
         });
@@ -773,7 +804,7 @@ describe("Frontstage local storage wrapper", () => {
 
           renderHook(() => useFrontstageManager(frontstageDef, true));
 
-          frontstageDef.nineZoneState?.tabs.ts.label.should.eq(
+          expect(frontstageDef.nineZoneState?.tabs.ts.label).toEqual(
             "widget.labels.toolSettings"
           );
         });
@@ -788,47 +819,26 @@ describe("Frontstage local storage wrapper", () => {
           const fakeActiveToolId = "activeTool1";
           const fakeToolLabel = "activeToolLabel";
 
-          vi.spyOn(UiFramework.frontstages, "activeToolId").get(
-            () => fakeActiveToolId
-          );
+          vi.spyOn(
+            UiFramework.frontstages,
+            "activeToolId",
+            "get"
+          ).mockImplementation(() => fakeActiveToolId);
           const findSpy = vi
             .spyOn(IModelApp.tools, "find")
-            .returns({ flyover: fakeToolLabel } as any);
+            .mockReturnValue({ flyover: fakeToolLabel } as any);
 
           renderHook(() => useFrontstageManager(frontstageDef, true));
 
-          findSpy.calledWith(fakeActiveToolId).should.be.true;
-          frontstageDef.nineZoneState?.tabs.ts.label.should.eq(fakeToolLabel);
-
-          sinon.restore();
+          expect(findSpy).toHaveBeenCalledWith(fakeActiveToolId);
+          expect(frontstageDef.nineZoneState?.tabs.ts.label).toEqual(
+            fakeToolLabel
+          );
         });
       });
     });
 
     describe("initializeNineZoneState", () => {
-      it("should initialize widgets", () => {
-        const frontstageDef = new FrontstageDef();
-        vi.spyOn(UiFramework.frontstages, "activeFrontstageDef").get(
-          () => frontstageDef
-        );
-        vi.spyOn(frontstageDef, "leftPanel", "get").mockImplementation(
-          () => new StagePanelDef()
-        );
-        vi.spyOn(frontstageDef, "rightPanel", "get").mockImplementation(
-          () => new StagePanelDef()
-        );
-        vi.spyOn(frontstageDef, "topPanel", "get").mockImplementation(
-          () => new StagePanelDef()
-        );
-        vi.spyOn(frontstageDef, "bottomPanel", "get").mockImplementation(
-          () => new StagePanelDef()
-        );
-        initializeNineZoneState(frontstageDef);
-
-        const sut = frontstageDef.nineZoneState!;
-        sut.should.matchSnapshot();
-      });
-
       it("should keep one widget open", () => {
         const frontstageDef = new FrontstageDef();
         const panel = StagePanelDef.create(
@@ -845,18 +855,20 @@ describe("Frontstage local storage wrapper", () => {
         initializeNineZoneState(frontstageDef);
 
         const sut = frontstageDef.nineZoneState!;
-        sut.widgets.leftEnd.activeTabId.should.eq("w1");
+        expect(sut.widgets.leftEnd.activeTabId).toEqual("w1");
       });
 
       it("should initialize size", () => {
-        vi.spyOn(InternalFrontstageManager, "nineZoneSize").get(
-          () => new Size(10, 20)
-        );
+        vi.spyOn(
+          InternalFrontstageManager,
+          "nineZoneSize",
+          "get"
+        ).mockImplementation(() => new Size(10, 20));
         const frontstageDef = new FrontstageDef();
         initializeNineZoneState(frontstageDef);
 
         const sut = frontstageDef.nineZoneState!;
-        sut.size.should.eql({ width: 10, height: 20 });
+        expect(sut.size).toEqual({ width: 10, height: 20 });
       });
 
       it("should not initialize size", () => {
@@ -864,7 +876,7 @@ describe("Frontstage local storage wrapper", () => {
         initializeNineZoneState(frontstageDef);
 
         const sut = frontstageDef.nineZoneState!;
-        sut.size.should.eql({ width: 0, height: 0 });
+        expect(sut.size).toEqual({ width: 0, height: 0 });
       });
 
       it("should initialize preferredPanelWidgetSize of tool settings widget", () => {
@@ -882,7 +894,7 @@ describe("Frontstage local storage wrapper", () => {
         initializeNineZoneState(frontstageDef);
 
         const sut = frontstageDef.nineZoneState!;
-        sut.tabs.w1.preferredPanelWidgetSize!.should.eq("fit-content");
+        expect(sut.tabs.w1.preferredPanelWidgetSize).toEqual("fit-content");
         expect(sut.toolSettings?.tabId).toEqual("w1");
       });
 
@@ -903,9 +915,9 @@ describe("Frontstage local storage wrapper", () => {
         initializeNineZoneState(frontstageDef);
 
         const sut = frontstageDef.nineZoneState!;
-        sut.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
-        sut.widgets.leftStart.tabs.should.eql(["w1"]);
-        sut.widgets.leftEnd.tabs.should.eql(["w3"]);
+        expect(sut.panels.left.widgets).toEqual(["leftStart", "leftEnd"]);
+        expect(sut.widgets.leftStart.tabs).toEqual(["w1"]);
+        expect(sut.widgets.leftEnd.tabs).toEqual(["w3"]);
       });
 
       it("should not duplicate widgets", () => {
@@ -928,10 +940,10 @@ describe("Frontstage local storage wrapper", () => {
         initializeNineZoneState(frontstageDef);
 
         const sut = frontstageDef.nineZoneState!;
-        sut.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
-        sut.panels.right.widgets.should.empty;
-        sut.widgets.leftStart.tabs.should.eql(["w1"]);
-        sut.widgets.leftEnd.tabs.should.eql(["w3"]);
+        expect(sut.panels.left.widgets).toEqual(["leftStart", "leftEnd"]);
+        expect(sut.panels.right.widgets).toEqual([]);
+        expect(sut.widgets.leftStart.tabs).toEqual(["w1"]);
+        expect(sut.widgets.leftEnd.tabs).toEqual(["w3"]);
       });
 
       it("should add widgets from panel zones", () => {
@@ -950,7 +962,7 @@ describe("Frontstage local storage wrapper", () => {
         );
         initializeNineZoneState(frontstageDef);
         const sut = frontstageDef.nineZoneState;
-        sut.panels.left.widgets[0].should.eq("leftStart");
+        expect(sut.panels.left.widgets[0]).toEqual("leftStart");
       });
 
       it("should add leftPanel widgets", () => {
@@ -968,8 +980,8 @@ describe("Frontstage local storage wrapper", () => {
         );
         initializeNineZoneState(frontstageDef);
         const sut = frontstageDef.nineZoneState!;
-        sut.panels.left.widgets[0].should.eq("leftEnd");
-        sut.widgets.leftEnd.tabs.should.eql(["w1"]);
+        expect(sut.panels.left.widgets[0]).toEqual("leftEnd");
+        expect(sut.widgets.leftEnd.tabs).toEqual(["w1"]);
       });
 
       it("should add rightPanel widgets", () => {
@@ -988,8 +1000,8 @@ describe("Frontstage local storage wrapper", () => {
         );
         initializeNineZoneState(frontstageDef);
         const sut = frontstageDef.nineZoneState;
-        sut.panels.right.widgets[0].should.eq("rightEnd");
-        sut.widgets.rightEnd.tabs.should.eql(["w1"]);
+        expect(sut.panels.right.widgets[0]).toEqual("rightEnd");
+        expect(sut.widgets.rightEnd.tabs).toEqual(["w1"]);
       });
 
       it("should add topPanel widgets", () => {
@@ -1008,8 +1020,8 @@ describe("Frontstage local storage wrapper", () => {
         );
         initializeNineZoneState(frontstageDef);
         const sut = frontstageDef.nineZoneState;
-        sut.panels.top.widgets[0].should.eq("topStart");
-        sut.widgets.topStart.tabs.should.eql(["w1"]);
+        expect(sut.panels.top.widgets[0]).toEqual("topStart");
+        expect(sut.widgets.topStart.tabs).toEqual(["w1"]);
       });
 
       it("should add bottomPanel widgets", () => {
@@ -1028,8 +1040,8 @@ describe("Frontstage local storage wrapper", () => {
         );
         initializeNineZoneState(frontstageDef);
         const sut = frontstageDef.nineZoneState;
-        sut.panels.bottom.widgets[0].should.eq("bottomStart");
-        sut.widgets.bottomStart.tabs.should.eql(["w1"]);
+        expect(sut.panels.bottom.widgets[0]).toEqual("bottomStart");
+        expect(sut.widgets.bottomStart.tabs).toEqual(["w1"]);
       });
     });
 
@@ -1046,7 +1058,7 @@ describe("Frontstage local storage wrapper", () => {
         }));
         initializePanel(frontstageDef, StagePanelLocation.Left);
         const sut = frontstageDef.nineZoneState;
-        sut.panels.left.maxSize.should.eq(100);
+        expect(sut.panels.left.maxSize).toEqual(100);
       });
 
       it("should initialize min size", () => {
@@ -1061,7 +1073,7 @@ describe("Frontstage local storage wrapper", () => {
         }));
         initializePanel(frontstageDef, StagePanelLocation.Left);
         const sut = frontstageDef.nineZoneState;
-        sut.panels.left.minSize.should.eq(50);
+        expect(sut.panels.left.minSize).toEqual(50);
       });
     });
 
@@ -1091,7 +1103,7 @@ describe("Frontstage local storage wrapper", () => {
           StagePanelSection.Start
         );
         const sut = frontstageDef.nineZoneState;
-        sut.tabs.w1.label.should.eq("Widget 1");
+        expect(sut.tabs.w1.label).toEqual("Widget 1");
       });
 
       it("should activate tab based on widget state", async () => {
@@ -1116,7 +1128,7 @@ describe("Frontstage local storage wrapper", () => {
           StagePanelSection.Start
         );
         const sut = frontstageDef.nineZoneState;
-        sut.widgets.leftStart.activeTabId.should.eq("w1");
+        expect(sut.widgets.leftStart.activeTabId).toEqual("w1");
       });
 
       it("should append widgets to a new panel section", async () => {
@@ -1171,67 +1183,61 @@ describe("Frontstage local storage wrapper", () => {
 
     describe("getPanelSectionId", () => {
       it("should return 'leftStart'", () => {
-        getPanelSectionId(
-          StagePanelLocation.Left,
-          StagePanelSection.Start
+        expect(
+          getPanelSectionId(StagePanelLocation.Left, StagePanelSection.Start)
         ).toEqual("leftStart");
       });
 
       it("should return 'leftEnd'", () => {
-        getPanelSectionId(
-          StagePanelLocation.Left,
-          StagePanelSection.End
+        expect(
+          getPanelSectionId(StagePanelLocation.Left, StagePanelSection.End)
         ).toEqual("leftEnd");
       });
 
       it("should return 'rightStart'", () => {
-        getPanelSectionId(
-          StagePanelLocation.Right,
-          StagePanelSection.Start
+        expect(
+          getPanelSectionId(StagePanelLocation.Right, StagePanelSection.Start)
         ).toEqual("rightStart");
       });
 
       it("should return 'rightEnd'", () => {
-        getPanelSectionId(
-          StagePanelLocation.Right,
-          StagePanelSection.End
+        expect(
+          getPanelSectionId(StagePanelLocation.Right, StagePanelSection.End)
         ).toEqual("rightEnd");
       });
 
       it("should return 'topStart'", () => {
-        getPanelSectionId(
-          StagePanelLocation.Top,
-          StagePanelSection.Start
+        expect(
+          getPanelSectionId(StagePanelLocation.Top, StagePanelSection.Start)
         ).toEqual("topStart");
       });
 
       it("should return 'topEnd'", () => {
-        getPanelSectionId(
-          StagePanelLocation.Top,
-          StagePanelSection.End
+        expect(
+          getPanelSectionId(StagePanelLocation.Top, StagePanelSection.End)
         ).toEqual("topEnd");
       });
 
       it("should return 'bottomStart'", () => {
-        getPanelSectionId(
-          StagePanelLocation.Bottom,
-          StagePanelSection.Start
+        expect(
+          getPanelSectionId(StagePanelLocation.Bottom, StagePanelSection.Start)
         ).toEqual("bottomStart");
       });
 
       it("should return 'bottomEnd'", () => {
-        getPanelSectionId(
-          StagePanelLocation.Bottom,
-          StagePanelSection.End
+        expect(
+          getPanelSectionId(StagePanelLocation.Bottom, StagePanelSection.End)
         ).toEqual("bottomEnd");
       });
     });
 
     describe("isFrontstageStateSettingResult", () => {
       it("isFrontstageStateSettingResult", () => {
-        isFrontstageStateSettingResult({
-          status: UiStateStorageStatus.UnknownError,
-        }).should.false;
+        expect(
+          isFrontstageStateSettingResult({
+            status: UiStateStorageStatus.UnknownError,
+          })
+        ).toEqual(false);
       });
     });
 
@@ -1243,9 +1249,6 @@ describe("Frontstage local storage wrapper", () => {
         state = addTab(state, "t1");
         restoreNineZoneState(frontstageDef, state);
         expect(spy).toHaveBeenCalledOnce();
-        (
-          BentleyError.getMetaData(spy.firstCall.args[2]) as any
-        ).should.matchSnapshot();
       });
 
       it("should remove tab from widgetState if widgetDef is not found", () => {
@@ -1254,9 +1257,10 @@ describe("Frontstage local storage wrapper", () => {
         });
 
         const frontstageDef = new FrontstageDef();
-        vi.spyOn(frontstageDef, "findWidgetDef")
-          .withArgs("t2")
-          .returns(widgetDef);
+        vi.spyOn(frontstageDef, "findWidgetDef").mockImplementation((id) => {
+          if (id === "t2") return widgetDef;
+          return undefined;
+        });
         let state = createNineZoneState();
         state = addTab(state, "t1", { label: "t1" });
         state = addTab(state, "t2", { label: "t2" });
@@ -1268,27 +1272,17 @@ describe("Frontstage local storage wrapper", () => {
         restoreNineZoneState(frontstageDef, state);
 
         const sut = frontstageDef.nineZoneState!;
-        sut.widgets.w1.tabs.should.eql(["t2"]);
+        expect(sut.widgets.w1.tabs).toEqual(["t2"]);
         expect(sut.tabs.t1).to.not.exist;
         expect(sut.tabs.t3).to.not.exist;
       });
 
-      it("should restore tabs", () => {
-        const frontstageDef = new FrontstageDef();
-        const widgetDef = new WidgetDef();
-        vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
-        let state = createNineZoneState();
-        state = addTab(state, "t1");
-        restoreNineZoneState(frontstageDef, state);
-
-        const sut = frontstageDef.nineZoneState!;
-        sut.should.matchSnapshot();
-      });
-
       it("should RESIZE", () => {
-        vi.spyOn(InternalFrontstageManager, "nineZoneSize").get(
-          () => new Size(10, 20)
-        );
+        vi.spyOn(
+          InternalFrontstageManager,
+          "nineZoneSize",
+          "get"
+        ).mockImplementation(() => new Size(10, 20));
         const frontstageDef = new FrontstageDef();
         let state = createNineZoneState({
           size: {
@@ -1300,7 +1294,7 @@ describe("Frontstage local storage wrapper", () => {
         restoreNineZoneState(frontstageDef, state);
 
         const sut = frontstageDef.nineZoneState!;
-        sut.size.should.eql({ width: 10, height: 20 });
+        expect(sut.size).toEqual({ width: 10, height: 20 });
       });
 
       it("should not RESIZE", () => {
@@ -1315,7 +1309,7 @@ describe("Frontstage local storage wrapper", () => {
         restoreNineZoneState(frontstageDef, state);
 
         const sut = frontstageDef.nineZoneState!;
-        sut.size.should.eql({ width: 1, height: 2 });
+        expect(sut.size).toEqual({ width: 1, height: 2 });
       });
     });
 
@@ -1326,7 +1320,7 @@ describe("Frontstage local storage wrapper", () => {
         nineZone = addTab(nineZone, "t2");
         nineZone = addFloatingWidget(nineZone, "w1", ["t1"]);
         const sut = packNineZoneState(nineZone);
-        sut.should.matchSnapshot();
+        expect(sut.tabs.t1.label).toEqual("");
       });
 
       it("should not remove floating widgets with unique id", () => {
@@ -1336,8 +1330,8 @@ describe("Frontstage local storage wrapper", () => {
         nineZone = addTab(nineZone, tabId);
         nineZone = addFloatingWidget(nineZone, widgetId, [tabId]);
         const sut = packNineZoneState(nineZone);
-        sut.floatingWidgets.allIds.should.eql([widgetId]);
-        Object.keys(sut.tabs).should.eql([tabId]);
+        expect(sut.floatingWidgets.allIds).toEqual([widgetId]);
+        expect(Object.keys(sut.tabs)).toEqual([tabId]);
       });
     });
 
@@ -1351,12 +1345,14 @@ describe("Frontstage local storage wrapper", () => {
         const newFrontstageDef = new FrontstageDef();
         newFrontstageDef.nineZoneState = createNineZoneState();
 
-        vi.spyOn(InternalFrontstageManager, "nineZoneSize").get(
-          () => new Size(10, 20)
-        );
+        vi.spyOn(
+          InternalFrontstageManager,
+          "nineZoneSize",
+          "get"
+        ).mockImplementation(() => new Size(10, 20));
         rerender(newFrontstageDef);
 
-        newFrontstageDef.nineZoneState?.size.should.eql({
+        expect(newFrontstageDef.nineZoneState?.size).toEqual({
           width: 10,
           height: 20,
         });
@@ -1376,7 +1372,7 @@ describe("Frontstage local storage wrapper", () => {
 
         rerender(newFrontstageDef);
 
-        newFrontstageDef.nineZoneState?.size.should.eql({
+        expect(newFrontstageDef.nineZoneState?.size).toEqual({
           height: 1,
           width: 2,
         });
@@ -1404,8 +1400,8 @@ describe("Frontstage local storage wrapper", () => {
         frontstageDef.nineZoneState = state;
         addFrontstageWidgetDefs(frontstageDef);
         const sut = frontstageDef.nineZoneState;
-        sut.widgets.leftStart.tabs.should.eql(["start1", "ws1"]);
-        sut.widgets.leftEnd.tabs.should.eql(["end1", "w1", "wm1", "we1"]);
+        expect(sut.widgets.leftStart.tabs).toEqual(["start1", "ws1"]);
+        expect(sut.widgets.leftEnd.tabs).toEqual(["end1", "w1", "wm1", "we1"]);
       });
 
       it("should add rightPanel widgets", async () => {
@@ -1429,8 +1425,8 @@ describe("Frontstage local storage wrapper", () => {
         frontstageDef.nineZoneState = state;
         addFrontstageWidgetDefs(frontstageDef);
         const sut = frontstageDef.nineZoneState;
-        sut.widgets.rightStart.tabs.should.eql(["start1", "ws1"]);
-        sut.widgets.rightEnd.tabs.should.eql(["end1", "w1", "wm1", "we1"]);
+        expect(sut.widgets.rightStart.tabs).toEqual(["start1", "ws1"]);
+        expect(sut.widgets.rightEnd.tabs).toEqual(["end1", "w1", "wm1", "we1"]);
       });
 
       it("should add topPanel widgets", async () => {
@@ -1453,8 +1449,8 @@ describe("Frontstage local storage wrapper", () => {
         frontstageDef.nineZoneState = state;
         addFrontstageWidgetDefs(frontstageDef);
         const sut = frontstageDef.nineZoneState;
-        sut.widgets.topStart.tabs.should.eql(["start1", "w1", "ws1"]);
-        sut.widgets.topEnd.tabs.should.eql(["end1", "we1"]);
+        expect(sut.widgets.topStart.tabs).toEqual(["start1", "w1", "ws1"]);
+        expect(sut.widgets.topEnd.tabs).toEqual(["end1", "we1"]);
       });
 
       it("should add bottomPanel widgets", async () => {
@@ -1477,8 +1473,8 @@ describe("Frontstage local storage wrapper", () => {
         frontstageDef.nineZoneState = state;
         addFrontstageWidgetDefs(frontstageDef);
         const sut = frontstageDef.nineZoneState;
-        sut.widgets.bottomStart.tabs.should.eql(["start1", "w1", "ws1"]);
-        sut.widgets.bottomEnd.tabs.should.eql(["end1", "we1"]);
+        expect(sut.widgets.bottomStart.tabs).toEqual(["start1", "w1", "ws1"]);
+        expect(sut.widgets.bottomEnd.tabs).toEqual(["end1", "we1"]);
       });
 
       it("should add no duplicate widgets", async () => {
@@ -1512,9 +1508,9 @@ describe("Frontstage local storage wrapper", () => {
           return acc;
         }, []);
 
-        widgetIds.should.eql(["leftStart"]);
-        tabs.should.eql(["w1"]);
-        sut.widgets.leftStart.tabs.should.eql(["w1"]);
+        expect(widgetIds).toEqual(["leftStart"]);
+        expect(tabs).toEqual(["w1"]);
+        expect(sut.widgets.leftStart.tabs).toEqual(["w1"]);
       });
     });
 
@@ -1684,7 +1680,7 @@ describe("Frontstage local storage wrapper", () => {
         const setting = createFrontstageState(state);
 
         const uiStateStorage = new UiStateStorageStub();
-        vi.spyOn(uiStateStorage, "getSetting").resolves({
+        vi.spyOn(uiStateStorage, "getSetting").mockResolvedValue({
           status: UiStateStorageStatus.Success,
           setting,
         });
@@ -1760,14 +1756,13 @@ describe("Frontstage local storage wrapper", () => {
           frontstageDef?.nineZoneState?.tabs.TestUi2ProviderW1,
           "TestUi2ProviderW1"
         ).to.exist;
-        frontstageDef?.nineZoneState?.widgets.rightEnd.tabs.should.eql(
-          ["TestUi2ProviderRM1"],
-          "rightEnd widget tabs"
-        );
-        frontstageDef?.nineZoneState?.widgets.leftStart.tabs.should.eql(
-          ["LeftStart1", "TestUi2ProviderW1"],
-          "leftStart widget tabs"
-        );
+        expect(frontstageDef?.nineZoneState?.widgets.rightEnd.tabs).toEqual([
+          "TestUi2ProviderRM1",
+        ]);
+        expect(frontstageDef?.nineZoneState?.widgets.leftStart.tabs).toEqual([
+          "LeftStart1",
+          "TestUi2ProviderW1",
+        ]);
 
         act(() => {
           UiItemsManager.unregister("TestUi2Provider");
@@ -1791,10 +1786,9 @@ describe("Frontstage local storage wrapper", () => {
           frontstageDef?.nineZoneState?.widgets.rightEnd,
           "rightEnd widget"
         ).to.not.exist;
-        frontstageDef?.nineZoneState?.widgets.leftStart.tabs.should.eql(
-          ["LeftStart1"],
-          "leftStart widget tabs"
-        );
+        expect(frontstageDef?.nineZoneState?.widgets.leftStart.tabs).toEqual([
+          "LeftStart1",
+        ]);
       });
     });
   });

@@ -294,9 +294,7 @@ describe("FrontstageManager", () => {
 
     beforeEach(async () => {
       const spatialViewStateMock = moq.Mock.ofType<SpatialViewState>();
-      spatialViewStateMock
-        .setup((view) => view.is3d())
-        .mockReturnValue(() => true);
+      spatialViewStateMock.setup((view) => view.is3d()).returns(() => true);
       spatialViewStateMock
         .setup((view) => view.classFullName)
         .returns(() => "BisCore:SpatialViewDefinition");
@@ -346,21 +344,20 @@ describe("FrontstageManager", () => {
       imodelConnectionMock
         .setup((x) => x.iModelId)
         .returns(() => "dummyImodelId");
-      vi.spyOn(UiFramework, "getIModelConnection", "get").mockImplementation(
+      vi.spyOn(UiFramework, "getIModelConnection").mockImplementation(
         () => imodelConnectionMock.object
       );
     });
 
     it("mouse moves should be handled for frontstage tracking", async () => {
-      const fakeTimers =
-        vi.fn <
-        render(
-          <Provider store={TestUtils.store}>
-            <ThemeManager>
-              <ConfigurableUiContent idleTimeout={100} intervalTimeout={100} />
-            </ThemeManager>
-          </Provider>
-        );
+      vi.useFakeTimers();
+      render(
+        <Provider store={TestUtils.store}>
+          <ThemeManager>
+            <ConfigurableUiContent idleTimeout={100} intervalTimeout={100} />
+          </ThemeManager>
+        </Provider>
+      );
 
       const divContainer = document.getElementById(
         "uifw-configurableui-wrapper"
@@ -385,7 +382,6 @@ describe("FrontstageManager", () => {
         new MouseEvent("mousemove", {
           bubbles: true,
           cancelable: true,
-          view: window,
           buttons: 1,
         })
       );
@@ -393,7 +389,6 @@ describe("FrontstageManager", () => {
         new MouseEvent("mousemove", {
           bubbles: true,
           cancelable: true,
-          view: window,
           buttons: 1,
         })
       );
@@ -404,7 +399,6 @@ describe("FrontstageManager", () => {
         new MouseEvent("mousemove", {
           bubbles: true,
           cancelable: true,
-          view: window,
           buttons: 1,
         })
       );
@@ -412,7 +406,6 @@ describe("FrontstageManager", () => {
         new MouseEvent("mousemove", {
           bubbles: true,
           cancelable: true,
-          view: window,
           buttons: 1,
         })
       );
@@ -432,8 +425,8 @@ describe("FrontstageManager", () => {
 
     it("should set nineZoneSize", () => {
       InternalFrontstageManager.nineZoneSize = new Size(10, 20);
-      InternalFrontstageManager.nineZoneSize.width.should.eq(10);
-      InternalFrontstageManager.nineZoneSize.height.should.eq(20);
+      expect(InternalFrontstageManager.nineZoneSize.width).toEqual(10);
+      expect(InternalFrontstageManager.nineZoneSize.height).toEqual(20);
     });
   });
 });

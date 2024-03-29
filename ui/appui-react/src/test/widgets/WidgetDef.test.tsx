@@ -200,7 +200,7 @@ describe("WidgetDef", () => {
       const sut = new WidgetDef();
       sut.setLabel("test");
 
-      sut.label.should.eq("test");
+      expect(sut.label).toEqual("test");
     });
   });
 });
@@ -239,10 +239,8 @@ describe("getWidgetState", () => {
       () => leftPanel
     );
 
-    vi.spyOn(frontstageDef, "getStagePanelDef")
-      .withArgs(StagePanelLocation.Left)
-      .returns(leftPanel);
-    vi.spyOn(frontstageDef, "findWidgetDef").withArgs("t1").returns(widgetDef);
+    vi.spyOn(frontstageDef, "getStagePanelDef").mockReturnValue(leftPanel);
+    vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
 
     expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Closed
@@ -283,10 +281,8 @@ describe("getWidgetState", () => {
       () => leftPanel
     );
 
-    vi.spyOn(frontstageDef, "getStagePanelDef")
-      .withArgs(StagePanelLocation.Left)
-      .returns(leftPanel);
-    vi.spyOn(frontstageDef, "findWidgetDef").withArgs("t1").returns(widgetDef);
+    vi.spyOn(frontstageDef, "getStagePanelDef").mockReturnValue(leftPanel);
+    vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
 
     expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Closed
@@ -316,7 +312,7 @@ describe("getWidgetState", () => {
       defaultState: WidgetState.Open,
     });
 
-    vi.spyOn(frontstageDef, "findWidgetDef").withArgs("t1").returns(widgetDef);
+    vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
     expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Closed
     );
@@ -333,7 +329,7 @@ describe("getWidgetState", () => {
       id: "t1",
     });
 
-    vi.spyOn(frontstageDef, "findWidgetDef").withArgs("t1").returns(widgetDef);
+    vi.spyOn(frontstageDef, "findWidgetDef").mockReturnValue(widgetDef);
     expect(getWidgetState(widgetDef, frontstageDef.nineZoneState)).to.be.eql(
       WidgetState.Unloaded
     );

@@ -15,7 +15,7 @@ function setRefValue<T>(ref: React.Ref<T>, value: T) {
   }
 }
 
-describe.only("useOnOutsideClick", () => {
+describe("useOnOutsideClick", () => {
   beforeEach(() => {
     (global as any).PointerEvent = global.MouseEvent;
   });

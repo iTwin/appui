@@ -194,13 +194,11 @@ describe("ContentGroupProvider", () => {
     await UiFramework.frontstages.setActiveFrontstage(
       standardFrontstageProvider.id
     );
-    setImmediate(async () => {
-      await TestUtils.flushAsyncOperations();
+    await TestUtils.flushAsyncOperations();
 
-      expect(UiFramework.frontstages.activeFrontstageId).toEqual(
-        standardFrontstageProvider.id
-      );
-    });
+    expect(UiFramework.frontstages.activeFrontstageId).toEqual(
+      standardFrontstageProvider.id
+    );
   });
 
   it("openStandardFrontstage with corner items", async () => {
@@ -224,13 +222,11 @@ describe("ContentGroupProvider", () => {
     await UiFramework.frontstages.setActiveFrontstage(
       standardFrontstageProvider.id
     );
-    setImmediate(async () => {
-      await TestUtils.flushAsyncOperations();
+    await TestUtils.flushAsyncOperations();
 
-      expect(UiFramework.frontstages.activeFrontstageId).toEqual(
-        standardFrontstageProvider.id
-      );
-    });
+    expect(UiFramework.frontstages.activeFrontstageId).toEqual(
+      standardFrontstageProvider.id
+    );
   });
 
   it("openStandardFrontstage with corner items", async () => {
