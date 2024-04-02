@@ -5,9 +5,8 @@
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { render, waitFor } from "@testing-library/react";
 import * as React from "react";
-import { ConditionalIconItem } from "../../core-react/icons/ConditionalIconItem";
 import type { IconSpec } from "../../core-react/icons/IconComponent";
-import { Icon } from "../../core-react/icons/IconComponent";
+import { ConditionalIconItem, Icon } from "../../core-react";
 import TestUtils from "../TestUtils";
 
 describe("IconComponent", () => {
