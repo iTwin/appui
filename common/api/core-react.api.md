@@ -18,7 +18,7 @@ import type { Localization as Localization_2 } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
 import { ProgressRadial } from '@itwin/itwinui-react';
 import * as React_2 from 'react';
-import * as ReactAutosuggest from 'react-autosuggest';
+import ReactAutosuggest from 'react-autosuggest';
 import { RelativePosition } from '@itwin/appui-abstract';
 
 // @public
@@ -682,6 +682,12 @@ export const getDisplayName: (component: React_2.ComponentType<any>) => string;
 
 // @internal
 export const getObjectClassName: (obj: any) => string;
+
+// @internal (undocumented)
+export function getResizeObserver(): {
+    new (callback: ResizeObserverCallback): ResizeObserver;
+    prototype: ResizeObserver;
+};
 
 // @internal
 export const getToolbarBackdropFilter: (filterBlur: number) => string;
@@ -1430,10 +1436,6 @@ export function ResizableContainerObserver({ onResize, children, }: {
     onResize: (width: number, height: number) => void;
     children?: React_2.ReactNode;
 }): React_2.JSX.Element;
-
-// @internal (undocumented)
-const ResizeObserver_2: ResizeObserverType;
-export { ResizeObserver_2 as ResizeObserver }
 
 // @internal (undocumented)
 export type ResizeObserverType = default_2;
