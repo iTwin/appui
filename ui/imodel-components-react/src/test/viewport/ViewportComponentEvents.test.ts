@@ -6,7 +6,6 @@ import { BeUiEvent } from "@itwin/core-bentley";
 import { Matrix3d, Point3d } from "@itwin/core-geometry";
 import type {
   SelectedViewportChangedArgs,
-  ViewManager,
   Viewport,
 } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, StandardViewId } from "@itwin/core-frontend";

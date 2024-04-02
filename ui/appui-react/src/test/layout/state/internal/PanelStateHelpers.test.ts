@@ -21,7 +21,7 @@ describe("getPanelPixelSizeFromSpec", () => {
   });
 
   it("should use percentage for vertical panel", () => {
-    const size = getPanelPixelSizeFromSpec(
+    const sut = getPanelPixelSizeFromSpec(
       "left",
       { height: 1000, width: 2000 },
       { percentage: 80 }
@@ -30,7 +30,7 @@ describe("getPanelPixelSizeFromSpec", () => {
   });
 
   it("should use percentage for horizontal panel", () => {
-    const size = getPanelPixelSizeFromSpec(
+    const sut = getPanelPixelSizeFromSpec(
       "top",
       { height: 1000, width: 2000 },
       { percentage: 80 }

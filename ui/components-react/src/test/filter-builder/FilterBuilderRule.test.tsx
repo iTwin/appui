@@ -12,7 +12,6 @@ import { PropertyFilterBuilderRuleRenderer } from "../../components-react/filter
 import type { PropertyFilterBuilderRuleOperatorProps } from "../../components-react/filter-builder/FilterBuilderRuleOperator";
 import type { PropertyFilterBuilderRuleValueProps } from "../../components-react/filter-builder/FilterBuilderRuleValue";
 import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
-import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";
 import { UiComponents } from "../../components-react";
 
