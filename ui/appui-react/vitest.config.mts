@@ -20,6 +20,7 @@ export default defineConfig({
     restoreMocks: true,
     setupFiles: ["src/test/setup.ts"],
     include: ["src/**/*.test.ts?(x)"],
+    outputFile: "coverage/junit.xml",
     coverage: {
       thresholds: {
         lines: 90,

@@ -20,7 +20,7 @@
     "copy:esm": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib/esm\"",
     "copy:locale": "cpx ./src/appui-react/UiFramework.json ./lib/public/locales/en",
     "clean": "rimraf lib .rush/temp/package-deps*.json",
-    "cover": "vitest run --coverage",
+    "cover": "vitest run --coverage --reporter=junit",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "lint:fix": "npm run -s lint -- --fix",
     "extract-api": "betools extract-api --entry=appui-react",

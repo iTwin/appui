@@ -12,28 +12,28 @@ steps:
   - task: PublishTestResults@2
     displayName: "Publish AppUI-React Test Results"
     inputs:
-      testResultsFiles: "ui/appui-react/lib/test/junit_results.xml"
+      testResultsFiles: "ui/appui-react/coverage/junit.xml"
       testRunTitle: "AppUI-React Tests - $(Agent.OS) - ${{ parameters.NodeVersion }}"
       searchFolder: ${{ parameters.workingDir }}
     condition: succeededOrFailed()
   - task: PublishTestResults@2
     displayName: "Publish Components-React Test Results"
     inputs:
-      testResultsFiles: "ui/components-react/lib/test/junit_results.xml"
+      testResultsFiles: "ui/components-react/coverage/junit.xml"
       testRunTitle: "Components-React Tests - $(Agent.OS) - ${{ parameters.NodeVersion }}"
       searchFolder: ${{ parameters.workingDir }}
     condition: succeededOrFailed()
   - task: PublishTestResults@2
     displayName: "Publish Core-React Test Results"
     inputs:
-      testResultsFiles: "ui/core-react/lib/test/junit_results.xml"
+      testResultsFiles: "ui/core-react/coverage/junit.xml"
       testRunTitle: "Core-React Tests - $(Agent.OS) - ${{ parameters.NodeVersion }}"
       searchFolder: ${{ parameters.workingDir }}
     condition: succeededOrFailed()
   - task: PublishTestResults@2
     displayName: "Publish IModel-Components-React Test Results"
     inputs:
-      testResultsFiles: "ui/imodel-components-react/lib/test/junit_results.xml"
+      testResultsFiles: "ui/imodel-components-react/coverage/junit.xml"
       testRunTitle: "IModel-Components-React Tests - $(Agent.OS) - ${{ parameters.NodeVersion }}"
       searchFolder: ${{ parameters.workingDir }}
     condition: succeededOrFailed()
