@@ -85,4 +85,4 @@ Table of contents:
 ### Changes
 
 - Components will use english localization strings by default if `LocalizationProvider` is used without static package initializer. [#782](https://github.com/iTwin/appui/pull/782)
-- Components that use `BadgeType` will render an inlined `svg` instead of using the `svg-loader` web component.
+- Components that use `BadgeType` will render an inlined `svg` instead of using the `svg-loader` web component. [#791](https://github.com/iTwin/appui/pull/791)
