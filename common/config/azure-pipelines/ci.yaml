@@ -2,9 +2,6 @@
 #
 # This build is used to validate all fork-based PRs and run on a schedule to provide the build status in the README.
 #
-# It runs on the Hosted Azure Pipelines machines which are slow building the code in the repo, especially the test-apps
-# which require several webpacking steps. Due to the time it takes to run, these are only used in a limited number of cases.
-#
 # The main CI build used is the ./jobs/fast-ci.yaml due to it running on a set of faster machines. However, those are currently
 # only available to members of the iTwin GitHub Organization for security reasons. This may change in the future but for now
 # the limitation will exist.

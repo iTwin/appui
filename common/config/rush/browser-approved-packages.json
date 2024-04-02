@@ -367,10 +367,6 @@
       "allowedCategories": [ "frontend" ]
     },
     {
-      "name": "mocha",
-      "allowedCategories": [ "internal" ]
-    },
-    {
       "name": "npm-run-all",
       "allowedCategories": [ "frontend", "internal" ]
     },
@@ -508,7 +504,7 @@
     },
     {
       "name": "yargs",
-      "allowedCategories": [ "internal", "tools" ]
+      "allowedCategories": [ "tools" ]
     },
     {
       "name": "zustand",
