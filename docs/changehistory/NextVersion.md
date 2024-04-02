@@ -7,8 +7,8 @@ Table of contents:
   - [Additions](#additions)
   - [Fixes](#fixes)
 - [@itwin/core-react](#itwincore-react)
-  - [Deprecations](#deprecations)
-  - [Additions](#additions)
+  - [Deprecations](#deprecations-1)
+  - [Additions](#additions-1)
   - [Changes](#changes)
 
 ## @itwin/appui-react
@@ -85,3 +85,4 @@ Table of contents:
 ### Changes
 
 - Components will use english localization strings by default if `LocalizationProvider` is used without static package initializer. [#782](https://github.com/iTwin/appui/pull/782)
+- Components that use `BadgeType` will render an inlined `svg` instead of using the `svg-loader` web component.
