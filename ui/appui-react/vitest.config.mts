@@ -18,6 +18,15 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     restoreMocks: true,
-    setupFiles: ["./src/test/setup.ts"],
+    setupFiles: ["src/test/setup.ts"],
+    include: ["src/**/*.test.ts?(x)"],
+    coverage: {
+      thresholds: {
+        lines: 90,
+        functions: 86,
+        statements: 90,
+        branches: 87,
+      },
+    },
   },
 });

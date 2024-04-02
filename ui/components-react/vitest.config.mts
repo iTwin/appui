@@ -15,5 +15,13 @@ export default defineConfig({
     environment: "jsdom",
     restoreMocks: true,
     setupFiles: ["./src/test/setup.ts"],
+    coverage: {
+      thresholds: {
+        lines: 97,
+        functions: 95,
+        statements: 97,
+        branches: 97,
+      },
+    },
   },
 });

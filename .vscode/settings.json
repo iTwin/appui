@@ -8,7 +8,6 @@
   "files.trimTrailingWhitespace": true,
   "files.associations": {
     "*.snap": "javascript",
-    ".nycrc": "json",
     "certa.json": "jsonc"
   },
   "cSpell.enableFiletypes": [

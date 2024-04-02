@@ -267,6 +267,10 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "@vitest/coverage-v8",
+      "allowedCategories": [ "frontend" ]
+    },
+    {
       "name": "appui-standalone-app",
       "allowedCategories": [ "internal" ]
     },
@@ -373,10 +377,6 @@
     {
       "name": "null-loader",
       "allowedCategories": [ "internal" ]
-    },
-    {
-      "name": "nyc",
-      "allowedCategories": [ "frontend" ]
     },
     {
       "name": "postcss",
